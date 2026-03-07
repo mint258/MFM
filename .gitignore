@@ -1,0 +1,30 @@
+﻿# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Training outputs
+*.pt
+*.pth
+*.ckpt
+*.log
+*.out
+nohup.out
+stage_*_end_epoch_*.pt
+
+# Local experiment artifacts
+test_ckpt/
+outputs/
+runs/
+tmp/
+temp/
+
+# Dataset and binary blobs
+*.lmdb
+test_data/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
