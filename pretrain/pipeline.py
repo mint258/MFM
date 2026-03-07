@@ -5,7 +5,6 @@ import os
 import warnings
 
 import torch
-from torch.cuda.amp import GradScaler
 from torch.utils.data import ConcatDataset, Subset
 from torch_geometric.loader import DataLoader
 
@@ -131,6 +130,9 @@ def build_model(args, device):
 
 def main() -> None:
     args = get_args()
+    if args.fp16:
+        LOGGER.warning("--fp16 is disabled by training policy; forcing FP32 execution.")
+        args.fp16 = False
     set_seed(args.seed)
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -230,7 +232,7 @@ def main() -> None:
         eps=1e-8,
     )
 
-    scaler = GradScaler(init_scale=2**8) if args.fp16 else DummyScaler()
+    scaler = DummyScaler()
 
     total_steps = len(train_loader) * args.epochs
     warm_steps = int(total_steps * args.warmup_pct)

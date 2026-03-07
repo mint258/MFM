@@ -141,16 +141,15 @@ def torsion_sin_cos(coords, idx):
 def _kabsch_torch(p: torch.Tensor, q: torch.Tensor):
     """Rigid-body optimal rotation via Kabsch algorithm."""
     dtype = p.dtype
-    with torch.cuda.amp.autocast(enabled=False):
-        p = p.float()
-        q = q.float()
-        c = p.T @ q
-        u, _, vt = torch.linalg.svd(c, full_matrices=False)
+    p = p.float()
+    q = q.float()
+    c = p.T @ q
+    u, _, vt = torch.linalg.svd(c, full_matrices=False)
+    r = vt.T @ u.T
+    if torch.det(r) < 0:
+        vt[-1] *= -1
         r = vt.T @ u.T
-        if torch.det(r) < 0:
-            vt[-1] *= -1
-            r = vt.T @ u.T
-        return r.to(dtype)
+    return r.to(dtype)
 
 
 def _rmsd_pair(p: torch.Tensor, q: torch.Tensor) -> torch.Tensor:

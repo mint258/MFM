@@ -73,7 +73,11 @@ def get_args() -> argparse.Namespace:
     parser.add_argument("--lr", type=float, default=3e-4)
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--warmup_pct", type=float, default=0.06)
-    parser.add_argument("--fp16", action="store_true")
+    parser.add_argument(
+        "--fp16",
+        action="store_true",
+        help="Deprecated/disabled for pretraining; kept only for backward CLI compatibility",
+    )
     parser.add_argument("--seed", type=int, default=0)
 
     # Stage settings.

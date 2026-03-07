@@ -1,5 +1,6 @@
 ﻿from __future__ import annotations
 
+from contextlib import nullcontext
 import logging
 import math
 import sys
@@ -9,7 +10,6 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from sklearn.metrics import r2_score
-from torch.cuda.amp import autocast
 from torch_geometric.utils import to_dense_batch
 from tqdm import tqdm
 
@@ -24,6 +24,12 @@ from .geometry import (
 )
 
 LOGGER = logging.getLogger("multitask")
+
+def _autocast_ctx(fp16: bool):
+    """Use AMP only when explicitly enabled on CUDA; otherwise no-op context."""
+    if fp16 and torch.cuda.is_available():
+        return torch.amp.autocast(device_type="cuda", dtype=torch.float16)
+    return nullcontext()
 
 
 class DummyScaler:
@@ -132,7 +138,7 @@ def run_epoch(
         if train:
             optim.zero_grad(set_to_none=True)
 
-        with autocast(enabled=fp16):
+        with _autocast_ctx(fp16):
             coords_pred, charge_pred, elem_pred, energy_pred, charge_mask, bal = model(batch)
             _batch_size, nmax, _ = coords_pred.shape
             charge_mask_f = charge_mask.squeeze(-1)
@@ -439,3 +445,5 @@ def run_epoch(
         stats[key] /= denom
 
     return stats
+
+
