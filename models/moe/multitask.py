@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from typing import Dict, Optional, Tuple
 
@@ -8,6 +8,15 @@ from torch import Tensor
 from torch_geometric.data import Data
 from torch_geometric.nn import global_mean_pool
 from torch_geometric.utils import to_dense_batch
+
+from dataset.descriptor_schema import (
+    CHARGE_DESCRIPTOR_SPECS,
+    ELEMENT_DESCRIPTOR_SPECS,
+    GRAPH_DESCRIPTOR_NAMES,
+    build_charge_output_layout,
+    build_element_output_layout,
+    build_energy_output_layout,
+)
 
 from .backbone import RealCoordTransformerBackbone
 from .common import Linear, ensure_batch_attr
@@ -35,11 +44,7 @@ class CoordinateDecoder(nn.Module):
 
 
 class MultiTaskMoE(nn.Module):
-    """Multi-task MoE model.
-
-    Returns:
-        coords_pred, charge_pred, elem_pred, energy_pred, charge_mask, balance_loss
-    """
+    """Multi-task MoE model with descriptor-augmented task heads."""
 
     def __init__(
         self,
@@ -63,6 +68,7 @@ class MultiTaskMoE(nn.Module):
         super().__init__()
         self.balance_weight = float(balance_weight)
         self.n_atom_types = int(n_atom_types)
+        self.pad_elem_index = self.n_atom_types - 1
 
         dim = int(backbone_config.get("atom_embedding_dim", backbone_config.get("hidden_channels", 512)))
         bb_layers = int(backbone_config.get("bb_layers", backbone_config.get("num_layers", 6)))
@@ -157,17 +163,29 @@ class MultiTaskMoE(nn.Module):
         self.top_k_elem = int(top_k_elem)
         self.top_k_geom = int(top_k_geom)
 
+        self.energy_output_layout, self.energy_output_dim = build_energy_output_layout()
+        self.charge_output_layout, self.charge_output_dim = build_charge_output_layout()
+        self.element_output_layout, self.element_output_dim = build_element_output_layout(self.n_atom_types)
+
+        self.graph_descriptor_names = GRAPH_DESCRIPTOR_NAMES
+        self.charge_descriptor_specs = CHARGE_DESCRIPTOR_SPECS
+        self.element_descriptor_specs = ELEMENT_DESCRIPTOR_SPECS
+
         self.coord_decoder = CoordinateDecoder(atom_embedding_dim=dim, hidden_dim=dim, output_dim=3)
-        self.charge_head = Linear(dim, 1)
-        self.elem_head = Linear(dim, n_atom_types)
+        self.charge_head = Linear(dim, self.charge_output_dim)
+        self.elem_head = Linear(dim, self.element_output_dim)
 
         self.energy_pool = global_mean_pool
         self.energy_head = nn.Sequential(
             Linear(dim, dim),
             nn.LayerNorm(dim),
             nn.ReLU(),
-            Linear(dim, 1),
+            Linear(dim, self.energy_output_dim),
         )
+
+    @staticmethod
+    def _slice_outputs(tensor: Tensor, layout: Dict[str, slice]) -> Dict[str, Tensor]:
+        return {name: tensor[..., tensor_slice] for name, tensor_slice in layout.items()}
 
     def _route(
         self,
@@ -202,7 +220,63 @@ class MultiTaskMoE(nn.Module):
         bal_loss = (mean_prob * coverage).sum() * float(self.balance_weight)
         return out, bal_loss
 
-    def forward(self, data: Data) -> Tuple[Tensor, Tensor, Tensor, Tensor, Tensor, Tensor]:
+    def _decode_outputs(
+        self,
+        latent_e: Tensor,
+        latent_q: Tensor,
+        latent_z: Tensor,
+        latent_g: Tensor,
+        batch: Tensor,
+        *,
+        charge_mask_source: Optional[Tensor],
+    ) -> Dict[str, Tensor | Dict[str, Tensor]]:
+        coords_atom = self.coord_decoder(latent_g)
+        coords_pred, node_mask = to_dense_batch(coords_atom, batch, fill_value=0.0)
+
+        charge_atom = self.charge_head(latent_q)
+        charge_dense, _ = to_dense_batch(charge_atom, batch, fill_value=0.0)
+        charge_outputs = self._slice_outputs(charge_dense, self.charge_output_layout)
+
+        elem_atom = self.elem_head(latent_z)
+        elem_dense, _ = to_dense_batch(elem_atom, batch, fill_value=0.0)
+        elem_outputs = self._slice_outputs(elem_dense, self.element_output_layout)
+
+        pooled_energy = self.energy_pool(self.energy_head(latent_e), batch)
+        energy_outputs = self._slice_outputs(pooled_energy, self.energy_output_layout)
+
+        if (
+            charge_mask_source is not None
+            and isinstance(charge_mask_source, Tensor)
+            and charge_mask_source.dim() == 1
+            and charge_mask_source.numel() == latent_e.size(0)
+        ):
+            cm_dense, _ = to_dense_batch(
+                charge_mask_source.to(torch.float32).unsqueeze(-1),
+                batch,
+                fill_value=0.0,
+            )
+            charge_mask = (cm_dense > 0.5) & node_mask.unsqueeze(-1)
+        elif (
+            charge_mask_source is not None
+            and isinstance(charge_mask_source, Tensor)
+            and charge_mask_source.dim() == 2
+            and charge_mask_source.size(0) == latent_e.size(0)
+        ):
+            cm_dense, _ = to_dense_batch(charge_mask_source.to(torch.float32), batch, fill_value=0.0)
+            charge_mask = (cm_dense > 0.5) & node_mask.unsqueeze(-1)
+        else:
+            charge_mask = node_mask.unsqueeze(-1)
+
+        return {
+            "coords": coords_pred,
+            "charge": charge_outputs,
+            "element": elem_outputs,
+            "energy": energy_outputs,
+            "charge_mask": charge_mask,
+            "node_mask": node_mask.unsqueeze(-1),
+        }
+
+    def forward(self, data: Data) -> Dict[str, Tensor | Dict[str, Tensor]]:
         batch = ensure_batch_attr(data)
         if getattr(data, "pos", None) is None:
             raise ValueError("MultiTaskMoE requires data.pos")
@@ -210,33 +284,49 @@ class MultiTaskMoE(nn.Module):
 
         latent0 = self.backbone(data)
 
-        latent_e, bal_e = self._route(latent0, batch, gate_layer=self.gate_energy, experts=self.experts_energy, top_k=self.top_k_energy, pos=pos)
-        latent_q, bal_q = self._route(latent0, batch, gate_layer=self.gate_charge, experts=self.experts_charge, top_k=self.top_k_charge, pos=pos)
-        latent_z, bal_z = self._route(latent0, batch, gate_layer=self.gate_elem, experts=self.experts_elem, top_k=self.top_k_elem, pos=pos)
-        latent_g, bal_g = self._route(latent0, batch, gate_layer=self.gate_geom, experts=self.experts_geom, top_k=self.top_k_geom, pos=pos)
+        latent_e, bal_e = self._route(
+            latent0,
+            batch,
+            gate_layer=self.gate_energy,
+            experts=self.experts_energy,
+            top_k=self.top_k_energy,
+            pos=pos,
+        )
+        latent_q, bal_q = self._route(
+            latent0,
+            batch,
+            gate_layer=self.gate_charge,
+            experts=self.experts_charge,
+            top_k=self.top_k_charge,
+            pos=pos,
+        )
+        latent_z, bal_z = self._route(
+            latent0,
+            batch,
+            gate_layer=self.gate_elem,
+            experts=self.experts_elem,
+            top_k=self.top_k_elem,
+            pos=pos,
+        )
+        latent_g, bal_g = self._route(
+            latent0,
+            batch,
+            gate_layer=self.gate_geom,
+            experts=self.experts_geom,
+            top_k=self.top_k_geom,
+            pos=pos,
+        )
 
-        balance_loss = bal_e + bal_q + bal_z + bal_g
-
-        coords_atom = self.coord_decoder(latent_g)
-        coords_pred, mask = to_dense_batch(coords_atom, batch, fill_value=0.0)
-
-        charge_atom = self.charge_head(latent_q)
-        charge_pred, _ = to_dense_batch(charge_atom, batch, fill_value=0.0)
-
-        elem_atom = self.elem_head(latent_z)
-        elem_pred, _ = to_dense_batch(elem_atom, batch, fill_value=0.0)
-
-        energy_node = self.energy_head(latent_e)
-        energy_pred = self.energy_pool(energy_node, batch).unsqueeze(-1)
-
-        cm = getattr(data, "charge_mask", None)
-        if cm is not None and isinstance(cm, Tensor) and cm.dim() == 1 and cm.numel() == latent0.size(0):
-            cm_dense, _ = to_dense_batch(cm.to(torch.float32).unsqueeze(-1), batch, fill_value=0.0)
-            charge_mask = (cm_dense > 0.5) & mask.unsqueeze(-1)
-        else:
-            charge_mask = mask.unsqueeze(-1)
-
-        return coords_pred, charge_pred, elem_pred, energy_pred, charge_mask, balance_loss
+        outputs = self._decode_outputs(
+            latent_e,
+            latent_q,
+            latent_z,
+            latent_g,
+            batch,
+            charge_mask_source=getattr(data, "charge_mask", None),
+        )
+        outputs["balance_loss"] = bal_e + bal_q + bal_z + bal_g
+        return outputs
 
     @torch.no_grad()
     def forward_from_latent(
@@ -247,7 +337,7 @@ class MultiTaskMoE(nn.Module):
         node_mask: Optional[Tensor] = None,
         return_dense: bool = True,
         pos: Optional[Tensor] = None,
-    ) -> Tuple[Tensor, Tensor, Tensor, Tensor, Tensor, Tensor]:
+    ) -> Dict[str, Tensor | Dict[str, Tensor]]:
         batch = ensure_batch_attr(data_static)
 
         if latent.dim() == 3:
@@ -282,25 +372,58 @@ class MultiTaskMoE(nn.Module):
                         f"forward_from_latent(pos=None) requires real layers disabled for {task_name}."
                     )
 
-        latent_e, bal_e = self._route(latent0, batch, gate_layer=self.gate_energy, experts=self.experts_energy, top_k=self.top_k_energy, pos=pos_flat)
-        latent_q, bal_q = self._route(latent0, batch, gate_layer=self.gate_charge, experts=self.experts_charge, top_k=self.top_k_charge, pos=pos_flat)
-        latent_z, bal_z = self._route(latent0, batch, gate_layer=self.gate_elem, experts=self.experts_elem, top_k=self.top_k_elem, pos=pos_flat)
-        latent_g, bal_g = self._route(latent0, batch, gate_layer=self.gate_geom, experts=self.experts_geom, top_k=self.top_k_geom, pos=pos_flat)
-
-        balance_loss = bal_e + bal_q + bal_z + bal_g
-
-        coords_atom = self.coord_decoder(latent_g)
-        charge_atom = self.charge_head(latent_q)
-        elem_atom = self.elem_head(latent_z)
-        energy_node = self.energy_head(latent_e)
+        latent_e, bal_e = self._route(
+            latent0,
+            batch,
+            gate_layer=self.gate_energy,
+            experts=self.experts_energy,
+            top_k=self.top_k_energy,
+            pos=pos_flat,
+        )
+        latent_q, bal_q = self._route(
+            latent0,
+            batch,
+            gate_layer=self.gate_charge,
+            experts=self.experts_charge,
+            top_k=self.top_k_charge,
+            pos=pos_flat,
+        )
+        latent_z, bal_z = self._route(
+            latent0,
+            batch,
+            gate_layer=self.gate_elem,
+            experts=self.experts_elem,
+            top_k=self.top_k_elem,
+            pos=pos_flat,
+        )
+        latent_g, bal_g = self._route(
+            latent0,
+            batch,
+            gate_layer=self.gate_geom,
+            experts=self.experts_geom,
+            top_k=self.top_k_geom,
+            pos=pos_flat,
+        )
 
         if not return_dense:
-            ones = torch.ones(latent0.size(0), 1, device=latent0.device, dtype=torch.bool)
-            return coords_atom, charge_atom, elem_atom, energy_node, ones, balance_loss
+            pooled_energy = self.energy_pool(self.energy_head(latent_e), batch)
+            return {
+                "coords": self.coord_decoder(latent_g),
+                "charge": self._slice_outputs(self.charge_head(latent_q), self.charge_output_layout),
+                "element": self._slice_outputs(self.elem_head(latent_z), self.element_output_layout),
+                "energy": self._slice_outputs(pooled_energy, self.energy_output_layout),
+                "charge_mask": torch.ones(latent0.size(0), 1, device=latent0.device, dtype=torch.bool),
+                "node_mask": torch.ones(latent0.size(0), 1, device=latent0.device, dtype=torch.bool),
+                "balance_loss": bal_e + bal_q + bal_z + bal_g,
+            }
 
-        coords_pred, mask = to_dense_batch(coords_atom, batch, fill_value=0.0)
-        charge_pred, _ = to_dense_batch(charge_atom, batch, fill_value=0.0)
-        elem_pred, _ = to_dense_batch(elem_atom, batch, fill_value=0.0)
-        energy_pred = global_mean_pool(energy_node, batch).unsqueeze(-1)
-        charge_mask = mask.unsqueeze(-1)
-        return coords_pred, charge_pred, elem_pred, energy_pred, charge_mask, balance_loss
+        outputs = self._decode_outputs(
+            latent_e,
+            latent_q,
+            latent_z,
+            latent_g,
+            batch,
+            charge_mask_source=getattr(data_static, "charge_mask", None),
+        )
+        outputs["balance_loss"] = bal_e + bal_q + bal_z + bal_g
+        return outputs

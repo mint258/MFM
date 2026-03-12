@@ -377,7 +377,7 @@ def create_dataset(path: Optional[str] = None, start_idx: Optional[int] = None, 
     e = None if end_idx in (None, -1) else int(end_idx)
 
     if path.endswith(".lmdb"):
-        from dataset_lmdb import LmdbMoleculeDataset
+        from dataset.dataset_lmdb import LmdbMoleculeDataset
         try:
             ds = LmdbMoleculeDataset(path, start_idx=s, end_idx=e, filter_missing_on_init=True)
         except TypeError:
@@ -387,7 +387,7 @@ def create_dataset(path: Optional[str] = None, start_idx: Optional[int] = None, 
                 stop = len(ds) if e is None else min(e, len(ds))
                 ds = Subset(ds, list(range(s, stop)))
     else:
-        from dataset_without_charge import MoleculeDataset
+        from dataset.dataset_without_charge import MoleculeDataset
         try:
             ds = MoleculeDataset(path, start_idx=s, end_idx=e)
         except TypeError:

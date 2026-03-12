@@ -55,13 +55,26 @@ def get_args() -> argparse.Namespace:
 
     # Loss weights.
     parser.add_argument("--lambda_e", type=float, default=1.0)
+    parser.add_argument("--lambda_e_desc", type=float, default=1.0)
     parser.add_argument("--lambda_q", type=float, default=1.0)
+    parser.add_argument("--lambda_q_desc", type=float, default=1.0)
     parser.add_argument("--lambda_z", type=float, default=1.0)
-    parser.add_argument("--lambda_coord", type=float, default=1.0)
+    parser.add_argument("--lambda_z_desc", type=float, default=1.0)
+    parser.add_argument(
+        "--lambda_coord",
+        type=float,
+        default=0.0,
+        help="Retired and ignored; kept only for backward CLI compatibility",
+    )
     parser.add_argument("--lambda_dist", type=float, default=0.0)
     parser.add_argument("--lambda_angle", type=float, default=0.0)
     parser.add_argument("--lambda_torsion", type=float, default=0.0)
-    parser.add_argument("--lambda_planar", type=float, default=1.0)
+    parser.add_argument(
+        "--lambda_planar",
+        type=float,
+        default=0.0,
+        help="Retired and ignored; kept only for backward CLI compatibility",
+    )
 
     # Expert block config.
     parser.add_argument("--expert_real_layers", type=int, default=2)
@@ -105,5 +118,31 @@ def get_args() -> argparse.Namespace:
 
     parser.add_argument("--save_path", default="ckpt_multitask.pt")
     parser.add_argument("--save_every_epoch", action="store_true")
+
+    # Weights & Biases.
+    parser.add_argument("--use_wandb", action="store_true", help="Enable Weights & Biases logging")
+    parser.add_argument("--wandb_project", type=str, default="mfm-pretrain")
+    parser.add_argument("--wandb_entity", type=str, default=None)
+    parser.add_argument("--wandb_run_name", type=str, default=None)
+    parser.add_argument("--wandb_group", type=str, default=None)
+    parser.add_argument("--wandb_tags", nargs="*", default=[])
+    parser.add_argument("--wandb_notes", type=str, default=None)
+    parser.add_argument("--wandb_mode", type=str, default="online", choices=["online", "offline", "disabled"])
+    parser.add_argument("--wandb_dir", type=str, default="wandb")
+    parser.add_argument(
+        "--wandb_watch",
+        type=str,
+        default="gradients",
+        choices=["none", "gradients", "parameters", "all"],
+        help="Model monitoring level for W&B",
+    )
+    parser.add_argument("--wandb_watch_log_freq", type=int, default=1000)
+    parser.add_argument(
+        "--wandb_log_batch_every",
+        type=int,
+        default=50,
+        help="Log train batch metrics to W&B every N optimizer steps; 0 disables batch logging",
+    )
+    parser.add_argument("--wandb_log_checkpoints", action="store_true")
 
     return parser.parse_args()

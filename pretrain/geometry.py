@@ -2,7 +2,8 @@
 
 import torch
 import torch.nn.functional as F
-from utils_debug import safe_exp
+
+from .utils_debug import safe_exp
 
 try:
     from torch_cluster import radius_graph as _radius_graph_impl

@@ -1,14 +1,11 @@
 ﻿from __future__ import annotations
 
 import logging
-import os
 import warnings
 
 import torch
-from torch.utils.data import ConcatDataset, Subset
-from torch_geometric.loader import DataLoader
+from torch.utils.data import ConcatDataset, DataLoader, Subset
 
-from degrade_molecules import DegradeConfig
 from models.moe import MultiTaskMoE
 
 from .args import get_args
@@ -21,12 +18,115 @@ from .data import (
     fast_collate,
     standardizer,
 )
+from .degrade_molecules import DegradeConfig
 from .train_loop import DummyScaler, run_epoch
 from .utils import build_lr_scheduler, pad_list, set_seed
+from .wandb_utils import finish_run, init_wandb_run, log_checkpoint_artifact, log_metrics, update_summary
 
 warnings.filterwarnings("ignore", category=UserWarning)
 logging.basicConfig(level=logging.INFO, format="[%(asctime)s] %(levelname)s: %(message)s")
 LOGGER = logging.getLogger("multitask")
+
+
+def _enforce_retired_training_policy(args) -> None:
+    for arg_name in ("lambda_coord", "lambda_planar"):
+        value = float(getattr(args, arg_name, 0.0))
+        if value != 0.0:
+            LOGGER.warning("--%s is retired and will be forced to 0.0", arg_name.replace("_", "-"))
+        setattr(args, arg_name, 0.0)
+
+
+def _build_checkpoint_cfg(args, bb_cfg):
+    return {
+        "backbone_config": bb_cfg,
+        "n_atom_types": args.n_atom_types,
+        "n_experts_energy": args.expert_number_E,
+        "n_experts_charge": args.expert_number_Q,
+        "n_experts_elem": args.expert_number_Z,
+        "n_experts_geom": args.expert_number_G,
+        "top_k_energy": args.topkE,
+        "top_k_charge": args.topkQ,
+        "top_k_elem": args.topkZ,
+        "top_k_geom": args.topkG,
+        "expert_real_layers": args.expert_real_layers,
+        "expert_int_layers": args.expert_int_layers,
+        "expert_heads": args.expert_heads,
+        "expert_ff_mult": args.expert_ff_mult,
+        "descriptor_head_mode": "rdkit_descriptor_pack_v1",
+    }
+
+
+def _summarize_epoch(stats, *, stage: int, stage_epoch: int, lr: float, loss_total: float, selection_loss: float, lam_d: float, lam_a: float, lam_t: float):
+    summary = {
+        "stage": stage,
+        "stage_epoch": stage_epoch,
+        "loss_total": loss_total,
+        "loss_selection": selection_loss,
+        "loss_energy": stats["E"],
+        "loss_energy_desc": stats["E_desc"],
+        "loss_charge": stats["Q"],
+        "loss_charge_desc": stats["Q_desc"],
+        "loss_elem": stats["Z"],
+        "loss_elem_desc": stats["Z_desc"],
+        "loss_geom": stats["Geom"],
+        "loss_geom_dist": stats["Geom_d"],
+        "loss_geom_angle": stats["Geom_a"],
+        "loss_geom_torsion": stats["Geom_t"],
+        "loss_balance": stats["Bal"],
+        "r2_energy": stats["R2_e"],
+        "r2_charge": stats["R2_q"],
+        "r2_elem": stats["R2_z"],
+        "acc_elem": stats["Acc_z"],
+        "bad_batches": stats["bad"],
+        "lr": lr,
+        "lambda_dist": lam_d,
+        "lambda_angle": lam_a,
+        "lambda_torsion": lam_t,
+    }
+    summary.update(
+        {
+            key: value
+            for key, value in stats.items()
+            if key.startswith("loss_energy_desc_")
+            or key.startswith("r2_energy_desc_")
+            or key.startswith("loss_charge_desc_")
+            or key.startswith("r2_charge_desc_")
+            or key.startswith("acc_charge_desc_")
+            or key.startswith("loss_elem_desc_")
+            or key.startswith("acc_elem_desc_")
+        }
+    )
+    return summary
+
+
+def _selection_loss(args, stats) -> float:
+    return (
+        args.lambda_e * stats["E"]
+        + args.lambda_e_desc * stats["E_desc"]
+        + args.lambda_q * stats["Q"]
+        + args.lambda_q_desc * stats["Q_desc"]
+        + args.lambda_z * stats["Z"]
+        + args.lambda_z_desc * stats["Z_desc"]
+        + stats["Geom"]
+    )
+
+
+def _total_loss(args, stats) -> float:
+    return _selection_loss(args, stats) + stats["Bal"]
+
+
+def _print_epoch_metrics(prefix: str, stats) -> None:
+    print(
+        f"{prefix} E={stats['E']:.3f} E_desc={stats['E_desc']:.3f} | "
+        f"Q={stats['Q']:.3f} Q_desc={stats['Q_desc']:.3f} | "
+        f"Z={stats['Z']:.3f} Z_desc={stats['Z_desc']:.3f} | "
+        f"Geom={stats['Geom']:.3f}"
+    )
+    print(
+        f"      Geom(Morse={stats['Geom_d']:.4f} Ang={stats['Geom_a']:.4f} Tor={stats['Geom_t']:.4f}) | "
+        f"R2(E={stats['R2_e']:.3f}, Q={stats['R2_q']:.3f}, Z={stats['R2_z']:.3f}) | "
+        f"Acc(Z)={stats['Acc_z']:.3f} | Bad={stats['bad']}"
+    )
 
 
 def _build_degrade_cfg(args, mode: str, level: float) -> DegradeConfig:
@@ -130,6 +230,7 @@ def build_model(args, device):
 
 def main() -> None:
     args = get_args()
+    _enforce_retired_training_policy(args)
     if args.fp16:
         LOGGER.warning("--fp16 is disabled by training policy; forcing FP32 execution.")
         args.fp16 = False
@@ -216,6 +317,7 @@ def main() -> None:
 
     LOGGER.info("Building MultiTaskMoE model")
     model, bb_cfg = build_model(args, device)
+    cfg = _build_checkpoint_cfg(args, bb_cfg)
 
     decay, no_decay = [], []
     for name, param in model.named_parameters():
@@ -241,115 +343,73 @@ def main() -> None:
     best_loss = float("inf")
     stage = 0
     stage_ep = 0
+    global_step = 0
+    run = None
     LOGGER.info("Training started: Stage-0")
-
-    for ep in range(1, args.epochs + 1):
-        if stage == 0:
-            active = ("dist",)
-        else:
-            active = ("dist", "angle", "torsion", "planar")
-
-        def lambda_for(name: str) -> float:
-            return getattr(args, f"lambda_{name}", 0.0) if name in active else 0.0
-
-        lam_c = lambda_for("coord")
-        lam_d = lambda_for("dist")
-        lam_a = lambda_for("angle")
-        lam_t = lambda_for("torsion")
-        lam_p = lambda_for("planar")
-
-        LOGGER.info(
-            "Epoch %d stage %d: lam_c=%s lam_d=%s lam_a=%s lam_t=%s lam_p=%s",
-            ep,
-            stage,
-            lam_c,
-            lam_d,
-            lam_a,
-            lam_t,
-            lam_p,
+    try:
+        run = init_wandb_run(
+            args,
+            model=model,
+            device=device,
+            train_size=len(train_ds),
+            val_size=(len(val_ds) if val_ds is not None else 0),
+        )
+        update_summary(
+            run,
+            {
+                "meta/device": device,
+                "meta/train_size": len(train_ds),
+                "meta/val_size": len(val_ds) if val_ds is not None else 0,
+            },
         )
 
-        tr = run_epoch(
-            model,
-            train_loader,
-            device,
-            std,
-            scaler,
-            loss_cutoff=args.loss_cutoff,
-            n_atom_types=args.n_atom_types,
-            lam_c=lam_c,
-            lam_d=lam_d,
-            lam_a=lam_a,
-            lam_t=lam_t,
-            lam_p=lam_p,
-            lam_e=args.lambda_e,
-            lam_q=args.lambda_q,
-            lam_z=args.lambda_z,
-            z_label_smooth=args.z_label_smooth,
-            z_focal_gamma=args.z_focal_gamma,
-            z_temp=args.z_temp,
-            z_class_balance=args.z_class_balance,
-            z_entropy_reg=args.z_entropy_reg,
-            z_logit_l2=args.z_logit_l2,
-            morse_d=args.morse_D,
-            morse_a=args.morse_a,
-            optim=optimizer,
-            fp16=args.fp16,
-            desc=f"Train{ep:03d}",
-            scheduler=scheduler,
-        )
+        def log_train_batch(batch_metrics, step):
+            log_metrics(run, "train/batch", batch_metrics, global_step=step)
 
-        print(
-            f"Train E={tr['E']:.3f} Q={tr['Q']:.3f} Z={tr['Z']:.3f} | "
-            f"Geom={tr['Geom']:.3f} (Coord={tr['Geom_c']:.4f} Morse={tr['Geom_d']:.4f} "
-            f"Ang={tr['Geom_a']:.4f} Tor={tr['Geom_t']:.4f} Planar={tr['Geom_p']:.4f})"
-        )
-        print(
-            f"      R2(E={tr['R2_e']:.3f}, Q={tr['R2_q']:.3f}, Z={tr['R2_z']:.3f}), RMSD={tr['RMSD']:.3f} | "
-            f"Acc(Z)={tr['Acc_z']:.3f} | Bad={tr['bad']}"
-        )
+        for ep in range(1, args.epochs + 1):
+            if torch.cuda.is_available():
+                torch.cuda.reset_peak_memory_stats()
 
-        cfg = {
-            "backbone_config": bb_cfg,
-            "n_atom_types": args.n_atom_types,
-            "n_experts_energy": args.expert_number_E,
-            "n_experts_charge": args.expert_number_Q,
-            "n_experts_elem": args.expert_number_Z,
-            "n_experts_geom": args.expert_number_G,
-            "top_k_energy": args.topkE,
-            "top_k_charge": args.topkQ,
-            "top_k_elem": args.topkZ,
-            "top_k_geom": args.topkG,
-            "expert_real_layers": args.expert_real_layers,
-            "expert_int_layers": args.expert_int_layers,
-            "expert_heads": args.expert_heads,
-            "expert_ff_mult": args.expert_ff_mult,
-        }
+            if stage == 0:
+                active = ("dist",)
+            else:
+                active = ("dist", "angle", "torsion")
 
-        if args.save_every_epoch:
-            epoch_save_path = f"{args.save_path}_epoch_{ep:03d}.pt"
-            save_checkpoint(model, cfg, std, epoch_save_path)
-            LOGGER.info("Saved per-epoch ckpt to %s", epoch_save_path)
+            def lambda_for(name: str) -> float:
+                return getattr(args, f"lambda_{name}", 0.0) if name in active else 0.0
 
-        torch.cuda.empty_cache()
+            lam_d = lambda_for("dist")
+            lam_a = lambda_for("angle")
+            lam_t = lambda_for("torsion")
 
-        if val_loader is not None:
-            va = run_epoch(
+            LOGGER.info(
+                "Epoch %d stage %d: lam_d=%s lam_a=%s lam_t=%s",
+                ep,
+                stage,
+                lam_d,
+                lam_a,
+                lam_t,
+            )
+
+            tr = run_epoch(
                 model,
-                val_loader,
+                train_loader,
                 device,
                 std,
                 scaler,
                 loss_cutoff=args.loss_cutoff,
                 n_atom_types=args.n_atom_types,
-                lam_c=lam_c,
+                lam_c=0.0,
                 lam_d=lam_d,
                 lam_a=lam_a,
                 lam_t=lam_t,
-                lam_p=lam_p,
+                lam_p=0.0,
                 lam_e=args.lambda_e,
+                lam_e_desc=args.lambda_e_desc,
                 lam_q=args.lambda_q,
+                lam_q_desc=args.lambda_q_desc,
                 lam_z=args.lambda_z,
+                lam_z_desc=args.lambda_z_desc,
                 z_label_smooth=args.z_label_smooth,
                 z_focal_gamma=args.z_focal_gamma,
                 z_temp=args.z_temp,
@@ -358,51 +418,177 @@ def main() -> None:
                 z_logit_l2=args.z_logit_l2,
                 morse_d=args.morse_D,
                 morse_a=args.morse_a,
-                optim=None,
+                optim=optimizer,
                 fp16=args.fp16,
-                desc=f"Val{ep:03d}",
-                scheduler=None,
+                desc=f"Train{ep:03d}",
+                scheduler=scheduler,
+                batch_logger=log_train_batch if run is not None else None,
+                batch_log_interval=args.wandb_log_batch_every,
+                global_step_start=global_step,
             )
-            print(
-                f"Val   E={va['E']:.3f} Q={va['Q']:.3f} Z={va['Z']:.3f} | "
-                f"Geom={va['Geom']:.3f} (Coord={va['Geom_c']:.4f} Morse={va['Geom_d']:.4f} "
-                f"Ang={va['Geom_a']:.4f} Tor={va['Geom_t']:.4f} Planar={va['Geom_p']:.4f})"
+            global_step = tr["global_step"]
+            current_lr = optimizer.param_groups[0]["lr"]
+            train_total = _total_loss(args, tr)
+            train_selection = _selection_loss(args, tr)
+
+            _print_epoch_metrics("Train", tr)
+            log_metrics(
+                run,
+                "train/epoch",
+                _summarize_epoch(
+                    tr,
+                    stage=stage,
+                    stage_epoch=stage_ep + 1,
+                    lr=current_lr,
+                    loss_total=train_total,
+                    selection_loss=train_selection,
+                    lam_d=lam_d,
+                    lam_a=lam_a,
+                    lam_t=lam_t,
+                ),
+                epoch=ep,
+                global_step=global_step,
             )
-            print(
-                f"      R2(E={va['R2_e']:.3f}, Q={va['R2_q']:.3f}, Z={va['R2_z']:.3f}), RMSD={va['RMSD']:.3f} | "
-                f"Acc(Z)={va['Acc_z']:.3f} | Bad={va['bad']}"
-            )
-            cur_loss = va["E"] + va["Q"] + va["Geom"]
-        else:
-            cur_loss = tr["E"] + tr["Q"] + tr["Geom"]
 
-        if cur_loss < best_loss:
-            best_loss = cur_loss
-            save_checkpoint(model, cfg, std, args.save_path)
-            LOGGER.info("Saved best checkpoint for stage %d to %s (loss=%.4f)", stage, args.save_path, best_loss)
+            if args.save_every_epoch:
+                epoch_save_path = f"{args.save_path}_epoch_{ep:03d}.pt"
+                save_checkpoint(model, cfg, std, epoch_save_path)
+                LOGGER.info("Saved per-epoch ckpt to %s", epoch_save_path)
 
-        stage_ep += 1
-        stage_transition = False
-        next_stage = stage
+            torch.cuda.empty_cache()
 
-        if stage == 0:
-            cond = (tr["Geom"] < args.stage1_loss) or (stage_ep >= args.stage1_max_epochs)
-            if cond:
-                stage_transition = True
-                next_stage = 1
+            va = None
+            if val_loader is not None:
+                va = run_epoch(
+                    model,
+                    val_loader,
+                    device,
+                    std,
+                    scaler,
+                    loss_cutoff=args.loss_cutoff,
+                    n_atom_types=args.n_atom_types,
+                    lam_c=0.0,
+                    lam_d=lam_d,
+                    lam_a=lam_a,
+                    lam_t=lam_t,
+                    lam_p=0.0,
+                    lam_e=args.lambda_e,
+                    lam_e_desc=args.lambda_e_desc,
+                    lam_q=args.lambda_q,
+                    lam_q_desc=args.lambda_q_desc,
+                    lam_z=args.lambda_z,
+                    lam_z_desc=args.lambda_z_desc,
+                    z_label_smooth=args.z_label_smooth,
+                    z_focal_gamma=args.z_focal_gamma,
+                    z_temp=args.z_temp,
+                    z_class_balance=args.z_class_balance,
+                    z_entropy_reg=args.z_entropy_reg,
+                    z_logit_l2=args.z_logit_l2,
+                    morse_d=args.morse_D,
+                    morse_a=args.morse_a,
+                    optim=None,
+                    fp16=args.fp16,
+                    desc=f"Val{ep:03d}",
+                    scheduler=None,
+                    global_step_start=global_step,
+                )
+                val_total = _total_loss(args, va)
+                val_selection = _selection_loss(args, va)
+                _print_epoch_metrics("Val  ", va)
+                log_metrics(
+                    run,
+                    "val",
+                    _summarize_epoch(
+                        va,
+                        stage=stage,
+                        stage_epoch=stage_ep + 1,
+                        lr=current_lr,
+                        loss_total=val_total,
+                        selection_loss=val_selection,
+                        lam_d=lam_d,
+                        lam_a=lam_a,
+                        lam_t=lam_t,
+                    ),
+                    epoch=ep,
+                    global_step=global_step,
+                )
+                cur_loss = val_selection
+            else:
+                cur_loss = train_selection
 
-        if stage_transition:
-            LOGGER.info("Stage-%d finished at epoch %d", stage, ep)
-            stage_save_path = f"stage_{stage}_end_epoch_{ep}.pt"
-            save_checkpoint(model, cfg, std, stage_save_path)
-            LOGGER.info("Saved final model for stage %d to %s", stage, stage_save_path)
+            meta_metrics = {
+                "stage": stage,
+                "stage_epoch": stage_ep + 1,
+                "best_selection_loss_so_far": best_loss,
+                "global_step": global_step,
+            }
+            if torch.cuda.is_available():
+                meta_metrics["cuda_peak_memory_gb"] = torch.cuda.max_memory_allocated() / (1024 ** 3)
+            log_metrics(run, "meta", meta_metrics, epoch=ep, global_step=global_step)
 
-            best_loss = float("inf")
-            stage = next_stage
-            stage_ep = 0
-            LOGGER.info("Entering Stage-%d", stage)
+            if cur_loss < best_loss:
+                best_loss = cur_loss
+                save_checkpoint(model, cfg, std, args.save_path)
+                LOGGER.info("Saved best checkpoint for stage %d to %s (loss=%.4f)", stage, args.save_path, best_loss)
+                update_summary(
+                    run,
+                    {
+                        "best/epoch": ep,
+                        "best/stage": stage,
+                        "best/selection_loss": best_loss,
+                        "best/source": "val" if va is not None else "train",
+                        "best/path": args.save_path,
+                    },
+                )
+                if args.wandb_log_checkpoints:
+                    log_checkpoint_artifact(
+                        run,
+                        args.save_path,
+                        label="best",
+                        aliases=["best", f"stage_{stage}", f"epoch_{ep:03d}"],
+                        metadata={"epoch": ep, "stage": stage, "selection_loss": best_loss},
+                    )
 
-        torch.cuda.empty_cache()
+            stage_ep += 1
+            stage_transition = False
+            next_stage = stage
+
+            if stage == 0:
+                cond = (tr["Geom"] < args.stage1_loss) or (stage_ep >= args.stage1_max_epochs)
+                if cond:
+                    stage_transition = True
+                    next_stage = 1
+
+            if stage_transition:
+                prev_stage = stage
+                LOGGER.info("Stage-%d finished at epoch %d", prev_stage, ep)
+                stage_save_path = f"stage_{prev_stage}_end_epoch_{ep}.pt"
+                save_checkpoint(model, cfg, std, stage_save_path)
+                LOGGER.info("Saved final model for stage %d to %s", prev_stage, stage_save_path)
+                if args.wandb_log_checkpoints:
+                    log_checkpoint_artifact(
+                        run,
+                        stage_save_path,
+                        label=f"stage_{prev_stage}_end",
+                        aliases=[f"stage_{prev_stage}_end", f"epoch_{ep:03d}"],
+                        metadata={"epoch": ep, "stage": prev_stage},
+                    )
+                log_metrics(
+                    run,
+                    "meta",
+                    {"stage_transition": 1, "stage_from": prev_stage, "stage_to": next_stage},
+                    epoch=ep,
+                    global_step=global_step,
+                )
+
+                best_loss = float("inf")
+                stage = next_stage
+                stage_ep = 0
+                LOGGER.info("Entering Stage-%d", stage)
+
+            torch.cuda.empty_cache()
+    finally:
+        finish_run(run)
 
 
 if __name__ == "__main__":

@@ -11,12 +11,34 @@ from torch.utils.data import Subset
 from torch_geometric.data import Batch
 from tqdm import tqdm
 
-from dataset_lmdb import LmdbMoleculeDataset
-from dataset_without_charge import MoleculeDataset
-from degrade_molecules import DegradeConfig, degrade_once
-from utils_debug import is_debug as get_debug_flag
+from dataset import LmdbMoleculeDataset, MoleculeDataset
+from dataset.descriptor_schema import GRAPH_FIELD, GRAPH_MASK_FIELD, NODE_MASK_FIELD, RDKIT_GRAPH_DESC_DIM
+
+from .degrade_molecules import DegradeConfig, degrade_once
+from .utils_debug import is_debug as get_debug_flag
 
 LOGGER = logging.getLogger("multitask")
+COLLATE_RENAME_FIELDS = {
+    "rdkit_node_estate_index": "_rdkit_node_estate_index_value",
+}
+DESCRIPTOR_STD_FLOOR = 1.0
+
+
+def _finalize_scalar_stats(sum_value: float, sum_sq_value: float, count_value: float) -> tuple[float, float]:
+    if count_value <= 0:
+        return 0.0, 1.0
+    mean = sum_value / count_value
+    std = math.sqrt(max(sum_sq_value / count_value - mean**2, 1e-12))
+    return mean, std
+
+
+def _finalize_vector_stats(sum_value: torch.Tensor, sum_sq_value: torch.Tensor, count_value: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+    safe_count = count_value.clamp(min=1.0)
+    mean = sum_value / safe_count
+    std = torch.sqrt(torch.clamp(sum_sq_value / safe_count - mean.square(), min=1e-12))
+    mean = torch.where(count_value > 0, mean, torch.zeros_like(mean))
+    std = torch.where(count_value > 0, std, torch.ones_like(std))
+    return mean.float(), std.float()
 
 
 def create_dataset(path: str, start_idx: int | None, end_idx: int | None):
@@ -141,7 +163,7 @@ class MaskedPerturbDataset(torch.utils.data.Dataset):
 
 
 def standardizer(ds_list: Iterable, ratio: float = 0.01, cap: int = 50000, seed: int = 0):
-    """Estimate mean/std for energy and charge from sampled data."""
+    """Estimate mean/std for regression targets used during pretraining."""
     rng = np.random.default_rng(seed)
 
     sample_pool: List[tuple] = []
@@ -172,6 +194,24 @@ def standardizer(ds_list: Iterable, ratio: float = 0.01, cap: int = 50000, seed:
     sample_pool = sample_pool[:cap]
 
     s_e = s_q = s2_e = s2_q = c_e = c_q = 0.0
+    graph_sum = torch.zeros(RDKIT_GRAPH_DESC_DIM, dtype=torch.float64)
+    graph_sq = torch.zeros(RDKIT_GRAPH_DESC_DIM, dtype=torch.float64)
+    graph_count = torch.zeros(RDKIT_GRAPH_DESC_DIM, dtype=torch.float64)
+    scalar_regression_fields = {
+        "formal_charge": {
+            "field_name": "rdkit_node_formal_charge",
+            "sum": 0.0,
+            "sum_sq": 0.0,
+            "count": 0.0,
+        },
+        "estate_index": {
+            "field_name": "rdkit_node_estate_index",
+            "sum": 0.0,
+            "sum_sq": 0.0,
+            "count": 0.0,
+        },
+    }
+
     for dataset, i in tqdm(sample_pool, desc="Std"):
         data = dataset[i]
         s_e += data.energy
@@ -188,6 +228,35 @@ def standardizer(ds_list: Iterable, ratio: float = 0.01, cap: int = 50000, seed:
             s2_q += (q**2).sum().item()
             c_q += len(q)
 
+        graph_desc = getattr(data, GRAPH_FIELD, None)
+        graph_mask = getattr(data, GRAPH_MASK_FIELD, None)
+        if isinstance(graph_desc, torch.Tensor):
+            values = graph_desc.view(-1).double()
+            if isinstance(graph_mask, torch.Tensor):
+                valid = graph_mask.view(-1).bool()
+            else:
+                valid = torch.ones_like(values, dtype=torch.bool)
+            if valid.any():
+                graph_sum[valid] += values[valid]
+                graph_sq[valid] += values[valid].square()
+                graph_count[valid] += 1.0
+
+        node_mask = getattr(data, NODE_MASK_FIELD, None)
+        if isinstance(node_mask, torch.Tensor):
+            valid_nodes = node_mask.view(-1).bool()
+            if valid_nodes.any():
+                for stats_key, field_stats in scalar_regression_fields.items():
+                    value = getattr(data, field_stats["field_name"], None)
+                    if not isinstance(value, torch.Tensor):
+                        continue
+                    values = value.view(-1).double()
+                    values = values[valid_nodes]
+                    if values.numel() == 0:
+                        continue
+                    field_stats["sum"] += values.sum().item()
+                    field_stats["sum_sq"] += values.square().sum().item()
+                    field_stats["count"] += float(values.numel())
+
     if c_e <= 0:
         raise ValueError("standardizer: no valid samples for energy stats")
 
@@ -195,22 +264,68 @@ def standardizer(ds_list: Iterable, ratio: float = 0.01, cap: int = 50000, seed:
     std_e = math.sqrt(max(s2_e / c_e - mu_e**2, 1e-12))
 
     if c_q > 0:
-        mu_q = s_q / c_q
-        std_q = math.sqrt(max(s2_q / c_q - mu_q**2, 1e-12))
+        mu_q, std_q = _finalize_scalar_stats(s_q, s2_q, c_q)
     else:
-        mu_q = 0.0
-        std_q = 1.0
+        mu_q, std_q = 0.0, 1.0
         LOGGER.warning("standardizer: no charge targets found; fallback muQ=0 stdQ=1")
 
-    LOGGER.info("Energy mu=%.3f std=%.3f | Charge mu=%+.2e std=%.2e", mu_e, std_e, mu_q, std_q)
-    return {"muE": mu_e, "stdE": std_e, "muQ": mu_q, "stdQ": std_q}
+    graph_desc_mu, graph_desc_std = _finalize_vector_stats(graph_sum, graph_sq, graph_count)
+    graph_desc_std = graph_desc_std.clamp(min=DESCRIPTOR_STD_FLOOR)
+
+    reg_stats = {}
+    for stats_key, field_stats in scalar_regression_fields.items():
+        mean, std_value = _finalize_scalar_stats(
+            field_stats["sum"],
+            field_stats["sum_sq"],
+            field_stats["count"],
+        )
+        reg_stats[f"{stats_key}_mu"] = mean
+        reg_stats[f"{stats_key}_std"] = max(std_value, DESCRIPTOR_STD_FLOOR)
+
+    LOGGER.info(
+        "Energy mu=%.3f std=%.3f | Charge mu=%+.2e std=%.2e | GraphDesc active=%d/%d",
+        mu_e,
+        std_e,
+        mu_q,
+        std_q,
+        int((graph_count > 0).sum().item()),
+        RDKIT_GRAPH_DESC_DIM,
+    )
+    return {
+        "muE": mu_e,
+        "stdE": std_e,
+        "muQ": mu_q,
+        "stdQ": std_q,
+        "graph_desc_mu": graph_desc_mu,
+        "graph_desc_std": graph_desc_std,
+        **reg_stats,
+    }
 
 
 def fast_collate(data_list):
     """Drop large precomputed angle/torsion tensors before batch merge."""
+    renamed = []
     for data in data_list:
         if hasattr(data, "angle_triplet"):
             delattr(data, "angle_triplet")
         if hasattr(data, "dihed_quad"):
             delattr(data, "dihed_quad")
-    return Batch.from_data_list(data_list)
+        for source_name, temp_name in COLLATE_RENAME_FIELDS.items():
+            if hasattr(data, source_name):
+                setattr(data, temp_name, getattr(data, source_name))
+                delattr(data, source_name)
+                renamed.append((data, source_name, temp_name))
+
+    try:
+        batch = Batch.from_data_list(data_list)
+    finally:
+        for data, source_name, temp_name in renamed:
+            if hasattr(data, temp_name):
+                setattr(data, source_name, getattr(data, temp_name))
+                delattr(data, temp_name)
+
+    for source_name, temp_name in COLLATE_RENAME_FIELDS.items():
+        if hasattr(batch, temp_name):
+            setattr(batch, source_name, getattr(batch, temp_name))
+            delattr(batch, temp_name)
+    return batch
