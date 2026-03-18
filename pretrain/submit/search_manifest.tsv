@@ -1,0 +1,22 @@
+node_key	theme	run_name	main_changes	epochs	batch_size	expected_budget
+node1_moe	moe_effectiveness	moe_e1q1z1g1_k1111_h64_l3_bs32_ep80	single-expert anchor	80	32	~5-6h
+node1_moe	moe_effectiveness	moe_e2q2z2g2_k1111_h64_l3_bs24_ep80	all branches 2 experts top1	80	24	~7-9h
+node1_moe	moe_effectiveness	moe_e2q2z2g2_k2222_h64_l3_bs24_ep80	all branches 2 experts top2	80	24	~8-10h
+node1_moe	moe_effectiveness	moe_e2q2z1g2_k1111_h64_l3_bs24_ep80	target hard tasks with MoE	80	24	~7-9h
+node2_width	width_scaling	width_h48_l3_er1_bs32_ep80	narrow control	80	32	~5h
+node2_width	width_scaling	width_h64_l3_er1_bs32_ep80	baseline width	80	32	~5-6h
+node2_width	width_scaling	width_h96_l3_er1_bs24_ep80	medium width	80	24	~7-8h
+node2_width	width_scaling	width_h128_l3_er1_bs16_ep80	wide but likely safe on 24 GB	80	16	~8-10h
+node3_depth	depth_scaling	depth_b2_er1_bs32_ep80	shallow backbone	80	32	~5h
+node3_depth	depth_scaling	depth_b3_er1_bs32_ep80	baseline depth	80	32	~5-6h
+node3_depth	depth_scaling	depth_b4_er1_bs24_ep80	deeper backbone	80	24	~7-8h
+node3_depth	depth_scaling	depth_b3_er2_bs24_ep80	deeper experts	80	24	~8-9h
+node4_geom_stage	stage_geom_search	geom_s10_a0_t0_bs32_ep100	dist-only throughout	100	32	~6-7h
+node4_geom_stage	stage_geom_search	geom_s10_a1_t2_bs32_ep100	weaker angle/torsion	100	32	~6-7h
+node4_geom_stage	stage_geom_search	geom_s20_a2_t4_bs32_ep100	delay stage1	100	32	~6-7h
+node4_geom_stage	stage_geom_search	geom_s20_a1_t2_bs32_ep100	delay stage1 + weaker angular losses	100	32	~6-7h
+node5_task_ablation	task_ablation	task_no_desc_bs32_ep100	remove all descriptor supervision	100	32	~6-7h
+node5_task_ablation	task_ablation	task_graph_desc_only_bs32_ep100	keep only graph descriptors	100	32	~6-7h
+node5_task_ablation	task_ablation	task_node_desc_only_bs32_ep100	keep only node descriptors	100	32	~6-7h
+node5_task_ablation	task_ablation	task_full_balanced_bs32_ep100	full descriptor supervision balanced	100	32	~6-7h
+node5_task_ablation	task_ablation	task_full_energy_heavy_bs32_ep100	push weight toward graph descriptors	100	32	~6-7h
