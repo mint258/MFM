@@ -7,6 +7,7 @@ from typing import Any
 import torch
 
 from .dist_utils import unwrap_model
+from .utils import write_json
 
 
 CHECKPOINT_FORMAT_VERSION = 2
@@ -63,6 +64,7 @@ def save_checkpoint(
     stage_step: int = 0,
     best_selection_loss: float = float("inf"),
     checkpoint_kind: str = "generic",
+    metadata: dict | None = None,
 ) -> None:
     """Save a resumable checkpoint with model, optimizer, scheduler, and runtime state."""
     ensure_parent_dir(save_path)
@@ -83,8 +85,25 @@ def save_checkpoint(
         "current_stage": int(current_stage),
         "stage_step": int(stage_step),
         "best_selection_loss": float(best_selection_loss),
+        "metadata": _to_cpu(dict(metadata or {})),
     }
     torch.save(payload, save_path)
+    sidecar_path = Path(save_path).with_suffix(Path(save_path).suffix + ".meta.json")
+    write_json(
+        sidecar_path,
+        {
+            "format_version": CHECKPOINT_FORMAT_VERSION,
+            "checkpoint_kind": checkpoint_kind,
+            "save_path": str(Path(save_path).resolve()),
+            "current_epoch": int(current_epoch),
+            "epoch_step": int(epoch_step),
+            "global_step": int(global_step),
+            "current_stage": int(current_stage),
+            "stage_step": int(stage_step),
+            "best_selection_loss": float(best_selection_loss),
+            "metadata": dict(metadata or {}),
+        },
+    )
 
 
 def load_checkpoint(checkpoint_path: str, *, map_location: str | torch.device = "cpu") -> dict:

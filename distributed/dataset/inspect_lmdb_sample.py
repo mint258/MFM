@@ -18,7 +18,16 @@ from typing import Any
 import torch
 from rdkit import Chem
 
+if __package__ in (None, ""):
+    import os
+    import sys
+
+    _REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    if _REPO_ROOT not in sys.path:
+        sys.path.insert(0, _REPO_ROOT)
+
 from dataset.dataset_lmdb import LmdbMoleculeDataset
+from dataset.descriptor_schema import BOND_ORDER_CLASS_NAMES
 from dataset.rdkit_descriptor_generator import ESTATE_TYPE_NAMES, GRAPH_DESCRIPTOR_NAMES
 
 
@@ -126,6 +135,39 @@ def graph_descriptor_records(item) -> list[dict[str, Any]]:
     return out
 
 
+def bond_records(item) -> list[dict[str, Any]]:
+    bond_index = getattr(item, "rdkit_bond_index")
+    bond_order = getattr(item, "rdkit_bond_order")
+    if not isinstance(bond_index, torch.Tensor) or not isinstance(bond_order, torch.Tensor):
+        return []
+
+    if bond_index.numel() == 0 or bond_order.numel() == 0:
+        return []
+
+    index = bond_index.detach().cpu().long()
+    order = bond_order.detach().cpu().long().view(-1)
+    rows: list[dict[str, Any]] = []
+    for edge_idx in range(index.size(1)):
+        begin = int(index[0, edge_idx].item())
+        end = int(index[1, edge_idx].item())
+        order_id = int(order[edge_idx].item())
+        order_name = (
+            BOND_ORDER_CLASS_NAMES[order_id]
+            if 0 <= order_id < len(BOND_ORDER_CLASS_NAMES)
+            else f"unknown:{order_id}"
+        )
+        rows.append(
+            {
+                "bond_index": edge_idx,
+                "begin_atom": begin,
+                "end_atom": end,
+                "order_id": order_id,
+                "order_name": order_name,
+            }
+        )
+    return rows
+
+
 def node_records(item, x_encoding: str) -> list[dict[str, Any]]:
     x = item.x.view(-1).detach().cpu().tolist()
     pos = item.pos.detach().cpu().tolist()
@@ -194,6 +236,8 @@ def sample_to_dict(logical_index: int, item, x_encoding: str) -> dict[str, Any]:
             "build_mode": getattr(item, "rdkit_build_mode", ""),
             "status": getattr(item, "rdkit_status", ""),
             "fail_reason": getattr(item, "rdkit_fail_reason", ""),
+            "bond_status": getattr(item, "rdkit_bond_status", ""),
+            "bond_fail_reason": getattr(item, "rdkit_bond_fail_reason", ""),
             "canonical_smiles": getattr(item, "canonical_smiles", ""),
             "isomeric_smiles": getattr(item, "isomeric_smiles", ""),
             "canonical_smiles_from_rdkit": getattr(item, "canonical_smiles_from_rdkit", ""),
@@ -201,6 +245,7 @@ def sample_to_dict(logical_index: int, item, x_encoding: str) -> dict[str, Any]:
             "match_is_unique": bool(getattr(item, "match_is_unique", False)),
             "total_charge": int(getattr(item, "total_charge", 0)),
             "graph_descriptors": graph_descriptor_records(item),
+            "bonds": bond_records(item),
         },
         "nodes": node_records(item, x_encoding),
     }
@@ -223,11 +268,30 @@ def print_summary(sample: dict[str, Any]) -> None:
     print(f"registration_hash: {sample['rdkit']['registration_hash']}")
     print(f"match_is_unique: {sample['rdkit']['match_is_unique']}")
     print(f"total_charge: {sample['rdkit']['total_charge']}")
+    print(
+        "bond_status: "
+        f"{sample['rdkit']['bond_status']} "
+        f"(fail_reason={sample['rdkit']['bond_fail_reason'] or 'none'})"
+    )
 
     print("\n[Graph Descriptors]")
     for row in sample["rdkit"]["graph_descriptors"]:
         value = "NA" if row["value"] is None else f"{row['value']:.6f}"
         print(f"{row['name']:>20}  mask={int(row['mask'])}  value={value}")
+
+    print("\n[Bond Labels]")
+    if sample["rdkit"]["bonds"]:
+        print("idx begin end order_id order_name")
+        for row in sample["rdkit"]["bonds"]:
+            print(
+                f"{row['bond_index']:>3} "
+                f"{row['begin_atom']:>5} "
+                f"{row['end_atom']:>3} "
+                f"{row['order_id']:>8} "
+                f"{row['order_name']}"
+            )
+    else:
+        print("none")
 
     print("\n[Node Labels]")
     header = (

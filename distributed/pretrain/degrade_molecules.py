@@ -139,6 +139,10 @@ def _randn(shape, device, dtype, rng: Optional[torch.Generator] = None):
             pass
     return torch.randn(shape, device=device, dtype=dtype)
 
+
+def _empty_element_corrupt_mask(num_nodes: int, device) -> torch.Tensor:
+    return torch.zeros((int(num_nodes), 1), dtype=torch.bool, device=device)
+
 # 旋转工具：罗德里格斯
 def _rotate_points(points: torch.Tensor, axis: torch.Tensor, angle_rad: float):
     # points: (M,3)  axis: (3,) 已单位化
@@ -193,6 +197,7 @@ def _topology_degrade(data: Data, cfg: DegradeConfig, rng: Optional[torch.Genera
     device = x.device
 
     z = elemcol_to_atomic_numbers(x[:,0])
+    elem_corrupt_mask = _empty_element_corrupt_mask(N, device)
     heavy_mask = (z > 1) & (z <= Z_MAX_ALLOWED)
 
     # 1) 元素替换（近邻 8 邻域）
@@ -221,6 +226,8 @@ def _topology_degrade(data: Data, cfg: DegradeConfig, rng: Optional[torch.Genera
             k = int((_rand((), device=device, dtype=torch.float32, rng=rng).item()) * len(neigh))
             k = max(0, min(len(neigh)-1, k))
             z_new = neigh[k]
+            if z_new != zi:
+                elem_corrupt_mask[i, 0] = True
             z[i]  = z_new
 
     # 2) 随机删除原子（全体可删，但保留至少 2 个原子）
@@ -251,12 +258,14 @@ def _topology_degrade(data: Data, cfg: DegradeConfig, rng: Optional[torch.Genera
         z_kept = elemcol_to_atomic_numbers(new_data.x[:,0])
         # 将替换过的 z 写回（但需按 keep_mask 过滤）
         new_data.x[:,0] = atomic_numbers_to_elemcol(z[keep_mask])
+        new_data.element_corrupt_mask = elem_corrupt_mask[keep_mask]
         out = new_data
     else:
         # 未删除时，直接在原 data 上写回元素替换
         out = data.clone()
         out.x = x.clone()
         out.x[:,0] = atomic_numbers_to_elemcol(z)
+        out.element_corrupt_mask = elem_corrupt_mask
 
     out.is_feasible = torch.tensor([0], dtype=torch.long)  # 负样本
     out.neg_type    = torch.tensor([1], dtype=torch.long)  # 1 = topo
@@ -280,7 +289,9 @@ def _geometry_degrade(data: Data, cfg: DegradeConfig, rng: Optional[torch.Genera
     center_idx = max(0, min(N-1, center_idx))
     center = pos[center_idx]
 
-    d = torch.cdist(pos, center[None, :]).view(-1)  # (N,)
+    # We only need center-to-atom distances here; avoiding torch.cdist keeps
+    # the CPU-side perturbation path noticeably lighter inside DataLoader workers.
+    d = (pos - center).norm(dim=-1)  # (N,)
     neighborhood = (d <= cfg.geom_radius)
     if int(neighborhood.sum()) >= 2:
         # 随机轴 + 角度
@@ -311,6 +322,7 @@ def _geometry_degrade(data: Data, cfg: DegradeConfig, rng: Optional[torch.Genera
     pos = pos + noise
 
     out.pos = pos
+    out.element_corrupt_mask = _empty_element_corrupt_mask(N, device)
     out.is_feasible = torch.tensor([0], dtype=torch.long)  # 负样本
     out.neg_type    = torch.tensor([2], dtype=torch.long)  # 2 = geom
     if hasattr(out, "batch"):
@@ -321,6 +333,8 @@ def _geometry_degrade(data: Data, cfg: DegradeConfig, rng: Optional[torch.Genera
 
 def _clean_copy(data: Data) -> Data:
     out = data.clone()
+    if hasattr(out, "x"):
+        out.element_corrupt_mask = _empty_element_corrupt_mask(out.x.size(0), out.x.device)
     if hasattr(out, "batch"):
         del out.batch
     if hasattr(out, "trajectory"):

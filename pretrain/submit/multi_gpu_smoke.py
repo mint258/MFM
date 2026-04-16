@@ -13,6 +13,21 @@ import torch.nn as nn
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data import DataLoader, DistributedSampler
 
+from models.moe import MultiTaskMoE
+import pretrain.data as pretrain_data_mod
+from pretrain.data import (
+    DomainWrapperDataset,
+    MaskedPerturbDataset,
+    OnlyStableWrapper,
+    create_dataset,
+    fast_collate,
+    standardizer,
+)
+from pretrain.degrade_molecules import DegradeConfig
+import pretrain.train_loop as train_loop_mod
+from pretrain.train_loop import DummyScaler
+
+
 LOGGER = logging.getLogger("slurm-smoke")
 
 
@@ -129,9 +144,6 @@ def dtype_from_name(name: str) -> torch.dtype:
 
 
 def patch_rank_local_output(rank: int) -> None:
-    import pretrain.data as pretrain_data_mod
-    import pretrain.train_loop as train_loop_mod
-
     original_train_loop_tqdm = train_loop_mod.tqdm
     original_data_tqdm = pretrain_data_mod.tqdm
 
@@ -148,8 +160,6 @@ def patch_rank_local_output(rank: int) -> None:
 
 
 def build_model(args: argparse.Namespace, device: torch.device) -> MultiTaskMoE:
-    from models.moe import MultiTaskMoE
-
     backbone_config = {
         "hidden_channels": args.hidden_channels,
         "atom_embedding_dim": args.hidden_channels,
@@ -225,15 +235,6 @@ def build_ddp_loader(
     rank: int,
     world_size: int,
 ) -> tuple[DataLoader, object, int]:
-    from pretrain.data import (
-        DomainWrapperDataset,
-        MaskedPerturbDataset,
-        OnlyStableWrapper,
-        create_dataset,
-        fast_collate,
-    )
-    from pretrain.degrade_molecules import DegradeConfig
-
     start_idx, end_idx, actual_steps = resolve_subset_bounds(args, world_size)
     base_dataset = OnlyStableWrapper(create_dataset(args.data_root, start_idx, end_idx))
     if len(base_dataset) <= 0:
@@ -282,8 +283,6 @@ def build_std_payload(
     base_dataset,
     rank: int,
 ) -> dict:
-    from pretrain.data import standardizer
-
     return standardizer([base_dataset], ratio=args.std_ratio, cap=args.std_cap, seed=args.seed)
 
 
@@ -338,9 +337,6 @@ def run_pretrain_benchmark(
     local_rank: int,
     device: torch.device,
 ) -> None:
-    import pretrain.train_loop as train_loop_mod
-    from pretrain.train_loop import DummyScaler
-
     patch_rank_local_output(rank)
     torch.manual_seed(args.seed + rank)
 

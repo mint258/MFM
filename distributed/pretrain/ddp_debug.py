@@ -142,6 +142,7 @@ class DDPPhaseWatchdog:
             "last_phase_duration_s": None,
             "last_loss_total": None,
             "last_num_graphs": None,
+            "last_num_nodes": None,
         }
 
         if not self.cfg.enabled:
@@ -178,6 +179,7 @@ class DDPPhaseWatchdog:
             "last_phase_duration_s": state["last_phase_duration_s"],
             "last_loss_total": state["last_loss_total"],
             "last_num_graphs": state["last_num_graphs"],
+            "last_num_nodes": state["last_num_nodes"],
             "process": _read_proc_snapshot(self.pid),
             "ddp": _ddp_snapshot(self.model),
         }
@@ -214,6 +216,7 @@ class DDPPhaseWatchdog:
         duration_s: float | None = None,
         loss_total: float | None = None,
         num_graphs: int | None = None,
+        num_nodes: int | None = None,
         emit: bool = False,
         level: int = logging.INFO,
         extra: dict[str, Any] | None = None,
@@ -238,6 +241,8 @@ class DDPPhaseWatchdog:
                 self._state["last_loss_total"] = float(loss_total)
             if num_graphs is not None:
                 self._state["last_num_graphs"] = int(num_graphs)
+            if num_nodes is not None:
+                self._state["last_num_nodes"] = int(num_nodes)
             self._state["last_event_monotonic"] = time.monotonic()
 
         if emit:

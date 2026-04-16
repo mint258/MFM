@@ -42,6 +42,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--train-end", type=int, default=878)
     parser.add_argument("--batch-size", type=int, default=2)
     parser.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
+    parser.add_argument("--energy-desc-include", nargs="*", default=None)
+    parser.add_argument("--energy-desc-exclude", nargs="*", default=[])
     parser.add_argument("--strict-optional", action="store_true")
     return parser.parse_args()
 
@@ -101,6 +103,7 @@ def run_import_checks(strict_optional: bool) -> None:
 def run_repo_smoke(args: argparse.Namespace, device: str) -> None:
     from dataset.dataset_lmdb import LmdbMoleculeDataset
     from models.moe import MultiTaskMoE
+    from dataset.descriptor_schema import resolve_graph_descriptor_selection
     from pretrain.data import DomainWrapperDataset, MaskedPerturbDataset, OnlyStableWrapper, fast_collate
     from pretrain.degrade_molecules import DegradeConfig
 
@@ -138,6 +141,11 @@ def run_repo_smoke(args: argparse.Namespace, device: str) -> None:
         },
     )
 
+    graph_descriptor_names, _ = resolve_graph_descriptor_selection(
+        args.energy_desc_include,
+        args.energy_desc_exclude,
+    )
+
     model = MultiTaskMoE(
         {
             "hidden_channels": 64,
@@ -162,6 +170,7 @@ def run_repo_smoke(args: argparse.Namespace, device: str) -> None:
         expert_int_layers=0,
         expert_heads=4,
         expert_ff_mult=2,
+        graph_descriptor_names=graph_descriptor_names,
     ).to(device)
     model.eval()
 
@@ -187,6 +196,8 @@ def run_repo_smoke(args: argparse.Namespace, device: str) -> None:
         {
             "total_params": int(total_params),
             "trainable_params": int(trainable_params),
+            "graph_descriptor_count": len(graph_descriptor_names),
+            "graph_descriptor_names": list(graph_descriptor_names),
             "device": device,
             "cuda_available": bool(torch.cuda.is_available()),
         },

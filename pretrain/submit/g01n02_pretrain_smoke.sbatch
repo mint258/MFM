@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
-# Single-GPU smoke test for the current pretrain entrypoint.
+# Single-GPU formal pretraining entrypoint.
 #
 # Recommended submit example on SCUT HPC:
 #   cd /share/home/202264640132/MFM
-#   sbatch --export=ALL,REPO_ROOT_OVERRIDE=$PWD,SKIP_CONDA=1,PYTHON_BIN=/share/home/202264640132/.conda/envs/torchgpu/bin/python pretrain/submit/g01n02_pretrain_smoke.sbatch
+#   sbatch --export=ALL,REPO_ROOT_OVERRIDE=$PWD,SKIP_CONDA=1,PYTHON_BIN=/share/home/202264640132/.conda/envs/torchgpu/bin/python,DATA_ROOTS="./test_data/principal_valid_test.lmdb" pretrain/submit/g01n02_pretrain_smoke.sbatch
 
-#SBATCH --job-name=pretrain-single-smoke
+#SBATCH --job-name=pretrain-single-formal
 #SBATCH --partition=gpuA800
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
 #SBATCH --gres=gpu:1
 #SBATCH --mem=256G
-#SBATCH --time=01:00:00
+#SBATCH --time=48:00:00
 #SBATCH --output=slurm-%x-%j.out
 #SBATCH --error=slurm-%x-%j.err
 
@@ -172,10 +172,11 @@ PYTHON_BIN="${PYTHON_BIN:-python}"
 MODULE_LOAD_CMD="${MODULE_LOAD_CMD:-}"
 CONDA_ACTIVATE_CMD="${CONDA_ACTIVATE_CMD:-}"
 
-RUN_TAG="single_gpu_pretrain_smoke_${SLURM_JOB_ID:-manual}"
-RUN_DIR="${REPO_ROOT}/log/slurm_smoke/${RUN_TAG}"
-CKPT_DIR="${REPO_ROOT}/test_ckpt/slurm_smoke/${RUN_TAG}"
-WANDB_DIR="${REPO_ROOT}/wandb/slurm_smoke/${RUN_TAG}"
+RUN_TAG="${RUN_TAG:-single_gpu_formal_pretrain_${SLURM_JOB_ID:-manual}}"
+RUN_DIR="${RUN_DIR:-${REPO_ROOT}/log/formal_pretrain/${RUN_TAG}}"
+CKPT_DIR="${CKPT_DIR:-${RUN_DIR}/checkpoints}"
+BEST_CKPT="${BEST_CKPT:-${CKPT_DIR}/best.pt}"
+WANDB_DIR="${WANDB_DIR:-${RUN_DIR}/wandb}"
 
 mkdir -p "${RUN_DIR}" "${CKPT_DIR}" "${WANDB_DIR}"
 exec > >(tee -a "${RUN_DIR}/job.log") 2>&1
@@ -202,21 +203,175 @@ export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
 export MKL_NUM_THREADS="${MKL_NUM_THREADS:-1}"
 
 section "User Config"
-DATA_ROOT="${DATA_ROOT:-${REPO_ROOT}/test_data/principal_valid_test.lmdb}"
-RUN_ENV_SMOKE="${RUN_ENV_SMOKE:-1}"
+DATA_DIR="${DATA_DIR:-${REPO_ROOT}/test_data}"
+DATA_ROOT="${DATA_ROOT:-}"
+DATA_ROOTS="${DATA_ROOTS:-}"
+VAL_DATA_ROOTS="${VAL_DATA_ROOTS:-}"
+if [[ -z "${DATA_ROOTS}" && -z "${DATA_ROOT}" ]]; then
+  DATA_ROOTS="${DATA_DIR}/principal_valid_test.lmdb"
+fi
+if [[ -z "${DATA_ROOTS}" && -n "${DATA_ROOT}" ]]; then
+  DATA_ROOTS="${DATA_ROOT}"
+fi
+RUN_ENV_SMOKE="${RUN_ENV_SMOKE:-0}"
 
-SINGLE_GPU_TRAIN_START="${SINGLE_GPU_TRAIN_START:-875}"
-SINGLE_GPU_TRAIN_END="${SINGLE_GPU_TRAIN_END:-1514}"
-SINGLE_GPU_BATCH_SIZE="${SINGLE_GPU_BATCH_SIZE:-32}"
-SINGLE_GPU_NUM_WORKERS="${SINGLE_GPU_NUM_WORKERS:-16}"
+STARTS_RAW="${STARTS:-}"
+ENDS_RAW="${ENDS:-}"
+VAL_STARTS_RAW="${VAL_STARTS:-}"
+VAL_ENDS_RAW="${VAL_ENDS:-}"
 
-MODEL_HIDDEN="${MODEL_HIDDEN:-64}"
-MODEL_BB_LAYERS="${MODEL_BB_LAYERS:-3}"
-MODEL_EXPERT_REAL_LAYERS="${MODEL_EXPERT_REAL_LAYERS:-1}"
+EPOCHS="${EPOCHS:-80}"
+LR="${LR:-3e-4}"
+WARMUP_PCT="${WARMUP_PCT:-0.06}"
+SEED="${SEED:-0}"
+BATCH_SIZE="${BATCH_SIZE:-32}"
+NUM_WORKERS="${NUM_WORKERS:-16}"
+
+MODEL_HIDDEN="${MODEL_HIDDEN:-128}"
+MODEL_BB_LAYERS="${MODEL_BB_LAYERS:-4}"
+MODEL_EXPERT_REAL_LAYERS="${MODEL_EXPERT_REAL_LAYERS:-2}"
 MODEL_BB_HEADS="${MODEL_BB_HEADS:-4}"
-MODEL_BB_FF_MULT="${MODEL_BB_FF_MULT:-2}"
+MODEL_BB_FF_MULT="${MODEL_BB_FF_MULT:-4}"
+BB_RADIUS="${BB_RADIUS:-8.0}"
 MODEL_EXPERT_HEADS="${MODEL_EXPERT_HEADS:-4}"
 MODEL_EXPERT_FF_MULT="${MODEL_EXPERT_FF_MULT:-2}"
+MODEL_EXPERT_E="${MODEL_EXPERT_E:-1}"
+MODEL_EXPERT_Q="${MODEL_EXPERT_Q:-1}"
+MODEL_EXPERT_Z="${MODEL_EXPERT_Z:-1}"
+MODEL_EXPERT_G="${MODEL_EXPERT_G:-1}"
+MODEL_TOPK_E="${MODEL_TOPK_E:-1}"
+MODEL_TOPK_Q="${MODEL_TOPK_Q:-1}"
+MODEL_TOPK_Z="${MODEL_TOPK_Z:-1}"
+MODEL_TOPK_G="${MODEL_TOPK_G:-1}"
+
+LAMBDA_E="${LAMBDA_E:-1.0}"
+LAMBDA_E_DESC="${LAMBDA_E_DESC:-0.5}"
+LAMBDA_Q="${LAMBDA_Q:-1.0}"
+LAMBDA_Q_DESC="${LAMBDA_Q_DESC:-0.5}"
+LAMBDA_Z="${LAMBDA_Z:-1.0}"
+LAMBDA_Z_DESC="${LAMBDA_Z_DESC:-0.5}"
+LAMBDA_COORD="${LAMBDA_COORD:-0.0}"
+LAMBDA_DIST="${LAMBDA_DIST:-1.0}"
+LAMBDA_ANGLE="${LAMBDA_ANGLE:-1.0}"
+LAMBDA_TORSION="${LAMBDA_TORSION:-2.0}"
+LAMBDA_PLANAR="${LAMBDA_PLANAR:-0.0}"
+
+STAGE1_LOSS="${STAGE1_LOSS:-0.3}"
+STAGE2_LOSS="${STAGE2_LOSS:-0.1}"
+STAGE1_MAX_EPOCHS="${STAGE1_MAX_EPOCHS:-10}"
+LOSS_CUTOFF="${LOSS_CUTOFF:-2.0}"
+MORSE_A="${MORSE_A:-1.0}"
+PERTURB_MODE="${PERTURB_MODE:-both}"
+PERTURB_LEVEL="${PERTURB_LEVEL:-0.5}"
+PERTURB_MIX="${PERTURB_MIX:-none}"
+PERTURB_SEED="${PERTURB_SEED:-114}"
+
+SAVE_EVERY_EPOCH="${SAVE_EVERY_EPOCH:-0}"
+USE_WANDB="${USE_WANDB:-1}"
+WANDB_MODE="${WANDB_MODE:-offline}"
+WANDB_PROJECT="${WANDB_PROJECT:-mfm-pretrain}"
+WANDB_GROUP="${WANDB_GROUP:-single_gpu_formal}"
+WANDB_RUN_NAME="${WANDB_RUN_NAME:-${RUN_TAG}}"
+WANDB_WATCH="${WANDB_WATCH:-none}"
+WANDB_LOG_BATCH_EVERY="${WANDB_LOG_BATCH_EVERY:-100}"
+
+normalize_lmdb_path() {
+  local raw_path="$1"
+  if [[ -z "${raw_path}" ]]; then
+    return 1
+  fi
+  if [[ "${raw_path}" == /* || "${raw_path}" == ./* || "${raw_path}" == ../* ]]; then
+    printf '%s\n' "${raw_path}"
+    return 0
+  fi
+  printf '%s\n' "${DATA_DIR}/${raw_path}"
+}
+
+normalize_root_list() {
+  local raw_list="$1"
+  local normalized=()
+  local raw_root
+  if [[ -z "${raw_list}" ]]; then
+    printf '\n'
+    return 0
+  fi
+  for raw_root in ${raw_list}; do
+    normalized+=("$(normalize_lmdb_path "${raw_root}")")
+  done
+  printf '%s\n' "${normalized[*]}"
+}
+
+DATA_ROOTS="$(normalize_root_list "${DATA_ROOTS}")"
+VAL_DATA_ROOTS="$(normalize_root_list "${VAL_DATA_ROOTS}")"
+
+NORMALIZED_DATA_ROOTS=()
+if [[ -n "${DATA_ROOTS}" ]]; then
+  for raw_root in ${DATA_ROOTS}; do
+    normalized_root="$(normalize_lmdb_path "${raw_root}")"
+    NORMALIZED_DATA_ROOTS+=("${normalized_root}")
+  done
+fi
+
+if [[ -n "${DATA_ROOT}" ]]; then
+  DATA_ROOT="$(normalize_lmdb_path "${DATA_ROOT}")"
+fi
+
+if [[ -z "${DATA_ROOT}" && ${#NORMALIZED_DATA_ROOTS[@]} -gt 0 ]]; then
+  DATA_ROOT="${NORMALIZED_DATA_ROOTS[0]}"
+fi
+
+if [[ ${#NORMALIZED_DATA_ROOTS[@]} -eq 0 && -n "${DATA_ROOT}" ]]; then
+  NORMALIZED_DATA_ROOTS=("${DATA_ROOT}")
+fi
+
+if [[ ${#NORMALIZED_DATA_ROOTS[@]} -gt 0 ]]; then
+  DATA_ROOTS="${NORMALIZED_DATA_ROOTS[*]}"
+fi
+
+VAL_DATA_ROOT_ARR=()
+if [[ -n "${VAL_DATA_ROOTS}" ]]; then
+  for raw_root in ${VAL_DATA_ROOTS}; do
+    VAL_DATA_ROOT_ARR+=("${raw_root}")
+  done
+fi
+
+read -r -a DATA_ROOT_ARR <<< "${DATA_ROOTS}"
+
+START_ARR=()
+if [[ -z "${STARTS_RAW}" ]]; then
+  for _ in "${DATA_ROOT_ARR[@]}"; do
+    START_ARR+=(0)
+  done
+else
+  read -r -a START_ARR <<< "${STARTS_RAW}"
+fi
+
+END_ARR=()
+if [[ -z "${ENDS_RAW}" ]]; then
+  for _ in "${DATA_ROOT_ARR[@]}"; do
+    END_ARR+=(-1)
+  done
+else
+  read -r -a END_ARR <<< "${ENDS_RAW}"
+fi
+
+VAL_START_ARR=()
+if [[ -z "${VAL_STARTS_RAW}" ]]; then
+  for _ in "${VAL_DATA_ROOT_ARR[@]}"; do
+    VAL_START_ARR+=(0)
+  done
+else
+  read -r -a VAL_START_ARR <<< "${VAL_STARTS_RAW}"
+fi
+
+VAL_END_ARR=()
+if [[ -z "${VAL_ENDS_RAW}" ]]; then
+  for _ in "${VAL_DATA_ROOT_ARR[@]}"; do
+    VAL_END_ARR+=(-1)
+  done
+else
+  read -r -a VAL_END_ARR <<< "${VAL_ENDS_RAW}"
+fi
 
 echo "[$(timestamp)] conda_env_name=${CONDA_ENV_NAME}"
 echo "[$(timestamp)] python_bin=${PYTHON_BIN}"
@@ -225,18 +380,81 @@ echo "[$(timestamp)] conda_activate_cmd=${CONDA_ACTIVATE_CMD:-<none>}"
 echo "[$(timestamp)] conda_default_env=${CONDA_DEFAULT_ENV:-<unset>}"
 echo "[$(timestamp)] conda_prefix=${CONDA_PREFIX:-<unset>}"
 echo "[$(timestamp)] data_root=${DATA_ROOT}"
+echo "[$(timestamp)] data_roots=${DATA_ROOTS}"
+echo "[$(timestamp)] val_data_roots=${VAL_DATA_ROOTS:-<none>}"
 echo "[$(timestamp)] run_env_smoke=${RUN_ENV_SMOKE}"
-echo "[$(timestamp)] single_gpu_train_range=${SINGLE_GPU_TRAIN_START}..${SINGLE_GPU_TRAIN_END}"
-echo "[$(timestamp)] single_gpu_batch_size=${SINGLE_GPU_BATCH_SIZE}"
-echo "[$(timestamp)] single_gpu_num_workers=${SINGLE_GPU_NUM_WORKERS}"
+echo "[$(timestamp)] starts=${START_ARR[*]}"
+echo "[$(timestamp)] ends=${END_ARR[*]}"
+echo "[$(timestamp)] val_starts=${VAL_START_ARR[*]:-<none>}"
+echo "[$(timestamp)] val_ends=${VAL_END_ARR[*]:-<none>}"
+echo "[$(timestamp)] epochs=${EPOCHS}"
+echo "[$(timestamp)] lr=${LR}"
+echo "[$(timestamp)] warmup_pct=${WARMUP_PCT}"
+echo "[$(timestamp)] seed=${SEED}"
+echo "[$(timestamp)] batch_size=${BATCH_SIZE}"
+echo "[$(timestamp)] num_workers=${NUM_WORKERS}"
 echo "[$(timestamp)] model_hidden=${MODEL_HIDDEN}"
 echo "[$(timestamp)] model_bb_layers=${MODEL_BB_LAYERS}"
+echo "[$(timestamp)] bb_radius=${BB_RADIUS}"
 echo "[$(timestamp)] model_expert_real_layers=${MODEL_EXPERT_REAL_LAYERS}"
+echo "[$(timestamp)] model_experts=${MODEL_EXPERT_E},${MODEL_EXPERT_Q},${MODEL_EXPERT_Z},${MODEL_EXPERT_G}"
+echo "[$(timestamp)] model_topk=${MODEL_TOPK_E},${MODEL_TOPK_Q},${MODEL_TOPK_Z},${MODEL_TOPK_G}"
+echo "[$(timestamp)] stage1_loss=${STAGE1_LOSS}"
+echo "[$(timestamp)] stage2_loss=${STAGE2_LOSS}"
+echo "[$(timestamp)] stage1_max_epochs=${STAGE1_MAX_EPOCHS}"
+echo "[$(timestamp)] morse_a=${MORSE_A}"
+echo "[$(timestamp)] perturb_mode=${PERTURB_MODE}"
+echo "[$(timestamp)] perturb_level=${PERTURB_LEVEL}"
+echo "[$(timestamp)] perturb_mix=${PERTURB_MIX}"
+echo "[$(timestamp)] perturb_seed=${PERTURB_SEED}"
+echo "[$(timestamp)] lambda_coord=${LAMBDA_COORD}"
+echo "[$(timestamp)] lambda_planar=${LAMBDA_PLANAR}"
+echo "[$(timestamp)] save_every_epoch=${SAVE_EVERY_EPOCH}"
+echo "[$(timestamp)] best_ckpt=${BEST_CKPT}"
+echo "[$(timestamp)] use_wandb=${USE_WANDB}"
+echo "[$(timestamp)] wandb_mode=${WANDB_MODE}"
+echo "[$(timestamp)] wandb_group=${WANDB_GROUP}"
+echo "[$(timestamp)] wandb_run_name=${WANDB_RUN_NAME}"
 
-if [[ ! -f "${DATA_ROOT}" ]]; then
-  echo "[$(timestamp)] ERROR: DATA_ROOT does not exist: ${DATA_ROOT}"
+if [[ -z "${DATA_ROOT}" ]]; then
+  echo "[$(timestamp)] ERROR: no LMDB path resolved. Set DATA_ROOTS or DATA_ROOT."
   exit 1
 fi
+
+if [[ "${#DATA_ROOT_ARR[@]}" -ne "${#START_ARR[@]}" || "${#DATA_ROOT_ARR[@]}" -ne "${#END_ARR[@]}" ]]; then
+  echo "[$(timestamp)] ERROR: DATA_ROOTS, STARTS, and ENDS must have the same number of entries."
+  echo "[$(timestamp)] counts data_roots=${#DATA_ROOT_ARR[@]} starts=${#START_ARR[@]} ends=${#END_ARR[@]}"
+  exit 1
+fi
+
+if [[ "${#VAL_DATA_ROOT_ARR[@]}" -ne "${#VAL_START_ARR[@]}" || "${#VAL_DATA_ROOT_ARR[@]}" -ne "${#VAL_END_ARR[@]}" ]]; then
+  echo "[$(timestamp)] ERROR: VAL_DATA_ROOTS, VAL_STARTS, and VAL_ENDS must have the same number of entries."
+  echo "[$(timestamp)] counts val_data_roots=${#VAL_DATA_ROOT_ARR[@]} val_starts=${#VAL_START_ARR[@]} val_ends=${#VAL_END_ARR[@]}"
+  exit 1
+fi
+
+for root in "${NORMALIZED_DATA_ROOTS[@]}"; do
+  if [[ ! -f "${root}" ]]; then
+    echo "[$(timestamp)] ERROR: LMDB path does not exist or is not a file: ${root}"
+    exit 1
+  fi
+done
+
+for root in "${VAL_DATA_ROOT_ARR[@]}"; do
+  if [[ ! -f "${root}" ]]; then
+    echo "[$(timestamp)] ERROR: validation LMDB path does not exist or is not a file: ${root}"
+    exit 1
+  fi
+done
+
+for train_root in "${NORMALIZED_DATA_ROOTS[@]}"; do
+  for val_root in "${VAL_DATA_ROOT_ARR[@]}"; do
+    if [[ "${train_root}" == "${val_root}" ]]; then
+      echo "[$(timestamp)] ERROR: train and validation LMDB paths must be different in single-process mode: ${train_root}"
+      exit 1
+    fi
+  done
+done
 
 section "Slurm And System"
 scontrol show job "${SLURM_JOB_ID}" || true
@@ -292,67 +510,103 @@ PY
 
 if [[ "${RUN_ENV_SMOKE}" == "1" ]]; then
   section "Phase 1: Repo Env Smoke"
+  ENV_SMOKE_START="${ENV_SMOKE_START:-${START_ARR[0]}}"
+  ENV_SMOKE_END="${ENV_SMOKE_END:-$(( ENV_SMOKE_START + 3 ))}"
   CUDA_VISIBLE_DEVICES=0 "${PYTHON_BIN}" pretrain/submit/env_smoke_check.py \
     --data-root "${DATA_ROOT}" \
-    --train-start "${SINGLE_GPU_TRAIN_START}" \
-    --train-end "$((SINGLE_GPU_TRAIN_START + 3))" \
+    --train-start "${ENV_SMOKE_START}" \
+    --train-end "${ENV_SMOKE_END}" \
     --batch-size 2 \
     --device auto
 fi
 
-section "Phase 2: Single-GPU Pipeline Smoke"
-# Intentionally skip val_data_roots here.
-# On the current server stack, reopening the same LMDB path for train+val in one process
-# raises `lmdb.Error: The environment ... is already open in this process`.
-CUDA_VISIBLE_DEVICES=0 "${PYTHON_BIN}" -m pretrain.pipeline \
-  --data_roots "${DATA_ROOT}" \
-  --starts "${SINGLE_GPU_TRAIN_START}" \
-  --ends "${SINGLE_GPU_TRAIN_END}" \
-  --epochs 1 \
-  --batch_size "${SINGLE_GPU_BATCH_SIZE}" \
-  --num_workers "${SINGLE_GPU_NUM_WORKERS}" \
-  --hidden_channels "${MODEL_HIDDEN}" \
-  --bb_layers "${MODEL_BB_LAYERS}" \
-  --bb_heads "${MODEL_BB_HEADS}" \
-  --bb_ff_mult "${MODEL_BB_FF_MULT}" \
-  --expert_number_E 1 \
-  --expert_number_Q 1 \
-  --expert_number_Z 1 \
-  --expert_number_G 1 \
-  --topkE 1 \
-  --topkQ 1 \
-  --topkZ 1 \
-  --topkG 1 \
-  --expert_real_layers "${MODEL_EXPERT_REAL_LAYERS}" \
-  --expert_int_layers 0 \
-  --expert_heads "${MODEL_EXPERT_HEADS}" \
-  --expert_ff_mult "${MODEL_EXPERT_FF_MULT}" \
-  --lambda_e 1.0 \
-  --lambda_e_desc 0.5 \
-  --lambda_q 1.0 \
-  --lambda_q_desc 0.5 \
-  --lambda_z 1.0 \
-  --lambda_z_desc 0.5 \
-  --lambda_dist 1.0 \
-  --lambda_angle 1.0 \
-  --lambda_torsion 2.0 \
-  --stage1_loss 0.1 \
-  --stage1_max_epochs 10 \
-  --loss_cutoff 2.0 \
-  --perturb_mode both \
-  --perturb_level 0.5 \
-  --save_path "${CKPT_DIR}/single_gpu_smoke.pt" \
-  --use_wandb \
-  --wandb_mode offline \
-  --wandb_project mfm-pretrain \
-  --wandb_group slurm_single_gpu_smoke \
-  --wandb_run_name "single_gpu_smoke_${SLURM_JOB_ID}" \
-  --wandb_dir "${WANDB_DIR}" \
-  --wandb_watch none \
-  --wandb_log_batch_every 10
+section "Formal Training"
+TRAIN_CMD=(
+  "${PYTHON_BIN}"
+  -m pretrain.pipeline
+  --data_roots "${DATA_ROOT_ARR[@]}"
+  --starts "${START_ARR[@]}"
+  --ends "${END_ARR[@]}"
+  --epochs "${EPOCHS}"
+  --batch_size "${BATCH_SIZE}"
+  --num_workers "${NUM_WORKERS}"
+  --hidden_channels "${MODEL_HIDDEN}"
+  --bb_layers "${MODEL_BB_LAYERS}"
+  --bb_heads "${MODEL_BB_HEADS}"
+  --bb_ff_mult "${MODEL_BB_FF_MULT}"
+  --bb_radius "${BB_RADIUS}"
+  --expert_number_E "${MODEL_EXPERT_E}"
+  --expert_number_Q "${MODEL_EXPERT_Q}"
+  --expert_number_Z "${MODEL_EXPERT_Z}"
+  --expert_number_G "${MODEL_EXPERT_G}"
+  --topkE "${MODEL_TOPK_E}"
+  --topkQ "${MODEL_TOPK_Q}"
+  --topkZ "${MODEL_TOPK_Z}"
+  --topkG "${MODEL_TOPK_G}"
+  --expert_real_layers "${MODEL_EXPERT_REAL_LAYERS}"
+  --expert_int_layers 0
+  --expert_heads "${MODEL_EXPERT_HEADS}"
+  --expert_ff_mult "${MODEL_EXPERT_FF_MULT}"
+  --lr "${LR}"
+  --warmup_pct "${WARMUP_PCT}"
+  --seed "${SEED}"
+  --lambda_e "${LAMBDA_E}"
+  --lambda_e_desc "${LAMBDA_E_DESC}"
+  --lambda_q "${LAMBDA_Q}"
+  --lambda_q_desc "${LAMBDA_Q_DESC}"
+  --lambda_z "${LAMBDA_Z}"
+  --lambda_z_desc "${LAMBDA_Z_DESC}"
+  --lambda_coord "${LAMBDA_COORD}"
+  --lambda_dist "${LAMBDA_DIST}"
+  --lambda_angle "${LAMBDA_ANGLE}"
+  --lambda_torsion "${LAMBDA_TORSION}"
+  --lambda_planar "${LAMBDA_PLANAR}"
+  --stage1_loss "${STAGE1_LOSS}"
+  --stage2_loss "${STAGE2_LOSS}"
+  --stage1_max_epochs "${STAGE1_MAX_EPOCHS}"
+  --loss_cutoff "${LOSS_CUTOFF}"
+  --morse_a "${MORSE_A}"
+  --perturb_mix "${PERTURB_MIX}"
+  --perturb_mode "${PERTURB_MODE}"
+  --perturb_level "${PERTURB_LEVEL}"
+  --perturb_seed "${PERTURB_SEED}"
+  --save_path "${BEST_CKPT}"
+  --wandb_dir "${WANDB_DIR}"
+  --wandb_log_batch_every "${WANDB_LOG_BATCH_EVERY}"
+)
+
+if [[ "${#VAL_DATA_ROOT_ARR[@]}" -gt 0 ]]; then
+  TRAIN_CMD+=(
+    --val_data_roots "${VAL_DATA_ROOT_ARR[@]}"
+    --val_starts "${VAL_START_ARR[@]}"
+    --val_ends "${VAL_END_ARR[@]}"
+  )
+fi
+
+if [[ "${SAVE_EVERY_EPOCH}" == "1" ]]; then
+  TRAIN_CMD+=(--save_every_epoch)
+fi
+
+if [[ "${USE_WANDB}" == "1" ]]; then
+  TRAIN_CMD+=(
+    --use_wandb
+    --wandb_mode "${WANDB_MODE}"
+    --wandb_project "${WANDB_PROJECT}"
+    --wandb_group "${WANDB_GROUP}"
+    --wandb_run_name "${WANDB_RUN_NAME}"
+    --wandb_watch "${WANDB_WATCH}"
+  )
+else
+  TRAIN_CMD+=(--wandb_mode disabled)
+fi
+
+printf ' %q' "${TRAIN_CMD[@]}"
+echo
+"${TRAIN_CMD[@]}"
 
 section "Finished"
 echo "[$(timestamp)] Completed successfully."
 echo "[$(timestamp)] Logs: ${RUN_DIR}"
 echo "[$(timestamp)] Checkpoints: ${CKPT_DIR}"
-echo "[$(timestamp)] W&B offline dir: ${WANDB_DIR}"
+echo "[$(timestamp)] Best checkpoint: ${BEST_CKPT}"
+echo "[$(timestamp)] W&B dir: ${WANDB_DIR}"

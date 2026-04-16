@@ -15,9 +15,10 @@ This design prefers false negatives over silent wrong labels.
 
 from __future__ import annotations
 
+import pickle
 import time
 from dataclasses import dataclass
-from typing import Callable, Dict, List, Sequence
+from typing import Callable, Dict, Iterable, List, Sequence
 
 import torch
 
@@ -35,8 +36,25 @@ from rdkit.Chem import (
 )
 from rdkit.Chem.EState import AtomTypes, EState
 
+from .descriptor_schema import (
+    BOND_FAIL_REASON_FIELD,
+    BOND_INDEX_FIELD,
+    BOND_NEGATIVE_COUNT_FIELD,
+    BOND_NEGATIVE_UPPER_IDS_FIELD,
+    BOND_ORDER_FIELD,
+    BOND_ORDER_TO_ID,
+    BOND_STATUS_FIELD,
+    ELEMENT_CORRUPT_MASK_FIELD,
+    PRETRAIN_BASE_KEY_FIELD,
+    PRETRAIN_RECIPE_LEVEL_FIELD,
+    PRETRAIN_RECIPE_NAME_FIELD,
+    PRETRAIN_RECIPE_SEED_FIELD,
+    SAMPLE_TYPE_ID_FIELD,
+    TARGET_POS_FIELD,
+    TARGET_X_FIELD,
+)
 
-RDKIT_SCHEMA_VERSION = "rdkit_descriptor_pack_v1"
+RDKIT_SCHEMA_VERSION = "rdkit_descriptor_pack_v2"
 RDKitData = object
 
 
@@ -91,6 +109,62 @@ FEATURE_FACTORY = ChemicalFeatures.BuildFeatureFactory(
     RDConfig.RDDataDir + "/BaseFeatures.fdef"
 )
 
+RDKIT_DESCRIPTOR_PACK_FIELDS = (
+    "rdkit_schema_version",
+    "rdkit_build_mode",
+    "rdkit_status",
+    "rdkit_fail_reason",
+    "rdkit_graph_desc",
+    "rdkit_graph_desc_mask",
+    "canonical_smiles",
+    "isomeric_smiles",
+    "canonical_smiles_from_rdkit",
+    "registration_hash",
+    "match_is_unique",
+    "total_charge",
+    "rdkit_node_formal_charge",
+    "rdkit_node_hybridization",
+    "rdkit_node_is_aromatic",
+    "rdkit_node_is_in_ring",
+    "rdkit_node_min_ring_size",
+    "rdkit_node_total_degree",
+    "rdkit_node_total_num_Hs",
+    "rdkit_node_total_valence",
+    "rdkit_node_donor",
+    "rdkit_node_acceptor",
+    "rdkit_node_estate_type",
+    "rdkit_node_estate_index",
+    "rdkit_node_chiral_tag",
+    "rdkit_node_cip_code",
+    "rdkit_node_mask",
+)
+RDKIT_BOND_PACK_FIELDS = (
+    BOND_INDEX_FIELD,
+    BOND_ORDER_FIELD,
+    BOND_STATUS_FIELD,
+    BOND_FAIL_REASON_FIELD,
+)
+BOND_NEGATIVE_POOL_PACK_FIELDS = (
+    BOND_NEGATIVE_UPPER_IDS_FIELD,
+    BOND_NEGATIVE_COUNT_FIELD,
+)
+PRETRAIN_RECIPE_PACK_FIELDS = (
+    TARGET_X_FIELD,
+    TARGET_POS_FIELD,
+    SAMPLE_TYPE_ID_FIELD,
+    ELEMENT_CORRUPT_MASK_FIELD,
+    PRETRAIN_RECIPE_NAME_FIELD,
+    PRETRAIN_RECIPE_LEVEL_FIELD,
+    PRETRAIN_RECIPE_SEED_FIELD,
+    PRETRAIN_BASE_KEY_FIELD,
+)
+PROPERTY_PACK_FIELDS = {
+    "rdkit_descriptors": RDKIT_DESCRIPTOR_PACK_FIELDS,
+    "rdkit_bonds": RDKIT_BOND_PACK_FIELDS,
+    "bond_negative_pool": BOND_NEGATIVE_POOL_PACK_FIELDS,
+    "pretrain_recipe": PRETRAIN_RECIPE_PACK_FIELDS,
+}
+
 
 @dataclass
 class RDKitGenerationStats:
@@ -136,6 +210,13 @@ def _blank_graph_pack() -> tuple[torch.Tensor, torch.Tensor]:
     )
 
 
+def _blank_bond_pack() -> dict[str, torch.Tensor]:
+    return {
+        BOND_INDEX_FIELD: torch.zeros((2, 0), dtype=torch.long),
+        BOND_ORDER_FIELD: torch.zeros((0,), dtype=torch.long),
+    }
+
+
 def _blank_node_pack(n_atoms: int) -> dict[str, torch.Tensor]:
     zeros_long = torch.zeros((n_atoms, 1), dtype=torch.long)
     zeros_float = torch.zeros((n_atoms, 1), dtype=torch.float32)
@@ -162,6 +243,7 @@ def _blank_node_pack(n_atoms: int) -> dict[str, torch.Tensor]:
 def _fill_failure_fields(data: RDKitData, reason: str) -> RDKitData:
     n_atoms = int(getattr(data, "pos").size(0))
     graph_desc, graph_mask = _blank_graph_pack()
+    bond_pack = _blank_bond_pack()
     node_pack = _blank_node_pack(n_atoms)
 
     data.rdkit_schema_version = RDKIT_SCHEMA_VERSION
@@ -176,6 +258,11 @@ def _fill_failure_fields(data: RDKitData, reason: str) -> RDKitData:
     data.registration_hash = ""
     data.match_is_unique = False
     data.total_charge = 0
+    data.rdkit_bond_status = "failed"
+    data.rdkit_bond_fail_reason = reason
+
+    for key, value in bond_pack.items():
+        setattr(data, key, value)
 
     for key, value in node_pack.items():
         setattr(data, key, value)
@@ -325,6 +412,40 @@ def _build_node_labels(template: Chem.Mol, n_total_atoms: int) -> dict[str, torc
     return labels
 
 
+def _bond_order_id(bond: Chem.Bond) -> int:
+    bond_type = bond.GetBondType()
+    if bond.GetIsAromatic() or bond_type == Chem.BondType.AROMATIC:
+        return BOND_ORDER_TO_ID["aromatic"]
+    if bond_type == Chem.BondType.SINGLE:
+        return BOND_ORDER_TO_ID["single"]
+    if bond_type == Chem.BondType.DOUBLE:
+        return BOND_ORDER_TO_ID["double"]
+    if bond_type == Chem.BondType.TRIPLE:
+        return BOND_ORDER_TO_ID["triple"]
+    return BOND_ORDER_TO_ID["other"]
+
+
+def _build_bond_labels(template_h: Chem.Mol) -> dict[str, torch.Tensor]:
+    pairs: list[tuple[int, int, int]] = []
+    for bond in template_h.GetBonds():
+        begin = int(bond.GetBeginAtomIdx())
+        end = int(bond.GetEndAtomIdx())
+        i = min(begin, end)
+        j = max(begin, end)
+        pairs.append((i, j, _bond_order_id(bond)))
+    pairs.sort(key=lambda item: (item[0], item[1]))
+
+    if not pairs:
+        return _blank_bond_pack()
+
+    index = torch.tensor([[i, j] for i, j, _ in pairs], dtype=torch.long).t().contiguous()
+    order = torch.tensor([order_id for _, _, order_id in pairs], dtype=torch.long)
+    return {
+        BOND_INDEX_FIELD: index,
+        BOND_ORDER_FIELD: order,
+    }
+
+
 def _compute_graph_descriptors(template: Chem.Mol, mol_3d: Chem.Mol) -> tuple[torch.Tensor, torch.Tensor]:
     values: list[float] = []
     mask: list[bool] = []
@@ -340,6 +461,46 @@ def _compute_graph_descriptors(template: Chem.Mol, mol_3d: Chem.Mol) -> tuple[to
         torch.tensor(values, dtype=torch.float32),
         torch.tensor(mask, dtype=torch.bool),
     )
+
+
+def _clone_data(data: RDKitData) -> RDKitData:
+    return pickle.loads(pickle.dumps(data, protocol=pickle.HIGHEST_PROTOCOL))
+
+
+def has_property_pack(data: RDKitData, pack_name: str) -> bool:
+    field_names = PROPERTY_PACK_FIELDS.get(str(pack_name))
+    if field_names is None:
+        raise ValueError(f"Unknown property pack: {pack_name}")
+    if not all(hasattr(data, field_name) for field_name in field_names):
+        return False
+    if pack_name == "rdkit_descriptors":
+        return bool(str(getattr(data, "rdkit_status", "")).strip())
+    if pack_name == "rdkit_bonds":
+        return bool(str(getattr(data, BOND_STATUS_FIELD, "")).strip())
+    return True
+
+
+def detect_property_packs(data: RDKitData) -> tuple[str, ...]:
+    return tuple(pack_name for pack_name in PROPERTY_PACK_FIELDS if has_property_pack(data, pack_name))
+
+
+def missing_property_packs(data: RDKitData, requested_packs: Iterable[str]) -> tuple[str, ...]:
+    ordered = []
+    seen = set()
+    for pack_name in requested_packs:
+        normalized = str(pack_name).strip()
+        if normalized in seen:
+            continue
+        seen.add(normalized)
+        if not has_property_pack(data, normalized):
+            ordered.append(normalized)
+    return tuple(ordered)
+
+
+def _copy_pack_fields(dst: RDKitData, src: RDKitData, pack_name: str) -> None:
+    for field_name in PROPERTY_PACK_FIELDS[pack_name]:
+        if hasattr(src, field_name):
+            setattr(dst, field_name, getattr(src, field_name))
 
 
 class RDKitDescriptorGenerator:
@@ -419,6 +580,12 @@ class RDKitDescriptorGenerator:
             return _fill_failure_fields(data, f"attach_conformer_failed:{type(exc).__name__}:{exc}")
 
         try:
+            bond_pack = _build_bond_labels(template_h)
+        except Exception as exc:
+            data = _fill_failure_fields(data, f"bond_label_failed:{type(exc).__name__}:{exc}")
+            return data
+
+        try:
             node_pack = _build_node_labels(template, n_total_atoms=mol_3d.GetNumAtoms())
         except Exception as exc:
             graph_desc, graph_mask = _compute_graph_descriptors(template, mol_3d)
@@ -426,6 +593,10 @@ class RDKitDescriptorGenerator:
             data.rdkit_graph_desc = graph_desc
             data.rdkit_graph_desc_mask = graph_mask
             data.rdkit_status = "partial" if bool(graph_mask.any()) else "failed"
+            for key, value in bond_pack.items():
+                setattr(data, key, value)
+            data.rdkit_bond_status = "ok"
+            data.rdkit_bond_fail_reason = ""
             return data
 
         graph_desc, graph_mask = _compute_graph_descriptors(template, mol_3d)
@@ -453,14 +624,33 @@ class RDKitDescriptorGenerator:
         data.registration_hash = registration_hash
         data.match_is_unique = True
         data.total_charge = int(sum(atom.GetFormalCharge() for atom in template.GetAtoms()))
+        data.rdkit_bond_status = "ok"
+        data.rdkit_bond_fail_reason = ""
 
         for key, value in node_pack.items():
+            setattr(data, key, value)
+        for key, value in bond_pack.items():
             setattr(data, key, value)
 
         if data.rdkit_status == "partial":
             data.rdkit_fail_reason = "graph_descriptor_subset_failed"
 
         return data
+
+    def augment_missing(
+        self,
+        data: RDKitData,
+        required_packs: Iterable[str] = ("rdkit_descriptors", "rdkit_bonds"),
+    ) -> tuple[RDKitData, tuple[str, ...]]:
+        missing = missing_property_packs(data, required_packs)
+        if not missing:
+            return data, ()
+
+        annotated = self.annotate(_clone_data(data))
+        for pack_name in missing:
+            _copy_pack_fields(data, annotated, pack_name)
+        data.rdkit_schema_version = getattr(annotated, "rdkit_schema_version", RDKIT_SCHEMA_VERSION)
+        return data, missing
 
     def summary_lines(self) -> list[str]:
         return [

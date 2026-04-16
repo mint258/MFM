@@ -11,7 +11,23 @@ import lmdb
 import torch
 from torch_geometric.data import Dataset
 
-from .descriptor_schema import RDKIT_GRAPH_DESC_DIM
+from .descriptor_schema import (
+    BOND_FAIL_REASON_FIELD,
+    BOND_INDEX_FIELD,
+    BOND_NEGATIVE_COUNT_FIELD,
+    BOND_NEGATIVE_UPPER_IDS_FIELD,
+    BOND_ORDER_FIELD,
+    BOND_STATUS_FIELD,
+    ELEMENT_CORRUPT_MASK_FIELD,
+    PRETRAIN_BASE_KEY_FIELD,
+    PRETRAIN_RECIPE_LEVEL_FIELD,
+    PRETRAIN_RECIPE_NAME_FIELD,
+    PRETRAIN_RECIPE_SEED_FIELD,
+    RDKIT_GRAPH_DESC_DIM,
+    SAMPLE_TYPE_ID_FIELD,
+    TARGET_POS_FIELD,
+    TARGET_X_FIELD,
+)
 
 try:
     from ..pretrain.dataloader_debug import worker_debug_event, worker_slow_threshold_s
@@ -276,10 +292,32 @@ class LmdbMoleculeDataset(Dataset):
             "registration_hash",
             "rdkit_schema_version",
             "rdkit_build_mode",
+            BOND_STATUS_FIELD,
+            BOND_FAIL_REASON_FIELD,
         ):
             value = getattr(item, name, None)
             if not isinstance(value, str):
                 setattr(item, name, "")
+
+        bond_index = getattr(item, BOND_INDEX_FIELD, None)
+        if bond_index is None:
+            setattr(item, BOND_INDEX_FIELD, torch.zeros((2, 0), dtype=torch.long))
+        elif isinstance(bond_index, torch.Tensor) and bond_index.dtype != torch.long:
+            setattr(item, BOND_INDEX_FIELD, bond_index.long())
+
+        bond_order = getattr(item, BOND_ORDER_FIELD, None)
+        if bond_order is None:
+            setattr(item, BOND_ORDER_FIELD, torch.zeros((0,), dtype=torch.long))
+        elif isinstance(bond_order, torch.Tensor) and bond_order.dtype != torch.long:
+            setattr(item, BOND_ORDER_FIELD, bond_order.long())
+
+        bond_negative_upper_ids = getattr(item, BOND_NEGATIVE_UPPER_IDS_FIELD, None)
+        if isinstance(bond_negative_upper_ids, torch.Tensor) and bond_negative_upper_ids.dtype != torch.long:
+            setattr(item, BOND_NEGATIVE_UPPER_IDS_FIELD, bond_negative_upper_ids.long())
+
+        bond_negative_count = getattr(item, BOND_NEGATIVE_COUNT_FIELD, None)
+        if isinstance(bond_negative_count, torch.Tensor) and bond_negative_count.dtype != torch.long:
+            setattr(item, BOND_NEGATIVE_COUNT_FIELD, bond_negative_count.long())
 
         match_is_unique = getattr(item, "match_is_unique", None)
         if not isinstance(match_is_unique, bool):
@@ -321,6 +359,44 @@ class LmdbMoleculeDataset(Dataset):
                 setattr(item, name, torch.zeros((n_atom, 1), dtype=torch.bool))
             elif isinstance(value, torch.Tensor) and value.dtype != torch.bool:
                 setattr(item, name, value.bool())
+
+        target_x = getattr(item, TARGET_X_FIELD, None)
+        if isinstance(target_x, torch.Tensor) and target_x.dtype != torch.long:
+            setattr(item, TARGET_X_FIELD, target_x.long())
+
+        target_pos = getattr(item, TARGET_POS_FIELD, None)
+        if isinstance(target_pos, torch.Tensor) and target_pos.dtype != torch.float32:
+            setattr(item, TARGET_POS_FIELD, target_pos.float())
+
+        sample_type_id = getattr(item, SAMPLE_TYPE_ID_FIELD, None)
+        if isinstance(sample_type_id, torch.Tensor) and sample_type_id.dtype != torch.long:
+            setattr(item, SAMPLE_TYPE_ID_FIELD, sample_type_id.long())
+
+        element_corrupt_mask = getattr(item, ELEMENT_CORRUPT_MASK_FIELD, None)
+        if isinstance(element_corrupt_mask, torch.Tensor) and element_corrupt_mask.dtype != torch.bool:
+            setattr(item, ELEMENT_CORRUPT_MASK_FIELD, element_corrupt_mask.bool())
+
+        recipe_name = getattr(item, PRETRAIN_RECIPE_NAME_FIELD, None)
+        if recipe_name is not None and not isinstance(recipe_name, str):
+            setattr(item, PRETRAIN_RECIPE_NAME_FIELD, str(recipe_name))
+
+        recipe_level = getattr(item, PRETRAIN_RECIPE_LEVEL_FIELD, None)
+        if recipe_level is not None and not isinstance(recipe_level, float):
+            try:
+                setattr(item, PRETRAIN_RECIPE_LEVEL_FIELD, float(recipe_level))
+            except (TypeError, ValueError):
+                pass
+
+        recipe_seed = getattr(item, PRETRAIN_RECIPE_SEED_FIELD, None)
+        if recipe_seed is not None and not isinstance(recipe_seed, int):
+            try:
+                setattr(item, PRETRAIN_RECIPE_SEED_FIELD, int(recipe_seed))
+            except (TypeError, ValueError):
+                pass
+
+        base_key = getattr(item, PRETRAIN_BASE_KEY_FIELD, None)
+        if base_key is not None and not isinstance(base_key, str):
+            setattr(item, PRETRAIN_BASE_KEY_FIELD, str(base_key))
 
         return item
 

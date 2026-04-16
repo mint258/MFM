@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import os
 from typing import Any, Mapping
 
@@ -7,6 +8,9 @@ try:
     import wandb
 except ImportError:  # pragma: no cover - handled at runtime when W&B is requested.
     wandb = None
+
+
+LOGGER = logging.getLogger("multitask")
 
 
 def is_wandb_enabled(args) -> bool:
@@ -17,6 +21,23 @@ def _require_wandb():
     if wandb is None:
         raise ImportError("wandb is not installed. Install it or disable --use_wandb.")
     return wandb
+
+
+def _resolve_wandb_watch_mode(args) -> str:
+    requested = str(getattr(args, "wandb_watch", "none") or "none").lower()
+    if requested == "none":
+        return "none"
+
+    uses_dynamic_ddp = bool(getattr(args, "distributed", False)) and (
+        bool(getattr(args, "find_unused_parameters", False))
+        or not bool(getattr(args, "ddp_static_graph", False))
+    )
+    if uses_dynamic_ddp and requested in {"gradients", "all"}:
+        LOGGER.warning(
+            "Disabling wandb gradient watching because DDP dynamic-graph mode can produce None gradients for unused parameters."
+        )
+        return "none"
+    return requested
 
 
 def _coerce_scalar(value: Any):
@@ -69,10 +90,15 @@ def init_wandb_run(args, *, model, device: str, train_size: int, val_size: int):
     run.define_metric("train/window/*", step_metric="global_step")
     run.define_metric("train/epoch/*", step_metric="epoch")
     run.define_metric("val/*", step_metric="global_step")
+    run.define_metric("val_diag/*", step_metric="global_step")
     run.define_metric("meta/*", step_metric="global_step")
 
-    if getattr(args, "wandb_watch", "none") != "none":
-        wb.watch(model, log=args.wandb_watch, log_freq=args.wandb_watch_log_freq)
+    watch_mode = _resolve_wandb_watch_mode(args)
+    if watch_mode != "none":
+        try:
+            wb.watch(model, log=watch_mode, log_freq=args.wandb_watch_log_freq)
+        except Exception as exc:
+            LOGGER.warning("wandb.watch setup failed; continuing without model watch: %r", exc)
 
     return run
 

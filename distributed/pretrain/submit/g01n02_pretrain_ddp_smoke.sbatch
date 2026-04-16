@@ -234,6 +234,7 @@ FILTER_MAX_ATOMS="${FILTER_MAX_ATOMS:-128}"
 ATOM_BUDGET_PER_BATCH="${ATOM_BUDGET_PER_BATCH:-512}"
 VAL_ATOM_BUDGET_PER_BATCH="${VAL_ATOM_BUDGET_PER_BATCH:-0}"
 ATOM_COUNT_CACHE_DIR="${ATOM_COUNT_CACHE_DIR:-${REPO_ROOT}/log/atom_count_cache}"
+FORCE_RECOMPUTE_ATOM_COUNTS="${FORCE_RECOMPUTE_ATOM_COUNTS:-0}"
 DATALOADER_DEBUG="${DATALOADER_DEBUG:-0}"
 DATALOADER_DEBUG_INTERVAL="${DATALOADER_DEBUG_INTERVAL:-30}"
 DATALOADER_STALL_THRESHOLD="${DATALOADER_STALL_THRESHOLD:-120}"
@@ -291,6 +292,7 @@ echo "[$(timestamp)] filter_max_atoms=${FILTER_MAX_ATOMS}"
 echo "[$(timestamp)] atom_budget_per_batch=${ATOM_BUDGET_PER_BATCH}"
 echo "[$(timestamp)] val_atom_budget_per_batch=${VAL_ATOM_BUDGET_PER_BATCH}"
 echo "[$(timestamp)] atom_count_cache_dir=${ATOM_COUNT_CACHE_DIR}"
+echo "[$(timestamp)] force_recompute_atom_counts=${FORCE_RECOMPUTE_ATOM_COUNTS}"
 echo "[$(timestamp)] dataloader_debug=${DATALOADER_DEBUG}"
 echo "[$(timestamp)] dataloader_debug_interval=${DATALOADER_DEBUG_INTERVAL}"
 echo "[$(timestamp)] dataloader_stall_threshold=${DATALOADER_STALL_THRESHOLD}"
@@ -475,6 +477,10 @@ if [[ "${RUN_DDP_PIPELINE_SMOKE}" == "1" ]]; then
     --wandb_watch none
     --wandb_log_batch_every 10
   )
+
+  if [[ "${FORCE_RECOMPUTE_ATOM_COUNTS}" == "1" ]]; then
+    DDP_PIPELINE_CMD+=(--force_recompute_atom_counts)
+  fi
 
   if [[ "${DATALOADER_DEBUG}" == "1" ]]; then
     DDP_PIPELINE_CMD+=(

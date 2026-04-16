@@ -18,16 +18,54 @@ from tqdm import tqdm
 
 try:
     from ..dataset import LmdbMoleculeDataset, MoleculeDataset
-    from ..dataset.descriptor_schema import GRAPH_FIELD, GRAPH_MASK_FIELD, NODE_MASK_FIELD, RDKIT_GRAPH_DESC_DIM
+    from ..dataset.descriptor_schema import (
+        BOND_FAIL_REASON_FIELD,
+        BOND_INDEX_FIELD,
+        BOND_NEGATIVE_COUNT_FIELD,
+        BOND_NEGATIVE_UPPER_IDS_FIELD,
+        BOND_ORDER_FIELD,
+        BOND_STATUS_FIELD,
+        ELEMENT_CORRUPT_MASK_FIELD,
+        GRAPH_FIELD,
+        GRAPH_MASK_FIELD,
+        NODE_MASK_FIELD,
+        PRETRAIN_BASE_KEY_FIELD,
+        PRETRAIN_RECIPE_LEVEL_FIELD,
+        PRETRAIN_RECIPE_NAME_FIELD,
+        PRETRAIN_RECIPE_SEED_FIELD,
+        RDKIT_GRAPH_DESC_DIM,
+        canonical_recipe_name,
+        recipe_cache_suffix,
+    )
 except ImportError:
     from dataset import LmdbMoleculeDataset, MoleculeDataset
-    from dataset.descriptor_schema import GRAPH_FIELD, GRAPH_MASK_FIELD, NODE_MASK_FIELD, RDKIT_GRAPH_DESC_DIM
+    from dataset.descriptor_schema import (
+        BOND_FAIL_REASON_FIELD,
+        BOND_INDEX_FIELD,
+        BOND_NEGATIVE_COUNT_FIELD,
+        BOND_NEGATIVE_UPPER_IDS_FIELD,
+        BOND_ORDER_FIELD,
+        BOND_STATUS_FIELD,
+        ELEMENT_CORRUPT_MASK_FIELD,
+        GRAPH_FIELD,
+        GRAPH_MASK_FIELD,
+        NODE_MASK_FIELD,
+        PRETRAIN_BASE_KEY_FIELD,
+        PRETRAIN_RECIPE_LEVEL_FIELD,
+        PRETRAIN_RECIPE_NAME_FIELD,
+        PRETRAIN_RECIPE_SEED_FIELD,
+        RDKIT_GRAPH_DESC_DIM,
+        canonical_recipe_name,
+        recipe_cache_suffix,
+    )
 
 from .dataloader_debug import worker_debug_event, worker_slow_threshold_s
 from .degrade_molecules import DegradeConfig, degrade_once
 from .utils_debug import is_debug as get_debug_flag
 
 LOGGER = logging.getLogger("multitask")
+_TQDM_MININTERVAL = 10.0
+_TQDM_MINITERS = 100
 COLLATE_RENAME_FIELDS = {
     "rdkit_node_estate_index": "_rdkit_node_estate_index_value",
 }
@@ -41,6 +79,118 @@ SAMPLE_TYPE_TO_ID = {
     "both": 3,
 }
 SAMPLE_TYPE_ID_TO_NAME = {value: key for key, value in SAMPLE_TYPE_TO_ID.items()}
+RDKIT_NODE_LONG_FIELDS = (
+    "rdkit_node_formal_charge",
+    "rdkit_node_hybridization",
+    "rdkit_node_min_ring_size",
+    "rdkit_node_total_degree",
+    "rdkit_node_total_num_Hs",
+    "rdkit_node_total_valence",
+    "rdkit_node_estate_type",
+    "rdkit_node_chiral_tag",
+    "rdkit_node_cip_code",
+)
+RDKIT_NODE_FLOAT_FIELDS = ("rdkit_node_estate_index",)
+RDKIT_NODE_BOOL_FIELDS = (
+    "rdkit_node_is_aromatic",
+    "rdkit_node_is_in_ring",
+    "rdkit_node_donor",
+    "rdkit_node_acceptor",
+    "rdkit_node_mask",
+)
+
+
+def _ensure_element_corrupt_mask(data) -> None:
+    value = getattr(data, ELEMENT_CORRUPT_MASK_FIELD, None)
+    if isinstance(value, torch.Tensor):
+        setattr(data, ELEMENT_CORRUPT_MASK_FIELD, value.bool())
+        return
+    if hasattr(data, "x"):
+        setattr(
+            data,
+            ELEMENT_CORRUPT_MASK_FIELD,
+            torch.zeros((int(data.x.size(0)), 1), dtype=torch.bool, device=data.x.device),
+        )
+
+
+def _data_key_set(data) -> set[str]:
+    keys = getattr(data, "keys", None)
+    if callable(keys):
+        return {str(key) for key in keys()}
+    if isinstance(keys, (list, tuple, set)):
+        return {str(key) for key in keys}
+    return set()
+
+
+def _ensure_training_field_placeholders(data) -> None:
+    keys = _data_key_set(data)
+    n_atom = _sample_atom_count(data)
+
+    if "energy" not in keys:
+        data.energy = 0.0
+    if "energy_unit" not in keys or not isinstance(getattr(data, "energy_unit", None), str):
+        data.energy_unit = "unknown"
+
+    if n_atom > 0:
+        if "y" not in keys:
+            data.y = torch.zeros((n_atom, 1), dtype=torch.float32)
+        elif isinstance(getattr(data, "y", None), torch.Tensor) and data.y.dtype != torch.float32:
+            data.y = data.y.float()
+
+        if "charge_mask" not in keys:
+            data.charge_mask = torch.zeros((n_atom, 1), dtype=torch.float32)
+        elif isinstance(getattr(data, "charge_mask", None), torch.Tensor) and data.charge_mask.dtype != torch.float32:
+            data.charge_mask = data.charge_mask.float()
+
+        for name in RDKIT_NODE_LONG_FIELDS:
+            if name not in keys:
+                setattr(data, name, torch.zeros((n_atom, 1), dtype=torch.long))
+        for name in RDKIT_NODE_FLOAT_FIELDS:
+            if name not in keys:
+                setattr(data, name, torch.zeros((n_atom, 1), dtype=torch.float32))
+        for name in RDKIT_NODE_BOOL_FIELDS:
+            if name not in keys:
+                setattr(data, name, torch.zeros((n_atom, 1), dtype=torch.bool))
+
+    if GRAPH_FIELD not in keys:
+        setattr(data, GRAPH_FIELD, torch.zeros((RDKIT_GRAPH_DESC_DIM,), dtype=torch.float32))
+    elif isinstance(getattr(data, GRAPH_FIELD, None), torch.Tensor) and getattr(data, GRAPH_FIELD).dtype != torch.float32:
+        setattr(data, GRAPH_FIELD, getattr(data, GRAPH_FIELD).float())
+
+    if GRAPH_MASK_FIELD not in keys:
+        setattr(data, GRAPH_MASK_FIELD, torch.zeros((RDKIT_GRAPH_DESC_DIM,), dtype=torch.bool))
+    elif isinstance(getattr(data, GRAPH_MASK_FIELD, None), torch.Tensor) and getattr(data, GRAPH_MASK_FIELD).dtype != torch.bool:
+        setattr(data, GRAPH_MASK_FIELD, getattr(data, GRAPH_MASK_FIELD).bool())
+
+    if BOND_INDEX_FIELD not in keys:
+        setattr(data, BOND_INDEX_FIELD, torch.zeros((2, 0), dtype=torch.long))
+    if BOND_ORDER_FIELD not in keys:
+        setattr(data, BOND_ORDER_FIELD, torch.zeros((0,), dtype=torch.long))
+    if BOND_NEGATIVE_UPPER_IDS_FIELD not in keys:
+        setattr(data, BOND_NEGATIVE_UPPER_IDS_FIELD, torch.zeros((0,), dtype=torch.long))
+    if BOND_NEGATIVE_COUNT_FIELD not in keys:
+        setattr(data, BOND_NEGATIVE_COUNT_FIELD, torch.zeros((1,), dtype=torch.long))
+    if BOND_STATUS_FIELD not in keys or not isinstance(getattr(data, BOND_STATUS_FIELD, None), str):
+        setattr(data, BOND_STATUS_FIELD, "")
+    if BOND_FAIL_REASON_FIELD not in keys or not isinstance(getattr(data, BOND_FAIL_REASON_FIELD, None), str):
+        setattr(data, BOND_FAIL_REASON_FIELD, "")
+
+
+def _ensure_pretrain_recipe_metadata(data, *, sample_type: str, level: float, seed: int) -> None:
+    base_key = str(getattr(data, PRETRAIN_BASE_KEY_FIELD, getattr(data, "sample_key", "")) or "")
+    setattr(data, PRETRAIN_BASE_KEY_FIELD, base_key)
+
+    recipe_name = getattr(data, PRETRAIN_RECIPE_NAME_FIELD, None)
+    if not isinstance(recipe_name, str) or not recipe_name:
+        setattr(data, PRETRAIN_RECIPE_NAME_FIELD, canonical_recipe_name(sample_type, level))
+
+    recipe_level = getattr(data, PRETRAIN_RECIPE_LEVEL_FIELD, None)
+    if not isinstance(recipe_level, float):
+        setattr(data, PRETRAIN_RECIPE_LEVEL_FIELD, float(level))
+
+    recipe_seed = getattr(data, PRETRAIN_RECIPE_SEED_FIELD, None)
+    if not isinstance(recipe_seed, int):
+        setattr(data, PRETRAIN_RECIPE_SEED_FIELD, int(seed))
 
 
 class DatasetBuildError(RuntimeError):
@@ -86,6 +236,83 @@ def sample_type_id_from_name(name: str) -> int:
     return int(SAMPLE_TYPE_TO_ID[normalize_sample_type_name(name)])
 
 
+def resolve_precomputed_recipe_lmdb_path(lmdb_path: str, mode: str, level: float) -> str:
+    root, ext = os.path.splitext(str(Path(lmdb_path).resolve()))
+    return f"{root}.{recipe_cache_suffix(mode, level)}{ext or '.lmdb'}"
+
+
+def _copy_common_dataset_attrs(src, dst) -> None:
+    for attr_name in ("source_path", "slice_start", "slice_end", "lmdb_path"):
+        if hasattr(src, attr_name):
+            setattr(dst, attr_name, getattr(src, attr_name))
+    atom_counts = getattr(src, "atom_counts", None)
+    if atom_counts is not None:
+        dst.atom_counts = np.asarray(atom_counts, dtype=np.int32)
+
+
+def try_build_precomputed_recipe_dataset(dataset, *, mode: str, level: float):
+    if isinstance(dataset, LmdbMoleculeDataset):
+        derived_path = resolve_precomputed_recipe_lmdb_path(dataset.lmdb_path, mode, level)
+        if not os.path.exists(derived_path):
+            return None
+        mirrored = LmdbMoleculeDataset(
+            derived_path,
+            start_idx=getattr(dataset, "start", None),
+            end_idx=getattr(dataset, "end", None),
+            limit=len(dataset.idx_list) if getattr(dataset, "idx_list", None) is not None else None,
+            filter_missing_on_init=True,
+        )
+        mirrored.source_path = derived_path
+        mirrored.slice_start = getattr(dataset, "start", 0)
+        mirrored.slice_end = getattr(dataset, "end", None)
+        return mirrored
+
+    if isinstance(dataset, SafeResampleDataset):
+        mirrored_base = try_build_precomputed_recipe_dataset(dataset.base, mode=mode, level=level)
+        if mirrored_base is None:
+            return None
+        mirrored = SafeResampleDataset(
+            mirrored_base,
+            max_retries=dataset.max_retries,
+            name=dataset.name,
+            seed=getattr(dataset, "seed", 0),
+        )
+        _copy_common_dataset_attrs(dataset, mirrored)
+        return mirrored
+
+    if isinstance(dataset, OnlyStableWrapper):
+        mirrored_base = try_build_precomputed_recipe_dataset(dataset.base, mode=mode, level=level)
+        if mirrored_base is None:
+            return None
+        mirrored = OnlyStableWrapper(mirrored_base)
+        _copy_common_dataset_attrs(dataset, mirrored)
+        return mirrored
+
+    if isinstance(dataset, IndexedSubsetDataset):
+        mirrored_base = try_build_precomputed_recipe_dataset(dataset.base, mode=mode, level=level)
+        if mirrored_base is None:
+            return None
+        mirrored = IndexedSubsetDataset(mirrored_base, dataset.indices, atom_counts=getattr(dataset, "atom_counts", None))
+        _copy_common_dataset_attrs(dataset, mirrored)
+        return mirrored
+
+    if isinstance(dataset, ExcludingSubsetDataset):
+        mirrored_base = try_build_precomputed_recipe_dataset(dataset.base, mode=mode, level=level)
+        if mirrored_base is None:
+            return None
+        mirrored = ExcludingSubsetDataset(mirrored_base, dataset.excluded)
+        _copy_common_dataset_attrs(dataset, mirrored)
+        return mirrored
+
+    if isinstance(dataset, Subset):
+        mirrored_base = try_build_precomputed_recipe_dataset(dataset.dataset, mode=mode, level=level)
+        if mirrored_base is None:
+            return None
+        return Subset(mirrored_base, dataset.indices)
+
+    return None
+
+
 def _atom_count_cache_path(dataset, cache_dir: str) -> Path:
     source_path = str(getattr(dataset, "source_path", getattr(dataset, "lmdb_path", type(dataset).__name__)))
     slice_start = int(getattr(dataset, "slice_start", 0) or 0)
@@ -100,6 +327,13 @@ def atom_count_cache_path(dataset, cache_dir: str | None) -> Path | None:
     if not cache_dir:
         return None
     return _atom_count_cache_path(dataset, cache_dir)
+
+
+def _atom_count_cache_prefix(dataset) -> str:
+    source_path = str(getattr(dataset, "source_path", getattr(dataset, "lmdb_path", type(dataset).__name__)))
+    slice_start = int(getattr(dataset, "slice_start", 0) or 0)
+    slice_end = getattr(dataset, "slice_end", None)
+    return f"{Path(source_path).stem}_s{slice_start}_e{slice_end if slice_end is not None else 'end'}"
 
 
 def _legacy_atom_count_cache_paths(dataset, cache_dir: str | None) -> list[Path]:
@@ -119,6 +353,25 @@ def _legacy_atom_count_cache_paths(dataset, cache_dir: str | None) -> list[Path]
     if canonical_path is None or legacy_path != canonical_path:
         candidates.append(legacy_path)
     return candidates
+
+
+def _compatible_atom_count_cache_paths(dataset, cache_dir: str | None) -> list[Path]:
+    if not cache_dir:
+        return []
+
+    cache_root = Path(cache_dir).resolve()
+    if not cache_root.exists():
+        return []
+
+    prefix = _atom_count_cache_prefix(dataset)
+    canonical_path = atom_count_cache_path(dataset, cache_dir)
+    compatible = [
+        path
+        for path in cache_root.glob(f"{prefix}_*.pt")
+        if canonical_path is None or path != canonical_path
+    ]
+    compatible.sort(key=lambda path: (path.stat().st_mtime, path.name), reverse=True)
+    return compatible
 
 
 def _atomic_torch_save(payload, cache_file: Path) -> None:
@@ -186,6 +439,7 @@ def _load_or_migrate_atom_count_cache(dataset, *, cache_dir: str | None = None) 
     if canonical_path is not None:
         candidate_paths.append(canonical_path)
     candidate_paths.extend(_legacy_atom_count_cache_paths(dataset, cache_dir))
+    candidate_paths.extend(_compatible_atom_count_cache_paths(dataset, cache_dir))
 
     for cache_file in candidate_paths:
         if not cache_file.exists():
@@ -197,7 +451,7 @@ def _load_or_migrate_atom_count_cache(dataset, *, cache_dir: str | None = None) 
         counts = np.asarray(payload["atom_counts"], dtype=np.int32)
         if canonical_path is not None and cache_file != canonical_path:
             _atomic_torch_save(_canonical_atom_count_payload(dataset, counts, payload), canonical_path)
-            LOGGER.info("Migrated legacy atom-count cache %s -> %s", cache_file, canonical_path)
+            LOGGER.info("Reused atom-count cache %s -> %s", cache_file, canonical_path)
             return counts, canonical_path
         return counts, cache_file
 
@@ -223,7 +477,7 @@ def resolve_atom_counts(dataset, *, cache_dir: str | None = None, force_recomput
     invalid = 0
     iterator = range(len(dataset))
     desc = f"AtomCount[{Path(str(getattr(dataset, 'source_path', 'dataset'))).name}]"
-    for idx in tqdm(iterator, desc=desc):
+    for idx in tqdm(iterator, desc=desc, mininterval=_TQDM_MININTERVAL, miniters=_TQDM_MINITERS):
         try:
             counts[idx] = max(0, _sample_atom_count(raw_dataset[idx]))
         except Exception as exc:
@@ -269,7 +523,12 @@ def _finalize_vector_stats(sum_value: torch.Tensor, sum_sq_value: torch.Tensor, 
     return mean.float(), std.float()
 
 
-def create_dataset(path: str, start_idx: int | None, end_idx: int | None):
+def _stable_dataset_seed(path: str, start_idx: int | None, end_idx: int | None) -> int:
+    key = f"{Path(path).resolve()}|{0 if start_idx is None else int(start_idx)}|{end_idx}"
+    return int(hashlib.sha1(key.encode("utf-8")).hexdigest()[:8], 16)
+
+
+def create_dataset(path: str, start_idx: int | None, end_idx: int | None, *, seed: int | None = None):
     """Create and wrap a dataset with resilient sample fetching."""
     start_idx = start_idx if start_idx is not None else 0
     end_idx = end_idx if end_idx not in (None, -1) else None
@@ -284,16 +543,21 @@ def create_dataset(path: str, start_idx: int | None, end_idx: int | None):
             f"Failed to initialize dataset root '{path}' (start={start_idx}, end={end_idx}): {exc}"
         ) from exc
 
-    wrapped = SafeResampleDataset(dataset, max_retries=32, name=os.path.basename(path))
+    wrapped = SafeResampleDataset(
+        dataset,
+        max_retries=32,
+        name=os.path.basename(path),
+        seed=_stable_dataset_seed(path, start_idx, end_idx) if seed is None else int(seed),
+    )
     wrapped.source_path = path
     wrapped.slice_start = start_idx
     wrapped.slice_end = end_idx
     return wrapped
 
 
-def create_dataset_or_none(path: str, start_idx: int | None, end_idx: int | None, *, role: str) -> torch.utils.data.Dataset | None:
+def create_dataset_or_none(path: str, start_idx: int | None, end_idx: int | None, *, role: str, seed: int | None = None) -> torch.utils.data.Dataset | None:
     try:
-        return create_dataset(path, start_idx, end_idx)
+        return create_dataset(path, start_idx, end_idx, seed=seed)
     except DatasetBuildError as exc:
         LOGGER.error("Skipping %s dataset root due to load failure: %s", role, exc)
         return None
@@ -302,14 +566,21 @@ def create_dataset_or_none(path: str, start_idx: int | None, end_idx: int | None
 class SafeResampleDataset(torch.utils.data.Dataset):
     """Resample on invalid examples without changing dataset length."""
 
-    def __init__(self, base, max_retries: int = 32, name: str = ""):
+    def __init__(self, base, max_retries: int = 32, name: str = "", seed: int = 0):
         self.base = base
         self.max_retries = int(max_retries)
         self.name = name or type(base).__name__
-        self._rng = np.random.default_rng()
+        self.seed = int(seed)
 
     def __len__(self):
         return len(self.base)
+
+    def _fallback_index(self, logical_idx: int, try_index: int) -> int:
+        if len(self.base) <= 1:
+            return 0
+        key = f"{self.seed}|{int(logical_idx)}|{int(try_index)}|{len(self.base)}"
+        fallback_seed = int(hashlib.sha1(key.encode("utf-8")).hexdigest()[:16], 16)
+        return int(np.random.default_rng(fallback_seed).integers(0, len(self.base)))
 
     def __getitem__(self, idx):
         tries = 0
@@ -346,7 +617,7 @@ class SafeResampleDataset(torch.utils.data.Dataset):
                     error=repr(exc),
                 )
                 tries += 1
-                cur_idx = int(self._rng.integers(0, len(self.base)))
+                cur_idx = self._fallback_index(int(idx), tries)
 
         worker_debug_event(
             "sample_fetch_failed",
@@ -432,11 +703,19 @@ class SampleTypeWrapperDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         data = self.base[idx]
-        if hasattr(data, "x") and not hasattr(data, "target_x"):
+        if hasattr(data, "x") and "target_x" not in _data_key_set(data):
             data.target_x = data.x.clone()
-        if hasattr(data, "pos") and not hasattr(data, "target_pos"):
+        if hasattr(data, "pos") and "target_pos" not in _data_key_set(data):
             data.target_pos = data.pos.clone()
+        _ensure_training_field_placeholders(data)
+        _ensure_element_corrupt_mask(data)
         data.sample_type_id = torch.tensor([self.sample_type_id], dtype=torch.long)
+        _ensure_pretrain_recipe_metadata(
+            data,
+            sample_type=self.sample_type,
+            level=0.0,
+            seed=0,
+        )
         return data
 
 
@@ -742,7 +1021,15 @@ class MaskedPerturbDataset(torch.utils.data.Dataset):
             data.target_x = clean_x
         if clean_pos is not None:
             data.target_pos = clean_pos
+        _ensure_training_field_placeholders(data)
+        _ensure_element_corrupt_mask(data)
         data.sample_type_id = torch.tensor([self.sample_type_id], dtype=torch.long)
+        _ensure_pretrain_recipe_metadata(
+            data,
+            sample_type=self.sample_type,
+            level=float(self.cfg.level),
+            seed=self.seed + int(idx),
+        )
 
         for attr in ("is_feasible", "neg_type"):
             if hasattr(data, attr):
@@ -889,7 +1176,7 @@ def standardizer(ds_list: Iterable, ratio: float = 0.01, cap: int = 50000, seed:
         },
     }
 
-    for dataset, i in tqdm(sample_pool, desc="Std"):
+    for dataset, i in tqdm(sample_pool, desc="Std", mininterval=_TQDM_MININTERVAL, miniters=_TQDM_MINITERS):
         data = dataset[i]
         s_e += data.energy
         s2_e += data.energy**2
@@ -998,12 +1285,13 @@ def fast_collate(data_list):
     collate_start = time.perf_counter()
     renamed = []
     for data in data_list:
-        if hasattr(data, "angle_triplet"):
+        data_keys = _data_key_set(data)
+        if "angle_triplet" in data_keys:
             delattr(data, "angle_triplet")
-        if hasattr(data, "dihed_quad"):
+        if "dihed_quad" in data_keys:
             delattr(data, "dihed_quad")
         for source_name, temp_name in COLLATE_RENAME_FIELDS.items():
-            if hasattr(data, source_name):
+            if source_name in data_keys:
                 setattr(data, temp_name, getattr(data, source_name))
                 delattr(data, source_name)
                 renamed.append((data, source_name, temp_name))
