@@ -1,77 +1,54 @@
-﻿# MFM Repository
+# MFM 开发仓库
 
-本仓库用于分子多任务预训练与推理，包含：
-- 多任务 MoE 模型（能量、部分电荷、元素类别、几何坐标）
-- 预训练流程（数据构建、扰动建模、分阶段训练、损失计算）
-- 推理脚本与测试数据
+分子共享主干模型、数据生成与加载、下游微调和推理的开发代码。2026-10-16 从当前服务器工作整理；只提交代码、配置、接口说明和来源清单。权重、真实数据、队列、embedding、训练日志及计算归档保留在外部存储。
 
-## 目录结构
+**新开发从 [开发交接文档](docs/DEVELOPMENT_HANDOFF.md) 开始。** [数据接口](docs/DATA_PIPELINE.md) 说明最终训练输入与生成产物的区别；[验证记录](docs/VALIDATION.md) 说明此次检查范围。
 
-```text
-MFM_repository/
-├─ models/
-│  └─ moe/
-│     ├─ common.py          # 线性层初始化、基础工具
-│     ├─ attention.py       # 稠密几何注意力与 Transformer 层
-│     ├─ backbone.py        # 实坐标 Backbone
-│     ├─ expert_blocks.py   # 专家块（real/internal）
-│     ├─ multitask.py       # MultiTaskMoE 主模型
-│     └─ __init__.py
-├─ pretrain/
-│  ├─ args.py               # 预训练 CLI 参数
-│  ├─ data.py               # 数据集封装、扰动数据集、标准化采样
-│  ├─ geometry.py           # 几何索引与几何损失工具
-│  ├─ train_loop.py         # run_epoch 与训练统计
-│  ├─ checkpoint.py         # checkpoint 保存
-│  ├─ utils.py              # seed、scheduler 等工具
-│  └─ pipeline.py           # 训练主流程
-├─ pretrain_multitask.py    # 兼容入口（仍可直接执行）
-├─ moe_transformer_multitask.py  # 兼容导入层
-├─ structure_predict.py     # 推理脚本
-├─ dataset_*.py             # 数据集读取脚本
-├─ degrade_molecules.py     # 扰动生成工具
-├─ test_data/               # 测试数据
-└─ test_ckpt/               # 本地测试权重（不建议提交）
-```
+| 目录/入口 | 内容 |
+| --- | --- |
+| `current/phychem_mfm/` | 最新 S 实验实际绑定的 Stage59 模型、数据层、训练与微调核心 |
+| `current/scripts/`、`current/tools/` | 预训练、冻结 H0 探针、审计、统计与实验管理 |
+| `workflows/sprime_s/` | S′ 构象生成、S-only 原生数据加载和收敛实验 |
+| `workflows/wp5/` | PM7/xTB 标签生成、解析、float64 导出、恢复与验收 |
+| `workflows/dataset_rebuild/`、`workflows/screening/` | 数据筛查、几何分析和原生解析器 |
+| `workflows/phase1_downstream/` | 五套下游数据的绑定、微调/读出和预测评价 |
+| `tools/encode_h0.py` | 可移植的 XYZ → 原子/分子 H0 推理入口 |
+| `tools/check_repository.py` | 源码 SHA、语法、重资产及凭据检查 |
+| `reproduction/linked_sources/` | 冻结实验引用的原生 transport 与科学协议 |
+| `legacy/descriptor/` | 历史 descriptor 版本，含 ADMET 微调、CV 预测和集成推理 |
+| 根目录 `models/`、`pretrain/`、`dataset_*.py` | 仓库原有 MoE 版本；说明见 [旧 README](docs/LEGACY_ROOT_README.md) |
 
-## 环境
+## 安装与检查
 
-建议使用 `chemprop` 环境：
+Python ≥3.10；推荐 Linux。先安装与目标硬件匹配的 PyTorch，再安装模型包和数据工具依赖：
 
 ```bash
-conda activate chemprop
+git clone https://github.com/mint258/MFM.git
+cd MFM
+python -m pip install -r requirements-dev.txt
+python tools/check_repository.py
+python current/scripts/train.py --help
+python tools/encode_h0.py --help
 ```
 
-如果缺少依赖，请在该环境中安装（如 `torch`, `torch-geometric`, `torch-cluster`, `scikit-learn`, `tqdm`）。
+`current/requirements.txt` 是原模型包依赖；根目录原 `requirements.txt` 属于历史 MoE。服务器实际版本见 `docs/SERVER_ENVIRONMENT.json`，CUDA 兼容性在目标节点核验。
 
-## 预训练用法
+## 当前模型与推理
 
-### 兼容入口
-
-以下命令保持可用：
+下游统一使用 `SharedBackboneMFM.encode_atoms(batch)` 的 H0；分子表示从 H0 池化。最新 S 实验为 shared-light、384 维、4 层、6 个注意力头；参数以 `workflows/sprime_s/formal_s/*_v2.json` 为准。
 
 ```bash
-nohup python pretrain_multitask.py --data_roots ../../../dataset/principal_test.lmdb --batch_size 4 --stage1_max_epochs 2 --stage2_loss 0.01 --morse_a 0.6 --lambda_dist 1 --lambda_coord 0 --lambda_angle 2 --lambda_torsion 4 --lambda_planar 0 --lambda_e 5 --lambda_q 1 --lambda_z 0.01 --loss_cutoff 2 --expert_number_E 1 --expert_number_Q 1 --expert_number_Z 1 --expert_number_G 1 --hidden_channels 128 --bb_layers 2 --bb_heads 4 --bb_ff_mult 4 --bb_radius 8.0 --expert_real_layers 2 --expert_int_layers 0 --expert_heads 4 --expert_ff_mult 2 --save_path test_ckpt/real_only_mini/AE_test.pth --epochs 50 --save_every_epoch --num_workers 16 --lr 5e-4 --perturb_mix "geom:0.1@1,geom:0.2@0.4,topo:0.2@0.5,both:0.05@0.3,geom:0@1" --perturb_seed 114 > train_real_only_mini.log &
+python tools/encode_h0.py \
+  --checkpoint /external/checkpoints/segment_final.pt \
+  --configuration workflows/sprime_s/formal_s/B3_seed0_v2.json \
+  --xyz-root /external/xyz \
+  --output /external/outputs/h0.npz --device cpu --limit 10
 ```
 
-### 主流程入口
+S checkpoint 的 configuration 必须为训练时的原始 JSON，SHA 必须匹配。普通训练 checkpoint 的 `model_state/model_config` 格式不需要此参数。输出含 `atom_h0`、`graph_h0`、`graph_ptr` 和文件路径；性质预测还需匹配的下游读出模型。
 
-也可直接执行：
+## 开发与原实验复现
 
-```bash
-python -m pretrain.pipeline --data_roots <your_data.lmdb> --epochs 10 --batch_size 4
-```
+`current/` 和可移植工具用于新开发；`workflows/` 保留原实验版本、服务器路径与校验约束。正式入口依赖外部数据、manifest、环境和资源分配，不能仅凭克隆仓库复现整个实验。最新入口和前置条件见交接文档。
 
-## 推理用法
-
-```bash
-python structure_predict.py --help
-```
-
-`structure_predict.py` 会从 checkpoint 的 `cfg` 与 `model_state` 自动恢复 `MultiTaskMoE`。
-
-## 设计说明
-
-- 模型脚本已按“Backbone / Expert / Head”拆分，减少单文件长度，便于维护。
-- 预训练脚本已按“参数 / 数据 / 几何 / 训练循环 / 主流程”拆分，便于扩展损失与训练策略。
-- 通过兼容入口保留了原有调用方式，降低迁移成本。
+源码保留原字节，来源/SHA 见 [SOURCE_MANIFEST.json](docs/SOURCE_MANIFEST.json)。新推理工具与检查器位于冻结包外，不改变服务器上的科学源码。

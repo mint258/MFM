@@ -1,0 +1,12 @@
+{
+  "schema": "s_memory_implementation_validation_v1",
+  "status": "PREDECLARED_BEFORE_VALIDATION",
+  "production_pair_rows": 65536,
+  "forward_fp32": {"atol": 0.000005, "rtol": 0.0002},
+  "gradient_fp32": {"atol": 0.00001, "rtol": 0.001},
+  "optimizer_parameter_fp32": {"atol": 0.000001, "rtol": 0.0001},
+  "resume_parameter_fp32": {"atol": 0.000001, "rtol": 0.0001},
+  "rng_and_parameter_names": "exact equality",
+  "scientific_changes": "none: same architecture/parameters, FP32, loss, view recipe, actual records and 8M padded budget; new explicit runtime implementation",
+  "formal_B_protocol_selected": false
+}

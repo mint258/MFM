@@ -1,0 +1,5438 @@
+{
+  "artifacts": {
+    "full_validation_manifest": {
+      "manifest_sha256": "643eb8de268dae1dfc498f2101ab9c03a33aaba86e5384fd04e735b48bb19b1b",
+      "sha256": "e481f302fd19c903138058601a3c915c41541550a4812221fa73aa9a60aa0be8"
+    },
+    "initialization.seed_0": {
+      "sha256": "411b76a0a08ecb1e430f45e9bc808789ffa6ad4c6d716e352c7b7d76123b4ff0"
+    },
+    "initialization.seed_1": {
+      "sha256": "d38eba8a7cecef1d94ec2e4c5d59d90bfa7d078ce59db79877c5370cfd438854"
+    },
+    "initialization.seed_2": {
+      "sha256": "67e4f2f427e6659348b82f8ae5d00f24d8b2543d5cfe624f2acab350ad9c7f2d"
+    },
+    "native_transport": {
+      "sha256": "16c37ed53f6007b459981b734001fd3fef9dd225257b0d5d6eb8c54a4992772b"
+    },
+    "normalization": {
+      "sha256": "d34d3a375268c089ed965737092d5781163edb0ba4eb37a5434638a482aed93b"
+    },
+    "routine_validation_manifest": {
+      "manifest_sha256": "aeabe16d6ff18e6a5fb84d8553ae2b78a0f31c4d8952f715d310963b4aaca553",
+      "sha256": "52dcefdb84c3ef21c3a40cb2b12551f127ea318c3ed66be63270a17c3d56a3e8"
+    },
+    "source_snapshot": {
+      "sha256": "01b8ad133b3c77f1422e5420575d5f71a191c852981918a452a6dea052b1b4d6"
+    },
+    "train_manifest": {
+      "manifest_sha256": "a38f42887872aed20c519228cd85894edd0b68a5458b7de47b90ed20b0d1338d",
+      "sha256": "afdf7665b3fc58c185e93555d3095d0df2462548e5aa90e763bff1688573dedc"
+    },
+    "training_moments": {
+      "sha256": "defa0a8d86ad2d8ea7f581bfe70b0c2b19a9176f3ff6fa6e23e6184cfa260e0b"
+    },
+    "validation_controls": {
+      "sha256": "8fd41cd91708f0ee40819bd964939c755f78a7694188dd6a9731a52296f10a27"
+    }
+  },
+  "authorizes_submission": true,
+  "budget_choices": {
+    "cumulative_condition_output_cap_bytes": 4294967296,
+    "finalization_reserve_seconds": 900,
+    "max_concurrent_project_jobs": 2,
+    "per_segment_output_cap_bytes": 2147483648,
+    "segment_wall_seconds": 7200,
+    "total_gpu_hour_budget": 2400
+  },
+  "checkpoint_every_consumed_batches": 1000,
+  "compute": {
+    "cpus_per_task": 16,
+    "gpu_isolation_policy": "user_accepted_shared_gpu",
+    "gpu_memory_safety_margin_bytes": 1073741824,
+    "gpus_per_job": 1,
+    "minimum_start_free_gpu_bytes": 44707086336,
+    "nodes_per_job": 1,
+    "owned_rss_cap_bytes": 60129542144,
+    "requested_cpu_memory_bytes": 68719476736,
+    "runtime_bindings_by_seed": {
+      "0": {
+        "allowed_nodes": [
+          "compute-0-20"
+        ],
+        "gpu_model": "NVIDIA GeForce RTX 4090",
+        "runtime_environment": {
+          "cuda_runtime": "12.6",
+          "default_dtype": "torch.float32",
+          "python_executable": "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+          "torch": "2.10.0+cu126"
+        }
+      },
+      "1": {
+        "allowed_nodes": [
+          "compute-0-20"
+        ],
+        "gpu_model": "NVIDIA GeForce RTX 4090",
+        "runtime_environment": {
+          "cuda_runtime": "12.6",
+          "default_dtype": "torch.float32",
+          "python_executable": "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+          "torch": "2.10.0+cu126"
+        }
+      },
+      "2": {
+        "allowed_nodes": [
+          "compute-0-20"
+        ],
+        "gpu_model": "NVIDIA GeForce RTX 4090",
+        "runtime_environment": {
+          "cuda_runtime": "12.6",
+          "default_dtype": "torch.float32",
+          "python_executable": "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+          "torch": "2.10.0+cu126"
+        }
+      }
+    },
+    "sampled_gpu_memory_cap_policy": "selected_uuid_total_minus_safety_margin_v1"
+  },
+  "content_sha256": "f344a049ecf9f17bfe437b5e4789b009d64d5bc1041dc2e93238d3f8cbdd0780",
+  "data_coverage": {
+    "actual_qualified_train_records": 15709889,
+    "best_checkpoint": "diagnostic_only",
+    "each_declared_train_reference_consumed_once_per_epoch": true,
+    "epochs": 3,
+    "none_corpus_iterations": 0,
+    "old_58k_updates_budget_or_controls_reused": false,
+    "oversized_native_tail_policy": "singleton_no_discard_failure_preserves_cursor_no_automatic_retry",
+    "partial_last_batch_retained": true,
+    "primary_checkpoint": "FIXED_FULL_BASE_EXPOSURE_FINAL",
+    "raw_header_count_is_qualified_training_count": false,
+    "total_base_exposures": 47129667,
+    "total_view_exposures": 141389001,
+    "training_native_atom_order_and_source_H_policy_preserved": true,
+    "zero_label_batch_policy": "consume_skip_optimizer_controller_no_replacement"
+  },
+  "downstream": {
+    "actual_membership_and_mask_bindings": null,
+    "actual_readout_config_binding": null,
+    "analysis_rules": {
+      "actual_hash_binding_rule": "After this freeze, derive membership/missing-mask hashes only under identical rules; no model/scores/tuning or changed endpoints, folds, weights, seeds, labels or recipes",
+      "aggregation": "fixed_cell_weighted_mean_v1",
+      "alpha": 0.05,
+      "alternative": "two_sided",
+      "bootstrap": {
+        "quantile_method": "linear",
+        "resamples": 10000,
+        "rng_seed": 1729
+      },
+      "comparisons": [
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm7.target_atomization_energy",
+          "id": "qm7.target_atomization_energy.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm7.target_atomization_energy",
+          "id": "qm7.target_atomization_energy.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm7.target_atomization_energy",
+          "id": "qm7.target_atomization_energy.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm7.target_atomization_energy",
+          "id": "qm7.target_atomization_energy.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.mu",
+          "id": "qm9.mu.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.mu",
+          "id": "qm9.mu.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.mu",
+          "id": "qm9.mu.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm9.mu",
+          "id": "qm9.mu.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.alpha",
+          "id": "qm9.alpha.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.alpha",
+          "id": "qm9.alpha.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.alpha",
+          "id": "qm9.alpha.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm9.alpha",
+          "id": "qm9.alpha.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.homo",
+          "id": "qm9.homo.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.homo",
+          "id": "qm9.homo.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.homo",
+          "id": "qm9.homo.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm9.homo",
+          "id": "qm9.homo.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.lumo",
+          "id": "qm9.lumo.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.lumo",
+          "id": "qm9.lumo.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.lumo",
+          "id": "qm9.lumo.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm9.lumo",
+          "id": "qm9.lumo.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.gap",
+          "id": "qm9.gap.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.gap",
+          "id": "qm9.gap.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.gap",
+          "id": "qm9.gap.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm9.gap",
+          "id": "qm9.gap.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.r2",
+          "id": "qm9.r2.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.r2",
+          "id": "qm9.r2.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.r2",
+          "id": "qm9.r2.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm9.r2",
+          "id": "qm9.r2.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.zpve",
+          "id": "qm9.zpve.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.zpve",
+          "id": "qm9.zpve.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.zpve",
+          "id": "qm9.zpve.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm9.zpve",
+          "id": "qm9.zpve.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.U0",
+          "id": "qm9.U0.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.U0",
+          "id": "qm9.U0.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.U0",
+          "id": "qm9.U0.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm9.U0",
+          "id": "qm9.U0.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.U",
+          "id": "qm9.U.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.U",
+          "id": "qm9.U.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.U",
+          "id": "qm9.U.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm9.U",
+          "id": "qm9.U.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.H",
+          "id": "qm9.H.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.H",
+          "id": "qm9.H.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.H",
+          "id": "qm9.H.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm9.H",
+          "id": "qm9.H.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.G",
+          "id": "qm9.G.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.G",
+          "id": "qm9.G.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.G",
+          "id": "qm9.G.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm9.G",
+          "id": "qm9.G.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.Cv",
+          "id": "qm9.Cv.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.Cv",
+          "id": "qm9.Cv.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "qm9.Cv",
+          "id": "qm9.Cv.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "qm9.Cv",
+          "id": "qm9.Cv.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.1A2",
+          "id": "cyp.1A2.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.1A2",
+          "id": "cyp.1A2.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.1A2",
+          "id": "cyp.1A2.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "cyp.1A2",
+          "id": "cyp.1A2.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2A6",
+          "id": "cyp.2A6.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2A6",
+          "id": "cyp.2A6.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2A6",
+          "id": "cyp.2A6.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "cyp.2A6",
+          "id": "cyp.2A6.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2B6",
+          "id": "cyp.2B6.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2B6",
+          "id": "cyp.2B6.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2B6",
+          "id": "cyp.2B6.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "cyp.2B6",
+          "id": "cyp.2B6.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2C19",
+          "id": "cyp.2C19.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2C19",
+          "id": "cyp.2C19.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2C19",
+          "id": "cyp.2C19.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "cyp.2C19",
+          "id": "cyp.2C19.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2C8",
+          "id": "cyp.2C8.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2C8",
+          "id": "cyp.2C8.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2C8",
+          "id": "cyp.2C8.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "cyp.2C8",
+          "id": "cyp.2C8.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2C9",
+          "id": "cyp.2C9.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2C9",
+          "id": "cyp.2C9.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2C9",
+          "id": "cyp.2C9.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "cyp.2C9",
+          "id": "cyp.2C9.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2D6",
+          "id": "cyp.2D6.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2D6",
+          "id": "cyp.2D6.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2D6",
+          "id": "cyp.2D6.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "cyp.2D6",
+          "id": "cyp.2D6.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2E1",
+          "id": "cyp.2E1.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2E1",
+          "id": "cyp.2E1.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.2E1",
+          "id": "cyp.2E1.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "cyp.2E1",
+          "id": "cyp.2E1.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.3A4",
+          "id": "cyp.3A4.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.3A4",
+          "id": "cyp.3A4.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "cyp.3A4",
+          "id": "cyp.3A4.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "cyp.3A4",
+          "id": "cyp.3A4.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "az.exact_som",
+          "id": "az.exact_som.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "az.exact_som",
+          "id": "az.exact_som.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "az.exact_som",
+          "id": "az.exact_som.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "az.exact_som",
+          "id": "az.exact_som.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.LogD",
+          "id": "exp.LogD.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.LogD",
+          "id": "exp.LogD.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.LogD",
+          "id": "exp.LogD.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "exp.LogD",
+          "id": "exp.LogD.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.LogS",
+          "id": "exp.LogS.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.LogS",
+          "id": "exp.LogS.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.LogS",
+          "id": "exp.LogS.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "exp.LogS",
+          "id": "exp.LogS.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_HLM_CLint",
+          "id": "exp.Log_HLM_CLint.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_HLM_CLint",
+          "id": "exp.Log_HLM_CLint.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_HLM_CLint",
+          "id": "exp.Log_HLM_CLint.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "exp.Log_HLM_CLint",
+          "id": "exp.Log_HLM_CLint.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_MLM_CLint",
+          "id": "exp.Log_MLM_CLint.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_MLM_CLint",
+          "id": "exp.Log_MLM_CLint.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_MLM_CLint",
+          "id": "exp.Log_MLM_CLint.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "exp.Log_MLM_CLint",
+          "id": "exp.Log_MLM_CLint.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Caco_Papp_AB",
+          "id": "exp.Log_Caco_Papp_AB.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Caco_Papp_AB",
+          "id": "exp.Log_Caco_Papp_AB.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Caco_Papp_AB",
+          "id": "exp.Log_Caco_Papp_AB.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "exp.Log_Caco_Papp_AB",
+          "id": "exp.Log_Caco_Papp_AB.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Caco_ER",
+          "id": "exp.Log_Caco_ER.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Caco_ER",
+          "id": "exp.Log_Caco_ER.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Caco_ER",
+          "id": "exp.Log_Caco_ER.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "exp.Log_Caco_ER",
+          "id": "exp.Log_Caco_ER.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Mouse_PPB",
+          "id": "exp.Log_Mouse_PPB.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Mouse_PPB",
+          "id": "exp.Log_Mouse_PPB.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Mouse_PPB",
+          "id": "exp.Log_Mouse_PPB.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "exp.Log_Mouse_PPB",
+          "id": "exp.Log_Mouse_PPB.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Mouse_BPB",
+          "id": "exp.Log_Mouse_BPB.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Mouse_BPB",
+          "id": "exp.Log_Mouse_BPB.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Mouse_BPB",
+          "id": "exp.Log_Mouse_BPB.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "exp.Log_Mouse_BPB",
+          "id": "exp.Log_Mouse_BPB.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": -0.25,
+            "P": -0.25,
+            "S": 0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Mouse_MPB",
+          "id": "exp.Log_Mouse_MPB.S_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": 0.25,
+            "DP": 0.25,
+            "P": -0.25,
+            "S": -0.25,
+            "SD": 0.25,
+            "SDP": 0.25,
+            "SP": -0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Mouse_MPB",
+          "id": "exp.Log_Mouse_MPB.D_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "D": -0.25,
+            "DP": 0.25,
+            "P": 0.25,
+            "S": -0.25,
+            "SD": -0.25,
+            "SDP": 0.25,
+            "SP": 0.25,
+            "none": -0.25
+          },
+          "endpoint": "exp.Log_Mouse_MPB",
+          "id": "exp.Log_Mouse_MPB.P_marginal",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "coefficients": {
+            "SDP": 1.0,
+            "none": -1.0
+          },
+          "endpoint": "exp.Log_Mouse_MPB",
+          "id": "exp.Log_Mouse_MPB.SDP_minus_none",
+          "pretraining_seeds": [
+            0,
+            1,
+            2
+          ]
+        }
+      ],
+      "confidence_level": 0.95,
+      "endpoints": {
+        "az.exact_som": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "az_exactsom",
+          "direction": "higher",
+          "metric": "molecule_hit_at_1",
+          "mode": "frozen",
+          "readout_config_sha256": "4b2966a88bca67e02422f5ac765dc5ce75e761d81ad2e98549d68372fd0ffba5",
+          "units": "binary"
+        },
+        "cyp.1A2": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "cyp_isoform",
+          "direction": "higher",
+          "metric": "molecule_hit_at_1",
+          "mode": "frozen",
+          "readout_config_sha256": "c2a4c5b8edbcab6c3f3a7460b2e2fa442fd670e7e95fa62a6716e385530c4825",
+          "units": "binary"
+        },
+        "cyp.2A6": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "cyp_isoform",
+          "direction": "higher",
+          "metric": "molecule_hit_at_1",
+          "mode": "frozen",
+          "readout_config_sha256": "c2a4c5b8edbcab6c3f3a7460b2e2fa442fd670e7e95fa62a6716e385530c4825",
+          "units": "binary"
+        },
+        "cyp.2B6": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "cyp_isoform",
+          "direction": "higher",
+          "metric": "molecule_hit_at_1",
+          "mode": "frozen",
+          "readout_config_sha256": "c2a4c5b8edbcab6c3f3a7460b2e2fa442fd670e7e95fa62a6716e385530c4825",
+          "units": "binary"
+        },
+        "cyp.2C19": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "cyp_isoform",
+          "direction": "higher",
+          "metric": "molecule_hit_at_1",
+          "mode": "frozen",
+          "readout_config_sha256": "c2a4c5b8edbcab6c3f3a7460b2e2fa442fd670e7e95fa62a6716e385530c4825",
+          "units": "binary"
+        },
+        "cyp.2C8": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "cyp_isoform",
+          "direction": "higher",
+          "metric": "molecule_hit_at_1",
+          "mode": "frozen",
+          "readout_config_sha256": "c2a4c5b8edbcab6c3f3a7460b2e2fa442fd670e7e95fa62a6716e385530c4825",
+          "units": "binary"
+        },
+        "cyp.2C9": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "cyp_isoform",
+          "direction": "higher",
+          "metric": "molecule_hit_at_1",
+          "mode": "frozen",
+          "readout_config_sha256": "c2a4c5b8edbcab6c3f3a7460b2e2fa442fd670e7e95fa62a6716e385530c4825",
+          "units": "binary"
+        },
+        "cyp.2D6": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "cyp_isoform",
+          "direction": "higher",
+          "metric": "molecule_hit_at_1",
+          "mode": "frozen",
+          "readout_config_sha256": "c2a4c5b8edbcab6c3f3a7460b2e2fa442fd670e7e95fa62a6716e385530c4825",
+          "units": "binary"
+        },
+        "cyp.2E1": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "cyp_isoform",
+          "direction": "higher",
+          "metric": "molecule_hit_at_1",
+          "mode": "frozen",
+          "readout_config_sha256": "c2a4c5b8edbcab6c3f3a7460b2e2fa442fd670e7e95fa62a6716e385530c4825",
+          "units": "binary"
+        },
+        "cyp.3A4": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "cyp_isoform",
+          "direction": "higher",
+          "metric": "molecule_hit_at_1",
+          "mode": "frozen",
+          "readout_config_sha256": "c2a4c5b8edbcab6c3f3a7460b2e2fa442fd670e7e95fa62a6716e385530c4825",
+          "units": "binary"
+        },
+        "exp.LogD": {
+          "cells": [
+            {
+              "fold_id": "official_test",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "expansionrx",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "d2deafd20fa9d2c40fc2ebcaf3c3544894bbe38eddda128f5f8a0276b4278ddb",
+          "units": "source_label:LogD"
+        },
+        "exp.LogS": {
+          "cells": [
+            {
+              "fold_id": "official_test",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "expansionrx",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "d2deafd20fa9d2c40fc2ebcaf3c3544894bbe38eddda128f5f8a0276b4278ddb",
+          "units": "source_label:LogS"
+        },
+        "exp.Log_Caco_ER": {
+          "cells": [
+            {
+              "fold_id": "official_test",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "expansionrx",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "d2deafd20fa9d2c40fc2ebcaf3c3544894bbe38eddda128f5f8a0276b4278ddb",
+          "units": "source_label:Log_Caco_ER"
+        },
+        "exp.Log_Caco_Papp_AB": {
+          "cells": [
+            {
+              "fold_id": "official_test",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "expansionrx",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "d2deafd20fa9d2c40fc2ebcaf3c3544894bbe38eddda128f5f8a0276b4278ddb",
+          "units": "source_label:Log_Caco_Papp_AB"
+        },
+        "exp.Log_HLM_CLint": {
+          "cells": [
+            {
+              "fold_id": "official_test",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "expansionrx",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "d2deafd20fa9d2c40fc2ebcaf3c3544894bbe38eddda128f5f8a0276b4278ddb",
+          "units": "source_label:Log_HLM_CLint"
+        },
+        "exp.Log_MLM_CLint": {
+          "cells": [
+            {
+              "fold_id": "official_test",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "expansionrx",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "d2deafd20fa9d2c40fc2ebcaf3c3544894bbe38eddda128f5f8a0276b4278ddb",
+          "units": "source_label:Log_MLM_CLint"
+        },
+        "exp.Log_Mouse_BPB": {
+          "cells": [
+            {
+              "fold_id": "official_test",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "expansionrx",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "d2deafd20fa9d2c40fc2ebcaf3c3544894bbe38eddda128f5f8a0276b4278ddb",
+          "units": "source_label:Log_Mouse_BPB"
+        },
+        "exp.Log_Mouse_MPB": {
+          "cells": [
+            {
+              "fold_id": "official_test",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "expansionrx",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "d2deafd20fa9d2c40fc2ebcaf3c3544894bbe38eddda128f5f8a0276b4278ddb",
+          "units": "source_label:Log_Mouse_MPB"
+        },
+        "exp.Log_Mouse_PPB": {
+          "cells": [
+            {
+              "fold_id": "official_test",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "expansionrx",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "d2deafd20fa9d2c40fc2ebcaf3c3544894bbe38eddda128f5f8a0276b4278ddb",
+          "units": "source_label:Log_Mouse_PPB"
+        },
+        "qm7.target_atomization_energy": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm7",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "4b9c742123bcfb3a3d29884cdfccaa0936343fb016ccf4fc654da1e337a70c4f",
+          "units": "kcal/mol"
+        },
+        "qm9.Cv": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm9",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "aa35f6402686653850eea5bc529800b4a55f92231672aa15a8618ff8a3ea2c04",
+          "units": "cal/(mol K)"
+        },
+        "qm9.G": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm9",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "aa35f6402686653850eea5bc529800b4a55f92231672aa15a8618ff8a3ea2c04",
+          "units": "Ha"
+        },
+        "qm9.H": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm9",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "aa35f6402686653850eea5bc529800b4a55f92231672aa15a8618ff8a3ea2c04",
+          "units": "Ha"
+        },
+        "qm9.U": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm9",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "aa35f6402686653850eea5bc529800b4a55f92231672aa15a8618ff8a3ea2c04",
+          "units": "Ha"
+        },
+        "qm9.U0": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm9",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "aa35f6402686653850eea5bc529800b4a55f92231672aa15a8618ff8a3ea2c04",
+          "units": "Ha"
+        },
+        "qm9.alpha": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm9",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "aa35f6402686653850eea5bc529800b4a55f92231672aa15a8618ff8a3ea2c04",
+          "units": "bohr^3"
+        },
+        "qm9.gap": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm9",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "aa35f6402686653850eea5bc529800b4a55f92231672aa15a8618ff8a3ea2c04",
+          "units": "Ha"
+        },
+        "qm9.homo": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm9",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "aa35f6402686653850eea5bc529800b4a55f92231672aa15a8618ff8a3ea2c04",
+          "units": "Ha"
+        },
+        "qm9.lumo": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm9",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "aa35f6402686653850eea5bc529800b4a55f92231672aa15a8618ff8a3ea2c04",
+          "units": "Ha"
+        },
+        "qm9.mu": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm9",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "aa35f6402686653850eea5bc529800b4a55f92231672aa15a8618ff8a3ea2c04",
+          "units": "D"
+        },
+        "qm9.r2": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm9",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "aa35f6402686653850eea5bc529800b4a55f92231672aa15a8618ff8a3ea2c04",
+          "units": "bohr^2"
+        },
+        "qm9.zpve": {
+          "cells": [
+            {
+              "fold_id": "0",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "1",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "2",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "3",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "4",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "5",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "6",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "7",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "8",
+              "readout_seed": 0,
+              "weight": 1.0
+            },
+            {
+              "fold_id": "9",
+              "readout_seed": 0,
+              "weight": 1.0
+            }
+          ],
+          "dataset": "qm9",
+          "direction": "lower",
+          "metric": "MAE",
+          "mode": "frozen",
+          "readout_config_sha256": "aa35f6402686653850eea5bc529800b4a55f92231672aa15a8618ff8a3ea2c04",
+          "units": "Ha"
+        }
+      },
+      "families": {
+        "az.exact_som.four_primary": [
+          "az.exact_som.S_marginal",
+          "az.exact_som.D_marginal",
+          "az.exact_som.P_marginal",
+          "az.exact_som.SDP_minus_none"
+        ],
+        "cyp.1A2.four_primary": [
+          "cyp.1A2.S_marginal",
+          "cyp.1A2.D_marginal",
+          "cyp.1A2.P_marginal",
+          "cyp.1A2.SDP_minus_none"
+        ],
+        "cyp.2A6.four_primary": [
+          "cyp.2A6.S_marginal",
+          "cyp.2A6.D_marginal",
+          "cyp.2A6.P_marginal",
+          "cyp.2A6.SDP_minus_none"
+        ],
+        "cyp.2B6.four_primary": [
+          "cyp.2B6.S_marginal",
+          "cyp.2B6.D_marginal",
+          "cyp.2B6.P_marginal",
+          "cyp.2B6.SDP_minus_none"
+        ],
+        "cyp.2C19.four_primary": [
+          "cyp.2C19.S_marginal",
+          "cyp.2C19.D_marginal",
+          "cyp.2C19.P_marginal",
+          "cyp.2C19.SDP_minus_none"
+        ],
+        "cyp.2C8.four_primary": [
+          "cyp.2C8.S_marginal",
+          "cyp.2C8.D_marginal",
+          "cyp.2C8.P_marginal",
+          "cyp.2C8.SDP_minus_none"
+        ],
+        "cyp.2C9.four_primary": [
+          "cyp.2C9.S_marginal",
+          "cyp.2C9.D_marginal",
+          "cyp.2C9.P_marginal",
+          "cyp.2C9.SDP_minus_none"
+        ],
+        "cyp.2D6.four_primary": [
+          "cyp.2D6.S_marginal",
+          "cyp.2D6.D_marginal",
+          "cyp.2D6.P_marginal",
+          "cyp.2D6.SDP_minus_none"
+        ],
+        "cyp.2E1.four_primary": [
+          "cyp.2E1.S_marginal",
+          "cyp.2E1.D_marginal",
+          "cyp.2E1.P_marginal",
+          "cyp.2E1.SDP_minus_none"
+        ],
+        "cyp.3A4.four_primary": [
+          "cyp.3A4.S_marginal",
+          "cyp.3A4.D_marginal",
+          "cyp.3A4.P_marginal",
+          "cyp.3A4.SDP_minus_none"
+        ],
+        "exp.LogD.four_primary": [
+          "exp.LogD.S_marginal",
+          "exp.LogD.D_marginal",
+          "exp.LogD.P_marginal",
+          "exp.LogD.SDP_minus_none"
+        ],
+        "exp.LogS.four_primary": [
+          "exp.LogS.S_marginal",
+          "exp.LogS.D_marginal",
+          "exp.LogS.P_marginal",
+          "exp.LogS.SDP_minus_none"
+        ],
+        "exp.Log_Caco_ER.four_primary": [
+          "exp.Log_Caco_ER.S_marginal",
+          "exp.Log_Caco_ER.D_marginal",
+          "exp.Log_Caco_ER.P_marginal",
+          "exp.Log_Caco_ER.SDP_minus_none"
+        ],
+        "exp.Log_Caco_Papp_AB.four_primary": [
+          "exp.Log_Caco_Papp_AB.S_marginal",
+          "exp.Log_Caco_Papp_AB.D_marginal",
+          "exp.Log_Caco_Papp_AB.P_marginal",
+          "exp.Log_Caco_Papp_AB.SDP_minus_none"
+        ],
+        "exp.Log_HLM_CLint.four_primary": [
+          "exp.Log_HLM_CLint.S_marginal",
+          "exp.Log_HLM_CLint.D_marginal",
+          "exp.Log_HLM_CLint.P_marginal",
+          "exp.Log_HLM_CLint.SDP_minus_none"
+        ],
+        "exp.Log_MLM_CLint.four_primary": [
+          "exp.Log_MLM_CLint.S_marginal",
+          "exp.Log_MLM_CLint.D_marginal",
+          "exp.Log_MLM_CLint.P_marginal",
+          "exp.Log_MLM_CLint.SDP_minus_none"
+        ],
+        "exp.Log_Mouse_BPB.four_primary": [
+          "exp.Log_Mouse_BPB.S_marginal",
+          "exp.Log_Mouse_BPB.D_marginal",
+          "exp.Log_Mouse_BPB.P_marginal",
+          "exp.Log_Mouse_BPB.SDP_minus_none"
+        ],
+        "exp.Log_Mouse_MPB.four_primary": [
+          "exp.Log_Mouse_MPB.S_marginal",
+          "exp.Log_Mouse_MPB.D_marginal",
+          "exp.Log_Mouse_MPB.P_marginal",
+          "exp.Log_Mouse_MPB.SDP_minus_none"
+        ],
+        "exp.Log_Mouse_PPB.four_primary": [
+          "exp.Log_Mouse_PPB.S_marginal",
+          "exp.Log_Mouse_PPB.D_marginal",
+          "exp.Log_Mouse_PPB.P_marginal",
+          "exp.Log_Mouse_PPB.SDP_minus_none"
+        ],
+        "qm7.target_atomization_energy.four_primary": [
+          "qm7.target_atomization_energy.S_marginal",
+          "qm7.target_atomization_energy.D_marginal",
+          "qm7.target_atomization_energy.P_marginal",
+          "qm7.target_atomization_energy.SDP_minus_none"
+        ],
+        "qm9.Cv.four_primary": [
+          "qm9.Cv.S_marginal",
+          "qm9.Cv.D_marginal",
+          "qm9.Cv.P_marginal",
+          "qm9.Cv.SDP_minus_none"
+        ],
+        "qm9.G.four_primary": [
+          "qm9.G.S_marginal",
+          "qm9.G.D_marginal",
+          "qm9.G.P_marginal",
+          "qm9.G.SDP_minus_none"
+        ],
+        "qm9.H.four_primary": [
+          "qm9.H.S_marginal",
+          "qm9.H.D_marginal",
+          "qm9.H.P_marginal",
+          "qm9.H.SDP_minus_none"
+        ],
+        "qm9.U.four_primary": [
+          "qm9.U.S_marginal",
+          "qm9.U.D_marginal",
+          "qm9.U.P_marginal",
+          "qm9.U.SDP_minus_none"
+        ],
+        "qm9.U0.four_primary": [
+          "qm9.U0.S_marginal",
+          "qm9.U0.D_marginal",
+          "qm9.U0.P_marginal",
+          "qm9.U0.SDP_minus_none"
+        ],
+        "qm9.alpha.four_primary": [
+          "qm9.alpha.S_marginal",
+          "qm9.alpha.D_marginal",
+          "qm9.alpha.P_marginal",
+          "qm9.alpha.SDP_minus_none"
+        ],
+        "qm9.gap.four_primary": [
+          "qm9.gap.S_marginal",
+          "qm9.gap.D_marginal",
+          "qm9.gap.P_marginal",
+          "qm9.gap.SDP_minus_none"
+        ],
+        "qm9.homo.four_primary": [
+          "qm9.homo.S_marginal",
+          "qm9.homo.D_marginal",
+          "qm9.homo.P_marginal",
+          "qm9.homo.SDP_minus_none"
+        ],
+        "qm9.lumo.four_primary": [
+          "qm9.lumo.S_marginal",
+          "qm9.lumo.D_marginal",
+          "qm9.lumo.P_marginal",
+          "qm9.lumo.SDP_minus_none"
+        ],
+        "qm9.mu.four_primary": [
+          "qm9.mu.S_marginal",
+          "qm9.mu.D_marginal",
+          "qm9.mu.P_marginal",
+          "qm9.mu.SDP_minus_none"
+        ],
+        "qm9.r2.four_primary": [
+          "qm9.r2.S_marginal",
+          "qm9.r2.D_marginal",
+          "qm9.r2.P_marginal",
+          "qm9.r2.SDP_minus_none"
+        ],
+        "qm9.zpve.four_primary": [
+          "qm9.zpve.S_marginal",
+          "qm9.zpve.D_marginal",
+          "qm9.zpve.P_marginal",
+          "qm9.zpve.SDP_minus_none"
+        ]
+      },
+      "independent_unit": "pretraining_seed",
+      "method": "paired_seed_contrast_sign_flip_bootstrap_v1",
+      "multiple_comparison_rule": "Holm",
+      "primary_families": [
+        "qm7.target_atomization_energy.four_primary",
+        "qm9.mu.four_primary",
+        "qm9.alpha.four_primary",
+        "qm9.homo.four_primary",
+        "qm9.lumo.four_primary",
+        "qm9.gap.four_primary",
+        "qm9.r2.four_primary",
+        "qm9.zpve.four_primary",
+        "qm9.U0.four_primary",
+        "qm9.U.four_primary",
+        "qm9.H.four_primary",
+        "qm9.G.four_primary",
+        "qm9.Cv.four_primary",
+        "cyp.1A2.four_primary",
+        "cyp.2A6.four_primary",
+        "cyp.2B6.four_primary",
+        "cyp.2C19.four_primary",
+        "cyp.2C8.four_primary",
+        "cyp.2C9.four_primary",
+        "cyp.2D6.four_primary",
+        "cyp.2E1.four_primary",
+        "cyp.3A4.four_primary",
+        "az.exact_som.four_primary",
+        "exp.LogD.four_primary",
+        "exp.LogS.four_primary",
+        "exp.Log_HLM_CLint.four_primary",
+        "exp.Log_MLM_CLint.four_primary",
+        "exp.Log_Caco_Papp_AB.four_primary",
+        "exp.Log_Caco_ER.four_primary",
+        "exp.Log_Mouse_PPB.four_primary",
+        "exp.Log_Mouse_BPB.four_primary",
+        "exp.Log_Mouse_MPB.four_primary"
+      ],
+      "schema_version": "phase1_scientific_analysis_rules_v1",
+      "sign_flip": {
+        "exact_max_seeds": 16,
+        "monte_carlo_resamples": 10000,
+        "rng_seed": 1730
+      }
+    },
+    "dataset_definitions": [
+      {
+        "assignment_path": "/share/home/zixiao/benchmark_dataset/scaffold_split/qm7/fold_assignments.csv",
+        "auxiliary_metrics": [
+          "RMSE"
+        ],
+        "coordinate_multiplier_to_angstrom": 0.529177210903,
+        "coordinate_unit_basis": "Existing MAT-to-XYZ lineage and formatter contract; publisher page independently documents energy unit, not coordinate unit",
+        "dataset_id": "qm7",
+        "identity_basis": "Existing declared benchmark perceived graph, standard_full_inchikey_v1; original author 2D charge/stereo graph remains unproven",
+        "output_level": "graph",
+        "primary_metric": "MAE",
+        "source_coordinate_unit": "bohr",
+        "source_geometry": "xyz_path native element/coordinate rows, with existing explicit H and original order",
+        "target_conversion": "none; retain existing exported MAT atomization-energy label",
+        "tasks": [
+          {
+            "endpoint_id": "qm7.target_atomization_energy",
+            "primary_inference": true,
+            "task_id": "target_atomization_energy",
+            "unit": "kcal/mol"
+          }
+        ]
+      },
+      {
+        "all_15_tasks_trained_and_reported": true,
+        "assignment_path": "/share/home/zixiao/benchmark_dataset/scaffold_split/qm9/fold_assignments.csv",
+        "auxiliary_metrics": [
+          "RMSE"
+        ],
+        "coordinate_multiplier_to_angstrom": 1.0,
+        "dataset_id": "qm9",
+        "identity_basis": "Original GDB source SMILES full key; retain original folds and disclosed 1756 cross-fold full-key groups; relaxed XYZ/source-graph differences remain disclosed",
+        "output_level": "graph",
+        "primary_metric": "MAE",
+        "rotational_constants_reporting": "A/B/C retain training and MAE/RMSE reporting as auxiliary endpoints; not included in the primary multiplicity family",
+        "source_coordinate_unit": "angstrom",
+        "source_geometry": "Original xyz_path native rows; read element and three coordinates only for geometry",
+        "target_conversion": "none; raw source units, no implicit Hartree-to-eV conversion or atom-reference subtraction",
+        "tasks": [
+          {
+            "endpoint_id": "qm9.A",
+            "primary_inference": false,
+            "task_id": "A",
+            "unit": "GHz"
+          },
+          {
+            "endpoint_id": "qm9.B",
+            "primary_inference": false,
+            "task_id": "B",
+            "unit": "GHz"
+          },
+          {
+            "endpoint_id": "qm9.C",
+            "primary_inference": false,
+            "task_id": "C",
+            "unit": "GHz"
+          },
+          {
+            "endpoint_id": "qm9.mu",
+            "primary_inference": true,
+            "task_id": "mu",
+            "unit": "D"
+          },
+          {
+            "endpoint_id": "qm9.alpha",
+            "primary_inference": true,
+            "task_id": "alpha",
+            "unit": "bohr^3"
+          },
+          {
+            "endpoint_id": "qm9.homo",
+            "primary_inference": true,
+            "task_id": "homo",
+            "unit": "Ha"
+          },
+          {
+            "endpoint_id": "qm9.lumo",
+            "primary_inference": true,
+            "task_id": "lumo",
+            "unit": "Ha"
+          },
+          {
+            "endpoint_id": "qm9.gap",
+            "primary_inference": true,
+            "task_id": "gap",
+            "unit": "Ha"
+          },
+          {
+            "endpoint_id": "qm9.r2",
+            "primary_inference": true,
+            "task_id": "r2",
+            "unit": "bohr^2"
+          },
+          {
+            "endpoint_id": "qm9.zpve",
+            "primary_inference": true,
+            "task_id": "zpve",
+            "unit": "Ha"
+          },
+          {
+            "endpoint_id": "qm9.U0",
+            "primary_inference": true,
+            "task_id": "U0",
+            "unit": "Ha"
+          },
+          {
+            "endpoint_id": "qm9.U",
+            "primary_inference": true,
+            "task_id": "U",
+            "unit": "Ha"
+          },
+          {
+            "endpoint_id": "qm9.H",
+            "primary_inference": true,
+            "task_id": "H",
+            "unit": "Ha"
+          },
+          {
+            "endpoint_id": "qm9.G",
+            "primary_inference": true,
+            "task_id": "G",
+            "unit": "Ha"
+          },
+          {
+            "endpoint_id": "qm9.Cv",
+            "primary_inference": true,
+            "task_id": "Cv",
+            "unit": "cal/(mol K)"
+          }
+        ]
+      },
+      {
+        "assignment_path": "/share/home/zixiao/benchmark_dataset/scaffold_split/cyp_isoform/fold_assignments.csv",
+        "author_index_base": 1,
+        "chemical_negative_or_annotation_completeness_truth_claimed": false,
+        "dataset_id": "cyp_isoform",
+        "duplicate_positive_policy": "Idempotent positive set; retain raw tokens and duplicate provenance",
+        "empty_property_policy": "preserve_unknown",
+        "endpoint_ids": [
+          "cyp.1A2",
+          "cyp.2A6",
+          "cyp.2B6",
+          "cyp.2C19",
+          "cyp.2C8",
+          "cyp.2C9",
+          "cyp.2D6",
+          "cyp.2E1",
+          "cyp.3A4"
+        ],
+        "head_definition": "Nine output tasks; each record has candidate/supervision only for its source isoform, other isoform tasks unknown",
+        "index_transport": "Author default RemoveHs retained-atom bijection to native source IDs; ordinary deleted H has no candidate or supervision; retained special/isotope H follows actual retained set",
+        "label_policy": "strict_primary_binary_set",
+        "missing_property_policy": "preserve_unknown",
+        "original_sdf_coordinate_units_independently_verified": false,
+        "output_level": "atom",
+        "secondary_tertiary_annotations_used": false,
+        "source_coordinate_unit_for_original_sdf": "angstrom_declared_convention",
+        "target_property": "PRIMARY_SOM from the same physical source record",
+        "task_unit": "binary",
+        "tasks": [
+          "1A2",
+          "2A6",
+          "2B6",
+          "2C19",
+          "2C8",
+          "2C9",
+          "2D6",
+          "2E1",
+          "3A4"
+        ]
+      },
+      {
+        "assignment_path": "/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom/fold_assignments.csv",
+        "author_index_base": 0,
+        "benchmark_scope": "109 retained records; existing 11 raw-only records remain outside the benchmark",
+        "chemical_negative_or_annotation_completeness_truth_claimed": false,
+        "dataset_id": "az_exactsom",
+        "duplicate_positive_policy": "Idempotent exact positive set with raw/group provenance",
+        "endpoint_ids": [
+          "az.exact_som"
+        ],
+        "exact_flag_policy": "Only documented integer or ASCII-trimmed string 0/1; strict complete groups/flags cardinality, retain group order and empty groups",
+        "extended_only_policy": "preserve_unknown",
+        "index_transport": "Exact source-to-author/native bijection, preserve legal atom0; do not consume historical normalized 1based labels",
+        "label_policy": "strict_exact_binary_set",
+        "literal_author_loader_reproduction_claimed": false,
+        "missing_or_empty_exact_policy": "preserve_unknown",
+        "output_level": "atom",
+        "target_source": "Same physical raw CSV row, supplied groups and exact flags; original raw SMILES default author parser",
+        "task_unit": "binary",
+        "tasks": [
+          "exact_som"
+        ]
+      },
+      {
+        "auxiliary_metrics": [
+          "RMSE"
+        ],
+        "dataset_id": "expansionrx",
+        "development_geometry_difference": "Existing DEV uses AddHs output rows, ETKDG100/MMFF100 and accepts MMFF status1; this is disclosed and its cache is not automatically final native-only geometry",
+        "endpoint_ids": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "exp.Log_MLM_CLint",
+          "exp.Log_Caco_Papp_AB",
+          "exp.Log_Caco_ER",
+          "exp.Log_Mouse_PPB",
+          "exp.Log_Mouse_BPB",
+          "exp.Log_Mouse_MPB"
+        ],
+        "fold_manifest_path": "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_manifest.csv",
+        "label_space": "Existing source label units: LogD unchanged; other named targets are the archived formatter log10((raw+1)*multiplier) label, not experimental raw measurement units",
+        "official_test_path": "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/official_test.csv",
+        "output_level": "graph",
+        "primary_metric": "MAE",
+        "raw_formatter_reference_only": {
+          "LogS": "log10((KSOL+1)*1e-6)",
+          "Log_Caco_ER": "log10(Caco-2 Permeability Efflux+1)",
+          "Log_Caco_Papp_AB": "log10((Caco-2 Permeability Papp A>B+1)*1e-6)",
+          "Log_HLM_CLint": "log10(HLM CLint+1)",
+          "Log_MLM_CLint": "log10(MLM CLint+1)",
+          "Log_Mouse_BPB": "log10(MBPB+1)",
+          "Log_Mouse_MPB": "log10(MGMB+1)",
+          "Log_Mouse_PPB": "log10(MPPB+1)"
+        },
+        "source_geometry_definition": "Default raw-SMILES parser native atom order including retained explicit/isotope H; one common native-only generated candidate per full identity, recipe below",
+        "target_conversion": "none for existing named label columns; do not log-transform a second time",
+        "tasks": [
+          "LogD",
+          "LogS",
+          "Log_HLM_CLint",
+          "Log_MLM_CLint",
+          "Log_Caco_Papp_AB",
+          "Log_Caco_ER",
+          "Log_Mouse_PPB",
+          "Log_Mouse_BPB",
+          "Log_Mouse_MPB"
+        ],
+        "training_path": "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/log_train_data.csv"
+      }
+    ],
+    "descriptive_rules": {
+      "A_B_C_in_primary_family": false,
+      "all_QM9_15_trained_and_reported": true,
+      "auxiliary_strategy_contrast": {
+        "additional_inferential_family": false,
+        "baseline_strategy": "joint",
+        "included_in_128_primary_comparisons": false,
+        "nominal_integral_is_adaptive_coefficient_integral": false,
+        "paired_pretraining_seeds": [
+          0,
+          1,
+          2
+        ],
+        "strategy": "sdp_positive_nominal_equal_integral_v2",
+        "summary": [
+          "per_seed_difference",
+          "mean_difference",
+          "minimum_difference",
+          "maximum_difference"
+        ],
+        "variant": "SDP"
+      },
+      "complete_output_tasks": 35,
+      "inferential_family_or_global_FWER_claimed": false,
+      "interactions": {
+        "DP": {
+          "D": -0.5,
+          "DP": 0.5,
+          "P": -0.5,
+          "S": 0.5,
+          "SD": -0.5,
+          "SDP": 0.5,
+          "SP": -0.5,
+          "none": 0.5
+        },
+        "SD": {
+          "D": -0.5,
+          "DP": -0.5,
+          "P": 0.5,
+          "S": -0.5,
+          "SD": 0.5,
+          "SDP": 0.5,
+          "SP": -0.5,
+          "none": 0.5
+        },
+        "SDP": {
+          "D": 1,
+          "DP": -1,
+          "P": 1,
+          "S": 1,
+          "SD": -1,
+          "SDP": 1,
+          "SP": -1,
+          "none": -1
+        },
+        "SP": {
+          "D": 0.5,
+          "DP": -0.5,
+          "P": -0.5,
+          "S": -0.5,
+          "SD": -0.5,
+          "SDP": 0.5,
+          "SP": 0.5,
+          "none": 0.5
+        }
+      },
+      "pairs": [
+        [
+          "none",
+          "S"
+        ],
+        [
+          "none",
+          "D"
+        ],
+        [
+          "none",
+          "P"
+        ],
+        [
+          "none",
+          "SD"
+        ],
+        [
+          "none",
+          "SP"
+        ],
+        [
+          "none",
+          "DP"
+        ],
+        [
+          "none",
+          "SDP"
+        ],
+        [
+          "S",
+          "D"
+        ],
+        [
+          "S",
+          "P"
+        ],
+        [
+          "S",
+          "SD"
+        ],
+        [
+          "S",
+          "SP"
+        ],
+        [
+          "S",
+          "DP"
+        ],
+        [
+          "S",
+          "SDP"
+        ],
+        [
+          "D",
+          "P"
+        ],
+        [
+          "D",
+          "SD"
+        ],
+        [
+          "D",
+          "SP"
+        ],
+        [
+          "D",
+          "DP"
+        ],
+        [
+          "D",
+          "SDP"
+        ],
+        [
+          "P",
+          "SD"
+        ],
+        [
+          "P",
+          "SP"
+        ],
+        [
+          "P",
+          "DP"
+        ],
+        [
+          "P",
+          "SDP"
+        ],
+        [
+          "SD",
+          "SP"
+        ],
+        [
+          "SD",
+          "DP"
+        ],
+        [
+          "SD",
+          "SDP"
+        ],
+        [
+          "SP",
+          "DP"
+        ],
+        [
+          "SP",
+          "SDP"
+        ],
+        [
+          "DP",
+          "SDP"
+        ]
+      ],
+      "schema_version": "phase1_descriptive_statistics_scope_v1"
+    },
+    "execution_bindings_are_pretraining_choice_prerequisites": false,
+    "execution_bindings_state": "PENDING",
+    "geometry_and_mapping_policy": {
+      "all_final_dataset_geometry_artifacts_materialized": false,
+      "atom_encoding": "atomic_number_minus_one",
+      "coordinates": "Owned finite FP32 encoder tensor derived from checked FP64 source/generated coordinates; bind both typed hashes and quantization error",
+      "cyp_az_geometry": "1927 original SDF3D transports plus178 already closed ready native-coordinate candidates; restore saved FP64/F32, no new generation or retry",
+      "cyp_az_inventory_count_reference": 2112,
+      "cyp_az_ready_count_reference": 2105,
+      "encoder_fields": [
+        "x",
+        "pos",
+        "batch",
+        "ptr"
+      ],
+      "existing_unavailable_geometry_records": [
+        "cyp:1A2.sdf:264",
+        "cyp:2E1.sdf:142",
+        "cyp:3A4.sdf:471",
+        "az:Cmpd 4",
+        "az:Cmpd 21",
+        "az:Cmpd 79",
+        "az:Cmpd 109"
+      ],
+      "generated_candidate_recipe": {
+        "accepted_mmff_status": 0,
+        "add_hs": "Scratch copy only; returned encoder rows remain original native atom count/order",
+        "embedding": "ETKDGv3, one EmbedMolecule call/one conformer",
+        "embedding_max_iterations": 200,
+        "embedding_timeout_seconds": 2,
+        "enforce_chirality": true,
+        "fallback_or_seed_sweep": false,
+        "force_field": "MMFF94 on independent copy",
+        "legacy_stereo_perception": true,
+        "mmff_max_iterations": 500,
+        "num_threads": 1,
+        "output_unit_basis": "RDKit library angstrom convention; not independent physical geometry truth",
+        "rdkit_version": "2025.09.5",
+        "schema_version": "phase1_native_generated_geometry_v1",
+        "seed_formula": "1 + int(material[:8],16) % (2**31-2)",
+        "seed_material": "canonical_hash({recipe:native_etkdgv3_mmff94_seed_v1,atomic_numbers:native.atomic_numbers,ordered_graph_hash:native.ordered_graph_hash})"
+      },
+      "original_sdf_unit_truth_verified": false,
+      "physical_geometry_truth_verified": false,
+      "qm_geometry_generation": false,
+      "source_ids": "Complete source-native bijection, separate from identity normalization and label mask",
+      "source_rows": "Preserve all source-native rows and explicit/isotope H; no canonical reordering or source conformer mutation",
+      "unavailable_geometry_policy": "Retain source/fold/embargo inventory and report failure; exclude unavailable model-input records uniformly from training/evaluation across every condition; no fallback, substitution or label-dependent reselection"
+    },
+    "historical_512_dim_readout_artifact_reused": false,
+    "input_dimension": 384,
+    "maximum_training_trials": {
+      "auxiliary": 567,
+      "auxiliary_linear_graph_cells_per_encoder": 21,
+      "encoder_artifacts": 27,
+      "main": 1107,
+      "main_readout_cells_per_encoder": 41,
+      "maximum_readout_training_runs": 1674,
+      "official_expansion_train_scope": "all original rows of log_train_data.csv; uniform declared geometry/availability rules; official_test.csv final only"
+    },
+    "metric_policy": {
+      "actual_final_file_metric_producer_implemented": false,
+      "all_output_tasks_reported": 35,
+      "candidate_vs_supervision": "Rank all source-defined candidates only when every candidate is supervised; unknown is not a negative",
+      "current_evaluator_runtime_role": "train_inner_validation; final outer-test file adapter/role is later implementation work, not already verified by this artifact",
+      "family_exclusion_changes_training_or_reporting": false,
+      "graph_metrics": "Per-task observed-label MAE/RMSE after FP64 inverse affine into original source label units; sum errors and divide by label count, never average batch means or incompatible units",
+      "incomplete_supervision": "skip_instance",
+      "instance_partition": [
+        "no_candidate",
+        "unknown",
+        "partial_supervision",
+        "no_positive",
+        "evaluable"
+      ],
+      "k_over_candidates": "clamp_to_candidate_count",
+      "no_evaluable_som_instances": "None/NO_EVALUABLE_INSTANCES; never zero",
+      "no_positive_policy": "exclude_and_report",
+      "no_valid_graph_labels": "None/NO_VALID_LABELS; never zero",
+      "primary_family_exclusions": [
+        "qm9.A",
+        "qm9.B",
+        "qm9.C"
+      ],
+      "primary_inference_endpoints": 32,
+      "score_and_membership_binding": "Actual model score tensor/order, native IDs, label masks, record membership and current trained model/readout state hashes; caller score summaries are not accepted",
+      "score_space": "raw_logits",
+      "som_auxiliary_ks": [
+        2,
+        3
+      ],
+      "som_denominator": "Eligible fully supervised molecule-task instances with at least one positive; hit if any source-positive appears in top-k",
+      "som_evaluation_unit": "One source record molecule by its eligible task/isoform; graph-local native source IDs, never pooled atom accuracy",
+      "som_primary": "molecule_hit_at_k, k1",
+      "tie_policy": "score_desc_native_source_id_asc"
+    },
+    "optimization_policy": {
+      "all_unknown_training_record_policy": "Keep in source/split/embargo inventory and unknown report; exclude from optimizer batches by train-only mask recipe common to all variants",
+      "atom_loss": "bce_logits",
+      "atom_normalization": "identity, mean0 scale1",
+      "batch_graphs": 32,
+      "batch_order": "Fixed train-only order/permutation artifact, paired across conditions/readout seeds within rotation",
+      "checkpoint_and_resume": "Bind config/split/normalizer/initial actual encoder/order/cursor/complete AdamW moments/Torch RNG; use existing strict trainer checkpoint semantics",
+      "epochs": 20,
+      "gradient_clip_norm": null,
+      "graph_loss": "mse",
+      "graph_normalization": "Train-split-only observed-label per-task mean and population standard deviation; finite zero variance uses scale1; no train labels gives unavailable normalizer/task report, never fit on validation/test",
+      "legacy_fusion_task_weights_inherited": false,
+      "optimizer": {
+        "amsgrad": false,
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "implementation": "single_tensor_adamw_v1",
+        "lr": 0.001,
+        "weight_decay": 0.01
+      },
+      "reduction": "task_then_observed_label_mean",
+      "selection": "Final fixed update endpoint only; no early stopping or condition-specific extension",
+      "task_weights": "1.0 for every configured output task; denominator is sum of all fixed task weights even if a task is missing in the batch",
+      "total_updates_rule": "20 times the fixed number of retained training batches; each epoch visits each geometry-ready record with at least one observed supervised label once; final smaller batch retained",
+      "tracking": "Functional W&B with explicit commit and closed persistent history; retained offline runs are allowed with declared later sync method"
+    },
+    "readout_policy": {
+      "activation": "ReLU",
+      "atom_hidden_dim": 64,
+      "atom_layers": 1,
+      "atom_operation": "per-native-atom Linear64/ReLU, output Linear with bias; no graph pooling",
+      "complement_class": "SourceAlignedLinearGraphReadout",
+      "complement_graph_pooling": "mean",
+      "complement_operation": "Raw H0 mean pool, one Linear with bias, no activation",
+      "complement_scope": "Graph regression datasets, auxiliary report; not separately selected per variant",
+      "encoder_eval_buffers_and_parameters_frozen": true,
+      "finetune_in_primary_matrix": false,
+      "graph_operation": "per-native-atom Linear64/ReLU, mean pool over all native input rows, output Linear with bias",
+      "initializer": "common.Linear Xavier uniform, zero bias; common readout seed0 across conditions",
+      "main_class": "SourceAlignedH0Readout",
+      "main_encoder_mode": "frozen",
+      "readout_seeds": [
+        0
+      ],
+      "unused_pretraining_heads_or_adapters_consumed": false
+    },
+    "readout_seeds": [
+      0
+    ],
+    "scope_clarification": {
+      "expansionrx": {
+        "development_cv_manifest": "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_manifest.csv",
+        "development_cv_role": "Development/tracking only; not official final test or condition-specific checkpoint selection",
+        "early_stopping": false,
+        "final_inner_validation": "No additional official inner split introduced",
+        "final_test_membership": "Every original official_test.csv row",
+        "final_training_membership": "Every original log_train_data.csv row, subject only to identical fixed geometry/availability disposition across conditions",
+        "fixed_epochs": 20,
+        "official_test_path": "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/official_test.csv",
+        "training_path": "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/log_train_data.csv"
+      },
+      "scaffold_rotation": {
+        "datasets": [
+          "qm7",
+          "qm9",
+          "cyp_isoform",
+          "az_exactsom"
+        ],
+        "drop_unavailable_geometry": false,
+        "inner_validation_fold": "(t+1)%10",
+        "ordered_membership": "Stable filtering of existing assignment order by the original pinned generator rotation function",
+        "outer_folds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "reassign_members": false,
+        "test_fold": "t",
+        "train_folds": "remaining original 8 folds"
+      }
+    },
+    "split_policy": {
+      "all_scheduled_test_identity_union": "Union all10 scaffold outer-test identities plus Expansion official-test full keys, using declared benchmark identity pipeline",
+      "expansionrx": "Retain existing declared training CV assignments/manifest; final test is only original official_test.csv, not a training CV validation file",
+      "known_prior_label_exposure": "Stage37 eighteen CYP refs and Stage40 AZ Cmpd1/fold6,Cmpd2/fold8 are disclosed in their closed views; future rotations cannot claim those labels untouched",
+      "n_outer_folds": 10,
+      "no_test_targets_used_for_rule_selection": true,
+      "outer_test_role": "Final evaluation only after scientific definitions and endpoint selection are frozen",
+      "qm9_cross_fold_full_key_overlap_policy": "Retain and disclose; do not relabel as formula-only isomers or independently grouped folds",
+      "rotation_definition": "Original test fold t=0..9, validation fold (t+1)%10, train remaining8; preserve original sample IDs, assignments, file order and rotation files",
+      "scaffold_datasets": [
+        "qm7",
+        "qm9",
+        "cyp_isoform",
+        "az_exactsom"
+      ]
+    },
+    "statistics_limitations": [
+      "Only three independent pretraining seeds; folds/readout cells are dependent within-seed aggregation",
+      "Two-sided exact sign-flip minimum p=0.25; alpha0.05 significance impossible even before Holm",
+      "95% percentile bootstrap from three seeds has fragile coverage; report effects and this limitation",
+      "Holm is per-endpoint four-comparison family control, not a global35-task/32-endpoint FWER claim"
+    ]
+  },
+  "downstream_execution_bindings_pending": [
+    "new_dimension_readout_config_files",
+    "role_membership_and_label_mask_files"
+  ],
+  "draft_provenance": {
+    "cost_evidence": {
+      "bytes": 17138,
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage58_actual_budget_analysis_v1/budget_analysis.json",
+      "sha256": "c174de3549e98627497c9df9e70a477977a7f388a870288c06cb922cdf45c432"
+    },
+    "legacy_descriptive_scope": {
+      "bytes": 1948,
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_protocol_artifacts/run_4511942/descriptive_scope.json",
+      "sha256": "2b450fe901f71991d5e0d606c73e67e6f8d6e6b37bda9dedcb5ca49435f84f86"
+    },
+    "legacy_science": {
+      "bytes": 142207,
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_protocol_artifacts/scientific_freeze_run_4511951/phase1_scientific_protocol.json",
+      "sha256": "2d239f50760c37898e212de6ebad83a9394a19f0e5aabe04a6c96f365a3d6f0a"
+    },
+    "preparation_receipt": {
+      "bytes": 213195,
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage50_full_corpus_preparation/run_actual_full_v3/summary.json",
+      "sha256": "a2c33ae7544408b0fc37404604a026834ce9d5c46fb7bbf620b7752f35187eda"
+    },
+    "prepared_model_factory": {
+      "bytes": 8288,
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage50_full_corpus_preparation/run_actual_full_v3/model_factory_config.json",
+      "sha256": "8bd235e4f5888b86bf5d099bb414422e4cca8617dd5a6e86ee49888367dcb2f1"
+    },
+    "producer_source_snapshot": {
+      "bytes": 2495118,
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage55_original_metrics/root_close_commit_v2/source_snapshot.bin",
+      "sha256": "aa582a2e995bd9f205842e9bfc819953219c2b2b3900b9f40031930951a2551f"
+    },
+    "profile_recipe": {
+      "bytes": 7504,
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage57_node20_learning_pilot_v2/cpu_checks_4512025/resolved_recipe.json",
+      "sha256": "e62ea4c2b0d544035c4b81a6b6d010185cdaf563ee31fd2d7a28b5108e49ce73"
+    },
+    "qa_summary": {
+      "bytes": 17963,
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/run_v2_4511985/summary.json",
+      "sha256": "ff7288bcfecd9487ed8ce5cbf4cab6cd8801864691dd098f73105aea161ad84b"
+    },
+    "runner_artifacts": {
+      "full_validation_manifest": {
+        "bytes": 4757,
+        "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/run_v2_4511985/validation.json",
+        "sha256": "e481f302fd19c903138058601a3c915c41541550a4812221fa73aa9a60aa0be8"
+      },
+      "initialization.seed_0": {
+        "bytes": 254,
+        "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage50_full_corpus_preparation/run_actual_full_v3/initialization.seed_0.json",
+        "sha256": "411b76a0a08ecb1e430f45e9bc808789ffa6ad4c6d716e352c7b7d76123b4ff0"
+      },
+      "initialization.seed_1": {
+        "bytes": 254,
+        "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage50_full_corpus_preparation/run_actual_full_v3/initialization.seed_1.json",
+        "sha256": "d38eba8a7cecef1d94ec2e4c5d59d90bfa7d078ce59db79877c5370cfd438854"
+      },
+      "initialization.seed_2": {
+        "bytes": 254,
+        "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage50_full_corpus_preparation/run_actual_full_v3/initialization.seed_2.json",
+        "sha256": "67e4f2f427e6659348b82f8ae5d00f24d8b2543d5cfe624f2acab350ad9c7f2d"
+      },
+      "native_transport": {
+        "bytes": 13653,
+        "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/native_qa_stats_v3.py",
+        "sha256": "16c37ed53f6007b459981b734001fd3fef9dd225257b0d5d6eb8c54a4992772b"
+      },
+      "normalization": {
+        "bytes": 7817,
+        "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage50_full_corpus_preparation/run_actual_full_v3/normalization.json",
+        "sha256": "d34d3a375268c089ed965737092d5781163edb0ba4eb37a5434638a482aed93b"
+      },
+      "routine_validation_manifest": {
+        "bytes": 4763,
+        "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/run_v2_4511985/validation_monitor.json",
+        "sha256": "52dcefdb84c3ef21c3a40cb2b12551f127ea318c3ed66be63270a17c3d56a3e8"
+      },
+      "source_snapshot": {
+        "bytes": 2500093,
+        "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage59_multi_epoch_training_v1/root_close_commit/source_snapshot.bin",
+        "sha256": "01b8ad133b3c77f1422e5420575d5f71a191c852981918a452a6dea052b1b4d6"
+      },
+      "train_manifest": {
+        "bytes": 4751,
+        "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/run_v2_4511985/train.json",
+        "sha256": "afdf7665b3fc58c185e93555d3095d0df2462548e5aa90e763bff1688573dedc"
+      },
+      "training_moments": {
+        "bytes": 76286,
+        "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/run_v2_4511985/train_sufficient_statistics.json",
+        "sha256": "defa0a8d86ad2d8ea7f581bfe70b0c2b19a9176f3ff6fa6e23e6184cfa260e0b"
+      },
+      "validation_controls": {
+        "bytes": 13089,
+        "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage50_full_corpus_preparation/run_actual_full_v3/validation_controls.json",
+        "sha256": "8fd41cd91708f0ee40819bd964939c755f78a7694188dd6a9731a52296f10a27"
+      }
+    },
+    "source_receipt": {
+      "bytes": 35431,
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage59_multi_epoch_training_v1/actual_source_receipt_v1.json",
+      "sha256": "5ec27e21e75f881c066c1b5549c375603f91609fa02ef67c0b524cab9e44d875"
+    },
+    "source_snapshot": {
+      "bytes": 2500093,
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage59_multi_epoch_training_v1/root_close_commit/source_snapshot.bin",
+      "sha256": "01b8ad133b3c77f1422e5420575d5f71a191c852981918a452a6dea052b1b4d6"
+    },
+    "validation_scales": {
+      "bytes": 15121,
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage57_node20_fixed_scales_execution/run_4512024/fixed_validation_scales.json",
+      "sha256": "c84aa25d8279b42add2210e532a44444732fff25b86be72b0e850b093f071d90"
+    }
+  },
+  "execution_scope": "pretraining_only",
+  "formal_eligible": true,
+  "frozen_at": "2026-10-02T11:45:00.279295+00:00",
+  "loader": {
+    "num_workers": 8,
+    "persistent_workers": false,
+    "pin_memory": true,
+    "prefetch_factor": 2,
+    "worker_timeout_seconds": 60.0
+  },
+  "loader_start_method": "spawn",
+  "model": {
+    "architecture": {
+      "preset": "shared_light",
+      "task_route": "light",
+      "type": "shared_multitask"
+    },
+    "backbone": {
+      "activation_checkpointing": true,
+      "dim": 384,
+      "dropout": 0.0,
+      "ff_mult": 2,
+      "heads": 6,
+      "layers": 4,
+      "n_atom_types": 119,
+      "radius": 8.0,
+      "use_dist_bias": true,
+      "use_radius_mask": false
+    },
+    "expert": {
+      "dropout": 0.0,
+      "ff_mult": 2,
+      "heads": 6,
+      "internal_layers": 0,
+      "real_layers": 2
+    },
+    "head": {
+      "geometry_head": "residual",
+      "geometry_residual_scale": 0.1,
+      "profile": "phase1"
+    }
+  },
+  "required_scientific_inputs_pending": [],
+  "root_runtime_and_retention_policy": {
+    "FINAL_physical_role": "closed_final_latest_pt_alias_no_third_copy",
+    "accepted_shared_GPU_risk": true,
+    "confirmed_full_train_epochs": 3,
+    "cost_evidence_scope": "actual same-model P/SDP prefixes and full-TRAIN sampler; multiplied three-epoch planning reference, not measured whole-run cost",
+    "downstream_GPU_cost_prefix_complete": false,
+    "formal_start_user_authorized": true,
+    "keep": [
+      "all_unsynced_WB",
+      "all_expected_journals",
+      "all_typed_ledgers",
+      "all_closed_scientific_evidence",
+      "current_LATEST",
+      "global_diagnostic_BEST",
+      "three_epoch_FINAL"
+    ],
+    "live_quota_publisher": {
+      "maximum_quote_age_seconds": 90,
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage59_live_quota_v1/publish_quota.py",
+      "sha256": "dbdb7a7469b074089235ed4b195ef74b35934367f233a0a74552d4a8e28a829d"
+    },
+    "none_paired_initializations": 3,
+    "old_failed_pilot_and_unique_failure_artifacts_are_not_pruned": true,
+    "per_trained_condition_gpu_hour_planning_cap": 102,
+    "prune_scope": "only own new-formal older successful segments redundant PT, after actual successor restore AND successor close; current LATEST/BEST/FINAL and active resume protected; exact path/hash/bytes/UID/terminal/retained proof recorded",
+    "quota_reserve_bytes": 34359738368,
+    "resource_stop_preserves_checkpoint_and_unsynced_logs": true,
+    "storage_cap_guarantees_entire_phase_completion": false,
+    "trained_condition_count": 24,
+    "training_matrix_gpu_hour_planning_cap": 2400,
+    "whole_phase_retained_output_hard_cap_bytes": 111669149696
+  },
+  "sampler": {
+    "atom_bucket_width": 16,
+    "block_size": 4096,
+    "max_molecules": 512,
+    "max_native_atoms": 65536,
+    "max_padded_cost": 8000000,
+    "padded_cost_multiplier": 3
+  },
+  "schema_version": "phase1_full_corpus_pretraining_v1",
+  "scientific_inputs_complete": true,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "source": {
+    "git_commit": "347e543cbdd1233f83fef5dab85357c75deadcf5",
+    "source_sha256": "01b8ad133b3c77f1422e5420575d5f71a191c852981918a452a6dea052b1b4d6"
+  },
+  "source_reuse_proof": {
+    "actual_non_epoch_runtime_files_byte_identical": true,
+    "changed_files": {
+      "phychem_mfm/phase1/full_corpus_training.py": {
+        "consumer_sha256": "b7c6673150737123b8a4580436ad02dbaf366d7ab20ff0211d5e72479b6f9b87",
+        "producer_sha256": "cf55bef80f6c2d56940ff47f833a5e288facab33dde05d073b29a9d454e82729",
+        "test_only": false
+      },
+      "scripts/train_phase1_full_corpus.py": {
+        "consumer_sha256": "7c28af4ee757bd11d0fc393f138567e034012c83ab03c7f3846dcd6e5cffbe8c",
+        "producer_sha256": "f747e0990b9fd6cf459b03d26bfb82501003e0c2b6418b5199889db45f6c1764",
+        "test_only": false
+      }
+    },
+    "old_epoch_checkpoint_declared_resumable": false,
+    "old_scientific_trials_relabelled_as_new_source": false,
+    "schema_version": "phase1_three_epoch_producer_core_byte_reuse_v1",
+    "unchanged_file_sha256": {
+      "configs/iclr2027/base.yaml": "8d6b7ce5d828e891ba865df4ae654ef50355876057b883673bd974d1dc0c202c",
+      "configs/iclr2027/data_quality_policy_v3.json": "8b9c54ca5cfde723fcba212bad79ef30fe8d0f4769caf8eacd3ba75eab576116",
+      "configs/iclr2027/mini_archsearch_v1.yaml": "e8d78b06048224149102b947e52228affa6f1d29901af349fc012f3e5611991e",
+      "configs/iclr2027/shared_expert.yaml": "fb6fc804a55ef2fc6081cfea7b38aea808257c6d98c70fcdd497d57bd4dac3c5",
+      "configs/iclr2027/shared_light.yaml": "c2ee8108ba64bcfafe203ef161124e8811b1fb176721a6efd64eaec9848ee537",
+      "configs/iclr2027/target_fidelity_registry_v3.json": "40e3b5b98d685cff497eeae7efbec9b523ddc4f79ec08429304ada4c33e7b899",
+      "configs/phase1/correctness.yaml": "174ad009ba56d547c359969b68cdf5a1181ae63bbea34c6e772e7ca51822112a",
+      "configs/phase1/diagnostic.yaml": "a7a6b9006144dcd2d85205bd303e936f887a56c4a92de4d9409c6686d1ee6030",
+      "configs/phase1/learning_curve.yaml": "065fd5c47ec2196dfabe2f42392da3244bc5ac43f5fef69e2f1bd425b50f6466",
+      "configs/phase1/learning_curve_1024.yaml": "1cb3c2c5faf78904ad3e9ab295045107f34ab88ddf8dc51f4dd2d9a9a44d9e8e",
+      "phychem_mfm/__init__.py": "3b73b42536f555d93fc5727d36afcbb964875c493fd40529d62707bb0982c51a",
+      "phychem_mfm/config.py": "47da797a16a55dc315e50c1c5bdac07125381bb677d0dad5160854f2b19fb3f3",
+      "phychem_mfm/data/__init__.py": "722a0239fe8fd6123512270c84e488cc44850d75c58a1d0e16ab16267c0684f2",
+      "phychem_mfm/data/dataset_infer.py": "165ebb5db26d7af0250c7fa910ec83a7885a9b89447a8c79e1be0a8515702cdd",
+      "phychem_mfm/data/dataset_lmdb.py": "5f4dc312b1314f07d4533a6348947e366e071813ab89bac17e2f0ecdce36e5a3",
+      "phychem_mfm/data/dataset_without_charge.py": "d921db47a01c12d3cd0d21db0b74ad04c7fc8d6346dddd4b9ff04762b7a7d752",
+      "phychem_mfm/data/descriptor_schema.py": "b9cf8020ffca3fe5c578fd5ddad9ecc5839dabbe763df00fa0e414f626389243",
+      "phychem_mfm/discovery/__init__.py": "f074578c4aea329a4d95bb8c1255c4bad0e243929ef2e140be6198b5fd6d5bee",
+      "phychem_mfm/discovery/convergence.py": "de34974557a5578ab41b5f9e84f68d21e2707f9c3a61258f20a03da1b0a31323",
+      "phychem_mfm/discovery/domain.py": "62a5640326e995f7fcfed585e40409850b33259f70cf6ae4377be4dc1f2c7bd6",
+      "phychem_mfm/discovery/engine.py": "a8c7a4a2c08167760e80c5838e06adbde794521b626e641db765ab30eb6c6c66",
+      "phychem_mfm/discovery/identity.py": "b5f26eb023c280a880452afd2fe7a3ac72e6fcc46de530e505f2d9419878fe1a",
+      "phychem_mfm/discovery/manifests.py": "e3fa6299e5b2d6bef451ed4b021f8187042a9e3ddf82c44c303484f38d4564c6",
+      "phychem_mfm/discovery/registry.py": "9068c8c71da0ac5424995dc5ce31b99163fbd4ed37f113f22c1051ce26388d77",
+      "phychem_mfm/discovery/schedule.py": "e00f9e852f24e4440fe8ab88f4f4a22adef55fd68111249c591dcad078627e22",
+      "phychem_mfm/evaluation/__init__.py": "b553b8e03281bcc35cec67d021b0d08d829db8f973deaa6d1046e8ae44889c7e",
+      "phychem_mfm/evaluation/fidelity.py": "c2596973a6edc53c49f25980f6502272922a861455977cfa0d020aacf3b7678e",
+      "phychem_mfm/evaluation/metrics.py": "e0ec7a3b6f37638281184ebfdd44709e5b0c9989ddcb6cd1f58f20e7e8128c47",
+      "phychem_mfm/evaluation/normalization.py": "e0c1e66155200f79fcd4b568ce6a68cab1b8c0f8f0433c9366f1bcba8a31a36a",
+      "phychem_mfm/evaluation/target_adequacy.py": "127f577fe6ce6e1ba7b887be766183f9e43678032a947418cce4d3b907eee07d",
+      "phychem_mfm/factory.py": "58177a7d84b7f22d5669deae8fed085fd9fd2ec176975ec3a6562f71a1a78ead",
+      "phychem_mfm/model/__init__.py": "9dac47024daad9bfb98ab3a356d2a0e2b5ca64d3a7cab0a3a9a9daa360536ab6",
+      "phychem_mfm/model/adaptation.py": "bcfb55a30f796ba5756d171c62d02745c7e53a493f4af41299d62b9b12579ac7",
+      "phychem_mfm/model/attention.py": "d9a716c58aa6a481978af13757fdac0d4f02d9aae1187f7a65b943de8c352183",
+      "phychem_mfm/model/backbone.py": "1d4798111e526a077f834740093c90ad2610081f0171ca6c778b14cac24288a3",
+      "phychem_mfm/model/common.py": "819157b7f25d98eba9cdb55d28b41b90c146bf1e4f321b7a762efcfb78fe0cab",
+      "phychem_mfm/model/expert_blocks.py": "d5604414bdde3200fbeda8781923128b6f9ec10423330ca994377f036d7d140f",
+      "phychem_mfm/model/heads.py": "5fc5029ca4ca8a7a4551031cefe714292a9c55c5188788bc74da41b2c9015b1b",
+      "phychem_mfm/model/normalization.py": "d3ae06c3b40efca8ef3e165c40315f655f5641302bf2a38e027cedce4b6309a8",
+      "phychem_mfm/model/outputs.py": "31d32af22792f13226dc0dd83e201c0a9b33b2cda8e068da73c47786a319f3d8",
+      "phychem_mfm/model/phase1_specs.py": "d0bacdbd808b4af9be36b9f04976af96b0a697ac6358bb7c8c69062aee641e22",
+      "phychem_mfm/model/routes.py": "bfd1139fab2cb719a1ebf27d62919caf1bba570f636b29768d0feb50d91f12e4",
+      "phychem_mfm/model/shared.py": "face7d3759dcf596eea2739ba39d265f935044910f904eb7bd679421867218eb",
+      "phychem_mfm/phase1/__init__.py": "551180d17da20fe8b157f3d0870783429ed90c65fac00e6381b8e8f7908ce81c",
+      "phychem_mfm/phase1/az_annotation.py": "007daf677955151638119d6e99fdc52078de68b84b5a1100c0d86d46a1cf8ce7",
+      "phychem_mfm/phase1/az_atom_mapping.py": "aa565af62f3800136a6a32595f63e94a46c3f483bf05b2390c9c357ff4029ae7",
+      "phychem_mfm/phase1/baselines.py": "0719ef724dbfff038cbe709f316311d203c183fa4a5df35e5014beb76d7bd615",
+      "phychem_mfm/phase1/data.py": "0a8d7f1cafa566a6c5d53e83cb7ac9100e70122f14496961d63b980d28bbb58a",
+      "phychem_mfm/phase1/decontamination_v2.py": "6cb5a190684ac56bb2984b2b309ebb32fdf8f3a18daf8309520444ccfdd6af9c",
+      "phychem_mfm/phase1/dev_probe.py": "106f2377b48783e572e21710c916fed0c210c518dbde11e3e3128e65fcb54d7b",
+      "phychem_mfm/phase1/downstream_evaluation.py": "c1e6417684bddbaa3692832ffafd25829129df3c1adbcbc041efe65db91f3164",
+      "phychem_mfm/phase1/downstream_readout.py": "aa1b14ce6de85e26c2cc24b890a82c93cc9ab6e5216339e91fc054f05f076e50",
+      "phychem_mfm/phase1/downstream_source_records.py": "ea2d9e37ece37d44c6cd39c4605b141d6b8f871fbe7403d8b540d1504c6c0664",
+      "phychem_mfm/phase1/downstream_structures.py": "bd533640e97e129b848c4eb2cf40f8fc7d7ee332eaef54c7517e4ed3876861d6",
+      "phychem_mfm/phase1/downstream_training.py": "ee4640d246380ed89fe2391814969f72cb9ffd4239a154841fd3111000e54c81",
+      "phychem_mfm/phase1/dynamic_loss.py": "c4f24e805af17760927366667495faea2b0bf64126886fba65a411efdb9ebedf",
+      "phychem_mfm/phase1/evaluation.py": "10e5ae04cc17fd085adf32824a67d938d52b9d171adb0114865e8a42deed31b8",
+      "phychem_mfm/phase1/fitted_controls.py": "433ca11127cde822ee8ef3173d06524bf243baf66be4642b7bba7105827175d6",
+      "phychem_mfm/phase1/formal_gate.py": "b8ac4439a1dd8e968a1f053c50fdd57dca03bade4626dd6e087da6fe64319196",
+      "phychem_mfm/phase1/formal_runtime.py": "adccf251595a8a1a699e49468ab20eb94499c73e10bed2725f2377ea4d302eef",
+      "phychem_mfm/phase1/full_corpus_controls.py": "01dd02b6ddba361b60c7105083df3bfdbef198f5b2abe17a3e22d282eb63c915",
+      "phychem_mfm/phase1/full_corpus_loader.py": "3cbb45bc7ace19e8ef36946804098ba9a2aa4c3e30e2c17e40c702bc03d7ca29",
+      "phychem_mfm/phase1/generated_geometry.py": "df2c673280039f6e2df28b67ef19122bf0b826644af3370e647bbd4b81c92d16",
+      "phychem_mfm/phase1/identity.py": "2f34bd17e1e9161be3bb4cde46c80667c583ac22507c5a6bc95837b4414bb70a",
+      "phychem_mfm/phase1/initialization.py": "fbff1eea47ca0bb7a5458f0deecfad14887e3dd2695aeaa1bee2470597808eb2",
+      "phychem_mfm/phase1/manifest_views.py": "1d647a98a42b7062aa4659c595bdf6b3f37dbb63e08029c69f7dead5defcc13d",
+      "phychem_mfm/phase1/memory_observation.py": "217c6ffa5c2c74d53764aa31da5da2a33c1618b880ffa1570c9a7cd8942734a5",
+      "phychem_mfm/phase1/objectives.py": "4067ec836770abcacc60319bb55eabdf0372fd0e95a71a277feeb71a531c254b",
+      "phychem_mfm/phase1/paired_statistics.py": "0db6af1cd3120bd55a208fec60fea4c741f5420ace089c2bbf0c07d52d45770b",
+      "phychem_mfm/phase1/positive_strategy.py": "3993bfdbd6060ba4bf2aa103d6a21013522799e668e8bb438a09c68a3b67b145",
+      "phychem_mfm/phase1/pretraining_scientific_authority.py": "350c8be3ef05a47257db60437f5456139870173102fa3fb73abef1e3f567a5e5",
+      "phychem_mfm/phase1/seed_runtime.py": "379111401a94bc732d101351964fb4ea545f657d7905e9b423d9a1e98e40b705",
+      "phychem_mfm/phase1/som_annotation.py": "e1e9a81fbcad9f69f12bda4049ef86173694dcf383087c6d73e0e3efaecd6c19",
+      "phychem_mfm/phase1/som_atom_mapping.py": "d745086c5eb717939e70bfbc6f18c78e8e1f30d1b52742de3d747944e847f7aa",
+      "phychem_mfm/phase1/som_direction_equivalence.py": "055ebd52f8d9c892ebd875a90937ce6ef3c2b0b10b443a701cf7ba615414641c",
+      "phychem_mfm/phase1/som_evaluation.py": "090f3a14985376fbaec0e700a3b94c82a063900896d61533ead1259406b88e75",
+      "phychem_mfm/phase1/source_geometry.py": "75ac64e768e1e477634a35942c398d5b590b15370218ee78e31d166be5b698f3",
+      "phychem_mfm/phase1/strategy.py": "a6e7cd70a4839720099d7239fef1673c83c1bb1733b076f3f95f09cd1401d434",
+      "phychem_mfm/phase1/strategy_contract.py": "f1840ac602d5817b9f3e2cbc9114e92fd3487763a07eee9186b519801e6f49b6",
+      "phychem_mfm/phase1/trial_source_bridge.py": "06ded0528fb870d4ee401596b70f392f18b9195373185ca7678b573efc62df91",
+      "phychem_mfm/supervision.py": "5316014706dd470f5b448549f19c2a6668ca423c3c309601201a2ab6bf8fcd4f",
+      "phychem_mfm/training/__init__.py": "774479f5a534c8daca796f38a5d97fb466d2edc2b06e70c2ec6b670ff43f5d00",
+      "phychem_mfm/training/checkpoint.py": "706ac72ba10a2431b2bf9c2fd059b8f4e5ce00662dcef0ea42efc9cfddf91e0a",
+      "phychem_mfm/training/data.py": "8228ab721bd821c316b279f992178f351c37fa0ba3c309203e9375117d861a8f",
+      "phychem_mfm/training/dataloader_debug.py": "cdf2a5b2651fbc7437b3f7d22447b804180becb91b5e90537355655ef05264bc",
+      "phychem_mfm/training/datasets.py": "f0aa191e23a9c90e2541c20f09cbbadfe06107cb8c90a2104bc16430a04a7d3f",
+      "phychem_mfm/training/degrade_molecules.py": "3528566aed8bc0303dddfddfcafa400fdb7826a5be1471e7855a36af80587340",
+      "phychem_mfm/training/engine.py": "9cefbaeb30dbc4a9df406ed729f0b2b0620ab5c561e56cc20d1c21571b7cc9da",
+      "phychem_mfm/training/full_corpus_normalization.py": "3a4c866d1bfa26f64043f2cd320fa254ca234a92f577e81ef110df107dc65a20",
+      "phychem_mfm/training/geometry.py": "d07eeb8545603576e902c1f5b908b987dec23f335923697ca5e8719d7a640aa5",
+      "phychem_mfm/training/losses.py": "8cc6432f317095611868db7bc0f5360e0b9fe0d65ebec00c1a3aba8cc98a63d1",
+      "phychem_mfm/training/optim.py": "f7fe1d473e75a9fd25d7b5af0e15d7812009d6079c0e1adbe70e1e29ecc1f830",
+      "phychem_mfm/training/utils_debug.py": "ad224040fd36f44940a33fca1ed6c17e0eb5efc65d5c3f620d912512e4e1cfcc",
+      "pyproject.toml": "c22605df936b08fd3ff35cf34cff56d008927718c98ace23fd9bbf69faf5e759",
+      "scripts/build_discovery_manifests.py": "296f22fd28b5ec99c81b8d9e1d5ac28a03b90976546e2347f656024a51a7545f",
+      "scripts/extract_legacy_config.py": "412562bc0ee0ed000e9dd4737d3392a1a678c9da02ccce8aec40ab822e8be3f4",
+      "scripts/frozen_h0_probe.py": "64a2da2f701af3a0bb1a5b3357ff996b64d98cb13fc1555828b3adb6b0ffe2e6",
+      "scripts/measure_legacy_model.py": "b367f1c6e8be903288276dc43c8bff214188773d58b7b1e29c3285fda0ae9046",
+      "scripts/measure_model.py": "e555dbfaa598288d39e3fb28b1730756502b438a6d5f0e5d2d0ca487fe69b137",
+      "scripts/phase1/full_identity_audit.sbatch": "d35932c6b4ca128797be0fe8d24887a0c46a132e5ca0e97203e0a0eda029105c",
+      "scripts/phase1/full_qm_source_audit.sbatch": "fe74fdc4047dd1b776e91ee2104ba5ff2e579e60b40465ab7f4e7d35f8e5145f",
+      "scripts/phase1/full_som_structure_audit.sbatch": "0163d085836a87b0c0ef2e48865a127ce73bacac4b1bdb57b42f600e3a112857",
+      "scripts/phase1_dev_probe.py": "e2021557d22283c3312304ee1db55c1c53edcbf6b6275cae9642514769770da9",
+      "scripts/prepare_phase1_controls.py": "5e61665b959d43289f6d7f8f0ba71c631587cf1a31f79ad433840fc00eefbe6c",
+      "scripts/run_architecture_discovery.sh": "fcab4df3ba37bc45ef98e7f8673b35bd5e3675dc1134163db052b7d3b3da3d86",
+      "scripts/run_data_calibration.sh": "bda96f345121b1df294485cc2ea021cae4a7c6ba8968ffae03be7db399240236",
+      "scripts/run_descriptor_timing.sh": "2c045e6546c74507f6e476184ca9847e1b0d1c83f3365209b060377460767ed2",
+      "scripts/run_levelb_pilot.sh": "14bc95872e8cfe634938823dc2c1704d3b5fa0f3da45a5156641ede274d833b6",
+      "scripts/scan_experiment_registry.py": "03690c43655c66e5003e0d81e01c9a23a75d748d93b643d9dea34d7e15bbe589",
+      "scripts/summarize_discovery.py": "a79c2ffddc909c9d3ba78b604dc4daf824898e6269f14b9c9d35190026dc38b6",
+      "scripts/train.py": "0baf3f0197886063b86695779e0cbe579e9ff434e60ca12aa10fb0379cf917e9",
+      "scripts/train_discovery.py": "d94d06e1b7ab20cc1af65ef6b14104edaabb1d0096fa5543072b144ff8236600",
+      "scripts/train_phase1_diagnostic.py": "e73d59ebe6e5b2e5dfc9855a8c752c5c35f7a214738879bdd1867abf57f85700",
+      "scripts/train_phase1_formal.py": "3783f75e80353f016e089f7b7aead1fdb969bb1b8da69de58d92b36a1b3648da",
+      "tests/conftest.py": "892c4cafa03834c03ebba4a6ab0ef5f334c34c686dab03e88f12e13687ad8c20",
+      "tests/test_adaptation.py": "7d5777e89d8b76248fbdbbeddad8f89e7338edea3d86cfa95dd28fefa7b22515",
+      "tests/test_adequacy_reassessment.py": "14ca1ad06b9684f1fd4d89b8c79b0434fd56cd31e5647fae3123dfd912f79e5b",
+      "tests/test_backbone_checkpoint.py": "6b303d997e1b0a72b8c47e5778ef1ace32d1fad64fbd691c2dc7f02406b4dc66",
+      "tests/test_backbone_parity.py": "5c24c723db64e116aa111e750ddf4b097ab18c342fe59a23ab73417dacb0ec5c",
+      "tests/test_checkpoint.py": "7fb62448fde130a8375998318c1f2d2ede1d3e2cbc20baf7971fa1469b3c8e98",
+      "tests/test_data_quality.py": "5a2fb97a950d0466015858a1a039280507163cc93001d1db49daedc79dffb061",
+      "tests/test_dataset_parity.py": "0f9a151aa70ce971c3248717983d450b8d37e586acaa833ff51826b756327db0",
+      "tests/test_discovery_protocol.py": "9a80d339d4bc62d681e718f703aa19bc4bf924cdf1da6f98ee9854d26a3f2603",
+      "tests/test_encoder_api.py": "dbab0563dcbf3ef3522decfc624fddd426498efed2d71777341a732f9fd8b972",
+      "tests/test_gradient_flow.py": "b64686077a221e0cb5e8055e23070395499a45b06d65795a7be64e5f27b0c806",
+      "tests/test_loss_parity.py": "6ddcc9e39453e63c8846ef5dcc2bb9f78708a50ab2b7491119a00e71be8624c3",
+      "tests/test_phase1_az_annotation.py": "132419ae61cb6677ba992e750fd6050561c8b4c9103ef26ed9d7e7f7b55d3180",
+      "tests/test_phase1_az_source_supervision.py": "c0086e0df31675218fe834077bb133f4606236e3f76185df1d4a335de59cb117",
+      "tests/test_phase1_baselines.py": "60e6acfbff7abb1f51b75f40909f968641c72be7c85974e63f48cb681b4bac43",
+      "tests/test_phase1_checkpoint.py": "3c903d7b28dfe312bce7d82f8a81c9c7421b55f9d860fd4ae84e1b3845245abc",
+      "tests/test_phase1_data.py": "9dc779ba76ed5ba2d8acd1804b44cc0eeb6336363159afee4592f60e68b83c07",
+      "tests/test_phase1_dev_probe.py": "421f52fe5ad97c91ccb0a0a4242c8b35213af52b697869db804205a1a61dfef2",
+      "tests/test_phase1_downstream_evaluation.py": "50c1cab30360d3ad7738d1379acde52d98f01198c242a0fc3f71464e2fdc2de3",
+      "tests/test_phase1_downstream_readout.py": "cecbb75d4c7b53e982767bd24e12095136b4e182a01b5847f2ccb0f4ac211f42",
+      "tests/test_phase1_downstream_source_records.py": "badbb02b29019c9af1f9e6b13e842bbd0f0af1d206d429d15c4a16b54a8c2fb5",
+      "tests/test_phase1_downstream_structures.py": "eb0047924dd119867cd912382bfd31cef0190811f3af99176f6560f7cd4523d3",
+      "tests/test_phase1_downstream_training.py": "68a22b3c5a8b4149f06ceebd2f693585cf5c04214a3f12d2c78f800207e80eb2",
+      "tests/test_phase1_dynamic_loss.py": "e97def3190b0f5367a6aa2431f96f352112c52ab9d18f4e112af880e434a9f2a",
+      "tests/test_phase1_fitted_controls.py": "b1bc754b25a1e0005a57a1e9abd823808c6273d1b9dc7c2b168e111083a4384a",
+      "tests/test_phase1_formal_contrasts.py": "f13e1cb9968a13ec1a05c9723b9b076026fa72f01425a5a1246d8ba08a43ebf6",
+      "tests/test_phase1_formal_gate.py": "aff828c649aa6487a0e95d7b50147081b276d4ea82b0edb9ecd94dbb711e7794",
+      "tests/test_phase1_formal_runner.py": "a0aa495b7d6db5716542137cc7775004aecc652b4124b3bbb32c0a0aef08fe10",
+      "tests/test_phase1_full_corpus_loader.py": "c8ad5eff135bf1284ad829a88657e459f94fb5411e36f1a6b6366282d72c23ce",
+      "tests/test_phase1_full_corpus_original_metrics.py": "89c0f88e5ac8e0fc2f9bd893cda80de1713ced6a18f811ed9dc3e89aa230685b",
+      "tests/test_phase1_full_corpus_original_validation.py": "818bc8ec8a33c1256e1157f3708abd775d7ce2c1d6f147d077928850c9aa8525",
+      "tests/test_phase1_full_corpus_training.py": "4a536912d3159668a75636d148ea4802775cdf6b46a94b354573682133e89100",
+      "tests/test_phase1_full_identity_audit.py": "aff1d3a29530d2f7dff7acb67619be55ef4df5e93a353d8e0aa73799c23bc9db",
+      "tests/test_phase1_generated_geometry.py": "cccf0fa5e2e8b3e160112a7b0240e3ed63fa4444b0721ee2110901394fcd7cec",
+      "tests/test_phase1_host_resource_policy.py": "29418fc794148cbeff09270318e46e9213a5a6b7b97e864d44c0154396d7f080",
+      "tests/test_phase1_initialization.py": "bd61581ff98229842533fe58b252c7f26ac89189094bde3ee902f81d784e557c",
+      "tests/test_phase1_linear_graph_readout.py": "c7a093a718c66aba2951643b0c6ab76de2178b174096d5d2af58bc0bcb694ed5",
+      "tests/test_phase1_manifest_views.py": "e816bc5d7d21b52e73ce3dcec784499f44b530902c18f956a7131e0066b36ae4",
+      "tests/test_phase1_memory_observation.py": "0686b670f3659c6ec0e434323e96060f5477d2bf9d83eadc608f926c1ee0b558",
+      "tests/test_phase1_model.py": "1ed5a952d500c90a67644a62056abbe7f8023ccb55c830f233ff962ee5e50d03",
+      "tests/test_phase1_normalization.py": "25cdfd32b7da07c009a5229ea267fb91325bfa58d81e18039ff94aba84e90d59",
+      "tests/test_phase1_paired_statistics.py": "bb2ef6ef3b726941639618ffe76ca103bb7b6cf11a5eef9a73fc50ed6691f639",
+      "tests/test_phase1_positive_strategy.py": "56c8043a6d6d69d4ea79f4d7574d6d76f8f8901b8d99ee03f15560e042eca000",
+      "tests/test_phase1_pretraining_scope.py": "3123e937bbdc14249e5804422dd8434a4fcdff94c725bd3c50e4be39952dc4cd",
+      "tests/test_phase1_qm_source_audit.py": "88914d0ca81276f99ba0ca574edcc1649ead5bb6f5994a832cfa702a8140cfec",
+      "tests/test_phase1_runtime_compatibility.py": "72054d63be2f4ad04dc9a4f2a3df20f014a696346377c961822d98a64f959b58",
+      "tests/test_phase1_shared_gpu_policy.py": "a052ccc6c9676dabfdc198258fdeea4c01e8ecc62a147be8897ff2114f1f8e0d",
+      "tests/test_phase1_som_annotation.py": "e194518e7b1f0d15542a8fe0f341d7bee433e805f3cfa41759da270bdcf500bc",
+      "tests/test_phase1_som_atom_mapping.py": "07c4a5988c9ade069755eda2104c4af836ca3ca2cb3f58211e8d16eab778dbd2",
+      "tests/test_phase1_som_direction_equivalence.py": "fd4e2e94b607c7be542ca1a9863b6858b97a167cfbce79b4430c3af22b7ef0da",
+      "tests/test_phase1_som_evaluation.py": "b4cbe26debbee2574de6271b4cf77f7bed9817a0ebb798ec1c276860e2d0615d",
+      "tests/test_phase1_som_source_audit.py": "d402b7c31165ab3c886e502854a4ee3b658b74e170301b96209a9beac0e7cf87",
+      "tests/test_phase1_source_geometry.py": "254abd858de99c99bd274ca8826c119bec2f2d1dadae23b1e9ee7fd67e0ae9d3",
+      "tests/test_phase1_source_structures.py": "78738cb25c0988b9ed102f18a05da73a86d201cb40500aa8001c5cc46d6ac416",
+      "tests/test_phase1_strategy.py": "980fb1d1ac88f9441b5aa1abd8b26806f3ec62709abac715e9ffc250003fcc30",
+      "tests/test_phase1_strategy_contract.py": "dda4efa73be0b37e606e8528910c8bbedd6c1ac60c98a846538ca7639abab2da",
+      "tests/test_phase1_training.py": "04b80c8429b1752cc5577b052dc13a0abc2e3ca747b6c65a47b1e962559a8339",
+      "tests/test_phase1_trial_source_bridge.py": "aac257e4eeb1e7d65417b59c91f2456cde0a674b24c884d16d5abca73f81ca9b",
+      "tests/test_pool_extension.py": "7d918a491f8ac9fe5a086aec1e2435450b170885c7ed44322a403fa0a19d5546",
+      "tests/test_supervision_config.py": "87cb1f15834d239cd98571eb5b814414016ab73c3d973ac6ea4c0da10523e96e",
+      "tests/test_target_adequacy.py": "889e629503998e2b146137f262c78bdce496288af19d9a1e8e92ed8337265c8d",
+      "tools/audit_domain_split.py": "102077a1cf8aa709ac5b9397c75cfc02ede03a12a838e149de7a5cd4c66df327",
+      "tools/audit_phase1_qm_sources.py": "f24202babc44174b136a92b19764d77ccc50a500d8316572883c20b64d44d215",
+      "tools/audit_phase1_som_structures.py": "4a29868187e8f22b467b37e88c4466f235393613bca12fbec14115ae551fb6b9",
+      "tools/audit_pretraining_data_quality.py": "88ee5dc9e5f41269f68f116b6c2822f801276c1ec4d3899f495894a26cb58239",
+      "tools/build_quality_filtered_manifests.py": "b7e1ea5244f862ff8e88b63aa56b2527b96f5236b316a10d9388ae9780e02855",
+      "tools/check_phase1_formal_gate.py": "384e5cd4b18904aa8e1de749432f61b7519bef1bc21bd42ea4bb39cf076781d7",
+      "tools/compact_domain_manifests.py": "81c4dd9f37d248a7d28c2608ebfcfe76760ed4117555bcb38861334257907c99",
+      "tools/compare_exposure_scaling.py": "d050da8ea4321b6f7c37d45185f955d086f6851bb9f1984dc567245e2207641f",
+      "tools/evaluate_downstream_mixture_pool.py": "8e1204b9cb7e2dda532b2aa965697b4460f31fc28d4c0a67ddbf850edf5dad60",
+      "tools/evaluate_target_adequacy.py": "c011eaeec6c13b36fb6347f9d66171a97454d85b3a5a5ef9e4d338ca819f0559",
+      "tools/export_wandb_history.py": "2a0a075e115f19c9879401f38523d43794bed3d553febbc51cc70ea937b1bec2",
+      "tools/extend_quality_filtered_pool.py": "0634effb1c1262ad025ff445a906ecd8c0f0eb27a603e4c2b454cd9598864477",
+      "tools/mark_prequality_v3_invalid.py": "1a848f792a0113ba37e6b1d26c2b4f5f5cb801ed2f285cd1e6fab3ebe7696d2d",
+      "tools/mark_v2_domain_invalid.py": "309f854d3f5435d6aafaa164258775304349da2909fec53098ae8503dacd185f",
+      "tools/phase1_audit_downstream_structures.py": "edd1b60ade282ffe7b73209836f6f9524dbdfcb4e2cd87cfe8fad72fc9146144",
+      "tools/phase1_audit_manifest_identities.py": "599caa160ed480713c146e301d42e2b6dad33c0b78ece43a898c45bef7e4b937",
+      "tools/phase1_inspect_records.py": "13603f2a5444d6a32fea222ceaa643b477ef85ea128425a7115a1ad4b9aba100",
+      "tools/phase1_paired_statistics.py": "97e488893f2ed239dd7a9e50222e00604dd2a1f2f96214dbfce2b5234c6462a7"
+    }
+  },
+  "state": "frozen",
+  "storage": {
+    "condition_budget_scope": "all_retained_segments_checkpoints_offline_history",
+    "condition_cap_bytes": 4294967296,
+    "per_run_cap_bytes": 2147483648,
+    "segment_budget_scope": "segment_output_guard_tmp_console"
+  },
+  "strategies": {
+    "joint": {
+      "config": {
+        "implementation_sha256": "3993bfdbd6060ba4bf2aa103d6a21013522799e668e8bb438a09c68a3b67b145",
+        "recipe": {
+          "clock": "committed_base_records_including_zero_label_batches",
+          "controller_input": "unscheduled_loss_and_gradients",
+          "early_count": 23564833,
+          "early_nominal_factors": {
+            "D": 1.0,
+            "P": 1.0,
+            "S": 1.0
+          },
+          "late_count": 23564834,
+          "late_nominal_factors": {
+            "D": 1.0,
+            "P": 1.0,
+            "S": 1.0
+          },
+          "missing_groups_removed_from_denominator": false,
+          "name": "joint",
+          "nominal_equal_integral_is_adaptive_coefficient_equal_integral": false,
+          "normalization": "complete_enabled_current_group_budget_per_segment_then_exposure_integral",
+          "schema_version": "phase1_positive_base_exposure_strategy_v2",
+          "total_base_exposures": 47129667
+        },
+        "recipe_sha256": "876a116ff1b9808f14a7b122adc7e89f48f56b9d0e298217403016384464c435"
+      },
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "variants": [
+        "none",
+        "S",
+        "D",
+        "P",
+        "SD",
+        "SP",
+        "DP",
+        "SDP"
+      ]
+    },
+    "sdp_positive_nominal_equal_integral_v2": {
+      "config": {
+        "implementation_sha256": "3993bfdbd6060ba4bf2aa103d6a21013522799e668e8bb438a09c68a3b67b145",
+        "recipe": {
+          "clock": "committed_base_records_including_zero_label_batches",
+          "controller_input": "unscheduled_loss_and_gradients",
+          "early_count": 23564833,
+          "early_nominal_factors": {
+            "D": 0.75,
+            "P": 0.75,
+            "S": 1.5
+          },
+          "late_count": 23564834,
+          "late_nominal_factors": {
+            "D": 1.2499999893909712,
+            "P": 1.2499999893909712,
+            "S": 0.5000000212180574
+          },
+          "missing_groups_removed_from_denominator": false,
+          "name": "sdp_positive_nominal_equal_integral_v2",
+          "nominal_equal_integral_is_adaptive_coefficient_equal_integral": false,
+          "normalization": "complete_enabled_current_group_budget_per_segment_then_exposure_integral",
+          "schema_version": "phase1_positive_base_exposure_strategy_v2",
+          "total_base_exposures": 47129667
+        },
+        "recipe_sha256": "0fe31d75694d816300362c3e5fde8f8420f0241dca7f7528f7f7a9f7c027f1af"
+      },
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "variants": [
+        "SDP"
+      ]
+    }
+  },
+  "tracking": {
+    "entity": null,
+    "mode": "offline",
+    "project": "phychem-mfm-phase1"
+  },
+  "training": {
+    "caps": {
+      "finalization_reserve_seconds": 900,
+      "segment_wall_seconds": 7200
+    },
+    "dynamic_loss": {
+      "balance_interval": 32,
+      "calibration_observations": 8,
+      "gradient_beta": 0.9,
+      "gradient_floor": 1e-12,
+      "max_multiplier": 4.0,
+      "min_multiplier": 0.25,
+      "scale_beta": 0.9,
+      "scale_ceiling": 1000000.0,
+      "scale_floor": 0.001,
+      "weight_beta": 0.8
+    },
+    "epochs": 3,
+    "gradient_clip_norm": 1.0,
+    "loss": {
+      "cutoff": 2.0,
+      "element_entropy_reg": 0.05,
+      "element_label_smoothing": 0.1,
+      "element_logit_l2": 0.0001,
+      "element_temperature": 1.5,
+      "morse_a": 0.6
+    },
+    "loss_policy": {
+      "group_weights": {
+        "D": 1.0,
+        "P": 1.0,
+        "S": 1.0
+      },
+      "task_weights": {
+        "bond_order": 1.0,
+        "charge": 1.0,
+        "distance": 1.0,
+        "element": 1.0,
+        "energy": 1.0,
+        "graph_descriptor/BertzCT": 1.0,
+        "graph_descriptor/ExactMolWt": 1.0,
+        "graph_descriptor/FractionCSP3": 1.0,
+        "graph_descriptor/HallKierAlpha": 1.0,
+        "graph_descriptor/HeavyAtomCount": 1.0,
+        "graph_descriptor/Kappa1": 1.0,
+        "graph_descriptor/Kappa2": 1.0,
+        "graph_descriptor/Kappa3": 1.0,
+        "graph_descriptor/LabuteASA": 1.0,
+        "graph_descriptor/MolLogP": 1.0,
+        "graph_descriptor/MolMR": 1.0,
+        "graph_descriptor/NumAliphaticRings": 1.0,
+        "graph_descriptor/NumAromaticRings": 1.0,
+        "graph_descriptor/NumBridgeheadAtoms": 1.0,
+        "graph_descriptor/NumHAcceptors": 1.0,
+        "graph_descriptor/NumHDonors": 1.0,
+        "graph_descriptor/NumHeteroatoms": 1.0,
+        "graph_descriptor/NumHeterocycles": 1.0,
+        "graph_descriptor/NumSaturatedRings": 1.0,
+        "graph_descriptor/NumSpiroAtoms": 1.0,
+        "graph_descriptor/NumValenceElectrons": 1.0,
+        "graph_descriptor/RingCount": 1.0,
+        "graph_descriptor/TPSA": 1.0,
+        "node_descriptor/acceptor": 1.0,
+        "node_descriptor/donor": 1.0,
+        "node_descriptor/estate_index": 1.0,
+        "node_descriptor/is_aromatic": 1.0,
+        "node_descriptor/is_in_ring": 1.0,
+        "node_descriptor/min_ring_size": 1.0
+      }
+    },
+    "metric_interval": 32,
+    "optimizer": {
+      "betas": [
+        0.9,
+        0.95
+      ],
+      "lr": 3e-05,
+      "weight_decay": 0.01
+    },
+    "schedule": {
+      "min_lr_ratio": 0.05,
+      "warmup_base_exposures": 32768
+    },
+    "shared_parameter_names": [
+      "out_norm.weight",
+      "out_norm.bias"
+    ],
+    "validation": {
+      "criterion": "fixed_standardized_leaf_macro_v1",
+      "every_base_exposures": 1048576,
+      "task_scales": {
+        "bond_order": 1.2547785753217935,
+        "charge": 0.5489293087426961,
+        "distance": 0.10652331403230803,
+        "element": 4.987554888402797,
+        "energy": 0.13884856275394858,
+        "graph_descriptor/BertzCT": 4.615095416940617,
+        "graph_descriptor/ExactMolWt": 25.69540573766689,
+        "graph_descriptor/FractionCSP3": 7.001661639085293,
+        "graph_descriptor/HallKierAlpha": 3.435193985268045,
+        "graph_descriptor/HeavyAtomCount": 6.290937206653784,
+        "graph_descriptor/Kappa1": 24.374505422307966,
+        "graph_descriptor/Kappa2": 23.29142278974419,
+        "graph_descriptor/Kappa3": 10.240654030360034,
+        "graph_descriptor/LabuteASA": 26.309622950823982,
+        "graph_descriptor/MolLogP": 4.365704743711709,
+        "graph_descriptor/MolMR": 25.84440212266808,
+        "graph_descriptor/NumAliphaticRings": 3.5297238095068932,
+        "graph_descriptor/NumAromaticRings": 4.937090109463858,
+        "graph_descriptor/NumBridgeheadAtoms": 63.9066086352585,
+        "graph_descriptor/NumHAcceptors": 18.54443730943337,
+        "graph_descriptor/NumHDonors": 76.84203341209643,
+        "graph_descriptor/NumHeteroatoms": 32.87905847200737,
+        "graph_descriptor/NumHeterocycles": 25.689243714801034,
+        "graph_descriptor/NumSaturatedRings": 24.645270477526854,
+        "graph_descriptor/NumSpiroAtoms": 1.7159969783633233,
+        "graph_descriptor/NumValenceElectrons": 1.0800376225449502,
+        "graph_descriptor/RingCount": 3.744788883366108,
+        "graph_descriptor/TPSA": 40.896338114441676,
+        "node_descriptor/acceptor": 1.064206009743905,
+        "node_descriptor/donor": 0.2963667158301979,
+        "node_descriptor/estate_index": 0.6832017690435469,
+        "node_descriptor/is_aromatic": 0.6412350220561861,
+        "node_descriptor/is_in_ring": 0.7292002017607092,
+        "node_descriptor/min_ring_size": 2.835628918926263
+      }
+    },
+    "views_per_base": 3
+  },
+  "validation_population_policy": {
+    "best_checkpoint_selects_primary": false,
+    "full_records": 161329,
+    "routine": "closed_training_independent_monitor_view",
+    "routine_records": 16000,
+    "routine_validation_every_base_exposures": 1048576,
+    "terminal": "full_declared_validation_at_three_epoch_FINAL",
+    "terminal_base_exposure": 47129667
+  },
+  "validation_seed": 0,
+  "variants": [
+    "none",
+    "S",
+    "D",
+    "P",
+    "SD",
+    "SP",
+    "DP",
+    "SDP"
+  ],
+  "views": {
+    "cache_bytes": 1073741824,
+    "close_at_block_size": 4096,
+    "geometry_level": 0.2,
+    "max_cache_entries": 65536,
+    "max_handles": 2,
+    "max_record_bytes": 67108864,
+    "topology_level": 0.3
+  }
+}

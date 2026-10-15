@@ -1,0 +1,63 @@
+{
+  "status": "ROOT_RESOLVED_FROM_ACTIVE_FROZEN_PROJECT_LINEAGE",
+  "resolved": true,
+  "timestamp": 1791898230.137965,
+  "guide_generic_reference": "frozen_protocol.json",
+  "guide_sha256": "f45d1bfed19927c2f39710756f734631684f4b5ddbbce3a61ca1cddfd8af99af",
+  "actual_protocol": {
+    "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage59_three_epoch_protocol_v1/actual_scientific_freeze_v1/phase1_three_epoch_scientific_protocol.json",
+    "sha256": "cde2ca717934955f340a5f160a3390ff1dd6eda12c9ffbab93fc54fce0c8a2a4",
+    "bytes": 166751
+  },
+  "basis": "Stage59 sealed frozen protocol is byte-identical to all six later Stage60 runtime/statistics references",
+  "subsequent_frozen_references": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage60_full_corpus_segment_parent_v11/reference_metadata/protocol.json",
+      "sha256": "cde2ca717934955f340a5f160a3390ff1dd6eda12c9ffbab93fc54fce0c8a2a4",
+      "bytes": 166751
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage60_full_corpus_segment_parent_v12/reference_metadata/protocol.json",
+      "sha256": "cde2ca717934955f340a5f160a3390ff1dd6eda12c9ffbab93fc54fce0c8a2a4",
+      "bytes": 166751
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage60_full_corpus_segment_parent_v13/reference_metadata/protocol.json",
+      "sha256": "cde2ca717934955f340a5f160a3390ff1dd6eda12c9ffbab93fc54fce0c8a2a4",
+      "bytes": 166751
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage60_full_corpus_segment_parent_v14/reference_metadata/protocol.json",
+      "sha256": "cde2ca717934955f340a5f160a3390ff1dd6eda12c9ffbab93fc54fce0c8a2a4",
+      "bytes": 166751
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage60_full_corpus_segment_parent_v15/reference_metadata/protocol.json",
+      "sha256": "cde2ca717934955f340a5f160a3390ff1dd6eda12c9ffbab93fc54fce0c8a2a4",
+      "bytes": 166751
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage60_full_statistics_v2/reference_metadata/protocol.json",
+      "sha256": "cde2ca717934955f340a5f160a3390ff1dd6eda12c9ffbab93fc54fce0c8a2a4",
+      "bytes": 166751
+    }
+  ],
+  "user_selected_this_exact_filename": false,
+  "prior_filename_question": "Resolved using newly verified primary project evidence; no reply or approval inferred",
+  "explicit_guide_overrides": [
+    "formal WP5 population",
+    "S-only fixed losses, balancer off",
+    "B1 two seeds one epoch; B3 one seed three epochs",
+    "N/3N scheduler horizons and named checkpoints",
+    "guide raw losses and denoising stop/assessment rules",
+    "H0 linear downstream probes, ETKDG+UFF and scaffold rules",
+    "authorized compute-node selection"
+  ],
+  "pool_review": {
+    "unsubmitted_proposal": "s_convergence_pool_v1.py",
+    "decision": "REJECTED_BEFORE_SUBMISSION",
+    "reason": "Each formal training task requires64GiB; two such tasks exceed85% of node21 RealMemory120000MiB",
+    "actual_pool_jobs_submitted": 0,
+    "chosen_policy": "one64GiB task per eligible node; add parallel conditions only after live resources pass"
+  }
+}

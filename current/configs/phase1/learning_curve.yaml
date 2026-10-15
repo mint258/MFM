@@ -1,0 +1,62 @@
+# Fixed bounded diagnostics. Not a frozen formal experiment protocol.
+architecture:
+  type: shared_multitask
+  preset: shared_light
+  task_route: light
+backbone:
+  n_atom_types: 95
+  dim: 512
+  layers: 6
+  heads: 8
+  ff_mult: 2
+  dropout: 0.0
+  use_dist_bias: true
+  use_radius_mask: false
+  radius: 8.0
+expert:
+  real_layers: 2
+  internal_layers: 0
+  heads: 8
+  ff_mult: 2
+  dropout: 0.0
+  activation_checkpointing: true
+head:
+  profile: phase1
+  geometry_head: legacy
+supervision:
+  variant: SDP
+loss:
+  cutoff: 2.0
+  morse_a: 0.6
+  element_label_smoothing: 0.1
+  element_temperature: 1.5
+  element_entropy_reg: 0.05
+  element_logit_l2: 0.0001
+schedule:
+  strategy: direct_joint_from_step_zero
+  max_steps: 32
+  warmup_steps: 3
+  min_lr_ratio: 0.05
+optimizer:
+  lr: 0.00003
+  weight_decay: 0.01
+  betas: [0.9, 0.95]
+  grad_clip_norm: 1.0
+training:
+  seed: 0
+  base_molecules_per_batch: 2
+phase1:
+  status: diagnostic_only
+  atom_encoding: zero_based
+  charge_definition: MOPAC NET ATOMIC CHARGES
+  train_manifest: manifests/discovery_v3_quality/train_50000.json
+  validation_manifest: manifests/discovery_v3_quality/validation.json
+  train_limit: 256
+  validation_limit: 64
+  max_wall_seconds: 180
+  views: [clean, geom, topo]
+  geometry_level: 0.2
+  topology_level: 0.3
+  group_weights: {S: 1.0, D: 1.0, P: 1.0}
+  group_normalization: fixed_weighted_mean_of_enabled_groups
+  validation_every_steps: 64

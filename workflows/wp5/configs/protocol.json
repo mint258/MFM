@@ -1,0 +1,307 @@
+{
+    "scope":  "WP5_ALL_RETAINED_CONFORMERS_ORIGINAL_GEOMETRY_12_TASKS_PARQUET_ONLY",
+    "seed":  20261010,
+    "timeout_seconds":  900,
+    "scratch_base":  "/tmp",
+    "per_file_limit_bytes":  134217728,
+    "pair_cutoff_A":  4.0,
+    "perturb_sigma_A":  0.1,
+    "aux_sample_basis_points":  100,
+    "polar_asymmetry_qc_bohr3":  0.01,
+    "zstd_executable":  "zstd",
+    "mopac_executable":  "/share/home/zixiao/.conda/envs/mopac/bin/mopac",
+    "xtb_executable":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/software/xtb/conda_env/bin/xtb",
+    "mopac_environment":  {
+                              "LD_LIBRARY_PATH":  "/share/home/zixiao/.conda/envs/mopac/lib"
+                          },
+    "xtb_environment":  {
+                            "LD_LIBRARY_PATH":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/software/xtb/conda_env/lib",
+                            "XTBPATH":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/software/xtb/conda_env/share/xtb",
+                            "OMP_STACKSIZE":  "256M"
+                        },
+    "units":  {
+                  "native_coordinates":  "Angstrom",
+                  "PM7_HOF":  "kcal/mol",
+                  "PM7_gradient":  "kcal/mol/Angstrom",
+                  "PM7_total_electronic_core_ENPART":  "eV",
+                  "PM7_dispersion_hydrogen_bond_energy":  "kcal/mol",
+                  "charges_and_orbital_populations":  "elementary charge/electron",
+                  "PM7_dipole":  "Debye",
+                  "polar_tensor":  "bohr^3; isotropic printed conversion also Angstrom^3",
+                  "COSMO_area_volume":  "Angstrom^2; Angstrom^3",
+                  "COSMO_dielectric_energy":  "eV; HOF solvent-gas difference separately kcal/mol",
+                  "xTB_energy_ALPB_ZPE_enthalpy":  "Hartree",
+                  "xTB_gradient":  "Hartree/bohr",
+                  "xTB_force":  "eV/Angstrom, negative gradient times 27.211386245988/0.529177210903",
+                  "xTB_dipole":  "Debye converted from atomic units",
+                  "xTB_quadrupole":  "atomic units; xx,xy,yy,xz,yz,zz, traceless",
+                  "xTB_D4_C6":  "Hartree*bohr^6",
+                  "xTB_D4_polarizability":  "bohr^3",
+                  "IP_EA":  "eV; EA=Eneutral-Eanion",
+                  "Fukui_WBO_bond_orders":  "dimensionless",
+                  "FOD":  "electrons, electronic temperature 5000 K",
+                  "frequency_IR":  "cm^-1; km/mol",
+                  "thermo_temperature":  "298.15 K default; per-output temperature retained in main output",
+                  "thermo_heat_capacity_entropy":  "cal/mol/K and entropy also J/mol/K, printed TOT columns",
+                  "Mulliken_overlap_population":  "electrons; 2*sum(P_nonorthogonal[AO_i,AO_j]*S_MULLIK[AO_i,AO_j]), sparse selected unordered pairs"
+              },
+    "notes":  [
+                  "All 12 requests cover all retained original conformers. No optimization.",
+                  "Only independent pm7_ESP, Hessian/OHess and POLAR responses are removed; other task fields including nullable ESP fields remain.",
+                  "Pilot quantum seed=20261010, sigma=0.1 A, parameters/900 s fallback timeout/per-task timeout unchanged.",
+                  "Raw hook captures all actual local files before cleanup; G3 controls output retention; inputs always retained.",
+                  "No LMDB created. Original payload and native coordinates immutable.",
+                  "Failure of one QM task never prevents the other tasks from running on readable source geometry."
+              ],
+    "tasks":  [
+                  {
+                      "name":  "pm7_B",
+                      "family":  "mopac",
+                      "keywords":  "PM7 1SCF XYZ GRADIENTS BONDS MULLIK PI SUPER ENPART DISP AUX(PRECISION=6) LARGE LET CHARGE=0",
+                      "required_values":  [
+                                              "heat_of_formation_kcal_mol",
+                                              "gradient_norm_kcal_mol_A",
+                                              "net_charges_e",
+                                              "mulliken_charges_e",
+                                              "bond_orders",
+                                              "enpart_pairs_eV",
+                                              "mulliken_overlap_population_pairs"
+                                          ]
+                  },
+                  {
+                      "name":  "pm7_water",
+                      "family":  "mopac",
+                      "keywords":  "PM7 1SCF XYZ EPS=78.4 RSOLV=1.3 AUX(PRECISION=6) CHARGE=0",
+                      "required_values":  [
+                                              "dielectric_energy_eV",
+                                              "cosmo_area_A2",
+                                              "cosmo_volume_A3"
+                                          ]
+                  },
+                  {
+                      "name":  "pm7_octanol",
+                      "family":  "mopac",
+                      "keywords":  "PM7 1SCF XYZ EPS=9.9 RSOLV=1.3 AUX(PRECISION=6) CHARGE=0",
+                      "required_values":  [
+                                              "dielectric_energy_eV",
+                                              "cosmo_area_A2",
+                                              "cosmo_volume_A3"
+                                          ]
+                  },
+                  {
+                      "name":  "pm7_cation",
+                      "family":  "mopac",
+                      "keywords":  "PM7 1SCF XYZ UHF MS=0.5 AUX(PRECISION=6) CHARGE=1",
+                      "required_values":  [
+                                              "heat_of_formation_kcal_mol",
+                                              "net_charges_e"
+                                          ]
+                  },
+                  {
+                      "name":  "pm7_anion",
+                      "family":  "mopac",
+                      "keywords":  "PM7 1SCF XYZ UHF MS=0.5 AUX(PRECISION=6) CHARGE=-1",
+                      "required_values":  [
+                                              "heat_of_formation_kcal_mol",
+                                              "net_charges_e"
+                                          ]
+                  },
+                  {
+                      "name":  "xtb_singlepoint",
+                      "family":  "xtb",
+                      "args":  [
+                                   "--gfn",
+                                   "2",
+                                   "--chrg",
+                                   "0",
+                                   "--uhf",
+                                   "0"
+                               ],
+                      "required_values":  [
+                                              "energy_Eh",
+                                              "charges_e",
+                                              "dipole_Debye",
+                                              "molecular_quadrupole_traceless_au",
+                                              "D4_atomic_C6_au",
+                                              "D4_atomic_alpha_bohr3"
+                                          ]
+                  },
+                  {
+                      "name":  "xtb_vipea",
+                      "family":  "xtb",
+                      "args":  [
+                                   "--gfn",
+                                   "1",
+                                   "--vipea",
+                                   "--chrg",
+                                   "0",
+                                   "--uhf",
+                                   "0"
+                               ],
+                      "required_values":  [
+                                              "IP_eV",
+                                              "EA_eV"
+                                          ]
+                  },
+                  {
+                      "name":  "xtb_vfukui",
+                      "family":  "xtb",
+                      "args":  [
+                                   "--gfn",
+                                   "2",
+                                   "--vfukui",
+                                   "--chrg",
+                                   "0",
+                                   "--uhf",
+                                   "0"
+                               ],
+                      "required_values":  [
+                                              "fukui"
+                                          ]
+                  },
+                  {
+                      "name":  "xtb_ALPB_water",
+                      "family":  "xtb",
+                      "args":  [
+                                   "--gfn",
+                                   "2",
+                                   "--alpb",
+                                   "water",
+                                   "--chrg",
+                                   "0",
+                                   "--uhf",
+                                   "0"
+                               ],
+                      "required_values":  [
+                                              "Gsolv_Eh"
+                                          ]
+                  },
+                  {
+                      "name":  "xtb_ALPB_octanol",
+                      "family":  "xtb",
+                      "args":  [
+                                   "--gfn",
+                                   "2",
+                                   "--alpb",
+                                   "octanol",
+                                   "--chrg",
+                                   "0",
+                                   "--uhf",
+                                   "0"
+                               ],
+                      "required_values":  [
+                                              "Gsolv_Eh"
+                                          ]
+                  },
+                  {
+                      "name":  "xtb_fod",
+                      "family":  "xtb",
+                      "args":  [
+                                   "--gfn",
+                                   "2",
+                                   "--etemp",
+                                   "5000",
+                                   "--chrg",
+                                   "0",
+                                   "--uhf",
+                                   "0"
+                               ],
+                      "xcontrol":  "$write\n json=true\n fod=false\n fod population=true\n$end\n",
+                      "required_values":  [
+                                              "NFOD_e",
+                                              "FOD_atom_e"
+                                          ]
+                  },
+                  {
+                      "name":  "xtb_perturbed_gradient",
+                      "family":  "xtb",
+                      "args":  [
+                                   "--gfn",
+                                   "2",
+                                   "--grad",
+                                   "--chrg",
+                                   "0",
+                                   "--uhf",
+                                   "0"
+                               ],
+                      "perturbed":  true,
+                      "required_values":  [
+                                              "energy_Eh",
+                                              "forces_eV_A"
+                                          ]
+                  }
+              ],
+    "mulliken_overlap_charge_tolerance_e":  0.001,
+    "mulliken_minimum_absolute_eigenvalue":  1E-10,
+    "mulliken_official_references":  {
+                                         "parameters":  {
+                                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/software/mopac_reference/native_v2/parameters_for_PM7_C.F90",
+                                                            "bytes":  190383,
+                                                            "sha256":  "ba57262956e85378a11a6637d9f9a33f8533e496b0cb912c1c237bb563cda190",
+                                                            "source_URL":  "https://raw.githubusercontent.com/openmopac/mopac/v23.0.3/src/models/parameters_for_PM7_C.F90"
+                                                        },
+                                         "mullik":  {
+                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/software/mopac_reference/native_v2/mullik.F90",
+                                                        "bytes":  9999,
+                                                        "sha256":  "e16b8e2ca60a54dac592fc0d91b6ab0aeba2647fe1796cda95c380985a8c84f0",
+                                                        "source_URL":  "https://raw.githubusercontent.com/openmopac/mopac/v23.0.3/src/properties/mullik.F90"
+                                                    },
+                                         "aux_export":  {
+                                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/software/mopac_reference/native_v2/to_screen.F90",
+                                                            "bytes":  64908,
+                                                            "sha256":  "98a1b1340c05a4c87915d316bbd74f526558e80888850cc4e3ca1fc0625f9966",
+                                                            "source_URL":  "https://raw.githubusercontent.com/openmopac/mopac/v23.0.3/src/output/to_screen.F90"
+                                                        }
+                                     },
+    "mulliken_pair_method":  "PM7_v23.0.3_AUX_total_density_beta_p_for_d_MULLIK_overlap",
+    "registry":  {
+                     "sha256":  "b1a74b7a1fc27b0173dc837cb00de568991309b7ed8157e7c354b65df122654e",
+                     "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_screening_20261011/reports/label_registry_v2.json"
+                 },
+    "frozen_dependencies":  {
+                                "native_lifecycle":  {
+                                                         "sha256":  "6943612b2fd6c3c7a492c08183f2328230469dea5113aadc613c32378cc79b59",
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/wp4_native_pilot_v4.py"
+                                                     },
+                                "mulliken":  {
+                                                 "sha256":  "1841cb61894c12b6ec0596ed7b122a85a0a4d3bd8913ba3589f7424a2543612e",
+                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/wp4_mulliken_pairs_v3.py"
+                                             },
+                                "parser":  {
+                                               "sha256":  "66938afa8d3d7b7f51e8922c875c0987687a865a97cb1591d6f6c511b38098e0",
+                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/wp4_parsers.py"
+                                           },
+                                "D20_D3":  {
+                                               "sha256":  "ce9bbdf15459e647fc21592941c99664141b7d7a4442619f433c88a3536d99a1",
+                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_screening_20261011/scripts/c_engineering_wire.py"
+                                           }
+                            },
+    "expected_versions":  {
+                              "xtb":  "6.7.1",
+                              "mopac":  "23.0.3"
+                          },
+    "deleted_tasks":  [
+                          "pm7_ESP",
+                          "xtb_hessian"
+                      ],
+    "deleted_response_fields":  [
+                                    "polar_blocks",
+                                    "static_polar_block",
+                                    "STATIC_finite_field_tensors_bohr3"
+                                ],
+    "output_status_policy":  "Source status and requested-scope status retained separately; no dedup or additional field exclusions.",
+    "historical_pilot_coverage_cost_notes":  {
+                                                 "current_measured_recipe":  "All native records use B with static POLAR. The B timing includes core PM7 properties, POLAR, and auxiliary density/overlap export; getter wall time is separately recorded.",
+                                                 "hessian_scope":  "Exactly the marked lowest original-energy retained conformer per molecule; no finite original energy means no Hessian.",
+                                                 "low_coverage_C_D_polar":  "For a later scheme computing POLAR only on lowest conformers, use the same B keywords without POLAR(E=(0.0),BETA=0,GAMMA=0) on other records, and remove static_polar_block from their required-values list. No extra B SCF is required.",
+                                                 "cost_estimation_limit":  "Full-B measured timing cannot be exactly split into PM7 core and POLAR cost from this pilot; do not claim an exact C/D counterfactual saving."
+                                             },
+    "current_recipe_notes":  {
+                                 "scope":  "WP5 original-coordinate all-conformer 12 independent tasks; no geometry optimization.",
+                                 "PM7_B":  "Frozen PM7 B recipe with only POLAR(E=(0.0),BETA=0,GAMMA=0) and static_polar_block required value removed; B esp_charges_e null/other fields keep their original semantics.",
+                                 "retained_tasks":  "PM7 B, water, octanol, cation, anion; xTB singlepoint, vipea, vfukui, ALPB water, ALPB octanol, FOD, perturbed gradient, all conformers.",
+                                 "deleted_tasks":  "Independent pm7_ESP and xtb_hessian removed; no Hess/OHess/optimization execution.",
+                                 "historical_notes":  "historical_pilot_coverage_cost_notes describe OLD_FROZEN_PILOT_NONEXECUTION and are never interpreted as current launch recipes.",
+                                 "preserved_execution":  "Pilot software, parameters, temperature, timeout, atom order and record-hash perturbation seed unchanged except authorized deletions."
+                             }
+}

@@ -1,0 +1,33 @@
+{
+  "version": "data-quality-v3.1",
+  "reference_manifest_hash": "aa5d9886464afd85052a90f102a12b03d46b1f375ada068d2ba14f719812f10e",
+  "reference_manifest_path": "manifests/discovery_v3/train_50000.json",
+  "source_type": "DATA-DRIVEN ROBUST QUARANTINE THRESHOLD",
+  "energy": {
+    "unit": "kcal/mol",
+    "robust_sigma_multiplier": 12.0,
+    "by_domain": {
+      "molecule": {"median": -59.419740000000004, "robust_sigma": 89.70738168},
+      "principal": {"median": -145.97003999999998, "robust_sigma": 170.95915456199998}
+    }
+  },
+  "energy_per_atom_diagnostic": {
+    "unit": "kcal/mol/atom",
+    "median": -2.074386562015504,
+    "robust_sigma": 2.8630483677820853,
+    "robust_sigma_multiplier": 20.0
+  },
+  "atomic_charge": {
+    "unit": "e",
+    "median": 0.13562999665737152,
+    "robust_sigma": 0.14032364438697695,
+    "robust_sigma_multiplier": 20.0
+  },
+  "rationale": {
+    "energy": "Domain-specific median and MAD-derived robust sigma are frozen from the 50k nested training prefix. Twelve robust sigmas quarantines gross MOPAC parser/run failures while retaining broad PM7 tails.",
+    "energy_per_atom_diagnostic": "A second, more conservative twenty-sigma check catches gross small-molecule failures hidden by an extensive molecular-energy threshold.",
+    "atomic_charge": "A twenty-sigma check catches gross parsed charge corruption; charge-sum conservation remains diagnostic because stored total_charge provenance is not guaranteed for every legacy sample.",
+    "rdkit_failures": "RDKit failure does not quarantine the molecule; existing descriptor masks remove only unavailable descriptor supervision.",
+    "recoverability": "Every rejected structure is retained in a quarantine ledger with shard, real index, sample key, parent identity, and reason; source LMDBs are never modified."
+  }
+}

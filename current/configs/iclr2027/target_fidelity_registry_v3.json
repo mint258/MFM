@@ -1,0 +1,68 @@
+{
+  "version": "target-fidelity-v3.1-provisional",
+  "thresholds": [
+    {
+      "task": "energy", "metric": "mae", "unit": "kcal/mol",
+      "high_fidelity_threshold": 1.0, "usable_threshold": 5.0, "higher_is_better": false,
+      "source": "Project-defined PM7 heat-of-formation surrogate fidelity bands; 1 kcal/mol is used only as a stringent engineering reference, not as absolute chemical accuracy.",
+      "source_type": "PROJECT-DEFINED ENGINEERING THRESHOLD", "rationale": "Molecular PM7 target MAE is the core metric; per-atom errors remain diagnostic.",
+      "hard_gate_or_diagnostic": "hard_gate", "version": "v3.1"
+    },
+    {
+      "task": "charge", "metric": "mae", "unit": "e",
+      "high_fidelity_threshold": 0.02, "usable_threshold": 0.05, "higher_is_better": false,
+      "source": "Project-defined stored-MOPAC-net-charge reproduction bands, frozen before v3 architecture comparison.",
+      "source_type": "PROJECT-DEFINED ENGINEERING THRESHOLD", "rationale": "Atom-level MAE measures fidelity to the NET ATOMIC CHARGES parsed by the data generator; the generator does not request MULLIK, so these must not be mislabeled as Mulliken charges. Charge-sum error is diagnostic only.",
+      "hard_gate_or_diagnostic": "hard_gate", "version": "v3.1"
+    },
+    {
+      "task": "geometry", "metric": "local_pair_mae", "unit": "angstrom",
+      "high_fidelity_threshold": 0.03, "usable_threshold": 0.10, "higher_is_better": false,
+      "source": "Project-defined pair-distance reconstruction bands based on the project's Angstrom coordinate target; 2 Angstrom is a reporting stratum, not a claim about the all-pairs training loss.",
+      "source_type": "PROJECT-DEFINED ENGINEERING THRESHOLD", "rationale": "The worst of bonded and <=2 Angstrom local-nonbonded pair MAE is the gate so numerous long-range pairs cannot dilute local geometry failures.",
+      "hard_gate_or_diagnostic": "hard_gate", "version": "v3.1"
+    },
+    {
+      "task": "element", "metric": "macro_f1", "unit": "dimensionless",
+      "high_fidelity_threshold": 0.95, "usable_threshold": 0.85, "higher_is_better": true,
+      "source": "Project-defined corruption-recovery classification threshold.",
+      "source_type": "PROJECT-DEFINED ENGINEERING THRESHOLD", "rationale": "Macro-F1 prevents H/C/O frequency from dominating the gate.",
+      "hard_gate_or_diagnostic": "hard_gate", "version": "v3.1"
+    },
+    {
+      "task": "bond", "metric": "existence_f1", "unit": "dimensionless",
+      "high_fidelity_threshold": 0.95, "usable_threshold": 0.85, "higher_is_better": true,
+      "source": "Project-defined balanced sampled-pair recovery threshold.",
+      "source_type": "PROJECT-DEFINED ENGINEERING THRESHOLD", "rationale": "F1, rather than BCE, directly checks positive-bond recovery under sampled negatives.",
+      "hard_gate_or_diagnostic": "hard_gate", "version": "v3.1"
+    },
+    {
+      "task": "bond", "metric": "order_macro_f1", "unit": "dimensionless",
+      "high_fidelity_threshold": 0.90, "usable_threshold": 0.80, "higher_is_better": true,
+      "source": "Project-defined bond-order classification threshold.",
+      "source_type": "PROJECT-DEFINED ENGINEERING THRESHOLD", "rationale": "Macro-F1 protects double/triple/aromatic classes from single-bond dominance.",
+      "hard_gate_or_diagnostic": "hard_gate", "version": "v3.1"
+    },
+    {
+      "task": "graph_descriptor", "metric": "mean_normalized_mae", "unit": "training standard deviations",
+      "high_fidelity_threshold": 0.10, "usable_threshold": 0.25, "higher_is_better": false,
+      "source": "Project-defined cross-descriptor normalized-error threshold.",
+      "source_type": "PROJECT-DEFINED ENGINEERING THRESHOLD", "rationale": "Every descriptor is also reported in its own raw space; normalized aggregation is only a scale-comparable gate.",
+      "hard_gate_or_diagnostic": "hard_gate", "version": "v3.1"
+    },
+    {
+      "task": "charge_descriptor", "metric": "worst_group_error", "unit": "task-specific",
+      "high_fidelity_threshold": 0.10, "usable_threshold": 0.25, "higher_is_better": false,
+      "source": "Project-defined mixed node-descriptor adequacy threshold.",
+      "source_type": "PROJECT-DEFINED ENGINEERING THRESHOLD", "rationale": "Regression normalized MAE and classification error are combined conservatively by their worst group.",
+      "hard_gate_or_diagnostic": "hard_gate", "version": "v3.1"
+    },
+    {
+      "task": "element_descriptor", "metric": "worst_group_error", "unit": "classification error",
+      "high_fidelity_threshold": 0.10, "usable_threshold": 0.25, "higher_is_better": false,
+      "source": "Project-defined node-descriptor adequacy threshold.",
+      "source_type": "PROJECT-DEFINED ENGINEERING THRESHOLD", "rationale": "The worst descriptor group prevents frequent binary labels from hiding weak multiclass descriptors.",
+      "hard_gate_or_diagnostic": "hard_gate", "version": "v3.1"
+    }
+  ]
+}

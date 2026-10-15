@@ -1,0 +1,75 @@
+{
+  "schema": "WP5_G4_FREEZE_SPEC_TEMPLATE_V4",
+  "status": "TEMPLATE_NOT_FROZEN_NOT_EXECUTABLE",
+  "scope": "CURRENT_USER_OVERRIDE_RECORD_AUDIT_NO_INPUTS_12_TASKS_F64",
+  "base_spec": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/g4_freeze_spec_v3.json",
+  "previous_actual_binary_recipe_report": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/gates/G4_freeze/job_4513932/report.json",
+  "required_new_fields": {
+    "production_contract": {
+      "path": "ACTUAL_ROOT_FROZEN_CONTRACT",
+      "sha256": null
+    },
+    "prepared_plan": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/submission/prepared_plan_v7.json",
+      "sha256": null
+    },
+    "dictionary_manifest": {
+      "path": "ACTUAL_NEW_G3_CODEC_MANIFEST",
+      "sha256": null
+    }
+  },
+  "current_chain_required": [
+    "wp5_engine_v2.py",
+    "wp5_runner_v8.py",
+    "wp5_archive_v5.py",
+    "wp5_parquet_v2.py",
+    "wp5_parser.py",
+    "wp5_main_v8.sbatch",
+    "wp5_submit_formal_v7.py",
+    "submit_wp5_job_v2.py",
+    "wp5_registry_coverage.py",
+    "wp5_record_audit_membership.py",
+    "wp5_reproduction_package_v2.py",
+    "wp5_reproduction50_v2.py",
+    "wp5_reproduction50_v2.sbatch",
+    "wp5_g4_freeze_v4.py",
+    "wp5_g4_freeze_v4.sbatch",
+    "all_actual_transitive_SCF_renderer_lifecycle_descriptors_precision_accounting_monitor_dependencies"
+  ],
+  "template_to_actual_recipe": [
+    "Wait for real current-chain code-ready status and immutable source inventory; retain this template unchanged.",
+    "Run package builder against actual audit job4513945 manifest; package copies no final production contract.",
+    "Root writes actual production contract using wp4 exact schema/status/policy/refs/sources and actual package SHA.",
+    "Root prepares new72+6 formal plan; this does not submit.",
+    "Copy base_spec historical binary/parameter/recipe/registry/population/node evidence; replace files with actual current full-chain files and SHA/bytes, including current contract/package/audit/G3 codec and prepared_plan7.",
+    "Write a new final g4_freeze_spec_v4.json once all above sources are immutable. No placeholder/null SHA may remain.",
+    "Root alone submits actual G4_v4 metadata checker24CPU/32GiB. G4_v3 remains historical."
+  ],
+  "policy": "FAILURES_PLUS_STRATIFIED_RECORD_AUDIT_NO_INPUT",
+  "six_trace_fields": [
+    "status",
+    "software_version_id",
+    "elapsed_seconds",
+    "scf_iterations",
+    "converged",
+    "input_file_sha256"
+  ],
+  "scientific_scope_unchanged": {
+    "records": 11231854,
+    "molecules": 1220466,
+    "tasks": 12,
+    "geometry_seed": 20261010,
+    "audit_seed": 20261010,
+    "repro50_seed": 20261011,
+    "final200_seed": 20261011,
+    "precision": "F64 strict except explicitly declared original field precision",
+    "final200_required": true
+  },
+  "forbidden_actions": [
+    "No ready/G0 publication from this template",
+    "No ordinary-success raw/input bodies in shared storage",
+    "No old-chain PASS relabelled as current retention-chain PASS",
+    "No original/history/permanent artifact overwrite",
+    "No QM or Slurm submission by child"
+  ]
+}

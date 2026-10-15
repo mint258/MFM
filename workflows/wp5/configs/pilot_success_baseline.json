@@ -1,0 +1,169 @@
+{
+    "status":  "PILOT_BASELINE_CLOSED_12_REQUESTED_TASKS",
+    "source_path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/reports/wp4_final_pilot_accounted/wp4_pilot_report.json",
+    "source_sha256":  "9f5a3fb2d7da1913443bf16eb6522ebaf62331db24791e30d403e462bab9f236",
+    "protocol_sha256":  "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc",
+    "panel_records":  10020,
+    "panel_molecules":  1441,
+    "requested_slots":  120240,
+    "required_scope_success_slots":  120177,
+    "success_scope":  "Original executed pilot outcomes projected onto retained tasks; G5 raw reparse coverage is separate",
+    "check_after_population_molecule_fraction":  0.05,
+    "allowed_drop_percentage_points":  2,
+    "success_rates":  {
+                          "pm7_B":  0.9998003992015968,
+                          "pm7_water":  1,
+                          "pm7_octanol":  1,
+                          "pm7_cation":  0.99590818363273448,
+                          "pm7_anion":  0.99970059880239526,
+                          "xtb_singlepoint":  1,
+                          "xtb_vipea":  0.99860279441117761,
+                          "xtb_vfukui":  0.99970059880239526,
+                          "xtb_ALPB_water":  1,
+                          "xtb_ALPB_octanol":  1,
+                          "xtb_fod":  1,
+                          "xtb_perturbed_gradient":  1
+                      },
+    "tasks":  {
+                  "pm7_B":  {
+                                "records":  10020,
+                                "required_scope_success":  10018,
+                                "success_rate":  0.9998003992015968,
+                                "stop_threshold_rate":  0.97980039920159678,
+                                "required_values":  [
+                                                        "heat_of_formation_kcal_mol",
+                                                        "gradient_norm_kcal_mol_A",
+                                                        "net_charges_e",
+                                                        "mulliken_charges_e",
+                                                        "bond_orders",
+                                                        "enpart_pairs_eV",
+                                                        "mulliken_overlap_population_pairs"
+                                                    ],
+                                "scope_projection_proof":  "Old 9209 SUCCESS plus 809 POLAR-only failures now outside scope; 2 missing retained mulliken_overlap_population_pairs remain failed. All other required properties available in all 10020 cases."
+                            },
+                  "pm7_water":  {
+                                    "records":  10020,
+                                    "required_scope_success":  10020,
+                                    "success_rate":  1,
+                                    "stop_threshold_rate":  0.98,
+                                    "required_values":  [
+                                                            "dielectric_energy_eV",
+                                                            "cosmo_area_A2",
+                                                            "cosmo_volume_A3"
+                                                        ],
+                                    "scope_projection_proof":  "Closed pilot ALL_PANEL successful status under unchanged task scope"
+                                },
+                  "pm7_octanol":  {
+                                      "records":  10020,
+                                      "required_scope_success":  10020,
+                                      "success_rate":  1,
+                                      "stop_threshold_rate":  0.98,
+                                      "required_values":  [
+                                                              "dielectric_energy_eV",
+                                                              "cosmo_area_A2",
+                                                              "cosmo_volume_A3"
+                                                          ],
+                                      "scope_projection_proof":  "Closed pilot ALL_PANEL successful status under unchanged task scope"
+                                  },
+                  "pm7_cation":  {
+                                     "records":  10020,
+                                     "required_scope_success":  9979,
+                                     "success_rate":  0.99590818363273448,
+                                     "stop_threshold_rate":  0.97590818363273446,
+                                     "required_values":  [
+                                                             "heat_of_formation_kcal_mol",
+                                                             "net_charges_e"
+                                                         ],
+                                     "scope_projection_proof":  "Closed pilot ALL_PANEL successful status under unchanged task scope"
+                                 },
+                  "pm7_anion":  {
+                                    "records":  10020,
+                                    "required_scope_success":  10017,
+                                    "success_rate":  0.99970059880239526,
+                                    "stop_threshold_rate":  0.97970059880239524,
+                                    "required_values":  [
+                                                            "heat_of_formation_kcal_mol",
+                                                            "net_charges_e"
+                                                        ],
+                                    "scope_projection_proof":  "Closed pilot ALL_PANEL successful status under unchanged task scope"
+                                },
+                  "xtb_singlepoint":  {
+                                          "records":  10020,
+                                          "required_scope_success":  10020,
+                                          "success_rate":  1,
+                                          "stop_threshold_rate":  0.98,
+                                          "required_values":  [
+                                                                  "energy_Eh",
+                                                                  "charges_e",
+                                                                  "dipole_Debye",
+                                                                  "molecular_quadrupole_traceless_au",
+                                                                  "D4_atomic_C6_au",
+                                                                  "D4_atomic_alpha_bohr3"
+                                                              ],
+                                          "scope_projection_proof":  "Closed pilot ALL_PANEL successful status under unchanged task scope"
+                                      },
+                  "xtb_vipea":  {
+                                    "records":  10020,
+                                    "required_scope_success":  10006,
+                                    "success_rate":  0.99860279441117761,
+                                    "stop_threshold_rate":  0.97860279441117759,
+                                    "required_values":  [
+                                                            "IP_eV",
+                                                            "EA_eV"
+                                                        ],
+                                    "scope_projection_proof":  "Closed pilot ALL_PANEL successful status under unchanged task scope"
+                                },
+                  "xtb_vfukui":  {
+                                     "records":  10020,
+                                     "required_scope_success":  10017,
+                                     "success_rate":  0.99970059880239526,
+                                     "stop_threshold_rate":  0.97970059880239524,
+                                     "required_values":  [
+                                                             "fukui"
+                                                         ],
+                                     "scope_projection_proof":  "Closed pilot ALL_PANEL successful status under unchanged task scope"
+                                 },
+                  "xtb_ALPB_water":  {
+                                         "records":  10020,
+                                         "required_scope_success":  10020,
+                                         "success_rate":  1,
+                                         "stop_threshold_rate":  0.98,
+                                         "required_values":  [
+                                                                 "Gsolv_Eh"
+                                                             ],
+                                         "scope_projection_proof":  "Closed pilot ALL_PANEL successful status under unchanged task scope"
+                                     },
+                  "xtb_ALPB_octanol":  {
+                                           "records":  10020,
+                                           "required_scope_success":  10020,
+                                           "success_rate":  1,
+                                           "stop_threshold_rate":  0.98,
+                                           "required_values":  [
+                                                                   "Gsolv_Eh"
+                                                               ],
+                                           "scope_projection_proof":  "Closed pilot ALL_PANEL successful status under unchanged task scope"
+                                       },
+                  "xtb_fod":  {
+                                  "records":  10020,
+                                  "required_scope_success":  10020,
+                                  "success_rate":  1,
+                                  "stop_threshold_rate":  0.98,
+                                  "required_values":  [
+                                                          "NFOD_e",
+                                                          "FOD_atom_e"
+                                                      ],
+                                  "scope_projection_proof":  "Closed pilot ALL_PANEL successful status under unchanged task scope"
+                              },
+                  "xtb_perturbed_gradient":  {
+                                                 "records":  10020,
+                                                 "required_scope_success":  10020,
+                                                 "success_rate":  1,
+                                                 "stop_threshold_rate":  0.98,
+                                                 "required_values":  [
+                                                                         "energy_Eh",
+                                                                         "forces_eV_A"
+                                                                     ],
+                                                 "scope_projection_proof":  "Closed pilot ALL_PANEL successful status under unchanged task scope"
+                                             }
+              }
+}

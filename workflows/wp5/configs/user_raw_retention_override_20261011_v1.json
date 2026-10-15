@@ -1,0 +1,45 @@
+{
+    "schema":  "WP5_USER_RAW_RETENTION_OVERRIDE_V1",
+    "status":  "USER_AUTHORIZED",
+    "recorded_utc":  "2026-10-11T04:13:19.5884181Z",
+    "server":  "zixiao@202.38.247.57:22",
+    "project":  "/share/home/zixiao/descriptor_analysis",
+    "verbatim_user_instructions":  "原始输出保留策略调整如下，取代指南中 G3 和第 4 步的相关规定：\n\n1. 原始输出不再全量保留，也不写入共享存储。每个计算在节点本地 scratch 完成，解析后立即删除。只有两类原始输出写入归档容器：一是全部失败计算（CALCULATION_FAILED、PROPERTY_FAILED、TIMEOUT）；二是按文件组和大小分层随机抽取的约 1% 审计样本，保留其全部任务的完整输出。输入文件不保存。\n2. 每条记录的每个任务，在 parquet 中额外记录：状态、软件版本 ID、耗时、SCF 迭代数、收敛标记、输入文件 SHA256。\n3. 冻结并永久保存复现包：MOPAC 和 xTB 的二进制或环境导出、runner、parser、关键词文件、随机种子规则、标签登记表，全部记录 SHA。\n4. 冒烟测试增加复现性验证：抽 50 条记录在同一环境重算两次，解析值一致到字段精度才算通过，不比较原始文本字节。不通过就停下报告，不进入正式提交。\n5. G5 parser 回归要确认登记表 v2 的全部字段都被提取，不能有遗漏。\n6. G3 按新策略重估存储峰值：parquet、训练格式预留 400 GB、失败与审计归档、临时余量，余量要求不变。",
+    "replaces":  "Original WP5 guide G3 and Step 4 raw/output storage provisions",
+    "ordinary_success_raw_shared":  false,
+    "inputs_saved":  false,
+    "archive_failure_statuses":  [
+                                     "CALCULATION_FAILED",
+                                     "PROPERTY_FAILED",
+                                     "TIMEOUT"
+                                 ],
+    "audit_unit":  "record",
+    "audit_strata":  [
+                         "file_group",
+                         "size_stratum"
+                     ],
+    "audit_fraction":  0.01,
+    "audit_selected_record_all_tasks_complete_outputs":  true,
+    "minimum_conformer_always_retained":  false,
+    "required_task_parquet_metadata":  [
+                                           "status",
+                                           "software_version_id",
+                                           "elapsed_seconds",
+                                           "scf_iterations",
+                                           "converged",
+                                           "input_file_sha256"
+                                       ],
+    "permanent_reproduction_package_required":  true,
+    "added_same_environment_repeat_records":  50,
+    "added_repeat_runs":  2,
+    "parsed_field_precision_comparison_required":  true,
+    "raw_text_byte_comparison_required":  false,
+    "registry_v2_all_fields_extraction_required":  true,
+    "future_training_format_reserve_bytes":  400000000000,
+    "G3_headroom_requirement_bytes":  200000000000,
+    "runtime_quota_stop_bytes":  300000000000,
+    "formal_final_200_record_recompute_waived":  false,
+    "other_scientific_configuration_changed":  false,
+    "node_replacement_receipt":  "gates/wp5_node_replacement_user_approved.json",
+    "node_replacement_receipt_sha256":  "32b0ba7355603c697ac0b2083d090d60fe924eb4d23f7128f451735cf6909d3f"
+}

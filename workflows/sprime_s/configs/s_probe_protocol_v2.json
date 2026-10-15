@@ -1,0 +1,106 @@
+{
+  "status": "STAGE59_DOWNSTREAM_PARTITIONS_AND_PRIMARY_FAMILY_PRESERVED",
+  "timestamp": 1791920296.7730505,
+  "frozen_protocol": {
+    "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage59_three_epoch_protocol_v1/actual_scientific_freeze_v1/phase1_three_epoch_scientific_protocol.json",
+    "sha256": "cde2ca717934955f340a5f160a3390ff1dd6eda12c9ffbab93fc54fce0c8a2a4",
+    "bytes": 166751
+  },
+  "user_confirmation_sha256": "0d70d2095b30a62739c182d27cbdfc782b0973c9f3cb0478c3e31d9d6515b42c",
+  "guide_interpretation": "Scaffold fallback applies when downstream datasets are unspecified; these five datasets are specified by Stage59, whose original official and scaffold boundaries remain fixed",
+  "scaffold_datasets": [
+    "qm7",
+    "qm9",
+    "cyp_isoform",
+    "az_exactsom"
+  ],
+  "scaffold_rotation": {
+    "datasets": [
+      "qm7",
+      "qm9",
+      "cyp_isoform",
+      "az_exactsom"
+    ],
+    "drop_unavailable_geometry": false,
+    "inner_validation_fold": "(t+1)%10",
+    "ordered_membership": "Stable filtering of existing assignment order by the original pinned generator rotation function",
+    "outer_folds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "reassign_members": false,
+    "test_fold": "t",
+    "train_folds": "remaining original 8 folds"
+  },
+  "expansion_official_sources": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/log_train_data.csv",
+      "role": "train",
+      "rows": 5326,
+      "sha256": "2bb87a2500ad48699b84d1666e54ee1d444d963f8f77dbfe91fcfbc0579512a7"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/official_test.csv",
+      "role": "test",
+      "rows": 2282,
+      "sha256": "ec48312d21d23cc83fd58d577a357cbdb480b30184b527152a4969244dd243a8"
+    }
+  ],
+  "expansion_inner_validation": null,
+  "expansion_derived_scaffold_annotations_in_prepared_v3_are_unused": true,
+  "readout": "raw H0 linear, frozen encoder; explicit guide override of nonlinear readout",
+  "geometry": "ETKDGv3 plus UFF; explicit guide override of previous original/MMFF geometry",
+  "optimization_policy": {
+    "all_unknown_training_record_policy": "Keep in source/split/embargo inventory and unknown report; exclude from optimizer batches by train-only mask recipe common to all variants",
+    "atom_loss": "bce_logits",
+    "atom_normalization": "identity, mean0 scale1",
+    "batch_graphs": 32,
+    "batch_order": "Fixed train-only order/permutation artifact, paired across conditions/readout seeds within rotation",
+    "checkpoint_and_resume": "Bind config/split/normalizer/initial actual encoder/order/cursor/complete AdamW moments/Torch RNG; use existing strict trainer checkpoint semantics",
+    "epochs": 20,
+    "gradient_clip_norm": null,
+    "graph_loss": "mse",
+    "graph_normalization": "Train-split-only observed-label per-task mean and population standard deviation; finite zero variance uses scale1; no train labels gives unavailable normalizer/task report, never fit on validation/test",
+    "legacy_fusion_task_weights_inherited": false,
+    "optimizer": {
+      "amsgrad": false,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "implementation": "single_tensor_adamw_v1",
+      "lr": 0.001,
+      "weight_decay": 0.01
+    },
+    "reduction": "task_then_observed_label_mean",
+    "selection": "Final fixed update endpoint only; no early stopping or condition-specific extension",
+    "task_weights": "1.0 for every configured output task; denominator is sum of all fixed task weights even if a task is missing in the batch",
+    "total_updates_rule": "20 times the fixed number of retained training batches; each epoch visits each geometry-ready record with at least one observed supervised label once; final smaller batch retained",
+    "tracking": "Functional W&B with explicit commit and closed persistent history; retained offline runs are allowed with declared later sync method"
+  },
+  "readout_seed": 0,
+  "primary_family_exclusions": [
+    "qm9.A",
+    "qm9.B",
+    "qm9.C"
+  ],
+  "primary_inference_tasks": 32,
+  "all_reported_tasks": 35,
+  "cells_per_checkpoint": 41,
+  "checkpoints": 7,
+  "total_cells": 287,
+  "original_sources_modified": false,
+  "pretraining_overlap_deleted": false,
+  "formal_probe_results_observed_before_this_correction": false,
+  "superseded_plan": "Unexecuted LP v1 reassigned Expansion official-test rows into scaffold training and applied the new criterion to auxiliary QM9 A/B/C",
+  "resolver_source_sha256": "1f6b5300846d008e70ae4f5d2effe3f48d12deba2991596b7ee53f52d0debd2c"
+}

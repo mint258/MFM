@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phychem-mfm-iclr2027"
+version = "0.1.0"
+description = "Shared-backbone multi-supervision PhyChem-MFM pretraining framework"
+requires-python = ">=3.10"
+dependencies = [
+  "torch>=2.1",
+  "torch-geometric>=2.4",
+  "lmdb>=1.4",
+  "numpy>=1.24",
+  "PyYAML>=6",
+  "rdkit>=2023.9",
+  "tqdm>=4.66",
+  "wandb>=0.17",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+include = ["phychem_mfm*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

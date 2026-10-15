@@ -1,0 +1,234 @@
+{
+  "status": "FORMAL_S_CONFIGURATIONS_FROZEN_NOT_YET_EXECUTED",
+  "timestamp": 1791898749.6516871,
+  "configurations": [
+    {
+      "condition": "B1_seed0",
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/formal_s/B1_seed0_v2.json",
+      "sha256": "af26f79be41d99bac5de410b686bccdf608b830b772d0dde06491bb146d35324",
+      "epochs": 1,
+      "seed": 0
+    },
+    {
+      "condition": "B1_seed1",
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/formal_s/B1_seed1_v2.json",
+      "sha256": "2086bad21f22d12946316e6c442d745a4dc62293af16a3aa7d22e6a1be8f309c",
+      "epochs": 1,
+      "seed": 1
+    },
+    {
+      "condition": "B3_seed0",
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/formal_s/B3_seed0_v2.json",
+      "sha256": "64f1e0a85f81b774d4a00cd4728766143662e196d9d8e5189550b69ad8bfed1f",
+      "epochs": 3,
+      "seed": 0
+    }
+  ],
+  "resolution_sha256": "b4bc3fc8209c4470d84205ee7e5162f13cab6122e92c5e2224ec897c8109038a",
+  "runner_sha256": "ee8063cda7f33b80b136bfec436062abef9319cb40554bf9f1ba6616798f6b71",
+  "train_records": 11104772,
+  "train_molecules": 1206608,
+  "total_requested_epochs": 5,
+  "resources_per_training_task": {
+    "cpus": 16,
+    "memory_gib": 64,
+    "slurm_wall_hours": 4,
+    "frozen_segment_wall_seconds": 7200
+  },
+  "allowed_gpu_nodes": [
+    "compute-0-20",
+    "compute-0-21",
+    "compute-0-22"
+  ],
+  "downstream_frozen_dataset_definitions": [
+    {
+      "dataset_id": "qm7",
+      "output_level": "graph",
+      "tasks": [
+        {
+          "endpoint_id": "qm7.target_atomization_energy",
+          "primary_inference": true,
+          "task_id": "target_atomization_energy",
+          "unit": "kcal/mol"
+        }
+      ],
+      "endpoint_ids": null
+    },
+    {
+      "dataset_id": "qm9",
+      "output_level": "graph",
+      "tasks": [
+        {
+          "endpoint_id": "qm9.A",
+          "primary_inference": false,
+          "task_id": "A",
+          "unit": "GHz"
+        },
+        {
+          "endpoint_id": "qm9.B",
+          "primary_inference": false,
+          "task_id": "B",
+          "unit": "GHz"
+        },
+        {
+          "endpoint_id": "qm9.C",
+          "primary_inference": false,
+          "task_id": "C",
+          "unit": "GHz"
+        },
+        {
+          "endpoint_id": "qm9.mu",
+          "primary_inference": true,
+          "task_id": "mu",
+          "unit": "D"
+        },
+        {
+          "endpoint_id": "qm9.alpha",
+          "primary_inference": true,
+          "task_id": "alpha",
+          "unit": "bohr^3"
+        },
+        {
+          "endpoint_id": "qm9.homo",
+          "primary_inference": true,
+          "task_id": "homo",
+          "unit": "Ha"
+        },
+        {
+          "endpoint_id": "qm9.lumo",
+          "primary_inference": true,
+          "task_id": "lumo",
+          "unit": "Ha"
+        },
+        {
+          "endpoint_id": "qm9.gap",
+          "primary_inference": true,
+          "task_id": "gap",
+          "unit": "Ha"
+        },
+        {
+          "endpoint_id": "qm9.r2",
+          "primary_inference": true,
+          "task_id": "r2",
+          "unit": "bohr^2"
+        },
+        {
+          "endpoint_id": "qm9.zpve",
+          "primary_inference": true,
+          "task_id": "zpve",
+          "unit": "Ha"
+        },
+        {
+          "endpoint_id": "qm9.U0",
+          "primary_inference": true,
+          "task_id": "U0",
+          "unit": "Ha"
+        },
+        {
+          "endpoint_id": "qm9.U",
+          "primary_inference": true,
+          "task_id": "U",
+          "unit": "Ha"
+        },
+        {
+          "endpoint_id": "qm9.H",
+          "primary_inference": true,
+          "task_id": "H",
+          "unit": "Ha"
+        },
+        {
+          "endpoint_id": "qm9.G",
+          "primary_inference": true,
+          "task_id": "G",
+          "unit": "Ha"
+        },
+        {
+          "endpoint_id": "qm9.Cv",
+          "primary_inference": true,
+          "task_id": "Cv",
+          "unit": "cal/(mol K)"
+        }
+      ],
+      "endpoint_ids": null
+    },
+    {
+      "dataset_id": "cyp_isoform",
+      "output_level": "atom",
+      "tasks": [
+        "1A2",
+        "2A6",
+        "2B6",
+        "2C19",
+        "2C8",
+        "2C9",
+        "2D6",
+        "2E1",
+        "3A4"
+      ],
+      "endpoint_ids": [
+        "cyp.1A2",
+        "cyp.2A6",
+        "cyp.2B6",
+        "cyp.2C19",
+        "cyp.2C8",
+        "cyp.2C9",
+        "cyp.2D6",
+        "cyp.2E1",
+        "cyp.3A4"
+      ]
+    },
+    {
+      "dataset_id": "az_exactsom",
+      "output_level": "atom",
+      "tasks": [
+        "exact_som"
+      ],
+      "endpoint_ids": [
+        "az.exact_som"
+      ]
+    },
+    {
+      "dataset_id": "expansionrx",
+      "output_level": "graph",
+      "tasks": [
+        "LogD",
+        "LogS",
+        "Log_HLM_CLint",
+        "Log_MLM_CLint",
+        "Log_Caco_Papp_AB",
+        "Log_Caco_ER",
+        "Log_Mouse_PPB",
+        "Log_Mouse_BPB",
+        "Log_Mouse_MPB"
+      ],
+      "endpoint_ids": [
+        "exp.LogD",
+        "exp.LogS",
+        "exp.Log_HLM_CLint",
+        "exp.Log_MLM_CLint",
+        "exp.Log_Caco_Papp_AB",
+        "exp.Log_Caco_ER",
+        "exp.Log_Mouse_PPB",
+        "exp.Log_Mouse_BPB",
+        "exp.Log_Mouse_MPB"
+      ]
+    }
+  ],
+  "downstream_explicit_guide_overrides": {
+    "encoder": "frozen backbone H0",
+    "readout": "linear; no hidden activation",
+    "geometry": "RDKit ETKDG+UFF",
+    "split": "scaffold",
+    "pretraining_overlap": "report scaffold InChIKey14 overlap without deleting"
+  },
+  "predeclared_convergence": {
+    "losses": "each raw FULL S loss; both B1 seeds relative absolute gap vs B3 epoch3 <0.02",
+    "probes": "each endpoint absolute difference between B1 two-seed mean and B3 epoch3 < B1 two-seed absolute spread",
+    "denoising": "separate comparison with0.042A lookup reference; guide stop after0.1epoch if FULL local RMSE>=0.141A"
+  },
+  "pending": [
+    "actual B1/B3 training and exact epoch closure",
+    "all required frozen H0 linear probes",
+    "convergence judgment and combined report"
+  ]
+}

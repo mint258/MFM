@@ -1,0 +1,135 @@
+architecture:
+  type: shared_multitask
+  preset: shared_light
+  task_route: light
+  task_route_per_task:
+    energy: light
+    charge: light
+    element: light
+    geometry: light
+    bond: light
+    descriptor: light
+
+backbone:
+  n_atom_types: 95
+  dim: 512
+  layers: 6
+  heads: 8
+  ff_mult: 2
+  dropout: 0.0
+  use_dist_bias: true
+  use_radius_mask: false
+  radius: 8.0
+
+expert:
+  real_layers: 2
+  internal_layers: 0
+  heads: 8
+  ff_mult: 2
+  dropout: 0.0
+  activation_checkpointing: true
+
+head:
+  bond_negative_ratio: 1.0
+  graph_descriptor_names:
+    - MolLogP
+    - MolMR
+    - TPSA
+    - LabuteASA
+    - ExactMolWt
+    - NumValenceElectrons
+    - HeavyAtomCount
+    - NumHeteroatoms
+    - NumHAcceptors
+    - NumHDonors
+    - NumRotatableBonds
+    - FractionCSP3
+    - RingCount
+    - NumAromaticRings
+    - NumAliphaticRings
+    - NumSaturatedRings
+    - NumHeterocycles
+    - NumBridgeheadAtoms
+    - NumSpiroAtoms
+    - NumAmideBonds
+    - BertzCT
+    - HallKierAlpha
+    - Kappa1
+    - NPR1
+    - NPR2
+    - Asphericity
+    - PBF
+
+supervision:
+  variant: SPD
+
+loss:
+  energy: 1.0
+  charge: 1.0
+  element: 1.0
+  bond_existence: 0.2
+  bond_order: 0.2
+  distance: 1.0
+  angle: 0.0
+  torsion: 0.0
+  graph_descriptor: 0.2
+  charge_descriptor: 0.25
+  element_descriptor: 0.25
+  cutoff: 2.0
+  morse_a: 0.6
+  element_label_smoothing: 0.1
+  element_temperature: 1.5
+  element_entropy_reg: 0.05
+  element_logit_l2: 0.0001
+
+schedule:
+  stage1_max_steps: 15000
+  descriptor_ramp_steps: 5000
+  stage1_decay_steps: 5000
+  stage1_floor: 0.3
+  warmup_fraction: 0.08
+  max_steps: 420000
+
+optimizer:
+  name: AdamW
+  lr: 3.0e-5
+  betas: [0.9, 0.95]
+  weight_decay: 0.01
+  grad_clip_norm: 1.0
+
+dataset:
+  root: /share/home/zixiao/dataset/lmdb_new
+  train_shards:
+    - principal_00000001_00300000.lmdb
+    - principal_00300001_00600000.lmdb
+    - principal_00600001_00900000.lmdb
+    - principal_00900001_01200000.lmdb
+    - principal_01200001_01500000.lmdb
+    - principal_01500001_01800000.lmdb
+    - unimol_01000001_02000000.lmdb
+    - unimol_02000001_03000000.lmdb
+    - unimol_03000001_04000000.lmdb
+    - unimol_04000001_05000000.lmdb
+    - unimol_05000001_06000000.lmdb
+  perturb_mix: geom:0.2@0.2,geom:0.3@0.1,topo:0.3@0.2,both:0.1@0.1,clean:@1
+  val_perturb_mix: clean:@1
+  filter_max_atoms: 196
+  standardizer_ratio: 0.01
+  standardizer_cap: 100000
+
+training:
+  epochs: 5
+  batch_size: 48
+  atom_budget_per_batch: 6144
+  num_workers: 6
+  precision: bf16
+  seed: 0
+  checkpoint_rule: fixed_final_primary
+  validate_every_steps: 10000
+  save_every_steps: 5000
+
+provenance:
+  legacy_git_commit: 6cb8d84
+  legacy_checkpoint: /share/home/zixiao/descriptor_analysis/ckpt/MFM_descriptor_middle.pt
+  legacy_checkpoint_kind: latest
+  legacy_checkpoint_global_step: 420000

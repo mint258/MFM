@@ -1,0 +1,681 @@
+{
+  "status": "DRAFT_CANDIDATE_INTERFACE_ONLY",
+  "kind": "B1",
+  "variant": "S",
+  "seed": 0,
+  "epochs": 1,
+  "dynamic_balancer_enabled": false,
+  "train_records": 11104772,
+  "train_molecules": 1206608,
+  "frozen_reference_resolution": {
+    "resolved": false,
+    "reason": "User clarification for the intended frozen_protocol.json is pending; this is a bounded development test only."
+  },
+  "frozen_protocol_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage59_three_epoch_protocol_v1/actual_scientific_freeze_v1/phase1_three_epoch_scientific_protocol.json",
+    "sha256": "cde2ca717934955f340a5f160a3390ff1dd6eda12c9ffbab93fc54fce0c8a2a4"
+  },
+  "model": {
+    "architecture": {
+      "preset": "shared_light",
+      "task_route": "light",
+      "type": "shared_multitask"
+    },
+    "backbone": {
+      "activation_checkpointing": true,
+      "dim": 384,
+      "dropout": 0.0,
+      "ff_mult": 2,
+      "heads": 6,
+      "layers": 4,
+      "n_atom_types": 119,
+      "radius": 8.0,
+      "use_dist_bias": true,
+      "use_radius_mask": false
+    },
+    "expert": {
+      "dropout": 0.0,
+      "ff_mult": 2,
+      "heads": 6,
+      "internal_layers": 0,
+      "real_layers": 2
+    },
+    "head": {
+      "geometry_head": "residual",
+      "geometry_residual_scale": 0.1,
+      "profile": "phase1"
+    }
+  },
+  "views": {
+    "cache_bytes": 1073741824,
+    "close_at_block_size": 4096,
+    "geometry_level": 0.2,
+    "max_cache_entries": 65536,
+    "max_handles": 2,
+    "max_record_bytes": 67108864,
+    "topology_level": 0.3
+  },
+  "sampler": {
+    "atom_bucket_width": 16,
+    "block_size": 4096,
+    "max_molecules": 512,
+    "max_native_atoms": 65536,
+    "max_padded_cost": 8000000,
+    "padded_cost_multiplier": 3
+  },
+  "loader": {
+    "num_workers": 8,
+    "persistent_workers": false,
+    "pin_memory": true,
+    "prefetch_factor": 2,
+    "worker_timeout_seconds": 60.0
+  },
+  "training": {
+    "caps": {
+      "finalization_reserve_seconds": 900,
+      "segment_wall_seconds": 7200
+    },
+    "dynamic_loss": {
+      "balance_interval": 32,
+      "calibration_observations": 8,
+      "gradient_beta": 0.9,
+      "gradient_floor": 1e-12,
+      "max_multiplier": 4.0,
+      "min_multiplier": 0.25,
+      "scale_beta": 0.9,
+      "scale_ceiling": 1000000.0,
+      "scale_floor": 0.001,
+      "weight_beta": 0.8
+    },
+    "epochs": 3,
+    "gradient_clip_norm": 1.0,
+    "loss": {
+      "cutoff": 2.0,
+      "element_entropy_reg": 0.05,
+      "element_label_smoothing": 0.1,
+      "element_logit_l2": 0.0001,
+      "element_temperature": 1.5,
+      "morse_a": 0.6
+    },
+    "loss_policy": {
+      "group_weights": {
+        "D": 1.0,
+        "P": 1.0,
+        "S": 1.0
+      },
+      "task_weights": {
+        "bond_order": 1.0,
+        "charge": 1.0,
+        "distance": 1.0,
+        "element": 1.0,
+        "energy": 1.0,
+        "graph_descriptor/BertzCT": 1.0,
+        "graph_descriptor/ExactMolWt": 1.0,
+        "graph_descriptor/FractionCSP3": 1.0,
+        "graph_descriptor/HallKierAlpha": 1.0,
+        "graph_descriptor/HeavyAtomCount": 1.0,
+        "graph_descriptor/Kappa1": 1.0,
+        "graph_descriptor/Kappa2": 1.0,
+        "graph_descriptor/Kappa3": 1.0,
+        "graph_descriptor/LabuteASA": 1.0,
+        "graph_descriptor/MolLogP": 1.0,
+        "graph_descriptor/MolMR": 1.0,
+        "graph_descriptor/NumAliphaticRings": 1.0,
+        "graph_descriptor/NumAromaticRings": 1.0,
+        "graph_descriptor/NumBridgeheadAtoms": 1.0,
+        "graph_descriptor/NumHAcceptors": 1.0,
+        "graph_descriptor/NumHDonors": 1.0,
+        "graph_descriptor/NumHeteroatoms": 1.0,
+        "graph_descriptor/NumHeterocycles": 1.0,
+        "graph_descriptor/NumSaturatedRings": 1.0,
+        "graph_descriptor/NumSpiroAtoms": 1.0,
+        "graph_descriptor/NumValenceElectrons": 1.0,
+        "graph_descriptor/RingCount": 1.0,
+        "graph_descriptor/TPSA": 1.0,
+        "node_descriptor/acceptor": 1.0,
+        "node_descriptor/donor": 1.0,
+        "node_descriptor/estate_index": 1.0,
+        "node_descriptor/is_aromatic": 1.0,
+        "node_descriptor/is_in_ring": 1.0,
+        "node_descriptor/min_ring_size": 1.0
+      }
+    },
+    "metric_interval": 32,
+    "optimizer": {
+      "betas": [
+        0.9,
+        0.95
+      ],
+      "lr": 3e-05,
+      "weight_decay": 0.01
+    },
+    "schedule": {
+      "min_lr_ratio": 0.05,
+      "warmup_base_exposures": 32768
+    },
+    "shared_parameter_names": [
+      "out_norm.weight",
+      "out_norm.bias"
+    ],
+    "validation": {
+      "criterion": "fixed_standardized_leaf_macro_v1",
+      "every_base_exposures": 1048576,
+      "task_scales": {
+        "bond_order": 1.2547785753217935,
+        "charge": 0.5489293087426961,
+        "distance": 0.10652331403230803,
+        "element": 4.987554888402797,
+        "energy": 0.13884856275394858,
+        "graph_descriptor/BertzCT": 4.615095416940617,
+        "graph_descriptor/ExactMolWt": 25.69540573766689,
+        "graph_descriptor/FractionCSP3": 7.001661639085293,
+        "graph_descriptor/HallKierAlpha": 3.435193985268045,
+        "graph_descriptor/HeavyAtomCount": 6.290937206653784,
+        "graph_descriptor/Kappa1": 24.374505422307966,
+        "graph_descriptor/Kappa2": 23.29142278974419,
+        "graph_descriptor/Kappa3": 10.240654030360034,
+        "graph_descriptor/LabuteASA": 26.309622950823982,
+        "graph_descriptor/MolLogP": 4.365704743711709,
+        "graph_descriptor/MolMR": 25.84440212266808,
+        "graph_descriptor/NumAliphaticRings": 3.5297238095068932,
+        "graph_descriptor/NumAromaticRings": 4.937090109463858,
+        "graph_descriptor/NumBridgeheadAtoms": 63.9066086352585,
+        "graph_descriptor/NumHAcceptors": 18.54443730943337,
+        "graph_descriptor/NumHDonors": 76.84203341209643,
+        "graph_descriptor/NumHeteroatoms": 32.87905847200737,
+        "graph_descriptor/NumHeterocycles": 25.689243714801034,
+        "graph_descriptor/NumSaturatedRings": 24.645270477526854,
+        "graph_descriptor/NumSpiroAtoms": 1.7159969783633233,
+        "graph_descriptor/NumValenceElectrons": 1.0800376225449502,
+        "graph_descriptor/RingCount": 3.744788883366108,
+        "graph_descriptor/TPSA": 40.896338114441676,
+        "node_descriptor/acceptor": 1.064206009743905,
+        "node_descriptor/donor": 0.2963667158301979,
+        "node_descriptor/estate_index": 0.6832017690435469,
+        "node_descriptor/is_aromatic": 0.6412350220561861,
+        "node_descriptor/is_in_ring": 0.7292002017607092,
+        "node_descriptor/min_ring_size": 2.835628918926263
+      }
+    },
+    "views_per_base": 3
+  },
+  "validation_seed": 0,
+  "tracking": {
+    "entity": null,
+    "mode": "offline",
+    "project": "phychem-mfm-phase1"
+  },
+  "input_manifest_sha256": "2f69b672350744369b08c672b62e3d276487714abc97b766a12140ec5af59997",
+  "memory_implementation_sha256": "170a7752bad1812d15dceace1613d19f579aec5d97a4965ed0960731cc53f232",
+  "source_references": [
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/__init__.py",
+      "sha256": "3b73b42536f555d93fc5727d36afcbb964875c493fd40529d62707bb0982c51a",
+      "bytes": 409
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/config.py",
+      "sha256": "47da797a16a55dc315e50c1c5bdac07125381bb677d0dad5160854f2b19fb3f3",
+      "bytes": 1430
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/data/__init__.py",
+      "sha256": "722a0239fe8fd6123512270c84e488cc44850d75c58a1d0e16ab16267c0684f2",
+      "bytes": 432
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/data/dataset_infer.py",
+      "sha256": "165ebb5db26d7af0250c7fa910ec83a7885a9b89447a8c79e1be0a8515702cdd",
+      "bytes": 5885
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/data/dataset_lmdb.py",
+      "sha256": "5f4dc312b1314f07d4533a6348947e366e071813ab89bac17e2f0ecdce36e5a3",
+      "bytes": 21422
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/data/dataset_without_charge.py",
+      "sha256": "d921db47a01c12d3cd0d21db0b74ad04c7fc8d6346dddd4b9ff04762b7a7d752",
+      "bytes": 12612
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/data/descriptor_schema.py",
+      "sha256": "b9cf8020ffca3fe5c578fd5ddad9ecc5839dabbe763df00fa0e414f626389243",
+      "bytes": 9889
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/discovery/__init__.py",
+      "sha256": "f074578c4aea329a4d95bb8c1255c4bad0e243929ef2e140be6198b5fd6d5bee",
+      "bytes": 411
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/discovery/convergence.py",
+      "sha256": "de34974557a5578ab41b5f9e84f68d21e2707f9c3a61258f20a03da1b0a31323",
+      "bytes": 6306
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/discovery/domain.py",
+      "sha256": "62a5640326e995f7fcfed585e40409850b33259f70cf6ae4377be4dc1f2c7bd6",
+      "bytes": 6645
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/discovery/engine.py",
+      "sha256": "a8c7a4a2c08167760e80c5838e06adbde794521b626e641db765ab30eb6c6c66",
+      "bytes": 23397
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/discovery/identity.py",
+      "sha256": "b5f26eb023c280a880452afd2fe7a3ac72e6fcc46de530e505f2d9419878fe1a",
+      "bytes": 2216
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/discovery/manifests.py",
+      "sha256": "e3fa6299e5b2d6bef451ed4b021f8187042a9e3ddf82c44c303484f38d4564c6",
+      "bytes": 13931
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/discovery/registry.py",
+      "sha256": "9068c8c71da0ac5424995dc5ce31b99163fbd4ed37f113f22c1051ce26388d77",
+      "bytes": 12255
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/discovery/schedule.py",
+      "sha256": "e00f9e852f24e4440fe8ab88f4f4a22adef55fd68111249c591dcad078627e22",
+      "bytes": 3902
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/evaluation/__init__.py",
+      "sha256": "b553b8e03281bcc35cec67d021b0d08d829db8f973deaa6d1046e8ae44889c7e",
+      "bytes": 347
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/evaluation/fidelity.py",
+      "sha256": "c2596973a6edc53c49f25980f6502272922a861455977cfa0d020aacf3b7678e",
+      "bytes": 4823
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/evaluation/metrics.py",
+      "sha256": "e0ec7a3b6f37638281184ebfdd44709e5b0c9989ddcb6cd1f58f20e7e8128c47",
+      "bytes": 3488
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/evaluation/normalization.py",
+      "sha256": "e0c1e66155200f79fcd4b568ce6a68cab1b8c0f8f0433c9366f1bcba8a31a36a",
+      "bytes": 3836
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/evaluation/target_adequacy.py",
+      "sha256": "127f577fe6ce6e1ba7b887be766183f9e43678032a947418cce4d3b907eee07d",
+      "bytes": 21418
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/factory.py",
+      "sha256": "58177a7d84b7f22d5669deae8fed085fd9fd2ec176975ec3a6562f71a1a78ead",
+      "bytes": 1414
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model/__init__.py",
+      "sha256": "9dac47024daad9bfb98ab3a356d2a0e2b5ca64d3a7cab0a3a9a9daa360536ab6",
+      "bytes": 346
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model/adaptation.py",
+      "sha256": "bcfb55a30f796ba5756d171c62d02745c7e53a493f4af41299d62b9b12579ac7",
+      "bytes": 2361
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model/attention.py",
+      "sha256": "d9a716c58aa6a481978af13757fdac0d4f02d9aae1187f7a65b943de8c352183",
+      "bytes": 3898
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model/backbone.py",
+      "sha256": "1d4798111e526a077f834740093c90ad2610081f0171ca6c778b14cac24288a3",
+      "bytes": 2784
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model/common.py",
+      "sha256": "819157b7f25d98eba9cdb55d28b41b90c146bf1e4f321b7a762efcfb78fe0cab",
+      "bytes": 2518
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model/expert_blocks.py",
+      "sha256": "d5604414bdde3200fbeda8781923128b6f9ec10423330ca994377f036d7d140f",
+      "bytes": 6041
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model/heads.py",
+      "sha256": "5fc5029ca4ca8a7a4551031cefe714292a9c55c5188788bc74da41b2c9015b1b",
+      "bytes": 8826
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model/normalization.py",
+      "sha256": "d3ae06c3b40efca8ef3e165c40315f655f5641302bf2a38e027cedce4b6309a8",
+      "bytes": 8902
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model/outputs.py",
+      "sha256": "31d32af22792f13226dc0dd83e201c0a9b33b2cda8e068da73c47786a319f3d8",
+      "bytes": 2397
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model/phase1_specs.py",
+      "sha256": "d0bacdbd808b4af9be36b9f04976af96b0a697ac6358bb7c8c69062aee641e22",
+      "bytes": 1529
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model/routes.py",
+      "sha256": "bfd1139fab2cb719a1ebf27d62919caf1bba570f636b29768d0feb50d91f12e4",
+      "bytes": 4949
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model/shared.py",
+      "sha256": "face7d3759dcf596eea2739ba39d265f935044910f904eb7bd679421867218eb",
+      "bytes": 25785
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/__init__.py",
+      "sha256": "551180d17da20fe8b157f3d0870783429ed90c65fac00e6381b8e8f7908ce81c",
+      "bytes": 82
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/az_annotation.py",
+      "sha256": "007daf677955151638119d6e99fdc52078de68b84b5a1100c0d86d46a1cf8ce7",
+      "bytes": 10008
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/az_atom_mapping.py",
+      "sha256": "aa565af62f3800136a6a32595f63e94a46c3f483bf05b2390c9c357ff4029ae7",
+      "bytes": 6514
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/baselines.py",
+      "sha256": "0719ef724dbfff038cbe709f316311d203c183fa4a5df35e5014beb76d7bd615",
+      "bytes": 11415
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/data.py",
+      "sha256": "0a8d7f1cafa566a6c5d53e83cb7ac9100e70122f14496961d63b980d28bbb58a",
+      "bytes": 16992
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/decontamination_v2.py",
+      "sha256": "6cb5a190684ac56bb2984b2b309ebb32fdf8f3a18daf8309520444ccfdd6af9c",
+      "bytes": 28164
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/dev_probe.py",
+      "sha256": "106f2377b48783e572e21710c916fed0c210c518dbde11e3e3128e65fcb54d7b",
+      "bytes": 32370
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/downstream_evaluation.py",
+      "sha256": "c1e6417684bddbaa3692832ffafd25829129df3c1adbcbc041efe65db91f3164",
+      "bytes": 19468
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/downstream_readout.py",
+      "sha256": "aa1b14ce6de85e26c2cc24b890a82c93cc9ab6e5216339e91fc054f05f076e50",
+      "bytes": 15205
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/downstream_source_records.py",
+      "sha256": "ea2d9e37ece37d44c6cd39c4605b141d6b8f871fbe7403d8b540d1504c6c0664",
+      "bytes": 56860
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/downstream_structures.py",
+      "sha256": "bd533640e97e129b848c4eb2cf40f8fc7d7ee332eaef54c7517e4ed3876861d6",
+      "bytes": 16132
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/downstream_training.py",
+      "sha256": "ee4640d246380ed89fe2391814969f72cb9ffd4239a154841fd3111000e54c81",
+      "bytes": 46439
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/dynamic_loss.py",
+      "sha256": "c4f24e805af17760927366667495faea2b0bf64126886fba65a411efdb9ebedf",
+      "bytes": 27783
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/evaluation.py",
+      "sha256": "10e5ae04cc17fd085adf32824a67d938d52b9d171adb0114865e8a42deed31b8",
+      "bytes": 24554
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/fitted_controls.py",
+      "sha256": "433ca11127cde822ee8ef3173d06524bf243baf66be4642b7bba7105827175d6",
+      "bytes": 20441
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/formal_gate.py",
+      "sha256": "b8ac4439a1dd8e968a1f053c50fdd57dca03bade4626dd6e087da6fe64319196",
+      "bytes": 54239
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/formal_runtime.py",
+      "sha256": "adccf251595a8a1a699e49468ab20eb94499c73e10bed2725f2377ea4d302eef",
+      "bytes": 43616
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/full_corpus_controls.py",
+      "sha256": "01dd02b6ddba361b60c7105083df3bfdbef198f5b2abe17a3e22d282eb63c915",
+      "bytes": 16533
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/full_corpus_loader.py",
+      "sha256": "3cbb45bc7ace19e8ef36946804098ba9a2aa4c3e30e2c17e40c702bc03d7ca29",
+      "bytes": 42303
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/full_corpus_training.py",
+      "sha256": "b7c6673150737123b8a4580436ad02dbaf366d7ab20ff0211d5e72479b6f9b87",
+      "bytes": 59902
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/generated_geometry.py",
+      "sha256": "df2c673280039f6e2df28b67ef19122bf0b826644af3370e647bbd4b81c92d16",
+      "bytes": 18336
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/identity.py",
+      "sha256": "2f34bd17e1e9161be3bb4cde46c80667c583ac22507c5a6bc95837b4414bb70a",
+      "bytes": 10358
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/initialization.py",
+      "sha256": "fbff1eea47ca0bb7a5458f0deecfad14887e3dd2695aeaa1bee2470597808eb2",
+      "bytes": 8882
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/manifest_views.py",
+      "sha256": "1d647a98a42b7062aa4659c595bdf6b3f37dbb63e08029c69f7dead5defcc13d",
+      "bytes": 24259
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/memory_observation.py",
+      "sha256": "217c6ffa5c2c74d53764aa31da5da2a33c1618b880ffa1570c9a7cd8942734a5",
+      "bytes": 5872
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/objectives.py",
+      "sha256": "4067ec836770abcacc60319bb55eabdf0372fd0e95a71a277feeb71a531c254b",
+      "bytes": 20138
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/paired_statistics.py",
+      "sha256": "0db6af1cd3120bd55a208fec60fea4c741f5420ace089c2bbf0c07d52d45770b",
+      "bytes": 29060
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/positive_strategy.py",
+      "sha256": "3993bfdbd6060ba4bf2aa103d6a21013522799e668e8bb438a09c68a3b67b145",
+      "bytes": 14030
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/pretraining_scientific_authority.py",
+      "sha256": "350c8be3ef05a47257db60437f5456139870173102fa3fb73abef1e3f567a5e5",
+      "bytes": 19181
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/seed_runtime.py",
+      "sha256": "379111401a94bc732d101351964fb4ea545f657d7905e9b423d9a1e98e40b705",
+      "bytes": 5391
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/som_annotation.py",
+      "sha256": "e1e9a81fbcad9f69f12bda4049ef86173694dcf383087c6d73e0e3efaecd6c19",
+      "bytes": 21227
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/som_atom_mapping.py",
+      "sha256": "d745086c5eb717939e70bfbc6f18c78e8e1f30d1b52742de3d747944e847f7aa",
+      "bytes": 11352
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/som_direction_equivalence.py",
+      "sha256": "055ebd52f8d9c892ebd875a90937ce6ef3c2b0b10b443a701cf7ba615414641c",
+      "bytes": 19324
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/som_evaluation.py",
+      "sha256": "090f3a14985376fbaec0e700a3b94c82a063900896d61533ead1259406b88e75",
+      "bytes": 20671
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/source_geometry.py",
+      "sha256": "75ac64e768e1e477634a35942c398d5b590b15370218ee78e31d166be5b698f3",
+      "bytes": 11654
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/strategy.py",
+      "sha256": "a6e7cd70a4839720099d7239fef1673c83c1bb1733b076f3f95f09cd1401d434",
+      "bytes": 10420
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/strategy_contract.py",
+      "sha256": "f1840ac602d5817b9f3e2cbc9114e92fd3487763a07eee9186b519801e6f49b6",
+      "bytes": 3743
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1/trial_source_bridge.py",
+      "sha256": "06ded0528fb870d4ee401596b70f392f18b9195373185ca7678b573efc62df91",
+      "bytes": 17206
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/supervision.py",
+      "sha256": "5316014706dd470f5b448549f19c2a6668ca423c3c309601201a2ab6bf8fcd4f",
+      "bytes": 3205
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training/__init__.py",
+      "sha256": "774479f5a534c8daca796f38a5d97fb466d2edc2b06e70c2ec6b670ff43f5d00",
+      "bytes": 59
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training/checkpoint.py",
+      "sha256": "706ac72ba10a2431b2bf9c2fd059b8f4e5ce00662dcef0ea42efc9cfddf91e0a",
+      "bytes": 9896
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training/data.py",
+      "sha256": "8228ab721bd821c316b279f992178f351c37fa0ba3c309203e9375117d861a8f",
+      "bytes": 51863
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training/dataloader_debug.py",
+      "sha256": "cdf2a5b2651fbc7437b3f7d22447b804180becb91b5e90537355655ef05264bc",
+      "bytes": 11485
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training/datasets.py",
+      "sha256": "f0aa191e23a9c90e2541c20f09cbbadfe06107cb8c90a2104bc16430a04a7d3f",
+      "bytes": 7427
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training/degrade_molecules.py",
+      "sha256": "3528566aed8bc0303dddfddfcafa400fdb7826a5be1471e7855a36af80587340",
+      "bytes": 25358
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training/engine.py",
+      "sha256": "9cefbaeb30dbc4a9df406ed729f0b2b0620ab5c561e56cc20d1c21571b7cc9da",
+      "bytes": 12111
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training/full_corpus_normalization.py",
+      "sha256": "3a4c866d1bfa26f64043f2cd320fa254ca234a92f577e81ef110df107dc65a20",
+      "bytes": 8780
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training/geometry.py",
+      "sha256": "d07eeb8545603576e902c1f5b908b987dec23f335923697ca5e8719d7a640aa5",
+      "bytes": 7264
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training/losses.py",
+      "sha256": "8cc6432f317095611868db7bc0f5360e0b9fe0d65ebec00c1a3aba8cc98a63d1",
+      "bytes": 21402
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training/optim.py",
+      "sha256": "f7fe1d473e75a9fd25d7b5af0e15d7812009d6079c0e1adbe70e1e29ecc1f830",
+      "bytes": 4106
+    },
+    {
+      "path": "/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training/utils_debug.py",
+      "sha256": "ad224040fd36f44940a33fca1ed6c17e0eb5efc65d5c3f620d912512e4e1cfcc",
+      "bytes": 2240
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/s_convergence_runner_v5.py",
+      "sha256": "348c9ef44e91472812311ce5bd8907e5ac323c6cea7d9a4ce98e698f44f437fa",
+      "bytes": 23109
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/s_model_memory_v1.py",
+      "sha256": "170a7752bad1812d15dceace1613d19f579aec5d97a4965ed0960731cc53f232",
+      "bytes": 2542
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/s_native_adapter_v1.py",
+      "sha256": "0e81348b046829151e42c67280ec9a5e7d8ef6a5b4034f422b31b5e82dea68e2",
+      "bytes": 8247
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/s_native_adapter_v2.py",
+      "sha256": "fb0527d84d645d4e037255f0e22155d1f2e760a3220036d951953ef642308a2a",
+      "bytes": 1204
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/s_training_components_v1.py",
+      "sha256": "2d2f689d5b6abeb475e515a9d0e8f287e6e8d41402675183a19bdbf1dba271c4",
+      "bytes": 7686
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/s_training_components_v2.py",
+      "sha256": "c4ba1aeb149dc91879481b9e5d0f60cce319a0d8f32f3cc408943a1f253bd6e5",
+      "bytes": 360
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/prepare.py",
+      "sha256": "4b10dc5c0c2c1f3c42250ca1c8541c43661ada301484f92a6ce7bfce512f4a10",
+      "bytes": 6040
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/native_qa_stats_v3.py",
+      "sha256": "16c37ed53f6007b459981b734001fd3fef9dd225257b0d5d6eb8c54a4992772b",
+      "bytes": 13653
+    }
+  ],
+  "effective_loss_weights": {
+    "element": 0.3333333333333333,
+    "distance": 0.3333333333333333,
+    "bond_order": 0.3333333333333333
+  },
+  "all_checkpoint_event_positions_apply_to_all_conditions": true,
+  "original_lmdb_readonly": true,
+  "new_lmdb_created": false,
+  "formal_B_training_permitted": false
+}
