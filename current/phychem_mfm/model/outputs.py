@@ -38,6 +38,7 @@ class PretrainOutputs:
     # Slicing a concatenation sends zero gradients to otherwise unused heads,
     # which still permits AdamW weight decay; direct tensors leave grad=None.
     graph_descriptor_by_name: Dict[str, Tensor] = field(default_factory=dict)
+    noise_pred: Optional[Tensor] = None
 
     def detached_summary(self) -> dict[str, object]:
         def shape(value: Optional[Tensor]):

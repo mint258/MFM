@@ -1,0 +1,51 @@
+{
+  "status": "ACTUAL_COMPONENT_C0_CLOSED_NOT_A_STAGE3_GATE",
+  "actual_parent": {
+    "JobIDRaw": "4515655",
+    "User": "zixiao",
+    "State": "COMPLETED",
+    "ExitCode": "0:0",
+    "ElapsedRaw": "80",
+    "AllocCPUS": "16",
+    "NodeList": "compute-0-21",
+    "Start": "2026-10-16T16:57:09",
+    "End": "2026-10-16T16:58:29",
+    "terminal": true,
+    "elapsed_seconds": 80,
+    "allocated_cpus": 16,
+    "allocated_CPU_core_seconds": 1280,
+    "GPU_node_allocation_seconds": 80,
+    "submission_references": [
+      {
+        "reference": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/submission/preselection_performance_crossover_v1.json",
+          "sha256": "8fc2465f78289acb63d7a09187484e159d8f16d13c84818d288654323c46f335",
+          "bytes": 2877
+        },
+        "script_reference": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/scripts/preselection_performance_crossover_v1.sbatch",
+          "sha256": "5ed957c9220b6441f7e7ce6448c8270ab3d17974bab389a7ca80499b1309e494",
+          "bytes": 1210
+        },
+        "script_name": "preselection_performance_crossover_v1"
+      }
+    ]
+  },
+  "actual_parent_snapshot": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/control/repair_accounting_snapshots/interim_20261016_v7.json",
+    "sha256": "28ceb61818dae25749af2612b78f89f9a9f86520d6aad6419c5017591301a658",
+    "bytes": 69924
+  },
+  "result_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/diagnostics/preselection_performance_crossover_v1/job_4515655/result.json",
+    "sha256": "2f235d22e4219dae669befc6c2c9c09b80aabd737d85e2a66c525b78c0be4670",
+    "bytes": 15996
+  },
+  "source_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/preselection_performance_crossover_v1.py",
+    "sha256": "cd72cc52427c05ae0618eff0ce14641f662e28946371b7673e7abcfbc7a3fe75",
+    "bytes": 8470
+  },
+  "LR_selected_by_this_component": false,
+  "formal_training_authorized": false
+}

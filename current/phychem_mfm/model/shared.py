@@ -29,6 +29,7 @@ from .heads import (
     BondPairHead,
     CoordinateDecoder,
     ResidualCoordinateDecoder,
+    EquivariantDenoisingHead,
     EnergyHead,
     TaskSpecificGraphHead,
     TaskSpecificNodeHead,
@@ -83,7 +84,7 @@ class SharedBackboneMFM(nn.Module):
             self.regression_output_normalizer = Phase1RegressionNormalization(head_config["regression_output_normalization"])
             self.head_config["regression_output_normalization"] = deepcopy(self.regression_output_normalizer.contract)
         self.geometry_head_mode = str(head_config.get("geometry_head", "legacy")).strip().lower()
-        if self.geometry_head_mode not in {"legacy", "residual"}:
+        if self.geometry_head_mode not in {"legacy", "residual", "equivariant_noise"}:
             raise ValueError(f"Unsupported geometry_head: {self.geometry_head_mode}")
         self.bond_order_only = self.head_profile == "phase1"
         self.bond_order_class_names = PHASE1_BOND_ORDER_CLASS_NAMES if self.bond_order_only else BOND_ORDER_CLASS_NAMES
@@ -121,6 +122,17 @@ class SharedBackboneMFM(nn.Module):
                     self.latent_dim,
                     hidden_dim=int(head_config.get("geometry_residual_hidden_dim", 32)),
                     correction_scale=float(head_config.get("geometry_residual_scale", 0.1)),
+                    normalization=str(head_config.get("geometry_residual_normalization", "molecule")),
+                    radius=float(head_config.get("geometry_radius", 5.0)),
+                )
+            elif self.geometry_head_mode == "equivariant_noise":
+                self.geometry_head = EquivariantDenoisingHead(
+                    self.latent_dim, radius=float(head_config.get("geometry_radius", 5.0)),
+                    rbf_count=int(head_config.get("geometry_rbf_count", 32)),
+                    hidden_dim=int(head_config.get("geometry_hidden_dim", 64)),
+                    normalization=str(head_config.get("geometry_normalization", "none")),
+                    message_layers=int(head_config.get("geometry_message_layers", 0)),
+                    pair_chunk_size=int(head_config.get("geometry_pair_chunk_size", 8192)),
                 )
             else:
                 self.geometry_head = CoordinateDecoder(self.latent_dim)
@@ -207,7 +219,11 @@ class SharedBackboneMFM(nn.Module):
                 element_atom = self.element_head(task_repr)
                 outputs.element_logits, _ = to_dense_batch(element_atom, batch_index, fill_value=0.0)
             elif objective == Objective.GEOMETRY:
-                if self.geometry_head_mode == "residual":
+                if self.geometry_head_mode == "equivariant_noise":
+                    noise_atom = self.geometry_head(h0, batch.pos, batch_index)
+                    outputs.noise_pred, _ = to_dense_batch(noise_atom, batch_index, fill_value=0.0)
+                    coordinate_atom = batch.pos - noise_atom
+                elif self.geometry_head_mode == "residual":
                     coordinate_atom = self.geometry_head(task_repr, batch.pos, batch_index)
                 else:
                     coordinate_atom = self.geometry_head(task_repr)

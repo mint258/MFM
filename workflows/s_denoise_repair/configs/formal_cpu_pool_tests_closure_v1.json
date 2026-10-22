@@ -1,0 +1,66 @@
+{
+  "status": "FORMAL_COORDINATION_V10_EXPANDED_CPU_POOL_TESTS_PASS",
+  "job_id": "4515656",
+  "tests": 18,
+  "source_references": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/formal_workflows_v4/full_coordinator_v10.py",
+      "sha256": "364129345d9a74b97a6d33444f12d9ba83a28086c3bef33134bbabc4b2d53512",
+      "bytes": 20358
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/formal_workflows_v4/test_full_coordinator_v10.py",
+      "sha256": "9f6998f5c9f6eeab7bb21392c639fba2b7e17bdf62ee96518272ff58ff54cecb",
+      "bytes": 6609
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/run_formal_cpu_pool_tests_v1.py",
+      "sha256": "bb4930b1f48f34e6d3b0fa075a55f3fd7e6d5b06ba6531298873c5419231e087",
+      "bytes": 1109
+    }
+  ],
+  "checks": [
+    {
+      "name": "16 inherited resource/paired-H0 cases plus 2 CPU-pool scope and byte-equivalence cases",
+      "returncode": 0
+    }
+  ],
+  "result_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/validation/formal_cpu_pool_job4515656/result.json",
+    "sha256": "1d6da4864288e804715b7a6fad910a4a72b883b51866e59f06db490df7137cdb",
+    "bytes": 226
+  },
+  "actual_parent_snapshot": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/control/accounting_snapshots/formal_cpu_pool_tests_v1.json",
+    "sha256": "a103b878d83a3705381eff3066a6c28e6dfb873ba33472c0e03aa9756bb259df",
+    "bytes": 305
+  },
+  "actual_parent": [
+    "COMPLETED",
+    "0:0",
+    "1",
+    "16"
+  ],
+  "CPU_nodes": [
+    "compute-0-8",
+    "compute-0-9",
+    "compute-0-10",
+    "compute-0-11",
+    "compute-0-12",
+    "compute-0-13",
+    "compute-0-14",
+    "compute-0-15",
+    "compute-0-16",
+    "compute-0-17",
+    "compute-0-18",
+    "compute-0-19"
+  ],
+  "GPU_nodes": [
+    "compute-0-20",
+    "compute-0-21",
+    "compute-0-22"
+  ],
+  "all_other_Root9_bytes_identical": true,
+  "scientific_updates": 0,
+  "formal_training_authorized": false
+}

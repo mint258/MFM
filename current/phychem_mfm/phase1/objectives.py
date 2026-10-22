@@ -69,9 +69,21 @@ class Phase1LossPolicy:
     task_weights: Mapping[str, float] = field(default_factory=lambda: {
         name: 1.0 for tasks in GROUP_TASKS.values() for name in tasks
     })
+    # Preserve both original positional arguments. New options are keyword-only.
+    geometry_task: str = field(default="distance", kw_only=True)
+    structural_tasks: tuple[str, ...] | None = field(default=None, kw_only=True)
 
     def __post_init__(self) -> None:
         expected_tasks = {name for tasks in GROUP_TASKS.values() for name in tasks}
+        if self.geometry_task not in {"distance", "denoise_eps_mse"}:
+            raise ValueError("Unknown geometry task")
+        if self.geometry_task == "denoise_eps_mse":
+            expected_tasks.add("denoise_eps_mse")
+        available = {"element", self.geometry_task, "bond_order"}
+        if self.structural_tasks is not None and (not self.structural_tasks or
+                len(set(self.structural_tasks)) != len(self.structural_tasks) or
+                not set(self.structural_tasks) <= available):
+            raise ValueError("Invalid explicit structural task selection")
         if set(self.group_weights) != set(GROUP_TASKS) or set(self.task_weights) != expected_tasks:
             raise ValueError("Phase1LossPolicy must define exactly all Phase 1 groups and retained tasks")
         for name, weight in list(self.group_weights.items()) + list(self.task_weights.items()):
@@ -81,13 +93,21 @@ class Phase1LossPolicy:
     @classmethod
     def from_mapping(cls, values: Mapping[str, object]) -> "Phase1LossPolicy":
         defaults = cls()
+        geometry_task = str(values.get("geometry_task", "distance"))
+        task_defaults = dict(defaults.task_weights)
+        if geometry_task == "denoise_eps_mse":
+            task_defaults["denoise_eps_mse"] = 1.0
         return cls(
+            geometry_task=geometry_task,
+            structural_tasks=tuple(values["structural_tasks"]) if values.get("structural_tasks") is not None else None,
             group_weights={**defaults.group_weights, **dict(values.get("group_weights", {}))},
-            task_weights={**defaults.task_weights, **dict(values.get("task_weights", {}))},
+            task_weights={**task_defaults, **dict(values.get("task_weights", {}))},
         )
 
     def to_dict(self) -> dict[str, object]:
         return {
+            **({"geometry_task": self.geometry_task, "structural_tasks": self.structural_tasks}
+               if self.geometry_task != "distance" or self.structural_tasks is not None else {}),
             "version": "phase1_loss_policy_v1",
             "group_weights": dict(self.group_weights), "task_weights": dict(self.task_weights),
             "normalization": "valid_labels_mean_then_fixed_task_weight_mean_then_enabled_group_weight_mean",
@@ -126,6 +146,23 @@ def _regression(pred: Tensor, target: Tensor, mask: Tensor, std_value) -> Tensor
     absolute = residual.abs()
     quadratic = absolute.clamp(max=5.0)
     return (0.5 * quadratic.square() + 5.0 * (absolute - quadratic)).mean()
+
+
+def denoise_eps_mse(predicted_noise: Tensor, noisy_pos: Tensor, target_pos: Tensor,
+                    atom_mask: Tensor, *, sigma: float = 0.1,
+                    geom_angle_std_deg: float = 0.0, geom_bond_scale_std: float = 0.0) -> Tensor:
+    """Mean squared vector error / (3 sigma²), on explicitly selected atoms."""
+    if geom_angle_std_deg != 0 or geom_bond_scale_std != 0:
+        raise ValueError("denoise_eps_mse requires additive Gaussian noise only")
+    if not math.isfinite(sigma) or sigma <= 0:
+        raise ValueError("A finite positive Gaussian sigma is required")
+    if predicted_noise.shape != noisy_pos.shape or noisy_pos.shape != target_pos.shape or noisy_pos.size(-1) != 3:
+        raise ValueError("Noise and coordinate shapes differ")
+    mask = atom_mask.bool() & torch.isfinite(noisy_pos).all(-1) & torch.isfinite(target_pos).all(-1)
+    if not bool(mask.any()):
+        return predicted_noise.new_zeros(())
+    residual = predicted_noise[mask].float() - (noisy_pos[mask].float() - target_pos[mask].float())
+    return residual.square().sum(-1).mean() / (3.0 * sigma ** 2)
 
 
 def compute_phase1_loss(
@@ -261,7 +298,8 @@ def compute_phase1_loss(
             atom_count = int(keep.sum())
             if atom_count < 2:
                 continue
-            predicted = outputs.coordinate_pred[graph_index, keep].float()
+            coordinate_prediction = outputs.coordinate_pred if policy.geometry_task == "distance" else outputs.coordinate_pred.detach()
+            predicted = coordinate_prediction[graph_index, keep].float()
             expected = target[graph_index, keep].float()
             morse = morse_energy(torch.cdist(predicted, predicted), torch.cdist(expected, expected), weights.morse_d, weights.morse_a)
             per_atom_terms.append(torch.log1p(morse.sum(-1).clamp(min=0.0)))
@@ -272,6 +310,18 @@ def compute_phase1_loss(
         raw["distance"] = torch.cat(per_atom_terms).mean() if per_atom_terms else zero
         if distance_atoms:
             valid_tasks.append("distance")
+        if policy.geometry_task == "denoise_eps_mse":
+            if outputs.noise_pred is None:
+                raise RuntimeError("denoise_eps_mse requires an explicit equivariant noise prediction")
+            noisy = _dense(batch, "pos", device=device)
+            raw["denoise_eps_mse"] = denoise_eps_mse(
+                outputs.noise_pred, noisy, target, valid_node,
+                sigma=weights.denoise_sigma, geom_angle_std_deg=weights.geom_angle_std_deg,
+                geom_bond_scale_std=weights.geom_bond_scale_std,
+            )
+            counts["denoise_eps_mse"] = int(valid_node.sum())
+            if counts["denoise_eps_mse"]:
+                valid_tasks.append("denoise_eps_mse")
     if Objective.BOND in active:
         bond = outputs.bond
         if bond is None:
@@ -328,6 +378,8 @@ def compute_phase1_loss(
     enabled_group_denominator = sum(float(policy.group_weights[group]) for group in enabled_groups)
     for group in enabled_groups:
         tasks = GROUP_TASKS[group]
+        if group == "S" and (policy.geometry_task != "distance" or policy.structural_tasks is not None):
+            tasks = policy.structural_tasks or ("element", policy.geometry_task, "bond_order")
         task_denominator = sum(float(policy.task_weights[name]) for name in tasks)
         group_scale = descriptor_scale if group == "D" else stage1_scale
         group_weights[group] = float(policy.group_weights[group]) * group_scale

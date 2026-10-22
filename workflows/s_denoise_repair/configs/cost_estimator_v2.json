@@ -1,0 +1,20 @@
+{
+  "status": "PREDECLARED_BEFORE_D3_FINAL_RESULTS",
+  "supersedes": "cost_estimator_v1.json",
+  "scope": "Estimated allocated GPU hours per full TRAIN epoch; excludes calendar queue time",
+  "train_records": 11104772,
+  "FULL_records": 127082,
+  "routine_records": 11322,
+  "FULL_plus_routine_validation_events_per_epoch_upper_reference": 14,
+  "checkpoint_save_readback_events_per_epoch_reference": 24,
+  "usable_training_segment_seconds": 6300,
+  "train_seconds_formula": "11104772 / measured training rps including loader and gradient diagnostics",
+  "validation_seconds_formula": "14*(127082+11322)/18486 * mean nine D3 evaluation durations",
+  "checkpoint_seconds_formula": "24 * final checkpoint save/readback duration",
+  "initialization_and_close_seconds_formula": "max(0,actual parent ElapsedRaw - train seconds - all evaluation seconds - ALL checkpoint save/readback seconds)",
+  "segment_count_formula": "ceil((train seconds+validation seconds)/6300)",
+  "total_seconds_formula": "train + validation + checkpoint + segments*startup_close",
+  "gate_hours": 15,
+  "revision_reason": "The v3 workflow measures all nine checkpoint save/readbacks. Subtract all of these from initialization to prevent double-counting earlier saves as repeated startup; no measured final scores were available when declaring this revision.",
+  "limitations": "Sample throughput and linear validation scaling are estimates. Report each seed, actual GPU model, and hardware-matched A0 throughput and VRAM comparisons. Full-data locality may differ."
+}

@@ -1,0 +1,43 @@
+{
+  "status": "ANALYSIS_CODE_TESTED_AND_BOUND_BEFORE_FINAL_D3_RESULTS",
+  "files": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/stage3_gate_v2.py",
+      "sha256": "5c1f22bfc318ca9ccdbbcfbc3418b0e7e124e72065060589bc1de5e953cfb045",
+      "bytes": 12654
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/test_stage3_gate_v2.py",
+      "sha256": "6d9e1bc188f4ab99ca2f93c8492f58eb5e34b3357aa8b3b3b4d5390219a263ab",
+      "bytes": 5759
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/capture_actual_parents_v1.py",
+      "sha256": "1593d2b03b4ee826fa84c9995669f7af4237876c81c4312f70ac2fd53cd010ce",
+      "bytes": 2740
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/render_d3_report_v2.py",
+      "sha256": "59e8a9dd8999e17f80c291782d846f8010126f238611beea7a011b7a757ad893",
+      "bytes": 9296
+    }
+  ],
+  "actual_QA": {
+    "job_id": "4515547",
+    "actual_parent": [
+      "COMPLETED",
+      "0:0",
+      6
+    ],
+    "gate_tests_passed": 13,
+    "test_report": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/reports/stage3_gate_tests_v2.xml",
+      "sha256": "720be4982d26e4f414613768ccd7485565d618dd3b172153afc27ec1abce18a9",
+      "bytes": 1949
+    }
+  },
+  "guide_sha256": "240b7b8132603517a7640662a5ea75e67371d5633e8a3c723ab148174c0b8fa3",
+  "prerequisite": "Scientific source binding v4 and its C6 proofs remain unchanged",
+  "snapshot_rule": "sacct RPC works on Sonmi, not compute nodes. Capture actual parent rows on Sonmi, bind immutable snapshot, then use CPU Slurm postprocessing. Never infer COMPLETED from output existence.",
+  "formal_training_authorized_by_this_binding": false
+}

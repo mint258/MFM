@@ -1,0 +1,239 @@
+{
+  "status": "OPTIONAL_ATOM_PROJECTION_EXECUTION_REJECTED_NO_ACTIVE_SOURCE_CHANGE",
+  "timestamp": 1792138371.564378,
+  "reason": "Actual forward-backward ABBA speedups on both real representative shapes did not meet preregistered >=1.10 threshold for any layer count.",
+  "CPU_numeric_legacy_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/configs/atom_projection_cpu_closure_v1.json",
+    "sha256": "13aa4833fd48246d1ebfb963fd034eda9358e29ba07e467b6bf8ba28ecc4f628",
+    "bytes": 1399
+  },
+  "GPU_result_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/diagnostics/atom_projection_gpu_v1/job_4515635/result.json",
+    "sha256": "fe4eaf3756a1c48998d81a98bbb8319fc520827c52d8b21469fb95e1fb4fc195",
+    "bytes": 47200
+  },
+  "GPU_plan_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/configs/atom_projection_gpu_plan_v1.json",
+    "sha256": "cc4298a0244e22b87fd5fb4d6f38cac5cc983225f72cf6081d45a6882dfca57f",
+    "bytes": 4463
+  },
+  "actual_parent": {
+    "JobIDRaw": "4515635",
+    "User": "zixiao",
+    "State": "COMPLETED",
+    "ExitCode": "0:0",
+    "ElapsedRaw": "271",
+    "AllocCPUS": "16",
+    "NodeList": "compute-0-21",
+    "Start": "2026-10-16T16:04:10",
+    "End": "2026-10-16T16:08:41",
+    "terminal": true,
+    "elapsed_seconds": 271,
+    "allocated_cpus": 16,
+    "allocated_CPU_core_seconds": 4336,
+    "GPU_node_allocation_seconds": 271,
+    "submission_references": [
+      {
+        "reference": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/submission/atom_projection_gpu_v1.json",
+          "sha256": "9d8da311ff36756e40fcc9229607426bca0b24419b21c144a869d6ff44a5f377",
+          "bytes": 4349
+        },
+        "script_reference": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/scripts/atom_projection_gpu_v1.sbatch",
+          "sha256": "fcdaf4b728e01945b90bc39f518931bf0b667be269db48c49432bf908ed5a109",
+          "bytes": 1150
+        },
+        "script_name": "atom_projection_gpu_v1"
+      }
+    ]
+  },
+  "actual_parent_snapshot": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/control/repair_accounting_snapshots/interim_20261016_v6.json",
+    "sha256": "4ba3651db942cdf1d3a39bb082618562df99ea63c350ed4ef650464f6d93b8c3",
+    "bytes": 63700
+  },
+  "numeric_comparisons": [
+    {
+      "message_layers": 0,
+      "batch": 0,
+      "max_output_absolute": 4.414469003677368e-07,
+      "loss_relative": 0.0,
+      "gradient_relative_L2": 1.4514204946488097e-06,
+      "eligible": true
+    },
+    {
+      "message_layers": 0,
+      "batch": 1,
+      "max_output_absolute": 5.513429641723633e-07,
+      "loss_relative": 0.0,
+      "gradient_relative_L2": 3.915090441154443e-06,
+      "eligible": true
+    },
+    {
+      "message_layers": 1,
+      "batch": 0,
+      "max_output_absolute": 9.685754776000977e-08,
+      "loss_relative": 0.0,
+      "gradient_relative_L2": 8.408666379770359e-08,
+      "eligible": true
+    },
+    {
+      "message_layers": 1,
+      "batch": 1,
+      "max_output_absolute": 1.6391277313232422e-07,
+      "loss_relative": 0.0,
+      "gradient_relative_L2": 7.800861282518808e-08,
+      "eligible": true
+    },
+    {
+      "message_layers": 2,
+      "batch": 0,
+      "max_output_absolute": 3.501772880554199e-07,
+      "loss_relative": 0.0,
+      "gradient_relative_L2": 6.843928793549998e-08,
+      "eligible": true
+    },
+    {
+      "message_layers": 2,
+      "batch": 1,
+      "max_output_absolute": 8.344650268554688e-07,
+      "loss_relative": 0.0,
+      "gradient_relative_L2": 1.0133444480820954e-07,
+      "eligible": true
+    }
+  ],
+  "server_computed_aggregate": [
+    {
+      "message_layers": 0,
+      "batch": 0,
+      "mode": "forward_backward_no_optimizer",
+      "mean_seconds": {
+        "False": 0.5195331776825091,
+        "True": 0.5174102510015169
+      },
+      "speedup": 1.0041029853523058
+    },
+    {
+      "message_layers": 0,
+      "batch": 0,
+      "mode": "eval_forward",
+      "mean_seconds": {
+        "False": 0.2572428057901561,
+        "True": 0.2576036161432664
+      },
+      "speedup": 0.998599358353302
+    },
+    {
+      "message_layers": 0,
+      "batch": 1,
+      "mode": "forward_backward_no_optimizer",
+      "mean_seconds": {
+        "False": 1.5788559646656115,
+        "True": 1.5775277114783723
+      },
+      "speedup": 1.0008419840599785
+    },
+    {
+      "message_layers": 0,
+      "batch": 1,
+      "mode": "eval_forward",
+      "mean_seconds": {
+        "False": 0.4672679309733212,
+        "True": 0.4668591002312799
+      },
+      "speedup": 1.000875704772251
+    },
+    {
+      "message_layers": 1,
+      "batch": 0,
+      "mode": "forward_backward_no_optimizer",
+      "mean_seconds": {
+        "False": 0.66762265500923,
+        "True": 0.6278485528503855
+      },
+      "speedup": 1.0633498348897565
+    },
+    {
+      "message_layers": 1,
+      "batch": 0,
+      "mode": "eval_forward",
+      "mean_seconds": {
+        "False": 0.2747254256779949,
+        "True": 0.27499706329156953
+      },
+      "speedup": 0.9990122163112461
+    },
+    {
+      "message_layers": 1,
+      "batch": 1,
+      "mode": "forward_backward_no_optimizer",
+      "mean_seconds": {
+        "False": 2.0640972185259066,
+        "True": 1.9867658539054294
+      },
+      "speedup": 1.0389232402341047
+    },
+    {
+      "message_layers": 1,
+      "batch": 1,
+      "mode": "eval_forward",
+      "mean_seconds": {
+        "False": 0.5442505272415777,
+        "True": 0.5283987264459332
+      },
+      "speedup": 1.029999695310141
+    },
+    {
+      "message_layers": 2,
+      "batch": 0,
+      "mode": "forward_backward_no_optimizer",
+      "mean_seconds": {
+        "False": 0.744357735539476,
+        "True": 0.7383299022912979
+      },
+      "speedup": 1.0081641461756752
+    },
+    {
+      "message_layers": 2,
+      "batch": 0,
+      "mode": "eval_forward",
+      "mean_seconds": {
+        "False": 0.29172362852841616,
+        "True": 0.29190855752676725
+      },
+      "speedup": 0.9993664831208857
+    },
+    {
+      "message_layers": 2,
+      "batch": 1,
+      "mode": "forward_backward_no_optimizer",
+      "mean_seconds": {
+        "False": 2.5058966423384845,
+        "True": 2.347467436144749
+      },
+      "speedup": 1.067489415935807
+    },
+    {
+      "message_layers": 2,
+      "batch": 1,
+      "mode": "eval_forward",
+      "mean_seconds": {
+        "False": 0.6298852299029628,
+        "True": 0.5982169602066278
+      },
+      "speedup": 1.052937766400666
+    }
+  ],
+  "eligible_by_message_layer": {
+    "0": false,
+    "1": false,
+    "2": false
+  },
+  "actual_development_optimizer_updates": 12,
+  "official_updates": 0,
+  "active_source": "source_v3",
+  "original_D3_A0_A5_unchanged": true,
+  "cost_estimator_v2_unchanged": true,
+  "source_v4_binding_created": false
+}

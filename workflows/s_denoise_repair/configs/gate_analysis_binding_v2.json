@@ -1,0 +1,83 @@
+{
+  "status": "ANALYSIS_ENTRY_REPAIRED_AND_BOUND_BEFORE_FINAL_NEW_HEAD_RESULTS",
+  "guide_sha256": "240b7b8132603517a7640662a5ea75e67371d5633e8a3c723ab148174c0b8fa3",
+  "files": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/stage3_gate_v3.py",
+      "sha256": "00ee0d514e12cd69290d6ddae1c84335e3025a7e1fcb667c3a5c044be19965b6",
+      "bytes": 12873
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/test_stage3_gate_v3.py",
+      "sha256": "1551dce730007e63f0c2221005c20ae8d5c6b830710fba9c48f7f49a1fe85a7b",
+      "bytes": 8252
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/check_stage3_gate_v3.py",
+      "sha256": "6626de13b20a6d9b91ecdd7c255304550bc7089477f613d9dfb9cb2a812c71b9",
+      "bytes": 3367
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/capture_actual_parents_v1.py",
+      "sha256": "1593d2b03b4ee826fa84c9995669f7af4237876c81c4312f70ac2fd53cd010ce",
+      "bytes": 2740
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/render_d3_report_v3.py",
+      "sha256": "da16bbf5fad29a394e090fce473215a24c5867b55b3aa980a73afe2ea906b6f6",
+      "bytes": 9641
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/render_stage3_gate_v1.py",
+      "sha256": "eaf78f101c75a9f7a8e616d72fda7a8da7fd96e07e011ac7c66afe9c38ffddd5",
+      "bytes": 6632
+    }
+  ],
+  "previous_analysis_binding_preserved": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/configs/gate_analysis_binding_v1.json",
+    "sha256": "2a43ba026f7569cec05464ae0deeb77062651aa55c9e9ee8524ac28ef0af13e5",
+    "bytes": 1868
+  },
+  "actual_QA": {
+    "job_id": "4515584",
+    "actual_parent": [
+      "COMPLETED",
+      "0:0",
+      "22",
+      "16"
+    ],
+    "tests_passed": 17,
+    "result": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/validation/stage3_gate_v3_job4515584/result.json",
+      "sha256": "4b95e5901fb4a50129050273b1c55bf725abcb3eba2124e278a4f900e61de142",
+      "bytes": 2257
+    },
+    "pytest_xml": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/validation/stage3_gate_v3_job4515584/pytest.xml",
+      "sha256": "900728d5d7becceef65729f5581e7de4ebc18d79ba577f91e5f174a435eb568b",
+      "bytes": 2336
+    }
+  },
+  "renderer_actual_QA": {
+    "job_id": "4515579",
+    "report_visual_review": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/reports/D3_interim_A0_A1_v2/visual_review_v1.json",
+      "sha256": "5a646574c2e4501b1b94f5fca01453538d1796d4b0b855807a586ab633ad227d",
+      "bytes": 1011
+    }
+  },
+  "scientific_gate_functions_AST_unchanged": [
+    "judge",
+    "denoise_fraction",
+    "estimate_cost",
+    "query_parents",
+    "finite",
+    "read_ref"
+  ],
+  "defect_record": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/reports/stage3_cli_defect_v1.json",
+    "sha256": "1a9a3ef9cf2b6c5c6555ad6a27bef3cc9781c373ca7d610f808dc0936eb8f8a6",
+    "bytes": 746
+  },
+  "formal_training_authorized_by_this_binding": false
+}

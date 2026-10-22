@@ -1,0 +1,92 @@
+{
+  "status": "ACTUAL_BASELINE_PARENT_PROVENANCE_ADDED_WITHOUT_CHANGING_ANY_SCIENTIFIC_THRESHOLD",
+  "guide_sha256": "240b7b8132603517a7640662a5ea75e67371d5633e8a3c723ab148174c0b8fa3",
+  "files": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/stage3_gate_v4.py",
+      "sha256": "9ed8ac673ba94f133d8a44fff6210f5598343914494204dadf7e9353ebfbac66",
+      "bytes": 14641
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/test_stage3_gate_v4.py",
+      "sha256": "d31d22f9a789c4057c443cc4733450e694e9746a34e75074428bd7eb96bb5378",
+      "bytes": 10982
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/check_stage3_gate_v4.py",
+      "sha256": "936f150d1ce6fde1b15c397fa8f6d9bf3ff0ca84785d2eab2a1453f4d0768913",
+      "bytes": 3501
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/capture_actual_parents_v1.py",
+      "sha256": "1593d2b03b4ee826fa84c9995669f7af4237876c81c4312f70ac2fd53cd010ce",
+      "bytes": 2740
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/render_d3_report_v3.py",
+      "sha256": "da16bbf5fad29a394e090fce473215a24c5867b55b3aa980a73afe2ea906b6f6",
+      "bytes": 9641
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/render_stage3_gate_v1.py",
+      "sha256": "eaf78f101c75a9f7a8e616d72fda7a8da7fd96e07e011ac7c66afe9c38ffddd5",
+      "bytes": 6632
+    }
+  ],
+  "previous_analysis_bindings_preserved": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/configs/gate_analysis_binding_v1.json",
+      "sha256": "2a43ba026f7569cec05464ae0deeb77062651aa55c9e9ee8524ac28ef0af13e5",
+      "bytes": 1868
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/configs/gate_analysis_binding_v2.json",
+      "sha256": "46d4126032eeac997ba4521abc8ee6a999c5fc7b4cc19f63a105d27e9c4a92f6",
+      "bytes": 3353
+    }
+  ],
+  "actual_QA": {
+    "job_id": "4515594",
+    "actual_parent": {
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "ElapsedRaw": "5",
+      "AllocCPUS": "16"
+    },
+    "tests_passed": 22,
+    "result": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/validation/stage3_gate_v4_job4515594/result.json",
+      "sha256": "6c114fd22be52ab701beddde4df3a7a7426c58a2b2039f93a18cad8142df3447",
+      "bytes": 2771
+    },
+    "pytest_xml": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/validation/stage3_gate_v4_job4515594/pytest.xml",
+      "sha256": "3ac19191103cac1c678d3a0cd9f8f79c580f0f8fe3590e0da5941a7deae58ee6",
+      "bytes": 3011
+    }
+  },
+  "scientific_gate_functions_AST_unchanged": [
+    "judge",
+    "denoise_fraction",
+    "estimate_cost",
+    "query_parents",
+    "finite",
+    "read_ref"
+  ],
+  "lookup_closure_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/configs/lookup_refit_closure_v1.json",
+    "sha256": "7e6d2849975c826cdca2d6eae41c42462e79281596d183927ac772b810c6385a",
+    "bytes": 4505
+  },
+  "actual_accounting_snapshot": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/control/repair_accounting_snapshots/interim_20261016_v2.json",
+    "sha256": "98378aa230355c63674f75e410c17044259c462fd673919780004da1006eb3a9",
+    "bytes": 52648
+  },
+  "snapshot_capture_phases_required": [
+    "<actual complete D3 phase>",
+    "completed_lookup_reference_v1"
+  ],
+  "snapshot_capture_include_tests": true,
+  "formal_training_authorized_by_this_binding": false
+}

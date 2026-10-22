@@ -1,0 +1,25 @@
+{
+  "status": "PREDECLARED_BEFORE_D3_RESULTS",
+  "configuration_version": 3,
+  "steps_each": 4000,
+  "all_source_conformers_retained": true,
+  "LR_selection": "lowest mean final FULL2000 local RMSE across two seeds of A2/A3/A4; tie favors lower LR",
+  "A5": "same selected LR/head and seeds, disable element/bond optimization, keep effective geometry loss coefficient equal to corresponding multi-task group",
+  "gate": {
+    "denoising": "both selected multi-task seeds strictly below refitted FULL2000 lookup RMSE",
+    "gradient": "mean final20 TRAIN batch fractions >=0.10 for each seed, all backbone parameters; fixed weights only",
+    "interference": "abs(A5_RMSE - matched_multitask_RMSE)/matched_multitask_RMSE <=0.10 for each seed",
+    "other_tasks": "masked element accuracy and bond order accuracy each >= matched A0 seed",
+    "cost": "measured throughput and VRAM reported; projected full epoch including observed validation/checkpoint overhead <=15GPUh"
+  },
+  "formal_convergence": {
+    "aggregate": "mean of each pair of seeds",
+    "direction": "B3 improvement only",
+    "denoise_eps_mse_and_local_RMSE": "(B1mean-B3mean)/B1mean <0.02, each",
+    "masked_element_NLL": "(B1mean-B3mean)/B1mean <0.02",
+    "bond_order_accuracy": "B3mean-B1mean <0.001 absolute accuracy units",
+    "downstream": "B3 improvement must exceed both abs(B1seed0-B1seed1) and abs(B3seed0-B3seed1) to count unconverged",
+    "epoch_extrapolation": false
+  },
+  "guide_sha256": "240b7b8132603517a7640662a5ea75e67371d5633e8a3c723ab148174c0b8fa3"
+}

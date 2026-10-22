@@ -1,0 +1,40 @@
+{
+  "status": "PROSPECTIVE_ATOM_PROJECTION_EXECUTION_CANDIDATE_NOT_ADOPTED",
+  "timestamp_unix": 1792136281.254599,
+  "guide_sha256": "240b7b8132603517a7640662a5ea75e67371d5633e8a3c723ab148174c0b8fa3",
+  "original_source": "source_v3",
+  "candidate_source": "source_v4",
+  "scientific_configuration_version": 3,
+  "new_option": "geometry_cache_atom_projections",
+  "default": false,
+  "identity": "Linear([hi,hj,RBF]) = Wi*hi + Wj*hj + Wr*RBF + bias; compute the two atom projections once per atom per message layer.",
+  "model_parameters_objective_neighbors_sigma_data_order_seeds_steps_and_learning_rate_unchanged": true,
+  "original_D3_frozen_runs_continue": true,
+  "frozen_cost_estimator_v2_unchanged": true,
+  "numeric_acceptance": {
+    "max_output_absolute": 1e-05,
+    "loss_relative": 1e-06,
+    "gradient_relative_L2": 0.0001
+  },
+  "performance_cases": [
+    "actual first selected batch",
+    "actual largest padded-quadratic selected batch"
+  ],
+  "message_layer_cases": [
+    0,
+    1,
+    2
+  ],
+  "warmups": 2,
+  "timed_repeats": 3,
+  "minimum_forward_backward_speedup_to_adopt": 1.1,
+  "required_before_adoption": [
+    "all original tests",
+    "all C6 including legacy v2 bit equality",
+    "CPU value and gradient algebra equivalence",
+    "real GPU representative optimizer and checkpoint checks",
+    "actual no-update GPU numeric and throughput probe"
+  ],
+  "adoption_boundary": "Only a verified future guide-authorized message fallback phase may adopt this candidate prospectively; current A0-A5 remain source_v3. If initial source_v3 candidate passes all gates, source_v3 remains eligible. A cost failure alone does not authorize changing the primary estimator or bypassing the guide stop.",
+  "formal_training_authorized_by_this_plan": false
+}

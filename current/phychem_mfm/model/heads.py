@@ -39,12 +39,16 @@ class ResidualCoordinateDecoder(nn.Module):
     or read clean target coordinates.
     """
 
-    def __init__(self, dim: int, *, hidden_dim: int = 32, correction_scale: float = 0.1) -> None:
+    def __init__(self, dim: int, *, hidden_dim: int = 32, correction_scale: float = 0.1,
+                 normalization: str = "molecule", radius: float = 5.0) -> None:
         super().__init__()
         if hidden_dim < 2 or correction_scale <= 0:
             raise ValueError("Residual geometry hidden_dim must be at least 2 and correction_scale must be positive")
         self.hidden_dim = int(hidden_dim)
         self.correction_scale = float(correction_scale)
+        if normalization not in {"molecule", "neighbors"} or radius <= 0:
+            raise ValueError("Invalid residual normalization or radius")
+        self.normalization, self.radius = normalization, float(radius)
         self.node_proj = nn.Sequential(
             Linear(dim, self.hidden_dim), nn.LayerNorm(self.hidden_dim), nn.SiLU(),
         )
@@ -65,10 +69,95 @@ class ResidualCoordinateDecoder(nn.Module):
         weights = torch.tanh(self.pair_weight(pair_input).squeeze(-1)).float()
         pair_mask = mask[:, :, None] & mask[:, None, :]
         weights = weights * pair_mask.to(weights.dtype)
-        count = mask.sum(dim=1).clamp_min(1).to(coordinates.dtype).view(-1, 1, 1)
+        if self.normalization == "neighbors":
+            neighbors = pair_mask & (distance2 < self.radius ** 2) & (distance2 > 0)
+            weights = weights * neighbors.to(weights.dtype)
+            count = neighbors.sum(dim=2).clamp_min(1).to(coordinates.dtype).unsqueeze(-1)
+        else:
+            count = mask.sum(dim=1).clamp_min(1).to(coordinates.dtype).view(-1, 1, 1)
         correction = (weights.unsqueeze(-1) * relative).sum(dim=2) / count
         decoded = coordinates + self.correction_scale * correction
         return decoded[mask]
+
+
+class EquivariantDenoisingHead(nn.Module):
+    """Invariant H0 and scalar pair coefficients predict an equivariant noise vector.
+
+    Edges are generated within molecules without torch-cluster. Pair MLPs are
+    checkpointed in bounded chunks, including feature gathering, so full-width
+    pair representations are not all retained for backward. No targets enter
+    this module. Optional scalar messages preserve the same symmetries.
+    """
+
+    def __init__(self, dim: int, *, radius: float = 5.0, rbf_count: int = 32,
+                 hidden_dim: int = 64, normalization: str = "none",
+                 message_layers: int = 0, pair_chunk_size: int = 8192) -> None:
+        super().__init__()
+        if radius <= 0 or rbf_count < 2 or hidden_dim < 2 or pair_chunk_size < 1:
+            raise ValueError("Invalid equivariant head dimensions/radius")
+        if normalization not in {"none", "sqrt_neighbors"} or message_layers not in {0, 1, 2}:
+            raise ValueError("Invalid equivariant normalization/message layers")
+        self.radius, self.normalization = float(radius), normalization
+        self.message_layers, self.pair_chunk_size = int(message_layers), int(pair_chunk_size)
+        self.register_buffer("rbf_centers", torch.linspace(0.0, self.radius, rbf_count))
+        self.rbf_gamma = ((rbf_count - 1) / self.radius) ** 2
+        self.pair_mlp = nn.Sequential(Linear(2 * dim + rbf_count, hidden_dim), nn.SiLU(),
+                                      Linear(hidden_dim, hidden_dim), nn.SiLU(), Linear(hidden_dim, 1))
+        nn.init.normal_(self.pair_mlp[-1].weight, std=1e-3)
+        nn.init.zeros_(self.pair_mlp[-1].bias)
+        self.messages = nn.ModuleList([
+            nn.Sequential(Linear(2 * dim + rbf_count, hidden_dim), nn.SiLU(), Linear(hidden_dim, dim))
+            for _ in range(message_layers)
+        ])
+
+    def _edges(self, pos: Tensor, batch: Tensor) -> tuple[Tensor, Tensor]:
+        # Stable sorting also accepts permutations across molecule boundaries.
+        order = torch.argsort(batch, stable=True)
+        sorted_batch = batch[order]
+        _, dense_batch = torch.unique_consecutive(sorted_batch, return_inverse=True)
+        coordinates, mask = to_dense_batch(pos[order], dense_batch)
+        distance = torch.cdist(coordinates, coordinates)
+        valid = mask[:, :, None] & mask[:, None, :]
+        eye = torch.eye(distance.size(-1), dtype=torch.bool, device=pos.device)
+        graph, src, dst = torch.where(valid & ~eye & (distance < self.radius) & (distance > 1e-8))
+        offsets = torch.cat((batch.new_zeros(1), mask.sum(1).cumsum(0)[:-1]))
+        return order[offsets[graph] + src], order[offsets[graph] + dst]
+
+    def _features(self, h: Tensor, pos: Tensor, src: Tensor, dst: Tensor):
+        relative = pos[src] - pos[dst]
+        distance = relative.norm(dim=-1).clamp_min(1e-8)
+        rbf = torch.exp(-self.rbf_gamma * (distance[:, None] - self.rbf_centers) ** 2)
+        rbf = rbf * (0.5 * (1.0 + torch.cos(torch.pi * distance / self.radius)))[:, None]
+        return torch.cat((h[src], h[dst], rbf.to(h.dtype)), dim=-1), relative / distance[:, None]
+
+    def _predict_chunk(self, h, pos, src, dst):
+        feature, direction = self._features(h, pos, src, dst)
+        return self.pair_mlp(feature) * direction
+
+    def forward(self, atom_repr: Tensor, pos: Tensor, batch: Tensor) -> Tensor:
+        from torch.utils.checkpoint import checkpoint
+        if pos.ndim != 2 or pos.size(-1) != 3 or len(atom_repr) != len(pos) or len(batch) != len(pos):
+            raise ValueError("Head expects packed atoms, coordinates and molecule IDs")
+        if not len(pos):
+            return pos.clone()
+        src, dst = self._edges(pos, batch)
+        h = atom_repr
+        degree = torch.bincount(src, minlength=len(pos)).clamp_min(1).to(pos.dtype).sqrt()[:, None]
+        for layer in self.messages:
+            def message_chunk(features, coordinates, i, j, module=layer):
+                return module(self._features(features, coordinates, i, j)[0])
+            aggregated = torch.zeros_like(h)
+            for start in range(0, len(src), self.pair_chunk_size):
+                i, j = src[start:start + self.pair_chunk_size], dst[start:start + self.pair_chunk_size]
+                value = checkpoint(message_chunk, h, pos, i, j, use_reentrant=False) if torch.is_grad_enabled() else message_chunk(h, pos, i, j)
+                aggregated = aggregated.index_add(0, i, value)
+            h = h + aggregated / degree.to(h.dtype)
+        noise = torch.zeros_like(pos)
+        for start in range(0, len(src), self.pair_chunk_size):
+            i, j = src[start:start + self.pair_chunk_size], dst[start:start + self.pair_chunk_size]
+            value = checkpoint(self._predict_chunk, h, pos, i, j, use_reentrant=False) if torch.is_grad_enabled() else self._predict_chunk(h, pos, i, j)
+            noise = noise.index_add(0, i, value.to(pos.dtype))
+        return noise / degree if self.normalization == "sqrt_neighbors" else noise
 
 
 class LearnedPoolingMixer(nn.Module):

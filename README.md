@@ -52,3 +52,4 @@ S checkpoint 的 configuration 必须为训练时的原始 JSON，SHA 必须匹�
 `current/` 和可移植工具用于新开发；`workflows/` 保留原实验版本、服务器路径与校验约束。正式入口依赖外部数据、manifest、环境和资源分配，不能仅凭克隆仓库复现整个实验。最新入口和前置条件见交接文档。
 
 源码保留原字节，来源/SHA 见 [SOURCE_MANIFEST.json](docs/SOURCE_MANIFEST.json)。新推理工具与检查器位于冻结包外，不改变服务器上的科学源码。
+最新服务器同步（2026-10-23）：S 去噪 Source v3、WP5 最终脚本与当前数据接口状态见 [同步说明](docs/SERVER_SYNC_20261023.md)。WP5 已完成，S 修复按指南 GUIDE_STOP；本次同步未启动训练。

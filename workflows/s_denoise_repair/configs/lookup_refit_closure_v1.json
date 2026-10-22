@@ -1,0 +1,107 @@
+{
+  "status": "ACTUAL_FULL_TRAIN_LOOKUP_REFIT_CLOSED",
+  "job_id": "4515527",
+  "uid": 1278,
+  "host": "sonmi",
+  "timestamp_unix": 1792128700.5524368,
+  "guide_sha256": "240b7b8132603517a7640662a5ea75e67371d5633e8a3c723ab148174c0b8fa3",
+  "actual_parent": [
+    "COMPLETED",
+    "0:0",
+    "22691",
+    "16"
+  ],
+  "actual_parent_snapshot": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/control/accounting_snapshots/lookup_complete_v1.json",
+    "sha256": "fda036916a2be2c2ac1550ea2a3878e5a0f4b439d35e1bd9adf69990738d5d2b",
+    "bytes": 861
+  },
+  "result_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/diagnostics/lookup_refit_v1/result.json",
+    "sha256": "c78df4d5206bb7b25b79a2f6011198ebdf26fac629b41aaab06a5a0b0e1034e6"
+  },
+  "source_plan_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/configs/lookup_refit_v2_plan.json",
+    "sha256": "2a7e53c4c0f20fd73a049af504c3ab4dada32fd62dbc615eb5faac7ec4966ac5",
+    "bytes": 3718
+  },
+  "canonical_recipe_sources": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/source/workflows/s_denoise/refit_lookup.py",
+      "sha256": "2fb05415ebc20bdf549c6ca2ec6bea4484841838dcad8fb176a3b2b5fbc4e3c6",
+      "bytes": 6463
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/source/workflows/s_denoise/runtime.py",
+      "sha256": "588a573399035b04e48db57952c50288b2a5ead0e2e0d533673385f26382110d",
+      "bytes": 2826
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/source/current/phychem_mfm/phase1/full_corpus_loader.py",
+      "sha256": "827c10c7a4958e860710b3ccb2f8eb29dff4d5845654c230792bf6ce83935c0d",
+      "bytes": 43234
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/s_native_adapter_v1.py",
+      "sha256": "0e81348b046829151e42c67280ec9a5e7d8ef6a5b4034f422b31b5e82dea68e2",
+      "bytes": 8247
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/s_native_adapter_v2.py",
+      "sha256": "fb0527d84d645d4e037255f0e22155d1f2e760a3220036d951953ef642308a2a",
+      "bytes": 1204
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/manifest.json",
+      "sha256": "2f69b672350744369b08c672b62e3d276487714abc97b766a12140ec5af59997",
+      "bytes": 4238
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/diagnostics/selection_v1/full_rows.npy",
+      "sha256": "6226c256751a7258d65db00682b587136faf63276288b0242b7431f342281524",
+      "bytes": 148016
+    }
+  ],
+  "output_references": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/diagnostics/lookup_refit_v1/TRAIN_only_bin_statistics.json",
+      "sha256": "6efbd6e608493a371d351d38bcba9d36a137d8b0b068554f722a79c1cdc2fb65",
+      "bytes": 119280
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/diagnostics/lookup_refit_v1/TRAIN_only_lookup.json",
+      "sha256": "6fac76ccdc809de25ad7501f8955902d98c87939632a9f38a04debe5a9f1fb42",
+      "bytes": 34947
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/diagnostics/lookup_refit_v1/result.json",
+      "sha256": "c78df4d5206bb7b25b79a2f6011198ebdf26fac629b41aaab06a5a0b0e1034e6",
+      "bytes": 1089
+    }
+  ],
+  "submission_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/submission/lookup_v1.json",
+    "sha256": "a1788fe5824846abc0acc1279e59f0ba7a7cf0e2a93c600bee4d283120797d71",
+    "bytes": 3493
+  },
+  "TRAIN_records": 11104772,
+  "metrics": {
+    "full": {
+      "lookup_rmse_A": 0.04137922121848121,
+      "noisy_rmse_A": 0.14143630502252058,
+      "pairs": 9080671,
+      "records": 127082,
+      "lookup_used_pairs": 9080608
+    },
+    "D3_FULL2000": {
+      "lookup_rmse_A": 0.04129859031998056,
+      "noisy_rmse_A": 0.1414993307294996,
+      "pairs": 1319881,
+      "records": 18486,
+      "lookup_used_pairs": 1319869
+    }
+  },
+  "producer": "original refit_lookup.py; alternative v2 pilot and parts did not produce this baseline",
+  "new_fit_performed_by_this_closure": false,
+  "formal_training_authorized_by_this_closure": false
+}

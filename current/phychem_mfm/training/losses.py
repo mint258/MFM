@@ -48,6 +48,9 @@ class LossWeights:
     element_temperature: float = 1.5
     element_entropy_reg: float = 0.05
     element_logit_l2: float = 0.0001
+    denoise_sigma: float = 0.10
+    geom_angle_std_deg: float = 0.0
+    geom_bond_scale_std: float = 0.0
 
     @classmethod
     def from_mapping(cls, values: Mapping[str, object]) -> "LossWeights":

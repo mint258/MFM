@@ -1,0 +1,68 @@
+{
+  "status": "FINAL_METRIC_EXTRACTION_TESTED_BEFORE_FORMAL_SCIENCE_AND_BOUND",
+  "files": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/repair_final_metrics_v2.py",
+      "sha256": "30f67b7f9ebbe3ba737c2a8e088ad8873c4cb53ab0d63e49490e6771b7a9f930",
+      "bytes": 9713
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/test_repair_final_metrics_v2.py",
+      "sha256": "6152d94630e24f2e49d419e75b999f343126020cfff02dc7dedf619df68df377",
+      "bytes": 7949
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/s_convergence_rules_v3.py",
+      "sha256": "a9f8de35b19ae84fc717db9a7e4a5caf3175fa4e462d836f75310f86c5c6ce57",
+      "bytes": 4097
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/capture_repair_accounting_v1.py",
+      "sha256": "500142ac4242991632c3a83e25a0642101e1da5ccc4d245cda259a8175d72430",
+      "bytes": 4960
+    }
+  ],
+  "guide_sha256": "240b7b8132603517a7640662a5ea75e67371d5633e8a3c723ab148174c0b8fa3",
+  "actual_QA": {
+    "job_id": "4515585",
+    "actual_parent": {
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "ElapsedRaw": "7",
+      "AllocCPUS": "16"
+    },
+    "tests_passed": 14,
+    "result": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/validation/repair_final_metrics_v2_job4515585/result.json",
+      "sha256": "7b5a4020e667a780111612f3c63f068de7014498d51dd516efc4d4e9a3df702c",
+      "bytes": 2616
+    },
+    "pytest_xml": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/validation/repair_final_metrics_v2_job4515585/pytest.xml",
+      "sha256": "516010b88bdf517d1df10392f2c539885438b41bc083ca377f99c52fb1bcf7dd",
+      "bytes": 2178
+    }
+  },
+  "original_fixed_probe_task_family_source": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/formal_workflows_v4/run_s_linear_probes_v4.py",
+    "sha256": "18c9b87fd09ec6097689ffeef4a48e6e542095d7f93601558285538293c725d8",
+    "bytes": 14219
+  },
+  "actual_accounting_snapshot": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/control/repair_accounting_snapshots/interim_20261016_v1.json",
+    "sha256": "28dce7d884c8c18619b586bedddbe32dab60a6cfcfc10c62d3fd848a5895e3ca",
+    "bytes": 50576
+  },
+  "draft_v1_not_used": "repair_final_metrics_v1.py is preserved as an untested draft; v2 records ExpansionRx as MAE regression, matching the actual frozen probe program.",
+  "counts_expected": {
+    "formal_conditions": 4,
+    "probe_endpoints": 12,
+    "probe_cells": 492,
+    "reported_task_rows": 420,
+    "primary_tasks": 32,
+    "base_exposures": 88838176
+  },
+  "no_training_updates_added": true,
+  "formal_science_complete_claimed": false,
+  "formal_training_authorized_by_this_binding": false
+}

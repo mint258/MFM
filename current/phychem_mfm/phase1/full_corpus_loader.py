@@ -428,7 +428,8 @@ class FullCorpusViewsDataset(Dataset):
     def __init__(self, index: CompactNativeIndex, *, native_transport, native_transport_binding,
                  seed, geometry_level, topology_level,
                  cache_bytes=1 << 30, max_cache_entries=65536, max_handles=2,
-                 close_at_block_size=4096, max_record_bytes=64 << 20):
+                 close_at_block_size=4096, max_record_bytes=64 << 20,
+                 noise_seed_includes_epoch=False, epoch=0):
         self.index = index
         _require(type(native_transport_binding) is dict
                  and native_transport_binding == index.manifest["native_transport"],
@@ -452,6 +453,9 @@ class FullCorpusViewsDataset(Dataset):
                  "Native transport module policy differs")
         self._transport_identity = (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns)
         self.seed = _integer(seed, "view seed", maximum=(1 << 63) - len(index))
+        _require(type(noise_seed_includes_epoch) is bool, "Invalid epoch-noise option")
+        self.noise_seed_includes_epoch = noise_seed_includes_epoch
+        self.set_epoch(epoch)
         self.block_size = _integer(close_at_block_size, "close-map block size", minimum=1)
         self.max_record_bytes = _integer(max_record_bytes, "native record bytes", minimum=1)
         self.cache_bytes = _integer(cache_bytes, "cache bytes")
@@ -471,6 +475,15 @@ class FullCorpusViewsDataset(Dataset):
 
     def __len__(self):
         return len(self.index)
+
+    def set_epoch(self, epoch):
+        self.epoch = _integer(epoch, "noise epoch")
+
+    def noise_seed(self, logical_index):
+        if not self.noise_seed_includes_epoch:
+            return self.seed + logical_index
+        payload = f"{self.seed}:{logical_index}:{self.epoch}".encode("ascii")
+        return int.from_bytes(hashlib.blake2b(payload, digest_size=8).digest(), "little") & ((1 << 63) - 1)
 
     def _ensure_worker(self, logical_index):
         if self._pid != os.getpid():
@@ -547,14 +560,15 @@ class FullCorpusViewsDataset(Dataset):
         for cfg in self.cfgs:
             source = deepcopy(clean)
             clean_x, clean_pos = source.x.clone(), source.pos.clone()
-            generator = torch.Generator(device="cpu").manual_seed(self.seed + ref.logical_index)
+            view_seed = self.noise_seed(ref.logical_index)
+            generator = torch.Generator(device="cpu").manual_seed(view_seed)
             result = degrade_once(source, cfg, generator)
             result.target_x, result.target_pos = clean_x, clean_pos
             result.sample_type_id = torch.tensor([{"clean": 0, "geom": 1, "topo": 2}[cfg.mode]])
             result.pretrain_base_key = clean.phase1_record_key
             result.pretrain_recipe_name = f"{cfg.mode}:{float(cfg.level):g}"
             result.pretrain_recipe_level = float(cfg.level)
-            result.pretrain_recipe_seed = self.seed + ref.logical_index
+            result.pretrain_recipe_seed = view_seed
             for name in ("trajectory", "is_feasible", "neg_type"):
                 if hasattr(result, name):
                     delattr(result, name)
@@ -787,6 +801,10 @@ def make_prefetch_loader(dataset, sampler, *, num_workers=8, prefetch_factor=2,
     _integer(prefetch_factor, "prefetch factor", minimum=1, maximum=4)
     _require(type(pin_memory) is bool and type(persistent_workers) is bool, "Invalid loader booleans")
     _require(not persistent_workers, "Bounded segmented loading requires persistent_workers=False")
+    if getattr(dataset, "noise_seed_includes_epoch", False):
+        # Workers are closed/joined at each epoch edge. Set the restored sampler
+        # epoch before spawning new workers; prefetched items never advance it.
+        dataset.set_epoch(sampler.epoch)
     _require(type(worker_timeout_seconds) in (int, float)
              and math.isfinite(worker_timeout_seconds) and 0 < worker_timeout_seconds <= 600,
              "Finite positive worker timeout <=600 seconds required")

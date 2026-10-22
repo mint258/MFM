@@ -1,0 +1,87 @@
+{
+  "status": "PREDECLARED_RESUMABLE_EXECUTION_OF_UNCHANGED_LOOKUP_RECIPE",
+  "TRAIN_records": 11104772,
+  "FULL_records": 127082,
+  "D3_FULL2000_records": 18486,
+  "chunk_records": 65536,
+  "parts": 3,
+  "workers_per_job": 16,
+  "record_cache_bytes": 0,
+  "pilot_chunks": [
+    0,
+    12,
+    24,
+    36,
+    48,
+    60,
+    72,
+    84,
+    96,
+    108,
+    120,
+    132,
+    144,
+    156,
+    168,
+    169
+  ],
+  "sources": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/lookup_refit_chunks_v2.py",
+      "sha256": "a35b1af5c91d9221d1b723afa33529a3fe308de1a9060fa62e17be340644c07a"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/analysis/reduce_lookup_chunks_v2.py",
+      "sha256": "546dfec29618751f1637a81adbd70caf90831fa4867f1e32bab3f0f545e94ed6"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/source/workflows/s_denoise/refit_lookup.py",
+      "sha256": "2fb05415ebc20bdf549c6ca2ec6bea4484841838dcad8fb176a3b2b5fbc4e3c6"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/source/workflows/s_denoise/runtime.py",
+      "sha256": "588a573399035b04e48db57952c50288b2a5ead0e2e0d533673385f26382110d"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/source/current/phychem_mfm/phase1/full_corpus_loader.py",
+      "sha256": "827c10c7a4958e860710b3ccb2f8eb29dff4d5845654c230792bf6ce83935c0d"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/s_native_adapter_v1.py",
+      "sha256": "0e81348b046829151e42c67280ec9a5e7d8ef6a5b4034f422b31b5e82dea68e2"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/s_native_adapter_v2.py",
+      "sha256": "fb0527d84d645d4e037255f0e22155d1f2e760a3220036d951953ef642308a2a"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/manifest.json",
+      "sha256": "2f69b672350744369b08c672b62e3d276487714abc97b766a12140ec5af59997"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/diagnostics/selection_v1/full_rows.npy",
+      "sha256": "6226c256751a7258d65db00682b587136faf63276288b0242b7431f342281524"
+    }
+  ],
+  "cache_invariance_probe_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/diagnostics/lookup_read_probe_v1/job_4515549/result.json",
+    "sha256": "d7374e7fb3d032db3048882b48ec950a8471da5344b772a82a1854c2b5c34aa3"
+  },
+  "recipe": {
+    "bin_width_A": 0.05,
+    "max_noisy_distance_A": 5.0,
+    "minimum_TRAIN_bin_observations": 32,
+    "inputs": "clean elements and observed noisy distance bin",
+    "target": "conditional mean clean distance of TRAIN local unordered pairs",
+    "fallback": "observed noisy distance",
+    "sigma_A": 0.1,
+    "view_seed": 0,
+    "epoch": 0,
+    "noise_seed_includes_epoch": true,
+    "clean_local_cutoff_A": 2.0
+  },
+  "predecessor_job": "4515527",
+  "predecessor_not_cancelled_or_assumed_complete_by_this_plan": true,
+  "justification": "CPU9 all16 workers repeatedly D/page waits and no committed progress >35min despite ~347GiB host available. CPU8 exact original recipe reads48 spanning full population including stalled region in6.756s. Pilot must validate cache-enabled/repeat outputs byte-identical before migration.",
+  "canonical_publication": "Do not change lookup_latest.json until original job has an audited terminal state and all new fitting/reduction actual parents are COMPLETED/0."
+}

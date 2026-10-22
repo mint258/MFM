@@ -1,0 +1,19 @@
+{
+  "status": "PREDECLARED_BEFORE_D3_RESULTS",
+  "scope": "Estimated active allocation GPU hours per full TRAIN epoch; not calendar queue time",
+  "train_records": 11104772,
+  "FULL_records": 127082,
+  "routine_records": 11322,
+  "FULL_plus_routine_validation_events_per_epoch_upper_reference": 14,
+  "checkpoint_save_readback_events_per_epoch_reference": 24,
+  "usable_training_segment_seconds": 6300,
+  "train_seconds_formula": "11104772 / measured_D3_training_records_per_second_including_loader_and_gradient_diagnostics",
+  "validation_seconds_formula": "14 * (127082+11322) / D3_evaluation_records * mean_D3_validation_wall_seconds",
+  "checkpoint_seconds_formula": "24 * D3_checkpoint_save_readback_seconds",
+  "initialization_and_close_seconds_formula": "max(0,actual_Slurm_parent_ElapsedRaw - D3_training_seconds - sum_D3_validation_wall_seconds - D3_checkpoint_save_readback_seconds)",
+  "segment_count_formula": "ceil((estimated_train_seconds + estimated_validation_seconds) / 6300)",
+  "total_seconds_formula": "estimated_train_seconds + estimated_validation_seconds + estimated_checkpoint_seconds + estimated_segment_count * measured_initialization_and_close_seconds",
+  "gate_hours": 15,
+  "comparison": "report each selected seed with its actual GPU model; compare throughput/VRAM against A0 on the same GPU model when available",
+  "limitations": "Molecule-sample throughput and linear validation scaling are estimates; full-data locality and different GPU hardware may change runtime. Initialization is charged once per estimated segment. No full-epoch timing is claimed before execution."
+}

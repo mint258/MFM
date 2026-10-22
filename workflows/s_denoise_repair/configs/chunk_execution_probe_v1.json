@@ -1,0 +1,36 @@
+{
+  "status": "PREDECLARED_NO_UPDATE_CHUNK_EXECUTION_PROBE",
+  "chunk_sizes": [
+    8192,
+    32768,
+    131072,
+    524288
+  ],
+  "warmups": 2,
+  "repeats": 3,
+  "sigma_A": 0.1,
+  "radius_A": 5,
+  "official_optimizer_updates": 0,
+  "model_parameter_updates": 0,
+  "cases": [
+    "actual frozen sampler first batch",
+    "actual frozen sampler largest padded quadratic batch"
+  ],
+  "output_absolute_tolerance": 1e-05,
+  "loss_relative_tolerance": 1e-06,
+  "gradient_relative_L2_tolerance": 0.0001,
+  "requested_CPU": 16,
+  "requested_host_memory_GiB": 32,
+  "host_RSS_cap_GiB": 26,
+  "wall_limit_minutes": 20,
+  "output_cap_bytes": 2147483648,
+  "scope": "Pure execution-size profiling on a distinct idle GPU UUID; no D3 protocol/configuration is modified, no epoch/training acceptance",
+  "frozen_configuration": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/source_v3/workflows/s_denoise/configs/A2_seed0_v3.json",
+    "sha256": "d8ea47a7dbeb7d5ade47a68f39767d860c1566f1a1b09d8cc6709aef6712e3a8"
+  },
+  "frozen_source_binding": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/s_denoise_repair_20261016/configs/D3_source_binding_v4.json",
+    "sha256": "2e6f9784df1d43e90b2faeb4493224f32679983f707acc9bd13ec43d131ca775"
+  }
+}
