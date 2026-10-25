@@ -1,6 +1,6 @@
 # 训练格式接口契约 v3 草案
 
-状态：DRAFT v3.0-draft.1，2026-10-25。D-1 的候选接口；尚未与模型线共同冻结为 v3.0。本文提出的二进制格式尚未有真实导出/加载器验收，不能据此宣布 D-3、D-4 或 D-5 完成。
+状态：DRAFT v3.0-draft.2，2026-10-25。D-1 的候选接口；尚未与模型线共同冻结为 v3.0。本文提出的二进制格式尚未有真实导出/加载器验收，不能据此宣布 D-3、D-4 或 D-5 完成。
 
 数据线负责人：Codex B。模型线意见保留在文末；双方共同确认后才冻结版本、格式及全部哈希。所有现有 WP5、S′、LMDB、原角色及历史源码保持只读。
 
@@ -13,13 +13,15 @@ v1 以 WP5 最终 catalog 的 canonical latest owner、正式 molecule/record po
 |字段|类型|语义|
 |---|---|---|
 |dataset_version|UTF-8 string|定稿后固定为 v1；候选导出另列 release_status|
-|contract_version|UTF-8 string|本草案为 v3.0-draft.1|
+|contract_version|UTF-8 string|本草案为 v3.0-draft.2|
 |export_record_id|UTF-8 string|导出内全局唯一且稳定的几何 ID；其生成规则与碰撞检查在冻结配置中登记|
 |molecule_id|UTF-8 string|原权威分子 ID，保留原值|
 |conformer_id|UTF-8 string|该几何来源内的构象 ID，不假设 PM7 与 S′ ID 相等|
 |geometry_source|enum|pm7 或 uff_sprime|
 |source_role|UTF-8 string|原 authority 的角色字面值（包括原 UNASSIGNED 如适用）；原字段原样保留|
-|effective_role|enum|本轮最终 TRAIN/VAL/FULL/embargo；新 VAL 清单冻结前不可填入推测值|
+|effective_role|enum|本轮最终 TRAIN/VAL/FULL/embargo；VAL以用户指定的ROUTINE分子成员定义，清单待实际冻结|
+|legacy_routine_member|bool/null|原11,322个PM7 record的ROUTINE成员标记；UFF记录为null，不用它取代分子角色|
+|legacy_routine_molecule|bool|molecule_id是否属于ROUTINE的7,610个分子|
 |common_population_v1|bool|PM7完整且S′数量满足冻结规则的共同人群成员|
 |common_population_manifest_sha256|hex string|共同人群清单身份|
 |native_record_id|UTF-8 string/null|原 PM7 record_id；S′另保存其 source_record_id 对应|
@@ -31,7 +33,7 @@ v1 以 WP5 最终 catalog 的 canonical latest owner、正式 molecule/record po
 |geometry_float64_sha256|hex string|源永久精度几何的规范字节摘要；规范化方式冻结后写入 schema|
 |source_references|structured list|parquet 文件哈希、row group/行定位及源字段/registry 路径|
 
-原人口仅有 TRAIN 与 FULL；routine 是 FULL 内的监控子集。用户已要求在分布不同的情况下，从较大的 TRAIN 人口中整家族划出 VAL。当前约九十个分子家族的权威分类尚未定位，effective_role 的 VAL 家族 ID 与成员仍待冻结；FULL 不自动改称 VAL。具体对照见 validation_population_review.md。
+原人口仅有 TRAIN 与 FULL；routine 是 FULL 内的监控子集。用户已纠正此前整家族留出的信息，明确ROUTINE用作VAL。权威为已绑定的training_inputs_v1/routine.arrow：原11,322条record包含7,610个molecule_id，且是FULL子集。effective VAL以这些分子ID决定，覆盖其全部PM7及S′几何；legacy_routine_member仅保留原record成员。TRAIN原成员保持，FULL未入选的分子保留FULL。角色清单须由freeze_routine_roles.py实际生成并验收后使用，不能把原11,322条record数冒充扩展后全部VAL几何数。具体对照见 ../data_v1/validation_population_review.md。
 
 ## 2. 字段目录与几何上下文
 
@@ -86,7 +88,7 @@ bond_pairs 与其他 pair 索引均为 int32[n_pairs,2]、零基、引用同一�
 
 固定随机顺序的 seed、哈希算法、排序规则与实现版本须在冻结配置中给出；本草案不借临时 seed 冒充已冻结规则。其前k个构成构象网格默认嵌套顺序。S′重原子固定映射的 proper Kabsch RMSD沿用原0.5 Å；保存 below_dedup_threshold、重复/补入标记及最小已选 RMSD。补入标记不能覆盖原失败或不收敛状态。
 
-分子级子集为120k⊂240k⊂600k⊂全部有效TRAIN，固定seed均匀随机。试点50k TRAIN来自120k子集，另加5k VAL。划为VAL的整个家族在这些TRAIN子集与归一化拟合之前排除。
+分子级子集为120k⊂240k⊂600k⊂全部有效TRAIN，固定seed均匀随机。试点50k TRAIN来自120k子集，另加5k VAL。ROUTINE指定的全部VAL分子在这些TRAIN子集与归一化拟合之前排除；整家族新划分不再执行。
 
 诊断集固定20k TRAIN分子，PM7与S′均至少两个构象，各来源固定随机顺序的最后一个为 held-out conformer。该几何从所有训练清单（包括P/Pprime条件）排除；molecule_id 仍属于TRAIN。这是指南明确的同分子跨侧例外，仅诊断预训练损失，不用于模型选择。N=1、恰好N=2及诊断后剩余构象不足的处理须随构象清单明确，不复制同一几何凑数量。
 
@@ -135,4 +137,4 @@ D-4只拟合最终有效TRAIN：元素参考仅能量字段；按0.1/99.9百分�
 
 ## 模型线意见
 
-待模型线填入。尚未确认：wire编码、registry字段及形状清单、矢量参考系的实际验收、VAL整家族成员、N=1/N=2与诊断后可训练构象数、固定随机seed、release/shard大小和加载器调用。存在意见冲突时按指南报告用户。双方共同定稿前保持DRAFT，不宣传v3.0或真实数据已可训练。
+待模型线填入。尚未确认：wire编码、registry字段及形状清单、矢量参考系的实际验收、ROUTINE分子VAL角色清单、N=1/N=2与诊断后可训练构象数、固定随机seed、release/shard大小和加载器调用。存在意见冲突时按指南报告用户。双方共同定稿前保持DRAFT，不宣传v3.0或真实数据已可训练。
