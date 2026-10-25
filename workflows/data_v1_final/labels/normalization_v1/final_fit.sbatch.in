@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH --job-name=dv1_final_normalization_v1
+#SBATCH --partition=all
+#SBATCH --nodelist=compute-0-20
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=64G
+#SBATCH --time=04:00:00
+#SBATCH --output=__LOG_PATH__
+#SBATCH --chdir=/share/home/zixiao/descriptor_analysis
+set -euo pipefail
+export PYTHONDONTWRITEBYTECODE=1 CUDA_VISIBLE_DEVICES=""
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+export PYTHONPATH=/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps
+REPOSITORY=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository
+PYTHON=/share/home/zixiao/.conda/envs/chemprop/bin/python
+srun --input=none --ntasks=1 --cpus-per-task=16 "$PYTHON" -B \
+  "$REPOSITORY/workflows/data_v1_final/labels/normalization_v1/run.py" \
+  --config __REAL_FROZEN_CONFIG_JSON__ --root-preflight __ROOT_INTENT_JSON__ \
+  --output __NEW_EXTERNAL_DIRECTORY__ </dev/null
+# Independent replay uses a second reviewed allocation and NEW output directory:
+# same run.py argv plus --replay-of __FIRST_MANIFEST_JSON__.

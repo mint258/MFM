@@ -1,0 +1,73 @@
+{
+  "schema": "v1_X_regression_execution_plan_v1",
+  "status": "TEMPLATE_REQUIRES_ROOT_DATA_SOURCE_PINS",
+  "mode": "pilot",
+  "workers": 16,
+  "seed": 20261025,
+  "pilot_max_rows": 10000,
+  "expected_original_records": 15879477,
+  "expected_formal_records": 11231854,
+  "rdkit": "2025.09.5",
+  "duckdb_memory_gib": 8,
+  "spill_gib": 8,
+  "peak_output_cap_bytes": 17179869184,
+  "output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/ROOT_NEW_DIRECTORY",
+  "quota": {
+    "mode": "published_receipt",
+    "path": "ROOT_TASK_OWNED_FRESH_QUOTA_FEED"
+  },
+  "sources": {
+    "original_index": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/record_index.parquet",
+      "bytes": 2005784925,
+      "sha256": null
+    },
+    "relaxed_quality": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_screening_20261011/a_retained/relaxed_quality_annotations.parquet",
+      "bytes": 2529572637,
+      "sha256": "f59a82954be5b68b5ec7bf301bcc552c074c67864379c3d1cf207d67a73334e5"
+    },
+    "formal_population": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+      "bytes": 1242386629,
+      "sha256": null
+    },
+    "common_population": null
+  },
+  "code_sources": [],
+  "data_authorization_receipts": [],
+  "authorized_data_pin_jobs": [],
+  "allow_small_fixture_legacy_authority": false,
+  "closed_pilot_receipt": null,
+  "budget": {
+    "cpus": 16,
+    "memory_gib": 32,
+    "wall_seconds": 3600,
+    "peak_output_bytes": 17179869184,
+    "estimated_total_core_hours": 16,
+    "pilot_only": true,
+    "full_job_requires_closed_pilot_and_Root_new_plan": true
+  },
+  "scope_notes": [
+    "All 15879477 original records, not only retained inputs; includes8259 unassigned",
+    "Original SMILES from all-record WP0 projection; native X02/X05 replay uses original element/electron metadata",
+    "Geometry and relaxed identity gates remain frozen and are reported separately",
+    "Pilot strata include source family/size/all ternary X flags/native role/old retained-or-excluded",
+    "Full selection PASS additionally requires a physical common-population molecule manifest; no pilot/population extrapolation claim",
+    "No original LMDB writes/opening; no source QC tolerance changes; no new heavy-atom upper bound or isotope stripping"
+  ],
+  "metadata_authorities": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/inventory.json",
+      "sha256": "a012e1fd6c7a980cc5c4a846c71dff4a41ec0dd55ffed1a8a4edb4377cb7db10"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_screening_20261011/a_retained/input_count_validation.json",
+      "sha256": "a4b57fd6c1c9df81f14be169fa5866dfedc8dfb9fc1011d775855050df66de21"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/manifest.json",
+      "sha256": "d21bae7f7b6c1dfbfe9342635ded80a55ddc05baba46ebfaa66cb7831866b96e"
+    }
+  ]
+}

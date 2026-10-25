@@ -1,0 +1,15 @@
+# X01–X05 原始输入回归：首个真实试点暂停
+
+目的：在全原始人口中抽取保留、排除、未知和来源角色分层试点，核验旧规则重放与可移植图输入规则的差异；不以仅保留样本估计总体一致率。
+
+三份只读输入合计5,777,744,191B，已由job4520356在compute20完整SHA核验并关闭。原WP0索引SHA为c16f84bf93c997d627fbad2e51fc0513661165b82372a1d43d3301bb54603eff；quality SHA f59a82954be5b68b5ec7bf301bcc552c074c67864379c3d1cf207d67a73334e5；formal SHA ef2d99ae1b6c1001f6ffeb979ebafd10b04c13fa4774e52527a90a6276c06276。精确字节及外部结果pins保存于configs/data_v1/expansion/x_rule_pilot_observation_v1.json。
+
+规则及参数：固定RDKit2025.09.5、seed20261025，全部15,879,477条原记录参与分层抽样。按来源家族/大小/五个flag三值组合/原角色/原保留决定，每层最多32条，总上限10000。16个spawn worker重算；所有既有几何/身份决定固定，未知值不凭空改成有效。源文件、原LMDB和化学规则均未改动。
+
+实际job4520357为compute20/16CPU/32GiB，FAILED/1:0，43秒，688分配核秒。评估8,741条分层记录。原与新化学入选均1031条、条件最终入选均416条，两类入选决定差异均0；但native_rule_mismatch与unexplained均335条，portable_flag_mismatch为489条，缓存几何X01增补847条。
+
+异常：ORIGINAL_SMILES_UNPARSEABLE 489条，UNEXPLAINED_CACHED_RULE_DRIFT 335条。程序按更严格的逐flag重放检查保存receipt及failure后退出；不是声称最终入选一致率低于99.9%。335条未解释差异使试点不能接受。全部不一致保存在外部all_mismatches.jsonl，408944B，未只保留20例，也未删除失败输出。
+
+当前处理：已向用户报告暂停扩充筛选和全量回归，只读诊断历史parser及真实335条差异。尚未确认根因，不通过改原因码、放宽规则或改变原flag来通过门槛。若证实是新replay实现缺陷，再建新源版本与新输出目录重跑小试点；本次负面结果永久保留。独立v1标签/导出开发继续。
+
+限制：分层试点频率未加权，不能当作总体异常率；本次入选决定的一致也不是全部原始输入99.9%的证明。共同人群、全来源去污染、PubChem候选筛选和UFF/D标签均未因此获得验收。真实源统计与重放入口为workflows/expansion/regression_x_v1.py。

@@ -1,0 +1,145 @@
+{
+  "schema": "PPRIME_VECTOR_FRAME_AUDIT_V1",
+  "status": "PREDECLARED_INPUT_PREPARATION_ONLY_NO_QM_EXECUTED",
+  "minimum_molecules": 2,
+  "maximum_molecules": 4,
+  "maximum_atoms": 80,
+  "rotation_matrix": [
+    [
+      -0.6666666666666666,
+      0.13333333333333333,
+      0.7333333333333333
+    ],
+    [
+      0.6666666666666666,
+      -0.3333333333333333,
+      0.6666666666666666
+    ],
+    [
+      0.3333333333333333,
+      0.9333333333333333,
+      0.13333333333333333
+    ]
+  ],
+  "origin_translation_A": [
+    0.317,
+    -0.419,
+    0.233
+  ],
+  "production_membership": false,
+  "pilot_config": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/sb4/configs/data_v1/pprime/pilot_v1.json",
+    "sha256": "be8a7571f411881f02d6889d9df7e61c36c0e57e976ea60f3f0f5ee1671d60a8",
+    "bytes": 5982
+  },
+  "parent_source_pins": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/sb4/workflows/data_v1_final/pprime/common.py",
+      "sha256": "4001d905b2b9fcb253fabf5a4d5e72f18cd445277b628ec65319399d126057ad",
+      "bytes": 8494
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/sb4/workflows/data_v1_final/pprime/geometry.py",
+      "sha256": "669c2a6b8806f752000a15f09a667ddc1a2a92ffabcbe03b070ba19812490af8",
+      "bytes": 3468
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/sb4/workflows/data_v1_final/pprime/raw_archive.py",
+      "sha256": "4721da478cc56ad1abd7bf6b1e75ba78e1dfdc4ff65166c19ba3d25d4b46a12a",
+      "bytes": 4870
+    }
+  ],
+  "worker_wall_seconds": 5400,
+  "max_output_bytes": 2147483648,
+  "max_raw_bytes_per_case": 16777216,
+  "max_result_bytes_per_case": 8388608,
+  "quota_reserve_bytes": 200000000000,
+  "external_output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/vector_frame_audit",
+  "rendered_coordinate_atol_A": 1e-10,
+  "coordinate_atol_A": {
+    "mopac": 1e-7,
+    "xtb": 1e-8
+  },
+  "same_geometry_dipole_atol_au": 0.000001,
+  "vector_tolerances": {
+    "pm7_dipole_Debye": {
+      "atol": 0.0001,
+      "rtol": 0.0001,
+      "minimum_vector_norm": 0.001
+    },
+    "pm7_gradient_kcal_mol_A": {
+      "atol": 0.0005,
+      "rtol": 0.0005,
+      "minimum_vector_norm": 0.005
+    },
+    "xtb_dipole_Debye": {
+      "atol": 0.00001,
+      "rtol": 0.0001,
+      "minimum_vector_norm": 0.0001
+    },
+    "xtb_gradient_Eh_bohr": {
+      "atol": 0.000002,
+      "rtol": 0.0001,
+      "minimum_vector_norm": 0.00002
+    }
+  },
+  "tensor_tolerance": {
+    "atol": 0.00001,
+    "rtol": 0.0001,
+    "minimum_tensor_norm": 0.01
+  },
+  "rounding_rule": "Per-token half last printed decimal place, exponent-aware; propagate epsilon_rot+abs(R)*epsilon_base for vectors and epsilon_rot+abs(R)*epsilon_Q*abs(R).T for tensors; add fixed declared numerical allowance. Never refit to observed failures.",
+  "force_rule": "forces_eV_A=-gradient_Eh_bohr*27.211386245988/0.529177210903; absolute+relative algebra tolerance 2e-12",
+  "official_source_references": [
+    {
+      "title": "MOPAC23.0.3 AUX coordinate, dipole and gradient output",
+      "commit": "490725eac356e0e75037f37bdd2db343d6bc9e09",
+      "url": "https://github.com/openmopac/mopac/blob/490725eac356e0e75037f37bdd2db343d6bc9e09/src/output/to_screen.F90",
+      "scope": "Output token meanings/layout; not a proof that this binary preserves every input orientation"
+    },
+    {
+      "title": "MOPAC GRADIENTS units",
+      "url": "https://openmopac.net/Manual/gradients.html",
+      "scope": "kcal/(mol Angstrom)"
+    },
+    {
+      "title": "xTB6.7.1 gradient and coordinate output",
+      "commit": "26b28010e805f7d1aeeef39813feb473e69cc4be",
+      "url": "https://github.com/grimme-lab/xtb/blob/26b28010e805f7d1aeeef39813feb473e69cc4be/src/io/writer/turbomole.f90",
+      "scope": "Writes mol%xyz with gradient in the same source artifact"
+    },
+    {
+      "title": "xTB6.7.1 dipole JSON source",
+      "url": "https://github.com/grimme-lab/xtb/blob/26b28010e805f7d1aeeef39813feb473e69cc4be/src/main/json.F90",
+      "scope": "Three-component dipole / a.u."
+    },
+    {
+      "title": "xTB6.7.1 conditional axis transformation",
+      "url": "https://github.com/grimme-lab/xtb/blob/26b28010e805f7d1aeeef39813feb473e69cc4be/src/prog/main.F90",
+      "scope": "Conditional axis3 path must be checked against actual source-output coordinates"
+    },
+    {
+      "title": "xTB6.7.1 axis transformation default",
+      "url": "https://github.com/grimme-lab/xtb/blob/26b28010e805f7d1aeeef39813feb473e69cc4be/src/setparam.f90",
+      "scope": "do_cma_trafo default false; does not certify runtime configuration"
+    },
+    {
+      "title": "xTB6.7.1 multipole origin, order and 3/2 traceless convention",
+      "url": "https://github.com/grimme-lab/xtb/blob/26b28010e805f7d1aeeef39813feb473e69cc4be/src/aespot.f90",
+      "scope": "molmom uses program xyz origin; six order xx,xy,yy,xz,yz,zz; all six retained"
+    },
+    {
+      "title": "xTB GFN2 gradient issue1470",
+      "url": "https://github.com/grimme-lab/xtb/issues/1470",
+      "scope": "Third-party unresolved upstream issue, opened 2026-10-20; not reproduced here, not proof this dataset is affected"
+    },
+    {
+      "title": "xTB legacy conversion constants",
+      "url": "https://github.com/grimme-lab/xtb/blob/26b28010e805f7d1aeeef39813feb473e69cc4be/src/mctc/convert.f90",
+      "scope": "legacy autoaa=0.52917726 differs from frozen WP5 parser constant; check both coordinate hypotheses, do not change frozen force labels"
+    }
+  ],
+  "max_input_bytes_per_case": 65536,
+  "maximum_prepared_QM_calls": 72,
+  "minimum_prepared_QM_calls": 36
+}

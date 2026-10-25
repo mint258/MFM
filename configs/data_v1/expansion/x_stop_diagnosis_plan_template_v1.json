@@ -1,0 +1,51 @@
+{
+  "schema": "v1_X_stop_readonly_diagnosis_v1",
+  "status": "ROOT_FILL_SMALL_CODE_PINS_AND_FREEZE_READY",
+  "expected_stop_job_id": "4520357",
+  "expected_mismatch_rows": 489,
+  "expected_native_mismatch_rows": 335,
+  "peak_output_cap_bytes": 33554432,
+  "output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/stop_diagnosis_v1",
+  "original_index": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/record_index.parquet",
+    "bytes": 2005784925,
+    "sha256": "c16f84bf93c997d627fbad2e51fc0513661165b82372a1d43d3301bb54603eff"
+  },
+  "data_authorization_receipts": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/input_pins/x_regression_inputs_v1.json",
+      "bytes": 3485,
+      "sha256": "3b2a91fa4ed0b3fe0cccfda74671db96d5620b7d9c92f61c20f951c371965ac9"
+    }
+  ],
+  "authorized_data_pin_jobs": ["4520356"],
+  "allow_small_fixture_legacy_authority": false,
+  "stop_receipt": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/pilot_v1/receipt.json",
+    "bytes": 6553,
+    "sha256": "ROOT_FILL_ACTUAL_SMALL_STOP_RECEIPT_SHA"
+  },
+  "stop_submission_receipt": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/submissions/dv1_x_regression_pilot_v1.json",
+    "bytes": 10133,
+    "sha256": "180df460b92a2b0685b40e0c6a9ad7584db1441fd048b798eec55c329a45ae3c"
+  },
+  "mismatches": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/pilot_v1/all_mismatches.jsonl",
+    "bytes": 408944,
+    "sha256": "2695a40be9e570f116768a3e97253e6f8b7ed96f216f6df4ad224fa0d8329236"
+  },
+  "code_sources": [],
+  "budget": {
+    "node": "compute-0-20",
+    "cpus": 16,
+    "memory_gib": 4,
+    "wall_seconds": 3600,
+    "peak_output_bytes": 33554432,
+    "duckdb_memory_gib": 2,
+    "duckdb_spill_cap_bytes": 16777216,
+    "estimated_max_core_hours": 16,
+    "reads_only_one_large_input": true,
+    "no_chemistry_no_screening_no_full_regression": true
+  }
+}
