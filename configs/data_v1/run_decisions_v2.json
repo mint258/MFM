@@ -1,0 +1,40 @@
+{
+  "status": "ACTIVE_SE_EXCEPTION_ROUTINE_IS_VAL_AUTHORITY",
+  "accepted_on": "2026-10-25",
+  "supersedes": "configs/data_v1/run_decisions_v1.json validation family-holdout instruction only; prior observed distributions remain valid",
+  "selenium_exception": {
+    "approved": true,
+    "scope": "Only Se exclusion fraction >20%",
+    "keep_excluding_UFF_UNSUPPORTED": true,
+    "all_other_stop_rules_unchanged": true
+  },
+  "validation": {
+    "source": "ROUTINE",
+    "status": "USER_AUTHORIZED_AUTHORITY_ACTUAL_MANIFEST_PENDING",
+    "user_reply": "对不起，刚刚的信息有误，你应该可以看到一个ROUTINE类型的数据集，这些用作验证集",
+    "molecule_membership_source": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/routine.arrow",
+    "source_reference": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/routine.arrow",
+      "bytes": 2636514,
+      "sha256": "29b153bd734dba010035af83cc76d80447c85b17c3da953cb77f2da1713e7e58"
+    },
+    "expected_legacy_routine_records": 11322,
+    "expected_distinct_molecules": 7610,
+    "effective_role_rule": "All geometries of molecules selected by ROUTINE molecule_id receive VAL; preserve legacy_routine_member separately for the original 11322 PM7 records",
+    "source_role_preservation": "Keep original TRAIN/FULL labels as source_role; ROUTINE is a FULL subset",
+    "TRAIN_rule": "Existing TRAIN molecular membership remains unchanged before common-population/mask/diagnostic filtering",
+    "family_holdout_required": false,
+    "freeze_before": [
+      "final normalization",
+      "nested training subsets",
+      "release export"
+    ]
+  },
+  "defaults": {
+    "expansion_first_batch_molecules": 2500000,
+    "representative_fraction": 0.5,
+    "novel_fraction": 0.5,
+    "expansion_Pprime": false
+  },
+  "all_other_guide_rules_unchanged": true
+}
