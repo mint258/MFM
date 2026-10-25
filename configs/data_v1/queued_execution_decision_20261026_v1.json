@@ -1,0 +1,38 @@
+{
+    "schema":  "DATA_V1_USER_CONTINUOUS_QUEUED_EXECUTION_DECISION_V1",
+    "status":  "USER_AUTHORIZED_CONTINUE_SUBMIT_AND_WAIT",
+    "user_statement":  "请你把任务提交上，如果节点需要排队请等待排队，直到所有指令要求的任务都完成之后再结束任务，在没有完成之前请不要停止",
+    "objective":  "Complete every deliverable and acceptance item in 数据线工作流程：v1 定稿与数据扩充（Codex B）.md, preserving all prior scientific gates and user decisions.",
+    "queue_policy":  "Submit concrete stage jobs via Slurm cpu with16CPU64GiB and exclusive=user. First hold and verify actual queued metadata, then release to genuine scheduler resource queue. exclusive=user prevents sharing with foreign users without requesting full-node CPU allocation. Start scientific work only after fresh Root all-user memory85%, physical memory, quota and dependency verification.",
+    "fresh_startup_proof_seconds":  120,
+    "startup_launcher_wait_seconds":  120,
+    "formal_nodes":  [
+                         "compute-0-14",
+                         "compute-0-15",
+                         "compute-0-16",
+                         "compute-0-17",
+                         "compute-0-18",
+                         "compute-0-19"
+                     ],
+    "cpus":  16,
+    "memory_gib":  64,
+    "foreign_memory_zero":  "UNBOUNDED_AND_BLOCKS_ACTUAL_START",
+    "formal_memory_fraction":  0.85,
+    "quota_reserve_bytes":  200000000000,
+    "latest_user_instruction_does_not_waive_scientific_or_cost_stops":  true,
+    "recovery_budget":  {
+                            "original_core_seconds":  230800,
+                            "additional_ceiling_core_seconds":  110400,
+                            "wall_seconds":  6900,
+                            "combined_ceiling_core_seconds":  341200,
+                            "original_1p5_gate_core_seconds":  345600,
+                            "ceiling_is_not_runtime_forecast":  true
+                        },
+    "original_336_single_pilot_approval_reused":  false,
+    "Se_only_exclusion_exception":  true,
+    "VAL":  "all ROUTINE7610mol/72525PM7records",
+    "paid_server_used":  false,
+    "GPU_used":  false,
+    "other_jobs_modified":  false,
+    "official_scheduling_reference":  "https://slurm.schedmd.com/sbatch.html#OPT_exclusive"
+}
