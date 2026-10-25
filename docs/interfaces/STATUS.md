@@ -113,3 +113,5 @@ reasons andr82 scatter already exist; remaining model consumption and scientific
 contracts are distinguished explicitly. No v3.0 signature or D3–D6 final delivery
 is inferred. An independent old-native S bond transport gap is being repaired
 in isolated model-v3-s-bond-transport; no new wire codebook/physical-label decision.
+
+2026-10-25 S native bond loader fix VERIFIED: optional typed old rdkit_bond facts retained through decoded collation. Targeted64349PASS/2CUDA skips; complete pre648–651/post656–659 each2388PASS/2skips,102 files. Actual production code 91f0c40a78478447a14ef2e8e91f05c07e0f5019. No new wire codebook/physical semantics or D3 acceptance. Report docs/model_v3/03_s_bond_transport.md.

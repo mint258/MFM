@@ -448,3 +448,12 @@ The contract remainsdraft.3; no sharedv3.0 signature, data Git commit or newlabe
 transformation. The independent old-native S bond loader transport repair uses
 a fresh isolated worktree from8fa743e; Root will require targeted tests, branch
 full regression and postmerge full regression before production integration.
+
+S bond transport actual targeted643 C0:49PASS/2CUDA skips (new21=20PASS/1skip). Independent branch648–651 and integratedRoot656–659 complete disjoint union102files, each2388PASS/2skips, all source/outer C0. Branch 8e1223ba79861f7e3f8d9d453d7b3599ee447d4d; actual integratedRoot 91f0c40a78478447a14ef2e8e91f05c07e0f5019. Old native raw/status/count and all parameter gradients remain exact on controlled CPU; no D1 codebook or new label transformation.
+
+Latest point-in-time owned model ledger contains188 actual parents,575712 allocated
+CPU-seconds and26241 allocated scientific GPU-job seconds, including all failures.
+Only4520456 is pending; GPU-job elapsed is not measured utilization. The source
+accounting method remainscapture_ledger_v7, and the raw query/receipts are retained.
+No final model/recipe configuration, tag, Phase7 acceptance or formal pretraining
+is inferred from completed source/tests/reports; interface and finaldata remain pending.

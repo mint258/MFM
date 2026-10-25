@@ -16,8 +16,39 @@ from torch import Tensor
 from torch.utils.data import DataLoader, Dataset
 from torch_geometric.data import Batch, Data
 
+from ..data.descriptor_schema import (BOND_FAIL_REASON_FIELD, BOND_INDEX_FIELD,
+                                      BOND_ORDER_FIELD, BOND_STATUS_FIELD)
 from .v3_contract import FieldTarget, LabelRegistry, require
 from .v3_sampling import SampleChoice, SamplingIndex, UniformMoleculeSampler
+
+
+@dataclass(frozen=True)
+class NativeBondTransport:
+    """Optional existing rdkit_bond_* facts, not a new wire/codebook adapter.
+
+    Status and order values are copied literally. The original S head remains
+    responsible for its existing clean/status/order validity filtering.
+    """
+    pair_index: Tensor
+    order: Tensor
+    status: str
+    fail_reason: str = ""
+
+    def __post_init__(self):
+        require(isinstance(self.pair_index, Tensor) and self.pair_index.dtype == torch.long
+                and self.pair_index.ndim == 2 and self.pair_index.size(0) == 2
+                and self.pair_index.device.type == "cpu", "Native bond index must be CPU long[2,p]")
+        require(isinstance(self.order, Tensor) and self.order.dtype == torch.long
+                and self.order.shape == (self.pair_index.size(1),)
+                and self.order.device.type == "cpu", "Native bond orders must be CPU long[p]")
+        require(type(self.status) is str and type(self.fail_reason) is str,
+                "Native bond status/failure reason must be literal strings")
+
+    def validate_atoms(self, native_atoms):
+        # Recheck mutable tensor contents before crossing the loader boundary.
+        self.__post_init__()
+        require(bool(((self.pair_index >= 0) & (self.pair_index < native_atoms)).all()),
+                "Native bond indices must reference this molecule's atom rows")
 
 
 @dataclass(frozen=True)
@@ -29,6 +60,27 @@ class DecodedSample:
     pos: Tensor
     source_atom_ids: Tensor
     fields: Mapping[str, FieldTarget]
+    native_bonds: NativeBondTransport | None = None
+
+
+def _validate_native_bonds(sample):
+    if sample.native_bonds is not None:
+        require(isinstance(sample.native_bonds, NativeBondTransport), "Typed native bond transport required")
+        sample.native_bonds.validate_atoms(len(sample.x))
+
+
+def _encoder_graph(sample, *, with_bond_transport):
+    _validate_native_bonds(sample)
+    graph = Data(x=sample.x, pos=sample.pos)
+    if with_bond_transport:
+        bonds = sample.native_bonds
+        # Mixed batches need identical PyG keys. Missing transport uses the
+        # original head's exact default status "", never fabricated "ok".
+        setattr(graph, BOND_INDEX_FIELD, bonds.pair_index if bonds is not None else torch.empty((2, 0), dtype=torch.long))
+        setattr(graph, BOND_ORDER_FIELD, bonds.order if bonds is not None else torch.empty(0, dtype=torch.long))
+        setattr(graph, BOND_STATUS_FIELD, bonds.status if bonds is not None else "")
+        setattr(graph, BOND_FAIL_REASON_FIELD, bonds.fail_reason if bonds is not None else "")
+    return graph
 
 
 class ManifestSampleDataset(Dataset):
@@ -78,6 +130,7 @@ class ManifestSampleDataset(Dataset):
                 and bool((ids >= 0).all()), "Explicit unique source atom IDs required")
         require(sample.x.device.type == sample.pos.device.type == ids.device.type == "cpu",
                 "Data workers must return CPU tensors")
+        _validate_native_bonds(sample)
         return choice, sample
 
     def close(self):
@@ -126,7 +179,8 @@ def collate_v3_samples(rows, registry: LabelRegistry) -> V3Batch:
             and len({value.ordinal for value in choices}) == len(choices), "Unique sample draws required")
     require(all(set(sample.fields) <= set(registry.by_name()) for sample in samples),
             "Provider returned an undeclared field")
-    graphs = [Data(x=sample.x, pos=sample.pos) for sample in samples]
+    with_bond_transport = any(sample.native_bonds is not None for sample in samples)
+    graphs = [_encoder_graph(sample, with_bond_transport=with_bond_transport) for sample in samples]
     encoder_batch = Batch.from_data_list(graphs)
     result = {}
     for field in registry.fields:
