@@ -1,0 +1,48 @@
+{
+  "schema": "STREAMING_CPU_CONTROL_ONLY_EDITS_V1",
+  "central_runtime": "workflows.data_v1_final.execution.cpu_analysis_v1.runtime",
+  "scope_key": "label_canonical_512",
+  "resource_policy": "CPU_BOUNDED_TEST_LIVE_MEMORY_V1",
+  "files": {
+    "support.py": [
+      {
+        "old": "import time\n\n\n",
+        "new": "import time\n\nfrom workflows.data_v1_final.execution.cpu_analysis_v1.runtime import root_guard as _cpu_root_guard, checkpoint\n\n\n"
+      },
+      {
+        "old": "def root_guard(path,pinned_path,cap,wall_limit=3600):\n    proof=load(path);r=proof[\"request\"]\n    if not os.environ.get(\"SLURM_JOB_ID\") or socket.gethostname().split(\".\")[0]!=\"compute-0-20\":\n        raise ValueError(\"STREAMING_LABEL_ANALYSIS_REQUIRES_SLURM_COMPUTE20\")\n    if int(os.environ.get(\"SLURM_CPUS_PER_TASK\",\"0\"))<16 or r[\"cpus\"]<16 or r[\"kind\"]!=\"analysis\":\n        raise ValueError(\"REAL_16_CPU_ANALYSIS_REQUIRED\")\n    if r[\"node\"]!=\"compute-0-20\" or r[\"wall_seconds\"]>wall_limit or r[\"memory_gib\"]<32:\n        raise ValueError(\"ROOT_RESOURCE_REQUEST_DIFFERS\")\n    if ref(pinned_path) not in r[\"source_references\"] or r[\"estimated_peak_output_bytes\"]<cap:\n        raise ValueError(\"ROOT_SOURCE_PIN_OR_STORAGE_ESTIMATE_DIFFERS\")\n    age=time.time()-datetime.fromisoformat(proof[\"observed_at\"]).timestamp()\n    if not 0<=age<=3600:\n        raise ValueError(\"ROOT_QUOTA_RESOURCE_PREFLIGHT_STALE\")\n    real=re.search(r\"(?:^|\\s)RealMemory=(\\d+)(?:\\s|$)\",proof[\"node_metadata\"])\n    if real is None or not isinstance(proof[\"existing_jobs_all_users\"],list):\n        raise ValueError(\"ALL_USERS_DECLARED_MEMORY_EVIDENCE_MISSING\")\n    if proof[\"committed_memory_mib\"]+r[\"memory_gib\"]*1024>int(real[1])*.85:\n        raise ValueError(\"DECLARED_MEMORY_ABOVE_85_PERCENT\")\n    if proof[\"account_free_bytes\"]-cap<200_000_000_000:\n        raise ValueError(\"STOP_QUOTA_WOULD_REMAIN_BELOW_200GB\")\n    return proof\n",
+        "new": "def root_guard(path,pinned_path,cap,wall_limit=3600):\n    return _cpu_root_guard(path,pinned_path,cap,wall_limit)\n\n\ndef checkpoint_iter(iterable):\n    iterator=iter(iterable)\n    while True:\n        checkpoint()\n        try:\n            item=next(iterator)\n        except StopIteration:\n            return\n        yield item\n"
+      }
+    ],
+    "scan_v2.py": [
+      {"old": "root_guard,save,unique_bytes,write_blob\n", "new": "root_guard,save,unique_bytes,write_blob,checkpoint,checkpoint_iter\n"},
+      {"old": "def init_worker(cfg,plan,queries,out,barrier,stop_event,phase,calibration,energy):\n", "new": "def init_worker(cfg,plan,queries,out,barrier,stop_event,phase,calibration,energy):\n    checkpoint()\n"},
+      {"old": "    path=require(pin,content=False);before=identity(path)\n", "new": "    checkpoint()\n    path=require(pin,content=False);before=identity(path)\n"},
+      {"old": "for batch in pq.ParquetFile(path).iter_batches(batch_size=batch_records,columns=columns,use_threads=False):", "new": "for batch in checkpoint_iter(pq.ParquetFile(path).iter_batches(batch_size=batch_records,columns=columns,use_threads=False)):"},
+      {"old": "for pin in group[\"base_files\"]:", "new": "for pin in checkpoint_iter(group[\"base_files\"]):"},
+      {"old": "def _run_group(group):\n", "new": "def _run_group(group):\n    checkpoint()\n"},
+      {"old": "    rows=pq.read_table(require(group[\"owner_index\"])).to_pylist()\n", "new": "    checkpoint()\n    rows=pq.read_table(require(group[\"owner_index\"])).to_pylist()\n"},
+      {"old": "for file_index,source in enumerate(group[\"label_files\"]):", "new": "for file_index,source in enumerate(checkpoint_iter(group[\"label_files\"])):"},
+      {"old": "    proof=root_guard(a.root_preflight,a.plan,cfg[\"scan_output_cap_bytes\"],cfg[\"scan_wall_seconds\"])\n", "new": "    proof=root_guard(a.root_preflight,a.plan,cfg[\"scan_output_cap_bytes\"],cfg[\"scan_wall_seconds\"])\n    checkpoint()\n"},
+      {"old": "    try:\n        with concurrent.futures.ProcessPoolExecutor", "new": "    try:\n        checkpoint()\n        with concurrent.futures.ProcessPoolExecutor"},
+      {"old": "pool.map(run_group,groups,chunksize=1)", "new": "pool.map(run_group,checkpoint_iter(groups),chunksize=1)"}
+    ],
+    "reduce.py": [
+      {"old": "root_guard,save,sqlstr\n", "new": "root_guard,save,sqlstr,checkpoint,checkpoint_iter\n"},
+      {"old": "def ordinal_digest(pin):\n", "new": "def ordinal_digest(pin):\n    checkpoint()\n"},
+      {"old": "for batch in pq.ParquetFile(require(pin)).iter_batches(batch_size=65536,columns=[\"record_ordinal\"]):", "new": "for batch in checkpoint_iter(pq.ParquetFile(require(pin)).iter_batches(batch_size=65536,columns=[\"record_ordinal\"])):"},
+      {"old": "def rho_external(db,files,fid):\n", "new": "def rho_external(db,files,fid):\n    checkpoint()\n"},
+      {"old": "    n,ny,nx=db.execute(", "new": "    checkpoint()\n    n,ny,nx=db.execute("},
+      {"old": "    for batch in db.execute(query).fetch_record_batch(65536):", "new": "    checkpoint()\n    for batch in checkpoint_iter(db.execute(query).fetch_record_batch(65536)):"},
+      {"old": "    root_guard(a.root_preflight,a.scan_manifest,cfg[\"reduce_output_cap_bytes\"])\n", "new": "    root_guard(a.root_preflight,a.scan_manifest,cfg[\"reduce_output_cap_bytes\"])\n    checkpoint()\n"},
+      {"old": "for pin in scan[\"group_receipts\"]:", "new": "for pin in checkpoint_iter(scan[\"group_receipts\"]):"},
+      {"old": "for output in r[\"outputs\"]:", "new": "for output in checkpoint_iter(r[\"outputs\"]):"},
+      {"old": "            hist_rows=db.execute(", "new": "            checkpoint()\n            hist_rows=db.execute("},
+      {"old": "            models={fid:merge_qr(", "new": "            checkpoint()\n            models={fid:merge_qr("},
+      {"old": "                medians=load(require(request[\"median_result\"]))[\"fields\"]", "new": "                checkpoint()\n                medians=load(require(request[\"median_result\"]))[\"fields\"]"},
+      {"old": "for fid,field in by_id.items():", "new": "for fid,field in checkpoint_iter(by_id.items()):"}
+    ],
+    "compact.py": [],
+    "calibration.py": []
+  }
+}
