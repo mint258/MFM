@@ -1,0 +1,31 @@
+{
+  "schema": "SIZE_SEMANTICS_PROPOSAL_CONFIG_V1",
+  "status": "PROPOSAL_REQUIRES_ROOT_REVIEW_NO_LABEL_STATISTICS_COMPUTED",
+  "registry": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/label_registry_v3.json",
+    "bytes": 585411,
+    "sha256": "b6a230b74b5bebfa0108e67572ed2ccc699718c2958fb69e99c58b8323c6ce45"
+  },
+  "lineage_sources": [
+    {"path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json", "bytes": 18720, "sha256": "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"},
+    {"path": "/share/home/zixiao/descriptor_analysis/runs/phase1_screening_20261011/scripts/c_engineering_wire.py", "bytes": 11655, "sha256": "ce9bbdf15459e647fc21592941c99664141b7d7a4442619f433c88a3536d99a1"},
+    {"path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_engine_v2.py", "bytes": 30096, "sha256": "d6fba12c31c59854eed5e8eb5ac82d074464a9b6f43eeb7272d8a925164470ef"},
+    {"path": "/share/home/zixiao/descriptor_analysis/modern_ML_representation/support_scripts/MFM_descriptor/dataset/rdkit_descriptor_generator.py", "bytes": 24615, "sha256": "86a3c5b8181d25c6b892bedb3ac599fbd3e643d3aede19b0b38edb03ed0469d9"},
+    {"path": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/reports/compound_field_semantics_v1.md", "bytes": 2597, "sha256": "dd9444ffe1488f60f4c3a4776cba08c0bca485f0c761e919fd1dfcfafd4ba91e"},
+    {"path": "/share/home/zixiao/descriptor_analysis/runs/phase1_screening_20261011/c_engineering/storage/storage_report.json", "bytes": 694878, "sha256": "6e4a1260f9df31611d7c00b801ce3309a52feee93821eba5b59131efb909f12c"}
+  ],
+  "expected_counts": {"enabled_components": 146, "physical_statistic_targets": 129, "molecule": 69, "molecule_vector": 18, "molecule_tensor": 6, "atom_vector": 3, "atom": 39, "sparse_atom_pair": 11},
+  "primary_rank_weighting": "one vote per canonical record/geometry, matching the existing scalar pass; not one vote per leaf",
+  "secondary_rank_weighting": "one vote per molecule using median of its valid canonical-geometry aggregates; sensitivity only",
+  "primary_array_eligibility": "all semantic rows and required physical components valid; partial fields excluded only from rho, never new label masks",
+  "partial_sensitivity": "valid-row RMS/mean separately labelled with coverage fraction and missingness-versus-size; never primary",
+  "source_scope_before_final_authority": "source TRAIN only, provisional diagnostic results",
+  "final_scope": "real frozen common effective TRAIN minus exact diagnostic geometries/targets; reference and ranking scopes identical",
+  "size_threshold_abs_rho": 0.95,
+  "rho_tail_policy": "unwinsorized valid values; no robust-z removal or automatic extra masking",
+  "minimum_pairs_for_defined_coefficient": 2,
+  "constant_policy": "rho=NULL/CONSTANT_AGGREGATE or CONSTANT_HEAVY_COUNT; never force zero",
+  "zero_policy": "finite numeric zeros retained, including signed zero pooled for ranks; missing/empty arrays never filled with zero",
+  "Pprime": "independent UFF source, mask, TRAIN references and rho; absent source stays PENDING",
+  "runtime_version": "Actual C4 job4513557/node11/10020records/16PIDs reports RDKit2025.09.5. D20 19 inherited original LMDB values: original generator runtime remains unproved; C4 version does not prove all WP5 invocations or original LMDB generation."
+}

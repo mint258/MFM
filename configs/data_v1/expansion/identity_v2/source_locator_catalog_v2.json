@@ -1,0 +1,1337 @@
+{
+    "schema":  "expansion_identity_source_locator_catalog_v2",
+    "version":  "2.0.0",
+    "status":  "HISTORICAL_LOCATORS_ONLY_CURRENT_HASH_AND_ALL_SPLIT_PROOFS_PENDING",
+    "prepared_on":  "2026-10-25",
+    "registered_inputs_frozen":  true,
+    "metadata_authorities":  [
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_downstream_membership/run_4511949/membership_manifest.json",
+                                     "bytes":  23930,
+                                     "sha256":  "b778eac757e06774d829031780bae8ca595dd9550f4484f4382902896a7c98fa"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/full_som_structures_4511893/summary.json",
+                                     "bytes":  20260,
+                                     "sha256":  "67757d049b4018072b2fa1c01e72263c30d7cfd7d82d9cadace475030e4612b5"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/full_qm_sources_4511889/summary.json",
+                                     "bytes":  10271,
+                                     "sha256":  "a0e4fc16f5a81e92169a761573151f795d8171c24830b1b2678ea9ca3390a1f2"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/qm7_mat_lineage_4511900/summary.json",
+                                     "bytes":  6924,
+                                     "sha256":  "3bfa2ee1f2e30c16bccda00874de49692491345bb4a80bff6a1dfca95cc07d6c"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/manifest.json",
+                                     "bytes":  6767,
+                                     "sha256":  "d21bae7f7b6c1dfbfe9342635ded80a55ddc05baba46ebfaa66cb7831866b96e"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/downstream_preprocess_sources/download_qm7_qm9.py",
+                                     "bytes":  16945,
+                                     "sha256":  "966ea9820c0cc0b00e4c13553a2b59cc4fcabb30ada6dedd52c41ced1fee6ea1"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/downstream_preprocess_sources/download_som_datasets.py",
+                                     "bytes":  20320,
+                                     "sha256":  "c056e938f285e8760f4bcf98293ed1efd90d63625a02229d238fcdb8a3f650da"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_population.py",
+                                     "bytes":  25211,
+                                     "sha256":  "5c177db7c6f132f330838be58db7133954c9dba13e95d50c24b47bd645ed1fd7"
+                                 }
+                             ],
+    "inputs":  [
+                   {
+                       "source_id":  "som_az_all_raw_az_120_compounds",
+                       "dataset":  "som_az",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/az_exactsom/raw/az_120_compounds.csv",
+                       "expected_bytes":  18768,
+                       "expected_sha256":  "18a563674711e4b2e2f0be9dc149261fed2e6e17fda4f1af0cc9901ac7b9f536",
+                       "expected_records":  120,
+                       "required":  true,
+                       "scope_role":  "all_raw",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_all_raw_1A2",
+                       "dataset":  "som_cyp",
+                       "kind":  "sdf",
+                       "path":  "/share/home/zixiao/benchmark_dataset/cyp_isoform/raw/1A2.sdf",
+                       "expected_bytes":  572519,
+                       "expected_sha256":  "34bb21801b66731913eee56732c1ea3d8e3be3831cc0bafd2775116e05c20de4",
+                       "expected_records":  271,
+                       "required":  true,
+                       "scope_role":  "all_raw",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_all_raw_2A6",
+                       "dataset":  "som_cyp",
+                       "kind":  "sdf",
+                       "path":  "/share/home/zixiao/benchmark_dataset/cyp_isoform/raw/2A6.sdf",
+                       "expected_bytes":  176381,
+                       "expected_sha256":  "13ad627334cfcd674b2007d8e19d2069fa2ad29acc791681d4253df1e2c60fbb",
+                       "expected_records":  105,
+                       "required":  true,
+                       "scope_role":  "all_raw",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_all_raw_2B6",
+                       "dataset":  "som_cyp",
+                       "kind":  "sdf",
+                       "path":  "/share/home/zixiao/benchmark_dataset/cyp_isoform/raw/2B6.sdf",
+                       "expected_bytes":  302628,
+                       "expected_sha256":  "54448befbe7b88b951ae4813399d77eeaada637c52e6abb2b88bb2b4a773ea12",
+                       "expected_records":  151,
+                       "required":  true,
+                       "scope_role":  "all_raw",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_all_raw_2C19",
+                       "dataset":  "som_cyp",
+                       "kind":  "sdf",
+                       "path":  "/share/home/zixiao/benchmark_dataset/cyp_isoform/raw/2C19.sdf",
+                       "expected_bytes":  477771,
+                       "expected_sha256":  "6908a96f5a859cffc249ca3e8dc4bf36d1456fd10336a71e36bab977e4d09031",
+                       "expected_records":  218,
+                       "required":  true,
+                       "scope_role":  "all_raw",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_all_raw_2C8",
+                       "dataset":  "som_cyp",
+                       "kind":  "sdf",
+                       "path":  "/share/home/zixiao/benchmark_dataset/cyp_isoform/raw/2C8.sdf",
+                       "expected_bytes":  322157,
+                       "expected_sha256":  "3d9c96e5386d649b8bb163ff9dc2949c4a065a3ecb8cf71617c08596e88b1996",
+                       "expected_records":  142,
+                       "required":  true,
+                       "scope_role":  "all_raw",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_all_raw_2C9",
+                       "dataset":  "som_cyp",
+                       "kind":  "sdf",
+                       "path":  "/share/home/zixiao/benchmark_dataset/cyp_isoform/raw/2C9.sdf",
+                       "expected_bytes":  509175,
+                       "expected_sha256":  "a981b566b9af608ba2a9058b298b854adda7098f245f68d55e621eb3c8497a30",
+                       "expected_records":  226,
+                       "required":  true,
+                       "scope_role":  "all_raw",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_all_raw_2D6",
+                       "dataset":  "som_cyp",
+                       "kind":  "sdf",
+                       "path":  "/share/home/zixiao/benchmark_dataset/cyp_isoform/raw/2D6.sdf",
+                       "expected_bytes":  602824,
+                       "expected_sha256":  "999f4f9ff5eef7d8bd99ee36f4884d78be68604cfb1e83620cc68b58a53786ea",
+                       "expected_records":  270,
+                       "required":  true,
+                       "scope_role":  "all_raw",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_all_raw_2E1",
+                       "dataset":  "som_cyp",
+                       "kind":  "sdf",
+                       "path":  "/share/home/zixiao/benchmark_dataset/cyp_isoform/raw/2E1.sdf",
+                       "expected_bytes":  243684,
+                       "expected_sha256":  "8ab23d9527aa149eb745c31433170e2ab04acb7048d9b567f40883aa72c291bd",
+                       "expected_records":  145,
+                       "required":  true,
+                       "scope_role":  "all_raw",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_all_raw_3A4",
+                       "dataset":  "som_cyp",
+                       "kind":  "sdf",
+                       "path":  "/share/home/zixiao/benchmark_dataset/cyp_isoform/raw/3A4.sdf",
+                       "expected_bytes":  1248372,
+                       "expected_sha256":  "8c44c238af8bba5384a3fc2fade64dc52795bc6b5d18ee3a7487d134d45aedf7",
+                       "expected_records":  475,
+                       "required":  true,
+                       "scope_role":  "all_raw",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_az_fold_1_fold_1",
+                       "dataset":  "som_az",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom/fold_1.csv",
+                       "expected_bytes":  6683,
+                       "expected_sha256":  "e0e19195c6f8771422e937ec359d06d768058e886b5130dc763f2f10971dadd8",
+                       "expected_records":  11,
+                       "required":  true,
+                       "scope_role":  "fold_1",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_az_fold_10_fold_10",
+                       "dataset":  "som_az",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom/fold_10.csv",
+                       "expected_bytes":  5809,
+                       "expected_sha256":  "3d06d8c2c1ce61ce3211634826ed9f208e90693b724997fce348ed3ad9aae7dc",
+                       "expected_records":  11,
+                       "required":  true,
+                       "scope_role":  "fold_10",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_az_fold_2_fold_2",
+                       "dataset":  "som_az",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom/fold_2.csv",
+                       "expected_bytes":  5394,
+                       "expected_sha256":  "c6556c10a3372ef0cfbdadbd29ba8414e111e35a48cc554b935a82b97f76b697",
+                       "expected_records":  10,
+                       "required":  true,
+                       "scope_role":  "fold_2",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_az_fold_3_fold_3",
+                       "dataset":  "som_az",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom/fold_3.csv",
+                       "expected_bytes":  6817,
+                       "expected_sha256":  "a3e80e3b2ec7a9936bd644380f489ab9c21d14568e7276a101c0662dda1c4e3f",
+                       "expected_records":  11,
+                       "required":  true,
+                       "scope_role":  "fold_3",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_az_fold_4_fold_4",
+                       "dataset":  "som_az",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom/fold_4.csv",
+                       "expected_bytes":  6336,
+                       "expected_sha256":  "7e0dfc3e72b83d2273ea352081b94a0e9f64af2b62d5905b617ccb53ba482a57",
+                       "expected_records":  11,
+                       "required":  true,
+                       "scope_role":  "fold_4",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_az_fold_5_fold_5",
+                       "dataset":  "som_az",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom/fold_5.csv",
+                       "expected_bytes":  6057,
+                       "expected_sha256":  "1bb06d8ed98ff4012f897a422416f46a08a7258bb25f818bfe2b6176396b2c34",
+                       "expected_records":  11,
+                       "required":  true,
+                       "scope_role":  "fold_5",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_az_fold_6_fold_6",
+                       "dataset":  "som_az",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom/fold_6.csv",
+                       "expected_bytes":  6494,
+                       "expected_sha256":  "f46cf1934ff35a9cbd06816d604a0e7103815c42f0942ad3cb0af07b66ee67e8",
+                       "expected_records":  11,
+                       "required":  true,
+                       "scope_role":  "fold_6",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_az_fold_7_fold_7",
+                       "dataset":  "som_az",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom/fold_7.csv",
+                       "expected_bytes":  5140,
+                       "expected_sha256":  "76b1d5a7f71c1b148d7b04ee9d75fd0331d6374f533a93109d3927345f546446",
+                       "expected_records":  11,
+                       "required":  true,
+                       "scope_role":  "fold_7",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_az_fold_8_fold_8",
+                       "dataset":  "som_az",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom/fold_8.csv",
+                       "expected_bytes":  6907,
+                       "expected_sha256":  "2de165586aebeabb9c207a9f75cd423ad4fe4f06aea2834eafb5264f0a600c5d",
+                       "expected_records":  11,
+                       "required":  true,
+                       "scope_role":  "fold_8",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_az_fold_9_fold_9",
+                       "dataset":  "som_az",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom/fold_9.csv",
+                       "expected_bytes":  6242,
+                       "expected_sha256":  "d2824130174a3a1de2f50daa316af20230c87402577c652ed7181557587ba53e",
+                       "expected_records":  11,
+                       "required":  true,
+                       "scope_role":  "fold_9",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_az_all_assignment_fold_assignments",
+                       "dataset":  "som_az",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom/fold_assignments.csv",
+                       "expected_bytes":  58288,
+                       "expected_sha256":  "ce21647e0f5d5ca3f4ab01a191b32b74d46e16e9f2cdd4eca27a30dbf9a80d31",
+                       "expected_records":  109,
+                       "required":  true,
+                       "scope_role":  "all_assignment",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_fold_1_fold_1",
+                       "dataset":  "som_cyp",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/cyp_isoform/fold_1.csv",
+                       "expected_bytes":  443390,
+                       "expected_sha256":  "d0b3c567d93f6d3f654663b20e476ee9497d1be052719e789a268524c6eda188",
+                       "expected_records":  200,
+                       "required":  true,
+                       "scope_role":  "fold_1",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_fold_10_fold_10",
+                       "dataset":  "som_cyp",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/cyp_isoform/fold_10.csv",
+                       "expected_bytes":  413719,
+                       "expected_sha256":  "1edca3bfe567588790ab1f6705c5c4019b48d83651619b1b286e90bff1f72882",
+                       "expected_records":  200,
+                       "required":  true,
+                       "scope_role":  "fold_10",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_fold_2_fold_2",
+                       "dataset":  "som_cyp",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/cyp_isoform/fold_2.csv",
+                       "expected_bytes":  405342,
+                       "expected_sha256":  "784c991fcfcbb60ca6c656f5f78e299731a126883d1b444fac84e2e9eb57c8d2",
+                       "expected_records":  200,
+                       "required":  true,
+                       "scope_role":  "fold_2",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_fold_3_fold_3",
+                       "dataset":  "som_cyp",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/cyp_isoform/fold_3.csv",
+                       "expected_bytes":  521627,
+                       "expected_sha256":  "d086c2bc86ab1a55102657300f17e194e933b1e8587903bff5e8e88c02413507",
+                       "expected_records":  201,
+                       "required":  true,
+                       "scope_role":  "fold_3",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_fold_4_fold_4",
+                       "dataset":  "som_cyp",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/cyp_isoform/fold_4.csv",
+                       "expected_bytes":  503414,
+                       "expected_sha256":  "22fc438885be626c962052f6e375fe00b035142ef03d98f2a8aa1944941dba23",
+                       "expected_records":  201,
+                       "required":  true,
+                       "scope_role":  "fold_4",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_fold_5_fold_5",
+                       "dataset":  "som_cyp",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/cyp_isoform/fold_5.csv",
+                       "expected_bytes":  456854,
+                       "expected_sha256":  "9d8ddbacc9384e52c99d7a9ae4cc11c7da3685e086948d9615ccd92db3ed1438",
+                       "expected_records":  200,
+                       "required":  true,
+                       "scope_role":  "fold_5",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_fold_6_fold_6",
+                       "dataset":  "som_cyp",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/cyp_isoform/fold_6.csv",
+                       "expected_bytes":  462795,
+                       "expected_sha256":  "1dbfed96f85b42982dc75cbbec6a37cdd5c986b5649a50af2feb15f757fc233b",
+                       "expected_records":  200,
+                       "required":  true,
+                       "scope_role":  "fold_6",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_fold_7_fold_7",
+                       "dataset":  "som_cyp",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/cyp_isoform/fold_7.csv",
+                       "expected_bytes":  380340,
+                       "expected_sha256":  "95c93e637d75ef7db6b9a5fcd4aee6389176084b49461a2df5d09e50cf12d6ea",
+                       "expected_records":  200,
+                       "required":  true,
+                       "scope_role":  "fold_7",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_fold_8_fold_8",
+                       "dataset":  "som_cyp",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/cyp_isoform/fold_8.csv",
+                       "expected_bytes":  563272,
+                       "expected_sha256":  "dbf7ff0faeab8c42fa326960efebbf13b5f804f598acd7dcf2052172396dd835",
+                       "expected_records":  201,
+                       "required":  true,
+                       "scope_role":  "fold_8",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_fold_9_fold_9",
+                       "dataset":  "som_cyp",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/cyp_isoform/fold_9.csv",
+                       "expected_bytes":  469142,
+                       "expected_sha256":  "3da1481ccac1d75443596ee8020deac82a0fd6c0f80fc643a36cff2841eaf120",
+                       "expected_records":  200,
+                       "required":  true,
+                       "scope_role":  "fold_9",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "som_cyp_all_assignment_fold_assignments",
+                       "dataset":  "som_cyp",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/cyp_isoform/fold_assignments.csv",
+                       "expected_bytes":  4615971,
+                       "expected_sha256":  "005f144f37a841af1876d92999d74d5346b7f270b72d29093387d3c4759f0073",
+                       "expected_records":  2003,
+                       "required":  true,
+                       "scope_role":  "all_assignment",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_fold_1_fold_1",
+                       "dataset":  "qm7",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm7/fold_1.csv",
+                       "expected_bytes":  151370,
+                       "expected_sha256":  "50cab9bdcd2499e789e823a0785e0fe28ed2197a981083e9572a5b4793811482",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_1",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_fold_10_fold_10",
+                       "dataset":  "qm7",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm7/fold_10.csv",
+                       "expected_bytes":  147978,
+                       "expected_sha256":  "63b73ad3c0ff33a23e5c932467660d03691aeb73fbf3a4bf931bec35cdcbb864",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_10",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_fold_2_fold_2",
+                       "dataset":  "qm7",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm7/fold_2.csv",
+                       "expected_bytes":  147087,
+                       "expected_sha256":  "4b0adfab4e34cb575400f9b2abca68c2b9553f167482a702ec785aedad2dde66",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_2",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_fold_3_fold_3",
+                       "dataset":  "qm7",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm7/fold_3.csv",
+                       "expected_bytes":  185393,
+                       "expected_sha256":  "bb4c37d6cad80a59da834c320bb5cb974e84b729aca0326275b866425cacbc21",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_3",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_fold_4_fold_4",
+                       "dataset":  "qm7",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm7/fold_4.csv",
+                       "expected_bytes":  181220,
+                       "expected_sha256":  "55932c717a653dbcce36ea293b4c4d5965590fceab8059d0f3dd04aff3387f26",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_4",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_fold_5_fold_5",
+                       "dataset":  "qm7",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm7/fold_5.csv",
+                       "expected_bytes":  152177,
+                       "expected_sha256":  "0db43f7c8511232bf0089f7edc82d11cd0abce60acba14f712c7a5fc7f002ce8",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_5",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_fold_6_fold_6",
+                       "dataset":  "qm7",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm7/fold_6.csv",
+                       "expected_bytes":  155778,
+                       "expected_sha256":  "aadbe5211374bd4f47c4cd2db810ea107eb8a5529c4f192590e5c016aeb2a5fe",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_6",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_fold_7_fold_7",
+                       "dataset":  "qm7",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm7/fold_7.csv",
+                       "expected_bytes":  153711,
+                       "expected_sha256":  "03c41b01a69fc7dbd7b6e3e23720485a1899812c6f29778bd88efa0084881c3e",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_7",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_fold_8_fold_8",
+                       "dataset":  "qm7",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm7/fold_8.csv",
+                       "expected_bytes":  185310,
+                       "expected_sha256":  "4a717666bd22332e899343a7c6731cee8db39d94ce16795c1c4dec9792b6d42b",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_8",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_fold_9_fold_9",
+                       "dataset":  "qm7",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm7/fold_9.csv",
+                       "expected_bytes":  185545,
+                       "expected_sha256":  "94e5f9b53006687a95edba7ef0914e9456a2ff03bad2b348d932ddd366f88036",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_9",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_all_assignment_fold_assignments",
+                       "dataset":  "qm7",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm7/fold_assignments.csv",
+                       "expected_bytes":  1644048,
+                       "expected_sha256":  "38881a20a9b7e9e56e5152eee558f15723cda06fe52e93d3501cbae6d59df029",
+                       "expected_records":  7165,
+                       "required":  true,
+                       "scope_role":  "all_assignment",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_fold_1_fold_1",
+                       "dataset":  "qm9",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm9/fold_1.csv",
+                       "expected_bytes":  4551243,
+                       "expected_sha256":  "496723f7dd08f2a94aabeda111e7f262c156e74374df46aab6b9d80b96d30439",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_1",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_fold_10_fold_10",
+                       "dataset":  "qm9",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm9/fold_10.csv",
+                       "expected_bytes":  4666311,
+                       "expected_sha256":  "4a75a3b67e52d3aff030a4f7d59490ddb0e624ababe71e644a624264da9499c7",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_10",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_fold_2_fold_2",
+                       "dataset":  "qm9",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm9/fold_2.csv",
+                       "expected_bytes":  4717670,
+                       "expected_sha256":  "5f6bd7c2c35bbb05c39bbb99ae6752d949d98185880b18d83bd0bedd2e46cf2e",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_2",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_fold_3_fold_3",
+                       "dataset":  "qm9",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm9/fold_3.csv",
+                       "expected_bytes":  5243370,
+                       "expected_sha256":  "34449a76a61c7a8d462cb09b137c1daecf94a89f008bb723c3c54a781e45e7f6",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_3",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_fold_4_fold_4",
+                       "dataset":  "qm9",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm9/fold_4.csv",
+                       "expected_bytes":  4934949,
+                       "expected_sha256":  "0c5a770ff493c12e376f5bd32328649da947d0f7b93f882a78814a811fce0eb6",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_4",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_fold_5_fold_5",
+                       "dataset":  "qm9",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm9/fold_5.csv",
+                       "expected_bytes":  4632158,
+                       "expected_sha256":  "17606c16122411cbe3ae8c6fc75dc4befae16ad897af6975a65f77d0779b3934",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_5",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_fold_6_fold_6",
+                       "dataset":  "qm9",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm9/fold_6.csv",
+                       "expected_bytes":  4784869,
+                       "expected_sha256":  "e3d019969be7cdf01625ddba680c4ae647b557da8376a1e370709e3a5ec8e82b",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_6",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_fold_7_fold_7",
+                       "dataset":  "qm9",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm9/fold_7.csv",
+                       "expected_bytes":  4469828,
+                       "expected_sha256":  "d69a0e90d550137608d5987e0e53fb2f001238173daf713f2aee1b815ff0307a",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_7",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_fold_8_fold_8",
+                       "dataset":  "qm9",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm9/fold_8.csv",
+                       "expected_bytes":  4716890,
+                       "expected_sha256":  "6a032a29a6d9ab99a1c8a613800ee378b5c256b9663b0afce37bbde3907a98ac",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_8",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_fold_9_fold_9",
+                       "dataset":  "qm9",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm9/fold_9.csv",
+                       "expected_bytes":  4742247,
+                       "expected_sha256":  "8be303e36c3840292b52a35f365880bda9f3decc5594247fe257ef3bc2518388",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "fold_9",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_all_assignment_fold_assignments",
+                       "dataset":  "qm9",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/benchmark_dataset/scaffold_split/qm9/fold_assignments.csv",
+                       "expected_bytes":  47457807,
+                       "expected_sha256":  "1e7818cd7b2368129c88361c61b3468145fd0573ba71c6e76dd8a96a404e0bc7",
+                       "expected_records":  133885,
+                       "required":  true,
+                       "scope_role":  "all_assignment",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "v1_formal",
+                       "dataset":  "v1_all_roles_and_embargo",
+                       "kind":  "parquet",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+                       "expected_bytes":  1242386629,
+                       "expected_sha256":  "ef2d99ae1b6c1001f6ffeb979ebafd10b04c13fa4774e52527a90a6276c06276",
+                       "expected_records":  11231854,
+                       "required":  true,
+                       "scope_role":  "all_formal_roles",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "v1_embargo4900",
+                       "dataset":  "v1_all_roles_and_embargo",
+                       "kind":  "parquet",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/excluded_unassigned_index.parquet",
+                       "expected_bytes":  4709953,
+                       "expected_sha256":  null,
+                       "expected_records":  4900,
+                       "required":  true,
+                       "scope_role":  "embargo",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "expansionrx_train",
+                       "dataset":  "expansionrx",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/log_train_data.csv",
+                       "expected_bytes":  738171,
+                       "expected_sha256":  "2bb87a2500ad48699b84d1666e54ee1d444d963f8f77dbfe91fcfbc0579512a7",
+                       "expected_records":  5326,
+                       "required":  true,
+                       "scope_role":  "train",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "expansionrx_test",
+                       "dataset":  "expansionrx",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/official_test.csv",
+                       "expected_bytes":  338634,
+                       "expected_sha256":  "ec48312d21d23cc83fd58d577a357cbdb480b30184b527152a4969244dd243a8",
+                       "expected_records":  2282,
+                       "required":  true,
+                       "scope_role":  "test",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "ledger_cyp_sources",
+                       "dataset":  "som_cyp",
+                       "kind":  "jsonl_opaque",
+                       "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/full_som_structures_4511893/cyp_sources.jsonl",
+                       "expected_bytes":  4376790,
+                       "expected_sha256":  "33bdc2e052b00950b8ac20546177428ab3bfe82208ec405c309138b27ac6f6f5",
+                       "expected_records":  2003,
+                       "required":  true,
+                       "scope_role":  "historical_identity_ledger",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "ledger_cyp_folds",
+                       "dataset":  "som_cyp",
+                       "kind":  "jsonl_opaque",
+                       "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/full_som_structures_4511893/cyp_folds.jsonl",
+                       "expected_bytes":  4702487,
+                       "expected_sha256":  "ae3fd6eb57c6db875353fca002c4967dfd25d6c0c2fa12005dc31f2713b0efd6",
+                       "expected_records":  2003,
+                       "required":  true,
+                       "scope_role":  "historical_identity_ledger",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "ledger_az_sources",
+                       "dataset":  "som_az",
+                       "kind":  "jsonl_opaque",
+                       "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/full_som_structures_4511893/az_sources.jsonl",
+                       "expected_bytes":  259136,
+                       "expected_sha256":  "62eca7f2eaf8fdd3dbecd8980a63e0cfa1072047dfe302ae69237cf4b34d5dbb",
+                       "expected_records":  120,
+                       "required":  true,
+                       "scope_role":  "historical_identity_ledger",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "ledger_az_folds",
+                       "dataset":  "som_az",
+                       "kind":  "jsonl_opaque",
+                       "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/full_som_structures_4511893/az_folds.jsonl",
+                       "expected_bytes":  242735,
+                       "expected_sha256":  "7c8e5c22c4285f59fc7290444b40f36b728179d3ff6a40ce19194d96290071b0",
+                       "expected_records":  109,
+                       "required":  true,
+                       "scope_role":  "historical_identity_ledger",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "ledger_fold_members",
+                       "dataset":  "som_all_fold_members",
+                       "kind":  "jsonl_opaque",
+                       "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/full_som_structures_4511893/fold_members.jsonl",
+                       "expected_bytes":  854813,
+                       "expected_sha256":  "152ef315b19c58724fd79fb6a03a8b58b8c02f67fb9ab8ea7018b53e8b7b6211",
+                       "expected_records":  2112,
+                       "required":  true,
+                       "scope_role":  "historical_identity_ledger",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "ledger_qm_source_records",
+                       "dataset":  "qm7_qm9_ledger",
+                       "kind":  "jsonl_opaque",
+                       "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/full_qm_sources_4511889/source_records.jsonl",
+                       "expected_bytes":  266807412,
+                       "expected_sha256":  "e6081f9dc918d51f36364829bef7f9945bb8d98c9da9d01d46edc73d563adf2a",
+                       "expected_records":  141050,
+                       "required":  true,
+                       "scope_role":  "historical_identity_ledger",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "ledger_qm_fold_members",
+                       "dataset":  "qm7_qm9_ledger",
+                       "kind":  "jsonl_opaque",
+                       "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/full_qm_sources_4511889/fold_members.jsonl",
+                       "expected_bytes":  38408792,
+                       "expected_sha256":  "1592a40900f622d77dd5b4a900c2536b77d132fb98b6e29beb5ce906d033866f",
+                       "expected_records":  141050,
+                       "required":  true,
+                       "scope_role":  "historical_identity_ledger",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_raw_mat_Z_only",
+                       "dataset":  "qm7",
+                       "kind":  "mat_Z_metadata",
+                       "path":  "/share/home/zixiao/benchmark_dataset/qm7/raw/qm7.mat",
+                       "expected_bytes":  17884280,
+                       "expected_sha256":  "fd6c26c1086887310518e6a6da778253bc5d3ceb8166007a679a740fff9ee6ea",
+                       "expected_records":  7165,
+                       "required":  true,
+                       "scope_role":  "all_raw",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_raw_original_archive",
+                       "dataset":  "qm9",
+                       "kind":  "qm9_tar_metadata",
+                       "path":  "/share/home/zixiao/benchmark_dataset/qm9/raw/dsgdb9nsd.xyz.tar.bz2",
+                       "expected_bytes":  null,
+                       "expected_sha256":  null,
+                       "expected_records":  133885,
+                       "required":  false,
+                       "scope_role":  "all_raw_archive_candidate",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm9_download_manifest",
+                       "dataset":  "qm9",
+                       "kind":  "metadata_json",
+                       "path":  "/share/home/zixiao/benchmark_dataset/qm9/download_manifest.json",
+                       "expected_bytes":  null,
+                       "expected_sha256":  null,
+                       "expected_records":  null,
+                       "required":  false,
+                       "scope_role":  "version_metadata",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_download_manifest",
+                       "dataset":  "qm7",
+                       "kind":  "metadata_json",
+                       "path":  "/share/home/zixiao/benchmark_dataset/qm7/download_manifest.json",
+                       "expected_bytes":  637,
+                       "expected_sha256":  "f63a145072122e1b047c55ebd4a163ba6a154bced29eec3f6d3bf92e12dddcc4",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "version_metadata",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "qm7_export_marker",
+                       "dataset":  "qm7",
+                       "kind":  "metadata_json",
+                       "path":  "/share/home/zixiao/benchmark_dataset/qm7/extracted/xyz/.exported_from_qm7_mat.json",
+                       "expected_bytes":  235,
+                       "expected_sha256":  "15308a22b00227269bc9e6a2968faa39d42c9ec99a733b65ba2044d7420bf5f0",
+                       "expected_records":  null,
+                       "required":  true,
+                       "scope_role":  "version_metadata",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "local_moleculenet_bace",
+                       "dataset":  "moleculenet",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/descriptor_analysis/data/MoleculeNet/bace.csv",
+                       "expected_bytes":  3897767,
+                       "expected_sha256":  null,
+                       "expected_records":  null,
+                       "required":  false,
+                       "scope_role":  "local_bace_all_rows",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "local_moleculenet_bbbp",
+                       "dataset":  "moleculenet",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/descriptor_analysis/data/MoleculeNet/bbbp.csv",
+                       "expected_bytes":  148743,
+                       "expected_sha256":  null,
+                       "expected_records":  null,
+                       "required":  false,
+                       "scope_role":  "local_bbbp_all_rows",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "local_moleculenet_clintox",
+                       "dataset":  "moleculenet",
+                       "kind":  "csv_gz",
+                       "path":  "/share/home/zixiao/descriptor_analysis/data/MoleculeNet/clintox.csv.gz",
+                       "expected_bytes":  19870,
+                       "expected_sha256":  null,
+                       "expected_records":  null,
+                       "required":  false,
+                       "scope_role":  "local_clintox_all_rows",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "local_moleculenet_esol",
+                       "dataset":  "moleculenet",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/descriptor_analysis/data/MoleculeNet/esol.csv",
+                       "expected_bytes":  96699,
+                       "expected_sha256":  null,
+                       "expected_records":  null,
+                       "required":  false,
+                       "scope_role":  "local_esol_all_rows",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "local_moleculenet_freesolv",
+                       "dataset":  "moleculenet",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/descriptor_analysis/data/MoleculeNet/freesolv.csv",
+                       "expected_bytes":  32060,
+                       "expected_sha256":  null,
+                       "expected_records":  null,
+                       "required":  false,
+                       "scope_role":  "local_freesolv_all_rows",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   },
+                   {
+                       "source_id":  "local_moleculenet_lipophilicity",
+                       "dataset":  "moleculenet",
+                       "kind":  "csv",
+                       "path":  "/share/home/zixiao/descriptor_analysis/data/MoleculeNet/lipophilicity.csv",
+                       "expected_bytes":  282606,
+                       "expected_sha256":  null,
+                       "expected_records":  null,
+                       "required":  false,
+                       "scope_role":  "local_lipophilicity_all_rows",
+                       "status":  "PENDING_CURRENT_COMPUTE_HASH_AND_COUNT"
+                   }
+               ],
+    "datasets":  [
+                     {
+                         "dataset":  "v1_all_roles_and_embargo",
+                         "status":  "PENDING",
+                         "version":  null,
+                         "required_roles":  [
+                                                "TRAIN",
+                                                "VAL",
+                                                "FULL",
+                                                "EMBARGO"
+                                            ],
+                         "official_metadata":  [
+
+                                               ],
+                         "raw_artifacts":  [
+
+                                           ],
+                         "identities":  null,
+                         "coverage_evidence":  null,
+                         "pending_reason":  "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+                         "known_paths":  [
+                                             "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+                                             "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/excluded_unassigned_index.parquet"
+                                         ],
+                         "note":  "VAL is the existing ROUTINE authority, not a newly sampled split. Use canonical/source full-key variants and preserve the 4900 embargo rows. Do not double-count ROUTINE membership inside FULL."
+                     },
+                     {
+                         "dataset":  "expansionrx",
+                         "status":  "PENDING",
+                         "version":  null,
+                         "required_roles":  [
+                                                "train",
+                                                "test"
+                                            ],
+                         "official_metadata":  [
+                                                   "https://github.com/OpenADMET/ExpansionRx-Challenge-Tutorial",
+                                                   "https://huggingface.co/datasets/openadmet/openadmet-expansionrx-challenge-data"
+                                               ],
+                         "raw_artifacts":  [
+
+                                           ],
+                         "identities":  null,
+                         "coverage_evidence":  null,
+                         "pending_reason":  "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+                         "known_physical_sha256":  [
+                                                       {
+                                                           "path":  "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/log_train_data.csv",
+                                                           "sha256":  "2bb87a2500ad48699b84d1666e54ee1d444d963f8f77dbfe91fcfbc0579512a7",
+                                                           "rows":  5326
+                                                       },
+                                                       {
+                                                           "path":  "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/official_test.csv",
+                                                           "sha256":  "ec48312d21d23cc83fd58d577a357cbdb480b30184b527152a4969244dd243a8",
+                                                           "rows":  2282
+                                                       }
+                                                   ],
+                         "metadata_authority":  "runs/sprime_s_convergence_20261013/configs/s_probe_protocol_v2.json",
+                         "note":  "Existing official CSV pins are historical metadata; verify current bytes and extract all source identities without targets."
+                     },
+                     {
+                         "dataset":  "som_cyp",
+                         "status":  "PENDING",
+                         "version":  null,
+                         "required_roles":  [
+                                                "all"
+                                            ],
+                         "official_metadata":  [
+
+                                               ],
+                         "raw_artifacts":  [
+
+                                           ],
+                         "identities":  null,
+                         "coverage_evidence":  null,
+                         "pending_reason":  "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+                         "known_source_family":  "Existing closed cyp_sources/cyp_folds source ledgers, all original folds",
+                         "expected_metadata_records":  2003
+                     },
+                     {
+                         "dataset":  "som_az",
+                         "status":  "PENDING",
+                         "version":  null,
+                         "required_roles":  [
+                                                "all"
+                                            ],
+                         "official_metadata":  [
+
+                                               ],
+                         "raw_artifacts":  [
+
+                                           ],
+                         "identities":  null,
+                         "coverage_evidence":  null,
+                         "pending_reason":  "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+                         "known_source_family":  "Existing closed az_sources/az_folds source ledgers, all original folds",
+                         "expected_metadata_records":  120,
+                         "benchmark_fold_union_records":  109,
+                         "additional_raw_records_required":  11
+                     },
+                     {
+                         "dataset":  "qm7",
+                         "status":  "PENDING",
+                         "version":  null,
+                         "required_roles":  [
+                                                "all"
+                                            ],
+                         "official_metadata":  [
+                                                   "https://quantum-machine.org/datasets/"
+                                               ],
+                         "raw_artifacts":  [
+
+                                           ],
+                         "identities":  null,
+                         "coverage_evidence":  null,
+                         "pending_reason":  "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+                         "note":  "Previously used downstream benchmark, therefore included in addition to guide examples. Preserve unresolved-source composition embargo rather than inventing graph identities."
+                     },
+                     {
+                         "dataset":  "qm9",
+                         "status":  "PENDING",
+                         "version":  null,
+                         "required_roles":  [
+                                                "all"
+                                            ],
+                         "official_metadata":  [
+                                                   "https://doi.org/10.6084/m9.figshare.978904",
+                                                   "https://github.com/deepchem/deepchem/blob/master/deepchem/molnet/load_function/qm9_datasets.py"
+                                               ],
+                         "raw_artifacts":  [
+
+                                           ],
+                         "identities":  null,
+                         "coverage_evidence":  null,
+                         "pending_reason":  "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+                         "candidate_download_urls":  [
+                                                         "https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/qm9.csv"
+                                                     ],
+                         "expected_metadata_records":  133885,
+                         "note":  "Use the full original 133885-source identity population, including any rows subsequently excluded by a benchmark loader; versions must not be conflated."
+                     },
+                     {
+                         "dataset":  "tdc_admet",
+                         "status":  "PENDING",
+                         "version":  "official_admet_group_dataverse_file_4426004_pending_bytes",
+                         "required_roles":  [
+                                                "train_val",
+                                                "test"
+                                            ],
+                         "official_metadata":  [
+                                                   "https://tdcommons.ai/benchmark/admet_group/overview/",
+                                                   "https://github.com/mims-harvard/TDC/blob/main/tdc/metadata.py"
+                                               ],
+                         "raw_artifacts":  [
+
+                                           ],
+                         "identities":  null,
+                         "coverage_evidence":  null,
+                         "pending_reason":  "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+                         "candidate_download_urls":  [
+                                                         "https://dataverse.harvard.edu/api/access/datafile/4426004"
+                                                     ],
+                         "upstream_metadata_git_blob_sha":  "b805138e308e3a95b5bf6b60532c40b082a2f890",
+                         "required_subdatasets":  [
+                                                      "caco2_wang",
+                                                      "hia_hou",
+                                                      "pgp_broccatelli",
+                                                      "bioavailability_ma",
+                                                      "lipophilicity_astrazeneca",
+                                                      "solubility_aqsoldb",
+                                                      "bbb_martins",
+                                                      "ppbr_az",
+                                                      "vdss_lombardo",
+                                                      "cyp2d6_veith",
+                                                      "cyp3a4_veith",
+                                                      "cyp2c9_veith",
+                                                      "cyp2d6_substrate_carbonmangels",
+                                                      "cyp3a4_substrate_carbonmangels",
+                                                      "cyp2c9_substrate_carbonmangels",
+                                                      "half_life_obach",
+                                                      "clearance_microsome_az",
+                                                      "clearance_hepatocyte_az",
+                                                      "herg",
+                                                      "ames",
+                                                      "dili",
+                                                      "ld50_zhu"
+                                                  ],
+                         "note":  "The official archive contains the 22 benchmark endpoints. Both train_val and test are required; do not use only the test files or replace the official group with unrelated single-task tables."
+                     },
+                     {
+                         "dataset":  "moleculenet",
+                         "status":  "PENDING",
+                         "version":  null,
+                         "required_roles":  [
+                                                "all"
+                                            ],
+                         "official_metadata":  [
+                                                   "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+                                                   "https://github.com/deepchem/deepchem/tree/master/deepchem/molnet/load_function"
+                                               ],
+                         "raw_artifacts":  [
+
+                                           ],
+                         "identities":  null,
+                         "coverage_evidence":  null,
+                         "pending_reason":  "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+                         "scope_resolution":  "Required conservative17-dataset proposed union preserved by Root instruction; full physical acquisition and all-source proofs remainPENDING",
+                         "required_subdatasets":  [
+                                                      "BACE",
+                                                      "BBBP",
+                                                      "ClinTox",
+                                                      "ESOL",
+                                                      "FreeSolv",
+                                                      "HIV",
+                                                      "Lipophilicity",
+                                                      "MUV",
+                                                      "PCBA",
+                                                      "PDBbind",
+                                                      "QM7",
+                                                      "QM7b",
+                                                      "QM8",
+                                                      "QM9",
+                                                      "SIDER",
+                                                      "Tox21",
+                                                      "ToxCast"
+                                                  ],
+                         "candidate_download_urls":  [
+                                                         "https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/delaney-processed.csv",
+                                                         "https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/BBBP.csv"
+                                                     ],
+                         "note":  "URLs are examples verified in official loaders, not a complete archive or proof that all proposed datasets have been acquired. All original ligand identities are needed, independent of benchmark split or label missingness."
+                     },
+                     {
+                         "dataset":  "marcel_drugs75k",
+                         "status":  "PENDING",
+                         "version":  "ICLR2024_official_archive_pending_bytes",
+                         "required_roles":  [
+                                                "all"
+                                            ],
+                         "official_metadata":  [
+                                                   "https://github.com/SXKDZ/MARCEL/tree/main/datasets/Drugs"
+                                               ],
+                         "raw_artifacts":  [
+
+                                           ],
+                         "identities":  null,
+                         "coverage_evidence":  null,
+                         "pending_reason":  "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+                         "candidate_download_urls":  [
+                                                         "https://drive.google.com/file/d/1PHgbrxdDyyjnxSUA71zXWG8WNwocDLPH/view?usp=sharing"
+                                                     ],
+                         "upstream_readme_git_blob_sha":  "b55ed39b852281c3fb7702e9d3acd7cf02f4e2cf",
+                         "expected_metadata_records":  75099
+                     },
+                     {
+                         "dataset":  "marcel_kraken",
+                         "status":  "PENDING",
+                         "version":  "ICLR2024_official_archive_pending_bytes",
+                         "required_roles":  [
+                                                "all"
+                                            ],
+                         "official_metadata":  [
+                                                   "https://github.com/SXKDZ/MARCEL/tree/main/datasets/Kraken",
+                                                   "https://kraken.cs.toronto.edu"
+                                               ],
+                         "raw_artifacts":  [
+
+                                           ],
+                         "identities":  null,
+                         "coverage_evidence":  null,
+                         "pending_reason":  "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+                         "candidate_download_urls":  [
+                                                         "https://drive.google.com/file/d/1QrV651Re7s6UF7Lg4KC9PM5QQUMPU7wd/view?usp=sharing"
+                                                     ],
+                         "upstream_readme_git_blob_sha":  "3b296d59dde00205c2b7450e884a8334e52f1ba4",
+                         "expected_metadata_records":  1552
+                     },
+                     {
+                         "dataset":  "coconut",
+                         "status":  "PENDING",
+                         "version":  "2026-10_official_download_page_pending_bytes",
+                         "required_roles":  [
+                                                "all"
+                                            ],
+                         "official_metadata":  [
+                                                   "https://coconut.naturalproducts.net/download",
+                                                   "https://steinbeck-lab.github.io/coconut/versions.html"
+                                               ],
+                         "raw_artifacts":  [
+
+                                           ],
+                         "identities":  null,
+                         "coverage_evidence":  null,
+                         "pending_reason":  "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+                         "candidate_download_urls":  [
+                                                         "https://coconut.s3.uni-jena.de/prod/downloads/2026-10/coconut_csv_lite-10-2026.zip",
+                                                         "https://coconut.s3.uni-jena.de/prod/downloads/2026-10/coconut_csv-10-2026.zip"
+                                                     ],
+                         "note":  "Natural products reserved as out-of-domain evaluation. Official page also lists a complete active/inactive dump; prove whether CSV covers all intended OOD identities before closing coverage. Do not score novelty against COCONUT."
+                     }
+                 ],
+    "identity_only_projection":  {
+                                     "allowed_values":  [
+                                                            "source_id",
+                                                            "role_or_fold",
+                                                            "source_smiles",
+                                                            "full_inchikey_variants",
+                                                            "native_non_h_element_counts"
+                                                        ],
+                                     "targets_or_features_forbidden":  true,
+                                     "hashes_read_opaque_whole_file_bytes":  true,
+                                     "v1_formal_records":  11231854,
+                                     "v1_embargo_records":  4900,
+                                     "v1_expected_total_records":  11236754,
+                                     "v1_effective_role_counts":  {
+                                                                      "TRAIN":  11104772,
+                                                                      "VAL":  11322,
+                                                                      "FULL_excluding_VAL":  115760,
+                                                                      "EMBARGO":  4900
+                                                                  },
+                                     "v1_excludes_later_common_filter":  false,
+                                     "som_cyp_raw_records":  2003,
+                                     "som_az_raw_records":  120,
+                                     "som_az_fold_union_records":  109,
+                                     "som_az_additional_raw_records":  11,
+                                     "qm7_composition_only_records":  7165,
+                                     "qm9_full_original_records":  133885,
+                                     "common_filter_applied_to_decontamination_inputs":  false
+                                 },
+    "external_metadata_observations":  [
+                                           {
+                                               "dataset":  "tdc_admet",
+                                               "official_url":  "https://tdcommons.ai/benchmark/admet_group/overview/",
+                                               "observed":  "22 endpoints, train_val and test explicitly separate",
+                                               "physical_archive_current_size_and_SHA":  "PENDING",
+                                               "dataverse_metadata_access":  "web tool inaccessible; no bypass attempted"
+                                           },
+                                           {
+                                               "dataset":  "moleculenet",
+                                               "official_url":  "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+                                               "proposed_union_retained_count":  17,
+                                               "local_files_located":  6,
+                                               "full_union_coverage":  "PENDING_NO_SHRINK"
+                                           },
+                                           {
+                                               "dataset":  "som",
+                                               "official_url":  "https://github.com/dmis-lab/ATTNSOM",
+                                               "observed":  "2003 molecule-isoform records in nine SDF files; AZ raw120",
+                                               "used_historical_commit":  "0faa38bbd1665262efb3642a2a3ae0f83c928a49"
+                                           },
+                                           {
+                                               "dataset":  "coconut",
+                                               "official_url":  "https://coconut.naturalproducts.net/download",
+                                               "observed_version":  "October2026",
+                                               "csv_lite_advertised":  "191 MB",
+                                               "csv_advertised":  "207.9 MB",
+                                               "complete_active_inactive_sql_advertised":  "31.91 GB",
+                                               "csv_active_inactive_scope":  "UNPROVEN_PENDING",
+                                               "physical_SHA":  "PENDING"
+                                           },
+                                           {
+                                               "dataset":  "marcel_drugs75k_and_kraken",
+                                               "official_urls":  [
+                                                                     "https://github.com/SXKDZ/MARCEL/tree/main/datasets/Drugs",
+                                                                     "https://github.com/SXKDZ/MARCEL/tree/main/datasets/Kraken"
+                                                                 ],
+                                               "status":  "PENDING_OFFICIAL_METADATA_FETCH_RESTRICTED_NO_BYPASS"
+                                           },
+                                           {
+                                               "dataset":  "qm9",
+                                               "official_url":  "https://api.figshare.com/v2/articles/978904",
+                                               "status":  "PENDING_CURRENT_OFFICIAL_METADATA_TOOL_INACCESSIBLE",
+                                               "physical_source_locator_from_frozen_downloader":  "/share/home/zixiao/benchmark_dataset/qm9/raw/dsgdb9nsd.xyz.tar.bz2"
+                                           }
+                                       ]
+}

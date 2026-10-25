@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH --job-name=@NEW_JOB_NAME@
+#SBATCH --partition=all
+#SBATCH --nodelist=@ROOT_REVIEWED_NODE14_TO_19@
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=64G
+#SBATCH --time=02:00:00
+#SBATCH --output=@NEW_LOG_PATH@
+set -euo pipefail
+export CUDA_VISIBLE_DEVICES="" PYTHONDONTWRITEBYTECODE=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+export PYTHONPATH=/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps
+exec /share/home/zixiao/.conda/envs/chemprop/bin/python -B @SOURCE@/run_pilot_v1.py \
+  --execute --config @POLICY_CONFIG@ --retention @RETENTION_PREPARED@ \
+  --retention-sha256 @ACTUAL_RETENTION_MANIFEST_SHA256@ \
+  --root-preflight @NEW_ROOT_PREFLIGHT@ --output @NEW_OUTPUT@

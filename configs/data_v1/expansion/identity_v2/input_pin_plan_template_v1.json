@@ -1,0 +1,24 @@
+{
+  "schema": "identity_only_physical_input_pin_plan_v1",
+  "status": "ROOT_FILL_CODE_CATALOG_AND_QUOTA_PINS_THEN_READY",
+  "workers": 16,
+  "peak_output_cap_bytes": 33554432,
+  "output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/identity/source_pins_v1",
+  "source_catalog": null,
+  "code_sources": [],
+  "quota": {
+    "mode": "published_receipt",
+    "path": "ROOT_TASK_OWNED_FRESH_QUOTA_FEED"
+  },
+  "budget": {
+    "node": "compute-0-20",
+    "cpus": 16,
+    "memory_gib": 4,
+    "wall_seconds": 3600,
+    "peak_output_bytes": 33554432,
+    "estimated_core_hours_ceiling": 16,
+    "planning_wall_minutes_range": [2, 15],
+    "timing_uncertainty": "Current physical storage/cache and optional QM9 tar metadata stream are not timed; no chemistry or features are computed"
+  },
+  "scope": "Only exact76 physical input locators from the separately bound catalog; large SHA/count work stays on compute20. No identity export or all-source acceptance."
+}

@@ -1,0 +1,61 @@
+{
+    "schema":  "pubchem_prefix_feature_stage_diagnostic_plan_v1",
+    "status":  "ROOT_FILL_RUNTIME_CODE_AND_QUOTA_PINS_THEN_READY",
+    "expected_prefix_job_id":  "4520427",
+    "target_cids":  [
+                        7,
+                        52,
+                        53
+                    ],
+    "max_prefix_rows":  10000,
+    "peak_output_cap_bytes":  33554432,
+    "chemical_rules_changed":  false,
+    "feature_repair_applied":  false,
+    "pool_or_screening_release_authorized":  false,
+    "output_root":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/diagnostics/prefix_features_v1",
+    "prefix_receipt":  {
+                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/screening/bounded_prefix_v2/receipt.json",
+                           "bytes":  5811,
+                           "sha256":  "2806743412901d748efb26c1f1f1addbc5dd72e0d3c866fef009d9eeda9db25c"
+                       },
+    "prefix_plan":  {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/expansion/bounded_prefix_root_v2.json",
+                        "bytes":  6371,
+                        "sha256":  "434619f59a466fa339158662e992bdeb2cf50a57c53237d19e7a0c2707356b27"
+                    },
+    "prefix_rejections":  {
+                              "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/screening/bounded_prefix_v2/all_prefix_rejections.jsonl",
+                              "bytes":  167688,
+                              "sha256":  "f758c7bb5e59c40341e4629c3fd6a27bca60f09d07176c20176e0d2001f5b8ae"
+                          },
+    "raw_receipt":  {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/raw/pubchem_20261025_v1/attempt_4520348/receipt.json",
+                        "bytes":  10827,
+                        "sha256":  "2a945e3bfa378b1f958d0214e6a2448cf97d22f81ec2455f359077e3887ad478"
+                    },
+    "data_authorization_receipts":  [
+                                        {
+                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/raw/pubchem_20261025_v1/attempt_4520348/receipt.json",
+                                            "bytes":  10827,
+                                            "sha256":  "2a945e3bfa378b1f958d0214e6a2448cf97d22f81ec2455f359077e3887ad478"
+                                        }
+                                    ],
+    "authorized_data_pin_jobs":  [
+                                     "4520348"
+                                 ],
+    "allow_small_fixture_legacy_authority":  false,
+    "code_sources":  [
+
+                     ],
+    "quota_feed":  "ROOT_TASK_OWNED_FRESH_QUOTA_FEED",
+    "budget":  {
+                   "node":  "compute-0-20",
+                   "cpus":  16,
+                   "memory_gib":  4,
+                   "wall_seconds":  3600,
+                   "peak_output_bytes":  33554432,
+                   "estimated_core_hours_ceiling":  16,
+                   "focused_case_threads":  3,
+                   "source_body_full_SHA_on_compute_only":  true
+               }
+}

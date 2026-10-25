@@ -1,5 +1,13 @@
 # 构象统计与顺序（D-7）
 
+2026-10-25实际进展：256完整分子的canonical HOF/几何只读统计已闭合，详见[实际试点报告](conformer_statistics_pilot_actual_v1.md)。该有偏试点不代表最终TRAIN＋ROUTINE VAL共同人群；全量D-7仍待完成。实际profile两侧均在固定随机顺序中按0.5Å贪心去重，三种训练顺序独立保存；不使用native energy替代canonical HOF。
+
+以下保留初始工具说明作为历史阶段记录；其中“尚无试点”等状态描述及native diagnostic/能量顺序去重只适用于当时初始实现，不是本次canonical profile结果。
+
+---
+
+# 构象统计与顺序（D-7）
+
 状态：计算工具已准备；当前没有本轮全人群统计结果。真实数字由 `workflows/data_v1_final/conformers/statistics_tools.py` 从试点产物生成，不用人工填写结果。
 
 ## 目的与输入
