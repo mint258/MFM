@@ -1,0 +1,61 @@
+{
+    "schema":  "model_v3_decisions_targeted_cpu_test_request_v1",
+    "status":  "SOURCE_FROZEN_TEST_NOT_RUN",
+    "frozen_at_utc":  "2026-10-25T09:58:23.0699802Z",
+    "expected_base_commit":  "dd6cbafb5f6bc86fb064fedfab313c7983003bee",
+    "base_verification":  "Root-provided base; Root verifies actual Git state before commit",
+    "repository_root":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_decisions",
+    "branch":  "model-v3-decision-evidence",
+    "environment":  {
+                        "PYTHONPATH":  "current"
+                    },
+    "python_arguments":  [
+                             "-B",
+                             "-m",
+                             "pytest",
+                             "-q",
+                             "-p",
+                             "no:cacheprovider",
+                             "current/tests/test_model_v3_decision_evidence.py",
+                             "current/tests/test_model_v3_decision_rules.py"
+                         ],
+    "expected_collected_cases":  39,
+    "expected_evidence_cases":  23,
+    "expected_rule_cases":  16,
+    "test_result":  null,
+    "scientific_measurements_started":  false,
+    "submitter":  "Root only",
+    "compute_policy":  "CPU-only Slurm job on an available site CPU node; do not use GPU nodes",
+    "source_files":  [
+                         {
+                             "path":  "current/phychem_mfm/phase1/v3_decision_evidence.py",
+                             "bytes":  24663,
+                             "sha256":  "b52ce1ce9c989004898d6c70793a2c087d7fd48198789add1ab6251c57e7bcb6"
+                         },
+                         {
+                             "path":  "current/phychem_mfm/phase1/v3_decision_rules.py",
+                             "bytes":  23787,
+                             "sha256":  "42b4fa2df759ba617a1b8ce6ea35bd9910ba3cac45d93c42d02adbbbce5a03de"
+                         },
+                         {
+                             "path":  "current/tests/test_model_v3_decision_evidence.py",
+                             "bytes":  19675,
+                             "sha256":  "d1b5b1682d12c0718a223c5b9f198d4c474374865e1f55d251e3c536ee032e73"
+                         },
+                         {
+                             "path":  "current/tests/test_model_v3_decision_rules.py",
+                             "bytes":  13046,
+                             "sha256":  "e9422955a5c48956692b202b2fcb145753f17453c5ff7fe2d1e4a51a00bac799"
+                         },
+                         {
+                             "path":  "tools/model_v3/build_seed_sd.py",
+                             "bytes":  1729,
+                             "sha256":  "7c0abe5a44ac842c61443dbd0848121784f15157986bf56a49de2e178fd530db"
+                         },
+                         {
+                             "path":  "docs/model_v3/SEED_SD_AND_DECISIONS.md",
+                             "bytes":  15550,
+                             "sha256":  "7a0c60b643ef1051d2c9abb1aacf223fe1561e3c921e0d77ddf5eb9a9f0dfbf9"
+                         }
+                     ]
+}

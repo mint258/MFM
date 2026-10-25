@@ -55,3 +55,23 @@ and public preregistration remain required before real C2 fitting. CPU node20
 is fully occupied by another user's104-CPU job; a temporary21/22 CPU exception
 has been requested under the user's AGENTS rule, not assumed. Existing jobs
 and the data line are untouched. D-1 throughD-6 remain user-confirmed pending.
+
+Subsequent user instruction resolves CPU placement: submit CPU work to
+available CPU nodes; GPU nodes are reserved for model training/fine-tuning
+and other GPU jobs. Therefore the proposed21/22 CPU exception is not used.
+Current site CPU partition is compute-0-2 and8–19; Root checks live allocations,
+all-user requested memory and actual available memory before each admission.
+C2 method is now publicly preregistered at1a8c124571ddf37f87ae06ef9971efa85e417f95,
+with tree exactly equal to local dd6cbaf. Integration regression precedes fitting.
+
+Latest verified integrations: export478–481 PASS2,285/one skip; precision498–501
+PASS2,294/one skip; plan506–509 PASS2,306/one skip. All are complete disjoint
+CPU regression partitions with actual C0 closures. Decision39 unit cases and
+premerge502–505 PASS2,319/one skip precede a separate postmerge regression.
+B3 independent487 SDK verification is complete (170,299 native records /
+56,738 history, exact metrics/clean EOF/exit0); historical384 limitations remain.
+A06 fused457 failed the original500-step trajectory gate; it is not adopted.
+Fresh A00 export486 completed C0 and awaits explicit outer-terminal admission
+before the primary512 panel. C2 fit482 failed during TRAIN solving, before any
+validation geometry read; v1 remains failed pending a separately registered
+TRAIN-only solver diagnosis. D-1–D-6 remain pending, with no delivery inferred.

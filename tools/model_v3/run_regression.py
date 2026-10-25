@@ -19,9 +19,11 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--code-commit", required=True)
     parser.add_argument("--workers", type=int, default=16)
-    parser.add_argument("--expected-node", choices=("compute-0-20", "compute-0-21", "compute-0-22"),
-                        default="compute-0-20",
-                        help="Default stays compute-0-20; another node requires explicit user authorization")
+    parser.add_argument("--partitions", type=int, default=1)
+    parser.add_argument("--partition-index", type=int, default=0)
+    parser.add_argument("--expected-node", choices=tuple("compute-0-"+str(i) for i in (2, *range(8, 20))),
+                        required=True,
+                        help="Explicit CPU node; user reserves GPU nodes for GPU work")
     args = parser.parse_args()
     if not os.environ.get("SLURM_JOB_ID") or socket.gethostname().split(".")[0] != args.expected_node:
         raise RuntimeError("Regression needs its own Slurm allocation on the explicitly expected node")
@@ -32,6 +34,16 @@ def main():
     files = sorted((root / "current/tests").glob("test_*.py"))
     if not files:
         raise RuntimeError("No core test files found")
+    all_files = list(files)
+    if not 0 <= args.partition_index < args.partitions <= min(8, len(files)):
+        raise ValueError("Invalid bounded regression partition")
+    if args.partitions > 1:
+        partitions, weights = [[] for _ in range(args.partitions)], [0] * args.partitions
+        for path in sorted(files, key=lambda p: (-p.stat().st_size, p.name)):
+            chosen = min(range(args.partitions), key=lambda i: (weights[i], i))
+            partitions[chosen].append(path)
+            weights[chosen] += path.stat().st_size
+        files = sorted(partitions[args.partition_index])
     workers = min(args.workers, len(files))
     # Size-balanced assignment avoids putting every large parametrized module
     # into the same worker while preserving a reproducible assignment.
@@ -71,6 +83,8 @@ def main():
     result = {"status": "PASS" if all(r["returncode"] == 0 for r in rows) else "FAIL",
               "node": socket.gethostname(), "job_id": os.environ["SLURM_JOB_ID"],
               "expected_node": args.expected_node,
+              "partitions": args.partitions, "partition_index": args.partition_index,
+              "all_test_file_sha256": {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest() for p in all_files},
               "code_commit": args.code_commit, "test_file_count": len(files),
               "test_source_sha256": {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
               "runner_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),

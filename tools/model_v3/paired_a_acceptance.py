@@ -21,14 +21,19 @@ from profile_s_baseline import REPO, PUBLIC_PREREG, digest, save, source_binding
 from a_execution_runtime import (add_arguments, validate_arguments, load_references, bind_environment,
     stream_for, canonical_sha, corpus_receipt, append_json, guard_resources, install_termination_handler,
     prepare_deterministic_controls, apply_deterministic_controls)
+from a_checkpoint_export import validate_export_destination, export_candidate_checkpoint
 
 
 def main():
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
     add_arguments(parser)
+    parser.add_argument("--export-candidate-checkpoint", type=Path,
+        help="Opt in H0-only export after full native20+500 gates and cleanup; fresh immediate child of --output")
     args = parser.parse_args()
     selected = validate_arguments(args, paired=True)
+    args.export_candidate_checkpoint = validate_export_destination(args.export_candidate_checkpoint,
+        output_root=args.output, repository_root=REPO)
     args.deterministic_controls_binding = prepare_deterministic_controls(args.deterministic_controls)
     import fcntl
     locks = Path("/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks")
@@ -93,11 +98,18 @@ def run(args, uuid):
                      "candidate_options_sha256": digest(args.candidate_options),
                      "torch_version": str(torch.__version__), "cuda_version": torch.version.cuda,
                      "logical_python": str(Path(sys.executable).absolute())}
+    configuration["checkpoint_export"] = {"requested": args.export_candidate_checkpoint is not None,
+        "destination": str(args.export_candidate_checkpoint) if args.export_candidate_checkpoint is not None else None,
+        "scope": "H0_only_after_native20batch500update_gates_and_input_SDK_cleanup", "resume_supported": False}
     stream = None
     trackers = {}
     failure, final_status, cleanup_errors = None, "FAILED", []
     output_cap = int(os.environ.get("MODEL_V3_CHILD_OUTPUT_BUDGET_BYTES", str(2 * 1024**3)))
     started = time.monotonic()
+    science_finished = None
+    checkpoint_export = None
+    complete = False
+    final_stream_state = None
     try:
         stream = stream_for(args, reference)
         configuration["data_version"] = stream.bindings
@@ -223,11 +235,16 @@ def run(args, uuid):
              "consumed_trajectory_base_records": consumed_records, "resume_supported": False,
              "timing_kind": "paired_two_resident_models_diagnostic_not_standalone_speed",
              "fixed_batch_pass": fixed_gate["pass"], "trajectory_pass": gate["pass"]})
+        science_finished = time.monotonic()
+        final_stream_state = stream.state_dict()
         return 0 if gate["pass"] else 2
     except BaseException as exc:
         failure = {"type": type(exc).__name__, "message": str(exc)}
         raise
     finally:
+        if science_finished is None:
+            science_finished = time.monotonic()
+        finalization_started = time.monotonic()
         if stream is not None:
             try:
                 stream.close()
@@ -238,10 +255,22 @@ def run(args, uuid):
                 tracker.finish(exit_code=0 if final_status == "PAIRED_GATES_PASS" and not cleanup_errors else 1)
             except BaseException as exc:
                 cleanup_errors.append({"component": name, "type": type(exc).__name__, "message": str(exc)})
+        if complete and failure is None and not cleanup_errors:
+            try:
+                checkpoint_export = export_candidate_checkpoint(args.export_candidate_checkpoint,
+                    output_root=args.output, repository_root=REPO, model=candidate_model,
+                    optimizer=optimizers["candidate"], configuration=configuration, fixed_gate=fixed_gate,
+                    trajectory_gate=gate, consumed_samples=consumed_records,
+                    stream_state=final_stream_state, output_budget_bytes=output_cap)
+            except BaseException as exc:
+                cleanup_errors.append({"component": "candidate_checkpoint_export", "type": type(exc).__name__, "message": str(exc)})
         save(args.output / "run_status.json", {"status": final_status, "failure": failure,
              "cleanup_errors": cleanup_errors, "elapsed_seconds": time.monotonic() - started,
              "stream_cleanup": getattr(stream, "last_cleanup", None),
              "resume_supported": False,
+             "scientific_elapsed_seconds": science_finished - started,
+             "finalization_elapsed_seconds": time.monotonic() - finalization_started,
+             "checkpoint_export": checkpoint_export,
              "job_id": os.environ["SLURM_JOB_ID"]})
         if cleanup_errors and failure is None:
             raise RuntimeError("Paired evidence cleanup failed; inspect run_status.json")

@@ -145,6 +145,10 @@ def apply_deterministic_controls(binding):
 def a_source_bindings():
     bound = source_bindings()
     for name in ("tools/model_v3/a_execution_runtime.py", "tools/model_v3/paired_a_acceptance.py",
+                 "tools/model_v3/a_checkpoint_export.py", "current/phychem_mfm/training/checkpoint.py",
+                 "current/phychem_mfm/phase1/v3_encoder_bridge.py", "current/phychem_mfm/phase1/v3_dev_panel.py",
+                 "current/phychem_mfm/phase1/v3_dev_store.py", "current/phychem_mfm/phase1/v3_h0_runtime.py",
+                 "current/phychem_mfm/phase1/v3_h0_packing.py",
                  "tools/model_v3/single_a_benchmark.py", "tools/model_v3/a_speed_report.py",
                  "tools/model_v3/s_input_stream.py", "current/phychem_mfm/model/v3_performance.py",
                  "current/phychem_mfm/training/v3_performance_acceptance.py",

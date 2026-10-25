@@ -274,3 +274,91 @@ result/guard原始字节保留，独立原生SDK历史核验及归档仍待完�
 compute-0-20现被其他用户104 CPU、mem=0的作业4520450占满；456处于资源等待。
 未修改或取消该他人作业。依用户AGENTS的compute-0-20限制，新增纯CPU作业
 暂不迁移；已请求本轮CPU回归/C2临时使用21/22的明确例外，未收到答复前不执行。
+
+用户后续已明确：“cpu任务请提交到可用的cpu节点，这几个节点只能提交模型训练
+和微调等gpu任务”。此新指令覆盖上段待答复状态；CPU回归、C2与SDK核验投
+现场可用CPU节点，不投20/21/22。站点cpu分区为compute-0-2及8–19，实际
+按全用户CPU/声明内存、可用内存、Slurm分配和不少于16核核验；不改其他任务。
+regression改为必须显式绑定CPU expected-node，不保留隐含GPU节点默认值。
+
+C2预注册已公开1a8c124571ddf37f87ae06ef9971efa85e417f95，其tree精确等于
+执行树dd6cbaf的6ea0f055d9dc35b1319ad6269c8c5bc492ee61d5；新CPU guard
+提交另记，不将其SHA混作方法预注册。未启动真实C2前仍须主树完整回归通过。
+
+新CPU节点验证458在Git命令缺失处失败1秒；459因pytest负例夹具的合法测试链接
+被生产输出census拒绝而失败35秒，均保留。新test-only adapter只在预先声明的
+pytest目录按lstat计量、绝不跟随测试链接；生产/private census、2GiB和RSS上限不改。
+472主树59b9ec2实际C0/211秒，2,280 passed / 1 CUDA skip；473实际C0/203秒，
+proxy计划12、precision相关29、B3核验21、primary512启动器22，共84 passed。
+前后源SHA相同、外层成功闭合。新CPU Git工具独立放外部bin，系统与科学源码不改。
+
+474真实B3核验在100,000条native SDK总记录上限失败5秒；56,738是history行而非
+所有protobuf记录。原报告/源SDK不改。新增读取器将总native与history两个预算分开，
+保持原history完整匹配与所有科学门槛；修订仍需新CPU验收，不能冒称核验完成。
+
+475 C2 bind实际C0/4秒，native_geometry_records_decoded=0；477继续纯元数据
+selection。实际执行树为已全测固定ecdb6eb的独立C2树，预注册仍为公开1a8c124。
+主树后续整合不会更改该执行源。拟合须等selection/原角色与人口审阅闭合。
+
+主树完整回归的472产物计量约1.94GB，新增完整checkpoint测试可能超过同一2GiB根。
+后续用显式互斥、全覆盖的回归partition分开测试产物，每job预算不变；全部分片
+实际C0与源/文件并集校验后才授整树通过，不删除旧测试产物或扩大默认输出限额。
+
+## 后续整合与真实闭合（2026-10-25）
+
+可选导出8130b37的478–481整树2,285 passed/1 skip；precision整合bdd03f4的
+498–501整树2,294 passed/1 skip；proxy计划整合e692e69的506–509整树
+2,306 passed/1 skip。每组四个实际CPU作业均C0，文件互斥并集完整且源码不变。
+决策证据39项在483通过；独立分支ee843b0的502–505整树2,319 passed/1 skip。
+当前合并后整树验收另行执行，不把分支通过冒作合并后通过。
+
+438/3090 A00从零完整20批和500更新通过，C0/4244秒。457/5090 A06 fused
+AdamW实际FAILED/1:0/2272秒：20批通过，500轨迹中477点超过原1e-3门槛，
+不采用该选项且无导出。485优化器独立合成梯度诊断C0/41秒，不能代替原真实轨迹。
+486/5090新A00控制C0/2332秒，完整20批/500更新后导出512x6权重；READY仍标
+待外层终态核验，启动真实512面板前另做只读准入，不复用失败457。
+
+487独立B3原生SDK核验实际C0/7秒，完整170,299 native记录、56,738 history，
+clean EOF和退出0，逐指标匹配。原437报告的待核验字段不回写；独立证书与原SDK
+SHA绑定。B3仍仅384维历史流程验证，不作架构选择或512维运行时间证据。
+
+477元数据准备实际C0/146秒、几何解码0。482 C2真实拟合FAILED/1:0/1648秒，
+只解码8,192条TRAIN/436,120 atoms，在原LSQR检查处失败，未读取验证几何。
+旧runner未保存实际stop/iteration，不能断言耗尽500步或归因。原失败保留；后续
+仅TRAIN诊断须另固定源码/规则，不把诊断或更换求解器结果冒作v1基线通过。
+
+513和514分别完成独立进程的CPU bf16合成CLI及恢复，实际C0/16秒和C0/13秒；
+原生SDK与恢复lineage仍待独立核验，不构成D-5真实20k代理或B精度验收。
+
+决策证据整合0e23364的517–520整树2,345 passed/1 skip、100文件并集完整；
+四个CPU父作业实际C0，独立完整证书decisions_postmerge_full_v1.json。
+521新专项测试C0/204秒，sample-budget23与C2报告23全部PASS且源SHA不变，
+监督器remaining=[]/first_failure=null、private sampling failure=null。
+样本预算分支686f9d3的528–531整树2,317 passed/1 skip；当前合并后另测。
+新API补齐非原milestone的最终样本预算保存、逐样本边界、恢复与不可变评估outbox；
+没有默认6M或WSD分叉，也不授予D输入权威或实际训练验收。
+
+522 primary512首次CPU准备实际FAILED/1:0/196秒：原make_request文件引用
+仅含path/SHA，而READY另含bytes，直接字典比较被拒。没有读取下游目标或执行
+GPU面板。v1与失败保留，修复用新v2和真实接口形状测试，不削弱原字节核验。
+525在5090执行已公开预注册的A05 compile-only20/500验证，尚无科学结果。
+另现场核实node22 GPU有其他用户gmx进程，不投本次任务、不改变其作业。
+
+样本预算整合5f96bf2的533–536全量回归2,368 passed/1 CUDA skip、101文件并集
+完整，四个父作业实际C0、源SHA不变。537 primary512启动器v2的30项真实接口
+形状/拒绝检查全部PASS，C0/7秒；540重新CPU准备，不复用522的partial目录。
+公开B3完整18单元聚合报告和一行run摘要，保留负单元/单seed/384维/显存计数器
+范围等限制。实际执行的profiler-v2、9638 evaluator、B3独立核验器和已测primary512
+v2工具字节快照保存在tools/model_v3/analysis_sources/executed_methods_20261025，
+SOURCE_PINS逐文件绑定原路径/执行SHA，原冻结目录不改；不声称副本已搬迁执行。
+
+544实际primary512面板使用540闭合的新v2请求启动，完整选中TRAIN人口不变，
+候选和匹配随机均512×6、18单元及1,000 bootstrap，尚待真实结果与独立SDK核验。
+525 compile在20批阶段实际CUDA OOM/85%保护FAILED，C0门槛未授；546关闭主干
+checkpoint同GPU原batch也因85%容量失败（FAILED/39秒）。细节与失败原件见
+02_A_actual_runs_20261025.md。549关闭头部checkpoint另测，未预判数值或速度。
+
+550因Root测试清单将三条路径拼成一条而在pytest前FAILED/1秒；原错误清单与失败
+保留。新独立清单551实际C0/6秒，C2 TRAIN诊断20项全部PASS、源前后相同，
+supervisor remaining=[]/first_failure=null。新诊断协议与精确源已固定；须本提交
+公开后才实际重放TRAIN，不读验证，不改原482失败或猜测其未保存的stop。
