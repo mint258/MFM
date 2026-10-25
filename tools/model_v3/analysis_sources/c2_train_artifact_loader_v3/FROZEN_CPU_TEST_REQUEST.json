@@ -1,0 +1,93 @@
+{
+    "schema":  "model_v3_C2_prior_TRAIN_artifact_loader_v3_cpu_test_request_v1",
+    "status":  "SOURCE_FROZEN_TEST_NOT_RUN",
+    "frozen_at_utc":  "2026-10-25T13:18:29.1689200Z",
+    "source_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/c2_train_artifact_loader_v3_source",
+    "proposed_git_directory":  "tools/model_v3/analysis_sources/c2_train_artifact_loader_v3",
+    "environment":  {
+                        "PYTHONPATH":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_c2/current",
+                        "C2_REQUIRE_REAL_559_METADATA":  "1"
+                    },
+    "python_arguments":  [
+                             "-B",
+                             "-m",
+                             "pytest",
+                             "-q",
+                             "-p",
+                             "no:cacheprovider",
+                             "test_accepted_train_artifact_v2.py",
+                             "test_diagnostic_registration_mapping.py"
+                         ],
+    "expected_collected_cases":  40,
+    "retained_regression_cases":  31,
+    "additional_mapping_cases":  9,
+    "required_real_closed_metadata_cases":  1,
+    "test_result":  null,
+    "real_entrypoint_executed":  false,
+    "actual_native_TRAIN_or_VAL_geometry_read":  false,
+    "actual_private_parameter_arrays_decoded":  false,
+    "closed_TRAIN_metadata_read_only":  true,
+    "prior_TRAIN_job":  "4520559",
+    "first_VAL_attempt_4520595":  "FAILED_BEFORE_OUTPUT_CREATION_NATIVE_VAL_OR_SDK",
+    "original_v1_job_4520482_remains_FAILED":  true,
+    "original_v1_stop_inferred":  false,
+    "original_v2_source_and_public_protocol_unchanged":  true,
+    "modification_scope":  "Two registration validation call paths plus mapping receipt; mathematics/builder/fit/evaluate/source selection unchanged",
+    "adoption_status":  "PREPARED_CONDITIONAL_NOT_ADOPTED",
+    "base_runtime_source_inventory_sha256":  "7b1fd593459cabf602c7888fc62eaa25e6eece4ba0e6749769cd234924c84ef4",
+    "artifact_runtime_source_inventory_sha256":  "bf5e09abbdea933c0b6576836768106fab87d1f206f930726f28b0a22adc1633",
+    "source_files":  [
+                         {
+                             "path":  "accepted_train_artifact_v2.py",
+                             "bytes":  26653,
+                             "sha256":  "704f2683fcb9751102712d639b1ffc1a4b8f218d1b9f3257b0fe2b3e4dede12b"
+                         },
+                         {
+                             "path":  "coordinate_baseline_v2.py",
+                             "bytes":  29473,
+                             "sha256":  "ffaba07c79e5acb74f90d4f732df10d7e81d89ad7468f04ee35800928e5c05b7"
+                         },
+                         {
+                             "path":  "core_capture.py",
+                             "bytes":  8392,
+                             "sha256":  "9ac5b4be9a029a093419d0d6cb92673b3f89ca41a4a02e21b8c07f9a8fe33cd3"
+                         },
+                         {
+                             "path":  "diagnose_coordinate_lookup.py",
+                             "bytes":  21986,
+                             "sha256":  "7c78234b333dddd87ff5efd0927cf9f25642f455e6c31ca73c9abb936ed1e781"
+                         },
+                         {
+                             "path":  "solver_math.py",
+                             "bytes":  9409,
+                             "sha256":  "e0cf8ef6859d026e8dc6c260718f0c5ddc368779097fa48405572f1f26f79472"
+                         },
+                         {
+                             "path":  "test_accepted_train_artifact_v2.py",
+                             "bytes":  18494,
+                             "sha256":  "cae66b745508b4610bd352af773c0ab40c89f3692ac7adb28c3701d2210cfc34"
+                         },
+                         {
+                             "path":  "test_diagnostic_registration_mapping.py",
+                             "bytes":  5395,
+                             "sha256":  "f37b7c3cbaee430b9810c547b4dcd71aaf46bcd08a570dbab19ca85f2105f87d"
+                         },
+                         {
+                             "path":  "frozen_diagnostic_protocol.json",
+                             "bytes":  3134,
+                             "sha256":  "415f1fa96d0a510fa5c7eeeca381b27603edecba6d27ac1b01bc43712e847961"
+                         },
+                         {
+                             "path":  "prior_TRAIN_artifact_v2_protocol.json",
+                             "bytes":  5672,
+                             "sha256":  "b7a76cbbdf285a18fabf75e82185d2ccf3947205757eab612913bdf5c2d4151a"
+                         },
+                         {
+                             "path":  "README.md",
+                             "bytes":  12401,
+                             "sha256":  "6155290a439707c5a693b01e5e6deec0e77544f5b376376fa18e97d3aa02dd78"
+                         }
+                     ],
+    "submitter":  "Root only",
+    "real_execution_requires":  "Actual CPU old+new tests; real559 closed-chain and existing TRAIN-artifact-only preflight with no Source or native geometry; new public ADOPTED protocol before next first-VAL attempt"
+}
