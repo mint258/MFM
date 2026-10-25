@@ -1,0 +1,326 @@
+{
+    "schema":  "EA_CANONICAL_BOUNDED_DIAGNOSTIC_V1",
+    "status":  "PREPARED_NOT_SCIENTIFICALLY_EXECUTED_NO_NEW_MASK_RULE",
+    "workers":  16,
+    "memory_gib":  32,
+    "wall_seconds":  3600,
+    "output_cap_bytes":  67108864,
+    "external_output_root":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/ea_diagnostic_v1",
+    "source_file_bytes_cap":  1073741824,
+    "source_batch_records":  16,
+    "worker_rss_stop_bytes":  1073741824,
+    "worker_report_cap_bytes":  4194304,
+    "raw_call_cap_bytes":  4194304,
+    "raw_total_cap_bytes":  16777216,
+    "support_source":  {
+                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/support.py",
+                           "bytes":  6469,
+                           "sha256":  "b2626f2e5e231b57baea17201a9d13231d9eb17cd3581c225cb3215de8421f8f"
+                       },
+    "archive_reader_v4":  {
+                              "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_archive_v4.py",
+                              "bytes":  32161,
+                              "sha256":  "56039c79a353a0c2c1459add065f6aa46ca0514e2b8bee18fbf5ccd97c94939b"
+                          },
+    "archive_reader_v5":  {
+                              "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_archive_v5.py",
+                              "bytes":  23925,
+                              "sha256":  "3ef37935402fffc9a5111f0dd6b942b279f42581cdea9aeea1a358169d766477"
+                          },
+    "dictionary_manifest":  {
+                                "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/dictionaries/job_4513894/dictionary_manifest.json",
+                                "bytes":  1184015,
+                                "sha256":  "b294cf8f1f0440999e5814728eda14678e0e470c93b1ecdc1f23ceceefa17e9c"
+                            },
+    "scf_metadata":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_scf_metadata_v2.py",
+                         "bytes":  8410,
+                         "sha256":  "565c55a2b63ce0de7a7c84302b69cccc0bffe5afb2516cb0df4013bbbf54d64a"
+                     },
+    "physical_registry":  {
+                              "path":  "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/manifests/registry_physical_summary_v1.json",
+                              "bytes":  111106,
+                              "sha256":  "84cec939025e55d41050abb83db64496848c0c7b191f7b171d7d1ca8ed83419a"
+                          },
+    "protocol":  {
+                     "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+                     "bytes":  18720,
+                     "sha256":  "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+                 },
+    "latest_molecules":  {
+                             "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/acceptance/final_20261016_v1/catalog_closed_v2/latest_molecules.parquet",
+                             "bytes":  30233309,
+                             "sha256":  "c6ea21ab66b62415011fb71f475a803c895418d5a8b69a31302d7ac3805c1d80"
+                         },
+    "metadata_sources":  [
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/sb3_catalog_projection_v1/source_files.json",
+                                 "bytes":  1010451,
+                                 "sha256":  "2ace0ded289e1bd63a16ea919cbae777c5bc177df3cc5924c983fb94dbcbeb5d"
+                             },
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/acceptance/final_20261016_v1/D20_failure_aware_v2_4515602/verification_report.json",
+                                 "bytes":  1442624,
+                                 "sha256":  "ce9b58e988f66f8a402dc93eeb050a8f7b55317cfe37db3c3b1f08dd7b2045e5"
+                             },
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/reports/xtb_EA_actual_probe_closed_excerpt_v1.json",
+                                 "bytes":  8522,
+                                 "sha256":  "de6086ae5db3139a4ad8933737e277674282c8b49069ca77f4bd51daf5e82f87"
+                             },
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/reports/xtb_EA_sample_outliers_v1_4520167/EA_sample_outlier_report.json",
+                                 "bytes":  30071,
+                                 "sha256":  "cf8bf17b3ba899cd79444f11b05720974d7872414ab2bdf6b23b361f2ef21864"
+                             },
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/reports/xtb_EA_static_validity_review_v1.json",
+                                 "bytes":  7771,
+                                 "sha256":  "1d3d644dbafd2c31c003815c34f27acb42d82b978327c5c9fe5bbb1428c0ab31"
+                             },
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_25/job_4513984_723c3140/run.json",
+                                 "bytes":  8422,
+                                 "sha256":  "4f0f0e55cd050467bd8913370fb4f00b1172c1616991ef652cae84353669f4be"
+                             },
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_10/job_4515374_f13c04b3/run.json",
+                                 "bytes":  8439,
+                                 "sha256":  "7dc8cfc192df7470df0f9cec4d5499b2b567a46332bb8d0c3586a2b57a7bd2dd"
+                             },
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_11/job_4514439_69c7a572/run.json",
+                                 "bytes":  8439,
+                                 "sha256":  "a09342feacf12825d082a93dcaa97dc35b3a38b7b940373aad80e9e0a06c5f0b"
+                             },
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_parser_v2.py",
+                                 "bytes":  6892,
+                                 "sha256":  "33d5cb65429f6f969d8739c2f244cf8249f35d23792dca4e73cd52ffe4eaaf6f"
+                             },
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_parser.py",
+                                 "bytes":  7795,
+                                 "sha256":  "aafa3c2808ccfa3a6bcea49f9807563351f0252e5e9f7cd57d86e40ddc291aa3"
+                             },
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/wp4_parsers.py",
+                                 "bytes":  20763,
+                                 "sha256":  "66938afa8d3d7b7f51e8922c875c0987687a865a97cb1591d6f6c511b38098e0"
+                             },
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_engine_v3.py",
+                                 "bytes":  31025,
+                                 "sha256":  "53c09b68938ead8449f0da2ec7a03337df3125826080ece58fabe107cdd9f26b"
+                             }
+                         ],
+    "expected_task_args":  {
+                               "xtb_singlepoint":  [
+                                                       "--gfn",
+                                                       "2",
+                                                       "--chrg",
+                                                       "0",
+                                                       "--uhf",
+                                                       "0"
+                                                   ],
+                               "xtb_vipea":  [
+                                                 "--gfn",
+                                                 "1",
+                                                 "--vipea",
+                                                 "--chrg",
+                                                 "0",
+                                                 "--uhf",
+                                                 "0"
+                                             ]
+                           },
+    "frozen_Eh_to_eV":  27.211386245988,
+    "cases":  [
+                  {
+                      "sample_position":  188273,
+                      "record_id":  "principal_01200001_01500000.lmdb:401413",
+                      "molecule_id":  "principal_01308749",
+                      "attempt_id":  0,
+                      "job_id":  4513984,
+                      "task_id":  "25",
+                      "ordinal":  3179453,
+                      "EA_eV":  8791.0184,
+                      "IP_eV":  6.817
+                  },
+                  {
+                      "sample_position":  50973,
+                      "record_id":  "principal_01200001_01500000.lmdb:411535",
+                      "molecule_id":  "principal_01308749",
+                      "attempt_id":  0,
+                      "job_id":  4513984,
+                      "task_id":  "25",
+                      "ordinal":  3187792,
+                      "EA_eV":  8791.0184,
+                      "IP_eV":  6.817
+                  },
+                  {
+                      "sample_position":  98549,
+                      "record_id":  "principal_00000001_00300000.lmdb:94634",
+                      "molecule_id":  "principal_00014116",
+                      "attempt_id":  0,
+                      "job_id":  4515374,
+                      "task_id":  "10",
+                      "ordinal":  951141,
+                      "EA_eV":  5737.3021,
+                      "IP_eV":  9.5536
+                  },
+                  {
+                      "sample_position":  124321,
+                      "record_id":  "principal_00600001_00900000.lmdb:1070786",
+                      "molecule_id":  "principal_00671474",
+                      "attempt_id":  0,
+                      "job_id":  4514439,
+                      "task_id":  "11",
+                      "ordinal":  1793094,
+                      "EA_eV":  5633.8674,
+                      "IP_eV":  9.0408
+                  },
+                  {
+                      "sample_position":  163130,
+                      "record_id":  "principal_00000001_00300000.lmdb:25895",
+                      "molecule_id":  "principal_00004385",
+                      "attempt_id":  0,
+                      "job_id":  4514439,
+                      "task_id":  "11",
+                      "ordinal":  426986,
+                      "EA_eV":  5545.9323,
+                      "IP_eV":  10.0017
+                  },
+                  {
+                      "sample_position":  72537,
+                      "record_id":  "principal_01200001_01500000.lmdb:236073",
+                      "molecule_id":  "principal_01252963",
+                      "attempt_id":  0,
+                      "job_id":  4514439,
+                      "task_id":  "11",
+                      "ordinal":  3047377,
+                      "EA_eV":  5457.6039,
+                      "IP_eV":  8.7776
+                  },
+                  {
+                      "sample_position":  39420,
+                      "record_id":  "principal_00000001_00300000.lmdb:12191",
+                      "molecule_id":  "principal_00002427",
+                      "attempt_id":  0,
+                      "job_id":  4514439,
+                      "task_id":  "11",
+                      "ordinal":  194916,
+                      "EA_eV":  3308.3762,
+                      "IP_eV":  10.635
+                  }
+              ],
+    "sources":  [
+                    {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_11/job_4514439_69c7a572/parquet/group_1/xtb_vipea.parquet",
+                        "sha256":  "e2a55690030645f92f3ee46490edc02fe8cb066a812151bc13df90e4b0dea967",
+                        "bytes":  7742135,
+                        "family":  "xtb_vipea",
+                        "rows":  14570,
+                        "latest_rows":  14570,
+                        "worker_pid":  4137951,
+                        "seconds":  4.837697234004736,
+                        "source_job_id":  4514439,
+                        "source_file_group":  1,
+                        "inherited_full_readback_verified":  true
+                    },
+                    {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_11/job_4514439_69c7a572/parquet/group_1/xtb_singlepoint.parquet",
+                        "sha256":  "aad01d11cb8566ff409a9968254156752eab189fa87255bfd3713ce99bc03c3f",
+                        "bytes":  17921357,
+                        "family":  "xtb_singlepoint",
+                        "rows":  14570,
+                        "latest_rows":  14570,
+                        "worker_pid":  4137945,
+                        "seconds":  8.166649613529444,
+                        "source_job_id":  4514439,
+                        "source_file_group":  1,
+                        "inherited_full_readback_verified":  true
+                    },
+                    {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_10/job_4515374_f13c04b3/parquet/group_1/xtb_vipea.parquet",
+                        "sha256":  "9b7908cdd1e9ba71cc0f81196813d956f5447d8bde713f4932067eab93a849f8",
+                        "bytes":  158918463,
+                        "family":  "xtb_vipea",
+                        "rows":  320352,
+                        "latest_rows":  320352,
+                        "worker_pid":  4137918,
+                        "seconds":  217.70515586063266,
+                        "source_job_id":  4515374,
+                        "source_file_group":  1,
+                        "inherited_full_readback_verified":  true
+                    },
+                    {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_10/job_4515374_f13c04b3/parquet/group_1/xtb_singlepoint.parquet",
+                        "sha256":  "08464654959d14482c3965c3647e544ea1b8cf1b8f9b7b97579258813b2cbee3",
+                        "bytes":  469415288,
+                        "family":  "xtb_singlepoint",
+                        "rows":  320352,
+                        "latest_rows":  320352,
+                        "worker_pid":  4137964,
+                        "seconds":  653.0902223922312,
+                        "source_job_id":  4515374,
+                        "source_file_group":  1,
+                        "inherited_full_readback_verified":  true
+                    },
+                    {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_25/job_4513984_723c3140/parquet/group_3/xtb_vipea.parquet",
+                        "sha256":  "d0619ccb665c7b14131164816f32ba593d4ce1b5e301a9b94fb49b3b77c2d60d",
+                        "bytes":  13360271,
+                        "family":  "xtb_vipea",
+                        "rows":  26941,
+                        "latest_rows":  26941,
+                        "worker_pid":  4138054,
+                        "seconds":  10.403051663190126,
+                        "source_job_id":  4513984,
+                        "source_file_group":  3,
+                        "inherited_full_readback_verified":  true
+                    },
+                    {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_25/job_4513984_723c3140/parquet/group_3/xtb_singlepoint.parquet",
+                        "sha256":  "ee7d88967f714c21503886c8c5664fd80f09aa873f6f8cf2e1e51ef50ac2aa3d",
+                        "bytes":  70304247,
+                        "family":  "xtb_singlepoint",
+                        "rows":  26941,
+                        "latest_rows":  26941,
+                        "worker_pid":  4137982,
+                        "seconds":  30.66598980128765,
+                        "source_job_id":  4513984,
+                        "source_file_group":  3,
+                        "inherited_full_readback_verified":  true
+                    }
+                ],
+    "archives":  [
+                     {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_11/job_4514439_69c7a572/raw_archive.sqlite",
+                         "bytes":  85155840,
+                         "sha256":  "398370dc719da84091570aca0d4b1ed05f3e6371f6c554979571261ff66e90fd",
+                         "job_id":  4514439,
+                         "family":  "raw_archive",
+                         "content_sha256_basis":  "INHERITED_CLOSED_FULL_READBACK_NOT_FRESHLY_REHASHED"
+                     },
+                     {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_10/job_4515374_f13c04b3/raw_archive.sqlite",
+                         "bytes":  2154049536,
+                         "sha256":  "61d4b4e6499aae2ceba701b2df3f17673c75f9b22ba2e7e83cfe07a10c357dba",
+                         "job_id":  4515374,
+                         "family":  "raw_archive",
+                         "content_sha256_basis":  "INHERITED_CLOSED_FULL_READBACK_NOT_FRESHLY_REHASHED"
+                     },
+                     {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_25/job_4513984_723c3140/raw_archive.sqlite",
+                         "bytes":  446398464,
+                         "sha256":  "829c3285f5b239f77dd3779cad23880d408be2f16de5114a2dd034de8d6c628c",
+                         "job_id":  4513984,
+                         "family":  "raw_archive",
+                         "content_sha256_basis":  "INHERITED_CLOSED_FULL_READBACK_NOT_FRESHLY_REHASHED"
+                     }
+                 ],
+    "guide_approximately_390_count":  "GUIDE_ASSERTION_SCOPE_NOT_REESTABLISHED_BY_THIS_7_CASE_PROBE",
+    "scientific_scope":  "7 known sample records, exact latest canonical owners; source TRAIN audit evidence, no final fit authority",
+    "full_common_population_frozen":  false,
+    "new_mask_policy":  "NONE; NULL, magnitude and cross-method comparisons are review evidence only"
+}
