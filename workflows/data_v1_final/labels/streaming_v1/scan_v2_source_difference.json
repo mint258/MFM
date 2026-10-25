@@ -1,0 +1,16 @@
+{
+  "status": "PREPARED_RESOURCE_ONLY_VARIANT_NOT_YET_PROBED",
+  "baseline": {"file": "scan.py", "bytes": 23094, "sha256": "88db75cde8fd79903387bbc37bf4b1cf3fda7c5c485d16d9a7dab6dd5d18c773"},
+  "variant": {"file": "scan_v2.py", "bytes": 23173, "sha256": "d072df4468d7a502f713df35f17bdc399190143843d3b9bdb2c006a341384786"},
+  "exact_inserted_bytes_utf8": "    import pyarrow as pa\n    pa.set_cpu_count(1)\n    pa.set_io_thread_count(1)\n",
+  "insertion_location": "At the start of init_worker, immediately before common,masks=legacy(cfg)",
+  "difference_bytes": 79,
+  "reconstruction_rule": "Remove this exact unique insertion once from scan_v2.py; all remaining bytes must equal scan.py",
+  "scientific_logic_changes": false,
+  "preserved": ["source ownership matching", "field map", "mask and review thresholds", "TRAIN eligibility", "radix ranks", "TSQR", "Spearman", "audit sampling", "output schema", "coverage proof"],
+  "baseline_config": {"file": "streaming_v1.json", "bytes": 4022, "sha256": "92445408cf6a64de2e3b30e41cb0ee99136046acaf6f4848faeb3e8b80694bb3"},
+  "variant_config": {"file": "streaming_v2.json", "bytes": 6532, "sha256": "ea147386c388f9ab726aec412215fe67e6a90637334e791fe40ff305de97b4de"},
+  "config_semantic_difference": "Only added scan_driver reference and worker_arrow_limits={cpu:1,io:1}; all other JSON values must equal baseline",
+  "baseline_validation": {"job_id": "4520361", "tests": 19, "state": "COMPLETED", "exit_code": "0:0", "elapsed_seconds": 14, "allocated_cpus": 16},
+  "followup_validation": "probe_arrow_v2.py exercises the production initializer and tiny parallel-row-group Parquet reads in 16 actual workers; it does not read real science labels or repeat all 19 baseline tests"
+}
