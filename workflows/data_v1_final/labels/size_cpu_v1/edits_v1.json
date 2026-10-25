@@ -1,0 +1,44 @@
+{
+  "schema": "SIZE_CPU_CONTROL_ONLY_EDITS_V1",
+  "files": {
+    "aggregate.py": [],
+    "build_proposal.py": [],
+    "rank_sql.py": [
+      {"kind": "checkpoint_import", "old": "from size_shared import path_list,sqlstr\n", "new": "from size_shared import path_list,sqlstr,checkpoint,checkpoint_iter\n"},
+      {"kind": "checkpoint", "old": "def rho(db,paths,target,variant):\n", "new": "def rho(db,paths,target,variant):\n    checkpoint()\n"},
+      {"kind": "checkpoint", "old": "for batch in batches:", "new": "for batch in checkpoint_iter(batches):"},
+      {"kind": "checkpoint", "old": "    batches=db.execute(", "new": "    checkpoint()\n    batches=db.execute("}
+    ],
+    "run_size.py": [
+      {"kind": "checkpoint_import", "old": "semantic_sha,source_inputs,unique_bytes)\n", "new": "semantic_sha,source_inputs,unique_bytes,checkpoint,checkpoint_iter)\n"},
+      {"kind": "checkpoint", "old": "def pass_run(cfg,source_cfg,plan,targets,jobs,phase,models,out):\n", "new": "def pass_run(cfg,source_cfg,plan,targets,jobs,phase,models,out):\n    checkpoint()\n"},
+      {"kind": "checkpoint", "old": "pool.map(run,jobs,chunksize=1)", "new": "pool.map(run,checkpoint_iter(jobs),chunksize=1)"},
+      {"kind": "checkpoint", "old": "def models_from(rows,targets,scope):\n", "new": "def models_from(rows,targets,scope):\n    checkpoint()\n"},
+      {"kind": "checkpoint", "old": "        for t in targets:\n", "new": "        for t in checkpoint_iter(targets):\n"}
+    ],
+    "size_reader.py": [
+      {"kind": "checkpoint_import", "old": "from support import identity,load,require\n", "new": "from support import identity,load,require,checkpoint,checkpoint_iter\n"},
+      {"kind": "checkpoint", "old": "def rows_for_group(adapter, source_cfg, plan, group, mask_receipt, fit_side=None):\n", "new": "def rows_for_group(adapter, source_cfg, plan, group, mask_receipt, fit_side=None):\n    checkpoint()\n"},
+      {"kind": "checkpoint", "old": "for index,pin in enumerate(group[\"label_files\"]):", "new": "for index,pin in enumerate(checkpoint_iter(group[\"label_files\"])):"},
+      {"kind": "checkpoint", "old": "for batch in pq.ParquetFile(require(mask_files[name])).iter_batches(batch_size=4096,use_threads=False):", "new": "for batch in checkpoint_iter(pq.ParquetFile(require(mask_files[name])).iter_batches(batch_size=4096,use_threads=False)):"}
+    ],
+    "size_shared.py": [
+      {"kind": "binding", "old": "LABELS/\"streaming_v1\"", "new": "LABELS/\"streaming_cpu_v1\""},
+      {"kind": "binding", "old": "LABELS/\"normalization_v1\"", "new": "LABELS/\"size_cpu_v1\"/\"_normalization\""},
+      {"kind": "checkpoint_import", "old": "root_guard,save,sqlstr,unique_bytes,write_blob)\n", "new": "root_guard,save,sqlstr,unique_bytes,write_blob,checkpoint,checkpoint_iter)\n"},
+      {"kind": "checkpoint", "old": "def adapter_from(pin,source_cfg,plan,out,barrier,event):\n", "new": "def adapter_from(pin,source_cfg,plan,out,barrier,event):\n    checkpoint()\n"},
+      {"kind": "checkpoint", "old": "def source_inputs(cfg):\n", "new": "def source_inputs(cfg):\n    checkpoint()\n"},
+      {"kind": "checkpoint", "old": "for pin in scan[\"group_receipts\"]:", "new": "for pin in checkpoint_iter(scan[\"group_receipts\"]):"}
+    ],
+    "size_worker.py": [
+      {"kind": "checkpoint_import", "old": "load,require,write_blob)\n", "new": "load,require,write_blob,checkpoint)\n"},
+      {"kind": "checkpoint", "old": "def initialize(cfg,source_cfg,plan,targets,out,barrier,event,phase,models):\n", "new": "def initialize(cfg,source_cfg,plan,targets,out,barrier,event,phase,models):\n    checkpoint()\n"},
+      {"kind": "checkpoint", "old": "def _run(job):\n", "new": "def _run(job):\n    checkpoint()\n"},
+      {"kind": "checkpoint", "old": "    if phase==\"rho\":\n        for (tid,mid),values in sorted(candidate.items()):", "new": "    if phase==\"rho\":\n        checkpoint()\n        for (tid,mid),values in sorted(candidate.items()):"}
+    ],
+    "_normalization/runtime.py": [
+      {"kind": "binding", "old": "STREAM = Path(__file__).resolve().parents[1] / \"streaming_v1\"", "new": "STREAM = Path(__file__).resolve().parents[2] / \"streaming_cpu_v1\""}
+    ],
+    "_normalization/reader.py": []
+  }
+}

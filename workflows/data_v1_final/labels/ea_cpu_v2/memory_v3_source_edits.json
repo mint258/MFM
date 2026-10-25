@@ -1,0 +1,69 @@
+{
+    "schema":  "EA_WORKER_MEMORY_DIAGNOSTIC_SOURCE_EDITS_V3",
+    "baseline_actual_root_reference":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/ea_cpu_v2/bounded_probe.py",
+                                           "bytes":  21592,
+                                           "sha256":  "bf6e2c2cf86cfd788816356971f8aa0be7fc800174460cb063be76a049a5f4d7"
+                                       },
+    "prepared_child_variant_reference":  {
+                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/sb3/workflows/data_v1_final/labels/ea_cpu_v2/bounded_probe_v3.py",
+                                             "bytes":  26530,
+                                             "sha256":  "7f5d172aa5eab045ef0bbca6aec0c4ac39ceb25090fa05d4932497597a0a18cc"
+                                         },
+    "intended_root_variant_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/ea_cpu_v2/bounded_probe_v3.py",
+    "metadata_helper_actual_root_reference":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/cpu_variants_v2/materialize_requests_v2.py",
+                                                  "bytes":  18733,
+                                                  "sha256":  "116373ab6b4073cfa2482309ff3afbf500fb21b4bc4aa793aa4f4764f7aee087"
+                                              },
+    "edits":  [
+                  {
+                      "new":  "STATE = {}\n\n# BEGIN EA_WORKER_MEMORY_DIAGNOSTICS_V3\nMEMORY = {}\n\n\ndef _memory_snapshot(stage, **context):\n    \"\"\"Read only this worker\u0027s process metadata, not scientific source bodies.\"\"\"\n    with Path(\"/proc/self/status\").open(\"rb\") as stream:\n        raw = stream.read(16385)\n    if len(raw) \u003e 16384:\n        raise RuntimeError(\"EA_MEMORY_STATUS_METADATA_CAP\")\n    values = {}\n    for line in raw.decode(\"ascii\").splitlines():\n        key, _, value = line.partition(\":\")\n        if key in {\"VmRSS\", \"VmHWM\", \"VmSize\"}:\n            fields = value.split()\n            if len(fields) != 2 or fields[1] != \"kB\" or not fields[0].isdigit():\n                raise RuntimeError(\"EA_MEMORY_STATUS_UNIT_OR_VALUE\")\n            values[key] = int(fields[0]) * 1024\n    if set(values) != {\"VmRSS\", \"VmHWM\", \"VmSize\"}:\n        raise RuntimeError(\"EA_MEMORY_STATUS_FIELDS_MISSING\")\n    with Path(\"/proc/self/statm\").open(\"rb\") as stream:\n        statm = stream.read(1025)\n    if len(statm) \u003e 1024 or len(statm.split()) \u003c 2:\n        raise RuntimeError(\"EA_MEMORY_STATM_METADATA_CAP_OR_FIELDS\")\n    return {\"pid\": os.getpid(), \"ppid\": os.getppid(), \"stage\": stage,\n            \"observed_monotonic_seconds\": time.monotonic(),\n            \"ru_maxrss_bytes\": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024,\n            \"current_status_VmRSS_bytes\": values[\"VmRSS\"], \"current_mm_VmHWM_bytes\": values[\"VmHWM\"],\n            \"virtual_size_bytes\": values[\"VmSize\"],\n            \"current_statm_RSS_bytes\": int(statm.split()[1]) * os.sysconf(\"SC_PAGE_SIZE\"),\n            \"context\": context}\n\n\ndef _memory_note(stage, **context):\n    sample = _memory_snapshot(stage, **context)\n    MEMORY[stage] = sample\n    for name in (\"ru_maxrss_bytes\", \"current_status_VmRSS_bytes\", \"current_mm_VmHWM_bytes\", \"current_statm_RSS_bytes\"):\n        MEMORY.setdefault(\"observed_maxima_bytes\", {})[name] = max(\n            MEMORY.get(\"observed_maxima_bytes\", {}).get(name, 0), sample[name])\n    return sample\n\n\ndef _memory_write(kind, extra=None):\n    \"\"\"At most one \u003c=32KiB initial and one \u003c=32KiB failure file per worker.\"\"\"\n    from workflows.data_v1_final.labels.streaming_cpu_v2.support import budget\n    if kind not in {\"initial\", \"failure\"}:\n        raise ValueError(\"EA_MEMORY_DIAGNOSTIC_KIND_NOT_BOUNDED\")\n    cfg, output = MEMORY[\"configuration\"], MEMORY[\"output\"]\n    result = {\"schema\": \"EA_WORKER_MEMORY_DIAGNOSTIC_V3\", \"kind\": kind, \"pid\": os.getpid(),\n              \"worker_rss_stop_bytes_unchanged\": cfg[\"worker_rss_stop_bytes\"],\n              \"guard_basis_unchanged\": \"resource.getrusage(RUSAGE_SELF).ru_maxrss*1024\",\n              \"metadata\": {key: value for key, value in MEMORY.items() if key not in {\"configuration\", \"output\"}},\n              \"extra\": extra, \"scientific_values_or_scope_changed\": False}\n    body = (json.dumps(result, allow_nan=False, sort_keys=True) + \"\\n\").encode()\n    if len(body) \u003e 32768:\n        raise RuntimeError(\"EA_WORKER_MEMORY_DIAGNOSTIC_32KIB_CAP\")\n    budget(output, cfg[\"output_cap_bytes\"] - len(body))\n    path = output / (\"worker_memory_v3_\" + str(os.getpid()) + \".\" + kind + \".json\")\n    with path.open(\"xb\") as stream:\n        stream.write(body)\n        stream.flush()\n    budget(output, cfg[\"output_cap_bytes\"])\n\n\ndef _memory_start(cfg, output):\n    target = Path(output)\n    allowed = Path(cfg[\"external_output_root\"])\n    if (not target.is_absolute() or allowed not in target.parents\n            or any(p.is_symlink() for p in (target, *target.parents))\n            or not target.is_dir() or target.stat().st_uid != os.getuid()):\n        raise ValueError(\"EA_MEMORY_EVIDENCE_NOT_OWN_EXISTING_EXTERNAL_OUTPUT\")\n    MEMORY.update(configuration=cfg, output=target)\n    _memory_note(\"initial_pre_arrow\")\n    _memory_write(\"initial\")\n\n\ndef _memory_batches(iterable, pin, row_group):\n    iterator = iter(iterable)\n    index = 0\n    while True:\n        _memory_note(\"latest_pre_batch\", source_path=pin[\"path\"], row_group=row_group, batch_index=index)\n        try:\n            batch = next(iterator)\n        except StopIteration:\n            return\n        yield batch\n        index += 1\n\n\ndef project(partition):\n    try:\n        return _project(partition)\n    except BaseException as exc:\n        try:\n            _memory_note(\"worker_exception\")\n            _memory_write(\"failure\", {\"exception\": type(exc).__name__, \"message\": str(exc)[:2000],\n                \"original_rss_guard_raised\": str(exc) == \"EA_DIAGNOSTIC_WORKER_RSS_LIMIT\"})\n        except BaseException as diagnostic_exc:\n            print(\"EA_WORKER_MEMORY_EVIDENCE_FAILED\", os.getpid(), type(diagnostic_exc).__name__,\n                  str(diagnostic_exc)[:1000], file=sys.stderr, flush=True)\n        raise\n# END EA_WORKER_MEMORY_DIAGNOSTICS_V3\n",
+                      "old":  "STATE = {}\n",
+                      "kind":  "bounded_resource_instrumentation"
+                  },
+                  {
+                      "new":  "def initialize(cfg, candidates, barrier, output):\n    checkpoint()\n    _memory_start(cfg, output)",
+                      "old":  "def initialize(cfg, candidates, barrier):\n    checkpoint()",
+                      "kind":  "bounded_resource_instrumentation"
+                  },
+                  {
+                      "new":  "    STATE.update(cfg=cfg, candidates=candidates, barrier=barrier)\n    _memory_note(\"initial_after_arrow\")",
+                      "old":  "    STATE.update(cfg=cfg, candidates=candidates, barrier=barrier)",
+                      "kind":  "bounded_resource_instrumentation"
+                  },
+                  {
+                      "new":  "def _project(partition):\n    checkpoint()",
+                      "old":  "def project(partition):\n    checkpoint()",
+                      "kind":  "bounded_resource_instrumentation"
+                  },
+                  {
+                      "new":  "        for batch in _memory_batches(checkpoint_iter(source.iter_batches(row_groups=[row_group], batch_size=cfg[\"source_batch_records\"],\n                                         columns=columns, use_threads=False)), pin, row_group):",
+                      "old":  "        for batch in checkpoint_iter(source.iter_batches(row_groups=[row_group], batch_size=cfg[\"source_batch_records\"],\n                                         columns=columns, use_threads=False)):",
+                      "kind":  "bounded_resource_instrumentation"
+                  },
+                  {
+                      "new":  "            _memory_note(\"latest_post_batch\", source_path=pin[\"path\"], row_group=row_group)\n            if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024 \u003e cfg[\"worker_rss_stop_bytes\"]:\n                raise RuntimeError(\"EA_DIAGNOSTIC_WORKER_RSS_LIMIT\")",
+                      "old":  "            if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024 \u003e cfg[\"worker_rss_stop_bytes\"]:\n                raise RuntimeError(\"EA_DIAGNOSTIC_WORKER_RSS_LIMIT\")",
+                      "kind":  "bounded_resource_instrumentation"
+                  },
+                  {
+                      "new":  "                initargs=(cfg, cases, barrier, str(output))) as pool:",
+                      "old":  "                initargs=(cfg, cases, barrier)) as pool:",
+                      "kind":  "bounded_resource_instrumentation"
+                  }
+              ],
+    "original_guard_bytes":  "            if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024 \u003e cfg[\"worker_rss_stop_bytes\"]:\n                raise RuntimeError(\"EA_DIAGNOSTIC_WORKER_RSS_LIMIT\")",
+    "original_limit_bytes":  1073741824,
+    "science_or_scope_change":  false,
+    "creation_inverse_complete_bytes_equal":  true,
+    "creation_original_guard_literal_equal":  true,
+    "actual_proof_and_science_execution":  "PENDING_ROOT",
+    "resource_evidence_bound":  {
+                                    "max_bytes_per_file":  32768,
+                                    "max_files_per_worker":  2,
+                                    "max_workers":  16,
+                                    "maximum_diagnostic_file_bytes":  1048576,
+                                    "included_in_original_output_cap_bytes":  67108864
+                                }
+}

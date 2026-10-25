@@ -1,0 +1,15 @@
+{
+  "schema": "STREAMING_CPU_V2_LOCAL_HEARTBEAT_CONTROL_IMPORT_ONLY",
+  "files": {
+    "support.py": [
+      {
+        "old": "from workflows.data_v1_final.execution.cpu_analysis_v1.runtime import root_guard as _cpu_root_guard, checkpoint",
+        "new": "from workflows.data_v1_final.execution.cpu_analysis_v1.runtime_v2 import root_guard as _cpu_root_guard, checkpoint"
+      }
+    ],
+    "scan_v2.py": [],
+    "reduce.py": [],
+    "compact.py": [],
+    "calibration.py": []
+  }
+}

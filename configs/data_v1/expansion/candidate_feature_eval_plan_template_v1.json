@@ -1,0 +1,54 @@
+{
+  "schema": "pubchem_feature_candidate_evaluation_plan_v1",
+  "status": "NOT_READY",
+  "target_cids": [7, 52, 53],
+  "candidate_evaluated_only": true,
+  "repair_applied": false,
+  "pool_modified": false,
+  "full_10k_replay_authorized": false,
+  "peak_output_cap_bytes": 33554432,
+  "output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/diagnostics/candidate_features_eval_v1",
+  "diagnostic_receipt": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/diagnostics/prefix_features_cpu_v1/receipt.json",
+    "bytes": 28347,
+    "sha256": "4fa6f7fbc6445109992955a25cc9c9149895df3e3d5f61d71e3620ebfbbec986"
+  },
+  "diagnostic_traces": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/diagnostics/prefix_features_cpu_v1/case_stage_traces.json",
+    "bytes": 132511,
+    "sha256": "2a3ee1caaafef89f3e795bf543dfe741a2767955bea01495add80e914cb762b4"
+  },
+  "diagnostic_monitor_closure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/cpu_analysis_guards/dv1_prefix_feature_diag_cpu_v1/closure.json",
+    "bytes": 1102,
+    "sha256": "bc0a8334b9839aeab84f2c54a281b14c9dc8520b17ffe866921b11509890fc50"
+  },
+  "official_scaffold_source": {
+    "url": "https://github.com/rdkit/rdkit/blob/Release_2025_09_5/rdkit/Chem/Scaffolds/MurckoScaffold.py",
+    "release_tag": "Release_2025_09_5",
+    "git_blob_sha1": "8b456b1d3ae6fcdce6b1e0e13239ff382af9efe9",
+    "kind": "OFFICIAL_SOURCE_METADATA_ONLY_NOT_A_CANDIDATE_RESULT"
+  },
+  "code_sources": [],
+  "central_runtime_references": [],
+  "required_central_versions": ["FROZEN_CPU_V1", "CPU_V2_NODE_LOCAL_BOOT_MONOTONIC"],
+  "checkpoint_frequency_reduced": false,
+  "central_heartbeat_seconds": 1,
+  "central_heartbeat_max_age_seconds": 5,
+  "quota_feed": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/pubchem_quota_feed_v1.json",
+  "budget": {
+    "cpus": 16,
+    "memory_gib": 4,
+    "wall_seconds": 3600,
+    "science_output_bytes": 33554432,
+    "guard_local_plus_global_bytes": 33554432,
+    "whole_request_peak_output_bytes": 67108864
+  },
+  "blocking_pending_items": [
+    "Root source-only non-ring AST proof and four new small candidate tests have not run",
+    "Root must bind exact new helper/entry/plan and all frozen v1 plus node-local v2 central sources and current decision/scope configs",
+    "Root must review and materialize a new CPU-only proposed-evaluation request; input is only the pinned trace, while an inherited original raw metadata reference may remain declared but is never opened",
+    "No actual candidate evaluation, full10000 replay or753-failure resolution is claimed"
+  ],
+  "all_source_decontamination_or_training_or_UFF_or_pool_release_authorized": false
+}

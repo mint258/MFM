@@ -1,0 +1,54 @@
+{
+    "prepared_manifest":  {
+                              "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/pprime/prepared_v1/prepared.json",
+                              "sha256":  "3fd2feb6adf9bc125c81fb8be07f97bdbe5737d7bb09f4690da115a8468dcfca",
+                              "bytes":  4012
+                          },
+    "resources":  {
+                      "central_scope_cap_bytes":  8589934592,
+                      "cpus":  16,
+                      "memory_gib":  32,
+                      "scientific_output_cap_bytes":  2147483648,
+                      "wall_seconds":  3600,
+                      "monitor_extra_bytes":  33554432
+                  },
+    "prepared_data_references":  [
+                                     {
+                                         "bytes":  19385976,
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/pprime/prepared_v1/pairs.jsonl",
+                                         "sha256":  "05c1a4909760189b6bfe4b47d5c7b59a3fd5ab13c7d7911e05f687c14f1cbc82"
+                                     },
+                                     {
+                                         "bytes":  1424,
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/pprime/prepared_v1/audit_selected.parquet",
+                                         "rows":  20,
+                                         "sha256":  "aef9cf4b06af8753f2a16e6d259cb5243e4582a8908c261e4c5edf1248e3cd5d"
+                                     },
+                                     {
+                                         "bytes":  470,
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/pprime/prepared_v1/audit_membership.json",
+                                         "sha256":  "d7e9a44de21545bd04ddff37d53544ced44699d9bd0df3571b4ba8a60ed7a67a"
+                                     }
+                                 ],
+    "production_membership":  false,
+    "limits":  "Only select at most4 of already closed1000 sources, render36..72 real input conditions, no quantum engine execute, embedding, optimizer, force or label evaluation",
+    "actual_QM_calls":  0,
+    "schema":  "VECTOR_PREPARE_CPU_METADATA_V1",
+    "scientific_config_mutated":  false,
+    "original_molecules":  1000,
+    "status":  "PREPARATION_METADATA_ONLY_NO_QM_EXECUTED",
+    "audit_config":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/pprime/vector_frame_audit_root_v1.json",
+                         "sha256":  "17d579c09ead14f01c747ca40d70796af1df0e6619f5ddcba334d595d94ad8fe",
+                         "bytes":  6165
+                     },
+    "pilot_config":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/pprime/pilot_v1.json",
+                         "sha256":  "be8a7571f411881f02d6889d9df7e61c36c0e57e976ea60f3f0f5ee1671d60a8",
+                         "bytes":  5982
+                     },
+    "maximum_audit_molecules":  4,
+    "source_shard_rule":  "Preserve source.shard_id independently; no fallback to legacy source.file_group; original source_record retained unchanged",
+    "scope_key":  "vector_prepare_1000",
+    "original_UFF_records":  2000
+}

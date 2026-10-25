@@ -1,0 +1,48 @@
+{
+    "schema":  "PHYSICAL_TARGET_SIZE_RHO_CONFIG_V1",
+    "scope":  "PROVISIONAL_SOURCE_TRAIN_PILOT",
+    "status":  "PREPARED_NOT_EXECUTED_NOT_FINAL_REGISTRY",
+    "workers":  16,
+    "memory_gib":  64,
+    "wall_seconds":  7200,
+    "output_cap_bytes":  8589934592,
+    "worker_rss_stop_bytes":  2684354560,
+    "worker_serialized_buffer_cap_bytes":  268435456,
+    "histogram_flush_entries":  8192,
+    "external_output_root":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/size_rho_v1",
+    "proposal_config":  {
+                            "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/labels/size_semantics_proposal_v1.json",
+                            "bytes":  3445,
+                            "sha256":  "b720150d538ef4a01718434dc1788c6381561489d73ffe151ce6fd166f5d954a"
+                        },
+    "scan_adapter":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_cpu_v1/scan_v2.py",
+                         "bytes":  23374,
+                         "sha256":  "9df8693db5c82e07e1fc63091881605fbb27b5a727a986c04ce98506ed62d8b1"
+                     },
+    "plan":  {
+                 "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/group_plan.json",
+                 "bytes":  146009,
+                 "sha256":  "065f6adc6615b8f281bc7373a30fe928d3bb971b5044928ffa01854ce262cc13"
+             },
+    "mask_scan":  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/scan_manifest.json",
+                      "bytes":  5916,
+                      "sha256":  "7b6633864a1142da21a6e74311655f0807551557a97da2823aa037e848811e7c"
+                  },
+    "mask_reduction":  {
+                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/reduction_profile_v2/reduction.json",
+                           "bytes":  62815,
+                           "sha256":  "7e60dbc5fa90cf810673c6138789f74bc7294c845d65346b193c743ac3cbc779"
+                       },
+    "expected_pilot":  {
+                           "records":  4251,
+                           "molecules":  512,
+                           "groups":  16,
+                           "coverage_fingerprint":  "cdff29d469c2a59e51859c429d31bec502e08e1c2884b819b870080c9f9b76bc"
+                       },
+    "final_authority":  null,
+    "final_dataset_manifest":  null,
+    "Pprime":  "PENDING_INDEPENDENT_UFF_SOURCE_NO_PM7_STATISTIC_SUBSTITUTION",
+    "family_freeze_policy":  "never automatic; sigma_pi BASIS_INVARIANCE_UNPROVEN always blocks final family from its candidate rho"
+}

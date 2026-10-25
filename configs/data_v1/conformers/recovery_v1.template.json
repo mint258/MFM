@@ -1,0 +1,91 @@
+{
+    "schema":  "SPRIME_MISSING_RECOVERY_PLAN_V1",
+    "status":  "PENDING_ROOT_BUDGET_AND_RESOURCE_REVIEW",
+    "original_job_id":  "4520364",
+    "expected_original_molecules":  336,
+    "expected_missing_molecules":  {
+                                       "principal_01112964":  7,
+                                       "principal_00509656":  10
+                                   },
+    "replay_control_count":  14,
+    "replay_control_ids":  [
+                               "molecule_01606082",
+                               "molecule_01615623",
+                               "molecule_01804718",
+                               "molecule_01823221",
+                               "molecule_02018876",
+                               "molecule_02020123",
+                               "molecule_02020694",
+                               "molecule_02057379",
+                               "molecule_02060876",
+                               "molecule_02213796",
+                               "molecule_02441508",
+                               "molecule_02605161",
+                               "molecule_02822486",
+                               "molecule_02836677"
+                           ],
+    "replay_control_selection":  "lexicographically_first14_closed_SUCCESS_with_new_real_accepted_count_gt0",
+    "partial_audit_report":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/conformers/partial_pilot_audit_v1/audit_v1/audit_report.json",
+                                 "bytes":  37509,
+                                 "sha256":  "9fb99edd7fb447949be3d2e7e113c30d4fc8e5529ab83864aa79f4934cdf21a2"
+                             },
+    "partial_audit_monitor_closure":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/cpu_analysis_guards/dv1_partial_sprime_audit_cpu_v3/closure.json",
+                                          "bytes":  1991,
+                                          "sha256":  "f62a895c00a202533de69af35377c8b9f8c60baa7c8853f76c29d09791477437"
+                                      },
+    "recipe_config":  {
+                          "bytes":  3629,
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/conformers/pilot_v1.json",
+                          "sha256":  "cfd153fb524ad823d3903b0ff7d78e402bbbcb74e124136b4bfeb3035279407a"
+                      },
+    "tasks_reference":  {
+                            "bytes":  4912072,
+                            "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/conformers/prepared_v1/tasks.jsonl",
+                            "sha256":  "d10c09845799fa1d54945e93f6b22458030d7c45303adb59305b0ef2174d8917"
+                        },
+    "workers":  16,
+    "cpus":  16,
+    "memory_gib":  64,
+    "allowed_generation_nodes":  [
+                                     "compute-0-14",
+                                     "compute-0-15",
+                                     "compute-0-16",
+                                     "compute-0-17",
+                                     "compute-0-18",
+                                     "compute-0-19"
+                                 ],
+    "memory_policy":  "ORIGINAL_ALL_USER_POSITIVE_DECLARATIONS85_PLUS_LIVE64_ENVELOPE;unbounded_zero_blocks",
+    "retained_extra_conservative_original_RSS_stop_bytes":  25769803776,
+    "wall_seconds":  null,
+    "additional_allocated_core_seconds_cap":  null,
+    "runtime_forecast":  "RIGHT_CENSORED_NO_DEFENSIBLE_POINT_ESTIMATE",
+    "original_pilot_estimated_core_seconds":  230400,
+    "original_pilot_actual_core_seconds":  230800,
+    "original1p5_estimate_gate_core_seconds":  345600,
+    "expected_missing_runtime":  "both unfinished after original4h;candidate-level state was not saved",
+    "root_budget_resource_review":  "PENDING;no recovery submission granted by this template",
+    "new_logical_retry_count":  0,
+    "scientific_recipe_changed":  false,
+    "formal_generation_authorized":  false,
+    "external_output_root":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/conformers/recovery_v1",
+    "max_output_bytes":  8589934592,
+    "closure_max_output_bytes":  1073741824,
+    "quota_reserve_bytes":  200000000000,
+    "required_additional_source_relative_paths":  [
+                                                      "workflows/data_v1_final/conformers/recovery_v1/recovery_common.py",
+                                                      "workflows/data_v1_final/conformers/recovery_v1/run_recovery.py",
+                                                      "workflows/data_v1_final/conformers/recovery_v1/close_recovered.py",
+                                                      "workflows/data_v1_final/conformers/recovery_v1/test_recovery.py",
+                                                      "workflows/data_v1_final/conformers/run_pilot.py",
+                                                      "workflows/data_v1_final/conformers/common.py",
+                                                      "workflows/data_v1_final/conformers/science.py",
+                                                      "workflows/data_v1_final/conformers/selection.py",
+                                                      "workflows/data_v1_final/conformers/statistics_tools.py",
+                                                      "workflows/data_v1_final/conformers/live_memory_policy_32g_v1.py",
+                                                      "workflows/data_v1_final/conformers/run_pilot_live_memory_32g_v1.py",
+                                                      "workflows/data_v1_final/conformers/formal_v1/full_common.py",
+                                                      "workflows/data_v1_final/conformers/pilot_closure_v1/close_pilot.py"
+                                                  ]
+}

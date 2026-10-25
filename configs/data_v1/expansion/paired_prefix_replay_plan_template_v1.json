@@ -1,0 +1,100 @@
+{
+  "schema": "pubchem_paired_prefix_candidate_plan_v1",
+  "status": "NOT_READY",
+  "scope_key": "prefix_feature_paired_10000",
+  "scope_parameters": {
+    "prefix_start_ordinal": 1,
+    "input_prefix_limit": 10000,
+    "legacy_success_cids": 8198,
+    "legacy_unique_full_keys": 8197,
+    "legacy_rejections": 1802,
+    "legacy_feature_errors": 753,
+    "repair_or_pool_release": false
+  },
+  "independent_scope_policy_reference": null,
+  "workers": 16,
+  "max_input_rows": 10000,
+  "prefix_start_ordinal": 1,
+  "peak_output_cap_bytes": 268435456,
+  "output_root": null,
+  "code_sources": [],
+  "original_prefix_receipt": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/screening/bounded_prefix_v2/receipt.json",
+    "bytes": 5811,
+    "sha256": "2806743412901d748efb26c1f1f1addbc5dd72e0d3c866fef009d9eeda9db25c"
+  },
+  "original_prefix_plan": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/expansion/bounded_prefix_root_v2.json",
+    "bytes": 6371,
+    "sha256": "434619f59a466fa339158662e992bdeb2cf50a57c53237d19e7a0c2707356b27"
+  },
+  "original_rejections": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/screening/bounded_prefix_v2/all_prefix_rejections.jsonl",
+    "bytes": 167688,
+    "sha256": "f758c7bb5e59c40341e4629c3fd6a27bca60f09d07176c20176e0d2001f5b8ae"
+  },
+  "legacy_database": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/screening/bounded_prefix_v2/unreleased_prefix_candidates.sqlite",
+    "bytes": 12017664,
+    "sha256": "f3c751203e9db6a967934fc0d93618bc2775eb8b0ff7d5a3d79ee5f9d0a161ff"
+  },
+  "raw_receipt": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/raw/pubchem_20261025_v1/attempt_4520348/receipt.json",
+    "bytes": 10827,
+    "sha256": "2a945e3bfa378b1f958d0214e6a2448cf97d22f81ec2455f359077e3887ad478"
+  },
+  "raw_file": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/raw/pubchem_20261025_v1/CID-SMILES.gz",
+    "bytes": 1488715010,
+    "sha256": "2504bc00da1b0587ae208d8a5fb2a4fe6043c215436150f2023d59c57c5cd2b7"
+  },
+  "candidate_three_cid_receipt": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/diagnostics/candidate_feature_eval_v2/receipt.json",
+    "bytes": 35917,
+    "sha256": "58b0faebcd403961e1c9cbd05b43bf62c4b3620b95bd78020a39f8231f1bff5f"
+  },
+  "candidate_three_cid_monitor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/cpu_analysis_guards/dv1_feature_candidate_eval_v2/closure.json",
+    "bytes": 1825,
+    "sha256": "7ae7cdabf481c19c324903c312a99c13ea330e0db7ec72cef7ef92e3bb007508"
+  },
+  "prior_four_test_stage_receipt": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/diagnostics/candidate_feature_checks_v1/stage_receipt.json",
+    "bytes": 1691,
+    "sha256": "137a3d6e204be94bebff2705de9f395d8a87533a3d9e1aa834fc081aa2825eef"
+  },
+  "prior_four_test_stdout": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/dv1_feature_candidate_checks_v1_4520545.out",
+    "bytes": 5490,
+    "sha256": "b8560423ec5d2891c6597b4941081c887a99db0bd6fb83ac11eb72dcd1b7d12d"
+  },
+  "prior_four_test_intent": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/submissions/dv1_feature_candidate_checks_v1.intent.json",
+    "bytes": 29532,
+    "sha256": "a4a0daa31e01f15114c9ace563871283992e21a9d66ef4760766c784f2e394e5"
+  },
+  "prior_four_test_monitor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/cpu_analysis_guards/dv1_feature_candidate_checks_v1/closure.json",
+    "bytes": 2036,
+    "sha256": "fe41d2ee8220269d237057bb7ae976f5a7d5f2afb93e99332442983fd1242378"
+  },
+  "quota_publisher_source": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/publish_fresh_pubchem_quota_v1.py",
+    "bytes": 1705,
+    "sha256": "913d1be2f282281afcc2fc3cb5b91b28d6d14b656eb1a3fbf6a1bbcf5e1d1ceb"
+  },
+  "quota_feed": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/pubchem_quota_feed_v1.json",
+  "repair_applied": false,
+  "pool_modified": false,
+  "released_candidate_pool_authorized": false,
+  "decontamination_acceptance_authorized": false,
+  "uff_or_D_family_export_authorized": false,
+  "training_authorized": false,
+  "full_source_screening_authorized": false,
+  "blocking_pending_items": [
+    "Independent Root-reviewed central10000-row scope is absent; currentthree-CID scope is explicitly rejected",
+    "New code/tests have not been executed or sourcechecked; Root must reviewand bind the complete actual import/runtime source pins",
+    "Root must independently choose resources/node/output path and bind a newimmutable READY plan,request,intent and whole science+32MiBguard budget",
+    "Root must publish fresh actual quota before allocation; no new submitter,materializer,request or scope is generated here"
+  ]
+}

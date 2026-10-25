@@ -1,0 +1,9 @@
+# CPU监控通信v2：节点本地信号，完成后持久导出
+
+实际MAD0父4520497因CPU_MEMORY_HEARTBEAT_STALE失败；4个新增边界通过，监控20样本均ALLOW，无内存拒绝，样本相邻最大4.327秒。共享文件系统的写入/缓存/调度延迟会使worker看到旧心跳；不能把此失败当作源标签通过。旧失败、partial和全部v1源码保留。
+
+新runtime_v2/launch_v2使用实际CPU节点本地/tmp的UID/job/name独立目录，严格校真实job、boot ID、monitor PID/startticks及意图SHA；heartbeat和STOP以boot monotonic时间核5秒新鲜度，1秒内存监测/75%自身RSS/85%节点包络均不改。一次memory sample本身超过2秒也停新工作。信号和samples只写本地，避免共享存储阻塞监测。科学进程自然结束、监控线程关闭后，才逐文件核稳定stat和完整SHA复制全部证据到原持久目录；导出失败不能父C0。不发送kill/terminate/cancel，不重试。
+
+本地证据上限15MiB，持久副本和闭合元数据合计使两个位置总量保持32MiB预算内。节点本地证据保留；若调度器TIMEOUT，不能声称已持久导出或完整接受，后续可按位置指针只读恢复监控证据。正式生成和所有科学/掩码停止阈值仍沿原规则。
+
+新prepare_request_v2只换launcher，实际CPU提交器v2以活SSH观测的monotonic往返<=30秒和绝对wall age<=30秒确认freshness，记录两种年龄，避免跨节点时钟符号导致随机预检拒绝；内存和quota算式不变。当前8项资源测试将仅因监控实现改变而重跑，并补同一testcase内5秒monotonic边界检查；不重旧科学测试套件。
