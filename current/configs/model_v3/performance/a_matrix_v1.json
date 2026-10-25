@@ -1,0 +1,33 @@
+{
+  "schema": "model_v3_A_execution_matrix_v1",
+  "status": "PREPARED_NOT_RUN",
+  "prereg_sha": "3441b280bc34431bf8e7596465af28be073644b6",
+  "implementation_review_sha": "f9245bda42f4ce9933f046c0a6b373a74546338e",
+  "data_kind": "existing_native_S_TRAIN_records_not_D5_proxy",
+  "seed": 0,
+  "gpu_types": ["3090", "4090", "5090"],
+  "fixed_batches": 20,
+  "trajectory_updates": 500,
+  "forward_relative_l2_max": 0.00001,
+  "gradient_relative_l2_max": 0.0001,
+  "per_update_loss_relative_difference_max": 0.001,
+  "numeric_controls": {"explicit_cli_opt_in": "--deterministic-controls", "recommended_for_first_native_A00": true, "default_unchanged": true, "cublas_workspace_before_torch_import": ":4096:8", "torch_deterministic_algorithms": true, "warn_only": false, "both_reference_and_candidate": true, "source_diagnostic_jobs": ["4520381", "4520384"], "thresholds_denominator_and_parameter_set_unchanged": true, "single_toy_diagnostic_is_full_A_acceptance": false},
+  "reference_options": "a00_control.json",
+  "common_padded_cost_selection": "largest jointly safe rung for one GPU's declared candidate comparison; rerun both roles/control when changing rung",
+  "capacity_probe_rungs_ascending": [250000, 500000, 1000000, 2000000, 4000000, 8000000],
+  "oversized_singleton": "retain and record actual cost; declared budget is not a proof of intrinsic singleton fit",
+  "single_candidate_options": ["a01_backbone_off.json", "a02_distance_off.json", "a03_head_off.json", "a04_all_off.json", "a05_compile.json", "a06_fused.json", "a07_tf32.json"],
+  "cumulative_options": [
+    {"path": "a10_fused_compile.json", "requires_pass": ["a05_compile.json", "a06_fused.json"]},
+    {"path": "a11_all_off_fused_compile.json", "requires_pass": ["a04_all_off.json", "a10_fused_compile.json"], "requires_matching_capacity": true},
+    {"path": "a12_all_off_fused_compile_tf32.json", "requires_pass": ["a07_tf32.json", "a11_all_off_fused_compile.json"], "requires_matching_capacity": true}
+  ],
+  "sparse_radius": {"status": "NOT_APPLICABLE_BASELINE_GLOBAL_ATTENTION", "reason": "use_radius_mask=false; adding a radius changes the model"},
+  "padding": {"status": "STANDALONE_EXPLORATION_ONLY_PAIRED_REJECTS_REGROUPING", "atom_bucket_width_candidates": [8, 4], "exact_local_atom_sort": [false, true], "baseline_atom_bucket_width": 16, "preserve_all_records": true, "reordered_batches_are_not_automatically_equivalent": true},
+  "timing": {"paired_two_resident_model_times": "DIAGNOSTIC_ONLY", "standalone_ABBA_runs_required_for_speed_claim": true, "numerical_failures_excluded_from_adoption": true},
+  "launch_status": "INDEPENDENT_A_TREE_IMPLEMENTATION_PENDING_CPU_AND_GPU_SMOKE",
+  "prepared_harness_connections": ["original_shard_snapshot_rawSHA", "explicit_paired_entry_sourceSHA", "complete_loss_supervision_and_reference_configuration_rawSHA", "storage_receipt_in_configuration", "consumed_record_cursor_evidence", "single_model_throughput_driver", "padding_standalone_exploration"],
+  "resume_supported": false,
+  "resume_policy": "CLI_refuses_resume_preserve_partial_and_start_fresh_complete_diagnostic",
+  "changes_to_math_or_frozen_thresholds": false
+}

@@ -161,3 +161,34 @@ tree精确相同）；SA-3执行代码6650501。已审计原字节framer与单�
 Root手录提交参数将64位SHA误抄为65位；已从原preparation_result机器读取64位SHA，
 并与实际sha256sum相符。原request未变、原校验未放宽，新v2 wrapper保留失败wrapper。
 所有旧失败和原数据保留。SA-4独立分支已按指南开始实现，不据此选择架构。
+
+## 性能实现整合与实际新进度
+
+阶段1报告与图表已发布至model-v3：33671a8f8c13a5907d34102a649a7d0a998c6e54，
+与本地ee0c16e7ca3b981c05f1a12c13ed5cb3deb5763d的tree精确同为
+349da0be48af8adaa4779b95179686c4670e5c6f。GitHub main仍未修改。
+
+396实际COMPLETED/0:0、21秒，32项A接线/确定性CPU检查全部通过且源码前后相同。
+之后发现A00显式fused=False会跳过Torch2.10的默认foreach选择；新make_adamw在
+False时完全省略fused，True时才请求fused=True，不强制foreach。完整性能分支
+a6c62038643b69d4e44dbb2eb2aadf235472cd344经401实际COMPLETED/0:0、75秒，
+2,196 passed、1 CUDA-only skip，源码前后校验通过。性能分支现整合到主树，
+整合后完整回归另行记录。405已在4090提交真实20固定批次加500更新A00控制，
+代码仍a6c6203，原生输入与阶段1同snapshot；未据其启动状态授予任何数值验收。
+
+W&B归档补齐实际393 COMPLETED/0:0、5秒，现21个唯一运行，含352–354失败、
+365–367原生性能测量及371/375失败对照；逐文件SHA、原生history与真实终态保留，
+原件不删，仍未在线同步。389/391在compute缺少quota/sacct查询能力时各失败2秒，
+均未复制SDK；v5使用登录节点实测、SHA绑定且启动时不超过120秒的quota/终态收据，
+不伪造资源/状态、不绕过验证。旧归档索引11项保留并加入10项。
+
+下游materialization387实际FAILED/1:0、77秒，旧SoM materializer错误期待直接
+native_source_graph_binding属性，而原reader只在sealed provenance中提供。
+新兼容桥仅可暴露原证明；399新7项fixture首先因缺少sample_id全部失败，
+同次89项旧/已有检查通过。402修正fixture后6通过/1失败，进一步发现旧source3D
+坐标fallback为None，不能仅修改断言掩盖。正在对原conformer的FP64坐标及既有
+sealed hash作窄兼容，既有frozen reader/materializer均不改。未发布partial store。
+
+SA-4首轮398实际COMPLETED/0:0、15秒，58项架构/视图/既有头与loss检查通过，
+只证明合成组件；配置导出、checkpoint/runner与两视图完整接线继续开发。
+真实D-1–D-6验收、科学架构选择与配方/B-star仍按原阶段门槛执行。
