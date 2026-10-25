@@ -42,7 +42,11 @@ For B-class compare fp32 and bf16 S runs, 20,000 steps each, two seeds per
 precision. Backbone matrix multiplication may autocast; coordinates, distance,
 RBF inputs, geometry-head arithmetic, losses and normalization stay fp32.
 Each bf16 validation curve must stay within the fp32 two-seed envelope;
-denoising RMSE difference must be <=2%. No premature precision adoption.
+denoising RMSE difference must be <=2%, comparing fp32 and bf16 at the same
+pretraining seed and evaluation exposure. Keep this paired comparison as well
+as the two-seed envelope; do not compare a seed to a cross-seed mean or allow
+one condition's good result to offset another condition's failure.
+No premature precision adoption.
 
 ## Stage 3: data, heads and losses
 
@@ -76,6 +80,24 @@ same-architecture random initialization, task mean and molecule-bootstrap CI.
 Reference the old S B3 endpoint only as a sanity check. Evaluation target is
 less than 1 GPU-hour per checkpoint. Seed SD is the sample SD (ddof=1) of two
 pretraining seeds of the same configuration, without mixing architectures.
+
+2026-10-25 user decision: existing SoM binary classification may satisfy the
+classification-coverage requirement. The frozen ExpansionRx targets are all
+continuous regression; do not threshold them into invented classification.
+The nine-task panel is ExpansionRx LogD/Log_HLM_CLint/LogS, SoM CYP3A4/2D6,
+and QM9 U0/homo/lumo/alpha, using exact frozen source field mappings.
+Report both readouts separately. The primary aggregate equally averages the
+18 (task, readout) relative-error improvements, with the two readout-specific
+means and all individual cells retained. SoM uses its source-defined primary
+metric; secondary metrics cannot replace it after observing results.
+
+For a bounded fast panel, select at most 8,192 inner-fit and 2,048 inner-valid
+molecules per dataset/fold by a fixed label-free ID hash, retaining smaller
+populations in full. Tasks/readouts/encoders share the exact selected members.
+Selection is grouped by molecule and precedes label access; leave the unsampled
+TRAIN population unchanged. Resample molecule groups jointly across that
+dataset's tasks/readouts for uncertainty, including paired random references.
+These caps are protocol choices, not measured proof of the 1-GPU-hour target.
 
 Before stage 5: all existing/new tests pass; actual D-3 SDP 2,000-step smoke
 test on each GPU model; one complete checkpoint evaluation; actual throughput
