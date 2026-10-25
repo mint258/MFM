@@ -1,6 +1,8 @@
 import importlib.util
 import os
 from pathlib import Path
+import subprocess
+import sys
 
 import psutil
 import pytest
@@ -22,6 +24,52 @@ def test_pid_identity_mismatch_is_never_a_signal_target(monkeypatch):
     assert module.same_owned_process({**observed, "start_ticks": observed["start_ticks"] + 1}) is None
     assert module.same_owned_process({**observed, "argv_sha256": "0" * 64}) is None
     assert module.same_owned_process(observed).pid == os.getpid()
+
+
+def test_wall_clock_correction_preserves_kernel_process_identity(monkeypatch):
+    module = helper(monkeypatch)
+    observed = module.capture_process_identity(os.getpid())
+    original = module.capture_process_identity
+
+    def corrected(pid, **kwargs):
+        current = original(pid, **kwargs)
+        return {**current, "created": current["created"] - 1.} if current["status"] == "ACTIVE" else current
+
+    monkeypatch.setattr(module, "capture_process_identity", corrected)
+    state = module.recorded_process_state(observed)
+    assert state["status"] == "MATCH" and state["wall_clock_creation_time_changed"]
+    assert module.same_owned_process(observed).pid == os.getpid()
+    for key, value in (("start_ticks", observed["start_ticks"] + 1),
+                       ("boot_id", "different-boot"), ("argv_sha256", "0" * 64),
+                       ("cgroup", "different-owned-job"), ("slurm_job_id", "different-job")):
+        assert module.recorded_process_state({**observed, key: value})["status"] != "MATCH"
+
+
+def test_owned_child_can_close_after_wall_clock_creation_drift(monkeypatch):
+    module = helper(monkeypatch)
+    process = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(120)"],
+                               stdin=subprocess.DEVNULL, start_new_session=True)
+    try:
+        observed = module.capture_process_identity(process.pid)
+        assert observed["status"] == "ACTIVE"
+        original = module.capture_process_identity
+
+        def corrected(pid, **kwargs):
+            current = original(pid, **kwargs)
+            if current["status"] == "ACTIVE":
+                current = {**current, "created": current["created"] + 1.}
+            return current
+
+        monkeypatch.setattr(module, "capture_process_identity", corrected)
+        result = module.stop_recorded({(process.pid, observed["start_ticks"]): observed}, grace_seconds=3)
+        assert result["remaining"] == []
+        assert any(row.get("signal") for row in result["actions"])
+        assert not any("signal_refused" in row for row in result["actions"])
+        assert process.wait(timeout=5) != 0
+    finally:
+        if process.poll() is None:
+            process.kill()
+            process.wait(timeout=5)
 
 
 def test_natural_exit_between_observation_and_signal_is_preserved(monkeypatch):

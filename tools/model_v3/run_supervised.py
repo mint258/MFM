@@ -22,11 +22,15 @@ from runtime_monitor import (gpu_observation, owned_output_bytes, owned_process_
 from private_runtime_storage import PrivateStorage, _write_exclusive
 
 IDENTITY_KEYS = ("pid", "uid", "boot_id", "start_ticks", "pgid", "sid",
-                 "argv_sha256", "cgroup", "slurm_job_id", "created")
+                 "argv_sha256", "cgroup", "slurm_job_id")
+# psutil derives create_time from wall-clock boot time. A clock correction can
+# change it for a live process. Kernel boot_id/start_ticks bind its lifetime;
+# created remains recorded for diagnostics and is never signal authority.
+RECORDED_KEYS = (*IDENTITY_KEYS, "created")
 
 
 def recorded_process_state(row):
-    if not all(key in row for key in IDENTITY_KEYS):
+    if not all(key in row for key in RECORDED_KEYS):
         return {"status": "IDENTITY_CHANGED", "reason": "incomplete_recorded_identity"}
     try:
         current = capture_process_identity(row["pid"], expected_cgroup=row["cgroup"])
@@ -36,7 +40,8 @@ def recorded_process_state(row):
         return current
     if current["status"] != "ACTIVE" or any(current.get(key) != row[key] for key in IDENTITY_KEYS):
         return {"status": "IDENTITY_CHANGED", "current": current}
-    return {"status": "MATCH", "current": current}
+    return {"status": "MATCH", "current": current,
+            "wall_clock_creation_time_changed": current.get("created") != row["created"]}
 
 
 def same_owned_process(row):

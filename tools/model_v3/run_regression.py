@@ -19,9 +19,12 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--code-commit", required=True)
     parser.add_argument("--workers", type=int, default=16)
+    parser.add_argument("--expected-node", choices=("compute-0-20", "compute-0-21", "compute-0-22"),
+                        default="compute-0-20",
+                        help="Default stays compute-0-20; another node requires explicit user authorization")
     args = parser.parse_args()
-    if not os.environ.get("SLURM_JOB_ID") or socket.gethostname().split(".")[0] != "compute-0-20":
-        raise RuntimeError("Regression needs its own compute-0-20 Slurm allocation")
+    if not os.environ.get("SLURM_JOB_ID") or socket.gethostname().split(".")[0] != args.expected_node:
+        raise RuntimeError("Regression needs its own Slurm allocation on the explicitly expected node")
     if not 1 <= args.workers <= int(os.environ["SLURM_CPUS_PER_TASK"]):
         raise ValueError("Worker count exceeds the actual allocation")
     root, out = args.root.absolute(), args.output.absolute()
@@ -67,6 +70,7 @@ def main():
     total = {key: sum(row["counts"][key] for row in rows) for key in ("tests", "failures", "errors", "skipped")}
     result = {"status": "PASS" if all(r["returncode"] == 0 for r in rows) else "FAIL",
               "node": socket.gethostname(), "job_id": os.environ["SLURM_JOB_ID"],
+              "expected_node": args.expected_node,
               "code_commit": args.code_commit, "test_file_count": len(files),
               "test_source_sha256": {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
               "runner_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),

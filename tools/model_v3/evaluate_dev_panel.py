@@ -37,6 +37,24 @@ def exclusive_json(path, value):
         stream.write("\n"); stream.flush(); os.fsync(stream.fileno())
 
 
+def configure_wandb_layout(output):
+    """Declare the site's canonical owned SDK paths before importing W&B."""
+    output = Path(output).absolute()
+    if not output.is_dir() or output.is_symlink():
+        raise ValueError("An owned ordinary evaluation output directory is required")
+    paths = {"WANDB_DIR": output, "WANDB_CACHE_DIR": output / "cache",
+             "WANDB_DATA_DIR": output / "wandb_data"}
+    for path in paths.values():
+        if path.is_symlink():
+            raise ValueError("Canonical W&B directories must not be symlinks")
+        path.mkdir(mode=0o700, parents=True, exist_ok=True)
+        if not path.is_dir():
+            raise ValueError("Canonical W&B path must be a directory")
+    os.environ.update({name: str(path) for name, path in paths.items()})
+    os.environ["WANDB_MODE"] = "offline"
+    return {name: str(path) for name, path in paths.items()}
+
+
 def _model_config(value):
     from phychem_mfm.phase1.v3_encoder_bridge import source_model_configuration
     return source_model_configuration(value)
@@ -97,6 +115,17 @@ def load_plan(request_path, request_sha, *, allow_unbound_packing=False):
         raise ValueError("The H0 packing binding state is inconsistent")
     config_ref = request["model_configuration"]
     config = _model_config(bound_json(config_ref["path"], config_ref["sha256"]))
+    architecture_enabled = request.get("enable_architecture_candidates", False)
+    if type(architecture_enabled) is not bool:
+        raise ValueError("Architecture-candidate opt-in must be boolean")
+    if any(key in config["backbone"] for key in ("v3_architecture", "v3_legacy_memory")) and not architecture_enabled:
+        raise ValueError("C1 candidates require explicit evaluation opt-in")
+    if request.get("reference_kind", "primary") != "primary" and (
+            architecture_enabled or request.get("training_completion") is not None):
+        raise ValueError("New architecture/sample checkpoints belong to primary evaluations only")
+    if request.get("training_completion") is not None:
+        completion = request["training_completion"]
+        bound_json(completion["path"], completion["sha256"])
     architecture_sha = canonical(config)
     if architecture_sha != request["architecture_sha256"]:
         raise ValueError("Architecture/configuration binding differs")
@@ -173,6 +202,7 @@ def execute(request_path, request_sha):
         for plan in packing.values():
             if plan["oversized_singleton_ordinals"]:
                 raise H0PackingBudgetError(plan)
+        configure_wandb_layout(output)
         import numpy as np
         import torch
         import wandb
@@ -182,8 +212,6 @@ def execute(request_path, request_sha):
         if torch.cuda.device_count() != 1:
             raise RuntimeError("Exactly one CUDA device must be visible")
         torch.set_num_threads(16)
-        os.environ["WANDB_CACHE_DIR"] = str(output / "sdk_cache")
-        os.environ["WANDB_MODE"] = "offline"
         # Membership and its target-free packing were already written above,
         # before opening a target frame or encoding any checkpoint.
         run = wandb.init(project=request["wandb_project"], mode="offline", dir=str(output),
@@ -202,7 +230,9 @@ def execute(request_path, request_sha):
             architecture_sha256=request["architecture_sha256"], pretraining_seed=request["pretraining_seed"],
             reference_kind=request.get("reference_kind", "primary"), random_seed=20261025,
             historical_reference=request.get("historical_reference"),
-            expected_state_key=None if state_key == "auto" else state_key)
+            expected_state_key=None if state_key == "auto" else state_key,
+            enable_architecture_candidates=request.get("enable_architecture_candidates", False),
+            training_completion=request.get("training_completion"))
         candidate, reference = pair.candidate, pair.random_reference
         exclusive_json(output / "encoder_pair.json", pair.provenance)
         cache = FrozenH0Cache(request["cache_root"], repository_root=ROOT)

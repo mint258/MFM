@@ -107,7 +107,8 @@ def _historical_builder(configuration, checkpoint_ref, reference_ref):
 
 def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
                       pretraining_seed, reference_kind="primary", random_seed=20261025,
-                      historical_reference=None, expected_state_key=None):
+                      historical_reference=None, expected_state_key=None,
+                      enable_architecture_candidates=False, training_completion=None):
     import torch
     from phychem_mfm.factory import build_model
     config_raw = _raw(configuration_ref, maximum=2*1024**2)
@@ -117,11 +118,30 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
         raise EncoderBindingError("Model architecture differs from its pinned configuration")
     if type(pretraining_seed) is not int or pretraining_seed < 0 or type(random_seed) is not int:
         raise EncoderBindingError("Explicit actual and random-reference seeds required")
+    if type(enable_architecture_candidates) is not bool:
+        raise EncoderBindingError("Architecture-candidate opt-in must be boolean")
+    architecture_implementation = None
     if reference_kind == "primary":
         if (model_config["backbone"]["dim"], model_config["backbone"]["layers"]) != (512, 6):
             raise EncoderBindingError("Primary v3 H0 requires the exact declared 512x6 architecture")
         builder, historical = build_model, None
+        if "v3_architecture" in model_config["backbone"] or "v3_legacy_memory" in model_config["backbone"]:
+            if not enable_architecture_candidates:
+                raise EncoderBindingError("New C1 encoders require explicit architecture-candidate opt-in")
+            from ..model.v3_architecture import ArchitectureOptions, build_architecture_model, configuration_with_architecture
+            try:
+                declared = model_config["backbone"].get("v3_architecture")
+                options = ArchitectureOptions(**declared) if declared is not None else ArchitectureOptions()
+                if ((declared is not None and options.distance_bias == "C1-0")
+                        or configuration_with_architecture(model_config, options) != model_config):
+                    raise ValueError("Noncanonical declared C1 options")
+            except (TypeError, ValueError) as exc:
+                raise EncoderBindingError("Invalid explicit C1 architecture configuration") from exc
+            builder = build_architecture_model
+            architecture_implementation = physical_source_binding(Path(__file__).parents[1] / "model/v3_architecture.py")
     elif reference_kind == "historical_sanity_only":
+        if enable_architecture_candidates or training_completion is not None:
+            raise EncoderBindingError("Historical B3 does not accept new architecture/training envelopes")
         builder, historical = _historical_builder(configuration_ref, checkpoint_ref, historical_reference)
         if ((model_config["backbone"]["dim"], model_config["backbone"]["layers"]) != (384, 4)
                 or configuration.get("kind") != "B3" or configuration.get("variant") != "S"
@@ -132,6 +152,7 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
     raw = _raw(checkpoint_ref)
     # Hash and deserialize the same immutable bytes, rather than reopening a
     # path between checksum and load. Keep the safe weights-only boundary.
+    payload_size = len(raw)
     try:
         payload = torch.load(io.BytesIO(raw), map_location="cpu", weights_only=True)
     except Exception as exc:
@@ -141,7 +162,70 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
         raise EncoderBindingError("Known dictionary checkpoint schema required")
     if payload.get("scientific_stop") is True:
         raise EncoderBindingError("A scientifically stopped checkpoint cannot silently enter the development panel")
-    if "model" in payload and "config_sha256" in payload:
+    encoder_state, encoder_extension = None, None
+    if payload.get("schema") == "model_v3_training_checkpoint_v1":
+        if training_completion is None:
+            raise EncoderBindingError("V3 sample checkpoints require their explicitly bound COMPLETE marker")
+        marker_path = Path(training_completion["path"])
+        if (marker_path.name != "COMPLETE.json" or Path(checkpoint_ref["path"]).name != "payload.pt"
+                or marker_path.absolute().parent != Path(checkpoint_ref["path"]).absolute().parent):
+            raise EncoderBindingError("V3 completion marker and payload must be in the same immutable directory")
+        _raw(training_completion, maximum=1024**2)
+        marker = bound_json(marker_path, training_completion["sha256"])
+        if (marker.get("schema") != payload["schema"] or marker.get("payload_sha256") != checkpoint_ref["sha256"]
+                or marker.get("payload_bytes") != payload_size or marker.get("bindings") != payload.get("bindings")):
+            raise EncoderBindingError("V3 completion marker/payload binding differs")
+        from .v3_training import _bindings
+        from .v3_contract import canonical_hash
+        from .v3_architecture_training import architecture_training_sources
+        try:
+            _bindings(payload["bindings"])
+            extra = payload["extra_state"]
+            contract = extra["contract"]
+            encoder_extension = contract["architecture_extension"]
+            if (payload["bindings"]["configuration_sha256"] != configuration_ref["sha256"]
+                    or payload["bindings"]["trainer_configuration_sha256"] != canonical_hash(contract)
+                    or extra["schema"] != "model_v3_trainer_resume_v1"
+                    or contract["schema"] != "model_v3_step_trainer_v1"
+                    or encoder_extension["schema"] != "model_v3_architecture_trainer_v1"
+                    or encoder_extension["encoder_state_prefix"] != "encoder."
+                    or encoder_extension["implementation_sources"] != architecture_training_sources()
+                    or payload["bindings"]["trainer_source_sha256"] !=
+                        architecture_training_sources()["phase1/v3_trainer.py"]
+                    or encoder_extension["model_class"] not in (
+                        "phychem_mfm.model.v3_multiview.V3MultiViewModel",
+                        "phychem_mfm.phase1.v3_architecture_views.V3TwoViewModel")):
+                raise ValueError("Unrecognized model/trainer/configuration contract")
+            clock = payload["clock"]
+            if (type(clock["samples_consumed"]) is not int or clock["samples_consumed"] < 0
+                    or type(clock["optimizer_updates"]) is not int or clock["optimizer_updates"] < 0
+                    or marker["samples_consumed"] != clock["samples_consumed"]
+                    or marker["optimizer_updates"] != clock["optimizer_updates"]
+                    or payload["sampler"]["samples_consumed"] != clock["samples_consumed"]):
+                raise ValueError("Uncommitted sample/update cursor")
+            full_state = payload["model"]
+            if not isinstance(full_state, dict) or any(not key.startswith(("encoder.", "pd_heads.")) for key in full_state):
+                raise ValueError("Unexpected full-model state namespace")
+            encoder_state = {key[len("encoder."):]: value for key, value in full_state.items() if key.startswith("encoder.")}
+        except (KeyError, TypeError, ValueError) as exc:
+            raise EncoderBindingError("V3 sample checkpoint encoder/trainer contract differs") from exc
+        schema, state_key = "model_v3_immutable_sample_checkpoint", "model"
+        actual_seed = configuration.get("seed")
+        saved_options = encoder_extension["encoder_architecture_options"]
+        if saved_options is not None and "v3_architecture" not in model_config["backbone"]:
+            if not enable_architecture_candidates:
+                raise EncoderBindingError("Architecture builder control requires explicit candidate opt-in")
+            from ..model.v3_architecture import ArchitectureOptions, build_architecture_model
+            try:
+                control_options = ArchitectureOptions(**saved_options)
+                if control_options.distance_bias != "C1-0":
+                    raise ValueError("New C1 options missing from configuration")
+            except (TypeError, ValueError) as exc:
+                raise EncoderBindingError("V3 control encoder options/configuration differ") from exc
+            def builder(config):
+                return build_architecture_model(config, control_options)
+            architecture_implementation = physical_source_binding(Path(__file__).parents[1] / "model/v3_architecture.py")
+    elif "model" in payload and "config_sha256" in payload:
         schema, state_key = "source_S_runner_raw_configuration_sha", "model"
         if payload["config_sha256"] != hashlib.sha256(config_raw).hexdigest():
             raise EncoderBindingError("S checkpoint original configuration SHA differs, even if tensor shapes match")
@@ -179,6 +263,10 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
     with torch.random.fork_rng(devices=[]):
         torch.manual_seed(pretraining_seed)
         candidate = builder(model_config)
+    if encoder_extension is not None:
+        if (encoder_extension["encoder_configuration"] != candidate.config_dict()
+                or encoder_extension["encoder_architecture_options"] != getattr(candidate, "v3_architecture_options", None)):
+            raise EncoderBindingError("V3 saved encoder architecture/options differ")
     if "model_config" in payload and payload["model_config"] != candidate.config_dict():
         raise EncoderBindingError("Checkpoint model configuration differs, including same-shape semantic options")
     if historical is not None:
@@ -189,8 +277,9 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
                 or payload.get("optimizer_updates") != historical["observed_cursors"]["optimizer_updates"]
                 or payload.get("memory_implementation_sha256") != historical["memory_implementation"]["sha256"]):
             raise EncoderBindingError("Historical source B3 completion/source cursor cannot be established")
-    _strict_state(candidate, payload[state_key])
-    source_checkpoint_status = payload.get("status", payload.get("checkpoint_type", "source_S_committed_snapshot"))
+    _strict_state(candidate, payload[state_key] if encoder_state is None else encoder_state)
+    source_checkpoint_status = ("immutable_sample_checkpoint" if encoder_state is not None else
+        payload.get("status", payload.get("checkpoint_type", "source_S_committed_snapshot")))
     del payload
     with torch.random.fork_rng(devices=[]):
         torch.manual_seed(random_seed)
@@ -211,4 +300,11 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
         "historical_reference": dict(historical_reference) if historical_reference else None,
         "historical_memory_implementation": historical["memory_implementation"] if historical else None,
         "downstream_target_records_read": 0}
+    if architecture_implementation is not None:
+        metadata["architecture_implementation"] = architecture_implementation
+    if training_completion is not None:
+        if encoder_state is None:
+            raise EncoderBindingError("A V3 completion marker belongs only to a V3 sample checkpoint")
+        metadata["training_completion"] = dict(training_completion)
+        metadata["checkpoint_encoder_state_prefix"] = "encoder."
     return EncoderPair(candidate, reference, model_config, metadata)

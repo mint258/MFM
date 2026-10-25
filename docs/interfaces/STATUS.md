@@ -33,3 +33,25 @@ numeric/trajectory and bf16 evidence; 3 real-data head/loss acceptance; 4
 TRAIN-only evaluator and integration; 5 architecture decisions; 6 recipe/B-star
 plus user confirmation; 7 freeze/tag/real smoke/PR. No stage is accepted by
 preparing its implementation alone. No formal pretraining is authorized here.
+
+Latest model-line observations: source public at
+`61658a4c1f472de035601dbedc17809315774784`; post-merge406 passed 2,196 tests
+with one CUDA skip. Native A00 controls405/410/411 passed their actual
+20-batch gates; paired500 trajectories remain pending. Architecture branch412
+and post-merge415 passed complete regression; scientific decisions await data/evidence.
+Existing downstream metadata was resealed in413 with zero target decoding and
+exactly the379 members/groups/roles/contracts. Real store421 completed17,602
+selected TRAIN records with exact cohort replay and zero outer-target decoding,
+after all2,096 SA-3 tests passed420. Full panel execution remains pending.
+No new D-1–D-6 delivery is inferred from this model-owned existing-data projection.
+
+2026-10-25 update: actual B3 nine-task/two-readout evaluation437 completed
+18 cells, Slurm C0/543s, inclusive guard wall541.230s. It is a historical384
+sanity check; independent native SDK verification/archive is pending. Do not
+use its result for v3 architecture selection or claim512 timing acceptance.
+C2 user-confirmed local-geometry bins to3D denoising vectors; branch441 passed
+2,187 tests/one CUDA skip. Root392 passed2,255/one skip in443. Integration
+and public preregistration remain required before real C2 fitting. CPU node20
+is fully occupied by another user's104-CPU job; a temporary21/22 CPU exception
+has been requested under the user's AGENTS rule, not assumed. Existing jobs
+and the data line are untouched. D-1 throughD-6 remain user-confirmed pending.

@@ -37,7 +37,8 @@ def make_request(*, panel, training_store, model_configuration, checkpoint,
                  output_root, cache_root, run_id, source_files=None, state_key="auto",
                  maximum_wall_seconds=3600, wandb_project="phychem-model-v3",
                  reference_kind="primary", h0_packing=None, h0_packing_plan_sha256=None,
-                 historical_reference=None, repository_root=ROOT):
+                 historical_reference=None, repository_root=ROOT,
+                 enable_architecture_candidates=False, training_completion=None):
     sys.path.insert(0, str(ROOT / "current"))
     from phychem_mfm.phase1.v3_h0_packing import packing_budget, budget_arguments, canonical
     from phychem_mfm.phase1.v3_encoder_bridge import source_model_configuration
@@ -63,6 +64,12 @@ def make_request(*, panel, training_store, model_configuration, checkpoint,
     if "seed" in configuration and configuration["seed"] != pretraining_seed:
         raise ValueError("Declared checkpoint seed differs from its source configuration")
     model = source_model_configuration(configuration)
+    if type(enable_architecture_candidates) is not bool:
+        raise ValueError("Architecture-candidate opt-in must be boolean")
+    if any(key in model["backbone"] for key in ("v3_architecture", "v3_legacy_memory")) and not enable_architecture_candidates:
+        raise ValueError("C1 candidates require explicit evaluation opt-in")
+    if reference_kind != "primary" and (enable_architecture_candidates or training_completion is not None):
+        raise ValueError("New architecture/sample checkpoints belong to primary evaluations only")
     if state_key not in {"auto", "model", "model_state"}:
         raise ValueError("Choose a recognized checkpoint schema instead of a permissive arbitrary state key")
     historical = None
@@ -77,6 +84,8 @@ def make_request(*, panel, training_store, model_configuration, checkpoint,
             "evaluate_dev_panel.py", "prepare_dev_evaluation.py", "summarize_experiments.py")]
         if historical is not None:
             source_files.append("workflows/sprime_s/scripts/s_model_memory_v1.py")
+        if "v3_legacy_memory" in model["backbone"]:
+            source_files.append("workflows/sprime_s/scripts/s_model_memory_v1.py")
     references = []
     for relative in sorted(set(source_files)):
         path = root / relative
@@ -85,7 +94,7 @@ def make_request(*, panel, training_store, model_configuration, checkpoint,
         references.append({"path": relative, "sha256": binding(path)["sha256"]})
     if not references:
         raise ValueError("Explicit source inventory required")
-    return {"schema": "model_v3_dev_evaluation_request_v1", "panel": binding(panel),
+    request = {"schema": "model_v3_dev_evaluation_request_v1", "panel": binding(panel),
         "training_store": binding(training_store), "model_configuration": binding(model_configuration),
         "checkpoint": {**binding(checkpoint), "state_key": state_key},
         "architecture_sha256": hashlib.sha256(encoded(model)).hexdigest(),
@@ -99,6 +108,11 @@ def make_request(*, panel, training_store, model_configuration, checkpoint,
         "packing_binding_status": "BOUND" if plans else "METADATA_PLANNING_REQUIRED",
         "maximum_wall_seconds": maximum_wall_seconds, "wandb_project": wandb_project,
         "reference_kind": reference_kind}
+    if enable_architecture_candidates:
+        request["enable_architecture_candidates"] = True
+    if training_completion is not None:
+        request["training_completion"] = binding(training_completion)
+    return request
 
 
 def sbatch_text(request_path, request_sha256, *, node, python_entry, gpu_uuid,
