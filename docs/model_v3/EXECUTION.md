@@ -35,7 +35,7 @@ SA-4 在 profiler 后另安排；平台同时最多支持主 agent 加三个工�
 | 4520339 | SA-1 分支完整核心回归 | compute-0-20 / 16 CPU / 32 GiB | COMPLETED/0:0，97s；2,040 passed，无 skip |
 | 4520340 | 4090 合成 profiler 首次冒烟 | compute-0-20 / 16 CPU / 64 GiB / 12 min | FAILED/1:0，14s；源码记录误收 PyTorch 伪相对路径，训练前失败，零优化更新 |
 | 4520342 | 源码绑定修复、S 严格梯度、H0 装载定向复核 | compute-0-20 / 16 CPU / 32 GiB | COMPLETED/0:0，11s；2 + 1 + 27 passed，前后源码 SHA 完全一致 |
-| 4520343 | 4090 合成 profiler 重试 | compute-0-20 / 16 CPU / 64 GiB / 12 min | 已提交；执行 SHA 14b98d03932b53b2d4f132afb69c4e652b747888，终态待实际产物 |
+| 4520343 | 4090 合成 profiler 重试 | compute-0-20 / 16 CPU / 64 GiB / 12 min | COMPLETED/0:0，228s；仅 3 个合成分子，2 测量步；run 8rdupcyh |
 
 计算与日志均在外部 `runs/model_v3_20261025/`，没有真实数据、权重或 checkpoint
 进入 Git。pytest 的合成 fixture 不代表真实 D-3 验收。失败和超时原样保留并计账。
@@ -62,6 +62,60 @@ noise 到 backbone atom embedding 的梯度。单线程所有源/桥接梯度完
 
 每次定向测试记录前后文件 SHA。331/332/333/336/342 的源码副本保存在外部
 `source_snapshots/`，342 共 15 份；测试后发生的源码变动不冒充已测试内容。
+
+## 后续实际验证与整合
+
+下列作业也均为本任务精确登记的父作业，未列出的 ID 不纳入本任务成本。
+所有 CPU 验证仍在 compute-0-20，每项16 CPU，CUDA显式隐藏。
+
+| Slurm ID | 实际结果 | 执行版本 / 范围 |
+| --- | --- | --- |
+| 4520346 | COMPLETED/0:0，81s，2,066 passed / 1 CUDA skip | SA-2初版50788d5 |
+| 4520347 | COMPLETED/0:0，140s，2,067 passed / 1 CUDA skip | SA-2有序优化器绑定28edd616，10项trainer集成已通过 |
+| 4520349 | COMPLETED/0:0，20s，九类头全部R²≥0.95 | 固定合成H0；发现共享W&B core缓存，完整自有归档未通过，原结果/SDK保留 |
+| 4520350 | COMPLETED/0:0，17s，31 + 37 passed | native绑定/存储/归因 + checkpoint/H0桥；34份源码前后SHA相等并已快照 |
+| 4520351 | COMPLETED/0:0，18s，九类R²与349完全相等 | 仅日志目录修复1ac3d8c；原生SDK历史和自有归档验证通过 |
+| 4520355 | COMPLETED/0:0，53s，2,067 passed / 1 CUDA skip | SA-2合并到主树76bceb59后的完整回归 |
+| 4520358 | FAILED/1:0，78s，2,075 passed / 1 failed | 唯一失败为旧spawn测试首次取数30s超时；新桥接全部通过，原失败保留；B3后置检查未执行 |
+| 4520360 | COMPLETED/0:0，37s，26 + 1 passed，真实B3检查PASS | A工具26项、原30s测试原样隔离通过；实际B3权重SHA重测、安全加载及两分子H0完成，无下游目标/旧评分读取 |
+| 4520362 | COMPLETED/0:0，8s，9 passed | 分次profiler采样协议与旧profiler回归，源码前后SHA相等 |
+| 4520363 | 完整同版本回归2,076 passed，无skip | SA-3同464b96ef，未改原30s门槛；原358失败不改写 |
+
+原生 S 三卡 profiler 为352/353/354，分别在compute-0-0/20/21的3090/4090/5090，
+每项16 CPU/64 GiB/45min，执行提交
+`f9245bda42f4ce9933f046c0a6b373a74546338e`。三者均完成20个测量批次，但均未验收：
+352在汇总期触发56GiB进程树RSS上限，FAILED/1:0/1114s；353与354在trace导出时
+触及原输出预算，分别FAILED/1:0/1071s与1552s。监督仅处理实际绑定的自有进程，
+最终remaining为空；原步骤、失败和SDK保留。不得把已执行训练步当作报告验收通过。
+原始shard snapshot预先固定raw SHA为
+`d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f`；
+v2 adapter仅在副本内投影node-local st_dev，原JSON/LMDB不改。
+compute21的独立task known_hosts与受信Slurm4515020的ED25519指纹严格一致，
+没有关闭host checking或更改全局known_hosts。CPU/显存/临时与持久输出预算保持原上限。
+
+343旧trace的独立CPU分析已在350完成：3,102个唯一kernel，重复0。
+旧trace缺少新tile重算标签的部分仍保留unknown，不用inclusive区域相加宣称瓶颈。
+
+合成容量测试使用固定随机512维H0、每个toy分子3个原子，不训练完整主干，
+不替代D-3真实逐字段验收。R²范围0.9664153246869207–0.9952283447302109，
+每例25–100次更新。修复日志后数值完全复现，未改fixture/seed/loss/optimizer/阈值。
+
+统一阅读入口`W&B_训练记录.html`已增加模型v3链接，命名归档位于
+`runs/phase1_full_corpus/wandb_archive/model_v3_20261025/`。337/343及351九个run，
+共11份原生记录已逐文件SHA与history行数验证，原件保留。对343精确在线同步尝试
+退出1，原因是服务器未配置W&B认证；不宣称在线可见，不读取或保存新凭据。
+失败日志为外部`wandb_sync_343_v1.log`。
+
+SA-2合并提交`76bceb59d5372515fb10f8916b89ec2bb42fd4ed`已由355完整验证。
+SA-3实现快照`464b96eff38a7b73b2dab5b7fd68bfd7b1146e58`仍待完整回归/整合。
+为不改变352–354的执行源码，A工具后续接线在独立`MFM_model_v3_sa1_a` /
+`model-v3-sa1-a`工作树进行，起点f9245bd。尚未接受A/B提速或任何架构选择。
+
+资源补救另在`MFM_model_v3_profiler_v2` / `model-v3-profiler-v2`实现，362实测后
+checker通过，预先提交`dc22d3f3bb68ce6949bf40f38e677f74a35c407d`。详见该树
+`docs/model_v3/01_bounded_profiling_v2.md`：固定20测量更新，分别采集相对0/10/19
+三步，逐份导出并释放；主吞吐量来自其余17个完整step的实际墙钟。所有原阈值与
+资源上限沿用；三卡复测365/366/367已提交，分别3090/4090/5090，尚待闭合。
 
 ## 用户已明确的面板决定
 

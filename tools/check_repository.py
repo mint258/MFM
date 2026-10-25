@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
+import io
 import json
+import math
 from pathlib import Path
 import re
 import subprocess
@@ -24,6 +27,76 @@ SECRET_PATTERNS = (
     re.compile(rb'(?:WANDB_API_KEY|password)\s*=\s*[\x22\x27][A-Za-z0-9_!@#$%^&*+=.-]{8,}[\x22\x27]', re.I),
 )
 
+MODEL_RESULT_REQUIRED = (
+    'run_id', 'stage', 'config_sha256', 'code_sha', 'data_version', 'seed',
+    'gpu_model', 'elapsed_seconds', 'status', 'preregistration_sha',
+)
+MODEL_RESULT_OPTIONAL = {
+    'gpu_uuid', 'dev_score', 'denoise_rmse', 'throughput_molecules_s',
+    'peak_memory_bytes', 'allocated_cpu_seconds', 'allocated_gpu_seconds',
+}
+
+
+def model_summary_csv(name: str, raw: bytes) -> bool:
+    """Allow only small, typed, one-row-per-run model experiment summaries."""
+    if not re.fullmatch(r'docs/model_v3/results/[A-Za-z0-9][A-Za-z0-9_.-]*\.csv', name):
+        return False
+    if len(raw) > 128 * 1024 or b'\x00' in raw:
+        return False
+    try:
+        reader = csv.DictReader(io.StringIO(raw.decode('utf-8')))
+        fields = reader.fieldnames or []
+        if len(fields) != len(set(fields)) or not set(MODEL_RESULT_REQUIRED) <= set(fields):
+            return False
+        numeric = set(MODEL_RESULT_OPTIONAL) - {'gpu_uuid'}
+        for field in fields:
+            if field not in MODEL_RESULT_REQUIRED and field not in MODEL_RESULT_OPTIONAL:
+                if not re.fullmatch(r'metric__[A-Za-z][A-Za-z0-9_]{0,79}', field):
+                    return False
+                numeric.add(field)
+        seen = set()
+        rows = 0
+        for row in reader:
+            rows += 1
+            if rows > 2000 or None in row or any(value is None for value in row.values()):
+                return False
+            if not re.fullmatch(r'[A-Za-z0-9_-]{1,64}', row['run_id']) or row['run_id'] in seen:
+                return False
+            seen.add(row['run_id'])
+            if row['stage'] not in {'1', '2', '3', '4', '5', '6', '7'}:
+                return False
+            if not re.fullmatch(r'[0-9a-f]{64}', row['config_sha256']):
+                return False
+            if any(not re.fullmatch(r'[0-9a-f]{40}', row[key]) for key in ('code_sha', 'preregistration_sha')):
+                return False
+            if not re.fullmatch(r'[A-Za-z0-9_./:+-]{1,128}', row['data_version']):
+                return False
+            if not row['seed'].isascii() or not row['seed'].isdecimal() or int(row['seed']) > 2**63-1:
+                return False
+            if not re.fullmatch(r'[A-Za-z0-9 ._+()/-]{1,80}', row['gpu_model']):
+                return False
+            if row['status'] not in {'PREPARED', 'RUNNING', 'COMPLETED', 'FAILED',
+                                     'TIMEOUT', 'CANCELLED', 'NOT_ACCEPTED', 'GUIDE_STOP'}:
+                return False
+            elapsed = float(row['elapsed_seconds'])
+            if not math.isfinite(elapsed) or elapsed < 0:
+                return False
+            if row.get('gpu_uuid') and not re.fullmatch(r'GPU-[0-9a-fA-F-]{16,64}', row['gpu_uuid']):
+                return False
+            for key in numeric:
+                value = row.get(key, '')
+                if value and not math.isfinite(float(value)):
+                    return False
+                if value and key in {'denoise_rmse', 'throughput_molecules_s', 'peak_memory_bytes',
+                                     'allocated_cpu_seconds', 'allocated_gpu_seconds'} and float(value) < 0:
+                    return False
+                if value and key in {'peak_memory_bytes', 'allocated_cpu_seconds', 'allocated_gpu_seconds'}:
+                    if not value.isascii() or not value.isdecimal():
+                        return False
+        return 0 < rows <= 2000
+    except (UnicodeError, ValueError, csv.Error, OverflowError):
+        return False
+
 
 def check(root: Path, paths: list[str], *, verify_export=True) -> dict:
     errors = []
@@ -41,10 +114,12 @@ def check(root: Path, paths: list[str], *, verify_export=True) -> dict:
         if size > 2 * 1024 * 1024:
             errors.append({'path': name, 'reason': 'exceeds the 2 MiB source-file limit'})
             continue
-        if path.suffix.lower() in HEAVY_SUFFIXES or path.name in {'.env', '.netrc', '.npmrc'}:
+        raw = path.read_bytes()
+        allowed_summary = path.suffix == '.csv' and model_summary_csv(name, raw)
+        if ((path.suffix.lower() in HEAVY_SUFFIXES and not allowed_summary)
+                or path.name in {'.env', '.netrc', '.npmrc'}):
             errors.append({'path': name, 'reason': 'data, weights, archive, or credentials file'})
             continue
-        raw = path.read_bytes()
         total += len(raw)
         if any(pattern.search(raw) for pattern in SECRET_PATTERNS):
             errors.append({'path': name, 'reason': 'possible embedded credential; value withheld'})

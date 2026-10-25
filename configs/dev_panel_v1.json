@@ -1,0 +1,48 @@
+{
+  "schema": "model_v3_dev_panel_v1",
+  "status": "FROZEN_TASKS_AND_RULES_AWAITING_PHYSICAL_BINDINGS",
+  "decisions_fixed_on": "2026-10-25",
+  "timezone": "Asia/Shanghai",
+  "authority": {
+    "baseline_code_commit": "037546cd7f07b32dbb46bc21a69109dfd273f8da",
+    "preregistration_commit": "3441b280bc34431bf8e7596465af28be073644b6",
+    "original_frozen_protocol_sha256": "cde2ca717934955f340a5f160a3390ff1dd6eda12c9ffbab93fc54fce0c8a2a4",
+    "task_definition_source": "reproduction/linked_sources/docs/phase1/evidence/stage59_three_epoch_protocol_v1/actual_scientific_freeze_v1/phase1_three_epoch_scientific_protocol.json",
+    "classification_coverage_user_decision": {
+      "date": "2026-10-25",
+      "instruction": "允许用现有 SoM 二分类满足分类覆盖",
+      "original_difference": "The existing nine ExpansionRx endpoints are continuous regressions; no new thresholded ADMET labels are introduced."
+    }
+  },
+  "tasks": [
+    {"task_id": "exp.LogD", "dataset_id": "expansionrx", "field": "LogD", "kind": "regression", "output_level": "graph", "error_metric": "mae", "pooling": "mean", "unit": "source_label:LogD", "coverage": ["ADMET", "intensive"]},
+    {"task_id": "exp.Log_HLM_CLint", "dataset_id": "expansionrx", "field": "Log_HLM_CLint", "kind": "regression", "output_level": "graph", "error_metric": "mae", "pooling": "mean", "unit": "source_label:Log_HLM_CLint", "coverage": ["ADMET", "metabolism"]},
+    {"task_id": "exp.LogS", "dataset_id": "expansionrx", "field": "LogS", "kind": "regression", "output_level": "graph", "error_metric": "mae", "pooling": "mean", "unit": "source_label:LogS", "coverage": ["ADMET", "solubility"]},
+    {"task_id": "cyp.3A4", "dataset_id": "cyp_isoform", "field": "3A4", "kind": "native_binary", "output_level": "atom", "error_metric": "one_minus_hit1", "pooling": "mean", "unit": "binary", "coverage": ["SoM", "classification", "atom"]},
+    {"task_id": "cyp.2D6", "dataset_id": "cyp_isoform", "field": "2D6", "kind": "native_binary", "output_level": "atom", "error_metric": "one_minus_hit1", "pooling": "mean", "unit": "binary", "coverage": ["SoM", "classification", "atom"]},
+    {"task_id": "qm9.U0", "dataset_id": "qm9", "field": "U0", "kind": "regression", "output_level": "graph", "error_metric": "mae", "pooling": "mean", "unit": "Ha", "coverage": ["quantum_energy", "size_related", "extensive"]},
+    {"task_id": "qm9.homo", "dataset_id": "qm9", "field": "homo", "kind": "regression", "output_level": "graph", "error_metric": "mae", "pooling": "mean", "unit": "Ha", "coverage": ["quantum_orbital", "intensive"]},
+    {"task_id": "qm9.lumo", "dataset_id": "qm9", "field": "lumo", "kind": "regression", "output_level": "graph", "error_metric": "mae", "pooling": "mean", "unit": "Ha", "coverage": ["quantum_orbital", "intensive"]},
+    {"task_id": "qm9.alpha", "dataset_id": "qm9", "field": "alpha", "kind": "regression", "output_level": "graph", "error_metric": "mae", "pooling": "mean", "unit": "bohr^3", "coverage": ["quantum_response", "size_related"]}
+  ],
+  "source_roles": {
+    "allowed": ["train", "train_inner_validation"],
+    "scaffold_datasets": {"fold_id": "0", "optimization": "original eight training folds", "inner_validation": "original fold 1", "reassign_original_members": false},
+    "expansionrx": {"fold_id": "official", "source_population": "original official TRAIN only", "new_inner_folds": 5, "validation_fold": 0},
+    "molecule_group": "full source InChIKey from byte-bound native membership metadata; require an explicit source-member-to-group map",
+    "no_member_uid_identity_substitution": true,
+    "fit_group_overlap_rule": "Exclude optimization members whose full molecule group occurs in the original inner-validation population; preserve original role files and report exclusions.",
+    "selection": {"seed": 20261025, "algorithm": "sort unique molecule groups by SHA256([seed,dataset,group]); retain first cap groups; retain every native member/isoform/atom belonging to each selected group", "max_train_molecule_groups": 8192, "max_inner_validation_molecule_groups": 2048, "below_cap": "retain all", "labels_consulted": false, "shared_across_tasks_and_encoders": true},
+    "membership_freeze": "Persist selected native member IDs, molecule groups, source bindings and hashes outside Git before encoding any checkpoint. A different membership requires a new panel version."
+  },
+  "readouts": {
+    "ridge": {"alphas": [0.000001, 0.0001, 0.01, 1.0, 100.0], "inner_folds": 5, "seed": 20261025, "fold_unit": "full source molecule group", "selection": "smallest mean molecular inner-CV error; smaller alpha breaks exact ties", "feature_and_target_normalization": "fit each optimization fold only; refit on optimization population for inner-validation prediction", "unavailable_fold_metric": "report unavailable and do not silently omit the fold"},
+    "linear64_relu": {"implementation": "SourceAlignedH0Readout", "hidden_dim": 64, "atom_layers": 1, "epochs": 20, "batch_graphs": 32, "seed": 0, "graph_pooling": "mean", "selection": "fixed final endpoint; no early stopping", "regression_loss": "TRAIN-standardized MSE", "atom_loss": "BCE with logits on native observed candidate masks", "optimizer": {"name": "AdamW", "lr": 0.001, "betas": [0.9, 0.999], "eps": 0.00000001, "weight_decay": 0.01, "foreach": false, "fused": false}},
+    "pooling_note": "The source-aligned development readout uses its fixed mean pooling for all graph endpoints, including U0. This is separate from registry-defined pretraining-head pooling comparisons."
+  },
+  "reference": {"primary": "same architecture, same native membership, same readout recipe and readout seed, random encoder initialization seed 20261025", "historical_s_B3": "descriptive sanity reference only; use a matching 384x4 random reference, never the 512x6 random reference"},
+  "aggregation": {"per_endpoint": "(random_reference_error - candidate_error) / random_reference_error", "primary": "equal mean of all 18 task-by-readout normalized improvements", "mandatory_separate_reports": ["nine task rows for each readout", "ridge mean", "linear64_relu mean"], "missing_or_zero_reference_error": "explicit unavailable; no complete panel score and no architecture decision", "no_readout_post_selection": true},
+  "uncertainty": {"bootstrap_unit": "full source molecule group; group all native rows and isoforms together", "bootstrap_samples": 1000, "confidence": 0.95, "seed": 20261025, "paired": true, "same_draw_across_tasks_and_readouts_within_dataset": true, "seed_SD": "sample SD with ddof=1 from exactly two pretraining seeds of the same seed-excluded scientific configuration"},
+  "operating_rules": {"cache": "target-free frozen native atom H0 once per encoder/geometry/membership binding, outside Git", "primary_H0_dimension": 512, "readout_device_count": 1, "wall_target_gpu_seconds_per_checkpoint": 3600, "wall_target_measured": false, "wandb": "persistent offline or online with explicit committed history; preserve unsynced SDK files", "downstream_final_evaluation": false},
+  "pending_physical_bindings": ["complete frozen downstream store manifest and SHA", "native member-to-full-InChIKey mapping and SHA", "selected TRAIN/inner-validation membership artifact and SHA", "one actual candidate checkpoint and matching random encoder", "actual runtime and W&B closure evidence"]
+}
