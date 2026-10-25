@@ -1,0 +1,39 @@
+{
+    "schema":  "CPU_PREFIX_REPLAY_ROOT_DECISION_V1",
+    "status":  "ROOT_AUTHORIZED_FINITE_READONLY_PILOT",
+    "inherited_user_decisions_reference":  {
+                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/run_decisions_v4.json",
+                                               "bytes":  2090,
+                                               "sha256":  "27590b15716c4caaccd7335758e2dbd2e7e20f1047bd3f770ee858dba8d74fa2"
+                                           },
+    "user_resource_statement":  "在小规模数据测试时可以降低资源使用情况，但是之后的正式数据生成必须使用原有硬件要求",
+    "user_cpu_statement":  "如果是cpu任务请从cpu节点里面选可用的运行",
+    "guide_scope":  "Data v1 workflow2.3 screening regression and2.9 quality checks. Same original10000 CID prefix; paired proposed-only feature diagnostics, no new pool or generation.",
+    "root_operational_interpretation":  "This is one new finite read-only CPU small test, explicitly registered independently of the old3CID scope. It uses the existing measured-memory small-test policy only; not a user waiver for full screening, statistics, UFF or QM.",
+    "authorized_scope_key":  "prefix_feature_paired_10000",
+    "scope_parameters":  {
+                             "prefix_start_ordinal":  1,
+                             "input_prefix_limit":  10000,
+                             "legacy_success_cids":  8198,
+                             "legacy_unique_full_keys":  8197,
+                             "legacy_rejections":  1802,
+                             "legacy_feature_errors":  753,
+                             "repair_or_pool_release":  false
+                         },
+    "resources":  {
+                      "cpus":  16,
+                      "memory_gib":  4,
+                      "wall_seconds":  3600,
+                      "science_cap_bytes":  268435456,
+                      "guard_cap_bytes":  33554432,
+                      "own_rss_fraction":  0.75,
+                      "node_envelope_fraction":  0.85,
+                      "heartbeat_seconds":  5,
+                      "sample_seconds":  1,
+                      "quota_reserve_bytes":  200000000000
+                  },
+    "formal_requirements_unchanged":  "Sprime/UFF/QM14-19,16CPU64GiB,all-user declared memory\u003c=85%; foreign0 remains unbounded. No formal/full-population or pool-release authority.",
+    "new_UFF_QM_calls":  0,
+    "automatic_submission_or_retry":  false,
+    "other_jobs_modified":  false
+}
