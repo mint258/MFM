@@ -362,3 +362,24 @@ checkpoint同GPU原batch也因85%容量失败（FAILED/39秒）。细节与失�
 保留。新独立清单551实际C0/6秒，C2 TRAIN诊断20项全部PASS、源前后相同，
 supervisor remaining=[]/first_failure=null。新诊断协议与精确源已固定；须本提交
 公开后才实际重放TRAIN，不读验证，不改原482失败或猜测其未保存的stop。
+
+本轮公开cd0c434bb39824cd75c24d7c6de0531946da1de5精确tree为
+eecadc77e71a4d290f7a6b00c7d0906e14e58f3f，与local c65db8b完全一致；
+GitHub main仍037546cd7f07b32dbb46bc21a69109dfd273f8da。无freeze/tag/正式预训练。
+
+544 primary512实际C0/512秒，含guard cleanup509.329587999秒；完整18单元/
+1,000 bootstrap，FP32运行策略前后相同，实际产物1,609,482,708B低于2GiB。
+565独立reader/report37项通过，C0/3秒；566真实原生SDK核验及报告C0/8秒，
+170,295 native/56,738 history逐标量和step匹配、clean EOF/exit0，原core标志不改。
+主汇总0.126942645758；回归MAE和SoM1-hit@1、全部负单元、单seed限制见完整报告。
+不是模型选择或充分训练验收。原SDK及cache保持，归档复制另记。
+
+557新归档工具24项PASS/C0/8秒；562实际归档C0/9秒，438/457/485/486/513/514/
+482/525及B3证书487全部闭合、索引41唯一run。485真实101history/315native与mirror
+匹配，513→514恢复样本0–7、updates2→4、samples4→8、cursor6→10和两段原生
+SDK payload均独立核验；不构成真实D-5精度验收。失败525原85%/CUDA OOM和未完整
+SDK均保持FAILED，未在线同步。源码和原件保留，入口W&B_训练记录.html不变。
+
+559在公开注册后实际提交TRAIN-only诊断到CPU12，RSS24GiB/整作业输出128MiB/
+3300秒不增加。外层CPU guard也明确128MiB，计入private、日志、journal和预留；
+未读取验证。原482仍FAILED；诊断实际结果、后续是否需新的基线solver协议另记。

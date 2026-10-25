@@ -75,3 +75,16 @@ Fresh A00 export486 completed C0 and awaits explicit outer-terminal admission
 before the primary512 panel. C2 fit482 failed during TRAIN solving, before any
 validation geometry read; v1 remains failed pending a separately registered
 TRAIN-only solver diagnosis. D-1–D-6 remain pending, with no delivery inferred.
+
+Current toolchain evidence: primary512 run544 completed C0/512s, full9 tasks /
+18 readout cells /1000 molecular-bootstrap draws, matched random512, cold cache.
+Actual guard including cleanup509.330s and1.609GB output satisfy this run's1h/
+2GiB budgets. Independent566 verified170,295 native SDK records /56,738 history,
+every scalar and global step, clean EOF/exit0. It is an A00 short500 checkpoint,
+not sufficiently trained-model or architecture acceptance; single-seed SD is
+unavailable. Full reports/typed run CSV preserve all cells and negative results.
+Root postmerge533–536 passed2,368/one CUDA skip. Stage4 overall still awaits
+D-3 all-label SDP2000-update smoke on all three GPU types. C2 diagnostic559
+is TRAIN-only and preregistered publiclycd0c434, original482 staysFAILED.
+Archive562 completed with41 unique offline runs, including failed evidence and
+independently verified synthetic resume513/514; no online sync is claimed.

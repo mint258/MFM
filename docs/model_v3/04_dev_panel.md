@@ -177,12 +177,19 @@ cache 身份，旧 cache 保留。真实 GPU 有效策略与容量尚待现场�
 | 化学分组增强、数值 CSV 约束、选择性 payload reader，4520333 | 父作业 COMPLETED/0:0、16 秒；本组件 31 个合成测试全部通过，9 文件前后 SHA 一致 |
 | 请求/Slurm/汇总/journal 初版，4520336 | 6 项合成实际通过，5 文件 SHA 前后一致；父 FAILED 来自 SA-2 独立断言，不升级原父状态 |
 | H0 容量/packing 与 request/cache v2，4520342 | 本组件 27 项实际通过，0 failure/error/skip；来源 SHA 前后相同，快照已保存。不代表真实 GPU 容量已验证 |
-| checkpoint bridge / FP32 runtime / cache v3 修订 | 真实来源架构 512×6 / 384×4 的合成权重加载、H0 对应、配置语义/typed seal/dtype 拒绝、autocast/精度/来源漂移测试已编写，等待主 agent 实际运行；此前 PASS 不自动转移到修订字节 |
-| 真实历史 B3 权重格式兼容性 | 已准备独立 `tools/model_v3/smoke_historical_h0.py`，只在未来自有 CPU Slurm 中对真实权重重测 SHA、安全加载，并用两个合成分子核对 384 维 candidate/random H0；当前尚未运行，不能用合成 checkpoint 通过替代 |
+| checkpoint bridge / FP32 runtime / cache v3 修订 | 真实来源架构512×6 / 384×4的合成加载与H0语义检查已实际通过；主树533–536完整2,368 passed/1 CUDA skip，521含真实512×6 source checkpoint/H0往返 |
+| 真实历史 B3 权重格式兼容性 | 360实际只读安全加载/H0检查通过；437完整18单元COMPLETED，487完整原生SDK独立核验通过。仍仅historical384合理性参照 |
 | 原已有全部测试 | 由主 agent 独立整合验证；本组件通过不替代全套验收 |
-| 真实 checkpoint 完整九任务/两读出、耗时、显存 | 未运行；不编造结果或性能比 |
+| 真实 checkpoint 完整九任务/两读出、耗时、显存 | 544成功A00短500步512×6权重，匹配随机512，18单元/1000 bootstrap完整；C0/512s，guard含清理509.330s，产物1,609,482,708B。566独立SDK VERIFIED170,295 native/56,738 history/exit0/clean EOF |
 | D-3 SDP 三 GPU 各 2,000 步 | 未运行，数据依赖仍待交付 |
 
 待完整科学运行实际闭合后，结果表须补运行 ID、配置 SHA、实际 source SHA、
 数据版本、种子、GPU 型号、真实耗时、18 项及独立读出指标和 CI。当前不能
 宣称阶段 4 完成，也不能用合成结果决定阶段 5 架构。
+
+实际报告：[旧B3](04_B3_historical_panel.md)、[primary512短检查点](04_primary512_short500_panel.md)，
+全部18单元和两个独立读出均保留。回归err为原单位MAE；SoM为1-hit@1。
+primary主汇总0.126942646、95%分子bootstrap CI[0.089920,0.164969]，单个预训练
+seed不能估计种子SD，QM9 U0/alpha的ridge改进为负。此短检查点只验证工具和耗时，
+不是充分训练或架构优劣结论。Torch allocator计数器不代表全程/设备全局显存峰值。
+现有TRAIN范围的完整评估已跑通；阶段4整体仍缺D-3全标签SDP三种GPU各2,000步。
