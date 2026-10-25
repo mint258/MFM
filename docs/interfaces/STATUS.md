@@ -88,3 +88,17 @@ D-3 all-label SDP2000-update smoke on all three GPU types. C2 diagnostic559
 is TRAIN-only and preregistered publiclycd0c434, original482 staysFAILED.
 Archive562 completed with41 unique offline runs, including failed evidence and
 independently verified synthetic resume513/514; no online sync is claimed.
+
+2026-10-25 latest model-line evidence: C2 corrected artifact loader40 tests599 C0;
+real TRAIN-only artifact preflight602 C0/6s (no native reader imported). New method
+published as0f26274 with exact local916697e tree87d533a before first VAL. Actual
+603 CPU8/16CPU/32GiB C0/127s evaluated all1024 existing-S PRETRAIN_VAL records
+(55,650 atoms), current TRAIN geometry reads0, no new fitting. Independent606
+C0/4s verifies31 SDK packets/two history steps/all public config+summary/clean EOF
+exit0; report-source44 tests601 C0/67s. Component RMSE0.0654994134 Angstrom,
+vector RMSE0.113448312, local-pair RMSE0.0575438344; analysis only, no model choice.
+Report/PNG/source pins: docs/model_v3/05_C2_coordinate_baseline.md. Failed482/595
+remain failed; no inferred original stop. A TF32 numeric failure589 and GPU-cap
+abort590 archived by605 C0/1s after40 tests604 C0/3s, offline index55/no online sync.
+D-1 throughD-6 remain user-confirmed not delivered. No final model/recipe freeze,
+no main update or school-server job; overall guide acceptance remains pending.

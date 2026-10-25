@@ -1,0 +1,42 @@
+{
+  "schema": "model_v3_C2_real_TRAIN_artifact_preflight_v1",
+  "status": "PASS_NO_NATIVE_GEOMETRY_NO_EVALUATION",
+  "inputs": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C2_v3_TRAIN_artifact_preflight_inputs_v1.json",
+    "sha256": "04b99f5c37208f24b1375ea1f8ff0f20bf7417ae2cb44359fd8569368781db01"
+  },
+  "executed_sources": {
+    "coordinate_baseline_v2.py": "ffaba07c79e5acb74f90d4f732df10d7e81d89ad7468f04ee35800928e5c05b7",
+    "solver_math.py": "e0cf8ef6859d026e8dc6c260718f0c5ddc368779097fa48405572f1f26f79472",
+    "core_capture.py": "9ac5b4be9a029a093419d0d6cb92673b3f89ca41a4a02e21b8c07f9a8fe33cd3",
+    "diagnose_coordinate_lookup.py": "7c78234b333dddd87ff5efd0927cf9f25642f455e6c31ca73c9abb936ed1e781",
+    "accepted_train_artifact_v2.py": "704f2683fcb9751102712d639b1ffc1a4b8f218d1b9f3257b0fe2b3e4dede12b"
+  },
+  "TRAIN_parameter_estimation_job_id": "4520559",
+  "TRAIN_records": 8192,
+  "TRAIN_atoms": 436120,
+  "active_columns": 4116,
+  "full_columns": 708050,
+  "coefficients_finite": true,
+  "native_geometry_reader_imported": false,
+  "current_job_parameter_estimation_performed": false,
+  "current_job_TRAIN_geometry_reads": 0,
+  "current_job_PRETRAIN_VAL_geometry_reads": 0,
+  "diagnostic_registration_mapping": {
+    "schema": "model_v3_C2_diagnostic_local_public_mapping_v1",
+    "executed_local_protocol_registration": {
+      "repository": "/share/home/zixiao/descriptor_analysis/MFM_model_v3",
+      "commit": "c65db8b647eb4d39360e31478c4c63368cd84a43",
+      "path": "tools/model_v3/analysis_sources/c2_solver_diagnostic_v1/diagnostic_protocol.json",
+      "sha256": "415f1fa96d0a510fa5c7eeeca381b27603edecba6d27ac1b01bc43712e847961"
+    },
+    "public_registration": {
+      "commit": "cd0c434bb39824cd75c24d7c6de0531946da1de5",
+      "tree": "eecadc77e71a4d290f7a6b00c7d0906e14e58f3f"
+    },
+    "verified_local_tree": "eecadc77e71a4d290f7a6b00c7d0906e14e58f3f",
+    "verified_protocol_blob_raw_sha256": "415f1fa96d0a510fa5c7eeeca381b27603edecba6d27ac1b01bc43712e847961",
+    "method_and_source_inventory_verified": true
+  },
+  "preflight_is_publication_or_VAL_authorization": false
+}

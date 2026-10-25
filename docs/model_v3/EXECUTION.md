@@ -413,3 +413,20 @@ PASS/C0/60秒（包括真实559 metadata-only）。旧v2、输入与失败原件
 594 v10归档测试41项PASS/C0/14秒，596实际归档四个ABBA作业C0/7秒、index51；
 原生日志真实22行含2warmup+20计时逐字段核验，保留0.866088957负结果，无在线同步。
 598 C2报告工具33项PASS/C0/10秒；后续修复源需新报告源绑定及独立测试。
+
+Public C2 identity revision0f26274 has exact tree87d533a matching local916697e;
+actual602 TRAIN array-only preflight C0/6s preceded publication and all VAL access.
+603 fixed1024VAL actualC0/127s, currentTRAIN0; independent606 SDK/report C0/4s,
+31 native/two scientific rows, complete config/summary/steps/exit0/EOF. Report
+tests60144PASS/C0/67s; PNG reviewed byRoot. No weights or8192-member receipts
+enterGit. Corrected complete analysis is05_C2_coordinate_baseline.md; original
+482/595 failures preserved. Archivev11 tests60440PASS/C0/3s;605 actualC0/1s
+adds589/590 four nativeSDKs toindex55. 589 child2 vs Slurm1 and nativeexit1,
+590 abort-6/Slurm1 and header-only SDKs remain separate domains, no fake histories.
+
+Point-in-time owned-model parent ledger job_ledger_C2_report_publication_v7.json
+contains172 actual parents,568112 allocatedCPU-seconds and26241 allocatedGPU-job
+seconds, including failed attempts. Only4520456 remains pending in this capture.
+GPU-job wall is not measured utilization/GRES reservation; prior CPU jobs onGPU
+node names are not mislabeled GPU work. Eleven actual paired A parents now have
+typed CSV rows and raw configuration/Slurm bindings; paired wall is not speedup.

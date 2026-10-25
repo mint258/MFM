@@ -193,3 +193,10 @@ masked元素/noise/键/P/D真实指标表、按2/3视图不同容量、两种C1�
 D-3逐字段过拟合或代理科学比较；D-1/D-2/D-4/D-5未交付时不发明数据契约或
 240k子集，不因实现测试通过接受任何架构。600万sample预算的平台确认、候选
 开发面板分数/seed SD、速度和显存容量仍按指南在整合后的真实实验中决定。
+
+C2 coordinate lookup analysis is now reported separately in05_C2_coordinate_baseline.md:
+fixed1024 PRETRAIN_VAL evaluation603 and independent SDK/report606 both actualC0.
+Prior parameters belong to TRAIN559; component RMSE0.0654994134A and vector
+RMSE0.113448312A use all55,650 atoms. This does not select a denoising head or
+compare the old pair-only0.0413A as coordinate RMSE. Real model C2/SDP comparisons
+and seed-SD-dependent architecture decisions still require the data-line inputs.
