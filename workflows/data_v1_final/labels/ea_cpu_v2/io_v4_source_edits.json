@@ -1,0 +1,48 @@
+{
+    "schema":  "EA_SINGLE_PARQUET_HANDLE_SOURCE_EDITS_V4",
+    "baseline_actual_root_reference":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/ea_cpu_v2/bounded_probe_v3.py",
+                                           "bytes":  26530,
+                                           "sha256":  "7f5d172aa5eab045ef0bbca6aec0c4ac39ceb25090fa05d4932497597a0a18cc"
+                                       },
+    "prepared_child_variant_reference":  {
+                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/sb3/workflows/data_v1_final/labels/ea_cpu_v2/bounded_probe_v4.py",
+                                             "bytes":  29399,
+                                             "sha256":  "f3ee7f60e8269db9fd4c9816089599ab0918797ed547719fb2bdd7c08868a338"
+                                         },
+    "intended_root_variant_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/ea_cpu_v2/bounded_probe_v4.py",
+    "edits":  [
+                  {
+                      "new":  "def project(partition):\n    try:\n        result = _project(partition)\n    except BaseException as exc:\n        try:\n            _close_parquet_source()\n            _memory_note(\"worker_exception\")\n            _memory_write(\"failure\", {\"exception\": type(exc).__name__, \"message\": str(exc)[:2000],\n                \"original_rss_guard_raised\": str(exc) == \"EA_DIAGNOSTIC_WORKER_RSS_LIMIT\"})\n        except BaseException as diagnostic_exc:\n            print(\"EA_WORKER_MEMORY_EVIDENCE_FAILED\", os.getpid(), type(diagnostic_exc).__name__,\n                  str(diagnostic_exc)[:1000], file=sys.stderr, flush=True)\n        raise\n    finally:\n        _close_parquet_source()\n    counts = MEMORY[\"parquet_io_counts\"]\n    if counts[\"current_open_handles\"] != 0 or counts[\"opens\"] != counts[\"closes\"]:\n        raise RuntimeError(\"EA_PARQUET_HANDLE_LIFECYCLE_NOT_CLOSED\")\n    result[\"parquet_io_lifecycle\"] = dict(counts)\n    if len(json.dumps(result, allow_nan=False).encode()) \u003e STATE[\"cfg\"][\"worker_report_cap_bytes\"]:\n        raise RuntimeError(\"EA_DIAGNOSTIC_SELECTED_REPORT_TOO_LARGE\")\n    return result\n",
+                      "old":  "def project(partition):\n    try:\n        return _project(partition)\n    except BaseException as exc:\n        try:\n            _memory_note(\"worker_exception\")\n            _memory_write(\"failure\", {\"exception\": type(exc).__name__, \"message\": str(exc)[:2000],\n                \"original_rss_guard_raised\": str(exc) == \"EA_DIAGNOSTIC_WORKER_RSS_LIMIT\"})\n        except BaseException as diagnostic_exc:\n            print(\"EA_WORKER_MEMORY_EVIDENCE_FAILED\", os.getpid(), type(diagnostic_exc).__name__,\n                  str(diagnostic_exc)[:1000], file=sys.stderr, flush=True)\n        raise\n",
+                      "kind":  "IO_lifecycle_only"
+                  },
+                  {
+                      "new":  "# END EA_WORKER_MEMORY_DIAGNOSTICS_V3\n\n# BEGIN EA_ONE_PARQUET_HANDLE_IO_V4\n_SOURCE_IO = {}\n\n\ndef _close_parquet_source():\n    handle = _SOURCE_IO.pop(\"handle\", None)\n    path = _SOURCE_IO.get(\"path\")\n    if handle is None:\n        _SOURCE_IO.clear()\n        return\n    try:\n        handle.close()\n        counts = MEMORY[\"parquet_io_counts\"]\n        counts[\"closes\"] += 1\n        counts[\"current_open_handles\"] -= 1\n    finally:\n        _SOURCE_IO.clear()\n        del handle\n    _memory_note(\"latest_after_parquet_close\", source_path=path)\n\n\ndef _reuse_parquet_source(pq, path, before, row_group):\n    counts = MEMORY.setdefault(\"parquet_io_counts\", {\"opens\": 0, \"reuses\": 0, \"closes\": 0,\n        \"current_open_handles\": 0, \"max_simultaneously_open_handles\": 0, \"opened_paths\": []})\n    if _SOURCE_IO.get(\"path\") == str(path):\n        if _SOURCE_IO[\"identity\"] != before:\n            raise ValueError(\"SOURCE_IDENTITY_CHANGED_BETWEEN_REUSED_ROWGROUPS\")\n        counts[\"reuses\"] += 1\n        return _SOURCE_IO[\"handle\"]\n    _close_parquet_source()\n    if counts[\"current_open_handles\"] != 0:\n        raise RuntimeError(\"EA_NEW_PARQUET_OPEN_BEFORE_PREVIOUS_CLOSE\")\n    _memory_note(\"latest_before_parquet_open\", source_path=str(path), row_group=row_group)\n    handle = pq.ParquetFile(path)\n    _SOURCE_IO.update(handle=handle, path=str(path), identity=before)\n    counts[\"opens\"] += 1\n    counts[\"current_open_handles\"] += 1\n    counts[\"max_simultaneously_open_handles\"] = max(counts[\"max_simultaneously_open_handles\"], counts[\"current_open_handles\"])\n    if str(path) not in counts[\"opened_paths\"]:\n        counts[\"opened_paths\"].append(str(path))\n    if len(counts[\"opened_paths\"]) \u003e len(STATE[\"cfg\"][\"sources\"]):\n        raise RuntimeError(\"EA_PARQUET_OPEN_PATHS_EXCEED_FROZEN_SOURCE_SET\")\n    _memory_note(\"latest_after_parquet_open\", source_path=str(path), row_group=row_group,\n        serialized_footer_bytes=handle.metadata.serialized_size,\n        file_row_groups=handle.num_row_groups, file_leaf_columns=handle.metadata.num_columns)\n    return handle\n# END EA_ONE_PARQUET_HANDLE_IO_V4",
+                      "old":  "# END EA_WORKER_MEMORY_DIAGNOSTICS_V3",
+                      "kind":  "IO_lifecycle_only"
+                  },
+                  {
+                      "new":  "        source = None  # Release caller reference before a path-changing open.\n        source = _reuse_parquet_source(pq, path, before, row_group)",
+                      "old":  "        source = pq.ParquetFile(path)",
+                      "kind":  "IO_lifecycle_only"
+                  },
+                  {
+                      "new":  "        observations.append({\"reference\": pin, \"row_group\": row_group, \"records_projected\": count,\n                             \"canonical_case_matches\": matches, \"before_after_identity\": before,\n                             \"content_sha256_inherited_not_rehashed\": True})\n        batch = None  # Release the exhausted Arrow batch before the next rowgroup.",
+                      "old":  "        observations.append({\"reference\": pin, \"row_group\": row_group, \"records_projected\": count,\n                             \"canonical_case_matches\": matches, \"before_after_identity\": before,\n                             \"content_sha256_inherited_not_rehashed\": True})",
+                      "kind":  "IO_lifecycle_only"
+                  },
+                  {
+                      "new":  "        source = pq.ParquetFile(path)\n        try:\n            units.extend((pin, i) for i in range(source.num_row_groups))\n        finally:\n            source.close()\n            del source",
+                      "old":  "        units.extend((pin, i) for i in range(pq.ParquetFile(path).num_row_groups))",
+                      "kind":  "IO_lifecycle_only"
+                  }
+              ],
+    "original_guard_literal":  "            if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024 \u003e cfg[\"worker_rss_stop_bytes\"]:\n                raise RuntimeError(\"EA_DIAGNOSTIC_WORKER_RSS_LIMIT\")",
+    "creation_inverse_complete_file_bytes_equal":  true,
+    "guard_and_projection_and_scientific_selection_unchanged":  true,
+    "scope":  "same seven known cases, fourteen contexts, six source files, sixteen workers",
+    "resource_change":  "none; retains actual1280MiB worker config,32GiB allocation,75pct monitor",
+    "io_change":  "one cached ParquetFile per current path; close/delete caller/cache before path-changing open; finally close; release exhausted Arrow batch; parent planning handles explicit close/delete",
+    "pending":  "Root source proof and actual run"
+}
