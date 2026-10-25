@@ -1,0 +1,37 @@
+{
+  "schema": "pubchem_raw_acquisition_plan_v1",
+  "status": "TEMPLATE_REQUIRES_ROOT_PHYSICAL_PINS",
+  "source_pin": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/expansion/pubchem_source_pin_v1.json",
+    "bytes": null,
+    "sha256": null
+  },
+  "sources": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/download_raw_v1.py",
+      "bytes": null,
+      "sha256": null
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/common.py",
+      "bytes": null,
+      "sha256": null
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/source.py",
+      "bytes": null,
+      "sha256": null
+    }
+  ],
+  "output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/raw/ROOT_NEW_DIRECTORY",
+  "workers": 16,
+  "network_concurrency": 2,
+  "peak_output_cap_bytes": 4294967296,
+  "download_deadline_seconds": 2700,
+  "chemical_screening_authorized": false,
+  "quota": {
+    "mode": "login_ssh",
+    "verified_login_host": "sonmi"
+  },
+  "resume_from_intent": null
+}
