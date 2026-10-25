@@ -58,3 +58,11 @@ Slurm模板为 workflows/data_v1_final/export/freeze_routine_roles_v1.sbatch，�
 compute20的定向边界自测已实际退出0：整个分子及7条来源记录保持VAL、ROUTINE误入TRAIN拒绝、跨TRAIN/VAL identity component拒绝、排序ID摘要稳定。真实16进程运行与数据输出仍须由实际Slurm任务验收，单元自测不代替它。
 
 任务保留错误JSON及部分输出，不自动重试或修改原清单。原ROUTINE过去已用于监控；本轮继续使用的是用户明确指定的验证来源，不声称它是从未使用过的盲测集。下游去污染、新字段掩码、共同人群验收、训练导出及归一化均另行执行。
+
+## 实际作业闭合（2026-10-25）
+
+作业4520334在compute-0-20实际COMPLETED/0:0，16CPU×23秒=368分配核秒（0.102222核时）。16个并行worker均真实退出；18个输出文件全部SHA读回匹配。总输出11,798,874B。
+
+最终角色：TRAIN 1,206,608分子/11,104,772记录；VAL 7,610分子/72,525完整PM7构象；剩余FULL 6,248分子/54,557记录。原ROUTINE 11,322条记录另保留legacy_routine_member。TRAIN–VAL分子ID及预计算身份component交叉均为0；原始字面化学键零交叉明确继承WP5验收，不冒充本次重扫。
+
+实际manifest：roles/routine_v1_job4520334/manifest.json，SHA256 16619f25f2bec53ed2d3c5e8e8381faa746e03f141d9fba87f93b6ec1e8ef8a1。Root收尾证据为仓库外control/routine_roles_actual_closure_v1.json。供后续计划消费的角色适配契约为configs/data_v1/export/roles_authority_v1.json；仅角色FROZEN，共同人群、diagnostic和最终归一化尚未冻结。

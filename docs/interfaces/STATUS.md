@@ -1,13 +1,14 @@
 # 数据线与模型线接口状态
 
-更新时间：2026-10-25，数据线分支 `data-v1`。
+更新：2026-10-25 13:27 +08:00。分支 data-v1。
 
-**当前：Se例外已批准，用户明确指定既有ROUTINE作为VAL；正在冻结身份清单和准备试点。**
+- 用户已批准仅 Se 单元素排除>20%例外，继续排除 UFF_UNSUPPORTED；其余停止阈值不变。
+- VAL 权威为既有 ROUTINE 分子。真实 job4520334 已 COMPLETED0 并 SHA 读回：VAL7,610分子/72,525全部PM7构象，旧ROUTINE11,322条记录另标记；TRAIN1,206,608分子/11,104,772记录不变。见[角色冻结](../data_v1/routine_validation_freeze.md)。
+- D-1 已有[契约 draft.2](training_format_v3.md)，等待模型线意见，尚未共同确认为 v3.0。交叉审阅发现 xTB quadrupole 的6个 enabled 张量分量须明确纳入接口/预测头和旋转验收；146统计分量不等同于146个预测头或等权损失项。数据线保留这些字段，待模型线对齐，尚无双方冲突结论。
+- D-2 已生成[注册表草案](../../configs/data_v1/label_registry_v3.json)：146个enabled统计分量、103个N/A分量对应63源字段、10常数删除、5legacyESP另列。size rho/全量mask/矢量与张量参考系仍待实际验收。
+- S′ 试点输入336分子已由 job4520335 COMPLETED0/606秒完成并读回（72去重不足、248一次技术重试、16充足对照）。真实UFF未开始：14–19可用CPU节点存在未给明确内存上限的作业，当前85%声明预算未通过，等待资源/用户对本次试点实测内存核算的明确答复。替代核算的23项合成边界测试实际通过不构成运行授权。
+- 标签 canonical owner 准备 job4520341 和实际 mask I/O job4520344 已闭合。后者4完整分子/40记录、146字段、新增mask为0、11份输出SHA匹配；不是全人群验收。见[真实试点](../data_v1/label_io_pilot.md)。
+- P′ 合成测试10项已过，正在准备1000分子×2个现有UFF构象的输入；实际QM尚未运行。扩充合成测试16项已过，尚未下载PubChem或证明全来源去污染完成。
+- D-3/D-4/D-5/D-6/D-7真实最终数据尚未交付，不将源码或合成测试通过视作数据验收。
 
-- D-1草案已发布：[training_format_v3.md](training_format_v3.md)。尚未双方定为v3.0，原家族留出文字正在按用户纠正更新。
-- VAL以ROUTINE的分子ID决定，预期7610分子、原ROUTINE11322条记录；同分子的全部几何保留同一VAL角色，原记录成员标记另留。实际ID/化学身份交叉检查和manifest待Slurm核验。
-- 不再从TRAIN抽取家族。原TRAIN/FULL的分布比较仍有效：[分布核验](../data_v1/validation_population_review.md)。
-- S′补齐与注册表/掩码流程正在独立分支实现。D-2至D-7、P′及扩充真实数据尚未交付。
-- 仅对Se单元素排除率>20%作例外，仍排除UFF_UNSUPPORTED，其它阈值不变。
-
-当前决定以configs/data_v1/run_decisions_v2.json为准；旧启动报告和v1决定作为历史保留。模型线可审阅D1草案，真实新数据加载仍待试点导出。
+当前用户决定见 configs/data_v1/run_decisions_v2.json。模型线可审阅 D1 草案；真实新接口仍待试点导出。
