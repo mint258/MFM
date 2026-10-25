@@ -1,0 +1,39 @@
+{
+  "schema": "DATA_V1_SPRIME_FORMAL_V1",
+  "status": "PREPARED_NOT_AUTHORITY_TO_SUBMIT",
+  "external_output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/conformers/formal_v1",
+  "attempt_ledger_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/conformers/formal_v1/attempt_ledger",
+  "max_output_bytes": 8589934592,
+  "quota_reserve_bytes": 200000000000,
+  "formal_cpus": 16,
+  "formal_memory_gib": 64,
+  "wall_seconds": 28800,
+  "stop_dispatch_before_wall_seconds": 7200,
+  "max_molecules_per_batch": 500,
+  "expected_original_deficit_molecules": 99351,
+  "expected_source_molecules": 1220466,
+  "expected_train_val_molecules": 1214218,
+  "order_seed": 20261025,
+  "recipe_config": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/conformers/pilot_v1.json",
+    "bytes": 3629, "sha256": "cfd153fb524ad823d3903b0ff7d78e402bbbcb74e124136b4bfeb3035279407a"
+  },
+  "roles_authority": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/export/roles_authority_v1.json",
+    "bytes": 1314, "sha256": "a6d47c06efd40ad19ef9aad1efbb18c888f172d1e9c79bd36550448274778f6c"
+  },
+  "per_molecule": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/tables/s_sprime_per_molecule_v4.parquet",
+    "bytes": 5650950, "sha256": "9b53e4611c5a3f199f785c8c201aa56ce76f559e3c81ccf10d1819624e03e354"
+  },
+  "formal_source_receipt": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/input_pins/x_regression_inputs_v1.json",
+    "bytes": 3485, "sha256": "3b2a91fa4ed0b3fe0cccfda74671db96d5620b7d9c92f61c20f951c371965ac9"
+  },
+  "sprime_manifest": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/dataset/manifest.json",
+    "bytes": 11430, "sha256": "a67e36e4fb1203f7fb72074abad3614bef6cd0e34140a38088f2492005912e01"
+  },
+  "exclusion_policy": {"overall_max": 0.02, "element_max": 0.2, "approved_element_exceptions": [34]},
+  "formal_policy": "Original16CPU64GiB; normal all-user declared-memory85%; no pilot live-memory exception. No source writes, no automatic unknown-job retry."
+}
