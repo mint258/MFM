@@ -21,6 +21,7 @@ from .common import ARTIFACT_ROOT, check_quota, dump_new, load, reference, requi
 from .download_raw_v1 import acquire_fresh_quota
 from .screen import WHITELIST, rdkit_modules
 from . import common as common_source, screen as screen_source, download_raw_v1 as quota_source, source as network_source
+from . import data_authority_v1 as data_authority
 
 CODES = ("X01", "X02", "X03", "X04", "X05")
 EXTRA = ("G01", "G02", "G03", "C02", "C03", "I01")
@@ -208,12 +209,12 @@ def run(plan_path, submission_path):
             0 < request["wall_seconds"] <= 172800 and request["estimated_peak_output_bytes"] >= plan["peak_output_cap_bytes"],
             "Root regression resource declaration differs from actual execution/budget")
     require(plan["mode"] in ("pilot", "full") and plan["workers"] == 16, "Unreviewed regression mode/workers")
-    needed = [reference(plan_path), *plan["code_sources"], *[r for r in plan["sources"].values() if r is not None]]
+    needed = [reference(plan_path), *plan["code_sources"], *plan.get("data_authorization_receipts", [])]
     declared = {r["path"]: r for r in submission["request"]["source_references"]}
     require(all(declared.get(r["path"]) == r for r in needed), "Root intent does not bind actual plan/source population")
     for ref in plan["code_sources"]:
         verify(ref)
-    actual = {str(Path(p).absolute()) for p in (__file__, common_source.__file__, screen_source.__file__, quota_source.__file__, network_source.__file__)}
+    actual = {str(Path(p).absolute()) for p in (__file__, common_source.__file__, screen_source.__file__, quota_source.__file__, network_source.__file__, data_authority.__file__)}
     require(actual <= {r["path"] for r in plan["code_sources"]}, "Running regression source/import chain is not pinned")
     if plan["mode"] == "full":
         pilot = load(verify(plan["closed_pilot_receipt"]))
@@ -244,7 +245,12 @@ def run(plan_path, submission_path):
     decisions = out / "record_decisions.parquet"
     mismatches = out / "all_mismatches.jsonl"
     try:
+        authority = data_authority.authorize_data(plan, submission, [r for r in plan["sources"].values() if r is not None],
+                                                  node=socket.gethostname().split(".")[0])
+        # prepare_join below performs each full source SHA on compute. Metadata
+        # is checked immediately around that verification, not on login.
         total = prepare_join(db, plan["sources"], plan["expected_original_records"], plan["expected_formal_records"])
+        data_authority.verify_final_stats(authority)
         source_seconds = time.monotonic() - started
         sampling = select_pilot(db, plan["seed"], plan["pilot_max_rows"]) if plan["mode"] == "pilot" else None
         if sampling:
@@ -304,6 +310,8 @@ def run(plan_path, submission_path):
             "sampling_and_ordering_seconds": compute_started - started - source_seconds,
             "worker_pipeline_wall_seconds": time.monotonic() - compute_started,
             "all_mismatches": reference(mismatches), "original_lmdb_opened_or_modified": False}
+        data_authority.verify_final_stats(authority)
+        report["data_authority"] = authority
         dump_new(out / "receipt.json", report)
         require(good, "STOP: selection agreement below 99.9%, cached rule drift or unexplained mismatch")
     except Exception as exc:

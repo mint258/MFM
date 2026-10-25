@@ -20,6 +20,15 @@ Slurm source-pin 准备阶段取得/验证所有实际 SHA；模板中的空 SHA
 join。不能把另一个 retained-only 导出换进来。三份主要 parquet 共约5.78GB
 输入，保持只读；hash/read/join 成本单列，不将固定I/O成本按试点条数线性放大。
 
+Root 的登录提交器只绑定代码、plan和小型 source-pin receipt，不把5.78GB文件
+放进会read_bytes的request.source_references。plan.data_authorization_receipts
+绑定Root实际计算节点来源核验，authorized_data_pin_jobs列准确生产job IDs；
+大文件放在request.data_references。消费者只接受Root实现的精确
+DATA_V1_SOURCE_PIN_RECEIPT_V1 / ALL_BOUND_INPUTS_SHA_VERIFIED / compute-0-20，
+逐项匹配reference和前后相同stat、stable_file_identity，再在compute20完整SHA
+读回并在计算结束复核stat。无新receipt的旧路径只允许显式开启的<=32MiB合成
+fixture，真实计划默认禁止。它不修改旧Root提交guard或既有raw已运行代码。
+
 辅助权威是 WP0 inventory.json、a_retained/input_count_validation.json 和 WP5
 population/manifest.json；模板保存了它们的现存元数据 SHA。原几何补齐的
 geometry_join_validation.json 已记录11,788,524条 post-X几何恰好一条对应、
