@@ -1,0 +1,242 @@
+{
+    "schema":  "A06_native_feedback_source_pins_v1",
+    "status":  "PREPARED_NOT_EXECUTED",
+    "base_code_sha":  "8ece64c685fe287d6863fbbe2f6f52006632a5cc",
+    "prereg_sha":  "61658a4c1f472de035601dbedc17809315774784",
+    "expected_CPU_cases":  23,
+    "expected_native_updates":  15,
+    "expected_success_HISTORY_rows":  17,
+    "original_repository_sources_count":  61,
+    "original_repo_source_sha256":  {
+                                        "current/phychem_mfm/__init__.py":  "3b73b42536f555d93fc5727d36afcbb964875c493fd40529d62707bb0982c51a",
+                                        "current/phychem_mfm/config.py":  "47da797a16a55dc315e50c1c5bdac07125381bb677d0dad5160854f2b19fb3f3",
+                                        "current/phychem_mfm/data/__init__.py":  "722a0239fe8fd6123512270c84e488cc44850d75c58a1d0e16ab16267c0684f2",
+                                        "current/phychem_mfm/data/dataset_infer.py":  "165ebb5db26d7af0250c7fa910ec83a7885a9b89447a8c79e1be0a8515702cdd",
+                                        "current/phychem_mfm/data/dataset_lmdb.py":  "5f4dc312b1314f07d4533a6348947e366e071813ab89bac17e2f0ecdce36e5a3",
+                                        "current/phychem_mfm/data/dataset_without_charge.py":  "d921db47a01c12d3cd0d21db0b74ad04c7fc8d6346dddd4b9ff04762b7a7d752",
+                                        "current/phychem_mfm/data/descriptor_schema.py":  "b9cf8020ffca3fe5c578fd5ddad9ecc5839dabbe763df00fa0e414f626389243",
+                                        "current/phychem_mfm/factory.py":  "58177a7d84b7f22d5669deae8fed085fd9fd2ec176975ec3a6562f71a1a78ead",
+                                        "current/phychem_mfm/model/__init__.py":  "9dac47024daad9bfb98ab3a356d2a0e2b5ca64d3a7cab0a3a9a9daa360536ab6",
+                                        "current/phychem_mfm/model/adaptation.py":  "bcfb55a30f796ba5756d171c62d02745c7e53a493f4af41299d62b9b12579ac7",
+                                        "current/phychem_mfm/model/attention.py":  "d9a716c58aa6a481978af13757fdac0d4f02d9aae1187f7a65b943de8c352183",
+                                        "current/phychem_mfm/model/backbone.py":  "1d4798111e526a077f834740093c90ad2610081f0171ca6c778b14cac24288a3",
+                                        "current/phychem_mfm/model/common.py":  "819157b7f25d98eba9cdb55d28b41b90c146bf1e4f321b7a762efcfb78fe0cab",
+                                        "current/phychem_mfm/model/expert_blocks.py":  "d5604414bdde3200fbeda8781923128b6f9ec10423330ca994377f036d7d140f",
+                                        "current/phychem_mfm/model/heads.py":  "8ebf0ea060023c08db4c053a6ddf41be5c75fba3abd0a0afca085fc527c3b8c4",
+                                        "current/phychem_mfm/model/normalization.py":  "d3ae06c3b40efca8ef3e165c40315f655f5641302bf2a38e027cedce4b6309a8",
+                                        "current/phychem_mfm/model/outputs.py":  "922985febe981578d3c95deb4bf8e8b46267181b487bd54d92f552c46b30efd9",
+                                        "current/phychem_mfm/model/phase1_specs.py":  "d0bacdbd808b4af9be36b9f04976af96b0a697ac6358bb7c8c69062aee641e22",
+                                        "current/phychem_mfm/model/routes.py":  "bfd1139fab2cb719a1ebf27d62919caf1bba570f636b29768d0feb50d91f12e4",
+                                        "current/phychem_mfm/model/shared.py":  "de937686edebe8f895295479d422a3d36f9d860ff5df152524a3122cbabb8d54",
+                                        "current/phychem_mfm/model/v3_performance.py":  "60786a1bdb4ff19386d6373b758f5316dbf07ec1adca8c24f62564adb14a823d",
+                                        "current/phychem_mfm/model/v3_profiler_attribution.py":  "95449944b1c3aabda12a410a477528f653aaa64bcf9ce05eb0eebc1c89c4ec8b",
+                                        "current/phychem_mfm/model/v3_profiling.py":  "485a4eb94d52195f088d700ec01fafa2c6f662c758f9237958455b21228b2801",
+                                        "current/phychem_mfm/phase1/__init__.py":  "551180d17da20fe8b157f3d0870783429ed90c65fac00e6381b8e8f7908ce81c",
+                                        "current/phychem_mfm/phase1/full_corpus_loader.py":  "827c10c7a4958e860710b3ccb2f8eb29dff4d5845654c230792bf6ce83935c0d",
+                                        "current/phychem_mfm/phase1/objectives.py":  "25ee35354128f579f0249dd91b28f6928a57e55709b92b78294bbceaa598c68e",
+                                        "current/phychem_mfm/phase1/v3_dev_panel.py":  "81786f6351e20a34285cfd44caef528e4c16ecb69c3355d69d679e1b53a5ed0f",
+                                        "current/phychem_mfm/phase1/v3_dev_store.py":  "c0f87b24ec0cd0492444689a99cab9eb309baaa9d02dfdd532bf3e196eba7c9b",
+                                        "current/phychem_mfm/phase1/v3_encoder_bridge.py":  "aa52b971b64c346575f6a83f26e771fbb9cff31f2f7c1f326da3c9dca63fa144",
+                                        "current/phychem_mfm/phase1/v3_h0_packing.py":  "4cceb4856337d078fc204d07d4602e3753bbddb4f519e3ddf738f0a6f2e97fe8",
+                                        "current/phychem_mfm/phase1/v3_h0_runtime.py":  "87642cca5d5c16d70ed8b04c96982526a576791b668e8014239cde31c6ffcb44",
+                                        "current/phychem_mfm/phase1/v3_padding.py":  "ac2ee2f89856eca47d7fc999fe4d39f1240bf983cc27e6cb92749b93d71e3bc5",
+                                        "current/phychem_mfm/supervision.py":  "5316014706dd470f5b448549f19c2a6668ca423c3c309601201a2ab6bf8fcd4f",
+                                        "current/phychem_mfm/training/__init__.py":  "774479f5a534c8daca796f38a5d97fb466d2edc2b06e70c2ec6b670ff43f5d00",
+                                        "current/phychem_mfm/training/checkpoint.py":  "706ac72ba10a2431b2bf9c2fd059b8f4e5ce00662dcef0ea42efc9cfddf91e0a",
+                                        "current/phychem_mfm/training/data.py":  "8228ab721bd821c316b279f992178f351c37fa0ba3c309203e9375117d861a8f",
+                                        "current/phychem_mfm/training/dataloader_debug.py":  "cdf2a5b2651fbc7437b3f7d22447b804180becb91b5e90537355655ef05264bc",
+                                        "current/phychem_mfm/training/degrade_molecules.py":  "3528566aed8bc0303dddfddfcafa400fdb7826a5be1471e7855a36af80587340",
+                                        "current/phychem_mfm/training/geometry.py":  "d07eeb8545603576e902c1f5b908b987dec23f335923697ca5e8719d7a640aa5",
+                                        "current/phychem_mfm/training/losses.py":  "e6748230041f6c0ea3a8d7086a3046a78f64f79cbbffa11a63705ad9a6c971e9",
+                                        "current/phychem_mfm/training/utils_debug.py":  "ad224040fd36f44940a33fca1ed6c17e0eb5efc65d5c3f620d912512e4e1cfcc",
+                                        "current/phychem_mfm/training/v3_performance_acceptance.py":  "4e90c06fdfd4476cef8b89a306a8e9853f96d24e8799fff285c98a259aaf5a78",
+                                        "tools/model_v3/a_checkpoint_export.py":  "5ce54db689c847739bdac71e6577e67653d719070e68c7f29460fa509636a270",
+                                        "tools/model_v3/a_execution_runtime.py":  "76c282093c9da31fcbf751d9e2eb6a2ae67baea22d7c11d5a200c7ec5f6d2c73",
+                                        "tools/model_v3/a_speed_report.py":  "d3a970530a58bc2582b3423adb7760398fed889afdf64044af2b2d4803ca3f66",
+                                        "tools/model_v3/analyze_trace_v3.py":  "307607f1667205565f78d2e81605a6d0b6ae1697c6873d2f5af11ed054de55d0",
+                                        "tools/model_v3/native_runtime_bindings.py":  "ed2e069d408a671c93e8c42ec827162db3d98333587c08c9d37010fc6d7e464d",
+                                        "tools/model_v3/paired_a_acceptance.py":  "b8b4ad10a848561d69352fe5729a5ace9060a28125775c2f219df9b47dd29ebd",
+                                        "tools/model_v3/private_runtime_storage.py":  "791e2742b2131e5001ebc4fe549d8fcb43f7d28f399368a5aa5f82d7d592a041",
+                                        "tools/model_v3/profile_s_baseline.py":  "ecbea5174a314293ab5cce81e7a08d00981619155b1d8d088ffa5f93b692f965",
+                                        "tools/model_v3/profile_sampling.py":  "4d7837258f7a4113f5cfd879412e89cc380afa5e7d64d4042d02112614d895b0",
+                                        "tools/model_v3/run_supervised.py":  "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd",
+                                        "tools/model_v3/runtime_monitor.py":  "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe",
+                                        "tools/model_v3/s_input_stream.py":  "12433fddd1518ce9a488f12f997a5e53053136d3d396c50e3a0fbbdd64021212",
+                                        "tools/model_v3/single_a_benchmark.py":  "e44d33276226de8920f51eabb1e7d35003ddb216ec3d182eef7846cda7f3154a",
+                                        "workflows/sprime_s/scripts/prepare.py":  "4b10dc5c0c2c1f3c42250ca1c8541c43661ada301484f92a6ce7bfce512f4a10",
+                                        "workflows/sprime_s/scripts/s_loader_recovery_v1.py":  "070e294e063197ff2388f6e0933ca078546293cbd221a9a86c93580e522c1efa",
+                                        "workflows/sprime_s/scripts/s_loader_recovery_v2.py":  "5ee5be2f9e15a3a6c12090bb4adcdc67bf4d3de3eb5f376c3d76fbab1690e154",
+                                        "workflows/sprime_s/scripts/s_model_memory_v1.py":  "170a7752bad1812d15dceace1613d19f579aec5d97a4965ed0960731cc53f232",
+                                        "workflows/sprime_s/scripts/s_native_adapter_v1.py":  "0e81348b046829151e42c67280ec9a5e7d8ef6a5b4034f422b31b5e82dea68e2",
+                                        "workflows/sprime_s/scripts/s_native_adapter_v2.py":  "fb0527d84d645d4e037255f0e22155d1f2e760a3220036d951953ef642308a2a"
+                                    },
+    "files":  [
+                  {
+                      "role":  "script",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_gradient_feedback_diagnostic_v1/diagnose_native_feedback.py",
+                      "bytes":  40539,
+                      "sha256":  "b8fb0c05feda698d35a56de40c62d060feb3fc5b3ae2eab7bd593ae95b926004",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "tests",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_gradient_feedback_diagnostic_v1/test_native_feedback.py",
+                      "bytes":  11410,
+                      "sha256":  "70d04531d95453875581a6d0556c320fe7d936b6a7d353642daeba100692e2cf",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "readme",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_gradient_feedback_diagnostic_v1/README.md",
+                      "bytes":  10872,
+                      "sha256":  "022a03f04c992b63ca30c7c1e631d5b50ce313d24d3fa7e519ad5e6829b81793",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "original_evidence_review",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_gradient_feedback_diagnostic_v1/original_evidence_review_v1.json",
+                      "bytes":  4036,
+                      "sha256":  "5936253b32db1246df440ea8da6235c24a36688e3330e5f4008048e48583be0a",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_configuration",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a06_fused_4520457/configuration.json",
+                      "bytes":  18090,
+                      "sha256":  "9cea65250ae6e3e34901988e6237edb6d4b1fd72d694344575fe5f02be937224",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_gate",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a06_fused_4520457/trajectory_gate.json",
+                      "bytes":  51275,
+                      "sha256":  "f1a428d2b35b6020e666f3c3a1ec20c8b4043c224c1b3a47270e79281891d97c",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_reference_history",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a06_fused_4520457/reference_history.jsonl",
+                      "bytes":  305306,
+                      "sha256":  "9ed8f4d76950aab10fafc77cae33fa0418763c8b7906b6e2342d166fac781f52",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_candidate_history",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a06_fused_4520457/candidate_history.jsonl",
+                      "bytes":  305290,
+                      "sha256":  "7063ed5008a7e20fca71414530b87e29f1ac7a55030dc21922d0e8f99996f599",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_summary",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a06_fused_4520457/summary.json",
+                      "bytes":  898,
+                      "sha256":  "a9ec0416c2ad1df2c84aec09cd0e5891b9aa33cc3327f24af25218dc0a5ba800",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_status",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a06_fused_4520457/run_status.json",
+                      "bytes":  392,
+                      "sha256":  "d82837eecd59e70ec32fd92a42194d15c607530083cfd586391e357993bbedb9",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "485_configuration",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A06_optimizer_diagnostic_4520485/configuration.json",
+                      "bytes":  11046,
+                      "sha256":  "4d9ecc2177b325e5cfa40658c29c221b71cbde4c5400e0c73728382612f7deb7",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "485_summary",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A06_optimizer_diagnostic_4520485/summary.json",
+                      "bytes":  16461,
+                      "sha256":  "5208f188abd350c0a47fbe49f805d0575983c2a56d91797fb2909cf36a5d72e5",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "485_status",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A06_optimizer_diagnostic_4520485/run_status.json",
+                      "bytes":  217,
+                      "sha256":  "e927a376500dbd9970c57e301051f4ebd927acccd0aaa53e7f25bcbf57e5495e",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_supervisor",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520457.json",
+                      "bytes":  3585,
+                      "sha256":  "11fdfd969212da44e6e8b28d6826a8f2030e9ecd4c0b40b7d21d6c7e191a6b16",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "485_supervisor",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A06_optimizer_diagnostic_supervisor_4520485.json",
+                      "bytes":  3583,
+                      "sha256":  "5fb5d8196e3ec7e696c5798c90a7847e2aa0241148b2afe8334bc85df21c4b06",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "485_script",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a06_optimizer_diagnostic_v1_source/diagnose_adamw_routes.py",
+                      "bytes":  19308,
+                      "sha256":  "330b4d4dffb7c7937bb6b93a61dceb7f9cebc93c42f6336a6920d10c0ac3f829",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_reference_configuration",
+                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_a_checkpoint/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                      "bytes":  34127,
+                      "sha256":  "af26f79be41d99bac5de410b686bccdf608b830b772d0dde06491bb146d35324",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_a4_configuration",
+                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_a_checkpoint/workflows/s_denoise/configs/A4_seed0_v3.json",
+                      "bytes":  3852,
+                      "sha256":  "fa8f4dc6430eacd50691f95d3b865bd54665310c9dba038f118294a0a5d29122",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_candidate_options",
+                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_a_checkpoint/current/configs/model_v3/performance/a06_fused.json",
+                      "bytes":  300,
+                      "sha256":  "6b2dfe5e651702b5cdfc3ac903f77da6538ffac5690be8614fe1a3fb59b908b5",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_native_input_manifest",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/manifest.json",
+                      "bytes":  4238,
+                      "sha256":  "2f69b672350744369b08c672b62e3d276487714abc97b766a12140ec5af59997",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_original_shard_snapshot",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/shard_snapshot_v1.json",
+                      "bytes":  5974,
+                      "sha256":  "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_frozen_protocol",
+                      "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage59_three_epoch_protocol_v1/actual_scientific_freeze_v1/phase1_three_epoch_scientific_protocol.json",
+                      "bytes":  166751,
+                      "sha256":  "cde2ca717934955f340a5f160a3390ff1dd6eda12c9ffbab93fc54fce0c8a2a4",
+                      "max_bytes":  4194304
+                  },
+                  {
+                      "role":  "457_native_transport",
+                      "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/native_qa_stats_v3.py",
+                      "bytes":  13653,
+                      "sha256":  "16c37ed53f6007b459981b734001fd3fef9dd225257b0d5d6eb8c54a4992772b",
+                      "max_bytes":  4194304
+                  }
+              ],
+    "notes":  [
+                  "Pins manifest itself must be supplied by independent --pins-sha256; no circular self-reference",
+                  "New tests/GPU execution have not been run by this agent",
+                  "Original source/evidence bytes were read-only checked; no source or original was edited",
+                  "No weights or gradients are saved, copied into Git or exported; GPU diagnosis remains opt-in"
+              ]
+}

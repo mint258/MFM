@@ -1,0 +1,145 @@
+{
+  "schema": "model_v3_composed_GPU_admission_v1",
+  "captured_utc": "2026-10-25T20:46:23.189452+00:00",
+  "job_id": "4521015",
+  "node": "compute-0-21",
+  "bindings": {
+    "MODEL_V3_GPU_UUID": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+    "MODEL_V3_EQ_REQUEST": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/eq_gpu_request_prepare_4521011/request.json",
+    "MODEL_V3_EQ_REQUEST_SHA": "91db91f74a817f0af950d888877e361103206b1edb97219cede09fead443bdeb"
+  },
+  "script_sha256": "c7c23c520f8a3c34765674c5418fc4580d4857d97f9dacfeacd0074b37866c77",
+  "argv": [
+    "sbatch",
+    "--parsable",
+    "--nodelist=compute-0-21",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/composed_eq_gpu_v1.sbatch"
+  ],
+  "observations": [
+    {
+      "argv": [
+        "scontrol",
+        "show",
+        "node",
+        "compute-0-21"
+      ],
+      "stdout": "NodeName=compute-0-21 Arch=x86_64 CoresPerSocket=52 \n   CPUAlloc=0 CPUEfctv=104 CPUTot=104 CPULoad=0.00\n   AvailableFeatures=(null)\n   ActiveFeatures=(null)\n   Gres=(null)\n   NodeAddr=10.1.1.176 NodeHostName=compute-0-21 Version=22.05.7\n   OS=Linux 5.14.0-611.20.1.el9_7.x86_64 #1 SMP PREEMPT_DYNAMIC Thu Jan 15 13:21:39 UTC 2026 \n   RealMemory=120000 AllocMem=0 FreeMem=90819 Sockets=2 Boards=1\n   State=IDLE ThreadsPerCore=1 TmpDisk=0 Weight=1 Owner=N/A MCS_label=N/A\n   Partitions=all \n   BootTime=2026-08-21T15:09:45 SlurmdStartTime=2026-08-21T15:28:06\n   LastBusyTime=2026-10-25T23:39:19\n   CfgTRES=cpu=104,mem=120000M,billing=104\n   AllocTRES=\n   CapWatts=n/a\n   CurrentWatts=0 AveWatts=0\n   ExtSensorsJoules=n/s ExtSensorsWatts=0 ExtSensorsTemp=n/s\n\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "squeue",
+        "-h",
+        "-w",
+        "compute-0-21",
+        "-o",
+        "%i|%u|%t|%m|%C"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "ssh",
+        "-n",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+        "compute-0-21",
+        "nvidia-smi --query-gpu=uuid,name,memory.total,memory.free --format=csv,noheader,nounits"
+      ],
+      "stdout": "GPU-22e21021-e572-4562-fc51-cd8c83e74141, NVIDIA GeForce RTX 5090, 32607, 32095\nGPU-c35f2434-9137-9723-1af5-dc69b6295243, NVIDIA GeForce RTX 5090, 32607, 32097\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "ssh",
+        "-n",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+        "compute-0-21",
+        "nvidia-smi --query-compute-apps=gpu_uuid,pid,process_name,used_gpu_memory --format=csv,noheader,nounits"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "ssh",
+        "-n",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+        "compute-0-21",
+        "flock -n /share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks/GPU-c35f2434-9137-9723-1af5-dc69b6295243.lock true"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "ssh",
+        "-n",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+        "compute-0-21",
+        "head -n 5 /proc/meminfo"
+      ],
+      "stdout": "MemTotal:       130885208 kB\nMemFree:        92846872 kB\nMemAvailable:   126678776 kB\nBuffers:              12 kB\nCached:         33461460 kB\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "quota",
+        "-v",
+        "-u",
+        "zixiao"
+      ],
+      "stdout": "Disk quotas for user zixiao (uid 1278): \n     Filesystem  blocks   quota   limit   grace   files   quota   limit   grace\n      /dev/sda1 2676399680       0 4294967296         190063673       0       0        \n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "sacct",
+        "-X",
+        "-n",
+        "-P",
+        "-j",
+        "4521011",
+        "--format=JobIDRaw,State,ExitCode"
+      ],
+      "stdout": "4521011|COMPLETED|0:0\n",
+      "stderr": "",
+      "returncode": 0
+    }
+  ],
+  "requested_memory_MiB": 32768,
+  "prior_memory_commitment_MiB": 0.0,
+  "available_memory_MiB": 123709.7421875,
+  "sbatch_returncode": 0,
+  "stdout": "4521015\n",
+  "stderr": "",
+  "GPU_GRES_isolation_claimed": false,
+  "purpose": "Synthetic actual6x512 composition/CUDA transfer validation; failed CPU matrix is preserved and no model choice is inferred"
+}

@@ -1,0 +1,66 @@
+{
+    "schema":  "A06_original_readonly_evidence_review_v1",
+    "status":  "PREPARED_NOT_EXECUTED_NEW_DIAGNOSTIC",
+    "comparison":  "code-derived saved original configuration/gate/summary/supervisor; no new native computation",
+    "original457":  {
+                        "code_sha":  "8ece64c685fe287d6863fbbe2f6f52006632a5cc",
+                        "prereg_sha":  "61658a4c1f472de035601dbedc17809315774784",
+                        "configuration_raw_sha256":  "9cea65250ae6e3e34901988e6237edb6d4b1fd72d694344575fe5f02be937224",
+                        "seed":  0,
+                        "gpu_uuid":  "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+                        "model_dim":  512,
+                        "model_layers":  6,
+                        "native_updates":  500,
+                        "consumed_base_records":  201216,
+                        "fixed20_pass":  true,
+                        "trajectory_pass":  false,
+                        "full_A_numeric_acceptance":  false,
+                        "first_failed_point":  {
+                                                   "pass":  false,
+                                                   "relative_difference":  0.0029128788627426007,
+                                                   "step":  14
+                                               },
+                        "point15":  {
+                                        "pass":  false,
+                                        "relative_difference":  0.003909828508023756,
+                                        "step":  15
+                                    },
+                        "maximum_relative_difference":  {
+                                                            "pass":  false,
+                                                            "relative_difference":  0.18546434093044833,
+                                                            "step":  379
+                                                        },
+                        "supervisor_status":  "FAILED",
+                        "child_exit":  2,
+                        "first_failure":  {
+                                              "phase":  "child_exit",
+                                              "exit_code":  2
+                                          },
+                        "remaining_recorded_processes":  [
+
+                                                         ],
+                        "original_repository_sources_checked":  61,
+                        "all_original_source_bytes_match_live":  true
+                    },
+    "original485":  {
+                        "status":  "OPTIMIZER_DIAGNOSTIC_COMPLETE_PENDING_OUTER_TERMINAL",
+                        "training_steps":  0,
+                        "parameter_count":  22352859,
+                        "actual_dispatch":  {
+                                                "default/_multi_tensor_adam":  99,
+                                                "fused/_fused_adam":  99
+                                            },
+                        "acknowledged_history_commits":  101,
+                        "limitation":  "Does not replay457 actual gradients or prove full feedback-trajectory causality",
+                        "scientific_acceptance":  false
+                    },
+    "planned_diagnostic":  {
+                               "native_updates":  15,
+                               "reference_and_free_replay":  "exact original saved scalar/input receipt or REPLAY_MISMATCH",
+                               "shadow":  "parameter-only clone, independent fused AdamW state, shared clipped reference native gradients with raw byte hash before/after",
+                               "scientific_acceptance":  false,
+                               "new_tests_executed":  false,
+                               "new_GPU_run_executed":  false,
+                               "original_A06_failure_unchanged":  true
+                           }
+}

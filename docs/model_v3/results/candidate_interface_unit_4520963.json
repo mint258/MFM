@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "job_id": "4520963",
+  "expected_node": "compute-0-8",
+  "node": "compute-0-8",
+  "cuda_visible_devices": "",
+  "python": "3.11.14 (main, Oct 21 2025, 18:31:21) [GCC 11.2.0]",
+  "python_executable": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+  "requested_cpus": "16",
+  "requested_memory_MiB": "32768",
+  "package_versions": {
+    "torch": "2.10.0+cu128",
+    "wandb": "0.28.1",
+    "pytest": "9.1.1"
+  },
+  "request_sha256": "60edb345fbff105e3f6aa63cb8fae8b8be279608c3b00a87931d1167748f6c03",
+  "runner_sha256": "cb02f44417f0aa6199e355ae5f1eae26c4e9f73cb886eb884bfa58635d096605",
+  "elapsed_seconds": 59.1060149371624,
+  "units": [
+    {
+      "name": "sampling_bridge",
+      "returncode": 0,
+      "elapsed_seconds": 59.08517884090543,
+      "argv": [
+        "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/tests/test_model_v3_sampling_bridge.py",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/tests/test_model_v3_labels.py",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/tests/test_model_v3_native_bond_transport.py",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4520963/sampling_bridge.xml",
+        "--basetemp=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4520963/sampling_bridge_tmp"
+      ],
+      "source_hashes_before": {
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/phychem_mfm/phase1/v3_contract.py": "c41bc5d42bf14e6c2036faa951a38f49af3c3f68df54d835e4da31aed9649d8b",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/phychem_mfm/phase1/v3_data.py": "cb66e060fc1be637a170465157126d526032d5b35c5af243ce97001f21ea2e73",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/phychem_mfm/phase1/v3_sampling.py": "031c387f60697f7b8d0ba1bc38ed64bb08664fddbd00a7a425c597171aac04f8",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/phychem_mfm/phase1/v3_sampling_bridge.py": "2c15a8b61fa5b071d3e64cd8f769a8e43930174dbaa0555e70a1ef233809d946",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/tests/test_model_v3_labels.py": "06ca658670c7c60db09a4e10e34c2de4cbca9fe3c843ed4a1fb00f2dd5637764",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/tests/test_model_v3_native_bond_transport.py": "7e3bb455288c4609d1724a4ae6d8b42f6aaddcd6fde7a5caf12688bb432356a0",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/tests/test_model_v3_sampling_bridge.py": "e6e137777b7598a0e8c628b686a1c61c44132f4a36e01145d93c1c1ccaaeb711",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/docs/model_v3/03_sampling_bridge.md": "e4ae00ba8c3f15871d336e1ff30ad585f8105f306296d442947e5bd7e4dc8163",
+        "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/export/wire_v1/sampling_projection_v1.py": "50aceee73de4718b7f35dbd2a37a207a7739d57f8ed53f39a36da16bfbc0e2dd"
+      },
+      "source_hashes_after": {
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/phychem_mfm/phase1/v3_sampling_bridge.py": "2c15a8b61fa5b071d3e64cd8f769a8e43930174dbaa0555e70a1ef233809d946",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/tests/test_model_v3_sampling_bridge.py": "e6e137777b7598a0e8c628b686a1c61c44132f4a36e01145d93c1c1ccaaeb711",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/docs/model_v3/03_sampling_bridge.md": "e4ae00ba8c3f15871d336e1ff30ad585f8105f306296d442947e5bd7e4dc8163",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/phychem_mfm/phase1/v3_sampling.py": "031c387f60697f7b8d0ba1bc38ed64bb08664fddbd00a7a425c597171aac04f8",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/phychem_mfm/phase1/v3_data.py": "cb66e060fc1be637a170465157126d526032d5b35c5af243ce97001f21ea2e73",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/phychem_mfm/phase1/v3_contract.py": "c41bc5d42bf14e6c2036faa951a38f49af3c3f68df54d835e4da31aed9649d8b",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/tests/test_model_v3_labels.py": "06ca658670c7c60db09a4e10e34c2de4cbca9fe3c843ed4a1fb00f2dd5637764",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sampling_bridge/current/tests/test_model_v3_native_bond_transport.py": "7e3bb455288c4609d1724a4ae6d8b42f6aaddcd6fde7a5caf12688bb432356a0",
+        "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/export/wire_v1/sampling_projection_v1.py": "50aceee73de4718b7f35dbd2a37a207a7739d57f8ed53f39a36da16bfbc0e2dd"
+      },
+      "sources_unchanged": true,
+      "counts": {
+        "tests": 99,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      }
+    }
+  ]
+}
