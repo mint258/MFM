@@ -383,3 +383,25 @@ SDK均保持FAILED，未在线同步。源码和原件保留，入口W&B_训练�
 559在公开注册后实际提交TRAIN-only诊断到CPU12，RSS24GiB/整作业输出128MiB/
 3300秒不增加。外层CPU guard也明确128MiB，计入private、日志、journal和预留；
 未读取验证。原482仍FAILED；诊断实际结果、后续是否需新的基线solver协议另记。
+
+569实际v8归档C0/12秒，546软容量失败和544/566完整原生记录/CSV均归档，索引44；
+568对应17项PASS/C0/2秒。586 v9测试24项PASS/C0/2秒，587实际归档559/549 C0/3秒，
+索引47。559 SDK两行按固定logger与保存结果投影逐字段验证，明确无原fsync mirror。
+
+559实际C0/1486秒：原受控500次stop7，active/Jacobi同目标stop2/74次，solver分别
+34.5504945s/4.7119295s；全部工作含原矩阵构建时间，不能只报solver作为整作业。
+VAL读取0、来源和CSR未变，原482 stop未知不推断。后续用独立新协议接受这份TRAIN
+参数并首次VAL；不回写559为基线通过。575基线v2库17项PASS/C0/6秒，591恢复31项
+PASS/C0/10秒；新ADOPTED协议和源须先公开。详C2_ARTIFACT_BASELINE_V2_PREREG.md。
+
+549 A03/head-checkpoint-off实际完整20/500 PASS、C0/2196秒。随后同一UUID的单模型
+A/B/B/A 576/579/580/583分别C0/77/108/70/85秒；2warmup+20测量，无profiler，输入
+receipt精确相同。588实际CPU报告C0/2秒，基线152.070610737、候选131.706676698
+base records/s，候选/基线0.866088957。本次未见收益，不采用head-off；四个窗口
+原值/波动完整保留，不因数值通过就宣称提速。独立SDK归档另行追加。
+
+549监督日志1043个采样观察的owned进程组CPU RSS最大18,470,543,360B（非exact peak）。
+后续589 TF32/590 distance-checkpoint-off各申请32GiB、明确外层RSS28GiB，预先核验
+全用户加新两作业声明64GiB低于node21的85%及实际MemAvailable；数学/数值门槛与
+源码8ece不变。实际589 FAILED/122秒，20批数值门槛未通过；590 FAILED/30秒，
+GPU85%容量失败并保留清理故障。无任何训练配方冻结或学校服务器提交。
