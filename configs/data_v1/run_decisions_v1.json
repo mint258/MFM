@@ -1,0 +1,28 @@
+{
+  "status": "ACTIVE_WITH_SE_EXCEPTION_VAL_FAMILY_IDENTIFICATION_PENDING",
+  "accepted_on": "2026-10-25",
+  "authorization_source": "User reply to the two preflight questions in this conversation",
+  "selenium_exception": {
+    "approved": true,
+    "scope": "Only the >20% element exclusion stop for Se",
+    "rule": "Continue excluding UFF_UNSUPPORTED without changing force field; retain every other stop threshold",
+    "user_reply": "允许 Se 例外；仍按原规则排除不支持分子，其余阈值不变"
+  },
+  "validation": {
+    "status": "AUTHORITY_PENDING_EXISTING_DISTRIBUTION_AND_FAMILY_REVIEW",
+    "user_reply": "现有的FULL和TRAIN的数据集分布有什么差别？如果两者有差别的话，就从样本量更多的那个里面选VAL，之前做过一轮数据集分析得到了样本家族分类，似乎是有九十几个家族，从中抽一个家族作为验证集",
+    "requirements": [
+      "Compare existing TRAIN/FULL distribution using data evidence",
+      "Locate the previously computed sample family classification; do not substitute filesystem directories or label families",
+      "If populations differ, use the larger population as the source and hold out an entire identified family",
+      "Freeze molecular roles before normalization and nested subsets; all conformers of each molecule remain together"
+    ]
+  },
+  "defaults": {
+    "expansion_first_batch_molecules": 2500000,
+    "representative_fraction": 0.5,
+    "novel_fraction": 0.5,
+    "expansion_Pprime": false
+  },
+  "all_other_guide_rules_unchanged": true
+}

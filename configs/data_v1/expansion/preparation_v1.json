@@ -1,0 +1,62 @@
+{
+  "schema": "pubchem_expansion_preparation_config_v1",
+  "version": "0.1.0",
+  "status": "PREPARED_NOT_SCIENTIFICALLY_EXECUTED",
+  "external_artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion",
+  "rdkit": "2025.09.5",
+  "cpu_workers": 16,
+  "no_gpu": true,
+  "quantum_chemistry": false,
+  "pprime": false,
+  "screening": {
+    "rules": "original_WP0_X01_X05",
+    "heavy_atom_upper_bound": null,
+    "isotope_policy": "preserve",
+    "stereo_policy": "preserve_source",
+    "graph_selection_regression_required": 0.999,
+    "full_v1_selection_regression_required": true,
+    "source_pin": "configs/data_v1/expansion/pubchem_source_pin_v1.json",
+    "bounded_preparation_pilot_input_rows": 10000
+  },
+  "streams": {
+    "seed": 20261025,
+    "queue_molecules_each": 5000000,
+    "first_batch_molecules_each": 1250000,
+    "streams": [
+      "R",
+      "N"
+    ],
+    "nested_prefixes": true
+  },
+  "uff_pilot": {
+    "molecules": 10000,
+    "max_conformers": 10,
+    "eligible_decontaminated_full_pool_required": true,
+    "nodes": [
+      "compute-0-14",
+      "compute-0-15",
+      "compute-0-16",
+      "compute-0-17",
+      "compute-0-18",
+      "compute-0-19"
+    ],
+    "same_sprime_source_and_parameters_required": true,
+    "status": "PENDING_SB2_ADAPTER_PARITY_AND_COST_PILOT"
+  },
+  "gates": {
+    "minimum_quota_reserve_bytes": 200000000000,
+    "maximum_job_hours": 48,
+    "cost_overrun_stop_ratio": 1.5,
+    "root_review_above_allocated_core_hours": 500,
+    "download_authorized_by_this_config": false
+  },
+  "pending": [
+    "complete original-input selection regression",
+    "physical downstream source pins/all-split union",
+    "v1-common structure/fingerprint reference",
+    "exact nearest-neighbor cost pilot",
+    "full-pool external ranking parity/cost pilot",
+    "UFF generation adapter parity with S-prime",
+    "10k-molecule UFF/D pilot"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+    "schema_version":  1,
+    "purpose":  "Freeze ROUTINE molecules as VAL without duplicating the full record table",
+    "workers":  16,
+    "execution_node":  "compute-0-20",
+    "external_root":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025",
+    "output_cap_bytes":  134217728,
+    "sampled_rss_cap_bytes":  25769803776,
+    "inputs":  {
+                   "population_manifest":  {
+                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/manifest.json",
+                                               "bytes":  6767,
+                                               "sha256":  "d21bae7f7b6c1dfbfe9342635ded80a55ddc05baba46ebfaa66cb7831866b96e"
+                                           },
+                   "training_manifest":  {
+                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/manifest.json",
+                                             "bytes":  4238,
+                                             "sha256":  "2f69b672350744369b08c672b62e3d276487714abc97b766a12140ec5af59997"
+                                         },
+                   "population_binding":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/prepared/population_binding.json",
+                                              "bytes":  2116,
+                                              "sha256":  "b57343f575cf4b600a17dba416a234d1f93aab1839e2435091f790ce87686dbd"
+                                          },
+                   "molecule_index":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/molecule_index.parquet",
+                                          "bytes":  8822311,
+                                          "sha256":  "360ee138bb717449dfa0fe4f0cfed8622e12cb9c46ceadf9bb95354b996cb063"
+                                      },
+                   "routine_arrow":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/routine.arrow",
+                                         "bytes":  2636514,
+                                         "sha256":  "29b153bd734dba010035af83cc76d80447c85b17c3da953cb77f2da1713e7e58"
+                                     },
+                   "user_decision":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/run_decisions_v2.json",
+                                         "bytes":  1940,
+                                         "sha256":  "f62f3938f3449a652dfa4f02b5dfc667f9e8f3efaecda73911828b582815fec2"
+                                     }
+               },
+    "expected":  {
+                     "source_records":  11231854,
+                     "source_molecules":  1220466,
+                     "TRAIN_records":  11104772,
+                     "TRAIN_molecules":  1206608,
+                     "legacy_routine_records":  11322,
+                     "VAL_molecules":  7610
+                 }
+}

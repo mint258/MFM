@@ -1,0 +1,67 @@
+{
+  "schema": "DATA_V1_SPRIME_FILL_PILOT_V1",
+  "status": "PREPARED_NOT_EXECUTED_NOT_FULL_RUN_AUTHORITY",
+  "rdkit_version": "2025.09.5",
+  "science_source_pins": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/sprime_v6.py",
+      "bytes": 20644,
+      "sha256": "d6f1d29a6de673a1faf186e095c4fef7534a81022a09a4840ec65e5d8fa424d3"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/prepare.py",
+      "bytes": 6040,
+      "sha256": "4b10dc5c0c2c1f3c42250ca1c8541c43661ada301484f92a6ce7bfce512f4a10"
+    }
+  ],
+  "authority_pins": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/dataset/manifest.json",
+      "bytes": 11430,
+      "sha256": "a67e36e4fb1203f7fb72074abad3614bef6cd0e34140a38088f2492005912e01"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/reports/s_sprime_alignment_v4.json",
+      "bytes": 3804,
+      "sha256": "764b4ccde3e51ed99990084bb4d26fd2972b27d4fb7b0f22ac6ef84e595286fa"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/tables/s_sprime_per_molecule_v4.parquet",
+      "bytes": 5650950,
+      "sha256": "9b53e4611c5a3f199f785c8c201aa56ce76f559e3c81ccf10d1819624e03e354"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/molecule_index.parquet",
+      "bytes": 8822311,
+      "sha256": "360ee138bb717449dfa0fe4f0cfed8622e12cb9c46ceadf9bb95354b996cb063"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+      "bytes": 1242386629,
+      "sha256": "ef2d99ae1b6c1001f6ffeb979ebafd10b04c13fa4774e52527a90a6276c06276"
+    }
+  ],
+  "per_molecule": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/tables/s_sprime_per_molecule_v4.parquet",
+  "molecule_index": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/molecule_index.parquet",
+  "record_index": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+  "sprime_manifest": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/dataset/manifest.json",
+  "expected_population_molecules": 1220466,
+  "pilot_problem_molecules": 320,
+  "pilot_control_molecules": 16,
+  "pilot_selection_seed": 2026102502,
+  "order_seed": 20261025,
+  "candidate_multiplier": 10,
+  "max_candidates": 300,
+  "retry_embedding_max_iterations": 400,
+  "uff_max_iterations": 2000,
+  "uff_energy_tolerance": 0.000001,
+  "uff_force_tolerance": 0.0001,
+  "dedup_rmsd_A": 0.5,
+  "rmsd_definition": "fixed source heavy-atom indices and proper-rotation Kabsch; no atom permutation",
+  "external_output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/conformers",
+  "max_output_bytes": 8589934592,
+  "quota_reserve_bytes": 200000000000,
+  "se_exception": "User approved only the Se >20% exclusion exception; UFF_UNSUPPORTED remains excluded",
+  "final_population_roles": "TRAIN plus frozen ROUTINE VAL membership from SB-1; pilot source_role TRAIN/FULL is retained and does not redefine VAL",
+  "raw_retention": "Transient candidates remain in memory. All failed molecules and deterministic hash-selected 1% of successful molecules retain all candidate coordinates/optimizer outcomes in compressed JSON. Every molecule retains selected geometries, source pointers, seeds and hashes for reproduction."
+}

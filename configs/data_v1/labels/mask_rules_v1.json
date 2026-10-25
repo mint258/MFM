@@ -1,0 +1,19 @@
+{
+  "schema_version": "v1-mask-rules-draft.1",
+  "status": "PREPARED_NOT_FULL_POPULATION_VALIDATED",
+  "hard_stop_new_mask_fraction": 0.01,
+  "mask_fraction_denominator": "all canonical records where the enabled field is in scope; record counted invalid if any previously eligible leaf is newly masked",
+  "source_missing_and_NA_separate_from_new_masks": true,
+  "accepted_source_statuses": ["SUCCESS", "PROPERTY_FAILED"],
+  "mask_explicit_convergence_false": true,
+  "unknown_convergence": "review_and_count_only; NULL is not proven nonconvergence",
+  "robust_z": {"definition": "0.6744897501960817 * abs(x - TRAIN_median) / TRAIN_MAD", "review_threshold": 20.0, "automatically_mask": false, "zero_MAD": "explicitly undefined; review unequal values"},
+  "physical_range": "only definition-backed bounds stored per field in registry",
+  "neutral_atomic_charge_sum": {"tolerance": "sum of source half-last-decimal rounding bounds + 1e-6 e, minimum 1e-4 e", "when_precision_unknown": "review only; do not invent tolerance", "fields": ["net_charges_e", "mulliken_charges_e", "charges_e"]},
+  "IP_EA_gap_sign": {"require_same_method_geometry_and_task_context": true, "near_zero_absolute_eV": 1e-8, "mask_conflicting_fields": true},
+  "dipole_vector_norm": {"requires_independently_stored_norm": true, "when_absent": "NOT_APPLICABLE_SOURCE_NORM_NOT_STORED"},
+  "within_molecule_jump": {"review_factor": 1000.0, "automatically_mask": false, "exclude_sign_crossing_and_zero_from_ratio": true},
+  "outlier_threshold_fit_role": "FROZEN_TRAIN_ONLY",
+  "record_deletion": false,
+  "raw_labels_modified": false
+}
