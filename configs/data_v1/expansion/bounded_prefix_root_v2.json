@@ -1,0 +1,133 @@
+{
+  "schema": "pubchem_bounded_prefix_plan_v2",
+  "status": "READY",
+  "raw_receipt": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/raw/pubchem_20261025_v1/attempt_4520348/receipt.json",
+    "bytes": 10827,
+    "sha256": "2a945e3bfa378b1f958d0214e6a2448cf97d22f81ec2455f359077e3887ad478"
+  },
+  "data_authorization_receipts": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/raw/pubchem_20261025_v1/attempt_4520348/receipt.json",
+      "bytes": 10827,
+      "sha256": "2a945e3bfa378b1f958d0214e6a2448cf97d22f81ec2455f359077e3887ad478"
+    }
+  ],
+  "authorized_data_pin_jobs": [
+    "4520348"
+  ],
+  "allow_small_fixture_legacy_authority": false,
+  "code_sources": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/bounded_prefix_gate_v2.py",
+      "bytes": 6878,
+      "sha256": "534eb83dab2eb5f803a28010d91437a4758fc94a18b7423280e5d63563c6a1f2"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/bounded_prefix_pilot_v2.py",
+      "bytes": 9007,
+      "sha256": "72eee2e9ab026432e3f4a581dbbd6bb2a178d5c5fc5684ab3df0cc8d8aa58f93"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/bounded_prefix_pilot_v2.sbatch",
+      "bytes": 882,
+      "sha256": "eda2fdb78faed4eabf5d483b0e47456f39a649afdf78c8c7dd6cd923072f2942"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/screen.py",
+      "bytes": 11880,
+      "sha256": "bb31d57a4749f9ef9843dc075bc75f7c268cb781f60c7b4f0d77a121a73dcc88"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/common.py",
+      "bytes": 4312,
+      "sha256": "8c988f617776ad05354deae1cf69933e7ff95210f7a2609f903e4826172ccbad"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/data_authority_v1.py",
+      "bytes": 5569,
+      "sha256": "19cc48687b53ecf114973af1941ed9d8571d18016d59bde147586d57ee6302f1"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/__init__.py",
+      "bytes": 76,
+      "sha256": "5e013a9d678c55d30f22eb358597f8caf6ddf99cb4920ddabd677dd0985491dd"
+    }
+  ],
+  "quota_publisher_source": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/publish_fresh_pubchem_quota_v1.py",
+    "bytes": 1705,
+    "sha256": "913d1be2f282281afcc2fc3cb5b91b28d6d14b656eb1a3fbf6a1bbcf5e1d1ceb"
+  },
+  "quota_feed": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/pubchem_quota_feed_v1.json",
+  "workers": 16,
+  "max_input_rows": 10000,
+  "peak_output_cap_bytes": 536870912,
+  "output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/screening/bounded_prefix_v2",
+  "full_source_screening_authorized": false,
+  "decontamination_acceptance_authorized": false,
+  "uff_or_D_family_export_authorized": false,
+  "training_authorized": false,
+  "budget": {
+    "cpus": 16,
+    "memory_gib": 16,
+    "wall_seconds": 3600,
+    "estimated_total_core_hours": 16,
+    "input_raw_bytes_read_for_full_SHA": 1488715010
+  },
+  "root_data_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/raw/pubchem_20261025_v1/CID-SMILES.gz",
+    "bytes": 1488715010,
+    "sha256": "2504bc00da1b0587ae208d8a5fb2a4fe6043c215436150f2023d59c57c5cd2b7"
+  },
+  "prefix_start_ordinal": 1,
+  "released_candidate_pool_authorized": false,
+  "expected_full_job_id": "4520414",
+  "required_regression_sources": {
+    "original_index": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/record_index.parquet",
+      "bytes": 2005784925,
+      "sha256": "c16f84bf93c997d627fbad2e51fc0513661165b82372a1d43d3301bb54603eff"
+    },
+    "relaxed_quality": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_screening_20261011/a_retained/relaxed_quality_annotations.parquet",
+      "bytes": 2529572637,
+      "sha256": "f59a82954be5b68b5ec7bf301bcc552c074c67864379c3d1cf207d67a73334e5"
+    },
+    "formal_population": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+      "bytes": 1242386629,
+      "sha256": "ef2d99ae1b6c1001f6ffeb979ebafd10b04c13fa4774e52527a90a6276c06276"
+    },
+    "common_population": null
+  },
+  "full_gate_refs": {
+    "receipt": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/full_v3/receipt.json",
+      "bytes": 14170,
+      "sha256": "43794711900410ee55159659375205935a452a350776eb644839105ec2615861"
+    },
+    "actual_closure": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/x_full_v3_actual_closure_v1.json",
+      "bytes": 1801,
+      "sha256": "2eb41060bbc3a15109de8f1dc3670f1174180d53647d32ef37b42ee0c7e4e344"
+    },
+    "plan": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/expansion/x_full_regression_root_v3.json",
+      "bytes": 11915,
+      "sha256": "bd0970951f5782ca6291d80dc69eef8eb8e8c34849ec9168feba9fe296d45484"
+    },
+    "runner": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/regression_x_full_v3.py",
+      "bytes": 21461,
+      "sha256": "586cf56064521c088047399408ec12b7883dccbbd2e7da12e411df0aa19ffccd"
+    }
+  },
+  "scope_notes": [
+    "Actual full4520414 COMPLETED0/385s,15879477uniqueIDs,zero native/unexplained drift and100% admission/conditional/molecule agreement; common remains pending",
+    "COMMON_PENDING permits official raw ordinals1..10000 only; no full screening or released pool",
+    "Full full-source dataset refs are compared as metadata only; request.data_references contains only the raw1.49GB file",
+    "Exact source SHA and stable stats verified on compute; 16 actual prefix worker PIDs must each process records",
+    "No downstream-decontamination acceptance, UFF/D-family export, geometry generation or training"
+  ]
+}
