@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --job-name=@JOB_NAME@
+#SBATCH --partition=cpu
+#SBATCH --nodelist=@NODE@
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=64G
+#SBATCH --time=02:00:00
+#SBATCH --output=@LOG_PATH@
+set -euo pipefail
+case "${SLURMD_NODENAME}" in compute-0-1[4-9]) ;; *) exit 2 ;; esac
+export CUDA_VISIBLE_DEVICES="" PYTHONDONTWRITEBYTECODE=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+export PYTHONPATH=/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps
+exec /share/home/zixiao/.conda/envs/chemprop/bin/python -B @AUDIT_SOURCE@/run_v1.py --execute \
+  --config @AUDIT_CONFIG@ --pilot-config @PILOT_CONFIG@ \
+  --prepared @AUDIT_PREPARED@ --prepared-sha256 @AUDIT_PREPARED_SHA256@ \
+  --root-preflight @ROOT_PREFLIGHT@ --output @OUTPUT@
