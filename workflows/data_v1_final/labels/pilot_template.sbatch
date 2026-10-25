@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH --job-name=data_v1_label_pilot
-#SBATCH --partition=cpu
+#SBATCH --partition=all
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
 #SBATCH --time=00:30:00
-#SBATCH --nodelist=compute-0-14
+#SBATCH --nodelist=compute-0-20
 #SBATCH --chdir=/share/home/zixiao/descriptor_analysis
 
 # Root must materialize a new reviewed script with the actually admitted node,

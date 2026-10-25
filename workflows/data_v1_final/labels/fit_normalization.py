@@ -157,6 +157,8 @@ def main():
         raise ValueError("UNKNOWN_NORMALIZATION_PLAN")
     if "SLURM_JOB_ID" not in os.environ or int(os.environ.get("SLURM_CPUS_PER_TASK","0"))<16:
         raise ValueError("NORMALIZATION_REQUIRES_16_CPU_SLURM")
+    if os.uname().nodename.split(".")[0]!="compute-0-20":
+        raise ValueError("NORMALIZATION_ANALYSIS_REQUIRES_DEFAULT_COMPUTE20")
     if int(plan.get("workers",0))!=16:
         raise ValueError("NORMALIZATION_REQUIRES_16_WORKERS")
     for ref in plan["sources"].values():

@@ -6,7 +6,7 @@
 
 1. `build_registry.py`：仅重排已闭合的小型字段字典与统计 CSV，逐项生成登记表草案；不会拟合新阈值。
 2. `prepare_pilot_plan.py`：交叉核验最终 catalog 与全量读回清单，生成新试点的来源文件投影和参数。Root 另提供 canonical record manifest 与真实 quota 收据。
-3. `pilot_masks.py`：在 14–19 节点的真实 16 核 Slurm allocation 内，spawn 16 个 worker 读取 family 文件。限定最多5,000条 canonical records，逐字段保留 float64 值、逐叶 mask、既有缺失、新规则原因和复核原因。它不会做全量验收。
+3. `pilot_masks.py`：在默认 compute-0-20 的真实 16 核 Slurm allocation 内，spawn 16 个 worker 读取 family 文件。限定最多5,000条 canonical records，逐字段保留 float64 值、逐叶 mask、既有缺失、新规则原因和复核原因。它不会做全量验收。
 4. `fit_normalization.py`：读取外部 observations，在冻结 TRAIN/common/training_eligible 上拟合。ROUTINE 作为 VAL；不会重新切分 TRAIN。未冻结角色时拒绝任何拟合。P′ 按独立 `geometry_source=uff_sprime` 计划处理。
 
 所有输出新建，已有输出路径导致失败；失败证据保留。程序不删除原文件或临时目录。
@@ -74,6 +74,8 @@ python workflows/data_v1_final/labels/fit_normalization.py \
 ```
 
 此命令同样必须在16核 Slurm 中运行，不在登录节点运行。Root 是唯一提交者。试点模板不是可直接全量提交的脚本。
+
+标签扫描、元数据准备、归一化均属于 `analysis`，在默认 compute-0-20 上仅用 CPU。旧草案把标签统计也限14–19是执行角色范围的过度泛化，已修正；量化/P′科学计算及UFF构象生成仍限14–19。此次修正不改变标签来源、mask阈值或任何科学结果。
 
 ## 尚未完成的科学验收
 

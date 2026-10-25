@@ -27,8 +27,8 @@ def load_plan(path):
     allocation = os.environ.get("SLURM_CPUS_PER_TASK")
     if allocation is None or int(allocation) < 16 or "SLURM_JOB_ID" not in os.environ:
         raise ValueError("SCIENTIFIC_PILOT_REQUIRES_OWN_16_CPU_SLURM_ALLOCATION")
-    if os.uname().nodename.split(".")[0] not in {"compute-0-14", "compute-0-15", "compute-0-16", "compute-0-17", "compute-0-18", "compute-0-19"}:
-        raise ValueError("PILOT_NODE_OUTSIDE_AUTHORIZED_14_19")
+    if os.uname().nodename.split(".")[0] != "compute-0-20":
+        raise ValueError("LABEL_ANALYSIS_REQUIRES_DEFAULT_COMPUTE20")
     for key in ("registry", "record_manifest", "source_files", "mask_rules", "closed_verification"):
         verify_reference(plan["sources"][key])
     storage_preflight(plan)

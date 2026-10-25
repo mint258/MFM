@@ -1,0 +1,57 @@
+{
+  "schema": "DATA_V1_LABEL_OWNER_PILOT_V1",
+  "status": "PREPARED_NOT_EXECUTED_NOT_FULL_COMMON_OR_TRAINING_AUTHORITY",
+  "workers": 16,
+  "minimum_records": 32,
+  "target_records": 64,
+  "maximum_records": 128,
+  "selection_seed": 2026102503,
+  "max_projected_label_source_bytes": 8589934592,
+  "max_projected_base_source_bytes": 1073741824,
+  "max_output_bytes": 4294967296,
+  "quota_reserve_bytes": 200000000000,
+  "mask_max_output_bytes": 8589934592,
+  "external_output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels",
+  "sources": {
+    "catalog": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/acceptance/final_20261016_v1/catalog/catalog.json",
+      "bytes": 3485465,
+      "sha256": "b5aed096ae0dc4c479a64b9b05e8709205911a0f9a474b71ae1490992ce28765"
+    },
+    "verification": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/acceptance/final_20261016_v1/D20_failure_aware_v2_4515602/verification_report.json",
+      "bytes": 1442624,
+      "sha256": "ce9b58e988f66f8a402dc93eeb050a8f7b55317cfe37db3c3b1f08dd7b2045e5"
+    },
+    "roles": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/roles/routine_v1_job4520334/manifest.json",
+      "bytes": 22642,
+      "sha256": "16619f25f2bec53ed2d3c5e8e8381faa746e03f141d9fba87f93b6ec1e8ef8a1"
+    },
+    "strict_sprime": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/tables/s_sprime_per_molecule_v4.parquet",
+      "bytes": 5650950,
+      "sha256": "9b53e4611c5a3f199f785c8c201aa56ce76f559e3c81ccf10d1819624e03e354"
+    },
+    "population": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+      "bytes": 1242386629,
+      "sha256": "ef2d99ae1b6c1001f6ffeb979ebafd10b04c13fa4774e52527a90a6276c06276"
+    },
+    "registry": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/label_registry_v3.json",
+      "bytes": 585411,
+      "sha256": "b6a230b74b5bebfa0108e67572ed2ccc699718c2958fb69e99c58b8323c6ce45"
+    },
+    "mask_rules": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/labels/mask_rules_v1.json",
+      "bytes": 1601,
+      "sha256": "70558fa361f862c6f16cb99beb7fcf2f693611f7faebfaec9bc68e20af610b64"
+    }
+  },
+  "selection": "One canonical owner job; prefer smallest total scientific label-family container bytes; deterministic whole-molecule selection within that job",
+  "local_common_definition": "Frozen TRAIN or VAL; complete usable PM7 molecule; old accepted S-prime SUCCESS with strict successful-and-converged count at least all PM7 records",
+  "training_eligibility": "All false in this I/O pilot because final diagnostic exclusions have not been frozen",
+  "original_LMDB_opened": false,
+  "new_QM_calls": 0
+}

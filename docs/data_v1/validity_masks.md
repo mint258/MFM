@@ -14,7 +14,7 @@
 
 `canonical_reader.py` 只接受完整 record/molecule/attempt/job/task 身份匹配，P 家族另核 lane；同一 record/task 跨文件重复或逐字段覆盖数不符均失败。原子/原子对/basis 索引不进入物性数值。
 
-`pilot_masks.py` 在16核 Slurm 中 spawn 16个 worker，限制5,000条以内。分别保存原 source mask 与新增 mask，逐叶保留 float64 原值。NULL、ABSENT、EMPTY、非有限值、源失败状态、字段形状、numeric_issues 分开报告。
+`pilot_masks.py` 在默认 compute-0-20 的16核 Slurm 中 spawn 16个 worker，限制5,000条以内。此任务是CPU标签分析，不是量化或构象生成。分别保存原 source mask 与新增 mask，逐叶保留 float64 原值。NULL、ABSENT、EMPTY、非有限值、源失败状态、字段形状、numeric_issues 分开报告。
 
 物理界仅来自定义：例如非负面积/体积/PMI、0–1的FractionCSP3、中性体系正IP。未确认的单位或物理界不猜测。电子 `converged=False` 会产生新增 mask；`NULL` 仅计数并复核，不能称为已证不收敛。
 
