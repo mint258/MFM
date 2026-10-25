@@ -21,3 +21,13 @@
 模型线收到 D-1 后应在一天内逐项审阅并把正式意见写回共同契约的“模型线意见”节。
 在此之前，合成 provider、FieldSpec 与 InMemorySamplingIndex 仅是可测试的模型侧
 边界。它们没有授权模型线补算标签、改写 LMDB、生成真实 fit 统计或替数据线定稿。
+
+## Observed draft.3 review, 2026-10-25
+
+The data-line draft and implementations are now available. See03_D1_draft3_review.md
+and03_D1_draft3_model_comments.md for31-file SHA-bound findings and precise lines.
+Tensor6, independent source D5 ordering, sparse reasons and explicitr82 scatter
+are already implemented on the data side; this requirements list must not be
+read as claiming they are absent. Model tensor/off-equilibrium/basis-index
+consumption, wire/provider audit binding and final conditions remain unresolved.
+Feedback is physically appended to the actual draft contract; it remainsDRAFT.

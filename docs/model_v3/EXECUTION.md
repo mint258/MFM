@@ -430,3 +430,21 @@ seconds, including failed attempts. Only4520456 remains pending in this capture.
 GPU-job wall is not measured utilization/GRES reservation; prior CPU jobs onGPU
 node names are not mislabeled GPU work. Eleven actual paired A parents now have
 typed CSV rows and raw configuration/Slurm bindings; paired wall is not speedup.
+
+C2 independent verification-backed archive v12:618 tests49PASS/C0/5s;621 actual
+C0/ElapsedRaw0, index56 unique entries including603. Zero accounting seconds are
+whole-second Slurm resolution, not zero actual work. The unchanged606 certificate
+is reused explicitly; no additional native scan/mirror is claimed. Raw SDK and
+safe aggregate reports are copied; full fit/result/selection are hash references,
+LOOKUP/NPZ unopened. Original482/595 failures remain intact. Root report publication
+dbb53d2 has exact tree4a9a213 matching local8fa743e; no main update or recipe freeze.
+
+A later read-only discovery found D1draft.3 in the data-line worktree. SA2review
+31/31 source SHA stable,264registry metadata rows with exact line references;
+no target data read or scientific test claimed. Root appended reviewed opinions
+underactual docs/interfaces/training_format_v3.md without altering the original
+15581bytes. Full report, field audit and append receipt are inmodel_v3 docs/results.
+The contract remainsdraft.3; no sharedv3.0 signature, data Git commit or newlabel
+transformation. The independent old-native S bond loader transport repair uses
+a fresh isolated worktree from8fa743e; Root will require targeted tests, branch
+full regression and postmerge full regression before production integration.

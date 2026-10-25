@@ -102,3 +102,14 @@ remain failed; no inferred original stop. A TF32 numeric failure589 and GPU-cap
 abort590 archived by605 C0/1s after40 tests604 C0/3s, offline index55/no online sync.
 D-1 throughD-6 remain user-confirmed not delivered. No final model/recipe freeze,
 no main update or school-server job; overall guide acceptance remains pending.
+
+2026-10-25 new observation: D-1 draft.3 and draft registry are now readable in
+runs/data_v1_20261025/repository. Model review covers31 SHA-bound source files
+and264 registry metadata rows, no scientific data or tests run for this review.
+Opinions were appended under the actual contract's model-line section, preserving
+its entire original15581-byte prefix; before/afterSHA receipt is published with
+docs/model_v3/03_D1_draft3_review.md. Data wire tensor6/source-specific D5/sparse
+reasons andr82 scatter already exist; remaining model consumption and scientific
+contracts are distinguished explicitly. No v3.0 signature or D3–D6 final delivery
+is inferred. An independent old-native S bond transport gap is being repaired
+in isolated model-v3-s-bond-transport; no new wire codebook/physical-label decision.
