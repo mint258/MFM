@@ -20,6 +20,7 @@ from ..data.descriptor_schema import (BOND_FAIL_REASON_FIELD, BOND_INDEX_FIELD,
                                       BOND_ORDER_FIELD, BOND_STATUS_FIELD)
 from .v3_contract import FieldTarget, LabelRegistry, require
 from .v3_sampling import SampleChoice, SamplingIndex, UniformMoleculeSampler
+from .v3_wire_audit import SampleSourceAudit
 
 
 @dataclass(frozen=True)
@@ -61,6 +62,7 @@ class DecodedSample:
     source_atom_ids: Tensor
     fields: Mapping[str, FieldTarget]
     native_bonds: NativeBondTransport | None = None
+    audit: SampleSourceAudit | None = None
 
 
 def _validate_native_bonds(sample):
@@ -147,6 +149,7 @@ class V3Batch:
     targets: dict[str, FieldTarget]
     choices: tuple[SampleChoice, ...]
     source_atom_ids: Tensor
+    audit: tuple[SampleSourceAudit | None, ...] | None = None
 
     def to(self, device, *, non_blocking=False):
         # Copy graph stores, not CPU tensors: cloning pinned input tensors can
@@ -158,14 +161,14 @@ class V3Batch:
                                           value.valid.to(device, non_blocking=non_blocking),
                                           None if value.pair_index is None else value.pair_index.to(device, non_blocking=non_blocking))
                         for name, value in self.targets.items()}, self.choices,
-                       self.source_atom_ids.to(device, non_blocking=non_blocking))
+                       self.source_atom_ids.to(device, non_blocking=non_blocking), self.audit)
 
     def pin_memory(self):
         # DataLoader invokes this protocol for a custom batch container.
         return V3Batch(copy(self.encoder_batch).pin_memory(),
                        {name: FieldTarget(value.values.pin_memory(), value.valid.pin_memory(),
                                           None if value.pair_index is None else value.pair_index.pin_memory())
-                        for name, value in self.targets.items()}, self.choices, self.source_atom_ids.pin_memory())
+                        for name, value in self.targets.items()}, self.choices, self.source_atom_ids.pin_memory(), self.audit)
 
     @property
     def pair_indices(self):
@@ -220,7 +223,12 @@ def collate_v3_samples(rows, registry: LabelRegistry) -> V3Batch:
             offset += n
         result[field.name] = FieldTarget(torch.cat(values), torch.cat(masks),
                                          torch.cat(pairs, dim=1) if pairs else None)
-    return V3Batch(encoder_batch, result, tuple(choices), torch.cat([sample.source_atom_ids for sample in samples]))
+    audits = tuple(sample.audit for sample in samples) if any(sample.audit is not None for sample in samples) else None
+    require(audits is None or all(value is None or isinstance(value, SampleSourceAudit) for value in audits),
+            "Optional CPU source audit must retain its typed source evidence")
+    require(audits is None or all(value is None or value.geometry_id == choice.conformer_id
+                                  for choice, value in zip(choices, audits)), "CPU audit belongs to another geometry draw")
+    return V3Batch(encoder_batch, result, tuple(choices), torch.cat([sample.source_atom_ids for sample in samples]), audits)
 
 
 class ExposureBatchSampler:
