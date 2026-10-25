@@ -1,14 +1,15 @@
 # 数据线与模型线接口状态
 
-更新：2026-10-25T17:28:06.275674+08:00。分支data-v1。最新实际证据见[进度快照](../data_v1/actual_progress_20261025_v2.md)；源码发布与数据验收分开登记。
+更新：2026-10-25。data-v1 仍在进行，最终真实数据未交付。最新可复算结果与全部父任务成本见 [CPU 实际报告](../data_v1/cpu_actual_cpu_v12.md)；报告生成入口为 workflows/data_v1_final/execution/cpu_analysis_v1/write_actual_report_v2.py。此前 [CPU 转移记录](../data_v1/cpu_transition_actual_v1.md) 保留原时间点结论。
 
-- 用户决定保持：Se单元素排除率例外，仍排除UFF_UNSUPPORTED；VAL为既有全部ROUTINE7610分子/72525 PM7记录，TRAIN1206608分子/11104772记录。小试点可降低资源使用，正式生成维持原硬件要求。
-- D-1：[契约draft.3](training_format_v3.md)，尚待双方共同定为v3.0。D-2：146启用统计分量，物理target聚合/单位/size-rho及实际参考系仍待闭合，未冻结最终family或模型head数。
-- 标签512完整分子/4251记录/16来源组已完成精确median全部轮次，新增mask为0；MAD与mask尚待执行。normalization实现实际24fixture通过，最终D-4须common/roles/geometry/order/diagnostic冻结后重建，当前试点不代替它。
-- S′336分子试点job4520364当前332/336，未最终验收。正式生成保持16CPU64GiB、14–19及全部用户声明内存85%；本次live-memory例外仅这336。N=1分子保留common候选，第二P′候选仍待独立真实方案。
-- P′已完成1000分子/2000UFF输入准备，尚无量子计算；稳定物理ID/扰动身份复用及raw保留方案已实现验证。实际vector/tensor frame和量子试点待闭合。
-- PubChem官方raw已实际下载并验证SHA/CRC。X全原始输入15,879,477记录回放通过，未解释差异0；共同人群范围仍待绑定。前缀10000行实际得到8197唯一key，但753条特征失败待诊断；全部下游全部划分去污染未完成，未发布候选池，未生成扩充UFF/D。
-- D-3/D-4/D-5/D-6/D-7最终真实交付未完成。D7仅256分子只读试点报告；D5/导出实现有实际合成验证，尚缺冻结科学权威和真实导出。
-- compute-0-20当前全部CPU被其他作业占用；本轮未修改或终止该作业。已备小任务暂未提交，节点范围确认待用户回复。
-
-不可变用户决定见configs/data_v1/run_decisions_v2.json与v3.json。每项实际父作业成本含失败；活动作业成本只是下限。完整v1和扩充批次未完成，尚未按最终提交规则开PR。
+- CPU 任务使用实际 cpu 分区2、8–19，本轮小试点在17。正式 S′/UFF/QM 仍限14–19、16CPU/64GiB、全部用户申报内存合计85%。最新六节点声明核验无合格节点（control/formal_resources_cpu_v10.json）：其他作业内存0记为无明确上限，未放宽规则或修改他人任务。
+- Se 单元素例外及 ROUTINE VAL 7610分子/72525 PM7记录保持；其余科学阈值不变。
+- D-1 仍为 [draft.3](training_format_v3.md)，未共同签为v3.0。模型需求清单不是正式签署；源码适配仍待对齐：r674 对称 tensor 六分量、PM7/UFF各自独立顺序与身份、诊断排除后最低能训练构象ID，以及mask理由粒度。未收到正式反对或契约意见冲突。
+- 标签512分子4251记录、16源组、146分量的精确median/MAD/mask已实际闭合（最终reducer4520564）；各字段新增mask均0。拟合TRAIN4211，应用VAL20/FULL20。它仍是原source人口小试点，最终共同人群、geometry/order/diagnostic冻结后才计算D4。
+- 尺寸相关性4520541实际完成：129物理目标/146分量，TRAIN元素参考与逐目标rho已保存。sigma/pi的物理不变性、部分单位/原生精度仍待证据，未据此冻结最终注册表。
+- S′原336试点4520364为TIMEOUT/14425s/64.111111分配核时；没有final receipt。只读审计4520527确认334完整可复用包、2缺包、0损坏；完整包中SUCCESS102，其余科学失败保留。新的 [恢复提案](../../workflows/data_v1_final/conformers/recovery_v1/README.md) 只准备源码与待决模板，保留334旧包、2原task/seed重放及14独立复现控制；未运行测试或恢复生成，预算与资源批准未冻结。
+- P′1000分子/2000 UFF原准备保持。三项CPU增量边界通过；4520552完成72组frame审计输入准备，实际16渲染TID。尚无QM/frame科学验收或2000构象成功率/成本结果，不放行P′全量。
+- EA七个已知极端样本诊断尚未完成。1GiB worker守卫真实超限，16worker证据已保存；基于实测仅调整内部预算至1280MiB、全局32GiB/75%不变后仍触限，下一步优化只读IO生命周期。未改原标签、mask、方法版本或SCF解释，NULL/原始输出缺失仍不能推出不收敛。
+- PubChem官方raw SHA/CRC已通过；全X15879477记录回放一致率100%、未解释0，共同人群范围待最终绑定。原前10000行8197去重features/8198 aliases/753特征失败证据保持。四项新边界通过，4520555的3CID候选generic-first修复评估通过，未改pool；[配对10k回放](../expansion/paired_prefix_candidate_replay_v1.md) 只有NOT_READY源码，未运行或新增中央scope。
+- 76个来源current pin已由4520547实际完成；这不等于全部身份导出、全划分去污染或候选池放行。下游清单仍按指南默认。
+- D3/D4/D5/D6/D7最终交付、正式S′/P′与扩充第一批尚未完成，未开最终PR。负面结果、所有失败和超时的父成本已保留；0整秒会计值不解释为真实零耗时。
