@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:data-v1:pm7-independent-cache32-v1",
+  "description": "Root supplies actual existing references. This is a schema, not an approval or a future receipt.",
+  "$defs": {
+    "reference": {"type":"object","required":["path","bytes","sha256"],"additionalProperties":false,"properties":{"path":{"type":"string","pattern":"^/"},"bytes":{"type":"integer","minimum":1},"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"}}},
+    "plan": {
+      "type":"object",
+      "required":["schema","status","reviewer","endpoint","uid","molecules","golden","independent","hof_mode","formal_source","per_molecule","golden_prepared","golden_profile_receipt","golden_manifest","mapping_review","hof_authority_review","full_execution_authorized","common"],
+      "properties": {
+        "schema":{"const":"ROOT_PM7_INDEPENDENT_CACHE32_PLAN_V1"},"status":{"const":"APPROVED_BOUNDED32_NOT_FULL"},"reviewer":{"const":"root"},
+        "endpoint":{"const":"202.38.247.57:22"},"uid":{"const":1278},"molecules":{"const":32},"golden":{"const":16},"independent":{"const":16},
+        "hof_mode":{"enum":["CANONICAL_VERIFIED","GEOMETRY_ONLY_UNVERIFIED"]},
+        "formal_source":{"$ref":"#/$defs/reference"},"per_molecule":{"$ref":"#/$defs/reference"},"golden_prepared":{"$ref":"#/$defs/reference"},
+        "golden_profile_receipt":{"$ref":"#/$defs/reference"},"golden_manifest":{"$ref":"#/$defs/reference"},
+        "mapping_review":{"$ref":"#/$defs/reference"},"hof_authority_review":{"$ref":"#/$defs/reference"},
+        "full_execution_authorized":{"const":false},"common":{"const":false}
+      }
+    },
+    "hofAuthority": {
+      "type":"object","required":["schema","reviewer","endpoint","uid","status"],
+      "properties":{"schema":{"const":"ROOT_PM7_CACHE_CANONICAL_HOF_AUTHORITY_V1"},"reviewer":{"const":"root"},"endpoint":{"const":"202.38.247.57:22"},"uid":{"const":1278},
+        "status":{"enum":["GEOMETRY_ONLY_HOF_UNVERIFIED","VERIFIED_FROZEN_PM7_B_SCALAR_READER"]},"registry_id":{"const":60},"unit":{"const":"kcal/mol"},
+        "native_energy_fallback_allowed":{"const":false},"latest_owner_reference":{"$ref":"#/$defs/reference"},"projection_receipt_reference":{"$ref":"#/$defs/reference"},"source_files_reference":{"$ref":"#/$defs/reference"}},
+      "allOf":[{"if":{"properties":{"status":{"const":"VERIFIED_FROZEN_PM7_B_SCALAR_READER"}}},"then":{"required":["registry_id","unit","native_energy_fallback_allowed","latest_owner_reference","projection_receipt_reference","source_files_reference"]}}]
+    }
+  },
+  "oneOf":[{"$ref":"#/$defs/plan"},{"$ref":"#/$defs/hofAuthority"}]
+}
