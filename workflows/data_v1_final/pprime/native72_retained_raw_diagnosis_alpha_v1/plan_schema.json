@@ -1,0 +1,92 @@
+{
+    "$schema":  "https://json-schema.org/draft/2020-12/schema",
+    "title":  "Exact bounded retained Native72 diagnosis plan",
+    "type":  "object",
+    "required":  [
+                     "schema",
+                     "producer_key",
+                     "scope_key",
+                     "stage",
+                     "scope_parameters",
+                     "kind",
+                     "pilot",
+                     "endpoint",
+                     "uid",
+                     "run_root",
+                     "node",
+                     "cpus",
+                     "memory_policy",
+                     "wall_seconds",
+                     "output_cap_bytes",
+                     "python",
+                     "execution_argv",
+                     "data_references",
+                     "source_references",
+                     "parent_evidence_references",
+                     "relocation_map_reference",
+                     "cost_decision_reference",
+                     "resource_authority_reference",
+                     "root_review_reference",
+                     "startup_proof_path",
+                     "output_directory"
+                 ],
+    "properties":  {
+                       "schema":  {
+                                      "const":  "SECONDARY_NATIVE72_RETAINED_RAW_DIAGNOSIS_PLAN_V1"
+                                  },
+                       "producer_key":  {
+                                            "const":  "pprime_native72_retained_raw_diagnosis_alpha_v1"
+                                        },
+                       "scope_key":  {
+                                         "const":  "pprime_native72_retained_raw_diagnosis_alpha_v1"
+                                     },
+                       "stage":  {
+                                     "const":  "PPRIME_NATIVE72_RETAINED_SCF_TERMINATION_FRAME"
+                                 },
+                       "scope_parameters":  {
+                                                "type":  "object",
+                                                "description":  "Must equal the exact frozen contract.SCOPE; guard.py validates all values."
+                                            },
+                       "kind":  {
+                                    "const":  "analysis"
+                                },
+                       "pilot":  {
+                                     "const":  false
+                                 },
+                       "endpoint":  {
+                                        "const":  "218.192.171.238:22"
+                                    },
+                       "uid":  {
+                                   "const":  1264
+                               },
+                       "cpus":  {
+                                    "const":  16
+                                },
+                       "memory_policy":  {
+                                             "const":  "SLURM_DEFAULT_UNSPECIFIED"
+                                         },
+                       "wall_seconds":  {
+                                            "const":  1800
+                                        },
+                       "output_cap_bytes":  {
+                                                "const":  67108864
+                                            },
+                       "execution_argv":  {
+                                              "minItems":  8,
+                                              "type":  "array",
+                                              "maxItems":  8
+                                          },
+                       "data_references":  {
+                                               "minItems":  2,
+                                               "description":  "Exactly contract.DATA, raw transitive authority stays in the frozen map.",
+                                               "type":  "array",
+                                               "maxItems":  2
+                                           },
+                       "source_references":  {
+                                                 "type":  "array"
+                                             },
+                       "parent_evidence_references":  {
+                                                          "type":  "array"
+                                                      }
+                   }
+}
