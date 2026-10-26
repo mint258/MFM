@@ -1,0 +1,83 @@
+{
+    "schema":  "model_v3_attention_av_centering_protocol_v1",
+    "status":  "PREREGISTRATION_SOURCE_ONLY_NOT_EXECUTED",
+    "scope":  "ACTUAL1492_FP32_COUPLED_ATTENTION_FIXED_INPUTS_ONLY",
+    "capture_complete":  {
+                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_v2_4521492/CAPTURE_COMPLETE.json",
+                             "bytes":  334,
+                             "sha256":  "ea02ebb67ad52821ce668ea5cd525928e5136f7330a0a2783078ac5f992e4aae"
+                         },
+    "capture_supervisor":  {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_v2_supervisor_4521492.json",
+                               "bytes":  3032,
+                               "sha256":  "a201380f9c4b5107eab50efa2a83ba4a8344eaed22c799ac44369a18be4fa75b"
+                           },
+    "capture_accounting":  {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/fixed_h0_capture_4521492_actual_accounting_full_v1.json",
+                               "bytes":  390,
+                               "sha256":  "c1ad8055832f7319c083d97e1fdbc6e34262bd79d8e0bcc96e4d3b1acd976080"
+                           },
+    "capture_producer_source_pins":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/source_pins_v1.json",
+                                         "bytes":  83294,
+                                         "sha256":  "230a1ed03f8ad9318d94d70f75f4951c2b754fae393618640932aceb245d42b8"
+                                     },
+    "original_input_cap_bytes":  134217728,
+    "expected_cases":  48,
+    "roles_per_case":  4,
+    "expected_encoder_forwards":  192,
+    "FP64_encoder_forwards":  0,
+    "layers_per_forward":  6,
+    "expected_AV_observations":  1152,
+    "centered_controls_per_AV":  1,
+    "original_AV_replays_per_observation":  1,
+    "FP64_Rraw_per_observation":  1,
+    "FP64_Rnorm_per_observation":  1,
+    "FP64_Cexact_per_observation":  1,
+    "CPU_cache_payload_cap_bytes":  2147483648,
+    "compact_output_cap_bytes":  134217728,
+    "whole_output_cap_bytes":  2147483648,
+    "private_cap_bytes":  2147483648,
+    "inherited_child_budget_may_be_raised":  false,
+    "node":  "compute-0-21",
+    "gpu_uuid":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+    "CPU":  16,
+    "allocation_memory_bytes":  34359738368,
+    "RSS_bytes":  30064771072,
+    "supervisor_wall_seconds":  1100,
+    "original_FP32_threshold_unchanged":  1E-05,
+    "original_seed_and_case_selection_unchanged":  true,
+    "scope_excludes":  [
+                           "production_centered_model",
+                           "NativeRuntimeDenseAttention",
+                           "bf16",
+                           "active_training_dropout",
+                           "old1435_H0_reconstruction",
+                           "architecture_acceptance"
+                       ],
+    "capture_semantics":  "original functions delegated once; hooks retain refs; copy only after whole model forward; original outputs returned",
+    "cache_semantics":  "exact CPU values and original view metadata; restored original strides/offset/device but relocated GPU allocation",
+    "center_policy":  "first valid native key per graph/head, including all original V keys in subtraction",
+    "row_sum_assumption":  "original real softmax sum=1 and effective dropout disabled",
+    "unsupported_policy":  "refuse empty/all-masked graph, unknown/replaced attention, effective dropout, or replay mismatch; never filter cases",
+    "FP64_identity_bound":  "128*eps64*max(1,maxabs(Rraw),maxabs(Cexact),maxabs(sum(abs(p32))*max(abs(V32))))",
+    "tiny_counts":  {
+                        "attention_forward_returns":  3,
+                        "supported_attention_returns":  2,
+                        "all_masked_negative_return":  1,
+                        "dropout_pre_hook_rejection":  1,
+                        "original_AV_replays":  2,
+                        "centered_controls":  2,
+                        "Rraw":  2,
+                        "Rnorm":  2,
+                        "Cexact":  2
+                    },
+    "prior1561_side_evidence":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/full_encoder_FP64_GPU_v1_4521561/ANALYSIS_RESULT.json",
+                                    "bytes":  16314,
+                                    "sha256":  "d70ae21a68b3a21185b9da7d1b0264b3ce52aa7c65887f6cebc0927299361a26"
+                                },
+    "prior1561_not_a_substitute_for_new_H0_gate":  true,
+    "scientific_acceptance":  false,
+    "author_executed_python_model_or_job":  false
+}
