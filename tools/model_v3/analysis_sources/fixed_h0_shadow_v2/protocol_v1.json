@@ -1,0 +1,61 @@
+{
+    "schema":  "model_v3_fixed_h0_capture_shadow_protocol_v1",
+    "status":  "SOURCE_ONLY_ROOT_REGISTRATION_AND_EXECUTION_PENDING",
+    "lineage":  "fresh_capture_not_1435_H0",
+    "candidate_or_prod_modified":  false,
+    "case_count":  48,
+    "original_weight_seeds":  [
+                                  20261026,
+                                  20261027
+                              ],
+    "transforms_per_case":  3,
+    "encoder_forwards":  192,
+    "capture_hook":  "refs only; copy after original full forward; return original object; finally remove",
+    "actual_bank_input":  [
+                              "H0 float32[44,512]",
+                              "pos float32[44,3]",
+                              "batch int64[44]",
+                              "original kwargs/pairs",
+                              "all9PD outputs"
+                          ],
+    "bank_state_bytes_by_policy":  {
+                                       "H1_fixed":  969892,
+                                       "H1_learned":  969924,
+                                       "H2_fixed":  1225380,
+                                       "H3_fixed":  1488036
+                                   },
+    "all_bank_tensor_bytes":  55838784,
+    "all_H0_bytes":  17301504,
+    "all_original_terminal_numeric_bytes":  10902528,
+    "input_raw_file_budget_bytes":  134217728,
+    "per_case_npz_max_bytes":  8388608,
+    "NPZ_allow_pickle":  false,
+    "CPU_threads":  16,
+    "CPU_workers":  4,
+    "CPU_math_threads_per_worker":  4,
+    "CPU_allocation_bytes":  17179869184,
+    "CPU_RSS_bytes":  12884901888,
+    "CPU_wall_seconds":  120,
+    "CPU_allocation_seconds":  180,
+    "GPU_allocation_bytes":  34359738368,
+    "GPU_RSS_bytes":  30064771072,
+    "GPU_wall_seconds":  1100,
+    "GPU_allocation_seconds":  1200,
+    "whole_output_cap_bytes":  2147483648,
+    "private_cap_bytes":  2147483648,
+    "new_monitor_or_scheduler":  false,
+    "shadow_fields":  [
+                          "p_extensive",
+                          "p_dipole",
+                          "p_dipole_magnitude"
+                      ],
+    "shadow_arithmetic":  [
+                              "original_FP32_V3HeadBank",
+                              "independent_functional_FP64_same_parameter_values"
+                          ],
+    "signed_closure_tolerance":  1E-10,
+    "new_precision_candidate":  false,
+    "physical_FP32_threshold_changed":  false,
+    "old1435_FAILED_preserved":  true,
+    "old2639_fullsuite_not_repeated":  true
+}

@@ -1,0 +1,130 @@
+{
+    "schema":  "model_v3_fixed_h0_shadow_operational_v2_diff",
+    "reason":  "1484 post-measure parameter SHA audit outside inference context",
+    "forward_hook_math_backend_or_grad_flags_changed":  false,
+    "no_grad_scope":  "only two read-only parameter audit calls; caller grad state restored by context",
+    "files":  [
+                  {
+                      "file":  "capture_fixed_h0_v1.py",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v1_source/capture_fixed_h0_v1.py",
+                                       "bytes":  14961,
+                                       "sha256":  "9bd6d05dc5d38f0f5a83e46eaa9f5a0c2143aaaad3f6ec92f215ee87b1399622"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/capture_fixed_h0_v1.py",
+                                      "bytes":  15165,
+                                      "sha256":  "ccf532df21b5801bf040a40444c7eb5ea9dc68ed1e16fc84357b49193d8d1db9"
+                                  },
+                      "raw_equal":  false,
+                      "scope":  "parameter SHA no_grad helper and two call replacements only"
+                  },
+                  {
+                      "file":  "shadow_common.py",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v1_source/shadow_common.py",
+                                       "bytes":  5922,
+                                       "sha256":  "1d208072250d43a9a54042f43534458b3831426f9a2b853587036daccdaabb91"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/shadow_common.py",
+                                      "bytes":  5922,
+                                      "sha256":  "1d208072250d43a9a54042f43534458b3831426f9a2b853587036daccdaabb91"
+                                  },
+                      "raw_equal":  true,
+                      "scope":  "byte-identical"
+                  },
+                  {
+                      "file":  "shadow_terminals_v1.py",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v1_source/shadow_terminals_v1.py",
+                                       "bytes":  19142,
+                                       "sha256":  "097a9f33c26b7bdb068d8d94b7361a91122b24100ff982ebcbf9420b5decab34"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/shadow_terminals_v1.py",
+                                      "bytes":  19142,
+                                      "sha256":  "097a9f33c26b7bdb068d8d94b7361a91122b24100ff982ebcbf9420b5decab34"
+                                  },
+                      "raw_equal":  true,
+                      "scope":  "byte-identical"
+                  },
+                  {
+                      "file":  "execution_request_v1.json",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v1_source/execution_request_v1.json",
+                                       "bytes":  68623,
+                                       "sha256":  "d5ed72b52ed4ed542af5bdaa7384af47656fe1c389b7f70a293f58cd202fcceb"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/execution_request_v1.json",
+                                      "bytes":  68623,
+                                      "sha256":  "d5ed72b52ed4ed542af5bdaa7384af47656fe1c389b7f70a293f58cd202fcceb"
+                                  },
+                      "raw_equal":  true,
+                      "scope":  "byte-identical"
+                  },
+                  {
+                      "file":  "launch_capture_GPU_v1.py",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v1_source/launch_capture_GPU_v1.py",
+                                       "bytes":  15565,
+                                       "sha256":  "5b5b73e6b00cd11552651566ae47532899602b11fbdf4856228e6279364870e6"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/launch_capture_GPU_v1.py",
+                                      "bytes":  15583,
+                                      "sha256":  "4d80d4f4edba32782c418a60a01d9239d2878f5c70a393974db0a165ef961aed"
+                                  },
+                      "raw_equal":  false,
+                      "scope":  "v2 source/output/record routes only"
+                  },
+                  {
+                      "file":  "run_fixed_h0_capture_GPU_v1.sbatch",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v1_source/run_fixed_h0_capture_GPU_v1.sbatch",
+                                       "bytes":  1960,
+                                       "sha256":  "ad1cac22074e5d6c6fa582728ab4bae8a9306382b120fc43f97bdea8f95eefe7"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/run_fixed_h0_capture_GPU_v1.sbatch",
+                                      "bytes":  1963,
+                                      "sha256":  "b069f1e83d2e0a09027904d556fd0ea7c9bcc6047d62ad3042f5f46a2f47b2e7"
+                                  },
+                      "raw_equal":  false,
+                      "scope":  "v2 source/output/record routes only"
+                  },
+                  {
+                      "file":  "run_fixed_h0_shadow_CPU_v1.sbatch",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v1_source/run_fixed_h0_shadow_CPU_v1.sbatch",
+                                       "bytes":  2109,
+                                       "sha256":  "2ff43ded135197292d3a6e7976b3c9aab2918988798877d7a6e282f3294286ea"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/run_fixed_h0_shadow_CPU_v1.sbatch",
+                                      "bytes":  2118,
+                                      "sha256":  "5657fad4c63188aab4ed429ccfae03d084e424728d5aba74e43942a7c5951d88"
+                                  },
+                      "raw_equal":  false,
+                      "scope":  "v2 source/output/record routes only"
+                  },
+                  {
+                      "file":  "protocol_v1.json",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v1_source/protocol_v1.json",
+                                       "bytes":  2577,
+                                       "sha256":  "ee3611017df3e25b9c4c210b255c1e58e7d9712389fad7d52dc28d5821938a26"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/protocol_v1.json",
+                                      "bytes":  2577,
+                                      "sha256":  "ee3611017df3e25b9c4c210b255c1e58e7d9712389fad7d52dc28d5821938a26"
+                                  },
+                      "raw_equal":  true,
+                      "scope":  "byte-identical"
+                  }
+              ],
+    "original_1484_preserved":  true,
+    "new_model_or_Python_execution":  false
+}
