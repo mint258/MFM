@@ -24,6 +24,8 @@ from ..data.descriptor_schema import (
 )
 from ..supervision import Objective, normalize_objectives
 from .backbone import RealCoordTransformerBackbone
+from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
+                                    require_centered_backbone, require_centered_f32_context)
 from .common import Linear, ensure_batch_attr
 from .v3_numeric_stability import (LEGACY, COMPENSATED, apply_numeric_mode, validate_numeric_mode,
                                    numeric_mode, require_fp32_context)
@@ -76,6 +78,8 @@ class SharedBackboneMFM(nn.Module):
         mode = validate_numeric_mode(backbone_config.get('numeric_mode', LEGACY))
         if validate_numeric_mode(head_config.get('numeric_mode', LEGACY)) != mode:
             raise ValueError('Backbone/head numeric modes must agree')
+        self.attention_aggregation_mode = validate_aggregation_mode(backbone_config.get(
+            'attention_aggregation_mode', LEGACY_AGGREGATION))
         self.backbone_config = dict(backbone_config)
         self.expert_config = expert_config
         self.head_config = deepcopy(head_config)
@@ -111,6 +115,7 @@ class SharedBackboneMFM(nn.Module):
             use_radius_mask=bool(backbone_config.get("use_radius_mask", False)),
             radius=float(backbone_config.get("radius", 8.0)),
             activation_checkpointing=backbone_config.get("activation_checkpointing", False),
+            attention_aggregation_mode=self.attention_aggregation_mode,
         )
         self.graph_pool = UnifiedGraphPooling(self.latent_dim)
 
@@ -178,6 +183,9 @@ class SharedBackboneMFM(nn.Module):
 
     def encode_atoms(self, batch: Data) -> Tensor:
         """Return canonical shared representation H0 with shape [N_atom, D]."""
+        if self.attention_aggregation_mode == CENTERED_FP32:
+            require_centered_backbone(self.backbone)
+            require_centered_f32_context(self.backbone, batch.pos)
         if numeric_mode(self) == COMPENSATED:
             require_fp32_context(self, batch.pos)
         return self.backbone(batch)

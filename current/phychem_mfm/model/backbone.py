@@ -9,6 +9,8 @@ from torch.utils.checkpoint import checkpoint
 
 from .attention import RealCoordTransformerLayer
 from .common import ensure_batch_attr
+from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
+                                    require_centered_backbone, require_centered_f32_context, require_centered_packed_atoms)
 
 
 class RealCoordTransformerBackbone(nn.Module):
@@ -26,8 +28,10 @@ class RealCoordTransformerBackbone(nn.Module):
         use_radius_mask: bool = False,
         radius: float = 8.0,
         activation_checkpointing: bool = False,
+        attention_aggregation_mode: str = LEGACY_AGGREGATION,
     ) -> None:
         super().__init__()
+        self.attention_aggregation_mode = validate_aggregation_mode(attention_aggregation_mode)
         self.n_atom_types = int(n_atom_types)
         self.dim = int(dim)
         if type(activation_checkpointing) is not bool:
@@ -45,6 +49,7 @@ class RealCoordTransformerBackbone(nn.Module):
                     use_dist_bias=use_dist_bias,
                     use_radius_mask=use_radius_mask,
                     radius=radius,
+                    attention_aggregation_mode=self.attention_aggregation_mode,
                 )
                 for _ in range(layers)
             ]
@@ -54,6 +59,11 @@ class RealCoordTransformerBackbone(nn.Module):
     def forward(self, data: Data) -> Tensor:
         if getattr(data, "pos", None) is None:
             raise ValueError("RealCoordTransformerBackbone requires data.pos")
+
+        if self.attention_aggregation_mode == CENTERED_FP32:
+            require_centered_backbone(self)
+            require_centered_f32_context(self, data.pos)
+            require_centered_packed_atoms(data.pos)
 
         batch = ensure_batch_attr(data)
 

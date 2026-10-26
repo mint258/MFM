@@ -8,6 +8,8 @@ import torch.nn as nn
 from torch import Tensor
 
 from .common import Linear
+from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
+                                    require_centered_attention_context, centered_attention_value)
 from .v3_numeric_stability import COMPENSATED, numeric_mode, compensated_pairwise_norm3
 
 
@@ -22,11 +24,13 @@ class DenseGeoSelfAttention(nn.Module):
         use_dist_bias: bool = True,
         use_radius_mask: bool = False,
         radius: float = 8.0,
+        attention_aggregation_mode: str = LEGACY_AGGREGATION,
     ) -> None:
         super().__init__()
         if dim % nheads != 0:
             raise ValueError("dim must be divisible by nheads")
 
+        self.attention_aggregation_mode = validate_aggregation_mode(attention_aggregation_mode)
         self.dim = dim
         self.nheads = nheads
         self.d_head = dim // nheads
@@ -50,6 +54,8 @@ class DenseGeoSelfAttention(nn.Module):
         self.attn_drop = nn.Dropout(dropout) if dropout > 0 else nn.Identity()
 
     def forward(self, x: Tensor, pos: Tensor, mask: Tensor) -> Tuple[Tensor, Tensor]:
+        if self.attention_aggregation_mode == CENTERED_FP32:
+            require_centered_attention_context(self, mask, x, pos)
         bsz, seqlen, _ = x.shape
         qkv = self.qkv(x).view(bsz, seqlen, 3, self.nheads, self.d_head)
         q, k, v = qkv.unbind(dim=2)
@@ -81,7 +87,10 @@ class DenseGeoSelfAttention(nn.Module):
         attn = torch.softmax(logits, dim=-1)
         attn = self.attn_drop(attn)
 
-        ctx = torch.matmul(attn, v)
+        if self.attention_aggregation_mode == CENTERED_FP32:
+            ctx = centered_attention_value(attn, v, mask, attention_dropout=self.attn_drop)
+        else:
+            ctx = torch.matmul(attn, v)
         ctx = ctx.transpose(1, 2).contiguous().view(bsz, seqlen, self.dim)
 
         out = self.proj(ctx)
@@ -114,6 +123,7 @@ class RealCoordTransformerLayer(nn.Module):
         use_dist_bias: bool = True,
         use_radius_mask: bool = False,
         radius: float = 8.0,
+        attention_aggregation_mode: str = LEGACY_AGGREGATION,
     ) -> None:
         super().__init__()
         self.norm1 = nn.LayerNorm(dim)
@@ -124,6 +134,7 @@ class RealCoordTransformerLayer(nn.Module):
             use_dist_bias=use_dist_bias,
             use_radius_mask=use_radius_mask,
             radius=radius,
+            attention_aggregation_mode=attention_aggregation_mode,
         )
         self.norm2 = nn.LayerNorm(dim)
         self.ffn = DenseFFN(dim=dim, ff_mult=ff_mult, dropout=dropout)

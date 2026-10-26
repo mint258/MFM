@@ -22,6 +22,9 @@ from torch_geometric.utils import to_dense_batch
 from ..factory import build_model
 from ..phase1.v3_contract import require
 from .common import Linear, ensure_batch_attr
+from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, aggregation_mode,
+                                    require_centered_attention_context, centered_attention_value,
+                                    require_centered_backbone, require_centered_f32_context, require_centered_packed_atoms)
 from .v3_numeric_stability import (COMPENSATED, LEGACY, numeric_mode, apply_numeric_mode,
                                     compensated_pairwise_norm3)
 
@@ -123,6 +126,7 @@ class SharedPairAttention(nn.Module):
     """Reuse all common attention parameters; replace only distance bias."""
     def __init__(self, original, pair_dim):
         super().__init__()
+        self.attention_aggregation_mode = aggregation_mode(original)
         self.dim, self.nheads, self.d_head = original.dim, original.nheads, original.d_head
         self.qkv, self.proj, self.attn_drop = original.qkv, original.proj, original.attn_drop
         self.use_radius_mask, self.radius = original.use_radius_mask, original.radius
@@ -130,6 +134,8 @@ class SharedPairAttention(nn.Module):
         self.pair_projection = Linear(pair_dim, self.nheads, bias=False)
 
     def forward(self, x, pair_features, distances, mask):
+        if self.attention_aggregation_mode == CENTERED_FP32:
+            require_centered_attention_context(self, mask, x, pair_features, distances)
         bsz, seqlen, _ = x.shape
         q, k, v = self.qkv(x).view(bsz, seqlen, 3, self.nheads, self.d_head).unbind(2)
         q, k, v = (value.transpose(1, 2) for value in (q, k, v))
@@ -140,7 +146,11 @@ class SharedPairAttention(nn.Module):
         if self.use_radius_mask:
             logits = logits.masked_fill(distances[:, None, :, :] > self.radius, -1e9)
         weights = self.attn_drop(torch.softmax(logits, dim=-1))
-        context = torch.matmul(weights, v).transpose(1, 2).contiguous().view(bsz, seqlen, self.dim)
+        if self.attention_aggregation_mode == CENTERED_FP32:
+            context = centered_attention_value(weights, v, mask, attention_dropout=self.attn_drop)
+            context = context.transpose(1, 2).contiguous().view(bsz, seqlen, self.dim)
+        else:
+            context = torch.matmul(weights, v).transpose(1, 2).contiguous().view(bsz, seqlen, self.dim)
         return self.proj(context) * mask.unsqueeze(-1).to(context.dtype)
 
 
@@ -160,6 +170,7 @@ class SharedPairBackbone(nn.Module):
     """Canonical packed H0, with one shared pair encoding per physical batch."""
     def __init__(self, original, options):
         super().__init__()
+        self.attention_aggregation_mode = aggregation_mode(original)
         self.n_atom_types, self.dim = original.n_atom_types, original.dim
         self.activation_checkpointing = original.activation_checkpointing
         self.atom_emb, self.out_norm = original.atom_emb, original.out_norm
@@ -172,6 +183,8 @@ class SharedPairBackbone(nn.Module):
                   "n_atom_types": self.n_atom_types, "dim": self.dim}
         if numeric_mode(self) != LEGACY:
             result['numeric_mode'] = numeric_mode(self)
+        if self.attention_aggregation_mode != LEGACY_AGGREGATION:
+            result['attention_aggregation_mode'] = self.attention_aggregation_mode
         return result
 
     def set_extra_state(self, state):
@@ -179,6 +192,10 @@ class SharedPairBackbone(nn.Module):
 
     def forward(self, data):
         require(getattr(data, "pos", None) is not None, "C1 H0 requires coordinates")
+        if self.attention_aggregation_mode == CENTERED_FP32:
+            require_centered_backbone(self)
+            require_centered_f32_context(self, data.pos)
+            require_centered_packed_atoms(data.pos)
         batch = ensure_batch_attr(data)
         raw = data.x[:, 0] if data.x.ndim == 2 else data.x
         elements = raw.long().clamp(min=0, max=self.n_atom_types - 1)

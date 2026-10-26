@@ -18,6 +18,7 @@ from torch.utils.checkpoint import checkpoint
 
 from .attention import DenseGeoSelfAttention, DenseFFN
 from .heads import EquivariantDenoisingHead
+from .v3_attention_numerics import reject_centered_runtime
 
 
 @dataclass(frozen=True)
@@ -99,6 +100,7 @@ class ConfigurableTiledDistanceMLP(nn.Sequential):
 
 class RuntimeDenseAttention(DenseGeoSelfAttention):
     def __init__(self, original, *, precision="fp32"):
+        reject_centered_runtime(original)
         _reuse_modules(self, original)
         for name in ("dim", "nheads", "d_head", "use_dist_bias", "use_radius_mask", "radius"):
             setattr(self, name, getattr(original, name))
@@ -235,6 +237,7 @@ class ConfigurableDenoisingHead(EquivariantDenoisingHead):
 def build_performance_model(configuration: Mapping, options=PerformanceOptions()):
     """Build a fresh candidate with unchanged H0 methods and original keys."""
     from ..factory import build_model
+    reject_centered_runtime(dict(configuration))
     model = build_model(configuration)
     if options.backbone_checkpointing is not None:
         model.backbone.activation_checkpointing = options.backbone_checkpointing
