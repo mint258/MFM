@@ -1,0 +1,25 @@
+{
+  "schema": "model_v3_CPU_identity_revision_actual_QA_v1",
+  "job_id": "4521187",
+  "unit_result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4521187/cpu_identity_revision_v4.json",
+    "bytes": 9028,
+    "sha256": "ebe36637b86fa5b434e6c286893adc9a207c0817a68cd61d516b643fc2062e10"
+  },
+  "actual_parent": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4521187",
+      "--format=JobIDRaw,User,UID,Cluster,State,ExitCode,ElapsedRaw,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4521187|zixiao|1278|sonmi|COMPLETED|0:0|2|compute-0-12\n",
+    "stderr": ""
+  },
+  "original1159_failure_preserved": true,
+  "full_Root_regression": "PENDING_NEW_EIGHT_PART_RUN"
+}

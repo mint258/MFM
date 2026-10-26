@@ -464,3 +464,5 @@ is inferred from completed source/tests/reports; interface and finaldata remain 
 ## 2026-10-26 候选发布与诊断补充
 
 候选代码 exact tree已发布为ce7cbf5，完整新Root回归仍待完成。实际GPU组合矩阵2/48通过；原1e-5门槛保持。新增实际55/24/52项工具QA、两幅结果图及C4/A01实验前注册见[Root补充报告](reports/20261026_v2/ROOT_ADDENDUM.md)。
+
+27项C4 inference-context修订和45项CPU身份修订已分别实际C0；独立新八片回归仍待完成。详见[第二份补充](reports/20261026_v2/ROOT_SECOND_ADDENDUM.md)。

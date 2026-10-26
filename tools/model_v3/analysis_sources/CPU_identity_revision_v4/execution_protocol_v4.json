@@ -1,0 +1,77 @@
+{
+  "schema": "model_v3_CPU_supervisor_revision_v4_protocol",
+  "status": "PREPARED_NOT_EXECUTED",
+  "scope": "CPU regression runtime repair; no model, data, labels, optimizer or GPU computation",
+  "historical_failure": {
+    "job_id": "4521159",
+    "status": "FAILED",
+    "cause": "Unknown strict identity field; fork-to-exec argv transition remains a hypothesis",
+    "test_summary_present": false
+  },
+  "strict_identity_keys": [
+    "pid",
+    "uid",
+    "boot_id",
+    "start_ticks",
+    "pgid",
+    "sid",
+    "argv_sha256",
+    "cgroup",
+    "slurm_job_id"
+  ],
+  "created_semantics": "Wall-clock diagnostic only; not signal authority; retain original recorded identity",
+  "signal_authority": "Only original full identity MATCH, rechecked by frozen stop_recorded immediately before an individual signal",
+  "enrollment": {
+    "default_mode": "strict",
+    "opt_in_mode": "pytest4",
+    "roles": 4,
+    "kind": "explicit direct Popen exec only",
+    "pending_deadline_seconds": 30,
+    "pending_core_keys": [
+      "pid",
+      "uid",
+      "boot_id",
+      "start_ticks",
+      "pgid",
+      "sid",
+      "cgroup",
+      "slurm_job_id",
+      "ppid"
+    ],
+    "required_proof": "Before-fork source-bound manifest + exact Popen-returned full exec receipt + fresh complete identity",
+    "stable_frames_are_not_exec_proof": true,
+    "fork_only_policy": "No automatic admission as a declared exec; unregistered direct fork-only stays pending and fails deadline",
+    "unknown_descendants": "No generic exec exemption; retain original strict first-capture semantics outside the four declared roles",
+    "late_exec": "Reject after enrollment; never replace authority in exception cleanup"
+  },
+  "accounting": {
+    "cpu_only": true,
+    "minimum_cpus": 16,
+    "total_output_budget_bytes": 2147483648,
+    "rss_request_bytes": 30064771072,
+    "maximum_rss_bytes": 51539607552,
+    "template_wall_seconds": 1100,
+    "maximum_wall_seconds": 3600,
+    "finalization_seconds": 30,
+    "finalization_output_reserve_bytes": 16777216,
+    "event_journal_cap_bytes": 8388608,
+    "combined_identity_and_resource_journal_cap_bytes": 33554432,
+    "inherited_log_cap_bytes": 33554432,
+    "census_max_entries": 50000,
+    "pending_included_in_process_tree_rss_and_all_output": true,
+    "peak_semantics": "Sampled lower bound; not an exact short-lived peak"
+  },
+  "cleanup": {
+    "unknown_changed_pending": "No signal authority; remain FAILED with explicit unresolved remaining unless independently GONE/EXITING",
+    "no_process_group_signals": true,
+    "no_exception_rebinding": true,
+    "no_claim_of_cleanup_from_empty_authorized_set": true,
+    "no_automatic_scancel": true,
+    "external_Slurm_boundary": "Root/own allocation timeout may retire unresolved descendants; a later outer receipt must prove that closure"
+  },
+  "freshness": {
+    "all_eight_parts": "A completely new label, plan, bindings, job IDs and output; do not merge old seven successful slices into this execution",
+    "old_control_sources": "Read-only reuse; new preparer binds this new runner, supervisor, template and complete inventory",
+    "source_inventory": "Raw-SHA CLI binding and inclusion in fresh control_files; full rehash before/after"
+  }
+}
