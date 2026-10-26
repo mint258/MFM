@@ -1,0 +1,126 @@
+{
+    "schema":  "model_v3_accounting_scope_correction_actual_v1",
+    "status":  "ACTUAL_RECEIPT_SCOPE_EXTENDED_PRIOR_SNAPSHOT_PRESERVED",
+    "prior_snapshot_captured_utc":  "2026-10-26T19:17:58.140260+00:00",
+    "current_snapshot_captured_utc":  "2026-10-26T19:35:40.540371+00:00",
+    "prior_parent_count":  417,
+    "current_parent_count":  427,
+    "added_parents":  [
+                          {
+                              "job_id":  "4521401",
+                              "gpu":  false,
+                              "present_in_prior_raw_discovery":  true,
+                              "state":  "FAILED",
+                              "allocated_cpu_seconds":  48,
+                              "elapsed_seconds":  3,
+                              "job_name":  "native_S_readiness_direct"
+                          },
+                          {
+                              "job_id":  "4521405",
+                              "gpu":  false,
+                              "present_in_prior_raw_discovery":  true,
+                              "state":  "COMPLETED",
+                              "allocated_cpu_seconds":  9520,
+                              "elapsed_seconds":  595,
+                              "job_name":  "native_S_readiness_direct"
+                          },
+                          {
+                              "job_id":  "4521458",
+                              "gpu":  false,
+                              "present_in_prior_raw_discovery":  true,
+                              "state":  "COMPLETED",
+                              "allocated_cpu_seconds":  32,
+                              "elapsed_seconds":  2,
+                              "job_name":  "native_closed3_readonly"
+                          },
+                          {
+                              "job_id":  "4521460",
+                              "gpu":  false,
+                              "present_in_prior_raw_discovery":  true,
+                              "state":  "COMPLETED",
+                              "allocated_cpu_seconds":  112,
+                              "elapsed_seconds":  7,
+                              "job_name":  "native_S_closed_log_audit_v2"
+                          },
+                          {
+                              "job_id":  "4521478",
+                              "gpu":  false,
+                              "present_in_prior_raw_discovery":  true,
+                              "state":  "COMPLETED",
+                              "allocated_cpu_seconds":  384,
+                              "elapsed_seconds":  24,
+                              "job_name":  "native_closed3_selective_sync"
+                          },
+                          {
+                              "job_id":  "4521482",
+                              "gpu":  false,
+                              "present_in_prior_raw_discovery":  true,
+                              "state":  "COMPLETED",
+                              "allocated_cpu_seconds":  192,
+                              "elapsed_seconds":  12,
+                              "job_name":  "native_closed_long_sync"
+                          },
+                          {
+                              "job_id":  "4521487",
+                              "gpu":  false,
+                              "present_in_prior_raw_discovery":  false,
+                              "state":  "COMPLETED",
+                              "allocated_cpu_seconds":  96,
+                              "elapsed_seconds":  6,
+                              "job_name":  "native_S_closed_log_audit_v2"
+                          },
+                          {
+                              "job_id":  "4521488",
+                              "gpu":  false,
+                              "present_in_prior_raw_discovery":  false,
+                              "state":  "COMPLETED",
+                              "allocated_cpu_seconds":  240,
+                              "elapsed_seconds":  15,
+                              "job_name":  "native_closed_long_sync"
+                          },
+                          {
+                              "job_id":  "4521491",
+                              "gpu":  false,
+                              "present_in_prior_raw_discovery":  false,
+                              "state":  "COMPLETED",
+                              "allocated_cpu_seconds":  64,
+                              "elapsed_seconds":  4,
+                              "job_name":  "model_v3_reporting_checker"
+                          },
+                          {
+                              "job_id":  "4521492",
+                              "gpu":  true,
+                              "present_in_prior_raw_discovery":  false,
+                              "state":  "COMPLETED",
+                              "allocated_cpu_seconds":  768,
+                              "elapsed_seconds":  48,
+                              "job_name":  "model_v3_C4_GPU_layers"
+                          }
+                      ],
+    "previous_prefix_filter_omissions":  [
+                                             "4521401",
+                                             "4521405",
+                                             "4521458",
+                                             "4521460",
+                                             "4521478",
+                                             "4521482"
+                                         ],
+    "new_parents_absent_from_prior_discovery":  [
+                                                    "4521487",
+                                                    "4521488",
+                                                    "4521491",
+                                                    "4521492"
+                                                ],
+    "original_v13_field_CPU_parents_previously_omitted_semantics":  "Set difference from previous selected ledger: includes both earlier prefix omissions and genuinely later new submissions. The raw prior discovery distinguishes them.",
+    "allocated_cpu_seconds":  929184,
+    "allocated_cpu_hours":  258.10666666666668,
+    "allocated_gpu_job_seconds":  37886,
+    "allocated_gpu_job_hours":  10.523888888888889,
+    "GPU_seconds_are_utilization":  false,
+    "active_jobs":  [
+                        "4521338",
+                        "4521485"
+                    ],
+    "is_final_cost":  false,
+    "prior_file_rewritten":  false
+}
