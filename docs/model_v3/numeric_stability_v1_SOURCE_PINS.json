@@ -1,0 +1,796 @@
+{
+    "schema":  "model_v3_numeric_stability_source_pins_v1",
+    "status":  "FROZEN_SOURCE_NOT_EXECUTED_NOT_ADOPTED",
+    "worktree":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_numeric_stability_v1",
+    "branch":  "model-v3-numeric-stability-v1",
+    "Root_declared_base":  "3d9",
+    "candidate_mode":  "compensated_fp32_v1",
+    "binding_scope":  "entire canonical Python package, configs text, explicit tests/protocol/helper and immutable equation; no data arrays",
+    "source_count":  149,
+    "sources":  [
+                    {
+                        "path":  "configs/dev_panel_v1.json",
+                        "bytes":  7348,
+                        "sha256":  "110658491fbb77b0e647c5636d9cd894a389dd7e8c0f401847273c4f7c127132"
+                    },
+                    {
+                        "path":  "configs/model_v3/architecture_candidates_v1.json",
+                        "bytes":  1652,
+                        "sha256":  "00062ca2d76601bf951c6935251ffd2c83c50ff698487610415d1c1c9ce7d6e5"
+                    },
+                    {
+                        "path":  "configs/model_v3/c2_coordinate_lookup_v1.json",
+                        "bytes":  1951,
+                        "sha256":  "96dc0c9d8cf9203cb8ad11779ecddfe5d81bb698613cfddf05f93d4221af5724"
+                    },
+                    {
+                        "path":  "configs/model_v3/c2_prior_TRAIN_artifact_v2_adopted.json",
+                        "bytes":  4178,
+                        "sha256":  "01dbc094244f7d475744ab1d00d23482d050c96361e5d37bbc14edf8fd959dda"
+                    },
+                    {
+                        "path":  "configs/model_v3/c2_prior_TRAIN_artifact_v3_adopted.json",
+                        "bytes":  5050,
+                        "sha256":  "189895c00bcdba5fef84c420aa6c0fa05738a33c5be19635c8c8b82381e33d63"
+                    },
+                    {
+                        "path":  "configs/model_v3/existing_downstream_sources_v1.json",
+                        "bytes":  2023,
+                        "sha256":  "838553159d34ab00a157c66e01cdd60d3265713041ac12567503033c27a81b4e"
+                    },
+                    {
+                        "path":  "configs/model_v3/historical_B3_checkpoint_receipt_v1.json",
+                        "bytes":  335,
+                        "sha256":  "8013f608dbd81e260f3aa358d5a97b0cdfab79e5770ebf7db1b9026ea2621043"
+                    },
+                    {
+                        "path":  "configs/model_v3/historical_B3_H0_reference_v1.json",
+                        "bytes":  1860,
+                        "sha256":  "76e82d9400fbd678b1dc479aef52ce8996ed5157621a852535633a15bf9330e4"
+                    },
+                    {
+                        "path":  "configs/model_v3/numeric_stability_v1.json",
+                        "bytes":  2157,
+                        "sha256":  "cd6c5cb0142df424559262551e545627034069450d8f35f8b395f9b389d41d47"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/__init__.py",
+                        "bytes":  409,
+                        "sha256":  "3b73b42536f555d93fc5727d36afcbb964875c493fd40529d62707bb0982c51a"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/config.py",
+                        "bytes":  2976,
+                        "sha256":  "cc47ef5b9273d4b6ec956b475b86170e253390f78b1730ca5473893e8056f9e9"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/data/__init__.py",
+                        "bytes":  432,
+                        "sha256":  "722a0239fe8fd6123512270c84e488cc44850d75c58a1d0e16ab16267c0684f2"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/data/dataset_infer.py",
+                        "bytes":  5885,
+                        "sha256":  "165ebb5db26d7af0250c7fa910ec83a7885a9b89447a8c79e1be0a8515702cdd"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/data/dataset_lmdb.py",
+                        "bytes":  21422,
+                        "sha256":  "5f4dc312b1314f07d4533a6348947e366e071813ab89bac17e2f0ecdce36e5a3"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/data/dataset_without_charge.py",
+                        "bytes":  12612,
+                        "sha256":  "d921db47a01c12d3cd0d21db0b74ad04c7fc8d6346dddd4b9ff04762b7a7d752"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/data/descriptor_schema.py",
+                        "bytes":  9889,
+                        "sha256":  "b9cf8020ffca3fe5c578fd5ddad9ecc5839dabbe763df00fa0e414f626389243"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/discovery/__init__.py",
+                        "bytes":  411,
+                        "sha256":  "f074578c4aea329a4d95bb8c1255c4bad0e243929ef2e140be6198b5fd6d5bee"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/discovery/convergence.py",
+                        "bytes":  6306,
+                        "sha256":  "de34974557a5578ab41b5f9e84f68d21e2707f9c3a61258f20a03da1b0a31323"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/discovery/domain.py",
+                        "bytes":  6645,
+                        "sha256":  "62a5640326e995f7fcfed585e40409850b33259f70cf6ae4377be4dc1f2c7bd6"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/discovery/engine.py",
+                        "bytes":  23397,
+                        "sha256":  "a8c7a4a2c08167760e80c5838e06adbde794521b626e641db765ab30eb6c6c66"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/discovery/identity.py",
+                        "bytes":  2216,
+                        "sha256":  "b5f26eb023c280a880452afd2fe7a3ac72e6fcc46de530e505f2d9419878fe1a"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/discovery/manifests.py",
+                        "bytes":  13931,
+                        "sha256":  "e3fa6299e5b2d6bef451ed4b021f8187042a9e3ddf82c44c303484f38d4564c6"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/discovery/registry.py",
+                        "bytes":  12255,
+                        "sha256":  "9068c8c71da0ac5424995dc5ce31b99163fbd4ed37f113f22c1051ce26388d77"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/discovery/schedule.py",
+                        "bytes":  3902,
+                        "sha256":  "e00f9e852f24e4440fe8ab88f4f4a22adef55fd68111249c591dcad078627e22"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/evaluation/__init__.py",
+                        "bytes":  347,
+                        "sha256":  "b553b8e03281bcc35cec67d021b0d08d829db8f973deaa6d1046e8ae44889c7e"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/evaluation/fidelity.py",
+                        "bytes":  4823,
+                        "sha256":  "c2596973a6edc53c49f25980f6502272922a861455977cfa0d020aacf3b7678e"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/evaluation/metrics.py",
+                        "bytes":  3488,
+                        "sha256":  "e0ec7a3b6f37638281184ebfdd44709e5b0c9989ddcb6cd1f58f20e7e8128c47"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/evaluation/normalization.py",
+                        "bytes":  3836,
+                        "sha256":  "e0c1e66155200f79fcd4b568ce6a68cab1b8c0f8f0433c9366f1bcba8a31a36a"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/evaluation/target_adequacy.py",
+                        "bytes":  21418,
+                        "sha256":  "127f577fe6ce6e1ba7b887be766183f9e43678032a947418cce4d3b907eee07d"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/factory.py",
+                        "bytes":  1457,
+                        "sha256":  "43069260c1df28773b037d78e10313674e55495f5f4768111d622d912f70896e"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/__init__.py",
+                        "bytes":  346,
+                        "sha256":  "9dac47024daad9bfb98ab3a356d2a0e2b5ca64d3a7cab0a3a9a9daa360536ab6"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/adaptation.py",
+                        "bytes":  2361,
+                        "sha256":  "bcfb55a30f796ba5756d171c62d02745c7e53a493f4af41299d62b9b12579ac7"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/attention.py",
+                        "bytes":  4122,
+                        "sha256":  "e0e51968d1dd46a91faca71c064c517b20b9027bbced3723178a9db590553aff"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/backbone.py",
+                        "bytes":  2784,
+                        "sha256":  "1d4798111e526a077f834740093c90ad2610081f0171ca6c778b14cac24288a3"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/common.py",
+                        "bytes":  2518,
+                        "sha256":  "819157b7f25d98eba9cdb55d28b41b90c146bf1e4f321b7a762efcfb78fe0cab"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/expert_blocks.py",
+                        "bytes":  6041,
+                        "sha256":  "d5604414bdde3200fbeda8781923128b6f9ec10423330ca994377f036d7d140f"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/heads.py",
+                        "bytes":  17167,
+                        "sha256":  "c79d587cb46fc9a24fac2830541d60d1f3b5d824147e0db667f206513d86ad4b"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/normalization.py",
+                        "bytes":  8902,
+                        "sha256":  "d3ae06c3b40efca8ef3e165c40315f655f5641302bf2a38e027cedce4b6309a8"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/outputs.py",
+                        "bytes":  2437,
+                        "sha256":  "922985febe981578d3c95deb4bf8e8b46267181b487bd54d92f552c46b30efd9"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/phase1_specs.py",
+                        "bytes":  1529,
+                        "sha256":  "d0bacdbd808b4af9be36b9f04976af96b0a697ac6358bb7c8c69062aee641e22"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/routes.py",
+                        "bytes":  4949,
+                        "sha256":  "bfd1139fab2cb719a1ebf27d62919caf1bba570f636b29768d0feb50d91f12e4"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/shared.py",
+                        "bytes":  27531,
+                        "sha256":  "594178b2d45cc00f8f4f3c4f1816b9e3d205b1952f9885b5873fbc8263a1a544"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/v3_architecture.py",
+                        "bytes":  15012,
+                        "sha256":  "c2373eed4297e8ef5a0b2008c2cf9d26b8fcd1ce52d7dc17bb78da4cdeaee507"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/v3_heads.py",
+                        "bytes":  12459,
+                        "sha256":  "15df653c6cf068cd3723d358df2f85e1c9864fc8ee4d0339f9afc11bbd82a2d3"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/v3_multiview.py",
+                        "bytes":  5000,
+                        "sha256":  "4c700200d76273b08aeeea1a5bfeab5651d41ac5b07d86956c3b8ca523c57869"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/v3_numeric_stability.py",
+                        "bytes":  8976,
+                        "sha256":  "2c6ae1e6e7df199495f48852e4a66b0087cdff521b5399c2c32a5b204af06cf3"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/v3_performance.py",
+                        "bytes":  16898,
+                        "sha256":  "60786a1bdb4ff19386d6373b758f5316dbf07ec1adca8c24f62564adb14a823d"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/v3_profiler_attribution.py",
+                        "bytes":  16816,
+                        "sha256":  "95449944b1c3aabda12a410a477528f653aaa64bcf9ce05eb0eebc1c89c4ec8b"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/model/v3_profiling.py",
+                        "bytes":  5014,
+                        "sha256":  "485a4eb94d52195f088d700ec01fafa2c6f662c758f9237958455b21228b2801"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/__init__.py",
+                        "bytes":  82,
+                        "sha256":  "551180d17da20fe8b157f3d0870783429ed90c65fac00e6381b8e8f7908ce81c"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/az_annotation.py",
+                        "bytes":  10008,
+                        "sha256":  "007daf677955151638119d6e99fdc52078de68b84b5a1100c0d86d46a1cf8ce7"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/az_atom_mapping.py",
+                        "bytes":  6514,
+                        "sha256":  "aa565af62f3800136a6a32595f63e94a46c3f483bf05b2390c9c357ff4029ae7"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/baselines.py",
+                        "bytes":  11415,
+                        "sha256":  "0719ef724dbfff038cbe709f316311d203c183fa4a5df35e5014beb76d7bd615"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/data.py",
+                        "bytes":  16992,
+                        "sha256":  "0a8d7f1cafa566a6c5d53e83cb7ac9100e70122f14496961d63b980d28bbb58a"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/decontamination_v2.py",
+                        "bytes":  28164,
+                        "sha256":  "6cb5a190684ac56bb2984b2b309ebb32fdf8f3a18daf8309520444ccfdd6af9c"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/denoising_metrics.py",
+                        "bytes":  6394,
+                        "sha256":  "434ee2e149688d778623bee57f734903bfc65e9721b13a1819694f470b921b23"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/dev_probe.py",
+                        "bytes":  32370,
+                        "sha256":  "106f2377b48783e572e21710c916fed0c210c518dbde11e3e3128e65fcb54d7b"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/downstream_evaluation.py",
+                        "bytes":  19468,
+                        "sha256":  "c1e6417684bddbaa3692832ffafd25829129df3c1adbcbc041efe65db91f3164"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/downstream_readout.py",
+                        "bytes":  15205,
+                        "sha256":  "aa1b14ce6de85e26c2cc24b890a82c93cc9ab6e5216339e91fc054f05f076e50"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/downstream_source_records.py",
+                        "bytes":  56860,
+                        "sha256":  "ea2d9e37ece37d44c6cd39c4605b141d6b8f871fbe7403d8b540d1504c6c0664"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/downstream_structures.py",
+                        "bytes":  16132,
+                        "sha256":  "bd533640e97e129b848c4eb2cf40f8fc7d7ee332eaef54c7517e4ed3876861d6"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/downstream_training.py",
+                        "bytes":  46439,
+                        "sha256":  "ee4640d246380ed89fe2391814969f72cb9ffd4239a154841fd3111000e54c81"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/dynamic_loss.py",
+                        "bytes":  27783,
+                        "sha256":  "c4f24e805af17760927366667495faea2b0bf64126886fba65a411efdb9ebedf"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/evaluation.py",
+                        "bytes":  24554,
+                        "sha256":  "10e5ae04cc17fd085adf32824a67d938d52b9d171adb0114865e8a42deed31b8"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/fitted_controls.py",
+                        "bytes":  20441,
+                        "sha256":  "433ca11127cde822ee8ef3173d06524bf243baf66be4642b7bba7105827175d6"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/formal_gate.py",
+                        "bytes":  54239,
+                        "sha256":  "b8ac4439a1dd8e968a1f053c50fdd57dca03bade4626dd6e087da6fe64319196"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/formal_runtime.py",
+                        "bytes":  43616,
+                        "sha256":  "adccf251595a8a1a699e49468ab20eb94499c73e10bed2725f2377ea4d302eef"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/full_corpus_controls.py",
+                        "bytes":  16533,
+                        "sha256":  "01dd02b6ddba361b60c7105083df3bfdbef198f5b2abe17a3e22d282eb63c915"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/full_corpus_loader.py",
+                        "bytes":  43234,
+                        "sha256":  "827c10c7a4958e860710b3ccb2f8eb29dff4d5845654c230792bf6ce83935c0d"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/full_corpus_training.py",
+                        "bytes":  59902,
+                        "sha256":  "b7c6673150737123b8a4580436ad02dbaf366d7ab20ff0211d5e72479b6f9b87"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/generated_geometry.py",
+                        "bytes":  18336,
+                        "sha256":  "df2c673280039f6e2df28b67ef19122bf0b826644af3370e647bbd4b81c92d16"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/identity.py",
+                        "bytes":  10358,
+                        "sha256":  "2f34bd17e1e9161be3bb4cde46c80667c583ac22507c5a6bc95837b4414bb70a"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/initialization.py",
+                        "bytes":  8882,
+                        "sha256":  "fbff1eea47ca0bb7a5458f0deecfad14887e3dd2695aeaa1bee2470597808eb2"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/manifest_views.py",
+                        "bytes":  24259,
+                        "sha256":  "1d647a98a42b7062aa4659c595bdf6b3f37dbb63e08029c69f7dead5defcc13d"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/memory_observation.py",
+                        "bytes":  5872,
+                        "sha256":  "217c6ffa5c2c74d53764aa31da5da2a33c1618b880ffa1570c9a7cd8942734a5"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/objectives.py",
+                        "bytes":  23664,
+                        "sha256":  "25ee35354128f579f0249dd91b28f6928a57e55709b92b78294bbceaa598c68e"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/paired_statistics.py",
+                        "bytes":  29060,
+                        "sha256":  "0db6af1cd3120bd55a208fec60fea4c741f5420ace089c2bbf0c07d52d45770b"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/positive_strategy.py",
+                        "bytes":  14030,
+                        "sha256":  "3993bfdbd6060ba4bf2aa103d6a21013522799e668e8bb438a09c68a3b67b145"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/pretraining_scientific_authority.py",
+                        "bytes":  19181,
+                        "sha256":  "350c8be3ef05a47257db60437f5456139870173102fa3fb73abef1e3f567a5e5"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/seed_runtime.py",
+                        "bytes":  5391,
+                        "sha256":  "379111401a94bc732d101351964fb4ea545f657d7905e9b423d9a1e98e40b705"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/som_annotation.py",
+                        "bytes":  21227,
+                        "sha256":  "e1e9a81fbcad9f69f12bda4049ef86173694dcf383087c6d73e0e3efaecd6c19"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/som_atom_mapping.py",
+                        "bytes":  11352,
+                        "sha256":  "d745086c5eb717939e70bfbc6f18c78e8e1f30d1b52742de3d747944e847f7aa"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/som_direction_equivalence.py",
+                        "bytes":  19324,
+                        "sha256":  "055ebd52f8d9c892ebd875a90937ce6ef3c2b0b10b443a701cf7ba615414641c"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/som_evaluation.py",
+                        "bytes":  20671,
+                        "sha256":  "090f3a14985376fbaec0e700a3b94c82a063900896d61533ead1259406b88e75"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/source_geometry.py",
+                        "bytes":  11654,
+                        "sha256":  "75ac64e768e1e477634a35942c398d5b590b15370218ee78e31d166be5b698f3"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/strategy.py",
+                        "bytes":  10420,
+                        "sha256":  "a6e7cd70a4839720099d7239fef1673c83c1bb1733b076f3f95f09cd1401d434"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/strategy_contract.py",
+                        "bytes":  3743,
+                        "sha256":  "f1840ac602d5817b9f3e2cbc9114e92fd3487763a07eee9186b519801e6f49b6"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/trial_source_bridge.py",
+                        "bytes":  17206,
+                        "sha256":  "06ded0528fb870d4ee401596b70f392f18b9195373185ca7678b573efc62df91"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_architecture_training.py",
+                        "bytes":  6120,
+                        "sha256":  "689929ffd2a6ad8c3614fb6e60c717023900f413b1ddda14e8ff8ee96472d3f0"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_architecture_views.py",
+                        "bytes":  7984,
+                        "sha256":  "e8f3891668cea8608667bf779fb22c319d39302bb72e88e8ecf2f06c875fba07"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_contract.py",
+                        "bytes":  9509,
+                        "sha256":  "c41bc5d42bf14e6c2036faa951a38f49af3c3f68df54d835e4da31aed9649d8b"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_coordinate_lookup.py",
+                        "bytes":  17308,
+                        "sha256":  "a25fdb1217d969c05902bab5c45c292ec2a101e920bcc758f683e74fde6fd6c1"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_coordinate_lookup_source.py",
+                        "bytes":  16466,
+                        "sha256":  "37ea81d4787626f4bd5244570b746ab268bf87d721ecf74b1e5081855ca4605c"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_data.py",
+                        "bytes":  15007,
+                        "sha256":  "0d34824ca39e6b9bfe9b48f56183f86405a00607a70cd9f244a722324c5760c3"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_decision_evidence.py",
+                        "bytes":  25077,
+                        "sha256":  "a94241454c16f9efd200588a47b0200a3ba01138e015dc82251b51102c28ba5e"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_decision_rules.py",
+                        "bytes":  23787,
+                        "sha256":  "42b4fa2df759ba617a1b8ce6ea35bd9910ba3cac45d93c42d02adbbbce5a03de"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_dev_evaluation.py",
+                        "bytes":  19330,
+                        "sha256":  "cd097b485a5dc28c525f221567c02a34ae3db31e258a864bb5fd6e94fff0711f"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_dev_membership.py",
+                        "bytes":  5633,
+                        "sha256":  "bc8ba2cc018284be484236861b375f1988248a0b036357f7905049d86c05ac46"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_dev_panel.py",
+                        "bytes":  15617,
+                        "sha256":  "81786f6351e20a34285cfd44caef528e4c16ecb69c3355d69d679e1b53a5ed0f"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_dev_store.py",
+                        "bytes":  10222,
+                        "sha256":  "c0f87b24ec0cd0492444689a99cab9eb309baaa9d02dfdd532bf3e196eba7c9b"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_encoder_bridge.py",
+                        "bytes":  20244,
+                        "sha256":  "8246c723f6613f4bcc6bc374971e7cfb7a1e10b1fa55f6d162d7607a175b4bf1"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_h0_packing.py",
+                        "bytes":  5517,
+                        "sha256":  "4cceb4856337d078fc204d07d4602e3753bbddb4f519e3ddf738f0a6f2e97fe8"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_h0_runtime.py",
+                        "bytes":  5138,
+                        "sha256":  "87642cca5d5c16d70ed8b04c96982526a576791b668e8014239cde31c6ffcb44"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_long_run_storage.py",
+                        "bytes":  42566,
+                        "sha256":  "44eb2c4f1f7ea7c35f1fbddbabbe194fb9d0bd2ea031e9faae88d5aa0325ea1f"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_losses.py",
+                        "bytes":  5807,
+                        "sha256":  "86d6291fbed0529cce7cf130f2bb5a8c01b276818cfb7834a7156d63369cc089"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_native_s_precision.py",
+                        "bytes":  23582,
+                        "sha256":  "4bf9ab2188da2c719f3c5ef52f15182b5973eb9f79dd0aeb62619d2e395d3da0"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_native_s_precision_data.py",
+                        "bytes":  18067,
+                        "sha256":  "747496b03eba1934857a4880bf6305944a176ec7d8232aba3163782c493e93b8"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_native_s_precision_fixture.py",
+                        "bytes":  3040,
+                        "sha256":  "f633ca419aac9c8fbca27d8a78efffbe76f92e274abddb7af773b62517bf3d6b"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_padding.py",
+                        "bytes":  1207,
+                        "sha256":  "ac2ee2f89856eca47d7fc999fe4d39f1240bf983cc27e6cb92749b93d71e3bc5"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_precision_experiment.py",
+                        "bytes":  28276,
+                        "sha256":  "5276a13cc7137ff08c1326e66e44ae5e46e5b672b93370160076606beda4697e"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_precision_synthetic.py",
+                        "bytes":  10137,
+                        "sha256":  "b41cc1dd8aaffe546608b9b08f389d92e95cd666f606753e12e3d8db0d6aa57a"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_proxy_engineering.py",
+                        "bytes":  6162,
+                        "sha256":  "810eeb2fc631bdefec8a580d0cacd8147d98f4568bf0553983af0301c52cc9f2"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_proxy_plan.py",
+                        "bytes":  10116,
+                        "sha256":  "fae90468c2153b2d5085c238a886580c3c74bc2b41470df10818af8f19f1ef83"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_proxy_run.py",
+                        "bytes":  26047,
+                        "sha256":  "3c919fcb9e98b6ef0a1357951e7e84cedb0bf89ba455dcdfea801a3e5a9b9a1d"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_proxy_segments.py",
+                        "bytes":  15355,
+                        "sha256":  "dd7c5d617fe9fd02af9b6e19205175382a5915fd14d43118f7e1b76849cb684b"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_sample_budget_events.py",
+                        "bytes":  18482,
+                        "sha256":  "9b03929f1a111b4febee35cac455d900d1adade8206146e32b30dd8ac109664e"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_sample_budget_experiment.py",
+                        "bytes":  21575,
+                        "sha256":  "2138bcfc553c88f2f7a0ac40391a65d06e395b7936127cf6f197239ac932c270"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_sampling.py",
+                        "bytes":  11297,
+                        "sha256":  "031c387f60697f7b8d0ba1bc38ed64bb08664fddbd00a7a425c597171aac04f8"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_sampling_bridge.py",
+                        "bytes":  21527,
+                        "sha256":  "2c15a8b61fa5b071d3e64cd8f769a8e43930174dbaa0555e70a1ef233809d946"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_sampling_cache.py",
+                        "bytes":  21670,
+                        "sha256":  "25ad189b9bdb5bde75b22690e7b886c12308ad5b0e6ff501c88b8c2dfb0f57cd"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_selected_training_store.py",
+                        "bytes":  33329,
+                        "sha256":  "d7b862533042835785c5d148d055db899bb31444ef5a9d55a6feda92bc390c2c"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_source_sample_compat.py",
+                        "bytes":  8251,
+                        "sha256":  "e9db79abbfdb727bade39b86a6ceb6b8f21728cf3d2b8dac5f69c42fc4c313cb"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_structural.py",
+                        "bytes":  13332,
+                        "sha256":  "7978742dc67921a64119a875e642b5120054b06a2115bc25351fc60b4e0bda76"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_trainer.py",
+                        "bytes":  35974,
+                        "sha256":  "6dece41eb2f528a12297d194b016044dded5a855edca98c39c0710c208717436"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_training.py",
+                        "bytes":  16828,
+                        "sha256":  "f2326cdf409e31566856a9d2752e0891087ba5e8ea8603f7dffca68cb3756daf"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_wire_audit.py",
+                        "bytes":  5595,
+                        "sha256":  "ead6ce5e15e8c405510833f25a7050b4ef0aa61c1a9fe0eeff841a99bde1822c"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_wire_provider.py",
+                        "bytes":  22752,
+                        "sha256":  "80c728c157205ca1e9870d511751efc6b87a7c59c795d28a6911c313610c2ea8"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/phase1/v3_wsd_fork.py",
+                        "bytes":  26315,
+                        "sha256":  "aa466efb52cdfc30258fe79119919f7a96cad6e93674e6af13f96007cc22a9f5"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/supervision.py",
+                        "bytes":  3205,
+                        "sha256":  "5316014706dd470f5b448549f19c2a6668ca423c3c309601201a2ab6bf8fcd4f"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/__init__.py",
+                        "bytes":  59,
+                        "sha256":  "774479f5a534c8daca796f38a5d97fb466d2edc2b06e70c2ec6b670ff43f5d00"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/checkpoint.py",
+                        "bytes":  9896,
+                        "sha256":  "706ac72ba10a2431b2bf9c2fd059b8f4e5ce00662dcef0ea42efc9cfddf91e0a"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/data.py",
+                        "bytes":  51863,
+                        "sha256":  "8228ab721bd821c316b279f992178f351c37fa0ba3c309203e9375117d861a8f"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/dataloader_debug.py",
+                        "bytes":  11485,
+                        "sha256":  "cdf2a5b2651fbc7437b3f7d22447b804180becb91b5e90537355655ef05264bc"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/datasets.py",
+                        "bytes":  7427,
+                        "sha256":  "f0aa191e23a9c90e2541c20f09cbbadfe06107cb8c90a2104bc16430a04a7d3f"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/degrade_molecules.py",
+                        "bytes":  25358,
+                        "sha256":  "3528566aed8bc0303dddfddfcafa400fdb7826a5be1471e7855a36af80587340"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/engine.py",
+                        "bytes":  12111,
+                        "sha256":  "9cefbaeb30dbc4a9df406ed729f0b2b0620ab5c561e56cc20d1c21571b7cc9da"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/full_corpus_normalization.py",
+                        "bytes":  8780,
+                        "sha256":  "3a4c866d1bfa26f64043f2cd320fa254ca234a92f577e81ef110df107dc65a20"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/geometry.py",
+                        "bytes":  7264,
+                        "sha256":  "d07eeb8545603576e902c1f5b908b987dec23f335923697ca5e8719d7a640aa5"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/losses.py",
+                        "bytes":  21507,
+                        "sha256":  "e6748230041f6c0ea3a8d7086a3046a78f64f79cbbffa11a63705ad9a6c971e9"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/optim.py",
+                        "bytes":  4106,
+                        "sha256":  "f7fe1d473e75a9fd25d7b5af0e15d7812009d6079c0e1adbe70e1e29ecc1f830"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/utils_debug.py",
+                        "bytes":  2240,
+                        "sha256":  "ad224040fd36f44940a33fca1ed6c17e0eb5efc65d5c3f620d912512e4e1cfcc"
+                    },
+                    {
+                        "path":  "current/phychem_mfm/training/v3_performance_acceptance.py",
+                        "bytes":  7561,
+                        "sha256":  "4e90c06fdfd4476cef8b89a306a8e9853f96d24e8799fff285c98a259aaf5a78"
+                    },
+                    {
+                        "path":  "current/tests/conftest.py",
+                        "bytes":  2001,
+                        "sha256":  "892c4cafa03834c03ebba4a6ab0ef5f334c34c686dab03e88f12e13687ad8c20"
+                    },
+                    {
+                        "path":  "current/tests/test_model_v3_numeric_stability.py",
+                        "bytes":  21021,
+                        "sha256":  "c2fd849432e390abbf1b4c293ee471a3b273c71ed3afff819704fd114b24f3ce"
+                    },
+                    {
+                        "path":  "docs/model_v3/NUMERIC_STABILITY_V1.md",
+                        "bytes":  7267,
+                        "sha256":  "b4064fdbe4d2a1be1d4f2aad097d7b661f20c528af4652550ba43f10d2418a0d"
+                    },
+                    {
+                        "path":  "validation/model_v3_numeric_stability_v1/candidate_composed_adapter.py",
+                        "bytes":  3268,
+                        "sha256":  "ef5a48c0464d7f3e76665e6fa0cdd7501725c5870c42b11f2f435fb3b606b426"
+                    },
+                    {
+                        "path":  "validation/model_v3_numeric_stability_v1/README.md",
+                        "bytes":  1858,
+                        "sha256":  "387bb86ab24d6325a9ea66e337c82dbb346de7218a087c455f6d9b3ff7d1dca1"
+                    },
+                    {
+                        "path":  "validation/model_v3_numeric_stability_v1/test_candidate_matrix.py",
+                        "bytes":  3276,
+                        "sha256":  "3be5a1fec7f461eed9a6010e6a8b66635429e4ac4e048574b0e200d0dfe5ca8f"
+                    },
+                    {
+                        "path":  "workflows/sprime_s/scripts/s_model_memory_v1.py",
+                        "bytes":  2542,
+                        "sha256":  "170a7752bad1812d15dceace1613d19f579aec5d97a4965ed0960731cc53f232"
+                    }
+                ],
+    "external_sources":  [
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance_runtime_v3/current/phychem_mfm/phase1/v3_composed_equivariance.py",
+                                 "bytes":  30285,
+                                 "sha256":  "0c49debe901ee5db79a71fcbc8541d426231c5090eb9740b84649e867d8df0e8",
+                                 "role":  "immutable_original_fixtures_transforms_weights_and_acceptance"
+                             }
+                         ],
+    "evidence_refs":  [
+                          {
+                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_layer_head_v3_output_4521404/diagnostic/DIAGNOSTIC_RESULT.json",
+                              "bytes":  20281,
+                              "sha256":  "3bca9fce8bbb50b554569750a147d635da374915c5d0e12dd3b7d5cf62c503dd"
+                          },
+                          {
+                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_layer_head_4521406/DIAGNOSTIC_RESULT.json",
+                              "bytes":  15346,
+                              "sha256":  "26555ed97abfca64b5da73f7f3cfe6bd86c0ab6a5dd98bb8fcf1a9c670412ef2"
+                          },
+                          {
+                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_layer_head_4521406/original_policy_SUMMARY.json",
+                              "bytes":  126319,
+                              "sha256":  "b8d7d9b42331c4241e9192729bb6c9904023a10a065537ed3cc0dbf96d94ba40"
+                          },
+                          {
+                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_layer_head_4521406/strict_deterministic_diagnostic_SUMMARY.json",
+                              "bytes":  126071,
+                              "sha256":  "ed82d7e052edd7933e6f4f1f22bbb9463f136fd1da54eb1a817f401f4c7530b6"
+                          },
+                          {
+                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_layer_head_4521406/CPU1404_firstcase_trace_decoded.json",
+                              "bytes":  982782,
+                              "sha256":  "c3776bc60ebf5ddb3a0296846ef06763c025731813d0098e98b581133d390f96"
+                          }
+                      ],
+    "expected_CPU_unit_cases":  47,
+    "expected_separate_scientific_cases":  48,
+    "actual_tests_executed_by_this_agent":  0,
+    "actual_submissions_by_this_agent":  0
+}

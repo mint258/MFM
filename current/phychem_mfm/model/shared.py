@@ -25,6 +25,8 @@ from ..data.descriptor_schema import (
 from ..supervision import Objective, normalize_objectives
 from .backbone import RealCoordTransformerBackbone
 from .common import Linear, ensure_batch_attr
+from .v3_numeric_stability import (LEGACY, COMPENSATED, apply_numeric_mode, validate_numeric_mode,
+                                   numeric_mode, require_fp32_context)
 from .heads import (
     BondPairHead,
     CoordinateDecoder,
@@ -71,6 +73,9 @@ class SharedBackboneMFM(nn.Module):
         super().__init__()
         expert_config = dict(expert_config or {})
         head_config = dict(head_config or {})
+        mode = validate_numeric_mode(backbone_config.get('numeric_mode', LEGACY))
+        if validate_numeric_mode(head_config.get('numeric_mode', LEGACY)) != mode:
+            raise ValueError('Backbone/head numeric modes must agree')
         self.backbone_config = dict(backbone_config)
         self.expert_config = expert_config
         self.head_config = deepcopy(head_config)
@@ -169,8 +174,12 @@ class SharedBackboneMFM(nn.Module):
             }
         )
 
+        apply_numeric_mode(self, mode)
+
     def encode_atoms(self, batch: Data) -> Tensor:
         """Return canonical shared representation H0 with shape [N_atom, D]."""
+        if numeric_mode(self) == COMPENSATED:
+            require_fp32_context(self, batch.pos)
         return self.backbone(batch)
 
     def encode_graph(self, batch: Data, pooling: str = "mean") -> Tensor:

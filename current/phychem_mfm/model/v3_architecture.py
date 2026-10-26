@@ -22,6 +22,8 @@ from torch_geometric.utils import to_dense_batch
 from ..factory import build_model
 from ..phase1.v3_contract import require
 from .common import Linear, ensure_batch_attr
+from .v3_numeric_stability import (COMPENSATED, LEGACY, numeric_mode, apply_numeric_mode,
+                                    compensated_pairwise_norm3)
 
 SOURCE_S_MEMORY_SHA256 = "170a7752bad1812d15dceace1613d19f579aec5d97a4965ed0960731cc53f232"
 
@@ -95,7 +97,9 @@ class SharedGaussianPairEncoder(nn.Module):
                 and mask.dtype == torch.bool, "Dense fp32 coordinates/native element indices/mask required")
         with torch.autocast(device_type=pos.device.type, enabled=False):
             # Direct Euclidean path has finite derivatives at coincident atoms.
-            distances = torch.cdist(pos.float(), pos.float(), compute_mode="donot_use_mm_for_euclid_dist")
+            distances = (compensated_pairwise_norm3(pos.float(), pos.float())
+                         if numeric_mode(self) == COMPENSATED else
+                         torch.cdist(pos.float(), pos.float(), compute_mode='donot_use_mm_for_euclid_dist'))
             transformed = distances.unsqueeze(-1)
             if self.pair_scale is not None:
                 pair_type = elements[:, :, None] * self.n_atom_types + elements[:, None, :]
@@ -164,8 +168,11 @@ class SharedPairBackbone(nn.Module):
         self.layers = nn.ModuleList([SharedPairTransformerLayer(layer, options.pair_dim) for layer in original.layers])
 
     def get_extra_state(self):
-        return {"schema": "model_v3_shared_gaussian_backbone_v1", "options": asdict(self.options),
-                "n_atom_types": self.n_atom_types, "dim": self.dim}
+        result = {"schema": "model_v3_shared_gaussian_backbone_v1", "options": asdict(self.options),
+                  "n_atom_types": self.n_atom_types, "dim": self.dim}
+        if numeric_mode(self) != LEGACY:
+            result['numeric_mode'] = numeric_mode(self)
+        return result
 
     def set_extra_state(self, state):
         require(state == self.get_extra_state(), "C1 checkpoint/options differ")
@@ -263,5 +270,6 @@ def build_architecture_model(config, options=None, *, legacy_builder=build_model
         if hasattr(model, "s_memory_implementation"):
             model.v3_legacy_control_memory_implementation = deepcopy(model.s_memory_implementation)
             del model.s_memory_implementation
+    apply_numeric_mode(model, numeric_mode(model))
     model.v3_architecture_options = asdict(options)
     return model

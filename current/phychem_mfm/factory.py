@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from copy import deepcopy
 from typing import Mapping
 
+from .config import numeric_stability_configuration
 from .model.routes import TaskRouteConfig
 from .model.shared import SharedBackboneMFM
 
@@ -23,7 +23,7 @@ def task_routes_from_preset(preset: str, per_task: Mapping[str, str] | None = No
 
 
 def build_model(config: Mapping[str, object], *, preset: str | None = None) -> SharedBackboneMFM:
-    payload = deepcopy(dict(config))
+    payload = numeric_stability_configuration(config)
     architecture = dict(payload["architecture"])
     selected_preset = preset or architecture.get("preset", "shared_light")
     per_task = architecture.get("task_route_per_task") if preset is None else None

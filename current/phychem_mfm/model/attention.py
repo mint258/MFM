@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import math
 from typing import Tuple
@@ -8,6 +8,7 @@ import torch.nn as nn
 from torch import Tensor
 
 from .common import Linear
+from .v3_numeric_stability import COMPENSATED, numeric_mode, compensated_pairwise_norm3
 
 
 class DenseGeoSelfAttention(nn.Module):
@@ -59,8 +60,11 @@ class DenseGeoSelfAttention(nn.Module):
 
         logits = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.d_head)
 
-        diff = pos[:, :, None, :] - pos[:, None, :, :]
-        dist2 = (diff * diff).sum(dim=-1)
+        if numeric_mode(self) == COMPENSATED:
+            dist2 = compensated_pairwise_norm3(pos, pos, squared=True)
+        else:
+            diff = pos[:, :, None, :] - pos[:, None, :, :]
+            dist2 = (diff * diff).sum(dim=-1)
 
         if self.use_dist_bias and self.dist_mlp is not None:
             bias = self.dist_mlp(dist2.unsqueeze(-1))

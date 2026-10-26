@@ -9,6 +9,8 @@ from torch_geometric.nn import global_add_pool, global_max_pool, global_mean_poo
 from torch_geometric.utils import to_dense_batch
 
 from .common import Linear
+from .v3_numeric_stability import (COMPENSATED, numeric_mode, compensated_index_add,
+    compensated_pool, compensated_norm3, compensated_squared_norm3, compensated_pairwise_norm3)
 
 
 class CoordinateDecoder(nn.Module):
@@ -63,7 +65,8 @@ class ResidualCoordinateDecoder(nn.Module):
         features, mask = to_dense_batch(self.node_proj(atom_repr), batch, fill_value=0.0)
         coordinates, _ = to_dense_batch(pos.float(), batch, fill_value=0.0)
         relative = coordinates[:, :, None, :] - coordinates[:, None, :, :]
-        distance2 = relative.square().sum(dim=-1)
+        distance2 = (compensated_squared_norm3(relative) if numeric_mode(self) == COMPENSATED
+                     else relative.square().sum(dim=-1))
         affinity = torch.matmul(features, features.transpose(-1, -2)).float() / self.hidden_dim ** 0.5
         pair_input = torch.stack((affinity, distance2), dim=-1)
         weights = torch.tanh(self.pair_weight(pair_input).squeeze(-1)).float()
@@ -75,7 +78,14 @@ class ResidualCoordinateDecoder(nn.Module):
             count = neighbors.sum(dim=2).clamp_min(1).to(coordinates.dtype).unsqueeze(-1)
         else:
             count = mask.sum(dim=1).clamp_min(1).to(coordinates.dtype).view(-1, 1, 1)
-        correction = (weights.unsqueeze(-1) * relative).sum(dim=2) / count
+        if numeric_mode(self) == COMPENSATED:
+            terms = weights.unsqueeze(-1) * relative
+            groups, atoms = coordinates.shape[:2]
+            index = torch.arange(groups * atoms, device=pos.device).repeat_interleave(atoms)
+            correction = compensated_index_add(coordinates.new_zeros((groups * atoms, 3)),
+                index, terms.reshape(-1, 3)).reshape(groups, atoms, 3) / count
+        else:
+            correction = (weights.unsqueeze(-1) * relative).sum(dim=2) / count
         decoded = coordinates + self.correction_scale * correction
         return decoded[mask]
 
@@ -116,7 +126,8 @@ class EquivariantDenoisingHead(nn.Module):
         sorted_batch = batch[order]
         _, dense_batch = torch.unique_consecutive(sorted_batch, return_inverse=True)
         coordinates, mask = to_dense_batch(pos[order], dense_batch)
-        distance = torch.cdist(coordinates, coordinates)
+        distance = (compensated_pairwise_norm3(coordinates, coordinates)
+                    if numeric_mode(self) == COMPENSATED else torch.cdist(coordinates, coordinates))
         valid = mask[:, :, None] & mask[:, None, :]
         eye = torch.eye(distance.size(-1), dtype=torch.bool, device=pos.device)
         graph, src, dst = torch.where(valid & ~eye & (distance < self.radius) & (distance > 1e-8))
@@ -125,7 +136,8 @@ class EquivariantDenoisingHead(nn.Module):
 
     def _features(self, h: Tensor, pos: Tensor, src: Tensor, dst: Tensor):
         relative = pos[src] - pos[dst]
-        distance = relative.norm(dim=-1).clamp_min(1e-8)
+        distance = (compensated_norm3(relative) if numeric_mode(self) == COMPENSATED
+                    else relative.norm(dim=-1)).clamp_min(1e-8)
         rbf = torch.exp(-self.rbf_gamma * (distance[:, None] - self.rbf_centers) ** 2)
         rbf = rbf * (0.5 * (1.0 + torch.cos(torch.pi * distance / self.radius)))[:, None]
         return torch.cat((h[src], h[dst], rbf.to(h.dtype)), dim=-1), relative / distance[:, None]
@@ -150,13 +162,15 @@ class EquivariantDenoisingHead(nn.Module):
             for start in range(0, len(src), self.pair_chunk_size):
                 i, j = src[start:start + self.pair_chunk_size], dst[start:start + self.pair_chunk_size]
                 value = checkpoint(message_chunk, h, pos, i, j, use_reentrant=False) if torch.is_grad_enabled() else message_chunk(h, pos, i, j)
-                aggregated = aggregated.index_add(0, i, value)
+                aggregated = (compensated_index_add(aggregated, i, value)
+                              if numeric_mode(self) == COMPENSATED else aggregated.index_add(0, i, value))
             h = h + aggregated / degree.to(h.dtype)
         noise = torch.zeros_like(pos)
         for start in range(0, len(src), self.pair_chunk_size):
             i, j = src[start:start + self.pair_chunk_size], dst[start:start + self.pair_chunk_size]
             value = checkpoint(self._predict_chunk, h, pos, i, j, use_reentrant=False) if torch.is_grad_enabled() else self._predict_chunk(h, pos, i, j)
-            noise = noise.index_add(0, i, value.to(pos.dtype))
+            noise = (compensated_index_add(noise, i, value.to(pos.dtype))
+                     if numeric_mode(self) == COMPENSATED else noise.index_add(0, i, value.to(pos.dtype)))
         return noise / degree if self.normalization == "sqrt_neighbors" else noise
 
 
@@ -169,14 +183,22 @@ class LearnedPoolingMixer(nn.Module):
         self.pool_logits = nn.Parameter(torch.zeros(3))
 
     def forward(self, atom_repr: Tensor, batch: Tensor) -> Tensor:
-        pooled = torch.stack(
-            (
-                self.sum_proj(global_add_pool(atom_repr, batch)),
-                self.mean_proj(global_mean_pool(atom_repr, batch)),
+        if numeric_mode(self) == COMPENSATED:
+            graphs = int(batch.max()) + 1 if len(batch) else 0
+            pooled = torch.stack((
+                self.sum_proj(compensated_pool(atom_repr, batch, graphs, "sum")),
+                self.mean_proj(compensated_pool(atom_repr, batch, graphs, "mean")),
                 self.max_proj(global_max_pool(atom_repr, batch)),
-            ),
-            dim=1,
-        )
+            ), dim=1)
+        else:
+            pooled = torch.stack(
+                (
+                    self.sum_proj(global_add_pool(atom_repr, batch)),
+                    self.mean_proj(global_mean_pool(atom_repr, batch)),
+                    self.max_proj(global_max_pool(atom_repr, batch)),
+                ),
+                dim=1,
+            )
         weights = torch.softmax(self.pool_logits, dim=0)
         return (pooled * weights.view(1, 3, 1)).sum(dim=1)
 
@@ -199,6 +221,17 @@ class UnifiedGraphPooling(nn.Module):
 
     def forward(self, atom_repr: Tensor, batch: Tensor, pooling: str = "mean") -> Tensor:
         pooling = str(pooling).lower()
+        if numeric_mode(self) == COMPENSATED:
+            graphs = int(batch.max()) + 1 if len(batch) else 0
+            if pooling in ('mean', 'sum'):
+                return compensated_pool(atom_repr, batch, graphs, pooling)
+            if pooling == 'summary':
+                mean = compensated_pool(atom_repr, batch, graphs, 'mean')
+                maximum = global_max_pool(atom_repr, batch)
+                second = compensated_pool(atom_repr.square(), batch, graphs, 'mean')
+                std = torch.sqrt(torch.clamp(second - mean.square(), min=0.0) + 1e-9)
+                counts = torch.bincount(batch, minlength=graphs).to(atom_repr.dtype).clamp_min(1.0)
+                return torch.cat((mean, maximum, std, counts.log().unsqueeze(-1)), dim=-1)
         if pooling == "mean":
             return global_mean_pool(atom_repr, batch)
         if pooling == "sum":
@@ -228,14 +261,20 @@ class TaskSpecificGraphHead(nn.Module):
 
     def forward(self, node_repr: Tensor, batch: Tensor) -> Tensor:
         hidden = self.node_proj(node_repr)
-        pooled = torch.stack(
-            (
-                global_add_pool(hidden, batch),
-                global_mean_pool(hidden, batch),
-                global_max_pool(hidden, batch),
-            ),
-            dim=1,
-        )
+        if numeric_mode(self) == COMPENSATED:
+            graphs = int(batch.max()) + 1 if len(batch) else 0
+            pooled = torch.stack((compensated_pool(hidden, batch, graphs, "sum"),
+                                  compensated_pool(hidden, batch, graphs, "mean"),
+                                  global_max_pool(hidden, batch)), dim=1)
+        else:
+            pooled = torch.stack(
+                (
+                    global_add_pool(hidden, batch),
+                    global_mean_pool(hidden, batch),
+                    global_max_pool(hidden, batch),
+                ),
+                dim=1,
+            )
         weights = torch.softmax(self.pool_logits, dim=0)
         return self.output((pooled * weights.view(1, 3, 1)).sum(dim=1))
 

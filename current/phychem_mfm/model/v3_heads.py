@@ -10,9 +10,14 @@ from torch import Tensor, nn
 from ..phase1.v3_contract import LabelRegistry, require
 from .common import Linear, ensure_batch_attr
 from .heads import EquivariantDenoisingHead
+from .v3_numeric_stability import (LEGACY, COMPENSATED, numeric_mode, validate_numeric_mode,
+    apply_numeric_mode, require_fp32_context, compensated_pool, compensated_index_add, compensated_norm3)
 
 
-def _pool(h: Tensor, batch: Tensor, graphs: int, mode: str):
+def _pool(h: Tensor, batch: Tensor, graphs: int, mode: str, numeric=LEGACY):
+    validate_numeric_mode(numeric)
+    if numeric == COMPENSATED:
+        return compensated_pool(h, batch, graphs, mode)
     result = h.new_zeros((graphs, h.size(-1))).index_add(0, batch, h)
     if mode == "mean":
         result = result / torch.bincount(batch, minlength=graphs).to(h.dtype).clamp_min(1)[:, None]
@@ -29,7 +34,11 @@ class _PoolingMixer(nn.Module):
         self.logits = nn.Parameter(torch.zeros(2))
 
     def forward(self, h, batch, graphs):
-        values = torch.stack((_pool(h, batch, graphs, "sum"), _pool(h, batch, graphs, "mean")), dim=1)
+        if numeric_mode(self) == COMPENSATED:
+            values = torch.stack((compensated_pool(h, batch, graphs, 'sum'),
+                                  compensated_pool(h, batch, graphs, 'mean')), dim=1)
+        else:
+            values = torch.stack((_pool(h, batch, graphs, "sum"), _pool(h, batch, graphs, "mean")), dim=1)
         return (values * self.logits.softmax(0)[None, :, None]).sum(1)
 
 
@@ -45,7 +54,9 @@ class _PairHead(nn.Module):
             return h.new_zeros((0, self.predict[-1].out_features))
         src, dst = pairs
         with torch.autocast(device_type=pos.device.type, enabled=False):
-            distance = (pos[src].float() - pos[dst].float()).norm(dim=-1)
+            relative = pos[src].float() - pos[dst].float()
+            distance = (compensated_norm3(relative) if numeric_mode(self) == COMPENSATED
+                        else relative.norm(dim=-1))
             rbf = torch.exp(-self.gamma * (distance[:, None] - self.centers.float()) ** 2)
             envelope = torch.where(distance < self.radius,
                                    0.5 * (1 + torch.cos(torch.pi * distance / self.radius)),
@@ -63,6 +74,12 @@ class _DipoleHead(nn.Module):
 
     def forward(self, h, pos, batch, graphs):
         with torch.autocast(device_type=h.device.type, enabled=False):
+            if numeric_mode(self) == COMPENSATED:
+                center = compensated_pool(pos.float(), batch, graphs, "mean")
+                charges = self.charges(h.float())
+                vector = compensated_index_add(pos.float().new_zeros((graphs, 3)), batch,
+                                               charges * (pos.float() - center[batch]))
+                return compensated_norm3(vector, keepdim=True) if self.magnitude else vector
             center = _pool(pos.float(), batch, graphs, "mean")
             charges = self.charges(h.float())
             vector = pos.float().new_zeros((graphs, 3)).index_add(
@@ -79,10 +96,11 @@ class V3HeadBank(nn.Module):
     """
     def __init__(self, registry: LabelRegistry, *, dim=512,
                  forms: str | Mapping[str, str] = "H1", hidden_dim=64,
-                 vector_radius=5.0, vector_rbf_count=32, pair_chunk_size=8192):
+                 vector_radius=5.0, vector_rbf_count=32, pair_chunk_size=8192, numeric_mode=LEGACY):
         super().__init__()
         require(type(dim) is int and dim > 0 and type(hidden_dim) is int and hidden_dim >= 2,
                 "Valid H0/head dimensions required")
+        validate_numeric_mode(numeric_mode)
         self.registry, self.dim, self.hidden_dim = registry, dim, hidden_dim
         if isinstance(forms, str):
             self.forms = {field.name: forms for field in registry.fields}
@@ -121,9 +139,14 @@ class V3HeadBank(nn.Module):
                 if field.pooling == "learned":
                     self.pooling_mixers[key] = _PoolingMixer()
 
+        apply_numeric_mode(self, numeric_mode)
+
     def get_extra_state(self):
-        return {"schema": "model_v3_head_bank_v1", "registry_sha256": self.registry.content_sha256,
-                "dim": self.dim, "hidden_dim": self.hidden_dim, "forms": dict(self.forms)}
+        result = {"schema": "model_v3_head_bank_v1", "registry_sha256": self.registry.content_sha256,
+                  "dim": self.dim, "hidden_dim": self.hidden_dim, "forms": dict(self.forms)}
+        if numeric_mode(self) != LEGACY:
+            result["numeric_mode"] = numeric_mode(self)
+        return result
 
     def set_extra_state(self, state):
         require(state == self.get_extra_state(), "Head registry/forms differ from checkpoint")
@@ -136,6 +159,8 @@ class V3HeadBank(nn.Module):
                 and pos.shape == (len(h0), 3) and pos.dtype == torch.float32
                 and batch.device == pos.device == h0.device and bool(torch.isfinite(pos).all()),
                 "Explicit packed molecule IDs/fp32 coordinates required")
+        if numeric_mode(self) == COMPENSATED:
+            require_fp32_context(self, h0, pos)
         graphs = int(batch.max()) + 1
         require(bool((torch.bincount(batch, minlength=graphs) > 0).all()), "Packed molecule IDs must be contiguous")
         pairs = dict(pair_indices or {})
@@ -162,7 +187,8 @@ class V3HeadBank(nn.Module):
                 prediction = head(h0)
             else:
                 feature = self.pooling_mixers[key](h0, batch, graphs) if field.pooling == "learned" else (
-                    _pool(h0, batch, graphs, field.pooling))
+                    _pool(h0, batch, graphs, field.pooling, COMPENSATED) if numeric_mode(self) == COMPENSATED
+                    else _pool(h0, batch, graphs, field.pooling))
                 if self.forms[field.name] == "H2":
                     feature = self.group_projectors[field.group](feature)
                 prediction = head(feature)
@@ -184,6 +210,7 @@ class V3PretrainingModel(nn.Module):
         super().__init__()
         require(getattr(encoder, "latent_dim", None) == heads.dim == 512,
                 "V3 canonical H0 must remain 512-dimensional")
+        require(numeric_mode(encoder) == numeric_mode(heads), 'Encoder/head numeric modes differ')
         self.encoder, self.heads = encoder, heads
         self.latent_dim = 512
 

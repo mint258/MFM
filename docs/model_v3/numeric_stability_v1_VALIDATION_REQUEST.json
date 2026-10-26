@@ -1,0 +1,85 @@
+{
+    "schema":  "model_v3_numeric_stability_validation_request_v1",
+    "status":  "SOURCE_FROZEN_EXECUTION_PENDING_ROOT_PUBLIC_REGISTRATION",
+    "numeric_mode":  "compensated_fp32_v1",
+    "source_manifest":  {
+                            "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_numeric_stability_v1/docs/model_v3/numeric_stability_v1_SOURCE_PINS.json",
+                            "bytes":  44108,
+                            "sha256":  "9bc15c0bbad23073a640d515e4c0028e60042a5bf1afb6992a1d12d1ea2e8ac6"
+                        },
+    "execution_authority":  "Root_only",
+    "public_registration_required_before_scientific_execution":  true,
+    "public_registration":  null,
+    "CPU":  {
+                "scope":  "47_mathematical_gradient_legacy_compatibility_units_no_native_data",
+                "expected_cases":  47,
+                "node_policy":  "Root_available_CPU_partition_only",
+                "env":  {
+                            "PYTHONPATH":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_numeric_stability_v1/current"
+                        },
+                "argv":  [
+                             "python",
+                             "-B",
+                             "-m",
+                             "pytest",
+                             "-q",
+                             "/share/home/zixiao/descriptor_analysis/MFM_model_v3_numeric_stability_v1/current/tests/test_model_v3_numeric_stability.py",
+                             "--basetemp=\u003cfresh-owned-output\u003e/cpu_cases",
+                             "--junitxml=\u003cfresh-owned-output\u003e/cpu.xml"
+                         ],
+                "actual_tests_passed":  null
+            },
+    "GPU":  {
+                "scope":  "actual_6x512_original_complete_48_case_candidate_matrix",
+                "node":  "compute-0-21",
+                "gpu_uuid":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+                "expected_cases":  48,
+                "expected_full_encoder_forwards":  192,
+                "expected_transformed_terminal_observations":  1872,
+                "env":  {
+                            "PYTHONPATH":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_numeric_stability_v1/current",
+                            "MODEL_V3_NUMERIC_TEST_DEVICE":  "cuda:0",
+                            "MODEL_V3_NUMERIC_TEST_MODE":  "compensated_fp32_v1",
+                            "MODEL_V3_NUMERIC_TEST_THREADS":  "1"
+                        },
+                "argv":  [
+                             "python",
+                             "-B",
+                             "-m",
+                             "pytest",
+                             "-q",
+                             "/share/home/zixiao/descriptor_analysis/MFM_model_v3_numeric_stability_v1/validation/model_v3_numeric_stability_v1/test_candidate_matrix.py",
+                             "--basetemp=\u003cfresh-owned-output\u003e/matrix_cases",
+                             "--junitxml=\u003cfresh-owned-output\u003e/matrix.xml"
+                         ],
+                "guard":  "reuse_actual_C4_Root_fresh_resource_frame_receipt_fd9_UUID_guard_no_new_admission_algorithm",
+                "CPUs":  16,
+                "allocation_memory_bytes":  34359738368,
+                "process_RSS_limit_bytes":  30064771072,
+                "allocation_wall_seconds":  1200,
+                "supervised_child_wall_seconds":  1100,
+                "whole_output_limit_bytes":  2147483648,
+                "private_storage_limit_bytes":  2147483648,
+                "existing_85percent_resource_rules":  true,
+                "absolute_tolerance":  1E-05,
+                "relative_tolerance":  0,
+                "retain_all_failure_JSON_and_52_array_archives":  true,
+                "actual_tests_passed":  null
+            },
+    "legacy_control":  {
+                           "same_matrix_source":  true,
+                           "env_override":  {
+                                                "MODEL_V3_NUMERIC_TEST_MODE":  "legacy"
+                                            },
+                           "meaning":  "separately_labelled_control_no_candidate_mode_hidden_in_legacy",
+                           "existing_physics_failures_not_reclassified":  true
+                       },
+    "forbidden":  [
+                      "no_formal_training",
+                      "no_new_D_schema_or_real_labels",
+                      "no_weight_or_fixture_or_tolerance_selection",
+                      "no_FP64_runtime_candidate",
+                      "no_backend_policy_change",
+                      "no_architecture_or_recipe_acceptance_without_actual_evidence"
+                  ]
+}
