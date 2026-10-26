@@ -1,0 +1,307 @@
+{
+    "schema":  "model_v3_native7_JIT_1638_readonly_failure_closure_v1",
+    "status":  "FAILED_1638_NETWORK_BEFORE_RPC_WORKER_UNCHANGED",
+    "observed_UTC":  "2026-10-26T22:11:12.9891266Z",
+    "actual_source_job":  {
+                              "job_id":  "4521638",
+                              "Root_reported_Slurm_state":  "FAILED",
+                              "Root_reported_exit_code":  "1:0",
+                              "Root_reported_elapsed_seconds":  1,
+                              "supervisor_status":  "FAILED",
+                              "supervisor_exit_code":  1,
+                              "first_failure":  {
+                                                    "phase":  "child_exit",
+                                                    "exit_code":  1
+                                                },
+                              "supervisor_elapsed_seconds":  1.0150103755295277,
+                              "remaining":  [
+
+                                            ],
+                              "retirement":  null,
+                              "GPU_initialization_permitted":  false
+                          },
+    "sources":  {
+                    "JIT_source_pins":  {
+                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_queued_jit_v1_source/source_pins.json",
+                                            "bytes":  1846,
+                                            "sha256":  "3668e86b55336faf616b55acb035082d17d42d0f2ddccdffaceec8141af84937"
+                                        },
+                    "current_own_files_equal_frozen":  [
+                                                           {
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_queued_jit_v1_source/dependencies.json",
+                                                               "bytes":  3141,
+                                                               "sha256":  "f4bab80abea72965a1fcebad6e2dd291fdb0b7fb6c38ea59dc1f351c9d8a9068"
+                                                           },
+                                                           {
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_queued_jit_v1_source/jit_archive.py",
+                                                               "bytes":  22708,
+                                                               "sha256":  "198757e243f85085cd46d7da81b1933b95b772be3cc15563571ad5a5c27c4b4b"
+                                                           },
+                                                           {
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_queued_jit_v1_source/queued_cpu.sbatch",
+                                                               "bytes":  1403,
+                                                               "sha256":  "1225aaa7763df87c836f6135fb40eb378e262358156a0f4b96b63e483a85c60d"
+                                                           },
+                                                           {
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_queued_jit_v1_source/README.md",
+                                                               "bytes":  6504,
+                                                               "sha256":  "ce9c0b54ad7a23d153c23468ec0149599136c01dabba8b52dc1b631d54286065"
+                                                           }
+                                                       ],
+                    "current_dependencies_equal_frozen":  [
+                                                              {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_offline_archive_v1_source/source_pins.json",
+                                                                  "bytes":  2399,
+                                                                  "sha256":  "30ccd29bdb084fcc7286d17afef45bb52183d8f0b8a22ec7e3459e953674d5e5"
+                                                              },
+                                                              {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_offline_archive_v1_source/archive_native7.py",
+                                                                  "bytes":  23614,
+                                                                  "sha256":  "1bb562cf65fccaef22a2fb7e09a23c4b4bdf653c58b5673077fdb9ada900da2d"
+                                                              },
+                                                              {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_offline_archive_v1_source/exports.py",
+                                                                  "bytes":  5946,
+                                                                  "sha256":  "f3b16e0a536afd9189a2acbbd7fa835c591da478239f6d9797985df1f75b32d7"
+                                                              },
+                                                              {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_offline_archive_v1_source/test_exports.py",
+                                                                  "bytes":  2499,
+                                                                  "sha256":  "7ebb7f085add3c10849160b0618f8e86bfee3ec8bd29c0738559514be4bf4222"
+                                                              },
+                                                              {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/submit_cpu_task_queued_v1.py",
+                                                                  "bytes":  8080,
+                                                                  "sha256":  "bdc6e3636415601512c3b86b806581294eba188ad2ecda1178c3976d87a60d1d"
+                                                              },
+                                                              {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_cpu_supervised_v3.py",
+                                                                  "bytes":  8479,
+                                                                  "sha256":  "10bb34aa74633bd139f8dcedd475901a85d4143422494f1249ffb85994c8c66c"
+                                                              },
+                                                              {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/runtime_monitor.py",
+                                                                  "bytes":  16838,
+                                                                  "sha256":  "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe"
+                                                              },
+                                                              {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/sonmi_login_known_hosts_for_native7_v2",
+                                                                  "bytes":  95,
+                                                                  "sha256":  "e0c8fbd0378fdfa1153f5a284bc7b3bb4cedbc22165b29e4dab2516b360e7ca5"
+                                                              },
+                                                              {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_native7_archive_queued_jit_v1.sbatch",
+                                                                  "bytes":  446,
+                                                                  "sha256":  "b2484c15d6aaaffef5644ffb12c1272e86d4180a07ef32940adaab88760f9d30"
+                                                              }
+                                                          ],
+                    "supervisor":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_full_corpus/wandb_archive/model_v3_20261025/native7_20261027_v1.queued_supervisor.json",
+                                       "bytes":  3173,
+                                       "sha256":  "2bd41117a55cbc12e0e492c747ac9e16cf4dece2732fcf5151d12a2b3c124b91"
+                                   },
+                    "raw_RPC":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_RPC_4521638.json",
+                                    "bytes":  1395,
+                                    "sha256":  "8c844d5d75b01779a04288dee0032f075475a24dff005dabbb7049e4ae4e71a9"
+                                },
+                    "actual_compute_identity":  {
+                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_allocation_4521638.json",
+                                                    "bytes":  1221,
+                                                    "sha256":  "1cc1a8151cb973518669a3f368d759ee45a58ec4b59dcdc6b5491b67df1f46d6"
+                                                },
+                    "operational_request":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_queued_request_v1/REQUEST.json",
+                                                "bytes":  1688,
+                                                "sha256":  "dbc0556e8f6daa9b28b06aa00c97618d2bada5b6ec354182d021babcd38565a9"
+                                            },
+                    "queued_submission":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/native7_offline_archive_queued_submission_v1.json",
+                                              "bytes":  5007,
+                                              "sha256":  "496061f072d5bdf93a78b0371f28cf01a01cad2224cd0ef27ab1320e20da69f0"
+                                          },
+                    "Root_prelaunch_static_audit":  {
+                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Root_native7_JIT_static_actual_v1.json",
+                                                        "bytes":  830,
+                                                        "sha256":  "f6c9347805eb5e7085f7141a6ce5ad7327850c57e8f3e7edb2d8bd1695f6e457"
+                                                    }
+                },
+    "network_failure":  {
+                            "argv":  [
+                                         "ssh",
+                                         "-n",
+                                         "-p",
+                                         "22",
+                                         "-o",
+                                         "BatchMode=yes",
+                                         "-o",
+                                         "StrictHostKeyChecking=yes",
+                                         "-o",
+                                         "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/sonmi_login_known_hosts_for_native7_v2",
+                                         "-o",
+                                         "ConnectTimeout=20",
+                                         "-o",
+                                         "ControlMaster=no",
+                                         "-o",
+                                         "ControlPath=none",
+                                         "-o",
+                                         "UpdateHostKeys=no",
+                                         "zixiao@202.38.247.57",
+                                         "env CUDA_VISIBLE_DEVICES= PYTHONDONTWRITEBYTECODE=1 /share/home/zixiao/.conda/envs/chemprop/bin/python -B /share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_queued_jit_v1_source/jit_archive.py --source-pins-sha256 3668e86b55336faf616b55acb035082d17d42d0f2ddccdffaceec8141af84937 rpc --request /share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_queued_request_v1/REQUEST.json --request-sha256 dbc0556e8f6daa9b28b06aa00c97618d2bada5b6ec354182d021babcd38565a9 --observation /share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_allocation_4521638.json --observation-sha256 1cc1a8151cb973518669a3f368d759ee45a58ec4b59dcdc6b5491b67df1f46d6 --node compute-0-13"
+                                     ],
+                            "returncode":  255,
+                            "stdout":  "",
+                            "stderr":  "ssh: connect to host 202.38.247.57 port 22: Connection refused\r\n",
+                            "exception":  null,
+                            "started_unix":  1793052275.9896033,
+                            "completed_unix":  1793052275.9938052,
+                            "actual_allocation_direction":  "compute-0-13 Slurm bootstrap to zixiao@202.38.247.57:22",
+                            "hostkey_or_authentication_reached":  false,
+                            "prior_nonallocation_probe_proves_allocation_reachability":  false
+                        },
+    "progress":  {
+                     "local_compute_observation_created":  true,
+                     "observed_uid":  1278,
+                     "observed_host":  "compute-0-13",
+                     "observed_job_id":  "4521638",
+                     "observed_kernel_identity_fields":  [
+                                                             "pid",
+                                                             "uid",
+                                                             "boot_id",
+                                                             "start_ticks",
+                                                             "pgid",
+                                                             "sid",
+                                                             "argv_sha256",
+                                                             "cgroup",
+                                                             "slurm_job_id"
+                                                         ],
+                     "login_RPC_completed":  false,
+                     "login_controller_memory_verification_completed":  false,
+                     "fresh120s_quota_created":  false,
+                     "archive_worker_launched":  false,
+                     "archive_payload_processed_by_1638":  false,
+                     "absent_RPC_paths":  [
+                                              {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_JIT_4521638",
+                                                  "exists":  false
+                                              },
+                                              {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_JIT_4521638.allocation.json",
+                                                  "exists":  false
+                                              },
+                                              {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_JIT_4521638.prepare.json",
+                                                  "exists":  false
+                                              }
+                                          ]
+                 },
+    "shared_archive_now":  {
+                               "exists":  true,
+                               "root":  "/share/home/zixiao/descriptor_analysis/runs/phase1_full_corpus/wandb_archive/model_v3_20261025/native7_20261027_v1",
+                               "result":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_full_corpus/wandb_archive/model_v3_20261025/native7_20261027_v1/RESULT.json",
+                                              "bytes":  5714,
+                                              "sha256":  "9bddaa5426e33d7c495ffaf819b35f33b343e599c7ccaff9ecdf8e4c624be49d"
+                                          },
+                               "actual_job_id":  "4521639",
+                               "persisted_worker_status":  "ARCHIVED7_PENDING_ACTUAL_CPU_PARENT_C0",
+                               "Root_reported_later_parent_C0":  true,
+                               "belongs_to_1638":  false,
+                               "archive_or_result_modified_by_this_reader":  false
+                           },
+    "output_accounting":  {
+                              "supervisor_last_total_bytes":  4575,
+                              "private_sampled_max_bytes":  496,
+                              "private_sampling_failure":  null,
+                              "private_peak_is_exact":  false,
+                              "new_external_regular_file_count":  8,
+                              "new_external_regular_file_bytes":  10873,
+                              "new_external_regular_file_refs":  [
+                                                                     {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_RPC_4521638.json",
+                                                                         "bytes":  1395,
+                                                                         "sha256":  "8c844d5d75b01779a04288dee0032f075475a24dff005dabbb7049e4ae4e71a9"
+                                                                     },
+                                                                     {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/native7_offline_archive_queued_submission_v1.json.sbatch.stderr",
+                                                                         "bytes":  0,
+                                                                         "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                                                     },
+                                                                     {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_queued_request_v1/BINDINGS.json",
+                                                                         "bytes":  356,
+                                                                         "sha256":  "be98c992ecf5234926c3c66c332d64b4af58cb9d4f8a82325aae48250d7087a8"
+                                                                     },
+                                                                     {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_queued_request_v1/REQUEST.json",
+                                                                         "bytes":  1688,
+                                                                         "sha256":  "dbc0556e8f6daa9b28b06aa00c97618d2bada5b6ec354182d021babcd38565a9"
+                                                                     },
+                                                                     {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/native7_offline_archive_queued_submission_v1.json.QUEUE_INTENT",
+                                                                         "bytes":  1198,
+                                                                         "sha256":  "60d56483c604f2cb9a5bdce1a5cb959ffdb63df0cd190c322cc4132de3823a5a"
+                                                                     },
+                                                                     {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/native7_offline_archive_queued_submission_v1.json",
+                                                                         "bytes":  5007,
+                                                                         "sha256":  "496061f072d5bdf93a78b0371f28cf01a01cad2224cd0ef27ab1320e20da69f0"
+                                                                     },
+                                                                     {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native7_archive_allocation_4521638.json",
+                                                                         "bytes":  1221,
+                                                                         "sha256":  "1cc1a8151cb973518669a3f368d759ee45a58ec4b59dcdc6b5491b67df1f46d6"
+                                                                     },
+                                                                     {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/native7_offline_archive_queued_submission_v1.json.sbatch.stdout",
+                                                                         "bytes":  8,
+                                                                         "sha256":  "ccf7a2920d119ed42ab8befffe108aff1c05c2f5a07c886db8f957716c6928d9"
+                                                                     }
+                                                                 ],
+                              "new_external_directory_count":  1,
+                              "Linux_directory_st_size_measured_by_this_reader":  false,
+                              "exact_1638_management_stdio_regular_file_refs":  [
+                                                                                    {
+                                                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_full_corpus/wandb_archive/model_v3_20261025/native7_20261027_v1.queued_supervisor.json",
+                                                                                        "bytes":  3173,
+                                                                                        "sha256":  "2bd41117a55cbc12e0e492c747ac9e16cf4dece2732fcf5151d12a2b3c124b91"
+                                                                                    },
+                                                                                    {
+                                                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_full_corpus/wandb_archive/model_v3_20261025/native7_20261027_v1.queued_supervisor.journal.jsonl",
+                                                                                        "bytes":  524,
+                                                                                        "sha256":  "3486add6b522939f3b785efdeb7e4261a6e41abb81393b941923babb741253ed"
+                                                                                    },
+                                                                                    {
+                                                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_full_corpus/wandb_archive/model_v3_20261025/native7_20261027_v1.queued_supervisor.storage.json",
+                                                                                        "bytes":  1192,
+                                                                                        "sha256":  "c2f6132fd4436a20eff1e501b48141aa00e71d3dbac3319d233fbfb04fbcddaa"
+                                                                                    },
+                                                                                    {
+                                                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/native7_archive_JIT_4521638.log",
+                                                                                        "bytes":  2363,
+                                                                                        "sha256":  "a126dff8c0c42c35566de31d47871d9a8115cc7eb01b2918f8cd4587451362c8"
+                                                                                    }
+                                                                                ],
+                              "management_stdio_regular_file_bytes":  7252,
+                              "later1639_archive_payload_counted_for1638":  false,
+                              "new_JIT_final_census_executed":  false,
+                              "reason":  "RPC nonzero require aborts before external_bytes/final whole census; no finally for failed path",
+                              "regular_files_census_is_full_physical_whole_job_proof":  false,
+                              "whole_budget_violation_observed":  false,
+                              "whole_limit_bytes":  2147483648,
+                              "external_expected_limit_bytes":  524288,
+                              "old_supervisor_finalization_reserve_bytes":  16777216,
+                              "all_new_files_are_outputs_not_historical_inputs":  true
+                          },
+    "limits":  {
+                   "SSH_login_reachability_is_allocation_specific":  true,
+                   "connection_refused_is_not_hostkey_failure":  true,
+                   "fixed_login_RPC_metadata_only_was_not_executed":  true,
+                   "source_remains_frozen_and_current_matches_4own_9deps":  true,
+                   "bootstrap_final_verify_not_reached_but_current_hashes_match":  true,
+                   "alternate_JIT_implementation_developed":  false,
+                   "cancel_retry_or_job_submission_by_reader":  false,
+                   "Python_SSH_Slurm_SDK_NPZ_execution_by_reader":  false,
+                   "scientific_or_archive_acceptance_promoted":  false
+               }
+}
