@@ -1,0 +1,69 @@
+{
+    "schema":  "PPRIME_CPU_AUTO_MEMORY_DECLARED_SOURCE_EDITS_V1",
+    "variants":  [
+                     {
+                         "old_relative":  "vector_audit/run_v1.py",
+                         "new_name":  "run_frame_v1.py",
+                         "edits":  [
+                                       {
+                                           "name":  "new sibling resource adapter import",
+                                           "old":  "sys.path.insert(0, str(Path(__file__).absolute().parent.parent))",
+                                           "new":  "sys.path.insert(0, str(Path(__file__).absolute().parent.parent))\nsys.path.insert(1, str(Path(__file__).absolute().parent.parent / \u0027vector_audit\u0027))\nfrom workflows.data_v1_final.pprime.cpu_auto_memory_v1.controls import start_frame, run_frame_primary"
+                                       },
+                                       {
+                                           "name":  "exact new scope plan CLI",
+                                           "old":  "    args = p.parse_args()",
+                                           "new":  "    p.add_argument(\u0027--scope-plan\u0027, type=Path, required=True)\n    args = p.parse_args()"
+                                       },
+                                       {
+                                           "name":  "truthful new startup instead of old runtime and preflight",
+                                           "old":  "    observed = runtime(16)\n    preflight = require_preflight(args.root_preflight, args.config, c)",
+                                           "new":  "    context = start_frame(args)\n    context.check_config(args.config, c)\n    observed = context.runtime_record()\n    preflight = context.startup_ref"
+                                       },
+                                       {
+                                           "name":  "bounded16 dispatch softSTOP naturaldrain",
+                                           "old":  "    pool = ProcessPoolExecutor(max_workers=16, mp_context=multiprocessing.get_context(\u0027spawn\u0027))\n    futures = [pool.submit(execute_case, case, str(args.config), str(args.pilot_config),\n                           str(args.prepared), str(out), deadline) for case in cases]\n    processes = list(pool._processes.values())\n    refs, errors = [], []\n    try:\n        for future in as_completed(futures):\n            try:\n                refs.append(future.result())\n            except Exception as exc:\n                errors.append({\u0027type\u0027: type(exc).__name__, \u0027message\u0027: str(exc)})\n    finally:\n        pool.shutdown(wait=True, cancel_futures=False)\n    closure = [{\u0027pid\u0027: p.pid, \u0027exitcode\u0027: p.exitcode, \u0027alive\u0027: p.is_alive()} for p in processes]",
+                                           "new":  "    refs, errors, closure = context.map_process_cases(execute_case, cases, str(args.config),\n        str(args.pilot_config), str(args.prepared), str(out), deadline)"
+                                       },
+                                       {
+                                           "name":  "resource closure and unchanged offline evaluator gate",
+                                           "old":  "if __name__ == \u0027__main__\u0027:\n    main()",
+                                           "new":  "if __name__ == \u0027__main__\u0027:\n    run_frame_primary(main)"
+                                       }
+                                   ]
+                     },
+                     {
+                         "old_relative":  "retention_v1/prepare_v1.py",
+                         "new_name":  "prepare_retention_v1.py",
+                         "edits":  [
+                                       {
+                                           "name":  "new sibling adapter and frozen retention imports",
+                                           "old":  "from retention_policy_v1 import IO, load, rates, selector, source_audit, source_paths",
+                                           "new":  "import sys\nsys.path.insert(0, str(Path(__file__).absolute().parent.parent / \u0027retention_v1\u0027))\nfrom workflows.data_v1_final.pprime.cpu_auto_memory_v1.controls import start_retention, run_retention_primary\nfrom retention_policy_v1 import IO, load, rates, selector, source_audit, source_paths"
+                                       },
+                                       {
+                                           "name":  "exact new scope plan CLI",
+                                           "old":  "    a=p.parse_args();c,pilot=load(a.config);observed=IO.runtime(prepare=True)",
+                                           "new":  "    p.add_argument(\u0027--scope-plan\u0027,type=Path,required=True)\n    a=p.parse_args();context=start_retention(a);c,pilot=load(a.config);observed=context.runtime_record()"
+                                       },
+                                       {
+                                           "name":  "new config/quota binding no oldmemory preflight",
+                                           "old":  "    IO.require_preflight(a.root_preflight,a.config,c)",
+                                           "new":  "    context.check_config(a.config,c)"
+                                       },
+                                       {
+                                           "name":  "bounded16 threads retain original input order and math",
+                                           "old":  "    with ThreadPoolExecutor(max_workers=16) as pool:\n        rows=list(pool.map(lambda pair:source_audit(pair,sources),pairs))",
+                                           "new":  "    rows=context.map_thread_rows(lambda pair:source_audit(pair,sources),pairs)"
+                                       },
+                                       {
+                                           "name":  "new truthful resource closure independent readback",
+                                           "old":  "if __name__==\u0027__main__\u0027:main()",
+                                           "new":  "if __name__==\u0027__main__\u0027:run_retention_primary(main)"
+                                       }
+                                   ]
+                     }
+                 ],
+    "scientific_function_frame":  "execute_case",
+    "science_or_tests_executed":  false
+}

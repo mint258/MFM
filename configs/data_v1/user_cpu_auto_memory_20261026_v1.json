@@ -1,0 +1,67 @@
+{
+    "record_actual_memory":  true,
+    "exclusive_requested":  false,
+    "running_jobs_must_be_preserved":  true,
+    "allowed_nodes":  {
+                          "analysis":  [
+                                           2,
+                                           8,
+                                           9,
+                                           10,
+                                           11,
+                                           12,
+                                           13,
+                                           14,
+                                           15,
+                                           16,
+                                           17,
+                                           18,
+                                           19
+                                       ],
+                          "conformer":  [
+                                            11,
+                                            12,
+                                            13,
+                                            14,
+                                            15,
+                                            16,
+                                            17,
+                                            18,
+                                            19
+                                        ],
+                          "qm":  [
+                                     11,
+                                     12,
+                                     13,
+                                     14,
+                                     15,
+                                     16,
+                                     17,
+                                     18,
+                                     19
+                                 ]
+                      },
+    "declared_memory_fraction_admission":  false,
+    "memory_directives_allowed":  false,
+    "schema":  "USER_AUTHORIZED_CPU_AUTO_MEMORY_DECISION_V1",
+    "skill_paths":  [
+                        "C:\\Users\\mint\\.codex\\skills\\huagong_hpc_requirement\\SKILL.md",
+                        "X:\\docs\\skills\\huagong_hpc_requirement\\SKILL.md"
+                    ],
+    "partition":  "cpu",
+    "old_scientific_gates_unchanged":  true,
+    "skill_version":  "1.0.120",
+    "observed_at":  "2026-10-26T06:11:42.4869189+08:00",
+    "supersedes_resource_policy_only":  "Old64GiB/declared85 admission and science14-19; all old registered evidence immutable",
+    "no_forced_signals":  true,
+    "max_wall_seconds":  172800,
+    "status":  "USER_AUTHORIZED",
+    "quota_reserve_bytes":  200000000000,
+    "user_statements":  [
+                            "只要CPU节点现在有空余CPU，那就把任务先提交上，不一定非要满足内存要求，内存节点会智能调配，在sbatch任务里不要指定要用的内存大小",
+                            "实际上我认为11-13节点也可以作为可用cpu任务节点，请你在skill里更改一下这一点并将其落实"
+                        ],
+    "skill_sha256":  "1f5ba2de0998d76fb547a3531906915c95d54ec79342fd90d7fa36dfbe88ae39",
+    "memory_policy":  "SLURM_DEFAULT_UNSPECIFIED",
+    "cpus_per_task":  16
+}

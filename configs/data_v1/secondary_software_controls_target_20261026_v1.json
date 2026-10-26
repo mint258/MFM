@@ -1,0 +1,29 @@
+{
+  "schema": "USER_AUTHORIZED_SECONDARY_FREE_CPU_UFF_V1",
+  "status": "USER_AUTHORIZED",
+  "target": {
+    "ssh_host": "218.192.171.238",
+    "ssh_user": "alpha",
+    "ssh_port": 22,
+    "uid": 1264,
+    "deployment_root": "/gfshome/alpha/codex_data_v1_20261026",
+    "allowed_cpu_nodes": [
+      "compute-0-1",
+      "compute-0-3",
+      "compute-0-4",
+      "compute-0-5",
+      "compute-0-6",
+      "sonmi1"
+    ]
+  },
+  "memory_policy": "SLURM_DEFAULT_UNSPECIFIED",
+  "formal_generation_authorized": false,
+  "max_wall_seconds": 1800,
+  "user_authority_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/secondary_cluster_user_authorization_20261026_v1.json",
+    "bytes": 1616,
+    "sha256": "bcd8ef0d83b84645b2fa9fe99dcf5d24ce5fc89ed9879761fc9bd76868772604"
+  },
+  "purpose": "SECONDARY_SOFTWARE_COMPATIBILITY_CONTROLS_ONLY",
+  "root_operational_limits_not_new_user_scientific_decision": true
+}
