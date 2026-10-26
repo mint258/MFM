@@ -1,0 +1,55 @@
+{
+    "schema":  "model_v3_C4_layer_head_execution_protocol_v1",
+    "status":  "SOURCE_PREPARED_ROOT_CPU_TEST_AND_PUBLIC_REGISTRATION_PENDING",
+    "reviewed_PLAN_sha256":  "5f7c8022870789eaaea847493079d71fb1d5bfba0eebd0009078a1bf4a2ebef6",
+    "original_fixed_cases":  48,
+    "original_proper_rigid_transforms":  3,
+    "original_terminal_fields":  13,
+    "full_encoder_matrices":  2,
+    "full_encoder_forwards":  384,
+    "matrix_order":  [
+                         "all48_unhooked_control",
+                         "all48_readonly_hooked_replay"
+                     ],
+    "head_crosses":  [
+                         "H0_P0",
+                         "H1_P0",
+                         "H0_P1",
+                         "H1_P1"
+                     ],
+    "head_fields":  [
+                        "p_extensive",
+                        "p_dipole",
+                        "p_dipole_magnitude"
+                    ],
+    "absolute_tolerance":  1E-05,
+    "relative_tolerance":  0,
+    "pool_capture":  "Transparent delegate to exact original _pool, then copy input/output; restored in finally",
+    "hard_gates":  [
+                       "Exact original baseline JSON measurements/domain/edges and weights/input/config digests",
+                       "All52 actual FP32 terminal arrays per case bitwise equal between two newly generated archives",
+                       "Exactly4 full encoder phases and unchanged layer/head call membership per hooked case",
+                       "Original factory/pool restored; all hooks removed; same parameter digest after full forward and shadow replay",
+                       "Original own-head replay00/11 bitwise equal full-forward outputs",
+                       "Exact sourcebeforeafter and all48 control+all48 instrumented case closure"
+                   ],
+    "FP64_scope":  "Readonly functional head and geometric references only; not a FP32 pass/adoption",
+    "full_layer_tensors":  "Memory only, one hooked case at a time; no tensor/weight archive",
+    "trace_encoding":  "Deterministic gzip JSON summaries plus complete small signed4cross outputs",
+    "trace_uncompressed_cap_bytes":  8388608,
+    "per_case_trace_compressed_cap_bytes":  524288,
+    "child_output_cap_bytes":  67108864,
+    "child_wall_cap_seconds":  600,
+    "outer_wall_cap_seconds":  660,
+    "RSS_cap_bytes":  12884901888,
+    "allocated_CPUs":  16,
+    "allocated_memory_bytes":  17179869184,
+    "Torch_and_BLAS_threads":  1,
+    "outer_output_and_private_cap_bytes":  2147483648,
+    "old_NPZ_reads":  0,
+    "native_data_label_or_checkpoint_reads":  0,
+    "scientific_selection_or_adoption":  false,
+    "is_FP32_acceptance_evidence":  false,
+    "failure_policy":  "Fail closed; preserve all completed/partial artifacts, FAILED.json, no deletion, overwrite, case exclusion or cap expansion",
+    "Root_only_real_run":  true
+}

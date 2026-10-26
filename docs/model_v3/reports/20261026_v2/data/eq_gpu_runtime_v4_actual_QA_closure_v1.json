@@ -1,0 +1,24 @@
+{
+  "schema": "model_v3_Eq_GPU_launcher_QA_closure_v1",
+  "job_id": "4521154",
+  "unit_result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4521154/eq_gpu_runtime_v4.json",
+    "bytes": 69171,
+    "sha256": "2a07ef3b5d1676158bda1149e59fdc50547b120b2846445bd3ef50d4ce099f74"
+  },
+  "actual_parent": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4521154",
+      "--format=JobIDRaw,User,UID,Cluster,State,ExitCode,ElapsedRaw,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4521154|zixiao|1278|sonmi|COMPLETED|0:0|46|compute-0-13\n",
+    "stderr": ""
+  },
+  "source_scope": "Exact frozen package and explicit refs; no scientific acceptance inferred"
+}

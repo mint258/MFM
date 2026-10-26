@@ -460,3 +460,7 @@ Only4520456 is pending; GPU-job elapsed is not measured utilization. The source
 accounting method remainscapture_ledger_v7, and the raw query/receipts are retained.
 No final model/recipe configuration, tag, Phase7 acceptance or formal pretraining
 is inferred from completed source/tests/reports; interface and finaldata remain pending.
+
+## 2026-10-26 候选发布与诊断补充
+
+候选代码 exact tree已发布为ce7cbf5，完整新Root回归仍待完成。实际GPU组合矩阵2/48通过；原1e-5门槛保持。新增实际55/24/52项工具QA、两幅结果图及C4/A01实验前注册见[Root补充报告](reports/20261026_v2/ROOT_ADDENDUM.md)。

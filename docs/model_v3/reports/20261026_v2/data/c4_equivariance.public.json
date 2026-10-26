@@ -1,0 +1,932 @@
+{
+    "schema":  "model_v3_progress_C4_public_v1",
+    "actual_execution_job":  "4521049",
+    "reporting_job":  "4521066",
+    "status":  "DIAGNOSTIC_COMPLETE_NO_ADOPTION",
+    "original_exact_replay":  true,
+    "all336_cases_complete":  true,
+    "all13104_measurements_included":  true,
+    "measurement_count":  13104,
+    "field_count_per_transform":  13,
+    "transforms_per_case":  3,
+    "cases_per_variant":  48,
+    "absolute_tolerance":  1E-05,
+    "relative_tolerance":  0,
+    "scientific_selection_or_adoption":  false,
+    "is_FP32_acceptance_evidence":  false,
+    "NPZ_files_read_in_report":  false,
+    "original_labels_or_fit_accessed":  false,
+    "diagnostic_runtime_inventory_sha256":  "8ec62b9af0aedeecf92f59b7510b1275bb6d2bd36b55075f50fafe9cab31f1eb",
+    "aggregate_origin":  "runs/model_v3_20261025/eq_attribution_report_4521066/aggregate.json",
+    "aggregate_origin_sha256":  "6b24cb45e70803c5bdd22f147a0ece278fd02aac0b191c557adcebe4702ad4d1",
+    "denominator_note":  "0/48 is the whole-case requirement that all13 terminals x3 transforms pass; it does not mean all13104 measurements fail",
+    "per_atom_values_argmax_rows_case_IDs_and_payloads_exported":  false,
+    "variants":  [
+                     {
+                         "variant":  "original_formula_replay",
+                         "operations":  [
+
+                                        ],
+                         "all48_complete":  true,
+                         "threshold_pass_count_NOT_adoption":  0,
+                         "case_count":  48,
+                         "all_observation_count":  1872,
+                         "fields":  [
+                                        {
+                                            "field":  "PD/d_atom",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.6226043701171875E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/d_binary",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.0994415283203125E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/d_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  4.0531158447265625E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  82,
+                                            "failed_case_count":  42,
+                                            "maximum_absolute_error":  5.14984130859375E-05,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole_magnitude",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  50,
+                                            "failed_case_count":  28,
+                                            "maximum_absolute_error":  3.0875205993652344E-05,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_extensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  20,
+                                            "failed_case_count":  14,
+                                            "maximum_absolute_error":  2.288818359375E-05,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_gradient",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.5071375038305845E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  5.7220458984375E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_pair",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.4570693969726563E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/clean_bond_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.3245811462402344E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/coordinate",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.4869180604887333E-07,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/element_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5762786865234375E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/noise",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5746961956489853E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        }
+                                    ]
+                     },
+                     {
+                         "variant":  "cdist_direct_only",
+                         "operations":  [
+                                            "cdist_direct"
+                                        ],
+                         "all48_complete":  true,
+                         "threshold_pass_count_NOT_adoption":  0,
+                         "case_count":  48,
+                         "all_observation_count":  1872,
+                         "fields":  [
+                                        {
+                                            "field":  "PD/d_atom",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.6226043701171875E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/d_binary",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.0994415283203125E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/d_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  4.0531158447265625E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  82,
+                                            "failed_case_count":  42,
+                                            "maximum_absolute_error":  5.14984130859375E-05,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole_magnitude",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  50,
+                                            "failed_case_count":  28,
+                                            "maximum_absolute_error":  3.0875205993652344E-05,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_extensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  20,
+                                            "failed_case_count":  14,
+                                            "maximum_absolute_error":  2.288818359375E-05,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_gradient",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.5071375038305845E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  5.7220458984375E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_pair",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.4570693969726563E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/clean_bond_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.3245811462402344E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/coordinate",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.4869180604887333E-07,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/element_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5762786865234375E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/noise",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5746961956489853E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        }
+                                    ]
+                     },
+                     {
+                         "variant":  "charge_center_only",
+                         "operations":  [
+                                            "charge_center"
+                                        ],
+                         "all48_complete":  true,
+                         "threshold_pass_count_NOT_adoption":  0,
+                         "case_count":  48,
+                         "all_observation_count":  1872,
+                         "fields":  [
+                                        {
+                                            "field":  "PD/d_atom",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.6226043701171875E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/d_binary",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.0994415283203125E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/d_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  4.0531158447265625E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  54,
+                                            "failed_case_count":  38,
+                                            "maximum_absolute_error":  4.7534704208374023E-05,
+                                            "improved_over_original":  94,
+                                            "worsened_over_original":  50
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole_magnitude",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  52,
+                                            "failed_case_count":  38,
+                                            "maximum_absolute_error":  2.0593404769897461E-05,
+                                            "improved_over_original":  82,
+                                            "worsened_over_original":  58
+                                        },
+                                        {
+                                            "field":  "PD/p_extensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  20,
+                                            "failed_case_count":  14,
+                                            "maximum_absolute_error":  2.288818359375E-05,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_gradient",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.5071375038305845E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  5.7220458984375E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_pair",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.4570693969726563E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/clean_bond_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.3245811462402344E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/coordinate",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.4869180604887333E-07,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/element_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5762786865234375E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/noise",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5746961956489853E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        }
+                                    ]
+                     },
+                     {
+                         "variant":  "pool_fp64_reference_only",
+                         "operations":  [
+                                            "pool_fp64_reference"
+                                        ],
+                         "all48_complete":  true,
+                         "threshold_pass_count_NOT_adoption":  0,
+                         "case_count":  48,
+                         "all_observation_count":  1872,
+                         "fields":  [
+                                        {
+                                            "field":  "PD/d_atom",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.6226043701171875E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/d_binary",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.814697265625E-06,
+                                            "improved_over_original":  52,
+                                            "worsened_over_original":  76
+                                        },
+                                        {
+                                            "field":  "PD/d_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  4.291534423828125E-06,
+                                            "improved_over_original":  66,
+                                            "worsened_over_original":  54
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  82,
+                                            "failed_case_count":  42,
+                                            "maximum_absolute_error":  5.14984130859375E-05,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole_magnitude",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  50,
+                                            "failed_case_count":  28,
+                                            "maximum_absolute_error":  3.0875205993652344E-05,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_extensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  14,
+                                            "failed_case_count":  10,
+                                            "maximum_absolute_error":  1.52587890625E-05,
+                                            "improved_over_original":  80,
+                                            "worsened_over_original":  44
+                                        },
+                                        {
+                                            "field":  "PD/p_gradient",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.5071375038305845E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.814697265625E-06,
+                                            "improved_over_original":  58,
+                                            "worsened_over_original":  62
+                                        },
+                                        {
+                                            "field":  "PD/p_pair",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.4570693969726563E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/clean_bond_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.3245811462402344E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/coordinate",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.4869180604887333E-07,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/element_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5762786865234375E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/noise",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5746961956489853E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        }
+                                    ]
+                     },
+                     {
+                         "variant":  "cdist_direct_and_charge_center",
+                         "operations":  [
+                                            "cdist_direct",
+                                            "charge_center"
+                                        ],
+                         "all48_complete":  true,
+                         "threshold_pass_count_NOT_adoption":  0,
+                         "case_count":  48,
+                         "all_observation_count":  1872,
+                         "fields":  [
+                                        {
+                                            "field":  "PD/d_atom",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.6226043701171875E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/d_binary",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.0994415283203125E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/d_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  4.0531158447265625E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  54,
+                                            "failed_case_count":  38,
+                                            "maximum_absolute_error":  4.7534704208374023E-05,
+                                            "improved_over_original":  94,
+                                            "worsened_over_original":  50
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole_magnitude",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  52,
+                                            "failed_case_count":  38,
+                                            "maximum_absolute_error":  2.0593404769897461E-05,
+                                            "improved_over_original":  82,
+                                            "worsened_over_original":  58
+                                        },
+                                        {
+                                            "field":  "PD/p_extensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  20,
+                                            "failed_case_count":  14,
+                                            "maximum_absolute_error":  2.288818359375E-05,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_gradient",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.5071375038305845E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  5.7220458984375E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_pair",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.4570693969726563E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/clean_bond_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.3245811462402344E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/coordinate",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.4869180604887333E-07,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/element_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5762786865234375E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/noise",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5746961956489853E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        }
+                                    ]
+                     },
+                     {
+                         "variant":  "cdist_direct_and_pool_fp64_reference",
+                         "operations":  [
+                                            "cdist_direct",
+                                            "pool_fp64_reference"
+                                        ],
+                         "all48_complete":  true,
+                         "threshold_pass_count_NOT_adoption":  0,
+                         "case_count":  48,
+                         "all_observation_count":  1872,
+                         "fields":  [
+                                        {
+                                            "field":  "PD/d_atom",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.6226043701171875E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/d_binary",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.814697265625E-06,
+                                            "improved_over_original":  52,
+                                            "worsened_over_original":  76
+                                        },
+                                        {
+                                            "field":  "PD/d_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  4.291534423828125E-06,
+                                            "improved_over_original":  66,
+                                            "worsened_over_original":  54
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  82,
+                                            "failed_case_count":  42,
+                                            "maximum_absolute_error":  5.14984130859375E-05,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole_magnitude",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  50,
+                                            "failed_case_count":  28,
+                                            "maximum_absolute_error":  3.0875205993652344E-05,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_extensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  14,
+                                            "failed_case_count":  10,
+                                            "maximum_absolute_error":  1.52587890625E-05,
+                                            "improved_over_original":  80,
+                                            "worsened_over_original":  44
+                                        },
+                                        {
+                                            "field":  "PD/p_gradient",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.5071375038305845E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.814697265625E-06,
+                                            "improved_over_original":  58,
+                                            "worsened_over_original":  62
+                                        },
+                                        {
+                                            "field":  "PD/p_pair",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.4570693969726563E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/clean_bond_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.3245811462402344E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/coordinate",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.4869180604887333E-07,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/element_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5762786865234375E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/noise",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5746961956489853E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        }
+                                    ]
+                     },
+                     {
+                         "variant":  "charge_center_and_pool_fp64_reference",
+                         "operations":  [
+                                            "charge_center",
+                                            "pool_fp64_reference"
+                                        ],
+                         "all48_complete":  true,
+                         "threshold_pass_count_NOT_adoption":  0,
+                         "case_count":  48,
+                         "all_observation_count":  1872,
+                         "fields":  [
+                                        {
+                                            "field":  "PD/d_atom",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.6226043701171875E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/d_binary",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.814697265625E-06,
+                                            "improved_over_original":  52,
+                                            "worsened_over_original":  76
+                                        },
+                                        {
+                                            "field":  "PD/d_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  4.291534423828125E-06,
+                                            "improved_over_original":  66,
+                                            "worsened_over_original":  54
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  54,
+                                            "failed_case_count":  38,
+                                            "maximum_absolute_error":  4.7534704208374023E-05,
+                                            "improved_over_original":  94,
+                                            "worsened_over_original":  50
+                                        },
+                                        {
+                                            "field":  "PD/p_dipole_magnitude",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  52,
+                                            "failed_case_count":  38,
+                                            "maximum_absolute_error":  2.0593404769897461E-05,
+                                            "improved_over_original":  82,
+                                            "worsened_over_original":  58
+                                        },
+                                        {
+                                            "field":  "PD/p_extensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  14,
+                                            "failed_case_count":  10,
+                                            "maximum_absolute_error":  1.52587890625E-05,
+                                            "improved_over_original":  80,
+                                            "worsened_over_original":  44
+                                        },
+                                        {
+                                            "field":  "PD/p_gradient",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.5071375038305845E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "PD/p_intensive",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.814697265625E-06,
+                                            "improved_over_original":  58,
+                                            "worsened_over_original":  62
+                                        },
+                                        {
+                                            "field":  "PD/p_pair",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.4570693969726563E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/clean_bond_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  2.3245811462402344E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/coordinate",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  6.4869180604887333E-07,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/element_logits",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5762786865234375E-06,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        },
+                                        {
+                                            "field":  "S/noise",
+                                            "measurement_count":  144,
+                                            "failed_measurements":  0,
+                                            "failed_case_count":  0,
+                                            "maximum_absolute_error":  3.5746961956489853E-08,
+                                            "improved_over_original":  0,
+                                            "worsened_over_original":  0
+                                        }
+                                    ]
+                     }
+                 ]
+}

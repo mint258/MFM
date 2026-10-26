@@ -1,0 +1,31 @@
+{
+    "schema":  "model_v3_progress_integration_public_v1",
+    "code_commit":  "075123e2fa2c511bf074a31f42df272d692e5356",
+    "status":  "PASS",
+    "tests_collected":  2566,
+    "tests_passed":  2564,
+    "failures":  0,
+    "errors":  0,
+    "skipped":  2,
+    "skip_scope":  "two CUDA-dependent tests not exercised in CPU regression",
+    "partitions":  8,
+    "actual_parent_jobs":  [
+                               "4521105",
+                               "4521106",
+                               "4521107",
+                               "4521108",
+                               "4521113",
+                               "4521114",
+                               "4521115",
+                               "4521116"
+                           ],
+    "includes":  [
+                     "sampling cache",
+                     "source-bound proxy runner",
+                     "WSD fork",
+                     "opt-in long-run storage"
+                 ],
+    "scope":  "CPU engineering regression only; no final-D/20k/full scientific matrix acceptance inferred",
+    "origin_artifact":  "runs/model_v3_20261025/proxy_wsd_long_postmerge_v1_complete.json",
+    "origin_rewritten":  false
+}

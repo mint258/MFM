@@ -1,0 +1,87 @@
+{
+    "schema":  "model_v3_A01_4090_ABBA_sources_v1",
+    "status":  "PREPARED_NOT_EXECUTED_NOT_PUBLICLY_REGISTERED",
+    "files":  [
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A01_4090_ABBA_v1/abba_contract.py",
+                      "bytes":  14360,
+                      "sha256":  "c3ac43238025ef8faf28aacafaaf751ec81d191db062a239127867d5774c1702"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A01_4090_ABBA_v1/admit_abba.py",
+                      "bytes":  26211,
+                      "sha256":  "a6b8a36f7260256a923a0c987c2c7f2cf71430b3db0e72c0daacb99bbdbb13ff"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A01_4090_ABBA_v1/A01_4090_ABBA_member_v1.sbatch",
+                      "bytes":  1515,
+                      "sha256":  "248997f2345d50743b184982ac0b33c4ab10ea36dd4cb0edd2a930127194db24"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A01_4090_ABBA_v1/test_abba_admission.py",
+                      "bytes":  15235,
+                      "sha256":  "6e68fc6ab58d5b1a53f5913b3411a3ac367c5cc56d89f22e15f21954d94f6d3b"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A01_4090_ABBA_v1/README.md",
+                      "bytes":  11013,
+                      "sha256":  "b3b27a0d6b0dc0b575dd1e4f33fa60e5733bad064983aab3112d2936b5a80d47"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A01_4090_ABBA_v1/protocol.json",
+                      "bytes":  8666,
+                      "sha256":  "a2030b96c9c2a7cbccd770fb532a9f696ccbe04f4975deadf579ad10a70d3d8d"
+                  }
+              ],
+    "protocol_published_path":  "configs/model_v3/a01_4090_abba_v1.json",
+    "other_files_published_prefix":  "tools/model_v3/analysis_sources/A01_4090_ABBA_v1/",
+    "expected_metadata_cases":  52,
+    "metadata_test_command":  "python -B -m pytest -q -s /share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A01_4090_ABBA_v1/test_abba_admission.py",
+    "requirements":  "Existing Linux stdlib+pytest only for metadata QA; unchanged chemprop model runtime for future GPU legs",
+    "QA_resource_proposal":  {
+                                 "SDK_files_generated":  0,
+                                 "minimum_CPUs":  16,
+                                 "all_user_memory85_percent_required":  true,
+                                 "model_checkpoint_files":  0,
+                                 "output_private_guard_bytes":  2147483648,
+                                 "estimated_not_measured":  true,
+                                 "estimated_retained_metadata_bytes":  1048576,
+                                 "Slurm_memory_GiB":  16,
+                                 "measured_MemAvailable_and_fresh_quota_required":  true
+                             },
+    "runtime_source_inventory_origin":  {
+                                            "bytes":  18032,
+                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/configuration.json",
+                                            "sha256":  "3abd37472f6eaae1af916f10ae798363120abe596944dd19e09f9147540abf12"
+                                        },
+    "runtime_rehash_policy":  "Root server CPU rehashes entire saved61-source inventory, original metadata/histories and opaque SDKs during admission; no repeated baseline/binary rehash via X",
+    "GPU_runtime":  {
+                        "warmup_updates":  2,
+                        "source_code_sha":  "8ece64c685fe287d6863fbbe2f6f52006632a5cc",
+                        "node":  "compute-0-20",
+                        "requested_CPUs":  16,
+                        "original_numeric_500_repeated":  false,
+                        "sbatch_wall_seconds":  1200,
+                        "measured_updates":  20,
+                        "output_private_caps_bytes":  2147483648,
+                        "uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+                        "requested_memory_MiB":  65536,
+                        "supervisor_wall_seconds":  1100
+                    },
+    "scope_correction":  {
+                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A06_verifier_resource_scope_corrigendum_v1.md",
+                             "sha256":  "2129a4bc2da6b48b2ea10fbd1ccafc199b5c41831f6246ffea3a7b059901ee88",
+                             "frozen_A06_six_sources_edited":  false,
+                             "bytes":  1124
+                         },
+    "agent_executed":  {
+                           "Python":  false,
+                           "GPU":  false,
+                           "sbatch":  false,
+                           "git_commit":  false,
+                           "tests":  false,
+                           "SSH":  false
+                       },
+    "original_artifacts_edited":  false,
+    "standalone_speedup_or_adoption_inferred":  false
+}
