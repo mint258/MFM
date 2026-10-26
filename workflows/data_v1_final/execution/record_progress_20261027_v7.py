@@ -1,0 +1,55 @@
+"""Generate a point-time progress report from closed producer metadata, not data bodies."""
+import datetime,json,time
+from workflows.data_v1_final.execution.cpu_auto_memory_queue_v2 import shared as Q
+Q.on_login();run=Q.ROOT;repo=Q.REPO
+refs={}
+def read(key,path):
+ p=run/path;refs[key]=Q.pin(p);return Q.load(p)
+previous=read('previous_checkpoint','control/active_checkpoint_v26.json')
+main=read('Main_master30','control/owned_accounting_checkpoint30_cpu_auto_memory_20261027_v1.json')
+alpha=read('Alpha_master31_Main_copy','control/secondary_cluster_20261026_v1/alpha_short_followups_v1/alpha_owned_accounting_checkpoint31_v1.json')
+cp=read('Alpha_C_closed_point','control/secondary_cluster_20261026_v1/alpha_short_followups_v1/pubchem_C_actual_closed_progress_20261027_v1.json')
+latest=Q.load(run/'control/sprime_wave2_controller_v1/live_v1/latest.json');refs['Main_current_Sprime_state']=latest['state_reference'];state=Q.load(latest['state_reference']['path']);assert Q.pin(latest['state_reference']['path'])==latest['state_reference']
+closed=[v['close']['closure_counts'] for v in state['stages'].values() if v.get('close',{}).get('closure_counts',{}).get('valid_packets',0)>0]
+labels=read('labels512_manifest','artifacts/labels/source_status_v1/lossless_projection512_v1/manifest.json')
+hof=read('PM7_HoF32_receipt','artifacts/conformers/pm7_independent_cache32_v1/hof_augmentation_v1/receipt.json')
+archives={d:read('MARCEL_'+d,'artifacts/expansion/marcel_'+d+'_archive_bootstrap_v1/receipt.json') for d in ('kraken','drugs')}
+tdc=read('TDC44_v2_receipt','artifacts/expansion/tdc_zip44_header_main_v2/receipt.json')
+for key,path in {
+ 'Sprime_v2_finite_launch':'control/sprime_wave2_controller_v2_actual_finite_launch_v1.json',
+ 'Sprime_close33_actual_repair_map':'control/sprime_close33_actual_C0_repair_map_v2.json',
+ 'Sprime_fixture16_actual_C0':'control/accounting/sprime_close33_fixture16_4521651_v1.json',
+ 'Sprime_failed_close33_cost':'control/accounting/sprime33_failed_close_4521632_v1.json',
+ 'Sprime_repair_close33_cost':'control/accounting/sprime33_repair_close_4521652_v1.json',
+ 'MARCEL_parent_accounting':'control/accounting/marcel_archives_bootstrap_4521681_4521682_v1.json',
+ 'TDC_v2_parent_accounting':'control/accounting/tdc_zip44_header_v2_4521689_v1.json',
+ 'TDC_v1_failed_cost':'control/accounting/tdc_header_failed_4521650_v1.json',
+ 'PM7_HoF32_accounting':'control/accounting/pm7_hof_aug32_4521643_v1.json',
+ 'Pprime_prepare_actual_spec':'control/pprime_causal15_prepare_stage_v1/stage_spec.json',
+ 'Pprime_approved_plan':'control/pprime_causal15_root_approvals_v1/source_plan.json',
+ 'Pprime_approved_quota':'control/pprime_causal15_root_approvals_v1/quota_review.json',
+ 'source_publication_v15':'control/github_source_publication_v15.json',
+ 'MARCEL_Root_node_binding_patch':'control/marcel_bootstrap_root_analysis_nodes_integration_v1.json',
+}.items():refs[key]=Q.pin(run/path)
+assert all(v['status']=='FIRST_SHA_ALL_MEMBER_CRC_INVENTORY_COMPLETE_IDENTITY_PENDING' and v['fixtures']['errors']==0 for v in archives.values())
+assert tdc['result']['all44_CSV_metadata_complete'] and hof['valid_hof_records']==hof['records']==203
+observed=datetime.datetime.now(datetime.timezone.utc).isoformat();summary={
+ 'schema':'DATA_V1_ACTIVE_CHECKPOINT_V27','observed_utc':observed,'previous_checkpoint':refs['previous_checkpoint'],
+ 'goal_complete':False,'guide_complete':False,'stop_instruction':previous['stop_instruction'],
+ 'sessions':{'Main_SSH_PTY':18168,'Alpha_SSH_PTY':71655,'Alpha_SFTP_PTY':1955},
+ 'source':{'execution_commit':'f58d9ad3235300eb332a9f6562d16d8add684b92','public_v15_commit':'3c3a37d65806d5bb23b3f9ddd05d4f24bf3494f5','uncommitted_new_source':True,'new_repository_check_and_exact_index_commit_pending':True},
+ 'Main':{'endpoint':'202.38.247.57:22','uid':1278,'master30_parents':len(main['actual_parents']),'master30_observed_core_hours':main['observed_allocated_core_hours'],'later_Sprime_and_MARCEL_TDC_costs_append_pending':True,
+ 'Sprime_wave2':{'actual_controller_pid':2716517,'state_status':state['status'],'state_reason':state.get('reason'),'closed_batches':len(closed),'closed_valid_packets':sum(v['valid_packets'] for v in closed),'current_state_reference':refs['Main_current_Sprime_state'],'finite_max_seconds':60000,'original_state_root':'control/sprime_wave2_controller_v1/live_v1','repaired_close33':'4521652 C0/32s/16CPU13,500valid/0unknown/0unstarted,originalSCI4521623 not rerun','original_failed_close33':'4521632 FAILED1/49s/784coresec retained; exact old cause UNKNOWN','new_fixture_parent':'4521651 C0/31s/16CPU13,closer4+controller12 PASS','no_new_ordinary_manual_wave2_submissions_while_controller_owns_chain':True},
+ 'Pprime':'Original15FAIL/full2000HOLD remain. Fixed6/15-call causal source and metadata_v3 deployed; Root zeroQM prepare plan/scope/spec ready but NOT submitted yet because CPU13 currently occupied by higher-priority Sprime. Preserve900s original native timeout. Login system-library stat differs from archived compute expectations; no compute drift conclusion. PrepareC0 would not establish runtime libraries; original engine initialize strict source/archive SHA before invoke is mandatory.',
+ 'labels':{'pilot_status':labels['status'],'scope':labels['scope_parameters'],'output_bytes':labels['unique_output_bytes'],'full_numeric_projection_not_released':True,'full_cache_record_scaled_magnitude_bytes':1306841746203,'magnitude_not_forecast_or_cap':True,'Main_storage_while_Sprime_reserve_not_enough_for_full_cache':True,'SB3_actual_footer_inventory_source_in_progress':True},
+ 'PM7_independent':{'HoF_status':hof['status'],'complete_molecules':hof['complete_molecules'],'valid_hof_records':hof['valid_hof_records'],'golden_counts':hof['golden_comparison_counts'],'original_geometry_cache_unchanged':not hof['old_geometry_cache_modified'],'full_D7_orders_Common_not_released':True,'SB2_full_geometry_HoF_cache_driver_source_in_progress':True}},
+ 'Alpha':{'endpoint':'218.192.171.238:22','uid':1264,'master31_parents':alpha['parent_count'],'master31_observed_core_hours':alpha['allocated_core_hours_observed'],'master31_active_at_its_pointtime':alpha['actual_active_job_ids'],'C_actual_closed_at_progress_point':cp,'C_finite_pid1838':'Finite500v2 metadata controller, original reviewed state folderpubchem_C_finite500_v1; max6C tasks/noautomaticretry; do not manually duplicate C shards','COCONUT1884790_and_CSV1884803':'Last observed RUNNING, no active DB body queries; keep natural completion'},
+ 'external':{'MARCEL_archives':{d:{'job_id':v['job_id'],'node':v['node'],'status':v['status'],'result':v['result']} for d,v in archives.items()},'TDC44_v2':{'job_id':tdc['job_id'],'node':tdc['node'],'status':tdc['status'],'CSV_reports':len(tdc['result']['reports']),'CSV_decoded_bytes':tdc['result']['CSV_decoded_bytes']},'Drugs_download':'Complete official normal HTTPS259283872B and Main v2 resume from known176160768B; v1partial132808282B retained; CPU19 wholeSHA/allCRC C0 independently verified. Only own Windows HTTP/upload stopped after exact identity; noSlurm/scientificsignal; shared X mount untouched.','decontamination_population_release':False,'SB4_next':'MARCEL bounded native identity format/Drugs SDF+CSV linkage, non-executing Kraken opcode/structure probe, TDC actual44headers+officialloader ID/SMILES mapping'},
+ 'resource_policy':'Task specific CPU2,8-19 analysis /11-19 scientific; no sbatch memory/exclusive/oversubscribe;16CPU;48h max;200GBactualquota reserve and currentRSS/MemAvailable; costreportcontinue/allqualityunchanged; Se-only exception, wholeROUTINE VAL; no paid/GPUtraining.',
+ 'next':['Continue Sprime179 actual closure then global90069 index/Common/2percent+per-element20percent(Seexcept)/physicalint64/lateN1/order source checks.','CPU13 free/controlled safe timing needed for zeroQM Pprimeprepare then independentRootactualC0 review before15QA; no2000/full until originalscientificgates satisfied.','Complete actual footer inventory/full bounded lossless numeric projection/sourceTRAIN audit, later frozenCommon TRAIN norm and Pprime separate norm; preserve r73 orderedbasis unknown.','Complete full PM7 geometry+canonicalHoF independent cache and full D7 statistics/orders.','Source repository check, preserve exact frozen source bytes in Git index, commit/publish reviewed new source; no finalPR yet.','Continue Alpha500C/COCONUT/CSV full; external allsplit identity+globaldecontam/filtered1M/ordered10M/10kUFFpilot/first2.5M UFF+D.','D1 jointfreeze,D2,masks>1percent reports,D3actual50kTRAIN5kVAL loader,D4TRAIN-onlystats,D5nested120k/240k/600k+20kheldconfs,D6fullF32familyLMDB/GPUlocalstorageIO,D7/cards/finalPRs remain.'],
+ 'references':refs}
+checkpoint=Q.write_new(run/'control/active_checkpoint_v27.json',summary)
+text=f'''# 双集群实际进度 v7\n\n生成于{observed}，脚本只汇总已闭合生产者元数据和真实父任务会计；不是最终数据集或全指南验收。机器检查点：`{checkpoint['path']}`，SHA `{checkpoint['sha256']}`。\n\nS′ wave2已有{len(closed)}批、{sum(v['valid_packets'] for v in closed):,}个验证包闭合。第33批仅重建收尾索引：4521652 C0，500有效/未知0/未启动0，未重算原SCI4521623。失败4521632保留，原失败具体原因UNKNOWN。4521651实际CPU通过4+12测试；有限controller v2恢复同一状态/锁，原质量与once规则不变。\n\n标签512分子/4251记录的无损缓存已实际重开核验，494,609,729字节；全量仍待物理footer/range覆盖与独立统计。PM7 canonical HoF32试点4521643 C0，203/203有效，16例原HoF位/状态/顺序相等；全量D7/Common尚未验收。\n\nMARCEL两个官方ZIP已取得并在CPU19独立验证：Kraken4521681 C0/31s，13,339,592字节压缩、94,805,786字节展开、一个Kraken.pickle；Drugs4521682 C0/38s，259,283,872字节压缩、1,700,068,597字节展开、Drugs.sdf与Drugs.csv。全部CRC/EOF/成员SHA通过，未执行pickle、未推断有效身份人口。TDC修正后4521689 C0/32s，44CSV头/结构与全部ZIP成员CRC通过；首个fixture失败4521650仍计672核秒。\n\nAlpha点时已闭合{cp['closed_shards']}个PubChem分片、{cp['raw_rows']:,}原始行，其中{cp['counts']['accepted']:,}通过化学筛选、{cp['counts']['chemReject']:,}化学排除、{cp['counts']['technicalUnresolved']}技术未决。不是去污染后的池。完整500片有限队列、COCONUT与CSV全源仍在推进。\n\nP′原15项协变失败与2000/full HOLD保持。固定六原例的15次限定诊断已准备好零QM输入准备规格，尚待CPU13空闲时执行；实际原900秒超时、程序/关键字/种子不改。登录节点本地库不是计算节点兼容性证据；未来invoke前原engine完整资产SHA必须通过。\n\nMain master30点时257父/286.613333分配核时，后续新S′及本轮官方档案核验另待合入；Alpha master31点时{alpha['parent_count']}父/{alpha['allocated_core_hours_observed']:.6f}核时，均含失败/启动。免费与核时超标授权不免科学质量。\n\nD1–D7、全源mask与归一化、真实训练导出、全量去污染、ordered10M及首2.5M UFF+D尚未全部完成，继续执行，未开最终PR。\n'''
+report=repo/'docs/data_v1/secondary_main_actual_progress_20261027_v7.md';assert not report.exists();report.write_text(text,encoding='utf-8')
+status=repo/'docs/interfaces/STATUS.md';old=status.read_bytes();prefix=f'''## 2026-10-27 最新实际进度：S′恢复与官方MARCEL档案核验\n\n见[实际进度v7](../data_v1/secondary_main_actual_progress_20261027_v7.md)。S′wave2当前{len(closed)}批/{sum(v['valid_packets'] for v in closed):,}验证包闭合；33仅修复metadata并保留失败成本，有限队列已恢复。PM7 HoF32的203记录及16golden位比对通过；标签512无损缓存通过。MARCEL两官方ZIP已CPU19 wholeSHA/全CRC C0，TDC44头/结构修正后C0；均尚未完成身份去污染。Alpha已闭合{cp['closed_shards']}片/{cp['raw_rows']:,}原始行。P′原15FAIL/2000与full HOLD不变，限定诊断0QM准备规格待CPU。全部D1–D7与扩充交付仍进行，原质量阈值保持。\n\n'''.encode();status.write_bytes(prefix+old)
+print(json.dumps({'checkpoint':checkpoint,'report':Q.pin(report),'Sprime_closed_batches':len(closed),'Alpha_C_closed_shards':cp['closed_shards'],'goal_complete':False}))

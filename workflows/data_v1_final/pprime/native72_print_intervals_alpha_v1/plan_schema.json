@@ -1,0 +1,75 @@
+{
+    "$schema":  "https://json-schema.org/draft/2020-12/schema",
+    "title":  "Exact Native72 report-only print-invariant interval diagnosis",
+    "type":  "object",
+    "required":  [
+                     "schema",
+                     "producer_key",
+                     "scope_key",
+                     "stage",
+                     "scope_parameters",
+                     "kind",
+                     "pilot",
+                     "endpoint",
+                     "uid",
+                     "run_root",
+                     "node",
+                     "cpus",
+                     "memory_policy",
+                     "wall_seconds",
+                     "output_cap_bytes",
+                     "python",
+                     "execution_argv",
+                     "data_references",
+                     "source_references",
+                     "parent_evidence_references",
+                     "resource_authority_reference",
+                     "cost_decision_reference",
+                     "root_review_reference",
+                     "startup_proof_path",
+                     "output_directory"
+                 ],
+    "properties":  {
+                       "schema":  {
+                                      "const":  "SECONDARY_NATIVE72_PRINT_INTERVALS_PLAN_V1"
+                                  },
+                       "scope_key":  {
+                                         "const":  "pprime_native72_print_invariant_intervals_alpha_v1"
+                                     },
+                       "stage":  {
+                                     "const":  "PPRIME_NATIVE72_PRINT_INTERVAL_INVARIANT_DIAGNOSIS"
+                                 },
+                       "kind":  {
+                                    "const":  "analysis"
+                                },
+                       "pilot":  {
+                                     "const":  false
+                                 },
+                       "uid":  {
+                                   "const":  1264
+                               },
+                       "cpus":  {
+                                    "const":  16
+                                },
+                       "memory_policy":  {
+                                             "const":  "SLURM_DEFAULT_UNSPECIFIED"
+                                         },
+                       "wall_seconds":  {
+                                            "const":  600
+                                        },
+                       "output_cap_bytes":  {
+                                                "const":  33554432
+                                            },
+                       "execution_argv":  {
+                                              "minItems":  8,
+                                              "type":  "array",
+                                              "maxItems":  8
+                                          },
+                       "data_references":  {
+                                               "minItems":  2,
+                                               "type":  "array",
+                                               "maxItems":  2
+                                           }
+                   },
+    "description":  "contract.SCOPE/DATA/CONFIG/SMALL_SUMMARY/PREVIOUS_HELPERS are exact authority. New independent Root adapter required; queue v13 is PubChem only. Original15FAIL and HOLD remain regardless of diagnostic hypothesis status."
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Actual Root request for one unapproved fixed readonly metadata draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "requested_by", "task", "endpoint", "uid", "node", "wall_seconds", "output_directory", "startup_proof_path", "generator_source_references", "source_installation_reference", "identity_profile_receipt_reference", "identity_profile_accounting_reference"],
+  "properties": {
+    "schema": {"const": "THREE_FIXED_READONLY_PLAN_REQUEST_V1"},
+    "status": {"const": "REQUESTED_FOR_ROOT_REVIEW"},
+    "requested_by": {"const": "root"},
+    "task": {"enum": ["pprime_print_intervals", "csv_newline", "csv_profile"]},
+    "endpoint": {"const": "218.192.171.238:22"},
+    "uid": {"const": 1264},
+    "node": {"enum": ["compute-0-1", "compute-0-3", "compute-0-4", "compute-0-5", "compute-0-6", "sonmi1"]},
+    "wall_seconds": {"type": "integer", "minimum": 60, "maximum": 14400, "multipleOf": 60},
+    "output_directory": {"type": "string", "pattern": "^/gfshome/alpha/codex_data_v1_20261026/artifacts/"},
+    "startup_proof_path": {"type": "string", "pattern": "^/gfshome/alpha/codex_data_v1_20261026/control/secondary_startup/"},
+    "generator_source_references": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"$ref": "#/$defs/small_reference"}},
+    "source_installation_reference": {"$ref": "#/$defs/small_reference"},
+    "identity_profile_receipt_reference": {"$ref": "#/$defs/small_reference"},
+    "identity_profile_accounting_reference": {"$ref": "#/$defs/small_reference"},
+    "format_accounting_reference": {"$ref": "#/$defs/small_reference"}
+  },
+  "allOf": [
+    {"if": {"properties": {"task": {"const": "pprime_print_intervals"}}}, "then": {"properties": {"wall_seconds": {"const": 600}}}},
+    {"if": {"properties": {"task": {"const": "csv_newline"}}}, "then": {"properties": {"wall_seconds": {"const": 1800}}, "required": ["format_accounting_reference"]}},
+    {"if": {"properties": {"task": {"const": "csv_profile"}}}, "then": {"required": ["format_accounting_reference"]}}
+  ],
+  "$defs": {
+    "small_reference": {"type": "object", "additionalProperties": false, "required": ["path", "bytes", "sha256"], "properties": {
+      "path": {"type": "string", "pattern": "^/gfshome/alpha/codex_data_v1_20261026/"},
+      "bytes": {"type": "integer", "minimum": 0, "maximum": 2097152},
+      "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+    }}
+  },
+  "description": "Informational request schema; stdlib runtime enforces the actual source, producer and metadata contracts directly. No future hash, actual job, PASS or Root approval is supplied by this generator."
+}

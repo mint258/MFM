@@ -1,0 +1,90 @@
+{
+    "schema":  "PUBCHEM_C_ROOT_MATERIALIZER_SOURCE_ONLY_HANDOFF_V1",
+    "status":  "SOURCE_FINAL_UNEXECUTED_PENDING_ROOT_REVIEW",
+    "source_files":  6,
+    "source_references":  [
+                              {
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_root_materializer_v1\\__init__.py",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_root_materializer_v1/__init__.py",
+                                                           "bytes":  86,
+                                                           "sha256":  "58a0370265ec35d27b01275f17918d9a6fd967f7c50c1634c6ccf6b6e1b6f074"
+                                                       }
+                              },
+                              {
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_root_materializer_v1\\materialize.py",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_root_materializer_v1/materialize.py",
+                                                           "bytes":  22894,
+                                                           "sha256":  "2d9cc576e65db89e3e57802a61e61b5b2d95ba514429f42e7587411b4d4cc156"
+                                                       }
+                              },
+                              {
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_root_materializer_v1\\math_v1.py",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_root_materializer_v1/math_v1.py",
+                                                           "bytes":  5616,
+                                                           "sha256":  "32c7e0339a502d67288b77c1b97054624ee39dc6cf79182a9857fded947fb062"
+                                                       }
+                              },
+                              {
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_root_materializer_v1\\test_v1.py",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_root_materializer_v1/test_v1.py",
+                                                           "bytes":  3578,
+                                                           "sha256":  "edac9605f22c268755680894da13ca0ff88cc47c77755879ec0c43043c89ea99"
+                                                       }
+                              },
+                              {
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_root_materializer_v1\\README.md",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_root_materializer_v1/README.md",
+                                                           "bytes":  10782,
+                                                           "sha256":  "98caec75b46652f2b0a6ac6f2552658da0640c655cba7365501f18cd2b53cd61"
+                                                       }
+                              },
+                              {
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_root_materializer_v1\\approval_schema.json",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_root_materializer_v1/approval_schema.json",
+                                                           "bytes":  14721,
+                                                           "sha256":  "732d5f4cb4d297c2b15be138b1cce8568c2015b2ef0fe3d8e4b358db3e96a394"
+                                                       }
+                              }
+                          ],
+    "pure_fixture_methods_pending":  3,
+    "actions":  [
+                    "freeze",
+                    "plan-one"
+                ],
+    "runtime_scope":  "APPROVED_ALPHA_LOGIN_METADATA_ONLY_NO_SLURM_QUERY_OR_SUBMISSION",
+    "known_actual_jobs":  {
+                              "B":  "1884795",
+                              "reused_raw_validation":  "1884769",
+                              "A":  "1884794"
+                          },
+    "known_B_receipt_reference_given_by_Root":  {
+                                                    "path":  "/gfshome/alpha/codex_data_v1_20261026/artifacts/pubchem_uniform10000_alpha_v1/v1/receipt.json",
+                                                    "bytes":  27741,
+                                                    "sha256":  "feb5af94a33a71491ebc2ec231ad27359166b537b34f27d06cf6847793283ae6"
+                                                },
+    "known_B_accounting_reference_given_by_Root":  {
+                                                       "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_uniform10000_alpha_v1/accounting_1793042057606124999.json",
+                                                       "bytes":  1675,
+                                                       "sha256":  "d57575377939f3c2b7a7d557eefc9695ebe482d8d71d759f9ee318d60daeb7db"
+                                                   },
+    "known_B_proposal_reference_given_by_Root":  {
+                                                     "path":  "/gfshome/alpha/codex_data_v1_20261026/artifacts/pubchem_uniform10000_alpha_v1/v1/proposed_full_partition_not_authorized.json",
+                                                     "bytes":  51534,
+                                                     "sha256":  "d193d20a7c827705a54884d48134bf399c57429ab4164a01fe04a1f9079e572d"
+                                                 },
+    "known_uniform_event_plus_Parquet_bytes_from_Root":  39086910,
+    "actual_A_ref_and_raw_sacct_refs_supplied_by_Root_not_guessed":  true,
+    "budget_inputs":  "UNIFORM_EVENT_PLUS_PARQUET_ONLY_SEPARATE_FIXED_1GIB_PLUS128MIB_DRAIN_AND_EXPLICIT_ROOT_ADMIN",
+    "Root_8GiB_28800s_factor3_phase_factor4_IO900_choices_supported_not_instantiated":  true,
+    "future_approvals_manifests_budgets_plans_jobIDs_or_claims_created":  false,
+    "scientific_index_journal_Parquet_gzip_bodies_read_by_author":  false,
+    "Python_AST_tests_SSH_Slurm_Git_executed":  false,
+    "all_previously_frozen_checked_sources_unchanged":  true,
+    "global_pool_decontamination_filtered_dedup1M_release":  false
+}

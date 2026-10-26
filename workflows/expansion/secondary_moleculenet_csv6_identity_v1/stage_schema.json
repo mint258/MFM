@@ -1,0 +1,83 @@
+{
+    "$schema":  "https://json-schema.org/draft/2020-12/schema",
+    "title":  "Exact six CSV physical identity phases",
+    "type":  "object",
+    "required":  [
+                     "schema",
+                     "producer_key",
+                     "scope_key",
+                     "stage",
+                     "mode",
+                     "scope_parameters",
+                     "scope_mode",
+                     "performance_profile",
+                     "kind",
+                     "pilot",
+                     "endpoint",
+                     "uid",
+                     "run_root",
+                     "node",
+                     "cpus",
+                     "memory_policy",
+                     "wall_seconds",
+                     "output_cap_bytes",
+                     "python",
+                     "execution_argv",
+                     "source_references",
+                     "data_references",
+                     "parent_evidence_references",
+                     "root_review_reference",
+                     "startup_proof_path",
+                     "output_directory",
+                     "format_authority_reference",
+                     "format_accounting_reference",
+                     "frozen_identity_source_references",
+                     "resource_authority_reference",
+                     "cost_decision_reference"
+                 ],
+    "properties":  {
+                       "mode":  {
+                                    "enum":  [
+                                                 "profile",
+                                                 "full"
+                                             ]
+                                },
+                       "kind":  {
+                                    "const":  "analysis"
+                                },
+                       "uid":  {
+                                   "const":  1264
+                               },
+                       "cpus":  {
+                                    "const":  16
+                                },
+                       "memory_policy":  {
+                                             "const":  "SLURM_DEFAULT_UNSPECIFIED"
+                                         },
+                       "endpoint":  {
+                                        "const":  "218.192.171.238:22"
+                                    },
+                       "wall_seconds":  {
+                                            "maximum":  172800,
+                                            "multipleOf":  60,
+                                            "type":  "integer",
+                                            "minimum":  60
+                                        },
+                       "output_cap_bytes":  {
+                                                "maximum":  68719476736,
+                                                "type":  "integer",
+                                                "minimum":  2147483648
+                                            },
+                       "data_references":  {
+                                               "minItems":  6,
+                                               "type":  "array",
+                                               "maxItems":  6
+                                           },
+                       "execution_argv":  {
+                                              "minItems":  8,
+                                              "type":  "array",
+                                              "maxItems":  8
+                                          }
+                   },
+    "description":  "contracts.parameters and guard enforce exact per-mode protocol and actual792 authority. Full requires completed actual profile C0, cost/quality review and a newly pinned output budget. This schema grants no global release."
+}

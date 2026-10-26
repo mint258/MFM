@@ -1,0 +1,130 @@
+{
+  "schema": "LABEL_FULL_PROJECTION_BATCH_NORM_INTERFACE_PROPOSAL_V1",
+  "status": "PROPOSAL_NOT_READY_NOT_AUTHORITY_NOT_IMPLEMENTED",
+  "scientific_bodies_read": false,
+  "python_AST_tests_scientific_SSH_Git_Slurm_executed": false,
+  "frozen_projection6_or_augmentation6_changed": false,
+  "population_from_closed_metadata": {
+    "molecules": 1220466,
+    "records": 11231854,
+    "canonical_task_slots": 14,
+    "canonical_task_rows": 157245956,
+    "physical_task_rows": 157254650,
+    "noncanonical_rows_retained_separately": 8694,
+    "label_source_files": 2024,
+    "base_source_files": 184,
+    "producer_referenced_label_plus_base_bytes": 575920810664,
+    "producer_bytes_are_not_current_read_bytes_or_budget": true,
+    "record_ordinal_definition": "SHA-bound formal_record_index physical file_row_number; NOT label physical row"
+  },
+  "measured512": {
+    "job_id": "4521610",
+    "actual_parent_state_reported_by_root": "COMPLETED_0",
+    "allocation_seconds": 293,
+    "cpus": 16,
+    "records": 4251,
+    "molecules": 512,
+    "unique_output_bytes": 494609729,
+    "linear_full_bytes_not_forecast": 1306841746203,
+    "full_population_completed": false,
+    "final_common_D4_completed": false
+  },
+  "required_actual_inputs": {
+    "census_prepared_and_reduction": "existing exact actual metadata refs",
+    "catalog_and_producer_source_refs": "existing exact actual refs; inherit source SHA honestly",
+    "canonical_sqlite_and_role_authority": "existing exact DATA locators",
+    "accepted512_actual_manifest_accounting_raw": "actual Root closure, not inferred C0",
+    "actual_CPU_footer_inventory_reference": null,
+    "footer_inventory_state": "PENDING_CPU_METADATA_OBSERVATION_NO_FUTURE_HASH",
+    "fresh_resource_authority_and_quota_ticket": "Root binds at actual request preparation",
+    "optional_formal_payload_sha_side_projection": "needed only for explicit independent payload-SHA join; current9-column canonical index does not contain it"
+  },
+  "proposed_functions_only": [
+    "prepare_ranges(census_ref, source_catalog_ref, canonical_index_ref, footer_inventory_ref, quota_ticket, accepted512_profile_ref)",
+    "project_ranges(plan_ref, range_claims, cursor_ref, fresh_startup_proof, output_ticket)",
+    "close_coverage(range_plan_ref, batch_receipt_refs)",
+    "observations_from_cache(cache_dataset_ref, fit_side_ref, current_mask_ref, logical_statistics_order_ref)"
+  ],
+  "range_schema_candidate": {
+    "source_reference": "actual path/bytes/SHA triple",
+    "source_family": "actual producer family",
+    "source_owner_job": "actual producer job",
+    "source_file_group": "actual original file group",
+    "row_group": "integer from actual footer inventory",
+    "physical_row_lo": "inclusive row within this row group",
+    "physical_row_hi": "exclusive row within this row group",
+    "state": "PLANNED / CLAIMED / PARTIAL_CLOSED / COMPLETE / STOP_PENDING",
+    "range_claim_identity": "bind plan+source+interval+actual job; reject overlapping publication",
+    "ordinal_interval_is_not_an_IO_seek": true,
+    "whole_molecule_not_required_per_physical_batch": "all conformers joined before molecule-level statistics"
+  },
+  "cursor_schema_candidate": {
+    "source_reference": "same immutable source",
+    "row_group": "next/current actual group",
+    "next_physical_row": "first unpublished row; half-open invariant",
+    "closed_part_references": "actual durable SHA-verified parts only",
+    "source_identity_before_after": "actual stable observation",
+    "code_registry_mask_policy_hashes": "exact immutable bindings",
+    "within_row_group_resume": "may re-decode one boundary RG; measure and report its bounded extra bytes",
+    "all_prior_complete_row_groups_revisited": false,
+    "Parquet_decompression_byte_offset_used_as_seek": false
+  },
+  "storage_ticket_candidate": {
+    "whole_cap": "Root-approved integer inclusive of every worker/part/partial/footer/metadata/observer/spill",
+    "example_first_batch_cap_bytes_not_authorization": 34359738368,
+    "per_worker_independent_unbounded_rotation": false,
+    "part_tokens": "shared finite reservations checked under cross-process lock before write",
+    "future_source_single_row_max_size_known": false,
+    "single_row_or_range_over_budget": "STOP_PENDING with source locator; never truncate labels or reinterpret as SCF failure",
+    "fresh_free_minus_all_unwritten_caps_minus_all_copy_spill_caps": "must preserve200GB and all already present physical files",
+    "release_ticket_while_Main_copy_still_present": false,
+    "full_1p307TB_reservation_currently_approved": false,
+    "Root_Sprime_unwritten182x8GiB_reserve_not_spendable": true
+  },
+  "scientific_semantics_inherited_unchanged": {
+    "field_mapping": "264 declared /146 enabled; inactive scientific values and all unknown reasons retained",
+    "validity": "frozen payload.evaluate / common / source_value_mask / cross_field_checks / compact codebook",
+    "calibration": "full matched TRAIN only or PENDING; never apply512 scale to full",
+    "raw_values": "typed tree, original integer/bool/string/bytes/null, F64 bits and original Arrow widths/bit evidence",
+    "pair_and_compound": "ordered complete keys+basis+list ordinals+all values; no dedup/symmetrization",
+    "base_failures": "retain explicit unavailable states; no fakeZ/coordinates, no record deletion",
+    "NULL_SCF": "unknown/review, not failure inference",
+    "robust_z_GT20": "review only",
+    "physical_mask_thresholds": "unchanged; no invented units/ranges",
+    "native_print_precision_and_actual_frame": "remain pending independent real evidence"
+  },
+  "coverage_receipt_candidate": {
+    "batch_status": "BATCH_CACHE_CLOSED_FULL_COVERAGE_PENDING",
+    "full_status_requires": [
+      "all physical range intervals tiled exactly once",
+      "all canonical(record_ordinal,task_code) exactly once across14slots",
+      "canonical base coverage separately exact",
+      "all source roles and264 declarations conserved",
+      "8694 physical shadow/duplicate rows separately accounted",
+      "all parts reopened typed/order/bit signatures verified",
+      "no unresolved over-cap or source-validation range"
+    ],
+    "partial_quality_counters": "field-specific observed/source-invalid/new-mask/new-structural/review; partial rate and global lower bound separate",
+    "full_quality_STOP": "original >1percent rule unchanged; partial batch does not masquerade as full denominator",
+    "guide1p5_complete_from_cache_C0_alone": false,
+    "normalization_complete_from_source_TRAIN_statistics": false
+  },
+  "final_norm_cache_adapter_candidate": {
+    "adapter_name_candidate": "lossless_decoded_scientific_cache_v1",
+    "existing_source_manifest_can_be_faked_by_cache_path_swap": false,
+    "reconstruct": "component_map ordered_leaf_paths + typed tree + original compact/current versioned mask",
+    "join": "streaming/disk ordinal and frozen physical geometry map; not whole owner Python dictionaries",
+    "required_frozen_authorities": ["common molecule membership", "effective TRAIN/VAL roles", "opaque geometry map", "conformer order", "exact20kPM7+20kSprime diagnostic and all parent targets"],
+    "fit_exclusions": ["VAL", "FULL", "embargo", "diagnostic heldout geometry", "perturbed targets of heldout parent"],
+    "UFF_key": "molecule_id+int64 sprime_conf_idx via actual frozen map; no parent_record_id exclusion shortcut",
+    "Pprime": "independent real UFF values/masks/references/statistics or PENDING",
+    "statistics": "same frozen element-reference TSQR, exact type7 q.001/q.999, statistic-only winsor moments, per-element and physical group views",
+    "logical_statistics_partition_reference": null,
+    "logical_partition_state": "MUST_FREEZE_INDEPENDENT_OF_PHYSICAL_PARTS_AND_COMPLETION_ORDER",
+    "merge_order_and_environment": "pin deterministic float accumulation tree, NumPy/BLAS/LAPACK/threads and actual replay",
+    "cross_cluster_bitwise_norm_rebuild_proven": false,
+    "labels_or_cache_modified_by_winsor_or_residual": false,
+    "model_head_anisotropic_normalization_auto_frozen": false
+  },
+  "implementation_authorized_by_this_proposal": false
+}
