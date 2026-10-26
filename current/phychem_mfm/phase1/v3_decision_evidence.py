@@ -208,6 +208,13 @@ class RunEvidence:
     curve_identity_sha256: str
 
 
+def reject_engineering_configuration(configuration):
+    """Engineering fixtures never enter registered scientific selection."""
+    require(configuration.get('engineering_only') is not True
+        and configuration.get('experiment_scope') != 'ENGINEERING_SYNTHETIC_ONLY',
+        'Engineering/synthetic configuration is ineligible for scientific selection')
+
+
 def inspect_run(entry, *, panel_reference, preregistration_commit):
     """Verify source chains of an actual v3 sample-checkpoint panel evaluation.
 
@@ -256,6 +263,7 @@ def inspect_run(entry, *, panel_reference, preregistration_commit):
         bound_bytes({"path": str(path), "sha256": source["sha256"]})
         source_paths.add(relative)
     configuration = bound_json(request["model_configuration"])
+    reject_engineering_configuration(configuration)
     require(configuration.get("seed") == seed, "Actual original configuration seed differs")
     completion_ref = request.get("training_completion")
     require(completion_ref is not None, "Actual v3 checkpoint COMPLETE binding required")
