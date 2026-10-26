@@ -1,0 +1,37 @@
+{
+    "schema":  "model_v3_Root_numeric_fullsuite_metadata_freeze_invocation_v2",
+    "status":  "PREPARED_NOT_EXECUTED",
+    "Root_local_commit_receipt":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_candidate_local_commit_actual_v1.json",
+                                      "bytes":  2343,
+                                      "sha256":  "869eb50a32088987cb2466879fe0b0321e82dcc24cde3d40cd787ba6cd495ba2"
+                                  },
+    "actual_local_commit_from_receipt":  "4068623cc455915a34a4aacae4f0df5c56f691b7",
+    "actual_local_tree_from_receipt":  "b2b53cde6a099bf4b4d1686bec8823bc0b30bc8e",
+    "argv":  [
+                 "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+                 "-B",
+                 "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source/freeze_numeric_full_regression_v1.py",
+                 "--source-pins",
+                 "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source/source_pins_v1.json",
+                 "--source-pins-sha256",
+                 "efef6a4c58d95ae9801bb49c207416fc2d23a814a7bd20b535a78b0112061c45",
+                 "--spec",
+                 "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source/request_spec_v1.json",
+                 "--spec-sha256",
+                 "f8d240e13447bac0d0a005e001401615924d1c1f62da9f022930af2b75cf6415",
+                 "--code-commit",
+                 "4068623cc455915a34a4aacae4f0df5c56f691b7",
+                 "--label",
+                 "numeric_stability_fullsuite_v1"
+             ],
+    "expected_outputs":  [
+                             "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_stability_fullsuite_v1_assignment_v1.json",
+                             "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_stability_fullsuite_v1_control_v1.json",
+                             "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_stability_fullsuite_v1_part0_bindings_v1.json",
+                             "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_stability_fullsuite_v1_part0_launch_v1.json"
+                         ],
+    "Root_submits_only_after_fresh16CPU32GiB_admission":  true,
+    "no_existing_job_or_success_inferred":  true,
+    "corrected_scope":  "Only structured invocation path array construction; original v1 preserved; source pins unchanged"
+}

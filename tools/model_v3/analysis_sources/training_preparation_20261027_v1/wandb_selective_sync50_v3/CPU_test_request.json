@@ -1,0 +1,28 @@
+{
+    "schema":  "model_v3_selective_sync_metadata_QA_request_v1",
+    "status":  "PLANNED_NOT_EXECUTED",
+    "execution_scope":  "four_metadata_cases_as_actual_selective_sync_CPU_job_preflight",
+    "expected_tests":  4,
+    "expected_skipped":  0,
+    "network_in_tests":  false,
+    "SDK_body_in_tests":  false,
+    "file":  "test_sync_metadata.py",
+    "cases":  [
+                  "test_fixed_population_and_original_routes",
+                  "test_exact_copy_retains_original_and_rejects_tamper",
+                  "test_remote_step_types_and_metadata_only_expectations",
+                  "test_installed_core_route_uses_one_explicit_staged_file"
+              ],
+    "CPU":  16,
+    "memory_MiB":  16384,
+    "RSS_limit_bytes":  12884901888,
+    "supervisor_wall_seconds":  3300,
+    "Slurm_wall_seconds":  3600,
+    "aggregate_output_plus_private_limit_bytes":  2147483648,
+    "independent_small_QA_parent_required":  false,
+    "scientific_acceptance":  false,
+    "query_regressions":  [
+                              "unkeyed streaming step projection ignores metric payloads",
+                              "missing/noninteger/duplicate/backward/excess rows rejected within original four cases"
+                          ]
+}

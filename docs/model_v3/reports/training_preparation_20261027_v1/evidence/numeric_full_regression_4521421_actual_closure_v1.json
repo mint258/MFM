@@ -1,0 +1,68 @@
+{
+  "schema": "model_v3_numeric_fullsuite_Root_actual_closure_v1",
+  "status": "ACTUAL_C0_FULL_REGRESSION_VERIFIED",
+  "job_id": "4521421",
+  "actual_accounting": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4521421",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "stdout": "4521421|zixiao|COMPLETED|0:0|134|16|compute-0-13\n",
+    "stderr": "",
+    "returncode": 0
+  },
+  "summary": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521421/summary.json",
+    "bytes": 352291,
+    "sha256": "3024335a7a92d911601859b6b92bc0aadc3f008b9ea4dabe14d7422bd40fc419"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_supervisor_4521421.json",
+    "bytes": 8459,
+    "sha256": "8fb8b069cc68ebec965b78dd157f5c37d5efa8619c8fce375f54f85efb8d5566"
+  },
+  "actual_submission": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_stability_fullsuite_v1_part0_submission_v1.json",
+    "bytes": 4943,
+    "sha256": "aadca0ec661784a25ee25aa228f42209ca6593e2aa98e2cdf9c4feda325a0778"
+  },
+  "frozen_plan": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_stability_fullsuite_v1_control_v1.json",
+    "bytes": 195772,
+    "sha256": "408373847119d39925d3751c5d3f1d8a8bd7806cd2dc2f852dde5f727e659929"
+  },
+  "assignment": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_stability_fullsuite_v1_assignment_v1.json",
+    "bytes": 20771,
+    "sha256": "e78c2d142f5febd02cb4498e4a26a2f2ae0cfc06e2fc1c6f0203f511a0c7bcc9"
+  },
+  "actual_script": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_numeric_full_regression_v1.sbatch",
+    "bytes": 2632,
+    "sha256": "1c0c151daf53d2226f56219b502bdfa4f5d281788bea95161400f7c0446d9eff"
+  },
+  "frozen_script": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source/run_numeric_full_regression_v1.sbatch",
+    "sha256": "1c0c151daf53d2226f56219b502bdfa4f5d281788bea95161400f7c0446d9eff"
+  },
+  "script_path_scope": "exact-byte relocation to OLD required by existing Root submission helper; original receipt and frozen plan unchanged",
+  "metadata_validation": "all frozen checks passed using one explicit script-path projection only; raw actual argv retained",
+  "test_counts": {
+    "tests": 2639,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 3
+  },
+  "passed": 2636,
+  "test_files": 113,
+  "pytest_children": 4,
+  "sources_before_after_equal": true,
+  "current_frozen_runtime_verified": true,
+  "original_48_scientific_matrix_pending": true,
+  "scientific_adoption": false
+}

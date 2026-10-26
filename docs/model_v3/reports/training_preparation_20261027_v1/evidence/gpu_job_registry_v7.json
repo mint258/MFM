@@ -1,0 +1,182 @@
+{
+  "jobs": [
+    {
+      "status_note": "Actual GPU allocation failed physical UUID string comparison before matrix or legacy CUDA cases; counted in full",
+      "stage": "3_C4",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/composed_eq_gpu_submission_v2.json",
+      "job_id": "4521015",
+      "submission_receipt_sha256": "dc527e8c6dba8917730f981a895943bba8e99718887d50dc154f8bf46d289012",
+      "category": "synthetic_model_validation"
+    },
+    {
+      "job_id": "4521043",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/composed_eq_gpu_runtime_retry_submission_v1.json",
+      "submission_receipt_sha256": "db65520a9786c18652f8fbfa7e8c82a8413624bf6be8f52fe529740467633688",
+      "receipt_job_id_field": "job_id",
+      "category": "synthetic_model_validation",
+      "status_note": "Compute accounting backend failed before CUDA/matrix; preserve actual allocation and elapsed resolution"
+    },
+    {
+      "job_id": "4521045",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A06_native_feedback_submission_v1.json",
+      "submission_receipt_sha256": "db580e8e854e60cd196628b5eaa3fab0c4434935a2f7065b5c532b1dae6b18da",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "category": "native_S_optimizer_diagnostic",
+      "status_note": "Compute accounting backend failed before native updates"
+    },
+    {
+      "job_id": "4521055",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A06_native_feedback_submission_v2.json",
+      "submission_receipt_sha256": "dcbc78c04b576237ad6922a82b68e40aa52c90e9bc7e82bb19976bf9aa30f5b2",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "category": "native_S_optimizer_diagnostic",
+      "status_note": "Own job TRES omits memory; MinMemoryNode32G was present; strict parser rejected before native updates"
+    },
+    {
+      "job_id": "4521056",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/composed_eq_gpu_runtime_retry_submission_v2.json",
+      "submission_receipt_sha256": "f6c6fa453119e76b94cb4c29684452a81e5a419a348975cd647e188b42c12d91",
+      "receipt_job_id_field": "job_id",
+      "category": "synthetic_model_validation",
+      "status_note": "Actual CUDA device observed Torch CUuuid dedicated type; narrow UUID parser rejected before model matrix"
+    },
+    {
+      "status_note": "Preserve actual failed allocation: shared dependency path missing before native updates",
+      "submission_receipt_sha256": "73ee4d0c07a36676bdc530596a0fae47306b2803959df16e12ed5410cfca0d22",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A06_native_feedback_submission_v3.json",
+      "job_id": "4521078",
+      "category": "native_S_optimizer_diagnostic",
+      "receipt_job_id_field": "actual_sbatch_job_id"
+    },
+    {
+      "status_note": "Actual15-update diagnostic completed; original fused gate FAILED_UNCHANGED",
+      "submission_receipt_sha256": "a14c45c8f1eaab7d560a33d2fabe3c91aa4335888a493a365a36efafb80db69a",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A06_native_feedback_submission_v4.json",
+      "job_id": "4521091",
+      "category": "native_S_optimizer_diagnostic",
+      "receipt_job_id_field": "actual_sbatch_job_id"
+    },
+    {
+      "status_note": "Actual48 GPU composed cases,2PASS/46FAIL; two legacy CUDA tests PASS; FAILED preserved",
+      "submission_receipt_sha256": "a6266be7073138219ffcec8098bc8fd3c3d7e725b8c37f4867d452753ce3f8dc",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/composed_eq_gpu_runtime_retry_submission_v4.json",
+      "job_id": "4521160",
+      "category": "synthetic_model_validation",
+      "receipt_job_id_field": "job_id"
+    },
+    {
+      "status_note": "Actual4s failed allocation before GPU/model forward because old supervisor rejected layout; preserve v1 intent",
+      "submission_receipt_sha256": "b1f2bd7420fa44971721c59f6eebf08a8e751555b36bb8fbd55f2d83bbc8497e",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A01_4090_ABBA_outputs_v1/position1_attempt1.json",
+      "job_id": "4521173",
+      "category": "native_S_standalone_timing",
+      "receipt_job_id_field": "actual_job_id"
+    },
+    {
+      "status_note": "Actual GPU allocation FAILED1:0/20s/16CPUs; 55metadata tests pass0.50s but whole job failed before Native model due retained pytest current symlinks; no science acceptance, all allocation cost counted",
+      "submission_receipt_sha256": "7c6bb1a1fdea0dcbe1cbdf13ab4bb0650e4083252d92f535e0b38e2ef42997b8",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_profile_fp32_v6/control/submission.json",
+      "job_id": "4521328",
+      "category": "native_S_precision_profile",
+      "receipt_job_id_field": "actual_sbatch_job_id"
+    },
+    {
+      "job_id": "4521329",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_profile_fp32_v7/control/submission.json",
+      "submission_receipt_sha256": "48097892cdac51606f2738a9f332e6bd93cbc3ce76d2c30494fd3d5ea9364192",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "category": "native_S_precision_profile",
+      "status_note": "Actual11s FAILED after metadata and CUDA origin, before Native model: task_scratch enum mismatch"
+    },
+    {
+      "job_id": "4521330",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_layer_head_launch_submission_v1.json",
+      "submission_receipt_sha256": "ee4b640e18cbfdcd31b28bb4e581c633b819faf440f78e7d433d41825fef5b34",
+      "receipt_job_id_field": "job_id",
+      "category": "synthetic_model_attribution",
+      "status_note": "Actual16s FAILED before model measurements: historical lexicographic index ordering"
+    },
+    {
+      "job_id": "4521331",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_profile_fp32_v8/control/submission.json",
+      "submission_receipt_sha256": "bd9ee7ae1aab7e6c18c33a37f9d497ba7a1bbf70753454a290ef780420b87581",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "category": "native_S_precision_profile",
+      "status_note": "Actual252s C0;20updates7680base/1024VAL; SDK independent readback pending"
+    },
+    {
+      "job_id": "4521332",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_profile_bf16_v8/control/submission.json",
+      "submission_receipt_sha256": "2d66dbe76694dc8eda26227aa831e3f8c0bd1374c1b436c5673b0049684b2153",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "category": "native_S_precision_profile",
+      "status_note": "Actual90s C0;20updates7680base/1024VAL; SDK independent readback pending"
+    },
+    {
+      "job_id": "4521333",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_layer_head_launch_submission_v2.json",
+      "submission_receipt_sha256": "47f7e4afdc8ccb10bb3e3a6ce4a97c980665069311b299409a94d85b53b3e847",
+      "receipt_job_id_field": "job_id",
+      "category": "synthetic_model_attribution",
+      "status_note": "Actual37s FAILED after48fresh unhooked, firsthook measurement replay difference; measured dict not durable"
+    },
+    {
+      "job_id": "4521338",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A01_4090_ABBA_outputs_v3/position1_attempt1.json",
+      "submission_receipt_sha256": "05c70429d5b81b5d36480b3d1828ba5ecce0cb4f88225512916cfefcce48643b",
+      "receipt_job_id_field": "actual_job_id",
+      "category": "native_S_standalone_speed",
+      "status_note": "Actual submission confirmed; pending node20 allocation; no measured speed/QA asserted"
+    },
+    {
+      "job_id": "4521397",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_firstcase_replay_submission_v1.json",
+      "submission_receipt_sha256": "9cdce6f38038ac3b1272dfa85acb571240c8df1f278f77dfb405ffdb2255362d",
+      "receipt_job_id_field": "job_id",
+      "category": "synthetic_model_replay_diagnostic",
+      "status_note": "Actual9s FAILED1 after12 forwards and durable three-role numeric evidence; strict new replay controls false; no full48 acceptance"
+    },
+    {
+      "job_id": "4521406",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_fixed_op_replay_submission_v1.json",
+      "submission_receipt_sha256": "01bce7e3e7f9ccf443df9014ababf43d95e1c5c09a7563e42eaed9517e9ce1cf",
+      "receipt_job_id_field": "job_id",
+      "category": "synthetic_model_operator_diagnostic",
+      "status_note": "Actual fixed-input diagnostic; original-policy FAILED retained"
+    },
+    {
+      "job_id": "4521411",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_001.submitted.json",
+      "submission_receipt_sha256": "aa889c3f9fbd5c894dd8d0955c359e02b10587b09cae24e421dd619361d880ea",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "category": "native_S_precision_long_segment",
+      "status_note": "Actual FAILED quota freshness at partial723; no safe CP; original failure retained"
+    },
+    {
+      "job_id": "4521429",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_composed_GPU_v1_attempt1.json",
+      "submission_receipt_sha256": "29e01b4a30f4cbccbfc8c2397717605f29adb079244b25b542c4897a4d166229",
+      "receipt_job_id_field": "job_id",
+      "category": "synthetic_model_numerical_validation",
+      "status_note": "Actual FAILED before model due two metadata JSON Git LF identities"
+    },
+    {
+      "job_id": "4521435",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_composed_GPU_v2_attempt1.json",
+      "submission_receipt_sha256": "5637b5fa2b200444a9c81cc34a8c76bd9d7793c5a57fcc377669f4b2fde21963",
+      "receipt_job_id_field": "job_id",
+      "category": "synthetic_model_numerical_validation",
+      "status_note": "Actual complete48 matrix10PASS38FAIL; no candidate adoption"
+    },
+    {
+      "job_id": "4521438",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_002.submitted.json",
+      "submission_receipt_sha256": "f6065aca22a4412ebbbe6df25e040d11f163b35b4e8431c9b20057d0b7498ee6",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "category": "native_S_precision_long_segment",
+      "status_note": "Actual explicit same-science retry fromu0; point-in-time state only"
+    }
+  ],
+  "schema": "model_v3_extra_GPU_job_registry_v3",
+  "inherited_notes_are_prior_point_in_time_snapshots": true
+}
