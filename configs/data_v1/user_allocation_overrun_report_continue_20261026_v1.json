@@ -1,0 +1,24 @@
+{
+    "schema":  "USER_AUTHORIZED_ALLOCATION_OVERRUN_REPORT_CONTINUE_V1",
+    "status":  "USER_AUTHORIZED",
+    "user_answer":  "核时超标报告后继续，质量阈值不变",
+    "scope":  "Current data-line round: actual allocated core time exceeding the pilot forecast by 1.5 times",
+    "original_threshold_multiplier":  1.5,
+    "on_overrun":  "REPORT_AND_CONTINUE",
+    "only_cost_stop_rule_changed":  true,
+    "scientific_quality_thresholds_unchanged":  true,
+    "retain_actual_accounting_including_failures_and_startup":  true,
+    "preserve_historical_requests_sources_and_results":  true,
+    "no_forced_termination":  true,
+    "max_single_job_wall_seconds":  172800,
+    "cpu_only":  true,
+    "quota_reserve_bytes":  200000000000,
+    "slurm_memory_policy":  "SLURM_DEFAULT_UNSPECIFIED",
+    "observed_case_evidence":  {
+                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/source_status_remaining12_overrun_observation_v1.json",
+                                   "bytes":  1077,
+                                   "sha256":  "13b12ddfa33bdec39abbd65d1017c4246fc50024ac9bfcc5fafc92b63974a7e2"
+                               },
+    "skill_version":  "1.0.122",
+    "skill_sha256":  "644983eb3c33172becae0989f7c47c82de6ba9e884301ed802892cda16c904db"
+}
