@@ -1,0 +1,61 @@
+{
+  "schema": "native_S_Root_segment_and_log_actual_C0_review_v1",
+  "status": "SUCCESSFUL_1000_UPDATE_SEGMENT_AND_FULL_NATIVE_LOG_VERIFIED",
+  "actual_accounting": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4521438,4521460",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "stdout": "4521438|zixiao|COMPLETED|0:0|2452|16|compute-0-21\n4521460|zixiao|COMPLETED|0:0|7|16|compute-0-13\n",
+    "stderr": "",
+    "returncode": 0
+  },
+  "model_job": "4521438",
+  "SDK_audit_job": "4521460",
+  "model_closure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_002/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+    "bytes": 1776,
+    "sha256": "1dd7f0dfcfec800a2db3d1247d1ed5ef47651e9262d54e384dcc8c29ed330f00"
+  },
+  "checkpoint_complete": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_002/child/checkpoint_u1000_log1003/COMPLETE.json",
+    "bytes": 777,
+    "sha256": "5baa539d0d2edabbfcb469034816a6cc0b92ec8fcbf7638760b9d6da9f457446"
+  },
+  "checkpoint_payload_rehashed_in_this_metadata_review": false,
+  "SDK_batch": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_slot002_SDK_actual_v2/BATCH_RESULT.json",
+    "bytes": 1598,
+    "sha256": "d15bbb8f2dd8f3d45f83d3246f3bf3557d1fd2645d3dbea45d444b8e00555b3e"
+  },
+  "SDK_supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_slot002_SDK_actual_v2.supervisor.json",
+    "bytes": 3345,
+    "sha256": "1a9ac1ed716dae0e7f949c0aca5e5e9221045612c30695c642e287c686245e6f"
+  },
+  "full_log_verification": {
+    "bytes": 6418,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_slot002_SDK_actual_v2/0/VERIFICATION.json",
+    "sha256": "588a75d2d1f4b9166c8be6ba99f520bff7d4cdfe8ff74d19ed90b1b88032f000"
+  },
+  "metadata_tests": {
+    "tests": 28,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "run_id": "fw6q26wr",
+  "optimizer_updates": 1000,
+  "samples_consumed": 409491,
+  "native_history_rows": 1003,
+  "first_step": 0,
+  "last_step": 1002,
+  "scientific_acceptance": false,
+  "B_acceptance": false,
+  "original_training_closure_not_rewritten": true
+}
