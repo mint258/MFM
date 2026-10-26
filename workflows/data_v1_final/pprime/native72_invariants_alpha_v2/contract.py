@@ -1,0 +1,40 @@
+"""One fixed readonly scope and existing actual references; no future hashes."""
+from pathlib import Path
+ROOT=Path('/gfshome/alpha/codex_data_v1_20261026')
+HERE=ROOT/'code/native72_invariants_alpha_v2'
+OLD=ROOT/'code/frame_native_precision_alpha_v2'
+KEY='pprime_native72_invariants_readonly_alpha_v2'
+STAGE='PPRIME_NATIVE72_EXISTING_REPORT_INVARIANTS'
+MODULE='native72_invariants_alpha_v2.run'
+PLAN='SECONDARY_NATIVE72_INVARIANTS_READONLY_PLAN_V2'
+PROOF='SECONDARY_NATIVE72_INVARIANTS_READONLY_STARTUP_V2'
+FILES=('__init__.py','contract.py','guard.py','analysis.py','test_analysis.py','run.py','README.md')
+SCOPE={'original_main_job_id':'4521124','source_diagnosis_job_id':'1884773',
+    'retained_cases':72,'original_covariance_failures':15,'fixed_noisy_xtb_pair_groups':3,
+    'input_bodies':2,'original_fixture_methods':4,'derived_fixture_methods':4,
+    'all8_tests_must_pass_before_body_reads':True,'new_QM_calls':0,'new_UFF_calls':0,
+    'raw_SQLite_reads':0,'original_inputs_read':0,'pilot':False,'production_membership':False,
+    'original_failures_retained':True,'original_tolerances_changed':False,
+    'coordinates_recomputed_from_raw':False,'coordinate_evidence':'RECORDED_INPUT_ORBITS_AND_OLD_OUTPUT_FRAME_METADATA',
+    'arithmetic':'EXACT_FRACTION_OF_RECORDED_BINARY64_AND_NATIVE_DECIMAL_CENTERS',
+    'maximum_atoms':80,'maximum_vector_fields':4,'maximum_report_bytes':8388608,
+    'maximum_summary_bytes':262144,'whole_output_cap_bytes':33554432,
+    'algorithm_rss_soft_cap_bytes':8589934592,'minimum_mem_available_bytes':4294967296,
+    'wall_seconds':600,'dispatch_reserve_seconds':120,'full_or2000_QM_release':False,
+    'automatic_scientific_PASS':False}
+DATA=[{'path':str(ROOT/'artifacts/pprime_native72_readonly_v2/v1/native72_report.json'),
+       'bytes':2456111,'sha256':'0720c0fec59631ab02b6b574bf00933b31bd62062a38052b12c9de8375b77c8f'},
+      {'path':str(ROOT/'inputs/native72_v1/main/runs/data_v1_20261025/artifacts/vector_frame_audit/cpu_auto_memory_20261026_v1/frame_evaluation.json'),
+       'bytes':766822,'sha256':'36732244c5bcdaddfec9e22be847f3244076fdb3594d0ab8a663fbc9b3b91725'}]
+CONFIG={'path':str(ROOT/'inputs/native72_v1/main/runs/data_v1_20261025/repository/configs/data_v1/pprime/vector_frame_audit_root_v1.json'),
+    'bytes':6165,'sha256':'17d579c09ead14f01c747ca40d70796af1df0e6619f5ddcba334d595d94ad8fe'}
+ORIGINAL_CONFIG=dict(CONFIG,path='/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/pprime/vector_frame_audit_root_v1.json')
+SMALL_SUMMARY={'path':str(ROOT/'artifacts/pprime_native72_readonly_v2/v1/diagnosis_summary.json'),
+    'bytes':14184,'sha256':'68741f9fe70fb5094741b0c9d6f7f6a2858703ffd423ba9b7f36b7c6d8892d6d'}
+OLD_HELPERS=[{'path':str(OLD/name),'bytes':size,'sha256':sha} for name,size,sha in (
+    ('precision.py',6476,'1de0073f2face3b0b40a70e5a95b7ef98b1c2ee1ed2746bb33ac79791f2986d2'),
+    ('tokens.py',4657,'8b1e7fdf21a0fc77b0684727750f8d3cf9947a30ee2a5ff33fbf1e398fb529fc'),
+    ('test_v2.py',4673,'7ea819eb20c9ada17768e937db86090961649d9a04d7d19f770d1afb119b96ec'),
+    ('math_v1.py',9377,'98db545b56f87b4fb2fc4c0f7ad69c3e6f05ebbe507f4d19369a037599241e24'))]
+FIELDS={'pm7_dipole_Debye':2,'pm7_gradient_kcal_mol_A':6,'xtb_dipole_Debye':6,'xtb_gradient_Eh_bohr':1}
+NOISY_GROUPS={('molecule_01200493','pm7'),('molecule_01201800','uff_sprime'),('principal_00112266','pm7')}
