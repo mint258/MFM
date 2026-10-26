@@ -1,0 +1,378 @@
+{
+    "schema":  "model_v3_fixed_H0_shadow_readonly_analysis_v1",
+    "status":  "CLOSED_ARTIFACT_READONLY_ANALYSIS_NOT_ADOPTION",
+    "source_job":  {
+                       "job_id":  "4521503",
+                       "supervisor_status":  "COMPLETED",
+                       "supervisor_exit_code":  0,
+                       "Root_reported_Slurm_state":  "COMPLETED",
+                       "Root_reported_Slurm_exit_code":  "0:0",
+                       "Root_reported_elapsed_seconds":  13,
+                       "Root_reported_node":  "compute-0-13",
+                       "accounting_independently_queried_by_this_analysis":  false
+                   },
+    "sources":  {
+                    "result":  {
+                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_shadow_cpu_v3_4521503/SHADOW_RESULT.json",
+                                   "bytes":  714257,
+                                   "sha256":  "112bef0fd9523d6435be35d9bb49a42a6dfe4ac2e508f4cc9c89bbb37146500b"
+                               },
+                    "complete":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_shadow_cpu_v3_4521503/COMPLETE.json",
+                                     "bytes":  317,
+                                     "sha256":  "24ef7302dd59025c9486b6b1f57018b814b07f823f12ee841a392dc0205f7b1a"
+                                 },
+                    "CSV":  {
+                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_shadow_cpu_v3_4521503/shadow_summary.csv",
+                                "bytes":  92906,
+                                "sha256":  "bc6ac7da7c157c737ec216645e66d5ecad527cf4382fcd317456b417ff0620a7"
+                            },
+                    "CPU_supervisor":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_shadow_cpu_v3_supervisor_4521503.json",
+                                           "bytes":  4574,
+                                           "sha256":  "12819f2eb6ed87808ba092a809ca58e9af784562ab91439b98414d2a11ec4f52"
+                                       },
+                    "CPU_metadata_preflight":  {
+                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_shadow_cpu_v3_4521503/CPU_METADATA_PREFLIGHT.json",
+                                                   "bytes":  1296,
+                                                   "sha256":  "096486893b1a93ffa46c8e81b434a2f9edf4a8e339c24623954d4bd8b0d513f6"
+                                               },
+                    "sources_before":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_shadow_cpu_v3_4521503/sources_before.json",
+                                           "bytes":  73012,
+                                           "sha256":  "0d32318cd3a5275f3f7bf6c39fc574254223a7e1df63ad570fb62bf5e93bf982"
+                                       },
+                    "sources_after":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_shadow_cpu_v3_4521503/sources_after.json",
+                                          "bytes":  73012,
+                                          "sha256":  "0d32318cd3a5275f3f7bf6c39fc574254223a7e1df63ad570fb62bf5e93bf982"
+                                      },
+                    "capture_complete":  {
+                                             "bytes":  334,
+                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_v2_4521492/CAPTURE_COMPLETE.json",
+                                             "sha256":  "ea02ebb67ad52821ce668ea5cd525928e5136f7330a0a2783078ac5f992e4aae"
+                                         },
+                    "capture_supervisor":  {
+                                               "bytes":  3032,
+                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_v2_supervisor_4521492.json",
+                                               "sha256":  "a201380f9c4b5107eab50efa2a83ba4a8344eaed22c799ac44369a18be4fa75b"
+                                           },
+                    "capture_accounting":  {
+                                               "bytes":  390,
+                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/fixed_h0_capture_4521492_actual_accounting_full_v1.json",
+                                               "sha256":  "c1ad8055832f7319c083d97e1fdbc6e34262bd79d8e0bcc96e4d3b1acd976080"
+                                           },
+                    "capture_producer_source_pins":  {
+                                                         "bytes":  83294,
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/source_pins_v1.json",
+                                                         "sha256":  "230a1ed03f8ad9318d94d70f75f4951c2b754fae393618640932aceb245d42b8"
+                                                     },
+                    "CPU_analysis_source_pins":  {
+                                                     "bytes":  91866,
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v3_source/source_pins_v1.json",
+                                                     "sha256":  "2fc31c55ccd916778730f5d047cf4a9018e81ab95c528dee8e173dd2225ee6fc"
+                                                 }
+                },
+    "scope":  {
+                  "case_count":  48,
+                  "observations":  432,
+                  "observations_per_field":  144,
+                  "seeds":  [
+                                20261026,
+                                20261027
+                            ],
+                  "threshold":  1E-05,
+                  "count_definition":  "one observation is one case/field/transform; exceedance means saved maxabs across all output components \u003e1e-5",
+                  "model_or_tensor_or_NPZ_or_SDK_reads":  false,
+                  "JSON_CSV_only":  true,
+                  "CSV_JSON_numeric_cells_exactly_crosschecked":  3024,
+                  "capture_lineage":  "fresh_capture_not_1435_H0",
+                  "capture_is_original1435_H0":  false,
+                  "GPU_FP32_D_uses_FP64_L":  true,
+                  "original_FP32_physics_authority":  {
+                                                          "pass_cases":  10,
+                                                          "failed_cases":  38,
+                                                          "changed":  false
+                                                      },
+                  "FP64_is_diagnostic_only":  true,
+                  "scientific_adoption":  false
+              },
+    "definitions":  {
+                        "D":  "Ftt-L(F00), functional FP64 head at captured FP32 inputs",
+                        "H":  "L(Ft0-F00), inherited H0 change with original geometry",
+                        "G":  "F0t-L(F00), changed captured geometry at fixed H0",
+                        "I":  "Ftt-F0t-L(Ft0-F00), interaction",
+                        "head_arithmetic_delta":  "saved GPU_FP32_D minus functional64 D; includes all terminal arithmetic/backend differences, not a charge-only measurement",
+                        "CPU_FP32_D":  "original FP32 bank on CPU, differenced with FP64 L; backend control, not GPU acceptance",
+                        "signed_identity":  "GPU_FP32_D=H+G+I+head_arithmetic_delta, all at the SAME component",
+                        "cross_row_maxima_are_never_added":  true
+                    },
+    "fields":  [
+                   {
+                       "field":  "p_extensive",
+                       "observations":  144,
+                       "unique_cases":  48,
+                       "metrics":  {
+                                       "GPU_FP32_D":  {
+                                                          "maxabs":  1.5497207641601563E-05,
+                                                          "observations_gt_1e_5":  14,
+                                                          "unique_cases_gt_1e_5":  12
+                                                      },
+                                       "CPU_FP32_D":  {
+                                                          "maxabs":  1.811981201171875E-05,
+                                                          "observations_gt_1e_5":  16,
+                                                          "unique_cases_gt_1e_5":  11
+                                                      },
+                                       "D":  {
+                                                 "maxabs":  1.1330582434965208E-05,
+                                                 "observations_gt_1e_5":  1,
+                                                 "unique_cases_gt_1e_5":  1
+                                             },
+                                       "H":  {
+                                                 "maxabs":  1.1330582434965208E-05,
+                                                 "observations_gt_1e_5":  1,
+                                                 "unique_cases_gt_1e_5":  1
+                                             },
+                                       "G":  {
+                                                 "maxabs":  0,
+                                                 "observations_gt_1e_5":  0,
+                                                 "unique_cases_gt_1e_5":  0
+                                             },
+                                       "I":  {
+                                                 "maxabs":  0,
+                                                 "observations_gt_1e_5":  0,
+                                                 "unique_cases_gt_1e_5":  0
+                                             },
+                                       "head_arithmetic_delta":  {
+                                                                     "maxabs":  1.0464111309005375E-05,
+                                                                     "observations_gt_1e_5":  2,
+                                                                     "unique_cases_gt_1e_5":  2
+                                                                 }
+                                   },
+                       "worst_GPU_observation":  {
+                                                     "case_id":  "C1-a__three__H1_fixed__seed20261026",
+                                                     "transform":  "general_rotation",
+                                                     "maxabs_GPU_FP32_D":  1.5497207641601563E-05,
+                                                     "argmax":  {
+                                                                    "component":  0,
+                                                                    "row":  2,
+                                                                    "same_component_terms":  {
+                                                                                                 "CPU_FP32_D":  -7.152557373046875E-06,
+                                                                                                 "D":  -6.3230822302529077E-06,
+                                                                                                 "G":  0.0,
+                                                                                                 "GPU_FP32_D":  -1.5497207641601563E-05,
+                                                                                                 "H":  -6.3230822302529077E-06,
+                                                                                                 "I":  0.0,
+                                                                                                 "head_arithmetic_delta":  -9.1741254113486548E-06
+                                                                                             }
+                                                                },
+                                                     "graph_atoms":  32
+                                                 },
+                       "largest_absolute_term_at_saved_GPU_argmax_among_GPU_exceedances":  {
+                                                                                               "H":  6,
+                                                                                               "G":  0,
+                                                                                               "I":  0,
+                                                                                               "head_arithmetic_delta":  8,
+                                                                                               "ties":  0
+                                                                                           },
+                       "GPU_exceedance_argmax_graph_counts":  {
+                                                                  "row0_3atoms":  0,
+                                                                  "row1_9atoms":  0,
+                                                                  "row2_32atoms":  14
+                                                              }
+                   },
+                   {
+                       "field":  "p_dipole",
+                       "observations":  144,
+                       "unique_cases":  48,
+                       "metrics":  {
+                                       "GPU_FP32_D":  {
+                                                          "maxabs":  2.1939841282838865E-05,
+                                                          "observations_gt_1e_5":  35,
+                                                          "unique_cases_gt_1e_5":  23
+                                                      },
+                                       "CPU_FP32_D":  {
+                                                          "maxabs":  2.8520822525024414E-05,
+                                                          "observations_gt_1e_5":  58,
+                                                          "unique_cases_gt_1e_5":  40
+                                                      },
+                                       "D":  {
+                                                 "maxabs":  2.3914205988795345E-05,
+                                                 "observations_gt_1e_5":  39,
+                                                 "unique_cases_gt_1e_5":  26
+                                             },
+                                       "H":  {
+                                                 "maxabs":  2.3913742721148878E-05,
+                                                 "observations_gt_1e_5":  37,
+                                                 "unique_cases_gt_1e_5":  26
+                                             },
+                                       "G":  {
+                                                 "maxabs":  2.3765780809981152E-07,
+                                                 "observations_gt_1e_5":  0,
+                                                 "unique_cases_gt_1e_5":  0
+                                             },
+                                       "I":  {
+                                                 "maxabs":  5.4435999944626914E-13,
+                                                 "observations_gt_1e_5":  0,
+                                                 "unique_cases_gt_1e_5":  0
+                                             },
+                                       "head_arithmetic_delta":  {
+                                                                     "maxabs":  1.3484657500839603E-05,
+                                                                     "observations_gt_1e_5":  2,
+                                                                     "unique_cases_gt_1e_5":  2
+                                                                 }
+                                   },
+                       "worst_GPU_observation":  {
+                                                     "case_id":  "C1-0__two__H3_fixed__seed20261026",
+                                                     "transform":  "general_rotation",
+                                                     "maxabs_GPU_FP32_D":  2.1939841282838865E-05,
+                                                     "argmax":  {
+                                                                    "component":  0,
+                                                                    "row":  2,
+                                                                    "same_component_terms":  {
+                                                                                                 "CPU_FP32_D":  2.0607351378831157E-05,
+                                                                                                 "D":  1.7186877563402786E-05,
+                                                                                                 "G":  -7.0560015157095091E-09,
+                                                                                                 "GPU_FP32_D":  2.1939841282838865E-05,
+                                                                                                 "H":  1.7193933399768335E-05,
+                                                                                                 "I":  1.6515016079948069E-13,
+                                                                                                 "head_arithmetic_delta":  4.7529637194360791E-06
+                                                                                             }
+                                                                },
+                                                     "graph_atoms":  32
+                                                 },
+                       "largest_absolute_term_at_saved_GPU_argmax_among_GPU_exceedances":  {
+                                                                                               "H":  30,
+                                                                                               "G":  0,
+                                                                                               "I":  0,
+                                                                                               "head_arithmetic_delta":  5,
+                                                                                               "ties":  0
+                                                                                           },
+                       "GPU_exceedance_argmax_graph_counts":  {
+                                                                  "row0_3atoms":  0,
+                                                                  "row1_9atoms":  0,
+                                                                  "row2_32atoms":  35
+                                                              }
+                   },
+                   {
+                       "field":  "p_dipole_magnitude",
+                       "observations":  144,
+                       "unique_cases":  48,
+                       "metrics":  {
+                                       "GPU_FP32_D":  {
+                                                          "maxabs":  5.6512653827667236E-05,
+                                                          "observations_gt_1e_5":  32,
+                                                          "unique_cases_gt_1e_5":  19
+                                                      },
+                                       "CPU_FP32_D":  {
+                                                          "maxabs":  4.0017068386077881E-05,
+                                                          "observations_gt_1e_5":  38,
+                                                          "unique_cases_gt_1e_5":  23
+                                                      },
+                                       "D":  {
+                                                 "maxabs":  3.8905694872831686E-05,
+                                                 "observations_gt_1e_5":  25,
+                                                 "unique_cases_gt_1e_5":  17
+                                             },
+                                       "H":  {
+                                                 "maxabs":  3.8981121516248884E-05,
+                                                 "observations_gt_1e_5":  25,
+                                                 "unique_cases_gt_1e_5":  17
+                                             },
+                                       "G":  {
+                                                 "maxabs":  2.5510031725906046E-07,
+                                                 "observations_gt_1e_5":  0,
+                                                 "unique_cases_gt_1e_5":  0
+                                             },
+                                       "I":  {
+                                                 "maxabs":  4.2833389612972894E-11,
+                                                 "observations_gt_1e_5":  0,
+                                                 "unique_cases_gt_1e_5":  0
+                                             },
+                                       "head_arithmetic_delta":  {
+                                                                     "maxabs":  1.760695895483555E-05,
+                                                                     "observations_gt_1e_5":  8,
+                                                                     "unique_cases_gt_1e_5":  4
+                                                                 }
+                                   },
+                       "worst_GPU_observation":  {
+                                                     "case_id":  "C1-0__three__H1_fixed__seed20261027",
+                                                     "transform":  "other_rotation_and_translation",
+                                                     "maxabs_GPU_FP32_D":  5.6512653827667236E-05,
+                                                     "argmax":  {
+                                                                    "component":  0,
+                                                                    "row":  2,
+                                                                    "same_component_terms":  {
+                                                                                                 "CPU_FP32_D":  4.0017068386077881E-05,
+                                                                                                 "D":  3.8905694872831686E-05,
+                                                                                                 "G":  -7.54235731578734E-08,
+                                                                                                 "GPU_FP32_D":  5.6512653827667236E-05,
+                                                                                                 "H":  3.8981121516248884E-05,
+                                                                                                 "I":  -3.0702593245557352E-12,
+                                                                                                 "head_arithmetic_delta":  1.760695895483555E-05
+                                                                                             }
+                                                                },
+                                                     "graph_atoms":  32
+                                                 },
+                       "largest_absolute_term_at_saved_GPU_argmax_among_GPU_exceedances":  {
+                                                                                               "H":  25,
+                                                                                               "G":  0,
+                                                                                               "I":  0,
+                                                                                               "head_arithmetic_delta":  7,
+                                                                                               "ties":  0
+                                                                                           },
+                       "GPU_exceedance_argmax_graph_counts":  {
+                                                                  "row0_3atoms":  0,
+                                                                  "row1_9atoms":  0,
+                                                                  "row2_32atoms":  32
+                                                              }
+                   }
+               ],
+    "global":  {
+                   "GPU_FP32_D":  {
+                                      "observations_gt_1e_5":  81,
+                                      "unique_cases_gt_1e_5":  38
+                                  },
+                   "CPU_FP32_D":  {
+                                      "observations_gt_1e_5":  112,
+                                      "unique_cases_gt_1e_5":  45
+                                  },
+                   "D":  {
+                             "observations_gt_1e_5":  65,
+                             "unique_cases_gt_1e_5":  31
+                         },
+                   "H":  {
+                             "observations_gt_1e_5":  63,
+                             "unique_cases_gt_1e_5":  31
+                         },
+                   "G":  {
+                             "observations_gt_1e_5":  0,
+                             "unique_cases_gt_1e_5":  0
+                         },
+                   "I":  {
+                             "observations_gt_1e_5":  0,
+                             "unique_cases_gt_1e_5":  0
+                         },
+                   "head_arithmetic_delta":  {
+                                                 "observations_gt_1e_5":  12,
+                                                 "unique_cases_gt_1e_5":  8
+                                             }
+               },
+    "closure_maxima":  {
+                           "CPU_FP32":  1.0587911840678754E-22,
+                           "FP64":  1.3234889800848443E-23
+                       },
+    "CPU_FP32_vs_GPU_moved_maxabs":  3.0636787414550781E-05,
+    "conclusions":  {
+                        "functional64_three_fields_remaining_exceedance_cases":  31,
+                        "functional64_three_fields_remaining_exceedance_observations":  65,
+                        "H_largest_term_at_saved_GPU_bad_argmax":  61,
+                        "head_arithmetic_largest_term_at_saved_GPU_bad_argmax":  20,
+                        "claim_scope":  "this captured fixed input/weight domain only; largest term is not variance explained or a universal causal fraction",
+                        "head_only_charge_center_rewrite_supported_as_complete_fix":  false,
+                        "charge_center_rewrite_may_be_separately_preregistered_as_secondary_arithmetic_hypothesis":  true,
+                        "common_charge_cancellation_not_isolated_by_this_analysis":  true,
+                        "FP32_impossibility_or_quantization_lower_bound_proved":  false,
+                        "next_candidate_implemented":  false
+                    }
+}

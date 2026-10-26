@@ -1,0 +1,115 @@
+{
+    "schema":  "model_v3_full_encoder_precision_analysis_protocol_v1",
+    "status":  "SOURCE_ONLY_REGISTER_BEFORE_ANY_EXECUTION",
+    "scope":  "FINITE_FP64_ANALYSIS_REFERENCE_NOT_PRODUCTION_PROPOSAL",
+    "capture_complete":  {
+                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_v2_4521492/CAPTURE_COMPLETE.json",
+                             "bytes":  334,
+                             "sha256":  "ea02ebb67ad52821ce668ea5cd525928e5136f7330a0a2783078ac5f992e4aae"
+                         },
+    "capture_producer_source_pins":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/source_pins_v1.json",
+                                         "bytes":  83294,
+                                         "sha256":  "230a1ed03f8ad9318d94d70f75f4951c2b754fae393618640932aceb245d42b8"
+                                     },
+    "capture_supervisor":  {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_v2_supervisor_4521492.json",
+                               "bytes":  3032,
+                               "sha256":  "a201380f9c4b5107eab50efa2a83ba4a8344eaed22c799ac44369a18be4fa75b"
+                           },
+    "capture_accounting":  {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/fixed_h0_capture_4521492_actual_accounting_full_v1.json",
+                               "bytes":  390,
+                               "sha256":  "c1ad8055832f7319c083d97e1fdbc6e34262bd79d8e0bcc96e4d3b1acd976080"
+                           },
+    "functional64_source":  {
+                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v3_source/shadow_terminals_v1.py",
+                                "bytes":  20147,
+                                "sha256":  "ec846b678c888720ac79d78fa0e9a16b82bd5f23f6db0313399ced1479e6e31d"
+                            },
+    "functional64_source_scope":  "reuse_original_functional64_without_arithmetic_changes_on_CUDA; do_not_call_original_CPU_main_or_evaluate",
+    "only_actual_FP32_input_promoted":  true,
+    "ideal_coordinate_counterfactual":  false,
+    "polar_or_new_rotation":  false,
+    "original_case_count":  48,
+    "weight_seeds":  [
+                         20261026,
+                         20261027
+                     ],
+    "expected_FP32_encoder_forwards":  192,
+    "expected_FP64_encoder_forwards":  192,
+    "global_replay_gate":  "All48_and192_roles_actual_bank_H0_pos_batch_bitwise_and_original_parameter_SHA_before_ANY_FP64_scientific_forward",
+    "new_internal_H0_is_original1492_without_bitwise_gate":  false,
+    "state_copy":  "Original compensated configuration strict_state_copy first; all floating_encoder_state FP32_to_FP64_lossless; explicit legacy metadata on_shadow_only; no_new_initialization",
+    "canonical_H0":  "full_physical_views_post_out_norm_packed_Nx512_then_same_clean_atom_rows_44x512",
+    "stage_scope":  [
+                        "embedding",
+                        "layer0",
+                        "layer1",
+                        "layer2",
+                        "layer3",
+                        "layer4",
+                        "layer5",
+                        "out_norm",
+                        "packed_H0"
+                    ],
+    "stage_capture":  "references_only_hooks; copy_after_full_original_forward_return; finally_remove_hooks",
+    "stage_comparison_scopes":  [
+                                    "all_packed_physical_views",
+                                    "clean44_bank_rows"
+                                ],
+    "F64_fields":  [
+                       "p_extensive",
+                       "p_dipole",
+                       "p_dipole_magnitude"
+                   ],
+    "R":  "actual1492_saved_rotation_float64_on_CUDA; unchanged; orthogonality_residual_reported",
+    "original_FP32_threshold":  1E-05,
+    "FP64_analysis_is_FP32_acceptance":  false,
+    "FP64_remaining_drift_is_proved_coordinate_quantization_only":  false,
+    "FP32_drift_minus_FP64_drift_is_finite_reference_residual_not_mathematical_lower_bound":  true,
+    "analysis_closure_tolerance":  1E-10,
+    "inline_controls":  {
+                            "tiny_one_layer_dim4_legacy_F32_vs_preserving_forward_bitwise":  [
+                                                                                                 "C1-0",
+                                                                                                 "C1-a",
+                                                                                                 "C1-b"
+                                                                                             ],
+                            "tiny_FP64_dtype_and_same_input_repeat":  true,
+                            "unchanged_functional64_CPU_CUDA_parity_maxabs":  1E-10,
+                            "head_forms":  [
+                                               "H1_sum",
+                                               "H1_learned",
+                                               "H2_sum",
+                                               "H3_sum"
+                                           ],
+                            "tiny_selfcheck_scope":  "not_added_scientific_fixture_cases_or_new_seed_selection",
+                            "typed_output_allow_pickleFalse_roundtrip":  true
+                        },
+    "active_encoder_radius_mask":  false,
+    "active_C1_cutoff":  null,
+    "S_geometry_or_pair_head_FP64_covered":  false,
+    "node":  "compute-0-21",
+    "GPU_UUID":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+    "CPU_count":  16,
+    "memory_bytes":  34359738368,
+    "RSS_limit_bytes":  30064771072,
+    "wall_seconds":  1100,
+    "whole_output_bytes":  2147483648,
+    "private_bytes":  2147483648,
+    "original_input_bytes_limit":  134217728,
+    "existing_input_copied":  false,
+    "model_weights_persisted":  false,
+    "reference_H0_persistence":  "48files_4roles_each_float64_44x512_34603008_numeric_bytes_plus_headers",
+    "scientific_adoption":  false,
+    "production_or_candidate_edited":  false,
+    "historical1492_full_encoder_buffer_rawSHA_saved":  false,
+    "encoder_buffer_evidence":  "No independent historical1492 encoder buffer hash; frozen source+old named_parameterSHA+all192 bankH0 bitwise gate, and current replayed original→shadow strict/lossless buffer checks",
+    "expected_functional64_scientific_bank_calls":  192,
+    "expected_functional64_scientific_field_outputs":  576,
+    "expected_separate_tiny_dim4_one_layer_encoder_forwards":  12,
+    "expected_separate_small_functional64_CPU_bank_calls":  4,
+    "expected_separate_small_functional64_CUDA_bank_calls":  4,
+    "F64_encoder_input":  "Full original frame Data and packed physical88or132, originalbatch/masks/allviews; only after encoder same canonical44 selected for PD/output",
+    "F64_encoder_inputs_reduced_to_clean44":  false
+}
