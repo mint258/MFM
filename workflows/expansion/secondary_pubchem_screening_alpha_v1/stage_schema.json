@@ -1,0 +1,91 @@
+{
+    "$schema":  "https://json-schema.org/draft/2020-12/schema",
+    "title":  "Three exact bounded Alpha PubChem stages",
+    "type":  "object",
+    "required":  [
+                     "schema",
+                     "mode",
+                     "producer_key",
+                     "scope_key",
+                     "stage",
+                     "scope_parameters",
+                     "kind",
+                     "pilot",
+                     "endpoint",
+                     "uid",
+                     "run_root",
+                     "node",
+                     "cpus",
+                     "memory_policy",
+                     "wall_seconds",
+                     "output_cap_bytes",
+                     "python",
+                     "execution_argv",
+                     "data_references",
+                     "source_references",
+                     "parent_evidence_references",
+                     "frozen_manifest_reference",
+                     "metadata_relocation_reference",
+                     "main_evidence_references",
+                     "resource_authority_reference",
+                     "cost_decision_reference",
+                     "root_review_reference",
+                     "raw_reference",
+                     "main_index_reference",
+                     "alpha_raw_validation_receipt_reference",
+                     "alpha_raw_validation_accounting_reference",
+                     "startup_proof_path",
+                     "output_directory",
+                     "scope_mode",
+                     "performance_profile"
+                 ],
+    "properties":  {
+                       "mode":  {
+                                    "enum":  [
+                                                 "inventory",
+                                                 "profile",
+                                                 "full_shard"
+                                             ]
+                                },
+                       "kind":  {
+                                    "const":  "analysis"
+                                },
+                       "uid":  {
+                                   "const":  1264
+                               },
+                       "output_cap_bytes":  {
+                                                "maximum":  1099511627776,
+                                                "type":  "integer",
+                                                "minimum":  16777216
+                                            },
+                       "wall_seconds":  {
+                                            "maximum":  172800,
+                                            "multipleOf":  60,
+                                            "type":  "integer",
+                                            "minimum":  60
+                                        },
+                       "execution_argv":  {
+                                              "minItems":  8,
+                                              "type":  "array",
+                                              "maxItems":  8
+                                          },
+                       "cpus":  {
+                                    "const":  16
+                                },
+                       "memory_policy":  {
+                                             "const":  "SLURM_DEFAULT_UNSPECIFIED"
+                                         },
+                       "scope_parameters":  {
+                                                "type":  "object",
+                                                "description":  "Must equal contracts.parameters(mode, exact requested bounds), validated by guard."
+                                            },
+                       "endpoint":  {
+                                        "const":  "218.192.171.238:22"
+                                    },
+                       "data_references":  {
+                                               "type":  "array",
+                                               "description":  "Exact per-mode scientific data locators, never early small sources."
+                                           }
+                   },
+    "description":  "Guard and README define exact per-mode schemas, fixtures, authority chain, source copies and exclusive full partition; this schema does not grant pool release."
+}

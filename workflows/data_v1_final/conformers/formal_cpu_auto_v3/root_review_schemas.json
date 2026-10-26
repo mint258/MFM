@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:data-v1:sprime-formal-cpu-auto-v3:root-reviews",
+  "description": "Root authors actual reviews; this schema and example are not approvals. Runtime semantic checks in contract.py remain mandatory.",
+  "$defs": {
+    "reference": {"type":"object","required":["path","bytes","sha256"],"additionalProperties":false,"properties":{"path":{"type":"string","pattern":"^/"},"bytes":{"type":"integer","minimum":1},"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"}}},
+    "pilotReview": {
+      "type":"object","required":["schema","status","reviewer","closure_report","terminal_outcomes","pilot_tasks","actual_accounting","resource_authority","cost_authority","accept_scientific_failure_disclosure","accept_execution_unknown_as_consumed","full_forecast_status","formal_generation_authorized"],
+      "properties":{"schema":{"const":"SPRIME_CENSORED_PILOT_ROOT_REVIEW_V3"},"status":{"const":"ACCEPTED_FOR_BOUNDED_PLANNING"},"reviewer":{"const":"root"},"closure_report":{"$ref":"#/$defs/reference"},"terminal_outcomes":{"$ref":"#/$defs/reference"},"pilot_tasks":{"$ref":"#/$defs/reference"},"actual_accounting":{"$ref":"#/$defs/reference"},"resource_authority":{"$ref":"#/$defs/reference"},"cost_authority":{"$ref":"#/$defs/reference"},"accept_scientific_failure_disclosure":{"const":true},"accept_execution_unknown_as_consumed":{"const":true},"full_forecast_status":{"const":"RIGHT_CENSORED_NO_VALIDATED_FULL_FORECAST"},"formal_generation_authorized":{"const":false}}
+    },
+    "jobSlot": {
+      "type":"object","required":["batch_id","job_name","node","cpus","wall_seconds","whole_output_cap_bytes","memory_policy","output_root"],
+      "properties":{"batch_id":{"type":"string","minLength":1},"job_name":{"type":"string","minLength":1},"node":{"const":"compute-0-13"},"cpus":{"const":16},"wall_seconds":{"type":"integer","minimum":60,"maximum":172800,"multipleOf":60},"whole_output_cap_bytes":{"const":8589934592},"memory_policy":{"const":"SLURM_DEFAULT_UNSPECIFIED"},"output_root":{"type":"string","pattern":"^/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/conformers/formal_cpu_auto_v3/"}},
+      "not":{"anyOf":[{"required":["job_id"]},{"required":["memory_gib"]}]}
+    },
+    "waveReview": {
+      "type":"object","required":["schema","status","reviewer","draft_reference","config_reference","jobs","maximum_concurrent_jobs","requested_allocation_core_seconds_ceiling","approved_over_500_core_hours","full_forecast_status","estimated_full_core_hours","ceiling_is_not_full_forecast_or_actual_cost_guarantee","scientific_quality_thresholds_unchanged","resource_authority","cost_authority"],
+      "properties":{"schema":{"const":"SPRIME_FORMAL_CPU_ROOT_REVIEW_V3"},"status":{"const":"APPROVED_BOUNDED_WAVE"},"reviewer":{"const":"root"},"draft_reference":{"$ref":"#/$defs/reference"},"config_reference":{"$ref":"#/$defs/reference"},"jobs":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/jobSlot"}},"maximum_concurrent_jobs":{"type":"integer","minimum":1},"requested_allocation_core_seconds_ceiling":{"type":"integer","minimum":1},"approved_over_500_core_hours":{"const":true},"full_forecast_status":{"const":"RIGHT_CENSORED_NO_VALIDATED_FULL_FORECAST"},"estimated_full_core_hours":{"type":"null"},"ceiling_is_not_full_forecast_or_actual_cost_guarantee":{"const":true},"scientific_quality_thresholds_unchanged":{"const":true},"resource_authority":{"$ref":"#/$defs/reference"},"cost_authority":{"$ref":"#/$defs/reference"}}
+    },
+    "quotaReuseReview": {
+      "type":"object","required":["schema","status","reviewer","endpoint","uid","compute_node","provider_source_reference","provider_review_reference","whole_wave_output_reserve_bytes","scientific_authority_is_separate","N1_population_authority_is_not_Sprime_authority"],
+      "properties":{"schema":{"const":"SPRIME_MAIN_ACCOUNT_QUOTA_REUSE_ROOT_REVIEW_V3"},"status":{"const":"APPROVED_RESOURCE_FACT_REUSE_ONLY"},"reviewer":{"const":"root"},"endpoint":{"const":"202.38.247.57:22"},"uid":{"const":1278},"compute_node":{"const":"compute-0-13"},"provider_source_reference":{"$ref":"#/$defs/reference"},"provider_review_reference":{"$ref":"#/$defs/reference"},"whole_wave_output_reserve_bytes":{"type":"integer","minimum":8589934592},"scientific_authority_is_separate":{"const":true},"N1_population_authority_is_not_Sprime_authority":{"const":true}}
+    },
+    "relatedCostReview": {
+      "type":"object","required":["schema","status","reviewer","owned_master_reference","related_parent_ids","parent_classifications","complete_owned_master_reviewed","all_related_known_terminal_parents_included"],
+      "properties":{"schema":{"const":"SPRIME_RELATED_PARENT_ACCOUNTING_ROOT_REVIEW_V3"},"status":{"const":"CURRENT_TERMINAL_RELATED_PARENT_SET_REVIEWED"},"reviewer":{"const":"root"},"owned_master_reference":{"$ref":"#/$defs/reference"},"related_parent_ids":{"type":"array","uniqueItems":true,"items":{"type":"string","pattern":"^[0-9]+$"}},"parent_classifications":{"type":"array","items":{"type":"object","required":["job_id","decision","reason"],"properties":{"job_id":{"type":"string","pattern":"^[0-9]+$"},"decision":{"enum":["RELATED_TERMINAL","RELATED_ACTIVE_APPEND_PENDING","UNRELATED_ROOT_REVIEWED"]},"reason":{"type":"string","minLength":1}}}},"complete_owned_master_reviewed":{"const":true},"all_related_known_terminal_parents_included":{"const":true}}
+    }
+  },
+  "oneOf":[{"$ref":"#/$defs/pilotReview"},{"$ref":"#/$defs/waveReview"},{"$ref":"#/$defs/quotaReuseReview"},{"$ref":"#/$defs/relatedCostReview"}]
+}
