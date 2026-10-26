@@ -1,0 +1,40 @@
+{
+  "schema": "N1_TERMINAL_SOURCE_CLOSE_METADATA_CONTRACTS_V1",
+  "source_only_not_executed": true,
+  "closed_index": {
+    "schema": "ROOT_N1_SOURCE_TERMINAL_CLOSE_INDEX_V1",
+    "reviewer": "root",
+    "endpoint": "202.38.247.57:22",
+    "uid": 1278,
+    "prepared_reference": "EXISTING_ACTUAL_FROZEN_PREPARED_SHA_TRIPLE",
+    "all_known_source_submissions_included": true,
+    "all_known_related_terminal_cost_parents_included": true,
+    "automatic_retry_authorized": false,
+    "registrations": [
+      {
+        "request_reference": "EXISTING_REGISTERED_SOURCE_REQUEST_SHA_TRIPLE",
+        "submission_reference": "EXISTING_ACTUAL_SUCCESSFUL_SUBMISSION_SHA_TRIPLE",
+        "closed_batch_reference": "EXISTING_ACTUAL_CPU_READONLY_CLOSE_REPORT_SHA_TRIPLE"
+      }
+    ]
+  },
+  "illustration_only_not_actual_authority": true,
+  "scope_keys": ["n1_pprime2_source_terminal_close_v1", "n1_pprime2_source_terminal_reduce_v1"],
+  "scope_literal_authority": "contract.scope(stage); stage is close or reduce",
+  "actual_input_schema": "DATA_V1_PARENT_ACCOUNTING_CLOSURE_V1",
+  "actual_close_output_schema": "N1_SOURCE_REGISTERED_TERMINAL_BATCH_CLOSED_V1",
+  "actual_reduce_output_schema": "N1_REGISTERED_TERMINAL_SOURCE_REDUCTION_V1",
+  "reference_shape": {"path": "ABSOLUTE_LITERAL_EXISTING_PATH", "bytes": "ACTUAL_INTEGER", "sha256": "ACTUAL_64_LOWERCASE_HEX"},
+  "malformed_evidence_observation": "May preserve zero bytes or no valid triple; never becomes an authorized input or valid packet.",
+  "producer_receipt_required": false,
+  "producer_C0_required": false,
+  "full_preparation_C0_required": true,
+  "all_claim_owner_terminal_accounting_required": true,
+  "missing_claim_or_start_with_packet": "UNKNOWN_CONFLICT_DURABLE_EVIDENCE_NO_AUTORETRY",
+  "new_UFF_calls": 0,
+  "new_QM_calls": 0,
+  "automatic_retry_authorized": false,
+  "common": false,
+  "scientific_quality_release": false,
+  "physical_int64_integration_frozen": false
+}
