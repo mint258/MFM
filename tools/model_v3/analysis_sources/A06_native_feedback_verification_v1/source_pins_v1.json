@@ -1,0 +1,98 @@
+{
+    "schema":  "model_v3_A06_feedback_verifier_sources_v1",
+    "status":  "PREPARED_STATIC_REVIEW_ONLY_NOT_EXECUTED",
+    "files":  [
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_native_feedback_verification_v1_source/feedback_schema.py",
+                      "bytes":  27267,
+                      "sha256":  "0d4439413f70b6302a84bb78f780270e3c4dd52767d42d8362a80c6df0e51ee8"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_native_feedback_verification_v1_source/verify_feedback_sdk.py",
+                      "bytes":  7418,
+                      "sha256":  "fb5c9552602c7edb8bd6a6aef49a73c5174ff8f13f0d5f4c2a7320060b4de189"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_native_feedback_verification_v1_source/report_feedback.py",
+                      "bytes":  10264,
+                      "sha256":  "a655f3013483e01c2efe5fc6affe42002c447d418403753ac1f8b50c3a4b8641"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_native_feedback_verification_v1_source/prepare_feedback_inputs.py",
+                      "bytes":  3577,
+                      "sha256":  "3c49d38849c91dd36e2bd5e76aefe9c1ef5fb33df94d40cecc31f13db5294a42"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_native_feedback_verification_v1_source/test_feedback_verification.py",
+                      "bytes":  23899,
+                      "sha256":  "0ab3a5c9fa571225fa6b53943125c9b634144a174104d8d5910789c8308bf039"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_native_feedback_verification_v1_source/README.md",
+                      "bytes":  11502,
+                      "sha256":  "a7727b538b12e0e114872f0e4b7629562cc886abad775feed8273823c1009f85"
+                  }
+              ],
+    "readonly_dependencies":  [
+                                  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/archive_closed_v7_source/bounded_history_v7.py",
+                                      "bytes":  11112,
+                                      "sha256":  "6aee76e16c182be97b7f88e635b43948510d0fc335e0ccfbf9ba107a1c29ab95"
+                                  },
+                                  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_gradient_feedback_diagnostic_v1/diagnose_native_feedback.py",
+                                      "bytes":  40539,
+                                      "sha256":  "b8fb0c05feda698d35a56de40c62d060feb3fc5b3ae2eab7bd593ae95b926004"
+                                  },
+                                  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_gradient_feedback_diagnostic_v1/source_pins_v1.json",
+                                      "bytes":  20217,
+                                      "sha256":  "7daacc3e9b465f007a10cd0b0644c4f1e8f96f8801d76b6a3943c8c4981e269d"
+                                  },
+                                  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/check_repository.py",
+                                      "bytes":  7847,
+                                      "sha256":  "b84e6343c5acb0230c43fbb02279ff990d91d62c33e59fb2dbd1da2d01419301"
+                                  },
+                                  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A06_native_feedback_actual_closed_inputs_v1.json",
+                                      "bytes":  24892,
+                                      "sha256":  "d400e494e5892909ab988fac5090cf24d34d56434aba56905a6aaee1e6fa0ed5"
+                                  }
+                              ],
+    "expected_tests":  46,
+    "unit_command":  "python -B -m pytest -q -s /share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/a06_native_feedback_verification_v1_source/test_feedback_verification.py",
+    "unit_environment":  {
+                             "SA3_REPOSITORY_CHECKER":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/check_repository.py",
+                             "PYTHONDONTWRITEBYTECODE":  "1",
+                             "CUDA_VISIBLE_DEVICES":  ""
+                         },
+    "requirements":  "Existing stdlib/pytest/WandB/protobuf only; no new package",
+    "limits":  {
+                   "record_bytes":  4194304,
+                   "SDK_bytes":  134217728,
+                   "output_bytes":  67108864,
+                   "expected_history_rows":  17,
+                   "wall_seconds":  180,
+                   "history_rows":  100000,
+                   "native_records":  500000
+               },
+    "unit_storage":  {
+                         "no_guard_increase":  true,
+                         "existing_parent_private_budget_bytes":  2147483648,
+                         "estimate_not_measured":  true,
+                         "tensor_or_embedding_files":  0,
+                         "synthetic_metadata_estimated_bytes":  4194304,
+                         "model_checkpoints":  0
+                     },
+    "executed_by_agent":  {
+                              "online_sync":  false,
+                              "sbatch":  false,
+                              "SSH":  false,
+                              "tests":  false,
+                              "python":  false
+                          },
+    "existing_artifacts_modified":  false,
+    "original_scientific_gate":  "FAILED_UNCHANGED",
+    "scientific_acceptance":  false
+}

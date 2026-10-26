@@ -1,0 +1,51 @@
+{
+  "schema": "model_v3_actual_QA55_C0_metadata_v1",
+  "status": "ACTUAL_55_PASS_ZERO_SKIP_OUTER_C0",
+  "job_id": "4521398",
+  "raw_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4521398",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4521398|zixiao|COMPLETED|0:0|5|16|compute-0-13\n",
+    "stderr": ""
+  },
+  "summary": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4521398/summary.json",
+    "bytes": 5519,
+    "sha256": "6efa6641ff9987d854b234c431a5d60917c772cb87aaf545c2f3b1c9527fa938"
+  },
+  "unit": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4521398/wandb_native_integrity_v1.json",
+    "bytes": 4649,
+    "sha256": "b061ad0ccc3e694abc231fc087bb47d15f7a994b3bf89450b89b107363e83a5a"
+  },
+  "xml": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4521398/wandb_native_integrity_v1.xml",
+    "bytes": 11162,
+    "sha256": "83e8471849310d8433f8ccfd4f497805d58ca4863fd6db8c7a9e8cb7deee449d"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_supervisor_4521398.json",
+    "bytes": 3014,
+    "sha256": "ef3f5a180fb872a94fe73500b431dfe32eb6f2229d925564306d2cb2025d3ffe"
+  },
+  "request": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_request_v55.json",
+    "bytes": 2945,
+    "sha256": "61b4cbc5ee0a96d5193b14600c167ab81a6605a8112a6e624b473ef9b82b4a5a"
+  },
+  "counts": {
+    "tests": 55,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "actual_model_execution": false
+}
