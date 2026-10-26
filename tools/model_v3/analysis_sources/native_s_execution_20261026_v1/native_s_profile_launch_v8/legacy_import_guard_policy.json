@@ -1,0 +1,29 @@
+{
+    "schema":  "native_S_exact_legacy_optional_import_policy_v5",
+    "owner_relative_path":  "current/phychem_mfm/training/degrade_molecules.py",
+    "owner_sha256":  "3528566aed8bc0303dddfddfcafa400fdb7826a5be1471e7855a36af80587340",
+    "function_name":  "create_dataset",
+    "historical_source_key":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_s_precision/current/phychem_mfm/training/degrade_molecules.py",
+    "historical_actual_unit":  {
+                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4521103/native_s_core_cli.json",
+                                   "bytes":  56595,
+                                   "sha256":  "0bbdb5669a23360ea4e109b1375e718480696b21985877b00ba53afe35d8d6d0"
+                               },
+    "imports":  [
+                    {
+                        "absolute_name":  "phychem_mfm.dataset.dataset_lmdb",
+                        "relative_module":  "dataset.dataset_lmdb",
+                        "level":  2,
+                        "symbol":  "LmdbMoleculeDataset",
+                        "fallback_module":  "dataset.dataset_lmdb"
+                    },
+                    {
+                        "absolute_name":  "phychem_mfm.dataset.dataset_without_charge",
+                        "relative_module":  "dataset.dataset_without_charge",
+                        "level":  2,
+                        "symbol":  "MoleculeDataset",
+                        "fallback_module":  "dataset.dataset_without_charge"
+                    }
+                ],
+    "scope":  "exact_ImportError_guarded_legacy_CLI_only_modern_data_dataset_lmdb_remains_required"
+}

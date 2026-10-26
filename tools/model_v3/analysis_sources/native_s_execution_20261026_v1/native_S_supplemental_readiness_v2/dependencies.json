@@ -1,0 +1,168 @@
+{
+  "schema": "native_S_supplemental_readiness_dependencies_v1",
+  "sources": {
+    "CPU3_coordinator": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/model_cpu_queued_only_v3/queued_cpu.py",
+      "bytes": 41066,
+      "sha256": "760280b2420bcbe0c3a4d2e2be02567e165f8679f91995005d5ad2a2d6640a71"
+    },
+    "CPU3_pins": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/model_cpu_queued_only_v3/source_pins_v1.json",
+      "bytes": 2705,
+      "sha256": "52470af1287577fba059f78ba663ebd10061c09d68363868673c5551ca7951e4"
+    },
+    "Root_metadata_recorder": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/model_cpu_slot_dispatch_v1/dispatch_cpu_slots.py",
+      "bytes": 29240,
+      "sha256": "8090aa2c799ddfb211c81ccd9db3843af1063ff5209f7a91aa0250908633c6fe"
+    },
+    "readback_runner": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_readback_v4_source/readback_native_profiles.py",
+      "bytes": 14183,
+      "sha256": "3d864def67473da2e59f63f9339b1ab44a939d575cc05fbe29d22942f3e78cd6"
+    },
+    "readback_pins": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_readback_v4_source/source_pins_v1.json",
+      "bytes": 1392,
+      "sha256": "82437a03e2936d400077c9191fb1e688cb7075bd2e987d4c9bce60fa19e1f1af"
+    },
+    "fp32_SDK_call": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_readback_v3_source/fp32_sdk_verifier_call.json",
+      "bytes": 2343,
+      "sha256": "47d1e2b939498e658d010ef2ac86b82d233b9397bad1218c6c555369aebdd301"
+    },
+    "bf16_SDK_call": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_readback_v3_source/bf16_sdk_verifier_call.json",
+      "bytes": 2342,
+      "sha256": "026ca4cbf3d701d333be04a196f145ba4f805f9af4ab910bd8666c5f83e4b260"
+    },
+    "checkpoint_inventory_runner": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_precision_cp_inventory_v1/inventory.py",
+      "bytes": 20892,
+      "sha256": "c6528752a44da6ced2d8d452d5dd2feef1de6dba52dc0ff19a7f449d03935b74"
+    },
+    "checkpoint_inventory_tests": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_precision_cp_inventory_v1/test_inventory.py",
+      "bytes": 3195,
+      "sha256": "aa2e9417b2e26b21190ebad79493d62ccc96139f564e9606927098204f9c76b9"
+    },
+    "checkpoint_inventory_prepare": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_precision_cp_inventory_v1/prepare_inputs.py",
+      "bytes": 2344,
+      "sha256": "5db8a94538215266cc60e714e5b2e799cce576c8c15d711f4206be59e7cced7b"
+    },
+    "checkpoint_inventory_pins": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_precision_cp_inventory_v1/source_pins.json",
+      "bytes": 1989,
+      "sha256": "acbcf1ec760a560cba39355afcc282ae70a30cf32be88da8b77136d1305fa08c"
+    },
+    "CPU_supervisor": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_cpu_supervised_v3.py",
+      "bytes": 8479,
+      "sha256": "10bb34aa74633bd139f8dcedd475901a85d4143422494f1249ffb85994c8c66c"
+    },
+    "QA55_request": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_request_v55.json",
+      "bytes": 2945,
+      "sha256": "61b4cbc5ee0a96d5193b14600c167ab81a6605a8112a6e624b473ef9b82b4a5a"
+    },
+    "fp32_inventory_input": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_CP_inventory_inputs_v1/fp32_future_inputs.json",
+      "bytes": 4177,
+      "sha256": "39e788ae1f5265394c843a5cd7cff6dd93102700fc3f34cb79ee3564ae86ab36"
+    },
+    "bf16_inventory_input": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_CP_inventory_inputs_v1/bf16_future_inputs.json",
+      "bytes": 4177,
+      "sha256": "8f16e4e3875a4a97183b575019ded6437cb4ceba984d57c162cd12cd0073ec20"
+    },
+    "peer_publisher_registration": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/queued_CPU_v3_publisher_registration_v1.json",
+      "bytes": 2768,
+      "sha256": "5179035fbcff576db9897761f6ec3e33fbf3b22d11f8c257a740a62d692099a9"
+    }
+  },
+  "pressure_sources": {
+    "accounting_pressure": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_precision_storage_adapter_v2/accounting_pressure.py",
+      "bytes": 8717,
+      "sha256": "e4fff8aa4c3002227ac5f385fdc267a0cb3bd2cdadc6c75a09d677eb07ce4770"
+    },
+    "native_s_storage": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_precision_storage_adapter_v2/native_s_storage.py",
+      "bytes": 35781,
+      "sha256": "1b597f06713ed5286e4a560f2458ea5bb06d49cf811018a2865935c1d8979f42"
+    },
+    "runtime_origin": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_precision_storage_adapter_v2/runtime_origin.py",
+      "bytes": 12911,
+      "sha256": "a312d154b497daf2eeed2a53da4fd8da53c8dbda75c976dc61185c897a06521f"
+    },
+    "root_coverage": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_precision_storage_adapter_v2/root_coverage.py",
+      "bytes": 12586,
+      "sha256": "0e8671dbcaf8241d43257bd7c9234c3b8719dbdb76d24924c32a8796d3782b2e"
+    },
+    "profile_lifecycle": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_precision_storage_adapter_v2/profile_lifecycle.py",
+      "bytes": 3135,
+      "sha256": "e2bf70bdc08c9da63d0095aa972aea07a5f259ee945f183051d41ee0467de9c7"
+    },
+    "storage": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_s_runtime_v1/current/phychem_mfm/phase1/v3_long_run_storage.py",
+      "bytes": 42566,
+      "sha256": "44eb2c4f1f7ea7c35f1fbddbabbe194fb9d0bd2ea031e9faae88d5aa0325ea1f"
+    },
+    "contract": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_s_runtime_v1/current/phychem_mfm/phase1/v3_contract.py",
+      "bytes": 9509,
+      "sha256": "c41bc5d42bf14e6c2036faa951a38f49af3c3f68df54d835e4da31aed9649d8b"
+    },
+    "events": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_s_runtime_v1/current/phychem_mfm/phase1/v3_sample_budget_events.py",
+      "bytes": 18482,
+      "sha256": "9b03929f1a111b4febee35cac455d900d1adade8206146e32b30dd8ac109664e"
+    },
+    "segments": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_s_runtime_v1/current/phychem_mfm/phase1/v3_proxy_segments.py",
+      "bytes": 15355,
+      "sha256": "dd7c5d617fe9fd02af9b6e19205175382a5915fd14d43118f7e1b76849cb684b"
+    },
+    "sample_budget_experiment": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_s_runtime_v1/current/phychem_mfm/phase1/v3_sample_budget_experiment.py",
+      "bytes": 21575,
+      "sha256": "2138bcfc553c88f2f7a0ac40391a65d06e395b7936127cf6f197239ac932c270"
+    }
+  },
+  "immutable_current": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_s_runtime_v1/current",
+  "model_code_sha": "3d9b1cc0c580dacc9398a5570b0c2fff3e257618",
+  "model_public_sha": "ce7cbf5776ff546cd47538b120c8f884e2e5867d",
+  "model_tree_sha": "73a9e47af34aa6e46c2b421c946b1dc39209a584",
+  "peer_receipts": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/CPU_queue_retry1_wandb_integrity_QA55_submission.json",
+      "bytes": 10737,
+      "sha256": "26f7ca8e5e492140c786b3c5338055ea6975c2e889ae6e73b91d216799ac0463"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/CPU_queue_retry1_a01_ABBA_v2_QA76_submission.json",
+      "bytes": 10709,
+      "sha256": "3949faaa6a8209bc444dec510fc116113ab1298ac14009c5504675aa3b5721d8"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/CPU_queue_retry1_C4_registered_diagnostic_v3_submission.json",
+      "bytes": 10786,
+      "sha256": "a471080a9f3ca2bb2051f01dc62e928102031f80f4d2a6abe1df73737361be9f"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/CPU_queue_retry1_reporting_normal_checker_submission.json",
+      "bytes": 10766,
+      "sha256": "0a9cf8c6d809a7dbf51d83bb66c5c85505dc3a936254dd75fcecb4bbce86d72e"
+    }
+  ],
+  "peer_control": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/queued_CPU_v3_active_v1/CONTROL.json",
+    "bytes": 3381,
+    "sha256": "9eea2e230ba88513a5722a1a648e199ea303d538948c8f7fbc15f4f44a684cd9"
+  }
+}
