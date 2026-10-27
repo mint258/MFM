@@ -1,0 +1,38 @@
+{
+    "schema":  "ANALYSIS_DAY_TWO_NODE_QUOTA_SOURCE_INVERSE_V1",
+    "original_source_reference":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/cpu_packed_day_v1/quota_provider.py",
+                                      "sha256":  "62fe29de38306aa64d534beb966f50857995a279f389a71720a392abd5781745",
+                                      "bytes":  24617
+                                  },
+    "replacements":  [
+                         {
+                             "old":  "COMPUTE_MOUNTS={\u0027compute-0-13\u0027:{\u0027target\u0027:\u0027/share/home\u0027,\u0027source\u0027:\u0027nfs:/share/home\u0027,\u0027fstype\u0027:\u0027nfs4\u0027,\u0027fsroot\u0027:\u0027/\u0027}}",
+                             "new":  "COMPUTE_MOUNTS={n:{\u0027target\u0027:\u0027/share/home\u0027,\u0027source\u0027:\u0027nfs:/share/home\u0027,\u0027fstype\u0027:\u0027nfs4\u0027,\u0027fsroot\u0027:\u0027/\u0027} for n in (\u0027compute-0-14\u0027,\u0027compute-0-18\u0027)}"
+                         },
+                         {
+                             "old":  "value[\u0027compute_mount_by_node\u0027]==COMPUTE_MOUNTS",
+                             "new":  "set(value[\u0027compute_mount_by_node\u0027]) in ({\u0027compute-0-14\u0027},{\u0027compute-0-18\u0027}) and all(v==COMPUTE_MOUNTS[k] for k,v in value[\u0027compute_mount_by_node\u0027].items())"
+                         },
+                         {
+                             "old":  "value[\u0027probe_reference\u0027]==MAPPING_PROBE_REFERENCE",
+                             "new":  "value[\u0027probe_reference\u0027]!=MAPPING_PROBE_REFERENCE"
+                         },
+                         {
+                             "old":  "mapping[\u0027schema\u0027]==\u0027ROOT_ACTUAL_MAIN_COMPUTE13_SHARED_STORAGE_MAPPING_PROBE_V1\u0027",
+                             "new":  "mapping[\u0027schema\u0027]==\u0027ROOT_ACTUAL_MAIN_COMPUTE14_18_SHARED_STORAGE_MAPPING_PROBE_V1\u0027"
+                         },
+                         {
+                             "old":  "{item[\u0027node\u0027] for item in views}=={\u0027sonmi\u0027,\u0027compute-0-13\u0027}",
+                             "new":  "{item[\u0027node\u0027] for item in views}=={\u0027sonmi\u0027,\u0027compute-0-14\u0027,\u0027compute-0-18\u0027}"
+                         },
+                         {
+                             "old":  "len(views)==2",
+                             "new":  "len(views)==3"
+                         }
+                     ],
+    "source_only":  true,
+    "AST_or_tests_run":  false,
+    "old_sources_edited":  false,
+    "full_inverse_bytes_equal":  true
+}

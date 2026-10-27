@@ -1,0 +1,31 @@
+# NEW20 readonly readback SourceFinal
+
+This is SOURCE ONLY. No child Python, AST, import, tests, scientific DATA, SSH, Slurm or QM execution occurred. Root alone installs, reviews resources/scope, runs actual CPU source3 and submits central-v2 jobs. No Root/Model or physical signature is supplied.
+
+Source namespace: `workflows/data_v1_final/pprime/strict20_readback_v1` (11 files:9 Python, frozen Source pins JSON, README). Exact file refs and flat portable ZIP are recorded by the accompanying machine-readable artifact receipt under `docs/data_v1/strict20_readback_sourceonly_v1/`. The ZIP contains only those11 repository-relative members. Old executor, proposal, parser, engine, protocols, tasks, evidence, D5 and Model are unchanged.34 existing complete Source byte pins plus the original audit-config DATA locator are frozen. Scientific functions are imported directly, with no copied chemistry formula or patched global. AST/import/runtime verification remains Root's actual CPU work.
+
+The package accepts only actual Root review `control/root_actual_new20_all12_1200_limited_diagnostic_review_v1.json`, exact actual job4524436 Main C0/154s/16CPU13/2464 core seconds, original1200 returns/closed roles and500 defined comparisons. The actual receipt and analysis are scientific DATA; their bodies were not opened by the child. Historical before-invoke flags remain distinct from independent Popen/PID counts. Old15FAIL and prior R2 histories stay intact.
+
+Stage A inventories the actual1200 closed output and prepared task descendants. Initial DATA declarations come exclusively from the real Root review/execution plan. Its new Root scope explicitly authorizes the bounded transitive output/root access already agreed in this session, including only the actual receipt's exact1200 once refs. Whole-SHA/currentFD/frame/UID1278/regular/non-symlink/single-link checks cover every followed positive producer triple. Census,1200 identities, protocol/once/preparation lineage and25MiB closed roles must all close. It emits20 opaque scientific group descriptors and20 small locator manifests. It cannot emit a runnable Stage B before actual Stage A C0/proof/account closure.
+
+Stage B is an independently reviewed CPU stage per original index0..19. Its actual Stage A locator manifest is the exact DATA declaration. It uses original pure renderer/seed/targets functions, same task/original record/atom order, original bounded raw-reader get/close with an immutable constructor-only storage seam, original raw parser, array/status/SCF functions, and original NEW20 own/pair functions. SQLite resolves the already whole-hashed inode through a live `/proc/self/fd` path. No lifecycle initialization or native invocation occurs. Each group60 calls/60 own objects/60 pair objects/25 vector comparisons must be exact against the old declared checks using frozen `wp5_parquet_v2.exact` (type/None/list ordinal/f64 bits, including signed zero). All20 actual C0 closures aggregate exactly1200/1200/500 and the12×5 matrix, or stay HOLD.
+
+Full native inline shell/Mulliken/AUX/sigma/task-projection/return processing has no complete independently callable pure entry. The implementation deliberately preserves the original native return, checks all its values survive into enriched values unchanged, and separately states that inline processing was NOT independently replayed. It never invokes native, extracts/copies its inline formulas, patches parser globals or claims a complete native reparse. r73 channels/onsite/ordinal and r674 original six values are not folded or projected. Unit/sign/basis/origin/axes and SCFcause stay UNKNOWN; technical success does not release2000/full or alter original thresholds/masks.
+
+Each stage is Main16CPU/no_mem≤7200s, one readonly stream, max five-record group cache,300s natural drain. Current original Provider.Client is bound to compute-0-13; this restriction is explicit, not a claim of node independence. A new finite Root quota/resource review is required, preserving whole-wave reserve/account health/200GB margin and no auto renewal. The existing source-status actual resource observer is reused. Budget uses account quota as well as physical free space, not statvfs alone.
+
+Output partition caps: Stage A256MiB +20×32MiB =896MiB;128MiB technical-metadata reserve gives a whole new1GiB ceiling for one accepted complete chain. Runtime output includes source3, resources≤8MiB, exact checks and retained failures. Root must preserve failures and review any additional attempt's global budget; there is no auto retry/queue. It does not duplicate original raws. The three synthetic methods cover strict large-DATA/zero-SOURCE/root limits, exact cell/protocol/once lineage, and actual original codec/five-pair objects with type/None/signed-zero/list-order corruption rejection. They rerun before any scientific DATA. They have not yet run.
+
+Root CLI after exact installation, from Main repository:
+
+```sh
+PY=/share/home/zixiao/.conda/envs/chemprop/bin/python
+M=workflows.data_v1_final.pprime.strict20_readback_v1.metadata
+"$PY" -B -m unittest workflows.data_v1_final.pprime.strict20_readback_v1.test_v1
+"$PY" -B -m "$M" draft --request ACTUAL_inventory_root_request.json --output FRESH_control_inventory_stage
+"$PY" -B -m "$M" finalize --draft FRESH_control_inventory_stage/draft_receipt.json --root-review ACTUAL_independent_scope_review.json
+```
+
+Root alone submits resulting stage_spec through central-v2. Then `metadata close --manifest ... --proof ... --account ... --raw-account ... --output FRESH_closure.json` requires actual C0. New actual audit RootRequests each set mode audit/group_index0..19 and that real inventory closure. Same draft/finalize/central-submit/actual-close chain per group. Finally `metadata aggregate --request ACTUAL_all20_closures_request.json --output FRESH_all1200_technical_closure.json`. README specifies exact request fields; accompanying unsigned templates are not approvals and cannot produce a valid stage until filled from real current parents. No future hash/proof/stage or physical acceptance is supplied.
+
+SOURCEFINAL / STOPEDIT after accompanying ZIP/manifest byte validation. Root may independently reject or revise before actual tests; any revision must preserve this archive and be versioned, never silently replace its claimed bytes.
