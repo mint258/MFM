@@ -1,0 +1,33 @@
+{
+  "schema": "model_v3_Root_paired_metadata_prepare_invocation_actual_v1",
+  "argv": [
+    "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+    "-B",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v1_source/prepare.py",
+    "audit",
+    "--pins-sha256",
+    "8d48302489d2320622aa53b4054f902e105a09ade05f1be3e5215eb77a66462a",
+    "--plan-output",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_audit_plan_v1",
+    "--job-output",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_audit_actual_v1"
+  ],
+  "actual_shell_exit_code": 1,
+  "status": "FAILED_BEFORE_PLAN_CREATION_SDK_BODY_OR_UPLOAD",
+  "failure": {
+    "type": "KeyError",
+    "key": "path",
+    "file": "paired_common.py",
+    "line": 86,
+    "reason": "case sdks item stores path under descriptor; metadata_case incorrectly indexes top-level item"
+  },
+  "source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v1_source/source_pins.json",
+    "bytes": 4001,
+    "sha256": "8d48302489d2320622aa53b4054f902e105a09ade05f1be3e5215eb77a66462a"
+  },
+  "plan_created": false,
+  "SDK_body_opened": false,
+  "Slurm_submitted": false,
+  "online_action": false
+}

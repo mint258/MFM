@@ -1,0 +1,118 @@
+{
+    "schema":  "performance_R2_paired_log_sources_v1",
+    "status":  "V2_SOURCE_FROZEN_NESTED_DESCRIPTOR_REPAIR_PENDING_ROOT_AST_AND_PREPARE",
+    "files":  [
+                  {
+                      "relative_path":  "paired_common.py",
+                      "bytes":  14878,
+                      "sha256":  "27dc0b58ed9558b8fe60c6d51fa339637ccfd165c6b261ce4564cb42096cc8d3"
+                  },
+                  {
+                      "relative_path":  "audit_paired.py",
+                      "bytes":  12211,
+                      "sha256":  "a50f78bfcf98e3a32a16b8d646c1756b5b17af6f9d2827ebb3f13e9700762a47"
+                  },
+                  {
+                      "relative_path":  "prepare.py",
+                      "bytes":  3429,
+                      "sha256":  "82cacd99bc4fd48896e9294084f2e2aa3a95c4a5c29b7cbb61a4283f93d13bb5"
+                  },
+                  {
+                      "relative_path":  "sync_paired.py",
+                      "bytes":  6500,
+                      "sha256":  "943c48cacd2ae5db2ea76b2ebaf294ab058d83045e1bb3c0d966810a939da04d"
+                  },
+                  {
+                      "relative_path":  "one_run_paired.py",
+                      "bytes":  11854,
+                      "sha256":  "78c23752ace625fffdb5ad745124020cd2a7746de527961775102274559031ec"
+                  },
+                  {
+                      "relative_path":  "audit_cpu.sbatch",
+                      "bytes":  1274,
+                      "sha256":  "c50b732f5faf7acc13d677cad9bedd7ddd914d1f6962558e2954e4b2ef5d5b50"
+                  },
+                  {
+                      "relative_path":  "sync_cpu.sbatch",
+                      "bytes":  1380,
+                      "sha256":  "6e2ff281749a9e1b37e6eb96ed15de66fd000ac02af46e3a9b49d7d32cc633b5"
+                  },
+                  {
+                      "relative_path":  "installed_sources.json",
+                      "bytes":  5921,
+                      "sha256":  "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+                  },
+                  {
+                      "relative_path":  "inputs.json",
+                      "bytes":  11571,
+                      "sha256":  "97631377a6fc7717768fc6dabcf1bcfa9ae3723d93f5eeaf3dca6f34c4e4f636"
+                  },
+                  {
+                      "relative_path":  "dependencies.json",
+                      "bytes":  7959,
+                      "sha256":  "5a32c66d05da7dbf066a789d58079f714b54dad9d8e6b4e77d0d24f68a4bce1d"
+                  },
+                  {
+                      "relative_path":  "README.md",
+                      "bytes":  7747,
+                      "sha256":  "c9faa62e6f1d7ed7e0dd8fe0e1bd53f543fe5b05ab5bb67dce34eb3afc40f2bb"
+                  }
+              ],
+    "revision":  "v2_nested_descriptor_path_only",
+    "revision_evidence":  {
+                              "v1_source_pins":  {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v1_source/source_pins.json",
+                                                     "bytes":  4001,
+                                                     "sha256":  "8d48302489d2320622aa53b4054f902e105a09ade05f1be3e5215eb77a66462a"
+                                                 },
+                              "v1_Root_static":  {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v1_Root_static_actual_v1.json",
+                                                     "bytes":  8731,
+                                                     "sha256":  "e196f4bfe885a8100c770741112f6f5148e884cd83f6041951a5d8dfa87ca1e2"
+                                                 },
+                              "v1_actual_prepare_failure":  {
+                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_metadata_prepare_attempt001_actual_v1.json",
+                                                                "bytes":  1385,
+                                                                "sha256":  "80f79c42c3c47a5294ddb6f6f39593b8da90c08c6b39ff3c25b21366485cb0cc"
+                                                            },
+                              "revision":  {
+                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_revision_v1.json",
+                                               "bytes":  2812,
+                                               "sha256":  "ded0f498eac4eb3e80aae6e1e5c088e6ab77f1a73d7f08c7c06014c98009c811"
+                                           },
+                              "reference_walk":  {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_reference_walk_v1.json",
+                                                     "bytes":  5998,
+                                                     "sha256":  "a982cd258d37ad66439bc4e0b9555aba8f2cc0232d7bc4df71cd8a8d0e775806"
+                                                 }
+                          },
+    "source_file_count":  11,
+    "python_count":  5,
+    "sbatch_count":  2,
+    "code_sha":  "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+    "public_prereg_sha":  "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+    "scope":  "PAIRED_R2_LOG_ONLY",
+    "fixed_original_GPU_jobs":  [
+                                    "4523976",
+                                    "4524551"
+                                ],
+    "fixed_SDK_ids":  [
+                          "z4ts32w5",
+                          "dr7zahoj",
+                          "5thxuhw5",
+                          "zotxsoay"
+                      ],
+    "actual_native_role_assignment":  "PENDING_ACTUAL_CPU_CONFIG_ONLY",
+    "inputs_byte_identical_to_v1":  true,
+    "original_transport_byte_identical_to_v1":  true,
+    "all_v1_original_leaves_current_exact":  true,
+    "other_four_Python_files_byte_identical":  true,
+    "inline_metadata_checks_planned":  {
+                                           "four_SDK_audit":  6,
+                                           "per_sync_batch":  4,
+                                           "actual_PASS_not_claimed":  true
+                                       },
+    "v1_AST_or_failure_not_claimed_as_v2_execution":  true,
+    "no_author_Python_AST_Git_SSH_Slurm_model_array_SDK_JSONL_or_account_API":  true,
+    "scientific_acceptance":  false
+}
