@@ -1,0 +1,506 @@
+{
+    "schema":  "N1_GEOMETRY_DOMAINS_SOURCE_EVIDENCE_V1",
+    "source_only_not_execution_authority":  true,
+    "bindings":  {
+                     "proper_Kabsch_science":  {
+                                                   "origin_reference":  {
+                                                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/sprime_v6.py",
+                                                                            "sha256":  "d6f1d29a6de673a1faf186e095c4fef7534a81022a09a4840ec65e5d8fa424d3",
+                                                                            "bytes":  20644
+                                                                        },
+                                                   "observed_source_path":  "X:\\runs\\sprime_s_convergence_20261013\\scripts\\sprime_v6.py",
+                                                   "clauses":  [
+                                                                   {
+                                                                       "text":  "def rmsd(mol,xyz,refxyz):",
+                                                                       "line_1based":  173
+                                                                   },
+                                                                   {
+                                                                       "text":  "    # Atom-index correspondence is fixed by the source record, as in all S/S-prime",
+                                                                       "line_1based":  174
+                                                                   },
+                                                                   {
+                                                                       "text":  "    diagonal=np.eye(3);diagonal[2,2]=1. if np.linalg.det(u@vt)\u003e=0 else -1.",
+                                                                       "line_1based":  181
+                                                                   },
+                                                                   {
+                                                                       "text":  "    rotation=u@diagonal@vt",
+                                                                       "line_1based":  182
+                                                                   }
+                                                               ]
+                                               },
+                     "selection":  {
+                                       "origin_reference":  {
+                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/selection.py",
+                                                                "sha256":  "41f21f5586c06f3c6fd7cfa9712623adc8091da996c72f6d71170dd4b716e2cb",
+                                                                "bytes":  3377
+                                                            },
+                                       "observed_source_path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\data_v1_final\\conformers\\selection.py",
+                                       "clauses":  [
+                                                       {
+                                                           "text":  "def stable_key(seed, molecule_id, source, conformer_id):",
+                                                           "line_1based":  8
+                                                       },
+                                                       {
+                                                           "text":  "def conformer_orders(rows, distance, molecule_id, source, seed):",
+                                                           "line_1based":  48
+                                                       },
+                                                       {
+                                                           "text":  "    random_order = sorted(by_id, key=lambda key: (stable_key(seed, molecule_id, source, key), str(key)))",
+                                                           "line_1based":  56
+                                                       },
+                                                       {
+                                                           "text":  "    diversity = [energy[0]]",
+                                                           "line_1based":  57
+                                                       }
+                                                   ]
+                                   },
+                     "formal_task_key":  {
+                                             "origin_reference":  {
+                                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/formal_common_v1/common_v1.py",
+                                                                      "sha256":  "9be08f1f019cea4ae9e99d690a3aea38076068965a52a7d5e8456e18a623716b",
+                                                                      "bytes":  10003
+                                                                  },
+                                             "observed_source_path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\data_v1_final\\pprime\\formal_common_v1\\common_v1.py",
+                                             "clauses":  [
+                                                             {
+                                                                 "text":  "def task_key(mid, atom_sha, coordinate_sha, protocol_sha, perturb_record_id):",
+                                                                 "line_1based":  135
+                                                             },
+                                                             {
+                                                                 "text":  "    return hashlib.sha256(IO.canonical([\u0027pprime-twelve-once-v1\u0027, mid, atom_sha, coordinate_sha,",
+                                                                 "line_1based":  138
+                                                             }
+                                                         ]
+                                         }
+                 },
+    "source_facts":  [
+                         {
+                             "origin_reference":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_v3/identity.py",
+                                                      "sha256":  "a54b247c5d4805b16191527940e86d99524805ce606a1ac4f4fbb7ea73ff05ea",
+                                                      "bytes":  5424
+                                                  },
+                             "observed_source_path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\data_v1_final\\conformers\\formal_cpu_auto_v3\\identity.py",
+                             "clauses":  [
+                                             {
+                                                 "text":  "def physical_id(value):",
+                                                 "line_1based":  10
+                                             },
+                                             {
+                                                 "text":  "def append_generated(rows,original_n,max_original_idx):",
+                                                 "line_1based":  22
+                                             },
+                                             {
+                                                 "text":  "    maximum=-1 if max_original_idx is None else physical_id(max_original_idx)",
+                                                 "line_1based":  25
+                                             },
+                                             {
+                                                 "text":  "    if ordered and start+len(ordered)-1\u003eINT64_MAX:raise ValueError(\"APPEND_PHYSICAL_ID_INT64_OVERFLOW\")",
+                                                 "line_1based":  32
+                                             },
+                                             {
+                                                 "text":  "                 source_attempt_max_sprime_conf_idx=max_original_idx,original_N=n)",
+                                                 "line_1based":  35
+                                             },
+                                             {
+                                                 "text":  "def fixed_random_ids(mid,ids):",
+                                                 "line_1based":  67
+                                             }
+                                         ]
+                         },
+                         {
+                             "origin_reference":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/selection.py",
+                                                      "sha256":  "41f21f5586c06f3c6fd7cfa9712623adc8091da996c72f6d71170dd4b716e2cb",
+                                                      "bytes":  3377
+                                                  },
+                             "observed_source_path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\data_v1_final\\conformers\\selection.py",
+                             "clauses":  [
+                                             {
+                                                 "text":  "def stable_key(seed, molecule_id, source, conformer_id):",
+                                                 "line_1based":  8
+                                             },
+                                             {
+                                                 "text":  "def conformer_orders(rows, distance, molecule_id, source, seed):",
+                                                 "line_1based":  48
+                                             },
+                                             {
+                                                 "text":  "    random_order = sorted(by_id, key=lambda key: (stable_key(seed, molecule_id, source, key), str(key)))",
+                                                 "line_1based":  56
+                                             },
+                                             {
+                                                 "text":  "    diversity = [energy[0]]",
+                                                 "line_1based":  57
+                                             }
+                                         ]
+                         },
+                         {
+                             "origin_reference":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/n1_pprime2_source_full_v1/contract.py",
+                                                      "sha256":  "b2f8fc9ae2dff01913ffb87139896c67483dc0434ee0befadce8b3a8f173078e",
+                                                      "bytes":  23797
+                                                  },
+                             "observed_source_path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\data_v1_final\\conformers\\n1_pprime2_source_full_v1\\contract.py",
+                             "clauses":  [
+                                             {
+                                                 "text":  "def task_key(mid):",
+                                                 "line_1based":  55
+                                             },
+                                             {
+                                                 "text":  "    return hashlib.sha256((\u0027n1-pprime2-once-generation-v1:\u0027+mid).encode()).hexdigest()",
+                                                 "line_1based":  56
+                                             },
+                                             {
+                                                 "text":  "def validate_task(task,source_population_authority_reference):",
+                                                 "line_1based":  153
+                                             },
+                                             {
+                                                 "text":  "        and type(baseline[\u0027sprime_conf_idx\u0027]) is int and baseline[\u0027sprime_conf_idx\u0027]==0,\u0027ONE_VALID_ORIGINAL_BASELINE_REQUIRED\u0027)",
+                                                 "line_1based":  177
+                                             },
+                                             {
+                                                 "text":  "def expanded_orders(mid,baseline,second,distance,selection):",
+                                                 "line_1based":  224
+                                             }
+                                         ]
+                         },
+                         {
+                             "origin_reference":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/n1_pprime2_source_full_v1/core.py",
+                                                      "sha256":  "d1bbd7bc1b70e6b97bb16aa3a04ad3fc0f4bf1c60e79ebaad92624334f32a495",
+                                                      "bytes":  19231
+                                                  },
+                             "observed_source_path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\data_v1_final\\conformers\\n1_pprime2_source_full_v1\\core.py",
+                             "clauses":  [
+                                             {
+                                                 "text":  "    started=time.monotonic();events=[];embedding=I.EmbeddingJournal(CTX[\u0027checkpoint_output_root\u0027],task);baseline_original=None;baseline_identity=None",
+                                                 "line_1based":  118
+                                             },
+                                             {
+                                                 "text":  "        \u0027below_dedup_threshold\u0027:False,\u0027automatic_retry\u0027:False,\u0027new_QM_calls\u0027:0,",
+                                                 "line_1based":  126
+                                             },
+                                             {
+                                                 "text":  "        baseline_identity={\u0027geometry_id\u0027:task[\u0027baseline_geometry_id\u0027],\u0027geometry_sha256\u0027:baseline_sha,",
+                                                 "line_1based":  157
+                                             },
+                                             {
+                                                 "text":  "            \u0027full_original_row_sha256\u0027:C.sha_value(old),\u0027original_sprime_conf_idx\u0027:0,\u0027unchanged\u0027:True}",
+                                                 "line_1based":  158
+                                             },
+                                             {
+                                                 "text":  "            extra={\u0027molecule_id\u0027:mid,\u0027native_extra_conformer_id\u0027:native_id,\u0027geometry_id\u0027:geometry_id,",
+                                                 "line_1based":  214
+                                             },
+                                             {
+                                                 "text":  "        \u0027supplement\u0027:extra,\u0027expanded_view\u0027:{\u0027view_id\u0027:\u0027pprime_parent_expanded_v1\u0027,",
+                                                 "line_1based":  255
+                                             },
+                                             {
+                                                 "text":  "        \u0027original_PM7_pointer_count_changed\u0027:False,\u0027original_Sprime_count_changed\u0027:False,\u0027common_membership_changed\u0027:False}",
+                                                 "line_1based":  261
+                                             }
+                                         ]
+                         },
+                         {
+                             "origin_reference":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/n1_pprime2_source_full_v1/planning.py",
+                                                      "sha256":  "94d87e698a69b9221b69069265cae9b7f8244717d07ae79718f81fa65629dfa9",
+                                                      "bytes":  14685
+                                                  },
+                             "observed_source_path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\data_v1_final\\conformers\\n1_pprime2_source_full_v1\\planning.py",
+                             "clauses":  [
+                                             {
+                                                 "text":  "def packet_readback(task,reference):",
+                                                 "line_1based":  6
+                                             },
+                                             {
+                                                 "text":  "        \u0027final_physical_extra_int64_id\u0027:None,\u0027physical_int64_integration_status\u0027:\u0027PENDING_EXPLICIT_FINAL_GEOMETRY_MAP\u0027}",
+                                                 "line_1based":  35
+                                             }
+                                         ]
+                         },
+                         {
+                             "origin_reference":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/formal_common_v1/common_v1.py",
+                                                      "sha256":  "9be08f1f019cea4ae9e99d690a3aea38076068965a52a7d5e8456e18a623716b",
+                                                      "bytes":  10003
+                                                  },
+                             "observed_source_path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\data_v1_final\\pprime\\formal_common_v1\\common_v1.py",
+                             "clauses":  [
+                                             {
+                                                 "text":  "def task_key(mid, atom_sha, coordinate_sha, protocol_sha, perturb_record_id):",
+                                                 "line_1based":  135
+                                             },
+                                             {
+                                                 "text":  "    return hashlib.sha256(IO.canonical([\u0027pprime-twelve-once-v1\u0027, mid, atom_sha, coordinate_sha,",
+                                                 "line_1based":  138
+                                             }
+                                         ]
+                         },
+                         {
+                             "origin_reference":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/formal_common_v1/prepare_v1.py",
+                                                      "sha256":  "da1c9820fae6b1b83b94529d054ee0ce2f9b890b031b2695a1ab13b188d56e8f",
+                                                      "bytes":  27094
+                                                  },
+                             "observed_source_path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\data_v1_final\\pprime\\formal_common_v1\\prepare_v1.py",
+                             "clauses":  [
+                                             {
+                                                 "text":  "        raise ValueError(\u0027OPAQUE_OR_NULL_N1_EXTENSION_FORBIDDEN_IN_BASELINE_MAP\u0027)",
+                                                 "line_1based":  85
+                                             },
+                                             {
+                                                 "text":  "    if db.execute(\"\"\"SELECT count(*) FROM (SELECT g.molecule_id,g.source_path,g.source_row_index,g.source_member",
+                                                 "line_1based":  129
+                                             },
+                                             {
+                                                 "text":  "                    else:raise ValueError(\u0027UNKNOWN_OR_N1_NAMESPACE_NOT_APPROVED_FOR_BASELINE_RAW_AUDIT\u0027)",
+                                                 "line_1based":  189
+                                             },
+                                             {
+                                                 "text":  "        if len(raw)\u003ec[\u0027maximum_source_decode_bytes\u0027] or row.get(\u0027source_member\u0027)!=\u0027conformers\u0027:",
+                                                 "line_1based":  284
+                                             },
+                                             {
+                                                 "text":  "        packet=json.loads(raw);result=packet[\u0027conformers\u0027][index]",
+                                                 "line_1based":  286
+                                             },
+                                             {
+                                                 "text":  "        if packet[\u0027summary\u0027][\u0027molecule_id\u0027]!=row[\u0027molecule_id\u0027]:",
+                                                 "line_1based":  287
+                                             },
+                                             {
+                                                 "text":  "        key=task_key(row[\u0027molecule_id\u0027],row[\u0027atom_order_sha256\u0027],xyz_sha,protocol_pin[\u0027sha256\u0027],row[\u0027record_id\u0027])",
+                                                 "line_1based":  337
+                                             },
+                                             {
+                                                 "text":  "          \u0027physical_source\u0027:{k:row.get(k) for k in (\u0027source_path\u0027,\u0027source_sha256\u0027,\u0027source_bytes\u0027,\u0027source_format\u0027,\u0027source_row_index\u0027,\u0027source_member\u0027,\u0027original_sprime_conf_idx\u0027)},",
+                                                 "line_1based":  342
+                                             }
+                                         ]
+                         },
+                         {
+                             "origin_reference":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/geometry.py",
+                                                      "sha256":  "669c2a6b8806f752000a15f09a667ddc1a2a92ffabcbe03b070ba19812490af8",
+                                                      "bytes":  3468
+                                                  },
+                             "observed_source_path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\data_v1_final\\pprime\\geometry.py",
+                             "clauses":  [
+                                             {
+                                                 "text":  "Q02_REASON = \u0027NOT_APPLICABLE_DIFFERENT_GEOMETRY_NO_STORED_UFF_PM7_HOF\u0027",
+                                                 "line_1based":  9
+                                             },
+                                             {
+                                                 "text":  "def geometry_hash(numbers, coordinates):",
+                                                 "line_1based":  12
+                                             },
+                                             {
+                                                 "text":  "    adapted.update(coords=xyz, energy=None, pairs=sorted(pairs),",
+                                                 "line_1based":  57
+                                             },
+                                             {
+                                                 "text":  "                  \u0027Q02_applicable\u0027: False, \u0027Q02_reason\u0027: Q02_REASON}",
+                                                 "line_1based":  66
+                                             }
+                                         ]
+                         },
+                         {
+                             "origin_reference":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/export/pipeline_v1/materialize.py",
+                                                      "sha256":  "1c9a8f15898bff054ae7df91269ecb26e06264bd041e15f865e4b24c88ef804d",
+                                                      "bytes":  20071
+                                                  },
+                             "observed_source_path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\data_v1_final\\export\\pipeline_v1\\materialize.py",
+                             "clauses":  [
+                                             {
+                                                 "text":  " \"geometries\": \"geometry_id TEXT PRIMARY KEY,molecule_id TEXT NOT NULL,geometry_source TEXT NOT NULL,native_record_id TEXT,sprime_conf_idx INTEGER,parent_geometry_id TEXT,view_id TEXT\",",
+                                                 "line_1based":  17
+                                             },
+                                             {
+                                                 "text":  " \"geometries\": [\"geometry_id\", \"molecule_id\", \"geometry_source\", \"native_record_id\", \"sprime_conf_idx\", \"parent_geometry_id\", \"view_id\"],",
+                                                 "line_1based":  24
+                                             },
+                                             {
+                                                 "text":  "    parent, view = row[\"parent_geometry_id\"], row[\"view_id\"]",
+                                                 "line_1based":  69
+                                             },
+                                             {
+                                                 "text":  "    reject_rows(db, \"SELECT 1 FROM geometries g LEFT JOIN geometries p ON p.geometry_id=g.parent_geometry_id WHERE g.parent_geometry_id IS NOT NULL AND (p.geometry_id IS NULL OR p.parent_geometry_id IS NOT NULL OR p.molecule_id!=g.molecule_id OR p.geometry_source!=g.geometry_source OR p.native_record_id IS NOT g.native_record_id OR p.sprime_conf_idx IS NOT g.sprime_conf_idx)\", \"VIEW_PARENT_KEY_OR_CONTEXT_INVALID\")",
+                                                 "line_1based":  123
+                                             },
+                                             {
+                                                 "text":  "      CREATE UNIQUE INDEX IF NOT EXISTS pm7_physical ON geometries(molecule_id,native_record_id) WHERE geometry_source=\u0027pm7\u0027 AND parent_geometry_id IS NULL;",
+                                                 "line_1based":  125
+                                             },
+                                             {
+                                                 "text":  "      CREATE UNIQUE INDEX IF NOT EXISTS uff_physical ON geometries(molecule_id,sprime_conf_idx) WHERE geometry_source=\u0027uff_sprime\u0027 AND parent_geometry_id IS NULL;",
+                                                 "line_1based":  126
+                                             },
+                                             {
+                                                 "text":  "      CREATE INDEX IF NOT EXISTS geometry_parent ON geometries(parent_geometry_id);",
+                                                 "line_1based":  128
+                                             },
+                                             {
+                                                 "text":  "    reject_rows(db, \"SELECT 1 FROM orders o LEFT JOIN geometries g USING(geometry_id) WHERE g.geometry_id IS NULL OR g.parent_geometry_id IS NOT NULL OR o.molecule_id!=g.molecule_id OR o.geometry_source!=g.geometry_source\", \"ORDER_NOT_BOUND_TO_BASE_GEOMETRY\")",
+                                                 "line_1based":  130
+                                             },
+                                             {
+                                                 "text":  "    reject_rows(db, \"SELECT 1 FROM geometries g LEFT JOIN orders o USING(geometry_id) WHERE g.parent_geometry_id IS NULL GROUP BY g.geometry_id HAVING count(o.order_type)!=3\", \"THREE_COMPLETE_ORDER_PERMUTATIONS_REQUIRED\")",
+                                                 "line_1based":  131
+                                             },
+                                             {
+                                                 "text":  "    reject_rows(db, \"SELECT 1 FROM common c LEFT JOIN geometries g ON c.molecule_id=g.molecule_id AND g.parent_geometry_id IS NULL WHERE c.common_population=1 GROUP BY c.molecule_id HAVING count(DISTINCT g.geometry_source)!=2\", \"COMMON_REQUIRES_BOTH_GEOMETRY_SOURCES\")",
+                                                 "line_1based":  133
+                                             },
+                                             {
+                                                 "text":  "    db.execute(\"\"\"CREATE TABLE diagnostic_molecules AS SELECT molecule_id FROM (",
+                                                 "line_1based":  155
+                                             },
+                                             {
+                                                 "text":  "       WHERE r.effective_role=\u0027TRAIN\u0027 AND g.parent_geometry_id IS NULL",
+                                                 "line_1based":  157
+                                             },
+                                             {
+                                                 "text":  "    if scalar(db, \"SELECT count(*) FROM diagnostic_molecules\") != diagnostic:",
+                                                 "line_1based":  160
+                                             },
+                                             {
+                                                 "text":  "        FROM orders o JOIN diagnostic_molecules d USING(molecule_id)",
+                                                 "line_1based":  164
+                                             },
+                                             {
+                                                 "text":  "        JOIN diagnostic_base d ON g.geometry_id=d.geometry_id OR g.parent_geometry_id=d.geometry_id;",
+                                                 "line_1based":  168
+                                             },
+                                             {
+                                                 "text":  "      CREATE TABLE training_geometry AS SELECT g.* FROM geometries g LEFT JOIN diagnostic_targets d USING(geometry_id) WHERE d.geometry_id IS NULL;",
+                                                 "line_1based":  172
+                                             },
+                                             {
+                                                 "text":  "        result = {\"status\": \"FIXTURE_ONLY\" if fixture else \"D5_PARQUET_LISTS_FROZEN\", \"fixture\": fixture, \"roles_authority\": roles_ref, \"common_population\": common_ref, \"conformer_orders\": order_ref, \"geometry_map\": gm_ref, \"diagnostic\": diag_ref, \"subsets\": subset_refs, \"training_orders\": train_orders, \"training_geometry\": train_geometry, \"seed\": seed, \"sampling_algorithm\": \"SHA256-uniform-order-v1; hash(seed,domain,molecule_id), tie=molecule_id\", \"subset_counts\": subsets, \"diagnostic_molecules\": nd, \"all_training_conditions_filter\": \"anti-join diagnostic target keys BEFORE first-k conformer selection\", \"database\": file_ref(out / \"authority.sqlite\"), \"input_workers\": results, \"effective_worker_pids\": sorted({r[\"pid\"] for r in results}), \"peak_python_rows_per_batch\": 512, \"sqlite_cache_bytes_per_process\": 33554432, \"output_cap_bytes\": cap,",
+                                                 "line_1based":  251
+                                             }
+                                         ]
+                         },
+                         {
+                             "origin_reference":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/export/pipeline_v1/materialize_v2.py",
+                                                      "sha256":  "06ba85d7d91d6c6e95dbc1c0427eeb3eda2ef605061c18a0d1e857b85a5c86cd",
+                                                      "bytes":  3049
+                                                  },
+                             "observed_source_path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\data_v1_final\\export\\pipeline_v1\\materialize_v2.py",
+                             "clauses":  [
+                                             {
+                                                 "text":  "_OLD = \"p.native_record_id IS NOT g.native_record_id OR p.sprime_conf_idx IS NOT g.sprime_conf_idx\"",
+                                                 "line_1based":  15
+                                             },
+                                             {
+                                                 "text":  "_NEW = \"(g.geometry_source=\u0027pm7\u0027 AND p.native_record_id IS NOT g.native_record_id) OR (g.geometry_source=\u0027uff_sprime\u0027 AND p.sprime_conf_idx IS NOT g.sprime_conf_idx)\"",
+                                                 "line_1based":  16
+                                             },
+                                             {
+                                                 "text":  "        \"uff_native_record_id_used_as_identity\": False,",
+                                                 "line_1based":  59
+                                             }
+                                         ]
+                         },
+                         {
+                             "origin_reference":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/sprime_v6.py",
+                                                      "sha256":  "d6f1d29a6de673a1faf186e095c4fef7534a81022a09a4840ec65e5d8fa424d3",
+                                                      "bytes":  20644
+                                                  },
+                             "observed_source_path":  "X:\\runs\\sprime_s_convergence_20261013\\scripts\\sprime_v6.py",
+                             "clauses":  [
+                                             {
+                                                 "text":  "def rmsd(mol,xyz,refxyz):",
+                                                 "line_1based":  173
+                                             },
+                                             {
+                                                 "text":  "    # Atom-index correspondence is fixed by the source record, as in all S/S-prime",
+                                                 "line_1based":  174
+                                             },
+                                             {
+                                                 "text":  "    diagonal=np.eye(3);diagonal[2,2]=1. if np.linalg.det(u@vt)\u003e=0 else -1.",
+                                                 "line_1based":  181
+                                             },
+                                             {
+                                                 "text":  "    rotation=u@diagonal@vt",
+                                                 "line_1based":  182
+                                             }
+                                         ]
+                         }
+                     ],
+    "Root_existing_source_audit":  {
+                                       "origin_reference":  {
+                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/data_v1/n1_pprime_geometry_domains_source_audit_20261027_v1.md",
+                                                                "sha256":  "1d1ce283160b4a8ea6b079125127b7bf757e945b56fab087befa416d2b88b144",
+                                                                "bytes":  11964
+                                                            },
+                                       "observed_source_path":  "X:\\runs\\data_v1_20261025\\repository\\docs\\data_v1\\n1_pprime_geometry_domains_source_audit_20261027_v1.md",
+                                       "clauses":  [
+                                                       {
+                                                           "text":  "保持 **PM7 原 N、普通 S′ 补齐目标 N**；N=1 的第二真实 UFF 放在独立 P′ 扩展几何域/sidecar。D1 的 `geometry_source` 仍为 `uff_sprime`，不能自行增加第三个来源 enum。域/使用清单与化学来源是不同层：同一个 baseline 物理几何只存一份，普通 S′ 训练清单保留原 N，P′ 计算清单可引用 baseline 与真实第二几何。把第二几何直接并入普通 fill 包会拒绝，直接并入普通 D5 全部 UFF base 集则会改变 N1 的训练构象集合；两种做法均不合适。",
+                                                           "line_1based":  7
+                                                       },
+                                                       {
+                                                           "text":  "| `conformers/formal_cpu_auto_v3/finalize.py:59–66,210–217` | `merge_counts` 对补齐结果要求 `old_count + generated \u003c= S_conformers`。这是普通 fill 的边界，保留。**该检查不等价于对所有 unchanged old rows 全局断言 old_count\u003c=N**；晚到名单仍须读最终实际计数，不能假定原 233 全为零 baseline。 |",
+                                                           "line_1based":  13
+                                                       },
+                                                       {
+                                                           "text":  "| `conformers/n1_pprime2_source_full_v1/contract.py:159–180` | 分开要求 PM7/source_N=1、accepted_baseline=1、UFF_desired=2；当前旧 baseline 必须实际 `sprime_conf_idx==0`，且 seed 不等于新 seed。 |",
+                                                           "line_1based":  15
+                                                       },
+                                                       {
+                                                           "text":  "| 同目录 `core.py:145–158,160–161,210–227,247–261` | baseline 规范行 SHA、原子序及真实 f64 geometry SHA 留存；实际候选仍10个，extra 自带 native ID/geometry ID、seed/candidate、UFF能量、RMSD与 fallback。`original_PM7_pointer_count_changed`、`original_Sprime_count_changed` 都为 false。 |",
+                                                           "line_1based":  16
+                                                       },
+                                                       {
+                                                           "text":  "2. **一个物理 catalog，分开的使用域。** 新独立 manifest 绑定普通map及 `pprime_n1_extra` sidecar；普通PM7/S′成员和counts不回写。sidecar保存 `geometry_source=\u0027uff_sprime\u0027`、独立 `identity_namespace=\u0027data_v1_n1_pprime2\u0027`、native extra ID、原packet geometry ID、taskKey/seed/candidate、origin endpoint/UID/job/worker/start/claim/source refs、真实 f64/atom-order SHA、baseline物理映射、原0.5Å唯一数/真实行数/fallback。",
+                                                           "line_1based":  27
+                                                       },
+                                                       {
+                                                           "text":  "   baseline 的 `accepted_sprime_source_row:...` producer ID 与 finalizer 的 `uff_sprime:sha(mid:idx)` **不是相同字符串**。通过同mol、原物理idx、源完整ref+行定位、完整 baseline row SHA、seed/atom/coordinate SHA建立显式一对一 alias，不复制第二个baseline。extra 已有 opaque geometry ID可保留为新canonical候选ID（全局碰撞校验，规则独立冻结），同时保存全部producer ID。",
+                                                           "line_1based":  29
+                                                       },
+                                                       {
+                                                           "text":  "3. **第二UFF是新的 base，不是扰动 view。** 对extra的D5几何行应 `parent_geometry_id=None, view_id=None`。N1包 `expanded_view.view_id=\u0027pprime_parent_expanded_v1\u0027` 是两构象扩展集合的标记，不能直接填入D5的物理view字段。`baseline_geometry_id`只是生成溯源。以后真实 noisy child 的 parent才指各自baseline/extra，保存真实扰动coords/SHA/seed与同一物理构象键。",
+                                                           "line_1based":  33
+                                                       },
+                                                       {
+                                                           "text":  "4. **冻结新域的顺序与使用清单。** 普通S′仍用原物理ID/原N。P′ expanded域对baseline+extra按已分配物理int64、原source字面值`uff_sprime`和seed20261025生成fixed_random/energy/diversity三份置换；energy仅用对应UFF能量，distance用原固定映射proper Kabsch。N1包原native顺序用 `0`和字符串`n1p2:seed:cid`（`contract.py:224–227`），其哈希结果不保证与新物理int64顺序相同，必须保留为producer provenance，不能谎称已是最终order。",
+                                                           "line_1based":  35
+                                                       },
+                                                       {
+                                                           "text":  "   单独保存 `ordinary_sprime_training`、`pprime_compute_first2`、`pprime_training_after_diagnostic`成员/顺序引用。**现D5没有这个条件轴**：`materialize.py:170–172`按全部base做训练集合，`export.py:229–257`按source/view导出。最小先做独立P′计算sidecar与新有界reader/planner；最终训练导出需共同契约显式接纳condition/domain成员，或独立P′条件入口。不得直接把extra塞进普通D5来偷偷令S′ N=2，也不能把extra伪装成view绕过base计数。",
+                                                           "line_1based":  37
+                                                       },
+                                                       {
+                                                           "text":  "原prepare `prepare_cpu.py:158–194`先统计全5105 `S_conformers=1`，按role/PM7严格可用/unsupported/真实baseline计数等原因分解，eligible4631只是有合法旧baseline1的子集。233 `ACCEPTED_BASELINE_COUNT_NOT1` 的实际0、\u003e1、恢复/排除分布不能预分配。",
+                                                           "line_1based":  45
+                                                       },
+                                                       {
+                                                           "text":  "在真实全部S′completion与最终Common存在后，CPU建立 **整个 `common_population AND S_conformers=1 AND effective_role IN(TRAIN,VAL)`** 清单。按实际final物理UFF、N1已消费ledger、packet验收及源任务键分类：已有合法第二包；真实原有≥2（须检查独立geometry身份/计数异常）；恰1且N1 key未消费的late eligible；已消费UNKNOWN/CONFLICT/pending不可重试；输入/几何验证失败。逐类别计数守恒，同时输出原5105/4631/233交集计数。原`pprime_n1_pending.parquet`只是一条普通S′数量提示，未关联真实第二包，不可单独当未生成名单。",
+                                                           "line_1based":  47
+                                                       },
+                                                       {
+                                                           "text":  "late候选必须重读真实final baseline来源和PM7单指针。恢复baseline可能是普通fill的非零稀疏ID和生成来源；现 `contract.py:176–177`、`planning.py:19`、`core.py:157–158`固定旧baseline idx0，不能把恢复baseline伪改成0来复用。需最小独立late source validator/authority，保留真正baseline物理ID/seed/来源、原科学函数/10候选/原N1 taskKey和seed域，校验共享once账本以及Main/Alpha明确归属；已消费键绝不通过新namespace变成可重试。Root再批准实际未消费人口，不把233全量当授权名单。",
+                                                           "line_1based":  49
+                                                       },
+                                                       {
+                                                           "text":  "- 最小CPU审计receipt：全Common N1计数及上述分区守恒、原233交集、源/最终baselineID与origin交叉计数、重复mol/key/physicalID/SHA冲突计数；重读每个实际选中baseline/extra的f64 SHA与源ref，native ID→最终int64→order三方一对一；每个owner endpoint/UID/job与真实会计链可追溯。不能在login打开名单DATA或packet来完成它。",
+                                                           "line_1based":  56
+                                                       }
+                                                   ]
+                                   },
+    "ordinary_N_unchanged":  true,
+    "baseline_single_physical_storage":  true,
+    "second_UFF_is_base_not_expanded_collection_view":  true,
+    "old_idx0_validator_remains_unchanged":  true,
+    "nonzero_late_source_validator_not_implemented":  true,
+    "actual_final_Common_population_or_IDs_claimed":  false,
+    "scientific_DATA_opened":  0,
+    "Python_AST_tests_SSH_Slurm_Git_invoked":  false
+}
