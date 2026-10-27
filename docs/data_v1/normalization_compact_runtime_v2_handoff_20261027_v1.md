@@ -1,0 +1,19 @@
+SOURCE-FINAL / STOPEDIT — normalization_compact_runtime_v2, complete14-source independent namespace. No author-side Python, AST, tests, scientific DATA, SSH or Slurm was run. Source bytes and allowed delta sets only were checked. No Root, old14, fullplan9, old book/HOLD/result or actual proof was edited.
+
+Install all SOURCE_MANIFEST root_relative entries byte-exact. Eight unchanged numerical/worker/reader/orchestration leaves and six allowed resource/metadata/fixture/docs changes are enumerated with old/new bytes/SHA. DIFF_SCOPE.md is the complete change boundary. Root must execute actual source_inverse.proof plus exactly3 unittest methods before authorizing a fresh8GiB/16CPU/no_mem pilot; source-only delivery does not claim PASS or submit/retry anything. The three methods include the actual central proof shape/timezone/finite-wall and fresh-parent failure boundaries.
+
+CPU source checks, inside Root's actual allocation/appropriate fresh source scope:
+PY -B -m unittest -v workflows.data_v1_final.labels.normalization_compact_runtime_v2.test_boundaries
+source_inverse.proof() from the same v2 namespace must also be actually invoked and its receipt/account captured. Actual build entry repeats both gates before DATA.
+
+Root request remains ROOT_COMPACT_NUMERIC_STAGE_REQUEST_V1. New config schema and producer binding are V2; scope keys are compact_numeric_original_source_project_v2 /compact_numeric_original_source_coverage_v2 /compact_numeric_provisional_train_statistics_v2. Use a fresh separately signed technical/resource review. Its existing schema remains ROOT_COMPACT_NUMERIC_TECHNICAL_REPROJECTION_REVIEW_V1 with all original scientific/storage gates. Additionally provide actual_source_inverse3_review_reference for the new real v2 source3, and verified_current_small_metadata_references containing actual baseline1610/footer1749/history/current reviewed parent metadata. Together with evidence they generate a nonempty deduplicated scope parent set even for empty freshpilot batch_history. Numeric calibration/models/queries remain DATA; no login-side numeric route is called.
+
+Main metadata candidate/finalize:
+PY -B -m workflows.data_v1_final.labels.normalization_compact_runtime_v2.metadata candidate --request ACTUAL_ROOT_REQUEST --output FRESH_CONTROL_DIR
+Root independently approves the exact scope_candidate (APPROVED_FOR_EXACT_STAGE), then:
+PY -B -m workflows.data_v1_final.labels.normalization_compact_runtime_v2.metadata finalize --directory FRESH_CONTROL_DIR --scope-review ACTUAL_ROOT_REVIEW
+Use existing central cpu_auto_memory_queue_v2 with the resulting stage_spec; no central source or gate changes.
+
+Actual CPU project/coverage/statistics are their v2 module names with unchanged exact flags --config ABS --startup-proof ABS --output FRESH_ABS_OUTPUT. Central checks actual primary/fullargv/source/data/UID/node/job; metadata accepts only exact current-v2 primary/config/scope and genuine Main actual C0/raw across the complete project->coverage->statistics chain. Full numeric work still requires real new512 exact legacy-profile C0 and a separately frozen real full logical plan. No old v1 failed project is promoted or automatically retried/imported; independent new pilot approval is required.
+
+Resource clock uses real aware observed_at and root_observed_at/Slurm elapsed/start/end and conservative startup/fixture deduction, writes wall_clock_budget.json, then only local monotonic remaining time. Remaining<=original drain latches new-window STOP and naturally drains running work. It does not insert, accept as replacement, or read a top-level numeric Unix proof field, weaken freshness/quota/RSS/quality, emit signals, or fit a scientific value. Old actual4524257 failure592coresec and all retained charges/unknowns remain historical. The separately frozen fullplan9 clock blocker is only reported here; it is not fixed or redeployed by this package.

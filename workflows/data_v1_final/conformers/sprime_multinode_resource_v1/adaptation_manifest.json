@@ -1,0 +1,131 @@
+{
+    "schema":  "SPRIME_MULTINODE_EXPLICIT_RESOURCE_SOURCE_INVERSE_V1",
+    "scientific_sources_copied_or_changed":  false,
+    "original_science_reference":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/science.py",
+                                       "bytes":  12865,
+                                       "sha256":  "2476767636d97b2a334dcf1f8b8e789e137a268acc6404ade61b7162690d211f"
+                                   },
+    "files":  [
+                  {
+                      "target":  "runtime_io.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_v3/runtime_io.py",
+                                     "bytes":  22298,
+                                     "sha256":  "be42f5033ee3fd9fe95da09e8b8efb8ca1dedb711a3766049380b0ed5d7ea300"
+                                 },
+                      "origin_start":  "def disk_bytes(",
+                      "origin_end":  "def load_science(",
+                      "target_start":  "def disk_bytes(",
+                      "target_end":  "class Budget:",
+                      "edits":  [
+                                    {
+                                        "old":  "C.CAP",
+                                        "new":  "output_cap()",
+                                        "count":  2
+                                    }
+                                ]
+                  },
+                  {
+                      "target":  "runtime_io.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_v3/runtime_io.py",
+                                     "bytes":  22298,
+                                     "sha256":  "be42f5033ee3fd9fe95da09e8b8efb8ca1dedb711a3766049380b0ed5d7ea300"
+                                 },
+                      "origin_start":  "class Budget:",
+                      "origin_end":  "# Explicit adapter",
+                      "target_start":  "class Budget:",
+                      "target_end":  "# END ORIGINAL RESOURCE IO REGION",
+                      "edits":  [
+                                    {
+                                        "old":  "C.CAP",
+                                        "new":  "output_cap()",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "Q.Client(reuse[\u0027provider_review_reference\u0027],proof[\u0027request\u0027])",
+                                        "new":  "Q.Client(reuse[\u0027node_binding_reference\u0027],proof[\u0027request\u0027])",
+                                        "count":  1
+                                    }
+                                ]
+                  },
+                  {
+                      "target":  "run_batch.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_v3/run_batch.py",
+                                     "bytes":  9171,
+                                     "sha256":  "dccd15c044df06bee10a4ed74bdd732cb4e6b7b40f068bb2b984c66bf385b86d"
+                                 },
+                      "edits":  [
+                                    {
+                                        "old":  "from workflows.data_v1_final.conformers.formal_cpu_auto_v3 import contract as C,runtime_io as R",
+                                        "new":  "from workflows.data_v1_final.conformers.sprime_multinode_resource_v1 import contract as C,runtime_io as R",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "def validate_slot(plan,proof,out):\n    matches=[job for job in plan[\u0027jobs\u0027] if job[\u0027job_name\u0027]==proof[\u0027request\u0027][\u0027job_name\u0027]]\n    C.need(len(matches)==1,\u0027REQUEST_NOT_AN_APPROVED_WAVE_SLOT\u0027);slot=matches[0]\n    request=proof[\u0027request\u0027]\n    C.need(request[\u0027cpus\u0027]==slot[\u0027cpus\u0027]==16 and request[\u0027wall_seconds\u0027]==slot[\u0027wall_seconds\u0027]\n        and request[\u0027node\u0027]==slot[\u0027node\u0027]==\u0027compute-0-13\u0027 and str(out)==slot[\u0027output_root\u0027],\n        \u0027ACTUAL_REQUEST_RESOURCE_OR_OUTPUT_DIFFERS_FROM_FINITE_ROOT_WAVE\u0027)\n    reuse,_,_=R.quota_reuse(R.SESSION[\u0027quota_reuse_review_reference\u0027],C.sources())\n    C.need(reuse[\u0027whole_wave_output_reserve_bytes\u0027]\u003e=sum(j[\u0027whole_output_cap_bytes\u0027] for j in plan[\u0027jobs\u0027]),\n        \u0027SHARED_ACCOUNT_RESERVATION_MUST_COVER_ALL_APPROVED_WAVE_JOB_CAPS\u0027)\n    from workflows.data_v1_final.execution.cpu_auto_memory_queue_v2.shared import query\n    from workflows.data_v1_final.execution.cpu_auto_memory_queue_v2.slurm_format import parse_scontrol_jobs\n    live=query([\u0027scontrol\u0027,\u0027show\u0027,\u0027job\u0027,\u0027--oneliner\u0027]);names={j[\u0027job_name\u0027] for j in plan[\u0027jobs\u0027]}\n    jobs=parse_scontrol_jobs(live)\n    running=[j for j in jobs if j.get(\u0027JobName\u0027,j.get(\u0027Name\u0027)) in names and j.get(\u0027JobState\u0027)==\u0027RUNNING\u0027]\n    C.need(len(running)\u003c=plan[\u0027maximum_concurrent_jobs\u0027],\u0027ROOT_WAVE_MAXIMUM_CONCURRENT_JOBS_EXCEEDED\u0027)\n    return slot,{\u0027raw_scontrol\u0027:live,\u0027running_wave_job_ids\u0027:[j[\u0027JobId\u0027] for j in running]}\n\n\n",
+                                        "new":  "def validate_slot(plan,proof,out):\n    return R.validate_slot(plan,proof,out)\n\n\n",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "if __name__==\u0027__main__\u0027:raise SystemExit(main())",
+                                        "new":  "if __name__==\u0027__main__\u0027:\n    failure=None\n    try:outcome=main()\n    except BaseException as exc:\n        failure={\u0027error\u0027:repr(exc),\u0027traceback\u0027:__import__(\u0027traceback\u0027).format_exc()};raise\n    finally:R.finish_resource_entry(failure)\n    raise SystemExit(outcome)",
+                                        "count":  1
+                                    }
+                                ]
+                  },
+                  {
+                      "target":  "prepare_batch.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_v3/prepare_batch.py",
+                                     "bytes":  5151,
+                                     "sha256":  "b7d6feec05de79b0e40d6a3c0092ea07a5bdf5725ec1063f8115641e180ffa82"
+                                 },
+                      "edits":  [
+                                    {
+                                        "old":  "from workflows.data_v1_final.conformers.formal_cpu_auto_v3 import contract as C,runtime_io as R",
+                                        "new":  "from workflows.data_v1_final.conformers.sprime_multinode_resource_v1 import contract as C,runtime_io as R",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "if __name__==\u0027__main__\u0027:main()",
+                                        "new":  "if __name__==\u0027__main__\u0027:\n    failure=None\n    try:outcome=main()\n    except BaseException as exc:\n        failure={\u0027error\u0027:repr(exc),\u0027traceback\u0027:__import__(\u0027traceback\u0027).format_exc()};raise\n    finally:R.finish_resource_entry(failure)\n    raise SystemExit(outcome)",
+                                        "count":  1
+                                    }
+                                ]
+                  },
+                  {
+                      "target":  "close_index.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_v3/close_index.py",
+                                     "bytes":  15182,
+                                     "sha256":  "8ec4e1add3ffc224f6030d8457f1b2a54605d8d97b291095c70d304be1c3b108"
+                                 },
+                      "edits":  [
+                                    {
+                                        "old":  "from . import contract as C,runtime_io as R",
+                                        "new":  "from . import contract as C,runtime_io as R",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "request[\u0027scope_key\u0027]==\u0027sprime_formal_cpu_auto_v3_run\u0027",
+                                        "new":  "request[\u0027scope_key\u0027] in {\u0027sprime_formal_cpu_auto_v3_run\u0027,\u0027sprime_multinode_resource_v1_run\u0027}",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "request[\u0027node\u0027]==slot[\u0027node\u0027]==\u0027compute-0-13\u0027",
+                                        "new":  "R.validate_terminal_resource(descriptor,request,slot)",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "code=str(C.HERE/\u0027run_batch.py\u0027)",
+                                        "new":  "code=R.terminal_primary(request)",
+                                        "count":  1
+                                    }
+                                ]
+                  }
+              ],
+    "proof_executed":  false,
+    "AST_inverse_cpu_check_pending":  true
+}
