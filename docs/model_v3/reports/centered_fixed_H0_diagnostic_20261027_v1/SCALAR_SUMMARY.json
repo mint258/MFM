@@ -1,0 +1,1523 @@
+{
+    "schema":  "model_v3_centered_fixed_H0_1838_1842_readonly_analysis_v1",
+    "status":  "CLOSED_DIAGNOSTIC_ONLY_C4_HOLD_21PASS_27FAIL",
+    "inputs":  {
+                   "CPU_result":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/centered_fixed_H0_shadow_CPU_v1_4521842/SHADOW_RESULT.json",
+                                      "bytes":  715247,
+                                      "sha256":  "0bb09b599272210e75a8c5085ebc2279716e66644aea1b40e5f7e3e7470afcfe"
+                                  },
+                   "CPU_complete":  {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/centered_fixed_H0_shadow_CPU_v1_4521842/COMPLETE.json",
+                                        "bytes":  326,
+                                        "sha256":  "d93a2338d0a982c78642a51f04eaa4b518e30ac5e6a46bbe7ef78d24b2917c82"
+                                    },
+                   "CPU_Root_closure":  {
+                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_CPU_4521842_Root_metadata_closure_v1.json",
+                                            "bytes":  3734,
+                                            "sha256":  "48b997cec9d22c69d2c4bd3c06a388bc0129fd5cbaaf5655e58734efeb94dd01"
+                                        },
+                   "GPU_Root_closure":  {
+                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_4521838_Root_metadata_closure_v1.json",
+                                            "bytes":  15354,
+                                            "sha256":  "ef9a6d75983fa5b8fc47eab23ae8003204080a02be35d8a17a1297db4796af18"
+                                        },
+                   "old1503_CPU_result":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_shadow_cpu_v3_4521503/SHADOW_RESULT.json",
+                                              "bytes":  714257,
+                                              "sha256":  "112bef0fd9523d6435be35d9bb49a42a6dfe4ac2e508f4cc9c89bbb37146500b"
+                                          },
+                   "original1776_analysis":  {
+                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_1776_readonly_analysis_v2.json",
+                                                 "bytes":  216420,
+                                                 "sha256":  "ede3dc1eed2d47bfaaa68088e6950435e6f91082371aa1a61ab5219e69a94105"
+                                             }
+               },
+    "method":  "Only scalar grouping/maxima from closed JSON; no NPZ/tensor/model/Python/network/Slurm execution",
+    "candidate_unchanged":  true,
+    "scientific_adoption":  false,
+    "new_lineage":  "new_centered_capture_H0_not_1776_internal_H0",
+    "C4_pass":  21,
+    "C4_fail":  27,
+    "observations":  432,
+    "cases":  48,
+    "new_case_bank_state_identities_equal_old":  48,
+    "field_summaries":  [
+                            {
+                                "field":  "p_extensive",
+                                "observations":  144,
+                                "metrics":  [
+                                                {
+                                                    "metric":  "GPU_FP32_D",
+                                                    "minimum":  3.5762786865234375E-07,
+                                                    "maximum":  1.52587890625E-05,
+                                                    "observations_above_1e_minus5":  10,
+                                                    "cases_above_1e_minus5":  7
+                                                },
+                                                {
+                                                    "metric":  "CPU_FP32_D",
+                                                    "minimum":  3.2782554626464844E-07,
+                                                    "maximum":  1.1444091796875E-05,
+                                                    "observations_above_1e_minus5":  11,
+                                                    "cases_above_1e_minus5":  9
+                                                },
+                                                {
+                                                    "metric":  "D",
+                                                    "minimum":  2.9759015873764838E-07,
+                                                    "maximum":  1.1082818222263313E-05,
+                                                    "observations_above_1e_minus5":  2,
+                                                    "cases_above_1e_minus5":  2
+                                                },
+                                                {
+                                                    "metric":  "H",
+                                                    "minimum":  2.9759015873764838E-07,
+                                                    "maximum":  1.1082818222263313E-05,
+                                                    "observations_above_1e_minus5":  2,
+                                                    "cases_above_1e_minus5":  2
+                                                },
+                                                {
+                                                    "metric":  "G",
+                                                    "minimum":  0,
+                                                    "maximum":  0,
+                                                    "observations_above_1e_minus5":  0,
+                                                    "cases_above_1e_minus5":  0
+                                                },
+                                                {
+                                                    "metric":  "I",
+                                                    "minimum":  0,
+                                                    "maximum":  0,
+                                                    "observations_above_1e_minus5":  0,
+                                                    "cases_above_1e_minus5":  0
+                                                },
+                                                {
+                                                    "metric":  "head_arithmetic_delta",
+                                                    "minimum":  1.02138191682144E-07,
+                                                    "maximum":  1.2076356391332865E-05,
+                                                    "observations_above_1e_minus5":  9,
+                                                    "cases_above_1e_minus5":  7
+                                                }
+                                            ],
+                                "worst_GPU":  {
+                                                  "case_id":  "C1-0__two__H2_fixed__seed20261026",
+                                                  "field":  "p_extensive",
+                                                  "transform":  "other_rotation_and_translation",
+                                                  "maxabs":  {
+                                                                 "CPU_FP32_D":  9.5367431640625E-06,
+                                                                 "D":  6.4865206770292616E-06,
+                                                                 "G":  0.0,
+                                                                 "GPU_FP32_D":  1.52587890625E-05,
+                                                                 "H":  6.4865206770292616E-06,
+                                                                 "I":  0.0,
+                                                                 "head_arithmetic_delta":  8.7722683854707384E-06
+                                                             },
+                                                  "GPU_argmax":  {
+                                                                     "component":  0,
+                                                                     "row":  2,
+                                                                     "same_component_terms":  {
+                                                                                                  "CPU_FP32_D":  -9.5367431640625E-06,
+                                                                                                  "D":  -6.4865206770292616E-06,
+                                                                                                  "G":  0.0,
+                                                                                                  "GPU_FP32_D":  -1.52587890625E-05,
+                                                                                                  "H":  -6.4865206770292616E-06,
+                                                                                                  "I":  0.0,
+                                                                                                  "head_arithmetic_delta":  -8.7722683854707384E-06
+                                                                                              }
+                                                                 },
+                                                  "largest_source_at_GPU_argmax":  "head_arithmetic_delta",
+                                                  "F64_D_argmax":  {
+                                                                       "row":  2,
+                                                                       "component":  0,
+                                                                       "same_component_terms":  {
+                                                                                                    "GPU_FP32_D":  -1.52587890625E-05,
+                                                                                                    "CPU_FP32_D":  -9.5367431640625E-06,
+                                                                                                    "D":  -6.4865206770292616E-06,
+                                                                                                    "H":  -6.4865206770292616E-06,
+                                                                                                    "G":  0.0,
+                                                                                                    "I":  0.0,
+                                                                                                    "head_arithmetic_delta":  -8.7722683854707384E-06
+                                                                                                },
+                                                                       "largest_HGI_term":  "H"
+                                                                   },
+                                                  "CPU_FP32_closure":  0.0,
+                                                  "FP64_closure":  0.0,
+                                                  "CPU_vs_GPU_moved_maxabs":  9.5367431640625E-06
+                                              },
+                                "worst_F64_D":  {
+                                                    "case_id":  "C1-b__three__H3_fixed__seed20261027",
+                                                    "field":  "p_extensive",
+                                                    "transform":  "translation_only",
+                                                    "maxabs":  {
+                                                                   "CPU_FP32_D":  7.62939453125E-06,
+                                                                   "D":  1.1082818222263313E-05,
+                                                                   "G":  0.0,
+                                                                   "GPU_FP32_D":  7.62939453125E-06,
+                                                                   "H":  1.1082818222263313E-05,
+                                                                   "I":  0.0,
+                                                                   "head_arithmetic_delta":  3.4534236910133131E-06
+                                                               },
+                                                    "GPU_argmax":  {
+                                                                       "component":  0,
+                                                                       "row":  2,
+                                                                       "same_component_terms":  {
+                                                                                                    "CPU_FP32_D":  7.62939453125E-06,
+                                                                                                    "D":  1.1082818222263313E-05,
+                                                                                                    "G":  0.0,
+                                                                                                    "GPU_FP32_D":  7.62939453125E-06,
+                                                                                                    "H":  1.1082818222263313E-05,
+                                                                                                    "I":  0.0,
+                                                                                                    "head_arithmetic_delta":  -3.4534236910133131E-06
+                                                                                                }
+                                                                   },
+                                                    "largest_source_at_GPU_argmax":  "H",
+                                                    "F64_D_argmax":  {
+                                                                         "row":  2,
+                                                                         "component":  0,
+                                                                         "same_component_terms":  {
+                                                                                                      "GPU_FP32_D":  7.62939453125E-06,
+                                                                                                      "CPU_FP32_D":  7.62939453125E-06,
+                                                                                                      "D":  1.1082818222263313E-05,
+                                                                                                      "H":  1.1082818222263313E-05,
+                                                                                                      "G":  0.0,
+                                                                                                      "I":  0.0,
+                                                                                                      "head_arithmetic_delta":  -3.4534236910133131E-06
+                                                                                                  },
+                                                                         "largest_HGI_term":  "H"
+                                                                     },
+                                                    "CPU_FP32_closure":  0.0,
+                                                    "FP64_closure":  0.0,
+                                                    "CPU_vs_GPU_moved_maxabs":  3.814697265625E-06
+                                                },
+                                "largest_source_at_GPU_argmax_all":  [
+                                                                         {
+                                                                             "source":  "H",
+                                                                             "count":  75
+                                                                         },
+                                                                         {
+                                                                             "source":  "head_arithmetic_delta",
+                                                                             "count":  69
+                                                                         }
+                                                                     ],
+                                "largest_source_at_GPU_argmax_GPU_failed":  [
+                                                                                {
+                                                                                    "source":  "head_arithmetic_delta",
+                                                                                    "count":  9
+                                                                                },
+                                                                                {
+                                                                                    "source":  "H",
+                                                                                    "count":  1
+                                                                                }
+                                                                            ]
+                            },
+                            {
+                                "field":  "p_dipole",
+                                "observations":  144,
+                                "metrics":  [
+                                                {
+                                                    "metric":  "GPU_FP32_D",
+                                                    "minimum":  1.5136122119563389E-06,
+                                                    "maximum":  2.7487121196890715E-05,
+                                                    "observations_above_1e_minus5":  36,
+                                                    "cases_above_1e_minus5":  21
+                                                },
+                                                {
+                                                    "metric":  "CPU_FP32_D",
+                                                    "minimum":  1.0132789611816406E-06,
+                                                    "maximum":  3.4153461456298828E-05,
+                                                    "observations_above_1e_minus5":  51,
+                                                    "cases_above_1e_minus5":  30
+                                                },
+                                                {
+                                                    "metric":  "D",
+                                                    "minimum":  1.3291692089190121E-06,
+                                                    "maximum":  3.0803788369837548E-05,
+                                                    "observations_above_1e_minus5":  28,
+                                                    "cases_above_1e_minus5":  19
+                                                },
+                                                {
+                                                    "metric":  "H",
+                                                    "minimum":  1.3276515917759468E-06,
+                                                    "maximum":  3.0804355181324183E-05,
+                                                    "observations_above_1e_minus5":  28,
+                                                    "cases_above_1e_minus5":  19
+                                                },
+                                                {
+                                                    "metric":  "G",
+                                                    "minimum":  8.9128963653983817E-09,
+                                                    "maximum":  2.3765781853590795E-07,
+                                                    "observations_above_1e_minus5":  0,
+                                                    "cases_above_1e_minus5":  0
+                                                },
+                                                {
+                                                    "metric":  "I",
+                                                    "minimum":  3.5527136788005009E-14,
+                                                    "maximum":  5.00882743552475E-13,
+                                                    "observations_above_1e_minus5":  0,
+                                                    "cases_above_1e_minus5":  0
+                                                },
+                                                {
+                                                    "metric":  "head_arithmetic_delta",
+                                                    "minimum":  2.892626037483137E-07,
+                                                    "maximum":  2.01979887526349E-05,
+                                                    "observations_above_1e_minus5":  5,
+                                                    "cases_above_1e_minus5":  3
+                                                }
+                                            ],
+                                "worst_GPU":  {
+                                                  "case_id":  "C1-0__two__H1_learned__seed20261027",
+                                                  "field":  "p_dipole",
+                                                  "transform":  "general_rotation",
+                                                  "maxabs":  {
+                                                                 "CPU_FP32_D":  1.4026174210232493E-05,
+                                                                 "D":  1.5110761557422629E-05,
+                                                                 "G":  3.7735048179915465E-08,
+                                                                 "GPU_FP32_D":  2.7487121196890715E-05,
+                                                                 "H":  1.507847714673025E-05,
+                                                                 "I":  3.4091149804656943E-13,
+                                                                 "head_arithmetic_delta":  1.2376359639468086E-05
+                                                             },
+                                                  "GPU_argmax":  {
+                                                                     "component":  0,
+                                                                     "row":  2,
+                                                                     "same_component_terms":  {
+                                                                                                  "CPU_FP32_D":  1.4026174210232493E-05,
+                                                                                                  "D":  1.5110761557422629E-05,
+                                                                                                  "G":  3.2284751603876838E-08,
+                                                                                                  "GPU_FP32_D":  2.7487121196890715E-05,
+                                                                                                  "H":  1.507847714673025E-05,
+                                                                                                  "I":  -3.4091149804656943E-13,
+                                                                                                  "head_arithmetic_delta":  1.2376359639468086E-05
+                                                                                              }
+                                                                 },
+                                                  "largest_source_at_GPU_argmax":  "H",
+                                                  "F64_D_argmax":  {
+                                                                       "row":  2,
+                                                                       "component":  0,
+                                                                       "same_component_terms":  {
+                                                                                                    "GPU_FP32_D":  2.7487121196890715E-05,
+                                                                                                    "CPU_FP32_D":  1.4026174210232493E-05,
+                                                                                                    "D":  1.5110761557422629E-05,
+                                                                                                    "H":  1.507847714673025E-05,
+                                                                                                    "G":  3.2284751603876838E-08,
+                                                                                                    "I":  -3.4091149804656943E-13,
+                                                                                                    "head_arithmetic_delta":  1.2376359639468086E-05
+                                                                                                },
+                                                                       "largest_HGI_term":  "H"
+                                                                   },
+                                                  "CPU_FP32_closure":  0.0,
+                                                  "FP64_closure":  0.0,
+                                                  "CPU_vs_GPU_moved_maxabs":  4.7758221626281738E-06
+                                              },
+                                "worst_F64_D":  {
+                                                    "case_id":  "C1-0__two__H3_fixed__seed20261026",
+                                                    "field":  "p_dipole",
+                                                    "transform":  "translation_only",
+                                                    "maxabs":  {
+                                                                   "CPU_FP32_D":  2.5868415832519531E-05,
+                                                                   "D":  3.0803788369837548E-05,
+                                                                   "G":  2.0398124189746625E-07,
+                                                                   "GPU_FP32_D":  1.9967555999755859E-05,
+                                                                   "H":  3.0804355181324183E-05,
+                                                                   "I":  4.6185277824406512E-14,
+                                                                   "head_arithmetic_delta":  1.0836232370081689E-05
+                                                               },
+                                                    "GPU_argmax":  {
+                                                                       "component":  0,
+                                                                       "row":  2,
+                                                                       "same_component_terms":  {
+                                                                                                    "CPU_FP32_D":  -2.5868415832519531E-05,
+                                                                                                    "D":  -3.0803788369837548E-05,
+                                                                                                    "G":  5.6677240678482121E-10,
+                                                                                                    "GPU_FP32_D":  -1.9967555999755859E-05,
+                                                                                                    "H":  -3.0804355181324183E-05,
+                                                                                                    "I":  3.907985046680551E-14,
+                                                                                                    "head_arithmetic_delta":  1.0836232370081689E-05
+                                                                                                }
+                                                                   },
+                                                    "largest_source_at_GPU_argmax":  "H",
+                                                    "F64_D_argmax":  {
+                                                                         "row":  2,
+                                                                         "component":  0,
+                                                                         "same_component_terms":  {
+                                                                                                      "GPU_FP32_D":  -1.9967555999755859E-05,
+                                                                                                      "CPU_FP32_D":  -2.5868415832519531E-05,
+                                                                                                      "D":  -3.0803788369837548E-05,
+                                                                                                      "H":  -3.0804355181324183E-05,
+                                                                                                      "G":  5.6677240678482121E-10,
+                                                                                                      "I":  3.907985046680551E-14,
+                                                                                                      "head_arithmetic_delta":  1.0836232370081689E-05
+                                                                                                  },
+                                                                         "largest_HGI_term":  "H"
+                                                                     },
+                                                    "CPU_FP32_closure":  0.0,
+                                                    "FP64_closure":  0.0,
+                                                    "CPU_vs_GPU_moved_maxabs":  4.7385692596435547E-06
+                                                },
+                                "largest_source_at_GPU_argmax_all":  [
+                                                                         {
+                                                                             "source":  "H",
+                                                                             "count":  103
+                                                                         },
+                                                                         {
+                                                                             "source":  "head_arithmetic_delta",
+                                                                             "count":  41
+                                                                         }
+                                                                     ],
+                                "largest_source_at_GPU_argmax_GPU_failed":  [
+                                                                                {
+                                                                                    "source":  "H",
+                                                                                    "count":  30
+                                                                                },
+                                                                                {
+                                                                                    "source":  "head_arithmetic_delta",
+                                                                                    "count":  6
+                                                                                }
+                                                                            ]
+                            },
+                            {
+                                "field":  "p_dipole_magnitude",
+                                "observations":  144,
+                                "metrics":  [
+                                                {
+                                                    "metric":  "GPU_FP32_D",
+                                                    "minimum":  3.1292438507080078E-07,
+                                                    "maximum":  1.761317253112793E-05,
+                                                    "observations_above_1e_minus5":  25,
+                                                    "cases_above_1e_minus5":  15
+                                                },
+                                                {
+                                                    "metric":  "CPU_FP32_D",
+                                                    "minimum":  4.0233135223388672E-07,
+                                                    "maximum":  2.8699636459350586E-05,
+                                                    "observations_above_1e_minus5":  25,
+                                                    "cases_above_1e_minus5":  18
+                                                },
+                                                {
+                                                    "metric":  "D",
+                                                    "minimum":  2.2330838372885964E-07,
+                                                    "maximum":  1.8458790521092006E-05,
+                                                    "observations_above_1e_minus5":  20,
+                                                    "cases_above_1e_minus5":  16
+                                                },
+                                                {
+                                                    "metric":  "H",
+                                                    "minimum":  1.6621686979578776E-07,
+                                                    "maximum":  1.8640782338402717E-05,
+                                                    "observations_above_1e_minus5":  20,
+                                                    "cases_above_1e_minus5":  16
+                                                },
+                                                {
+                                                    "metric":  "G",
+                                                    "minimum":  2.394764470059485E-09,
+                                                    "maximum":  2.5509768741827088E-07,
+                                                    "observations_above_1e_minus5":  0,
+                                                    "cases_above_1e_minus5":  0
+                                                },
+                                                {
+                                                    "metric":  "I",
+                                                    "minimum":  4.8405723873656825E-14,
+                                                    "maximum":  3.38053751658407E-11,
+                                                    "observations_above_1e_minus5":  0,
+                                                    "cases_above_1e_minus5":  0
+                                                },
+                                                {
+                                                    "metric":  "head_arithmetic_delta",
+                                                    "minimum":  9.9065414760346471E-08,
+                                                    "maximum":  1.675806967676996E-05,
+                                                    "observations_above_1e_minus5":  2,
+                                                    "cases_above_1e_minus5":  2
+                                                }
+                                            ],
+                                "worst_GPU":  {
+                                                  "case_id":  "C1-b__three__H1_learned__seed20261027",
+                                                  "field":  "p_dipole_magnitude",
+                                                  "transform":  "general_rotation",
+                                                  "maxabs":  {
+                                                                 "CPU_FP32_D":  1.1496245861053467E-05,
+                                                                 "D":  9.5565252453411187E-06,
+                                                                 "G":  2.4575243062763263E-08,
+                                                                 "GPU_FP32_D":  1.761317253112793E-05,
+                                                                 "H":  9.5632814125085064E-06,
+                                                                 "I":  2.0226875729889571E-13,
+                                                                 "head_arithmetic_delta":  8.056647285786811E-06
+                                                             },
+                                                  "GPU_argmax":  {
+                                                                     "component":  0,
+                                                                     "row":  2,
+                                                                     "same_component_terms":  {
+                                                                                                  "CPU_FP32_D":  1.1496245861053467E-05,
+                                                                                                  "D":  9.5565252453411187E-06,
+                                                                                                  "G":  -6.7563694361449933E-09,
+                                                                                                  "GPU_FP32_D":  1.761317253112793E-05,
+                                                                                                  "H":  9.5632814125085064E-06,
+                                                                                                  "I":  2.0226875729889571E-13,
+                                                                                                  "head_arithmetic_delta":  8.056647285786811E-06
+                                                                                              }
+                                                                 },
+                                                  "largest_source_at_GPU_argmax":  "H",
+                                                  "F64_D_argmax":  {
+                                                                       "row":  2,
+                                                                       "component":  0,
+                                                                       "same_component_terms":  {
+                                                                                                    "GPU_FP32_D":  1.761317253112793E-05,
+                                                                                                    "CPU_FP32_D":  1.1496245861053467E-05,
+                                                                                                    "D":  9.5565252453411187E-06,
+                                                                                                    "H":  9.5632814125085064E-06,
+                                                                                                    "G":  -6.7563694361449933E-09,
+                                                                                                    "I":  2.0226875729889571E-13,
+                                                                                                    "head_arithmetic_delta":  8.056647285786811E-06
+                                                                                                },
+                                                                       "largest_HGI_term":  "H"
+                                                                   },
+                                                  "CPU_FP32_closure":  0.0,
+                                                  "FP64_closure":  0.0,
+                                                  "CPU_vs_GPU_moved_maxabs":  7.2866678237915039E-06
+                                              },
+                                "worst_F64_D":  {
+                                                    "case_id":  "C1-0__three__H3_fixed__seed20261027",
+                                                    "field":  "p_dipole_magnitude",
+                                                    "transform":  "other_rotation_and_translation",
+                                                    "maxabs":  {
+                                                                   "CPU_FP32_D":  1.4021992683410645E-05,
+                                                                   "D":  1.8458790521092006E-05,
+                                                                   "G":  1.8195801193554573E-07,
+                                                                   "GPU_FP32_D":  1.6778707504272461E-05,
+                                                                   "H":  1.8640782338402717E-05,
+                                                                   "I":  3.38053751658407E-11,
+                                                                   "head_arithmetic_delta":  1.6800830168195446E-06
+                                                               },
+                                                    "GPU_argmax":  {
+                                                                       "component":  0,
+                                                                       "row":  2,
+                                                                       "same_component_terms":  {
+                                                                                                    "CPU_FP32_D":  1.4021992683410645E-05,
+                                                                                                    "D":  1.8458790521092006E-05,
+                                                                                                    "G":  -1.8195801193554573E-07,
+                                                                                                    "GPU_FP32_D":  1.6778707504272461E-05,
+                                                                                                    "H":  1.8640782338402717E-05,
+                                                                                                    "I":  -3.38053751658407E-11,
+                                                                                                    "head_arithmetic_delta":  -1.6800830168195446E-06
+                                                                                                }
+                                                                   },
+                                                    "largest_source_at_GPU_argmax":  "H",
+                                                    "F64_D_argmax":  {
+                                                                         "row":  2,
+                                                                         "component":  0,
+                                                                         "same_component_terms":  {
+                                                                                                      "GPU_FP32_D":  1.6778707504272461E-05,
+                                                                                                      "CPU_FP32_D":  1.4021992683410645E-05,
+                                                                                                      "D":  1.8458790521092006E-05,
+                                                                                                      "H":  1.8640782338402717E-05,
+                                                                                                      "G":  -1.8195801193554573E-07,
+                                                                                                      "I":  -3.38053751658407E-11,
+                                                                                                      "head_arithmetic_delta":  -1.6800830168195446E-06
+                                                                                                  },
+                                                                         "largest_HGI_term":  "H"
+                                                                     },
+                                                    "CPU_FP32_closure":  0.0,
+                                                    "FP64_closure":  0.0,
+                                                    "CPU_vs_GPU_moved_maxabs":  3.4570693969726563E-06
+                                                },
+                                "largest_source_at_GPU_argmax_all":  [
+                                                                         {
+                                                                             "source":  "H",
+                                                                             "count":  105
+                                                                         },
+                                                                         {
+                                                                             "source":  "head_arithmetic_delta",
+                                                                             "count":  39
+                                                                         }
+                                                                     ],
+                                "largest_source_at_GPU_argmax_GPU_failed":  [
+                                                                                {
+                                                                                    "source":  "H",
+                                                                                    "count":  21
+                                                                                },
+                                                                                {
+                                                                                    "source":  "head_arithmetic_delta",
+                                                                                    "count":  4
+                                                                                }
+                                                                            ]
+                            }
+                        ],
+    "global_metric_cohort_comparison":  [
+                                            {
+                                                "metric":  "GPU_FP32_D",
+                                                "new_1838_1842_maximum":  2.7487121196890715E-05,
+                                                "new_observations_above":  71,
+                                                "new_cases_above":  27,
+                                                "old_1492_1503_maximum":  5.6512653827667236E-05,
+                                                "old_observations_above":  81,
+                                                "old_cases_above":  38
+                                            },
+                                            {
+                                                "metric":  "CPU_FP32_D",
+                                                "new_1838_1842_maximum":  3.4153461456298828E-05,
+                                                "new_observations_above":  87,
+                                                "new_cases_above":  37,
+                                                "old_1492_1503_maximum":  4.0017068386077881E-05,
+                                                "old_observations_above":  112,
+                                                "old_cases_above":  45
+                                            },
+                                            {
+                                                "metric":  "D",
+                                                "new_1838_1842_maximum":  3.0803788369837548E-05,
+                                                "new_observations_above":  50,
+                                                "new_cases_above":  30,
+                                                "old_1492_1503_maximum":  3.8905694872831686E-05,
+                                                "old_observations_above":  65,
+                                                "old_cases_above":  31
+                                            },
+                                            {
+                                                "metric":  "H",
+                                                "new_1838_1842_maximum":  3.0804355181324183E-05,
+                                                "new_observations_above":  50,
+                                                "new_cases_above":  30,
+                                                "old_1492_1503_maximum":  3.8981121516248884E-05,
+                                                "old_observations_above":  63,
+                                                "old_cases_above":  31
+                                            },
+                                            {
+                                                "metric":  "G",
+                                                "new_1838_1842_maximum":  2.5509768741827088E-07,
+                                                "new_observations_above":  0,
+                                                "new_cases_above":  0,
+                                                "old_1492_1503_maximum":  2.5510031725906046E-07,
+                                                "old_observations_above":  0,
+                                                "old_cases_above":  0
+                                            },
+                                            {
+                                                "metric":  "I",
+                                                "new_1838_1842_maximum":  3.38053751658407E-11,
+                                                "new_observations_above":  0,
+                                                "new_cases_above":  0,
+                                                "old_1492_1503_maximum":  4.2833389612972894E-11,
+                                                "old_observations_above":  0,
+                                                "old_cases_above":  0
+                                            },
+                                            {
+                                                "metric":  "head_arithmetic_delta",
+                                                "new_1838_1842_maximum":  2.01979887526349E-05,
+                                                "new_observations_above":  16,
+                                                "new_cases_above":  11,
+                                                "old_1492_1503_maximum":  1.760695895483555E-05,
+                                                "old_observations_above":  12,
+                                                "old_cases_above":  8
+                                            }
+                                        ],
+    "all48_cases":  [
+                        {
+                            "case_id":  "C1-0__two__H1_fixed__seed20261026",
+                            "distance_bias":  "C1-0",
+                            "views":  "two",
+                            "head":  "H1_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  8.7136882826743811E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "c16027a23d5e8e4c0f45e61f0f997ce95adb0a5461e37cc21da760efba219554",
+                            "old_bank_state_identity":  "c16027a23d5e8e4c0f45e61f0f997ce95adb0a5461e37cc21da760efba219554"
+                        },
+                        {
+                            "case_id":  "C1-0__two__H1_fixed__seed20261027",
+                            "distance_bias":  "C1-0",
+                            "views":  "two",
+                            "head":  "H1_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  5,
+                            "F64_D_observations_above":  3,
+                            "H_observations_above":  3,
+                            "head_delta_observations_above":  2,
+                            "max_D":  1.652092352365242E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "5cc1861c4776e85cd972b5f81bf1839a2aab41382823fb8c442226587736c669",
+                            "old_bank_state_identity":  "5cc1861c4776e85cd972b5f81bf1839a2aab41382823fb8c442226587736c669"
+                        },
+                        {
+                            "case_id":  "C1-0__two__H1_learned__seed20261026",
+                            "distance_bias":  "C1-0",
+                            "views":  "two",
+                            "head":  "H1_learned",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  8.7136882826743811E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "e8f49e6c1804d9e5dbfff7e3856e59c062c3f97aad44f6c12f61d6b3755b957a",
+                            "old_bank_state_identity":  "e8f49e6c1804d9e5dbfff7e3856e59c062c3f97aad44f6c12f61d6b3755b957a"
+                        },
+                        {
+                            "case_id":  "C1-0__two__H1_learned__seed20261027",
+                            "distance_bias":  "C1-0",
+                            "views":  "two",
+                            "head":  "H1_learned",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  4,
+                            "F64_D_observations_above":  3,
+                            "H_observations_above":  3,
+                            "head_delta_observations_above":  2,
+                            "max_D":  1.652092352365242E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "f8e73ad24a3e049aca11c9f496894b5725edfb26ae515f1360d44ec65dbdf120",
+                            "old_bank_state_identity":  "f8e73ad24a3e049aca11c9f496894b5725edfb26ae515f1360d44ec65dbdf120"
+                        },
+                        {
+                            "case_id":  "C1-0__two__H2_fixed__seed20261026",
+                            "distance_bias":  "C1-0",
+                            "views":  "two",
+                            "head":  "H2_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  3,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  1,
+                            "max_D":  1.434425163869546E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "c142387b62c9b616c7bee59b9f02969c5a56ee85923e44d731f4172c9aab273d",
+                            "old_bank_state_identity":  "c142387b62c9b616c7bee59b9f02969c5a56ee85923e44d731f4172c9aab273d"
+                        },
+                        {
+                            "case_id":  "C1-0__two__H2_fixed__seed20261027",
+                            "distance_bias":  "C1-0",
+                            "views":  "two",
+                            "head":  "H2_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  2,
+                            "F64_D_observations_above":  2,
+                            "H_observations_above":  2,
+                            "head_delta_observations_above":  2,
+                            "max_D":  1.7625056976701414E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "561509bb1413007b517bc699d0848628b0516df6f23a000d3df1aee9fa01e5c7",
+                            "old_bank_state_identity":  "561509bb1413007b517bc699d0848628b0516df6f23a000d3df1aee9fa01e5c7"
+                        },
+                        {
+                            "case_id":  "C1-0__two__H3_fixed__seed20261026",
+                            "distance_bias":  "C1-0",
+                            "views":  "two",
+                            "head":  "H3_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  4,
+                            "F64_D_observations_above":  2,
+                            "H_observations_above":  2,
+                            "head_delta_observations_above":  2,
+                            "max_D":  3.0803788369837548E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "085e488ed02e874dfee69c575c22d28e11f73be68ad4d38b7fc60a53943c4ea3",
+                            "old_bank_state_identity":  "085e488ed02e874dfee69c575c22d28e11f73be68ad4d38b7fc60a53943c4ea3"
+                        },
+                        {
+                            "case_id":  "C1-0__two__H3_fixed__seed20261027",
+                            "distance_bias":  "C1-0",
+                            "views":  "two",
+                            "head":  "H3_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  2,
+                            "max_D":  7.2726668737671529E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "53dfeee1cc64a5bb3aa2b4af216c63f51f366868c589b07a72d79b4adfe40757",
+                            "old_bank_state_identity":  "53dfeee1cc64a5bb3aa2b4af216c63f51f366868c589b07a72d79b4adfe40757"
+                        },
+                        {
+                            "case_id":  "C1-0__three__H1_fixed__seed20261026",
+                            "distance_bias":  "C1-0",
+                            "views":  "three",
+                            "head":  "H1_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  1,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  6.4796219731988458E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "c16027a23d5e8e4c0f45e61f0f997ce95adb0a5461e37cc21da760efba219554",
+                            "old_bank_state_identity":  "c16027a23d5e8e4c0f45e61f0f997ce95adb0a5461e37cc21da760efba219554"
+                        },
+                        {
+                            "case_id":  "C1-0__three__H1_fixed__seed20261027",
+                            "distance_bias":  "C1-0",
+                            "views":  "three",
+                            "head":  "H1_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  3,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.1141576477413651E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "5cc1861c4776e85cd972b5f81bf1839a2aab41382823fb8c442226587736c669",
+                            "old_bank_state_identity":  "5cc1861c4776e85cd972b5f81bf1839a2aab41382823fb8c442226587736c669"
+                        },
+                        {
+                            "case_id":  "C1-0__three__H1_learned__seed20261026",
+                            "distance_bias":  "C1-0",
+                            "views":  "three",
+                            "head":  "H1_learned",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  5.3234680161828862E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "e8f49e6c1804d9e5dbfff7e3856e59c062c3f97aad44f6c12f61d6b3755b957a",
+                            "old_bank_state_identity":  "e8f49e6c1804d9e5dbfff7e3856e59c062c3f97aad44f6c12f61d6b3755b957a"
+                        },
+                        {
+                            "case_id":  "C1-0__three__H1_learned__seed20261027",
+                            "distance_bias":  "C1-0",
+                            "views":  "three",
+                            "head":  "H1_learned",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  3,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.1141576477413651E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "f8e73ad24a3e049aca11c9f496894b5725edfb26ae515f1360d44ec65dbdf120",
+                            "old_bank_state_identity":  "f8e73ad24a3e049aca11c9f496894b5725edfb26ae515f1360d44ec65dbdf120"
+                        },
+                        {
+                            "case_id":  "C1-0__three__H2_fixed__seed20261026",
+                            "distance_bias":  "C1-0",
+                            "views":  "three",
+                            "head":  "H2_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  5.55671288181292E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "c142387b62c9b616c7bee59b9f02969c5a56ee85923e44d731f4172c9aab273d",
+                            "old_bank_state_identity":  "c142387b62c9b616c7bee59b9f02969c5a56ee85923e44d731f4172c9aab273d"
+                        },
+                        {
+                            "case_id":  "C1-0__three__H2_fixed__seed20261027",
+                            "distance_bias":  "C1-0",
+                            "views":  "three",
+                            "head":  "H2_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  9.7668132070793945E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "561509bb1413007b517bc699d0848628b0516df6f23a000d3df1aee9fa01e5c7",
+                            "old_bank_state_identity":  "561509bb1413007b517bc699d0848628b0516df6f23a000d3df1aee9fa01e5c7"
+                        },
+                        {
+                            "case_id":  "C1-0__three__H3_fixed__seed20261026",
+                            "distance_bias":  "C1-0",
+                            "views":  "three",
+                            "head":  "H3_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  2,
+                            "F64_D_observations_above":  2,
+                            "H_observations_above":  2,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.7368880730117553E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "085e488ed02e874dfee69c575c22d28e11f73be68ad4d38b7fc60a53943c4ea3",
+                            "old_bank_state_identity":  "085e488ed02e874dfee69c575c22d28e11f73be68ad4d38b7fc60a53943c4ea3"
+                        },
+                        {
+                            "case_id":  "C1-0__three__H3_fixed__seed20261027",
+                            "distance_bias":  "C1-0",
+                            "views":  "three",
+                            "head":  "H3_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  2,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.8458790521092006E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "53dfeee1cc64a5bb3aa2b4af216c63f51f366868c589b07a72d79b4adfe40757",
+                            "old_bank_state_identity":  "53dfeee1cc64a5bb3aa2b4af216c63f51f366868c589b07a72d79b4adfe40757"
+                        },
+                        {
+                            "case_id":  "C1-a__two__H1_fixed__seed20261026",
+                            "distance_bias":  "C1-a",
+                            "views":  "two",
+                            "head":  "H1_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  6.6446851268303631E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "c16027a23d5e8e4c0f45e61f0f997ce95adb0a5461e37cc21da760efba219554",
+                            "old_bank_state_identity":  "c16027a23d5e8e4c0f45e61f0f997ce95adb0a5461e37cc21da760efba219554"
+                        },
+                        {
+                            "case_id":  "C1-a__two__H1_fixed__seed20261027",
+                            "distance_bias":  "C1-a",
+                            "views":  "two",
+                            "head":  "H1_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  2,
+                            "H_observations_above":  2,
+                            "head_delta_observations_above":  1,
+                            "max_D":  1.2898437295127962E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "5cc1861c4776e85cd972b5f81bf1839a2aab41382823fb8c442226587736c669",
+                            "old_bank_state_identity":  "5cc1861c4776e85cd972b5f81bf1839a2aab41382823fb8c442226587736c669"
+                        },
+                        {
+                            "case_id":  "C1-a__two__H1_learned__seed20261026",
+                            "distance_bias":  "C1-a",
+                            "views":  "two",
+                            "head":  "H1_learned",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  6.6446851268303631E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "e8f49e6c1804d9e5dbfff7e3856e59c062c3f97aad44f6c12f61d6b3755b957a",
+                            "old_bank_state_identity":  "e8f49e6c1804d9e5dbfff7e3856e59c062c3f97aad44f6c12f61d6b3755b957a"
+                        },
+                        {
+                            "case_id":  "C1-a__two__H1_learned__seed20261027",
+                            "distance_bias":  "C1-a",
+                            "views":  "two",
+                            "head":  "H1_learned",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  2,
+                            "H_observations_above":  2,
+                            "head_delta_observations_above":  1,
+                            "max_D":  1.2898437295127962E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "f8e73ad24a3e049aca11c9f496894b5725edfb26ae515f1360d44ec65dbdf120",
+                            "old_bank_state_identity":  "f8e73ad24a3e049aca11c9f496894b5725edfb26ae515f1360d44ec65dbdf120"
+                        },
+                        {
+                            "case_id":  "C1-a__two__H2_fixed__seed20261026",
+                            "distance_bias":  "C1-a",
+                            "views":  "two",
+                            "head":  "H2_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  1,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.1502972289467728E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "c142387b62c9b616c7bee59b9f02969c5a56ee85923e44d731f4172c9aab273d",
+                            "old_bank_state_identity":  "c142387b62c9b616c7bee59b9f02969c5a56ee85923e44d731f4172c9aab273d"
+                        },
+                        {
+                            "case_id":  "C1-a__two__H2_fixed__seed20261027",
+                            "distance_bias":  "C1-a",
+                            "views":  "two",
+                            "head":  "H2_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  3,
+                            "F64_D_observations_above":  2,
+                            "H_observations_above":  2,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.3444839676246545E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "561509bb1413007b517bc699d0848628b0516df6f23a000d3df1aee9fa01e5c7",
+                            "old_bank_state_identity":  "561509bb1413007b517bc699d0848628b0516df6f23a000d3df1aee9fa01e5c7"
+                        },
+                        {
+                            "case_id":  "C1-a__two__H3_fixed__seed20261026",
+                            "distance_bias":  "C1-a",
+                            "views":  "two",
+                            "head":  "H3_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  3,
+                            "F64_D_observations_above":  2,
+                            "H_observations_above":  2,
+                            "head_delta_observations_above":  0,
+                            "max_D":  2.2210758626517446E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "085e488ed02e874dfee69c575c22d28e11f73be68ad4d38b7fc60a53943c4ea3",
+                            "old_bank_state_identity":  "085e488ed02e874dfee69c575c22d28e11f73be68ad4d38b7fc60a53943c4ea3"
+                        },
+                        {
+                            "case_id":  "C1-a__two__H3_fixed__seed20261027",
+                            "distance_bias":  "C1-a",
+                            "views":  "two",
+                            "head":  "H3_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  7.4555419501687314E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "53dfeee1cc64a5bb3aa2b4af216c63f51f366868c589b07a72d79b4adfe40757",
+                            "old_bank_state_identity":  "53dfeee1cc64a5bb3aa2b4af216c63f51f366868c589b07a72d79b4adfe40757"
+                        },
+                        {
+                            "case_id":  "C1-a__three__H1_fixed__seed20261026",
+                            "distance_bias":  "C1-a",
+                            "views":  "three",
+                            "head":  "H1_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  4.6760064833506476E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "c16027a23d5e8e4c0f45e61f0f997ce95adb0a5461e37cc21da760efba219554",
+                            "old_bank_state_identity":  "c16027a23d5e8e4c0f45e61f0f997ce95adb0a5461e37cc21da760efba219554"
+                        },
+                        {
+                            "case_id":  "C1-a__three__H1_fixed__seed20261027",
+                            "distance_bias":  "C1-a",
+                            "views":  "three",
+                            "head":  "H1_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  1,
+                            "F64_D_observations_above":  3,
+                            "H_observations_above":  3,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.7387340473018487E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "5cc1861c4776e85cd972b5f81bf1839a2aab41382823fb8c442226587736c669",
+                            "old_bank_state_identity":  "5cc1861c4776e85cd972b5f81bf1839a2aab41382823fb8c442226587736c669"
+                        },
+                        {
+                            "case_id":  "C1-a__three__H1_learned__seed20261026",
+                            "distance_bias":  "C1-a",
+                            "views":  "three",
+                            "head":  "H1_learned",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  4.6760064833506476E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "e8f49e6c1804d9e5dbfff7e3856e59c062c3f97aad44f6c12f61d6b3755b957a",
+                            "old_bank_state_identity":  "e8f49e6c1804d9e5dbfff7e3856e59c062c3f97aad44f6c12f61d6b3755b957a"
+                        },
+                        {
+                            "case_id":  "C1-a__three__H1_learned__seed20261027",
+                            "distance_bias":  "C1-a",
+                            "views":  "three",
+                            "head":  "H1_learned",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  1,
+                            "F64_D_observations_above":  3,
+                            "H_observations_above":  3,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.7387340473018487E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "f8e73ad24a3e049aca11c9f496894b5725edfb26ae515f1360d44ec65dbdf120",
+                            "old_bank_state_identity":  "f8e73ad24a3e049aca11c9f496894b5725edfb26ae515f1360d44ec65dbdf120"
+                        },
+                        {
+                            "case_id":  "C1-a__three__H2_fixed__seed20261026",
+                            "distance_bias":  "C1-a",
+                            "views":  "three",
+                            "head":  "H2_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  2,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.3476968080211593E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "c142387b62c9b616c7bee59b9f02969c5a56ee85923e44d731f4172c9aab273d",
+                            "old_bank_state_identity":  "c142387b62c9b616c7bee59b9f02969c5a56ee85923e44d731f4172c9aab273d"
+                        },
+                        {
+                            "case_id":  "C1-a__three__H2_fixed__seed20261027",
+                            "distance_bias":  "C1-a",
+                            "views":  "three",
+                            "head":  "H2_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  4.8514183923487053E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "561509bb1413007b517bc699d0848628b0516df6f23a000d3df1aee9fa01e5c7",
+                            "old_bank_state_identity":  "561509bb1413007b517bc699d0848628b0516df6f23a000d3df1aee9fa01e5c7"
+                        },
+                        {
+                            "case_id":  "C1-a__three__H3_fixed__seed20261026",
+                            "distance_bias":  "C1-a",
+                            "views":  "three",
+                            "head":  "H3_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  2,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  7.0613758134385751E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "085e488ed02e874dfee69c575c22d28e11f73be68ad4d38b7fc60a53943c4ea3",
+                            "old_bank_state_identity":  "085e488ed02e874dfee69c575c22d28e11f73be68ad4d38b7fc60a53943c4ea3"
+                        },
+                        {
+                            "case_id":  "C1-a__three__H3_fixed__seed20261027",
+                            "distance_bias":  "C1-a",
+                            "views":  "three",
+                            "head":  "H3_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  6.822051048363531E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "53dfeee1cc64a5bb3aa2b4af216c63f51f366868c589b07a72d79b4adfe40757",
+                            "old_bank_state_identity":  "53dfeee1cc64a5bb3aa2b4af216c63f51f366868c589b07a72d79b4adfe40757"
+                        },
+                        {
+                            "case_id":  "C1-b__two__H1_fixed__seed20261026",
+                            "distance_bias":  "C1-b",
+                            "views":  "two",
+                            "head":  "H1_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  2,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.2009654523109647E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "c16027a23d5e8e4c0f45e61f0f997ce95adb0a5461e37cc21da760efba219554",
+                            "old_bank_state_identity":  "c16027a23d5e8e4c0f45e61f0f997ce95adb0a5461e37cc21da760efba219554"
+                        },
+                        {
+                            "case_id":  "C1-b__two__H1_fixed__seed20261027",
+                            "distance_bias":  "C1-b",
+                            "views":  "two",
+                            "head":  "H1_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  7,
+                            "F64_D_observations_above":  3,
+                            "H_observations_above":  3,
+                            "head_delta_observations_above":  1,
+                            "max_D":  1.5958364277160464E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "5cc1861c4776e85cd972b5f81bf1839a2aab41382823fb8c442226587736c669",
+                            "old_bank_state_identity":  "5cc1861c4776e85cd972b5f81bf1839a2aab41382823fb8c442226587736c669"
+                        },
+                        {
+                            "case_id":  "C1-b__two__H1_learned__seed20261026",
+                            "distance_bias":  "C1-b",
+                            "views":  "two",
+                            "head":  "H1_learned",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  2,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.2009654523109647E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "e8f49e6c1804d9e5dbfff7e3856e59c062c3f97aad44f6c12f61d6b3755b957a",
+                            "old_bank_state_identity":  "e8f49e6c1804d9e5dbfff7e3856e59c062c3f97aad44f6c12f61d6b3755b957a"
+                        },
+                        {
+                            "case_id":  "C1-b__two__H1_learned__seed20261027",
+                            "distance_bias":  "C1-b",
+                            "views":  "two",
+                            "head":  "H1_learned",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  5,
+                            "F64_D_observations_above":  3,
+                            "H_observations_above":  3,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.5958364277160464E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "f8e73ad24a3e049aca11c9f496894b5725edfb26ae515f1360d44ec65dbdf120",
+                            "old_bank_state_identity":  "f8e73ad24a3e049aca11c9f496894b5725edfb26ae515f1360d44ec65dbdf120"
+                        },
+                        {
+                            "case_id":  "C1-b__two__H2_fixed__seed20261026",
+                            "distance_bias":  "C1-b",
+                            "views":  "two",
+                            "head":  "H2_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  1,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.3853044820599791E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "c142387b62c9b616c7bee59b9f02969c5a56ee85923e44d731f4172c9aab273d",
+                            "old_bank_state_identity":  "c142387b62c9b616c7bee59b9f02969c5a56ee85923e44d731f4172c9aab273d"
+                        },
+                        {
+                            "case_id":  "C1-b__two__H2_fixed__seed20261027",
+                            "distance_bias":  "C1-b",
+                            "views":  "two",
+                            "head":  "H2_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  1,
+                            "max_D":  4.7846934476680758E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "561509bb1413007b517bc699d0848628b0516df6f23a000d3df1aee9fa01e5c7",
+                            "old_bank_state_identity":  "561509bb1413007b517bc699d0848628b0516df6f23a000d3df1aee9fa01e5c7"
+                        },
+                        {
+                            "case_id":  "C1-b__two__H3_fixed__seed20261026",
+                            "distance_bias":  "C1-b",
+                            "views":  "two",
+                            "head":  "H3_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  0,
+                            "max_D":  7.73058837699736E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "085e488ed02e874dfee69c575c22d28e11f73be68ad4d38b7fc60a53943c4ea3",
+                            "old_bank_state_identity":  "085e488ed02e874dfee69c575c22d28e11f73be68ad4d38b7fc60a53943c4ea3"
+                        },
+                        {
+                            "case_id":  "C1-b__two__H3_fixed__seed20261027",
+                            "distance_bias":  "C1-b",
+                            "views":  "two",
+                            "head":  "H3_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  0,
+                            "H_observations_above":  0,
+                            "head_delta_observations_above":  1,
+                            "max_D":  5.1526018758352166E-06,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "53dfeee1cc64a5bb3aa2b4af216c63f51f366868c589b07a72d79b4adfe40757",
+                            "old_bank_state_identity":  "53dfeee1cc64a5bb3aa2b4af216c63f51f366868c589b07a72d79b4adfe40757"
+                        },
+                        {
+                            "case_id":  "C1-b__three__H1_fixed__seed20261026",
+                            "distance_bias":  "C1-b",
+                            "views":  "three",
+                            "head":  "H1_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.0412307763774109E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "c16027a23d5e8e4c0f45e61f0f997ce95adb0a5461e37cc21da760efba219554",
+                            "old_bank_state_identity":  "c16027a23d5e8e4c0f45e61f0f997ce95adb0a5461e37cc21da760efba219554"
+                        },
+                        {
+                            "case_id":  "C1-b__three__H1_fixed__seed20261027",
+                            "distance_bias":  "C1-b",
+                            "views":  "three",
+                            "head":  "H1_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  4,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.2287573006919406E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "5cc1861c4776e85cd972b5f81bf1839a2aab41382823fb8c442226587736c669",
+                            "old_bank_state_identity":  "5cc1861c4776e85cd972b5f81bf1839a2aab41382823fb8c442226587736c669"
+                        },
+                        {
+                            "case_id":  "C1-b__three__H1_learned__seed20261026",
+                            "distance_bias":  "C1-b",
+                            "views":  "three",
+                            "head":  "H1_learned",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.0412307763774109E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "e8f49e6c1804d9e5dbfff7e3856e59c062c3f97aad44f6c12f61d6b3755b957a",
+                            "old_bank_state_identity":  "e8f49e6c1804d9e5dbfff7e3856e59c062c3f97aad44f6c12f61d6b3755b957a"
+                        },
+                        {
+                            "case_id":  "C1-b__three__H1_learned__seed20261027",
+                            "distance_bias":  "C1-b",
+                            "views":  "three",
+                            "head":  "H1_learned",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  4,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.2287573006919406E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "f8e73ad24a3e049aca11c9f496894b5725edfb26ae515f1360d44ec65dbdf120",
+                            "old_bank_state_identity":  "f8e73ad24a3e049aca11c9f496894b5725edfb26ae515f1360d44ec65dbdf120"
+                        },
+                        {
+                            "case_id":  "C1-b__three__H2_fixed__seed20261026",
+                            "distance_bias":  "C1-b",
+                            "views":  "three",
+                            "head":  "H2_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  1,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.5634818212581503E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "c142387b62c9b616c7bee59b9f02969c5a56ee85923e44d731f4172c9aab273d",
+                            "old_bank_state_identity":  "c142387b62c9b616c7bee59b9f02969c5a56ee85923e44d731f4172c9aab273d"
+                        },
+                        {
+                            "case_id":  "C1-b__three__H2_fixed__seed20261027",
+                            "distance_bias":  "C1-b",
+                            "views":  "three",
+                            "head":  "H2_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  0,
+                            "F64_D_observations_above":  2,
+                            "H_observations_above":  2,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.29762893141816E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "561509bb1413007b517bc699d0848628b0516df6f23a000d3df1aee9fa01e5c7",
+                            "old_bank_state_identity":  "561509bb1413007b517bc699d0848628b0516df6f23a000d3df1aee9fa01e5c7"
+                        },
+                        {
+                            "case_id":  "C1-b__three__H3_fixed__seed20261026",
+                            "distance_bias":  "C1-b",
+                            "views":  "three",
+                            "head":  "H3_fixed",
+                            "seed":  "seed20261026",
+                            "GPU_observations_above":  2,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.0026387574801898E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "085e488ed02e874dfee69c575c22d28e11f73be68ad4d38b7fc60a53943c4ea3",
+                            "old_bank_state_identity":  "085e488ed02e874dfee69c575c22d28e11f73be68ad4d38b7fc60a53943c4ea3"
+                        },
+                        {
+                            "case_id":  "C1-b__three__H3_fixed__seed20261027",
+                            "distance_bias":  "C1-b",
+                            "views":  "three",
+                            "head":  "H3_fixed",
+                            "seed":  "seed20261027",
+                            "GPU_observations_above":  1,
+                            "F64_D_observations_above":  1,
+                            "H_observations_above":  1,
+                            "head_delta_observations_above":  0,
+                            "max_D":  1.1082818222263313E-05,
+                            "old_and_new_bank_state_identity_equal":  true,
+                            "new_bank_state_identity":  "53dfeee1cc64a5bb3aa2b4af216c63f51f366868c589b07a72d79b4adfe40757",
+                            "old_bank_state_identity":  "53dfeee1cc64a5bb3aa2b4af216c63f51f366868c589b07a72d79b4adfe40757"
+                        }
+                    ],
+    "full_cohort_groups":  [
+                               {
+                                   "dimension":  "distance_bias",
+                                   "value":  "C1-0",
+                                   "cases":  16,
+                                   "cases_with_GPU_fail":  10,
+                                   "cases_with_F64_D_fail":  9,
+                                   "F64_D_fail_observations":  16
+                               },
+                               {
+                                   "dimension":  "distance_bias",
+                                   "value":  "C1-a",
+                                   "cases":  16,
+                                   "cases_with_GPU_fail":  7,
+                                   "cases_with_F64_D_fail":  8,
+                                   "F64_D_fail_observations":  16
+                               },
+                               {
+                                   "dimension":  "distance_bias",
+                                   "value":  "C1-b",
+                                   "cases":  16,
+                                   "cases_with_GPU_fail":  10,
+                                   "cases_with_F64_D_fail":  13,
+                                   "F64_D_fail_observations":  18
+                               },
+                               {
+                                   "dimension":  "views",
+                                   "value":  "two",
+                                   "cases":  24,
+                                   "cases_with_GPU_fail":  13,
+                                   "cases_with_F64_D_fail":  15,
+                                   "F64_D_fail_observations":  29
+                               },
+                               {
+                                   "dimension":  "views",
+                                   "value":  "three",
+                                   "cases":  24,
+                                   "cases_with_GPU_fail":  14,
+                                   "cases_with_F64_D_fail":  15,
+                                   "F64_D_fail_observations":  21
+                               },
+                               {
+                                   "dimension":  "head",
+                                   "value":  "H1_fixed",
+                                   "cases":  12,
+                                   "cases_with_GPU_fail":  7,
+                                   "cases_with_F64_D_fail":  8,
+                                   "F64_D_fail_observations":  15
+                               },
+                               {
+                                   "dimension":  "head",
+                                   "value":  "H1_learned",
+                                   "cases":  12,
+                                   "cases_with_GPU_fail":  6,
+                                   "cases_with_F64_D_fail":  8,
+                                   "F64_D_fail_observations":  15
+                               },
+                               {
+                                   "dimension":  "head",
+                                   "value":  "H2_fixed",
+                                   "cases":  12,
+                                   "cases_with_GPU_fail":  7,
+                                   "cases_with_F64_D_fail":  8,
+                                   "F64_D_fail_observations":  11
+                               },
+                               {
+                                   "dimension":  "head",
+                                   "value":  "H3_fixed",
+                                   "cases":  12,
+                                   "cases_with_GPU_fail":  7,
+                                   "cases_with_F64_D_fail":  6,
+                                   "F64_D_fail_observations":  9
+                               },
+                               {
+                                   "dimension":  "seed",
+                                   "value":  "seed20261026",
+                                   "cases":  24,
+                                   "cases_with_GPU_fail":  13,
+                                   "cases_with_F64_D_fail":  13,
+                                   "F64_D_fail_observations":  16
+                               },
+                               {
+                                   "dimension":  "seed",
+                                   "value":  "seed20261027",
+                                   "cases":  24,
+                                   "cases_with_GPU_fail":  14,
+                                   "cases_with_F64_D_fail":  17,
+                                   "F64_D_fail_observations":  34
+                               }
+                           ],
+    "GPU_failed_same_component_largest_source":  [
+                                                     {
+                                                         "source":  "head_arithmetic_delta",
+                                                         "count":  19
+                                                     },
+                                                     {
+                                                         "source":  "H",
+                                                         "count":  52
+                                                     }
+                                                 ],
+    "F64_D_failed_same_component_largest_HGI":  [
+                                                    {
+                                                        "term":  "H",
+                                                        "count":  50
+                                                    }
+                                                ],
+    "counterfactual_threshold_crossings":  {
+                                               "GPU_fail_F64_pass":  42,
+                                               "GPU_pass_F64_fail":  21,
+                                               "both_fail":  29
+                                           },
+    "controls":  {
+                     "selfcheck":  {
+                                       "closure":  0.0,
+                                       "dense_segment_oracle":  true,
+                                       "head_form_small_tensor_parity":  [
+                                                                             {
+                                                                                 "form":  "H1",
+                                                                                 "maxabs_FP32_vs_FP64":  4.4547519451043627E-08,
+                                                                                 "pooling":  "sum"
+                                                                             },
+                                                                             {
+                                                                                 "form":  "H1",
+                                                                                 "maxabs_FP32_vs_FP64":  6.4294449431123724E-08,
+                                                                                 "pooling":  "learned"
+                                                                             },
+                                                                             {
+                                                                                 "form":  "H2",
+                                                                                 "maxabs_FP32_vs_FP64":  7.3772772432589839E-08,
+                                                                                 "pooling":  "sum"
+                                                                             },
+                                                                             {
+                                                                                 "form":  "H3",
+                                                                                 "maxabs_FP32_vs_FP64":  7.3772772432589839E-08,
+                                                                                 "pooling":  "sum"
+                                                                             }
+                                                                         ],
+                                       "metadata":  {
+                                                        "Git_NUL_empty_oracle":  true,
+                                                        "nonallowlisted_projection_rejected":  true,
+                                                        "wrong_blob_rejected":  true
+                                                    },
+                                       "row_R_four_way":  true
+                                   },
+                     "CPU_environment":  {
+                                             "numpy_version":  "2.2.6",
+                                             "old1503_environment_equivalence_asserted":  false,
+                                             "python":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                             "python_resolved":  "/share/home/zixiao/.conda/envs/chemprop/bin/python3.11",
+                                             "python_version":  "3.11.14 (main, Oct 21 2025, 18:31:21) [GCC 11.2.0]",
+                                             "thread_environment":  {
+                                                                        "MKL_NUM_THREADS":  "4",
+                                                                        "OMP_NUM_THREADS":  "4",
+                                                                        "OPENBLAS_NUM_THREADS":  "4"
+                                                                    },
+                                             "torch_interop_threads":  96,
+                                             "torch_threads":  4,
+                                             "torch_version":  "2.10.0+cu128"
+                                         },
+                     "maximum_recorded_F64_decomposition_closure":  1.3234889800848443E-23,
+                     "maximum_recorded_CPU_FP32_decomposition_closure":  1.0587911840678754E-22,
+                     "maximum_CPU_FP32_vs_GPU_moved_error":  3.8921833038330078E-05,
+                     "source_runtime_full_GPU_residual_closure_required":  1E-10,
+                     "all_external_1776_arrays_bitwise":  2496,
+                     "GPU_encoder_forwards":  192,
+                     "CPU_encoder_forwards":  0,
+                     "FP64_encoder_forwards":  0
+                 },
+    "limitations":  [
+                        "H/G/I refers to this fresh actual centered H0; old1503 has a different H0 cohort",
+                        "All1776 external terminals are equal but hidden1776 H0 was never saved or claimed equal",
+                        "GPU_FP32_D uses the fixed FP64 row-R law; original13field C4 remains the authoritative21/27 gate",
+                        "Head arithmetic delta is the difference of two residuals,not a universal per-forward error bound",
+                        "Separate metric maxima must never be added; signed contributions compare one identical row/component",
+                        "H dominance here does not identify LayerNorm/GEMM/softmax/RBF as a unique root cause",
+                        "No FP32 lower-bound theorem or FP64production adoption follows",
+                        "CPU environment is actually recorded; equivalence to old1503 is not asserted"
+                    ],
+    "single_next_measurement":  {
+                                    "scope":  "Conditional CPU-only final-H0-quantization counterfactual,not a new encoder candidate",
+                                    "cached_input":  "Explicitly separate1561 full-encoder FP64 reference H0 artifacts,all48/fourroles; not current1838 or hidden1776 H0",
+                                    "identity_gate":  "Before tensor evaluation verify all48 source/parameter/case/actual-input lineage; compare saved1492 and fresh1838 positions/batch/role transforms exactly; reject mismatches",
+                                    "routes":  [
+                                                   "A: H64 reference -\u003e unchanged functional64 head",
+                                                   "B: H64 rounded once toFP32 -\u003e unchanged functional64 head",
+                                                   "C: same once-roundedFP32 H0 -\u003e original actualFP32 bank"
+                                               ],
+                                    "question":  "A-\u003eB tests the final512D FP32 H0 interface quantization;B-\u003eC tests head arithmetic at that controlled representation. This does not select an internal encoder operation",
+                                    "policy":  "All48/3fixedfields/3transforms/twoseeds,unalteredpos/params/threshold;no layer/seedselection; preregister before execution",
+                                    "feasibility":  "1561 metadata/source confirms four44x512 float64 arrays percase in an existing bounded NPZ; no NPZ payload read by this author",
+                                    "ordinary_FP32_model_or_H0_API_changed":  false,
+                                    "new_GPU_or_encoder_execution_requested":  false,
+                                    "conditional_not_implemented":  true
+                                }
+}

@@ -1,0 +1,61 @@
+{
+    "schema":  "model_v3_centered1776_readonly_analysis_refs_v3",
+    "status":  "FROZEN_DERIVED_GROUPING_CORRECTION_ONLY_NOT_ADOPTED",
+    "reports":  [
+                    {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_1776_readonly_analysis_v2.md",
+                        "bytes":  5799,
+                        "sha256":  "b4ceb1090c694e756037f5dd175f7ebe2e32962c8299d7bdf05dcd145a10d6cf"
+                    },
+                    {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_1776_readonly_analysis_v3.json",
+                        "bytes":  217135,
+                        "sha256":  "2e312b5ba25884c8fcee9ce590c405960b8e36c6397f846010730289b15d74c0"
+                    }
+                ],
+    "prior_frozen_refs_manifest":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_1776_readonly_analysis_refs_v2.json",
+                                       "bytes":  4789,
+                                       "sha256":  "3a9e6efc1b28466e6d13b56466b15a944af59d2f73e26216f64d3ebbf3b5a38f"
+                                   },
+    "prior_scalar":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_1776_readonly_analysis_v2.json",
+                         "bytes":  216420,
+                         "sha256":  "ede3dc1eed2d47bfaaa68088e6950435e6f91082371aa1a61ab5219e69a94105"
+                     },
+    "reason":  "PowerShell Group-Object did not group OrderedDictionary keys. The48 detailed paired_cases were correct; only old_new_case_patterns was wrong. Recomputed from deserializedPSCustomObject cases,with15improved/4regressed/6bothpass/23bothfail",
+    "old_incorrect_patterns":  [
+                                   {
+                                       "old_pass":  false,
+                                       "new_pass":  true,
+                                       "count":  48
+                                   }
+                               ],
+    "corrected_patterns":  [
+                               {
+                                   "old_pass":  false,
+                                   "new_pass":  true,
+                                   "count":  15
+                               },
+                               {
+                                   "old_pass":  false,
+                                   "new_pass":  false,
+                                   "count":  23
+                               },
+                               {
+                                   "old_pass":  true,
+                                   "new_pass":  true,
+                                   "count":  6
+                               },
+                               {
+                                   "old_pass":  true,
+                                   "new_pass":  false,
+                                   "count":  4
+                               }
+                           ],
+    "all_other_scalar_properties_canonically_equal":  true,
+    "MD_bytes_unchanged":  true,
+    "raw_scientific_results_counts_measurements_identities_unchanged":  true,
+    "old_reports_retained_without_overwrite":  true,
+    "scientific_adoption":  false
+}

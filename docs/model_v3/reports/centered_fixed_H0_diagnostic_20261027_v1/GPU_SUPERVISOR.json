@@ -1,0 +1,72 @@
+{
+  "status": "COMPLETED",
+  "command": [
+    "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+    "-u",
+    "-B",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/capture_centered_H0.py",
+    "--request",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/execution_request_v1.json",
+    "--request-sha256",
+    "37dfb098f341adcb02d552a5beeaea37f7666935ba86de6d29a9204f87b60cd4",
+    "--output-root",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/centered_fixed_H0_capture_GPU_v1_4521838"
+  ],
+  "job_id": "4521838",
+  "child_pid": 541948,
+  "launch_identity": {
+    "status": "ACTIVE",
+    "pid": 541948,
+    "uid": 1278,
+    "boot_id": "adf2e159-f575-4a27-a5d0-7840def635c4",
+    "start_ticks": 576533543,
+    "pgid": 541948,
+    "sid": 541948,
+    "argv": [
+      "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+      "-u",
+      "-B",
+      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/capture_centered_H0.py",
+      "--request",
+      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/execution_request_v1.json",
+      "--request-sha256",
+      "37dfb098f341adcb02d552a5beeaea37f7666935ba86de6d29a9204f87b60cd4",
+      "--output-root",
+      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/centered_fixed_H0_capture_GPU_v1_4521838"
+    ],
+    "argv_sha256": "5e2a410ef05c53127359171d9234a56c26dab86d1ea5c236035e58d1cb05edaa",
+    "cgroup": "1:freezer:/slurm/uid_1278/job_4521838/step_batch\n0::/system.slice/slurmd.service\n",
+    "slurm_job_id": "4521838",
+    "created": 1793061492.43
+  },
+  "supervisor_slurm_cgroup": "1:freezer:/slurm/uid_1278/job_4521838/step_batch\n0::/system.slice/slurmd.service\n",
+  "elapsed_seconds": 64.46852588560432,
+  "exit_code": 0,
+  "first_failure": null,
+  "retirement": null,
+  "remaining_recorded_processes_before_retirement": [],
+  "output_budget_bytes": 2147483648,
+  "last_output_bytes": 86116943,
+  "child_output_budget_bytes": 2046820352,
+  "private_storage_bindings_path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/centered_fixed_H0_capture_GPU_v1_supervisor_4521838.json.storage.json",
+  "private_storage_final": {
+    "last": {
+      "bytes": 497,
+      "root_bytes": {
+        "/tmp/mv3n_4521838": 497
+      },
+      "entries": 7
+    },
+    "sampled_max_bytes": 497,
+    "sampled_growth_above_initial_bytes": 0,
+    "samples": 130,
+    "sample_interval_seconds": 0.5,
+    "exact_peak": false,
+    "first_sampling_failure": null,
+    "budget_bytes": 2147483648
+  },
+  "private_storage_cleanup_errors": [],
+  "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+  "foreign_gpu_processes_signalled": false,
+  "supervisor_source_sha256": "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+}
