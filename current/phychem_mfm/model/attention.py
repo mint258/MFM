@@ -8,8 +8,9 @@ import torch.nn as nn
 from torch import Tensor
 
 from .common import Linear
-from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
-                                    require_centered_attention_context, centered_attention_value)
+from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, CENTERED_MODES, CORE64_DIAGNOSTIC, validate_aggregation_mode,
+                                    require_centered_attention_context, centered_attention_value,
+                                    diagnostic_core64_logits, diagnostic_core64_value)
 from .v3_numeric_stability import COMPENSATED, numeric_mode, compensated_pairwise_norm3
 
 
@@ -54,7 +55,7 @@ class DenseGeoSelfAttention(nn.Module):
         self.attn_drop = nn.Dropout(dropout) if dropout > 0 else nn.Identity()
 
     def forward(self, x: Tensor, pos: Tensor, mask: Tensor) -> Tuple[Tensor, Tensor]:
-        if self.attention_aggregation_mode == CENTERED_FP32:
+        if self.attention_aggregation_mode in CENTERED_MODES:
             require_centered_attention_context(self, mask, x, pos)
         bsz, seqlen, _ = x.shape
         qkv = self.qkv(x).view(bsz, seqlen, 3, self.nheads, self.d_head)
@@ -64,7 +65,10 @@ class DenseGeoSelfAttention(nn.Module):
         k = k.transpose(1, 2)
         v = v.transpose(1, 2)
 
-        logits = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.d_head)
+        if self.attention_aggregation_mode == CORE64_DIAGNOSTIC:
+            logits = diagnostic_core64_logits(q, k)
+        else:
+            logits = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.d_head)
 
         if numeric_mode(self) == COMPENSATED:
             dist2 = compensated_pairwise_norm3(pos, pos, squared=True)
@@ -75,7 +79,7 @@ class DenseGeoSelfAttention(nn.Module):
         if self.use_dist_bias and self.dist_mlp is not None:
             bias = self.dist_mlp(dist2.unsqueeze(-1))
             bias = bias.permute(0, 3, 1, 2).contiguous()
-            logits = logits + bias
+            logits = logits + (bias.to(torch.float64) if self.attention_aggregation_mode == CORE64_DIAGNOSTIC else bias)
 
         key_invalid = ~mask
         logits = logits.masked_fill(key_invalid[:, None, None, :], -1e9)
@@ -87,7 +91,9 @@ class DenseGeoSelfAttention(nn.Module):
         attn = torch.softmax(logits, dim=-1)
         attn = self.attn_drop(attn)
 
-        if self.attention_aggregation_mode == CENTERED_FP32:
+        if self.attention_aggregation_mode == CORE64_DIAGNOSTIC:
+            ctx = diagnostic_core64_value(attn, v, mask, attention_dropout=self.attn_drop)
+        elif self.attention_aggregation_mode == CENTERED_FP32:
             ctx = centered_attention_value(attn, v, mask, attention_dropout=self.attn_drop)
         else:
             ctx = torch.matmul(attn, v)
@@ -95,6 +101,9 @@ class DenseGeoSelfAttention(nn.Module):
 
         out = self.proj(ctx)
         out = out * mask.unsqueeze(-1).to(out.dtype)
+        # Auxiliary public weights stay FP32; AV above used unrounded P64.
+        if self.attention_aggregation_mode == CORE64_DIAGNOSTIC:
+            attn = attn.to(torch.float32)
         return out, attn
 
 

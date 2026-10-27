@@ -9,7 +9,7 @@ from torch.utils.checkpoint import checkpoint
 
 from .attention import RealCoordTransformerLayer
 from .common import ensure_batch_attr
-from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
+from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, CENTERED_MODES, CORE64_DIAGNOSTIC, validate_aggregation_mode,
                                     require_centered_backbone, require_centered_f32_context, require_centered_packed_atoms)
 
 
@@ -60,7 +60,7 @@ class RealCoordTransformerBackbone(nn.Module):
         if getattr(data, "pos", None) is None:
             raise ValueError("RealCoordTransformerBackbone requires data.pos")
 
-        if self.attention_aggregation_mode == CENTERED_FP32:
+        if self.attention_aggregation_mode in CENTERED_MODES:
             require_centered_backbone(self)
             require_centered_f32_context(self, data.pos)
             require_centered_packed_atoms(data.pos)

@@ -22,8 +22,9 @@ from torch_geometric.utils import to_dense_batch
 from ..factory import build_model
 from ..phase1.v3_contract import require
 from .common import Linear, ensure_batch_attr
-from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, aggregation_mode,
+from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, CENTERED_MODES, CORE64_DIAGNOSTIC, aggregation_mode,
                                     require_centered_attention_context, centered_attention_value,
+                                    diagnostic_core64_logits, diagnostic_core64_value,
                                     require_centered_backbone, require_centered_f32_context, require_centered_packed_atoms)
 from .v3_numeric_stability import (COMPENSATED, LEGACY, numeric_mode, apply_numeric_mode,
                                     compensated_pairwise_norm3)
@@ -134,19 +135,25 @@ class SharedPairAttention(nn.Module):
         self.pair_projection = Linear(pair_dim, self.nheads, bias=False)
 
     def forward(self, x, pair_features, distances, mask):
-        if self.attention_aggregation_mode == CENTERED_FP32:
+        if self.attention_aggregation_mode in CENTERED_MODES:
             require_centered_attention_context(self, mask, x, pair_features, distances)
         bsz, seqlen, _ = x.shape
         q, k, v = self.qkv(x).view(bsz, seqlen, 3, self.nheads, self.d_head).unbind(2)
         q, k, v = (value.transpose(1, 2) for value in (q, k, v))
-        logits = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.d_head)
+        if self.attention_aggregation_mode == CORE64_DIAGNOSTIC:
+            logits = diagnostic_core64_logits(q, k)
+        else:
+            logits = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.d_head)
         bias = self.pair_projection(pair_features).permute(0, 3, 1, 2).contiguous()
-        logits = logits + bias
+        logits = logits + (bias.to(torch.float64) if self.attention_aggregation_mode == CORE64_DIAGNOSTIC else bias)
         logits = logits.masked_fill(~mask[:, None, None, :], -1e9)
         if self.use_radius_mask:
             logits = logits.masked_fill(distances[:, None, :, :] > self.radius, -1e9)
         weights = self.attn_drop(torch.softmax(logits, dim=-1))
-        if self.attention_aggregation_mode == CENTERED_FP32:
+        if self.attention_aggregation_mode == CORE64_DIAGNOSTIC:
+            context = diagnostic_core64_value(weights, v, mask, attention_dropout=self.attn_drop)
+            context = context.transpose(1, 2).contiguous().view(bsz, seqlen, self.dim)
+        elif self.attention_aggregation_mode == CENTERED_FP32:
             context = centered_attention_value(weights, v, mask, attention_dropout=self.attn_drop)
             context = context.transpose(1, 2).contiguous().view(bsz, seqlen, self.dim)
         else:
@@ -192,7 +199,7 @@ class SharedPairBackbone(nn.Module):
 
     def forward(self, data):
         require(getattr(data, "pos", None) is not None, "C1 H0 requires coordinates")
-        if self.attention_aggregation_mode == CENTERED_FP32:
+        if self.attention_aggregation_mode in CENTERED_MODES:
             require_centered_backbone(self)
             require_centered_f32_context(self, data.pos)
             require_centered_packed_atoms(data.pos)

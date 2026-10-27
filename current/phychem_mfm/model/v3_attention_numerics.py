@@ -3,20 +3,25 @@
 This is independent of numeric_stability.numeric_mode. It creates no parameters,
 buffers, random draws or backend-policy changes. Centering is an opt-in FP32
 expression, not proof of whole-model equivariance or an exact-real oracle.
+The additional FP64 core is an eval-only diagnostic, not the formal all-FP32
+equivariance gate or a model-freeze candidate.
 """
 from __future__ import annotations
 from collections.abc import Mapping
+import math
 import torch
 from torch import Tensor, nn
 
 LEGACY_AGGREGATION = "legacy"
 CENTERED_FP32 = "centered_fp32_v1"
-ATTENTION_AGGREGATION_MODES = (LEGACY_AGGREGATION, CENTERED_FP32)
+CORE64_DIAGNOSTIC = "centered_core64_diagnostic_v1"
+CENTERED_MODES = (CENTERED_FP32, CORE64_DIAGNOSTIC)
+ATTENTION_AGGREGATION_MODES = (LEGACY_AGGREGATION, *CENTERED_MODES)
 
 
 def validate_aggregation_mode(value):
     if type(value) is not str or value not in ATTENTION_AGGREGATION_MODES:
-        raise ValueError("backbone.attention_aggregation_mode must be legacy or centered_fp32_v1")
+        raise ValueError("backbone.attention_aggregation_mode must be legacy, centered_fp32_v1 or centered_core64_diagnostic_v1")
     return value
 
 
@@ -72,6 +77,8 @@ def require_centered_attention_context(module, key_mask, *floating_inputs):
     _require(all(value.device == first.device for value in floating_inputs),
              "centered_fp32_v1 floating inputs must share one device")
     _dropout_disabled(module.attn_drop)
+    if aggregation_mode(module) == CORE64_DIAGNOSTIC:
+        _require(not module.training, "centered_core64_diagnostic_v1 is eval-only diagnostic; training is forbidden")
 
 
 def centered_attention_value(probabilities, values, key_mask, *, attention_dropout=None):
@@ -109,9 +116,14 @@ def require_centered_backbone(backbone):
     from .v3_architecture import SharedPairAttention
     _require(hasattr(backbone, "layers") and len(backbone.layers) > 0,
              "centered_fp32_v1 requires a nonempty coupled attention backbone")
+    mode = aggregation_mode(backbone)
+    _require(mode in CENTERED_MODES, "Explicit supported centered backbone mode required")
+    if mode == CORE64_DIAGNOSTIC:
+        _require(not backbone.training, "centered_core64_diagnostic_v1 is eval-only diagnostic; training is forbidden")
+        _require(len(backbone.layers) == 6, "centered_core64_diagnostic_v1 requires all six layers")
     for layer in backbone.layers:
         _require(type(layer.attn) in (DenseGeoSelfAttention, SharedPairAttention)
-                 and aggregation_mode(layer.attn) == CENTERED_FP32,
+                 and aggregation_mode(layer.attn) == mode,
                  "centered_fp32_v1 is unsupported for replaced/NativeRuntimeDense/bf16 attention backends")
 
 
@@ -122,5 +134,62 @@ def reject_centered_runtime(module_or_configuration):
             "attention_aggregation_mode", LEGACY_AGGREGATION))
     else:
         mode = aggregation_mode(module_or_configuration)
+    _require(mode != CORE64_DIAGNOSTIC,
+             "centered_core64_diagnostic_v1 is unsupported by performance/NativeRuntimeDense/bf16 backends")
     _require(mode == LEGACY_AGGREGATION,
              "centered_fp32_v1 is unsupported by performance/NativeRuntimeDense/bf16 backends")
+
+
+def _core64_external(value):
+    _require(isinstance(value, Tensor) and value.dtype == torch.float32,
+             "centered_core64_diagnostic_v1 requires external FP32 operands")
+    _require(not torch.is_autocast_enabled(value.device.type),
+             "centered_core64_diagnostic_v1 requires autocast disabled")
+    _require(bool(torch.isfinite(value).all()),
+             "centered_core64_diagnostic_v1 requires finite external operands")
+
+
+def diagnostic_core64_logits(queries, keys):
+    """Losslessly promote actual Q32/K32; no parameter or QKV dtype changes.
+
+    This primitive is only the diagnostic QK/scale, not an FP32 gate repair.
+    Whole-module guards require eval, native masks and six uniform layers.
+    """
+    _core64_external(queries)
+    _core64_external(keys)
+    _require(queries.ndim == keys.ndim == 4 and queries.device == keys.device
+             and tuple(queries.shape) == tuple(keys.shape)
+             and all(size > 0 for size in queries.shape),
+             "centered_core64_diagnostic_v1 requires populated self-attention Q/K")
+    return torch.matmul(queries.to(torch.float64),
+                        keys.to(torch.float64).transpose(-2, -1)) / math.sqrt(queries.shape[-1])
+
+
+def diagnostic_core64_value(probabilities, values, key_mask, *, attention_dropout=None):
+    """Actual P64 and V32 -> centered FP64 AV -> one external context32 cast.
+
+    No renormalization, detached anchor, probability rounding or backend switch.
+    The helper can be differentiated for analytic QA; whole-model training is
+    explicitly unsupported. It is not the ordinary FP32 acceptance path.
+    """
+    _core64_external(values)
+    _require(isinstance(probabilities, Tensor) and probabilities.dtype == torch.float64,
+             "centered_core64_diagnostic_v1 requires internal FP64 probabilities")
+    _require(not torch.is_autocast_enabled(probabilities.device.type),
+             "centered_core64_diagnostic_v1 requires autocast disabled")
+    _dropout_disabled(attention_dropout)
+    _require(probabilities.ndim == values.ndim == 4 and probabilities.device == values.device,
+             "centered_core64_diagnostic_v1 requires coupled four-dimensional operands")
+    batch, heads, queries, keys = probabilities.shape
+    _require(heads > 0 and values.shape[-1] > 0 and queries == keys
+             and tuple(values.shape[:3]) == (batch, heads, keys),
+             "centered_core64_diagnostic_v1 requires self-attention [B,H,T,T] @ [B,H,T,D]")
+    _native_mask(key_mask, batch, keys, values.device)
+    _require(bool(torch.isfinite(probabilities).all()) and bool((probabilities >= 0).all()),
+             "centered_core64_diagnostic_v1 requires finite nonnegative probabilities")
+    promoted = values.to(torch.float64)
+    first = key_mask.to(torch.int64).argmax(-1)
+    index = first[:, None, None, None].expand(batch, heads, 1, values.shape[-1])
+    anchor = torch.gather(promoted, 2, index)
+    context = anchor + torch.matmul(probabilities, promoted - anchor)
+    return context.to(torch.float32)

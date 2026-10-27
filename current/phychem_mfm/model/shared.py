@@ -24,7 +24,7 @@ from ..data.descriptor_schema import (
 )
 from ..supervision import Objective, normalize_objectives
 from .backbone import RealCoordTransformerBackbone
-from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
+from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, CENTERED_MODES, CORE64_DIAGNOSTIC, validate_aggregation_mode,
                                     require_centered_backbone, require_centered_f32_context)
 from .common import Linear, ensure_batch_attr
 from .v3_numeric_stability import (LEGACY, COMPENSATED, apply_numeric_mode, validate_numeric_mode,
@@ -183,7 +183,9 @@ class SharedBackboneMFM(nn.Module):
 
     def encode_atoms(self, batch: Data) -> Tensor:
         """Return canonical shared representation H0 with shape [N_atom, D]."""
-        if self.attention_aggregation_mode == CENTERED_FP32:
+        if self.attention_aggregation_mode == CORE64_DIAGNOSTIC and self.training:
+            raise ValueError("centered_core64_diagnostic_v1 is eval-only diagnostic; training is forbidden")
+        if self.attention_aggregation_mode in CENTERED_MODES:
             require_centered_backbone(self.backbone)
             require_centered_f32_context(self.backbone, batch.pos)
         if numeric_mode(self) == COMPENSATED:
