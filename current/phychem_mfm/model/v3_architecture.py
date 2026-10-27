@@ -22,13 +22,16 @@ from torch_geometric.utils import to_dense_batch
 from ..factory import build_model
 from ..phase1.v3_contract import require
 from .common import Linear, ensure_batch_attr
+from .v3_geometry_fp32 import (LEGACY_GEOMETRY, RESIDUAL_GEOMETRY,
+    validate_geometry_mode, require_geometry_binding, geometry_mode as geometry_mode_of,
+    residual_pairwise_distance_fp32)
 from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, aggregation_mode,
                                     require_centered_attention_context, centered_attention_value,
                                     require_centered_backbone, require_centered_f32_context, require_centered_packed_atoms)
 from .v3_attention_projection import (LEGACY_PROJECTION, BLOCKED_PROJECTION,
     projection_mode, require_projection_backbone, attention_projection)
 from .v3_numeric_stability import (COMPENSATED, LEGACY, numeric_mode, apply_numeric_mode,
-                                    compensated_pairwise_norm3)
+                                    compensated_pairwise_norm3, require_fp32_context)
 
 SOURCE_S_MEMORY_SHA256 = "170a7752bad1812d15dceace1613d19f579aec5d97a4965ed0960731cc53f232"
 
@@ -76,10 +79,11 @@ class SharedGaussianPairEncoder(nn.Module):
     supported only with a matching explicit attention radius. Pair types are
     ordered (source*n_types+destination), matching Uni-Mol's edge convention.
     """
-    def __init__(self, options: ArchitectureOptions, n_atom_types: int):
+    def __init__(self, options: ArchitectureOptions, n_atom_types: int, *, geometry_mode=LEGACY_GEOMETRY):
         super().__init__()
         require(options.distance_bias in ("C1-a", "C1-b"), "Shared encoder needs a C1-a/b option")
         self.options, self.n_atom_types = options, n_atom_types
+        self.geometry_mode = validate_geometry_mode(geometry_mode)
         self.centers = nn.Parameter(torch.linspace(0., float(options.rbf_max_distance), options.rbf_count))
         width = float(options.rbf_max_distance) / (options.rbf_count - 1)
         self.raw_widths = nn.Parameter(torch.full((options.rbf_count,), math.log(math.expm1(width))))
@@ -100,11 +104,16 @@ class SharedGaussianPairEncoder(nn.Module):
         require(pos.ndim == 3 and pos.size(-1) == 3 and pos.dtype == torch.float32
                 and elements.shape == mask.shape == pos.shape[:2] and elements.dtype == torch.long
                 and mask.dtype == torch.bool, "Dense fp32 coordinates/native element indices/mask required")
+        if self.geometry_mode == RESIDUAL_GEOMETRY:
+            require_fp32_context(self, pos)
         with torch.autocast(device_type=pos.device.type, enabled=False):
             # Direct Euclidean path has finite derivatives at coincident atoms.
-            distances = (compensated_pairwise_norm3(pos.float(), pos.float())
-                         if numeric_mode(self) == COMPENSATED else
-                         torch.cdist(pos.float(), pos.float(), compute_mode='donot_use_mm_for_euclid_dist'))
+            if self.geometry_mode == RESIDUAL_GEOMETRY:
+                distances = residual_pairwise_distance_fp32(pos, pos)
+            else:
+                distances = (compensated_pairwise_norm3(pos.float(), pos.float())
+                             if numeric_mode(self) == COMPENSATED else
+                             torch.cdist(pos.float(), pos.float(), compute_mode='donot_use_mm_for_euclid_dist'))
             transformed = distances.unsqueeze(-1)
             if self.pair_scale is not None:
                 pair_type = elements[:, :, None] * self.n_atom_types + elements[:, None, :]
@@ -130,6 +139,7 @@ class SharedPairAttention(nn.Module):
         super().__init__()
         self.attention_aggregation_mode = aggregation_mode(original)
         self.attention_projection_mode = projection_mode(original)
+        self.geometry_mode = geometry_mode_of(original)
         self.dim, self.nheads, self.d_head = original.dim, original.nheads, original.d_head
         self.qkv, self.proj, self.attn_drop = original.qkv, original.proj, original.attn_drop
         self.use_radius_mask, self.radius = original.use_radius_mask, original.radius
@@ -179,11 +189,12 @@ class SharedPairBackbone(nn.Module):
         super().__init__()
         self.attention_aggregation_mode = aggregation_mode(original)
         self.attention_projection_mode = projection_mode(original)
+        self.geometry_mode = geometry_mode_of(original)
         self.n_atom_types, self.dim = original.n_atom_types, original.dim
         self.activation_checkpointing = original.activation_checkpointing
         self.atom_emb, self.out_norm = original.atom_emb, original.out_norm
         self.options = options
-        self.pair_encoder = SharedGaussianPairEncoder(options, self.n_atom_types)
+        self.pair_encoder = SharedGaussianPairEncoder(options, self.n_atom_types, geometry_mode=self.geometry_mode)
         self.layers = nn.ModuleList([SharedPairTransformerLayer(layer, options.pair_dim) for layer in original.layers])
 
     def get_extra_state(self):
@@ -195,6 +206,8 @@ class SharedPairBackbone(nn.Module):
             result['attention_aggregation_mode'] = self.attention_aggregation_mode
         if self.attention_projection_mode != LEGACY_PROJECTION:
             result["attention_projection_mode"] = self.attention_projection_mode
+        if self.geometry_mode != LEGACY_GEOMETRY:
+            result["geometry_mode"] = self.geometry_mode
         return result
 
     def set_extra_state(self, state):
@@ -202,6 +215,7 @@ class SharedPairBackbone(nn.Module):
 
     def forward(self, data):
         require(getattr(data, "pos", None) is not None, "C1 H0 requires coordinates")
+        require_geometry_binding(self, expected_mode=self.geometry_mode)
         if self.attention_projection_mode == BLOCKED_PROJECTION:
             require_projection_backbone(self, expected_mode=BLOCKED_PROJECTION)
         if self.attention_aggregation_mode == CENTERED_FP32:

@@ -8,6 +8,8 @@ import torch.nn as nn
 from torch import Tensor
 
 from .common import Linear
+from .v3_geometry_fp32 import (LEGACY_GEOMETRY, RESIDUAL_GEOMETRY,
+    validate_geometry_mode, require_geometry_constructor, residual_pairwise_distance_fp32)
 from .v3_attention_projection import (LEGACY_PROJECTION, BLOCKED_PROJECTION,
     validate_projection_mode, require_projection_constructor, attention_projection)
 from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
@@ -28,6 +30,7 @@ class DenseGeoSelfAttention(nn.Module):
         radius: float = 8.0,
         attention_aggregation_mode: str = LEGACY_AGGREGATION,
         attention_projection_mode: str = LEGACY_PROJECTION,
+        geometry_mode: str = LEGACY_GEOMETRY,
     ) -> None:
         super().__init__()
         if dim % nheads != 0:
@@ -35,8 +38,11 @@ class DenseGeoSelfAttention(nn.Module):
 
         self.attention_aggregation_mode = validate_aggregation_mode(attention_aggregation_mode)
         self.attention_projection_mode = validate_projection_mode(attention_projection_mode)
+        self.geometry_mode = validate_geometry_mode(geometry_mode)
         require_projection_constructor(self.attention_projection_mode, dim=dim, heads=nheads,
             aggregation=self.attention_aggregation_mode, dropout=dropout)
+        require_geometry_constructor(self.geometry_mode, dim=dim, heads=nheads,
+            aggregation=self.attention_aggregation_mode, projection=self.attention_projection_mode, dropout=dropout)
         self.dim = dim
         self.nheads = nheads
         self.d_head = dim // nheads
@@ -74,7 +80,9 @@ class DenseGeoSelfAttention(nn.Module):
 
         logits = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.d_head)
 
-        if numeric_mode(self) == COMPENSATED:
+        if self.geometry_mode == RESIDUAL_GEOMETRY:
+            dist2 = residual_pairwise_distance_fp32(pos, pos, squared=True)
+        elif numeric_mode(self) == COMPENSATED:
             dist2 = compensated_pairwise_norm3(pos, pos, squared=True)
         else:
             diff = pos[:, :, None, :] - pos[:, None, :, :]
@@ -134,6 +142,7 @@ class RealCoordTransformerLayer(nn.Module):
         radius: float = 8.0,
         attention_aggregation_mode: str = LEGACY_AGGREGATION,
         attention_projection_mode: str = LEGACY_PROJECTION,
+        geometry_mode: str = LEGACY_GEOMETRY,
     ) -> None:
         super().__init__()
         self.norm1 = nn.LayerNorm(dim)
@@ -146,6 +155,7 @@ class RealCoordTransformerLayer(nn.Module):
             radius=radius,
             attention_aggregation_mode=attention_aggregation_mode,
             attention_projection_mode=attention_projection_mode,
+            geometry_mode=geometry_mode,
         )
         self.norm2 = nn.LayerNorm(dim)
         self.ffn = DenseFFN(dim=dim, ff_mult=ff_mult, dropout=dropout)

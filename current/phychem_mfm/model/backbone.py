@@ -9,6 +9,8 @@ from torch.utils.checkpoint import checkpoint
 
 from .attention import RealCoordTransformerLayer
 from .common import ensure_batch_attr
+from .v3_geometry_fp32 import (LEGACY_GEOMETRY,
+    validate_geometry_mode, require_geometry_constructor, require_geometry_binding)
 from .v3_attention_projection import (LEGACY_PROJECTION, BLOCKED_PROJECTION,
     validate_projection_mode, require_projection_constructor, require_projection_backbone)
 from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
@@ -32,12 +34,16 @@ class RealCoordTransformerBackbone(nn.Module):
         activation_checkpointing: bool = False,
         attention_aggregation_mode: str = LEGACY_AGGREGATION,
         attention_projection_mode: str = LEGACY_PROJECTION,
+        geometry_mode: str = LEGACY_GEOMETRY,
     ) -> None:
         super().__init__()
         self.attention_aggregation_mode = validate_aggregation_mode(attention_aggregation_mode)
         self.attention_projection_mode = validate_projection_mode(attention_projection_mode)
+        self.geometry_mode = validate_geometry_mode(geometry_mode)
         require_projection_constructor(self.attention_projection_mode, dim=dim, heads=heads,
             layers=layers, aggregation=self.attention_aggregation_mode, dropout=dropout)
+        require_geometry_constructor(self.geometry_mode, dim=dim, heads=heads, layers=layers,
+            aggregation=self.attention_aggregation_mode, projection=self.attention_projection_mode, dropout=dropout)
         self.n_atom_types = int(n_atom_types)
         self.dim = int(dim)
         if type(activation_checkpointing) is not bool:
@@ -57,6 +63,7 @@ class RealCoordTransformerBackbone(nn.Module):
                     radius=radius,
                     attention_aggregation_mode=self.attention_aggregation_mode,
                     attention_projection_mode=self.attention_projection_mode,
+                    geometry_mode=self.geometry_mode,
                 )
                 for _ in range(layers)
             ]
@@ -67,6 +74,7 @@ class RealCoordTransformerBackbone(nn.Module):
         if getattr(data, "pos", None) is None:
             raise ValueError("RealCoordTransformerBackbone requires data.pos")
 
+        require_geometry_binding(self, expected_mode=self.geometry_mode)
         if self.attention_projection_mode == BLOCKED_PROJECTION:
             require_projection_backbone(self, expected_mode=BLOCKED_PROJECTION)
         if self.attention_aggregation_mode == CENTERED_FP32:
