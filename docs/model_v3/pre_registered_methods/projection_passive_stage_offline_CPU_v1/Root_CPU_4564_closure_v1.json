@@ -1,0 +1,71 @@
+{
+  "schema": "model_v3_Root_passive_stage_offline_CPU_closure_v1",
+  "status": "ACTUAL_C0_ALL48_192_ARCHIVES_1296_STAGE_384_GEOMETRY_144_COORDINATE_9120_RECORDS_SOURCE_CLOSED",
+  "actual_unix": 1793134877.6828382,
+  "job_id": "4524564",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524564",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524564|zixiao|COMPLETED|0:0|4|16|compute-0-14\n",
+    "stderr": ""
+  },
+  "result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/projection_passive_stage_offline_CPU_v1_4524564/RESULT.json",
+    "bytes": 3918991,
+    "sha256": "d796f6c7d46a3a33efbd4e89c39836cd0b1f5ff6234e91634efb8fad3aa84551"
+  },
+  "complete": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/projection_passive_stage_offline_CPU_v1_4524564/COMPLETE.json",
+    "bytes": 242,
+    "sha256": "4003c56683ff03f3c826a0e2279a911065576a117b20b1a86f78b1f17a611d93"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/projection_passive_stage_offline_CPU_v1_supervisor_4524564.json",
+    "bytes": 3564,
+    "sha256": "7fee2ca61f5c15b1874ff8b4bd216e99755fc28c5700f7bf47e724d7a05bee90"
+  },
+  "source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_offline_CPU_v1_source/source_pins.json",
+    "bytes": 2266,
+    "sha256": "c6e4269ef9c2aed9785f5a9ffad2dcc83d1251344b0a29cdf63945f3364f55ef"
+  },
+  "inputs": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_offline_CPU_v1_source/inputs.json",
+    "bytes": 160718,
+    "sha256": "ecbe437e858a08a0e07af96cc4c95b1b3139d444c5c7fceca5ed37f2c9178fe7"
+  },
+  "GPU_source_closure": {
+    "bytes": 96722,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_trace_GPU_4524563_Root_closure_v1.json",
+    "sha256": "5367a1536b41afa6e1bef0a51075aec1562e11534af42f5f943bc6b46bf246d9"
+  },
+  "comparisons": {
+    "coordinate_comparisons": 144,
+    "geometry_comparisons": 384,
+    "node_comparisons": 1296
+  },
+  "record_count": 9120,
+  "aggregate_groups": 2865,
+  "input_stat_and_CPU_after_hash_bytes": 403653679,
+  "input_cap_bytes": 536870912,
+  "all_CPU_sources_and_payloads_after_match": true,
+  "CPU_workers": 4,
+  "CUDA_initialized": false,
+  "new_encoder_head_or_model_calls": 0,
+  "Root_NPZ_or_CSV_body_opened": false,
+  "original_physics_pass12_fail36_unchanged": true,
+  "scientific_adoption": false,
+  "compact_observations": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_CPU_4524564_compact_observations_v1.json",
+    "bytes": 352157,
+    "sha256": "a6d5bb314ce67d095297913aa20ac5a993719da6da56f0633887e1e2c6cfa042"
+  }
+}

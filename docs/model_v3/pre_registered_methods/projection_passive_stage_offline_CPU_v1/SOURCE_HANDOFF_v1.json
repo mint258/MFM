@@ -1,0 +1,155 @@
+{
+    "schema":  "model_v3_passive_stage_offline_CPU_source_handoff_v1",
+    "status":  "FROZEN_SOURCE_ONLY_ROOT_AST_AND_ONE_ACTUAL_CPU_PENDING",
+    "source_pins":  {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_offline_CPU_v1_source/source_pins.json",
+                        "bytes":  2266,
+                        "sha256":  "c6e4269ef9c2aed9785f5a9ffad2dcc83d1251344b0a29cdf63945f3364f55ef"
+                    },
+    "inputs":  {
+                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_offline_CPU_v1_source/inputs.json",
+                   "bytes":  160718,
+                   "sha256":  "ecbe437e858a08a0e07af96cc4c95b1b3139d444c5c7fceca5ed37f2c9178fe7"
+               },
+    "own_files":  [
+                      {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_offline_CPU_v1_source/analyze_saved_stages.py",
+                          "bytes":  32490,
+                          "sha256":  "799eaf057868b1fd12e77ed8a613baf9cbde446028a836f20015c7c1998728f8"
+                      },
+                      {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_offline_CPU_v1_source/run_stage_analysis_CPU.sbatch",
+                          "bytes":  1633,
+                          "sha256":  "f184176f8585aaf4d039b9d846ff5cd20998cd418cb53c1778fe498c6c1b6b99"
+                      },
+                      {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_offline_CPU_v1_source/README.md",
+                          "bytes":  5110,
+                          "sha256":  "41da6e8921b4350b3e05fa51ba2ea0aa4725c8d83cbb2712636eb3fd7486c792"
+                      },
+                      {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_offline_CPU_v1_source/dependencies.json",
+                          "bytes":  6332,
+                          "sha256":  "2c1f90719dd019e168708a83d7ffd3fe4f2cc9055355d16b22a28bd9802f2151"
+                      },
+                      {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_offline_CPU_v1_source/inputs.json",
+                          "bytes":  160718,
+                          "sha256":  "ecbe437e858a08a0e07af96cc4c95b1b3139d444c5c7fceca5ed37f2c9178fe7"
+                      }
+                  ],
+    "actual_GPU_Root_closure":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_trace_GPU_4524563_Root_closure_v1.json",
+                                    "bytes":  96722,
+                                    "sha256":  "5367a1536b41afa6e1bef0a51075aec1562e11534af42f5f943bc6b46bf246d9"
+                                },
+    "actual_GPU_job":  "4524563",
+    "existing_CPU_sources":  [
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_4550_terminal_offline_CPU_v1_source/run_terminal_analysis_CPU.sbatch",
+                                     "bytes":  1631,
+                                     "sha256":  "7af61aedca9970c37a1313a66134269cfa6b9459c824af48c24b445d700298d5"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_cpu_supervised_v3.py",
+                                     "bytes":  8479,
+                                     "sha256":  "10bb34aa74633bd139f8dcedd475901a85d4143422494f1249ffb85994c8c66c"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/runtime_monitor.py",
+                                     "bytes":  16838,
+                                     "sha256":  "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/run_supervised.py",
+                                     "bytes":  15264,
+                                     "sha256":  "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/private_runtime_storage.py",
+                                     "bytes":  15452,
+                                     "sha256":  "791e2742b2131e5001ebc4fe549d8fcb43f7d28f399368a5aa5f82d7d592a041"
+                                 }
+                             ],
+    "complete_inputs":  {
+                            "expected_selected_file_count":  271,
+                            "saved_ref_byte_sum_not_new_current_stat":  403653679,
+                            "selected_bytes_cap":  536870912,
+                            "payload_file_count":  192,
+                            "case_metadata_count":  48,
+                            "NPZ_opened_or_hashed_by_author":  false,
+                            "runtime_full_current_stat_and_NPZ_raw_and_typed_SHA_checks_required":  true
+                        },
+    "declared_scope":  {
+                           "stage_comparisons":  1296,
+                           "geometry_comparisons":  384,
+                           "coordinate_comparisons":  144,
+                           "populations":  5,
+                           "scalar_record_count_if_complete":  9120,
+                           "all48cases":  true,
+                           "saved_roles":  192,
+                           "stage_ports":  1728,
+                           "geometry_ports":  512,
+                           "extra_encoder_head_model_calls":  0,
+                           "plots":  0
+                       },
+    "resources":  {
+                      "CPUs":  16,
+                      "memory_GiB":  16,
+                      "workers":  4,
+                      "BLAS_per_worker":  4,
+                      "RSS_bytes":  12884901888,
+                      "supervisor_wall_seconds":  800,
+                      "Slurm_wall_seconds":  900,
+                      "whole_persistent_bytes":  2147483648,
+                      "private_bytes":  2147483648,
+                      "new_analysis_output_cap_bytes":  134217728
+                  },
+    "controls":  [
+                     "Original actual Root GPU schema/raw C0/result/COMPLETE/supervisor and full48 source/control closure",
+                     "192 typed per-role boundedNPZ rawSHA before/after, memberdtype/shapes/bytes/SHA and complete native mappings",
+                     "Strict original standalone CPU F64 position push/F32 castback; all native embedding and out_norm/packedH0 byte controls",
+                     "All1296/384/144 complete and all selected source/payload bytes after match or HOLD",
+                     "Four tiny algebra controls per analysis worker; no new model/GPU QA parent"
+                 ],
+    "original_SB_inverse_paths_only":  true,
+    "original_4550_physics_preserved":  {
+                                            "passed":  12,
+                                            "failed":  36,
+                                            "adoption":  false,
+                                            "new_quantization_or_causality_claim":  false
+                                        },
+    "Root_install_SB_argv":  [
+                                 "cp",
+                                 "--no-clobber",
+                                 "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_offline_CPU_v1_source/run_stage_analysis_CPU.sbatch",
+                                 "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_projection_passive_stage_offline_CPU_v1.sbatch"
+                             ],
+    "Root_submission_script":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_projection_passive_stage_offline_CPU_v1.sbatch",
+    "Root_environment_required":  {
+                                      "MODEL_V3_EXPECTED_NODE":  "ACTUAL_FRESH_CPU_NODE",
+                                      "MODEL_V3_TERMINAL_INPUTS_SHA":  "ecbe437e858a08a0e07af96cc4c95b1b3139d444c5c7fceca5ed37f2c9178fe7",
+                                      "MODEL_V3_TERMINAL_PINS_SHA":  "c6e4269ef9c2aed9785f5a9ffad2dcc83d1251344b0a29cdf63945f3364f55ef"
+                                  },
+    "Root_single_consumer_argv":  [
+                                      "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                      "-u",
+                                      "-B",
+                                      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_offline_CPU_v1_source/analyze_saved_stages.py",
+                                      "--inputs",
+                                      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_offline_CPU_v1_source/inputs.json",
+                                      "--inputs-sha256",
+                                      "ecbe437e858a08a0e07af96cc4c95b1b3139d444c5c7fceca5ed37f2c9178fe7",
+                                      "--source-pins-sha256",
+                                      "c6e4269ef9c2aed9785f5a9ffad2dcc83d1251344b0a29cdf63945f3364f55ef",
+                                      "--expected-node",
+                                      "ACTUAL_FRESH_CPU_NODE",
+                                      "--output-root",
+                                      "FRESH_SUPERVISED_OUTPUT"
+                                  ],
+    "expected_output_pattern":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/projection_passive_stage_offline_CPU_v1_ACTUALJOB",
+    "CPU_actual_job_id":  null,
+    "CPU_C0_closure":  null,
+    "original_source_or_results_modified":  false,
+    "Python_AST_Git_SSH_Slurm_model_array_SDK_execution_by_author":  false
+}
