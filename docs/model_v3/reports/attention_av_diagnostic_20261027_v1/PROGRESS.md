@@ -12,21 +12,38 @@
 
 单CPU父4521707实际C0/132秒、16CPU/compute-0-13，四pytest完整采集2712项：2709PASS、3SKIP、0失败/错误。新候选73项及原numeric47项全部PASS/0skip；与1421相同的三项可选skip身份已独立核对。[Root闭合](CPU_ROOT_CLOSURE.json)、[原完整汇总](CPU_FULL_SUMMARY.json)及[监督记录](CPU_SUPERVISOR.json)保留114模块覆盖、实际JUnit合计、完整来源前后及进程清理；114是模块数，73是本次实际新测试数。
 
-最终metadata绑定已由Root实际完成，execution request/pins与实际CPU、公有候选同树精确关联；[绑定结果](../../../../tools/model_v3/analysis_sources/attention_centered_e2e_v1/FINAL_BINDING_RESULT.json)保留无GPU/无提交状态。metadata-only启动audit已通过1213项runtime refs和15项自身源；[正式GPU协议](../../C4_centered_attention_e2e_prereg_20261027_v1.md)及运行器源快照待Root检查、公开读回后才唯一提交。完整GPU48矩阵尚未运行，当前没有新的物理验收、架构/dtype/训练采用。原[AV局部预注册](../../C4_attention_AV_centering_prereg_20261027_v1.md)仍对应已执行的1641诊断，不能用局部改善或CPU通过替代完整网络科学结果。
+完整GPU协议及运行器已在执行前公开为[63ae209b27acabaadafa15cf4ebd8f64f8a98e06](https://github.com/mint258/MFM/commit/63ae209b27acabaadafa15cf4ebd8f64f8a98e06)。4521776现实际FAILED、退出1/42秒；完整48项为21PASS、27FAIL，0error/skip。原1e-5/rtol0不变，C4仍HOLD，不采用候选。tiny CUDA控制通过，来源前后相同；记录192次encoder前向形状、1872项字段观察，其中71项超门，48个domain控制全部通过，F64 encoder报告数为0。[Root元数据闭合](../attention_centered_e2e_20261027_v1/ROOT_METADATA_CLOSURE.json)核对1227项当前源ref；NPZ仅stat，不宣称Root独立重读数组内容。
+
+[V2完整分析](../attention_centered_e2e_20261027_v1/ANALYSIS.md)及[标量汇总](../attention_centered_e2e_20261027_v1/SCALAR_SUMMARY.json)配对原1435全部48 case：15个旧FAIL转PASS，4个旧PASS退化，6个两次均PASS、23个两次均FAIL，整体并非单调改善。四个退化case全部保留：
+
+| case | 本次失败字段 |
+| --- | --- |
+| C1-a / three / H2_fixed / seed20261026 | dipole、extensive |
+| C1-b / two / H1_learned / seed20261026 | magnitude |
+| C1-b / three / H3_fixed / seed20261026 | dipole、magnitude |
+| C1-b / three / H3_fixed / seed20261027 | dipole |
+
+71项字段失败分为extensive10、dipole36、magnitude25；每字段原分母144项，全部失败argmax指向row2的32-atom图。全部48配对的参数、fixture/view/registry身份相同，但全局H0误差max两次均为1.9073486328125e-6；这些最大值与32-atom模式不能定位机制，也不能当作下游敏感度比值。不能选择层、seed或head采用。
+
+唯一下一测量是当前centered候选的全48 fresh same-forward固定H0捕获与CPU函数头分解，方案准备中，尚未执行或预注册。1776没有保存内部bankH0，旧1492/1503不能代替当前内部H0。即使同一H0下F64头仍有残差，也只表明head-arithmetic-only精度提高不足；须先看同一失败分量H/G/I，再选择表征、几何或相互作用干预。当前没有定位LayerNorm/GEMM或确定新候选。[V2来源与措辞补正](../attention_centered_e2e_20261027_v1/ANALYSIS_SOURCE_REFS_v2.json)保留V1原件及数值未变证明。
+
+[最终公开证明](../attention_centered_e2e_20261027_v1/PREREG_PUBLICATION_ACTUAL_FINAL.json)补正了初始PS5路径处理产生的null refs，原[部分收据](../attention_centered_e2e_20261027_v1/SUPERSEDED_PARTIAL_PUBLICATION_RECEIPT.json)保留；实际公开提交/树未变化。原[AV局部预注册](../../C4_attention_AV_centering_prereg_20261027_v1.md)仍对应1641诊断，其局部改善和CPU通过不能替代本次完整网络门。
 
 ## S长段与日志归档
 
-slot8/4521644现已实际C0，安全累计7000更新、2851328次基础记录消费；slot9/4521686已从7000续至8000更新区间运行。四成员各20k更新的计划中，第一个成员尚未完成，7000更新不表示B通过。slot7/8日志暂待与slot9批量独立SDK审计，未新增在线记录；现有S后备路线不能代替D5或B验收。
+S首成员已安全闭合8000更新、3258368次基础记录消费，4521773在本次快照时正续8000→9000更新，首个20k成员尚未完成，8000不表示B通过。slot7/8/9批量SDK审计4521777实际C0/15秒、28QA，3006条history全部typed匹配；同步4521778实际C0/32秒，三条新增日志已由Root在线闭合。现有S后备路线不能代替D5或B验收。
 
-58条完整run已在线同步、读回并由Root闭合：固定50条、随后6条及slot5/6两条。原7条不完整SDK继续保留。七项集中本地归档4521639实际C0/11秒，已Root闭合、审阅并接入统一入口；新增slot5/6归档4521649实际C0/3秒、原4项导出QA通过，两段共2004条科学history，现亦已Root闭合并接入入口。[本地归档闭合](SLOTS005_006_ARCHIVE_ROOT_CLOSURE.json)和[入口追加证明](SLOTS005_006_ARCHIVE_ENTRY_APPEND.json)保留旧入口完整备份、原前缀及旧索引。两页默认训练曲线各1000点，history各1002条包含非训练事件；视觉审阅范围没有升级为全部字段交互或科学验收。远端项目根W&B_训练记录.html提供统一入口，旧offline快照的真假状态未重写。
+61条完整run日志已在线同步、读回并由Root闭合：固定50条、随后6条、slot5/6两条及slot7/8/9三条。原7条不完整SDK继续保留。七项集中本地归档4521639实际C0/11秒，已Root闭合、审阅并接入统一入口；新增slot5/6归档4521649实际C0/3秒、原4项导出QA通过，两段共2004条科学history，现亦已Root闭合并接入入口。[本地归档闭合](SLOTS005_006_ARCHIVE_ROOT_CLOSURE.json)和[入口追加证明](SLOTS005_006_ARCHIVE_ENTRY_APPEND.json)保留旧入口完整备份、原前缀及旧索引。两页默认训练曲线各1000点，history各1002条包含非训练事件；视觉审阅范围没有升级为全部字段交互或科学验收。远端项目根W&B_训练记录.html提供统一入口，旧offline快照的真假状态未重写。
+
+新增slot7/8/9本地归档4521780实际C0/3秒，3006条history、原4项导出QA通过；三页已由Root实际Chrome检查，各1000训练点与1002完整history的分母分别保留。[在线闭合](../attention_centered_e2e_20261027_v1/SLOTS007_009_SYNC_ROOT_CLOSURE.json)、[在线入口追加](../attention_centered_e2e_20261027_v1/SLOTS007_009_ONLINE_ENTRY.json)、[本地闭合](../attention_centered_e2e_20261027_v1/SLOTS007_009_ARCHIVE_ROOT_CLOSURE.json)及[本地入口追加](../attention_centered_e2e_20261027_v1/SLOTS007_009_ARCHIVE_ENTRY_APPEND.json)保留旧索引、完整旧前缀/inode与单marker；线上/本地状态分别核证。
 
 ## 时间点成本与剩余
 
-[成本快照v17](ACTUAL_COST_SNAPSHOT_v17.json)捕获于2026-10-26 22:17:38 UTC，即北京时间2026-10-27 06:17:38：443个父任务、1076112 allocated CPU核秒、46983 GPU分配秒，捕获时活动任务1338/1644。1649等随后任务不在该快照内；这是点时累计，不是最终成本或GPU利用率。A01/4521338仍PENDING，最近节点20资源帧CPUTot/CPUAlloc为104/104，尚无独立ABBA结果。
+[成本快照v18](../attention_centered_e2e_20261027_v1/ACTUAL_COST_SNAPSHOT_v18.json)捕获于2026-10-27 00:06:41 UTC，即北京时间08:06:41：454个父任务、1171344 allocated CPU核秒（325.3733小时）、52741 GPU作业分配秒（14.65028小时），捕获时1338仍PENDING、1773运行中。捕获后的任务与活动任务后续时间不在本快照内；它不是最终成本、利用率或费用金额。旧v17快照原件保留，A01尚无独立ABBA结果。
 
 v11 payload SHA的65字符抄录错误保留在原收据，并由机器摘要[补正](PUBLICATION_PAYLOAD_SHA_CORRECTION.json)另行记录；Git树、执行代码和执行前公开预注册没有因此变化。[排队归档1638失败](QUEUED_ARCHIVE_1638_FAILURE.md)及[挂载恢复](MOUNT_RECOVERY_ACTUAL.json)作为操作历史保留，不计为模型数值失败。
 
 [归档工具快照](../../../../tools/model_v3/analysis_sources/native_long_archive_v1/README.md)和[Root闭合工具快照](../../../../tools/model_v3/analysis_sources/native_long_archive_metadata_v1/README.md)保留原始源码字节；实际执行仍使用远端runs/model_v3_20261026原目录。[完整CPU薄层快照](../../../../tools/model_v3/analysis_sources/attention_centering_CPU_v1/README.md)保留此次实际回归源与生成请求；快照本身不代替GPU验收或最终配方冻结。
 
-数据线v7记录了实际处理进度，全部D1–D7与扩充交付仍在进行；这里记录最终交付状态。D3–D6最终交付仍缺，D1 draft.3未共同冻结。真实SDP与代理/架构/配方矩阵、种子噪声与B*验收、用户确认及最终recipe/tag/HANDOFF/PR均未闭合。没有main合并、最终冻结或学校正式预训练。
+数据线持续有实际处理进度，最终D1–D7与扩充交付仍在进行；这里记录最终交付状态。D3–D6最终交付仍缺，D1 draft.3未共同冻结。真实SDP与代理/架构/配方矩阵、种子噪声与B*验收、用户确认及最终recipe/tag/HANDOFF/PR均未闭合。没有main合并、最终冻结或学校正式预训练。
 

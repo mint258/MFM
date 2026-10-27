@@ -1,0 +1,340 @@
+{
+  "actual_allocation_identity": {
+    "boot_id": "adf2e159-f575-4a27-a5d0-7840def635c4",
+    "cgroup": "1:freezer:/slurm/uid_1278/job_4521776/step_batch\n0::/system.slice/slurmd.service\n",
+    "cgroup_sha256": "9424d3c6932ac066823cb8905c42233b0c0144c5f41783b28b8a0514c0df6716",
+    "cpus_per_task": 16,
+    "job_id": "4521776",
+    "memory_per_node_MiB": 32768,
+    "node": "compute-0-21",
+    "pgid": 531358,
+    "pid": 531358,
+    "sid": 531353,
+    "start_ticks": 576280303,
+    "uid": 1278
+  },
+  "argv": [
+    "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+    "-u",
+    "-B",
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/run_supervised.py",
+    "--output-root",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_4521776",
+    "--record",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_supervisor_4521776.json",
+    "--gpu-uuid",
+    "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+    "--wall-seconds",
+    "1100",
+    "--rss-limit-bytes",
+    "30064771072",
+    "--output-budget-bytes",
+    "2147483648",
+    "--private-scratch-root",
+    "/tmp/mv3n_4521776",
+    "--private-storage-budget-bytes",
+    "2147483648",
+    "--",
+    "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+    "-u",
+    "-B",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/run_centered_matrix.py",
+    "--request",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/execution_request_v1.json",
+    "--request-sha256",
+    "1049ca8e8a56ad3f9ff7e0c5e214acb485b81a4f8efbc6c7bf6f3c601c7cceb0",
+    "--output-root",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_4521776"
+  ],
+  "child_exit_code": 1,
+  "closed_control_output_census": {
+    "cap_bytes": 2147483648,
+    "conservative_total_bytes": 15357067,
+    "conservative_worker_receipt_allowance_bytes": 2097152,
+    "external_files": [
+      {
+        "bytes": 14085,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_attempt1.json"
+      },
+      {
+        "bytes": 12456,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_attempt1.admission.json"
+      },
+      {
+        "bytes": 3090,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_supervisor_4521776.json"
+      },
+      {
+        "bytes": 41575,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_supervisor_4521776.json.jsonl"
+      },
+      {
+        "bytes": 1193,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_supervisor_4521776.json.storage.json"
+      },
+      {
+        "bytes": 139628,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_launch_v1_4521776.log"
+      }
+    ],
+    "is_live_monitor": false,
+    "output_root": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_4521776",
+    "scope": "One child-root census plus distinct external files; private storage separately original2GiB",
+    "uses_original_owned_output_bytes": true
+  },
+  "finished_utc": "2026-10-26T23:56:43.771941+00:00",
+  "immutable_admission_frame": {
+    "bytes": 12456,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_attempt1.admission.json",
+    "sha256": "6e3fd9972d8ae0660d0fa839ad18ba57d29ca07f4d36c1b29c3a9f7728065b79"
+  },
+  "inputs": {
+    "diagnostic_source_pins": {
+      "bytes": 324104,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/execution_request_v1.json",
+      "sha256": "1049ca8e8a56ad3f9ff7e0c5e214acb485b81a4f8efbc6c7bf6f3c601c7cceb0"
+    },
+    "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+    "launch_source": {
+      "bytes": 16142,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/launch_centered_matrix_GPU_v1.py",
+      "sha256": "df9dbe81b87c928ad63e576c93347be800ac020fe9e3a9da9fb42e6799eea6ef"
+    },
+    "launch_source_pins": {
+      "bytes": 321228,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/source_pins_v1.json",
+      "sha256": "52d4ad7679a9d40807d8899371811381e93bec9041fd88cad042de61d99002df"
+    },
+    "metadata_selfcheck": {
+      "Git_NUL_empty_oracle": true,
+      "nonallowlisted_projection_rejected": true,
+      "wrong_blob_rejected": true
+    },
+    "node": "compute-0-21",
+    "public_blob_preflight": [
+      {
+        "Git_projection": "exact_raw",
+        "path": "current/phychem_mfm/model/attention.py",
+        "registered_Git_blob_sha": "535d17c18af948dcf8fa47b25bc13d5fe5256074",
+        "registered_Git_bytes": 4904,
+        "working_bytes": 4904,
+        "working_sha256": "b93eebb756a14a921de7177580b649a3672864dba08131628b14608c71772595"
+      },
+      {
+        "Git_projection": "exact_raw",
+        "path": "current/phychem_mfm/model/backbone.py",
+        "registered_Git_blob_sha": "da2e56595d270e6f27b9b879d4ccbdcb968adb3d",
+        "registered_Git_bytes": 3459,
+        "working_bytes": 3459,
+        "working_sha256": "9818a81f8425f7bc73200d09590f2a2735b3133e16f6d02b812c9b3c3d593dc5"
+      },
+      {
+        "Git_projection": "exact_raw",
+        "path": "current/phychem_mfm/model/shared.py",
+        "registered_Git_blob_sha": "aeb447ea4277b2cc83f5c76abb3e9ca3687464c5",
+        "registered_Git_bytes": 28127,
+        "working_bytes": 28127,
+        "working_sha256": "fe889c871fc2651afc43c3836c000d6c37da805872067add9e6f67d3411e33d2"
+      },
+      {
+        "Git_projection": "exact_raw",
+        "path": "current/phychem_mfm/model/v3_architecture.py",
+        "registered_Git_blob_sha": "5c4103335baa51177c729f6df40b1a5781e9a785",
+        "registered_Git_bytes": 16238,
+        "working_bytes": 16238,
+        "working_sha256": "39a4e3e80478d651a699497d762c30c9e5c7f38339d85f65ba97382c6cb8e9be"
+      },
+      {
+        "Git_projection": "exact_raw",
+        "path": "current/phychem_mfm/model/v3_attention_numerics.py",
+        "registered_Git_blob_sha": "9301e42a8b23a512d70714b85e0619b7fa3a03ae",
+        "registered_Git_bytes": 6492,
+        "working_bytes": 6492,
+        "working_sha256": "f31e8f7262d62ea374055ecfef6dce8886ffb34d73ffb0519bfd72f7c30a5a9e"
+      },
+      {
+        "Git_projection": "exact_raw",
+        "path": "current/phychem_mfm/model/v3_heads.py",
+        "registered_Git_blob_sha": "dc722f379371565b79cb220e36bee7513c9bb84a",
+        "registered_Git_bytes": 12459,
+        "working_bytes": 12459,
+        "working_sha256": "15df653c6cf068cd3723d358df2f85e1c9864fc8ee4d0339f9afc11bbd82a2d3"
+      },
+      {
+        "Git_projection": "exact_raw",
+        "path": "current/phychem_mfm/model/v3_numeric_stability.py",
+        "registered_Git_blob_sha": "4c0d99c6c5e42dc1e178811d5a2f69ae35aa3823",
+        "registered_Git_bytes": 8976,
+        "working_bytes": 8976,
+        "working_sha256": "2c6ae1e6e7df199495f48852e4a66b0087cdff521b5399c2c32a5b204af06cf3"
+      },
+      {
+        "Git_projection": "exact_raw",
+        "path": "current/phychem_mfm/model/v3_performance.py",
+        "registered_Git_blob_sha": "e199918c548c85e1709d3149dedc6b2bb1f37709",
+        "registered_Git_bytes": 17048,
+        "working_bytes": 17048,
+        "working_sha256": "5ed86e82b3236800f206bba5f91135ef1ae4cb5283bd6265b73be0540e92fdb8"
+      },
+      {
+        "Git_projection": "exact_raw",
+        "path": "current/tests/test_model_v3_attention_centering.py",
+        "registered_Git_blob_sha": "3cc225cc927e13f102c79636ed5c50e27b662585",
+        "registered_Git_bytes": 16721,
+        "working_bytes": 16721,
+        "working_sha256": "41951c107d6677038aef80f0a2e5b56108c110ab0a00c20365cbcf0d6aea7b18"
+      },
+      {
+        "Git_projection": "exact_raw",
+        "path": "docs/model_v3/ATTENTION_CENTERING_V1.md",
+        "registered_Git_blob_sha": "57e0f305d3095823c9025f1a584e999c577950a7",
+        "registered_Git_bytes": 6392,
+        "working_bytes": 6392,
+        "working_sha256": "ea4d9a1f7660b208ba9ebe33f47e814a9eb86f3e46d0262419459b1cdd3235d2"
+      }
+    ],
+    "resource_guard": {
+      "bytes": 38996,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/gpu_runtime_retry_v4/submit_composed_eq_gpu_runtime_retry_v4.py",
+      "sha256": "d3cba6a8610e6bd55fa21873be5c770efbe30be73b7b16d4f1cbdfa6ccb1c193"
+    },
+    "sbatch": {
+      "bytes": 1987,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/run_centered_matrix_GPU_v1.sbatch",
+      "sha256": "1950fd27fb01286d1aba8352e40198327cb55949c43c87a00d287379bc01ad0f"
+    }
+  },
+  "is_scientific_acceptance": false,
+  "job_id": "4521776",
+  "observations": [
+    {
+      "argv": [
+        "head",
+        "-n",
+        "5",
+        "/proc/meminfo"
+      ],
+      "elapsed_seconds": 0.0020249662920832634,
+      "finished_utc": "2026-10-26T23:56:02.012605+00:00",
+      "returncode": 0,
+      "started_utc": "2026-10-26T23:56:02.010585+00:00",
+      "stderr": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "MemTotal:       130885208 kB\nMemFree:        27968324 kB\nMemAvailable:   118639212 kB\nBuffers:              12 kB\nCached:         91060924 kB\n",
+      "stdout_sha256": "8c493b208a9ae4f47fe077229170935f85728f11d476b4bf18f6c4b31739e6ca"
+    },
+    {
+      "argv": [
+        "scontrol",
+        "show",
+        "node",
+        "compute-0-21"
+      ],
+      "elapsed_seconds": 0.006069911643862724,
+      "finished_utc": "2026-10-26T23:56:02.018688+00:00",
+      "returncode": 0,
+      "started_utc": "2026-10-26T23:56:02.012622+00:00",
+      "stderr": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "NodeName=compute-0-21 Arch=x86_64 CoresPerSocket=52 \n   CPUAlloc=32 CPUEfctv=104 CPUTot=104 CPULoad=0.26\n   AvailableFeatures=(null)\n   ActiveFeatures=(null)\n   Gres=(null)\n   NodeAddr=10.1.1.176 NodeHostName=compute-0-21 Version=22.05.7\n   OS=Linux 5.14.0-611.20.1.el9_7.x86_64 #1 SMP PREEMPT_DYNAMIC Thu Jan 15 13:21:39 UTC 2026 \n   RealMemory=120000 AllocMem=0 FreeMem=35547 Sockets=2 Boards=1\n   State=MIXED ThreadsPerCore=1 TmpDisk=0 Weight=1 Owner=N/A MCS_label=N/A\n   Partitions=all \n   BootTime=2026-08-21T15:09:17 SlurmdStartTime=2026-08-21T15:28:06\n   LastBusyTime=2026-10-27T07:40:16\n   CfgTRES=cpu=104,mem=120000M,billing=104\n   AllocTRES=cpu=32\n   CapWatts=n/a\n   CurrentWatts=0 AveWatts=0\n   ExtSensorsJoules=n/s ExtSensorsWatts=0 ExtSensorsTemp=n/s\n\n",
+      "stdout_sha256": "3c3cf0d67e476b7762c3b803b3de17f10641f69ed4a46b7707691ce7668be4b6"
+    },
+    {
+      "argv": [
+        "squeue",
+        "-h",
+        "-w",
+        "compute-0-21",
+        "-o",
+        "%i|%u|%t|%m|%C"
+      ],
+      "elapsed_seconds": 0.007695209234952927,
+      "finished_utc": "2026-10-26T23:56:02.026391+00:00",
+      "returncode": 0,
+      "started_utc": "2026-10-26T23:56:02.018699+00:00",
+      "stderr": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "4521773|zixiao|R|32G|16\n4521776|zixiao|R|32G|16\n",
+      "stdout_sha256": "63cf59e9992efa2feab210e9645a2984b0cdbfab9d514b1130cf254c544f2c3b"
+    },
+    {
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=uuid,name,memory.total,memory.free",
+        "--format=csv,noheader,nounits"
+      ],
+      "elapsed_seconds": 0.03310930822044611,
+      "finished_utc": "2026-10-26T23:56:02.059573+00:00",
+      "returncode": 0,
+      "started_utc": "2026-10-26T23:56:02.026468+00:00",
+      "stderr": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "GPU-22e21021-e572-4562-fc51-cd8c83e74141, NVIDIA GeForce RTX 5090, 32607, 20730\nGPU-c35f2434-9137-9723-1af5-dc69b6295243, NVIDIA GeForce RTX 5090, 32607, 32097\n",
+      "stdout_sha256": "37ba70f66e2976cd84e351d03e32e7b4775e4e1fc1c83b79e42c5f30731e03bb"
+    },
+    {
+      "argv": [
+        "nvidia-smi",
+        "--query-compute-apps=gpu_uuid,pid,process_name,used_gpu_memory",
+        "--format=csv,noheader,nounits"
+      ],
+      "elapsed_seconds": 0.04030395299196243,
+      "finished_utc": "2026-10-26T23:56:02.099883+00:00",
+      "returncode": 0,
+      "started_utc": "2026-10-26T23:56:02.059582+00:00",
+      "stderr": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "GPU-22e21021-e572-4562-fc51-cd8c83e74141, 530031, /share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python, 11356\n",
+      "stdout_sha256": "2e33a6c1cd4043f2974655606479a0fea49fcf0e11150badc1f6a61bf3f03a42"
+    }
+  ],
+  "old_prepared_and_75QA_not_used": true,
+  "public_GPU_lock": {
+    "device": 50,
+    "fd": 9,
+    "inode": 49453579882,
+    "kernel_exclusive_lock_acquired_or_revalidated": true,
+    "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks/GPU-c35f2434-9137-9723-1af5-dc69b6295243.lock",
+    "uid": 1278
+  },
+  "resources": {
+    "Root_capture_ages_seconds": {
+      "GPU": 2.748736,
+      "applications": 1.955981,
+      "memory": 3.537159,
+      "node": 4.473793,
+      "queue": 4.463104,
+      "quota": 4.481935
+    },
+    "Root_frame_body_sha256": "058ab0d2b7d6ff0e07f24a1c2f6de394a2bc821400a3ed5ebbea421e8082164d",
+    "actual_local_MemAvailable_MiB": "115858.60546875",
+    "bound_commitment_MiB": "65536",
+    "current_GPU": {
+      "foreign_applications": [],
+      "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+      "memory_free_MiB": "32097",
+      "memory_total_MiB": "32607",
+      "name": "NVIDIA GeForce RTX 5090"
+    },
+    "effective_RealMemory_MiB": "120000",
+    "global_memory_terms_MiB": {
+      "Root_pre_submission_commitment_plus_this_allocation_once_MiB": "65536",
+      "worker_actual_controller_AllocMem_MiB": "0",
+      "worker_actual_controller_queue_MiB": "65536"
+    },
+    "scheduler_evidence_mode": "ROOT_CAPTURE_PLUS_AVAILABLE_LOCAL_CONTROLLER_OBSERVATIONS",
+    "this_allocation_added_once_MiB": 32768,
+    "worker_backend_failures": {},
+    "worker_claims_Root_capture_is_live": false
+  },
+  "schema": "model_v3_centered_attention_complete48_GPU_launch_worker_v1",
+  "started_utc": "2026-10-26T23:56:02.007323+00:00",
+  "status": "CHILD_RETURNED",
+  "submission_receipt": {
+    "bytes": 14085,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_attempt1.json",
+    "sha256": "d0b7c159b99a312f22d7012f05d3588d337eb032b5428e09a02bea8beaf03573"
+  },
+  "worker_quota_queries": 0,
+  "worker_sacct_queries": 0
+}

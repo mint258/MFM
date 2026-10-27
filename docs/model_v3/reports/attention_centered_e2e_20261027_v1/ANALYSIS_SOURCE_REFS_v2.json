@@ -1,0 +1,55 @@
+{
+    "schema":  "model_v3_centered1776_readonly_analysis_refs_v2",
+    "status":  "FROZEN_WORDING_CLARIFICATION_ONLY_NOT_ADOPTED",
+    "reports":  [
+                    {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_1776_readonly_analysis_v2.md",
+                        "logical_windows_path":  "X:\\runs\\model_v3_20261026\\attention_centered_1776_readonly_analysis_v2.md",
+                        "bytes":  5799,
+                        "sha256":  "b4ceb1090c694e756037f5dd175f7ebe2e32962c8299d7bdf05dcd145a10d6cf"
+                    },
+                    {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_1776_readonly_analysis_v2.json",
+                        "logical_windows_path":  "X:\\runs\\model_v3_20261026\\attention_centered_1776_readonly_analysis_v2.json",
+                        "bytes":  216420,
+                        "sha256":  "ede3dc1eed2d47bfaaa68088e6950435e6f91082371aa1a61ab5219e69a94105"
+                    }
+                ],
+    "prior_frozen_refs_manifest":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_1776_readonly_analysis_refs_v1.json",
+                                       "logical_windows_path":  "X:\\runs\\model_v3_20261026\\attention_centered_1776_readonly_analysis_refs_v1.json",
+                                       "bytes":  1580,
+                                       "sha256":  "2a57b389dcde5e7c22781d9a05781de63ab38634eb57e1836f7bce1d97d4cac9"
+                                   },
+    "prior_frozen_reports":  [
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_1776_readonly_analysis_v1.md",
+                                     "logical_windows_path":  "X:\\runs\\model_v3_20261026\\attention_centered_1776_readonly_analysis_v1.md",
+                                     "bytes":  5686,
+                                     "sha256":  "9dce4d0d7a8c78ce120f86480eb28082f5876cd1bb1cf0fce831e927c012ac2c"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_1776_readonly_analysis_v1.json",
+                                     "logical_windows_path":  "X:\\runs\\model_v3_20261026\\attention_centered_1776_readonly_analysis_v1.json",
+                                     "bytes":  216279,
+                                     "sha256":  "6579bb7208ef9131d9cec4abcd9b1d8512ff35b86953dd8e41fcfa3ba0dc7134"
+                                 }
+                             ],
+    "Root_closure":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_4521776_Root_metadata_closure_v1.json",
+                         "bytes":  44584,
+                         "sha256":  "d6b98fb52620c9af69f6da132cefc98d777fc6ceff7766fcaa399d22bf723a5c"
+                     },
+    "numerical_counts_measurements_identities_rawrefs_unchanged":  true,
+    "changes":  {
+                    "MD":  "Replace only last conditional; do not infer encoder cause from nonzero same-H0 F64 residual",
+                    "scalarJSON":  "Replace only single_next_discriminating_measurement.decision string; all other raw text unchanged",
+                    "old_conditional":  "same-H0 F64 residual stillfails,a head-only rewrite is insufficient and encoder\nerror must be addressed. Neither outcome alone identifies LayerNorm vs GEMM.",
+                    "new_conditional":  "same-H0 F64 residual stillfails,a head-arithmetic-only precision improvement is\ninsufficient to remove that residual. Inspect same-component H/G/I before\nchoosing a representation,geometry or interaction intervention. Neither outcome\nalone identifies LayerNorm vs GEMM.",
+                    "old_scalar_decision":  "If same-H0 F64head stillfails,a head-only rewrite cannot solve that failure; if head arithmetic dominates,research head precision. No encoderprecision location chosen without evidence",
+                    "new_scalar_decision":  "Same-H0 F64head residuals alone do not locate the error. If they still fail,a head-arithmetic-only precision improvement is insufficient to remove that residual; inspect same-component H/G/I before choosing a representation,geometry or interaction intervention. No encoder precision location is selected from currentmetadata"
+                },
+    "V1_preserved_without_overwrite":  true,
+    "scientific_adoption":  false,
+    "model_source_NPZ_SDK_or_new_job_execution":  false
+}
