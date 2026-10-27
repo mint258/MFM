@@ -27,6 +27,8 @@ from .backbone import RealCoordTransformerBackbone
 from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
                                     require_centered_backbone, require_centered_f32_context)
 from .common import Linear, ensure_batch_attr
+from .v3_attention_projection import (LEGACY_PROJECTION, BLOCKED_PROJECTION,
+    validate_projection_mode, require_projection_constructor, require_projection_backbone)
 from .v3_numeric_stability import (LEGACY, COMPENSATED, apply_numeric_mode, validate_numeric_mode,
                                    numeric_mode, require_fp32_context)
 from .heads import (
@@ -80,6 +82,12 @@ class SharedBackboneMFM(nn.Module):
             raise ValueError('Backbone/head numeric modes must agree')
         self.attention_aggregation_mode = validate_aggregation_mode(backbone_config.get(
             'attention_aggregation_mode', LEGACY_AGGREGATION))
+        self.attention_projection_mode = validate_projection_mode(backbone_config.get(
+            "attention_projection_mode", LEGACY_PROJECTION))
+        require_projection_constructor(self.attention_projection_mode,
+            dim=backbone_config.get("dim", 512), heads=backbone_config.get("heads", 8),
+            layers=backbone_config.get("layers", 6), dropout=backbone_config.get("dropout", 0.),
+            aggregation=self.attention_aggregation_mode, numeric=mode)
         self.backbone_config = dict(backbone_config)
         self.expert_config = expert_config
         self.head_config = deepcopy(head_config)
@@ -116,6 +124,7 @@ class SharedBackboneMFM(nn.Module):
             radius=float(backbone_config.get("radius", 8.0)),
             activation_checkpointing=backbone_config.get("activation_checkpointing", False),
             attention_aggregation_mode=self.attention_aggregation_mode,
+            attention_projection_mode=self.attention_projection_mode,
         )
         self.graph_pool = UnifiedGraphPooling(self.latent_dim)
 
@@ -183,6 +192,12 @@ class SharedBackboneMFM(nn.Module):
 
     def encode_atoms(self, batch: Data) -> Tensor:
         """Return canonical shared representation H0 with shape [N_atom, D]."""
+        declared_projection = validate_projection_mode(self.backbone_config.get(
+            "attention_projection_mode", LEGACY_PROJECTION))
+        if self.attention_projection_mode != declared_projection:
+            raise ValueError("Model configuration/projection runtime identity differs")
+        if declared_projection == BLOCKED_PROJECTION:
+            require_projection_backbone(self.backbone, expected_mode=BLOCKED_PROJECTION)
         if self.attention_aggregation_mode == CENTERED_FP32:
             require_centered_backbone(self.backbone)
             require_centered_f32_context(self.backbone, batch.pos)

@@ -8,6 +8,8 @@ import torch.nn as nn
 from torch import Tensor
 
 from .common import Linear
+from .v3_attention_projection import (LEGACY_PROJECTION, BLOCKED_PROJECTION,
+    validate_projection_mode, require_projection_constructor, attention_projection)
 from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
                                     require_centered_attention_context, centered_attention_value)
 from .v3_numeric_stability import COMPENSATED, numeric_mode, compensated_pairwise_norm3
@@ -25,12 +27,16 @@ class DenseGeoSelfAttention(nn.Module):
         use_radius_mask: bool = False,
         radius: float = 8.0,
         attention_aggregation_mode: str = LEGACY_AGGREGATION,
+        attention_projection_mode: str = LEGACY_PROJECTION,
     ) -> None:
         super().__init__()
         if dim % nheads != 0:
             raise ValueError("dim must be divisible by nheads")
 
         self.attention_aggregation_mode = validate_aggregation_mode(attention_aggregation_mode)
+        self.attention_projection_mode = validate_projection_mode(attention_projection_mode)
+        require_projection_constructor(self.attention_projection_mode, dim=dim, heads=nheads,
+            aggregation=self.attention_aggregation_mode, dropout=dropout)
         self.dim = dim
         self.nheads = nheads
         self.d_head = dim // nheads
@@ -57,7 +63,9 @@ class DenseGeoSelfAttention(nn.Module):
         if self.attention_aggregation_mode == CENTERED_FP32:
             require_centered_attention_context(self, mask, x, pos)
         bsz, seqlen, _ = x.shape
-        qkv = self.qkv(x).view(bsz, seqlen, 3, self.nheads, self.d_head)
+        qkv = (attention_projection(self, self.qkv, x)
+               if self.attention_projection_mode == BLOCKED_PROJECTION else self.qkv(x))
+        qkv = qkv.view(bsz, seqlen, 3, self.nheads, self.d_head)
         q, k, v = qkv.unbind(dim=2)
 
         q = q.transpose(1, 2)
@@ -93,7 +101,8 @@ class DenseGeoSelfAttention(nn.Module):
             ctx = torch.matmul(attn, v)
         ctx = ctx.transpose(1, 2).contiguous().view(bsz, seqlen, self.dim)
 
-        out = self.proj(ctx)
+        out = (attention_projection(self, self.proj, ctx)
+               if self.attention_projection_mode == BLOCKED_PROJECTION else self.proj(ctx))
         out = out * mask.unsqueeze(-1).to(out.dtype)
         return out, attn
 
@@ -124,6 +133,7 @@ class RealCoordTransformerLayer(nn.Module):
         use_radius_mask: bool = False,
         radius: float = 8.0,
         attention_aggregation_mode: str = LEGACY_AGGREGATION,
+        attention_projection_mode: str = LEGACY_PROJECTION,
     ) -> None:
         super().__init__()
         self.norm1 = nn.LayerNorm(dim)
@@ -135,6 +145,7 @@ class RealCoordTransformerLayer(nn.Module):
             use_radius_mask=use_radius_mask,
             radius=radius,
             attention_aggregation_mode=attention_aggregation_mode,
+            attention_projection_mode=attention_projection_mode,
         )
         self.norm2 = nn.LayerNorm(dim)
         self.ffn = DenseFFN(dim=dim, ff_mult=ff_mult, dropout=dropout)

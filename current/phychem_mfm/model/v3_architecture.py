@@ -25,6 +25,8 @@ from .common import Linear, ensure_batch_attr
 from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, aggregation_mode,
                                     require_centered_attention_context, centered_attention_value,
                                     require_centered_backbone, require_centered_f32_context, require_centered_packed_atoms)
+from .v3_attention_projection import (LEGACY_PROJECTION, BLOCKED_PROJECTION,
+    projection_mode, require_projection_backbone, attention_projection)
 from .v3_numeric_stability import (COMPENSATED, LEGACY, numeric_mode, apply_numeric_mode,
                                     compensated_pairwise_norm3)
 
@@ -127,6 +129,7 @@ class SharedPairAttention(nn.Module):
     def __init__(self, original, pair_dim):
         super().__init__()
         self.attention_aggregation_mode = aggregation_mode(original)
+        self.attention_projection_mode = projection_mode(original)
         self.dim, self.nheads, self.d_head = original.dim, original.nheads, original.d_head
         self.qkv, self.proj, self.attn_drop = original.qkv, original.proj, original.attn_drop
         self.use_radius_mask, self.radius = original.use_radius_mask, original.radius
@@ -137,7 +140,9 @@ class SharedPairAttention(nn.Module):
         if self.attention_aggregation_mode == CENTERED_FP32:
             require_centered_attention_context(self, mask, x, pair_features, distances)
         bsz, seqlen, _ = x.shape
-        q, k, v = self.qkv(x).view(bsz, seqlen, 3, self.nheads, self.d_head).unbind(2)
+        qkv = (attention_projection(self, self.qkv, x)
+               if self.attention_projection_mode == BLOCKED_PROJECTION else self.qkv(x))
+        q, k, v = qkv.view(bsz, seqlen, 3, self.nheads, self.d_head).unbind(2)
         q, k, v = (value.transpose(1, 2) for value in (q, k, v))
         logits = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.d_head)
         bias = self.pair_projection(pair_features).permute(0, 3, 1, 2).contiguous()
@@ -151,7 +156,9 @@ class SharedPairAttention(nn.Module):
             context = context.transpose(1, 2).contiguous().view(bsz, seqlen, self.dim)
         else:
             context = torch.matmul(weights, v).transpose(1, 2).contiguous().view(bsz, seqlen, self.dim)
-        return self.proj(context) * mask.unsqueeze(-1).to(context.dtype)
+        output = (attention_projection(self, self.proj, context)
+                  if self.attention_projection_mode == BLOCKED_PROJECTION else self.proj(context))
+        return output * mask.unsqueeze(-1).to(context.dtype)
 
 
 class SharedPairTransformerLayer(nn.Module):
@@ -171,6 +178,7 @@ class SharedPairBackbone(nn.Module):
     def __init__(self, original, options):
         super().__init__()
         self.attention_aggregation_mode = aggregation_mode(original)
+        self.attention_projection_mode = projection_mode(original)
         self.n_atom_types, self.dim = original.n_atom_types, original.dim
         self.activation_checkpointing = original.activation_checkpointing
         self.atom_emb, self.out_norm = original.atom_emb, original.out_norm
@@ -185,6 +193,8 @@ class SharedPairBackbone(nn.Module):
             result['numeric_mode'] = numeric_mode(self)
         if self.attention_aggregation_mode != LEGACY_AGGREGATION:
             result['attention_aggregation_mode'] = self.attention_aggregation_mode
+        if self.attention_projection_mode != LEGACY_PROJECTION:
+            result["attention_projection_mode"] = self.attention_projection_mode
         return result
 
     def set_extra_state(self, state):
@@ -192,6 +202,8 @@ class SharedPairBackbone(nn.Module):
 
     def forward(self, data):
         require(getattr(data, "pos", None) is not None, "C1 H0 requires coordinates")
+        if self.attention_projection_mode == BLOCKED_PROJECTION:
+            require_projection_backbone(self, expected_mode=BLOCKED_PROJECTION)
         if self.attention_aggregation_mode == CENTERED_FP32:
             require_centered_backbone(self)
             require_centered_f32_context(self, data.pos)
