@@ -1,0 +1,287 @@
+{
+    "schema":  "model_v3_D1_draft4_r674_model_source_review_DRAFT_v1",
+    "status":  "MODEL_SOURCE_REVIEW_ONLY_NOT_JOINT_FREEZE",
+    "created_utc":  "2026-10-27T06:00:59.6881371Z",
+    "scope":  {
+                  "read":  "source code and bounded registry/interface metadata only",
+                  "scientific_payloads_read":  false,
+                  "native_outputs_read":  false,
+                  "tests_or_project_code_executed":  false,
+                  "production_or_data_repository_modified":  false,
+                  "artifacts_written":  "only this fresh MD/JSON pair under runs/model_v3_20261026",
+                  "not_claimed":  [
+                                      "native_frame_verified",
+                                      "native_origin_verified",
+                                      "r674_trainable",
+                                      "real_provider_or_D3_acceptance",
+                                      "D4_or_D5_release",
+                                      "joint_contract_frozen"
+                                  ]
+              },
+    "exact_identity":  {
+                           "registry_id":  674,
+                           "task":  "xtb_singlepoint",
+                           "source_path":  "values.molecular_quadrupole_traceless_au",
+                           "member_order":  [
+                                                "xx",
+                                                "xy",
+                                                "yy",
+                                                "xz",
+                                                "yz",
+                                                "zz"
+                                            ],
+                           "members":  [
+                                           {
+                                               "ordinal":  0,
+                                               "component":  "xx",
+                                               "field_key":  "P.xtb_singlepoint.r674.xx",
+                                               "source_status":  "enabled",
+                                               "level":  "molecule_tensor",
+                                               "value_type":  "tensor_component"
+                                           },
+                                           {
+                                               "ordinal":  1,
+                                               "component":  "xy",
+                                               "field_key":  "P.xtb_singlepoint.r674.xy",
+                                               "source_status":  "enabled",
+                                               "level":  "molecule_tensor",
+                                               "value_type":  "tensor_component"
+                                           },
+                                           {
+                                               "ordinal":  2,
+                                               "component":  "yy",
+                                               "field_key":  "P.xtb_singlepoint.r674.yy",
+                                               "source_status":  "enabled",
+                                               "level":  "molecule_tensor",
+                                               "value_type":  "tensor_component"
+                                           },
+                                           {
+                                               "ordinal":  3,
+                                               "component":  "xz",
+                                               "field_key":  "P.xtb_singlepoint.r674.xz",
+                                               "source_status":  "enabled",
+                                               "level":  "molecule_tensor",
+                                               "value_type":  "tensor_component"
+                                           },
+                                           {
+                                               "ordinal":  4,
+                                               "component":  "yz",
+                                               "field_key":  "P.xtb_singlepoint.r674.yz",
+                                               "source_status":  "enabled",
+                                               "level":  "molecule_tensor",
+                                               "value_type":  "tensor_component"
+                                           },
+                                           {
+                                               "ordinal":  5,
+                                               "component":  "zz",
+                                               "field_key":  "P.xtb_singlepoint.r674.zz",
+                                               "source_status":  "enabled",
+                                               "level":  "molecule_tensor",
+                                               "value_type":  "tensor_component"
+                                           }
+                                       ],
+                           "unit":  "e bohr^2",
+                           "method":  "GFN2-xTB",
+                           "charge":  0,
+                           "source_canonical_target":  "GFN2-xTB|charge0|gas|native_original_PM7|ground_state|molecular_quadrupole_traceless_au",
+                           "geometry_context":  "native_original_PM7",
+                           "geometry_sources":  [
+                                                    "pm7",
+                                                    "uff_sprime"
+                                                ],
+                           "reference_frame":  {
+                                                   "required":  "stored geometry Cartesian axes",
+                                                   "verification":  "PENDING_CONTROLLED_READBACK",
+                                                   "source_policy":  "input coordinates rendered without a rotation; output axis equivalence must be verified",
+                                                   "gradient_sign":  null
+                                               },
+                           "family_final":  null,
+                           "size_rule_status":  "PENDING_FROZEN_TRAIN",
+                           "source_enabled_does_not_mean_trainable":  true
+                       },
+    "current_model":  {
+                          "representations":  [
+                                                  "scalar",
+                                                  "vector",
+                                                  "magnitude"
+                                              ],
+                          "target_widths":  [
+                                                1,
+                                                3
+                                            ],
+                          "provider_scope":  "synthetic_candidate_fixture_only_not_D3",
+                          "provider_representations":  [
+                                                           "scalar",
+                                                           "vector"
+                                                       ],
+                          "rank2_head_implemented":  false,
+                          "tensor_loss_and_D4_implemented":  false,
+                          "FieldTarget_mask":  "one explicit boolean per observation row; source component audit separately retained",
+                          "existing_tests":  "vector and synthetic wire fixtures; source reviewed, not executed",
+                          "tensor_named_wire_negative":  "model_field mismatch, not a rank2 positive acceptance test"
+                      },
+    "math_constraints":  {
+                             "coordinates":  "row vectors X_prime=X@R+t",
+                             "tensor_if_same_comoving_origin":  "Q_prime=R.T@Q@R",
+                             "proposal_equivalence":  "R_data@Q@R_data.T only with R_data=R_model.T and X_prime=X@R_data.T+t",
+                             "native_origin_and_translation_law":  "UNVERIFIED; charge0 alone does not remove dipole-dependent origin translation terms",
+                             "packed_symmetric_matrix":  [
+                                                             [
+                                                                 "xx",
+                                                                 "xy",
+                                                                 "xz"
+                                                             ],
+                                                             [
+                                                                 "xy",
+                                                                 "yy",
+                                                                 "yz"
+                                                             ],
+                                                             [
+                                                                 "xz",
+                                                                 "yz",
+                                                                 "zz"
+                                                             ]
+                                                         ],
+                             "frobenius_weights_in_source_order":  [
+                                                                       1,
+                                                                       2,
+                                                                       1,
+                                                                       2,
+                                                                       2,
+                                                                       1
+                                                                   ],
+                             "component_huber_rotation_invariant":  false,
+                             "candidate_full_tensor_loss":  "mean_eligible rho_delta(norm_F(Q_hat-Q)/(s*sqrt(d)))",
+                             "candidate_loss_adopted":  false,
+                             "d_and_delta_and_denominator_and_group_weight":  "REQUIRES_JOINT_FREEZE",
+                             "candidate_single_scale":  "Q_tilde=(Q-c*I)/s; scalar c, scalar s\u003e0, frozen TRAIN-only exact condition",
+                             "partial_mask":  "preserve all six source leaves/reasons; jointly freeze loss eligibility or frame-aware observation operator; never rotate only bool6 or change source masks",
+                             "trace_projection_or_drop_zz_allowed":  false
+                         },
+    "pending_evidence":  [
+                             "native program/version/definition coefficients",
+                             "input/output axes and exact R convention",
+                             "native origin and translation law",
+                             "trace and native token precision/rounding",
+                             "native coordinate units and e bohr^2 mapping",
+                             "same geometry, atom order, H0 view, PM7 versus UFF/Pprime condition",
+                             "partial observation operator or joint loss eligibility policy",
+                             "frozen per-condition TRAIN-only D4 and masks/denominators",
+                             "final physical/family/common/order maps, reason codebook, schema/source/release bindings",
+                             "real provider/VAL/D3 and D5 acceptance plus joint signatures"
+                         ],
+    "disposition":  {
+                        "draft4":  "PROPOSAL_NOT_ADOPTED; draft3 remains current draft",
+                        "r674_model_consumption":  "UNSUPPORTED_PENDING",
+                        "source_values_members_masks":  "UNCHANGED",
+                        "new_head_or_loss_selected":  false,
+                        "joint_freeze":  false,
+                        "next_authorized_action":  "Root/model/data joint review of the explicit mathematical and physical conditions; no unilateral schema or mask change"
+                    },
+    "sources":  [
+                    {
+                        "role":  "draft4_proposal",
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/interfaces/training_format_v3_draft4_native_domains_proposal.md",
+                        "logical_x":  "X:\\runs\\data_v1_20261025\\repository\\docs\\interfaces\\training_format_v3_draft4_native_domains_proposal.md",
+                        "bytes":  7686,
+                        "sha256":  "c5818d712acf0eb15fcd7a4a4448211c6957a214dd54ea23e2dcb76cbec5cd99",
+                        "reviewed_lines_or_selector":  "3,30-40,47-58"
+                    },
+                    {
+                        "role":  "joint_freeze_remaining",
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/data_v1/d1_joint_freeze_remaining_20261027_v1.md",
+                        "logical_x":  "X:\\runs\\data_v1_20261025\\repository\\docs\\data_v1\\d1_joint_freeze_remaining_20261027_v1.md",
+                        "bytes":  8586,
+                        "sha256":  "fd862ff65cd960be11adf6d8664976b9559cfb569a09e075fa1d99b31ff17463",
+                        "reviewed_lines_or_selector":  "whole source-review document"
+                    },
+                    {
+                        "role":  "draft3_interface",
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/interfaces/training_format_v3.md",
+                        "logical_x":  "X:\\runs\\data_v1_20261025\\repository\\docs\\interfaces\\training_format_v3.md",
+                        "bytes":  19059,
+                        "sha256":  "399ee0cebf8497c4e73accc52f84fd7d42b9753f9779433c80d12641df5a5ea2",
+                        "reviewed_lines_or_selector":  "current draft3, not superseded"
+                    },
+                    {
+                        "role":  "registry",
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/label_registry_v3.json",
+                        "logical_x":  "X:\\runs\\data_v1_20261025\\repository\\configs\\data_v1\\label_registry_v3.json",
+                        "bytes":  585411,
+                        "sha256":  "b6a230b74b5bebfa0108e67572ed2ccc699718c2958fb69e99c58b8323c6ce45",
+                        "reviewed_lines_or_selector":  "fields filtered by registry_id=674; exact six rows in stored order"
+                    },
+                    {
+                        "role":  "data_tensor_codec",
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/export/wire_v1/mapping.py",
+                        "logical_x":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\export\\wire_v1\\mapping.py",
+                        "bytes":  12447,
+                        "sha256":  "b67a248bf1e24bcb6cd05a8ce6c1a5d2981bb990d2728fb8a217d8c4e77acd76",
+                        "reviewed_lines_or_selector":  "6-7,79-96,99-115"
+                    },
+                    {
+                        "role":  "native_parser",
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/wp4_parsers.py",
+                        "logical_x":  "X:\\runs\\phase1_dataset_rebuild_20261010\\scripts\\wp4_parsers.py",
+                        "bytes":  20763,
+                        "sha256":  "66938afa8d3d7b7f51e8922c875c0987687a865a97cb1591d6f6c511b38098e0",
+                        "reviewed_lines_or_selector":  "247-250"
+                    },
+                    {
+                        "role":  "model_contract",
+                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/phychem_mfm/phase1/v3_contract.py",
+                        "logical_x":  "X:\\MFM_model_v3\\current\\phychem_mfm\\phase1\\v3_contract.py",
+                        "bytes":  9509,
+                        "sha256":  "c41bc5d42bf14e6c2036faa951a38f49af3c3f68df54d835e4da31aed9649d8b",
+                        "reviewed_lines_or_selector":  "17-21,43-84,129-179,185-186"
+                    },
+                    {
+                        "role":  "wire_provider",
+                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/phychem_mfm/phase1/v3_wire_provider.py",
+                        "logical_x":  "X:\\MFM_model_v3\\current\\phychem_mfm\\phase1\\v3_wire_provider.py",
+                        "bytes":  22752,
+                        "sha256":  "80c728c157205ca1e9870d511751efc6b87a7c59c795d28a6911c313610c2ea8",
+                        "reviewed_lines_or_selector":  "1,29-38,121-148,257-290"
+                    },
+                    {
+                        "role":  "heads",
+                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/phychem_mfm/model/v3_heads.py",
+                        "logical_x":  "X:\\MFM_model_v3\\current\\phychem_mfm\\model\\v3_heads.py",
+                        "bytes":  10776,
+                        "sha256":  "6c48426f6956d7c9a65f0fa52c693068c1e37b7579c7968dde2267400cbd3750",
+                        "reviewed_lines_or_selector":  "73-78,92-119,140-151"
+                    },
+                    {
+                        "role":  "loss",
+                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/phychem_mfm/phase1/v3_losses.py",
+                        "logical_x":  "X:\\MFM_model_v3\\current\\phychem_mfm\\phase1\\v3_losses.py",
+                        "bytes":  5807,
+                        "sha256":  "86d6291fbed0529cce7cf130f2bb5a8c01b276818cfb7834a7156d63369cc089",
+                        "reviewed_lines_or_selector":  "35-45,57-65,76-94"
+                    },
+                    {
+                        "role":  "vector_loss_tests",
+                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/tests/test_model_v3_vector_loss.py",
+                        "logical_x":  "X:\\MFM_model_v3\\current\\tests\\test_model_v3_vector_loss.py",
+                        "bytes":  4020,
+                        "sha256":  "327e173619788ec181518794839759f450ad311ef4ac955150ce8f1ed52903fb",
+                        "reviewed_lines_or_selector":  "22-34,55-62"
+                    },
+                    {
+                        "role":  "wire_provider_tests",
+                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/tests/test_model_v3_wire_provider.py",
+                        "logical_x":  "X:\\MFM_model_v3\\current\\tests\\test_model_v3_wire_provider.py",
+                        "bytes":  18145,
+                        "sha256":  "71c8bcbe62797f0b5408d9b2f2cd62c808e9408b884b545c6d6423f54b3ebde7",
+                        "reviewed_lines_or_selector":  "51-63,128-137,235,276"
+                    },
+                    {
+                        "role":  "existing_row_rotation_diagnostic",
+                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance/current/phychem_mfm/phase1/v3_composed_equivariance.py",
+                        "logical_x":  "X:\\MFM_model_v3_composed_equivariance\\current\\phychem_mfm\\phase1\\v3_composed_equivariance.py",
+                        "bytes":  30285,
+                        "sha256":  "0c49debe901ee5db79a71fcbc8541d426231c5090eb9740b84649e867d8df0e8",
+                        "reviewed_lines_or_selector":  "283-289,315"
+                    }
+                ]
+}
