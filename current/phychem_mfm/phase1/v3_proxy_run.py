@@ -38,7 +38,8 @@ ROLES = ('VAL', 'TRAIN_UNSEEN_CONFORMATION')
 REPOSITORY = Path(__file__).absolute().parents[3]
 EXTRA_RUNTIME = ('tools/model_v3/run_proxy_experiment.py', 'tools/model_v3/a_execution_runtime.py',
     'tools/model_v3/runtime_monitor.py', 'tools/model_v3/private_runtime_storage.py',
-    'tools/model_v3/run_supervised.py', 'workflows/sprime_s/scripts/s_model_memory_v1.py')
+    'tools/model_v3/run_supervised.py', 'tools/model_v3/prepare_recipe_experiment.py',
+    'workflows/sprime_s/scripts/s_model_memory_v1.py')
 
 
 @dataclass(frozen=True)
@@ -58,6 +59,7 @@ class ProxyInputs:
     authority_kind: str
     release_accepted: bool
     verified_request_sha256: str = ''
+    full_train_contract: dict | None = None
 
 
 def collect_sources(root=REPOSITORY):
@@ -81,7 +83,7 @@ def validate_sources(request):
     source = request['sources']; expected = source['runtime_files']
     require(expected == collect_sources(), 'Actual runtime source inventory differs; base commit does not describe dirty engineering code')
     require(re.fullmatch('[a-f0-9]{40}',source['code_sha']) is not None, 'Full actual/base code SHA required')
-    if request['mode'] == 'authoritative_proxy':
+    if request['mode'] in ('authoritative_proxy','authoritative_full_train'):
         require(_git(REPOSITORY,'rev-parse','HEAD') == source['code_sha']
             and _git(REPOSITORY,'rev-parse','HEAD^{tree}') == source['tree_sha']
             and not _git(REPOSITORY,'status','--porcelain','--untracked-files=all'),
@@ -105,14 +107,16 @@ def _registration(reference, *, purpose, configuration):
     contract = configuration['proxy_contract']
     if purpose == 'budget': require(policy['sample_budget'] == contract['sample_budget'], 'Registered sample budget differs')
     if purpose == 'validation': require(policy['validation'] == contract['validation'], 'Registered validation policy differs')
+    if purpose == 'full_train': require(policy.get('full_train_contract') == configuration['full_train_contract'], 'Registered full TRAIN population differs')
     return {'reference':reference,'verified_local_commit_epoch':epoch,'policy_sha256':local['sha256'],
         'public_availability_is_Root_verified':True}
 
 
 def validate_request(request, *, input_kind='authoritative_proxy', engineering_only=False):
     require(request.get('schema') == 'model_v3_proxy_request_v1', 'Explicit proxy request required')
-    require(input_kind in ('authoritative_proxy','synthetic') and request['mode'] ==
-        ('synthetic_engineering' if input_kind == 'synthetic' else 'authoritative_proxy'), 'CLI/request input scope differs')
+    require(input_kind in ('authoritative_proxy','authoritative_full_train','synthetic') and request['mode'] ==
+        ('synthetic_engineering' if input_kind == 'synthetic' else input_kind), 'CLI/request input scope differs')
+    full_train = input_kind == 'authoritative_full_train'
     configuration = read_bound(request['configuration'])
     require(configuration.get('schema') == 'model_v3_proxy_configuration_v1'
         and type(configuration['seed']) is int and configuration['seed'] >= 0, 'Complete proxy configuration/seed required')
@@ -122,7 +126,11 @@ def validate_request(request, *, input_kind='authoritative_proxy', engineering_o
         'Synthetic execution requires both --input synthetic and --engineering-only plus immutable markers')
     contract = configuration['proxy_contract']; model = configuration['model']
     require(model['backbone']['dim'] == 512 and (engineering or model['backbone']['layers'] == 6), 'Canonical scientific6x512 model required')
-    require(engineering or request['scope'] in ('calibration','comparison','recipe'), 'Explicit registered scientific purpose required')
+    require(engineering or request['scope'] in (('full_convergence',) if full_train else ('calibration','comparison','recipe')), 'Explicit registered scientific purpose required')
+    if full_train:
+        from .v3_full_training import validate_full_contract
+        full=validate_full_contract(configuration)
+        require(request['input_projection']['index_sha256'] == full['membership_sha256'],'Full TRAIN request/index population differs')
     require(contract['precision'] == {'mode':'fp32','matmul_tf32':False,'cudnn_tf32':False,'matmul_precision':'highest'},
         'First proxy runner supports declared strict fp32 only; no silent bf16/TF32 composition')
     require(contract['views'] in ('two','three') and contract['validation']['views'] == contract['views'],
@@ -152,11 +160,18 @@ def validate_request(request, *, input_kind='authoritative_proxy', engineering_o
     require(configuration['runtime_source_inventory_sha256'] == source_sha, 'Configuration runtime inventory differs')
     require(configuration['input_projection_sha256'] == canonical_hash(request['input_projection']), 'Configuration input projection differs')
     if long_enabled(configuration):
-        long_policy(configuration,plan)
+        require(type(request.get('long_run')) is dict,'Fresh finite Root storage/profile/quota/reservation refs required')
+        limits=long_policy(configuration,plan)
+        if full_train:
+            resource=configuration['full_resource_contract']
+            require(resource['durable_upper_bytes'] == limits['durable_bytes']
+                and resource['checkpoint_upper_bytes'] == limits['checkpoint_bytes']
+                and resource['profile_evidence'] == request['long_run']['profile'], 'Full storage declaration/profile differs from actual durable admission')
         validate_admission(request,configuration)
     receipts = {}
     if not engineering:
-        required = {'budget','validation','calibration'} if request['scope'] == 'calibration' else {'budget','validation','selection','platform'}
+        required = ({'budget','validation','recipe','full_train'} if full_train else
+            {'budget','validation','calibration'} if request['scope'] == 'calibration' else {'budget','validation','selection','platform'})
         if request['scope'] == 'recipe': required.add('recipe')
         require(required <= set(request['registrations']), 'Missing explicit preregistered scope/budget/validation/decision references')
         receipts = {purpose:_registration(request['registrations'][purpose],purpose=purpose,configuration=configuration) for purpose in required}
@@ -168,7 +183,9 @@ def validate_request(request, *, input_kind='authoritative_proxy', engineering_o
             and admission['tree_sha'] == request['sources']['tree_sha']
             and admission['request_identity_sha256'] == canonical_hash({k:v for k,v in request.items() if k != 'Root_admission'}),
             'Missing/unfinished Root scientific admission or request projection differs')
-        require({'D1','D2','D3','D4','D5','three_GPU_SDP_smoke'} <= set(admission['evidence']), 'Missing actual input/integration authority references')
+        required_data = {'D1','D2','D3','D4','D6' if full_train else 'D5','three_GPU_SDP_smoke'}
+        require(required_data <= set(admission['evidence']), 'Missing actual input/integration authority references')
+        if full_train: require(admission['evidence']['D6'] == configuration['full_train_contract']['release_evidence'], 'Root D6 release binding differs')
         for reference in admission['evidence'].values(): binding_matches(reference)
     return configuration,plan,receipts
 
@@ -187,15 +204,21 @@ def bind_inputs(request, configuration):
         name = 'model_v3_proxy_adapter_'+ref['sha256']
         spec = importlib.util.spec_from_file_location(name,ref['path'])
         module = importlib.util.module_from_spec(spec); sys.modules[name] = module; spec.loader.exec_module(module)
-        hook = getattr(module,'verify_and_bind_model_v3_proxy_inputs',None)
+        hook_name = ('verify_and_bind_model_v3_full_TRAIN_inputs' if request['mode'] == 'authoritative_full_train'
+                     else 'verify_and_bind_model_v3_proxy_inputs')
+        hook = getattr(module,hook_name,None)
         require(callable(hook), 'Missing pinned final-D authority hook; candidate providers are not admitted')
         inputs = hook(deepcopy(request))
         require(isinstance(inputs,ProxyInputs) and inputs.authority_kind == 'data_line_final'
             and inputs.release_accepted is True and inputs.verified_request_sha256 == canonical_hash(request)
             and inputs.authority_receipt, 'Final-D authority hook did not verify this exact request')
-        require(inputs.index.authority == inputs.registry.authority == 'data_line'
-            and inputs.index.role == 'TRAIN' and len(inputs.index) == 240000,
-            'Scientific proxy needs actual D5 240000 TRAIN molecules, never a record prefix')
+        require(inputs.index.authority == inputs.registry.authority == 'data_line', 'Final data-line index/registry authority required')
+        if request['mode'] == 'authoritative_full_train':
+            from .v3_full_training import verify_full_inputs
+            verify_full_inputs(inputs,configuration)
+        else:
+            require(inputs.index.role == 'TRAIN' and len(inputs.index) == 240000,
+                'Scientific proxy needs actual D5 240000 TRAIN molecules, never a record prefix')
     require(isinstance(inputs,ProxyInputs) and isinstance(inputs.registry,LabelRegistry)
         and inputs.index.version == inputs.provider.data_version == inputs.registry.version
         and inputs.provider.read_only is True and inputs.provider.node_local is True, 'Bound readonly node-local input projection required')
@@ -216,10 +239,21 @@ class ProxyStepTrainer(ArchitectureStepTrainer):
     def __init__(self,*args,validation_policy,**kwargs):
         super().__init__(*args,**kwargs)
         self.validation_policy = deepcopy(validation_policy)
+        self.recipe_initial_validation = False
         self.contract['proxy_validation'] = self.validation_policy
         self.bindings['trainer_configuration_sha256'] = canonical_hash(self.contract)
 
+    def next_step(self,count):
+        # Only the new selected-recipe SDP route requests a full initial cohort.
+        # Original validate() preserves provider/RNG and runs the same guards.
+        if self.recipe_initial_validation and self.clock.samples_consumed == 0:
+            for role in ROLES:
+                if self.validation_state[role]['completed_runs'] == 0:
+                    self.validate(role)
+        if hasattr(self,'recipe_phase_observer'): self.recipe_phase_observer('TRAIN_STEP')
+        return super().next_step(count)
     def _validate_population(self,role,batches):
+        if hasattr(self,'recipe_phase_observer'): self.recipe_phase_observer('VALIDATION')
         old,old_mode = self.view_config,self.model.training
         self.view_config = replace(old,seed=self.validation_policy['seed'],epoch=self.validation_policy['epoch'])
         seed = self.validation_policy['seed']
@@ -293,6 +327,7 @@ def build_experiment(request,configuration,plan,inputs,tracker,*,output_root,lin
         view_config=StructuralViewConfig(seed=seed,**contract['training_view']),structural_views=contract['views'],
         validation_policy=contract['validation'],gradient_clip_norm=contract['clip_norm'],gradient_probe_interval=500,
         probe_samples=contract['probe_samples'],allow_unit_tracker=allow_unit_tracker,**contract['batch_limits'])
+    trainer.recipe_initial_validation = request['scope'] == 'recipe' and tuple(contract['groups']) == ('S','D','P')
     controller_options = {}
     if 'long_run_policy' in configuration:
         from .v3_long_run_storage import controller_class

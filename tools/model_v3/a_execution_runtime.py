@@ -21,6 +21,9 @@ def canonical_sha(value):
 
 def add_arguments(parser):
     parser.add_argument("--candidate-options", type=Path, required=True)
+    parser.add_argument("--performance-execution", type=Path,
+                        help="Opt-in same-logical-batch padding / measured automatic checkpoint configuration")
+    parser.add_argument("--performance-execution-sha256")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--code-sha", required=True)
     parser.add_argument("--prereg-sha", default=PUBLIC_PREREG)
@@ -51,6 +54,11 @@ def validate_arguments(args, *, paired):
         raise ValueError("Bounded native S loader/sampler required")
     if args.atom_bucket_width is not None and not 1 <= args.atom_bucket_width <= 64:
         raise ValueError("Bounded positive atom bucket width required")
+    integration = getattr(args, "performance_execution", None)
+    integration_sha = getattr(args, "performance_execution_sha256", None)
+    if (integration is None) != (integration_sha is None) or (integration_sha is not None
+            and not re.fullmatch("[0-9a-f]{64}", integration_sha)):
+        raise ValueError("Opt-in performance execution requires its explicit source SHA")
     grouping = args.atom_bucket_width is not None or args.exact_atom_sort
     if grouping and args.input != "native_s":
         raise ValueError("Grouping experiments require native S, not a synthetic substitute")
@@ -251,3 +259,40 @@ def guard_resources(output, uuid):
     if max(own, row["peak_allocated_bytes"], row["peak_reserved_bytes"]) > .85 * gpu["total_bytes"]:
         raise MemoryError("A diagnostic exceeded85% of physical GPU capacity")
     return row
+
+
+def load_performance_execution(args, model_configuration, bound_configuration, *, resident_models):
+    """This runs after explicit CUBLAS controls and Torch import, never before."""
+    path = getattr(args, "performance_execution", None)
+    if path is None:return None
+    from phychem_mfm.model.v3_checkpoint_policy import PerformanceExecution, file_reference, read_bound, workload_identity, bind_execution_sources, ROOT as execution_source_root
+    ref = file_reference(path, 2 * 1024**2)
+    if ref["sha256"] != args.performance_execution_sha256:
+        raise ValueError("Performance execution configuration source changed")
+    payload = read_bound(ref)
+    workload = workload_identity(model_configuration,seed=args.seed,input_kind=args.input,
+                                 snapshot=args.shard_snapshot_sha256,binding=bound_configuration)
+    defaults = {"batch_padded_cost": args.max_padded_cost, "resident_models": resident_models, "workload_sha256": workload}
+    for name, value in defaults.items():
+        if name in payload and payload[name] != value:
+            raise ValueError("Execution profile differs from the actual runner workload: " + name)
+        payload[name] = value
+    spec = PerformanceExecution(**payload)
+    bind_execution_sources(bound_configuration)
+    bound_configuration["performance_execution_invocation"] = {
+        "source_root": str(execution_source_root), "cwd": str(Path.cwd().resolve()),
+        "logical_python": str(Path(sys.executable).absolute()), "argv": list(sys.argv)}
+    return spec.semantic()
+
+
+def execution_request_reference(args):
+    path = getattr(args, "performance_execution", None)
+    if path is None:return None
+    from phychem_mfm.model.v3_checkpoint_policy import file_reference
+    return file_reference(path, 2 * 1024**2)
+
+
+def execution_observation(model):
+    value = getattr(model.backbone, "last_logical_batch_execution", None)
+    if value is None:raise RuntimeError("Opt-in execution did not observe its actual logical batch")
+    return dict(value)

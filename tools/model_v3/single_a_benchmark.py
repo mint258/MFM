@@ -66,6 +66,8 @@ def run(args, uuid):
     options = PerformanceOptions(**json.loads(args.candidate_options.read_text()))
     if options.precision != "fp32":
         raise ValueError("Standalone A timing accepts fp32 options only; B requires its own proxy study")
+    from a_execution_runtime import load_performance_execution, execution_request_reference, execution_observation
+    integration = load_performance_execution(args, model_config, configuration, resident_models=1)
     selected = PerformanceOptions() if args.role == "reference" else options
     warmup, steps = (1, 2) if args.smoke else (2, 20)
     grouping = args.atom_bucket_width is not None or args.exact_atom_sort
@@ -83,11 +85,18 @@ def run(args, uuid):
         stream = stream_for(args, reference, candidate=args.role == "candidate")
         configuration["data_version"] = stream.bindings
         configuration["configuration_sha256"] = canonical_sha(configuration)
-        save(args.output / "configuration.json", configuration)
+        if integration is None:
+            save(args.output / "configuration.json", configuration)
         torch.manual_seed(args.seed)
         torch.cuda.manual_seed_all(args.seed)
         model = (build_memory_bounded_model(model_config) if args.role == "reference"
-                 else build_performance_model(model_config, options)).cuda().train()
+                 else build_performance_model(model_config, options, execution=integration)).cuda().train()
+        if integration is not None:
+            configuration["performance_execution_request"] = execution_request_reference(args)
+            configuration["performance_execution"] = (model.v3_performance_execution if args.role == "candidate" else
+                {"applied": False, "reason": "reference_retains_original_full_logical_batch_path"})
+            configuration["configuration_sha256"] = canonical_sha({k:v for k,v in configuration.items() if k != "configuration_sha256"})
+            save(args.output / "configuration.json", configuration)
         optimizer = (torch.optim.AdamW(model.parameters(), **a4["optimizer"]) if args.role == "reference"
                      else make_adamw(model, a4["optimizer"], options))
         weights = LossWeights.from_mapping(configuration["loss_weights"])
@@ -138,6 +147,8 @@ def run(args, uuid):
                 "consumed_base_records": stream.committed_base_samples,
                 "valid_label_counts": dict(loss.counts), "input": receipt,
                 "committed_stream": stream.state_dict(), "resources": resource}
+            if integration is not None and args.role == "candidate":
+                row["performance_execution"] = execution_observation(model)
             tracker.log({"optimizer_updates": ordinal + 1, "loss": row["loss"],
                 "compute_seconds": compute_seconds, "loader_seconds": loader_seconds,
                 "base_records": receipt["base_records"], "native_atoms": receipt["native_atoms"],
