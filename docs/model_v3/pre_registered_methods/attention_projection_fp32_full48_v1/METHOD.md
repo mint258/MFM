@@ -1,0 +1,17 @@
+# Pre-registration: fixed K64 / row128 all-FP32 projection, complete48
+
+SOURCE_ONLY. No GPU execution is authorized by this document. Root must first verify the source graph, publish these exact science bytes and bind the real method readback/current CPU evidence in a separate final metadata revision.
+
+Model base is cf8 centered-FP32; candidate localf4652e940823141ac376eba5b6b1195f700fa692/publicb2c4c6772d751ba08ac611cbe563ee2e1b40e709/tree411ebc59652f8aecf2d06938842aeca4782a184d. Root actual full CPU4524510 C0/127s has2756 collected/2753PASS/3old optional skips/115modules. CPU optional skips do not grant CUDA/native-data qualification.
+
+Only backbone.attention_projection_mode=blocked_k64_compensated_fp32_v1 is new, uniformly all six QKV and six output projections. Aggregation remains centered_fp32_v1 and numeric/head semantics compensated_fp32_v1. K64,rowtile128 and balanced Neumaier merge/bias-once are fixed; no layer/seed/K/tile/initialization/scale search. Parameter tensors,state keys,512H0 API,FFN/norm/geometry/heads and both original seeds remain. No Core64 helper,FP64 model arithmetic,new encoder baseline,output injection or causal ranking.
+
+Reuse the original0c49 complete48 equation without changing case ordering,fixture or transforms:3C1 x2view modes x4head policies x2weight seeds;4frames each=192actual6x512 encoder forwards;13fields x3transforms and52 saved arrays each. All32atom graphs/full88or132packed views/padding remain. Use original1492 complete named-parameter SHA percase. Original physical units,nonzero/finite/domain/hard-boundary checks and abs<=1e-5,rtol0 remain. Every case and every failed value remains durable before asserting; no failfast or pass-subset admission. New outputs need not equal historical old arithmetic, but parameter/fixture/mode controls must match.
+
+One lightweight spy calls the original projection helper once and returns the original result. Its TorchFunctionMode scope is only that helper call. Check all observed floating operands/results are CUDA FP32, exact8*ceil(dense_rows/128) actual K64 leaf linears, and ordered6x(qkv,out)x4=48calls percase/2304total. No dtype casts,backend mutation,tensor copies or wholemodel interception; ordinary input/parameter/H0/output dtype guards elsewhere stay original. PyTorch dtype observations do not prove undocumented hardware accumulator details.
+
+Inline tiny controls call the real helper with independent representable dyadic cases:2^24+1-2^24+bias1.5 yields2.5; X=(2,3),W=(5,-1),b=.5 yields7.5; exact first derivatives and all three Hessian-vector blocks for U=(1,-1),V=(.5,.25),c=-.5 plus full second direction56.3125. NonFP32 tensors are guard inputs only and must reject before arithmetic; active AMP rejects, CPU/CUDA RNG unchanged. Tiny controls add0encoder forwards/0scientific cases.
+
+The existing d3cba6 resource helper and a1b16 supervisor remain unchanged:physicalc35/node21,one inherited publicfd9 lock,16CPU32GiB/RSS28GiB/1100s/live85percent/whole2GiB/private2GiB,original final external-control census. No monitor,queue,retry,fallback,capacity or timeout extension. Root is sole submitter after fresh actual resources/quota and source/method binding.
+
+Report all48 and complete failure metadata. Even48/48 is this composed FP32 numerical test only;20+500/performance/crosscard/D-P/native data/recipe/model freeze remain independent. Preserve original21P27F and Core4448 14P34F evidence unchanged; do not infer a universal FP32 floor or mandatory API/dtype change.
