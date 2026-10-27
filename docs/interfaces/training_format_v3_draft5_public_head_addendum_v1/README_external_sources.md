@@ -1,0 +1,1 @@
+原文提及的 source_transport.json、incremental_review_transport.json 等完整公开 Source 响应保存在外部 control/model_public_head_D1_review_evidence_v1/；本目录的字节比较、来源与404边界保留原样。其逐文件清单见同目录 external_source_artifact_manifest.json。

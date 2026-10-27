@@ -1,0 +1,64 @@
+{
+    "schema":  "PUBCHEM_MANUAL_EPOCH_V1_SOURCEFINAL_HANDOFF",
+    "status":  "SOURCE_FINAL_STOPEDIT",
+    "source_count":  10,
+    "pure_methods":  3,
+    "actual_tests_or_science_executed":  false,
+    "source_manifest":  "manifest.json",
+    "scientific_sources13_changed":  false,
+    "old_grant_or_state_or_claims_changed":  false,
+    "coordinator_module":  "pubchem_c_manual_epoch_v1.controller",
+    "metadata_module":  "pubchem_c_manual_epoch_v1.epoch",
+    "fixture_module":  "pubchem_c_manual_epoch_v1.fixture_cpu",
+    "fixture_key":  "pubchem_c_manual_epoch_source3_alpha_v1",
+    "fixture_plan":  "SECONDARY_PUBCHEM_MANUAL_EPOCH_SOURCE3_PLAN_V1",
+    "fixture_proof":  "SECONDARY_PUBCHEM_MANUAL_EPOCH_SOURCE3_STARTUP_V1",
+    "fixture_stage":  "PUBCHEM_MANUAL_EPOCH_SOURCE3_NO_DATA",
+    "fixture_resources":  {
+                              "endpoint":  "218.192.171.238:22",
+                              "uid":  1264,
+                              "cpus":  16,
+                              "memory_policy":  "SLURM_DEFAULT_UNSPECIFIED",
+                              "wall_seconds":  600,
+                              "output_cap_bytes":  2147483648,
+                              "data_references":  [
+
+                                                  ],
+                              "parent_evidence_references":  [
+
+                                                             ],
+                              "storage_scope":  "storage_scope_v7_pubchem_uniform_index_copy_v1.json"
+                          },
+    "manual_epoch_review_schema":  "ROOT_PUBCHEM_MANUAL_EPOCH_CUTOVER_REVIEW_V1",
+    "source_review_schema":  "ROOT_PUBCHEM_MANUAL_EPOCH_SOURCE_REVIEW_V1",
+    "new_grant_uses_frozen_original_schema":  "ROOT_APPROVED_PUBCHEM_C_CONTINUATION52_499_V3",
+    "new_grant_adds":  "manual_resource_epoch",
+    "max_new_manual_epoch_seconds":  72000,
+    "old_deadline_unmodified":  1793149349.1500428,
+    "cutover_exit_code":  "UNKNOWN",
+    "old_live_or_busy_behavior":  "WAIT_ZERO_INTENT",
+    "observe_only_admits_held_jobs":  false,
+    "future_children":  "EXACT_ORIGINAL13_SOURCE_TEMPLATE_VIA_ORIGINAL_QUEUE",
+    "historical_parent_count_is_closed_shard_count":  false,
+    "all_costs":  "C_PHYSICAL_PLUS_QA0_PLUS_NEW_SOURCE3_SUBTOTAL_AND_ACTUAL_GLOBAL_LEDGER_REFERENCE",
+    "mandatory_runtime_sequence":  [
+                                       "Root exact metadata source review and separate generic queue source review",
+                                       "New source3 actual Alpha C0+account/raw",
+                                       "Actual predecessor PID/boot/start/argv pin captured while live",
+                                       "Root independently signed new finite grant and new state",
+                                       "After old deadline, predecessor not live, original global lock owned, stable readonly old state and deadline event",
+                                       "Actual origin-grant aware adoption candidate; independent Root cutover review",
+                                       "Root observe-only single-cycle; then separately finite live"
+                                   ],
+    "old_epoch_automatic_renewal":  false,
+    "unknown_failed_consumed_retry":  false,
+    "Root_approval_or_submission_created":  false,
+    "readme":  "source/workflows/expansion/pubchem_c_manual_epoch_v1/README.md",
+    "limitations":  [
+                        "No fixture result exists for this source yet; Root must run source3 on actual Alpha CPU.",
+                        "An actual predecessor identity must be pinned before it exits; no exit0 requirement.",
+                        "New registry/lifecycle are declared coordination changes; unchanged scientific validators are direct original objects with runtime inverse proof.",
+                        "Global accounting checkpoint remains separate from this controller subtotal.",
+                        "The package cannot approve decontamination or release the source pool."
+                    ]
+}
