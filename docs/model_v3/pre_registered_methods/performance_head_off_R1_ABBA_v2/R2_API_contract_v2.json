@@ -1,0 +1,95 @@
+{
+    "schema":  "model_v3_head_off_R2_Root_closure_SOURCE_API_contract_v2",
+    "status":  "SOURCE_ONLY_NOT_AN_ACTUAL_RUN_CERTIFICATE",
+    "producer_source":  {
+                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/close_head_off_R2_metadata_v2.py",
+                            "bytes":  38577,
+                            "sha256":  "79c86b5dc08f3f87df88bfc91172cb8bad346efbad38ce18e6a04db1a4bb2d0c"
+                        },
+    "actual_output_schema":  "model_v3_Root_head_off_R2_full_A_numeric_closure_v1",
+    "actual_output_status":  "ACTUAL_GPU_C0_HEAD_OFF_R2_FULL20_500_NUMERIC_SOURCE_RESOURCE_CLOSED",
+    "bound_experiment":  {
+                             "job_id":  "4524580",
+                             "code_sha":  "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+                             "public_prereg_sha":  "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+                             "GPU_uuid":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+                             "node":  "compute-0-21",
+                             "layers":  6,
+                             "H0_dim":  512,
+                             "resident_models":  2,
+                             "seed":  0,
+                             "manual_checkpoint_policy":  "manual",
+                             "resolved_checkpoint_flags":  {
+                                                               "distance":  true,
+                                                               "backbone":  true,
+                                                               "head":  false
+                                                           }
+                         },
+    "required_runtime_fields":  {
+                                    "job_id":  "string, actual submitted job",
+                                    "actual_sacct":  "argv/returncode/stdout/stderr, fresh single owned C0 parent; exactly16CPU/node21",
+                                    "fixed_batches":  "20 integer",
+                                    "trajectory_updates":  "500 integer",
+                                    "consumed_trajectory_base_records":  "actual positive integer from bound summary, not a planned value",
+                                    "maximum_forward_relative_l2":  "computed maximum across all20 x8 saved ordinary output metrics, \u003c=1e-5",
+                                    "maximum_gradient_relative_l2":  "computed maximum across all20 x329 saved named-gradient records, \u003c=1e-4; both_disabled records counted separately",
+                                    "maximum_trajectory_relative_difference":  "computed maximum across exactly500 stored steps1..500, \u003c=1e-3",
+                                    "both_disabled_gradient_records":  "actual integer counted from reason=both_disabled; no borrowed old3976/4551 count",
+                                    "current_source_counts":  {
+                                                                  "full_tested":  2131,
+                                                                  "mandatory_saved":  305
+                                                              },
+                                    "all_current_source_maps_equal_saved":  "true only after Root actual complete-current-source rehash and saved/config projection comparison",
+                                    "current_family_census_bytes":  "actual child+control+ordinary family sidecars+private final snapshot+2MiB closure allowance",
+                                    "family_cap_bytes":  2147483648,
+                                    "private_cleanup_errors":  "[] from actual supervisor",
+                                    "foreign_processes_signalled":  "false from actual supervisor",
+                                    "artifact_refs":  "exact five keys: configuration.json, summary.json, fixed_batch_gate.json, trajectory_gate.json, run_status.json; each path/bytes/sha256",
+                                    "supervisor":  "actual3-field rawref",
+                                    "submission":  "actual3-field rawref",
+                                    "source_package":  "original five-leaf package pins3-field rawref",
+                                    "operations_publication":  "actual method-publication3-field rawref"
+                                },
+    "consumer":  {
+                     "source":  "close_head_off_R2_metadata_v2.py",
+                     "signature":  "validate_closed_gate(reference, *, require_current_sources=True)",
+                     "return":  "actual parsed bound closure; fail closed for missing/mismatched schema/status/artifacts/maxima/source/current tuple",
+                     "capacity_authority":  false,
+                     "R1_speed_acceptance":  false,
+                     "SDK_acceptance":  false
+                 },
+    "resource_limits":  {
+                            "SlurmCPU":  16,
+                            "SlurmMemoryMiB":  65536,
+                            "SlurmSeconds":  7200,
+                            "supervisorSeconds":  6900,
+                            "processRSSBytes":  60129542144,
+                            "wholeBytes":  2147483648,
+                            "privateBytes":  2147483648,
+                            "ordinaryMetadataBytes":  2097152,
+                            "exactFixedGateMetadataBytes":  4194304,
+                            "resourceJournalBytes":  33554432
+                        },
+    "limits":  [
+                   "SOURCE API only: actual4580 terminal/result must exist and validate before output can be written",
+                   "Initial tensor equality is the exact pinned original producer control; this closer does not deserialize or independently inspect weights",
+                   "Stored500 relative differences are checked; original loss histories/SDK bodies are not opened or independently recomputed",
+                   "Private/GPU peaks are sampled observations; no exact continuous peak claim",
+                   "No adoption, formal C4/D5/B/recipe or standalone speed/auto capacity qualification"
+               ],
+    "author_executed_Python_AST_Git_Slurm_model_SDK":  false,
+    "historical_v1_source":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/close_head_off_R2_metadata_v1.py",
+                                 "bytes":  37839,
+                                 "sha256":  "124895fb564e546067c6b648bdda26cea5fec2b6cec16ae9fbd8cde2c45a13e9"
+                             },
+    "resource_knownness_policy":  {
+                                      "GPU_total_bytes":  "type int and \u003e0",
+                                      "each_compute_process_own":  "type bool",
+                                      "each_compute_process_used_memory_bytes":  "type int and \u003e=0, including all owned; None is not zero",
+                                      "foreign_processes":  "exact typed-own=False population, then original no-foreign condition",
+                                      "sum":  "only after validation, sum typed bytes of own is True",
+                                      "unknown":  "ValueError/resources HOLD, no denial of actual parentC0 or saved numeric gates",
+                                      "producer_identity":  "consumer requires closure_source exact same strengthened v2 source rawref"
+                                  }
+}

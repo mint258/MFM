@@ -1,0 +1,62 @@
+{
+  "schema": "model_v3_head_off_R2_SDK_CPU_Root_closure_v1",
+  "status": "ACTUAL_C0_TWO_FULL500_SDK_CONFIG_SUMMARY_CRC_EOF_RAW_SOURCE_CLOSED",
+  "job_id": "4524584",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524584",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524584|zixiao|COMPLETED|0:0|29|16|compute-0-14\n",
+    "stderr": ""
+  },
+  "batch_result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_SDK_audit_actual_v2/BATCH_RESULT.json",
+    "bytes": 18061,
+    "sha256": "dcfe83c2c38a6add430f604d38261a022aabf5a007ef467cda87238ad59cc6e7"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_SDK_audit_actual_v2.supervisor.json",
+    "bytes": 3398,
+    "sha256": "5960f1dc8bbd030446d92dce44e67c0a0fa02d3c08c5382207e887028bc70fb4"
+  },
+  "proofs": [
+    {
+      "run_id": "go2ye4dx",
+      "role": "reference",
+      "rows": 500,
+      "steps": [
+        1,
+        500
+      ],
+      "verification": {
+        "bytes": 12534,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_SDK_audit_actual_v2/go2ye4dx_VERIFICATION.json",
+        "sha256": "fd457f8778cf8cc4f713f334b02db6ed428624be3ea42d374b96c911173423e3"
+      }
+    },
+    {
+      "run_id": "oo1dj13d",
+      "role": "candidate",
+      "rows": 500,
+      "steps": [
+        1,
+        500
+      ],
+      "verification": {
+        "bytes": 12534,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_SDK_audit_actual_v2/oo1dj13d_VERIFICATION.json",
+        "sha256": "c2cd54188cc69a04b35000058ae2952c69fa131320d53c8ac0c56f5c77bf98a8"
+      }
+    }
+  ],
+  "source_before_after_and_current_match": true,
+  "SDK_or_scientific_journal_decoded_on_login": false,
+  "new_online_sync_claimed": false
+}
