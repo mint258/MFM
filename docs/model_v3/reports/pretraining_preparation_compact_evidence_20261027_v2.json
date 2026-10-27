@@ -1,0 +1,537 @@
+{
+  "Core64_metadata_binding": {
+    "bytes": 1711,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_core64_GPU_metadata_binding_invocation_actual_v2.json",
+    "sha256": "10c06739c82c0a99b39ec9d74e7cb75bbc0905a1ca3eccd62967b744b141936e"
+  },
+  "D1_current_verified_input_count": 23,
+  "D1_feedback": {
+    "bytes": 11613,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/training_format_v3_draft5_model_feedback_DRAFT_v1.md",
+    "sha256": "68ca481c4acc8701bfd4d8f1c4f02302154e9df2964926d6dbc25b74442e7c49"
+  },
+  "D1_feedback_inputs": {
+    "bytes": 19785,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/training_format_v3_draft5_model_feedback_refs_DRAFT_v1.json",
+    "sha256": "5bc2606b90ce48a8cb29b2126d25a477e8b2b122d302732d494159600077255b"
+  },
+  "D1_joint_freeze": false,
+  "Native_panel_CPU": {
+    "D5_or_formal_B_acceptance": false,
+    "GPU_admitted_or_submitted": false,
+    "Root_closure": {
+      "bytes": 450643,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S10000_dev_panel_CPU_4524415_Root_closure_v1.json",
+      "sha256": "5aee65026fa03f6cb15a3e0f640e64c7eeb648c26244753e9a2ff7e600d24e44"
+    },
+    "actual_clean_code": "17f975bb094c9c3ec010d7f8134c5700adcc85e4",
+    "actual_sacct": {
+      "argv": [
+        "sacct",
+        "-X",
+        "-n",
+        "-P",
+        "-j",
+        "4524415",
+        "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "4524415|zixiao|COMPLETED|0:0|8|16|compute-0-14\n"
+    },
+    "actual_tree": "5d8c71c2f069b35dddc1427b38468dff3d20ab6c",
+    "all_CPU_sources_before_after_current_equal": true,
+    "current_bridge_QA_source_count": 2123,
+    "job_id": "4524415",
+    "launch_spec": {
+      "bytes": 14627,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S10000_seed0_fp32_dev9_v2/panel/control/launch_spec.json",
+      "sha256": "54f329dd562e16163aa805f9d17d18e7feca5dae2146203556b3ee9135891d83"
+    },
+    "packing_plans": {
+      "bytes": 484410,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S10000_seed0_fp32_dev9_v2/panel/control/packing_plans.json",
+      "sha256": "889e276342aa77ff5e7fe0ac5228474b3e5e339907ee7c00adad51db5193b968"
+    },
+    "prior_failed_jobs_preserved": [
+      "4524401",
+      "4524413"
+    ],
+    "request": {
+      "bytes": 211791,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S10000_seed0_fp32_dev9_v2/panel/control/request.bound.json",
+      "sha256": "140b14e1ecba742f1f1c43321772abfd070099efec54514d7678d40f30f7d173"
+    },
+    "source_count": 36,
+    "status": "ACTUAL_CPU_C0_NATIVE_10000_FULL9_PANEL_REQUEST_AND_PACKING_PREPARED_NOT_GPU_ADMITTED"
+  },
+  "captured_utc": "2026-10-27T15:58:11.579569+00:00",
+  "combined_publication": {
+    "Root_full_CPU_closure": {
+      "bytes": 933423,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/runtime_all_three_full_CPU_4524376_Root_closure_v1.json",
+      "sha256": "f01b9b19d95205ae3e44b0b18f3afd38d2aff37402fb17aae62e63838f563c21"
+    },
+    "actual_errors": 0,
+    "actual_failures": 0,
+    "actual_full_tests": 2737,
+    "actual_optional_skips": 3,
+    "actual_passed": 2734,
+    "actual_public_git_tree": "ebf5a63c7ac66b9d8b15a8f19a01b8aa2946e577",
+    "actual_readback": {
+      "model-v3-runtime-integration-20261027-v1": "57d95b5c79fbd33e916330a455a7c3d4178c2284"
+    },
+    "branch": "model-v3-runtime-integration-20261027-v1",
+    "captured_utc": "2026-10-27 15:48:22 UTC",
+    "force": false,
+    "local_code_sha": "81948e457c29fbc51687066a4f944ff5bcd5bad5",
+    "main_modified": false,
+    "merged_public_sources": [
+      "60aa359443ef6a79aabc08144d2af4eec7ec24c5",
+      "727207f18f08d6107c08ce2dc3e95edd154d60c7",
+      "8147f44baa1ea1ecc3822af7affd0a95401ed248"
+    ],
+    "model_v3_reporting_ref_modified": false,
+    "parent_public_commit": "60aa359443ef6a79aabc08144d2af4eec7ec24c5",
+    "public_commit_sha": "57d95b5c79fbd33e916330a455a7c3d4178c2284",
+    "public_graph_projection": "One public parent; exact local merged tree and separate original source commits retained in Root receipt.",
+    "real_training_entry_new_execution_integration": "NEXT_IMPLEMENTATION_IN_SEPARATE_SOURCE_BRANCHES",
+    "schema": "model_v3_Root_exact_tree_publication_receipt_v1",
+    "scientific_model_or_recipe_adopted": false,
+    "source_files": [
+      {
+        "blob_sha": "9e1800f5f35e312ede304495b2563436d6d68bf7",
+        "bytes": 599,
+        "mode": "100644",
+        "path": ".gitattributes",
+        "sha256": "8df49fd5bcdcd0425828c6ae1b57813738d1b9aac953e0e0158fc69f8c626f19"
+      },
+      {
+        "blob_sha": "2d1ee15c0d60b5f6899757783752cd19f3d97504",
+        "bytes": 85,
+        "mode": "100755",
+        "path": "current/configs/model_v3/performance/a1_manual_capacity_observation_v1.json",
+        "sha256": "7cabbd4a0300d551154ffb9bcbed5466fc9886d0eb886a1ae37ee3e7f70db46e"
+      },
+      {
+        "blob_sha": "122c1b5d87c8096c9c844c89b5ce505a466fd2b7",
+        "bytes": 246,
+        "mode": "100755",
+        "path": "current/configs/model_v3/performance/a5_logical_batch_chunks_v1.json",
+        "sha256": "30467f4ce4bfaf6b752fe697ff35614527575d3af799aa07f8b8673605d3ccbb"
+      },
+      {
+        "blob_sha": "986beabea405cf963fd801ea8a1ea8b81204efe6",
+        "bytes": 29127,
+        "mode": "100755",
+        "path": "current/phychem_mfm/model/v3_checkpoint_policy.py",
+        "sha256": "b65c2064cb3ac403a9c663ec60a8a5db2ea8d5e0dc624700e3de50399044a244"
+      },
+      {
+        "blob_sha": "7f8f7b0542daf988fb1c09cc6305735939437f1a",
+        "bytes": 8490,
+        "mode": "100755",
+        "path": "current/phychem_mfm/model/v3_logical_batch.py",
+        "sha256": "8cda1f4ab68593a271c0762a4336b1806e5f6504ac9753022f74bb09f26197a4"
+      },
+      {
+        "blob_sha": "70c18ea36c1b688c08da30869a8de06d98caa687",
+        "bytes": 18112,
+        "mode": "100755",
+        "path": "current/phychem_mfm/model/v3_performance.py",
+        "sha256": "32768ce0c5708d9e27b022a4ff5f207e928f4226ceb4e89847fe9d29ee5c88e2"
+      },
+      {
+        "blob_sha": "e14c98f762e9d1b084cd6d8bd85cd798807fc78c",
+        "bytes": 24654,
+        "mode": "100644",
+        "path": "current/phychem_mfm/phase1/v3_decision_rules.py",
+        "sha256": "57fa9533bd0747f89eb798a4c81da23f8fd263410a2e9f013cafe0eda2cfffde"
+      },
+      {
+        "blob_sha": "cb29afc109ff8d40a5d945180603d267d71ab098",
+        "bytes": 5607,
+        "mode": "100755",
+        "path": "current/phychem_mfm/phase1/v3_full_training.py",
+        "sha256": "c85c65eba8208bb8f68fb579329d1b1e4fc7cece5bfa737d7423c35bca4fed4f"
+      },
+      {
+        "blob_sha": "4cb951372abf6ee8a5ade31167edb9524139c5e9",
+        "bytes": 28744,
+        "mode": "100644",
+        "path": "current/phychem_mfm/phase1/v3_proxy_run.py",
+        "sha256": "c59d5805f0bab07076b0c66076ced938a8675f0978161dc473ce5d533e6829a7"
+      },
+      {
+        "blob_sha": "b4ddb4b6e22e52fcf458be93cf6e4c41874b8c38",
+        "bytes": 26258,
+        "mode": "100755",
+        "path": "current/phychem_mfm/phase1/v3_recipe_evidence.py",
+        "sha256": "5d7a2438f41c14b796ff3bc15d74abcb2e72d59f1cc4669496e8c7375241624d"
+      },
+      {
+        "blob_sha": "675f9c76ec7aed16b64bba5b4dd6223bdbf82a75",
+        "bytes": 24766,
+        "mode": "100755",
+        "path": "current/phychem_mfm/phase1/v3_recipe_readiness.py",
+        "sha256": "1be33ad9c0fac7fd76bd09e1d14f69a57cfa24978fefeff963f7ec0dc3bea9e0"
+      },
+      {
+        "blob_sha": "4807ec1d01a9e8b562744801da8489fce99fc59e",
+        "bytes": 36591,
+        "mode": "100755",
+        "path": "current/phychem_mfm/phase1/v3_trainer.py",
+        "sha256": "e382aab3d529108fc9b4340adcde8dd23629de9318f1685e5995b5bb9d2286e6"
+      },
+      {
+        "blob_sha": "7be80bed598717bda78e31dba297e08bac9ce3a5",
+        "bytes": 22173,
+        "mode": "100755",
+        "path": "current/tests/test_model_v3_checkpoint_policy.py",
+        "sha256": "49a1d9a71bd65868e434deabc783c4c851fa7136d115656375c6422b8575f121"
+      },
+      {
+        "blob_sha": "6bc9b67f7a1724cd38ff4217492e3ab8eaa5b1f3",
+        "bytes": 14044,
+        "mode": "100755",
+        "path": "current/tests/test_model_v3_performance_integration.py",
+        "sha256": "31faa3d1f9389c5aad0039e9d0483e48931c492c55065b3d5ea16f92109dd032"
+      },
+      {
+        "blob_sha": "154b6615112d7d69beadeba01fef63b4a4c2b6c6",
+        "bytes": 34491,
+        "mode": "100755",
+        "path": "current/tests/test_model_v3_recipe_readiness.py",
+        "sha256": "ed5c1b384187965091106cc0713468e823c8cf29bb7846804f4f734c1f838d18"
+      },
+      {
+        "blob_sha": "e76546d3b5709139fabf7ad029c30abdc2387dbb",
+        "bytes": 12207,
+        "mode": "100755",
+        "path": "docs/model_v3/06_recipe_readiness.md",
+        "sha256": "4fe00ed8050c31aa83167d72397fa5dc017894aa037a4354c7489c86404fdaf6"
+      },
+      {
+        "blob_sha": "1e8e63ec989e720b48bb6afb08ec6b9f400e7601",
+        "bytes": 19163,
+        "mode": "100755",
+        "path": "docs/model_v3/A1_A5_execution_integration_v1.md",
+        "sha256": "697d2177993e9eab57fba48767e37c79918c708c8619b8723d6f0362be4deab2"
+      },
+      {
+        "blob_sha": "7471c53ef8d7cc85eff3206a42e4078ee829f49f",
+        "bytes": 23926,
+        "mode": "100755",
+        "path": "docs/model_v3/reports/A1_A5_integration_source_inventory_v1.json",
+        "sha256": "33346e0fceed5eff8f310e2f6c86cd2b3dc8f0af9e9a30217d1194f886925bef"
+      },
+      {
+        "blob_sha": "7943f216d4f8d98dcf93e65bf71dad82cdb8f17d",
+        "bytes": 217243,
+        "mode": "100755",
+        "path": "docs/model_v3/reports/A1_A5_integration_source_inventory_v2.json",
+        "sha256": "12d483a73c94b98ef01dc238b52e4205fc9de4390151f386106ccecfd03a82bc"
+      },
+      {
+        "blob_sha": "65fdc936556a443dc971ac84c258fbd656977a6a",
+        "bytes": 217879,
+        "mode": "100755",
+        "path": "docs/model_v3/reports/A1_A5_integration_source_inventory_v3.json",
+        "sha256": "8b64876e4f41a33d3fed0bf1fb07a82630cadc195530e95d6afa5a012569a7a9"
+      },
+      {
+        "blob_sha": "dbd0fa829dd89103e55f769e191b4bbbe4d2d43e",
+        "bytes": 218483,
+        "mode": "100755",
+        "path": "docs/model_v3/reports/A1_A5_integration_source_inventory_v4.json",
+        "sha256": "472126529b255e4ddf19662faee39a7c257f01ab2de00f5df0524c2a18e267ab"
+      },
+      {
+        "blob_sha": "ccf8039afa4157e415650416cb6d6c792c1358e2",
+        "bytes": 17280,
+        "mode": "100755",
+        "path": "tools/model_v3/a_execution_runtime.py",
+        "sha256": "ed2577bbb1d265b91edb1b515e2203cec1977d18b46553ff28120d0d8bfa46d0"
+      },
+      {
+        "blob_sha": "f348857d3fadc7676bc03d6edd20b44a762d0944",
+        "bytes": 11218,
+        "mode": "100755",
+        "path": "tools/model_v3/a_speed_report.py",
+        "sha256": "c4427d32db4ca429c7bcfa6a8494cb0e07ccd24009e2ea0a6fe076b71673ed27"
+      },
+      {
+        "blob_sha": "e67cc07f77945936b3034b02ba8ea11b6e6d9239",
+        "bytes": 17994,
+        "mode": "100755",
+        "path": "tools/model_v3/paired_a_acceptance.py",
+        "sha256": "c19ce2638607a5bf5d8baaa210df2e098fdbfa207eec13d4ccd43146e0beb841"
+      },
+      {
+        "blob_sha": "5517c6d2f810ec63599ad3a8492afeaf544b7d0f",
+        "bytes": 4170,
+        "mode": "100755",
+        "path": "tools/model_v3/prepare_recipe_experiment.py",
+        "sha256": "6ed0eefd94d91023d4d0b726b60dbf43d9417942265a4f24eb7ecc989b252581"
+      },
+      {
+        "blob_sha": "71e26883d9e7a2363a09232d54cb8ff47ff70c68",
+        "bytes": 19128,
+        "mode": "100644",
+        "path": "tools/model_v3/run_proxy_experiment.py",
+        "sha256": "a4bae305766efcaa44c368b79f818c064f0006254535f1ddcb188e963ee797f8"
+      },
+      {
+        "blob_sha": "c475ebed16263489fd342cd6606aa2891cb10aaa",
+        "bytes": 13246,
+        "mode": "100755",
+        "path": "tools/model_v3/single_a_benchmark.py",
+        "sha256": "0a522edd0ffce5891492974b6170de3b874a767b3099b5c328cdd2dce9567c9a"
+      }
+    ],
+    "status": "PUBLISHED_EXACT_TREE_THREE_CANDIDATES_COMBINED_FULL_CPU_ROOT_CLOSED",
+    "tree_sha": "ebf5a63c7ac66b9d8b15a8f19a01b8aa2946e577"
+  },
+  "cost_snapshot": {
+    "active_job_ids": [
+      "4521338"
+    ],
+    "allocated_cpu_seconds": 1580560,
+    "allocated_gpu_node_job_seconds": 77015,
+    "captured_utc": "2026-10-27T15:54:49.828612+00:00",
+    "gpu_time_is_utilization": false,
+    "ledger": {
+      "bytes": 604079,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/job_ledger_model_v3_active_v31.json",
+      "sha256": "6c9e4f946e655b1b4fd3d0197f775e9447cfe17ddf5f32334873405039f07881"
+    },
+    "registered_job_count": 506
+  },
+  "exact_source_copy_plan": {
+    "bytes": 14192,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v19_source_copy_plan_actual_v1.json",
+    "sha256": "3c227ad9535b129c02c3c9f987677fe3d9c3f52168cece3a38cd8615cc3ffb33"
+  },
+  "final_guide_complete": false,
+  "formal_pretraining_started": false,
+  "full_CPU": {
+    "all_three_combined": {
+      "Root_closure": {
+        "bytes": 933423,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/runtime_all_three_full_CPU_4524376_Root_closure_v1.json",
+        "sha256": "f01b9b19d95205ae3e44b0b18f3afd38d2aff37402fb17aae62e63838f563c21"
+      },
+      "actual_sacct": {
+        "argv": [
+          "sacct",
+          "-X",
+          "-n",
+          "-P",
+          "-j",
+          "4524376",
+          "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "4524376|zixiao|COMPLETED|0:0|120|16|compute-0-14\n"
+      },
+      "all_runtime_before_after_and_current_verified": true,
+      "code_commit": "81948e457c29fbc51687066a4f944ff5bcd5bad5",
+      "counts": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 3,
+        "tests": 2737
+      },
+      "full_pass_is_not_scientific_adoption_or_D_final_or_recipe_acceptance": true,
+      "job_id": "4524376",
+      "node": "compute-0-14",
+      "passed": 2734,
+      "status": "ACTUAL_C0_FULL_CORE_SUITE_SOURCE_AND_V2_OPERATIONAL_CLOSED",
+      "test_file_count": 116
+    },
+    "bridge": {
+      "Root_closure": {
+        "bytes": 951091,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_bridge_full_CPU_4524142_Root_closure_v1.json",
+        "sha256": "1ce0fc52e8c643c2a542fcf24926a99e03a53e3f2dae7f2237ce9bdcbee03f43"
+      },
+      "actual_sacct": {
+        "argv": [
+          "sacct",
+          "-X",
+          "-n",
+          "-P",
+          "-j",
+          "4524142",
+          "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "4524142|zixiao|COMPLETED|0:0|103|16|compute-0-14\n"
+      },
+      "all_runtime_before_after_and_current_verified": true,
+      "code_commit": "17f975bb094c9c3ec010d7f8134c5700adcc85e4",
+      "counts": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 3,
+        "tests": 2638
+      },
+      "full_pass_is_not_scientific_adoption_or_D_final_or_recipe_acceptance": true,
+      "job_id": "4524142",
+      "node": "compute-0-14",
+      "passed": 2635,
+      "status": "ACTUAL_C0_FULL_CORE_SUITE_SOURCE_AND_V2_OPERATIONAL_CLOSED",
+      "test_file_count": 113
+    },
+    "bridge_recipe_combined": {
+      "Root_closure": {
+        "bytes": 928652,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/runtime_bridge_recipe_full_CPU_4524370_Root_closure_v1.json",
+        "sha256": "d9ec4a5af964194b5446b523acd8b1c63bfe2c86e938ad911caf906216a51f6a"
+      },
+      "actual_sacct": {
+        "argv": [
+          "sacct",
+          "-X",
+          "-n",
+          "-P",
+          "-j",
+          "4524370",
+          "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "4524370|zixiao|COMPLETED|0:0|141|16|compute-0-14\n"
+      },
+      "all_runtime_before_after_and_current_verified": true,
+      "code_commit": "7d0c8c76234fc9f73f2d63fb01f1d903f2ef5be3",
+      "counts": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 3,
+        "tests": 2687
+      },
+      "full_pass_is_not_scientific_adoption_or_D_final_or_recipe_acceptance": true,
+      "job_id": "4524370",
+      "node": "compute-0-14",
+      "passed": 2684,
+      "status": "ACTUAL_C0_FULL_CORE_SUITE_SOURCE_AND_V2_OPERATIONAL_CLOSED",
+      "test_file_count": 114
+    },
+    "performance": {
+      "Root_closure": {
+        "bytes": 947184,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_integration_full_CPU_4524145_Root_closure_v1.json",
+        "sha256": "ec6f65d62acb6c55913310d67bc74dd61b29a0650f9888a8e424b6f17d775eff"
+      },
+      "actual_sacct": {
+        "argv": [
+          "sacct",
+          "-X",
+          "-n",
+          "-P",
+          "-j",
+          "4524145",
+          "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "4524145|zixiao|COMPLETED|0:0|91|16|compute-0-16\n"
+      },
+      "all_runtime_before_after_and_current_verified": true,
+      "code_commit": "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+      "counts": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 3,
+        "tests": 2642
+      },
+      "full_pass_is_not_scientific_adoption_or_D_final_or_recipe_acceptance": true,
+      "job_id": "4524145",
+      "node": "compute-0-16",
+      "passed": 2639,
+      "status": "ACTUAL_C0_FULL_CORE_SUITE_SOURCE_AND_V2_OPERATIONAL_CLOSED",
+      "test_file_count": 114
+    },
+    "recipe": {
+      "Root_closure": {
+        "bytes": 915342,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/recipe_readiness_full_CPU_4524143_Root_closure_v1.json",
+        "sha256": "e36843de4bb6858c3b2a18c965cc937639d628e9d168f272176001daef154de4"
+      },
+      "actual_sacct": {
+        "argv": [
+          "sacct",
+          "-X",
+          "-n",
+          "-P",
+          "-j",
+          "4524143",
+          "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "4524143|zixiao|COMPLETED|0:0|86|16|compute-0-15\n"
+      },
+      "all_runtime_before_after_and_current_verified": true,
+      "code_commit": "5e48525d2f6ef6b0f5ed02ab77f233e577407356",
+      "counts": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 3,
+        "tests": 2641
+      },
+      "full_pass_is_not_scientific_adoption_or_D_final_or_recipe_acceptance": true,
+      "job_id": "4524143",
+      "node": "compute-0-15",
+      "passed": 2638,
+      "status": "ACTUAL_C0_FULL_CORE_SUITE_SOURCE_AND_V2_OPERATIONAL_CLOSED",
+      "test_file_count": 113
+    }
+  },
+  "manual_R2": {
+    "ABBA_speed_accepted": false,
+    "R1_single_resident_capacity_accepted": false,
+    "Root_closure": {
+      "bytes": 1784300,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_and_consumer_Root_closure_actual_v1.json",
+      "sha256": "0a782651f639a72b6df70f9a6991ce7189bb4dd81bcd492205179d22b421d2fb"
+    },
+    "actual_sacct": {
+      "argv": [
+        "sacct",
+        "-X",
+        "-n",
+        "-P",
+        "-j",
+        "4523976,4524211",
+        "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "4523976|zixiao|COMPLETED|0:0|2271|16|compute-0-21\n4524211|zixiao|COMPLETED|0:0|4|16|compute-0-14\n"
+    },
+    "automatic_policy_GPU_numeric_gate_accepted": false,
+    "consumed_trajectory_base_records": 201216,
+    "consumer_CPU_job": "4524211",
+    "resident_models": 2,
+    "source_GPU_job": "4523976",
+    "source_Gpu_numeric20batch500update_passed": true,
+    "status": "ROOT_CLOSED_MANUAL_R2_VALID_AND_ACTUAL_CPU_CONSUMER_C0"
+  },
+  "manual_R2_hold_release": {
+    "bytes": 2890,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_hold_release_actual_v1.json",
+    "sha256": "0759a6426ca82bb0b57f1b3b003bfc8c85e2a4b8e3793077904437ad70136fb2"
+  },
+  "new_training_entry_implementations": "SOURCE_WORK_IN_PROGRESS_NOT_TESTED_OR_ADOPTED",
+  "original_FP32_physics": {
+    "Core64_cannot_satisfy_formal_FP32": true,
+    "failed": 27,
+    "formal_threshold_changed": false,
+    "passed": 21
+  },
+  "schema": "model_v3_pretraining_preparation_compact_evidence_v2"
+}

@@ -1,0 +1,51 @@
+{
+    "schema":  "model_v3_native_S_dev_panel_prepare_inputs_v1",
+    "status":  "DRAFT_UNBOUND_REFUSE_EXECUTION",
+    "bridge":  {
+                   "repository_root":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_checkpoint_bridge_v1",
+                   "CPU_Root_closure":  null,
+                   "publication":  null
+               },
+    "native":  null,
+    "native_binding":  {
+                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S10000_dev_panel_input_binding_DRAFT_v1.json",
+                           "bytes":  61441,
+                           "sha256":  "5f9cf33e045425236efa1ef2b874e7cf08b5784c2cf93662f3dfd6c2fb49a15c"
+                       },
+    "output_base":  null,
+    "run_id":  null,
+    "node":  "compute-0-21",
+    "gpu_uuid":  null,
+    "original544_spec":  {
+                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/primary512_a00_request_4520540/launch_spec.json",
+                             "bytes":  8069,
+                             "sha256":  "1c8d46de15abe22a6a77fd89b8dda612c5a575cf41628d2f89c44194a49e1c73"
+                         },
+    "storage":  {
+                    "registry_path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_profile_registered_reservations_v6.json",
+                    "reservation_id":  null,
+                    "principal":  null
+                },
+    "resource_guard_source":  {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/gpu_runtime_retry_v4/submit_composed_eq_gpu_runtime_retry_v4.py",
+                                  "bytes":  38996,
+                                  "sha256":  "d3cba6a8610e6bd55fa21873be5c770efbe30be73b7b16d4f1cbdfa6ccb1c193"
+                              },
+    "supervisor_source":  {
+                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_a_checkpoint/tools/model_v3/run_supervised.py",
+                              "bytes":  15264,
+                              "sha256":  "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+                          },
+    "identity_dependencies":  {
+                                  "runtime_monitor":  {
+                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_a_checkpoint/tools/model_v3/runtime_monitor.py",
+                                                          "bytes":  16838,
+                                                          "sha256":  "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe"
+                                                      },
+                                  "private_runtime_storage":  {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_a_checkpoint/tools/model_v3/private_runtime_storage.py",
+                                                                  "bytes":  15452,
+                                                                  "sha256":  "791e2742b2131e5001ebc4fe549d8fcb43f7d28f399368a5aa5f82d7d592a041"
+                                                              }
+                              }
+}
