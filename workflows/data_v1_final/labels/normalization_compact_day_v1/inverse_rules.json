@@ -1,0 +1,157 @@
+{
+    "schema":  "COMPACT_DAY_RESOURCE_IO_FULL_SOURCE_INVERSE_V1",
+    "files":  [
+                  {
+                      "original_prefix_before_main":  true,
+                      "original_reference":  {
+                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/normalization_compact_runtime_v3/run.py",
+                                                 "sha256":  "a47cad68c8e930ddb0e4a1a2b42a0fd3b5787f866b29c25670fa4482617e958c",
+                                                 "bytes":  5721
+                                             },
+                      "replacements":  [
+                                           {
+                                               "new":  "from workflows.data_v1_final.labels.normalization_compact_runtime_v3 import contract as C\nfrom . import io as I",
+                                               "old":  "from . import contract as C,runtime as I",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "from workflows.data_v1_final.labels.normalization_compact_runtime_v3.project import initialize,worker",
+                                               "old":  "from .project import initialize,worker",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "range(cfg[\u0027workers\u0027])",
+                                               "old":  "range(16)",
+                                               "count":  2
+                                           },
+                                           {
+                                               "new":  "ctx.Barrier(cfg[\u0027workers\u0027])",
+                                               "old":  "ctx.Barrier(16)",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "max_workers=cfg[\u0027workers\u0027]",
+                                               "old":  "max_workers=16",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "==cfg[\u0027workers\u0027],\u0027ACTUAL_REQUESTED_INDEPENDENT_WORKERS\u0027",
+                                               "old":  "==16,\u0027ACTUAL_SIXTEEN_INDEPENDENT_WORKERS\u0027",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "\u0027DAY_INTERNAL_COMMITTED_WINDOWS_NOT_CHILD_C0\u0027",
+                                               "old":  "\u0027CLOSED_WINDOWS_ACTUAL_PARENT_ACCOUNTING_REQUIRED\u0027",
+                                               "count":  1
+                                           },
+                                           {
+                                               "old":  "weights=[0]*16",
+                                               "new":  "weights=[0]*cfg[\u0027workers\u0027]",
+                                               "count":  1
+                                           }
+                                       ],
+                      "file":  "project.py",
+                      "original_file":  "run.py"
+                  },
+                  {
+                      "original_prefix_before_main":  true,
+                      "original_reference":  {
+                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/normalization_compact_runtime_v3/coverage.py",
+                                                 "sha256":  "b3dae80f20c43a90339fee10bf892eaa6dca408d40daf80b01d10c09afa66a19",
+                                                 "bytes":  12037
+                                             },
+                      "replacements":  [
+                                           {
+                                               "new":  "from workflows.data_v1_final.labels.normalization_compact_runtime_v3 import contract as C,codec as K,bindings as B\nfrom . import io as I",
+                                               "old":  "from . import contract as C,runtime as I,codec as K,bindings as B",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "from .lineage import actual",
+                                               "old":  "from .metadata import actual",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "m[\u0027status\u0027] in (\u0027CLOSED_WINDOWS_ACTUAL_PARENT_ACCOUNTING_REQUIRED\u0027,\u0027DAY_INTERNAL_COMMITTED_WINDOWS_NOT_CHILD_C0\u0027)",
+                                               "old":  "m[\u0027status\u0027]==\u0027CLOSED_WINDOWS_ACTUAL_PARENT_ACCOUNTING_REQUIRED\u0027",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "\u0027SINGLE_REAL_DAY_PARENT_AWAIT_ACTUAL_ACCOUNTING\u0027",
+                                               "old":  "\u0027ACTUAL_C0_ORIGINAL_PARQUET_NUMERIC_VIEW\u0027",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "for parent in cfg[\u0027batch_history\u0027]:\n            C.need(not I.stop_requested(),\u0027DAY_RESOURCE_STOP_COVERAGE_NO_ACCEPTANCE\u0027)",
+                                               "old":  "for parent in cfg[\u0027batch_history\u0027]:",
+                                               "count":  1
+                                           },
+                                           {
+                                               "old":  "for wr in m[\u0027verified_window_receipts\u0027]:",
+                                               "new":  "for wr in m[\u0027verified_window_receipts\u0027]:\n                C.need(not I.stop_requested(),\u0027DAY_RESOURCE_STOP_COVERAGE_NO_ACCEPTANCE\u0027)",
+                                               "count":  1
+                                           }
+                                       ],
+                      "file":  "coverage.py",
+                      "original_file":  "coverage.py"
+                  },
+                  {
+                      "original_prefix_before_main":  true,
+                      "original_reference":  {
+                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/normalization_compact_runtime_v3/statistics.py",
+                                                 "sha256":  "eef6da8440d693b1683a585e7df76c9874acb14074edfc6c0d421dbbb20f59df",
+                                                 "bytes":  18002
+                                             },
+                      "replacements":  [
+                                           {
+                                               "new":  "from workflows.data_v1_final.labels.normalization_compact_runtime_v3 import contract as C,bindings as B,codec as K\nfrom . import io as I",
+                                               "old":  "from . import contract as C,runtime as I,bindings as B,codec as K",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "from workflows.data_v1_final.labels.normalization_compact_runtime_v3.reader import observations",
+                                               "old":  "from .reader import observations",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "def execute(cfg,proof,root,gate,pool):",
+                                               "old":  "def execute(cfg,proof,root,gate):",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "stage=initial_stage(cfg,fields);stage[\u0027element_basis\u0027]=cfg[\u0027element_basis\u0027]\n    refs=dispatch_groups(cfg,stage,root,groups,pool)",
+                                               "old":  "stage=initial_stage(cfg,fields);stage[\u0027element_basis\u0027]=cfg[\u0027element_basis\u0027];ctx=mp.get_context(\u0027spawn\u0027);barrier=ctx.Barrier(16)\n    with cf.ProcessPoolExecutor(max_workers=16,mp_context=ctx,initializer=initialize,initargs=(cfg,stage,str(root),barrier)) as pool:\n        refs=list(pool.map(group_pass,[(g,k\u003c16) for k,g in enumerate(groups)],chunksize=1))",
+                                               "count":  1
+                                           },
+                                           {
+                                               "new":  "and all(type(r[\u0027pid\u0027])is int for r in reports)",
+                                               "old":  "and len({r[\u0027pid\u0027] for r in reports})==16",
+                                               "count":  1
+                                           }
+                                       ],
+                      "file":  "statistics.py",
+                      "original_file":  "statistics.py"
+                  },
+                  {
+                      "file":  "memory.py",
+                      "original_file":  "resource_runtime.py",
+                      "original_reference":  {
+                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/source_status_cpu_auto_memory_v1/resource_runtime.py",
+                                                 "sha256":  "615770935cc5f6a2ebe11beb71a2c8d4b17f55f85cd6e124b46e1a6a690d4c96",
+                                                 "bytes":  9256
+                                             },
+                      "original_prefix_before_main":  false,
+                      "replacements":  [
+                                           {
+                                               "old":  "from .support import RUN, need, ref",
+                                               "new":  "from workflows.data_v1_final.labels.source_status_cpu_auto_memory_v1.support import RUN, need, ref"
+                                           },
+                                           {
+                                               "old":  "while not self.done.wait(1):self.sample()",
+                                               "new":  "while not self.done.wait(60):self.sample()"
+                                           }
+                                       ]
+                  }
+              ],
+    "AST_or_tests_run":  false
+}
