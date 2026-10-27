@@ -136,12 +136,17 @@ def _execution_state(model):
              "matmul_tf32": bool(torch.backends.cuda.matmul.allow_tf32),
              "cudnn_tf32": bool(torch.backends.cudnn.allow_tf32),
              "deterministic_algorithms": torch.are_deterministic_algorithms_enabled()}
+    integration = {name: deepcopy(module.performance_execution_contract)
+                   for name, module in model.named_modules() if hasattr(module, "performance_execution_contract")}
+    if integration:state["performance_integration"] = integration
     json.dumps(state, allow_nan=False)
     return state
 
 
 def _restore_execution(model, state):
     current = _execution_state(model)
+    require(current.get("performance_integration", {}) == state.get("performance_integration", {}),
+            "Logical-batch/profile execution contract changed before resume")
     require(current["performance_options"] == state["performance_options"],
             "Performance options changed; construct the same bound implementation before resume")
     require({name: set(flags) for name, flags in current["resolved_checkpoint_flags"].items()}
@@ -219,6 +224,8 @@ class V3StepTrainer:
                                             for group in optimizer.param_groups],
             "optimizer_options": [{key: deepcopy(value) for key, value in group.items()
                                    if key not in ("params", "lr", "initial_lr")} for group in optimizer.param_groups]}
+        integration_state = _execution_state(model).get("performance_integration")
+        if integration_state is not None:self.contract["performance_integration"] = integration_state
         self.bindings = {**dict(bindings), "trainer_configuration_sha256": canonical_hash(self.contract),
                          "adapter_sha256": provider.source_sha256,
                          "trainer_source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}

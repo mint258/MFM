@@ -232,10 +232,21 @@ class ConfigurableDenoisingHead(EquivariantDenoisingHead):
             return noise / degree if self.normalization == "sqrt_neighbors" else noise
 
 
-def build_performance_model(configuration: Mapping, options=PerformanceOptions()):
+def build_performance_model(configuration: Mapping, options=PerformanceOptions(), *, execution=None):
     """Build a fresh candidate with unchanged H0 methods and original keys."""
     from ..factory import build_model
-    model = build_model(configuration)
+    # Absent opt-in follows the original path, original default Options/asdict
+    # and state keys. An explicit model-config key also reaches real trainers.
+    if execution is not None and "performance_execution_v1" in configuration:
+        raise ValueError("Declare performance execution exactly once")
+    core_configuration = dict(configuration)
+    requested_execution = core_configuration.pop("performance_execution_v1", execution)
+    integration = None
+    if requested_execution is not None:
+        from .v3_checkpoint_policy import prepare_execution
+        options, specification, capacity_guard, receipt = prepare_execution(core_configuration, options, requested_execution)
+        integration = (specification, capacity_guard, receipt)
+    model = build_model(core_configuration)
     if options.backbone_checkpointing is not None:
         model.backbone.activation_checkpointing = options.backbone_checkpointing
     for layer in model.backbone.layers:
@@ -250,6 +261,12 @@ def build_performance_model(configuration: Mapping, options=PerformanceOptions()
     if isinstance(model.geometry_head, EquivariantDenoisingHead):
         model.geometry_head = ConfigurableDenoisingHead(model.geometry_head,
                                                        activation_checkpointing=options.head_checkpointing)
+    if integration is not None:
+        from .v3_logical_batch import LogicalBatchBackbone, LogicalBatchPadding
+        specification, capacity_guard, receipt = integration
+        padding = None if specification.padding is None else LogicalBatchPadding(**specification.padding)
+        model.backbone = LogicalBatchBackbone(model.backbone, padding=padding, capacity_guard=capacity_guard)
+        model.v3_performance_execution = receipt
     if options.compile_backbone:
         # Compiling only the bound forward retains state-dict key names and H0 APIs.
         model.backbone.forward = torch.compile(model.backbone.forward, dynamic=options.compile_dynamic, fullgraph=False)
