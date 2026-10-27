@@ -1,0 +1,63 @@
+{
+    "schema":  "performance_head_off_R1_ABBA_scope_v1",
+    "scope":  "HEAD_OFF_R1_ABBA_LOG_AND_EXISTING_SPEED_REPORT_ONLY",
+    "series_id":  "A03_head_off_R1_C35_9e16_v1",
+    "planned_order":  [
+                          "reference",
+                          "candidate",
+                          "candidate",
+                          "reference"
+                      ],
+    "actual_job_ids_or_run_ids_prefilled":  false,
+    "numeric_gate":  {
+                         "source_GPU_job_id":  "4524580",
+                         "Root_closure":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_4524580_Root_closure_v2.json",
+                                              "bytes":  591480,
+                                              "sha256":  "b3cf458a83c29a30a4bc8adffd7f5c5fd07a4cce86de9fd790cfbcbf41c533af"
+                                          },
+                         "directory":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child",
+                         "files":  {
+                                       "summary":  {
+                                                       "bytes":  891,
+                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child/summary.json",
+                                                       "sha256":  "1b7a97477974824de39bf2d0502c098d1be598e0f39d3ca51d9d4ec5106427f1"
+                                                   },
+                                       "configuration":  {
+                                                             "bytes":  90476,
+                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child/configuration.json",
+                                                             "sha256":  "9c1fb63b7cf680a407274c16697f4512718005473ca55cf2d71ad7810c35c2f9"
+                                                         },
+                                       "run_status":  {
+                                                          "bytes":  388,
+                                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child/run_status.json",
+                                                          "sha256":  "8043eb8e4f9940d202c97ecb4b0cb9a2daabae825c42a460cb4b1858de661545"
+                                                      },
+                                       "fixed_batch_gate":  {
+                                                                "bytes":  2399567,
+                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child/fixed_batch_gate.json",
+                                                                "sha256":  "9f3889b5988b38306b4355897001917ac71c5951beaf89faab4cc69606731e62"
+                                                            },
+                                       "trajectory_gate":  {
+                                                               "bytes":  42490,
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child/trajectory_gate.json",
+                                                               "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                           }
+                                   },
+                         "gate_refs_origin":  "Exact five original artifact rawrefs from actual strong Rootv2; not independently rehashed/decoded by source author",
+                         "actual_CPU_gate_check":  "Original CPU speed-report path rehashes all five before/after, reads unchanged20/500 gates. Rootv2 qualification remains numeric evidence, notR1 capacity."
+                     },
+    "original_GPU_and_SDK_unchanged":  true,
+    "candidate_options":  {
+                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a03_head_off.json",
+                              "bytes":  302,
+                              "sha256":  "9e958e8fb4374211f80e2c8ed741266b93f701dbde15f2dd36cb862a9e10723e"
+                          },
+    "member_Root_schema":  "model_v3_Root_head_off_R1_ABBA_member_closure_v1",
+    "manual_checkpoint_flags":  {
+                                    "distance":  true,
+                                    "backbone":  true,
+                                    "head":  false
+                                },
+    "family":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_v2"
+}
