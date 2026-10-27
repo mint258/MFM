@@ -243,3 +243,8 @@ paired日志v2仅修复嵌套descriptor路径，原四ID/每role 500行/完整co
 ## 2026-10-28 模型准备进度 v24
 
 见[实际进度v24](../model_v3/reports/PRETRAINING_PREPARATION_20261028_v4.md)：A00四次校准与日志同步闭合，速度比0.993无提速；新geometry候选116模块2816通过/3原跳过，GPU48待验。完整GPU与head-off方法同批归档，D1–D7及阶段0–7剩余科学矩阵继续；未最终冻结。
+
+
+## 2026-10-28 模型准备进度 v25
+
+见[实际进度v25](../model_v3/reports/PRETRAINING_PREPARATION_20261028_v5.md)：新geometry GPU4579完整15通过/33失败，1198源与资源闭合，未采纳；98份JSON独立确认双向翻转，headOff4580固定20批通过/500轨迹待终态。日志方法及负结果同批归档，完整阶段0–7未完成矩阵保留。

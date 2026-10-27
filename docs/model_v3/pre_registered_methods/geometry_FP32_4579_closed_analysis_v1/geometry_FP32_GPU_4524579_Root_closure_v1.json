@@ -1,0 +1,1296 @@
+{
+  "NPZ_SHA_attribution": "Original producer only; Root checked stat/header declarations",
+  "Slurm_parent_is_NOT_C0": true,
+  "UUID_admission": {
+    "bytes": 782,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/CUDA_UUID_ADMISSION.json",
+    "sha256": "5d28b4ff010143764e61f6e8ebb3aad5c5da3f703923c082533449f53866c16b"
+  },
+  "actual_FP32_forwards": 192,
+  "actual_FP64_encoder_forwards": 0,
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524579",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "4524579|zixiao|FAILED|1:0|64|16|compute-0-21\n"
+  },
+  "actual_unix": 1793141393.62128,
+  "admission_frame": {
+    "bytes": 34086,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_submission_actual_v1.admission.json",
+    "sha256": "b21ea97c33f9e4d347b97be2313f92188e760e17098742df7e9a1e9c363701e0"
+  },
+  "all12sites4frames_observed": true,
+  "all_case_JSON_current_rawrefs_verified": true,
+  "all_original_geometry_callers4frames_observed": true,
+  "all_sources_before_after_current_equal": true,
+  "candidate_full_CPU_four_XML": [
+    {
+      "bytes": 126342,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524576/shard_00.xml",
+      "sha256": "7eb54c46e551a198583dd7337762777e45202a03bc76efe48cccdbf9dce19960"
+    },
+    {
+      "bytes": 87234,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524576/shard_01.xml",
+      "sha256": "42c8971858c3b141944e53cfe28789a415640f3642d691d4488bdf04bcb51ba4"
+    },
+    {
+      "bytes": 109940,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524576/shard_02.xml",
+      "sha256": "8759db712b2f241062354b39e05ddd7c857b4f9fc3b10425ad94717c0fce14ac"
+    },
+    {
+      "bytes": 8504897,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524576/shard_03.xml",
+      "sha256": "5db05d234b4a9e05be2e29c2a127cea81ac657e9f349ab53dbd9f498f5aed953"
+    }
+  ],
+  "candidate_full_CPU_root": {
+    "bytes": 953770,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_fp32_full_CPU_4524576_Root_closure_v1.json",
+    "sha256": "e3de59d281021bc0e56ff58e69b5c640b879a2e4f03c2db8fd551311c59bdf9c"
+  },
+  "case_count": 48,
+  "case_scalar_rows": [
+    {
+      "case_id": "C1-0__two__H1_fixed__seed20261026",
+      "case_json": {
+        "bytes": 65718,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_00/C1-0__two__H1_fixed__seed20261026__numeric_case.json",
+        "sha256": "e35b8f5ac889bbd8deb576a4182092b383a0438bb519076c6d03d709954e5e2b"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 24,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__two__H1_fixed__seed20261027",
+      "case_json": {
+        "bytes": 65726,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_01/C1-0__two__H1_fixed__seed20261027__numeric_case.json",
+        "sha256": "bb384bbb28d0cc81379e5c95f57c0f576146ba7b2c613135b6daa824e41902ea"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 24,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__two__H1_learned__seed20261026",
+      "case_json": {
+        "bytes": 66663,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_02/C1-0__two__H1_learned__seed20261026__numeric_case.json",
+        "sha256": "a842bab1e53e86d99c535050fd72abe41c0a531b34b3d70f9126a4dba1cce2bd"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 24,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__two__H1_learned__seed20261027",
+      "case_json": {
+        "bytes": 66653,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_03/C1-0__two__H1_learned__seed20261027__numeric_case.json",
+        "sha256": "b3195702168e3b8280d567d19be89e2383a888f8e8dd9002689c67e679f1f004"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 24,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__two__H2_fixed__seed20261026",
+      "case_json": {
+        "bytes": 65739,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_04/C1-0__two__H2_fixed__seed20261026__numeric_case.json",
+        "sha256": "b4c2b5fe29be28446920f84d45d1ec9ecc1888ea70a85feeeb626fbd13883db5"
+      },
+      "failed_field_observations": 2,
+      "geometry_helper_calls": 24,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__two__H2_fixed__seed20261027",
+      "case_json": {
+        "bytes": 65747,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_05/C1-0__two__H2_fixed__seed20261027__numeric_case.json",
+        "sha256": "15e761cbccb88c3df1ada213b14b231c412295d9e9af049c217afe16912f2c93"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 24,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__two__H3_fixed__seed20261026",
+      "case_json": {
+        "bytes": 65769,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_06/C1-0__two__H3_fixed__seed20261026__numeric_case.json",
+        "sha256": "8d838c527dbdb9aaaf1f8a243cc3edc6e47ac4be0306cafd48fd9fb162823305"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 24,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__two__H3_fixed__seed20261027",
+      "case_json": {
+        "bytes": 65687,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_07/C1-0__two__H3_fixed__seed20261027__numeric_case.json",
+        "sha256": "c33c3f2fc5275d36596493e761347c55175abdbcd1cf767346e9bd590968c758"
+      },
+      "failed_field_observations": 2,
+      "geometry_helper_calls": 24,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__three__H1_fixed__seed20261026",
+      "case_json": {
+        "bytes": 65765,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_08/C1-0__three__H1_fixed__seed20261026__numeric_case.json",
+        "sha256": "0119b824c30f78f10d3e19dfe5f873ef974fc14a1839fc0e13142070ce9840e2"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 24,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__three__H1_fixed__seed20261027",
+      "case_json": {
+        "bytes": 65797,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_09/C1-0__three__H1_fixed__seed20261027__numeric_case.json",
+        "sha256": "ed1563a815d18d1ae30b5e98df6c2736b53cfa34ace119e103388c138fb16cef"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 24,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__three__H1_learned__seed20261026",
+      "case_json": {
+        "bytes": 66729,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_10/C1-0__three__H1_learned__seed20261026__numeric_case.json",
+        "sha256": "3d7d7d92cb36f8fc1462828a7ce044511e23422c193e9449ff48631b3bf26b24"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 24,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__three__H1_learned__seed20261027",
+      "case_json": {
+        "bytes": 66744,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_11/C1-0__three__H1_learned__seed20261027__numeric_case.json",
+        "sha256": "a0a2da715882c39db474d8f210972a372423aa9ec521b78926dffbcc73fc1738"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 24,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__three__H2_fixed__seed20261026",
+      "case_json": {
+        "bytes": 65792,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_12/C1-0__three__H2_fixed__seed20261026__numeric_case.json",
+        "sha256": "73610a5147a3132be82014aaa8111eb523bb0014b775563b3524ef48a09ff6ec"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 24,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__three__H2_fixed__seed20261027",
+      "case_json": {
+        "bytes": 65800,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_13/C1-0__three__H2_fixed__seed20261027__numeric_case.json",
+        "sha256": "ef4a5e826a3137d6d2163f9e319f963a0c7624633ea0d85630e5b4239bc8ae84"
+      },
+      "failed_field_observations": 4,
+      "geometry_helper_calls": 24,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__three__H3_fixed__seed20261026",
+      "case_json": {
+        "bytes": 65830,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_14/C1-0__three__H3_fixed__seed20261026__numeric_case.json",
+        "sha256": "47e28b1b64987b3c038232633920c093f295f06ada149b4dba5c1fb1277d5bf2"
+      },
+      "failed_field_observations": 3,
+      "geometry_helper_calls": 24,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-0__three__H3_fixed__seed20261027",
+      "case_json": {
+        "bytes": 65760,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_15/C1-0__three__H3_fixed__seed20261027__numeric_case.json",
+        "sha256": "fd68334326726e0e8a76408ebbc7a2c468f57a8d26f8b4f1a9513e6d3821c57b"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 24,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__two__H1_fixed__seed20261026",
+      "case_json": {
+        "bytes": 58066,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_16/C1-a__two__H1_fixed__seed20261026__numeric_case.json",
+        "sha256": "3bee2b8175061b48d133d4fb43403d4e2689691deb03d18a819f1ced28578ee5"
+      },
+      "failed_field_observations": 2,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__two__H1_fixed__seed20261027",
+      "case_json": {
+        "bytes": 58064,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_17/C1-a__two__H1_fixed__seed20261027__numeric_case.json",
+        "sha256": "6264382ecea3e01b069580784733206500697f45d0145eabd838aa1e2d8d6c5c"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__two__H1_learned__seed20261026",
+      "case_json": {
+        "bytes": 59010,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_18/C1-a__two__H1_learned__seed20261026__numeric_case.json",
+        "sha256": "084ccca9aa56465d11615ee4ccba6f064ea25b2a8924c2c6b47fc9f80262ef19"
+      },
+      "failed_field_observations": 2,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__two__H1_learned__seed20261027",
+      "case_json": {
+        "bytes": 58992,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_19/C1-a__two__H1_learned__seed20261027__numeric_case.json",
+        "sha256": "d4f777e3d563447da8e5d7ba9406700fa5e27a0e48ea1b3b172534e6324f7399"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__two__H2_fixed__seed20261026",
+      "case_json": {
+        "bytes": 58078,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_20/C1-a__two__H2_fixed__seed20261026__numeric_case.json",
+        "sha256": "35f6b3fd560db6b8270583a321b20207ca0e7852d29eaab17df8da82c10c85a2"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 4,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__two__H2_fixed__seed20261027",
+      "case_json": {
+        "bytes": 58079,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_21/C1-a__two__H2_fixed__seed20261027__numeric_case.json",
+        "sha256": "6a7972296aab57ac95a5287d171a60bbd9ecba8f4aa16bd75a15027402d4df91"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__two__H3_fixed__seed20261026",
+      "case_json": {
+        "bytes": 58100,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_22/C1-a__two__H3_fixed__seed20261026__numeric_case.json",
+        "sha256": "c2b29e07c9cf0a37d1120387daf0a819ad5a88c93f19a5311ff3ce51f647769e"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 4,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__two__H3_fixed__seed20261027",
+      "case_json": {
+        "bytes": 58060,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_23/C1-a__two__H3_fixed__seed20261027__numeric_case.json",
+        "sha256": "86b06580d5ef03c053ed0a2ce2e8eaa36efe01e11a8b2e8ada9c6b9e7508e49b"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__three__H1_fixed__seed20261026",
+      "case_json": {
+        "bytes": 58129,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_24/C1-a__three__H1_fixed__seed20261026__numeric_case.json",
+        "sha256": "2577065dc47f22a6df6e727ade79059d680c7080a926424da1062e33a1694b0b"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 4,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__three__H1_fixed__seed20261027",
+      "case_json": {
+        "bytes": 58142,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_25/C1-a__three__H1_fixed__seed20261027__numeric_case.json",
+        "sha256": "b4adacf59a7c6d7ade50eca68ffc3131406237e1d26d65d6473937ebd07b33fc"
+      },
+      "failed_field_observations": 2,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__three__H1_learned__seed20261026",
+      "case_json": {
+        "bytes": 59086,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_26/C1-a__three__H1_learned__seed20261026__numeric_case.json",
+        "sha256": "7dd9dba65993c99f20f22e907a61ab6ba43a2c09d04f12763496b0ba8c8aa18f"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 4,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__three__H1_learned__seed20261027",
+      "case_json": {
+        "bytes": 59069,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_27/C1-a__three__H1_learned__seed20261027__numeric_case.json",
+        "sha256": "08ec4359d207bbed75f58634a17de12d78e89894bbf5a33ca17b60dd70a05d69"
+      },
+      "failed_field_observations": 2,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__three__H2_fixed__seed20261026",
+      "case_json": {
+        "bytes": 58134,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_28/C1-a__three__H2_fixed__seed20261026__numeric_case.json",
+        "sha256": "2b04760c75eb4bc093c4ae0e6562b21dcc7a40a2abec474b6f68ac41e582223e"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 4,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__three__H2_fixed__seed20261027",
+      "case_json": {
+        "bytes": 58119,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_29/C1-a__three__H2_fixed__seed20261027__numeric_case.json",
+        "sha256": "584aacc503c874fc9edc2595e8003e972ded02027da590ea91e461a9a4e37672"
+      },
+      "failed_field_observations": 2,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__three__H3_fixed__seed20261026",
+      "case_json": {
+        "bytes": 58160,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_30/C1-a__three__H3_fixed__seed20261026__numeric_case.json",
+        "sha256": "bcc641589c26c1e1543eef3cc1e26b1dde8708a9385e04a1610a173299ee76de"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 4,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-a__three__H3_fixed__seed20261027",
+      "case_json": {
+        "bytes": 58121,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_31/C1-a__three__H3_fixed__seed20261027__numeric_case.json",
+        "sha256": "433bc531daf57d474bbad026991b65ab3c9767ccb008ef168326d359bf01a94d"
+      },
+      "failed_field_observations": 2,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__two__H1_fixed__seed20261026",
+      "case_json": {
+        "bytes": 58060,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_32/C1-b__two__H1_fixed__seed20261026__numeric_case.json",
+        "sha256": "a597f71f58e5d844aa461b4d6371decb04ed0cab82bfef107b7b5f11fa37438b"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__two__H1_fixed__seed20261027",
+      "case_json": {
+        "bytes": 58081,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_33/C1-b__two__H1_fixed__seed20261027__numeric_case.json",
+        "sha256": "a6f17cbdf703cff1af672e95265dc62d2445c8778e6e3dd4340c6200126871cc"
+      },
+      "failed_field_observations": 3,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__two__H1_learned__seed20261026",
+      "case_json": {
+        "bytes": 59021,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_34/C1-b__two__H1_learned__seed20261026__numeric_case.json",
+        "sha256": "2cd87da92e1d8ff1df21b0555459344f584ea91344b8748354d3d3accfa7924a"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__two__H1_learned__seed20261027",
+      "case_json": {
+        "bytes": 59002,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_35/C1-b__two__H1_learned__seed20261027__numeric_case.json",
+        "sha256": "06ccc50cf4f7ca208a1700dd49db3d51e96cac7047252ab65c1ffa1804e4c8c5"
+      },
+      "failed_field_observations": 3,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__two__H2_fixed__seed20261026",
+      "case_json": {
+        "bytes": 58089,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_36/C1-b__two__H2_fixed__seed20261026__numeric_case.json",
+        "sha256": "6a3b8b59c86e542ff27177453d7d02d4c90aa9814b1726b86f2a895100ef2055"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 4,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__two__H2_fixed__seed20261027",
+      "case_json": {
+        "bytes": 58096,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_37/C1-b__two__H2_fixed__seed20261027__numeric_case.json",
+        "sha256": "3d2ee888df5bdb4f02cdbf2fa9b3375520ff5d4f2bfafd5f551d761b36bf2ef4"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 4,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__two__H3_fixed__seed20261026",
+      "case_json": {
+        "bytes": 58111,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_38/C1-b__two__H3_fixed__seed20261026__numeric_case.json",
+        "sha256": "a5531aa51198c66597043042865a6e5c2bf488280af8c02c1d120f3d02602da4"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__two__H3_fixed__seed20261027",
+      "case_json": {
+        "bytes": 58065,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_39/C1-b__two__H3_fixed__seed20261027__numeric_case.json",
+        "sha256": "1987d98e7dd8fa8fc2673a2d4274d0f52b24ccf30e7021e41058d8025cb89ef3"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__three__H1_fixed__seed20261026",
+      "case_json": {
+        "bytes": 58129,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_40/C1-b__three__H1_fixed__seed20261026__numeric_case.json",
+        "sha256": "77021da594abf340303caa082370e629486c6bbbc9efb8ad32f201e84e15df62"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 4,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__three__H1_fixed__seed20261027",
+      "case_json": {
+        "bytes": 58145,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_41/C1-b__three__H1_fixed__seed20261027__numeric_case.json",
+        "sha256": "95c60fe461854e744f7d07b2a8239c72ba96a376a2bf4d4aa67fc9be58fd5d30"
+      },
+      "failed_field_observations": 3,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__three__H1_learned__seed20261026",
+      "case_json": {
+        "bytes": 59061,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_42/C1-b__three__H1_learned__seed20261026__numeric_case.json",
+        "sha256": "d6ff654b6f5e3da94241ce0673d158b0c9cbbfd0409036ec361d581216d8b1ef"
+      },
+      "failed_field_observations": 0,
+      "geometry_helper_calls": 4,
+      "passed": true,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__three__H1_learned__seed20261027",
+      "case_json": {
+        "bytes": 59075,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_43/C1-b__three__H1_learned__seed20261027__numeric_case.json",
+        "sha256": "9b92321b6acdc725917d77fb971ece22ea5aa816afd46632b50e4ccae55d7313"
+      },
+      "failed_field_observations": 2,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__three__H2_fixed__seed20261026",
+      "case_json": {
+        "bytes": 58143,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_44/C1-b__three__H2_fixed__seed20261026__numeric_case.json",
+        "sha256": "055b3d2239726440a22b899052e22ed7a5fd60c4c7d2352c10780cdc476e990f"
+      },
+      "failed_field_observations": 2,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__three__H2_fixed__seed20261027",
+      "case_json": {
+        "bytes": 58160,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_45/C1-b__three__H2_fixed__seed20261027__numeric_case.json",
+        "sha256": "e17337a3454695f7a56c4e162899487a4de5ef99955d5dfb5d3b67ca40f671f8"
+      },
+      "failed_field_observations": 2,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__three__H3_fixed__seed20261026",
+      "case_json": {
+        "bytes": 58176,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_46/C1-b__three__H3_fixed__seed20261026__numeric_case.json",
+        "sha256": "6613d3c2c6f13f17233c84c2314e29cab357a70e7f149669ec46194ea0e1d176"
+      },
+      "failed_field_observations": 2,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    },
+    {
+      "case_id": "C1-b__three__H3_fixed__seed20261027",
+      "case_json": {
+        "bytes": 58115,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_47/C1-b__three__H3_fixed__seed20261027__numeric_case.json",
+        "sha256": "a78b539ba6abaa6736fa04a0a0ea1e1d3d6c48f8d2a030589c648eff08bc074b"
+      },
+      "failed_field_observations": 1,
+      "geometry_helper_calls": 4,
+      "passed": false,
+      "projection_helper_calls": 48
+    }
+  ],
+  "closure_source": {
+    "bytes": 36420,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/close_geometry_FP32_4524579_metadata_v1.py",
+    "sha256": "b30aaf9e88e3b3641ed6b9f592d1afc140330ea2342860ea9adfea7576450fa4"
+  },
+  "closure_success_is_not_experiment_success": true,
+  "counts": {
+    "errors": 0,
+    "failures": 33,
+    "skipped": 0,
+    "tests": 48
+  },
+  "current_candidate_Git": {
+    "branch": {
+      "argv": [
+        "git",
+        "-C",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_geometry_fp32_candidate_v1",
+        "branch",
+        "--show-current"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "model-v3-geometry-fp32-candidate-20261028-v1\n"
+    },
+    "clean": {
+      "argv": [
+        "git",
+        "-C",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_geometry_fp32_candidate_v1",
+        "status",
+        "--porcelain=v1",
+        "--untracked-files=all"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    "head": {
+      "argv": [
+        "git",
+        "-C",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_geometry_fp32_candidate_v1",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "03e26bea6a29ef96ba5611760763329207212741\n"
+    },
+    "tree": {
+      "argv": [
+        "git",
+        "-C",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_geometry_fp32_candidate_v1",
+        "rev-parse",
+        "HEAD^{tree}"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "2d3b8f17e06d73bc2bc47745ccde982625646dd0\n"
+    }
+  },
+  "current_source_count": 1198,
+  "current_whole_census": {
+    "NPZ_access": "stat-only by census",
+    "Root_closure_maximum_allowance_bytes": 2097152,
+    "cap_bytes": 2147483648,
+    "child_root_bytes": 14486851,
+    "conservative_private_final_snapshot_bytes": 497,
+    "conservative_total_bytes": 16971203,
+    "external_files": [
+      {
+        "bytes": 35729,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_submission_actual_v1.json"
+      },
+      {
+        "bytes": 34086,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_submission_actual_v1.admission.json"
+      },
+      {
+        "bytes": 3056,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_supervisor_4524579.json"
+      },
+      {
+        "bytes": 61078,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_supervisor_4524579.json.jsonl"
+      },
+      {
+        "bytes": 1193,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_supervisor_4524579.json.storage.json"
+      },
+      {
+        "bytes": 214688,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_launch_v1_4524579.log"
+      },
+      {
+        "bytes": 36873,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_launch_v1_worker_4524579.json"
+      }
+    ],
+    "original_owned_output_bytes_used": true
+  },
+  "elapsed_metadata_seconds": 2.8694963455200195,
+  "encoder_forwards": 192,
+  "foreign_processes_signalled": false,
+  "formal_FP32_gate_satisfied": false,
+  "geometry_helper_calls": 512,
+  "geometry_mode": "residual_expansion_fp32_v1",
+  "job_id": "4524579",
+  "matrix_xml": {
+    "bytes": 243279,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/matrix.xml",
+    "sha256": "95b5fa94dc342316ce604a896a3ddd62e70e6aad1933a588a47432de499029c7"
+  },
+  "metadata_publication_rows_verified": 18,
+  "model_freeze_candidate": false,
+  "new_terminals_expected_bitwise_equal_to_4550": false,
+  "no_infrastructure_failure_seen": true,
+  "old_formal_FP32_result_unchanged": {
+    "failed": 27,
+    "no_old_artifact_written": true,
+    "passed": 21
+  },
+  "old_projection4550_result_unchanged": {
+    "failed": 36,
+    "no_old_artifact_written": true,
+    "passed": 12
+  },
+  "private_cleanup_and_recorded_processes_closed": true,
+  "process_scope": "Original source-bound on-node cleanup proof and terminal Slurm only; no new remote process scan or signal",
+  "projection_helper_calls": 2304,
+  "publication_chronology": {
+    "candidate": {
+      "actual_API_timestamp": null,
+      "chronology_scope": "Exact source/public/full verification rows persisted in immutable prelaunch Root inputs; no independent candidate API timestamp reconstructed",
+      "prelaunch_inputs_match_reverified_rows": true,
+      "reference": {
+        "bytes": 3816,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_fp32_candidate_publication_actual_v1.json",
+        "sha256": "1f670a03e0fafb4f55d89b6e5c84328f8e8c208d819c6575bc641cb6886871e8"
+      }
+    },
+    "metadata_publication": {
+      "actual_utc": "2026-10-27T22:32:17.5641322Z",
+      "checked_before_sbatch_completed_utc": "2026-10-27T22:33:34.665268+00:00",
+      "reference": {
+        "bytes": 25561,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v24_publication_actual_v1.json",
+        "sha256": "88e7d7953594b080dbe85c34a94d199e128b1b402428cc8e55da171df71d55f4"
+      }
+    },
+    "method_publication": {
+      "actual_utc": "2026-10-27T22:32:17.5641322Z",
+      "checked_before_sbatch_completed_utc": "2026-10-27T22:33:34.665268+00:00",
+      "reference": {
+        "bytes": 25561,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v24_publication_actual_v1.json",
+        "sha256": "88e7d7953594b080dbe85c34a94d199e128b1b402428cc8e55da171df71d55f4"
+      }
+    }
+  },
+  "request": {
+    "bytes": 329555,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_fp32_e2e_v1_source/execution_request_v1.json",
+    "sha256": "295cd59b41ac71d96b27cc93b4b496d400a5cfb67971a07431145c1cc8978acc"
+  },
+  "request_source_count": 1197,
+  "resource_samples": {
+    "count": 29,
+    "peak_semantics": "Sampled maxima are lower bounds, not exact lifetime peaks",
+    "recorded_bound_process_identities": 2,
+    "sampled_max_GPU_used_bytes": 867172352,
+    "sampled_max_RSS_bytes": 2162450432,
+    "sampled_max_output_bytes": 13278028
+  },
+  "result": {
+    "bytes": 224659,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/RESULT.json",
+    "sha256": "3e19c9610726a834845d7b696405cd86604fd7f79361b33ad96834ace2ba1f90"
+  },
+  "schema": "model_v3_Root_complete48_geometry_FP32_scientific_failure_closure_v1",
+  "scientific_adoption": false,
+  "source_after": {
+    "bytes": 443660,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/sources_after.json",
+    "sha256": "668d865d1a2143a36022e83b6a2dd2e4f09d65b1f18f25f1e6274e920d3d0f28"
+  },
+  "source_before": {
+    "bytes": 443660,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/sources_before.json",
+    "sha256": "668d865d1a2143a36022e83b6a2dd2e4f09d65b1f18f25f1e6274e920d3d0f28"
+  },
+  "source_pins": {
+    "bytes": 318106,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_fp32_e2e_v1_source/source_pins_v1.json",
+    "sha256": "a88a36ea22298201b407053544a3567a90ddee23c81710009f830e92bba1ed76"
+  },
+  "status": "ACTUAL_COMPLETE48_GEOMETRY_FP32_SCIENTIFIC_CRITERION_FAIL_15_PASS_33_FAIL_SOURCE_RESOURCE_CLOSED",
+  "submission": {
+    "bytes": 35729,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_submission_actual_v1.json",
+    "sha256": "6cc8b9da2a9f3b66010bcd403c3781dc8df66f4416b6a89d374ab284a423d532"
+  },
+  "supervisor": {
+    "bytes": 3056,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_supervisor_4524579.json",
+    "sha256": "16a6bec5a9097285bf4925b4e3e23da768d866b0b4b5c698e92ba6c3571e8dc1"
+  },
+  "terminal_array_count": 2496,
+  "terminal_artifacts": [
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182016,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_00/C1-0__two__H1_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "7805a819856b3693e6ee57d69a0a9b3f2b97130609d20fefca74cb9ee3d560b8"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182030,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_01/C1-0__two__H1_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "9cf4e103ecde96ed33b4f3d798cc91b940dd6b8ead049d3396cf6d50105e41f5"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182016,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_02/C1-0__two__H1_learned__seed20261026__terminals.npz",
+      "producer_sha256": "d3c02c31327ef1d522b6199c8cc794a23aaf927f6cfa549b57eb1573797852d6"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182027,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_03/C1-0__two__H1_learned__seed20261027__terminals.npz",
+      "producer_sha256": "a9e38382b46fa905b1ca495e9e86836ab4de912c3195d39244bd759915fe6ad5"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182038,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_04/C1-0__two__H2_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "2bc4ef60db3223a9fa26aeaeff145836de87ed9cace09f1326937493971b404a"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182043,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_05/C1-0__two__H2_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "2d08fbdb8ea3be036b47fbedbbda5cf2067103b6fe2a8ebedcf76012c17f4506"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182009,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_06/C1-0__two__H3_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "20941fdd15b29b4331982a88fb1e0010825bd35bc39cbe2581d47dde56adef0a"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 181968,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_07/C1-0__two__H3_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "be564b2265387c32189407df0b94a1d0a5903ca8d4efa838322c9ba4783ecada"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241765,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_08/C1-0__three__H1_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "c2f5c8a884b4c13160ee26011c3a5542377fcd66cb260978ec25df37c520a8b3"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241693,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_09/C1-0__three__H1_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "4ecfc15bbdf4a593b8032c699d72667909c187bda75b7b3e347296fc64f7cb36"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241765,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_10/C1-0__three__H1_learned__seed20261026__terminals.npz",
+      "producer_sha256": "53c36800cd6f1d262857416448698f33132e1f154dfce189fbb0e9b11a5947c0"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241691,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_11/C1-0__three__H1_learned__seed20261027__terminals.npz",
+      "producer_sha256": "a3d5e39944daeafb7e92aa3542e47c6b279d8f363ff10bcc492eedd42bbd44e2"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241798,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_12/C1-0__three__H2_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "094f98ad25abae34fa06b476de08288f61eb37afc65b9936eabd3f739b192401"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241705,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_13/C1-0__three__H2_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "c861e0c7c73bca2d500154d32863959c3c44c9f7c39afac86990d06ac59caf16"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241756,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_14/C1-0__three__H3_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "7b17ff2677d223e3c88500806ebce48990ef4939d20f629b58b5733aecc4ae37"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241638,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_15/C1-0__three__H3_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "0d85782a9e2d6f2f409b959293e23cea2ed0ae95675d6d8fbedc1cdd0da838fd"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182570,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_16/C1-a__two__H1_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "14c6caa3ad8065124ee1fc1955dca1898946a74c3c64ea2dd10ea5733b23e0b3"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 181947,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_17/C1-a__two__H1_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "0f9493f6acefa9657bbc6e89da811a7cefe7b5ee7ae941900f14fdeeb7c6ade0"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182570,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_18/C1-a__two__H1_learned__seed20261026__terminals.npz",
+      "producer_sha256": "135c670e0478eb0a29b623fa21d57052c37b373c5a29db317d42c85ffc1c9688"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 181947,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_19/C1-a__two__H1_learned__seed20261027__terminals.npz",
+      "producer_sha256": "8f9298419c3f8b42f918c0dbb2bdf55b1ab3caa932e3212131a31614a124f0aa"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182591,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_20/C1-a__two__H2_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "50a9aca20deea957b761a75e01fd5607a6888d607c631620ce5f081bf6f966a1"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 181936,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_21/C1-a__two__H2_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "836693b7fae5bf787ae1afd2632a05f5cf843f54b254695adb57c5405d295028"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182585,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_22/C1-a__two__H3_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "5a29d025bfb5426623961e1616b9ef45a6cc2ff60f732228923465f0ca2b106b"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 181927,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_23/C1-a__two__H3_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "aa2dc42d4abaeea8c4f8af99608052695f719ed06183889369ca0d988be394ec"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 242337,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_24/C1-a__three__H1_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "69a8cdb1707b14e38af678ca9620bfea2d5c91e86395c1f32406ee3ef0eb5135"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241409,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_25/C1-a__three__H1_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "8d900936a834b73ab5ab748fdf41a4030bebe31d9460b26153ef0ff6e966a0bf"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 242337,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_26/C1-a__three__H1_learned__seed20261026__terminals.npz",
+      "producer_sha256": "05e8959fa09cca2fa11adffc943bdadc0fde3c5c599ab4e4a65776698b30b9b2"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241409,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_27/C1-a__three__H1_learned__seed20261027__terminals.npz",
+      "producer_sha256": "6af5b601b98d2e2f0d10eefc9648c756ca7b9f53d2409caf63c0f2ccbb27069c"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 242364,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_28/C1-a__three__H2_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "61c70e6508ec899e7eba9e3085cc50169042ac6bd8193477a5b2ce494b9977f7"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241401,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_29/C1-a__three__H2_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "1ea1b0526dc1067c3b65d1037d849d1256ebd6a424de94d2d8b332ac9cdbbfce"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 242355,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_30/C1-a__three__H3_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "80ef7bdb0456034f40a23afef47ddd0e8c84692fd99e8371a5b4de29bd166aa7"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241392,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_31/C1-a__three__H3_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "bb1a2c454919e36ec14cd43ecdbc58595f5e1c74f72ac10bd301736b833b5c73"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182281,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_32/C1-b__two__H1_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "bb73d6513f1c8d693ec95052cf4a665e59e96211b87302ee02f20a32a8c87ddf"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 181993,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_33/C1-b__two__H1_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "4e210585c5db912a8c4f82c7facf9602032894f27407f519760c9326f2c9b14d"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182279,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_34/C1-b__two__H1_learned__seed20261026__terminals.npz",
+      "producer_sha256": "50739b25f99884b8005b124636090ba636b67c46326d3ce4830303e7cbb3a711"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 181989,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_35/C1-b__two__H1_learned__seed20261027__terminals.npz",
+      "producer_sha256": "15ec9586ce6de683b3951d371d45821c8da472d1828500186871d5a592e347d0"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182310,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_36/C1-b__two__H2_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "4eb8ead6c6f8a64dcd32620e661f6339f5cb7aa78d8d626128f4b5614571f640"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 181985,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_37/C1-b__two__H2_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "c8745c27beeb8681b577c7b2955947d13154071e61ab3a9f6b61db89f4d35a51"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 182284,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_38/C1-b__two__H3_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "b72635f11fdfed86467b2e37ba3119272a5aeca7667a1d0e8a12186ff73c31e4"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 181967,
+      "numeric_bytes": 183136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_39/C1-b__two__H3_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "488dd193afb0279ba9d009a5044c0a7fe9ff0dfdce54b9bf9efe3a04b110cda6"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 242096,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_40/C1-b__three__H1_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "f4c008ed125b82a1df8a827bcce7b91de5700702ff2435de34ba1612df40e6f2"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241500,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_41/C1-b__three__H1_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "c1e6fecd0b72916008e8e49c09d3c4420c497fde0f53b054f2edc911e879330f"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 242096,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_42/C1-b__three__H1_learned__seed20261026__terminals.npz",
+      "producer_sha256": "cb98697292e92cc0bbe5aabbb0a53827cc841a07d7479f4a3576a9eb02906aac"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241496,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_43/C1-b__three__H1_learned__seed20261027__terminals.npz",
+      "producer_sha256": "1a45df155ee63423ff97a35aa4046693bc9f2dfdeb13f71fae0f7baee6f935b7"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 242118,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_44/C1-b__three__H2_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "04c9d1cbce316f2be72b9b2935bdcf3c796ca646099d7d54081c45618dca3788"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241490,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_45/C1-b__three__H2_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "49c5a23e9c5c04adca9406d48d398e0d8e99379ff663cc4b7d07e519b9adcdfb"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 242094,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_46/C1-b__three__H3_fixed__seed20261026__terminals.npz",
+      "producer_sha256": "d9cd33a8d37c1acfbedeb7cda23274ceae8b27eb7265c02449ef4d372ca030ab"
+    },
+    {
+      "Root_check": "stat and declared headers only; NPZ body not opened/rehashed/decoded",
+      "Root_reverified_NPZ_SHA": false,
+      "arrays": 52,
+      "bytes": 241460,
+      "numeric_bytes": 271136,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/cases/numeric_case_47/C1-b__three__H3_fixed__seed20261027__terminals.npz",
+      "producer_sha256": "04de632c552b41b6cc3505c6293036162792a30e4e9c8f25ceec3dddaafb506b"
+    }
+  ],
+  "terminal_payload_decoded_or_rehashed_on_login": false,
+  "tiny_controls": {
+    "bytes": 1348,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_4524579/INLINE_TINY_CANDIDATE_CONTROLS.json",
+    "sha256": "7df4de8ecf2cb8c752480561e4d4d9094fcf261b145b45d6ebd70cfceb3d7d56"
+  },
+  "worker": {
+    "bytes": 36873,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_launch_v1_worker_4524579.json",
+    "sha256": "a731bcb46b57c5336703ecd5f442c7c1df84aa8a526069db51632476feccbadb"
+  }
+}
