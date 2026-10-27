@@ -1,0 +1,175 @@
+{
+  "schema": "model_v3_pretraining_preparation_compact_evidence_v20",
+  "captured_utc": "2026-10-27T18:22:19.415845+00:00",
+  "original_scope": "Full original405-line model-v3 stages0-7, not narrowed",
+  "final_guide_complete": false,
+  "formal_pretraining_started": false,
+  "model_or_recipe_final_frozen": false,
+  "actual_evidence_refs": {
+    "training_full": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/training_chain_full_CPU_4524523_Root_closure_v1.json",
+      "bytes": 965914,
+      "sha256": "9539125b429fb57a6a0d204dbe1915744bff74e2c6725cb58774bc1f53095208"
+    },
+    "runtime_ff": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/training_chain_runtime_fast_forward_actual_v1.json",
+      "bytes": 1538,
+      "sha256": "997422703f99a836d7217442c263e7d891a048b6a2fb08d7cda2cf2585433100"
+    },
+    "runtime_external9": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/training_chain_runtime_external_sources_actual_v1.json",
+      "bytes": 3244,
+      "sha256": "85cfc689333a481f54a1030138c2a39b58057ea6441be418922ea873a51f5bb4"
+    },
+    "runtime_publication": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/training_chain_runtime_publication_actual_v1.json",
+      "bytes": 5965,
+      "sha256": "d46ac32c0fe54bcfcb4803c92f525ddbcfe23e432bb2fc51635f79b40918acaf"
+    },
+    "native_panel": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S10000_dev_panel_GPU_4524476_Root_closure_v3.json",
+      "bytes": 610173,
+      "sha256": "fbf2e2dea8fb93dfbff46737b8b4b0f1c4d485b9c9f892eeac0eaf21c9c95d82"
+    },
+    "native_hold_release": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S10000_panel_hold_release_actual_v1.json",
+      "bytes": 1493,
+      "sha256": "5e161eee44335a34573f60db352e2ebcb7bff14cbb4b4b37a36093a1b870d1e5"
+    },
+    "projection_full": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_fp32_full_CPU_4524510_Root_closure_v1.json",
+      "bytes": 961942,
+      "sha256": "a478b3488aa8984006a277b1cfac08da821117e58ee9d96dd44d6e07cfdd40b0"
+    },
+    "projection_publication": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_fp32_publication_actual_v1.json",
+      "bytes": 2285,
+      "sha256": "30c995af647b10276e0a0a082d445f849c0b4ed80a2af5e164d43dc37aa87dc0"
+    },
+    "projection_science_method_publication": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_fp32_full48_method_publication_actual_v1.json",
+      "bytes": 6038,
+      "sha256": "43a747591d87291f770fe2cf2f2eadae77b1f00872a22b02e210846067adc1d5"
+    },
+    "projection_source_review": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_fp32_e2e_SA3_readonly_review_v1.json",
+      "bytes": 26503,
+      "sha256": "db3e532c8b3215641b215614d92d21ced3eda1cfafa2228b072ab3b707984f76"
+    },
+    "core64_GPU_failure": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_core64_GPU_4524448_Root_diagnostic_failure_closure_v1.json",
+      "bytes": 39150,
+      "sha256": "4c81e2a04a9ac8c8eb4cd7a995f9aeef3f1b179b48f71e5e7a7cb35f8904424f"
+    }
+  },
+  "training_chain": {
+    "local_code": "dbe275e6558c401116159b2e230961d082d07842",
+    "public_code": "0cfc5c40f2b48df699727a7c42d0e0a310d73d9f",
+    "tree": "240f9d6b7a285671ec8f0edf1e259fd9c68d3a6d",
+    "actual_CPU_job": "4524523",
+    "actual_CPU_counts": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 3,
+      "tests": 2908
+    },
+    "passed": 2905,
+    "modules": 121,
+    "actual_QA_worktree": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_training_chain_candidate_v1",
+    "runtime_FF_same_tested_commit": true,
+    "runtime_full_suite_reexecuted": false,
+    "tracked_checker_source_count": 2149,
+    "project_runtime_source_count": 1110,
+    "external_runtime_source_count": 9,
+    "prior_failed_jobs_retained": [
+      "4524499",
+      "4524505"
+    ]
+  },
+  "native_panel": {
+    "actual_GPU_job": "4524476",
+    "elapsed_seconds": 518,
+    "tasks": 9,
+    "comparison_cells": 18,
+    "checkpoint_updates": 10000,
+    "seed": 0,
+    "precision": "fp32",
+    "samples_consumed": 4076032,
+    "H0_dimension": 512,
+    "target_free_caches": 6,
+    "geometry_exclusions": {
+      "cyp_isoform": 3,
+      "expansionrx": 48,
+      "qm9": 0
+    },
+    "candidate_reference_populations_exactly_matched": true,
+    "SDK_independent_verified": false,
+    "WandB_run_id": "vcxcfx54",
+    "independent2GiB_hold_released": true,
+    "D5_or_B_acceptance": false
+  },
+  "projection_candidate": {
+    "local_code": "f4652e940823141ac376eba5b6b1195f700fa692",
+    "public_code": "b2c4c6772d751ba08ac611cbe563ee2e1b40e709",
+    "tree": "411ebc59652f8aecf2d06938842aeca4782a184d",
+    "actual_CPU_job": "4524510",
+    "actual_CPU_counts": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 3,
+      "tests": 2756
+    },
+    "passed": 2753,
+    "modules": 115,
+    "science_method_public_code": "4bfb4263b6f47cd193bc9b93e65fecdc7511867b",
+    "GPU_submitted": false,
+    "final_metadata_binding_pending": true,
+    "original48_192_52_abs1e_minus5_rtol0_criterion_preserved": true,
+    "scientific_acceptance": false
+  },
+  "original_FP32_physics": {
+    "Core64_cannot_satisfy_formal_FP32": true,
+    "failed": 27,
+    "formal_threshold_changed": false,
+    "passed": 21
+  },
+  "mixed_core64_diagnostic": {
+    "actual_GPU_job": "4524448",
+    "passed": 14,
+    "failed": 34,
+    "formal_all_FP32": false,
+    "adopted": false
+  },
+  "data_line_latest_status": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/interfaces/STATUS.md",
+    "bytes": 19653,
+    "sha256": "732c3c5f225494d9b6b5e121201a8439586a98427dbec1426efa5bb3bd2795ba"
+  },
+  "D1_current_authority": "draft3",
+  "draft5_joint_frozen": false,
+  "final_D1_D7_delivered": false,
+  "last_complete_cost_ledger": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/job_ledger_model_v3_active_v33.json",
+    "bytes": 620034,
+    "sha256": "135b2d22fa94086f6afd0e61c27ef1aeed676c41d90308f2224135723917be15"
+  },
+  "ledger_missing_new_parent_jobs": [
+    "4524539"
+  ],
+  "previous_report_point_in_time_preserved": {
+    "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/reports/pretraining_preparation_compact_evidence_20261027_v2.json",
+    "bytes": 20828,
+    "sha256": "2836154e081ec3b7b11e3b7e99708691f5aa619dd2db4c87f961b87e6dae06d8"
+  },
+  "remaining_required_work": [
+    "Formal all-FP32 composed physical gate48/48",
+    "A auto/R1/A5 GPU gates and all3090/4090/5090 speed coverage",
+    "GenuineD3 complete1000molecule overfit and threecard SDP2000",
+    "B genuineD5 four20k FP32/BF16 trials",
+    "D5 C1/C3/architecture/pooling and required repeats/SD",
+    "All19 recipe trials and TRAIN preclip p99",
+    "D6 S/P64M/platform batch convergence and exact scale",
+    "Real120k/k2/1M end-to-end grid",
+    "Final user-approved recipe/B-star, model-v3.0 tag/HANDOFF/finalPR"
+  ]
+}
