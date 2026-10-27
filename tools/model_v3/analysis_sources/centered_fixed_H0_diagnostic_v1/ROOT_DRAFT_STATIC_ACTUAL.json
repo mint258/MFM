@@ -1,0 +1,120 @@
+{
+  "status": "STATIC_ONLY_NO_MODEL_NO_NPZ_NO_SUBMISSION",
+  "created_UTC": "2026-10-27T00:21:10.803834+00:00",
+  "inventory": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/DRAFT_SOURCE_INVENTORY.json",
+    "bytes": 3911,
+    "sha256": "1e9fa3b7059fb3942da43528952628691dc184b5149f1aa1939fefb0477c3976"
+  },
+  "dependencies": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/DRAFT_DEPENDENCIES.json",
+    "bytes": 589569,
+    "sha256": "4de68d842cd41d04f636abcb9635f3b14ec44b91293889a15891ccf5ce02ed4d"
+  },
+  "leaf_refs": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/analyze_centered_H0_CPU.py",
+      "bytes": 8864,
+      "sha256": "6f3aa168374696c1fc7046ebb1b7ba7bec514604931fb946308c98021755aa5b"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/capture_centered_H0.py",
+      "bytes": 16521,
+      "sha256": "20162ac2a8e8c67772eb7922510f599ac89891950c54e5149003956716715732"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/diagnostic_common.py",
+      "bytes": 6675,
+      "sha256": "6c3c8218484bb2a210c9d6a71eeb257420eca0317733762f4937250c22becc25"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/DRAFT_DEPENDENCIES.json",
+      "bytes": 589569,
+      "sha256": "4de68d842cd41d04f636abcb9635f3b14ec44b91293889a15891ccf5ce02ed4d"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/launch_centered_H0_GPU_v1.py",
+      "bytes": 16144,
+      "sha256": "90b7727348b06bf7ba60f14213e3ccf068bce10bb5fd203d4420c676af200a3e"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/prepare_metadata.py",
+      "bytes": 8482,
+      "sha256": "8cb907b5d7fbbd7288d13c06d73c9e68070441c3a822e3f2cc81fe1665049cb6"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/README.md",
+      "bytes": 8233,
+      "sha256": "ccff3dd1de9e5af9ae9d98ef7df467f4af4e77519225ecacdc95fa5c9aaa2efe"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/run_centered_H0_CPU_v1.sbatch",
+      "bytes": 2197,
+      "sha256": "d2c688f7df5d10d6e5ead56482df85c66d804e99ce6de75f7755d23af00066b4"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/run_centered_H0_GPU_v1.sbatch",
+      "bytes": 1987,
+      "sha256": "3c6d88d6f168a249ccfd45f267dd1a4264ff2a2d5f7d2cd8f6e5118f4ed55028"
+    }
+  ],
+  "external_refs_verified": 18,
+  "checks": [
+    {
+      "file": "analyze_centered_H0_CPU.py",
+      "status": "AST_PASS"
+    },
+    {
+      "file": "capture_centered_H0.py",
+      "status": "AST_PASS"
+    },
+    {
+      "file": "diagnostic_common.py",
+      "status": "AST_PASS"
+    },
+    {
+      "file": "launch_centered_H0_GPU_v1.py",
+      "status": "AST_PASS"
+    },
+    {
+      "file": "prepare_metadata.py",
+      "status": "AST_PASS"
+    },
+    {
+      "file": "run_centered_H0_CPU_v1.sbatch",
+      "status": "BASH_N_PASS"
+    },
+    {
+      "file": "run_centered_H0_GPU_v1.sbatch",
+      "status": "BASH_N_PASS"
+    }
+  ],
+  "read_only_diffs": [
+    {
+      "old": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/capture_fixed_h0_v1.py",
+        "bytes": 15165,
+        "sha256": "ccf532df21b5801bf040a40444c7eb5ea9dc68ed1e16fc84357b49193d8d1db9"
+      },
+      "new": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/capture_centered_H0.py",
+        "bytes": 16521,
+        "sha256": "20162ac2a8e8c67772eb7922510f599ac89891950c54e5149003956716715732"
+      },
+      "diff": "diff --git a/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/capture_fixed_h0_v1.py b/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/capture_centered_H0.py\nindex 00fbfab..5493b3e 100755\n--- a/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v2_source/capture_fixed_h0_v1.py\n+++ b/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/capture_centered_H0.py\n@@ -1,5 +1,5 @@\n #!/usr/bin/env python3\n-\"\"\"Fresh all48 same-forward bank-input capture, never1435-H0 or model acceptance.\"\"\"\n+\"\"\"Fresh centered all48 H0; derived frozen1492 hooks, never1776 hidden H0 or acceptance.\"\"\"\n from __future__ import annotations\n import argparse\n from dataclasses import asdict\n@@ -10,7 +10,7 @@ import subprocess\n import sys\n import traceback\n \n-from shadow_common import (HERE, FIELDS, INPUT_CAP, STATE_BYTES, InputBudget, bound, load_file,\n+from diagnostic_common import (HERE, FIELDS, INPUT_CAP, STATE_BYTES, InputBudget, bound, load_file,\n     metadata_selfcheck, ref, require, save_plain, source_snapshot, state_arrays,\n     tensor_state_identity, verify_publication)\n \n@@ -30,7 +30,7 @@ def main():\n     parser.add_argument('--admit-only', action='store_true')\n     args = parser.parse_args()\n     request = bound({**ref(args.request), 'sha256': args.request_sha256})\n-    require(request['schema'] == 'model_v3_fixed_h0_capture_request_v1' and request['expected_case_count'] == 48,\n+    require(request['schema'] == 'model_v3_centered_fixed_H0_capture_GPU_request_v1' and request['expected_case_count'] == 48,\n             'Explicit complete48 capture request required')\n     require(os.environ.get('MODEL_V3_NUMERIC_GPU_REQUEST_SHA') == args.request_sha256\n         and os.environ.get('MODEL_V3_EXPECTED_NODE') == request['node'] == socket.gethostname().split('.')[0]\n@@ -56,10 +56,10 @@ def main():\n         import torch\n         root = Path(request['repository'])\n         require(os.environ.get('PYTHONPATH', '').split(':')[0] == str(root/'current'), 'Single candidate package required')\n-        adapter_path = root/'validation/model_v3_numeric_stability_v1/candidate_composed_adapter.py'\n+        adapter_path = Path(request['centered_adapter']['path'])\n         adapter = load_file(adapter_path, 'fixed_h0_registered_composition_adapter')\n         equation = adapter.load_equation()\n-        from shadow_common import load_npz\n+        from diagnostic_common import load_npz, external_terminal_control, load_shadow\n         probe = budget.npz(out/'TYPED_IO_SELFCHECK.npz', {'x': np.array([[1., -2., 3.]], dtype=np.float32),\n             'i': np.array([0], dtype=np.int64)})\n         decoded = load_npz(probe)\n@@ -72,8 +72,10 @@ def main():\n         require(rejected, 'Typed NPZ corrupt-value metadata must be rejected')\n         budget.json(out/'TYPED_IO_SELFCHECK.json', {'packed': probe, 'roundtrip': True,\n             'allow_pickle': False, 'corrupt_value_rejected': rejected})\n-        from shadow_terminals_v1 import tiny_selfcheck\n+        tiny_selfcheck = load_shadow().tiny_selfcheck\n         budget.json(out/'INLINE_HEAD_MATH_SELFCHECK.json', tiny_selfcheck())\n+        tiny = load_file(Path(request['centered_tiny_controls']['path']), '_fresh_centered_H0_tiny_controls')\n+        budget.json(out/'INLINE_CENTERED_CONTROLS.json', tiny.run())\n         require([s.identity for s in equation.CASE_SPECS] == request['expected_case_ids'], 'Original canonical48 order required')\n         expected_state_total = 12*sum(STATE_BYTES.values())\n         require(expected_state_total == 55838784 and expected_state_total+48*4*44*512*4 < INPUT_CAP,\n@@ -81,10 +83,13 @@ def main():\n         for ordinal, case in enumerate(equation.CASE_SPECS):\n             directory = out/('case_%02d' % ordinal); directory.mkdir()\n             holder, handles = {}, []\n-            original_build = equation.build_composition\n+            restore_build = equation.build_composition\n+            original_build = restore_build\n             def build(spec):\n                 model, registry = original_build(spec)\n                 bank = model.pd_heads\n+                require(parameter_sha_no_grad(equation, model) == request['original1492_parameter_sha256'][spec.identity],\n+                        'Original1492 full parameter identity differs')\n                 arrays, names, extras = state_arrays(bank)\n                 actual_bytes = sum(value.nbytes for value in arrays.values())\n                 require(actual_bytes == STATE_BYTES[spec.head_policy], 'Actual bank tensor size differs: '+str(actual_bytes)+' vs '+str(STATE_BYTES[spec.head_policy]))\n@@ -135,7 +140,8 @@ def main():\n                 return model, registry\n             measured = None\n             try:\n-                with adapter.composition_mode(equation, 'compensated_fp32_v1'):\n+                with adapter.centered_composition(equation, request['original1492_parameter_sha256'][case.identity]):\n+                    original_build = equation.build_composition\n                     equation.build_composition = build\n                     measured = equation.measure_case(case, device='cuda:0', threads=1, terminal_output_directory=directory)\n                 require(len(holder['calls']) == 4 and measured['encoder_forward_shapes'] ==\n@@ -167,6 +173,7 @@ def main():\n                     for field in transform['fields']:\n                         require(field['finite'] and (not field['nonzero_required'] or field['actual_nonzero_rows'] > 0),\n                                 'Finite/nonzero same-forward controls required')\n+                external_control = external_terminal_control(request, case.identity, measured)\n                 packed = budget.npz(directory/'BANK_INPUT_STATE.npz', holder['arrays'])\n                 value = {'schema': 'model_v3_fixed_h0_capture_case_v1', 'case_id': case.identity, 'case': asdict(case),\n                     'packed': packed, 'state_names': holder['names'], 'state_extra': holder['extras'],\n@@ -176,11 +183,15 @@ def main():\n                                          'numeric_mode': 'compensated_fp32_v1', 'pair_chunk_size': 8192},\n                     'calls': holder['calls'], 'transforms': [x['transform'] for x in measured['measurements']],\n                     'same_forward_control': True, 'original_measurement': measured,\n-                    'lineage': 'fresh_capture_not_1435_H0', 'hook_semantics': 'retain refs; copy after original full forward; return original object'}\n+                    'lineage': 'fresh_capture_not_1435_H0',\n+                    'centered_lineage': 'fresh_centered_capture_not_1776_hidden_H0',\n+                    'original1492_parameter_sha256': request['original1492_parameter_sha256'][case.identity],\n+                    'external1776_terminal_control': external_control, 'hook_semantics': 'retain refs; copy after original full forward; return original object'}\n                 case_ref = budget.json(directory/'CAPTURE_CASE.json', value)\n-                rows.append({'case_id': case.identity, 'capture_case': case_ref, 'physics_passed': measured['passed']})\n+                rows.append({'case_id': case.identity, 'capture_case': case_ref, 'physics_passed': measured['passed'],\n+                             'external1776_terminal_control_passed': external_control['passed']})\n             finally:\n-                equation.build_composition = original_build\n+                equation.build_composition = restore_build\n                 for handle in handles: handle.remove()\n                 if 'model' in holder and 'had_override' in holder:\n                     if holder['had_override']: holder['model'].forward_pretrain = holder['previous_override']\n@@ -194,10 +205,14 @@ def main():\n             budget.json(out/'sources_after.json', after); require(after == sources, 'Capture source changed')\n         except BaseException as error:\n             failure = {'earlier': failure, 'source_after': str(error)}\n-        complete = failure is None and len(rows) == 48 and actual_encoder_returns[0] == 192\n+        complete = (failure is None and len(rows) == 48 and actual_encoder_returns[0] == 192\n+                    and all(row['external1776_terminal_control_passed'] for row in rows))\n         manifest = {'schema': 'model_v3_fixed_h0_capture_manifest_v1', 'status': 'CAPTURE_COMPLETE' if complete else 'FAILED',\n             'job_id': os.environ['SLURM_JOB_ID'], 'request': ref(args.request), 'source_pins': ref(HERE/'source_pins_v1.json'),\n-            'lineage': 'fresh_capture_not_1435_H0', 'cases': rows, 'failure': failure,\n+            'lineage': 'fresh_capture_not_1435_H0',\n+            'centered_lineage': 'fresh_centered_capture_not_1776_hidden_H0',\n+            'external1776_terminal_replay_passed': len(rows) == 48 and all(row['external1776_terminal_control_passed'] for row in rows),\n+            'full_FP64_encoder_forwards': 0, 'cases': rows, 'failure': failure,\n             'input_bytes_before_manifest': budget.used, 'input_limit_bytes': INPUT_CAP,\n             'physics_case_passed': sum(r['physics_passed'] for r in rows), 'physics_adoption': False,\n             'encoder_forwards': actual_encoder_returns[0], 'completed_case_encoder_forwards': 4*len(rows),\n"
+    },
+    {
+      "old": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/launch_centered_matrix_GPU_v1.py",
+        "bytes": 16142,
+        "sha256": "df9dbe81b87c928ad63e576c93347be800ac020fe9e3a9da9fb42e6799eea6ef"
+      },
+      "new": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/launch_centered_H0_GPU_v1.py",
+        "bytes": 16144,
+        "sha256": "90b7727348b06bf7ba60f14213e3ccf068bce10bb5fd203d4420c676af200a3e"
+      },
+      "diff": "diff --git a/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/launch_centered_matrix_GPU_v1.py b/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/launch_centered_H0_GPU_v1.py\nindex 29f6c6b..2c3465d 100755\n--- a/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/launch_centered_matrix_GPU_v1.py\n+++ b/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_diagnostic_v1_source/launch_centered_H0_GPU_v1.py\n@@ -25,7 +25,7 @@ GUARD_SHA = 'd3cba6a8610e6bd55fa21873be5c770efbe30be73b7b16d4f1cbdfa6ccb1c193'\n # Final request SHA is obtained only from final source pins after Root commit/QA/publication.\n NODE = 'compute-0-21'\n GPU = 'GPU-c35f2434-9137-9723-1af5-dc69b6295243'\n-PREFIX = 'model_v3_centered_attention_complete48_GPU_launch_'\n+PREFIX = 'model_v3_centered_fixed_H0_capture_GPU_launch_'\n CONTROL_CAP = 2*1024**2\n ENV_PINS = 'MODEL_V3_NUMERIC_GPU_LAUNCH_PINS_SHA'\n FRAME_ENV = 'MODEL_V3_NUMERIC_GPU_ADMISSION_FRAME'\n@@ -67,13 +67,13 @@ def audit(expected):\n     require(expected_request['path'] == str(C4/'execution_request_v1.json'), 'Final request location differs')\n     c4, c4_ref = bounded_json(C4/'execution_request_v1.json', expected_request['sha256'])\n     require(c4_ref == expected_request, 'Final request raw binding differs')\n-    require(c4['schema'] == 'model_v3_centered_attention_complete48_GPU_request_v1'\n+    require(c4['schema'] == 'model_v3_centered_fixed_H0_capture_GPU_request_v1'\n             and c4['expected_case_count'] == 48 and c4['mode'] == 'compensated_fp32_v1'\n             and c4['attention_aggregation_mode'] == 'centered_fp32_v1' and c4['status'] == 'FINAL_BOUND_PUBLIC_EXPERIMENT_REQUEST',\n             'Preregistered full48 numeric request required')\n     for leaf in c4['source_refs']:\n         require(reference(leaf['path']) == leaf, 'Frozen numeric candidate source/dependency drift')\n-    child_spec = importlib.util.spec_from_file_location('numeric_v2_public_blob_metadata_only', C4/'run_centered_matrix.py')\n+    child_spec = importlib.util.spec_from_file_location('numeric_v2_public_blob_metadata_only', C4/'capture_centered_H0.py')\n     child = importlib.util.module_from_spec(child_spec); child_spec.loader.exec_module(child)\n     public_rows = child.verify_publication(c4)\n     selfcheck = child.metadata_selfcheck()\n@@ -85,7 +85,7 @@ def audit(expected):\n             and guard.OUTPUT_BYTES == 2147483648 and guard.WALL_SECONDS == 1100, 'Original1160 limits must remain fixed')\n     inputs = {'node': NODE, 'gpu_uuid': GPU, 'launch_source_pins': pins_ref,\n         'diagnostic_source_pins': c4_ref, 'launch_source': reference(__file__),\n-        'sbatch': reference(HERE/'run_centered_matrix_GPU_v1.sbatch'),\n+        'sbatch': reference(HERE/'run_centered_H0_GPU_v1.sbatch'),\n         'resource_guard': reference(GUARD, GUARD_SHA), 'public_blob_preflight': public_rows, 'metadata_selfcheck': selfcheck}\n     return guard, inputs\n \n@@ -98,7 +98,7 @@ def save(guard, path, value, *, first=False):\n \n def sbatch_argv():\n     return ['sbatch', '--parsable', '--export=ALL', '--nodelist='+NODE,\n-        str(HERE/'run_centered_matrix_GPU_v1.sbatch')]\n+        str(HERE/'run_centered_H0_GPU_v1.sbatch')]\n \n \n def submission_job(guard, submission):\n@@ -178,10 +178,10 @@ def final_output_census(guard, receipt, frame, worker, job):\n     spec = importlib.util.spec_from_file_location('frozen_1160_output_census', monitor_path)\n     monitor = importlib.util.module_from_spec(spec)\n     spec.loader.exec_module(monitor)\n-    output = R/('attention_centered_e2e_GPU_v1_'+job)\n-    sup = R/('attention_centered_e2e_GPU_v1_supervisor_'+job+'.json')\n+    output = R/('centered_fixed_H0_capture_GPU_v1_'+job)\n+    sup = R/('centered_fixed_H0_capture_GPU_v1_supervisor_'+job+'.json')\n     files = [receipt, frame, sup, sup.with_suffix(sup.suffix+'.jsonl'),\n-        sup.with_suffix(sup.suffix+'.storage.json'), R/('attention_centered_e2e_GPU_v1_launch_v1_'+job+'.log')]\n+        sup.with_suffix(sup.suffix+'.storage.json'), R/('centered_fixed_H0_capture_GPU_v1_launch_v1_'+job+'.log')]\n     seen, rows = set(), []\n     total = monitor.owned_output_bytes(output) if output.exists() else 0\n     for path in files:\n@@ -207,7 +207,7 @@ def worker(args, guard, inputs):\n         'Exact original3env assignment required')\n     allocation = guard.actual_allocation_identity()\n     job = allocation['job_id']\n-    path = R/('attention_centered_e2e_GPU_v1_launch_v1_worker_'+job+'.json')\n+    path = R/('centered_fixed_H0_capture_GPU_v1_launch_v1_worker_'+job+'.json')\n     recorder = guard.Recorder()\n     record = {'schema': PREFIX+'worker_v1', 'status': 'PREFLIGHT', 'job_id': job,\n         'started_utc': guard.utc(), 'inputs': inputs, 'actual_allocation_identity': allocation,\n@@ -234,14 +234,14 @@ def worker(args, guard, inputs):\n         lock_proof = guard.actual_public_lock(GPU)\n         require(os.get_inheritable(lock_proof['fd']), 'Public lock must survive supervisor/child lifetime')\n         resource_proof = guard.worker_resource_evidence(recorder, inputs, frame['Root_resources'], allocation)\n-        output = R/('attention_centered_e2e_GPU_v1_'+job)\n-        supervisor = R/('attention_centered_e2e_GPU_v1_supervisor_'+job+'.json')\n+        output = R/('centered_fixed_H0_capture_GPU_v1_'+job)\n+        supervisor = R/('centered_fixed_H0_capture_GPU_v1_supervisor_'+job+'.json')\n         require(not output.exists() and not supervisor.exists(), 'Original fresh-output guard is retained')\n         argv = [str(guard.PYTHON), '-u', '-B', str(B/'MFM_model_v3/tools/model_v3/run_supervised.py'),\n             '--output-root', str(output), '--record', str(supervisor), '--gpu-uuid', GPU,\n             '--wall-seconds', '1100', '--rss-limit-bytes', '30064771072', '--output-budget-bytes', '2147483648',\n             '--private-scratch-root', '/tmp/mv3n_'+job, '--private-storage-budget-bytes', '2147483648', '--',\n-            str(guard.PYTHON), '-u', '-B', str(C4/'run_centered_matrix.py'),\n+            str(guard.PYTHON), '-u', '-B', str(C4/'capture_centered_H0.py'),\n             '--request', str(C4/'execution_request_v1.json'), '--request-sha256', inputs['diagnostic_source_pins']['sha256'],\n             '--output-root', str(output)]\n         record.update(status='PRELAUNCH_ADMITTED', submission_receipt=submission_ref,\n"
+    }
+  ]
+}
