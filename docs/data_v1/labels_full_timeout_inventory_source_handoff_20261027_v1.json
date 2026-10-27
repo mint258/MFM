@@ -1,0 +1,172 @@
+{
+    "schema":  "LABELS_FULL_TIMEOUT_INVENTORY_SOURCE_HANDOFF_V1",
+    "status":  "SOURCE_FINAL_STOPEDIT",
+    "source_count":  8,
+    "scope_key":  "labels_full_timeout_inventory_v1",
+    "plan_schema":  "LABELS_FULL_TIMEOUT_INVENTORY_PLAN_V1",
+    "source_status_stage":  "LABELS_FULL_TIMEOUT_COMMITTED_WINDOW_READONLY_INVENTORY",
+    "module":  "workflows.data_v1_final.labels.full_timeout_inventory_v1.run",
+    "execution_argv":  [
+                           "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+                           "-B",
+                           "-m",
+                           "workflows.data_v1_final.labels.full_timeout_inventory_v1.run",
+                           "--plan",
+                           "ACTUAL_ROOT_PLAN",
+                           "--startup-proof",
+                           "ACTUAL_FRESH_MAIN_PROOF",
+                           "--output",
+                           "NEW_AUDIT_OUTPUT"
+                       ],
+    "resource_contract":  {
+                              "kind":  "analysis",
+                              "pilot":  false,
+                              "node":  "compute-0-17",
+                              "cpus":  16,
+                              "memory_policy":  "SLURM_DEFAULT_UNSPECIFIED",
+                              "wall_seconds":  1800,
+                              "new_output_cap_bytes":  2147483648,
+                              "details_cap_bytes":  134217728,
+                              "book_metadata_cap_bytes":  33554432,
+                              "observer_cap_bytes":  67108864,
+                              "old_data_copied":  false,
+                              "all_other_future_storage_caps_explicit_Root_review_required":  true,
+                              "quota_reserve_bytes":  200000000000,
+                              "forced_signals":  false,
+                              "automatic_retry":  false
+                          },
+    "actual_original_parent":  {
+                                   "job_id":  "4521904",
+                                   "state":  "TIMEOUT",
+                                   "exit_code":  "0:0",
+                                   "elapsed_raw_seconds":  14412,
+                                   "alloc_cpus":  16,
+                                   "allocated_core_seconds":  230592,
+                                   "node":  "compute-0-17",
+                                   "original_parent_c0":  false,
+                                   "batch_step":  "CANCELLED/0:15/14413s",
+                                   "extern_step":  "COMPLETED/0:0",
+                                   "missing_worker04_13_not_zero_commits":  true,
+                                   "small_actual_evidence_references":  [
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/labels1904_actual_TIMEOUT_lstat_metadata_for_readonly_inventory_v1.json",
+                                                                                "bytes":  7474,
+                                                                                "sha256":  "fe377b831159a3abe0f3821656e4994f05c34ea8d1d769dd6a98c1bb9f159eda"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/accounting/labels_full_first_batch1904_actual_TIMEOUT_v1.json",
+                                                                                "bytes":  1050,
+                                                                                "sha256":  "2e9e398c98f376c74f8a59bac0f7695d86f65599647ae57716e5a6dfe9a02e77"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/accounting/labels_full_first_batch1904_actual_TIMEOUT_v1.sacct.txt",
+                                                                                "bytes":  209,
+                                                                                "sha256":  "8159ed88aab4a12f1e02d9a02be20644d1fe35ccc23a4364e21219358a5a8af6"
+                                                                            }
+                                                                        ]
+                               },
+    "fixture_contract":  {
+                             "count":  3,
+                             "phase":  "FRESH_CPU_AFTER_GUARD_BEFORE_ANY_OLD_DATA",
+                             "test_class":  "TimeoutInventoryBoundaries",
+                             "actual_run_by_child":  false,
+                             "actual_pass_not_claimed":  true,
+                             "methods":  [
+                                             "test_timeout_zero_exit_never_old_C0_and_forged_parent_rejected",
+                                             "test_commit_receipt_cursor_conservation_conflict_and_missing_part",
+                                             "test_uncommitted_partial_orphan_never_completed"
+                                         ]
+                         },
+    "reuse":  {
+                  "copied_scientific_functions":  [
+
+                                                  ],
+                  "monkeypatches":  [
+
+                                    ],
+                  "direct_frozen_objects":  [
+                                                "lossless_projection_pilot_v1.projection.verify_cache_row",
+                                                "full_projection_v1.coverage.sidecar_row",
+                                                "streaming_v1.compact.unpack",
+                                                "bounded_projection_v1.parts.slices"
+                                            ],
+                  "quality_threshold_changes":  false,
+                  "new_UFF_QM":  0,
+                  "original_code_edited":  false,
+                  "source_AST_or_tests_run_by_child":  false
+              },
+    "limitations":  [
+                        "First CPU observed DB/part hashes are not original producer hashes. Known14 worker DATA SHA are inherited from actual Root metadata and independently CPU-checked.",
+                        "Read-only SQLite refuses any journal/wal/shm; no immutable bypass, rollback recovery, Ledger/DispatchBook constructor or old-file write.",
+                        "Portable inode/size/mtime/ctime/UID/mode/nlink are required; st_dev is recorded as mount-local observation. Current CPU same-fd full frame must remain stable.",
+                        "Deadline or memory pressure may leave unverified windows/files and uncompleted final stable-book rehash. Actual per-window progress and pending evidence are persisted, not called all closed.",
+                        "Invariant status PARTIAL_TIMEOUT_EVIDENCE_NOT_OLD_C0. CPU audit C0 is not old C0, dispatcher acceptance, full quality, masks, normalization or population release.",
+                        "New source only. Root must review actual pins and all storage caps, run actual three tests and allocation. Future dispatcher recovery is not implemented or authorized."
+                    ],
+    "metadata_cli":  {
+                         "candidate":  "PY -B -m workflows.data_v1_final.labels.full_timeout_inventory_v1.metadata candidate --post-terminal-metadata ACTUAL_LSTAT_JSON --resource-authority ACTUAL_MAIN_CPU_AUTHORITY --other-storage-cap-bytes ROOT_REVIEWED_ALL_OTHER_CAPS --metadata-directory NEW_CONTROL_DIR --output NEW_AUDIT_OUTPUT",
+                         "finalize":  "PY -B -m workflows.data_v1_final.labels.full_timeout_inventory_v1.metadata finalize --candidate-directory ACTUAL_CANDIDATE_DIR --root-scope-review ACTUAL_SIGNED_REVIEW",
+                         "helper_does_not_approve_or_submit":  true,
+                         "central":  "Existing cpu_auto_memory_queue_v2, no new scheduler",
+                         "known_DATA_refs":  "14 actual worker references",
+                         "deferred_authority":  "Exactly generated small closed_locator_inventory_reference, derived from original fixed output/request/submission/proof/account/raw and Root post-terminal lstat"
+                     },
+    "files":  [
+                  {
+                      "child_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/__init__.py",
+                      "root_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/__init__.py",
+                      "root_linux_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/full_timeout_inventory_v1/__init__.py",
+                      "bytes":  73,
+                      "sha256":  "beeafefb47ff543cf4be57b85b272fe6ae989fd3d0585fc8e4c32ea8e720f071"
+                  },
+                  {
+                      "child_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/contract.py",
+                      "root_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/contract.py",
+                      "root_linux_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/full_timeout_inventory_v1/contract.py",
+                      "bytes":  7560,
+                      "sha256":  "54da7be86efcd4f0cbebe18075e59735fcdc3857958ede939f0f68f71edc1468"
+                  },
+                  {
+                      "child_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/inventory.py",
+                      "root_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/inventory.py",
+                      "root_linux_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/full_timeout_inventory_v1/inventory.py",
+                      "bytes":  11929,
+                      "sha256":  "782712c987d8b8ebef52bcd512ad918b5548016cc58cec6b51a3958f3a9e2dea"
+                  },
+                  {
+                      "child_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/io.py",
+                      "root_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/io.py",
+                      "root_linux_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/full_timeout_inventory_v1/io.py",
+                      "bytes":  7464,
+                      "sha256":  "80e64a7a7282da9f6c4787a7cb716a5664a6c01b41a206451d6f6aefbd425645"
+                  },
+                  {
+                      "child_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/metadata.py",
+                      "root_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/metadata.py",
+                      "root_linux_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/full_timeout_inventory_v1/metadata.py",
+                      "bytes":  9480,
+                      "sha256":  "0b3d141fd7c4daaef3d88e9dfd436e899f6c3338cc755252bcd2e0acd59fb8e6"
+                  },
+                  {
+                      "child_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/README.md",
+                      "root_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/README.md",
+                      "root_linux_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/full_timeout_inventory_v1/README.md",
+                      "bytes":  8376,
+                      "sha256":  "e72707af31bae25dc574fc438c93a63f3f9d14b7b3bf76b7ae83c8515cff5a47"
+                  },
+                  {
+                      "child_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/run.py",
+                      "root_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/run.py",
+                      "root_linux_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/full_timeout_inventory_v1/run.py",
+                      "bytes":  18166,
+                      "sha256":  "a3caaacab5f6780815e50a9189d8464e10a39c201297e7626929e0e12e49d2cd"
+                  },
+                  {
+                      "child_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/test_inventory.py",
+                      "root_relative_path":  "workflows/data_v1_final/labels/full_timeout_inventory_v1/test_inventory.py",
+                      "root_linux_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/full_timeout_inventory_v1/test_inventory.py",
+                      "bytes":  4518,
+                      "sha256":  "eb05226994c91768840e29003f57fc0f907a4c752f2ccef522a0c89b0dbddf04"
+                  }
+              ]
+}

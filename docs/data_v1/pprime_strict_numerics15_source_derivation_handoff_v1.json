@@ -1,0 +1,123 @@
+{
+    "schema":  "SB4_PPRIME_STRICT_NUMERICS15_PROPOSAL_SOURCE_HANDOFF_V1",
+    "status":  "PROPOSED_USER_APPROVAL_PENDING_NOT_DEPLOYED_OR_EXECUTED",
+    "source_namespace":  "workflows/data_v1_final/pprime/strict_numerics_qa_proposal_v1",
+    "new_pure_source_files":  4,
+    "new_proposed_protocol_files":  1,
+    "user_approval_reference":  null,
+    "original_protocol_reference":  {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+                                        "bytes":  18720,
+                                        "sha256":  "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+                                    },
+    "proposed_protocol_local_reference":  {
+                                              "path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\configs\\data_v1\\pprime\\strict_numerics15_qa_v1_protocol_proposed.json",
+                                              "bytes":  19218,
+                                              "sha256":  "f72bb07780b28026df5931478b50495d3cb4d75fe5edecac7593b90af9356302"
+                                          },
+    "proposed_protocol_Root_destination":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/pprime/strict_numerics15_qa_v1_protocol_proposed.json",
+    "Root_protocol_destination_not_yet_installed":  true,
+    "actual_source_metadata_inverse_check":  {
+                                                 "method":  "PowerShell small source JSON copy; undo exact3 edited fields; normalized JSON strings compared",
+                                                 "inverse_restored_entire_object_equals_original":  true,
+                                                 "Python_AST_or_synthetic_test_execution":  false,
+                                                 "scientific_or_native_computation":  false
+                                             },
+    "fixed_changes":  [
+                          {
+                              "task":  "pm7_B",
+                              "field":  "keywords",
+                              "append":  " SCFCRT=1.D-9"
+                          },
+                          {
+                              "task":  "xtb_singlepoint",
+                              "field":  "args",
+                              "append":  [
+                                             "--acc",
+                                             "0.01"
+                                         ]
+                          },
+                          {
+                              "task":  "xtb_perturbed_gradient",
+                              "field":  "args",
+                              "append":  [
+                                             "--acc",
+                                             "0.01"
+                                         ]
+                          }
+                      ],
+    "other_nine_tasks_unchanged_unexecuted":  true,
+    "proposed_scope":  {
+                           "original_source_cases":  [
+                                                         "case-054",
+                                                         "case-055",
+                                                         "case-058",
+                                                         "case-059",
+                                                         "case-060",
+                                                         "case-061"
+                                                     ],
+                           "molecule_id":  "molecule_01200493",
+                           "conditions":  [
+                                              "pm7_B",
+                                              "xtb_perturbed_gradient",
+                                              "xtb_singlepoint_noisy_companion"
+                                          ],
+                           "arms":  [
+                                        "B1",
+                                        "B2",
+                                        "R1",
+                                        "P1",
+                                        "P2"
+                                    ],
+                           "maximum_new_QM_calls":  15,
+                           "maximum_native_workers":  15,
+                           "cpus":  16,
+                           "memory_policy":  "SLURM_DEFAULT_UNSPECIFIED",
+                           "exclusive":  false,
+                           "maximum_wall_seconds":  7200,
+                           "per_call_timeout_seconds":  900,
+                           "whole_output_cap_bytes":  2147483648,
+                           "raw_cap_per_call_bytes":  16777216,
+                           "result_cap_per_call_bytes":  8388608,
+                           "quota_reserve_bytes":  200000000000,
+                           "native_threads":  1,
+                           "automatic_retry":  false,
+                           "old_once_claims_reused_or_cleared":  false
+                       },
+    "unchanged":  {
+                      "methods":  "PM7/GFN2",
+                      "expected_versions":  {
+                                                "xtb":  "6.7.1",
+                                                "mopac":  "23.0.3"
+                                            },
+                      "seed":  20261010,
+                      "sigma_A":  0.1,
+                      "actual_geometry_tokens_and_atom_order":  true,
+                      "quality_tolerances_masks_and_original_return_states":  true,
+                      "AUX_precision":  6,
+                      "xTB_temperature_restart_or_iteration_overrides_added":  false,
+                      "original_programs_and_binaries":  true,
+                      "production_protocol_original_bytes":  true,
+                      "original15FAIL":  true,
+                      "full_or2000_release":  "HOLD"
+                  },
+    "interface_static_audit":  {
+                                   "engine":  "Frozen load_protocol/initialize_worker accepts independent protocol dict/path; original NATIVE.invoke directly uses task keywords/args",
+                                   "new_scientific_seam":  "Explicit proposed QA protocol fork only",
+                                   "new_invoke_wrapper_or_monkeypatch_required":  false,
+                                   "existing_execute_py_may_be_resubmitted":  false,
+                                   "execution_entrypoint_in_this_package":  false,
+                                   "user_must_approve_before_any_native_init_or_call":  true
+                               },
+    "primary_sources":  [
+                            "https://openmopac.net/Manual/scfcrt.html",
+                            "https://openmopac.net/Manual/scf_test.html",
+                            "https://xtb-docs.readthedocs.io/en/latest/sp.html"
+                        ],
+    "three_pure_tests_executed":  false,
+    "new_QM_or_Slurm_or_startup_proof_or_claim_created":  false,
+    "not_a_repair_or_SCF_cause_claim":  true,
+    "any_FAIL_or_UNKNOWN":  "REPORT_HOLD_NO_SCOPE_EXPANSION",
+    "if_all15_pass":  "Separate Root review before20-molecule all12-task plus original rotation QA; no automatic production/full release",
+    "handoff_to_Root":  "Install/review source and proposed config; metadata draft may consume --candidate-protocol to preserve exact candidate bytes; then one explicit user decision for this15-call scope only"
+}

@@ -1,0 +1,317 @@
+{
+    "schema":  "SPRIME_CPU17_LIMITED_SOURCE_INVERSE_MANIFEST_V1",
+    "scientific_sources_copied_or_changed":  false,
+    "files":  [
+                  {
+                      "target":  "contract.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_v3/contract.py",
+                                     "bytes":  14390,
+                                     "sha256":  "f8a9ecb744d47808baf4eaed60449ff41d89380a8cfc30d0cc1c480b4b70aaf5"
+                                 },
+                      "edits":  [
+                                    {
+                                        "old":  "\u0027wave_review\u0027:\u0027SPRIME_FORMAL_CPU_ROOT_REVIEW_V3\u0027",
+                                        "new":  "\u0027wave_review\u0027:\u0027ROOT_SPRIME_NODE17_FINITE_WAVE_REVIEW_V1\u0027",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "job[\u0027node\u0027]==\u0027compute-0-13\u0027",
+                                        "new":  "job[\u0027node\u0027]==\u0027compute-0-17\u0027 and job[\u0027batch_id\u0027] in MIGRATABLE",
+                                        "count":  1
+                                    }
+                                ],
+                      "append":  "\n# Independent fixed-node resource context. Original scientific constants remain above.\nNODE=\u0027compute-0-17\u0027\nMIGRATABLE=tuple(\u0027batch-%05d\u0027%i for i in range(96,180))\nFUTURE=MIGRATABLE[1:]\nFILES=(\u0027__init__.py\u0027,\u0027contract.py\u0027,\u0027runtime_io.py\u0027,\u0027run_batch.py\u0027,\u0027prepare_batch.py\u0027,\u0027mapping.py\u0027,\u0027close_index.py\u0027,\u0027close.py\u0027,\n \u0027quota_edge.py\u0027,\u0027probe.py\u0027,\u0027compat16.py\u0027,\u0027metadata.py\u0027,\u0027controller.py\u0027,\u0027capacity_gate.py\u0027,\u0027recovery.py\u0027,\u0027source_proof.py\u0027,\n \u0027test_binding.py\u0027,\u0027frozen_sources.json\u0027,\u0027root_review_schemas.json\u0027,\u0027adaptation_manifest.json\u0027,\u0027README.md\u0027)\nORIGINAL=REPO/\u0027workflows/data_v1_final/conformers/formal_cpu_auto_v3\u0027\nMODULE=\u0027workflows.data_v1_final.conformers.sprime_cpu17_resource_v1\u0027\nPROBE_CAP=128\u003c\u003c20;QA_CAP=2\u003c\u003c30;QA_WALL=7800\nWAVE_RESERVE=182*CAP\n\n\ndef own_sources():\n    source_pinned({\u0027path\u0027:str(EMPTY_SOURCE_PATH),\u0027bytes\u0027:0,\u0027sha256\u0027:EMPTY_SOURCE_SHA})\n    return [ref(HERE/n) for n in FILES]\n\n\ndef source_inverse_proof():\n    from .source_proof import verify\n    return verify()\n\n\ndef verify_original_science(science):\n    import sys\n    expected=sources()[\u0027science\u0027]\n    need(ref(science.__file__)==expected and pathlib.Path(science.process_task.__code__.co_filename).absolute()==pathlib.Path(expected[\u0027path\u0027])\n      and science.process_task is sys.modules[\u0027science\u0027].process_task,\u0027ACTUAL_ORIGINAL_PROCESS_TASK_CALLABLE_REQUIRED\u0027)\n    return expected\n\n\ndef future_slot(slot):\n    need(slot[\u0027batch_id\u0027] in MIGRATABLE and slot[\u0027node\u0027]==NODE and slot[\u0027cpus\u0027]==16 and slot[\u0027wall_seconds\u0027]==28800\n      and slot[\u0027memory_policy\u0027]==\u0027SLURM_DEFAULT_UNSPECIFIED\u0027 and slot[\u0027whole_output_cap_bytes\u0027]==CAP,\u0027EXACT_REMAINING_NODE17_SCIENCE_SLOT\u0027)\n    return slot\n\n# Revision2: SOURCE-only empty imported package support. DATA triple() stays positive.\nEMPTY_SOURCE_SHA=\u0027e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\u0027\nEMPTY_SOURCE_PATH=REPO/\u0027workflows/data_v1_final/conformers/portable_secondary_uff_v1/__init__.py\u0027\n\n\ndef source_triple(value):\n    need(isinstance(value,dict) and {\u0027path\u0027,\u0027bytes\u0027,\u0027sha256\u0027}\u003c=set(value),\u0027SOURCE_REFERENCE_REQUIRED\u0027)\n    result={k:value[k] for k in (\u0027path\u0027,\u0027bytes\u0027,\u0027sha256\u0027)}\n    if type(result[\u0027bytes\u0027]) is int and result[\u0027bytes\u0027]\u003e0:return triple(result)\n    p=pathlib.PurePosixPath(result[\u0027path\u0027]) if isinstance(result[\u0027path\u0027],str) else None\n    need(type(result[\u0027bytes\u0027]) is int and result[\u0027bytes\u0027]==0 and result[\u0027sha256\u0027]==EMPTY_SOURCE_SHA\n      and p is not None and p.is_absolute() and str(p)==result[\u0027path\u0027] and \u0027..\u0027 not in p.parts\n      and not any(c in result[\u0027path\u0027] for c in (\u0027\\x00\u0027,\u0027\\n\u0027,\u0027\\r\u0027)) and p.name==\u0027__init__.py\u0027\n      and pathlib.PurePosixPath(str(REPO)) in p.parents,\u0027ONLY_EXACT_EMPTY_SOURCE_INIT_NO_ZERO_DATA\u0027)\n    return result\n\n\ndef empty_source_frame(before,after):\n    import stat\n    keys=(\u0027st_dev\u0027,\u0027st_ino\u0027,\u0027st_mode\u0027,\u0027st_nlink\u0027,\u0027st_size\u0027,\u0027st_mtime_ns\u0027,\u0027st_ctime_ns\u0027,\u0027st_uid\u0027)\n    need(stat.S_ISREG(before.st_mode) and before.st_uid==1278 and before.st_size==0\n      and tuple(getattr(before,k) for k in keys)==tuple(getattr(after,k) for k in keys),\u0027EMPTY_SOURCE_REGULAR_UID_FRAME_CHANGED\u0027)\n    return tuple(getattr(after,k) for k in keys)\n\n\ndef source_pinned(value):\n    reference=source_triple(value)\n    if reference[\u0027bytes\u0027]\u003e0:return pinned(reference,2\u003c\u003c20)\n    path=pathlib.Path(reference[\u0027path\u0027])\n    need(not any(p.is_symlink() for p in (path,*path.parents)),\u0027EMPTY_SOURCE_NO_SYMLINKS\u0027)\n    original=path.lstat()\n    with path.open(\u0027rb\u0027) as stream:\n        before=os.fstat(stream.fileno());empty_source_frame(original,before)\n        raw=stream.read(1);after=os.fstat(stream.fileno());empty_source_frame(before,after)\n    need(raw==b\u0027\u0027 and hashlib.sha256(raw).hexdigest()==reference[\u0027sha256\u0027],\u0027EMPTY_SOURCE_ACTUAL_BYTES_SHA_CHANGED\u0027)\n    empty_source_frame(original,path.lstat())\n    need(not any(p.is_symlink() for p in (path,*path.parents)),\u0027EMPTY_SOURCE_NO_SYMLINKS\u0027)\n    return path"
+                  },
+                  {
+                      "target":  "runtime_io.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_v3/runtime_io.py",
+                                     "bytes":  22298,
+                                     "sha256":  "be42f5033ee3fd9fe95da09e8b8efb8ca1dedb711a3766049380b0ed5d7ea300"
+                                 },
+                      "edits":  [
+                                    {
+                                        "old":  "FILES=(\u0027__init__.py\u0027,\u0027contract.py\u0027,\u0027runtime_io.py\u0027,\u0027plan.py\u0027,\u0027prepare_batch.py\u0027,\u0027run_batch.py\u0027,\u0027finalize.py\u0027,\n    \u0027identity.py\u0027,\u0027close_index.py\u0027,\u0027test_contract.py\u0027,\u0027README.md\u0027,\u0027frozen_sources.json\u0027,\u0027root_review_schemas.json\u0027)",
+                                        "new":  "FILES=C.FILES",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "def quota_reuse(reference,refs):\n    review=C.read(reference)\n    C.need(review[\u0027schema\u0027]==\u0027SPRIME_MAIN_ACCOUNT_QUOTA_REUSE_ROOT_REVIEW_V3\u0027\n        and review[\u0027status\u0027]==\u0027APPROVED_RESOURCE_FACT_REUSE_ONLY\u0027 and review[\u0027reviewer\u0027]==\u0027root\u0027\n        and review[\u0027uid\u0027]==1278 and review[\u0027endpoint\u0027]==\u0027202.38.247.57:22\u0027 and review[\u0027compute_node\u0027]==\u0027compute-0-13\u0027\n        and review[\u0027provider_source_reference\u0027]==refs[\u0027quota_provider\u0027]\n        and review[\u0027scientific_authority_is_separate\u0027] is True and review[\u0027N1_population_authority_is_not_Sprime_authority\u0027] is True,\n        \u0027SEPARATE_ROOT_REVIEW_OF_RESOURCE_METADATA_ONLY_REUSE_REQUIRED\u0027)\n    from workflows.data_v1_final.conformers.n1_pprime2_pilot_v4 import quota_provider as Q\n    C.need(C.ref(Q.__file__)==refs[\u0027quota_provider\u0027],\u0027FROZEN_READONLY_QUOTA_CLIENT_CHANGED\u0027)\n    provider_review=review[\u0027provider_review_reference\u0027];resources=Q.references(provider_review)\n    if review.get(\u0027provider_actual_launch_reference\u0027) is not None:\n        C.read(review[\u0027provider_actual_launch_reference\u0027]);resources.append(review[\u0027provider_actual_launch_reference\u0027])\n    C.need(type(review[\u0027whole_wave_output_reserve_bytes\u0027]) is int and review[\u0027whole_wave_output_reserve_bytes\u0027]\u003e=C.CAP,\n        \u0027WHOLE_WAVE_OUTPUT_PLUS_PROVIDER_RESERVE_REQUIRED\u0027)\n    return review,Q,[reference,*resources]\n\n\n",
+                                        "new":  "def quota_reuse(reference,refs):\n    from . import quota_edge as Q17\n    return Q17.quota_reuse(reference,refs)\n\n\n",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "\u0027compute-0-13\u0027",
+                                        "new":  "\u0027compute-0-17\u0027",
+                                        "count":  2
+                                    },
+                                    {
+                                        "old":  "\u0027sprime_formal_cpu_auto_v3_\u0027",
+                                        "new":  "\u0027sprime_cpu17_resource_v1_\u0027",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "Q.Client(reuse[\u0027provider_review_reference\u0027],proof[\u0027request\u0027])",
+                                        "new":  "Q.Client(reuse[\u0027node17_binding_reference\u0027],proof[\u0027request\u0027])",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "PROOF=proof;SESSION=session;VALUE=value",
+                                        "new":  "PROOF=proof;SESSION=session;VALUE=value\n    if stage==\u0027run\u0027:Q.authorize_execution(reuse,proof[\u0027request\u0027])",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "science=C.module(\u0027science\u0027,refs[\u0027science\u0027]);science.worker_init(value[\u0027recipe_config\u0027][\u0027path\u0027])",
+                                        "new":  "science=C.module(\u0027science\u0027,refs[\u0027science\u0027]);science.worker_init(value[\u0027recipe_config\u0027][\u0027path\u0027]);C.verify_original_science(science)",
+                                        "count":  1
+                                    }
+                                ]
+                  },
+                  {
+                      "target":  "run_batch.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_v3/run_batch.py",
+                                     "bytes":  9171,
+                                     "sha256":  "dccd15c044df06bee10a4ed74bdd732cb4e6b7b40f068bb2b984c66bf385b86d"
+                                 },
+                      "edits":  [
+                                    {
+                                        "old":  "workflows.data_v1_final.conformers.formal_cpu_auto_v3",
+                                        "new":  "workflows.data_v1_final.conformers.sprime_cpu17_resource_v1",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "\u0027compute-0-13\u0027",
+                                        "new":  "\u0027compute-0-17\u0027",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "    slot,concurrency=validate_slot(plan,proof,args.output)",
+                                        "new":  "    from workflows.data_v1_final.conformers.sprime_cpu17_resource_v1.quota_edge import authorize_wave\n    authorize_wave(plan[\u0027root_review\u0027],R.SESSION[\u0027quota_reuse_review_reference\u0027])\n    slot,concurrency=validate_slot(plan,proof,args.output)",
+                                        "count":  1
+                                    }
+                                ]
+                  },
+                  {
+                      "target":  "prepare_batch.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_prepare_mapping_v1/prepare_batch.py",
+                                     "bytes":  5419,
+                                     "sha256":  "010c11d9da9b3e92918590a08310703e36e7e414a8a57a1062cec65bb41fc63f"
+                                 },
+                      "edits":  [
+                                    {
+                                        "old":  "from workflows.data_v1_final.conformers.formal_cpu_auto_v3 import contract as C,runtime_io as R",
+                                        "new":  "from workflows.data_v1_final.conformers.sprime_cpu17_resource_v1 import contract as C,runtime_io as R",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "from workflows.data_v1_final.conformers.formal_cpu_auto_prepare_mapping_v1 import mapping as M",
+                                        "new":  "from workflows.data_v1_final.conformers.sprime_cpu17_resource_v1 import mapping as M",
+                                        "count":  1
+                                    }
+                                ]
+                  },
+                  {
+                      "target":  "mapping.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_prepare_mapping_v1/mapping.py",
+                                     "bytes":  5696,
+                                     "sha256":  "6598efec72ccc4bb20c11dd4f592c1973870e082ba0c48025dd39939b169a705"
+                                 },
+                      "edits":  [
+                                    {
+                                        "old":  "workflows.data_v1_final.conformers.formal_cpu_auto_v3",
+                                        "new":  "workflows.data_v1_final.conformers.sprime_cpu17_resource_v1",
+                                        "count":  3
+                                    },
+                                    {
+                                        "old":  "def source_proof():\n C.need(C.ref(ORIGINAL) in C.sources().values() or C.ref(ORIGINAL)[\u0027sha256\u0027]==\u0027b7d6feec05de79b0e40d6a3c0092ea07a5bdf5725ec1063f8115641e180ffa82\u0027,\u0027FROZEN_ORIGINAL_PREPARE_REQUIRED\u0027)\n C.need((HERE/\u0027prepare_batch.py\u0027).read_text()==transform(ORIGINAL.read_text()),\u0027ONLY_EXPLICIT_PREPARE_MOUNT_CALLSITE_ADAPTATION_ALLOWED\u0027)\n\n",
+                                        "new":  "def source_proof():\n from .source_proof import verify\n return verify()\n\n\n",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "def formal_source(value,proof,review_path):\n review_ref=R.input_ref(pathlib.Path(proof[\u0027request\u0027][\u0027startup_proof_path\u0027]),review_path);review=C.read(review_ref)\n C.need(review[\u0027schema\u0027]==\u0027ROOT_SPRIME_NODE13_SOURCE_MOUNT_MAPPING_V1\u0027 and review[\u0027status\u0027]==\u0027APPROVED_EXACT_CANONICAL_SOURCE_MAPPING\u0027 and review[\u0027reviewer\u0027]==\u0027root\u0027 and review[\u0027endpoint\u0027]==\u0027202.38.247.57:22\u0027 and review[\u0027uid\u0027]==1278 and review[\u0027node\u0027]==proof[\u0027node\u0027]==\u0027compute-0-13\u0027,\u0027EXPLICIT_ROOT_SAME_STORAGE_APPROVAL_REQUIRED\u0027)\n C.need(review[\u0027formal_source_receipt\u0027]==value[\u0027formal_source_receipt\u0027] and review[\u0027canonical_reference\u0027]==EXPECTED,\u0027ONLY_ORIGINAL_CANONICAL_SOURCE_MAPPING\u0027)\n refs=[review[k] for k in (\u0027formal_source_receipt\u0027,\u0027prior_cpu_source_validation\u0027,\u0027same_storage_mapping\u0027,\u0027quota_provider_review\u0027)];R.authorized(proof,refs)\n receipt=C.read(review[\u0027formal_source_receipt\u0027]);C.need(receipt[\u0027status\u0027]==\u0027ALL_BOUND_INPUTS_SHA_VERIFIED\u0027,\u0027ORIGINAL_CLOSED_SOURCE_REQUIRED\u0027);row=next(x for x in receipt[\u0027outputs\u0027] if x[\u0027name\u0027]==\u0027formal_population\u0027);reference=row[\u0027reference\u0027];C.need(reference==EXPECTED and row[\u0027after\u0027]==review[\u0027historical_frame\u0027],\u0027HISTORICAL_SOURCE_AUTHORITY_UNCHANGED\u0027)\n validation=C.read(review[\u0027prior_cpu_source_validation\u0027]);prior=[x for x in validation[\u0027inputs\u0027] if x[\u0027reference\u0027]==reference]\n C.need(validation[\u0027status\u0027]==\u0027ALL_ACTUAL_SOURCE_SHA_VERIFIED\u0027 and validation[\u0027runtime\u0027][\u0027job_id\u0027]==\u00274521417\u0027 and len(prior)==1 and prior[0][\u0027actual\u0027]==reference and prior[0][\u0027status\u0027]==\u0027ACTUAL_FULL_SHA_MATCH\u0027 and prior[0][\u0027inode\u0027]==row[\u0027after\u0027][\u0027inode\u0027] and prior[0][\u0027mtime_ns\u0027]==row[\u0027after\u0027][\u0027mtime_ns\u0027] and prior[0][\u0027uid\u0027]==1278,\u0027ACTUAL_NODE13_SAME_INODE_AND_FULL_SHA_EVIDENCE_REQUIRED\u0027)\n R.authorized(proof,[reference]);path=pathlib.Path(reference[\u0027path\u0027]);before=path.stat()\n C.need(source_frame(before)==expected_frame(row[\u0027after\u0027]) and before.st_dev==prior[0][\u0027device\u0027],\u0027CURRENT_NODE13_FRAME_MUST_MATCH_REAL_PRIOR_CPU_MAPPING\u0027)\n C.pinned(reference);after=path.stat();C.need(stable_frame(before)==stable_frame(after),\u0027ENTIRE_CURRENT_FRAME_CHANGED_DURING_FULL_SHA_READ\u0027)\n R.write_json_new(R.OUT/\u0027canonical_source_current_mount_identity.json\u0027,{\u0027schema\u0027:\u0027ACTUAL_CANONICAL_SOURCE_NODE13_MOUNT_VALIDATION_V1\u0027,\u0027reference\u0027:reference,\u0027root_mapping_review\u0027:review_ref,\u0027historical_frame\u0027:row[\u0027after\u0027],\u0027actual_current_frame\u0027:dict(zip((\u0027device\u0027,\u0027inode\u0027,\u0027size\u0027,\u0027mtime_ns\u0027,\u0027uid\u0027),stable_frame(after))),\u0027complete_SHA_verified_on_actual_CPU\u0027:True,\u0027device_translation_only\u0027:True,\u0027original_data_modified\u0027:False})\n return reference\n\n",
+                                        "new":  "def formal_source(value,proof,review_path):\n from .quota_edge import formal_source as mapped\n return mapped(value,proof,review_path)\n\n\n",
+                                        "count":  1
+                                    }
+                                ]
+                  },
+                  {
+                      "target":  "close_index.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_v3/close_index.py",
+                                     "bytes":  15182,
+                                     "sha256":  "8ec4e1add3ffc224f6030d8457f1b2a54605d8d97b291095c70d304be1c3b108"
+                                 },
+                      "edits":  [
+                                    {
+                                        "old":  "\u0027compute-0-13\u0027",
+                                        "new":  "\u0027compute-0-17\u0027",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "\u0027sprime_formal_cpu_auto_v3_run\u0027",
+                                        "new":  "\u0027sprime_cpu17_resource_v1_run\u0027",
+                                        "count":  1
+                                    }
+                                ]
+                  },
+                  {
+                      "target":  "close.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_close_index_v2/run.py",
+                                     "bytes":  3111,
+                                     "sha256":  "3050b03552c39d233b7df12ad78f085c20ad1f644d1af2730c2933bd5a4a6dac"
+                                 },
+                      "edits":  [
+                                    {
+                                        "old":  "workflows.data_v1_final.conformers.formal_cpu_auto_v3",
+                                        "new":  "workflows.data_v1_final.conformers.sprime_cpu17_resource_v1",
+                                        "count":  2
+                                    },
+                                    {
+                                        "old":  "FILES=(\u0027__init__.py\u0027,\u0027admission.py\u0027,\u0027run.py\u0027,\u0027test_admission.py\u0027,\u0027README.md\u0027)",
+                                        "new":  "FILES=C.FILES",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "choices=(\u0027close\u0027,\u0027index\u0027)",
+                                        "new":  "choices=(\u0027close\u0027,)",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "C.ref(C.HERE/\u0027close_index.py\u0027)[\u0027sha256\u0027]==\u00278ec4e1add3ffc224f6030d8457f1b2a54605d8d97b291095c70d304be1c3b108\u0027",
+                                        "new":  "C.source_inverse_proof()[\u0027inverse_bytes_and_AST_equal\u0027] is True",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "from workflows.data_v1_final.conformers.formal_cpu_auto_close_index_v2 import admission as A",
+                                        "new":  "from workflows.data_v1_final.conformers.formal_cpu_auto_close_index_v2 import admission as OLD_A\nfrom . import quota_edge as A",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "from . import quota_edge as A",
+                                        "new":  "from workflows.data_v1_final.conformers.sprime_cpu17_resource_v1 import quota_edge as A",
+                                        "count":  1
+                                    }
+                                ]
+                  },
+                  {
+                      "target":  "frozen_sources.json",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_cpu_auto_v3/frozen_sources.json",
+                                     "bytes":  6003,
+                                     "sha256":  "c20e6478a805de0a4c6511868d2f7a46183726f1a681509a739c1938de496fb1"
+                                 },
+                      "edits":  [
+
+                                ]
+                  },
+                  {
+                      "target":  "recovery.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/sprime_wave2_controller_v4/recovery.py",
+                                     "bytes":  9621,
+                                     "sha256":  "6a22be4f5dc5132d7f7f7923235d718d5dd1535515619222d8bac04154c1d618"
+                                 },
+                      "edits":  [
+                                    {
+                                        "old":  "from workflows.data_v1_final.execution.sprime_wave2_recovery96_v1 import contract as K",
+                                        "new":  "from . import recovery as K",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "from workflows.data_v1_final.conformers.formal_cpu_auto_v3 import contract as F",
+                                        "new":  "from . import contract as F",
+                                        "count":  1
+                                    },
+                                    {
+                                        "old":  "if bid==K.BID:return V.REPO/\u0027workflows/data_v1_final/conformers/formal_cpu_auto_close_index_v2/run.py\u0027",
+                                        "new":  "if bid==K.BID:return F.HERE/\u0027close.py\u0027",
+                                        "count":  1
+                                    },
+                                    {
+                                        "new":  "\u0027ROOT_MAIN17_SPRIME96_ACTUAL_CONTINUATION_ADOPTION_V1\u0027",
+                                        "old":  "\u0027ROOT_SPRIME96_UNSTARTED_CONTINUATION_ADOPTION_MAP_V4\u0027",
+                                        "count":  1
+                                    },
+                                    {
+                                        "new":  "\u0027MAIN17_ORIGINAL_REMAINING_METADATA_BUNDLE_V1\u0027",
+                                        "old":  "\u0027SPRIME96_ORIGINAL500_CONTINUATION_METADATA_V1\u0027",
+                                        "count":  1
+                                    }
+                                ],
+                      "append":  "\n# Explicit resource-only derivation; old failed96 checks remain original.\nfrom workflows.data_v1_final.execution.sprime_wave2_recovery96_v1 import contract as OLD_K\nimport copy\nBID=OLD_K.BID;FAILED_RUN=OLD_K.FAILED_RUN;OLD_CLOSE=OLD_K.OLD_CLOSE;PREPARE=OLD_K.PREPARE\nzero_consumption=OLD_K.zero_consumption\n\n\ndef replacement_slot(old,review):\n    F.need(len(review[\u0027jobs\u0027])==1 and review[\u0027maximum_concurrent_jobs\u0027]==1,\u0027ONE_EXPLICIT96_RESOURCE_SLOT\u0027)\n    new=review[\u0027jobs\u0027][0];F.need(old[\u0027batch_id\u0027]==new[\u0027batch_id\u0027]==BID,\u0027ONLY_OLD96\u0027)\n    allowed={\u0027node\u0027,\u0027job_name\u0027,\u0027output_root\u0027}\n    F.need(set(old)==set(new) and all(old[k]==new[k] for k in old if k not in allowed),\u0027ONLY_EXPLICIT_NODE_NAME_OUTPUT_DELTA\u0027)\n    F.future_slot(new)\n    F.need(new[\u0027job_name\u0027]!=old[\u0027job_name\u0027] and new[\u0027output_root\u0027]!=old[\u0027output_root\u0027],\u0027NEW96_NAME_AND_OUTPUT\u0027)\n    return copy.deepcopy(new)\n\n\ndef derive_plan(original,original_reference,review_reference,review,decision_reference):\n    F.need(len(original[\u0027jobs\u0027])==179 and original[\u0027runtime\u0027][\u0027job_id\u0027]==\u00274521486\u0027\n      and original[\u0027imports320_durably_verified\u0027] is True,\u0027ORIGINAL179_CPU_FREEZE_HISTORY\u0027)\n    ids=[x[\u0027batch_id\u0027] for x in review[\u0027jobs\u0027]]\n    F.need(ids==[BID] or ids==list(F.FUTURE),\u0027ONLY_SINGLE96_OR_REMAINING83_PLAN\u0027)\n    old={x[\u0027batch_id\u0027]:x for x in original[\u0027jobs\u0027]}\n    for slot in review[\u0027jobs\u0027]:\n        F.future_slot(slot);previous=old[slot[\u0027batch_id\u0027]]\n        F.need(set(slot)==set(previous) and all(slot[k]==previous[k] for k in slot if k not in {\u0027node\u0027,\u0027job_name\u0027,\u0027output_root\u0027}),\n          \u0027ONLY_FIXED17_RESOURCE_SLOT_DELTA_NO_TASK_REWRITE\u0027)\n    result=copy.deepcopy(original)\n    result.update(jobs=copy.deepcopy(review[\u0027jobs\u0027]),root_review=review_reference,maximum_concurrent_jobs=review[\u0027maximum_concurrent_jobs\u0027],\n      requested_allocation_core_seconds_ceiling=16*28800*len(ids),\n      resource_node17_derivation={\u0027origin_plan_reference\u0027:original_reference,\u0027root_decision_reference\u0027:decision_reference,\n        \u0027new_CPU_freeze_claimed\u0027:False,\u0027original_runtime4521486_retained\u0027:True,\u0027tasks_changed\u0027:False})\n    reverse=copy.deepcopy(result);reverse.pop(\u0027resource_node17_derivation\u0027)\n    for k in (\u0027jobs\u0027,\u0027root_review\u0027,\u0027maximum_concurrent_jobs\u0027,\u0027requested_allocation_core_seconds_ceiling\u0027):\n        if k in original:reverse[k]=copy.deepcopy(original[k])\n        else:reverse.pop(k,None)\n    F.need(F.canonical(reverse)==F.canonical(original),\u0027INVERSE_PLAN_BYTES_RESTORE_ALL_OLD_METADATA\u0027)\n    return result\n\n\ndef derive_prepared(original,original_reference,plan_reference,decision_reference):\n    F.need(original[\u0027runtime\u0027][\u0027job_id\u0027]==PREPARE and original[\u0027molecules\u0027]==500 and original[\u0027batch\u0027][\u0027batch_id\u0027]==BID,\u0027ORIGINAL96_PREPARE_ONLY\u0027)\n    result=copy.deepcopy(original);result.update(plan=plan_reference,resource_node17_derivation={\n      \u0027origin_prepared_reference\u0027:original_reference,\u0027root_decision_reference\u0027:decision_reference,\u0027new_CPU_prepare_claimed\u0027:False,\n      \u0027old_runtime4521921_CPU13_retained\u0027:True,\u0027task_bytes_changed\u0027:False})\n    reverse=copy.deepcopy(result);reverse.pop(\u0027resource_node17_derivation\u0027);reverse[\u0027plan\u0027]=original[\u0027plan\u0027]\n    F.need(F.canonical(reverse)==F.canonical(original) and result[\u0027tasks\u0027]==original[\u0027tasks\u0027],\u0027INVERSE_HEADER_AND_IDENTICAL_TASK_REFERENCE\u0027)\n    return result\n"
+                  },
+                  {
+                      "target":  "capacity_gate.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/sprime_wave2_controller_v3/capacity_gate.py",
+                                     "bytes":  5447,
+                                     "sha256":  "26fe683f19ddac907d168c3f12f9fd5a26a7c563f35e13a97e3870a330ebd3f1"
+                                 },
+                      "edits":  [
+                                    {
+                                        "old":  "NODE=\u0027compute-0-13\u0027",
+                                        "new":  "NODE=\u0027compute-0-17\u0027",
+                                        "count":  1
+                                    }
+                                ]
+                  },
+                  {
+                      "target":  "controller.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/sprime_wave2_controller_v3/controller.py",
+                                     "bytes":  34459,
+                                     "sha256":  "5b1fba084c62fcddc9cde85c46ca50027a5380e3ab7cdc3eb3ad20c5cb3adbfb"
+                                 },
+                      "origin_start":  "    def registration(self,bid,stage,entry):",
+                      "origin_end":  "    def discover(self):",
+                      "target_start":  "    def _fixed17_registration(self,bid,stage,entry):",
+                      "target_end":  "    def transition(self,bid,stage,stages):",
+                      "edits":  [
+                                    {
+                                        "new":  "    def _fixed17_registration(self,bid,stage,entry):",
+                                        "old":  "    def registration(self,bid,stage,entry):",
+                                        "count":  1
+                                    },
+                                    {
+                                        "new":  "\u0027sprime_cpu17_resource_v1_\u0027",
+                                        "old":  "\u0027sprime_formal_cpu_auto_v3_\u0027",
+                                        "count":  1
+                                    },
+                                    {
+                                        "new":  "\u0027compute-0-17\u0027",
+                                        "old":  "\u0027compute-0-13\u0027",
+                                        "count":  1
+                                    }
+                                ]
+                  },
+                  {
+                      "target":  "controller.py",
+                      "origin":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/sprime_wave2_controller_v3/controller.py",
+                                     "bytes":  34459,
+                                     "sha256":  "5b1fba084c62fcddc9cde85c46ca50027a5380e3ab7cdc3eb3ad20c5cb3adbfb"
+                                 },
+                      "origin_start":  "    def transition(self,bid,stage,stages):",
+                      "origin_end":  "    def _transition_after_resource_gate(self,bid,stage,stages):",
+                      "target_start":  "    def transition(self,bid,stage,stages):",
+                      "target_end":  "    def _transition_after_resource_gate(self,bid,stage,stages):",
+                      "edits":  [
+                                    {
+                                        "old":  "\u0027compute-0-13\u0027",
+                                        "new":  "\u0027compute-0-17\u0027",
+                                        "count":  1
+                                    }
+                                ]
+                  }
+              ],
+    "original_science_reference":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/science.py",
+                                       "bytes":  12865,
+                                       "sha256":  "2476767636d97b2a334dcf1f8b8e789e137a268acc6404ade61b7162690d211f"
+                                   }
+}
