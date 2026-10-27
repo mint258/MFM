@@ -5,7 +5,7 @@ W&B run. Synthetic tests exercise the protocol only, not tracking durability.
 """
 from __future__ import annotations
 
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from copy import deepcopy
 from dataclasses import asdict, dataclass, field
 import hashlib
@@ -139,12 +139,21 @@ def _execution_state(model):
     integration = {name: deepcopy(module.performance_execution_contract)
                    for name, module in model.named_modules() if hasattr(module, "performance_execution_contract")}
     if integration:state["performance_integration"] = integration
+    if hasattr(model, "training_execution_contract"):
+        from .v3_training_execution import validate_training_execution_contract
+        state["training_execution"] = validate_training_execution_contract(model.training_execution_contract)
     json.dumps(state, allow_nan=False)
     return state
 
 
 def _restore_execution(model, state):
     current = _execution_state(model)
+    require(current.get("training_execution") == state.get("training_execution"),
+            "Training execution contract changed before any restore mutation")
+    if "training_execution" in current:
+        from .v3_training_execution import validate_training_execution_state
+        validate_training_execution_state(current["training_execution"], current)
+        validate_training_execution_state(current["training_execution"], state)
     require(current.get("performance_integration", {}) == state.get("performance_integration", {}),
             "Logical-batch/profile execution contract changed before resume")
     require(current["performance_options"] == state["performance_options"],
@@ -169,10 +178,20 @@ class V3StepTrainer:
                  provider, normalizations, weights, tracker, bindings, *, enabled_groups,
                  enabled_fields=None, view_config=StructuralViewConfig(), gradient_clip_norm=1.,
                  gradient_probe_interval=500, probe_samples=4, allow_unit_tracker=False, validation_batch_cap=100000,
-                 max_molecules=512, max_native_atoms=65536, max_padded_cost=8000000):
+                 max_molecules=512, max_native_atoms=65536, max_padded_cost=8000000, training_execution=None):
         require(isinstance(model, V3MultiViewModel), "Canonical S/clean-PD multiview model required")
         _bindings(dict(bindings))
         self.model, self.optimizer, self.scheduler = model, optimizer, scheduler
+        self.training_execution = training_execution
+        self.training_execution_resources = None
+        declared_execution = getattr(model, "training_execution_contract", None)
+        require((training_execution is None) == (declared_execution is None),
+                "An installed training execution requires its same finalized runtime handle")
+        if training_execution is not None:
+            from .v3_training_execution import validate_training_execution_contract
+            require(training_execution.encoder is model.encoder and training_execution.observer is not None
+                and validate_training_execution_contract(training_execution.contract) == declared_execution,
+                "Complete-model training execution was not finalized by the bound adapter")
         self.sampler, self.clock, self.provider = sampler, clock, provider
         self.normalizations, self.weights = dict(normalizations), weights
         self.groups = selected_groups(enabled_groups)
@@ -226,6 +245,7 @@ class V3StepTrainer:
                                    if key not in ("params", "lr", "initial_lr")} for group in optimizer.param_groups]}
         integration_state = _execution_state(model).get("performance_integration")
         if integration_state is not None:self.contract["performance_integration"] = integration_state
+        if training_execution is not None:self.contract["training_execution"] = deepcopy(training_execution.contract)
         self.bindings = {**dict(bindings), "trainer_configuration_sha256": canonical_hash(self.contract),
                          "adapter_sha256": provider.source_sha256,
                          "trainer_source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
@@ -283,10 +303,41 @@ class V3StepTrainer:
             if save is not None:
                 self.provider.load_state_dict(state)
 
+    def _execution_capture(self, role):
+        if self.training_execution is None:
+            return None
+        return self.training_execution.observer.capture_forward(self.model, role=role)
+
+    def _execution_complete(self, snapshot):
+        if snapshot is None:
+            return None
+        require(callable(self.training_execution_resources),
+                "Training execution requires an actual owned runtime resource callback")
+        return self.training_execution.observer.record_completed(snapshot, optimizer=self.optimizer,
+            optimizer_updates=self.clock.optimizer_updates, samples_consumed=self.clock.samples_consumed,
+            resources=self.training_execution_resources())
+
+    def _execution_validation_begin(self, role, count):
+        if self.training_execution is not None:
+            populations = self.training_execution.workload_binding['data']['validation_population_bindings']
+            self.training_execution.observer.begin_validation(role, batch_count=count,
+                population_binding=populations[role])
+
+    def _execution_validation_complete(self, role):
+        if self.training_execution is not None:
+            self.training_execution.observer.complete_validation(role)
+
     def _forward_loss(self, batch):
         # Selective backbone bf16, when configured, is implemented inside the
         # bound performance model. Geometry/heads/loss stay outside autocast.
-        with torch.autocast(device_type=self.device.type, enabled=False):
+        if self.training_execution is None:
+            execution_context = nullcontext()
+        else:
+            from .v3_training_execution import training_execution_context
+            execution_context = training_execution_context(self.training_execution)
+        observer_context = (nullcontext() if self.training_execution is None else
+            self.training_execution.observer.forward_context(self.model, role=batch.role))
+        with execution_context, observer_context, torch.autocast(device_type=self.device.type, enabled=False):
             prediction = self.model.forward_pretrain(batch.views, enabled_groups=self.groups, enabled_fields=self.fields,
                 pair_indices=batch.pair_indices, prediction_offsets=batch.prediction_offsets)
             loss = self.model.compute_loss(prediction, batch.views, batch.pd_targets, self.normalizations,
@@ -388,6 +439,7 @@ class V3StepTrainer:
         self.optimizer.zero_grad(set_to_none=True)
         lr_used = [float(group["lr"]) for group in self.optimizer.param_groups]
         prediction, loss = self._forward_loss(batch)
+        execution_snapshot = self._execution_capture("TRAIN")
         # Population/metric validation must also precede the numerical update.
         tables = self._tables(prediction, batch)
         metrics = self._field_metrics(*tables, loss)
@@ -426,6 +478,8 @@ class V3StepTrainer:
         runtime["segment_samples"] = runtime.pop("samples_consumed")
         runtime["segment_initial_samples"] = self.segment_initial_samples
         row.update({"runtime/" + key: value for key, value in runtime.items()})
+        execution_row = self._execution_complete(execution_snapshot)
+        if execution_row is not None:row["training_execution_observation"] = execution_row
         self._log(row)
         return row
 
@@ -489,6 +543,7 @@ class V3StepTrainer:
             require(type(batches) in (list, tuple), "Explicit validation batches must be a bounded list/tuple")
             count, iterator = len(batches), iter(batches)
         require(type(count) is int and 0 < count <= self.validation_batch_cap, "Bounded full validation batch count required")
+        self._execution_validation_begin(role, count)
         metric = ValidationAccumulator(self.model.registry, role=role, enabled_groups=self.groups, enabled_fields=self.fields)
         previous_mode = self.model.training
         actual = 0
@@ -499,11 +554,14 @@ class V3StepTrainer:
                     require(actual < count, "Validation provider exceeded its declared population")
                     batch = self._prepared(value, role=role)
                     prediction, loss = self._forward_loss(batch)
+                    execution_snapshot = self._execution_capture(role)
                     metric.add(*self._tables(prediction, batch), loss)
+                    self._execution_complete(execution_snapshot)
                     actual += 1
         finally:
             self.model.train(previous_mode)
         require(actual == count, "Validation provider ended before its declared population")
+        self._execution_validation_complete(role)
         result = metric.result()
         for field in self.model.registry.fields:
             if field.name not in result["fields"]:
@@ -547,6 +605,8 @@ class V3StepTrainer:
                 "Trainer/scheduler configuration differs")
         require(type(preview["log_cursor"]) is int and preview["log_cursor"] >= 0
                 and set(preview["validation_state"]) == set(self.validation_state), "Trainer history/validation state differs")
+        require(preview["execution"].get("training_execution") == self.contract.get("training_execution"),
+                "Trainer contract and saved training execution differ")
         _restore_execution(self.model, preview["execution"])
         extra = load_checkpoint(directory, output_root=output_root, model=self.model, optimizer=self.optimizer,
             sampler=self.sampler, clock=self.clock, expected_bindings=self.bindings)

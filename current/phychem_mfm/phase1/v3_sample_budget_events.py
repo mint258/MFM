@@ -249,6 +249,13 @@ class PanelEventController:
             "points": sorted(rows, key=lambda row: (row["samples_consumed"], row["event_id"]))}
 
 
+def _execution_digest(value, *, ascii_json=False):
+    # Match v3_contract.canonical_hash (no trailing newline), or the cache's
+    # v3_dev_panel.canonical when ascii_json=True. Import no model/Torch module.
+    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":"),
+        ensure_ascii=ascii_json, allow_nan=False).encode('utf-8')).hexdigest()
+
+
 def validate_panel_evidence(event, result_ref, result, evidence):
     require(event["status"] == "READY", "BLOCKED_UNSUPPORTED_ENCODER cannot be ACKed as an evaluated panel")
     require(result["status"] == "COMPLETED" and result["reference_kind"] == "primary", "Incomplete panel result")
@@ -259,6 +266,23 @@ def validate_panel_evidence(event, result_ref, result, evidence):
         and pair["checkpoint_schema"] == "model_v3_immutable_sample_checkpoint"
         and pair["training_completion"] == event["training_completion"]
         and result["architecture_sha256"] == event["architecture_sha256"], "Panel candidate/configuration/seed differs")
+    execution_keys = {"training_execution_contract_sha256", "H0_export_sha256"}
+    has_execution = bool(execution_keys & event.keys()) or "training_execution" in pair
+    execution = pair.get("training_execution")
+    if has_execution:
+        require(execution_keys <= event.keys() and type(execution) is dict,
+            "New execution event/pair must bind both identical contract and H0 export hashes")
+        contract = execution["training_contract"]
+        require(event["training_execution_contract_sha256"] == execution["training_execution_contract_sha256"]
+            == _execution_digest(contract)
+            and event["H0_export_sha256"] == execution["H0_export_sha256"] == _execution_digest(execution["H0_export"])
+            and execution["H0_export"] == contract["h0_export"]
+            and execution["H0_export_precision"] == "fp32_no_internal_AMP"
+            and execution["BF16_training_forward_bitwise_replay_claimed"] is False
+            and execution["training_capacity_reused_for_downstream_H0"] is False,
+            "Panel training execution/export semantics differ from the immutable event")
+        from .v3_execution_checkpoint_bridge import training_execution_cache_projection
+        cache_execution = training_execution_cache_projection(execution)
     for key in ("panel_sha256", "training_store_sha256", "membership_sha256", "preregistration_sha", "code_sha"):
         require(result[key] == panel[key], "Panel source binding differs: "+key)
     require(pair["random_reference_seed"] == result["random_reference_initialization_seed"] == 20261025
@@ -270,6 +294,16 @@ def validate_panel_evidence(event, result_ref, result, evidence):
     for dataset in datasets:
         candidate, reference = (result["h0_caches"][label+"/"+dataset] for label in ("candidate", "reference"))
         left, right = candidate["binding"], reference["binding"]
+        if has_execution:
+            for cache in (left, right):
+                source = cache["execution_source"]
+                require(type(source) is dict and source.get("training_execution") == cache_execution
+                    and source.get("training_completion") == pair["training_completion"]
+                    and cache["execution_source_sha256"] == _execution_digest(source, ascii_json=True),
+                    "H0 cache execution source/COMPLETE is not the same source-bound export map")
+        else:
+            require(all("training_execution" not in cache.get("execution_source", {}) for cache in (left, right)),
+                "A legacy event cannot silently ACK an unbound new execution cache")
         for key in ("architecture_sha256", "membership_sha256", "geometry_sha256", "dimension",
                     "packing_plan_sha256", "packing_budget_sha256", "effective_runtime_sha256"):
             require(left[key] == right[key], "Candidate/random H0 bindings differ")

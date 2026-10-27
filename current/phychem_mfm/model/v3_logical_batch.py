@@ -144,3 +144,84 @@ class LogicalBatchBackbone(RealCoordTransformerBackbone):
             "original_atom_and_graph_order_restored": True,
             "views_noise_masks_targets_regenerated": False, "loss_or_group_reduction_per_chunk": False}
         return result
+
+class LogicalBatchSharedPairBackbone(nn.Module):
+    """SharedPair's native full forward per complete-graph chunk, same keys.
+
+    This is a separate explicit runtime type. It does not route SharedPair
+    inputs through the scalar-distance/C1-0 attention signature.
+    """
+    def __init__(self, original, *, padding=None, capacity_guard=None):
+        from .v3_architecture import SharedPairBackbone
+        if type(original) is not SharedPairBackbone:
+            raise ValueError("Declared SharedPairBackbone required")
+        super().__init__()
+        for name, module in original.named_children():self.add_module(name, module)
+        for name, parameter in original.named_parameters(recurse=False):self.register_parameter(name, parameter)
+        for name, buffer in original.named_buffers(recurse=False):
+            self.register_buffer(name, buffer, persistent=name not in original._non_persistent_buffers_set)
+        for name in ("n_atom_types", "dim", "activation_checkpointing", "options"):
+            setattr(self, name, getattr(original, name))
+        self.padding, self.capacity_guard = padding, capacity_guard
+        self.performance_execution_contract = {"schema": "model_v3_shared_pair_logical_runtime_v1",
+            "padding": None if padding is None else asdict(padding),
+            "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+        self.last_logical_batch_execution = None
+        self.train(original.training)
+        self._require_context()
+
+    def get_extra_state(self):
+        from .v3_architecture import SharedPairBackbone
+        return SharedPairBackbone.get_extra_state(self)
+
+    def set_extra_state(self, state):
+        from .v3_architecture import SharedPairBackbone
+        return SharedPairBackbone.set_extra_state(self, state)
+
+    def _require_context(self):
+        LogicalBatchBackbone._require_context(self)
+
+    def forward(self, data):
+        from .v3_architecture import SharedPairBackbone
+        self._require_context()
+        batch, counts = logical_batch_counts(data)
+        if self.capacity_guard is not None:self.capacity_guard.check(data, counts)
+        if data.pos.dtype != torch.float32 or torch.is_autocast_enabled(data.pos.device.type):
+            raise ValueError("SharedPair logical execution requires fp32 geometry and no outer AMP")
+        if self.padding is None:
+            plan = (tuple(range(len(counts))),)
+            result = SharedPairBackbone.forward(self, data)
+        else:
+            plan = chunk_plan(counts, self.padding)
+            offsets, offset = [], 0
+            for count in counts:offsets.append(offset);offset += count
+            outputs, original_rows = [], []
+            for group in plan:
+                rows = torch.cat([torch.arange(offsets[g], offsets[g] + counts[g], device=batch.device) for g in group])
+                ids = torch.repeat_interleave(torch.arange(len(group), device=batch.device),
+                                             batch.new_tensor([counts[g] for g in group]))
+                piece = Data(x=data.x.index_select(0, rows), pos=data.pos.index_select(0, rows), batch=ids)
+                outputs.append(SharedPairBackbone.forward(self, piece))
+                original_rows.append(rows)
+            values = torch.cat(outputs)
+            result = values.new_zeros((len(batch), self.dim)).index_copy(0, torch.cat(original_rows), values)
+        shapes = [(len(group), max(counts[g] for g in group)) for group in plan]
+        self.last_logical_batch_execution = {"schema": "model_v3_logical_batch_execution_v1",
+            "padding": None if self.padding is None else asdict(self.padding),
+            "logical_graph_count": len(counts), "logical_atom_count": len(batch), "graph_atom_counts": counts,
+            "legacy_dense_padded_cost": len(counts) * max(counts) ** 2,
+            "chunked_dense_padded_cost": sum(b * n * n for b, n in shapes),
+            "chunk_graphs": [list(group) for group in plan], "executed_dense_shapes": [list(s) for s in shapes],
+            "chunk_plan_sha256": hashlib.sha256(json.dumps(plan, separators=(",", ":")).encode()).hexdigest(),
+            "retained_oversize_singletons": 0 if self.padding is None else sum(len(group) == 1
+                and counts[group[0]] ** 2 > self.padding.max_padded_cost_per_chunk for group in plan),
+            "original_atom_and_graph_order_restored": True, "views_noise_masks_targets_regenerated": False,
+            "loss_or_group_reduction_per_chunk": False}
+        return result
+
+class TrainingLogicalBatchBackbone(LogicalBatchBackbone):
+    """Training-only outer-AMP guard, including the no-packing observation path."""
+    def forward(self, data):
+        if data.pos.dtype != torch.float32 or torch.is_autocast_enabled(data.pos.device.type):
+            raise ValueError("Training execution requires fp32 geometry and no outer AMP")
+        return super().forward(data)

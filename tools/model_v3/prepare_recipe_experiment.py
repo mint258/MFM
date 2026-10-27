@@ -17,7 +17,7 @@ def main(argv=None):
     from phychem_mfm.phase1.v3_recipe_readiness import resolve_inputs,prepare_trial,prepare_full,finalize_request,verify_sdp_selected
     from phychem_mfm.phase1.v3_recipe_evidence import gradient_p99,classify_stability,confirm_sdp
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command',choices=('resolve','prepare','full','admit','p99','stability','sdp','budget'))
+    parser.add_argument('command',choices=('resolve','prepare','full','grid','admit','p99','stability','sdp','budget'))
     parser.add_argument('--inputs',type=Path,required=True); parser.add_argument('--inputs-sha256',required=True)
     parser.add_argument('--output',type=Path,required=True)
     args=parser.parse_args(argv)
@@ -40,8 +40,14 @@ def main(argv=None):
         base=bound_json(m['base_request']); template=bound_json(base['configuration'])
         return prepare_full(template,m['SDP_confirmation'],m['full_train_contract'],m['full_resource_contract'],
             policy,base,condition=m['condition'],adapter=m['adapter'],input_projection=m['input_projection'],output=args.output)
+    elif args.command == 'grid':
+        from phychem_mfm.phase1.v3_grid_training import prepare_grid
+        return prepare_grid(bound_json(m['base_request']), m['grid_train_contract'], adapter=m['adapter'],
+            input_projection=m['input_projection'], training_plan=m['training_plan'], output=args.output,
+            base_request_ref=m['base_request'])
     elif args.command == 'admit':
-        return finalize_request(m['candidate'],m['registrations'],m['Root_admission'],args.output,operational=m.get('operational'))
+        from phychem_mfm.phase1.v3_proxy_run import finalize_training_request
+        return finalize_training_request(m['candidate'],m['registrations'],m['Root_admission'],args.output,operational=m.get('operational'))
     else:
         noise=verify_global_seed_sd(m['global_seed_sd'])
         curves={}

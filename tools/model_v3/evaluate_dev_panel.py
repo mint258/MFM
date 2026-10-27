@@ -56,7 +56,7 @@ def configure_wandb_layout(output):
 
 
 def h0_execution_source(request, provenance):
-    """Actual cache source binding; Native contracts add their reader/export map."""
+    """Actual cache identity; opt-in execution adds its checked FP32 export map."""
     from phychem_mfm.phase1.v3_dev_panel import canonical
     source = {"code_sha": request["code_sha"],
         "source_inventory_sha256": canonical(request["source_files"]),
@@ -66,6 +66,21 @@ def h0_execution_source(request, provenance):
         if type(provenance["native_checkpoint"]) is not dict or not isinstance(provenance.get("training_completion"), dict):
             raise ValueError("Native cache identity requires its bound contract and COMPLETE reference")
         source["native_checkpoint"] = provenance["native_checkpoint"]
+        source["training_completion"] = provenance["training_completion"]
+        json.dumps(source, sort_keys=True, allow_nan=False)
+    if "training_execution" in provenance:
+        from phychem_mfm.phase1.v3_execution_checkpoint_bridge import (
+            validate_h0_export_capability, training_execution_cache_projection)
+        execution = provenance["training_execution"]
+        if type(execution) is not dict or type(provenance.get("training_completion")) is not dict:
+            raise ValueError("Execution cache identity requires the contract and original COMPLETE")
+        contract = execution["training_contract"]
+        capability = validate_h0_export_capability(contract["model_configuration"], contract)
+        if (execution["training_execution_contract_sha256"] != capability["training_execution_contract_sha256"]
+                or execution["H0_export"] != capability["H0_export"]
+                or execution["H0_export_sha256"] != capability["H0_export_sha256"]):
+            raise ValueError("Execution cache identity does not bind the checked H0 mapping")
+        source["training_execution"] = training_execution_cache_projection(execution)
         source["training_completion"] = provenance["training_completion"]
         json.dumps(source, sort_keys=True, allow_nan=False)
     return source
@@ -130,7 +145,21 @@ def load_plan(request_path, request_sha, *, allow_unbound_packing=False):
     if request.get("packing_binding_status") != ("BOUND" if pinned else "METADATA_PLANNING_REQUIRED"):
         raise ValueError("The H0 packing binding state is inconsistent")
     config_ref = request["model_configuration"]
-    config = _model_config(bound_json(config_ref["path"], config_ref["sha256"]))
+    original_configuration = bound_json(config_ref["path"], config_ref["sha256"])
+    config = _model_config(original_configuration)
+    execution_enabled = request.get("enable_training_execution", False)
+    if type(execution_enabled) is not bool:
+        raise ValueError("Training-execution export opt-in must be boolean")
+    if execution_enabled:
+        from prepare_dev_evaluation import validate_h0_preinit_request
+        validate_h0_preinit_request(request_path, request_sha, repository_root=ROOT,
+                                   apply_environment=False)
+    if "training_execution" in original_configuration and not execution_enabled:
+        raise ValueError("New training execution requires explicit evaluation opt-in")
+    if execution_enabled and (request.get("reference_kind", "primary") != "primary"
+            or request.get("training_completion") is None
+            or type(original_configuration.get("training_execution")) is not dict):
+        raise ValueError("Execution H0 requires its primary sample-checkpoint configuration and COMPLETE")
     architecture_enabled = request.get("enable_architecture_candidates", False)
     if type(architecture_enabled) is not bool:
         raise ValueError("Architecture-candidate opt-in must be boolean")
@@ -195,6 +224,13 @@ class RunJournal:
 def execute(request_path, request_sha):
     import fcntl
     started = time.monotonic()
+    # The fixed stdlib-only tool gate runs before load_plan/package imports and
+    # before all actual Torch/CUDA operations below. No GPU admission is granted.
+    import prepare_dev_evaluation as preinit_source
+    if Path(preinit_source.__file__).absolute() != ROOT / "tools/model_v3/prepare_dev_evaluation.py":
+        raise RuntimeError("The fixed H0 preinitialization source namespace differs")
+    preinit = preinit_source.validate_h0_preinit_request(
+        request_path, request_sha, repository_root=ROOT)
     request, panel, store, views, tasks, config = load_plan(request_path, request_sha)
     if os.getuid() != 1278 or not os.environ.get("SLURM_JOB_ID") or int(os.environ.get("SLURM_CPUS_PER_TASK", "0")) < 16:
         raise RuntimeError("Execute only inside the root coordinator's owned 16-CPU Slurm allocation")
@@ -248,7 +284,14 @@ def execute(request_path, request_sha):
             historical_reference=request.get("historical_reference"),
             expected_state_key=None if state_key == "auto" else state_key,
             enable_architecture_candidates=request.get("enable_architecture_candidates", False),
-            training_completion=request.get("training_completion"))
+            training_completion=request.get("training_completion"),
+            enable_training_execution=request.get("enable_training_execution", False))
+        if preinit is not None:
+            execution = pair.provenance.get("training_execution")
+            if (type(execution) is not dict
+                    or preinit != request.get("h0_preinit")
+                    or preinit["runtime_controls"] != execution["H0_export"]["runtime_controls"]):
+                raise ValueError("Pre-CUDA declaration and complete checkpoint H0 contract differ")
         candidate, reference = pair.candidate, pair.random_reference
         exclusive_json(output / "encoder_pair.json", pair.provenance)
         cache = FrozenH0Cache(request["cache_root"], repository_root=ROOT)
@@ -256,6 +299,11 @@ def execute(request_path, request_sha):
         details, cache_metadata = {}, {}
         common_runtime = None
         common_source = h0_execution_source(request, pair.provenance)
+        from contextlib import nullcontext
+        export_contract = None
+        if "training_execution" in pair.provenance:
+            from phychem_mfm.phase1.v3_training_execution import h0_export_context
+            export_contract = pair.provenance["training_execution"]["training_contract"]
         for label, encoder in (("reference", reference), ("candidate", candidate)):
             encoder.to("cuda:0").eval()
             for dataset, view in views.items():
@@ -269,14 +317,20 @@ def execute(request_path, request_sha):
                             continue
                         geometries.append(NativeGeometry(dataset, sample.member_uid, index,
                             sample.x, sample.pos, sample.source_atom_ids))
-                h0, metadata = cache.get_or_compute(encoder, geometries,
-                    architecture_sha256=request["architecture_sha256"],
-                    membership_sha256=view.membership_sha256, device="cuda:0",
-                    expected_plan_sha256=request["h0_packing_plan_sha256"][dataset],
-                    execution_source={**common_source, "weights_origin":
-                        request["checkpoint"] if label == "candidate" else {"initialization_seed": 20261025,
-                            "architecture_sha256": request["architecture_sha256"]}},
-                    **budget_arguments(request["h0_packing"]))
+                # Only H0 export enters the shared adapter's explicit context.
+                # Readouts retain their existing policy; all globals restore on
+                # exit/failure. Legacy/Native use the unchanged null context.
+                context = (h0_export_context(export_contract, device_type=next(encoder.parameters()).device.type)
+                           if export_contract is not None else nullcontext())
+                with context:
+                    h0, metadata = cache.get_or_compute(encoder, geometries,
+                        architecture_sha256=request["architecture_sha256"],
+                        membership_sha256=view.membership_sha256, device="cuda:0",
+                        expected_plan_sha256=request["h0_packing_plan_sha256"][dataset],
+                        execution_source={**common_source, "weights_origin":
+                            request["checkpoint"] if label == "candidate" else {"initialization_seed": 20261025,
+                                "architecture_sha256": request["architecture_sha256"]}},
+                        **budget_arguments(request["h0_packing"]))
                 effective_runtime = metadata["binding"]["effective_runtime_sha256"]
                 if common_runtime is not None and effective_runtime != common_runtime:
                     raise RuntimeError("Candidate/reference H0 effective runtimes differ")
