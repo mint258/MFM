@@ -55,6 +55,22 @@ def configure_wandb_layout(output):
     return {name: str(path) for name, path in paths.items()}
 
 
+def h0_execution_source(request, provenance):
+    """Actual cache source binding; Native contracts add their reader/export map."""
+    from phychem_mfm.phase1.v3_dev_panel import canonical
+    source = {"code_sha": request["code_sha"],
+        "source_inventory_sha256": canonical(request["source_files"]),
+        "configuration": request["model_configuration"], "loader_implementation": provenance["loader_implementation"],
+        "historical_memory_implementation": provenance["historical_memory_implementation"]}
+    if "native_checkpoint" in provenance:
+        if type(provenance["native_checkpoint"]) is not dict or not isinstance(provenance.get("training_completion"), dict):
+            raise ValueError("Native cache identity requires its bound contract and COMPLETE reference")
+        source["native_checkpoint"] = provenance["native_checkpoint"]
+        source["training_completion"] = provenance["training_completion"]
+        json.dumps(source, sort_keys=True, allow_nan=False)
+    return source
+
+
 def _model_config(value):
     from phychem_mfm.phase1.v3_encoder_bridge import source_model_configuration
     return source_model_configuration(value)
@@ -239,10 +255,7 @@ def execute(request_path, request_sha):
         predictions = {"candidate": {}, "reference": {}}
         details, cache_metadata = {}, {}
         common_runtime = None
-        common_source = {"code_sha": request["code_sha"],
-            "source_inventory_sha256": canonical(request["source_files"]),
-            "configuration": request["model_configuration"], "loader_implementation": pair.provenance["loader_implementation"],
-            "historical_memory_implementation": pair.provenance["historical_memory_implementation"]}
+        common_source = h0_execution_source(request, pair.provenance)
         for label, encoder in (("reference", reference), ("candidate", candidate)):
             encoder.to("cuda:0").eval()
             for dataset, view in views.items():

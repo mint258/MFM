@@ -25,6 +25,12 @@ class EncoderBindingError(ValueError):
 
 def source_model_configuration(configuration):
     """Separate model identity from a flat training recipe and its seed."""
+    if configuration.get("schema") == "existing_native_S_precision_member_v1":
+        from .v3_native_checkpoint_bridge import native_member_contract, NativeCheckpointError
+        try:
+            return deepcopy(native_member_contract(configuration)["model"])
+        except NativeCheckpointError as exc:
+            raise EncoderBindingError(str(exc)) from exc
     if "model" in configuration:
         return deepcopy(configuration["model"])
     if "backbone" not in configuration or "architecture" not in configuration:
@@ -120,6 +126,10 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
         raise EncoderBindingError("Explicit actual and random-reference seeds required")
     if type(enable_architecture_candidates) is not bool:
         raise EncoderBindingError("Architecture-candidate opt-in must be boolean")
+    native_configuration = configuration.get("schema") == "existing_native_S_precision_member_v1"
+    if native_configuration and (reference_kind != "primary" or enable_architecture_candidates):
+        raise EncoderBindingError("Native S evaluation is primary and cannot enable a new architecture")
+    native_provenance = None
     architecture_implementation = None
     if reference_kind == "primary":
         if (model_config["backbone"]["dim"], model_config["backbone"]["layers"]) != (512, 6):
@@ -163,7 +173,23 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
     if payload.get("scientific_stop") is True:
         raise EncoderBindingError("A scientifically stopped checkpoint cannot silently enter the development panel")
     encoder_state, encoder_extension = None, None
-    if payload.get("schema") == "model_v3_training_checkpoint_v1":
+    if native_configuration:
+        from .v3_native_checkpoint_bridge import native_checkpoint_state, NativeCheckpointError
+        if training_completion is None:
+            raise EncoderBindingError("Native checkpoints require their bound COMPLETE marker")
+        marker_path = Path(training_completion["path"])
+        if (marker_path.name != "COMPLETE.json" or Path(checkpoint_ref["path"]).name != "payload.pt"
+                or marker_path.absolute().parent != Path(checkpoint_ref["path"]).absolute().parent):
+            raise EncoderBindingError("Native COMPLETE and payload must share their immutable directory")
+        marker = json.loads(_raw(training_completion, maximum=1024**2))
+        try:
+            encoder_state, builder, native_provenance = native_checkpoint_state(
+                payload, configuration, marker, checkpoint_ref, payload_size)
+        except (NativeCheckpointError, KeyError, TypeError, ValueError) as exc:
+            raise EncoderBindingError("Native checkpoint encoder/member contract differs: " + str(exc)) from exc
+        schema, state_key = "model_v3_native_S_immutable_checkpoint", "model"
+        actual_seed = configuration["seed"]
+    elif payload.get("schema") == "model_v3_training_checkpoint_v1":
         if training_completion is None:
             raise EncoderBindingError("V3 sample checkpoints require their explicitly bound COMPLETE marker")
         marker_path = Path(training_completion["path"])
@@ -300,6 +326,8 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
         "historical_reference": dict(historical_reference) if historical_reference else None,
         "historical_memory_implementation": historical["memory_implementation"] if historical else None,
         "downstream_target_records_read": 0}
+    if native_provenance is not None:
+        metadata["native_checkpoint"] = native_provenance
     if architecture_implementation is not None:
         metadata["architecture_implementation"] = architecture_implementation
     if training_completion is not None:
