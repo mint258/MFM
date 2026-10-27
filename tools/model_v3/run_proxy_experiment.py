@@ -113,6 +113,10 @@ def run_segment(args):
     canonical_baseline = owned_output_bytes(args.lineage_root) if durable is not None and args.lineage_root.exists() else 0
     inputs = bind_inputs(request,configuration)  # No candidate provider fallback.
     lock = None; run = None; experiment = None; failure = None; cleanup = []; outcome = None
+    phase='SETUP';failure_phase=None
+    def set_phase(value):
+        nonlocal phase
+        phase=value
     started = time.monotonic(); args.output.mkdir(mode=0o700,parents=True)
     sdk_environment(args.output)
     try:
@@ -137,6 +141,7 @@ def run_segment(args):
         tracker = PersistentOfflineTracker(run,args.output/'history.jsonl')
         experiment = build_experiment(request,configuration,plan,inputs,tracker,output_root=args.output/'training',
             lineage_root=args.lineage_root,lineage=args.lineage,device=contract['execution']['device'])
+        experiment.trainer.recipe_phase_observer=set_phase
         if durable is not None: attach_experiment(experiment,durable)
         capacity = checkpoint_capacity(experiment.trainer)
         reserve = resources['tracking_bytes']+(96 << 20)
@@ -156,6 +161,7 @@ def run_segment(args):
             return size
         experiment.joint_remaining_bytes = remaining
         def guard(action, context):
+            set_phase('CHECKPOINT' if action == 'CHECKPOINT' else 'RESOURCE_PREFLIGHT')
             if action == 'CHECKPOINT': capacity.update(checkpoint_capacity(experiment.trainer))
             process = owned_process_observation(os.getpid()); size = census()
             row = {'action':action,'elapsed_inclusive_seconds':time.monotonic()-started,
@@ -181,16 +187,22 @@ def run_segment(args):
                 if action == 'STEP': raise SegmentPause('joint lineage checkpoint planning reserve reached')
                 raise MemoryError('Insufficient joint reserve for another complete checkpoint; prior immutable checkpoint retained')
             with (args.output/'resources.jsonl').open('ab') as stream: stream.write(encoded(row))
+            if action in ('VALIDATION','VALIDATION_BATCH'): set_phase('VALIDATION')
         experiment.trainer.proxy_validation_guard = lambda: experiment._preflight('VALIDATION_BATCH',allow_pause=False)
         write_once(args.output/'RUN_BINDING.json',{'schema':'model_v3_proxy_segment_launch_v1','request':ref,
             'runtime':runtime,'registrations':registrations,'capacity_planning':capacity,
             'job_id':os.environ['SLURM_JOB_ID'],'lineage_root':str(physical(args.lineage_root)),
-            'outer_child_budget_bytes':outer_child,'outer_terminal_evidence_required':True})
+            'outer_child_budget_bytes':outer_child,'outer_terminal_evidence_required':True,
+            'initial_cursors':{'optimizer_updates':experiment.trainer.clock.optimizer_updates,
+                'samples_consumed':experiment.trainer.clock.samples_consumed,'log_cursor':experiment.trainer.log_cursor},
+            'resume_complete':binding(args.resume_complete) if args.resume_complete else None})
         parent = binding(args.resume_complete) if args.resume_complete else None
+        set_phase('CONTROLLER')
         outcome = experiment.run_segment(segment_id=args.segment_id,until_samples=args.until_samples,
             request_ref=ref,parent=parent,preflight=guard)
         validate_sources(request)
     except BaseException as exc:
+        failure_phase=phase
         failure = {'type':type(exc).__name__,'message':str(exc)[:600]}
         raise
     finally:
@@ -202,12 +214,19 @@ def run_segment(args):
             except BaseException as exc: cleanup.append({'stage':'gpu_lock_close','type':type(exc).__name__,'message':str(exc)[:300]})
         timed_out = time.monotonic()-started >= plan.max_segment_seconds
         if timed_out and failure is None:
+            failure_phase='SDK_FINISH'
             failure = {'type':'TimeoutError','message':'Inclusive SDK cleanup exceeded registered segment wall budget'}
         status = 'CHILD_FINISHED_PENDING_ROOT_CLOSURE' if failure is None and not cleanup else 'CHILD_FAILED'
         receipt_ref = write_once(args.output/'CHILD_RECEIPT.json',{'schema':'model_v3_proxy_child_receipt_v1','status':status,
             'outcome':outcome,'first_failure':failure,'cleanup_errors':cleanup,'native_sdk_run_id':run.id if run else None,
             'elapsed_seconds_including_sdk_finish':time.monotonic()-started,
-            'scientific_acceptance':False,'requires_actual_Slurm_C0_supervisor_and_SDK_verification':True})
+            'scientific_acceptance':False,'requires_actual_Slurm_C0_supervisor_and_SDK_verification':True,
+            'job_id':os.environ['SLURM_JOB_ID'],
+            'primary_failure':None if failure is None else {'schema':'model_v3_recipe_primary_failure_v1',
+                'job_id':os.environ['SLURM_JOB_ID'],'phase':failure_phase,**failure},
+            'committed_cursors':None if experiment is None else {
+                'optimizer_updates':experiment.trainer.clock.optimizer_updates,'samples_consumed':experiment.trainer.clock.samples_consumed,
+                'log_cursor':experiment.trainer.log_cursor,'pending_log':experiment.trainer.pending_log is not None}})
         if durable is not None and any(row['kind'] == 'launch_attempts' and row['identity'] == str(physical(args.output)) for row in durable.records()):
             durable.terminal(job_root=args.output,status='successful_segments' if status == 'CHILD_FINISHED_PENDING_ROOT_CLOSURE' else 'failed_attempts',result_ref=receipt_ref)
         if cleanup and failure is None: raise RuntimeError('Cleanup failed; see immutable CHILD_RECEIPT')
@@ -223,7 +242,7 @@ def parser():
     prepare.add_argument('--views',choices=('two','three'),default='three')
     run = commands.add_parser('run')
     run.add_argument('--request',type=Path,required=True); run.add_argument('--request-sha256',required=True)
-    run.add_argument('--input',choices=('authoritative_proxy','synthetic'),default='authoritative_proxy')
+    run.add_argument('--input',choices=('authoritative_proxy','authoritative_full_train','synthetic'),default='authoritative_proxy')
     run.add_argument('--engineering-only',action='store_true'); run.add_argument('--output',type=Path,required=True)
     run.add_argument('--lineage-root',type=Path,required=True); run.add_argument('--lineage',required=True)
     run.add_argument('--segment-id',required=True); run.add_argument('--until-samples',type=int,required=True)
