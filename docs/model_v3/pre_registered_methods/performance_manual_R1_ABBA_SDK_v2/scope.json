@@ -1,0 +1,51 @@
+{
+    "schema":  "performance_manual_R1_ABBA_scope_v1",
+    "scope":  "MANUAL_R1_ABBA_LOG_AND_EXISTING_SPEED_REPORT_ONLY",
+    "series_id":  "A00_manual_R1_C35_9e16_v1",
+    "planned_order":  [
+                          "reference",
+                          "candidate",
+                          "candidate",
+                          "reference"
+                      ],
+    "actual_job_ids_or_run_ids_prefilled":  false,
+    "numeric_gate":  {
+                         "source_GPU_job_id":  "4523976",
+                         "Root_closure":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_and_consumer_Root_closure_actual_v1.json",
+                                              "bytes":  1784300,
+                                              "sha256":  "0a782651f639a72b6df70f9a6991ce7189bb4dd81bcd492205179d22b421d2fb"
+                                          },
+                         "directory":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child",
+                         "files":  {
+                                       "summary":  {
+                                                       "bytes":  891,
+                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/summary.json",
+                                                       "sha256":  "27162df94d8ed0ccad96e52c09cefc4c09371e7292382db311838bf01a147800"
+                                                   },
+                                       "configuration":  {
+                                                             "bytes":  90471,
+                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/configuration.json",
+                                                             "sha256":  "e499f52deae6eeb0799447d78454bfdd14a3ae600b8de5f56a4f0f3996cb2b9a"
+                                                         },
+                                       "run_status":  {
+                                                          "bytes":  387,
+                                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/run_status.json",
+                                                          "sha256":  "9628665721ac06e7026b7e3b79018dd0a6a5c5a1db56f9d36eb3556562c54ef1"
+                                                      },
+                                       "fixed_batch_gate":  {
+                                                                "bytes":  2399567,
+                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/fixed_batch_gate.json",
+                                                                "sha256":  "9f3889b5988b38306b4355897001917ac71c5951beaf89faab4cc69606731e62"
+                                                            },
+                                       "trajectory_gate":  {
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/trajectory_gate.json",
+                                                               "bytes":  42490,
+                                                               "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                           }
+                                   },
+                         "gate_refs_origin":  "summary/config/status/fixed-gate refs from existing actual Root raw-source proof; trajectory small scalar JSON current streamed raw hash, not decoded",
+                         "actual_CPU_gate_check":  "All five rehashed on CPU before/after; original speed CLI reads full20/500 and unchanged acceptance method"
+                     },
+    "original_GPU_and_SDK_unchanged":  true
+}

@@ -1,0 +1,189 @@
+{
+  "schema": "model_v3_Root_R1_ABBA_SDK_and_speed_CPU_closure_v1",
+  "status": "ACTUAL_C0_FOUR_FULL_22_ROW_SDKS_AND_ORIGINAL_ABBA_SPEED_SOURCE_CLOSED",
+  "actual_unix": 1793136884.070993,
+  "job_id": "4524571",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524571",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524571|zixiao|COMPLETED|0:0|6|16|compute-0-14\n",
+    "stderr": ""
+  },
+  "actual_C0_projection": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_SDK_audit_Root_actual_C0_v1/actual_terminal.json",
+    "bytes": 375,
+    "sha256": "43aca131934259bd20aae5e553a8e957dffec8e0cd1eab62c35c5bd1c0141bc2"
+  },
+  "source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_SDK_v2_source/source_pins.json",
+    "bytes": 4746,
+    "sha256": "d26fe3224121a94579276e51ac808a271a3f1737b01591fa2312eeddb79edc81"
+  },
+  "batch_result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_SDK_audit_actual_v2/BATCH_RESULT.json",
+    "bytes": 35978,
+    "sha256": "e457ec06d4027357b4dbae789842bcfc28af62d270977b67086f0bf835b3f08b"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_SDK_audit_actual_v2.supervisor.json",
+    "bytes": 3363,
+    "sha256": "8e22a32cb6eb13729a087e27173369f74b07cae631d7bdd4565f7a429a2f68e9"
+  },
+  "runs": [
+    {
+      "run_id": "7prp45ox",
+      "SDK_raw_ref": {
+        "bytes": 99165,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1/member_1/child/wandb/offline-run-20261028_051602-7prp45ox/run-7prp45ox.wandb",
+        "sha256": "71cbfe67c2b32c6f01f8f530ba3108c14061e073b5f0dfb77c4c7aaf2434b5dd"
+      },
+      "native_RunRecord": {
+        "display_name": "A_speed_reference_4524567",
+        "entity": "",
+        "project": "mfm_model_v3_development",
+        "run_id": "7prp45ox"
+      },
+      "native_exit_code": 0,
+      "expected_API_state": "finished",
+      "history_rows": 22,
+      "first_explicit_step": 1,
+      "last_explicit_step": 22,
+      "original_model_status": "STANDALONE_TIMING_COMPLETED",
+      "role": "reference",
+      "position": 1,
+      "model_job_id": "4524567",
+      "verification": {
+        "bytes": 21305,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_SDK_audit_actual_v2/7prp45ox_VERIFICATION.json",
+        "sha256": "5acba68bb5f5779b2d6bb6788e32641c3216283a3086644f2f16acd66fe153a3"
+      },
+      "scope": "MANUAL_R1_ABBA_LOG_AND_EXISTING_SPEED_REPORT_ONLY"
+    },
+    {
+      "run_id": "42kaw4ai",
+      "SDK_raw_ref": {
+        "bytes": 136078,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1/member_2/child/wandb/offline-run-20261028_051845-42kaw4ai/run-42kaw4ai.wandb",
+        "sha256": "f299bf00cb61700edfca31ae7a5d73093b6c917e074422f5b5cadae337ae42cf"
+      },
+      "native_RunRecord": {
+        "display_name": "A_speed_candidate_4524568",
+        "entity": "",
+        "project": "mfm_model_v3_development",
+        "run_id": "42kaw4ai"
+      },
+      "native_exit_code": 0,
+      "expected_API_state": "finished",
+      "history_rows": 22,
+      "first_explicit_step": 1,
+      "last_explicit_step": 22,
+      "original_model_status": "STANDALONE_TIMING_COMPLETED",
+      "role": "candidate",
+      "position": 2,
+      "model_job_id": "4524568",
+      "verification": {
+        "bytes": 21306,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_SDK_audit_actual_v2/42kaw4ai_VERIFICATION.json",
+        "sha256": "c87f76042c0d2e9748be5f506372576dccf32815b3e09461e67eccc39a14e339"
+      },
+      "scope": "MANUAL_R1_ABBA_LOG_AND_EXISTING_SPEED_REPORT_ONLY"
+    },
+    {
+      "run_id": "e1zfuz62",
+      "SDK_raw_ref": {
+        "bytes": 136093,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1/member_3/child/wandb/offline-run-20261028_052128-e1zfuz62/run-e1zfuz62.wandb",
+        "sha256": "8f1e8a087cb790dd234c312571c378c3a1548a81b312307a2e69a0b0a3cd8c3a"
+      },
+      "native_RunRecord": {
+        "display_name": "A_speed_candidate_4524569",
+        "entity": "",
+        "project": "mfm_model_v3_development",
+        "run_id": "e1zfuz62"
+      },
+      "native_exit_code": 0,
+      "expected_API_state": "finished",
+      "history_rows": 22,
+      "first_explicit_step": 1,
+      "last_explicit_step": 22,
+      "original_model_status": "STANDALONE_TIMING_COMPLETED",
+      "role": "candidate",
+      "position": 3,
+      "model_job_id": "4524569",
+      "verification": {
+        "bytes": 21306,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_SDK_audit_actual_v2/e1zfuz62_VERIFICATION.json",
+        "sha256": "629c97ae129d56b366a286a0fb708a7f343a905cf05b09b5e6dd49aa8b1a6616"
+      },
+      "scope": "MANUAL_R1_ABBA_LOG_AND_EXISTING_SPEED_REPORT_ONLY"
+    },
+    {
+      "run_id": "tekx2m3f",
+      "SDK_raw_ref": {
+        "bytes": 99177,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1/member_4/child/wandb/offline-run-20261028_052322-tekx2m3f/run-tekx2m3f.wandb",
+        "sha256": "761db2b5a94e83e8a6a007105f8331dafd1ee8eceebe54cbe045caff38539656"
+      },
+      "native_RunRecord": {
+        "display_name": "A_speed_reference_4524570",
+        "entity": "",
+        "project": "mfm_model_v3_development",
+        "run_id": "tekx2m3f"
+      },
+      "native_exit_code": 0,
+      "expected_API_state": "finished",
+      "history_rows": 22,
+      "first_explicit_step": 1,
+      "last_explicit_step": 22,
+      "original_model_status": "STANDALONE_TIMING_COMPLETED",
+      "role": "reference",
+      "position": 4,
+      "model_job_id": "4524570",
+      "verification": {
+        "bytes": 21305,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_SDK_audit_actual_v2/tekx2m3f_VERIFICATION.json",
+        "sha256": "59eda83106e09bb3b27dd2fe8dc8b42257dfccb7185a35422fcbf6481cc42b03"
+      },
+      "scope": "MANUAL_R1_ABBA_LOG_AND_EXISTING_SPEED_REPORT_ONLY"
+    }
+  ],
+  "inline_QA": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_SDK_audit_actual_v2/INLINE_METADATA_QA.json",
+    "bytes": 381,
+    "sha256": "308863ee6ca709c4c0fa75fd6dc62aa3f76a0e08223cb51d2ec38b19f8b02584"
+  },
+  "speed_report": {
+    "bytes": 13893,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_SDK_audit_actual_v2/ORIGINAL_A_SPEED_REPORT.json",
+    "sha256": "7456e80bbbe2be735aec9ad59450024f8a95d2257dac0bdb8559dac4efe12542"
+  },
+  "original_speed_report_invocation": {
+    "bytes": 2916,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_SDK_audit_actual_v2/SPEED_REPORT_INVOCATION.json",
+    "sha256": "7a50f98b429697fbe8204806d2388c24d333cc90008576b6b5fbd19e9957bcaa"
+  },
+  "all_source_refs_before_after_equal": true,
+  "history_rows_each": 22,
+  "steps": [
+    1,
+    22
+  ],
+  "same_measured_inputs": true,
+  "speedup_candidate_over_reference": 0.9932396350838761,
+  "base_records_per_second": {
+    "candidate_pooled": 150.95464010204188,
+    "reference_pooled": 151.98209452172557
+  },
+  "Root_SDK_or_steps_body_opened": false,
+  "capacity_transfer_or_actual_checkpoint_off_acceptance": false,
+  "online_action_not_yet_claimed": true,
+  "scientific_model_adoption": false
+}

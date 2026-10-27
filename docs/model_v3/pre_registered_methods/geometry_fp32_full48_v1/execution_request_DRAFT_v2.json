@@ -1,0 +1,171 @@
+{
+    "schema":  "model_v3_geometry_FP32_complete48_GPU_request_v1",
+    "status":  "DRAFT_NOT_ADMITTED",
+    "executable":  false,
+    "repository":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_geometry_fp32_candidate_v1",
+    "local_commit":  "03e26bea6a29ef96ba5611760763329207212741",
+    "public_commit":  "498ecbe7e88b1468067dde5692c10735fcadf2ea",
+    "exact_shared_tree":  "2d3b8f17e06d73bc2bc47745ccde982625646dd0",
+    "execution_branch":  "model-v3-geometry-fp32-candidate-20261028-v1",
+    "base_local_commit":  "f4652e940823141ac376eba5b6b1195f700fa692",
+    "parent_public_commit":  "b2c4c6772d751ba08ac611cbe563ee2e1b40e709",
+    "publication_receipt":  {
+                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_fp32_candidate_publication_actual_v1.json",
+                                "bytes":  3816,
+                                "sha256":  "1f670a03e0fafb4f55d89b6e5c84328f8e8c208d819c6575bc641cb6886871e8"
+                            },
+    "candidate_source_freeze":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_fp32_candidate_source_freeze_v1.json",
+                                    "bytes":  26649,
+                                    "sha256":  "cb4cdae46c7ea0b4c3d0d3bb169d5619ab87a2692faf708be877d7706357a420"
+                                },
+    "full_cpu_root_closure":  {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_fp32_full_CPU_4524576_Root_closure_v1.json",
+                                  "bytes":  953770,
+                                  "sha256":  "e3de59d281021bc0e56ff58e69b5c640b879a2e4f03c2db8fd551311c59bdf9c"
+                              },
+    "method_publication":  null,
+    "metadata_publication":  null,
+    "mode":  "compensated_fp32_v1",
+    "attention_aggregation_mode":  "centered_fp32_v1",
+    "attention_projection_mode":  "blocked_k64_compensated_fp32_v1",
+    "geometry_mode":  "residual_expansion_fp32_v1",
+    "all_FP32_residual_geometry_candidate":  true,
+    "scientific_acceptance":  false,
+    "no_GPU_execution_or_scientific_acceptance":  true,
+    "expected_case_ids":  [
+                              "C1-0__two__H1_fixed__seed20261026",
+                              "C1-0__two__H1_fixed__seed20261027",
+                              "C1-0__two__H1_learned__seed20261026",
+                              "C1-0__two__H1_learned__seed20261027",
+                              "C1-0__two__H2_fixed__seed20261026",
+                              "C1-0__two__H2_fixed__seed20261027",
+                              "C1-0__two__H3_fixed__seed20261026",
+                              "C1-0__two__H3_fixed__seed20261027",
+                              "C1-0__three__H1_fixed__seed20261026",
+                              "C1-0__three__H1_fixed__seed20261027",
+                              "C1-0__three__H1_learned__seed20261026",
+                              "C1-0__three__H1_learned__seed20261027",
+                              "C1-0__three__H2_fixed__seed20261026",
+                              "C1-0__three__H2_fixed__seed20261027",
+                              "C1-0__three__H3_fixed__seed20261026",
+                              "C1-0__three__H3_fixed__seed20261027",
+                              "C1-a__two__H1_fixed__seed20261026",
+                              "C1-a__two__H1_fixed__seed20261027",
+                              "C1-a__two__H1_learned__seed20261026",
+                              "C1-a__two__H1_learned__seed20261027",
+                              "C1-a__two__H2_fixed__seed20261026",
+                              "C1-a__two__H2_fixed__seed20261027",
+                              "C1-a__two__H3_fixed__seed20261026",
+                              "C1-a__two__H3_fixed__seed20261027",
+                              "C1-a__three__H1_fixed__seed20261026",
+                              "C1-a__three__H1_fixed__seed20261027",
+                              "C1-a__three__H1_learned__seed20261026",
+                              "C1-a__three__H1_learned__seed20261027",
+                              "C1-a__three__H2_fixed__seed20261026",
+                              "C1-a__three__H2_fixed__seed20261027",
+                              "C1-a__three__H3_fixed__seed20261026",
+                              "C1-a__three__H3_fixed__seed20261027",
+                              "C1-b__two__H1_fixed__seed20261026",
+                              "C1-b__two__H1_fixed__seed20261027",
+                              "C1-b__two__H1_learned__seed20261026",
+                              "C1-b__two__H1_learned__seed20261027",
+                              "C1-b__two__H2_fixed__seed20261026",
+                              "C1-b__two__H2_fixed__seed20261027",
+                              "C1-b__two__H3_fixed__seed20261026",
+                              "C1-b__two__H3_fixed__seed20261027",
+                              "C1-b__three__H1_fixed__seed20261026",
+                              "C1-b__three__H1_fixed__seed20261027",
+                              "C1-b__three__H1_learned__seed20261026",
+                              "C1-b__three__H1_learned__seed20261027",
+                              "C1-b__three__H2_fixed__seed20261026",
+                              "C1-b__three__H2_fixed__seed20261027",
+                              "C1-b__three__H3_fixed__seed20261026",
+                              "C1-b__three__H3_fixed__seed20261027"
+                          ],
+    "expected_case_count":  48,
+    "expected_original_encoder_forwards":  192,
+    "expected_projection_helper_calls":  2304,
+    "expected_geometry_helper_calls":  512,
+    "absolute_tolerance":  1E-05,
+    "relative_tolerance":  0,
+    "original_fixed_fixture_source_sha256":  "0c49debe901ee5db79a71fcbc8541d426231c5090eb9740b84649e867d8df0e8",
+    "original_capture_manifest":  {
+                                      "bytes":  16202,
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_v2_4521492/CAPTURE_MANIFEST.json",
+                                      "sha256":  "670bf0a21b113d1b11bad4cb82e7e6a3995ac789524fb48b285e4ab33ef713a4"
+                                  },
+    "UUID_admission_source":  {
+                                  "bytes":  16749,
+                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance_runtime_v3/tools/model_v3/check_composed_equivariance.py",
+                                  "sha256":  "7f642f09b7bdda021b150866a5afabcd3f5aa73966265962947de2fe99bac1dd"
+                              },
+    "supervisor_source":  {
+                              "bytes":  15264,
+                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/run_supervised.py",
+                              "sha256":  "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+                          },
+    "GPU_python":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+    "node":  "compute-0-21",
+    "gpu_uuid":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+    "test_file":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_fp32_e2e_v1_source/test_geometry_matrix.py",
+    "source_refs":  [
+
+                    ],
+    "final_source_refs_pending_Root_server_fill":  true,
+    "publication_verifier_pending":  true,
+    "new_terminals_expected_bitwise_equal_to_4550":  false,
+    "public_files":  [
+                         {
+                             "path":  "current/phychem_mfm/model/attention.py",
+                             "mode":  "100644",
+                             "type":  "blob",
+                             "sha":  "fc26e7d941d5c3d352f6a047f4594d6f29493bd9"
+                         },
+                         {
+                             "path":  "current/phychem_mfm/model/backbone.py",
+                             "mode":  "100644",
+                             "type":  "blob",
+                             "sha":  "a2a97791bcc9244e583ddec1e397afc70ce0f5df"
+                         },
+                         {
+                             "path":  "current/phychem_mfm/model/shared.py",
+                             "mode":  "100644",
+                             "type":  "blob",
+                             "sha":  "fa05f9b6adb5d81aae2f7aa5f6de0a17af499a38"
+                         },
+                         {
+                             "path":  "current/phychem_mfm/model/v3_architecture.py",
+                             "mode":  "100755",
+                             "type":  "blob",
+                             "sha":  "310d2560721bbc8b670bde8f040ceebfd3642ee3"
+                         },
+                         {
+                             "path":  "current/phychem_mfm/model/v3_geometry_fp32.py",
+                             "mode":  "100755",
+                             "type":  "blob",
+                             "sha":  "600e3a55d6a04305884deb80352109f6f041840f"
+                         },
+                         {
+                             "path":  "current/tests/test_model_v3_geometry_fp32.py",
+                             "mode":  "100755",
+                             "type":  "blob",
+                             "sha":  "1e0446ee3f77a71ecf0d6e77ec484a95e84cc255"
+                         },
+                         {
+                             "path":  "docs/model_v3/GEOMETRY_FP32_RESIDUAL_V1.md",
+                             "mode":  "100755",
+                             "type":  "blob",
+                             "sha":  "8231ef9e4a8c0b85937e46b73f19785eb8659049"
+                         }
+                     ],
+    "required_public_paths":  [
+                                  "current/phychem_mfm/model/attention.py",
+                                  "current/phychem_mfm/model/backbone.py",
+                                  "current/phychem_mfm/model/shared.py",
+                                  "current/phychem_mfm/model/v3_architecture.py",
+                                  "current/phychem_mfm/model/v3_geometry_fp32.py",
+                                  "current/tests/test_model_v3_geometry_fp32.py",
+                                  "docs/model_v3/GEOMETRY_FP32_RESIDUAL_V1.md"
+                              ]
+}

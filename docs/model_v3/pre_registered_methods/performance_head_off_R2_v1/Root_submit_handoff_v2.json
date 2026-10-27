@@ -1,0 +1,142 @@
+{
+    "schema":  "model_v3_performance_head_off_R2_Root_submit_handoff_v2",
+    "status":  "FROZEN_SOURCE_ONLY_ROOT_AST_PUBLICATION_RESOURCE_ADMISSION_AND_ACTUAL_SUBMIT_PENDING",
+    "Root_driver":  {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Root_submit_v1.py",
+                        "bytes":  12431,
+                        "sha256":  "0c270694a2185fab7614ae687c5a3c781ca3d519aa8b750a2956c2576fa60e7e"
+                    },
+    "original_auto_R2_Root_driver":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Root_submit_v1.py",
+                                         "bytes":  11525,
+                                         "sha256":  "6a080f5ddfae55d087a5106fb8e67e1dfc43a102b8cf5f2bb9933824dddcb6b4"
+                                     },
+    "generic_publication_validator_source":  {
+                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_Root_submit_v1.py",
+                                                 "bytes":  22142,
+                                                 "sha256":  "f392bf5a5b67c172b3894c8862b70b50f4649e3d740858b8cc046061ec2fb6d5"
+                                             },
+    "frozen_package":  {
+                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_v1_source/source_pins.json",
+                           "bytes":  3203,
+                           "sha256":  "2c44a90309413da48859463f0cdee06a0820683c90c85eec5e7c1011697f2b25"
+                       },
+    "frozen_package_five_leaves_unchanged":  true,
+    "original_package_handoff_preserved":  {
+                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_source_handoff_v1.json",
+                                               "bytes":  28489,
+                                               "sha256":  "ed2afc5bf2f4722fb8c08068c149a4f1746201dcd4a2578808761238cb98371e"
+                                           },
+    "existing_template_correction":  "Prior handoff submit template is not executable; this independent driver constructs SB=O/run_performance_head_off_R2_v1.sbatch with pathlib and passes exactly one str(SB) argv element. The previous frozen handoff is not edited.",
+    "Root_invocation_argv":  [
+                                 "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                 "-u",
+                                 "-B",
+                                 "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Root_submit_v1.py",
+                                 "--method-publication",
+                                 "ACTUAL_PUBLICATION_RECEIPT_PATH",
+                                 "--method-publication-sha256",
+                                 "ACTUAL_PUBLICATION_RECEIPT_RAW_SHA"
+                             ],
+    "invocation_context":  "Root UID1278 sonmi login metadata only, no SLURM_JOB_ID; one explicit call, no loop or auto retry",
+    "prerequisite_exact_SB_copy":  {
+                                       "source":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_v1_source/run_head_off_R2.sbatch",
+                                                      "bytes":  12429,
+                                                      "sha256":  "a832585b7321c2f7a9dcdd9f76047f6df328db7d2d48840b89fa844f87f2f668"
+                                                  },
+                                       "target":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_performance_head_off_R2_v1.sbatch",
+                                       "Root_action":  "copy original raw bytes to this fresh target before invocation; driver requires exact SHA equality, never overwrites/chooses another script"
+                                   },
+    "actual_sbatch_argv_template":  [
+                                        "sbatch",
+                                        "--parsable",
+                                        "--partition=all",
+                                        "--nodelist=compute-0-21",
+                                        "--cpus-per-task=16",
+                                        "--mem=65536M",
+                                        "--time=02:00:00",
+                                        "--output=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/control/slurm_%j.log",
+                                        "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_performance_head_off_R2_v1.sbatch"
+                                    ],
+    "actual_sbatch_script_argument_is_one_complete_path":  true,
+    "publication_schema":  "model_v3_exact_tree_publication_actual_v1",
+    "publication_repository":  "mint258/MFM",
+    "publication_branch":  "model-v3",
+    "publication_exact_blobs":  {
+                                    "docs/model_v3/pre_registered_methods/performance_head_off_R2_v1/run_head_off_R2.sbatch":  {
+                                                                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_v1_source/run_head_off_R2.sbatch",
+                                                                                                                                   "bytes":  12429,
+                                                                                                                                   "sha256":  "a832585b7321c2f7a9dcdd9f76047f6df328db7d2d48840b89fa844f87f2f668"
+                                                                                                                               },
+                                    "docs/model_v3/pre_registered_methods/performance_head_off_R2_v1/METHODS_README.md":  {
+                                                                                                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_v1_source/METHODS_README.md",
+                                                                                                                              "bytes":  10969,
+                                                                                                                              "sha256":  "384d94855efe01ec44e272f4762d985aacbd217c133fb9da70aac5ce6468cae3"
+                                                                                                                          },
+                                    "docs/model_v3/pre_registered_methods/performance_head_off_R2_v1/dependencies.json":  {
+                                                                                                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_v1_source/dependencies.json",
+                                                                                                                              "bytes":  21699,
+                                                                                                                              "sha256":  "735f457a39de322e6aceca1a712d952068c34068beb3ef2c56cce9d6115e9fe2"
+                                                                                                                          },
+                                    "docs/model_v3/pre_registered_methods/performance_head_off_R2_v1/R1_registration_DRAFT.json":  {
+                                                                                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_v1_source/R1_registration_DRAFT.json",
+                                                                                                                                       "bytes":  8305,
+                                                                                                                                       "sha256":  "793bdca079ac686364e01f1a71fb26fd29642579d52d70f4e221025c27545968"
+                                                                                                                                   },
+                                    "docs/model_v3/pre_registered_methods/performance_head_off_R2_v1/source_pins.json":  {
+                                                                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_v1_source/source_pins.json",
+                                                                                                                             "bytes":  3203,
+                                                                                                                             "sha256":  "2c44a90309413da48859463f0cdee06a0820683c90c85eec5e7c1011697f2b25"
+                                                                                                                         },
+                                    "docs/model_v3/pre_registered_methods/performance_head_off_R2_v1/Root_submit_v1.py":  {
+                                                                                                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Root_submit_v1.py",
+                                                                                                                              "bytes":  12431,
+                                                                                                                              "sha256":  "0c270694a2185fab7614ae687c5a3c781ca3d519aa8b750a2956c2576fa60e7e"
+                                                                                                                          }
+                                },
+    "publication_unknown_commit_or_tree_not_prefilled":  true,
+    "environment_addition":  [
+                                 "MODEL_V3_METHOD_PUBLICATION_PATH",
+                                 "MODEL_V3_METHOD_PUBLICATION_SHA256"
+                             ],
+    "Root_family":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1",
+    "Root_reservation_id":  "performance_head_off_R2_v1",
+    "Root_control":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/control",
+    "Root_child":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child",
+    "Root_supervisor":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/supervisor.json",
+    "Root_submission_receipt":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/control/Root_submission_actual_v1.json",
+    "current_namespace":  "argparse cli, Git loop task_git_args; namespace cannot be overwritten by Git argv loop",
+    "original_flow_preserved":  [
+                                    "exact clean9e16/tree/full tested source-map before any reservation",
+                                    "fresh one-job2GiB hold in unchanged live Root registry without touching historical/Native entries",
+                                    "scontrol+squeue all-user max memory85percent and actual MemAvailable",
+                                    "quota every registered hold plus64GiB spare",
+                                    "strict knownhosts/key node21 SSH/NVML exact C35 no foreign compute process",
+                                    "public UUID lock availability check released before sole evaluator lock",
+                                    "120s frame freshness, original16CPU64GiB/7200 and6900/RSS56GiB/dual2GiB",
+                                    "unique persisted intent before one actual sbatch; returned numeric jobID stored; uncertain outcomes never auto-retry"
+                                ],
+    "text_diff_check":  "Author compared fresh admission/quota/UUID-lock body exactly after reverting only task identity names; body identical. No AST/Python/Git/SSH/Slurm executed.",
+    "changed_scope":  [
+                          "task package/pins/SB/family/reservation/schema identifiers",
+                          "explicit actual method publication CLI rawref with existing generic6-blob source validation",
+                          "pass actual method-publication PATH+SHA through worker environment",
+                          "preserve argparse namespace separately from Git-loop args"
+                      ],
+    "no_new_scientific_gate_or_QA_or_monitor":  true,
+    "no_runtime_or_five_leaf_source_changed":  true,
+    "author_activity":  {
+                            "source_and_small_metadata_only":  true,
+                            "Python_AST_Git_tests_models_SSH_Slurm_executed":  false,
+                            "arrays_SDK_payload_LMDB_labels_opened":  false,
+                            "registry_phase_locks_or_jobs_modified":  false
+                        },
+    "source_frozen_stop_editing":  true,
+    "prior_metadata_template_preserved":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Root_submit_handoff_v1.json",
+                                              "bytes":  13541,
+                                              "sha256":  "f0ba340d7ca2c101d3842ea3e0080974ec961d425bae8be3120eee43af933e37"
+                                          },
+    "final_metadata_only_correction":  "Precompute string elements before constructing arrays; no Python/source/package change, no execution. Root invocation8 elements, actual-sbatch template9, one complete final script path. Supersedes v1 templates only."
+}

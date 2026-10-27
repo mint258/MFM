@@ -1,0 +1,93 @@
+{
+    "schema":  "performance_manual_R1_ABBA_log_sources_v1",
+    "revision":  2,
+    "scope":  "MANUAL_R1_ABBA_LOG_AND_EXISTING_SPEED_REPORT_ONLY",
+    "source_stage":  "SOURCE_ONLY_PENDING_ROOT_AST_REVIEW_AND_REAL_CPU",
+    "created_utc":  "2026-10-27T21:22:14.5474808Z",
+    "files":  [
+                  {
+                      "relative_path":  "abba_common.py",
+                      "bytes":  18555,
+                      "sha256":  "b6bef83fcc11aed0984b28ac954b60d1371eb3156fb5a861271dead2e1a28c0f"
+                  },
+                  {
+                      "relative_path":  "audit_abba.py",
+                      "bytes":  17619,
+                      "sha256":  "d6c6f38a0891c0e2a830e445d47fe6d1a988224b5efeb8b3deac0328cc0b7739"
+                  },
+                  {
+                      "relative_path":  "prepare.py",
+                      "bytes":  4644,
+                      "sha256":  "91c0f27d47daefc6b58d3a82a9a71e7bcb8158797e231cf0d83a559c5c8fb2ad"
+                  },
+                  {
+                      "relative_path":  "sync_abba.py",
+                      "bytes":  6548,
+                      "sha256":  "9c8730291e6b8f7313f4ef2f3e0498cf3d5c9b25904ecb5cff00ae673f1320e2"
+                  },
+                  {
+                      "relative_path":  "one_run_abba.py",
+                      "bytes":  11852,
+                      "sha256":  "702e842e71898e99270ed9beb5efcdda0fef82b359cc6e58729906832fbb4065"
+                  },
+                  {
+                      "relative_path":  "audit_cpu.sbatch",
+                      "bytes":  1239,
+                      "sha256":  "b0e902e872de78a53cb24a6865b3a770947923af53e540d039fe1ca644f92d28"
+                  },
+                  {
+                      "relative_path":  "sync_cpu.sbatch",
+                      "bytes":  1333,
+                      "sha256":  "32716ec32d72f298aaa15e18211873d0445bbd247e30485124c6e1045f2db2e3"
+                  },
+                  {
+                      "relative_path":  "dependencies.json",
+                      "bytes":  12977,
+                      "sha256":  "d4695b466ed3800dd154ae43d59fe6a764e1cf7ef4df26419193a5f570fbba93"
+                  },
+                  {
+                      "relative_path":  "installed_sources.json",
+                      "bytes":  5921,
+                      "sha256":  "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+                  },
+                  {
+                      "relative_path":  "scope.json",
+                      "bytes":  4184,
+                      "sha256":  "c32cdf2e776c52004540fcee71fdf34c04ae54a4fb7e2668a7ce83b63f4d11ea"
+                  },
+                  {
+                      "relative_path":  "README.md",
+                      "bytes":  8012,
+                      "sha256":  "ed55e106b8a6ded45725a55295139af07b1431d2f1587ea916dccf856bdaa86a"
+                  }
+              ],
+    "baseline_source_pins":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_SDK_v1_source/source_pins.json",
+                                 "bytes":  3903,
+                                 "sha256":  "8c25ed66fc0a74c590db2444976d56de499b3152600e22a93b4c0ced4c7c87a1"
+                             },
+    "v1_status":  "BLOCKED_SOURCE_ONLY_NOT_EXECUTED",
+    "v1_blocker":  "literal749._apply_config projects only paired_role; v1 mirror_factory config.get(role) was None and would falsely reject a valid single stream",
+    "role_fix":  "Use observed original Native RunRecord role and checked header count; unchanged full typed Audit retains config.role before history and EOF",
+    "six_inline_checks_not_new_QA_parent":  true,
+    "no_actual_job_or_run_prefilled":  true,
+    "resources":  {
+                      "CPUs":  16,
+                      "memory_MiB":  16384,
+                      "audit_outer_wall_seconds":  900,
+                      "sync_outer_wall_seconds":  3300,
+                      "RSS_bytes":  12884901888,
+                      "whole_output_bytes":  2147483648,
+                      "private_bytes":  2147483648,
+                      "original_transport_max_runs":  3,
+                      "explicit_sync_batch_sizes":  [
+                                                        2,
+                                                        2
+                                                    ]
+                  },
+    "text_only_derivations":  {
+                                  "six_other_leaves_same_as_v1":  true,
+                                  "SBs_only_package_path_changed":  true,
+                                  "original_decoder_and_transport_unchanged":  true
+                              }
+}

@@ -1,0 +1,119 @@
+{
+    "schema":  "model_v3_checkpoint_off_counts_source_handoff_v1",
+    "status":  "FROZEN_SOURCE_ONLY_ROOT_CPU_EXECUTION_PENDING",
+    "source_package":  {
+                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_checkpoint_off_counts_CPU_v1_source/source_pins.json",
+                           "bytes":  13090,
+                           "sha256":  "651518683327b845dabc127cfebcec55c8a5b2acc2084f93057255d90a7add2f"
+                       },
+    "authored_files":  [
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_checkpoint_off_counts_CPU_v1_source/audit_counts.py",
+                               "bytes":  26370,
+                               "sha256":  "52a29bd178496242b9fac33f756d98e8ba6f2274f4a2ac6deb7247d6bb7db518"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_checkpoint_off_counts_CPU_v1_source/inputs.json",
+                               "bytes":  10217,
+                               "sha256":  "29e5bad5f38097eef33f258237a3ac9bc5d6f9ea7f5890fb1e6c2f5278e3467b"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_checkpoint_off_counts_CPU_v1_source/README.md",
+                               "bytes":  10002,
+                               "sha256":  "4e79376234a1df36e6c348f857c08f029273eefe0305ca207f6637e2fa183a99"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_checkpoint_off_counts_CPU_v1_source/source_pins.json",
+                               "bytes":  13090,
+                               "sha256":  "651518683327b845dabc127cfebcec55c8a5b2acc2084f93057255d90a7add2f"
+                           }
+                       ],
+    "runtime_root":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1",
+    "actual_execution_not_claimed":  true,
+    "author_activity":  {
+                            "source_and_small_metadata_only":  true,
+                            "count_array_opened":  false,
+                            "LMDB_or_Arrow_opened":  false,
+                            "Python_AST_models_tests_Git_SSH_Slurm_run":  false
+                        },
+    "argv_template":  [
+                          "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python -u -B /share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_checkpoint_off_counts_CPU_v1_source/audit_counts.py --inputs /share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_checkpoint_off_counts_CPU_v1_source/inputs.json --inputs-sha256 29e5bad5f38097eef33f258237a3ac9bc5d6f9ea7f5890fb1e6c2f5278e3467b --source-pins-sha256 651518683327b845dabc127cfebcec55c8a5b2acc2084f93057255d90a7add2f --expected-node ACTUAL_ALLOCATED_CPU_NODE --output-root ACTUAL_EXISTING_PARENT/counts_500k_audit"
+                      ],
+    "child_environment":  {
+                              "CUDA_VISIBLE_DEVICES":  "",
+                              "PYTHONDONTWRITEBYTECODE":  "1",
+                              "OMP_NUM_THREADS":  "1",
+                              "MKL_NUM_THREADS":  "1",
+                              "OPENBLAS_NUM_THREADS":  "1",
+                              "PYTHONPATH":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current:/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/workflows/sprime_s/scripts:/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/tools/model_v3:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps"
+                          },
+    "expected_inputs":  {
+                            "TRAIN_records":  11104772,
+                            "manifest_bytes":  4238,
+                            "counts_bytes":  44419088,
+                            "dtype":  "\u003cu4",
+                            "counts_raw_SHA_origin":  "exact original manifest",
+                            "old_sampler_cost":  8000000,
+                            "new_common_cost":  500000,
+                            "seed":  0,
+                            "epoch":  0,
+                            "updates":  500,
+                            "actual_views_from_bound_source":  true
+                        },
+    "outputs":  [
+                    "RESULT.json",
+                    "global_native_atom_count_histogram.csv",
+                    "sampler_seed0_epoch0_first500_updates_500k.csv"
+                ],
+    "completion_status":  "COUNTS_AUDIT_COMPLETE_PENDING_ACTUAL_CPU_OUTER_C0",
+    "no_drop_scope":  "full immutable counts population retained; actual original sampler first500 checked for unique/in-range ordinals and committed cursors; no full epoch enumeration",
+    "estimate_not_measurement":  {
+                                     "wall_seconds_max_cooperative":  600,
+                                     "host_RSS_GiB_estimate":  "1-2 including original imports; parent hard cap unchanged",
+                                     "output_bytes_max":  8388608,
+                                     "expected_output_under_bytes":  1048576
+                                 },
+    "no_new_parent_or_wrapper":  true,
+    "parent_integration":  "Root existing necessary geometry precommit CPU allocation: repository checker then fresh counts subprocess sequentially under original run_cpu_supervised_v3/whole+private2GiB; mature full runner unchanged",
+    "first_head_off_plan":  {
+                                "options":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a03_head_off.json",
+                                                "bytes":  302,
+                                                "sha256":  "9e958e8fb4374211f80e2c8ed741266b93f701dbde15f2dd36cb862a9e10723e"
+                                            },
+                                "checkpoint_tuple":  [
+                                                         true,
+                                                         true,
+                                                         false
+                                                     ],
+                                "padded_cost":  8000000,
+                                "execution":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a1_manual_capacity_observation_v1.json",
+                                                  "bytes":  85,
+                                                  "sha256":  "7cabbd4a0300d551154ffb9bcbed5466fc9886d0eb886a1ae37ee3e7f70db46e"
+                                              },
+                                "reference":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                                                  "bytes":  34127,
+                                                  "sha256":  "af26f79be41d99bac5de410b686bccdf608b830b772d0dde06491bb146d35324"
+                                              },
+                                "required_original_numeric_gate":  "20 fixed batches+500 fresh paired updates at same budget; not executed"
+                            },
+    "later_all_off_plan":  {
+                               "options":  {
+                                               "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a04_all_off.json",
+                                               "bytes":  304,
+                                               "sha256":  "f1a776c7a484d97b0c58048b15488adf6cc6e412aee90db317e4e073b904a900"
+                                           },
+                               "checkpoint_tuple":  [
+                                                        false,
+                                                        false,
+                                                        false
+                                                    ],
+                               "padded_cost":  500000,
+                               "not_yet_authorized_GPU_attempt":  true,
+                               "dependency":  "read actual new counts/prefix; account extra unknown peak components; Root decides guarded attempt",
+                               "required_original_numeric_gate":  "20 fixed batches+500 fresh paired updates on the new common500k stream; not executed"
+                           },
+    "original_guards_unchanged":  "future paired GPU remains16CPU64GiB/2h/6900s/RSS56GiB/whole+private2GiB/GPU85percent/sole innerUUID lock and freshRoot quota/reservation"
+}

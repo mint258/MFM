@@ -1,0 +1,72 @@
+{
+  "schema": "model_v3_geometry_precommit_counts_Root_closure_v1",
+  "status": "ACTUAL_C0_GEOMETRY_REPOSITORY_CHECKER_AND_FULL_TRAIN_COUNTS_500_PREFIX_SOURCE_CLOSED",
+  "job_id": "4524574",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524574",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524574|zixiao|COMPLETED|0:0|8|16|compute-0-14\n",
+    "stderr": ""
+  },
+  "parent_result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_precommit_counts_CPU_v1_4524574/RESULT.json",
+    "bytes": 21566,
+    "sha256": "108734a64ea0134ba14d082db414400cc0b28752411cb5c7d285e6af405420c6"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_precommit_counts_supervisor_4524574.json",
+    "bytes": 2890,
+    "sha256": "4e13f7f6a08d83416b838fbad72c3cdcd964b0c7ab9186e8a21796c219327911"
+  },
+  "checker": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_precommit_counts_CPU_v1_4524574/REPOSITORY_CHECKER.json",
+    "bytes": 177,
+    "sha256": "1dfcdd125e0f083b41b0b9e4a363619d6e5819dc341086f8ec2f38b47b188ae6"
+  },
+  "counts_result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_precommit_counts_CPU_v1_4524574/counts_500k_audit/RESULT.json",
+    "bytes": 31114,
+    "sha256": "8e45fab098cc973bd8bcc3debef1d098f9ae90605ae0ba37440d9102b3658faa"
+  },
+  "geometry_freeze": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_fp32_candidate_source_freeze_v1.json",
+    "bytes": 26649,
+    "sha256": "cb4cdae46c7ea0b4c3d0d3bb169d5619ab87a2692faf708be877d7706357a420"
+  },
+  "all_geometry_current_and_protected_rehashed": true,
+  "counts_before_after_raw_and_source_match": true,
+  "global_counts": {
+    "500k_is_a_target_not_an_absolute_singleton_cap": true,
+    "global_max_in_first_500_updates": false,
+    "max_native_atoms": 712,
+    "maximum_singleton_padded_cost": 1520832,
+    "min_native_atoms": 2,
+    "records": 11104772,
+    "records_above_sampler_native_atom_limit": 0,
+    "records_at_sampler_native_atom_limit": 0,
+    "records_with_singleton_cost_above_500k": 21,
+    "singleton_over_budget_policy": "singleton_no_discard",
+    "total_native_atoms": 590151357,
+    "views_per_base_record": 3
+  },
+  "prefix_maxima": {
+    "base_records": 173,
+    "max_native_atoms": 153,
+    "native_atoms": 4831,
+    "padded_cost": 499554,
+    "physical_graphs": 519,
+    "two_saved_distance_buffers_all_six_layers_bytes": 12277039104
+  },
+  "prefix_global_max_present": false,
+  "model_tests_in_this_parent": false,
+  "full_model_regression_pending": true,
+  "new_model_or_GPU_run_claimed": false
+}
