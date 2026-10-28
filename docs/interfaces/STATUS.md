@@ -1,5 +1,9 @@
 ## 2026-10-26 Native S 长程准入实测闭合
 
+
+2026-10-29 后续：[A00-v2/Native/FP32与数据依赖](../model_v3/STATUS_20261029_A00_V2_CP19000_SCALAR_REVIEW.md)。D1仍候选，真实D3–D6模型侧验收待办；来源角色FROZEN不替代Common人口或归一化授权。
+
+
 2026-10-29 更新：[CPU 自动内存、A5-v2、残差 FP32 与 Native 续接阶段报告](../model_v3/STATUS_20261029_CPU_AUTO_A5_V2_FP32_NATIVE.md)。四套完整 CPU 回归通过；A5 和残差 FP32 仍未通过科学门。旧 A 类 PASS 按新规则逐项复核，D1 joint 与模型侧真实 D3–D6 验收继续待办。
 
 

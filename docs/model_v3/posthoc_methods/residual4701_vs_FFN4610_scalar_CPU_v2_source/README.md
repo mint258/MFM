@@ -1,0 +1,21 @@
+# Residual4701 vs FFN4610: closed scalar metadata comparison
+
+SOURCE ONLY; not executed by the author. Root runs this one stdlib script in an existing supervised16CPU automatic-memory CPU allocation. No new runner, monitor, unit-test suite, model/encoder replay, array reconstruction or acceptance rule is provided. Real comparison statistics and execution/job refs remain null in source_pins.json until an actual run.
+
+The script consumes the two original Root negative closures, their exact RESULT.json files and all48+48 case_json rawrefs. The prior FFN4610/geometry4579 scalar comparison is bound only as historical context linking the same original FFN closure. No old numerical aggregates are reused as results for this new comparison.
+
+Fixed scope: the original ordered48 C1-0/a/b × two/three views × four head policies × two seeds; complete6×512/full88-or132 view population; original1492 complete parameter SHA/count, fixture/registry/geometry/view identities; original13 fields × three transforms =1872 paired scalar observations. Only encoder_configuration.backbone_config.residual_accumulation_mode may differ (legacy vs two_sum_three_term_fp32_v1). Original absolute1e-5, rtol0, finite/nonzero/domain checks remain. Missing scalars or identity discrepancies fail rather than obtaining arrays or rerunning a model.
+
+Saved JSON terminal headers are checked for the same52 dtype/shape entries. NPZ paths are never opened, statted, hashed or decoded. Allowed reads are owned physical .json/.py/.md only. Individual metadata files are capped1MiB, selected unique inputs32MiB, encoded scalar output4MiB. Estimated selected metadata is approximately10–12MiB; actual selected bytes and all before/after rawrefs are saved by the CPU execution. No Torch/NumPy/SDK/native-data import exists. Sixteen threads read/hash independent case pairs; final ordering and aggregation are canonical.
+
+Output: complete case P/F transition counts and all48 case rows; original-cohort case verdicts; all13 field and39 field/transform fail counts/maxima; all1872 paired maxabs/pass/argmax scalar records;144 paired H0 diagnostic scalars plus per-transform H0 maxima; source/input rawrefs. Maxima have a canonical first representative plus a tie count, never a claim of unique argmax. Different maxima are not subtracted or combined. H0 numbers are diagnostic, not terminal physical units or causal evidence. Both original negative results remain negative and no adoption/universal improvement is claimed.
+
+Root invocation (paths are single argv elements):
+
+    ACTUAL_PYTHON -B /share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/residual4701_vs_FFN4610_scalar_CPU_v1_source/compare_scalars.py --source-pins /share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/residual4701_vs_FFN4610_scalar_CPU_v1_source/source_pins.json --source-pins-sha256 ACTUAL_MANIFEST_RAW_SHA --output /share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/FRESH_SUPERVISED_PARENT/RESULT.json
+
+Reuse the existing CPU supervisor/output/private quotas and auto-memory SB policy; no fixed Slurm memory allocation is inferred. The output JSON is fresh (exclusive creation) beneath an O/N parent that the mature supervisor may already have created. Root supplies CUDA_VISIBLE_DEVICES='' and a real CPU16 allocation. Author performed text/source-schema inspection only, not Python/AST/Slurm or any48-pair numerical execution.
+
+## v2: one metadata compatibility correction after CPU4524714
+
+The preserved v1 CPU attempt completed the48-pair identity/field validation, then failed on missing closure['failed'] in the historical FFN Root closure. This is a metadata-reader failure, not a new model/scientific result. V2 changes exactly one final count-check site to the existing authoritative closure['counts']['failures'] and tests-minus-failures. Original result['counts']==closure['counts'] in cohort(), all48/1872 population/identity/gate checks and all numerical aggregation code remain byte-identical. No top-level alias is invented. V1 package and4714 failure evidence remain unchanged. Root repeats only this bounded CPU metadata analysis; no model/array replay. Statistics remain null until that actual execution.

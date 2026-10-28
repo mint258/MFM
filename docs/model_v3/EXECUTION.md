@@ -1,5 +1,9 @@
 # 执行与复现记录
 
+
+2026-10-29 后续：[A00-v2完整通过、Native CP19000与逐字段FP32复查](STATUS_20261029_A00_V2_CP19000_SCALAR_REVIEW.md)。九组旧PASS已完成首项当前源码复核；500步差异为0，原容量消费者实际C0。Native继续20k，残差仍不采用。
+
+
 2026-10-29 更新：[CPU 自动内存、A5-v2、残差 FP32 与 Native 续接阶段报告](STATUS_20261029_CPU_AUTO_A5_V2_FP32_NATIVE.md)。四套完整 CPU 回归通过；A5 和残差 FP32 仍未通过科学门。旧 A 类 PASS 按新规则逐项复核，D1 joint 与模型侧真实 D3–D6 验收继续待办。
 
 
