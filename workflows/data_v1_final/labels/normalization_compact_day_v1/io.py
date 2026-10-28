@@ -5,6 +5,7 @@ from workflows.data_v1_final.labels.normalization_compact_runtime_v3.runtime imp
 from workflows.data_v1_final.labels.source_status_cpu_auto_memory_v1 import support as S
 from . import memory as R
 from workflows.data_v1_final.execution.cpu_analysis_day_v1 import quota_provider as QP
+from workflows.data_v1_final.execution import finite_quota_observation_guard_v1 as QG
 from . import contract as C
 stop_requested=R.stop_requested;pin=S.ref
 
@@ -35,13 +36,16 @@ class Budget:
         self.plan=plan;self.root=Path(root);self.ledger=None;self.done=threading.Event();self.clock=wall_clock(proof,86400)
         save(self.root/'actual_wall_clock.json',self.clock)
         self.client=QP.Client(proof['request']['quota_provider_review_reference'],proof['request'])
+        self.expected_identity=proof['request']['quota_provider_identity_reference'];self.quota_events=0;self.observe_lock=threading.Lock()
         self.next_quota=0;self.quota=None;self.total=C.meta(proof['request']['root_carveout_review_reference'])['total_future_reserved_bytes']
         binding={'resource_evidence_output':str(self.root)+'_resource_observation','memavailable_soft_floor_bytes':4<<30,'resource_evidence_local_cap_bytes':64<<20}
         R.start_observer(proof,binding);self.observe();self.thread=threading.Thread(target=self.loop,daemon=True);self.thread.start()
     def observe(self):
+        with self.observe_lock:self._observe()
+    def _observe(self):
         try:
             if time.monotonic()>=self.next_quota:
-                self.quota=self.client.observe();self.next_quota=time.monotonic()+60
+                self.quota=QG.observe(self.client,expected_identity_reference=self.expected_identity,record=self.record_quota_event);self.next_quota=time.monotonic()+60
             q=self.quota
             if q['free_bytes']-self.total<200000000000:R.mark_stop('DAY_REAL_ACCOUNT_QUOTA_FUTURE_ONCE_PLUS200GB',{'free':q['free_bytes'],'future':self.total})
             if remaining_wall(self.clock,time.monotonic())<=900:R.mark_stop('DAY_SOFTWALL900_STOP_NEW_WORK_NATURAL_DRAIN',{'clock':self.clock})
@@ -50,7 +54,12 @@ class Budget:
                 try:cap,charged=db.execute('SELECT cap,charged FROM budget WHERE id=1').fetchone()
                 finally:db.close()
                 if charged>=cap:R.mark_stop('DAY_OUTPUT_TICKET_SOFT_STOP',{'charged':charged,'cap':cap})
-        except Exception as exc:R.mark_stop('DAY_RESOURCE_OBSERVATION_UNKNOWN',{'error':repr(exc)})
+        except Exception as exc:R.mark_stop('DAY_RESOURCE_OBSERVATION_UNKNOWN',{'error':repr(exc),'actual_client_last':self.client.last})
+    def record_quota_event(self,event):
+        # Same Parent, explicit Source-pinned IO helper; recorder errors stop observe.
+        directory=self.root/'quota_resource_events';directory.mkdir(exist_ok=True,mode=0o700)
+        C.need(unique_bytes(directory)<2<<20,'BOUNDED_QUOTA_REREAD_RESOURCE_EVENT_CAP')
+        self.quota_events+=1;save(directory/('event_%06d.json'%self.quota_events),event)
     def loop(self):
         while not self.done.wait(1):self.observe()
     def attach_ledger(self,path):self.ledger=None if path is None else Path(path).absolute()

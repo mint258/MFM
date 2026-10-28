@@ -3,7 +3,7 @@ import argparse,collections,hashlib,json,os,re,sqlite3,struct
 from pathlib import Path
 from workflows.data_v1_final.labels.normalization_compact_runtime_v3 import contract as C,codec as K,bindings as B
 from . import io as I
-from .lineage import actual
+from .lineage import actual,parts_root
 from workflows.data_v1_final.labels.source_status_cpu_auto_memory_v1.support import identity,lookup_batch,sqlite_ro
 
 
@@ -44,10 +44,10 @@ def execute(cfg,proof,root,gate):
     try:
         for parent in cfg['batch_history']:
             C.need(not I.stop_requested(),'DAY_RESOURCE_STOP_COVERAGE_NO_ACCEPTANCE')
-            m,_=actual(parent);parent_root=Path(parent['manifest']['path']).parent
+            m,_=actual(parent);parent_root=parts_root(m,parent)
             oldcfg=I.load(I.require(m['config']));C.need(oldcfg['canonical_index']==cfg['canonical_index'] and oldcfg['footer_manifest_reference']==cfg['footer_manifest_reference']
               and oldcfg['logical_group_plan_reference']==cfg['logical_group_plan_reference'] and oldcfg['mode']==cfg['mode'],'ONE_EXACT_SOURCE_AND_NUMERIC_ORDER_AUTHORITY')
-            C.need(m['status'] in ('CLOSED_WINDOWS_ACTUAL_PARENT_ACCOUNTING_REQUIRED','DAY_INTERNAL_COMMITTED_WINDOWS_NOT_CHILD_C0') and not(m['errors'] or m['quality_hold_fields'] or m['unpublished_tickets']),'NO_PARTIAL_PARENT_OR_QUALITY_HOLD_ACCEPTANCE')
+            C.need(m['status'] in ('CLOSED_WINDOWS_ACTUAL_PARENT_ACCOUNTING_REQUIRED','DAY_INTERNAL_COMMITTED_WINDOWS_NOT_CHILD_C0','ROOT_ADOPTED_FAILED_DAY_CLOSED_WINDOWS_CURRENT_PARENT_VERIFIED') and not(m['errors'] or m['quality_hold_fields'] or m['unpublished_tickets']),'NO_PARTIAL_PARENT_OR_QUALITY_HOLD_ACCEPTANCE')
             for wr in m['verified_window_receipts']:
                 C.need(not I.stop_requested(),'DAY_RESOURCE_STOP_COVERAGE_NO_ACCEPTANCE')
                 C.need(Path(wr['path']).parent==parent_root/'parts','ONLY_BOUND_ACTUAL_PARENT_WINDOW');window=I.load(I.require(wr));fid=window['file_id']

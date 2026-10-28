@@ -52,6 +52,7 @@ def checked_state(state,plan,roots):
 
 def execute(plan,proof,root,gate,check,budget):
     cfg=I.load(I.require(plan['scientific_config_reference']));cfg['workers']=plan['requested_cpus'];book=C.meta(cfg['source_inventory_reference']);files=book['files']
+    cfg['failed_prefix_recovery_reference']=plan.get('failed_prefix_recovery_reference')
     L.bind(proof,C.A.Q.pin(plan['plan_path']),root,cfg);projections=[];registered=[];state={'schema':'COMPACT_NUMERIC_DAY_CHECKPOINT_V1','route_index':0,
       'coverage_reference':None,'element_models_reference':None,'exact_tail_reference':None,'query_reference':None,'pending_group_reports':[],
       'pending_group_errors':[],'completed_statistics':[],'pass_number':0}
@@ -79,11 +80,22 @@ def execute(plan,proof,root,gate,check,budget):
           'new_QM_UFF_calls':0,'final_Common_D4':False,'D3_D4_frozen':False,'normalization_completed':False,
           'native_unit_sign_frame_policy_or_Pprime_released':False,'charged_current_output_bytes_including_observer_reserve':used+(64<<20)}
         I.save(root/'manifest.json',m);return 1 if held else 0
+    if plan.get('failed_prefix_recovery_reference') and not any(L.actual(p)[0].get('old_parent_job_id')=='4524575' for p in registered):
+        from . import recovery
+        if I.stop_requested():return finish('DAY_CLEAN_CHECKPOINTS_PENDING')
+        try:adopted=recovery.execute(plan,cfg,proof,root/'failed_prefix_adoption',gate,budget)
+        except ValueError as exc:
+            if str(exc).startswith('SOFT_RESOURCE_STOP_') and I.stop_requested():return finish('DAY_CLEAN_CHECKPOINTS_PENDING')
+            raise
+        record=L.register(adopted);registered.append(record);projections.append(adopted);history=[*plan['batch_history'],*registered]
+        m,_=L.actual(record);cursor=C.advance(files,cursor,m['closed_physical_intervals']);checkpoint()
     if not state['coverage_reference'] and any(cursor.get(str(s['file_id']),0)<s['rows'] for s in files):
         if I.stop_requested():return finish('DAY_CLEAN_CHECKPOINTS_PENDING')
         target=root/'projection';target.mkdir();selector=I.save(root/'current_selector.json',{'sources':[{'file_id':s['file_id'],'physical_row_lo':cursor.get(str(s['file_id']),0),
           'physical_row_hi':s['rows']} for s in sorted(files,key=lambda s:s['file_id']) if cursor.get(str(s['file_id']),0)<s['rows']]})
-        pcfg=copy.deepcopy(cfg);pcfg.update(selector_reference=selector,whole_output_cap_bytes=plan['projection_cap_bytes'],config_path=str(root/'projection_config.json'))
+        recovery_used=I.unique_bytes(root/'failed_prefix_adoption') if (root/'failed_prefix_adoption').exists() else 0
+        C.need(plan['projection_cap_bytes']-recovery_used>=8<<30,'RECOVERY_METADATA_INSIDE_PROJECTION_COMPONENT_CAP')
+        pcfg=copy.deepcopy(cfg);pcfg.update(selector_reference=selector,whole_output_cap_bytes=plan['projection_cap_bytes']-recovery_used,config_path=str(root/'projection_config.json'))
         I.save(pcfg['config_path'],pcfg)
         try:P.execute(pcfg,proof,None,target,gate,budget)
         except BaseException as exc:

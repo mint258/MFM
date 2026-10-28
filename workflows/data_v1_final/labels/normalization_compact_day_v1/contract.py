@@ -6,7 +6,7 @@ from workflows.data_v1_final.labels.normalization_compact_runtime_v3 import cont
 from workflows.data_v1_final.execution.cpu_analysis_day_v1 import contract as A
 RUN=OLD.RUN;REPO=OLD.REPO;HERE=REPO/'workflows/data_v1_final/labels/normalization_compact_day_v1'
 KEY='normalization_compact_day_v1';MODULE='workflows.data_v1_final.labels.normalization_compact_day_v1.run';SCHEMA='COMPACT_NUMERIC_DAY_PLAN_V1'
-FILES=('__init__.py','contract.py','io.py','memory.py','lineage.py','project.py','coverage.py','statistics.py','run.py','metadata.py','source_inverse.py','test_boundaries.py','inverse_rules.json','README.md')
+FILES=('__init__.py','contract.py','io.py','memory.py','lineage.py','project.py','coverage.py','statistics.py','run.py','metadata.py','source_inverse.py','test_boundaries.py','inverse_rules.json','README.md','recovery.py','prior_hash_stage.py')
 meta=A.meta
 
 def plan(p):
@@ -24,19 +24,35 @@ def plan(p):
     for r in p['source_references']:A.O.pin(r)
     need(not {r['path'] for r in p['data_references']}&{r['path'] for r in p['source_references']},'DAY_DATA_NOT_SOURCE')
     need(p['scope_parameters']==scope(p),'PLAN_DERIVED_EXACT_SCOPE_PARAMETERS')
+    if p.get('failed_prefix_recovery_reference'):
+        from . import recovery
+        recovery.authority(p['failed_prefix_recovery_reference'])
+        need(p['execution_mode']=='PROJECT_AND_COVERAGE_ONLY','ONLY_EXACT_FAILED_PREFIX_PROJECT_COVERAGE_RECOVERY')
+        if p.get('prior_hash_stage_reference'):
+            from . import prior_hash_stage
+            prior_hash_stage.authority(p['prior_hash_stage_reference'],p['failed_prefix_recovery_reference'])
+        else:need(p['requested_cpus']==64,'ORIGINAL_FIRST_HASH_RECOVERY_REMAINS_EXACT64')
     return p
 
 def scope(p):
-    return {'dataset':'PM7_P_D_NUMERIC_VIEW','execution_mode':p['execution_mode'],'requested_cpus':p['requested_cpus'],'wall_seconds':86400,'softwall_drain_seconds':900,
+    value={'dataset':'PM7_P_D_NUMERIC_VIEW','execution_mode':p['execution_mode'],'requested_cpus':p['requested_cpus'],'wall_seconds':86400,'softwall_drain_seconds':900,
       'whole_output_cap_bytes':p['whole_output_cap_bytes'],'projection_cap_bytes':p['projection_cap_bytes'],'coverage_cap_bytes':p['coverage_cap_bytes'],
       'statistics_cap_bytes':p['statistics_cap_bytes'],'logical_group_plan_authority_reference':p['logical_group_plan_authority_reference'],
       'single_real_parent_no_child_Slurm':True,'TSQR_chunk':256,'ordered_left_fold':True,'quality_new_mask_fraction':.01,'new_QM_UFF_calls':0,'final_Common_D4':False}
+    if p.get('failed_prefix_recovery_reference'):value.update(failed_prefix_recovery_reference=p['failed_prefix_recovery_reference'],
+      recovery_old_job_id='4524575',recovery_old_state='FAILED',recovery_old_core_seconds=603392,
+      readonly_failed_prefix_first_whole_SHA_then_original_typed_readback=True,no_reprojection_of_verified_old_intervals=True)
+    if p.get('prior_hash_stage_reference'):value.update(prior_hash_stage_reference=p['prior_hash_stage_reference'],
+      reuse_complete_actual_C0_hash_stage_only_current_FD_unchanged=True,original_typed_readback_and_quality_still_required=True)
+    return value
 
 def sources(cfg):
     refs=M.sources(cfg)
     refs.extend(M.M.pin(HERE/n) for n in FILES)
     refs.extend(M.M.pin(p) for p in A.sources())
     refs.extend([M.M.pin(REPO/'tools/check_repository.py'),M.M.pin(REPO/'docs/SOURCE_MANIFEST.json')])
+    from workflows.data_v1_final.execution import finite_quota_observation_guard_v1 as G
+    refs.append(M.M.pin(REPO/G.SOURCE_RELATIVE_PATH))
     return M.M.unique(refs)
 
 def actual_day(parent):

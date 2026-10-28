@@ -7,6 +7,9 @@ from . import contract as C
 
 def build(path,output):
     req=M.load(path);C.need(req['schema']=='ROOT_COMPACT_NUMERIC_DAY_REQUEST_V1' and req['requested_by']=='root','REAL_ROOT_DAY_REQUEST')
+    if req.get('failed_prefix_recovery_reference'):
+        from .recovery import build_metadata
+        return build_metadata(req,path,output)
     mode=req.get('execution_mode','PROJECT_AND_COVERAGE_ONLY');C.need(mode in ('PROJECT_AND_COVERAGE_ONLY','PROVISIONAL_SOURCE_TRAIN_DESCRIPTIVE_REVIEWED'),'FINAL_COMMON_STATS_NONEXECUTABLE_NO_FUTURE_PARENTS')
     out=Path(output).absolute();C.need(C.RUN/'control' in out.parents and not out.exists(),'FRESH_SMALL_DAY_METADATA_ONLY');out.mkdir(mode=0o700,parents=True)
     seed_ref=req['seed_config_reference'];seed=B.validate_config(M.load(M.require(seed_ref)));C.need(seed['mode']=='full' and seed['stage']=='project','ACTUAL_V3_FULL_CONFIG_PARENT')

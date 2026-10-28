@@ -2,12 +2,12 @@
 import argparse,concurrent.futures as cf,io,json,multiprocessing as mp,os,pathlib,time,traceback,unittest
 from workflows.data_v1_final.execution.sprime_wave2_controller_v3.capacity_gate import serialization_lock
 from workflows.data_v1_final.conformers.formal_cpu_auto_v3 import runtime_io as OLD
-from . import contract as C,runtime as I,census as Z,prepare as P,worker as W
+from . import contract as C,runtime as I,census as Z,prepare as P,worker as W,history as H,operational as O
 
 
 def preflight(out):
     from .test_boundaries import Boundaries
-    from workflows.data_v1_final.execution.cpu_packed_day_v1.test_v1 import Boundaries as Resources
+    from workflows.data_v1_final.execution.cpu_packed_day_v2.test_v1 import Boundaries as Resources
     suites=[unittest.defaultTestLoader.loadTestsFromTestCase(k) for k in (Boundaries,Resources)]
     C.need([s.countTestCases() for s in suites]==[6,3],'EXACT_ONCE_PACKED6_PLUS_RESOURCE3_BEFORE_DATA')
     stream=io.StringIO();result=unittest.TextTestRunner(stream=stream,verbosity=2).run(unittest.TestSuite(suites))
@@ -16,7 +16,7 @@ def preflight(out):
         'original_selection_source_reference':C.F.sources()['selection'],'native_worker_load_function':
         {'module':OLD.load_science.__module__,'filename':OLD.load_science.__code__.co_filename,'line':OLD.load_science.__code__.co_firstlineno},
         'scientific_process_task_source_not_copied_or_modified':True,'packet_readback_source':OLD.read_packet.__code__.co_filename,
-        'old_geometry_preservation_and_fallback_math_unchanged':True,'per_native_threads':1}
+        'old_geometry_preservation_and_fallback_math_unchanged':True,'per_native_threads':1,'packed_resource_contract_version':2,'resource_hardware_full_source_inverse_in_resource3':True}
     for ref in C.F.sources().values():C.need(C.small_pin(ref['path'])==ref,'UNCHANGED_FROZEN_ORIGINAL_SOURCE_BEFORE_DATA')
     value={'schema':'PACKED_SINGLE_PARENT_ONCE_PREFLIGHT_V1','tests_run':result.testsRun,'failures':len(result.failures),'errors':len(result.errors),
         'skips':len(result.skipped),'expected_failures':len(result.expectedFailures),'unexpected_successes':len(result.unexpectedSuccesses),
@@ -69,11 +69,15 @@ def main():
     budget=None;census=None;gate=None;active={};all_finished=False;started=time.monotonic();run_error=None
     try:
         with serialization_lock(C.ROOT/'control/sprime_wave2_controller_v1/wave2_single_instance.lock'):
-            gate=preflight(out);value,original,review,parents=C.input_metadata(plan)
+            gate=preflight(out);C.need('packed_history_review_reference' in plan,'CONTINUATION_R2_REQUIRES_REAL_TERMINAL_HISTORY_AND_NEW_ROOT_INPUT_REVIEW')
+            value,original,review,parents=C.input_metadata(plan)
             I.authorized(proof,parents);I.authorized(proof,C.data_locators(plan,value,original,review))
             budget=I.Budget(plan,proof,out);C.need(budget.observe(force=True) is None,'REAL_PACKED_RESOURCE_OBSERVATION_BEFORE_DATA')
             census=Z.Census(plan,value,original,review,proof,out,budget)
-            census.load_metas();census.old_baselines();census.historical_imports();census.registered_origins();observed=census.classify()
+            census.load_metas();census.old_baselines();census.historical_imports();census.registered_origins()
+            history,consumed=H.ingest(census);history_ref=budget.write(out/'terminal_packed_history_readback.json',C.F.canonical(history)+b'\n')
+            observed=census.classify()
+            H.anti_join([r[0] for r in census.db.execute("SELECT k FROM metas WHERE state='ELIGIBLE_UNCLAIMED_AFTER_ORDINARY_SOURCE_CENSUS'")],consumed)
             budget.write(out/'actual_ordinary_census.json',C.F.canonical(observed)+b'\n')
             prep=P.Prepare(plan,value,original,census,proof,out,budget)
             context={'proof':proof,'config_reference':plan['original_config_reference'],'plan_reference':plan_ref,'out':str(out),
@@ -126,12 +130,15 @@ def main():
                 'plan_reference':plan_ref,'startup_proof_reference':C.small_pin(a.startup_proof),'preflight_reference':gate,
                 'original_plan_reference':plan['original_plan_reference'],'inputs_review_reference':plan['inputs_review_reference'],
                 'resolution_index_reference':index,'complete_errors_reference':errors,'state_counts':states,'resource_report':budget.report(),
+                'terminal_packed_history_readback_reference':history_ref,'continuation_revision':3,
                 'all_started_native_tasks_drained':True,'scientific_status_is_not_resource_parent_C0':True,
                 'new_parent_C0_or_Common_quality_release_claimed':False,'old_parent_C0_FAILED_TIMEOUT_UNKNOWN_preserved':True,
                 'old_geometries_and_seed_recipe_graph_stereo_RMSD_unchanged':True,'child_Slurm_jobs_created':0,'new_QM_calls':0,
                 'original500_are_only_internal_checkpoints':True,'provider_renewals':0,'signals_sent_by_resource_monitor':False,
                 'elapsed_monotonic_seconds':time.monotonic()-started,'actual_parent_allocated_cost':'PENDING_REAL_ROOT_TERMINAL_SACCT'}
-            budget.write(out/'receipt.json',C.F.canonical(summary)+b'\n')
+            full_receipt=budget.write(out/'receipt.json',C.F.canonical(summary)+b'\n')
+            header=O.produced_header(summary,full_receipt,{'job_id':str(proof['job_id']),'plan_reference':plan_ref,'startup_proof_reference':C.small_pin(a.startup_proof)})
+            budget.write(out/'receipt_header.json',C.F.canonical(header)+b'\n')
             return 0
     except BaseException as exc:
         run_error={'schema':'SPRIME_PACKED_DAY_FAILURE_V1','error':repr(exc),'traceback':traceback.format_exc(),'preflight_reference':gate,
