@@ -20,6 +20,7 @@ from .attention import DenseGeoSelfAttention, DenseFFN
 from .heads import EquivariantDenoisingHead
 from .v3_attention_numerics import reject_centered_runtime
 from .v3_ffn_projection import reject_ffn_runtime
+from .v3_residual_accumulation import reject_residual_runtime
 
 
 @dataclass(frozen=True)
@@ -239,6 +240,7 @@ class ConfigurableDenoisingHead(EquivariantDenoisingHead):
 def build_performance_model(configuration: Mapping, options=PerformanceOptions()):
     """Build a fresh candidate with unchanged H0 methods and original keys."""
     from ..factory import build_model
+    reject_residual_runtime(dict(configuration))
     reject_ffn_runtime(dict(configuration))
     reject_centered_runtime(dict(configuration))
     model = build_model(configuration)

@@ -8,6 +8,9 @@ import torch.nn as nn
 from torch import Tensor
 
 from .common import Linear
+from .v3_residual_accumulation import (LEGACY_RESIDUAL, TWO_SUM_RESIDUAL,
+    validate_residual_accumulation_mode, residual_accumulation_mode,
+    require_residual_constructor, require_residual_layer, residual_accumulation)
 from .v3_ffn_projection import (LEGACY_FFN, BLOCKED_FFN, validate_ffn_projection_mode,
     ffn_projection_mode, require_ffn_constructor, require_ffn_layout, ffn_projection)
 from .v3_geometry_fp32 import (LEGACY_GEOMETRY, RESIDUAL_GEOMETRY,
@@ -154,8 +157,13 @@ class RealCoordTransformerLayer(nn.Module):
         attention_projection_mode: str = LEGACY_PROJECTION,
         geometry_mode: str = LEGACY_GEOMETRY,
         ffn_projection_mode: str = LEGACY_FFN,
+        residual_accumulation_mode: str = LEGACY_RESIDUAL,
     ) -> None:
         super().__init__()
+        self.residual_accumulation_mode = validate_residual_accumulation_mode(residual_accumulation_mode)
+        require_residual_constructor(self.residual_accumulation_mode, dim=dim, ff_mult=ff_mult,
+            dropout=dropout, heads=nheads, aggregation=attention_aggregation_mode,
+            projection=attention_projection_mode, geometry=geometry_mode, ffn=ffn_projection_mode)
         require_ffn_constructor(ffn_projection_mode, dim=dim, ff_mult=ff_mult, dropout=dropout,
             heads=nheads, aggregation=attention_aggregation_mode,
             projection=attention_projection_mode, geometry=geometry_mode)
@@ -176,8 +184,16 @@ class RealCoordTransformerLayer(nn.Module):
                             ffn_projection_mode=ffn_projection_mode)
 
     def forward(self, x: Tensor, pos: Tensor, mask: Tensor) -> Tensor:
-        attn_out, _ = self.attn(self.norm1(x), pos, mask)
-        x = x + attn_out
-        x = x + self.ffn(self.norm2(x))
-        x = x * mask.unsqueeze(-1).to(x.dtype)
-        return x
+        if residual_accumulation_mode(self) == LEGACY_RESIDUAL:
+            attn_out, _ = self.attn(self.norm1(x), pos, mask)
+            x = x + attn_out
+            x = x + self.ffn(self.norm2(x))
+            x = x * mask.unsqueeze(-1).to(x.dtype)
+            return x
+        require_residual_layer(self)
+        original = x
+        attn_out, _ = self.attn(self.norm1(original), pos, mask)
+        intermediate = original + attn_out  # Original rounded u, no tail injection.
+        feedforward = self.ffn(self.norm2(intermediate))
+        result = residual_accumulation(self, original, attn_out, feedforward)
+        return result * mask.unsqueeze(-1).to(result.dtype)

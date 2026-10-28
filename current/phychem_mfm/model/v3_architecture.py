@@ -29,6 +29,8 @@ from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, aggregati
                                     require_centered_attention_context, centered_attention_value,
                                     require_centered_backbone, require_centered_f32_context, require_centered_packed_atoms)
 from .v3_ffn_projection import LEGACY_FFN, ffn_projection_mode, require_ffn_backbone
+from .v3_residual_accumulation import (LEGACY_RESIDUAL, residual_accumulation_mode,
+    require_residual_backbone, require_residual_layer, residual_accumulation)
 from .v3_attention_projection import (LEGACY_PROJECTION, BLOCKED_PROJECTION,
     projection_mode, require_projection_backbone, attention_projection)
 from .v3_numeric_stability import (COMPENSATED, LEGACY, numeric_mode, apply_numeric_mode,
@@ -175,13 +177,22 @@ class SharedPairAttention(nn.Module):
 class SharedPairTransformerLayer(nn.Module):
     def __init__(self, original, pair_dim):
         super().__init__()
+        self.residual_accumulation_mode = residual_accumulation_mode(original)
         self.norm1, self.norm2, self.ffn = original.norm1, original.norm2, original.ffn
         self.attn = SharedPairAttention(original.attn, pair_dim)
 
     def forward(self, x, pair_features, distances, mask):
-        x = x + self.attn(self.norm1(x), pair_features, distances, mask)
-        x = x + self.ffn(self.norm2(x))
-        return x * mask.unsqueeze(-1).to(x.dtype)
+        if residual_accumulation_mode(self) == LEGACY_RESIDUAL:
+            x = x + self.attn(self.norm1(x), pair_features, distances, mask)
+            x = x + self.ffn(self.norm2(x))
+            return x * mask.unsqueeze(-1).to(x.dtype)
+        require_residual_layer(self)
+        original = x
+        attn_out = self.attn(self.norm1(original), pair_features, distances, mask)
+        intermediate = original + attn_out  # Original rounded u, no tail injection.
+        feedforward = self.ffn(self.norm2(intermediate))
+        result = residual_accumulation(self, original, attn_out, feedforward)
+        return result * mask.unsqueeze(-1).to(result.dtype)
 
 
 class SharedPairBackbone(nn.Module):
@@ -192,6 +203,7 @@ class SharedPairBackbone(nn.Module):
         self.attention_projection_mode = projection_mode(original)
         self.geometry_mode = geometry_mode_of(original)
         self.ffn_projection_mode = ffn_projection_mode(original)
+        self.residual_accumulation_mode = residual_accumulation_mode(original)
         self.n_atom_types, self.dim = original.n_atom_types, original.dim
         self.activation_checkpointing = original.activation_checkpointing
         self.atom_emb, self.out_norm = original.atom_emb, original.out_norm
@@ -212,6 +224,8 @@ class SharedPairBackbone(nn.Module):
             result["geometry_mode"] = self.geometry_mode
         if self.ffn_projection_mode != LEGACY_FFN:
             result["ffn_projection_mode"] = self.ffn_projection_mode
+        if self.residual_accumulation_mode != LEGACY_RESIDUAL:
+            result["residual_accumulation_mode"] = self.residual_accumulation_mode
         return result
 
     def set_extra_state(self, state):
@@ -219,6 +233,7 @@ class SharedPairBackbone(nn.Module):
 
     def forward(self, data):
         require(getattr(data, "pos", None) is not None, "C1 H0 requires coordinates")
+        require_residual_backbone(self, expected_mode=self.residual_accumulation_mode)
         require_ffn_backbone(self, expected_mode=self.ffn_projection_mode)
         require_geometry_binding(self, expected_mode=self.geometry_mode)
         if self.attention_projection_mode == BLOCKED_PROJECTION:

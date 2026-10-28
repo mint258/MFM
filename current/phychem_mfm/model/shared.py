@@ -27,6 +27,8 @@ from .backbone import RealCoordTransformerBackbone
 from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
                                     require_centered_backbone, require_centered_f32_context)
 from .common import Linear, ensure_batch_attr
+from .v3_residual_accumulation import (LEGACY_RESIDUAL, validate_residual_accumulation_mode,
+    require_residual_constructor, require_residual_backbone)
 from .v3_ffn_projection import (LEGACY_FFN, validate_ffn_projection_mode,
     require_ffn_constructor, require_ffn_backbone)
 from .v3_geometry_fp32 import (LEGACY_GEOMETRY,
@@ -103,6 +105,14 @@ class SharedBackboneMFM(nn.Module):
             layers=backbone_config.get("layers", 6), heads=backbone_config.get("heads", 8),
             dropout=backbone_config.get("dropout", 0.), aggregation=self.attention_aggregation_mode,
             projection=self.attention_projection_mode, geometry=self.geometry_mode, numeric=mode)
+        self.residual_accumulation_mode = validate_residual_accumulation_mode(
+            backbone_config.get("residual_accumulation_mode", LEGACY_RESIDUAL))
+        require_residual_constructor(self.residual_accumulation_mode,
+            dim=backbone_config.get("dim", 512), ff_mult=backbone_config.get("ff_mult", 2),
+            layers=backbone_config.get("layers", 6), heads=backbone_config.get("heads", 8),
+            dropout=backbone_config.get("dropout", 0.), numeric=mode,
+            aggregation=self.attention_aggregation_mode, projection=self.attention_projection_mode,
+            geometry=self.geometry_mode, ffn=self.ffn_projection_mode)
         self.backbone_config = dict(backbone_config)
         self.expert_config = expert_config
         self.head_config = deepcopy(head_config)
@@ -142,6 +152,7 @@ class SharedBackboneMFM(nn.Module):
             attention_projection_mode=self.attention_projection_mode,
             geometry_mode=self.geometry_mode,
             ffn_projection_mode=self.ffn_projection_mode,
+            residual_accumulation_mode=self.residual_accumulation_mode,
         )
         self.graph_pool = UnifiedGraphPooling(self.latent_dim)
 
@@ -209,6 +220,11 @@ class SharedBackboneMFM(nn.Module):
 
     def encode_atoms(self, batch: Data) -> Tensor:
         """Return canonical shared representation H0 with shape [N_atom, D]."""
+        declared_residual = validate_residual_accumulation_mode(
+            self.backbone_config.get("residual_accumulation_mode", LEGACY_RESIDUAL))
+        if self.residual_accumulation_mode != declared_residual:
+            raise ValueError("Model configuration/residual runtime identity differs")
+        require_residual_backbone(self.backbone, expected_mode=declared_residual)
         declared_ffn = validate_ffn_projection_mode(self.backbone_config.get("ffn_projection_mode", LEGACY_FFN))
         if self.ffn_projection_mode != declared_ffn:
             raise ValueError("Model configuration/FFN runtime identity differs")

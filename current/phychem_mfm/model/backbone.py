@@ -8,6 +8,8 @@ from torch_geometric.utils import to_dense_batch
 from torch.utils.checkpoint import checkpoint
 
 from .attention import RealCoordTransformerLayer
+from .v3_residual_accumulation import (LEGACY_RESIDUAL, validate_residual_accumulation_mode,
+    require_residual_constructor, require_residual_backbone)
 from .v3_ffn_projection import (LEGACY_FFN, validate_ffn_projection_mode,
     require_ffn_constructor, require_ffn_backbone)
 from .common import ensure_batch_attr
@@ -38,12 +40,17 @@ class RealCoordTransformerBackbone(nn.Module):
         attention_projection_mode: str = LEGACY_PROJECTION,
         geometry_mode: str = LEGACY_GEOMETRY,
         ffn_projection_mode: str = LEGACY_FFN,
+        residual_accumulation_mode: str = LEGACY_RESIDUAL,
     ) -> None:
         super().__init__()
         self.attention_aggregation_mode = validate_aggregation_mode(attention_aggregation_mode)
         self.attention_projection_mode = validate_projection_mode(attention_projection_mode)
         self.geometry_mode = validate_geometry_mode(geometry_mode)
         self.ffn_projection_mode = validate_ffn_projection_mode(ffn_projection_mode)
+        self.residual_accumulation_mode = validate_residual_accumulation_mode(residual_accumulation_mode)
+        require_residual_constructor(self.residual_accumulation_mode, dim=dim, ff_mult=ff_mult,
+            dropout=dropout, layers=layers, heads=heads, aggregation=self.attention_aggregation_mode,
+            projection=self.attention_projection_mode, geometry=self.geometry_mode, ffn=self.ffn_projection_mode)
         require_ffn_constructor(self.ffn_projection_mode, dim=dim, ff_mult=ff_mult,
             dropout=dropout, layers=layers, heads=heads,
             aggregation=self.attention_aggregation_mode,
@@ -73,6 +80,7 @@ class RealCoordTransformerBackbone(nn.Module):
                     attention_projection_mode=self.attention_projection_mode,
                     geometry_mode=self.geometry_mode,
                     ffn_projection_mode=self.ffn_projection_mode,
+                    residual_accumulation_mode=self.residual_accumulation_mode,
                 )
                 for _ in range(layers)
             ]
@@ -83,6 +91,7 @@ class RealCoordTransformerBackbone(nn.Module):
         if getattr(data, "pos", None) is None:
             raise ValueError("RealCoordTransformerBackbone requires data.pos")
 
+        require_residual_backbone(self, expected_mode=self.residual_accumulation_mode)
         require_ffn_backbone(self, expected_mode=self.ffn_projection_mode)
         require_geometry_binding(self, expected_mode=self.geometry_mode)
         if self.attention_projection_mode == BLOCKED_PROJECTION:
