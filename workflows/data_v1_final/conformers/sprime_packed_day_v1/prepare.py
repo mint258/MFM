@@ -47,7 +47,7 @@ class Prepare:
             'original_plan_reference':self.plan['original_plan_reference'],'packed_plan_reference':C.small_pin(self.plan['_plan_path']),
             'original_config_reference':self.plan['original_config_reference'],'batch_id':bid,'tasks_reference':tasks_ref,'baseline_sources_reference':pr,
             'formal_source_reference':source,'molecules':len(tasks),'kernel_sha256':C.F.KERNEL_SHA,'native_task_keys_and_seed_domains_changed':False,
-            'actual_single_parent_job_id':str(self.proof['job_id']),'actual_allocated_cpus':self.proof['request']['cpus'],
+            'actual_single_parent_job_id':str(self.proof['job_id']),'actual_allocated_cpus':self.proof['request']['cpus'],'actual_node':self.proof['node'],'packed_resource_contract_version':2,
             'original500_is_only_checkpoint':True,'child_Slurm_parent_or_C0_claimed':False,'UFF_QM_calls_during_preparation':0}
         ref=self.budget.write(directory/'prepared.json',C.F.canonical(header)+b'\n');self.headers[bid]=ref
         return ref,tasks

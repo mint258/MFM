@@ -15,7 +15,7 @@
                                                "count":  1
                                            },
                                            {
-                                               "new":  "from workflows.data_v1_final.labels.normalization_compact_runtime_v3.project import initialize,worker",
+                                               "new":  "from workflows.data_v1_final.labels.normalization_compact_runtime_v3.project import initialize,worker\nfrom workflows.data_v1_final.labels.normalization_compact_runtime_v3.bindings import quality_stop_fields",
                                                "old":  "from .project import initialize,worker",
                                                "count":  1
                                            },
@@ -48,6 +48,11 @@
                                                "old":  "weights=[0]*16",
                                                "new":  "weights=[0]*cfg[\u0027workers\u0027]",
                                                "count":  1
+                                           },
+                                           {
+                                               "old":  "    from .bindings import quality_stop_fields",
+                                               "new":  "    from workflows.data_v1_final.labels.normalization_compact_runtime_v3.bindings import quality_stop_fields",
+                                               "count":  1
                                            }
                                        ],
                       "file":  "project.py",
@@ -67,12 +72,12 @@
                                                "count":  1
                                            },
                                            {
-                                               "new":  "from .lineage import actual",
+                                               "new":  "from .lineage import actual,parts_root",
                                                "old":  "from .metadata import actual",
                                                "count":  1
                                            },
                                            {
-                                               "new":  "m[\u0027status\u0027] in (\u0027CLOSED_WINDOWS_ACTUAL_PARENT_ACCOUNTING_REQUIRED\u0027,\u0027DAY_INTERNAL_COMMITTED_WINDOWS_NOT_CHILD_C0\u0027)",
+                                               "new":  "m[\u0027status\u0027] in (\u0027CLOSED_WINDOWS_ACTUAL_PARENT_ACCOUNTING_REQUIRED\u0027,\u0027DAY_INTERNAL_COMMITTED_WINDOWS_NOT_CHILD_C0\u0027,\u0027ROOT_ADOPTED_FAILED_DAY_CLOSED_WINDOWS_CURRENT_PARENT_VERIFIED\u0027)",
                                                "old":  "m[\u0027status\u0027]==\u0027CLOSED_WINDOWS_ACTUAL_PARENT_ACCOUNTING_REQUIRED\u0027",
                                                "count":  1
                                            },
@@ -89,6 +94,11 @@
                                            {
                                                "old":  "for wr in m[\u0027verified_window_receipts\u0027]:",
                                                "new":  "for wr in m[\u0027verified_window_receipts\u0027]:\n                C.need(not I.stop_requested(),\u0027DAY_RESOURCE_STOP_COVERAGE_NO_ACCEPTANCE\u0027)",
+                                               "count":  1
+                                           },
+                                           {
+                                               "old":  "parent_root=Path(parent[\u0027manifest\u0027][\u0027path\u0027]).parent",
+                                               "new":  "parent_root=parts_root(m,parent)",
                                                "count":  1
                                            }
                                        ],

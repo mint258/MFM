@@ -4,6 +4,7 @@ from pathlib import Path
 from workflows.data_v1_final.labels.normalization_compact_runtime_v3 import contract as C
 from . import io as I
 from workflows.data_v1_final.labels.normalization_compact_runtime_v3.project import initialize,worker
+from workflows.data_v1_final.labels.normalization_compact_runtime_v3.bindings import quality_stop_fields
 from workflows.data_v1_final.labels.full_projection_v1.directory import resolve
 from workflows.data_v1_final.labels.bounded_projection_v1.parts import Ledger,pin,publish_bytes
 from workflows.data_v1_final.labels.source_status_cpu_auto_memory_v1.resource_runtime import stop_requested
@@ -29,7 +30,7 @@ def execute(cfg,proof,binding,root,gate,budget):
         window_refs.append(row['receipt']);closed.append({'file_id':window['file_id'],'lo':window['physical_row_lo'],'hi':window['physical_row_hi'],'all_part_reopen_bits_verified':True})
         kind=window['source_reference']['source_kind'];classes[kind].update(window['physical_classifications'])
         for fid,s in window['field_stats'].items():stats[fid].update(s)
-    from .bindings import quality_stop_fields
+    from workflows.data_v1_final.labels.normalization_compact_runtime_v3.bindings import quality_stop_fields
     # Per-batch rates never substitute a complete full-population denominator.
     denom=4251 if cfg['mode']=='pilot512' else 11231854;holds=sorted(set(quality_stop_fields(stats,denom,.01))
       |{fid for fid,s in stats.items() if s['records'] and (s['newly_masked_records']/s['records']>.01 or s['new_payload_structural_invalid_records']/s['records']>.01)})
