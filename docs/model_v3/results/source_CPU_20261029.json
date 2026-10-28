@@ -1,0 +1,163 @@
+{
+  "config_sha256_semantics": "exact frozen CPU request_spec raw SHA256; engineering acceptance only",
+  "rows": [
+    {
+      "item": "A_acceptance_v2",
+      "job_id": "4524695",
+      "code_commit": "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+      "tree": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1",
+      "node": "compute-0-18",
+      "counts": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 3,
+        "tests": 2676
+      },
+      "modules": 115,
+      "passed": 2673,
+      "actual_sacct": {
+        "argv": [
+          "sacct",
+          "-X",
+          "-n",
+          "-P",
+          "-j",
+          "4524695",
+          "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "4524695|zixiao|COMPLETED|0:0|157|16|compute-0-18\n"
+      },
+      "closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_acceptance_v2_full_auto_pre_v1_CPU_4524695_Root_closure_actual_v1.json",
+        "bytes": 964893,
+        "sha256": "2e1355acd9776443eb0ab2bf2eb0d8e4a212951f0e1bf57dd2c0637465f8403f"
+      }
+    },
+    {
+      "item": "residual_fp32",
+      "job_id": "4524696",
+      "code_commit": "1a81a1d975736c64ed9386c8188c7498e718aebc",
+      "tree": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_residual_fp32_candidate_v1",
+      "node": "compute-0-18",
+      "counts": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 3,
+        "tests": 2954
+      },
+      "modules": 118,
+      "passed": 2951,
+      "actual_sacct": {
+        "argv": [
+          "sacct",
+          "-X",
+          "-n",
+          "-P",
+          "-j",
+          "4524696",
+          "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "4524696|zixiao|COMPLETED|0:0|147|16|compute-0-18\n"
+      },
+      "closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/residual_fp32_full_auto_pre_v1_CPU_4524696_Root_closure_actual_v1.json",
+        "bytes": 964777,
+        "sha256": "a1e5c5a211bd62b0da933ecdec02b0e24636acfa404c7654f351aabe5aa2430d"
+      }
+    },
+    {
+      "item": "C_bias_free",
+      "job_id": "4524697",
+      "code_commit": "c563879c9b1315beb54f615f7d8677a042efecde",
+      "tree": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_C_bias_free_candidate_v1",
+      "node": "compute-0-19",
+      "counts": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 3,
+        "tests": 2949
+      },
+      "modules": 118,
+      "passed": 2946,
+      "actual_sacct": {
+        "argv": [
+          "sacct",
+          "-X",
+          "-n",
+          "-P",
+          "-j",
+          "4524697",
+          "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "4524697|zixiao|COMPLETED|0:0|224|16|compute-0-19\n"
+      },
+      "closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/C_bias_free_full_auto_pre_v1_CPU_4524697_Root_closure_actual_v1.json",
+        "bytes": 958318,
+        "sha256": "393095b613c8aaba23430d81b8614f207a2b9b46d3d65235f6414985087c8b9f"
+      }
+    },
+    {
+      "item": "tensor_math",
+      "job_id": "4524698",
+      "code_commit": "98ec8751295409107372355c6c8c8f592cd39f4e",
+      "tree": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_tensor_math_candidate_v1",
+      "node": "compute-0-14",
+      "counts": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 3,
+        "tests": 2941
+      },
+      "modules": 118,
+      "passed": 2938,
+      "actual_sacct": {
+        "argv": [
+          "sacct",
+          "-X",
+          "-n",
+          "-P",
+          "-j",
+          "4524698",
+          "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "4524698|zixiao|COMPLETED|0:0|118|16|compute-0-14\n"
+      },
+      "closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/tensor_math_full_auto_pre_v1_CPU_4524698_Root_closure_actual_v1.json",
+        "bytes": 955041,
+        "sha256": "46dfbd020db45b1487044e72e58a08dc0e2bda2b4bc76d04079240b571a79ee7"
+      }
+    }
+  ],
+  "request_specs": {
+    "A_acceptance_v2": {
+      "bytes": 35630,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_acceptance_v2_full_auto_pre_v1_single_full_metadata_v1/request_spec_v1.json",
+      "sha256": "fdd0f01dbccdc921862f474ca44e7d3b29e0db2234ea9740f18d6183ba95716d"
+    },
+    "residual_fp32": {
+      "bytes": 37545,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/residual_fp32_full_auto_pre_v1_single_full_metadata_v1/request_spec_v1.json",
+      "sha256": "c95f11c482bad4388cbdc79822759f933d320973212c8f122a121462dfa9a872"
+    },
+    "C_bias_free": {
+      "bytes": 37539,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/C_bias_free_full_auto_pre_v1_single_full_metadata_v1/request_spec_v1.json",
+      "sha256": "e7ba42c5350e6bcc5e83289a31a46fec802d9e6dab7cd978db841b92c71a4fbe"
+    },
+    "tensor_math": {
+      "bytes": 37521,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/tensor_math_full_auto_pre_v1_single_full_metadata_v1/request_spec_v1.json",
+      "sha256": "13b226e7aa14ec5700dd3880c2d59ff485151bc795e14083400d3dda1af9d104"
+    }
+  }
+}
