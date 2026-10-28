@@ -1,0 +1,138 @@
+{
+    "schema":  "model_v3_A5_R1_ABBA_registration_DRAFT_v1",
+    "status":  "NOT_RUN_HOLD_UNTIL_ACTUAL_MATCHED_A5_20_AND500_ROOT_CLOSURE",
+    "series_id":  "A5_logical_chunks_R1_C35_9e16_v1",
+    "positions":  [
+                      {
+                          "position":  1,
+                          "role":  "reference"
+                      },
+                      {
+                          "position":  2,
+                          "role":  "candidate"
+                      },
+                      {
+                          "position":  3,
+                          "role":  "candidate"
+                      },
+                      {
+                          "position":  4,
+                          "role":  "reference"
+                      }
+                  ],
+    "code_sha":  "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+    "public_prereg_sha":  "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+    "runtime_root":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1",
+    "gpu_uuid":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+    "expected_node":  "compute-0-21",
+    "expected_gpu":  "5090",
+    "candidate_options":  {
+                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a00_control.json",
+                              "bytes":  301,
+                              "sha256":  "52ae1dae8ff65229a2b4f26b281a0e488e751e08671dbf953d33601e6c1a6bf0"
+                          },
+    "reference_config":  {
+                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                             "bytes":  34127,
+                             "sha256":  "af26f79be41d99bac5de410b686bccdf608b830b772d0dde06491bb146d35324"
+                         },
+    "snapshot":  {
+                     "path":  "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/shard_snapshot_v1.json",
+                     "bytes":  5974,
+                     "sha256":  "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f"
+                 },
+    "input":  "native_s",
+    "seed":  0,
+    "workers":  8,
+    "max_padded_cost":  8000000,
+    "warmup_updates":  2,
+    "measured_updates":  20,
+    "resident_models":  1,
+    "padding":  {
+                    "mode":  "logical_batch_chunks_v1",
+                    "atom_bucket_width":  16,
+                    "max_graphs_per_chunk":  32,
+                    "max_padded_cost_per_chunk":  1000000
+                },
+    "future_members":  [
+
+                       ],
+    "command_template":  [
+                             "PY5090",
+                             "-u",
+                             "-B",
+                             "tools/model_v3/single_a_benchmark.py",
+                             "--candidate-options",
+                             "current/configs/model_v3/performance/a00_control.json",
+                             "--performance-execution",
+                             "current/configs/model_v3/performance/a5_logical_batch_chunks_v1.json",
+                             "--performance-execution-sha256",
+                             "30467f4ce4bfaf6b752fe697ff35614527575d3af799aa07f8b8673605d3ccbb",
+                             "--reference-config",
+                             "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                             "--input",
+                             "native_s",
+                             "--seed",
+                             "0",
+                             "--workers",
+                             "8",
+                             "--max-padded-cost",
+                             "8000000",
+                             "--expected-gpu",
+                             "5090",
+                             "--code-sha",
+                             "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+                             "--prereg-sha",
+                             "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+                             "--shard-snapshot-sha256",
+                             "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                             "--deterministic-controls",
+                             "--role",
+                             "POSITION_ROLE",
+                             "--abba-position",
+                             "POSITION_1_TO4",
+                             "--series-id",
+                             "A5_logical_chunks_R1_C35_9e16_v1",
+                             "--output",
+                             "ACTUAL_FRESH_MEMBER_CHILD"
+                         ],
+    "numeric_binding_rule":  "Only actual new A5 full20/500 gate/C0/clean source/resource closure on this code/C35/all-on-options/logical-chunk-layout/data/control.3976/all-on,4551/auto-all-on and4580/head-off are not this numeric gate.",
+    "comparison_rule":  "Unchanged a_speed_report.py compares source/model/optimizer/loss/schedule/native data/deterministic receipts, all4 equal measured input receipt digests, exact candidate options/resolved execution and all20+500 numeric rows.",
+    "capacity_scope":  "Single runner computes resident_models=1. Manual chunks do not borrow pairedR2 capacity or universal full-TRAIN envelope. R1 actual resources must close independently.",
+    "future_thin_adaptation_required":  [
+                                            "After this actual A5 numeric gate, mechanically reuse original R1 member flow with exact A5 configuration/layout/source/role/family and actual gate refs; no future jobs/results/SHAs are filled",
+                                            "Use unchanged single_a_benchmark.py 2warm20measured and a_speed_report.py with four matching actual members and this A5 full20/500 gate",
+                                            "Keep all original resource/UUID/private/whole/knownness gates and originalSDK persistence; later boundedSDK/speed CPU may be shared, no extra QA parent"
+                                        ],
+    "existing_reference_SB":  {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_GPU_v1_source/run_manual_R1_ABBA.sbatch",
+                                  "bytes":  11051,
+                                  "sha256":  "1067974b2e889613798b051b4935e9396437d725a69e6852c1ee924daacf4b77"
+                              },
+    "existing_reference_pins":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_GPU_v1_source/source_pins.json",
+                                    "bytes":  14941,
+                                    "sha256":  "51a5d9c0d8aa5ab708bea6b04d33044e7a555d41e16492dc0e1e0857777aad89"
+                                },
+    "resources":  {
+                      "cpus":  16,
+                      "Slurm_mem_GiB":  64,
+                      "Slurm_wall_seconds":  7200,
+                      "supervisor_wall_seconds":  6900,
+                      "RSS_limit_bytes":  60129542144,
+                      "whole_persistent_output_budget_bytes":  2147483648,
+                      "private_storage_budget_bytes":  2147483648,
+                      "child_output_budget_bytes":  2046820352,
+                      "GPU_fraction_limit":  0.85,
+                      "shared_UUID_lock_owner":  "single_a_benchmark only"
+                  },
+    "cross_residency_or_speed_acceptance_claimed":  false,
+    "author_executed":  false,
+    "A5_execution":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a5_logical_batch_chunks_v1.json",
+                         "bytes":  246,
+                         "sha256":  "30467f4ce4bfaf6b752fe697ff35614527575d3af799aa07f8b8673605d3ccbb"
+                     },
+    "future_A5_numeric_gate_root":  null,
+    "future_A5_numeric_Root_closure":  null
+}
