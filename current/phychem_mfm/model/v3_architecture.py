@@ -22,6 +22,8 @@ from torch_geometric.utils import to_dense_batch
 from ..factory import build_model
 from ..phase1.v3_contract import require
 from .common import Linear, ensure_batch_attr
+from .v3_distance_bias import (distance_bias_projection_bias,
+    require_bias_free_attention, require_distance_bias_backbone)
 from .v3_geometry_fp32 import (LEGACY_GEOMETRY, RESIDUAL_GEOMETRY,
     validate_geometry_mode, require_geometry_binding, geometry_mode as geometry_mode_of,
     residual_pairwise_distance_fp32)
@@ -138,6 +140,7 @@ class SharedPairAttention(nn.Module):
     """Reuse all common attention parameters; replace only distance bias."""
     def __init__(self, original, pair_dim):
         super().__init__()
+        self.distance_bias_projection_bias = distance_bias_projection_bias(original)
         self.attention_aggregation_mode = aggregation_mode(original)
         self.attention_projection_mode = projection_mode(original)
         self.geometry_mode = geometry_mode_of(original)
@@ -148,6 +151,7 @@ class SharedPairAttention(nn.Module):
         self.pair_projection = Linear(pair_dim, self.nheads, bias=False)
 
     def forward(self, x, pair_features, distances, mask):
+        require_bias_free_attention(self, x, pair_features, distances)
         if self.attention_aggregation_mode == CENTERED_FP32:
             require_centered_attention_context(self, mask, x, pair_features, distances)
         bsz, seqlen, _ = x.shape
@@ -192,6 +196,7 @@ class SharedPairBackbone(nn.Module):
         self.attention_projection_mode = projection_mode(original)
         self.geometry_mode = geometry_mode_of(original)
         self.ffn_projection_mode = ffn_projection_mode(original)
+        self.distance_bias_projection_bias = distance_bias_projection_bias(original)
         self.n_atom_types, self.dim = original.n_atom_types, original.dim
         self.activation_checkpointing = original.activation_checkpointing
         self.atom_emb, self.out_norm = original.atom_emb, original.out_norm
@@ -212,6 +217,8 @@ class SharedPairBackbone(nn.Module):
             result["geometry_mode"] = self.geometry_mode
         if self.ffn_projection_mode != LEGACY_FFN:
             result["ffn_projection_mode"] = self.ffn_projection_mode
+        if not self.distance_bias_projection_bias:
+            result["distance_bias_projection_bias"] = False
         return result
 
     def set_extra_state(self, state):
@@ -219,6 +226,7 @@ class SharedPairBackbone(nn.Module):
 
     def forward(self, data):
         require(getattr(data, "pos", None) is not None, "C1 H0 requires coordinates")
+        require_distance_bias_backbone(self, expected=self.distance_bias_projection_bias)
         require_ffn_backbone(self, expected_mode=self.ffn_projection_mode)
         require_geometry_binding(self, expected_mode=self.geometry_mode)
         if self.attention_projection_mode == BLOCKED_PROJECTION:

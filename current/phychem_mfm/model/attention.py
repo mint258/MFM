@@ -8,6 +8,8 @@ import torch.nn as nn
 from torch import Tensor
 
 from .common import Linear
+from .v3_distance_bias import (validate_distance_bias_projection_bias,
+    require_distance_bias_constructor, remove_initialized_head_bias, require_bias_free_attention)
 from .v3_ffn_projection import (LEGACY_FFN, BLOCKED_FFN, validate_ffn_projection_mode,
     ffn_projection_mode, require_ffn_constructor, require_ffn_layout, ffn_projection)
 from .v3_geometry_fp32 import (LEGACY_GEOMETRY, RESIDUAL_GEOMETRY,
@@ -33,8 +35,11 @@ class DenseGeoSelfAttention(nn.Module):
         attention_aggregation_mode: str = LEGACY_AGGREGATION,
         attention_projection_mode: str = LEGACY_PROJECTION,
         geometry_mode: str = LEGACY_GEOMETRY,
+        distance_bias_projection_bias: bool = True,
     ) -> None:
         super().__init__()
+        self.distance_bias_projection_bias = validate_distance_bias_projection_bias(distance_bias_projection_bias)
+        require_distance_bias_constructor(self.distance_bias_projection_bias, use_dist_bias=use_dist_bias)
         if dim % nheads != 0:
             raise ValueError("dim must be divisible by nheads")
 
@@ -64,10 +69,14 @@ class DenseGeoSelfAttention(nn.Module):
             )
         else:
             self.dist_mlp = None
+        if not self.distance_bias_projection_bias:
+            # Preserve original construction/initialization order, then remove only this Parameter.
+            remove_initialized_head_bias(self.dist_mlp[2], heads=self.nheads)
 
         self.attn_drop = nn.Dropout(dropout) if dropout > 0 else nn.Identity()
 
     def forward(self, x: Tensor, pos: Tensor, mask: Tensor) -> Tuple[Tensor, Tensor]:
+        require_bias_free_attention(self, x, pos)
         if self.attention_aggregation_mode == CENTERED_FP32:
             require_centered_attention_context(self, mask, x, pos)
         bsz, seqlen, _ = x.shape
@@ -154,6 +163,7 @@ class RealCoordTransformerLayer(nn.Module):
         attention_projection_mode: str = LEGACY_PROJECTION,
         geometry_mode: str = LEGACY_GEOMETRY,
         ffn_projection_mode: str = LEGACY_FFN,
+        distance_bias_projection_bias: bool = True,
     ) -> None:
         super().__init__()
         require_ffn_constructor(ffn_projection_mode, dim=dim, ff_mult=ff_mult, dropout=dropout,
@@ -170,6 +180,7 @@ class RealCoordTransformerLayer(nn.Module):
             attention_aggregation_mode=attention_aggregation_mode,
             attention_projection_mode=attention_projection_mode,
             geometry_mode=geometry_mode,
+            distance_bias_projection_bias=distance_bias_projection_bias,
         )
         self.norm2 = nn.LayerNorm(dim)
         self.ffn = DenseFFN(dim=dim, ff_mult=ff_mult, dropout=dropout,

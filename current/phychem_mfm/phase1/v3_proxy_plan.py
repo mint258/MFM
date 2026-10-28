@@ -75,6 +75,7 @@ def architecture_plan(*, sample_budget, batch_base_samples, budget_evidence: Evi
     if type(batch_base_samples) is not int or batch_base_samples <= 0:
         raise ValueError("Explicit positive B0 in base molecule draws required")
     common = {"num_layers": 6, "embedding_dim": 512, "denoising_head": "A4",
+        "distance_bias_projection_bias": False,
         "geometry": "PM7", "conformers": "all_authorized_D5",
         "proxy_molecules": 240000, "batch_base_samples": batch_base_samples,
         "learning_rate": 3e-4, "adamw_betas": [0.9, 0.95], "clip_norm": 1.0,

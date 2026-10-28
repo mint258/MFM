@@ -8,6 +8,8 @@ from torch_geometric.utils import to_dense_batch
 from torch.utils.checkpoint import checkpoint
 
 from .attention import RealCoordTransformerLayer
+from .v3_distance_bias import (validate_distance_bias_projection_bias,
+    require_distance_bias_constructor, require_distance_bias_backbone)
 from .v3_ffn_projection import (LEGACY_FFN, validate_ffn_projection_mode,
     require_ffn_constructor, require_ffn_backbone)
 from .common import ensure_batch_attr
@@ -38,8 +40,12 @@ class RealCoordTransformerBackbone(nn.Module):
         attention_projection_mode: str = LEGACY_PROJECTION,
         geometry_mode: str = LEGACY_GEOMETRY,
         ffn_projection_mode: str = LEGACY_FFN,
+        distance_bias_projection_bias: bool = True,
     ) -> None:
         super().__init__()
+        self.distance_bias_projection_bias = validate_distance_bias_projection_bias(distance_bias_projection_bias)
+        require_distance_bias_constructor(self.distance_bias_projection_bias,
+            use_dist_bias=use_dist_bias, dim=dim, heads=heads, layers=layers)
         self.attention_aggregation_mode = validate_aggregation_mode(attention_aggregation_mode)
         self.attention_projection_mode = validate_projection_mode(attention_projection_mode)
         self.geometry_mode = validate_geometry_mode(geometry_mode)
@@ -73,6 +79,7 @@ class RealCoordTransformerBackbone(nn.Module):
                     attention_projection_mode=self.attention_projection_mode,
                     geometry_mode=self.geometry_mode,
                     ffn_projection_mode=self.ffn_projection_mode,
+                    distance_bias_projection_bias=self.distance_bias_projection_bias,
                 )
                 for _ in range(layers)
             ]
@@ -83,6 +90,7 @@ class RealCoordTransformerBackbone(nn.Module):
         if getattr(data, "pos", None) is None:
             raise ValueError("RealCoordTransformerBackbone requires data.pos")
 
+        require_distance_bias_backbone(self, expected=self.distance_bias_projection_bias)
         require_ffn_backbone(self, expected_mode=self.ffn_projection_mode)
         require_geometry_binding(self, expected_mode=self.geometry_mode)
         if self.attention_projection_mode == BLOCKED_PROJECTION:

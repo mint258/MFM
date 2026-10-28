@@ -20,6 +20,7 @@ from .attention import DenseGeoSelfAttention, DenseFFN
 from .heads import EquivariantDenoisingHead
 from .v3_attention_numerics import reject_centered_runtime
 from .v3_ffn_projection import reject_ffn_runtime
+from .v3_distance_bias import reject_distance_bias_runtime
 
 
 @dataclass(frozen=True)
@@ -101,6 +102,7 @@ class ConfigurableTiledDistanceMLP(nn.Sequential):
 
 class RuntimeDenseAttention(DenseGeoSelfAttention):
     def __init__(self, original, *, precision="fp32"):
+        reject_distance_bias_runtime(original)
         reject_centered_runtime(original)
         _reuse_modules(self, original)
         for name in ("dim", "nheads", "d_head", "use_dist_bias", "use_radius_mask", "radius"):
@@ -239,6 +241,7 @@ class ConfigurableDenoisingHead(EquivariantDenoisingHead):
 def build_performance_model(configuration: Mapping, options=PerformanceOptions()):
     """Build a fresh candidate with unchanged H0 methods and original keys."""
     from ..factory import build_model
+    reject_distance_bias_runtime(dict(configuration))
     reject_ffn_runtime(dict(configuration))
     reject_centered_runtime(dict(configuration))
     model = build_model(configuration)

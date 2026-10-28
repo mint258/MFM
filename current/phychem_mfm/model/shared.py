@@ -27,6 +27,8 @@ from .backbone import RealCoordTransformerBackbone
 from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
                                     require_centered_backbone, require_centered_f32_context)
 from .common import Linear, ensure_batch_attr
+from .v3_distance_bias import (validate_distance_bias_projection_bias,
+    require_distance_bias_constructor, require_distance_bias_backbone)
 from .v3_ffn_projection import (LEGACY_FFN, validate_ffn_projection_mode,
     require_ffn_constructor, require_ffn_backbone)
 from .v3_geometry_fp32 import (LEGACY_GEOMETRY,
@@ -81,6 +83,12 @@ class SharedBackboneMFM(nn.Module):
         super().__init__()
         expert_config = dict(expert_config or {})
         head_config = dict(head_config or {})
+        self.distance_bias_projection_bias = validate_distance_bias_projection_bias(
+            backbone_config.get("distance_bias_projection_bias", True))
+        require_distance_bias_constructor(self.distance_bias_projection_bias,
+            use_dist_bias=backbone_config.get("use_dist_bias", True),
+            dim=backbone_config.get("dim", 512), heads=backbone_config.get("heads", 8),
+            layers=backbone_config.get("layers", 6))
         mode = validate_numeric_mode(backbone_config.get('numeric_mode', LEGACY))
         if validate_numeric_mode(head_config.get('numeric_mode', LEGACY)) != mode:
             raise ValueError('Backbone/head numeric modes must agree')
@@ -142,6 +150,7 @@ class SharedBackboneMFM(nn.Module):
             attention_projection_mode=self.attention_projection_mode,
             geometry_mode=self.geometry_mode,
             ffn_projection_mode=self.ffn_projection_mode,
+            distance_bias_projection_bias=self.distance_bias_projection_bias,
         )
         self.graph_pool = UnifiedGraphPooling(self.latent_dim)
 
@@ -209,6 +218,11 @@ class SharedBackboneMFM(nn.Module):
 
     def encode_atoms(self, batch: Data) -> Tensor:
         """Return canonical shared representation H0 with shape [N_atom, D]."""
+        declared_bias = validate_distance_bias_projection_bias(
+            self.backbone_config.get("distance_bias_projection_bias", True))
+        if self.distance_bias_projection_bias != declared_bias:
+            raise ValueError("Model configuration/distance projection bias differs")
+        require_distance_bias_backbone(self.backbone, expected=declared_bias)
         declared_ffn = validate_ffn_projection_mode(self.backbone_config.get("ffn_projection_mode", LEGACY_FFN))
         if self.ffn_projection_mode != declared_ffn:
             raise ValueError("Model configuration/FFN runtime identity differs")
