@@ -1,0 +1,98 @@
+{
+    "schema":  "native_max_R1_log_sources_v1",
+    "scope":  "NATIVE_MAX_SINGLETON_R1_LOG_ONLY",
+    "status":  "SOURCE_ONLY_FROZEN_NOT_EXECUTED",
+    "files":  [
+                  {
+                      "relative_path":  "max_common.py",
+                      "bytes":  15244,
+                      "sha256":  "5a0447fa8a7e9d7c0866326d4cf36479a5b520c9675bbd7b786007589daf5356"
+                  },
+                  {
+                      "relative_path":  "audit_max.py",
+                      "bytes":  13483,
+                      "sha256":  "91a61a166efa81cf89fdb483d587eb0d5b2f334b9fabdfc468408d6c20a796f3"
+                  },
+                  {
+                      "relative_path":  "prepare.py",
+                      "bytes":  4147,
+                      "sha256":  "276281faa9cccb6bd129f0b9ed02decfd4d0609b7b6b836dc72e1ed34cb3e32b"
+                  },
+                  {
+                      "relative_path":  "sync_max.py",
+                      "bytes":  6528,
+                      "sha256":  "99bdffa6dae187c023e80b682478ce2bf9e2fd7b10ccca8bcc5350cc200376ed"
+                  },
+                  {
+                      "relative_path":  "one_run_max.py",
+                      "bytes":  11851,
+                      "sha256":  "67177cb7269b3011a41dadef985611da456fc394f3951a12115f9a76d95bfbbc"
+                  },
+                  {
+                      "relative_path":  "installed_sources.json",
+                      "bytes":  5921,
+                      "sha256":  "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+                  },
+                  {
+                      "relative_path":  "audit_cpu.sbatch",
+                      "bytes":  1234,
+                      "sha256":  "8160fe0c24ddcadf3bb1906eae5da7fd21ccd70a891d533af8a62bdb83637ba7"
+                  },
+                  {
+                      "relative_path":  "sync_cpu.sbatch",
+                      "bytes":  1334,
+                      "sha256":  "aabc5fdf2de1c9575fa71290b6276e2b3db5a99e09b218ae60a59db2a25f0562"
+                  },
+                  {
+                      "relative_path":  "dependencies.json",
+                      "bytes":  9260,
+                      "sha256":  "40b3ad7a74d3cb78ec00c2fe77e896ef879efa5542780d2632b3cce009811537"
+                  },
+                  {
+                      "relative_path":  "scope.json",
+                      "bytes":  1121,
+                      "sha256":  "1b8d2f58df6b2fa6bbb7f7250f8989db182eaa17b4507b87611fb39acda38df3"
+                  },
+                  {
+                      "relative_path":  "README.md",
+                      "bytes":  7253,
+                      "sha256":  "78da0c60cc3eebf2cdf49ed2a5cc0662279b2b768ba699f4ba0a5735918ea199"
+                  }
+              ],
+    "dependencies":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_SDK_v1_source/dependencies.json",
+                         "bytes":  9260,
+                         "sha256":  "40b3ad7a74d3cb78ec00c2fe77e896ef879efa5542780d2632b3cce009811537"
+                     },
+    "Root_model_C0":  {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_max_R1_GPU_4524600_Root_closure_v1.json",
+                          "bytes":  6227,
+                          "sha256":  "fdb8e2c10dacf1dbc914f6ef3da1abefbbf39b86d2ee70784339eb7716f687fa"
+                      },
+    "literal_reader":  {
+                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/literal_key_history_v1.py",
+                           "bytes":  11700,
+                           "sha256":  "74925c58edc61619c78533ff6cce8fc36b2b5f20f876cb011169906d8ba77e88"
+                       },
+    "tap":  {
+                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/profile_sdk_tap.py",
+                "bytes":  10910,
+                "sha256":  "e70022162ed70b983af88a0e445a08a6f81866ba96da7da6ad63643f951a5795"
+            },
+    "full_rb_decoder":  {
+                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_native_integrity_probe_v1_source/native_integrity.py",
+                            "bytes":  20296,
+                            "sha256":  "07b155e55f7721b1cc4b5f5781c5d260ae4e0300fc7d17a2c2b4a5c024e5c499"
+                        },
+    "original_v3_transport":  {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/one_run.py",
+                                  "bytes":  11852,
+                                  "sha256":  "0286ce7f8fd218eb8548e87596662f3027bf9f14363d2cc8762022c2b8300af9"
+                              },
+    "transport_only_change":  "from sync_common import * -\u003e from max_common import *",
+    "installed_snapshot_rawbytes_preserved":  true,
+    "author_opened_SDK_or_steps":  false,
+    "author_ran_Python_AST_Git_SSH_API_Slurm_or_tests":  false,
+    "A5_included":  false,
+    "scientific_acceptance":  false
+}

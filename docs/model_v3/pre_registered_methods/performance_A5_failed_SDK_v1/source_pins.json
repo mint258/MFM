@@ -1,0 +1,102 @@
+{
+    "schema":  "A5_failed_log_sources_v1",
+    "scope":  "A5_FIXED20_FAILED_ZERO_HISTORY_LOG_ONLY",
+    "status":  "SOURCE_ONLY_FROZEN_NOT_EXECUTED",
+    "files":  [
+                  {
+                      "relative_path":  "failed_common.py",
+                      "bytes":  15937,
+                      "sha256":  "7e9257fcc10c9c62956cca47c5c602a2e40ee55c5cb05c416d43e817bb84c8b1"
+                  },
+                  {
+                      "relative_path":  "audit_failed.py",
+                      "bytes":  10592,
+                      "sha256":  "7ed1cd0ad7c16638260cef9714878a3c3b16cd57fa783c95b24880791cc8ee52"
+                  },
+                  {
+                      "relative_path":  "prepare.py",
+                      "bytes":  4233,
+                      "sha256":  "4ef46db7e16d00c232756403f7cd7cd784b91fa1ea489ec0294df46df9555e6c"
+                  },
+                  {
+                      "relative_path":  "sync_failed.py",
+                      "bytes":  6824,
+                      "sha256":  "cc7873418bc49a45205953096c16671cee4152c3ff172956895b83d70e02abc5"
+                  },
+                  {
+                      "relative_path":  "one_run_failed.py",
+                      "bytes":  11854,
+                      "sha256":  "6ad5dacaaffe8c572033c57f4501cf9f060687d6ab508eadf3fbca6aca7dd3a1"
+                  },
+                  {
+                      "relative_path":  "installed_sources.json",
+                      "bytes":  5921,
+                      "sha256":  "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+                  },
+                  {
+                      "relative_path":  "audit_cpu.sbatch",
+                      "bytes":  1292,
+                      "sha256":  "ba6520a7fa263057b7bbe92fb973d5d3dafea6eca31e1145a85d266f9bae90f2"
+                  },
+                  {
+                      "relative_path":  "sync_cpu.sbatch",
+                      "bytes":  1406,
+                      "sha256":  "3cd83481be29b37cc8bda06f34d4fdb62ff1f21ec7598077ea48db8109662752"
+                  },
+                  {
+                      "relative_path":  "dependencies.json",
+                      "bytes":  9394,
+                      "sha256":  "86ad712a217881bb4ae73f9d0a560ee97058112af5c36e64bfc4a9120804d5d0"
+                  },
+                  {
+                      "relative_path":  "scope.json",
+                      "bytes":  2301,
+                      "sha256":  "2f1c5cb8e568dfa972d9df4cc2435909ba8fda3662dde80423861cd19e466d38"
+                  },
+                  {
+                      "relative_path":  "README.md",
+                      "bytes":  7855,
+                      "sha256":  "5b7da3c9b787c52be46fc8f2f32ea83bdca2be2d84b2d171e6efdd8482516a02"
+                  }
+              ],
+    "dependencies":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/dependencies.json",
+                         "bytes":  9394,
+                         "sha256":  "86ad712a217881bb4ae73f9d0a560ee97058112af5c36e64bfc4a9120804d5d0"
+                     },
+    "actual_negative_Root_closure":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_R2_GPU_4524601_Root_negative_closure_v1.json",
+                                         "bytes":  27376,
+                                         "sha256":  "38bdcc2b0cc545035683d83e6be9c68bbaa1383cf14dbe31769f265b27d0a122"
+                                     },
+    "literal_reader":  {
+                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/literal_key_history_v1.py",
+                           "bytes":  11700,
+                           "sha256":  "74925c58edc61619c78533ff6cce8fc36b2b5f20f876cb011169906d8ba77e88"
+                       },
+    "tap":  {
+                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/profile_sdk_tap.py",
+                "bytes":  10910,
+                "sha256":  "e70022162ed70b983af88a0e445a08a6f81866ba96da7da6ad63643f951a5795"
+            },
+    "full_rb_decoder":  {
+                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_native_integrity_probe_v1_source/native_integrity.py",
+                            "bytes":  20296,
+                            "sha256":  "07b155e55f7721b1cc4b5f5781c5d260ae4e0300fc7d17a2c2b4a5c024e5c499"
+                        },
+    "original_v3_transport":  {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/one_run.py",
+                                  "bytes":  11852,
+                                  "sha256":  "0286ce7f8fd218eb8548e87596662f3027bf9f14363d2cc8762022c2b8300af9"
+                              },
+    "transport_only_change":  "from sync_common import * -\u003e from failed_common import *",
+    "installed_snapshot_rawbytes_preserved":  true,
+    "zero_history_extension":  "Full original typed config/Audit updates/public summary allowlist retained; no last-mirror or generated expected summary",
+    "expected_native_exit":  1,
+    "expected_committed_history_rows":  0,
+    "role_source":  "Actual CPU Native RunRecord.config.paired_role only",
+    "author_opened_SDK_or_journal":  false,
+    "author_ran_Python_AST_Git_SSH_API_Slurm_or_tests":  false,
+    "original_model_failure_preserved":  true,
+    "scientific_acceptance":  false
+}
