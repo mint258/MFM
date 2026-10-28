@@ -28,6 +28,7 @@ from .v3_geometry_fp32 import (LEGACY_GEOMETRY, RESIDUAL_GEOMETRY,
 from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, aggregation_mode,
                                     require_centered_attention_context, centered_attention_value,
                                     require_centered_backbone, require_centered_f32_context, require_centered_packed_atoms)
+from .v3_ffn_projection import LEGACY_FFN, ffn_projection_mode, require_ffn_backbone
 from .v3_attention_projection import (LEGACY_PROJECTION, BLOCKED_PROJECTION,
     projection_mode, require_projection_backbone, attention_projection)
 from .v3_numeric_stability import (COMPENSATED, LEGACY, numeric_mode, apply_numeric_mode,
@@ -190,6 +191,7 @@ class SharedPairBackbone(nn.Module):
         self.attention_aggregation_mode = aggregation_mode(original)
         self.attention_projection_mode = projection_mode(original)
         self.geometry_mode = geometry_mode_of(original)
+        self.ffn_projection_mode = ffn_projection_mode(original)
         self.n_atom_types, self.dim = original.n_atom_types, original.dim
         self.activation_checkpointing = original.activation_checkpointing
         self.atom_emb, self.out_norm = original.atom_emb, original.out_norm
@@ -208,6 +210,8 @@ class SharedPairBackbone(nn.Module):
             result["attention_projection_mode"] = self.attention_projection_mode
         if self.geometry_mode != LEGACY_GEOMETRY:
             result["geometry_mode"] = self.geometry_mode
+        if self.ffn_projection_mode != LEGACY_FFN:
+            result["ffn_projection_mode"] = self.ffn_projection_mode
         return result
 
     def set_extra_state(self, state):
@@ -215,6 +219,7 @@ class SharedPairBackbone(nn.Module):
 
     def forward(self, data):
         require(getattr(data, "pos", None) is not None, "C1 H0 requires coordinates")
+        require_ffn_backbone(self, expected_mode=self.ffn_projection_mode)
         require_geometry_binding(self, expected_mode=self.geometry_mode)
         if self.attention_projection_mode == BLOCKED_PROJECTION:
             require_projection_backbone(self, expected_mode=BLOCKED_PROJECTION)

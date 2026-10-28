@@ -8,6 +8,8 @@ import torch.nn as nn
 from torch import Tensor
 
 from .common import Linear
+from .v3_ffn_projection import (LEGACY_FFN, BLOCKED_FFN, validate_ffn_projection_mode,
+    ffn_projection_mode, require_ffn_constructor, require_ffn_layout, ffn_projection)
 from .v3_geometry_fp32 import (LEGACY_GEOMETRY, RESIDUAL_GEOMETRY,
     validate_geometry_mode, require_geometry_constructor, residual_pairwise_distance_fp32)
 from .v3_attention_projection import (LEGACY_PROJECTION, BLOCKED_PROJECTION,
@@ -116,8 +118,11 @@ class DenseGeoSelfAttention(nn.Module):
 
 
 class DenseFFN(nn.Module):
-    def __init__(self, dim: int, ff_mult: int, dropout: float = 0.0) -> None:
+    def __init__(self, dim: int, ff_mult: int, dropout: float = 0.0,
+                 ffn_projection_mode: str = LEGACY_FFN) -> None:
         super().__init__()
+        self.ffn_projection_mode = validate_ffn_projection_mode(ffn_projection_mode)
+        require_ffn_constructor(self.ffn_projection_mode, dim=dim, ff_mult=ff_mult, dropout=dropout)
         hidden = int(dim * ff_mult)
         self.net = nn.Sequential(
             Linear(dim, hidden),
@@ -127,7 +132,12 @@ class DenseFFN(nn.Module):
         )
 
     def forward(self, x: Tensor) -> Tensor:
-        return self.net(x)
+        if ffn_projection_mode(self) == LEGACY_FFN:
+            return self.net(x)
+        require_ffn_layout(self)
+        hidden = ffn_projection(self, self.net[0], x)
+        hidden = self.net[2](self.net[1](hidden))
+        return ffn_projection(self, self.net[3], hidden)
 
 
 class RealCoordTransformerLayer(nn.Module):
@@ -143,8 +153,12 @@ class RealCoordTransformerLayer(nn.Module):
         attention_aggregation_mode: str = LEGACY_AGGREGATION,
         attention_projection_mode: str = LEGACY_PROJECTION,
         geometry_mode: str = LEGACY_GEOMETRY,
+        ffn_projection_mode: str = LEGACY_FFN,
     ) -> None:
         super().__init__()
+        require_ffn_constructor(ffn_projection_mode, dim=dim, ff_mult=ff_mult, dropout=dropout,
+            heads=nheads, aggregation=attention_aggregation_mode,
+            projection=attention_projection_mode, geometry=geometry_mode)
         self.norm1 = nn.LayerNorm(dim)
         self.attn = DenseGeoSelfAttention(
             dim=dim,
@@ -158,7 +172,8 @@ class RealCoordTransformerLayer(nn.Module):
             geometry_mode=geometry_mode,
         )
         self.norm2 = nn.LayerNorm(dim)
-        self.ffn = DenseFFN(dim=dim, ff_mult=ff_mult, dropout=dropout)
+        self.ffn = DenseFFN(dim=dim, ff_mult=ff_mult, dropout=dropout,
+                            ffn_projection_mode=ffn_projection_mode)
 
     def forward(self, x: Tensor, pos: Tensor, mask: Tensor) -> Tensor:
         attn_out, _ = self.attn(self.norm1(x), pos, mask)

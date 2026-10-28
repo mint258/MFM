@@ -27,6 +27,8 @@ from .backbone import RealCoordTransformerBackbone
 from .v3_attention_numerics import (LEGACY_AGGREGATION, CENTERED_FP32, validate_aggregation_mode,
                                     require_centered_backbone, require_centered_f32_context)
 from .common import Linear, ensure_batch_attr
+from .v3_ffn_projection import (LEGACY_FFN, validate_ffn_projection_mode,
+    require_ffn_constructor, require_ffn_backbone)
 from .v3_geometry_fp32 import (LEGACY_GEOMETRY,
     validate_geometry_mode, require_geometry_constructor, require_geometry_binding)
 from .v3_attention_projection import (LEGACY_PROJECTION, BLOCKED_PROJECTION,
@@ -95,6 +97,12 @@ class SharedBackboneMFM(nn.Module):
             dim=backbone_config.get("dim", 512), heads=backbone_config.get("heads", 8),
             layers=backbone_config.get("layers", 6), dropout=backbone_config.get("dropout", 0.),
             aggregation=self.attention_aggregation_mode, projection=self.attention_projection_mode, numeric=mode)
+        self.ffn_projection_mode = validate_ffn_projection_mode(backbone_config.get("ffn_projection_mode", LEGACY_FFN))
+        require_ffn_constructor(self.ffn_projection_mode,
+            dim=backbone_config.get("dim", 512), ff_mult=backbone_config.get("ff_mult", 2),
+            layers=backbone_config.get("layers", 6), heads=backbone_config.get("heads", 8),
+            dropout=backbone_config.get("dropout", 0.), aggregation=self.attention_aggregation_mode,
+            projection=self.attention_projection_mode, geometry=self.geometry_mode, numeric=mode)
         self.backbone_config = dict(backbone_config)
         self.expert_config = expert_config
         self.head_config = deepcopy(head_config)
@@ -133,6 +141,7 @@ class SharedBackboneMFM(nn.Module):
             attention_aggregation_mode=self.attention_aggregation_mode,
             attention_projection_mode=self.attention_projection_mode,
             geometry_mode=self.geometry_mode,
+            ffn_projection_mode=self.ffn_projection_mode,
         )
         self.graph_pool = UnifiedGraphPooling(self.latent_dim)
 
@@ -200,6 +209,10 @@ class SharedBackboneMFM(nn.Module):
 
     def encode_atoms(self, batch: Data) -> Tensor:
         """Return canonical shared representation H0 with shape [N_atom, D]."""
+        declared_ffn = validate_ffn_projection_mode(self.backbone_config.get("ffn_projection_mode", LEGACY_FFN))
+        if self.ffn_projection_mode != declared_ffn:
+            raise ValueError("Model configuration/FFN runtime identity differs")
+        require_ffn_backbone(self.backbone, expected_mode=declared_ffn)
         declared_geometry = validate_geometry_mode(self.backbone_config.get("geometry_mode", LEGACY_GEOMETRY))
         if self.geometry_mode != declared_geometry:
             raise ValueError("Model configuration/geometry runtime identity differs")
