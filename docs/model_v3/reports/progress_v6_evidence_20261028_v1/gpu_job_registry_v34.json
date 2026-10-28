@@ -1,0 +1,642 @@
+{
+  "created_UTC": "2026-10-28T02:43:31.301197+00:00",
+  "inherited_notes_are_prior_point_in_time_snapshots": true,
+  "jobs": [
+    {
+      "category": "synthetic_model_validation",
+      "job_id": "4521015",
+      "stage": "3_C4",
+      "status_note": "Actual GPU allocation failed physical UUID string comparison before matrix or legacy CUDA cases; counted in full",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/composed_eq_gpu_submission_v2.json",
+      "submission_receipt_sha256": "dc527e8c6dba8917730f981a895943bba8e99718887d50dc154f8bf46d289012"
+    },
+    {
+      "category": "synthetic_model_validation",
+      "job_id": "4521043",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Compute accounting backend failed before CUDA/matrix; preserve actual allocation and elapsed resolution",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/composed_eq_gpu_runtime_retry_submission_v1.json",
+      "submission_receipt_sha256": "db65520a9786c18652f8fbfa7e8c82a8413624bf6be8f52fe529740467633688"
+    },
+    {
+      "category": "native_S_optimizer_diagnostic",
+      "job_id": "4521045",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Compute accounting backend failed before native updates",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A06_native_feedback_submission_v1.json",
+      "submission_receipt_sha256": "db580e8e854e60cd196628b5eaa3fab0c4434935a2f7065b5c532b1dae6b18da"
+    },
+    {
+      "category": "native_S_optimizer_diagnostic",
+      "job_id": "4521055",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Own job TRES omits memory; MinMemoryNode32G was present; strict parser rejected before native updates",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A06_native_feedback_submission_v2.json",
+      "submission_receipt_sha256": "dcbc78c04b576237ad6922a82b68e40aa52c90e9bc7e82bb19976bf9aa30f5b2"
+    },
+    {
+      "category": "synthetic_model_validation",
+      "job_id": "4521056",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual CUDA device observed Torch CUuuid dedicated type; narrow UUID parser rejected before model matrix",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/composed_eq_gpu_runtime_retry_submission_v2.json",
+      "submission_receipt_sha256": "f6c6fa453119e76b94cb4c29684452a81e5a419a348975cd647e188b42c12d91"
+    },
+    {
+      "category": "native_S_optimizer_diagnostic",
+      "job_id": "4521078",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Preserve actual failed allocation: shared dependency path missing before native updates",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A06_native_feedback_submission_v3.json",
+      "submission_receipt_sha256": "73ee4d0c07a36676bdc530596a0fae47306b2803959df16e12ed5410cfca0d22"
+    },
+    {
+      "category": "native_S_optimizer_diagnostic",
+      "job_id": "4521091",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual15-update diagnostic completed; original fused gate FAILED_UNCHANGED",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A06_native_feedback_submission_v4.json",
+      "submission_receipt_sha256": "a14c45c8f1eaab7d560a33d2fabe3c91aa4335888a493a365a36efafb80db69a"
+    },
+    {
+      "category": "synthetic_model_validation",
+      "job_id": "4521160",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual48 GPU composed cases,2PASS/46FAIL; two legacy CUDA tests PASS; FAILED preserved",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/composed_eq_gpu_runtime_retry_submission_v4.json",
+      "submission_receipt_sha256": "a6266be7073138219ffcec8098bc8fd3c3d7e725b8c37f4867d452753ce3f8dc"
+    },
+    {
+      "category": "native_S_standalone_timing",
+      "job_id": "4521173",
+      "receipt_job_id_field": "actual_job_id",
+      "status_note": "Actual4s failed allocation before GPU/model forward because old supervisor rejected layout; preserve v1 intent",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A01_4090_ABBA_outputs_v1/position1_attempt1.json",
+      "submission_receipt_sha256": "b1f2bd7420fa44971721c59f6eebf08a8e751555b36bb8fbd55f2d83bbc8497e"
+    },
+    {
+      "category": "native_S_precision_profile",
+      "job_id": "4521328",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual GPU allocation FAILED1:0/20s/16CPUs; 55metadata tests pass0.50s but whole job failed before Native model due retained pytest current symlinks; no science acceptance, all allocation cost counted",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_profile_fp32_v6/control/submission.json",
+      "submission_receipt_sha256": "7c6bb1a1fdea0dcbe1cbdf13ab4bb0650e4083252d92f535e0b38e2ef42997b8"
+    },
+    {
+      "category": "native_S_precision_profile",
+      "job_id": "4521329",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual11s FAILED after metadata and CUDA origin, before Native model: task_scratch enum mismatch",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_profile_fp32_v7/control/submission.json",
+      "submission_receipt_sha256": "48097892cdac51606f2738a9f332e6bd93cbc3ce76d2c30494fd3d5ea9364192"
+    },
+    {
+      "category": "synthetic_model_attribution",
+      "job_id": "4521330",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual16s FAILED before model measurements: historical lexicographic index ordering",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_layer_head_launch_submission_v1.json",
+      "submission_receipt_sha256": "ee4b640e18cbfdcd31b28bb4e581c633b819faf440f78e7d433d41825fef5b34"
+    },
+    {
+      "category": "native_S_precision_profile",
+      "job_id": "4521331",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual252s C0;20updates7680base/1024VAL; SDK independent readback pending",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_profile_fp32_v8/control/submission.json",
+      "submission_receipt_sha256": "bd9ee7ae1aab7e6c18c33a37f9d497ba7a1bbf70753454a290ef780420b87581"
+    },
+    {
+      "category": "native_S_precision_profile",
+      "job_id": "4521332",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual90s C0;20updates7680base/1024VAL; SDK independent readback pending",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_profile_bf16_v8/control/submission.json",
+      "submission_receipt_sha256": "2d66dbe76694dc8eda26227aa831e3f8c0bd1374c1b436c5673b0049684b2153"
+    },
+    {
+      "category": "synthetic_model_attribution",
+      "job_id": "4521333",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual37s FAILED after48fresh unhooked, firsthook measurement replay difference; measured dict not durable",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_layer_head_launch_submission_v2.json",
+      "submission_receipt_sha256": "47f7e4afdc8ccb10bb3e3a6ce4a97c980665069311b299409a94d85b53b3e847"
+    },
+    {
+      "category": "native_S_standalone_speed",
+      "job_id": "4521338",
+      "receipt_job_id_field": "actual_job_id",
+      "status_note": "Actual submission confirmed; pending node20 allocation; no measured speed/QA asserted",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A01_4090_ABBA_outputs_v3/position1_attempt1.json",
+      "submission_receipt_sha256": "05c70429d5b81b5d36480b3d1828ba5ecce0cb4f88225512916cfefcce48643b"
+    },
+    {
+      "category": "synthetic_model_replay_diagnostic",
+      "job_id": "4521397",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual9s FAILED1 after12 forwards and durable three-role numeric evidence; strict new replay controls false; no full48 acceptance",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_firstcase_replay_submission_v1.json",
+      "submission_receipt_sha256": "9cdce6f38038ac3b1272dfa85acb571240c8df1f278f77dfb405ffdb2255362d"
+    },
+    {
+      "category": "synthetic_model_operator_diagnostic",
+      "job_id": "4521406",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual fixed-input diagnostic; original-policy FAILED retained",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_fixed_op_replay_submission_v1.json",
+      "submission_receipt_sha256": "01bce7e3e7f9ccf443df9014ababf43d95e1c5c09a7563e42eaed9517e9ce1cf"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4521411",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual FAILED quota freshness at partial723; no safe CP; original failure retained",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_001.submitted.json",
+      "submission_receipt_sha256": "aa889c3f9fbd5c894dd8d0955c359e02b10587b09cae24e421dd619361d880ea"
+    },
+    {
+      "category": "synthetic_model_numerical_validation",
+      "job_id": "4521429",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual FAILED before model due two metadata JSON Git LF identities",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_composed_GPU_v1_attempt1.json",
+      "submission_receipt_sha256": "29e01b4a30f4cbccbfc8c2397717605f29adb079244b25b542c4897a4d166229"
+    },
+    {
+      "category": "synthetic_model_numerical_validation",
+      "job_id": "4521435",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual complete48 matrix10PASS38FAIL; no candidate adoption",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_composed_GPU_v2_attempt1.json",
+      "submission_receipt_sha256": "5637b5fa2b200444a9c81cc34a8c76bd9d7793c5a57fcc377669f4b2fde21963"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4521438",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual explicit same-science retry fromu0; point-in-time state only",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_002.submitted.json",
+      "submission_receipt_sha256": "f6065aca22a4412ebbbe6df25e040d11f163b35b4e8431c9b20057d0b7498ee6"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4521459",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual completed second1000-update segment, endpoint2000; SDK audit pending",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_003.submitted.json",
+      "submission_receipt_sha256": "82952dd90b8e9b1bf99439a6b32a5a4fd1a1091cfdc8d41358959ca8c8c115dd"
+    },
+    {
+      "category": "synthetic_model_capture_diagnostic",
+      "job_id": "4521484",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual FAILED at post-forward parameter-hash audit; four encoder forwards, no completed captured case; original retained",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_v1_attempt1.json",
+      "submission_receipt_sha256": "53236629608c6e5f5bf01aa2427a24d35e5e2edb47592a40efbe28b762790e90"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4521485",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual submission from safe2000 checkpoint toward3000; point-time no completion claim",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_004.submitted.json",
+      "submission_receipt_sha256": "0b9fdfab4622455affd0002d2eae10245355e2b9f380961c462bf91d663ce661"
+    },
+    {
+      "category": "synthetic_model_capture_diagnostic",
+      "job_id": "4521492",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual v2 capture after prereg06ed098; parameter-audit-only fix; no result or adoption claimed at submission",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_v2_attempt2.json",
+      "submission_receipt_sha256": "ebd098286654142634d63c25add3ed7b85046c97d2131b84c7033e22aec12a0f"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4521505",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual submitted safe3000 to4000 same-science continuation; no completion asserted at submission",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_005.submitted.json",
+      "submission_receipt_sha256": "6e6649cbe7d3080b04c06526f9a0eeb4e4cea6a459452ad97d553b173a66d8d7"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4521548",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual submitted from safe4000 toward5000; point-time completion not asserted",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_006.submitted.json",
+      "submission_receipt_sha256": "f6525df57edf5df656d9d14e2f0b41a94a6c8d54808de64c7e0c4d1815bee3f3"
+    },
+    {
+      "category": "synthetic_model_encoder_precision_reference",
+      "job_id": "4521561",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual after prereg1715cac C0/131s:192 exact FP32 replay and192 FP64 reference; no FP32 physical acceptance or model adoption",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/full_encoder_FP64_GPU_v1_attempt1.json",
+      "submission_receipt_sha256": "973c07ee99a1bcaf361bfb1a10bd78ca03615e232bd752cf148d1c7de43f0892"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4521616",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual C0/2462s safe6000 endpoint; no B acceptance",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_007.submitted.json",
+      "submission_receipt_sha256": "9a68e3c644765c680e8b35dc9612e9fdfca0d222c33c00252e253834dab710a2"
+    },
+    {
+      "category": "synthetic_attention_precision_diagnostic",
+      "job_id": "4521641",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual C0/75s;192 replay and1152 AV local controls after public997882; no production model adoption",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_AV_centering_GPU_v1_attempt1.json",
+      "submission_receipt_sha256": "916c58547a869b465376b57b01f43dca06822dda366f9b8f3fca54024929de59"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4521644",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual submission safe6000 toward7000; point-time completion not asserted",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_008.submitted.json",
+      "submission_receipt_sha256": "585c086888519f8a7c06590883330626dc5593d30f961a4dd8cfcfc979ea49b1"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4521686",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual C0/2584s safe8000; no B acceptance",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_009.submitted.json",
+      "submission_receipt_sha256": "02aba2e652e8ee4bbf7e72c0792f44cd8734af74fc33e3df8970282b5d0081dc"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4521773",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual submitted safe8000 toward9000; active point-in-time",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_010.submitted.json",
+      "submission_receipt_sha256": "10bd332089e9cf0b4d733d59e286fb2820c7f5ea8326ca5ae75861c48d7ab649"
+    },
+    {
+      "category": "synthetic_centered_attention_complete48",
+      "job_id": "4521776",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual FAILED1/42s complete48:21pass27fail; candidate not adopted",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centered_e2e_GPU_v1_attempt1.json",
+      "submission_receipt_sha256": "d0b7c159b99a312f22d7012f05d3588d337eb032b5428e09a02bea8beaf03573"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4521830",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual safe9000 continuation toward10000; no B acceptance",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_011.submitted.json",
+      "submission_receipt_sha256": "75a3797d8ef7b9223f2b694c1bb191b461c97813f1a1768d8677fcfa27bd140b"
+    },
+    {
+      "category": "synthetic_centered_fixed_H0_capture",
+      "job_id": "4521838",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual C0/66s all48 newcapture/192FP32/2496 external bitwise terminalcontrols; unchangedphysics21pass27fail, noadoption",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/centered_fixed_H0_capture_GPU_v1_attempt1.json",
+      "submission_receipt_sha256": "711bddcd3b63c404eeaa48b1119dc564b9029e24020e8315bbaa3f697738a46c"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4521906",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual safe10000 continuation toward11000; point-time active and no B acceptance",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_012.submitted.json",
+      "submission_receipt_sha256": "784cc2a0c62ccd7b0f3bf20a89582322c280dc730cac17cd7aea56fb2630da14"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4522063",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual safe11000 continuation toward12000; submission is not completion or B acceptance",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_013.submitted.json",
+      "submission_receipt_sha256": "95fbb5d98a56289cb0ba5137eab668d455f032df890961b7c84769d844752e55"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4522132",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual safe12000 continuation toward13000; submission is not completion or B acceptance",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_014.submitted.json",
+      "submission_receipt_sha256": "7da6c383b5ea8e56e1e5da37884ebea459f0cd8cbdd084d0334aa6cdaa878beb"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4522486",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual safe13000 continuation toward14000 after selected GPU foreign contexts exited; submission is not completion/B acceptance",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_015.submitted.json",
+      "submission_receipt_sha256": "f9bc077dc6e39093421c3e778f0e8618980b5bacfd9568625456d252f9fa7fe8"
+    },
+    {
+      "category": "native_S_precision_long_segment",
+      "job_id": "4522615",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual safe14000 continuation toward15000 after slot015 C0; original TRAIN record sampler, notD5/B acceptance; submitted is not completed",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_016.submitted.json",
+      "submission_receipt_sha256": "fab1104a319c08be540e023e6b9d41c380fff6a4fe20608e404608572b7f4f93"
+    },
+    {
+      "Root_coordinator_identity_receipt": {
+        "bytes": 2336,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_slot017_persistent_session_coordinator_actual_v1.json",
+        "sha256": "b7473ee7af8da55439291a392b9d31b2020f518652f1d6c69e84052083fcfa0d"
+      },
+      "category": "native_S_precision_long_segment",
+      "job_id": "4522741",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual safe15000 continuation toward16000 after slot016 C0; unchangedv4 coordinator launched via retained authenticated session after two freshSSH prelaunch refusals; submission is not B/D5 acceptance",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_017.submitted.json",
+      "submission_receipt_sha256": "60b3cb0b307603f9b632c9a8738369e5a58bb229512955e69ee2e66a1cd3959c"
+    },
+    {
+      "Root_coordinator_identity_receipt": {
+        "bytes": 2336,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_slot018_persistent_session_coordinator_actual_v1.json",
+        "sha256": "34266d97aa25b55149c0264c891172a90dccfb34947f1c43dd9963dbe9d188a3"
+      },
+      "category": "native_S_precision_long_segment",
+      "job_id": "4522911",
+      "receipt_job_id_field": "actual_sbatch_job_id",
+      "status_note": "Actual safe16000 continuation toward17000 after slot017 C0; unchangedv4 coordinator via retained authenticated session; not D5/B acceptance",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_018.submitted.json",
+      "submission_receipt_sha256": "981b584959c89106d5a2761cf490330793420250c115d3c5ce9aed019325ccf0"
+    },
+    {
+      "Root_public_preregistration": {
+        "bytes": 4180,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_publication_actual_v17.json",
+        "sha256": "ececcb3d686a2f9e7bcceb323cb8bbae1af74c8e2525cd20388a2d735f4f346d"
+      },
+      "category": "encoder_local_operator_precision_diagnostic",
+      "job_id": "4523505",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual C0/175s, full48/192 and5312+5312 local refs with4368observations; alloriginalH0/terminal bitwise; physics21P27F unchanged, noadoption",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/encoder_local_op_precision_GPU_v1_attempt1.json",
+      "submission_receipt_sha256": "01c83b3b828d4f7a214abb9268048b5cf858027526b36a821ee8ff56a88bd786"
+    },
+    {
+      "Root_public_preregistration": {
+        "bytes": 6777,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_integration_publication_actual_v1.json",
+        "sha256": "6acf2de06802ed59bf4ba7e5e0e433ec69028ab4dc8280f342ffa1f5d2559550"
+      },
+      "category": "manual_R2_full_A_numeric_and_capacity_observation",
+      "job_id": "4523976",
+      "receipt_job_id_field": "job_id",
+      "status_note": "Actual C0/2271s; full20+500 numeric gates true, pure closed-metadata consumer CPU4211 C0; Root final closure pending; no auto/R1/ABBA or standalone speed claim",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "7e8deca0db532581519c55d7896841f0efb95c376291ec078069a27f9d4979f9"
+    },
+    {
+      "job_id": "4524448",
+      "category": "complete48_mixed_core64_numeric_diagnostic",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_core64_diagnostic_e2e_GPU_v1_attempt1.json",
+      "submission_receipt_sha256": "21dcd76fe4705d4938f59300fd93f7bb640b03f843a67f83e26390cbd06c5d8d",
+      "receipt_job_id_field": "job_id",
+      "Root_public_preregistration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_publication_actual_v19.json",
+        "bytes": 8192,
+        "sha256": "fcd542000c18e968dfff4d86c2305fbd8919b3ee176970d49807d42b8d19b0fd"
+      },
+      "status_note": "Actual FAILED1/46s; complete48/192 mixed forwards,14pass34fail, Root source/resource failure closure; not formalFP32/adoption."
+    },
+    {
+      "job_id": "4524476",
+      "category": "Native_S10000_full9_development_panel",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S10000_seed0_fp32_dev9_v2/panel/control/Root_submission_actual_attempt001.json",
+      "submission_receipt_sha256": "d506b17bb6cd6cdb4e6807ac2ff963368036a150427ff262696e9e0bea10677f",
+      "receipt_job_id_field": "job_id",
+      "Root_public_preregistration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_publication_actual_v19.json",
+        "bytes": 8192,
+        "sha256": "fcd542000c18e968dfff4d86c2305fbd8919b3ee176970d49807d42b8d19b0fd"
+      },
+      "status_note": "Actual Root admission and sole sbatch; independently budgeted cold candidate/random panel; result not yet Root closed."
+    },
+    {
+      "job_id": "4524550",
+      "category": "complete48_all_FP32_projection_candidate",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/projection_fp32_e2e_GPU_v1_attempt1.json",
+      "submission_receipt_sha256": "3a4c3d76d5043460ff8db6a9dccfc7b5bcb3ddc151fbed100c3ccfa8b9cd218f",
+      "receipt_job_id_field": "job_id",
+      "Root_public_preregistration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v20_metadata_auto_publication_actual_v1.json",
+        "bytes": 3218,
+        "sha256": "4560f3782c3563fae485ec4c20ba4d8dfd743d0bebd00e5c2080b1bd975c0c96"
+      },
+      "status_note": "Actual FAILED1/53s; full48/192 FP32 and2304 helper calls,12P36F, no adoption; Root source/resource closure pending."
+    },
+    {
+      "job_id": "4524551",
+      "category": "A1_auto_closed_profile_R2_full20plus500",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "eb3e78527bdc87643b4185293b840a9c3fd8f7974da28f24f26eb4d0d37eb326",
+      "receipt_job_id_field": "job_id",
+      "Root_public_preregistration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v20_metadata_auto_publication_actual_v1.json",
+        "bytes": 3218,
+        "sha256": "4560f3782c3563fae485ec4c20ba4d8dfd743d0bebd00e5c2080b1bd975c0c96"
+      },
+      "status_note": "Actual submitted/running after fresh C35 admission, fixed20batch PASS; trajectory500 not yet accepted; same9e16/8147, notR1/A5/ABBA or newruntime training scope."
+    },
+    {
+      "job_id": "4524558",
+      "category": "independent_RTX4090_manual_R2_full20plus500",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_4090_v1/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "442d822b9105862d83c27b74f747746c07731e15038149055438811a4a6f87ee",
+      "receipt_job_id_field": "job_id",
+      "Root_public_preregistration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v21_publication_actual_v1.json",
+        "bytes": 8119,
+        "sha256": "f308f8ea225fb4ad52bebacb6fb7c7406b5671b001311328b47366f74dead34f"
+      },
+      "status_note": "Actual freshnode20/ec788 Root sole submission; original4521338 notchanged. Same9e16/8147 nativeS8M/20+500; not yet accepted and not borrowed5090capacity."
+    },
+    {
+      "job_id": "4524563",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/projection_passive_stage_trace_GPU_v3_attempt001.json",
+      "submission_receipt_sha256": "b0f1c88b60006121027da5c40cfca2acea6fc49cba2b92a2d44e35006b4ef749",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual C0 passive full48 FP32 trace only, physical12P36F unchanged/not adopted; Root metadata/source/resource closure present",
+      "Root_closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_trace_GPU_4524563_Root_closure_v1.json",
+        "bytes": 96722,
+        "sha256": "5367a1536b41afa6e1bef0a51075aec1562e11534af42f5f943bc6b46bf246d9"
+      }
+    },
+    {
+      "job_id": "4524567",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1/member_1/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "b0eedce1b5d36bf4cd137e498dd9c2a3365afef91e331af60f2c0750ac12b986",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual A00 R1 calibration ABBA standalone member C0; independent Native SDK audit and final speed report pending; all-checkpoint control, not true checkpoint-off acceptance",
+      "Root_closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1/member_1/control/Root_closure_actual_v1.json",
+        "bytes": 3034,
+        "sha256": "aa28d647d33b874e07ab0afc97211e685f73fe08907216c22bf2209e621a3e7d"
+      }
+    },
+    {
+      "job_id": "4524568",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1/member_2/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "3ccea484e5d230bce1f5dec10146c70ef9817098da4ec84332b17bbbcaa69a47",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual A00 R1 calibration ABBA standalone member C0; independent Native SDK audit and final speed report pending; all-checkpoint control, not true checkpoint-off acceptance",
+      "Root_closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1/member_2/control/Root_closure_actual_v1.json",
+        "bytes": 3036,
+        "sha256": "72ad55a20843103acdc0129006a105d1cbbe21948d1deb5aeb82c57e6e4241a1"
+      }
+    },
+    {
+      "job_id": "4524569",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1/member_3/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "3cabc3953feb8a1cbdb63f6c4cca512206817f280b25d55801a69a823e620969",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual A00 R1 calibration ABBA standalone member C0; independent Native SDK audit and final speed report pending; all-checkpoint control, not true checkpoint-off acceptance",
+      "Root_closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1/member_3/control/Root_closure_actual_v1.json",
+        "bytes": 3035,
+        "sha256": "422abacccd59f26a17c039fdaeb84b15bb01292dd23117e967a711a0b22fde64"
+      }
+    },
+    {
+      "job_id": "4524570",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1/member_4/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "0ca6a15f850aca12eb49df920b21b690596fa9db793a31ffbf0e31b09376b8c2",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual A00 R1 calibration ABBA standalone member C0; independent Native SDK audit and final speed report pending; all-checkpoint control, not true checkpoint-off acceptance",
+      "Root_closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1/member_4/control/Root_closure_actual_v1.json",
+        "bytes": 3035,
+        "sha256": "b8cbc857e571cd4c8c18eac0695ed0dcdeffb04aa9bbe7795c113a7d4152d776"
+      }
+    },
+    {
+      "job_id": "4524579",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_fp32_e2e_GPU_v1_submission_actual_v1.json",
+      "submission_receipt_sha256": "6cc8b9da2a9f3b66010bcd403c3781dc8df66f4416b6a89d374ab284a423d532",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual new geometry candidate complete48 GPU; FINAL nine-leaf method/source/full CPU bound, real GPU result pending at registration; no scientific adoption"
+    },
+    {
+      "job_id": "4524580",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "a2ed600e2263d095e3f254b022ca667db1ec28a4e0bb1285192d2bde83751810",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual independent head-off a03 True/True/False complete20+500 same9e/nativeS8M/seed0; fresh admission/independent2Ghold/newmethod publication bound; result pending at registration, not full allOff or adoption"
+    },
+    {
+      "job_id": "4524587",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_v2/member_1/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "3c86302296a5236197f81b09096272639d105dd3816e8b53fa2b15783446a91c",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual head-off R1 ABBA member 1 C0; independent four-SDK audit and original speed report4524591 C0, two sync batches4524593/94 C0. Same source/native8M; not global max qualification."
+    },
+    {
+      "job_id": "4524588",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_v2/member_2/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "a968ffe624ea50d700e1886dc0bd5bd45d9d2ba5a6c41caf4375ab413551457c",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual head-off R1 ABBA member 2 C0; independent four-SDK audit and original speed report4524591 C0, two sync batches4524593/94 C0. Same source/native8M; not global max qualification."
+    },
+    {
+      "job_id": "4524589",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_v2/member_3/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "5dbd36bde3c9a64e90e8666c8b69295f6519f196c8ac132409e4c882144bb28c",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual head-off R1 ABBA member 3 C0; independent four-SDK audit and original speed report4524591 C0, two sync batches4524593/94 C0. Same source/native8M; not global max qualification."
+    },
+    {
+      "job_id": "4524590",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_v2/member_4/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "193a43fa4615dce30d0281ba97993adc48433f38ed15b19b062a00c749f8e1b6",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual head-off R1 ABBA member 4 C0; independent four-SDK audit and original speed report4524591 C0, two sync batches4524593/94 C0. Same source/native8M; not global max qualification."
+    },
+    {
+      "job_id": "4524595",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_attempt1.json",
+      "submission_receipt_sha256": "8eb757bcf51e7c87a76aeeb692d1f21798832067191df567e9ade74f717903fc",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual full48 head-moment passive trace4524595 C0/67s. 192FP32/0FP64 and producer all2496terminal bitwise controls; Root source/resource closure being finalized. Original15PASS33FAIL physics remains negative."
+    },
+    {
+      "job_id": "4524600",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "c1556a3f614e0790d09d1e99d4d113fcd59cb84424e3236fae5d666146973efe",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual maximum N712 selected complete three views, one TTF model,22updates C0/48s. SDK audit pending; no universal8M/auto/ABBA.",
+      "Root_closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_max_R1_GPU_4524600_Root_closure_v1.json",
+        "sha256": "fdb8e2c10dacf1dbc914f6ef3da1abefbbf39b86d2ee70784339eb7716f687fa",
+        "bytes": 6227
+      }
+    },
+    {
+      "job_id": "4524601",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/control/Root_submission_actual_v1.json",
+      "submission_receipt_sha256": "e8480ea6eba54392484c3e09b991002647ea1667a4a54f684cc149149d86a41d",
+      "receipt_job_id_field": "job_id",
+      "notes": "ActualA5 fixed20 full forwardPASS,120 gradient failures only6distMLP finalbias; child2/outerFAILED1, no500/R1/adoption, original strict gate preserved.",
+      "Root_closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_R2_GPU_4524601_Root_negative_closure_v1.json",
+        "sha256": "38bdcc2b0cc545035683d83e6be9c68bbaa1383cf14dbe31769f265b27d0a122",
+        "bytes": 27376
+      }
+    },
+    {
+      "job_id": "4524610",
+      "submission_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_e2e_GPU_v2_attempt1.json",
+      "submission_receipt_sha256": "ba3de923991541770677367186c753db3eda8b3e6d9b681c2a262f2ca07c51b4",
+      "receipt_job_id_field": "job_id",
+      "notes": "Actual GPU full48 FP32 FFN:FAILED1:0/78s,14PASS34FAIL,192FP32/0FP64,2304FFN/69120K64,full source/resource/cleanup closed,no adoption; v1 three prior admissions had no sbatch/job and remain preserved.",
+      "Root_closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/FFN_fp32_GPU_4524610_Root_negative_closure_v1.json",
+        "bytes": 80142,
+        "sha256": "61c446b94ca985918f947492027876e51a4f48694cde97e04e0009d3c398706b"
+      }
+    }
+  ],
+  "previous_registry": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/gpu_job_registry_v33.json",
+    "bytes": 52479,
+    "sha256": "bad24d98e504744224d83635533e97a3ec24b3fb96cc540d6008ccbbd76129b3"
+  },
+  "schema": "model_v3_extra_GPU_job_registry_v3",
+  "latest_separate_Root_closures": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_and_consumer_Root_closure_actual_v1.json",
+      "bytes": 1784300,
+      "sha256": "0a782651f639a72b6df70f9a6991ce7189bb4dd81bcd492205179d22b421d2fb"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_core64_GPU_4524448_Root_diagnostic_failure_closure_v1.json",
+      "bytes": 39150,
+      "sha256": "4c81e2a04a9ac8c8eb4cd7a995f9aeef3f1b179b48f71e5e7a7cb35f8904424f"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S10000_dev_panel_GPU_4524476_Root_closure_v3.json",
+      "bytes": 610173,
+      "sha256": "fbf2e2dea8fb93dfbff46737b8b4b0f1c4d485b9c9f892eeac0eaf21c9c95d82"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_GPU_4524551_Root_closure_v1.json",
+      "bytes": 5082,
+      "sha256": "0136894785baf0d47905bb1701c206dc3c2ea641cf972826d3c9f56d6c589162"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_FP32_GPU_4524550_Root_scientific_failure_closure_v1.json",
+      "bytes": 54322,
+      "sha256": "1923cd904f493bed4b7b45f993b86132feed4b3d97ad253b79a872e5f90be658"
+    }
+  ],
+  "latest_FFN_full48_negative_closure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/FFN_fp32_GPU_4524610_Root_negative_closure_v1.json",
+    "bytes": 80142,
+    "sha256": "61c446b94ca985918f947492027876e51a4f48694cde97e04e0009d3c398706b"
+  }
+}

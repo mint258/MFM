@@ -1,0 +1,59 @@
+{
+  "schema": "model_v3_Root_ssh_stage_latency_diagnostic_v1",
+  "argv": [
+    "ssh",
+    "-vvv",
+    "-n",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "StrictHostKeyChecking=yes",
+    "-o",
+    "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+    "compute-0-21",
+    "true"
+  ],
+  "returncode": 0,
+  "timed_out": false,
+  "total_seconds": 19.87004278600216,
+  "stage_markers_only": [
+    {
+      "marker": "Connection established",
+      "elapsed_seconds": 0.004517152905464172
+    },
+    {
+      "marker": "Authenticating to",
+      "elapsed_seconds": 0.011982649564743042
+    },
+    {
+      "marker": "SSH2_MSG_KEXINIT sent",
+      "elapsed_seconds": 0.012077733874320984
+    },
+    {
+      "marker": "SSH2_MSG_KEXINIT received",
+      "elapsed_seconds": 0.013330996036529541
+    },
+    {
+      "marker": "Server accepts key",
+      "elapsed_seconds": 0.10651664435863495
+    },
+    {
+      "marker": "Authenticated to",
+      "elapsed_seconds": 0.13420036435127258
+    },
+    {
+      "marker": "Entering interactive session",
+      "elapsed_seconds": 0.13424627482891083
+    },
+    {
+      "marker": "Sending command:",
+      "elapsed_seconds": 0.35468384623527527
+    },
+    {
+      "marker": "Exit status",
+      "elapsed_seconds": 19.829029262065887
+    }
+  ],
+  "raw_authentication_output_or_credentials_exported": false,
+  "project_compute_or_GPU_job_started": false
+}

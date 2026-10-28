@@ -1,0 +1,654 @@
+{
+  "schema": "model_v3_Root_head_moment_CPU_algebra_complete_replay_hold_closure_v1",
+  "status": "ACTUAL_FAILED1_ALL48_SAVED_OPERAND_ALGEBRA_COMPLETE_6_NORM_REPLAY_HOLDS_SOURCE_RESOURCE_CLOSED",
+  "actual_unix": 1793147119.2200394,
+  "job_id": "4524597",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524597",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524597|zixiao|FAILED|1:0|43|16|compute-0-14\n",
+    "stderr": ""
+  },
+  "result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/RESULT.json",
+    "bytes": 362128,
+    "sha256": "2fbd96e965cdf7008699eaf1f127fe19049c94d2ee2578189fe2789e3201e961"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_supervisor_4524597.json",
+    "bytes": 3590,
+    "sha256": "f29e47069f2f0e97fe086e09d63be736f24d7994dd97a7a3426bd4939a2a4549"
+  },
+  "source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/source_pins.json",
+    "bytes": 2218,
+    "sha256": "48348546c859dee233d435ca6d337409cdfbc3d3977e0514e13362f470ad8afd"
+  },
+  "inputs": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/inputs.json",
+    "bytes": 5415,
+    "sha256": "334cf676df687bb9192fd6273f72d984a7184f4137e91d93dbfbce790cc42a0a"
+  },
+  "Root_selected_input_admission": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_Root_static_actual_v1.json",
+    "bytes": 408636,
+    "sha256": "956a3d9353d3e94ae5efdfc81d602e737e40186d50c43649886673c88e11ea7c"
+  },
+  "selected_unique_files": 1532,
+  "selected_unique_input_bytes": 470724504,
+  "all_selected_nonpayload_current_refs_equal": true,
+  "all192_NPZ_stat_only_current": true,
+  "all192_role_payload_hashes_and_headers_verified_in_actual_CPU": true,
+  "cases": [
+    {
+      "case_id": "C1-0__two__H1_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64366,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_00.json",
+        "sha256": "b93f6ad55f5c2c27e5522ab0b4a30bdcc334b0102dbacf8af00fd4d072a5a4e0"
+      },
+      "closure_max": 9.271093245053538e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-0__two__H1_fixed__seed20261027",
+      "case_result": {
+        "bytes": 63772,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_01.json",
+        "sha256": "479b9a40bbfc611ea123df5fa83916cbb99532dcd74edf3bc763c007d85b9bd3"
+      },
+      "closure_max": 9.249748014782729e-17,
+      "local_ports_exact": false
+    },
+    {
+      "case_id": "C1-0__two__H1_learned__seed20261026",
+      "case_result": {
+        "bytes": 64370,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_02.json",
+        "sha256": "c415ce39756dcb2e4e71105494f819163ae1ec1874364ed683ed2bf06d43b76a"
+      },
+      "closure_max": 9.271093245053538e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-0__two__H1_learned__seed20261027",
+      "case_result": {
+        "bytes": 63776,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_03.json",
+        "sha256": "4d4779b003fc700ff570525cb4df0a9974dcd29af0df4b40bf66a355d5698cb0"
+      },
+      "closure_max": 9.249748014782729e-17,
+      "local_ports_exact": false
+    },
+    {
+      "case_id": "C1-0__two__H2_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64542,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_04.json",
+        "sha256": "dd5227eea0ba899d9c6e890017af3e03a0ecd4082cc324b36107a5ffe0f011b6"
+      },
+      "closure_max": 7.177767782944782e-17,
+      "local_ports_exact": false
+    },
+    {
+      "case_id": "C1-0__two__H2_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64140,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_05.json",
+        "sha256": "85107e8387a0b01236ace0fcf3e34914b524312b881fc83355826fd8229ce886"
+      },
+      "closure_max": 3.8404897344983605e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-0__two__H3_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64668,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_06.json",
+        "sha256": "ec60cf115efdd4bfd9b4322dc77c51a64730da6793e147c47a6d031149130621"
+      },
+      "closure_max": 3.3917337966254003e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-0__two__H3_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64198,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_07.json",
+        "sha256": "e1be2a6c13799d8260488378afb7ab5d26c4f320a4ce0f4cbb25cadd51ea4e33"
+      },
+      "closure_max": 1.2641098528999497e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-0__three__H1_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64290,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_08.json",
+        "sha256": "e3ed8e0a6e0c48f921a0d566c63c1177de99797879ef6e09fef2c569e4a19071"
+      },
+      "closure_max": 1.193793412783634e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-0__three__H1_fixed__seed20261027",
+      "case_result": {
+        "bytes": 63512,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_09.json",
+        "sha256": "480a69851127d034881b9ba15252daf73ab2bfc58c9bd10f77a075fa97dcc082"
+      },
+      "closure_max": 1.1989920774974072e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-0__three__H1_learned__seed20261026",
+      "case_result": {
+        "bytes": 64294,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_10.json",
+        "sha256": "1c891ec60d7a7d901100f67648823694fe0792eee260e48b3c295f8c829df4f7"
+      },
+      "closure_max": 1.193793412783634e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-0__three__H1_learned__seed20261027",
+      "case_result": {
+        "bytes": 63516,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_11.json",
+        "sha256": "036a88abfff7c17714becdbea5428cacd706f838f15cb004779483df80d55fe2"
+      },
+      "closure_max": 1.1989920774974072e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-0__three__H2_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64535,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_12.json",
+        "sha256": "f32e01fa141cbf7a210cb1c2921af2dd53571fb8b31cc2ba9687ec213d43c80a"
+      },
+      "closure_max": 4.672297264525765e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-0__three__H2_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64140,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_13.json",
+        "sha256": "f1136ce3232fc47347d922283815ae80eecc2c89e0c69ce80c66bed7c01fad50"
+      },
+      "closure_max": 5.2994086949373267e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-0__three__H3_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64629,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_14.json",
+        "sha256": "2a31b668bbe9fc58649c1b81834b5fab6e9d8016b8630844bbc2151170885e25"
+      },
+      "closure_max": 2.1708056833764748e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-0__three__H3_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64268,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_15.json",
+        "sha256": "f250d68695d4430c6aba4c85feac86f886191c3eec433f5744ee1c151d2c76d4"
+      },
+      "closure_max": 5.77867052440565e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__two__H1_fixed__seed20261026",
+      "case_result": {
+        "bytes": 63546,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_16.json",
+        "sha256": "dc90cbc598642d86b9c83fb2a09dc2afb9c92a6783287722199308d6faf4db7f"
+      },
+      "closure_max": 1.1650345266419823e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__two__H1_fixed__seed20261027",
+      "case_result": {
+        "bytes": 63997,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_17.json",
+        "sha256": "8d87c0a875c27fc7802d8b581de34da73a8cd42b4286c3d98890905064097a39"
+      },
+      "closure_max": 8.581227261162273e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__two__H1_learned__seed20261026",
+      "case_result": {
+        "bytes": 63550,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_18.json",
+        "sha256": "8e0485918567d3f7ce26bcd0efeaee8d6156c36a18ecb6c85c3c43c4cc5729d8"
+      },
+      "closure_max": 1.1650345266419823e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__two__H1_learned__seed20261027",
+      "case_result": {
+        "bytes": 64001,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_19.json",
+        "sha256": "cb1fae7e3d821a61569b1676ee911b06d1c7039bebb07553bc8767454ee66d98"
+      },
+      "closure_max": 8.581227261162273e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__two__H2_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64151,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_20.json",
+        "sha256": "4f415cd080f6d1f4df35a003df1b1c326257cedb732a79fe2f9bf89d9edcbfd9"
+      },
+      "closure_max": 6.047984649985155e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__two__H2_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64160,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_21.json",
+        "sha256": "41c090acb71882a8b49db5a8be9aa763681d0c3c498fa01e3d866ace7bc7e397"
+      },
+      "closure_max": 4.3632784695437146e-17,
+      "local_ports_exact": false
+    },
+    {
+      "case_id": "C1-a__two__H3_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64534,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_22.json",
+        "sha256": "cd2e767d66637f745944625e3331a149bbea7cdbec44e7ef612616f8df63366b"
+      },
+      "closure_max": 3.940973253031138e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__two__H3_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64304,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_23.json",
+        "sha256": "765760cfd31f8222f8924cd436b485ed6562994d28c337cc19d86f6bb00673c8"
+      },
+      "closure_max": 6.49074994733866e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__three__H1_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64470,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_24.json",
+        "sha256": "1bde87a916b411c70666786d9041d1bc0ec1124f719b908511859cc45bc7efb3"
+      },
+      "closure_max": 1.1985640611612478e-16,
+      "local_ports_exact": false
+    },
+    {
+      "case_id": "C1-a__three__H1_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64005,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_25.json",
+        "sha256": "6563b72696037ae7678c65bfb185da4ed5441c469305760173d4b7a603d568cd"
+      },
+      "closure_max": 8.294803070048231e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__three__H1_learned__seed20261026",
+      "case_result": {
+        "bytes": 64474,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_26.json",
+        "sha256": "b0674feca92d2e0cbebad4b3f10423434f447a72e17cc1ce376618ac10b21054"
+      },
+      "closure_max": 1.1985640611612478e-16,
+      "local_ports_exact": false
+    },
+    {
+      "case_id": "C1-a__three__H1_learned__seed20261027",
+      "case_result": {
+        "bytes": 64009,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_27.json",
+        "sha256": "6c4efd4fec99499b4634b16c5924d642e0ee37b36f6d3d9ad2fcb9403de8e50c"
+      },
+      "closure_max": 8.294803070048231e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__three__H2_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64352,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_28.json",
+        "sha256": "aed21280765c01c59f93e00e16f9f49ceb70e7e8ff5df20305dec83c744541e4"
+      },
+      "closure_max": 3.445221809662141e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__three__H2_fixed__seed20261027",
+      "case_result": {
+        "bytes": 63800,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_29.json",
+        "sha256": "0d1586fcb7592195b76631d6e0bb7f7949184d529a4341c17289435ac81f78f1"
+      },
+      "closure_max": 2.9761137876490283e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__three__H3_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64572,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_30.json",
+        "sha256": "a3715ebc78a97a9d78642788ca8cb57404099c280151b8e56afc5457a679433c"
+      },
+      "closure_max": 3.6665748121857394e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-a__three__H3_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64237,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_31.json",
+        "sha256": "fd1a952c62f4d3cdfc76fdd1194577e00c2a63e0a24b78aad8aafa7f283c6bb1"
+      },
+      "closure_max": 6.28282453461141e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__two__H1_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64180,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_32.json",
+        "sha256": "0919d9032b98011d2e927df3afe50eb0e7b445d203e802d750c3bebbf4ffacbb"
+      },
+      "closure_max": 1.1003646199103006e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__two__H1_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64034,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_33.json",
+        "sha256": "e4c2d9f98c7d4f25e11c7dd7c597e11c8fbfc2ddfbc3c2be1107b8d29a549870"
+      },
+      "closure_max": 8.61222866703178e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__two__H1_learned__seed20261026",
+      "case_result": {
+        "bytes": 64184,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_34.json",
+        "sha256": "849b83059b15f81a04a3ca084ae47c8ec477c91471318944410adad40ec1be60"
+      },
+      "closure_max": 1.1003646199103006e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__two__H1_learned__seed20261027",
+      "case_result": {
+        "bytes": 64038,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_35.json",
+        "sha256": "6200bbdb6c11ab667b1cd8ab899c98ec9ee3c7a576c5f5cc3742c59e33ea61ed"
+      },
+      "closure_max": 8.61222866703178e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__two__H2_fixed__seed20261026",
+      "case_result": {
+        "bytes": 63786,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_36.json",
+        "sha256": "fe5582b8f6c82489d8634c3a030a790b97357dcd897f50026583b669d8caca1b"
+      },
+      "closure_max": 6.936606914949642e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__two__H2_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64438,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_37.json",
+        "sha256": "880ea7aa604517710b5f397d218aa76b59125b65ebb988907f1ff031b76a07d4"
+      },
+      "closure_max": 1.948662822629562e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__two__H3_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64385,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_38.json",
+        "sha256": "2b98f2771dad235a8ec85f8dde2e372cc9d682731f1010fd8386207731d0c278"
+      },
+      "closure_max": 2.2146438735616211e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__two__H3_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64005,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_39.json",
+        "sha256": "d3758c0493d848f946121c2a2b1e0d8fa8d7ebe959379851aa224959ad019f17"
+      },
+      "closure_max": 4.200245803020943e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__three__H1_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64107,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_40.json",
+        "sha256": "c7c9cfac5e78df01f49d055152bf49e2e158d1d612ab10aaed304199c9961ac9"
+      },
+      "closure_max": 1.3406329269372713e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__three__H1_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64091,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_41.json",
+        "sha256": "a518aa56950e2308ff0134eef5a399cb9cbcb81b4a37224c97eac57a926fad1f"
+      },
+      "closure_max": 1.6086892085901035e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__three__H1_learned__seed20261026",
+      "case_result": {
+        "bytes": 64111,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_42.json",
+        "sha256": "2569d730ee103344c475c050f9a4aa8bec52cea29f90df4e0c45b62e2bb52546"
+      },
+      "closure_max": 1.3406329269372713e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__three__H1_learned__seed20261027",
+      "case_result": {
+        "bytes": 64095,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_43.json",
+        "sha256": "9c078abf41678cae38f6c015f82cbea3a80a5b2404136428df797020e1d0326b"
+      },
+      "closure_max": 1.6086892085901035e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__three__H2_fixed__seed20261026",
+      "case_result": {
+        "bytes": 63898,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_44.json",
+        "sha256": "0db3bce71723548b83d1022369d850851d8b616e59b19414c0c5930d098f1875"
+      },
+      "closure_max": 2.3088212318020905e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__three__H2_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64189,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_45.json",
+        "sha256": "a4595bc3cd8616d050b2d2f051a254e0d0e4fafbaa6d33e256b46111c90faac1"
+      },
+      "closure_max": 1.5555760076325226e-17,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__three__H3_fixed__seed20261026",
+      "case_result": {
+        "bytes": 64409,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_46.json",
+        "sha256": "332bc5d411760554a834c1f8cb69712fecc98fda9244b4b9d9437f17c7653e10"
+      },
+      "closure_max": 3.4134358395252395e-16,
+      "local_ports_exact": true
+    },
+    {
+      "case_id": "C1-b__three__H3_fixed__seed20261027",
+      "case_result": {
+        "bytes": 64161,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_offline_CPU_v1_4524597/case_47.json",
+        "sha256": "fe78f1b00d3270389858ecfdc191873d6a4e640e1fb7e612d7145db70eb2342f"
+      },
+      "closure_max": 3.050356225475868e-17,
+      "local_ports_exact": true
+    }
+  ],
+  "decoded_archives": 192,
+  "records": 720,
+  "small_MLP_reference_calls": 384,
+  "all48_saved_operand_algebra_complete": true,
+  "maximum_reported_closure_error": 3.940973253031138e-16,
+  "diagnostic_closure_bound": 1e-10,
+  "head_paths": 384,
+  "replay_holds": [
+    {
+      "case_id": "C1-0__two__H1_fixed__seed20261027",
+      "field": "p_dipole_magnitude",
+      "control": {
+        "actual_at_argmax": 0.18356135487556458,
+        "argmax": [
+          0,
+          0
+        ],
+        "captured_GPU_at_argmax": 0.18356136977672577,
+        "changed_components": 1,
+        "exact_bitwise": false,
+        "maxabs": 1.4901161193847656e-08,
+        "port": "p_dipole_magnitude/output",
+        "status": "HOLD_CPU_GPU_LOCAL_REPLAY_NOT_EXACT"
+      }
+    },
+    {
+      "case_id": "C1-0__two__H1_learned__seed20261027",
+      "field": "p_dipole_magnitude",
+      "control": {
+        "actual_at_argmax": 0.18356135487556458,
+        "argmax": [
+          0,
+          0
+        ],
+        "captured_GPU_at_argmax": 0.18356136977672577,
+        "changed_components": 1,
+        "exact_bitwise": false,
+        "maxabs": 1.4901161193847656e-08,
+        "port": "p_dipole_magnitude/output",
+        "status": "HOLD_CPU_GPU_LOCAL_REPLAY_NOT_EXACT"
+      }
+    },
+    {
+      "case_id": "C1-0__two__H2_fixed__seed20261026",
+      "field": "p_dipole_magnitude",
+      "control": {
+        "actual_at_argmax": 0.5116549134254456,
+        "argmax": [
+          1,
+          0
+        ],
+        "captured_GPU_at_argmax": 0.5116549730300903,
+        "changed_components": 1,
+        "exact_bitwise": false,
+        "maxabs": 5.960464477539063e-08,
+        "port": "p_dipole_magnitude/output",
+        "status": "HOLD_CPU_GPU_LOCAL_REPLAY_NOT_EXACT"
+      }
+    },
+    {
+      "case_id": "C1-a__two__H2_fixed__seed20261027",
+      "field": "p_dipole_magnitude",
+      "control": {
+        "actual_at_argmax": 0.28787553310394287,
+        "argmax": [
+          1,
+          0
+        ],
+        "captured_GPU_at_argmax": 0.28787556290626526,
+        "changed_components": 1,
+        "exact_bitwise": false,
+        "maxabs": 2.9802322387695312e-08,
+        "port": "p_dipole_magnitude/output",
+        "status": "HOLD_CPU_GPU_LOCAL_REPLAY_NOT_EXACT"
+      }
+    },
+    {
+      "case_id": "C1-a__three__H1_fixed__seed20261026",
+      "field": "p_dipole_magnitude",
+      "control": {
+        "actual_at_argmax": 0.9228998422622681,
+        "argmax": [
+          0,
+          0
+        ],
+        "captured_GPU_at_argmax": 0.9228999018669128,
+        "changed_components": 1,
+        "exact_bitwise": false,
+        "maxabs": 5.960464477539063e-08,
+        "port": "p_dipole_magnitude/output",
+        "status": "HOLD_CPU_GPU_LOCAL_REPLAY_NOT_EXACT"
+      }
+    },
+    {
+      "case_id": "C1-a__three__H1_learned__seed20261026",
+      "field": "p_dipole_magnitude",
+      "control": {
+        "actual_at_argmax": 0.9228998422622681,
+        "argmax": [
+          0,
+          0
+        ],
+        "captured_GPU_at_argmax": 0.9228999018669128,
+        "changed_components": 1,
+        "exact_bitwise": false,
+        "maxabs": 5.960464477539063e-08,
+        "port": "p_dipole_magnitude/output",
+        "status": "HOLD_CPU_GPU_LOCAL_REPLAY_NOT_EXACT"
+      }
+    }
+  ],
+  "CPU_GPU_local_replay_exact_gate_satisfied": false,
+  "original_51_dipole_failure_observations_retained": true,
+  "other5_extensive_failures_explained": false,
+  "physical_gate_satisfied": false,
+  "physical_passed": 15,
+  "physical_failed": 33,
+  "Root_NPZ_or_CSV_or_parameter_payload_opened": false,
+  "private_sampling_and_cleanup_closed": true,
+  "output_stat_bytes": 6157627,
+  "scientific_adoption": false,
+  "no_rerun_or_threshold_relaxation": true
+}

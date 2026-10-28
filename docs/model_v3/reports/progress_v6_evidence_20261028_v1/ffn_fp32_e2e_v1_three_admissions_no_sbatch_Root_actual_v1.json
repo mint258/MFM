@@ -1,0 +1,80 @@
+{
+  "schema": "model_v3_Root_three_prelaunch_resource_rejections_actual_v1",
+  "actual_unix": 1793153099.1560674,
+  "original_resource_freshness_seconds": 30,
+  "original_threshold_or_resource_limits_changed": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "receipt": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_e2e_GPU_v1_attempt1.json",
+        "bytes": 36243,
+        "sha256": "40301ec3d163cfe25cda9a99bb22753f3cf88616344be6e0879d8f15fe04004e"
+      },
+      "status": "FAILED_OR_UNKNOWN_DO_NOT_AUTORETRY",
+      "job_id": null,
+      "sbatch_observations": 0,
+      "admission_frame_exists": false,
+      "message": "Live resource observations exceeded30seconds; repeat only as a fresh attempt",
+      "resource_capture_call_seconds": [
+        0.0064821988344192505,
+        0.007491543889045715,
+        14.233415558934212,
+        9.328918114304543,
+        8.791974291205406
+      ],
+      "finished_utc": "2026-10-28T01:46:37.403524+00:00"
+    },
+    {
+      "attempt": 2,
+      "receipt": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_e2e_GPU_v1_attempt2.json",
+        "bytes": 36243,
+        "sha256": "8babfcc962d84563f227af95e728d1f4bbb7a8d008b411aba6f641ac271282d3"
+      },
+      "status": "FAILED_OR_UNKNOWN_DO_NOT_AUTORETRY",
+      "job_id": null,
+      "sbatch_observations": 0,
+      "admission_frame_exists": false,
+      "message": "Live resource observations exceeded30seconds; repeat only as a fresh attempt",
+      "resource_capture_call_seconds": [
+        0.006967708468437195,
+        0.008711442351341248,
+        10.923854544758797,
+        11.788010478019714,
+        12.81726723909378
+      ],
+      "finished_utc": "2026-10-28T01:48:33.978122+00:00"
+    },
+    {
+      "attempt": 3,
+      "receipt": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_e2e_GPU_v1_attempt3.json",
+        "bytes": 36243,
+        "sha256": "0140e29d4b5a42cfa41c1f99238f9aaa58b6e1f25e574a00335a19d3e43a89e0"
+      },
+      "status": "FAILED_OR_UNKNOWN_DO_NOT_AUTORETRY",
+      "job_id": null,
+      "sbatch_observations": 0,
+      "admission_frame_exists": false,
+      "message": "Live resource observations exceeded30seconds; repeat only as a fresh attempt",
+      "resource_capture_call_seconds": [
+        0.006742134690284729,
+        0.008307084441184998,
+        19.719754204154015,
+        13.447965309023857,
+        12.68642845749855
+      ],
+      "finished_utc": "2026-10-28T01:51:48.268280+00:00"
+    }
+  ],
+  "scientific_GPU_parents_created": 0,
+  "scientific_encoder_forwards": 0,
+  "SSH_stage_diagnostic": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/compute21_SSH_latency_diagnostic_actual_v1.json",
+    "bytes": 1439,
+    "sha256": "6226d462cda431d09d7acaa2e058b00a1608783dec1451229c16dc537fadc938"
+  },
+  "v1_original_sources_and_refused_attempts_preserved": true,
+  "v2_parallel_capture_source_only_pending": true
+}

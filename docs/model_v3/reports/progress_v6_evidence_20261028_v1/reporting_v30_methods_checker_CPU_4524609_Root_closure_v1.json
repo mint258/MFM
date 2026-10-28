@@ -1,0 +1,47 @@
+{
+  "schema": "model_v3_Root_reporting_precommit_checker_closure_v1",
+  "status": "ACTUAL_C0_ALL_2993_RAW_SOURCES_AND_CHECKER_CLOSED",
+  "actual_unix": 1793154408.322205,
+  "job_id": "4524609",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524609",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524609|zixiao|COMPLETED|0:0|90|16|compute-0-14\n",
+    "stderr": ""
+  },
+  "source_freeze": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v30_methods_precommit_source_freeze_actual_v1.json",
+    "bytes": 794023,
+    "sha256": "b919629a5ad7165e11cfaac1ca6a7ad3c77d0362258d9ee4411c809bb26fe435"
+  },
+  "all_sources_before_and_current_equal": true,
+  "source_count": 2993,
+  "checker": {
+    "status": "PASS",
+    "files": 2993,
+    "bytes": 47886234,
+    "python_files": 1514,
+    "server_sources_verified": 1311,
+    "export_verification_required": false,
+    "errors": []
+  },
+  "checker_log": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/reporting_checker_4524609.log",
+    "bytes": 177,
+    "sha256": "0c583381d7e6eb6ad13e6ee338b080f996f67323b4d6912d5d098552565c1071"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/reporting_checker_supervisor_4524609.json",
+    "bytes": 2264,
+    "sha256": "2b920d919defeb7e698e524169b3553b5de6ba910448380d1835cc847f4c547f"
+  },
+  "scientific_acceptance": false
+}

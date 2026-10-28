@@ -1,0 +1,96 @@
+{
+  "schema": "model_v3_single_CPU_submission_v1",
+  "captured_utc": "2026-10-28T01:14:42.468767+00:00",
+  "job_id": "4524602",
+  "node": "compute-0-14",
+  "cpus": 16,
+  "requested_memory_MiB": 32768,
+  "prior_all_user_requested_memory_MiB": 0.0,
+  "prior_AllocMem_MiB": 0,
+  "prior_memory_commitment_check_MiB": 0.0,
+  "available_memory_MiB": 380122.93359375,
+  "argv": [
+    "sbatch",
+    "--parsable",
+    "--partition=cpu",
+    "--nodelist=compute-0-14",
+    "--cpus-per-task=16",
+    "--mem=32768M",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_ffn_fp32_full_pre_v2_single_full_v1.sbatch"
+  ],
+  "script_sha256": "26d0e45017b3c607d09fd779de983467eb7c0896760ee56e5631d00aa39d4e64",
+  "bindings": {
+    "MODEL_V3_EXECUTION_SHA": "e4b21193be60fcb396ab1d2d56c1cba6736078dd",
+    "MODEL_V3_CPU_EXECUTION_TREE": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_ffn_fp32_candidate_v1",
+    "MODEL_V3_REGRESSION_RUNNER": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source/run_regression_worker_identity_v4.py",
+    "MODEL_V3_REGRESSION_RUNNER_SHA": "060e5182410846d7ce64b4aa09ff4fce4708c07f1967f13566f2905616d9849f",
+    "MODEL_V3_PARTITION_COUNT": "1",
+    "MODEL_V3_PARTITION_INDEX": "0",
+    "MODEL_V3_PARTITION_PLAN": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_full_pre_v2_assignment_v1.json",
+    "MODEL_V3_PARTITION_PLAN_SHA": "ca323d3b281b910adddb21637c3cd1a766d7a20da79627ad9426fac55cc10a54",
+    "MODEL_V3_CONTROL_ROOT": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source",
+    "MODEL_V3_CONTROL_PLAN": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_full_pre_v2_control_v1.json",
+    "MODEL_V3_CONTROL_CONTRACT_SHA": "258a06b2da7251ee487141c06f28e41c38dee6ad8c30836f9f7d5686a7f4cd2a",
+    "MODEL_V3_D5_PROJECTION_SOURCE": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/export/wire_v1/sampling_projection_v1.py",
+    "MODEL_V3_PHASE1_JOINT_REFERENCE_PATH": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage50_full_corpus_training/actual_api_reference/full_corpus_training.py",
+    "MODEL_V3_PHASE1_NATIVE_TRANSPORT_PATH": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/native_qa_stats_v3.py",
+    "MODEL_V3_CONTROL_PLAN_SHA": "2395f9a4af7ce61d662b13ba367b656c9193a538ff16fc0f21f463303bedd95a",
+    "MODEL_V3_CONTROL_BINDING_PATH": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_full_pre_v2_part0_bindings_v1.json",
+    "MODEL_V3_CONTROL_BINDING_SHA": "a57b8ec4dc371c64298f41faf8d70740e38b0d5ff63a95830f2611d6a4cc4c35"
+  },
+  "observations": [
+    {
+      "argv": [
+        "scontrol",
+        "show",
+        "node",
+        "compute-0-14"
+      ],
+      "stdout": "NodeName=compute-0-14 Arch=x86_64 CoresPerSocket=48 \n   CPUAlloc=0 CPUEfctv=96 CPUTot=96 CPULoad=0.00\n   AvailableFeatures=(null)\n   ActiveFeatures=(null)\n   Gres=(null)\n   NodeAddr=10.1.1.225 NodeHostName=compute-0-14 Version=22.05.7\n   OS=Linux 5.14.0-70.13.1.el9_0.x86_64 #1 SMP PREEMPT Wed May 25 21:01:57 UTC 2022 \n   RealMemory=375000 AllocMem=0 FreeMem=17057 Sockets=2 Boards=1\n   State=IDLE ThreadsPerCore=1 TmpDisk=0 Weight=1 Owner=N/A MCS_label=N/A\n   Partitions=all,cpu \n   BootTime=2026-03-07T18:36:24 SlurmdStartTime=2026-07-03T15:17:13\n   LastBusyTime=2026-10-28T08:37:26\n   CfgTRES=cpu=96,mem=375000M,billing=96\n   AllocTRES=\n   CapWatts=n/a\n   CurrentWatts=0 AveWatts=0\n   ExtSensorsJoules=n/s ExtSensorsWatts=0 ExtSensorsTemp=n/s\n\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "squeue",
+        "-h",
+        "-w",
+        "compute-0-14",
+        "-o",
+        "%i|%u|%t|%m|%C"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "ssh",
+        "-n",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "compute-0-14",
+        "head -n 5 /proc/meminfo"
+      ],
+      "stdout": "MemTotal:       394254004 kB\nMemFree:        17466056 kB\nMemAvailable:   389245884 kB\nBuffers:               0 kB\nCached:         371825872 kB\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "quota",
+        "-v",
+        "-u",
+        "zixiao"
+      ],
+      "stdout": "Disk quotas for user zixiao (uid 1278): \n     Filesystem  blocks   quota   limit   grace   files   quota   limit   grace\n      /dev/sda1 2925416884       0 4294967296         130753262       0       0        \n",
+      "stderr": "",
+      "returncode": 0
+    }
+  ],
+  "sbatch_returncode": 0,
+  "stdout": "4524602\n",
+  "stderr": ""
+}

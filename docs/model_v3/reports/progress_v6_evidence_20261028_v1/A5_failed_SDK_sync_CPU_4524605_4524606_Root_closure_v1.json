@@ -1,0 +1,596 @@
+{
+  "Root_independent_SDK_rehash": false,
+  "SDK_SHA_authority": "Actual independent CPU audit and exact-copy transport producers; Root stat only",
+  "SDK_or_scientific_journal_payload_opened_by_Root": false,
+  "actual_CPU_observations": [
+    {
+      "CPU": 16,
+      "RSS_limit_bytes": 12884901888,
+      "Slurm_limit_seconds": 1200,
+      "actual_sacct": {
+        "actual_elapsed_seconds": 2,
+        "argv": [
+          "sacct",
+          "-X",
+          "-n",
+          "-P",
+          "-j",
+          "4524605",
+          "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "4524605|zixiao|COMPLETED|0:0|2|16|compute-0-14\n"
+      },
+      "exact_peak_claimed": false,
+      "job_id": "4524605",
+      "max_observed_RSS_bytes": 72445952,
+      "max_observed_total_bytes": 21009,
+      "memory_MiB": 16384,
+      "monitor": {
+        "bytes": 1044,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1.supervisor.journal.jsonl",
+        "sha256": "6439123dc6e356ee37f57378d11d0b9f3b26f441e0157bda3d5512cdbc245850"
+      },
+      "private_limit_bytes": 2147483648,
+      "private_observation": {
+        "budget_bytes": 2147483648,
+        "exact_peak": false,
+        "first_sampling_failure": null,
+        "last": {
+          "bytes": 496,
+          "entries": 7,
+          "root_bytes": {
+            "/tmp/mv3n_4524605": 496
+          }
+        },
+        "sample_interval_seconds": 0.5,
+        "sampled_growth_above_initial_bytes": 76,
+        "sampled_max_bytes": 572,
+        "samples": 6
+      },
+      "result": {
+        "bytes": 30094,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1/RESULT.json",
+        "sha256": "2754ce2806de41e102da6b2b4eebb773f75cd9a51e58820fd3360657e2134eb2"
+      },
+      "sample_count": 2,
+      "submission": {
+        "bytes": 3238,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A5_failed_SDK_audit_submission_v1.json",
+        "sha256": "dc6e6ead97bf2a24b44bf566696694e7211a83f37308ee80ccd5fb578afc5def"
+      },
+      "supervisor": {
+        "bytes": 3342,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1.supervisor.json",
+        "sha256": "db27312809abe795d405a349967e15a1fe6cabd6c375bc9bbe61305f73869c91"
+      },
+      "wall_limit_seconds": 900,
+      "whole_output_limit_bytes": 2147483648
+    },
+    {
+      "CPU": 16,
+      "RSS_limit_bytes": 12884901888,
+      "Slurm_limit_seconds": 3600,
+      "actual_sacct": {
+        "actual_elapsed_seconds": 17,
+        "argv": [
+          "sacct",
+          "-X",
+          "-n",
+          "-P",
+          "-j",
+          "4524606",
+          "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "4524606|zixiao|COMPLETED|0:0|17|16|compute-0-14\n"
+      },
+      "exact_peak_claimed": false,
+      "job_id": "4524606",
+      "max_observed_RSS_bytes": 232824832,
+      "max_observed_total_bytes": 245186,
+      "memory_MiB": 16384,
+      "monitor": {
+        "bytes": 12972,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1.supervisor.journal.jsonl",
+        "sha256": "9ddebdc0d0a663c9a8636ea8563e272c23e5e47ffc766ee9d5532d0a00a48c50"
+      },
+      "private_limit_bytes": 2147483648,
+      "private_observation": {
+        "budget_bytes": 2147483648,
+        "exact_peak": false,
+        "first_sampling_failure": null,
+        "last": {
+          "bytes": 22134,
+          "entries": 45,
+          "root_bytes": {
+            "/tmp/mv3n_4524606": 22134
+          }
+        },
+        "sample_interval_seconds": 0.5,
+        "sampled_growth_above_initial_bytes": 21639,
+        "sampled_max_bytes": 22134,
+        "samples": 36
+      },
+      "result": {
+        "bytes": 13349,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/RESULT.json",
+        "sha256": "7e7441e6dc01ac7ee77d65dfdc7c164c1fe1f3484c681166037bcb09a48d3565"
+      },
+      "sample_count": 17,
+      "submission": {
+        "bytes": 3523,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A5_failed_selective_sync_submission_v1.json",
+        "sha256": "7d548d742c2bac22b0eabee5151c11c692ccce4f7f5766a0e103ed8a6cb6e04f"
+      },
+      "supervisor": {
+        "bytes": 3378,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1.supervisor.json",
+        "sha256": "e409649d514655086bea3fc38883a192047b998119ca3f11a95ad79b2dbbc851"
+      },
+      "wall_limit_seconds": 3300,
+      "whole_output_limit_bytes": 2147483648
+    }
+  ],
+  "captured_unix": 1793152160.2895155,
+  "current_source_metadata_rawrefs_verified": 65,
+  "original_SDKs_preserved": true,
+  "original_failure_preserved": true,
+  "original_model_negative_closure": {
+    "bytes": 27376,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_R2_GPU_4524601_Root_negative_closure_v1.json",
+    "sha256": "38bdcc2b0cc545035683d83e6be9c68bbaa1383cf14dbe31769f265b27d0a122"
+  },
+  "original_model_parent_exit_code": "1:0",
+  "original_model_parent_state": "FAILED",
+  "original_model_scientific_child_exit_code": 2,
+  "records": [
+    {
+      "SDK_current_stat": [
+        {
+          "Root_payload_opened_or_rehashed": false,
+          "SHA_origin": "Actual CPU audit and transport producers",
+          "bytes": 101923,
+          "device": 2049,
+          "inode": 12939459886,
+          "mtime_ns": 1793148439488779862,
+          "owner_uid": 1278,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/wandb/offline-run-20261028_084522-89mp3smr/run-89mp3smr.wandb"
+        },
+        {
+          "Root_payload_opened_or_rehashed": false,
+          "SHA_origin": "Actual CPU audit and transport producers",
+          "bytes": 101923,
+          "device": 2049,
+          "inode": 36575662825,
+          "mtime_ns": 1793151290658294215,
+          "owner_uid": 1278,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_0_89mp3smr/stage/offline-run-20261028_084522-89mp3smr/run-89mp3smr.wandb"
+        }
+      ],
+      "actual_invocation": {
+        "bytes": 1374,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_0_invocation.json",
+        "sha256": "f71c0e8dbfb96dfcce5e1eb3574cf16adfba7e60ff8b34d50b044dd3167580ff"
+      },
+      "actual_remote_metadata": {
+        "entity": "mint_leaf258",
+        "first_step": null,
+        "history_rows": 0,
+        "last_step": null,
+        "project": "mfm_model_v3_development",
+        "run_id": "89mp3smr",
+        "state": "failed"
+      },
+      "audit_certificate": {
+        "bytes": 18341,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1/89mp3smr_VERIFICATION.json",
+        "sha256": "7b1ac6bf49eba9cdac2734354efb9912031edeed9bf5cb40e766f843803d182b"
+      },
+      "native_exit_code": 1,
+      "original_and_staged_producer_SHA_equal": true,
+      "paired_role": "reference",
+      "run_id": "89mp3smr",
+      "transport_result": {
+        "bytes": 2944,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_0_89mp3smr/result.json",
+        "sha256": "b1ef10cc27cbd6ab3363498d8bc4d49b2a4ababcd97bef734313cc166df3d3fc"
+      }
+    },
+    {
+      "SDK_current_stat": [
+        {
+          "Root_payload_opened_or_rehashed": false,
+          "SHA_origin": "Actual CPU audit and transport producers",
+          "bytes": 101871,
+          "device": 2049,
+          "inode": 30070168993,
+          "mtime_ns": 1793148439490779873,
+          "owner_uid": 1278,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/wandb/offline-run-20261028_084523-9j1swwgi/run-9j1swwgi.wandb"
+        },
+        {
+          "Root_payload_opened_or_rehashed": false,
+          "SHA_origin": "Actual CPU audit and transport producers",
+          "bytes": 101871,
+          "device": 2049,
+          "inode": 43022394917,
+          "mtime_ns": 1793151298624328452,
+          "owner_uid": 1278,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_1_9j1swwgi/stage/offline-run-20261028_084523-9j1swwgi/run-9j1swwgi.wandb"
+        }
+      ],
+      "actual_invocation": {
+        "bytes": 1374,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_1_invocation.json",
+        "sha256": "49df66f092b1d77800ef8f686330c30350f485e80353c5327349f90af9b256c7"
+      },
+      "actual_remote_metadata": {
+        "entity": "mint_leaf258",
+        "first_step": null,
+        "history_rows": 0,
+        "last_step": null,
+        "project": "mfm_model_v3_development",
+        "run_id": "9j1swwgi",
+        "state": "failed"
+      },
+      "audit_certificate": {
+        "bytes": 18341,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1/9j1swwgi_VERIFICATION.json",
+        "sha256": "62e7f789fac84a318edf29ec1f0c359fc89f9b2225045653522141e1dfc41813"
+      },
+      "native_exit_code": 1,
+      "original_and_staged_producer_SHA_equal": true,
+      "paired_role": "candidate",
+      "run_id": "9j1swwgi",
+      "transport_result": {
+        "bytes": 2944,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_1_9j1swwgi/result.json",
+        "sha256": "724cb43394ce62ec05e002d24b90f2825ea63acceeb651e1bca21fa0cf6866e1"
+      }
+    }
+  ],
+  "remote_metric_values_independently_recompared": false,
+  "root_closer": {
+    "bytes": 14457,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/close_A5_failed_SDK_sync_Root_v1.py",
+    "sha256": "bb6cf7b039ac1fb2c4b9739e376b9d1a1216c1eadba3959d726c7409dac1802d"
+  },
+  "schema": "model_v3_Root_A5_failed_SDK_sync_actual_closure_v1",
+  "scientific_or_A5_or_R1_or_capacity_acceptance": false,
+  "selected_rawrefs": {
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_s_runtime_v1/tools/model_v3/analysis_sources/archive_closed_v7/bounded_history_v7.py": {
+      "bytes": 11112,
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_s_runtime_v1/tools/model_v3/analysis_sources/archive_closed_v7/bounded_history_v7.py",
+      "sha256": "6aee76e16c182be97b7f88e635b43948510d0fc335e0ccfbf9ba107a1c29ab95"
+    },
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/tools/model_v3/a_execution_runtime.py": {
+      "bytes": 17280,
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/tools/model_v3/a_execution_runtime.py",
+      "sha256": "ed2577bbb1d265b91edb1b515e2203cec1977d18b46553ff28120d0d8bfa46d0"
+    },
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/tools/model_v3/paired_a_acceptance.py": {
+      "bytes": 17994,
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/tools/model_v3/paired_a_acceptance.py",
+      "sha256": "c19ce2638607a5bf5d8baaa210df2e098fdbfa207eec13d4ccd43146e0beb841"
+    },
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/private_runtime_storage.py": {
+      "bytes": 15452,
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/private_runtime_storage.py",
+      "sha256": "791e2742b2131e5001ebc4fe549d8fcb43f7d28f399368a5aa5f82d7d592a041"
+    },
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/run_supervised.py": {
+      "bytes": 15264,
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/run_supervised.py",
+      "sha256": "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+    },
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/runtime_monitor.py": {
+      "bytes": 16838,
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/runtime_monitor.py",
+      "sha256": "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A5_failed_SDK_audit_submission_v1.json": {
+      "bytes": 3238,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A5_failed_SDK_audit_submission_v1.json",
+      "sha256": "dc6e6ead97bf2a24b44bf566696694e7211a83f37308ee80ccd5fb578afc5def"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A5_failed_selective_sync_submission_v1.json": {
+      "bytes": 3523,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A5_failed_selective_sync_submission_v1.json",
+      "sha256": "7d548d742c2bac22b0eabee5151c11c692ccce4f7f5766a0e103ed8a6cb6e04f"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_A5_failed_SDK_audit_v1.sbatch": {
+      "bytes": 1292,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_A5_failed_SDK_audit_v1.sbatch",
+      "sha256": "ba6520a7fa263057b7bbe92fb973d5d3dafea6eca31e1145a85d266f9bae90f2"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_A5_failed_selective_sync_v1.sbatch": {
+      "bytes": 1406,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_A5_failed_selective_sync_v1.sbatch",
+      "sha256": "3cd83481be29b37cc8bda06f34d4fdb62ff1f21ec7598077ea48db8109662752"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_cpu_supervised_v3.py": {
+      "bytes": 8479,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_cpu_supervised_v3.py",
+      "sha256": "10bb34aa74633bd139f8dcedd475901a85d4143422494f1249ffb85994c8c66c"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/submit_cpu_task_v2.py": {
+      "bytes": 4633,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/submit_cpu_task_v2.py",
+      "sha256": "1820e6abb08fcc34befeccdfd32788b47c8b81f9ccf8ae61922231c7c4ec9761"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_R2_GPU_4524601_Root_negative_closure_v1.json": {
+      "bytes": 27376,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_R2_GPU_4524601_Root_negative_closure_v1.json",
+      "sha256": "38bdcc2b0cc545035683d83e6be9c68bbaa1383cf14dbe31769f265b27d0a122"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1.supervisor.journal.jsonl": {
+      "bytes": 1044,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1.supervisor.journal.jsonl",
+      "sha256": "6439123dc6e356ee37f57378d11d0b9f3b26f441e0157bda3d5512cdbc245850"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1.supervisor.json": {
+      "bytes": 3342,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1.supervisor.json",
+      "sha256": "db27312809abe795d405a349967e15a1fe6cabd6c375bc9bbe61305f73869c91"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1.supervisor.storage.json": {
+      "bytes": 1192,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1.supervisor.storage.json",
+      "sha256": "33d7c1425a579fa77c50eeff96e3840092c06294d4bc664ec3cce9a783e7404a"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1/89mp3smr_VERIFICATION.json": {
+      "bytes": 18341,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1/89mp3smr_VERIFICATION.json",
+      "sha256": "7b1ac6bf49eba9cdac2734354efb9912031edeed9bf5cb40e766f843803d182b"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1/9j1swwgi_VERIFICATION.json": {
+      "bytes": 18341,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1/9j1swwgi_VERIFICATION.json",
+      "sha256": "62e7f789fac84a318edf29ec1f0c359fc89f9b2225045653522141e1dfc41813"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1/INLINE_METADATA_QA.json": {
+      "bytes": 300,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1/INLINE_METADATA_QA.json",
+      "sha256": "74a13d56d778446574d53b911964a808fe35cd5d75a71f1f7a7f7e45cb7a4d84"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1/RESULT.json": {
+      "bytes": 30094,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_actual_v1/RESULT.json",
+      "sha256": "2754ce2806de41e102da6b2b4eebb773f75cd9a51e58820fd3360657e2134eb2"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_request_v1/bindings.json": {
+      "bytes": 474,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_request_v1/bindings.json",
+      "sha256": "f1345fd47ab895fb3f56b86be6ac8119fb38b3c4895e01500de335d5cdcaf383"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_request_v1/inputs.json": {
+      "bytes": 2713,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_SDK_audit_request_v1/inputs.json",
+      "sha256": "8451c2adf30a17c0246811f75028706325de63833e82d1fd33394529e3f52b70"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1.supervisor.journal.jsonl": {
+      "bytes": 12972,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1.supervisor.journal.jsonl",
+      "sha256": "9ddebdc0d0a663c9a8636ea8563e272c23e5e47ffc766ee9d5532d0a00a48c50"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1.supervisor.json": {
+      "bytes": 3378,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1.supervisor.json",
+      "sha256": "e409649d514655086bea3fc38883a192047b998119ca3f11a95ad79b2dbbc851"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1.supervisor.storage.json": {
+      "bytes": 1191,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1.supervisor.storage.json",
+      "sha256": "af11503da3ae0248f2d7cd322071a8d42d4393314a69b4611e7ed06173e95a06"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/INLINE_METADATA_QA.json": {
+      "bytes": 247,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/INLINE_METADATA_QA.json",
+      "sha256": "af57cccf7f9445c4930129fa4af4f192655c4485806b2049b75ff4446afbc822"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/RESULT.json": {
+      "bytes": 13349,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/RESULT.json",
+      "sha256": "7e7441e6dc01ac7ee77d65dfdc7c164c1fe1f3484c681166037bcb09a48d3565"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_0_89mp3smr/result.json": {
+      "bytes": 2944,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_0_89mp3smr/result.json",
+      "sha256": "b1ef10cc27cbd6ab3363498d8bc4d49b2a4ababcd97bef734313cc166df3d3fc"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_0_intent.json": {
+      "bytes": 899,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_0_intent.json",
+      "sha256": "697333f43d8bf2fea7de694e1797f0339b937f814eca73cdd33d0ed54c756bb3"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_0_invocation.json": {
+      "bytes": 1374,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_0_invocation.json",
+      "sha256": "f71c0e8dbfb96dfcce5e1eb3574cf16adfba7e60ff8b34d50b044dd3167580ff"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_1_9j1swwgi/result.json": {
+      "bytes": 2944,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_1_9j1swwgi/result.json",
+      "sha256": "724cb43394ce62ec05e002d24b90f2825ea63acceeb651e1bca21fa0cf6866e1"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_1_intent.json": {
+      "bytes": 897,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_1_intent.json",
+      "sha256": "03e0a9c343ad2e67bc2878f8d19868ca64c5932278694bca81dc98f64f44b874"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_1_invocation.json": {
+      "bytes": 1374,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_actual_v1/run_1_invocation.json",
+      "sha256": "49df66f092b1d77800ef8f686330c30350f485e80353c5327349f90af9b256c7"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_request_v1/bindings.json": {
+      "bytes": 749,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_request_v1/bindings.json",
+      "sha256": "763147792f646851ab6b3e685ced0c534b7d0378b76fdc63145957ae236115ae"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_request_v1/explicit_manifest.json": {
+      "bytes": 3568,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_request_v1/explicit_manifest.json",
+      "sha256": "5f838dc2ee253034aaeeb49082613bef235d47a2dbbc459daf44640052b0a5cd"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_request_v1/request.json": {
+      "bytes": 1832,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_failed_selective_sync_request_v1/request.json",
+      "sha256": "7ac4bc7751dc1411dd1c91bfbbecea4dc1c169b3d75f20cc18c88725784f3bff"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/close_A5_failed_SDK_sync_Root_v1.py": {
+      "bytes": 14457,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/close_A5_failed_SDK_sync_Root_v1.py",
+      "sha256": "bb6cf7b039ac1fb2c4b9739e376b9d1a1216c1eadba3959d726c7409dac1802d"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/installed_wandb_0281_sync_api_source_v1/apis/public/api.py": {
+      "bytes": 97921,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/installed_wandb_0281_sync_api_source_v1/apis/public/api.py",
+      "sha256": "4983f5b8d661f29d6480992d98c2e538b8748030ba3def1691c41df3cf76e09f"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/literal_key_history_v1.py": {
+      "bytes": 11700,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/literal_key_history_v1.py",
+      "sha256": "74925c58edc61619c78533ff6cce8fc36b2b5f20f876cb011169906d8ba77e88"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/profile_sdk_tap.py": {
+      "bytes": 10910,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/profile_sdk_tap.py",
+      "sha256": "e70022162ed70b983af88a0e445a08a6f81866ba96da7da6ad63643f951a5795"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_GPU_v1_source/source_pins.json": {
+      "bytes": 19588,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_GPU_v1_source/source_pins.json",
+      "sha256": "8273ee3ec1d703a9cef7e7701289a8d14995e751b7d6f172a174978da470b8fd"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/configuration.json": {
+      "bytes": 90608,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/configuration.json",
+      "sha256": "2c22e492d3a51ed20671a253a3545fe6bba54a2689c0d26414e9dc6f2cc71e40"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/run_status.json": {
+      "bytes": 395,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/run_status.json",
+      "sha256": "8c48e02c28acae92e619b3e347ea8dc50797c28eddb739236780ee8f6b25d64c"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/control/Root_submission_actual_v1.json": {
+      "bytes": 8480,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/control/Root_submission_actual_v1.json",
+      "sha256": "e8480ea6eba54392484c3e09b991002647ea1667a4a54f684cc149149d86a41d"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/supervisor.json": {
+      "bytes": 4216,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/supervisor.json",
+      "sha256": "2606cbfbf92867ef06f2de3758f733255453cddbfc0068aabe70f0f63a034c40"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/README.md": {
+      "bytes": 7855,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/README.md",
+      "sha256": "5b7da3c9b787c52be46fc8f2f32ea83bdca2be2d84b2d171e6efdd8482516a02"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/audit_cpu.sbatch": {
+      "bytes": 1292,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/audit_cpu.sbatch",
+      "sha256": "ba6520a7fa263057b7bbe92fb973d5d3dafea6eca31e1145a85d266f9bae90f2"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/audit_failed.py": {
+      "bytes": 10592,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/audit_failed.py",
+      "sha256": "7ed1cd0ad7c16638260cef9714878a3c3b16cd57fa783c95b24880791cc8ee52"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/dependencies.json": {
+      "bytes": 9394,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/dependencies.json",
+      "sha256": "86ad712a217881bb4ae73f9d0a560ee97058112af5c36e64bfc4a9120804d5d0"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/failed_common.py": {
+      "bytes": 15937,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/failed_common.py",
+      "sha256": "7e9257fcc10c9c62956cca47c5c602a2e40ee55c5cb05c416d43e817bb84c8b1"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/installed_sources.json": {
+      "bytes": 5921,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/installed_sources.json",
+      "sha256": "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/one_run_failed.py": {
+      "bytes": 11854,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/one_run_failed.py",
+      "sha256": "6ad5dacaaffe8c572033c57f4501cf9f060687d6ab508eadf3fbca6aca7dd3a1"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/prepare.py": {
+      "bytes": 4233,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/prepare.py",
+      "sha256": "4ef46db7e16d00c232756403f7cd7cd784b91fa1ea489ec0294df46df9555e6c"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/scope.json": {
+      "bytes": 2301,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/scope.json",
+      "sha256": "2f1c5cb8e568dfa972d9df4cc2435909ba8fda3662dde80423861cd19e466d38"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/source_pins.json": {
+      "bytes": 5710,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/source_pins.json",
+      "sha256": "8dbdfff4c3dd1db357b43d2eac9c6037859b2d9fa799b5ab34c7c92b18827455"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/sync_cpu.sbatch": {
+      "bytes": 1406,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/sync_cpu.sbatch",
+      "sha256": "3cd83481be29b37cc8bda06f34d4fdb62ff1f21ec7598077ea48db8109662752"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/sync_failed.py": {
+      "bytes": 6824,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/sync_failed.py",
+      "sha256": "cc7873418bc49a45205953096c16671cee4152c3ff172956895b83d70e02abc5"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v28_methods_publication_actual_v1.json": {
+      "bytes": 6404,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v28_methods_publication_actual_v1.json",
+      "sha256": "116b7a81eda96fe9bc801b7d9388577cecc82f5bda43c47fb4d7f429fd40fd70"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_native_integrity_probe_v1_source/decoder_reference.json": {
+      "bytes": 2197,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_native_integrity_probe_v1_source/decoder_reference.json",
+      "sha256": "6e20968e043f4ff61787718080de34785f305d3d1c5202c77d279ace8d29a71b"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_native_integrity_probe_v1_source/native_integrity.py": {
+      "bytes": 20296,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_native_integrity_probe_v1_source/native_integrity.py",
+      "sha256": "07b155e55f7721b1cc4b5f5781c5d260ae4e0300fc7d17a2c2b4a5c024e5c499"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/installed_sources.json": {
+      "bytes": 5921,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/installed_sources.json",
+      "sha256": "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/one_run.py": {
+      "bytes": 11852,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/one_run.py",
+      "sha256": "0286ce7f8fd218eb8548e87596662f3027bf9f14363d2cc8762022c2b8300af9"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/prepare_sync.py": {
+      "bytes": 4689,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/prepare_sync.py",
+      "sha256": "d9fa93365824555f66bed6b2448eca3e93961c4736da7c1b44d97bf81cddfd52"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/source_pins.json": {
+      "bytes": 3697,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/source_pins.json",
+      "sha256": "4e97d0f413564ace06555067e828bb7109334573c5e43338426cdecf083609c3"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/sync_common.py": {
+      "bytes": 8617,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/sync_common.py",
+      "sha256": "712bedf22bb3c6ce7732dab55f8cb7cfa87a01fffa812ecfddba36d4ab862cfc"
+    }
+  },
+  "source_pins": {
+    "bytes": 5710,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v1_source/source_pins.json",
+    "sha256": "8dbdfff4c3dd1db357b43d2eac9c6037859b2d9fa799b5ab34c7c92b18827455"
+  },
+  "status": "ACTUAL_TWO_CPU_C0_BOTH_FAILED_ZERO_HISTORY_NATIVE_LOGS_AND_EXACT_ONLINE_CLOSED"
+}

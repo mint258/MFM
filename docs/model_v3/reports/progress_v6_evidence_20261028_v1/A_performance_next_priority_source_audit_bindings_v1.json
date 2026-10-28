@@ -1,0 +1,634 @@
+{
+    "guide":  {
+                  "path":  "/share/home/zixiao/descriptor_analysis/模型线工作流程：模型 v3、训练代码与训练配方（Codex A）.md",
+                  "bytes":  26121,
+                  "sha256":  "e618165501d22556c4c421d93f1c01928fab3f50202ce6d0fec3249c79921239"
+              },
+    "v25_report":  {
+                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/reports/PRETRAINING_PREPARATION_20261028_v5.md",
+                       "bytes":  12122,
+                       "sha256":  "0bfed1619226806eb3497fb48f2eb4e35def0c81c9fd3704d8d34b0924689094"
+                   },
+    "v25_compact":  {
+                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/reports/pretraining_preparation_compact_evidence_20261028_v5.json",
+                        "bytes":  90985,
+                        "sha256":  "314601a8ffe0e853caf145adbf09d53cfbab6dc9188914c2e21b74051a1ad707"
+                    },
+    "stage1_report":  {
+                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/docs/model_v3/01_profiling_baseline.md",
+                          "bytes":  16437,
+                          "sha256":  "6c417b8cabea98d08a180e810febda7b54ae97689f1c10ace36ff7c90ce65d65"
+                      },
+    "stage1_summary":  {
+                           "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/docs/model_v3/results/baseline_summary.json",
+                           "bytes":  281997,
+                           "sha256":  "e4e35dcdce102ec1e6758e5e39a8c931d2dfd2bac8e9a349e2689c0dca7aa21b"
+                       },
+    "legacy_A_status":  {
+                            "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/docs/model_v3/02_A_actual_runs_20261025.md",
+                            "bytes":  3690,
+                            "sha256":  "fe76a7bdb972118b310c91fe7fc5127a7e78864af71c72c6c04e927cf8886bff"
+                        },
+    "stage1_saved_profiles":  [
+                                  {
+                                      "job_id":  "4520365",
+                                      "gpu_type":  "3090",
+                                      "code_sha":  "dc22d3f3bb68ce6949bf40f38e677f74a35c407d",
+                                      "slurm":  {
+                                                    "AllocCPUS":  "16",
+                                                    "AllocTRES":  "billing=16,cpu=16,node=1",
+                                                    "ElapsedRaw":  "217",
+                                                    "ExitCode":  "0:0",
+                                                    "JobID":  "4520365",
+                                                    "JobName":  "model_v3_native_s_profile_v2",
+                                                    "NodeList":  "compute-0-0",
+                                                    "ReqMem":  "64G",
+                                                    "ReqTRES":  "billing=16,cpu=16,mem=64G,node=1",
+                                                    "State":  "COMPLETED",
+                                                    "User":  "zixiao",
+                                                    "allocated_cpu_seconds":  3472,
+                                                    "allocated_cpus":  16,
+                                                    "elapsed_seconds":  217,
+                                                    "gpu_node_job":  true,
+                                                    "job_id":  "4520365"
+                                                },
+                                      "padding20":  {
+                                                        "native_atom_fraction":  0.8576071160354631,
+                                                        "native_pair_fraction":  0.7486640500698262
+                                                    },
+                                      "throughput17":  {
+                                                           "base_structures_per_second":  89.59914610577324,
+                                                           "compute_seconds":  71.65196992084384,
+                                                           "encoder_atoms_per_second":  16357.891866949345,
+                                                           "loader_wait_fraction":  0.0016908768066734353,
+                                                           "loader_wait_fraction_denominator":  "loader_wait_plus_compute_not_end_to_end_wall",
+                                                           "loader_wait_fraction_of_end_to_end_wall":  0.0016623971422752906,
+                                                           "loader_wait_seconds":  0.12135985866189003,
+                                                           "molecule_presentations_per_second":  49.354184898196145,
+                                                           "native_atoms_per_second":  5452.630622316448,
+                                                           "throughput_elapsed_seconds":  73.00292786583304
+                                                       },
+                                      "peak20":  {
+                                                     "allocated_bytes":  5314247680,
+                                                     "reserved_bytes":  10905190400
+                                                 }
+                                  },
+                                  {
+                                      "job_id":  "4520366",
+                                      "gpu_type":  "4090",
+                                      "code_sha":  "dc22d3f3bb68ce6949bf40f38e677f74a35c407d",
+                                      "slurm":  {
+                                                    "AllocCPUS":  "16",
+                                                    "AllocTRES":  "billing=16,cpu=16,node=1",
+                                                    "ElapsedRaw":  "173",
+                                                    "ExitCode":  "0:0",
+                                                    "JobID":  "4520366",
+                                                    "JobName":  "model_v3_native_s_profile_v2",
+                                                    "NodeList":  "compute-0-20",
+                                                    "ReqMem":  "64G",
+                                                    "ReqTRES":  "billing=16,cpu=16,mem=64G,node=1",
+                                                    "State":  "COMPLETED",
+                                                    "User":  "zixiao",
+                                                    "allocated_cpu_seconds":  2768,
+                                                    "allocated_cpus":  16,
+                                                    "elapsed_seconds":  173,
+                                                    "gpu_node_job":  true,
+                                                    "job_id":  "4520366"
+                                                },
+                                      "padding20":  {
+                                                        "native_atom_fraction":  0.8576071160354631,
+                                                        "native_pair_fraction":  0.7486640500698262
+                                                    },
+                                      "throughput17":  {
+                                                           "base_structures_per_second":  115.85068499442635,
+                                                           "compute_seconds":  54.2995782289654,
+                                                           "encoder_atoms_per_second":  21150.56962276931,
+                                                           "loader_wait_fraction":  0.0017100903339861597,
+                                                           "loader_wait_fraction_denominator":  "loader_wait_plus_compute_not_end_to_end_wall",
+                                                           "loader_wait_fraction_of_end_to_end_wall":  0.0016474539496940828,
+                                                           "loader_wait_seconds":  0.0930162500590086,
+                                                           "molecule_presentations_per_second":  63.81440422487664,
+                                                           "native_atoms_per_second":  7050.189874256438,
+                                                           "throughput_elapsed_seconds":  56.460607033222914
+                                                       },
+                                      "peak20":  {
+                                                     "allocated_bytes":  5314247680,
+                                                     "reserved_bytes":  10905190400
+                                                 }
+                                  },
+                                  {
+                                      "job_id":  "4520367",
+                                      "gpu_type":  "5090",
+                                      "code_sha":  "dc22d3f3bb68ce6949bf40f38e677f74a35c407d",
+                                      "slurm":  {
+                                                    "AllocCPUS":  "16",
+                                                    "AllocTRES":  "billing=16,cpu=16,node=1",
+                                                    "ElapsedRaw":  "143",
+                                                    "ExitCode":  "0:0",
+                                                    "JobID":  "4520367",
+                                                    "JobName":  "model_v3_native_s_profile_v2",
+                                                    "NodeList":  "compute-0-21",
+                                                    "ReqMem":  "64G",
+                                                    "ReqTRES":  "billing=16,cpu=16,mem=64G,node=1",
+                                                    "State":  "COMPLETED",
+                                                    "User":  "zixiao",
+                                                    "allocated_cpu_seconds":  2288,
+                                                    "allocated_cpus":  16,
+                                                    "elapsed_seconds":  143,
+                                                    "gpu_node_job":  true,
+                                                    "job_id":  "4520367"
+                                                },
+                                      "padding20":  {
+                                                        "native_atom_fraction":  0.8576071160354631,
+                                                        "native_pair_fraction":  0.7486640500698262
+                                                    },
+                                      "throughput17":  {
+                                                           "base_structures_per_second":  163.96127416397368,
+                                                           "compute_seconds":  37.843822934664786,
+                                                           "encoder_atoms_per_second":  29933.999482264044,
+                                                           "loader_wait_fraction":  0.0025759023343917367,
+                                                           "loader_wait_fraction_denominator":  "loader_wait_plus_compute_not_end_to_end_wall",
+                                                           "loader_wait_fraction_of_end_to_end_wall":  0.00244986229382932,
+                                                           "loader_wait_seconds":  0.09773374442011118,
+                                                           "molecule_presentations_per_second":  90.31531429640685,
+                                                           "native_atoms_per_second":  9977.999827421349,
+                                                           "throughput_elapsed_seconds":  39.89356653485447
+                                                       },
+                                      "peak20":  {
+                                                     "allocated_bytes":  5314247680,
+                                                     "reserved_bytes":  10905190400
+                                                 }
+                                  }
+                              ],
+    "actual_Root_closures":  {
+                                 "performance_integration_publication_actual_v1.json":  {
+                                                                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_integration_publication_actual_v1.json",
+                                                                                            "bytes":  6777,
+                                                                                            "sha256":  "6acf2de06802ed59bf4ba7e5e0e433ec69028ab4dc8280f342ffa1f5d2559550"
+                                                                                        },
+                                 "performance_integration_CPU_4523519_Root_closure_v1.json":  {
+                                                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_integration_CPU_4523519_Root_closure_v1.json",
+                                                                                                  "bytes":  491203,
+                                                                                                  "sha256":  "d0dd7dc6b656cd33721035b65cc7304f807655f67f9ed696fe89b80a2a2702f8"
+                                                                                              },
+                                 "performance_integration_full_CPU_4524145_Root_closure_v1.json":  {
+                                                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_integration_full_CPU_4524145_Root_closure_v1.json",
+                                                                                                       "bytes":  947184,
+                                                                                                       "sha256":  "ec6f65d62acb6c55913310d67bc74dd61b29a0650f9888a8e424b6f17d775eff"
+                                                                                                   },
+                                 "performance_manual_R2_and_consumer_Root_closure_actual_v1.json":  {
+                                                                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_and_consumer_Root_closure_actual_v1.json",
+                                                                                                        "bytes":  1784300,
+                                                                                                        "sha256":  "0a782651f639a72b6df70f9a6991ce7189bb4dd81bcd492205179d22b421d2fb"
+                                                                                                    },
+                                 "performance_auto_R2_GPU_4524551_Root_closure_v1.json":  {
+                                                                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_GPU_4524551_Root_closure_v1.json",
+                                                                                              "bytes":  5082,
+                                                                                              "sha256":  "0136894785baf0d47905bb1701c206dc3c2ea641cf972826d3c9f56d6c589162"
+                                                                                          },
+                                 "performance_head_off_R2_GPU_4524580_Root_closure_v2.json":  {
+                                                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_4524580_Root_closure_v2.json",
+                                                                                                  "bytes":  591480,
+                                                                                                  "sha256":  "b3cf458a83c29a30a4bc8adffd7f5c5fd07a4cce86de9fd790cfbcbf41c533af"
+                                                                                              },
+                                 "head_off_R1_ABBA_SDK_and_speed_CPU_4524591_Root_closure_v1.json":  {
+                                                                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/head_off_R1_ABBA_SDK_and_speed_CPU_4524591_Root_closure_v1.json",
+                                                                                                         "bytes":  7243,
+                                                                                                         "sha256":  "326d8cf0a0f7fa7e88b81fcf473ebc8525859b0a25d5df3a260e23f471712dff"
+                                                                                                     },
+                                 "manual_R1_ABBA_SDK_and_speed_CPU_4524571_Root_closure_v1.json":  {
+                                                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_SDK_and_speed_CPU_4524571_Root_closure_v1.json",
+                                                                                                       "bytes":  7739,
+                                                                                                       "sha256":  "87a91a8039d8402e5a442bfade2604cf95a467e1412e372054e56ae4c9b12218"
+                                                                                                   },
+                                 "geometry_precommit_counts_CPU_4524574_Root_closure_v1.json":  {
+                                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_precommit_counts_CPU_4524574_Root_closure_v1.json",
+                                                                                                    "bytes":  2821,
+                                                                                                    "sha256":  "c71b51958f388acb60982f4ee6451762d1778f4893bd1c2eb7064cf36a00e050"
+                                                                                                },
+                                 "A03_3090_existing_method_readiness_and_capacity_wait_actual_v1.json":  {
+                                                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A03_3090_existing_method_readiness_and_capacity_wait_actual_v1.json",
+                                                                                                             "bytes":  10099,
+                                                                                                             "sha256":  "0cd111acc0d77aa4a3076bb8c2c977deb77b9f22f5ed2e65c1506c05c78e21b3"
+                                                                                                         }
+                             },
+    "source_refs":  {
+                        "current/phychem_mfm/model/v3_performance.py":  {
+                                                                            "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/phychem_mfm/model/v3_performance.py",
+                                                                            "bytes":  18112,
+                                                                            "sha256":  "32768ce0c5708d9e27b022a4ff5f207e928f4226ceb4e89847fe9d29ee5c88e2"
+                                                                        },
+                        "current/phychem_mfm/model/v3_logical_batch.py":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/phychem_mfm/model/v3_logical_batch.py",
+                                                                              "bytes":  8490,
+                                                                              "sha256":  "8cda1f4ab68593a271c0762a4336b1806e5f6504ac9753022f74bb09f26197a4"
+                                                                          },
+                        "current/phychem_mfm/model/v3_checkpoint_policy.py":  {
+                                                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/phychem_mfm/model/v3_checkpoint_policy.py",
+                                                                                  "bytes":  29127,
+                                                                                  "sha256":  "b65c2064cb3ac403a9c663ec60a8a5db2ea8d5e0dc624700e3de50399044a244"
+                                                                              },
+                        "tools/model_v3/a_execution_runtime.py":  {
+                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/tools/model_v3/a_execution_runtime.py",
+                                                                      "bytes":  17280,
+                                                                      "sha256":  "ed2577bbb1d265b91edb1b515e2203cec1977d18b46553ff28120d0d8bfa46d0"
+                                                                  },
+                        "tools/model_v3/paired_a_acceptance.py":  {
+                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/tools/model_v3/paired_a_acceptance.py",
+                                                                      "bytes":  17994,
+                                                                      "sha256":  "c19ce2638607a5bf5d8baaa210df2e098fdbfa207eec13d4ccd43146e0beb841"
+                                                                  },
+                        "tools/model_v3/single_a_benchmark.py":  {
+                                                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/tools/model_v3/single_a_benchmark.py",
+                                                                     "bytes":  13246,
+                                                                     "sha256":  "0a522edd0ffce5891492974b6170de3b874a767b3099b5c328cdd2dce9567c9a"
+                                                                 },
+                        "tools/model_v3/a_speed_report.py":  {
+                                                                 "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/tools/model_v3/a_speed_report.py",
+                                                                 "bytes":  11218,
+                                                                 "sha256":  "c4427d32db4ca429c7bcfa6a8494cb0e07ccd24009e2ea0a6fe076b71673ed27"
+                                                             },
+                        "current/tests/test_model_v3_performance_integration.py":  {
+                                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/tests/test_model_v3_performance_integration.py",
+                                                                                       "bytes":  14044,
+                                                                                       "sha256":  "31faa3d1f9389c5aad0039e9d0483e48931c492c55065b3d5ea16f92109dd032"
+                                                                                   },
+                        "current/tests/test_model_v3_checkpoint_policy.py":  {
+                                                                                 "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/tests/test_model_v3_checkpoint_policy.py",
+                                                                                 "bytes":  22173,
+                                                                                 "sha256":  "49a1d9a71bd65868e434deabc783c4c851fa7136d115656375c6422b8575f121"
+                                                                             },
+                        "current/configs/model_v3/performance/a5_logical_batch_chunks_v1.json":  {
+                                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a5_logical_batch_chunks_v1.json",
+                                                                                                     "bytes":  246,
+                                                                                                     "sha256":  "30467f4ce4bfaf6b752fe697ff35614527575d3af799aa07f8b8673605d3ccbb"
+                                                                                                 },
+                        "current/configs/model_v3/performance/a_matrix_v1.json":  {
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a_matrix_v1.json",
+                                                                                      "bytes":  3151,
+                                                                                      "sha256":  "e1f7258c07439c8dfa61a2e5e03535d07887411bf894b76eb3351461a3e1afc1"
+                                                                                  },
+                        "workflows/sprime_s/formal_s/B1_seed0_v2.json":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                                                                             "bytes":  34127,
+                                                                             "sha256":  "af26f79be41d99bac5de410b686bccdf608b830b772d0dde06491bb146d35324"
+                                                                         }
+                    },
+    "candidate_options":  {
+                              "a00_control":  {
+                                                  "rawref":  {
+                                                                 "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a00_control.json",
+                                                                 "bytes":  301,
+                                                                 "sha256":  "52ae1dae8ff65229a2b4f26b281a0e488e751e08671dbf953d33601e6c1a6bf0"
+                                                             },
+                                                  "options":  {
+                                                                  "precision":  "fp32",
+                                                                  "distance_implementation":  "tiled",
+                                                                  "distance_pair_rows":  65536,
+                                                                  "distance_checkpointing":  true,
+                                                                  "backbone_checkpointing":  true,
+                                                                  "head_checkpointing":  true,
+                                                                  "attention_backend":  "dense",
+                                                                  "sparse_query_chunk":  32,
+                                                                  "fused_adamw":  false,
+                                                                  "tf32":  false,
+                                                                  "compile_backbone":  false,
+                                                                  "compile_dynamic":  true
+                                                              }
+                                              },
+                              "a01_backbone_off":  {
+                                                       "rawref":  {
+                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a01_backbone_off.json",
+                                                                      "bytes":  302,
+                                                                      "sha256":  "d3bb101a8e5417fcbe998c39f97698e6902a9b06851a343aa0a0e4830ef0e8d4"
+                                                                  },
+                                                       "options":  {
+                                                                       "precision":  "fp32",
+                                                                       "distance_implementation":  "tiled",
+                                                                       "distance_pair_rows":  65536,
+                                                                       "distance_checkpointing":  true,
+                                                                       "backbone_checkpointing":  false,
+                                                                       "head_checkpointing":  true,
+                                                                       "attention_backend":  "dense",
+                                                                       "sparse_query_chunk":  32,
+                                                                       "fused_adamw":  false,
+                                                                       "tf32":  false,
+                                                                       "compile_backbone":  false,
+                                                                       "compile_dynamic":  true
+                                                                   }
+                                                   },
+                              "a02_distance_off":  {
+                                                       "rawref":  {
+                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a02_distance_off.json",
+                                                                      "bytes":  302,
+                                                                      "sha256":  "daa9b518a2c10600a153022f111c208f025709e3497511f2b7410398ce3fe988"
+                                                                  },
+                                                       "options":  {
+                                                                       "precision":  "fp32",
+                                                                       "distance_implementation":  "tiled",
+                                                                       "distance_pair_rows":  65536,
+                                                                       "distance_checkpointing":  false,
+                                                                       "backbone_checkpointing":  true,
+                                                                       "head_checkpointing":  true,
+                                                                       "attention_backend":  "dense",
+                                                                       "sparse_query_chunk":  32,
+                                                                       "fused_adamw":  false,
+                                                                       "tf32":  false,
+                                                                       "compile_backbone":  false,
+                                                                       "compile_dynamic":  true
+                                                                   }
+                                                   },
+                              "a03_head_off":  {
+                                                   "rawref":  {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a03_head_off.json",
+                                                                  "bytes":  302,
+                                                                  "sha256":  "9e958e8fb4374211f80e2c8ed741266b93f701dbde15f2dd36cb862a9e10723e"
+                                                              },
+                                                   "options":  {
+                                                                   "precision":  "fp32",
+                                                                   "distance_implementation":  "tiled",
+                                                                   "distance_pair_rows":  65536,
+                                                                   "distance_checkpointing":  true,
+                                                                   "backbone_checkpointing":  true,
+                                                                   "head_checkpointing":  false,
+                                                                   "attention_backend":  "dense",
+                                                                   "sparse_query_chunk":  32,
+                                                                   "fused_adamw":  false,
+                                                                   "tf32":  false,
+                                                                   "compile_backbone":  false,
+                                                                   "compile_dynamic":  true
+                                                               }
+                                               },
+                              "a04_all_off":  {
+                                                  "rawref":  {
+                                                                 "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a04_all_off.json",
+                                                                 "bytes":  304,
+                                                                 "sha256":  "f1a776c7a484d97b0c58048b15488adf6cc6e412aee90db317e4e073b904a900"
+                                                             },
+                                                  "options":  {
+                                                                  "precision":  "fp32",
+                                                                  "distance_implementation":  "tiled",
+                                                                  "distance_pair_rows":  65536,
+                                                                  "distance_checkpointing":  false,
+                                                                  "backbone_checkpointing":  false,
+                                                                  "head_checkpointing":  false,
+                                                                  "attention_backend":  "dense",
+                                                                  "sparse_query_chunk":  32,
+                                                                  "fused_adamw":  false,
+                                                                  "tf32":  false,
+                                                                  "compile_backbone":  false,
+                                                                  "compile_dynamic":  true
+                                                              }
+                                              },
+                              "a05_compile":  {
+                                                  "rawref":  {
+                                                                 "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a05_compile.json",
+                                                                 "bytes":  300,
+                                                                 "sha256":  "2dbfcc94ee5396863798299f4284affa984afd56ea21e5c549006a1002a7c959"
+                                                             },
+                                                  "options":  {
+                                                                  "precision":  "fp32",
+                                                                  "distance_implementation":  "tiled",
+                                                                  "distance_pair_rows":  65536,
+                                                                  "distance_checkpointing":  true,
+                                                                  "backbone_checkpointing":  true,
+                                                                  "head_checkpointing":  true,
+                                                                  "attention_backend":  "dense",
+                                                                  "sparse_query_chunk":  32,
+                                                                  "fused_adamw":  false,
+                                                                  "tf32":  false,
+                                                                  "compile_backbone":  true,
+                                                                  "compile_dynamic":  true
+                                                              }
+                                              },
+                              "a06_fused":  {
+                                                "rawref":  {
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a06_fused.json",
+                                                               "bytes":  300,
+                                                               "sha256":  "6b2dfe5e651702b5cdfc3ac903f77da6538ffac5690be8614fe1a3fb59b908b5"
+                                                           },
+                                                "options":  {
+                                                                "precision":  "fp32",
+                                                                "distance_implementation":  "tiled",
+                                                                "distance_pair_rows":  65536,
+                                                                "distance_checkpointing":  true,
+                                                                "backbone_checkpointing":  true,
+                                                                "head_checkpointing":  true,
+                                                                "attention_backend":  "dense",
+                                                                "sparse_query_chunk":  32,
+                                                                "fused_adamw":  true,
+                                                                "tf32":  false,
+                                                                "compile_backbone":  false,
+                                                                "compile_dynamic":  true
+                                                            }
+                                            },
+                              "a07_tf32":  {
+                                               "rawref":  {
+                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a07_tf32.json",
+                                                              "bytes":  300,
+                                                              "sha256":  "cee4e88040e8a33e7bd106c7e545cdb575f9acddb3fce0775f675f8b644dbc4c"
+                                                          },
+                                               "options":  {
+                                                               "precision":  "fp32",
+                                                               "distance_implementation":  "tiled",
+                                                               "distance_pair_rows":  65536,
+                                                               "distance_checkpointing":  true,
+                                                               "backbone_checkpointing":  true,
+                                                               "head_checkpointing":  true,
+                                                               "attention_backend":  "dense",
+                                                               "sparse_query_chunk":  32,
+                                                               "fused_adamw":  false,
+                                                               "tf32":  true,
+                                                               "compile_backbone":  false,
+                                                               "compile_dynamic":  true
+                                                           }
+                                           }
+                          },
+    "historical_actual_supervisors":  {
+                                          "4520456":  {
+                                                          "supervisor":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520456.json",
+                                                                             "bytes":  3458,
+                                                                             "sha256":  "c8f32918e1ad3dc6004615f3c2a333de49b2bb4b428b4c70f43e4c72b756f1be"
+                                                                         },
+                                                          "status":  "COMPLETED",
+                                                          "exit_code":  0,
+                                                          "first_failure":  null,
+                                                          "remaining":  [
+
+                                                                        ],
+                                                          "foreign_signalled":  false,
+                                                          "numeric_summary":  {
+                                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/summary.json",
+                                                                                  "bytes":  891,
+                                                                                  "sha256":  "bbf17e2e1ac4421d6a4468e449fffdc16534d967b261c85c7c863e5c8a407b1e"
+                                                                              },
+                                                          "configuration":  {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/configuration.json",
+                                                                                "bytes":  18032,
+                                                                                "sha256":  "3abd37472f6eaae1af916f10ae798363120abe596944dd19e09f9147540abf12"
+                                                                            }
+                                                      },
+                                          "4520546":  {
+                                                          "supervisor":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520546.json",
+                                                                             "bytes":  3624,
+                                                                             "sha256":  "136dd4cdee7c5c14b91a6e71657f734b159b568936e98ae85ebb39e1217625e1"
+                                                                         },
+                                                          "status":  "FAILED",
+                                                          "exit_code":  1,
+                                                          "first_failure":  {
+                                                                                "phase":  "child_exit",
+                                                                                "exit_code":  1
+                                                                            },
+                                                          "remaining":  [
+
+                                                                        ],
+                                                          "foreign_signalled":  false
+                                                      },
+                                          "4520590":  {
+                                                          "supervisor":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520590.json",
+                                                                             "bytes":  3724,
+                                                                             "sha256":  "8434a4a7f028c69893b87c56187f3d4b7c6e9b9747d988dccbb2449868973180"
+                                                                         },
+                                                          "status":  "FAILED",
+                                                          "exit_code":  -6,
+                                                          "first_failure":  {
+                                                                                "type":  "MemoryError",
+                                                                                "message":  "Owned GPU process memory exceeded 85% of physical capacity"
+                                                                            },
+                                                          "remaining":  [
+
+                                                                        ],
+                                                          "foreign_signalled":  false
+                                                      },
+                                          "4520525":  {
+                                                          "supervisor":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520525.json",
+                                                                             "bytes":  3719,
+                                                                             "sha256":  "476219dc3d76cd8adc93e2694520dfdd5a374b11238d84c4b2cd433e8bc1e98a"
+                                                                         },
+                                                          "status":  "FAILED",
+                                                          "exit_code":  1,
+                                                          "first_failure":  {
+                                                                                "type":  "MemoryError",
+                                                                                "message":  "Owned GPU process memory exceeded 85% of physical capacity"
+                                                                            },
+                                                          "remaining":  [
+
+                                                                        ],
+                                                          "foreign_signalled":  false
+                                                      },
+                                          "4520589":  {
+                                                          "supervisor":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520589.json",
+                                                                             "bytes":  3579,
+                                                                             "sha256":  "089d58291f016d3627f5b10f1f5014f687a504abc6235a026aa4badd523b9eef"
+                                                                         },
+                                                          "status":  "FAILED",
+                                                          "exit_code":  2,
+                                                          "first_failure":  {
+                                                                                "phase":  "child_exit",
+                                                                                "exit_code":  2
+                                                                            },
+                                                          "remaining":  [
+
+                                                                        ],
+                                                          "foreign_signalled":  false
+                                                      },
+                                          "4520549":  {
+                                                          "supervisor":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520549.json",
+                                                                             "bytes":  3561,
+                                                                             "sha256":  "96fb7af3d732583656a18b86a9898a40cbabf88098010b21ae47d46b88b92332"
+                                                                         },
+                                                          "status":  "COMPLETED",
+                                                          "exit_code":  0,
+                                                          "first_failure":  null,
+                                                          "remaining":  [
+
+                                                                        ],
+                                                          "foreign_signalled":  false,
+                                                          "numeric_summary":  {
+                                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a03_head_off_4520549/summary.json",
+                                                                                  "bytes":  891,
+                                                                                  "sha256":  "a90721aa3e54b36317bd384f75dd43c7f0a9426959a9a5c62975e9feae56240a"
+                                                                              }
+                                                      },
+                                          "4520457":  {
+                                                          "numeric_summary":  {
+                                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a06_fused_4520457/summary.json",
+                                                                                  "bytes":  898,
+                                                                                  "sha256":  "a9ec0416c2ad1df2c84aec09cd0e5891b9aa33cc3327f24af25218dc0a5ba800"
+                                                                              },
+                                                          "supervisor":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520457.json",
+                                                                             "bytes":  3585,
+                                                                             "sha256":  "11fdfd969212da44e6e8b28d6826a8f2030e9ecd4c0b40b7d21d6c7e191a6b16"
+                                                                         }
+                                                      }
+                                      },
+    "fixed_native_inputs_from_closed_config":  {
+                                                   "native_manifest":  {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/manifest.json",
+                                                                           "sha256":  "2f69b672350744369b08c672b62e3d276487714abc97b766a12140ec5af59997",
+                                                                           "verification_scope":  "Existing actual producer/Root closure bound; not rehashed or decoded by this source audit"
+                                                                       },
+                                                   "shard_snapshot":  "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                                                   "sampler_contract_sha256":  "ecb67948413fe6b1a507ecec8e95bc864fa439eb7be09e1f1b174e105d0da50e",
+                                                   "sampler":  {
+                                                                   "atom_bucket_width":  16,
+                                                                   "block_size":  4096,
+                                                                   "max_molecules":  512,
+                                                                   "max_native_atoms":  65536,
+                                                                   "max_padded_cost":  8000000,
+                                                                   "padded_cost_multiplier":  3
+                                                               },
+                                                   "loader":  {
+                                                                  "num_workers":  8,
+                                                                  "persistent_workers":  false,
+                                                                  "pin_memory":  true,
+                                                                  "prefetch_factor":  2,
+                                                                  "worker_timeout_seconds":  600.0
+                                                              },
+                                                   "seed":  0,
+                                                   "model":  {
+                                                                 "architecture":  {
+                                                                                      "preset":  "shared_light",
+                                                                                      "task_route":  "light",
+                                                                                      "type":  "shared_multitask"
+                                                                                  },
+                                                                 "backbone":  {
+                                                                                  "activation_checkpointing":  true,
+                                                                                  "dim":  512,
+                                                                                  "dropout":  0.0,
+                                                                                  "ff_mult":  2,
+                                                                                  "heads":  8,
+                                                                                  "layers":  6,
+                                                                                  "n_atom_types":  119,
+                                                                                  "radius":  8.0,
+                                                                                  "use_dist_bias":  true,
+                                                                                  "use_radius_mask":  false
+                                                                              },
+                                                                 "expert":  {
+                                                                                "dropout":  0.0,
+                                                                                "ff_mult":  2,
+                                                                                "heads":  8,
+                                                                                "internal_layers":  0,
+                                                                                "real_layers":  2
+                                                                            },
+                                                                 "head":  {
+                                                                              "geometry_head":  "equivariant_noise",
+                                                                              "geometry_hidden_dim":  64,
+                                                                              "geometry_message_layers":  0,
+                                                                              "geometry_normalization":  "none",
+                                                                              "geometry_pair_chunk_size":  8192,
+                                                                              "geometry_radius":  5.0,
+                                                                              "geometry_rbf_count":  32,
+                                                                              "geometry_residual_scale":  0.1,
+                                                                              "profile":  "phase1"
+                                                                          }
+                                                             }
+                                               }
+}

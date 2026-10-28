@@ -1,0 +1,98 @@
+{
+  "schema": "model_v3_Root_R1_ABBA_sync_C0_closure_v1",
+  "status": "ACTUAL_C0_TWO_EXACT_SDK_COPIES_SYNCED_REMOTE_ROUTE_STATE_22_STEPS_ROOT_CLOSED",
+  "actual_unix": 1793145874.2678869,
+  "job_id": "4524593",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524593",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524593|zixiao|COMPLETED|0:0|19|16|compute-0-14\n",
+    "stderr": ""
+  },
+  "result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/head_off_R1_ABBA_sync12_actual_v1/RESULT.json",
+    "bytes": 13662,
+    "sha256": "665e358cd86697420b6fb18e850e59760c71b91ff635a57fe369e974c13162f9"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/head_off_R1_ABBA_sync12_actual_v1.supervisor.json",
+    "bytes": 3378,
+    "sha256": "0f5e220b44dcab9ac76f8dc5b926307fc3c8c98f988fc0da0d686ab5d0b1d8b4"
+  },
+  "source_pins": {
+    "bytes": 4817,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_SDK_v1_source/source_pins.json",
+    "sha256": "fdf07ced7b5c2d095e7ec9e21592fbbcd7b5eab4da2feaada6da0096f5cc1430"
+  },
+  "all_source_refs_before_after_equal": true,
+  "Root_SDK_body_opened": false,
+  "original_SDKs_retained": true,
+  "records": [
+    {
+      "run_id": "gw6qi1ml",
+      "remote": {
+        "entity": "mint_leaf258",
+        "project": "mfm_model_v3_development",
+        "run_id": "gw6qi1ml",
+        "state": "finished",
+        "history_rows": 22,
+        "first_step": 1,
+        "last_step": 22
+      },
+      "result": {
+        "bytes": 2964,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/head_off_R1_ABBA_sync12_actual_v1/run_0_gw6qi1ml/result.json",
+        "sha256": "155e0280a513b60ed89788e97724420767f52e3d35744e4a988f6d3d43051b4d"
+      },
+      "invocation": {
+        "bytes": 1359,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/head_off_R1_ABBA_sync12_actual_v1/run_0_invocation.json",
+        "sha256": "0c8e943b03c2891b4384779d4ae6e333dd88ebcacd2c5af5d591715c98743143"
+      },
+      "original_SDK_retained": true,
+      "exact_staged_copy": {
+        "bytes": 99216,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/head_off_R1_ABBA_sync12_actual_v1/run_0_gw6qi1ml/stage/offline-run-20261028_074315-gw6qi1ml/run-gw6qi1ml.wandb",
+        "sha256": "b0f5eb48e7066f53b7f08f806a9d492f24169a248236e303962ec845bbe8a78e"
+      }
+    },
+    {
+      "run_id": "x79rzlbz",
+      "remote": {
+        "entity": "mint_leaf258",
+        "project": "mfm_model_v3_development",
+        "run_id": "x79rzlbz",
+        "state": "finished",
+        "history_rows": 22,
+        "first_step": 1,
+        "last_step": 22
+      },
+      "result": {
+        "bytes": 2966,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/head_off_R1_ABBA_sync12_actual_v1/run_1_x79rzlbz/result.json",
+        "sha256": "cf574fc94d40f896c06aa4ebedababd13828ccbed45387c3e15e1957fd333416"
+      },
+      "invocation": {
+        "bytes": 1359,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/head_off_R1_ABBA_sync12_actual_v1/run_1_invocation.json",
+        "sha256": "89091571bc0f14bc18ef7b7c52788a974ec0146201074ba2ab35d9de25534c06"
+      },
+      "original_SDK_retained": true,
+      "exact_staged_copy": {
+        "bytes": 136050,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/head_off_R1_ABBA_sync12_actual_v1/run_1_x79rzlbz/stage/offline-run-20261028_074526-x79rzlbz/run-x79rzlbz.wandb",
+        "sha256": "6059ecb22fac86f6fef106c90e4d5f91c2253356b827ee5ce0bd23c686821d63"
+      }
+    }
+  ],
+  "remote_full_metric_values_independently_recompared": false,
+  "scientific_acceptance": false
+}

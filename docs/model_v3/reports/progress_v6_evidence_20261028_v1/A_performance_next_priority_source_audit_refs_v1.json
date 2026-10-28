@@ -1,0 +1,115 @@
+{
+    "schema":  "model_v3_A_performance_next_priority_source_audit_v1",
+    "status":  "SOURCE_ONLY_NEXT_PRIORITY_A5_PROPOSED_NOT_AN_EXECUTABLE_REQUEST",
+    "report":  {
+                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_performance_next_priority_source_audit_v1.md",
+                   "bytes":  9040,
+                   "sha256":  "05650519d4d7ed679a547aad462c69e3069c30786565571ae78871a302fe6c48"
+               },
+    "bindings":  {
+                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_performance_next_priority_source_audit_bindings_v1.json",
+                     "bytes":  60373,
+                     "sha256":  "789609c159b830c672afaf29f3af563074fc22b78a73b6e8ee84d76d5496dc50"
+                 },
+    "recommendation":  {
+                           "priority":  "A5 same-logical-batch chunks native-S true20+500, then original four-memberR1 if pass",
+                           "candidate_options":  "a00_control all three checkpoints enabled",
+                           "execution_config":  {
+                                                    "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a5_logical_batch_chunks_v1.json",
+                                                    "bytes":  246,
+                                                    "sha256":  "30467f4ce4bfaf6b752fe697ff35614527575d3af799aa07f8b8673605d3ccbb"
+                                                },
+                           "code_sha":  "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+                           "scientific_source_public":  "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+                           "proposed_GPU_argv":  [
+                                                     "GPU_PY",
+                                                     "-u",
+                                                     "-B",
+                                                     "tools/model_v3/paired_a_acceptance.py",
+                                                     "--candidate-options",
+                                                     "current/configs/model_v3/performance/a00_control.json",
+                                                     "--performance-execution",
+                                                     "current/configs/model_v3/performance/a5_logical_batch_chunks_v1.json",
+                                                     "--performance-execution-sha256",
+                                                     "30467f4ce4bfaf6b752fe697ff35614527575d3af799aa07f8b8673605d3ccbb",
+                                                     "--reference-config",
+                                                     "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                                                     "--input",
+                                                     "native_s",
+                                                     "--seed",
+                                                     "0",
+                                                     "--workers",
+                                                     "8",
+                                                     "--max-padded-cost",
+                                                     "8000000",
+                                                     "--expected-gpu",
+                                                     "5090",
+                                                     "--code-sha",
+                                                     "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+                                                     "--prereg-sha",
+                                                     "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+                                                     "--shard-snapshot-sha256",
+                                                     "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                                                     "--deterministic-controls",
+                                                     "--output",
+                                                     "FRESH_ROOT_DESIGNATED_A5_R2_CHILD"
+                                                 ],
+                           "new_operation_publication":  "PENDING",
+                           "actual_job_run_results":  "NOT_CREATED",
+                           "selected_output_cache_quota_admission_hold":  "PENDING_ROOT_ACTUAL",
+                           "A5_current_GPU_numeric_or_speed_acceptance":  false
+                       },
+    "already_closed_do_not_repeat":  [
+                                         "Original Stage1 three-card profiles365/366/367+369/378",
+                                         "A00 three-card20+500 andmanual3976/auto4551 all-on",
+                                         "A01 4090 old456 complete20+500, source8ece/prereg61658 only",
+                                         "A03 original549 andcurrent4580 complete20+500/current4587..90R1+4591 audit/speed"
+                                     ],
+    "retained_negative_conditions":  [
+                                         "A01546/A02590 current5090 historical85% resource failure",
+                                         "A05525 actual compileOOM/85%, no complete numeric gate",
+                                         "A06457 fixed20pass but500 trajectory failed;1091 diagnostic does not change gate",
+                                         "A07589 fixed20numeric failed, no500"
+                                     ],
+    "do_not_transfer":  [
+                            "R2capacity toR1",
+                            "UUID/seed/source/workload/layout-specific profile to other scope",
+                            "HeadOff/globalcounts/first500 toglobalmax",
+                            "Old8eceA01 gate to9e silently",
+                            "A00 calibration tocheckpoint-off",
+                            "Any source-only/CPU proof torealD3/D5/B acceptance"
+                        ],
+    "minimum_after_Root_preregistration":  {
+                                               "GPU_numeric":  1,
+                                               "GPU_R1_members_if_numeric_pass":  4,
+                                               "CPU_fullSDK_and_original_speed":  "One bounded sequential analysis parent, no separate QA parent",
+                                               "selective_sync":  "Explicit bounded groups\u003c=3, original SDK retained",
+                                               "same_model_algorithm_or_existing_threshold_edits":  false,
+                                               "new_monitor_dispatcher_decoder_framework":  false
+                                           },
+    "resource_budget_per_GPU":  {
+                                    "cpus":  16,
+                                    "Slurm_memory_GiB":  64,
+                                    "Slurm_seconds":  7200,
+                                    "supervisor_seconds":  6900,
+                                    "RSS_bytes":  60129542144,
+                                    "whole_bytes":  2147483648,
+                                    "private_bytes":  2147483648,
+                                    "actual_fresh_guard":  "unchanged all-user85%,MemAvailable/quota/allholds/GPUUUID+lock"
+                                },
+    "source_implementation_limits":  [
+                                         "A5 perchunk defaults16/32/1M while logicalsampler remains8M/3views; no sampler regroup flags",
+                                         "Original backbone only in9e; C1a/b not granted by this path",
+                                         "Strict20/500 still necessary despite CPU gradient/RNG/resume tests",
+                                         "Auto profile exact environment/source/workload/resident/layout and observed bounds; first compatible is not optimality",
+                                         "Baseline global radius mask false, so sparse-radius switch is not a baseline-equivalent A gain"
+                                     ],
+    "audit_scope":  "Complete guide1/2 and fullv25; targeted9e source and explicit small savedRoot/producer metadata; top-level name lookup only, no recursive SDK/data run scan",
+    "absence_scope":  "No A5 GPU20+500 orR1 closed evidence found in these authoritative reports,Rootclosures and recorded source scope; not an onlineAPI/allfilesystem census",
+    "no_execution":  {
+                         "author_executed_Python_AST_Git_SSH_Slurm_API_models_SDK_scientific_arrays_or_journals":  false,
+                         "old_sources_or_reports_modified":  false
+                     },
+    "complete_guide_scope_retained":  true,
+    "physics_or_B_D5_recipe_finalHandoff_acceptance":  false
+}

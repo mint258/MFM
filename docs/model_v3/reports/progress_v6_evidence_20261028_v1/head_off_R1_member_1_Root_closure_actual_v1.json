@@ -1,0 +1,82 @@
+{
+  "schema": "model_v3_Root_head_off_R1_ABBA_member_closure_v1",
+  "status": "ACTUAL_C0_SOURCE_INPUT_22_UPDATES_TRAINER_SDK_FINISHED",
+  "actual_unix": 1793144692.6652017,
+  "position": 1,
+  "role": "reference",
+  "series_id": "A03_head_off_R1_C35_9e16_v1",
+  "job_id": "4524587",
+  "source_package": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_GPU_v2_source/source_pins.json",
+    "bytes": 17024,
+    "sha256": "02fffcad27c86bd5db19cff669b48f4910b3736b068b6db8c5116e8d48f896a9"
+  },
+  "submission": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_v2/member_1/control/Root_submission_actual_v1.json",
+    "bytes": 10307,
+    "sha256": "3c86302296a5236197f81b09096272639d105dd3816e8b53fa2b15783446a91c"
+  },
+  "head_off_R2_qualification": {
+    "bytes": 591480,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_4524580_Root_closure_v2.json",
+    "sha256": "b3cf458a83c29a30a4bc8adffd7f5c5fd07a4cce86de9fd790cfbcbf41c533af"
+  },
+  "manual_checkpoint_flags": {
+    "distance": true,
+    "backbone": true,
+    "head": false
+  },
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524587",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524587|zixiao|COMPLETED|0:0|77|16|compute-0-21\n",
+    "stderr": ""
+  },
+  "configuration": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_v2/member_1/child/configuration.json",
+    "bytes": 51262,
+    "sha256": "5089acc9a6d85c8643a925fa36dff701f85d93475bf6f3f42d5959b12415aa50"
+  },
+  "summary": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_v2/member_1/child/summary.json",
+    "bytes": 1722,
+    "sha256": "929a3dae93a8c163c20d5d8f451ba2fe24a45b0d9eb6683606ec54621a0c1eec"
+  },
+  "run_status": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_v2/member_1/child/run_status.json",
+    "bytes": 240,
+    "sha256": "5d1a80e2c9cb44ce520a18cd9f514778851a36c443fc673adb75f86d8ed4bc4f"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_v2/member_1/supervisor.json",
+    "bytes": 4491,
+    "sha256": "4514cf3a22a8864252b15111c76970e32a225e0fbea660fb12ac3f532ed65a49"
+  },
+  "tracking_run_id": "gw6qi1ml",
+  "SDK": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_v2/member_1/child/wandb/offline-run-20261028_074315-gw6qi1ml/run-gw6qi1ml.wandb",
+    "bytes": 99216
+  },
+  "step_journal": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R1_ABBA_v2/member_1/child/steps.jsonl",
+    "bytes": 663596
+  },
+  "measured_updates": 20,
+  "warmup_updates": 2,
+  "input_configuration_and_source_matched": true,
+  "trainer_SDK_finish_completed": true,
+  "SDK_native_stream_independent_audit_pending": true,
+  "step_journal_body_independent_audit_pending": true,
+  "Root_SDK_journal_or_model_payload_opened": false,
+  "physical_unique_family_stat_bytes": 1258267,
+  "capacity_or_ABBA_speed_acceptance_granted": false,
+  "scientific_acceptance": false
+}
