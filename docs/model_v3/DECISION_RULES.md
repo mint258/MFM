@@ -1,5 +1,7 @@
 # Model v3 preregistration
 
+2026-10-29 user amendment: [equivariance v2](EQUIVARIANCE_RULES_V2_20261029.md) supersedes the old FP32 symmetry threshold below. All [FP32 compensation candidates are archived and not adopted](FP32_COMPENSATION_ARCHIVE_20261029.md). [Operating policy](OPERATING_POLICY.md): one daily summary, weekly accounting; receipts and SHA for formal deliverables. C1-a performance on existing S proceeds independently of D-5.
+
 Authority: the user's 2026-10-24 model-line work guide, supplied on 2026-10-25.
 Baseline: `mint258/MFM@037546cd7f07b32dbb46bc21a69109dfd273f8da`.
 No architecture/precision/recipe experiment has been run under this protocol.
