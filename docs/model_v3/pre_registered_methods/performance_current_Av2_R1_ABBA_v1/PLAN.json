@@ -1,0 +1,185 @@
+{
+  "schema": "model_v3_current_Av2_R1_ABBA_plan_v1",
+  "status": "SOURCE_ONLY_REQUIRES_EXACT_NEW_METHOD_PUBLICATION_AND_FRESH_ROOT_ADMISSION",
+  "code_sha": "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+  "public_prereg_sha": "2b4a4df8636e5d65915d535472ba01084ea72dab",
+  "tree_sha": "8f9530415034bdb885c1c765aee434797c70e7c7",
+  "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+  "node": "compute-0-21",
+  "warmup_updates": 2,
+  "measured_updates": 20,
+  "member_roles": [
+    "reference",
+    "candidate",
+    "candidate",
+    "reference"
+  ],
+  "cases": {
+    "a00_manual": {
+      "series_id": "A00_manual_R1_Av2_C35_7ffe_v1",
+      "family": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A00_manual_R1_Av2_ABBA_v1",
+      "numeric_job_id": "4524712",
+      "numeric_CPU_job_id": "4524717",
+      "numeric_closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_GPU4712_CPU4717_Root_closure_actual_v1.json",
+        "bytes": 11962,
+        "sha256": "0c9486fe4c431948de80725c52f87ee10464b306d76db7e261b37d8b2f2c50c9"
+      },
+      "numeric_schema": "model_v3_Root_current_Av2_manual_full_and_original_capacity_consumer_closure_v1",
+      "numeric_status": "ACTUAL_CURRENT_SOURCE_V2_FULL20_AND500_PASS_AND_EXISTING_CPU_CAPACITY_CONSUMER_C0",
+      "numeric_artifacts": {
+        "configuration": {
+          "bytes": 103264,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/configuration.json",
+          "sha256": "08d0b21b4e14772be1982f52bb27f6dd9ccdb34a04a5d01751b65fa36aa3e34e"
+        },
+        "parent_sacct": {
+          "bytes": 367,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A00_manual_Av2_GPU4712_parent_sacct_Root_actual_v1.json",
+          "sha256": "7b7140c2b6e3f44ca76355f17d627d46725c5d970f1c24e20c4af2024a6579e0"
+        },
+        "run_status": {
+          "bytes": 11720,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/run_status.json",
+          "sha256": "979f00b5254066d9621bfa69e32bf7266df0eff9741039951ee2c84ba016f5ad"
+        },
+        "steps": {
+          "bytes": 2924027,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/resources.jsonl",
+          "sha256": "8ea7329f9cef3e943510a8d7c767d8c7f07d1820c97988d597788a4cdc40d1c9"
+        },
+        "summary": {
+          "bytes": 12121,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/summary.json",
+          "sha256": "2fd5a7ec3d9de39e5a2bded0c08feb4c3e1c86f989db03e51fda7788d05167db"
+        },
+        "supervisor": {
+          "bytes": 5562,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/supervisor.json",
+          "sha256": "ed94404f301289e7bf244dee486261d96190bb11e92d7efdbfe2d3907959fad0"
+        }
+      },
+      "candidate_options": {
+        "bytes": 301,
+        "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a00_control.json",
+        "sha256": "52ae1dae8ff65229a2b4f26b281a0e488e751e08671dbf953d33601e6c1a6bf0"
+      },
+      "checkpoint_flags": {
+        "distance_checkpointing": true,
+        "backbone_checkpointing": true,
+        "head_checkpointing": true
+      },
+      "source_guard": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_GPU_v1_source/source_guard.py",
+        "bytes": 10917,
+        "sha256": "66313b3c1d8276c6061edfa03ada69bf6478fded9b357149443f1a73425de4d8"
+      },
+      "source_guard_dependencies": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_GPU_v1_source/dependencies.json",
+        "bytes": 7742,
+        "sha256": "3b98323acb449766a124c1d495bd5343b2cda874b698408f730972ac5df36aa8"
+      },
+      "SDK_closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A00_manual_Av2_R2_SDK_Root_closure_actual_v1.json",
+        "bytes": 3544,
+        "sha256": "2f4423359b67d85269a4cfc09ce60d4a98345f4643d2b3a6968e73e41c274e62"
+      },
+      "SDK_schema": "performance_A00_Av2_R2_SDK_Root_closure_v1",
+      "SDK_run_ids": [
+        "xrndqgc9",
+        "whmcpg7x"
+      ],
+      "SDK_known_role_map": {
+        "xrndqgc9": "reference",
+        "whmcpg7x": "candidate"
+      }
+    },
+    "head_off": {
+      "series_id": "A03_head_off_R1_Av2_C35_7ffe_v1",
+      "family": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_R1_Av2_ABBA_v1",
+      "numeric_job_id": "4524722",
+      "numeric_CPU_job_id": null,
+      "numeric_closure": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_GPU4722_Root_closure_actual_v1.json",
+        "bytes": 2772,
+        "sha256": "0fbdb4c6313e005f995c3bbe66a451f95ec4967bb08bcdeba938dd995abe0ab0"
+      },
+      "numeric_schema": null,
+      "numeric_status": "CURRENT_SOURCE_FULL20_AND500_V2_PASS_ROOT_CLOSED",
+      "numeric_artifacts": {
+        "configuration": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/configuration.json",
+          "bytes": 103272,
+          "sha256": "0cc382ec1479b428e295e0f85cac11e4fb04eb62ed477ba4661acebaa14e3a0d"
+        },
+        "summary": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/summary.json",
+          "bytes": 12121,
+          "sha256": "210bdd1413b27c3eb88c0368e8f334d57f7b5e10d2941d1380d773adc40484da"
+        },
+        "run_status": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/run_status.json",
+          "bytes": 11717,
+          "sha256": "d3d24bcee751c5f1fe8c8ab10a054e4a53c9712ed92af031761237ea6c2a033a"
+        },
+        "supervisor": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/supervisor.json",
+          "bytes": 5571,
+          "sha256": "853c7877654713dfde5bb4f2f9d0e7bc3c85cc5b8b69d0c586bfcf840a80d2f2"
+        },
+        "fixed_batch_gate": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/fixed_batch_gate.json",
+          "bytes": 6098743,
+          "sha256": "14abee946ddb298745e43426e844c6fb0fe38ceafae457fc222d929e727586a4"
+        },
+        "trajectory_gate": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/trajectory_gate.json",
+          "bytes": 42490,
+          "sha256": "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+        }
+      },
+      "candidate_options": {
+        "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a03_head_off.json",
+        "bytes": 302,
+        "sha256": "9e958e8fb4374211f80e2c8ed741266b93f701dbde15f2dd36cb862a9e10723e"
+      },
+      "checkpoint_flags": {
+        "distance_checkpointing": true,
+        "backbone_checkpointing": true,
+        "head_checkpointing": false
+      },
+      "source_guard": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_GPU_v2_source/source_guard.py",
+        "bytes": 12321,
+        "sha256": "62aca94491af2bbade2082838426e2eb65e7b5b7117d2bcfee95beb7cb760ff8"
+      },
+      "source_guard_dependencies": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_GPU_v2_source/dependencies.json",
+        "bytes": 15189,
+        "sha256": "0699b69909d6a4dcec546398d564880f4067ea56d564c91bc9a5336510003305"
+      },
+      "SDK_closure": null,
+      "SDK_schema": "performance_HeadOff_Av2_R2_SDK_Root_closure_v1",
+      "SDK_run_ids": [
+        "blzi1573",
+        "kvk4vyf8"
+      ],
+      "SDK_known_role_map": null
+    }
+  },
+  "resources": {
+    "cpus": 16,
+    "Slurm_memory_MiB": 65536,
+    "Slurm_wall_seconds": 7200,
+    "supervisor_wall_seconds": 6900,
+    "RSS_limit_bytes": 60129542144,
+    "persistent_per_member_bytes": 2147483648,
+    "private_per_member_bytes": 2147483648,
+    "GPU_fraction_limit": 0.85,
+    "Root_resource_frame_max_seconds": 120
+  },
+  "actual_R1_jobs": null,
+  "actual_speed_report": null,
+  "Auto4745_included": false,
+  "no_historical_R1_reference_timings": true
+}

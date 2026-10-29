@@ -1,0 +1,1298 @@
+{
+  "schema": "model_v3_remaining_six_A_cohort_v2_routing_execution_plan_v2",
+  "status": "SOURCE_ONLY_PRE_REGISTRATION_NO_NEW_RESULTS",
+  "source_directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4",
+  "method_prefix": "docs/model_v3/pre_registered_methods/performance_remaining_Av2_20261029_routing_v4/",
+  "method_files": [
+    "PLAN.json",
+    "METHODS.md",
+    "run_remaining_Av2.sbatch",
+    "Root_submit.py",
+    "source_pins.json"
+  ],
+  "current_source": {
+    "worktree": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1",
+    "local_commit": "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+    "public_commit": "2b4a4df8636e5d65915d535472ba01084ea72dab",
+    "tree": "8f9530415034bdb885c1c765aee434797c70e7c7"
+  },
+  "rules": {
+    "version": "v2",
+    "public_commit": "4f6ba16973ea4a30472c7fb33d3aadec974a4462",
+    "forward_relative_l2_max": 0.00001,
+    "gradient_elementwise_atol": 1e-8,
+    "gradient_elementwise_rtol": 0.0001,
+    "analytic_zero_both_gradient_L2_max": 1e-8,
+    "trajectory_each_relative_loss_max": 0.001,
+    "fixed_batches": 20,
+    "trajectory_updates": 500,
+    "fixed_batch_only_allowed": false
+  },
+  "common": {
+    "input": "native_s",
+    "seed": 0,
+    "workers": 8,
+    "max_padded_cost": 8000000,
+    "model_layers": 6,
+    "model_dim": 512,
+    "model_heads": 8,
+    "snapshot_sha256": "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+    "reference_backbone_None_means": "keep original model activation_checkpointing=true",
+    "candidate_json_no_rewrite": true,
+    "resume": false,
+    "export_model_checkpoint": false,
+    "SDK": "original paired native offline tracker + normal/exception finish; audit and selective sync actual runs afterward",
+    "old_500_reuse": false
+  },
+  "resources": {
+    "cpus": 16,
+    "Slurm_mem_GiB": 64,
+    "Slurm_wall_seconds": 7200,
+    "supervisor_wall_seconds": 6900,
+    "RSS_limit_bytes": 60129542144,
+    "whole_persistent_bytes": 2147483648,
+    "private_bytes": 2147483648,
+    "GPU_fraction_limit": 0.85,
+    "quota_reserve_bytes": 68719476736,
+    "UUID_lock_owner": "paired_a_acceptance only",
+    "fresh_Root_admission_required": true,
+    "hold": "independent one-job2GiB; Root original registry_lock",
+    "fresh_accounting_from_existing_tools": true
+  },
+  "dependencies": {
+    "existing_source_guard": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_GPU_v1_source/source_guard.py",
+      "bytes": 10917,
+      "sha256": "66313b3c1d8276c6061edfa03ada69bf6478fded9b357149443f1a73425de4d8"
+    },
+    "existing_source_guard_dependencies": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_GPU_v1_source/dependencies.json",
+      "bytes": 7742,
+      "sha256": "3b98323acb449766a124c1d495bd5343b2cda874b698408f730972ac5df36aa8"
+    },
+    "candidate_publication": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_acceptance_v2_candidate_publication_actual_v1.json",
+      "bytes": 2256,
+      "sha256": "a4da11baf0cd9da37f9eff2c1a7db34d166c44be5e1a28bed038c5ff1c60e185"
+    },
+    "full_CPU_Root_closure": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_acceptance_v2_full_auto_pre_v1_CPU_4524695_Root_closure_actual_v1.json",
+      "bytes": 964893,
+      "sha256": "2e1355acd9776443eb0ab2bf2eb0d8e4a212951f0e1bf57dd2c0637465f8403f"
+    },
+    "rule_publication": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_gradient_rules_v2_publication_actual_v1.json",
+      "bytes": 2608,
+      "sha256": "f5a8980fc0a4f11e4e6f9745f861147a0bd3a786b0da29078157ad91503f94d6"
+    },
+    "rule_document": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/DECISION_RULES_A_ACCEPTANCE_V2_20261028.md",
+      "bytes": 5747,
+      "sha256": "78bd6ac4a4ebfa605cf668217ddd89d5443516d4977101444590321cb16175ae"
+    },
+    "reference_configuration": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+      "bytes": 34127,
+      "sha256": "af26f79be41d99bac5de410b686bccdf608b830b772d0dde06491bb146d35324"
+    },
+    "A4_configuration": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/s_denoise/configs/A4_seed0_v3.json",
+      "bytes": 3852,
+      "sha256": "fa8f4dc6430eacd50691f95d3b865bd54665310c9dba038f118294a0a5d29122"
+    },
+    "paired_runner": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/paired_a_acceptance.py",
+      "bytes": 27732,
+      "sha256": "1f8178be2c7dc4c724d58769216012a96d895d84fc94076db0a16594b1da07f7"
+    },
+    "supervisor": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/run_supervised.py",
+      "bytes": 15264,
+      "sha256": "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+    },
+    "shared_A_runtime": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/a_execution_runtime.py",
+      "bytes": 17280,
+      "sha256": "ed2577bbb1d265b91edb1b515e2203cec1977d18b46553ff28120d0d8bfa46d0"
+    },
+    "single_R1_runner": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/single_a_benchmark.py",
+      "bytes": 13246,
+      "sha256": "0a522edd0ffce5891492974b6170de3b874a767b3099b5c328cdd2dce9567c9a"
+    },
+    "ABBA_report": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/a_speed_report.py",
+      "bytes": 11218,
+      "sha256": "c4427d32db4ca429c7bcfa6a8494cb0e07ccd24009e2ea0a6fe076b71673ed27"
+    },
+    "performance_model": {
+      "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/v3_performance.py",
+      "bytes": 18112,
+      "sha256": "32768ce0c5708d9e27b022a4ff5f207e928f4226ceb4e89847fe9d29ee5c88e2"
+    },
+    "existing_Root_resource_driver": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Av2_GPU_v1_source/Root_submit_v1.py",
+      "bytes": 12620,
+      "sha256": "68ae85761ea6a5237dfb0ee00ce27f83341692242af5416fe0c5b911d650cab4"
+    },
+    "existing_registry_lock_delegate": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Av2_GPU_v1_source/source_guard.py",
+      "bytes": 18298,
+      "sha256": "bd851e687272cd8b1a57e2e85bf5e08a0a7b0836958a528a5b50122464f4b698"
+    },
+    "existing_registry_lock_delegate_dependencies": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Av2_GPU_v1_source/dependencies.json",
+      "bytes": 18715,
+      "sha256": "a839478ab4b745ff4c569f05090883137f5229974f5aecc363c0817f5cce3208"
+    },
+    "existing_root_phase_lock": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_launch_v8/root_phase.py",
+      "bytes": 7680,
+      "sha256": "7f877919d4f3a66a5fc249b68412020ad887bbed5ed81a9b3a08f1f9773e26da"
+    },
+    "existing_root_phase_common": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_launch_v8/common.py",
+      "bytes": 6438,
+      "sha256": "ad6b351ac157c52a952b9cc7625eadbfee78316172e9f31cc23e8e9dcdf0faf6"
+    }
+  },
+  "cases": [
+    {
+      "old_job_id": "4520486",
+      "case": "A00_control_legacy",
+      "original_configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a00_control_4520486/configuration.json",
+        "bytes": 18092,
+        "sha256": "03fe0ccad5499925ad791bcc93c4796d9f53959e3f9c31b17397febf82b9204b"
+      },
+      "original_supervisor": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520486.json",
+        "bytes": 3556,
+        "sha256": "35fb6d3f1ed3e198750c879f58a2ee88f0ff26d9d26fcb89dfc0f9010b0e26b7"
+      },
+      "historical_source_commit": "8ece64c685fe287d6863fbbe2f6f52006632a5cc",
+      "historical_public_prereg": "61658a4c1f472de035601dbedc17809315774784",
+      "historical_old500_provenance": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a00_control_4520486/trajectory_gate.json",
+        "bytes": 42490,
+        "sha256": "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+      },
+      "old500_reused": false,
+      "old_v1_status_unchanged": true,
+      "expected_gpu": "5090",
+      "gpu_name": "NVIDIA GeForce RTX 5090",
+      "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+      "expected_node": "compute-0-21",
+      "logical_python": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+      "candidate_options": {
+        "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a00_control.json",
+        "bytes": 301,
+        "sha256": "52ae1dae8ff65229a2b4f26b281a0e488e751e08671dbf953d33601e6c1a6bf0"
+      },
+      "candidate": {
+        "attention_backend": "dense",
+        "backbone_checkpointing": true,
+        "compile_backbone": false,
+        "compile_dynamic": true,
+        "distance_checkpointing": true,
+        "distance_implementation": "tiled",
+        "distance_pair_rows": 65536,
+        "fused_adamw": false,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "sparse_query_chunk": 32,
+        "tf32": false
+      },
+      "reference_options": {
+        "attention_backend": "dense",
+        "backbone_checkpointing": null,
+        "compile_backbone": false,
+        "compile_dynamic": true,
+        "distance_checkpointing": true,
+        "distance_implementation": "tiled",
+        "distance_pair_rows": 65536,
+        "fused_adamw": false,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "sparse_query_chunk": 32,
+        "tf32": false
+      },
+      "performance_execution_request": null,
+      "model": {
+        "architecture": {
+          "preset": "shared_light",
+          "task_route": "light",
+          "type": "shared_multitask"
+        },
+        "backbone": {
+          "activation_checkpointing": true,
+          "dim": 512,
+          "dropout": 0,
+          "ff_mult": 2,
+          "heads": 8,
+          "layers": 6,
+          "n_atom_types": 119,
+          "radius": 8,
+          "use_dist_bias": true,
+          "use_radius_mask": false
+        },
+        "expert": {
+          "dropout": 0,
+          "ff_mult": 2,
+          "heads": 8,
+          "internal_layers": 0,
+          "real_layers": 2
+        },
+        "head": {
+          "geometry_head": "equivariant_noise",
+          "geometry_hidden_dim": 64,
+          "geometry_message_layers": 0,
+          "geometry_normalization": "none",
+          "geometry_pair_chunk_size": 8192,
+          "geometry_radius": 5,
+          "geometry_rbf_count": 32,
+          "geometry_residual_scale": 0.1,
+          "profile": "phase1"
+        }
+      },
+      "original_data_version": {
+        "exact_atom_sort": false,
+        "input_kind": "native_s",
+        "loader": {
+          "num_workers": 8,
+          "persistent_workers": false,
+          "pin_memory": true,
+          "prefetch_factor": 2,
+          "worker_timeout_seconds": 600
+        },
+        "manifest_path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/manifest.json",
+        "manifest_sha256": "2f69b672350744369b08c672b62e3d276487714abc97b766a12140ec5af59997",
+        "native_transport": {
+          "bytes": 13653,
+          "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/native_qa_stats_v3.py",
+          "sha256": "16c37ed53f6007b459981b734001fd3fef9dd225257b0d5d6eb8c54a4992772b"
+        },
+        "noise_seed_includes_epoch": true,
+        "original_shard_snapshot": {
+          "bytes": 5974,
+          "inode": 66592526523,
+          "mtime_ns": 1791880208985935400,
+          "node_local_device_projection": "separate_existing_v2_adapter_copy_only",
+          "original_bytes_modified": false,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/shard_snapshot_v1.json",
+          "sha256": "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+          "st_dev": 50,
+          "uid": 1278
+        },
+        "sampler": {
+          "atom_bucket_width": 16,
+          "block_size": 4096,
+          "max_molecules": 512,
+          "max_native_atoms": 65536,
+          "max_padded_cost": 8000000,
+          "padded_cost_multiplier": 3
+        },
+        "sampler_contract": {
+          "atom_bucket_width": 16,
+          "block_size": 4096,
+          "domain_policy": "original_view_natural_counts_no_oversampling",
+          "max_molecules": 512,
+          "max_native_atoms": 65536,
+          "max_padded_cost": 8000000,
+          "oversized_molecule_policy": "singleton_no_discard",
+          "padded_cost_multiplier": 3,
+          "padded_cost_recipe": "multiplier_times_base_molecules_times_max_native_atoms_squared",
+          "partial_block_and_epoch_batches": "retain",
+          "schema_version": "phase1_block_atom_sampler_v1",
+          "seed": 0,
+          "view_sha256": "138daeaccd91a627b7e80ea5f1b032721438331f28d0244f764c4e10b5f1bfaf"
+        },
+        "sampler_contract_sha256": "ecb67948413fe6b1a507ecec8e95bc864fa439eb7be09e1f1b174e105d0da50e",
+        "seed": 0
+      },
+      "family": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520486_routing_v4",
+      "child_output": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520486_routing_v4/child",
+      "supervisor_record": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520486_routing_v4/supervisor.json",
+      "control": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520486_routing_v4/control",
+      "actual_new_job": null,
+      "actual_new_numeric_result": null,
+      "R1_speed_result": null,
+      "active_paths": {
+        "attention_backend": "RuntimeDenseAttention",
+        "attention_mask": "original padding key mask only; global attention, use_radius_mask=false",
+        "radius_and_sparse_query_chunk_active": false,
+        "distance": "TiledDistanceMLP pair_rows65536 + original distance checkpoint",
+        "backbone_checkpointing": true,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "AMP": false,
+        "TF32": false,
+        "fused_adamw": false,
+        "torch_compile": false,
+        "padding_integration": null
+      },
+      "cohort_scope": "Fresh current-source full v2 numeric and later paired R1 on the declared target UUID only; no historical500/timing reuse and no22e qualification from C35.",
+      "historical_original_gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+      "historical_original_node": "compute-0-21",
+      "declared_routing_change": "SAME_ORIGINAL_PHYSICAL_TARGET_NEW_ATTEMPT_FAMILY"
+    },
+    {
+      "old_job_id": "4520405",
+      "case": "A00_control",
+      "original_configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520405/configuration.json",
+        "bytes": 16903,
+        "sha256": "55d0e8b5e9252f17d26f62df0ae84649d39b271c607e5c9efc39868b5bbfe8c4"
+      },
+      "original_supervisor": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_supervisor_4520405.json",
+        "bytes": 3151,
+        "sha256": "2d3c40c58b210a56c73ec4788ac7c50a2e1cb4480ae125913fb03e14899e60bd"
+      },
+      "historical_source_commit": "a6c62038643b69d4e44dbb2eb2adf235472cd344",
+      "historical_public_prereg": "33671a8f8c13a5907d34102a649a7d0a998c6e54",
+      "historical_old500_provenance": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520405/trajectory_gate.json",
+        "bytes": 42490,
+        "sha256": "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+      },
+      "old500_reused": false,
+      "old_v1_status_unchanged": true,
+      "expected_gpu": "4090",
+      "gpu_name": "NVIDIA GeForce RTX 4090",
+      "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "expected_node": "compute-0-20",
+      "logical_python": "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+      "candidate_options": {
+        "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a00_control.json",
+        "bytes": 301,
+        "sha256": "52ae1dae8ff65229a2b4f26b281a0e488e751e08671dbf953d33601e6c1a6bf0"
+      },
+      "candidate": {
+        "attention_backend": "dense",
+        "backbone_checkpointing": true,
+        "compile_backbone": false,
+        "compile_dynamic": true,
+        "distance_checkpointing": true,
+        "distance_implementation": "tiled",
+        "distance_pair_rows": 65536,
+        "fused_adamw": false,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "sparse_query_chunk": 32,
+        "tf32": false
+      },
+      "reference_options": {
+        "attention_backend": "dense",
+        "backbone_checkpointing": null,
+        "compile_backbone": false,
+        "compile_dynamic": true,
+        "distance_checkpointing": true,
+        "distance_implementation": "tiled",
+        "distance_pair_rows": 65536,
+        "fused_adamw": false,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "sparse_query_chunk": 32,
+        "tf32": false
+      },
+      "performance_execution_request": null,
+      "model": {
+        "architecture": {
+          "preset": "shared_light",
+          "task_route": "light",
+          "type": "shared_multitask"
+        },
+        "backbone": {
+          "activation_checkpointing": true,
+          "dim": 512,
+          "dropout": 0,
+          "ff_mult": 2,
+          "heads": 8,
+          "layers": 6,
+          "n_atom_types": 119,
+          "radius": 8,
+          "use_dist_bias": true,
+          "use_radius_mask": false
+        },
+        "expert": {
+          "dropout": 0,
+          "ff_mult": 2,
+          "heads": 8,
+          "internal_layers": 0,
+          "real_layers": 2
+        },
+        "head": {
+          "geometry_head": "equivariant_noise",
+          "geometry_hidden_dim": 64,
+          "geometry_message_layers": 0,
+          "geometry_normalization": "none",
+          "geometry_pair_chunk_size": 8192,
+          "geometry_radius": 5,
+          "geometry_rbf_count": 32,
+          "geometry_residual_scale": 0.1,
+          "profile": "phase1"
+        }
+      },
+      "original_data_version": {
+        "exact_atom_sort": false,
+        "input_kind": "native_s",
+        "loader": {
+          "num_workers": 8,
+          "persistent_workers": false,
+          "pin_memory": true,
+          "prefetch_factor": 2,
+          "worker_timeout_seconds": 600
+        },
+        "manifest_path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/manifest.json",
+        "manifest_sha256": "2f69b672350744369b08c672b62e3d276487714abc97b766a12140ec5af59997",
+        "native_transport": {
+          "bytes": 13653,
+          "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/native_qa_stats_v3.py",
+          "sha256": "16c37ed53f6007b459981b734001fd3fef9dd225257b0d5d6eb8c54a4992772b"
+        },
+        "noise_seed_includes_epoch": true,
+        "original_shard_snapshot": {
+          "bytes": 5974,
+          "inode": 66592526523,
+          "mtime_ns": 1791880208985935400,
+          "node_local_device_projection": "separate_existing_v2_adapter_copy_only",
+          "original_bytes_modified": false,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/shard_snapshot_v1.json",
+          "sha256": "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+          "st_dev": 52,
+          "uid": 1278
+        },
+        "sampler": {
+          "atom_bucket_width": 16,
+          "block_size": 4096,
+          "max_molecules": 512,
+          "max_native_atoms": 65536,
+          "max_padded_cost": 8000000,
+          "padded_cost_multiplier": 3
+        },
+        "sampler_contract": {
+          "atom_bucket_width": 16,
+          "block_size": 4096,
+          "domain_policy": "original_view_natural_counts_no_oversampling",
+          "max_molecules": 512,
+          "max_native_atoms": 65536,
+          "max_padded_cost": 8000000,
+          "oversized_molecule_policy": "singleton_no_discard",
+          "padded_cost_multiplier": 3,
+          "padded_cost_recipe": "multiplier_times_base_molecules_times_max_native_atoms_squared",
+          "partial_block_and_epoch_batches": "retain",
+          "schema_version": "phase1_block_atom_sampler_v1",
+          "seed": 0,
+          "view_sha256": "138daeaccd91a627b7e80ea5f1b032721438331f28d0244f764c4e10b5f1bfaf"
+        },
+        "sampler_contract_sha256": "ecb67948413fe6b1a507ecec8e95bc864fa439eb7be09e1f1b174e105d0da50e",
+        "seed": 0
+      },
+      "family": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520405_routing_v4",
+      "child_output": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520405_routing_v4/child",
+      "supervisor_record": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520405_routing_v4/supervisor.json",
+      "control": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520405_routing_v4/control",
+      "actual_new_job": null,
+      "actual_new_numeric_result": null,
+      "R1_speed_result": null,
+      "active_paths": {
+        "attention_backend": "RuntimeDenseAttention",
+        "attention_mask": "original padding key mask only; global attention, use_radius_mask=false",
+        "radius_and_sparse_query_chunk_active": false,
+        "distance": "TiledDistanceMLP pair_rows65536 + original distance checkpoint",
+        "backbone_checkpointing": true,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "AMP": false,
+        "TF32": false,
+        "fused_adamw": false,
+        "torch_compile": false,
+        "padding_integration": null
+      },
+      "cohort_scope": "Fresh current-source full v2 numeric and later paired R1 on the declared target UUID only; no historical500/timing reuse and no22e qualification from C35.",
+      "historical_original_gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "historical_original_node": "compute-0-20",
+      "declared_routing_change": "SAME_ORIGINAL_PHYSICAL_TARGET_NEW_ATTEMPT_FAMILY"
+    },
+    {
+      "old_job_id": "4520456",
+      "case": "A01_backbone_off",
+      "original_configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/configuration.json",
+        "bytes": 18032,
+        "sha256": "3abd37472f6eaae1af916f10ae798363120abe596944dd19e09f9147540abf12"
+      },
+      "original_supervisor": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520456.json",
+        "bytes": 3458,
+        "sha256": "c8f32918e1ad3dc6004615f3c2a333de49b2bb4b428b4c70f43e4c72b756f1be"
+      },
+      "historical_source_commit": "8ece64c685fe287d6863fbbe2f6f52006632a5cc",
+      "historical_public_prereg": "61658a4c1f472de035601dbedc17809315774784",
+      "historical_old500_provenance": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/trajectory_gate.json",
+        "bytes": 42490,
+        "sha256": "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+      },
+      "old500_reused": false,
+      "old_v1_status_unchanged": true,
+      "expected_gpu": "4090",
+      "gpu_name": "NVIDIA GeForce RTX 4090",
+      "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "expected_node": "compute-0-20",
+      "logical_python": "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+      "candidate_options": {
+        "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a01_backbone_off.json",
+        "bytes": 302,
+        "sha256": "d3bb101a8e5417fcbe998c39f97698e6902a9b06851a343aa0a0e4830ef0e8d4"
+      },
+      "candidate": {
+        "attention_backend": "dense",
+        "backbone_checkpointing": false,
+        "compile_backbone": false,
+        "compile_dynamic": true,
+        "distance_checkpointing": true,
+        "distance_implementation": "tiled",
+        "distance_pair_rows": 65536,
+        "fused_adamw": false,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "sparse_query_chunk": 32,
+        "tf32": false
+      },
+      "reference_options": {
+        "attention_backend": "dense",
+        "backbone_checkpointing": null,
+        "compile_backbone": false,
+        "compile_dynamic": true,
+        "distance_checkpointing": true,
+        "distance_implementation": "tiled",
+        "distance_pair_rows": 65536,
+        "fused_adamw": false,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "sparse_query_chunk": 32,
+        "tf32": false
+      },
+      "performance_execution_request": null,
+      "model": {
+        "architecture": {
+          "preset": "shared_light",
+          "task_route": "light",
+          "type": "shared_multitask"
+        },
+        "backbone": {
+          "activation_checkpointing": true,
+          "dim": 512,
+          "dropout": 0,
+          "ff_mult": 2,
+          "heads": 8,
+          "layers": 6,
+          "n_atom_types": 119,
+          "radius": 8,
+          "use_dist_bias": true,
+          "use_radius_mask": false
+        },
+        "expert": {
+          "dropout": 0,
+          "ff_mult": 2,
+          "heads": 8,
+          "internal_layers": 0,
+          "real_layers": 2
+        },
+        "head": {
+          "geometry_head": "equivariant_noise",
+          "geometry_hidden_dim": 64,
+          "geometry_message_layers": 0,
+          "geometry_normalization": "none",
+          "geometry_pair_chunk_size": 8192,
+          "geometry_radius": 5,
+          "geometry_rbf_count": 32,
+          "geometry_residual_scale": 0.1,
+          "profile": "phase1"
+        }
+      },
+      "original_data_version": {
+        "exact_atom_sort": false,
+        "input_kind": "native_s",
+        "loader": {
+          "num_workers": 8,
+          "persistent_workers": false,
+          "pin_memory": true,
+          "prefetch_factor": 2,
+          "worker_timeout_seconds": 600
+        },
+        "manifest_path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/manifest.json",
+        "manifest_sha256": "2f69b672350744369b08c672b62e3d276487714abc97b766a12140ec5af59997",
+        "native_transport": {
+          "bytes": 13653,
+          "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/native_qa_stats_v3.py",
+          "sha256": "16c37ed53f6007b459981b734001fd3fef9dd225257b0d5d6eb8c54a4992772b"
+        },
+        "noise_seed_includes_epoch": true,
+        "original_shard_snapshot": {
+          "bytes": 5974,
+          "inode": 66592526523,
+          "mtime_ns": 1791880208985935400,
+          "node_local_device_projection": "separate_existing_v2_adapter_copy_only",
+          "original_bytes_modified": false,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/shard_snapshot_v1.json",
+          "sha256": "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+          "st_dev": 52,
+          "uid": 1278
+        },
+        "sampler": {
+          "atom_bucket_width": 16,
+          "block_size": 4096,
+          "max_molecules": 512,
+          "max_native_atoms": 65536,
+          "max_padded_cost": 8000000,
+          "padded_cost_multiplier": 3
+        },
+        "sampler_contract": {
+          "atom_bucket_width": 16,
+          "block_size": 4096,
+          "domain_policy": "original_view_natural_counts_no_oversampling",
+          "max_molecules": 512,
+          "max_native_atoms": 65536,
+          "max_padded_cost": 8000000,
+          "oversized_molecule_policy": "singleton_no_discard",
+          "padded_cost_multiplier": 3,
+          "padded_cost_recipe": "multiplier_times_base_molecules_times_max_native_atoms_squared",
+          "partial_block_and_epoch_batches": "retain",
+          "schema_version": "phase1_block_atom_sampler_v1",
+          "seed": 0,
+          "view_sha256": "138daeaccd91a627b7e80ea5f1b032721438331f28d0244f764c4e10b5f1bfaf"
+        },
+        "sampler_contract_sha256": "ecb67948413fe6b1a507ecec8e95bc864fa439eb7be09e1f1b174e105d0da50e",
+        "seed": 0
+      },
+      "family": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520456_routing_v4",
+      "child_output": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520456_routing_v4/child",
+      "supervisor_record": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520456_routing_v4/supervisor.json",
+      "control": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520456_routing_v4/control",
+      "actual_new_job": null,
+      "actual_new_numeric_result": null,
+      "R1_speed_result": null,
+      "active_paths": {
+        "attention_backend": "RuntimeDenseAttention",
+        "attention_mask": "original padding key mask only; global attention, use_radius_mask=false",
+        "radius_and_sparse_query_chunk_active": false,
+        "distance": "TiledDistanceMLP pair_rows65536 + original distance checkpoint",
+        "backbone_checkpointing": false,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "AMP": false,
+        "TF32": false,
+        "fused_adamw": false,
+        "torch_compile": false,
+        "padding_integration": null
+      },
+      "cohort_scope": "Fresh current-source full v2 numeric and later paired R1 on the declared target UUID only; no historical500/timing reuse and no22e qualification from C35.",
+      "historical_original_gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "historical_original_node": "compute-0-20",
+      "declared_routing_change": "SAME_ORIGINAL_PHYSICAL_TARGET_NEW_ATTEMPT_FAMILY"
+    },
+    {
+      "old_job_id": "4520438",
+      "case": "A00_control",
+      "original_configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520438/configuration.json",
+        "bytes": 16902,
+        "sha256": "d41ca095f379031f9eb32901ba86e9f8cbeb613e58117545376371d55dd4534c"
+      },
+      "original_supervisor": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_supervisor_4520438.json",
+        "bytes": 3152,
+        "sha256": "c685c8082f9009f1ddc3a6807608f6f65f4c0b30cffaaaf7540030afe54cce9d"
+      },
+      "historical_source_commit": "6df0aa51e497df0d3aee3781110a9a42e029c373",
+      "historical_public_prereg": "33671a8f8c13a5907d34102a649a7d0a998c6e54",
+      "historical_old500_provenance": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520438/trajectory_gate.json",
+        "bytes": 42490,
+        "sha256": "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+      },
+      "old500_reused": false,
+      "old_v1_status_unchanged": true,
+      "expected_gpu": "3090",
+      "gpu_name": "NVIDIA GeForce RTX 3090",
+      "gpu_uuid": "GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332",
+      "expected_node": "compute-0-0",
+      "logical_python": "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+      "candidate_options": {
+        "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a00_control.json",
+        "bytes": 301,
+        "sha256": "52ae1dae8ff65229a2b4f26b281a0e488e751e08671dbf953d33601e6c1a6bf0"
+      },
+      "candidate": {
+        "attention_backend": "dense",
+        "backbone_checkpointing": true,
+        "compile_backbone": false,
+        "compile_dynamic": true,
+        "distance_checkpointing": true,
+        "distance_implementation": "tiled",
+        "distance_pair_rows": 65536,
+        "fused_adamw": false,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "sparse_query_chunk": 32,
+        "tf32": false
+      },
+      "reference_options": {
+        "attention_backend": "dense",
+        "backbone_checkpointing": null,
+        "compile_backbone": false,
+        "compile_dynamic": true,
+        "distance_checkpointing": true,
+        "distance_implementation": "tiled",
+        "distance_pair_rows": 65536,
+        "fused_adamw": false,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "sparse_query_chunk": 32,
+        "tf32": false
+      },
+      "performance_execution_request": null,
+      "model": {
+        "architecture": {
+          "preset": "shared_light",
+          "task_route": "light",
+          "type": "shared_multitask"
+        },
+        "backbone": {
+          "activation_checkpointing": true,
+          "dim": 512,
+          "dropout": 0,
+          "ff_mult": 2,
+          "heads": 8,
+          "layers": 6,
+          "n_atom_types": 119,
+          "radius": 8,
+          "use_dist_bias": true,
+          "use_radius_mask": false
+        },
+        "expert": {
+          "dropout": 0,
+          "ff_mult": 2,
+          "heads": 8,
+          "internal_layers": 0,
+          "real_layers": 2
+        },
+        "head": {
+          "geometry_head": "equivariant_noise",
+          "geometry_hidden_dim": 64,
+          "geometry_message_layers": 0,
+          "geometry_normalization": "none",
+          "geometry_pair_chunk_size": 8192,
+          "geometry_radius": 5,
+          "geometry_rbf_count": 32,
+          "geometry_residual_scale": 0.1,
+          "profile": "phase1"
+        }
+      },
+      "original_data_version": {
+        "exact_atom_sort": false,
+        "input_kind": "native_s",
+        "loader": {
+          "num_workers": 8,
+          "persistent_workers": false,
+          "pin_memory": true,
+          "prefetch_factor": 2,
+          "worker_timeout_seconds": 600
+        },
+        "manifest_path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/manifest.json",
+        "manifest_sha256": "2f69b672350744369b08c672b62e3d276487714abc97b766a12140ec5af59997",
+        "native_transport": {
+          "bytes": 13653,
+          "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/native_qa_stats_v3.py",
+          "sha256": "16c37ed53f6007b459981b734001fd3fef9dd225257b0d5d6eb8c54a4992772b"
+        },
+        "noise_seed_includes_epoch": true,
+        "original_shard_snapshot": {
+          "bytes": 5974,
+          "inode": 66592526523,
+          "mtime_ns": 1791880208985935400,
+          "node_local_device_projection": "separate_existing_v2_adapter_copy_only",
+          "original_bytes_modified": false,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/shard_snapshot_v1.json",
+          "sha256": "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+          "st_dev": 55,
+          "uid": 1278
+        },
+        "sampler": {
+          "atom_bucket_width": 16,
+          "block_size": 4096,
+          "max_molecules": 512,
+          "max_native_atoms": 65536,
+          "max_padded_cost": 8000000,
+          "padded_cost_multiplier": 3
+        },
+        "sampler_contract": {
+          "atom_bucket_width": 16,
+          "block_size": 4096,
+          "domain_policy": "original_view_natural_counts_no_oversampling",
+          "max_molecules": 512,
+          "max_native_atoms": 65536,
+          "max_padded_cost": 8000000,
+          "oversized_molecule_policy": "singleton_no_discard",
+          "padded_cost_multiplier": 3,
+          "padded_cost_recipe": "multiplier_times_base_molecules_times_max_native_atoms_squared",
+          "partial_block_and_epoch_batches": "retain",
+          "schema_version": "phase1_block_atom_sampler_v1",
+          "seed": 0,
+          "view_sha256": "138daeaccd91a627b7e80ea5f1b032721438331f28d0244f764c4e10b5f1bfaf"
+        },
+        "sampler_contract_sha256": "ecb67948413fe6b1a507ecec8e95bc864fa439eb7be09e1f1b174e105d0da50e",
+        "seed": 0
+      },
+      "family": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520438_routing_v4",
+      "child_output": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520438_routing_v4/child",
+      "supervisor_record": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520438_routing_v4/supervisor.json",
+      "control": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520438_routing_v4/control",
+      "actual_new_job": null,
+      "actual_new_numeric_result": null,
+      "R1_speed_result": null,
+      "active_paths": {
+        "attention_backend": "RuntimeDenseAttention",
+        "attention_mask": "original padding key mask only; global attention, use_radius_mask=false",
+        "radius_and_sparse_query_chunk_active": false,
+        "distance": "TiledDistanceMLP pair_rows65536 + original distance checkpoint",
+        "backbone_checkpointing": true,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "AMP": false,
+        "TF32": false,
+        "fused_adamw": false,
+        "torch_compile": false,
+        "padding_integration": null
+      },
+      "cohort_scope": "Fresh current-source full v2 numeric and later paired R1 on the declared target UUID only; no historical500/timing reuse and no22e qualification from C35.",
+      "historical_original_gpu_uuid": "GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332",
+      "historical_original_node": "compute-0-0",
+      "declared_routing_change": "SAME_ORIGINAL_PHYSICAL_TARGET_NEW_ATTEMPT_FAMILY"
+    },
+    {
+      "old_job_id": "4520411",
+      "case": "A00_control",
+      "original_configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520411/configuration.json",
+        "bytes": 16973,
+        "sha256": "a3040da41e88436a271b30a86c536c9f058d31e763800ac905b23780d960c228"
+      },
+      "original_supervisor": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_supervisor_4520411.json",
+        "bytes": 3279,
+        "sha256": "0368b1e7606804a43323967992c816ee3e6e5a6c1e8fc6673e7e9c5e8919ecba"
+      },
+      "historical_source_commit": "a6c62038643b69d4e44dbb2eb2adf235472cd344",
+      "historical_public_prereg": "33671a8f8c13a5907d34102a649a7d0a998c6e54",
+      "historical_old500_provenance": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520411/trajectory_gate.json",
+        "bytes": 42490,
+        "sha256": "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+      },
+      "old500_reused": false,
+      "old_v1_status_unchanged": true,
+      "expected_gpu": "5090",
+      "gpu_name": "NVIDIA GeForce RTX 5090",
+      "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+      "expected_node": "compute-0-21",
+      "logical_python": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+      "candidate_options": {
+        "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a00_control.json",
+        "bytes": 301,
+        "sha256": "52ae1dae8ff65229a2b4f26b281a0e488e751e08671dbf953d33601e6c1a6bf0"
+      },
+      "candidate": {
+        "attention_backend": "dense",
+        "backbone_checkpointing": true,
+        "compile_backbone": false,
+        "compile_dynamic": true,
+        "distance_checkpointing": true,
+        "distance_implementation": "tiled",
+        "distance_pair_rows": 65536,
+        "fused_adamw": false,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "sparse_query_chunk": 32,
+        "tf32": false
+      },
+      "reference_options": {
+        "attention_backend": "dense",
+        "backbone_checkpointing": null,
+        "compile_backbone": false,
+        "compile_dynamic": true,
+        "distance_checkpointing": true,
+        "distance_implementation": "tiled",
+        "distance_pair_rows": 65536,
+        "fused_adamw": false,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "sparse_query_chunk": 32,
+        "tf32": false
+      },
+      "performance_execution_request": null,
+      "model": {
+        "architecture": {
+          "preset": "shared_light",
+          "task_route": "light",
+          "type": "shared_multitask"
+        },
+        "backbone": {
+          "activation_checkpointing": true,
+          "dim": 512,
+          "dropout": 0,
+          "ff_mult": 2,
+          "heads": 8,
+          "layers": 6,
+          "n_atom_types": 119,
+          "radius": 8,
+          "use_dist_bias": true,
+          "use_radius_mask": false
+        },
+        "expert": {
+          "dropout": 0,
+          "ff_mult": 2,
+          "heads": 8,
+          "internal_layers": 0,
+          "real_layers": 2
+        },
+        "head": {
+          "geometry_head": "equivariant_noise",
+          "geometry_hidden_dim": 64,
+          "geometry_message_layers": 0,
+          "geometry_normalization": "none",
+          "geometry_pair_chunk_size": 8192,
+          "geometry_radius": 5,
+          "geometry_rbf_count": 32,
+          "geometry_residual_scale": 0.1,
+          "profile": "phase1"
+        }
+      },
+      "original_data_version": {
+        "exact_atom_sort": false,
+        "input_kind": "native_s",
+        "loader": {
+          "num_workers": 8,
+          "persistent_workers": false,
+          "pin_memory": true,
+          "prefetch_factor": 2,
+          "worker_timeout_seconds": 600
+        },
+        "manifest_path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/manifest.json",
+        "manifest_sha256": "2f69b672350744369b08c672b62e3d276487714abc97b766a12140ec5af59997",
+        "native_transport": {
+          "bytes": 13653,
+          "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/native_qa_stats_v3.py",
+          "sha256": "16c37ed53f6007b459981b734001fd3fef9dd225257b0d5d6eb8c54a4992772b"
+        },
+        "noise_seed_includes_epoch": true,
+        "original_shard_snapshot": {
+          "bytes": 5974,
+          "inode": 66592526523,
+          "mtime_ns": 1791880208985935400,
+          "node_local_device_projection": "separate_existing_v2_adapter_copy_only",
+          "original_bytes_modified": false,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/shard_snapshot_v1.json",
+          "sha256": "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+          "st_dev": 50,
+          "uid": 1278
+        },
+        "sampler": {
+          "atom_bucket_width": 16,
+          "block_size": 4096,
+          "max_molecules": 512,
+          "max_native_atoms": 65536,
+          "max_padded_cost": 8000000,
+          "padded_cost_multiplier": 3
+        },
+        "sampler_contract": {
+          "atom_bucket_width": 16,
+          "block_size": 4096,
+          "domain_policy": "original_view_natural_counts_no_oversampling",
+          "max_molecules": 512,
+          "max_native_atoms": 65536,
+          "max_padded_cost": 8000000,
+          "oversized_molecule_policy": "singleton_no_discard",
+          "padded_cost_multiplier": 3,
+          "padded_cost_recipe": "multiplier_times_base_molecules_times_max_native_atoms_squared",
+          "partial_block_and_epoch_batches": "retain",
+          "schema_version": "phase1_block_atom_sampler_v1",
+          "seed": 0,
+          "view_sha256": "138daeaccd91a627b7e80ea5f1b032721438331f28d0244f764c4e10b5f1bfaf"
+        },
+        "sampler_contract_sha256": "ecb67948413fe6b1a507ecec8e95bc864fa439eb7be09e1f1b174e105d0da50e",
+        "seed": 0
+      },
+      "family": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520411_routing_v4",
+      "child_output": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520411_routing_v4/child",
+      "supervisor_record": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520411_routing_v4/supervisor.json",
+      "control": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520411_routing_v4/control",
+      "actual_new_job": null,
+      "actual_new_numeric_result": null,
+      "R1_speed_result": null,
+      "active_paths": {
+        "attention_backend": "RuntimeDenseAttention",
+        "attention_mask": "original padding key mask only; global attention, use_radius_mask=false",
+        "radius_and_sparse_query_chunk_active": false,
+        "distance": "TiledDistanceMLP pair_rows65536 + original distance checkpoint",
+        "backbone_checkpointing": true,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "AMP": false,
+        "TF32": false,
+        "fused_adamw": false,
+        "torch_compile": false,
+        "padding_integration": null
+      },
+      "cohort_scope": "Fresh current-source full v2 numeric and later paired R1 on the declared target UUID only; no historical500/timing reuse and no22e qualification from C35.",
+      "historical_original_gpu_uuid": "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+      "historical_original_node": "compute-0-21",
+      "declared_routing_change": "NEW_5090_C35_MEASUREMENT_HISTORICAL22e_UNCHANGED"
+    },
+    {
+      "old_job_id": "4520549",
+      "case": "A03_head_off_legacy",
+      "original_configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a03_head_off_4520549/configuration.json",
+        "bytes": 18094,
+        "sha256": "1fdafa52175d66bd2eaf9c3498407e74cf445a2eb63cb28cf69cc1a195105a67"
+      },
+      "original_supervisor": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520549.json",
+        "bytes": 3561,
+        "sha256": "96fb7af3d732583656a18b86a9898a40cbabf88098010b21ae47d46b88b92332"
+      },
+      "historical_source_commit": "8ece64c685fe287d6863fbbe2f6f52006632a5cc",
+      "historical_public_prereg": "61658a4c1f472de035601dbedc17809315774784",
+      "historical_old500_provenance": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a03_head_off_4520549/trajectory_gate.json",
+        "bytes": 42490,
+        "sha256": "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+      },
+      "old500_reused": false,
+      "old_v1_status_unchanged": true,
+      "expected_gpu": "5090",
+      "gpu_name": "NVIDIA GeForce RTX 5090",
+      "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+      "expected_node": "compute-0-21",
+      "logical_python": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+      "candidate_options": {
+        "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a03_head_off.json",
+        "bytes": 302,
+        "sha256": "9e958e8fb4374211f80e2c8ed741266b93f701dbde15f2dd36cb862a9e10723e"
+      },
+      "candidate": {
+        "attention_backend": "dense",
+        "backbone_checkpointing": true,
+        "compile_backbone": false,
+        "compile_dynamic": true,
+        "distance_checkpointing": true,
+        "distance_implementation": "tiled",
+        "distance_pair_rows": 65536,
+        "fused_adamw": false,
+        "head_checkpointing": false,
+        "precision": "fp32",
+        "sparse_query_chunk": 32,
+        "tf32": false
+      },
+      "reference_options": {
+        "attention_backend": "dense",
+        "backbone_checkpointing": null,
+        "compile_backbone": false,
+        "compile_dynamic": true,
+        "distance_checkpointing": true,
+        "distance_implementation": "tiled",
+        "distance_pair_rows": 65536,
+        "fused_adamw": false,
+        "head_checkpointing": true,
+        "precision": "fp32",
+        "sparse_query_chunk": 32,
+        "tf32": false
+      },
+      "performance_execution_request": null,
+      "model": {
+        "architecture": {
+          "preset": "shared_light",
+          "task_route": "light",
+          "type": "shared_multitask"
+        },
+        "backbone": {
+          "activation_checkpointing": true,
+          "dim": 512,
+          "dropout": 0,
+          "ff_mult": 2,
+          "heads": 8,
+          "layers": 6,
+          "n_atom_types": 119,
+          "radius": 8,
+          "use_dist_bias": true,
+          "use_radius_mask": false
+        },
+        "expert": {
+          "dropout": 0,
+          "ff_mult": 2,
+          "heads": 8,
+          "internal_layers": 0,
+          "real_layers": 2
+        },
+        "head": {
+          "geometry_head": "equivariant_noise",
+          "geometry_hidden_dim": 64,
+          "geometry_message_layers": 0,
+          "geometry_normalization": "none",
+          "geometry_pair_chunk_size": 8192,
+          "geometry_radius": 5,
+          "geometry_rbf_count": 32,
+          "geometry_residual_scale": 0.1,
+          "profile": "phase1"
+        }
+      },
+      "original_data_version": {
+        "exact_atom_sort": false,
+        "input_kind": "native_s",
+        "loader": {
+          "num_workers": 8,
+          "persistent_workers": false,
+          "pin_memory": true,
+          "prefetch_factor": 2,
+          "worker_timeout_seconds": 600
+        },
+        "manifest_path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/manifest.json",
+        "manifest_sha256": "2f69b672350744369b08c672b62e3d276487714abc97b766a12140ec5af59997",
+        "native_transport": {
+          "bytes": 13653,
+          "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/native_qa_stats_v3.py",
+          "sha256": "16c37ed53f6007b459981b734001fd3fef9dd225257b0d5d6eb8c54a4992772b"
+        },
+        "noise_seed_includes_epoch": true,
+        "original_shard_snapshot": {
+          "bytes": 5974,
+          "inode": 66592526523,
+          "mtime_ns": 1791880208985935400,
+          "node_local_device_projection": "separate_existing_v2_adapter_copy_only",
+          "original_bytes_modified": false,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/shard_snapshot_v1.json",
+          "sha256": "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+          "st_dev": 50,
+          "uid": 1278
+        },
+        "sampler": {
+          "atom_bucket_width": 16,
+          "block_size": 4096,
+          "max_molecules": 512,
+          "max_native_atoms": 65536,
+          "max_padded_cost": 8000000,
+          "padded_cost_multiplier": 3
+        },
+        "sampler_contract": {
+          "atom_bucket_width": 16,
+          "block_size": 4096,
+          "domain_policy": "original_view_natural_counts_no_oversampling",
+          "max_molecules": 512,
+          "max_native_atoms": 65536,
+          "max_padded_cost": 8000000,
+          "oversized_molecule_policy": "singleton_no_discard",
+          "padded_cost_multiplier": 3,
+          "padded_cost_recipe": "multiplier_times_base_molecules_times_max_native_atoms_squared",
+          "partial_block_and_epoch_batches": "retain",
+          "schema_version": "phase1_block_atom_sampler_v1",
+          "seed": 0,
+          "view_sha256": "138daeaccd91a627b7e80ea5f1b032721438331f28d0244f764c4e10b5f1bfaf"
+        },
+        "sampler_contract_sha256": "ecb67948413fe6b1a507ecec8e95bc864fa439eb7be09e1f1b174e105d0da50e",
+        "seed": 0
+      },
+      "family": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520549_routing_v4",
+      "child_output": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520549_routing_v4/child",
+      "supervisor_record": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520549_routing_v4/supervisor.json",
+      "control": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/trials/recheck_4520549_routing_v4/control",
+      "actual_new_job": null,
+      "actual_new_numeric_result": null,
+      "R1_speed_result": null,
+      "active_paths": {
+        "attention_backend": "RuntimeDenseAttention",
+        "attention_mask": "original padding key mask only; global attention, use_radius_mask=false",
+        "radius_and_sparse_query_chunk_active": false,
+        "distance": "TiledDistanceMLP pair_rows65536 + original distance checkpoint",
+        "backbone_checkpointing": true,
+        "head_checkpointing": false,
+        "precision": "fp32",
+        "AMP": false,
+        "TF32": false,
+        "fused_adamw": false,
+        "torch_compile": false,
+        "padding_integration": null
+      },
+      "cohort_scope": "Fresh current-source full v2 numeric and later paired R1 on the declared target UUID only; no historical500/timing reuse and no22e qualification from C35.",
+      "historical_original_gpu_uuid": "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+      "historical_original_node": "compute-0-21",
+      "declared_routing_change": "NEW_5090_C35_MEASUREMENT_HISTORICAL22e_UNCHANGED"
+    }
+  ],
+  "exclusions": [
+    "No fused/TF32/A5 retry",
+    "No compensation/diagnostic model or bias removal",
+    "No change to old1338/4558/Native or another user process",
+    "No automatic submission, loop, array, retry, silent rerouting or resource waiver; only the two explicitly declared5090 C35 routes differ"
+  ],
+  "actual_methods_publication": null,
+  "actual_submissions": [],
+  "author_project_execution": false,
+  "routing_version": 4,
+  "routing_parent_v1": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029/PLAN.json",
+      "bytes": 101987,
+      "sha256": "1c5030d867aa3af51a986877050353f956ed8d404ad71b3124c36b107992d4a5"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029/METHODS.md",
+      "bytes": 9590,
+      "sha256": "cdce2f0ea2e5ca5074f7fb7ce0aa8c6211fff4e422b09721f87864c6de3a8a4e"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029/run_remaining_Av2.sbatch",
+      "bytes": 9070,
+      "sha256": "4057c0561bf35a4eee8ddc5d2609ef0e047438b6040134dea103a1d10f96b2e7"
+    }
+  ],
+  "routing_scope": "Six original science rows retained. Only411/549 target the same-model5090 C35 as NEW complete20+500 and matched new R1; historical22e measurements are not requalified.",
+  "routing_trust": {
+    "compute-0-21": {
+      "mode": "PINNED_EXISTING_PUBLIC_PROJECTION",
+      "reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+        "bytes": 94,
+        "sha256": "a8110aae3c90d6de954c49d2418acc17576eaca1373d4f47bf935a16d8b80398"
+      }
+    },
+    "compute-0-20": {
+      "mode": "PINNED_EXISTING_PUBLIC_PROJECTION",
+      "reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute20_known_hosts_v1",
+        "bytes": 834,
+        "sha256": "53248251308ab7cdda2be4fb57c9fd594ce3955a930aa0ca437c840b6b485d8f"
+      }
+    },
+    "compute-0-0": {
+      "mode": "ROOT_BINDS_EXISTING_PERSONAL_TRUST_SHA_EACH_ATTEMPT",
+      "path": "/share/home/zixiao/.ssh/known_hosts",
+      "required_cli": "--known-hosts-sha256",
+      "new_keyscan_accept_new_or_trust_edits_allowed": false
+    }
+  },
+  "operational_only_fix": "Retain v3 namespace-independent resource/science logic; remove one apostrophe from Bash parameter-expansion diagnostic after actual CPU4524767 bash-n failure. No source execution by author.",
+  "routing_parent_v2": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v2/source_pins.json",
+    "bytes": 21211,
+    "sha256": "5e0efb24c56151f807b9d103242156316c8c4b0ac40a73acc8d6e4b5b0b4e22a"
+  },
+  "routing_parent_v3": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v3/source_pins.json",
+    "bytes": 15684,
+    "sha256": "5841d42d81e067c9bc342b6b7bced64ea31fd6fca0b6085de9cf4d60fc36a878"
+  }
+}

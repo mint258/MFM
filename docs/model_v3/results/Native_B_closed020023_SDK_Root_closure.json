@@ -1,0 +1,147 @@
+{
+  "CPU_supervisors": [
+    {
+      "bytes": 3380,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020021_SDK_audit_actual_v1.supervisor.json",
+      "sha256": "143aebf64481d4ed9a5b1e1a8015e13d8a3a2725aa21352c11e023d6552130fb"
+    },
+    {
+      "bytes": 3398,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020021_sync_actual_v1.supervisor.json",
+      "sha256": "c7c45f590b08f5181e4c6fe730830613e93baddb80934646c0b16dc56cf75709"
+    },
+    {
+      "bytes": 3380,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed022023_SDK_audit_actual_v1.supervisor.json",
+      "sha256": "e5127fc7f10b1a6824c7e26dd7f8012c55d039e3d3609865d82847028fa03e42"
+    },
+    {
+      "bytes": 3397,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed022023_sync_actual_v1.supervisor.json",
+      "sha256": "80975d0135e20a20a336fa0895a68c3d7a3b758a7876220ce2a385f8d7676f97"
+    }
+  ],
+  "Root_SDK_checkpoint_or_scientific_array_payload_read": false,
+  "active_or_later_slots_audited": false,
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-j",
+      "4524713,4524716,4524723,4524742,4524756,4524757,4524760,4524761",
+      "-n",
+      "-P",
+      "-o",
+      "JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "4524713|zixiao|COMPLETED|0:0|2529|16|compute-0-21\n4524716|zixiao|COMPLETED|0:0|2520|16|compute-0-21\n4524723|zixiao|COMPLETED|0:0|2457|16|compute-0-21\n4524742|zixiao|COMPLETED|0:0|2473|16|compute-0-21\n4524756|zixiao|COMPLETED|0:0|15|16|compute-0-19\n4524757|zixiao|COMPLETED|0:0|12|16|compute-0-19\n4524760|zixiao|COMPLETED|0:0|26|16|compute-0-19\n4524761|zixiao|COMPLETED|0:0|24|16|compute-0-19\n"
+  },
+  "batches": [
+    {
+      "audit": {
+        "bytes": 1855,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020021_SDK_audit_actual_v1/BATCH_RESULT.json",
+        "sha256": "c28bf4315a76f1d32d4587f1510df551265f47c5e2e3edb13e0fbdf3036fd740"
+      },
+      "sync": {
+        "bytes": 24150,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020021_sync_actual_v1/RESULT.json",
+        "sha256": "249d30518b1da9490a585caf3a82c97cf5b1a0b20d346c6cf9d10c65948c0b14"
+      }
+    },
+    {
+      "audit": {
+        "bytes": 1855,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed022023_SDK_audit_actual_v1/BATCH_RESULT.json",
+        "sha256": "c012a2f1e9b76138c16d5a111a3d08eab896b0cb661c5996ee071dadc2dd4fcf"
+      },
+      "sync": {
+        "bytes": 24143,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed022023_sync_actual_v1/RESULT.json",
+        "sha256": "b140bcc664d286a4ae42c347f2e79c4b76d0780ad408dc261902bfba86ffc08d"
+      }
+    }
+  ],
+  "captured_utc": "2026-10-29T01:02:45.475640+00:00",
+  "global_online_registry_recounted": false,
+  "original_SDKs_retained": true,
+  "runs": [
+    {
+      "GPU_job_id": "4524713",
+      "first_step": 18037,
+      "history_rows": 1002,
+      "last_step": 19038,
+      "run_id": "h3kyyacb",
+      "slot": "020",
+      "sync_result": {
+        "bytes": 2975,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020021_sync_actual_v1/run_0_h3kyyacb/result.json",
+        "sha256": "a7d57edd0e9440e911536f2f285b5880e5f56ad0b3643738a9abd9ee84c73368"
+      },
+      "verification": {
+        "bytes": 6437,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020021_SDK_audit_actual_v1/0/VERIFICATION.json",
+        "sha256": "8186e5334614ec20eb49284868c9d0384437afb6ded7c27c077e6e6f179589c7"
+      }
+    },
+    {
+      "GPU_job_id": "4524716",
+      "first_step": 19039,
+      "history_rows": 1002,
+      "last_step": 20040,
+      "run_id": "vgfs8jeh",
+      "slot": "021",
+      "sync_result": {
+        "bytes": 2975,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020021_sync_actual_v1/run_1_vgfs8jeh/result.json",
+        "sha256": "60c05dfe3f6c07e25c0124595e8861cc41c65f76a43f7a586c99bc3c8e819ea3"
+      },
+      "verification": {
+        "bytes": 6436,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020021_SDK_audit_actual_v1/1/VERIFICATION.json",
+        "sha256": "97e0b1e3084ec0e54f8fe9007a2b32089e4f3a1f449d498b2e60c8980eb48152"
+      }
+    },
+    {
+      "GPU_job_id": "4524723",
+      "first_step": 0,
+      "history_rows": 1003,
+      "last_step": 1002,
+      "run_id": "vxbgxivg",
+      "slot": "022",
+      "sync_result": {
+        "bytes": 2965,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed022023_sync_actual_v1/run_0_vxbgxivg/result.json",
+        "sha256": "62ba9e1c77910d3e35035d6cb5031617006fd94ca25ecce9123fd06975be4d46"
+      },
+      "verification": {
+        "bytes": 6419,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed022023_SDK_audit_actual_v1/0/VERIFICATION.json",
+        "sha256": "3b2a0987e96e632a07c17c8f9e0742f324613f59103d436323acf32034f1b135"
+      }
+    },
+    {
+      "GPU_job_id": "4524742",
+      "first_step": 1003,
+      "history_rows": 1002,
+      "last_step": 2004,
+      "run_id": "c90djwvo",
+      "slot": "023",
+      "sync_result": {
+        "bytes": 2971,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed022023_sync_actual_v1/run_1_c90djwvo/result.json",
+        "sha256": "3ed94af4bd9915a922573e65041cbf6038318d580e69d584502eaf72e436b62b"
+      },
+      "verification": {
+        "bytes": 6431,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed022023_SDK_audit_actual_v1/1/VERIFICATION.json",
+        "sha256": "f8432b8b70d28f9ec218173fb52a6e400abd828c2c45750e7c69592572c42fbc"
+      }
+    }
+  ],
+  "schema": "model_v3_native_B_closed_segment_SDK_Root_closure_v1",
+  "status": "FOUR_CLOSED_SEGMENTS_NATIVE_LOG_MATCH_AND_OFFICIAL_SYNC_CLOUD_READBACK_CLOSED",
+  "whole_B_four_curves_acceptance": false
+}

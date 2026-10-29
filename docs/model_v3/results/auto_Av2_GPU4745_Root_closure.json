@@ -1,0 +1,132 @@
+{
+  "R1_speed_accepted": false,
+  "Root_models_CUDA_SDK_or_array_payload_read": false,
+  "SDK_independent_audit_and_sync": "PENDING",
+  "actual_GPU_environment_matches_profile": true,
+  "actual_auto_selection_reason": "MATCHED_CLOSED_PROFILE_BEFORE_EXECUTION",
+  "actual_code_sha": "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+  "actual_resolved_flags": {
+    "backbone_checkpointing": true,
+    "distance_checkpointing": true,
+    "head_checkpointing": true
+  },
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-j",
+      "4524745",
+      "-n",
+      "-P",
+      "-o",
+      "JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "4524745|zixiao|COMPLETED|0:0|2394|16|compute-0-21\n"
+  },
+  "automatic_global_optimum_accepted": false,
+  "captured_utc": "2026-10-29T00:55:14.615119+00:00",
+  "closed_metadata": [
+    {
+      "bytes": 114636,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Av2_v1/child/configuration.json",
+      "sha256": "8f34af74c37250a2f7421d5950c6907b516e57f9aea553f630b501d77aeeb744"
+    },
+    {
+      "bytes": 12121,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Av2_v1/child/summary.json",
+      "sha256": "061d6e58b0aade75777509afe4951f4a5448464644e92d5526be526c712b70fd"
+    },
+    {
+      "bytes": 11720,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Av2_v1/child/run_status.json",
+      "sha256": "cbb7337667bdaa3bc130e0ecf6c4e8a97e6106431e80acbf4829ca0bc9843918"
+    },
+    {
+      "bytes": 6098743,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Av2_v1/child/fixed_batch_gate.json",
+      "sha256": "14abee946ddb298745e43426e844c6fb0fe38ceafae457fc222d929e727586a4"
+    },
+    {
+      "bytes": 42490,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Av2_v1/child/trajectory_gate.json",
+      "sha256": "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+    },
+    {
+      "bytes": 5873,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Av2_v1/supervisor.json",
+      "sha256": "af8acf921c4a1c3ca10b8b003248e04c2dfdf5bda2c39efcb5a27775c28a1fff"
+    }
+  ],
+  "configuration_sha256": "3dad3652b13e4ba7ddfd6cfd2a9a6bad1a4662177f3708f21d7bdc94b334376c",
+  "declared_backbone_checkpointing": null,
+  "fixed": {
+    "batches": 20,
+    "both_disabled_records": 4240,
+    "maximum_analytic_zero_norm": 8.722549703540776e-10,
+    "maximum_error_to_threshold": 0.0,
+    "maximum_forward_relative_l2": 0.0,
+    "maximum_gradient_absolute": 0.0,
+    "outputs_each": 8,
+    "parameters_each": 329,
+    "passed": true
+  },
+  "job_id": "4524745",
+  "maximum_loss_difference": 0.0,
+  "old_PASS_v2_cohorts_completed": 3,
+  "old_PASS_v2_cohorts_total": 9,
+  "old_failure_records_unchanged": true,
+  "original_metadata_auditor_source": {
+    "bytes": 18879,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_capacity_consumer_v1_source/bind_closed_R2_metadata.py",
+    "sha256": "2c5784a2d6425a756f5a55d023b81db810c5896eb5d5ff6faa7b1d620687231d"
+  },
+  "original_scientific_prereg_sha": "2b4a4df8636e5d65915d535472ba01084ea72dab",
+  "schema": "model_v3_current_source_auto_R2_Av2_Root_closure_v1",
+  "scientific_architecture_adoption": false,
+  "selection_measured_six_refs": {
+    "configuration": {
+      "bytes": 103264,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/configuration.json",
+      "sha256": "08d0b21b4e14772be1982f52bb27f6dd9ccdb34a04a5d01751b65fa36aa3e34e"
+    },
+    "parent_sacct": {
+      "bytes": 367,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A00_manual_Av2_GPU4712_parent_sacct_Root_actual_v1.json",
+      "sha256": "7b7140c2b6e3f44ca76355f17d627d46725c5d970f1c24e20c4af2024a6579e0"
+    },
+    "run_status": {
+      "bytes": 11720,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/run_status.json",
+      "sha256": "979f00b5254066d9621bfa69e32bf7266df0eff9741039951ee2c84ba016f5ad"
+    },
+    "steps": {
+      "bytes": 2924027,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/resources.jsonl",
+      "sha256": "8ea7329f9cef3e943510a8d7c767d8c7f07d1820c97988d597788a4cdc40d1c9"
+    },
+    "summary": {
+      "bytes": 12121,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/summary.json",
+      "sha256": "2fd5a7ec3d9de39e5a2bded0c08feb4c3e1c86f989db03e51fda7788d05167db"
+    },
+    "supervisor": {
+      "bytes": 5562,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/supervisor.json",
+      "sha256": "ed94404f301289e7bf244dee486261d96190bb11e92d7efdbfe2d3907959fad0"
+    }
+  },
+  "selection_profile": {
+    "bytes": 1730,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_capacity_bound_actual_v1/closed_R2_capacity_profile_v1.json",
+    "sha256": "d7c055a2467968de752676746f83a36b94ae43d9c056649748920d200e9e95ac"
+  },
+  "source_package": {
+    "bytes": 3710,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Av2_GPU_v1_source/source_pins.json",
+    "sha256": "edd1e786bd29ad5bf29b1ff8ac13d7f0f1a93f6fe97c7fec4a49c710b35541bb"
+  },
+  "status": "CURRENT_SOURCE_FULL20_AND500_V2_PASS_ROOT_CLOSED",
+  "trajectory_updates": 500
+}
