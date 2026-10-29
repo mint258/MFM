@@ -242,6 +242,8 @@ def shared_backbone_gradient_norms(group_losses, parameters, *, optimizer_update
 
 class ValidationAccumulator:
     """Separate raw-unit field metrics for the two authorized validation roles."""
+    _TENSOR6_WEIGHTS = (1., 2., 1., 2., 2., 1.)  # xx,xy,yy,xz,yz,zz
+
     def __init__(self, registry: LabelRegistry, *, role, enabled_groups, enabled_fields=None):
         require(role in ("VAL", "TRAIN_UNSEEN_CONFORMATION"), "Explicit v3 validation role required")
         self.registry, self.role = registry, role
@@ -249,16 +251,49 @@ class ValidationAccumulator:
         self.rows = {field.name: {"count": 0, "loss_sum": 0., "absolute": 0., "squared": 0.,
                                   "target_sum": [0.] * field.target_width,
                                   "target_squared": 0., "correct": 0} for field in self.fields}
+        for field in self.fields:
+            if field.representation == "symmetric_tensor6":
+                self.rows[field.name].update(frobenius_squared=0., frobenius_target_squared=0.,
+                                             frobenius_absolute_d9=0.)
 
     def add(self, predictions, targets, loss_result):
         for field in self.fields:
-            prediction, target, count = observed_rows(field, predictions[field.name], targets[field.name])
+            if field.name in predictions:
+                prediction, target, count = observed_rows(field, predictions[field.name], targets[field.name])
+            else:
+                from .v3_losses import source_observed_rows
+                require(loss_result.loss_counts[field.name] == 0 and loss_result.loss_status.get(field.name) in (
+                    "LOSS_DISABLED_SCALE_UNBOUND_OR_DEGENERATE", "LOSS_DISABLED_PHYSICAL_POLICY_UNBOUND"),
+                    "Validation cannot omit a ready prediction")
+                target, count = source_observed_rows(field, targets[field.name])
+                prediction = None
             require(loss_result.counts[field.name] == count, "Validation loss/metric population differs")
             row = self.rows[field.name]
+            require(row.get("prediction_available", prediction is not None) == (prediction is not None),
+                    "Prediction availability changed within a fixed validation population")
+            if prediction is None: row["prediction_available"] = False
+            if loss_result.has_loss_readiness:
+                effective = loss_result.loss_counts[field.name]
+                require(type(effective) is int and 0 <= effective <= count, "Validation source/loss population differs")
+                disabled = loss_result.loss_status[field.name] in ("LOSS_DISABLED_SCALE_UNBOUND_OR_DEGENERATE", "LOSS_DISABLED_PHYSICAL_POLICY_UNBOUND")
+                require("loss_disabled" not in row or row["loss_disabled"] == disabled,
+                        "Target readiness changed within a fixed validation population")
+                row["loss_disabled"] = disabled
+                row["loss_count"] = row.get("loss_count", 0) + effective
+                row["loss_status"] = loss_result.loss_status[field.name]
+                if loss_result.physical_policy_sha256 is not None:
+                    row["physical_status"] = loss_result.physical_status[field.name]
+                    row["scale_status"] = loss_result.scale_status[field.name]
+                    row["physical_policy_sha256"] = loss_result.physical_policy_sha256
+                    if field.name in loss_result.scale_reasons:
+                        row["scale_disabled_reason"] = loss_result.scale_reasons[field.name]
+                if field.name in loss_result.loss_reasons: row["loss_disabled_reason"] = loss_result.loss_reasons[field.name]
             if not count:
                 continue
             row["count"] += count
-            row["loss_sum"] += count * float(loss_result.fields[field.name].detach())
+            effective = loss_result.loss_counts[field.name]
+            if effective: row["loss_sum"] += effective * float(loss_result.fields[field.name].detach())
+            if prediction is None: continue
             prediction, target = prediction.detach().double(), target.detach().double()
             if field.kind in ("binary", "classification"):
                 label = prediction.argmax(-1) if field.kind == "classification" else (prediction[:, 0] >= 0).long()
@@ -269,6 +304,16 @@ class ValidationAccumulator:
                 row["squared"] += float(error.square().sum())
                 row["target_squared"] += float(target.square().sum())
                 row["target_sum"] = [old + new for old, new in zip(row["target_sum"], target.sum(0).cpu().tolist())]
+                if field.representation == "symmetric_tensor6":
+                    # Keep native-six absolute/component SSE statistics for
+                    # existing source-component MAE/RMSE consumers. Tensor R2
+                    # uses independent Frobenius SSE/SST; one row is one
+                    # eligible complete tensor, never six separate targets.
+                    weights = error.new_tensor(self._TENSOR6_WEIGHTS)
+                    squared_frobenius = (error.square() * weights).sum(-1)
+                    row["frobenius_squared"] += float(squared_frobenius.sum())
+                    row["frobenius_target_squared"] += float((target.square() * weights).sum())
+                    row["frobenius_absolute_d9"] += float((squared_frobenius / 9.).sqrt().sum())
 
     def result(self):
         metrics = {}
@@ -276,14 +321,42 @@ class ValidationAccumulator:
             row, count = self.rows[field.name], self.rows[field.name]["count"]
             item = {"valid_labels": count, "loss": row["loss_sum"] / count if count else None,
                     "MAE": None, "R2": None, "accuracy": None}
+            if "loss_count" in row:
+                item["loss_count"] = row["loss_count"]
+                item["loss"] = row["loss_sum"] / row["loss_count"] if row["loss_count"] else None
+                item["loss_status"] = (row["loss_status"] if row["loss_disabled"] else
+                                       "READY" if row["loss_count"] else "NO_VALID_LABELS")
+                if "loss_disabled_reason" in row: item["loss_disabled_reason"] = row["loss_disabled_reason"]
+                for key in ("physical_status", "scale_status", "scale_disabled_reason", "physical_policy_sha256"):
+                    if key in row: item[key] = row[key]
+            tensor6 = field.representation == "symmetric_tensor6"
+            if tensor6:
+                item.update(Frobenius_MAE_d9=None, Frobenius_SSE=None, Frobenius_SST=None,
+                    valid_labels_definition="eligible_complete_same_actual_geometry_tensors",
+                    MAE_definition="mean_i,j(abs(Qhat_ij-Q_ij)); source6=(xx,xy,yy,xz,yz,zz)",
+                    Frobenius_MAE_d9_definition="mean_i(sqrt(sum_j(w_j*(Qhat_ij-Q_ij)^2)/9)); raw_unit; w=(1,2,1,2,2,1)",
+                    R2_definition="1-sum_i||Qhat_i-Q_i||_F^2/sum_i||Q_i-mean(Q)||_F^2; w=(1,2,1,2,2,1)")
+            if row.get("prediction_available") is False:
+                item["prediction_status"] = "LOSS_DISABLED_NO_PREDICTION"
+                item["R2_unavailable_reason"] = "prediction_not_computed_for_loss_disabled_target"
+                metrics[field.name] = item
+                continue
             if field.kind in ("binary", "classification"):
                 item["accuracy"] = row["correct"] / count if count else None
                 item["R2_unavailable_reason"] = "categorical_field"
             elif count:
                 item["MAE"] = row["absolute"] / (count * field.target_width)
-                variance = row["target_squared"] - sum(value ** 2 for value in row["target_sum"]) / count
+                if tensor6:
+                    variance = row["frobenius_target_squared"] - sum(weight * value ** 2
+                        for weight, value in zip(self._TENSOR6_WEIGHTS, row["target_sum"])) / count
+                    squared = row["frobenius_squared"]
+                    item.update(Frobenius_MAE_d9=row["frobenius_absolute_d9"] / count,
+                                Frobenius_SSE=squared, Frobenius_SST=variance)
+                else:
+                    variance = row["target_squared"] - sum(value ** 2 for value in row["target_sum"]) / count
+                    squared = row["squared"]
                 if count > 1 and variance > 0:
-                    item["R2"] = 1. - row["squared"] / variance
+                    item["R2"] = 1. - squared / variance
                 else:
                     item["R2_unavailable_reason"] = "insufficient_or_constant_labels"
             metrics[field.name] = item

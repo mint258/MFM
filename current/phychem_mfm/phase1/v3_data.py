@@ -7,7 +7,7 @@ tests use only synthetic providers with identical typed model-side outputs.
 from __future__ import annotations
 
 from copy import copy
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import os
 from typing import Mapping
 
@@ -63,6 +63,8 @@ class DecodedSample:
     fields: Mapping[str, FieldTarget]
     native_bonds: NativeBondTransport | None = None
     audit: SampleSourceAudit | None = None
+    domain_inputs: Mapping[str, object] = field(default_factory=dict)
+    geometry_ref: dict | None = None
 
 
 def _validate_native_bonds(sample):
@@ -150,6 +152,8 @@ class V3Batch:
     choices: tuple[SampleChoice, ...]
     source_atom_ids: Tensor
     audit: tuple[SampleSourceAudit | None, ...] | None = None
+    domain_inputs: Mapping[str, object] = field(default_factory=dict)
+    geometry_context: Mapping[str, object] = field(default_factory=dict)
 
     def to(self, device, *, non_blocking=False):
         # Copy graph stores, not CPU tensors: cloning pinned input tensors can
@@ -157,26 +161,52 @@ class V3Batch:
         # owns its stores, so moving this graph does not mutate the source graph.
         graph = copy(self.encoder_batch).to(device, non_blocking=non_blocking)
         return V3Batch(graph,
-                       {name: FieldTarget(value.values.to(device, non_blocking=non_blocking),
-                                          value.valid.to(device, non_blocking=non_blocking),
-                                          None if value.pair_index is None else value.pair_index.to(device, non_blocking=non_blocking))
+                       {name: _target_to(value, device, non_blocking=non_blocking)
                         for name, value in self.targets.items()}, self.choices,
-                       self.source_atom_ids.to(device, non_blocking=non_blocking), self.audit)
+                       self.source_atom_ids.to(device, non_blocking=non_blocking), self.audit,
+                       {name: value.to(device, non_blocking=non_blocking)
+                        for name, value in self.domain_inputs.items()}, self.geometry_context)
 
     def pin_memory(self):
         # DataLoader invokes this protocol for a custom batch container.
         return V3Batch(copy(self.encoder_batch).pin_memory(),
-                       {name: FieldTarget(value.values.pin_memory(), value.valid.pin_memory(),
-                                          None if value.pair_index is None else value.pair_index.pin_memory())
-                        for name, value in self.targets.items()}, self.choices, self.source_atom_ids.pin_memory(), self.audit)
+                       {name: _target_pin(value) for name, value in self.targets.items()},
+                       self.choices, self.source_atom_ids.pin_memory(), self.audit,
+                       {name: value.pin_memory() for name, value in self.domain_inputs.items()},
+                       self.geometry_context)
 
     @property
     def pair_indices(self):
-        return {name: value.pair_index for name, value in self.targets.items() if value.pair_index is not None}
+        return {name: value.pair_index for name, value in self.targets.items()
+                if isinstance(value, FieldTarget) and value.pair_index is not None}
 
 
-def collate_v3_samples(rows, registry: LabelRegistry) -> V3Batch:
+def _target_to(value, device, *, non_blocking=False):
+    if isinstance(value, FieldTarget):
+        return FieldTarget(value.values.to(device, non_blocking=non_blocking),
+                           value.valid.to(device, non_blocking=non_blocking),
+                           None if value.pair_index is None else
+                           value.pair_index.to(device, non_blocking=non_blocking))
+    from .v3_label_domains import OrderedEntryTarget, Tensor6Target
+    require(isinstance(value, (OrderedEntryTarget, Tensor6Target)),
+            "Only explicit typed target domains may cross the device boundary")
+    return value.to(device, non_blocking=non_blocking)
+
+
+def _target_pin(value):
+    if isinstance(value, FieldTarget):
+        return FieldTarget(value.values.pin_memory(), value.valid.pin_memory(),
+                           None if value.pair_index is None else value.pair_index.pin_memory())
+    from .v3_label_domains import OrderedEntryTarget, Tensor6Target
+    require(isinstance(value, (OrderedEntryTarget, Tensor6Target)),
+            "Only explicit typed target domains may be pinned")
+    return value.pin_memory()
+
+
+def collate_v3_samples(rows, registry: LabelRegistry, *, loss_disabled_fields=()) -> V3Batch:
     require(bool(rows), "Nonempty decoded batch required")
+    require(type(loss_disabled_fields) in (tuple, list) and len(set(loss_disabled_fields)) == len(loss_disabled_fields)
+            and set(loss_disabled_fields) <= set(registry.by_name()), "Explicit known loss-disabled transport fields required")
     choices, samples = zip(*rows)
     require(all(isinstance(value, SampleChoice) for value in choices)
             and len({value.ordinal for value in choices}) == len(choices), "Unique sample draws required")
@@ -185,8 +215,77 @@ def collate_v3_samples(rows, registry: LabelRegistry) -> V3Batch:
     with_bond_transport = any(sample.native_bonds is not None for sample in samples)
     graphs = [_encoder_graph(sample, with_bond_transport=with_bond_transport) for sample in samples]
     encoder_batch = Batch.from_data_list(graphs)
-    result = {}
+    result, domain_inputs = {}, {}
+    typed_domains = any(field.level == "ordered_entry" or field.representation == "symmetric_tensor6"
+                        for field in registry.fields)
+    geometry_context = {}
+    if typed_domains:
+        from .v3_label_domains import _rawref
+        geometry_context = {
+            "geometry_ids": tuple(sample.conformer_id for sample in samples),
+            "geometry_bindings": tuple(_rawref(sample.geometry_ref) for sample in samples),
+            "native_atom_counts": tuple(len(sample.x) for sample in samples),
+        }
     for field in registry.fields:
+        if field.level == "ordered_entry" or field.representation == "symmetric_tensor6":
+            from .v3_label_domains import (OrderedEntryTarget, Tensor6Target,
+                collate_ordered_entries, collate_tensor6, collate_domain_inputs)
+            target_type = OrderedEntryTarget if field.level == "ordered_entry" else Tensor6Target
+            targets, inputs = [], []
+            if field.name in loss_disabled_fields:
+                # Source-only transport: never invent a missing numeric origin/frame
+                # or a head prediction. The trainer/loss independently rechecks why
+                # this target is disabled; this list cannot authorize readiness.
+                for choice, sample in zip(choices, samples):
+                    target = sample.fields.get(field.name)
+                    require(isinstance(target, target_type), f"{field.name}: retained typed source target required")
+                    target.__post_init__()
+                    require(tuple(target.inputs.geometry_ids if target_type is OrderedEntryTarget else target.geometry_ids)
+                            == (sample.conformer_id,), f"{field.name}: source belongs to another actual geometry")
+                    group_flags, family_flags = dict(choice.group_mask), dict(choice.family_mask)
+                    require(field.family in family_flags, f"{field.name}: explicit family exposure mask required")
+                    targets.append(target.masked(group_flags[field.group] and family_flags[field.family]))
+                atom_counts = tuple(len(sample.x) for sample in samples)
+                result[field.name] = (collate_ordered_entries(targets, atom_counts=atom_counts)
+                                      if target_type is OrderedEntryTarget else collate_tensor6(targets))
+                continue
+            for choice, sample in zip(choices, samples):
+                target = sample.fields.get(field.name)
+                require(isinstance(target, target_type) and field.name in sample.domain_inputs,
+                        f"{field.name}: explicit source target and separate geometry/domain inputs required")
+                inputs_for_sample = sample.domain_inputs[field.name]
+                require(tuple(inputs_for_sample.geometry_ids) == (sample.conformer_id,),
+                        f"{field.name}: head input belongs to a different actual geometry")
+                if target_type is OrderedEntryTarget:
+                    require(tuple(inputs_for_sample.geometry_bindings) == (sample.geometry_ref,)
+                            and target.inputs.codebook == inputs_for_sample.codebook
+                            and target.inputs.frame_binding == inputs_for_sample.frame_binding
+                            and target.inputs.geometry_ids == inputs_for_sample.geometry_ids
+                            and target.inputs.geometry_bindings == inputs_for_sample.geometry_bindings
+                            and torch.equal(target.inputs.atom_index, inputs_for_sample.atom_index)
+                            and torch.equal(target.inputs.channel_index, inputs_for_sample.channel_index)
+                            and torch.equal(target.inputs.entry_graph, inputs_for_sample.entry_graph)
+                            and all((getattr(target.inputs, name) is None
+                                     and getattr(inputs_for_sample, name) is None)
+                                    or (getattr(target.inputs, name) is not None
+                                        and getattr(inputs_for_sample, name) is not None
+                                        and torch.equal(getattr(target.inputs, name),
+                                                        getattr(inputs_for_sample, name)))
+                                    for name in ("frame_origin", "frame_basis")),
+                            f"{field.name}: source labels and separate ordered-entry inputs differ")
+                else:
+                    require(tuple(target.geometry_ids) == (sample.conformer_id,),
+                            f"{field.name}: tensor target belongs to another actual geometry")
+                group_flags, family_flags = dict(choice.group_mask), dict(choice.family_mask)
+                require(field.family in family_flags, f"{field.name}: explicit family exposure mask required")
+                active = group_flags[field.group] and family_flags[field.family]
+                targets.append(target.masked(active))
+                inputs.append(inputs_for_sample)
+            atom_counts = tuple(len(sample.x) for sample in samples)
+            result[field.name] = (collate_ordered_entries(targets, atom_counts=atom_counts)
+                                  if target_type is OrderedEntryTarget else collate_tensor6(targets))
+            domain_inputs[field.name] = collate_domain_inputs(inputs, atom_counts=atom_counts)
+            continue
         values, masks, pairs, offset = [], [], [], 0
         for choice, sample in zip(choices, samples):
             n = len(sample.x)
@@ -228,7 +327,9 @@ def collate_v3_samples(rows, registry: LabelRegistry) -> V3Batch:
             "Optional CPU source audit must retain its typed source evidence")
     require(audits is None or all(value is None or value.geometry_id == choice.conformer_id
                                   for choice, value in zip(choices, audits)), "CPU audit belongs to another geometry draw")
-    return V3Batch(encoder_batch, result, tuple(choices), torch.cat([sample.source_atom_ids for sample in samples]), audits)
+    return V3Batch(encoder_batch, result, tuple(choices),
+                   torch.cat([sample.source_atom_ids for sample in samples]), audits,
+                   domain_inputs, geometry_context)
 
 
 class ExposureBatchSampler:

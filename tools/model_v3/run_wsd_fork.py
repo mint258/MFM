@@ -21,7 +21,8 @@ def run(args):
     if len(raw) > 2 << 20 or hashlib.sha256(raw).hexdigest() != preview['configuration']['sha256']: raise ValueError('Configuration raw SHA differs')
     configuration = json.loads(raw)
     if configuration['proxy_contract']['execution']['deterministic']: os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'
-    from run_proxy_experiment import PersistentOfflineTracker,sdk_environment,execution_context,load_request
+    from run_proxy_experiment import (PersistentOfflineTracker,sdk_environment,execution_context,load_request,
+        install_training_observer,finalize_training_observer)
     from phychem_mfm.phase1 import v3_proxy_run as proxy
     from phychem_mfm.phase1.v3_wsd_fork import validate_fork,restore_and_fork,ForkFamily,verify_parent_sources,verify_fork_chain
     from phychem_mfm.phase1.v3_sample_budget_events import binding,physical,write_once,encoded
@@ -55,6 +56,7 @@ def run(args):
     # provider is retained and restored; no new provider replaces its state.
     inputs = proxy.bind_inputs(parent,parent_config)
     duplicate = None; run_object = None; lock = None; experiment = None; failure = None; cleanup = []; outcome = None
+    capacity_observation = None; capacity_artifacts = None
     started = time.monotonic(); args.output.mkdir(mode=0o700,parents=True)
     sdk_environment(args.output)
     try:
@@ -94,6 +96,7 @@ def run(args):
         experiment = restore_and_fork(request,config,plan,inputs,tracker,output_root=args.output,lineage_root=args.lineage_root,
             lineage=args.lineage,family=family,parent=parent,parent_config=parent_config,parent_state=state,
             child_authority_receipt=child_receipt)
+        capacity_observation = install_training_observer(experiment, config, args.output, request_reference=ref)
         if durable is not None: attach_experiment(experiment,durable)
         capacity = proxy.checkpoint_capacity(experiment.trainer); reserve = resources['tracking_bytes']+(96 << 20)
         def census(): return durable.census() if durable is not None else sum(owned_output_bytes(root) for root in experiment.lineage_output_roots())
@@ -134,7 +137,10 @@ def run(args):
         write_once(args.output/'RUN_BINDING.json',{'schema':'model_v3_wsd_launch_v1','request':ref,'runtime':runtime,
             'source_proof':source_proof,'registrations':registrations,'job_id':os.environ['SLURM_JOB_ID'],
             'parent_complete':request['fork']['parent_complete'],'family_root':str(physical(args.family_root)),
-            'outer_child_budget_bytes':outer,'scientific_acceptance':False,'actual_Root_terminal_required':True})
+            'outer_child_budget_bytes':outer,'scientific_acceptance':False,'actual_Root_terminal_required':True,
+            **({'training_execution': {'contract': experiment.trainer.contract['training_execution'],
+                'provider_authority_receipt_sha256': experiment.trainer.bindings['proxy_authority_receipt_sha256'],
+                'observation_configuration_pending_actual_forward': True}} if capacity_observation is not None else {})})
         child_parent = binding(args.resume_complete) if args.resume_complete else None
         outcome = experiment.run_segment(segment_id=args.segment_id,until_samples=args.until_samples,request_ref=ref,
             parent=child_parent,preflight=guard)
@@ -150,12 +156,22 @@ def run(args):
         for stage,callback in callbacks:
             try: callback()
             except BaseException as exc: cleanup.append({'stage':stage,'type':type(exc).__name__,'message':str(exc)[:300]})
+        if capacity_observation is not None:
+            try:
+                capacity_artifacts = finalize_training_observer(capacity_observation, args.output)
+            except BaseException as exc:
+                cleanup.append({'stage':'training_capacity_finalize','type':type(exc).__name__,'message':str(exc)[:300]})
         elapsed = time.monotonic()-started; timed_out = elapsed >= plan.max_segment_seconds
         if timed_out and failure is None: failure = {'type':'TimeoutError','message':'Inclusive WSD finish exceeded registered wall budget'}
         receipt_ref = write_once(args.output/'CHILD_RECEIPT.json',{'schema':'model_v3_wsd_child_receipt_v1',
             'status':'CHILD_FINISHED_PENDING_ROOT_CLOSURE' if failure is None and not cleanup else 'CHILD_FAILED',
             'outcome':outcome,'first_failure':failure,'cleanup_errors':cleanup,'native_sdk_run_id':run_object.id if run_object else None,
-            'inclusive_elapsed_seconds':elapsed,'scientific_acceptance':False,'actual_Root_terminal_and_SDK_verification_required':True})
+            'inclusive_elapsed_seconds':elapsed,'scientific_acceptance':False,'actual_Root_terminal_and_SDK_verification_required':True,
+            **({'job_id':os.environ['SLURM_JOB_ID'], 'training_execution_capacity_artifacts':capacity_artifacts,
+                'committed_cursors': {'optimizer_updates':experiment.trainer.clock.optimizer_updates,
+                    'samples_consumed':experiment.trainer.clock.samples_consumed,'log_cursor':experiment.trainer.log_cursor,
+                    'pending_log':experiment.trainer.pending_log is not None}}
+                if capacity_observation is not None else {})})
         if durable is not None and any(row['kind'] == 'launch_attempts' and row['identity'] == str(physical(args.output)) for row in durable.records()):
             durable.terminal(job_root=args.output,status='successful_segments' if failure is None and not cleanup else 'failed_attempts',result_ref=receipt_ref)
         if timed_out: raise TimeoutError('Inclusive WSD job wall exhausted')

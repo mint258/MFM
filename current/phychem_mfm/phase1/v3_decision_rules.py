@@ -279,14 +279,29 @@ def choose_pooling(measurements, noise, policy):
 
 
 @_trace
-def choose_learning_rate(measurements, noise, policy, stability):
-    values, p, sd, error = _collect(measurements, noise, policy, "learning_rate", ("S", "P"), LR_GRID)
+def choose_learning_rate(measurements, noise, policy, stability, *, failure_exclusions=None):
+    grid = LR_GRID
+    failed = set()
+    if failure_exclusions:
+        from copy import deepcopy
+        from dataclasses import replace
+        from .v3_recipe_evidence import verify_failure_exclusions
+        failed = verify_failure_exclusions(failure_exclusions, measurements, policy)
+        grid = tuple(r for r in LR_GRID if r not in failed)
+        if not grid:
+            return _result("REPORT_REQUIRED", reason="all rates excluded by actual numeric failures", excluded=sorted(failed))
+        measurements = {c: {r: measurements[c][r] for r in grid} for c in ("S", "P")}
+        rules = deepcopy(policy.rules)
+        rules["learning_rate"]["scientific_identities"] = {
+            c: {r: rules["learning_rate"]["scientific_identities"][c][r] for r in grid} for c in ("S", "P")}
+        policy = replace(policy, rules=rules)
+    values, p, sd, error = _collect(measurements, noise, policy, "learning_rate", ("S", "P"), grid)
     if error: return error
     if not p.get("loss_spike_policy"):
         return _missing("quantitative preregistered loss-spike classification policy")
     stability_sha = canonical(p["loss_spike_policy"])
-    excluded = []
-    for rate in LR_GRID:
+    excluded = list(failed)
+    for rate in grid:
         for condition in ("S", "P"):
             row = stability.get(condition, {}).get(rate)
             if not isinstance(row, Stability) or row.diverged is None or row.loss_spike is None:
@@ -295,7 +310,7 @@ def choose_learning_rate(measurements, noise, policy, stability):
                     and row.run_ids == _runs(measurements, condition, rate), "Stability policy/run binding differs")
             digest(row.source_sha256)
             if row.diverged or row.loss_spike: excluded.append(rate)
-    allowed = [r for r in LR_GRID if r not in excluded]
+    allowed = [r for r in grid if r not in excluded]
     if not allowed:
         return _result("REPORT_REQUIRED", reason="all scanned rates excluded by stability", excluded=sorted(set(excluded)))
     near = {c: [r for r in allowed if values[c][r] >= max(values[c][x] for x in allowed)-sd] for c in values}

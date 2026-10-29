@@ -8,6 +8,8 @@ import torch.nn as nn
 from torch import Tensor
 
 from .common import Linear
+from .v3_distance_bias import (validate_distance_bias_projection_bias,
+    require_distance_bias_constructor,remove_initialized_head_bias,require_bias_free_attention)
 
 
 class DenseGeoSelfAttention(nn.Module):
@@ -21,8 +23,11 @@ class DenseGeoSelfAttention(nn.Module):
         use_dist_bias: bool = True,
         use_radius_mask: bool = False,
         radius: float = 8.0,
+        distance_bias_projection_bias: bool = True,
     ) -> None:
         super().__init__()
+        self.distance_bias_projection_bias=validate_distance_bias_projection_bias(distance_bias_projection_bias)
+        require_distance_bias_constructor(self.distance_bias_projection_bias,use_dist_bias=use_dist_bias)
         if dim % nheads != 0:
             raise ValueError("dim must be divisible by nheads")
 
@@ -46,9 +51,12 @@ class DenseGeoSelfAttention(nn.Module):
         else:
             self.dist_mlp = None
 
+        if not self.distance_bias_projection_bias:
+            remove_initialized_head_bias(self.dist_mlp[2],heads=self.nheads)
         self.attn_drop = nn.Dropout(dropout) if dropout > 0 else nn.Identity()
 
     def forward(self, x: Tensor, pos: Tensor, mask: Tensor) -> Tuple[Tensor, Tensor]:
+        require_bias_free_attention(self,x,pos)
         bsz, seqlen, _ = x.shape
         qkv = self.qkv(x).view(bsz, seqlen, 3, self.nheads, self.d_head)
         q, k, v = qkv.unbind(dim=2)
@@ -110,6 +118,7 @@ class RealCoordTransformerLayer(nn.Module):
         use_dist_bias: bool = True,
         use_radius_mask: bool = False,
         radius: float = 8.0,
+        distance_bias_projection_bias: bool = True,
     ) -> None:
         super().__init__()
         self.norm1 = nn.LayerNorm(dim)
@@ -120,6 +129,7 @@ class RealCoordTransformerLayer(nn.Module):
             use_dist_bias=use_dist_bias,
             use_radius_mask=use_radius_mask,
             radius=radius,
+            distance_bias_projection_bias=distance_bias_projection_bias,
         )
         self.norm2 = nn.LayerNorm(dim)
         self.ffn = DenseFFN(dim=dim, ff_mult=ff_mult, dropout=dropout)

@@ -57,6 +57,21 @@ def summarize_abba(members, *, numeric_gate=None):
         if (not math.isfinite(row["elapsed_window_seconds"]) or row["elapsed_window_seconds"] <= 0
                 or row["measured_base_records"] <= 0 or row["measured_native_atoms"] <= 0):
             raise ValueError("Finite positive measured windows/consumption required")
+    integrated=any("performance_execution_request" in item["configuration"] for item in members)
+    integration_signature=None
+    if integrated:
+        if not all("performance_execution_request" in item["configuration"] for item in members):
+            raise ValueError("Mixed declared/undeclared performance integration members")
+        candidates=[item["configuration"]["performance_execution"] for item in members[1:3]]
+        def integration_semantics(receipt):
+            return {"padding":receipt["requested"]["padding"],"workload_sha256":receipt["requested"]["workload_sha256"],
+                    "resolved_options":receipt["resolved_options"],"implementation_sha256":receipt["implementation_sha256"]}
+        integration_signature=integration_semantics(candidates[0])
+        if integration_semantics(candidates[1])!=integration_signature:
+            raise ValueError("Candidate execution layout/resolved checkpoint policy differs")
+        for item in (members[0],members[3]):
+            if item["configuration"]["performance_execution"].get("applied") is not False:
+                raise ValueError("Reference must keep the original full-logical-batch execution")
     equal_inputs = len({row["input_receipts_sha256"] for row in summaries}) == 1
     grouping = any(row["padding_exploration"] for row in summaries)
     risk = any(row["foreign_gpu_risk_observed"] for row in summaries)
@@ -92,6 +107,12 @@ def summarize_abba(members, *, numeric_gate=None):
             raise ValueError("Numeric gate and speed series do not bind the same native stream/capacity")
         if controls_signature(numeric_gate["configuration"]) != controls_signature(members[0]["configuration"]):
             raise ValueError("Numeric gate and speed series deterministic controls differ")
+        declared=numeric_gate["configuration"].get("performance_execution")
+        if integrated:
+            if declared is None or integration_semantics(declared)!=integration_signature:
+                raise ValueError("Numeric gate does not bind this integrated padding/actual checkpoint execution")
+        elif declared is not None:
+            raise ValueError("Integrated numeric gate cannot validate legacy speed members")
         numeric = True
     full_window = not summaries[0]["smoke"] and summaries[0]["input"] == "native_s" and summaries[0]["measured_updates"] == 20 and summaries[0]["warmup_updates"] == 2
     return {"schema": "model_v3_A_ABBA_speed_v1", "numeric_acceptance_granted_by_this_report": False,

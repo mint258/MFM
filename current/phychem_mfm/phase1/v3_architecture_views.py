@@ -101,24 +101,28 @@ def masked_two_view_outputs(outputs, views, role, *, atom_eligibility=None, bond
 class V3TwoViewModel(V3MultiViewModel):
     """Same single encoder pass and clean-only PD; explicit C3 loss adapter."""
     def forward_pretrain(self, views, *, enabled_groups, enabled_fields=None,
-                         pair_indices=None, prediction_offsets=None):
+                         pair_indices=None, prediction_offsets=None, domain_inputs=None, geometry_context=None):
         if views.includes_structural:
             require(views.batch.sample_type_id.reshape(-1).tolist()
                     == [value for _ in views.ordinals for value in (0, 3)],
                     "C3 requires clean/both physical view pairs")
+        domain_kwargs = {} if not domain_inputs else {"domain_inputs": domain_inputs, "geometry_context": geometry_context}
         return super().forward_pretrain(views, enabled_groups=enabled_groups, enabled_fields=enabled_fields,
-            pair_indices=pair_indices, prediction_offsets=prediction_offsets)
+            pair_indices=pair_indices, prediction_offsets=prediction_offsets, **domain_kwargs)
 
     def compute_loss(self, prediction, views, pd_targets, normalizations, *, enabled_groups, weights,
-                     enabled_fields=None, atom_eligibility=None, bond_pair_eligibility=None, exposure_step=0):
+                     enabled_fields=None, atom_eligibility=None, bond_pair_eligibility=None, exposure_step=0, physical_policy=None):
         groups = selected_groups(enabled_groups)
         field_names = tuple(field.name for field in self.registry.enabled(groups, enabled_fields))
         require(prediction.structural_active == ("S" in groups), "Forward/loss structural switches differ")
-        require(prediction.enabled_groups == groups and prediction.enabled_fields == field_names,
-                "Forward/loss group or field switches differ")
+        from .v3_losses import loss_prediction_fields
+        actual_fields = loss_prediction_fields(self.registry, normalizations, enabled_groups=groups,
+            enabled_fields=field_names, physical_policy=physical_policy)
+        require(prediction.enabled_groups == groups and prediction.enabled_fields in (field_names, actual_fields),
+                "Forward/loss group or field switches differ (qualified prediction selection)")
         pd_loss = compute_v3_loss(prediction.pd_predictions, pd_targets, self.registry, normalizations,
             enabled_groups=tuple(group for group in groups if group != "S"), enabled_fields=field_names,
-            device=prediction.source_outputs.atom_repr.device)
+            device=prediction.source_outputs.atom_repr.device, physical_policy=physical_policy)
         if "S" not in groups:
             return pd_loss
         raw, counts = two_view_structural_raw_losses(prediction.source_outputs, views, self.registry,

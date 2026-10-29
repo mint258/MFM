@@ -78,7 +78,7 @@ class SampleBudgetExperiment:
         self.configuration = model_configuration
         self.panel_binding = json.loads(encoded(panel_binding)) if panel_binding is not None else None
         self.encoder_status, self.architecture_sha, self.seed = self._encoder_capability()
-        require(not panel_required or self.encoder_status == "READY", "BLOCKED_UNSUPPORTED_ENCODER: original bridge contract/configuration required")
+        require(not panel_required or self.encoder_status == "READY", self.encoder_status+": original bridge contract/configuration required")
         self.contract = json.loads(encoded({"schema": "model_v3_sample_budget_experiment_v1", "lineage": lineage,
             "plan": asdict(plan), "trainer_bindings": trainer.bindings, "trainer_contract": trainer.contract,
             "model_configuration": self.configuration, "panel_binding": self.panel_binding,
@@ -113,6 +113,23 @@ class SampleBudgetExperiment:
             and extension["encoder_configuration"] == self.trainer.model.encoder.config_dict()
             and (model["backbone"]["dim"], model["backbone"]["layers"]) == (512, 6)
             and type(configuration.get("seed")) is int)
+        execution = self.trainer.contract.get("training_execution")
+        declaration = configuration.get("training_execution")
+        wrapped = (hasattr(self.trainer.model.encoder, "v3_performance_options") or
+            any(hasattr(module, "performance_execution_contract") for module in self.trainer.model.encoder.modules()))
+        if declaration is not None or execution is not None or wrapped:
+            if declaration is None or execution is None:
+                return "BLOCKED_UNSUPPORTED_EXECUTION", architecture_hash(model), configuration.get("seed")
+            from .v3_execution_checkpoint_bridge import validate_h0_export_capability
+            from .v3_training_execution import TrainingExecutionSpec
+            try:
+                require(TrainingExecutionSpec(**declaration).semantic() == execution["requested_execution"],
+                    "Requested and saved training execution differ")
+                capability = validate_h0_export_capability(model, execution)
+                require(capability["supported"] is True and capability["H0_dimension"] == model["backbone"]["dim"],
+                    "No declared FP32 H0 export capability")
+            except (ValueError, TypeError, KeyError):
+                return "BLOCKED_UNSUPPORTED_EXECUTION", architecture_hash(model), configuration.get("seed")
         required = {"panel_sha256", "training_store_sha256", "membership_sha256", "preregistration_sha", "code_sha"}
         require(required <= set(self.panel_binding), "Full downstream panel source bindings required")
         return ("READY" if supported else "BLOCKED_UNSUPPORTED_ENCODER", architecture_hash(model), configuration.get("seed"))
@@ -171,6 +188,11 @@ class SampleBudgetExperiment:
             "model_configuration": self.configuration, "architecture_sha256": self.architecture_sha,
             "pretraining_seed": self.seed, "panel_binding": self.panel_binding,
             "bridge_load_executed_by_publisher": False, "data_authority_asserted": False, "scientific_acceptance": False}
+        if "training_execution" in self.trainer.contract:
+            from .v3_contract import canonical_hash
+            execution = self.trainer.contract["training_execution"]
+            body["training_execution_contract_sha256"] = canonical_hash(execution)
+            body["H0_export_sha256"] = canonical_hash(execution["h0_export"])
         body["event_id"] = canonical(body)
         state = {**state, "event": body}
         state_ref = write_once(directory / "experiment_state.json", state)

@@ -22,6 +22,8 @@ from torch_geometric.utils import to_dense_batch
 from ..factory import build_model
 from ..phase1.v3_contract import require
 from .common import Linear, ensure_batch_attr
+from .v3_distance_bias import (distance_bias_projection_bias,
+    require_bias_free_attention,require_distance_bias_backbone)
 
 SOURCE_S_MEMORY_SHA256 = "170a7752bad1812d15dceace1613d19f579aec5d97a4965ed0960731cc53f232"
 
@@ -119,6 +121,7 @@ class SharedPairAttention(nn.Module):
     """Reuse all common attention parameters; replace only distance bias."""
     def __init__(self, original, pair_dim):
         super().__init__()
+        self.distance_bias_projection_bias=distance_bias_projection_bias(original)
         self.dim, self.nheads, self.d_head = original.dim, original.nheads, original.d_head
         self.qkv, self.proj, self.attn_drop = original.qkv, original.proj, original.attn_drop
         self.use_radius_mask, self.radius = original.use_radius_mask, original.radius
@@ -126,6 +129,7 @@ class SharedPairAttention(nn.Module):
         self.pair_projection = Linear(pair_dim, self.nheads, bias=False)
 
     def forward(self, x, pair_features, distances, mask):
+        require_bias_free_attention(self,x,pair_features,distances)
         bsz, seqlen, _ = x.shape
         q, k, v = self.qkv(x).view(bsz, seqlen, 3, self.nheads, self.d_head).unbind(2)
         q, k, v = (value.transpose(1, 2) for value in (q, k, v))
@@ -156,6 +160,7 @@ class SharedPairBackbone(nn.Module):
     """Canonical packed H0, with one shared pair encoding per physical batch."""
     def __init__(self, original, options):
         super().__init__()
+        self.distance_bias_projection_bias=distance_bias_projection_bias(original)
         self.n_atom_types, self.dim = original.n_atom_types, original.dim
         self.activation_checkpointing = original.activation_checkpointing
         self.atom_emb, self.out_norm = original.atom_emb, original.out_norm
@@ -164,13 +169,16 @@ class SharedPairBackbone(nn.Module):
         self.layers = nn.ModuleList([SharedPairTransformerLayer(layer, options.pair_dim) for layer in original.layers])
 
     def get_extra_state(self):
-        return {"schema": "model_v3_shared_gaussian_backbone_v1", "options": asdict(self.options),
+        result={"schema": "model_v3_shared_gaussian_backbone_v1", "options": asdict(self.options),
                 "n_atom_types": self.n_atom_types, "dim": self.dim}
+        if not self.distance_bias_projection_bias:result['distance_bias_projection_bias']=False
+        return result
 
     def set_extra_state(self, state):
         require(state == self.get_extra_state(), "C1 checkpoint/options differ")
 
     def forward(self, data):
+        require_distance_bias_backbone(self,expected=self.distance_bias_projection_bias)
         require(getattr(data, "pos", None) is not None, "C1 H0 requires coordinates")
         batch = ensure_batch_attr(data)
         raw = data.x[:, 0] if data.x.ndim == 2 else data.x

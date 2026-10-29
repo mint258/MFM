@@ -5,7 +5,7 @@ W&B run. Synthetic tests exercise the protocol only, not tracking durability.
 """
 from __future__ import annotations
 
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from copy import deepcopy
 from dataclasses import asdict, dataclass, field
 import hashlib
@@ -40,16 +40,20 @@ class PreparedV3Batch:
     prediction_offsets: Mapping[str, Tensor] = field(default_factory=dict)
     atom_eligibility: Mapping[str, Tensor] = field(default_factory=dict)
     bond_pair_eligibility: Tensor | None = None
+    domain_inputs: Mapping[str, object] = field(default_factory=dict)
+    geometry_context: Mapping[str, object] = field(default_factory=dict)
 
     def to(self, device):
+        from .v3_data import _target_to
         return PreparedV3Batch(tuple(self.choices), self.views.to(device, non_blocking=True),
-            {name: FieldTarget(value.values.to(device, non_blocking=True), value.valid.to(device, non_blocking=True),
-                              None if value.pair_index is None else value.pair_index.to(device, non_blocking=True))
+            {name: _target_to(value, device, non_blocking=True)
              for name, value in self.pd_targets.items()}, self.adapter_sha256, self.data_version, self.role,
             {name: value.to(device, non_blocking=True) for name, value in self.pair_indices.items()},
             {name: value.to(device, non_blocking=True) for name, value in self.prediction_offsets.items()},
             {name: value.to(device, non_blocking=True) for name, value in self.atom_eligibility.items()},
-            None if self.bond_pair_eligibility is None else self.bond_pair_eligibility.to(device, non_blocking=True))
+            None if self.bond_pair_eligibility is None else self.bond_pair_eligibility.to(device, non_blocking=True),
+            {name: value.to(device, non_blocking=True) for name, value in self.domain_inputs.items()},
+            self.geometry_context)
 
 
 class SampleLRScheduler:
@@ -136,12 +140,26 @@ def _execution_state(model):
              "matmul_tf32": bool(torch.backends.cuda.matmul.allow_tf32),
              "cudnn_tf32": bool(torch.backends.cudnn.allow_tf32),
              "deterministic_algorithms": torch.are_deterministic_algorithms_enabled()}
+    integration = {name: deepcopy(module.performance_execution_contract)
+                   for name, module in model.named_modules() if hasattr(module, "performance_execution_contract")}
+    if integration:state["performance_integration"] = integration
+    if hasattr(model, "training_execution_contract"):
+        from .v3_training_execution import validate_training_execution_contract
+        state["training_execution"] = validate_training_execution_contract(model.training_execution_contract)
     json.dumps(state, allow_nan=False)
     return state
 
 
 def _restore_execution(model, state):
     current = _execution_state(model)
+    require(current.get("training_execution") == state.get("training_execution"),
+            "Training execution contract changed before any restore mutation")
+    if "training_execution" in current:
+        from .v3_training_execution import validate_training_execution_state
+        validate_training_execution_state(current["training_execution"], current)
+        validate_training_execution_state(current["training_execution"], state)
+    require(current.get("performance_integration", {}) == state.get("performance_integration", {}),
+            "Logical-batch/profile execution contract changed before resume")
     require(current["performance_options"] == state["performance_options"],
             "Performance options changed; construct the same bound implementation before resume")
     require({name: set(flags) for name, flags in current["resolved_checkpoint_flags"].items()}
@@ -164,14 +182,37 @@ class V3StepTrainer:
                  provider, normalizations, weights, tracker, bindings, *, enabled_groups,
                  enabled_fields=None, view_config=StructuralViewConfig(), gradient_clip_norm=1.,
                  gradient_probe_interval=500, probe_samples=4, allow_unit_tracker=False, validation_batch_cap=100000,
-                 max_molecules=512, max_native_atoms=65536, max_padded_cost=8000000):
+                 max_molecules=512, max_native_atoms=65536, max_padded_cost=8000000, training_execution=None, physical_policy=None):
         require(isinstance(model, V3MultiViewModel), "Canonical S/clean-PD multiview model required")
         _bindings(dict(bindings))
         self.model, self.optimizer, self.scheduler = model, optimizer, scheduler
+        self.training_execution = training_execution
+        self.training_execution_resources = None
+        declared_execution = getattr(model, "training_execution_contract", None)
+        require((training_execution is None) == (declared_execution is None),
+                "An installed training execution requires its same finalized runtime handle")
+        if training_execution is not None:
+            from .v3_training_execution import validate_training_execution_contract
+            require(training_execution.encoder is model.encoder and training_execution.observer is not None
+                and validate_training_execution_contract(training_execution.contract) == declared_execution,
+                "Complete-model training execution was not finalized by the bound adapter")
         self.sampler, self.clock, self.provider = sampler, clock, provider
         self.normalizations, self.weights = dict(normalizations), weights
         self.groups = selected_groups(enabled_groups)
         self.fields = tuple(field.name for field in model.registry.enabled(self.groups, enabled_fields))
+        self.physical_policy = physical_policy
+        bound_policy = getattr(provider, "physical_policy", None)
+        require(bound_policy is None or (physical_policy is not None
+                and physical_policy.projection == bound_policy.projection),
+                "Trainer must consume the actual provider physical policy unchanged")
+        if physical_policy is not None:
+            from .v3_physical_policy import PhysicalLossPolicy
+            require(isinstance(physical_policy, PhysicalLossPolicy)
+                    and (not physical_policy.engineering_only or allow_unit_tracker),
+                    "Physical-policy UNIT fixtures cannot grant production admission")
+            from .v3_losses import loss_prediction_fields
+            loss_prediction_fields(model.registry, self.normalizations, enabled_groups=self.groups,
+                enabled_fields=self.fields, physical_policy=physical_policy)
         self.view_config = view_config
         require(math.isfinite(gradient_clip_norm) and gradient_clip_norm > 0 and type(gradient_probe_interval) is int
                 and gradient_probe_interval > 0 and type(probe_samples) is int and probe_samples > 0,
@@ -219,6 +260,11 @@ class V3StepTrainer:
                                             for group in optimizer.param_groups],
             "optimizer_options": [{key: deepcopy(value) for key, value in group.items()
                                    if key not in ("params", "lr", "initial_lr")} for group in optimizer.param_groups]}
+        integration_state = _execution_state(model).get("performance_integration")
+        if integration_state is not None:self.contract["performance_integration"] = integration_state
+        if training_execution is not None:self.contract["training_execution"] = deepcopy(training_execution.contract)
+        if physical_policy is not None:
+            self.contract["physical_loss_policy"] = physical_policy.projection
         self.bindings = {**dict(bindings), "trainer_configuration_sha256": canonical_hash(self.contract),
                          "adapter_sha256": provider.source_sha256,
                          "trainer_source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
@@ -276,16 +322,57 @@ class V3StepTrainer:
             if save is not None:
                 self.provider.load_state_dict(state)
 
+    def _execution_capture(self, role):
+        if self.training_execution is None:
+            return None
+        return self.training_execution.observer.capture_forward(self.model, role=role)
+
+    def _execution_complete(self, snapshot):
+        if snapshot is None:
+            return None
+        require(callable(self.training_execution_resources),
+                "Training execution requires an actual owned runtime resource callback")
+        return self.training_execution.observer.record_completed(snapshot, optimizer=self.optimizer,
+            optimizer_updates=self.clock.optimizer_updates, samples_consumed=self.clock.samples_consumed,
+            resources=self.training_execution_resources())
+
+    def _execution_validation_begin(self, role, count):
+        if self.training_execution is not None:
+            populations = self.training_execution.workload_binding['data']['validation_population_bindings']
+            self.training_execution.observer.begin_validation(role, batch_count=count,
+                population_binding=populations[role])
+
+    def _execution_validation_complete(self, role):
+        if self.training_execution is not None:
+            self.training_execution.observer.complete_validation(role)
+
     def _forward_loss(self, batch):
         # Selective backbone bf16, when configured, is implemented inside the
         # bound performance model. Geometry/heads/loss stay outside autocast.
-        with torch.autocast(device_type=self.device.type, enabled=False):
-            prediction = self.model.forward_pretrain(batch.views, enabled_groups=self.groups, enabled_fields=self.fields,
-                pair_indices=batch.pair_indices, prediction_offsets=batch.prediction_offsets)
+        if self.training_execution is None:
+            execution_context = nullcontext()
+        else:
+            from .v3_training_execution import training_execution_context
+            execution_context = training_execution_context(self.training_execution)
+        observer_context = (nullcontext() if self.training_execution is None else
+            self.training_execution.observer.forward_context(self.model, role=batch.role))
+        with execution_context, observer_context, torch.autocast(device_type=self.device.type, enabled=False):
+            domain_arguments = ({"domain_inputs": batch.domain_inputs, "geometry_context": batch.geometry_context}
+                                if batch.domain_inputs else {})
+            from .v3_losses import loss_prediction_fields
+            prediction_fields = loss_prediction_fields(self.model.registry, self.normalizations,
+                enabled_groups=self.groups, enabled_fields=self.fields, physical_policy=self.physical_policy)
+            prediction = self.model.forward_pretrain(batch.views, enabled_groups=self.groups, enabled_fields=prediction_fields,
+                pair_indices=batch.pair_indices, prediction_offsets=batch.prediction_offsets, **domain_arguments)
+            loss_arguments = {}
+            if self.physical_policy is not None:
+                require(self.physical_policy.projection == self.contract["physical_loss_policy"],
+                        "Physical target policy changed after trainer/CP binding")
+                loss_arguments["physical_policy"] = self.physical_policy
             loss = self.model.compute_loss(prediction, batch.views, batch.pd_targets, self.normalizations,
                 enabled_groups=self.groups, enabled_fields=self.fields, weights=self.weights,
                 atom_eligibility=batch.atom_eligibility, bond_pair_eligibility=batch.bond_pair_eligibility,
-                exposure_step=self.clock.samples_consumed)
+                exposure_step=self.clock.samples_consumed, **loss_arguments)
         require(bool(torch.isfinite(loss.total)), "Nonfinite training/validation loss")
         return prediction, loss
 
@@ -336,7 +423,26 @@ class V3StepTrainer:
             result["metric_status/" + name] = "INACTIVE" if not enabled else "NO_VALID_LABELS"
             if not enabled:
                 continue
-            result["loss/" + name] = float(loss.fields[name].detach()) if count else None
+            effective = loss.loss_counts[name]
+            if loss.has_loss_readiness:
+                result["loss_count/" + name] = effective
+                result["loss_status/" + name] = loss.loss_status[name]
+                if name in loss.loss_reasons: result["loss_disabled_reason/" + name] = loss.loss_reasons[name]
+                if loss.physical_policy_sha256 is not None:
+                    result["physical_status/" + name] = loss.physical_status[name]
+                    result["scale_status/" + name] = loss.scale_status[name]
+                    result["physical_policy_sha256"] = loss.physical_policy_sha256
+                    if name in loss.scale_reasons: result["scale_disabled_reason/" + name] = loss.scale_reasons[name]
+            result["loss/" + name] = float(loss.fields[name].detach()) if effective else None
+            if name not in predictions:
+                from .v3_losses import source_observed_rows
+                require(effective == 0 and loss.loss_status.get(name) in (
+                    "LOSS_DISABLED_SCALE_UNBOUND_OR_DEGENERATE", "LOSS_DISABLED_PHYSICAL_POLICY_UNBOUND"),
+                    "A ready target cannot omit its prediction")
+                _, observed = source_observed_rows(field, targets[name])
+                require(observed == count, "Source-only label population differs")
+                result["metric_status/" + name] = "LOSS_DISABLED_NO_PREDICTION"
+                continue
             pred, target, observed = observed_rows(field, predictions[name], targets[name])
             require(observed == count, "Single-step loss/metric label populations differ")
             if not count:
@@ -381,10 +487,11 @@ class V3StepTrainer:
         self.optimizer.zero_grad(set_to_none=True)
         lr_used = [float(group["lr"]) for group in self.optimizer.param_groups]
         prediction, loss = self._forward_loss(batch)
+        execution_snapshot = self._execution_capture("TRAIN")
         # Population/metric validation must also precede the numerical update.
         tables = self._tables(prediction, batch)
         metrics = self._field_metrics(*tables, loss)
-        observed = any(value > 0 for value in loss.counts.values())
+        observed = any(value > 0 for value in loss.loss_counts.values())
         probe = {}
         if observed:
             require(loss.total.requires_grad, "Observed labels have no effective model gradient")
@@ -411,6 +518,7 @@ class V3StepTrainer:
                "loss/total": float(loss.total.detach()), "gradient_norm_before_clip": None if norm is None else float(norm),
                "lr_used": lr_used, "lr_next": [float(group["lr"]) for group in self.optimizer.param_groups],
                "sample_ordinals": [choice.ordinal for choice in choices], **metrics}
+        if loss.has_loss_readiness and not observed: row["loss/total"] = None
         row.update({"shared_gradient_norm/" + key: value for key, value in probe.items()})
         if self.device.type == "cuda":
             torch.cuda.synchronize(self.device)
@@ -419,6 +527,8 @@ class V3StepTrainer:
         runtime["segment_samples"] = runtime.pop("samples_consumed")
         runtime["segment_initial_samples"] = self.segment_initial_samples
         row.update({"runtime/" + key: value for key, value in runtime.items()})
+        execution_row = self._execution_complete(execution_snapshot)
+        if execution_row is not None:row["training_execution_observation"] = execution_row
         self._log(row)
         return row
 
@@ -482,6 +592,7 @@ class V3StepTrainer:
             require(type(batches) in (list, tuple), "Explicit validation batches must be a bounded list/tuple")
             count, iterator = len(batches), iter(batches)
         require(type(count) is int and 0 < count <= self.validation_batch_cap, "Bounded full validation batch count required")
+        self._execution_validation_begin(role, count)
         metric = ValidationAccumulator(self.model.registry, role=role, enabled_groups=self.groups, enabled_fields=self.fields)
         previous_mode = self.model.training
         actual = 0
@@ -492,11 +603,14 @@ class V3StepTrainer:
                     require(actual < count, "Validation provider exceeded its declared population")
                     batch = self._prepared(value, role=role)
                     prediction, loss = self._forward_loss(batch)
+                    execution_snapshot = self._execution_capture(role)
                     metric.add(*self._tables(prediction, batch), loss)
+                    self._execution_complete(execution_snapshot)
                     actual += 1
         finally:
             self.model.train(previous_mode)
         require(actual == count, "Validation provider ended before its declared population")
+        self._execution_validation_complete(role)
         result = metric.result()
         for field in self.model.registry.fields:
             if field.name not in result["fields"]:
@@ -540,6 +654,8 @@ class V3StepTrainer:
                 "Trainer/scheduler configuration differs")
         require(type(preview["log_cursor"]) is int and preview["log_cursor"] >= 0
                 and set(preview["validation_state"]) == set(self.validation_state), "Trainer history/validation state differs")
+        require(preview["execution"].get("training_execution") == self.contract.get("training_execution"),
+                "Trainer contract and saved training execution differ")
         _restore_execution(self.model, preview["execution"])
         extra = load_checkpoint(directory, output_root=output_root, model=self.model, optimizer=self.optimizer,
             sampler=self.sampler, clock=self.clock, expected_bindings=self.bindings)

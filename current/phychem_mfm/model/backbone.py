@@ -9,6 +9,8 @@ from torch.utils.checkpoint import checkpoint
 
 from .attention import RealCoordTransformerLayer
 from .common import ensure_batch_attr
+from .v3_distance_bias import (validate_distance_bias_projection_bias,
+    require_distance_bias_constructor,require_distance_bias_backbone)
 
 
 class RealCoordTransformerBackbone(nn.Module):
@@ -26,8 +28,12 @@ class RealCoordTransformerBackbone(nn.Module):
         use_radius_mask: bool = False,
         radius: float = 8.0,
         activation_checkpointing: bool = False,
+        distance_bias_projection_bias: bool = True,
     ) -> None:
         super().__init__()
+        self.distance_bias_projection_bias=validate_distance_bias_projection_bias(distance_bias_projection_bias)
+        require_distance_bias_constructor(self.distance_bias_projection_bias,use_dist_bias=use_dist_bias,
+            dim=dim,heads=heads,layers=layers)
         self.n_atom_types = int(n_atom_types)
         self.dim = int(dim)
         if type(activation_checkpointing) is not bool:
@@ -45,6 +51,7 @@ class RealCoordTransformerBackbone(nn.Module):
                     use_dist_bias=use_dist_bias,
                     use_radius_mask=use_radius_mask,
                     radius=radius,
+                    distance_bias_projection_bias=self.distance_bias_projection_bias,
                 )
                 for _ in range(layers)
             ]
@@ -52,6 +59,7 @@ class RealCoordTransformerBackbone(nn.Module):
         self.out_norm = nn.LayerNorm(self.dim)
 
     def forward(self, data: Data) -> Tensor:
+        require_distance_bias_backbone(self,expected=self.distance_bias_projection_bias)
         if getattr(data, "pos", None) is None:
             raise ValueError("RealCoordTransformerBackbone requires data.pos")
 

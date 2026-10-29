@@ -18,6 +18,7 @@ from torch.utils.checkpoint import checkpoint
 
 from .attention import DenseGeoSelfAttention, DenseFFN
 from .heads import EquivariantDenoisingHead
+from .v3_distance_bias import reject_distance_bias_runtime
 
 
 @dataclass(frozen=True)
@@ -99,6 +100,7 @@ class ConfigurableTiledDistanceMLP(nn.Sequential):
 
 class RuntimeDenseAttention(DenseGeoSelfAttention):
     def __init__(self, original, *, precision="fp32"):
+        reject_distance_bias_runtime(original)
         _reuse_modules(self, original)
         for name in ("dim", "nheads", "d_head", "use_dist_bias", "use_radius_mask", "radius"):
             setattr(self, name, getattr(original, name))
@@ -232,10 +234,22 @@ class ConfigurableDenoisingHead(EquivariantDenoisingHead):
             return noise / degree if self.normalization == "sqrt_neighbors" else noise
 
 
-def build_performance_model(configuration: Mapping, options=PerformanceOptions()):
+def build_performance_model(configuration: Mapping, options=PerformanceOptions(), *, execution=None):
     """Build a fresh candidate with unchanged H0 methods and original keys."""
     from ..factory import build_model
-    model = build_model(configuration)
+    reject_distance_bias_runtime(dict(configuration))
+    # Absent opt-in follows the original path, original default Options/asdict
+    # and state keys. An explicit model-config key also reaches real trainers.
+    if execution is not None and "performance_execution_v1" in configuration:
+        raise ValueError("Declare performance execution exactly once")
+    core_configuration = dict(configuration)
+    requested_execution = core_configuration.pop("performance_execution_v1", execution)
+    integration = None
+    if requested_execution is not None:
+        from .v3_checkpoint_policy import prepare_execution
+        options, specification, capacity_guard, receipt = prepare_execution(core_configuration, options, requested_execution)
+        integration = (specification, capacity_guard, receipt)
+    model = build_model(core_configuration)
     if options.backbone_checkpointing is not None:
         model.backbone.activation_checkpointing = options.backbone_checkpointing
     for layer in model.backbone.layers:
@@ -250,6 +264,12 @@ def build_performance_model(configuration: Mapping, options=PerformanceOptions()
     if isinstance(model.geometry_head, EquivariantDenoisingHead):
         model.geometry_head = ConfigurableDenoisingHead(model.geometry_head,
                                                        activation_checkpointing=options.head_checkpointing)
+    if integration is not None:
+        from .v3_logical_batch import LogicalBatchBackbone, LogicalBatchPadding
+        specification, capacity_guard, receipt = integration
+        padding = None if specification.padding is None else LogicalBatchPadding(**specification.padding)
+        model.backbone = LogicalBatchBackbone(model.backbone, padding=padding, capacity_guard=capacity_guard)
+        model.v3_performance_execution = receipt
     if options.compile_backbone:
         # Compiling only the bound forward retains state-dict key names and H0 APIs.
         model.backbone.forward = torch.compile(model.backbone.forward, dynamic=options.compile_dynamic, fullgraph=False)
@@ -314,3 +334,75 @@ def choose_checkpointing(*, gpu_name, total_memory_bytes, free_memory_bytes,
     return {"backbone_checkpointing": False, "head_checkpointing": False,
             "distance_checkpointing": False, "reason": "WITHIN_PINNED_ALL_OFF_CAPACITY",
             "measurement_sha256": row["measurement_sha256"]}
+
+def install_training_performance(model, options, *, padding=None, capacity_guard=None):
+    """Install the explicit training adapter after architecture construction.
+
+    No new Parameter, stochastic initialization, sampler, loss or view is made.
+    The original build_performance_model and A-only capacity reader are intact.
+    """
+    reject_distance_bias_runtime(model)
+    from .backbone import RealCoordTransformerBackbone
+    from .v3_architecture import SharedPairBackbone, SharedGaussianPairEncoder
+    from .v3_logical_batch import TrainingLogicalBatchBackbone, LogicalBatchSharedPairBackbone
+    from .v3_checkpoint_policy import require
+    shared = type(model.backbone) is SharedPairBackbone
+    require(shared or type(model.backbone) is RealCoordTransformerBackbone,
+            "Declared C1-0 or SharedPair training backbone required")
+    if shared:
+        require(options.precision == "fp32" and options.attention_backend == "dense"
+                and options.distance_implementation == "dense",
+                "SharedPair selective bf16/sparse/scalar-distance tiling is unsupported")
+    if options.backbone_checkpointing is not None:
+        model.backbone.activation_checkpointing = options.backbone_checkpointing
+    if shared:
+        model.backbone.pair_encoder = CheckpointedSharedPairEncoder(model.backbone.pair_encoder,
+            activation_checkpointing=options.distance_checkpointing)
+    else:
+        for layer in model.backbone.layers:
+            attention = layer.attn
+            if options.distance_implementation == "tiled" and attention.dist_mlp is not None:
+                attention.dist_mlp = ConfigurableTiledDistanceMLP(attention.dist_mlp,
+                    pair_rows=options.distance_pair_rows, activation_checkpointing=options.distance_checkpointing)
+            attention_type = SparseRadiusAttention if options.attention_backend == "sparse_radius" else RuntimeDenseAttention
+            kwargs = {"query_chunk": options.sparse_query_chunk} if options.attention_backend == "sparse_radius" else {}
+            layer.attn = attention_type(attention, precision=options.precision, **kwargs)
+            layer.ffn = RuntimeFFN(layer.ffn, precision=options.precision)
+    require(isinstance(model.geometry_head, EquivariantDenoisingHead), "Original S geometry head required")
+    model.geometry_head = ConfigurableDenoisingHead(model.geometry_head,
+        activation_checkpointing=options.head_checkpointing)
+    runtime = LogicalBatchSharedPairBackbone if shared else TrainingLogicalBatchBackbone
+    model.backbone = runtime(model.backbone, padding=padding, capacity_guard=capacity_guard)
+    # Only mathematical/layout semantics enter CP equality. A different fresh
+    # admission ref may authorize the SAME flags without rewriting that contract.
+    model.backbone.performance_execution_contract = {
+        "schema": "model_v3_training_encoder_runtime_v1", "architecture": "shared_pair" if shared else "C1-0",
+        "padding": None if padding is None else asdict(padding),
+        "distance_scope": "shared_pair_encoder_complete" if shared else "per_layer_scalar_distance",
+        "source_sha256": model.backbone.performance_execution_contract["source_sha256"]}
+    if options.compile_backbone:
+        model.backbone.forward = torch.compile(model.backbone.forward, dynamic=options.compile_dynamic, fullgraph=False)
+    model.v3_performance_options = asdict(options)
+    return model
+
+
+from .v3_architecture import SharedGaussianPairEncoder as _SharedGaussianPairEncoder
+
+
+class CheckpointedSharedPairEncoder(_SharedGaussianPairEncoder):
+    """Checkpoint the shared pair encoder once, not a nonexistent scalar MLP."""
+    def __init__(self, original, *, activation_checkpointing):
+        if type(original) is not _SharedGaussianPairEncoder:
+            raise ValueError("Original shared Gaussian pair encoder required")
+        _reuse_modules(self, original)
+        self.options, self.n_atom_types = original.options, original.n_atom_types
+        # C1-a stores ordinary None attributes; named_children omits them.
+        # C1-b must retain the very same registered Embedding instances.
+        self.pair_scale, self.pair_shift = original.pair_scale, original.pair_shift
+        self.activation_checkpointing = bool(activation_checkpointing)
+        self.train(original.training)
+
+    def forward(self, pos, elements, mask):
+        if self.activation_checkpointing and self.training and torch.is_grad_enabled():
+            return checkpoint(super().forward, pos, elements, mask, use_reentrant=False, preserve_rng_state=True)
+        return super().forward(pos, elements, mask)

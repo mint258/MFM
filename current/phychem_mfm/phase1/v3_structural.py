@@ -228,4 +228,17 @@ def combine_structural_loss(pd_loss: V3LossResult, raw, counts, *, enabled_group
         group_losses["S"] = torch.stack(valid).mean() if valid else pd_loss.total.new_zeros(())
         observed["S"] = len(valid)
     total = torch.stack([group_losses[group] for group in groups]).mean() if groups else pd_loss.total.new_zeros(())
-    return V3LossResult(total, field_losses, group_losses, field_counts, observed, groups)
+    result = V3LossResult(total, field_losses, group_losses, field_counts, observed, groups, pd_loss.audit_counts)
+    if pd_loss.has_loss_readiness:
+        loss_counts, statuses = dict(pd_loss.loss_counts), dict(pd_loss.loss_status)
+        if "S" in groups:
+            loss_counts.update(counts)
+            statuses.update({name: "READY" if count else "NO_VALID_LABELS" for name, count in counts.items()})
+        physical, scale = dict(pd_loss.physical_status), dict(pd_loss.scale_status)
+        if pd_loss.physical_policy_sha256 is not None and "S" in groups:
+            physical.update({name: "NOT_TARGETED_BY_BOUND_PHYSICAL_POLICY" for name in counts})
+            scale.update({name: "NOT_APPLICABLE_STRUCTURAL" for name in counts})
+        return result.with_loss_readiness(loss_counts, statuses, pd_loss.loss_reasons,
+            physical_status=physical, scale_status=scale, scale_reasons=pd_loss.scale_reasons,
+            policy_sha256=pd_loss.physical_policy_sha256)
+    return result

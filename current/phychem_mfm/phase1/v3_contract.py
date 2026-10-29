@@ -17,8 +17,8 @@ from torch import Tensor
 GROUPS = ("S", "D", "P")
 INTERFACE_STATUS = "MODEL_SIDE_DRAFT_AWAITING_D1_D2"
 KINDS = ("regression", "binary", "classification", "denoise_eps_mse")
-LEVELS = ("graph", "atom", "pair")
-REPRESENTATIONS = ("scalar", "vector", "magnitude")
+LEVELS = ("graph", "atom", "pair", "ordered_entry")
+REPRESENTATIONS = ("scalar", "vector", "magnitude", "symmetric_tensor6")
 
 
 def canonical_hash(value) -> str:
@@ -71,13 +71,19 @@ class FieldSpec:
                 "Pair vector fields require a new declared head")
         require(self.representation != "magnitude" or self.level == "graph",
                 "Magnitude fields are graph dipole magnitudes")
+        require(self.level != "ordered_entry" or (self.kind == "regression"
+                and self.representation == "scalar"),
+                "Ordered entries require their independent scalar-regression domain")
+        require(self.representation != "symmetric_tensor6" or (self.level == "graph"
+                and self.kind == "regression" and self.huber_delta == 1.),
+                "Symmetric tensor6 requires graph regression with radial Huber delta=1")
         require(self.kind != "denoise_eps_mse" or (self.group == "S" and self.level == "atom"
                 and self.representation == "vector"), "Denoising is an S atom vector")
         require(type(self.unit) is str and bool(self.unit), "Explicit label unit required")
 
     @property
     def target_width(self) -> int:
-        return 3 if self.representation == "vector" else 1
+        return 6 if self.representation == "symmetric_tensor6" else (3 if self.representation == "vector" else 1)
 
     @property
     def prediction_width(self) -> int:
@@ -147,6 +153,9 @@ class TrainNormalization:
 
     def validate_for(self, field: FieldSpec):
         require(len(self.scale) in (1, field.target_width), "Normalization width differs")
+        if field.representation == "symmetric_tensor6":
+            require(self.center == (0.,) and len(self.scale) == 1,
+                    "Tensor6 normalization requires zero center and one shared TRAIN Frobenius scale")
         if field.representation == "vector":
             require(all(value == 0 for value in self.center)
                     and all(value == self.scale[0] for value in self.scale),
@@ -158,6 +167,50 @@ class TrainNormalization:
         return (value.float() - center) / scale
 
 
+LOSS_DISABLED_SCALE = "LOSS_DISABLED_SCALE_UNBOUND_OR_DEGENERATE"
+DISABLED_SCALE_REASONS = ("MISSING", "EMPTY", "ZERO", "NONFINITE")
+
+
+@dataclass(frozen=True)
+class DisabledNormalization:
+    """Explicit target-local actual-D4 disposition, never a fake normalizer.
+
+    No scale/center/transform is supplied. Authority/schema/hash errors must
+    never be converted to this state by a broad exception handler.
+    """
+    model_field: str
+    target_id: str
+    reason: str
+    source_sha256: str
+    data_version: str
+    evidence: dict
+    fit_role: str = "TRAIN"
+    status: str = LOSS_DISABLED_SCALE
+
+    def __post_init__(self):
+        require(type(self.model_field) is str and bool(self.model_field)
+                and type(self.target_id) is str and bool(self.target_id)
+                and self.reason in DISABLED_SCALE_REASONS and self.fit_role == "TRAIN"
+                and self.status == LOSS_DISABLED_SCALE, "Explicit typed target-local scale disposition required")
+        require(type(self.source_sha256) is str and len(self.source_sha256) == 64
+                and all(x in "0123456789abcdef" for x in self.source_sha256)
+                and type(self.data_version) is str and bool(self.data_version), "Actual TRAIN D4/source identity required")
+        from .v3_label_domains import validate_source_reference
+        require(type(self.evidence) is dict and "statistics_reference" in self.evidence
+                and type(self.evidence.get("statistics_pointer")) is list
+                and all(type(x) in (str, int) for x in self.evidence["statistics_pointer"]),
+                "Actual target-specific D4 evidence and pointer required")
+        ref = validate_source_reference(self.evidence["statistics_reference"])
+        require(ref["sha256"] == self.source_sha256, "Disabled disposition and actual D4 source differ")
+        # Freeze a JSON-only copy; no unavailable numeric value is fabricated.
+        object.__setattr__(self, "evidence", json.loads(json.dumps(self.evidence, sort_keys=True, allow_nan=False)))
+
+    def validate_for(self, field):
+        self.__post_init__()
+        require(field.name == self.model_field and field.kind == "regression",
+                "Scale-disabled state must bind this regression target")
+
+
 @dataclass(frozen=True)
 class FieldTarget:
     """Already decoded field values with one boolean validity per observation."""
@@ -166,7 +219,22 @@ class FieldTarget:
     pair_index: Tensor | None = None
 
 
-def observed_rows(field: FieldSpec, prediction: Tensor, target: FieldTarget):
+def observed_rows(field: FieldSpec, prediction: Tensor, target):
+    """Select eligible rows without rewriting retained source-domain metadata.
+
+    Tensor component/geometry masks and ordered source validity, endpoint
+    channels, direction, duplicates and ordinals remain on the typed target.
+    They cannot be replaced by a generic FieldTarget with a fabricated mask.
+    """
+    from .v3_label_domains import OrderedEntryTarget, Tensor6Target
+    if field.representation == "symmetric_tensor6":
+        require(isinstance(target, Tensor6Target), f"{field.name}: typed full tensor6 target required")
+        target.__post_init__()
+    elif field.level == "ordered_entry":
+        require(isinstance(target, OrderedEntryTarget), f"{field.name}: typed ordered-entry target required")
+        target.__post_init__()
+    else:
+        require(isinstance(target, FieldTarget), f"{field.name}: legacy field target required")
     require(isinstance(prediction, Tensor) and prediction.ndim == 2
             and prediction.size(1) == field.prediction_width and prediction.is_floating_point(),
             f"{field.name}: prediction shape/dtype differs")
@@ -198,5 +266,5 @@ def validate_normalizations(registry: LabelRegistry, normalizations: Mapping[str
     names = registry.by_name()
     require(set(normalizations) <= set(names), "Normalizer for an unknown field")
     for name, normalizer in normalizations.items():
-        require(isinstance(normalizer, TrainNormalization), "Typed TRAIN normalization required")
+        require(isinstance(normalizer, (TrainNormalization, DisabledNormalization)), "Typed TRAIN normalization or explicit disabled disposition required")
         normalizer.validate_for(names[name])

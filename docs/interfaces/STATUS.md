@@ -1,3 +1,5 @@
+2026-10-29 canonical模型生产源已通过后验133模块：3122PASS/3原CUDA skip；新物理消费门保持原值/mask/合法scale，跳过无用head。Native4904已实际自动内存续接，最大原生712输入4906 C0。Model最终policy/config ACK待该canonical源实际公开后签署，D3–D6/真实release仍待，详[当日汇总](../model_v3/DAILY_20261029.md)。
+
 2026-10-29 开发GPU自动内存已明确获批，原预算/RSS/85%和科学门保持；Native026安全停界待新源采用。132完整回归及两组R1/SDK已闭合，物理政策133回归与实际D1 joint/D3–D6继续；见[唯一当日汇总](../model_v3/DAILY_20261029.md)。
 
 2026-10-29 用户D1五项全部A已确认：[政策与边界](MODEL_LINE_D1_ALL_A_20261029.md)。[当日模型汇总](../model_v3/DAILY_20261029.md)：A-v2完整复核3/9及三组原生日志同步已闭合；原完整Stage0–7继续。joint ACK、真实D3/D4/D5/D6与最终冻结未完成，四极标签独立物理政策正在对齐。

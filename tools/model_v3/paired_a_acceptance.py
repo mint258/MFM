@@ -32,6 +32,8 @@ def main():
         help="Opt in H0-only export after full native20+500 gates and cleanup; fresh immediate child of --output")
     args = parser.parse_args()
     selected = validate_arguments(args, paired=True)
+    if args.performance_execution is not None and args.export_candidate_checkpoint is not None:
+        raise ValueError("New execution integration has no admitted H0 export adapter; keep diagnostic export disabled")
     args.export_candidate_checkpoint = validate_export_destination(args.export_candidate_checkpoint,
         output_root=args.output, repository_root=REPO)
     args.deterministic_controls_binding = prepare_deterministic_controls(args.deterministic_controls)
@@ -75,10 +77,12 @@ def run(args, uuid):
         raise ValueError("This harness is only the A-class fp32 gate, not a B-class precision study")
     baseline_options = PerformanceOptions()
     reference, a4, config, bound_configuration = load_references(args)
+    from a_execution_runtime import load_performance_execution, execution_request_reference, execution_observation
+    integration = load_performance_execution(args, config, bound_configuration, resident_models=2)
     torch.manual_seed(args.seed)
     reference_model = build_memory_bounded_model(config).cuda().train()
     torch.manual_seed(args.seed)
-    candidate_model = build_performance_model(config, options).cuda().train()
+    candidate_model = build_performance_model(config, options, execution=integration).cuda().train()
     left, right = reference_model.state_dict(), candidate_model.state_dict()
     if set(left) != set(right) or not all(torch.equal(left[name], right[name]) for name in left):
         raise RuntimeError("Execution candidate changed initial parameters/state keys")
@@ -98,6 +102,9 @@ def run(args, uuid):
                      "candidate_options_sha256": digest(args.candidate_options),
                      "torch_version": str(torch.__version__), "cuda_version": torch.version.cuda,
                      "logical_python": str(Path(sys.executable).absolute())}
+    if integration is not None:
+        configuration["performance_execution_request"] = execution_request_reference(args)
+        configuration["performance_execution"] = candidate_model.v3_performance_execution
     configuration["checkpoint_export"] = {"requested": args.export_candidate_checkpoint is not None,
         "destination": str(args.export_candidate_checkpoint) if args.export_candidate_checkpoint is not None else None,
         "scope": "H0_only_after_native20batch500update_gates_and_input_SDK_cleanup", "resume_supported": False}
@@ -218,6 +225,8 @@ def run(args, uuid):
             append_json(args.output / "consumption.jsonl", {"phase": "trajectory", "optimizer_updates": update,
                 "input": receipt, "committed_stream": stream.state_dict()})
             resource = guard_resources(args.output, uuid)
+            if integration is not None:
+                resource["performance_execution"] = execution_observation(candidate_model)
             append_json(args.output / "resources.jsonl", {"phase": "trajectory", "optimizer_updates": update, **resource})
             if update % 25 == 0 or update == updates:
                 print(json.dumps({"updates": update, "consumed_base_records": consumed_records,

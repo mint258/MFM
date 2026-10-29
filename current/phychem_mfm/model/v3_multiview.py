@@ -44,7 +44,7 @@ class V3MultiViewModel(nn.Module):
         return self.encoder.encode_graph(batch, pooling=pooling)
 
     def forward_pretrain(self, views, *, enabled_groups, enabled_fields=None,
-                         pair_indices=None, prediction_offsets=None):
+                         pair_indices=None, prediction_offsets=None, domain_inputs=None, geometry_context=None):
         groups = selected_groups(enabled_groups)
         active = self.registry.enabled(groups, enabled_fields)
         field_names = tuple(field.name for field in active)
@@ -61,22 +61,27 @@ class V3MultiViewModel(nn.Module):
             remap = graph_index.new_full((views.batch.num_graphs,), -1)
             remap[views.clean_graph_rows] = graph_index.new_tensor(range(len(views.clean_graph_rows)))
             pd_names = tuple(name for name in field_names if name in self.pd_heads.registry.by_name())
+            domain_kwargs = {} if not domain_inputs else {"domain_inputs": domain_inputs,
+                                                         "geometry_context": geometry_context}
             predictions = self.pd_heads(clean_h0, remap[graph_index], views.batch.pos[views.clean_atom_rows],
                 enabled_groups=tuple(group for group in groups if group != "S"), enabled_fields=pd_names,
-                pair_indices=pair_indices, prediction_offsets=prediction_offsets)
+                pair_indices=pair_indices, prediction_offsets=prediction_offsets, **domain_kwargs)
         return MultiViewPredictions(outputs, predictions, clean_h0, structural, groups, field_names)
 
     def compute_loss(self, prediction, views, pd_targets, normalizations, *, enabled_groups, weights,
-                     enabled_fields=None, atom_eligibility=None, bond_pair_eligibility=None, exposure_step=0):
+                     enabled_fields=None, atom_eligibility=None, bond_pair_eligibility=None, exposure_step=0, physical_policy=None):
         groups = selected_groups(enabled_groups)
         field_names = tuple(field.name for field in self.registry.enabled(groups, enabled_fields))
         require(prediction.structural_active == ("S" in groups), "Forward/loss structural switches differ")
-        require(prediction.enabled_groups == groups and prediction.enabled_fields == field_names,
-                "Forward/loss group or field switches differ")
+        from ..phase1.v3_losses import loss_prediction_fields
+        actual_fields = loss_prediction_fields(self.registry, normalizations, enabled_groups=groups,
+            enabled_fields=field_names, physical_policy=physical_policy)
+        require(prediction.enabled_groups == groups and prediction.enabled_fields in (field_names, actual_fields),
+                "Forward/loss group or field switches differ (qualified prediction selection)")
         pd_groups = tuple(group for group in groups if group != "S")
         pd_loss = compute_v3_loss(prediction.pd_predictions, pd_targets, self.registry, normalizations,
                                   enabled_groups=pd_groups, enabled_fields=field_names,
-                                  device=prediction.source_outputs.atom_repr.device)
+                                  device=prediction.source_outputs.atom_repr.device, physical_policy=physical_policy)
         if "S" not in groups:
             return pd_loss
         raw, counts = structural_raw_losses(prediction.source_outputs, views, self.registry,

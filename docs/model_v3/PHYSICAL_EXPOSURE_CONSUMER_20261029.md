@@ -1,0 +1,91 @@
+# Data native-frame30 physical exposure consumer
+
+本分支基于89b52c7aecfe184e4e0e9b7c6fb8dfe7161d4b45，只实现loss资格接合。
+原clean树、Data树、reporting及原112测试均未修改。全部FP32补偿候选继续停止、不采用，
+本补丁不引入数值修复，不改模型、H0、标签、尺度、frame或任何科学误差门。
+
+## 精确消费的Data事实
+
+Data真实接口为ROOT_D1_V3_PHYSICAL_EXPOSURE_AFTER_NATIVE30_V1，status
+ROOT_DECISION_AFTER_ACTUAL_BOUNDED_TEST_NOT_MODEL_JOINT_ACK。实际引用：
+
+/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/interfaces/physical_exposure_after_native_frame30_20261029_v1.json
+
+17221B / SHA256 f0738ab48a3f8517aec955e64001e96710ee9921f6b666122a8595f28cddc43c。
+原Data JSON不改，未另造Data发布schema。该决议仍Model_same_version_ACK=false、
+global_physical_PASS=false；30次调用的局部支持不补历史192坐标UNKNOWN。
+
+只消费明确REGISTRY674_ALL_SYMMETRIC6_CONDITIONS规则，关闭为
+LOSS_DISABLED_PHYSICAL_POLICY_UNBOUND，保原reason。Model映射来自现有
+VerifiedDataRelease的D4_bindings.registry_id/task/condition及targets.target_id/condition；
+必须确为674、xtb_singlepoint、完整symmetric_tensor6，同一真实condition。
+不选择诊断通过样本，不改sampling，不把不完整source mask重写为数值失败。
+
+ORIGIN_SENSITIVE_ACTUAL_QM_CHARGE_NONZERO_TARGETS没有逐target分类/实际QM电荷引用，
+本版不猜、不拿SMILES形式电荷代替。对缺该实际规律绑定的已启用P/D vector、magnitude
+或其它tensor域，consumer明确HOLD，而非把它们判科学FAIL或改mask。inactive字段不阻塞；
+S去噪vector、普通scalar及r73独立有序域不被674规则关闭。force等若有Data明确非敏感签认，
+仍须后继按真实映射接入；不能从字段名/representation自行授资格。r73原numeric
+origin/basis、source_frame_metadata与reader门全部保留，不能造0/I。
+
+## 接线与身份
+
+新增纯metadata PhysicalLossPolicy；生产只接受上述精确真实path/SHA。显式UNIT metadata
+只能engineering_only，不能经constructor/replace升级，也不能给production tracker资格。
+
+正式配置显式增加physical_policy_reference真实三字段rawref。make_proxy_inputs读取已绑定
+configuration，要求同版本joint既有evidence_source_references包含该原ref；实际Data
+release缺声明即HOLD，不能把本policy作为joint/release替代。原VerifiedDataRelease重验、
+真实Data family、D1/D3/D4/D5/D6、240k及Root准入门不变。
+
+实际RealDataProvider直接构造也必须绑定同版本joint及精确target map，trainer不得省略或替换
+provider政策。Provider source身份、authority_receipt和trainer合同绑定Model端紧凑政策投影/consumer源码SHA；
+CP沿原configuration/trainer contract/hash拒绝错误政策恢复，先验校验在状态mutation前。
+这只是Model消费表示，不是新的Data ACK/发布格式。原constructors仍可无该keyword；
+ProxyInputs/V3LossResult原dataclass字段及无opt-in默认日志/CP结构不补新字段。
+source代码变更会正常改变源码身份，不宣称跨不同源码SHA恢复已通过。
+
+物理和尺度两轴独立：合法TrainNormalization原对象/数值保留；即使两者都不就绪，
+主loss_status仍明确PHYSICAL_DISABLED，同时另记scale_status/scale_disabled_reason；
+不会伪称缺scale或NO_VALID_LABELS。counts/audit保留原source人口、值、component masks/
+geometry/reasons，loss_counts独立为0。disabled独立head没有loss梯度，其余ready target仍
+走原backward/clip/optimizer真实更新；全disabled沿原no-label clock，消耗样本而不伪更新。
+
+普通与two-view模型透传loss关键字；encoder/head/参数/state keys不变。v2补齐loss资格之前的
+head选择：trainer仅执行有实际loss资格的目标，物理关闭674或D4明确scale-disabled的r73
+无需numeric origin/frame，原source值/masks/UNKNOWN仍保留。实际provider从同release绑定的
+normalizations及policy推导source-only传输列表；该列表不授disabled/ready权威，loss独立复核。
+_CheckedReader和collate仅在该关闭分支保留source而不要求无用head输入，ready域继续原严格门。
+不造0/I、numeric frame或prediction；未执行head的MAE/RMSE等明确None而非0。
+新测试令q缺numeric inputs且其head一旦调用即拒绝，检查其他ready参数确实改变；
+另核r73缺numeric frame但scale-disabled仍保source、不运行head，传输列表不能独自关闭ready loss。
+v1原11源码与freeze/handoff保留，v2替代其未覆盖的实际forward边界。
+structural合并保留原enabled-group分母。验证保留raw-unit MAE/Frobenius统计及source分母，
+loss改用独立loss_count，并记录原physical status、scale status、reason和政策hash。
+不做新的科学accepted/模型采用结论。
+
+## ACK与待交付边界
+
+Data现final_release_v1/contract.py要求joint schema
+ROOT_MODEL_JOINT_FINAL_LABEL_POLICY_V1 / JOINTLY_FROZEN，
+actual_final_Model_ack_not_conditional=True，以及root_review_reference/
+model_ack_reference/contract_reference原始rawrefs。它未规定ACK正文独立schema或固定文件名。
+验证后Root可给同版本policy/config范围的明确Model文档接受，须如实保留数据验收未完成、
+关闭的target、未解析charge-selector和192UNKNOWN。该文档不独自授full release或真实D3。
+
+发布器还要求真实D4技术闭合和独立Root接受、D5/人口/anti-join、逐field unit/sign/basis/frame
+VERIFIED或有实际定义的NOT_APPLICABLE等；UNKNOWN不得改名绕过。FULL还要求实际Model
+runtime接受。旧publisher对空/zero scale仍整体raise、target-local发布能力及真实reader/
+sidecar/完整五层映射仍待Data后继，不由本补丁伪造。
+
+## 验证交接
+
+新增test_model_v3_physical_policy.py，计划覆盖源mask/合法scale不变、双轴状态、
+ready真实梯度与更新、全disabled no-update、验证分母、结构合并、默认序列化/参数一致、
+原CP恢复与错误政策拒绝、UNIT升级/坏schema/rawSHA/selector拒绝、未知active与inactive边界。
+仅小synthetic普通模型/CP，无新增runner或真实Data/SDK/QM读取。
+
+作者未运行Python/AST/测试/模型/Git/Slurm，实际结果均待Root。旧clean完整132的
+4524791（3098P+3原CUDA skip）是父源证据，不覆盖本新补丁；
+acb325后继只修test_model_v3_data_adapter.py夹具，Root可另行cherrypick，本分支不触该文件。
+Root负责源审、checker、完整回归、提交、精确发布与后续实际Data对接。

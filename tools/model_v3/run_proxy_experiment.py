@@ -72,6 +72,60 @@ def execution_context(configuration):
         'deterministic_algorithms':torch.are_deterministic_algorithms_enabled()}
 
 
+def install_training_observer(experiment, configuration, output, *, request_reference):
+    """Reuse owned runtime samplers; append bounded rows, never retain a trace."""
+    handle = experiment.trainer.training_execution
+    if handle is None:
+        return None
+    import torch
+    from phychem_mfm.phase1.v3_sample_budget_events import encoded, write_once, require
+    from runtime_monitor import owned_output_bytes, owned_process_observation, gpu_observation
+    path = output/'training_capacity.jsonl'
+    with path.open('xb'):
+        pass
+    used = 0
+    def sink(row):
+        nonlocal used
+        raw = encoded(row)
+        require(len(raw) <= 1 << 20 and used+len(raw) <= configuration['proxy_contract']['resources']['tracking_bytes'],
+            'Training capacity trace exhausted its declared bounded tracking allowance')
+        with path.open('ab') as stream:
+            stream.write(raw)
+            stream.flush(); os.fsync(stream.fileno())
+        used += len(raw)
+    handle.observer.set_sink(sink)
+    execution = configuration['proxy_contract']['execution']
+    def resources():
+        process = owned_process_observation(os.getpid())
+        gpu = None
+        if execution['device'] == 'cuda':
+            gpu = gpu_observation(execution['gpu_uuid'], own_pids=[p['pid'] for p in process['processes']])
+            require(all(type(p['used_memory_bytes']) is int and p['used_memory_bytes'] >= 0
+                for p in gpu['compute_processes']), 'Unknown GPU process memory is not a zero observation')
+        else:
+            require(configuration['engineering_only'] and not torch.cuda.is_available(),
+                'A CPU observation cannot certify scientific CUDA capacity')
+        return {'gpu_observation': gpu, 'peak_allocated_bytes': torch.cuda.max_memory_allocated() if gpu is not None else 0,
+            'peak_reserved_bytes': torch.cuda.max_memory_reserved() if gpu is not None else 0,
+            'process_rss_sum_bytes': process['rss_sum_bytes'], 'output_bytes': owned_output_bytes(output),
+            'foreign_gpu_risk_observed': bool(gpu['foreign_processes']) if gpu is not None else False,
+            'captured_unix': time.time(), 'resource_scope': 'actual_CUDA_training' if gpu is not None else 'engineering_CPU_only',
+            'peak_scope': 'whole fresh segment allocator high-water; no per-step reset; includes probes and validation'}
+    experiment.trainer.training_execution_resources = resources
+    # The observer binds its environment on actual forward, never during setup.
+    return {'observer': handle.observer, 'steps_path': path, 'request_reference': request_reference}
+
+
+def finalize_training_observer(observation, output):
+    """Save actual in-process observations; an outer C0 is still required."""
+    if observation is None:
+        return None
+    from phychem_mfm.phase1.v3_sample_budget_events import binding, write_once
+    configuration = write_once(output/'training_capacity_configuration.json', observation['observer'].configuration(request_reference=observation['request_reference']))
+    summary = write_once(output/'training_capacity_summary.json', observation['observer'].summary())
+    return {'configuration': configuration, 'summary': summary, 'steps': binding(observation['steps_path'])}
+
+
 def run_segment(args):
     # Read bounded metadata without Torch. CUBLAS policy precedes imports.
     if 'torch' in sys.modules: raise RuntimeError('Proxy CLI requires fresh interpreter before Torch import')
@@ -113,6 +167,11 @@ def run_segment(args):
     canonical_baseline = owned_output_bytes(args.lineage_root) if durable is not None and args.lineage_root.exists() else 0
     inputs = bind_inputs(request,configuration)  # No candidate provider fallback.
     lock = None; run = None; experiment = None; failure = None; cleanup = []; outcome = None
+    capacity_observation = None; capacity_artifacts = None
+    phase='SETUP';failure_phase=None
+    def set_phase(value):
+        nonlocal phase
+        phase=value
     started = time.monotonic(); args.output.mkdir(mode=0o700,parents=True)
     sdk_environment(args.output)
     try:
@@ -137,6 +196,8 @@ def run_segment(args):
         tracker = PersistentOfflineTracker(run,args.output/'history.jsonl')
         experiment = build_experiment(request,configuration,plan,inputs,tracker,output_root=args.output/'training',
             lineage_root=args.lineage_root,lineage=args.lineage,device=contract['execution']['device'])
+        capacity_observation = install_training_observer(experiment, configuration, args.output, request_reference=ref)
+        experiment.trainer.recipe_phase_observer=set_phase
         if durable is not None: attach_experiment(experiment,durable)
         capacity = checkpoint_capacity(experiment.trainer)
         reserve = resources['tracking_bytes']+(96 << 20)
@@ -156,6 +217,7 @@ def run_segment(args):
             return size
         experiment.joint_remaining_bytes = remaining
         def guard(action, context):
+            set_phase('CHECKPOINT' if action == 'CHECKPOINT' else 'RESOURCE_PREFLIGHT')
             if action == 'CHECKPOINT': capacity.update(checkpoint_capacity(experiment.trainer))
             process = owned_process_observation(os.getpid()); size = census()
             row = {'action':action,'elapsed_inclusive_seconds':time.monotonic()-started,
@@ -181,16 +243,25 @@ def run_segment(args):
                 if action == 'STEP': raise SegmentPause('joint lineage checkpoint planning reserve reached')
                 raise MemoryError('Insufficient joint reserve for another complete checkpoint; prior immutable checkpoint retained')
             with (args.output/'resources.jsonl').open('ab') as stream: stream.write(encoded(row))
+            if action in ('VALIDATION','VALIDATION_BATCH'): set_phase('VALIDATION')
         experiment.trainer.proxy_validation_guard = lambda: experiment._preflight('VALIDATION_BATCH',allow_pause=False)
         write_once(args.output/'RUN_BINDING.json',{'schema':'model_v3_proxy_segment_launch_v1','request':ref,
             'runtime':runtime,'registrations':registrations,'capacity_planning':capacity,
             'job_id':os.environ['SLURM_JOB_ID'],'lineage_root':str(physical(args.lineage_root)),
-            'outer_child_budget_bytes':outer_child,'outer_terminal_evidence_required':True})
+            'outer_child_budget_bytes':outer_child,'outer_terminal_evidence_required':True,
+            'initial_cursors':{'optimizer_updates':experiment.trainer.clock.optimizer_updates,
+                'samples_consumed':experiment.trainer.clock.samples_consumed,'log_cursor':experiment.trainer.log_cursor},
+            'resume_complete':binding(args.resume_complete) if args.resume_complete else None,
+            **({'training_execution': {'contract': experiment.trainer.contract['training_execution'],
+                'provider_authority_receipt_sha256': experiment.trainer.bindings['proxy_authority_receipt_sha256'],
+                'observation_configuration_pending_actual_forward': True}} if capacity_observation is not None else {})})
         parent = binding(args.resume_complete) if args.resume_complete else None
+        set_phase('CONTROLLER')
         outcome = experiment.run_segment(segment_id=args.segment_id,until_samples=args.until_samples,
             request_ref=ref,parent=parent,preflight=guard)
         validate_sources(request)
     except BaseException as exc:
+        failure_phase=phase
         failure = {'type':type(exc).__name__,'message':str(exc)[:600]}
         raise
     finally:
@@ -200,14 +271,27 @@ def run_segment(args):
         if lock is not None:
             try: lock.close()
             except BaseException as exc: cleanup.append({'stage':'gpu_lock_close','type':type(exc).__name__,'message':str(exc)[:300]})
+        if capacity_observation is not None:
+            try:
+                capacity_artifacts = finalize_training_observer(capacity_observation, args.output)
+            except BaseException as exc:
+                cleanup.append({'stage': 'training_capacity_finalize', 'type': type(exc).__name__, 'message': str(exc)[:300]})
         timed_out = time.monotonic()-started >= plan.max_segment_seconds
         if timed_out and failure is None:
+            failure_phase='SDK_FINISH'
             failure = {'type':'TimeoutError','message':'Inclusive SDK cleanup exceeded registered segment wall budget'}
         status = 'CHILD_FINISHED_PENDING_ROOT_CLOSURE' if failure is None and not cleanup else 'CHILD_FAILED'
         receipt_ref = write_once(args.output/'CHILD_RECEIPT.json',{'schema':'model_v3_proxy_child_receipt_v1','status':status,
             'outcome':outcome,'first_failure':failure,'cleanup_errors':cleanup,'native_sdk_run_id':run.id if run else None,
             'elapsed_seconds_including_sdk_finish':time.monotonic()-started,
-            'scientific_acceptance':False,'requires_actual_Slurm_C0_supervisor_and_SDK_verification':True})
+            'scientific_acceptance':False,'requires_actual_Slurm_C0_supervisor_and_SDK_verification':True,
+            'job_id':os.environ['SLURM_JOB_ID'],
+            **({'training_execution_capacity_artifacts': capacity_artifacts} if capacity_observation is not None else {}),
+            'primary_failure':None if failure is None else {'schema':'model_v3_recipe_primary_failure_v1',
+                'job_id':os.environ['SLURM_JOB_ID'],'phase':failure_phase,**failure},
+            'committed_cursors':None if experiment is None else {
+                'optimizer_updates':experiment.trainer.clock.optimizer_updates,'samples_consumed':experiment.trainer.clock.samples_consumed,
+                'log_cursor':experiment.trainer.log_cursor,'pending_log':experiment.trainer.pending_log is not None}})
         if durable is not None and any(row['kind'] == 'launch_attempts' and row['identity'] == str(physical(args.output)) for row in durable.records()):
             durable.terminal(job_root=args.output,status='successful_segments' if status == 'CHILD_FINISHED_PENDING_ROOT_CLOSURE' else 'failed_attempts',result_ref=receipt_ref)
         if cleanup and failure is None: raise RuntimeError('Cleanup failed; see immutable CHILD_RECEIPT')
@@ -221,9 +305,11 @@ def parser():
     prepare.add_argument('--output',type=Path,required=True); prepare.add_argument('--base-code-sha',required=True)
     prepare.add_argument('--layers',type=int,choices=(1,6),default=1); prepare.add_argument('--sample-budget',type=int,default=6)
     prepare.add_argument('--views',choices=('two','three'),default='three')
+    prepare.add_argument('--training-execution',type=Path); prepare.add_argument('--training-execution-sha256')
+    prepare.add_argument('--groups',nargs='+',choices=('S','D','P'),default=['S','D','P'])
     run = commands.add_parser('run')
     run.add_argument('--request',type=Path,required=True); run.add_argument('--request-sha256',required=True)
-    run.add_argument('--input',choices=('authoritative_proxy','synthetic'),default='authoritative_proxy')
+    run.add_argument('--input',choices=('authoritative_proxy','authoritative_full_train','authoritative_grid_train','synthetic'),default='authoritative_proxy')
     run.add_argument('--engineering-only',action='store_true'); run.add_argument('--output',type=Path,required=True)
     run.add_argument('--lineage-root',type=Path,required=True); run.add_argument('--lineage',required=True)
     run.add_argument('--segment-id',required=True); run.add_argument('--until-samples',type=int,required=True)
@@ -243,8 +329,16 @@ def main():
     from phychem_mfm.phase1.v3_proxy_segments import BoundedLineageController
     from phychem_mfm.phase1.v3_sample_budget_events import read_bound,binding
     if args.command == 'prepare-engineering':
+        if (args.training_execution is None) != (args.training_execution_sha256 is None):
+            raise ValueError('Engineering execution declaration needs exact raw source SHA')
+        execution = None
+        if args.training_execution is not None:
+            ref = binding(args.training_execution)
+            if ref['sha256'] != args.training_execution_sha256:
+                raise ValueError('Engineering execution source differs')
+            execution = read_bound(ref)
         print(json.dumps(engineering_request(args.output,code_sha=args.base_code_sha,layers=args.layers,
-            budget=args.sample_budget,views=args.views))); return
+            budget=args.sample_budget,views=args.views,groups=args.groups,training_execution=execution))); return
     contract = read_bound(binding(args.lineage_root/'EXPERIMENT.json'))['contract']
     if contract.get('model_configuration') is not None and 'long_run_policy' in read_bound(contract['model_configuration']):
         raise ValueError('Long-run status/ACK uses storage_control.py with a fresh complete operational request')

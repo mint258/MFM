@@ -291,12 +291,18 @@ def restore_and_fork(request,configuration,plan,inputs,tracker,*,output_root,lin
     require(child_authority_receipt is not None or configuration['engineering_only'],'Child request needs its own final authority verification receipt')
     if child_authority_receipt is not None:
         bindings['proxy_authority_receipt_sha256'] = canonical_hash(child_authority_receipt)
+    child_execution = None
+    if trainer.training_execution is not None:
+        from .v3_training_execution import rebind_training_execution
+        child_execution = rebind_training_execution(trainer.model, trainer.optimizer, trainer.training_execution,
+            workload_binding=proxy.training_workload_binding(request, configuration, inputs),
+            execution=configuration['training_execution'], operational_admission=request.get('training_execution_admission'))
     child = proxy.ProxyStepTrainer(trainer.model,trainer.optimizer,scheduler,sampler,clock,trainer.provider,
         trainer.normalizations,trainer.weights,tracker,bindings,enabled_groups=trainer.groups,enabled_fields=trainer.fields,
         view_config=trainer.view_config,structural_views=trainer.structural_views,validation_policy=trainer.validation_policy,
         gradient_clip_norm=trainer.gradient_clip_norm,gradient_probe_interval=trainer.gradient_probe_interval,
         probe_samples=trainer.probe_samples,allow_unit_tracker=allow_unit_tracker,validation_batch_cap=trainer.validation_batch_cap,
-        **contract['batch_limits'])
+        training_execution=child_execution, **contract['batch_limits'])
     child.log_cursor = trainer.log_cursor
     # The actual saved SDK identity, not the new construction tracker, is parent.
     child.resume_parent = deepcopy(trainer.resume_parent)

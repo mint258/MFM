@@ -175,7 +175,7 @@ class PrecisionValidationAccumulator(ValidationAccumulator):
             count, width = row["count"], field.target_width
             item.update(unit=field.unit, target_width=width, RMSE=None, vector_RMSE=None,
                         squared_error_sum=None, component_denominator=None)
-            if field.kind not in ("binary", "classification") and count:
+            if field.kind not in ("binary", "classification") and count and row.get("prediction_available", True):
                 item.update(squared_error_sum=row["squared"], component_denominator=count * width,
                             RMSE=math.sqrt(row["squared"] / (count * width)),
                             vector_RMSE=math.sqrt(row["squared"] / count))

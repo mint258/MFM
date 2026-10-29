@@ -25,6 +25,12 @@ class EncoderBindingError(ValueError):
 
 def source_model_configuration(configuration):
     """Separate model identity from a flat training recipe and its seed."""
+    if configuration.get("schema") == "existing_native_S_precision_member_v1":
+        from .v3_native_checkpoint_bridge import native_member_contract, NativeCheckpointError
+        try:
+            return deepcopy(native_member_contract(configuration)["model"])
+        except NativeCheckpointError as exc:
+            raise EncoderBindingError(str(exc)) from exc
     if "model" in configuration:
         return deepcopy(configuration["model"])
     if "backbone" not in configuration or "architecture" not in configuration:
@@ -108,7 +114,7 @@ def _historical_builder(configuration, checkpoint_ref, reference_ref):
 def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
                       pretraining_seed, reference_kind="primary", random_seed=20261025,
                       historical_reference=None, expected_state_key=None,
-                      enable_architecture_candidates=False, training_completion=None):
+                      enable_architecture_candidates=False, training_completion=None, enable_training_execution=False):
     import torch
     from phychem_mfm.factory import build_model
     config_raw = _raw(configuration_ref, maximum=2*1024**2)
@@ -120,6 +126,16 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
         raise EncoderBindingError("Explicit actual and random-reference seeds required")
     if type(enable_architecture_candidates) is not bool:
         raise EncoderBindingError("Architecture-candidate opt-in must be boolean")
+    if type(enable_training_execution) is not bool:
+        raise EncoderBindingError("Training-execution export opt-in must be boolean")
+    declared_execution = ("training_execution" in configuration
+                          or "performance_execution_v1" in model_config)
+    if declared_execution and not enable_training_execution:
+        raise EncoderBindingError("New training execution requires explicit export opt-in")
+    native_configuration = configuration.get("schema") == "existing_native_S_precision_member_v1"
+    if native_configuration and (reference_kind != "primary" or enable_architecture_candidates or enable_training_execution):
+        raise EncoderBindingError("Native S evaluation is primary and cannot enable a new architecture")
+    native_provenance = None
     architecture_implementation = None
     if reference_kind == "primary":
         if (model_config["backbone"]["dim"], model_config["backbone"]["layers"]) != (512, 6):
@@ -140,7 +156,7 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
             builder = build_architecture_model
             architecture_implementation = physical_source_binding(Path(__file__).parents[1] / "model/v3_architecture.py")
     elif reference_kind == "historical_sanity_only":
-        if enable_architecture_candidates or training_completion is not None:
+        if enable_architecture_candidates or training_completion is not None or enable_training_execution:
             raise EncoderBindingError("Historical B3 does not accept new architecture/training envelopes")
         builder, historical = _historical_builder(configuration_ref, checkpoint_ref, historical_reference)
         if ((model_config["backbone"]["dim"], model_config["backbone"]["layers"]) != (384, 4)
@@ -162,8 +178,24 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
         raise EncoderBindingError("Known dictionary checkpoint schema required")
     if payload.get("scientific_stop") is True:
         raise EncoderBindingError("A scientifically stopped checkpoint cannot silently enter the development panel")
-    encoder_state, encoder_extension = None, None
-    if payload.get("schema") == "model_v3_training_checkpoint_v1":
+    encoder_state, encoder_extension, execution_provenance = None, None, None
+    if native_configuration:
+        from .v3_native_checkpoint_bridge import native_checkpoint_state, NativeCheckpointError
+        if training_completion is None:
+            raise EncoderBindingError("Native checkpoints require their bound COMPLETE marker")
+        marker_path = Path(training_completion["path"])
+        if (marker_path.name != "COMPLETE.json" or Path(checkpoint_ref["path"]).name != "payload.pt"
+                or marker_path.absolute().parent != Path(checkpoint_ref["path"]).absolute().parent):
+            raise EncoderBindingError("Native COMPLETE and payload must share their immutable directory")
+        marker = json.loads(_raw(training_completion, maximum=1024**2))
+        try:
+            encoder_state, builder, native_provenance = native_checkpoint_state(
+                payload, configuration, marker, checkpoint_ref, payload_size)
+        except (NativeCheckpointError, KeyError, TypeError, ValueError) as exc:
+            raise EncoderBindingError("Native checkpoint encoder/member contract differs: " + str(exc)) from exc
+        schema, state_key = "model_v3_native_S_immutable_checkpoint", "model"
+        actual_seed = configuration["seed"]
+    elif payload.get("schema") == "model_v3_training_checkpoint_v1":
         if training_completion is None:
             raise EncoderBindingError("V3 sample checkpoints require their explicitly bound COMPLETE marker")
         marker_path = Path(training_completion["path"])
@@ -225,6 +257,22 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
             def builder(config):
                 return build_architecture_model(config, control_options)
             architecture_implementation = physical_source_binding(Path(__file__).parents[1] / "model/v3_architecture.py")
+        saved_execution = extra.get("execution", {})
+        if type(saved_execution) is not dict:
+            raise EncoderBindingError("Typed saved runtime execution required")
+        has_execution = ("training_execution" in contract or "training_execution" in saved_execution
+                         or bool(saved_execution.get("performance_integration"))
+                         or bool(saved_execution.get("performance_options")))
+        if enable_training_execution or declared_execution or has_execution:
+            if not enable_training_execution:
+                raise EncoderBindingError("Saved training execution requires explicit export opt-in")
+            from .v3_execution_checkpoint_bridge import (
+                execution_checkpoint_state, ExecutionCheckpointError)
+            try:
+                encoder_state, builder, execution_provenance = execution_checkpoint_state(
+                    payload, configuration)
+            except (ExecutionCheckpointError, KeyError, TypeError, ValueError) as exc:
+                raise EncoderBindingError("Training execution cannot enter a plain H0 builder: " + str(exc)) from exc
     elif "model" in payload and "config_sha256" in payload:
         schema, state_key = "source_S_runner_raw_configuration_sha", "model"
         if payload["config_sha256"] != hashlib.sha256(config_raw).hexdigest():
@@ -258,10 +306,17 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
         actual_seed = payload.get("seed")
     else:
         raise EncoderBindingError("Unsupported checkpoint schema; no permissive state-dict fallback is allowed")
+    if enable_training_execution and execution_provenance is None:
+        raise EncoderBindingError("Training-execution export requires the declared sample-checkpoint extension")
     if actual_seed != pretraining_seed or (expected_state_key is not None and state_key != expected_state_key):
         raise EncoderBindingError("Checkpoint pretraining seed or state-key schema differs")
     with torch.random.fork_rng(devices=[]):
-        torch.manual_seed(pretraining_seed)
+        if execution_provenance is not None:
+            # Export builders construct CPU tensors. Seed only that generator:
+            # torch.manual_seed also mutates/queues CUDA seeds outside devices=[].
+            torch.random.default_generator.manual_seed(pretraining_seed)
+        else:
+            torch.manual_seed(pretraining_seed)
         candidate = builder(model_config)
     if encoder_extension is not None:
         if (encoder_extension["encoder_configuration"] != candidate.config_dict()
@@ -282,7 +337,10 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
         payload.get("status", payload.get("checkpoint_type", "source_S_committed_snapshot")))
     del payload
     with torch.random.fork_rng(devices=[]):
-        torch.manual_seed(random_seed)
+        if execution_provenance is not None:
+            torch.random.default_generator.manual_seed(random_seed)
+        else:
+            torch.manual_seed(random_seed)
         reference = builder(model_config)
     candidate.eval(); reference.eval()
     if candidate.config_dict() != reference.config_dict():
@@ -300,6 +358,10 @@ def load_encoder_pair(checkpoint_ref, configuration_ref, *, architecture_sha256,
         "historical_reference": dict(historical_reference) if historical_reference else None,
         "historical_memory_implementation": historical["memory_implementation"] if historical else None,
         "downstream_target_records_read": 0}
+    if execution_provenance is not None:
+        metadata["training_execution"] = execution_provenance
+    if native_provenance is not None:
+        metadata["native_checkpoint"] = native_provenance
     if architecture_implementation is not None:
         metadata["architecture_implementation"] = architecture_implementation
     if training_completion is not None:
