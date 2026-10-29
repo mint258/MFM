@@ -1,67 +1,143 @@
 {
-  "schema": "model_v3_current_full_guide_progress_20261029_Root_v1",
-  "actual_asof_UTC": "2026-10-29T06:31:12.991647+00:00",
-  "guide_ref": {
-    "path": "/share/home/zixiao/descriptor_analysis/\u6a21\u578b\u7ebf\u5de5\u4f5c\u6d41\u7a0b\uff1a\u6a21\u578b v3\u3001\u8bad\u7ec3\u4ee3\u7801\u4e0e\u8bad\u7ec3\u914d\u65b9\uff08Codex A\uff09.md",
-    "bytes": 26121,
-    "sha256": "e618165501d22556c4c421d93f1c01928fab3f50202ce6d0fec3249c79921239"
-  },
-  "original_matrix": {
-    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/model_full_guide_remaining_20261029_v1.json",
-    "bytes": 30224,
-    "sha256": "904e3ecc434ee178971dc35171f83304cf05bc786a2a8c2404dfc35da0dc36f4"
-  },
-  "authoritative_latest_state_overrides_earlier_matrix_timepoint": true,
-  "current_validated_runtime_code": "e92b6125e0b3ea430970bc7ee24fc152e26919c5",
-  "full135": {
-    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/C_cli_full135_auto_post_v1_CPU_4525085_Root_closure_actual_v1.json",
-    "bytes": 976793,
-    "sha256": "00848daf184e48e0b0c5aac52264d5db6a5d64244fd61ba07293e2d4d397f078"
-  },
-  "current_A_v2_numeric_count": 8,
-  "total_old_PASS_to_recheck": 9,
-  "old438_current_GPU_numeric_and_R1_NOT_DONE": true,
-  "old438_block": "Original node0 lacks16freeCPU. New source only waits, then invokes original v7 exactly once; controller not yet launched.",
-  "Native_B_members": {
-    "fp32_seed0_updates": 20000,
-    "bf16_seed0_updates": 7000,
-    "fp32_seed1_updates": 0,
-    "bf16_seed1_updates": 0
-  },
-  "Native_B_precision_acceptance": false,
+  "C_concrete_CLI_added_3_files_full135_passed": true,
+  "Data_D1_policy_config_joint": true,
   "Native20k_GPU_and_SDK_Root_closed": {
-    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_GPU5060_SDK_Root_closure_actual_v1.json",
     "bytes": 3384,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_GPU5060_SDK_Root_closure_actual_v1.json",
     "sha256": "3d05348804b166cb9831b7d2c177bfbec96bf0621ef599a9aa02151eb80ed2e0"
   },
-  "saved_panel_10k_20k": {
-    "single_seed0_fp32": true,
-    "primary_10k": 0.23918661692588072,
-    "primary_20k": 0.2879956199805948,
-    "delta_CI_or_seed_SD_claimed": false,
-    "v2_CSVs_raw_equal_v1": true,
-    "actual_v2_CPU": "4525091",
-    "actual_v2_elapsed_seconds": 5,
-    "two_PNG_visually_reviewed": true
+  "Native20k_unused_future_only_storage_release": {
+    "bytes": 2880,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native20k_unused_future2GiB_release_Root_actual_v1.json",
+    "sha256": "dece3c1bc04fa279b1341c355ae37b394c1d96d621854911cd2c2e9a6bd9a4f1"
   },
+  "Native_B_current_closed_segment": {
+    "bytes": 1776,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_029/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+    "sha256": "4b3565de4d97a31bcd2fc10c6e34b853c6aa8e969f4cbc55ea6c07c5d228d2a4"
+  },
+  "Native_B_current_operational_status": {
+    "automatic_failure_retry": false,
+    "child_pid": 3319769,
+    "completed_additional_segments": 2,
+    "identity": {
+      "argv_sha256": "5e5c938649a590235479081fc8b6459ed0b43e14464b8a3c1785bbbad0410b19",
+      "boot_id": "714ffbb7-2f6e-4346-acb3-68466446ca62",
+      "pgid": 3307320,
+      "pid": 3307320,
+      "sid": 3307320,
+      "source_sha256": "c96a3b6bd41d8f053905c7cba035faf05d5bbf3ad2d5bbdc90d609e96f9f1365",
+      "start_ticks": 8204854554,
+      "started_unix": 1793252431.3006446,
+      "uid": 1278
+    },
+    "next": {
+      "precision": "bf16",
+      "previous": {
+        "bytes": 1776,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_029/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+        "sha256": "4b3565de4d97a31bcd2fc10c6e34b853c6aa8e969f4cbc55ea6c07c5d228d2a4"
+      },
+      "resume_checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_029/child/checkpoint_u8000_log8017",
+      "resume_output_root": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_029/child",
+      "seed": 0,
+      "slot": 30,
+      "start_update": 8000,
+      "target_update": 9000
+    },
+    "observed_unix": 1793258354.210353,
+    "status": "ORIGINAL_FINITE_COORDINATOR_LIVE"
+  },
+  "Native_B_members": {
+    "bf16_seed0_updates": 8000,
+    "bf16_seed1_updates": 0,
+    "fp32_seed0_updates": 20000,
+    "fp32_seed1_updates": 0
+  },
+  "Native_B_original_resource_prewait_PID": 3307320,
+  "Native_B_precision_acceptance": false,
+  "R1_new_five_cohorts_actual_full_SDK_and_cloud_Root_closed": [
+    {
+      "bytes": 19430,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/R1v3_old4520405_SDK_speed_Root_closure_actual_v1.json",
+      "sha256": "7c8b23d9303dc37e21ae3695482e7801c564a88c08b40eaa66ac7ddbc61c7002"
+    },
+    {
+      "bytes": 19430,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/R1v3_old4520486_SDK_speed_Root_closure_actual_v1.json",
+      "sha256": "f8cca40d0e0f5e15e132a0f4a8ae6e3bb3663b42578dd94bd654be8dcdc168c9"
+    },
+    {
+      "bytes": 19430,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/R1v3_old4520456_SDK_speed_Root_closure_actual_v1.json",
+      "sha256": "64734aaf093b908e10f39f6864d4dddf708a130557b894035c4a55b4fe85b339"
+    },
+    {
+      "bytes": 19430,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/R1v3_old4520411_SDK_speed_Root_closure_actual_v1.json",
+      "sha256": "63bb1bb1dc31ab56383a8b22c6a8e106413ca424d0172f1bd6fb59beca8a9282"
+    },
+    {
+      "bytes": 19430,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/R1v3_old4520549_SDK_speed_Root_closure_actual_v1.json",
+      "sha256": "e63bc411a41213852cc1e490bc9574dfccb7bbb88e11511a882ee390b8f8873b"
+    }
+  ],
+  "R1_new_native_SDK_audit_sync_pending": false,
+  "R1_standard_CSV_actual_rows": 28,
   "R1_two_completed_preliminary_reports": {
     "4520405": {
-      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/R1v3_old4520405_speed_report_actual_v3/report.json",
       "bytes": 14552,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/R1v3_old4520405_speed_report_actual_v3/report.json",
       "sha256": "6e927417be56b10fe174f1c75c3bea6b1e82998f287067f1ce2d3c325a5a53ca"
     },
     "4520486": {
-      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/R1v3_old4520486_speed_report_actual_v3/report.json",
       "bytes": 14545,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/R1v3_old4520486_speed_report_actual_v3/report.json",
       "sha256": "ba013b32f27eac538df17ee3f7d548af3b43ca4ac3714e43fc4c42b3268ded62"
     }
   },
-  "R1_new_native_SDK_audit_sync_pending": true,
-  "C_concrete_CLI_added_3_files_full135_passed": true,
-  "Data_D1_policy_config_joint": true,
   "actual_Data_D2_through_D6_release_missing": true,
-  "real_field_overfit_and_3GPU_pilot_architecture26_recipe19_D6_Bstar_userStage6_and_final_Stage7_pending": true,
-  "formal_pretraining_or_downstream_TEST_started": false,
+  "actual_asof_UTC": "2026-10-29T07:19:19.672940+00:00",
+  "authoritative_latest_state_overrides_earlier_matrix_timepoint": true,
+  "current_A_v2_numeric_count": 8,
+  "current_validated_runtime_code": "e92b6125e0b3ea430970bc7ee24fc152e26919c5",
   "final_tag_or_frozen_configs_or_final_PR_created": false,
-  "guide_complete": false
+  "formal_pretraining_or_downstream_TEST_started": false,
+  "full135": {
+    "bytes": 976793,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/C_cli_full135_auto_post_v1_CPU_4525085_Root_closure_actual_v1.json",
+    "sha256": "00848daf184e48e0b0c5aac52264d5db6a5d64244fd61ba07293e2d4d397f078"
+  },
+  "guide_complete": false,
+  "guide_ref": {
+    "bytes": 26121,
+    "path": "/share/home/zixiao/descriptor_analysis/模型线工作流程：模型 v3、训练代码与训练配方（Codex A）.md",
+    "sha256": "e618165501d22556c4c421d93f1c01928fab3f50202ce6d0fec3249c79921239"
+  },
+  "old438_block": "Original node0 lacks16freeCPU. Published bounded readonly waiter actually launched PID3318274; original v7 submit once after resources, no reroute/retry.",
+  "old438_current_GPU_numeric_and_R1_NOT_DONE": true,
+  "original_matrix": {
+    "bytes": 30224,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/model_full_guide_remaining_20261029_v1.json",
+    "sha256": "904e3ecc434ee178971dc35171f83304cf05bc786a2a8c2404dfc35da0dc36f4"
+  },
+  "prior_point_in_time": {
+    "bytes": 3201,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/model_full_guide_progress_before_R1_all5_closure_actual_v1.json",
+    "sha256": "59dc6a75b112c7a061a7e071387cf2ebc82b22b1e01731cd0d8291f224307935"
+  },
+  "real_field_overfit_and_3GPU_pilot_architecture26_recipe19_D6_Bstar_userStage6_and_final_Stage7_pending": true,
+  "saved_panel_10k_20k": {
+    "actual_v2_CPU": "4525091",
+    "actual_v2_elapsed_seconds": 5,
+    "delta_CI_or_seed_SD_claimed": false,
+    "primary_10k": 0.23918661692588072,
+    "primary_20k": 0.2879956199805948,
+    "single_seed0_fp32": true,
+    "two_PNG_visually_reviewed": true,
+    "v2_CSVs_raw_equal_v1": true
+  },
+  "schema": "model_v3_current_full_guide_progress_20261029_Root_v1",
+  "total_old_PASS_to_recheck": 9
 }

@@ -1,5 +1,57 @@
 # 阶段 2：等价提速与选择性 bf16
 
+## 2026-10-29 current A-v2 evidence
+
+This section supersedes the historical status/rules below. Original A5-v1
+failure is retained. User-approved gradient v2 is the existing per-parameter
+absolute+relative rule1e-8+1e-4*abs(reference), with both norms<=1e-8 for
+analytically zero-gradient parameters. Original fixed20 forward and500-loss
+trajectory checks remain. A-only distance-head bias parameters remain unchanged;
+the equivalent bias=False removal belongs only to C.
+
+Eight of nine previously passing A cases have now passed current full20+500
+A-v2 rechecks. The ninth original3090/node0 case has no current result: its
+published, bounded readonly waiter is live until the original node has16 actual
+free CPUs. Historical PASS/timing is not substituted. Fused/TF32/A5 failures
+and all other failed candidates remain recorded; no blanket A acceptance.
+
+Seven complete same-card R1 ABBA groups are below. All28 actual timing runs
+have full native22-row typed SDK certificates, official selective sync, cloud
+route/state/count/endpoints readback and actual GPU-parent C0. Each uses
+2warmup+20measured updates. The ratio is the original pooled candidate/reference
+throughput from the unchanged speed-report tool; it is not a per-member estimate.
+
+| R1 cohort | GPU | Compared execution | Original pooled ratio |
+| --- | --- | --- | --- |
+| Original A00 current-v2 | 5090/C35 | A00 control | 0.9918131766322366 |
+| Original HeadOff current-v2 | 5090/C35 | head checkpoint off | 1.0584113049897554 |
+| routing7 old405 | 4090/ec788 | A00 control | 0.9982591653241504 |
+| routing7 old486 | 5090/C35 | legacy A00 control | 0.9997377878334807 |
+| routing7 old456 | 4090/ec788 | backbone checkpoint off | 1.2248576848497117 |
+| routing7 old411 | 5090/C35 | A00 control | 1.0053769622391804 |
+| routing7 old549 | 5090/C35 | legacy head checkpoint off | 1.0693858781321288 |
+
+[Standard28-run CSV](results/performance_R1_20261029.csv),
+[exact bindings and original-source references](results/performance_R1_20261029_bindings.json)
+and [field/elapsed/peak semantics](results/performance_R1_20261029_README.md)
+retain real run IDs, raw configuration SHA distinct from canonical SHA, GPU
+UUIDs, actual parent elapsed, input snapshot and independent numerical closures.
+The five new Root joins and original-tool reports are in
+[closed evidence](results/remaining_R1v3_ABBA_closed_20261029_v1/).
+The measured backbone/head checkpoint effects are engineering evidence; final
+GPU-specific recipe adoption awaits the remaining guide requirements. Allocated/
+reserved peak fields are original PyTorch measurements, not physical GPU maxima.
+
+B is still incomplete. Original four20k plan currently has fp32seed0=20000,
+bf16seed0=8000; next original segment8000->9000 is running and both seed1
+members have not started. No full four-member41-point envelope/noise2% pass
+is claimed. Existing Native S enables this authorized work before Data D5;
+actual DataD2-D6 remains missing. Final source/config/tag/HANDOFF/PR and formal
+training have not been frozen or started. No downstream TEST results are used.
+
+## Historical report retained unchanged below
+
+
 日期：2026-10-25（Asia/Shanghai）。状态：独立候选与门槛工具已实现，
 A03通过完整A类数值验收，但单模型ABBA未见加速，暂未采用A优化；B类真实精度
 验收仍待D-5，默认旧路径未修改。

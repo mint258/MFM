@@ -1,3 +1,5 @@
+2026-10-29 最新模型状态：当前生产源已通过完整135模块，3186PASS/3原CUDA skip；当前A-v2全20批+500更新复核8/9。七组ABBA共28真实run的完整原生SDK、官方选择同步和云端元数据回读已闭合，详[阶段2当前报告](../model_v3/02_speedup_AB.md)与[当日汇总](../model_v3/DAILY_20261029.md)。D1同版本policy/config已双方签署冻结；D2–D6真实数据/归一化/子集/fullrelease仍未交付验收。Native原四20k计划继续：fp32seed0=20k、bf16seed0=8k，9k段运行，seed1两支未启动；B/最终recipe及整份Stage0–7尚未完成。下方pending/draft与旧计数按日期保留为历史。
+
 2026-10-29 canonical模型生产源已通过后验133模块：3122PASS/3原CUDA skip；新物理消费门保持原值/mask/合法scale，跳过无用head。Native4904已实际自动内存续接，最大原生712输入4906 C0。Model最终policy/config ACK待该canonical源实际公开后签署，D3–D6/真实release仍待，详[当日汇总](../model_v3/DAILY_20261029.md)。
 
 2026-10-29 开发GPU自动内存已明确获批，原预算/RSS/85%和科学门保持；Native026安全停界待新源采用。132完整回归及两组R1/SDK已闭合，物理政策133回归与实际D1 joint/D3–D6继续；见[唯一当日汇总](../model_v3/DAILY_20261029.md)。
