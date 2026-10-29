@@ -16,32 +16,125 @@
     "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_B_closed028029_SDK_Root_closure_actual_v1.json",
     "sha256": "672fe91bff7dd2d1f614ed83699c2ab15dcb11630652240141b6158cd492df62"
   },
-  "Native_B_closed030_full_SDK_audit_and_cloud_pending": true,
+  "Native_B_closed030_actual_SDK_and_cloud_Root": {
+    "bytes": 5995,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_B_closed030_SDK_Root_closure_actual_v1.json",
+    "sha256": "1499ff6c3d9d94b4ab7d9aa6ece6290fe53173bb9deead0e1696814337a79ab1"
+  },
+  "Native_B_closed030_full_SDK_audit_and_cloud_pending": false,
   "Native_B_current_closed_segment": {
     "bytes": 1776,
     "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/management/ROOT_LONG_SEGMENT_CLOSURE.json",
     "sha256": "3a223d882f71fdbc4c559b670b231732ce98da20220a210782f1e5114fa951a4"
   },
   "Native_B_current_operational_status": {
-    "completed_additional_segments": 3,
-    "error": {
-      "message": "Original finite coordinator failed/unknown; inspect its preserved intent and terminal, never auto-retry",
-      "type": "AssertionError"
-    },
+    "automatic_failure_retry": false,
+    "completed_additional_segments": 0,
     "identity": {
-      "argv_sha256": "5e5c938649a590235479081fc8b6459ed0b43e14464b8a3c1785bbbad0410b19",
+      "argv_sha256": "714766a8c5bbdb20d52b49a36a7402bd268c585676dcee5c3f090042eafe81ba",
       "boot_id": "714ffbb7-2f6e-4346-acb3-68466446ca62",
-      "pgid": 3307320,
-      "pid": 3307320,
-      "sid": 3307320,
-      "source_sha256": "c96a3b6bd41d8f053905c7cba035faf05d5bbf3ad2d5bbdc90d609e96f9f1365",
-      "start_ticks": 8204854554,
-      "started_unix": 1793252431.3006446,
+      "pgid": 3328253,
+      "pid": 3328253,
+      "sid": 3328253,
+      "source_sha256": "43ee6da99f6c154c7fbf5cc0c5a3869eadfe01474ec1c42eef218b6597c33b38",
+      "start_ticks": 8205756978,
+      "started_unix": 1793261455.5434294,
       "uid": 1278
     },
-    "scientific_acceptance": false,
-    "status": "STOPPED_REQUIRES_ROOT_RECONCILIATION_NO_RETRY",
-    "traceback": "Traceback (most recent call last):\n  File \"/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v3_source/continue_original_B_auto.py\", line 67, in <module>\n    assert child.returncode==0,'Original finite coordinator failed/unknown; inspect its preserved intent and terminal, never auto-retry'\n           ^^^^^^^^^^^^^^^^^^^\nAssertionError: Original finite coordinator failed/unknown; inspect its preserved intent and terminal, never auto-retry\n"
+    "next": {
+      "precision": "bf16",
+      "previous": {
+        "bytes": 1776,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+        "sha256": "3a223d882f71fdbc4c559b670b231732ce98da20220a210782f1e5114fa951a4"
+      },
+      "resume_checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/child/checkpoint_u9000_log9019",
+      "resume_output_root": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/child",
+      "seed": 0,
+      "slot": 31,
+      "start_update": 9000,
+      "target_update": 10000
+    },
+    "resource_observation": {
+      "compute_apps": {
+        "argv": [
+          "ssh",
+          "-n",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=8",
+          "-o",
+          "StrictHostKeyChecking=yes",
+          "-o",
+          "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+          "compute-0-21",
+          "nvidia-smi --query-compute-apps=gpu_uuid,pid,process_name,used_gpu_memory --format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "GPU-22e21021-e572-4562-fc51-cd8c83e74141, 871102, gmx, 514\nGPU-c35f2434-9137-9723-1af5-dc69b6295243, 871044, gmx, 514\n"
+      },
+      "gpu": {
+        "argv": [
+          "ssh",
+          "-n",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=8",
+          "-o",
+          "StrictHostKeyChecking=yes",
+          "-o",
+          "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+          "compute-0-21",
+          "nvidia-smi --query-gpu=uuid,name,driver_version,memory.total,memory.free --format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "GPU-22e21021-e572-4562-fc51-cd8c83e74141, NVIDIA GeForce RTX 5090, 590.44.01, 32607, 31573\nGPU-c35f2434-9137-9723-1af5-dc69b6295243, NVIDIA GeForce RTX 5090, 590.44.01, 32607, 31575\n"
+      },
+      "memory": {
+        "argv": [
+          "ssh",
+          "-n",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=8",
+          "-o",
+          "StrictHostKeyChecking=yes",
+          "-o",
+          "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+          "compute-0-21",
+          "awk '/^MemAvailable:/ {print}' /proc/meminfo"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "MemAvailable:   125804248 kB\n"
+      },
+      "node": {
+        "argv": [
+          "scontrol",
+          "show",
+          "node",
+          "compute-0-21",
+          "-o"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "NodeName=compute-0-21 Arch=x86_64 CoresPerSocket=52  CPUAlloc=88 CPUEfctv=104 CPUTot=104 CPULoad=46.65 AvailableFeatures=(null) ActiveFeatures=(null) Gres=(null) NodeAddr=10.1.1.176 NodeHostName=compute-0-21 Version=22.05.7 OS=Linux 5.14.0-611.20.1.el9_7.x86_64 #1 SMP PREEMPT_DYNAMIC Thu Jan 15 13:21:39 UTC 2026  RealMemory=120000 AllocMem=0 FreeMem=20828 Sockets=2 Boards=1 State=MIXED ThreadsPerCore=1 TmpDisk=0 Weight=1 Owner=N/A MCS_label=N/A Partitions=all  BootTime=2026-08-21T15:08:30 SlurmdStartTime=2026-08-21T15:28:06 LastBusyTime=2026-10-29T15:04:01 CfgTRES=cpu=104,mem=120000M,billing=104 AllocTRES=cpu=88 CapWatts=n/a CurrentWatts=0 AveWatts=0 ExtSensorsJoules=n/s ExtSensorsWatts=0 ExtSensorsTemp=n/s\n"
+      },
+      "observed_unix": 1793261832.7018468,
+      "selected_gpu_row": [
+        "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+        "NVIDIA GeForce RTX 5090",
+        "590.44.01",
+        "32607",
+        "31573"
+      ]
+    },
+    "status": "WAITING_WITHOUT_SUBMISSION_FOR_16_CPU_MEMORY_AND_IDLE_ORIGINAL_GPU"
   },
   "Native_B_members": {
     "bf16_seed0_updates": 9000,
@@ -58,7 +151,17 @@
   },
   "Native_B_original_resource_prewait_PID": null,
   "Native_B_precision_acceptance": false,
-  "Native_B_resource_prewait_v4_actual_launch": null,
+  "Native_B_resource_prewait_v4_actual_PID": 3328253,
+  "Native_B_resource_prewait_v4_actual_launch": {
+    "bytes": 2306,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4/ROOT_LAUNCH_actual_v1.json",
+    "sha256": "019e6b90151a0d7a4db0166dbada92daf10dfa42c6912e5f8c13d58f7e2e81a2"
+  },
+  "Native_B_resource_prewait_v4_first_actual_wait_snapshot": {
+    "bytes": 4298,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_B_resource_prewait_v4_first_actual_wait_snapshot_v1.json",
+    "sha256": "767033b12629aa8189bef805f3d483202ec774f0ae38b945965bad5e3e26016f"
+  },
   "Native_B_resource_prewait_v4_source": {
     "bytes": 4585,
     "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4_source/source_pins.json",
@@ -121,7 +224,7 @@
     }
   },
   "actual_Data_D2_through_D6_release_missing": true,
-  "actual_asof_UTC": "2026-10-29T08:04:32.923937+00:00",
+  "actual_asof_UTC": "2026-10-29T08:17:14.519457+00:00",
   "authoritative_latest_state_overrides_earlier_matrix_timepoint": true,
   "current_A_v2_numeric_count": 8,
   "current_validated_runtime_code": "e92b6125e0b3ea430970bc7ee24fc152e26919c5",
