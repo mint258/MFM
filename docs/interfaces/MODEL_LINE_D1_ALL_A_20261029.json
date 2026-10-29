@@ -1,0 +1,64 @@
+{
+  "schema": "model_line_D1_user_decisions_all_A_v1",
+  "date": "2026-10-29",
+  "timezone": "Asia/Shanghai",
+  "status": "USER_ALL_A_CONFIRMED_CONSUMER_AND_JOINT_ACCEPTANCE_PENDING",
+  "user_confirmation": "全部采用推荐项 A",
+  "approved_choices": [
+    "1A",
+    "2A",
+    "3A",
+    "4A",
+    "5A"
+  ],
+  "decision_document": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/interfaces/D1_user_decisions_20261029_v1.md",
+  "policies": {
+    "r73": {
+      "authority": "original_float64_sidecar",
+      "training_wire": "one_float64_to_float32_conversion",
+      "domain": "ordered_entries",
+      "independent_endpoint_atoms_and_channels": true,
+      "preserve_onsite_direction_duplicates_and_retained_list_ordinal": true,
+      "ordinal_is_learning_feature": false
+    },
+    "r674": {
+      "components": [
+        "xx",
+        "xy",
+        "yy",
+        "xz",
+        "yz",
+        "zz"
+      ],
+      "loss_eligibility": "all_six_source_valid_and_same_actual_geometry",
+      "partial_values_and_component_masks_preserved": true,
+      "normalization": "Q/s_no_center",
+      "scale": "actual_TRAIN_Frobenius_series_0.1_99.9_percent_winsorized_std_ddof0",
+      "loss": "Frobenius_radial_Huber_d9_delta1_one_tensor_one_target",
+      "weights": [
+        1,
+        2,
+        1,
+        2,
+        2,
+        1
+      ],
+      "target_weight": 1
+    },
+    "coordinate_unknowns": {
+      "independent_coordinate_observation_status": "UNKNOWN_192_RETAINED",
+      "source_frame_provenance_review_allowed_with_explicit_assumptions": true,
+      "assumptions": [
+        "trusted_filesystem_and_clock",
+        "same_directory_path_not_replaced_or_restored",
+        "no_privileged_timestamp_manipulation"
+      ],
+      "independent_observation_PASS_claimed": false,
+      "unit_sign_atom_order_input_hash_checks_waived": false
+    }
+  },
+  "joint_v3_0_ACK": false,
+  "D3_D4_D5_D6_published_claimed": false,
+  "normalization_values_fabricated": false,
+  "previous_model_proposal": "651a median(Frobenius)/sqrt(6) and d6 remain historical proposals superseded by explicit user all-A"
+}
