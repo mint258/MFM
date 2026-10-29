@@ -1,0 +1,165 @@
+{
+  "schema": "model_v3_native_B_closed_segment_SDK_Root_closure_v1",
+  "status": "TWO_CLOSED_SEGMENTS_NATIVE_LOG_MATCH_AND_OFFICIAL_SYNC_CLOUD_READBACK_CLOSED",
+  "captured_utc": "2026-10-29T07:38:30.545755+00:00",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4525078,4525109,4525137,4525138",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4525078|zixiao|COMPLETED|0:0|2484|16|compute-0-21\n4525109|zixiao|COMPLETED|0:0|2479|16|compute-0-21\n4525137|zixiao|COMPLETED|0:0|15|16|compute-0-19\n4525138|zixiao|COMPLETED|0:0|30|16|compute-0-19\n",
+    "stderr": ""
+  },
+  "CPU_supervisors": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_SDK_audit_actual_v1.supervisor.json",
+      "bytes": 3380,
+      "sha256": "ec34d805427770433d309d6ef77096a9d40da77b43cc1e5d725b8ffbc1be1b45"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_sync_actual_v1.supervisor.json",
+      "bytes": 3398,
+      "sha256": "3c9543e00fc43c54c06c826954925d4351abd2f00a9eb739f2caa2a0379e9d49"
+    }
+  ],
+  "batches": [
+    {
+      "audit": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_SDK_audit_actual_v1/BATCH_RESULT.json",
+        "bytes": 1855,
+        "sha256": "706efc66c9ccb881b8f73e42108519ffa7cbac55f07e6ac87328b34832bc8b46"
+      },
+      "sync": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_sync_actual_v1/RESULT.json",
+        "bytes": 24146,
+        "sha256": "8d4c841a2b5bba0280c4a5ec3125f74448aef88931ae9bda072ca5fe803c122b"
+      },
+      "metadata_QA": [
+        {
+          "XML": {
+            "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_SDK_audit_actual_v1/metadata.xml",
+            "bytes": 5598,
+            "sha256": "d912a0ae22c6f9aad3cfcc2b56269ffb61baaaaf434388b628ff26bd3d7ddff1"
+          },
+          "counts": {
+            "tests": 28,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          }
+        },
+        {
+          "XML": {
+            "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_sync_actual_v1/metadata4.xml",
+            "bytes": 1020,
+            "sha256": "dd1ab638b46ae39bf617d48e818fa296f580a2bcdff76b7e353ccf828deb1f67"
+          },
+          "counts": {
+            "tests": 4,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          }
+        }
+      ],
+      "fixture_accounting_selfchecks": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_sync_actual_v1/fixture_accounting_selfchecks.json",
+        "bytes": 6374,
+        "sha256": "0d3a467de278f8c578a1d063fcceec33d395ef513a53bea76004b73c81bcdf34"
+      }
+    }
+  ],
+  "runs": [
+    {
+      "slot": "028",
+      "run_id": "2wh2cs0m",
+      "GPU_job_id": "4525078",
+      "history_rows": 1002,
+      "first_step": 6013,
+      "last_step": 7014,
+      "verification": {
+        "bytes": 6433,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_SDK_audit_actual_v1/0/VERIFICATION.json",
+        "sha256": "17c63a063a616e1f49e5f2fbfb17d6648fedc26a8eec4f3436f2e38fe7b2891d"
+      },
+      "sync_result": {
+        "bytes": 2972,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_sync_actual_v1/run_0_2wh2cs0m/result.json",
+        "sha256": "ce60c8221d9d16c4cbde6f31a57ac256552c3d0b0ad8a70f8732fcf7f2c912db"
+      },
+      "original_segment_Root_closure": {
+        "bytes": 1776,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_028/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+        "sha256": "68e6ba15e37639d0422e7686f67e0bfbdf75a68e098020bfe909a9f18e7b2c25"
+      }
+    },
+    {
+      "slot": "029",
+      "run_id": "dp8xtsi9",
+      "GPU_job_id": "4525109",
+      "history_rows": 1002,
+      "first_step": 7015,
+      "last_step": 8016,
+      "verification": {
+        "bytes": 6432,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_SDK_audit_actual_v1/1/VERIFICATION.json",
+        "sha256": "37c989d8d7b8463da6d798cc5a1e7f93f61f1fea26e8aabc315f7f9e4b629266"
+      },
+      "sync_result": {
+        "bytes": 2972,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_sync_actual_v1/run_1_dp8xtsi9/result.json",
+        "sha256": "c1737e2717744de0ed3fdcb55c23e58de29a3736ba38dad7f03c24d8dcc7be72"
+      },
+      "original_segment_Root_closure": {
+        "bytes": 1776,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_029/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+        "sha256": "4b3565de4d97a31bcd2fc10c6e34b853c6aa8e969f4cbc55ea6c07c5d228d2a4"
+      }
+    }
+  ],
+  "Root_SDK_checkpoint_or_scientific_array_payload_read": false,
+  "global_online_registry_recounted": false,
+  "original_SDKs_retained": true,
+  "active_or_later_slots_audited": false,
+  "whole_B_four_curves_acceptance": false,
+  "preserved_failed_grouped_audit_parent": "4524980",
+  "preserved_failed_grouped_first_pair_output": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed024025_SDK_audit_actual_v1",
+  "published_exact_method": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/R1five_Native028029_methods_publication_20261029_v1/PUBLICATION.json",
+    "bytes": 28114,
+    "sha256": "dd4148c903c2bf5ee4a0643d91a819af41f63098e22b3fa5216b90e6d31552b8"
+  },
+  "audit_source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_sdk_audit_v1_source/source_pins.json",
+    "bytes": 5131,
+    "sha256": "cb01961b0b8289191f9430b27039dc4dfaf8ad9f3f51cb188d15e2f270fa5f61"
+  },
+  "sync_source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_long_sync_v1_source/source_pins.json",
+    "bytes": 5769,
+    "sha256": "ffd3a5b543c2a386a94591c8ba192037ea4c0810e81d82d0aae9094a24857317"
+  },
+  "fixture_source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_long_sync_fixture_v1_source/source_pins.json",
+    "bytes": 6144,
+    "sha256": "0ad06d435c57f0f11e92f3da214e539a73f60b76bbcc817fa2139aa0802520ae"
+  },
+  "source_handoff": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_SDK_source_handoff_v1.json",
+    "bytes": 60753,
+    "sha256": "6490163d0b9787b49c720b12637d44964eb35b7030f5fd334c823cb51bc601ad"
+  },
+  "original_science_code": "3d9b1cc0c580dacc9398a5570b0c2fff3e257618",
+  "only_new_actual_closed_difference_slots": [
+    28,
+    29
+  ],
+  "remote_metric_values_independently_recompared": false,
+  "all_previous_SDK_closures_retained": true
+}
