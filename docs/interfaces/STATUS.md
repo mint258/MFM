@@ -263,3 +263,7 @@ paired日志v2仅修复嵌套descriptor路径，原四ID/每role 500行/完整co
 ## 2026-10-28 模型准备进度 v25
 
 见[实际进度v25](../model_v3/reports/PRETRAINING_PREPARATION_20261028_v5.md)：新geometry GPU4579完整15通过/33失败，1198源与资源闭合，未采纳；98份JSON独立确认双向翻转，headOff4580固定20批通过/500轨迹待终态。日志方法及负结果同批归档，完整阶段0–7未完成矩阵保留。
+
+## 2026-10-29 模型线当前状态
+
+原Stage0–7继续。[单日记录](../model_v3/DAILY_20261029.md)记录canonical8adb、实际133模块3122PASS/3原CUDA skip、Model同版本policy/config签署、R1两组实测与最大712单例SDK闭合。剩余A-v2两项实际GPU验收运行中；Native bf16/seed0已到6000，下一段等待CPU资源。D3–D6真实交付、架构/配方科学矩阵、B*确认、最终冻结、12万/k2/百万样本端到端和PR仍未完成；未启动学校正式预训练。

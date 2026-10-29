@@ -1,0 +1,256 @@
+{
+  "schema": "MODEL_SAME_VERSION_POLICY_CONFIG_ACK_V1",
+  "status": "FINAL_SIGNED_POLICY_CONFIG_ACK",
+  "document_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Model_same_version_policy_config_ACK_20261029_FINAL_v1/MODEL_ACK.md",
+    "bytes": 10282,
+    "sha256": "3a08de25f7c241e8e6903c08b2a365e6d3c1c255bbbdc135f2c5777700ec58ec"
+  },
+  "contract_version": "v3.0",
+  "policy_version": "D1_USER_SELECTED_20261029_V1",
+  "authority_scope": "Model Root decision on exact same-version policy/config only; not a Data joint or release signature",
+  "decision": {
+    "policy_config_accepted": true,
+    "policy_config_acceptance_is_unconditional": true,
+    "acceptance_scope": "ONLY_THE_EXACT_POLICY_AND_CONFIGURATION_SEMANTICS_IN_THE_BOUND_DATA_INPUTS",
+    "Root_explicit_acceptance_basis": "Root explicitly accepted all five A selections and the tested same-version physical exposure consumer in this session",
+    "signature_status": "ACTUALLY_ROOT_SIGNED",
+    "effective_as_signed_Data_joint_reference": true,
+    "publication_readback_is_external_receipt": true
+  },
+  "signature": {
+    "signer": "Codex A / Model Root (/root)",
+    "signed_utc": "2026-10-29T03:46:44.397944+00:00",
+    "publication_date": "2026-10-29"
+  },
+  "final_ACK_publication_record": "External Root receipt after publication; never embedded back into these signed bytes",
+  "canonical_model": {
+    "repository_full_name": "mint258/MFM",
+    "branch": "model-v3",
+    "local_code_sha": "2370d98725732c8b699172b59d93a15c55b5eaa6",
+    "public_code_sha": "8adb58698ba3187726d37b92080fd10676cef10f",
+    "Git_tree_sha": "3575ec091abf33081fdd979b6ac98eb08efc7982",
+    "actual_publication_reference": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/canonical_model_v3_delivery_publication_20261029_v1/PUBLICATION.json",
+      "bytes": 49561,
+      "sha256": "86d0b9da0e7a1b15cce88eab204066353f0b4f6add89677fa67846837d3b22aa"
+    },
+    "listed_exact_public_blob_mappings": 106,
+    "recursive_tree_blob_count": 3405,
+    "public_branch_readback_verified": true,
+    "public_Git_API_tree_readback_verified": true,
+    "actual_pytest_execution_commit": "d900f8cdf5b340006aca84de299687101ae10d9d",
+    "runtime_and_133_tests_equal_validated_commit": "d900f8cdf5b340006aca84de299687101ae10d9d",
+    "later_local_and_public_commits_are_document_only_successors": true,
+    "main_or_tag_changed": false,
+    "scientific_adoption": false
+  },
+  "actual_postintegration_CPU": {
+    "Root_closure": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/delivery_v2_full_auto_post_v1_CPU_4524922_Root_closure_actual_v1.json",
+      "bytes": 970926,
+      "sha256": "5078dfc904a19a60c94175615315e9cd183fde62ec7b1b2b240ae968ff5054eb"
+    },
+    "schema": "model_v3_candidate_single_parent_full_Root_closure_auto_memory_v1",
+    "status": "ACTUAL_C0_FULL_CORE_SUITE_SOURCE_AND_AUTOMATIC_MEMORY_OPERATIONAL_CLOSED",
+    "job_id": "4524922",
+    "node": "compute-0-19",
+    "executed_code_commit": "d900f8cdf5b340006aca84de299687101ae10d9d",
+    "modules": 133,
+    "counts": {
+      "collected": 3125,
+      "passed": 3122,
+      "failures": 0,
+      "errors": 0,
+      "existing_optional_CUDA_skips": 3
+    },
+    "actual_sacct": {
+      "argv": [
+        "sacct",
+        "-X",
+        "-n",
+        "-P",
+        "-j",
+        "4524922",
+        "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "4524922|zixiao|COMPLETED|0:0|231|16|compute-0-19\n"
+    },
+    "summary": {
+      "bytes": 372636,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524922/summary.json",
+      "sha256": "fd55f0fd5cbb6c13ba8a600ea2be02092fe8fe66f667ca54787b05017cf7f45e"
+    },
+    "all_runtime_before_after_and_current_verified": true,
+    "CUDA_or_real_Data_acceptance_granted": false
+  },
+  "actual_normal_checker": {
+    "job_id": "4524935",
+    "repository_check": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/canonical_model_v3_delivery_publication_20261029_v1/check_4524935/repository_check.json",
+      "bytes": 177,
+      "sha256": "4e1890b1aebf95e7c871939081f853820a43440bc9366a3f8ab4117d94ea7d8f"
+    },
+    "supervisor": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/canonical_model_v3_delivery_publication_20261029_v1/supervisor_4524935.json",
+      "bytes": 2638,
+      "sha256": "8045129ceb0536401ac71724109395e70fdc6b6725be655e829c878e4f79637d"
+    },
+    "submission": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/canonical_model_v3_delivery_publication_20261029_v1/SUBMITTED.json",
+      "bytes": 558,
+      "sha256": "00bc3bbd8f2c27844a85a67e68c81348819f87423e9eff6a4e0dcc2a15811939"
+    },
+    "status": "PASS",
+    "checked_files": 3405,
+    "errors": [],
+    "supervisor_status": "COMPLETED",
+    "exit_code": 0,
+    "first_failure": null,
+    "remaining": [],
+    "separate_checker_closure_created": false,
+    "submission_request": {
+      "node": "compute-0-19",
+      "CPUs": 16,
+      "memory_mode": "automatic_default"
+    }
+  },
+  "exact_Data_inputs": [
+    {
+      "role": "user_D1_v3_decisions_20261029_v1.json",
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/interfaces/user_D1_v3_decisions_20261029_v1.json",
+      "bytes": 5336,
+      "sha256": "e4a5e9fe42038394c43aa67bf03dbf416ae39b29be16b88d4cf17b205fabae96"
+    },
+    {
+      "role": "D1_v3_0_user_frozen_design_policy_20261029_v1.json",
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/interfaces/D1_v3_0_user_frozen_design_policy_20261029_v1.json",
+      "bytes": 20923,
+      "sha256": "b933a32199a059c3793fce719ac605776ee9ba1d59d1b3c74409b54f9b058acf"
+    },
+    {
+      "role": "D1_v3_0_five_layer_mapping_selections_20261029_v1.json",
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/interfaces/D1_v3_0_five_layer_mapping_selections_20261029_v1.json",
+      "bytes": 12073,
+      "sha256": "c2fa1e4b98efeee04d943cbf3fda3fd18bb6e694ed4eb56cdec8f6e34c95afd8"
+    },
+    {
+      "role": "formal_design.md",
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/interfaces/training_format_v3_0_user_frozen_design_20261029_v1.md",
+      "bytes": 14843,
+      "sha256": "226bff0271adce232802393b12e32f2f5f188cacf5b7933c5ac6e3536f217645"
+    },
+    {
+      "role": "physical_exposure_after_native_frame30_20261029_v1.json",
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/interfaces/physical_exposure_after_native_frame30_20261029_v1.json",
+      "bytes": 17221,
+      "sha256": "f0738ab48a3f8517aec955e64001e96710ee9921f6b666122a8595f28cddc43c"
+    }
+  ],
+  "accepted_five_A": {
+    "r73": "Authoritative original F64 sidecar, exactly-once training F32, retained ordered atom/channel endpoints/onsite/direction/duplicates/masks/reasons; ordinal not learned ID",
+    "r674_eligibility": "One physical target per actual task/condition/source; all original full6 valid and same actual geometry plus exposure eligibility; original partial data retained",
+    "r674_normalization": "Actual TRAIN population/version/SHA; type7 q0.001/q0.999 Frobenius winsor std_ddof0; one positive scalar; fixed zero center",
+    "r674_loss": "Frobenius radial Huber, d9, delta1, one target weight1; original target/group aggregation",
+    "frame_5A": "Explicit trusted-filesystem/same-directory native source-chain assumptions with actual native-frame30 decision; historical192 independent coordinates remain UNKNOWN"
+  },
+  "physical_exposure": {
+    "decision_reference": {
+      "role": "physical_exposure_after_native_frame30_20261029_v1.json",
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/interfaces/physical_exposure_after_native_frame30_20261029_v1.json",
+      "bytes": 17221,
+      "sha256": "f0738ab48a3f8517aec955e64001e96710ee9921f6b666122a8595f28cddc43c"
+    },
+    "r674_status": "LOSS_DISABLED_PHYSICAL_POLICY_UNBOUND",
+    "original_reason": "QUADRUPOLE_TRANSLATION_NOT_UNIFORMLY_SUPPORTED_AT_FROZEN_DEFAULT_NUMERICS_Q0_4_OF5_Q1_1_OF5",
+    "scale_status_is_independent": "LOSS_DISABLED_SCALE_UNBOUND_OR_DEGENERATE remains separate; legal scale retained",
+    "charged_selector": "ORIGIN_SENSITIVE_ACTUAL_QM_CHARGE_NONZERO_TARGETS",
+    "unbound_actual_target_QM_charge_mapping": "HOLD",
+    "SMILES_or_field_name_charge_inference_allowed": false,
+    "ordinary_independently_ready_targets_continue": true,
+    "skipped_head_rule": "Preserve actual source values/masks/reasons/frame/scale; no fabricated origin/basis/0/I/prediction; unavailable MAE/RMSE None",
+    "ready_typed_heads_require_actual_numeric_frame_origin_geometry_codebook": true,
+    "source_only_transport_grants_readiness": false,
+    "historical_192": "UNKNOWN_PRESERVED",
+    "global_physical_PASS": false
+  },
+  "preserved_scientific_rules": [
+    "Original units/signs/frame and coordinate transform conventions",
+    "Actual source/child geometry, atom order, recipe/seed/input SHA and view/H0",
+    "Original quality/eligibility/exclusion reporting and one-percent gate",
+    "Actual separate TRAIN/D5 anti-join and condition-specific D4 statistics",
+    "No changed thresholds, epsilon/scale fallback, mask rewrite, seed selection or compensation restart"
+  ],
+  "own_schema_is_not_Data_joint_schema": true,
+  "existing_Data_joint": {
+    "source_reference": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/final_release_v1/contract.py",
+      "bytes": 11376,
+      "sha256": "ec03ec5724a4c22c80bfac9e993aa1395627aac8d001cd74a1089dc45af08966"
+    },
+    "schema": "ROOT_MODEL_JOINT_FINAL_LABEL_POLICY_V1",
+    "status": "JOINTLY_FROZEN",
+    "future_reference_field": "model_ack_reference",
+    "future_reference_value": "Exact {path,bytes,sha256} of this actual signed final MODEL_ACK.json, with actual publication readback recorded externally",
+    "other_existing_rawref_fields": [
+      "root_review_reference",
+      "contract_reference"
+    ],
+    "other_signoff_fields": [
+      "actual_final_Model_ack_not_conditional",
+      "root_signoff",
+      "model_signoff"
+    ],
+    "those_Data_fields_are_not_signed_or_written_here": true,
+    "independent_requirements": [
+      "Exact actual registry/mapping/source and scientific definitions",
+      "Actual D4 technical closure and independent Root acceptance",
+      "D5/population/anti-join evidence",
+      "Actual provider/source values/masks/view/recovery acceptance",
+      "FULL actual Model runtime acceptance"
+    ],
+    "five_actual_resolved_mapping_refs": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  "additional_authorities_granted": {
+    "D3": false,
+    "D4": false,
+    "D5": false,
+    "D6": false,
+    "actual_label_or_payload_acceptance": false,
+    "full_release": false,
+    "historical_192_coordinate_PASS": false,
+    "global_physical_PASS": false,
+    "formal_FP32_physical_PASS": false,
+    "scientific_model_adoption": false
+  },
+  "previous_DRAFT_preserved": {
+    "document": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Model_same_version_policy_config_ACK_20261029_DRAFT_v1/ACK_DRAFT.md",
+      "bytes": 9088,
+      "sha256": "3368b6c95751eba732095f60310faefef93b483ed45751c5cec3cdb89820626f"
+    },
+    "bindings": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Model_same_version_policy_config_ACK_20261029_DRAFT_v1/DRAFT_BINDINGS.json",
+      "bytes": 7386,
+      "sha256": "1796d55f14bdd4c81762ed9a177f494be7fdca967a4ac4cf9d4e230ba6af4b46"
+    }
+  },
+  "physical_source_freeze": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/physical_policy_source_freeze_v3.json",
+    "bytes": 11477,
+    "sha256": "16a1e431b32c98b39c35ddfaab5639c8c13926b427ed796d437cc5f58084a488"
+  },
+  "signing_instructions": [
+    "Root actually signed these final bytes after concrete content and raw-reference checks",
+    "Actual public readback receipt must be external and must not rewrite these signed bytes"
+  ],
+  "author_operations": "Model Root final review, all bound raw-reference revalidation, actual signature; no Data or model source changes"
+}
