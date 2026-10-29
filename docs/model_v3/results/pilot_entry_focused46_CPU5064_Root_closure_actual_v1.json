@@ -1,0 +1,63 @@
+{
+  "schema": "MODEL_PILOT_ENTRY_FOCUSED46_ROOT_CLOSURE_V1",
+  "status": "ACTUAL_C0_ALL_46_FOCUSED_TESTS_SOURCE_AND_RESOURCES_CLOSED_FULL134_PENDING",
+  "counts": {
+    "tests": 46,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4525064",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4525064|zixiao|COMPLETED|0:0|54|16|compute-0-19\n",
+    "stderr": ""
+  },
+  "code_sha": "899e8e0e6618debd88c232348ebb177b49e17141",
+  "request": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/pilot_entry_focused46_units_request_v1.json",
+    "bytes": 274465,
+    "sha256": "5144d7d09c0452ef190ad146d402d41a6cd34c36b095cf008e8331cbdfd1edc2"
+  },
+  "summary": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4525064/summary.json",
+    "bytes": 473700,
+    "sha256": "be5c01ebd767c57b2c81f125fbedfff19485ba719be87321ee667c85f4853a22"
+  },
+  "JUnit": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4525064/pilot_entry_focused46.xml",
+    "bytes": 7262,
+    "sha256": "25909fd45d447d057d6563a5f1f7bf5ea286d1bee77df3dca2e9ba95d6de3521"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/pilot_entry_focused46_CPU_v1/supervisor_4525064.json",
+    "bytes": 3181,
+    "sha256": "6faee6bc0c25ee7c6ab420d6b7f09215495d431ca36b6fd7bb458cf4bbf50a0f"
+  },
+  "fixture_policy": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/pilot_entry_focused46_CPU_v1/supervisor_4525064.fixture_policy.json",
+    "bytes": 718,
+    "sha256": "e4902fc6b5d46be51fffa445c3b1a9918f16b5cde86312ebbdc755fb0d719054"
+  },
+  "source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/pilot_entry_focused46_CPU_v1/source_pins_v1.json",
+    "bytes": 4579,
+    "sha256": "76bb991dba2b090d5f1250f17224d49e6cd92bca7068c377c0b7d03f2b80251d"
+  },
+  "sources_before_after_equal": true,
+  "source_count": 1189,
+  "actual_CLI_resume_checkpoint_and_two_validation_mechanism_exercised": true,
+  "full134_parent": "4525013",
+  "full134_complete": false,
+  "actual_Data_D3_acceptance": false,
+  "GPU_acceptance": false,
+  "signed_utc": "2026-10-29T05:20:31.578260+00:00"
+}
