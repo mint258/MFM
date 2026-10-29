@@ -43,7 +43,8 @@ GPU-specific recipe adoption awaits the remaining guide requirements. Allocated/
 reserved peak fields are original PyTorch measurements, not physical GPU maxima.
 
 B is still incomplete. Original four20k plan currently has fp32seed0=20000,
-bf16seed0=8000; next original segment8000->9000 is running and both seed1
+bf16seed0=9000; original segment9000->10000 waits for its5090 UUID.
+Both seed1
 members have not started. No full four-member41-point envelope/noise2% pass
 is claimed. Existing Native S enables this authorized work before Data D5;
 actual DataD2-D6 remains missing. Final source/config/tag/HANDOFF/PR and formal

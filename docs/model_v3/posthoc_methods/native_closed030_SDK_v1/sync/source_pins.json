@@ -1,0 +1,105 @@
+{
+    "schema":  "native_closed_long_sync_source_pins_v2",
+    "status":  "SOURCE_ONLY_NOT_PREPARED_AUDITED_SYNCED_OR_ONLINE",
+    "files":  [
+                  {
+                      "relative_path":  "dependencies.json",
+                      "bytes":  9470,
+                      "sha256":  "1c54fffd6e481211ba20ddb6b8d32ec3f574ceac671dede91f7571afddb91158"
+                  },
+                  {
+                      "relative_path":  "installed_sources.json",
+                      "bytes":  5921,
+                      "sha256":  "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+                  },
+                  {
+                      "relative_path":  "long_common.py",
+                      "bytes":  12580,
+                      "sha256":  "bacb5822ed6c8e6ec49b03d9e4df44e2df1ef8e5e10f6661fd8ab61547dd7291"
+                  },
+                  {
+                      "relative_path":  "one_run_long.py",
+                      "bytes":  11852,
+                      "sha256":  "865fc3b90e04a70f8171b0d0cd4bc80feb8c0f96349c132daac29b2f9121729b"
+                  },
+                  {
+                      "relative_path":  "prepare.py",
+                      "bytes":  3286,
+                      "sha256":  "d6fc68e91e9fecbedca5d2a97f704286b70af2f6aed16919af45f2660c157408"
+                  },
+                  {
+                      "relative_path":  "README.md",
+                      "bytes":  1552,
+                      "sha256":  "eadbd8a4ee03f7b7e2ecb26fe5f680535e48f820ea99f675dc61171cb06f79a3"
+                  },
+                  {
+                      "relative_path":  "sync_cpu.sbatch",
+                      "bytes":  1560,
+                      "sha256":  "f94667a75057cc6a2bdaa63acbb73d66b7f1b2822989b96017a37b4d0679d3b5"
+                  },
+                  {
+                      "relative_path":  "sync_selected_long.py",
+                      "bytes":  5315,
+                      "sha256":  "565535fcea9209afb2c296812d4311067259fbdd619a9b57a88aabb737202390"
+                  },
+                  {
+                      "relative_path":  "test_sync_metadata.py",
+                      "bytes":  2675,
+                      "sha256":  "b5400234ee281d5f80aa6abebe54805c7b63703a38862d8a48307d761404fc05"
+                  }
+              ],
+    "max_explicit_entries":  3,
+    "explicit_allowed_run_ids":  [
+                                     "orokfokh"
+                                 ],
+    "supported_verification_schema":  "native_S_long_segment_full_log_comparison_v1",
+    "supported_audit_source_schema":  "native_S_long_segment_log_source_pins_v3",
+    "exact_audit_manifest":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_sdk_audit_v1_source/source_pins.json",
+                                 "bytes":  5429,
+                                 "sha256":  "0b49a786697df9b491377bdf4bc9ba7bd8a5fc15f6cbce7c6f7d0812a702f61b"
+                             },
+    "expected_same_job_metadata_tests":  4,
+    "original_source_manifest":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed_long_sync_v1/source_pins.json",
+                                     "bytes":  2800,
+                                     "sha256":  "36dc47c4661b798486df290a8628f80429f8ea12c0cb0743a99ab4aa20971cf9"
+                                 },
+    "unchanged_transport_tests_installed":  [
+                                                "one_run_long.py",
+                                                "sync_selected_long.py",
+                                                "test_sync_metadata.py",
+                                                "installed_sources.json"
+                                            ],
+    "local_allocation_source_derived_from":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v3_source/failed_common.py",
+    "base_not_monkeypatched":  true,
+    "CPU_memory":  "automatic_default;16GiBsoftware_only",
+    "RSS_bytes":  12884901888,
+    "whole_private_bytes_each":  2147483648,
+    "actual_prepare":  null,
+    "actual_audit":  null,
+    "actual_sync":  null,
+    "actual_online":  null,
+    "scientific_acceptance":  false,
+    "revision":  "closed030_single_exact_selector_source_rebind_only",
+    "previous_v2_manifest":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed_long_sync_v2_source/source_pins.json",
+                                 "bytes":  4453,
+                                 "sha256":  "2a7ad3bcfc0e21ea220164515f70fcc1bb91e1d7131ac76d4ac2fee3950b89c1"
+                             },
+    "original_closed020023_source":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020023_long_sync_v1_source/source_pins.json",
+                                         "bytes":  4980,
+                                         "sha256":  "fec196d55f164b77a96b589b98e1f2fd39e6e736b2947ab829bc980f252bee7e"
+                                     },
+    "original_closed024027_source":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed024027_long_sync_v1_source/source_pins.json",
+                                         "bytes":  5412,
+                                         "sha256":  "3c57758d9fbbc0c9ef23c7372d922b2d0e59e991dca98ff0ddd0b5cad7277b54"
+                                     },
+    "original_closed028029_source":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_long_sync_v1_source/source_pins.json",
+                                         "bytes":  5769,
+                                         "sha256":  "ffd3a5b543c2a386a94591c8ba192037ea4c0810e81d82d0aae9094a24857317"
+                                     }
+}

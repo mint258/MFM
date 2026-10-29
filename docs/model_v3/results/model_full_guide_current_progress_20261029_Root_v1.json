@@ -16,15 +16,18 @@
     "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_B_closed028029_SDK_Root_closure_actual_v1.json",
     "sha256": "672fe91bff7dd2d1f614ed83699c2ab15dcb11630652240141b6158cd492df62"
   },
+  "Native_B_closed030_full_SDK_audit_and_cloud_pending": true,
   "Native_B_current_closed_segment": {
     "bytes": 1776,
-    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_029/management/ROOT_LONG_SEGMENT_CLOSURE.json",
-    "sha256": "4b3565de4d97a31bcd2fc10c6e34b853c6aa8e969f4cbc55ea6c07c5d228d2a4"
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+    "sha256": "3a223d882f71fdbc4c559b670b231732ce98da20220a210782f1e5114fa951a4"
   },
   "Native_B_current_operational_status": {
-    "automatic_failure_retry": false,
-    "child_pid": 3319769,
-    "completed_additional_segments": 2,
+    "completed_additional_segments": 3,
+    "error": {
+      "message": "Original finite coordinator failed/unknown; inspect its preserved intent and terminal, never auto-retry",
+      "type": "AssertionError"
+    },
     "identity": {
       "argv_sha256": "5e5c938649a590235479081fc8b6459ed0b43e14464b8a3c1785bbbad0410b19",
       "boot_id": "714ffbb7-2f6e-4346-acb3-68466446ca62",
@@ -36,31 +39,41 @@
       "started_unix": 1793252431.3006446,
       "uid": 1278
     },
-    "next": {
-      "precision": "bf16",
-      "previous": {
-        "bytes": 1776,
-        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_029/management/ROOT_LONG_SEGMENT_CLOSURE.json",
-        "sha256": "4b3565de4d97a31bcd2fc10c6e34b853c6aa8e969f4cbc55ea6c07c5d228d2a4"
-      },
-      "resume_checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_029/child/checkpoint_u8000_log8017",
-      "resume_output_root": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_029/child",
-      "seed": 0,
-      "slot": 30,
-      "start_update": 8000,
-      "target_update": 9000
-    },
-    "observed_unix": 1793258354.210353,
-    "status": "ORIGINAL_FINITE_COORDINATOR_LIVE"
+    "scientific_acceptance": false,
+    "status": "STOPPED_REQUIRES_ROOT_RECONCILIATION_NO_RETRY",
+    "traceback": "Traceback (most recent call last):\n  File \"/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v3_source/continue_original_B_auto.py\", line 67, in <module>\n    assert child.returncode==0,'Original finite coordinator failed/unknown; inspect its preserved intent and terminal, never auto-retry'\n           ^^^^^^^^^^^^^^^^^^^\nAssertionError: Original finite coordinator failed/unknown; inspect its preserved intent and terminal, never auto-retry\n"
   },
   "Native_B_members": {
-    "bf16_seed0_updates": 8000,
+    "bf16_seed0_updates": 9000,
     "bf16_seed1_updates": 0,
     "fp32_seed0_updates": 20000,
     "fp32_seed1_updates": 0
   },
-  "Native_B_original_resource_prewait_PID": 3307320,
+  "Native_B_next_original_step_waiting_for_original_GPU": {
+    "precision": "bf16",
+    "seed": 0,
+    "slot": 31,
+    "start_update": 9000,
+    "target_update": 10000
+  },
+  "Native_B_original_resource_prewait_PID": null,
   "Native_B_precision_acceptance": false,
+  "Native_B_resource_prewait_v4_actual_launch": null,
+  "Native_B_resource_prewait_v4_source": {
+    "bytes": 4585,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4_source/source_pins.json",
+    "sha256": "d7db5b660a6156635c1dfb5242df06246836961719b6695caf61b75c7ec50a76"
+  },
+  "Native_B_slot031_no_submission_reconciled": {
+    "bytes": 4232,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_B_slot031_pre_submission_resource_reconciliation_actual_v1.json",
+    "sha256": "ff36fb76609edd1962b29623c736b04018bd293b87fb405cdb0fc1eb50c0297c"
+  },
+  "Native_B_v3_stopped_actual_source": {
+    "bytes": 1236,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v3/status.json",
+    "sha256": "ecd218d5b38987a96df4ab506aeed3e3311d4fd0b51d99cd5acb5a2acd594067"
+  },
   "R1_new_five_cohorts_actual_full_SDK_and_cloud_Root_closed": [
     {
       "bytes": 19430,
@@ -108,7 +121,7 @@
     }
   },
   "actual_Data_D2_through_D6_release_missing": true,
-  "actual_asof_UTC": "2026-10-29T07:42:46.204284+00:00",
+  "actual_asof_UTC": "2026-10-29T08:04:32.923937+00:00",
   "authoritative_latest_state_overrides_earlier_matrix_timepoint": true,
   "current_A_v2_numeric_count": 8,
   "current_validated_runtime_code": "e92b6125e0b3ea430970bc7ee24fc152e26919c5",
