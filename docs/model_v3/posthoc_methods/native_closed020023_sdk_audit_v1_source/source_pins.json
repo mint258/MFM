@@ -1,0 +1,100 @@
+{
+    "schema":  "native_S_long_segment_log_source_pins_v3",
+    "status":  "SOURCE_ONLY_FINITE_CLOSED_TWO_PAIRS_NOT_EXECUTED",
+    "files":  [
+                  {
+                      "file":  "audit_closed_segments.py",
+                      "bytes":  18579,
+                      "sha256":  "6703ff3e612b512069c812f7bd4d50cc027a34005b303715eb21d021d6528d32"
+                  },
+                  {
+                      "file":  "audit_closed_segments.sbatch",
+                      "bytes":  1357,
+                      "sha256":  "4e1068ec885c0caded9f88293c974414a71c17f84f653c4db8eab1ce213b6a76"
+                  },
+                  {
+                      "file":  "dependencies.json",
+                      "bytes":  12074,
+                      "sha256":  "14b5a1b12415b7670bf3b93dbfa201b69dd70d5c35c567255e50ca34db49168d"
+                  },
+                  {
+                      "file":  "long_segment_log.py",
+                      "bytes":  13780,
+                      "sha256":  "0beaee76a2d6347cc4dce45037821dc87d62dd2d7d6df123ccea5cfff97902f4"
+                  },
+                  {
+                      "file":  "README.md",
+                      "bytes":  1007,
+                      "sha256":  "7f4d46efed42605bd0478f56bc89eb7c22ab698ac1729481ab65718245323184"
+                  },
+                  {
+                      "file":  "test_long_segment_log.py",
+                      "bytes":  12913,
+                      "sha256":  "bbf538fc28d9c21ba45312257dbdc4e1391baf9a201ca2ea0438aed0b66c54dd"
+                  },
+                  {
+                      "file":  "closed_entries.json",
+                      "bytes":  21242,
+                      "sha256":  "2f29699ecb1daab4be5181b80ed1f37097fb52106e248745b838f0da98bf65e6"
+                  }
+              ],
+    "metadata_tests":  28,
+    "original_tests":  21,
+    "retained_v2_tests":  7,
+    "max_closed_segments":  3,
+    "explicit_allowed_slots":  [
+                                   20,
+                                   21,
+                                   22,
+                                   23
+                               ],
+    "explicit_allowed_run_ids":  [
+                                     "h3kyyacb",
+                                     "vgfs8jeh",
+                                     "vxbgxivg",
+                                     "c90djwvo"
+                                 ],
+    "scope":  "LONG_SEGMENT_LOG_ONLY",
+    "original_v2_manifest":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_segment_sdk_audit_v2/source_pins.json",
+                                 "bytes":  1886,
+                                 "sha256":  "c385ca027919f23a0e5f933562494ebfb38e1db6dd554b3f3b4239f9953540e3"
+                             },
+    "logic_and_tests_byte_identical_to_v2":  true,
+    "reader_tap_framing_unchanged":  true,
+    "CPU_scheduler_memory":  "automatic_default;no explicitSBmemory",
+    "CPU_working_memory_bytes":  17179869184,
+    "CPU_RSS_limit_bytes":  12884901888,
+    "whole_private_bytes_each":  2147483648,
+    "actual_prepare":  null,
+    "actual_CPU_audit":  null,
+    "actual_sync":  null,
+    "actual_online":  null,
+    "scientific_acceptance":  false,
+    "revision":  "closed020023-finite-v1",
+    "previous_executed_v3_manifest":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_segment_sdk_audit_v3_source/source_pins.json",
+                                          "bytes":  3182,
+                                          "sha256":  "4c5ef41f5305be93142c313b1e1b21626b0ea3d5697fba3413aa6a0dafb57dce"
+                                      },
+    "selector_metadata_precheck":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed018019_selector_metadata_precheck_actual_v1.json",
+                                       "bytes":  8326,
+                                       "sha256":  "b20d56922305650b990bf52a413d2721c01967f12cf0deb2c0092848591f0cd6"
+                                   },
+    "original_v4_source":  {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_segment_sdk_audit_v4_source/source_pins.json",
+                               "bytes":  4069,
+                               "sha256":  "e96bfe972657ebce8a3c4747ff5e690475ffd15fa461ee2167f5e2afcb0dd2f0"
+                           },
+    "allowed_slot_pairs":  [
+                               [
+                                   20,
+                                   21
+                               ],
+                               [
+                                   22,
+                                   23
+                               ]
+                           ]
+}

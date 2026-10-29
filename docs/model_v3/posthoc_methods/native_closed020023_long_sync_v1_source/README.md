@@ -1,0 +1,3 @@
+# Exact closed020/021 and022/023 selective-sync source rebind
+
+SOURCE ONLY. Original transport, full-proof/count/step/route/readback,4 metadata tests and all caps are unchanged. Only the frozen finite run selector and exact audit producer ref differ from mature sync-v3. Request each audited pair separately, only after its actual audit C0 and supervisor closure. No future certificate/request/online result is prefilled. Use the new fixture wrapper for unchanged6 same-parent checks and correct bounded metadata_tmp census. Automatic scheduler memory, CPU16,1h/RSS12GiB/whole-private2GiB remain. No active024/Auto4745, no source old files changed, no SDK body opened, no runtime executed.
