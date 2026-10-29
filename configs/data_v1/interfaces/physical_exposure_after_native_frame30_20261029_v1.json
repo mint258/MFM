@@ -1,0 +1,186 @@
+{
+    "schema":  "ROOT_D1_V3_PHYSICAL_EXPOSURE_AFTER_NATIVE30_V1",
+    "status":  "ROOT_DECISION_AFTER_ACTUAL_BOUNDED_TEST_NOT_MODEL_JOINT_ACK",
+    "contract_version":  "v3.0",
+    "reviewer":  "root",
+    "user_decision_reference":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/interfaces/user_D1_v3_decisions_20261029_v1.json",
+                                    "bytes":  5336,
+                                    "sha256":  "e4a5e9fe42038394c43aa67bf03dbf416ae39b29be16b88d4cf17b205fabae96"
+                                },
+    "formal_design_policy_reference":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/interfaces/D1_v3_0_user_frozen_design_policy_20261029_v1.json",
+                                           "bytes":  20923,
+                                           "sha256":  "b933a32199a059c3793fce719ac605776ee9ba1d59d1b3c74409b54f9b058acf"
+                                       },
+    "native_summary_reference":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/xtb_native_frame30_v1/once01_cpu18/summary.json",
+                                     "bytes":  2459,
+                                     "sha256":  "809a2313a89fd241351208b53f015ad9059a3780fe292eacdd6549b89df4005d"
+                                 },
+    "CPU_charge_law_aggregate_reference":  {
+                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/source_checks/repository_and_frame30_aggregate_cpu18_20261029_v1/native_frame_summary/physical_laws_by_actual_charge_summary.json",
+                                               "bytes":  3565,
+                                               "sha256":  "91e1add6749b359a8776f8b7c1ea0e49ae7382c11f0bc9c3d9942b9b15434e2a"
+                                           },
+    "actual_terminal_accounting_reference":  {
+                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/accounting/source744_frame754_readback759_actual_C0_v1.json",
+                                                 "bytes":  1417,
+                                                 "sha256":  "451882eaf4d376b6d0c8b94fe1c7055ac517cad142fb2f4091d9e02a91e6318d"
+                                             },
+    "native_parent":  {
+                          "job_id":  "4524754",
+                          "node":  "compute-0-18",
+                          "cpus":  16,
+                          "elapsed_seconds":  84,
+                          "allocated_core_seconds":  1344,
+                          "state":  "COMPLETED",
+                          "exit_code":  "0:0",
+                          "source3_PASS":  true,
+                          "native_invokes":  30,
+                          "native_returns":  30
+                      },
+    "original_numerical_accuracy_and_thresholds_unchanged":  true,
+    "extra_QM_or_retry_authorized":  false,
+    "historical_192_independent_output_coordinates":  "UNKNOWN_PRESERVED",
+    "observed_laws_by_actual_QM_charge":  {
+                                              "0":  {
+                                                        "groups":  5,
+                                                        "group_status_counts":  {
+                                                                                    "PASS":  4,
+                                                                                    "FAIL_OR_INSUFFICIENT_ORIGINAL_SIGNAL":  1
+                                                                                },
+                                                        "checks":  {
+                                                                       "dipole_rotation":  {
+                                                                                               "PASS":  5,
+                                                                                               "FAIL_OR_UNKNOWN":  0,
+                                                                                               "status_counts":  {
+                                                                                                                     "COVARIANT":  5
+                                                                                                                 },
+                                                                                               "max_abs_residual":  0.0,
+                                                                                               "max_allowance":  0.0007644999583778087
+                                                                                           },
+                                                                       "tensor_rotation":  {
+                                                                                               "PASS":  5,
+                                                                                               "FAIL_OR_UNKNOWN":  0,
+                                                                                               "status_counts":  {
+                                                                                                                     "NO_STATUS_FIELD":  5
+                                                                                                                 },
+                                                                                               "max_abs_residual":  0.0,
+                                                                                               "max_allowance":  0.0056342
+                                                                                           },
+                                                                       "dipole_translation":  {
+                                                                                                  "PASS":  5,
+                                                                                                  "FAIL_OR_UNKNOWN":  0,
+                                                                                                  "status_counts":  {
+                                                                                                                        "COVARIANT":  5
+                                                                                                                    },
+                                                                                                  "max_abs_residual":  8.4894332204044076E-06,
+                                                                                                  "max_allowance":  0.0007645006929425394
+                                                                                              },
+                                                                       "tensor_translation":  {
+                                                                                                  "PASS":  4,
+                                                                                                  "FAIL_OR_UNKNOWN":  1,
+                                                                                                  "status_counts":  {
+                                                                                                                        "NO_STATUS_FIELD":  5
+                                                                                                                    },
+                                                                                                  "max_abs_residual":  0.0017739400000014172,
+                                                                                                  "max_allowance":  0.007066474999999999
+                                                                                              }
+                                                                   },
+                                                        "trace_cases_within_original_rounding":  5,
+                                                        "reason_counts":  {
+                                                                              "NO_EXCEPTION":  5
+                                                                          },
+                                                        "actual_state_UHF_counts":  {
+                                                                                        "0":  5
+                                                                                    }
+                                                    },
+                                              "1":  {
+                                                        "groups":  5,
+                                                        "group_status_counts":  {
+                                                                                    "FAIL_OR_INSUFFICIENT_ORIGINAL_SIGNAL":  4,
+                                                                                    "PASS":  1
+                                                                                },
+                                                        "checks":  {
+                                                                       "dipole_rotation":  {
+                                                                                               "PASS":  5,
+                                                                                               "FAIL_OR_UNKNOWN":  0,
+                                                                                               "status_counts":  {
+                                                                                                                     "COVARIANT":  5
+                                                                                                                 },
+                                                                                               "max_abs_residual":  0.0,
+                                                                                               "max_allowance":  0.0005503117692067074
+                                                                                           },
+                                                                       "tensor_rotation":  {
+                                                                                               "PASS":  5,
+                                                                                               "FAIL_OR_UNKNOWN":  0,
+                                                                                               "status_counts":  {
+                                                                                                                     "NO_STATUS_FIELD":  5
+                                                                                                                 },
+                                                                                               "max_abs_residual":  0.0,
+                                                                                               "max_allowance":  0.014901999999999999
+                                                                                           },
+                                                                       "dipole_translation":  {
+                                                                                                  "PASS":  5,
+                                                                                                  "FAIL_OR_UNKNOWN":  0,
+                                                                                                  "status_counts":  {
+                                                                                                                        "COVARIANT":  5
+                                                                                                                    },
+                                                                                                  "max_abs_residual":  0.00011582738677429205,
+                                                                                                  "max_allowance":  0.0008087594862985236
+                                                                                              },
+                                                                       "tensor_translation":  {
+                                                                                                  "PASS":  1,
+                                                                                                  "FAIL_OR_UNKNOWN":  4,
+                                                                                                  "status_counts":  {
+                                                                                                                        "NO_STATUS_FIELD":  5
+                                                                                                                    },
+                                                                                                  "max_abs_residual":  0.08143296500000119,
+                                                                                                  "max_allowance":  0.015149814344999998
+                                                                                              }
+                                                                   },
+                                                        "trace_cases_within_original_rounding":  5,
+                                                        "reason_counts":  {
+                                                                              "NO_EXCEPTION":  5
+                                                                          },
+                                                        "actual_state_UHF_counts":  {
+                                                                                        "1":  5
+                                                                                    }
+                                                    }
+                                          },
+    "global_physical_PASS":  false,
+    "user_choices_1_to_4_unchanged":  true,
+    "actual_QM_charge_is_not_SMILES_formal_charge":  true,
+    "xtb_singlepoint_rules":  [
+                                  {
+                                      "selector":  "ORIGIN_SENSITIVE_ACTUAL_QM_CHARGE_NONZERO_TARGETS",
+                                      "training_exposure":  "DISABLED_PER_USER_5A_FALLBACK",
+                                      "original_values_component_masks_reasons_preserved":  true,
+                                      "new_numeric_mask":  false,
+                                      "note":  "Conservative fallback applies to unverified charged-origin targets in this xTB scope; retain separately the observed dipole-law support."
+                                  },
+                                  {
+                                      "selector":  "REGISTRY674_ALL_SYMMETRIC6_CONDITIONS",
+                                      "loss_status":  "LOSS_DISABLED_PHYSICAL_POLICY_UNBOUND",
+                                      "reason":  "QUADRUPOLE_TRANSLATION_NOT_UNIFORMLY_SUPPORTED_AT_FROZEN_DEFAULT_NUMERICS_Q0_4_OF5_Q1_1_OF5",
+                                      "sampling_molecules_changed":  false,
+                                      "diagnostic_PASS_samples_not_selected_for_training":  true,
+                                      "components_values_masks_reasons_and_F64_retained":  true,
+                                      "complete6_same_geometry_eligibility_report_still_required":  true,
+                                      "raw_F_and_scale_statistics_may_continue":  true,
+                                      "one_scale_zero_center_d9_delta1_design_unchanged":  true,
+                                      "scale_unbound_status_remains_separate":  "LOSS_DISABLED_SCALE_UNBOUND_OR_DEGENERATE",
+                                      "other_ready_targets_continue":  true
+                                  }
+                              ],
+    "A_source_assumptions":  {
+                                 "scope":  "EXACT_REVIEWED_NATIVE_GEOMETRY_TASK_SOURCE_CHAIN_ONLY",
+                                 "rotation_support":  "BOTH_MOMENTS_10_OF10_P90_AT_FROZEN_TOLERANCES",
+                                 "dipole_translation_support":  "10_OF10",
+                                 "new_test_does_not_supply_192_historical_coordinate_observations":  true,
+                                 "no_blanket_acceptance_of_unreviewed_conditions":  true
+                             },
+    "Model_same_version_ACK":  false,
+    "observed_utc":  "2026-10-29T01:26:45.9427172Z"
+}
