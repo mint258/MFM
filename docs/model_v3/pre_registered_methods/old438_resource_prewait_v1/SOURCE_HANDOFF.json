@@ -1,0 +1,123 @@
+{
+  "schema": "model_v3_old438_read_only_resource_prewait_source_handoff_v1",
+  "status": "SOURCE_ONLY_FROZEN_NOT_LAUNCHED_PENDING_ROOT_REVIEW",
+  "source": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_old438_resource_prewait_v1_source/wait_then_submit_old438.py",
+    "bytes": 15203,
+    "sha256": "37c2c00bf7f0a236b96b58a692d623d00f69f9d2f8b0187163000b52eb323f69"
+  },
+  "original_routing": {
+    "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7",
+    "driver": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/Root_submit.py",
+      "bytes": 18271,
+      "sha256": "92cf19222bcc059c107a6be342af5fb482a619db3cf76ee9134fbdb745090642"
+    },
+    "pins": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/source_pins.json",
+      "bytes": 27165,
+      "sha256": "672c271e56f09f39379ad4992fbbb97e38ed262bbde13e5d57e7914467f73269"
+    },
+    "plan": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/PLAN.json",
+      "bytes": 59726,
+      "sha256": "96f76028cabd4e4fcd692746a517a28b5922ba8054190dca2f7ebd676b9c3391"
+    },
+    "method_publication": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/canonical_model_v3_delivery_publication_20261029_v1/METHOD_PUBLICATION_WITH_SHARED_POLICY_v1.json",
+      "bytes": 52011,
+      "sha256": "2858169e09799507e7e550f21fc1807eafa006e9cd24d72ff2b6675869eb2064"
+    },
+    "method_file_count": 111,
+    "method_receipt_is_original_not_new_graph": true
+  },
+  "target": {
+    "old_job_id": "4520438",
+    "node": "compute-0-0",
+    "gpu_uuid": "GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332",
+    "gpu_type": "3090",
+    "logical_python": "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+    "family": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520438_routing_v7",
+    "control": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520438_routing_v7/control",
+    "original_expected_receipt": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520438_routing_v7/control/Root_submission_actual_v1.json"
+  },
+  "controller": {
+    "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_old438_resource_prewait_v1",
+    "lock": "controller.lock",
+    "identity": "identity.json",
+    "status": "status.json",
+    "source_identity": [
+      "PID",
+      "UID",
+      "boot_id",
+      "start_ticks",
+      "PGID",
+      "SID",
+      "actual NUL argv plus SHA256",
+      "source rawref/source_sha256"
+    ],
+    "fresh_namespace_only": true,
+    "never_resumes_old_controller": true,
+    "max_horizon_seconds": 604800,
+    "deadline_utc": null,
+    "deadline_required_after_observation_and_immediately_before_Popen": true,
+    "node_query_argv": [
+      "scontrol",
+      "show",
+      "node",
+      "compute-0-0",
+      "-o"
+    ],
+    "query_timeout_seconds": 20,
+    "poll_start_interval_seconds": 60,
+    "only_observed_free_CPU_gate": 16,
+    "no_GPU_or_memory_admission_by_controller": true,
+    "automatic_retry": false,
+    "maximum_original_Root_calls": 1
+  },
+  "Root_launch_argv_template": [
+    "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+    "-u",
+    "-B",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_old438_resource_prewait_v1_source/wait_then_submit_old438.py",
+    "--source-sha256",
+    "37c2c00bf7f0a236b96b58a692d623d00f69f9d2f8b0187163000b52eb323f69",
+    "--deadline-utc",
+    "ROOT_MUST_BIND_ACTUAL_ABSOLUTE_UTC_WITHIN_7_DAYS",
+    "--root-confirm-no-old438-attempt-or-other-coordinator"
+  ],
+  "not_an_executable_ready_deadline": true,
+  "Root_before_launch": [
+    "核源码/实际解释器及原公开routing-v7输入，执行Root自己的语法/小metadata检查；作者未执行。",
+    "核old438原v7 family/intent/job/layout没有已启动或不明确状态，没有其他old438 coordinator；不碰1338/4558/Native/学校/他人。",
+    "Root只启动一个全新controller namespace；固定绝对UTC截止不超过启动后7天，不复用/续开旧controller。",
+    "Root明确传确认flag。协调器只复核固定family不存在；不能替代Root对其他PID/队列/外部提交的实际核验。",
+    "保持原v7软件64GiB/RSS56GiB、Slurm自动内存、16CPU、2h/6900s、85%、15%MemAvailable、全部quota/holds/UUID/public锁及20+500；不是新科学实验。",
+    "临调用仅计算原 ~/.ssh/known_hosts 的真实SHA；不输出内容、不keyscan、不accept-new、不改trust。原Root及worker再严格验证。",
+    "原Root资源竞态、源漂移、不明、任何调用失败均停止，原hold/intent/receipt保留，Root人工核后另定；源不循环提交、不改节点/UUID、无fallback。"
+  ],
+  "outputs": {
+    "identity": "immutable one-time identity.json",
+    "status": "bounded 128KiB status.json atomic overwrite, no accumulated polling log",
+    "submission": "引用原Root_submission_actual_v1.json的真实rawref及唯一成功sbatch raw observation/job ID；仅SUBMITTED，不宣称job C0/20+500/SDK/科学通过",
+    "child_stdout_stderr": "保留原Root进程输出，不创建新增无界日志",
+    "actual_process": null,
+    "actual_job_id": null,
+    "actual_launch": null
+  },
+  "read_only_reference_native_prewait_source": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v3_source/continue_original_B_auto.py",
+    "bytes": 6411,
+    "sha256": "c96a3b6bd41d8f053905c7cba035faf05d5bbf3ad2d5bbdc90d609e96f9f1365"
+  },
+  "restrictions": {
+    "original_sources_modified": false,
+    "project_Python_AST_tests_executed": false,
+    "Slurm_or_SSH_executed": false,
+    "Git_or_publication_executed": false,
+    "SDK_journal_scientific_payload_read": false,
+    "school_or_other_jobs_touched": false,
+    "scientific_acceptance": false
+  },
+  "author_note": "STOPEDIT。只有一个新stdlib source+本薄handoff；没有新guard/monitor/test/dispatcher框架。C CLI full135 actual5085事实由Root提供，与本包准入无混用。"
+}
