@@ -130,7 +130,7 @@ def test_repeat_CLI_is_only_a_thin_dispatch_not_a_new_authority(case, cli, tmp_p
         return {'scope': 'UNIT_DISPATCH_ONLY_NO_DATA_OR_SELECTION_AUTHORITY'}
     monkeypatch.setattr(repeats, 'prepare_repeat', UNIT_dispatch_only)
     manifest = repeat_transport(case)
-    result = invoke(cli, tmp_path, 'repeat', manifest)
+    result, _ = invoke(cli, tmp_path, 'repeat', manifest)
     assert result['scope'] == 'UNIT_DISPATCH_ONLY_NO_DATA_OR_SELECTION_AUTHORITY'
     args, kwargs = called.pop()
     assert args[0] == manifest['first_seed_trials'] and args[1] == manifest['selected_name']
