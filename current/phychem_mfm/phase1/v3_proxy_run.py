@@ -168,6 +168,8 @@ def validate_request(request, *, input_kind='authoritative_proxy', engineering_o
     from .v3_pilot_smoke import validate_pilot_configuration, update_limit
     pilot_contract = validate_pilot_configuration(request, configuration)
     update_limit(request, configuration)
+    from .v3_architecture_smoke import validate_architecture_wiring_smoke
+    validate_architecture_wiring_smoke(request, configuration)
     require(configuration.get('recipe_identity_schema') in (None, 'model_v3_training_recipe_identity_v2'),
         'Unknown recipe identity projection')
     require(model['backbone']['dim'] == 512 and (engineering or model['backbone']['layers'] == 6), 'Canonical scientific6x512 model required')
@@ -198,6 +200,14 @@ def validate_request(request, *, input_kind='authoritative_proxy', engineering_o
                 and operational['schema'] == 'model_v3_training_execution_admission_v1',
                 'Auto training requires a bound actual training-specific capacity profile')
             binding_matches(operational['capacity_profile'])
+        elif execution['checkpoint_policy'] == 'auto_adopted_A_v1':
+            # Optional operational evidence never holds the scientific run.
+            # The runtime falls back to all original checkpoints if its bytes,
+            # source/workload/shape/capacity evidence cannot be qualified.
+            require(operational is None or type(operational) is dict
+                and set(operational) == {'schema', 'capacity_profile'}
+                and operational['schema'] == 'model_v3_training_execution_admission_v1',
+                'Explicit optional adopted-A capacity admission required')
         else:
             require(operational is None, 'Manual execution does not silently consume an automatic profile')
     else:

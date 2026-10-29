@@ -58,7 +58,14 @@ def validate_arguments(args, *, paired):
     integration_sha = getattr(args, "performance_execution_sha256", None)
     if (integration is None) != (integration_sha is None) or (integration_sha is not None
             and not re.fullmatch("[0-9a-f]{64}", integration_sha)):
-        raise ValueError("Opt-in performance execution requires its explicit source SHA")
+        # This explicit new route follows user-v3: missing/stale SHA transport
+        # metadata is recorded. Existing manual/strict profile calls keep their
+        # original argument semantics. No payload or project import is used.
+        adopted = False
+        if integration is not None and Path(integration).suffix == ".json" and Path(integration).stat().st_size <= 2 * 1024**2:
+            adopted = json.loads(Path(integration).read_bytes()).get("checkpoint_policy") == "auto_adopted_A_v1"
+        if not adopted:
+            raise ValueError("Opt-in performance execution requires its explicit source SHA")
     grouping = args.atom_bucket_width is not None or args.exact_atom_sort
     if grouping and args.input != "native_s":
         raise ValueError("Grouping experiments require native S, not a synthetic substitute")
@@ -267,9 +274,13 @@ def load_performance_execution(args, model_configuration, bound_configuration, *
     if path is None:return None
     from phychem_mfm.model.v3_checkpoint_policy import PerformanceExecution, file_reference, read_bound, workload_identity, bind_execution_sources, ROOT as execution_source_root
     ref = file_reference(path, 2 * 1024**2)
-    if ref["sha256"] != args.performance_execution_sha256:
-        raise ValueError("Performance execution configuration source changed")
     payload = read_bound(ref)
+    adopted = payload.get("checkpoint_policy") == "auto_adopted_A_v1"
+    if ref["sha256"] != args.performance_execution_sha256:
+        if not adopted:
+            raise ValueError("Performance execution configuration source changed")
+        bound_configuration["execution_source_SHA_warning"] = {
+            "status": "REPORT_ONLY_USER_AMENDMENT_V3", "expected": args.performance_execution_sha256, "actual": ref}
     workload = workload_identity(model_configuration,seed=args.seed,input_kind=args.input,
                                  snapshot=args.shard_snapshot_sha256,binding=bound_configuration)
     defaults = {"batch_padded_cost": args.max_padded_cost, "resident_models": resident_models, "workload_sha256": workload}
@@ -278,7 +289,10 @@ def load_performance_execution(args, model_configuration, bound_configuration, *
             raise ValueError("Execution profile differs from the actual runner workload: " + name)
         payload[name] = value
     spec = PerformanceExecution(**payload)
-    bind_execution_sources(bound_configuration)
+    if not adopted:
+        bind_execution_sources(bound_configuration)
+    else:
+        bound_configuration["A_adoption_capacity_scope"] = "ONLY_FRESH_ORIGINAL_S_2WARM_20MEASURED_NOT_GENERIC_SHAPE_CAPACITY"
     bound_configuration["performance_execution_invocation"] = {
         "source_root": str(execution_source_root), "cwd": str(Path.cwd().resolve()),
         "logical_python": str(Path(sys.executable).absolute()), "argv": list(sys.argv)}

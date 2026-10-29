@@ -1,0 +1,210 @@
+{
+  "schema": "model_v3_C1a_three_GPU_checkpoint_off_actual_progress_v1",
+  "status": "ONE_OF_THREE_ACTUAL_COMPLETED",
+  "actual_same_source_for_all_three": "866b2d4a42b36e62abda730585b66c52a011fde1",
+  "GPU_results": {
+    "4090": {
+      "actual_job_id": "4525165",
+      "actual_sacct": "COMPLETED|0:0|46|16|compute-0-20",
+      "summary": {
+        "status": "COMPLETED",
+        "failure": null,
+        "configuration": {
+          "runtime_base_code": "e92b6125e0b3ea430970bc7ee24fc152e26919c5",
+          "actual_code_sha": "866b2d4a42b36e62abda730585b66c52a011fde1",
+          "source_root": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_C1a_three_GPU_checkpoint_off_runtime_v1",
+          "seed": 0,
+          "job_id": "4525165",
+          "node": "compute-0-20",
+          "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+          "gpu_name": "NVIDIA GeForce RTX 4090",
+          "gpu_total_bytes": 50896044032,
+          "torch": "2.10.0+cu128",
+          "cuda": "12.8",
+          "model": {
+            "architecture": {
+              "preset": "shared_light",
+              "task_route": "light",
+              "type": "shared_multitask"
+            },
+            "backbone": {
+              "activation_checkpointing": false,
+              "dim": 512,
+              "dropout": 0.0,
+              "ff_mult": 2,
+              "heads": 8,
+              "layers": 6,
+              "n_atom_types": 119,
+              "radius": 8.0,
+              "use_dist_bias": true,
+              "use_radius_mask": false,
+              "distance_bias_projection_bias": false
+            },
+            "expert": {
+              "dropout": 0.0,
+              "ff_mult": 2,
+              "heads": 8,
+              "internal_layers": 0,
+              "real_layers": 2
+            },
+            "head": {
+              "geometry_head": "equivariant_noise",
+              "geometry_residual_scale": 0.1,
+              "profile": "phase1",
+              "geometry_radius": 5.0,
+              "geometry_rbf_count": 32,
+              "geometry_hidden_dim": 64,
+              "geometry_normalization": "none",
+              "geometry_message_layers": 0,
+              "geometry_pair_chunk_size": 8192
+            }
+          },
+          "architecture": {
+            "distance_bias": "C1-a",
+            "rbf_count": 64,
+            "pair_dim": 64,
+            "pair_hidden_dim": 64,
+            "rbf_max_distance": 8.0,
+            "cutoff": null
+          },
+          "optimizer": {
+            "betas": [
+              0.9,
+              0.95
+            ],
+            "lr": 0.0003,
+            "weight_decay": 0.01
+          },
+          "loss_weights": {
+            "energy": 1.0,
+            "charge": 1.0,
+            "element": 1.0,
+            "bond_existence": 0.2,
+            "bond_order": 0.2,
+            "distance": 1.0,
+            "angle": 0.0,
+            "torsion": 0.0,
+            "graph_descriptor": 0.2,
+            "charge_descriptor": 0.25,
+            "element_descriptor": 0.25,
+            "cutoff": 2.0,
+            "morse_d": 1.0,
+            "morse_a": 0.6,
+            "element_label_smoothing": 0.1,
+            "element_temperature": 1.5,
+            "element_entropy_reg": 0.05,
+            "element_logit_l2": 0.0001,
+            "denoise_sigma": 0.1,
+            "geom_angle_std_deg": 0.0,
+            "geom_bond_scale_std": 0.0
+          },
+          "loss_policy": {
+            "group_weights": {
+              "D": 1.0,
+              "P": 1.0,
+              "S": 1.0
+            },
+            "task_weights": {
+              "bond_order": 1.0,
+              "charge": 1.0,
+              "distance": 1.0,
+              "element": 1.0,
+              "energy": 1.0,
+              "graph_descriptor/BertzCT": 1.0,
+              "graph_descriptor/ExactMolWt": 1.0,
+              "graph_descriptor/FractionCSP3": 1.0,
+              "graph_descriptor/HallKierAlpha": 1.0,
+              "graph_descriptor/HeavyAtomCount": 1.0,
+              "graph_descriptor/Kappa1": 1.0,
+              "graph_descriptor/Kappa2": 1.0,
+              "graph_descriptor/Kappa3": 1.0,
+              "graph_descriptor/LabuteASA": 1.0,
+              "graph_descriptor/MolLogP": 1.0,
+              "graph_descriptor/MolMR": 1.0,
+              "graph_descriptor/NumAliphaticRings": 1.0,
+              "graph_descriptor/NumAromaticRings": 1.0,
+              "graph_descriptor/NumBridgeheadAtoms": 1.0,
+              "graph_descriptor/NumHAcceptors": 1.0,
+              "graph_descriptor/NumHDonors": 1.0,
+              "graph_descriptor/NumHeteroatoms": 1.0,
+              "graph_descriptor/NumHeterocycles": 1.0,
+              "graph_descriptor/NumSaturatedRings": 1.0,
+              "graph_descriptor/NumSpiroAtoms": 1.0,
+              "graph_descriptor/NumValenceElectrons": 1.0,
+              "graph_descriptor/RingCount": 1.0,
+              "graph_descriptor/TPSA": 1.0,
+              "node_descriptor/acceptor": 1.0,
+              "node_descriptor/donor": 1.0,
+              "node_descriptor/estate_index": 1.0,
+              "node_descriptor/is_aromatic": 1.0,
+              "node_descriptor/is_in_ring": 1.0,
+              "node_descriptor/min_ring_size": 1.0,
+              "denoise_eps_mse": 1.0
+            },
+            "geometry_task": "denoise_eps_mse"
+          },
+          "precision": "fp32",
+          "AMP": false,
+          "TF32": false,
+          "deterministic": true,
+          "warmup": 2,
+          "measured_steps": 5,
+          "checkpoint_scopes": {
+            "backbone": false,
+            "shared_pair_encoder": false,
+            "denoising_head": false
+          },
+          "sampler_max_padded_cost": 8000000,
+          "snapshot_sha256": "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+          "small_batch_or_ABBA": false,
+          "scope": "C1-a engineering throughput/peak only, not A qualification, D5, architecture winner or recipe adoption"
+        },
+        "batch": {
+          "base_records": 512,
+          "native_atoms": 17896,
+          "molecule_presentations": 276,
+          "physical_graphs": 1536,
+          "physical_atoms": 53688,
+          "max_native_atoms": 47,
+          "padded_pairs": 3393024,
+          "sampler_padded_cost": 8000000
+        },
+        "batch_identity_receipt_sha256": "f8762a29f9c757c1cea7ac8ad59a831d0bb608fa9f20c10308a27e2b3766c2bd",
+        "completed_updates": 7,
+        "measurement_rows": 5,
+        "parameter_count": 22333611,
+        "tracking_run_id": "8vhvjpp9",
+        "logging_failures": [],
+        "peak_allocated_bytes": 24142671360,
+        "peak_reserved_bytes": 27609006080,
+        "peaks_include_warmup_firstAdam_and_measurement": true,
+        "engineering_only": true,
+        "A_numeric_equivalence": false,
+        "scientific_selection": false,
+        "batch_reduced_or_retried": false,
+        "model_checkpoint_written": false,
+        "timing": "Same4731 synchronized zero_grad/forward/loss/backward/clip/Adam; H2D,loader,SDK,monitor excluded",
+        "memory": "Actual full warmup+measurement peaks; original85pct/foreign/RSS/private/output protections remain final",
+        "mean_step_ms": 857.6336026191711,
+        "samples_per_s": 596.9915339561987,
+        "molecules_per_s": 321.8157487732634,
+        "native_atoms_per_s": 20866.719710312762
+      },
+      "summary_path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/C1a_checkpoint_off_4090_first_v1/child/summary.json",
+      "batch_identity_path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/C1a_checkpoint_off_4090_first_v1/child/batch_identity.json"
+    },
+    "3090": {
+      "status": "WAITING_ACTUAL_CPU_AND_GPU_NO_MEASUREMENT",
+      "job_id": null
+    },
+    "5090": {
+      "status": "WAITING_ACTUAL_GPU_NO_MEASUREMENT",
+      "job_id": null
+    }
+  },
+  "scientific_selection": false,
+  "FP32_equivariance_gate": false,
+  "report_and_SDK_sync_nonblocking": true,
+  "no_second_4090_measurement": true,
+  "no_batch_trim_or_OOM_retry": true
+}

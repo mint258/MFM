@@ -81,6 +81,8 @@ def run(args, uuid):
     failure, status, cleanup_errors = None, "FAILED", []
     started = time.monotonic()
     measured_receipts, rows, foreign = [], [], False
+    adoption_scope_confirmed = False
+    adoption_scope_observation = None
     try:
         stream = stream_for(args, reference, candidate=args.role == "candidate")
         configuration["data_version"] = stream.bindings
@@ -161,6 +163,13 @@ def run(args, uuid):
             del outputs, loss, batch, corpus
             print(json.dumps({"optimizer_updates": ordinal + 1, "measured": ordinal >= warmup,
                               "compute_seconds": compute_seconds}), flush=True)
+        if integration is not None and args.role == "candidate":
+            # The ordinary R1 memory fact applies to this exact original input
+            # population, not a generic8M sampler bound or longer training.
+            confirm = getattr(getattr(model.backbone, "capacity_guard", None), "confirm_measured_inputs", None)
+            if confirm is not None:
+                adoption_scope_observation = confirm(measured_receipts)
+                adoption_scope_confirmed = adoption_scope_observation["same_measured_input_population"]
         elapsed = time.perf_counter() - window_started
         base = sum(row["input"]["base_records"] for row in rows)
         atoms = sum(row["input"]["native_atoms"] for row in rows)
@@ -185,7 +194,10 @@ def run(args, uuid):
             "compiler_counters_before_warmup": compile_before,
             "compiler_counters_after_warmup": compile_after_warmup,
             "compiler_counters_after_window": compiler_counters(selected.compile_backbone),
-            "tracking_run_id": tracker.id, "tracking_mode": "offline", "resume_supported": False})
+            "tracking_run_id": tracker.id, "tracking_mode": "offline", "resume_supported": False,
+            **({"A_adoption_original_R1_input_population_matched": adoption_scope_confirmed,
+                "A_adoption_input_population_observation": adoption_scope_observation}
+                if adoption_scope_observation is not None else {})})
         return 0
     except BaseException as exc:
         failure = {"type": type(exc).__name__, "message": str(exc)}

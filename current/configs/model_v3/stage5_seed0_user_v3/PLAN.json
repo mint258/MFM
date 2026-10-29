@@ -1,0 +1,326 @@
+{
+  "schema": "model_v3_stage5_first_seed_user_v3_preparation_v1",
+  "status": "SOURCE_AND_STATIC_TEMPLATES_ONLY_NOT_TRAINABLE",
+  "user_rule_version": 3,
+  "runtime_base": "e92b6125e0b3ea430970bc7ee24fc152e26919c5",
+  "documentation_HEAD_observed": "866b2d4a42b36e62abda730585b66c52a011fde1",
+  "user_amendment": {
+    "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_delivery_integration_v2/docs/model_v3/USER_MAINLINE_AMENDMENT_V3_20261029.md",
+    "bytes": 3460,
+    "sha256": "438b707482e1cfa4dba2a8a46d43eff7ec7decca9d31d64fc1394bba548ad6c1"
+  },
+  "first_seed": 0,
+  "first_seed_trials": [
+    {
+      "name": "C1_0_S",
+      "group": "S",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": false,
+      "scientific": "scientific/C1_0_S.json",
+      "smoke": "smoke/C1_0_S.json",
+      "selection_dependencies": []
+    },
+    {
+      "name": "C1_0_P",
+      "group": "P",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": false,
+      "scientific": "scientific/C1_0_P.json",
+      "smoke": "smoke/C1_0_P.json",
+      "selection_dependencies": []
+    },
+    {
+      "name": "C1_a_S",
+      "group": "S",
+      "distance": "C1-a",
+      "views": "three",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": false,
+      "scientific": "scientific/C1_a_S.json",
+      "smoke": "smoke/C1_a_S.json",
+      "selection_dependencies": []
+    },
+    {
+      "name": "C1_a_P",
+      "group": "P",
+      "distance": "C1-a",
+      "views": "three",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": false,
+      "scientific": "scientific/C1_a_P.json",
+      "smoke": "smoke/C1_a_P.json",
+      "selection_dependencies": []
+    },
+    {
+      "name": "C1_b_S",
+      "group": "S",
+      "distance": "C1-b",
+      "views": "three",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": false,
+      "scientific": "scientific/C1_b_S.json",
+      "smoke": "smoke/C1_b_S.json",
+      "selection_dependencies": []
+    },
+    {
+      "name": "C1_b_P",
+      "group": "P",
+      "distance": "C1-b",
+      "views": "three",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": false,
+      "scientific": "scientific/C1_b_P.json",
+      "smoke": "smoke/C1_b_P.json",
+      "selection_dependencies": []
+    },
+    {
+      "name": "C3_v2_S",
+      "group": "S",
+      "distance": "C1-0",
+      "views": "two",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/C3_v2_S.json",
+      "smoke": "smoke/C3_v2_S.json",
+      "selection_dependencies": [
+        "selected_C1"
+      ]
+    },
+    {
+      "name": "C3_v2_SDP",
+      "group": "SDP",
+      "distance": "C1-0",
+      "views": "two",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/C3_v2_SDP.json",
+      "smoke": "smoke/C3_v2_SDP.json",
+      "selection_dependencies": [
+        "selected_C1"
+      ]
+    },
+    {
+      "name": "C3_v3_S",
+      "group": "S",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/C3_v3_S.json",
+      "smoke": "smoke/C3_v3_S.json",
+      "selection_dependencies": [
+        "selected_C1"
+      ]
+    },
+    {
+      "name": "C3_v3_SDP",
+      "group": "SDP",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/C3_v3_SDP.json",
+      "smoke": "smoke/C3_v3_SDP.json",
+      "selection_dependencies": [
+        "selected_C1"
+      ]
+    },
+    {
+      "name": "H_H1_P",
+      "group": "P",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/H_H1_P.json",
+      "smoke": "smoke/H_H1_P.json",
+      "selection_dependencies": [
+        "selected_C1",
+        "selected_C3"
+      ]
+    },
+    {
+      "name": "H_H1_D",
+      "group": "D",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/H_H1_D.json",
+      "smoke": "smoke/H_H1_D.json",
+      "selection_dependencies": [
+        "selected_C1",
+        "selected_C3"
+      ]
+    },
+    {
+      "name": "H_H1_SDP",
+      "group": "SDP",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H1",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/H_H1_SDP.json",
+      "smoke": "smoke/H_H1_SDP.json",
+      "selection_dependencies": [
+        "selected_C1",
+        "selected_C3"
+      ]
+    },
+    {
+      "name": "H_H2_P",
+      "group": "P",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H2",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/H_H2_P.json",
+      "smoke": "smoke/H_H2_P.json",
+      "selection_dependencies": [
+        "selected_C1",
+        "selected_C3"
+      ]
+    },
+    {
+      "name": "H_H2_D",
+      "group": "D",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H2",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/H_H2_D.json",
+      "smoke": "smoke/H_H2_D.json",
+      "selection_dependencies": [
+        "selected_C1",
+        "selected_C3"
+      ]
+    },
+    {
+      "name": "H_H2_SDP",
+      "group": "SDP",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H2",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/H_H2_SDP.json",
+      "smoke": "smoke/H_H2_SDP.json",
+      "selection_dependencies": [
+        "selected_C1",
+        "selected_C3"
+      ]
+    },
+    {
+      "name": "H_H3_P",
+      "group": "P",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H3",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/H_H3_P.json",
+      "smoke": "smoke/H_H3_P.json",
+      "selection_dependencies": [
+        "selected_C1",
+        "selected_C3"
+      ]
+    },
+    {
+      "name": "H_H3_D",
+      "group": "D",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H3",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/H_H3_D.json",
+      "smoke": "smoke/H_H3_D.json",
+      "selection_dependencies": [
+        "selected_C1",
+        "selected_C3"
+      ]
+    },
+    {
+      "name": "H_H3_SDP",
+      "group": "SDP",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H3",
+      "pooling": "registry_fixed",
+      "anchor_only": true,
+      "scientific": "scientific/H_H3_SDP.json",
+      "smoke": "smoke/H_H3_SDP.json",
+      "selection_dependencies": [
+        "selected_C1",
+        "selected_C3"
+      ]
+    },
+    {
+      "name": "H_H1_P_learned_pooling",
+      "group": "P",
+      "distance": "C1-0",
+      "views": "three",
+      "head": "H1",
+      "pooling": "learned_mixer",
+      "anchor_only": true,
+      "scientific": "scientific/H_H1_P_learned_pooling.json",
+      "smoke": "smoke/H_H1_P_learned_pooling.json",
+      "selection_dependencies": [
+        "selected_C1",
+        "selected_C3"
+      ]
+    }
+  ],
+  "trial_counts": {
+    "C1": 6,
+    "C3": 4,
+    "H": 9,
+    "pooling": 1,
+    "total": 20
+  },
+  "adaptive_repeats": {
+    "guide_count_is_approximate": true,
+    "reserved_slots": 6,
+    "pretraining_seed": 1,
+    "selected_first_seed_trials": null,
+    "selection_evidence": null,
+    "rule": "Original top-two per decision and existing second_seed API; no fabricated winners",
+    "scientific_identity_generated": false
+  },
+  "C4_status": "USER_V3_PASS_FP64_4524734_48_OF_48",
+  "FP32_equivariance": "DIAGNOSTIC_ONLY",
+  "r674": "LOSS_DISABLED_HEAD_RETAINED_NO_MORE_DIAGNOSTICS",
+  "data_authority_created": false,
+  "actual_experiments": [],
+  "actual_updates": 0,
+  "existing_scientific_entry": "tools/model_v3/prepare_architecture_experiment.py",
+  "D3_entry": "tools/model_v3/prepare_architecture_wiring_smoke.py",
+  "static_check_entry": "check_stage5_templates.py",
+  "decisions_not_changed": [
+    "DECISION_RULES.md",
+    "6M platform-evidence confirmation",
+    "global pretraining-seed SD",
+    "actual TRAIN D3/D5 boundaries",
+    "no TEST/formal pretraining"
+  ],
+  "nonblocking_evidence_policy": "User v3: logging/SDK/SHA/fixtures/accounting failures recorded but do not hold scientific progression; real identity/resources/TRAIN remain enforced"
+}

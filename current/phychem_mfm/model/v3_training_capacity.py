@@ -467,17 +467,35 @@ def resolve_training_capacity(spec, configuration, workload, options, sources, a
     if spec.checkpoint_policy == "manual":
         require(admission is None, "Manual training must not silently use an automatic capacity profile")
         return options, None, None
+    adopted = spec.checkpoint_policy == "auto_adopted_A_v1"
+    if adopted:
+        from .v3_adopted_checkpoint_policy import (CONSERVATIVE_FLAGS, adopted_capacity_records,
+            conservative_selection)
+        require(options.backbone_checkpointing is None and options.distance_checkpointing and options.head_checkpointing,
+                "Automatic training policy cannot override explicit checkpoint flags")
+        conservative = replace(options, **CONSERVATIVE_FLAGS)
+        if admission is None:
+            return conservative, None, conservative_selection("NO_MATCHED_CAPACITY_KEEP_OLD_CHECKPOINTS")
     require(type(admission) is dict and set(admission) == {"schema", "capacity_profile"}
             and admission["schema"] == "model_v3_training_execution_admission_v1",
             "Actual operational training capacity admission required")
     require(options.backbone_checkpointing is None and options.distance_checkpointing and options.head_checkpointing,
             "Automatic training policy cannot override explicit checkpoint flags")
-    profile = read_bound(admission["capacity_profile"])
-    require(set(profile) == {"schema", "observations"} and profile["schema"] == PROFILE_SCHEMA
-            and type(profile["observations"]) is list and 0 < len(profile["observations"]) <= 32,
-            "Unknown/empty/oversized closed training capacity profile")
-    records = [load_closed_training_observation(item, spec, workload, options, sources) for item in profile["observations"]]
+    try:
+        profile = read_bound(admission["capacity_profile"])
+        require(set(profile) == {"schema", "observations"} and profile["schema"] == PROFILE_SCHEMA
+                and type(profile["observations"]) is list and 0 < len(profile["observations"]) <= 32,
+                "Unknown/empty/oversized closed training capacity profile")
+        records = [load_closed_training_observation(item, spec, workload, options, sources) for item in profile["observations"]]
+    except (ValueError, KeyError, TypeError, OSError):
+        if not adopted:
+            raise
+        return conservative, None, conservative_selection("CAPACITY_EVIDENCE_UNAVAILABLE_KEEP_OLD_CHECKPOINTS", admission=_json(admission))
+    # Actual physical GPU/foreign-process checks are deliberately outside the
+    # metadata fallback handler. They remain hard resource protections.
     environment = current_cuda_capacity()
+    if adopted:
+        records = adopted_capacity_records(records, environment["name"])
     if existing_model:
         # WSD rebind allocates NO second model or optimizer. Remove the actual
         # already-resident owned process from the hypothetical preallocation
@@ -499,6 +517,8 @@ def resolve_training_capacity(spec, configuration, workload, options, sources, a
         selected = select_capacity(records, virtual)
     else:
         selected = select_capacity(records, environment)
+    if adopted and selected is None:
+        return conservative, None, conservative_selection("NO_SAFE_MATCHED_ADOPTED_A_PROFILE_KEEP_OLD_CHECKPOINTS", admission=_json(admission))
     require(selected is not None, "No closed same-seed/source/GPU/training-workload capacity observation")
     guard = TrainingCapacityGuard(selected)
     guard.capacity_selection = {"admission": _json(admission), "environment": _json(environment),

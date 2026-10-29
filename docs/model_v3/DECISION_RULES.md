@@ -1,3 +1,5 @@
+2026-10-29 用户 v3 数值/操作修订立即生效：[原文及边界](USER_MAINLINE_AMENDMENT_V3_20261029.md)。C4 以4524734的FP64≤1e-9、48/48判PASS；FP32只诊断，旧v1/v2归档不重跑。日志/SDK/同步/fixture/SHA/记账不阻塞科学主线，日同步/周账。下列科学选择规则与TRAIN/noTEST要求不改；数值精度修订不能暗改科学选择。
+
 # Model v3 preregistration
 
 2026-10-29 user amendment: [equivariance v2](EQUIVARIANCE_RULES_V2_20261029.md) supersedes the old FP32 symmetry threshold below. All [FP32 compensation candidates are archived and not adopted](FP32_COMPENSATION_ARCHIVE_20261029.md). [Operating policy](OPERATING_POLICY.md): one daily summary, weekly accounting; receipts and SHA for formal deliverables. C1-a performance on existing S proceeds independently of D-5.

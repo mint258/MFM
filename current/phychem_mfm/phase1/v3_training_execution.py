@@ -46,7 +46,7 @@ class TrainingExecutionSpec:
 
     def __post_init__(self):
         require(self.schema == "model_v3_training_execution_v1" and self.checkpoint_policy in
-            {"manual", "auto_closed_training_profile_v1"}, "Unknown training execution policy")
+            {"manual", "auto_closed_training_profile_v1", "auto_adopted_A_v1"}, "Unknown training execution policy")
         require(self.geometry_scope in {"c1_scalar_distance_v1", "c1_shared_pair_v1"},
                 "Unknown explicit geometry checkpoint scope")
         require(type(self.options) is dict, "Explicit performance options mapping required")
@@ -109,6 +109,10 @@ def _validate_options(configuration, spec, options):
             "Architecture needs its explicit geometry checkpoint scope")
     require(not options.tf32 and not options.fused_adamw,
             "Failed/unadmitted TF32 or fused optimizer is not a training default")
+    if spec.checkpoint_policy == "auto_adopted_A_v1":
+        require(options.precision == "fp32" and options.attention_backend == "dense"
+                and not options.compile_backbone and spec.padding is None,
+                "Adopted A policy does not combine unqualified precision/compile/packing changes")
     require(not (spec.padding is not None and options.compile_backbone
                  and spec.checkpoint_policy != "manual"),
             "Automatic compiled packing lacks observed actual chunk workspace evidence")
@@ -163,7 +167,8 @@ def build_training_encoder(model_configuration, *, execution=None, workload_bind
     padding = None if spec.padding is None else LogicalBatchPadding(**spec.padding)
     install_training_performance(encoder, resolved, padding=padding, capacity_guard=guard)
     observer = TrainingCapacityObserver(workload, spec.semantic(), asdict(resolved), sources)
-    observer.capacity_selection = None if guard is None else deepcopy(guard.capacity_selection)
+    observer.capacity_selection = (deepcopy(admission) if spec.checkpoint_policy == "auto_adopted_A_v1" and guard is None
+        else None if guard is None else deepcopy(guard.capacity_selection))
     return TrainingEncoderExecution(encoder, resolved, observer=observer, specification=spec,
         model_configuration=configuration, workload_binding=workload, implementation_sha256=sources,
         operational_admission=admission)
@@ -400,13 +405,28 @@ def rebind_training_execution(full_model, optimizer, parent_execution, *, worklo
     sources = training_implementation_sources()
     resolved, guard, admission = resolve_training_capacity(spec, parent_execution.model_configuration,
         child_workload, requested_options, sources, operational_admission, existing_model=True)
+    if spec.checkpoint_policy == "auto_adopted_A_v1" and guard is None:
+        # A missing operational receipt must not mutate the already restored
+        # parent flags or prevent a schedule-only child. The exact workload
+        # comparison above retains model/data/heads/views/shape policy; reuse
+        # its SAME live size guard instead of inventing a larger capacity.
+        parent_flags = parent_execution.resolved_options
+        if any(getattr(parent_flags, key) is False for key in
+                ("backbone_checkpointing", "distance_checkpointing", "head_checkpointing")):
+            guard = full_model.encoder.backbone.capacity_guard
+            require(guard is not None, "Parent adopted checkpoint flags require their existing actual capacity guard")
+            resolved = parent_flags
+            admission = {"schema": "model_v3_adopted_A_parent_capacity_retained_v1",
+                "reason": "KEEP_RESTORED_PARENT_FLAGS_AND_SAME_WORKLOAD_SIZE_GUARD",
+                "fresh_capacity_evidence": admission, "new_capacity_claimed": False}
     if resolved.backbone_checkpointing is None:
         resolved = replace(resolved, backbone_checkpointing=bool(
             parent_execution.model_configuration["backbone"].get("activation_checkpointing", False)))
     require(asdict(resolved) == asdict(parent_execution.resolved_options),
             "Child capacity selection changed actual parent checkpoint/options; no implicit rebuild")
     observer = TrainingCapacityObserver(child_workload, spec.semantic(), asdict(resolved), sources)
-    observer.capacity_selection = None if guard is None else deepcopy(guard.capacity_selection)
+    observer.capacity_selection = (deepcopy(admission) if spec.checkpoint_policy == "auto_adopted_A_v1" and guard is None
+        else None if guard is None else deepcopy(guard.capacity_selection))
     result = TrainingEncoderExecution(full_model.encoder, resolved, observer=observer, specification=spec,
         model_configuration=deepcopy(parent_execution.model_configuration), workload_binding=child_workload,
         implementation_sha256=sources, operational_admission=admission,

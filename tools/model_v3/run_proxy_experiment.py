@@ -158,7 +158,8 @@ def run_segment(args):
     contract = configuration['proxy_contract']; resources = contract['resources']
     from phychem_mfm.phase1.v3_pilot_smoke import (update_limit,check_update_limit,
         validate_update_limit_checkpoint,finish_update_limited_segment)
-    optimizer_update_limit = update_limit(request, configuration)
+    from phychem_mfm.phase1.v3_architecture_smoke import wiring_update_limit, wiring_result
+    optimizer_update_limit = wiring_update_limit(request, configuration, update_limit(request, configuration))
     # Unchanged outer supervisor must reserve this entire ledger allowance.
     outer_child = int(os.environ.get('MODEL_V3_CHILD_OUTPUT_BUDGET_BYTES','0'))
     require(128 << 20 <= outer_child <= resources['joint_output_bytes']-resources['ledger_bytes']-(96 << 20),
@@ -271,6 +272,7 @@ def run_segment(args):
             set_phase('PILOT_FINAL_VALIDATION_AND_CHECKPOINT')
             limited = finish_update_limited_segment(experiment,outcome,limit=optimizer_update_limit,
                 production=request['mode']=='authoritative_pilot')
+            limited = wiring_result(request, configuration, limited)
             limited_ref = write_once(args.output/'UPDATE_LIMIT_RESULT.json',limited)
             outcome = {**outcome,'optimizer_update_limit_result':limited_ref,
                 'last_checkpoint':limited.get('final_checkpoint',outcome['last_checkpoint'])}

@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import torch
 from .v3_logical_batch import LogicalBatchPadding
 
@@ -124,7 +125,7 @@ class PerformanceExecution:
 
     def __post_init__(self):
         require(self.schema=="model_v3_performance_execution_v1" and self.checkpoint_policy in
-                {"manual","auto_closed_profile_v1"},"Unknown execution schema/checkpoint policy")
+                {"manual","auto_closed_profile_v1","auto_adopted_A_v1"},"Unknown execution schema/checkpoint policy")
         require(type(self.batch_padded_cost) is int and self.batch_padded_cost>0
                 and type(self.resident_models) is int and self.resident_models in (1,2),"Actual batch/residency limits required")
         if self.padding is not None:LogicalBatchPadding(**self.padding)
@@ -133,6 +134,9 @@ class PerformanceExecution:
         if self.checkpoint_policy=="auto_closed_profile_v1":
             require(self.capacity_profile is not None and self.workload_sha256 is not None,
                     "Auto checkpoint policy needs a bound actual profile and workload; unknown capacity is refused")
+        elif self.checkpoint_policy=="auto_adopted_A_v1":
+            require(self.padding is None and (self.capacity_profile is None or self.workload_sha256 is not None),
+                    "Adopted A selection needs an actual workload for optional capacity, without new packing")
         else:require(self.capacity_profile is None,"Manual mode cannot silently consume an automatic profile")
 
     def semantic(self):
@@ -398,7 +402,40 @@ def prepare_execution(configuration, options, execution):
         require(options.precision=="fp32","Logical-batch A padding is currently fp32 only")
         require(float(configuration["backbone"].get("dropout",0.))==0.,"Logical-batch padding requires zero dropout before construction")
     require("v3_architecture" not in configuration["backbone"],"Execution integration requires the declared original backbone, not unreviewed C1 mathematics")
-    sources=implementation_sources();resolved=options;guard=None;selection=None
+    # The new adoption route consumes already closed ordinary R1 facts. A
+    # changed mandatory source inventory is reported by the runner, not used
+    # to invalidate the known mathematical qualification or memory observation.
+    sources={} if spec.checkpoint_policy=="auto_adopted_A_v1" else implementation_sources()
+    resolved=options;guard=None;selection=None
+    if spec.checkpoint_policy=="auto_adopted_A_v1":
+        from .v3_adopted_checkpoint_policy import (CONSERVATIVE_FLAGS, conservative_selection,
+            fresh_A22_scope,load_R1_capacity,FreshR1WindowGuard)
+        require(options.precision=="fp32" and not options.tf32 and not options.fused_adamw
+            and not options.compile_backbone and options.attention_backend=="dense"
+            and options.distance_implementation=="tiled" and options.backbone_checkpointing is None
+            and options.distance_checkpointing and options.head_checkpointing,
+            "Adopted A does not combine failed/unqualified candidates or override manual flags")
+        resolved=replace(options,**CONSERVATIVE_FLAGS)
+        selection=conservative_selection("NO_MATCHED_CAPACITY_KEEP_OLD_CHECKPOINTS")
+        if spec.capacity_profile is not None and fresh_A22_scope(sys.argv,ROOT):
+            # Resource observation stays hard even if later metadata is stale.
+            environment=current_cuda_capacity()
+            try:
+                records,warnings=load_R1_capacity(spec.capacity_profile,model=configuration,
+                    workload_sha256=spec.workload_sha256,options=asdict(options),
+                    configured_cost=spec.batch_padded_cost,resident_models=spec.resident_models,gpu_uuid=environment['uuid'])
+            except (ValueError,KeyError,TypeError,OSError):
+                selection=conservative_selection("CAPACITY_EVIDENCE_UNAVAILABLE_KEEP_OLD_CHECKPOINTS",admission=spec.capacity_profile)
+            else:
+                # Keep physical GPU/foreign/unknown-memory guards OUTSIDE the
+                # operational metadata fallback. They remain hard protections.
+                row=select_capacity(records,environment)
+                if row is not None:
+                    resolved=replace(options,**row["flags"]);guard=FreshR1WindowGuard(row)
+                    selection={"environment":environment,"measured":row,"reason":"QUALIFIED_A_WITH_MATCHED_MEASURED_CAPACITY",
+                        "architecture_selected":False,"metadata_warnings":warnings,
+                        "scope":"ONLY_FRESH_ORIGINAL_S_2WARM_20MEASURED_NOT_GENERIC_SHAPE_CAPACITY"}
+                else:selection=conservative_selection("NO_SAFE_MATCHED_ADOPTED_A_PROFILE_KEEP_OLD_CHECKPOINTS",admission=spec.capacity_profile)
     if spec.checkpoint_policy=="auto_closed_profile_v1":
         require(options.backbone_checkpointing is None and options.distance_checkpointing and options.head_checkpointing,
                 "Auto checkpoint policy cannot silently override manual checkpoint flags")

@@ -1,3 +1,5 @@
+2026-10-29 当前生效：[C4 v3 正式报告](C4_EQUIVARIANCE_V3_REPORT_20261029.md)：FP64实际4524734已48/48，C4 PASS；FP32仅诊断，旧HOLD/v1/v2仅为历史，未重跑。r674保留head、LOSS_DISABLED、不追加处理。科学DECISION_RULES与TRAIN/noTEST边界不变。
+
 # 阶段 3：标签接口、预测头与损失
 
 日期：2026-10-25（Asia/Shanghai）。基线代码/预注册：`b71729e`。
