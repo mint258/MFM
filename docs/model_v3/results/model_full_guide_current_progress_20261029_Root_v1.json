@@ -38,25 +38,38 @@
     "sha256": "3a223d882f71fdbc4c559b670b231732ce98da20220a210782f1e5114fa951a4"
   },
   "Native_B_current_operational_status": {
-    "completed_additional_segments": 0,
-    "error": {
-      "message": "Original finite coordinator failed/unknown; inspect its preserved intent and terminal, never auto-retry",
-      "type": "AssertionError"
+    "actual_first_wait_summary": {
+      "bytes": 1906,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_B_v5_first_actual_wait_public_summary_v1.json",
+      "sha256": "c73224e4803a35cb921903e6deba8384f33d97a3b77d7e09e8b8415a7f576c0e"
     },
+    "actual_next": {
+      "precision": "bf16",
+      "previous": {
+        "bytes": 1776,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+        "sha256": "3a223d882f71fdbc4c559b670b231732ce98da20220a210782f1e5114fa951a4"
+      },
+      "resume_checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/child/checkpoint_u9000_log9019",
+      "resume_output_root": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/child",
+      "seed": 0,
+      "slot": 32,
+      "start_update": 9000,
+      "target_update": 10000
+    },
+    "exact_blocking_parent_job": "4525142",
     "identity": {
-      "argv_sha256": "714766a8c5bbdb20d52b49a36a7402bd268c585676dcee5c3f090042eafe81ba",
+      "argv_sha256": "eb7cd3ad2170986416d40e5b8386e561d9782f7646415f93486ace60bd3077b2",
       "boot_id": "714ffbb7-2f6e-4346-acb3-68466446ca62",
-      "pgid": 3328253,
-      "pid": 3328253,
-      "sid": 3328253,
-      "source_sha256": "43ee6da99f6c154c7fbf5cc0c5a3869eadfe01474ec1c42eef218b6597c33b38",
-      "start_ticks": 8205756978,
-      "started_unix": 1793261455.5434294,
+      "pgid": 3338416,
+      "pid": 3338416,
+      "sid": 3338416,
+      "source_sha256": "4ad45d70b51a7107fe988f5796676a0000af89cad14aafb0fbe245f2b541c273",
+      "start_ticks": 8206249598,
+      "started_unix": 1793266381.7404356,
       "uid": 1278
     },
-    "scientific_acceptance": false,
-    "status": "STOPPED_REQUIRES_ROOT_RECONCILIATION_NO_RETRY",
-    "traceback": "Traceback (most recent call last):\n  File \"/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4_source/continue_original_B_auto.py\", line 80, in <module>\n    assert child.returncode==0,'Original finite coordinator failed/unknown; inspect its preserved intent and terminal, never auto-retry'\n           ^^^^^^^^^^^^^^^^^^^\nAssertionError: Original finite coordinator failed/unknown; inspect its preserved intent and terminal, never auto-retry\n"
+    "status": "WAITING_WITHOUT_SUBMISSION_FOR_CPU_MEMORY_JOB5142_TERMINAL_AND_IDLE_GPU"
   },
   "Native_B_existing001030_full_coverage_source": {
     "bytes": 471502,
@@ -126,8 +139,18 @@
     "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4/status.json",
     "sha256": "edcec4d62b8ca522ba7cffe4955bdea981ba7e92a008361b10221aed281e8d0d"
   },
-  "Native_B_v5_actual_launch": null,
+  "Native_B_v5_actual_PID": 3338416,
+  "Native_B_v5_actual_launch": {
+    "bytes": 3081,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v5/ROOT_LAUNCH_actual_v1.json",
+    "sha256": "fd5badd520f51f8776ebe47979a762278d65cd9eb7d143c925c4931927693b9f"
+  },
   "Native_B_v5_exact_foreign_job5142_terminal_required": true,
+  "Native_B_v5_first_actual_wait_summary": {
+    "bytes": 1906,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_B_v5_first_actual_wait_public_summary_v1.json",
+    "sha256": "c73224e4803a35cb921903e6deba8384f33d97a3b77d7e09e8b8415a7f576c0e"
+  },
   "Native_B_v5_only_first_Root_explicit_retry_failed": true,
   "Native_B_v5_source_pins": {
     "bytes": 5373,
@@ -181,7 +204,7 @@
     }
   },
   "actual_Data_D2_through_D6_release_missing": true,
-  "actual_asof_UTC": "2026-10-29T09:28:01.032363+00:00",
+  "actual_asof_UTC": "2026-10-29T09:35:04.478398+00:00",
   "authoritative_latest_state_overrides_earlier_matrix_timepoint": true,
   "current_A_v2_numeric_count": 8,
   "current_validated_runtime_code": "e92b6125e0b3ea430970bc7ee24fc152e26919c5",

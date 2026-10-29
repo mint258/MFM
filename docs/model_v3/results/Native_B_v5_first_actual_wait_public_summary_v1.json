@@ -1,0 +1,50 @@
+{
+  "schema": "Native_B_v5_first_actual_readonly_wait_summary_v1",
+  "captured_UTC": "2026-10-29T09:35:04.475180+00:00",
+  "actual_controller_identity": {
+    "pid": 3338416,
+    "uid": 1278,
+    "boot_id": "714ffbb7-2f6e-4346-acb3-68466446ca62",
+    "start_ticks": 8206249598,
+    "argv_sha256": "eb7cd3ad2170986416d40e5b8386e561d9782f7646415f93486ace60bd3077b2",
+    "pgid": 3338416,
+    "sid": 3338416,
+    "source_sha256": "4ad45d70b51a7107fe988f5796676a0000af89cad14aafb0fbe245f2b541c273",
+    "started_unix": 1793266381.7404356
+  },
+  "status": "WAITING_WITHOUT_SUBMISSION_FOR_CPU_MEMORY_JOB5142_TERMINAL_AND_IDLE_GPU",
+  "actual_next": {
+    "seed": 0,
+    "precision": "bf16",
+    "start_update": 9000,
+    "target_update": 10000,
+    "previous": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+      "bytes": 1776,
+      "sha256": "3a223d882f71fdbc4c559b670b231732ce98da20220a210782f1e5114fa951a4"
+    },
+    "resume_checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/child/checkpoint_u9000_log9019",
+    "resume_output_root": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/child",
+    "slot": 32
+  },
+  "exact_blocking_parent_job": {
+    "job_id": "4525142",
+    "user": "guangyuan",
+    "state": "RUNNING",
+    "node": "compute-0-21"
+  },
+  "observation_returncode": 0,
+  "observation_argv": [
+    "squeue",
+    "-h",
+    "-u",
+    "guangyuan",
+    "-o",
+    "%i|%u|%T|%N"
+  ],
+  "observed_unix": 1793266443.6447973,
+  "other_user_jobs_not_republished_or_affected": true,
+  "no_new_GPU_job_or_model_update_claimed": true,
+  "one_time_first_retry_scope": "Only original v8 explicit retry to fresh32 after exact5142 terminal; any new failure stops",
+  "scientific_acceptance": false
+}
