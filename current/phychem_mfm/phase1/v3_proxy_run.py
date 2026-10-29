@@ -108,7 +108,7 @@ def validate_sources(request):
     source = request['sources']; expected = source['runtime_files']
     require(expected == collect_sources(), 'Actual runtime source inventory differs; base commit does not describe dirty engineering code')
     require(re.fullmatch('[a-f0-9]{40}',source['code_sha']) is not None, 'Full actual/base code SHA required')
-    if request['mode'] in ('authoritative_proxy','authoritative_full_train','authoritative_grid_train'):
+    if request['mode'] in ('authoritative_proxy','authoritative_full_train','authoritative_grid_train','authoritative_pilot'):
         require(_git(REPOSITORY,'rev-parse','HEAD') == source['code_sha']
             and _git(REPOSITORY,'rev-parse','HEAD^{tree}') == source['tree_sha']
             and not _git(REPOSITORY,'status','--porcelain','--untracked-files=all'),
@@ -130,6 +130,8 @@ def _registration(reference, *, purpose, configuration):
         and purpose in policy['purposes'] and policy['configuration_identity_sha256'] == identity(configuration)
         and configuration['seed'] in policy['pretraining_seeds'], 'Preregistered policy/configuration/seed differs')
     contract = configuration['proxy_contract']
+    if purpose == 'pilot_smoke':
+        require(policy.get('pilot_smoke') == configuration['pilot_smoke'], 'Registered pilot update cap/data/ACK bindings differ')
     if purpose == 'budget': require(policy['sample_budget'] == contract['sample_budget'], 'Registered sample budget differs')
     if purpose == 'validation': require(policy['validation'] == contract['validation'], 'Registered validation policy differs')
     if purpose == 'full_train': require(policy.get('full_train_contract') == configuration['full_train_contract'], 'Registered full TRAIN population differs')
@@ -150,8 +152,9 @@ def _registration(reference, *, purpose, configuration):
 
 def validate_request(request, *, input_kind='authoritative_proxy', engineering_only=False):
     require(request.get('schema') == 'model_v3_proxy_request_v1', 'Explicit proxy request required')
-    require(input_kind in ('authoritative_proxy','authoritative_full_train','authoritative_grid_train','synthetic') and request['mode'] ==
+    require(input_kind in ('authoritative_proxy','authoritative_full_train','authoritative_grid_train','authoritative_pilot','synthetic') and request['mode'] ==
         ('synthetic_engineering' if input_kind == 'synthetic' else input_kind), 'CLI/request input scope differs')
+    pilot = input_kind == 'authoritative_pilot'
     full_train = input_kind == 'authoritative_full_train'
     grid_train = input_kind == 'authoritative_grid_train'
     configuration = read_bound(request['configuration'])
@@ -162,10 +165,13 @@ def validate_request(request, *, input_kind='authoritative_proxy', engineering_o
         and (configuration['experiment_scope'] == ENGINEERING) is engineering,
         'Synthetic execution requires both --input synthetic and --engineering-only plus immutable markers')
     contract = configuration['proxy_contract']; model = configuration['model']
+    from .v3_pilot_smoke import validate_pilot_configuration, update_limit
+    pilot_contract = validate_pilot_configuration(request, configuration)
+    update_limit(request, configuration)
     require(configuration.get('recipe_identity_schema') in (None, 'model_v3_training_recipe_identity_v2'),
         'Unknown recipe identity projection')
     require(model['backbone']['dim'] == 512 and (engineering or model['backbone']['layers'] == 6), 'Canonical scientific6x512 model required')
-    scopes = ('grid_cell',) if grid_train else ('full_convergence',) if full_train else ('calibration','comparison','recipe')
+    scopes = ('pilot_smoke',) if pilot else ('grid_cell',) if grid_train else ('full_convergence',) if full_train else ('calibration','comparison','recipe')
     require(engineering or request['scope'] in scopes, 'Explicit registered scientific purpose required')
     require('performance_execution_v1' not in model, 'Use the declared training_execution consumer; a plain factory must not ignore execution')
     if grid_train:
@@ -234,7 +240,7 @@ def validate_request(request, *, input_kind='authoritative_proxy', engineering_o
         validate_admission(request,configuration)
     receipts = {}
     if not engineering:
-        required = ({'budget','validation','grid_cell'} if grid_train else {'budget','validation','recipe','full_train'} if full_train else
+        required = ({'budget','validation','pilot_smoke'} if pilot else {'budget','validation','grid_cell'} if grid_train else {'budget','validation','recipe','full_train'} if full_train else
             {'budget','validation','calibration'} if request['scope'] == 'calibration' else {'budget','validation','selection','platform'})
         if request['scope'] == 'recipe': required.add('recipe')
         if 'training_execution' in configuration: required.add('training_execution')
@@ -242,13 +248,18 @@ def validate_request(request, *, input_kind='authoritative_proxy', engineering_o
         receipts = {purpose:_registration(request['registrations'][purpose],purpose=purpose,configuration=configuration) for purpose in required}
         admission = read_bound(request['Root_admission'])
         require(admission.get('schema') == 'model_v3_proxy_Root_admission_v1'
-            and admission['status'] == 'ROOT_ADMITTED_FINAL_INPUTS'
+            and admission['status'] == ('ROOT_ADMITTED_PILOT_INPUTS' if pilot else 'ROOT_ADMITTED_FINAL_INPUTS')
             and admission['configuration_identity_sha256'] == identity(configuration)
             and admission['scope'] == request['scope'] and admission['code_sha'] == request['sources']['code_sha']
             and admission['tree_sha'] == request['sources']['tree_sha']
             and admission['request_identity_sha256'] == canonical_hash({k:v for k,v in request.items() if k != 'Root_admission'}),
             'Missing/unfinished Root scientific admission or request projection differs')
-        required_data = {'D1','D2','D3','D4','D6' if full_train or grid_train else 'D5','three_GPU_SDP_smoke'}
+        from .v3_pilot_smoke import EVIDENCE_KEYS
+        required_data = (set(EVIDENCE_KEYS) if pilot else
+            {'D1','D2','D3','D4','D6' if full_train or grid_train else 'D5','three_GPU_SDP_smoke'})
+        if pilot:
+            require(admission['evidence'] == pilot_contract['evidence'],
+                'Root pilot admission must bind exactly its registered actual bounded input/ACK population evidence')
         require(required_data <= set(admission['evidence']), 'Missing actual input/integration authority references')
         if full_train: require(admission['evidence']['D6'] == configuration['full_train_contract']['release_evidence'], 'Root D6 release binding differs')
         if grid_train: require(admission['evidence']['D6'] == configuration['grid_train_contract']['release_evidence'], 'Root grid base release binding differs')
@@ -274,15 +285,23 @@ def bind_inputs(request, configuration):
         module = importlib.util.module_from_spec(spec); sys.modules[name] = module; spec.loader.exec_module(module)
         hook_name = ('verify_and_bind_model_v3_grid_TRAIN_inputs' if request['mode'] == 'authoritative_grid_train'
                       else 'verify_and_bind_model_v3_full_TRAIN_inputs' if request['mode'] == 'authoritative_full_train'
-                     else 'verify_and_bind_model_v3_proxy_inputs')
+                     else 'verify_and_bind_model_v3_pilot_TRAIN_inputs' if request['mode'] == 'authoritative_pilot'
+                      else 'verify_and_bind_model_v3_proxy_inputs')
         hook = getattr(module,hook_name,None)
         require(callable(hook), 'Missing pinned final-D authority hook; candidate providers are not admitted')
         inputs = hook(deepcopy(request))
-        require(isinstance(inputs,ProxyInputs) and inputs.authority_kind == 'data_line_final'
+        require(isinstance(inputs,ProxyInputs) and inputs.authority_kind ==
+            ('data_line_pilot' if request['mode'] == 'authoritative_pilot' else 'data_line_final')
             and inputs.release_accepted is True and inputs.verified_request_sha256 == canonical_hash(request)
             and inputs.authority_receipt, 'Final-D authority hook did not verify this exact request')
         require(inputs.index.authority == inputs.registry.authority == 'data_line', 'Final data-line index/registry authority required')
-        if request['mode'] == 'authoritative_grid_train':
+        if request['mode'] == 'authoritative_pilot':
+            from .v3_pilot_smoke import verify_pilot_inputs
+            try: verify_pilot_inputs(inputs, request, configuration)
+            except BaseException:
+                inputs.provider.close()
+                raise
+        elif request['mode'] == 'authoritative_grid_train':
             from .v3_grid_training import verify_grid_inputs
             verify_grid_inputs(inputs, configuration)
         elif request['mode'] == 'authoritative_full_train':
@@ -523,8 +542,8 @@ def build_experiment(request,configuration,plan,inputs,tracker,*,output_root,lin
         controller_options['controller_factory'] = controller_class()
     return ProxySegmentExperiment(trainer,plan,output_root=output_root,lineage=lineage,
         input_scope='synthetic_fixture' if configuration['engineering_only'] else 'externally_supplied_adapter',
-        model_configuration=request['configuration'],panel_binding=request['panel_binding'],
-        panel_required=not configuration['engineering_only'],lineage_root=lineage_root,
+        model_configuration=request['configuration'],panel_binding=None if request['mode'] == 'authoritative_pilot' else request['panel_binding'],
+        panel_required=not configuration['engineering_only'] and request['mode'] != 'authoritative_pilot',lineage_root=lineage_root,
         ledger_bytes=contract['resources']['ledger_bytes'],**controller_options)
 
 
@@ -546,7 +565,7 @@ def finalize_training_request(candidate_ref, registrations, admission, output, *
 
 
 def engineering_request(directory,*,code_sha,layers=1,budget=6,views='three',seed=7,
-                        training_execution=None,groups=('S','D','P')):
+                        training_execution=None,groups=('S','D','P'),engineering_update_cap=None):
     """Prepare small explicit engineering metadata only; never starts a job."""
     from .v3_proxy_engineering import synthetic_proxy_inputs
     directory = physical(directory); directory.mkdir(parents=True,exist_ok=False)
@@ -572,6 +591,10 @@ def engineering_request(directory,*,code_sha,layers=1,budget=6,views='three',see
     configuration = {'schema':'model_v3_proxy_configuration_v1','seed':seed,'model':model,'proxy_contract':contract,
         'experiment_scope':ENGINEERING,'engineering_only':True,'runtime_source_inventory_sha256':canonical_hash(sources),
         'input_projection_sha256':canonical_hash(projection)}
+    if engineering_update_cap is not None:
+        require(type(engineering_update_cap) is int and 1 <= engineering_update_cap <= 2000,
+            'Bounded synthetic-only optimizer update limit required')
+        configuration['engineering_update_cap'] = engineering_update_cap
     if training_execution is not None:
         from .v3_training_execution import TrainingExecutionSpec
         policy = TrainingExecutionSpec(**training_execution).semantic()

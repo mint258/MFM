@@ -1,0 +1,47 @@
+{
+  "schema": "native_B_resource_prewait_v3_Root_launch_actual_v1",
+  "pid": 3307320,
+  "source": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v3_source/continue_original_B_auto.py",
+    "bytes": 6411,
+    "sha256": "c96a3b6bd41d8f053905c7cba035faf05d5bbf3ad2d5bbdc90d609e96f9f1365"
+  },
+  "source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v3_source/source_pins.json",
+    "bytes": 2004,
+    "sha256": "f5e35e76c6770feeb35e69a0f8abd2f2214b70209ab4fca7404e34bfd207c84a"
+  },
+  "public_method_receipt": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/CSV8_Native_prewait_publication_20261029_v1/PUBLICATION.json",
+    "bytes": 5436,
+    "sha256": "e0d4af630770849cf24a93af70aea7c841cc827fddf651c1a00bea30c8295d9d"
+  },
+  "reconciliation": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_B_slot028_pre_submission_resource_reconciliation_actual_v1.json",
+    "bytes": 4255,
+    "sha256": "11cfb9e352169ee575f4f147dd274be46ba031dc66215f5983a7f5b6c191673f"
+  },
+  "actual_next": {
+    "seed": 0,
+    "precision": "bf16",
+    "start_update": 6000,
+    "target_update": 7000,
+    "previous": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_027/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+      "bytes": 1776,
+      "sha256": "be2c62c6acf5b409c1ea0b697c18c3d14bfbb0cbd4e1ee23e5fe62aeb3a90657"
+    },
+    "resume_checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_027/child/checkpoint_u6000_log6013",
+    "resume_output_root": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_027/child",
+    "slot": 28
+  },
+  "command": [
+    "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+    "-u",
+    "-B",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v3_source/continue_original_B_auto.py"
+  ],
+  "original_absolute_horizon_unix": 1793835265.775158,
+  "started_unix": 1793252431.24005,
+  "no_new_science_or_failed_retry": true
+}

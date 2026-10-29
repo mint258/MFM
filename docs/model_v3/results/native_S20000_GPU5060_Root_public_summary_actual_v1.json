@@ -1,0 +1,385 @@
+{
+  "status": "ACTUAL_GPU_C0_NATIVE20000_FULL9_18CELL_H0_SOURCE_RESOURCE_CLOSED_SDK_PENDING",
+  "job_id": "4525060",
+  "actual_parent": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4525060",
+      "--format=JobIDRaw,User,State,ExitCode,AllocCPUS,NodeList,ElapsedRaw,Submit,Start,End"
+    ],
+    "completed_unix": 1793252433.1298518,
+    "returncode": 0,
+    "started_unix": 1793252433.0413222,
+    "stderr": "",
+    "stdout": "4525060|zixiao|COMPLETED|0:0|16|compute-0-21|519|2026-10-29T13:00:55|2026-10-29T13:00:55|2026-10-29T13:09:34\n"
+  },
+  "actual_parent_fields": {
+    "AllocCPUS": "16",
+    "ElapsedRaw": "519",
+    "End": "2026-10-29T13:09:34",
+    "ExitCode": "0:0",
+    "JobIDRaw": "4525060",
+    "NodeList": "compute-0-21",
+    "Start": "2026-10-29T13:00:55",
+    "State": "COMPLETED",
+    "Submit": "2026-10-29T13:00:55",
+    "User": "zixiao"
+  },
+  "bridge_identity": {
+    "evaluation_code_sha": "17f975bb094c9c3ec010d7f8134c5700adcc85e4",
+    "public_code_sha": "60aa359443ef6a79aabc08144d2af4eec7ec24c5",
+    "qa_job_id": "4522290",
+    "tree_sha": "5d8c71c2f069b35dddc1427b38468dff3d20ab6c"
+  },
+  "CPU_preparation_metadata": {
+    "actual_parent_fields": {
+      "AllocCPUS": "16",
+      "ElapsedRaw": "28",
+      "End": "2026-10-29T12:57:45",
+      "ExitCode": "0:0",
+      "JobIDRaw": "4525059",
+      "NodeList": "compute-0-19",
+      "Start": "2026-10-29T12:57:17",
+      "State": "COMPLETED",
+      "Submit": "2026-10-29T12:57:13",
+      "User": "zixiao"
+    },
+    "bridge_before_after_kind": "PINNED_PREPARER_CONTROL_FLOW_NOT_SEPARATE_SAVED_FULL_BRIDGE_MAP",
+    "fresh_actual_parent": {
+      "argv": [
+        "sacct",
+        "-X",
+        "-n",
+        "-P",
+        "-j",
+        "4525059",
+        "--format=JobIDRaw,User,State,ExitCode,AllocCPUS,NodeList,ElapsedRaw,Submit,Start,End"
+      ],
+      "completed_unix": 1793252432.3935795,
+      "returncode": 0,
+      "started_unix": 1793252432.304393,
+      "stderr": "",
+      "stdout": "4525059|zixiao|COMPLETED|0:0|16|compute-0-19|28|2026-10-29T12:57:13|2026-10-29T12:57:17|2026-10-29T12:57:45\n"
+    },
+    "receipt": {
+      "bytes": 23711,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/cpu_prepare/CPU_PREPARATION.json",
+      "sha256": "48fcf25b086c58c0a27bbd18d839e72e3d729a03aad00fbf5fbb3feeac63ff8b"
+    },
+    "source_before_after_current_equal": true,
+    "supervisor": {
+      "bytes": 3100,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/control/CPU_supervisor_4525059.json",
+      "sha256": "82647c2dadbaebfb804f81140b903cd5e722d78210791c87491c150e3157bd40"
+    }
+  },
+  "Native_endpoint": {
+    "Root_payload_SHA_reverified": false,
+    "Root_payload_stat": {
+      "bytes": 198781481,
+      "inode": 49457061333,
+      "mtime_ns": 1793223890180953592,
+      "nlink": 1,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_021/child/checkpoint_u20000_log20041/payload.pt",
+      "read_kind": "STAT_ONLY_NO_CONTENT_OR_SHA_READ",
+      "uid": 1278
+    },
+    "optimizer_updates": 20000,
+    "precision": "fp32",
+    "producer_authenticated_payload_ref": {
+      "bytes": 198781481,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_021/child/checkpoint_u20000_log20041/payload.pt",
+      "sha256": "4cf46fb6d367937aa797bf2346eab405de6dd0c8dafdc660d961d05d02e12460",
+      "state_key": "model"
+    },
+    "producer_code_sha": "3d9b1cc0c580dacc9398a5570b0c2fff3e257618",
+    "samples_consumed": 8151040,
+    "seed": 0
+  },
+  "panel": {
+    "H0_dimension": 512,
+    "TRAIN_only_frozen_preregistration": "39cf4929299cd227a3c361183a4b26c8b1405900",
+    "bootstrap_draws_each_summary": 1000,
+    "comparison_cells": 18,
+    "geometry_exclusion_policy_sources": {
+      "exporter": {
+        "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_checkpoint_bridge_v1/tools/model_v3/evaluate_dev_panel.py",
+        "rule": "geometry_ready false increments unavailable and skips before H0, then reports unavailable count"
+      },
+      "planner": {
+        "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_checkpoint_bridge_v1/current/phychem_mfm/phase1/v3_h0_packing.py",
+        "rule": "packing_plans_for_views uses native_geometry_metadata geometry_ready only; fixed pre-encoding record order hash"
+      },
+      "readouts": {
+        "path": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_checkpoint_bridge_v1/current/phychem_mfm/phase1/v3_dev_evaluation.py",
+        "rule": "task_rows retains source inventory but skips source-unavailable geometry without rebuilding it"
+      }
+    },
+    "geometry_population_scope": "Original source inventory retained; both encoders/readouts use exactly the frozen geometry_ready subset, not every originally selected record",
+    "matched_caches": {
+      "candidate/cyp_isoform": {
+        "Root_tensor_SHA_reverified": false,
+        "Root_tensor_stat": {
+          "bytes": 78879751,
+          "inode": 12958330547,
+          "mtime_ns": 1793250296984002708,
+          "nlink": 1,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/h0_cache/fe79bae16f0decd810f6907fbb38e225934ea4f1b21895ba8ffd0a53c07e7bba/h0.pt",
+          "read_kind": "STAT_ONLY_NO_CONTENT_OR_SHA_READ",
+          "uid": 1278
+        },
+        "atoms": 37835,
+        "cache_key": "fe79bae16f0decd810f6907fbb38e225934ea4f1b21895ba8ffd0a53c07e7bba",
+        "dimension": 512,
+        "frozen_geometry_available_packing_plan_sha256": "c1daa3a8a1b86b98d538e5559314a390ac0e08778ef0c5c2ba86b6a14cf9131f",
+        "geometry_available_record_order_sha256": "4c19a400c09169dea7dea7cd33809845dcfc0113c6972f573e74b12a646617b5",
+        "manifest": {
+          "bytes": 40124,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/h0_cache/fe79bae16f0decd810f6907fbb38e225934ea4f1b21895ba8ffd0a53c07e7bba/manifest.json",
+          "sha256": "2a1b6eb826eaec8ea2ad4a008d4d7078d8b620715232758dc27264e64365d87e"
+        },
+        "molecules": 1800,
+        "original_selected_TRAIN_records": 1803,
+        "producer_tensor_sha256": "af91a24cd572966238546e1ba839526cdc1fac7f84cc2b9f83a8680bae77e5eb",
+        "targets_cached": false,
+        "unavailable_geometry_records": 3
+      },
+      "candidate/expansionrx": {
+        "Root_tensor_SHA_reverified": false,
+        "Root_tensor_stat": {
+          "bytes": 300600263,
+          "inode": 15036761577,
+          "mtime_ns": 1793250312139123546,
+          "nlink": 1,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/h0_cache/1937713f0e61c0a2583181ae86df55f7196739110f5cc66010f8e3a7e9d92e45/h0.pt",
+          "read_kind": "STAT_ONLY_NO_CONTENT_OR_SHA_READ",
+          "uid": 1278
+        },
+        "atoms": 144650,
+        "cache_key": "1937713f0e61c0a2583181ae86df55f7196739110f5cc66010f8e3a7e9d92e45",
+        "dimension": 512,
+        "frozen_geometry_available_packing_plan_sha256": "e251aa68dd67a5a2bdd5c3822c2756a7726c331a4f79b9e42accfedb21708148",
+        "geometry_available_record_order_sha256": "f449af90df4f07d0bd6f3acc72f05a754d3fe34a81c6fce5280e1601fe31a684",
+        "manifest": {
+          "bytes": 81718,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/h0_cache/1937713f0e61c0a2583181ae86df55f7196739110f5cc66010f8e3a7e9d92e45/manifest.json",
+          "sha256": "4fad3ce1e9a759ee944adabafe6cac020bd93bab7e0161d097d4fbaa56c992fb"
+        },
+        "molecules": 5278,
+        "original_selected_TRAIN_records": 5326,
+        "producer_tensor_sha256": "dae88516addd6a48f2d45c3d9bc5f4306ac4dc761c30289c66127d0a905b23cf",
+        "targets_cached": false,
+        "unavailable_geometry_records": 48
+      },
+      "candidate/qm9": {
+        "Root_tensor_SHA_reverified": false,
+        "Root_tensor_stat": {
+          "bytes": 394809607,
+          "inode": 17206591840,
+          "mtime_ns": 1793250374539621084,
+          "nlink": 1,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/h0_cache/e3096a169c082385c947a3465ce5d1cced61b92205d24af61cbd8a3716035662/h0.pt",
+          "read_kind": "STAT_ONLY_NO_CONTENT_OR_SHA_READ",
+          "uid": 1278
+        },
+        "atoms": 189008,
+        "cache_key": "e3096a169c082385c947a3465ce5d1cced61b92205d24af61cbd8a3716035662",
+        "dimension": 512,
+        "frozen_geometry_available_packing_plan_sha256": "3e72f431ab421d1e7a965842edb852e93bb2d50e492599bc9ffa10a6f3632ef6",
+        "geometry_available_record_order_sha256": "de44c42b2776c5bdadd7d8a5efd94fbe1f922a9153c77e6fdc9b2e36f251dfa3",
+        "manifest": {
+          "bytes": 144002,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/h0_cache/e3096a169c082385c947a3465ce5d1cced61b92205d24af61cbd8a3716035662/manifest.json",
+          "sha256": "48d7763fd84341907dcc0ade49256a0a05e4399ed7008c3c256dea5aac4410b7"
+        },
+        "molecules": 10473,
+        "original_selected_TRAIN_records": 10473,
+        "producer_tensor_sha256": "6f03555cc9bf5d2ec43020d0032e5770f196b0df6ef8d1fa4b16f5db04f97bbf",
+        "targets_cached": false,
+        "unavailable_geometry_records": 0
+      },
+      "reference/cyp_isoform": {
+        "Root_tensor_SHA_reverified": false,
+        "Root_tensor_stat": {
+          "bytes": 78879495,
+          "inode": 66576741659,
+          "mtime_ns": 1793250068040177266,
+          "nlink": 1,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/h0_cache/0505bb43fedd7316899b727e1e302ef93b8370a4f94a286ba73550cedef727d8/h0.pt",
+          "read_kind": "STAT_ONLY_NO_CONTENT_OR_SHA_READ",
+          "uid": 1278
+        },
+        "atoms": 37835,
+        "cache_key": "0505bb43fedd7316899b727e1e302ef93b8370a4f94a286ba73550cedef727d8",
+        "dimension": 512,
+        "frozen_geometry_available_packing_plan_sha256": "c1daa3a8a1b86b98d538e5559314a390ac0e08778ef0c5c2ba86b6a14cf9131f",
+        "geometry_available_record_order_sha256": "4c19a400c09169dea7dea7cd33809845dcfc0113c6972f573e74b12a646617b5",
+        "manifest": {
+          "bytes": 39999,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/h0_cache/0505bb43fedd7316899b727e1e302ef93b8370a4f94a286ba73550cedef727d8/manifest.json",
+          "sha256": "331f248ac1874aa78bed55cb23433936eb8a2ece46661189df156bd3bccc97e2"
+        },
+        "molecules": 1800,
+        "original_selected_TRAIN_records": 1803,
+        "producer_tensor_sha256": "df553e72f19b3587dd880eef7ee9ec855a606463ef643a5ee5b424ba854786da",
+        "targets_cached": false,
+        "unavailable_geometry_records": 3
+      },
+      "reference/expansionrx": {
+        "Root_tensor_SHA_reverified": false,
+        "Root_tensor_stat": {
+          "bytes": 300600071,
+          "inode": 12999818,
+          "mtime_ns": 1793250084737310399,
+          "nlink": 1,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/h0_cache/188a48604338d1c8e77f39a1979427f7c250fa4ce3f65ca9a6d43aa01d2364ca/h0.pt",
+          "read_kind": "STAT_ONLY_NO_CONTENT_OR_SHA_READ",
+          "uid": 1278
+        },
+        "atoms": 144650,
+        "cache_key": "188a48604338d1c8e77f39a1979427f7c250fa4ce3f65ca9a6d43aa01d2364ca",
+        "dimension": 512,
+        "frozen_geometry_available_packing_plan_sha256": "e251aa68dd67a5a2bdd5c3822c2756a7726c331a4f79b9e42accfedb21708148",
+        "geometry_available_record_order_sha256": "f449af90df4f07d0bd6f3acc72f05a754d3fe34a81c6fce5280e1601fe31a684",
+        "manifest": {
+          "bytes": 81593,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/h0_cache/188a48604338d1c8e77f39a1979427f7c250fa4ce3f65ca9a6d43aa01d2364ca/manifest.json",
+          "sha256": "f9a6fddbd7c5d6990f05bd699ce3185d60883f91f8d1ce007ac7c5f1847cd2d1"
+        },
+        "molecules": 5278,
+        "original_selected_TRAIN_records": 5326,
+        "producer_tensor_sha256": "8d46346774aa0aa4e4c394cbee77953f194db9e1169a7b509d4e3b8383f975a0",
+        "targets_cached": false,
+        "unavailable_geometry_records": 48
+      },
+      "reference/qm9": {
+        "Root_tensor_SHA_reverified": false,
+        "Root_tensor_stat": {
+          "bytes": 394809415,
+          "inode": 2182675800,
+          "mtime_ns": 1793250150353833582,
+          "nlink": 1,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/h0_cache/c0b15a100fa42f08fb4bf680b523acb22f0de2156131f902d61572945e1392bc/h0.pt",
+          "read_kind": "STAT_ONLY_NO_CONTENT_OR_SHA_READ",
+          "uid": 1278
+        },
+        "atoms": 189008,
+        "cache_key": "c0b15a100fa42f08fb4bf680b523acb22f0de2156131f902d61572945e1392bc",
+        "dimension": 512,
+        "frozen_geometry_available_packing_plan_sha256": "3e72f431ab421d1e7a965842edb852e93bb2d50e492599bc9ffa10a6f3632ef6",
+        "geometry_available_record_order_sha256": "de44c42b2776c5bdadd7d8a5efd94fbe1f922a9153c77e6fdc9b2e36f251dfa3",
+        "manifest": {
+          "bytes": 143877,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/h0_cache/c0b15a100fa42f08fb4bf680b523acb22f0de2156131f902d61572945e1392bc/manifest.json",
+          "sha256": "9158641c5bf24a11656c7b9b0b70bf2674fafed59ab013e775a4cf258f9d3a43"
+        },
+        "molecules": 10473,
+        "original_selected_TRAIN_records": 10473,
+        "producer_tensor_sha256": "fec7ef98389206a4fdac109924f30f7a342175e53e6ae63b1554bcf6a82bc376",
+        "targets_cached": false,
+        "unavailable_geometry_records": 0
+      }
+    },
+    "source_declared_geometry_unavailability": {
+      "cyp_isoform": {
+        "CPU_frozen_geometry_available_record_order_sha256": "4c19a400c09169dea7dea7cd33809845dcfc0113c6972f573e74b12a646617b5",
+        "candidate_reference_population_exactly_matched": true,
+        "geometry_available_records": 1800,
+        "selected_records": 1803,
+        "unavailable_geometry_records": 3
+      },
+      "expansionrx": {
+        "CPU_frozen_geometry_available_record_order_sha256": "f449af90df4f07d0bd6f3acc72f05a754d3fe34a81c6fce5280e1601fe31a684",
+        "candidate_reference_population_exactly_matched": true,
+        "geometry_available_records": 5278,
+        "selected_records": 5326,
+        "unavailable_geometry_records": 48
+      },
+      "qm9": {
+        "CPU_frozen_geometry_available_record_order_sha256": "de44c42b2776c5bdadd7d8a5efd94fbe1f922a9153c77e6fdc9b2e36f251dfa3",
+        "candidate_reference_population_exactly_matched": true,
+        "geometry_available_records": 10473,
+        "selected_records": 10473,
+        "unavailable_geometry_records": 0
+      }
+    },
+    "tasks": 9,
+    "zero_missing_geometry_or_full_selected_record_coverage_claimed": false
+  },
+  "resource_closure": {
+    "Root_independent_sample_count_or_maxima_claimed": false,
+    "Root_resource_journal_read": false,
+    "actual_allocated_seconds": 519,
+    "current_whole_family_bytes": 1613704998,
+    "foreign_processes_signalled": false,
+    "inclusive_guard_wall_seconds": 516.3363127661869,
+    "inclusive_one_GPU_hour_target_met": true,
+    "inclusive_outer_wall_seconds": 518.3504081806168,
+    "private_cleanup_errors": [],
+    "private_storage_final": {
+      "budget_bytes": 2147483648,
+      "exact_peak": false,
+      "first_sampling_failure": null,
+      "last": {
+        "bytes": 497,
+        "entries": 7,
+        "root_bytes": {
+          "/tmp/mv3n_4525060": 497
+        }
+      },
+      "sample_interval_seconds": 0.5,
+      "sampled_growth_above_initial_bytes": 4132,
+      "sampled_max_bytes": 4629,
+      "samples": 1036
+    },
+    "recorded_guard_final_census": {
+      "child_bytes": 1611230706,
+      "includes_control_guard_outer_stdio": true,
+      "management_unique_bytes": 2447348,
+      "physical_unique_root": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel",
+      "whole_output_base_bytes": 1613678054
+    },
+    "recorded_live_worker_assessment": {
+      "RSS_limit_bytes": 30064771072,
+      "Slurm_memory_mode": "automatic_default",
+      "finite_physical_allocation_guarantee_claimed": false,
+      "foreign_unknown_finite_guarantee_claimed": false,
+      "software_memory_budget_bytes": 34359738368
+    },
+    "remaining_owned_processes": [],
+    "resource_journal_stat_only": {
+      "bytes": 77414,
+      "inode": 38709417486,
+      "mtime_ns": 1793250566801154046,
+      "nlink": 1,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/guard_4525060/resource_samples.jsonl",
+      "read_kind": "STAT_ONLY_NO_CONTENT_OR_SHA_READ",
+      "uid": 1278
+    },
+    "sampling_enforcement_kind": "ACTUAL_COMPLETED_PINNED_GUARD_CONTROL_FLOW_NOT_ROOT_ROW_REAGGREGATION",
+    "torch_result_or_child_peak_is_not_claimed_global": true
+  },
+  "result": {
+    "bytes": 1488178,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_seed0_fp32_dev9_auto_v1/panel/evaluation/result.json",
+    "sha256": "b018ce20c61c0dd4122c318a4b6287d79e793445520a8cda4f391a4fc0aca4f2"
+  },
+  "wandb_run_id": "i59ur33t",
+  "independent_WandB_SDK_verification_complete": false,
+  "model_adopted": false,
+  "D5_or_B_acceptance": false,
+  "pretraining_seed_SD_claimed": false,
+  "formal_pretraining_complete": false,
+  "guide_complete": false,
+  "Root_scope": "Only metadata/raw source hashes+opaque artifact stats; payload/H0 SHA and values come from actual CPU/GPU producer, no Root tensor/SDK/target read",
+  "schema": "model_v3_Native_S20000_actual_GPU_Root_public_summary_v1",
+  "full_Root_closure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_dev_panel_GPU_4525060_Root_closure_v1.json",
+    "bytes": 616038,
+    "sha256": "3605a8cfef566ada7377f757f3d8d46a67c15364345502aea12af77cb84fab11"
+  }
+}

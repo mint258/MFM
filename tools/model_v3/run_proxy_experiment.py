@@ -156,6 +156,9 @@ def run_segment(args):
     require(all(receipt['verified_local_commit_epoch'] < now for receipt in registrations.values()),
         'Preregistration must precede actual training')
     contract = configuration['proxy_contract']; resources = contract['resources']
+    from phychem_mfm.phase1.v3_pilot_smoke import (update_limit,check_update_limit,
+        validate_update_limit_checkpoint,finish_update_limited_segment)
+    optimizer_update_limit = update_limit(request, configuration)
     # Unchanged outer supervisor must reserve this entire ledger allowance.
     outer_child = int(os.environ.get('MODEL_V3_CHILD_OUTPUT_BUDGET_BYTES','0'))
     require(128 << 20 <= outer_child <= resources['joint_output_bytes']-resources['ledger_bytes']-(96 << 20),
@@ -244,6 +247,11 @@ def run_segment(args):
                 raise MemoryError('Insufficient joint reserve for another complete checkpoint; prior immutable checkpoint retained')
             with (args.output/'resources.jsonl').open('ab') as stream: stream.write(encoded(row))
             if action in ('VALIDATION','VALIDATION_BATCH'): set_phase('VALIDATION')
+            if optimizer_update_limit is not None:
+                check_update_limit(action,context,optimizer_update_limit)
+                if (action == 'CHECKPOINT' and context['optimizer_updates'] == optimizer_update_limit
+                        and experiment.trainer.pending_log is None):
+                    validate_update_limit_checkpoint(experiment,limit=optimizer_update_limit)
         experiment.trainer.proxy_validation_guard = lambda: experiment._preflight('VALIDATION_BATCH',allow_pause=False)
         write_once(args.output/'RUN_BINDING.json',{'schema':'model_v3_proxy_segment_launch_v1','request':ref,
             'runtime':runtime,'registrations':registrations,'capacity_planning':capacity,
@@ -259,6 +267,13 @@ def run_segment(args):
         set_phase('CONTROLLER')
         outcome = experiment.run_segment(segment_id=args.segment_id,until_samples=args.until_samples,
             request_ref=ref,parent=parent,preflight=guard)
+        if optimizer_update_limit is not None:
+            set_phase('PILOT_FINAL_VALIDATION_AND_CHECKPOINT')
+            limited = finish_update_limited_segment(experiment,outcome,limit=optimizer_update_limit,
+                production=request['mode']=='authoritative_pilot')
+            limited_ref = write_once(args.output/'UPDATE_LIMIT_RESULT.json',limited)
+            outcome = {**outcome,'optimizer_update_limit_result':limited_ref,
+                'last_checkpoint':limited.get('final_checkpoint',outcome['last_checkpoint'])}
         validate_sources(request)
     except BaseException as exc:
         failure_phase=phase
@@ -307,9 +322,10 @@ def parser():
     prepare.add_argument('--views',choices=('two','three'),default='three')
     prepare.add_argument('--training-execution',type=Path); prepare.add_argument('--training-execution-sha256')
     prepare.add_argument('--groups',nargs='+',choices=('S','D','P'),default=['S','D','P'])
+    prepare.add_argument('--engineering-update-cap',type=int)
     run = commands.add_parser('run')
     run.add_argument('--request',type=Path,required=True); run.add_argument('--request-sha256',required=True)
-    run.add_argument('--input',choices=('authoritative_proxy','authoritative_full_train','authoritative_grid_train','synthetic'),default='authoritative_proxy')
+    run.add_argument('--input',choices=('authoritative_proxy','authoritative_full_train','authoritative_grid_train','authoritative_pilot','synthetic'),default='authoritative_proxy')
     run.add_argument('--engineering-only',action='store_true'); run.add_argument('--output',type=Path,required=True)
     run.add_argument('--lineage-root',type=Path,required=True); run.add_argument('--lineage',required=True)
     run.add_argument('--segment-id',required=True); run.add_argument('--until-samples',type=int,required=True)
@@ -338,7 +354,8 @@ def main():
                 raise ValueError('Engineering execution source differs')
             execution = read_bound(ref)
         print(json.dumps(engineering_request(args.output,code_sha=args.base_code_sha,layers=args.layers,
-            budget=args.sample_budget,views=args.views,groups=args.groups,training_execution=execution))); return
+            budget=args.sample_budget,views=args.views,groups=args.groups,training_execution=execution,
+            engineering_update_cap=args.engineering_update_cap))); return
     contract = read_bound(binding(args.lineage_root/'EXPERIMENT.json'))['contract']
     if contract.get('model_configuration') is not None and 'long_run_policy' in read_bound(contract['model_configuration']):
         raise ValueError('Long-run status/ACK uses storage_control.py with a fresh complete operational request')
