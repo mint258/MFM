@@ -1,0 +1,195 @@
+{
+    "schema":  "USER_FROZEN_D1_V3_FIVE_LAYER_MAPPING_SELECTIONS_V1",
+    "contract_version":  "v3.0",
+    "status":  "DESIGN_SELECTIONS_FROZEN_ACTUAL_RELEASE_BINDINGS_PENDING",
+    "selection_authority_reference":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/interfaces/user_D1_v3_decisions_20261029_v1.json",
+                                          "bytes":  5336,
+                                          "sha256":  "e4a5e9fe42038394c43aa67bf03dbf416ae39b29be16b88d4cf17b205fabae96"
+                                      },
+    "layers":  [
+                   {
+                       "layer":  1,
+                       "name":  "REGISTRY_TO_COMPONENT",
+                       "version":  "REGISTRY_COMPONENT_SELECTIONS_V3_0",
+                       "exact_keys":  [
+                                          "field_key",
+                                          "registry_id",
+                                          "task",
+                                          "source_path",
+                                          "component",
+                                          "status",
+                                          "source_owner"
+                                      ],
+                       "snapshot_reference":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/label_registry_v3.json",
+                                                  "bytes":  585411,
+                                                  "sha256":  "b6a230b74b5bebfa0108e67572ed2ccc699718c2958fb69e99c58b8323c6ce45"
+                                              },
+                       "snapshot_is_final_registry_authority":  false,
+                       "r73":  {
+                                   "field_key":  "P.pm7_B.r73.value",
+                                   "registry_id":  73,
+                                   "source_path":  "values.sigma_pi_entries",
+                                   "component":  "value"
+                               },
+                       "r674":  {
+                                    "registry_id":  674,
+                                    "source_path":  "values.molecular_quadrupole_traceless_au",
+                                    "ordered_members":  [
+                                                            "P.xtb_singlepoint.r674.xx",
+                                                            "P.xtb_singlepoint.r674.xy",
+                                                            "P.xtb_singlepoint.r674.yy",
+                                                            "P.xtb_singlepoint.r674.xz",
+                                                            "P.xtb_singlepoint.r674.yz",
+                                                            "P.xtb_singlepoint.r674.zz"
+                                                        ]
+                                },
+                       "statistics_components_not_head_count":  true,
+                       "guide_counts":  {
+                                            "actual_molecule_P_scalars":  43,
+                                            "actual_molecule_D_scalars":  26,
+                                            "additional_D_atom_SASA":  1,
+                                            "guide_molecule_P_scalars":  42,
+                                            "guide_molecule_D_scalars":  27,
+                                            "force_rename_or_delete_to_fit_guide":  false
+                                        },
+                       "final_resolved_reference":  null
+                   },
+                   {
+                       "layer":  2,
+                       "name":  "COMPONENT_TO_PHYSICAL_TARGET",
+                       "version":  "PHYSICAL_TARGET_SELECTIONS_V3_0",
+                       "target_identity":  [
+                                               "target_id",
+                                               "actual_task",
+                                               "condition",
+                                               "geometry_source",
+                                               "unit",
+                                               "members",
+                                               "selector"
+                                           ],
+                       "r73_domain":  "SOURCE_ORDERED_RECORDS_V1",
+                       "r674_kind":  "symmetric_tensor",
+                       "r674_members":  [
+                                            "P.xtb_singlepoint.r674.xx",
+                                            "P.xtb_singlepoint.r674.xy",
+                                            "P.xtb_singlepoint.r674.yy",
+                                            "P.xtb_singlepoint.r674.xz",
+                                            "P.xtb_singlepoint.r674.yz",
+                                            "P.xtb_singlepoint.r674.zz"
+                                        ],
+                       "r674_component_order":  [
+                                                    "xx",
+                                                    "xy",
+                                                    "yy",
+                                                    "xz",
+                                                    "yz",
+                                                    "zz"
+                                                ],
+                       "member_geometry_must_match":  true,
+                       "conditions_merged":  false,
+                       "Pprime_is_P_condition_not_fourth_loss_group":  true,
+                       "final_resolved_reference":  null
+                   },
+                   {
+                       "layer":  3,
+                       "name":  "SELECTOR_TO_STORED_ENTRY_VALUE_MASK",
+                       "version":  "SOURCE_FIELD_ENTRY_SELECTIONS_V3_0",
+                       "cell_identity":  [
+                                             "source_reference",
+                                             "physical_row_index",
+                                             "canonical_owner",
+                                             "group_key_original_source_job_id",
+                                             "record_ordinal",
+                                             "task_code",
+                                             "field_id"
+                                         ],
+                       "geometry_claim":  "ACTUAL_PER_FIELD_DOUBLE_HASH_OR_NATIVE_PAYLOAD_BOUND_NOT_TASK_NAME",
+                       "r73":  {
+                                   "selector":  "ORIGINAL_RETAINED_SIGMA_PI_ENTRY_LIST",
+                                   "domain":  "SOURCE_ORDERED_RECORDS_V1",
+                                   "authority_dtype":  "float64",
+                                   "training_dtype":  "float32",
+                                   "casts":  1,
+                                   "endpoint_channels":  "ORIGINAL_UTF8_OR_REVERSIBLE_VERSIONED_CODEBOOK",
+                                   "ordinal":  "RETAINED_LIST_0_BASED",
+                                   "self_duplicates_direction_preserved":  true
+                               },
+                       "r674":  {
+                                    "selector":  "ORIGINAL_FULL6_XX_XY_YY_XZ_YZ_ZZ",
+                                    "all_component_masks_retained":  true,
+                                    "no_trace_projection":  true
+                                },
+                       "reason_layout":  "ORIGINAL_FIELD_SET_PLUS_SPARSE_LEAF_SOURCE_NEW_REVIEW_CODEBOOK",
+                       "exposure_and_loss_eligibility_independent_of_source_mask":  true,
+                       "final_resolved_reference":  null
+                   },
+                   {
+                       "layer":  4,
+                       "name":  "ACTUAL_GEOMETRY_TO_SAMPLING",
+                       "version":  "ACTUAL_GEOMETRY_SAMPLING_SELECTIONS_V3_0",
+                       "sources":  [
+                                       "pm7",
+                                       "uff_sprime"
+                                   ],
+                       "independent_native_ids":  [
+                                                      "native_record_id",
+                                                      "sprime_conf_idx"
+                                                  ],
+                       "child_evidence":  [
+                                              "parent_geometry_id",
+                                              "actual_recipe",
+                                              "seed",
+                                              "input_bundle_sha",
+                                              "input_file_sha",
+                                              "atom_order_sha",
+                                              "coordinates_source_status"
+                                          ],
+                       "orders":  [
+                                      "fixed_random",
+                                      "energy",
+                                      "diversity"
+                                  ],
+                       "frozen_seed":  20261025,
+                       "lowest_energy":  "RETAINED_ENERGY_TRAINING_RANK_0",
+                       "ROLE_VAL":  "WHOLE_MOLECULE_ROUTINE_AUTHORITY",
+                       "pilot_VAL":  "FINAL_COMMON_INTERSECT_EFFECTIVE_VAL",
+                       "TRAIN":  "FINAL_COMMON_INTERSECT_EFFECTIVE_TRAIN_MINUS_D5_ALL_HELDOUT_BASE_AND_REAL_DIRECT_CHILDREN",
+                       "nested_TRAIN":  [
+                                            120000,
+                                            240000,
+                                            600000,
+                                            "ALL_EFFECTIVE_TRAIN"
+                                        ],
+                       "diagnostic_MIDs":  20000,
+                       "pilot_TRAIN":  50000,
+                       "pilot_VAL_count":  5000,
+                       "final_resolved_reference":  null
+                   },
+                   {
+                       "layer":  5,
+                       "name":  "PROVIDER_TO_FIELDSPEC_VIEW_D4",
+                       "version":  "PROVIDER_PHYSICAL_VIEW_SELECTIONS_V3_0",
+                       "requires":  [
+                                        "schema_codebook_and_6_reader_codec_SHA",
+                                        "actual_source_and_atom_scatter",
+                                        "Z_minus_1_explicit",
+                                        "geometry_and_child_view_H0",
+                                        "independent_task_condition_D4",
+                                        "mask_eligibility_loss_count_and_restore"
+                                    ],
+                       "r73":  "DISTINCT_BOTH_CHANNELS_AND_ORDERED_ENTRY_BATCH_HEAD_OUTPUT_AND_RECOVERY",
+                       "r674":  "FULL6_SYMMETRIC_TENSOR_ONE_TARGET_COMPLETE6_D9_RADIAL_HUBER_DELTA1",
+                       "r674_scale":  "TRAIN_ACTUAL_FROBENIUS_WINSOR_STD_DDOF0_FIXED_ZERO_ONE_SCALE",
+                       "unbound_scale":  "LOSS_DISABLED_ONLY_THIS_TARGET_KEEP_DATA_MASKS_AND_OTHER_READY_TARGETS",
+                       "ordinary_pairs":  "ORIGINAL_NO_SELF_UNIQUE_DOMAIN_GUARDS_UNCHANGED",
+                       "historical_192_coords":  "UNKNOWN_PRESERVED",
+                       "synthetic_PASS_is_actual_consumer_acceptance":  false,
+                       "final_resolved_reference":  null
+                   }
+               ],
+    "all_layer_actual_reference_is_required_before_final_release":  true,
+    "current_final_joint_map_claimed":  false,
+    "actual_final_layer_refs_are_not_fabricated":  true
+}

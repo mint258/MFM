@@ -1,0 +1,97 @@
+{
+    "schema":  "USER_AUTHORIZED_D1_V3_DECISIONS_V1",
+    "status":  "USER_FROZEN_1_TO_4_FRAME_POLICY_CONDITIONAL_ONE_NATIVE_TEST",
+    "authorization_basis":  "EXPLICIT_USER_MESSAGE_IN_THIS_SESSION",
+    "user_choices":  {
+                         "r674_loss":  "A_d9",
+                         "frame_provenance":  "A_CONDITIONAL_30MIN_NATIVE_TEST",
+                         "r73":  "A",
+                         "r674_normalization":  "A",
+                         "r674_partial":  "A"
+                     },
+    "r73":  {
+                "training_cast":  "EXACTLY_ONCE_FLOAT32",
+                "preserve":  [
+                                 "src_atom",
+                                 "dst_atom",
+                                 "src_channel",
+                                 "dst_channel",
+                                 "entry_ordinal",
+                                 "onsite",
+                                 "direction",
+                                 "duplicates",
+                                 "validity",
+                                 "reasons"
+                             ],
+                "domain":  "ORDERED_RETAINED_ENTRY",
+                "ordinal_is_learned_ID":  false,
+                "permanent_authoritative_dtype":  "float64"
+            },
+    "r674":  {
+                 "loss_requires_complete6_and_same_actual_geometry":  true,
+                 "partial_values_and_original_component_masks_preserved":  true,
+                 "scale_series":  "physical/\u003cregistry_id\u003e/\u003ctask\u003e/frobenius_norm",
+                 "components":  [
+                                    "xx",
+                                    "xy",
+                                    "yy",
+                                    "xz",
+                                    "yz",
+                                    "zz"
+                                ],
+                 "training_without_bound_scale":  "DO_NOT_ADD_R674_LOSS_CONTINUE_OTHER_ENABLED_TARGETS",
+                 "large_ratio_action":  "REPORT_CONSIDER_ISOTROPIC_TRACE_CENTERING_IN_FUTURE_VERSION_NOT_THIS_VERSION",
+                 "one_physical_target":  true,
+                 "scale_must_bind_actual_population_version_SHA":  true,
+                 "normalization_denominator":  9,
+                 "target_weight":  1,
+                 "report":  [
+                                "complete6_retained_and_excluded_count_and_fraction",
+                                "element_and_chemical_structure_distribution_of_exclusions",
+                                "mean_F_over_s"
+                            ],
+                 "new_data_mask_from_loss_ineligibility":  false,
+                 "huber_delta":  1,
+                 "loss":  "FROBENIUS_RADIAL_HUBER",
+                 "scale_statistic":  "TRAIN_ONLY_TYPE7_Q0_001_Q0_999_WINSORIZED_STD_DDOF0",
+                 "exclusion_bias_disclosure":  "REPORT_EXCLUSION_OVER_10_TO_20_PERCENT_OR_CONCENTRATED_CHEMISTRY_NO_NEW_MASK",
+                 "center":  0,
+                 "weights":  [
+                                 1,
+                                 2,
+                                 1,
+                                 2,
+                                 2,
+                                 1
+                             ],
+                 "large_mean_F_over_s":  10
+             },
+    "native_frame_test":  {
+                              "user_fallback_if_not_verifiable":  "ORIGIN_SENSITIVE_CHARGED_TARGET_EXPOSURE_B_OTHER_TARGETS_A",
+                              "maximum_wall_seconds":  1800,
+                              "cpus":  16,
+                              "authorization":  "ONE_TIME_SMALL_XTB_SINGLEPOINT_TEST_FROM_USER",
+                              "root_proposed_electronic_conditions":  [
+                                                                          0,
+                                                                          1
+                                                                      ],
+                              "root_proposed_molecule_identities":  5,
+                              "automatic_retry":  false,
+                              "root_proposed_arms":  [
+                                                         "BASE",
+                                                         "PROPER_ROTATION_P90",
+                                                         "NONZERO_TRANSLATION"
+                                                     ],
+                              "maximum_molecule_identities":  10,
+                              "charged_translation_requires_net_charge_and_dipole_cross_terms":  true,
+                              "root_proposed_maximum_calls":  30,
+                              "program_version_and_original_numerical_keywords_unchanged":  true,
+                              "no_new_2000_or_full_precision_authorization":  true,
+                              "legacy_192_independent_coordinates":  "UNKNOWN_PRESERVED",
+                              "new_MOPAC_calls":  0
+                          },
+    "model_joint_ACK":  false,
+    "consumer_implementation_or_QA_claimed":  false,
+    "scientific_quality_thresholds_unchanged":  true,
+    "observed_utc":  "2026-10-28T23:40:47.7860332Z"
+}

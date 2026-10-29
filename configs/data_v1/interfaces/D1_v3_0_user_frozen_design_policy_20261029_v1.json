@@ -1,0 +1,273 @@
+{
+    "schema":  "USER_FROZEN_D1_V3_DESIGN_POLICY_V1",
+    "contract_version":  "v3.0",
+    "policy_version":  "D1_USER_SELECTED_20261029_V1",
+    "status":  "USER_FROZEN_DESIGN_1_TO_4_FRAME_TEST_CONDITIONAL",
+    "design_choices_frozen":  true,
+    "selection_authority_reference":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/interfaces/user_D1_v3_decisions_20261029_v1.json",
+                                          "bytes":  5336,
+                                          "sha256":  "e4a5e9fe42038394c43aa67bf03dbf416ae39b29be16b88d4cf17b205fabae96"
+                                      },
+    "selection_authority_status":  "USER_FROZEN_1_TO_4_FRAME_POLICY_CONDITIONAL_ONE_NATIVE_TEST",
+    "design_contract_relative_path":  "docs/interfaces/training_format_v3_0_user_frozen_design_20261029_v1.md",
+    "five_layer_selections_relative_path":  "configs/data_v1/interfaces/D1_v3_0_five_layer_mapping_selections_20261029_v1.json",
+    "scientific_values_or_masks_modified":  false,
+    "current_joint_model_ACK":  false,
+    "is_joint_release_authority":  false,
+    "consumer_implementation_or_QA_claimed":  false,
+    "r73":  {
+                "registry_id":  73,
+                "field_key":  "P.pm7_B.r73.value",
+                "source_path":  "values.sigma_pi_entries",
+                "wire_kind":  "SOURCE_ORDERED_RECORDS_V1",
+                "wire_domain_version":  "R73_ORDERED_RETAINED_DOUBLE_CHANNEL_ENTRY_V1",
+                "permanent_authority":  "EXACT_ORIGINAL_FLOAT64_SIDECAR",
+                "training_cast":  "EXACTLY_ONCE_FLOAT32",
+                "endpoint_atoms":  "ZERO_BASED_ORIGINAL_PARSER_ATOM_I_ATOM_J",
+                "endpoint_channels":  "ORIGINAL_UTF8_BASIS_I_BASIS_J",
+                "required_entry_fields":  [
+                                              "src_atom",
+                                              "dst_atom",
+                                              "src_channel",
+                                              "dst_channel",
+                                              "entry_ordinal",
+                                              "onsite",
+                                              "direction",
+                                              "value",
+                                              "validity",
+                                              "reasons"
+                                          ],
+                "identity_scope":  "ORIGINAL_RECORD_TASK_FIELD_GEOMETRY_ATOM_ORDER",
+                "ordinal_scope":  "ZERO_BASED_RETAINED_PARSER_LIST_NOT_NATIVE_AO_ORDINAL",
+                "ordinal_learned_ID_allowed":  false,
+                "same_atom_allowed":  true,
+                "duplicates_and_direction_preserved":  true,
+                "sort_merge_sum_mirror_allowed":  false,
+                "channel_alias_collapse_allowed":  false,
+                "reversible_codebook_allowed_only_with_exact_version_and_SHA":  true,
+                "batch_operation":  "OFFSET_ATOMS_ONLY_PRESERVE_CHANNELS_AND_ENTRY_SEQUENCE",
+                "ordinary_pair_guards_unchanged":  true,
+                "full_native_matrix_completeness_claimed":  false,
+                "head_constraint":  "DISTINGUISH_BOTH_ATOM_ENDPOINTS_AND_BOTH_CHANNELS_WITH_ENTRY_ALIGNED_OUTPUT_AND_RECOVERY",
+                "actual_consumer_reference":  null
+            },
+    "r674":  {
+                 "registry_id":  674,
+                 "field_keys":  [
+                                    "P.xtb_singlepoint.r674.xx",
+                                    "P.xtb_singlepoint.r674.xy",
+                                    "P.xtb_singlepoint.r674.yy",
+                                    "P.xtb_singlepoint.r674.xz",
+                                    "P.xtb_singlepoint.r674.yz",
+                                    "P.xtb_singlepoint.r674.zz"
+                                ],
+                 "source_path":  "values.molecular_quadrupole_traceless_au",
+                 "native_six_order":  [
+                                          "xx",
+                                          "xy",
+                                          "yy",
+                                          "xz",
+                                          "yz",
+                                          "zz"
+                                      ],
+                 "physical_target_kind":  "symmetric_tensor",
+                 "one_target_per_actual_task_condition_source":  true,
+                 "symmetric_matrix_rows":  [
+                                               [
+                                                   "xx",
+                                                   "xy",
+                                                   "xz"
+                                               ],
+                                               [
+                                                   "xy",
+                                                   "yy",
+                                                   "yz"
+                                               ],
+                                               [
+                                                   "xz",
+                                                   "yz",
+                                                   "zz"
+                                               ]
+                                           ],
+                 "original_component_values_masks_reasons_preserved":  true,
+                 "extra_1_5_or_trace_projection_allowed":  false,
+                 "delete_zz_allowed":  false,
+                 "eligibility":  {
+                                     "rule":  "ALL_SIX_ORIGINAL_VALID_SAME_ACTUAL_GEOMETRY_AND_ENABLED_POLICY",
+                                     "partial_tensor_loss_allowed":  false,
+                                     "incomplete_values_retained":  true,
+                                     "loss_ineligibility_creates_new_numeric_mask":  false,
+                                     "denominator":  "ACTUAL_APPLICABLE_SCOPE_RECORDS_PER_TARGET_CONDITION_AND_ROLE",
+                                     "required_reports":  [
+                                                              "retained_count_fraction",
+                                                              "excluded_count_fraction",
+                                                              "exclusion_reason_decomposition",
+                                                              "element_distribution",
+                                                              "reliable_chemical_structure_distribution",
+                                                              "structure_UNKNOWN_count_and_coverage"
+                                                          ],
+                                     "warning_excluded_fraction_gt":  0.1,
+                                     "mandatory_paper_disclosure_excluded_fraction_gt":  0.2,
+                                     "concentrated_chemical_bias_requires_paper_disclosure":  true,
+                                     "concentration_judgement":  "ACTUAL_STRATIFIED_DISTRIBUTIONS_AND_ROOT_SCIENTIFIC_REVIEW_NO_NEW_NUMERIC_THRESHOLD",
+                                     "original_quality_mask_fraction_gt_0_01_remains_HOLD":  true
+                                 },
+                 "normalization":  {
+                                       "form":  "Q/s",
+                                       "centering":  "FIXED_ZERO",
+                                       "center_value":  0,
+                                       "per_head_single_scale":  true,
+                                       "scale":  "SERIES_STD_DDOF0",
+                                       "series_key_template":  "physical/\u003cregistry_id\u003e/\u003ctask\u003e/frobenius_norm",
+                                       "source_series_object":  "workflows.data_v1_final.labels.normalization_v1.series",
+                                       "moments_object":  "workflows.data_v1_final.labels.streaming_v1.calibration.WinsorMoments",
+                                       "TRAIN_population":  "ACTUAL_COMMON_EFFECTIVE_TRAIN_ANTI_D5_ALL_REAL_HELDOUT_BASE_AND_CHILDREN",
+                                       "separate_Pprime_statistics_required":  true,
+                                       "quantile":  "ORIGINAL_TYPE7",
+                                       "winsor_quantile_probabilities":  [
+                                                                             0.001,
+                                                                             0.999
+                                                                         ],
+                                       "clipping_scope":  "STATISTICAL_COPIES_ONLY",
+                                       "frobenius_weights":  [
+                                                                 1,
+                                                                 2,
+                                                                 1,
+                                                                 2,
+                                                                 2,
+                                                                 1
+                                                             ],
+                                       "scale_population_version_SHA_required":  true,
+                                       "actual_numeric_scale_reference":  null,
+                                       "degenerate_or_missing_scale_target_state":  "LOSS_DISABLED_SCALE_UNBOUND_OR_DEGENERATE",
+                                       "no_bound_scale_action":  "KEEP_DATA_AND_ORIGINAL_MASKS_OMIT_THIS_TARGET_LOSS_CONTINUE_OTHER_READY_TARGETS",
+                                       "epsilon_RMS_fallback_or_anisotropic_scale_allowed":  false,
+                                       "reporting":  {
+                                                         "raw_mean_F_over_s_required":  true,
+                                                         "raw_mean_source":  "UNWINSORIZED_FROBENIUS_SERIES_WITH_ACTUAL_SAME_TRAIN_POPULATION",
+                                                         "winsorized_mean_is_separate_not_raw":  true,
+                                                         "current_raw_mean_report_status":  "ACTUAL_RAW_MEAN_F_BINDING_PENDING",
+                                                         "raw_mean_F_over_s_gt":  10,
+                                                         "action":  "REPORT_NEXT_VERSION_ISOTROPIC_CENTERING_EVALUATION_ONLY_NO_CURRENT_CHANGE"
+                                                     }
+                                   },
+                 "loss":  {
+                              "kind":  "FROBENIUS_RADIAL_HUBER",
+                              "radius":  "sqrt((Exx^2+Eyy^2+Ezz^2+2*Exy^2+2*Exz^2+2*Eyz^2)/9)",
+                              "E":  "(Q_prediction-Q_target)/s",
+                              "denominator":  9,
+                              "delta":  1,
+                              "target_weight":  1,
+                              "huber":  "0.5*r^2 if r\u003c=1 else r-0.5",
+                              "aggregation":  "MEAN_OVER_COMPLETE_ELIGIBLE_GEOMETRIES_THEN_EXISTING_TARGET_GROUP_WEIGHTING",
+                              "componentwise_huber_allowed":  false,
+                              "invariant_scope":  "SAME_ORIGIN_OR_CORRECTLY_TRANSFORMED_ORIGIN_PROPER_ROTATIONS_NOT_ARBITRARY_TRANSLATIONS"
+                          }
+             },
+    "coordinate_convention":  {
+                                  "coordinate_storage":  "SOURCE_FLOAT64_AUTHORITY_TRAIN_FLOAT32_ANGSTROM_ONCE",
+                                  "atom_order":  "ORIGINAL_ACTUAL_GEOMETRY_ORDER",
+                                  "row_coordinate_transform":  "X_prime=X*R+t",
+                                  "tensor_rotation_same_corresponding_origin":  "Q_prime=transpose(R)*Q*R",
+                                  "column_consumer_rule":  "R_data=transpose(R_model)",
+                                  "charged_translation":  "BIND_NATIVE_DEFINITION_NET_CHARGE_DIPOLE_AND_CROSS_TERMS_IN_ACTUAL_TEST",
+                                  "historical_xtb_SP_independent_coordinate_missing":  192,
+                                  "historical_missing_status":  "UNKNOWN_PRESERVED",
+                                  "historical_unknown_not_replaced_by_new_test":  true,
+                                  "physical_status_policy":  "PER_TARGET_CONDITION_SOURCE_NO_BLANKET_AXIS_PASS",
+                                  "child_target_requires":  "ACTUAL_CHILD_RECIPE_SEED_INPUT_DOUBLE_HASH_COORDINATES_ATOM_ORDER_AND_MODEL_VIEW_H0"
+                              },
+    "frame_choice_5A":  {
+                            "status":  "CONDITIONAL_NATIVE_FRAME_TEST_PENDING",
+                            "actual_test_closure_reference":  null,
+                            "authorization_reference":  {
+                                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/interfaces/user_D1_v3_decisions_20261029_v1.json",
+                                                            "bytes":  5336,
+                                                            "sha256":  "e4a5e9fe42038394c43aa67bf03dbf416ae39b29be16b88d4cf17b205fabae96"
+                                                        },
+                            "max_wall_seconds":  1800,
+                            "requested_cpus":  16,
+                            "max_molecule_identities":  10,
+                            "root_proposed_molecule_identities":  5,
+                            "root_proposed_calls":  30,
+                            "original_version_and_numerical_keywords_unchanged":  true,
+                            "automatic_retry":  false,
+                            "new_MOPAC_calls":  0,
+                            "provenance_inference":  "TRUSTED_NORMAL_FILESYSTEM_SAME_DIRECTORY_CONTINUITY_WITH_EXPLICIT_ASSUMPTIONS_NOT_ABSOLUTE_HISTORICAL_PROOF",
+                            "current_absence_alone_is_historical_proof":  false,
+                            "required_cases":  [
+                                                   "BASE",
+                                                   "PROPER_ROTATION",
+                                                   "NONZERO_TRANSLATION",
+                                                   "CHARGED_CASE_WITH_NET_CHARGE_AND_DIPOLE_CROSS_TERMS"
+                                               ],
+                            "fallback_if_not_verifiable":  "ORIGIN_SENSITIVE_CHARGED_TARGET_EXPOSURE_B_OTHER_TARGETS_A",
+                            "no_full_or_2000_precision_authorization":  true
+                        },
+    "release_transition":  {
+                               "required_gates":  [
+                                                      "ACTUAL_ONE_TIME_FRAME_TEST_AND_ROOT_SCIENTIFIC_REVIEW_OR_EXPLICIT_USER_FALLBACK",
+                                                      "EXACT_SAME_CONTRACT_AND_POLICY_SHA_MODEL_ACK_NOT_CONDITIONAL",
+                                                      "ACTUAL_CONSUMER_PROVIDER_VIEW_HEAD_LOSS_AND_RECOVERY_ACCEPTANCE",
+                                                      "REAL_COMMON_ROLES_D5_TRAIN_ANTI_JOIN_AND_D4_STATISTICS",
+                                                      "ORIGINAL_APPLICABLE_FIELD_ONE_PERCENT_QUALITY_GATE",
+                                                      "ROOT_EXTERNAL_RELEASE_SEAL_EXACT_CANDIDATE_AND_DATA_SHA"
+                                                  ],
+                               "existing_final_publisher":  "workflows.data_v1_final.labels.final_release_v1",
+                               "required_joint_schema":  "ROOT_MODEL_JOINT_FINAL_LABEL_POLICY_V1",
+                               "required_joint_status":  "JOINTLY_FROZEN",
+                               "this_design_is_not_joint_policy":  true,
+                               "required_actual_same_version_ACK_reference":  null,
+                               "final_D2_D4_published_claimed":  false,
+                               "implementation_gaps":  [
+                                                           "OLD_FINAL_RELEASE_MISSING_OR_ZERO_SCALE_IS_GLOBAL_EXCEPTION_REQUIRES_TARGET_LOCAL_LOSS_DISABLE_ADAPTER",
+                                                           "EXISTING_WINSOR_ROW_MEAN_MUST_NOT_BE_RELABELED_RAW_MEAN_F",
+                                                           "MODEL_ORDERED_ENTRY_AND_TENSOR6_IMPLEMENTATION_AND_ACTUAL_QA_NOT_CLAIMED"
+                                                       ]
+                           },
+    "model_evidence":  {
+                           "conditional_feedback":  {
+                                                        "repository":  "mint258/MFM",
+                                                        "commit":  "a45495e0398bc38ffda88f8384aee5d6011fc04d",
+                                                        "path":  "docs/interfaces/training_format_v3_draft5_model_feedback_DRAFT_v1.md",
+                                                        "git_blob_sha1":  "5b0970ae33d3549f268f4fec775f59c55f400d67",
+                                                        "status":  "MODEL_CONDITIONAL_SOURCE_REVIEW_NOT_JOINT_FREEZE"
+                                                    },
+                           "vector_loss_denominator":  {
+                                                           "repository":  "mint258/MFM",
+                                                           "commit":  "09f2a89cdd6dc06a9800715885efb13be9852137",
+                                                           "path":  "current/phychem_mfm/phase1/v3_losses.py",
+                                                           "git_blob_sha1":  "5574b497720d2034cd74ba750653414b76877542",
+                                                           "lines":  "79-89",
+                                                           "expression":  "(normalized_prediction-normalized_target).square().mean(-1)",
+                                                           "denominator":  3,
+                                                           "source_only_verified_by_Root":  true,
+                                                           "Model_execution_claimed":  false
+                                                       }
+                       },
+    "no_new_scientific_authorization":  true,
+    "original_one_percent_quality_no_waiver":  true,
+    "selected_baseline_source_references":  [
+                                                {
+                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/label_registry_v3.json",
+                                                    "bytes":  585411,
+                                                    "sha256":  "b6a230b74b5bebfa0108e67572ed2ccc699718c2958fb69e99c58b8323c6ce45"
+                                                },
+                                                {
+                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/interfaces/training_format_v3.md",
+                                                    "bytes":  19059,
+                                                    "sha256":  "399ee0cebf8497c4e73accc52f84fd7d42b9753f9779433c80d12641df5a5ea2"
+                                                },
+                                                {
+                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/normalization_v1/series.py",
+                                                    "bytes":  6025,
+                                                    "sha256":  "30e1602f39e149a319ae63d45c6f2d5b7a372db99f8de3bba84e97e9be981edc"
+                                                },
+                                                {
+                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/calibration.py",
+                                                    "bytes":  11177,
+                                                    "sha256":  "b6b3205cfe20fdbf8eb9b925a825155f928b33a077653c37c24ec8504a22fee9"
+                                                }
+                                            ]
+}
