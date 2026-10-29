@@ -1,0 +1,121 @@
+{
+  "schema": "NATIVE_B_ROOT_RESOURCE_PREWAIT_SOURCE_PINS_V5",
+  "status": "SOURCE_ONLY_STOPEDIT_NOT_LAUNCHED_PUBLICATION_REQUIRED",
+  "files": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v5_source/continue_original_B_auto.py",
+      "bytes": 12703,
+      "sha256": "4ad45d70b51a7107fe988f5796676a0000af89cad14aafb0fbe245f2b541c273"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v5_source/README.md",
+      "bytes": 3727,
+      "sha256": "1d205bbebd46a668db6cef6e9f5adcddf89c1ef21caee6034c3a39478454227b"
+    }
+  ],
+  "previous_v4_source": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4_source/continue_original_B_auto.py",
+    "bytes": 7688,
+    "sha256": "43ee6da99f6c154c7fbf5cc0c5a3869eadfe01474ec1c42eef218b6597c33b38"
+  },
+  "previous_v4_source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4_source/source_pins.json",
+    "bytes": 4585,
+    "sha256": "d7db5b660a6156635c1dfb5242df06246836961719b6695caf61b75c7ec50a76"
+  },
+  "original_v4_stop": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4/status.json",
+    "bytes": 1236,
+    "sha256": "edcec4d62b8ca522ba7cffe4955bdea981ba7e92a008361b10221aed281e8d0d"
+  },
+  "Root_actual_pre_model_reconciliation": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_B_slot031_actual_failed_pre_model_reconciliation_v1.json",
+    "bytes": 6449,
+    "sha256": "568c713e4641c8e9419315aa63942dbd65f668f88298ee6f51c8bad5192e28be"
+  },
+  "v8_source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_operational_v8/source_pins.json",
+    "bytes": 14912,
+    "sha256": "785f5fe3d475316c98818ee01c50b69352d9956374e17df069a6f72868973019"
+  },
+  "frozen_next_member_and_submit": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_operational_v8/long_operations.py",
+    "bytes": 21648,
+    "sha256": "b93709d70d7e6dcb9c0e10513d06a88dd663d2d648dc943d4bab7c558d674170"
+  },
+  "frozen_GPU_predicate": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_operational_v8/native_resources.py",
+    "bytes": 8862,
+    "sha256": "ed38e6e89e7c3d8ff7bca9e362cd062d9233ba51e270f7fce3b31a76626c58e1"
+  },
+  "strict_hostkeys": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+    "bytes": 94,
+    "sha256": "a8110aae3c90d6de954c49d2418acc17576eaca1373d4f47bf935a16d8b80398"
+  },
+  "literal_inverse_to_actual_v4": true,
+  "literal_edit_sites": 10,
+  "changes_only": [
+    "Independent v5 source/control namespace; original v4 retained",
+    "Read-only owner queue filtered to only original GPU blocker4525142, then exact parent accounting terminal and second queue absence",
+    "No dependency on other foreign jobs;5143/C35 is ignored by this specific blocker predicate",
+    "Strict actual Root reconciliation binding and first slot32/seed0/bf16/9000->10000 plus original030CP identity",
+    "Only first original next_member allow_failed and one original submit-next --retry-failed; all later calls plain/default",
+    "Recheck unchanged next_member and original deadline immediately before Popen; unknown/new failure STOP",
+    "Add actual foreign observation to overwritten existing status; no new scheduler/manager"
+  ],
+  "foreign_wait": {
+    "job_id": "4525142",
+    "owner": "guangyuan",
+    "uid": 1275,
+    "node": "compute-0-21",
+    "gpu_uuid": "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+    "must_have_true_terminal_before_preparing_original_UUID": true,
+    "terminal_states": [
+      "COMPLETED",
+      "FAILED",
+      "CANCELLED",
+      "TIMEOUT",
+      "OUT_OF_MEMORY",
+      "NODE_FAIL",
+      "BOOT_FAIL",
+      "DEADLINE"
+    ],
+    "unknown_or_missing_or_failed_query_is_not_terminal": true,
+    "other_foreign_jobs_blocked": false,
+    "signalling_or_cancelling_foreign": false
+  },
+  "first_expected_step": {
+    "slot": 32,
+    "seed": 0,
+    "precision": "bf16",
+    "start_update": 9000,
+    "target_update": 10000
+  },
+  "one_time_Root_explicit_retry": true,
+  "later_automatic_failure_retry": false,
+  "unchanged": {
+    "original_identity_plus_days": 7,
+    "finite_loop_bound": 81,
+    "original_science_CODE": "3d9b1cc0c580dacc9398a5570b0c2fff3e257618",
+    "source_CP_sampler_seed_optimizer_validation500_20k": true,
+    "software_memory_bytes": 34359738368,
+    "RSS_bytes": 30064771072,
+    "Slurm_memory_mode": "automatic_default",
+    "GPU_fraction_limit": 0.85,
+    "MemAvailable_fraction": 0.15,
+    "child_seconds": 6900,
+    "Slurm_seconds": 7200,
+    "whole_bytes": 2147483648,
+    "private_bytes": 2147483648,
+    "all_original_final_resource_registration_CPU_memory_GPU_UUID_lock_quota_gates": true,
+    "all_original_failures_031_source_registry_holds_preserved": true
+  },
+  "science_changed": false,
+  "new_QA_parent": false,
+  "actual_tests": null,
+  "actual_launch": null,
+  "actual_job_id": null,
+  "actual_SDK": null,
+  "publication": null
+}
