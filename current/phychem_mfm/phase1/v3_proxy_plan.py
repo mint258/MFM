@@ -176,15 +176,24 @@ def plan_document(trials, *, public_preregistration_sha):
 
 
 def stage_gpu_budget(*, stage, allocated_gpu_job_seconds, all_costs_registered):
-    """Failed attempts count; allocation time is not measured GPU utilization."""
+    """User-v3 confirmation threshold; incomplete bookkeeping is report-only.
+
+    Known allocation time includes failures and is not GPU utilization. A known
+    lower bound above the limit still requires confirmation before more work;
+    a missing weekly account does not itself stop scientific work.
+    """
     if (stage not in (5, 6) or type(allocated_gpu_job_seconds) not in (float, int)
             or not math.isfinite(allocated_gpu_job_seconds) or allocated_gpu_job_seconds < 0):
         raise ValueError("Finite nonnegative registered stage allocation time required")
     estimate_upper_hours = {5: 150, 6: 250}[stage]
-    limit = 2 * estimate_upper_hours * 3600
+    limit = 3 * estimate_upper_hours * 3600
+    approval_required = allocated_gpu_job_seconds > limit
     return {"stage": stage, "allocated_gpu_job_seconds": allocated_gpu_job_seconds,
-        "estimated_upper_GPU_hours": estimate_upper_hours, "twice_estimate_seconds": limit,
+        "estimated_upper_GPU_hours": estimate_upper_hours, "estimate_multiplier": 3,
+        "confirmation_limit_seconds": limit,
         "all_failed_attempts_included": all_costs_registered is True,
-        "status": ("INCOMPLETE_ACCOUNTING" if all_costs_registered is not True else
-                   "STOP_REPORT_USER" if allocated_gpu_job_seconds > limit else "WITHIN_LIMIT"),
+        "accounting_status": ("COMPLETE" if all_costs_registered is True else "PENDING_REPORT_ONLY"),
+        "incomplete_accounting_blocks_science": False,
+        "user_confirmation_required": approval_required,
+        "status": "STOP_REPORT_USER" if approval_required else "WITHIN_LIMIT",
         "gpu_time_is_utilization": False}

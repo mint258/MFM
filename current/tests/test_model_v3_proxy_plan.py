@@ -78,14 +78,25 @@ def test_changed_training_budget_or_condition_is_a_different_scientific_configur
     assert replace(trial, pretraining_seed=1, name="repeat").scientific_identity == trial.scientific_identity
 
 
-@pytest.mark.parametrize("seconds,complete,expected", [
-    (300*3600, True, "WITHIN_LIMIT"),
-    (300*3600+1, True, "STOP_REPORT_USER"),
-    (300*3600+1, False, "INCOMPLETE_ACCOUNTING"),
+@pytest.mark.parametrize("stage,hours,complete,expected", [
+    (5, 300 + 1/3600, True, "WITHIN_LIMIT"),
+    (5, 450, True, "WITHIN_LIMIT"),
+    (5, 450, False, "WITHIN_LIMIT"),
+    (5, 450 + 1/3600, True, "STOP_REPORT_USER"),
+    (5, 450 + 1/3600, False, "STOP_REPORT_USER"),
+    (6, 750, True, "WITHIN_LIMIT"),
+    (6, 750, False, "WITHIN_LIMIT"),
+    (6, 750 + 1/3600, False, "STOP_REPORT_USER"),
 ])
-def test_stage_budget_counts_allocated_time_and_requires_complete_failed_costs(seconds, complete, expected):
-    result = stage_gpu_budget(stage=5, allocated_gpu_job_seconds=seconds, all_costs_registered=complete)
+def test_user_v3_budget_uses_threefold_confirmation_and_report_only_accounting(stage, hours, complete, expected):
+    result = stage_gpu_budget(stage=stage, allocated_gpu_job_seconds=hours*3600, all_costs_registered=complete)
     assert result["status"] == expected
+    assert result["estimate_multiplier"] == 3
+    assert result["confirmation_limit_seconds"] == {5:450,6:750}[stage]*3600
+    assert result["user_confirmation_required"] is (expected == "STOP_REPORT_USER")
+    assert result["accounting_status"] == ("COMPLETE" if complete else "PENDING_REPORT_ONLY")
+    assert result["all_failed_attempts_included"] is complete
+    assert result["incomplete_accounting_blocks_science"] is False
     assert result["gpu_time_is_utilization"] is False
 
 

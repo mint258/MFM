@@ -13,7 +13,7 @@ sys.path.insert(0, str(ROOT / "current"))
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("resolve", "prepare"))
+    parser.add_argument("command", choices=("resolve", "prepare", "repeat"))
     parser.add_argument("--inputs", type=Path, required=True)
     parser.add_argument("--inputs-sha256", required=True)
     parser.add_argument("--output", type=Path, required=True)
@@ -29,8 +29,12 @@ def main(argv=None):
     require(reference["sha256"] == digest(args.inputs_sha256),
             "Exact input manifest raw SHA required")
     manifest = bound_json(reference)
-    required = {"policy", "policy_sha256", "resolution_inputs"} if args.command == "resolve" else {
-        "policy", "policy_sha256", "trial", "base_request"}
+    if args.command == "resolve":
+        required = {"policy", "policy_sha256", "resolution_inputs"}
+    elif args.command == "repeat":
+        required = {"policy", "policy_sha256", "first_seed_trials", "selected_name", "selection", "base_request"}
+    else:
+        required = {"policy", "policy_sha256", "trial", "base_request"}
     optional = set() if args.command == "resolve" else {"resolution_inputs"}
     require(type(manifest) is dict and required <= set(manifest) <= required | optional,
             "Only the declared architecture command inputs are accepted")
@@ -43,6 +47,14 @@ def main(argv=None):
         result = resolve_inputs(manifest["resolution_inputs"], policy)
         result["input_manifest"] = reference
         return write_once(args.output, result)
+
+    if args.command == "repeat":
+        from phychem_mfm.phase1.v3_architecture_repeats import prepare_repeat
+        resolutions = (resolve_inputs(manifest["resolution_inputs"], policy)
+                       if "resolution_inputs" in manifest else {})
+        return prepare_repeat(manifest["first_seed_trials"], manifest["selected_name"],
+                              bound_json(manifest["base_request"]), resolutions, policy, args.output,
+                              base_request_ref=manifest["base_request"], selection_reference=manifest["selection"])
 
     raw = manifest["trial"]
     require(type(raw) is dict and set(raw) == {
