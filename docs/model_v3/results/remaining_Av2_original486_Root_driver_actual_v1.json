@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+    "-u",
+    "-B",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/Root_submit.py",
+    "4520486",
+    "--method-publication",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/current_A_performance_methods_publication_20261029/PUBLICATION.json",
+    "--method-publication-sha256",
+    "1b2631cc3d2e42615836d088e6841d3f4d78c4b647e24638551e868bb355f2a3",
+    "--source-pins-sha256",
+    "19b93c747e5a9e02294cafba1d7194c9c8bb85a70330058559911391afc7e34f"
+  ],
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/Root_submit.py\", line 196, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/Root_submit.py\", line 50, in main\n    need(plan['schema']=='model_v3_remaining_six_A_cohort_v2_routing_execution_plan_v2'\n  File \"/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v4/Root_submit.py\", line 10, in need\n    if not value:raise ValueError(message)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Exact routing-v2 plan required\n"
+}

@@ -1,0 +1,80 @@
+{
+  "schema": "model_GPU_auto_memory_Native_operational_CPU_QA_Root_closure_v1",
+  "status": "ACTUAL_C0_34_NATIVE_AND_14_SHARED_POLICY_TESTS_SOURCE_CLOSED",
+  "job_id": "4524866",
+  "actual_sacct": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_GPU_auto_memory_v8_QA4866_sacct_actual_v1.json",
+    "bytes": 262,
+    "sha256": "2e274927541d124488bd5cf2f5f85095f22a6f13e8645d7dbc0b673c97e23e09"
+  },
+  "unit_request": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/native_GPU_auto_memory_v8_QA_request_v2.json",
+    "bytes": 37622,
+    "sha256": "ecd7d3add9bc7ad1eecd561e47c3c9de97225096770b00b81e9e2b313170e057"
+  },
+  "summary": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4524866/summary.json",
+    "bytes": 75819,
+    "sha256": "eb947beac87b9049ce6a83089c788934c2939c9d3176a9a42b5d2a652df81fef"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_GPU_auto_memory_v8_QA46_CPU_control_v1/supervisor_4524866.json",
+    "bytes": 3179,
+    "sha256": "a48934282e91bed5d4ce6ff6f41488327020470ef753ae4522517fa27f6dec53"
+  },
+  "fixture_policy": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_GPU_auto_memory_v8_QA46_CPU_control_v1/supervisor_4524866.fixture_policy.json",
+    "bytes": 777,
+    "sha256": "0809e760707a052c17dfc130f3cafd322a54d4e24d2fd282f1249ff963d4b222"
+  },
+  "units": [
+    {
+      "name": "native_S_long_operational_v8_metadata",
+      "counts": {
+        "tests": 34,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "result": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4524866/native_S_long_operational_v8_metadata.json",
+        "bytes": 36840,
+        "sha256": "d6844bee7ba7d6ce4e838a47c4581a9c507c3757b3b28ffa840bdaec1af6143e"
+      },
+      "JUnit": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4524866/native_S_long_operational_v8_metadata.xml",
+        "bytes": 6929,
+        "sha256": "28206a6f0eb631571408146b174500cb6202557ee28756765a4e616384a0173e"
+      },
+      "sources_unchanged": true
+    },
+    {
+      "name": "model_GPU_auto_memory_policy_v1",
+      "counts": {
+        "tests": 14,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "result": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4524866/model_GPU_auto_memory_policy_v1.json",
+        "bytes": 36466,
+        "sha256": "92138191494cba59b5c10a417ef70c3f70bfc5b7fad93fdd4dbf3b5f52f88f02"
+      },
+      "JUnit": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4524866/model_GPU_auto_memory_policy_v1.xml",
+        "bytes": 2462,
+        "sha256": "c7ecd4a701985e2575b5905036dd76dc058d9d5bd825b37f7786a8f9710975f9"
+      },
+      "sources_unchanged": true
+    }
+  ],
+  "primary_original_gate_tests": 34,
+  "shared_actual_collected_tests": 14,
+  "shared_source_planned_count_was_not_execution": 12,
+  "all_source_before_after_closed": true,
+  "original_2GiB_RSS_wall_and_private_guards_preserved": true,
+  "original_failing_parent_4524854_retained": true,
+  "original_failing_parent_reason": "Production output census rejected negative symlink fixture; reused original v7 test-only owned-lstat census wrapper without changing production/private rules.",
+  "actual_GPU_or_resource_adoption_or_scientific_acceptance": false
+}
