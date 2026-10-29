@@ -1,0 +1,94 @@
+{
+  "schema": "model_v3_user_v3_A_adoption_operations_actual_v1",
+  "status": "ORIGINAL_RUNTIME_OPERATION_SELECTED_BACKBONE_OFF_AND_CLOSED",
+  "full_regression": {
+    "schema": "model_v3_user_v3_full_regression_actual_v1",
+    "job_id": "4525171",
+    "actual_sacct": "COMPLETED|0:0|272|16|compute-0-19",
+    "actual_code": "e7c0a2ccc188ca42785d2a87cf0c66cf5141e35a",
+    "status": "PASS",
+    "test_modules": 137,
+    "pytest_counts": {
+      "tests": 3238,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    },
+    "passed": 3235,
+    "original_CUDA_skips_retained": 3,
+    "original_mature_four_pytest_source_entry": true,
+    "actual_summary": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4525171/summary.json",
+      "bytes": 390228,
+      "sha256": "a019381d39769ab2825518377466013c078e394be18ba354f3f34f3f64beac78"
+    },
+    "new_real_Data_acceptance_claimed": false,
+    "extra_failed_QA_wrappers_5167_5168_preserved": true
+  },
+  "operations": [
+    {
+      "job_id": "4525172",
+      "actual_sacct": "COMPLETED|0:0|103|16|compute-0-20",
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_adoption_operation_4090_first_v1/child/configuration.json",
+        "bytes": 22889,
+        "sha256": "24b38c5f32d11925008d4a9ba18f2fc309c16602f38c42255fed9cc0555e52ce"
+      },
+      "summary_source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_adoption_operation_4090_first_v1/child/summary.json",
+        "bytes": 1721,
+        "sha256": "3f27ad77f90df3dbccc2d78ef93e1ab6034ebc9f5bc0dd4c615ec1f9020efbc0"
+      },
+      "source_code": "e7c0a2ccc188ca42785d2a87cf0c66cf5141e35a",
+      "preexisting_math_PASS_revalidated_here": false,
+      "new_ABBA_or_causal_speedup_claimed": false,
+      "new_C1a_measurement": false,
+      "actual_Torch": "2.10.0+cu128",
+      "actual_CUDA": "12.8",
+      "flags": {
+        "backbone_checkpointing": true,
+        "distance_checkpointing": true,
+        "head_checkpointing": true
+      },
+      "selection_reason": "NO_SAFE_MATCHED_ADOPTED_A_PROFILE_KEEP_OLD_CHECKPOINTS",
+      "actual_population_match": null,
+      "complete_original_22_forward_scope": true,
+      "generic_training_C_SDP_capacity_granted": false,
+      "run_id": "ffvyk8cq"
+    },
+    {
+      "job_id": "4525173",
+      "actual_sacct": "COMPLETED|0:0|84|16|compute-0-20",
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_adoption_operation_4090_original_runtime_v2/child/configuration.json",
+        "bytes": 29341,
+        "sha256": "bd57a258f6a1372341a3dfe3f98652c7be99123e69d3d6534d7fe07992c79ccb"
+      },
+      "summary_source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_adoption_operation_4090_original_runtime_v2/child/summary.json",
+        "bytes": 2369,
+        "sha256": "4744f46d4a995f2cb3b00577ca040b7fe74d7940f5bd2234948282b190ac9d76"
+      },
+      "source_code": "e7c0a2ccc188ca42785d2a87cf0c66cf5141e35a",
+      "preexisting_math_PASS_revalidated_here": false,
+      "new_ABBA_or_causal_speedup_claimed": false,
+      "new_C1a_measurement": false,
+      "actual_Torch": "2.10.0+cu126",
+      "actual_CUDA": "12.6",
+      "flags": {
+        "backbone_checkpointing": false,
+        "distance_checkpointing": true,
+        "head_checkpointing": true
+      },
+      "selection_reason": "QUALIFIED_A_WITH_MATCHED_MEASURED_CAPACITY",
+      "actual_population_match": true,
+      "complete_original_22_forward_scope": true,
+      "generic_training_C_SDP_capacity_granted": false,
+      "run_id": "2g9eppiq"
+    }
+  ],
+  "qualified_5090_HeadOff_retained": true,
+  "remaining_3090_and_5090_C1a_not_completed": true,
+  "logger_stderr_terminal_text_retained_without_additional_diagnostic": true,
+  "scope": "Only already proven original fresh S22; unknown long training/C/SDP stays on"
+}

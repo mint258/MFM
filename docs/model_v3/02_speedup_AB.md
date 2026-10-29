@@ -1,3 +1,5 @@
+2026-10-29 用户v3后续：[A采用与完整回归](A_ADOPTION_OPERATIONS_20261029.md)。实际5173在原4090环境选择BackboneOff并完成同原输入的22次forward；当前完整137模块3235PASS/3原skip。已证原S22容量可自动采用，未知长程/C/SDP保守checkpoint。下方历史结果原样保留。
+
 # 阶段 2：等价提速与选择性 bf16
 
 ## 2026-10-29 current A-v2 evidence
