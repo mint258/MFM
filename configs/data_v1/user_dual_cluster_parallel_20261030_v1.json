@@ -1,0 +1,29 @@
+{
+  "schema": "USER_AUTHORIZED_DUAL_CLUSTER_DATA_PARALLELISM_V1",
+  "status": "USER_AUTHORIZED_USE_CURRENTLY_FREE_CPU_RESOURCES",
+  "user_instruction": "提高并发数，把现在可用的资源都利用起来，包括用户名为zixiao和alpha的两个集群，以尽可能快的速度完成数据部分，从而可以快点正式进入模型训练",
+  "endpoints": [
+    {"host": "202.38.247.57", "user": "zixiao", "uid": 1278},
+    {"host": "218.192.171.238", "user": "alpha", "uid": 1264}
+  ],
+  "fresh_free_CPU_inventory_required": true,
+  "minimum_CPUs_per_parent": 16,
+  "prefer_day_packed_parents_with_internal_checkpoints": true,
+  "no_explicit_SBATCH_memory_size": true,
+  "no_CPU_oversubscription_or_exclusive": true,
+  "disjoint_endpoint_and_parent_assignments_required": true,
+  "existing_science_versions_seeds_thresholds_and_once_unchanged": true,
+  "Pprime_user_success_floor": 0.9945,
+  "D2_D3_D4_D5_delivery_priority_unchanged": true,
+  "new_work_must_not_block_priority_deliverables": true,
+  "no_live_scientific_source_hotpatch": true,
+  "no_signals_to_scientific_parent_or_native_workers_for_parallel_cutover": true,
+  "own_dedicated_metadata_service_graceful_stop_and_natural_native_drain": "Root operational implementation of the authorized parallel cutover; exact UID/boot/start_ticks/argv/source and exclusive consumer verified",
+  "shared_storage_quota_margin_bytes": 200000000000,
+  "local_scratch_and_RSS_observation_retained": true,
+  "temporary_closed_results_not_published": "preserve original node bytes and consumed once; UNKNOWN pending read-only publication; never fabricate completion or rerun native",
+  "cost_confirmation_above_comparable_pilot_multiple": 2,
+  "paid_school_server_authorized": false,
+  "progress_reporting": "one daily summary",
+  "accounting": "weekly"
+}
