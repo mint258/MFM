@@ -16,13 +16,70 @@ def unique(refs):
 def meta(ref):
     need(G.meta_pin(ref['path'])==F.triple(ref),'EXACT_ACTUAL_SMALL_PARENT_PIN');return G.load(ref['path'])
 def parameters(p):
-    return {'stage':'COMMON_AND_PM7_SPRIME_STATISTICS_PACKED_DAY','original_config_reference':p['original_config_reference'],
+    result={'stage':'COMMON_AND_PM7_SPRIME_STATISTICS_PACKED_DAY','original_config_reference':p['original_config_reference'],
       'packed_receipt_reference':p['packed_receipt_reference'],'cpus':p['cpus'],'node':p['node'],'wall_seconds':WALL,'natural_drain_seconds':DRAIN,
       'whole_output_cap_bytes':p['output_cap_bytes'],'new_QM_calls':0,'new_UFF_calls':0,'new_child_Slurm_jobs':0,
       'PM7_population_molecules':1220466,'PM7_population_records':11231854,'original_supported_deficits':90069,'original_unsupported':9282,
       'fixed_random_seed':20261025,'dedup_threshold_A':0.5,'canonical_HOF_registry':60,'native_energy_is_not_HOF':True,
       'common_conditions':['S','Sprime','P','Pprime','D'],'root_final_release_after_actual_parent_C0':True,
-      'original_N1_extras_kept_in_separate_domain':True,'no_scientific_retry_or_once_reset':True}
+       'original_N1_extras_kept_in_separate_domain':True,'no_scientific_retry_or_once_reset':True}
+    if 'packed_origins_review_reference' in p:result['packed_origins_review_reference']=p['packed_origins_review_reference']
+    if p.get('packed_operational_metadata_entry_reference')is not None:
+        result['packed_operational_metadata_entry_reference']=p['packed_operational_metadata_entry_reference'];result['operational_receipt_CPU_only_contract_version']=3
+    return result
+
+def source_witness(ref):
+    archive=meta(ref);rows=archive['entries'];found={};refs=[ref]
+    need(archive['schema']=='POSTPROCESS_ORIGINAL_SOURCE15_ARCHIVE_V2' and archive['status']=='EXACT_SOURCE_BYTES_ARCHIVED_BEFORE_REPLACEMENT'
+        and len(rows)==len(FILES),'ACTUAL_ORIGINAL_POSTPROCESS15_WITNESS')
+    for row in rows:
+        origin=F.triple(row['origin_reference']);snapshot=row['snapshot_reference'];path=pathlib.Path(snapshot['path'])
+        need(pathlib.Path(origin['path']).parent==HERE and pathlib.Path(origin['path']).name in FILES and origin['path'] not in found
+            and ROOT/'control/source_snapshots' in path.parents and '..' not in path.parts and origin['bytes']==snapshot['bytes']
+            and origin['sha256']==snapshot['sha256'] and G.meta_pin(path)==snapshot,'ORIGINAL15_EXACT_SOURCE_WITNESS_NOT_CURRENT_PATH_ALIAS')
+        found[origin['path']]=snapshot;refs.append(snapshot)
+    need(set(found)=={str(HERE/name) for name in FILES},'ALL_ORIGINAL15_FILES_PRESERVED')
+    return found,refs
+
+def packed_origins(p,receipt,packed):
+    from workflows.data_v1_final.conformers.sprime_packed_day_v1 import history as H
+    from workflows.data_v1_final.conformers.sprime_packed_day_v1 import operational as O
+    review=meta(p['packed_origins_review_reference'])
+    need(review['schema']=='ROOT_REVIEWED_POSTPROCESS_PACKED_ORIGINS_V2' and review['status']=='APPROVED_EXACT_ALL_TERMINAL_PACKED_ORIGINS'
+        and review['reviewer']=='root' and review['latest_packed_receipt_reference']==p['packed_receipt_reference']
+        and review['original_config_reference']==p['original_config_reference']
+        and all(review[k]is True for k in ('preserve_legacy16_registered_origins','all_old_root_first_hashes_in_this_parent',
+            'all_packed_science_parents_terminal','no_origin_reassignment_or_new_science')),'ROOT_ALL_TRUE_PACKED_OWNER_CONTEXTS')
+    if p.get('packed_operational_metadata_entry_reference')is not None:
+        need(review['latest_packed_operational_metadata_entry_reference']==p['packed_operational_metadata_entry_reference'],'ROOT_EXPLICIT_PRESENT_LARGE_RECEIPT_NOT_ABSENCE')
+    hp={'original_config_reference':p['original_config_reference'],'original_plan_reference':packed['original_plan_reference'],
+        'inputs_review_reference':packed['inputs_review_reference'],'packed_history_review_reference':review['terminal_history_review_reference']}
+    history,parents,refs=H.describe(hp);by={r['job_id']:r for r in parents};latest=str(p['packed_parent_job_id'])
+    need(set(review['all_registered_packed_parent_job_ids'])==set(by) and len(review['all_registered_packed_parent_job_ids'])==len(by)
+        and latest in by,'COMPLETE_UNIQUE_DECLARED_OLD64_PLUS_LATEST64_PARENTS')
+    row=by[latest];entry=row['entry']
+    if receipt is None:
+        need(O.deferred(entry) and entry['large_operational_metadata_entry_reference']==p['packed_operational_metadata_entry_reference']
+            and entry['terminal_accounting_reference']==p['packed_accounting_reference']
+            and (p['packed_receipt_reference']is None or p['packed_receipt_reference']==entry['producer_receipt_reference']),
+            'LATEST64_DEFERRED_REAL_OPERATIONAL_ENTRY_AND_ACCOUNT')
+    else:
+        need(entry['producer_receipt_reference']==p['packed_receipt_reference'] and entry['producer_plan_reference']==receipt['plan_reference']
+            and entry['startup_proof_reference']==receipt['startup_proof_reference'] and entry['terminal_accounting_reference']==p['packed_accounting_reference'],
+            'LATEST64_IS_ITS_REAL_ORIGIN_NOT_A_REPLACEMENT_FOR_ALL_OLD64')
+    if 'packed_history_review_reference' in packed:
+        _,old,_=H.describe(packed);need({r['job_id'] for r in old}<=set(by),'EVERY_GENERATION_HISTORY64_OWNER_STILL_DECLARED')
+    _,witness=source_witness(review['postprocess_source_witness_reference']);refs.extend(witness);refs.append(p['packed_origins_review_reference'])
+    data=[]
+    for parent in parents:
+        data.extend(parent['request']['data_references'])
+        rr=parent['entry'].get('producer_receipt_reference')
+        if rr is not None and not O.deferred(parent['entry']):
+            report=meta(rr);data.extend(report[k] for k in ('resolution_index_reference','complete_errors_reference'))
+        elif rr is not None:data.append(rr) # Known only through a real prior CPU header; never small-read here.
+        # Packet/task/start/claim locators are transferred only at CPU from the
+        # signed complete indices and the explicitly registered terminal roots.
+    return review,history,by,unique(refs),unique(PACK.reference_shape(r) for r in data)
 def sources():
     refs=[G.meta_pin(HERE/n) for n in FILES]
     refs.extend(PACK.sources())
@@ -36,17 +93,28 @@ def inputs(p):
       and type(p['cpus']) is int and p['cpus']>=16 and p['node'] in ('compute-0-14','compute-0-18')
       and type(p['output_cap_bytes']) is int and p['output_cap_bytes']>=8<<30 and p['scope_parameters']==parameters(p),'ONE_TRUE_ANALYSIS_DAY_PLAN')
     need(all(type(p[k]) is int and p[k]>0 for k in ('algorithm_rss_soft_cap_bytes','minimum_MemAvailable_bytes','exact_quantile_memory_bound_bytes')),'EXPLICIT_POSITIVE_SOFTWARE_RESOURCE_BOUNDS')
-    value=F.config(p['original_config_reference']);receipt=meta(p['packed_receipt_reference']);packed=meta(receipt['plan_reference'])
-    need(receipt['schema']=='SPRIME_PACKED_DAY_RECEIPT_V1' and receipt['actual_single_parent_job_id']==str(p['packed_parent_job_id'])
-      and receipt['all_started_native_tasks_drained'] is True and receipt['child_Slurm_jobs_created']==0
-      and receipt['allocated_cpus']==packed['cpus']==64 and packed['original_config_reference']==p['original_config_reference'],
-      'REAL_DRAINED_PACKED64_PRODUCER_NOT_FUTURE_OR_OLD16')
-    ar,av,row=PACK.packed_account(p['packed_accounting_reference']['path'],p['packed_parent_job_id'],64)
-    need(ar==p['packed_accounting_reference'] and row['node']=='compute-0-13','PINNED_ACTUAL_PACKED64_C0_ACCOUNT')
-    packed_proof=meta(receipt['startup_proof_reference']);pre=meta(receipt['preflight_reference'])
-    need(str(packed_proof['job_id'])==receipt['actual_single_parent_job_id'] and packed_proof['request']['producer_plan_reference']==receipt['plan_reference']
-      and packed_proof['request']['scope_key']=='sprime_packed_day_v1' and packed_proof['request']['cpus']==64 and packed_proof['request']['node']=='compute-0-13'
-      and pre['tests_run']==9 and pre['failures']==pre['errors']==pre['skips']==pre['expected_failures']==pre['unexpected_successes']==0,'REAL_PACKED64_C0_PROOF_AND_ACTUAL9_PREFLIGHT')
+    value=F.config(p['original_config_reference']);operational_entry=None
+    if p.get('packed_operational_metadata_entry_reference')is not None:
+        from workflows.data_v1_final.conformers.sprime_packed_day_v1 import operational as O
+        operational_entry,_=O.expand({'large_operational_metadata_entry_reference':p['packed_operational_metadata_entry_reference']})
+        receipt=None;packed=meta(operational_entry['producer_plan_reference']);proof_ref=operational_entry['startup_proof_reference'];packed_ref=operational_entry['producer_plan_reference']
+        need(operational_entry['declared_parent_job_id']==str(p['packed_parent_job_id']) and operational_entry['terminal_accounting_reference']==p['packed_accounting_reference']
+            and PACK.origin_resources(packed) and packed['original_config_reference']==p['original_config_reference'],'REAL_METADATA_PARENT_NOT_AN_OBSERVED_RECEIPT_PROJECTION')
+    else:
+        receipt=meta(p['packed_receipt_reference']);packed=meta(receipt['plan_reference']);proof_ref=receipt['startup_proof_reference'];packed_ref=receipt['plan_reference']
+        need(receipt['schema']=='SPRIME_PACKED_DAY_RECEIPT_V1' and receipt['actual_single_parent_job_id']==str(p['packed_parent_job_id'])
+          and receipt['all_started_native_tasks_drained'] is True and receipt['child_Slurm_jobs_created']==0
+          and receipt['allocated_cpus']==packed['cpus'] and packed['original_config_reference']==p['original_config_reference'],
+          'REAL_DRAINED_PACKED64_PRODUCER_NOT_FUTURE_OR_OLD16')
+    ar,av,row=PACK.packed_account(p['packed_accounting_reference']['path'],p['packed_parent_job_id'],packed['cpus'])
+    need(ar==p['packed_accounting_reference'] and row['node']==PACK.origin_resources(packed)[1],'PINNED_ACTUAL_PACKED64_C0_ACCOUNT')
+    packed_proof=meta(proof_ref)
+    need(str(packed_proof['job_id'])==str(p['packed_parent_job_id']) and packed_proof['request']['producer_plan_reference']==packed_ref
+      and PACK.origin_request(packed,packed_proof['request']) and packed_proof['node']==row['node'] and packed_proof['actual_cpus']==packed['cpus'] and packed_proof['schema']=='FRESH_CPU_PACKED_DAY_EXECUTION_ADMISSION_V'+str(PACK.origin_resources(packed)[2]),
+      'REAL_PACKED64_C0_PROOF_WITHOUT_LOGIN_OPERATIONAL_BODY_READ')
+    if receipt is not None:
+        pre=meta(receipt['preflight_reference']);need(pre['tests_run']==9 and pre['failures']==pre['errors']==pre['skips']==pre['expected_failures']==pre['unexpected_successes']==0,
+            'REAL_PACKED64_ACTUAL9_PREFLIGHT')
     prior=meta(packed['inputs_review_reference']);original=meta(packed['original_plan_reference']);cache=meta(p['cache_plan_reference'])
     need(cache['schema']=='ROOT_PM7_POPULATION_CACHE_BATCH_PLAN_V1' and cache['status']=='APPROVED_EXACT_WHOLE_MOLECULE_CACHE_BATCH'
       and cache['source_population_molecules']==1220466 and cache['source_population_records']==11231854,'REAL_FULL_PM7_ROSTER_AUTHORITY_NOT_COMMON_FILTER')
@@ -58,13 +126,18 @@ def inputs(p):
       and cost['reviewer']=='root' and cost['complete_owned_master_reviewed'] is True and cost['all_related_known_terminal_parents_included'] is True,
       'ROOT_COMPLETE_COST_CLASSIFICATION_NOT_PARENT_NAME_INFERENCE')
     refs=[p[k] for k in ('original_config_reference','packed_receipt_reference','packed_accounting_reference','cache_plan_reference',
-      'related_parent_review_reference','resource_authority_reference','quota_provider_review_reference','quota_provider_identity_reference','root_carveout_review_reference')]
-    refs.extend([receipt['plan_reference'],receipt['startup_proof_reference'],av['raw_sacct_reference'],packed['inputs_review_reference'],packed['original_plan_reference']])
+      'related_parent_review_reference','resource_authority_reference','quota_provider_review_reference','quota_provider_identity_reference','root_carveout_review_reference')
+      if p.get(k)is not None and not(k=='packed_receipt_reference' and operational_entry is not None)]
+    if operational_entry is not None:refs.append(p['packed_operational_metadata_entry_reference'])
+    refs.extend([packed_ref,proof_ref,av['raw_sacct_reference'],packed['inputs_review_reference'],packed['original_plan_reference']])
     refs.extend(cost['accounting_references']);refs.append(cost['owned_master_reference'])
     refs.extend(PACK.input_metadata(packed)[3]);refs.extend(cache['metadata_source_references'])
+    _,_,_,origin_refs,origin_data=packed_origins(p,receipt,packed);refs.extend(origin_refs)
     refs.extend([cache['population_prepared_reference'],cache['base_plan_reference'],cache['hof_authority_review'],cache['future_shards_reference'],cache['geometry32_receipt_reference'],cache['hof32_receipt_reference']])
     roles=meta(value['roles_authority']);role_manifest=meta(roles['source_role_manifest']);refs.extend([value['roles_authority'],roles['source_role_manifest']])
-    data=PACK.data_locators(packed,value,original,prior)+cache['data_references']+[receipt['resolution_index_reference'],receipt['complete_errors_reference']]
+    data=PACK.data_locators(packed,value,original,prior)+cache['data_references']+origin_data
+    if receipt is not None:data.extend([receipt['resolution_index_reference'],receipt['complete_errors_reference']])
+    elif p['packed_receipt_reference']is not None:data.append(PACK.reference_shape(p['packed_receipt_reference']))
     data.extend(F.triple(r) for r in role_manifest['outputs'] if '/molecule_roles/' in r['path'])
     for registered in p['cache_registered_parents']:
         req=meta(registered['request_reference']);sub=meta(registered['submission_reference']);acc=meta(registered['accounting_reference'])

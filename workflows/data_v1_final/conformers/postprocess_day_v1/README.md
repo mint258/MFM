@@ -1,3 +1,12 @@
+R4 hardware-origin reader revision, not a mathematical revision:
+the analysis module/KEY/admission protocol stay original. V1 packed origins
+remain strictly64/node13; V2 origins validate the immutable per-parent
+plan16..96/node14or18 against request/proof/account/header/start/claim. No
+origin is relabeled as another parent's CPU/node. Original28 preflight count,
+legacy16 lineage, finalizer/scaffold/PM7/HOF/D7 objects and quality gates stay.
+The Source witness first reverses only the declared R4 hardware changes to
+the exact archived R3 closure body, then applies the original R3-to-original
+witness checks. The retained R3 documentation below is historical context.
 # One actual analysis-day parent: Common + PM7/Sprime statistics and orders
 
 SOURCE ONLY. No author Python/AST/tests/SSH/Slurm/DATA reads. Old sources,
@@ -190,3 +199,155 @@ APPROVED_EXACT_ACTUAL_COMPONENTS, reviewerroot, exact candidate_reference and
 separate bool approve_common/approve_D7. FinalCommon and final3orders are only
 emitted when actual CPU/quality/completeness/Root gates allow them; no full
 v1training/dataset/Pprime release is claimed by either CLI.
+# R2: all terminal packed64 owners, same single analysis-day parent
+
+SOURCE ONLY. The original15 complete sources are preserved in the delivery.
+The packed-generation R2 ZIP remains separately frozen; this revision does not
+change it, resource11R3, any running task, a scientific function or any old data.
+Only Root may install these postprocess files (there is no running consumer).
+Do not install the generation package over a live packed parent.
+
+The old binding assumed one packed_plan/root for every packed package. R2 keeps
+that complete binding function unchanged and selects a genuine per-owner context
+before calling it. Original16/historical attempt_binding is unchanged. Every
+selected context is private to the packet, including the prepared header/task
+pointer; concurrent workers crossing500 boundaries do not overwrite a shared
+last-header cache. Readers have independent locks and immutable task maps.
+
+No new orchestration API
+-----------------------
+Scope/module/resource schema and existing commands stay the same:
+
+  PY -B -m workflows.data_v1_final.conformers.postprocess_day_v1.metadata proposal --output FRESH_TEMPLATE_DIR
+  PY -B -m workflows.data_v1_final.conformers.postprocess_day_v1.metadata draft --request REAL_ROOT_REQUEST --output FRESH_DRAFT_DIR
+
+Then Root independently approves/finalizes/submits/observes the existing
+execution.cpu_analysis_day_v1 resource11R3 scope. One actual64CPU/86400s/no_mem
+parent on14 or18, with an actual new finite provider and exact whole-cap carveout.
+28 original same-parent preflight methods remain28 (6+3+8+8+3); three existing
+producer methods add true-old-owner, concurrent private-header/immutable-file and
+scope-reference boundaries. No separate tests or child Slurm jobs are added.
+
+Original proposal/request fields remain. Add one actual small triple
+packed_origins_review_reference. Missing actual packed receipt, terminal account
+or origins review produces only a NONEXECUTABLE candidate, with null executable
+plan/resource references. No current RUNNING job becomes a parent C0. Draft with
+real references validates terminal accounting before writing an executable plan.
+
+Root origins review schema is ROOT_REVIEWED_POSTPROCESS_PACKED_ORIGINS_V2,
+status APPROVED_EXACT_ALL_TERMINAL_PACKED_ORIGINS, reviewer root. Fields:
+  latest_packed_receipt_reference == request.packed_receipt_reference
+  original_config_reference == request.original_config_reference
+  terminal_history_review_reference (the actual bounded review described below)
+  postprocess_source_witness_reference (the actual original15 archive below)
+  all_registered_packed_parent_job_ids (exact unique set, latest included)
+  preserve_legacy16_registered_origins: true
+  all_old_root_first_hashes_in_this_parent: true
+  all_packed_science_parents_terminal: true
+  no_origin_reassignment_or_new_science: true
+
+terminal_history_review_reference uses the SAME packedR2
+ROOT_REVIEWED_TERMINAL_PACKED_CONTINUATION_V2 schema/status/read_limits and entries,
+now explicitly listing every old64 PLUS latest64. Its new_inputs_review_reference
+is the latest producer's actual inputs_review_reference, not a fabricated future
+generation review. It is independently approved for this read-only collection.
+Each row supplies actual request/submission/plan/startup-proof/terminal-account
+and actual original10-or11 packed-source archive, with actual receipt/failure
+reference or explicit terminal-report absence. PACK.history.describe is called
+directly; old FAILED/TIMEOUT/UNKNOWN are not forced through a16CPU/C0 predicate.
+Latest must match this postprocess request's real receipt/plan/proof/account.
+Every parent in latest generation's own history must remain present.
+
+postprocess_source_witness_reference schema
+POSTPROCESS_ORIGINAL_SOURCE15_ARCHIVE_V2, status
+EXACT_SOURCE_BYTES_ARCHIVED_BEFORE_REPLACEMENT. entries exactly15, each with
+origin_reference (original HERE/name triple) and snapshot_reference (actual
+ROOT/control/source_snapshots/... file). Equal bytes/SHA, unique original names.
+Root must install/hash these SOURCE copies before using their server references;
+the author's original15 child archive is not falsely called a server snapshot.
+Same-parent preflight verifies complete original binding/positive_ticks/accounting
+function text and the original9 unchanged files against this witness, alongside
+the existing Common/D7 complete-body inverse and actual28 synthetic methods.
+
+Contract and CPU DATA closure
+----------------------------
+The request declares all true old/latest plan/proof/request/submission/account/raw,
+Root reviews and source snapshots as actual small sources. All producer indices,
+errors and inherited original DATA triples are declared without login body reads.
+Packet/task/start/claim refs are transferred at CPU only from these producer-pinned
+complete indices and Root-approved fixed terminal roots, under explicit bounded
+reader limits. No future packet SHA or fake flattened login inventory is made.
+
+At CPU, all real old indices must have the exact original99351 task/MID/cohort/N
+domain. Their states and unknowns remain in packed_origin_indices_readback.json.
+An old observed package must still have the exact same producer reference in the
+latest consolidated index. The current index chooses no new chemistry or role.
+Actual64 owner roots are checked against canonical once owner and packet filename;
+whole SHA/fstat/EOF is verified before numerical parse, with fresh bounded
+read-only readers. The actual positive triples and transfer authority are written
+to packed_package_transfer_manifest.DATA.jsonl. A wrong owner/root or unregistered
+parent HOLDs; no arbitrary root, alias or same-parent masquerade is accepted.
+
+Only then the original normalizer/float64/atom/geometry checks and original packed
+binding operate. Full task SHA/original meta/seed/recipe/parent ticks/boot and the
+exact immutable prepared/start/claim chain are checked. No old SQLite is opened,
+no source packet or scientific once is written, no UFF/QM engine initializer is
+called, and no UFF/QM/new precision is requested by this owner adapter.
+
+Unchanged science and release rules
+----------------------------------
+__init__/io/common/math_bridge/hof/cache/worker/statistics/source_inverse are
+byte-identical original9 files. The complete original Common SQL/role/ID/math,
+2%/20%+Se exception quality gates, HoF interpretation, PM7 cache reuse, all D7
+mathematics, orders, geometry evidence and final independent Root acceptance stay
+unchanged. Old16 branch and complete original64 binding/accounting bodies are
+identical. Root old full costs/failed/unknown parents stay separate and real.
+Technical parent C0 alone releases no Common, D7, Pprime2000 or training scope.
+
+Original R1 documentation follows; R2 owner-context additions above govern.
+
+R3: deferred real large operational receipt (SOURCE ONLY)
+========================================================
+
+The real old64 receipt exists and exceeds2MiB. Global small guards, science and
+resource11R3 are unchanged; R2 Source ZIPs remain frozen. A deferred large receipt
+is never represented as absent, pre-hashed, or a fabricated C0/small native report.
+
+The request can explicitly use:
+  packed_receipt_reference: null
+  packed_operational_metadata_entry_reference: ACTUAL_ROOT_SMALL_ENTRY_TRIPLE
+  packed_parent_job_id: ACTUAL_TERMINAL_PARENT
+plus the original real accounting, full origins review and all other authorities.
+The actual entry is ROOT/control/sprime_packed4524556_actual_history_metadata_entry_v1.json
+(machine-pin the path). Root origins review adds
+latest_packed_operational_metadata_entry_reference equal to this same triple;
+latest_packed_receipt_reference is null only because the body hash is explicitly
+CPU-pending, not because receipt absence was asserted. Each registered parent uses
+the same large_operational_metadata_entry_reference branch as packedR3.
+
+Login metadata opens/hashes only small references; no full report or index is
+read. It verifies actual request/sub/plan/proof/account/source snapshots and lstat.
+After existing28+fresh quota in the SAME analysis Parent, packed.operational reads
+the complete report with fixed-root+stable-FD/full-SHA/EOF checks (<=16MiB), verifies
+real9 original preflight/job/UID/64CPU/plan/proof/drain flags, writes actual small
+headers, and obtains the actual producer index/error references. Only then does
+the original99,351 domain/index/true-owner/packet/Common/PM7/D7 processing begin.
+All transferred actual references are retained; no large body is login metadata.
+
+The original readonly technical key formula and namespace are unchanged. It now
+receives the SAME actual whole-receipt triple from the CPU context, rather than
+trying to obtain it from a login plan or using null. No scientific once changes.
+cache.py has exactly the one equivalent receipt-reference lookup change; its
+entire source is inversely compared with the original witness. Original8 complete
+IO/math/HoF/D7/statistics/inverse files stay byte-identical; original binding/
+positive_ticks/accounting bodies stay identical. Existing28 methods remain28;
+the scope boundary also proves a null deferred marker cannot be a technical key.
+
+If an earlier CPU small header already supplies a real full SHA, it may be
+declared, with its actual header and terminal entry; the runtime still rechecks
+the current complete body and its exact frame/SHA. New packed producers emit a
+small receipt_header.json after writing the retained full report. Headers never
+grant Common/D7/physical/Pprime/training release or replace actual accounting.
+
+R2 description retained below; R3 operational handling above governs big reports.
+
