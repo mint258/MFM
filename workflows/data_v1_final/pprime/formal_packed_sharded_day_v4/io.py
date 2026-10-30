@@ -21,9 +21,12 @@ class Budget(Before.Budget,Resource.Budget):
             from workflows.data_v1_final.execution.cpu_analysis_general_nodes_v1.quota_provider import Client
         self.client=Client(plan['quota_provider_review_reference'],proof['request']);self.next_quota=0;self.quota=None;self.written=0
         self.quota_guard_events=out/'quota_guard_events';self.quota_guard_events.mkdir();self.quota_guard_event_references=[]
-        self.quota_guard_store=Store(self.quota_guard_events,64<<20);self.forecast_records=max(1,plan.get('maximum_assigned_records',C.MAX_RECORDS));self.scope_forecast_records=self.forecast_records;self.local_root=None;self.node_book=None
+        self.quota_guard_store=Store(self.quota_guard_events,64<<20);self.forecast_records=max(1,plan.get('maximum_assigned_records',C.MAX_RECORDS));self.scope_forecast_records=self.forecast_records;self.local_root=None;self.node_book=None;self.current_future_observation=None
+    def check(self,dispatch=True,force=False):
+        from .resource_forecast import checked
+        return checked(self,Before.Budget.check,dispatch,force)
     def report(self):
         return dict(super().report(),software_working_budget_bytes=self.SOFTWARE_WORKING_BUDGET_BYTES,
           RSS_limit_bytes=self.RSS_LIMIT_BYTES,MemAvailable_minimum_bytes=4<<30,
           MemAvailable_minimum_node_fraction=.15,resource_version='PPRIME_PREP_ONLY_DUCK32_RSS56_V4',
-          Slurm_memory_requested=False)
+          Slurm_memory_requested=False,current_root_future_observation=self.current_future_observation)

@@ -16,3 +16,8 @@ Software budget64GiB, RSS56GiB, actual MemAvailable, local book, quota200GB,
 original cumulative cost guard, CPU16, finite24h and no-SBATCH-memory policy stay.
 This variant does not reopen stopped publication recovery or the Alpha bridge.
 It is for remaining originally assigned headers lacking complete prepared inputs.
+
+The already verified current-Root forecast observer is reused unchanged. It holds
+the existing Root resource lock across each original fresh quota observation;
+Root remains the sole forecast writer. The original200GB floor, no CAS/once
+mutation, resource limits and all scientific functions remain unchanged.
