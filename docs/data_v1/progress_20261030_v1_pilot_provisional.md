@@ -35,3 +35,9 @@ D5载荷补充接线：独立pilot_D3_diagnostic_supplement_resume_v1八件已�
 资源接续：实测Node17空闲112CPU、MemAvailable355,387,473,920B、tmp60,631,506,944B；Root仅退役自有纯元数据3813424并交给3842811，未向Slurm或其他/模型作业发信号。Node17 Native上限4→6，整体16父作业、原绝对48h deadline、全部epochs/assignment/once/质量/2倍用量线保留；实际5275/5276均已RUNNING16CPU。旧配置/历史不改，D4与D3/D5优先链继续独立运行。
 
 交付文档：已补齐指南要求的DATASET_V1_CARD.md，按v1-pilot-provisional说明正式入口、现有源与引用链、50k/5k和D5母清单、F64/单次F32、r73/r674/MolMR、TRAIN-only统计、held base/child/input-view排除和seen交集、实际GPU本地IO/Model ACK边界。未来数值/哈希/终态未预填。必要仓库检查4525277实际C0/8秒/16CPU，PASS4364文件/2987Python/1311server sources；未增加科学测试。D4实际仍在GEOMETRY。
+
+P′ 正式批次 4525259 已真实 C0，18,048 个构象完成、18,047 个全12项成功；因原输出容量保护自然收尾，37,730 个尚未派发构象保留为待接续，不重算 consumed/失败/UNKNOWN。本轮正式计算已启用16个并发父作业、峰值256CPU；自然收尾后按现有调度器接续，输入准备5个父作业80CPU，D-4独立16CPU保留。
+
+P′ 实际 C0 部分批次的剩余构象已接续：4525280（16CPU，compute-0-18）已运行，原3项源码检查和55,778条关闭输入核验通过；复用原输入及once记录，仅派发未消耗构象。元数据协调器已安全交接为3866846，保留原绝对截止时间和全局16作业上限，新增未来元数据预算明确登记，未修改或终止任何Slurm作业；D-4及两条交付接续进程仍独立运行。
+
+已关闭 EXEC epoch0/1 的未来预留结清：两组各4个父作业均实际 C0、全部已发布token为COMMITTED，结清64GiB已不存在的未来写入预留；原结果、CAS token、UNKNOWN、PREP及D系列预留保留，已占字节仍由quota used计入。D-1签后原件及五份冻结Source的字节/SHA再次匹配，掩码说明补充当前暂定试点口径；D-4的实际作业及交付接续进程仍在运行。
