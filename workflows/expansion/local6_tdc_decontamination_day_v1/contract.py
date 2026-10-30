@@ -7,7 +7,8 @@ triple=Pins.triple;unique=Pins.unique
 from workflows.expansion.marcel_kraken_decontamination_main_v1 import contract as K
 Q=K.Q;ROOT=Q.ROOT;REPO=Q.REPO;PY=Q.PY;need=Q.need;meta=K.meta
 HERE=REPO/'workflows/expansion/local6_tdc_decontamination_day_v1'
-FILES=('__init__.py','contract.py','io.py','projection.py','local.py','tdc.py','supplement.py','run.py','materialize.py','test_v1.py','README.md')
+FILES=('__init__.py','contract.py','io.py','projection.py','local.py','tdc.py','supplement.py','recovery.py','run.py','materialize.py','test_v1.py','README.md')
+RECOVERY_KEYS=('recovery_parent_receipt_reference','recovery_parent_accounting_reference','recovery_inventory_reference','recovery_source_archive_reference','recovery_root_review_reference')
 KEY='local6_tdc_decontamination_day_v1';MODULE='workflows.expansion.local6_tdc_decontamination_day_v1.run'
 BASE=ROOT/'artifacts/expansion/local6_tdc_decontamination_day_v1';WALL=72000;CAP=32<<30
 LOCAL=ROOT/'artifacts/expansion/identity/sb5_identity_full_closed_units_coverage_v1_v1/receipt.json'
@@ -28,6 +29,8 @@ PARAMETERS={'scope_key':KEY,'local_closed_parent':'4521192','old_failed_parent':
 PARAMETERS.update(existing_software_DATA_files=6,physical_C0_manifest_DATA_files=1,top_level_DATA_files=413,
     repository_checker_original_object_once=True,physical_C0_job='4524581',physical_C0_embedded_ref_scope='384native_20tensor_old72_defined_official_exact_paths',
     physical_units_sign_frame_scientific_PASS_or_precision_permission_signed=False)
+PARAMETERS.update(readonly_recovery_parent='4524583',recovery_parent_state='FAILED',recovery_parent_upgraded_to_C0=False,
+    old404_projection_calls_in_new_parent=0,old11m_strict_outputs_copied=False,first_SHA_authority='EXACT_ROOT_LSTAT_OF_FAILED_CLOSED_FIXED_PATHS')
 
 def generic_review(value):
     need(value['schema']=='EXACT_CPU_AUTO_MEMORY_SCOPE_ROOT_REVIEW_V1'
@@ -38,7 +41,7 @@ def generic_review(value):
         and value['global_pool_release_authorized'] is False,'REAL_ROOT_EXACT_GENERIC_SCOPE_REVIEW')
     return value
 
-def account(ref,job,node):
+def account(ref,job,node,*,state='COMPLETED',exit_code='0:0',elapsed=None):
     a=meta(ref);refs=[]
     raw=a.get('raw_sacct_reference',a.get('raw_accounting_reference',a.get('raw_reference')))
     if raw is None:
@@ -47,8 +50,9 @@ def account(ref,job,node):
     need(raw['bytes']<=2<<20 and Q.pin(raw['path'])==raw,'CURRENT_SMALL_TERMINAL_RAW')
     lines=Path(raw['path']).read_text().splitlines();header=next((x.split('|') for x in lines if x.startswith('JobIDRaw|')),None)
     need(header is not None,'EXPLICIT_SACCT_FIELDS_REQUIRED');rows=[dict(zip(header,x.split('|'))) for x in lines if x.startswith(str(job)+'|')]
-    need(len(rows)==1 and rows[0]['State']=='COMPLETED' and rows[0]['ExitCode']=='0:0' and rows[0]['AllocCPUS']=='16'
-        and rows[0]['NodeList']==node and rows[0]['UID']=='1278','TRUE_C0_PRIMARY_NOT_EXTERN_OR_OTHER_PARENT')
+    need(len(rows)==1 and rows[0]['State']==state and rows[0]['ExitCode']==exit_code and rows[0]['AllocCPUS']=='16'
+        and rows[0]['NodeList']==node and rows[0]['UID']=='1278','EXACT_ACTUAL_PRIMARY_STATE_EXIT_CPUS_UID_NODE_NOT_EXTERN')
+    need(elapsed is None or int(rows[0]['ElapsedRaw'])==elapsed,'EXACT_ACTUAL_PARENT_SECONDS_NOT_ESTIMATE')
     return raw
 
 def derive(plan):
@@ -110,6 +114,8 @@ def derive(plan):
         'TDC_original_archive_reference':tdc['input_reference'],'TDC_member_counts':tdc['result']['member_result_counts'],
         'TDC2_DATA_reference':alpha,'TDC2_origin_DATA_reference':origin,'TDC2_accepted_observations':policy['new_compositions_accepted_for_conservative_non_H_exclusion_only'],
         'physical_manifest_reference':physical,'software_DATA_references':software}
+    from . import recovery
+    recovered,extra=recovery.derive(plan,authority['units'],data);authority['recovery']=recovered;parents.extend(extra)
     return authority,data,unique(parents,source=True)
 
 def sources():
