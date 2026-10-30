@@ -1,5 +1,6 @@
 """Original finite day Budget/IO objects with explicit closed-parent roots."""
 import copy,json,os,pathlib,sqlite3,threading,types
+from workflows.data_v1_final.execution import finite_quota_observation_guard_v2 as QG2
 from workflows.data_v1_final.labels.existing_sprime_pilot_day_v1 import io as B
 from workflows.data_v1_final.export.family_export_day_v1 import io as F
 from workflows.data_v1_final.labels.existing_sprime_pilot_general_cpu_day_v1 import run as General
@@ -19,6 +20,9 @@ class CensusContext:
 def private_io_function(original,census,save_function=None,write_text_function=None,*,stop_evidence=False):
     """Original entire function code/defaults; explicit private IO bindings only."""
     namespace=dict(original.__globals__);namespace['unique_bytes']=census
+    # Same deployed D4 correction: durable census/fsync precedes the 1.1s wait.
+    # Only the private observation binding changes; original Client guards stay.
+    if 'QG' in namespace:namespace['QG']=QG2
     if save_function is not None:namespace['save']=save_function
     if write_text_function is not None:namespace['write_text']=write_text_function
     if stop_evidence:namespace['R']=NativeCensus.ResourceStopEvidence(namespace['R'])
