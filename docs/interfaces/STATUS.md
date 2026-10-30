@@ -1,3 +1,13 @@
+## 2026-10-31 当前交付状态：v1-pilot-provisional
+
+D-1 已按同一 v3.0 双方冻结，见[冻结记录](D1_v3_0_joint_interface_freeze_20261029_v1.md)。r73 权威 F64 与有序条目保留、训练仅转一次 F32；r674 维持 LOSS_DISABLED，不追加 QM。
+
+D-2 已交付[146字段定义字典](../../configs/data_v1/d2_v1_pilot_provisional_registry/published.json)，实际 TRAIN 尺寸相关性、能量元素参考、数值掩码和归一化绑定仍待 D-4 完整结果。D-5 已交付[嵌套与留出清单](../../configs/data_v1/D5_v1_pilot_provisional_delivery.json)，包含120k⊂240k⊂600k⊂1,108,366 TRAIN、50k/5k试点和20k诊断母名单；实际 D-3 已见分子交集的诊断标签载荷尚未导出。这两项已有交付均不等于55k训练载荷已就绪。
+
+D-4 实际作业4525337在compute-0-2使用16CPU运行：55,583既有缓存分片与11,940缺少分片已读取完成，正在构建普通S′几何索引；尚未产生完整归一化统计。D-3等待其完整回执、原质量检查及真实C0，再自动提交50,000 TRAIN+5,000 ROUTINE VAL导出；D-5诊断标签载荷随后自动接续。四项统一标为v1-pilot-provisional，不等共同人群最终版本、D-6/D-7或后台扩充。GPU本地读取性能及Model实际payload ACK仍待真实产物，不声明training_ready。
+
+后台P′已有正式标签产出；剩余输入准备的路径修复已按两次失败上限暂停，不阻塞D系列。Alpha继续PubChem物化，MoleculeNet/COCONUT保留9/11 READY与其余未解决项。每日实际汇总只维护[当日汇总](../data_v1/progress_20261031_v1_pilot_provisional.md)，不将以下历史快照当作当前门槛。
+
 ## 2026-10-30 D-5 v1-pilot-provisional 已交付
 
 实际作业4525184已 COMPLETED / 0:0，Root 已接受并发布[正式D-5清单](../../configs/data_v1/D5_v1_pilot_provisional_delivery.json)与[交付说明](../data_v1/D5_v1_pilot_provisional_20261030.md)。已有完整S′的暂定母人群中，TRAIN嵌套清单为120,000 ⊂ 240,000 ⊂ 600,000 ⊂ 1,108,366；另含50,000 TRAIN与5,000 ROUTINE VAL试点。
