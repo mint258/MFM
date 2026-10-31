@@ -4,7 +4,7 @@ D-1 已按同一 v3.0 双方冻结，见[冻结记录](D1_v3_0_joint_interface_f
 
 D-2 已交付[146字段定义字典](../../configs/data_v1/d2_v1_pilot_provisional_registry/published.json)，实际 TRAIN 尺寸相关性、能量元素参考、数值掩码和归一化绑定仍待 D-4 完整结果。D-5 已交付[嵌套与留出清单](../../configs/data_v1/D5_v1_pilot_provisional_delivery.json)，包含120k⊂240k⊂600k⊂1,108,366 TRAIN、50k/5k试点和20k诊断母名单；实际 D-3 已见分子交集的诊断标签载荷尚未导出。这两项已有交付均不等于55k训练载荷已就绪。
 
-D-4 实际作业4525337在compute-0-2使用16CPU运行：55,583既有缓存分片与11,940缺少分片已读取完成，正在构建普通S′几何索引；尚未产生完整归一化统计。D-3等待其完整回执、原质量检查及真实C0，再自动提交50,000 TRAIN+5,000 ROUTINE VAL导出；D-5诊断标签载荷随后自动接续。四项统一标为v1-pilot-provisional，不等共同人群最终版本、D-6/D-7或后台扩充。GPU本地读取性能及Model实际payload ACK仍待真实产物，不声明training_ready。
+D-4 当前作业4525452在compute-0-2使用16CPU运行，原6项预检、仓库检查和无损压缩字节一致性通过；六张原几何表已由实际CPU作全SHA/footer/schema/count接纳复用，metadata SQLite开始写入。旧5429在全部几何表完成后因旧node17审阅绑定不符实际node2而FAILED1:0，失败保留，不冒充C0；新版本使用实际node2新探针。原metadata code、child/input双哈希、146字段、171组、TRAIN-only及两次精确回放不变，内层SQLite压缩不改最终训练格式。尚未产生完整归一化统计。D-3等待其完整回执、原质量检查及真实C0，再自动提交50,000 TRAIN+5,000 ROUTINE VAL导出；D-5诊断标签载荷随后自动接续。四项统一标为v1-pilot-provisional，不等共同人群最终版本、D-6/D-7或后台扩充。GPU本地读取性能及Model实际payload ACK仍待真实产物，不声明training_ready。
 
 后台P′已有正式标签产出；剩余输入准备的路径修复已按两次失败上限暂停，不阻塞D系列。Alpha继续PubChem物化，MoleculeNet/COCONUT保留9/11 READY与其余未解决项。每日实际汇总只维护[当日汇总](../data_v1/progress_20261031_v1_pilot_provisional.md)，不将以下历史快照当作当前门槛。
 
