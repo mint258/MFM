@@ -1,21 +1,17 @@
-# 数据线每日汇总：2026-10-31（v1-pilot-provisional）
+# 2026-10-31 数据线每日汇总 — v1-pilot-provisional
 
-D-1：`configs/data_v1/interfaces/D1_v3_0_joint_interface_freeze_20261029_v1.json` 当前为 `JOINTLY_FROZEN`，合同 v3.0。r73 保留权威 F64、有序条目，训练仅转一次 F32；r674 维持 LOSS_DISABLED，不追加 QM 或质心变换。政策/配置签字与实际数据载荷 ACK 分开。
+D-1 已与模型线共同冻结为 v3.0；政策 ACK 不等于实际训练载荷 ACK。r73 保留有序 F64 权威副本，训练时只转一次 F32；r674 维持 LOSS_DISABLED，不追加 QM。
 
-优先交付：D-2 的 `d2_v1_pilot_provisional_registry/published.json` 已正式发布 146 字段的暂定定义字典，但明确 `statistical_D2_mapping_or_D3_payload_complete=false`。D-5 的 `D5_v1_pilot_provisional_delivery.json` 已有真实 C0：嵌套 TRAIN120k⊂240k⊂600k⊂1,108,366、ROUTINE VAL7016、试点50k/5k、20,000 TRAIN 分子的诊断母名单、实际 base/child/input-view 排除清单与分布清单；seen-MID 交集必须由真实 D-3 确定，诊断标签载荷仍待导出，不假定交集就是20k。
+D-2 已正式发布 146 字段定义字典，统计映射仍待 D-4。D-5 已交付嵌套 TRAIN120k⊂240k⊂600k⊂1,108,366、ROUTINE VAL7016、试点50k/5k及20,000分子诊断母名单与实际排除清单；诊断标签载荷必须取实际 D-3 已见分子交集，不假定交集为20k。
 
-D-4：当前4525452在compute-0-2实际RUNNING，16CPU/24h。原6项Source、仓库检查、内层解压后与原完整F64/tree/signature/None/NaN/顺序字节一致性证明均PASS；实际CPU已对旧六张几何表完成全SHA、稳定FD/footer/schema/记录数接纳，直接复用，无新几何/QM/UFF。原metadata函数整个code object、实际每调用输入双哈希/子几何/视图、诊断反连接、eligibility、146字段、171组、TRAIN-only公式、两次独立精确回放与r674 LOSS_DISABLED保持。当前实际metadata geometry.sqlite已开始写入；不读/查/hash活动DB。
+D-4 当前作业4525455，compute-0-2，16CPU/24h：原6项Source、仓库检查和缓存字节一致性/解码独立副本检查均通过。六张既有几何表经实际CPU完整SHA、稳定FD/footer/schema/count接纳后复用；未重做S′/QM/UFF。代码4d4445a。当前phase名仍为GEOMETRY，实际正在完成原始程序输入与标签对应关系，尚无完整归一化结果。
 
-旧5429实际FAILED1:0/3,803秒/16CPU：已完成全55k包读回及六张原表（含原全F64语义读回和15个reader退出0），随后在metadata函数第一条环境审阅处，因继承的node17与实际node2不一致退出，尚未打开metadata DB、没有统计回放。失败状态和全部成本/产物保留，不升为C0。按用户事先授权，续接版本绑定实际node2和新同存储探针，严格复用六张闭合组件；旧metadata目录为空和真实失败栈/注册/原源码证明组件边界。新入口首次仅静态AST发现运算符拼写问题，修正后才提交5452，无失败的数据重跑。此前5337自然C0/42,396秒写齐55k包；5428自然C0/1,572秒仅串行读回，原记录保留。
+已定位的耗时来源是对134,771,820行元数据逐行查SQLite。本轮仅为静态PM7试点RID集合、原始BLOB和已验证原始字节的解码结果加有界缓存（8GiB BLOB、12GiB解码；每次返回独立副本），非试点行不查未被消费的canonical owner。原metadata整个code object、全部原始行扫描、每调用输入双哈希、child/view构建、诊断反连接、146字段、171组、TRAIN-only公式和两次精确回放均保留，原64GiB/RSS/32GiB输出/24h及200GB余量规则不变。旧4525452经既有STOP协议自然COMPLETED0:0，只有部分元数据、没有统计；其实际文件与耗时全部保留，未升为完整D-4。其原32GiB未用输出预测在实际C0和观测闭合后一次性转给新任务，未重复核销。
 
-存储/序列化：闭合包元数据总9,104,010,382B，对应1,018,388个原base几何，后续原12任务共有6,110,328个调用绑定，中间SQLite的原重复JSON存储存在超过32GiB风险。新派生SQLite BLOB用DV1Z1+zlib(level1)包装原lossless字节，读取解压后走原decoder；解压大小上限、完整流及原签名检查保留。仅复用原始浮点树计算同一签名，避免4次重构树/自解码；原parquet writer整个code object、全F64写入及读回均保持，原始数据和最终LMDB/F64旁车/parquet格式不变。旧5429真正闭合后其32GiB unused future仅一次重分配给新32GiB输出，加128MiB provider/admin；旧5337、5428之前结清不再扣减，D3/D5及P′预算保留。运行时仍读实时Root账本与原quota/future+200GB、RSS/内存/时限保护。
+D-3/D-5接续：572044等待实际完整5455 C0，再提交一次50,000 TRAIN+5,000 ROUTINE VAL导出；459250等待实际公开D-3/D-4，再提交seen-MID/unseen-conformer诊断载荷。D-3来源指纹与既有IO逆向检查口径已同步，原资源准入/启动函数保留完整AST比较；原3项Source、10,000条真实来源核对、16-reader验证仍须在实际D-3完成。GPU本地IO与Model实际payload ACK尚待真实产物，不声明training_ready。四项均为v1-pilot-provisional，不等共同人群最终版本、D-6、D-7或后台扩充。
 
-交付接续：529523等5452完整回执、两次精确TRAIN回放及真实C0后提交匹配D3并发布；459250继续等真实D3/D4公开交付后提交D5标签载荷。旧474823已因原候选终态不完整自然退出，不信号科学或Model作业；绝对截止不延长。未注册D3消费v3显式支持真实v4/v5/v6作用域及旧5429几何来源根，保留5232原片、5337补齐片与新复用父作业来源，不改旧producerID。RawRows用16行Arrow缓冲，仅将实际请求行转Python，跳过行仍逐一保留原128MiB检查；原FD/原值/mask/顺序保持。新SQLite包装已在D3域/worker/writer和D5闭合域reader显式兼容，最终永久F64、一次F32、原3Source、10k真实来源和16-reader、真实seen交集与全部原排除规则保持。D3修改仅静态/整模块逆变核对；实际Source3/10k仍在真实Parent执行。完整归一化/55k载荷/D5标签载荷尚未交付，GPU本地IO与Model实际载荷ACK尚待，不声明training_ready。
+P′最近闭合回执确认1,060,508/2,119,502构象已计算（50.04%），其中1,060,287全12项成功、221未全成功；失败/UNKNOWN保留，不把父作业C0当整片科学完成。当前原8GiB额外TMP保守准入仍在等待，接续器112519存活；现无正式P′计算并发。原12任务、版本、精度、种子、900秒及用户99.45%放行线不变。
 
-P′后台：冻结的新增范围1,059,751分子/2,119,502构象，原12任务、程序版本、精度、种子、900秒及99.45%门槛不变；UTC2026-10-31 03:38重新核对80份闭合回执确认1,060,508构象计算完成，其中1,060,287全12项成功，221未全成功；占新增2,119,502构象50.04%。累计注册82次；当前P′科学作业0个，元数据协调器因实际本地TMP余量等待，全部失败/UNKNOWN保留，不把父作业C0等同整分片科学完成。parentstate_v3 首个正式作业4525347的原3项检查和55,776构象/27,888分子的独立CPU全输入核对通过，并已写出标签；元数据协调器4087028曾由105203接续；本地TMP准入调整的两批随后都触发资源保护，现已仅停止105203自身，由112519按原8GiB保守准入和同一绝对截止时间接续。历次均核实身份、全argv、源码和公共锁，不动科学、模型和他人作业。代码b222731；必要仓库检查4525345真实C0/PASS（4,414文件、3,030 Python、1,311 server sources），未增加QM诊断。
+后台：Alpha1885120继续以32CPU物化PubChem已闭合的500/502片段（原124,857,440行），仍为UNFILTERED_NO_RELEASE；MoleculeNet/COCONUT为9/11 READY，其余保守挂起，不阻塞v1。PREP输入准备、Alpha P′桥接和TMP副本清理的既有STOP2问题维持“未解决”，不换路径或节点绕过两次失败上限。新SSH别名诊断亦停止，继续使用已验证的既有密钥会话和X盘。
 
-常规资源与未解决事项：终态作业、已提交发布包和停止路径的未来写入预留按原谱系逐项一次性核销，包括原PREP25包33,515,790,662B（剩余843,947,706B未来容量）、从未启动恢复池32GiB、两次失败Alpha导出16GiB；全部实际文件、失败/UNKNOWN和D系列预留保留。维护5379真实C0，回收已发布本机冗余副本7,019,758,546B，共享权威副本与恢复映射完整。后续5331副本回收5389/5390两次在删除前遇/proc权限检查失败，按用户两次失败上限记“未解决”并停止该问题；两次均未删除文件，不再绕换父作业或节点重试。闭合PREP恢复和Alpha桥接维持此前STOP2，DuckDB资源修复已落实为独立只准备输入的v4：只将内存SET改为32GB，原7GB临时上限、全部科学函数与3项Source保持；必要仓库检查5395真实C0/PASS（4,425文件、3,040 Python），提交代码ce8dcbf。合并作业4525396实际FAILED1:0/31秒/16CPU：3项Source通过后，在第一次prepare.build之前被原publication的FIXED_SHARED_POOL_ROOT拦截（新池路径未位于原v2基目录）；原9片没有生成新输入、没有QM或once写入。该轮修复按两次失败上限标“未解决”，不再自动重试；共享25片、闭合本地4片与其他正式P′均保留。提交前carveout分类曾直接修复并复用原预算/provider；从未创建的PREP32GiB未来预留已在实际失败后一次性核销，384MiB元数据与所有实际文件保留，不影响D系列预算。其他P′及D系列继续。TMP准入调整提交的4525399/4525400均真实C0但为资源停止的部分结果：分别332/5个构象全12成功，第二批另11条UNKNOWN，全部保留且不重试；两批都触发ACTUAL_NODE_TMP_FREE_SHARED_SOFT_DRAIN_STOP_NEW_KEEP_ALL_STARTED。该资源修复按两次停止上限记“未解决”，原8GiB额外TMP保守口径已恢复，不再尝试降低；已启动4525401/4525402等作业继续自然收尾。原producer资源监测、共享8GiB/32GiB上限、QM配方/once、STOP2清理和PREP恢复均不改。200GB余量、全部质量阈值及累计2倍用量确认线不变。
-
-其他后台：Alpha1885120实际使用32CPU继续PubChem闭合片段物化，仍为UNFILTERED_NO_RELEASE；MoleculeNet/COCONUT去污染为9/11 READY，其余保守挂起；AlphaP′桥接保持两次失败后的未解决状态。上述问题均不阻塞v1-pilot-provisional交付。新建Windows SSH别名观察连接两次被拒，记未解决并停止此连接诊断；X盘和既有密钥SSH会话仍可用，继续现有会话，不重启计算。普通记账按周；收据/SHA仅正式交付及既有必要Source/资源谱系，不预填未来哈希或完成状态。
-
-实时索引：`runs/data_v1_20261025/control/current_work_state.json`。四项实际数据交付未全部完成，目标继续进行中。
+只维护本份每日汇总；常规记账按周。收据/SHA用于正式交付及既有必要Source/资源谱系。全部质量阈值及超过可比试点估计2倍需确认的规则保留。

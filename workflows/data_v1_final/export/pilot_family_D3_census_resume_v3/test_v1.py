@@ -118,8 +118,26 @@ class Boundaries(unittest.TestCase):
         resource_import=b'from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v3 import resource_census as ResourceCensus\n'
         normalized=current.replace(resource_import,b'').replace(b'NativeCensus.retry_whole_census(ResourceCensus.unique_bytes,path,self.record_census)',b'NativeCensus.retry_whole_census(B.unique_bytes,path,self.record_census)').replace(b'    def _observe(self):\n        with ResourceCensus.current_root_future(self):return self.parent_observe(self)',b'    def _observe(self):return self.parent_observe(self)')
         normalized=normalized.replace(b'from workflows.data_v1_final.execution import finite_quota_observation_guard_v2 as QG2\n',b'').replace(b"    # Same deployed D4 correction: durable census/fsync precedes the 1.1s wait.\n    # Only the private observation binding changes; original Client guards stay.\n    if 'QG' in namespace:namespace['QG']=QG2\n",b'')
+        normalized=normalized.replace(b'import copy,json,os,pathlib,sqlite3,threading,time,types',b'import copy,json,os,pathlib,sqlite3,threading,types').replace(b';self.next_row_census=0.',b'')
+        cadence=(b'    def check(self,*,force=False,dispatch=True):\n'
+          b'        if force:self.observe()\n'
+          b"        if dispatch:C.need(not B.stop_requested(),'SOFT_RESOURCE_STOP_PILOT_NO_NEW_WORK_NATURAL_DRAIN')\n"
+          b'        if force or time.monotonic()>=self.next_row_census:\n'
+          b"            C.need(self.census_context(self.root)+(256<<20)<self.plan['whole_output_cap_bytes'],'FINITE_PILOT_WHOLE_OUTPUT_CAP')\n"
+          b'            self.next_row_census=time.monotonic()+1.\n')
+        self.assertIn(cadence,normalized)
+        normalized=normalized.replace(cadence,b'    def check(self,*,force=False,dispatch=True):return self.parent_check(self,force=force,dispatch=dispatch)\n')
         self.assertEqual(normalized.split(b'def fast_parts_root(')[0],before.split(b'def fast_parts_root(')[0])
-        self.assertEqual(current.split(b'def resource_admission(')[1],before.split(b'def resource_admission(')[1])
+        # Compare every original admission/startup function in full. Appended
+        # closed-origin IO adapters are checked above and by the whole-module
+        # byte inverse, rather than being mistaken for resource-guard changes.
+        import ast
+        guard_old_nodes=ast.parse(before).body;guard_new_nodes=ast.parse(current).body
+        guard_start=next(i for i,n in enumerate(guard_old_nodes) if isinstance(n,ast.FunctionDef) and n.name=='resource_admission')
+        for old_guard in guard_old_nodes[guard_start:]:
+            if isinstance(old_guard,ast.FunctionDef):
+                new_guard=next(n for n in guard_new_nodes if isinstance(n,ast.FunctionDef) and n.name==old_guard.name)
+                self.assertEqual(ast.dump(old_guard,include_attributes=False),ast.dump(new_guard,include_attributes=False))
         with tempfile.TemporaryDirectory(prefix='source3_f64_',dir=WORKSPACE) as directory:
             values=np.asarray([.10000000000000003,-0.,np.nan],dtype='<f8');mask=np.asarray([1,1,0],dtype='|u1');arrays={'values/x':values,'valid/x':mask,'reason/x':np.asarray([0,0,2],dtype='<u2')}
             side=W.Sidecar(pathlib.Path(directory)/'authority.sqlite');m={'export_record_id':'synthetic_g','molecule_id':'synthetic_mid'};loc=side.put(m,arrays);side.commit();closed=side.finish()
