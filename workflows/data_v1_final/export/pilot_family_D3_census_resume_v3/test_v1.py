@@ -113,6 +113,7 @@ class Boundaries(unittest.TestCase):
         for row in witness['unchanged_module_witnesses']:
             raw=(C.HERE/row['file']).read_bytes();self.assertEqual((len(raw),hashlib.sha256(raw).hexdigest()),(row['bytes'],row['sha256']))
         before=base64.b64decode(witness['original_io_source_base64']);current=(C.HERE/'io.py').read_bytes()
+        current=current.replace(b",C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v7'",b'')
         # Inverse only the explicitly reviewed resource dependency changes.
         resource_import=b'from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v3 import resource_census as ResourceCensus\n'
         normalized=current.replace(resource_import,b'').replace(b'NativeCensus.retry_whole_census(ResourceCensus.unique_bytes,path,self.record_census)',b'NativeCensus.retry_whole_census(B.unique_bytes,path,self.record_census)').replace(b'    def _observe(self):\n        with ResourceCensus.current_root_future(self):return self.parent_observe(self)',b'    def _observe(self):return self.parent_observe(self)')

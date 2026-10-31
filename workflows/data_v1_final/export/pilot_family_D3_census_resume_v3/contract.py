@@ -14,6 +14,7 @@ COMPONENTS=('prefix_reference','population_reference','geometry_reference','cove
 NATIVE_KEY='existing_sprime_fast55k_resume_v4'
 NATIVE_V5_KEY='existing_sprime_fast55k_resume_v5'
 NATIVE_V6_KEY='existing_sprime_fast55k_resume_v6'
+NATIVE_V7_KEY='existing_sprime_fast55k_resume_v7'
 NATIVE_V2_KEY='existing_sprime_fast55k_resume_v2'
 NATIVE_V1_KEY='existing_sprime_fast55k_resume_v1'
 NATIVE_MODULE='workflows.data_v1_final.labels.'+NATIVE_KEY+'.run'
@@ -24,7 +25,7 @@ def native_mode(p):
     return mode==NATIVE_MODE
 def order_domain(p,scope):
     native=native_mode(p)
-    need(native and scope in (NATIVE_KEY,NATIVE_V5_KEY,NATIVE_V6_KEY,NATIVE_V2_KEY,NATIVE_V1_KEY),'ONLY_EXACT_NATIVE_RESUME_V2_PRODUCER_AND_FIXED_RANDOM_SCOPE_NO_ALIAS')
+    need(native and scope in (NATIVE_KEY,NATIVE_V5_KEY,NATIVE_V6_KEY,NATIVE_V7_KEY,NATIVE_V2_KEY,NATIVE_V1_KEY),'ONLY_EXACT_NATIVE_RESUME_V2_PRODUCER_AND_FIXED_RANDOM_SCOPE_NO_ALIAS')
     return native
 def capabilities(p):
     return {'release_version':'v1-pilot-provisional','available_orders':['fixed_random'],'unavailable_orders':['energy','diversity'],
@@ -69,7 +70,7 @@ def parents(p):
       and r['startup_proof_reference']==chain['proof'] and str(r['job_id'])==str(proof['job_id'])
       and req['cpus']==16
       and accepted['component_references']=={k:r[k] for k in components},'ACTUAL_PILOT_RECEIPT_PROOF_COMPONENTS')
-    producers={NATIVE_V6_KEY:'workflows.data_v1_final.labels.'+NATIVE_V6_KEY+'.run',NATIVE_V5_KEY:'workflows.data_v1_final.labels.'+NATIVE_V5_KEY+'.run',NATIVE_KEY:NATIVE_MODULE,NATIVE_V2_KEY:'workflows.data_v1_final.labels.'+NATIVE_V2_KEY+'.run',NATIVE_V1_KEY:'workflows.data_v1_final.labels.'+NATIVE_V1_KEY+'.run'}
+    producers={NATIVE_V7_KEY:'workflows.data_v1_final.labels.'+NATIVE_V7_KEY+'.run',NATIVE_V6_KEY:'workflows.data_v1_final.labels.'+NATIVE_V6_KEY+'.run',NATIVE_V5_KEY:'workflows.data_v1_final.labels.'+NATIVE_V5_KEY+'.run',NATIVE_KEY:NATIVE_MODULE,NATIVE_V2_KEY:'workflows.data_v1_final.labels.'+NATIVE_V2_KEY+'.run',NATIVE_V1_KEY:'workflows.data_v1_final.labels.'+NATIVE_V1_KEY+'.run'}
     need(req['scope_key'] in producers and req['execution_argv']==[PY,'-B','-m',producers[req['scope_key']],
       '--plan',r['plan_reference']['path'],'--startup-proof',chain['proof']['path']]
       and r['plan_reference'] in req['source_references'] and meta(proof['request_reference'])==req,
@@ -82,7 +83,9 @@ def parents(p):
           and req['memory_policy']=='SLURM_DEFAULT_UNSPECIFIED' and old['schema']=='EXISTING_SPRIME_FAST55K_RESUME_PLAN_V1'
           and old['scope_parameters']==req['scope_parameters'] and r['available_orders']==['fixed_random']
           and r['full_three_order'] is False and r['D7'] is False,'TRUE_NATIVE_GENERIC16_NO_MEM_ACTUAL_NODE_UID_FIXED_RANDOM_ONLY')
-        if req['scope_key']==NATIVE_V6_KEY:
+        if req['scope_key']==NATIVE_V7_KEY:
+            from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v7 import contract as Producer
+        elif req['scope_key']==NATIVE_V6_KEY:
             from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v6 import contract as Producer
         elif req['scope_key']==NATIVE_V5_KEY:
             from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v5 import contract as Producer
@@ -96,7 +99,8 @@ def parents(p):
         Producer.plan(old);resume_review,old_partial,old_partial_proof=Producer.resume_authority(old)
         need(accepted['old4525232_C0_partial_history_unchanged']is True,'ORIGINAL_C0_PREFIX_PARTIAL_NOT_PROMOTED')
         expected_files=('__init__.py','contract.py','metadata.py','run.py','geometry.py','cache.py','README.md')
-        if req['scope_key']==NATIVE_V6_KEY:expected_files=('__init__.py','contract.py','metadata.py','run.py','geometry.py','geometry_tables.py','io.py','README.md')
+        if req['scope_key']==NATIVE_V7_KEY:expected_files=('__init__.py','contract.py','metadata.py','run.py','geometry.py','lookup_cache.py','README.md')
+        elif req['scope_key']==NATIVE_V6_KEY:expected_files=('__init__.py','contract.py','metadata.py','run.py','geometry.py','geometry_tables.py','io.py','README.md')
         elif req['scope_key']==NATIVE_V5_KEY:expected_files=('__init__.py','contract.py','metadata.py','run.py','geometry.py','packet_io.py','resource_census.py','README.md')
         elif req['scope_key']==NATIVE_KEY:expected_files=('__init__.py','contract.py','metadata.py','run.py','geometry.py','resource_census.py','README.md')
         elif req['scope_key']==NATIVE_V2_KEY:expected_files=expected_files[:-1]+('test_boundaries.py','README.md')

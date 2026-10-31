@@ -150,7 +150,7 @@ _original_configure_reader=configure_reader
 
 def fast_parts_root(coverage,producer_root,reviewed_roots,job_id):
     root=pathlib.Path(producer_root)
-    if root.parent not in (C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v4',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v5',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v6'):
+    if root.parent not in (C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v4',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v5',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v6',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v7'):
         return _original_fast_parts_root(coverage,producer_root,reviewed_roots,job_id)
     from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v4 import contract as Producer
     prior=Producer.PHASE_ROOT;old=Producer.OLDROOT;parts=root/'typed_coverage';closed=prior/'typed_coverage'
