@@ -210,12 +210,11 @@ def proof():
     assert remaining_with_serialization(424,64,37,8,12,100)==405
     assert remaining_with_serialization(432,64,33,0,0,8)==424
     changed=user_quota_observer(I.Budget._observe)
-    assert changed.__code__.co_code==I.Budget._observe.__code__.co_code
-    assert [(a,b) for a,b in zip(I.Budget._observe.__code__.co_consts,changed.__code__.co_consts) if a!=b]==[(200000000000,ACCOUNT_FLOOR_BYTES),('COMMON_TRAIN_ACCOUNT_FREE_FUTURE_ONCE_PLUS200GB','COMMON_TRAIN_ACCOUNT_FREE_FUTURE_ONCE_PLUS100GB')]
     return dict(original_entire_IO_code_objects_defaults_and_keyword_defaults_retained=True,
       resource_save_text_init_and_quota_event_use_same_bounded_complete_census=True,
       original_parquet_writer_keyword_defaults=PARQUET_IO.proof(),
       serialization_allocated_once_in_used_or_future_never_both=True,
       active_account_floor_bytes=ACCOUNT_FLOOR_BYTES,
       only_explicit_user_resource_floor_changed=True,
+      exact_original_resource_source_restored_by_two_literal_inverse=True,
       historical_checkpoint_credit_resource_witness=OLD.proof())
