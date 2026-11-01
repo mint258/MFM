@@ -15,7 +15,7 @@ full input-view table uses the original writer and defaults. Final complete
 prefix/tail integrity and two exactly equal TRAIN statistical replays remain
 mandatory. No QM/UFF is added; r674 remains LOSS_DISABLED.
 
-Every existing resource threshold stays: all future budgets plus 200GB quota,
+The user temporarily changed the account floor from200GB to100GB, after all future budgets. The actual floor guard and its reason code use100GB; raw quota and total future reservations remain unchanged. Other resource thresholds stay:
 56GiB whole output, real working/RSS protection, CPU-only16CPU/24h and no
 SBATCH memory or exclusive flag. The existing six Source checks and repository
 checker run inside the actual production parent. No extra test matrix.

@@ -12,7 +12,9 @@ def scope(p):
       old_logical_rows='CERTIFIED_OLD_PREFIX_AND_NEW_CLOSED_SUFFIX_SEGMENTS_CHECKED_AT_END',
       whole_census_IO='PRIVATE_ORIGINAL_SAVE_TEXT_INIT_QUOTA_EVENT_OBSERVE_ALL_SAME_COMPLETE_RECENSUS',
       parquet_writer='ORIGINAL_CODE_AND_DEFAULTS_FOR_NEW_WRITE_FIVE_CLOSED_TABLES_EXACT_ROW_REPLAY',
-      allocated_serialization_resource_credit='EARLIER_REAL_QUOTA_COVERED_BLOCKS_ONCE_NOT_BODY_ADOPTION')
+      allocated_serialization_resource_credit='EARLIER_REAL_QUOTA_COVERED_BLOCKS_ONCE_NOT_BODY_ADOPTION',
+      account_quota_floor_bytes=100000000000,
+      temporary_account_quota_floor_reference=OLD.meta(p['root_carveout_review_reference'])['temporary_account_quota_floor_reference'])
     return s
 def plan(p):
     f=OLD.OLD.plan;g=dict(f.__globals__,KEY=KEY,scope=scope)

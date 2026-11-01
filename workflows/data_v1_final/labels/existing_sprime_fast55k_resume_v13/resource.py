@@ -1,11 +1,25 @@
 """Private original IO functions all share the existing complete census/retry."""
-import math,pathlib,stat,threading,time,types
+import inspect,math,pathlib,stat,textwrap,threading,time,types
 from . import contract as C
 from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v8 import resource as OLD
 from workflows.data_v1_final.labels.existing_sprime_pilot_day_v1 import io as I
 from . import io as PARQUET_IO
 NATIVE=OLD.NATIVE;RC=OLD.RC;QG=OLD.QG
 ACTIVE_CENSUS=None
+ACCOUNT_FLOOR_BYTES=100000000000
+
+def user_quota_observer(original):
+    """Change only the explicitly authorized account-floor constant and reason."""
+    source=textwrap.dedent(inspect.getsource(original))
+    old="if self.quota['free_bytes']-remaining_future<200000000000:R.mark_stop('COMMON_TRAIN_ACCOUNT_FREE_FUTURE_ONCE_PLUS200GB'"
+    new="if self.quota['free_bytes']-remaining_future<100000000000:R.mark_stop('COMMON_TRAIN_ACCOUNT_FREE_FUTURE_ONCE_PLUS100GB'"
+    C.need(source.count(old)==1,'ONE_EXACT_ORIGINAL_RESOURCE_FLOOR_GUARD')
+    changed=source.replace(old,new,1)
+    C.need(changed.replace(new,old,1)==source,'ONLY_USER_AUTHORIZED_FLOOR_RESOURCE_CHANGE')
+    namespace=dict(original.__globals__)
+    exec(compile(changed,str(C.HERE/'resource.py')+'::user_account_floor100GB','exec'),namespace)
+    result=namespace[original.__name__];result.__defaults__=original.__defaults__;result.__kwdefaults__=original.__kwdefaults__
+    return result
 
 def private(original,census,**bindings):
     namespace=dict(original.__globals__,unique_bytes=census,**bindings)
@@ -121,7 +135,7 @@ class SerializationMath:
           quota_snapshot_reference=self.budget.quota['snapshot_reference'],
           observations=observations,excluded_from_second_immutable_credit=True,
           file_bodies_opened_or_hashed=False,scientific_adoption=False,free_bytes_rewritten=False,
-          quota_reserve_bytes=200000000000)
+          quota_reserve_bytes=ACCOUNT_FLOOR_BYTES)
         return remaining
 
 def initial_inventory(source,observation):
@@ -149,6 +163,10 @@ class ResourceBudget(I.Budget):
         global ACTIVE_CENSUS
         self.root=pathlib.Path(root);self.checkpoint_path=self.root/'actual_input_children/geometry.sqlite'
         carve=C.meta(plan['root_carveout_review_reference'])
+        policy=C.meta(carve['temporary_account_quota_floor_reference'])
+        C.need(carve['account_quota_floor_bytes']==policy['account_quota_floor_bytes']==ACCOUNT_FLOOR_BYTES
+          and policy['status']=='USER_AUTHORIZED_TEMPORARY' and policy['scope']=='ACCOUNT_FREE_AFTER_ALL_FUTURES',
+          'EXPLICIT_USER_TEMPORARY100GB_FLOOR_NO_FREE_OR_FUTURE_REWRITE')
         C.need(len(carve['registered_external_allocated_credit_sources'])==1,'ONE_CURRENT5494_CHECKPOINT_SOURCE')
         self.initial_credit=carve['registered_external_allocated_credit_sources'][0]['initial_credited_allocated_bytes']
         self.serialization_math=SerializationMath(self,plan)
@@ -158,7 +176,7 @@ class ResourceBudget(I.Budget):
             with self.census_lock:return NATIVE.retry_whole_census(RC.unique_bytes,path,self.record_census)
         self.native_census=census;ACTIVE_CENSUS=census
         safe_save=private(I.save,census);safe_text=private(I.write_text,census)
-        old=NATIVE.budget_function('_observe',census)
+        old=user_quota_observer(NATIVE.budget_function('_observe',census))
         self.native_observe=private(old,census,QG=QG,C=self.serialization_math,
           ALLOWED=CoveredOutputRefs(self),save=safe_save,write_text=safe_text)
         self.native_check=private(NATIVE.budget_function('check',census),census,save=safe_save,write_text=safe_text)
@@ -191,8 +209,13 @@ def proof():
     assert remaining_with_serialization(428,64,33,8,8,0)==428
     assert remaining_with_serialization(424,64,37,8,12,100)==405
     assert remaining_with_serialization(432,64,33,0,0,8)==424
+    changed=user_quota_observer(I.Budget._observe)
+    assert changed.__code__.co_code==I.Budget._observe.__code__.co_code
+    assert [(a,b) for a,b in zip(I.Budget._observe.__code__.co_consts,changed.__code__.co_consts) if a!=b]==[(200000000000,ACCOUNT_FLOOR_BYTES),('COMMON_TRAIN_ACCOUNT_FREE_FUTURE_ONCE_PLUS200GB','COMMON_TRAIN_ACCOUNT_FREE_FUTURE_ONCE_PLUS100GB')]
     return dict(original_entire_IO_code_objects_defaults_and_keyword_defaults_retained=True,
       resource_save_text_init_and_quota_event_use_same_bounded_complete_census=True,
       original_parquet_writer_keyword_defaults=PARQUET_IO.proof(),
       serialization_allocated_once_in_used_or_future_never_both=True,
-      unchanged_one_checkpoint_credit_and_all_original_resource_thresholds=OLD.proof())
+      active_account_floor_bytes=ACCOUNT_FLOOR_BYTES,
+      only_explicit_user_resource_floor_changed=True,
+      historical_checkpoint_credit_resource_witness=OLD.proof())
