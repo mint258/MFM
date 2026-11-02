@@ -1,13 +1,11 @@
-## 2026-10-31 当前交付状态：v1-pilot-provisional
+## 2026-11-01 当前交付状态：v1-pilot-provisional
 
 D-1 已按同一 v3.0 双方冻结，见[冻结记录](D1_v3_0_joint_interface_freeze_20261029_v1.md)。r73 权威 F64 与有序条目保留、训练仅转一次 F32；r674 维持 LOSS_DISABLED，不追加 QM。
 
 D-2 已交付[146字段定义字典](../../configs/data_v1/d2_v1_pilot_provisional_registry/published.json)，实际 TRAIN 尺寸相关性、能量元素参考、数值掩码和归一化绑定仍待 D-4 完整结果。D-5 已交付[嵌套与留出清单](../../configs/data_v1/D5_v1_pilot_provisional_delivery.json)，包含120k⊂240k⊂600k⊂1,108,366 TRAIN、50k/5k试点和20k诊断母名单；实际 D-3 已见分子交集的诊断标签载荷尚未导出。这两项已有交付均不等于55k训练载荷已就绪。
 
-D-4 当前作业4525455在compute-0-2使用16CPU运行，原6项预检、仓库检查与有界缓存字节/独立副本检查通过。六张原几何表直接复用；当前实际工作为原始输入绑定，未重做S′，尚无完整统计。对1.35亿行元数据的静态查询与解码加缓存，原metadata code、每调用输入双哈希、146字段、171组、TRAIN-only及两次精确回放保持。旧5452按既有STOP协议自然C0，仅部分元数据，不升为完整D4。D-3等待实际完整5455 C0，再自动导出50,000 TRAIN+5,000 ROUTINE VAL；D-5诊断标签随后接续。四项均为v1-pilot-provisional；GPU本地读取与Model实际payload ACK仍待真实产物，不声明training_ready。
-
-后台P′已有正式标签产出；剩余输入准备的路径修复已按两次失败上限暂停，不阻塞D系列。Alpha继续PubChem物化，MoleculeNet/COCONUT保留9/11 READY与其余未解决项。每日实际汇总只维护[当日汇总](../data_v1/progress_20261031_v1_pilot_provisional.md)，不将以下历史快照当作当前门槛。
-
+D-4当前（2026-11-02）：已在获准Main主节点sonmi从8提高至16并发，真实PID1415773、start_ticks8241327218、CPU亲和性0–15，实测15.91核；原Source6已PASS/6/0/0。旧8并发自然收尾并保留原62个同query闭合分组，当前步骤9已继续产出、无组错误或实际停止；前4轮精确分位数171/171及全输入指纹/QR一致性检查均保持，完整复算仍0/2，D-4最终未发布。原科学函数文件、16/8位radix、全部掩码/阈值、中位数/MAD和两次复算保持；实现优化有原对照，不宣称所有运行路径都是原直接对象。D-3/D-5元数据等待进程1164454/1138236仍在，真实CPU科学任务尚未开始，适配器来源版本18已覆盖16并发父链。原几何与完整输入视图全部保留，无新QM/UFF；100GB账户余量、56GiB输出、3GiB每工作进程不变。见[当日汇总](../data_v1/progress_20261102_v1_pilot_provisional.md)及current_work_state.D4_actual_headnode_current。
+P′完成下限仍1,060,508/2,119,502（50.04%），其中1,060,287全12项成功，尚无全量训练数据库。用户要求续跑后，实际4525495已C0，仅核对后清理116,708个已发布重复临时文件、释放8,890,447,289字节；新元数据接续连续两次失败，最后拦截为FRESH_QUOTA_CARVEOUT_AND_FINITE_PROVIDER_NO_RENEWAL，未产生新Native提交意图或QM作业，按用户STOP2要求记未解决并停止该修复；已申请仅一次30分钟已定位资源核算修复，尚未获批。Alpha PubChem保留TIMEOUT部分数据、NO_RELEASE，MoleculeNet/COCONUT保留9/11 READY。日汇总只维护[当日汇总](../data_v1/progress_20261102_v1_pilot_provisional.md)，以下旧时间点快照不作当前运行事实。
 ## 2026-10-30 D-5 v1-pilot-provisional 已交付
 
 实际作业4525184已 COMPLETED / 0:0，Root 已接受并发布[正式D-5清单](../../configs/data_v1/D5_v1_pilot_provisional_delivery.json)与[交付说明](../data_v1/D5_v1_pilot_provisional_20261030.md)。已有完整S′的暂定母人群中，TRAIN嵌套清单为120,000 ⊂ 240,000 ⊂ 600,000 ⊂ 1,108,366；另含50,000 TRAIN与5,000 ROUTINE VAL试点。

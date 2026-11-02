@@ -62,6 +62,10 @@ class Boundaries(unittest.TestCase):
         self.assertIs(I.B.Budget,I.General.I.Budget);self.assertEqual(I.Budget.__bases__,(I.B.Budget,))
         self.assertIs(I.CensusContext.record_census,I.NativeCensus.ResourceBudget.record_census)
         self.assertIs(I.require,I.B.require)
+        self.assertEqual(I.remaining_with_own_credit(I.B.C,100,64,20,10),70)
+        self.assertEqual(I.remaining_with_own_credit(I.B.C,100,64,20,100),36)
+        self.assertEqual(I.remaining_with_own_credit(I.B.C,100,64,0,10),90)
+        with self.assertRaises(ValueError):I.remaining_with_own_credit(I.B.C,100,64,65,0)
         calls=[];events=[]
         def transient(path):
             calls.append(path)
@@ -114,6 +118,29 @@ class Boundaries(unittest.TestCase):
             raw=(C.HERE/row['file']).read_bytes();self.assertEqual((len(raw),hashlib.sha256(raw).hexdigest()),(row['bytes'],row['sha256']))
         before=base64.b64decode(witness['original_io_source_base64']);current=(C.HERE/'io.py').read_bytes()
         current=current.replace(b",C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v7'",b'')
+        current=current.replace(b",C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v8'",b'')
+        current=current.replace(b",C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v9'",b'')
+        current=current.replace(b",C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v10'",b'')
+        current=current.replace(b",C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v11'",b'')
+        current=current.replace(b",C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v12'",b'')
+        current=current.replace(b",C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v13'",b'')
+        # Explicit user100GB resource-policy inverse; no scientific code changes.
+        quota_policy=(b"        carve=C.meta(plan['root_carveout_review_reference']);policy_ref=carve.get('temporary_account_quota_floor_reference')\n"
+          b'        self.account_floor_bytes=200000000000\n'
+          b'        if policy_ref is not None:\n'
+          b'            policy=C.meta(policy_ref)\n'
+          b"            C.need(policy['status']=='USER_AUTHORIZED_TEMPORARY' and policy['scope']=='ACCOUNT_FREE_AFTER_ALL_FUTURES'\n"
+          b"              and policy['account_quota_floor_bytes']==carve['account_quota_floor_bytes']==100000000000,'EXPLICIT_USER100GB_ACCOUNT_POLICY')\n"
+          b'            self.account_floor_bytes=100000000000\n')
+        self.assertIn(quota_policy,current)
+        current=current.replace(quota_policy,b'').replace(b'from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v13.resource import user_quota_observer\n',b'').replace(b'        if self.account_floor_bytes==100000000000:self.parent_observe=user_quota_observer(self.parent_observe)\n',b'')
+        domain_resource=(b"        self.active_domain_math=ActiveDomainMath(self,self.parent_observe.__globals__['C'])\n"
+          b"        self.parent_observe.__globals__['C']=self.active_domain_math\n"
+          b"        self.parent_observe.__globals__['ALLOWED']=DomainExcludedRefs(self.active_domain_math.path)\n")
+        domain_close=(b'    def close(self):\n        super().close()\n'
+          b"        save(self.root/'domain_output_resource_credit.json',self.active_domain_math.report())\n")
+        self.assertIn(domain_resource,current);self.assertIn(domain_close,current)
+        current=current.replace(domain_resource,b'').replace(domain_close,b'')
         # Inverse only the explicitly reviewed resource dependency changes.
         resource_import=b'from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v3 import resource_census as ResourceCensus\n'
         normalized=current.replace(resource_import,b'').replace(b'NativeCensus.retry_whole_census(ResourceCensus.unique_bytes,path,self.record_census)',b'NativeCensus.retry_whole_census(B.unique_bytes,path,self.record_census)').replace(b'    def _observe(self):\n        with ResourceCensus.current_root_future(self):return self.parent_observe(self)',b'    def _observe(self):return self.parent_observe(self)')

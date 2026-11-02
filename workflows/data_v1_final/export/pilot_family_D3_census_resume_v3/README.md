@@ -72,3 +72,12 @@ The inactive v3 consumer accepts actual D4 v4/v5 producers. RawRows now reads bo
 Geometry-domain SQLite staging uses lossless_io.encode: the same original tree encoder, schema, f64 little-endian hex, signature and outer JSON bytes are constructed once instead of repeatedly constructing and decoding the same tree. The original decoder, original per-molecule software cap and all actual source/parquet verification remain. Exact old/new bytes and original-decoder compatibility for signed zero, full F64, None/NaN, order, tuples, bytes and Unicode are checked inside the existing second Source method. No new format or scientific rule.
 
 Derived internal geometry-domain SQLite BLOBs now use the explicitly versioned DV1Z1 zlib wrapper from lossless_sqlite_io_v1; decoded original bytes and all final family LMDB/F64 sidecar formats remain exact. D5 uses the same transparent decoder for its closed D3 domain. The original software row bound and all source/mask/10000-record checks remain. No old DB or running job is converted in place.
+# User-authorized local D4 parent
+
+The 2026-11-02 D4-only head-node execution is accepted through its actual
+PID/start_ticks, launch, process exit zero, original six Source checks and two
+equal TRAIN replays. It has no Slurm job or accounting/C0 record. The local
+parent adapter retains the same frozen component/configuration review and
+closed source origins. D3 and D5 still execute as the original 16-CPU Slurm
+jobs, with the original three Source methods and 10,000-record source QA.
+

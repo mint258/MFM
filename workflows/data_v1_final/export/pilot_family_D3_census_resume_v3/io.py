@@ -7,6 +7,7 @@ from workflows.data_v1_final.labels.existing_sprime_pilot_general_cpu_day_v1 imp
 from workflows.data_v1_final.labels.existing_sprime_native_pilot_day_v1 import geometry as NativeCensus
 from . import contract as C
 from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v3 import resource_census as ResourceCensus
+from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v13.resource import user_quota_observer
 identity=B.S.identity;pin=B.pin;require=B.require;load_data=B.load_data;allow=B.allow
 ACTIVE_CENSUS=None
 READER_CONTEXT=None
@@ -39,9 +40,20 @@ class Budget(B.Budget):
     """Original quota/wall/immutable checks, private complete-census IO seam."""
     def __init__(self,plan,proof,root):
         global ACTIVE_CENSUS
+        carve=C.meta(plan['root_carveout_review_reference']);policy_ref=carve.get('temporary_account_quota_floor_reference')
+        self.account_floor_bytes=200000000000
+        if policy_ref is not None:
+            policy=C.meta(policy_ref)
+            C.need(policy['status']=='USER_AUTHORIZED_TEMPORARY' and policy['scope']=='ACCOUNT_FREE_AFTER_ALL_FUTURES'
+              and policy['account_quota_floor_bytes']==carve['account_quota_floor_bytes']==100000000000,'EXPLICIT_USER100GB_ACCOUNT_POLICY')
+            self.account_floor_bytes=100000000000
         self.census_context=CensusContext(root);ACTIVE_CENSUS=self.census_context;self.next_row_census=0.
         safe_save=private_io_function(B.save,self.census_context);safe_text=private_io_function(B.write_text,self.census_context)
         self.parent_observe=private_io_function(B.Budget._observe,self.census_context,safe_save,safe_text,stop_evidence=True)
+        if self.account_floor_bytes==100000000000:self.parent_observe=user_quota_observer(self.parent_observe)
+        self.active_domain_math=ActiveDomainMath(self,self.parent_observe.__globals__['C'])
+        self.parent_observe.__globals__['C']=self.active_domain_math
+        self.parent_observe.__globals__['ALLOWED']=DomainExcludedRefs(self.active_domain_math.path)
         self.parent_check=private_io_function(B.Budget.check,self.census_context,safe_save,safe_text)
         self.parent_quota_event=private_io_function(B.Budget.record_quota_event,self.census_context,safe_save,safe_text)
         original_init=private_io_function(B.Budget.__init__,self.census_context,safe_save,safe_text)
@@ -55,6 +67,9 @@ class Budget(B.Budget):
             C.need(self.census_context(self.root)+(256<<20)<self.plan['whole_output_cap_bytes'],'FINITE_PILOT_WHOLE_OUTPUT_CAP')
             self.next_row_census=time.monotonic()+1.
     def record_quota_event(self,event):return self.parent_quota_event(self,event)
+    def close(self):
+        super().close()
+        save(self.root/'domain_output_resource_credit.json',self.active_domain_math.report())
 def configure(plan,old):
     global ACTIVE_CENSUS,READER_CONTEXT
     ACTIVE_CENSUS=None
@@ -127,6 +142,65 @@ def configure_reader(cfg,coverage,oldroot):
     required={ro['path']:(ro,old_parts),coverage['current_parent_typed_origin_reference']['path']:(coverage['current_parent_typed_origin_reference'],parts_root)}
     C.need(all(declared.get(k)==v for k,v in required.items()),'SAVED_CPU_READER_CONFIG_RETAINS_BOTH_ACTUAL_CLOSED_CACHE_ORIGINS')
     cfg['catalog_frame']=identity(coverage['parts_catalog']['path']);return cfg
+
+class DomainExcludedRefs:
+    """This one mutable DB must not also receive immutable-output credit."""
+    def __init__(self,path):self.path=str(path)
+    def values(self):return [r for r in list(B.ALLOWED.values()) if r['path']!=self.path]
+
+def remaining_with_own_credit(original,total,cap,credit,closed):
+    C.need(all(type(v)is int and v>=0 for v in (total,cap,credit,closed))
+      and credit<=cap and total>=cap,'OWN_ACTIVE_DOMAIN_CREDIT_WITHIN_ORIGINAL_FULL_CAP')
+    return original.remaining_future(total-credit,cap-credit,closed)
+
+class ActiveDomainMath:
+    """Original resource metadata/timestamps, for this parent's exact domain.sqlite."""
+    def __init__(self,budget,original):
+        self.budget=budget;self.original=original
+        self.path=budget.census_context.root/'domain.sqlite'
+        self.samples=[];self.last=None;self.last_report=None
+    def __getattr__(self,name):return getattr(self.original,name)
+    def remaining_future(self,total,cap,closed):
+        if not self.path.exists():
+            C.need(self.last is None,'CURRENT_DOMAIN_DB_DISAPPEARED_NO_CREDIT_OR_RETRY')
+            return self.original.remaining_future(total,cap,closed)
+        frame=self.path.lstat();marker=self.budget.quota['cpu_marker']['stat']
+        C.need(marker['uid']==1278,'ORIGINAL_VALIDATED_SHARED_STORAGE_MARKER_UID')
+        expected=dict(uid=1278,inode=frame.st_ino if self.last is None else self.last['inode'],cap_bytes=cap)
+        previous=dict(allocated_bytes=0,size=0) if self.last is None else self.last
+        current=B.external_metadata_inventory(self.path,expected,marker['device'],previous)
+        observed=self.budget.quota['observed_unix_seconds']
+        credit=B.covered_external_credit(self.samples,observed,current,cap)
+        self.last=current;self.samples.append(current)
+        self.samples=B.retain_external_samples(self.samples,observed)
+        remaining=remaining_with_own_credit(self.original,total,cap,credit,closed)
+        self.last_report=dict(schema='CURRENT_PARENT_ACTIVE_DOMAIN_ALLOCATED_RESOURCE_CREDIT_V1',
+          path=str(self.path),current_file_metadata=current,quota_observed_unix_seconds=observed,
+          quota_snapshot_reference=self.budget.quota['snapshot_reference'],
+          total_future_reserved_bytes=total,original_full_parent_cap_bytes=cap,
+          earlier_quota_covered_domain_allocated_bytes=credit,
+          separate_closed_output_allocated_bytes=closed,remaining_future_reserved_bytes=remaining,
+          database_excluded_from_second_immutable_credit=True,free_bytes_rewritten=False,
+          SQL_or_database_body_read=False,scientific_adoption=False,quota_reserve_bytes=self.budget.account_floor_bytes)
+        self.emit_priority_progress(total,remaining,observed)
+        return remaining
+    def emit_priority_progress(self,total,remaining,observed):
+        root=self.budget.census_context.root
+        if root.parent!=C.OUTPUT:return
+        jid=os.environ.get('SLURM_JOB_ID','');C.need(jid.isdigit() and os.getuid()==1278,'ACTUAL_D3_RESOURCE_STATUS_PARENT')
+        value=dict(schema='PRIORITY_WRITER_NET_FUTURE_RESOURCE_OBSERVATION_V1',job_id=jid,uid=1278,
+          quota_observed_unix_seconds=observed,quota_snapshot_reference=self.budget.quota['snapshot_reference'],
+          root_total_future_bytes=total,remaining_future_bytes=remaining,free_bytes_rewritten=False,
+          scientific_adoption=False,account_quota_floor_bytes=self.budget.account_floor_bytes)
+        raw=(json.dumps(value,sort_keys=True)+'\n').encode();C.need(len(raw)<4096,'SMALL_RESOURCE_STATUS_ONLY')
+        with self.budget.census_context.census_lock:
+            target=root/'priority_writer_resource_progress.json';temp=root/('.priority_resource_'+str(time.time_ns())+'.pending')
+            with temp.open('xb')as stream:stream.write(raw);stream.flush();os.fsync(stream.fileno())
+            os.replace(temp,target)
+    def report(self):
+        return self.last_report or dict(schema='CURRENT_PARENT_ACTIVE_DOMAIN_ALLOCATED_RESOURCE_CREDIT_V1',
+          path=str(self.path),domain_not_created=True,earlier_quota_covered_domain_allocated_bytes=0,
+          SQL_or_database_body_read=False,scientific_adoption=False)
 def resource_admission(r,plan):
     C.need(type(r['cpus'])is int and r['cpus']==16 and r['node']==plan['node'] and r['node'] in C.ANALYSIS_NODES
       and r['wall_seconds']==86400 and r['memory_policy']=='SLURM_DEFAULT_UNSPECIFIED' and r['data_references']==plan['data_references']
@@ -150,15 +224,16 @@ _original_configure_reader=configure_reader
 
 def fast_parts_root(coverage,producer_root,reviewed_roots,job_id):
     root=pathlib.Path(producer_root)
-    if root.parent not in (C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v4',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v5',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v6',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v7'):
+    if root.parent not in (C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v4',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v5',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v6',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v7',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v8',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v9',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v10',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v11',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v12',C.ROOT/'artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v13'):
         return _original_fast_parts_root(coverage,producer_root,reviewed_roots,job_id)
     from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v4 import contract as Producer
     prior=Producer.PHASE_ROOT;old=Producer.OLDROOT;parts=root/'typed_coverage';closed=prior/'typed_coverage'
+    from . import local_parent
     C.need(type(reviewed_roots)is list and all(str(p)in reviewed_roots for p in (root,prior,old)), 'THREE_EXPLICIT_ACTUAL_CLOSED_CACHE_ROOTS')
     C.need(str(coverage['job_id'])==str(job_id)and str(job_id)not in ('4525232','4525251','4525337')
       and coverage['reused_C0_parent_job_id']=='4525337' and coverage['typed_parts_reencoded']==0
       and coverage['mode']=='bounded_pilot55k' and coverage['fast_IO_not_new_science']is True
-      and coverage['workers']==16 and coverage['source_batch_rows']==16 and coverage['old_cache_written']is False
+      and coverage['workers']==local_parent.workers(coverage,job_id) and coverage['source_batch_rows']==16 and coverage['old_cache_written']is False
       and pathlib.Path(C.reference(coverage['parts_catalog'])['path'])==closed/'numeric_catalog.sqlite'
       and pathlib.Path(C.reference(coverage['current_parent_typed_origin_reference'])['path'])==parts/'current_parent_typed_origin.json'
       and pathlib.Path(C.reference(coverage['reused_current_typed_origin_reference'])['path'])==closed/'current_parent_typed_origin.json'
@@ -173,8 +248,11 @@ def configure_reader(cfg,coverage,oldroot):
     from workflows.data_v1_final.labels.existing_sprime_fast55k_resume_v4 import contract as Producer
     cfg=copy.deepcopy(cfg);C.need(READER_CONTEXT is not None,'EXACT_ADMITTED_CLOSED_PHASE_READER_CONTEXT')
     producer=READER_CONTEXT['producer_plan'];review=C.meta(READER_CONTEXT['bounded_review_reference']);actual=C.meta(READER_CONTEXT['actual_parent_manifest_reference'])
-    C.need(producer['output_directory']==str(oldroot) and actual['job_id']==coverage['job_id']
-      and actual['status']=='PROVISIONAL55K_FAST_TYPED_NATIVE_RANDOM_AND_TRAIN_D4_COMPLETE_PENDING_ACTUAL_C0_ROOT_SEAL','ACTUAL_COMPLETE_NEW_D4_NOT_CLOSED5337_PARTIAL')
+    from . import local_parent
+    C.need(producer['output_directory']==str(oldroot) and actual['status']==local_parent.status(actual),
+      'ACTUAL_COMPLETE_NEW_D4_NOT_CLOSED5337_PARTIAL')
+    actual=local_parent.geometry_producer(coverage,actual)
+    C.need(actual['job_id']==coverage['job_id'],'ACTUAL_CLOSED_GEOMETRY_READER_PRODUCER')
     _,_,_,closed_receipt=Producer.phase_authority(producer)
     C.need(closed_receipt['coverage_reference']==coverage['reused_complete_coverage_reference'],'EXACT_PRIOR_ACTUAL_C0_COVERAGE_REFERENCE')
     parts=fast_parts_root(coverage,oldroot,review['transitive_closed_output_roots'],actual['job_id'])

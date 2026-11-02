@@ -21,16 +21,16 @@ class LocalQuotaClient:
           and self.review['execution_kind']=='LOCAL_HEADNODE' and self.identity_body['pid']==os.getpid(),
           'ACTUAL_USER_AUTHORIZED_MAIN_LOCAL_QUOTA_CLIENT')
     def observe(self):
-        a=subprocess.run(Q.QUOTA_ARGV,stdin=subprocess.DEVNULL,capture_output=True,text=True,timeout=30)
-        R.C.need(a.returncode==0,'ACTUAL_MAIN_ACCOUNT_QUOTA_QUERY')
-        quota=Q.parse_quota(a.stdout,'/dev/sda1');now=time.time();self.sequence+=1
+        a=Q.query(Q.QUOTA_ARGV)
+        quota=Q.parse_quota(a,'/dev/sda1');now=time.time();self.sequence+=1
         R.C.need(now<self.identity_body['expires_unix_seconds'],'FINITE_LOCAL_QUOTA_CLIENT_EXPIRED')
         marker=pathlib.Path(self.review['storage_marker_path']);s=marker.lstat()
         R.C.need(s.st_uid==1278 and s.st_nlink==1 and not marker.is_symlink(),'ACTUAL_LOCAL_STORAGE_MARKER')
         root=pathlib.Path(self.review['snapshot_root']);root.mkdir(exist_ok=True)
         path=root/('quota_%06d.json'%self.sequence)
-        record=dict(schema='ACTUAL_MAIN_HEAD_ACCOUNT_QUOTA_V1',execution_kind='LOCAL_HEADNODE',
-          uid=os.getuid(),pid=os.getpid(),observed_unix_seconds=now,raw_quota=a.stdout,**quota)
+        record=dict(quota)
+        record.update(schema='ACTUAL_MAIN_HEAD_ACCOUNT_QUOTA_V1',execution_kind='LOCAL_HEADNODE',
+          uid=os.getuid(),pid=os.getpid(),observed_unix_seconds=now,raw_quota=a['stdout'])
         path.write_text(json.dumps(record,sort_keys=True)+'\n');snapshot=I.pin(path)
         self.last=dict(free_bytes=quota['free_bytes'],observed_unix_seconds=now,
           publisher_expires_unix_seconds=self.identity_body['expires_unix_seconds'],
