@@ -1,5 +1,22 @@
 ﻿# D3 Fast55k resume consumer — Source-only, no actual export claim
 
+2026-11-03 user-directed handoff: the new explicit guide validation policy
+accepts one actually closed complete TRAIN statistics pass, including median
+and MAD. It records the naturally stopped predecessor and the separate real
+finalizer exit zero; no second statistics pass or equality result is invented.
+Legacy two-pass producer receipts retain their original checks. Source3,
+10,000 actual source readbacks, all counts, permanent ordered F64 authority,
+the single F32 training cast and the 16-reader verification remain required.
+When the closed D4 report deliberately leaves required size correlations
+pending, this D3 parent calculates only the frozen definition's required
+molecule series with the original weighted correlation routine before building
+the unchanged registry. r674 remains LOSS_DISABLED.
+
+`actual_bounded_configurations/closed_for_parallel_D5.json` closes the shared
+configuration components as soon as they exist. This lets the separate D5
+parent use the same actual registry and mappings while D3 exports its payload;
+the marker explicitly makes no parent C0 or completed D3 claim.
+
 Isolated16Source KEY=pilot_family_D3_census_resume_v2;
 module workflows.data_v1_final.export.pilot_family_D3_census_resume_v2.run.
 Old D3fast16/fast10/resume producer Source and live jobs are unchanged.

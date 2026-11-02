@@ -245,17 +245,24 @@ def policies(mapped,report,definition,population_reference,fields,element_basis,
     return {'schema':'BOUNDED_D1_TARGET_LOCAL_EXPOSURE_AND_SCALE_V1','original_numeric_masks_unchanged':True,
       'actual_task_charge_separate_from_SMILES_formal_charge':True,'targets':out,'full_or_Model_release':False}
 
-def materialize(plan,bounded,components,fields,cfg,roots,output,budget):
+def materialize(plan,bounded,components,fields,cfg,roots,output,budget,*,size_rho_reference=None):
     v,definition,_,_=review(plan,bounded);root=Path(output);C.need(not root.exists(),'FRESH_ACTUAL_CPU_CONFIG_OUTPUT');root.mkdir()
     for ref in v['configuration_builder_source_references']:C.need(C.Q.pin(ref['path'])==ref,'EXACT_REVIEWED_CPU_CONFIGURATION_SOURCE')
     budget.check();base=I.load_data(v['base_registry_reference'],2<<20)
     native_reference=C.Q.pin(M.POLICY);M.physical_policy(native_reference,plan['D1_design_policy_reference'])
     definition=resolve_definitions(definition,fields,cfg['element_basis'],C.meta(v['task_protocol_reference']),native_reference)
     numeric=D.read(components['numeric_repetitions'][0],roots,256<<20)
-    other=D.read(components['numeric_repetitions'][1],roots,256<<20)
-    C.need(K.binary_json_dumps(numeric)==K.binary_json_dumps(other),'ACTUAL_D4_TWO_NUMERIC_REPETITIONS_NOT_SOURCE_ASSERTION')
+    from . import local_parent
+    guide_scope=local_parent.component_numeric_scope(plan,components)
+    if not guide_scope:
+        other=D.read(components['numeric_repetitions'][1],roots,256<<20)
+        C.need(K.binary_json_dumps(numeric)==K.binary_json_dumps(other),'ACTUAL_D4_TWO_NUMERIC_REPETITIONS_NOT_SOURCE_ASSERTION')
     report=D.read(components['r674_report_reference'],roots,256<<20)
-    rho=D.read(report['original_series_size_rho_reference'],roots,64<<20)
+    if size_rho_reference is not None:
+        C.need(guide_scope and report.get('original_series_size_rho_reference')is None,
+          'SEPARATE_ACTUAL_REQUIRED_RHO_ONLY_FOR_EXPLICIT_GUIDE_DELIVERY_SCOPE')
+        I.require(size_rho_reference);rho=I.load_data(size_rho_reference,64<<20)
+    else:rho=D.read(report['original_series_size_rho_reference'],roots,64<<20)
     C.need(rho['fit_population_reference']==components['population_reference'] and rho['threshold_abs_rho']==.95,'ACTUAL_D4_BOUNDED_TRAIN_RHO_SCOPE')
     reg=bound_registry(base,fields,definition,rho['series'],numeric['models'],native_reference,native_pilot=C.native_mode(plan));mapped=mapping(reg,definition)
     compiled=M.compile_targets(reg,mapped,require_final=True)
@@ -273,6 +280,8 @@ def materialize(plan,bounded,components,fields,cfg,roots,output,budget):
     header={'schema':'ACTUAL_CPU_BOUNDED_D2_D3_CONFIGURATIONS_V1','status':'ACTUAL_OUTPUTS_NOT_PARENT_C0_OR_FULL_RELEASE',
       'configuration_build_review_reference':bounded['configuration_build_review_reference'],
       'actual_D4_acceptance_reference':plan['pilot_acceptance_reference'],'field_ids_preserved':146,**outputs,
+      'actual_original_series_size_rho_reference':size_rho_reference or report['original_series_size_rho_reference'],
+      'numeric_verification_scope':'GUIDE_REQUIRED_ONE_COMPLETE_ACTUAL_PASS'if guide_scope else 'ORIGINAL_TWO_EXACT_REPLAYS',
       'future_hash_created':False,'final_Common_or_Model_ACK':False}
     if C.native_mode(plan):header.update(**C.capabilities(plan))
     href=I.save(root/'configuration_references.json',header);I.add(href)

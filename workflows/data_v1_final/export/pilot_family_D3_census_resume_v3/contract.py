@@ -193,6 +193,7 @@ def sources():
     refs.extend(configuration.ORIGINALS.proof()['source_references'])
     refs.extend(Q.pin(B.HERE/n) for n in B.FILES)
     from workflows.data_v1_final.labels.existing_sprime_pilot_general_cpu_day_v1 import contract as General
+    from workflows.data_v1_final.labels.required_molecule_size_rho_v1 import run as RequiredSizeRho
     refs.extend(Q.pin(General.HERE/n) for n in General.FILES)
     refs.extend(Q.pin(REPO/'workflows/data_v1_final/execution/cpu_analysis_general_nodes_v1'/n)
       for n in ('__init__.py','contract.py','quota_provider.py'))

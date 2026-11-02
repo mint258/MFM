@@ -51,8 +51,36 @@ def main():
             if r['path'] not in I.B.ALLOWED:D.register(r,roots)
         cfg=I.configure_reader(cfg,coverage,old['output_directory'])
         fields=I.load_data(cfg['field_map_reference'],8<<20);bykey={f['field_key']:f for f in fields}
+        from . import local_parent
+        guide_scope=local_parent.component_numeric_scope(plan,components)
+        size_rho_reference=None
         if review.get('configuration_mode')==G.MODE:
-            generated,registry,mapping,recipe,physical,compiled=G.materialize(plan,review,components,fields,cfg,roots,root/'actual_bounded_configurations',budget)
+            r674_report=D.read(components['r674_report_reference'],roots)
+            if r674_report.get('original_series_size_rho_reference')is None:
+                C.need(guide_scope,'MISSING_REQUIRED_RHO_NOT_IMPLICITLY_WAIVED')
+                from workflows.data_v1_final.labels.required_molecule_size_rho_v1.run import build
+                state='REQUIRED_MOLECULE_SIZE_RHO'
+                size_rho_reference=build(plan,components,cfg,fields,root/'required_molecule_size_rho',budget)
+                I.add(size_rho_reference);I.require(size_rho_reference)
+            generated,registry,mapping,recipe,physical,compiled=G.materialize(plan,review,components,fields,cfg,roots,root/'actual_bounded_configurations',budget,size_rho_reference=size_rho_reference)
+            C.need(gate_values['tests_run']==3 and gate_values['failures']==gate_values['errors']==0,
+              'ACTUAL_SOURCE3_BEFORE_PARALLEL_CLOSED_CONFIGURATION_HANDOFF')
+            marker=root/'actual_bounded_configurations/closed_for_parallel_D5.json'
+            temporary=marker.with_suffix('.pending')
+            marker_reference=I.save(temporary,{
+              'schema':'ACTUAL_RUNNING_D3_CONFIGURATION_COMPONENTS_CLOSED_V1',
+              'status':'COMPONENTS_CLOSED_PARENT_RUNNING_NOT_C0_OR_D3_PAYLOAD_ACCEPTANCE',
+              'actual_D3_job_id':str(proof['job_id']),'actual_D3_startup_proof_reference':C.Q.pin(a.startup_proof),
+              'actual_D3_plan_reference':C.Q.pin(a.plan),'source3_reference':gate,
+              'actual_D4_acceptance_reference':plan['pilot_acceptance_reference'],
+              'pilot_counts':C.COUNTS,'actual_configuration_references':generated,
+              'actual_original_series_size_rho_reference':size_rho_reference,
+              'all_configuration_files_closed_and_hashed':True,
+              'scientific_definitions_or_source_masks_changed':False,
+              'parent_terminal_or_D3_payload_or_Model_ACK_claimed':False})
+            os.replace(temporary,marker)
+            I.B.ALLOWED.pop(str(temporary),None)
+            I.add(dict(marker_reference,path=str(marker)))
             review=dict(review,**generated)
         else:
             registry=D.read(review['registry_reference'],roots);mapping=D.read(review['mapping_reference'],roots);recipe=D.read(review['projection_recipe_reference'],roots)
@@ -76,7 +104,8 @@ def main():
               and actual['statistic_reference']==policy.get('scale_reference') and actual['population_version_reference']==policy.get('scale_population_reference')
               and actual['population_version_reference']==components['population_reference'],'SCALE_EXACT_ACTUAL_SOURCE_RECIPE_POPULATION_SERIES_NOT_INLINE_S1')
         for r in components['numeric_repetitions']:D.register(r,roots);I.require(r)
-        C.need(pathlib.Path(components['numeric_repetitions'][0]['path']).read_bytes()==pathlib.Path(components['numeric_repetitions'][1]['path']).read_bytes(),'ACTUAL_PRIOR_NUMERIC_REPLAYS_EQUAL_NOT_SOURCE_ASSERTION')
+        if not guide_scope:
+            C.need(pathlib.Path(components['numeric_repetitions'][0]['path']).read_bytes()==pathlib.Path(components['numeric_repetitions'][1]['path']).read_bytes(),'ACTUAL_PRIOR_NUMERIC_REPLAYS_EQUAL_NOT_SOURCE_ASSERTION')
         # Current-device frames are derived on this CPU. No original catalog
         # frame, source file, geometry or producer configuration is rewritten.
         I.append(root/'lineage.DATA.jsonl',{'actual_old_parent':accepted['actual_parent'],'original_catalog_frame':D.read(components['typed_reader_config_reference'],roots)['catalog_frame'],
@@ -108,6 +137,8 @@ def main():
           'status':'ACTUAL55K_FIXED_RANDOM_FAMILY_AND_10K_SOURCE_QA_COMPLETE_PENDING_ROOT_MODEL_REVIEW' if C.native_mode(plan) else 'ACTUAL55K_FAMILY_AND_10K_SOURCE_QA_COMPLETE_PENDING_ROOT_MODEL_REVIEW',
           'job_id':str(proof['job_id']),'uid':1278,'node':proof['request']['node'],'actual_cpus':16,'plan_reference':C.Q.pin(a.plan),'startup_proof_reference':C.Q.pin(a.startup_proof),
           'pilot_acceptance_reference':plan['pilot_acceptance_reference'],'bounded_export_review_reference':plan['bounded_export_review_reference'],
+          'numeric_verification_scope':'GUIDE_REQUIRED_ONE_COMPLETE_ACTUAL_PASS'if guide_scope else 'ORIGINAL_TWO_EXACT_REPLAYS',
+          'actual_original_series_size_rho_reference':size_rho_reference,
           'actual_configuration_references':{k:review[k] for k in ('registry_reference','mapping_reference','projection_recipe_reference','target_policy_reference')},
           **C.capabilities(plan),'order_capability_reference':order_capability_reference,
           'source3_reference':gate,'pilot_counts':C.COUNTS,'store_references':stores,'verification_reference':verification,
