@@ -52,3 +52,17 @@ stays excluded from immutable closed-output credit. Its report explicitly
 records zero active credit, credit_disabled=true and whether the domain
 actually exists. The original 32-GiB output cap, 100-GB account floor after
 all future budgets, RSS/wall protection and scientific DATA checks remain.
+
+The private source IO adapter applies a 3-GiB single-worker RSS soft bound in
+both original nested worker checks; their other guards and bytecode remain
+unchanged. Sixteen workers stay within the original 56-GiB aggregate RSS and
+64-GiB software budget. `resource.one(work)` can also serve a future D3 parent
+with the original D3 initializer and reader, without editing shared X.one.
+
+One explicit Root review may authorize reuse of exactly the 101 source groups
+recorded closed by failed parent 4525590 in day06. The new admitted CPU verifies
+their full current hashes and exact frozen input/configuration/group identity.
+Unlogged partial groups and the earlier concurrent-read parent 4525589 are
+excluded. The small domain is rebuilt normally. Reused and newly closed groups
+are merged only after all new source tasks close their domain handles; original
+Source3, source replay and reader checks still run in the new parent.

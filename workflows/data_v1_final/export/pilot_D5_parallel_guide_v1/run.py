@@ -6,7 +6,7 @@ import json
 import multiprocessing as mp
 import pathlib
 import traceback
-from . import contract as C, domain, source, verify, shared, resource
+from . import contract as C, domain, source, verify, shared, resource, resume
 from workflows.data_v1_final.export.pilot_family_D3_census_resume_v3 import (
     domain as D, io as I, run as Original, frame_mapping as M)
 
@@ -83,6 +83,11 @@ def main():
         C.need(found == wanted, 'ALL_HELD_NATIVE_RIDS_PRESENT_ONCE_IN_ACTUAL_TYPED_CATALOG')
         catalog.close()
         groups = [group for group in C.O.B.logical(book['groups']) if group['source_job_id'] in jobs]
+        closed_results = resume.load(plan, groups, configurations, root, budget)
+        reused_keys = {result['key'] for result in closed_results}
+        for result in closed_results:
+            I.append(root / 'closed_groups.jsonl', result)
+        groups = [group for group in groups if resume.group_key(group) not in reused_keys]
         context = {'plan': plan, 'old_plan': old, 'reader_config': cfg, 'field_map': fields,
                    'compiled': compiled, 'recipe': recipe, 'domain_database': str(root / 'domain.sqlite'),
                    'binding_database': binding['path'], 'coverage_catalog': coverage['parts_catalog']['path'],
@@ -93,7 +98,6 @@ def main():
         stage = root / 'permanent_f64_source_groups'
         stage.mkdir()
         active, cursor = {}, iter(groups)
-        closed_results = []
         exhausted = False
         while active or not exhausted:
             while not exhausted and len(active) < 32:
@@ -144,6 +148,8 @@ def main():
             'training_excluded': True, 'scientific_masks_unchanged': True, 'same_D4_statistics_no_refit': True, 'D3_payload_C0_required': False,
             'diagnostic_membership_basis': 'FROZEN_PILOT_TRAIN_ROSTER_AND_FORMAL_D5_TARGET_INTERSECTION',
             'new_QM_UFF_calls': 0, 'r674_loss': 'OFF_WITH_ORIGINAL_VALUES_AND_MASKS',
+            'worker_rss_soft_cap_bytes': resource.WORKER_RSS_CAP_BYTES,
+            'reused_closed_source_groups': len(reused_keys),
             'r73': 'ORIGINAL_ORDERED_RECORDS_PERMANENT_F64_ONCE_F32', 'loss_eligibility_counts': eligibility,
             'all_handles_closed': True, 'Model_ACK': False, 'full_Common_D6_release': False, **selection})
         return 0

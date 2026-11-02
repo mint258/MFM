@@ -11,7 +11,7 @@ MODULE = 'workflows.data_v1_final.export.' + PRODUCER_NAMESPACE + '.run'
 HERE = REPO / 'workflows/data_v1_final/export' / PRODUCER_NAMESPACE
 OUTPUT = ROOT / 'artifacts/labels/source_status_v1' / PRODUCER_NAMESPACE
 ROLE = 'TRAIN_UNSEEN_CONFORMATION'
-FILES = ('__init__.py', 'contract.py', 'domain.py', 'source.py', 'shared.py', 'resource.py', 'verify.py', 'run.py', 'close.py', 'README.md')
+FILES = ('__init__.py', 'contract.py', 'domain.py', 'source.py', 'shared.py', 'resource.py', 'resume.py', 'verify.py', 'run.py', 'close.py', 'README.md')
 
 
 def parameters(plan):
@@ -22,7 +22,9 @@ def parameters(plan):
         r674='ORIGINAL_VALUES_MASKS_LOSS_OFF', r73='ORIGINAL_ORDERED_NATIVE_RECORDS',
         permanent_F64_and_original_once_F32=True, full_Common_D6_Model_ACK=False,
         D3_payload_C0_required=False, shared_configuration='CLOSED_ACTUAL_CPU_HEADER_AND_FOUR_CURRENT_HASHES',
-        active_domain_resource_credit='DISABLED_KEEP_FULL_OWN_FUTURE_CAP_NO_MUTABLE_BLOCK_MONOTONICITY')
+        active_domain_resource_credit='DISABLED_KEEP_FULL_OWN_FUTURE_CAP_NO_MUTABLE_BLOCK_MONOTONICITY',
+        worker_rss_soft_cap_bytes=3 << 30,
+        closed_source_groups_resume='ROOT_REVIEWED_4525590_101_CLOSED_ONLY' if plan.get('closed_source_groups_resume_reference') else None)
 
 
 def parents(plan):

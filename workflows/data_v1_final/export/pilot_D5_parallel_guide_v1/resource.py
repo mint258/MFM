@@ -8,6 +8,72 @@ identity checks remain in the inherited budget.
 import types
 from workflows.data_v1_final.export.pilot_family_D3_census_resume_v3 import io as I
 
+WORKER_RSS_CAP_BYTES = 3 << 30
+OLD_WORKER_RSS_CAP_BYTES = 1500000000
+_PRIVATE_WORKER_CHECK = None
+
+
+class ObjectProxy:
+    """Forward every original object except explicitly named private IO bindings."""
+
+    def __init__(self, original, **overrides):
+        self.original = original
+        self.overrides = overrides
+
+    def __getattr__(self, name):
+        if name in self.overrides:
+            return self.overrides[name]
+        return getattr(self.original, name)
+
+
+class WorkerRSSProxy(ObjectProxy):
+    def soft_worker_rss(self, cap):
+        # Only the deployed 1.5-GB worker soft bound changes. Other caps,
+        # measurements, STOP propagation and all mathematical objects remain.
+        return self.original.soft_worker_rss(
+            WORKER_RSS_CAP_BYTES if cap == OLD_WORKER_RSS_CAP_BYTES else cap)
+
+
+def clone(function, **bindings):
+    namespace = dict(function.__globals__)
+    namespace.update(bindings)
+    private = types.FunctionType(function.__code__, namespace, function.__name__,
+                                 function.__defaults__, function.__closure__)
+    private.__kwdefaults__ = function.__kwdefaults__
+    return private
+
+
+def worker_check(control, additional=0):
+    """Original outer and nested worker checks, with only the RSS IO cap changed."""
+    global _PRIVATE_WORKER_CHECK
+    if _PRIVATE_WORKER_CHECK is None:
+        outer = I.F.worker_check
+        nested_module = outer.__globals__['R']
+        nested = nested_module.worker_check
+        private_nested = clone(nested, R=WorkerRSSProxy(nested.__globals__['R']))
+        _PRIVATE_WORKER_CHECK = clone(outer,
+            OBS=WorkerRSSProxy(outer.__globals__['OBS']),
+            R=ObjectProxy(nested_module, worker_check=private_nested))
+    return _PRIVATE_WORKER_CHECK(control, additional)
+
+
+def project(work, *, reader_records=None):
+    """Original X.one bytecode with a private RSS-only IO proxy.
+
+    A D5 caller may retain its existing diagnostic records adapter. A future
+    D3 parent can submit one(work) with its original X.initialize context.
+    """
+    from workflows.data_v1_final.export.pilot_family_D3_census_resume_v3 import source as X
+    bindings = dict(I=ObjectProxy(I, F=ObjectProxy(I.F, worker_check=worker_check)), CTX=X.CTX)
+    if reader_records is not None:
+        bindings['R'] = types.SimpleNamespace(records=reader_records)
+    return clone(X.one, **bindings)(work)
+
+
+def one(work):
+    """Pickleable future-D3 entry: original records, private 3-GiB RSS IO only."""
+    return project(work)
+
 
 class CreditlessDomainMath(I.ActiveDomainMath):
     """Keep the complete own future cap even when the mutable DB already exists."""

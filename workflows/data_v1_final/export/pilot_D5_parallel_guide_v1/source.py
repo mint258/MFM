@@ -3,7 +3,7 @@ import heapq
 import json
 import struct
 import types
-from . import contract as C
+from . import contract as C, resource
 from workflows.data_v1_final.export.pilot_family_D3_census_resume_v3 import source as X, writer as W, io as I
 from workflows.data_v1_final.labels.existing_sprime_pilot_day_v1 import reader as R, bindings as B
 from workflows.data_v1_final.labels.normalization_compact_runtime_v3 import codec as K
@@ -89,11 +89,7 @@ def records(cfg, group, fields):
 def one(work):
     # Entire original projection body is retained. Only its reader IO binding
     # is private; no old module/global/source or scientific function is patched.
-    namespace = dict(X.one.__globals__)
-    namespace.update(R=types.SimpleNamespace(records=records), CTX=X.CTX)
-    function = types.FunctionType(X.one.__code__, namespace, X.one.__name__, X.one.__defaults__, X.one.__closure__)
-    function.__kwdefaults__ = X.one.__kwdefaults__
-    return function(work)
+    return resource.project(work, reader_records=records)
 
 
 def metadata(db, geometry):
