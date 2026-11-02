@@ -6,7 +6,7 @@ import json
 import multiprocessing as mp
 import pathlib
 import traceback
-from . import contract as C, domain, source, verify, shared
+from . import contract as C, domain, source, verify, shared, resource
 from workflows.data_v1_final.export.pilot_family_D3_census_resume_v3 import (
     domain as D, io as I, run as Original, frame_mapping as M)
 
@@ -31,7 +31,7 @@ def main():
     gate, _ = Original.fixtures(root)  # Original three Source methods, same Parent; no new suite.
     budget = db = pool = None
     try:
-        budget = I.Budget(plan, proof, root)
+        budget = resource.Budget(plan, proof, root)
         budget.check(force=True)
         bounded = C.meta(plan['bounded_export_review_reference'])
         roots = list(bounded['transitive_closed_output_roots'])
@@ -93,6 +93,7 @@ def main():
         stage = root / 'permanent_f64_source_groups'
         stage.mkdir()
         active, cursor = {}, iter(groups)
+        closed_results = []
         exhausted = False
         while active or not exhausted:
             while not exhausted and len(active) < 32:
@@ -112,8 +113,13 @@ def main():
                     result = future.result()
                     I.add(result['reference'])
                     I.require(result['reference'])
-                    Original.merge(db, result)
+                    # All source readers use immutable=1 on this domain.
+                    # Keep it unchanged until every source task closes its handles.
+                    closed_results.append(result)
                     I.append(root / 'closed_groups.jsonl', result)
+        for result in closed_results:
+            budget.check()
+            Original.merge(db, result)
         stores, eligibility = source.write(db, root, compiled, policy, plan, proof, budget)
         verification = verify.run(db, stores, root, pool, budget)
         workers = list(pool._processes.values())

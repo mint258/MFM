@@ -11,7 +11,7 @@ MODULE = 'workflows.data_v1_final.export.' + PRODUCER_NAMESPACE + '.run'
 HERE = REPO / 'workflows/data_v1_final/export' / PRODUCER_NAMESPACE
 OUTPUT = ROOT / 'artifacts/labels/source_status_v1' / PRODUCER_NAMESPACE
 ROLE = 'TRAIN_UNSEEN_CONFORMATION'
-FILES = ('__init__.py', 'contract.py', 'domain.py', 'source.py', 'shared.py', 'verify.py', 'run.py', 'close.py', 'README.md')
+FILES = ('__init__.py', 'contract.py', 'domain.py', 'source.py', 'shared.py', 'resource.py', 'verify.py', 'run.py', 'close.py', 'README.md')
 
 
 def parameters(plan):
@@ -21,7 +21,8 @@ def parameters(plan):
         source_masks_unchanged=True, training_excluded=True, new_QM_UFF_calls=0,
         r674='ORIGINAL_VALUES_MASKS_LOSS_OFF', r73='ORIGINAL_ORDERED_NATIVE_RECORDS',
         permanent_F64_and_original_once_F32=True, full_Common_D6_Model_ACK=False,
-        D3_payload_C0_required=False, shared_configuration='CLOSED_ACTUAL_CPU_HEADER_AND_FOUR_CURRENT_HASHES')
+        D3_payload_C0_required=False, shared_configuration='CLOSED_ACTUAL_CPU_HEADER_AND_FOUR_CURRENT_HASHES',
+        active_domain_resource_credit='DISABLED_KEEP_FULL_OWN_FUTURE_CAP_NO_MUTABLE_BLOCK_MONOTONICITY')
 
 
 def parents(plan):

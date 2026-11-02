@@ -44,3 +44,11 @@ and retires the obsolete serial watcher before submission. The account reserve
 is the user's current temporary 100-GB floor after all future budgets. This
 producer performs no QM/UFF, new conformer generation, new sampling, training,
 scientific filtering change or final Common/D6/D7 release.
+
+The D5 resource adapter keeps the full own future output cap. It disables
+active allocation credit for its mutable domain.sqlite and does not impose
+an allocated-block monotonicity check on that database. The same database
+stays excluded from immutable closed-output credit. Its report explicitly
+records zero active credit, credit_disabled=true and whether the domain
+actually exists. The original 32-GiB output cap, 100-GB account floor after
+all future budgets, RSS/wall protection and scientific DATA checks remain.
