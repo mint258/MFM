@@ -26,7 +26,7 @@ class Boundaries(unittest.TestCase):
         self.assertEqual(projected['__native_pairs_3'].tolist(),[[1,0],[1,0]])
         self.assertTrue(np.signbit(projected['__native_field_3'][0]))
         retained=source_payload=bytes.fromhex(annotation['original_native_cells_binary_json']['67'])
-        self.assertEqual(P.K.binary_json_loads(retained),records)
+        self.assertEqual(P.K.binary_json_loads(retained.decode('utf-8')),records)
         key='P.pm7_B.r73.value';t={'target_id':'r73','wire_kind':'SOURCE_ORDERED_RECORDS_V1','family':'bonding','geometry_source':'pm7','members':[{'field_key':key,'registry_id':73}]}
         names={k:k for k in ('atom_i','basis_i','atom_j','basis_j','value','onsite')};spec={'components':{key:{'value':{'column':'entries'},'compact':{'field_id':3},'record_index_base':0,'record_fields':names,'null_value_policy':'EXPLICIT_NULL_TRANSPORT'}}}
         records=[{'atom_i':0,'basis_i':'S','atom_j':0,'basis_j':'P','value':.10000000000000003,'onsite':True},

@@ -101,7 +101,9 @@ def closed(accepted):
       and request['execution_kind']=='LOCAL_HEADNODE' and request['node']=='sonmi'
       and request['cpus']==workers and request['wall_seconds']==86400
       and request['memory_policy']=='OBSERVED_LOCAL_PROCESS_NO_SLURM_ALLOCATION'
-      and request['data_references']==expected_data,'SAME_LOCAL_REQUEST_AND_SCIENTIFIC_INPUTS')
+      and len(request['data_references'])==len(expected_data)
+      and {v['path']:v for v in request['data_references']}=={v['path']:v for v in expected_data},
+      'SAME_LOCAL_REQUEST_AND_SCIENTIFIC_INPUTS')
     module='workflows.data_v1_final.labels.existing_sprime_fast55k_head_stats_resume_v1.run'if origin else 'workflows.data_v1_final.labels.existing_sprime_fast55k_head_v1.run'
     if workers==8:module='workflows.data_v1_final.labels.existing_sprime_fast55k_head_stats_resume_v2.run'
     if envelope.get('tool_cache_continuation_reference'):module='workflows.data_v1_final.labels.existing_sprime_fast55k_head_stats_resume_v3.run'

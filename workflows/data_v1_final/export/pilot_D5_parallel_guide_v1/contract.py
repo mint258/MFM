@@ -4,11 +4,12 @@ from workflows.data_v1_final.export.pilot_family_D3_census_resume_v3 import cont
 from workflows.data_v1_final.export.common_day_parent_v1 import parent as A
 
 Q, ROOT, REPO, PY, need, meta, reference = O.Q, O.ROOT, O.REPO, O.PY, O.need, O.meta, O.reference
-KEY = 'pilot_D5_parallel_guide_v1'
+PRODUCER_NAMESPACE = 'pilot_D5_parallel_guide_v1'
+KEY = PRODUCER_NAMESPACE.lower()
 STORE_NAMESPACE = 'pilot_D3_diagnostic_supplement_v1'
-MODULE = 'workflows.data_v1_final.export.' + KEY + '.run'
-HERE = REPO / 'workflows/data_v1_final/export' / KEY
-OUTPUT = ROOT / 'artifacts/labels/source_status_v1' / KEY
+MODULE = 'workflows.data_v1_final.export.' + PRODUCER_NAMESPACE + '.run'
+HERE = REPO / 'workflows/data_v1_final/export' / PRODUCER_NAMESPACE
+OUTPUT = ROOT / 'artifacts/labels/source_status_v1' / PRODUCER_NAMESPACE
 ROLE = 'TRAIN_UNSEEN_CONFORMATION'
 FILES = ('__init__.py', 'contract.py', 'domain.py', 'source.py', 'shared.py', 'verify.py', 'run.py', 'close.py', 'README.md')
 

@@ -3,9 +3,10 @@ import pathlib,sys
 from workflows.data_v1_final.export.family_export_day_v1 import contract as F
 from workflows.data_v1_final.labels.existing_sprime_pilot_day_v1 import contract as B
 Q=F.Q;ROOT=F.ROOT;REPO=F.REPO;PY=F.PY;need=F.need;meta=F.meta;reference=F.reference;unique=F.unique
-KEY='pilot_family_D3_census_resume_v3';MODULE='workflows.data_v1_final.export.'+KEY+'.run';HERE=REPO/'workflows/data_v1_final/export'/KEY
+PRODUCER_NAMESPACE='pilot_family_D3_census_resume_v3'
+KEY=PRODUCER_NAMESPACE.lower();MODULE='workflows.data_v1_final.export.'+PRODUCER_NAMESPACE+'.run';HERE=REPO/'workflows/data_v1_final/export'/PRODUCER_NAMESPACE
 FILES=('__init__.py','contract.py','metadata.py','io.py','domain.py','wire.py','source.py','writer.py','verify.py','run.py','test_v1.py','configuration.py','projection.py','frame_mapping.py','source_revision2_origin.json','lossless_io.py','local_parent.py','README.md')
-OUTPUT=ROOT/'artifacts/labels/source_status_v1'/KEY
+OUTPUT=ROOT/'artifacts/labels/source_status_v1'/PRODUCER_NAMESPACE
 COUNTS={'TRAIN':50000,'VAL':5000}
 ANALYSIS_NODES=('compute-0-2','compute-0-8','compute-0-9','compute-0-10','compute-0-11','compute-0-12','compute-0-13','compute-0-14','compute-0-15','compute-0-16','compute-0-17','compute-0-18','compute-0-19')
 RESOURCE=('resource_authority_reference','cost_decision_reference','quota_provider_review_reference','quota_provider_identity_reference','root_carveout_review_reference')

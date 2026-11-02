@@ -53,7 +53,7 @@ def prepare(entries,compact,recipe,raw,n):
         native=S.decode_cell(cells.get(f['registry_id']))
         # A multi-component tensor/compound cell is retained once per target,
         # not once per member, without dropping any original dictionary item.
-        native_key=str(f['registry_id']);native_payload=K.binary_json_dumps(native).hex()
+        native_key=str(f['registry_id']);native_payload=K.binary_json_dumps(native).encode('utf-8').hex()
         C.need(native_key not in note['original_native_cells_binary_json']
           or note['original_native_cells_binary_json'][native_key]==native_payload,'ONE_NATIVE_CELL_PER_REGISTRY_ID')
         note['original_native_cells_binary_json'][native_key]=native_payload
