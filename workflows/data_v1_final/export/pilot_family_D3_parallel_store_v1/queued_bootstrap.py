@@ -83,7 +83,7 @@ def main():
                   'PYTHONDONTWRITEBYTECODE=1', 'PYTHONUNBUFFERED=1', 'CUDA_VISIBLE_DEVICES=',
                   *[key + '=1' for key in THREAD_KEYS]]
     remote_command = 'cd ' + shlex.quote(str(REPO)) + ' && env ' + shlex.join(remote_env) + ' ' + shlex.join(remote)
-    helper = subprocess.run(['ssh', '-n', '-oBatchMode=yes', '-oConnectTimeout=12', 'sonmi', remote_command],
+    helper = subprocess.run(['ssh', '-n', '-oBatchMode=yes', '-oConnectTimeout=12', '202.38.247.57' if unlimited else 'sonmi', remote_command],
                             stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=None if unlimited else 600, check=False)
     need(helper.returncode == 0, 'MAIN_PREPARE_HELPER_FAILED_NO_RETRY:' + helper.stderr[-4096:])
     need(helper.stdout.splitlines(), 'MAIN_PREPARE_HELPER_RETURNED_NO_JSON')

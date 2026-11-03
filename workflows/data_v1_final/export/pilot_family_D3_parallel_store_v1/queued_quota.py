@@ -190,7 +190,7 @@ def observe(plan,own_allocated_sample):
     encoded=base64.urlsafe_b64encode(json.dumps(reference).encode()).decode()
     command='PYTHONPATH='+shlex.quote(str(R/'repository'))+' '+shlex.quote(sys.executable)+' -B '+shlex.quote(str(pathlib.Path(__file__).resolve()))+' --observe --policy '+shlex.quote(encoded)
     if job:command+=' --job-id '+shlex.quote(job)
-    return json.loads(run(['ssh','-n','-o','BatchMode=yes','sonmi',command]))
+    return json.loads(run(['ssh','-n','-o','BatchMode=yes','202.38.247.57',command]))
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--observe',action='store_true',required=True)
