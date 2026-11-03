@@ -5,16 +5,23 @@ from . import io as I,science
 
 
 def produce(plan,out,guard,common,members,roles,formal,objects):
+    from . import grouped_io as G
+    grouped=plan.get('io_policy_reference') is not None
+    io_policy=G.validate(I.read(plan['io_policy_reference'])) if grouped else None
+    budget=G.Budget(guard,io_policy) if grouped else guard
+    Writer=G.Writer if grouped else I.Writer
     S=objects['scan'];Census=objects['census'];old_io=objects['io'];Dispatch=objects['Dispatch']
     graph=out/'graph';graph.mkdir();bodies={};db=None
-    source=I.Writer(graph/'source_identity.DATA.jsonl',guard);results=I.Writer(graph/'graph_results.DATA.jsonl',guard)
+    source=Writer(graph/'source_identity.DATA.jsonl',budget);results=Writer(graph/'graph_results.DATA.jsonl',budget)
     try:
-        for ref in [*members,*roles,formal]:bodies[ref['path']]=I.Body(ref,guard)
-        db,expected=S.prepare(graph,bodies,members,roles,common,'full',guard)
+        for ref in [*members,*roles,formal]:bodies[ref['path']]=I.Body(ref,budget)
+        db,expected=S.prepare(graph,bodies,members,roles,common,'full',budget)
+        if grouped:db=G.Connection(db,graph/'census.sqlite',budget)
         ctx=mp.get_context('spawn');barrier=ctx.Barrier(16);directory=graph/'worker_sources';directory.mkdir()
         with cf.ProcessPoolExecutor(max_workers=16,mp_context=ctx,initializer=science.initialize,initargs=(plan,barrier,str(directory))) as pool:
-            dispatch=Dispatch(pool,db,results,guard)
-            try:scan=S.scan_formal(db,bodies[formal['path']],source,dispatch,guard)
+            dispatcher_pool=G.SourceDurablePool(pool,source,budget) if grouped else pool
+            dispatch=Dispatch(dispatcher_pool,db,results,budget)
+            try:scan=S.scan_formal(db,bodies[formal['path']],source,dispatch,budget)
             finally:dispatch.collect(True)
         Census.require_same_membership(expected,scan['all_common_observed_census'])
         I.need(db.execute('SELECT count(*) FROM selected s LEFT JOIN results r USING(mid) WHERE r.mid IS NULL').fetchone()[0]==0
@@ -28,13 +35,13 @@ def produce(plan,out,guard,common,members,roles,formal,objects):
             I.need(str(value['worker_pid'])==pid and value['uid']==1264 and value['job_id']==str(os_job()),'HONEST_ALPHA_WORKER_SOURCE_PROOF')
             worker_refs.append(ref)
         source.close();results.close()
-        projection=I.Writer(graph/'strict5_projection.DATA.jsonl',guard)
+        projection=Writer(graph/'strict5_projection.DATA.jsonl',budget)
         try:
             for mid,raw in db.execute('SELECT mid,strict5 FROM results WHERE strict5 IS NOT NULL ORDER BY mid'):projection.write(json.loads(raw))
         finally:projection.close()
         # Match the existing standalone producer: retain a feature row only
         # after the original reducer proves all molecular feature values equal.
-        features=I.Writer(graph/'structural_features.DATA.jsonl',guard);pending=None;pending_mid=None
+        features=Writer(graph/'structural_features.DATA.jsonl',budget);pending=None;pending_mid=None
         try:
             with results.path.open() as stream:
                 for line in stream:
@@ -63,7 +70,7 @@ def produce(plan,out,guard,common,members,roles,formal,objects):
                 frames.append(dict(reference=ref,frame=list(body.frame)))
             finally:body.close()
         input_frames=[dict(destination_reference=body.reference,current_Alpha_frame=list(body.frame)) for body in bodies.values()]
-        db.commit();db.close();db=None
+        db.commit();db.close();db_io_receipt=db.receipt() if grouped else None;db=None
         return dict(schema='ALPHA_FULL_COMMON_GRAPH_COMPONENT_V1',status='COMPLETE_PENDING_ALPHA_C0_AND_ROOT_ACCEPTANCE' if holds==0 else 'SOURCE_GRAPH_HOLD_NOT_A_SUBSET_REFERENCE',
           expected_all_common_census=expected,scan=scan,observed_projection_census=observed,HOLD_MIDs=holds,strict5_rows=projection.rows,
           projection=references[2],structural_features=references[3],source_journal=references[0],graph_results=references[1],
@@ -71,6 +78,9 @@ def produce(plan,out,guard,common,members,roles,formal,objects):
           worker_MID_counts=dict(dispatch.pids),worker_CPU_seconds=dict(dispatch.cpu),actual_worker_proofs=worker_refs,
           source_kind='v1_common_structure_projection',fingerprint_recipe='ECFP4_2048_radius2_chiralityFalse_rdkit2025.09.5',
           graph_selector='ORIGINAL_CREATOR_SMILES_STRIP_TEMPLATE_V1',original_multiple_graph_HOLD_semantics_unchanged=True,
+          io_policy_reference=plan.get('io_policy_reference'),
+          io_durability=[writer.receipt() for writer in (source,results,projection,features)] if grouped else dict(mode='ORIGINAL_PER_RECORD_DURABLE_REQUEST_FSYNC'),
+          SQLite_grouped_IO=db_io_receipt,
           reference_is_not_55k_or_all_TRAIN_proxy=True,consumer_manifest_emitted=False,candidate_release_authorized=False)
     finally:
         source.close();results.close()

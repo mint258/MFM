@@ -13,8 +13,9 @@ from .run import Guard
 from .coverage import validate_reference
 
 
-def run(plan_path):
+def run(plan_path, *, startup_proof=None):
     plan=load(plan_path);require(plan.get('schema')=='PUBCHEM_EXACT_REFERENCE_PACK_PLAN_V1','Wrong reference pack plan')
+    startup_reference=reference(startup_proof) if startup_proof is not None else None
     bind_plan(plan)
     import socket
     if not plan.get('runtime_profile_reference'):
@@ -28,9 +29,13 @@ def run(plan_path):
         require(source.get('schema')=='expansion_common_v1_structure_projection_v1' and source.get('fingerprint_recipe')==RECIPE
             and source.get('targets_present') is False and source.get('population_roles')==['TRAIN','VAL']
             and source.get('one_row_per_common_molecule') is True,'Actual full Common projection required')
-        verify(source['actual_full_receipt_reference']);review=load(verify(source['final_Root_graph_review_reference']))
-        require(review.get('reviewer')=='root' and review.get('status')=='APPROVED_EXACT_COMMON_REFERENCE_PROJECTION',
-            'Actual full Common final graph authority required')
+        if source.get('producer_schema')=='ALPHA_COMMON_GRAPH_CONTINUATION_PRODUCER_V1':
+            from .alpha_common import validate_manifest
+            validate_manifest(source)
+        else:
+            verify(source['actual_full_receipt_reference']);review=load(verify(source['final_Root_graph_review_reference']))
+            require(review.get('reviewer')=='root' and review.get('status')=='APPROVED_EXACT_COMMON_REFERENCE_PROJECTION',
+                'Actual full Common final graph authority required')
         verify(source['common_population_manifest']);expected=source['common_molecules'];base_count=0
     else:
         base_path=verify(plan['base_reference_manifest']);base=validate_reference(base_path,'before');base_count=base['molecules']
@@ -91,11 +96,15 @@ def run(plan_path):
     if not before:result.update(base_reference_manifest=plan['base_reference_manifest'],added_molecules=count,
         added_source_manifest=source['source_manifest'],addition_projection_manifest=plan['input_manifest'],
         original_reference_ordinals_preserved_as_exact_prefix=True)
+    if startup_reference is not None:result['launcher_startup_proof_reference']=startup_reference
     dump_new(root/'manifest.json',result);return result
 
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--plan',required=True,type=Path);run(p.parse_args().plan)
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--plan',required=True,type=Path)
+    p.add_argument('--startup-proof',type=Path,help='Optional actual launcher metadata, retained by exact byte reference')
+    a=p.parse_args();run(a.plan,startup_proof=a.startup_proof)
 
 
 if __name__=='__main__':main()

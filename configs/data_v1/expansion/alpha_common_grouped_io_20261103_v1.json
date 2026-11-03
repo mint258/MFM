@@ -1,0 +1,21 @@
+{
+  "schema": "ALPHA_COMMON_GROUPED_IO_POLICY_V1",
+  "mode": "GROUPED_SOURCE_DURABLE_BEFORE_DISPATCH_V1",
+  "checkpoint_bytes": 8388608,
+  "checkpoint_seconds": 2,
+  "maximum_pending_MIDs": 32,
+  "final_close_flush_fsync": true,
+  "deferred_per_record_durable_requests": true,
+  "source_durable_before_real_worker_submit": true,
+  "full_readback_required": true,
+  "checkpoint_is_resume_authority": false,
+  "db_commit_requests_per_group": 32,
+  "db_commit_seconds": 2,
+  "deferred_SQLite_commit_requests": true,
+  "SQLite_synchronous_FULL_unchanged": true,
+  "SQLite_partial_is_resume_authority": false,
+  "status": "SOURCE_POLICY_REQUIRES_BINDING_IN_NEW_ACTUAL_ROOT_PLAN",
+  "per_record_durable_request_semantics": "GROUPED_ONLY_UNDER_THIS_EXPLICIT_NEW_POLICY",
+  "closed_population_or_C0_claimed": false,
+  "old_1885151_proof_or_sources_modified": false
+}

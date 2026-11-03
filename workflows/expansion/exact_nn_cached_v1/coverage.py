@@ -26,10 +26,14 @@ def validate_reference(path,role):
         require(projection.get('schema')=='expansion_common_v1_structure_projection_v1'
             and projection.get('one_row_per_common_molecule') is True and projection.get('population_roles')==['TRAIN','VAL']
             and projection['common_molecules']==m['molecules'],'Complete Common molecular census required')
-        verify(projection['common_population_manifest']);verify(projection['actual_full_receipt_reference'])
-        review=load(verify(projection['final_Root_graph_review_reference']))
-        require(review.get('status')=='APPROVED_EXACT_COMMON_REFERENCE_PROJECTION' and review.get('reviewer')=='root',
-            'Actual full Common graph review required')
+        if projection.get('producer_schema')=='ALPHA_COMMON_GRAPH_CONTINUATION_PRODUCER_V1':
+            from .alpha_common import validate_manifest
+            validate_manifest(projection)
+        else:
+            verify(projection['common_population_manifest']);verify(projection['actual_full_receipt_reference'])
+            review=load(verify(projection['final_Root_graph_review_reference']))
+            require(review.get('status')=='APPROVED_EXACT_COMMON_REFERENCE_PROJECTION' and review.get('reviewer')=='root',
+                'Actual full Common graph review required')
     elif role=='after':
         require(m.get('schema')=='EXPANSION_EXACT_AUGMENTED_REFERENCE_V1' and m.get('added_molecules')==2500000,
             'Actual full2.5M augmentation required')
@@ -88,8 +92,9 @@ def reference_identity_index(cache,keys,n,guard):
     cache.db.execute("INSERT INTO meta VALUES('complete_reference_identity_index',?)",(str(n),));cache.commit()
 
 
-def run(plan_path):
+def run(plan_path, *, startup_proof=None):
     plan=load(plan_path);require(plan.get('schema')=='PUBCHEM_EXACT_SCIENTIFIC_COVERAGE_PLAN_V1','Wrong coverage plan schema')
+    startup_reference=reference(startup_proof) if startup_proof is not None else None
     bind_plan(plan)
     workers=plan['workers'];cap=plan['worker_rss_cap_bytes'];startup_memory=allocation_guard(plan)
     baseline_path=verify(plan['baseline_receipt']);q=load(baseline_path);source=baseline_query(q);source_frame=file_frame(source)
@@ -161,12 +166,16 @@ def run(plan_path):
             'resource_plan':reference(plan_path),'wall_seconds_this_attempt':time.monotonic()-started}
         receipt['startup_memory_observation']=startup_memory
         receipt['endpoint_execution']=provenance(plan)
+        if startup_reference is not None:receipt['launcher_startup_proof_reference']=startup_reference
         dump_new(root/('attempt'+str(attempt)+'.receipt.json'),receipt);return receipt
     finally:cache.close();lock.close()
 
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--plan',required=True,type=Path);run(p.parse_args().plan)
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--plan',required=True,type=Path)
+    p.add_argument('--startup-proof',type=Path,help='Optional actual launcher metadata, retained by exact byte reference')
+    a=p.parse_args();run(a.plan,startup_proof=a.startup_proof)
 
 
 if __name__=='__main__':main()
