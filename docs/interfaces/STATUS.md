@@ -1,6 +1,6 @@
 ## 2026-11-03 当前：D2/D4/D5已交付，D3在CPU21续接
 
-D-3新单父作业4525651实际RUNNING，compute-0-21、16CPU。依据用户明确授权，脚本无时间/内存参数，程序无总时限、RSS或MemAvailable停止门；调度器实际默认时限365天、MinMemoryNode=0。已通过实际100GB账户余量准入，配额观察READY、薄几何索引开始实际写入；临时连接故障只等待恢复。复用90/113源组，剩余源投影完成后8个独立子库writer并行，同一作业只做一次counts、1000条原Parquet逐字段比较、总清单SHA，一次rsync --checksum及一次180秒吞吐。D3正式LMDB尚未交付，不代填Model实际加载ACK。
+D-3新单父作业4525651实际RUNNING，compute-0-21、16CPU。依据用户明确授权，脚本无时间/内存参数，程序无总时限、RSS或MemAvailable停止门；调度器实际默认时限365天、MinMemoryNode=0。薄几何索引已完成，剩余源组已派发；新增同账户Common作业4525653的64GiB共享盘未来写入已纳入，当前等待其收尾后恢复100GB账户余量，D3保留运行并自动继续。复用90/113源组，剩余源投影完成后8个独立子库writer并行，同一作业只做一次counts、1000条原Parquet逐字段比较、总清单SHA，一次rsync --checksum及一次180秒吞吐。D3正式LMDB尚未交付，不代填Model实际加载ACK。
 
 [D2注册表](../../configs/data_v1/v1-pilot-provisional/D2_registry.json)、[D4归一化](../../configs/data_v1/v1-pilot-provisional/D4_normalization.json)、[D5诊断载荷](../../configs/data_v1/v1-pilot-provisional/D5_diagnostic_payload.json)已交付；D5实际父4525593 C0/1607秒，893个试点已见分子、12,502几何、43,757标签记录、53子库。全局嵌套与20k母清单保持。r73完整有序F64、一转F32；r674 LOSS_DISABLED，无新增QM/UFF。详情只维护[当日汇总](../data_v1/progress_20261103_v1_pilot_provisional.md)。以下旧时间点作为历史。
 
