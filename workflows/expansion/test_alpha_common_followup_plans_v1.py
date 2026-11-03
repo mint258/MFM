@@ -19,7 +19,7 @@ class Metadata(unittest.TestCase):
         self.assertEqual(argv[argv.index('--tag')+1],'common_reference_before')
         rendered=M.sbatch(argv,Path('/base'),Path('/control'),'common_reference_before')
         self.assertEqual(shlex.split(next(s[5:] for s in rendered.splitlines() if s.startswith('exec '))),argv)
-        self.assertNotIn('--mem',render);self.assertIn('#SBATCH --time=0',render)
+        self.assertNotIn('--mem',rendered);self.assertIn('#SBATCH --time=0',rendered)
         self.assertRaises(ValueError,M.launcher_argv,'py','launch','base','entry','wrong.module','tag','c','p','rpc')
 
     def test_missing_or_running_c0_refuses_without_writing(self):

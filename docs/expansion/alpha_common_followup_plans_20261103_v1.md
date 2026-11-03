@@ -46,6 +46,8 @@ admission. No new future-reservation credit is inferred.
 
 Source fixtures:
 `test_alpha_common_followup_plans_v1.py` checks argv/shell quoting with separate
-module/tag, absence of memory/wall requests, running/missing C0 refusal without
+module/tag, absence of memory requests and an explicit unlimited scheduler time, running/missing C0 refusal without
 writes, and rejection of rewritten Main transport origin. These are synthetic
 stdlib metadata checks; no production or chemistry is executed.
+
+The three stdlib fixtures passed on actual Alpha UID1264 with process exit0 in the fresh immutable layer `common_followups_a5d36eb`; see [actual metadata test record](alpha_common_followup_metadata_actual_20261103_v1.json). The first deployed fixture had an undefined test variable and its failed record/layer remain preserved. This checks metadata only; full Common acceptance, reference packing and SQL binding remain separate actual dependencies.
