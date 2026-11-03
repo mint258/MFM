@@ -2,7 +2,7 @@
 
 D‑1 v3.0已冻结，D‑2、D‑4、D‑5保持已交付；D‑3尚未交付。用户要求P′暂时挂起，先完成D‑3，本日不启动P′修复或新QM。
 
-D‑3当前实际作业4525670在compute-0-8 RUNNING、16CPU。固定50,000 TRAIN＋5,000 ROUTINE VAL；141/171源组已真实登记复用，现已关闭144/171组，剩余27组正在处理。已观察16个新源组SQLite文件、合计已分配1,130,262,528B；这是中间结果，不是训练载荷。存储状态READY；实际自动交付观察器2100147的UID/start_ticks身份已核对存活。
+D‑3当前实际作业4525670在compute-0-8 RUNNING、16CPU。固定50,000 TRAIN＋5,000 ROUTINE VAL；141/171源组已真实登记复用，本次观察已关闭164/171组，剩余7组正在处理。已观察16个新源组SQLite文件、合计已分配1,130,262,528B；这是中间结果，不是训练载荷。存储状态READY；自动交付观察器已从2100147接管至2135737，双方UID/boot/start_ticks/argv身份核对后仅停止旧metadata观察器；Slurm数据任务未发信号。
 
 大文件输出沿Lustre；750GB为预测非硬上限，100GB真实账户余量保持。脚本无任务时间及内存参数，程序无总墙钟、RSS、MemAvailable停止门。原始Parquet、D4几何和141个闭合成果全部保留。
 
@@ -12,3 +12,7 @@ D‑3当前实际作业4525670在compute-0-8 RUNNING、16CPU。固定50,000 TRAI
 
 [D‑2注册表](../../configs/data_v1/v1-pilot-provisional/D2_registry.json)、[D‑4归一化](../../configs/data_v1/v1-pilot-provisional/D4_normalization.json)、[D‑5诊断载荷](../../configs/data_v1/v1-pilot-provisional/D5_diagnostic_payload.json)保持原交付。r73完整有序F64与单次F32、r674 LOSS_DISABLED保持。本轮不宣称最终Common、D‑6/D‑7或模型实际加载ACK完成。
 一次性能处理：OS进程观察显示磁盘等待，36.7GB冻结几何库原仅2.4GB缓存；在现有作业4525670内以低优先级只读预热，step4525670.0实际C0/206秒，之后OS观察缓存驻留36.7GB。没有新增sbatch、数据比较、SHA或质量测试；缓存可由系统回收，源文件与活跃代码未改。
+
+用户询问耗时后的暂估：整体D3交付仍先按6–12小时预留，其中源投影约1–2小时；合并、LMDB写入、原定一次校验和复制尚未开始，后半程缺实测速率，此范围不是承诺或运行时限。进入写入后按实际吞吐更新。当前源组数不能解释为全部D3完成百分比。
+
+同日工具修复补充：只读源码审阅发现未来额度退休异常可阻断已C0导出的metadata发布，已启用独立completion_r2。配额UNKNOWN时保守保留future并单独重试，原publisher仍要求真实C0/UID/16CPU/原manifest；同父PUBLIC存在时不重复发布。活动producer、冻结文件、DATA/QA/复制均未改动或重跑，未另起计算任务。
