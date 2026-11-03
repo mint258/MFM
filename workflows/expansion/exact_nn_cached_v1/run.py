@@ -17,7 +17,7 @@ from ..common import load,reference,require,dump_new,wp5_key
 from ..portable_sources_v1.transport import verify,bind_plan,provenance
 from ..nearest_exact import QUERY_FIELDS
 from .engine import RECIPE,WIDTH,ALGORITHM,current_rss,file_frame
-from .cache import QueryCache,canonical
+from .cache import QueryCache,canonical,parent_sqlite_runtime,record_parent_sqlite
 from .workers import exact_batches
 
 
@@ -159,7 +159,9 @@ def run(plan_path):
     fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     guard=Guard(plan,root);guard.poll(True,32<<20)
     ref_sha=plan['reference_manifest']['sha256']
-    cache=QueryCache(root/'queries.sqlite',ref_sha,n)
+    cache=QueryCache(root/'queries.sqlite',ref_sha,n,sqlite_cache_bytes=plan.get('sqlite_cache_bytes'))
+    sqlite_runtime={'query_cache':cache.sqlite_runtime}
+    sqlite_runtime_ref=record_parent_sqlite(root,sqlite_runtime)
     # SQLite itself cannot grow beyond the declared entire output allowance.
     cache.db.execute('PRAGMA max_page_count='+str(plan['output_cap_bytes']//4096))
     source_key=hashlib.sha256(canonical({'query_manifest':plan['query_manifest'],'limit':limit})).hexdigest()
@@ -205,6 +207,8 @@ def run(plan_path):
         projection=root/(source_key+'.'+str(attempt)+'.novelty.jsonl')
         audit=root/(source_key+'.'+str(attempt)+'.audit.jsonl')
         counts=sqlite3.connect(counts_path.as_uri()+'?mode=ro',uri=True)
+        sqlite_runtime['reference_counts_read_only']=parent_sqlite_runtime(counts,plan.get('sqlite_cache_bytes'))
+        sqlite_runtime_ref=record_parent_sqlite(root,sqlite_runtime)
         try:
             with projection.open('x',encoding='utf-8') as out,audit.open('x',encoding='utf-8') as trace,keys_path.open('rb') as keys:
                 window=0
@@ -236,6 +240,7 @@ def run(plan_path):
             'worker_count_requested':workers,'worker_pids_observed':sorted(pids),'query_batch':batch,
             'worker_metrics':reference(metrics),'projection':{**reference(projection),'rows':limit},'nearest_identity_audit':reference(audit),
             'resource_plan':reference(plan_path),'timing_is_this_attempt_only':True}
+        receipt['sqlite_runtime_reference']=sqlite_runtime_ref
         receipt['startup_memory_observation']=startup_memory
         receipt['endpoint_execution']=provenance(plan)
         dump_new(root/(source_key+'.'+str(attempt)+'.receipt.json'),receipt)

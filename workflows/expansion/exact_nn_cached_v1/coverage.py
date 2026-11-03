@@ -9,7 +9,7 @@ import time
 from ..common import load,reference,require,dump_new,wp5_key
 from ..portable_sources_v1.transport import verify,bind_plan,provenance
 from .engine import RECIPE,WIDTH,ALGORITHM,file_frame
-from .cache import QueryCache,canonical
+from .cache import QueryCache,canonical,record_parent_sqlite
 from .contracts import baseline_query
 from .run import Guard,rows,allocation_guard
 from .workers import exact_batches
@@ -105,7 +105,8 @@ def run(plan_path, *, startup_proof=None):
     lock=(root/'parent.lock').open('a+b');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     guard=Guard(plan,root);guard.poll(True,32<<20)
     sample_membership(q,source,plan)
-    cache=QueryCache(root/'queries.sqlite',plan['reference_manifest']['sha256'],n)
+    cache=QueryCache(root/'queries.sqlite',plan['reference_manifest']['sha256'],n,sqlite_cache_bytes=plan.get('sqlite_cache_bytes'))
+    sqlite_runtime_ref=record_parent_sqlite(root,{'query_cache':cache.sqlite_runtime})
     source_key=plan['baseline_receipt']['sha256'];member=cache.source(source_key)
     batch=plan['query_batch'];require(type(batch)is int and 1<=batch<=4096,'Bounded coverage batch required')
     commit_queries=plan.get('cache_commit_queries',4096)
@@ -164,6 +165,7 @@ def run(plan_path, *, startup_proof=None):
             'new_distinct_queries_this_attempt':computed,'evaluated_references_this_attempt':evaluated,
             'strictly_bound_pruned_references_this_attempt':pruned,'worker_pids_observed':sorted(pids),'worker_metrics':reference(metrics),
             'resource_plan':reference(plan_path),'wall_seconds_this_attempt':time.monotonic()-started}
+        receipt['sqlite_runtime_reference']=sqlite_runtime_ref
         receipt['startup_memory_observation']=startup_memory
         receipt['endpoint_execution']=provenance(plan)
         if startup_reference is not None:receipt['launcher_startup_proof_reference']=startup_reference

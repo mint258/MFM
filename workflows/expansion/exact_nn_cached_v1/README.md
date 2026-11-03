@@ -73,3 +73,47 @@ across-group ties and a rounded-up0.1 equality boundary. Cache tests cover
 source-specific pending work, binary64 round trip, result tampering and scope
 changes. A full-reference measured profile remains required before estimating
 full-pool cost; this module makes no speed claim.
+
+## Optional parent SQLite page-cache allowance
+
+The existing pack_reference, coverage and run CLIs keep --plan PLAN. Their
+plan schemas PUBCHEM_EXACT_REFERENCE_PACK_PLAN_V1,
+PUBCHEM_EXACT_SCIENTIFIC_COVERAGE_PLAN_V1 and PUBCHEM_EXACT_CACHED_NN_PLAN_V1
+all optionally accept sqlite_cache_bytes=1073741824. No extra CLI flag exists.
+This sets PRAGMA main.cache_size=-1048576 for each parent SQLite connection;
+omission preserves its installed session default. The parameter is per open
+main database, not a global pool and not the NN workers' decoded-reference cache.
+The integer must be at least1024 bytes; conversion to negative KiB rounds down.
+SQLite allocates pages on demand; this suggested cache limit is not preallocated
+RSS, a Slurm reservation or an entire-process memory cap. See the official
+[SQLite cache_size description](https://www.sqlite.org/pragma.html#pragma_cache_size).
+
+Coverage normally has one query-cache connection (up to1GiB suggested pages).
+Full NN adds the read-only reference-count connection during replay, so at most
+two connections coexist (up to2GiB), within Root's existing8GiB parent allowance.
+Before-pack has one counts writer; after-pack first uses source+destination
+backup connections (two), closes them, then opens one counts writer. No caller
+sets TEMP cache/store, journal mode, synchronous, cache_spill, page size, schema,
+SQL, transaction/checkpoint boundaries, source row order or scientific recipes.
+QueryCache retains its exact reference/recipe/algorithm scope; an operational
+cache allowance is not inserted into that scope, so a fresh admitted plan may
+adjust it while resuming the same scientifically bound DB. Worker NN reference
+loading, limits, exact pruning and ties are unchanged.
+
+Each stage writes/logs sqlite_runtime_UUID.json with requested bytes and actual
+main cache/page/spill, TEMP cache/store, journal and synchronous PRAGMAs. Its
+complete result binds sqlite_runtime_reference. Full NN first records query
+cache settings and later writes a second closed readback including the read-only
+counts connection; prior attempt/readback files remain retained. These files
+record runtime settings, not measured cache hits or speedup. Counts and cache
+indices can exceed the default small page cache, making random GFS page I/O a
+plausible bottleneck; sequential input, TEMP I/O and fsync may still dominate.
+
+Root's current proposed NN admission is32 workers at1GiB worker RSS each plus
+an8GiB parent allowance (40GiB software total), alongside48GiB statistics and a
+24GiB node reserve. Root owns the actual CPU/node/quota admission and full packed
+reference native memory/cost observation before the1M search. Neither this plan
+proposal nor passing small existing engine/bridge/CLI fixtures proves the full
+reference fits or supplies a speed claim. No output cap/future reserve or
+existing guard is enlarged or bypassed by this option. There is no new time
+limit, sampling, release gate, retry or scheduler submission.

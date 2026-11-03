@@ -14,8 +14,35 @@ def canonical(value):
     return json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False).encode()
 
 
+
+def parent_sqlite_runtime(db,cache_bytes=None):
+    """Optional session-local main page cache; no schema, transaction or worker change."""
+    if cache_bytes is not None:
+        if type(cache_bytes)is not int or cache_bytes<1024:
+            raise ValueError('sqlite_cache_bytes must be an integer of at least1024 bytes')
+        db.execute('PRAGMA main.cache_size=-'+str(cache_bytes//1024))
+    return {'requested_main_cache_bytes':cache_bytes,
+        'main_cache_size_pragma':db.execute('PRAGMA main.cache_size').fetchone()[0],
+        'main_page_size_bytes':db.execute('PRAGMA main.page_size').fetchone()[0],
+        'main_cache_spill_pragma':db.execute('PRAGMA main.cache_spill').fetchone()[0],
+        'temp_cache_size_pragma':db.execute('PRAGMA temp.cache_size').fetchone()[0],
+        'temp_store_pragma':db.execute('PRAGMA temp_store').fetchone()[0],
+        'journal_mode':db.execute('PRAGMA main.journal_mode').fetchone()[0],
+        'synchronous_pragma':db.execute('PRAGMA main.synchronous').fetchone()[0],
+        'session_local_suggested_cache_not_preallocated_RSS':True}
+
+
+def record_parent_sqlite(root,settings):
+    """Close a small operational readback, never a scientific cache-scope input."""
+    import uuid
+    from ..common import dump_new,reference
+    path=Path(root)/('sqlite_runtime_'+uuid.uuid4().hex+'.json')
+    dump_new(path,settings);ref=reference(path)
+    print(json.dumps({'sqlite_runtime_reference':ref,'sqlite_runtime':settings},sort_keys=True),flush=True)
+    return ref
+
 class QueryCache:
-    def __init__(self,path,reference_manifest_sha256,reference_molecules):
+    def __init__(self,path,reference_manifest_sha256,reference_molecules,*,sqlite_cache_bytes=None):
         self.path=Path(path);self.n=reference_molecules
         if not isinstance(reference_manifest_sha256,str) or re.fullmatch('[0-9a-f]{64}',reference_manifest_sha256)is None or type(self.n)is not int or self.n<1:
             raise ValueError('ACTUAL_REFERENCE_SCOPE_REQUIRED')
@@ -38,6 +65,7 @@ class QueryCache:
         if old is None:self.db.execute("INSERT INTO meta VALUES('scope',?)",(encoded,));self.db.commit()
         elif old[0]!=encoded:
             self.db.close();raise ValueError('QUERY_CACHE_REFERENCE_OR_RECIPE_SCOPE_CHANGED')
+        self.sqlite_runtime=parent_sqlite_runtime(self.db,sqlite_cache_bytes)
         self.recent=OrderedDict()
 
     def source(self,source_key):

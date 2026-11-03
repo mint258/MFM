@@ -11,6 +11,7 @@ from ..portable_sources_v1.transport import verify,bind_plan,provenance
 from .engine import RECIPE,WIDTH,file_frame
 from .run import Guard
 from .coverage import validate_reference
+from .cache import parent_sqlite_runtime,record_parent_sqlite
 
 
 def run(plan_path, *, startup_proof=None):
@@ -25,6 +26,7 @@ def run(plan_path, *, startup_proof=None):
     root.mkdir(parents=True);guard=Guard(plan,root);guard.poll(True,32<<20)
     role=plan['reference_role'];before=role=='before';require(role in ('before','after'),'Explicit reference role required')
     source_path=verify(plan['input_manifest']);source=load(source_path)
+    sqlite_runtime={}
     if before:
         require(source.get('schema')=='expansion_common_v1_structure_projection_v1' and source.get('fingerprint_recipe')==RECIPE
             and source.get('targets_present') is False and source.get('population_roles')==['TRAIN','VAL']
@@ -50,9 +52,14 @@ def run(plan_path, *, startup_proof=None):
         shutil.copyfile(verify(base['fingerprints']),root/'fingerprints.bin');shutil.copyfile(verify(base['keys']),root/'keys.ascii')
         original=sqlite3.connect(verify(base['counts']).as_uri()+'?mode=ro',uri=True)
         copy=sqlite3.connect(root/'counts.sqlite')
-        try:original.backup(copy)
+        try:
+            sqlite_runtime['backup_source']=parent_sqlite_runtime(original,plan.get('sqlite_cache_bytes'))
+            sqlite_runtime['backup_destination']=parent_sqlite_runtime(copy,plan.get('sqlite_cache_bytes'))
+            original.backup(copy)
         finally:original.close();copy.close()
     projection=verify(source['projection']);frame=file_frame(projection);db=sqlite3.connect(root/'counts.sqlite')
+    sqlite_runtime['counts']=parent_sqlite_runtime(db,plan.get('sqlite_cache_bytes'))
+    sqlite_runtime_ref=record_parent_sqlite(root,sqlite_runtime)
     db.executescript('''CREATE TABLE IF NOT EXISTS ids(molecule_id TEXT PRIMARY KEY);
         CREATE TABLE IF NOT EXISTS scaffolds(key TEXT PRIMARY KEY,n INTEGER);
         CREATE TABLE IF NOT EXISTS rings(key TEXT PRIMARY KEY,n INTEGER);
@@ -92,6 +99,7 @@ def run(plan_path, *, startup_proof=None):
         'molecules':base_count+count,'bytes_per_fingerprint':WIDTH,'bytes_per_identity':28,
         'fingerprints':reference(root/'fingerprints.bin'),'keys':reference(root/'keys.ascii'),'counts':reference(root/'counts.sqlite'),
         'resource_plan':reference(plan_path),'all_reference_rows_preserved':True}
+    result['sqlite_runtime_reference']=sqlite_runtime_ref
     result['endpoint_execution']=provenance(plan)
     if not before:result.update(base_reference_manifest=plan['base_reference_manifest'],added_molecules=count,
         added_source_manifest=source['source_manifest'],addition_projection_manifest=plan['input_manifest'],
