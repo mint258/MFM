@@ -29,6 +29,9 @@ def validate_reference(path,role):
         if projection.get('producer_schema')=='ALPHA_COMMON_GRAPH_CONTINUATION_PRODUCER_V1':
             from .alpha_common import validate_manifest
             validate_manifest(projection)
+        elif projection.get('producer_schema')=='ALPHA_COMMON_GENERIC_REPRESENTATION_REPAIR_COMPLETION_PRODUCER_V1':
+            from .alpha_common_repaired import validate_manifest
+            validate_manifest(projection)
         else:
             verify(projection['common_population_manifest']);verify(projection['actual_full_receipt_reference'])
             review=load(verify(projection['final_Root_graph_review_reference']))

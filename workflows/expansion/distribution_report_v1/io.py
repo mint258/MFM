@@ -107,6 +107,10 @@ def population(path):
     actual = pointer(authority, manifest['authority_count_pointer'])
     need(type(actual) is int and actual == manifest['expected_molecules'], 'Declared count differs from actual authoritative population count')
     if manifest['population'] == 'v1_common':
+        if authority.get('producer_schema') == 'ALPHA_COMMON_GENERIC_REPRESENTATION_REPAIR_COMPLETION_PRODUCER_V1':
+            from ..exact_nn_cached_v1.alpha_common_repaired import validate_manifest
+            validate_manifest(authority)
+            need(manifest['expected_molecules'] == 1196122, 'Complete repaired Common is mandatory')
         need(manifest['is_sample'] is False and manifest['population_roles'] == ['TRAIN', 'VAL'] and manifest['authority_kind'] == 'FINAL_FULL_COMMON_MEMBERSHIP', 'Full Common TRAIN/VAL membership is mandatory; a sampled Common is forbidden')
     if manifest['population'] == 'pubchem_1m':
         need(manifest['expected_molecules'] == 1000000 and manifest['is_sample'] is True and manifest['sampling']['uniform'] is True and type(manifest['sampling']['seed']) is int and manifest['sampling']['source_status'] == 'X_SCREENED_INTERNAL_FULLKEY_DEDUPLICATED', 'Exactly one million uniformly selected same-X internally deduplicated PubChem molecules required')

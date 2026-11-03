@@ -42,3 +42,28 @@ No graph/UFF/QM/statistical computation or job submission occurs here.
 New pure metadata fixture suite: `...exact_nn_cached_v1.test_alpha_common`
 (4 cases). Actual Alpha full Common and final Root review remain pending until
 their own jobs/observations close; source fixtures cannot substitute for them.
+
+The separate generic-representation repair path uses producer
+`ALPHA_COMMON_GENERIC_REPRESENTATION_REPAIR_COMPLETION_PRODUCER_V1` and status
+`COMPLETE_ALPHA_FULL_COMMON_GENERIC_REPRESENTATION_REPAIRED_REFERENCE`.
+Its `alpha_common_repaired.validate_manifest` independently requires its actual
+repair/completion/Root evidence and the full1196122 projection. The original
+`alpha_common.py` and its0HOLD rule remain byte-identical;1196003 is never a
+complete reference in either branch. Source routing itself grants no acceptance.
+
+Pack, coverage/profile/ranking reference validation, the followup plan builder
+and repaired Common population-authority reader explicitly select this new
+validator. The SQL regression binder also retains the separate
+`original_full_source_receipt_reference`: it reads the original Alpha1885153
+producer's plan, origin inputs, transport mapping, formal population and complete
+membership. `actual_full_receipt_reference` points to the new completion and
+is never treated as that original source plan. The binder records both the
+accepted Common manifest and the exact original source receipt it actually used.
+Neither original source geometry nor original Main/Alpha accounting is rewritten.
+
+Existing pack/coverage/profile and followup CLI/plan schemas are unchanged.
+Root must deploy the repaired validator and all current consumer source pins in
+one immutable capsule before preparing its real plans. The small source-routing
+fixture module is `workflows.expansion.exact_nn_cached_v1.test_repaired_consumers`;
+its isolated mocked acceptance checks source lineage only and cannot substitute
+for real repair/native/C0 or independent Root review.

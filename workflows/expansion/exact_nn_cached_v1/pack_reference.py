@@ -34,6 +34,9 @@ def run(plan_path, *, startup_proof=None):
         if source.get('producer_schema')=='ALPHA_COMMON_GRAPH_CONTINUATION_PRODUCER_V1':
             from .alpha_common import validate_manifest
             validate_manifest(source)
+        elif source.get('producer_schema')=='ALPHA_COMMON_GENERIC_REPRESENTATION_REPAIR_COMPLETION_PRODUCER_V1':
+            from .alpha_common_repaired import validate_manifest
+            validate_manifest(source)
         else:
             verify(source['actual_full_receipt_reference']);review=load(verify(source['final_Root_graph_review_reference']))
             require(review.get('reviewer')=='root' and review.get('status')=='APPROVED_EXACT_COMMON_REFERENCE_PROJECTION',

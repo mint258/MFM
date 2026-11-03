@@ -8,6 +8,23 @@ from ..portable_sources_v1 import transport as T
 from ..alpha_common_graph_continuation_v1 import io as I
 
 
+def common_lineage(manifest,small):
+    """Keep accepted completion outputs separate from original source authority."""
+    if manifest.get('producer_schema')=='ALPHA_COMMON_GENERIC_REPRESENTATION_REPAIR_COMPLETION_PRODUCER_V1':
+        from ..exact_nn_cached_v1.alpha_common_repaired import validate_manifest
+        source_ref=manifest['original_full_source_receipt_reference']
+    else:
+        from ..exact_nn_cached_v1.alpha_common import validate_manifest
+        source_ref=manifest['actual_full_receipt_reference']
+    validate_manifest(manifest)
+    producer=small(source_ref)
+    Q.need(producer['schema']=='ALPHA_COMMON_GRAPH_CONTINUATION_PRODUCER_V1'and producer['mode']=='full',
+        'ORIGINAL_FULL_ALPHA_COMMON_SOURCE_RECEIPT_REQUIRED_NOT_COMPLETION_PLAN')
+    common=small(manifest['common_population_manifest']);plan=small(producer['plan'])
+    origin=small(plan['origin_input_manifest_reference'])
+    return producer,common,plan,origin,source_ref
+
+
 def execute(plan,out,guard):
     transport=T.Transport(plan['parent_transport_manifest'],'218.192.171.238:22',1264)
     def small(ref):return Q.load(transport.verify(ref))
@@ -32,10 +49,8 @@ def execute(plan,out,guard):
     originals=[by_name[name] for name in ('regression_x_v1.py','regression_x_v2.py','regression_x_full_v3.py')]
     code=[transport.verify(ref).read_text() for ref in originals]
     semantics=source.prove(*code,old['boolean_bit_order'])
-    from ..exact_nn_cached_v1.alpha_common import validate_manifest
-    common_manifest=validate_manifest(small(plan['common_reference_manifest']))
-    common_producer=small(common_manifest['actual_full_receipt_reference']);common=small(common_manifest['common_population_manifest'])
-    common_plan=small(common_producer['plan']);origin=small(common_plan['origin_input_manifest_reference'])
+    common_manifest=small(plan['common_reference_manifest'])
+    common_producer,common,common_plan,origin,common_source_ref=common_lineage(common_manifest,small)
     mapping={row['origin_reference']['path']:row['destination_reference'] for row in common_plan['transport_bindings']}
     formal_origin=origin['origin_formal_reference'];formal=mapping[formal_origin['path']]
     equivalent=T.triple(old['source_refs']['formal_population'])==T.triple(formal_origin)
@@ -91,7 +106,8 @@ def execute(plan,out,guard):
           original_formal_source_equivalence_proven=equivalent,native_record_expectation_is_not_assumed_without_source_equivalence=True,
           actual_source_readbacks=[dict(destination_reference=b.reference,frame=list(b.frame)) for b in bodies],
           all_mismatch_explanation_counts=causes,original_regression_reference=plan['original_full_regression_reference'],
-          original_Main_actual_parent=parent[0],common_reference_manifest=plan['common_reference_manifest'])
+          original_Main_actual_parent=parent[0],common_reference_manifest=plan['common_reference_manifest'],
+          original_Alpha_Common_source_receipt_reference=common_source_ref)
         for body in bodies:body.check()
         guard.sample();guard.check();return report
     finally:

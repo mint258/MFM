@@ -54,6 +54,11 @@ def union(*groups):
 
 
 def actual_common_parent(manifest):
+    if manifest.get('producer_schema')=='ALPHA_COMMON_GENERIC_REPRESENTATION_REPAIR_COMPLETION_PRODUCER_V1':
+        from workflows.expansion.exact_nn_cached_v1.alpha_common_repaired import validate_manifest
+        validate_manifest(manifest)
+        review=load(verify(manifest['final_Root_graph_review_reference']))
+        return review['actual_parent']
     need(manifest.get('status')=='COMPLETE_ALPHA_FULL_COMMON_REFERENCE'
       and manifest.get('producer_schema')=='ALPHA_COMMON_GRAPH_CONTINUATION_PRODUCER_V1'
       and manifest.get('common_molecules')==1196122 and manifest.get('Main_parent_C0_claimed') is False,
@@ -123,7 +128,7 @@ def save(path,value):
 
 def build(args):
     need(os.getuid()==1264 and sys.flags.isolated,'Run isolated metadata builder on actual Alpha UID1264')
-    manifest=load(args.common_manifest);parent=actual_common_parent(manifest)
+    manifest=load(args.common_manifest)
     exact=load(args.exact_deployment);reg=load(args.regression_deployment);resource=load(args.resource_template)
     need(exact['base_code_root']==str(args.base),'Exact deployed clean base required')
     exact_refs=exact['code_references'];reg_refs=reg['code_references']
@@ -134,7 +139,11 @@ def build(args):
     reg_entry=verify(reg['entry_reference'])
     sys.path[:0]=[str(exact_entry.parent),str(args.base)]
     importlib.invalidate_caches()
-    from workflows.expansion.exact_nn_cached_v1.alpha_common import validate_manifest
+    parent=actual_common_parent(manifest)
+    if manifest.get('producer_schema')=='ALPHA_COMMON_GENERIC_REPRESENTATION_REPAIR_COMPLETION_PRODUCER_V1':
+        from workflows.expansion.exact_nn_cached_v1.alpha_common_repaired import validate_manifest
+    else:
+        from workflows.expansion.exact_nn_cached_v1.alpha_common import validate_manifest
     validate_manifest(manifest)
     common_ref=pin(args.common_manifest);transport=load(args.regression_transport)
     old_ref,account_ref=original_regression(transport)
