@@ -57,6 +57,9 @@ class Budget(B.Budget):
         self.parent_check=private_io_function(B.Budget.check,self.census_context,safe_save,safe_text)
         self.parent_quota_event=private_io_function(B.Budget.record_quota_event,self.census_context,safe_save,safe_text)
         original_init=private_io_function(B.Budget.__init__,self.census_context,safe_save,safe_text)
+        if plan.get('queue_startup_mode')=='QUEUED_REAL_ALLOCATION_ROOT_PROVIDER_ON_START':
+            from workflows.data_v1_final.execution.cpu_analysis_general_nodes_v1 import quota_provider as queued_provider
+            original_init.__globals__['QP']=queued_provider
         original_init(self,plan,proof,root)
     def _observe(self):
         with ResourceCensus.current_root_future(self):return self.parent_observe(self)
@@ -210,17 +213,16 @@ def resource_admission(r,plan):
       'ORIGINAL_GENERAL_BUDGET_WITH_EXACT_NATIVE_COMPLETE_CENSUS_IO_ONLY')
 
 def guard(path,proof_path,plan):
-    from workflows.data_v1_final.execution.cpu_auto_memory_queue_v2.runtime import require_startup
-    expected=[C.PY,'-B','-m',C.MODULE,'--plan',str(path),'--startup-proof',str(proof_path)]
-    proof=require_startup(proof_path,expected_kind='analysis',expected_scope_key=C.KEY,expected_scope_parameters=C.parameters(plan),expected_execution_argv=expected,
-      expected_source=C.HERE/'run.py',required_references=[C.Q.pin(path),*plan['source_references']])
+    if plan.get('queue_startup_mode')=='QUEUED_REAL_ALLOCATION_ROOT_PROVIDER_ON_START':
+        from .queued_runtime import validate
+        proof=validate(path,proof_path,plan,scope_key=C.KEY,parameters=C.parameters(plan))
+    else:
+        from workflows.data_v1_final.execution.cpu_auto_memory_queue_v2.runtime import require_startup
+        expected=[C.PY,'-B','-m',C.MODULE,'--plan',str(path),'--startup-proof',str(proof_path)]
+        proof=require_startup(proof_path,expected_kind='analysis',expected_scope_key=C.KEY,expected_scope_parameters=C.parameters(plan),expected_execution_argv=expected,
+          expected_source=C.HERE/'run.py',required_references=[C.Q.pin(path),*plan['source_references']])
     resource_admission(proof['request'],plan)
     return proof
-
-# New explicit closed5337 cache origin. Ordinary v1-v3 fixtures retain their
-# original function body, so the inherited three Source tests remain unchanged.
-_original_fast_parts_root=fast_parts_root
-_original_configure_reader=configure_reader
 
 def fast_parts_root(coverage,producer_root,reviewed_roots,job_id):
     root=pathlib.Path(producer_root)

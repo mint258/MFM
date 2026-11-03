@@ -10,3 +10,5 @@ The same job copies the training files using one `rsync --checksum` invocation a
 
 The version is `v1-pilot-provisional`. Only fixed-random conformer order is currently released; energy/diversity ordering, D6 and the final common population are not claimed by this export.
 Full geometry audit provenance, original field locators and source missing-position lists remain in permanent F64 metadata. The training header refers to that same authority instead of duplicating this trace in both LMDB records and masks. All original IDs, hashes, values, masks, reasons and ordered entries remain recoverable through Reader.get_f64; numerical training fields and the MFM3 codec are unchanged.
+
+The queued entry point requests one CPU allocation from the cpu partition. Its explicit queued startup proof validates the real RUNNING job, UID, host and 16 CPUs. Only then does the Main helper start the original fresh 25-hour quota publisher and bind the immutable plan. Waiting in Slurm consumes no provider lifetime. The older shared queue and all scientific extraction functions remain unchanged.
