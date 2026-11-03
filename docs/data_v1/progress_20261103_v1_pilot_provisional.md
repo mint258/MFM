@@ -27,3 +27,5 @@ P′已发布结果的[候选文件索引](../../../artifacts/pprime_completed_c
 后台状态复查：权威采用既有 `decontamination_sources_partial_ready10_molnet_conservative_V2_v1.json` 及其实际4524733 C0与Root接纳，不重复计算MoleculeNet；原9/11是沿用旧状态。4份MoleculeNet正式排除输入当前存在且大小吻合，仅核对元数据，未重扫科学数据、未改科学规则或在跑任务输入。Main PubChem原始500片恢复作业4525652实际RUNNING/32CPU，载荷输出在独立Lustre；不冒称已过滤/新颖/可训练。
 
 15:28连接复查：Alpha 1884790、1885088、1885095、1885119已C0，1885120保持TIMEOUT部分数据且未放行；735诊断完整不等于COCONUT身份接纳，735项UNKNOWN保持。未重启已挂起的P′跨集群修复或PubChem旧物化工具，不与Main在跑4525652重复计算。D3实际4525651及完成接续器1941100均存活；共享盘其他Common写入作业运行时按已确认100GB账户余量等待，条件恢复后继续，无人工时间/RSS退出。
+
+D3优先安排（15:44）：按用户D2–D5优先级，仅暂时STOP本账户后台Common4525659的19个实际用户进程，未终止任务或删除结果；已暂停实际核实后，其64GiB未来写入暂延、真实占用保留。独立元数据控制器1957034在D3实际终态后自动恢复原预算并CONT，控制目录 `control/D3_priority_common_pause_20261103_v1`；手工恢复可创建该目录下 `request_resume_common`。D3已恢复READY并继续写入，原始PubChem4525652继续，不修改任何科学规则。暂停期间Common在Slurm仍显示RUNNING，不能据此或T状态重复提交。
