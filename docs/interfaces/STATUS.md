@@ -2,7 +2,7 @@
 
 D-2、D-4已正式暂定发布。D-5诊断载荷4525593实际C0/1607秒：试点已见893分子、12502几何、43757标签记录、53子库，一次1000条原Parquet比较通过，见[正式入口](../../configs/data_v1/v1-pilot-provisional/D5_diagnostic_payload.json)。全局嵌套/20k母清单保持；本载荷不把试点外分子冒称已见。
 
-D-3旧单父4525598在compute-0-13/16CPU实际FAILED/1:0（5971秒、160GB输出上限），90/113源组安全关闭并保留。新独立producer pilot_family_D3_parallel_store_v1已准备、尚未执行，复用90组并采用8个独立子库writer，仍是一个Slurm父作业；当前CPU池满，未提交新任务。固定50k TRAIN＋5k ROUTINE VAL，D4闭合几何与内部无损压缩保持。按用户最新规则，同一作业只一次counts＋1000条原Parquet逐字段＋总清单SHA、一次rsync --checksum分发、一次不超过5分钟吞吐。无生产Source3、10k、独立16-reader、F64全量二扫或复制后哈希。交付后请Model运行真实loader与逐预测头过拟合验收，当前不代填ACK。r73完整F64及ordered、一转F32；r674 LOSS_DISABLED。详见[今日唯一汇总](../data_v1/progress_20261103_v1_pilot_provisional.md)；以下旧时间点作为历史。
+D-3旧单父4525598在compute-0-13/16CPU实际FAILED/1:0（5971秒、160GB输出上限），90/113源组安全关闭并保留。新独立producer pilot_family_D3_parallel_store_v1已准备、尚未执行，复用90组并采用8个独立子库writer，仍是一个Slurm父作业；12:38实测授权CPU池仍满，未提交新任务；远端有限元数据轮询1872063已启动，每600秒发现16空闲核后自动提交一次，正式计算尚未开始。固定50k TRAIN＋5k ROUTINE VAL，D4闭合几何与内部无损压缩保持。按用户最新规则，同一作业只一次counts＋1000条原Parquet逐字段＋总清单SHA、一次rsync --checksum分发、一次不超过5分钟吞吐。无生产Source3、10k、独立16-reader、F64全量二扫或复制后哈希。交付后请Model运行真实loader与逐预测头过拟合验收，当前不代填ACK。r73完整F64及ordered、一转F32；r674 LOSS_DISABLED。详见[今日唯一汇总](../data_v1/progress_20261103_v1_pilot_provisional.md)；以下旧时间点作为历史。
 
 Model接线补充（2026-11-03当前观察点）：D3已保留90/113个闭合源组，新父作业尚未提交，payload未交付；DataCodec读取接口已就绪不代表D3载荷已交付。现有 `CandidateWireFactory` 和 `synthetic_head_overfit.py` 仅支持合成fixture，不能作为本轮真实验收。模型线接好本次 `v1-pilot-provisional` 解释器、TRAIN/VAL/TRAIN_UNSEEN_CONFORMATION三个role indexes和readonly reader factory后，复用 `MFM_model_v3_clean_integration_v1/current/phychem_mfm/phase1/v3_data_adapter.py` 的 `RealDataProvider.prepare`（或 `make_proxy_inputs`）以及原 `V3StepTrainer.step/validate`，执行真实loader和逐head overfit；不把暂定试点改称Common或正式全量。
 
