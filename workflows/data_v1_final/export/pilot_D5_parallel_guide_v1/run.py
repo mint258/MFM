@@ -6,7 +6,7 @@ import json
 import multiprocessing as mp
 import pathlib
 import traceback
-from . import contract as C, domain, source, verify, shared, resource, resume
+from . import contract as C, domain, source, verify, shared, resource, resume, writer_resume
 from workflows.data_v1_final.export.pilot_family_D3_census_resume_v3 import (
     domain as D, io as I, run as Original, frame_mapping as M)
 
@@ -28,7 +28,10 @@ def main():
            'FRESH_INDEPENDENT_DIAGNOSTIC_OUTPUT')
     root.mkdir(parents=True)
     I.configure(plan, old)
-    gate, _ = Original.fixtures(root)  # Original three Source methods, same Parent; no new suite.
+    gate = plan.get('historical_source3_reference')
+    if gate is None:
+        gate = C.meta(plan['writer_only_resume_reference'])['old_source3_reference']
+    C.need(gate in plan['source_references'], 'DECLARED_HISTORICAL_SOURCE_PASS_NO_PRODUCTION_RETEST')
     budget = db = pool = None
     try:
         budget = resource.Budget(plan, proof, root)
@@ -51,7 +54,11 @@ def main():
         fields = I.load_data(cfg['field_map_reference'], 8 << 20)
         C.need(len(fields) == 146 and {f['field_id'] for f in fields} == set(range(146)), 'ALL146_ORIGINAL_FIELDS')
         # Build the frozen held geometry domain while D3 computes its required rho.
-        db, geometry, binding, selection = domain.build(plan, accepted, d5, root, roots, budget)
+        writer_state = None
+        if plan.get('writer_only_resume_reference'):
+            db, geometry, binding, selection, writer_state = writer_resume.prepare(plan, accepted, roots, root, budget)
+        else:
+            db, geometry, binding, selection = domain.build(plan, accepted, d5, root, roots, budget)
         configurations, configuration_values, shared_acceptance = shared.load(plan, accepted, roots, budget, root)
         registry, mapping, recipe, physical = (configuration_values[k] for k in
             ('registry_reference', 'mapping_reference', 'projection_recipe_reference', 'target_policy_reference'))
@@ -83,20 +90,27 @@ def main():
         C.need(found == wanted, 'ALL_HELD_NATIVE_RIDS_PRESENT_ONCE_IN_ACTUAL_TYPED_CATALOG')
         catalog.close()
         groups = [group for group in C.O.B.logical(book['groups']) if group['source_job_id'] in jobs]
-        closed_results = resume.load(plan, groups, configurations, root, budget)
-        reused_keys = {result['key'] for result in closed_results}
-        for result in closed_results:
-            I.append(root / 'closed_groups.jsonl', result)
-        groups = [group for group in groups if resume.group_key(group) not in reused_keys]
+        if writer_state is not None:
+            writer_resume.validate_and_reset(writer_state, groups, configurations, db, root, budget)
+            reused_keys = {result['key'] for result in writer_state['results']}
+            closed_results, groups = [], []
+        else:
+            closed_results = resume.load(plan, groups, configurations, root, budget)
+            reused_keys = {result['key'] for result in closed_results}
+            for result in closed_results:
+                I.append(root / 'closed_groups.jsonl', result)
+            groups = [group for group in groups if resume.group_key(group) not in reused_keys]
         context = {'plan': plan, 'old_plan': old, 'reader_config': cfg, 'field_map': fields,
                    'compiled': compiled, 'recipe': recipe, 'domain_database': str(root / 'domain.sqlite'),
                    'binding_database': binding['path'], 'coverage_catalog': coverage['parts_catalog']['path'],
                    'control': budget.control, 'job_id': str(proof['job_id']), 'node': proof['request']['node'],
                    'registered_references': list(I.B.ALLOWED.values()), 'reader_origins': dict(I.B.ORIGINS)}
-        pool = cf.ProcessPoolExecutor(max_workers=16, mp_context=mp.get_context('spawn'),
-                                      initializer=source.initialize, initargs=(context,))
+        if writer_state is None:
+            pool = cf.ProcessPoolExecutor(max_workers=16, mp_context=mp.get_context('spawn'),
+                                          initializer=source.initialize, initargs=(context,))
         stage = root / 'permanent_f64_source_groups'
-        stage.mkdir()
+        if writer_state is None:
+            stage.mkdir()
         active, cursor = {}, iter(groups)
         exhausted = False
         while active or not exhausted:
@@ -124,12 +138,13 @@ def main():
         for result in closed_results:
             budget.check()
             Original.merge(db, result)
+        if pool is not None:
+            workers = list(pool._processes.values())
+            pool.shutdown(wait=True, cancel_futures=False)
+            pool = None
+            C.need(all(not p.is_alive() and p.exitcode == 0 for p in workers), 'ALL_SOURCE_PROJECTION_WORKERS_CLOSED')
         stores, eligibility = source.write(db, root, compiled, policy, plan, proof, budget)
-        verification = verify.run(db, stores, root, pool, budget)
-        workers = list(pool._processes.values())
-        pool.shutdown(wait=True, cancel_futures=False)
-        pool = None
-        C.need(all(not p.is_alive() and p.exitcode == 0 for p in workers), 'ALL_ORIGINAL_PROJECTION_WORKERS_CLOSED')
+        verification = verify.run(db, stores, root, pool, budget, context=context)
         db.close()
         db = None
         budget.check(force=True, dispatch=False)
@@ -143,6 +158,8 @@ def main():
             'shared_configuration_acceptance_reference': shared_acceptance,
             'D5_delivery_reference': plan['D5_delivery_reference'], 'actual_configuration_references': configurations,
             'source3_reference': gate, 'verification_reference': verification, 'role': C.ROLE,
+            'source3_execution': 'HISTORICAL_PASS_NOT_REEXECUTED_PER_USER_SIMPLIFICATION',
+            'verification_scope': 'COUNTS_AND_ONE_RANDOM1000_FIELD_PASS_NO_INDEPENDENT_REPLAY',
             'store_namespace': C.STORE_NAMESPACE, 'consumer_alias_prefix': 'diagnostic/', 'store_references': stores,
             'diagnostic_role_available': bool(stores), 'original_molecule_effective_role': 'TRAIN',
             'training_excluded': True, 'scientific_masks_unchanged': True, 'same_D4_statistics_no_refit': True, 'D3_payload_C0_required': False,
@@ -150,6 +167,8 @@ def main():
             'new_QM_UFF_calls': 0, 'r674_loss': 'OFF_WITH_ORIGINAL_VALUES_AND_MASKS',
             'worker_rss_soft_cap_bytes': resource.WORKER_RSS_CAP_BYTES,
             'reused_closed_source_groups': len(reused_keys),
+            'source_projection_executed': writer_state is None,
+            'writer_only_resume': writer_state is not None,
             'r73': 'ORIGINAL_ORDERED_RECORDS_PERMANENT_F64_ONCE_F32', 'loss_eligibility_counts': eligibility,
             'all_handles_closed': True, 'Model_ACK': False, 'full_Common_D6_release': False, **selection})
         return 0

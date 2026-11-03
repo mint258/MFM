@@ -11,20 +11,23 @@ MODULE = 'workflows.data_v1_final.export.' + PRODUCER_NAMESPACE + '.run'
 HERE = REPO / 'workflows/data_v1_final/export' / PRODUCER_NAMESPACE
 OUTPUT = ROOT / 'artifacts/labels/source_status_v1' / PRODUCER_NAMESPACE
 ROLE = 'TRAIN_UNSEEN_CONFORMATION'
-FILES = ('__init__.py', 'contract.py', 'domain.py', 'source.py', 'shared.py', 'resource.py', 'resume.py', 'verify.py', 'run.py', 'close.py', 'README.md')
+FILES = ('__init__.py', 'contract.py', 'domain.py', 'source.py', 'shared.py', 'resource.py', 'resume.py', 'writer_adapter.py', 'writer_resume.py', 'native_io.py', 'parquet_qa.py', 'verify.py', 'run.py', 'close.py', 'README.md')
 
 
 def parameters(plan):
     return dict(domain='FROZEN_D4_PILOT_TRAIN_INTERSECT_FORMAL_D5_HELD_TARGETS', sample_role=ROLE,
         workers=16, pending=32, wall_seconds=86400, whole_output_cap_bytes=plan['whole_output_cap_bytes'],
-        fields=146, source_roundtrip='ALL_IF_LESS_THAN10000_ELSE_ORIGINAL_DETERMINISTIC10000',
+        fields=146, source_roundtrip='ALL_IF_LESS_THAN1000_ELSE_SINGLE_RANDOM1000',
         source_masks_unchanged=True, training_excluded=True, new_QM_UFF_calls=0,
         r674='ORIGINAL_VALUES_MASKS_LOSS_OFF', r73='ORIGINAL_ORDERED_NATIVE_RECORDS',
         permanent_F64_and_original_once_F32=True, full_Common_D6_Model_ACK=False,
         D3_payload_C0_required=False, shared_configuration='CLOSED_ACTUAL_CPU_HEADER_AND_FOUR_CURRENT_HASHES',
         active_domain_resource_credit='DISABLED_KEEP_FULL_OWN_FUTURE_CAP_NO_MUTABLE_BLOCK_MONOTONICITY',
         worker_rss_soft_cap_bytes=3 << 30,
-        closed_source_groups_resume='ROOT_REVIEWED_4525590_101_CLOSED_ONLY' if plan.get('closed_source_groups_resume_reference') else None)
+        closed_source_groups_resume='ROOT_REVIEWED_4525590_101_CLOSED_ONLY' if plan.get('closed_source_groups_resume_reference') else None,
+        writer_only_resume='ROOT_REVIEWED_4525591_COMPLETE_DOMAIN_113_GROUPS' if plan.get('writer_only_resume_reference') else None,
+        source_projection_annotations='PER_TARGET_PERMANENT_F64_AUTHORITY_TRAINING_REFERENCE_ONLY',
+        production_source3_repeated=False, independent_reader_replay=False, full_F64_second_scan=False)
 
 
 def parents(plan):

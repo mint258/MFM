@@ -3,7 +3,7 @@ import heapq
 import json
 import struct
 import types
-from . import contract as C, resource
+from . import contract as C, resource, writer_adapter
 from workflows.data_v1_final.export.pilot_family_D3_census_resume_v3 import source as X, writer as W, io as I
 from workflows.data_v1_final.labels.existing_sprime_pilot_day_v1 import reader as R, bindings as B
 from workflows.data_v1_final.labels.normalization_compact_runtime_v3 import codec as K
@@ -104,8 +104,4 @@ def metadata(db, geometry):
 
 
 def write(*args):
-    namespace = dict(W.write.__globals__)
-    namespace['metadata'] = metadata
-    function = types.FunctionType(W.write.__code__, namespace, W.write.__name__, W.write.__defaults__, W.write.__closure__)
-    function.__kwdefaults__ = W.write.__kwdefaults__
-    return function(*args)
+    return writer_adapter.write(*args, metadata_factory=metadata)
