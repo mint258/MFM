@@ -121,3 +121,43 @@ No native result, speed, total runtime or actual output high-water mark is
 claimed by source preparation alone. The original test_distribution suite is
 unchanged; its old descriptor-completion cases require their own existing
 source compatibility environment.
+
+## Optional main SQLite page cache
+
+Root may set sqlite_cache_bytes=1073741824 (1GiB) in a future admitted plan or
+explicit continuation. Immediately after the original open_state and before
+membership/feature ingestion, the runtime applies PRAGMA main.cache_size=-1048576.
+If absent, the installed session default is retained. It changes only the
+connection-local suggested main-database page-cache limit; allocation is on
+demand, not a1GiB upfront reservation or an entire SQLite/process RSS cap. KiB
+conversion rounds down; the supplied value must be an integer of at least1024B.
+The existing48GiB statistics process-tree Guard remains the real memory bound.
+TEMP cache/store, page size, cache_spill, DELETE journal, FULL synchronous and
+all SQL/transaction boundaries remain unchanged. See the official SQLite
+[cache_size/cache_spill documentation](https://www.sqlite.org/pragma.html#pragma_cache_size).
+
+Each attempt writes and logs sqlite_runtime_UUID.json containing the requested
+bytes and actual PRAGMA readbacks (main cache/page/spill, temp cache/store,
+journal mode and synchronous). Population-only and complete-report receipts bind
+that file. Session settings are reapplied on reopen; a new plan may change the
+cache without changing the frozen analysis/sample/recipe binding or scientific
+results. This is an operational parameter, not a selection/quality gate.
+
+A small default cache versus a growing multi-index main DB makes repeated random
+page I/O on Gluster a plausible major bottleneck. Parent-side indexed lookups
+can starve otherwise idle enrichment workers. This is an inference, not measured
+attribution or a speedup claim; temp-table I/O, fsync and source reads may remain.
+Cache spilling can hold EXCLUSIVE locks during a transaction, so a1s read-only
+observation timeout does not demonstrate failure or justify a restart.
+
+Original resume semantics still apply: prepare_members is one transaction;
+feature pending-row membership and enriched seen/counts/moments close together
+at existing batch commits. A stopped connection rolls back its open transaction;
+reopen revalidates full source membership and skips already committed seen rows.
+TEMP member_pass/feature_pass are rebuilt; uncommitted enrichment may need to be
+recomputed. Preserve the same actual DB path, analysis version and pinned input
+population manifest, plus any real rollback journal; do not copy a live DB alone,
+edit it from another connection or mutate an active job's source/PRAGMAs.
+Changing the source capsule for a future continuation is Root's decision, with
+actual closure/accounting and fresh resource admission; no signal, restart or
+artificial timeout is introduced by this code.

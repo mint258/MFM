@@ -135,7 +135,19 @@ def main():
                 '--plan', str(directory / 'prepared_plan.json')], cwd=base, check=True)
             plan = json.loads((directory / 'prepared_plan.json').read_text())
         else:
-            plan['output_directory'] = str(Path(plan['output_scope_root']) / (args.tag + '_job_' + job))
+            resume = plan.get('resume_output_directory')
+            if resume is None:
+                plan['output_directory'] = str(Path(plan['output_scope_root']) / (args.tag + '_job_' + job))
+            else:
+                output = Path(resume)
+                scope = Path(plan['output_scope_root'])
+                if (not output.is_absolute() or output != output.resolve()
+                        or not output.is_relative_to(scope) or output == scope
+                        or not output.is_dir() or output.stat().st_uid != 1264
+                        or any(p.is_symlink() for p in (output, *output.parents))):
+                    raise ValueError('Explicit existing owned stage within the same output scope required')
+                plan['output_directory'] = str(output)
+                plan['runtime_existing_output_stage_reused'] = True
         references = list(plan.get('code_references', [])) + cli_refs
         launcher = pin(__file__)
         if launcher not in references:

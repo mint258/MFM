@@ -108,6 +108,21 @@ def run(plan_path, stage, *, startup_proof=None):
         monitor.start()
     db = A.open_state(out / 'counted_statistics.sqlite')
     try:
+        if 'sqlite_cache_bytes' in plan:
+            value = plan['sqlite_cache_bytes']
+            need(type(value) is int and value >= 1024, 'sqlite_cache_bytes must be an integer of at least1024 bytes')
+            db.execute('PRAGMA main.cache_size=-' + str(value // 1024))
+        sqlite_runtime = {'requested_main_cache_bytes': plan.get('sqlite_cache_bytes'),
+            'main_cache_size_pragma': db.execute('PRAGMA main.cache_size').fetchone()[0],
+            'main_page_size_bytes': db.execute('PRAGMA main.page_size').fetchone()[0],
+            'main_cache_spill_pragma': db.execute('PRAGMA main.cache_spill').fetchone()[0],
+            'temp_cache_size_pragma': db.execute('PRAGMA temp.cache_size').fetchone()[0],
+            'temp_store_pragma': db.execute('PRAGMA temp_store').fetchone()[0],
+            'journal_mode': db.execute('PRAGMA main.journal_mode').fetchone()[0],
+            'synchronous_pragma': db.execute('PRAGMA main.synchronous').fetchone()[0],
+            'session_local_suggested_cache_not_preallocated_RSS': True}
+        sqlite_runtime_ref = write_new(out / ('sqlite_runtime_' + uuid.uuid4().hex + '.json'), sqlite_runtime)
+        print(canonical({'sqlite_runtime_reference': sqlite_runtime_ref, 'sqlite_runtime': sqlite_runtime}), flush=True)
         A.RESOURCE_CHECK = check
         if stage in ('populations', 'population_tables', 'all'):
             population_refs = plan['population_manifests']
@@ -142,7 +157,7 @@ def run(plan_path, stage, *, startup_proof=None):
                 'population_manifest_references': {name: populations[name] for name in groups},
                 'plan_reference': reference(plan_path), 'functional_group_recipe_reference': reference(recipe_path),
                 'source_references': [reference(p) for p in sorted(Path(__file__).parent.glob('*.py'))],
-                'artifacts': artifacts, 'screening_or_ranking_decisions_changed': False,
+                'artifacts': artifacts, 'sqlite_runtime_reference': sqlite_runtime_ref, 'screening_or_ranking_decisions_changed': False,
                 'task2_1_baseline_comparison_complete': False, 'nearest_search_completion_claimed': False,
                 'candidate_conformer_D_training_release_claimed': False,
                 'actual_parent': {'pid': os.getpid(), 'uid': os.getuid(), 'node': node,
@@ -171,6 +186,7 @@ def run(plan_path, stage, *, startup_proof=None):
             sample_resources()
             source = Path(__file__).parent
             receipt = {'schema': 'EXPANSION_DISTRIBUTION_REPORT_RECEIPT_V1', 'status': 'ALL_REQUIRED_DISTRIBUTION_NUMERICS_AND_FIGURES_COMPLETE', 'plan_reference': reference(plan_path), 'population_manifest_references': populations, 'comparison_manifest_references': summary['comparison_manifests'], 'functional_group_recipe_reference': reference(recipe_path), 'source_references': [reference(p) for p in sorted(source.glob('*.py'))], 'artifacts': artifacts, 'full_common_not_a_sample': True, 'all_source_rows_and_exact_molecular_memberships_counted': True, 'nearest_search_is_exact_and_complete': True, 'screening_or_ranking_decisions_changed': False, 'conformers_D_labels_or_final_batch_release_claimed': False, 'actual_parent_accounting': 'PENDING_ROOT_TERMINAL_ACCOUNTING'}
+            receipt['sqlite_runtime_reference'] = sqlite_runtime_ref
             receipt['report_scope']='TASK2_1_BASELINE' if baseline_only else 'TASK2_1_AND_2_9_COMPLETE_GRAPH_BATCH'
             receipt['augmented_reference_before_after_complete']=not baseline_only
             receipt['population_manifest_references']=summary['population_manifests']
