@@ -145,7 +145,7 @@ def main():
               and previous['configuration_component_producer_job_id']==plan['configuration_component_producer_job_id']
               and ((resume['actual_terminal_state']=='FAILED'and resume['actual_exit_code']in('1:0','3:0'))
                 or (resume['actual_terminal_state']=='CANCELLED'and resume.get('superseded_for_storage_only')is True
-                    and resume.get('all171_groups_closed_before_supersession')is True)),
+                    and resume.get('closed_source_groups_verified_before_reuse')is True)),
               'ONLY_CLOSED_GROUPS_FROM_ACTUALLY_FAILED_SAME_FROZEN_EXPORT')
             for name in ('source.py','projection.py','frame_mapping.py','payload_io.py'):
                 current=C.Q.pin(C.HERE/name);prior_matches=[r for r in previous['source_references']if pathlib.Path(r['path']).name==name and 'pilot_family_D3_single_job_v1' in r['path']]
