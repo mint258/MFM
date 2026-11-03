@@ -145,9 +145,13 @@ def main():
             for name in ('source.py','projection.py','frame_mapping.py','payload_io.py'):
                 current=C.Q.pin(C.HERE/name);prior_matches=[r for r in previous['source_references']if pathlib.Path(r['path']).name==name and 'pilot_family_D3_single_job_v1' in r['path']]
                 C.need(any(r['bytes']==current['bytes']and r['sha256']==current['sha256']for r in prior_matches),'UNCHANGED_SOURCE_EXTRACTION_AND_LOSSLESS_CODEC')
+            previous_bounded=C.meta(previous['bounded_export_review_reference'])
+            permitted_stage_parents={pathlib.Path(value)/'permanent_f64_source_groups'
+              for value in (previous['output_directory'],*previous_bounded['transitive_closed_output_roots'])
+              if pathlib.Path(value).parent.name=='pilot_family_D3_single_job_v1'}
             for result in resume['closed_groups']:
                 C.need(result['all_handles_closed']is True and result['new_QM_UFF_calls']==0
-                  and pathlib.Path(result['reference']['path']).parent==pathlib.Path(previous['output_directory'])/'permanent_f64_source_groups'
+                  and pathlib.Path(result['reference']['path']).parent in permitted_stage_parents
                   and result['key']not in resumed,'EXACT_CLOSED_TEMPORARY_SOURCE_GROUP')
                 D.register(result['reference'],roots);I.require(result['reference'],content=False)
                 resumed[result['key']]=result;closed_projection.append(result)
@@ -169,8 +173,10 @@ def main():
         C.need(I.identity(source_domain)==source_domain_frame,'ACTUAL_DOMAIN_FRAME_UNCHANGED_DURING_ALL_SOURCE_READS')
         projection_domain_unchanged_during_all_source_reads=True
         state='SOURCE_PROJECTION_CLOSED_MERGING_DOMAIN'
+        # Retain all closed source checkpoints until the complete merge commits.
         for result in closed_projection:
             budget.check();merge(db,result)
+        for result in closed_projection:
             consumed=dict(result,temporary_stage_retired_after_merge=True,canonical_payload='domain.sqlite#pieces')
             os.unlink(result['reference']['path']);I.B.ALLOWED.pop(result['reference']['path'],None)
             I.append(root/'closed_groups.jsonl',consumed)
