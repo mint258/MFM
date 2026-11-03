@@ -2,7 +2,7 @@
 
 D-2、D-4已正式暂定发布。D-5诊断载荷4525593实际C0/1607秒：试点已见893分子、12502几何、43757标签记录、53子库，一次1000条原Parquet比较通过，见[正式入口](../../configs/data_v1/v1-pilot-provisional/D5_diagnostic_payload.json)。全局嵌套/20k母清单保持；本载荷不把试点外分子冒称已见。
 
-D-3新独立producer pilot_family_D3_single_job_v1由实际4525595在compute-0-13/16CPU运行，固定50k TRAIN＋5k ROUTINE VAL；复用D4闭合几何、内部无损压缩。按用户最新规则，同一作业只一次counts＋1000条原Parquet逐字段＋总清单SHA、一次rsync --checksum分发、一次不超过5分钟吞吐。无生产Source3、10k、独立16-reader、F64全量二扫或复制后哈希。交付后请Model运行真实loader与逐预测头过拟合验收，当前不代填ACK。r73完整F64及ordered、一转F32；r674 LOSS_DISABLED。详见[今日唯一汇总](../data_v1/progress_20261103_v1_pilot_provisional.md)；以下旧时间点作为历史。
+D-3新独立producer pilot_family_D3_single_job_v1由实际4525596在compute-0-13/16CPU运行，固定50k TRAIN＋5k ROUTINE VAL；复用D4闭合几何、内部无损压缩。按用户最新规则，同一作业只一次counts＋1000条原Parquet逐字段＋总清单SHA、一次rsync --checksum分发、一次不超过5分钟吞吐。无生产Source3、10k、独立16-reader、F64全量二扫或复制后哈希。交付后请Model运行真实loader与逐预测头过拟合验收，当前不代填ACK。r73完整F64及ordered、一转F32；r674 LOSS_DISABLED。详见[今日唯一汇总](../data_v1/progress_20261103_v1_pilot_provisional.md)；以下旧时间点作为历史。
 ## 2026-11-01 当前交付状态：v1-pilot-provisional
 
 D-1 已按同一 v3.0 双方冻结，见[冻结记录](D1_v3_0_joint_interface_freeze_20261029_v1.md)。r73 权威 F64 与有序条目保留、训练仅转一次 F32；r674 维持 LOSS_DISABLED，不追加 QM。
