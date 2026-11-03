@@ -133,11 +133,29 @@ def main():
         source_domain_frame=I.identity(source_domain);projection_domain_unchanged_during_all_source_reads=False
         ctx=mp.get_context('spawn');pool=cf.ProcessPoolExecutor(max_workers=16,mp_context=ctx,initializer=X.initialize,initargs=(context,));pending={};cursor=iter(groups);done=False
         stage=root/'permanent_f64_source_groups';stage.mkdir();state='SOURCE_PROJECTION';closed_projection=[]
+        resumed={}
+        resume=plan.get('closed_projection_resume')
+        if resume:
+            previous=C.meta(resume['plan_reference'])
+            C.need(previous['pilot_acceptance_reference']==plan['pilot_acceptance_reference']
+              and previous['configuration_component_producer_job_id']==plan['configuration_component_producer_job_id']
+              and resume['actual_terminal_state']=='FAILED'and resume['actual_exit_code']=='3:0',
+              'ONLY_CLOSED_GROUPS_FROM_ACTUALLY_FAILED_SAME_FROZEN_EXPORT')
+            for name in ('source.py','projection.py','frame_mapping.py','payload_io.py'):
+                C.need(C.Q.pin(C.HERE/name)in previous['source_references'],'UNCHANGED_SOURCE_EXTRACTION_AND_LOSSLESS_CODEC')
+            for result in resume['closed_groups']:
+                C.need(result['all_handles_closed']is True and result['new_QM_UFF_calls']==0
+                  and pathlib.Path(result['reference']['path']).parent==pathlib.Path(previous['output_directory'])/'permanent_f64_source_groups'
+                  and result['key']not in resumed,'EXACT_CLOSED_TEMPORARY_SOURCE_GROUP')
+                D.register(result['reference'],roots);I.require(result['reference'],content=False)
+                resumed[result['key']]=result;closed_projection.append(result)
+                I.append(root/'closed_projection_groups.jsonl',dict(result,reused_actual_parent_job_id=resume['actual_job_id']))
         while pending or not done:
             while not done and len(pending)<32:
                 try:budget.check();group=next(cursor)
                 except StopIteration:done=True;break
                 key=hashlib.sha256(json.dumps(group,sort_keys=True,separators=(',',':')).encode()).hexdigest();path=stage/(key+'.sqlite')
+                if key in resumed:resumed.pop(key);continue
                 C.need(not path.exists(),'NO_AUTOMATIC_UNKNOWN_GROUP_RETRY');I.append(root/'dispatch.jsonl',{'key':key,'group_key':str(group['source_job_id']),'output':str(path),'parent_job_id':str(proof['job_id'])})
                 pending[pool.submit(private_source_one,(key,group,str(path)))]=key
             if pending:
@@ -145,6 +163,7 @@ def main():
                 for future in ready:
                     key=pending.pop(future);result=future.result();I.add(result['reference']);I.require(result['reference'],content=False)
                     closed_projection.append(result);I.append(root/'closed_projection_groups.jsonl',result)
+        C.need(not resumed,'ALL_REUSED_GROUP_KEYS_BELONG_TO_SAME_FROZEN_SOURCE_PLAN')
         C.need(I.identity(source_domain)==source_domain_frame,'ACTUAL_DOMAIN_FRAME_UNCHANGED_DURING_ALL_SOURCE_READS')
         projection_domain_unchanged_during_all_source_reads=True
         state='SOURCE_PROJECTION_CLOSED_MERGING_DOMAIN'

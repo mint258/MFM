@@ -44,7 +44,7 @@ def parameters(p):
       'wall_seconds':86400,'worker_software_rss_cap_bytes':3<<30,'whole_output_cap_bytes':p['whole_output_cap_bytes'],'source_methods':0,'new_QM_UFF_calls':0,
       'permanent_authority':'SOURCE_FLOAT64_AND_PERMANENT_F64_SIDECAR','training_cast':'ORIGINAL_CODEC_ONCE_FLOAT32',
       'internal_domain_blob_codec':'CLOSED_D4_ROWS_AND_LOSSLESS_COMPRESSED_LABELS',
-      'active_output_resource_credit':'DISABLED_KEEP_FULL_OWN_FUTURE_CAP_NO_MUTABLE_BLOCK_MONOTONICITY',
+      'active_output_resource_credit':'EARLIER_QUOTA_COVERED_WHOLE_OWN_BLOCKS_ONCE_NO_MONOTONICITY',
       'r73':'SOURCE_ORDERED_RECORDS_V1_BOTH_ENDPOINT_CHANNELS_ONSITE_DIRECTION_DUPLICATES_ORDINAL',
       'r674':'FULL6_ORIGINAL_MASKS_COMPLETE6_SEPARATE_LOSS_ELIGIBILITY','missing_scale':'LOSS_DISABLED_SCALE_UNBOUND_OR_DEGENERATE',
       'actual_QM_charge_not_SMILES_formal_charge':True,'full_Common_D6_or_Model_ACK':False}

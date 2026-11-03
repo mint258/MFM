@@ -2,7 +2,14 @@
 
 D-2、D-4已正式暂定发布。D-5诊断载荷4525593实际C0/1607秒：试点已见893分子、12502几何、43757标签记录、53子库，一次1000条原Parquet比较通过，见[正式入口](../../configs/data_v1/v1-pilot-provisional/D5_diagnostic_payload.json)。全局嵌套/20k母清单保持；本载荷不把试点外分子冒称已见。
 
-D-3新独立producer pilot_family_D3_single_job_v1由实际4525596在compute-0-13/16CPU运行，固定50k TRAIN＋5k ROUTINE VAL；复用D4闭合几何、内部无损压缩。按用户最新规则，同一作业只一次counts＋1000条原Parquet逐字段＋总清单SHA、一次rsync --checksum分发、一次不超过5分钟吞吐。无生产Source3、10k、独立16-reader、F64全量二扫或复制后哈希。交付后请Model运行真实loader与逐预测头过拟合验收，当前不代填ACK。r73完整F64及ordered、一转F32；r674 LOSS_DISABLED。详见[今日唯一汇总](../data_v1/progress_20261103_v1_pilot_provisional.md)；以下旧时间点作为历史。
+D-3新独立producer pilot_family_D3_single_job_v1由实际4525598在compute-0-13/16CPU运行，固定50k TRAIN＋5k ROUTINE VAL；复用D4闭合几何、内部无损压缩。按用户最新规则，同一作业只一次counts＋1000条原Parquet逐字段＋总清单SHA、一次rsync --checksum分发、一次不超过5分钟吞吐。无生产Source3、10k、独立16-reader、F64全量二扫或复制后哈希。交付后请Model运行真实loader与逐预测头过拟合验收，当前不代填ACK。r73完整F64及ordered、一转F32；r674 LOSS_DISABLED。详见[今日唯一汇总](../data_v1/progress_20261103_v1_pilot_provisional.md)；以下旧时间点作为历史。
+
+Model接线补充（2026-11-03观察点）：D3实际4525598复用旧4525596已关闭的63/113源组并处理剩余组，payload仍在运行；DataCodec读取接口已就绪不代表D3载荷已交付。现有 `CandidateWireFactory` 和 `synthetic_head_overfit.py` 仅支持合成fixture，不能作为本轮真实验收。模型线接好本次 `v1-pilot-provisional` 解释器、TRAIN/VAL/TRAIN_UNSEEN_CONFORMATION三个role indexes和readonly reader factory后，复用 `MFM_model_v3_clean_integration_v1/current/phychem_mfm/phase1/v3_data_adapter.py` 的 `RealDataProvider.prepare`（或 `make_proxy_inputs`）以及原 `V3StepTrainer.step/validate`，执行真实loader和逐head overfit；不把暂定试点改称Common或正式全量。
+
+正式handoff最少使用：待实际发布的 `configs/data_v1/v1-pilot-provisional/D3_export.json` 中 `manifest_reference`、`store_references`、`actual_configuration_references`、`distribution.node/directory`、`actual_parent_accounting`及`D5_diagnostic_payload_reference`；另取已发布的[D2注册表](../../configs/data_v1/v1-pilot-provisional/D2_registry.json)中registry/mapping/target_policy引用和[D4归一化](../../configs/data_v1/v1-pilot-provisional/D4_normalization.json)中statistics/population引用。[D5载荷](../../configs/data_v1/v1-pilot-provisional/D5_diagnostic_payload.json)提供 `selected_diagnostic_geometry_ids_reference`、`actual_seen_diagnostic_molecule_ids_reference`及其stores，角色保持 `TRAIN_UNSEEN_CONFORMATION`、`training_excluded=true`，仅893个试点已见分子，不将20k母名单全部算作试点已见，也不重拟合D4。
+
+数据端统一读取入口为 `workflows.data_v1_final.export.pilot_family_D3_single_job_v1.payload_io.Reader`：以实际store目录构造，`get(gid)`返回训练metadata与数组（连续值为F32），`get_f64(gid, sidecar_reference)`恢复完整权威F64及原metadata，兼容D5未压缩旁车。节点本地路径按 `distribution.directory` 与源store相对路径映射，sidecar引用的path同步定位到真实本地文件，bytes/SHA不改。训练header仅保留 `source_trace_authority` 时，完整 `df_SOURCE_trace` 和原native控制证据从F64恢复，不要求重复放入训练header。r73保留ordered和单次F32，r674仍LOSS_DISABLED。当前 `Model_payload_ACK=false`；DataCodec就绪与D5交付均不代填实际模型验收。
+
 ## 2026-11-01 当前交付状态：v1-pilot-provisional
 
 D-1 已按同一 v3.0 双方冻结，见[冻结记录](D1_v3_0_joint_interface_freeze_20261029_v1.md)。r73 权威 F64 与有序条目保留、训练仅转一次 F32；r674 维持 LOSS_DISABLED，不追加 QM。
