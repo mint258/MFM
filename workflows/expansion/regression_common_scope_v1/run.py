@@ -25,6 +25,29 @@ def common_lineage(manifest,small):
     return producer,common,plan,origin,source_ref
 
 
+def outcome_replica(plan,common,transport):
+    origin=plan['original_common_outcome_origin_reference']
+    replica=plan['original_common_outcome_reference']
+    binding_ref=plan['original_common_outcome_replica_binding_reference']
+    Q.need(all(0<ref['bytes']<=2<<20 for ref in (origin,replica,binding_ref)),
+      'Original Common outcome supplement must contain small metadata only')
+    Q.need(T.triple(origin)==T.triple(common['outcome_status_counts'])
+      and replica['bytes']==origin['bytes'] and replica['sha256']==origin['sha256'],
+      'Explicit new outcome replica must match unchanged Common original-source pin')
+    binding=Q.load(transport.verify(binding_ref))
+    Q.need(binding['schema']=='PUBCHEM_COMMON_OUTCOME_SOURCE_REPLICA_V1'
+      and binding['status']=='VERIFIED_EXACT_SOURCE_REPLICA'
+      and binding['origin_endpoint']=='202.38.247.57:22' and binding['origin_uid']==1278
+      and binding['destination_endpoint']=='218.192.171.238:22' and binding['destination_uid']==1264
+      and T.triple(binding['source_reference'])==T.triple(origin)
+      and T.triple(binding['replica_reference'])==T.triple(replica)
+      and binding['actual_bytes_and_sha256_verified'] is True,
+      'Separate actual metadata transfer binding, never retroactive nine-replica/C0 claims')
+    # Transport.local performs fresh same-FD SHA/type/actual Alpha UID checks;
+    # no entry is added to or rewritten in the original nine-replica manifest.
+    return Q.load(transport.verify(replica))
+
+
 def execute(plan,out,guard):
     transport=T.Transport(plan['parent_transport_manifest'],'218.192.171.238:22',1264)
     def small(ref):return Q.load(transport.verify(ref))
@@ -51,6 +74,11 @@ def execute(plan,out,guard):
     semantics=source.prove(*code,old['boolean_bit_order'])
     common_manifest=small(plan['common_reference_manifest'])
     common_producer,common,common_plan,origin,common_source_ref=common_lineage(common_manifest,small)
+    outcome=outcome_replica(plan,common,transport)
+    Q.need(type(outcome['source_molecules']) is int and type(outcome['train_routine_val_denominator']) is int
+      and outcome['source_molecules']>=outcome['train_routine_val_denominator']>0
+      and outcome['execution_unknown_is_not_a_chemical_failure'] is True,
+      'Original all-source and TRAIN_VAL denominator count evidence required')
     mapping={row['origin_reference']['path']:row['destination_reference'] for row in common_plan['transport_bindings']}
     formal_origin=origin['origin_formal_reference'];formal=mapping[formal_origin['path']]
     equivalent=T.triple(old['source_refs']['formal_population'])==T.triple(formal_origin)
@@ -89,8 +117,7 @@ def execute(plan,out,guard):
           and metrics['global_molecular_selection']['changed_molecules']==old['conditional_changed_molecules'])
         checks['actual_global_decision_changes_match_closed_receipt']=(metrics['chemical_changed_records']==old['counts']['chemical_admission_changed']
           and metrics['global_conditional_changed_records']==old['counts']['conditional_final_changed'])
-        checks['complete_original_Common_denominator_and_exclusion_mass']=(metrics['membership_rows']==common['denominator_molecules']
-          and metrics['membership_rows']-metrics['common_molecules']==common['excluded_molecules'])
+        checks.update(sql.source_mass_checks(metrics,common,outcome))
         checks['original_formal_contract_count_matches_closed_plan']=(equivalent and metrics['formal_records']==oldplan['expected_formal_records'])
         from ..common_molecular_fp_candidate_v1.census import Census
         old_census=Census();new_census=Census()
@@ -101,6 +128,9 @@ def execute(plan,out,guard):
         checks['exact_old_and_new_Common_MID_role_record_digest']=actual_old==actual_new==expected
         report.update(passed=all(checks.values()),failed_checks=[k for k,v in checks.items() if not v],
           original_semantic_source_proof=semantics,original_regression_source_references=originals,
+          original_Common_source_count_reference=common['outcome_status_counts'],
+          original_Common_source_count_replica_reference=plan['original_common_outcome_reference'],
+          original_Common_source_count_replica_binding_reference=plan['original_common_outcome_replica_binding_reference'],
           common_expected_census=expected,actual_old_Common_census=actual_old,actual_new_Common_census=actual_new,
           original_formal_source_reference=old['source_refs']['formal_population'],Common_original_formal_source_reference=formal_origin,
           original_formal_source_equivalence_proven=equivalent,native_record_expectation_is_not_assumed_without_source_equivalence=True,

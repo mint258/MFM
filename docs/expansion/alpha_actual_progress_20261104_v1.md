@@ -44,10 +44,26 @@ Main4525659传输时的STOPPED是历史快照，新鲜账本为FAILED1:0；失�
 
 [1885184实际组成影响与覆盖验收](coconut735_1885184_root_coverage_acceptance_v1.json)为C0/24秒/16CPU。对当前109875599个候选完整扫描后，三条组成分别排除177、325、6229个候选，共6731个。仅实施这735条对应规则后余109868868个；这不是全11来源过滤后的可用数量。未生成新化学图、未猜测新键，原UNKNOWN及逐条证据保留。
 
-[全11来源清单1885186](all11_source_manifest_1885186_root_actual_v1.json)实际C0/15秒/16CPU，[机器清单](all11_source_manifest_1885186.json)已成形。原compose代码对象保持，原生依赖边界测试通过，原历史错误字面量只保留为审计、不当作当前数据引用。实际排除索引1885187在Alpha compute-0-1/16CPU运行；截至本次发布未闭合索引，也未完成全池过滤及回归SQL绑定，不能据此放行R/N队列。
+[全11来源清单1885186](all11_source_manifest_1885186_root_actual_v1.json)实际C0/15秒/16CPU，[机器清单](all11_source_manifest_1885186.json)已成形。原compose代码对象保持，原生依赖边界测试通过，原历史错误字面量只保留为审计、不当作当前数据引用。实际排除索引1885187在Alpha compute-0-1/16CPU运行；截至本次发布未闭合索引，也未完成全池过滤；完整回归SQL绑定已由1885195闭合，仍不能据此放行R/N队列。
 
 ## 完整Common TRAIN质量参考
 
-[实际传运验收1885185](d27_transport_1885185_root_actual_v1.json)为C0/174秒/16CPU，11488个唯一物理文件共12475282830字节全部按原引用全SHA验证，11490条逻辑引用保留；不重新生成旧几何。完整Common TRAIN校准1885189在Alpha compute-0-1/16CPU运行，使用10973084条原生TRAIN记录，并按原规则排除20000条D5PM7保留记录；完成数量仍须实际终态核验。1885188在数据计算前被合成测试路径上下文误判拦下，失败保留；新不可变入口仅在合成测试期间隔离实际路径绑定，4项测试全通过后恢复正式数据绑定。原科学函数、筛选与掩码规则不变。
+[实际传运验收1885185](d27_transport_1885185_root_actual_v1.json)为C0/174秒/16CPU，11488个唯一物理文件共12475282830字节全部按原引用全SHA验证，11490条逻辑引用保留；不重新生成旧几何。完整Common TRAIN校准1885189已实际C0/1807秒/16CPU，原10973084条TRAIN native records按原规则排除20000条D5 PM7保留记录后，完整拟合10953084条；27字段及全体来源已完成Root验收。1885188在数据计算前被合成测试路径上下文误判拦下，失败保留；新不可变入口仅在合成测试期间隔离实际路径绑定，4项测试全通过后恢复正式数据绑定。原科学函数、筛选与掩码规则不变。
 
 250万首批R/N、1000万固定队列、正式UFF/D以及完整最近邻对照尚未完成。本报告和GitHub源码同步不等于扩充全任务完成。
+
+## 完整TRAIN参考已验收
+
+[实际189应用域验收](D27_1885189_root_reference_application_actual_v1.json)保留原producer pending状态，单独绑定真实[C0账本](1885189_actual_accounting_v1.json)和[原始sacct](1885189_actual_accounting_v1.sacct.txt)。[校准结果](d27_fullCommon_TRAIN_calibration_1885189.json)为完整27字段精确median/MAD：26个分子标量各10953084个有效训练值，逐原子SASA共580397586个有效原子叶子。171个原逻辑组、11231854条canonical记录和22463708条D20/D3 task rows全部覆盖；每族每键恰一次，全部typed parts全SHA及原始读取签名已验证。27份统计小体均逐SHA核验，16个实际worker、每字段7次median及7次MAD输入F64摘要保持一致，4项原生边界测试通过。
+
+[独立字段和域说明](d27_189_domain_review_notes_20261104_v1.md)详列27个字段、统计值和实际SHA。[来源域](d27_fullCommon_TRAIN_domain_1885189.json)保持原canonical PM7 record频率权重，atom SASA按有效原子叶子计；新D20每新分子只计算一次。原PM7 S与新UFF坐标分布不同，原D20可能为历史F32再提升到F64；MolMR原schema没有声明物理单位，保持原函数数值约定。ID10/15/16真实MAD为0，按原规则只作明确review，不发明epsilon。原source NA957与新增掩码0分别统计；新R/N不重新拟合，robust z不自动删值或掩码。该验收仅批准固定TRAIN参考应用，不是完整D4归一化、P′、模型训练或新250万质量验收。
+
+本作业Slurm TotalCPU实际返回00:00:00，保留原值并视为无法取得有效CPU耗时，不能宣称实际计算为零。16核×1807秒的分配核时为8.0311；未来正式UFF使用已有worker time.process_time记录实际CPU秒，并与分配核时分开报告。
+
+## 完整v1回归绑定已PASS
+
+[实际195验收](Common_regression_1885195_root_actual_v1.json)为C0/51秒/16CPU，[正式PASS收据](Common_regression_1885195_PASS_v1.json)完整绑定15879477条原始记录。新旧化学及Common入选一致率均1.0，未解释差异0；1926条原始不一致解释、cause vectors和原始两ID/外层source_family逐条完整对齐。Common的1196122 MID/角色/native-record摘要与原始全体期望完全相同，TRAIN10973084/VAL71884条记录不变。
+
+原全部membership为1220466；按原finalize.exclusion_gates的TRAIN/VAL predicate，分母1214218、排除18096，另6248条分母外成员仍保留在全来源校验中。额外1128字节原outcome小体按原Main UID1278的pin独立转运，不改变旧九份传输清单，不宣称原Main4525659成功。191/192原失败保留，修复仅涉及旧审计JSON/Parquet字段分层及分母核对口径；原筛选SQL、原4520414决定和科学阈值不变，五项原生语义测试均通过。
+
+完整Common精确NN参考打包196正在Alpha compute-0-1/16CPU运行，原数学9项与3项人口/资源元数据测试共12项全通过；193/194的启动失败保留，已补全真实依赖命名空间和Alpha endpoint/uid，科学engine/workers字节不变。打包完成后才进行固定64查询实测及当前完整100万基线NN；当前没有把小测试或打包字节量当作100万覆盖度结果。当前190新基线统计及187全来源索引仍在运行。

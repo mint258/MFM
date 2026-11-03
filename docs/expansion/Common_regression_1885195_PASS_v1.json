@@ -1,0 +1,177 @@
+{
+  "schema": "pubchem_v1_complete_input_common_bound_regression_v1",
+  "status": "PASS",
+  "mode": "full",
+  "agreement": 1.0,
+  "unexplained_mismatches": 0,
+  "full_v1_selection_regression_passed": true,
+  "common_population_scope_bound": true,
+  "final_training_or_full_expansion_gate_released": false,
+  "new_chemical_evaluator_calls": 0,
+  "original_4520414_receipt_modified": false,
+  "original_full_regression_reference": {
+    "bytes": 14170,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/full_v3/receipt.json",
+    "sha256": "43794711900410ee55159659375205935a452a350776eb644839105ec2615861"
+  },
+  "common_reference_manifest": {
+    "bytes": 3566,
+    "path": "/gfshome/alpha/pubchem_expansion_20261103/exact/fullCommon_representation_repaired_completion_v1_job_1885176/fullCommon_repaired_manifest.json",
+    "sha256": "bb249520721976617361806e4724df5f1079a93108ab5cb0c3f27d711cbe44b7"
+  },
+  "actual_binding_producer": {
+    "path": "/gfshome/alpha/pubchem_expansion_20261103/exact/corrected_pool_Common_regression_v4_job_1885195/receipt.json",
+    "bytes": 15796,
+    "sha256": "f6c4f3e54443b3318a4f70fe07930d4649fb31d5979c567257cc473b582d5274"
+  },
+  "actual_binding_accounting_reference": {
+    "bytes": 560,
+    "path": "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_expansion_runtime_20261103/1885195_actual_accounting_v1.json",
+    "sha256": "5030aece649cab17569a6e35ec0fa729d5f0df2837bdbbf336efc2be61adaca6"
+  },
+  "root_review": {
+    "path": "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_expansion_runtime_20261103/Common_regression_1885195_root_actual_v1.json",
+    "bytes": 1507,
+    "sha256": "14f8445919b13e48185f3429496b691c9d01ea158c6ec7b4a70010e382caa1c2"
+  },
+  "actual_all_original_records": 15879477,
+  "actual_all_original_molecules": 1778229,
+  "Common_census": {
+    "molecules": 1196122,
+    "molecules_by_role": {
+      "TRAIN": 1188592,
+      "VAL": 7530
+    },
+    "native_records_by_role": {
+      "TRAIN": 10973084,
+      "VAL": 71884
+    },
+    "sorted_length_prefixed_MID_role_sha256": "32b1c44624042b5698a4de86566b4a203518fc502abb05d048b2b1353e8c9d96"
+  },
+  "selection_comparisons": {
+    "agreement": 1.0,
+    "boolean_counts": {
+      "cached_geometry_x1_augmentation": 40765,
+      "conditional_new_final": 11231854,
+      "enriched_native_rule_mismatch": 0,
+      "enrichment_metadata_mismatch": 0,
+      "historical_unassigned_x1_coalesce": 1692,
+      "legacy_native_rule_mismatch": 1692,
+      "legacy_unexplained": 1692,
+      "native_rule_mismatch": 0,
+      "new_graph_admit": 11805332,
+      "old_chemical_admit": 11805332,
+      "old_final": 11231854,
+      "portable_flag_mismatch": 1926,
+      "raw_native_rule_mismatch": 0,
+      "unexplained": 0
+    },
+    "bound_selection": {
+      "all_original_molecules": 1778229,
+      "changed_molecules": 0,
+      "changed_records": 0,
+      "new_records": 11044968,
+      "new_selected_molecules": 1196122,
+      "old_records": 11044968,
+      "old_selected_molecules": 1196122
+    },
+    "chemical_admission_agreement": 1.0,
+    "chemical_changed_records": 0,
+    "common_MIDs_absent_from_complete_decisions": 0,
+    "common_MIDs_with_different_native_record_counts": 0,
+    "common_molecules": 1196122,
+    "common_record_role_comparison": [
+      {
+        "actual_new_records": 10973084,
+        "actual_old_records": 10973084,
+        "declared_native_records": 10973084,
+        "effective_role": "TRAIN",
+        "molecules": 1188592
+      },
+      {
+        "actual_new_records": 71884,
+        "actual_old_records": 71884,
+        "declared_native_records": 71884,
+        "effective_role": "VAL",
+        "molecules": 7530
+      }
+    ],
+    "conditional_common_molecule_agreement": 1.0,
+    "conditional_common_record_agreement": 1.0,
+    "conditional_new_final_formal_anti_join": {
+      "formal_not_selected": 0,
+      "selected_not_formal": 0
+    },
+    "denominator_excluded_rows": 18096,
+    "denominator_membership_rows": 1214218,
+    "formal_records": 11231854,
+    "global_conditional_changed_records": 0,
+    "global_molecular_selection": {
+      "changed_molecules": 0,
+      "molecules": 1778229,
+      "new_selected_molecules": 1220466,
+      "old_selected_molecules": 1220466
+    },
+    "membership_role_counts": [
+      {
+        "common_rows": 0,
+        "effective_role": "FULL",
+        "source_rows": 6248
+      },
+      {
+        "common_rows": 1188592,
+        "effective_role": "TRAIN",
+        "source_rows": 1206608
+      },
+      {
+        "common_rows": 7530,
+        "effective_role": "VAL",
+        "source_rows": 7610
+      }
+    ],
+    "membership_rows": 1220466,
+    "mismatch_explanations": {
+      "different_cause_vectors": 0,
+      "extra_details": 0,
+      "missing_details": 0,
+      "rows": 1926,
+      "within_Common_records": 0
+    },
+    "old_final_formal_anti_join": {
+      "formal_not_selected": 0,
+      "selected_not_formal": 0
+    },
+    "original_denominator_predicate": "effective_role IN ('TRAIN','VAL')",
+    "original_molecules": 1778229,
+    "original_records": 15879477,
+    "original_unique_records": 15879477,
+    "outside_denominator_membership_rows": 6248
+  },
+  "actual_checks": {
+    "actual_all15879477_rows": true,
+    "actual_all_mismatch_rows_and_causes_match_closed_receipt": true,
+    "actual_full_molecular_count_matches_closed_receipt": true,
+    "actual_global_decision_changes_match_closed_receipt": true,
+    "actual_global_molecular_selection_matches_closed_receipt": true,
+    "all_actual_mismatch_details_exactly_explained": true,
+    "complete_Common_selected_both_sides": true,
+    "complete_original_Common_denominator_and_exclusion_mass": true,
+    "complete_original_membership_source_mass": true,
+    "conditional_new_final_exact_complete_formal_set": true,
+    "every_original_boolean_count_matches_closed_receipt": true,
+    "exact_old_and_new_Common_MID_role_record_digest": true,
+    "full_actual_Common_census": true,
+    "native_record_count_contract": true,
+    "no_missing_Common_MIDs": true,
+    "old_final_exact_complete_formal_set": true,
+    "original_99_9_percent_selection_threshold": true,
+    "original_formal_contract_count_matches_closed_plan": true,
+    "original_formal_source_equivalence": true,
+    "unique_formal_record_IDs": true,
+    "unique_membership_MIDs": true,
+    "unique_mismatch_detail_IDs": true,
+    "unique_original_record_IDs": true,
+    "valid_actual_Common_rows": true,
+    "zero_unexplained_and_native_drift": true
+  }
+}

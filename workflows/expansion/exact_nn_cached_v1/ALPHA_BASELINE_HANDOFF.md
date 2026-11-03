@@ -175,3 +175,17 @@ Source-only CLI fixtures:
 workflows.expansion.exact_nn_cached_v1.test_launcher_cli (2 cases, no science).
 Run them in Root's next actual source fixture allocation. No actual execution or
 performance result is claimed by this document.
+
+Corrected-population consumers explicitly recognize sealed
+PUBCHEM_EXACT_MINCID_OVERLAY_POOL_V1 through the unchanged recovery reader's
+actual producer/Root/C0 gate. Legacy V2/Main/Alpha branches retain their original
+behavior. A corrected baseline must carry matching population_version, source
+pool/size, exact old baseline history, seed/domain and actual corrected183 Root
+review. It is not relabelled historical1M. Full coverage and operational profile
+plans must add baseline_actual_review_reference (actual1918B,
+SHA5217385cfa77f2702e181aa8d97be579b6289ce2a51e60334930ff9f7ae04f69);
+baseline_receipt remains the actual183 receipt pin. Old baseline plans need no
+new fields. Runtime actual profile.job_id is read instead of legacy SlurmJobID.
+No approximate/reference/selection change occurs. Source fixture module
+exact_nn_cached_v1.test_overlay_contracts has two metadata cases for sealed
+reader delegation and version/history/review absence rejection, no body reads.

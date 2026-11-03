@@ -57,8 +57,11 @@ class Guard:
         require(own+reserve<=self.plan['output_cap_bytes'],'Exact output cap including bounded in-flight batch exceeded')
         if force or now-self.last>=30:
             require(current_rss()<=self.plan['parent_rss_cap_bytes'],'Exact parent RSS exceeds declared allowance')
-            # Mutable SQLite and growing outputs receive no old-quota credit.
-            self.checker(self.plan,own,self.scope,prequery_credit_provider=lambda cutoff:0)
+            # Alpha's native backend measures actual owned pre-query blocks in
+            # the declared scope. Preserve zero credit on Main/Lustre.
+            provider=None if (self.plan.get('runtime_profile_reference')and
+                self.plan['quota_authority'].get('kind')=='gluster_directory_quota_deem_statfs')else lambda cutoff:0
+            self.checker(self.plan,own,self.scope,prequery_credit_provider=provider)
             self.last=now
 
 

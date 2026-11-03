@@ -129,14 +129,15 @@ def save(path,value):
 def build(args):
     need(os.getuid()==1264 and sys.flags.isolated,'Run isolated metadata builder on actual Alpha UID1264')
     manifest=load(args.common_manifest)
-    exact=load(args.exact_deployment);reg=load(args.regression_deployment);resource=load(args.resource_template)
+    exact=load(args.exact_deployment);resource=load(args.resource_template)
+    reg=None if args.pack_only else load(args.regression_deployment)
     need(exact['base_code_root']==str(args.base),'Exact deployed clean base required')
-    exact_refs=exact['code_references'];reg_refs=reg['code_references']
+    exact_refs=exact['code_references'];reg_refs=[]if args.pack_only else reg['code_references']
     for ref in union(exact_refs,reg_refs,resource['code_references']):verify(ref)
     # Reuse the existing metadata consumer checks, including all1196122 census,
     # source/spawn proof,4 readbacks and immutable Main STOPPED provenance.
     exact_entry=Path(verify(exact.get('entry_reference') or next(r for r in exact_refs if Path(r['path']).name=='layer_entry.py')))
-    reg_entry=verify(reg['entry_reference'])
+    reg_entry=None if args.pack_only else verify(reg['entry_reference'])
     sys.path[:0]=[str(exact_entry.parent),str(args.base)]
     importlib.invalidate_caches()
     parent=actual_common_parent(manifest)
@@ -145,25 +146,43 @@ def build(args):
     else:
         from workflows.expansion.exact_nn_cached_v1.alpha_common import validate_manifest
     validate_manifest(manifest)
-    common_ref=pin(args.common_manifest);transport=load(args.regression_transport)
-    old_ref,account_ref=original_regression(transport)
-    transport_ref=pin(args.regression_transport)
+    common_ref=pin(args.common_manifest);old_ref=account_ref=transport_ref=None
+    if not args.pack_only:
+        transport=load(args.regression_transport);old_ref,account_ref=original_regression(transport)
+        transport_ref=pin(args.regression_transport)
     keep=('runtime_profile_reference','quota_snapshot','quota_authority','minimum_free_bytes',
       'minimum_node_available_bytes','output_scope_root','output_cap_bytes','other_future_reserved_bytes',
-      'other_future_closed_scope_credit_reference')
+      'other_future_closed_scope_credit_reference','reviewed_storage_budget_reference','future_budget_review_reference')
     resources={k:resource[k] for k in keep if k in resource}
-    need(resources['output_cap_bytes']==300000000000 and resources['other_future_reserved_bytes']==986736873472
-      and resources['minimum_free_bytes']==200000000000 and resources['minimum_node_available_bytes']==24<<30,
-      'Use reviewed conservative shared exact scope reservations without invented credit')
+    budget_refs=[resources[k]for k in('reviewed_storage_budget_reference','future_budget_review_reference')if k in resources]
+    if args.budget_review:budget_refs.append(pin(args.budget_review))
+    if budget_refs:
+        need(all((r['bytes'],r['sha256'])==(budget_refs[0]['bytes'],budget_refs[0]['sha256'])for r in budget_refs),'Explicit budget aliases must bind the same actual review bytes')
+        for ref in budget_refs:verify(ref)
+        resources['reviewed_storage_budget_reference']=budget_refs[-1]
+        budget=load(verify(resources['reviewed_storage_budget_reference']))
+        need(budget['schema']=='ROOT_ALPHA_ALL_FUTURE_STORAGE_BUDGET_V2'and budget['reviewer']=='root'
+            and budget['endpoint']=='218.192.171.238:22'and budget['uid']==1264
+            and budget['quota_root']==resources['quota_authority']['quota_root'], 'Actual Root-reviewed Alpha V2 quota scope required')
+        resources.update(output_cap_bytes=budget['scope_total_caps_bytes']['exact'],
+            other_future_reserved_bytes=budget['other_future_reserved_bytes_for_each_scope']['exact'],
+            minimum_free_bytes=budget['minimum_free_after_all_future_bytes'])
+        need(resources['output_scope_root']=='/gfshome/alpha/pubchem_expansion_20261103/exact','Actual declared shared exact output scope required')
+    else:
+        need(not args.pack_only,'Pack-only needs actual V2 budget_reference alias or explicit --budget-review')
+        need(resources['output_cap_bytes']==300000000000 and resources['other_future_reserved_bytes']==986736873472
+          and resources['minimum_free_bytes']==200000000000 and resources['minimum_node_available_bytes']==24<<30,
+          'Use reviewed conservative shared exact scope reservations without invented credit')
     verify(resources['runtime_profile_reference'])
     resources['quota_authority']=dict(resources['quota_authority']);resources['quota_authority'].pop('publisher',None)
-    resources['workers']=16
+    resources.update(workers=16,endpoint='218.192.171.238:22',uid=1264)
     common_sources=union(resource['code_references'],exact_refs,reg_refs,
       [pin(args.launcher),pin(args.rpc_program),pin(__file__)])
     for ref in resource.get('scientific_source_references',[]):verify(ref)
     lineage=dict(common_reference_manifest=common_ref,accepted_Alpha_Common_parent=parent,
       Main_origin_parent_C0_claimed=False,source_template_reference=pin(args.resource_template),
-      exact_source_deployment_reference=pin(args.exact_deployment),regression_source_deployment_reference=pin(args.regression_deployment),
+      exact_source_deployment_reference=pin(args.exact_deployment),
+      regression_source_deployment_reference=None if args.pack_only else pin(args.regression_deployment),
       scientific_source_references=resource.get('scientific_source_references',[]),code_references=common_sources)
     pack={**resources,**lineage,'schema':'PUBCHEM_EXACT_REFERENCE_PACK_PLAN_V1','scope_key':'reference_before_pack_v1',
       'reference_role':'before','input_manifest':common_ref,'parent_rss_cap_bytes':8<<30,
@@ -175,7 +194,9 @@ def build(args):
     need(not args.output_directory.exists(),'Fresh builder output required; preserve all earlier plans')
     args.output_directory.mkdir(parents=True)
     outputs=[]
-    for label,plan,module,entry in [('reference_before',pack,PACK,exact_entry),('regression_common',binder,BINDER,reg_entry)]:
+    stages=[('reference_before',pack,PACK,exact_entry)]
+    if not args.pack_only:stages.append(('regression_common',binder,BINDER,reg_entry))
+    for label,plan,module,entry in stages:
         tag=args.tag_prefix+'_'+label;template=args.output_directory/(label+'_plan_template.json')
         plan['output_directory']=str(Path(plan['output_scope_root'])/(tag+'_LAUNCHER_ASSIGN_REAL_JOB_ID'))
         plan_ref=save(template,plan)
@@ -188,11 +209,13 @@ def build(args):
     return save(args.output_directory/'build_receipt.json',dict(schema='ALPHA_ACCEPTED_COMMON_FOLLOWUP_PLAN_BUILD_V1',
       status='TEMPLATES_PREPARED_NOT_SUBMITTED',builder_reference=pin(__file__),uid=os.getuid(),
       common_manifest=common_ref,accepted_Alpha_parent=parent,original_Main_regression_uid=1278,
-      original_Main_regression_reference=old_ref,metadata_only=True,production_started=False,outputs=outputs))
+      original_Main_regression_reference=old_ref,pack_only=args.pack_only,metadata_only=True,production_started=False,outputs=outputs))
 
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--budget-review',type=Path,help='Explicit actual Root V2 budget when the resource template has no review reference')
+    p.add_argument('--pack-only',action='store_true',help='Only full Common pack; no unrelated regression metadata is read')
     p.add_argument('--common-manifest',required=True,type=Path)
     p.add_argument('--output-directory',required=True,type=Path)
     p.add_argument('--tag-prefix',default='common_followup')

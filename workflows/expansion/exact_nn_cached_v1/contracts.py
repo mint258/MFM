@@ -5,6 +5,9 @@ from .engine import RECIPE
 
 
 def complete_source(pool):
+    if pool.get('schema')=='PUBCHEM_EXACT_MINCID_OVERLAY_POOL_V1':
+        from ..pubchem_generic_recovery_overlay_v1.reader import validate_header
+        return validate_header(pool)
     require(pool.get('schema')=='PUBCHEM_EXACT_MINCID_CANDIDATE_POOL_V2'
         and pool.get('status')=='MATERIALIZED_UNFILTERED_NO_RELEASE'
         and pool.get('source_rows')==124857440 and pool.get('original_SQL_minimum_CID_semantics') is True
@@ -32,6 +35,8 @@ def typed_filtered(filtered):
     require(filtered.get('schema')=='expansion_filtered_columnar_pool_v1' and filtered.get('status')=='COMPLETE'
         and filtered.get('all_sources_all_splits_verified') is True,'Complete all11 all-split typed filtered pool required')
     source=load(verify(filtered['source_pool_receipt']));complete_source(source)
+    if source.get('schema')=='PUBCHEM_EXACT_MINCID_OVERLAY_POOL_V1':
+        require(filtered.get('population_version')==source['population_version'],'Corrected filter population version must match sealed source')
     regression=load(verify(filtered['regression_reference']))
     require(regression.get('status')=='PASS' and regression.get('agreement',0)>=.999
         and regression.get('unexplained_mismatches')==0 and regression.get('full_v1_selection_regression_passed') is True,
@@ -67,7 +72,40 @@ def typed_release(filtered,novelty):
         and novelty.get('fingerprint_recipe')==RECIPE,'Complete original exact novelty gate unchanged')
 
 
-def baseline_query(q):
+def corrected_baseline(q,source,actual_review_reference,receipt_reference):
+    from ..pubchem_generic_recovery_overlay_v1.runtime import VERSION,actual_parent
+    require(q.get('population_version')==source['population_version']==VERSION
+        and q.get('sample_hash_domain')=='PubChem-baseline-uniform'
+        and q.get('source_pool_molecules')==source['unique_full_keys']
+        and q.get('internal_deduplicated_pool_reference')==q['source_pool_receipt']
+        and q.get('scope',{}).get('population_version')==VERSION
+        and q.get('scope',{}).get('source_pool_receipt')==q['source_pool_receipt'],
+        'Explicit corrected baseline/source population version required; never old1M relabel')
+    require(all(isinstance(q.get(k),dict)for k in('previous_baseline_receipt_reference','previous_baseline_actual_reference'))
+        and q.get('exact_incremental_method')=='INSERT_ONLY_TOPK_FROM_PROVEN_FROZEN_OLD_TOPK_PLUS_ALL_NEW_FULLKEYS',
+        'Corrected baseline must retain the exact old history and unchanged sampling proof')
+    require(isinstance(actual_review_reference,dict)and isinstance(receipt_reference,dict)
+        and actual_review_reference['bytes']==1918
+        and actual_review_reference['sha256']=='5217385cfa77f2702e181aa8d97be579b6289ce2a51e60334930ff9f7ae04f69',
+        'Actual corrected183 Root baseline review/receipt references are required')
+    review=load(verify(actual_review_reference))
+    require(review.get('schema')=='ROOT_ACTUAL_ALPHA_CORRECTED_BASELINE1M_V1'
+        and review.get('status')=='ACCEPTED_COMPLETE_CORRECTED_PREDECON_FIXED_1M'
+        and review.get('producer_receipt_reference')==receipt_reference
+        and review.get('population_version')==VERSION and review.get('source_pool_reference')==q['source_pool_receipt']
+        and review.get('sample_molecules')==1000000 and review.get('seed')==20261025
+        and review.get('domain')=='PubChem-baseline-uniform','Exact current Root review binding required')
+    parent=actual_parent(review)
+    require(parent['JobIDRaw']==q['actual_parent']['job_id']=='1885183'
+        and q['actual_parent']['uid']==1264 and q['actual_parent']['endpoint']=='218.192.171.238:22',
+        'Actual corrected baseline profile job_id, never historical SlurmJobID')
+    old=load(verify(q['previous_baseline_receipt_reference']));history=load(verify(q['previous_baseline_actual_reference']))
+    require(old['source_pool_receipt']==source['base_pool_receipt_reference']
+        and history['receipt_reference']==q['previous_baseline_receipt_reference']
+        and old['sample_seed']==q['sample_seed']and old['sample_hash_domain']==q['sample_hash_domain'],
+        'Exact preserved historical baseline source/seed/domain required')
+
+def baseline_query(q, *, actual_review_reference=None, receipt_reference=None):
     require(q.get('schema')=='EXPANSION_PUBCHEM_PREDECON_BASELINE_V1' and q.get('status')=='COMPLETE'
         and q.get('fingerprint_recipe')==RECIPE and q.get('targets_present') is False
         and q.get('downstream_features_present') is False and q.get('sample_seed')==20261025
@@ -75,5 +113,7 @@ def baseline_query(q):
         and q.get('sample_ordinal_start')==0 and q.get('projection_order')=='sample_ordinal_ASC'
         and q.get('all_source_internal_fullkey_dedup_before_v1_or_downstream_decontamination') is True
         and q['projection']['rows']==1000000,'Actual scientific fixed1M PRE-decon baseline required')
-    complete_source(load(verify(q['source_pool_receipt'])))
+    source=load(verify(q['source_pool_receipt']));complete_source(source)
+    if source.get('schema')=='PUBCHEM_EXACT_MINCID_OVERLAY_POOL_V1':
+        corrected_baseline(q,source,actual_review_reference,receipt_reference)
     verify(q['sample_membership']);return verify(q['projection'])

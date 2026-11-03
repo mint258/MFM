@@ -100,7 +100,8 @@ def run(plan_path, *, startup_proof=None):
     startup_reference=reference(startup_proof) if startup_proof is not None else None
     bind_plan(plan)
     workers=plan['workers'];cap=plan['worker_rss_cap_bytes'];startup_memory=allocation_guard(plan)
-    baseline_path=verify(plan['baseline_receipt']);q=load(baseline_path);source=baseline_query(q);source_frame=file_frame(source)
+    baseline_path=verify(plan['baseline_receipt']);q=load(baseline_path);source=baseline_query(q,actual_review_reference=plan.get('baseline_actual_review_reference'),
+        receipt_reference=plan['baseline_receipt']);source_frame=file_frame(source)
     ref_path=verify(plan['reference_manifest']);role=plan['reference_role'];m=validate_reference(ref_path,role);n=m['molecules']
     root=Path(plan['output_directory']);require(root.is_absolute() and not root.is_symlink(),'Absolute dedicated coverage output required')
     root.mkdir(parents=True,exist_ok=True)

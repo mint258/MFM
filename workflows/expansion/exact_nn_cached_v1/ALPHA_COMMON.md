@@ -67,3 +67,49 @@ one immutable capsule before preparing its real plans. The small source-routing
 fixture module is `workflows.expansion.exact_nn_cached_v1.test_repaired_consumers`;
 its isolated mocked acceptance checks source lineage only and cannot substitute
 for real repair/native/C0 or independent Root review.
+
+The existing alpha_common_followup_plans_v1.py now supports --pack-only. That
+mode reads no regression deployment or nine-file transport. Its resource template
+must bind actual reviewed_storage_budget_reference V2; exact cap/other-future/floor
+come from that actual file, with no stale986736873472 hardcoded amount. Existing
+combined regression mode keeps its legacy path when no V2 reference is supplied.
+Example metadata-only preparation (fresh output; never submits):
+
+```
+PY -I -B ABS_ALPHA_COMMON_FOLLOWUP_PLANS_PY --pack-only \
+ --common-manifest ACTUAL_COMMON176_MANIFEST --exact-deployment ACTUAL_NEW_EXACT_DEPLOYMENT \
+ --resource-template ACTUAL_V2_EXACT_RESOURCE_TEMPLATE --base ACTUAL_CLEAN_BASE \
+ --launcher ACTUAL_NODE_LAUNCHER --rpc-program ACTUAL_RPC \
+ --control-root OWN_NODE_EPOCHS --output-directory FRESH_PACK_CONTROL
+```
+
+The pack template calls pack_reference with --plan/--startup-proof, role before,
+16CPU allocation,8GiB parent/software,1GiB SQLite cache. Runtime Guard uses native
+actual pre-query owned scope credit ONLY for admitted Alpha/gluster; Main/Lustre
+retain zero credit. Own+in-flight cap, parent RSS, real account+filesystem and all
+future/floor tests stay enabled. No arbitrary byte credit is added.
+
+After the real pack closes, profile_reference uses schema
+ALPHA_FULL_COMMON_EXACT_CACHE_PROFILE_PLAN_V1, query_count64/workers16,
+reference_role before, actual reference_manifest, actual183 baseline_receipt and
+baseline_actual_review_reference. Reviewable defaults are worker cap1GiB,
+parent8GiB/software24GiB and node reserve24GiB; declare actual current resources.
+The same NodeLauncher module CLI is --plan/--startup-proof. This samples queries
+only for operational measurement, and still decodes every1196122 reference once
+in each worker. It is not the scientific1M result. No packed-manifest future hash
+is invented before the real pack finishes.
+
+The old audit_exact_06a5bfd deployment lacks new repaired validator/profile and
+new corrected-baseline contracts. Deploy an explicit current full exact package,
+with MP-safe guarded entry and real runtime/portable_sources dependencies plus
+the actual sealed183 overlay reader/runtime/physical/handoff helpers. The partial
+six-file quality capsule alone is not a complete exact consumer package. Keep
+engine.py/workers.py unchanged: their SHA remains respectively ff810f910dcae876a077abbb85c29d6eda221d60c4bf183c3a5545280aad5ddd and
+a39ef8c8f740e3180373925009150cf86f30dbef0254f10d92ec203405744ff9.
+
+Pack-only accepts resource.reviewed_storage_budget_reference or the explicit
+resource.future_budget_review_reference alias. If a resource template has neither
+(such as the actual all11_v3_exact_scope_runtime_template_v1.json), supply
+--budget-review ACTUAL_ROOT_V2_JSON. Any simultaneously supplied aliases must
+have identical bytes/SHA and are all verified. Missing review never silently
+falls back to the old exact-other reservation in pack-only mode.

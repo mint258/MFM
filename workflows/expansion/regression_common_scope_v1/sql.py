@@ -24,10 +24,28 @@ def explanation_rows(rows,cause_order):
     for row in rows:
         value=json.loads(row['details_json']);causes=value['causes']
         need(isinstance(causes,list) and causes and set(causes)<=set(cause_order) and value['unexplained'] is False,'ALL_MISMATCH_EXPLANATIONS_COMPLETE_AND_REGISTERED')
-        need(all(value[k]==row[k] for k in ('record_id','molecule_id','source_family')),'MISMATCH_DETAIL_ORIGINAL_SOURCE_IDS')
+        need(all(value[k]==row[k] for k in ('record_id','molecule_id')),'MISMATCH_DETAIL_ORIGINAL_SOURCE_IDS')
+        # Original full_v3 compact_result stores family in the Parquet envelope;
+        # its unchanged v1/v2 mismatch JSON repeats only the two original IDs.
+        # bind() joins every envelope to compact using all three source fields.
+        need(isinstance(row['source_family'],str) and bool(row['source_family']),
+          'MISMATCH_ENVELOPE_ORIGINAL_SOURCE_FAMILY_REQUIRED')
+        need('source_family' not in value or value['source_family']==row['source_family'],
+          'MISMATCH_OPTIONAL_JSON_SOURCE_FAMILY_CONTRADICTS_ENVELOPE')
         counts.update(causes);bits=sum(1<<i for i,cause in enumerate(cause_order) if cause in causes)
         result.append(dict(record_id=row['record_id'],molecule_id=row['molecule_id'],source_family=row['source_family'],cause_bits=bits))
     return result,dict(counts)
+
+
+def source_mass_checks(metrics,common,outcome):
+    """Original finalizer separates all source rows from TRAIN/VAL mother rows."""
+    return dict(complete_original_membership_source_mass=(
+      metrics['membership_rows']==outcome['source_molecules']),
+      complete_original_Common_denominator_and_exclusion_mass=(
+        metrics['denominator_membership_rows']==common['denominator_molecules']==outcome['train_routine_val_denominator']
+        and metrics['denominator_excluded_rows']==common['excluded_molecules']
+        and metrics['denominator_membership_rows']-metrics['common_molecules']==metrics['denominator_excluded_rows']
+        and metrics['outside_denominator_membership_rows']==outcome['source_molecules']-outcome['train_routine_val_denominator']))
 
 
 def bind(db,boolean_order,common_expected,source_formal_equivalent):
@@ -51,6 +69,15 @@ def bind(db,boolean_order,common_expected,source_formal_equivalent):
         check(field+'_exact_complete_formal_set',left==right==0)
     member_n,member_u=db.execute('SELECT count(*),count(DISTINCT molecule_id) FROM membership').fetchone()
     check('unique_membership_MIDs',member_n==member_u);metrics['membership_rows']=int(member_n)
+    # formal_cpu_auto_v3.finalize.exclusion_gates: mother is exactly the rows
+    # whose effective_role is TRAIN/VAL; FULL rows stay in the source census.
+    denominator,excluded=db.execute("""SELECT count(*) FILTER(WHERE effective_role IN ('TRAIN','VAL')),
+      count(*) FILTER(WHERE effective_role IN ('TRAIN','VAL') AND NOT common_population) FROM membership""").fetchone()
+    metrics.update(denominator_membership_rows=int(denominator),denominator_excluded_rows=int(excluded),
+      outside_denominator_membership_rows=int(member_n-denominator),
+      original_denominator_predicate="effective_role IN ('TRAIN','VAL')")
+    metrics['membership_role_counts']=[dict(effective_role=role,source_rows=int(rows),common_rows=int(kept))
+      for role,rows,kept in db.execute('SELECT effective_role,count(*),count(*) FILTER(WHERE common_population) FROM membership GROUP BY effective_role ORDER BY effective_role').fetchall()]
     db.execute('CREATE VIEW common AS SELECT molecule_id,effective_role,records FROM membership WHERE common_population')
     invalid=db.execute("SELECT count(*) FROM common WHERE molecule_id IS NULL OR molecule_id='' OR effective_role NOT IN ('TRAIN','VAL') OR records IS NULL OR records<=0").fetchone()[0]
     check('valid_actual_Common_rows',invalid==0)

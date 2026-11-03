@@ -47,7 +47,8 @@ def execute(plan_path, startup_proof):
         require(packed['molecules'] == 1196122, 'Complete actual Common1196122 required')
         baseline_path = verify(plan['baseline_receipt'])
         baseline = load(baseline_path)
-        query_path = baseline_query(baseline)
+        query_path = baseline_query(baseline,actual_review_reference=plan.get('baseline_actual_review_reference'),
+            receipt_reference=plan['baseline_receipt'])
         query_frame = file_frame(query_path)
         fp_path = verify(packed['fingerprints'])
         require(fp_path.stat().st_size == packed['molecules'] * WIDTH,

@@ -1,5 +1,6 @@
 """Small SQL parity, missing-ID, changed-decision and explanation boundaries."""
 import unittest
+import json
 from . import sql,source
 
 FIELDS=['old_chemical_admit','new_graph_admit','old_final','conditional_new_final','native_rule_mismatch',
@@ -19,9 +20,15 @@ class Source(unittest.TestCase):
             bits=sum(1<<i for i,key in enumerate(FIELDS) if values[key]);db.execute('INSERT INTO compact VALUES(?,?,?,?,?)',[rid,mid,'test',bits,int(rid=='r4')])
         sql.decode_view(db,FIELDS,['ORIGINAL_SMILES_UNPARSEABLE'])
         db.execute("CREATE TABLE formal AS SELECT * FROM (VALUES ('r1','a'),('r2','a'),('r3','b'),('r5','formal_outside')) x(record_id,molecule_id)")
-        db.execute("CREATE TABLE membership AS SELECT * FROM (VALUES ('a','TRAIN',2,TRUE),('b','VAL',1,TRUE)) x(molecule_id,effective_role,records,common_population)")
+        db.execute("""CREATE TABLE membership AS SELECT * FROM (VALUES ('a','TRAIN',2,TRUE),('b','VAL',1,TRUE),
+          ('excluded','TRAIN',1,FALSE),('full','FULL',1,FALSE)) x(molecule_id,effective_role,records,common_population)""")
         db.execute('CREATE TABLE explanations(record_id VARCHAR,molecule_id VARCHAR,source_family VARCHAR,cause_bits BIGINT)')
-        if details:db.execute("INSERT INTO explanations VALUES('r4','outside','test',1)")
+        if details:
+            rows,_=sql.explanation_rows([dict(record_id='r4',molecule_id='outside',source_family='test',
+              details_json=json.dumps(dict(record_id='r4',molecule_id='outside',
+                causes=['ORIGINAL_SMILES_UNPARSEABLE'],unexplained=False)))],['ORIGINAL_SMILES_UNPARSEABLE'])
+            db.executemany('INSERT INTO explanations VALUES(?,?,?,?)',
+              [(r['record_id'],r['molecule_id'],r['source_family'],r['cause_bits']) for r in rows])
         return db
 
     def test_actual_complete_scope_counts_not_just_global_agreement(self):
@@ -31,6 +38,17 @@ class Source(unittest.TestCase):
             self.assertEqual(result['metrics']['bound_selection']['old_records'],3)
             self.assertEqual(result['metrics']['formal_records'],4)
             self.assertEqual(result['metrics']['mismatch_explanations']['rows'],1)
+            metrics=result['metrics'];common={'denominator_molecules':3,'excluded_molecules':1}
+            outcome={'source_molecules':4,'train_routine_val_denominator':3}
+            self.assertEqual((metrics['membership_rows'],metrics['denominator_membership_rows'],
+              metrics['denominator_excluded_rows'],metrics['outside_denominator_membership_rows']),(4,3,1,1))
+            self.assertEqual({r['effective_role']:r['source_rows'] for r in metrics['membership_role_counts']},
+              {'FULL':1,'TRAIN':2,'VAL':1})
+            self.assertTrue(all(sql.source_mass_checks(metrics,common,outcome).values()))
+            self.assertFalse(sql.source_mass_checks(metrics,common,{**outcome,'source_molecules':3})[
+              'complete_original_membership_source_mass'])
+            self.assertFalse(sql.source_mass_checks(metrics,{**common,'denominator_molecules':4},outcome)[
+              'complete_original_Common_denominator_and_exclusion_mass'])
         finally:db.close()
 
     def test_missing_Common_record_and_MID_fail_actual_anti_join(self):
@@ -54,6 +72,30 @@ class Source(unittest.TestCase):
         try:
             result=sql.bind(db,FIELDS,{'molecules':2},True);self.assertFalse(result['passed'])
             self.assertEqual(result['metrics']['mismatch_explanations']['missing_details'],1)
+        finally:db.close()
+        detail=dict(record_id='r4',molecule_id='outside',causes=['ORIGINAL_SMILES_UNPARSEABLE'],unexplained=False)
+        envelope=dict(record_id='r4',molecule_id='outside',source_family='test')
+        def parse(value=detail,family='test'):
+            return sql.explanation_rows([{**envelope,'source_family':family,'details_json':json.dumps(value)}],
+              ['ORIGINAL_SMILES_UNPARSEABLE'])
+        parsed,counts=parse()
+        self.assertEqual(parsed,[{**envelope,'cause_bits':1}])
+        self.assertEqual(counts,{'ORIGINAL_SMILES_UNPARSEABLE':1})
+        self.assertEqual(parse({**detail,'source_family':'test'}),(parsed,counts))
+        for key,value in [('record_id','wrong'),('molecule_id','wrong'),('source_family','wrong'),
+                          ('source_family',None),('causes',[]),('causes',['UNREGISTERED']),('unexplained',True)]:
+            with self.subTest(key=key,value=value),self.assertRaises(ValueError):parse({**detail,key:value})
+        for family in (None,''):
+            with self.subTest(family=family),self.assertRaises(ValueError):parse(family=family)
+        db=self.fixture()
+        try:
+            # A valid JSON body cannot hide a contradictory top-level family:
+            # exact compact-envelope anti-joins must report both missing/extra.
+            db.execute("UPDATE explanations SET source_family='wrong'")
+            result=sql.bind(db,FIELDS,{'molecules':2},True)
+            self.assertFalse(result['passed'])
+            self.assertEqual(result['metrics']['mismatch_explanations']['missing_details'],1)
+            self.assertEqual(result['metrics']['mismatch_explanations']['extra_details'],1)
         finally:db.close()
 
     def test_original_common_AND_and_bit_encoding_AST(self):
