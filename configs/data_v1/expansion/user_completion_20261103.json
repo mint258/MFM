@@ -1,0 +1,54 @@
+{
+    "schema":  "pubchem_expansion_completion_user_policy_v1",
+    "source":  "Current user goal, including confirmed conformer override",
+    "taskbook":  "数据线工作流程：v1 定稿与数据扩充（Codex B）.md",
+    "scope":  "Part 2 sections 2.1 through 2.9, plus required reports, validation, GitHub push and PR",
+    "target_batch_molecules":  2500000,
+    "stream_R_molecules":  1250000,
+    "stream_N_molecules":  1250000,
+    "ordered_queue_molecules":  10000000,
+    "baseline_pubchem_sample_molecules":  1000000,
+    "conformers":  {
+                       "max_generated_per_molecule":  3,
+                       "source_method":  "Same S-prime UFF parameters and atom/stereo validation",
+                       "rmsd_dedup_angstrom":  0.5,
+                       "fixed_molecule_seed":  true,
+                       "fixed_generation_order":  true,
+                       "future_extension_preserves_existing":  true,
+                       "future_extension_deduplicates_against_existing":  true,
+                       "insufficient_policy":  "KEEP_ACTUAL_COUNT_AND_MARK",
+                       "fill":  false,
+                       "retry":  false
+                   },
+    "labels":  {
+                   "D20":  "once per molecule, excluding Kappa",
+                   "D3":  "each actual conformer, up to 3",
+                   "atom_SASA":  "each actual conformer",
+                   "Pprime":  false,
+                   "QM":  false,
+                   "training":  false
+               },
+    "removed_operational_stops":  [
+                                      "artificial job wall timeout",
+                                      "four-hour repair timeout",
+                                      "two-failure STOP2",
+                                      "historical cost-ratio automatic stop"
+                                  ],
+    "retained":  [
+                     "actual cluster scheduler constraints",
+                     "scientific quality and source integrity",
+                     "exact all-split decontamination",
+                     "UFF parameters and 0.5 Angstrom dedup",
+                     "CPU allocation and memory/storage safety",
+                     "read-only original data and prior evidence",
+                     "no paid server"
+                 ],
+    "publication":  {
+                        "repository":  "mint258/MFM",
+                        "large_data":  "external with paths, manifests and SHA256 in Git",
+                        "push_authorized":  true,
+                        "PR_required":  true,
+                        "merge_by_user":  true
+                    },
+    "status":  "AUTHORIZED_NOT_COMPLETED"
+}

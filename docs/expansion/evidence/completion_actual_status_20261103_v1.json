@@ -1,0 +1,82 @@
+{
+    "full_pubchem_source":  {
+                                "shards":  500,
+                                "typed_full_reconstruction_complete":  false,
+                                "rows":  124857440,
+                                "main_raw_backup_verified":  true
+                            },
+    "observed_utc":  "2026-11-03T05:45:27.9181292Z",
+    "publication_scope":  "Source, manifests and actual evidence only; no full dataset release claimed",
+    "uff_source_native_validation":  {
+                                         "actual_retained_conformers":  [
+                                                                            1,
+                                                                            3
+                                                                        ],
+                                         "pure_tests_passed":  14,
+                                         "fourth_conformer_append_preserves_prefix":  true,
+                                         "new_PM7_xTB_Pprime_calls":  0,
+                                         "slurm_state":  "COMPLETED",
+                                         "node":  "compute-0-21",
+                                         "real_native_fixture_status":  "PASS",
+                                         "job_id":  4525644,
+                                         "production_pilot_complete":  false,
+                                         "fixture_molecules":  2,
+                                         "exit_code":  "0:0",
+                                         "original_D3_binary64_equal":  true
+                                     },
+    "scientific_dataset_complete":  false,
+    "schema":  "PUBCHEM_EXPANSION_COMPLETION_ACTUAL_STATUS_V1",
+    "raw_and_lustre_validation":  {
+                                      "exit_code":  "0:0",
+                                      "lustre_quota_tests":  5,
+                                      "passed_tests":  12,
+                                      "node":  "compute-0-21",
+                                      "slurm_state":  "COMPLETED",
+                                      "raw_tests":  7,
+                                      "job_id":  4525645
+                                  },
+    "merge_ready":  false,
+    "common_reference":  {
+                             "elapsed":  "00:12:11",
+                             "repair_in_progress":  true,
+                             "cause":  "Spawn child cannot import isolated expansion module after canonical legacy import inserts its repository first",
+                             "slurm_state":  "FAILED",
+                             "node":  "compute-0-21",
+                             "full_reference_published":  false,
+                             "cpus":  32,
+                             "actual_job_id":  4525643,
+                             "exit_code":  "1:0"
+                         },
+    "scope":  {
+                  "no_Pprime":  true,
+                  "D20_once_per_molecule":  true,
+                  "max_retained_conformers":  3,
+                  "no_fill":  true,
+                  "D3_per_actual_conformer":  true,
+                  "no_retry":  true
+              },
+    "coconut_october_source":  {
+                                   "main_full_input_verified":  false,
+                                   "main_upload_status":  "IN_PROGRESS",
+                                   "matches_original_Alpha_pin":  true,
+                                   "original_735_null_full_keys_remain_unresolved":  true,
+                                   "sha256":  "bb61f8e074f876beaaf251b9abe5b4334aebbda28717120ac482db39d58ced29",
+                                   "local_verified_bytes":  37876914074
+                               },
+    "production_batch_target_molecules":  2500000,
+    "production_batch_molecules_completed":  0,
+    "storage":  {
+                    "filesystem":  "/lfshome/zixiao",
+                    "caps_require_pilot_measurement":  true,
+                    "hard_limit_bytes":  2199023255552,
+                    "conservative_total_future_caps_bytes":  1500000000000,
+                    "actual_quota_command":  [
+                                                 "lfs",
+                                                 "quota",
+                                                 "-u",
+                                                 "zixiao",
+                                                 "/lfshome/zixiao"
+                                             ],
+                    "minimum_free_bytes":  200000000000
+                }
+}

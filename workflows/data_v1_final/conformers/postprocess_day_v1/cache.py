@@ -104,7 +104,7 @@ def recover_day(ctx,db,task,key,claim,d7_task):
     C.need(row is not None and str(claim['job_id']) in ctx.day_registered,'EXISTING_CLAIM_HAS_NO_REAL_C0_REGISTERED_DAY_CLOSURE_HOLD')
     row=json.loads(row[0]);root=pathlib.Path(claim['output_directory']);ref=row['packet_reference'];claim_ref=ctx.reference(C.ROOT/'artifacts/conformers/postprocess_day_v1/claims'/(key+'.json'))
     C.need(claim['schema']=='POSTPROCESS_READONLY_MOLECULE_CLAIM_V1' and claim['uid']==1278 and claim['node'] in ('compute-0-14','compute-0-18')
-      and claim['molecule_id']==mid and claim['key']==key and claim['cache_key']==task['cache_key'] and claim['packed_receipt_reference']==ctx.plan['packed_receipt_reference']
+      and claim['molecule_id']==mid and claim['key']==key and claim['cache_key']==task['cache_key'] and claim['packed_receipt_reference']==ctx.actual_packed_receipt_reference
       and claim['original_records_SHA']==C.F.sha_value(task['records']) and claim['canonical_HOF_SHA']==C.F.sha_value(task['hof'])
       and row['claim_reference']==claim_ref and ref['path']==str(root/'molecules'/(key+'.json.gz')),'REAL_OLD_DAY_CLAIM_EXACT_SCIENTIFIC_INPUT_SOURCE')
     from . import statistics

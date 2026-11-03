@@ -2,7 +2,7 @@
 import argparse,concurrent.futures as cf,gzip,io,json,multiprocessing as mp,os,pathlib,time,traceback,unittest
 from . import contract as C,io as I,closure,common,hof,cache,worker,statistics,source_inverse
 
-def preflight(out):
+def preflight(out,plan):
     from .test_boundaries import Boundaries
     from workflows.data_v1_final.execution.cpu_analysis_day_v1.test_v1 import Boundaries as Resource
     from workflows.data_v1_final.conformers.formal_cpu_auto_finalize_mapping_v2.test_adapter import FinalizerBoundaries
@@ -10,17 +10,17 @@ def preflight(out):
     from workflows.data_v1_final.conformers.pm7_hof_augmentation32_v1.test_derive import DerivedBoundaries
     suites=[unittest.defaultTestLoader.loadTestsFromTestCase(c) for c in (Boundaries,Resource,FinalizerBoundaries,CacheBoundaries,DerivedBoundaries)]
     C.need([s.countTestCases() for s in suites]==[6,3,8,8,3],'EXACT_ONCE_28_BOUNDARIES_BEFORE_DATA')
-    inverse=source_inverse.proof();stream=io.StringIO();r=unittest.TextTestRunner(stream=stream,verbosity=2).run(unittest.TestSuite(suites))
+    inverse=source_inverse.proof();witness=closure.source_witness_proof(plan);stream=io.StringIO();r=unittest.TextTestRunner(stream=stream,verbosity=2).run(unittest.TestSuite(suites))
     ref=I.save(out/'preflight28.json',{'schema':'POSTPROCESS_ANALYSIS_DAY_PREFLIGHT_V1','tests_run':r.testsRun,'failures':len(r.failures),'errors':len(r.errors),
-      'skips':len(r.skipped),'expected_failures':len(r.expectedFailures),'unexpected_successes':len(r.unexpectedSuccesses),'transcript':stream.getvalue(),'source_inverse':inverse,'DATA_opened':False})
+      'skips':len(r.skipped),'expected_failures':len(r.expectedFailures),'unexpected_successes':len(r.unexpectedSuccesses),'transcript':stream.getvalue(),'source_inverse':inverse,'original15_source_witness':witness,'DATA_opened':False})
     C.need(r.testsRun==28 and r.wasSuccessful() and not(r.skipped or r.expectedFailures or r.unexpectedSuccesses),'ALL28_ACTUAL_CPU_PASS_REQUIRED_BEFORE_DATA');return ref
 
 def own_claim(ctx,task,d7_task):
-    key=C.F.sha_value(['POSTPROCESS_READONLY_GEOMETRY_V1',task['cache_key'],ctx.plan['packed_receipt_reference']]);root=C.ROOT/'artifacts/conformers/postprocess_day_v1/claims'
+    key=C.F.sha_value(['POSTPROCESS_READONLY_GEOMETRY_V1',task['cache_key'],ctx.actual_packed_receipt_reference]);root=C.ROOT/'artifacts/conformers/postprocess_day_v1/claims'
     root.mkdir(parents=True,exist_ok=True,mode=0o700);path=root/(key+'.json')
     if path.exists():return key,None,ctx.read(ctx.reference(path))
     value={'schema':'POSTPROCESS_READONLY_MOLECULE_CLAIM_V1','cache_key':task['cache_key'],'key':key,'molecule_id':task['meta']['molecule_id'],
-      'job_id':ctx.job_id,'uid':1278,'node':ctx.plan['node'],'plan_reference':ctx.plan_ref,'packed_receipt_reference':ctx.plan['packed_receipt_reference'],
+      'job_id':ctx.job_id,'uid':1278,'node':ctx.plan['node'],'plan_reference':ctx.plan_ref,'packed_receipt_reference':ctx.actual_packed_receipt_reference,
       'output_directory':str(ctx.out),'original_records_SHA':C.F.sha_value(task['records']),'canonical_HOF_SHA':C.F.sha_value(task['hof']),
       'scientific_once_or_UFF_or_QM':False,'automatic_retry':False}
     ref=I.save(path,value);ctx.written+=ref['bytes'];return key,ref,value
@@ -34,8 +34,9 @@ def main():
     for name in ('molecules','starts','progress','orders','geometry_witnesses','checkpoints','duckdb_tmp'):(out/name).mkdir()
     ctx=None;db=None;active={};fatal=None;gates=None;expected_common=None;catalog_rows=[];pre=None;collector=None
     try:
-        pre=preflight(out);value,receipt,packed,original,prior,cache_plan,parents,data=C.inputs(plan)
+        pre=preflight(out,plan);value,receipt,packed,original,prior,cache_plan,parents,data=C.inputs(plan)
         ctx=I.Context(plan,proof,C.G.meta_pin(a.plan),out);ctx.authorized(parents);ctx.authorized(data);C.need(ctx.observe(force=True) is None,'ACTUAL_DAY_QUOTA_MEMORY_AND_CLOCK_BEFORE_DATA');ctx.start()
+        receipt=closure.resolve_receipts(ctx,receipt,packed)
         import duckdb,pyarrow as pa,pyarrow.parquet as pq
         db=duckdb.connect(str(out/'work.duckdb'));db.execute('SET threads='+str(ctx.cpus));db.execute("SET memory_limit='32GB'");db.execute('SET temp_directory='+C.q(out/'duckdb_tmp'));ctx.db=db
         ctx.formal_reference=cache_plan['formal_source'];ctx.require(ctx.formal_reference)
@@ -85,7 +86,7 @@ def main():
                     mid=meta['molecule_id'];role=db.execute('SELECT source_role,effective_role FROM all_roles WHERE molecule_id=?',[mid]).fetchone();C.need(role is not None,'ONE_TRUE_FROZEN_ROLE_PER_MOLECULE')
                     meta=dict(meta,split_role=role[0],effective_role=role[1]);task=cache.task(ctx,meta,by[mid],cache_plan,h_ref)
                     prior_cache=cache.reuse(ctx,db,task,cache_plan);d7_task=cache.d7_task(ctx,db,meta,by[mid],task['hof']) if expected_common is not None else None
-                    reserve=min((256<<20),max(8<<20,2*task['software_bound']['packet_reserve_bytes']+(16<<20)));key=C.F.sha_value(['POSTPROCESS_READONLY_GEOMETRY_V1',task['cache_key'],plan['packed_receipt_reference']]);ctx.reserve(key,reserve)
+                    reserve=min((256<<20),max(8<<20,2*task['software_bound']['packet_reserve_bytes']+(16<<20)));key=C.F.sha_value(['POSTPROCESS_READONLY_GEOMETRY_V1',task['cache_key'],ctx.actual_packed_receipt_reference]);ctx.reserve(key,reserve)
                     key,claim_ref,claim=own_claim(ctx,task,d7_task)
                     if claim_ref is None:
                         try:
@@ -108,6 +109,7 @@ def main():
         ctx.write_json_new(out/'receipt.json',{'schema':'CONFORMERS_POSTPROCESS_DAY_RECEIPT_V1','status':'ONE_PARENT_DRAINED_ACTUAL_TERMINAL_AND_ROOT_REVIEW_REQUIRED',
           'job_id':ctx.job_id,'runtime':{'job_id':ctx.job_id,'node':plan['node'],'uid':1278,'cpus':ctx.cpus},'plan_reference':ctx.plan_ref,
           'startup_proof_reference':C.G.meta_pin(a.startup_proof),'preflight_reference':pre,'outcome_index_reference':index_ref,'common_candidate_reference':manifest_ref,
+          'actual_packed_receipt_reference':ctx.actual_packed_receipt_reference,'actual_operational_parent_headers':ctx.operational_header_references,
           'statistics_reference':stats_ref,'order_tables':stats['order_tables'],'geometry_witness_tables':stats['geometry_readback_witness_tables'],'catalog_reference':catalog_ref,'unknown_reference':unknown_ref,'unknown_molecules':len(unknown),
           'actual_PM7_molecule_packets':len(catalog_rows),'expected_PM7_molecules':1220466,'resource_report':dict(ctx.report(),full_observations_reference=resource_ref),'original_quality_hold':gates,
           'PM7_full_source_cache_complete':stats['PM7_full_source_cache_complete'],'ordinary_Common_D7_geometry_complete':stats['ordinary_Common_D7_geometry_complete'],

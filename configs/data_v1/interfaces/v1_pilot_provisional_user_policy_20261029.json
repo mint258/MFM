@@ -1,0 +1,49 @@
+{
+    "schema":  "USER_CONFIRMED_V1_PILOT_PROVISIONAL_DELIVERY_POLICY",
+    "version":  "v1-pilot-provisional",
+    "confirmed_observed_utc":  "2026-10-29T09:52:59Z",
+    "delivery_deadline_utc":  "2026-10-31T09:52:59Z",
+    "priority_deliverables":  [
+                                  "D-2 formal registry",
+                                  "D-3 frozen50000TRAIN5000VAL export",
+                                  "D-4 pilot-only provisional normalization",
+                                  "D-5 nested subsets and seen-molecule unseen-conformer diagnostic"
+                              ],
+    "Common_D6_D7_prerequisite":  false,
+    "all_other_work_background":  true,
+    "r674":  {
+                 "COM_translation_now":  false,
+                 "origin_independence_requires_zero_charge_and_zero_dipole":  true,
+                 "original_values_masks_preserved":  true,
+                 "loss_status":  "LOSS_DISABLED",
+                 "additional_QM_diagnostics_authorized":  false,
+                 "translation_change_alone_is_data_error":  false,
+                 "consider_standard_COM_translation_after_D6":  true
+             },
+    "Pprime":  {
+                   "original_versions_keywords_inputs_seeds_and_quality_unchanged":  true,
+                   "reuse_existing_path_checks":  true,
+                   "software_and_configs_explicit_readonly_allowlist":  true,
+                   "original2000_pilot_run_authorized":  true
+               },
+    "routine_fixes_authorized":  [
+                                     "legitimate readonly software path or permissions false positives",
+                                     "newline/schema classification/SQLite/cache caps",
+                                     "own-tool read-write inconsistency"
+                                 ],
+    "stop_after":  {
+                       "cumulative_hours":  4,
+                       "consecutive_failed_repairs":  2,
+                       "action":  "mark unresolved; conservative default; continue other work"
+                   },
+    "reporting":  {
+                      "receipts_and_SHA":  "formal deliverables only",
+                      "accounting":  "weekly",
+                      "progress":  "one daily summary"
+                  },
+    "requires_user_confirmation":  [
+                                       "scientific label or filtering rule changes",
+                                       "paid server",
+                                       "compute usage exceeds2x pilot estimate"
+                                   ]
+}

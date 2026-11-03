@@ -85,4 +85,4 @@ def run(plan,authority,out,budget):
             finally:writer.close()
     finally:db.close()
     return {'primary6':outputs,'original_Molnet6_partial_only':partial,'all_source_rows':sum(totals.values()),
-        'unit_results':reports,'source_ID_census_reference':C.Q.pin(dbpath),'new_graph_or_key_calls':0}
+        'unit_results':reports,'source_ID_census_reference':I.data_pin(dbpath,[out],check=budget.check),'new_graph_or_key_calls':0}
