@@ -81,6 +81,9 @@ def configure(plan,old):
     cfg=copy.deepcopy(plan);cfg['cache_transitive_output_origins']=[]
     cfg['accepted_prior_output_roots']=[{'manifest_reference':plan['pilot_parent_manifest_reference'],'output_root':old['output_directory']}]
     B.configure(cfg)
+    if plan.get('queue_startup_mode')=='USER_UNLIMITED_CPU21_D3_20261103':
+        from .unlimited_budget import enable_unlimited_worker_resources
+        enable_unlimited_worker_resources()
 def add(r,root=None):return B.allow(C.reference(r),origin=root) if root is not None else B.allow(C.reference(r))
 def derived(r,root):add(r,root);return r
 def data(ref,root=None,limit=512<<20):
@@ -205,6 +208,11 @@ class ActiveDomainMath:
           path=str(self.path),domain_not_created=True,earlier_quota_covered_domain_allocated_bytes=0,
           SQL_or_database_body_read=False,scientific_adoption=False)
 def resource_admission(r,plan):
+    if plan.get('queue_startup_mode')=='USER_UNLIMITED_CPU21_D3_20261103':
+        C.need(r['cpus']==16 and r['node']==plan['node']=='compute-0-21'and r['partition']=='all'and r['wall_seconds']is None
+          and r['memory_policy']=='SLURM_DEFAULT_UNSPECIFIED'and r['data_references']==plan['data_references']
+          and r['estimated_peak_output_bytes']==plan['estimated_future_output_bytes'],'USER_CPU21_NO_TIME_OR_MEMORY_STOP_SCOPE')
+        return
     C.need(type(r['cpus'])is int and r['cpus']==16 and r['node']==plan['node'] and r['node'] in C.ANALYSIS_NODES
       and r['wall_seconds']==86400 and r['memory_policy']=='SLURM_DEFAULT_UNSPECIFIED' and r['data_references']==plan['data_references']
       and r['estimated_peak_output_bytes']==plan['whole_output_cap_bytes'],'EXACT_SINGLE_GENERIC_CPU16_DAY')
@@ -213,7 +221,7 @@ def resource_admission(r,plan):
       'ORIGINAL_GENERAL_BUDGET_WITH_EXACT_NATIVE_COMPLETE_CENSUS_IO_ONLY')
 
 def guard(path,proof_path,plan):
-    if plan.get('queue_startup_mode')=='QUEUED_REAL_ALLOCATION_ROOT_PROVIDER_ON_START':
+    if plan.get('queue_startup_mode') in ('QUEUED_REAL_ALLOCATION_ROOT_PROVIDER_ON_START','USER_UNLIMITED_CPU21_D3_20261103'):
         from .queued_runtime import validate
         proof=validate(path,proof_path,plan,scope_key=C.KEY,parameters=C.parameters(plan))
     else:

@@ -51,7 +51,10 @@ def main():
     root=pathlib.Path(plan['output_directory']);C.need(not root.exists() and C.OUTPUT in root.parents and not any(x.is_symlink() for x in (root,*root.parents)),'FRESH_OWN_LITERAL_OUTPUT')
     root.mkdir(parents=True,mode=0o700);I.configure(plan,old);gate=None;gate_values=None;budget=None;pool=None;db=None;errors=[];context=None;stores=[];verification=None;state='EXPORT_START'
     try:
-        budget=CreditlessBudget(plan,proof,root);budget.check(force=True);roots=review['transitive_closed_output_roots'];components=accepted['component_references']
+        if plan.get('queue_startup_mode')=='USER_UNLIMITED_CPU21_D3_20261103':
+            from .unlimited_budget import Budget as ChosenBudget
+        else:ChosenBudget=CreditlessBudget
+        budget=ChosenBudget(plan,proof,root);budget.check(force=True);roots=review['transitive_closed_output_roots'];components=accepted['component_references']
         cfg=D.read(components['typed_reader_config_reference'],roots);coverage=D.read(components['coverage_reference'],roots)
         C.need(coverage['all14task_and_base_exact_once'] is True and coverage['quality_hold_fields']==[] and coverage['errors']==[],'ORIGINAL_ONE_PERCENT_QUALITY_GATE_NOT_WAIVED_BY_EXPORT')
         for r in cfg['data_references']:
@@ -211,7 +214,7 @@ def main():
           'closed_configuration_reuse_review_reference':plan.get('closed_configuration_reuse_review_reference'),
           'closed_domain_resume_review_reference':plan.get('closed_domain_resume_review_reference'),
           'projection_domain_unchanged_during_all_source_reads':projection_domain_unchanged_during_all_source_reads,
-          'worker_software_rss_cap_bytes':3<<30,'parallel_store_workers':8,'source_and_writer_executors_overlap':False,
+          'worker_software_rss_cap_bytes':None if plan.get('queue_startup_mode')=='USER_UNLIMITED_CPU21_D3_20261103'else 3<<30,'parallel_store_workers':8,'source_and_writer_executors_overlap':False,
           'distribution':distribution,'benchmark':benchmark,'export_and_single1000_complete':True,
           'actual_configuration_references':{k:review[k] for k in ('registry_reference','mapping_reference','projection_recipe_reference','target_policy_reference')},
           **C.capabilities(plan),'order_capability_reference':order_capability_reference,

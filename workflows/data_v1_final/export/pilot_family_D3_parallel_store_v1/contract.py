@@ -5,7 +5,7 @@ from workflows.data_v1_final.labels.existing_sprime_pilot_day_v1 import contract
 Q=F.Q;ROOT=F.ROOT;REPO=F.REPO;PY=F.PY;need=F.need;meta=F.meta;reference=F.reference;unique=F.unique
 PRODUCER_NAMESPACE='pilot_family_D3_parallel_store_v1'
 KEY=PRODUCER_NAMESPACE.lower();MODULE='workflows.data_v1_final.export.'+PRODUCER_NAMESPACE+'.run';HERE=REPO/'workflows/data_v1_final/export'/PRODUCER_NAMESPACE
-FILES=('__init__.py','contract.py','metadata.py','io.py','domain.py','wire.py','source.py','writer.py','verify.py','run.py','test_v1.py','configuration.py','projection.py','frame_mapping.py','source_revision2_origin.json','lossless_io.py','local_parent.py','closed_domain_resume.py','pilot_finish.py','payload_io.py','runtime_budget.py','parallel_writer.py','delivery.py','queued_bootstrap.py','queued_runtime.py','README.md')
+FILES=('__init__.py','contract.py','metadata.py','io.py','domain.py','wire.py','source.py','writer.py','verify.py','run.py','test_v1.py','configuration.py','projection.py','frame_mapping.py','source_revision2_origin.json','lossless_io.py','local_parent.py','closed_domain_resume.py','pilot_finish.py','payload_io.py','runtime_budget.py','parallel_writer.py','delivery.py','queued_bootstrap.py','queued_runtime.py','queued_quota.py','unlimited_budget.py','README.md')
 OUTPUT=ROOT/'artifacts/labels/source_status_v1'/PRODUCER_NAMESPACE
 COUNTS={'TRAIN':50000,'VAL':5000}
 ANALYSIS_NODES=('compute-0-2','compute-0-8','compute-0-9','compute-0-10','compute-0-11','compute-0-12','compute-0-13','compute-0-14','compute-0-15','compute-0-16','compute-0-17','compute-0-18','compute-0-19')
@@ -49,6 +49,8 @@ def parameters(p):
       'r674':'FULL6_ORIGINAL_MASKS_COMPLETE6_SEPARATE_LOSS_ELIGIBILITY','missing_scale':'LOSS_DISABLED_SCALE_UNBOUND_OR_DEGENERATE',
       'actual_QM_charge_not_SMILES_formal_charge':True,'full_Common_D6_or_Model_ACK':False}
     if p.get('queue_startup_mode'):value['queue_startup_mode']=p['queue_startup_mode']
+    if p.get('queue_startup_mode')=='USER_UNLIMITED_CPU21_D3_20261103':
+        value.update(wall_seconds=None,worker_software_rss_cap_bytes=None,software_time_or_memory_stops=False,estimated_future_output_bytes=p['estimated_future_output_bytes'],whole_output_ceiling_is_physical_account_quota=True)
     if native_mode(p):value.update(orders=['fixed_random'],order_capability=NATIVE_MODE,**capabilities(p))
     return value
 def walkrefs(value):

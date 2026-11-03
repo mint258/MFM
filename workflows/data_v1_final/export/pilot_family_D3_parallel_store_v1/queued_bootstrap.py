@@ -49,6 +49,7 @@ def main():
     need(pathlib.Path(args.queue_manifest).is_absolute(), 'LITERAL_ABSOLUTE_QUEUE_MANIFEST')
     manifest_ref, raw = pin(args.queue_manifest)
     manifest = json.loads(raw)
+    unlimited = manifest.get('queue_startup_mode') == 'USER_UNLIMITED_CPU21_D3_20261103'
     need(manifest['schema'] == 'D3_QUEUED_SINGLE_EXPORT_V1'
          and manifest['source_policy'] == 'FROZEN_SOURCE_NO_NEW_QM_UFF', 'EXPLICIT_QUEUED_D3_MANIFEST')
     own = str(pathlib.Path(__file__).absolute())
@@ -59,7 +60,7 @@ def main():
     job_id = os.environ.get('SLURM_JOB_ID', '')
     node = socket.gethostname().split('.')[0]
     need(os.getuid() == 1278 and job_id.isdecimal() and int(job_id) > 0, 'ACTUAL_MAIN_SLURM_UID_JOB')
-    need(node in manifest['allowed_nodes'] and os.environ.get('SLURM_JOB_PARTITION') == 'cpu'
+    need(node in manifest['allowed_nodes'] and os.environ.get('SLURM_JOB_PARTITION') == manifest.get('partition', 'cpu')
          and os.environ.get('SLURM_CPUS_PER_TASK') == '16', 'ACTUAL_CPU16_ALLOCATION_ENVIRONMENT')
     need(os.environ.get('CUDA_VISIBLE_DEVICES') == ''
          and all(os.environ.get(key) == '1' for key in THREAD_KEYS), 'CPU_ONLY_SINGLE_THREAD_LIBRARIES')
@@ -67,7 +68,7 @@ def main():
     # The real sbatch acknowledgement is committed immediately after submission.
     receipt_path = pathlib.Path(manifest['submission_record_path'])
     receipt_deadline = time.monotonic() + 120
-    while not receipt_path.is_file() and time.monotonic() < receipt_deadline:
+    while not receipt_path.is_file() and (unlimited or time.monotonic() < receipt_deadline):
         time.sleep(1)
     need(receipt_path.is_file(), 'ACTUAL_SBATCH_RECEIPT_NOT_YET_COMMITTED')
     receipt = json.loads(receipt_path.read_text())
@@ -83,7 +84,7 @@ def main():
                   *[key + '=1' for key in THREAD_KEYS]]
     remote_command = 'cd ' + shlex.quote(str(REPO)) + ' && env ' + shlex.join(remote_env) + ' ' + shlex.join(remote)
     helper = subprocess.run(['ssh', '-n', '-oBatchMode=yes', '-oConnectTimeout=12', 'sonmi', remote_command],
-                            stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=600, check=False)
+                            stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=None if unlimited else 600, check=False)
     need(helper.returncode == 0, 'MAIN_PREPARE_HELPER_FAILED_NO_RETRY:' + helper.stderr[-4096:])
     need(helper.stdout.splitlines(), 'MAIN_PREPARE_HELPER_RETURNED_NO_JSON')
     result = json.loads(helper.stdout.splitlines()[-1])
@@ -91,8 +92,8 @@ def main():
          and result['proof_path'] == manifest['proof_path'], 'EXACT_MANIFEST_REQUEST_AND_PROOF_PATHS')
     request = load(result['request_reference'])
     need(result['request_path'] == result['request_reference']['path'], 'EXACT_CREATED_REQUEST_PATH')
-    need(request['schema'] == 'D3_QUEUED_CPU16_REQUEST_V1'
-         and request['node'] == node and request['cpus'] == 16 and request['partition'] == 'cpu'
+    need(request['schema'] == ('D3_QUEUED_CPU16_REQUEST_V2' if unlimited else 'D3_QUEUED_CPU16_REQUEST_V1')
+         and request['node'] == node and request['cpus'] == 16 and request['partition'] == manifest.get('partition', 'cpu')
          and str(request['job_id']) == job_id and request['uid'] == 1278, 'SAME_ALLOCATED_REQUEST')
     need(request['queue_manifest_reference'] == manifest_ref
          and request['bootstrap_script_reference'] == manifest['bootstrap_script_reference'], 'SAME_QUEUED_MANIFEST_AND_SBATCH')
@@ -108,7 +109,7 @@ def main():
     need(query.returncode == 0, 'ACTUAL_SCONTROL_STARTUP_OBSERVATION_REQUIRED')
     instant = datetime.datetime.now().astimezone()
     aware(result['root_observed_at'])
-    proof = dict(schema='ACTUAL_QUEUED_D3_CPU16_STARTUP_V1', request=request,
+    proof = dict(schema='ACTUAL_QUEUED_D3_CPU16_STARTUP_V2' if unlimited else 'ACTUAL_QUEUED_D3_CPU16_STARTUP_V1', request=request,
                  request_reference=result['request_reference'], queue_manifest_reference=manifest_ref,
                  job_id=job_id, uid=os.getuid(), node=node, pid=os.getpid(), start_ticks=start_ticks(),
                  boot_id=pathlib.Path('/proc/sys/kernel/random/boot_id').read_text().strip(),

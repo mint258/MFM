@@ -134,6 +134,9 @@ class Budget(I.Budget):
             self.next_row_census=time.monotonic()+INTERVAL_SECONDS
 
 def worker_check(control,additional=0):
+    if control.get('mode')=='USER_UNLIMITED_CPU21_D3_20261103':
+        while pathlib.Path(control['storage_pause_file']).exists():time.sleep(1)
+        return
     # The parent monitors whole-output bytes, quota and wall time every ten
     # seconds. Workers retain immediate local STOP/RSS checks; they do not
     # each recursively stat every shared output file for every native row.

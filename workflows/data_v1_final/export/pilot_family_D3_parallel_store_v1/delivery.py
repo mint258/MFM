@@ -108,7 +108,7 @@ def run(plan,proof,root,db,stores,manifest,budget):
         total=sum(path.stat().st_size for path in paths)
         filelist=root/'delivery_files.list0'
         with filelist.open('xb')as stream:stream.write(b'\0'.join(name.encode()for name in relative_paths)+b'\0')
-        ready=_call(_remote_command(node,['--preflight',destination,'--required-bytes',str(total),'--node',node]),budget,timeout=90)
+        ready=_call(_remote_command(node,['--preflight',destination,'--required-bytes',str(total),'--node',node]),budget,timeout=None if plan.get('queue_startup_mode')=='USER_UNLIMITED_CPU21_D3_20261103'else 90)
         distribution['preflight']=ready
         C.need(ready['returncode']==0,'REMOTE_TMP_PREFLIGHT_FAILED');distribution['tmp']=_json_output(ready['stdout'])
         argv=['rsync','-rlt','--checksum','--from0','--relative','--protect-args','--stats','--files-from='+str(filelist),
