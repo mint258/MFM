@@ -16,4 +16,5 @@ D-3末尾只做一次计数、1000条原Parquet逐字段比较、总清单SHA；
 
 r73保留完整有序F64权威及一次F32转换；r674维持LOSS_DISABLED，无新增QM或质心换算。本轮不宣称最终Common、D-6/D-7或模型实际加载ACK。
 
-后台沿既有核验下限：P′至少1,060,508/2,119,502构象结束，其中1,060,287全12项成功，尚未整理成全量训练库；其独立STOP2修复仍挂起。MoleculeNet/COCONUT保留9/11 READY，Alpha PubChem保留TIMEOUT部分数据、NO_RELEASE；这些不阻塞D系列。此处不是本日新增计数。原48小时期限已错过，不重新设置或冒称按时完成。
+后台沿既有核验下限：P′至少1,060,508/2,119,502构象结束，其中1,060,287全12项成功，尚未整理成全量训练库；其独立STOP2修复仍挂起。去污染总注册表为9/11 READY（MARCEL Drugs75K与Kraken已READY，不重复处理；尚缺MoleculeNet与COCONUT），Alpha PubChem保留TIMEOUT部分数据、NO_RELEASE；这些不阻塞D系列。此处不是本日新增计数。原48小时期限已错过，不重新设置或冒称按时完成。
+P′已发布结果的[候选文件索引](../../../artifacts/pprime_completed_catalog_20261103_v1/manifest.json)已生成：82个实际父作业、80份可读回执、8,301份发布清单、91,311个去重family文件引用（声明56,519,557,650B）；23项UNKNOWN保留。仅JSON/文件元数据收拢，未读Parquet正文、未重算科学成功率或SHA、无新增QM，不是全量训练库。
