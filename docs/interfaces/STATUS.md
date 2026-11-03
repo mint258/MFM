@@ -1,6 +1,6 @@
 ## 2026-11-03 当前：D2/D4/D5已交付，D3在CPU21续接
 
-D-3新单父作业4525651实际RUNNING，compute-0-21、16CPU。依据用户明确授权，脚本无时间/内存参数，程序无总时限、RSS或MemAvailable停止门；调度器实际默认时限365天、MinMemoryNode=0。薄几何索引已完成；同账户Common作业4525653已实际终态，D3配额恢复READY并自动续接。冻结源组总数实际171，先前113为报告统计错误；90组复用与55k分子范围保持。复用90/171源组，剩余源投影完成后8个独立子库writer并行，同一作业只做一次counts、1000条原Parquet逐字段比较、总清单SHA，一次rsync --checksum及一次180秒吞吐。D3正式LMDB尚未交付，不代填Model实际加载ACK。后台Common4525659已按D系列优先级可逆暂停，64GiB未来写入仅在实际停写确认后暂延；控制器1957034在D3终态后恢复预算和进程，原始PubChem4525652继续。
+D-3新单父作业4525651实际RUNNING，compute-0-21、16CPU。依据用户明确授权，脚本无时间/内存参数，程序无总时限、RSS或MemAvailable停止门；调度器实际默认时限365天、MinMemoryNode=0。薄几何索引已完成；同账户Common作业4525653已实际终态，D3配额恢复READY并自动续接。冻结源组总数实际171，先前113为报告统计错误；90组复用与55k分子范围保持。复用90/171源组，剩余源投影完成后8个独立子库writer并行，同一作业只做一次counts、1000条原Parquet逐字段比较、总清单SHA，一次rsync --checksum及一次180秒吞吐。D3正式LMDB尚未交付，不代填Model实际加载ACK。后台Common4525659已按D系列优先级可逆暂停，64GiB未来写入仅在实际停写确认后暂延；控制器1957034在D3终态后恢复预算和进程，原始PubChem4525652已另行CANCELLED，部分结果保留；D3优先安排未向其发送信号。
 
 [D2注册表](../../configs/data_v1/v1-pilot-provisional/D2_registry.json)、[D4归一化](../../configs/data_v1/v1-pilot-provisional/D4_normalization.json)、[D5诊断载荷](../../configs/data_v1/v1-pilot-provisional/D5_diagnostic_payload.json)已交付；D5实际父4525593 C0/1607秒，893个试点已见分子、12,502几何、43,757标签记录、53子库。全局嵌套与20k母清单保持。r73完整有序F64、一转F32；r674 LOSS_DISABLED，无新增QM/UFF。详情只维护[当日汇总](../data_v1/progress_20261103_v1_pilot_provisional.md)。以下旧时间点作为历史。
 
