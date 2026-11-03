@@ -7,8 +7,10 @@ import json
 import multiprocessing as mp
 import os
 from pathlib import Path
+import struct
 import unittest
 from . import library as L
+from . import expectation
 from ..alpha_common_hold_native_diagnostic_v1 import contracts as NC
 from ..alpha_common_hold_native_diagnostic_v1.run import CONTROLS
 from ..alpha_runtime_v1 import common as Q
@@ -19,20 +21,26 @@ from ..alpha_common_graph_continuation_v1 import io as I
 STATE=None
 
 
-def initialize(plan,barrier,directory):
+def _initialize(plan,barrier,directory):
     global STATE
+    for key in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS'):os.environ[key]='1'
+    STATE=L.initialize()
+    STATE['comparison_diagnostic_directory']=str(Path(directory).parent/'comparison_diagnostics')
+    declared={r['path']:r for r in plan['code_references']+plan.get('scientific_source_references',[])}
+    for proof in STATE['source_proof']['private_function_proofs']:
+        path=proof['original_source_path'];I.need(declared.get(path)==Q.reference(path),'Exact original source for private AST-derived function')
+    for path in (Path(L.__file__),Path(L.N.__file__),Path(STATE['official']['installed_source']['path'])):
+        I.need(declared.get(str(path))==Q.reference(path),'Actual repair/native/official source dependency pin')
+    Q.write(Path(directory)/('worker_%s.json'%os.getpid()),dict(uid=os.getuid(),job_id=os.environ['SLURM_JOB_ID'],pid=os.getpid(),source_proof=STATE['source_proof']))
+
+
+def initialize(plan,barrier,directory):
     try:
-        for key in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS'):os.environ[key]='1'
-        STATE=L.initialize()
-        declared={r['path']:r for r in plan['code_references']+plan.get('scientific_source_references',[])}
-        for proof in STATE['source_proof']['private_function_proofs']:
-            path=proof['original_source_path'];I.need(declared.get(path)==Q.reference(path),'Exact original source for private AST-derived function')
-        for path in (Path(L.__file__),Path(L.N.__file__),Path(STATE['official']['installed_source']['path'])):
-            I.need(declared.get(str(path))==Q.reference(path),'Actual repair/native/official source dependency pin')
-        Q.write(Path(directory)/('worker_%s.json'%os.getpid()),dict(uid=os.getuid(),job_id=os.environ['SLURM_JOB_ID'],pid=os.getpid(),source_proof=STATE['source_proof']))
+        _initialize(plan,barrier,directory)
         barrier.wait()
     except BaseException:
-        barrier.abort()
+        try:barrier.abort()
+        except BaseException:pass
         raise
 
 
@@ -61,24 +69,32 @@ def compare(task):
         if name.startswith('independent_original_template_descriptor.'):
             I.need(event['status']=='PASS','Old native independent non-generic descriptor must have passed')
             expected[name.split('.',1)[1]]=event['result']
-    whole=native['whole_Murcko_generic_stages']['diagnostic_deferred_sanitize_candidate']
-    expected['generic_murcko']=whole['key'];rings=[]
-    for fragment in native['ring_fragments']:
-        event=fragment.get('generic_stages_after_original_fragment_sanitize')
-        if event is None:
-            I.need(fragment['exact_original_fragment_sanitize']['exception_type']=='KekulizeException','Only original exact ring fallback allowed')
-            event=fragment['generic_stages_on_uncorrupted_fragment']
-        candidate=event['diagnostic_deferred_sanitize_candidate'];I.need(candidate['status']=='PASS','Actual original native candidate ring key required');rings.append(candidate['key'])
-    expected['generic_ring_systems']=sorted(rings)
+    expected['generic_murcko'],whole_route=expectation.generic_key(native['whole_Murcko_generic_stages'])
+    expected['generic_ring_systems'],ring_route=expectation.ring_keys(native)
     # Canonical JSON preserves exact Python binary64 round-trip values; do not
     # add a numerical tolerance or substitute a different original molecule.
     differences={k:dict(actual=f.get(k),expected=v) for k,v in expected.items() if k not in f or I.canonical(f[k])!=I.canonical(v)}
+    for key,detail in differences.items():
+        detail['actual_canonical_json']=I.canonical(f.get(key)).decode()
+        detail['expected_canonical_json']=I.canonical(expected[key]).decode()
+        if type(f.get(key))is float:detail['actual_binary64_hex']=struct.pack('>d',f[key]).hex()
+        if type(expected[key])is float:detail['expected_binary64_hex']=struct.pack('>d',expected[key]).hex()
+    comparison=dict(molecule_id=task['molecule_id'],actual_fields=sorted(f),expected_fields=sorted(expected),
+      missing_fields=sorted(set(expected)-set(f)),extra_fields=sorted(set(f)-set(expected)),
+      exact_canonical_field_differences=differences,representation_repair_applied=value['representation_repair_applied'],
+      original_kernel_passed=value['original_kernel_passed'],original_error_type=value.get('original_error',{}).get('type'),
+      exact_original_whole_generic_route=whole_route,exact_original_ring_reference_route=ring_route)
+    diagnostic_path=Path(STATE['comparison_diagnostic_directory'])/(hashlib.sha256(task['molecule_id'].encode()).hexdigest()+'.json')
+    diagnostic_ref=Q.write(diagnostic_path,dict(schema='GENERIC_REPRESENTATION_REPAIR_EXACT_COMPARISON_DIAGNOSTIC_V1',
+      comparison=comparison,actual_complete_features=f,expected_complete_features=expected,
+      original_and_repaired_evaluation=value,prior_native_evidence=native,
+      no_tolerance_or_scope_change=True,uid=os.getuid(),job_id=os.environ['SLURM_JOB_ID'],worker_pid=os.getpid()))
     I.need(set(f)==set(expected) and not differences and value['representation_repair_applied']
       and not value['original_kernel_passed'] and value['original_error']['type']=='AtomValenceException',
-      'Complete repaired119 feature schema/non-generic values/native generic keys must match exact prior native evidence')
+      'Complete repaired119 strict comparison failed: '+json.dumps(comparison,sort_keys=True,ensure_ascii=False)+'; diagnostic='+json.dumps(diagnostic_ref,sort_keys=True))
     return dict(molecule_id=task['molecule_id'],effective_role='TRAIN',native_records=task['native_records'],
       features=f,repair_provenance=value,independent_native_all_non_generic_values_exactly_equal=True,
-      independent_native_generic_keys_exactly_equal=True,worker_pid=os.getpid())
+      independent_native_generic_keys_exactly_equal=True,exact_comparison_diagnostic_reference=diagnostic_ref,worker_pid=os.getpid())
 
 
 def main():

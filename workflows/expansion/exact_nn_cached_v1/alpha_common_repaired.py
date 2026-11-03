@@ -1,4 +1,6 @@
 """Explicit repaired fullCommon authority; old alpha_common validator is untouched."""
+import argparse
+import json
 from pathlib import Path
 from ..common import load,reference,dump_new,require
 from ..portable_sources_v1.transport import verify
@@ -55,6 +57,13 @@ def validated(validation_ref,review_ref):
 def component_ready(p):
     require(p.get('schema')==PRODUCER and p.get('uid')==1264 and p.get('mode')=='full_common_completion',
       'Explicit independent fullCommon representation-repair completion producer required')
+    admission=p['profile_admission'];plan=read(p['plan']);proof=read(p['startup_proof'])
+    require(admission['endpoint']=='218.192.171.238:22' and admission['uid']==1264 and admission['workers']==16
+      and str(admission['job_id'])==str(p['job_id'])
+      and plan['schema']=='ALPHA_COMMON_GENERIC_REPRESENTATION_REPAIR_COMPLETION_PLAN_V1'
+      and proof['request']['producer_plan_reference']==p['plan'] and str(proof['job_id'])==str(p['job_id'])
+      and p['old_artifacts_modified'] is False and p['Main_origin_parent_C0_claimed'] is False,
+      'Actual new allocation/plan/startup, original artifacts and Main identity remain honest')
     c=p['result'];old=read(p['original_full_source_receipt_reference'])
     require(old['schema']=='ALPHA_COMMON_GRAPH_CONTINUATION_PRODUCER_V1' and str(old['job_id'])=='1885153'
       and old['uid']==1264 and old['result']['HOLD_MIDs']==119 and old['result']['strict5_rows']==1196003
@@ -62,6 +71,7 @@ def component_ready(p):
       'Retain original actual119 HOLD and honest Main STOPPED lineage')
     old_review=read(p['original_full_source_actual_accounting_reference'])
     require(old_review['schema']=='ROOT_ALPHA_FULL_COMMON_ACTUAL_TERMINAL_HOLD_V1'
+      and old_review['status']=='ACTUAL_C0_SOURCE_GRAPH_HOLD_REVIEW_REQUIRED' and old_review['reviewer']=='root'
       and old_review['producer_receipt_reference']==p['original_full_source_receipt_reference']
       and old_review['full_reference_accepted'] is False,'Original C0/HOLD evidence, never retroactive reference approval')
     c0(old,dict(actual_parent=old_review['actual_parent'],actual_accounting_reference=p['original_full_source_actual_accounting_reference']))
@@ -130,3 +140,15 @@ def finalize(producer_path,review_path,output):
       original_HOLD_molecules=119,current_HOLD_molecules=0,representation_version=VERSION,
       Main_origin_parent_state='STOPPED',Main_parent_C0_claimed=False,NN_1M_pool_training_release_authorized=False,D7_or_orders_release=False)
     dump_new(output,result);return result
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--producer',required=True,type=Path)
+    parser.add_argument('--root-review',required=True,type=Path)
+    parser.add_argument('--output',required=True,type=Path)
+    args=parser.parse_args();result=finalize(args.producer,args.root_review,args.output)
+    print(json.dumps(dict(manifest=reference(args.output),status=result['status']),sort_keys=True))
+
+
+if __name__=='__main__':main()
