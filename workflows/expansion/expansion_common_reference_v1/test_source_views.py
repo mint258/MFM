@@ -29,6 +29,27 @@ class SourceViews(unittest.TestCase):
             value=json.loads((out/'receipt.json').read_text());self.assertEqual(value['status'],'PASS')
             self.assertFalse(value['original_dataset_DATA_read']);self.assertEqual(value['workers'],16)
 
+    def test_20_manifest_decimal_count_transport_is_exact_above_2pow53(self):
+        import json
+        from decimal import Decimal
+        from .context import common_manifest_json
+        number=2**53+123456789
+        source=dict(schema='COMMON_POPULATION_PRODUCER_V1',roles=[dict(effective_role='TRAIN',molecules=3,
+          pm7_records=Decimal(number),uff_records=Decimal('123456789012345678901234567890'))],other_count=7)
+        parsed=json.loads(json.dumps(common_manifest_json(source)))
+        self.assertEqual(parsed['roles'][0]['pm7_records'],number)
+        self.assertEqual(parsed['roles'][0]['uff_records'],123456789012345678901234567890)
+        self.assertIsInstance(source['roles'][0]['pm7_records'],Decimal)
+        other=dict(schema='UNRELATED_MANIFEST',roles=[dict(pm7_records=Decimal('1.25'))])
+        self.assertIs(common_manifest_json(other),other)
+
+    def test_21_manifest_rejects_fractional_or_nonfinite_decimal_counts(self):
+        from decimal import Decimal
+        from .context import common_manifest_json
+        for number in ('1.000000000000000001','NaN','Infinity','-Infinity'):
+            with self.subTest(number=number),self.assertRaises(ValueError):
+                common_manifest_json(dict(schema='COMMON_POPULATION_PRODUCER_V1',roles=[dict(pm7_records=Decimal(number),uff_records=1)]))
+
     def test_unchanged_scientific_objects_and_unknown_exclusion(self):
         from workflows.data_v1_final.conformers.postprocess_day_v1 import common as M
         from workflows.data_v1_final.conformers.formal_cpu_auto_finalize_mapping_v2 import finalize as F

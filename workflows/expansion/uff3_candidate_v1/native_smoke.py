@@ -14,7 +14,7 @@ from . import core as C, store as S
 from .native import NativeKernel
 
 
-def run(output):
+def run(output,source_capsule=None):
     if socket.gethostname().split('.')[0]!='compute-0-20' and not os.environ.get('SLURM_JOB_ID'):
         raise RuntimeError('NATIVE_FIXTURE_REQUIRES_COMPUTE20_OR_ACTUAL_SLURM_ALLOCATION')
     from rdkit import Chem, rdBase
@@ -32,7 +32,7 @@ def run(output):
                   'source_smiles': smiles,
                   'isomeric_smiles': Chem.MolToSmiles(mol, isomericSmiles=True),
                   'stream': 'R' if i == 1 else 'N', 'stream_rank': 1}
-        kernel = NativeKernel()
+        kernel = NativeKernel(source_capsule)
         manifest = S.run_one(source, output / ('molecule' + str(i)), kernel=kernel)
         cache = S.read_json(manifest['candidate_cache']['path'])
         packet = S.read_json(manifest['selected_packet']['path'])
@@ -84,6 +84,7 @@ def run(output):
             return None
     family_directory = output / 'original_float64_family_writer_fixture'
     family_directory.mkdir()
+    families.set_capsule(source_capsule)
     family_files = families.export_packets(family_items, family_directory,
         FixtureBudget(), os.environ.get('SLURM_JOB_ID', '0'))
     counts = {ref['family']: pq.ParquetFile(ref['path']).metadata.num_rows for ref in family_files}
@@ -100,6 +101,8 @@ def run(output):
               'actual_family_rows': counts, 'actual_original_float64_family_files': family_files,
               'job_zero_if_present_means_unallocated_synthetic_fixture_not_Slurm': True,
               'new_PM7_xTB_Pprime_calls': 0}
+    result['source_capsule_reference']=source_capsule
+    result['actual_uid']=os.getuid();result['actual_node']=socket.gethostname().split('.')[0]
     S.write_new(output / 'result.json', result)
     return result
 
@@ -107,8 +110,9 @@ def run(output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--source-capsule',type=Path)
     args = parser.parse_args()
-    print(json.dumps(run(args.output), ensure_ascii=False, indent=2))
+    print(json.dumps(run(args.output,S.reference(args.source_capsule) if args.source_capsule else None), ensure_ascii=False, indent=2))
 
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@
 import collections, concurrent.futures as cf, hashlib, importlib, json, multiprocessing as mp, os, sqlite3, stat, sys, time
 from pathlib import Path
 from workflows.expansion.expansion_common_reference_v1 import runtime as R
+from .admission import approved_partition
 
 SQL_BYTES=37876914074
 SQL_SHA='bb61f8e074f876beaaf251b9abe5b4334aebbda28717120ac482db39d58ced29'
@@ -64,6 +65,29 @@ def original_fixtures(out,modules):
 
 
 class Budget(R.Budget):
+    def check(self,dispatch=True,force=False):
+        if self.plan.get('quota_authority',{}).get('kind')!='lustre':return super().check(dispatch,force)
+        # This adapter selects a new backend without modifying the active
+        # Common runtime or its pinned Main quota implementation.
+        with self.lock:
+            if not force and time.monotonic()<self.next:return
+            self.next=time.monotonic()+5
+            R.need(str(self.proof['job_id'])==os.environ.get('SLURM_JOB_ID') and os.getuid()==1278,'SAME_ACTUAL_COCONUT_CPU_PARENT')
+            from workflows.expansion.completion_runtime_v1 import lustre_quota
+            expected=self.plan['quota_backend_source_reference']
+            R.need(R.pin(lustre_quota.__file__)==expected and expected['sha256']=='00f07845dec9c054f989fad9c9a9dce7525b5b15bd7165943e59737cf209c11c','EXACT_INDEPENDENT_ROOT_LUSTRE_QUOTA_API')
+            used=self.used();q=lustre_quota.budget_check(self.plan,used,self.out);pids={os.getpid()}
+            for thread in Path('/proc/self/task').iterdir():
+                try:pids.update(int(v) for v in (thread/'children').read_text().split())
+                except FileNotFoundError:pass
+            rss=0
+            for pid in pids:
+                try:rss+=int(Path('/proc',str(pid),'statm').read_text().split()[1])*os.sysconf('SC_PAGE_SIZE')
+                except FileNotFoundError:pass
+            available=next(int(row.split()[1])*1024 for row in Path('/proc/meminfo').read_text().splitlines() if row.startswith('MemAvailable:'))
+            R.need(rss<self.plan['algorithm_rss_soft_cap_bytes'] and available>=self.plan['minimum_MemAvailable_bytes'],'ACTUAL_LUSTRE_REBUILD_MEMORY_HOLD')
+            self.peak=max(self.peak,rss);self.minimum=available if self.minimum is None else min(self.minimum,available)
+            self.last=dict(unix_seconds=time.time(),own_bytes=used,rss_bytes=rss,MemAvailable_bytes=available,quota=q,quota_backend='INDEPENDENT_LUSTRE_API_V1');self.samples+=1
     def capacity(self,n):
         self.check(force=True);R.need(self.used()+n<=self.plan['output_cap_bytes'],'RESERVED_NEXT_WRITE_OUTPUT_CAP')
 
@@ -231,7 +255,10 @@ def main():
     # The independent controller records actual Main identity; original Alpha proof is never synthesized.
     R.need(req['scope_key']=='coconut_main_original_reconstruction_v1' and req['producer_plan_reference']==R.pin(a.plan),'INDEPENDENT_EXACT_MAIN_REQUEST')
     R.need(req['execution_argv']==[plan['python'],'-B','-m','workflows.expansion.coconut_reconstruction_main_v1.run','--plan',str(a.plan),'--startup-proof',str(a.startup_proof)],'ORDERED_FULL_MAIN_ARGV')
-    R.need(os.getuid()==1278 and proof['node']==plan['node']==os.uname().nodename.split('.')[0] and str(proof['job_id'])==os.environ.get('SLURM_JOB_ID') and os.environ.get('SLURM_JOB_PARTITION')=='cpu' and int(os.environ.get('SLURM_CPUS_PER_TASK','0'))==plan['cpus']>=16,'ACTUAL_MAIN_CPU_ALLOCATION')
+    actual_node=os.uname().nodename.split('.')[0]
+    R.need(os.getuid()==1278 and proof['node']==req['node']==plan['node']==actual_node and str(proof['job_id'])==os.environ.get('SLURM_JOB_ID')
+      and int(os.environ.get('SLURM_CPUS_PER_TASK','0'))==req['cpus']==plan['cpus']>=16,'ACTUAL_MAIN_CPU_ALLOCATION')
+    partition_authority=approved_partition(plan,actual_node,os.environ.get('SLURM_JOB_PARTITION'))
     R.need(proof['boot_id']==Path('/proc/sys/kernel/random/boot_id').read_text().strip() and req['memory_policy']=='SLURM_DEFAULT_UNSPECIFIED','ACTUAL_MAIN_BOOT_AND_RESOURCE_POLICY')
     for key in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS'):os.environ[key]='1'
     declared={r['path']:r for r in req['source_references']}

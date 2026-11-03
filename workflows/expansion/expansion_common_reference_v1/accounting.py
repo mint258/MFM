@@ -27,3 +27,16 @@ def closed_freeze(reference):
          and row['NodeList']=='compute-0-13' and int(row['AllocCPUS'])==16,'TRUE_CLOSED4525199_C0_16CPU13')
     return dict(job_id='4525199',state='COMPLETED',exit_code='0:0',node='compute-0-13',alloc_cpus=16,
                 elapsed_raw_seconds=int(row['ElapsedRaw'])),raw_ref
+
+
+def failed_metadata_parent(reference,job_id):
+    value=read(reference)
+    need(value['schema']=='ROOT_ACTUAL_SLURM_PARENT_ACCOUNTING_V1' and value['endpoint']=='202.38.247.57:22'
+      and value['uid']==1278,'ACTUAL_FAILED_METADATA_PARENT_MAIN_AUTHORITY')
+    names=('JobIDRaw','JobName','State','ExitCode','NodeList','AllocCPUS','ElapsedRaw','Start','End','User')
+    raw_ref=value['raw_sacct_reference'];rows=list(csv.reader(io.StringIO(verify(raw_ref).read_text()),delimiter='|'))
+    need(len(rows)==1 and len(rows[0])==10,'EXACT_RAW_FAILED_PARENT_ROW')
+    row=dict(zip(names,rows[0]));need(all(str(value[k])==row[k] for k in names),'FAILED_PARENT_ALL_FIELDS_EQUAL_RAW')
+    need(row['JobIDRaw']==str(job_id) and row['State']=='FAILED' and row['ExitCode']!='0:0'
+      and row['User']=='zixiao' and int(row['AllocCPUS'])>=16,'TRUE_FAILED_PARENT_NOT_UPGRADED_TO_C0')
+    return value,raw_ref

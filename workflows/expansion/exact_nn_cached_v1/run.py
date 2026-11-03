@@ -13,7 +13,8 @@ import socket
 import sqlite3
 import stat
 import time
-from ..common import load,verify,reference,require,dump_new,wp5_key
+from ..common import load,reference,require,dump_new,wp5_key
+from ..portable_sources_v1.transport import verify,bind_plan,provenance
 from ..nearest_exact import QUERY_FIELDS
 from .engine import RECIPE,WIDTH,ALGORITHM,current_rss,file_frame
 from .cache import QueryCache,canonical
@@ -23,7 +24,10 @@ from .workers import exact_batches
 class Guard:
     def __init__(self,plan,root):
         self.plan=plan;self.root=root;self.last=0
-        if plan['quota_authority'].get('kind')=='lustre':
+        self.scope=Path(plan['output_scope_root']) if plan.get('runtime_profile_reference') else root
+        if plan['quota_authority'].get('kind')=='gluster_directory_quota_deem_statfs':
+            from ..alpha_runtime_v1.quota import budget_check
+        elif plan['quota_authority'].get('kind')=='lustre':
             from ..completion_runtime_v1.lustre_quota import budget_check
         else:
             from ..completion_runtime_v1.quota import budget_check
@@ -32,10 +36,18 @@ class Guard:
     def usage(self):
         # This runtime owns only a fixed small number of flat files, not one
         # output per query. Never scan a million-file generation output tree.
-        total=0
-        for path in self.root.iterdir():
-            value=path.lstat()
+        if self.plan.get('runtime_profile_reference'):
+            from ..alpha_runtime_v1.common import allocated_bytes
+            return allocated_bytes(self.scope)
+        total=0;seen=set()
+        paths=self.scope.rglob('*') if self.scope!=self.root else self.root.iterdir()
+        for path in paths:
+            try:value=path.lstat()
+            except FileNotFoundError:continue
+            if self.scope!=self.root and stat.S_ISDIR(value.st_mode):continue
             require(stat.S_ISREG(value.st_mode) and value.st_uid==os.getuid(),'Dedicated flat own regular output tree required')
+            if (value.st_dev,value.st_ino) in seen:continue
+            seen.add((value.st_dev,value.st_ino))
             total+=max(value.st_size,value.st_blocks*512)
         return total
 
@@ -46,8 +58,30 @@ class Guard:
         if force or now-self.last>=30:
             require(current_rss()<=self.plan['parent_rss_cap_bytes'],'Exact parent RSS exceeds declared allowance')
             # Mutable SQLite and growing outputs receive no old-quota credit.
-            self.checker(self.plan,own,self.root,prequery_credit_provider=lambda cutoff:0)
+            self.checker(self.plan,own,self.scope,prequery_credit_provider=lambda cutoff:0)
             self.last=now
+
+
+def allocation_guard(plan):
+    """No explicit Slurm memory request is inferred from a software allowance."""
+    workers=plan['workers'];cap=plan['worker_rss_cap_bytes'];parent=plan['parent_rss_cap_bytes']
+    require(type(workers)is int and 1<=workers<=192 and type(cap)is int and cap>0 and type(parent)is int and parent>0,
+        'Positive explicit software worker/parent allowances required')
+    if plan.get('runtime_profile_reference'):
+        from ..alpha_runtime_v1.profile import admit
+        admit(plan,minimum_workers=16)
+        require(workers*cap+parent<=plan['software_rss_budget_bytes'],'All exact caches/parent exceed Alpha software tree budget')
+    else:
+        require(socket.gethostname().split('.')[0].startswith('compute-0-') and os.environ.get('SLURM_JOB_ID')
+            and int(os.environ.get('SLURM_CPUS_PER_TASK','0'))>=workers,'Actual compute-node CPU allocation required')
+    allocated=int(os.environ.get('SLURM_MEM_PER_NODE','0'))*(1<<20)
+    if not allocated:allocated=int(os.environ.get('SLURM_MEM_PER_CPU','0'))*(1<<20)*int(os.environ['SLURM_CPUS_PER_TASK'])
+    needed=workers*cap+parent
+    if allocated>0:require(needed<=allocated,'Decoded caches exceed actual finite Slurm memory allocation')
+    available=next(int(line.split()[1])*1024 for line in Path('/proc/meminfo').read_text().splitlines() if line.startswith('MemAvailable:'))
+    require(available>=needed+plan.get('minimum_node_available_bytes',4<<30),'Actual MemAvailable must cover all software allowances and reserve')
+    return {'actual_finite_slurm_memory_bytes':allocated or None,'actual_node_available_bytes':available,
+        'declared_software_memory_bytes':needed,'explicit_Slurm_memory_request_inferred':False}
 
 
 def _query(row):
@@ -75,7 +109,9 @@ def rows(path,limit,expected_frame):
 
 def validate_query(path):
     q=load(path);cost=q.get('schema')=='expansion_exact_query_cost_pilot_v1'
-    require(q.get('schema') in ('expansion_decontaminated_query_projection_v1','expansion_exact_query_cost_pilot_v1'),
+    typed=q.get('schema')=='EXPANSION_TYPED_DECONTAMINATED_QUERY_PROJECTION_V1'
+    require(q.get('schema') in ('expansion_decontaminated_query_projection_v1','expansion_exact_query_cost_pilot_v1',
+        'EXPANSION_TYPED_DECONTAMINATED_QUERY_PROJECTION_V1'),
         'Full pool or explicit non-releasing cost projection required')
     require(q.get('fingerprint_recipe')==RECIPE and q.get('targets_present') is False
         and q.get('downstream_features_present') is False,'Exact query recipe/target contract differs')
@@ -86,23 +122,22 @@ def validate_query(path):
         verify(q['source_projection_manifest'])
     else:
         filtered=load(verify(q['filtered_pool_receipt']))
-        require(filtered.get('schema')=='expansion_filtered_pool_v1' and filtered.get('status')=='COMPLETE'
-            and filtered.get('all_sources_all_splits_verified') is True,'Complete all-split filtering required')
+        if typed:
+            from .contracts import typed_filtered
+            typed_filtered(filtered)
+            require(q.get('status')=='COMPLETE' and q['projection']['rows']==filtered['counts']['eligible_molecules'],
+                'Complete typed query projection census required')
+        else:
+            require(filtered.get('schema')=='expansion_filtered_pool_v1' and filtered.get('status')=='COMPLETE'
+                and filtered.get('all_sources_all_splits_verified') is True,'Complete all-split filtering required')
     return q,cost,source
 
 
 def run(plan_path):
     plan=load(plan_path)
+    bind_plan(plan)
     require(plan.get('schema')=='PUBCHEM_EXACT_CACHED_NN_PLAN_V1','Wrong exact NN plan schema')
-    workers=plan['workers'];cap=plan['worker_rss_cap_bytes'];parent_cap=plan['parent_rss_cap_bytes']
-    require(type(workers)is int and 1<=workers<=192 and type(cap)is int and cap>0
-        and type(parent_cap)is int and parent_cap>0,'Positive declared worker/memory budgets required')
-    require(socket.gethostname().split('.')[0].startswith('compute-0-') and os.environ.get('SLURM_JOB_ID'),
-        'Exact runtime requires approved compute-node Slurm allocation')
-    require(int(os.environ.get('SLURM_CPUS_PER_TASK','0'))>=workers,'Worker CPUs exceed actual allocation')
-    allocated=int(os.environ.get('SLURM_MEM_PER_NODE','0'))*(1<<20)
-    if not allocated:allocated=int(os.environ.get('SLURM_MEM_PER_CPU','0'))*(1<<20)*int(os.environ.get('SLURM_CPUS_PER_TASK','0'))
-    require(allocated>0 and workers*cap+parent_cap<=allocated,'All decoded caches and parent must fit actual allocated memory')
+    workers=plan['workers'];cap=plan['worker_rss_cap_bytes'];startup_memory=allocation_guard(plan)
     ref_path=verify(plan['reference_manifest']);query_path=verify(plan['query_manifest'])
     m=load(ref_path)
     require(m.get('schema')=='expansion_exact_ecfp4_reference_v1' and m.get('status')=='COMPLETE'
@@ -115,6 +150,8 @@ def run(plan_path):
     limit=plan.get('max_queries',q['projection']['rows'])
     require(type(limit)is int and 0<limit<=q['projection']['rows'],'Explicit positive query cardinality required')
     batch=plan['query_batch'];require(type(batch)is int and 1<=batch<=4096,'Bounded worker query batch required')
+    commit_queries=plan.get('cache_commit_queries',4096)
+    require(type(commit_queries)is int and 1<=commit_queries<=4096,'Explicit bounded exact-cache checkpoint size required')
     root=Path(plan['output_directory']);require(root.is_absolute() and not root.is_symlink(),'Own absolute output directory required')
     root.mkdir(parents=True,exist_ok=True)
     lock=os.open(root/'parent.lock',os.O_CREAT|os.O_RDWR,0o600)
@@ -138,7 +175,7 @@ def run(plan_path):
                     cache.commit();guard.poll(True,32<<20);window=0
             cache.close_ingestion(source_key,{'rows':limit,'query_manifest':plan['query_manifest']})
         else:require(old=={'rows':limit,'query_manifest':plan['query_manifest']},'Closed source ingestion differs')
-        cache.commit();guard.poll(True,32<<20)
+        cache.commit();guard.poll(True,64<<20)
         attempt=0
         while any((root/(source_key+'.'+str(attempt)+suffix)).exists() for suffix in
                 ('.novelty.jsonl','.audit.jsonl','.workers.jsonl','.receipt.json')):attempt+=1
@@ -147,15 +184,20 @@ def run(plan_path):
             def ready(value):
                 pids.add(value['worker_pid']);log.write(json.dumps({'kind':'reference_loaded',**value})+'\n');log.flush()
             pending=cache.pending_count(member)
+            uncommitted=0;last_commit=time.monotonic()
             if pending:
                 for result in exact_batches(fp_path,n,cache.pending_batches(batch,member),workers=workers,
                         worker_rss_cap_bytes=cap,ready_callback=ready):
                     for identity,raw,value in result.pop('results'):
                         cache.store(identity,raw,value);computed+=1
+                        uncommitted+=1
                         evaluated+=value['evaluated_references'];pruned+=value['strictly_bound_pruned_references']
-                    cache.commit();pids.add(result['worker_pid'])
+                    if uncommitted>=commit_queries or time.monotonic()-last_commit>=30:
+                        cache.commit();uncommitted=0;last_commit=time.monotonic()
+                    pids.add(result['worker_pid'])
                     log.write(json.dumps({'kind':'exact_batch',**result})+'\n');log.flush()
-                    guard.poll(reserve=32<<20)
+                    guard.poll(reserve=64<<20)
+            cache.commit()
             log.flush();os.fsync(log.fileno())
         require(cache.pending_count(member)==0,'Source exact queries incomplete')
         # New attempt suffix preserves every interrupted export. Exact cache
@@ -194,6 +236,8 @@ def run(plan_path):
             'worker_count_requested':workers,'worker_pids_observed':sorted(pids),'query_batch':batch,
             'worker_metrics':reference(metrics),'projection':{**reference(projection),'rows':limit},'nearest_identity_audit':reference(audit),
             'resource_plan':reference(plan_path),'timing_is_this_attempt_only':True}
+        receipt['startup_memory_observation']=startup_memory
+        receipt['endpoint_execution']=provenance(plan)
         dump_new(root/(source_key+'.'+str(attempt)+'.receipt.json'),receipt)
         return receipt
     finally:

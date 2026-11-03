@@ -56,16 +56,21 @@ def minimize_once(field):
 
 
 class NativeKernel:
-    def __init__(self):
+    def __init__(self,source_capsule=None):
         self.source = self.mol = self.template = self.original_graph = None
         self.old = self.kernels = self.numbers = None
+        self.source_capsule=source_capsule;self._portable=None
 
     def _graph(self, source):
-        from workflows.expansion.no_pm7_uff_d_main_v1 import core as old
         from rdkit import Chem
+        if self.source_capsule is None:
+            from workflows.expansion.no_pm7_uff_d_main_v1 import core as old
+            self.kernels=old.load();self.provenance=kernel_provenance(old)
+        else:
+            from workflows.expansion.portable_sources_v1.kernel import get_capsule
+            if self._portable is None:self._portable=get_capsule(self.source_capsule)
+            old=self._portable;self.kernels=old.load();self.provenance=old.provenance
         self.old = old
-        self.kernels = old.load()
-        self.provenance = kernel_provenance(old)
         self.template, self.mol, unresolved = old.graph(source["isomeric_smiles"])
         if Chem.MolToInchiKey(self.template) != source["full_key"]:
             raise IntegrityError("SOURCE_FULLKEY_GRAPH_MISMATCH")

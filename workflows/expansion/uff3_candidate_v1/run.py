@@ -28,11 +28,15 @@ LAST_WORKER_GUARD=0.0
 
 
 def verify(ref):
-    from workflows.expansion.pubchem_closed500_bulk_v2.common import verify as check
+    from workflows.expansion.portable_sources_v1.transport import verify as check
     return check(ref)
 
 
 def guard(plan):
+    from workflows.expansion.portable_sources_v1.transport import bind_plan
+    profile=bind_plan(plan)
+    if profile is not None and not plan.get('source_capsule_reference'):
+        raise RuntimeError('ALPHA_REQUIRES_REAL_RELOCATED_SOURCE_CAPSULE_BEFORE_ANY_MOLECULE_CLAIM')
     uid=os.getuid();node=socket.gethostname().split('.')[0]
     cpus=int(os.environ.get('SLURM_CPUS_PER_TASK','0'))
     workers=plan['workers']
@@ -47,13 +51,13 @@ def guard(plan):
             or policy['labels']['Pprime'] is not False
             or policy['labels']['QM'] is not False):
         raise RuntimeError('ACTUAL_CURRENT_USER_MAX3_POLICY_REQUIRED')
-    if (uid!=1278 or node=='sonmi' or not os.environ.get('SLURM_JOB_ID')
+    if ((profile is None and (uid!=1278 or node=='sonmi')) or not os.environ.get('SLURM_JOB_ID')
             or type(workers)is not int or workers<16 or cpus<workers
             or node not in plan['allowed_nodes']):
         raise RuntimeError('ACTUAL_MAIN_ALLOCATED_CPU_WORKERS_REQUIRED')
     if plan['maximum_conformers']!=3 or plan['no_fill'] is not True or plan['no_retry'] is not True:
         raise RuntimeError('CURRENT_USER_MAX3_NO_FILL_NO_RETRY_POLICY')
-    return {'uid':uid,'node':node,'job_id':os.environ['SLURM_JOB_ID'],
+    return {'uid':uid,'node':node,'endpoint':profile['endpoint'] if profile else '202.38.247.57:22','job_id':os.environ['SLURM_JOB_ID'],
             'allocated_cpus':cpus,'workers':workers,'pid':os.getpid()}
 
 
@@ -81,11 +85,15 @@ def ranking_parents(manifest):
     from workflows.expansion.ranking import release_gate
     rank=S.read_json(verify(manifest['ranking_receipt']))
     filtered=S.read_json(verify(rank['filtered_pool']))
-    screen=S.read_json(verify(filtered['screen']))
-    regression=S.read_json(verify(filtered['regression']))
     novelty=S.read_json(verify(rank['novelty_receipt']))
-    release_gate(screen_receipt=screen,regression_receipt=regression,
-        decontamination_receipt=filtered,novelty_receipt=novelty)
+    if filtered.get('schema')=='expansion_filtered_columnar_pool_v1':
+        from workflows.expansion.exact_nn_cached_v1.contracts import typed_release
+        typed_release(filtered,novelty)
+    else:
+        screen=S.read_json(verify(filtered['screen']))
+        regression=S.read_json(verify(filtered['regression']))
+        release_gate(screen_receipt=screen,regression_receipt=regression,
+            decontamination_receipt=filtered,novelty_receipt=novelty)
     if (rank['schema']!='expansion_nested_queues_v1' or rank['seed']!=20261025
             or rank['queue_molecules_each']!=5000000 or rank['first_batch_molecules_each']!=1250000
             or rank['downstream_features_used'] is not False):
@@ -144,8 +152,13 @@ def open_index(root, manifest, manifest_reference, budget):
 
 def init_worker(plan, output):
     global WORK
+    from workflows.expansion.portable_sources_v1.transport import bind_plan
+    bind_plan(plan)
     for name in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS'):
         os.environ[name]='1'
+    if plan.get('source_capsule_reference'):
+        from workflows.expansion.portable_sources_v1.kernel import get_capsule
+        get_capsule(plan['source_capsule_reference']).load()
     WORK=(plan,Path(output))
 
 
@@ -183,7 +196,11 @@ def worker(item):
         path.parent.mkdir(parents=True,exist_ok=True)
         if not path.exists():S.write_new(path,missing)
         return ordinal,S.reference(path),os.getpid(),True
-    manifest=S.run_one(source,directory,checkpoint=worker_guard,
+    kernel=None
+    if plan.get('source_capsule_reference'):
+        from .native import NativeKernel
+        kernel=NativeKernel(plan['source_capsule_reference'])
+    manifest=S.run_one(source,directory,kernel=kernel,checkpoint=worker_guard,
         maximum_molecule_output_bytes=plan.get('maximum_molecule_output_bytes',64<<20))
     if manifest.get('source_contract_hold') or 'ACTUAL_MEMORY_SAFETY_STOP' in (manifest.get('error') or ''):
         raise RuntimeError('CLOSED_PARTIAL_RETAINED_STOP_NEW_DISPATCH:'+str(manifest.get('error')))
@@ -250,6 +267,7 @@ def recover_batches(db,root,budget):
 
 def write_batch(results,db,root,budget,plan,job_id):
     from . import families
+    families.set_capsule(plan.get('source_capsule_reference'))
     folder=root/'families'/('job'+str(job_id)+'_'+uuid.uuid4().hex)
     folder.mkdir(parents=True,exist_ok=False)
     items=[];census=[];cache_refs=[]
@@ -354,6 +372,7 @@ def run(plan):
         'quality_reference_review':plan.get('quality_reference_review'),'full_population_1p5_scan_complete':False,
         'training_eligible':False,'new_QM_calls':0,'batch_manifest_index':'index.sqlite:batches'}
     path=root/('receipt_job'+runtime['job_id']+'_'+uuid.uuid4().hex+'.json');S.write_new(path,receipt)
+    if budget.alpha_guard is not None:budget.alpha_guard.close()
     db.close();parent_lock.close();return receipt
 
 

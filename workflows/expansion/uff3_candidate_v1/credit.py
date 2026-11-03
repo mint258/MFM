@@ -5,12 +5,22 @@ import os
 from pathlib import Path
 import sqlite3
 import stat
+import threading
+from functools import wraps
+
+
+def synchronized(method):
+    @wraps(method)
+    def call(self,*args,**kwargs):
+        with self.lock:return method(self,*args,**kwargs)
+    return call
 
 
 class ClosedLedger:
     def __init__(self,path):
+        self.lock=threading.RLock()
         self.path=Path(path)
-        self.db=sqlite3.connect(self.path,timeout=120)
+        self.db=sqlite3.connect(self.path,timeout=120,check_same_thread=False)
         self.db.executescript('''PRAGMA journal_mode=DELETE;
           CREATE TABLE IF NOT EXISTS files(dev INTEGER,ino INTEGER,path TEXT UNIQUE,
             uid INTEGER,size INTEGER,blocks INTEGER,mtime INTEGER,ctime INTEGER,
@@ -19,9 +29,28 @@ class ClosedLedger:
           CREATE TABLE IF NOT EXISTS totals(singleton INTEGER PRIMARY KEY,
             logical INTEGER,allocated INTEGER,credit INTEGER,cutoff INTEGER);
           INSERT OR IGNORE INTO totals VALUES(1,0,0,0,0);
+          CREATE TABLE IF NOT EXISTS directories(dev INTEGER,ino INTEGER,path TEXT UNIQUE,uid INTEGER,
+            blocks INTEGER,mtime INTEGER,ctime INTEGER,PRIMARY KEY(dev,ino));
+          CREATE TABLE IF NOT EXISTS directory_totals(singleton INTEGER PRIMARY KEY,allocated INTEGER);
+          INSERT OR IGNORE INTO directory_totals VALUES(1,0);
         ''')
         self.db.commit();self.pending={};self.pending_logical=0;self.pending_allocated=0
         self.promoted_rows_lastcall=0
+        self.pending_dirs={};self.pending_directory_allocated=0
+
+    @synchronized
+    def register_directory(self,path):
+        path=Path(path).absolute();before=path.lstat();after=path.lstat()
+        fields=lambda s:(s.st_dev,s.st_ino,s.st_uid,s.st_blocks*512,s.st_mtime_ns,s.st_ctime_ns)
+        if not stat.S_ISDIR(before.st_mode) or before.st_uid!=os.getuid() or fields(before)!=fields(after):
+            raise RuntimeError('STABLE_OWN_CLOSED_DIRECTORY_REQUIRED')
+        dev,ino,uid,blocks,mtime,ctime=fields(before);value=(dev,ino,str(path),uid,blocks,mtime,ctime);key=(dev,ino)
+        old=self.pending_dirs.get(key) or self.db.execute('SELECT dev,ino,path,uid,blocks,mtime,ctime FROM directories WHERE dev=? AND ino=?',key).fetchone()
+        if old is not None:
+            if old!=value:raise RuntimeError('IMMUTABLE_CLOSED_DIRECTORY_CHANGED')
+            return
+        self.pending_dirs[key]=value;self.pending_directory_allocated+=blocks
+        if len(self.pending_dirs)>=4096:self.flush()
 
     @staticmethod
     def is_mutable(path):
@@ -39,6 +68,7 @@ class ClosedLedger:
         dev,ino,uid,size,blocks,mtime,ctime=fields(before)
         return (dev,ino,str(path),uid,size,blocks,mtime,ctime,max(mtime,ctime))
 
+    @synchronized
     def register(self,path):
         if self.is_mutable(path):return False
         value=self.fact(path);key=value[:2]
@@ -57,8 +87,9 @@ class ClosedLedger:
         if len(self.pending)>=4096:self.flush()
         return True
 
+    @synchronized
     def flush(self):
-        if not self.pending:return
+        if not self.pending and not self.pending_dirs:return
         logical=allocated=0
         try:
             for value in self.pending.values():
@@ -74,15 +105,22 @@ class ClosedLedger:
                 self.db.execute('INSERT INTO files VALUES(?,?,?,?,?,?,?,?,?,0)',value)
                 logical+=size;allocated+=blocks
             self.db.execute('UPDATE totals SET logical=logical+?,allocated=allocated+? WHERE singleton=1',(logical,allocated))
+            for value in self.pending_dirs.values():self.db.execute('INSERT INTO directories VALUES(?,?,?,?,?,?,?)',value)
+            self.db.execute('UPDATE directory_totals SET allocated=allocated+? WHERE singleton=1',(self.pending_directory_allocated,))
             self.db.commit();self.pending.clear();self.pending_logical=0;self.pending_allocated=0
+            self.pending_dirs.clear();self.pending_directory_allocated=0
         except Exception:
             self.db.rollback();raise
 
+    @synchronized
     def totals(self):
         logical,allocated,credit,cutoff=self.db.execute('SELECT logical,allocated,credit,cutoff FROM totals WHERE singleton=1').fetchone()
-        return {'closed_logical_bytes':logical+self.pending_logical,'closed_allocated_bytes':allocated+self.pending_allocated,
+        directories=self.db.execute('SELECT allocated FROM directory_totals WHERE singleton=1').fetchone()[0]+self.pending_directory_allocated
+        return {'closed_logical_bytes':logical+self.pending_logical,'closed_allocated_bytes':allocated+self.pending_allocated+directories,
+                'closed_directory_allocated_bytes':directories,
                 'eligible_old_own_allocated_bytes':credit,'credit_cutoff_ns':cutoff}
 
+    @synchronized
     def credit_before(self,query_start):
         """Return integer allocated bytes known closed before actual quota query."""
         self.flush()
@@ -100,5 +138,6 @@ class ClosedLedger:
         self.promoted_rows_lastcall=count
         return credit
 
+    @synchronized
     def close(self):
         self.flush();self.db.close()

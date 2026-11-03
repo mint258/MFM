@@ -41,12 +41,17 @@ The receipt retains `expansion_exact_novelty_v1` and the old output fields and
 audit; COMPLETE requires all declared rows and a verified filtered-pool receipt.
 An explicit prefix is always BOUNDED_COST_PILOT. No default query/comparison/time
 cap limits full production. Worker count must fit actual Slurm CPUs, and all
-per-worker memory allowances plus parent must fit actual Slurm memory. Fresh
+per-worker memory allowances plus parent must fit actual MemAvailable and the
+declared node reserve. A finite Slurm memory value, when present, is checked;
+absent values remain null and imply no scheduler memory guarantee. Fresh
 shared quota is checked at startup and at most30seconds between batch boundaries;
 mutable cache/output files earn no quota credit. `kind=lustre` dispatches to the
 shared Lustre guard. Only a fixed flat set of output files is polled. Bounded
-source/export windows reserve32MiB before subsequent writes; cache growth also
+source/export windows reserve32MiB and NN checkpoint windows64MiB before writes; cache growth also
 has a finite SQLite page cap. A native RDKit call is never killed for a clock.
+Exact cache transactions close after up to4096 completed unique queries or at
+the next completed batch after30seconds; this avoids one Lustre fsync per tiny
+worker batch. This is a durability checkpoint, not a computation time limit.
 
 Plan schema `PUBCHEM_EXACT_CACHED_NN_PLAN_V1`, required fields:
 `reference_manifest`, `query_manifest` (path/bytes/sha256 triples),

@@ -1,7 +1,22 @@
 """Explicit IO context for unchanged postprocess_day_v1.common.build."""
 import importlib,json,sys,types
+from decimal import Decimal
 from pathlib import Path
 from .runtime import need,pin,read,verify,save
+
+
+def common_manifest_json(value):
+    """Transport only: Arrow SUM(BIGINT) may return exact Decimal integers."""
+    if not isinstance(value,dict) or value.get('schema')!='COMMON_POPULATION_PRODUCER_V1':return value
+    result=dict(value);result['roles']=[dict(row) for row in value['roles']]
+    for row in result['roles']:
+        for name in ('pm7_records','uff_records'):
+            number=row[name]
+            if isinstance(number,Decimal):
+                need(number.is_finite() and number==number.to_integral_value(),'COMMON_ROLE_COUNT_DECIMAL_MUST_BE_FINITE_INTEGRAL:'+name)
+                row[name]=int(number)
+            else:need(type(number)is int,'COMMON_ROLE_COUNT_MUST_BE_EXACT_INTEGER:'+name)
+    return result
 
 
 def bind_original_namespace(config_reference):
@@ -75,7 +90,7 @@ class Context:
     def read(self,ref,limit=2<<20):need(ref['bytes']<=limit,'SMALL_METADATA_LIMIT');return json.loads(self.require(ref).read_text())
     def reference(self,path):return pin(path,self.check)
     def write_json_new(self,path,value):
-        need(self.out in Path(path).parents,'FRESH_OWN_OUTPUT_ONLY');self.check();ref=save(path,value);self.trust([ref]);return ref
+        need(self.out in Path(path).parents,'FRESH_OWN_OUTPUT_ONLY');self.check();ref=save(path,common_manifest_json(value));self.trust([ref]);return ref
     def write_parquet_new(self,path,table):
         import pyarrow.parquet as pq
         need(self.out in Path(path).parents and not Path(path).exists(),'FRESH_OWN_PARQUET_ONLY');self.check()

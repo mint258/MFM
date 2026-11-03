@@ -30,7 +30,14 @@ def _ready():
 
 def _batch(rows):
     start=time.monotonic()
-    results=[(identity,raw,_REFERENCE.nearest(raw)) for identity,raw in rows]
+    results=[]
+    for identity,raw in rows:
+        value=_REFERENCE.nearest(raw)
+        # The direct engine exposes this debug list to boundary tests. A
+        # worker batch retains only fixed-size counts, not up to2049 group
+        # labels for each query. The cached mathematical result is unchanged.
+        value.pop('searched_popcount_groups')
+        results.append((identity,raw,value))
     return {'results':results,'worker_pid':os.getpid(),'wall_seconds':time.monotonic()-start,
         'rss_bytes':current_rss(),'reference_decode_calls':_REFERENCE.decode_calls}
 

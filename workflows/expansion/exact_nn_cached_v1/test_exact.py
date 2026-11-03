@@ -76,6 +76,25 @@ class ExactTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):CachedReference([raw([0])],worker_rss_cap_bytes=1)
         self.assertEqual(upper_bound(0,0),(0,1))
 
+    def test_spawn_workers_decode_once_and_preserve_batch_results(self):
+        from .workers import exact_batches
+        references=[raw(i for i in range(6) if mask&(1<<i)) for mask in range(0,64,3)]
+        queries=[raw(i for i in range(6) if mask&(1<<i)) for mask in range(32)]
+        ready=[];observed={}
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'references.bin';path.write_bytes(b''.join(references))
+            batches=([ (i,q) for i,q in enumerate(queries) ][start:start+3] for start in range(0,len(queries),3))
+            for batch in exact_batches(path,len(references),batches,workers=2,
+                    worker_rss_cap_bytes=CAP,ready_callback=ready.append):
+                self.assertEqual(batch['reference_decode_calls'],len(references))
+                for identity,query,result in batch['results']:
+                    expected,index=integer_oracle(query,references)
+                    self.assertEqual(struct.pack('<d',result['score']),struct.pack('<d',expected))
+                    self.assertEqual(result['reference_ordinal'],index);observed[identity]=True
+        self.assertEqual(len({r['worker_pid'] for r in ready}),2)
+        self.assertTrue(all(r['reference_decode_calls']==len(references) for r in ready))
+        self.assertEqual(len(observed),len(queries))
+
 
 class CacheTests(unittest.TestCase):
     def test_disk_dedup_source_membership_and_binary64(self):

@@ -1,10 +1,30 @@
 """Original WP5 float64 families and original masks, explicit maximum-three rows."""
 from __future__ import annotations
 import math
-from workflows.expansion.no_pm7_uff_d_main_v1.families import load_writer, quality_init, quality_packet
+from workflows.expansion.no_pm7_uff_d_main_v1.families import load_writer as original_load_writer, quality_init as original_quality_init, quality_packet
 from .core import canonical, sha
 
 _QUALITY_REVIEW=None
+_CAPSULE=None
+
+
+def set_capsule(reference):
+    global _CAPSULE,_QUALITY_REVIEW
+    if reference is not None:
+        from workflows.expansion.portable_sources_v1.kernel import get_capsule
+        if _CAPSULE is None or _CAPSULE.reference!=reference:
+            _CAPSULE=get_capsule(reference);_QUALITY_REVIEW=None
+    else:
+        if _CAPSULE is not None:_QUALITY_REVIEW=None
+        _CAPSULE=None
+
+
+def load_writer():return original_load_writer() if _CAPSULE is None else _CAPSULE.writer()
+
+
+def quality_init(review):
+    if _CAPSULE is None:return original_quality_init(review)
+    return _CAPSULE.quality_init(review)
 
 
 def export_packets(items,out,budget,job_id):

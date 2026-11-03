@@ -124,7 +124,7 @@ def ingest_enriched(db, name, identity_column, enriched, state):
         for row in enriched:
             identity = str(row[identity_column])
             composition = json.loads(row['non_h_composition']) if isinstance(row['non_h_composition'], str) else row['non_h_composition']
-            need(composition and all(len(pair) == 2 and type(pair[0]) is int and 2 <= pair[0] <= 118 and type(pair[1]) is int and pair[1] > 0 for pair in composition), 'Exact non-H composition required')
+            need(type(composition) is list and all(len(pair) == 2 and type(pair[0]) is int and 2 <= pair[0] <= 118 and type(pair[1]) is int and pair[1] > 0 for pair in composition), 'Exact non-H composition required; H-only candidates retain the empty vector')
             need([p[0] for p in composition] == sorted(set(p[0] for p in composition)) == row['elements'], 'Element/composition definitions differ')
             need(sum(p[1] for p in composition) == row['heavy_atoms'] and row['element_combination'] == ','.join(str(p[0]) for p in composition), 'Size/element-combination fields differ')
             hbin = heavy_bin(row['heavy_atoms'])

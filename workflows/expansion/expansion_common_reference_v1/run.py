@@ -26,7 +26,7 @@ def fixtures(out):
     stream=io.StringIO();result=unittest.TextTestRunner(stream=stream,verbosity=2).run(suite)
     ref=save(out/'source_tests.json',dict(tests=result.testsRun,failures=len(result.failures),errors=len(result.errors),
         skips=len(result.skipped),transcript=stream.getvalue(),before_original_DATA=True))
-    need(result.wasSuccessful() and result.testsRun==5 and not result.skipped,'FIVE_SOURCE_VIEW_TESTS_REQUIRED')
+    need(result.wasSuccessful() and result.testsRun==7 and not result.skipped,'SEVEN_SOURCE_VIEW_TESTS_REQUIRED')
     return ref
 
 
@@ -75,6 +75,7 @@ def run(plan,proof,plan_path,proof_path):
             orders_frozen=False,D7_released=False,new_UFF_QM_calls=0,
             membership_quality_rules_unchanged=True,graph_HOLD_MIDs=graph['HOLD_MIDs'] if graph else None,
             actual_parent_C0_not_self_claimed=True,elapsed_seconds=time.monotonic()-start,resources=budget.receipt())
+        receipt['reused_closed_source_index']=getattr(ctx,'reused_index_provenance',None)
         return save(out/'receipt.json',receipt)
     except BaseException as exc:
         save(out/'failure.json',dict(schema='EXPANSION_COMMON_REFERENCE_FAILURE_V1',error=repr(exc),traceback=traceback.format_exc(),
