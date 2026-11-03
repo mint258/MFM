@@ -23,7 +23,6 @@ def rows(ref,columns=None):
 
 
 def authorities(plan):
-    from ..exact_nn_cached_v1.alpha_common import validate_manifest
     from ..alpha_common_graph_continuation_v1.transport import inputs
     full=plan.get('common_reference_manifest');membership_only=plan.get('common_membership_acceptance_reference')
     need(bool(full)!=bool(membership_only),'Choose one explicit actual full-graph or membership-only Common authority')
@@ -34,6 +33,7 @@ def authorities(plan):
             validate_repaired(c);p=load(verify(c['original_full_source_receipt_reference']))
             common_kind='ACCEPTED_FULL_GRAPH_GENERIC_REPRESENTATION_REPAIRED_REFERENCE'
         else:
+            from ..exact_nn_cached_v1.alpha_common import validate_manifest
             validate_manifest(c);p=load(verify(c['actual_full_receipt_reference']))
             common_kind='ACCEPTED_FULL_GRAPH_REFERENCE'
         common_authority=full

@@ -342,3 +342,116 @@ its actual file is verified alongside the reviewed20G/other-future/floor values.
 Source fixtures: ENTRY workflows.expansion.common_train_d27_reference_v1.test_transfer_admission -v.
 They test stale boot/changed entry refusal and both actual launcher/old inventory
 argument forms; they read no scientific bodies and create no production approval.
+
+## Importable original scientific source capsule
+
+Main metadata-only imported_source_capsule_inventory_v1.json is prepared beside
+closed_inputs.json (32620B,
+SHA36d47f6391c0f4cc0b4a3877af097ca5890626df9284bdafbf3db9c217e4d71b).
+It contains24 original import-time source files/188709B, their package-relative
+paths/current Main pins, all import edges and the five scientific_sources roots.
+A separate explicit six-file exact overlay totals40137B: __init__.py, engine.py,
+cache.py, alpha_common.py, alpha_common_repaired.py and test_alpha_common.py.
+Export exactly these30 checked files with their original relative package paths
+from the checked Git tree, verifying each exported SHA against this inventory.
+The original four parser/mask source bindings from all five cache origins are
+also independently SHA-checked and recorded; this does not refit any statistic.
+The inventory itself remains outside Git, and preparation did not import project
+code or open scientific data.
+
+```
+python -B workflows/expansion/common_train_d27_reference_v1/source_dependencies.py \
+  --repository ACTUAL_CHECKED_REPOSITORY --catalog CLOSED_INPUTS \
+  --output FRESH_SOURCE_INVENTORY
+```
+
+Root's new immutable Alpha capsule must take precedence in the scientific
+namespace paths BEFORE importing leaves: workflows.data_v1_final and its labels
+packages must see the capsule first. The partial existing exact_nn_cached_v1
+package must explicitly see the new six-file directory; adding a parent
+expansion path alone cannot repair a previously selected child package path.
+Do not silently fall back to Base497 or use content-addressed transport.blob
+paths as imported module pins. Keep all30 source bodies byte-identical. Package
+namespace routing belongs in the separate private launcher; original module
+functions/globals and original configurations stay unchanged.
+
+Build scientific_sources from the inventory's actual five source references,
+replacing only their source-root prefix with the actual deployed capsule root
+AFTER Alpha verifies the copied files. Keys and relative paths are:
+
+- codec: workflows/data_v1_final/labels/normalization_compact_runtime_v3/codec.py
+- calibration: workflows/data_v1_final/labels/streaming_v1/calibration.py
+- compact: workflows/data_v1_final/labels/streaming_v1/compact.py
+- projection: workflows/data_v1_final/labels/lossless_projection_pilot_v1/projection.py
+- owner_support: workflows/data_v1_final/labels/source_status_cpu_auto_memory_v1/support.py
+
+The real run's science.load checks exact imported module paths and direct
+original codec/calibration/compact/projection function-object identities. Root's
+allocated native four-case test_source fixture must run first with this exact
+namespace routing and actual NumPy/PyArrow environment. No native import/fixture
+success is inferred from AST closure. All import-time dependencies found here
+are stdlib; NumPy and PyArrow are still required at D27 function execution.
+Legacy function-local CLI/observer/legacy imports are retained as original source
+but are not executed by this D27 fit. No Source1M population or old runtime attrs
+are physically copied or adopted as new scientific authority.
+
+## Actual-input standalone Alpha fit-template builder
+
+`build_actual_plan.py` uses stdlib only and runs as an absolute file with Python-I
+on Alpha metadata host; it does not import the project or require a new scientific
+capsule just to prepare a plan. It writes bindings.json, resources.json,
+fit_plan_template.json, fit.sbatch and build_receipt.json in a fresh control
+folder, and never invokes sbatch or fits DATA. Missing native closed transport or
+its actual Root C0 review fails before an executable template is written.
+
+The required transport review contract is
+ROOT_PUBCHEM_D27_ALPHA_TRANSPORT_ACTUAL_ACCEPTANCE_V1 /
+APPROVED_EXACT_D27_INPUT_REPLICAS, reviewer root, transport_manifest_reference,
+producer_receipt_reference, actual_parent and actual_accounting_reference.
+The account must contain the exact actual Alpha C0 parent and raw_sacct_reference.
+The builder checks11490 source mappings/11488 unique actual closed replicas and
+12475282830B, same inventory/native receipt, original Main1278 origins and Alpha1264
+held-FD facts. It does not rehash any large data on the metadata host. This review
+must actually exist; the builder never creates approval or future hashes.
+
+It consumes the actual immutable47-source deployment (43495B,
+SHAd3b33ce07e5892bc84757723ca97557be4193a5f731ef95c034c3ddecc9da8a9),
+its exact scientific_sources5, entry_reference and code_references94. It binds the
+actual full Common176 accepted manifest (3566B,
+SHAbb249520721976617361806e4724df5f1079a93108ab5cb0c3f27d711cbe44b7)
+and independent Root actual C0/accounting. Full runtime validators still reopen
+these authorities on the admitted fit parent. No COCO/index/R-N/new1M gate is
+introduced into this independent original-TRAIN quality calibration.
+
+Using A=/gfshome/alpha/codex_data_v1_20261026, D=A/control/
+pubchem_completion_environment_20261103 and B=A/control/
+pubchem_expansion_runtime_20261103, the source CLI is:
+
+```
+PY -I -B ABSOLUTE_BUILD_ACTUAL_PLAN_PY \
+  --transport-review ACTUAL_TRANSPORT_ROOT_C0_REVIEW \
+  --transfer-inventory D/d27_transfer_inventory_v1.json \
+  --common-manifest ACTUAL_ACCEPTED_COMMON176_MANIFEST \
+  --deployment D/quality_recovery_b74e05c_actual_deployment.json \
+  --storage-budget B/all_future_storage_budget_v2_20261104.json \
+  --resource-template ACTUAL_ALPHA_RUNTIME_QUOTA_TEMPLATE \
+  --entry A/code/quality_recovery_b74e05c/layer_entry.py \
+  --launcher D/node_launcher_rpc_v3_resume.py --rpc-program D/gluster_readonly_rpc.py \
+  --base A/code/pubchem_completion_20261103_497c584 \
+  --python A/software/pubchem_completion_20261103_venv/bin/python \
+  --control-root B/node_epochs --output-directory FRESH_CONTROL_DIRECTORY \
+  --native-source-tests B/node_epochs/generic_recovery_delta_v1_job_1885179/native_d27_source_tests4.json \
+  --node ACTUAL_ROOT_SELECTED_IDLE_NODE
+```
+
+Resources retain actual runtime/quota and separate closed-scope-credit authority,
+with exact aggregate scope /gfshome/alpha/pubchem_expansion_20261103/exact,
+cap300000000000B, other_future_reserved_bytes1001736873472, floor200000000000B,
+software RSS default64GiB, actual node available reserve24GiB, workers default16
+and parent SQLite cache1GiB. These are reviewed software/storage declarations,
+never scheduler memory reservations. The script requests CPU only and no Slurm
+memory, uses --time=0, and the existing guarded NodeLauncher assigns actual job
+output directories/profile/publisher. Source4 already passed in actual179 before
+DATA; its optional actual JSON pin is preserved without inventing another pass.
+The deployment's source-test policy is recorded honestly as policy, not as the
+actual test receipt itself. Root owns actual admission, preflight and submission.
