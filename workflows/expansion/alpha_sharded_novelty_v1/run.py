@@ -169,7 +169,15 @@ def run_nn(plan_path):
     selected_predicate = predicate(assigned)
     filtered = Q.load(Q.verify(plan['filtered_pool_reference']))
     groups = parts_by_bucket(filtered)
-    from ..exact_nn_popcount_production_v1.authority import adopted
+    inverted = plan.get('compiled_backend_implementation') == 'INTEGER_INVERTED_CSR_PRIVATE_COPY_PROTOTYPE_V1'
+    if inverted:
+        from ..exact_nn_inverted_production_v1.authority import adopted
+        from ..exact_nn_inverted_production_v1.workers import exact_batches as run_batches
+    else:
+        require(plan.get('compiled_backend_implementation') in (None, 'INTEGER_GROUP_POPCOUNT_PRIVATE_COPY_PROTOTYPE_V1'),
+                'Explicit known exact implementation only')
+        from ..exact_nn_popcount_production_v1.authority import adopted
+        run_batches = exact_batches
     adoption, _ = adopted(plan['backend_adoption_reference'])
     require(adoption['reference_manifest_reference'] == plan['reference_manifest'],
             'Native backend and ranking counts/keys must use the same actual full reference')
@@ -181,12 +189,17 @@ def run_nn(plan_path):
     key_path = Q.verify(packed['keys'])
     counts_path = Q.verify(packed['counts'])
     manifest_path = root / 'manifest.json'
+    if inverted and (root / 'source_binding.json').exists():
+        from ..exact_nn_inverted_production_v1.authority import previous_writers
+        previous_writers(plan, Q.load(root / 'source_binding.json'))
     if manifest_path.exists():
         value = Q.load(manifest_path)
         require(value['status'] == 'SHARD_COMPLETE' and value['filtered_pool_reference'] == plan['filtered_pool_reference']
                 and value['reference'] == plan['reference_manifest']
                 and value['assigned_hash_buckets'] == assigned and value['partition_id'] == plan['partition_id']
-                and value['scope_key'] == plan['scope_key'], 'Closed novelty has different inputs/work partition')
+                and value['scope_key'] == plan['scope_key']
+                and (not inverted or value['backend_adoption_reference'] == plan['backend_adoption_reference']),
+                'Closed novelty has different inputs/work partition/backend; never relabel an immutable complete manifest')
         return value
     began = time.monotonic()
     journal = (root / ('closed_files_' + uuid.uuid4().hex + '.jsonl')).open('x', encoding='utf-8')
@@ -198,7 +211,12 @@ def run_nn(plan_path):
                'assigned_hash_buckets': assigned, 'partition_id': plan['partition_id'],
                'scope_key': plan['scope_key']}
     binding_path = root / 'source_binding.json'
-    if binding_path.exists():
+    continuation_ref = None
+    if inverted:
+        from ..exact_nn_inverted_production_v1.binding import establish
+        binding_ref, continuation_ref = establish(root, binding, adoption)
+        binding_path = Path(binding_ref['path'])
+    elif binding_path.exists():
         require(Q.load(binding_path) == binding, 'Closed shard cache input binding differs')
     else:
         Q.write(binding_path, binding)
@@ -284,7 +302,7 @@ def run_nn(plan_path):
             known[bucket].append(part); buffers[bucket] = []
             guard.poll(force=True)
         try:
-            for result in exact_batches(fp_path, packed['molecules'], batches(), workers=plan['workers'],
+            for result in run_batches(fp_path, packed['molecules'], batches(), workers=plan['workers'],
                     worker_rss_cap_bytes=plan['worker_rss_cap_bytes'], ready_callback=ready,
                     backend_adoption_reference=plan['backend_adoption_reference']):
                 for identity, raw, value in result.pop('results'):
@@ -364,6 +382,9 @@ def run_nn(plan_path):
              'reference_molecules': packed['molecules'], 'nearest_similarity_exact': True,
              'downstream_features_used': False, 'resource_plan': Q.reference(plan_path),
              'wall_seconds_this_attempt': time.monotonic()-began}
+    if inverted:
+        value.update(backend_implementation=plan['compiled_backend_implementation'],
+                     equivalent_backend_continuation_reference=continuation_ref)
     Q.write(manifest_path, value)
     return value
 
@@ -428,6 +449,11 @@ def main():
     for path in Path(__file__).parent.glob('*.py'):
         require(Q.reference(path) in plan['code_references']
                 and Q.reference(path) in proof['request']['source_references'], 'Actual sharded source must be startup pinned')
+    if plan.get('compiled_backend_implementation') == 'INTEGER_INVERTED_CSR_PRIVATE_COPY_PROTOTYPE_V1':
+        from .. import exact_nn_inverted_production_v1 as inverted_package
+        for path in Path(inverted_package.__file__).parent.glob('*.py'):
+            require(Q.reference(path) in plan['code_references']
+                    and Q.reference(path) in proof['request']['source_references'], 'Actual inverted production adapter source pinned')
     stage = args.stage or ('nn' if plan['schema'] == 'ALPHA_SHARDED_EXACT_NOVELTY_PLAN_V1' else 'rank')
     (run_nn if stage == 'nn' else run_rank)(args.plan)
 
