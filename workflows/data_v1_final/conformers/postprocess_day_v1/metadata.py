@@ -11,7 +11,7 @@ def proposal(output):
     value={'schema':'ROOT_REQUESTED_CONFORMERS_POSTPROCESS_DAY_V1','status':'UNSIGNED_NONEXECUTABLE_MISSING_ACTUAL_PARENT_REFS','requested_by':None,
       'job_name':None,'cpus':64,'node':None,'output_cap_bytes':384<<30,'output_directory':None,
       'original_config_reference':cfg,'cache_plan_reference':cache,'packed_parent_job_id':'4524556',
-      'packed_receipt_reference':None,'packed_accounting_reference':None,'related_parent_review_reference':None,'cache_registered_parents':[],
+       'packed_receipt_reference':None,'packed_operational_metadata_entry_reference':None,'packed_accounting_reference':None,'packed_origins_review_reference':None,'related_parent_review_reference':None,'cache_registered_parents':[],
       'previous_postprocess_parents':[],'resource_authority_reference':None,'quota_provider_review_reference':None,'quota_provider_identity_reference':None,'root_carveout_review_reference':None,
       'algorithm_rss_soft_cap_bytes':64<<30,'minimum_MemAvailable_bytes':4<<30,'exact_quantile_memory_bound_bytes':16<<30,
       'wall_is_not_forecast':True,'no_new_QM_UFF_or_scientific_retries':True}
@@ -21,11 +21,17 @@ def draft(request_path,output):
     C.G.on_login();request=C.G.load(request_path)
     C.need(request['schema']=='ROOT_REQUESTED_CONFORMERS_POSTPROCESS_DAY_V1' and request['status']=='REQUESTED_FOR_REVIEW'
       and request['requested_by']=='root','REAL_ROOT_INPUT_REQUEST_NOT_A_PLACEHOLDER')
+    if (request.get('packed_receipt_reference')is None and request.get('packed_operational_metadata_entry_reference')is None) or any(request.get(k)is None for k in ('packed_accounting_reference','packed_origins_review_reference')):
+        out=fresh(output);return C.G.write_new(out/'producer_candidate.json',{'schema':'CONFORMERS_POSTPROCESS_CANDIDATE_V2',
+            'status':'NONEXECUTABLE_REAL_TERMINAL_PACKED_ORIGINS_REQUIRED','input_request_reference':C.G.meta_pin(request_path),
+            'producer_plan_reference':None,'resource_request_reference':None,'future_job_SHA_or_C0_generated':False,'DATA_opened':False})
     keys=('cpus','node','output_cap_bytes','output_directory','original_config_reference','cache_plan_reference','packed_parent_job_id','packed_receipt_reference',
-      'packed_accounting_reference','related_parent_review_reference','cache_registered_parents','resource_authority_reference','quota_provider_review_reference','quota_provider_identity_reference',
+       'packed_accounting_reference','packed_origins_review_reference','related_parent_review_reference','cache_registered_parents','resource_authority_reference','quota_provider_review_reference','quota_provider_identity_reference',
       'root_carveout_review_reference','algorithm_rss_soft_cap_bytes','minimum_MemAvailable_bytes','exact_quantile_memory_bound_bytes')
     plan={k:request[k] for k in keys};plan.update(schema='CONFORMERS_POSTPROCESS_DAY_PLAN_V1',wall_seconds=86400,drain_seconds=900,
-      previous_postprocess_parents=request.get('previous_postprocess_parents',[]));plan['scope_parameters']=C.parameters(plan)
+       previous_postprocess_parents=request.get('previous_postprocess_parents',[]))
+    if request.get('packed_operational_metadata_entry_reference')is not None:plan['packed_operational_metadata_entry_reference']=request['packed_operational_metadata_entry_reference']
+    plan['scope_parameters']=C.parameters(plan)
     value,receipt,packed,original,prior,cache,refs,data=C.inputs(plan)
     target=pathlib.Path(plan['output_directory']);C.need(C.ROOT/'artifacts/conformers/postprocess_day_v1' in target.parents and not target.exists()
       and '..' not in target.parts,'EXACT_FRESH_ONE_PARENT_OUTPUT')

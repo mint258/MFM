@@ -1,3 +1,25 @@
+# v1 有效性掩码：v1-pilot-provisional
+
+## 2026-11-05 当前交付边界
+
+D-2至D-5的 `v1-pilot-provisional` 已交付：[正式D-4归一化](../../configs/data_v1/v1-pilot-provisional/D4_normalization.json)、[D-3导出](../../configs/data_v1/v1-pilot-provisional/D3_export.json)及[同父D-5诊断载荷](../../configs/data_v1/v1-pilot-provisional/D5_diagnostic_payload_D3_job4525880_bound.json)保留同一试点人口、原值与掩码。D-3实际父4525880已完成原唯一计数及1,000条原Parquet逐字段比较；这不替代全人群逐字段异常数量、原因分布、最严重样例或最终Common的独立交付。r674仍为 `LOSS_DISABLED`，不新增QM或改变科学掩码规则。当前数据交付事实见[接口状态](../interfaces/STATUS.md)与[训练导出报告](training_export_v1_pilot_provisional.md)。
+
+以下2026-10-30及更早内容按原时间点保留；其中“待发布”“正在运行”等叙述不作为当前运行状态。
+
+## 2026-10-30 暂定试点口径（历史）
+
+当前试点固定为已有完整普通 S′ 的50,000个 TRAIN 与5,000个 ROUTINE VAL 分子，采用 D-1 v3.0 联合冻结政策。D-4作业4525252已完成所选标签缓存覆盖阶段，正在核验已有几何与实际程序输入的绑定；这不代表整个 D-4 已结束或数值报告已交付。
+
+所选缓存保留全部146个有效字段的原始 F64 值、原始掩码、新增掩码、原因码、None及非有限值身份和原子/有序条目索引。每条 canonical base 与原14项任务的覆盖和重复检查已在本次 CPU 作业内完成。统计拟合资格与标签的科学有效性分别保存：VAL及已留出的诊断构象不进入 TRAIN 拟合，不把“禁止拟合”改写成标签异常。
+
+正式数值状态以 `configs/data_v1/v1-pilot-provisional/D4_normalization.json` 及其实际 C0 引用链为准；该入口目前尚未发布。后续 D-3 使用同一人群、同一掩码和同一实际统计，原标签不会被缩尾值覆盖。r674维持 `LOSS_DISABLED`，原值、部分值和掩码仍保留；不追加 QM 或质心变换。原 MolMR 单位与历史独立坐标证据中的 UNKNOWN 不补默认值。
+
+本次所选缓存的完整覆盖不等于全人群异常扫描验收。逐字段掩盖数量、原因分布、TRAIN median/MAD、z>20复核及各类严重度最高20例，仍须分别由实际数值报告证明。全人群报告继续作为后台定稿工作，不冒充已经完成，也不阻塞用户指定的四项暂定试点交付。既有科学规则和质量阈值不因本文档更新而放宽。
+
+当前试点说明和交付入口见 [DATASET_V1_CARD.md](DATASET_V1_CARD.md)。下方为早期实现及当时的待执行记录，不能用作当前作业状态。
+
+## 历史试点实现记录
+
 # v1 有效性掩码：实现与待执行验收
 
 目的：只掩盖无效标签，保留全部 canonical records。当前交付是可运行的有界试点代码和规则，尚未执行新科学数据扫描。
