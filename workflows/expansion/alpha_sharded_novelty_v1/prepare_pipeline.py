@@ -17,8 +17,8 @@ PY = A / 'software/pubchem_completion_20261103_venv/bin/python'
 EXACT = Path('/gfshome/alpha/pubchem_expansion_20261103/exact')
 
 
-def terminal_account(job, folder):
-    argv = ['sacct', '-j', job, '--parsable2',
+def terminal_account(job, folder, command_prefix=None):
+    argv = [*(command_prefix or ['sacct']), '-j', job, '--parsable2',
             '--format=JobIDRaw%40,State%24,ExitCode,UID,ElapsedRaw,AllocCPUS,NodeList%128']
     result = subprocess.run(argv, capture_output=True, text=True)
     Q.need(result.returncode == 0, 'Actual upstream Slurm accounting unavailable: ' + result.stderr)
@@ -103,7 +103,7 @@ def prepare(plan, mode, inputs, upstream, shard_paths):
         plan['ranking_receipt'] = Q.reference(upstream)
         plan['ranking_completed'] = dict(
             runtime=dict(endpoint=Q.ENDPOINT, uid=Q.UID, job_id=job),
-            accounting_reference=terminal_account(job, inputs), startup_proof_reference=Q.reference(startup))
+            accounting_reference=terminal_account(job, inputs, plan.get('accounting_command_prefix')), startup_proof_reference=Q.reference(startup))
         filtered = Q.load(Q.verify(rank['filtered_pool']))
         pool = Q.load(Q.verify(filtered['source_pool_receipt']))
         plan['pubchem_version'] = 'pubchem-source-sha256:' + pool['source_snapshot_sha256']

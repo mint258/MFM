@@ -22,12 +22,12 @@ Actual reusable inputs (take exact pins from existing machine receipts, no futur
   original producer exports `EXPANSION_EXACT_SCIENTIFIC_COVERAGE_V1/COMPLETE` only after complete
   fixed1M membership, cache-pending-zero and physical projection EOF; this is scientific coverage, not
   full candidate-pool release. No active201 SQL is read and its receipts/code are never modified here.
--Future source216 supplies actual `source_manifest.json` and `augmentation_manifest.json` containing
+-Queued source217 supplies actual `source_manifest.json` and `augmentation_manifest.json` containing
   all2.5M original selected graph FP/scaffold/rings in frozen source order. They do not wait for UFF.
 
 1. Pack after with the existing unchanged `workflows.expansion.exact_nn_cached_v1.pack_reference`
    `--plan PLAN --startup-proof PROOF`. Original plan schema `PUBCHEM_EXACT_REFERENCE_PACK_PLAN_V1`,
-   reference_role=after, input_manifest=actual216 augmentation manifest, base_reference_manifest=actual196.
+   reference_role=after, input_manifest=actual217 augmentation manifest, base_reference_manifest=actual196.
    It copies the exact original prefix and appends all2.5M rows, producing3696122 complete ordinals.
 2. Run `workflows.expansion.expansion_coverage_followup_v1.coverage --plan PLAN --startup-proof PROOF`.
    Retain the original `PUBCHEM_EXACT_SCIENTIFIC_COVERAGE_PLAN_V1` fields, actual baseline183 and its
@@ -41,7 +41,7 @@ Actual reusable inputs (take exact pins from existing machine receipts, no futur
    compiled_coverage_manifest.json records the actual wrapper/underlying receipt/source binding.
 3. Prepare full R/N graph statistics using `...expansion_coverage_followup_v1.rn_populations --plan PLAN
    --startup-proof PROOF`. Schema PUBCHEM_RN_DISTRIBUTION_SOURCE_PLAN_V1, ordered_source_manifest_reference
-   is actual216 source. Usual Alpha profile/Guard and SQL fields sql_memory_bytes,parent_rss_cap_bytes,
+   is actual217 source. Usual Alpha profile/Guard and SQL fields sql_memory_bytes,parent_rss_cap_bytes,
    spill_cap_bytes apply; keep spill<=4GB and source outputs in the actual private report budget.
    It follows actual ranking.batch1 and filtered candidate parts, joins all original fields by CID/fullkey,
    writes small typed FP-bucket feature parts and R/N population manifests (1.25M each). These are all
@@ -64,3 +64,46 @@ partitions must remain equal after NN and R/N ingestion. R/N graph statistics an
 UFF/D quality, actual generation success/cost or the final task2.9 batch report is finished; those existing
 generation/quality artifacts must still be included in the final batch report. The user's max3/no-fill UFF
 instruction and new exact-key-only decontamination policy remain unchanged.
+
+## Direct two-phase allocated continuation
+
+Source216 was replaced while PENDING because compute-local sacct could not reach localhost6819. The actual
+replacement is217, tag `direct_completion_b2b2407_ordered_source`. The source references above now
+mean the real217 outputs selected through its native epoch plan; no old output path or future SHA is reused.
+
+`workflows.expansion.expansion_coverage_followup_v1.prepare_pipeline` prepares only `pack-after` and
+`coverage-after`, then execs the existing `node_launcher_rpc_v3_resume.py`. Invoke inside an actual
+sonmi1/cpu16 allocation with actual isolated Alpha Python and the immutable layer entry:
+
+```
+...prepare_pipeline --phase pack-after --config CONFIG --entry ENTRY --tag AFTER_PACK_TAG
+...prepare_pipeline --phase coverage-after --config CONFIG --upstream-job ACTUAL_PACK_JOB --upstream-tag AFTER_PACK_TAG --entry ENTRY --tag AFTER_COVERAGE_TAG
+```
+
+Config fields are pinned `resources_reference` (current resource template), `deployment_reference`
+(current immutable deployment containing these helpers), `coverage_template_reference` (the actual201
+plan, only its JSON is read), `before_reference_manifest` (actual196), `backend_adoption_reference`
+(existing206), and `source_job_id="1885217"`, `source_tag="direct_completion_b2b2407_ordered_source"`.
+Optional `runtime_profile_reference` and `reviewed_storage_budget_reference` replace old template pins
+with the current actual profile/budget. `background_scope_exclusions` may declare other live exact
+scopes;201's output directory is always added without walking its files. For coverage, an actual pack
+job/tag may alternatively be supplied as config `pack_job_id`/`pack_tag`. No future job ID or artifact
+hash is generated. Optional launcher/control/python/base/RPC CLI paths follow the existing UFF helper.
+
+Both phases reuse existing UFF `upstream`/`terminal_account` and require native completed0:0 parents,
+using exactly `['ssh','-n','-o','BatchMode=yes','-o','ConnectTimeout=5','218.192.171.238','sacct']`.
+There is no compute-local sacct fallback, Root acceptance file, Slurm submission or background watcher.
+The source phase reads217's actual `node_epochs/TAG_job_1885217/plan.json` and startup, follows its actual
+output_directory and pins the closed source/augmentation manifests. Coverage follows the actual pack
+epoch, checks the complete3696122-row reference and exact196 prefix, then pins that closed manifest.
+Its original201 sample/ingestion/query settings remain unchanged while role/reference, current immutable
+source pins and206 compiled worker adoption change to the actual after reference.
+
+Each phase owns a separate private child of the actual exact aggregate, cap4_000_000_000 bytes.
+The existing `source_reservations` measures actual closed outer blocks, explicitly excludes201, and
+keeps the whole current exact/future budget. Both plans use16 workers,2GiB/worker,8GiB parent,48GiB
+process-tree software budget,24GiB available-memory reserve and256MiB SQLite cache. Pack and coverage
+are dependency ordered; together their declared active-file allowance is at most8GB, and neither
+modifies201's Guard or SQLite. The one scheduling fixture checks preserved baseline/reference selection,
+the real module dispatch, resource partition and mandatory RPC command without running a launcher,
+accounting query or scientific computation.

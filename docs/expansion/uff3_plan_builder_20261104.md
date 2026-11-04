@@ -183,3 +183,46 @@ zero/sparse/failed/unknown results, must remain present. Future4+ is not run her
 
 Stdlib source/real tiny-filesystem fixtures (not Alpha full-DATA evidence):
 `python -m unittest workflows.expansion.uff3_alpha_runtime_v1.test_ledger_summary workflows.expansion.uff3_alpha_runtime_v1.test_completion workflows.expansion.uff3_alpha_runtime_v1.test_prepare workflows.expansion.uff3_alpha_runtime_v1.test_followup -v`.
+## Allocation-local five-stage continuation
+
+`workflows.expansion.uff3_alpha_runtime_v1.prepare_pipeline` prepares exactly one
+step, then `execv`s the existing NodeLauncher. It never calls `sbatch`. Run it
+inside the real allocated CPU job through the current isolated layer entry:
+
+```
+PY -I -B ENTRY workflows.expansion.uff3_alpha_runtime_v1.prepare_pipeline --phase pilot --config ACTUAL_CONFIG --upstream-job SOURCE_JOB --upstream-tag SOURCE_TAG --entry ACTUAL_ENTRY --tag PILOT_TAG
+PY -I -B ENTRY workflows.expansion.uff3_alpha_runtime_v1.prepare_pipeline --phase qa --config ACTUAL_CONFIG --upstream-job PILOT_JOB --upstream-tag PILOT_TAG --entry ACTUAL_ENTRY --tag QA_TAG
+PY -I -B ENTRY workflows.expansion.uff3_alpha_runtime_v1.prepare_pipeline --phase full --config ACTUAL_CONFIG --upstream-job QA_JOB --upstream-tag QA_TAG --generation-job PILOT_JOB --generation-tag PILOT_TAG --entry ACTUAL_ENTRY --tag FULL_TAG
+PY -I -B ENTRY workflows.expansion.uff3_alpha_runtime_v1.prepare_pipeline --phase qa-full --config ACTUAL_CONFIG --upstream-job FULL_JOB --upstream-tag FULL_TAG --entry ACTUAL_ENTRY --tag FULL_QA_TAG
+PY -I -B ENTRY workflows.expansion.uff3_alpha_runtime_v1.prepare_pipeline --phase finalize --config ACTUAL_CONFIG --upstream-job FULL_QA_JOB --upstream-tag FULL_QA_TAG --generation-job FULL_JOB --generation-tag FULL_TAG --entry ACTUAL_ENTRY --tag FINAL_TAG
+```
+
+All job arguments are actually assigned IDs, never proposed IDs. The helper
+reads `node_epochs/<tag>_job<ID>/plan.json` and `startup.json`, checks their exact
+binding/UID/endpoint, then locates `source_manifest.json`, a unique
+`receipt_job<ID>_*.json`, or QA `result.json` in that actual plan's output.
+Native parent and batch/steps accounting must be terminal C0. The existing
+prepare/followup/completion functions preserve 189, budget, masks, source and
+same-pilot scope semantics. New metadata goes in
+`node_epochs/<tag>_inputs_job_<CURRENT_ID>/`; it does not touch upstream outputs.
+
+Pilot config may additionally list
+`closed_allocation_sources: [{scope: "exact", job_id: "ACTUAL_ID", tag: "ACTUAL_TAG"}]`.
+Only when the pilot allocation starts are these real allocations queried and
+merged into existing `closed_allocations` by actual plan pin. No not-yet-running
+job is labeled C0. Later phases inherit the pilot census and add their actual
+closed inputs. Existing actual201 exclusion bindings are preserved; its active
+SQLite is never opened. Space collection remains metadata-only.
+
+`accounting_command_prefix` defaults to `["sacct"]`, executed without a shell.
+If native compute-node Slurm accounting needs an already configured explicit
+command prefix, supply that real prefix; unavailable/wrong accounting refuses
+continuation. The helper has no fallback that invents terminal status.
+Optional `--python`, `--base-root`, `--launcher`, `--control-root` and
+`--gluster-rpc-program` select actual deployment tools; defaults match the
+existing Alpha continuation launcher. The default Python is the existing
+`software/pubchem_completion_20261103_venv/bin/python` alias. Actual immutable
+pipeline source must be present in deployment `code_references`; use a new
+source layer containing this helper and its test. No old layer is mutated.
+
+Small source fixture: `python -m unittest workflows.expansion.uff3_alpha_runtime_v1.test_pipeline -v`.
