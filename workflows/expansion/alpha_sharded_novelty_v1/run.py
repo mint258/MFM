@@ -27,6 +27,7 @@ class ShardGuard(Guard):
         # Preserve real aggregate quota checks, without walking it for every IPC batch.
         if force or time.monotonic() - self.last >= 30:
             super().poll(force=True, reserve=reserve)
+            self.last = time.monotonic()  # A slow native check must not trigger another immediately.
 
 
 def projection_sql(db, reference_sha):
@@ -300,7 +301,7 @@ def run_nn(plan_path):
             pq.write_table(pa.Table.from_pylist(rows), path, compression='zstd')
             part = closed(path, len(rows), bucket, journal)
             known[bucket].append(part); buffers[bucket] = []
-            guard.poll(force=True)
+            guard.poll()  # Keep the native 30-second quota cadence across small immutable checkpoints.
         try:
             for result in run_batches(fp_path, packed['molecules'], batches(), workers=plan['workers'],
                     worker_rss_cap_bytes=plan['worker_rss_cap_bytes'], ready_callback=ready,
