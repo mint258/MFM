@@ -226,3 +226,34 @@ pipeline source must be present in deployment `code_references`; use a new
 source layer containing this helper and its test. No old layer is mutated.
 
 Small source fixture: `python -m unittest workflows.expansion.uff3_alpha_runtime_v1.test_pipeline -v`.
+## Taskbook1% continuation stop and full-QA reference catalogs
+
+The taskbook final stop list explicitly requires stopping and reporting the user
+when any field's anomalous mask ratio exceeds1%. Earlier report-only wording
+was an implementation interpretation, not a user override. `quality_gate` reads
+actual `all_stream_field_counts` and uses original NEW canonical-record counts:
+`100 * newly_masked_records > canonical_records`. Exactly1% automatically
+continues. SourceNA, component fraction and robust-z review do not supply the
+numerator. Full preparation and native entry both enforce the gate, as do final
+closure preparation, native entry and producer. An exception lists actual field,
+counts and fraction. QA may finish C0 after preserving the entire report; no
+records are deleted and no Root approval artifact or cost threshold is added.
+Old inline QA including219 is checked from its actual counts despite the old
+report-only metadata wording; historical producer files remain untouched.
+
+New full QA writes `family_file_references.jsonl` and
+`batch_manifest_references.jsonl`. Small `result.json` contains
+`all_family_file_references_catalog` and
+`closed_batch_manifest_references_catalog`, each with schema/kind/path/rows/bytes/
+wholeSHA. It omits the old inline keys rather than writing empty placeholder
+arrays. Each newline row preserves the complete original ref, including all
+additional family metadata. Pilot continues to emit its original small inline
+lists; consumers reject ambiguous inline+catalog representations.
+
+Catalogs are literal own regular single-link files directly in the private QA
+root. Writer/reader verify sameFD and path frames; reader verifies bounded
+newline rows, duplicates, declared row/byte count, wholeSHA and actual EOF.
+The finalizer exhausts both catalogs and performs exactly the original family
+set comparison. Normal private QA/finalizer accounting remains active; no
+wide generic scientific metadata reader or duplicate scientific body scan is
+introduced. Source fixture: `python -m unittest workflows.expansion.uff3_alpha_runtime_v1.test_quality_metadata -v` (two targeted tests).

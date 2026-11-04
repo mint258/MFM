@@ -107,3 +107,53 @@ are dependency ordered; together their declared active-file allowance is at most
 modifies201's Guard or SQLite. The one scheduling fixture checks preserved baseline/reference selection,
 the real module dispatch, resource partition and mandatory RPC command without running a launcher,
 accounting query or scientific computation.
+
+## Three allocated report continuations
+
+The new `workflows.expansion.expansion_coverage_followup_v1.report_pipeline` supports only
+`baseline-report`, `rn-populations`, and `batch-graph-report`. It builds an actual input plan inside
+the16CPU allocation and execs the existing NodeLauncher; it never calls sbatch or creates a Root review.
+The existing report.run, rn_populations.run and all original statistics sources remain unchanged.
+
+```
+...report_pipeline --phase baseline-report --config CONFIG --entry ENTRY --tag BASELINE_TAG
+...report_pipeline --phase rn-populations --config CONFIG --entry ENTRY --tag RN_TAG
+...report_pipeline --phase batch-graph-report --config CONFIG --upstream-job ACTUAL_RN_JOB --upstream-tag RN_TAG --entry ENTRY --tag BATCH_TAG
+```
+
+`--upstream-job/tag` optionally replaces the phase's primary dependency: before201 for baseline,
+source217 for RN, actual RN preparation for batch graph. Baseline requires actual201 C0 and exactly
+one original `attempt*.receipt.json` matching its real plan/startup and complete scientific fixed1M
+EOF/reference/membership. RN requires actual217 source C0 and does not wait for201; it reads only201's
+plan/startup to exclude its files from budget credit. Batch graph requires actual201, after223 and RN
+C0, selects `compiled_coverage_manifest.json` and actual RN `manifest.json`, and feeds those real pins
+to the unchanged reporter. No phase opens201 SQLite. All accounting uses the existing explicit SSH
+RPC to Alpha login sacct; the compute-local command is never used.
+
+Config requires `resources_reference` (actual190/current runtime template), `deployment_reference`
+(alias `source_deployment_reference`), `baseline_budget_reference` (current original global budgetV3),
+`before_job_id`/`before_tag`, and optional current `runtime_profile_reference`. RN additionally needs
+`source_job_id`/`source_tag`; batch needs `after_job_id`/`after_tag` and `rn_job_id`/`rn_tag` unless the
+RN dependency is passed on CLI. Real jobs/tags are supplied after submission; no future hashes exist here.
+`statistics_actual_review_reference` defaults to the actual190 authority in B. Its original ten-source
+references must be present in the immutable deployment and resolve to the same statistics_cache capsule.
+`closed_allocation_sources=[{job_id,tag,scope},...]` declares actual closed filter/NN/source/report
+allocations such as209; optional existing `closed_allocations` bindings are reused. The helper also adds
+the phase's closed source217, after223 and RN dependencies to their exact/reports scopes. Actual201 is
+always excluded, even after terminal state; its C0 remains a data dependency, not a block-credit claim.
+
+Existing budget.census/inline stat native closed blocks with actual C0 bindings, without whole-DATA
+SHA reads. The unchanged total reports cap is5GB. `private_caps_bytes` may override each phase's cap;
+defaults are1_500_000_000 for baseline and RN. Batch cap is min(configured upper cap, actual remaining
+reports reservation). Other-future reserve is all other scope remaining plus reports remaining minus
+this private cap. New output_scope_root is a fresh private reports/TAG child. Insufficient actual budget
+or output capacity fails normally and preserves partials; populations are never sampled, trimmed or
+truncated to fit. Future practical cap adjustments belong in the real resource config/global budget.
+
+Plans use16 workers,48GiB tree RSS,1GiB SQLite cache,32GiB SQL memory,40GiB parent allowance,
+24GiB available reserve and spill<=min(2GB, private cap). No node is hardcoded: Root's actual profile
+and Slurm request select baseline compute-0-1/cpu or the other phases sonmi1/cpu. Baseline and batch
+get separate analysis_version values; optional `analysis_versions` must keep those phases distinct.
+The one scheduling/reference fixture checks scientific receipt selection, no SQLite dependency,
+budget remaining arithmetic and all three original module dispatches; it runs no native accounting,
+census, launcher or scientific computation.

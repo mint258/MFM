@@ -12,7 +12,7 @@ from ..uff3_alpha_runtime_v1.quality_authority import accepted,read
 from ..uff3_alpha_runtime_v1.terminal import parent as terminal_parent
 from ..uff3_alpha_runtime_v1.quality_budget import QualityBudget
 from ..pubchem_closed500_bulk_v2.merge import literal
-from . import closed,validation as V,storage,families
+from . import closed,validation as V,storage,families,report_metrics
 
 N=2500000
 
@@ -27,9 +27,11 @@ def actual_inputs(plan):
         and qa['quality_reference_review']==plan['quality_reference_review']and qa['generation_receipts']==plan['generation_receipts']
         and qa['source_capsule_reference']==plan['source_capsule_reference']
         and qa['new_R_N_TRAIN_fit']is False and qa['source_missing_NA_not_counted_as_new_mask']is True
-        and qa['one_percent_action']=='REPORT_USER_ONLY_MASK_LABELS_KEEP_ALL_RECORDS'
+        and qa['one_percent_action']in ('REPORT_USER_ONLY_MASK_LABELS_KEEP_ALL_RECORDS','STOP_CONTINUATION_AND_REPORT_USER_IF_NEW_RECORD_MASK_GT_1PCT_KEEP_ALL_RECORDS')
         and qa['technical_unknown_sources_preserved_not_fabricated_as_valid']is True,
         'Actual complete producer QA/robust review, all sources kept; no per-job Root approval')
+    from ..uff3_alpha_runtime_v1.quality_gate import require_within_one_percent
+    require_within_one_percent(qa)
     accounts=[read(ref)for ref in plan['generation_actual_accounting_references']]
     parents=[]
     for a in accounts:
@@ -138,7 +140,7 @@ def logical_membership(db):
            'Bidirectional full source/CID/key/stream/rank/version/SHA/once-key closure')
 
 
-def mask_membership(db,refs,qa,plan):
+def mask_membership(db,refs,qa,plan,guard):
     paths=[r['path']for r in refs if r['family']=='validity_masks'];Q.need(bool(paths),'Original actual masks retained')
     db.read_parquet(paths,union_by_name=False).create_view('masks')
     review,_,_=accepted(plan['quality_reference_review'])
@@ -155,7 +157,10 @@ def mask_membership(db,refs,qa,plan):
     counts=dict(db.execute('SELECT field_id,count(*)FROM masks GROUP BY field_id').fetchall())
     Q.need(all(counts.get(field,0)==(N if task=='D20'else expected_conf)for field,task in selected),'Every original graph/actual-D3 field represented, including failed source NA')
     actual={Q.canonical({k:r[k]for k in('path','bytes','sha256')})for r in refs}
-    accepted_files={Q.canonical({k:r[k]for k in('path','bytes','sha256')})for r in qa['all_family_file_references']}
+    from ..uff3_alpha_runtime_v1.reference_catalog import members
+    accepted_files={Q.canonical({k:r[k]for k in('path','bytes','sha256')})for r in members(qa,'all_family_file_references',plan['qa_report_reference'],guard.check)}
+    if 'closed_batch_manifest_references_catalog'in qa:
+        for ref in members(qa,'closed_batch_manifest_references',plan['qa_report_reference'],guard.check):pass
     Q.need(actual==accepted_files,'Exactly the full independently accepted QA input files')
     return counts
 
@@ -207,6 +212,7 @@ def run(plan,actual):
     db.execute('CREATE TABLE expected_conformers(mid VARCHAR,record_id VARCHAR,conformer_id BIGINT,d3_hash VARCHAR,geometry_sha VARCHAR,energy_hash VARCHAR,native_id BIGINT,atom_order_sha VARCHAR)')
     storage.initialize(db);file_refs={};batch_refs={};saved=0;unknown=0;append4=0;has_cache=0
     catalog=root/'molecule_saved_evidence.jsonl'
+    metrics=report_metrics.Catalog(root)
     try:
         db.execute('BEGIN TRANSACTION');source_table(db,manifest,guard);db.execute('COMMIT')
         db.execute('BEGIN TRANSACTION')
@@ -214,7 +220,7 @@ def run(plan,actual):
             pending=collections.deque()
             def accept(future):
                 nonlocal saved,unknown,append4,has_cache
-                guard.check();r=future.result();save_fact(db,r,out);saved+=1
+                guard.check();r=future.result();metrics.append(r);save_fact(db,report_metrics.evidence(r),out);saved+=1
                 unknown+=r['actual_conformers']is None;has_cache+=r['cache_available']is True
                 append4+=r['saved_cache_supports_at_least_four_total']is True
                 if saved%4096==0:guard.check(True)
@@ -224,9 +230,11 @@ def run(plan,actual):
             while pending:accept(pending.popleft())
             out.flush();os.fsync(out.fileno())
         db.execute('COMMIT');Q.need(saved==N,'Every frozen source has one retained saved evidence record')
+        Q.need(metrics.aggregate.molecules==saved,'Every saved source has one metadata-only report record')
+        metrics_manifest=metrics.finish(Q.reference)
         logical_membership(db)
         refs=list(file_refs.values());families.scan(db,refs,guard);families.compare(db)
-        masks=mask_membership(db,refs,qa,plan);shared=scratch(db,receipts,qa,plan,guard)
+        masks=mask_membership(db,refs,qa,plan,guard);shared=scratch(db,receipts,qa,plan,guard)
         footprint=storage.summarize(db)
         actual_states=dict(db.execute('SELECT state,count(*)FROM facts GROUP BY state').fetchall())
         Q.need(actual_states==qa['source_state_counts'],'Independently accepted QA status census equals actual retained packets, including unknown')
@@ -250,7 +258,8 @@ def run(plan,actual):
             p=root/(name+'.parquet');db.execute('COPY('+query+')TO '+literal(p)+'(FORMAT PARQUET,COMPRESSION ZSTD)');outputs[name]=Q.reference(p)
         db.execute('CHECKPOINT');guard.check(True)
     finally:
-        guard.stop_sql_monitor();db.close();guard.close()
+        try:metrics.close()
+        finally:guard.stop_sql_monitor();db.close();guard.close()
     # SQL is terminal before its final physical metadata census. This is own
     # closure scratch, excluded from the10M persistent dataset extrapolation.
     finalizer_blocks=sum(storage.fact(p,'FINALIZER_SQL_AND_CATALOG_OUTPUT')[5]
@@ -266,6 +275,7 @@ def run(plan,actual):
         full_source_bidirectional_identity_and_rank_closure=True,all_sparse_failed_unknown_sources_preserved=True,
         saved_D20_D3_and_coordinate_F64_bits_equal_delivered_families=True,three_saved_order_permutations_bound=True,
         molecule_saved_evidence_reference=Q.reference(catalog),catalogs=outputs,closed_batch_manifest_catalog=outputs['batches'],
+        report_metrics=metrics_manifest,
         storage=footprint,finalizer_own_closed_sql_and_catalog_allocated_bytes=finalizer_blocks,
         shared_input_references=shared,shared_input_whole_DATA_SHA_repeated=False,
         append4_or_later_scientific_execution_started=False,training_eligible=False,new_QM_calls=0,

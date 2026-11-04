@@ -19,6 +19,10 @@ def execute(plan_path,proof_path):
     proof=Q.load(proof_path);pins=[Q.reference(p)for p in Path(__file__).parent.glob('*.py')]
     Q.need(all(r in plan['code_references']and r in proof['request']['source_references']for r in pins),
            'Actual finalizer/validators/storage source pins in native startup')
+    from ..uff3_alpha_runtime_v1.quality_gate import require_within_one_percent
+    from ..uff3_alpha_runtime_v1.terminal import parent
+    qa=admission.read(plan['qa_report_reference']);parent(qa['runtime'],plan['qa_actual_accounting_reference'])
+    require_within_one_percent(qa)
     review=admission.partition(plan);routing=Path(plan['output_scope_root']);out=Path(plan['output_directory'])
     Q.need(out.parent==routing and not out.exists()and not any(p.is_symlink()for p in(out,*out.parents)),
            'Fresh independent closure stage; existing molecule/family outputs are read-only inputs')

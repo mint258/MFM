@@ -45,6 +45,8 @@ def prepare_completion(config,generation_ref,generation_account_ref,output,*,qa_
             and all(report[k]==bindings[k]for k in ('quality_reference_review','source_capsule_reference','parent_transport_manifest'))
             and report['new_R_N_TRAIN_fit']is False and report['new_UFF_QM_calls']==0,
             'Finalizer consumes actual complete full QA from the same2.5M generation/source/reference')
+        from .quality_gate import require_within_one_percent
+        require_within_one_percent(report)
         m=report['execution_metadata']
         extras.append(dict(scope='UFF',runtime=report['runtime'],plan_reference=m['original_launcher_plan_reference'],
             startup_proof_reference=m['original_startup_proof_reference'],accounting_reference=qa_account_ref))

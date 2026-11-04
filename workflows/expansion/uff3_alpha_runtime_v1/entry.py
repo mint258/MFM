@@ -111,6 +111,8 @@ def pilot(plan):
         and qa['new_R_N_TRAIN_fit']is False
         and qa['technical_unknown_sources_preserved_not_fabricated_as_valid']is True,
         'Actual same-source10k producer/QA/observed resources; no manual Root approval or success/cost threshold')
+    from .quality_gate import require_within_one_percent
+    require_within_one_percent(qa)
 
 def derive(plan,actual,plan_ref,proof_ref):
     Q.need('_metadata_entry_files'not in plan,'Entry-owned derived metadata field cannot be supplied by caller')

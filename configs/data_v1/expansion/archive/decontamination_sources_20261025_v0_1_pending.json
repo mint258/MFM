@@ -1,0 +1,283 @@
+{
+  "schema": "expansion_decontamination_sources_v1",
+  "version": "0.1.0",
+  "prepared_on": "2026-10-25",
+  "status": "PENDING_PHYSICAL_SOURCE_AND_ALL_SPLIT_CLOSURE",
+  "identity_policy": {
+    "exact": "full_inchikey",
+    "wp5": "inchikey_first14+colon+last_protonation_character",
+    "unresolved": "conservative_non_h_element_composition_when_original_graph_identity_unavailable",
+    "ranking_uses_downstream_features": false
+  },
+  "required_scope": "Every used or planned downstream dataset; all splits; v1 TRAIN/VAL/FULL plus 4900 embargo records",
+  "sources": [
+    {
+      "dataset": "v1_all_roles_and_embargo",
+      "status": "PENDING",
+      "version": null,
+      "required_roles": [
+        "TRAIN",
+        "VAL",
+        "FULL",
+        "embargo"
+      ],
+      "official_metadata": [],
+      "raw_artifacts": [],
+      "identities": null,
+      "coverage_evidence": null,
+      "pending_reason": "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+      "known_paths": [
+        "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+        "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/excluded_unassigned_index.parquet"
+      ],
+      "note": "VAL is the existing ROUTINE authority, not a newly sampled split. Use canonical/source full-key variants and preserve the 4900 embargo rows. Do not double-count ROUTINE membership inside FULL."
+    },
+    {
+      "dataset": "expansionrx",
+      "status": "PENDING",
+      "version": null,
+      "required_roles": [
+        "train",
+        "test"
+      ],
+      "official_metadata": [
+        "https://github.com/OpenADMET/ExpansionRx-Challenge-Tutorial",
+        "https://huggingface.co/datasets/openadmet/openadmet-expansionrx-challenge-data"
+      ],
+      "raw_artifacts": [],
+      "identities": null,
+      "coverage_evidence": null,
+      "pending_reason": "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+      "known_physical_sha256": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/log_train_data.csv",
+          "sha256": "2bb87a2500ad48699b84d1666e54ee1d444d963f8f77dbfe91fcfbc0579512a7",
+          "rows": 5326
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/data/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/official_test.csv",
+          "sha256": "ec48312d21d23cc83fd58d577a357cbdb480b30184b527152a4969244dd243a8",
+          "rows": 2282
+        }
+      ],
+      "metadata_authority": "runs/sprime_s_convergence_20261013/configs/s_probe_protocol_v2.json",
+      "note": "Existing official CSV pins are historical metadata; verify current bytes and extract all source identities without targets."
+    },
+    {
+      "dataset": "som_cyp",
+      "status": "PENDING",
+      "version": null,
+      "required_roles": [
+        "all"
+      ],
+      "official_metadata": [],
+      "raw_artifacts": [],
+      "identities": null,
+      "coverage_evidence": null,
+      "pending_reason": "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+      "known_source_family": "Existing closed cyp_sources/cyp_folds source ledgers, all original folds",
+      "expected_metadata_records": 2003
+    },
+    {
+      "dataset": "som_az",
+      "status": "PENDING",
+      "version": null,
+      "required_roles": [
+        "all"
+      ],
+      "official_metadata": [],
+      "raw_artifacts": [],
+      "identities": null,
+      "coverage_evidence": null,
+      "pending_reason": "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+      "known_source_family": "Existing closed az_sources/az_folds source ledgers, all original folds",
+      "expected_metadata_records": 109
+    },
+    {
+      "dataset": "qm7",
+      "status": "PENDING",
+      "version": null,
+      "required_roles": [
+        "all"
+      ],
+      "official_metadata": [
+        "https://quantum-machine.org/datasets/"
+      ],
+      "raw_artifacts": [],
+      "identities": null,
+      "coverage_evidence": null,
+      "pending_reason": "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+      "note": "Previously used downstream benchmark, therefore included in addition to guide examples. Preserve unresolved-source composition embargo rather than inventing graph identities."
+    },
+    {
+      "dataset": "qm9",
+      "status": "PENDING",
+      "version": null,
+      "required_roles": [
+        "all"
+      ],
+      "official_metadata": [
+        "https://doi.org/10.6084/m9.figshare.978904",
+        "https://github.com/deepchem/deepchem/blob/master/deepchem/molnet/load_function/qm9_datasets.py"
+      ],
+      "raw_artifacts": [],
+      "identities": null,
+      "coverage_evidence": null,
+      "pending_reason": "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+      "candidate_download_urls": [
+        "https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/qm9.csv"
+      ],
+      "expected_metadata_records": 133885,
+      "note": "Use the full original 133885-source identity population, including any rows subsequently excluded by a benchmark loader; versions must not be conflated."
+    },
+    {
+      "dataset": "tdc_admet",
+      "status": "PENDING",
+      "version": "official_admet_group_dataverse_file_4426004_pending_bytes",
+      "required_roles": [
+        "train_val",
+        "test"
+      ],
+      "official_metadata": [
+        "https://tdcommons.ai/benchmark/admet_group/overview/",
+        "https://github.com/mims-harvard/TDC/blob/main/tdc/metadata.py"
+      ],
+      "raw_artifacts": [],
+      "identities": null,
+      "coverage_evidence": null,
+      "pending_reason": "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+      "candidate_download_urls": [
+        "https://dataverse.harvard.edu/api/access/datafile/4426004"
+      ],
+      "upstream_metadata_git_blob_sha": "b805138e308e3a95b5bf6b60532c40b082a2f890",
+      "required_subdatasets": [
+        "caco2_wang",
+        "hia_hou",
+        "pgp_broccatelli",
+        "bioavailability_ma",
+        "lipophilicity_astrazeneca",
+        "solubility_aqsoldb",
+        "bbb_martins",
+        "ppbr_az",
+        "vdss_lombardo",
+        "cyp2d6_veith",
+        "cyp3a4_veith",
+        "cyp2c9_veith",
+        "cyp2d6_substrate_carbonmangels",
+        "cyp3a4_substrate_carbonmangels",
+        "cyp2c9_substrate_carbonmangels",
+        "half_life_obach",
+        "clearance_microsome_az",
+        "clearance_hepatocyte_az",
+        "herg",
+        "ames",
+        "dili",
+        "ld50_zhu"
+      ],
+      "note": "The official archive contains the 22 benchmark endpoints. Both train_val and test are required; do not use only the test files or replace the official group with unrelated single-task tables."
+    },
+    {
+      "dataset": "moleculenet",
+      "status": "PENDING",
+      "version": null,
+      "required_roles": [
+        "all"
+      ],
+      "official_metadata": [
+        "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+        "https://github.com/deepchem/deepchem/tree/master/deepchem/molnet/load_function"
+      ],
+      "raw_artifacts": [],
+      "identities": null,
+      "coverage_evidence": null,
+      "pending_reason": "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+      "scope_resolution": "PENDING: guide names MoleculeNet subsets but does not enumerate them; proposed conservative union of the classic molecular datasets, to be explicitly frozen before downloading/filtering.",
+      "required_subdatasets": [
+        "BACE",
+        "BBBP",
+        "ClinTox",
+        "ESOL",
+        "FreeSolv",
+        "HIV",
+        "Lipophilicity",
+        "MUV",
+        "PCBA",
+        "PDBbind",
+        "QM7",
+        "QM7b",
+        "QM8",
+        "QM9",
+        "SIDER",
+        "Tox21",
+        "ToxCast"
+      ],
+      "candidate_download_urls": [
+        "https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/delaney-processed.csv",
+        "https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/BBBP.csv"
+      ],
+      "note": "URLs are examples verified in official loaders, not a complete archive or proof that all proposed datasets have been acquired. All original ligand identities are needed, independent of benchmark split or label missingness."
+    },
+    {
+      "dataset": "marcel_drugs75k",
+      "status": "PENDING",
+      "version": "ICLR2024_official_archive_pending_bytes",
+      "required_roles": [
+        "all"
+      ],
+      "official_metadata": [
+        "https://github.com/SXKDZ/MARCEL/tree/main/datasets/Drugs"
+      ],
+      "raw_artifacts": [],
+      "identities": null,
+      "coverage_evidence": null,
+      "pending_reason": "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+      "candidate_download_urls": [
+        "https://drive.google.com/file/d/1PHgbrxdDyyjnxSUA71zXWG8WNwocDLPH/view?usp=sharing"
+      ],
+      "upstream_readme_git_blob_sha": "b55ed39b852281c3fb7702e9d3acd7cf02f4e2cf",
+      "expected_metadata_records": 75099
+    },
+    {
+      "dataset": "marcel_kraken",
+      "status": "PENDING",
+      "version": "ICLR2024_official_archive_pending_bytes",
+      "required_roles": [
+        "all"
+      ],
+      "official_metadata": [
+        "https://github.com/SXKDZ/MARCEL/tree/main/datasets/Kraken",
+        "https://kraken.cs.toronto.edu"
+      ],
+      "raw_artifacts": [],
+      "identities": null,
+      "coverage_evidence": null,
+      "pending_reason": "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+      "candidate_download_urls": [
+        "https://drive.google.com/file/d/1QrV651Re7s6UF7Lg4KC9PM5QQUMPU7wd/view?usp=sharing"
+      ],
+      "upstream_readme_git_blob_sha": "3b296d59dde00205c2b7450e884a8334e52f1ba4",
+      "expected_metadata_records": 1552
+    },
+    {
+      "dataset": "coconut",
+      "status": "PENDING",
+      "version": "2026-10_official_download_page_pending_bytes",
+      "required_roles": [
+        "all"
+      ],
+      "official_metadata": [
+        "https://coconut.naturalproducts.net/download",
+        "https://steinbeck-lab.github.io/coconut/versions.html"
+      ],
+      "raw_artifacts": [],
+      "identities": null,
+      "coverage_evidence": null,
+      "pending_reason": "Actual files, SHA256 and complete all-split identity coverage have not been verified",
+      "candidate_download_urls": [
+        "https://coconut.s3.uni-jena.de/prod/downloads/2026-10/coconut_csv_lite-10-2026.zip",
+        "https://coconut.s3.uni-jena.de/prod/downloads/2026-10/coconut_csv-10-2026.zip"
+      ],
+      "note": "Natural products reserved as out-of-domain evaluation. Official page also lists a complete active/inactive dump; prove whether CSV covers all intended OOD identities before closing coverage. Do not score novelty against COCONUT."
+    }
+  ]
+}

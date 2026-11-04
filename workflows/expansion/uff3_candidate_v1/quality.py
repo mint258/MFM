@@ -1,7 +1,7 @@
 """Aggregate original D masks/reviews over every real R/N candidate molecule.
 
 This is an analysis pass over closed outputs. It neither generates geometry nor
-refits a TRAIN reference on R/N. Reports remain pending independent Root review.
+refits a TRAIN reference on R/N. Taskbook >1% new-mask stops apply to continuation.
 """
 from __future__ import annotations
 import argparse
@@ -65,7 +65,7 @@ def run(plan):
     mask_cfg=S.read_json(verify(review['original_mask_config_reference']))
     mask_rules=S.read_json(verify(mask_cfg['sources']['mask_rules']))
     if mask_rules['hard_stop_new_mask_fraction']!=.01 or not mask_rules['source_missing_and_NA_separate_from_new_masks']:
-        raise RuntimeError('ORIGINAL_RECORD_BASED_ONE_PERCENT_REPORT_THRESHOLD_REQUIRED')
+        raise RuntimeError('ORIGINAL_RECORD_BASED_ONE_PERCENT_STOP_THRESHOLD_REQUIRED')
     expected={str(f['field_id']) for f in field_map if f['task'] in ('D20','D3')}
     census=sqlite3.connect(output/'source_census.sqlite')
     census.execute('CREATE TABLE molecules(mid TEXT PRIMARY KEY,stream TEXT,status TEXT,manifest TEXT)')
@@ -190,9 +190,9 @@ def run(plan):
             'fields_over_one_percent_masked':over_one_percent,
             'mask_record_report_threshold':.01,
             'fields_over_one_percent_masked_records':record_report_fields,
-            'one_percent_action':'REPORT_USER_ONLY_MASK_LABELS_KEEP_ALL_RECORDS',
-            'automatic_candidate_release_stop_due_to_one_percent':False,
-            'legacy_mask_config_hard_stop_name_is_not_expansion_policy':True,
+            'one_percent_action':'STOP_CONTINUATION_AND_REPORT_USER_IF_NEW_RECORD_MASK_GT_1PCT_KEEP_ALL_RECORDS',
+            'automatic_candidate_release_stop_due_to_one_percent':True,
+            'taskbook_one_percent_stop_applies_to_new_canonical_record_masks':True,
             'original_record_gate_counts':S.reference(output/'original_record_gate.parquet'),
             'source_missing_NA_not_counted_as_new_mask':True,
             'quality_reference_review':quality_ref,'new_R_N_TRAIN_fit':False,
@@ -201,10 +201,17 @@ def run(plan):
             'source_mask_functions_unchanged':True,'mask_reason_sets':S.reference(output/'reason_sets.parquet'),
             'worst20_per_field':S.reference(output/'worst20.parquet'),
             'field_summary':S.reference(output/'summary.parquet'),
-            'all_family_file_references':list(family_refs.values()),
-            'closed_batch_manifest_references':list(batch_refs.values()),
             'generation_receipts':plan['generation_receipts'],'new_UFF_QM_calls':0,
             'training_eligible':False}
+        if mode=='full':
+            from ..uff3_alpha_runtime_v1.reference_catalog import write
+            result['all_family_file_references_catalog']=write(output/'family_file_references.jsonl',family_refs.values(),output,'family_files',budget)
+            result['closed_batch_manifest_references_catalog']=write(output/'batch_manifest_references.jsonl',batch_refs.values(),output,'batch_manifests',budget)
+        else:
+            result['all_family_file_references']=list(family_refs.values())
+            result['closed_batch_manifest_references']=list(batch_refs.values())
+        # QA itself may finish C0 with the entire report. The native next-stage
+        # metadata guard refuses full generation/closure if NEW records exceed1%.
         S.write_new(output/'result.json',result)
         return result
     finally:

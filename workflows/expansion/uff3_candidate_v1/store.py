@@ -13,6 +13,7 @@ import os
 import time
 from pathlib import Path
 from .core import canonical, create_cache, export_cache, recipe_sha, source_identity, validate_cache
+from .call_timing import CallTimings, TimedKernel
 
 
 def reference(path):
@@ -52,10 +53,12 @@ class Journal:
         self.path = Path(path)
         self.maximum_directory_bytes = maximum_directory_bytes
         self.stream = Path(path).open("xb")
+        self.timing = None
         self.ordinal = 0
         self.previous = "0" * 64
 
     def emit(self, event):
+        if self.timing is not None:event = self.timing.annotate(event)
         record = {"ordinal": self.ordinal, "previous_sha256": self.previous, "event": event}
         raw = canonical(record)
         if self.maximum_directory_bytes is not None:
@@ -109,6 +112,8 @@ def run_one(source, output, *, kernel=None, prior_cache_path=None,
         from .native import NativeKernel
         kernel = NativeKernel()
     journal = Journal(output / "events.jsonl", maximum_molecule_output_bytes)
+    journal.timing = CallTimings()
+    kernel = TimedKernel(kernel, journal.timing)
     try:
         if prior_cache_path is None:
             cache = create_cache(source, kernel, journal.emit, checkpoint)

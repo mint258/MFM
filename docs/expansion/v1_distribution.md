@@ -19,4 +19,6 @@
 
 可查看[完整结构统计报告及方法](population_statistics_20261104/v1_distribution_population_only.md)、[精确产物索引](population_statistics_20261104/artifact_index.json)、[统计验收](population_statistics_20261104/current_baseline_Common_statistics_1885190_root_actual_v1.json)及[图表验收](population_statistics_20261104/population_figures_1885198_root_actual_v1.json)。PDF/PNG 与完整分类 Parquet 保留在 Alpha，Git 提供 SVG、汇总表、代码及其字节数和哈希。
 
-尚待实际完成：100 万查询到完整 Common 的 exact ECFP4 最近邻、稀缺结构分析、全来源过滤、1000 万固定 R/N 队列、首批 250 万分子的 UFF/D 标签及覆盖分析。只生成最多 3 个实际 UFF 构象、不补足、不重试；本页不改变这些生成规则。
+尚待实际完成：100 万查询到完整 Common 的 exact ECFP4 最近邻、稀缺结构分析、1000 万固定 R/N 队列、首批 250 万分子的 UFF/D 标签及覆盖分析。只生成最多 3 个实际 UFF 构象、不补足、不重试；本页不改变这些生成规则。
+
+2026-11-04进度补充：按修正规则的全池过滤已实际完成，109,875,599个输入保留105,670,833个；当前去污染来源和版本/哈希见[登记清单](../../configs/data_v1/decontamination_sources.json)，[生产清单](results/20261104/exact_key_filter_1885209_manifest.json)保留完整分片与评估剔除证据。此项不代替尚在计算的100万最近邻或UFF/D完成证明。

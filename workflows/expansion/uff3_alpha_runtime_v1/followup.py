@@ -92,6 +92,8 @@ def full(config,pilot_ref,pilot_account_ref,qa_ref,qa_account_ref,output,binding
     Q.need(report['mode']=='pilot'and report['source_molecules_by_stream']=={'R':5000,'N':5000}
         and pilot_ref in report['generation_receipts']and report['quality_reference_review']==bindings['quality_reference_review'],
         'Actual same-pilot original mask/robust report, not full or historical unrelated QA')
+    from .quality_gate import require_within_one_percent
+    require_within_one_percent(report)
     qa_plan_ref=report['execution_metadata']['original_launcher_plan_reference']
     qa_binding=dict(scope='UFF',runtime=report['runtime'],plan_reference=qa_plan_ref,
         startup_proof_reference=report['execution_metadata']['original_startup_proof_reference'],accounting_reference=qa_account_ref)

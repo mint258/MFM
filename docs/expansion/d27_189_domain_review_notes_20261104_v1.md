@@ -80,7 +80,7 @@ D20 通过原 GRAPH_DESCRIPTOR_SPECS 的对应 2D 函数对象计算；HBA 是 L
 
 原 masks.source_value_mask / 原 cross-field / sparse mask parity 保留；D27 的原 cross-field helper 不会凭空套用 PM7 charged-state IP/EA 或 charge-sum 条件。coverage 的旧 review 计数为零，不代表已用这次新 median/MAD 对全体原 TRAIN 或新 UFF 完成 robust-outlier review。
 
-零 MAD 是真实结果：ID10 NumBridgeheadAtoms、ID15 NumSaturatedRings、ID16 NumSpiroAtoms 的 median=MAD=0。原 scan_v2.add_reference_reviews 对非零偏离给 ZERO_MAD_UNEQUAL_VALUE_REVIEW_ONLY，不换成 scale1。正常 MAD 用 0.6744897501960817*|x-median|/MAD；原子字段以该记录内最大有效叶偏差给 record-level review，>20 仅加 ROBUST_Z_GT20_REVIEW_ONLY；不由此自动改 value_mask。此次扩充的 1% 是 canonical-record fraction 的报告触发，保留 source NA / 新掩码 / final mask 分离，不删记录、不自动停全部候选发布。
+零 MAD 是真实结果：ID10 NumBridgeheadAtoms、ID15 NumSaturatedRings、ID16 NumSpiroAtoms 的 median=MAD=0。原 scan_v2.add_reference_reviews 对非零偏离给 ZERO_MAD_UNEQUAL_VALUE_REVIEW_ONLY，不换成 scale1。正常 MAD 用 0.6744897501960817*|x-median|/MAD；原子字段以该记录内最大有效叶偏差给 record-level review，>20 仅加 ROBUST_Z_GT20_REVIEW_ONLY；不由此自动改 value_mask。2026-11-04 更正：此前把任务书1.5末句单独理解为1%仅报告是不充分的；文末停止条件明确要求“任一字段的异常掩盖比例超过1%”立即停止并报告用户。扩充续程按原 canonical-record 新掩码分子/分母严格 >1% 阻断 full 启动与最终闭合，保留全部记录及报告。source NA / 新掩码 / final mask 保持分离，source NA、component 比例和 robust-z review 不作为新增异常掩码。此更正不修改既有189科学reference/历史producer。
 
 历史 D20 值可见 F32 后提升的精度（如 HallKierAlpha median=-2.309999942779541、TPSA median=66.4000015258789）；F64 存储/精确 radix 统计不会恢复丢失的小数。新 D20 用原函数输出的 F64，与该历史基准存在精度差异，domain 已如实披露，不能宣称旧源重新变成原生 F64。
 

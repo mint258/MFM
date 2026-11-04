@@ -8,7 +8,7 @@ from pathlib import Path
 import stat
 from ..alpha_runtime_v1 import common as Q
 from ..uff3_candidate_v1 import core as C,store as S
-from . import validation as V
+from . import validation as V,report_metrics
 
 
 def frame(s):return (s.st_dev,s.st_ino,s.st_mode,s.st_uid,s.st_nlink,s.st_size,s.st_mtime_ns,s.st_ctime_ns)
@@ -56,7 +56,7 @@ def verify_stream(ref):
 
 def read_one(item):
     ordinal,source,manifest_ref,worker_pid,reused,maximum=item
-    m=document(manifest_ref,maximum);artifacts=[manifest_ref]
+    m=document(manifest_ref,maximum);artifacts=[manifest_ref];cache=p=journal=None
     if m['schema']=='PUBCHEM_UFF3_INTERRUPTED_MOLECULE_V1':
         result=V.interrupted(source,m);packet_ref=manifest_ref;cache_ref=event_ref=None
         # These bytes remain UNKNOWN: pin them without treating an incomplete
@@ -76,8 +76,9 @@ def read_one(item):
         Q.need(len(journal)==m['event_count']and m['state']==p['state'],'Closed actual event/state census')
         result=V.packet(source,cache,p,m,journal);artifacts.extend([cache_ref,packet_ref,event_ref])
     once=C.sha(C.canonical([C.recipe_sha(),C.source_identity(source)]))
-    return dict(ordinal=ordinal,source=source,molecule_id=C.molecule_id(source),source_identity_sha256=C.source_identity(source),
+    saved=dict(ordinal=ordinal,source=source,molecule_id=C.molecule_id(source),source_identity_sha256=C.source_identity(source),
         once_key=once,manifest_reference=manifest_ref,packet_reference=packet_ref,cache_reference=cache_ref,
         events_reference=event_ref,producer_job_id=m.get('producer_job_id'),
         family_verification_worker_pid=worker_pid,closed_reused=reused,
         original_native_worker_pid_not_recorded_per_molecule=True,artifacts=artifacts,**result)
+    return dict(saved,**{report_metrics.METADATA_KEY:report_metrics.extract(source,m,cache,p,journal,saved)})

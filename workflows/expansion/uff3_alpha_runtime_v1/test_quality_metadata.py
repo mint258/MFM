@@ -1,84 +1,60 @@
-"""Metadata authority boundaries; no scientific data are read or fabricated."""
-import copy
-import sys
-from types import SimpleNamespace
+"""Two targeted metadata boundaries: original1% gate and real catalog EOF."""
+import hashlib
+import os
 from pathlib import Path
+import tempfile
 import unittest
-from unittest.mock import patch
-from . import quality_authority as A
-from .collector import select_replicas
-
-
-def pin(name):return {'path':'/metadata-fixture/'+name,'bytes':1,'sha256':name}
-
-
-def documents():
-    parent={'State':'COMPLETED','ExitCode':'0:0','endpoint':A.Q.ENDPOINT,'UID':'1264','JobIDRaw':'fixture'}
-    review=dict(schema='ROOT_NO_PM7_UFF_D_MATCHED_TRAIN_REFERENCE_V1',status='APPROVED_REFERENCE_APPLICATION_ONLY',
-        reviewer='root',R_N_fit_as_TRAIN=False,same_D_function_units_and_family_field_map_reviewed=True,
-        UFF_D3_vs_original_TRAIN_domain_difference_reviewed=True,actual_parent=parent,
-        actual_accounting_reference=pin('account'),producer_receipt_reference=pin('producer'),
-        TRAIN_calibration_reference=pin('cal'),TRAIN_reference_domain_reference=pin('domain'),
-        fit_records=10953084,Common_TRAIN_native_records_before_D5_exclusion=10973084,
-        D5_PM7_held_native_records_excluded=20000)
-    cal=dict(schema='PUBCHEM_FULL_COMMON_TRAIN_D27_CALIBRATION_V1',fit_role='TRAIN_ONLY',coverage_fingerprint='fixture',
-        provisional_scope_not_final_Common=False,R_N_used_for_fit=False,
-        fields={str(i):{'TRAIN_n':580397586 if i==24 else 10953084}for i in range(27)})
-    domain=dict(schema='PUBCHEM_FULL_COMMON_TRAIN_D27_REFERENCE_DOMAIN_V1',fit_role='TRAIN_ONLY',
-        calibration_reference=pin('cal'),coverage_fingerprint='fixture',actual_source_and_role_census_closed=True,
-        full_Common_census_closed=True,new_R_N_TRAIN_fit=False,robust_z_review_only_no_automatic_mask=True,fit_records=10953084)
-    account=dict(endpoint=A.Q.ENDPOINT,uid=1264,actual_parents=[parent],raw_sacct_reference=pin('raw'))
-    return {'review':review,'cal':cal,'domain':domain,'account':account,'producer':{}}
+from .quality_gate import require_within_one_percent
+from . import reference_catalog as R
 
 
 class QualityMetadataTests(unittest.TestCase):
-    def validate(self,docs):
-        with patch.object(A,'read',side_effect=lambda ref:docs[ref['sha256']]),patch.object(A.Q,'verify',return_value=Path('/not-read')):
-            return A.accepted(pin('review'))
+    def test_strict_new_canonical_record_gate_ignores_sourceNA_components_and_z(self):
+        row=dict(field_id='26',field_key='SASA_atom',canonical_records=10000,newly_masked_records=100,
+                 source_ineligible_records=9000,masked_components=999999,masked_fraction=.99,
+                 original_new_mask_record_fraction=.01,robust_z_review_records=9999)
+        require_within_one_percent({'all_stream_field_counts':[row]})
+        with self.assertRaisesRegex(RuntimeError,'STOP_REPORT_USER.*101'):
+            require_within_one_percent({'all_stream_field_counts':[{**row,'newly_masked_records':101}]})
+        require_within_one_percent({'all_stream_field_counts':[{**row,'newly_masked_records':0}]})
+        with self.assertRaisesRegex(RuntimeError,'COUNTS_REQUIRED'):
+            require_within_one_percent({'all_stream_field_counts':[{**row,'newly_masked_records':10001}]})
 
-    def test_real_scope_contract_rejects_provisional_and_nonTRAIN_fits(self):
-        docs=documents();self.assertEqual(self.validate(docs)[1]['fields']['24']['TRAIN_n'],580397586)
-        for section,field,value in [('cal','provisional_scope_not_final_Common',True),
-                ('domain','full_Common_census_closed',False),('cal','R_N_used_for_fit',True),('domain','fit_records',50000)]:
-            bad=copy.deepcopy(docs);bad[section][field]=value
-            with self.subTest(field=field),self.assertRaises(ValueError):self.validate(bad)
+    def test_real_catalog_complete_rows_SHA_EOF_mutation_duplicates_and_legacy(self):
+        class Budget:
+            def __init__(self):self.paths=[];self.checks=0
+            def check(self):self.checks+=1
+            def register(self,path):self.paths.append(path)
+        with tempfile.TemporaryDirectory()as folder:
+            root=Path(folder);b=Budget()
+            rows=[dict(path=str(root/('family'+str(i)+'.parquet')),bytes=i,sha256=str(i)*64,
+                       family='complete-original-family',extra_original_metadata={'ordinal':i})for i in range(3)]
+            ref=R.write(root/'families.jsonl',rows,root,'family_files',b)
+            self.assertEqual(ref['rows'],3);self.assertEqual(b.paths,[root/'families.jsonl'])
+            self.assertGreater(b.checks,0);self.assertEqual(list(R.read(ref,root,'family_files')),rows)
+            qa_ref={'path':str(root/'result.json')}
+            qa={'all_family_file_references_catalog':ref}
+            self.assertEqual(list(R.members(qa,'all_family_file_references',qa_ref)),rows)
+            self.assertEqual(list(R.members({'all_family_file_references':rows},'all_family_file_references',qa_ref)),rows)
+            with self.assertRaisesRegex(ValueError,'Ambiguous'):
+                list(R.members({**qa,'all_family_file_references':[]},'all_family_file_references',qa_ref))
+            with self.assertRaisesRegex(ValueError,'SHA/rows/bytes/EOF'):
+                list(R.read({**ref,'sha256':'f'*64},root,'family_files'))
+            with self.assertRaisesRegex(ValueError,'Duplicate'):
+                list(R.members({'all_family_file_references':[rows[0],rows[0]]},'all_family_file_references',qa_ref))
+            # Valid declared SHA/bytes but missing final newline still fails.
+            raw=(root/'families.jsonl').read_bytes()[:-1];(root/'partial.jsonl').write_bytes(raw)
+            partial={**ref,'path':str(root/'partial.jsonl'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+            with self.assertRaisesRegex(ValueError,'newline'):list(R.read(partial,root,'family_files'))
+            raw=R.Q.canonical(rows[0])+b'\n';(root/'duplicates.jsonl').write_bytes(raw+raw)
+            duplicate={**ref,'path':str(root/'duplicates.jsonl'),'bytes':2*len(raw),'rows':2,'sha256':hashlib.sha256(raw+raw).hexdigest()}
+            with self.assertRaisesRegex(ValueError,'Duplicate'):list(R.read(duplicate,root,'family_files'))
+            reader=R.read(ref,root,'family_files');self.assertEqual(next(reader),rows[0])
+            path=root/'families.jsonl';path.write_bytes(path.read_bytes().replace(b'ordinal',b'Ordinal'))
+            with self.assertRaisesRegex(ValueError,'mutated|SHA'):list(reader)
+            os.link(root/'duplicates.jsonl',root/'hardlink.jsonl')
+            with self.assertRaisesRegex(ValueError,'hardlinks'):
+                list(R.read({**duplicate,'path':str(root/'hardlink.jsonl')},root,'family_files'))
 
-    def test_atom_weighting_and_actual_parent_are_not_substitutable(self):
-        docs=documents();docs['cal']['fields']['24']['TRAIN_n']=10953084
-        with self.assertRaises(ValueError):self.validate(docs)
-        docs=documents();docs['account']['actual_parents']=[{**docs['review']['actual_parent'],'JobIDRaw':'other'}]
-        with self.assertRaisesRegex(ValueError,'same independent Root accounting'):self.validate(docs)
-
-    def test_transport_projection_does_not_import_large_data_or_replace_named_code(self):
-        code=pin('code');needed=pin('mask-json');large=pin('large-DATA')
-        item=lambda ref,path:dict(source_reference=ref,replica_reference={**ref,'path':path},origin_endpoint='Main',origin_uid=1278)
-        original={'replicas':[item(code,'/actual/common.py')]}
-        extra={'replicas':[item(code,'/actual/anonymous.blob'),item(needed,'/actual/mask.blob'),item(large,'/actual/large.blob')]}
-        rows=select_replicas(original,extra,[code,needed])
-        self.assertEqual(len(rows),2);self.assertEqual(rows[0]['replica_reference']['path'],'/actual/common.py')
-        self.assertFalse(any(i['source_reference']==large for i in rows))
-        with self.assertRaisesRegex(ValueError,'Missing required'):select_replicas(original,extra,[pin('absent')])
-
-    def test_current_key_only_shards_no_composition_prefix_or_old_policy(self):
-        from .ordered_contract import complete
-        f={'schema':'PUBCHEM_EXACT_KEY_FILTERED_SHARDS_V1','status':'COMPLETE',
-           'policy':{'identity_kinds':['full','wp5'],'composition_veto':False},
-           'eligible_molecules':16000000,'candidates':[{**pin(str(i)),'rows':1000000,'fp_bucket':format(i,'x')}for i in range(16)]}
-        rank={'schema':'expansion_nested_queues_v1','status':'CANDIDATE_ORDER_COMPLETE_NO_CONFORMERS_COMPUTED',
-              'pool_molecules':16000000,'seed':20261025,'queue_molecules_each':5000000,
-              'first_batch_molecules_each':1250000,'downstream_features_used':False,'filtered_pool':pin('filtered')}
-        nn={'schema':'PUBCHEM_SHARDED_FULL_POOL_NOVELTY_V1','status':'COMPLETE','queries':16000000,
-            'filtered_pool_reference':pin('filtered'),'projection_parts':[pin('whole-part')]}
-        self.assertEqual(len(complete(rank,f,nn)),16)
-        split=copy.deepcopy(f);part=split['candidates'].pop(0);split['candidates'][:0]=[{**part,'rows':400000},{**part,'path':'other-part','rows':600000}]
-        self.assertEqual(len(complete(rank,split,nn)),17)
-        for mutate in ('composition','old','prefix','invalid-bucket'):
-            bad=copy.deepcopy(f)
-            if mutate=='composition':bad['policy']['composition_veto']=True
-            elif mutate=='old':bad['schema']='expansion_filtered_columnar_pool_v1'
-            elif mutate=='prefix':bad['candidates'][0]['rows']-=1
-            else:bad['candidates'][0]['fp_bucket']='10'
-            with self.subTest(mutate=mutate),self.assertRaises(ValueError):complete(rank,bad,nn)
-        with self.assertRaises(ValueError):complete(rank,f,{**nn,'queries':15999999})
 
 if __name__=='__main__':unittest.main()

@@ -92,7 +92,10 @@ Pilot QA checks exact frozen10k membership before full appends; it cannot be
 rerun against a later-mutated full index. Full remains R/N1.25M each. The fresh
 private SQL scope counts DB/WAL/spill/dirs with finite sql_memory_bytes and
 spill_cap_bytes; SQL monitor stops before DB close. Original masks, robust-z
-review, source-NA separation and1% report-only semantics remain unchanged.
+review and source-NA separation remain unchanged. The taskbook stop condition
+requires stopping continuation and reporting the user when any field has strictly
+more than1% NEW canonical-record masks. Exactly1% continues automatically;
+sourceNA, component fractions and z-review do not count as new masks.
 
 ## Inline real storage partition and resume metadata
 

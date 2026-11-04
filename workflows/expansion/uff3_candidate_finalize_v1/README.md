@@ -70,7 +70,11 @@ must agree for each family row. No float32 family is accepted. Three saved
 conformer orders are exact permutations and bound to the immutable packet.
 Original mask field/record/source/packet identity and counts match every graph
 and actual saved conformer; full accepted-producer QA inputs are exactly the
-same physical family files. Original mask/z/1% report-only behavior is unchanged.
+same physical family files. Original physical masks and z-review are unchanged;
+the taskbook strict >1% NEW canonical-record-mask stop/report condition is
+checked before closure, including original inline QA producers. Full QA catalogs
+stream every complete family reference and batch reference through SHA/rows/EOF
+and same-FD/frame checks; actual family set comparison is unchanged.
 
 Every source keeps one graph-family and status record. This does not claim D20
 success or reconstruct an unrecorded D20 call count. D20 evidence is reported as
@@ -117,3 +121,43 @@ duplicate scientific intent rejection, actual FD/SHA/symlink boundaries, and
 variable-only extrapolation. They do not establish Alpha largeDATA closure.
 Actual Arrow/DuckDB/full-dataset validation and measured storage remain scheduled
 native work by the coordinator; no sample is promoted to the full result.
+
+## Report metrics from the same evidence pass
+
+`closed.read_one` extracts reporting metadata from the manifest/cache/packet and
+verified journal already in memory. The accept path writes separate bounded
+Arrow batches, strips that metadata sibling and passes the unchanged saved
+evidence values to the original `save_fact`. No science, per-MID reread or new
+journal/fsync event is introduced. Interrupted partial cache/journal bytes remain
+uninterpreted UNKNOWN evidence.
+
+`candidate_manifest.json.report_metrics` contains small all/R/N/producer-job and
+R/N-by-job summaries and whole-SHA/row refs for four external Parquet catalogs:
+`report_molecules`, `report_native_calls`, `report_diagnostics`, and
+`report_diagnostic_code_counts`. The per-MID JSON column records cache attempts,
+optimizer return code/stereo status, error codes/hashes/JSON pointers, D3 issues,
+original worker clocks and missing-metadata markers. Sparse/failed/UNKNOWN lists
+retain pinned original evidence refs; full raw errors stay in those artifacts.
+Complete grouped diagnostic codes remain external; the small summary shows top20.
+These catalogs use the finalizer's actual private output budget and are included
+in its terminal storage census, without a fabricated size allowance.
+
+Per-call integer nanoseconds come only from recorded `native_call_timing` and
+the cache/packet-close unmatched-call list. Raised calls and successful native
+returns lacking a matching return event are distinct. Missing legacy per-call
+times remain null; a measured-call count is never a reconstructed native count.
+Prepare is the recorded original prepare invocation, not an inferred successful
+D20 count. Stored cache embedding/optimizer counts, internal candidate counts,
+and generation elapsed time may precede the current job when a cache was reused;
+they are separate from this journal's measured calls and worker clocks.
+Each group preserves actual delivered0/1/2/3 and UNKNOWN separately. Internal30
+candidates are not delivered30 conformers, sparse positive delivery is not itself
+a failure, and physical0 of an interrupted record is not known scientific0.
+
+One additional standard-library boundary fixture exercises the real extractor
+and accumulator, exact nanosecond totals, pending failed calls,30-versus3,
+sparse/zero/UNKNOWN, legacy unmeasured clocks, and unchanged original objects:
+
+```sh
+python -m unittest workflows.expansion.uff3_candidate_finalize_v1.test_report_metrics -v
+```
