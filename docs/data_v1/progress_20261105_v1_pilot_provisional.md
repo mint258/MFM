@@ -50,3 +50,7 @@ P′后台闭合更新：原生4525748 C0/47864秒，最终只读审计4525885 C
 普通构象后处理已实际启动：4525888/compute-0-18/16CPU，fresh startup proof与canonical_current_node_frame已生成，已进入原数据对齐和数据库准备，未查询活动DB。新独立cpu_account100_queue_v1全包与原v2逐文件相等（仅namespace及200→100资源字面替换），旧包不动；ordinary运行原科学函数。原check_repository实际4525887 C0/10秒，PASS4974文件/3530 Python/1311服务器源码/0错误，无新增数据QA。当前预算64GiB+独立provider/admin各64MiB已全计V2，fresh after-allfuture约102.124GB，100GB门保持。
 
 最终Common/P′范围待办：闭合Common为1,196,122成员，冻结P′ready1,110,751；其85,371差可由80,740个fill成功与4,631个旧N1eligible的已有聚合解释，尚未做MID交集，不能宣称精确逐分子覆盖。N1最新进口4,407回包/4,400第二真实几何；完整registered-extra历史登记尚缺，后续使用原物理QA/ID入口，不能用ordinary身份表或UNKNOWN伪造空集合。此缺口不阻塞已启动的ordinary排序。模型线实际payload ACK仍未观察到，D6依原顺序等待真实loader/逐head验收及最终Common/全TRAIN政策。
+
+当日资源修复一行：4525888实际FAILED/1/392秒，在原UFF源投影阶段因共享mutable工作DB使真余量跌破100GB停止，尚无分子claim/checkpoint或新QM/UFF；原始数据和失败历史保留，仅删除已终态纯派生3,185,324,032B工作DB，fresh quota确实恢复；v6将DB/spill改为node18新/dev/shm工作目录（实测free201.85GB、MemAvailable389.94GB），全部正式输出仍共享，原64GiB预测与100GB真门不变，不把本地占用记为Main free credit。原Git整合源码检查4525889实际C0/609秒（一次SSH正常10分钟重试），PASS4830文件/3427 Python/1311服务器源码/0错误；计算未被该Git等待阻塞。
+
+v6接续实际4525890已RUNNING/16CPU/compute-0-18，原startup proof、local_workspace_observation与canonical frame均已生成，原closed-source接入census已完成。工作DB已实核位于/dev/shm且UID1278（观察约987MB），共享输出目录无workingDB；原科学函数、输入、64GiB forecast和100GB account门不变。仍处原UFF输入投影/准备阶段，尚无可报告的完整分子百分比。原源码检查4525891已排队，成品LMDB和P′闭合结果不重算。
