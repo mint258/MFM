@@ -201,7 +201,7 @@ def observe(plan,earlier):
     encoded=base64.urlsafe_b64encode(json.dumps(reference).encode()).decode()
     command='PYTHONPATH='+shlex.quote(str(R/'repository'))+' '+shlex.quote(sys.executable)+' -B '+shlex.quote(str(pathlib.Path(__file__).resolve()))+' --observe --policy '+shlex.quote(encoded)
     if job:command+=' --job-id '+shlex.quote(job)
-    lines=run(['ssh','-n','-o','BatchMode=yes','zixiao@202.38.247.57',command]).strip().splitlines()
+    lines=run(['ssh','-n','-o','BatchMode=yes','-o','ConnectTimeout=12','zixiao@sonmi',command]).strip().splitlines()
     if not lines:raise ValueError('NO_MAIN_QUOTA_JSON')
     return json.loads(lines[-1])
 

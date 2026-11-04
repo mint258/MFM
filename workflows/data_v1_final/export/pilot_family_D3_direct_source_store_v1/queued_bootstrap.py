@@ -104,8 +104,16 @@ def main():
                   'PYTHONDONTWRITEBYTECODE=1', 'PYTHONUNBUFFERED=1', 'CUDA_VISIBLE_DEVICES=',
                   *[key + '=1' for key in THREAD_KEYS]]
     remote_command = 'cd ' + shlex.quote(str(REPO)) + ' && env ' + shlex.join(remote_env) + ' ' + shlex.join(remote)
-    helper = subprocess.run(['ssh', '-n', '-oBatchMode=yes', '-oConnectTimeout=12', '202.38.247.57' if unlimited else 'sonmi', remote_command],
-                            stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=None if unlimited else 600, check=False)
+    while True:
+        helper = subprocess.run(['ssh', '-n', '-oBatchMode=yes', '-oConnectTimeout=12', 'sonmi', remote_command],
+                                stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=None if unlimited else 600, check=False)
+        refused = (helper.returncode == 255 and not helper.stdout and
+                   helper.stderr.strip() == 'ssh: connect to host sonmi port 22: Connection refused')
+        if not refused:
+            break
+        print(json.dumps(dict(status='WAIT_MAIN_SSH_PRECONNECTION_REFUSED', job_id=job_id,
+                              node=node, retry_interval_seconds=600)), flush=True)
+        time.sleep(600)
     need(helper.returncode == 0, 'MAIN_PREPARE_HELPER_FAILED_NO_RETRY:' + helper.stderr[-4096:])
     need(helper.stdout.splitlines(), 'MAIN_PREPARE_HELPER_RETURNED_NO_JSON')
     result = json.loads(helper.stdout.splitlines()[-1])

@@ -99,7 +99,7 @@ def append(path,value):
     raw=(json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False)+'\n').encode();C.need(len(raw)<=2<<20,'BOUNDED_DURABLE_OPERATION_EVENT')
     with pathlib.Path(path).open('ab') as f:f.write(raw);f.flush();os.fsync(f.fileno())
 def connect(path,readonly=False):
-    db=sqlite3.connect(pathlib.Path(path).absolute().as_uri()+'?mode=ro&immutable=1',uri=True) if readonly else sqlite3.connect(path)
+    db=sqlite3.connect(pathlib.Path(path).absolute().as_uri()+'?mode=ro&immutable=1',uri=True) if readonly else sqlite3.connect(path,uri=True)
     db.row_factory=sqlite3.Row
     if not readonly:db.execute('PRAGMA journal_mode=DELETE');db.execute('PRAGMA synchronous=FULL');db.execute('PRAGMA cache_size=-16384')
     return db

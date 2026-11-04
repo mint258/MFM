@@ -4,7 +4,7 @@ SOURCE candidate for an isolated copy of the current D3 producer. No submission,
 scientific projection, QA, hash replay or release authority is implemented here.
 The old parent must be actually terminal before this backend can read its caches.
 """
-import collections, heapq, hashlib, json, os, pathlib, socket, sqlite3, stat, subprocess, time
+import collections, concurrent.futures as cf, heapq, hashlib, json, os, pathlib, socket, sqlite3, stat, subprocess, time
 from . import contract as C, domain as D, io as I, closed_domain_resume as Closed
 
 SOURCE_COUNT = 171
@@ -116,39 +116,118 @@ def open_domain(plan, accepted, root, budget):
     return db, geometry, binding, roots, str(index_path), config['original_series_size_rho_reference'], geometry_path, groups
 
 
+def _write_key_fragment(work, plan, budget):
+    """Scan every rowid-table row once; materialize only its two key columns."""
+    source_id, result, destination, frame = work
+    path = pathlib.Path(result['reference']['path']); destination = pathlib.Path(destination)
+    source = local = cursor = None; total = 0; batch = []
+    started = time.time()
+    try:
+        C.need(_regular(path).st_size == result['reference']['bytes'] and I.identity(path) == frame,
+               'EXACT_CLOSED_SOURCE_FRAME_BEFORE_ROWID_KEY_SCAN')
+        C.need(not destination.exists(), 'FRESH_NODE_LOCAL_KEY_FRAGMENT')
+        source = I.connect(path, True); source.execute('PRAGMA cache_size=-2048')
+        local = I.connect(destination); local.execute('PRAGMA cache_size=-65536')
+        local.execute('CREATE TABLE keys(gid TEXT NOT NULL,part TEXT NOT NULL,PRIMARY KEY(gid,part)) WITHOUT ROWID')
+        # NOT INDEXED forces the original rowid table scan. No rowid ranges,
+        # assumed rowid density, ID parsing, ORDER BY, n, payload or locator.
+        cursor = source.execute('SELECT gid,part FROM pieces NOT INDEXED')
+        for gid, part in cursor:
+            batch.append((gid, part))
+            if len(batch) >= 65536:
+                _wait_space(plan, budget)
+                local.executemany('INSERT INTO keys VALUES(?,?)', batch); local.commit()
+                total += len(batch); batch = []
+        if batch:
+            _wait_space(plan, budget)
+            local.executemany('INSERT INTO keys VALUES(?,?)', batch); local.commit(); total += len(batch)
+        C.need(total == result['pieces'], 'EXACT_CLOSED_GROUP_ROWID_KEY_COUNT')
+        local.commit()
+    finally:
+        if cursor is not None:cursor.close()
+        if local is not None:local.close()
+        if source is not None:source.close()
+        C.need(I.identity(path) == frame, 'CLOSED_SOURCE_FRAME_STABLE_AFTER_ROWID_KEY_SCAN_CLOSE')
+    return dict(source_id=source_id, source_key=result['key'], keys=total,
+                path=str(destination), bytes=destination.stat().st_size,
+                started_unix_seconds=started, completed_unix_seconds=time.time())
+
+
+def _prepare_key_fragments(groups, frames, directory, plan, budget):
+    """At most16 pending independent SQLite tasks; failures drain, never retry."""
+    results = {}; first_error = None; iterator = iter(enumerate(groups)); exhausted = False
+    with cf.ThreadPoolExecutor(max_workers=16, thread_name_prefix='closed-source-keys') as pool:
+        pending = {}
+        def fill():
+            nonlocal exhausted
+            while first_error is None and not exhausted and len(pending) < 16:
+                try:source_id, result = next(iterator)
+                except StopIteration:exhausted = True; break
+                budget.check()
+                destination = directory / (str(source_id).zfill(3) + '.sqlite')
+                work = (source_id, result, str(destination), frames[source_id])
+                pending[pool.submit(_write_key_fragment, work, plan, budget)] = source_id
+        fill()
+        while pending:
+            ready, _ = cf.wait(pending, timeout=1, return_when=cf.FIRST_COMPLETED)
+            budget.check(dispatch=False)
+            for future in ready:
+                source_id = pending.pop(future)
+                try:
+                    result = future.result(); results[source_id] = result
+                    OBSERVATION['key_fragments_completed'] = len(results)
+                    print(json.dumps(dict(phase='CLOSED_SOURCE_LOCAL_KEY_FRAGMENT_COMPLETE',
+                      source_id=source_id, source_key=result['source_key'], keys=result['keys'],
+                      local_key_bytes=result['bytes'], completed_sources=len(results), source_groups=len(groups),
+                      started_unix_seconds=result['started_unix_seconds'],
+                      completed_unix_seconds=result['completed_unix_seconds']), sort_keys=True), flush=True)
+                except BaseException as error:
+                    if first_error is None:first_error = error
+            # Once any task reports failure, no new source is dispatched.
+            # All already-running tasks finish naturally in this same pool.
+            if first_error is None:fill()
+        if first_error is not None:raise first_error
+    C.need(len(results) == len(groups), 'ALL171_LOCAL_KEY_FRAGMENTS_ACTUALLY_CLOSED')
+    return [results[source_id] for source_id in range(len(groups))]
+
+
 def _source_keys(db, source_id, expected, counts):
-    # Original source.py creates PRIMARY KEY(gid,part). Explicitly use its
-    # covering index: do not fetch n, payload or locator/overflow BLOB pages.
-    names = []
-    for index in db.execute('PRAGMA index_list(pieces)'):
-        if index['unique']:
-            name = index['name']; quoted = '"' + name.replace('"', '""') + '"'
-            if [r['name'] for r in db.execute('PRAGMA index_info(' + quoted + ')')] == ['gid', 'part']:
-                names.append(quoted)
-    C.need(len(names) == 1, 'ORIGINAL_SOURCE_GID_PART_COVERING_PRIMARY_KEY')
-    cursor = db.execute('SELECT gid,part FROM pieces INDEXED BY ' + names[0] + ' ORDER BY gid,part')
+    # This connection is to a node-local, already-closed key-only file.
+    cursor = db.execute('SELECT gid,part FROM keys ORDER BY gid,part')
     try:
         for gid, part in cursor:
             counts[source_id] += 1
             yield gid, part, source_id
-        C.need(counts[source_id] == expected, 'EXACT_CLOSED_GROUP_KEY_COUNT')
+        C.need(counts[source_id] == expected, 'EXACT_LOCAL_FRAGMENT_KEY_COUNT')
     finally:cursor.close()
 
 
 def build_routes(db, groups, expected_groups, plan, root, budget):
+    OBSERVATION.update(prepare_started_unix_seconds=time.time(), key_fragments_completed=0,
+      key_scan_workers=16, key_scan_policy='ALL_ROWID_TABLE_ROWS_NOT_INDEXED_KEY_COLUMNS_ONLY')
     expected = {hashlib.sha256(json.dumps(g, sort_keys=True, separators=(',', ':')).encode()).hexdigest() for g in expected_groups}
     C.need({r['key'] for r in groups} == expected, 'CLOSED171_KEYS_MATCH_SAME_FROZEN_LOGICAL_GROUP_PLAN')
-    sources = []; counts = collections.Counter(); streams = []
+    local = pathlib.Path(plan['direct_source_resume']['local_directory'])
+    directory = local / 'source_key_fragments'; directory.mkdir(mode=0o700)
+    frames = []
+    for source_id, result in enumerate(groups):
+        reference = result['reference']; path = pathlib.Path(reference['path']); _regular(path)
+        frame = I.identity(path); frames.append(frame)
+        db.execute('INSERT INTO source_files VALUES(?,?,?,?)',
+                   (source_id, json.dumps(reference, sort_keys=True), json.dumps(frame), result['pieces']))
+    db.commit()
+    fragments = _prepare_key_fragments(groups, frames, directory, plan, budget)
+    OBSERVATION.update(key_fragment_scan_completed_unix_seconds=time.time(),
+      key_fragment_total_bytes=sum(result['bytes'] for result in fragments),
+      local_key_merge_started_unix_seconds=time.time())
+    sources = []; counts = collections.Counter(); streams = []; total = 0
     try:
-        for source_id, result in enumerate(groups):
-            reference = result['reference']; path = pathlib.Path(reference['path']); _regular(path)
-            frame = I.identity(path); source = I.connect(path, True)
-            source.execute('PRAGMA cache_size=-2048')
+        for source_id, result in enumerate(fragments):
+            path = pathlib.Path(result['path']); frame = I.identity(path)
+            source = I.connect(path, True); source.execute('PRAGMA cache_size=-2048')
             sources.append((source, path, frame))
-            db.execute('INSERT INTO source_files VALUES(?,?,?,?)',
-                       (source_id, json.dumps(reference, sort_keys=True), json.dumps(frame), result['pieces']))
-            streams.append(_source_keys(source, source_id, result['pieces'], counts))
-        db.commit(); previous = None; batch = []; total = 0
+            streams.append(_source_keys(source, source_id, result['keys'], counts))
+        previous = None; batch = []
         for gid, part, source_id in heapq.merge(*streams):
             key = (gid, part)
             C.need(key != previous, 'NO_DUPLICATE_GID_PART_OWNERSHIP_ACROSS_CLOSED_SOURCES')
@@ -159,18 +238,24 @@ def build_routes(db, groups, expected_groups, plan, root, budget):
         if batch:
             _wait_space(plan, budget); db.executemany('INSERT INTO pieces VALUES(?,?,?)', batch); db.commit(); total += len(batch)
         C.need(total == PIECES, 'ALL171_SOURCE_KEYS_INDEXED_WITHOUT_COPYING_PAYLOADS')
+        db.commit()
     finally:
         for stream in streams:stream.close()
+        changed = []
         for source, path, frame in sources:
-            source.close(); C.need(I.identity(path) == frame, 'CLOSED_SOURCE_FRAME_STABLE_DURING_KEY_INDEX_BUILD')
-    db.commit()
-    local = pathlib.Path(plan['direct_source_resume']['local_directory'])
+            source.close()
+            if I.identity(path) != frame:changed.append(str(path))
+        C.need(not changed, 'CLOSED_LOCAL_KEY_FILES_STABLE_DURING_FINAL_MERGE')
+    # All key readers/cursors are closed before removing any local fragment.
+    # Original171 source files are never deleted or modified here.
+    for result in fragments:os.unlink(result['path'])
+    directory.rmdir()
     OBSERVATION.update(source_groups=len(groups), pieces=total,
       source_routes_path=str(local / 'source_routes.sqlite'), source_routes_bytes=(local / 'source_routes.sqlite').stat().st_size,
       geometry_index_path=str(local / 'geometry_index.sqlite'), geometry_index_bytes=(local / 'geometry_index.sqlite').stat().st_size,
       original_closed_groups_reference=plan['direct_source_resume']['closed_groups_reference'],
-      original_source_files_preserved=True, original_source_payloads_copied=False, new_QM_UFF_calls=0)
-
+      original_source_files_preserved=True, original_source_payloads_copied=False, new_QM_UFF_calls=0,
+      local_key_fragments_retired_after_all_readers_closed=True, prepare_completed_unix_seconds=time.time())
 
 class RoutingConnection:
     """One indexed route + original closed source PK lookup; never query171 DBs."""
