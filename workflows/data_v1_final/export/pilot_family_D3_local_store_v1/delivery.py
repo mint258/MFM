@@ -85,7 +85,9 @@ def benchmark(work_path,seconds):
 def run(plan,proof,root,db,stores,manifest,budget):
     """Return honest distribution/benchmark dicts; never repeat either action."""
     root=pathlib.Path(root);node=plan['gpu_node'];destination=plan.get('gpu_output_directory')or '/tmp/dv1_pilot55k_'+str(proof['job_id'])
-    distribution=dict(status='FAILED',node=node,directory=destination,checksum_method='rsync --checksum',extra_postcopy_hash=False)
+    distribution=dict(status='FAILED',node=node,directory=destination,checksum_method='rsync --checksum',extra_postcopy_hash=False,
+      node_local_copy_scope='TRAINING_LMDB_AND_MANIFESTS_ONLY',F64_authority_copied_to_gpu=False,F64_authority_location='SHARED_LUSTRE_ORIGINAL_REFERENCES',
+      F64_authority_root_directory=str(root),F64_reference_paths_unchanged=True)
     performance=dict(status='NOT_RUN',molecules_per_second=None,records_per_second=None,retry_count=0)
     try:
         C.need(node in ('compute-0-20','compute-0-21'),'EXACT_PLANNED_GPU_HOST')
@@ -103,7 +105,8 @@ def run(plan,proof,root,db,stores,manifest,budget):
         for reference in stores:
             value=json.loads(pathlib.Path(reference['path']).read_text())
             paths.update(pathlib.Path(value[k]['path'])for k in ('data','manifest_reference'))
-            paths.add(pathlib.Path(value['f64_authority']['reference']['path']))
+            # Permanent F64 authority remains in shared Lustre, accessible by
+            # its unchanged reference. Only training LMDB and manifests are cached locally.
         relative_paths=sorted(str(path.relative_to(root))for path in paths)
         total=sum(path.stat().st_size for path in paths)
         filelist=root/'delivery_files.list0'
