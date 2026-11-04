@@ -1,4 +1,4 @@
-﻿"""One ordinary-only day parent; closed Common and failed-cache components reused."""
+"""One ordinary-only day parent; closed Common and failed-cache components reused."""
 import argparse,concurrent.futures as cf,json,multiprocessing as mp,pathlib,time,traceback
 from . import io as I,reuse
 from workflows.data_v1_final.conformers.postprocess_day_v1 import contract as C,cache,hof,worker,statistics
@@ -57,8 +57,8 @@ def main():
             and base['source_population_records']==11231854,'EXACT_FROZEN_FULL_PM7_ROSTER_NOT_A_NEW_POPULATION')
         original=ctx.read(base['base_plan_reference']);I.PRE.canonical_source(ctx,base,original)
         import duckdb,pyarrow as pa
-        db=duckdb.connect(str(out/'work.duckdb'));db.execute('SET threads=16');db.execute("SET memory_limit='32GB'")
-        db.execute('SET temp_directory='+C.q(out/'duckdb_tmp'));ctx.db=db
+        db=duckdb.connect(str(ctx.local_out/'work.duckdb'));db.execute('SET threads=16');db.execute("SET memory_limit='32GB'")
+        db.execute('SET temp_directory='+C.q(ctx.local_out/'duckdb_tmp'));ctx.db=db
         common,expected_common=reuse.common_component(ctx,db)
         roles_ref,role_parts=ctx.roles(ctx.value)
         db.execute('CREATE VIEW all_roles AS SELECT * FROM read_parquet(['+','.join(C.q(r['path']) for r in role_parts)+'])')
@@ -133,6 +133,7 @@ def main():
     finally:
         if ctx:ctx.finish()
         if db:db.close()
+        if ctx:ctx.cleanup_local_workspace()
 
 
 if __name__=='__main__':

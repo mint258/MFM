@@ -1,4 +1,4 @@
-﻿# Ordinary continuation revision4: real D3 closure, not cache deletion
+# Ordinary continuation revision4: real D3 closure, not cache deletion
 
 Source-only isolated candidate. Original v1/v2/v3, repository, active D3 and all existing DATA remain untouched. No deployment, computation, DATA read/hash, tests, submission, deletion, new approval or receipt is performed. D3 copying remains first priority. No real4525880 formal index is present in this candidate; no future SHA is invented.
 
@@ -46,3 +46,10 @@ Use actual supported node14/18,16CPU,86400s,no_mem. Existing `scope_key=ordinary
 The original unsigned template is `R/control/ordinary_orders_resume_candidate_20261104_v1/plan.candidate.json`. Replace its obsolete marker field with the two actual delivery refs; populate genuine output/cap/provider/mapping/carveout/ledger entry and regenerate current Sources/DATA/scope dict. Missing actual D3 refs remains NONEXECUTABLE. Budget fields are not approved or reserved here.
 
 Storage facts remain descriptive only: closed source DuckDB1649422336bytes and100catalog reference lengths total3854090bytes; aggregate packet allocated bytes and incremental full peak are unmeasured. Old charged788636052 is not physical inventory. Original384GiB software ceiling is not a forecast or reservation. Root chooses an actual output ceiling only from current true quota/allfuture headroom, with all retained inputs still counted. Insufficient headroom naturally stops/drains as before, without deleting retained caches or pretending they freed space.
+## v6 local derived workspace resource-only change
+
+Actual5888 failed at old-UFF projection before molecule pool/checkpoints because its shared mutable workDB consumed the initial Main100GB buffer. Its FAILED/history is retained. This v6 keeps shared64GiB forecast and all real100GB/V2 guards, and moves only work.duckdb/WAL and DuckDB spill to the actual-node fresh `/dev/shm/dv1_ordinary_postprocess_20261105_v6` tmpfs. The original native sources/closed PM7 cache are readonly and all packets/catalogs/orders/witnesses/statistics remain shared. No local DB is a published authority or promised resume artifact.
+
+`local_workspace_directory` is now explicit in plan/scope; local whole cap is at most original64GiB. CPU checks real `/dev/shm` tmpfs, fresh direct-child path/no symlink/UID1278 and actual free >= localcap+100GB before DATA. Original RSS64GiB/MemAvailable monitoring is unchanged. Original workspace software accounting now measures local DB/spill real st_size within that cap; it never becomes Main quota credit. Shared closed-output credit remains restricted to fresh shared ctx.out.
+
+After original db.close in finally (and natural worker drain), only exact own work.duckdb/WAL, own regular spill files and own marker are removed, then the fresh local directories. Unexpected paths/symlinks refuse cleanup, with no shared deletion. No local temp output is retained as an authority; original v5/source/cache/failure outputs remain untouched by this code. Root's separately authorized deletion of the alreadyFAILED v5 pure-derived shared DB is not performed by this candidate.

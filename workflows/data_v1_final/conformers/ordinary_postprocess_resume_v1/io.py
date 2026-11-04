@@ -1,5 +1,5 @@
 """New scope and resource IO only; original bounded scientific context is inherited."""
-import fcntl,heapq,json,os,pathlib,stat,threading,time,traceback
+import fcntl,heapq,json,os,pathlib,stat,subprocess,threading,time,traceback
 from workflows.data_v1_final.conformers.postprocess_day_v1 import contract as C,io as OLD
 from workflows.data_v1_final.conformers.pm7_precache_hof_resume_day_v1 import io as PRE
 from workflows.data_v1_final.execution import finite_quota_observation_guard_v1 as QUOTA
@@ -21,6 +21,7 @@ def sources():
 def parameters(p):
     return dict(stage='ORDINARY_CLOSED_COMMON_PM7_D7_ONLY',node=p['node'],cpus=16,wall_seconds=86400,
         drain_seconds=900,output_directory=p['output_directory'],output_cap_bytes=p['output_cap_bytes'],
+        local_workspace_directory=p['local_workspace_directory'],local_workspace_cap_bytes=min(p['output_cap_bytes'],64<<30),
         common_component_reference=p['closed_common_manifest_reference'],PM7_failed_owner_reference=p['pm7_owner_entry']['accounting_reference'],
         cache_plan_reference=p['cache_plan_reference'],D3_closed_export_reference=p['D3_closed_export_reference'],
         D3_actual_export_receipt_reference=p['D3_actual_export_receipt_reference'],D3_actual_delivery_parent_job_id='4525880',
@@ -55,6 +56,71 @@ class Context(OLD.Context):
         super().__init__(p,proof,plan_ref,out);self.events=[]
         self._closed_credit_seen=set();self._closed_credit_pending=[];self._closed_credit_sequence=0
         self._closed_credit_bytes=0;self._closed_credit_count=0
+        self.local_out=pathlib.Path(p['local_workspace_directory']);self.local_cap=min(self.cap,64<<30);self._local_created=False
+        C.need(self.local_out.is_absolute() and self.local_out.parent==pathlib.Path('/dev/shm')
+            and self.local_out.name.startswith('dv1_ordinary_postprocess_') and '..' not in self.local_out.parts
+            and not self.local_out.exists() and not any(x.is_symlink() for x in (self.local_out,*self.local_out.parents)),
+            'FRESH_OWN_DEV_SHM_WORKSPACE_ONLY')
+        OLD.identity(proof)
+        mount=subprocess.run(['findmnt','-n','-T','/dev/shm','-o','TARGET,SOURCE,FSTYPE,FSROOT'],
+            stdin=subprocess.DEVNULL,capture_output=True,text=True,timeout=15)
+        fields=mount.stdout.strip().split()
+        C.need(mount.returncode==0 and len(fields)==4 and fields[0]=='/dev/shm' and fields[2]=='tmpfs',
+            'ACTUAL_NODE_LOCAL_DEV_SHM_TMPFS_REQUIRED')
+        fs=os.statvfs('/dev/shm');free=fs.f_bavail*fs.f_frsize
+        C.need(free>=self.local_cap+100000000000,'LOCAL_TMPFS_CAP_PLUS100GB_REQUIRED')
+        self.local_out.mkdir(mode=0o700);self._local_created=True
+        self._local_owner=dict(job_id=self.job_id,uid=1278,node=p['node'],local_workspace_directory=str(self.local_out))
+        try:
+            OLD.save(self.local_out/'.ordinary_workspace_owner.json',self._local_owner)
+            (self.local_out/'duckdb_tmp').mkdir(mode=0o700)
+            current=self.local_out.lstat();C.need(current.st_uid==1278 and stat.S_ISDIR(current.st_mode),'OWN_LOCAL_WORKSPACE_UID')
+            self._local_root_identity=(current.st_dev,current.st_ino,current.st_uid)
+            self.write_json_new(self.out/'local_workspace_observation.json',dict(self._local_owner,mount_raw=mount.stdout,
+                fstype='tmpfs',local_available_bytes=free,local_whole_cap_bytes=self.local_cap,
+                minimum_start_available_bytes=self.local_cap+100000000000,Main_quota_credit_for_local_bytes=0,
+                authoritative_output=False))
+        except BaseException:
+            self.cleanup_local_workspace();raise
+    def workspace(self):
+        # Only the small own DB/spill namespace is sampled. This logical size
+        # constrains software output; it is never Main quota/allocated credit.
+        for attempt in range(3):
+            try:
+                roots=list(self.local_out.iterdir());allowed={'work.duckdb','work.duckdb.wal','duckdb_tmp','.ordinary_workspace_owner.json'}
+                C.need(all(p.name in allowed and not p.is_symlink() for p in roots),'ONLY_OWN_LOCAL_DB_SPILL_AND_MARKER')
+                paths=[p for p in roots if p.name in ('work.duckdb','work.duckdb.wal')]
+                spill=self.local_out/'duckdb_tmp';paths.extend(spill.iterdir())
+                rows=[(p,p.lstat()) for p in paths]
+                C.need(all(stat.S_ISREG(v.st_mode) and v.st_uid==1278 and v.st_nlink==1 for p,v in rows),'OWN_REGULAR_LOCAL_DB_SPILL')
+                after=[p for p in self.local_out.iterdir() if p.name in ('work.duckdb','work.duckdb.wal')];after.extend(spill.iterdir())
+                if set(after)==set(paths):
+                    size=sum(v.st_size for p,v in rows);C.need(size<=self.local_cap,'LOCAL_WORKSPACE64GIB_SOFT_CAP');return size
+            except FileNotFoundError:pass
+        raise ValueError('LOCAL_WORKSPACE_INVENTORY_UNSTABLE_RESOURCE_UNKNOWN')
+    def cleanup_local_workspace(self):
+        # Called only after all worker context managers and db.close. Never
+        # recurse/delete a shared path; unexpected content remains for Root.
+        if not self._local_created:return
+        root=self.local_out;C.need(root.parent==pathlib.Path('/dev/shm') and not root.is_symlink(),'EXACT_LOCAL_TMPFS_CLEANUP_ONLY')
+        s=root.lstat();C.need(s.st_uid==1278 and stat.S_ISDIR(s.st_mode),'OWN_LOCAL_CLEANUP_ROOT')
+        if hasattr(self,'_local_root_identity'):C.need((s.st_dev,s.st_ino,s.st_uid)==self._local_root_identity,'SAME_FRESH_LOCAL_ROOT')
+        marker=root/'.ordinary_workspace_owner.json'
+        C.need(not marker.is_symlink() and marker.lstat().st_uid==1278 and json.loads(marker.read_text())==self._local_owner,'OWN_LOCAL_MARKER')
+        rows=list(root.iterdir());allowed={'work.duckdb','work.duckdb.wal','duckdb_tmp','.ordinary_workspace_owner.json'}
+        C.need(all(p.name in allowed and not p.is_symlink() for p in rows),'UNEXPECTED_LOCAL_ENTRY_NO_CLEANUP')
+        files=[p for p in rows if p.name in ('work.duckdb','work.duckdb.wal')]
+        spill=root/'duckdb_tmp';spills=list(spill.iterdir()) if spill.exists() else []
+        if spill.exists():C.need(stat.S_ISDIR(spill.lstat().st_mode) and spill.lstat().st_uid==1278,'OWN_SPILL_DIRECTORY')
+        for p in [*files,*spills,marker]:
+            st=p.lstat();C.need(stat.S_ISREG(st.st_mode) and st.st_uid==1278 and st.st_nlink==1 and not p.is_symlink(),
+                'ONLY_OWN_REGULAR_CLOSED_LOCAL_FILES_CAN_BE_REMOVED')
+        removed=0
+        for p in [*files,*spills]:removed+=p.lstat().st_size;p.unlink()
+        if spill.exists():spill.rmdir()
+        marker.unlink();root.rmdir();self._local_created=False
+        print(json.dumps(dict(status='OWN_DERIVED_LOCAL_WORKSPACE_REMOVED',job_id=self.job_id,path=str(root),
+            removed_logical_bytes=removed,Main_quota_credit=0,shared_files_deleted=False)),flush=True)
     def register_closed_output(self,ref):
         """One stable block sample for a known completed, immutable own ref.
 
