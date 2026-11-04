@@ -31,7 +31,7 @@ def before_receipt(meta):
                    and value['candidate_pool_release_authorized'] is False,
                    'Actual fixed1M scientific EOF/membership/reference, not a full-pool release')
             matches.append(ref)
-    Q.need(len(matches) == 1, 'Exactly one completed original201 scientific attempt for its real plan/startup')
+    Q.need(len(matches) == 1, 'Exactly one completed actual producer scientific attempt for its real plan/startup')
     return matches[0]
 
 
@@ -108,7 +108,8 @@ def build(config, phase, tag, inputs, control, *, upstream_job=None, upstream_ta
     def binding(meta, scope):
         return dict(scope=scope, **{key:meta[key] for key in ('runtime','plan_reference','startup_proof_reference','accounting_reference')})
     # Read only the actual201 plan/startup for exclusion during RN prep; do not wait for201.
-    before_meta = load(config['before_job_id'], config['before_tag'], False)
+    before_meta = load(config.get('background_before_job_id', config['before_job_id']),
+                       config.get('background_before_tag', config['before_tag']), False)
     Q.need(before_meta['runtime']['job_id'] == '1885201', 'Actual201 must remain explicitly excluded from block credits')
     active = list(config.get('excluded_active_allocations', []))
     if not any(str(b['runtime']['job_id']) == '1885201' for b in active):

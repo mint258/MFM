@@ -17,6 +17,7 @@ class Scheduling(unittest.TestCase):
             # A malformed non-SQL file proves this selector has no SQLite dependency.
             (root / 'queries.sqlite').write_bytes(b'NOT_A_SQLITE_DATABASE')
             valid = dict(schema='EXPANSION_EXACT_SCIENTIFIC_COVERAGE_V1', status='COMPLETE',
+                producer_schema='CLOSED_FP_REUSE_PLUS_INVERTED_MISSING_FIXED1M_V1',
                 reference_role='before', resource_plan=plan, launcher_startup_proof_reference=startup,
                 queries=1000000, projection={'rows':1000000}, nearest_similarity_exact=True,
                 baseline_receipt=sample, reference_manifest=reference, decontamination_applied_to_sample=False,
