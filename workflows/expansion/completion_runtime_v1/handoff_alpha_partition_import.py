@@ -77,8 +77,12 @@ def main():
     seed=copy.deepcopy(previous);seed['resume_output_directory']=str(root)
     seed_ref=Q.write(B/(PREFIX+'_resume_seed.json'),seed)
     resume_cfg=dict(target=TARGET,importer=dict(job_id=import_job,tag=import_tag),expected_target_root=str(root),deployment_reference=previous['source_deployment_reference'],prepare_script_reference=Q.reference(helper),seed_reference=seed_ref)
+    resume_deployment=D/'shard_projection_cadence_20261105_v1_source.json'
+    original_source=Q.load(resume_deployment)
+    Q.need(original_source['schema']=='ALPHA_SHARD_PROJECTION_CADENCE_SOURCE_V1'and original_source['previous_source_reference']==previous['source_deployment_reference']and original_source['resource_changes_only']is True and original_source['byte_identical_to_previous_runtime_after_one_resource_inversion']is True and original_source['Core5_math_queries_F64_and_cache_bindings_changed']is False,'Only the paired-tested projection resource cadence may differ for the next continuation')
+    for item in original_source['code_references']:Q.verify(item)
+    resume_cfg['deployment_reference']=Q.reference(resume_deployment)
     resume_config=B/(PREFIX+'_resume_config.json');Q.write(resume_config,resume_cfg)
-    original_source=Q.load(Q.verify(previous['source_deployment_reference']))
     resume_script=B/(PREFIX+'_resume.sbatch')
     with resume_script.open('x')as f:f.write(script(resume_tag,'resume','compute-0-1','cpu',64,resume_config,Q.verify(original_source['entry']),helper))
     resume_job=submit(resume_script,'afterok:'+import_job)
@@ -97,7 +101,7 @@ def main():
         changes.append(dict(job_id=job,before=before_ref,archive=Q.reference(archive),after=Q.reference(config_path)))
     pending('1885215');subprocess.run(['scontrol','update','JobId=1885215','Dependency=afterok:'+resume_job+':1885264'],check=True)
     rank_after=native('1885215');Q.need('afterok:'+resume_job in rank_after,'Real rank dependency retargeted before old writer stop')
-    Q.write(folder/'prepared.json',dict(import_job=import_job,resume_job=resume_job,mapping=mapping,config_changes=changes,rank_after=rank_after,original_scientific_runtime_unchanged=True,source_deployment_reference=Q.reference(source_path),coordinator_reference=Q.reference(__file__)))
+    Q.write(folder/'prepared.json',dict(import_job=import_job,resume_job=resume_job,mapping=mapping,config_changes=changes,rank_after=rank_after,original_scientific_runtime_unchanged=True,source_deployment_reference=Q.reference(source_path),resume_source_deployment_reference=Q.reference(resume_deployment),coordinator_reference=Q.reference(__file__)))
     if(root/'manifest.json').exists():
         # A naturally completed original wins; undo only this coordinator's pending changes.
         for item in changes:
