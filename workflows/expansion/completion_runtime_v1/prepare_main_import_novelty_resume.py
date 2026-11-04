@@ -4,6 +4,34 @@ from pathlib import Path
 A=Path('/gfshome/alpha/codex_data_v1_20261026');B=A/'control/pubchem_expansion_runtime_20261103'
 D=A/'control/pubchem_completion_environment_20261103';BASE=A/'code/pubchem_completion_20261103_497c584'
 PY=A/'software/pubchem_completion_20261103_venv/bin/python'
+
+def literal(job,tag):
+    if not isinstance(job,str)or not job.isdigit()or not isinstance(tag,str)or not tag or not all(c.isalnum()or c in '_-'for c in tag):
+        raise ValueError('Literal actual producer ID/tag')
+    return tag+'_job_'+job
+def upstream(Q,job,tag,control):
+    root=Path(control)/literal(job,tag);plan_path=root/'plan.json';startup=root/'startup.json'
+    plan=Q.load(plan_path);proof=Q.load(startup);ref=Q.reference(plan_path)
+    Q.need(proof['request']['producer_plan_reference']==ref and str(proof['job_id'])==job
+        and proof['endpoint']==plan['endpoint']==Q.ENDPOINT and proof['uid']==plan['uid']==Q.UID,'Actual upstream allocation/plan/startup')
+    output=Path(plan['output_directory'])
+    Q.need(output.is_absolute()and output.is_relative_to('/gfshome/alpha')and not any(p.is_symlink()for p in(output,*output.parents)),
+        'Actual own literal producer output')
+    return dict(runtime=dict(endpoint=Q.ENDPOINT,uid=Q.UID,job_id=job),plan_reference=ref,
+        startup_proof_reference=Q.reference(startup),output_directory=str(output))
+def completed_account(Q,parent,job,folder,command):
+    raw=subprocess.run([*command,'-j',job,'--parsable2','--format=JobIDRaw%40,State%24,ExitCode,UID,ElapsedRaw,AllocCPUS,NodeList%128'],
+        capture_output=True,text=True)
+    Q.need(raw.returncode==0,'Actual completed producer native accounting')
+    lines=raw.stdout.splitlines();Q.need(lines,'Native accounting header');names=lines[0].split('|')
+    rows=[dict(zip(names,line.split('|')))for line in lines[1:]if line]
+    path=folder/'native_sacct.txt'
+    with path.open('x')as f:f.write(raw.stdout)
+    ref=Q.write(folder/'native_accounting.json',dict(endpoint=Q.ENDPOINT,uid=Q.UID,
+        actual_parents=[r for r in rows if r.get('JobIDRaw')==job],raw_sacct_reference=Q.reference(path)))
+    parent(dict(endpoint=Q.ENDPOINT,uid=Q.UID,job_id=job),ref)
+    return ref
+
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--config',required=True,type=Path)
     p.add_argument('--entry',required=True,type=Path);p.add_argument('--tag',required=True);a=p.parse_args()
@@ -11,7 +39,6 @@ def main():
         raise ValueError('Actual isolated Alpha NN continuation allocation only')
     runpy.run_path(str(a.entry),run_name='_NN_resume_source_bootstrap')
     from workflows.expansion.alpha_runtime_v1 import common as Q
-    from workflows.expansion.uff3_alpha_runtime_v1.prepare_pipeline import upstream,terminal_account,literal
     from workflows.expansion.uff3_alpha_runtime_v1.terminal import parent
     from workflows.expansion.alpha_sharded_novelty_v1.prepare_pipeline import prepare
     cfg=Q.load(a.config);source=Q.load(Q.verify(cfg['deployment_reference']))
@@ -19,16 +46,16 @@ def main():
     literal(os.environ['SLURM_JOB_ID'],a.tag)
     inputs=B/'node_epochs'/(a.tag+'_inputs_job_'+os.environ['SLURM_JOB_ID']);inputs.mkdir(mode=0o700,parents=True)
     command=['ssh','-n','-o','BatchMode=yes','-o','ConnectTimeout=5','218.192.171.238','sacct']
-    imported=upstream(str(cfg['import_job_id']),cfg['import_tag'],B/'node_epochs')
+    imported=upstream(Q,str(cfg['import_job_id']),cfg['import_tag'],B/'node_epochs')
     folder=inputs/'import_completed';folder.mkdir()
-    imported['accounting_reference']=terminal_account(str(cfg['import_job_id']),folder,command)
+    imported['accounting_reference']=completed_account(Q,parent,str(cfg['import_job_id']),folder,command)
     receipt=Q.reference(Path(imported['output_directory'])/'manifest.json');value=Q.load(Q.verify(receipt))
     Q.need(value['schema']=='ALPHA_MAIN_EXACT_RESCUE_IMPORT_V1'and value['status']=='COMPLETE'
         and value['actual']['uid']==1264 and str(value['actual']['job_id'])==str(cfg['import_job_id'])
         and value['resource_plan']==imported['plan_reference']and value['startup_proof_reference']==imported['startup_proof_reference']
         and value['original_binding_journals_data_rewritten']is False and value['next_epoch_must_reference_this_import_manifest']is True,
         'Actual closed import/native plan/old-cache conservation')
-    old=upstream(str(cfg['previous_job_id']),cfg['previous_tag'],B/'node_epochs')
+    old=upstream(Q,str(cfg['previous_job_id']),cfg['previous_tag'],B/'node_epochs')
     folder=inputs/'previous_writer';folder.mkdir()
     raw=subprocess.run([*command,'-j',str(cfg['previous_job_id']),'--parsable2',
         '--format=JobIDRaw%40,State%24,ExitCode,UID,ElapsedRaw,AllocCPUS,NodeList%128'],capture_output=True,text=True)
