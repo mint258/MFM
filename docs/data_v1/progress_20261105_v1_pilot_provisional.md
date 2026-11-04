@@ -1,3 +1,5 @@
+当前闭合摘要：D‑1 v3.0冻结，D‑2至D‑5试点已交付；D3实际4525880 C0，55k全量与唯一末尾验收/复制/读测完成。P′冻结ready范围2,221,502构象计算/覆盖闭合，原审计4525885 C0，全12项成功99.80081%；不等于最终Common或D6已放行。普通构象排序/统计正在准备实际资源接续。下文为当日各时间点日志。
+
 # 2026-11-05 数据线当日汇总：v1-pilot-provisional
 
 本文件持续更新，不另写逐次失败报告。D-3尚未交付，Model_payload_ACK仍false。
@@ -39,3 +41,12 @@ D3末尾验收通过：原唯一export_manifest已关闭，TRAIN50000/VAL5000、
 正式交付完成：4525880真实C0/9785秒；单次1000源QA通过，单次checksumcopy返回0、575,161,700,855B到compute-0-21:/tmp/dv1_pilot55k_20261103_9b66baf693，单次4-reader 180.033秒/11.981分子每秒/6994.720记录每秒。D3正式索引已发布，D5原组件保留并生成同5880绑定索引；actual_seen_TRAIN50000、diagnostic893/12502几何/43757标签/53库。方法报告已仅从正式元数据生成；Model payload ACK仍false。D2-D5均为v1-pilot-provisional，后续Common/D6等继续，不以试点代替正式版本。ordinary v4候选移除过期物理删缓存工具前置，改真实D3 C0+原quota/V2全部future100GB；保留缓存全计quota.used、无free credit，待真实准入部署，科学函数和输入不变。
 
 正式交付提交前原check_repository已对包含D3/D5正式索引和报告的当前树PASS4956文件/3514 Python/1311服务端源码/0错误；原生只读代码检查任务4525884完成，未执行新数据QA。GitHub data-v1存在其他线更新，后续采用隔离worktree整合，保留其修改及当前非本任务dirty文件，不强推、不覆盖现有扩充PR。
+
+P′后台闭合更新：原生4525748 C0/47864秒，最终只读审计4525885 C0/962秒/16CPU/compute-0-18；最终交付入口为 artifacts/pprime_complete_remaining_20261104_v1/final_delivery。原冻结ready范围共1,110,751分子/2,221,502构象，26,658,024任务行，缺失0、意外0；全12项成功2,217,077构象（99.80081%），4,425非全成功原样保留，另有103,467 N1不可用排除。此为P′计算与覆盖闭合，不等于最终Common、TRAIN归一化/异常值扫描、P与P′分布对照或D-6已放行；不得重算已闭合Native。Alpha实际UID1264密钥连接成功，NN 1885263/1885264及rescue1885267运行，后续rank/UFF/D/报告仍在队列，未修改其他线任务。
+
+交付代码整合：隔离worktree保留其他线远端更新与本地dirty；原check_repository实际4525886 C0/11秒，PASS4807文件/3407 Python/1311服务端源码/0错误。合并提交及正式试点代码/报告已推送GitHub delivery/d3-v1-pilot-20261105分支，不强推data-v1、不覆盖扩充PR。
+挂载资源修复：原X SSHFS响应挂起，Main密钥SSH仍UID1278正常；重连原UNC到Z后以本机subst恢复X→Z，同一live服务器项目，未编辑OneDrive、未改源数据。ordinary v4五件已完整安装；发现generic旧200GB门与当前用户100GB政策冲突，采用隔离资源适配保留原冻结包，科学函数不改。P′正式pprime_labels.md已由小metadata摘要脚本更新，原试点记录保留为历史，无新增数据QA或QM。
+
+普通构象后处理已实际启动：4525888/compute-0-18/16CPU，fresh startup proof与canonical_current_node_frame已生成，已进入原数据对齐和数据库准备，未查询活动DB。新独立cpu_account100_queue_v1全包与原v2逐文件相等（仅namespace及200→100资源字面替换），旧包不动；ordinary运行原科学函数。原check_repository实际4525887 C0/10秒，PASS4974文件/3530 Python/1311服务器源码/0错误，无新增数据QA。当前预算64GiB+独立provider/admin各64MiB已全计V2，fresh after-allfuture约102.124GB，100GB门保持。
+
+最终Common/P′范围待办：闭合Common为1,196,122成员，冻结P′ready1,110,751；其85,371差可由80,740个fill成功与4,631个旧N1eligible的已有聚合解释，尚未做MID交集，不能宣称精确逐分子覆盖。N1最新进口4,407回包/4,400第二真实几何；完整registered-extra历史登记尚缺，后续使用原物理QA/ID入口，不能用ordinary身份表或UNKNOWN伪造空集合。此缺口不阻塞已启动的ordinary排序。模型线实际payload ACK仍未观察到，D6依原顺序等待真实loader/逐head验收及最终Common/全TRAIN政策。

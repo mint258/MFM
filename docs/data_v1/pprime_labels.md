@@ -1,3 +1,36 @@
+# P′ 标签：冻结输入范围计算与覆盖已完成
+
+2026-11-05。此为原冻结 ready 范围的计算和覆盖闭合，不代表最终 Common 或 D-6 放行。下文旧试点准备记录仅作历史。
+
+| 项目 | 原闭合审计结果 |
+| --- | --- |
+| 原 ready 分子 | 1110751 |
+| 完成构象 | 2221502 |
+| 全12项成功构象 | 2217077 |
+| 非全12项成功构象 | 4425 |
+| 全12项成功率 | 99.800810% |
+| 全任务结果行 | 26658024 |
+| 缺失构象 | 0 |
+| 意外构象 | 0 |
+| 审计覆盖 family 文件 | 192170 |
+| 审计覆盖 family 字节 | 125126615731 |
+| 原ready范围之外N1或不可用分子 | 103467 |
+| 生成实际父作业数 | 110 |
+| 生成分配核时 | 5684.262222222223 |
+| 每请求构象生成分配核秒 | 9.211490243988077 |
+
+原固定随机顺序前两个构象、版本、关键词、精度、种子、输入及900秒单调用超时保持。失败和UNKNOWN历史保留，不重复Native重试。生成核时只包含生成父作业，不包括元数据、验证、清理和只读恢复，不代表全流程总成本。成功率超过用户已批准的99.45%线。
+
+实际最终审计：4525885 COMPLETED0:0/962s16CPUcompute-0-18。本摘要只消费原闭合JSON，不增加审计、哈希、读回或QM。
+
+正式结果：/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/pprime_complete_remaining_20261104_v1/final_delivery/final_analysis.json；原计算/覆盖审计脚本：/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/Pprime_complete_remaining_20261104_v1/audit_final_full_v2.py。其task_failures、role_outcomes、roles、family_rows保留失败、角色及家族计数；同目录completion_manifest.json追溯正式交付。
+
+待完成：最终Common绑定、原1.5异常值扫描、TRAIN归一化、P/P′同字段分布与相关性对照。当前没有这些全量结果，不以试点代替。r674继续LOSS_DISABLED，不追加QM。
+
+重建：python -B workflows/data_v1_final/pprime/render_closed_delivery_summary_v1.py。
+
+<!-- ORIGINAL_PPRIME_PILOT_HISTORY -->
+
 # P′ 标签：2000 UFF 构象试点准备
 
 状态：代码和配置已准备，10项受控测试通过；未提交真实 P′ QM，不声称 P′ 标签或全量共同人群完成。
