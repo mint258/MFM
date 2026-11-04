@@ -2,6 +2,7 @@
 import argparse
 from collections import defaultdict
 import fcntl
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -18,6 +19,7 @@ from ..exact_nn_popcount_production_v1.workers import exact_batches
 from ..exact_nn_cached_v1.sql_runtime import configure, literal
 from ..exact_nn_cached_v1.domain import HydrogenDomainDB
 from ..external_sort import create_queues
+from .partition import assignment, predicate
 
 
 class ShardGuard(Guard):
@@ -59,6 +61,10 @@ def native_preflight():
                 == [(1,0.25,5,0),(2,0.25,2,1196122),(3,0.0,0,1196122)], 'Original graph count defaults and FP multi-MID projection differ')
         require(db.execute("SELECT count(*) FROM projected WHERE heavy_atoms=0 AND element_combination=''").fetchone()[0] == 1,
                 'H-only candidate disappeared')
+        left = predicate(list('0123456789a')); right = predicate(list('bcdef'))
+        require(db.execute('SELECT count(*) FROM candidates WHERE (' + left + ') OR (' + right + ')').fetchone()[0] == 3
+                and db.execute('SELECT count(*) FROM candidates WHERE (' + left + ') AND (' + right + ')').fetchone()[0] == 0,
+                'Actual SQL MD5 query work allocation must be complete and disjoint')
     finally:
         db.close()
     print(json.dumps({'event':'SHARDED_NOVELTY_SQL_PREFLIGHT','status':'PASS','case':'FP_MULTI_MID_MISSING_RING_EMPTY_RING_H_ONLY'}),flush=True)
@@ -159,6 +165,8 @@ def run_nn(plan_path):
     plan, root, lock, guard = _start(plan_path)
     require(plan['schema'] == 'ALPHA_SHARDED_EXACT_NOVELTY_PLAN_V1', 'Wrong novelty plan')
     native_preflight()
+    assigned = assignment(plan)
+    selected_predicate = predicate(assigned)
     filtered = Q.load(Q.verify(plan['filtered_pool_reference']))
     groups = parts_by_bucket(filtered)
     from ..exact_nn_popcount_production_v1.authority import adopted
@@ -175,8 +183,10 @@ def run_nn(plan_path):
     manifest_path = root / 'manifest.json'
     if manifest_path.exists():
         value = Q.load(manifest_path)
-        require(value['status'] == 'COMPLETE' and value['filtered_pool_reference'] == plan['filtered_pool_reference']
-                and value['reference'] == plan['reference_manifest'], 'Closed novelty has different inputs')
+        require(value['status'] == 'SHARD_COMPLETE' and value['filtered_pool_reference'] == plan['filtered_pool_reference']
+                and value['reference'] == plan['reference_manifest']
+                and value['assigned_hash_buckets'] == assigned and value['partition_id'] == plan['partition_id']
+                and value['scope_key'] == plan['scope_key'], 'Closed novelty has different inputs/work partition')
         return value
     began = time.monotonic()
     journal = (root / ('closed_files_' + uuid.uuid4().hex + '.jsonl')).open('x', encoding='utf-8')
@@ -184,7 +194,9 @@ def run_nn(plan_path):
     known = defaultdict(list)
     binding = {'filtered_pool_reference': plan['filtered_pool_reference'],
                'reference': plan['reference_manifest'],
-               'backend_adoption_reference': plan['backend_adoption_reference']}
+               'backend_adoption_reference': plan['backend_adoption_reference'],
+               'assigned_hash_buckets': assigned, 'partition_id': plan['partition_id'],
+               'scope_key': plan['scope_key']}
     binding_path = root / 'source_binding.json'
     if binding_path.exists():
         require(Q.load(binding_path) == binding, 'Closed shard cache input binding differs')
@@ -205,6 +217,7 @@ def run_nn(plan_path):
     db = duckdb.connect()
     configure_db(db, plan, root)
     per_bucket_unique = {}
+    full_input_rows = {}; selected_input_rows = {}
     worker_log = (root / 'workers.jsonl').open('a', encoding='utf-8')
     def ready(value):
         require(value['reference_records_loaded'] == packed['molecules'], 'Worker reference subset forbidden')
@@ -212,19 +225,24 @@ def run_nn(plan_path):
         worker_log.flush()
     def batches():
         for bucket in sorted(groups):
-            read_parts(db, groups[bucket], 'candidates')
-            bad = db.execute("""SELECT count(*) FROM candidates WHERE ecfp4_2048_hex IS NULL
+            read_parts(db, groups[bucket], 'all_candidates')
+            total, bad = db.execute("""SELECT count(*),count(*) FILTER(WHERE ecfp4_2048_hex IS NULL
                 OR NOT regexp_full_match(ecfp4_2048_hex,'[0-9a-f]{512}')
-                OR substr(ecfp4_2048_hex,1,1)<>?""", [bucket]).fetchone()[0]
-            require(bad == 0, 'FP width/canonical bucket differs')
+                OR substr(ecfp4_2048_hex,1,1)<>?) FROM all_candidates""", [bucket]).fetchone()
+            require(bad == 0 and total == sum(p['rows'] for p in groups[bucket]), 'Full physical bucket census/FP width differs')
+            full_input_rows[bucket] = total
+            db.execute('CREATE OR REPLACE TEMP VIEW candidates AS SELECT * FROM all_candidates WHERE ' + selected_predicate)
+            selected_input_rows[bucket] = db.execute('SELECT count(*) FROM candidates').fetchone()[0]
             per_bucket_unique[bucket] = 0
             previous = list(known[bucket])
             if previous:
                 read_parts(db, previous, 'previous_scores')
+                require(db.execute('SELECT count(*) FROM previous_scores WHERE NOT (' + selected_predicate + ')').fetchone()[0] == 0,
+                        'Closed cache contains another assigned work partition')
             # Sparse ECFP leading bits are skewed. Large physical buckets use a
             # deterministic hash partition ONLY for bounded exact query dedup;
             # all FPs and all reference molecules remain searched.
-            subgroups = list('0123456789abcdef') if sum(p['rows'] for p in groups[bucket]) > 8000000 else [None]
+            subgroups = assigned if sum(p['rows'] for p in groups[bucket]) > 8000000 else [None]
             for subgroup in subgroups:
                 condition = 'true' if subgroup is None else 'substr(md5(ecfp4_2048_hex),1,1)=' + literal(subgroup)
                 db.execute('CREATE OR REPLACE TEMP VIEW current_fp AS SELECT ecfp4_2048_hex FROM candidates WHERE ' + condition)
@@ -271,6 +289,8 @@ def run_nn(plan_path):
                     backend_adoption_reference=plan['backend_adoption_reference']):
                 for identity, raw, value in result.pop('results'):
                     require(raw.hex() == identity, 'Worker FP identity changed')
+                    require(hashlib.md5(identity.encode('ascii')).hexdigest()[0] in assigned,
+                            'Worker result outside exact assigned MD5 work partition')
                     keys.seek(value['reference_ordinal'] * 28)
                     key = keys.read(28).decode('ascii').rstrip('\n')
                     row = {'ecfp4_2048_hex': identity, 'nearest_v1_key': key,
@@ -295,11 +315,20 @@ def run_nn(plan_path):
         if bucket_manifest.exists():
             done = Q.load(bucket_manifest)
             require(done['filtered_pool_reference'] == plan['filtered_pool_reference']
-                    and done['reference'] == plan['reference_manifest'], 'Old projection binding differs')
+                    and done['reference'] == plan['reference_manifest']
+                    and done['assigned_hash_buckets'] == assigned
+                    and done['partition_id'] == plan['partition_id'] and done['scope_key'] == plan['scope_key']
+                    and done['queries'] == selected_input_rows[bucket]
+                    and sum(p['rows'] for p in done['parts']) == selected_input_rows[bucket], 'Old projection binding differs')
             for part in done['parts']:
                 Q.verify(part)
             projections.extend(done['parts']); continue
-        read_parts(db, groups[bucket], 'candidates')
+        read_parts(db, groups[bucket], 'all_candidates')
+        db.execute('CREATE OR REPLACE TEMP VIEW candidates AS SELECT * FROM all_candidates WHERE ' + selected_predicate)
+        if selected_input_rows[bucket] == 0:
+            require(per_bucket_unique[bucket] == 0 and not known[bucket], 'Empty work bucket cannot have cached FP results')
+            Q.write(bucket_manifest, {'parts': [], **binding, 'queries': 0})
+            continue
         read_parts(db, known[bucket], 'scored')
         require(db.execute('SELECT count(*),count(DISTINCT ecfp4_2048_hex) FROM scored').fetchone()
                 == (per_bucket_unique[bucket], per_bucket_unique[bucket]), 'Incomplete unique-FP exact coverage')
@@ -307,16 +336,29 @@ def run_nn(plan_path):
                 'Some actual candidates lack exact full-reference NN')
         sql = projection_sql(db, plan['reference_manifest']['sha256'])
         out = write_arrow(db, sql, root / 'projections' / bucket / ('attempt_' + uuid.uuid4().hex), bucket, journal, guard)
-        require(sum(p['rows'] for p in out) == sum(p['rows'] for p in groups[bucket]),
+        require(sum(p['rows'] for p in out) == selected_input_rows[bucket],
                 'Projection identity count amplified/lost')
-        Q.write(bucket_manifest, {'parts': out, 'filtered_pool_reference': plan['filtered_pool_reference'],
-                                 'reference': plan['reference_manifest']})
+        Q.write(bucket_manifest, {'parts': out, **binding, 'queries': selected_input_rows[bucket]})
         projections.extend(out)
     db.close(); journal.close(); guard.poll(force=True); lock.close()
-    require(sum(p['rows'] for p in projections) == filtered['eligible_molecules'], 'Full pool NN EOF differs')
-    value = {'schema': 'PUBCHEM_SHARDED_FULL_POOL_NOVELTY_V1', 'status': 'COMPLETE',
+    selected_rows = sum(selected_input_rows.values())
+    require(sum(full_input_rows.values()) == filtered['eligible_molecules']
+            and sum(p['rows'] for p in projections) == selected_rows
+            and 0 <= selected_rows <= filtered['eligible_molecules'], 'Whole input and assigned partition projection EOF differ')
+    value = {'schema': 'PUBCHEM_SHARDED_FULL_POOL_NOVELTY_V1', 'status': 'SHARD_COMPLETE',
+             'producer_schema': 'PUBCHEM_PARTITIONED_EXACT_NOVELTY_SHARD_V1',
+             'partition_id': plan['partition_id'], 'scope_key': plan['scope_key'],
+             'assigned_hash_buckets': assigned, 'partition_rule': 'MD5_OF_CANONICAL_FP_HEX_TEXT_FIRST_NIBBLE',
              'filtered_pool_reference': plan['filtered_pool_reference'], 'reference': plan['reference_manifest'],
-             'queries': filtered['eligible_molecules'],
+             'queries': selected_rows, 'whole_filtered_input_rows': filtered['eligible_molecules'],
+             'unselected_population_rows': filtered['eligible_molecules'] - selected_rows,
+             'full_input_rows_by_physical_FP_bucket': full_input_rows,
+             'selected_input_rows_by_physical_FP_bucket': selected_input_rows,
+             'complete_filtered_population_processed': False,
+             'source_binding_reference': Q.reference(binding_path),
+             'backend_adoption_reference': plan['backend_adoption_reference'],
+             'reference_fingerprints': packed['fingerprints'], 'reference_keys': packed['keys'],
+             'reference_counts': packed['counts'],
              'distinct_query_fingerprints': sum(per_bucket_unique.values()),
              'projection_parts': projections, 'fingerprint_recipe': RECIPE, 'algorithm': ALGORITHM,
              'reference_molecules': packed['molecules'], 'nearest_similarity_exact': True,

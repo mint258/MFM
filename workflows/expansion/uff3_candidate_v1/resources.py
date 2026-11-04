@@ -121,3 +121,18 @@ class Budget:
                 prequery_credit_provider=self.ledger.credit_before)
             self.last=now
         return self.latest
+
+    def seal_ledger(self):
+        """Current persisted closed bytes, not historical peak or a tree scan."""
+        if self.alpha_guard is not None:self.alpha_guard.close()
+        self.ledger.flush();totals=self.ledger.totals();path=self.ledger.path
+        maximum=self.ledger.maximum_native_ns
+        self.ledger.close()
+        s=path.lstat()
+        return {'path':str(path),'schema_version':2,'closed_totals':totals,
+            'maximum_recorded_native_ns':maximum,
+            'closed_at_unix_ns':max(time.time_ns(),maximum,s.st_mtime_ns,s.st_ctime_ns),
+            'producer_frame':{'uid':s.st_uid,'size':s.st_size,'mtime_ns':s.st_mtime_ns,'ctime_ns':s.st_ctime_ns,'nlink':s.st_nlink},
+            'mutable_paths':[str(p)for p in sorted(self.mutable_paths)],
+            'mutable_routing_directories':[str(p)for p in sorted(self.mutable_dirs)],
+            'whole_tree_root_blocks_used_as_total':False,'historical_peak_used_as_current':False}

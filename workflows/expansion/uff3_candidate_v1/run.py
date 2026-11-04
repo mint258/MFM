@@ -363,6 +363,7 @@ def run(plan):
     expected=db.execute('SELECT count(*) FROM selected').fetchone()[0]
     actual=db.execute('SELECT count(*) FROM done WHERE ordinal IN(SELECT ordinal FROM selected)').fetchone()[0]
     statuses=dict(db.execute('SELECT status,count(*) FROM done WHERE ordinal IN(SELECT ordinal FROM selected) GROUP BY status'))
+    closed_ledger=budget.seal_ledger()
     receipt={'schema':'PUBCHEM_UFF3_ALLOCATION_RECEIPT_V1','runtime':runtime,'source_manifest':manifest_reference,
         'recipe_sha256':C.recipe_sha(),'mode':mode,'shard_index':shard,'shard_count':shards,'expected_molecules':expected,
         'closed_family_export_molecules':actual,'state_counts':statuses,'newly_completed_workers':completed,
@@ -370,12 +371,11 @@ def run(plan):
         'status':('COMPLETE_CANDIDATE_PILOT_NOT_TRAINING_RELEASE' if mode=='pilot' else 'COMPLETE_CANDIDATE_SHARD_NOT_TRAINING_RELEASE') if actual==expected and failure is None else 'PARTIAL_RETAINED_NO_SCIENTIFIC_RETRY',
         'failure':failure,'wall_seconds':time.monotonic()-start,'last_resource_observation':budget.latest,
         'quality_reference_review':plan.get('quality_reference_review'),'full_population_1p5_scan_complete':False,
-        'output_accounting_rebuild':budget.ledger_rebuild,
+        'output_accounting_rebuild':budget.ledger_rebuild,'closed_ledger':closed_ledger,
         'source_capsule_reference':plan.get('source_capsule_reference'),'parent_transport_manifest':plan.get('parent_transport_manifest'),
         'execution_metadata':{k:plan.get(k)for k in('original_launcher_plan_reference','original_startup_proof_reference','_derived_runtime_plan_reference')},
         'training_eligible':False,'new_QM_calls':0,'batch_manifest_index':'index.sqlite:batches'}
     path=root/('receipt_job'+runtime['job_id']+'_'+uuid.uuid4().hex+'.json');S.write_new(path,receipt)
-    if budget.alpha_guard is not None:budget.alpha_guard.close()
     db.close();parent_lock.close();return receipt
 
 

@@ -53,10 +53,13 @@ class ClosedLedger:
             blocks INTEGER,mtime INTEGER,ctime INTEGER,PRIMARY KEY(dev,ino));
           CREATE TABLE IF NOT EXISTS directory_totals(singleton INTEGER PRIMARY KEY,allocated INTEGER);
           INSERT OR IGNORE INTO directory_totals VALUES(1,0);
+          CREATE TABLE IF NOT EXISTS native_frontier(singleton INTEGER PRIMARY KEY,maximum_ns INTEGER);
+          INSERT OR IGNORE INTO native_frontier VALUES(1,0);
         ''')
         self.db.commit();self.pending={};self.pending_logical=0;self.pending_allocated=0
         self.promoted_rows_lastcall=0
         self.pending_dirs={};self.pending_directory_allocated=0
+        self.maximum_native_ns=self.db.execute('SELECT maximum_ns FROM native_frontier WHERE singleton=1').fetchone()[0]
 
     @synchronized
     def register_directory(self,path):
@@ -65,6 +68,7 @@ class ClosedLedger:
         if not stat.S_ISDIR(before.st_mode) or before.st_uid!=os.getuid() or fields(before)!=fields(after):
             raise RuntimeError('STABLE_OWN_CLOSED_DIRECTORY_REQUIRED')
         dev,ino,uid,blocks,mtime,ctime=fields(before);dev,ino=inode_key(dev),inode_key(ino);value=(dev,ino,str(path),uid,blocks,mtime,ctime);key=(dev,ino)
+        self.maximum_native_ns=max(self.maximum_native_ns,mtime,ctime)
         old=self.pending_dirs.get(key) or self.db.execute('SELECT dev,ino,path,uid,blocks,mtime,ctime FROM directories WHERE dev=? AND ino=?',key).fetchone()
         if old is not None:
             if old!=value:raise RuntimeError('IMMUTABLE_CLOSED_DIRECTORY_CHANGED')
@@ -92,6 +96,7 @@ class ClosedLedger:
     def register(self,path):
         if self.is_mutable(path):return False
         value=self.fact(path);key=value[:2]
+        self.maximum_native_ns=max(self.maximum_native_ns,value[8])
         old=self.pending.get(key)
         if old is not None and old[3:]!=value[3:]:
             raise RuntimeError('CLOSED_INODE_CHANGED_BEFORE_REGISTRATION')
@@ -127,6 +132,7 @@ class ClosedLedger:
             self.db.execute('UPDATE totals SET logical=logical+?,allocated=allocated+? WHERE singleton=1',(logical,allocated))
             for value in self.pending_dirs.values():self.db.execute('INSERT INTO directories VALUES(?,?,?,?,?,?,?)',value)
             self.db.execute('UPDATE directory_totals SET allocated=allocated+? WHERE singleton=1',(self.pending_directory_allocated,))
+            self.db.execute('UPDATE native_frontier SET maximum_ns=? WHERE singleton=1',(self.maximum_native_ns,))
             self.db.commit();self.pending.clear();self.pending_logical=0;self.pending_allocated=0
             self.pending_dirs.clear();self.pending_directory_allocated=0
         except Exception:

@@ -36,9 +36,13 @@ def admit(plan_path,proof_path,module=MODULE):
 
 
 def partition(plan):
-    review=plan['storage_partition'];budget=read(review['future_budget_review_reference'])
+    review=plan['storage_partition']
+    if 'future_budget'in review:
+        from .budget import validate
+        budget=validate(review['future_budget'],plan)
+    else:budget=read(review['future_budget_review_reference'])
     Q.need(review['endpoint']==budget['endpoint']==Q.ENDPOINT and review['uid']==budget['uid']==Q.UID
-        and budget['schema']=='ROOT_ALPHA_ALL_FUTURE_STORAGE_BUDGET_V2'and budget['reviewer']=='root'
+        and ('future_budget'in review or(budget['schema']=='ROOT_ALPHA_ALL_FUTURE_STORAGE_BUDGET_V2'and budget['reviewer']=='root'))
         and review['routing_scope_root']==plan['output_scope_root']
         and review['inner_stage_is_only_child']is True
         and review['routing_budget_includes_all_ancestors']is True,'Actual private UFF partition within Root full-future budget required')

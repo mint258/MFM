@@ -1,7 +1,7 @@
-"""Strict Alpha startup wrapper for the existing full2.5M source orchestrator.
+"""Alpha startup wrapper for the existing full2.5M source orchestrator.
 
-Ranking uses the independent strict alpha_typed_rank_v1 admission. This entry
-cannot dispatch ranking or bypass its CPP/full-Ntuple proof requirements.
+Consumes completed upstream R/N ordering with actual source/terminal metadata.
+This entry only projects the frozen source graphs and cannot dispatch ranking.
 """
 import argparse
 import json

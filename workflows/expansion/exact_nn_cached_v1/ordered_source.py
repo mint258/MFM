@@ -24,7 +24,7 @@ def run(plan_path):
     import fcntl
     lock=(root/'parent.lock').open('a+b');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     require(not (root/'source_manifest.json').exists(),'Closed source manifest exists; reuse exact source')
-    out=root/('attempt_'+uuid.uuid4().hex);out.mkdir();db=duckdb.connect(str(out/'source.duckdb'))
+    out=root/('attempt_'+uuid.uuid4().hex);out.mkdir();db=duckdb.connect(':memory:')
     parts=[];counts={'R':0,'N':0};projected=out/'augmentation_projection.jsonl';part=None;part_rows=0
     try:
         configure(db,plan,out/'spill');guard.start(db)
@@ -60,7 +60,6 @@ def run(plan_path):
         if part is not None:
             part.flush();os.fsync(part.fileno());part.close();part=None;parts.append({**reference(part_path),'rows':part_rows})
         require(counts=={'R':1250000,'N':1250000} and sum(p['rows'] for p in parts)==2500000,'Exact whole ordered source census differs')
-        db.execute('CHECKPOINT')
     finally:
         if part is not None:part.close()
         guard.done.set()
