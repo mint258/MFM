@@ -37,9 +37,22 @@ def run(plan):
         raise RuntimeError('ACTUAL_ALLOCATED_MAIN_CPU_ANALYSIS_REQUIRED')
     output=Path(plan['output_directory'])
     if profile is not None and output.exists():
-        if any(output.iterdir()):raise RuntimeError('FRESH_EMPTY_ALPHA_QUALITY_SCOPE_REQUIRED')
+        entry_files=plan.get('_metadata_entry_files',[])
+        allowed=set()
+        for ref in entry_files:
+            path=verify(ref)
+            if (path.parent!=output or not path.name.startswith('derived_runtime_plan_')
+                    or S.read_json(path)!={k:v for k,v in plan.items()if k not in('_metadata_entry_files','_derived_runtime_plan_reference')}):
+                raise RuntimeError('ONLY_THIS_ACTUAL_PINNED_DERIVED_ENTRY_PLAN_ALLOWED_IN_FRESH_QA_SCOPE')
+            allowed.add(path)
+        if any(p not in allowed for p in output.iterdir()):raise RuntimeError('FRESH_EMPTY_ALPHA_QUALITY_SCOPE_REQUIRED')
     else:output.mkdir(parents=True,exist_ok=False)
-    budget=Budget(plan,output)
+    if profile is not None:
+        from ..uff3_alpha_runtime_v1.quality_budget import QualityBudget
+        budget=QualityBudget(plan,output)
+    else:budget=Budget(plan,output)
+    mode=plan.get('mode','full')
+    if mode not in ('pilot','full'):raise RuntimeError('EXPLICIT_PILOT_OR_FULL_QA_MODE')
     quality_ref=plan['quality_reference_review']
     from workflows.expansion.no_pm7_uff_d_main_v1 import contract as Original
     if plan.get('source_capsule_reference'):
@@ -62,10 +75,16 @@ def run(plan):
         if (receipt['schema']!='PUBCHEM_UFF3_ALLOCATION_RECEIPT_V1'
                 or receipt['source_total_molecules']!=2500000 or receipt['maximum_conformers']!=3):
             raise RuntimeError('ACTUAL_UFF3_ALLOCATION_RECEIPTS_REQUIRED')
+        expected_status='COMPLETE_CANDIDATE_PILOT_NOT_TRAINING_RELEASE'if mode=='pilot'else'COMPLETE_CANDIDATE_SHARD_NOT_TRAINING_RELEASE'
+        if receipt['status']!=expected_status or receipt['mode']!=mode:
+            raise RuntimeError('ACTUAL_COMPLETE_CLOSED_GENERATION_SCOPE_REQUIRED_FOR_QA')
         source_fingerprints.add(C.sha(C.canonical(receipt['source_manifest'])))
         root=Path(receipt_ref['path']).parent
         db=sqlite3.connect((root/'index.sqlite').as_uri()+'?mode=ro',uri=True)
         try:
+            if mode=='pilot':
+                from ..uff3_alpha_runtime_v1.pilot_membership import validate
+                validate(db)
             for mid,stream,status,manifest in db.execute('SELECT s.mid,s.stream,d.status,d.manifest FROM source s JOIN done d USING(ordinal)'):
                 old=census.execute('SELECT stream,status,manifest FROM molecules WHERE mid=?',(mid,)).fetchone()
                 if old is not None and old!=(stream,status,manifest):
@@ -84,13 +103,15 @@ def run(plan):
         census.commit();budget.register(output/'source_census.sqlite');budget.check()
     counts=dict(census.execute('SELECT stream,count(*) FROM molecules GROUP BY stream'))
     states=dict(census.execute('SELECT status,count(*) FROM molecules GROUP BY status'))
-    if len(source_fingerprints)!=1 or counts!={'R':1250000,'N':1250000}:
+    expected_counts={'R':5000,'N':5000}if mode=='pilot'else{'R':1250000,'N':1250000}
+    if len(source_fingerprints)!=1 or counts!=expected_counts:
         raise RuntimeError('FULL_UNIQUE_2P5M_R_N_CENSUS_REQUIRED')
     if not mask_refs:raise RuntimeError('NO_ORIGINAL_PER_COMPONENT_MASK_OUTPUTS')
     db=duckdb.connect(str(output/'validity.duckdb'))
     db.execute('SET threads='+str(int(workers)))
     db.execute('SET memory_limit='+literal(plan.get('duckdb_memory_limit','8GB')))
     db.execute('SET temp_directory='+literal(output/'spill'))
+    if profile is not None:budget.configure(db,literal)
     try:
         db.read_parquet(list(mask_refs),union_by_name=False).create_view('masks')
         actual={row[0] for row in db.execute('SELECT DISTINCT field_id FROM masks').fetchall()}
@@ -157,8 +178,10 @@ def run(plan):
             row['source_ineligible_record_fraction']=row['source_ineligible_records']/row['canonical_records']
         over_one_percent=[row for row in combined.values() if (row['masked_fraction'] or 0)>.01]
         record_report_fields=[row for row in combined.values() if row['masked_record_fraction']>.01 or row['original_new_mask_record_fraction']>.01]
-        result={'schema':'PUBCHEM_UFF3_VALIDITY_REVIEW_V1',
-            'status':'SCAN_COMPLETE_PENDING_INDEPENDENT_ROOT_REVIEW',
+        result={'schema':'PUBCHEM_UFF3_VALIDITY_REVIEW_V1','mode':mode,
+            'runtime':{'uid':os.getuid(),'endpoint':profile['endpoint']if profile else '202.38.247.57:22',
+                       'node':node,'job_id':os.environ['SLURM_JOB_ID'],'pid':os.getpid()},
+            'status':'COMPLETE_ORIGINAL_MASK_AND_ROBUST_REVIEW_REPORT',
             'source_molecules_by_stream':counts,'source_state_counts':states,
             'technical_unknown_sources_preserved_not_fabricated_as_valid':True,
             'actual_mask_field_ids':sorted(actual),'expected_D_field_ids':sorted(expected),
@@ -173,6 +196,8 @@ def run(plan):
             'original_record_gate_counts':S.reference(output/'original_record_gate.parquet'),
             'source_missing_NA_not_counted_as_new_mask':True,
             'quality_reference_review':quality_ref,'new_R_N_TRAIN_fit':False,
+            'source_capsule_reference':plan.get('source_capsule_reference'),'parent_transport_manifest':plan.get('parent_transport_manifest'),
+            'execution_metadata':{k:plan.get(k)for k in('original_launcher_plan_reference','original_startup_proof_reference','_derived_runtime_plan_reference')},
             'source_mask_functions_unchanged':True,'mask_reason_sets':S.reference(output/'reason_sets.parquet'),
             'worst20_per_field':S.reference(output/'worst20.parquet'),
             'field_summary':S.reference(output/'summary.parquet'),
@@ -182,7 +207,10 @@ def run(plan):
             'training_eligible':False}
         S.write_new(output/'result.json',result)
         return result
-    finally:db.close();census.close()
+    finally:
+        if profile is not None:budget.stop_sql_monitor()
+        db.close();census.close()
+        if profile is not None:budget.close()
 
 
 def main():

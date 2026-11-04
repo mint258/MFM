@@ -3,20 +3,53 @@ from pathlib import Path
 import os
 import stat
 import time
+import uuid
 from .credit import ClosedLedger,synchronized
 import threading
 
 
 class Budget:
-    def __init__(self, plan, output):
+    def __init__(self, plan, output, parent_lock=None):
         self.lock=threading.RLock();self.alpha_guard=None
         self.plan=plan;self.root=Path(output);self.last=0.;self.latest=None
+        if plan.get('runtime_profile_reference')and Path(plan['output_scope_root'])!=self.root:
+            raise RuntimeError('UFF_LEDGER_MUST_COVER_ENTIRE_DECLARED_ALPHA_OUTPUT_SCOPE')
         self.mutable_paths=set()
         self.mutable_dirs={self.root,self.root/'molecules',self.root/'families',self.root/'interrupted'}
         self.root.mkdir(parents=True,exist_ok=True)
-        self.ledger=ClosedLedger(self.root/'output_accounting.sqlite')
-        for name in ('index.sqlite','output_accounting.sqlite','validity.duckdb','parent.lock'):
+        self.ledger_rebuild=None
+        if parent_lock is not None:
+            from .ledger_resume import locked_scope,rebuild,resume_authority
+            epoch=locked_scope(self.root,parent_lock,resume_authority(plan,self.root))
+            ledger_path=self.root/('output_accounting_v2_'+uuid.uuid4().hex+'.sqlite')
+        else:
+            if plan.get('runtime_profile_reference'):
+                raise RuntimeError('ALPHA_GENERATION_REQUIRES_EXCLUSIVE_PARENT_LOCK')
+            ledger_path=self.root/'output_accounting_v2.sqlite'
+        self.startup_guard=None;startup=None
+        if parent_lock is not None and plan.get('runtime_profile_reference'):
+            from .ledger_resume import StartupCensus
+            from workflows.expansion.alpha_runtime_v1.guard import Guard
+            startup=StartupCensus(self.root,ledger_path,plan)
+            self.startup_guard=Guard(plan,usage_provider=startup.usage,prequery_credit_provider=startup.credit_before)
+        try:
+            self.ledger=ClosedLedger(ledger_path,maximum_bytes=plan['ledger_rebuild_reserved_bytes']if startup else None)
+        except BaseException:
+            if self.startup_guard:self.startup_guard.close()
+            raise
+        self.mutable_paths.update(ledger_path.parent/(ledger_path.name+suffix)
+                                  for suffix in ('','-journal','-wal','-shm'))
+        for name in ('index.sqlite','output_accounting.sqlite','validity.duckdb','validity.duckdb.wal','parent.lock'):
             for suffix in ('','-journal','-wal','-shm'):self.mutable_paths.add(self.root/(name+suffix))
+        if parent_lock is not None:
+            try:
+                self.ledger_rebuild={'epoch':epoch,**rebuild(self)}
+                if self.startup_guard:
+                    self.startup_guard.sample();self.startup_guard.check()
+                    self.ledger_rebuild.update(startup_census=startup.receipt(),startup_guard=self.startup_guard.receipt())
+            finally:
+                if self.startup_guard:self.startup_guard.close()
+                self.startup_guard=None
         if plan.get('runtime_profile_reference'):
             if Path(plan['output_scope_root'])!=self.root:
                 raise RuntimeError('UFF_LEDGER_MUST_COVER_ENTIRE_DECLARED_ALPHA_OUTPUT_SCOPE')
@@ -48,18 +81,20 @@ class Budget:
     @synchronized
     def used(self):
         totals=self.ledger.totals()
-        mutable=0
+        mutable=0;seen=set()
         for path in self.mutable_paths:
             try:value=path.lstat()
             except FileNotFoundError:continue
             if not stat.S_ISREG(value.st_mode) or value.st_uid!=os.getuid():
                 raise RuntimeError('OWN_MUTABLE_ACCOUNTING_OUTPUT_REQUIRED')
-            mutable+=value.st_blocks*512
+            key=(value.st_dev,value.st_ino)
+            if key not in seen:mutable+=value.st_blocks*512;seen.add(key)
         for path in self.mutable_dirs:
             try:value=path.lstat()
             except FileNotFoundError:continue
             if not stat.S_ISDIR(value.st_mode) or value.st_uid!=os.getuid():raise RuntimeError('OWN_MUTABLE_DIRECTORY_REQUIRED')
-            mutable+=value.st_blocks*512
+            key=(value.st_dev,value.st_ino)
+            if key not in seen:mutable+=value.st_blocks*512;seen.add(key)
         return totals['closed_allocated_bytes']+mutable
 
     @synchronized

@@ -47,7 +47,7 @@ def main():
               args.base_execution_commit, head).split(b'\0') if value]
     entries = []
     for name in names:
-        if not (name.startswith(ALLOWED) or name == '.gitattributes'):
+        if not (name.startswith(ALLOWED) or name in ('.gitattributes', 'AGENTS.md')):
             raise RuntimeError('Out-of-scope source path: ' + name)
         info = git('ls-tree', head, '--', name).decode().strip()
         if not info:

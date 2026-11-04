@@ -16,20 +16,40 @@ def synchronized(method):
     return call
 
 
+def inode_key(value):
+    """Lossless SQLite key; Gluster inode numbers can exceed signed int64."""
+    if type(value) is not int or value < 0 or value >= 1 << 64:
+        raise RuntimeError('UNSIGNED_64_BIT_FILESYSTEM_ID_REQUIRED')
+    return format(value, '016x')
+
+
 class ClosedLedger:
-    def __init__(self,path):
+    def __init__(self,path,maximum_bytes=None):
         self.lock=threading.RLock()
         self.path=Path(path)
         self.db=sqlite3.connect(self.path,timeout=120,check_same_thread=False)
+        if maximum_bytes is not None:
+            if type(maximum_bytes)is not int or maximum_bytes<1<<20:raise RuntimeError('FINITE_REBUILD_LEDGER_RESERVED_BYTES_REQUIRED')
+            page=self.db.execute('PRAGMA page_size').fetchone()[0]
+            # Main file is at most one third of reservation. DELETE journal
+            # can approach one extra main file; leave the third for headers,
+            # filesystem allocation granularity and routing-directory growth.
+            self.db.execute('PRAGMA max_page_count='+str(maximum_bytes//3//page))
+        version=self.db.execute('PRAGMA user_version').fetchone()[0]
+        existing=self.db.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
+        if existing and version!=2:
+            self.db.close()
+            raise RuntimeError('NEW_U64_LEDGER_NAMESPACE_REQUIRED_PRESERVE_OLD_EVIDENCE')
         self.db.executescript('''PRAGMA journal_mode=DELETE;
-          CREATE TABLE IF NOT EXISTS files(dev INTEGER,ino INTEGER,path TEXT UNIQUE,
+          PRAGMA user_version=2;
+          CREATE TABLE IF NOT EXISTS files(dev TEXT,ino TEXT,path TEXT UNIQUE,
             uid INTEGER,size INTEGER,blocks INTEGER,mtime INTEGER,ctime INTEGER,
             eligible INTEGER,credited INTEGER DEFAULT 0,PRIMARY KEY(dev,ino));
           CREATE INDEX IF NOT EXISTS credit_frontier ON files(credited,eligible);
           CREATE TABLE IF NOT EXISTS totals(singleton INTEGER PRIMARY KEY,
             logical INTEGER,allocated INTEGER,credit INTEGER,cutoff INTEGER);
           INSERT OR IGNORE INTO totals VALUES(1,0,0,0,0);
-          CREATE TABLE IF NOT EXISTS directories(dev INTEGER,ino INTEGER,path TEXT UNIQUE,uid INTEGER,
+          CREATE TABLE IF NOT EXISTS directories(dev TEXT,ino TEXT,path TEXT UNIQUE,uid INTEGER,
             blocks INTEGER,mtime INTEGER,ctime INTEGER,PRIMARY KEY(dev,ino));
           CREATE TABLE IF NOT EXISTS directory_totals(singleton INTEGER PRIMARY KEY,allocated INTEGER);
           INSERT OR IGNORE INTO directory_totals VALUES(1,0);
@@ -44,7 +64,7 @@ class ClosedLedger:
         fields=lambda s:(s.st_dev,s.st_ino,s.st_uid,s.st_blocks*512,s.st_mtime_ns,s.st_ctime_ns)
         if not stat.S_ISDIR(before.st_mode) or before.st_uid!=os.getuid() or fields(before)!=fields(after):
             raise RuntimeError('STABLE_OWN_CLOSED_DIRECTORY_REQUIRED')
-        dev,ino,uid,blocks,mtime,ctime=fields(before);value=(dev,ino,str(path),uid,blocks,mtime,ctime);key=(dev,ino)
+        dev,ino,uid,blocks,mtime,ctime=fields(before);dev,ino=inode_key(dev),inode_key(ino);value=(dev,ino,str(path),uid,blocks,mtime,ctime);key=(dev,ino)
         old=self.pending_dirs.get(key) or self.db.execute('SELECT dev,ino,path,uid,blocks,mtime,ctime FROM directories WHERE dev=? AND ino=?',key).fetchone()
         if old is not None:
             if old!=value:raise RuntimeError('IMMUTABLE_CLOSED_DIRECTORY_CHANGED')
@@ -66,7 +86,7 @@ class ClosedLedger:
                 or fields(before)!=fields(after)):
             raise RuntimeError('STABLE_OWN_CLOSED_REGULAR_OUTPUT_REQUIRED')
         dev,ino,uid,size,blocks,mtime,ctime=fields(before)
-        return (dev,ino,str(path),uid,size,blocks,mtime,ctime,max(mtime,ctime))
+        return (inode_key(dev),inode_key(ino),str(path),uid,size,blocks,mtime,ctime,max(mtime,ctime))
 
     @synchronized
     def register(self,path):

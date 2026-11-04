@@ -5,7 +5,7 @@ from pathlib import Path
 import uuid
 from ..common import load,reference,dump_new,require
 from ..portable_sources_v1.transport import verify,bind_plan,provenance
-from .contracts import typed_release
+from ..uff3_alpha_runtime_v1 import ordered_contract as Current
 from .engine import RECIPE,WIDTH
 from .sql_runtime import SqlGuard,configure
 
@@ -16,22 +16,9 @@ def run(plan_path):
     plan=load(plan_path);require(plan.get('schema')=='PUBCHEM_TYPED_ORDERED_UFF_SOURCE_PLAN_V1','Wrong ordered source plan schema')
     bind_plan(plan)
     rank=load(verify(plan['ranking_receipt']));filtered=load(verify(rank['filtered_pool']));novelty=load(verify(rank['novelty_receipt']))
-    typed_release(filtered,novelty)
-    require(rank.get('schema')=='expansion_nested_queues_v1' and rank.get('status')=='CANDIDATE_ORDER_COMPLETE_NO_CONFORMERS_COMPUTED'
-        and rank['seed']==20261025 and rank['queue_molecules_each']==5000000 and rank['first_batch_molecules_each']==1250000
-        and rank.get('downstream_features_used') is False,'Actual full10M ordering and2.5M first batch required')
-    candidates=verify(filtered['candidates']);batch=verify(rank['batch1'])
-    review=load(verify(plan['graph_source_review']))
-    pool=load(verify(filtered['source_pool_receipt']))
-    require(review.get('schema')=='ROOT_EXPANSION_PUBCHEM_GRAPH_SOURCE_REVIEW_V1'
-        and review.get('status')=='APPROVED_FROZEN_SOURCE_GRAPH' and review.get('reviewer')=='root'
-        and review['ranking_receipt_reference']==plan['ranking_receipt']
-        and review['filtered_candidates_reference']==filtered['candidates']
-        and review.get('feature_graph_field')=='isomeric_smiles' and review.get('preserve_source_smiles') is True
-        and review.get('same_actual_screen_producer_graph_semantics_reviewed') is True
-        and review['pubchem_raw_source_reference']==pool['scope']['source_projection']
-        and isinstance(review.get('pubchem_version'),str) and bool(review['pubchem_version']),
-        'Actual Root source graph/version authority for this typed pool required')
+    candidate_refs=Current.complete(rank,filtered,novelty);Current.completed_rank(plan,rank)
+    candidates=[verify(ref)for ref in candidate_refs];batch=verify(rank['batch1'])
+    origin=Current.origin(plan,filtered)
     root=Path(plan['output_directory']);require(root.is_absolute() and not root.is_symlink(),'Absolute source output required')
     root.mkdir(parents=True,exist_ok=True);guard=SqlGuard(plan,root)
     import fcntl
@@ -41,7 +28,7 @@ def run(plan_path):
     parts=[];counts={'R':0,'N':0};projected=out/'augmentation_projection.jsonl';part=None;part_rows=0
     try:
         configure(db,plan,out/'spill');guard.start(db)
-        db.read_parquet(str(candidates)).create_view('candidates');db.read_parquet(str(batch)).create_view('batch1')
+        db.read_parquet([str(path)for path in candidates],union_by_name=False).create_view('candidates');db.read_parquet(str(batch)).create_view('batch1')
         require(db.execute('SELECT count(*),count(DISTINCT full_key),count(DISTINCT cid) FROM batch1').fetchone()==(2500000,2500000,2500000),
             'Exactly2.5M unique first-batch molecules required')
         require(db.execute('SELECT stream,count(*),min(stream_rank),max(stream_rank),count(DISTINCT stream_rank) FROM batch1 GROUP BY stream ORDER BY stream').fetchall()
@@ -57,7 +44,7 @@ def run(plan_path):
                 if not batch_rows:break
                 for values in batch_rows:
                     row=dict(zip(names,values));stream=row['stream']
-                    source={'pubchem_version':review['pubchem_version'],'cid':int(row['cid']),'full_key':row['full_key'],
+                    source={'pubchem_version':origin['pubchem_version'],'cid':int(row['cid']),'full_key':row['full_key'],
                         'source_smiles':row['source_smiles'],'isomeric_smiles':row['isomeric_smiles'],'stream':stream,'stream_rank':int(row['stream_rank'])}
                     C.source_identity(source);counts[stream]+=1
                     if part is None:
@@ -79,11 +66,15 @@ def run(plan_path):
         guard.done.set()
         if hasattr(guard,'thread'):guard.thread.join()
         db.close();lock.close()
-    guard.close();verify(filtered['candidates']);verify(rank['batch1'])
+    guard.close()
+    for ref in candidate_refs:verify(ref)
+    verify(rank['batch1'])
     manifest={'schema':'PUBCHEM_UFF3_ORDERED_SOURCE_MANIFEST_V1','status':'ALL2500000_ORDERED_SOURCE_GRAPHS_PROJECTED_NO_UFF',
         'molecules':2500000,'molecules_by_stream':counts,'ranking_receipt':plan['ranking_receipt'],'source_parts':parts,
-        'graph_source_review':plan['graph_source_review'],'pubchem_version':review['pubchem_version'],
+        'source_origin':origin,'pubchem_version':origin['pubchem_version'],
         'typed_filtered_pool':rank['filtered_pool'],'resource_plan':reference(plan_path),'new_UFF_QM_calls':0}
+    manifest.update(population_version=filtered['population_version'],source_pool_receipt=filtered['source_pool_receipt'])
+    manifest['actual_parent']={'job_id':os.environ['SLURM_JOB_ID'],'uid':os.getuid()}
     manifest['endpoint_execution']=provenance(plan)
     dump_new(root/'source_manifest.json',manifest)
     reference_projection={'schema':'EXPANSION_ORDERED_RN_REFERENCE_PROJECTION_V1','status':'COMPLETE',

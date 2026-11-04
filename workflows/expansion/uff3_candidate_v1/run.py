@@ -57,7 +57,9 @@ def guard(plan):
         raise RuntimeError('ACTUAL_MAIN_ALLOCATED_CPU_WORKERS_REQUIRED')
     if plan['maximum_conformers']!=3 or plan['no_fill'] is not True or plan['no_retry'] is not True:
         raise RuntimeError('CURRENT_USER_MAX3_NO_FILL_NO_RETRY_POLICY')
-    return {'uid':uid,'node':node,'endpoint':profile['endpoint'] if profile else '202.38.247.57:22','job_id':os.environ['SLURM_JOB_ID'],
+    raw=Path('/proc/self/stat').read_text().rsplit(')',1)[1].split()
+    return {'hostname':socket.gethostname(),'boot_id':Path('/proc/sys/kernel/random/boot_id').read_text().strip(),
+            'start_ticks':int(raw[19]),'uid':uid,'node':node,'endpoint':profile['endpoint'] if profile else '202.38.247.57:22','job_id':os.environ['SLURM_JOB_ID'],
             'allocated_cpus':cpus,'workers':workers,'pid':os.getpid()}
 
 
@@ -82,18 +84,11 @@ def source_rows(manifest):
 
 def ranking_parents(manifest):
     """The source is the actual released batch1, not just 2.5M well-formed rows."""
-    from workflows.expansion.ranking import release_gate
     rank=S.read_json(verify(manifest['ranking_receipt']))
     filtered=S.read_json(verify(rank['filtered_pool']))
     novelty=S.read_json(verify(rank['novelty_receipt']))
-    if filtered.get('schema')=='expansion_filtered_columnar_pool_v1':
-        from workflows.expansion.exact_nn_cached_v1.contracts import typed_release
-        typed_release(filtered,novelty)
-    else:
-        screen=S.read_json(verify(filtered['screen']))
-        regression=S.read_json(verify(filtered['regression']))
-        release_gate(screen_receipt=screen,regression_receipt=regression,
-            decontamination_receipt=filtered,novelty_receipt=novelty)
+    from workflows.expansion.uff3_alpha_runtime_v1.ordered_contract import complete
+    complete(rank,filtered,novelty)
     if (rank['schema']!='expansion_nested_queues_v1' or rank['seed']!=20261025
             or rank['queue_molecules_each']!=5000000 or rank['first_batch_molecules_each']!=1250000
             or rank['downstream_features_used'] is not False):
@@ -301,7 +296,12 @@ def run(plan):
     if manifest['schema']!='PUBCHEM_UFF3_ORDERED_SOURCE_MANIFEST_V1' or manifest['molecules']!=2500000:
         raise RuntimeError('EXACT_IMMUTABLE_ORDERED_SOURCE_MANIFEST')
     root=Path(plan['output_directory'])
-    base=Path('/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion')
+    if runtime['endpoint']=='218.192.171.238:22':
+        base=Path('/gfshome/alpha')
+        if root!=Path(plan['output_scope_root']):
+            raise RuntimeError('ALPHA_UFF_STAGE_MUST_EQUAL_ACTUAL_PRIVATE_ACCOUNTED_SCOPE')
+    else:
+        base=Path('/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion')
     if not root.is_absolute() or base not in root.parents or any(path.is_symlink() for path in (root,*root.parents)):
         raise RuntimeError('OWN_LITERAL_EXTERNAL_EXPANSION_OUTPUT_DIRECTORY_REQUIRED')
     root.mkdir(parents=True,exist_ok=True)
@@ -310,7 +310,7 @@ def run(plan):
     except BlockingIOError:
         parent_lock.close()
         raise RuntimeError('OWN_OUTPUT_ALREADY_HAS_LIVE_PARENT_NO_DUPLICATE_DISPATCH')
-    budget=Budget(plan,root);db=open_index(root,manifest,manifest_reference,budget)
+    budget=Budget(plan,root,parent_lock=parent_lock);db=open_index(root,manifest,manifest_reference,budget)
     recover_batches(db,root,budget)
     shard=plan.get('shard_index',0);shards=plan.get('shard_count',1)
     if not (type(shard)is int and type(shards)is int and 0<=shard<shards):raise RuntimeError('INVALID_EXCLUSIVE_SHARD')
@@ -370,6 +370,9 @@ def run(plan):
         'status':('COMPLETE_CANDIDATE_PILOT_NOT_TRAINING_RELEASE' if mode=='pilot' else 'COMPLETE_CANDIDATE_SHARD_NOT_TRAINING_RELEASE') if actual==expected and failure is None else 'PARTIAL_RETAINED_NO_SCIENTIFIC_RETRY',
         'failure':failure,'wall_seconds':time.monotonic()-start,'last_resource_observation':budget.latest,
         'quality_reference_review':plan.get('quality_reference_review'),'full_population_1p5_scan_complete':False,
+        'output_accounting_rebuild':budget.ledger_rebuild,
+        'source_capsule_reference':plan.get('source_capsule_reference'),'parent_transport_manifest':plan.get('parent_transport_manifest'),
+        'execution_metadata':{k:plan.get(k)for k in('original_launcher_plan_reference','original_startup_proof_reference','_derived_runtime_plan_reference')},
         'training_eligible':False,'new_QM_calls':0,'batch_manifest_index':'index.sqlite:batches'}
     path=root/('receipt_job'+runtime['job_id']+'_'+uuid.uuid4().hex+'.json');S.write_new(path,receipt)
     if budget.alpha_guard is not None:budget.alpha_guard.close()
