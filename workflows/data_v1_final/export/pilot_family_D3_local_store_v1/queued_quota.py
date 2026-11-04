@@ -183,11 +183,20 @@ def admit(manifest,job_id,node,outputroot,forecast=1_030_000_000_000):
                 ledger=read(LEDGER) if LEDGER.exists() else dict(schema='ROOT_LUSTRE_ALL_FUTURE_LEDGER_V1',entries={},quota_policy_reference=reference)
                 own=ledger['entries'].setdefault(value['scope_entry_key'],dict(job_id=None,future_reserved_bytes=0,status='DEFERRED_STORAGE_ADMISSION'))
                 if own.get('job_id') is not None and str(own['job_id'])!=job_id and (state(own['job_id']) not in TERMINAL or str(own['job_id']) in current_jobs()):raise ValueError('OTHER_ACTUAL_JOB_OWNS_LUSTRE_SCOPE')
-                total=refresh(ledger,job_id,main_ledger);result=quota();total=total-own['future_reserved_bytes']+forecast
-                if result['free_bytes']-total<value['account_floor_bytes']:raise ValueError('WAITING_FOR_REAL_LUSTRE_QUOTA_MINUS_ALL_LUSTRE_FUTURES')
+                total=refresh(ledger,job_id,main_ledger);total=total-own['future_reserved_bytes']+forecast
+                # Prior closed DATA are already charged in real Lustre quota.
+                # Same-root continuation credits those actual blocks once, with
+                # a causal pre-quota/current inode-lifetime intersection.
+                from .runtime_budget import StableOutputCensus
+                census=StableOutputCensus(output)
+                try:
+                    earlier=census.allocated();time.sleep(1.1);result=quota();current=census.allocated()
+                    credit=min(forecast,sum(min(amount,current.get(key,0))for key,amount in earlier.items()))
+                finally:census.close()
+                if result['free_bytes']-(total-credit)<value['account_floor_bytes']:raise ValueError('WAITING_FOR_REAL_LUSTRE_QUOTA_MINUS_ALL_LUSTRE_FUTURES')
                 own.update(job_id=job_id,future_reserved_bytes=forecast,forecast_bytes=forecast,storage_domain='LUSTRE',status='ACTUAL_RUNNING_STORAGE_ADMITTED',output_root=str(output),node=node)
                 totals(ledger);save(LEDGER,ledger)
-                result.update(total_future_reserved_bytes=total,own_forecast_bytes=forecast,credit_not_applied=True,own_allocated_credit_applied=False)
+                result.update(total_future_reserved_bytes=total,own_forecast_bytes=forecast,credit_not_applied=True,own_allocated_credit_applied=False,closed_prior_allocated_credit_at_admission_bytes=credit,remaining_future_at_admission_bytes=total-credit)
                 receipt=dict(status='ACTUAL_RUNNING_LUSTRE_D3_STORAGE_ADMITTED',job_id=job_id,node=node,output_root=str(output),
                     quota_policy_reference=reference,quota_snapshot=result,forecast_is_not_output_hard_cap=True,no_expiry=True,main_scope_future_bytes=0)
                 admission=save(directory/('storage_admission_'+job_id+'.json'),receipt,pin=True)
