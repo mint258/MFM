@@ -54,3 +54,9 @@ P′后台闭合更新：原生4525748 C0/47864秒，最终只读审计4525885 C
 当日资源修复一行：4525888实际FAILED/1/392秒，在原UFF源投影阶段因共享mutable工作DB使真余量跌破100GB停止，尚无分子claim/checkpoint或新QM/UFF；原始数据和失败历史保留，仅删除已终态纯派生3,185,324,032B工作DB，fresh quota确实恢复；v6将DB/spill改为node18新/dev/shm工作目录（实测free201.85GB、MemAvailable389.94GB），全部正式输出仍共享，原64GiB预测与100GB真门不变，不把本地占用记为Main free credit。原Git整合源码检查4525889实际C0/609秒（一次SSH正常10分钟重试），PASS4830文件/3427 Python/1311服务器源码/0错误；计算未被该Git等待阻塞。
 
 v6接续实际4525890已RUNNING/16CPU/compute-0-18，原startup proof、local_workspace_observation与canonical frame均已生成，原closed-source接入census已完成。工作DB已实核位于/dev/shm且UID1278（观察约987MB），共享输出目录无workingDB；原科学函数、输入、64GiB forecast和100GB account门不变。仍处原UFF输入投影/准备阶段，尚无可报告的完整分子百分比。原源码检查4525891已排队，成品LMDB和P′闭合结果不重算。
+
+收尾核实：v6原源码检查4525891实际C0/10秒，PASS4974文件/3530 Python/1311服务器源码/0错误；本地修复源码ae68ac8与整合后的96912028已推送delivery/d3-v1-pilot-20261105，不触其他线dirty或扩充PR。4525890仍原生RUNNING/16CPU/compute-0-18，已越过原392秒停止点，共享配额保持稳定；尚无完整descriptor checkpoint，不编造分子进度百分比。Alpha 1885263/1885264/1885267继续实际R，共112CPU，后续rank/UFF/D/报告已排队。
+
+N1登记输入进展：只读canonical发布清点4525892实际C0/62秒/16CPU8，读取6531份canonical元数据，相关extra发布父与索引均0；5个无关argv-list的schema分类已按闭合原字节单次修正，不重扫DATA。canonical子域闭合不等于portable非canonical全历史为空（AccountingStoreFlags=null），保留UNKNOWN。D1静态合同审阅确认要求是带release/registry版本的导出域内稳定唯一ID，不要求所有历史私有sidecar跨版本永久不变；正在独立候选接口中按当前v1注册域处理未冻结extras，保留ordinary、历史attempted及既登记ID，沿用原ID算法与全部source/once历史，不修改4525890 pinned源、科学标签或筛选，也不新增UFF/QM。最终Common与D6仍未放行，Model实际payload ACK尚未观察到。
+
+N1当前版本物理登记完成：4525894原生COMPLETED/0:0、237秒、16CPU/compute-0-18，Alpha回包中4400个真实第二几何全部通过原物理QA；4个生成/输入失败和3个无第二真实几何原状态保留。当前release registry已追加accepted index，保留旧snapshot、ordinary/attempted/已登记ID及全部producer/native别名，历史noncanonical覆盖仍UNKNOWN。正式组件入口为 configs/data_v1/N1_current_canonical_physical_20261105_v1.json；未新增QM/UFF，未放行最终Common/D6。普通排序4525890仍实际R，两个生产descriptor关闭合计10000分子，第二个5000批次用时1216秒；正并行准备批量元数据查找的等价加速候选及全量导出接线，不修改活动pinned源或追加QA。
