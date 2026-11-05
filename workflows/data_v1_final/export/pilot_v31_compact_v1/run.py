@@ -244,7 +244,7 @@ def main():
             destination=plan['node_destination_root']
             try:
                 subprocess.run(['ssh','-n','-o','BatchMode=yes','-o','ConnectTimeout=15',node,'test "$(id -u)" = 1278 && mkdir -p '+destination],check=True,timeout=90)
-                subprocess.run(['rsync','-a','--sparse','--protect-args','-e','ssh -n -o BatchMode=yes -o ConnectTimeout=15',str(root)+'/',node+':'+destination+'/'],check=True,timeout=1800)
+                subprocess.run(['rsync','-a','--sparse','--protect-args','-e','ssh -o BatchMode=yes -o ConnectTimeout=15',str(root)+'/',node+':'+destination+'/'],check=True,timeout=1800)
                 transfers.append(dict(node=node,directory=destination,status='RSYNC_SPARSE_COMPLETED'))
             except(subprocess.CalledProcessError,subprocess.TimeoutExpired)as error:
                 deferred.append(node);save(progress,dict(phase='WAIT_NODE_COPY',node=node,error=str(error),completed=transfers,remaining=deferred))
