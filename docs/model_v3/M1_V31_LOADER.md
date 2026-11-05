@@ -3,6 +3,10 @@
 入口为 `current/phychem_mfm/phase1/v31_loader.py`。读取每 split 的单默认 LMDB、
 共享 schema.json 和外部 id_map.parquet；无 v3.0 回退、文件哈希或独立重读。
 M1 最终完成仍须 M2 真实训练跑通；格式、采样、字段及缺失规则有单元测试。
+纯S通用训练/验证使用 `geometry_only=True`：分子信息仍完整读取，P/U只复制原21/22
+几何数组，跳过未使用的标签数组。LMDB使用事务内buffer视图，保留的NumPy数组在事务
+关闭前复制为自有内存；完整记录的header/边界/补齐检查保留。普通P/D读取保持完整，
+请求training_view时禁止geometry_only，不能借此跳过启用标签、D4或数值掩码。
 
 TrainingView 直接消费窗口二正式冻结的 training_view_v1.json；字段名取 field_key，
 按 selectors 选择实际列，family/level/representation 来自共享 schema。原始完整

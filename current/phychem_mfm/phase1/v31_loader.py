@@ -23,8 +23,8 @@ ORDER_IDS = {'PM7': {'fixed_random': 7, 'energy': 9, 'diversity': 10},
              'UFF': {'fixed_random': 8, 'energy': 11, 'diversity': 12}}
 
 
-def decode_mfm4(payload):
-    """Decode numeric arrays without pickle, hashes or a second read."""
+def decode_mfm4(payload, *, array_ids=None):
+    """Decode selected numeric arrays, validating the entire framing once."""
     data = memoryview(payload)
     if len(data) < 8:
         raise ValueError('Truncated MFM4 header')
@@ -48,8 +48,9 @@ def decode_mfm4(payload):
         padded = (end + 3) // 4 * 4
         if padded > len(data) or any(data[end:padded]):
             raise ValueError('Truncated MFM4 data or nonzero padding')
-        result[key] = np.frombuffer(data, dtype=DTYPES[dtype], count=size,
-                                    offset=offset).reshape(shape).copy()
+        if array_ids is None or key in array_ids:
+            result[key] = np.frombuffer(data, dtype=DTYPES[dtype], count=size,
+                                        offset=offset).reshape(shape).copy()
         offset = padded
     if offset != len(data):
         raise ValueError('Trailing MFM4 bytes')
@@ -311,7 +312,10 @@ class MFM4Dataset:
     """Per-process LMDB handles, molecule-first sampling and explicit geometry."""
     def __init__(self, root, *, split='TRAIN', training_view=None, source='PM7',
                  order='fixed_random', k=None, diagnostic=False, molecule_indices=None,
-                 normalizations=None, pprime=False):
+                 normalizations=None, pprime=False, geometry_only=False):
+        if geometry_only and training_view is not None:
+            raise ValueError('Geometry-only reading cannot discard a requested training view')
+        self.geometry_only = geometry_only
         self.root = Path(root)
         self.directory = self.root / ('v31_pilot_' + split)
         if not self.directory.exists():
@@ -352,11 +356,13 @@ class MFM4Dataset:
         if kind == 'M' and molecule in self._molecules:
             return self._molecules[molecule]
         self._open()
-        with self._env.begin() as txn:
+        with self._env.begin(buffers=True) as txn:
             payload = txn.get(record_key(kind, molecule, conformer))
-        if payload is None:
-            raise KeyError((kind, molecule, conformer))
-        result = decode_mfm4(payload)
+            if payload is None:
+                raise KeyError((kind, molecule, conformer))
+            # Retained arrays own their memory before the LMDB transaction ends.
+            selected = {21, 22} if self.geometry_only and kind != 'M' else None
+            result = decode_mfm4(payload, array_ids=selected)
         if kind == 'M':
             self._molecules[molecule] = result
         return result

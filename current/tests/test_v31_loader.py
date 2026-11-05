@@ -67,6 +67,57 @@ def test_codec_rejects_malformed_records(mutation):
     with pytest.raises(ValueError): decode_mfm4(raw)
 
 
+def test_selective_codec_retains_owned_geometry_and_skips_unused_arrays():
+    coordinates = np.arange(6, dtype='<f4').reshape(2, 3)
+    payload = bytearray(encode({21:coordinates, 23:np.full(1000, np.nan, dtype='<f4')}))
+    actual = decode_mfm4(memoryview(payload), array_ids={21})
+    assert set(actual) == {21} and actual[21].flags.owndata
+    payload[:] = bytes(len(payload))
+    np.testing.assert_allclose(actual[21], coordinates, atol=1e-6, rtol=1e-6)
+
+
+@pytest.mark.parametrize('mutation', ['trailing', 'padding', 'dtype'])
+def test_selective_codec_still_rejects_malformed_unselected_arrays(mutation):
+    first = {21:np.zeros((1,3), dtype='<f4')}
+    payload = bytearray(encode({**first, 34:np.array([1], dtype='u1')}))
+    if mutation == 'trailing': payload += b'\0'
+    if mutation == 'padding': payload[-1] = 1
+    if mutation == 'dtype': payload[len(encode(first)) + 2] = 99
+    with pytest.raises(ValueError):
+        decode_mfm4(payload, array_ids={21})
+
+
+@pytest.mark.parametrize('source,kind', [('PM7','P'), ('UFF','U')])
+def test_geometry_only_lmdb_uses_same_allowed_inputs_without_label_copy(tmp_path, source, kind):
+    lmdb = pytest.importorskip('lmdb')
+    schema, view = schema_view()
+    (tmp_path/'schema.json').write_text(json.dumps(schema))
+    directory = tmp_path/'TRAIN'
+    directory.mkdir()
+    (directory/'manifest.json').write_text(json.dumps({'molecule_count':1}))
+    env = lmdb.open(str(directory), map_size=1 << 20)
+    with env.begin(write=True) as txn:
+        txn.put(record_key('M',0), encode(molecule()))
+        for j in range(3):
+            txn.put(record_key(kind,0,j), encode({21:np.full((2,3),j,dtype='<f4'),
+                22:np.full((2,3),j+1,dtype='<f4'), 23:np.array([999.],dtype='<f4')}))
+    env.close()
+    dataset = MFM4Dataset(tmp_path, source=source, geometry_only=True)
+    conformer = int(dataset.choices(0)[0])
+    assert set(dataset.record(kind,0,conformer)) == {21,22}
+    sample = dataset.read(0,conformer)
+    dataset.close()
+    assert sample['targets'] == {}
+    np.testing.assert_allclose(sample['pos'], conformer, atol=1e-6, rtol=1e-6)
+    np.testing.assert_allclose(sample['pos_perturbed'], conformer+1, atol=1e-6, rtol=1e-6)
+    np.testing.assert_array_equal(sample['Z'], molecule()[1])
+
+
+def test_geometry_only_cannot_silently_disable_enabled_labels(tmp_path):
+    with pytest.raises(ValueError, match='cannot discard'):
+        MFM4Dataset(tmp_path, geometry_only=True, training_view={'fields':[]})
+
+
 def test_holdout_removed_before_first_k_and_diagnostic_separate():
     m = molecule()
     assert allowed_conformers(m, k=1).tolist() == [2]
