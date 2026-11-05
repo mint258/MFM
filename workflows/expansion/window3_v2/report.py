@@ -43,13 +43,30 @@ def accounting(job_ids):
     return sum(int(row[3])*int(row[4]) for row in rows)/3600, rows
 
 
+def nn_result(root):
+    """Consume the authorized producer's closed summary, never replay NN."""
+    root=Path(root); value=read(root/'summary.json'); files=read(root/'manifest.json')
+    if (value['queries']!=1000000 or value['reference_molecules']!=3696122
+            or value['original_reference_prefix']!=1196122 or value['added_reference_molecules']!=2500000
+            or value['before']['n']!=1000000 or value['after']['n']!=1000000
+            or sum(f['rows'] for f in files)!=1000000):
+        raise ValueError('AUTHORIZED_FIXED_QUERY_AUGMENTED_NN_INCOMPLETE')
+    native=read(root/'accounting.json')
+    if native['state']!='COMPLETED' or native['exit_code']!='0:0':
+        raise ValueError('AUTHORIZED_NN_PARENT_NOT_COMPLETE')
+    return value, files, native
+
+
 def run(config):
     totals, streams, states, reasons, rates, families, files = combine(config)
     output = Path(config['output']); output.mkdir(parents=True, exist_ok=True)
+    nn, nn_files, nn_native=nn_result(config.get('nn_after',Path(config['data_root'])/'nn_after'))
+    files.extend(nn_files)
     save(output/'manifest.json', files)
     stats = read(Path(config['statistics'])/'summary.json')
     baseline = read(config['baseline_summary'])
     cost, parents = accounting(config['job_ids'])
+    main_cost=nn_native['allocated_core_hours']
     stored = int(subprocess.check_output(['du','-sB1',config['data_root']],text=True).split()[0])
     finite_rates = [r for r in rates if r['fraction'] is not None]
     highest = max(finite_rates,key=lambda r:r['fraction'])
@@ -75,18 +92,19 @@ def run(config):
 |---|---:|---:|---:|---:|
 {chr(10).join(rows)}
 
-**覆盖（已有结果；E4.3口径待用户确认）。** R/N到v1的平均既有NN Tanimoto分别为{coverage['R'][2]:.5f}/{coverage['N'][2]:.5f}；低于0.4的比例为{coverage['R'][4]:.2%}/{coverage['N'][4]:.2%}；新骨架比例为{coverage['R'][7]:.2%}/{coverage['N'][7]:.2%}，新环系为{coverage['R'][8]:.2%}/{coverage['N'][8]:.2%}。原随机100万对v1均值0.519917。增广后的NN分布没有计算；来源自身的直接覆盖不作为查询集覆盖增益。本节不能证明E4.3完成。新增计算仍遵守任务书禁止条款，等待用户确定报告口径。全部现有分数均复用既有结果。
+**覆盖。** R/N到v1的平均既有NN Tanimoto分别为{coverage['R'][2]:.5f}/{coverage['N'][2]:.5f}；低于0.4的比例为{coverage['R'][4]:.2%}/{coverage['N'][4]:.2%}；新骨架比例为{coverage['R'][7]:.2%}/{coverage['N'][7]:.2%}，新环系为{coverage['R'][8]:.2%}/{coverage['N'][8]:.2%}。按用户单次授权，原固定随机100万查询对原1,196,122参考与增广3,696,122参考的NN均值为{nn['before']['mean']:.6f}→{nn['after']['mean']:.6f}，标准差{nn['before']['population_std']:.6f}→{nn['after']['population_std']:.6f}；低于0.4的比例{nn['counts']['before_below_0.4']/1000000:.2%}→{nn['counts']['after_below_0.4']/1000000:.2%}，低于0.6为{nn['counts']['before_below_0.6']/1000000:.2%}→{nn['counts']['after_below_0.6']/1000000:.2%}，低于0.8为{nn['counts']['before_below_0.8']/1000000:.2%}→{nn['counts']['after_below_0.8']/1000000:.2%}。{nn['counts']['strict_improvement']:,}条查询严格提高。原查询成员/顺序、原参考顺序前缀、指纹和self-match语义保持；完整0.001分箱及逐查询结果见清单，未重算指纹。
 
 **UFF与标签。** 恰3构象{good:,}分子（{good/n:.2%}），不足3构象{insufficient:,}；交付{totals['conformers']:,}个实际构象。状态：{json.dumps(dict(states),ensure_ascii=False)}。失败原因保留于source_status，逐分子耗时在timings家族。物理范围新增掩码最高{highest['fraction']:.3%}（{highest['field_stream']}，{highest['newly_masked_records']}/{highest['records']}）；源缺失另计，比例不触发停止。
 
-**运行与存储。** 1万试跑墙钟{pilot['wall_seconds']/60:.2f}分钟，分子内科学/处理CPU合计{pilot['counts']['molecule_CPU_seconds']/3600:.2f}核时；其结果直接采用。全批并发见生产配置。本次v2作业分配核时{cost:,.2f}（含失败/续接；不重复计步骤），当前目录实际占用{stored/1e9:.3f}GB，交付Parquet合计{sum(f['size'] for f in files)/1e9:.3f}GB。历史筛选/NN成本按周汇总。数据根：`{config['data_root']}`；唯一交付清单：`{output/'manifest.json'}`（仅路径、大小、行数）。
+**运行与存储。** 1万试跑墙钟{pilot['wall_seconds']/60:.2f}分钟，分子内科学/处理CPU合计{pilot['counts']['molecule_CPU_seconds']/3600:.2f}核时；其结果直接采用。全批并发见生产配置。本次v2作业分配核时{cost+main_cost:,.2f}（Alpha生产/统计{cost:,.2f}，Main授权NN{main_cost:,.2f}；含失败/续接，不重复计步骤）。Alpha目录实际占用{stored/1e9:.3f}GB，Main NN运行目录{nn_native['allocated_storage_bytes']/1e9:.3f}GB，交付Parquet合计{sum(f['size'] for f in files)/1e9:.3f}GB。历史筛选/NN成本按周汇总。数据根：`{config['data_root']}`；唯一交付清单：`{output/'manifest.json'}`（仅路径、大小、行数）。
 
 不做QM/P′或训练格式导出；v1原数据未修改。草稿PR1保持未合并，后续单点/训练格式由对应窗口决定。
 '''
     Path(config['report_path']).write_text(text,encoding='utf-8')
     save(output/'batch_summary.json', {'molecules':n,'streams':dict(streams),'states':dict(states),
         'counts':dict(totals),'family_rows':dict(families),'mask_rates':rates,'failure_reasons':dict(reasons),
-        'allocated_core_hours':cost,'actual_parent_rows':parents,'allocated_storage_bytes':stored})
+        'allocated_core_hours':cost+main_cost,'alpha_allocated_core_hours':cost,'main_nn_accounting':nn_native,
+        'augmented_nn':nn,'actual_parent_rows':parents,'allocated_storage_bytes':stored})
     print(text,flush=True)
 
 

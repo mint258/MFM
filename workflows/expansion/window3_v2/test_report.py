@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from .report import combine
+from .report import combine, nn_result
 
 
 class Tests(unittest.TestCase):
@@ -34,6 +34,22 @@ class Tests(unittest.TestCase):
             root=Path(folder)
             config={'pilot':self.make(root,'pilot',10000,15000),'full_shards':[]}
             with self.assertRaisesRegex(ValueError,'NOT_COMPLETE'):combine(config)
+
+    def test_nn_summary_requires_whole_frozen_query_and_reference(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            value={'queries':1000000,'reference_molecules':3696122,'original_reference_prefix':1196122,
+                   'added_reference_molecules':2500000,'before':{'n':1000000},'after':{'n':1000000}}
+            files=[{'path':'coverage.parquet','size':10,'rows':1000000}]
+            native={'state':'COMPLETED','exit_code':'0:0','allocated_core_hours':2.}
+            def put(name,obj):(root/name).write_text(json.dumps(obj))
+            put('summary.json',value);put('manifest.json',files);put('accounting.json',native)
+            self.assertEqual(nn_result(root),(value,files,native))
+            value['original_reference_prefix']=1196003;put('summary.json',value)
+            with self.assertRaisesRegex(ValueError,'INCOMPLETE'):nn_result(root)
+            value['original_reference_prefix']=1196122;put('summary.json',value)
+            native['state']='RUNNING';put('accounting.json',native)
+            with self.assertRaisesRegex(ValueError,'PARENT_NOT_COMPLETE'):nn_result(root)
 
 
 if __name__=='__main__':unittest.main()
