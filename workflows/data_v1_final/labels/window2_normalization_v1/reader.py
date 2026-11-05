@@ -24,7 +24,13 @@ def one_part(reference,expected_file,lo,hi):
 
 
 def effective_owner(owner,side):
-    need(side is not None and side[:4]==(owner['record_id'],owner['molecule_id'],owner['job_id'],owner['new_role']),'FINAL_ELIGIBILITY_OWNER_ALIGNMENT')
+    # Closed canonical job_id is INTEGER; eligibility.job has TEXT affinity.
+    # Compare their exact decimal representation, keeping every identity check
+    # and returning the original canonical owner/job type unchanged.
+    need(side is not None and side[:2]==(owner['record_id'],owner['molecule_id'])
+         and type(side[2]) in (int,str) and type(owner['job_id']) in (int,str)
+         and str(side[2])==str(owner['job_id']) and side[3]==owner['new_role'],
+         'FINAL_ELIGIBILITY_OWNER_ALIGNMENT')
     return dict(owner,source_role=side[3],effective_role=side[4],common_population=bool(side[5]),
                 geometry_source='pm7',geometry_id=side[6],parent_geometry_id=side[7],fit_eligible=bool(side[8]),fit_reason=side[9])
 
