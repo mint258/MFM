@@ -30,6 +30,8 @@ def finish_stage(cfg,stage,root,reports):
         counts=collections.defaultdict(collections.Counter)
         for report in reports:
             for fid,value in report['field_counts'].items():counts[fid].update(value)
+        result['r73_derived_reference']=I.save(root/'r73_derived.json',{'files':[report['r73_derived_reference'] for report in reports if report.get('r73_derived_reference')], 'definition':'USER_APPROVED_20261105_PURE_SIGMA_SIGMA_PI_PI_BLOCKS', 'raw_r73_unchanged':True, 'raw_r73_statistics_are_source_K_entry_statistics_not_training_pair_sums':True})
+        result['mask_overrides_reference']=I.save(root/'mask_overrides.json',{'files':[report['mask_override_reference'] for report in reports if report.get('mask_override_reference')], 'predicate':'Existing abs(EA)>10eV flag AND convergence not explicitly True', 'original_values_modified':False, 'original_record_and_atomic_mask_catalog':I.load_data(cfg['coverage_reference'])['parts_catalog'], 'rule_records':sum(report['mask_override_reference'].get('records',0) for report in reports if report.get('mask_override_reference')), 'newly_masked_records':sum(report['mask_override_reference'].get('newly_masked_records',0) for report in reports if report.get('mask_override_reference'))})
         result['validity_mask_counts_reference']=I.save(root/'validity_mask_counts.json',{
             'fields':{fid:dict(value) for fid,value in counts.items()},'new_mask_fraction_is_report_only':True,
             'physical_and_convergence_masks_reused':True,'manual_review_list_created':False})
@@ -54,6 +56,7 @@ def finish_stage(cfg,stage,root,reports):
             'quantiles':T.exact_tails(stage['catalog'],finished),'source_labels_modified':False})
     if purpose=='normalization_moments':
         result['winsorized_statistics_reference']=I.save(root/'winsorized_statistics.json',T.moment_result(stage,reports,fields))
+        result['molecule_field_means_reference']=I.save(root/'molecule_field_means.json',{'files':[report['molecule_field_means_reference'] for report in reports if report.get('molecule_field_means_reference')], 'fit_role':'TRAIN', 'geometry_source':'pm7', 'scope':'Per-molecule field valid-leaf mean; produced during the existing moments source stream'})
     if queries:
         result['query_stage_reference']=I.save(root/'next_query.json',{
             'coverage_reference':cfg['coverage_reference'],'field_map_reference':cfg['field_map_reference'],
@@ -65,9 +68,14 @@ def finish_stage(cfg,stage,root,reports):
 
 def configuration(args):
     coverage=I.load(args.coverage)
+    from ..window2_r73_views_v1.kernel import derived_fields
+    original=I.load_data(coverage['field_map_reference']);fields=original+derived_fields(original)
+    fieldpath=P(args.output)/'normalization_view_fields.json'
+    if fieldpath.is_file():need(I.load(fieldpath)==fields,'FROZEN_EXTENDED_NORMALIZATION_VIEW_FIELDS')
+    else:I.save(fieldpath,fields)
     return {'mode':'full','coverage_reference':I.ref(args.coverage),'common_reference':I.ref(args.common),
         'd5_reference':I.ref(args.d5),'input_release_reference':I.ref(args.common),
-        'canonical_index':coverage['canonical_index'],'field_map_reference':coverage['field_map_reference'],
+        'canonical_index':coverage['canonical_index'],'field_map_reference':I.ref(fieldpath),
         'logical_group_plan_reference':coverage['logical_group_plan_reference'],
         'source_inventory_reference':coverage['source_inventory_reference'],
         'element_basis':coverage['element_basis'],'source_records':coverage['records'],'workers':args.workers,
@@ -90,7 +98,7 @@ def run(args):
     with cf.ProcessPoolExecutor(max_workers=workers,mp_context=mp.get_context('spawn')) as pool:
         while state['purpose_index']<len(ROUTES):
             purpose=ROUTES[state['purpose_index']];current=dict(cfg,statistics_purpose=purpose)
-            current.update({key:value for key,value in state['results'].items() if key in ('element_models_reference','exact_tail_reference','query_stage_reference')})
+            current.update({key:value for key,value in state['results'].items() if key in ('element_models_reference','exact_tail_reference','query_stage_reference','mask_overrides_reference','r73_derived_reference')})
             if state['active_stage'] is None:
                 state['pass_index']+=1;stage_root=root/('pass_%04d'%state['pass_index']);stage_root.mkdir()
                 stage=T.initial_stage(current,fields);stage['element_basis']=cfg['element_basis']

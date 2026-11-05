@@ -1,0 +1,31 @@
+{
+    "schema":  "DATA_V1_B6_DELIVERY_INDEX_V2",
+    "status":  "SOURCE_SLICE_COMPLETE_WITH_EXPLICIT_MISSING",
+    "manifest":  "/lfshome/zixiao/data_v1_20261025/window2_B6_descriptors_20261105_v2/shard-000-of-001/manifest.json",
+    "parquet_files":  148,
+    "data_bytes":  154734642,
+    "source_records":  150770,
+    "rdkit_descriptor_count":  217,
+    "rdkit_version":  "2025.09.5",
+    "rdkit_complete_rows":  150745,
+    "xtb_success_rows":  150614,
+    "missing_xtb_rows":  156,
+    "source_counts":  {
+                          "QM7":  7165,
+                          "AZ":  109,
+                          "ExpansionRx":  7608,
+                          "CYP":  2003,
+                          "QM9":  133885
+                      },
+    "missing_xtb_reasons":  {
+                                "BASELINE_MMFF94_PARAMETERS_UNAVAILABLE":  5,
+                                "BASELINE_MMFF94_NOT_CONVERGED_500":  121,
+                                "BASELINE_EXISTING_ETKDG_RECIPE_FAILED_NO_FALLBACK":  4,
+                                "QM7_EXISTING_GRAPH_RECIPE_BOND_PERCEPTION_FAILED":  25,
+                                "H_COMPLETION_SOURCE_ATOM_ORDER_OR_COMPOSITION_MISMATCH":  1
+                            },
+    "normalization_or_model_selection_performed":  false,
+    "target_or_annotation_values_decoded":  false,
+    "integrity_hashes_computed":  false,
+    "producer_job":  4526044
+}

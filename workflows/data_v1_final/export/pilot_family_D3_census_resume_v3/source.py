@@ -55,8 +55,8 @@ def target_row(entries,compact,recipe,raw,n):
         virtual['field_'+str(e['field_id'])]=[np.nan if v is None else v for v in values]
         if e['atom_indices'] is not None:virtual['indices_'+str(e['field_id'])]=e['atom_indices']
     return virtual,recipe
-def extract(entries,typed,raw,n,recipe,target):
-    if recipe['input_kind']=='ORIGINAL_REGISTRY_CELL_PARQUET':return P.projected_target(entries,typed,recipe,raw,n,target)
+def extract(entries,typed,raw,n,recipe,target,*,capture_native_payload=True):
+    if recipe['input_kind']=='ORIGINAL_REGISTRY_CELL_PARQUET':return P.projected_target(entries,typed,recipe,raw,n,target,capture_native_payload=capture_native_payload)
     compact=K.binary_json_loads(typed['compact_mask_json']);row,spec=target_row(entries,compact,recipe,raw,n);note={}
     arrays=T.target_arrays(row,spec,target,n,compact_loader=lambda cs:compact,annotations=note)
     return arrays,note

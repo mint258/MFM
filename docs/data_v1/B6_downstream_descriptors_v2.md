@@ -1,0 +1,33 @@
+﻿# B6 downstream descriptors v2
+
+Independent baseline only. The five frozen memberships (150770 total) retain original folds and identifiers; source adapters parse structure fields only. No label, annotation, target or TEST performance values are decoded. RDKit2D uses the same sorted descriptor name list and pinned RDKit 2025.09.5 as v1. No fitting/normalization/model choice occurs.
+
+Complete existing coordinates are reused in original atom order, without optimization. Where only implicit-H coordinates are missing, a new baseline copy receives AddHs(addCoords=True) and MMFF94 H-only relaxation, fixing every original native atom (including existing explicit H). Original coordinates remain exact. Where no existing geometry is ready, one baseline copy uses the precise original downstream ETKDGv3 graph seed, one embedding call, maxIterations200, timeout2, numThreads1, chirality enforced, then MMFF94 max500; original fallback is none. Only MMFF status0 is accepted. Native source molecules/files and earlier data/model flows are unchanged. Original source rows and appended H mappings are explicit, with appended H source IDs null. xTB raw arrays use xtb_atomic_numbers order, separately from native_atomic_numbers.
+
+QM7 uses the existing formal split_qm7_qm9_scaffold10._mol_from_qm7_xyz perceived-graph rule: round scaled XYZ to10 decimals, charge candidates [0,1,-1,2,-2,3,-3] through DetermineBonds, then the same candidates through DetermineConnectivity/DetermineBondOrders, first sanitized success. Its graph/charge is recorded as pipeline-perceived, never author-assigned. Known graph charge plus a closed-shell electron count permits original installed GFN2-xTB singlepoint; graph radicals or unresolved structure are explicit missing. xTB does not optimize geometry. Native timeout900s remains the existing per-calculation setting, without whole-task duration gates.
+
+Resume uses completed source ordinal checkpoints and retained record scratch; normal-end existing native output is parsed without repeating a closed singlepoint. Stable typed Parquet partitions avoid null-only schema drift. Status counts accumulate inside the producer checkpoint; no final table reread, SHA, receipts or independent QA. The only manifest lists path/bytes/rows/schema, actual masks/statuses and geometry policy. Scientific graph seed digests implement the original random seed formula, not integrity hashing.
+
+Root submits CPU work at lower priority than B1–B5. From this worktree with the established Python:
+
+    python -B -m unittest workflows.data_v1_final.downstream_descriptors_v2.test_v1 workflows.data_v1_final.downstream_descriptors_v2.test_geometry
+    python -B -m workflows.data_v1_final.downstream_descriptors_v2.run --config configs/data_v1/downstream_descriptors_v2.json --output /share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/downstream/B6_descriptors_20261105_v2/shard00 --workers 16 --shard-index 0 --shards 1
+
+Optional --start-record/--stop-record bound original input ordinal, and modulo --shard-index/--shards partitions deterministically. Each shard needs its own external output directory; scratch is keyed by globally unique source ordinal so disjoint slices coexist. Descriptor columns are raw NaN+mask, xTB missing fields are null with actual reason, graph/geometry provenance and native scratch pointer remain explicit.
+
+## Concrete full production parent
+
+The checked-in `configs/data_v1/B6_full_producer_plan_v2.json` records the production inputs and exact existing quantities. The small membership manifest ordered_counts records QM7 7165, QM9 133885, CYP2003, AZ109, ExpansionRx5326 TRAIN+2282 official TEST structures: total150770. These are existing membership counts, not counts from an added dataset scan. The raw AZ file has120 structural rows, while the declared frozen membership is109; the producer follows the109 members. Official TEST structures can receive descriptors without decoding their targets or observing performance.
+
+`workflows/data_v1_final/downstream_descriptors_v2/full_main.sbatch` is the concrete Main parent template:16 CPUs/16 workers, positive nice10000, no GPU/memory/time request, repository/current plus the established stage61 deps, chemprop Python. It runs the14 tests once and then the complete source ordinal range. Root selects an idle CPU node and submits later; B1–B5 retain priority. Logs and all producer output are external to Git.
+
+Default producer command (already in the template):
+
+    /share/home/zixiao/.conda/envs/chemprop/bin/python -B -m workflows.data_v1_final.downstream_descriptors_v2.run --config configs/data_v1/downstream_descriptors_v2.json --output /lfshome/zixiao/data_v1_20261025/window2_B6_descriptors_20261105_v2/shard-000-of-001 --workers 16 --shard-index 0 --shards 1
+
+Main access observations: the live project paths for members, saved SoM candidates, Expansion geometry inventory, both Expansion CSV sources, installed xTB, repository/current and stage61 deps all exist. Main SSH test-r confirmed benchmark QM7/QM9 directories, CYP raw directory, AZ raw CSV and chemprop Python. Alpha SSH test-r returned NOT_READABLE for the Main members path and benchmark root, and READABLE for its own /gfshome/alpha/codex_data_v1_20261026 root. This is a Main-ready plan; no Alpha source/runtime deployment is assumed or performed.
+
+For parallel production choose one fixed K, use `B6_SHARDS=K B6_SHARD_INDEX=I` with I=0..K-1 and a distinct output shard directory (the template derives the name). Only global ordinal %K is selected, regardless of molecule/fold or labels. No shard overlaps another. Native scratch is keyed by the global ordinal, so disjoint shards are safe on the same node; separate nodes have separate local /tmp. Each16-worker producer needs its own16 allocated CPUs. Preserve K/index/source slice and output directory when resuming, retain node scratch, and never launch two concurrent copies of the same shard. Root can set B6_RUN_TESTS=0 for continuation/other disjoint shards after the exact14 tests have already passed in the production parent, avoiding repeated tests and any new QA job/receipt.
+已交付：2026-11-05 的完整源范围共150,770条，148个Parquet合计154,734,642字节。217个RDKit 2D描述符按冻结版本2025.09.5处理；150,745行完成RDKit流程，150,614行xTB成功。25条QM7原图恢复失败；另有1条补H原子序/组成不符、121条MMFF94原定500步未收敛、5条参数不足、4条原ETKDG流程失败。各字段继续用NaN/null及显式mask/原因表示缺失，不补零、不改原几何/算法，也未归一化、选择模型或查看测试结果。
+
+唯一数据清单为 `/lfshome/zixiao/data_v1_20261025/window2_B6_descriptors_20261105_v2/shard-000-of-001/manifest.json`；仓库结果索引见 `configs/data_v1/B6_downstream_descriptors_v2_DELIVERY.json`。实际Slurm4526044 COMPLETED，14项新增单测在同父作业通过；保留Native工作目录和全部原始输入。供正式训练后的基线比较使用。

@@ -32,7 +32,10 @@ def nullable(values,valid):
         out.append(np.nan if value is None else value)
     return out
 
-def prepare(entries,compact,recipe,raw,n):
+def native_payload_hex(native):return K.binary_json_dumps(native).encode('utf-8').hex()
+
+
+def prepare(entries,compact,recipe,raw,n,*,capture_native_payload=True):
     """Call original component reader before any component index operation."""
     C.need(recipe['input_kind']=='ORIGINAL_REGISTRY_CELL_PARQUET'
       and recipe['projection_adapter']=='ORIGINAL_COMPONENT_READER_EXPLICIT_PAIR_AND_NULL_IO_V1','RAW_CELL_PROJECTION_ONLY')
@@ -53,10 +56,11 @@ def prepare(entries,compact,recipe,raw,n):
         native=S.decode_cell(cells.get(f['registry_id']))
         # A multi-component tensor/compound cell is retained once per target,
         # not once per member, without dropping any original dictionary item.
-        native_key=str(f['registry_id']);native_payload=K.binary_json_dumps(native).encode('utf-8').hex()
-        C.need(native_key not in note['original_native_cells_binary_json']
-          or note['original_native_cells_binary_json'][native_key]==native_payload,'ONE_NATIVE_CELL_PER_REGISTRY_ID')
-        note['original_native_cells_binary_json'][native_key]=native_payload
+        if capture_native_payload:
+            native_key=str(f['registry_id']);native_payload=native_payload_hex(native)
+            C.need(native_key not in note['original_native_cells_binary_json']
+              or note['original_native_cells_binary_json'][native_key]==native_payload,'ONE_NATIVE_CELL_PER_REGISTRY_ID')
+            note['original_native_cells_binary_json'][native_key]=native_payload
         note['original_raw_component_reasons'][key]=reason
         value_column='__native_field_'+str(fid);selector['value']={'column':value_column}
         # Ordered r73 uses the entire original parser list, not its numeric leaf projection.
@@ -84,12 +88,12 @@ def prepare(entries,compact,recipe,raw,n):
                 row['__native_indices_'+str(fid)]=indices
     return row,spec,note
 
-def projected_target(entries,typed,recipe,raw,n,target):
+def projected_target(entries,typed,recipe,raw,n,target,*,capture_native_payload=True):
     from workflows.data_v1_final.export.family_export_day_v1 import transport as T
     compact=K.binary_json_loads(typed['compact_mask_json']);keys={m['field_key'] for m in target['members']}
     selected=[e for e in entries if e['field_key'] in keys]
     C.need({e['field_key'] for e in selected}==keys,'ALL_ORIGINAL_TARGET_MEMBERS_IN_TYPED_ROW')
-    row,spec,note=prepare(selected,compact,recipe,raw,n)
+    row,spec,note=prepare(selected,compact,recipe,raw,n,capture_native_payload=capture_native_payload)
     arrays=T.target_arrays(row,spec,target,n,compact_loader=lambda _:compact,annotations=note)
     return arrays,note
 

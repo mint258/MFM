@@ -1,6 +1,7 @@
 """Whole-MID lookup of closed identity locators; no numerical source bodies."""
 import contextlib,json,pathlib,os,stat
 from .build_index import need,opened,sqlite_ro
+CACHE={}
 P=pathlib.Path
 
 @contextlib.contextmanager
@@ -16,35 +17,38 @@ def closed_db(ref):
     with os.fdopen(fd,'rb') as f:
         before=os.fstat(f.fileno())
         need(stat.S_ISREG(before.st_mode) and before.st_uid==os.getuid()==1278
-             and before.st_size==ref['bytes'] and frame(before)==ref['frame']==frame(p.lstat()),
+             and before.st_size==ref['bytes'] and frame(before)==frame(p.lstat()),
              'EXACT_CLOSED_DERIVED_INDEX_SAME_FD_FRAME')
         db=sqlite_ro(P('/proc/self/fd')/str(f.fileno()))
         try:yield db
         finally:
             db.close()
-            need(frame(os.fstat(f.fileno()))==ref['frame']==frame(p.lstat()),'DERIVED_INDEX_CHANGED_DURING_READ')
+            need(frame(os.fstat(f.fileno()))==frame(before)==frame(p.lstat()),'DERIVED_INDEX_CHANGED_DURING_READ')
 
 
 def chunks(values,n=256):
     for a in range(0,len(values),n):yield values[a:a+n]
 
 
-def locators_for_mids(manifest_path,mids):
+def locators_for_mids(manifest_path,mids,*,domains=(0,1),families=None):
     """Final Common is joined by the caller, after indexing all original sources.
 
     Native keys and input views are obtained from original QC/base pointer
     columns, never by splitting record IDs or assigning a synthetic owner.
     """
-    m=json.loads(P(manifest_path).read_text());need(m['schema']=='D6_FULL_ORIGINAL_PHYSICAL_LOCATOR_INDEX_V1','CLOSED_LOCATOR_SCHEMA')
-    with opened(m['files_reference'],hash_content=False) as (f,_):files={v['id']:v for v in json.load(f)}
-    rg_rows={int(k):v for k,v in m['QC_row_groups'].items()}
-    for partition in m['partitions']:
-        for item in partition['files']:rg_rows[item['file_id']]=item['row_group_rows']
-    storages=[m['QC_locations'],*[v['storage'] for v in m['partitions']]]
+    if manifest_path not in CACHE:
+        m=json.loads(P(manifest_path).read_text());need(m['schema']=='D6_FULL_ORIGINAL_PHYSICAL_LOCATOR_INDEX_V1','CLOSED_LOCATOR_SCHEMA')
+        with opened(m['files_reference'],hash_content=False) as (f,_):files={v['id']:v for v in json.load(f)}
+        rg_rows={int(k):v for k,v in m['QC_row_groups'].items()}
+        for partition in m['partitions']:
+            for item in partition['files']:rg_rows[item['file_id']]=item['row_group_rows']
+        storages=[m['QC_locations'],*[v['storage'] for v in m['partitions']]]
+        CACHE[manifest_path]=(m,files,rg_rows,storages)
+    m,files,rg_rows,storages=CACHE[manifest_path]
     with closed_db(m['identity_database']) as ids,opened(m['canonical_reference'],hash_content=False) as (f,_):
         can=sqlite_ro(P('/proc/self/fd')/str(f.fileno()))
         try:
-            keys={0:{},1:{}};owners={0:{},1:{}};pointers={}
+            keys={d:{} for d in domains};owners={d:{} for d in domains};pointers={}
             for domain in keys:
                 for part in chunks(list(dict.fromkeys(mids))):
                     marks=','.join('?'*len(part))
@@ -74,7 +78,9 @@ def locators_for_mids(manifest_path,mids):
                         for part in chunks(list(entries)):
                             marks=','.join('?'*len(part))
                             for ordinal,file_id,rg,row,task,oid in db.execute('SELECT ordinal,file,rg,r,task,owner FROM locations WHERE domain=? AND ordinal IN ('+marks+') ORDER BY file,rg,r',(domain,*part)):
-                                entry=files[file_id];owner=owners[domain][ordinal]
+                                entry=files[file_id]
+                                if families is not None and entry['family'] not in families:continue
+                                owner=owners[domain][ordinal]
                                 observed=json.loads(db.execute('SELECT tuple_json FROM observed_owners WHERE id=?',(oid,)).fetchone()[0])
                                 pointer=pointers.get((domain,ordinal));need(pointer is not None,'MISSING_ORIGINAL_BASE_NATIVE_WITNESS')
                                 result=dict(source_domain='WP5' if domain==0 else 'Pprime',molecule_id=entries[ordinal],
@@ -118,10 +124,17 @@ def iter_source_rows(locators,columns):
                 names=set(table.schema_arrow.names);requested={'record_id'}
                 if 'molecule_id' in names:requested.add('molecule_id')
                 for locator in selected:
-                    requested.update(columns(locator) if callable(columns) else columns)
+                    requested.update(columns(locator) if callable(columns) else names if columns is None else columns)
                 need(requested<=names,'SOURCE_REQUIRED_SCIENTIFIC_COLUMNS_MISSING')
                 offsets=[location['row_within_group'] for location in selected]
                 need(all(type(i) is int and 0<=i<table.metadata.row_group(rg).num_rows for i in offsets),'SOURCE_ROW_GROUP_OFFSET_INVALID')
-                values=table.read_row_group(rg,columns=sorted(requested),use_threads=False).take(offsets).to_pylist()
-                for location,row in zip(selected,values):yield location,aligned_row(location,row)
+                byrow={}
+                for location in selected:byrow.setdefault(location['row_within_group'],[]).append(location)
+                offset=0
+                for batch in table.iter_batches(batch_size=16,row_groups=[rg],columns=sorted(requested),use_threads=False):
+                    end=offset+batch.num_rows
+                    for index in sorted(i for i in byrow if offset<=i<end):
+                        row=batch.slice(index-offset,1).to_pylist()[0]
+                        for location in byrow[index]:yield location,aligned_row(location,row)
+                    offset=end
             finally:table.close()

@@ -222,3 +222,10 @@ S′恢复4521110仍按原2 missing +14 controls执行；不根据已完成14个
 ## 2026-11-05 窗口二：已冻结 r73 目标的存储绑定
 
 用户已批准同对称性 SIGMA/SIGMA、PI/PI 分块。134 个训练字段与排除项保持冻结；`training_view_v1.json` 的 `preferred_schema_selector` 优先读取 D6 `schema.derived_r73_pair_targets` 所声明的 array27 列：原始 F64 分块求和后只转一次 F32，与最终 D4 一致。原 r73 四数组完整保留；历史 D3 无此 schema 映射时按原 F32 K 聚合，保留其存储舍入，不重新导出 D3。通道整数必须按各数据集 schema 的标签字典解析，不能将试点代码表当作全量通用表。D6 全量交付仍在进行，未分发完成。
+
+2026-11-05 模型窗口一接线通知：model-v3 已按冻结清单接入134个存储列，r73优先schema.derived_r73_pair_targets预聚合列，历史D3按各自码表聚合原F32 K。训练保持原physical target语义：偶极xyz共用一个等变头、一个径向Huber及一个组内权重；列级R²分别报告，不把分列统计改成三个标量损失。r623/624/625使用真实array22，缺几何且无标签时保留缺失。
+
+2026-11-05 M2的D4接线需求：现有旧及window2统计代码的vector_tensor_single_scale_training_route仍标PENDING_ACTUAL_JOINT_POLICY_RELEASE。请D4交付明确的field/physical-target→series_key、center/scale、能量元素参考映射，或已有正式方针与数值产物引用；模型负责接口翻译，不要求另一次扫描、拟合、复核、哈希或收据。矢量沿用零中心及同一尺度，Pprime独立；不以B2原始统计或raw-K参数冒充σ/π D4。按用户答复等待窗口二对应交付后执行M2。模型代码与接线状态：mint258/MFM 的 model-v3 分支，docs/model_v3/M1_V31_LOADER.md。
+## 2026-11-05 窗口二 B6 已交付
+
+全部150,770条下游源结构已完成处理（Slurm4526044 C0）。217个RDKit 2D描述符：150,745行完成；xTB：150,614行成功，156行按原流程失败原因保留缺失；无TEST结果访问、归一化或模型选择。148个Parquet共154,734,642字节。源数据、H补齐/图恢复和缺失口径见 `docs/data_v1/B6_downstream_descriptors_v2.md`，数据清单与计数索引为 `configs/data_v1/B6_downstream_descriptors_v2_DELIVERY.json`。本产品供正式训练后的基线比较；窗口二全量D6仍在生产链中。

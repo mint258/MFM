@@ -34,3 +34,16 @@ schema 定义数组、每列真实字段/家族/标签组/层级/单位/广延�
 - 不新增 F64 旁车，精度权威回指原 WP5 Parquet；科学数值、字段、角色、原顺序、归一化和 D-5 不变。
 - 只执行用户指定的一次末尾检查、一次 LMDB compact copy；分发用 rsync --sparse，不做新吞吐或哈希复核。
 交付后存储状态补充（2026-11-05）：用户随后明确授权删除旧D3 v3.0及无用中间产物，清理已完成。上文保留旧v3.0为导出当时要求；当前旧数据已退休，仅保留历史清单。原始native LMDB与WP5 Parquet及当前v3.1未删除，科学格式和字段不变。
+
+## 6. D6 全量存储补充（窗口二任务书 v2）
+
+沿用同一个 MFM4 codec 与数组布局。TRAIN 为最终 Common TRAIN；FULL 保留原 FULL 全体及 Common VAL/ROUTINE。U 现保留其真实几何上的 D3/atomicSASA 和已实际计算的独立 P′，不复制 PM7 标签。D20 仍在 M 每分子共享一次。科学数值权威仍为原 F64 source/typed entries；新增 UFF D3 按真实 native anchor/实际几何只计算一次，其独立 F64 cache 同供统计及导出，MFM4 不新增 F64 旁车。
+
+M 新增数值标记：15=ROUTINE，16=Common，17=aligned-U ordinary S′ membership，18=aligned-U P′ train eligibility。M6 为 addressable P/U 数，不冒充普通 S′ N；普通 U 排列、N 与默认 k-grid 只使用 M17=1 的原科学集合。N1 P′-only、冻结 D5 diagnostic-only、未注册但真实存在的旧 P′ source 几何均可独立 addressable，M17=0；原科学 sprime_conf_idx 不变，同索引不同几何用外部 storage alias 区分。原 source GID 缺失仍标 NULL；`pprime-source:<原record_id>` 仅地址化其实际关闭 F64 source 行，不宣称新增普通构象。来源与地址映射留在外部 Parquet/manifest，不进入 MFM4。
+
+默认训练条件：P 排除 M13；普通 U 需 M17 且排除 M14；U 的 P′ 训练需 M18 且排除 M14。M18 直接复制已完成的实际 source binding/first2/Common TRAIN/D5 排除结果，不由 loader 或 exporter 重新判断；保留的其他旧 P′ 原值不会自动扩张训练范围。最终角色及 Common 标记仍适用。M13/M14 按原实际 D5 GID/物理身份，不按新的 last 位置替换。
+
+用户批准的 r73 σ–σ/π–π 块和复用 D4/独立 P′ typed cache 中的原 F64 聚合值及有效 mask，绑定同一原 K 有向端点首次出现顺序，单次 F32 写入 pair_labels 两列。schema.derived_r73_pair_targets 给出两个 selector；array27 列数同步增加。mixed/δ 不进入两列；raw r73 数组31–34完整保留。新库训练优先预聚合两列；历史 D3 缺这两列时只能从原 raw F32 K 聚合，明确其历史存储精度，不重导出或重扫旧库作为本次前置门。
+
+每 split 顺序写完、关闭、compact 一次；新 owned scratch 与最终 compact 可在不同实际文件系统，关闭并消费后正常回收本轮 scratch，不删除旧文件。末尾唯一一次 1000 个实际 P/U source 样本检查在原 F64→单次 F32 流中累计误差，再对 compact 数值/整数/NaN/计数检查，包含两列新聚合值；不恢复已历史删除的 v3.0，不独立重读原源、不计算新 SHA。分发仍 rsync --sparse；成品实际大小决定节点，传输恢复不重做 producer QA。
+实际normalization引用按原final_release_v1.produce.normalization条件契约：condition=Pprime使用独立Pprime统计，其余标签条件（包括D3）使用P_D。故本次UFF真实D3/atomicSASA引用最终PM7全TRAIN P_D的对应字段统计，不声称独立UFF拟合，也不混合PM7+UFF重拟合。schema/最终manifest分别明列两套实际引用；导出值始终raw，未执行归一化。

@@ -27,7 +27,7 @@ def group_pass(work):
 
 def _group_pass(item):
     group,first=item;cfg=WORK['cfg'];stage=WORK['stage'];purpose=cfg['statistics_purpose']
-    out=WORK['root']/('group_%04d'%group['group_index']);out.mkdir()
+    out=WORK['root']/('group_%04d'%group['group_index']);out.mkdir();cfg['group_output_root']=str(out)
     hist={name:B.RadixCounts(query) for name,query in stage['queries'].items()}
     # Created once here, outside the continuous source generator; never reset at a part/RG/window.
     qr={str(f['field_id']):B.TSQR(cfg['element_basis']) for f in WORK['fields'] if f['element_reference_eligible'] and purpose=='element_reference'}
@@ -64,6 +64,9 @@ def _group_pass(item):
         histogram=sink.close(out/'radix_counts.parquet',WORK['root'],None)
     record={'group_index':group['group_index'],'source_job_id':group['source_job_id'],'pid':os.getpid(),'task_rows':rows,'role_task_counts':dict(roles),
       'field_counts':{k:dict(v) for k,v in counts.items()},
+      'r73_derived_reference':dict(I.ref(out/'r73_derived.sqlite'),group_index=group['group_index']) if (out/'r73_derived.sqlite').is_file() else None,
+      'mask_override_reference':dict(I.ref(out/'mask_overrides.parquet'),group_index=group['group_index'],records=cfg.get('mask_override_rows',0),newly_masked_records=cfg.get('EA_newly_masked_records',0)) if (out/'mask_overrides.parquet').is_file() else None,
+      'molecule_field_means_reference':I.ref(out/'molecule_field_means.parquet') if (out/'molecule_field_means.parquet').is_file() else None,
       'energy_TSQR':{k:v.state() for k,v in qr.items()},'radix_histogram':histogram,'series_mass':dict(series_mass),
       'moments':{sid:B.moment_state(m) for sid,m in moments.items()},'joint':{key:m.state() for key,m in joint.items()},
       'TSQR_chunk':256,'QR_created_once_per_original_group':True,'physical_parts_do_not_create_QR_groups':True,

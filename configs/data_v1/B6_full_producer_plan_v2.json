@@ -1,0 +1,51 @@
+{
+  "schema": "WINDOW2_B6_FULL_PRODUCER_PLAN_V2",
+  "task": "RDKit2D plus GFN2-xTB singlepoint descriptors for the entire five frozen downstream memberships",
+  "host": "Main zixiao@202.38.247.57",
+  "submitter": "Root only; idle CPU after B1-B5 resource priority",
+  "template": "workflows/data_v1_final/downstream_descriptors_v2/full_main.sbatch",
+  "config": "configs/data_v1/downstream_descriptors_v2.json",
+  "python": "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+  "pythonpath": [
+    "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository",
+    "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/current",
+    "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps"
+  ],
+  "workers": 16,
+  "unit_tests_once_in_same_parent": [
+    "workflows.data_v1_final.downstream_descriptors_v2.test_v1",
+    "workflows.data_v1_final.downstream_descriptors_v2.test_geometry"
+  ],
+  "unit_test_cases": 14,
+  "metadata_count_source": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_downstream_membership/run_4511949/membership_manifest.json:ordered_counts",
+  "recorded_source_counts": {
+    "qm7": 7165,
+    "qm9": 133885,
+    "cyp_isoform": 2003,
+    "az_exactsom": 109,
+    "expansionrx_train": 5326,
+    "expansionrx_official_test_structure_only": 2282,
+    "total": 150770
+  },
+  "recorded_input_sizes_bytes": {
+    "members_jsonl": 172436698,
+    "saved_som_candidates_jsonl": 1693155,
+    "expansion_geometry_inventory_json": 73869137
+  },
+  "default_input_slice": {"start_record":0,"stop_record":null,"shard_index":0,"shards":1},
+  "default_output": "/lfshome/zixiao/data_v1_20261025/window2_B6_descriptors_20261105_v2/shard-000-of-001",
+  "native_scratch": "/tmp/window2_B6_descriptors_20261105_v2/record-%09d",
+  "source_access_observations": {
+    "Main": "Existing metadata/config/project sources accessible through live X; SSH test-r confirmed benchmark qm7/qm9/CYP raw/AZ raw and chemprop Python. No source dataset scan was performed.",
+    "Alpha": "SSH test-r found Main members absolute path and /share/home/zixiao/benchmark_dataset NOT_READABLE; /gfshome/alpha/codex_data_v1_20261026 is readable. This plan cannot run on Alpha without explicit source/runtime deployment and rebased config; no copy or Alpha run is performed."
+  },
+  "parallelism": "Keep one immutable K; source ordinal modulo K selects each shard. Give each shard its own output directory. Scratch names use global source ordinal, so distinct shards do not collide, including on one node; separate nodes have separate local tmp. Allocate16 CPUs per16-worker producer. Never run overlapping copies of a shard. Resume the same source slice/K/index/output and retain the same node scratch where available.",
+  "resume_tests": "Default runs14 tests once then full producer in same parent. Root sets B6_RUN_TESTS=0 only for continuation/other shards after these same new tests have actually passed; no receipt/approval layer.",
+  "science": "Reuse complete source coordinates; otherwise baseline-only fixed-native H completion or one original ETKDGv3 graph-seed/MMFF94-500 conformer. QM7 graph/charge is existing-pipeline perceived. Preserve original folds/labels/geometries/model flows. Original900-second per-singlepoint timeout is retained; no whole-task time/memory/cost gate.",
+  "output": "External typed Parquet partitions plus one path/bytes/rows manifest per source shard; retained native raw scratch. Producer checkpoint accumulates actual status/mask counts without second table reread.",
+  "target_or_annotation_values_decoded_during_preparation": false,
+  "test_results_read": false,
+  "new_dataset_scan_or_pilot": false,
+  "integrity_hashes_or_receipts": false,
+  "slurm_submission_performed": false
+}

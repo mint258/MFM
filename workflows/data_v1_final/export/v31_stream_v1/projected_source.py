@@ -28,3 +28,9 @@ def assemble_entries(mid,entries,schema):
         store=ProjectedStore(descriptor['kind'],{gid:(metadata,entry['arrays'])})
         readers.append((descriptor,store))
     return assemble_molecule(mid,readers,schema,include_uff_labels=True)
+
+
+def apply_pprime_eligibility(item,eligible_by_gid):
+    """Copy producer fit flags; do not define a new training predicate."""
+    item['m_arrays'][18]=np.asarray([int(bool(eligible_by_gid.get(record['identity']['base_geometry_id'],False))) for record in item['u_records']],dtype='u1')
+    return item

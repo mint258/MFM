@@ -47,7 +47,7 @@ def _edge_set(pairs,codes):
 def _permutation(reference_z,reference_pairs,reference_codes,z,pairs,codes):
     n=len(reference_z)
     _need(len(z)==n,'different atom counts cannot share one M.Z')
-    if np.array_equal(z,reference_z):return np.arange(n,dtype=np.int64),'SOURCE_Z_SEQUENCE'
+    if np.array_equal(z,reference_z) and _edge_set(pairs,codes)==_edge_set(reference_pairs,reference_codes):return np.arange(n,dtype=np.int64),'SOURCE_Z_SEQUENCE_AND_BOND_GRAPH'
     _need(Counter(map(int,z))==Counter(map(int,reference_z)),'atomic number multisets differ; no reversible permutation')
     from rdkit import Chem
     def molecule(numbers,edges):
@@ -101,6 +101,10 @@ def _key(metadata,descriptor):
         physical=metadata.get('native_record_id');_need(isinstance(physical,str)and physical,'PM7 requires its original native_record_id')
     else:
         physical=metadata.get('sprime_conf_idx');_need(type(physical)is int and physical>=0,'UFF requires its original sprime_conf_idx')
+        alias=metadata.get('storage_physical_alias')
+        if alias is not None:
+            _need(metadata.get('ordinary_sprime')is False and isinstance(alias,str)and alias,'only explicit nonordinary storage aliases may separate scientific-ID collisions')
+            physical=alias
     return source,physical
 
 
@@ -230,7 +234,10 @@ def assemble_molecule(mid,readers,schema,*,include_uff_labels=False):
     m_arrays={1:np.asarray(z,dtype='u1'),2:np.asarray(bonds,dtype='<i2'),3:np.asarray(bond_orders,dtype='u1'),
       4:np.full(len(columns['d20']),np.nan,dtype='<f4'),5:np.asarray(matches[0],dtype='u1')}
     m_qa=[_qa(reference,'base')];d20_seen={};p_records=[];u_records=[]
-    for key,items in sorted(groups.items(),key=lambda item:(item[0][0]!='pm7',item[0][1])):
+    def storage_order(item):
+        source,physical=item[0];meta=item[1][0]['metadata']
+        return (0,0,0,str(physical)) if source=='pm7' else (1,int(not meta.get('ordinary_sprime',True)),int(meta['sprime_conf_idx']),str(physical))
+    for key,items in sorted(groups.items(),key=storage_order):
         source,physical=key;geo=[e for e in items if e['kind']=='geometry'];base=[e for e in geo if _is_base(e['metadata'])]
         _need(base,'physical conformer has no actual base coordinates')
         base.sort(key=lambda e:(bool(e['descriptor'].get('is_holdout')),e['gid'],e['path']));chosen=base[0]
@@ -245,7 +252,7 @@ def assemble_molecule(mid,readers,schema,*,include_uff_labels=False):
                 _need(type(value)is int and value>=0 and (kind not in ranks or ranks[kind]==value),'conflicting existing conformer rank')
                 ranks[kind]=value
         holdout=any(bool(e['descriptor'].get('is_holdout'))for e in base)
-        identity=dict(geometry_source=source,native_record_id=chosen['metadata'].get('native_record_id'),sprime_conf_idx=chosen['metadata'].get('sprime_conf_idx'),
+        identity=dict(storage_physical_alias=chosen['metadata'].get('storage_physical_alias'),diagnostic_only=chosen['metadata'].get('diagnostic_only',False),excluded_from_all_training=chosen['metadata'].get('excluded_from_all_training',False),ordinary_sprime=chosen['metadata'].get('ordinary_sprime',True),geometry_source=source,native_record_id=chosen['metadata'].get('native_record_id'),sprime_conf_idx=chosen['metadata'].get('sprime_conf_idx'),
           legacy_geometry_ids=sorted({e['gid']for e in items}),base_geometry_id=chosen['gid'],is_holdout=holdout,available_base_order_ranks=ranks,
           atom_permutation_new_to_old=np.argsort(chosen['perm']).tolist(),atom_permutations=[dict(path=e['path'],gid=e['gid'],source_to_M=e['perm'].tolist())for e in items],
           source_records=[_source_identity(e)for e in items])
@@ -325,12 +332,14 @@ def assemble_molecule(mid,readers,schema,*,include_uff_labels=False):
         (p_records if source=='pm7'else u_records).append(record)
     _need(len(p_records)<=65535 and len(u_records)<=65535,'conformer count exceeds uint16')
     m_arrays[6]=np.asarray([len(p_records),len(u_records)],dtype='<u2')
+    if include_uff_labels:m_arrays[17]=np.asarray([int(r['identity']['ordinary_sprime']) for r in u_records],dtype='u1')
     for records,random_id,energy_id,diversity_id,held_id in((p_records,7,9,10,13),(u_records,8,11,12,14)):
-        total=len(records)
+        ordinary=[(i,record) for i,record in enumerate(records) if record['identity'].get('ordinary_sprime',True) or record['identity']['geometry_source']=='pm7']
+        total=len(ordinary)
         for i,record in enumerate(records):record['identity']['conformer_index']=i
         for order,array_id in(('fixed_random',random_id),('energy',energy_id),('diversity',diversity_id)):
             found=[]
-            for i,record in enumerate(records):
+            for i,record in ordinary:
                 rank=record['identity']['available_base_order_ranks'].get(order)
                 if rank is None and order=='fixed_random'and record['identity']['is_holdout']:
                     rank=total-1;record['identity']['available_base_order_ranks'][order]=rank
