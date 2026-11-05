@@ -1,0 +1,178 @@
+{
+  "D6_still_paused": true,
+  "Model_ACK": false,
+  "Model_payload_ACK": false,
+  "P_records": 509194,
+  "U_records": 509194,
+  "actual_parent": {
+    "AllocCPUS": "16",
+    "ElapsedRaw": "633",
+    "ExitCode": "1:0",
+    "JobIDRaw": "4525969",
+    "NodeList": "compute-0-21",
+    "State": "FAILED",
+    "UID": "1278"
+  },
+  "administrative_metadata_recovery": true,
+  "code_commit": "8865115f0f4906ced5a4a931188c99ea620f6f66",
+  "content_hashes_recomputed": false,
+  "contract_version": "v3.1",
+  "data_version": "v1-pilot-provisional",
+  "distribution": [
+    {
+      "directory": "/tmp/D3_v31_pilot_20261105_v1",
+      "node": "compute-0-0",
+      "status": "RSYNC_SPARSE_COMPLETED"
+    },
+    {
+      "directory": "/tmp/D3_v31_pilot_20261105_v1",
+      "node": "compute-0-1",
+      "status": "RSYNC_SPARSE_COMPLETED"
+    },
+    {
+      "directory": "/tmp/D3_v31_pilot_20261105_v1",
+      "node": "compute-0-20",
+      "status": "RSYNC_SPARSE_COMPLETED"
+    },
+    {
+      "directory": "/tmp/D3_v31_pilot_20261105_v1",
+      "node": "compute-0-21",
+      "status": "RSYNC_SPARSE_COMPLETED"
+    },
+    {
+      "directory": "/tmp/D3_v31_pilot_20261105_v1",
+      "node": "compute-0-22",
+      "status": "RSYNC_SPARSE_COMPLETED"
+    },
+    {
+      "directory": "/tmp/D3_v31_pilot_20261105_v1",
+      "node": "compute-0-3",
+      "status": "RSYNC_SPARSE_COMPLETED"
+    },
+    {
+      "directory": "/tmp/D3_v31_pilot_20261105_v1",
+      "node": "compute-0-4",
+      "status": "RSYNC_SPARSE_COMPLETED"
+    },
+    {
+      "directory": "/tmp/D3_v31_pilot_20261105_v1",
+      "node": "compute-0-5",
+      "status": "RSYNC_SPARSE_COMPLETED"
+    },
+    {
+      "directory": "/tmp/D3_v31_pilot_20261105_v1",
+      "node": "compute-0-6",
+      "status": "RSYNC_SPARSE_COMPLETED"
+    },
+    {
+      "directory": "/tmp/D3_v31_pilot_20261105_v1",
+      "node": "compute-0-7",
+      "status": "RSYNC_SPARSE_COMPLETED"
+    }
+  ],
+  "du_bytes": 34935087616,
+  "export_seconds": 2208.916789788753,
+  "full_v1_size_extrapolation": {
+    "basis": "LINEAR_DESCRIPTIVE_ONLY_NOT_D6_CAPACITY_ADMISSION",
+    "old_Common_candidate_estimated_du_bytes": 759756852171.3665,
+    "old_Common_candidate_molecules": 1196122,
+    "source_population_estimated_du_bytes": 775219757133.6191,
+    "source_population_molecules": 1220466
+  },
+  "logical_bytes": 34936865924,
+  "mean_record_key_value_bytes": {
+    "M": 576.0908363636364,
+    "P": 58964.77396434365,
+    "U": 677.6242178815933
+  },
+  "molecule_counts": {
+    "TRAIN": 50000,
+    "VAL": 5000
+  },
+  "new_F64_copy": false,
+  "numeric_check": {
+    "F64_read": false,
+    "absolute_tolerance": 1e-06,
+    "assembler_transformations_called": false,
+    "field_or_geometry_comparisons": 154000,
+    "hashes_computed": false,
+    "invalid_nan_values_compared": 2282939,
+    "max_absolute_delta": 0.0,
+    "pm7_samples": 1000,
+    "r73_records_compared": 1378290,
+    "relative_tolerance": 1e-06,
+    "status": "COMPLETE",
+    "valid_values_compared": 8029789
+  },
+  "old_v30_and_GPU_copies_preserved": true,
+  "original_D3_reference": {
+    "bytes": 3427480,
+    "path": "/lfshome/zixiao/data_v1_20261025/D3_pilot_provisional_lustre_v1/day10_parallel_keys_closed55k_cpu_r4/export_manifest.json",
+    "sha256": "5e88e9242ff8c6dfa1ac3dfaaa6aca617e424b221e2f9673e6e68ca69f93d7b8"
+  },
+  "original_D5_reference": {
+    "bytes": 26149,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/pilot_D5_parallel_guide_v1/day09_parallel_frozen_pilot_v1_provisional/receipt.json",
+    "sha256": "68a0402b5751352d7a6bc6a8bfacb22c3cb16a76985f05e7298fc67193cc651d"
+  },
+  "original_export_job": "4525960",
+  "original_export_terminal": "CANCELLED_AFTER_SUCCESSFUL_FINAL_QA_DURING_TRANSPORT",
+  "schema": "D3_V31_COMPACT_PILOT_DELIVERY_V1",
+  "schema_path": "/lfshome/zixiao/data_v1_20261025/D3_v31_pilot_20261105_v1/schema.json",
+  "shared_root": "/lfshome/zixiao/data_v1_20261025/D3_v31_pilot_20261105_v1",
+  "splits": {
+    "TRAIN": {
+      "ID_mapping_path": "/lfshome/zixiao/data_v1_20261025/D3_v31_pilot_20261105_v1/v31_pilot_TRAIN/id_map.parquet",
+      "directory": "/lfshome/zixiao/data_v1_20261025/D3_v31_pilot_20261105_v1/v31_pilot_TRAIN",
+      "manifest_path": "/lfshome/zixiao/data_v1_20261025/D3_v31_pilot_20261105_v1/v31_pilot_TRAIN/manifest.json"
+    },
+    "VAL": {
+      "ID_mapping_path": "/lfshome/zixiao/data_v1_20261025/D3_v31_pilot_20261105_v1/v31_pilot_VAL/id_map.parquet",
+      "directory": "/lfshome/zixiao/data_v1_20261025/D3_v31_pilot_20261105_v1/v31_pilot_VAL",
+      "manifest_path": "/lfshome/zixiao/data_v1_20261025/D3_v31_pilot_20261105_v1/v31_pilot_VAL/manifest.json"
+    }
+  },
+  "status": "EXPORTED_1000_CHECKED_COMPACTED_AND_DISTRIBUTED",
+  "terminal_accounting_failure_after_all_transfers": true,
+  "throughput_test_performed": false,
+  "total_seconds": 3415,
+  "transport_fix_commit": "13f558b",
+  "versions": {
+    "D1": {
+      "Model_confirmation": "PENDING",
+      "r73_extension_user_approved": true,
+      "storage_revision": "docs/interfaces/training_format_v3_1_storage_revision_20261105.md",
+      "version": "v3.1"
+    },
+    "D2": {
+      "registry_reference": {
+        "bytes": 1530797,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/pilot_family_D3_census_resume_v3/day01_parallel_guide_frozen55k_v6/actual_bounded_configurations/registry.json",
+        "sha256": "5fb11fc5dd1f4be3f491b9c74f18c2725bb64d29005e08c5aeef9be19693796d"
+      },
+      "version": "v1-pilot-provisional"
+    },
+    "D4": {
+      "delivery_path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/v1-pilot-provisional/D4_normalization.json",
+      "statistics_reference": {
+        "bytes": 1311257,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/existing_sprime_fast55k_resume_v13/day13_v1_pilot_provisional/numeric_repetition_0.json",
+        "sha256": "9f0cac03c170eae5cb6f231be5ff99c41c0b677019526e05e2142ed4be34ab89"
+      },
+      "version": "v1-pilot-provisional"
+    },
+    "D5": {
+      "delivery_reference": {
+        "bytes": 6897,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/D5_v1_pilot_provisional_delivery.json",
+        "sha256": "6026f3267b3c56472dcf1b6239efd4e139e133ea641947d04c2bc70438734a33"
+      },
+      "diagnostic_manifest_reference": {
+        "bytes": 26149,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/pilot_D5_parallel_guide_v1/day09_parallel_frozen_pilot_v1_provisional/receipt.json",
+        "sha256": "68a0402b5751352d7a6bc6a8bfacb22c3cb16a76985f05e7298fc67193cc651d"
+      },
+      "version": "v1-pilot-provisional"
+    }
+  }
+}
