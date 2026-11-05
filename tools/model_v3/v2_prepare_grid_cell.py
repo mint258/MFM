@@ -11,8 +11,8 @@ import shlex
 import subprocess
 
 
-CROSS = {(120_000, k) for k in (1, 2, 5, None)} | {(m, 1) for m in (240_000, 600_000, 1_200_000)}
-OUTER = {(1_200_000, 2), (1_200_000, 5)}
+CROSS = {(120_000, k) for k in (1, 2, 5, None)} | {(m, 1) for m in (240_000, 600_000, 1_126_937)}
+OUTER = {(1_126_937, 2), (1_126_937, 5)}
 
 
 def required_cells():

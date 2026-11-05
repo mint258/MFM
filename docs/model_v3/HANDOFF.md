@@ -37,11 +37,14 @@ cd /share/home/zixiao/descriptor_analysis/MFM_model_v3
 
 | CONDITION | M / K | SEED / 其他参数 |
 | --- | --- | --- |
-| S、P | 120000 × 1/2/5/all；240000/600000/1200000 × 1；1200000 × 2/5 | 0 或 1 |
-| D | 上述十字七格，不含 1200000 × 2/5 | 0、1 都做 |
+| S、P | 120000 × 1/2/5/all；240000/600000/1126937 × 1；1126937 × 2/5 | 0 或 1 |
+| D | 上述十字七格，不含 1126937 × 2/5 | 0、1 都做 |
 | Sprime | 120000 × 1/all | 自动使用 UFF 的普通 M17 集合 |
 | S、P | 120000 × 1 | 顺序对比时将 `--order` 改为 energy 或 diversity |
 | Sprime、Pprime | 120000 × 实际共同 k* | 另加 `--shared-k-star "$K_STAR"`，K 与 K_STAR 一致 |
+
+最大 M=1,126,937 是用户在2026-11-06批准的最终D5全池，替代原120万格；
+使用最终D5嵌套清单，其余格子/种子/判据不变，见预注册修订。
 
 K/K_STAR 的 all 均写字符串 `all`。S/P/D 使用 PM7；Sprime/Pprime 自动使用 UFF。
 Pprime 使用独立 Pprime D4，训练以 M18 且排除 M14；不能因旧 Pprime 标签存在而
