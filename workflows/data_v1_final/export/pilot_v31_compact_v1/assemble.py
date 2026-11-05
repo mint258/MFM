@@ -185,7 +185,7 @@ def _r73(entry,tid,perm):
       raw=values.copy(),valid=valid.copy(),masked=masked)
 
 
-def assemble_molecule(mid,readers,schema):
+def assemble_molecule(mid,readers,schema,*,include_uff_labels=False):
     """Return M arrays, physical P/U records, ID aliases and existing QA refs."""
     layouts=schema['target_layout'];columns=schema['columns'];entries=[]
     for descriptor,store in readers:
@@ -195,7 +195,7 @@ def assemble_molecule(mid,readers,schema):
             _need(metadata.get('molecule_id')==mid,'legacy molecule index points to another MID')
             _need(kind in('geometry','labels')and store.schema['kind']==kind,'descriptor/store kind mismatch')
             key=_key(metadata,descriptor)
-            if kind=='labels'and key[0]=='uff_sprime':raise ScientificLayoutError('unexpected UFF D/P labels in this explicitly geometry-only U trial')
+            if kind=='labels'and key[0]=='uff_sprime'and not include_uff_labels:raise ScientificLayoutError('unexpected UFF D/P labels in this explicitly geometry-only U trial')
             entries.append(dict(path=path,gid=gid,kind=kind,descriptor=descriptor,metadata=metadata,arrays=arrays,key=key))
     geometries=[e for e in entries if e['kind']=='geometry']
     _need(geometries,'MID has no original geometry record')
@@ -250,7 +250,7 @@ def assemble_molecule(mid,readers,schema):
           atom_permutation_new_to_old=np.argsort(chosen['perm']).tolist(),atom_permutations=[dict(path=e['path'],gid=e['gid'],source_to_M=e['perm'].tolist())for e in items],
           source_records=[_source_identity(e)for e in items])
         qa=[_qa(chosen,'base')];record=dict(arrays={21:pos},r73_channels=[],identity=identity,qa_sources=qa)
-        if source=='uff_sprime':u_records.append(record);continue
+        if source=='uff_sprime'and not include_uff_labels:u_records.append(record);continue
         record['arrays'][22]=np.full((n,3),np.nan,dtype='<f4')
         perturbed=[e for e in geo if e['metadata'].get('view_id')=='actual_wp5_perturbed_input_v1'
           and _geometry_task(e,items,layouts)=='xtb_perturbed_gradient']
@@ -322,7 +322,7 @@ def assemble_molecule(mid,readers,schema):
             arrays[33]=ordered['onsite'];arrays[34]=ordered['masked'];record['r73_channels']=ordered['channels']
         else:
             arrays[31]=np.empty(0,dtype='<u4');arrays[33]=np.empty(0,dtype='u1');arrays[34]=np.empty(0,dtype='<f4')
-        p_records.append(record)
+        (p_records if source=='pm7'else u_records).append(record)
     _need(len(p_records)<=65535 and len(u_records)<=65535,'conformer count exceeds uint16')
     m_arrays[6]=np.asarray([len(p_records),len(u_records)],dtype='<u2')
     for records,random_id,energy_id,diversity_id,held_id in((p_records,7,9,10,13),(u_records,8,11,12,14)):
