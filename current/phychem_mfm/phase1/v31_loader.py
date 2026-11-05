@@ -65,18 +65,39 @@ def record_key(kind, molecule, conformer=None):
 
 
 def allowed_conformers(molecule, *, source='PM7', order='fixed_random',
-                       k=None, diagnostic=False):
+                       k=None, diagnostic=False, pprime=False, evaluation=False):
     """Exclude D5 before first-k selection; never invent an unavailable order."""
     if source not in ORDER_IDS or order not in ORDER_IDS[source]:
         raise ValueError('Unknown geometry source or ordering')
     if k is not None and (type(k) is not int or k <= 0):
         raise ValueError('k must be a positive integer or None (all)')
+    holdout = molecule[13 if source == 'PM7' else 14].astype(bool)
+    if diagnostic:
+        # D6 retains actual D5 geometries outside ordinary source orders.
+        values = np.flatnonzero(holdout)
+        return values if k is None else values[:k]
+    if pprime and source != 'UFF':
+        raise ValueError('Pprime eligibility applies only to UFF')
+    if pprime and evaluation:
+        # M18 is TRAIN-only. FULL evaluates actual U labels with their masks.
+        return np.flatnonzero(~holdout)
     array_id = ORDER_IDS[source][order]
     if array_id not in molecule:
         raise ValueError('Requested conformation order is not published')
     values = molecule[array_id].astype(np.int64)
-    holdout = molecule[13 if source == 'PM7' else 14].astype(bool)
-    values = values[holdout[values] if diagnostic else ~holdout[values]]
+    if source == 'UFF':
+        if pprime:
+            if 18 not in molecule:
+                raise ValueError('Pprime training requires published M18 eligibility')
+            eligible = molecule[18].astype(bool) & ~holdout
+            if np.any(eligible & ~np.isin(np.arange(len(eligible)), values)):
+                raise ValueError('Eligible Pprime geometry lacks the published source order')
+        else:
+            eligible = (molecule[17].astype(bool) if 17 in molecule
+                        else np.ones(len(holdout), dtype=bool)) & ~holdout
+        values = values[eligible[values]]
+    else:
+        values = values[~holdout[values]]
     return values if k is None else values[:k]
 
 
@@ -290,7 +311,7 @@ class MFM4Dataset:
     """Per-process LMDB handles, molecule-first sampling and explicit geometry."""
     def __init__(self, root, *, split='TRAIN', training_view=None, source='PM7',
                  order='fixed_random', k=None, diagnostic=False, molecule_indices=None,
-                 normalizations=None):
+                 normalizations=None, pprime=False):
         self.root = Path(root)
         self.directory = self.root / ('v31_pilot_' + split)
         if not self.directory.exists():
@@ -298,6 +319,7 @@ class MFM4Dataset:
         self.schema = json.loads((self.root / 'schema.json').read_text())
         self.manifest = json.loads((self.directory / 'manifest.json').read_text())
         self.source, self.order, self.k, self.diagnostic = source, order, k, diagnostic
+        self.pprime, self.evaluation = pprime, split != 'TRAIN'
         if source not in ('PM7', 'UFF'):
             raise ValueError('Geometry source must be PM7 or UFF')
         if isinstance(training_view, (str, Path)):
@@ -341,7 +363,8 @@ class MFM4Dataset:
 
     def choices(self, molecule):
         return allowed_conformers(self.record('M', molecule), source=self.source,
-                                  order=self.order, k=self.k, diagnostic=self.diagnostic)
+                                  order=self.order, k=self.k, diagnostic=self.diagnostic,
+                                  pprime=self.pprime, evaluation=self.evaluation)
 
     def sample(self, rng):
         # Conditional uniform draws are independent of conformation counts.
@@ -355,8 +378,7 @@ class MFM4Dataset:
         if molecule not in self._index_set:
             raise ValueError('Molecule is outside the selected subset')
         m = self.record('M', molecule)
-        if conformer not in allowed_conformers(m, source=self.source, order=self.order,
-                                               k=self.k, diagnostic=self.diagnostic):
+        if conformer not in self.choices(molecule):
             raise ValueError('Conformer is excluded by the training/diagnostic manifest')
         c = self.record('P' if self.source == 'PM7' else 'U', molecule, conformer)
         return {'molecule_index': molecule, 'conformer_index': conformer,

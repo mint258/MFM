@@ -26,6 +26,12 @@ MFM4Dataset 支持 source=PM7/UFF、order=fixed_random/energy/diversity、k=None
 先排除来源对应的 D5 holdout，再取前 k。最低能量通过 order=energy,k=1 表示；
 未交付的排列不会自动用 fixed_random 替代。diagnostic=True 只访问留出构象，
 应与未见分子的 FULL/ROUTINE 独立记录。molecule_indices 可绑定 D5 子集。
+全量D6普通UFF训练还使用M17；pprime=True的TRAIN只使用M18且排除M14，
+不根据标签是否存在或原source行推断资格。通用训练/验证入口在UFF+P时自动选择该模式。
+M18只用于训练，FULL的P′评价读取真实U标签及其NaN掩码；D5诊断按M14访问
+全部实际留出，包括不在普通U排列中的addressable几何。若M18缺失或合格几何未有
+相应已发布排列，明确报错，不用存储序号或M17猜测P′资格/顺序。旧D3普通UFF无M17
+时仍消费其原已发布排列，不能借此启用无M18的P′训练。
 
 sample 用两个条件均匀抽样；molecule_mean 对允许构象的原始标签按有效分量求均值，
 再应用同一 D4；pair 标签通过有向端点对齐。valid 严格来自 isnan。

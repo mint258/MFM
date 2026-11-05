@@ -77,6 +77,44 @@ def test_holdout_removed_before_first_k_and_diagnostic_separate():
         allowed_conformers(m, order='energy')
 
 
+def test_uff_ordinary_and_pprime_use_distinct_published_membership():
+    m = molecule()
+    m[8] = np.array([0, 1, 2, 3], dtype='<u2')
+    m[14] = np.array([0, 0, 0, 1], dtype='u1')
+    m[17] = np.array([0, 1, 1, 0], dtype='u1')
+    m[18] = np.array([0, 0, 1, 1], dtype='u1')
+    assert allowed_conformers(m, source='UFF', k=1).tolist() == [1]
+    assert allowed_conformers(m, source='UFF', pprime=True, k=1).tolist() == [2]
+    # Real retained labels at 0/1 do not expand Pprime training eligibility.
+    assert allowed_conformers(m, source='UFF', pprime=True).tolist() == [2]
+
+
+def test_diagnostic_only_geometry_outside_ordinary_order_is_retained():
+    m = molecule()
+    m[8] = np.array([0, 1], dtype='<u2')
+    m[17] = np.array([1, 1, 0], dtype='u1')
+    m[18] = np.array([1, 0, 0], dtype='u1')
+    assert allowed_conformers(m, source='UFF', diagnostic=True).tolist() == [2]
+    assert allowed_conformers(m, source='UFF', pprime=True, diagnostic=True).tolist() == [2]
+
+
+def test_pprime_never_guesses_missing_eligibility_or_order():
+    m = molecule()
+    with pytest.raises(ValueError, match='M18'):
+        allowed_conformers(m, source='UFF', pprime=True)
+    m[18] = np.array([0, 1, 0], dtype='u1')
+    m[8] = np.array([0], dtype='<u2')
+    with pytest.raises(ValueError, match='source order'):
+        allowed_conformers(m, source='UFF', pprime=True)
+
+
+def test_pprime_full_does_not_apply_train_only_eligibility():
+    m = molecule()
+    m[8] = np.array([0], dtype='<u2')
+    m[18] = np.array([0, 0, 0], dtype='u1')
+    assert allowed_conformers(m, source='UFF', pprime=True, evaluation=True).tolist() == [0, 1]
+
+
 def test_r73_directed_pairs_sum_channels_missing_and_empty():
     arrays = {26: np.array([[0, 1], [1, 0], [0, 0]]),
               31: np.array([0, 0, 0, 1, 1]),

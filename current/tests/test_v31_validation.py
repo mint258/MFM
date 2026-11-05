@@ -4,7 +4,22 @@ import torch
 
 from phychem_mfm.phase1.v31_loader import TrainingView
 from phychem_mfm.phase1.v31_training import V31PDModel
-from phychem_mfm.phase1.v31_validation import validate_v31
+from phychem_mfm.phase1.v31_validation import validate_v31, validation_choices
+
+
+def test_validation_skips_addressable_nonordinary_uff_records(tmp_path):
+    pa = pytest.importorskip('pyarrow')
+    import pyarrow.parquet as pq
+    pq.write_table(pa.table(dict(record_kind=['M','U','U','U'], molecule_index=[0]*4,
+        conformer_index=[None,0,1,2], holdout=[False,False,False,True])), tmp_path/'id_map.parquet')
+    class Dataset:
+        source = 'UFF'
+        directory = tmp_path
+        _index_set = {0}
+        diagnostic = False
+        def choices(self, molecule):
+            return [1]  # U0 is retained Pprime-only; U2 is D5-only.
+    assert list(validation_choices(Dataset(), 10)) == [(12,0,1)]
 
 
 def test_unseen_and_seen_molecule_diagnostic_metrics_never_mix(tmp_path):

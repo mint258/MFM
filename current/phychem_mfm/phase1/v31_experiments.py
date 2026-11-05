@@ -103,6 +103,7 @@ def train_v31(configuration):
     if not 0 < c['microbatch_size'] <= c['batch_size']:
         raise ValueError('Microbatch size must be between one and the effective batch size')
     dataset_configuration = dict(root=c['root'], source=c['source'], order=c['order'], k=c['k'])
+    dataset_configuration['pprime'] = c['source'] == 'UFF' and 'P' in groups
     if pd_groups:
         view = json.loads(Path(c['training_view']).read_text())
         if view.get('status') != 'FROZEN_BEFORE_STAGE5_PD':

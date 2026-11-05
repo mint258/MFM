@@ -17,6 +17,7 @@ def validation_choices(dataset, ordinal_offset=0):
     kind = 'P' if dataset.source == 'PM7' else 'U'
     file = pq.ParquetFile(dataset.directory/'id_map.parquet')
     ordinal = ordinal_offset
+    cached_molecule, allowed = None, set()
     try:
         for batch in file.iter_batches(batch_size=8192, use_threads=False,
                 columns=['record_kind','molecule_index','conformer_index','holdout']):
@@ -25,6 +26,12 @@ def validation_choices(dataset, ordinal_offset=0):
                 ordinal += 1
                 if (row['record_kind'] == kind and row['molecule_index'] in dataset._index_set
                         and bool(row['holdout']) == dataset.diagnostic):
+                    if hasattr(dataset, 'choices'):
+                        if cached_molecule != row['molecule_index']:
+                            cached_molecule = row['molecule_index']
+                            allowed = set(map(int, dataset.choices(cached_molecule)))
+                        if row['conformer_index'] not in allowed:
+                            continue
                     yield current, int(row['molecule_index']), int(row['conformer_index'])
     finally:
         file.close()

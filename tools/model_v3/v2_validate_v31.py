@@ -34,6 +34,7 @@ def main():
     config = checkpoint['configuration']
     groups = tuple(g for g in ('S','D','P') if g in config.get('condition','S'))
     kwargs = dict(source=config.get('source','PM7'))
+    kwargs['pprime'] = kwargs['source'] == 'UFF' and 'P' in groups
     if any(g != 'S' for g in groups):
         kwargs.update(training_view=config['training_view'],
                       normalizations=json.loads(Path(config['normalizations']).read_text()))
