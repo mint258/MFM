@@ -58,7 +58,26 @@ def _read_native(row):
     record = _transport(pickle.loads(payload), real_index=row['real_index'], normalizer=_normalizer)
     if len(record.x) != row['total_atoms']:
         raise ValueError('Native atom count differs from D5 identity join')
-    return record
+    return structural_record(record)
+
+
+def structural_record(record):
+    """Carry original S inputs only; descriptor '*index' names are not edges.
+
+    Native records contain atom descriptor indices that PyG otherwise guesses
+    are graph edges. None of those unused descriptors belongs in S collation.
+    """
+    from torch_geometric.data import Data
+    from ..data.descriptor_schema import (BOND_INDEX_FIELD, BOND_ORDER_FIELD,
+                                         BOND_STATUS_FIELD, BOND_FAIL_REASON_FIELD)
+    result = Data(x=record.x, pos=record.pos)
+    defaults = {BOND_INDEX_FIELD: torch.empty((2, 0), dtype=torch.long),
+                BOND_ORDER_FIELD: torch.empty(0, dtype=torch.long),
+                BOND_STATUS_FIELD: '', BOND_FAIL_REASON_FIELD: ''}
+    for key, default in defaults.items():
+        value = getattr(record, key, None)
+        setattr(result, key, default if value is None else value)
+    return result
 
 
 def s_model(distance_bias, views):

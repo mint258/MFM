@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 import torch
 
-from phychem_mfm.phase1.v2_s_training import GroupedSIndex, s_model
+from phychem_mfm.phase1.v2_s_training import GroupedSIndex, s_model, structural_record
 
 
 def test_molecule_first_draw_does_not_weight_by_conformer_count():
@@ -26,3 +26,20 @@ def test_s_composition_uses_adopted_flags_and_omits_digest_work():
     assert not model.encoder.backbone.activation_checkpointing
     assert not model.encoder.geometry_head.activation_checkpointing
     assert model.encoder.s_memory_implementation['pair_rows'] == 65536
+
+
+def test_native_atom_descriptor_index_is_not_collated_as_an_edge():
+    from torch_geometric.data import Batch, Data
+    from phychem_mfm.data.descriptor_schema import BOND_INDEX_FIELD, BOND_ORDER_FIELD, BOND_STATUS_FIELD
+    rows = []
+    for n in (3, 5):
+        row = Data(x=torch.zeros(n, 1, dtype=torch.long), pos=torch.zeros(n, 3),
+                   rdkit_node_estate_index=torch.ones(n, 1))
+        setattr(row, BOND_INDEX_FIELD, torch.tensor([[0], [1]]))
+        setattr(row, BOND_ORDER_FIELD, torch.tensor([2]))
+        setattr(row, BOND_STATUS_FIELD, 'ok')
+        rows.append(structural_record(row))
+    batch = Batch.from_data_list(rows)
+    assert batch.num_nodes == 8 and 'rdkit_node_estate_index' not in batch
+    assert getattr(batch, BOND_INDEX_FIELD).tolist() == [[0, 3], [1, 4]]
+    assert getattr(batch, BOND_ORDER_FIELD).tolist() == [2, 2]

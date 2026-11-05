@@ -292,3 +292,7 @@ D1双方设计冻结仍有效；数据方当前STATUS明确D2–D6实际交付/�
 C4按用户v3为PASS；r674保持LOSS_DISABLED。3090/5090 C1-a、原438复核及
 Native四条20k曲线仍受实际GPU资源阻塞；等待进程存活不代表已执行或科学完成。
 详见[当日唯一汇总](../model_v3/DAILY_20261030.md)。正式预训练未启动。
+
+| 2026-11-05 | 模型线 v2 M1 | MFM4/NaN/D5 排除/分子均匀采样的 UNIT 已通过；M2 真实验收尚未完成 | model-v3: docs/model_v3/M1_V31_LOADER.md |
+| 2026-11-05 | 模型线 v2 M3 S | D5 240k 已连接到现有 S：240,000 分子、2,209,619 个训练 PM7 构象；按新判定规则开始 6M 开发实验 | docs/model_v3/DECISION_RULES_TASKBOOK_V2.md |
+| 2026-11-05 | 训练视图依赖 | 等待窗口二 training_view_v1.json 后完成字段排除、r73 σ/π 与 D4 接线；用户已要求等待该交付，不自定字段 | configs/data_v1/training_view_v1.json（数据线） |
