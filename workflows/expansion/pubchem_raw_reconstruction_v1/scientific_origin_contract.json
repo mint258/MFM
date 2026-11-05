@@ -1,0 +1,64 @@
+{
+  "schema": "PUBCHEM_RECONSTRUCTION_FROZEN_SCIENCE_CONTRACT_V1",
+  "state": "OFFLINE_SOURCE_CONTRACT_NO_DATA_OR_MAIN_ADMISSION",
+  "rdkit": "2025.09.5",
+  "old_snapshot_kernel_path": "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\expansion\\raw_uniform_cost_v1\\run.py",
+  "old_snapshot_kernel_sha256": "4ee386ff3ac6d8034ea5ba8344ea2fc674c85b8b1991ca46ca6ef657bfd01ba5",
+  "kernel_function_original_AST_sha256": {
+    "funnel": "b21c60a4f7c0bd45fddd820d9d146a41beb010e64e887dfe942488d195c6c723",
+    "chemical_task": "fd2a6d66512eaff3f980c157588bd92ccfc64fdbe0b3ccdcb30236a1a72e9171",
+    "output_schema": "a29458aae5310ac6a12d5163ce784f48e77020ee188d83df7e85f4a0594db7dc",
+    "parquet_row": "710a3bb721f3ffb1f01af2ec689a0bff1262688c43f16d103b902ffd6cfc5f36"
+  },
+  "kernel_constant_original_AST_sha256": {
+    "FLOAT_FEATURES": "7a1e5fe8ad31762f6df223c63e033f8a7139b507662d36fb58788f8b71961207",
+    "INT_FEATURES": "6f84df60f2446d50c145df70703a34f69bc086efad6b94112d0c939df18c7ce8",
+    "TEXT_FEATURES": "1e8deed6ee36ccd334e389def634742c2c5e161386cf6a06c69d36538cdf7176",
+    "FEATURE_KEYS": "01de3fd4cd66da5fe953db4a66cecc6e6d0c6cf9335b55f9e1eecd69b2be85bc"
+  },
+  "kernel_only_import_relocation": {
+    "old": "from .. import features_legacy_compatible_v2 as compatible",
+    "new": "from .science import features_legacy_compatible_v2 as compatible"
+  },
+  "source_fact_original_AST_sha256": {
+    "cid_summary": "adc18139b40c06d97f6d131c73e678c638b2b390267ea2ff2be7906a6dc91919",
+    "row_fact": "bc777b251a92453f41fb5ee0b8a140f988dc3d6701fd7008e85813c45e29ebf6",
+    "record": "54a0d0eacc1f728a733d9595231806cef3bccb391cb6ce8833652182847bdab3"
+  },
+  "original_source_fact_snapshot_path": "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\expansion\\secondary_pubchem_screening_alpha_v1\\source.py",
+  "original_source_fact_snapshot_sha256": "787b2d3de95d8943dbf7a82ef70e7823d76b87c4f26b2240137104b84fa5373b",
+  "frozen_science_files": [
+    {
+      "relative_path": "science/common.py",
+      "bytes": 4312,
+      "sha256": "8c988f617776ad05354deae1cf69933e7ff95210f7a2609f903e4826172ccbad",
+      "origin_snapshot_path": "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\expansion\\common.py"
+    },
+    {
+      "relative_path": "science/screen.py",
+      "bytes": 11880,
+      "sha256": "bb31d57a4749f9ef9843dc075bc75f7c268cb781f60c7b4f0d77a121a73dcc88",
+      "origin_snapshot_path": "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\expansion\\screen.py"
+    },
+    {
+      "relative_path": "science/features_legacy_compatible_v2.py",
+      "bytes": 5897,
+      "sha256": "164a9e23d8ad0252c0bf728073064b9d3c845f48da9357a36decaebfc96da2ad",
+      "origin_snapshot_path": "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\expansion\\features_legacy_compatible_v2.py"
+    },
+    {
+      "relative_path": "science/features_generic_candidate_v1.py",
+      "bytes": 12730,
+      "sha256": "7bbe49bb82a635269da7c1820ee8c4083b57c738576fd0f6927b45f5c67a0ad2",
+      "origin_snapshot_path": "C:\\Users\\mint\\AppData\\Local\\Temp\\codex_data_v1_source26_readonly_20261027\\repository_readonly\\workflows\\expansion\\features_generic_candidate_v1.py"
+    }
+  ],
+  "full_snapshot_rows": 124857440,
+  "old_baseline_counts": {
+    "accepted": 110046364,
+    "chemReject": 14764875,
+    "technicalUnresolved": 46201
+  },
+  "baseline_match_is_not_forced": true,
+  "no_future_Main_input_pins_predeclared": true
+}

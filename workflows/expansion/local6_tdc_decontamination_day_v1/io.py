@@ -1,5 +1,5 @@
 """Original strict JSONL/same-FD reads and chunked stable output accounting."""
-import hashlib,json,os,socket,threading,time
+import hashlib,json,os,socket,stat,threading,time
 from pathlib import Path
 from workflows.expansion.marcel_kraken_decontamination_main_v1.runtime import rows
 from workflows.expansion.marcel_kraken_decontamination_main_v1.projection import strict_json,canonical
@@ -10,6 +10,25 @@ from . import contract as C
 
 def dump(value):return (json.dumps(value,ensure_ascii=True,separators=(',',':'),allow_nan=False)+'\n').encode()
 def equal_json(left,right):return canonical(left)==canonical(right)
+
+def data_pin(path,allowed_roots,*,expected=None,check=lambda:None):
+    """CPU first whole SHA of a closed DATA file; never Q's small-source pin."""
+    p=Path(path);C.need(p.is_absolute() and '..' not in p.parts and any(Path(r) in p.parents for r in allowed_roots)
+      and not any(v.is_symlink() for v in (p,*p.parents)),'EXACT_CLOSED_DATA_ROOT_BEFORE_FIRST_OPEN')
+    s=p.lstat();C.need(stat.S_ISREG(s.st_mode) and s.st_uid==1278 and s.st_nlink==1 and s.st_size>0,'OWN_CLOSED_POSITIVE_REGULAR_DATA')
+    if expected is not None:
+        C.need(expected['path']==str(p) and expected['regular'] is True and expected['uid']==s.st_uid and expected['ino']==s.st_ino
+          and expected['bytes']==s.st_size and expected['mtime_ns']==s.st_mtime_ns and expected['ctime_ns']==s.st_ctime_ns
+          and expected['mode']==s.st_mode and expected['nlink']==s.st_nlink,'ACTUAL_LSTAT_FRAME_BEFORE_FIRST_DATA_SHA')
+        # The recorded observation came from login sonmi; st_dev is deliberately
+        # not compared to compute NFS device numbers. Current CPU FD dev is
+        # nevertheless checked exactly before and after this whole read.
+    h=hashlib.sha256();size=0
+    with p.open('rb') as f:
+        C.need(frame(s)==frame(os.fstat(f.fileno())),'FIRST_DATA_SHA_SAME_OPEN_FD')
+        for b in iter(lambda:f.read(1<<20),b''):check();h.update(b);size+=len(b)
+        C.need(size==s.st_size and f.tell()==s.st_size and frame(s)==frame(os.fstat(f.fileno()))==frame(p.lstat()),'FIRST_DATA_SHA_EOF_AND_STABLE_CPU_FRAME')
+    return {'path':str(p),'bytes':size,'sha256':h.hexdigest()}
 
 class Budget:
     def __init__(self,plan,proof,out):

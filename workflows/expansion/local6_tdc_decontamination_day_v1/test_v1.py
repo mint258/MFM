@@ -2,7 +2,7 @@
 import copy,hashlib,sqlite3,tempfile,unittest
 from pathlib import Path
 from workflows.expansion.decontamination import identity_keys
-from . import projection as P,io as I,tdc as T,contract as C
+from . import projection as P,io as I,tdc as T,contract as C,recovery as R
 K1='AAAAAAAAAAAAAA-BBBBBBBBBB-C';K2='CCCCCCCCCCCCCC-DDDDDDDDDD-E'
 
 class Boundaries(unittest.TestCase):
@@ -57,6 +57,26 @@ class Boundaries(unittest.TestCase):
             ref=w.close();self.assertLessEqual(w.fsync_count,3);self.assertEqual(ref['rows'],4097);self.assertEqual(ref['bytes'],b.bytes)
             result=I.readback(ref,['SOURCE_TRAIN'],[''],b.check);self.assertEqual(result['rows'],4097)
             with self.assertRaises(Exception):list(I.rows({**{k:ref[k] for k in ('path','bytes','sha256')},'sha256':'0'*64},b.check))
+            # Actual regression: a CLOSED SQLite larger than small metadata is
+            # DATA, without changing the original small-source validator.
+            p=Path(d)/'large_closed.sqlite';conn=sqlite3.connect(p)
+            conn.execute('CREATE TABLE synthetic(payload BLOB)');conn.execute('INSERT INTO synthetic VALUES(zeroblob(?))',(3<<20,));conn.commit();conn.close()
+            self.assertGreater(p.stat().st_size,2<<20)
+            with self.assertRaisesRegex(ValueError,'SMALL_METADATA_ONLY'):C.Q.pin(str(p))
+            pinned=I.data_pin(p,[Path(d)]);self.assertEqual(pinned['bytes'],p.stat().st_size)
+            with self.assertRaises(Exception):I.data_pin(p,[Path(d)/'different_root'])
+            s=p.stat();expected={'path':str(p),'regular':True,'uid':s.st_uid,'ino':s.st_ino,'bytes':s.st_size,
+              'mtime_ns':s.st_mtime_ns,'ctime_ns':s.st_ctime_ns,'mode':s.st_mode,'nlink':s.st_nlink}
+            self.assertEqual(I.data_pin(p,[Path(d)],expected=expected),pinned)
+            with self.assertRaises(Exception):I.data_pin(p,[Path(d)],expected={**expected,'ino':s.st_ino+1})
+            mutated=[False]
+            def change_during_hash():
+                if not mutated[0]:
+                    mutated[0]=True
+                    with p.open('ab') as stream:stream.write(b'changed-synthetic-frame')
+            with self.assertRaises(Exception):I.data_pin(p,[Path(d)],check=change_during_hash)
+            journal=Path(str(p)+'-journal');journal.write_bytes(b'synthetic-only')
+            with self.assertRaises(Exception):R.require_closed_sqlite(p)
         db=sqlite3.connect(':memory:');db.execute('CREATE TABLE seen(dataset TEXT,source_id TEXT,PRIMARY KEY(dataset,source_id)) WITHOUT ROWID')
         db.execute('INSERT INTO seen VALUES(?,?)',('source','physical'))
         with self.assertRaises(sqlite3.IntegrityError):db.execute('INSERT INTO seen VALUES(?,?)',('source','physical'))

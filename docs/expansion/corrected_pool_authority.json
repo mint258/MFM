@@ -1,0 +1,205 @@
+{
+  "aliases_relation": {
+    "parts": [
+      {
+        "bytes": 1333797180,
+        "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/original502/unfiltered_pool/attempt_451a57df0a7949f8aef3a9867a35a1c7/aliases.parquet",
+        "sha256": "b1735cd239a9d398f4f0b7f432d860df70810b25a474e6090979ae98553e3669"
+      },
+      {
+        "bytes": 67371,
+        "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/generic_recovery_delta_v1_job_1885179/recovery_delta_aliases.parquet",
+        "rows": 3642,
+        "sha256": "10e338e2a3b13ab9debe9c172c61f7e999d81d19856457e180344722d58d90c2"
+      }
+    ],
+    "rows": 110050006,
+    "schema": "PUBCHEM_PRESERVED_ALIAS_UNION_V1"
+  },
+  "aliases_rows": 110050006,
+  "all_original_aliases_preserved_by_reference": true,
+  "all_recovered_non_generic_values_exact": true,
+  "all_unaffected_original_Arrow_fields_and_F64_preserved": true,
+  "base_closed_frame_ledger_reference": {
+    "bytes": 200941,
+    "path": "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_expansion_runtime_20261103/bulk_closed_other_future_credit_v1.json",
+    "sha256": "712ec28dbcb6fe06cf7016e72d4c4fbcadb02af6dbf2fc7a0aef8571ea101ff7"
+  },
+  "base_pool_actual_reference": {
+    "bytes": 1389,
+    "path": "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_expansion_runtime_20261103/mincid_full502_actual_parent.json",
+    "sha256": "d367e52f3932d4e7585adfb72c97363a7edd9d7f9c255349c501ff9419610243"
+  },
+  "base_pool_receipt_reference": {
+    "bytes": 120532,
+    "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/original502/unfiltered_pool/receipt.json",
+    "sha256": "28337fa5b951884bea83270e9e3c086f19e327eb6f596ff744db21beb934488f"
+  },
+  "candidate_relation": {
+    "base_candidates": {
+      "bytes": 34325191493,
+      "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/original502/unfiltered_pool/attempt_451a57df0a7949f8aef3a9867a35a1c7/candidates.parquet",
+      "sha256": "bcaf4726737611c9b534a2aff28d694adb8b4b12ea162693ff0ec1589f7065b1"
+    },
+    "replacement_keys": {
+      "bytes": 132,
+      "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/generic_mincid_overlay_v1_job_1885180/replacement_keys.parquet",
+      "rows": 0,
+      "sha256": "8d668d505a51a02eb85eec581b9aaf7da43298b31b2614832ec86ea8ca51d475"
+    },
+    "schema": "PUBCHEM_LOGICAL_MINCID_OVERLAY_RELATION_V1",
+    "winning_delta": {
+      "bytes": 1480766,
+      "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/generic_mincid_overlay_v1_job_1885180/winning_delta.parquet",
+      "rows": 3640,
+      "sha256": "5579b3965bd5ffd378c099198a0b09c99af1662405e168fbf0d30c92f547a3cb"
+    }
+  },
+  "counts": {
+    "aliases_rows": 110050006,
+    "base_aliases": 110046364,
+    "base_unique_full_keys": 109871959,
+    "delta_rows": 3642,
+    "delta_unique_full_keys": 3640,
+    "duplicate_fullkey_aliases": 174407,
+    "new_full_keys": 3640,
+    "replaced_representatives": 0,
+    "unique_full_keys": 109875599,
+    "winning_delta_rows": 3640
+  },
+  "coverage_reference": {
+    "bytes": 554554,
+    "path": "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_tail_363412_root_20261030_v2/original_finite500_all_source_rows_accounted_v1.json",
+    "sha256": "40fc128704a7a77a4322c5514f8c1afad78ccef19dcb74474d5cacb83ebfc1b5"
+  },
+  "decontamination_filter_rank_or_training_release": false,
+  "frozen_manifest_reference": {
+    "bytes": 52475,
+    "path": "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_C_frozen_metadata_v1/full_shard_manifest.json",
+    "sha256": "65ffe94c64b33b3b6a0b4ee818d397d3f39cf2d6c832b561de015f9b82c76099"
+  },
+  "minimum_CID_all_aliases_basis": "actual old complete minCID C0 + exact small delta minimum + old/delta CID-disjoint full-alias scan",
+  "new_chemistry_calls": 0,
+  "new_full_keys": {
+    "bytes": 49160,
+    "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/generic_mincid_overlay_v1_job_1885180/new_full_keys.parquet",
+    "rows": 3640,
+    "sha256": "7aecb8c465f0c7bdecf8e059cef0ee0e9b8fdab3c69c194edd5b130d4e2e190b"
+  },
+  "old_34GB_candidate_or_1GB_alias_copied": false,
+  "old_UNKNOWN_rows_modified": 0,
+  "original_SQL_minimum_CID_semantics": true,
+  "original_UNKNOWN_rows_preserved": 46201,
+  "original_source_counts": {
+    "accepted": 110046364,
+    "chemReject": 14764875,
+    "technicalUnresolved": 46201
+  },
+  "original_source_projection": {
+    "bytes": 215875,
+    "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/original502/projection_manifest.json",
+    "sha256": "8a1c386edb988ff9e0877b386a28c246bc4be2bd54dfbee7305691e635ddd619"
+  },
+  "population_version": "alpha-original502-generic3642-recovery-v1",
+  "producer_receipt_reference": {
+    "bytes": 9091,
+    "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/generic_mincid_overlay_v1_job_1885180/receipt.json",
+    "sha256": "303ef465f88cd60d1098b4c768ee0f1dffd585f759e3c9e409edc4445aa992f8"
+  },
+  "recovery_delta_actual_reference": {
+    "bytes": 1649,
+    "path": "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_expansion_runtime_20261103/generic_recovery_delta_1885179_root_actual_v1.json",
+    "sha256": "b48d7602fab75a40fcdc45e8a4d0777556a9a1aa4688c2589ea1cc1818ea7e73"
+  },
+  "recovery_delta_receipt_reference": {
+    "bytes": 7525,
+    "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/generic_recovery_delta_v1_job_1885179/receipt.json",
+    "sha256": "8eee3af6ca04cf4c73e629d322ba2f0c463926458e3e51af1464ba1d7648789b"
+  },
+  "remaining_technical_UNKNOWN_if_adopted": 42559,
+  "root_actual_review_reference": {
+    "bytes": 1859,
+    "path": "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_expansion_runtime_20261103/generic_overlay_1885180_root_actual_v1.json",
+    "sha256": "68e38d86cc6c189bbf9f84fcc9a0d44b875b1632800802aadc96dc17168167a0"
+  },
+  "schema": "PUBCHEM_EXACT_MINCID_OVERLAY_POOL_V1",
+  "scientific_population_recovery_accepted": true,
+  "source_counts": {
+    "accepted": 110050006,
+    "chemReject": 14764875,
+    "technicalUnresolved": 42559
+  },
+  "source_current_witnesses": [
+    {
+      "current_frame": {
+        "st_ctime_ns": 1793697176704841297,
+        "st_dev": 41,
+        "st_ino": 11620488192368126450,
+        "st_mtime_ns": 1793697176704841297,
+        "st_nlink": 1,
+        "st_size": 34325191493,
+        "st_uid": 1264
+      },
+      "device_identity_cross_node_claimed": false,
+      "device_note": "Gluster st_dev is client-local. Historical ledger has no host/volume fields. Current native Guard independently binds live quota root/volume/endpoint; full current before/after frame includes device.",
+      "fresh_full_body_SHA_verified": false,
+      "historical_frame": {
+        "allocated_bytes": 34325191680,
+        "ctime_ns": 1793697176704841297,
+        "device": 42,
+        "inode": 11620488192368126450,
+        "mtime_ns": 1793697176704841297,
+        "reference": {
+          "bytes": 34325191493,
+          "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/original502/unfiltered_pool/attempt_451a57df0a7949f8aef3a9867a35a1c7/candidates.parquet",
+          "sha256": "bcaf4726737611c9b534a2aff28d694adb8b4b12ea162693ff0ec1589f7065b1"
+        }
+      },
+      "historical_full_SHA_and_actual_C0_reused": true,
+      "reference": {
+        "bytes": 34325191493,
+        "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/original502/unfiltered_pool/attempt_451a57df0a7949f8aef3a9867a35a1c7/candidates.parquet",
+        "sha256": "bcaf4726737611c9b534a2aff28d694adb8b4b12ea162693ff0ec1589f7065b1"
+      }
+    },
+    {
+      "current_frame": {
+        "st_ctime_ns": 1793696931313054638,
+        "st_dev": 41,
+        "st_ino": 12688721274691779553,
+        "st_mtime_ns": 1793696931313054638,
+        "st_nlink": 1,
+        "st_size": 1333797180,
+        "st_uid": 1264
+      },
+      "device_identity_cross_node_claimed": false,
+      "device_note": "Gluster st_dev is client-local. Historical ledger has no host/volume fields. Current native Guard independently binds live quota root/volume/endpoint; full current before/after frame includes device.",
+      "fresh_full_body_SHA_verified": false,
+      "historical_frame": {
+        "allocated_bytes": 1333797376,
+        "ctime_ns": 1793696931313054638,
+        "device": 42,
+        "inode": 12688721274691779553,
+        "mtime_ns": 1793696931313054638,
+        "reference": {
+          "bytes": 1333797180,
+          "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/original502/unfiltered_pool/attempt_451a57df0a7949f8aef3a9867a35a1c7/aliases.parquet",
+          "sha256": "b1735cd239a9d398f4f0b7f432d860df70810b25a474e6090979ae98553e3669"
+        }
+      },
+      "historical_full_SHA_and_actual_C0_reused": true,
+      "reference": {
+        "bytes": 1333797180,
+        "path": "/gfshome/alpha/pubchem_expansion_20261103/bulk/original502/unfiltered_pool/attempt_451a57df0a7949f8aef3a9867a35a1c7/aliases.parquet",
+        "sha256": "b1735cd239a9d398f4f0b7f432d860df70810b25a474e6090979ae98553e3669"
+      }
+    }
+  ],
+  "source_endpoint": "218.192.171.238:22",
+  "source_rows": 124857440,
+  "source_scope_or_old_baseline_changed": false,
+  "source_snapshot_sha256": "2504bc00da1b0587ae208d8a5fb2a4fe6043c215436150f2023d59c57c5cd2b7",
+  "source_uid": 1264,
+  "status": "MATERIALIZED_UNFILTERED_NO_RELEASE",
+  "unique_full_keys": 109875599
+}

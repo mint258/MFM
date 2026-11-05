@@ -9,14 +9,25 @@ def fresh(path,kind):
     p=Path(path);C.need(p.is_absolute() and C.ROOT/kind in p.parents and '..' not in p.parts and not p.exists()
         and not any(v.is_symlink() for v in (p,*p.parents)),'FRESH_OWN_'+kind.upper());return p
 
+def recovery_template(failed_receipt,accounting,inventory,archive,output):
+    refs={k:Q.pin(v) for k,v in (('failed_receipt_reference',failed_receipt),('failed_accounting_reference',accounting),('inventory_reference',inventory),('source_archive_reference',archive))}
+    old=C.meta(refs['failed_receipt_reference']);i=C.meta(refs['inventory_reference']);s=C.meta(refs['source_archive_reference'])
+    C.need(old['job_id']==i['job_id']==s['job_id']=='4524583' and old['status']=='INCOMPLETE_STRICT7_EXPORT_HOLD'
+      and i['failed_receipt_reference']==refs['failed_receipt_reference'] and i['accounting_reference']==refs['failed_accounting_reference'],'ACTUAL_FAILED_RECOVERY_TEMPLATE_INPUTS')
+    C.account(refs['failed_accounting_reference'],'4524583','compute-0-14',state='FAILED',exit_code='3:0',elapsed=1351)
+    value={'schema':'ROOT_LOCAL7_FAILED_CLOSED_OUTPUT_RECOVERY_V1','status':'PENDING_ROOT_REVIEW','reviewer':None,**refs,'old_output_directory':i['old_output_directory'],
+      'exact_exception_literal':'SMALL_METADATA_ONLY','closed_SQLite_small_pin_only_after_all_local_readbacks':True,
+      'fixed_closed_files_first_CPU_SHA_authorized':True,'old_FAILED_preserved_no_projection_or_strict_output_copy':True}
+    return Q.write_new(output,value)
+
 def draft(path,out):
-    from . import io as original_IO_context,projection as original_projection_context,local as local_context,tdc as tdc_context,supplement as supplementary_context
+    from . import io as original_IO_context,projection as original_projection_context,local as local_context,tdc as tdc_context,supplement as supplementary_context,recovery as recovery_context
     r=Q.load(path);C.need(r['schema']=='ROOT_REQUESTED_LOCAL6_TDC_DECONTAMINATION_DAY_V1' and r['status']=='REQUESTED_FOR_REVIEW'
         and r['requested_by']=='root','ACTUAL_ROOT_REQUEST_NOT_AUTHORED_APPROVAL')
     authority,data,parents=C.derive(r)
     keys=('local_receipt_reference','tdc_receipt_reference','tdc2_policy_reference','local_accounting_reference','tdc_accounting_reference',
         'resource_authority_reference','cost_decision_reference','quota_provider_review_reference','quota_provider_identity_reference','root_carveout_review_reference',
-        'native_git_assets_manifest_reference','native_git_wrapper_reference','physical_manifest_reference','physical_accounting_reference')
+        'native_git_assets_manifest_reference','native_git_wrapper_reference','physical_manifest_reference','physical_accounting_reference',*C.RECOVERY_KEYS)
     plan={k:r[k] for k in keys};resources=[r[k] for k in keys[5:10]]
     from workflows.data_v1_final.execution.cpu_auto_memory_queue_v2.contract import validate_authority
     validate_authority(r['resource_authority_reference'],read_small=Q.read_small)
@@ -36,6 +47,8 @@ def draft(path,out):
         'closed_local6_all44_and_exact2_conservative_identity_only_authorized':True,'original_SOURCE_roles_are_not_wholeMID_training_roles':True,
         'original_repository_checker_and_six_software_DATA_authorized':True,
         'exact_407_closed_physical_C0_embedded_triples_discovered_on_CPU_only_authorized':True,
+        'failed4524583_exact_closed_lstat_outputs_first_CPU_SHA_and_readonly_recovery_authorized':True,
+        'no_old404_Parquet_reprojection_or_strict_output_copy_authorized':True,
         'global_pool_release_authorized':False}
     tr=Q.write_new(out/'root_review.template.json',template)
     return Q.write_new(out/'draft_receipt.json',{'schema':'LOCAL6_TDC_EXPORT_DRAFT_V1','status':'PENDING_INDEPENDENT_ROOT_REVIEW',
@@ -107,7 +120,10 @@ def main():
     a=s.add_parser('finalize');a.add_argument('--draft',type=Path,required=True);a.add_argument('--root-review',type=Path,required=True)
     a=s.add_parser('acceptance-draft');a.add_argument('--receipt',type=Path,required=True);a.add_argument('--accounting',type=Path,required=True);a.add_argument('--output',type=Path,required=True)
     a=s.add_parser('acceptance-finalize');a.add_argument('--draft',type=Path,required=True);a.add_argument('--root-review',type=Path,required=True)
+    a=s.add_parser('recovery-review-template')
+    for key in ('failed-receipt','accounting','inventory','source-archive','output'):a.add_argument('--'+key,type=Path,required=True)
     a=p.parse_args()
-    print(draft(a.request,a.output) if a.action=='draft' else finalize(a.draft,a.root_review) if a.action=='finalize' else
+    print(recovery_template(a.failed_receipt,a.accounting,a.inventory,a.source_archive,a.output) if a.action=='recovery-review-template' else
+        draft(a.request,a.output) if a.action=='draft' else finalize(a.draft,a.root_review) if a.action=='finalize' else
         acceptance_draft(a.receipt,a.accounting,a.output) if a.action=='acceptance-draft' else acceptance_finalize(a.draft,a.root_review))
 if __name__=='__main__':main()

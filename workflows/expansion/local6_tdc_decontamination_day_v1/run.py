@@ -2,7 +2,7 @@
 import argparse,io,os,sys,traceback,unittest
 from pathlib import Path
 from workflows.data_v1_final.execution.cpu_auto_memory_queue_v2.runtime import require_startup
-from . import contract as C,io as I,local as L,tdc as T,supplement as S
+from . import contract as C,io as I,local as L,tdc as T,supplement as S,recovery as V
 
 def fixtures(out):
     from .test_v1 import Boundaries
@@ -26,6 +26,8 @@ def main():
         and not req.get('deferred_authority_references'),'EXACT_MAIN14_READONLY20H_32G_NOT_GRAPH_RUN')
     review=C.generic_review(C.meta(req['scope']['review']))
     C.need(req['scope']['mode']=='BOUNDED_METADATA_PREPARATION','REAL_ROOT_EXACT_GENERIC_SCOPE_MODE')
+    C.need(review['failed4524583_exact_closed_lstat_outputs_first_CPU_SHA_and_readonly_recovery_authorized'] is True
+        and review['no_old404_Parquet_reprojection_or_strict_output_copy_authorized'] is True,'EXACT_FAILED_PREFIX_READONLY_RECOVERY_NOT_REPROJECTION')
     authority,data,parents=C.derive(plan);C.need(authority==plan['authority'] and data==plan['data_references']==req['data_references'],'EXACT_CLOSED406_DATA_NO_BODY_DISCOVERY')
     for ref in plan['source_references']:C.need(ref in req['source_references'] and C.Q.pin(ref['path'])==ref,'ALL_ORIGINAL_SOURCE_AND_CLOSED_SMALL_PARENTS')
     for path in C.sources():C.need(C.Q.pin(path) in req['source_references'],'COMPLETE_ACTUAL_SOURCE_IMPORT_CLOSURE')
@@ -38,7 +40,7 @@ def main():
     try:
         gate=fixtures(out);budget=I.Budget(plan,proof,out);budget.check()
         sections['repository_check_reference']=S.check_repository(plan,out/'repository_check',budget)
-        local=L.run(plan,authority,out/'local',budget);sections['local']=local
+        local=V.run(plan,authority,out/'recovery',budget);sections['local']=local
         sections['local_manifest_reference']=I.write(out/'local404_projection_manifest.json',local,budget)
         tdc=T.run(authority,out/'tdc',budget);sections['tdc']=tdc
         original=I.write(out/'original_source_authority_and_roles.json',{'schema':'LOCAL6_TDC_ORIGINAL_SOURCE_LINEAGE_V1',
@@ -89,6 +91,9 @@ def main():
         'Molnet6_partial_reference':sections.get('local_manifest_reference'),'local404_rows':11398552 if 'local' in sections else None,
         'original_two_graph_UNKNOWN_rows':2,'new_graph_RDKit_fullkey_UFF_QM_calls':0,'old_failed_parent_upgraded':False,
         'READY_or_global_manifest_modified':False,'pool_or_training_release':False,'actual_terminal_cost_pending_Root_accounting':True}
+    summary.update(reused_failed_parent_job_id='4524583',old_failed_parent_actual_allocated_core_seconds=21616,
+        old_failed_parent_upgraded_to_C0=False,old404_Parquet_projection_calls_in_this_parent=0,old11m_strict_outputs_copied_or_modified=False,
+        readonly_recovery_evidence_reference=sections.get('local',{}).get('readonly_recovery_evidence_reference'))
     if budget:I.write(out/'receipt.json',summary,budget)
     else:C.Q.write_new(out/'receipt.json',summary)
     print({'status':summary['status'],'receipt':str(out/'receipt.json')});return 0 if complete else 3
