@@ -3,6 +3,7 @@ import argparse,collections,concurrent.futures as cf,json,multiprocessing as mp,
 from pathlib import Path
 from . import projection as P,statistics as T
 from ..window2_normalization_v1 import io as I,run as Original
+from . import temporary as Temp
 
 
 def fit(plan,cache):
@@ -19,7 +20,7 @@ def fit(plan,cache):
     groups=I.load_data(cache['logical_group_plan_reference'])['groups'];fields=I.load_data(cache['field_map_reference'])
     with cf.ProcessPoolExecutor(cfg['workers'],mp_context=mp.get_context('spawn'))as pool:
         while state['purpose_index']<len(Original.ROUTES):
-            purpose=Original.ROUTES[state['purpose_index']];current=dict(cfg,statistics_purpose=purpose)
+            purpose=Original.ROUTES[state['purpose_index']];current=dict(cfg,statistics_purpose=purpose,_temporary_runtime=Temp.specification(plan))
             current.update({key:value for key,value in state['results'].items()if key in('element_models_reference','exact_tail_reference','query_stage_reference')})
             if state['active_stage']is None:
                 state['pass_index']+=1;stage_root=root/('pass_%04d'%state['pass_index']);stage_root.mkdir()
@@ -61,6 +62,7 @@ def fit(plan,cache):
         'geometry_source':'uff_sprime','source_projection':I.ref(Path(plan['output'])/'projection/manifest.json'),
         'statistics':state['results'],'full_second_statistics_pass_performed':False,'independent_numeric_replay_equal':None,
         'content_hashes_computed':False,'source_labels_modified':False,'normalization_independent_from_PM7':True,
+        'compare_temporary_runtime':plan.get('compare_temporary_runtime',Temp.specification(plan)),
         'mathematics':'Original TSQR256 / ordered logical source-job reduction / exact type7 .001/.999 / WinsorMoments / median MAD',
         'radix_passes_are_algorithmic_refinement_not_QA':True,'field_mask_counts':cache['field_mask_counts'],'EA_mask_overrides_references':cache['EA_mask_overrides_references']}
     I.save(root/'manifest.json',manifest)
@@ -71,6 +73,7 @@ def fit(plan,cache):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--plan',required=True);a=parser.parse_args();plan=I.load(a.plan)
     P.need(os.getuid()==1278 and os.environ.get('SLURM_JOB_ID')and plan.get('workers',16)<=int(os.environ['SLURM_CPUS_PER_TASK']),'ACTUAL_MAIN_CPU_ALLOCATION')
+    runtime=Temp.activate(plan);runtime.guard.target(plan['output']);runtime.wait(plan['output'])
     cache=P.build(plan);print(json.dumps(fit(plan,cache)),flush=True)
 
 if __name__=='__main__':main()

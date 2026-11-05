@@ -20,12 +20,21 @@ def command(argv):return subprocess.check_output(argv,text=True)
 
 def inspect(path):
     path=existing(path)
+    # Trigger autofs before examining the stacked mount metadata. A real NFS
+    # mount can coexist in findmnt JSON with its systemd-1 autofs placeholder.
+    device=os.stat(path).st_dev
     mount=json.loads(command(['findmnt','--json','-T',str(path),'-o','TARGET,SOURCE,FSTYPE']))['filesystems']
-    if len(mount)!=1:raise DiskUnavailable('TARGET_MOUNT_UNKNOWN:'+str(path))
-    row=mount[0];space=command(['df','-B1','--output=size,avail',str(path)]).splitlines()[-1].split()
+    candidates={}
+    for entry in mount:
+        if entry.get('fstype')=='autofs' or not all(entry.get(k) for k in ('target','source','fstype')):continue
+        root=P(entry['target']).resolve()
+        if (path==root or root in path.parents) and os.stat(root).st_dev==device:
+            candidates[(entry['target'],entry['source'],entry['fstype'])]=entry
+    if len(candidates)!=1:raise DiskUnavailable('TARGET_MOUNT_UNKNOWN_OR_AMBIGUOUS:'+str(path))
+    row=next(iter(candidates.values()));space=command(['df','-B1','--output=size,avail',str(path)]).splitlines()[-1].split()
     inode=command(['df','-Pi',str(path)]).splitlines()[-1].split()
     total,available=map(int,space);free_inodes=int(inode[3])
-    stat=os.statvfs(path);device=os.stat(path).st_dev
+    stat=os.statvfs(path)
     if total<=0 or available<0 or free_inodes<0 or stat.f_frsize<=0:raise DiskUnavailable('TARGET_CAPACITY_UNKNOWN:'+str(path))
     return {'path':str(path),'mount':row,'device':device,'total':total,'available':min(available,stat.f_bavail*stat.f_frsize),'inodes':min(free_inodes,stat.f_favail),
             'root_filesystem':device==os.stat('/').st_dev}
@@ -56,8 +65,13 @@ class Guard:
             quota=spec.get('quota_scope')
             if quota not in ('limited','not_applicable'):raise DiskUnavailable('EXPLICIT_QUOTA_SCOPE_REQUIRED')
             if quota=='limited':
-                argv=spec['quota_probe_argv']
-                if not isinstance(argv,list) or not argv or not all(isinstance(s,str) for s in argv):raise DiskUnavailable('ACTUAL_QUOTA_PROBE_REQUIRED')
+                if spec.get('quota_available_reference'):
+                    age=spec['quota_max_age_seconds']
+                    if type(age) not in (int,float) or not 0<age<=5:raise DiskUnavailable('QUOTA_SNAPSHOT_MAX_AGE_MUST_BE_AT_MOST_5S')
+                    if type(spec['quota_expected_uid'])is not int or not spec['quota_expected_filesystem']:raise DiskUnavailable('EXPLICIT_QUOTA_SNAPSHOT_IDENTITY_REQUIRED')
+                else:
+                    argv=spec['quota_probe_argv']
+                    if not isinstance(argv,list) or not argv or not all(isinstance(s,str) for s in argv):raise DiskUnavailable('ACTUAL_QUOTA_PROBE_REQUIRED')
                 for k in ('quota_peak_additional_bytes','quota_concurrent_bytes','quota_reserve_bytes'):budget[k]=nonnegative(spec,k)
                 budget['quota_reserve_bytes']=max(100_000_000_000,budget['quota_reserve_bytes'])
             target={'paths':paths,'probe':P(fact['path']),'facts':fact,'spec':spec,'budget':budget};self.targets.append(target)
@@ -80,10 +94,17 @@ class Guard:
             raise DiskUnavailable('DISK_RESERVE_REACHED:'+str(target['probe']))
         spec=target['spec']
         if spec['quota_scope']=='limited':
-            now=time.monotonic()
-            if admission or now-target.get('quota_time',float('-inf'))>=self.poll:
-                target['quota_available']=int(command(spec['quota_probe_argv']).strip());target['quota_time']=now
-            available=target['quota_available']
+            if spec.get('quota_available_reference'):
+                try:
+                    from .quota_snapshot import read_available
+                    available=read_available(spec['quota_available_reference'],expected_uid=spec['quota_expected_uid'],
+                        expected_filesystem=spec['quota_expected_filesystem'],max_age_seconds=spec['quota_max_age_seconds'])
+                except Exception as exc:raise DiskUnavailable('ACCOUNT_QUOTA_SNAPSHOT_UNKNOWN:'+repr(exc)) from exc
+            else:
+                now=time.monotonic()
+                if admission or now-target.get('quota_time',float('-inf'))>=self.poll:
+                    target['quota_available']=int(command(spec['quota_probe_argv']).strip());target['quota_time']=now
+                available=target['quota_available']
             needed=max(b['quota_peak_additional_bytes'],b['runtime_margin_bytes']) if admission else b['runtime_margin_bytes']+bytes_needed
             if available<0 or available<b['quota_reserve_bytes']+b['quota_concurrent_bytes']+needed:raise DiskUnavailable('ACCOUNT_QUOTA_RESERVE_REACHED:'+str(target['probe']))
 

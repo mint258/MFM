@@ -251,3 +251,6 @@ D6的U记录将保留全部已有P′真实标签。模型训练需使用M18 `Pp
 节点19根盘可用33.06GB，保留10GiB；其内存盘已用151.44GB、余50.41GB，现有约151GB元数据/原生只读缓存继续保留，暂不规划新增缓存。节点20根盘可用526.45GB，系统预留95.42GB，327GB既有Native缓存保留；D4继续在原分配运行，不解除drain。容量为实测时点值，下一次新写入仍须目标节点预检，不能直接复用旧数值。
 
 共享/share用户4TiB quota约余500.66GB，扣除100GB账户底线及模型窗口5GB近期增长后约395.66GB；Lustre用户2TiB quota约余1,078.46GB，仍须扣除100GB底线及D4/UFF/Pprime的后续增长。全盘df不代替账户quota；D6尚未取得该容量的独占预算，不以900GB估算直接开写。D6入口已加入实际挂载/字节/inode/并发与quota准入、运行期保护和分块闭合恢复。最终数据仍每split仅一份共享compact，各节点读取相同路径；实际路径以最终manifest.split_roots为准，当前D6未交付。
+
+
+2026-11-06 窗口二容量预算更新：已在实际compute-0-0对共享NFS完成准入，Pprime统计6128的未启动计划改为`/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/window2_full_TRAIN_Pprime_statistics_20261106_shared_v1`。该盘统一预留320,000,000,000字节近期增长（投影/eligibility/journal及16GiB临时文件的规划峰值，非实测产物大小），另保留100GB账户底线、模型5GB及控制/并发1GB、8GiB写入突发余量；其他窗口不得再使用这320GB预算。后续compare另一个时段预算80GB（含64GiB spill），不与统计临时峰值重复相加，启动前按届时实占重验。登录节点每2秒只探测一次真实XFS quota，计算端每次读鲜活<=5秒的共享快照，未知/陈旧即停止新增写入。新NFS叠挂识别、quota及临时保护测试各一次通过。D4/Pprime原生/UFF继续，D6未获最终容量准入，原未运行6125已hold，待真实缓存尺寸及新布局配置完成后续接；未分发最终LMDB。

@@ -59,6 +59,8 @@ def source_publications(plan):
 
 def build_selection(plan,root):
     import pyarrow.parquet as pq
+    from . import temporary as Temp
+    runtime=Temp.activate(plan,admit=False)
     common=I.load(plan['common']);d5=I.load(plan['d5']);first2=I.load(plan['first2']);members={}
     for ref in common['membership_tables']:
         pf=pq.ParquetFile(ref['path'])
@@ -84,7 +86,7 @@ def build_selection(plan,root):
         raw=source_bindings.execute('SELECT locator,raw FROM selected WHERE mid=? AND conf=?',(mid,conf)).fetchone()
         need(raw is not None,'FINAL_SELECTED_SOURCE_BINDING_REQUIRED')
         return binding(json.loads(raw[0]),json.loads(raw[1]))
-    path=Path(root)/'eligibility.sqlite';db=sqlite3.connect(path)
+    path=Path(root)/'eligibility.sqlite';runtime.wait(path);db=runtime.sqlite(sqlite3.connect(path),path)
     db.executescript('CREATE TABLE members(mid TEXT PRIMARY KEY,role TEXT,common INTEGER) WITHOUT ROWID; CREATE TABLE selected(mid TEXT,conf INTEGER,gid TEXT,role TEXT,common INTEGER,fit INTEGER,reason TEXT,binding TEXT,PRIMARY KEY(mid,conf)) WITHOUT ROWID; CREATE TABLE masks(rid TEXT,fid INTEGER,reason TEXT,PRIMARY KEY(rid,fid)) WITHOUT ROWID;')
     db.executemany('INSERT INTO members VALUES(?,?,?)',[(mid,role,int(member))for mid,(role,member)in members.items()]);db.commit()
     counts=collections.Counter();pf=pq.ParquetFile(first2['selected_geometry_table']['path'])
@@ -109,6 +111,8 @@ def build_selection(plan,root):
 
 def initialize(plan,eligibility,field_map,root):
     import pyarrow as pa
+    from . import temporary as Temp
+    runtime=Temp.activate(plan,admit=False)
     pa.set_cpu_count(1);pa.set_io_thread_count(1)
     parent=REPO/'workflows/data_v1_final/labels';sys.path.insert(0,str(parent))
     try:
@@ -120,7 +124,7 @@ def initialize(plan,eligibility,field_map,root):
     # not the molecule D20 or per-conformer D3 descriptors.
     original=I.load_data(field_map);ids={f['field_key']:f['field_id']for f in original}
     declarations=[dict(f,field_id=ids.get(f['field_key']))for f in registry]
-    STATE.update(plan=plan,db=sqlite3.connect(Path(eligibility['path']).as_uri()+'?mode=ro&immutable=1',uri=True),binding_cache=sqlite3.connect(Path(eligibility['physical_binding_database']['path']).as_uri()+'?mode=ro&immutable=1',uri=True),
+    STATE.update(plan=plan,temporary=runtime,db=runtime.sqlite(sqlite3.connect(Path(eligibility['path']).as_uri()+'?mode=ro&immutable=1',uri=True),None),binding_cache=runtime.sqlite(sqlite3.connect(Path(eligibility['physical_binding_database']['path']).as_uri()+'?mode=ro&immutable=1',uri=True),None),
         fields={task:[f for f in declarations if f['task']==task]for task in B.TASKS},common=common,masks=masks,root=Path(root),byid={f['field_id']:f for f in original},derived_fields=[f for f in original if f['field_id']in(146,147)])
 
 
@@ -189,6 +193,7 @@ def project_partition(work):
                             geometry_binding_evidence=selection[5],fit_eligible=bool(selection[3]),base_source_path=base_ref['path'],
                             atomic_numbers=z,positions_A=xyz,source_record_id=row['source_record_id'],
                             uff_geometry_sha256=row.get('uff_geometry_sha256'),uff_coordinate_sha256=row.get('uff_coordinate_sha256'),native_atom_order_sha256=row.get('native_atom_order_sha256')))
+                        counts['physical_records']+=1;counts['unregistered_source_geometry_records']+=selection[0] is None
             finally:
                 if pf is not None:pf.close()
             tasks_seen={rid:set()for rid in bases}
@@ -224,7 +229,7 @@ def project_partition(work):
                             owner=str(row['job_id']);file_key=(owner,part)
                             if file_key not in writers:
                                 path=folder/('job_'+owner+'_partition_%02d.parquet'%part)
-                                writers[file_key]=pq.ParquetWriter(path,cache_schema(),compression='zstd');paths[file_key]=path
+                                STATE['temporary'].wait(path);writers[file_key]=pq.ParquetWriter(path,cache_schema(),compression='zstd');paths[file_key]=path
                             pair_indices=next((entry['pair_indices'] for entry in entries if entry['field_id']==146),[])
                             need(all(entry.get('pair_indices')==pair_indices for entry in entries if entry['field_id'] in (146,147)),'DERIVED_R73_PAIR_ORDER_ALIGNMENT')
                             buffers[file_key].append(dict(record_id=rid,molecule_id=base['molecule_id'],sprime_conf_idx=base['sprime_conf_idx'],atomic_numbers=base['atomic_numbers'],fit_eligible=bool(fit),effective_role=role,geometry_id=gid,geometry_binding_evidence=binding_evidence,r73_pair_indices=pair_indices,source_path=ref['path'],source_bytes=ref['bytes'],row_group=rg,row_within_group=physical-offsets[rg],physical_row=physical,family=family,calc_type=task,**K.pack_entries(entries)))
@@ -233,7 +238,8 @@ def project_partition(work):
                                 c=field_counts[str(e['field_id'])];c['records']+=1;c['source_valid_records']+=bool(any(e['source_value_mask']));c['valid_records']+=bool(any(e['value_mask']))
                                 c['newly_masked_records']+=any(a and not b for a,b in zip(e['source_value_mask'],e['value_mask']))
                         for key,rows in buffers.items():
-                            if rows:writers[key].write_table(pa.Table.from_pylist(rows,schema=cache_schema()),row_group_size=16);file_counts[key]+=len(rows)
+                            if rows:
+                                STATE['temporary'].wait(paths[key]);writers[key].write_table(pa.Table.from_pylist(rows,schema=cache_schema()),row_group_size=16);file_counts[key]+=len(rows)
                         buffers.clear()
                 finally:pf.close()
             expected=set(B.TASKS)-{'D20','D3'}
@@ -242,7 +248,7 @@ def project_partition(work):
     finally:
         for writer in writers.values():writer.close()
     # IDs are the minimal producer alignment manifest, not hashes or receipts.
-    idpath=folder/'physical_records.parquet';id_schema=pa.schema([('record_id',pa.string()),('molecule_id',pa.string()),('sprime_conf_idx',pa.int64()),('geometry_id',pa.string()),('geometry_binding_evidence',pa.string()),('fit_eligible',pa.bool_()),('base_source_path',pa.string()),('source_record_id',pa.string()),('atomic_numbers',pa.list_(pa.int16())),('positions_A',pa.large_list(pa.list_(pa.float64(),3))),('uff_geometry_sha256',pa.string()),('uff_coordinate_sha256',pa.string()),('native_atom_order_sha256',pa.string())]);pq.write_table(pa.Table.from_pylist(records,schema=id_schema),idpath,compression='zstd')
+    idpath=folder/'physical_records.parquet';STATE['temporary'].wait(idpath);id_schema=pa.schema([('record_id',pa.string()),('molecule_id',pa.string()),('sprime_conf_idx',pa.int64()),('geometry_id',pa.string()),('geometry_binding_evidence',pa.string()),('fit_eligible',pa.bool_()),('base_source_path',pa.string()),('source_record_id',pa.string()),('atomic_numbers',pa.list_(pa.int16())),('positions_A',pa.large_list(pa.list_(pa.float64(),3))),('uff_geometry_sha256',pa.string()),('uff_coordinate_sha256',pa.string()),('native_atom_order_sha256',pa.string())]);pq.write_table(pa.Table.from_pylist(records,schema=id_schema),idpath,compression='zstd')
     override_ref=I.save(folder/'EA_mask_overrides.json',{'record_field_exclusions':overrides,'new_mask_fraction_is_report_only':True,'values_modified':False})
     result={'partition':part,'counts':dict(counts),'EA_mask_overrides_reference':override_ref,'records':dict(I.ref(idpath),records=len(records)),
         'field_counts':{k:dict(v)for k,v in field_counts.items()},'parts':[dict(I.ref(path),source_job_id=key[0],source_order=key[1],records=file_counts[key])for key,path in paths.items()]}
@@ -259,9 +265,10 @@ def build(plan):
     sources=source_publications(plan);workers=plan.get('workers',16);parts=[sources[len(sources)*i//workers:len(sources)*(i+1)//workers]for i in range(workers)]
     with cf.ProcessPoolExecutor(workers,mp_context=mp.get_context('spawn'),initializer=initialize,initargs=(plan,eligibility,field_ref,str(root)))as pool:
         refs=list(pool.map(project_partition,list(enumerate(parts))))
-    seen={};groups=collections.defaultdict(list);stats=collections.defaultdict(collections.Counter)
+    seen={};groups=collections.defaultdict(list);stats=collections.defaultdict(collections.Counter);population_counts=collections.Counter()
     for ref in refs:
         manifest=I.load_data(ref)
+        population_counts.update(manifest['counts'])
         for part in manifest['parts']:groups[part['source_job_id']].append(part)
         for fid,count in manifest['field_counts'].items():stats[fid].update(count)
         pf=pq.ParquetFile(manifest['records']['path'])
@@ -276,6 +283,7 @@ def build(plan):
     result={'schema':'PPRIME_FINAL_FIRST2_TYPED_FLOAT64_CACHE_V1','geometry_source':'uff_sprime','field_map_reference':field_ref,'logical_group_plan_reference':group_ref,
         'eligibility':eligibility,'physical_binding_manifest':plan['physical_binding_manifest'],'element_basis':coverage['element_basis'],'part_manifests':refs,'records':len(seen),'field_mask_counts':{k:dict(v)for k,v in stats.items()},'EA_mask_overrides_references':[I.load_data(r)['EA_mask_overrides_reference']for r in refs],
         'source_geometry_pointer_tables':[I.load_data(r)['records'] for r in refs],
+        'physical_record_counts':dict(population_counts),'typed_task_rows':sum(ref['records'] for group in logical for ref in group['typed_parts']),'typed_part_bytes':sum(ref['bytes'] for group in logical for ref in group['typed_parts']),
         'unregistered_geometry_policy':'original F64/Z/anchor and raw base source pointer retained with geometry_id null; never relabelled to selected GID; no fit',
         'cache_scope':'ALL_EXISTING_PPRIME_RECORDS_ALL_ROLES; fit only final Common TRAIN first2 minus D5','r73_pair_views':{'sigma_field_id':146,'pi_field_id':147,'raw_r73_retained':True,'definition':'USER_APPROVED_PURE_SIGMA_SIGMA_PI_PI'},'source_raw_reads':1,'new_content_hashes':False,'independent_readback':False,'physical_first2_selection':plan['first2'],'Common':plan['common'],'D5':plan['d5']}
     I.save(root/'manifest.json',result);return result
