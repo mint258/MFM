@@ -304,3 +304,5 @@ Native四条20k曲线仍受实际GPU资源阻塞；等待进程存活不代表�
 | 2026-11-05 | 阶段5代理人口保持 | 当前S对比使用已交付D5的240,000 TRAIN分子，训练索引为 runs/model_v31_20261105/S240k/records.parquet。后续P/D/SDP将消费同一代理分子列表；若最终D6缺其中ID，实际加载时报告缺口，不把另一份240k列表静默当作同一比较 | 数据线 configs/data_v1/D5_v1_pilot_provisional_delivery.json |
 
 2026-11-05 模型窗口一已接D6 M17/M18：普通UFF按M17且排除M14，Pprime训练按M18且排除M14；先资格过滤再取k，保留的其他真实Pprime标签不自动扩张训练集合。D5诊断按实际holdout数组访问全部留出，包括普通排列之外的addressable几何；FULL不套用TRAIN-only的M18。若M18合格几何缺少发布的source order，模型会明确报接口缺口，不按存储序号猜次序。新增5项逻辑单测通过，M2仍等正式D4参数。
+
+2026-11-05 最终人口消费约定（模型窗口一）：已收到最终Common TRAIN=1,194,551与D5完整池=1,126,937，新D5标明nested_selection_recomputed_for_final_complete_pool。M3及M4的24万代理仍绑定当前S实验实际使用的原D5 240k名单，后续P/D/SDP用相同MID，不静默换成新的240k前缀；D6交付后在实际消费者中定位。M5的120万格子人口不足已请用户作科学决定，答复前不改M或预注册。当前M2仍等待正式D4，三条S保持6M预算。
