@@ -104,7 +104,41 @@
     "status": "COMPLETE",
     "valid_values_compared": 8029789
   },
-  "old_v30_and_GPU_copies_preserved": true,
+  "old_v30_and_GPU_copies_preserved": false,
+  "old_v30_retirement": {
+    "account_after": {
+      "LUSTRE": {
+        "before_used_bytes": 1895964659712,
+        "hard_limit_bytes": 2199023255552,
+        "quota_usage_reduction_bytes": 1126459568128,
+        "remaining_bytes": 1429518163968,
+        "used_bytes": 769505091584
+      },
+      "MAIN": {
+        "before_used_bytes": 4186471870464,
+        "hard_limit_bytes": 4398046511104,
+        "quota_usage_reduction_bytes": 301511921664,
+        "remaining_bytes": 513086562304,
+        "used_bytes": 3884959948800
+      }
+    },
+    "allocated_bytes_unlinked_by_shared_domain": {
+      "LUSTRE": 1126459580416,
+      "MAIN": 301515902976
+    },
+    "cleanup_record_path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/D3_v30_retirement_20261105_v1.json",
+    "content_hashes_recomputed": false,
+    "current_v31_shared_and_10_GPU_copies_preserved": true,
+    "historical_manifests_retained": true,
+    "node_allocated_bytes_unlinked": 608410931200,
+    "observed_at": "2026-11-05T12:22:31+08:00",
+    "old_LMDB_and_F64_sidecars_and_obsolete_projection_SQLite_removed": true,
+    "old_v30_GPU21_copy_removed": true,
+    "original_native_LMDB_and_WP5_Parquet_preserved": true,
+    "status": "RETIRED_V30_PAYLOADS_AND_KNOWN_UNUSED_COPIES_REMOVED",
+    "unused_v31_write_scratch_removed": true,
+    "user_authorized": true
+  },
   "original_D3_reference": {
     "bytes": 3427480,
     "path": "/lfshome/zixiao/data_v1_20261025/D3_pilot_provisional_lustre_v1/day10_parallel_keys_closed55k_cpu_r4/export_manifest.json",
