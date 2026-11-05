@@ -3,6 +3,8 @@ import argparse,collections,importlib,json,os,pathlib,pickle,random,subprocess,t
 import numpy as np
 from ..pilot_v31_compact_v1.codec import encode,decode,encode_key
 from ..pilot_v31_compact_v1.run import Writer,IDMap,identity_row,compact_once,load,save
+from .disk_guard import from_plan
+from .block_checkpoint import BlockWriter,IDFragments
 
 P=pathlib.Path
 
@@ -68,6 +70,20 @@ def sample_check(samples,roots):
             'independent_source_reread':False}
 
 
+def closed_sample_check(samples,roots,root,guard=None):
+    marker=P(root)/'producer_end_check.pkl'
+    if marker.is_file():
+        with marker.open('rb') as source:closed=pickle.load(source)
+        if closed['roots']!=roots:raise ValueError('CLOSED_PRODUCER_CHECK_ROOTS_CHANGED')
+        return closed['check']
+    if guard:guard.wait(root,inodes_needed=4)
+    check=sample_check(samples,roots)
+    pending=marker.with_suffix('.writing')
+    with pending.open('wb') as target:pickle.dump({'roots':roots,'check':check},target,protocol=5)
+    os.replace(pending,marker)
+    return check
+
+
 def distribute(root,nodes,destination):
     completed=[]
     for node in nodes:
@@ -80,12 +96,15 @@ def distribute(root,nodes,destination):
 def export(plan,molecules,schema):
     """Consume TRAIN then FULL; only one uncompressed split exists at a time.
 
-    source_factory returns split->zero-argument iterator factory. Scratch and
+    source_factory returns split->iterator factory with optional start_after. Scratch and
     compact destinations may be on different filesystems. Only this run's
     newly created, closed scratch is reclaimed after its compact copy closes.
     """
     import shutil
+    if plan.get('gpu_nodes'):raise ValueError('SHARED_SINGLE_COPY_REQUIRES_NO_NODE_DISTRIBUTION')
+    guard=from_plan(plan)
     root=P(plan['output_root']);checkpoint=root/'producer_checkpoint.pkl';resume=checkpoint.is_file()
+    if guard:guard.wait(root,inodes_needed=4);guard.wait(plan['working_root'],inodes_needed=4)
     root.mkdir(parents=True,exist_ok=resume)
     scratch=P(plan['working_root']);scratch.mkdir(parents=True,exist_ok=resume)
     schema=dict(schema);schema['D6']=True;schema['schema_shared_by']=['TRAIN','FULL']
@@ -98,74 +117,132 @@ def export(plan,molecules,schema):
     schema['U_contains_original_Pprime_labels']=True
     schema['r73_channel_codebook']=['__ABSENT__'];codes={}
     indices=collections.Counter();counts=collections.Counter();seen=set();samples=[];conformers=0
-    rng=random.Random(plan['sample_seed']);start=time.monotonic();roots={};files=[];scratch_cleanup=[];storage={}
+    rng=random.Random(plan['sample_seed']);start=time.monotonic();roots={};files=[];scratch_cleanup=[];storage={};active=None
     def save_checkpoint():
-        value={'plan':plan,'schema':schema,'indices':indices,'counts':counts,'seen':seen,'samples':samples,'conformers':conformers,'roots':roots,'files':files,'scratch_cleanup':scratch_cleanup,'storage':storage}
+        value={'plan':plan,'schema':schema,'indices':indices,'counts':counts,'seen':seen,'samples':samples,'conformers':conformers,'roots':roots,'files':files,'scratch_cleanup':scratch_cleanup,'storage':storage,'active':active,'rng_state':rng.getstate()}
+        if guard:guard.wait(root,inodes_needed=2)
         pending=checkpoint.with_suffix('.writing')
         with pending.open('wb') as target:pickle.dump(value,target,protocol=5)
         os.replace(pending,checkpoint)
     if resume:
         with checkpoint.open('rb') as source:state=pickle.load(source)
-        if state['plan']!=plan:raise ValueError('RESUME_FROZEN_PRODUCER_INPUTS_CHANGED')
+        frozen=lambda p:{k:v for k,v in p.items() if k not in ('disk_protection','streaming_buffer_blocks','workers','metadata_working_root')}
+        if frozen(state['plan'])!=frozen(plan):raise ValueError('RESUME_FROZEN_PRODUCER_INPUTS_CHANGED')
         schema=state['schema'];indices=state['indices'];counts=state['counts'];seen=state['seen'];samples=state['samples'];conformers=state['conformers']
         roots=state['roots'];files=state['files'];scratch_cleanup=state['scratch_cleanup'];storage=state['storage']
+        active=state.get('active');rng.setstate(state.get('rng_state',rng.getstate()))
         codes={word:i for i,word in enumerate(schema['r73_channel_codebook']) if i}
     else:save_checkpoint()
     if not isinstance(molecules,dict):raise ValueError('SEQUENTIAL_SOURCE_REQUIRES_SPLIT_ITERATOR_FACTORIES')
     for split in ('TRAIN','FULL'):
         if split in roots:continue
-        final=P(plan.get('compact_roots',{}).get(split,str(root/split)));final.parent.mkdir(parents=True,exist_ok=True)
-        work=P(plan.get('working_roots',{}).get(split,str(scratch/split)));work.parent.mkdir(parents=True,exist_ok=True)
-        idpath=root/('id_map_'+split+'.parquet');attempt=0
-        original_work=work;original_final=final;original_id=idpath
-        while work.exists() or final.exists() or idpath.exists():
-            attempt+=1;work=original_work.with_name(original_work.name+'_attempt_%03d'%attempt)
-            final=original_final.with_name(original_final.name+'_attempt_%03d'%attempt);idpath=original_id.with_name(original_id.stem+'_attempt_%03d.parquet'%attempt)
-        writer=Writer(work,int(plan.get('estimated_split_bytes',{}).get(split,2<<30)));table=IDMap(idpath)
-        try:
-            source=molecules[split];source=source() if callable(source) else source
-            for item in source:
-                mid=item['mid'];actual,routine=split_role(item['role']);routine=bool(item.get('routine',routine))
-                if actual!=split:raise ValueError('SOURCE_SPLIT_ALIGNMENT:'+mid)
-                if mid in seen:raise ValueError('DUPLICATE_FINAL_MOLECULE:'+mid)
-                seen.add(mid);mi=indices[split];indices[split]+=1
-                arrays=item['m_arrays'];arrays[5]=np.asarray(0 if split=='TRAIN'else 2,dtype='u1')
-                arrays[15]=np.asarray(routine,dtype='u1');arrays[16]=np.asarray(bool(item['common_population']),dtype='u1')
-                p_records=item['p_records'];u_records=item['u_records']
-                if tuple(arrays[6])!=(len(p_records),len(u_records)):raise ValueError('MOLECULE_CONFORMER_COUNTS_DIFFERS')
-                if item.get('topology_differences'):raise ValueError('MOLECULE_CONFORMER_TOPOLOGY_DIFFERS:'+mid)
-                encoded=[('M',mi,None,encode(arrays))];rows=[identity_row('M',mi,None,mid,{},False)]
-                for kind,records,held_id in (('P',p_records,13),('U',u_records,14)):
-                    for ci,record in enumerate(records):
-                        channel_codes(record,schema['r73_channel_codebook'],codes)
-                        body=record['arrays'];encoded.append((kind,mi,ci,encode(body)))
-                        rows.append(identity_row(kind,mi,ci,mid,record,bool(arrays[held_id][ci])))
-                        conformers+=1
-                        note=record.get('source_F64_cast_comparison')
-                        replace=(len(samples) if note is not None else 1000) if 'source_sample_keys' in plan else len(samples) if len(samples)<1000 else rng.randrange(conformers)
-                        if replace<1000:
-                            entry=(split,encode_key(kind,mi,ci),{k:v.copy() for k,v in body.items()},encode_key('M',mi),{k:v.copy() for k,v in arrays.items()},note)
-                            if replace==len(samples):samples.append(entry)
-                            else:samples[replace]=entry
-                        counts[split+'_'+kind]+=1
-                writer.put_many(encoded);table.append(rows)
-                if indices[split]%1000==0:print(json.dumps({'phase':'EXPORT','split':split,'molecules':indices[split],'counts':dict(counts)}),flush=True)
-        finally:writer.close();table.close()
-        if indices[split]!=plan['expected_molecules'][split]:raise ValueError('FINAL_MOLECULE_COUNTS_DIFFERS:'+split)
-        for kind in ('P','U'):
-            key=split+'_'+kind
-            if counts[key]!=plan['expected_conformers'][key]:raise ValueError('FINAL_CONFORMER_COUNTS_DIFFERS:'+key)
-        compact_once(work,final);roots[split]=final
-        shutil.move(str(idpath),str(final/'id_map.parquet'))
-        storage[split]={'record_counts':dict(writer.count),'record_bytes':dict(writer.bytes)}
+        if active is None:
+            final=P(plan.get('compact_roots',{}).get(split,str(root/split)));final.parent.mkdir(parents=True,exist_ok=True)
+            work=P(plan.get('working_roots',{}).get(split,str(scratch/split)));work.parent.mkdir(parents=True,exist_ok=True)
+            idpath=root/('id_map_'+split+'.parquet');attempt=0
+            original_work=work;original_final=final;original_id=idpath
+            while work.exists() or final.exists() or idpath.exists() or (root/(work.name+'_id_fragments')).exists():
+                attempt+=1;work=original_work.with_name(original_work.name+'_attempt_%03d'%attempt)
+                final=original_final.with_name(original_final.name+'_attempt_%03d'%attempt);idpath=original_id.with_name(original_id.stem+'_attempt_%03d.parquet'%attempt)
+            active={'split':split,'phase':'writing','work':str(work),'final':str(final),'idpath':str(idpath),
+                    'fragment_root':str(root/(work.name+'_id_fragments')),'id_fragments':[],'id_rows':0,
+                    'writer':None,'source_cursor':None,'committed_molecules':indices[split]}
+            save_checkpoint()
+        if active['split']!=split:raise ValueError('ACTIVE_WRITER_SPLIT_DIFFERS')
+        work=P(active['work']);final=P(active['final']);idpath=P(active['idpath'])
+        if active['phase']=='writing':
+            if guard:guard.wait(work,inodes_needed=4);guard.wait(active['fragment_root'],inodes_needed=4)
+            estimate=int(plan.get('estimated_split_bytes',{}).get(split,2<<30));closed=active['writer']
+            if closed is None and (work/'data.mdb').is_file():closed={'map_size':2*estimate,'count':{},'bytes':{}}
+            elif closed is None and work.exists():
+                # A crash between fresh mkdir and LMDB open has no closed data.
+                # Preserve that empty/unknown attempt and choose a fresh one.
+                original=work;attempt=0
+                while work.exists():attempt+=1;work=original.with_name(original.name+'_bootstrap_attempt_%03d'%attempt)
+                active['work']=str(work);save_checkpoint()
+            writer=BlockWriter(work,estimate,closed,active['committed_molecules']);table=IDFragments(active['fragment_root'],active['id_fragments'])
+            try:
+                source=molecules[split]
+                source=source(start_after=active['source_cursor']) if callable(source) and active['source_cursor'] is not None else source() if callable(source) else source
+                for item in source:
+                    mid=item['mid'];actual,routine=split_role(item['role']);routine=bool(item.get('routine',routine))
+                    if actual!=split:raise ValueError('SOURCE_SPLIT_ALIGNMENT:'+mid)
+                    if mid in seen:raise ValueError('DUPLICATE_FINAL_MOLECULE:'+mid)
+                    seen.add(mid);mi=indices[split];indices[split]+=1
+                    arrays=item['m_arrays'];arrays[5]=np.asarray(0 if split=='TRAIN'else 2,dtype='u1')
+                    arrays[15]=np.asarray(routine,dtype='u1');arrays[16]=np.asarray(bool(item['common_population']),dtype='u1')
+                    p_records=item['p_records'];u_records=item['u_records']
+                    if tuple(arrays[6])!=(len(p_records),len(u_records)):raise ValueError('MOLECULE_CONFORMER_COUNTS_DIFFERS')
+                    if item.get('topology_differences'):raise ValueError('MOLECULE_CONFORMER_TOPOLOGY_DIFFERS:'+mid)
+                    encoded=[('M',mi,None,encode(arrays))];rows=[identity_row('M',mi,None,mid,{},False)]
+                    for kind,records,held_id in (('P',p_records,13),('U',u_records,14)):
+                        for ci,record in enumerate(records):
+                            channel_codes(record,schema['r73_channel_codebook'],codes)
+                            body=record['arrays'];encoded.append((kind,mi,ci,encode(body)))
+                            rows.append(identity_row(kind,mi,ci,mid,record,bool(arrays[held_id][ci])))
+                            conformers+=1
+                            note=record.get('source_F64_cast_comparison')
+                            replace=(len(samples) if note is not None else 1000) if 'source_sample_keys' in plan else len(samples) if len(samples)<1000 else rng.randrange(conformers)
+                            if replace<1000:
+                                entry=(split,encode_key(kind,mi,ci),{k:v.copy() for k,v in body.items()},encode_key('M',mi),{k:v.copy() for k,v in arrays.items()},note)
+                                if replace==len(samples):samples.append(entry)
+                                else:samples[replace]=entry
+                            counts[split+'_'+kind]+=1
+                    if guard:
+                        guard.wait(work,sum(len(raw) for *_,raw in encoded),2)
+                        guard.wait(idpath,inodes_needed=2)
+                    writer.put_many(encoded);table.append(rows)
+                    if indices[split]%1000==0:print(json.dumps({'phase':'EXPORT','split':split,'molecules':indices[split],'counts':dict(counts)}),flush=True)
+                    block=item.get('_source_block_end')
+                    if block is not None:
+                        table.close_block(block['number']);active['writer']=writer.snapshot()
+                        active['source_cursor']=block['number'];active['committed_molecules']=indices[split]
+                        active['id_fragments']=table.closed;active['id_rows']=table.rows
+                        save_checkpoint();block['ack']['committed']=True
+                if table.current is not None:table.close_block(None)
+                active['writer']=writer.snapshot()
+                active['id_fragments']=table.closed;active['id_rows']=table.rows
+            finally:writer.close();table.close()
+            if indices[split]!=plan['expected_molecules'][split]:raise ValueError('FINAL_MOLECULE_COUNTS_DIFFERS:'+split)
+            for kind in ('P','U'):
+                key=split+'_'+kind
+                if counts[key]!=plan['expected_conformers'][key]:raise ValueError('FINAL_CONFORMER_COUNTS_DIFFERS:'+key)
+            if guard:guard.wait(idpath,inodes_needed=2)
+            idpath=table.finish(idpath);active['idpath']=str(idpath)
+            active['work_bytes']=sum(p.stat().st_size for p in work.iterdir() if p.is_file())
+            active['phase']='raw_closed';save_checkpoint()
+        if active['phase']=='raw_closed':
+            attempt=0;original_final=final
+            while final.exists():attempt+=1;final=original_final.with_name(original_final.name+'_compact_attempt_%03d'%attempt)
+            active['final']=str(final);save_checkpoint()
+            if guard:
+                guard.wait(final,active['work_bytes'],4);final.mkdir(exist_ok=False)
+                binary=shutil.which('mdb_copy') or '/share/apps/softwares/anaconda3/bin/mdb_copy'
+                guard.run([binary,'-c',str(work),str(final)],final)
+            else:compact_once(work,final)
+            active['phase']='compacted';save_checkpoint()
+        if active['phase']!='compacted':raise ValueError('UNKNOWN_OWNED_WRITER_PHASE')
+        if idpath.is_file():
+            if guard:
+                guard.wait(final,idpath.stat().st_size,2)
+                if idpath.stat().st_dev==final.stat().st_dev:os.replace(idpath,final/'id_map.parquet')
+                else:
+                    partial=final/'id_map.parquet.partial'
+                    guard.run(['rsync','-a','--sparse','--',str(idpath),str(partial)],partial,idpath.stat().st_size,2)
+                    os.replace(partial,final/'id_map.parquet');idpath.unlink()
+            else:shutil.move(str(idpath),str(final/'id_map.parquet'))
+        elif not (final/'id_map.parquet').is_file():raise ValueError('CLOSED_FINAL_IDMAP_MISSING')
+        roots[split]=final;storage[split]={'record_counts':active['writer']['count'],'record_bytes':active['writer']['bytes']}
         for name in ('data.mdb','id_map.parquet'):
-            path=final/name;files.append({'path':str(path),'bytes':path.stat().st_size,'records':table.rows})
-        # work was created by Writer(exist_ok=False), is closed, and has just
-        # produced its only compact copy. Never apply cleanup to old D3 paths.
-        scratch_cleanup.append({'path':str(work),'bytes':sum(p.stat().st_size for p in work.iterdir() if p.is_file()),'closed_compact_copy':str(final)})
-        shutil.rmtree(work);save_checkpoint()
+            path=final/name;files.append({'path':str(path),'bytes':path.stat().st_size,'records':active['id_rows']})
+        scratch_cleanup.append({'path':str(work),'bytes':active['work_bytes'],'closed_compact_copy':str(final)})
+        # Only this checkpoint-owned fresh scratch, after its compact C0.
+        if work.exists():shutil.rmtree(work)
+        active=None;save_checkpoint()
     if 'source_sample_keys' in plan and len(samples)!=len(plan['source_sample_keys']):raise ValueError('EXACT_1000_PHYSICAL_SOURCE_SAMPLE_MISSING')
-    check=sample_check(samples,roots);save(root/'schema.json',schema)
+    check=closed_sample_check(samples,roots,root,guard)
+    if guard:guard.wait(root,inodes_needed=4)
+    save(root/'schema.json',schema)
     path=root/'schema.json';files.append({'path':str(path),'bytes':path.stat().st_size,'records':1})
     manifest={'format':'v3.1/MFM4','data_version':plan['data_version'],'molecules':dict(indices),'conformers':dict(counts),
         'files':files,'split_roots':{s:str(p) for s,p in roots.items()},'storage':storage,'scratch_cleanup':scratch_cleanup,
@@ -192,9 +269,9 @@ def main():
     final=P(plan['output_root'])/'manifest.json'
     if final.is_file():
         manifest=load(final)
-        manifest['distribution']=distribute_products(P(plan['output_root']),{s:P(p) for s,p in manifest['split_roots'].items()},plan['gpu_nodes'],plan['node_destination_root'])
-        save(final,manifest)
+        if plan.get('gpu_nodes'):raise ValueError('SHARED_SINGLE_COPY_REQUIRES_NO_NODE_DISTRIBUTION')
         print(json.dumps(manifest,ensure_ascii=False),flush=True);return
+    from_plan(plan,required=True)
     module,name=plan['source_factory'].split(':',1);factory=getattr(importlib.import_module(module),name)
     schema,molecules=factory(plan)
     print(json.dumps(export(plan,molecules,schema),ensure_ascii=False),flush=True)

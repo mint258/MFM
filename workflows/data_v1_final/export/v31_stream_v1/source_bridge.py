@@ -8,6 +8,7 @@ import collections,concurrent.futures as cf,importlib.util,json,multiprocessing 
 from pathlib import Path
 import numpy as np
 from . import identities as A,physical as G
+from .disk_guard import from_plan
 from .projected_source import assemble_entries,apply_pprime_eligibility
 from .run import channel_codes
 from ..full_physical_index_v3.read_index import locators_for_mids,iter_source_rows
@@ -100,6 +101,7 @@ def init(plan,index,cache,schema):
     from ...labels.window2_r73_views_v1.kernel import derived_fields
     fields=fields+derived_fields(fields);recipe=I.load(plan['projection_recipe'])
     inventory=I.load_data(coverage['source_inventory_reference']);byraw={r['path']:r for r in inventory['files']}
+    STATE['disk_guard']=from_plan(plan,admit=False)
     STATE.update(plan=plan,index=index,cache=cache,schema=schema,extract=extract,input_coordinates=input_coordinates,engine=engine,
                  protocols=protocols,source_sample_keys=set(plan.get('source_sample_keys',[])),coverage=coverage,source_groups={str(g['source_job_id']):g for g in I.load_data(coverage['logical_group_plan_reference'])['groups']},normalization=I.load(plan['pm7_normalization']),fields={f['field_id']:f for f in fields},recipe=recipe,byraw=byraw)
 
@@ -182,7 +184,9 @@ def add_piece(db,mid,gid,kind,meta,arrays,held):
                 note['max_relative_error']=max(note['max_relative_error'],float(np.max(relative)))
                 note['within_tolerance']&=bool(np.all(np.isfinite(observed)) and np.all(delta<=1e-6+1e-6*np.abs(expected)))
     entry={'gid':gid,'metadata':meta,'arrays':cast,'descriptor':{'kind':kind,'geometry_source':meta['geometry_source'],'path':'original-source-projection','is_holdout':held}}
-    db.execute('INSERT INTO pieces VALUES(?,?)',(mid,pickle.dumps(entry,protocol=5)))
+    packed=pickle.dumps(entry,protocol=5)
+    if STATE.get('disk_guard'):STATE['disk_guard'].wait(STATE['spool_path'],len(packed),2)
+    db.execute('INSERT INTO pieces VALUES(?,?)',(mid,packed))
 
 
 def work(task):
@@ -194,6 +198,8 @@ def work(task):
         if Path(closed['path']).is_file():return closed
     attempt=0;original=path
     while path.exists():attempt+=1;path=original.with_name(original.stem+'_attempt_%03d.sqlite'%attempt)
+    STATE['spool_path']=str(path)
+    if STATE.get('disk_guard'):STATE['disk_guard'].wait(path,inodes_needed=4)
     spool=sqlite3.connect(path);spool.executescript('CREATE TABLE pieces(mid TEXT,row BLOB); CREATE INDEX pieces_mid ON pieces(mid); CREATE TABLE molecules(mid TEXT PRIMARY KEY,row BLOB);')
     identities=identity_db(STATE['index']);cache=sql_ro(STATE['cache']['database']['path'])
     bases={};contexts={};zmap={};base_xyz={};topology={};ranks={};held=set();pprime_fit={};routine_by_mid={}
@@ -293,7 +299,9 @@ def work(task):
                 channel_codes(record,book,codes);record['r73_codebook']=book.copy();record.pop('r73_channels',None)
                 identity=record['identity'];key=physical_key(identity['geometry_source'],mid,identity['native_record_id'] if identity['geometry_source']=='pm7' else identity.get('storage_physical_alias') or identity['sprime_conf_idx'])
                 if key in STATE['sample_notes']:record['source_F64_cast_comparison']=STATE['sample_notes'][key]
-            spool.execute('INSERT INTO molecules VALUES(?,?)',(mid,pickle.dumps(item,protocol=5)));spool.execute('DELETE FROM pieces WHERE mid=?',(mid,));spool.commit()
+            packed=pickle.dumps(item,protocol=5)
+            if STATE.get('disk_guard'):STATE['disk_guard'].wait(path,len(packed),2)
+            spool.execute('INSERT INTO molecules VALUES(?,?)',(mid,packed));spool.execute('DELETE FROM pieces WHERE mid=?',(mid,));spool.commit()
     finally:identities.close();cache.close();spool.close()
     result={'path':str(path),'mids':mids};I.save(marker,result);return result
 
@@ -316,27 +324,33 @@ def source_molecule_groups(plan,index):
     result=list(groups.values());I.save(marker,{'groups':result,'primary_order':'original source job then original canonical ordinal; each MID selected once'})
     return result
 
-def stream_split(plan,index,cache,schema,split):
+def stream_split(plan,index,cache,schema,split,start_after=None):
     groups=source_molecule_groups(plan,index)
-    tasks=iter((i,g[split],split) for i,g in enumerate(groups) if g[split]);workers=int(plan['workers'])
-    # A bounded queue is a streaming buffer, not a scientific/resource stop.
+    tasks=iter((i,g[split],split) for i,g in enumerate(groups) if g[split] and (start_after is None or i>start_after));workers=int(plan['workers'])
+    buffer=int(plan.get('streaming_buffer_blocks',workers))
+    if not 1<=buffer<=workers:raise ValueError('STREAMING_BUFFER_MUST_BE_BETWEEN_ONE_AND_WORKERS')
+    # Same source-job/MID order; only the bounded pending window is adjustable.
     with cf.ProcessPoolExecutor(max_workers=workers,mp_context=mp.get_context('spawn'),initializer=init,initargs=(plan,index,cache,schema)) as pool:
         pending=collections.deque()
-        for _ in range(workers):
+        for _ in range(buffer):
             task=next(tasks,None)
-            if task is not None:pending.append(pool.submit(work,task))
+            if task is not None:pending.append((task[0],pool.submit(work,task)))
         while pending:
-            ref=pending.popleft().result();db=sql_ro(ref['path'])
+            number,future=pending.popleft();ref=future.result();db=sql_ro(ref['path']);ack={'committed':False}
             try:
-                for mid in ref['mids']:
+                for position,mid in enumerate(ref['mids']):
                     row=db.execute('SELECT row FROM molecules WHERE mid=?',(mid,)).fetchone()
                     if row is None:raise ValueError('SOURCE_BLOCK_MOLECULE_MISSING')
-                    yield pickle.loads(row[0])
+                    item=pickle.loads(row[0])
+                    if position==len(ref['mids'])-1:item['_source_block_end']={'number':number,'ack':ack}
+                    yield item
             finally:db.close()
-            # This exact private F32 spool is closed and fully consumed.
+            # A block is recyclable only after the writer has synced its LMDB,
+            # closed its ID fragment and atomically checkpointed the next cursor.
+            if not ack['committed']:raise ValueError('SOURCE_BLOCK_CONSUMPTION_NOT_CHECKPOINTED')
             Path(ref['path']).unlink()
             task=next(tasks,None)
-            if task is not None:pending.append(pool.submit(work,task))
+            if task is not None:pending.append((task[0],pool.submit(work,task)))
 
 
 def factory(plan):
@@ -369,4 +383,4 @@ def factory(plan):
     plan['expected_molecules']=index['selected_molecules'];plan['expected_conformers']=index['expected_conformers']
     plan['source_dependencies']={k:plan[k] for k in ('common','orders','d5','coverage','source_index','pm7_normalization','pprime_cache','uff_d3_cache')}
     if plan.get('pprime_comparison'):schema['P_vs_Pprime_summary_reference']=I.ref(plan['pprime_comparison'])
-    return schema,{split:(lambda s=split:stream_split(plan,index,cache,schema,s)) for split in ('TRAIN','FULL')}
+    return schema,{split:(lambda start_after=None,s=split:stream_split(plan,index,cache,schema,s,start_after)) for split in ('TRAIN','FULL')}

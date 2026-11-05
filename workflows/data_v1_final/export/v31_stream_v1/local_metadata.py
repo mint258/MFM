@@ -2,6 +2,7 @@
 import json,os,sqlite3,subprocess
 from pathlib import Path
 from ...labels.window2_normalization_v1 import io as I
+from .disk_guard import from_plan
 RUNTIME_KEY='_local_database_paths'
 
 
@@ -45,7 +46,9 @@ class MetadataBuild:
     No cache-size, synchronous, journal or scientific source rules are changed.
     """
     def __init__(self,plan,stem,inputs):
+        self.guard=from_plan(plan,admit=False)
         self.plan=plan;self.shared_root=Path(plan['source_working_root']);self.root=work_root(plan)
+        if self.guard:self.guard.wait(self.root,inodes_needed=4);self.guard.wait(self.shared_root,inodes_needed=4)
         self.shared_root.mkdir(parents=True,exist_ok=True);self.root.mkdir(parents=True,exist_ok=True)
         self.checkpoint=self.root/(stem+'.build.json');self.db=None
         frozen={'source_working_root':str(self.shared_root),'inputs':inputs}
@@ -66,6 +69,7 @@ class MetadataBuild:
 
     def open(self,schema):
         if self.state['phase']=='building' and not self.physical.is_file():raise ValueError('LOCAL_METADATA_CHECKPOINT_DATABASE_MISSING')
+        if self.guard:self.guard.wait(self.physical,inodes_needed=4)
         self.db=sqlite3.connect(self.physical)
         if self.state['phase']=='new':
             self.db.executescript(schema)
@@ -80,6 +84,7 @@ class MetadataBuild:
         return True
 
     def commit(self,stage,ordinal,reference):
+        if self.guard:self.guard.wait(self.physical,inodes_needed=2)
         self.db.execute('INSERT INTO build_progress VALUES(?,?,?)',(stage,ordinal,json.dumps(reference,sort_keys=True,separators=(',',':'))));self.db.commit()
         self.done_refs[(stage,ordinal)]=reference
 
@@ -94,7 +99,9 @@ class MetadataBuild:
         result=self.state['result'];reference=result[key]
         if self.shared!=self.physical and not self.shared.is_file():
             partial=self.shared.with_name(self.shared.name+'.partial')
-            subprocess.run(['rsync','-a','--sparse','--',str(self.physical),str(partial)],check=True)
+            argv=['rsync','-a','--sparse','--',str(self.physical),str(partial)]
+            if self.guard:self.guard.run(argv,partial,self.physical.stat().st_size,2)
+            else:subprocess.run(argv,check=True)
             os.replace(partial,self.shared)
         if not self.shared.is_file() or self.shared.stat().st_size!=reference['bytes']:raise ValueError('CLOSED_METADATA_SHARED_PUBLICATION_SIZE_DIFFERS')
         if self.state['phase']!='published':self.state['phase']='published';I.save(self.checkpoint,self.state)

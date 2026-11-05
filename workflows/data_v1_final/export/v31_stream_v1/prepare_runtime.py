@@ -2,6 +2,7 @@
 import argparse,json
 from pathlib import Path
 from . import identities as A
+from .disk_guard import from_plan
 from ...labels.window2_normalization_v1 import io as I
 
 
@@ -50,7 +51,7 @@ def prepare(plan_path):
         bound=I.load(marker)
         if bound['plan_path']!=str(path):raise ValueError('FROZEN_RUNTIME_PLAN_PATH_CHANGED')
         resumed=dict(bound['plan'])
-        for key in ('gpu_nodes','node_destination_root','metadata_working_root'):
+        for key in ('gpu_nodes','node_destination_root','metadata_working_root','disk_protection'):
             if key in plan:resumed[key]=plan[key]
         I.save(path,resumed);return resumed
     common=I.load(plan['common'])
@@ -69,5 +70,6 @@ def prepare(plan_path):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--plan',required=True);args=p.parse_args()
+    from_plan(I.load(args.plan),required=True)
     print(json.dumps(prepare(args.plan)),flush=True)
 if __name__=='__main__':main()

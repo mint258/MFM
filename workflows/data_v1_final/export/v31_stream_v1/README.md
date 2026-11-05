@@ -155,3 +155,72 @@ the same authoritative split_roots. The external plan fixes gpu_nodes=[] and
 delivery_mode=SHARED_SINGLE_COPY. Do not populate node destinations or rerun the
 node-copy distribution step for final data. Complete the original producer-end
 check once and notify the model line of the shared manifest/schema paths.
+
+Future D6 and transport writes require `disk_protection` in the runtime plan.
+`disk_guard --plan PLAN preflight` resolves every actual target with findmnt -T,
+df -B1, df -Pi and statvfs. Group all paths on the same filesystem in one target
+budget; include all windows' concurrent growth. Each target must explicitly set
+`paths`, `peak_additional_bytes`, `peak_additional_inodes`, `reserve_bytes`,
+`reserve_inodes`, `concurrent_bytes`, `concurrent_inodes`,
+`runtime_margin_bytes`, `runtime_margin_inodes`, and `quota_scope` (limited or
+not_applicable). Root filesystems automatically retain at least max(10 GiB,
+10 percent). Other reserves come from the actual site and shared allocation.
+The additional peak is future physical growth, not the existing source size:
+existing sources, failed partials and old/new coexistence are already charged
+to current availability, while future source spools, raw LMDB, compact copy,
+rsync partial/temp, ID maps and concurrent writes must all be included in the
+peak. Never count a planned future cleanup as available space.
+
+Limited quota targets additionally require `quota_probe_argv` (actual command
+printing current available bytes as one integer), `quota_peak_additional_bytes`,
+`quota_concurrent_bytes`, and `quota_reserve_bytes` (at least 100 GB). Unknown
+capacity/quota cannot start a new write. Runtime checks use actual statvfs and
+refresh the quota probe at most each `poll_seconds` (positive, at most five).
+Runtime margins must cover all workers' write bursts/SQLite rollback, LMDB
+page growth, metadata-ref transactions and monitor latency between checks.
+This is a storage safety reserve, not a wallclock/RSS/scientific stopping gate.
+
+Before each source-piece/spool-MID and writer-MID write, guards check reserves
+and wait without deleting any data. Compaction and optional metadata rsync run
+as owned subprocess groups: lack of bytes/inodes/quota pauses only that group
+before the reserve, then continues the same process after capacity returns.
+For future cache/transport control scripts, execute on the actual destination
+node (local paths must resolve there):
+`python -m workflows.data_v1_final.export.v31_stream_v1.disk_guard --plan PLAN transport --destination TARGET --remaining-bytes N --new-inodes N -- rsync -a --sparse SOURCE TARGET`.
+No GPU-node copy is introduced; final TRAIN/FULL compact copies remain shared.
+The sole new `test_disk_guard` toy FS/subprocess fixture includes admission,
+root/quota/inode reserves, pause/continue and a closed producer-check cache.
+Do not rerun the old suites or dataset QA for transport recovery.
+
+Ordinary disk pressure waits in-process. A passed producer-end sample check is
+immediately atomically cached before final output metadata writes, so a later
+storage-only continuation reuses that check.
+
+Source spools are a bounded pending window, not a retained full-dataset copy.
+Each task remains exactly one original source-job/split, with original MID order.
+`streaming_buffer_blocks` optionally reduces the pending window (1..workers);
+its default is the original worker count. No new pilot or target pass is added.
+
+At the last MID of a block, producer-only `_source_block_end` control metadata
+requests LMDB.sync, closure of the block's external-ID Parquet fragment, then
+an atomic writer checkpoint. Only after that successful checkpoint does the
+producer acknowledge consumption. The stream closes its SQLite reader before
+unlinking that exact private F32 spool. These control fields never enter MFM4.
+A lost acknowledgement after checkpoint can leave a harmless closed spool;
+completed source-job ordinals are skipped before enqueue on continuation.
+
+The checkpoint preserves the molecule cursor, global r73 codebook, RNG state,
+samples, counts/bytes and closed ID-fragment refs. Cold continuation opens the
+same owned raw LMDB and removes only keys in its uncheckpointed MID tail (M/P/U
+key ordinals only; no numeric values are read). The committed prefix is left
+untouched. The current unacknowledged block reuses its closed F32 spool, while
+all acknowledged blocks are skipped. Unregistered partial ID fragments are
+preserved; a fresh fragment attempt is used for the unclosed block. Split-end
+ID merging reads only external identity metadata in original fragment/row order
+and retains the exact original Parquet schema. Raw LMDB, final IDmap and original
+counts close into a `raw_closed` checkpoint before compaction, so a cold restart
+at that phase does not re-encode the split or reopen original labels. Completed
+compaction has its own checkpoint stage. Original science, seed/order, target
+arrays, masks, F64 cast and single producer-end QA remain unchanged. The only
+new `test_block_checkpoint` fixture uses tiny owned LMDB/ID metadata and mocked
+source jobs/compaction/QA, including an interrupted MID and interrupted compact.

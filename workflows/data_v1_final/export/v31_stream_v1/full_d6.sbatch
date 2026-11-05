@@ -14,6 +14,10 @@ export PYTHONDONTWRITEBYTECODE=1 CUDA_VISIBLE_DEVICES=''
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 cd "$repo"
 export D6_CODE_COMMIT=$(git rev-parse HEAD)
+# Actual destination admission includes explicit cross-window/quota budgets.
+# Unknown/insufficient space does not begin new writes; runtime guards preserve
+# closed products and wait before reserves. No scientific QA is replayed.
+"$python" -B -m workflows.data_v1_final.export.v31_stream_v1.disk_guard --plan "$plan" preflight
 # This is the required descriptive P/Pprime comparison, reading only already
 # produced molecule summaries; it never reopens original labels/geometries.
 summary=/lfshome/zixiao/data_v1_20261025/window2_P_vs_Pprime_TRAIN_20261105_v1
@@ -23,8 +27,6 @@ if [ ! -f "$summary/manifest.json" ]; then
         --pprime /lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_Pprime_statistics_20261105_v1/statistics/manifest.json \
         --output "$summary"
 fi
-# System telemetry only; no artificial capacity/RSS/time stopping threshold.
-df -PT /share/home/zixiao/descriptor_analysis /lfshome/zixiao/data_v1_20261025
 # No repeat unit suite or independent source QA. This binds closed extra
 # pointers once; any genuinely unregistered old Pprime source point is kept.
 # Its D3 alone is added, while every already closed D3 GID is reused.

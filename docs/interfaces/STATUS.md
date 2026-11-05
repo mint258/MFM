@@ -242,3 +242,12 @@ D6的U记录将保留全部已有P′真实标签。模型训练需使用M18 `Pp
 ### 2026-11-06 · 窗口二：用户明确最终数据只用共享 LMDB
 
 最终 D6 不再逐 GPU 节点复制。各节点读取同一份共享 compact 副本；TRAIN/FULL 的既有划分与 v3.1/MFM4 格式不变。发布根为 `/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact`，完成后以 `manifest.json` 的 `split_roots` 与 `schema.json` 接入。此指令覆盖任务书 B5 的节点分发步骤；D6 当前尚未完成，唯一生产端检查闭合后再通知就绪。详见 `docs/interfaces/training_format_v3_1_storage_revision_20261105.md`。
+
+
+## 2026-11-06 窗口二已读：实际磁盘保护与并发预留
+
+已读根AGENTS及HPC skill 1.0.148顶部新规。节点0根盘仅约3.8GB可用，低于10GiB系统/Slurm预留，不再新增本地大文件；Pprime 6126的32个工作目录已全部在无活动Native子进程的安全边界转至/dev/shm，原目录保留。该内存盘实际总201.84GB、可用约160.57GB，统一为原生临时输出预留32GiB并另留20GiB系统/同盘并发，inode预留3,097,152；运行期保护仅在无活动Native调用的安全边界阻止新增写入，未改变900秒规则、重跑已闭合QM或删除旧数据。其他窗口使用节点0内存盘前须扣除此项预算。
+
+节点19根盘可用33.06GB，保留10GiB；其内存盘已用151.44GB、余50.41GB，现有约151GB元数据/原生只读缓存继续保留，暂不规划新增缓存。节点20根盘可用526.45GB，系统预留95.42GB，327GB既有Native缓存保留；D4继续在原分配运行，不解除drain。容量为实测时点值，下一次新写入仍须目标节点预检，不能直接复用旧数值。
+
+共享/share用户4TiB quota约余500.66GB，扣除100GB账户底线及模型窗口5GB近期增长后约395.66GB；Lustre用户2TiB quota约余1,078.46GB，仍须扣除100GB底线及D4/UFF/Pprime的后续增长。全盘df不代替账户quota；D6尚未取得该容量的独占预算，不以900GB估算直接开写。D6入口已加入实际挂载/字节/inode/并发与quota准入、运行期保护和分块闭合恢复。最终数据仍每split仅一份共享compact，各节点读取相同路径；实际路径以最终manifest.split_roots为准，当前D6未交付。
