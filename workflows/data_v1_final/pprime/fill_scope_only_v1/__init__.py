@@ -1,0 +1,1 @@
+"""Closed fill metadata scope, no Native initialization or shared-pool bootstrap."""
