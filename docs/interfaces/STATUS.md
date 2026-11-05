@@ -237,3 +237,8 @@ S′恢复4521110仍按原2 missing +14 controls执行；不根据已完成14个
 D6的U记录将保留全部已有P′真实标签。模型训练需使用M18 `Pprime_train_eligible`（最终TRAIN前二、减实际D5留出）；M17仅表示普通S′成员，M14独立标记留出，不能将已有但已不属于最终前二的P′自动用于训练。定义见D1存储补充。
 
 2026-11-05 窗口二更新：最终 Common/D5/D7 已闭合，索引 configs/data_v1/final_Common_D5_D7_v1_DELIVERY.json。TRAIN=1,194,551，VAL=7,567；D5=120k/240k/600k/all1,126,937，原20k诊断分子及实际留出不变；D7全量0.5A统计及三序已发布。原始2891图/映射/立体化学/对齐无效按既有掩码保留，68375真实不足不强补。D4旧6112/6116接口失败已修复：D5通过既有实际几何表权威RID联结，owner仅兼容INTEGER/TEXT作业ID；新回归各一次通过。当前D4=6117正常数值运行，正式D4仍未发布，M2继续等待，不替换统计。D7续算6118 C0；UFF=6119补齐既有依赖路径后续跑；前二Pprime6113及独立统计6115继续，D6 6109依赖已更新为6118/6117/6115/6119，尚未分发。全部源/标签定义与split/留出规则不变，无新增扫描或验收门。
+
+
+### 2026-11-06 · 窗口二：用户明确最终数据只用共享 LMDB
+
+最终 D6 不再逐 GPU 节点复制。各节点读取同一份共享 compact 副本；TRAIN/FULL 的既有划分与 v3.1/MFM4 格式不变。发布根为 `/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact`，完成后以 `manifest.json` 的 `split_roots` 与 `schema.json` 接入。此指令覆盖任务书 B5 的节点分发步骤；D6 当前尚未完成，唯一生产端检查闭合后再通知就绪。详见 `docs/interfaces/training_format_v3_1_storage_revision_20261105.md`。

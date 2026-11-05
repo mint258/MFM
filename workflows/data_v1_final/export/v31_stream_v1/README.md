@@ -147,3 +147,11 @@ frozen membership/order, block width, part numbering, output root and existing
 reuse configuration, and ensure the previous writer processes have exited
 before a new writer opens those parts. Only an interrupted uncommitted MID has
 no closed product and may be recalculated. No new resume mechanism is added.
+
+Final D6 delivery follows the user's 2026-11-06 shared-storage amendment in
+`docs/interfaces/training_format_v3_1_storage_revision_20261105.md`: retain one
+shared compact LMDB per existing TRAIN/FULL split, with all model nodes reading
+the same authoritative split_roots. The external plan fixes gpu_nodes=[] and
+delivery_mode=SHARED_SINGLE_COPY. Do not populate node destinations or rerun the
+node-copy distribution step for final data. Complete the original producer-end
+check once and notify the model line of the shared manifest/schema paths.

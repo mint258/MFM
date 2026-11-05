@@ -47,3 +47,7 @@ M 新增数值标记：15=ROUTINE，16=Common，17=aligned-U ordinary S′ membe
 
 每 split 顺序写完、关闭、compact 一次；新 owned scratch 与最终 compact 可在不同实际文件系统，关闭并消费后正常回收本轮 scratch，不删除旧文件。末尾唯一一次 1000 个实际 P/U source 样本检查在原 F64→单次 F32 流中累计误差，再对 compact 数值/整数/NaN/计数检查，包含两列新聚合值；不恢复已历史删除的 v3.0，不独立重读原源、不计算新 SHA。分发仍 rsync --sparse；成品实际大小决定节点，传输恢复不重做 producer QA。
 实际normalization引用按原final_release_v1.produce.normalization条件契约：condition=Pprime使用独立Pprime统计，其余标签条件（包括D3）使用P_D。故本次UFF真实D3/atomicSASA引用最终PM7全TRAIN P_D的对应字段统计，不声称独立UFF拟合，也不混合PM7+UFF重拟合。schema/最终manifest分别明列两套实际引用；导出值始终raw，未执行归一化。
+
+## 2026-11-06 最终数据共享存储修订
+
+用户要求最终 LMDB 不再逐节点复制，以免重复占用存储。最终 D6 的 TRAIN/FULL 划分与 v3.1/MFM4 格式保持不变；每个 split 只有一份共享 compact LMDB，各模型节点只读同一路径。共享发布根为 `/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact`，最终 `manifest.json` 的 `split_roots` 和 `schema.json` 是模型接入入口。当前 `gpu_nodes=[]`，不再添加节点目的地或执行节点分发。任务书中 D6 的逐节点分发要求由本次明确指令替代；最终导出及唯一生产端检查闭合后，在 STATUS.md 通知共享读取路径，即完成存储交付。
