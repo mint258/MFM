@@ -1,5 +1,5 @@
 """Original physical geometry readers and original corrected-base D3 callable."""
-import collections,gzip,importlib.util,json,pickle,sys
+import collections,functools,gzip,importlib.util,json,os,pickle,sys
 from pathlib import Path
 import numpy as np
 PROJECT=Path('/share/home/zixiao/descriptor_analysis')
@@ -10,13 +10,21 @@ def module(name,path):
     spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
 
 
+@functools.lru_cache(maxsize=1)
+def completed_source_map(plan):
+    from ...conformers.window2_source_cache_v1.keep_source_map import KeepSourceMap
+    return KeepSourceMap.from_plan(plan)
+
+
 def native(pointer):
     """Read the original payload for graph/SMILES, with no new hash or QA pass."""
     import lmdb
     path=Path(pointer['source_path']);path=path if path.is_absolute() else PROJECT/path
     if str(path) not in HANDLES:
         if len(HANDLES)>=4:HANDLES.popitem(last=False)[1].close()
-        HANDLES[str(path)]=lmdb.open(str(path),subdir=False,readonly=True,lock=False,create=False,readahead=False,max_readers=1024)
+        plan=os.environ.get('DATA_V1_COMPLETED_SOURCE_CACHE_PLAN')
+        physical=completed_source_map(plan).physical_path(str(path)) if plan else str(path)
+        HANDLES[str(path)]=lmdb.open(physical,subdir=False,readonly=True,lock=False,create=False,readahead=False,max_readers=1024)
     with HANDLES[str(path)].begin() as tx:raw=tx.get(('%09d'%int(pointer['real_index'])).encode())
     if raw is None:raise ValueError('ORIGINAL_NATIVE_PHYSICAL_KEY_MISSING')
     return pickle.loads(raw)

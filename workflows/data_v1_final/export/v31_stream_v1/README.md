@@ -80,8 +80,18 @@ new files without F64 duplication. M18 copies exact Pprime fit_eligible flags.
 
 The concrete external full plan is
 `control/window2_20261105/D6_full_20261105_v1.plan.json`; its Slurm script is
-`full_d6.sbatch` (32 CPUs on compute-0-20/all, no GPU, no artificial memory or
+`D6_full_cached_20261105_v1.sbatch` (32 CPUs on compute-0-20/all, no GPU, no artificial memory or
 wall-time limit). It runs no repeated unit/QA job. Lustre `/lfshome` holds fresh
 source/write scratch; XFS `/share` holds the final compact outputs. Parent
 submits after final D4/Pprime/cache dependencies close, then observes actual
 RSS and sizes. GPU destinations remain empty until actual products exist.
+Optional future node-20 Native IO reuse: set
+`DATA_V1_COMPLETED_SOURCE_CACHE_PLAN` to Root's already closed cache plan.
+`physical.native` changes only the `lmdb.open` filename on an exact complete
+original-path match through the existing KeepSourceMap. No plan or missing key
+keeps the original path; the handle key, source pointer, 09d transaction key,
+open options, pickle/F64 contents and all scientific identities stay original.
+The mapping is loaded once per worker, with no filesystem-content probe or
+cache creation. Root's existing mapping tests already passed6100; only the new
+`test_native_cache` in-memory reader fixture and original pending stream8
+passed once in unused CPU20 allocation6106 (9 tests,4.014s). UFF/D6 do not repeat them.
