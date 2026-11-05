@@ -17,7 +17,7 @@ import torch
 
 from .v31_loader import MFM4Dataset, collate_samples
 from .v31_training import V31PDModel
-from .v2_s_training import s_model, sample_lr_ratio
+from .v2_s_training import s_model, sample_lr_ratio, structural_observation_counts
 from .v3_losses import V3LossResult
 from .v3_structural import build_structural_views, StructuralViewConfig, combine_structural_loss
 from .v3_architecture_views import build_two_structural_views
@@ -168,7 +168,10 @@ def train_v31(configuration):
         s_loss, prediction = None, None
         clean = collate_samples(samples)
         if 'S' in groups:
-            views = builder(clean, ordinals=ordinals, config=view_configuration).to('cuda')
+            views = builder(clean, ordinals=ordinals, config=view_configuration)
+            if count_only:
+                return {**pd_counts(samples), **structural_observation_counts(structural, views)}
+            views = views.to('cuda')
             prediction = structural.forward_pretrain(views, enabled_groups=('S',))
             s_loss = structural.compute_loss(prediction, views, {}, {}, enabled_groups=('S',),
                 weights=LossWeights(), exposure_step=clock.optimizer_updates)

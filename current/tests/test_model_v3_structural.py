@@ -69,6 +69,32 @@ def single_intraop_thread():
         torch.set_num_threads(previous)
 
 
+@pytest.mark.parametrize('view_count', [2, 3])
+@pytest.mark.parametrize('restrict_roles', [False, True])
+def test_input_only_structural_counts_match_original_loss(view_count, restrict_roles, monkeypatch,
+                                                         single_intraop_thread):
+    from phychem_mfm.phase1.v2_s_training import structural_observation_counts
+    from phychem_mfm.phase1.v3_architecture_views import V3TwoViewModel, build_two_structural_views
+    model, base, registry, binding, norms, targets = setup_model()
+    base.rdkit_bond_status = ['ok', 'failed']
+    if view_count == 2:
+        model = V3TwoViewModel(model.encoder, model.pd_heads, registry, binding)
+    eligibility = ({'element':torch.tensor([True,False]), 'noise':torch.tensor([False,True]),
+                    'bond':torch.tensor([False,True])} if restrict_roles else None)
+    builder = build_two_structural_views if view_count == 2 else build_structural_views
+    views = builder(base, ordinals=(21,22), config=StructuralViewConfig(seed=7),
+                    graph_eligibility=eligibility)
+    with torch.no_grad():
+        prediction = model.forward_pretrain(views, enabled_groups=('S',))
+        expected = model.compute_loss(prediction, views, {}, {}, enabled_groups=('S',), weights=LossWeights())
+    def forbidden_forward(*args, **kwargs):
+        raise AssertionError('Target counting must not execute the encoder')
+    monkeypatch.setattr(model.encoder, 'forward_pretrain', forbidden_forward)
+    before = torch.get_rng_state().clone()
+    assert structural_observation_counts(model, views) == expected.counts
+    assert torch.equal(torch.get_rng_state(), before)
+
+
 def test_view_building_keeps_original_targets_corruption_facts_and_rng_streams():
     model, base, reg, binding, norms, targets = setup_model()
     before_x, before_pos = base.x.clone(), base.pos.clone()

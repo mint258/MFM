@@ -131,6 +131,35 @@ def sample_lr_ratio(consumed, budget, schedule):
     return 1. - progress if schedule == 'wsd' else .5 * (1. + cos(pi * progress))
 
 
+def structural_observation_counts(model, views):
+    """Count the original S targets on CPU, without a backbone/head forward.
+
+    Bond selection reuses the original positive-edge selector, including its
+    status, endpoint and class rules. The view builder preserves real atoms;
+    counts therefore need no padded encoder output or prediction values.
+    """
+    batch = views.batch
+    if batch.x.device.type != 'cpu' or not views.includes_structural:
+        raise ValueError('Count original structural CPU views before device transfer')
+    encoder, binding = model.encoder, model.structural_binding
+    source_types = batch.sample_type_id.reshape(-1)[batch.batch]
+    base_graph = views.base_graph_index[batch.batch]
+    target = batch.target_x[:, 0]
+    legal = (torch.isfinite(target) & target.eq(target.float().floor())
+             & target.ge(0) & target.lt(encoder.n_atom_types - 1))
+    element = ((source_types.eq(2) | source_types.eq(3)) & legal
+        & batch.element_corrupt_mask.reshape(-1).gt(.5)
+        & views.graph_eligibility['element'][base_graph])
+    noise = ((source_types.eq(1) | source_types.eq(3))
+        & torch.isfinite(batch.target_pos).all(-1)
+        & views.graph_eligibility['noise'][base_graph])
+    bond = encoder._phase1_positive_bond_pairs(batch, batch.batch)
+    bond_keep = (views.graph_eligibility['bond'][views.base_graph_index[bond.pair_graph_index]]
+        & bond.order_target.ge(0) & bond.order_target.lt(5))
+    return {binding.element: int(element.sum()), binding.noise: int(noise.sum()),
+            binding.bond: int(bond_keep.sum())}
+
+
 def train_s(*, index_path, output, distance_bias='C1-0', views='three', seed=0,
             samples=6_000_000, batch_size=32, lr=3e-4, schedule='cosine', clip=1., workers=14,
             resume=None, microbatch_size=None):
@@ -205,7 +234,8 @@ def train_s(*, index_path, output, distance_bias='C1-0', views='three', seed=0,
                     loss.total.backward()
                 else:
                     loss = accumulated_s_backward(model, records, ordinals, builder, config,
-                        microbatch_size, clock.optimizer_updates)
+                        microbatch_size, clock.optimizer_updates,
+                        count_observations=structural_observation_counts)
                 norm = torch.nn.utils.clip_grad_norm_(model.parameters(), clip)
                 optimizer.step()
                 clock.advance(count)
@@ -240,12 +270,13 @@ def train_s(*, index_path, output, distance_bias='C1-0', views='three', seed=0,
         pool.shutdown(wait=True, cancel_futures=True)
 
 
-def accumulated_s_backward(model, records, ordinals, builder, config, microbatch_size, exposure_step):
+def accumulated_s_backward(model, records, ordinals, builder, config, microbatch_size, exposure_step,
+                           *, count_observations=None):
     """Exact field-observation means across microbatches, with one B0 update.
 
-    A no-grad count pass determines the original field denominators. Restoring
-    RNG before the gradient pass uses the same stochastic head choices. Views
-    are built once on CPU; this is training, not an additional smoke/QA run.
+    Native training counts masks/positive edges on CPU without a model pass.
+    Custom callers may retain the original no-grad count fallback. Restoring
+    RNG keeps that fallback's stochastic choices. Views are built once on CPU.
     """
     from torch_geometric.data import Batch
     from .v3_losses import V3LossResult
@@ -259,6 +290,10 @@ def accumulated_s_backward(model, records, ordinals, builder, config, microbatch
     counts = {}
     with torch.no_grad():
         for source in views:
+            if count_observations is not None:
+                for name, count in count_observations(model, source).items():
+                    counts[name] = counts.get(name, 0) + count
+                continue
             view = source.to(device)
             prediction = model.forward_pretrain(view, enabled_groups=('S',))
             loss = model.compute_loss(prediction, view, {}, {}, enabled_groups=('S',),

@@ -55,7 +55,8 @@ def test_validation_roles_keep_source_ordinals_and_never_pool_diagnostic_into_fu
     assert [i for i, _ in validation_populations(rows, 'FULL')['FULL']] == [0, 1]
 
 
-def test_microbatch_backward_preserves_field_observation_means_and_gradient():
+@pytest.mark.parametrize('input_only_counts', [False, True])
+def test_microbatch_backward_preserves_field_observation_means_and_gradient(input_only_counts):
     from torch_geometric.data import Data
     from phychem_mfm.phase1.v2_s_training import accumulated_s_backward
     from phychem_mfm.phase1.v3_losses import V3LossResult
@@ -63,7 +64,9 @@ def test_microbatch_backward_preserves_field_observation_means_and_gradient():
         def __init__(self):
             super().__init__()
             self.weight = torch.nn.Parameter(torch.tensor(.7))
+            self.forwards = 0
         def forward_pretrain(self, batch, **kwargs):
+            self.forwards += 1
             return batch.x * self.weight
         def compute_loss(self, prediction, batch, *args, **kwargs):
             masks = {'s_element': batch.x[:, 0] > 1, 's_noise': batch.x[:, 0] > 0,
@@ -82,11 +85,16 @@ def test_microbatch_backward_preserves_field_observation_means_and_gradient():
     expected.total.backward()
     gradient = model.weight.grad.clone()
     model.zero_grad()
+    model.forwards = 0
+    def count_inputs(model, batch):
+        return {'s_element':int((batch.x[:,0] > 1).sum()),
+                's_noise':int((batch.x[:,0] > 0).sum()), 's_bond':int((batch.x[:,0] > 3).sum())}
     actual = accumulated_s_backward(model, records, (0, 1, 2), lambda batch, **kw: batch,
-                                    None, 1, 0)
+                                    None, 1, 0, count_observations=count_inputs if input_only_counts else None)
     assert actual.counts == expected.counts
     torch.testing.assert_close(actual.total, expected.total.detach(), atol=1e-6, rtol=1e-6)
     torch.testing.assert_close(model.weight.grad, gradient, atol=1e-6, rtol=1e-6)
+    assert model.forwards == (3 if input_only_counts else 6)
 
 
 def test_preregistered_wsd_has_two_percent_warmup_and_linear_final_twenty_percent():
