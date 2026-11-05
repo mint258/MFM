@@ -101,7 +101,7 @@ def witness(job,actual):
         raise Unsafe('EXACT_JOB_OWNER_NAME_STARTTIME_MISMATCH')
     if actual.get('JobState') not in TERMINAL and actual.get('NodeList')!=job['node']:raise Unsafe('EXACT_JOB_NODE_MISMATCH')
     status=actual.get('JobState')
-    if status not in TERMINAL|{'RUNNING','COMPLETING','SUSPENDED'}:raise Unsafe('UNEXPECTED_JOB_STATE')
+    if status not in TERMINAL|{'RUNNING','COMPLETING','SUSPENDED','STOPPED'}:raise Unsafe('UNEXPECTED_JOB_STATE')
     return status
 
 

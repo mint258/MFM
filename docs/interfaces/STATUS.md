@@ -257,3 +257,6 @@ D6的U记录将保留全部已有P′真实标签。模型训练需使用M18 `Pp
 
 
 2026-11-06 窗口二运行期保护补充：D4 4526117和UFF 4526127现已启用真实Lustre容量/inode及用户quota保护。节点19/20各自每2秒探测实际目标，登录节点统一quota快照；控制端每次仅接受<=5秒新鲜值。账户底线100GB，另留至少8GiB全部写入突发与inode余量；不足/未知时只对UID1278、固定jobID/name/start/node匹配的这两个非Native作业阻止新增写入，恢复也只处理本控制器确曾停止的作业。未包含Pprime原生调用，不改变900秒规则。实际Lustre quota现余约1.073TB，两个writer预览均FRESH_SAFE，当前正常生产。状态与精确恢复命令保存在本窗口CONTROL，不新增数值QA/哈希/收据。NFS320GB Pprime近期增长预留继续有效。D6仍held且未准入最终容量；新spool_root仅可选存储路由，任何172GB本轮derived cache迁移都尚未准入/实施。各节点最终仍读取同一份共享LMDB。
+
+
+2026-11-06 窗口二保护恢复更新：UFF6127在一次容量快照失效后被安全STOP，闭合数据保留。实际Slurm返回STOPPED，保护器原识别列表遗漏该状态；现已窄修并通过唯一新转移测试，仅own STOP_ACK+两次新鲜容量/精确身份才CONT，其他STOPPED/SUSPENDED不接管。旧控制器精确pidfd SIGINT退出后，新控制器3546033读取原恢复状态并恢复同一6127；当前RUNNING、parked为空，原作业继续增长。真实节点19/20快照与quota均新鲜，未改变5秒时效、100GB底线、8GiB突发或任何科学定义；Native6126/900秒未受影响。

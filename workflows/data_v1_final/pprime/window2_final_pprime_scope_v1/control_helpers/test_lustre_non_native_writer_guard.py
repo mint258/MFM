@@ -44,3 +44,20 @@ class LustreWriterGuard(unittest.TestCase):
         self.assertTrue(control.tick());self.assertEqual(signals,[])
         bad=copy.deepcopy(profile);bad['jobs']['4526126']=copy.deepcopy(job)
         with self.assertRaises(G.Unsafe):G.validate_profile(bad)
+    def test_only_own_acknowledged_stopped_transitions_to_cont(self):
+        mount={'target':'/lfshome','source':'toy@net:/fs','fstype':'lustre'}
+        target={'path':'/lfshome/toy','mount':mount,'reserve_bytes':0,'reserve_inodes':100,'concurrent_bytes':0,'concurrent_inodes':0}
+        profile={'jobs':copy.deepcopy(G.JOBS),'quota_reference':'quota','quota_reserve_bytes':100_000_000_000,'runtime_margin_bytes':8*(1<<30),'runtime_margin_inodes':100,'max_age_seconds':5,
+            'nodes':{node:{'reference':node,'targets':[copy.deepcopy(target)]} for node in ('compute-0-19','compute-0-20')}}
+        for ownership,status,safe in (('STOP_ACKNOWLEDGED','STOPPED',True),('STOP_ACKNOWLEDGED','STOPPED',False),('STOP_REQUESTED','STOPPED',True),(None,'STOPPED',True),('STOP_ACKNOWLEDGED','SUSPENDED',True)):
+            signals=[];state={'schema':'TWO_NON_NATIVE_WRITER_RECOVERY_V1','uid':1278,'jobs':copy.deepcopy(G.JOBS),'parked':{}}
+            if ownership:state['parked']['4526127']={'job':copy.deepcopy(G.JOBS['4526127']),'status':ownership}
+            def lookup(key):
+                job=G.JOBS[key]
+                return {'JobId':key,'JobName':job['name'],'UserId':'zixiao(1278)','StartTime':job['start_time'],'NodeList':job['node'],'JobState':status if key=='4526127' else 'COMPLETED'}
+            control=G.Controller(profile,state,lambda value:None,lookup,lambda job,name:signals.append((job['job_id'],name)),lambda job:(safe,'FRESH_SAFE' if safe else 'STALE'))
+            report=control.finish();self.assertEqual(report['errors'],[])
+            expected=[('4526127','CONT')] if ownership=='STOP_ACKNOWLEDGED' and status=='STOPPED' and safe else []
+            self.assertEqual(signals,expected)
+            if expected:self.assertNotIn('4526127',state['parked'])
+            elif ownership:self.assertIn('4526127',report['parked_or_uncertain'])
