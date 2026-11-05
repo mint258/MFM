@@ -2,6 +2,7 @@
 import json,sqlite3
 from pathlib import Path
 from ...labels.window2_normalization_v1 import io as I
+from .local_metadata import MetadataBuild,database_path,public,runtime_result
 
 
 def rows(ref,columns=None):
@@ -22,39 +23,45 @@ def prepare(plan,geometry_only=False):
     if final.is_file():
         m=I.load(final)
         if m['inputs']!=inputs:raise ValueError('SOURCE_IDENTITIES_FROZEN_INPUTS_CHANGED')
-        return m
+        return runtime_result(m,plan)
     if not geometry_only:
-        base=prepare(plan,geometry_only=True)
-        auxiliary=root/'orders_and_d5.sqlite';original_aux=auxiliary;attempt=0
-        while auxiliary.exists():attempt+=1;auxiliary=original_aux.with_name(original_aux.stem+'_attempt_%03d.sqlite'%attempt)
-        db=sqlite3.connect(auxiliary);db.executescript('CREATE TABLE orders(mid TEXT PRIMARY KEY,row TEXT); CREATE TABLE held(src TEXT,mid TEXT,physical TEXT,PRIMARY KEY(src,mid,physical));')
+        base=prepare(plan,geometry_only=True);build=MetadataBuild(plan,'orders_and_d5',inputs)
+        if build.closed_result is not None:
+            result=build.finish(build.closed_result,'orders_database');I.save(final,result);return runtime_result(result,plan)
+        db=build.open('CREATE TABLE orders(mid TEXT PRIMARY KEY,row TEXT); CREATE TABLE held(src TEXT,mid TEXT,physical TEXT,PRIMARY KEY(src,mid,physical));')
         orders=I.load(plan['orders']);d5=I.load(plan['d5'])
         try:
-            for ref in orders['order_tables']:
-                db.executemany('INSERT INTO orders VALUES(?,?)',[(r['molecule_id'],json.dumps(r,separators=(',',':'))) for r in rows(ref)]);db.commit()
-            geometry=sqlite3.connect('file:'+base['database']['path']+'?mode=ro',uri=True)
-            try:
-                for r in rows(d5['diagnostic_base_reference']):
-                    src=r['geometry_source'];gid=r.get('geometry_id',r.get('base_geometry_id'))
-                    hit=geometry.execute('SELECT physical FROM geometries WHERE gid=? AND mid=? AND src=?',(gid,r['molecule_id'],src)).fetchone()
-                    if hit is None and src=='pm7':hit=geometry.execute('SELECT physical FROM geometries WHERE mid=? AND src=? AND physical=?',(r['molecule_id'],src,r['native_record_id'])).fetchone()
-                    if hit is None:raise ValueError('FROZEN_D5_GEOMETRY_NOT_ADDRESSABLE:'+str(gid))
-                    db.execute('INSERT INTO held VALUES(?,?,?)',(src,r['molecule_id'],hit[0]))
-            finally:geometry.close()
-            db.commit()
-        finally:db.close()
-        result=dict(base,inputs=inputs,orders_database=I.ref(auxiliary));I.save(final,result);return result
-    path=root/('geometry_identities.sqlite' if geometry_only else 'identities.sqlite');original=path;attempt=0
-    while path.exists():attempt+=1;path=original.with_name(original.stem+'_attempt_%03d.sqlite'%attempt)
-    db=sqlite3.connect(path)
-    db.executescript('CREATE TABLE members(mid TEXT PRIMARY KEY,role TEXT,common INTEGER); CREATE TABLE geometries(mid TEXT,src TEXT,physical TEXT,gid TEXT UNIQUE,ordinary INTEGER,pointer TEXT,PRIMARY KEY(mid,src,physical)); CREATE INDEX g_mid ON geometries(mid); CREATE TABLE orders(mid TEXT PRIMARY KEY,row TEXT); CREATE TABLE held(src TEXT,mid TEXT,physical TEXT,PRIMARY KEY(src,mid,physical));')
-    common=I.load(plan['common']);orders={} if geometry_only else I.load(plan['orders']);d5={} if geometry_only else I.load(plan['d5'])
+            for ordinal,ref in enumerate(orders['order_tables']):
+                if build.done('orders',ordinal,ref):continue
+                db.executemany('INSERT INTO orders VALUES(?,?)',[(r['molecule_id'],json.dumps(r,separators=(',',':'))) for r in rows(ref)])
+                build.commit('orders',ordinal,ref)
+            if not build.done('d5_held',0,d5['diagnostic_base_reference']):
+                geometry=sqlite3.connect('file:'+database_path(base)+'?mode=ro',uri=True)
+                try:
+                    for r in rows(d5['diagnostic_base_reference']):
+                        src=r['geometry_source'];gid=r.get('geometry_id',r.get('base_geometry_id'))
+                        hit=geometry.execute('SELECT physical FROM geometries WHERE gid=? AND mid=? AND src=?',(gid,r['molecule_id'],src)).fetchone()
+                        if hit is None and src=='pm7':hit=geometry.execute('SELECT physical FROM geometries WHERE mid=? AND src=? AND physical=?',(r['molecule_id'],src,r['native_record_id'])).fetchone()
+                        if hit is None:raise ValueError('FROZEN_D5_GEOMETRY_NOT_ADDRESSABLE:'+str(gid))
+                        db.execute('INSERT INTO held VALUES(?,?,?)',(src,r['molecule_id'],hit[0]))
+                finally:geometry.close()
+                build.commit('d5_held',0,d5['diagnostic_base_reference'])
+        finally:build.close()
+        result=build.finish(dict(public(base),inputs=inputs),'orders_database');I.save(final,result);return runtime_result(result,plan)
+    build=MetadataBuild(plan,'geometry_identities',inputs)
+    if build.closed_result is not None:
+        result=build.finish(build.closed_result,'database');I.save(final,result);return runtime_result(result,plan)
+    db=build.open('CREATE TABLE members(mid TEXT PRIMARY KEY,role TEXT,common INTEGER); CREATE TABLE geometries(mid TEXT,src TEXT,physical TEXT,gid TEXT UNIQUE,ordinary INTEGER,pointer TEXT,PRIMARY KEY(mid,src,physical)); CREATE INDEX g_mid ON geometries(mid); CREATE TABLE orders(mid TEXT PRIMARY KEY,row TEXT); CREATE TABLE held(src TEXT,mid TEXT,physical TEXT,PRIMARY KEY(src,mid,physical));')
+    common=I.load(plan['common'])
     try:
-        for ref in common['membership_tables']:
-            db.executemany('INSERT INTO members VALUES(?,?,?)',[(r['molecule_id'],str(r['effective_role']).upper(),bool(r['common_population'])) for r in rows(ref)])
-            db.commit()
+        for ordinal,ref in enumerate(common['membership_tables']):
+            if build.done('members',ordinal,ref):continue
+            db.executemany('INSERT INTO members VALUES(?,?,?)',[(r['molecule_id'],str(r['effective_role']).upper(),bool(r['common_population'])) for r in rows(ref,columns=['molecule_id','effective_role','common_population'])])
+            build.commit('members',ordinal,ref)
         for ordinary,refs in ((True,common.get('full_source_physical_geometry_tables',common['physical_geometry_tables'])),(False,plan.get('extra_geometry_tables',[]))):
-            for ref in refs:
+            stage='geometry_ordinary' if ordinary else 'geometry_extra'
+            for ordinal,ref in enumerate(refs):
+                if build.done(stage,ordinal,ref):continue
                 for r in rows(ref):
                     src=r['geometry_source'];physical=r['native_record_id'] if src=='pm7' else r.get('storage_physical_alias') or str(int(r['sprime_conf_idx']))
                     same_gid=db.execute('SELECT mid,src FROM geometries WHERE gid=?',(r['geometry_id'],)).fetchone()
@@ -66,14 +73,8 @@ def prepare(plan,geometry_only=False):
                         if old[0]!=r['geometry_id']:raise ValueError('PHYSICAL_ID_GEOMETRY_ALIAS_DIFFERS')
                         continue
                     db.execute('INSERT INTO geometries VALUES(?,?,?,?,?,?)',(r['molecule_id'],src,str(physical),r['geometry_id'],ordinary,json.dumps(r,separators=(',',':'))))
-                db.commit()
-        for ref in orders.get('order_tables',[]):
-            db.executemany('INSERT INTO orders VALUES(?,?)',[(r['molecule_id'],json.dumps(r,separators=(',',':'))) for r in rows(ref)]);db.commit()
-        for r in ([] if geometry_only else rows(d5['diagnostic_base_reference'])):
-            src=r['geometry_source'];physical=r['native_record_id'] if src=='pm7' else r.get('storage_physical_alias') or str(int(r['sprime_conf_idx']))
-            db.execute('INSERT INTO held VALUES(?,?,?)',(src,r['molecule_id'],str(physical)))
-        db.commit()
-        result={'inputs':inputs,'database':I.ref(path),'selected_molecules':{},'expected_conformers':{}}
+                build.commit(stage,ordinal,ref)
+        result={'inputs':inputs,'selected_molecules':{},'expected_conformers':{}}
         for mid,role,common_flag in db.execute('SELECT mid,role,common FROM members ORDER BY mid'):
             if not selected(role,common_flag):continue
             split='TRAIN' if role=='TRAIN' else 'FULL';result['selected_molecules'][split]=result['selected_molecules'].get(split,0)+1
@@ -81,5 +82,5 @@ def prepare(plan,geometry_only=False):
             if selected(role,common_flag):
                 key=('TRAIN' if role=='TRAIN' else 'FULL')+('_P' if src=='pm7' else '_U')
                 result['expected_conformers'][key]=result['expected_conformers'].get(key,0)+count
-    finally:db.close()
-    I.save(final,result);return result
+    finally:build.close()
+    result=build.finish(result,'database');I.save(final,result);return runtime_result(result,plan)

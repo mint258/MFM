@@ -95,3 +95,35 @@ The mapping is loaded once per worker, with no filesystem-content probe or
 cache creation. Root's existing mapping tests already passed6100; only the new
 `test_native_cache` in-memory reader fixture and original pending stream8
 passed once in unused CPU20 allocation6106 (9 tests,4.014s). UFF/D6 do not repeat them.
+
+Optional metadata-only local build: set `metadata_working_root` to a dedicated
+node-20 `/tmp` root, separate from the Native-input cache. Geometry and
+orders/D5 auxiliary SQLite, rollback journals and SQLite temporary files are
+built below that root. Original source/ref order, values, IDs, primary keys,
+conflict assertions and final count queries stay unchanged. Membership input
+reads only its three consumed columns. Per-ref `build_progress` is committed
+in the same transaction as the original rows; only a producer-owned build
+checkpoint can resume. Legacy partial SQLite without it is preserved and is
+never treated as a resumable prefix; its replacement is a fresh metadata
+build, not a repeated descriptor/label calculation.
+
+After the DB is closed, one `rsync --sparse` publishes a shared new-attempt
+`.partial` then atomic rename, followed by the formal shared manifest. Its
+references always name shared files. Runtime-only hints let this parent and
+workers open their same-build closed local copies; an evicted local copy falls
+back to the authoritative shared reference. Descriptor/label outputs remain
+shared and are untouched. No source numerical readback, hash, benchmark or
+extra QA is added. Root runs only the new `test_local_metadata` tiny fixture
+once in an actual parent; do not repeat old42. No active process is switched by
+merely preparing this optional implementation.
+The same new metadata fixture also exercises the real N1 typed metadata_json shape through owned G.physical and the existing strict declared_geometry API: original status/convergence/native anchor are restored, false/NULL and conflicting declarations are rejected, and pprime_extra/ordinary=False are retained. No accepted-path default replaces the original N1 declaration.
+
+Actual continuation on 2026-11-06: Slurm marked node20 DRAIN after its old
+metadata-only task exited (Kill task failed); the running PM7 D4 stays there.
+UFF 4526124 and pending D6 4526125 use idle 24 CPUs on compute-0-19/all.
+The external plans use `/dev/shm/window2_export_metadata_20261106_v1` for
+metadata, with shared authoritative references unchanged. The six principal
+Native files were transported from the already closed node20 cache to node19;
+its exact completed subset map is `control/window2_20261105/native_cache19_closed_plan.json`.
+Unmapped sources use the original paths. Only the two new metadata/scratch
+fixtures ran once (2 passed, 3.093s); no prior suite or scientific QA was repeated.

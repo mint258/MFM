@@ -50,7 +50,7 @@ def prepare(plan_path):
         bound=I.load(marker)
         if bound['plan_path']!=str(path):raise ValueError('FROZEN_RUNTIME_PLAN_PATH_CHANGED')
         resumed=dict(bound['plan'])
-        for key in ('gpu_nodes','node_destination_root'):
+        for key in ('gpu_nodes','node_destination_root','metadata_working_root'):
             if key in plan:resumed[key]=plan[key]
         I.save(path,resumed);return resumed
     common=I.load(plan['common'])

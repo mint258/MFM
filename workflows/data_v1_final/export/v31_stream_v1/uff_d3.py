@@ -27,7 +27,7 @@ def init(plan,index):
 def work(task):
     number,mids=task;root=Path(STATE['plan']['uff_d3_cache_root']);path=root/('part_%06d.sqlite'%number);marker=path.with_suffix('.json')
     if marker.is_file():return I.load(marker)
-    src=sqlite3.connect('file:'+STATE['index']['database']['path']+'?mode=ro',uri=True);out=sqlite3.connect(path)
+    src=sqlite3.connect('file:'+A.database_path(STATE['index'])+'?mode=ro',uri=True);out=sqlite3.connect(path)
     out.executescript('CREATE TABLE IF NOT EXISTS molecules(mid TEXT PRIMARY KEY,newly_masked INTEGER); CREATE TABLE IF NOT EXISTS graphs(anchor TEXT PRIMARY KEY,z BLOB,bonds BLOB,codes BLOB); CREATE TABLE IF NOT EXISTS labels(mid TEXT,conf INTEGER,gid TEXT PRIMARY KEY,anchor TEXT,atomic_numbers BLOB,entries BLOB,issues TEXT,ordinary_sprime INTEGER,diagnostic_only INTEGER,excluded_from_all_training INTEGER); CREATE INDEX IF NOT EXISTS label_mid ON labels(mid);')
     count=0;invalid=0
     reused=sqlite3.connect('file:'+STATE['reused_database']+'?mode=ro',uri=True) if STATE.get('reused_database') else None
@@ -97,7 +97,7 @@ def produce(plan):
             I.save(reuse_marker,{'inputs':plan['reuse_uff_d3_caches'],'database':I.ref(reuse_path)})
         elif I.load(reuse_marker)['inputs']!=plan['reuse_uff_d3_caches']:raise ValueError('FROZEN_EXISTING_D3_CACHE_INPUTS_CHANGED')
         plan=dict(plan,reused_database=str(reuse_path))
-    db=sqlite3.connect('file:'+index['database']['path']+'?mode=ro',uri=True)
+    db=sqlite3.connect('file:'+A.database_path(index)+'?mode=ro',uri=True)
     if reuse_path:
         db.execute('ATTACH DATABASE ? AS prior',('file:'+str(reuse_path)+'?mode=ro',))
         missing={row[0] for row in db.execute("SELECT DISTINCT mid FROM geometries g WHERE src='uff_sprime' AND NOT EXISTS(SELECT 1 FROM prior.reused r WHERE r.gid=g.gid)")}

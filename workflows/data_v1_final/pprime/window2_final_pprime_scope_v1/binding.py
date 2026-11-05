@@ -63,6 +63,15 @@ class BindingStore:
         # The marker and all selected bindings become durable in one commit.
         self.db.execute('INSERT INTO progress VALUES(?,?)',('selected_complete',json.dumps({'records':records})))
         self.db.commit()
+    def candidate_ref_complete(self,ordinal,reference):
+        saved=self.db.execute('SELECT value FROM progress WHERE stage=?',('candidate_ref:'+str(ordinal),)).fetchone()
+        if saved:
+            if json.loads(saved[0])!=reference:raise ValueError('SAME_FROZEN_CANDIDATE_REFERENCE_REQUIRED')
+            return True
+        return False
+    def close_candidate_ref(self,ordinal,reference):
+        self.db.execute('INSERT INTO progress VALUES(?,?)',('candidate_ref:'+str(ordinal),json.dumps(reference,sort_keys=True,separators=(',',':'))))
+        self.db.commit()
     def candidate(self,row):
         previous=self.db.execute('SELECT locator FROM candidates WHERE gid=?',(row['geometry_id'],)).fetchone()
         value=json.dumps(row,allow_nan=False,separators=(',',':'))

@@ -24,9 +24,9 @@ def sql_ro(path):return sqlite3.connect('file:'+str(path)+'?mode=ro',uri=True)
 
 
 def identity_db(index):
-    db=sql_ro(index['database']['path'])
+    db=sql_ro(A.database_path(index))
     if index.get('orders_database'):
-        db.execute('ATTACH DATABASE ? AS final_aux',('file:'+index['orders_database']['path']+'?mode=ro',))
+        db.execute('ATTACH DATABASE ? AS final_aux',('file:'+A.database_path(index,'orders_database')+'?mode=ro',))
         db.executescript('CREATE TEMP VIEW orders AS SELECT * FROM final_aux.orders; CREATE TEMP VIEW held AS SELECT * FROM final_aux.held;')
     return db
 
@@ -301,7 +301,7 @@ def work(task):
 def source_molecule_groups(plan,index):
     marker=Path(plan['source_working_root'])/'source_molecule_groups.json'
     if marker.is_file():return I.load(marker)['groups']
-    coverage=I.load(plan['coverage']);db=sql_ro(index['database']['path'])
+    coverage=I.load(plan['coverage']);db=sql_ro(A.database_path(index))
     members={mid:(role,common) for mid,role,common in db.execute('SELECT mid,role,common FROM members')};db.close()
     source=sql_ro(coverage['canonical_index']['path']);groups=collections.OrderedDict()
     query='''SELECT r.molecule_id,r.job_id,r.record_ordinal FROM records r
@@ -342,7 +342,7 @@ def stream_split(plan,index,cache,schema,split):
 def factory(plan):
     index=A.prepare(plan);cache=cache_index(plan);schema=I.load(plan['schema'])
     total=sum(index['expected_conformers'].values());rng=random.Random(plan['sample_seed']);positions=set(rng.sample(range(total),min(1000,total)))
-    db=sql_ro(index['database']['path']);sample=[];position=0
+    db=sql_ro(A.database_path(index));sample=[];position=0
     try:
         for src,mid,physical,role,common in db.execute('SELECT g.src,g.mid,g.physical,m.role,m.common FROM geometries g JOIN members m ON m.mid=g.mid ORDER BY g.mid,g.src,g.physical'):
             if not A.selected(role,common):continue

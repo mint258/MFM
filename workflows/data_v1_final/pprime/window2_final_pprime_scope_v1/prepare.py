@@ -5,7 +5,7 @@ only metadata for existing labels; reads each newly needed geometry once and
 stores its original F64 values for the unchanged original compute_pair engine.
 """
 from __future__ import annotations
-import argparse, bisect, collections, functools, gzip, json, os, sqlite3
+import argparse, bisect, collections, functools, gzip, json, os, sqlite3, subprocess
 from pathlib import Path
 from .binding import BindingStore,same_geometry
 
@@ -196,23 +196,58 @@ def selected_bindings(bindings,all_selected):
     bindings.close_selected(len(all_selected))
     return True
 
+def open_bindings(plan,out):
+    """Local mode only consumes a cold-seeded, complete selected checkpoint.
+
+    Root stops the old process and transports its DB and any journal first.
+    sqlite3.connect performs ordinary hot-journal recovery on this local copy.
+    """
+    target=Path(out)/'physical_bindings.sqlite'
+    local=Path(plan['binding_working_root'])/'physical_bindings.sqlite' if plan.get('binding_working_root') else target
+    if local!=target:
+        need(local.is_file(),'COLD_SEEDED_LOCAL_BINDING_DATABASE_REQUIRED')
+        need(not target.exists(),'NEW_SHARED_BINDING_FILE_REQUIRED_NO_OVERWRITE')
+    bindings=BindingStore(local)
+    try:
+        bindings.freeze_inputs({name:plan.get(name,[]) for name in ('first2','common','source_index','additional_pprime_roots','native_record_index','source_plan')})
+        if local!=target:need(bindings.selected_complete(),'COMPLETE_SELECTED_CHECKPOINT_REQUIRED_NO_GEOMETRY_REPLAY')
+    except BaseException:
+        bindings.db.close();raise
+    return bindings,local,target
+
+def candidate_bindings(bindings,references):
+    import pyarrow.parquet as pq
+    for ordinal,reference in enumerate(references):
+        if bindings.candidate_ref_complete(ordinal,reference):continue
+        with pq.ParquetFile(path(reference)) as table:
+            for batch in table.iter_batches(batch_size=8192):
+                for row in batch.to_pylist():
+                    if row.get('geometry_source')=='uff_sprime':bindings.candidate(row)
+        bindings.close_candidate_ref(ordinal,reference)
+        print(json.dumps({'prepare_phase':'candidate_reference','ordinal':ordinal,'status':'COMPLETED'}),flush=True)
+
+def publish_binding_database(local,target):
+    """Call after normal SQLite close; publish a new shared file exactly once."""
+    local=Path(local);target=Path(target)
+    if local==target:return info(target)
+    need(not target.exists(),'NEW_SHARED_BINDING_FILE_REQUIRED_NO_OVERWRITE')
+    temporary=target.with_name(target.name+'.copying')
+    subprocess.run(['rsync','--sparse','--',str(local),str(temporary)],check=True)
+    os.replace(temporary,target)
+    return info(target)
+
 def prepare(plan):
     import duckdb,pyarrow as pa,pyarrow.parquet as pq
     out=Path(plan['scope_output']);out.mkdir(parents=True,exist_ok=True)
     if (out/'manifest.json').exists():return read(out/'manifest.json')
     scope=read(plan['first2']);selected=selected_rows(scope);all_selected=selected_rows(scope,eligible_only=False)
-    binding_path=out/'physical_bindings.sqlite'
-    bindings=BindingStore(binding_path)
-    bindings.freeze_inputs({name:plan.get(name,[]) for name in ('first2','common','source_index','additional_pprime_roots','native_record_index','source_plan')})
+    bindings,binding_path,shared_binding_path=open_bindings(plan,out)
     # This is the single production geometry/alignment consumption. Downstream
     # fit uses these F64 bindings, and reuses any original base rows read here.
     computed=selected_bindings(bindings,all_selected)
     print(json.dumps({'prepare_phase':'selected_bindings','status':'COMPLETED' if computed else 'REUSED_CLOSED_PHASE','records':len(all_selected)}),flush=True)
     common=read(plan['common'])
-    for reference in common.get('physical_geometry_tables',[]):
-        for batch in pq.ParquetFile(path(reference)).iter_batches(batch_size=8192):
-            for row in batch.to_pylist():
-                if row.get('geometry_source')=='uff_sprime':bindings.candidate(row)
+    candidate_bindings(bindings,common.get('physical_geometry_tables',[]))
     closed=old_closed_keys(plan['source_index'],selected,bindings)
     supplemental,claims=supplemental_keys(plan.get('additional_pprime_roots',[]),selected,bindings);closed.update(supplemental)
     needed=[row for k,row in selected.items() if k not in closed and k not in claims]
@@ -268,12 +303,13 @@ def prepare(plan):
                 if row['common_population'] and row['effective_role'] in ('TRAIN','VAL'):
                     counts[row['reason']]+=1;counts['actual_shortfall_to_two']+=int(row['missing_to_two'])
         bindings.close()
+        published_binding=publish_binding_database(binding_path,shared_binding_path)
         result={'schema':'PPRIME_FINAL_PHYSICAL_FIRST2_CONTINUATION_SCOPE_V1','status':'FINAL_PHYSICAL_SCOPE_READY_WITH_EXPLICIT_UNKNOWN_AND_SHORTFALL',
             'first2':plan['first2'],'source_index':plan['source_index'],'additional_pprime_roots':plan.get('additional_pprime_roots',[]),
             'actual_first2_records':len(selected),'actual_chosen_MIDs':len({k[0] for k in selected}),
             'reused_closed_records':len(closed),'unknown_native_intents':len(unknown),'needed_records':len(tasks),
             'tables':{'tasks':info(taskpath,len(tasks)),'unknown_native_intents':info(unknownpath,len(unknown))},
-            'physical_binding_database':info(binding_path,len(all_selected)),
+            'physical_binding_database':dict(published_binding,records=len(all_selected)),
             'geometry_binding':'existing input witnesses, otherwise original ordered Z/witness and F64 source coordinates; no key-only reuse',
             'record_level_state_table':states,'shortfall_counts':dict(counts),
             'no_new_N1_generation':True,'no_padding_or_duplication':True,'no_Pprime_rank_ge_2':True,

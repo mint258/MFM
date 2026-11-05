@@ -23,6 +23,17 @@ F64 and ordered Z/witness comparison. Any base publication read for this produce
 check is cached in that same database, so downstream statistics reuse it rather
 than rereading the original numerical source. No new content hash is computed.
 
+Optional `binding_working_root` resumes a Root-cold-seeded local database named
+`physical_bindings.sqlite`. Root first stops the original process, waits for its
+exit, and transports the DB plus any surviving `-journal` under the same basename.
+Opening the local copy uses SQLite's normal recovery. Local mode requires the
+same frozen inputs and `selected_complete`; it never rebuilds selected geometry.
+Candidate metadata is committed with its ordinal and exact full reference after
+each whole table, and closed references are skipped on resume. On normal finish
+the local DB is closed, copied with `rsync --sparse` to a new shared scope file,
+and only then is the scope manifest published. Existing shared DBs are never
+overwritten. This does not change Native retry or physical alignment rules.
+
 Root's existing Python/dependency environment and repository PYTHONPATH suffice:
 
 ```sh

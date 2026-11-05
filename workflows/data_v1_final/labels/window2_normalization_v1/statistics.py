@@ -21,6 +21,13 @@ def initialize(cfg,stage,root):
 
 
 def group_pass(work):
+    if work[0].get('group_scratch_root'):
+        from .scratch import execute_group
+        return execute_group(work,direct_group_pass)
+    return direct_group_pass(work)
+
+
+def direct_group_pass(work):
     cfg,stage,root,group=work
     initialize(cfg,stage,root)
     return _group_pass((group,False))

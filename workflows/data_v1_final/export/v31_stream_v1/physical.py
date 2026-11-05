@@ -59,6 +59,9 @@ def physical(pointer):
         if packet['summary']['molecule_id']!=pointer['molecule_id']:raise ValueError('PHYSICAL_PACKET_MID_DIFFERS')
         result=packet['conformers'][int(pointer['source_row_index'])]
     else:raise ValueError('UNKNOWN_PHYSICAL_FORMAT:'+str(pointer['source_format']))
+    if result.get('metadata_json') is not None or pointer.get('accepted_component_kind')=='CURRENT_CANONICAL_N1_PHYSICAL_ACCEPTED':
+        from ...pprime.window2_final_pprime_scope_v1.prepare import declared_geometry
+        result=declared_geometry(result,pointer)
     accepted=pointer.get('accepted_component_kind') in ('CURRENT_CANONICAL_N1_PHYSICAL_ACCEPTED','frozen_d5_actual_heldout_geometry','closed_pprime_source_geometry') and pointer['source_format']=='parquet'
     if accepted:
         # This immutable accepted component omits the two status columns. Its

@@ -109,9 +109,15 @@ def run(args):
             while (stage_root/('attempt_%03d'%attempt)).exists():attempt+=1
             attempt_root=stage_root/('attempt_%03d'%attempt);attempt_root.mkdir()
             pending={}
+            group_cfg=current
+            if getattr(args,'group_scratch_root',None) and state['pass_index']>=getattr(args,'scratch_from_pass',1):
+                group_cfg=dict(current,group_scratch_root=args.group_scratch_root,
+                    group_producer_inputs={'inputs':state['inputs'],'stage_reference':state['active_stage'],
+                        'eligibility_reference':current['eligibility_reference'],
+                        'upstream_statistics':{name:current.get(name) for name in ('element_models_reference','exact_tail_reference','query_stage_reference','mask_overrides_reference','r73_derived_reference')}})
             for group in groups:
                 key=str(group['group_index'])
-                if key not in state['groups']:pending[pool.submit(T.group_pass,(current,stage,str(attempt_root),group))]=key
+                if key not in state['groups']:pending[pool.submit(T.group_pass,(group_cfg,stage,str(attempt_root),group))]=key
             errors=[]
             for future in cf.as_completed(pending):
                 key=pending[future]
@@ -140,7 +146,10 @@ def run(args):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ('coverage','common','d5','output'):parser.add_argument('--'+name,required=True)
-    parser.add_argument('--workers',type=int,default=16);args=parser.parse_args()
+    parser.add_argument('--workers',type=int,default=16)
+    parser.add_argument('--group-scratch-root',help='optional node-local group output; shared output/checkpoint stay authoritative')
+    parser.add_argument('--scratch-from-pass',type=int,default=1,help='first future pass index using local group output')
+    args=parser.parse_args()
     print(json.dumps(run(args),ensure_ascii=False),flush=True)
 
 
