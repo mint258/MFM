@@ -8,6 +8,8 @@ import time
 import numpy as np
 import torch
 
+from .v2_disk import save_checkpoint
+
 from .v31_loader import MFM4Dataset, collate_samples
 from .v31_training import V31PDModel
 
@@ -169,7 +171,7 @@ def run_m2(*, root, training_view, normalizations, output, mode,
             value['decreasing'] = value['last100'] < value['first100']
         summary.update(status='SDP_2000_STEPS_REPORTED', group_trend=trend,
                        all_groups_decreasing=all(v['decreasing'] for v in trend.values()))
-    torch.save(dict(model=combined.state_dict(), optimizer=optimizer.state_dict(),
+    save_checkpoint(dict(model=combined.state_dict(), optimizer=optimizer.state_dict(),
         configuration=recipe, updates=step, rng=rng.bit_generator.state,
         torch_rng=torch.get_rng_state(), cuda_rng=torch.cuda.get_rng_state()), output/'final.pt')
     (output/'summary.json').write_text(json.dumps(summary, indent=2) + '\n')

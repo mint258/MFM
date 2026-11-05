@@ -16,6 +16,8 @@ import time
 import numpy as np
 import torch
 
+from .v2_disk import save_checkpoint
+
 
 class GroupedSIndex:
     def __init__(self, table):
@@ -252,11 +254,11 @@ def train_s(*, index_path, output, distance_bias='C1-0', views='three', seed=0,
                         configuration=trial, clock=clock.state_dict(), rng=rng.bit_generator.state,
                         torch_rng=torch.get_rng_state(), cuda_rng=torch.cuda.get_rng_state())
                     if clock.samples_consumed in clock.milestones or clock.samples_consumed == samples:
-                        torch.save(payload, output / f'samples_{clock.samples_consumed}.pt')
+                        save_checkpoint(payload, output / f'samples_{clock.samples_consumed}.pt')
                     else:
                         # Update this run's rolling recovery state; milestone
                         # and historical failed-run artifacts remain separate.
-                        torch.save(payload, output / 'recovery_next.pt')
+                        save_checkpoint(payload, output / 'recovery_next.pt')
                         (output / 'recovery_next.pt').replace(output / 'recovery.pt')
                 if clock.optimizer_updates % 100 == 0:
                     print(f'samples={clock.samples_consumed} loss={float(loss.total):.7f}', flush=True)

@@ -15,6 +15,8 @@ import time
 import numpy as np
 import torch
 
+from .v2_disk import save_checkpoint
+
 from .v31_loader import MFM4Dataset, collate_samples
 from .v31_training import V31PDModel
 from .v2_s_training import s_model, sample_lr_ratio, structural_observation_counts
@@ -243,9 +245,9 @@ def train_v31(configuration):
                     cuda_rng=torch.cuda.get_rng_state(), preclip_norms=gradients,
                     elapsed_seconds=elapsed_prior+time.monotonic()-started, gpu_peak_bytes=peak_gpu_bytes())
                 if milestone:
-                    torch.save(payload, output/f'samples_{clock.samples_consumed}.pt')
+                    save_checkpoint(payload, output/f'samples_{clock.samples_consumed}.pt')
                 else:
-                    torch.save(payload, output/'recovery_next.pt')
+                    save_checkpoint(payload, output/'recovery_next.pt')
                     (output/'recovery_next.pt').replace(output/'recovery.pt')
             if clock.optimizer_updates % 100 == 0:
                 print(json.dumps(row), flush=True)
