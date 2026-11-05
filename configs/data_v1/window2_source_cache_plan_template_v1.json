@@ -1,0 +1,79 @@
+{
+    "schema":  "WINDOW2_COMPLETED_PHYSICAL_SOURCE_CACHE_V1",
+    "source_plan":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/plan.json",
+    "cache_scope":  "Main compute-0-20 optional node-local native LMDB; original logical source paths and all records remain authoritative",
+    "recorded_total_source_bytes":  327409029120,
+    "sources":  [
+                    {
+                        "path":  "/share/home/zixiao/dataset/lmdb_new/principal_00000001_00300000.lmdb",
+                        "name":  "principal_00000001_00300000.lmdb",
+                        "source_size":  31369322496,
+                        "proposed_cache_path":  "/tmp/window2_native_lmdb_cache_20261105/principal_00000001_00300000.lmdb"
+                    },
+                    {
+                        "path":  "/share/home/zixiao/dataset/lmdb_new/principal_00300001_00600000.lmdb",
+                        "name":  "principal_00300001_00600000.lmdb",
+                        "source_size":  27134009344,
+                        "proposed_cache_path":  "/tmp/window2_native_lmdb_cache_20261105/principal_00300001_00600000.lmdb"
+                    },
+                    {
+                        "path":  "/share/home/zixiao/dataset/lmdb_new/principal_00600001_00900000.lmdb",
+                        "name":  "principal_00600001_00900000.lmdb",
+                        "source_size":  25646256128,
+                        "proposed_cache_path":  "/tmp/window2_native_lmdb_cache_20261105/principal_00600001_00900000.lmdb"
+                    },
+                    {
+                        "path":  "/share/home/zixiao/dataset/lmdb_new/principal_00900001_01200000.lmdb",
+                        "name":  "principal_00900001_01200000.lmdb",
+                        "source_size":  19954720768,
+                        "proposed_cache_path":  "/tmp/window2_native_lmdb_cache_20261105/principal_00900001_01200000.lmdb"
+                    },
+                    {
+                        "path":  "/share/home/zixiao/dataset/lmdb_new/principal_01200001_01500000.lmdb",
+                        "name":  "principal_01200001_01500000.lmdb",
+                        "source_size":  14275383296,
+                        "proposed_cache_path":  "/tmp/window2_native_lmdb_cache_20261105/principal_01200001_01500000.lmdb"
+                    },
+                    {
+                        "path":  "/share/home/zixiao/dataset/lmdb_new/principal_01500001_01800000.lmdb",
+                        "name":  "principal_01500001_01800000.lmdb",
+                        "source_size":  10663505920,
+                        "proposed_cache_path":  "/tmp/window2_native_lmdb_cache_20261105/principal_01500001_01800000.lmdb"
+                    },
+                    {
+                        "path":  "/share/home/zixiao/dataset/lmdb_new/unimol_01000001_02000000.lmdb",
+                        "name":  "unimol_01000001_02000000.lmdb",
+                        "source_size":  24090656768,
+                        "proposed_cache_path":  "/tmp/window2_native_lmdb_cache_20261105/unimol_01000001_02000000.lmdb"
+                    },
+                    {
+                        "path":  "/share/home/zixiao/dataset/lmdb_new/unimol_02000001_03000000.lmdb",
+                        "name":  "unimol_02000001_03000000.lmdb",
+                        "source_size":  51307753472,
+                        "proposed_cache_path":  "/tmp/window2_native_lmdb_cache_20261105/unimol_02000001_03000000.lmdb"
+                    },
+                    {
+                        "path":  "/share/home/zixiao/dataset/lmdb_new/unimol_03000001_04000000.lmdb",
+                        "name":  "unimol_03000001_04000000.lmdb",
+                        "source_size":  38323257344,
+                        "proposed_cache_path":  "/tmp/window2_native_lmdb_cache_20261105/unimol_03000001_04000000.lmdb"
+                    },
+                    {
+                        "path":  "/share/home/zixiao/dataset/lmdb_new/unimol_04000001_05000000.lmdb",
+                        "name":  "unimol_04000001_05000000.lmdb",
+                        "source_size":  40540778496,
+                        "proposed_cache_path":  "/tmp/window2_native_lmdb_cache_20261105/unimol_04000001_05000000.lmdb"
+                    },
+                    {
+                        "path":  "/share/home/zixiao/dataset/lmdb_new/unimol_05000001_06000000.lmdb",
+                        "name":  "unimol_05000001_06000000.lmdb",
+                        "source_size":  44103385088,
+                        "proposed_cache_path":  "/tmp/window2_native_lmdb_cache_20261105/unimol_05000001_06000000.lmdb"
+                    }
+                ],
+    "closed_source_path_map":  {
+
+                               },
+    "reader_policy":  "Root adds exact path mapping only after that source rsync --sparse exits successfully; missing entries use original path; no hashes or readback",
+    "submissions_performed":  false
+}
