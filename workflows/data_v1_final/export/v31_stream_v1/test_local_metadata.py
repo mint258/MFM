@@ -100,20 +100,21 @@ class LocalMetadataCheck(unittest.TestCase):
             num_row_groups=1
             metadata=SimpleNamespace(row_group=lambda _:SimpleNamespace(num_rows=1))
             def __init__(self,filename,**kwargs):self_outer.assertEqual(filename,'memory:n1-typed')
-            def iter_batches(self,**kwargs):yield pa.RecordBatch.from_pylist([current[0]])
+            def read_row_group(self,index,**kwargs):return pa.Table.from_pylist([current[0]])
             def close(self):pass
         self_outer=self
         with patch('pyarrow.parquet.ParquetFile',Parquet):
-            before=copy.deepcopy(typed);declared,xyz=G.physical(pointer)
+            G.close_parquet_cache();before=copy.deepcopy(typed);declared,xyz=G.physical(pointer)
             self.assertEqual(typed,before);self.assertEqual(declared['source_record_id'],'actual-native-anchor')
             self.assertIs(declared['ordinary_sprime_member'],False);self.assertEqual(declared['usage_domain'],'pprime_extra')
             self.assertEqual(xyz.dtype,np.dtype('<f8'));self.assertEqual(xyz.tobytes(),np.asarray(typed['coordinates'],dtype='<f8').tobytes())
             for state in (False,None):
-                current[0]=dict(typed,metadata_json=json.dumps(dict(metadata,converged=state)))
+                G.close_parquet_cache();current[0]=dict(typed,metadata_json=json.dumps(dict(metadata,converged=state)))
                 with self.assertRaisesRegex(ValueError,'GEOMETRY_NOT_ACTUALLY_USABLE'):G.physical(pointer)
-            current[0]=dict(typed,source_record_id='conflicting-anchor')
+            G.close_parquet_cache();current[0]=dict(typed,source_record_id='conflicting-anchor')
             with self.assertRaisesRegex(ValueError,'LEGACY_GEOMETRY_METADATA_CONFLICT'):G.physical(pointer)
-            current[0]=typed
+            G.close_parquet_cache();current[0]=typed
             with self.assertRaisesRegex(ValueError,'N1_EXTRA_CANNOT_BECOME_ORDINARY'):G.physical(dict(pointer,usage_domain='ordinary'))
+            G.close_parquet_cache()
 
 if __name__=='__main__':unittest.main()

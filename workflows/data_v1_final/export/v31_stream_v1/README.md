@@ -127,3 +127,23 @@ Native files were transported from the already closed node20 cache to node19;
 its exact completed subset map is `control/window2_20261105/native_cache19_closed_plan.json`.
 Unmapped sources use the original paths. Only the two new metadata/scratch
 fixtures ran once (2 passed, 3.093s); no prior suite or scientific QA was repeated.
+
+Parquet geometry IO keeps only one exact-source-path ParquetFile/footer with
+rowgroup offsets and one full decoded Arrow rowgroup per worker. A different
+rowgroup releases the preceding buffers before decoding; a different file also
+closes its preceding handle. Binary-search lookup slices the original full row
+without column selection, value conversion or ordering changes; strict N1 and
+all original identity/status assertions still run on every returned row.
+Memory scales with one source rowgroup's Arrow buffers plus its footer/offsets,
+not the whole source file. Footer total_byte_size is only an uncompressed
+encoded-size estimate, not an exact Arrow/RSS bound. The sole new
+`test_parquet_cache` fixture uses in-memory Arrow rows and fake footers only.
+
+UFF D3 continuation uses its existing per-MID transaction: labels, graphs and
+molecules completion marker commit together. On cold reopen SQLite performs
+normal rollback-journal recovery. Committed molecule rows with matching label
+counts skip D3; a completed part JSON skips the whole part. Keep the exact
+frozen membership/order, block width, part numbering, output root and existing
+reuse configuration, and ensure the previous writer processes have exited
+before a new writer opens those parts. Only an interrupted uncommitted MID has
+no closed product and may be recalculated. No new resume mechanism is added.

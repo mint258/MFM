@@ -1,9 +1,10 @@
 """Original physical geometry readers and original corrected-base D3 callable."""
-import collections,functools,gzip,importlib.util,json,os,pickle,sys
+import bisect,collections,functools,gzip,importlib.util,json,os,pickle,sys
 from pathlib import Path
 import numpy as np
 PROJECT=Path('/share/home/zixiao/descriptor_analysis')
 HANDLES=collections.OrderedDict();PACKETS=collections.OrderedDict();WIRE=None
+PARQUET_LAYOUT=(None,None,());PARQUET_GROUP=(None,None,None)
 
 
 def module(name,path):
@@ -34,22 +35,38 @@ def field(raw,key):return raw.get(key) if isinstance(raw,dict) else getattr(raw,
 def array(value):return value.detach().cpu().numpy() if hasattr(value,'detach') else np.asarray(value)
 
 
+def close_parquet_cache():
+    """One open footer/layout and one decoded Arrow rowgroup per worker."""
+    global PARQUET_LAYOUT,PARQUET_GROUP
+    PARQUET_GROUP=(None,None,None)
+    if PARQUET_LAYOUT[1] is not None:PARQUET_LAYOUT[1].close()
+    PARQUET_LAYOUT=(None,None,())
+
+
+def parquet_row(filename,index):
+    global PARQUET_LAYOUT,PARQUET_GROUP
+    if PARQUET_LAYOUT[0]!=filename:
+        close_parquet_cache()
+        import pyarrow.parquet as pq
+        table=pq.ParquetFile(filename,pre_buffer=False);offsets=[0]
+        try:
+            for rg in range(table.num_row_groups):offsets.append(offsets[-1]+table.metadata.row_group(rg).num_rows)
+        except BaseException:
+            table.close();raise
+        PARQUET_LAYOUT=(filename,table,offsets)
+    table,offsets=PARQUET_LAYOUT[1:]
+    if index<0 or index>=offsets[-1]:raise ValueError('PHYSICAL_GEOMETRY_ROW_MISSING')
+    rg=bisect.bisect_right(offsets,index)-1
+    if PARQUET_GROUP[:2]!=(filename,rg):
+        # Drop the previous buffers before decoding the next full original RG.
+        PARQUET_GROUP=(None,None,None)
+        PARQUET_GROUP=(filename,rg,table.read_row_group(rg,use_threads=False))
+    return PARQUET_GROUP[2].slice(index-offsets[rg],1).to_pylist()[0]
+
+
 def physical(pointer):
     if pointer['source_format']=='parquet':
-        import pyarrow.parquet as pq
-        table=pq.ParquetFile(pointer['source_path'],pre_buffer=False);index=int(pointer['source_row_index']);offset=0
-        try:
-            for rg in range(table.num_row_groups):
-                n=table.metadata.row_group(rg).num_rows
-                if index<offset+n:
-                    local=index-offset;lo=0
-                    for batch in table.iter_batches(row_groups=[rg],batch_size=128,use_threads=False):
-                        if lo<=local<lo+batch.num_rows:result=batch.slice(local-lo,1).to_pylist()[0];break
-                        lo+=batch.num_rows
-                    break
-                offset+=n
-            else:raise ValueError('PHYSICAL_GEOMETRY_ROW_MISSING')
-        finally:table.close()
+        result=parquet_row(pointer['source_path'],int(pointer['source_row_index']))
     elif pointer['source_format']=='reproduction_json_gz':
         path=pointer['source_path']
         if path not in PACKETS:
