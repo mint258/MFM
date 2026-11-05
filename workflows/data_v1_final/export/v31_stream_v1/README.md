@@ -305,3 +305,21 @@ truncated tail recovery, legacy migration and tiny writer cold continuation.
 Previously passed chunk/guard/block fixtures are not rerun for this change.
 
 Root executed only the new chunk/external-ID fixture (1 PASS, 1.604s) and dirty-state journal fixture (1 PASS, 6.096s) once successfully in the production Python environment. Prior guard/block fixtures are not repeated. Actual D6 data writes remain unadmitted pending closed producer sizes and combined storage budgets.
+Optional `source_spool_root` routes only newly created private F32 block SQLite
+files to a producer-visible, actually admitted mount. Missing/empty keeps the
+original source_working_root behavior. Canonical block JSON markers, identity
+and auxiliary/cache indexes, source_molecule_groups and source cursor remain
+under source_working_root. A marker's existing closed payload is reused before
+any new spool directory is guarded/created, even when the storage hint changes;
+no closed block is migrated or recomputed by changing this parameter. Markers
+retain the actual payload path and original MID order. Reader closure and
+checkpoint acknowledgement still precede unlink of that exact private payload.
+prepare_runtime and cold writer-plan comparison permit updating this storage
+hint without changing frozen science. Both canonical metadata and physical
+spool destinations require actual disk_guard coverage. A remote node's /tmp is
+not visible scratch on this producer; no remote SQLite/sshfs layer is added.
+The sole test_spool_path toy fixture covers default/override paths, original
+closed-ref reuse, admission before new directories and bound-plan hint update.
+No previously passed suite or scientific data is read or replayed.
+
+The new optional spool-path/closed-ref fixture passed once in the production environment (1 test, 0.179s); existing successful suites were not repeated. No real D6 spool/compact stream has started.

@@ -254,3 +254,6 @@ D6的U记录将保留全部已有P′真实标签。模型训练需使用M18 `Pp
 
 
 2026-11-06 窗口二容量预算更新：已在实际compute-0-0对共享NFS完成准入，Pprime统计6128的未启动计划改为`/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/window2_full_TRAIN_Pprime_statistics_20261106_shared_v1`。该盘统一预留320,000,000,000字节近期增长（投影/eligibility/journal及16GiB临时文件的规划峰值，非实测产物大小），另保留100GB账户底线、模型5GB及控制/并发1GB、8GiB写入突发余量；其他窗口不得再使用这320GB预算。后续compare另一个时段预算80GB（含64GiB spill），不与统计临时峰值重复相加，启动前按届时实占重验。登录节点每2秒只探测一次真实XFS quota，计算端每次读鲜活<=5秒的共享快照，未知/陈旧即停止新增写入。新NFS叠挂识别、quota及临时保护测试各一次通过。D4/Pprime原生/UFF继续，D6未获最终容量准入，原未运行6125已hold，待真实缓存尺寸及新布局配置完成后续接；未分发最终LMDB。
+
+
+2026-11-06 窗口二运行期保护补充：D4 4526117和UFF 4526127现已启用真实Lustre容量/inode及用户quota保护。节点19/20各自每2秒探测实际目标，登录节点统一quota快照；控制端每次仅接受<=5秒新鲜值。账户底线100GB，另留至少8GiB全部写入突发与inode余量；不足/未知时只对UID1278、固定jobID/name/start/node匹配的这两个非Native作业阻止新增写入，恢复也只处理本控制器确曾停止的作业。未包含Pprime原生调用，不改变900秒规则。实际Lustre quota现余约1.073TB，两个writer预览均FRESH_SAFE，当前正常生产。状态与精确恢复命令保存在本窗口CONTROL，不新增数值QA/哈希/收据。NFS320GB Pprime近期增长预留继续有效。D6仍held且未准入最终容量；新spool_root仅可选存储路由，任何172GB本轮derived cache迁移都尚未准入/实施。各节点最终仍读取同一份共享LMDB。

@@ -56,6 +56,13 @@ def build_dataset(name,fields,statistics,models,schema,policy,policy_reference,p
             'condition':target.get('condition'),'members':keys,'normalizer_ready':False,
             'source_loss_policy':{key:{k:descriptors.get(key,{}).get(k) for k in ('loss_enabled','loss_status','physical_policy_status')} for key in keys},
             'existing_loss_policy_must_still_apply':True,'original_loss_enabled':source_enabled}
+        if layout.get('array_name')=='r73_ordered' or target.get('wire_kind')=='SOURCE_ORDERED_RECORDS_V1':
+            # Original K-entry statistics are retained for diagnosis only.
+            # Approved pair-sum training routes bind their own146/147 series.
+            route.update(status='RAW_CONTAINER_STATISTICS_ONLY',normalizer_ready=False,
+                raw_series_keys=[str(bykey[key]['field_id'])+'/raw' for key in keys if key in bykey],
+                derived_training_target_ids=[value['target_id'] for value in schema.get('derived_r73_pair_targets',{}).values()])
+            targets[tid]=route;continue
         if not keys or any(key not in bykey for key in keys):
             targets[tid]=dict(route,status='NOT_IN_THIS_STATISTICS_DATASET');continue
         selected=[bykey[key] for key in keys];field=selected[0]

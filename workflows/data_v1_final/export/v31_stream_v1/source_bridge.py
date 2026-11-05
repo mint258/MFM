@@ -189,13 +189,24 @@ def add_piece(db,mid,gid,kind,meta,arrays,held):
     db.execute('INSERT INTO pieces VALUES(?,?)',(mid,packed))
 
 
+def spool_paths(plan,number,split):
+    """Only new physical SQLite moves; shared canonical metadata stays put."""
+    logical=Path(plan['source_working_root'])/split
+    physical=Path(plan.get('source_spool_root') or plan['source_working_root'])/split
+    return physical/('block_%07d.sqlite'%number),logical/('block_%07d.json'%number)
+
+
 def work(task):
-    number,mids,split=task;STATE['sample_notes']={};root=Path(STATE['plan']['source_working_root'])/split;root.mkdir(parents=True,exist_ok=True)
-    path=root/('block_%07d.sqlite'%number);path.parent.mkdir(parents=True,exist_ok=True)
-    marker=path.with_suffix('.json')
+    number,mids,split=task;STATE['sample_notes']={}
+    path,marker=spool_paths(STATE['plan'],number,split)
     if marker.is_file():
         closed=I.load(marker)
         if Path(closed['path']).is_file():return closed
+    # A changed storage hint never bypasses an already closed canonical ref.
+    # Both physical scratch and canonical metadata must be admitted before mkdir.
+    if STATE.get('disk_guard'):
+        STATE['disk_guard'].wait(path,inodes_needed=4);STATE['disk_guard'].wait(marker,inodes_needed=2)
+    path.parent.mkdir(parents=True,exist_ok=True);marker.parent.mkdir(parents=True,exist_ok=True)
     attempt=0;original=path
     while path.exists():attempt+=1;path=original.with_name(original.stem+'_attempt_%03d.sqlite'%attempt)
     STATE['spool_path']=str(path)

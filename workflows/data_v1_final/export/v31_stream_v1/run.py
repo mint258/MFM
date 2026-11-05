@@ -129,7 +129,7 @@ def export(plan,molecules,schema):
         os.replace(pending,checkpoint)
     if resume:
         with checkpoint.open('rb') as source:state=pickle.load(source)
-        frozen=lambda p:{k:v for k,v in p.items() if k not in ('disk_protection','streaming_buffer_blocks','workers','metadata_working_root','chunk_compaction','id_map_storage')}
+        frozen=lambda p:{k:v for k,v in p.items() if k not in ('disk_protection','streaming_buffer_blocks','workers','metadata_working_root','chunk_compaction','id_map_storage','source_spool_root')}
         if frozen(state['plan'])!=frozen(plan):raise ValueError('RESUME_FROZEN_PRODUCER_INPUTS_CHANGED')
         schema=state['schema'];indices=state['indices'];counts=state['counts'];conformers=state['conformers']
         if 'journal_state' in state:journals,seen,samples=Journals.restore(root,state['journal_state'],guard)
