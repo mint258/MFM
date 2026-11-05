@@ -82,11 +82,22 @@ def _read_choice(choice):
     return sample
 
 
+def segment_stop_samples(configuration, completed=0):
+    """Stop execution at a declared sample checkpoint, retaining the recipe budget."""
+    budget = configuration['samples']
+    stop = configuration.get('run_until_samples')
+    stop = budget if stop is None else stop
+    if (type(stop) is not int or not completed < stop <= budget
+            or (stop != budget and stop not in SampleClock(budget).milestones)):
+        raise ValueError('Execution segment must end at the budget or a later sample milestone')
+    return stop
+
+
 def train_v31(configuration):
     import pyarrow.parquet as pq
     c = dict(condition='SDP', distance_bias='C1-0', views='three', head_form='H1',
         pooling='registry', source='PM7', order='fixed_random', k=None, seed=0,
-        samples=6_000_000, batch_size=32, microbatch_size=4, workers=14,
+        samples=6_000_000, run_until_samples=None, batch_size=32, microbatch_size=4, workers=14,
         lr=3e-4, schedule='cosine', clip=1., mean_labels=False,
         families=None, fixed_full_condition=False, expected_molecules=240_000)
     unknown = set(configuration) - (set(c) | {'root', 'training_view', 'normalizations',
@@ -94,6 +105,7 @@ def train_v31(configuration):
     if unknown:
         raise ValueError('Unknown experiment configuration keys: ' + ', '.join(sorted(unknown)))
     c.update(configuration)
+    stop_samples = segment_stop_samples(c)
     groups = tuple(g for g in ('S', 'D', 'P') if g in c['condition'])
     if c['condition'] not in ('S', 'P', 'D', 'SDP'):
         raise ValueError('Use an explicit S/P/D/SDP scientific condition')
@@ -142,11 +154,11 @@ def train_v31(configuration):
     clock = SampleClock(c['samples'])
     view_configuration = StructuralViewConfig(seed=c['seed'])
     builder = build_two_structural_views if c['views'] == 'two' else build_structural_views
-    gradients, elapsed_prior = [], 0.
+    gradients, elapsed_prior, peak_prior = [], 0., 0
     if c.get('resume'):
         checkpoint = torch.load(c['resume'], map_location='cpu', weights_only=True)
         previous = checkpoint['configuration']
-        ignored = {'output', 'resume', 'microbatch_size', 'workers'}
+        ignored = {'output', 'resume', 'microbatch_size', 'workers', 'run_until_samples'}
         if {k:v for k,v in previous.items() if k not in ignored} != {k:v for k,v in c.items() if k not in ignored}:
             raise ValueError('Scientific resume configuration differs')
         model.load_state_dict(checkpoint['model'])
@@ -157,11 +169,17 @@ def train_v31(configuration):
         torch.cuda.set_rng_state(checkpoint['cuda_rng'])
         gradients = checkpoint['preclip_norms']
         elapsed_prior = checkpoint['elapsed_seconds']
+        peak_prior = checkpoint.get('gpu_peak_bytes')
+        stop_samples = segment_stop_samples(c, clock.samples_consumed)
     (output/'configuration.json').write_text(json.dumps(c, indent=2) + '\n')
     (output/'architecture.json').write_text(json.dumps(architecture, indent=2) + '\n')
 
     def pd_counts(samples):
         return {} if pd is None else pd.field_counts(samples, groups=pd_groups, fields=fields)
+
+    def peak_gpu_bytes():
+        # Old checkpoints without a prior peak cannot establish a full-run peak.
+        return None if peak_prior is None else max(peak_prior, torch.cuda.max_memory_allocated())
 
     def evaluate_chunk(chunk, *, count_only=False):
         samples, ordinals = chunk
@@ -192,8 +210,8 @@ def train_v31(configuration):
             initializer=_init_reader, initargs=(reader,)) as pool, (output/'losses.csv').open('w', buffering=1) as log:
         writer = csv.DictWriter(log, fieldnames=['samples','updates','total','S','D','P','preclip_norm','lr','seconds'])
         writer.writeheader()
-        while clock.samples_consumed < c['samples']:
-            count = clock.max_next_samples(c['batch_size'])
+        while clock.samples_consumed < stop_samples:
+            count = min(clock.max_next_samples(c['batch_size']), stop_samples - clock.samples_consumed)
             choices = []
             for _ in range(count):
                 molecule = int(rng.choice(dataset.indices))
@@ -222,7 +240,7 @@ def train_v31(configuration):
                 payload = dict(model=model.state_dict(), optimizer=optimizer.state_dict(), configuration=c,
                     clock=clock.state_dict(), rng=rng.bit_generator.state, torch_rng=torch.get_rng_state(),
                     cuda_rng=torch.cuda.get_rng_state(), preclip_norms=gradients,
-                    elapsed_seconds=elapsed_prior+time.monotonic()-started)
+                    elapsed_seconds=elapsed_prior+time.monotonic()-started, gpu_peak_bytes=peak_gpu_bytes())
                 if milestone:
                     torch.save(payload, output/f'samples_{clock.samples_consumed}.pt')
                 else:
@@ -230,9 +248,12 @@ def train_v31(configuration):
                     (output/'recovery_next.pt').replace(output/'recovery.pt')
             if clock.optimizer_updates % 100 == 0:
                 print(json.dumps(row), flush=True)
-    summary = dict(status='TRAINING_COMPLETE_DEV_EVALUATION_PENDING', samples=clock.samples_consumed,
+    status = ('TRAINING_COMPLETE_DEV_EVALUATION_PENDING' if clock.samples_consumed == c['samples']
+              else 'SEGMENT_COMPLETE_DEV_EVALUATION_PENDING')
+    summary = dict(status=status, sample_budget=c['samples'], samples=clock.samples_consumed,
         updates=clock.optimizer_updates, seconds=elapsed_prior+time.monotonic()-started,
-        gpu_peak_bytes=torch.cuda.max_memory_allocated(), preclip_gradient_p99=float(np.quantile(gradients, .99)))
+        gpu_peak_bytes=peak_gpu_bytes(), process_gpu_peak_bytes=torch.cuda.max_memory_allocated(),
+        preclip_gradient_p99=float(np.quantile(gradients, .99)))
     (output/'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     dataset.close()
     return summary
