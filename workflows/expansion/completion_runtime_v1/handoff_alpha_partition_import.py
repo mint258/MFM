@@ -46,7 +46,7 @@ def main():
     Q.need('afterok:1885263'in rank,'Rank still awaits original writer')
     source_path=D/'alpha_partition_cache_import_20261105_v1_source.json';source=Q.load(source_path)
     Q.need(source['schema']=='ALPHA_OWN_PARTITION_CACHE_IMPORT_SOURCE_V1'and source['original_scientific_runtime_changed']is False,'Immutable separate importer deployment')
-    Q.verify(source['entry']);Q.verify(helper)
+    Q.verify(source['entry']);Q.verify(Q.reference(helper))
     folder=D/PREFIX;folder.mkdir(mode=0o700)
     Q.write(folder/'before.json',dict(writer=writer,rank=rank,consumers=consumers,rescue_native=before,target_plan_reference=Q.reference(target_plan_path),coordinator_source=Q.reference(__file__)))
     for index,item in enumerate(SOURCES):
