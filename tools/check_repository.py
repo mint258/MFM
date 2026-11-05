@@ -39,6 +39,19 @@ MODEL_RESULT_OPTIONAL = {
 
 def model_summary_csv(name: str, raw: bytes) -> bool:
     """Allow only small, typed, one-row-per-run model experiment summaries."""
+    if name == 'results/model_v3_v2_runs.csv':
+        try:
+            reader = csv.DictReader(io.StringIO(raw.decode('utf-8')))
+            fields = ('run_id', 'stage', 'condition', 'candidate', 'views', 'seed', 'molecules',
+                      'samples', 'updates', 'gpu_model', 'elapsed_seconds', 'throughput_molecules_s',
+                      'peak_memory_bytes', 'dev_score', 'status', 'slurm_job_id')
+            rows = list(reader)
+            return (tuple(reader.fieldnames or ()) == fields and bool(rows)
+                    and len({row['run_id'] for row in rows}) == len(rows)
+                    and all(None not in row and row['slurm_job_id'].isdigit()
+                            and row['samples'].isdigit() and row['updates'].isdigit() for row in rows))
+        except (UnicodeDecodeError, csv.Error, KeyError, TypeError):
+            return False
     if not re.fullmatch(r'docs/model_v3/results/[A-Za-z0-9][A-Za-z0-9_.-]*\.csv', name):
         return False
     if len(raw) > 128 * 1024 or b'\x00' in raw:

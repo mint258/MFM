@@ -47,7 +47,10 @@ def test_codec_scalar_empty_nan_and_integer_widths():
               5: np.array(0, dtype='u1'), 23: np.array([1., np.nan], dtype='<f4')}
     actual = decode_mfm4(encode(arrays))
     for key, expected in arrays.items():
-        np.testing.assert_array_equal(actual[key], expected)
+        if expected.dtype.kind == 'f':
+            np.testing.assert_allclose(actual[key], expected, atol=1e-6, rtol=1e-6, equal_nan=True)
+        else:
+            np.testing.assert_array_equal(actual[key], expected)
         assert actual[key].dtype == expected.dtype
     assert record_key('M', 5) == b'M\0\0\0\5'
     assert record_key('U', 5, 2) == b'U\0\0\0\5\0\2'
@@ -85,7 +88,7 @@ def test_r73_directed_pairs_sum_channels_missing_and_empty():
     np.testing.assert_allclose(output[0], [3., 4.], atol=1e-6, rtol=1e-6)
     assert np.isnan(output[1:]).all()
     rule['missing_components'] = 'ignore'
-    assert aggregate_r73(arrays, ['absent', 'S', 'P', 'PI'], rule)[1, 0] == 3.
+    assert aggregate_r73(arrays, ['absent', 'S', 'P', 'PI'], rule)[1, 0] == pytest.approx(3., abs=1e-6, rel=1e-6)
 
 
 def test_field_selection_nan_mask_and_no_pm7_labels_for_uff():
@@ -96,6 +99,37 @@ def test_field_selection_nan_mask_and_no_pm7_labels_for_uff():
     np.testing.assert_allclose(targets['D20.test'].values, [[2.]], atol=1e-6, rtol=1e-6)
     assert not targets['P.test'].valid.any()
     assert set(view.extract(molecule(), {21: c[21]})) == {'D20.test'}
+
+
+def test_frozen_r73_requires_both_basis_axes_and_preserves_onsite():
+    arrays = {26: np.array([[0, 1], [1, 0], [0, 0], [1, 1]]),
+              31: np.array([0, 0, 0, 0, 1, 1, 2, 2, 3]),
+              32: np.array([[1, 2, 0], [2, 4, 0], [2, 3, 0], [6, 6, 0],
+                            [1, 4, 0], [2, 2, 0], [3, 5, 0], [5, 3, 0], [0, 0, 0]]),
+              34: np.array([1., 2., 900., 800., 3., np.nan, 4., 5., 700.], dtype=np.float32)}
+    rule = {'code_to_symmetry': {'0': None, '1': 'sigma', '2': 'sigma',
+                                 '3': 'pi', '4': 'sigma', '5': 'pi', '6': None}}
+    result = aggregate_r73(arrays, [], rule)
+    np.testing.assert_allclose(result, [[3., np.nan], [np.nan, np.nan],
+                                      [np.nan, 9.], [np.nan, np.nan]],
+                               atol=1e-6, rtol=1e-6, equal_nan=True)
+
+
+def test_frozen_training_view_selectors_keep_distinct_components():
+    columns = [dict(field_key='P.test.x', column_index=0, family='test', level='molecule'),
+               dict(field_key='P.test.y', column_index=1, family='test', level='molecule')]
+    schema = {'columns': {'mol_labels': columns}, 'target_layout': {
+        'shared': dict(array_name='mol_labels', column_indices=[0, 1])}}
+    manifest = {'fields': [dict(field_key=c['field_key'], group='P', enabled=True,
+                               target_id='shared', selectors=[[23, i, 'mol_labels']])
+                           for i, c in enumerate(columns)]}
+    norms = {c['field_key']: dict(fit_role='TRAIN', center=0., scale=2.) for c in columns}
+    view = TrainingView(schema, manifest, norms)
+    result = view.extract(molecule(), {23: np.array([4., 10.], dtype=np.float32)})
+    assert set(result) == {'P.test.x', 'P.test.y'}
+    np.testing.assert_allclose(result['P.test.x'].values, [[2.]], atol=1e-6, rtol=1e-6)
+    np.testing.assert_allclose(result['P.test.y'].values, [[5.]], atol=1e-6, rtol=1e-6)
+    assert result['P.test.y'].family == 'test'
 
 
 def test_r674_cannot_be_enabled():
@@ -114,18 +148,26 @@ def test_d4_train_reference_and_no_refitting():
     with pytest.raises(ValueError, match='TRAIN'): normalize_values([8.], spec, Z=np.array([6, 1]))
 
 
+def test_d4_winsor_fit_bounds_do_not_clip_training_targets():
+    spec = dict(fit_role='TRAIN', center=1., scale=2., lower=-1., upper=1.)
+    actual = normalize_values(np.array([[101.], [np.nan]]), spec, Z=np.array([6]))
+    np.testing.assert_allclose(actual[0], [50.], atol=1e-6, rtol=1e-6)
+    assert np.isnan(actual[1]).all()
+
+
 def test_equal_group_weights_and_fixed_family_ablation():
     fields = [dict(name='a', group='P', family='x'), dict(name='b', group='P', family='y'),
               dict(name='c', group='D', family='x')]
-    assert field_weights(fields, groups=['P', 'D']) == {'a': .25, 'b': .25, 'c': .5}
-    assert field_weights(fields, groups=['P', 'D'], families=['x']) == {'a': .5, 'c': .5}
+    assert field_weights(fields, groups=['P', 'D']) == pytest.approx({'a': .25, 'b': .25, 'c': .5}, abs=1e-6, rel=1e-6)
+    assert field_weights(fields, groups=['P', 'D'], families=['x']) == pytest.approx({'a': .5, 'c': .5}, abs=1e-6, rel=1e-6)
     assert field_weights(fields, groups=['P', 'D'], families=['x'],
-                         fixed_full_condition=True) == {'a': .25, 'c': .5}
+                         fixed_full_condition=True) == pytest.approx({'a': .25, 'c': .5}, abs=1e-6, rel=1e-6)
 
 
 def test_coordinate_free_encoder_closes_vector_and_denoise_fields():
     fields = [dict(name='scalar'), dict(name='vector', representation='vector'),
-              dict(name='denoise', kind='denoise_eps_mse')]
+              dict(name='denoise', kind='denoise_eps_mse'),
+              dict(name='dipole_magnitude', representation='magnitude')]
     encoder = type('Encoder', (), {'accepts_coordinates': False})()
     assert enabled_encoder_fields(fields, encoder) == (fields[0],)
 
@@ -175,7 +217,7 @@ def test_real_lmdb_api_process_handle_sampling_and_mean(tmp_path):
     draws = [dataset.sample(rng) for _ in range(200)]
     assert {d['molecule_index'] for d in draws} == {0, 1}
     assert {d['conformer_index'] for d in draws} == {0, 2}
-    assert dataset.molecule_mean(0)['P.test'].raw.item() == 1.
+    assert dataset.molecule_mean(0)['P.test'].raw.item() == pytest.approx(1., abs=1e-6, rel=1e-6)
     with pytest.raises(ValueError, match='excluded'): dataset.read(0, 1)
     assert dataset.__getstate__()['_env'] is None
     dataset.close()

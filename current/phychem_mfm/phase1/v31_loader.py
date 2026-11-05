@@ -86,29 +86,36 @@ def aggregate_r73(arrays, codebook, rule):
     rule supplies the data-line channel mapping, classification code column,
     and missing-component/empty-sum policies. No orbital code is guessed.
     """
-    if rule.get('reduction') != 'sum':
+    published_blocks = rule.get('code_to_symmetry')
+    if published_blocks is not None:
+        # Frozen training_view_v1: BOTH basis axes must belong to the block.
+        groups = {name: [int(code) for code, block in published_blocks.items()
+                         if block == name] for name in ('sigma', 'pi')}
+        axes, missing, empty = (0, 1), 'propagate', 'nan'
+    elif rule.get('reduction') != 'sum':
         raise ValueError('r73 requires the published sum reduction')
-    axis = rule.get('code_column')
-    if axis not in (0, 1, 2):
-        raise ValueError('r73 needs an explicit classification code column')
-    groups = rule.get('channels')
+    else:
+        axis = rule.get('code_column')
+        if axis not in (0, 1, 2):
+            raise ValueError('r73 needs an explicit classification code column')
+        axes = (axis,)
+        groups = rule.get('channels')
+        missing, empty = rule.get('missing_components'), rule.get('empty_sum')
     if not isinstance(groups, dict) or set(groups) != {'sigma', 'pi'}:
         raise ValueError('Data-line sigma/pi channel mapping is required')
     if set(groups['sigma']) & set(groups['pi']):
         raise ValueError('r73 sigma/pi channel groups overlap')
-    missing = rule.get('missing_components')
-    empty = rule.get('empty_sum')
     if missing not in ('propagate', 'ignore') or empty not in ('nan', 'zero'):
         raise ValueError('Explicit r73 missing/empty policies are required')
-    rows, codes, values = arrays[31], arrays[32][:, axis], arrays[34]
+    rows, codes, values = arrays[31], arrays[32], arrays[34]
     output = np.full((len(arrays[26]), 2), np.nan, dtype=np.float32)
     for column, name in enumerate(('sigma', 'pi')):
         selected_codes = []
         for code in groups[name]:
             selected_codes.append(codebook.index(code) if isinstance(code, str) else code)
-        selected = np.isin(codes, selected_codes)
-        observed = selected & ~np.isnan(values)
-        sums = np.zeros(len(output), dtype=np.float32)
+        selected = np.isin(codes[:, axes], selected_codes).all(axis=1)
+        observed = selected & np.isfinite(values)
+        sums = np.zeros(len(output), dtype=np.float64)
         counts = np.zeros(len(output), dtype=np.int64)
         np.add.at(sums, rows[observed], values[observed])
         np.add.at(counts, rows[observed], 1)
@@ -117,7 +124,7 @@ def aggregate_r73(arrays, codebook, rule):
         else:
             output[counts > 0, column] = sums[counts > 0]
         if missing == 'propagate':
-            output[rows[selected & np.isnan(values)], column] = np.nan
+            output[rows[selected & ~np.isfinite(values)], column] = np.nan
     return output
 
 
@@ -146,9 +153,8 @@ def normalize_values(raw, specification, *, Z):
             counts.get(int(z), 0) * coefficient
             for z, coefficient in zip(reference['basis'], reference['coefficients']))
         values -= np.float32(offset)
-    if 'lower' in specification or 'upper' in specification:
-        values = np.clip(values, specification.get('lower', -np.inf),
-                         specification.get('upper', np.inf))
+    # D4 winsorizes the statistical fit, not the original training labels.
+    # Quantile bounds may be present as provenance; never clip target values.
     center = np.asarray(specification['center'], dtype=np.float32)
     scale = np.asarray(specification['scale'], dtype=np.float32)
     if not np.all(np.isfinite(scale) & (scale > 0)):
@@ -164,13 +170,31 @@ class TrainingView:
     instead of embedding it. This simple public JSON interface carries no SHA
     or acceptance receipts.
     """
-    def __init__(self, schema, manifest):
+    def __init__(self, schema, manifest, normalizations=None):
         self.schema, self.manifest = schema, manifest
         fields = manifest.get('fields')
         if not isinstance(fields, list) or not fields:
             raise ValueError('A nonempty data-line training field list is required')
-        self.fields = [field for field in fields if field.get('enabled', True)]
-        self.normalizations = manifest.get('normalizations', {})
+        self.fields = []
+        metadata = {field['field_key']: field for field in schema.get('fields', [])}
+        metadata.update({column['field_key']: column
+                         for columns in schema['columns'].values() for column in columns})
+        for original in fields:
+            if not original.get('enabled', True):
+                continue
+            field = dict(original)
+            field.setdefault('name', field.get('field_key'))
+            source = field.get('source_field', field.get('field_key', field['name']))
+            meta = metadata.get(source, {})
+            for key in ('family', 'level'):
+                if key not in field:
+                    field[key] = meta[key]
+            field.setdefault('representation', meta.get('kind', 'scalar'))
+            if field.get('registry_id') == 73 and field['name'].rsplit('.', 1)[-1] in ('sigma', 'pi'):
+                field['r73_component'] = field['name'].rsplit('.', 1)[-1]
+            self.fields.append(field)
+        self.normalizations = (manifest.get('normalizations', {})
+                               if normalizations is None else normalizations)
         if isinstance(self.normalizations, str):
             self.normalizations = json.loads(Path(self.normalizations).read_text())
         self.locations = {}
@@ -189,7 +213,12 @@ class TrainingView:
             key = field.get('target_id', field.get('field_key', field['name']))
             if field.get('registry_id') == 674 or '.r674.' in key:
                 raise ValueError('r674 cannot be enabled for training')
-            if not field.get('r73_component') and key not in self.locations:
+            selectors = field.get('selectors')
+            if selectors and not field.get('r73_component'):
+                self.locations[field['name']] = [(item[2], item[1]) for item in selectors]
+                # Frozen view field_keys remain independent even if they share a native target.
+                field['_location_key'] = field['name']
+            if not field.get('r73_component') and field.get('_location_key', key) not in self.locations:
                 raise ValueError('Training field is absent from schema: ' + key)
 
     def extract(self, molecule, conformer):
@@ -205,7 +234,7 @@ class TrainingView:
                 raw = r73[:, ['sigma', 'pi'].index(field['r73_component'])][:, None]
                 array_name = 'pair_labels'
             else:
-                key = field.get('target_id', field.get('field_key', name))
+                key = field.get('_location_key', field.get('target_id', field.get('field_key', name)))
                 locations = self.locations[key]
                 array_name = locations[0][0]
                 source = molecule if array_name == 'd20' else conformer
@@ -235,7 +264,8 @@ class TrainingView:
 class MFM4Dataset:
     """Per-process LMDB handles, molecule-first sampling and explicit geometry."""
     def __init__(self, root, *, split='TRAIN', training_view=None, source='PM7',
-                 order='fixed_random', k=None, diagnostic=False, molecule_indices=None):
+                 order='fixed_random', k=None, diagnostic=False, molecule_indices=None,
+                 normalizations=None):
         self.root = Path(root)
         self.directory = self.root / ('v31_pilot_' + split)
         if not self.directory.exists():
@@ -247,7 +277,8 @@ class MFM4Dataset:
             raise ValueError('Geometry source must be PM7 or UFF')
         if isinstance(training_view, (str, Path)):
             training_view = json.loads(Path(training_view).read_text())
-        self.view = None if training_view is None else TrainingView(self.schema, training_view)
+        self.view = (None if training_view is None else
+                     TrainingView(self.schema, training_view, normalizations))
         self.indices = (np.arange(self.manifest['molecule_count']) if molecule_indices is None
                         else np.asarray(molecule_indices, dtype=np.int64))
         self._index_set = set(map(int, self.indices))
@@ -362,7 +393,8 @@ def enabled_encoder_fields(fields, encoder):
     """Coordinate-free encoders automatically omit coordinate/vector heads."""
     if getattr(encoder, 'accepts_coordinates', True):
         return tuple(fields)
-    return tuple(f for f in fields if f.get('representation', 'scalar') != 'vector'
+    return tuple(f for f in fields if f.get('representation', 'scalar') not in
+                 ('vector', 'magnitude', 'symmetric_tensor6')
                  and f.get('kind') != 'denoise_eps_mse')
 
 

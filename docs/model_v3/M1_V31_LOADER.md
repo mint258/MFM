@@ -2,16 +2,19 @@
 
 入口为 `current/phychem_mfm/phase1/v31_loader.py`。读取每 split 的单默认 LMDB、
 共享 schema.json 和外部 id_map.parquet；无 v3.0 回退、文件哈希或独立重读。
-新逻辑 15 项单元测试实际通过；M1 最终完成仍须 M2 真实训练跑通。
+M1 最终完成仍须 M2 真实训练跑通；格式、采样、字段及缺失规则有单元测试。
 
-TrainingView 消费窗口二的训练清单。清单 `fields` 每项提供 name、field_key、
-group、family、level、representation 及显式 D4 normalization（fit_role=TRAIN、
-center、scale；需要时包含已有 element_reference）。也可由 normalizations 映射
-按字段名提供参数。没有 D4 参数时不能自行拟合或用单位尺度冒充。
+TrainingView 直接消费窗口二正式冻结的 training_view_v1.json；字段名取 field_key，
+按 selectors 选择实际列，family/level/representation 来自共享 schema。原始完整
+target_id 相同的独立分量仍分别选取，不扩展成整个目标。显式 D4 参数可由
+normalizations 映射按字段名提供（fit_role=TRAIN、center、scale；需要时包含已有
+element_reference）。亦保留旧模型侧显式字段和 target_id 接口。
+没有 D4 参数时不能自行拟合或用单位尺度冒充。
+D4 缩尾仅用于统计拟合；加载时不裁剪原始训练标签。
 
-r73 在清单的 r73 项显式给出 reduction=sum、code_column、channels.sigma/pi、
-missing_components 和 empty_sum；读取器按该约定汇总有向 pair，不自行猜测
-S/P/D 轨道分类或 delta 通道归属。r73_component=sigma/pi 各是一列目标。
+r73 按正式清单 code_to_symmetry 映射，两个轨道轴均属 sigma 或均属 pi 时才纳入
+对应的和；mixed/delta 不纳入。F64 累加后转训练 F32，保留原有向 pair、自环与
+重复贡献；所选项任一无效则该和缺失，无项为 NaN。兼容旧显式列分类接口。
 r674 不能启用。U 缺少标签数组时只提供其实际拥有的几何和分子级 D20。
 
 MFM4Dataset 支持 source=PM7/UFF、order=fixed_random/energy/diversity、k=None/正整数。

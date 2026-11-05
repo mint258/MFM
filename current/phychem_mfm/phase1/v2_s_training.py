@@ -207,10 +207,11 @@ def train_s(*, index_path, output, distance_bias='C1-0', views='three', seed=0,
                         output / f'samples_{clock.samples_consumed}.pt')
                 if clock.optimizer_updates % 100 == 0:
                     print(f'samples={clock.samples_consumed} loss={float(loss.total):.7f}', flush=True)
-        summary = dict(status='TRAINING_COMPLETE_DEV_EVALUATION_PENDING', samples=clock.samples_consumed,
-            updates=clock.optimizer_updates, seconds=time.monotonic()-started,
-            preclip_gradient_p99=float(np.quantile(gradients, .99)),
-            gpu_peak_bytes=torch.cuda.max_memory_allocated(), **trial)
+        summary = {**trial, 'status': 'TRAINING_COMPLETE_DEV_EVALUATION_PENDING',
+            'samples': clock.samples_consumed, 'updates': clock.optimizer_updates,
+            'seconds': time.monotonic()-started,
+            'preclip_gradient_p99': float(np.quantile(gradients, .99)),
+            'gpu_peak_bytes': torch.cuda.max_memory_allocated()}
         (output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     finally:
         pool.shutdown(wait=True, cancel_futures=True)

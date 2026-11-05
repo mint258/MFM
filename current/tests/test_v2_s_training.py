@@ -43,3 +43,13 @@ def test_native_atom_descriptor_index_is_not_collated_as_an_edge():
     assert batch.num_nodes == 8 and 'rdkit_node_estate_index' not in batch
     assert getattr(batch, BOND_INDEX_FIELD).tolist() == [[0, 3], [1, 4]]
     assert getattr(batch, BOND_ORDER_FIELD).tolist() == [2, 2]
+
+
+def test_validation_roles_keep_source_ordinals_and_never_pool_diagnostic_into_full():
+    from phychem_mfm.phase1.v2_s_validation import validation_populations
+    rows = [dict(role='FULL', routine=False), dict(role='FULL', routine=True),
+            dict(role='TRAIN_UNSEEN_CONFORMATION', routine=False)]
+    selected = validation_populations(rows, 'ROUTINE')
+    assert [i for i, _ in selected['ROUTINE']] == [1]
+    assert [i for i, _ in selected['TRAIN_UNSEEN_CONFORMATION']] == [2]
+    assert [i for i, _ in validation_populations(rows, 'FULL')['FULL']] == [0, 1]
