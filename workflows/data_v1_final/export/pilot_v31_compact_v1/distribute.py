@@ -13,6 +13,8 @@ from .run import load, save
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--plan', required=True)
+    parser.add_argument('--finalize-only', action='store_true',
+                        help='Publish metadata from recorded successful transfers; no data reads or copies')
     args = parser.parse_args()
     plan = load(args.plan)
     root = pathlib.Path(plan['output_root'])
@@ -57,6 +59,11 @@ def main():
 
     remaining = list(plan['gpu_nodes'])
     completed = []
+    if args.finalize_only:
+        completed = load(plan['progress_path'])['completed']
+        assert {x['node'] for x in completed} == set(plan['gpu_nodes'])
+        assert all(x['status'] == 'RSYNC_SPARSE_COMPLETED' for x in completed)
+        remaining = []
     while remaining:
         deferred = []
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
@@ -82,15 +89,17 @@ def main():
         sizes.update(manifest['record_key_value_bytes'])
     logical = sum(p.stat().st_size for p in root.rglob('*') if p.is_file())
     allocated = int(subprocess.check_output(['du', '-s', '-B1', str(root)], text=True).split()[0])
-    native = subprocess.check_output(['sacct', '-X', '-j', '4525960', '-n', '-P',
-        '--format=ElapsedRaw'], text=True).strip()
-    original_elapsed = int(native)
+    # Native accounting is collected on the login host, not compute-local localhost:6819.
+    original_elapsed = plan['original_export_elapsed_seconds']
+    distribution_seconds = (plan['distribution_elapsed_seconds'] if args.finalize_only
+                            else time.monotonic() - started)
     save(plan['progress_path'], dict(status='D3_V31_EXPORTED_VALIDATED_AND_DISTRIBUTED',
         shared_root=str(root), roles={r: m['molecule_count'] for r, m in manifests.items()},
         P_records=counts['P'], U_records=counts['U'], logical_bytes=logical, du_bytes=allocated,
         export_seconds=manifests['TRAIN']['export_seconds'],
-        total_seconds=original_elapsed + time.monotonic() - started,
-        distribution_seconds=time.monotonic() - started,
+        total_seconds=original_elapsed + distribution_seconds,
+        distribution_seconds=distribution_seconds,
+        administrative_metadata_recovery=args.finalize_only,
         original_export_job='4525960', original_export_terminal='CANCELLED_AFTER_FINAL_CHECK_DURING_TRANSPORT_ONLY',
         mean_record_bytes={k: sizes[k] / counts[k] for k in ('M', 'P', 'U')},
         numerical=numerical, topology_differences=manifests['TRAIN']['topology_difference_count'],
