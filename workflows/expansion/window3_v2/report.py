@@ -75,7 +75,7 @@ def run(config):
 |---|---:|---:|---:|---:|
 {chr(10).join(rows)}
 
-**覆盖。** R/N到v1的平均既有NN Tanimoto分别为{coverage['R'][2]:.5f}/{coverage['N'][2]:.5f}；低于0.4的比例为{coverage['R'][4]:.2%}/{coverage['N'][4]:.2%}；新骨架比例为{coverage['R'][7]:.2%}/{coverage['N'][7]:.2%}，新环系为{coverage['R'][8]:.2%}/{coverage['N'][8]:.2%}。同一固定250万新增结构加入后，含自身查询的NN均为1，直接新增结构覆盖占候选池{stats['directly_added_fraction_of_filtered_pool']:.2%}。原随机100万对v1均值0.519917；其扩充后NN未计算，不能由直接覆盖推断。全部分数复用既有结果。
+**覆盖（已有结果；E4.3口径待用户确认）。** R/N到v1的平均既有NN Tanimoto分别为{coverage['R'][2]:.5f}/{coverage['N'][2]:.5f}；低于0.4的比例为{coverage['R'][4]:.2%}/{coverage['N'][4]:.2%}；新骨架比例为{coverage['R'][7]:.2%}/{coverage['N'][7]:.2%}，新环系为{coverage['R'][8]:.2%}/{coverage['N'][8]:.2%}。原随机100万对v1均值0.519917。增广后的NN分布没有计算；来源自身的直接覆盖不作为查询集覆盖增益。本节不能证明E4.3完成。新增计算仍遵守任务书禁止条款，等待用户确定报告口径。全部现有分数均复用既有结果。
 
 **UFF与标签。** 恰3构象{good:,}分子（{good/n:.2%}），不足3构象{insufficient:,}；交付{totals['conformers']:,}个实际构象。状态：{json.dumps(dict(states),ensure_ascii=False)}。失败原因保留于source_status，逐分子耗时在timings家族。物理范围新增掩码最高{highest['fraction']:.3%}（{highest['field_stream']}，{highest['newly_masked_records']}/{highest['records']}）；源缺失另计，比例不触发停止。
 
