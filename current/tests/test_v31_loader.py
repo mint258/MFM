@@ -8,6 +8,7 @@ from phychem_mfm.phase1.v31_loader import (
     decode_mfm4, record_key, allowed_conformers, aggregate_r73,
     TrainingView, normalize_values, MFM4Dataset, field_weights,
     enabled_encoder_fields, SampleMilestones,
+    encode_samples,
 )
 
 
@@ -127,6 +128,24 @@ def test_coordinate_free_encoder_closes_vector_and_denoise_fields():
               dict(name='denoise', kind='denoise_eps_mse')]
     encoder = type('Encoder', (), {'accepts_coordinates': False})()
     assert enabled_encoder_fields(fields, encoder) == (fields[0],)
+
+
+def test_public_encoder_bridge_never_passes_labels_or_coordinates_to_2d():
+    import torch
+    class Encoder:
+        accepts_coordinates = False
+        def encode_atoms(self, batch):
+            assert batch.pos is None and 'targets' not in batch
+            return batch.x.float().repeat(1, 512)
+        def encode_graph(self, batch, pooling='mean'):
+            assert pooling == 'mean'
+            assert batch.pos is None
+            return torch.zeros(batch.num_graphs, 512)
+    sample = dict(Z=np.array([6, 1]), pos=np.zeros((2, 3)), bonds=np.array([[0, 1]]),
+                  bond_order=np.array([1]), targets={'secret_label': 99.})
+    batch, h0 = encode_samples([sample], Encoder())
+    assert h0.shape == (2, 512) and batch.x[:, 0].tolist() == [5, 0]
+    assert encode_samples([sample], Encoder(), graph=True)[1].shape == (1, 512)
 
 
 def test_sample_milestones_crossed_once():

@@ -178,11 +178,15 @@ class TrainingView:
             for column in columns:
                 self.locations.setdefault(column['field_key'], []).append(
                     (name, column['column_index']))
+        for target_id, layout in schema.get('target_layout', {}).items():
+            if layout['array_name'] in ARRAY_IDS:
+                self.locations[target_id] = [(layout['array_name'], c)
+                                             for c in layout['column_indices']]
         names = [f['name'] for f in self.fields]
         if len(names) != len(set(names)):
             raise ValueError('Duplicate training fields')
         for field in self.fields:
-            key = field.get('field_key', field['name'])
+            key = field.get('target_id', field.get('field_key', field['name']))
             if field.get('registry_id') == 674 or '.r674.' in key:
                 raise ValueError('r674 cannot be enabled for training')
             if not field.get('r73_component') and key not in self.locations:
@@ -201,7 +205,7 @@ class TrainingView:
                 raw = r73[:, ['sigma', 'pi'].index(field['r73_component'])][:, None]
                 array_name = 'pair_labels'
             else:
-                key = field.get('field_key', name)
+                key = field.get('target_id', field.get('field_key', name))
                 locations = self.locations[key]
                 array_name = locations[0][0]
                 source = molecule if array_name == 'd20' else conformer
@@ -246,7 +250,9 @@ class MFM4Dataset:
         self.view = None if training_view is None else TrainingView(self.schema, training_view)
         self.indices = (np.arange(self.manifest['molecule_count']) if molecule_indices is None
                         else np.asarray(molecule_indices, dtype=np.int64))
+        self._index_set = set(map(int, self.indices))
         self._env = self._pid = self._ids = None
+        self._molecules = {}
 
     def __len__(self):
         return len(self.indices)
@@ -265,12 +271,17 @@ class MFM4Dataset:
             self._pid = os.getpid()
 
     def record(self, kind, molecule, conformer=None):
+        if kind == 'M' and molecule in self._molecules:
+            return self._molecules[molecule]
         self._open()
         with self._env.begin() as txn:
             payload = txn.get(record_key(kind, molecule, conformer))
         if payload is None:
             raise KeyError((kind, molecule, conformer))
-        return decode_mfm4(payload)
+        result = decode_mfm4(payload)
+        if kind == 'M':
+            self._molecules[molecule] = result
+        return result
 
     def choices(self, molecule):
         return allowed_conformers(self.record('M', molecule), source=self.source,
@@ -285,6 +296,8 @@ class MFM4Dataset:
         return self.read(molecule, int(rng.choice(choices)))
 
     def read(self, molecule, conformer):
+        if molecule not in self._index_set:
+            raise ValueError('Molecule is outside the selected subset')
         m = self.record('M', molecule)
         if conformer not in allowed_conformers(m, source=self.source, order=self.order,
                                                k=self.k, diagnostic=self.diagnostic):
@@ -333,6 +346,12 @@ class MFM4Dataset:
             self._ids = pq.read_table(self.directory / 'id_map.parquet')
         return self._ids
 
+    def indices_from_ids(self, molecule_ids):
+        table = self.identities().select(['record_kind', 'molecule_id', 'molecule_index'])
+        mapping = {row['molecule_id']: row['molecule_index'] for row in table.to_pylist()
+                   if row['record_kind'] == 'M'}
+        return np.asarray([mapping[mid] for mid in molecule_ids], dtype=np.int64)
+
     def close(self):
         if self._env is not None:
             self._env.close()
@@ -345,6 +364,28 @@ def enabled_encoder_fields(fields, encoder):
         return tuple(fields)
     return tuple(f for f in fields if f.get('representation', 'scalar') != 'vector'
                  and f.get('kind') != 'denoise_eps_mse')
+
+
+def encode_samples(samples, encoder, *, graph=False, pooling='mean', device=None):
+    """Only the public encoder API sees model inputs; labels stay separate."""
+    from torch_geometric.data import Batch, Data
+    from ..data.descriptor_schema import BOND_INDEX_FIELD, BOND_ORDER_FIELD, BOND_STATUS_FIELD
+    coordinate_input = getattr(encoder, 'accepts_coordinates', True)
+    records = []
+    for sample in samples:
+        record = Data(x=torch.as_tensor(sample['Z'].astype(np.int64) - 1).reshape(-1, 1))
+        if coordinate_input:
+            record.pos = torch.as_tensor(sample['pos'], dtype=torch.float32)
+        setattr(record, BOND_INDEX_FIELD, torch.as_tensor(sample['bonds'].T.copy(), dtype=torch.long))
+        setattr(record, BOND_ORDER_FIELD, torch.as_tensor(sample['bond_order'].astype(np.int64)))
+        setattr(record, BOND_STATUS_FIELD, 'ok')
+        records.append(record)
+    batch = Batch.from_data_list(records)
+    if device is not None:
+        batch = batch.to(device)
+    features = (encoder.encode_graph(batch, pooling=pooling) if graph
+                else encoder.encode_atoms(batch))
+    return batch, features
 
 
 def field_weights(fields, *, groups, families=None, fixed_full_condition=False):
