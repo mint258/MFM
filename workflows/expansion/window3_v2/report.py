@@ -78,7 +78,9 @@ def run(config):
     rows=[]
     for group,label in [('v1_common','v1'),('pubchem_1m','PubChem随机100万'),('R','R'),('N','N')]:
         fields=values if group in ('R','N') else distribution
-        rows.append('| '+label+' | '+' | '.join(f"{fields[group,field]['mean']:.3f}" for field in ('heavy_atoms','logp','tpsa_A2','rotatable_bonds'))+' |')
+        rows.append('| '+label+' | '+' | '.join(
+            f"{fields[group,field]['mean']:.2f}±{fields[group,field]['population_std']:.2f}"
+            for field in ('heavy_atoms','logp','tpsa_A2','rotatable_bonds'))+' |')
     coverage={row[0]:row for row in stats['coverage_to_v1']}
     text=f'''# PubChem v2 candidate：首批250万
 
@@ -86,7 +88,7 @@ def run(config):
 
 **筛选与去污染。** 原始124,857,440条；筛选通过110,050,006，化学排除14,764,875，技术未确定42,559；内部去重后109,875,599，完整InChIKey及原wp5精确去污染排除4,204,766，留下105,670,833。R/N各500万嵌套队列，首批各125万。无组成/通配符否决；PDBbind移出来源；结构未确定行保留处置记录并从下游评估排除。
 
-**结构分布（均值；全体来源，含UFF失败）。** 完整分箱表及类别计数见 `{config['statistics']}`。
+**结构分布（均值±总体标准差；全体来源，含UFF失败）。** 完整分箱表及类别计数见 `{config['statistics']}`。
 
 | 群体 | 重原子 | logP | TPSA/Å² | 可旋转键 |
 |---|---:|---:|---:|---:|
