@@ -113,7 +113,7 @@ def main():
         i = min(range(4), key=lambda j: (sizes[j], j))
         groups[i].append(path)
         sizes[i] += path.stat().st_size
-    workflow = sorted((ROOT / 'workflows').rglob('test*.py'))
+    workflow = [] if os.environ.get('MERGE_RESUME_CORE') == '1' else sorted((ROOT / 'workflows').rglob('test*.py'))
     groups.extend([path] for path in workflow)
     files = [p for group in groups for p in group]
     inventory = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in files}

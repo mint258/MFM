@@ -1,13 +1,13 @@
-name: Combined merge regression
+name: Complete previously uncollected core regression
 on:
   push:
     branches: [integration/model-data-expansion-20261104]
 permissions:
-  contents: write
+  contents: read
 jobs:
-  regression:
+  core-regression:
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 45
     env:
       CUDA_VISIBLE_DEVICES: ""
       OMP_NUM_THREADS: "1"
@@ -16,58 +16,39 @@ jobs:
       WANDB_MODE: offline
       WANDB_SILENT: "true"
       PYTHONDONTWRITEBYTECODE: "1"
-      MERGE_VALIDATION_OUTPUT: /tmp/mfm-merge-validation
+      MERGE_VALIDATION_OUTPUT: /tmp/mfm-core-validation
+      MERGE_RESUME_CORE: "1"
       MERGED_TREE: 23362976994413e349c7e0e261dc3ddac079e2a2
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Archive experimental branch heads
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const entries = [{"branch":"model-v3-a-acceptance-v2-20261028-v1","tag":"archive/model-v3-a-acceptance-v2-20261028-v1","sha":"2b4a4df8636e5d65915d535472ba01084ea72dab"},{"branch":"model-v3-attention-centering-20261027-v1","tag":"archive/model-v3-attention-centering-20261027-v1","sha":"f8417157dc23326d1beca8e19e4725755d9f13c6"},{"branch":"model-v3-attention-core64-diagnostic-20261027-v1","tag":"archive/model-v3-attention-core64-diagnostic-20261027-v1","sha":"b88f07d1628e53d7f78e1232397fab0568ffd823"},{"branch":"model-v3-c-distance-bias-free-20261028-v1","tag":"archive/model-v3-c-distance-bias-free-20261028-v1","sha":"481943ff1da79f096d61f4b04914ddf45a56a4a6"},{"branch":"model-v3-ffn-fp32-candidate-20261028-v1","tag":"archive/model-v3-ffn-fp32-candidate-20261028-v1","sha":"9977c6b4995b97eb5537b15aaf85cea67e0647bf"},{"branch":"model-v3-geometry-fp32-candidate-20261028-v1","tag":"archive/model-v3-geometry-fp32-candidate-20261028-v1","sha":"498ecbe7e88b1468067dde5692c10735fcadf2ea"},{"branch":"model-v3-native-checkpoint-bridge-20261027-v1","tag":"archive/model-v3-native-checkpoint-bridge-20261027-v1","sha":"60aa359443ef6a79aabc08144d2af4eec7ec24c5"},{"branch":"model-v3-numeric-stability-v1","tag":"archive/model-v3-numeric-stability-v1","sha":"5cdb2772dfa51e1cc72098c659fb741440219772"},{"branch":"model-v3-performance-integration-20261027-v1","tag":"archive/model-v3-performance-integration-20261027-v1","sha":"8147f44baa1ea1ecc3822af7affd0a95401ed248"},{"branch":"model-v3-projection-fp32-candidate-20261028-v1","tag":"archive/model-v3-projection-fp32-candidate-20261028-v1","sha":"b2c4c6772d751ba08ac611cbe563ee2e1b40e709"},{"branch":"model-v3-recipe-readiness-20261027-v1","tag":"archive/model-v3-recipe-readiness-20261027-v1","sha":"727207f18f08d6107c08ce2dc3e95edd154d60c7"},{"branch":"model-v3-residual-fp32-candidate-20261028-v1","tag":"archive/model-v3-residual-fp32-candidate-20261028-v1","sha":"380c828db0ac4a37e45b7cc5077de9b56e37a67d"},{"branch":"model-v3-runtime-integration-20261027-v1","tag":"archive/model-v3-runtime-integration-20261027-v1","sha":"0cfc5c40f2b48df699727a7c42d0e0a310d73d9f"},{"branch":"model-v3-tensor-math-candidate-20261028-v1","tag":"archive/model-v3-tensor-math-candidate-20261028-v1","sha":"49d610bba1cadef7fd80fab70435cd944cce7722"}];
-            for (const entry of entries) {
-              const ref = 'tags/' + entry.tag;
-              try {
-                const found = await github.rest.git.getRef({...context.repo, ref});
-                if (found.data.object.sha !== entry.sha) throw new Error('Existing archive tag differs: ' + ref);
-              } catch (error) {
-                if (error.status !== 404) throw error;
-                await github.rest.git.createRef({...context.repo, ref: 'refs/' + ref, sha: entry.sha});
-              }
-              core.info(entry.tag + ' -> ' + entry.sha);
-            }
-      - name: Repository check (single pass)
+      - name: Install complete CPU dependencies
         run: |
-          mkdir -p /tmp/mfm-merge-validation
-          python tools/check_repository.py --output /tmp/mfm-merge-validation/repository-check.json
-      - name: Install CPU test dependencies
-        run: |
+          mkdir -p /tmp/mfm-core-validation
           python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
-          python -m pip install numpy==2.2.6 scipy==1.15.3 wandb==0.28.1
-          python -m pip install -r requirements-dev.txt
-          python -m pip freeze > /tmp/mfm-merge-validation/environment.txt
+          python -m pip install -r requirements-dev.txt periodictable
+          python -m pip install numpy==2.2.6 scipy==1.15.3 wandb==0.28.1 rdkit==2025.9.5 duckdb==1.5.6
+          python -m pip freeze > /tmp/mfm-core-validation/environment.txt
       - name: Bind shipped references
         run: |
           echo "PHASE1_NATIVE_TRANSPORT_PATH=$GITHUB_WORKSPACE/reproduction/linked_sources/docs/phase1/evidence/stage48_full_corpus_qa/native_qa_stats_v3.py" >> "$GITHUB_ENV"
           echo "PHASE1_FORMAL_PROTOCOL_PATH=$GITHUB_WORKSPACE/reproduction/linked_sources/docs/phase1/evidence/stage59_three_epoch_protocol_v1/actual_scientific_freeze_v1/phase1_three_epoch_scientific_protocol.json" >> "$GITHUB_ENV"
           echo "MODEL_V3_D5_PROJECTION_SOURCE=$GITHUB_WORKSPACE/workflows/data_v1_final/export/wire_v1/sampling_projection_v1.py" >> "$GITHUB_ENV"
           echo "TMPDIR=/tmp" >> "$GITHUB_ENV"
-      - name: Full CPU regression (single pass)
+      - name: Execute core tests that previously stopped before collection
         run: python .github/merge_validation.py
-      - name: Retain complete regression logs
+      - name: Retain results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: combined-merge-regression
+          name: previously-uncollected-core-regression
           path: |
-            /tmp/mfm-merge-validation/*.json
-            /tmp/mfm-merge-validation/*.log
-            /tmp/mfm-merge-validation/*.xml
-            /tmp/mfm-merge-validation/environment.txt
+            /tmp/mfm-core-validation/*.json
+            /tmp/mfm-core-validation/*.log
+            /tmp/mfm-core-validation/*.xml
+            /tmp/mfm-core-validation/environment.txt
           retention-days: 14
