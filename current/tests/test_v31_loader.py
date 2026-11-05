@@ -164,6 +164,8 @@ def test_d4_train_reference_and_no_refitting():
     assert np.isnan(actual[1]).all()
     spec['fit_role'] = 'VAL'
     with pytest.raises(ValueError, match='TRAIN'): normalize_values([8.], spec, Z=np.array([6, 1]))
+    spec.update(fit_role='TRAIN', center=np.nan)
+    with pytest.raises(ValueError, match='center'): normalize_values([8.], spec, Z=np.array([6, 1]))
 
 
 def test_d4_winsor_fit_bounds_do_not_clip_training_targets():
@@ -239,3 +241,13 @@ def test_real_lmdb_api_process_handle_sampling_and_mean(tmp_path):
     with pytest.raises(ValueError, match='excluded'): dataset.read(0, 1)
     assert dataset.__getstate__()['_env'] is None
     dataset.close()
+
+
+def test_subset_id_mapping_reads_molecule_rows_and_preserves_requested_order(tmp_path):
+    pa = pytest.importorskip('pyarrow')
+    import pyarrow.parquet as pq
+    pq.write_table(pa.table(dict(record_kind=['P', 'M', 'M'], molecule_id=['A', 'A', 'B'],
+        molecule_index=[99, 3, 5])), tmp_path/'id_map.parquet')
+    dataset = MFM4Dataset.__new__(MFM4Dataset)
+    dataset.directory = tmp_path
+    assert dataset.indices_from_ids(['B', 'A']).tolist() == [5, 3]

@@ -299,3 +299,6 @@ Native四条20k曲线仍受实际GPU资源阻塞；等待进程存活不代表�
 
 | 2026-11-05 | 模型线接收正式训练视图 | 已收到 FROZEN_BEFORE_STAGE5_PD，按原 pair 行汇总双轴同对称性的 σ/π，保留自环/方向/重复与缺失；正在接入134字段 | 数据线 configs/data_v1/training_view_v1.json |
 | 2026-11-05 | M2 所需 D4 参数 | 现有 numeric_repetition_0 的向量路线仍为 PENDING_ACTUAL_JOINT_POLICY_RELEASE；请数据线在正式 D4 中交付字段到归一化参数的映射，包括新 σ/π、能量元素参考、矢量零中心单尺度及原子字段策略。模型端不以 B2 原始均值/标准差替代 D4，不用 raw-K 统计归一化 σ/π；等参数交付后直接进行 M2 | docs/model_v3/M1_V31_LOADER.md |
+
+| 2026-11-05 | D6 r73 存储绑定已接线 | 优先消费 schema.derived_r73_pair_targets 的 array27 预聚合列；历史D3保留F32 K聚合，按各自schema标签字典解析通道。原子对仅在有标签的行执行预测，按原行号还原掩码/方向/自环；扰动标签使用真实array22，缺几何且无标签时保持缺失 | current/phychem_mfm/phase1/v31_loader.py；v31_training.py |
+| 2026-11-05 | 阶段5代理人口保持 | 当前S对比使用已交付D5的240,000 TRAIN分子，训练索引为 runs/model_v31_20261105/S240k/records.parquet。后续P/D/SDP将消费同一代理分子列表；若最终D6缺其中ID，实际加载时报告缺口，不把另一份240k列表静默当作同一比较 | 数据线 configs/data_v1/D5_v1_pilot_provisional_delivery.json |

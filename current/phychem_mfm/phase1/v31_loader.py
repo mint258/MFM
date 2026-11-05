@@ -163,6 +163,8 @@ def normalize_values(raw, specification, *, Z):
         offset = reference.get('intercept', 0.) + sum(
             counts.get(int(z), 0) * coefficient
             for z, coefficient in zip(reference['basis'], reference['coefficients']))
+        if not np.isfinite(offset):
+            raise ValueError('D4 element reference must be finite')
         values -= np.float32(offset)
     # D4 winsorizes the statistical fit, not the original training labels.
     # Quantile bounds may be present as provenance; never clip target values.
@@ -170,6 +172,8 @@ def normalize_values(raw, specification, *, Z):
     scale = np.asarray(specification['scale'], dtype=np.float32)
     if not np.all(np.isfinite(scale) & (scale > 0)):
         raise ValueError('D4 scale must be finite and positive')
+    if not np.all(np.isfinite(center)):
+        raise ValueError('D4 center must be finite')
     return (values - center) / scale
 
 
@@ -399,9 +403,11 @@ class MFM4Dataset:
         return self._ids
 
     def indices_from_ids(self, molecule_ids):
-        table = self.identities().select(['record_kind', 'molecule_id', 'molecule_index'])
-        mapping = {row['molecule_id']: row['molecule_index'] for row in table.to_pylist()
-                   if row['record_kind'] == 'M'}
+        import pyarrow.parquet as pq
+        table = pq.read_table(self.directory / 'id_map.parquet',
+                              columns=['molecule_id', 'molecule_index'],
+                              filters=[('record_kind', '=', 'M')])
+        mapping = {row['molecule_id']: row['molecule_index'] for row in table.to_pylist()}
         return np.asarray([mapping[mid] for mid in molecule_ids], dtype=np.int64)
 
     def close(self):
@@ -421,13 +427,20 @@ def enabled_encoder_fields(fields, encoder):
 
 def encode_samples(samples, encoder, *, graph=False, pooling='mean', device=None):
     """Only the public encoder API sees model inputs; labels stay separate."""
+    batch = collate_samples(samples, coordinates=getattr(encoder, 'accepts_coordinates', True), device=device)
+    features = (encoder.encode_graph(batch, pooling=pooling) if graph
+                else encoder.encode_atoms(batch))
+    return batch, features
+
+
+def collate_samples(samples, *, coordinates=True, device=None):
+    """Pack source model inputs without carrying any P/D targets into PyG."""
     from torch_geometric.data import Batch, Data
     from ..data.descriptor_schema import BOND_INDEX_FIELD, BOND_ORDER_FIELD, BOND_STATUS_FIELD
-    coordinate_input = getattr(encoder, 'accepts_coordinates', True)
     records = []
     for sample in samples:
         record = Data(x=torch.as_tensor(sample['Z'].astype(np.int64) - 1).reshape(-1, 1))
-        if coordinate_input:
+        if coordinates:
             record.pos = torch.as_tensor(sample['pos'], dtype=torch.float32)
         setattr(record, BOND_INDEX_FIELD, torch.as_tensor(sample['bonds'].T.copy(), dtype=torch.long))
         setattr(record, BOND_ORDER_FIELD, torch.as_tensor(sample['bond_order'].astype(np.int64)))
@@ -436,9 +449,7 @@ def encode_samples(samples, encoder, *, graph=False, pooling='mean', device=None
     batch = Batch.from_data_list(records)
     if device is not None:
         batch = batch.to(device)
-    features = (encoder.encode_graph(batch, pooling=pooling) if graph
-                else encoder.encode_atoms(batch))
-    return batch, features
+    return batch
 
 
 def field_weights(fields, *, groups, families=None, fixed_full_condition=False):

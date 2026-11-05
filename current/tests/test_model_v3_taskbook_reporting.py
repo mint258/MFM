@@ -20,6 +20,13 @@ def test_training_tail_uses_last_complete_record(tmp_path):
     assert collector.last_training_row(path) == dict(samples=32, updates=1, seconds=2.5)
 
 
+def test_m2_counter_order_is_read_from_its_producer_header(tmp_path):
+    collector = module('tools/model_v3/v2_collect_runs.py', 'v2_collect_m2_runs')
+    path = tmp_path/'losses.csv'
+    path.write_text('updates,samples,total,S,D,P,preclip_norm,seconds\n1,8,1,,1,1,1,2.5\n')
+    assert collector.last_training_row(path) == dict(samples=8, updates=1, seconds=2.5)
+
+
 def test_taskbook_run_summary_is_allowed_without_digest_columns():
     collector = module('tools/model_v3/v2_collect_runs.py', 'v2_collect_runs_format')
     checker = module('tools/check_repository.py', 'repository_taskbook_checker')

@@ -8,7 +8,7 @@ from phychem_mfm.phase1.v3_contract import FieldSpec, LabelRegistry
 from phychem_mfm.model.v3_heads import V3HeadBank
 
 
-def test_molecular_components_share_equivariant_head_but_keep_field_weights():
+def test_molecular_components_share_equivariant_head_but_keep_source_column_names():
     columns = [dict(field_key='dipole.' + axis, column_index=i, family='multipole',
                     level='molecule_vector', kind='vector') for i, axis in enumerate('xyz')]
     schema = dict(columns={'mol_labels': columns}, target_layout={
@@ -21,6 +21,43 @@ def test_molecular_components_share_equivariant_head_but_keep_field_weights():
     assert len(losses) == 3 and all(f.representation == 'scalar' for f in losses)
     assert selections == {f'dipole.{axis}': ('dipole', i) for i, axis in enumerate('xyz')}
     assert routes == {'dipole': 21} and onsite == ()
+
+
+def test_molecular_vector_keeps_original_radial_huber_and_complete_observation_count():
+    class Encoder(torch.nn.Module):
+        latent_dim = 8
+        def __init__(self):
+            super().__init__()
+            self.weight = torch.nn.Parameter(torch.ones(()))
+    columns = [dict(field_key='dipole.' + axis, column_index=i, family='multipole',
+                    level='molecule_vector', kind='vector') for i, axis in enumerate('xyz')]
+    schema = dict(columns={'mol_labels': columns}, target_layout={
+        'dipole': dict(array_name='mol_labels', column_indices=[0,1,2], kind='vector')},
+        source_D3_reference={'sha256': 'a' * 64})
+    fields = [dict(field_key=c['field_key'], group='P', target_id='dipole',
+                   selectors=[[23, i, 'mol_labels']]) for i, c in enumerate(columns)]
+    norms = {c['field_key']: dict(fit_role='TRAIN', center=0., scale=1.) for c in columns}
+    view = TrainingView(schema, dict(fields=fields), norms)
+    model = V31PDModel(Encoder(), view)
+    molecule = {1: np.array([6, 1], dtype=np.uint8)}
+    targets = view.extract(molecule, {23: np.zeros(3, dtype=np.float32)})
+    sample = dict(Z=molecule[1], targets=targets)
+    prediction = {f'dipole.{axis}': torch.tensor([[value]], requires_grad=True)
+                  for axis, value in zip('xyz', (4., 0., 0.))}
+    result = model.loss(prediction, [sample], groups=('P',))
+    assert set(result.fields) == {'dipole'} and result.counts == {'dipole': 1}
+    assert float(result.total.detach()) == pytest.approx(4. / 3**.5 - .5, abs=1e-6, rel=1e-6)
+    fixed = model.loss(prediction, [sample], groups=('P',), fixed_full_condition=True)
+    torch.testing.assert_close(fixed.total, result.total, atol=1e-6, rtol=1e-6)
+    assert model.field_counts([sample], groups=('P',)) == {'dipole': 1}
+    targets['dipole.y'].raw[:] = np.nan
+    targets['dipole.y'].values[:] = np.nan
+    targets['dipole.y'].valid[:] = False
+    assert model.field_counts([sample], groups=('P',)) == {'dipole': 0}
+    assert model.loss(prediction, [sample], groups=('P',)).observed_fields == {'P': 0}
+    norms['dipole.y']['scale'] = 2.
+    with pytest.raises(ValueError, match='same D4 scale'):
+        model.loss(prediction, [sample], groups=('P',))
 
 
 def test_r73_onsite_requires_explicit_permission_and_uses_existing_pair_head():
@@ -61,6 +98,9 @@ def test_actual_d4_applied_once_and_energy_reference_restored_for_metrics():
     torch.testing.assert_close(prediction['energy'].grad, torch.tensor([[.5]]), atol=1e-6, rtol=1e-6)
     torch.testing.assert_close(model.original_predictions(prediction, [sample])['energy'],
                                torch.tensor([[106.]]), atol=1e-6, rtol=1e-6)
+    targets['energy'].values[:] = np.nan
+    with pytest.raises(ValueError, match='invalid observed label'):
+        model.loss(prediction, [sample], groups=('P',))
 
 
 def test_perturbed_targets_route_to_delivered_coordinates():

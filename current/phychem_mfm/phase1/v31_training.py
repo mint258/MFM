@@ -43,7 +43,8 @@ def head_layout(view, selected_fields=None):
         pooling = ('sum' if meta.get('extensive') in ('extensive', 'mass_and_geometry_moment') else 'mean')
         heads.setdefault(head_name, FieldSpec(head_name, field['group'], field['family'], level,
             representation=physical_representation, pooling=pooling, unit=field.get('unit', 'source_registry_unit')))
-        # A component remains an independent registry field and loss weight.
+        # Keep source columns for selection/metrics. The original physical
+        # vector remains one radial-Huber field in head_registry/loss.
         fields.append(FieldSpec(name, field['group'], field['family'], level,
             representation='scalar' if physical_vector else representation,
             pooling=pooling, unit=field.get('unit', 'source_registry_unit')))
@@ -81,6 +82,7 @@ class V31PDModel(nn.Module):
             view, enabled_encoder_fields(view.fields, encoder))
         inherited = view.schema['source_D3_reference']['sha256']
         self.head_registry = LabelRegistry(head_fields, 'MFM4_v31_physical_heads', inherited, 'data_line')
+        self.head_by_name = self.head_registry.by_name()
         self.registry = LabelRegistry(loss_fields, 'training_view_v1', inherited, 'data_line')
         self.by_name = self.registry.by_name()
         self.definitions = {f['name']: f for f in view.fields}
@@ -91,7 +93,7 @@ class V31PDModel(nn.Module):
         # Unit transform is used ONLY after applying the actual D4 transform to
         # both sides; it is not a replacement for missing data-line statistics.
         self.unit_normalizations = {f.name: TrainNormalization((0.,), (1.,), inherited,
-            'D4_ALREADY_APPLIED') for f in loss_fields}
+            'D4_ALREADY_APPLIED') for f in head_fields}
 
     def encode_atoms(self, batch):
         return self.encoder.encode_atoms(batch)
@@ -99,8 +101,8 @@ class V31PDModel(nn.Module):
     def encode_graph(self, batch, pooling='mean'):
         return self.encoder.encode_graph(batch, pooling=pooling)
 
-    def predict(self, samples, *, groups=('D', 'P'), clean_features=None, clean_batch=None):
-        active = {f.name for f in self.registry.fields if f.group in groups}
+    def predict(self, samples, *, groups=('D', 'P'), fields=None, clean_features=None, clean_batch=None):
+        active = {f.name for f in self.registry.enabled(groups, fields)}
         physical = {self.selections[name][0] for name in active}
         device = next(self.parameters()).device
         predictions = {}
@@ -169,7 +171,7 @@ class V31PDModel(nn.Module):
     def loss(self, predictions, samples, *, groups=('D', 'P'), fields=None,
              fixed_full_condition=False):
         active = self.registry.enabled(groups, fields)
-        targets, normalized_predictions = {}, {}
+        targets, normalized_predictions, members = {}, {}, {}
         for field in active:
             name = field.name
             specification = self.definitions[name]
@@ -177,19 +179,65 @@ class V31PDModel(nn.Module):
             if specification is None:
                 raise ValueError('Missing D4 normalization for ' + name)
             prediction = predictions[name]
-            normalized_predictions[name] = torch_affine(prediction, specification)
             values = torch.as_tensor(np.concatenate([s['targets'][name].values for s in samples]),
                                      dtype=torch.float32, device=prediction.device)
-            valid = ~torch.isnan(values).any(-1)
-            targets[name] = FieldTarget(values, valid)
-        result = compute_v3_loss(normalized_predictions, targets, self.registry, self.unit_normalizations,
-            enabled_groups=groups, enabled_fields=tuple(f.name for f in active))
+            valid = torch.as_tensor(np.concatenate([s['targets'][name].valid for s in samples]),
+                                    dtype=torch.bool, device=prediction.device)
+            head_name, component = self.selections[name]
+            members.setdefault(head_name, []).append((component, torch_affine(prediction, specification),
+                                                       values, valid, specification))
+        for name, columns in members.items():
+            field = self.head_by_name[name]
+            if columns[0][0] is None:
+                _, prediction, value, valid, specification = columns[0]
+                if field.representation == 'vector':
+                    self._require_vector_normalization([specification])
+            else:
+                columns.sort(key=lambda item: item[0])
+                if [item[0] for item in columns] != [0, 1, 2]:
+                    raise ValueError('The original physical vector loss requires all three selected components')
+                self._require_vector_normalization([item[4] for item in columns])
+                prediction = torch.cat([item[1] for item in columns], dim=-1)
+                value = torch.cat([item[2] for item in columns], dim=-1)
+                valid = torch.cat([item[3] for item in columns], dim=-1)
+            normalized_predictions[name] = prediction
+            targets[name] = FieldTarget(value, valid.all(-1))
+        result = compute_v3_loss(normalized_predictions, targets, self.head_registry, self.unit_normalizations,
+            enabled_groups=groups, enabled_fields=tuple(members))
         if fixed_full_condition:
-            denominators = {g: sum(f.group == g for f in self.registry.fields) for g in groups}
-            total = sum((value / (len(groups) * denominators[self.registry.by_name()[name].group])
+            denominators = {g: sum(f.group == g for f in self.head_registry.fields) for g in groups}
+            total = sum((value / (len(groups) * denominators[self.head_by_name[name].group])
                          for name, value in result.fields.items()), result.total.new_zeros(()))
             result = replace(result, total=total)
         return result
+
+    @staticmethod
+    def _require_vector_normalization(specifications):
+        scales = []
+        for specification in specifications:
+            center = np.asarray(specification['center'])
+            scale = np.asarray(specification['scale']).reshape(-1)
+            if np.any(center != 0.) or np.any(scale != scale[0]):
+                raise ValueError('Original equivariant vector normalization requires zero center and one scale')
+            scales.append(float(scale[0]))
+        if any(scale != scales[0] for scale in scales):
+            raise ValueError('All components of the same physical vector need the same D4 scale')
+
+    def field_counts(self, samples, *, groups=('D','P'), fields=None):
+        """Counts for original physical loss fields, preserving component masks."""
+        members = {}
+        for field in self.registry.enabled(groups, fields):
+            head_name, component = self.selections[field.name]
+            masks = np.concatenate([s['targets'][field.name].valid for s in samples])
+            members.setdefault(head_name, []).append((component, masks))
+        counts = {}
+        for name, columns in members.items():
+            if columns[0][0] is not None:
+                columns.sort(key=lambda item: item[0])
+                if [item[0] for item in columns] != [0,1,2]:
+                    raise ValueError('The physical vector count requires all three components')
+            counts[name] = int(np.concatenate([item[1] for item in columns], axis=-1).all(-1).sum())
+        return counts
 
     def original_predictions(self, predictions, samples):
         """Add the supplied elemental energy reference for original-unit R²/MAE."""

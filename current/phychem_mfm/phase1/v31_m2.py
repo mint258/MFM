@@ -8,7 +8,7 @@ import time
 import numpy as np
 import torch
 
-from .v31_loader import MFM4Dataset, encode_samples
+from .v31_loader import MFM4Dataset, collate_samples
 from .v31_training import V31PDModel
 
 
@@ -76,7 +76,6 @@ def run_m2(*, root, training_view, normalizations, output, mode,
     The overfit optimizer updates all enabled heads and the shared backbone;
     every training-view field receives its own original-unit R²/MAE result.
     """
-    from torch_geometric.data import Batch
     from .v2_s_training import s_model
     from .v3_structural import build_structural_views, StructuralViewConfig
     from ..training.losses import LossWeights
@@ -100,6 +99,7 @@ def run_m2(*, root, training_view, normalizations, output, mode,
     recipe = dict(mode=mode, root=str(root), training_view=str(training_view),
         normalizations=str(normalizations), seed=seed, lr=lr, betas=[.9, .95],
         clip=1., batch_size=batch_size, model=configuration,
+        enabled_training_view_columns=len(pd.registry.fields), physical_loss_fields=len(pd.head_registry.fields),
         overfit_molecules=1000 if mode == 'overfit' else None,
         updates=overfit_updates if mode == 'overfit' else 2000)
     (output/'configuration.json').write_text(json.dumps(recipe, indent=2) + '\n')
@@ -122,7 +122,7 @@ def run_m2(*, root, training_view, normalizations, output, mode,
             optimizer.zero_grad(set_to_none=True)
             s_loss = None
             if mode == 'sdp':
-                clean, _ = encode_samples(samples, _BatchOnlyEncoder())
+                clean = collate_samples(samples)
                 views = build_structural_views(clean, ordinals=tuple(range((step-1)*batch_size,
                     step*batch_size)), config=StructuralViewConfig(seed=seed)).to('cuda')
                 s_prediction = structural.forward_pretrain(views, enabled_groups=('S',))
@@ -175,9 +175,3 @@ def run_m2(*, root, training_view, normalizations, output, mode,
     (output/'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     dataset.close()
     return summary
-
-
-class _BatchOnlyEncoder:
-    """Use the public input bridge without doing an unused encoder pass."""
-    def encode_atoms(self, batch):
-        return None

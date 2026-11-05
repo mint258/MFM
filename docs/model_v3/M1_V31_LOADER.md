@@ -9,6 +9,9 @@ TrainingView 直接消费窗口二正式冻结的 training_view_v1.json；字段
 target_id 相同的独立分量仍分别选取，不扩展成整个目标。显式 D4 参数可由
 normalizations 映射按字段名提供（fit_role=TRAIN、center、scale；需要时包含已有
 element_reference）。亦保留旧模型侧显式字段和 target_id 接口。
+选择与R²保留列名；训练损失仍按原physical target：共享target_id的偶极xyz重组为
+一个等变向量、一个原径向Huber及一个组内权重，不改成三个独立标量Huber。
+矢量D4零中心且各分量同一尺度；完整观测资格沿用原逻辑，组件mask仍保留。
 没有 D4 参数时不能自行拟合或用单位尺度冒充。
 D4 缩尾仅用于统计拟合；加载时不裁剪原始训练标签。
 
@@ -27,5 +30,6 @@ MFM4Dataset 支持 source=PM7/UFF、order=fixed_random/energy/diversity、k=None
 sample 用两个条件均匀抽样；molecule_mean 对允许构象的原始标签按有效分量求均值，
 再应用同一 D4；pair 标签通过有向端点对齐。valid 严格来自 isnan。
 field_weights 提供组间/字段等权和家族析因的完整条件固定权重。
+这里的训练字段指物理字段，不能因xyz分列重复计算三个训练权重。
 enabled_encoder_fields 为无坐标编码器关闭去噪和等变矢量字段；本阶段不实现二维编码器。
 样本进度在 1/2/4/8/16/32/64M 保存，已有训练 SampleClock 可截断批次到精确保存点。

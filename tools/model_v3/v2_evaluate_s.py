@@ -1,4 +1,4 @@
-"""Evaluate a taskbook-v2 S checkpoint on the frozen TRAIN-only dev panel."""
+"""Evaluate a taskbook-v2 encoder checkpoint on the frozen TRAIN-only panel."""
 from dataclasses import replace
 import argparse
 import json
@@ -88,9 +88,13 @@ def main():
             torch.manual_seed(seed)
             model, _ = s_model(config['distance_bias'], config['views'])
             if label == 'candidate':
-                model.load_state_dict(checkpoint['model'])
+                state = checkpoint['model']
+                if any(key.startswith('structural.') for key in state):
+                    state = {key.removeprefix('structural.'): value for key, value in state.items()
+                             if key.startswith('structural.')}
+                model.load_state_dict(state)
             encoder = model.encoder.cuda().eval()
-            if label == 'candidate' and args.validation_index:
+            if label == 'candidate' and args.validation_index and config.get('condition', 'S') in ('S', 'SDP'):
                 from phychem_mfm.phase1.v2_s_validation import validate_s
                 validation = validate_s(model, args.validation_index, views=config['views'])
                 (output / 'pretraining_validation.json').write_text(json.dumps(validation, indent=2) + '\n')
