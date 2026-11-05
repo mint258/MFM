@@ -130,9 +130,11 @@ def write_packets(packets, folder):
                               'pubchem_cid': source['cid'], 'pubchem_version': source['pubchem_version']})
         candidates.append({'molecule_id': mid, 'pubchem_cid': source['cid'], 'seed': packet['seed'],
                            'dataset_version': 'v2_candidate', 'stream': source['stream'],
+                           'pubchem_version': source['pubchem_version'],
                            'candidates_json': json.dumps(packet['candidates'], allow_nan=False),
                            'attempts_json': json.dumps(packet['attempts'], allow_nan=False)})
         timing.append({'molecule_id': mid, 'pubchem_cid': source['cid'], 'stream': source['stream'],
+                       'dataset_version': 'v2_candidate', 'pubchem_version': source['pubchem_version'],
                        'seconds': packet['worker_wall_seconds'], 'CPU_seconds': packet['worker_CPU_seconds'],
                        'actual_conformers': len(packet['conformers']), 'state': packet['state']})
     mask_schema = pa.schema([('record_id', pa.string()), ('molecule_id', pa.string()), ('field_id', pa.string()),
@@ -198,6 +200,10 @@ def process(task):
     return result
 
 
+def accept_shard(rank, config):
+    return (rank - 1) % config.get('shard_count', 1) in config.get('shard_residues', [config.get('shard_index', 0)])
+
+
 def selected_sources(config):
     manifest = read(config['source_manifest'])
     rng = random.Random(20261025)
@@ -210,7 +216,7 @@ def selected_sources(config):
                 is_pilot = (row['stream'], row['stream_rank']) in pilot_keys
                 if config['mode'] == 'pilot' and not is_pilot: continue
                 if config['mode'] == 'full' and is_pilot: continue
-                if config['mode'] == 'full' and (row['stream_rank'] - 1) % config.get('shard_count', 1) != config.get('shard_index', 0): continue
+                if config['mode'] == 'full' and not accept_shard(row['stream_rank'], config): continue
                 yield row
 
 
@@ -254,6 +260,7 @@ def run(config):
                'masks': {k: dict(v) for k, v in masks.items()}, 'wall_seconds': time.monotonic() - began,
                'workers': workers, 'job_id': os.environ['SLURM_JOB_ID'], 'mask_rate_is_report_only': True,
                'shard_index': config.get('shard_index', 0), 'shard_count': config.get('shard_count', 1),
+               'shard_residues': config.get('shard_residues', [config.get('shard_index', 0)]),
                'failure_reasons': dict(reasons), 'native_attempt_states': dict(attempts)}
     save(root / 'manifest.json', files)
     save(root / 'summary.json', summary)

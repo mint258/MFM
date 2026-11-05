@@ -13,7 +13,7 @@ import sys
 import time
 import types
 
-from ..uff3_candidate_v1.core import seed_for, no_fill_order, IntegrityError
+from ..uff3_candidate_v1.core import seed_for, IntegrityError
 from ..uff3_candidate_v1.native import NativeKernel
 
 
@@ -81,6 +81,25 @@ def molecule_id(source):
     return 'expansion-pubchem:{pubchem_version}:{cid}:{full_key}'.format(**source)
 
 
+def select_three(candidates, distance):
+    """Identical first-three prefix; unused later candidates need no RMSD.
+
+    All optimized candidates remain in the saved cache for later extensions.
+    This is the original energy-greedy >=0.5 A phase, with no fill phase.
+    """
+    if len({r['candidate_key'] for r in candidates}) != len(candidates):
+        raise ValueError('DUPLICATE_CANDIDATE_KEY')
+    selected = []
+    for row in sorted(candidates, key=lambda r:(r['energy'],r['candidate_key'])):
+        closest = min((distance(row, old) for old in selected), default=math.inf)
+        if selected and not math.isfinite(closest): raise ValueError('NONFINITE_RMSD')
+        if closest >= .5:
+            selected.append(dict(row,below_dedup_threshold=False,
+                min_rmsd_to_previously_selected_A=None if not selected else closest))
+        if len(selected) == 3: break
+    return selected
+
+
 def generate(source, kernel):
     start, cpu = time.monotonic(), time.process_time()
     mid = molecule_id(source)
@@ -111,7 +130,7 @@ def generate(source, kernel):
                     raise
                 except Exception as exc:
                     packet['attempts'].append({'candidate_id': cid, 'state': 'NATIVE_FAILED', 'error': repr(exc)})
-            selected = no_fill_order(packet['candidates'], kernel.distance)
+            selected = select_three(packet['candidates'], kernel.distance)
             for index, row in enumerate(selected[:3]):
                 row = dict(row, conformer_id=index, geometry_sha256=None)
                 try:

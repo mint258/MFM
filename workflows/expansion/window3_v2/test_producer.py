@@ -1,10 +1,12 @@
 import unittest
 import json
+import gzip
+from unittest.mock import patch
 from pathlib import Path
 import random
 import tempfile
-from .producer import physical_mask, validate, selected_sources
-from .kernel import generate
+from .producer import physical_mask, validate, selected_sources, accept_shard
+from .kernel import generate, select_three
 
 
 class FakeKernel:
@@ -27,6 +29,41 @@ SOURCE = {'pubchem_version': 'test', 'cid': 1, 'full_key': 'TEST', 'source_smile
 
 
 class Tests(unittest.TestCase):
+    def test_three_prefix_preserves_original_energy_dedup_selection(self):
+        from ..uff3_candidate_v1.core import no_fill_order
+        rows=[{'candidate_key':str(i),'candidate_id':i,'energy':float(i%7)} for i in range(30)]
+        rng=random.Random(17)
+        for scale in (.01,.1,.25,.5,1.):
+            rng.shuffle(rows)
+            distance=lambda a,b:abs(a['candidate_id']-b['candidate_id'])*scale
+            actual,expected=select_three(rows,distance),no_fill_order(rows,distance)[:3]
+            self.assertEqual([r['candidate_id'] for r in actual],[r['candidate_id'] for r in expected])
+            for a,b in zip(actual,expected):
+                for key in ('energy','min_rmsd_to_previously_selected_A'):
+                    if b[key] is None: self.assertIsNone(a[key])
+                    else: self.assertLessEqual(abs(a[key]-b[key]),1e-12+1e-12*abs(b[key]))
+        calls=[]
+        self.assertEqual(len(select_three(rows,lambda a,b:calls.append((a,b)) or 1.)),3)
+        self.assertEqual(len(calls),3)
+
+    def test_interrupted_intent_is_not_retried_and_closed_chunk_is_reused(self):
+        from . import producer
+        with tempfile.TemporaryDirectory() as folder:
+            chunk=Path(folder)/'chunk_000000'; chunk.mkdir()
+            with gzip.open(chunk/'packets_old.jsonl.gz','wt') as stream:
+                stream.write(json.dumps({'index':0})+'\n')
+            other=dict(SOURCE,cid=2,stream_rank=2)
+            packet=generate(other,FakeKernel())
+            with patch.object(producer,'CONFIG',{'output':folder}), patch.object(producer,'KERNEL',None), \
+                 patch.object(producer,'generate',return_value=packet) as compute, \
+                 patch.object(producer,'write_packets',return_value=([],{})):
+                result=producer.process((0,[SOURCE,other]))
+                compute.assert_called_once_with(other,None)
+                self.assertEqual(result['states']['INTERRUPTED_NO_RETRY'],1)
+                self.assertEqual(result['molecules'],2)
+                self.assertEqual(producer.process((0,[SOURCE,other])),result)
+                compute.assert_called_once()
+
     def test_physical_boundaries_and_source_missing(self):
         bounds = {'lower': 0., 'upper': 2., 'lower_exclusive': True}
         self.assertEqual(physical_mask([None, float('nan'), -1., 0., 1., 2., 3.], bounds),
@@ -53,6 +90,12 @@ class Tests(unittest.TestCase):
         self.assertEqual(p['state'], 'EMBED_FAILED')
         self.assertEqual(p['conformers'], [])
         self.assertEqual(k.calls, ['D20'])
+
+    def test_weighted_cpu_shards_are_exhaustive_and_disjoint(self):
+        groups = [[0,1,2,3], [4,5], [6,7,8], [9]]
+        for rank in range(1, 101):
+            self.assertEqual(sum(accept_shard(rank, {'shard_count':10,'shard_residues':g}) for g in groups), 1)
+        self.assertEqual([sum(accept_shard(r, {'shard_count':10,'shard_residues':g}) for r in range(1,101)) for g in groups], [40,20,30,10])
 
     def test_full_shards_exclude_pilot_without_gaps(self):
         rng = random.Random(20261025)
