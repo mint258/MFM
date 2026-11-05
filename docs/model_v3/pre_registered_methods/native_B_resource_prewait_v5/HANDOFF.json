@@ -1,0 +1,179 @@
+{
+  "schema": "NATIVE_B_ROOT_RESOURCE_PREWAIT_HANDOFF_V5",
+  "status": "SOURCE_ONLY_STOPEDIT_NOT_LAUNCHED_PUBLICATION_REQUIRED",
+  "source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v5_source/source_pins.json",
+    "bytes": 5373,
+    "sha256": "27ac5386f33cc146be9579298953e8ac64d924e2a8c03c2c6b6ece95a6f0d0d6"
+  },
+  "files": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v5_source/continue_original_B_auto.py",
+      "bytes": 12703,
+      "sha256": "4ad45d70b51a7107fe988f5796676a0000af89cad14aafb0fbe245f2b541c273"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v5_source/README.md",
+      "bytes": 3727,
+      "sha256": "1d205bbebd46a668db6cef6e9f5adcddf89c1ef21caee6034c3a39478454227b"
+    }
+  ],
+  "control": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v5",
+  "Root_argv": [
+    "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+    "-u",
+    "-B",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v5_source/continue_original_B_auto.py"
+  ],
+  "Root_actual_pre_model_reconciliation": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_B_slot031_actual_failed_pre_model_reconciliation_v1.json",
+    "bytes": 6449,
+    "sha256": "568c713e4641c8e9419315aa63942dbd65f668f88298ee6f51c8bad5192e28be"
+  },
+  "original_failed_job": "4525157",
+  "original_failed_Root_closure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_031/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+    "bytes": 1027,
+    "sha256": "8fcdbf2163c339892e8fe402c448afc11167bce4eab5d29479878ff1db9dd5df"
+  },
+  "original_failed_status_preserved": "FAILED_OR_STORAGE_HOLD",
+  "original_process_private_closed_false_not_rewritten": true,
+  "old_v4_stop": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4/status.json",
+    "bytes": 1236,
+    "sha256": "edcec4d62b8ca522ba7cffe4955bdea981ba7e92a008361b10221aed281e8d0d"
+  },
+  "old_v4_identity": {
+    "pid": 3328253,
+    "uid": 1278,
+    "boot_id": "714ffbb7-2f6e-4346-acb3-68466446ca62",
+    "start_ticks": 8205756978,
+    "argv_sha256": "714766a8c5bbdb20d52b49a36a7402bd268c585676dcee5c3f090042eafe81ba",
+    "pgid": 3328253,
+    "sid": 3328253,
+    "source_sha256": "43ee6da99f6c154c7fbf5cc0c5a3869eadfe01474ec1c42eef218b6597c33b38",
+    "started_unix": 1793261455.5434294
+  },
+  "original_last_successful_closure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+    "bytes": 1776,
+    "sha256": "3a223d882f71fdbc4c559b670b231732ce98da20220a210782f1e5114fa951a4"
+  },
+  "resume_checkpoint_path_stat_only": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/child/checkpoint_u9000_log9019",
+  "first_expected_step": {
+    "slot": 32,
+    "seed": 0,
+    "precision": "bf16",
+    "start_update": 9000,
+    "target_update": 10000
+  },
+  "foreign_blocker": {
+    "job_id": "4525142",
+    "user": "guangyuan",
+    "uid": 1275,
+    "node": "compute-0-21",
+    "gpu_uuid": "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+    "Root_proven_cgroup": {
+      "argv": [
+        "ssh",
+        "-n",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=8",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+        "compute-0-21",
+        "cat /proc/882712/cgroup"
+      ],
+      "returncode": 0,
+      "stdout": "1:freezer:/slurm/uid_1275/job_4525142/step_0\n0::/system.slice/slurmd.service\n",
+      "stderr": ""
+    },
+    "queue_argv": [
+      "squeue",
+      "-h",
+      "-u",
+      "guangyuan",
+      "-o",
+      "%i|%u|%T|%N"
+    ],
+    "queue_filter": "Only exact4525142 counts; other jobs including5143 never block this predicate",
+    "accounting_argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4525142",
+      "--format=JobIDRaw,User,State,ExitCode,NodeList"
+    ],
+    "release_condition": "No live target queue row, exact owner/node parent terminal, and another absent target queue row; raw observations saved in bounded overwritten status"
+  },
+  "Root_before_launch": [
+    "Root核新v5 sources/pins/AST/diff与实际公开字节；新publication现在未产生，不复用v4 receipt冒已公开v5。",
+    "核本handoff绑定的真实failed-pre-model reconciliation、v4 PID已消失、无32 intent/submitted/layout/SB和其他controller。",
+    "建立独立空v5 control目录后仅启动一个controller。源不重用/覆盖旧v4控制目录或31失败。",
+    "首次确切32/seed0/bf16/9000->10000只能接原030有效CP，只有该次加原--retry-failed；任何新的failure/unknown STOP。",
+    "只等已证明占22e的5142终态，不等整节点或5143/C35，不kill/cancel/signal任何foreign，也不持GPU/public/dispatch/registry锁等其结束。",
+    "原最初identity+7天/81次有限环/500验证/20k及所有science/源/资源门保持。原v8最终重新检查资源竞争，不保证预等待即获配。",
+    "Root唯一执行/SSH/调度，作者未执行任何源码/AST/Slurm/项目；真正launch/job/SDK/source publication refs必须由Root以后实测填写。"
+  ],
+  "literal_source_inverse": {
+    "edit_sites": 10,
+    "returns_exact_preserved_v4": true,
+    "v4_source": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4_source/continue_original_B_auto.py",
+      "bytes": 7688,
+      "sha256": "43ee6da99f6c154c7fbf5cc0c5a3869eadfe01474ec1c42eef218b6597c33b38"
+    }
+  },
+  "fixed_metadata_examples_not_executed": [
+    {
+      "case": "5142 RUNNING但NVML短空",
+      "expected": "WAIT，无新child"
+    },
+    {
+      "case": "5142终态并不在queue，5143仍RUNNING",
+      "expected": "只通过5142条件，继续原GPU与全部最终门"
+    },
+    {
+      "case": "5142 owner/node不符或query nonzero/missing/duplicate/unknown",
+      "expected": "STOP，不判终态"
+    },
+    {
+      "case": "terminal accounting后queue又有5142",
+      "expected": "WAIT，不准备提交"
+    },
+    {
+      "case": "首次step/030CP不符",
+      "expected": "STOP，无retry"
+    },
+    {
+      "case": "首次32新child失败或未知",
+      "expected": "STOP，不能继续带retry"
+    },
+    {
+      "case": "原绝对deadline在观测中耗尽",
+      "expected": "STOP，不新Popen"
+    }
+  ],
+  "future_actuals": {
+    "publication": null,
+    "launch": null,
+    "PID": null,
+    "job_id": null,
+    "SDK": null,
+    "science_acceptance": false
+  },
+  "author_scope": {
+    "source_only": true,
+    "old_sources_or_records_modified": false,
+    "Slurm_or_SSH_or_Git_or_project_Python_executed": false,
+    "scientific_payload_or_SDK_read": false,
+    "new_QA_parent_or_manager": false
+  },
+  "STOPEDIT": true
+}

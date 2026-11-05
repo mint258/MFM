@@ -1,0 +1,45 @@
+{
+  "schema": "model_v3_Root_firstcase_GPU_actual_closure_v1",
+  "status": "ACTUAL_DIAGNOSTIC_PERSISTED_STRICT_REPLAY_FAILED",
+  "raw_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4521397",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4521397|zixiao|FAILED|1:0|9|16|compute-0-21\n",
+    "stderr": ""
+  },
+  "submission": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_firstcase_replay_submission_v1.json",
+    "bytes": 10090,
+    "sha256": "9cdce6f38038ac3b1272dfa85acb571240c8df1f278f77dfb405ffdb2255362d"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_layer_head_supervisor_4521397.json",
+    "bytes": 3045,
+    "sha256": "3d1f14e58e4186cec3fecd292867f76770c66cb5c94fa038f2c4553319db0916"
+  },
+  "result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_layer_head_4521397/DIAGNOSTIC_RESULT.json",
+    "bytes": 2163,
+    "sha256": "a7d988be5b9ac6e8a437cf05af63b6292460d1d3fdda5692ef06fd0e5f26e69c"
+  },
+  "controls": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_layer_head_4521397/CONTROL_METADATA.json",
+    "bytes": 54621,
+    "sha256": "6067a0d69ea3e91d60c2481e38d3961e2d187eb89be4f24ad8124bfbe158fa84"
+  },
+  "comparisons": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C4_GPU_layer_head_4521397/ARCHIVE_COMPARISONS.json",
+    "bytes": 186243,
+    "sha256": "48e18d4dd7436515143d80f08aa050614506c7bd997e8ed39cf2fea25e1ea909"
+  },
+  "full48_acceptance": false,
+  "scientific_acceptance": false
+}

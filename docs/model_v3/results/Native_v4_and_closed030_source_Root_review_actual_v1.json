@@ -1,0 +1,38 @@
+{
+  "schema": "model_v3_native_v4_and_closed030_source_Root_review_v1",
+  "captured_utc": "2026-10-29T08:03:09.349602+00:00",
+  "v4_handoff": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_B_resource_prewait_v4_source_handoff_v1.json",
+    "bytes": 6764,
+    "sha256": "0bf50321db651803b06f0caaf4899e3b90e06287414f522ccd33e72aad1d2d26"
+  },
+  "v4_outside_wait_AST_exact": true,
+  "v4_new_only_target_GPU_observation_wait_and_namespace": true,
+  "SDK030_handoff": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_SDK_source_handoff_v1.json",
+    "bytes": 54140,
+    "sha256": "f3b78dcdd47383f2d66b7c5340fad0ab74dd82adfc6a20f4e12eb873fd7a0acf"
+  },
+  "SDK030_all25_rawrefs_verified": true,
+  "SDK030_unchanged_code_and_test_filenames": [
+    "long_segment_log.py",
+    "test_long_segment_log.py",
+    "one_run_long.py",
+    "prepare.py",
+    "sync_selected_long.py",
+    "test_sync_metadata.py",
+    "native_long_sync_fixture_census.py",
+    "native_long_sync_fixture_checks.py"
+  ],
+  "SDK030_changed_code_and_shell_filenames": [
+    "audit_closed_segments.py",
+    "audit_closed_segments.sbatch",
+    "long_common.py",
+    "sync_cpu.sbatch",
+    "supervise_fixture.py",
+    "sync_cpu.sbatch"
+  ],
+  "Root_project_model_SDK_or_array_execution": false,
+  "only_source_AST_shell_and_bounded_metadata_read": true,
+  "actual_launch_or_new_GPU_submission": false
+}

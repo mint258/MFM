@@ -1,0 +1,147 @@
+{
+  "status": "FAILED",
+  "job_id": "4520977",
+  "command": [
+    "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+    "-u",
+    "-B",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_regression_8130_v1.py",
+    "--root",
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_wire_provider",
+    "--output",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520977",
+    "--code-commit",
+    "88326b2d71ef7005137c0722d6ca6cdc8b9aa56c",
+    "--workers",
+    "4",
+    "--expected-node",
+    "compute-0-12",
+    "--partitions",
+    "4",
+    "--partition-index",
+    "0"
+  ],
+  "launch_identity": {
+    "status": "ACTIVE",
+    "pid": 2080859,
+    "uid": 1278,
+    "boot_id": "d3e49e9b-d6aa-4c4f-83b1-01cdb8fd1300",
+    "start_ticks": 1776043619,
+    "pgid": 2080859,
+    "sid": 2080859,
+    "argv": [
+      "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+      "-u",
+      "-B",
+      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_regression_8130_v1.py",
+      "--root",
+      "/share/home/zixiao/descriptor_analysis/MFM_model_v3_wire_provider",
+      "--output",
+      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520977",
+      "--code-commit",
+      "88326b2d71ef7005137c0722d6ca6cdc8b9aa56c",
+      "--workers",
+      "4",
+      "--expected-node",
+      "compute-0-12",
+      "--partitions",
+      "4",
+      "--partition-index",
+      "0"
+    ],
+    "argv_sha256": "f18521bc4c78051abc727c86634f5536573bee1535f91aa79222cae868b25eb9",
+    "cgroup": "1:freezer:/slurm/uid_1278/job_4520977/step_batch\n0::/system.slice/slurmd.service\n",
+    "slurm_job_id": "4520977",
+    "created": 1792959414.19
+  },
+  "supervisor_cgroup": "1:freezer:/slurm/uid_1278/job_4520977/step_batch\n0::/system.slice/slurmd.service\n",
+  "exit_code": -15,
+  "first_failure": {
+    "type": "RuntimeError",
+    "message": "Private storage sampling failed: {'type': 'ValueError', 'message': 'Unsupported private storage entry/link: /tmp/mv3n_4520977/mfm3_wire_fixture_1spiyxlg/alias'}"
+  },
+  "retirement": {
+    "actions": [
+      {
+        "pid": 2081116,
+        "created": 1792959435.29,
+        "signal": 15
+      },
+      {
+        "pid": 2081115,
+        "created": 1792959435.29,
+        "signal": 15
+      },
+      {
+        "pid": 2081122,
+        "created": 1792959436.44,
+        "signal": 15
+      },
+      {
+        "pid": 2081121,
+        "created": 1792959436.41,
+        "signal": 15
+      },
+      {
+        "pid": 2081120,
+        "created": 1792959436.41,
+        "signal": 15
+      },
+      {
+        "pid": 2081026,
+        "created": 1792959422.82,
+        "signal": 15
+      },
+      {
+        "pid": 2080867,
+        "created": 1792959414.25,
+        "signal": 15
+      },
+      {
+        "pid": 2080865,
+        "created": 1792959414.25,
+        "signal": 15
+      },
+      {
+        "pid": 2080864,
+        "created": 1792959414.25,
+        "signal": 15
+      },
+      {
+        "pid": 2080859,
+        "created": 1792959414.19,
+        "signal": 15
+      }
+    ],
+    "remaining": []
+  },
+  "remaining": [],
+  "elapsed_seconds": 26.47498443350196,
+  "last_total_bytes": 3234032,
+  "private_storage": {
+    "last": {
+      "bytes": 166673,
+      "root_bytes": {
+        "/tmp/mv3n_4520977": 166673
+      },
+      "entries": 22
+    },
+    "sampled_max_bytes": 179164,
+    "sampled_growth_above_initial_bytes": 178668,
+    "samples": 44,
+    "sample_interval_seconds": 0.5,
+    "exact_peak": false,
+    "first_sampling_failure": {
+      "type": "ValueError",
+      "message": "Unsupported private storage entry/link: /tmp/mv3n_4520977/mfm3_wire_fixture_1spiyxlg/alias"
+    },
+    "budget_bytes": 2147483648
+  },
+  "sources_sha256": {
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_cpu_supervised_v3.py": "10bb34aa74633bd139f8dcedd475901a85d4143422494f1249ffb85994c8c66c",
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/runtime_monitor.py": "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe",
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/run_supervised.py": "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd",
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/private_runtime_storage.py": "791e2742b2131e5001ebc4fe549d8fcb43f7d28f399368a5aa5f82d7d592a041"
+  },
+  "gpu_initialization_permitted": false
+}

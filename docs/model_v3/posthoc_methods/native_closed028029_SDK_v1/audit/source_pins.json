@@ -1,0 +1,97 @@
+{
+    "schema":  "native_S_long_segment_log_source_pins_v3",
+    "status":  "SOURCE_ONLY_FINITE_CLOSED_TWO_PAIRS_NOT_EXECUTED",
+    "files":  [
+                  {
+                      "file":  "audit_closed_segments.py",
+                      "bytes":  18453,
+                      "sha256":  "c3449ca425d6372aaa814a4dc769899ad0ff51dbd9c9567d7fcd297dc24a61ba"
+                  },
+                  {
+                      "file":  "audit_closed_segments.sbatch",
+                      "bytes":  1357,
+                      "sha256":  "ebe8144b9dd3d1621b2d3bf245226023271a3e1b465c3d528216dd63e96eafff"
+                  },
+                  {
+                      "file":  "closed_entries.json",
+                      "bytes":  11922,
+                      "sha256":  "c40270b141e44b7765c2f3b4fe21e28f68e31d0dbe4530d4fca914cc878bcf0a"
+                  },
+                  {
+                      "file":  "dependencies.json",
+                      "bytes":  12075,
+                      "sha256":  "9720132aab9547f5de2d49d9ef8b6299ded02565c47e6e35f2024adbc48621d1"
+                  },
+                  {
+                      "file":  "long_segment_log.py",
+                      "bytes":  13780,
+                      "sha256":  "0beaee76a2d6347cc4dce45037821dc87d62dd2d7d6df123ccea5cfff97902f4"
+                  },
+                  {
+                      "file":  "README.md",
+                      "bytes":  1780,
+                      "sha256":  "61d76d9fe14e0c15368d7412cb360baae5dc9d97e661b468d464e15c33c5ea38"
+                  },
+                  {
+                      "file":  "test_long_segment_log.py",
+                      "bytes":  12913,
+                      "sha256":  "bbf538fc28d9c21ba45312257dbdc4e1391baf9a201ca2ea0438aed0b66c54dd"
+                  }
+              ],
+    "metadata_tests":  28,
+    "original_tests":  21,
+    "retained_v2_tests":  7,
+    "max_closed_segments":  3,
+    "explicit_allowed_slots":  [
+                                   28,
+                                   29
+                               ],
+    "explicit_allowed_run_ids":  [
+                                     "2wh2cs0m",
+                                     "dp8xtsi9"
+                                 ],
+    "scope":  "LONG_SEGMENT_LOG_ONLY",
+    "original_v2_manifest":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_segment_sdk_audit_v2/source_pins.json",
+                                 "bytes":  1886,
+                                 "sha256":  "c385ca027919f23a0e5f933562494ebfb38e1db6dd554b3f3b4239f9953540e3"
+                             },
+    "logic_and_tests_byte_identical_to_v2":  true,
+    "reader_tap_framing_unchanged":  true,
+    "CPU_scheduler_memory":  "automatic_default;no explicitSBmemory",
+    "CPU_working_memory_bytes":  17179869184,
+    "CPU_RSS_limit_bytes":  12884901888,
+    "whole_private_bytes_each":  2147483648,
+    "actual_prepare":  null,
+    "actual_CPU_audit":  null,
+    "actual_sync":  null,
+    "actual_online":  null,
+    "scientific_acceptance":  false,
+    "revision":  "finite_closed028029_source_selector_rebind_only",
+    "previous_executed_v3_manifest":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_segment_sdk_audit_v3_source/source_pins.json",
+                                          "bytes":  3182,
+                                          "sha256":  "4c5ef41f5305be93142c313b1e1b21626b0ea3d5697fba3413aa6a0dafb57dce"
+                                      },
+    "original_v4_source":  {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_segment_sdk_audit_v4_source/source_pins.json",
+                               "bytes":  4069,
+                               "sha256":  "e96bfe972657ebce8a3c4747ff5e690475ffd15fa461ee2167f5e2afcb0dd2f0"
+                           },
+    "allowed_slot_pairs":  [
+                               [
+                                   28,
+                                   29
+                               ]
+                           ],
+    "original_closed020023_source":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020023_sdk_audit_v1_source/source_pins.json",
+                                         "bytes":  4997,
+                                         "sha256":  "9faec648650b7587e9f1c64f1d9139173911a40f2877d260d84e19c138df8534"
+                                     },
+    "original_closed024027_source":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed024027_sdk_audit_v1_source/source_pins.json",
+                                         "bytes":  5515,
+                                         "sha256":  "20529ce669a4619e46fae030374b23f59c0f8fe933c51a9ba1d8cbac9c285177"
+                                     }
+}

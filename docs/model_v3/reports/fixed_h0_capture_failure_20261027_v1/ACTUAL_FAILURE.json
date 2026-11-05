@@ -1,0 +1,58 @@
+{
+  "schema": "fixed_h0_capture_failure_actual_v1",
+  "status": "ACTUAL_FAILED_CAPTURE_PRESERVED",
+  "actual_accounting": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4521484",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4521484|zixiao|FAILED|1:0|11|16|compute-0-21\n",
+    "stderr": ""
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_supervisor_4521484.json",
+    "bytes": 3066,
+    "sha256": "09b1e5f324bb8b52fbe17f9553865c6ef1255053306da0f9f67470e22522a623"
+  },
+  "capture_manifest": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_4521484/CAPTURE_MANIFEST.json",
+    "bytes": 1844,
+    "sha256": "8f3f265358c1d1d2da0292f731b424b59325c784f3854438c268439ea9c67300"
+  },
+  "worker": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_launch_v1_worker_4521484.json",
+    "bytes": 17180,
+    "sha256": "a29b20049a4642968f6a4602d3adc130859127519c5971050b987c1f0f471381"
+  },
+  "submission": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_v1_attempt1.json",
+    "bytes": 16083,
+    "sha256": "53236629608c6e5f5bf01aa2427a24d35e5e2edb47592a40efbe28b762790e90"
+  },
+  "sources_before": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_4521484/sources_before.json",
+    "bytes": 63790,
+    "sha256": "9ceb0385ebe1100e8dcee6999f5a5e881f9bc45b92bf0004e4b5d71d781986d7"
+  },
+  "sources_after": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_4521484/sources_after.json",
+    "bytes": 63790,
+    "sha256": "9ceb0385ebe1100e8dcee6999f5a5e881f9bc45b92bf0004e4b5d71d781986d7"
+  },
+  "encoder_forwards": 4,
+  "complete_cases": 0,
+  "failure": {
+    "message": "abs(): functions with out=... arguments don't support automatic differentiation, but one of the arguments requires grad.",
+    "traceback": "Traceback (most recent call last):\n  File \"/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_fixed_h0_shadow_v1_source/capture_fixed_h0_v1.py\", line 136, in main\n    require(equation.weight_summary(holder['model'])['all_named_parameter_sha256'] == holder['full_weight_sha'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance_runtime_v3/current/phychem_mfm/phase1/v3_composed_equivariance.py\", line 236, in weight_summary\n    require(bool(torch.isfinite(value).all()), \"Declared initialized parameters must be finite\")\n                 ^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: abs(): functions with out=... arguments don't support automatic differentiation, but one of the arguments requires grad.\n",
+    "type": "RuntimeError"
+  },
+  "numeric_inputs_read_in_root_review": false,
+  "original_1435_failures_overwritten": false,
+  "candidate_adopted": false
+}

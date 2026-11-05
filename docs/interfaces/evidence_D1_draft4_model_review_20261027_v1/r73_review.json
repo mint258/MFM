@@ -1,0 +1,167 @@
+{
+    "schema":  "D1_draft4_r73_model_source_review_refs_v1",
+    "status":  "SOURCE_REVIEW_DRAFT_NOT_JOINT_FROZEN",
+    "date":  "2026-10-27",
+    "report":  {
+                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/D1_draft4_r73_model_source_review_DRAFT_v1.md",
+                   "bytes":  11152,
+                   "sha256":  "cdd71c7df98841bd927119376fb33dc335694e1186d675f8392d6066120764f8"
+               },
+    "inputs":  [
+                   {
+                       "role":  "draft4_proposal",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/interfaces/training_format_v3_draft4_native_domains_proposal.md",
+                       "bytes":  7686,
+                       "sha256":  "c5818d712acf0eb15fcd7a4a4448211c6957a214dd54ea23e2dcb76cbec5cd99",
+                       "inspected_sections":  "7-28;42-54"
+                   },
+                   {
+                       "role":  "joint_remaining",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/data_v1/d1_joint_freeze_remaining_20261027_v1.md",
+                       "bytes":  8586,
+                       "sha256":  "fd862ff65cd960be11adf6d8664976b9559cfb569a09e075fa1d99b31ff17463",
+                       "inspected_sections":  "5-23;25-41"
+                   },
+                   {
+                       "role":  "registry_r73_definition",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/label_registry_v3.json",
+                       "bytes":  585411,
+                       "sha256":  "b6a230b74b5bebfa0108e67572ed2ccc699718c2958fb69e99c58b8323c6ce45",
+                       "inspected_sections":  "fields[field_key=P.pm7_B.r73.value] only; not numeric payload"
+                   },
+                   {
+                       "role":  "original_native_lifecycle",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/wp4_native_pilot_v4.py",
+                       "bytes":  56251,
+                       "sha256":  "6943612b2fd6c3c7a492c08183f2328230469dea5113aadc613c32378cc79b59",
+                       "inspected_sections":  "171-195;383-385"
+                   },
+                   {
+                       "role":  "original_legacy_parser",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/wp4_parsers.py",
+                       "bytes":  20763,
+                       "sha256":  "66938afa8d3d7b7f51e8922c875c0987687a865a97cb1591d6f6c511b38098e0",
+                       "inspected_sections":  "84-107;145"
+                   },
+                   {
+                       "role":  "original_WP5_parser2",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_parser_v2.py",
+                       "bytes":  6892,
+                       "sha256":  "33d5cb65429f6f969d8739c2f244cf8249f35d23792dca4e73cd52ffe4eaaf6f",
+                       "inspected_sections":  "6-13;46-55"
+                   },
+                   {
+                       "role":  "original_WP5_base_parser",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_parser.py",
+                       "bytes":  7795,
+                       "sha256":  "aafa3c2808ccfa3a6bcea49f9807563351f0252e5e9f7cd57d86e40ddc291aa3",
+                       "inspected_sections":  "13-21;58-69"
+                   },
+                   {
+                       "role":  "original_WP5_engine",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_engine_v3.py",
+                       "bytes":  31025,
+                       "sha256":  "53c09b68938ead8449f0da2ec7a03337df3125826080ece58fabe107cdd9f26b",
+                       "inspected_sections":  "57-76;352"
+                   },
+                   {
+                       "role":  "model_wire_provider",
+                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/phychem_mfm/phase1/v3_wire_provider.py",
+                       "bytes":  22752,
+                       "sha256":  "80c728c157205ca1e9870d511751efc6b87a7c59c795d28a6911c313610c2ea8",
+                       "inspected_sections":  "116-148;245-290;318-331"
+                   },
+                   {
+                       "role":  "model_contract",
+                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/phychem_mfm/phase1/v3_contract.py",
+                       "bytes":  9509,
+                       "sha256":  "c41bc5d42bf14e6c2036faa951a38f49af3c3f68df54d835e4da31aed9649d8b",
+                       "inspected_sections":  "19-21;43-84;162-194"
+                   },
+                   {
+                       "role":  "model_collate",
+                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/phychem_mfm/phase1/v3_data.py",
+                       "bytes":  15007,
+                       "sha256":  "0d34824ca39e6b9bfe9b48f56183f86405a00607a70cd9f244a722324c5760c3",
+                       "inspected_sections":  "146-175;178-231"
+                   },
+                   {
+                       "role":  "model_head_bank",
+                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/phychem_mfm/model/v3_heads.py",
+                       "bytes":  10776,
+                       "sha256":  "6c48426f6956d7c9a65f0fa52c693068c1e37b7579c7968dde2267400cbd3750",
+                       "inspected_sections":  "36-55;97-109;131-160;196-200"
+                   },
+                   {
+                       "role":  "model_prepared_batch",
+                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/phychem_mfm/phase1/v3_trainer.py",
+                       "bytes":  35974,
+                       "sha256":  "6dece41eb2f528a12297d194b016044dded5a855edca98c39c0710c208717436",
+                       "inspected_sections":  "31-52"
+                   },
+                   {
+                       "role":  "model_loss_counts",
+                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/phychem_mfm/phase1/v3_losses.py",
+                       "bytes":  5807,
+                       "sha256":  "86d6291fbed0529cce7cf130f2bb5a8c01b276818cfb7834a7156d63369cc089",
+                       "inspected_sections":  "35-101"
+                   },
+                   {
+                       "role":  "model_CPU_reason_audit",
+                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/current/phychem_mfm/phase1/v3_wire_audit.py",
+                       "bytes":  5595,
+                       "sha256":  "ead6ce5e15e8c405510833f25a7050b4ef0aa61c1a9fe0eeff841a99bde1822c",
+                       "inspected_sections":  "10-68"
+                   },
+                   {
+                       "role":  "data_wire_codec",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/export/wire_v1/codec.py",
+                       "bytes":  6714,
+                       "sha256":  "1f140f47b7945d4e9d82e19bc8464b12c00823db83548cb9b3ba81d8a1dc24dd",
+                       "inspected_sections":  "11-22"
+                   },
+                   {
+                       "role":  "data_wire_mapping",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/export/wire_v1/mapping.py",
+                       "bytes":  12447,
+                       "sha256":  "b67a248bf1e24bcb6cd05a8ce6c1a5d2981bb990d2728fb8a217d8c4e77acd76",
+                       "inspected_sections":  "87-90;117-127;158-194"
+                   },
+                   {
+                       "role":  "data_granular_family",
+                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/export/pipeline_v1/granular_store.py",
+                       "bytes":  5893,
+                       "sha256":  "958226ad2f62d387d363395aefa9eea47cfd0dbf8a9fef8171c806dd0a4d0792",
+                       "inspected_sections":  "15-62"
+                   }
+               ],
+    "primary_document":  {
+                             "url":  "https://openmopac.net/Manual/pi.html",
+                             "accessed":  "2026-10-27",
+                             "scope":  "PI_channel_and_onsite_context_only",
+                             "actual_frozen_program_version_frame_direction_rotation_verified":  false,
+                             "local_raw_document_SHA_claimed":  false
+                         },
+    "decision":  {
+                     "r73_identity":  "P.pm7_B.r73.value|registry_id73|pm7_B|values.sigma_pi_entries",
+                     "ordered_dual_endpoint_labels_required":  true,
+                     "lossless_relative_to_existing_parsed_entries_only":  true,
+                     "original_AO_or_printed_column_ordinal_recovered":  false,
+                     "current_model_admits_basis":  false,
+                     "current_wire_codec_admits_f64":  false,
+                     "independent_entry_model_path_required":  true,
+                     "channel_rotation_and_exchange_physics":  "PENDING_ACTUAL_NATIVE_DEFINITION_AND_EVIDENCE",
+                     "joint_v3_0_frozen":  false,
+                     "basis_labels_training_eligible":  false
+                 },
+    "scope":  {
+                  "source_metadata_only":  true,
+                  "official_manual_readonly_web":  true,
+                  "source_scripts_executed":  false,
+                  "python_AST_tests_models_Git_SSH_Slurm_executed":  false,
+                  "scientific_payload_NPZ_SDK_LMDB_read":  false,
+                  "synthetic_fixture_generated_or_used_as_native_evidence":  false,
+                  "model_data_W_sources_modified":  false,
+                  "outputs":  "Only this JSON and its bound MD"
+              }
+}

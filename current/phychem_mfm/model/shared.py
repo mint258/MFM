@@ -25,6 +25,8 @@ from ..data.descriptor_schema import (
 from ..supervision import Objective, normalize_objectives
 from .backbone import RealCoordTransformerBackbone
 from .common import Linear, ensure_batch_attr
+from .v3_distance_bias import (validate_distance_bias_projection_bias,
+    require_distance_bias_constructor)
 from .heads import (
     BondPairHead,
     CoordinateDecoder,
@@ -72,6 +74,11 @@ class SharedBackboneMFM(nn.Module):
         expert_config = dict(expert_config or {})
         head_config = dict(head_config or {})
         self.backbone_config = dict(backbone_config)
+        self.distance_bias_projection_bias=validate_distance_bias_projection_bias(
+            backbone_config.get('distance_bias_projection_bias',True))
+        require_distance_bias_constructor(self.distance_bias_projection_bias,
+            use_dist_bias=backbone_config.get('use_dist_bias',True),dim=backbone_config.get('dim',512),
+            heads=backbone_config.get('heads',8),layers=backbone_config.get('layers',6))
         self.expert_config = expert_config
         self.head_config = deepcopy(head_config)
         self.task_route_config = task_routes
@@ -106,6 +113,7 @@ class SharedBackboneMFM(nn.Module):
             use_radius_mask=bool(backbone_config.get("use_radius_mask", False)),
             radius=float(backbone_config.get("radius", 8.0)),
             activation_checkpointing=backbone_config.get("activation_checkpointing", False),
+            distance_bias_projection_bias=self.distance_bias_projection_bias,
         )
         self.graph_pool = UnifiedGraphPooling(self.latent_dim)
 
@@ -171,6 +179,9 @@ class SharedBackboneMFM(nn.Module):
 
     def encode_atoms(self, batch: Data) -> Tensor:
         """Return canonical shared representation H0 with shape [N_atom, D]."""
+        if self.distance_bias_projection_bias != validate_distance_bias_projection_bias(
+                self.backbone_config.get('distance_bias_projection_bias',True)):
+            raise ValueError('C distance bias configuration changed after construction')
         return self.backbone(batch)
 
     def encode_graph(self, batch: Data, pooling: str = "mean") -> Tensor:

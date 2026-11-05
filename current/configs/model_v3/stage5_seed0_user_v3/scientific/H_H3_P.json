@@ -1,0 +1,105 @@
+{
+  "schema": "model_v3_stage5_prepared_template_v1",
+  "trial_name": "H_H3_P",
+  "stage": 5,
+  "pretraining_seed": 0,
+  "condition": "P",
+  "status": "DRAFT_NOT_TRAINABLE_NO_DATA_AUTHORITY",
+  "request": null,
+  "data_references": {
+    "D3_pilot_release": null,
+    "D5_240k_TRAIN": null,
+    "registry": null,
+    "normalization": null,
+    "actual_reader": null,
+    "actual_role_indexes": null
+  },
+  "C4": {
+    "user_rule_version": 3,
+    "status": "PASS",
+    "basis_job": "4524734",
+    "FP64_cases_passed": 48,
+    "FP64_cases_total": 48,
+    "FP64_relative_limit": 1e-9,
+    "FP32": "DIAGNOSTIC_ONLY_NOT_A_GATE"
+  },
+  "r674": {
+    "loss": "LOSS_DISABLED",
+    "retain_prediction_head": true,
+    "additional_diagnostics": false
+  },
+  "model_shape": {
+    "layers": 6,
+    "dim": 512,
+    "heads": 8,
+    "ff_mult": 2,
+    "head_dim": 64,
+    "FFN_hidden": 1024,
+    "H0_dim": 512
+  },
+  "execution": {
+    "path": "plain_source_s_architecture",
+    "precision": "fp32",
+    "TF32": false,
+    "training_execution": null,
+    "scientific_A_qualification_claimed": false,
+    "capacity_profile": null,
+    "measured_GPU_memory": null,
+    "measured_throughput": null
+  },
+  "architecture_registry": "configs/model_v3/architecture_candidates_bias_free_v1.json",
+  "purpose": "Stage5_scientific_comparison",
+  "classification": "FIRST_SEED_DESIGN_NOT_EXECUTABLE",
+  "model_overlay": {
+    "backbone": {
+      "dim": 512,
+      "layers": 6,
+      "heads": 8,
+      "ff_mult": 2,
+      "use_radius_mask": false,
+      "radius": 8,
+      "distance_bias_projection_bias": false
+    },
+    "head": {
+      "profile": "phase1",
+      "geometry_head": "equivariant_noise"
+    }
+  },
+  "design": {
+    "distance_bias": null,
+    "views": null,
+    "head": "H3",
+    "common_head": "REGISTERED_COMMON_HEAD_PENDING",
+    "pooling": "registry_fixed",
+    "selected_C1": null,
+    "selected_C3": null,
+    "selection_dependencies": [
+      "selected_C1",
+      "selected_C3"
+    ],
+    "selection_evidence": null
+  },
+  "proxy": {
+    "TRAIN_molecules": 240000,
+    "conformers": "all_authorized_D5",
+    "geometry": "PM7",
+    "sample_budget_proposal": 6000000,
+    "confirmed_sample_budget": null,
+    "sample_budget_plateau_evidence": null,
+    "B0": null,
+    "capacity_evidence": null,
+    "optimizer": {
+      "lr": 0.0003,
+      "betas": [
+        0.9,
+        0.95
+      ]
+    },
+    "clip_norm": 1,
+    "warmup_fraction": 0.02,
+    "schedule": "cosine"
+  },
+  "actual_panel": null,
+  "global_seed_SD": null,
+  "decision_rules_changed": false
+}

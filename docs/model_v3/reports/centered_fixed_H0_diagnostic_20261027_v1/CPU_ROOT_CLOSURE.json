@@ -1,0 +1,97 @@
+{
+  "schema": "model_v3_centered_fixed_H0_CPU_Root_metadata_closure_v1",
+  "status": "ACTUAL_CPU_C0_ALL48_432_DIAGNOSTIC_ONLY",
+  "created_UTC": "2026-10-27T00:45:27.202425+00:00",
+  "actual_sacct": "4521842|zixiao|COMPLETED|0:0|32|16|compute-0-17",
+  "complete": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/centered_fixed_H0_shadow_CPU_v1_4521842/COMPLETE.json",
+    "bytes": 326,
+    "sha256": "d93a2338d0a982c78642a51f04eaa4b518e30ac5e6a46bbe7ef78d24b2917c82"
+  },
+  "result": {
+    "bytes": 715247,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/centered_fixed_H0_shadow_CPU_v1_4521842/SHADOW_RESULT.json",
+    "sha256": "0bb09b599272210e75a8c5085ebc2279716e66644aea1b40e5f7e3e7470afcfe"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/centered_fixed_H0_shadow_CPU_v1_supervisor_4521842.json",
+    "bytes": 4650,
+    "sha256": "5a608895a91fe633260901ec11179ce3d178e6aabb910674e561e12339d1b63a"
+  },
+  "source_before": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/centered_fixed_H0_shadow_CPU_v1_4521842/sources_before.json",
+    "bytes": 472394,
+    "sha256": "a06ac7c44824f88ca3da61ac28411da0227106cb9f965c2d4b1900e44916c67b"
+  },
+  "source_after": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/centered_fixed_H0_shadow_CPU_v1_4521842/sources_after.json",
+    "bytes": 472394,
+    "sha256": "a06ac7c44824f88ca3da61ac28411da0227106cb9f965c2d4b1900e44916c67b"
+  },
+  "source_before_after_equal": true,
+  "current_raw_source_refs_verified": 1290,
+  "GPU_capture_Root_closure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/centered_fixed_H0_4521838_Root_metadata_closure_v1.json",
+    "bytes": 15354,
+    "sha256": "ef9a6d75983fa5b8fc47eab23ae8003204080a02be35d8a17a1297db4796af18"
+  },
+  "case_count": 48,
+  "field_transform_observations": 432,
+  "actual_selfcheck": {
+    "closure": 0.0,
+    "dense_segment_oracle": true,
+    "head_form_small_tensor_parity": [
+      {
+        "form": "H1",
+        "maxabs_FP32_vs_FP64": 4.454751945104363e-08,
+        "pooling": "sum"
+      },
+      {
+        "form": "H1",
+        "maxabs_FP32_vs_FP64": 6.429444943112372e-08,
+        "pooling": "learned"
+      },
+      {
+        "form": "H2",
+        "maxabs_FP32_vs_FP64": 7.377277243258984e-08,
+        "pooling": "sum"
+      },
+      {
+        "form": "H3",
+        "maxabs_FP32_vs_FP64": 7.377277243258984e-08,
+        "pooling": "sum"
+      }
+    ],
+    "metadata": {
+      "Git_NUL_empty_oracle": true,
+      "nonallowlisted_projection_rejected": true,
+      "wrong_blob_rejected": true
+    },
+    "row_R_four_way": true
+  },
+  "actual_CPU_environment": {
+    "numpy_version": "2.2.6",
+    "old1503_environment_equivalence_asserted": false,
+    "python": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+    "python_resolved": "/share/home/zixiao/.conda/envs/chemprop/bin/python3.11",
+    "python_version": "3.11.14 (main, Oct 21 2025, 18:31:21) [GCC 11.2.0]",
+    "thread_environment": {
+      "MKL_NUM_THREADS": "4",
+      "OMP_NUM_THREADS": "4",
+      "OPENBLAS_NUM_THREADS": "4"
+    },
+    "torch_interop_threads": 96,
+    "torch_threads": 4,
+    "torch_version": "2.10.0+cu128"
+  },
+  "F64_head_D_observations_above_original_tolerance": 50,
+  "F64_head_D_cases_above_original_tolerance": 30,
+  "F64_head_D_maxabs": 3.080378836983755e-05,
+  "Root_tensor_or_NPZ_read": false,
+  "encoder_forwards_in_CPU_analysis": 0,
+  "full_FP64_encoder_forwards": 0,
+  "C4_cases_passed": 21,
+  "C4_cases_failed": 27,
+  "C4_accepted": false,
+  "candidate_adopted": false
+}

@@ -1,0 +1,5 @@
+# Fixture-aware supervision for exact Native028/029 sync
+
+Namespace/dependency rebind only from actually completed024027. Census/checks rawbytes unchanged: only metadata_tmp descendants may have declared test symlinks, its root remains ordinary, targets never followed; original production W&B/private census, UID/inode/type, whole/private each2GiB remain. Six functional checks run inside original4pytest cases, no extra QA parent/case. Setup includes imports/installation,<=30s deducted from3300s; tail source verification scope remains honest.
+
+supervise_fixture.py and source SB differ only by source namespace. Runtime verifies source SB equals the matching unadapted sync SB with only its supervision entry replaced. Root uses existing canonical autoCPU16/RSS12GiB/dual2GiB/3300s allocation and actual exact request/manifest/fixture pins. Source historical SB nodes/ntasks are not a claimed new canonical submission. No project/SDK/body/AST/Slurm/API execution or adoption/hold mutation occurred. Old sources/proofs/failures and active030 remain untouched. All actual future fields null; no B/science acceptance.

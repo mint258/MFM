@@ -1,0 +1,106 @@
+{
+  "schema": "model_v3_stage5_prepared_template_v1",
+  "trial_name": "C1_b_P",
+  "stage": 5,
+  "pretraining_seed": 0,
+  "condition": "P",
+  "status": "DRAFT_NOT_TRAINABLE_NO_DATA_AUTHORITY",
+  "request": null,
+  "data_references": {
+    "D3_pilot_release": null,
+    "D5_240k_TRAIN": null,
+    "registry": null,
+    "normalization": null,
+    "actual_reader": null,
+    "actual_role_indexes": null
+  },
+  "C4": {
+    "user_rule_version": 3,
+    "status": "PASS",
+    "basis_job": "4524734",
+    "FP64_cases_passed": 48,
+    "FP64_cases_total": 48,
+    "FP64_relative_limit": 1e-9,
+    "FP32": "DIAGNOSTIC_ONLY_NOT_A_GATE"
+  },
+  "r674": {
+    "loss": "LOSS_DISABLED",
+    "retain_prediction_head": true,
+    "additional_diagnostics": false
+  },
+  "model_shape": {
+    "layers": 6,
+    "dim": 512,
+    "heads": 8,
+    "ff_mult": 2,
+    "head_dim": 64,
+    "FFN_hidden": 1024,
+    "H0_dim": 512
+  },
+  "execution": {
+    "path": "plain_source_s_architecture",
+    "precision": "fp32",
+    "TF32": false,
+    "training_execution": null,
+    "scientific_A_qualification_claimed": false,
+    "capacity_profile": null,
+    "measured_GPU_memory": null,
+    "measured_throughput": null
+  },
+  "architecture_registry": "configs/model_v3/architecture_candidates_bias_free_v1.json",
+  "purpose": "architecture_wiring_smoke",
+  "classification": "NOT_SELECTED_NOT_SCIENTIFIC",
+  "model_overlay": {
+    "backbone": {
+      "dim": 512,
+      "layers": 6,
+      "heads": 8,
+      "ff_mult": 2,
+      "use_radius_mask": false,
+      "radius": 8,
+      "distance_bias_projection_bias": false,
+      "v3_architecture": {
+        "distance_bias": "C1-b",
+        "rbf_count": 64,
+        "pair_dim": 64,
+        "pair_hidden_dim": 64,
+        "rbf_max_distance": 8,
+        "cutoff": null
+      }
+    },
+    "head": {
+      "profile": "phase1",
+      "geometry_head": "equivariant_noise"
+    }
+  },
+  "wiring": {
+    "name": "C1_b_P",
+    "group": "P",
+    "distance": "C1-b",
+    "views": "three",
+    "head": "H1",
+    "pooling": "registry_fixed",
+    "anchor_only": false,
+    "anchors_are_not_winners": true,
+    "optimizer_updates_total": 50,
+    "pilot_global_optimizer_update_cap": 2000,
+    "selected_C1": null,
+    "selected_C3": null,
+    "head_forms": "H1",
+    "head_hidden_dim": 64,
+    "groups": [
+      "P"
+    ],
+    "requires_actual_D3": true,
+    "original_pilot_contract_unchanged": true,
+    "scientific_6M": false,
+    "Stage4_2000_smoke_complete": false
+  },
+  "run_entry": {
+    "prepare": "tools/model_v3/prepare_architecture_wiring_smoke.py",
+    "input_mode": "authoritative_pilot",
+    "scope": "pilot_smoke",
+    "new_Root_admission_required": true,
+    "ready": false
+  }
+}

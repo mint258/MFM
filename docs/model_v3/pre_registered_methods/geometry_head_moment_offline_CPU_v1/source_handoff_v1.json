@@ -1,0 +1,234 @@
+{
+    "schema":  "model_v3_geometry_head_moment_CPU_source_handoff_v1",
+    "status":  "FROZEN_SOURCE_ONLY_ACTUAL_ROOT_INPUT_ASSEMBLY_AND_CPU_EXECUTION_PENDING",
+    "source_inventory":  {
+                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/DRAFT_SOURCE_INVENTORY_v1.json",
+                             "bytes":  10864,
+                             "sha256":  "5475445e720db744bf658826052c842a7667427c30517427454ad13aead8c01c"
+                         },
+    "files":  [
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/safe_saved_inputs.py",
+                      "bytes":  14944,
+                      "sha256":  "cb0229928e2c09d4654153600f0a2d5848bc913eb6a5de1843a2985a5d93788c"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/moment_reference.py",
+                      "bytes":  10424,
+                      "sha256":  "1d5bce62035c90ed4460bf6badc26e2b391545161a56ce4c18c12f46be353f93"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/analyze_head_moments_CPU.py",
+                      "bytes":  23435,
+                      "sha256":  "e8c99503af2554e73f6e5e928913adb48e473d2b98b7e904c63f249d05d270cd"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/run_stage_analysis_CPU.sbatch",
+                      "bytes":  1613,
+                      "sha256":  "c9e0b26d3a9c20734adcb2d05d0fee5280e0dbedd34e0b200edceaec16b07041"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/README.md",
+                      "bytes":  7142,
+                      "sha256":  "aeee54d33ce81bf3858d6ac7d68bece96907d5570f523cb4a35a4eb09cb75350"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/dependencies.json",
+                      "bytes":  3538,
+                      "sha256":  "1219f02ad495a0b1fe095ca04ca7b36dafc19bf9e617b5dcf7d7da82c47ce413"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/inputs_TEMPLATE_v2.json",
+                      "bytes":  3054,
+                      "sha256":  "506e108cabf3f99619d298400a0abd68cae9e0daf8cd84a643c3756658490cdf"
+                  }
+              ],
+    "actual_GPU_root":  {
+                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_passive_GPU_4524595_Root_closure_v1.json",
+                            "bytes":  98668,
+                            "sha256":  "e04ce798673c390ca11cf1e1b3028536791307b897f74046c8a263b6a473ea58"
+                        },
+    "Root_actual_input_fields":  {
+                                     "schema":  "model_v3_geometry_head_moment_CPU_inputs_v1",
+                                     "status":  "ACTUAL_C0_GPU_CAPTURE_BOUND_FOR_CPU_DIAGNOSTIC",
+                                     "dependencies":  {
+                                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/dependencies.json",
+                                                          "bytes":  3538,
+                                                          "sha256":  "1219f02ad495a0b1fe095ca04ca7b36dafc19bf9e617b5dcf7d7da82c47ce413"
+                                                      },
+                                     "GPU_Root_closure":  {
+                                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_passive_GPU_4524595_Root_closure_v1.json",
+                                                              "bytes":  98668,
+                                                              "sha256":  "e04ce798673c390ca11cf1e1b3028536791307b897f74046c8a263b6a473ea58"
+                                                          },
+                                     "GPU_result":  {
+                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/RESULT.json",
+                                                        "bytes":  34204,
+                                                        "sha256":  "f842093c4bddc279001f865264a854b97576047119ef1e20333e994c982434fa"
+                                                    },
+                                     "GPU_complete":  {
+                                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/COMPLETE.json",
+                                                          "bytes":  236,
+                                                          "sha256":  "03f3ddca550122d086c6914be401afbce9c7fdf41edbee950ac7f3bc349c7bd0"
+                                                      },
+                                     "GPU_supervisor":  {
+                                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_supervisor_4524595.json",
+                                                            "bytes":  3094,
+                                                            "sha256":  "82b2e32e2f5241b80e39473513dbfcf650f00d9ee1c03436ee248c064290a654"
+                                                        },
+                                     "GPU_sources_before":  {
+                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/sources_before.json",
+                                                                "bytes":  473414,
+                                                                "sha256":  "5b9019e93273c9ab07c8da02847243fc0a1e6d4d51da54294ee3d2434b33dd6e"
+                                                            },
+                                     "GPU_sources_after":  {
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/sources_after.json",
+                                                               "bytes":  473414,
+                                                               "sha256":  "5b9019e93273c9ab07c8da02847243fc0a1e6d4d51da54294ee3d2434b33dd6e"
+                                                           },
+                                     "GPU_source_freeze":  {
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_passive_v1_source/DRAFT_SOURCE_INVENTORY.json",
+                                                               "bytes":  20583,
+                                                               "sha256":  "23e3774b3622491f696161e7a73366b44657cb947de4f053ddba51791c8aea97"
+                                                           },
+                                     "baseline4579_Root_closure":  {
+                                                                       "bytes":  60573,
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_FP32_GPU_4524579_Root_closure_v1.json",
+                                                                       "sha256":  "0cd5a23f5177c42fd7d21dac2650101052483b341d40017e809aa0ce090866c3"
+                                                                   },
+                                     "metadata_refs":  [
+                                                           {
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_passive_v1_source/execution_request_v1.json",
+                                                               "bytes":  813728,
+                                                               "sha256":  "6a0d9c6b963074cf245047be6f6e7ff0122f8a132f83b492ccdbd4193406a8d5"
+                                                           },
+                                                           {
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_passive_v1_source/source_pins_v1.json",
+                                                               "bytes":  340666,
+                                                               "sha256":  "6262083fec8e5241e324bbb3fd32128f66ecaaffa781175ad954944caa6335de"
+                                                           },
+                                                           {
+                                                               "bytes":  6686,
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v27_methods_publication_actual_v1.json",
+                                                               "sha256":  "9881908147c1f857a84cdd5beaf4de76c608f21a0f8a0da6cea44c551c1f751a"
+                                                           },
+                                                           {
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/DRAFT_SOURCE_INVENTORY_v1.json",
+                                                               "bytes":  10864,
+                                                               "sha256":  "5475445e720db744bf658826052c842a7667427c30517427454ad13aead8c01c"
+                                                           }
+                                                       ],
+                                     "input_cap_bytes":  536870912,
+                                     "output_cap_bytes":  134217728,
+                                     "diagnostic_closure_absolute_bound":  1E-10
+                                 },
+    "Root_pins_construction":  {
+                                   "filename":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/source_pins.json",
+                                   "schema":  "model_v3_geometry_head_moment_CPU_source_v1",
+                                   "status":  "ROOT_BOUND_ACTUAL_GPU_INPUTS_NO_CPU_EXECUTION",
+                                   "files":  [
+                                                 {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/safe_saved_inputs.py",
+                                                     "bytes":  14944,
+                                                     "sha256":  "cb0229928e2c09d4654153600f0a2d5848bc913eb6a5de1843a2985a5d93788c"
+                                                 },
+                                                 {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/moment_reference.py",
+                                                     "bytes":  10424,
+                                                     "sha256":  "1d5bce62035c90ed4460bf6badc26e2b391545161a56ce4c18c12f46be353f93"
+                                                 },
+                                                 {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/analyze_head_moments_CPU.py",
+                                                     "bytes":  23435,
+                                                     "sha256":  "e8c99503af2554e73f6e5e928913adb48e473d2b98b7e904c63f249d05d270cd"
+                                                 },
+                                                 {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/run_stage_analysis_CPU.sbatch",
+                                                     "bytes":  1613,
+                                                     "sha256":  "c9e0b26d3a9c20734adcb2d05d0fee5280e0dbedd34e0b200edceaec16b07041"
+                                                 },
+                                                 {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/README.md",
+                                                     "bytes":  7142,
+                                                     "sha256":  "aeee54d33ce81bf3858d6ac7d68bece96907d5570f523cb4a35a4eb09cb75350"
+                                                 },
+                                                 {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/dependencies.json",
+                                                     "bytes":  3538,
+                                                     "sha256":  "1219f02ad495a0b1fe095ca04ca7b36dafc19bf9e617b5dcf7d7da82c47ce413"
+                                                 },
+                                                 {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/inputs_TEMPLATE_v2.json",
+                                                     "bytes":  3054,
+                                                     "sha256":  "506e108cabf3f99619d298400a0abd68cae9e0daf8cd84a643c3756658490cdf"
+                                                 }
+                                             ],
+                                   "inputs":  "Root actual rawref of freshly written inputs.json",
+                                   "exclude_pins_self_hash":  true,
+                                   "no_future_SHA_or_jobs_needed":  true
+                               },
+    "Root_steps":  [
+                       "Source review/AST3/bash1, preserve authored7freeze and Stage1 ten-leaf sources unchanged",
+                       "Write fresh actual inputs.json from exact fields above; include any other actually selected metadata in metadata_refs. No null/missing ref or template status is accepted",
+                       "Before submission, run only the exact metadata selection/stat/inode-dedup logic: ownsource/deps/input/pins, every actualGPU before-source-map rawref, all48caseJSON/192roleNPZ and explicitmetadata/XML/sourcefreeze. Must fit512MiB; do not omit actual reads or increase cap",
+                       "Write fresh source_pins.json with exact7files and actual inputs rawref (never selfhash). Rehash files and bind actual inputs/pins SHA in existing SB environment",
+                       "Use existing Root CPU16 node/resource/quota admission and existing mature supervisor with newSB name/pointers; no new QA parent. Real numerical tinycontrols are inside this one actual consumer",
+                       "Any primitive mismatch retains per-port deltas and all48 valid H/G/I/Q/E accounting; final status remainsHOLD/nonzero, not false exactPASS or dropped cases. Root closes actual terminal/source/private results afterward"
+                   ],
+    "direct_child_argv_template":  [
+                                       "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                       "-B",
+                                       "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/analyze_head_moments_CPU.py",
+                                       "--inputs",
+                                       "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/inputs.json",
+                                       "--inputs-sha256",
+                                       "\u003cACTUAL_INPUTS_RAW_SHA256\u003e",
+                                       "--source-pins-sha256",
+                                       "\u003cACTUAL_SOURCE_PINS_RAW_SHA256\u003e",
+                                       "--expected-node",
+                                       "\u003cACTUAL_FREE_CPU_NODE\u003e",
+                                       "--output-root",
+                                       "\u003cACTUAL_FRESH_CHILD_OUTPUT\u003e"
+                                   ],
+    "thin_SB":  {
+                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_offline_CPU_v1_source/run_stage_analysis_CPU.sbatch",
+                    "bytes":  1613,
+                    "sha256":  "c9e0b26d3a9c20734adcb2d05d0fee5280e0dbedd34e0b200edceaec16b07041"
+                },
+    "SB_environment":  {
+                           "MODEL_V3_EXPECTED_NODE":  "\u003cACTUAL_FREE_CPU_NODE\u003e",
+                           "MODEL_V3_TERMINAL_INPUTS_SHA":  "\u003cACTUAL_INPUTS_RAW_SHA256\u003e",
+                           "MODEL_V3_TERMINAL_PINS_SHA":  "\u003cACTUAL_SOURCE_PINS_RAW_SHA256\u003e",
+                           "CUDA_VISIBLE_DEVICES":  "",
+                           "OMP_NUM_THREADS":  4,
+                           "MKL_NUM_THREADS":  4,
+                           "OPENBLAS_NUM_THREADS":  4
+                       },
+    "resources":  {
+                      "all_selected_unique_input_bytes":  536870912,
+                      "role_archive_bytes":  4194304,
+                      "ordinary_metadata_bytes":  2097152,
+                      "only_XML_metadata_bytes":  16777216,
+                      "output_bytes":  134217728,
+                      "CPU":  16,
+                      "memory_GiB":  16,
+                      "RSS_bytes":  12884901888,
+                      "wall_seconds":  800,
+                      "Slurm_seconds":  900,
+                      "whole_bytes":  2147483648,
+                      "private_bytes":  2147483648,
+                      "processes":  4,
+                      "Torch_BLAS_threads_per_process":  4,
+                      "interop_threads":  1
+                  },
+    "no_parameter_or_H0_values_exported":  true,
+    "parameter_payload_decode_only_in_actual_CPU_Slurm":  true,
+    "normal_operator_algorithm_backend_contrast_explicit":  true,
+    "no_tolerance_relaxation_or_causal_adoption":  true,
+    "author_activity":  {
+                            "source_and_small_metadata_read_write_only":  true,
+                            "Python_AST_Git_tests_model_arrays_SDK_network_SSH_Slurm_executed":  false,
+                            "NPZ_or_parameter_payload_opened":  false
+                        },
+    "source_frozen_stop_editing":  true
+}

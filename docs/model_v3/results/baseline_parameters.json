@@ -1,0 +1,323 @@
+{
+  "code_commit": "037546cd7f07b32dbb46bc21a69109dfd273f8da",
+  "cuda_used": false,
+  "job_id": "4520329",
+  "models": {
+    "baseline_512x6_A4": {
+      "atom_H0_shape": [
+        5,
+        512
+      ],
+      "configuration": {
+        "architecture": {
+          "preset": "shared_light",
+          "task_route": "light",
+          "type": "shared_multitask"
+        },
+        "backbone": {
+          "activation_checkpointing": true,
+          "dim": 512,
+          "dropout": 0.0,
+          "ff_mult": 2,
+          "heads": 8,
+          "layers": 6,
+          "n_atom_types": 119,
+          "radius": 8.0,
+          "use_dist_bias": true,
+          "use_radius_mask": false
+        },
+        "expert": {
+          "dropout": 0.0,
+          "ff_mult": 2,
+          "heads": 8,
+          "internal_layers": 0,
+          "real_layers": 2
+        },
+        "head": {
+          "geometry_head": "equivariant_noise",
+          "geometry_hidden_dim": 64,
+          "geometry_message_layers": 0,
+          "geometry_normalization": "none",
+          "geometry_pair_chunk_size": 8192,
+          "geometry_radius": 5.0,
+          "geometry_rbf_count": 32,
+          "geometry_residual_scale": 0.1,
+          "profile": "phase1"
+        }
+      },
+      "descriptor_heads": {
+        "charge_descriptor_heads": {
+          "acceptor": 264193,
+          "donor": 264193,
+          "estate_index": 264193
+        },
+        "element_descriptor_heads": {
+          "is_aromatic": 264193,
+          "is_in_ring": 264193,
+          "min_ring_size": 267784
+        },
+        "graph_descriptor_heads": {
+          "BertzCT": 264196,
+          "ExactMolWt": 264196,
+          "FractionCSP3": 264196,
+          "HallKierAlpha": 264196,
+          "HeavyAtomCount": 264196,
+          "Kappa1": 264196,
+          "Kappa2": 264196,
+          "Kappa3": 264196,
+          "LabuteASA": 264196,
+          "MolLogP": 264196,
+          "MolMR": 264196,
+          "NumAliphaticRings": 264196,
+          "NumAromaticRings": 264196,
+          "NumBridgeheadAtoms": 264196,
+          "NumHAcceptors": 264196,
+          "NumHDonors": 264196,
+          "NumHeteroatoms": 264196,
+          "NumHeterocycles": 264196,
+          "NumSaturatedRings": 264196,
+          "NumSpiroAtoms": 264196,
+          "NumValenceElectrons": 264196,
+          "RingCount": 264196,
+          "TPSA": 264196
+        }
+      },
+      "encode_atoms_signature": "(batch: 'Data') -> 'Tensor'",
+      "encode_graph_signature": "(batch: 'Data', pooling: 'str' = 'mean') -> 'Tensor'",
+      "graph_H0_shape": [
+        2,
+        512
+      ],
+      "parameters_by_module": {
+        "backbone": 12709424,
+        "bond_head": 792581,
+        "charge_descriptor_heads": 792579,
+        "charge_head": 513,
+        "element_descriptor_heads": 796170,
+        "element_head": 61047,
+        "energy_head": 1052164,
+        "geometry_head": 71873,
+        "graph_descriptor_heads": 6076508,
+        "graph_pool": 0,
+        "task_adapters": 0
+      },
+      "total_parameters": 22352859,
+      "trainable_parameters": 22352859
+    },
+    "baseline_512x6_residual": {
+      "atom_H0_shape": [
+        5,
+        512
+      ],
+      "configuration": {
+        "architecture": {
+          "preset": "shared_light",
+          "task_route": "light",
+          "type": "shared_multitask"
+        },
+        "backbone": {
+          "activation_checkpointing": true,
+          "dim": 512,
+          "dropout": 0.0,
+          "ff_mult": 2,
+          "heads": 8,
+          "layers": 6,
+          "n_atom_types": 119,
+          "radius": 8.0,
+          "use_dist_bias": true,
+          "use_radius_mask": false
+        },
+        "expert": {
+          "dropout": 0.0,
+          "ff_mult": 2,
+          "heads": 8,
+          "internal_layers": 0,
+          "real_layers": 2
+        },
+        "head": {
+          "geometry_head": "residual",
+          "geometry_residual_scale": 0.1,
+          "profile": "phase1"
+        }
+      },
+      "descriptor_heads": {
+        "charge_descriptor_heads": {
+          "acceptor": 264193,
+          "donor": 264193,
+          "estate_index": 264193
+        },
+        "element_descriptor_heads": {
+          "is_aromatic": 264193,
+          "is_in_ring": 264193,
+          "min_ring_size": 267784
+        },
+        "graph_descriptor_heads": {
+          "BertzCT": 264196,
+          "ExactMolWt": 264196,
+          "FractionCSP3": 264196,
+          "HallKierAlpha": 264196,
+          "HeavyAtomCount": 264196,
+          "Kappa1": 264196,
+          "Kappa2": 264196,
+          "Kappa3": 264196,
+          "LabuteASA": 264196,
+          "MolLogP": 264196,
+          "MolMR": 264196,
+          "NumAliphaticRings": 264196,
+          "NumAromaticRings": 264196,
+          "NumBridgeheadAtoms": 264196,
+          "NumHAcceptors": 264196,
+          "NumHDonors": 264196,
+          "NumHeteroatoms": 264196,
+          "NumHeterocycles": 264196,
+          "NumSaturatedRings": 264196,
+          "NumSpiroAtoms": 264196,
+          "NumValenceElectrons": 264196,
+          "RingCount": 264196,
+          "TPSA": 264196
+        }
+      },
+      "encode_atoms_signature": "(batch: 'Data') -> 'Tensor'",
+      "encode_graph_signature": "(batch: 'Data', pooling: 'str' = 'mean') -> 'Tensor'",
+      "graph_H0_shape": [
+        2,
+        512
+      ],
+      "parameters_by_module": {
+        "backbone": 12709424,
+        "bond_head": 792581,
+        "charge_descriptor_heads": 792579,
+        "charge_head": 513,
+        "element_descriptor_heads": 796170,
+        "element_head": 61047,
+        "energy_head": 1052164,
+        "geometry_head": 16609,
+        "graph_descriptor_heads": 6076508,
+        "graph_pool": 0,
+        "task_adapters": 0
+      },
+      "total_parameters": 22297595,
+      "trainable_parameters": 22297595
+    },
+    "historical_S_384x4": {
+      "atom_H0_shape": [
+        5,
+        384
+      ],
+      "configuration": {
+        "architecture": {
+          "preset": "shared_light",
+          "task_route": "light",
+          "type": "shared_multitask"
+        },
+        "backbone": {
+          "activation_checkpointing": true,
+          "dim": 384,
+          "dropout": 0.0,
+          "ff_mult": 2,
+          "heads": 6,
+          "layers": 4,
+          "n_atom_types": 119,
+          "radius": 8.0,
+          "use_dist_bias": true,
+          "use_radius_mask": false
+        },
+        "expert": {
+          "dropout": 0.0,
+          "ff_mult": 2,
+          "heads": 6,
+          "internal_layers": 0,
+          "real_layers": 2
+        },
+        "head": {
+          "geometry_head": "residual",
+          "geometry_residual_scale": 0.1,
+          "profile": "phase1"
+        }
+      },
+      "descriptor_heads": {
+        "charge_descriptor_heads": {
+          "acceptor": 148993,
+          "donor": 148993,
+          "estate_index": 148993
+        },
+        "element_descriptor_heads": {
+          "is_aromatic": 148993,
+          "is_in_ring": 148993,
+          "min_ring_size": 151688
+        },
+        "graph_descriptor_heads": {
+          "BertzCT": 148996,
+          "ExactMolWt": 148996,
+          "FractionCSP3": 148996,
+          "HallKierAlpha": 148996,
+          "HeavyAtomCount": 148996,
+          "Kappa1": 148996,
+          "Kappa2": 148996,
+          "Kappa3": 148996,
+          "LabuteASA": 148996,
+          "MolLogP": 148996,
+          "MolMR": 148996,
+          "NumAliphaticRings": 148996,
+          "NumAromaticRings": 148996,
+          "NumBridgeheadAtoms": 148996,
+          "NumHAcceptors": 148996,
+          "NumHDonors": 148996,
+          "NumHeteroatoms": 148996,
+          "NumHeterocycles": 148996,
+          "NumSaturatedRings": 148996,
+          "NumSpiroAtoms": 148996,
+          "NumValenceElectrons": 148996,
+          "RingCount": 148996,
+          "TPSA": 148996
+        }
+      },
+      "encode_atoms_signature": "(batch: 'Data') -> 'Tensor'",
+      "encode_graph_signature": "(batch: 'Data', pooling: 'str' = 'mean') -> 'Tensor'",
+      "graph_H0_shape": [
+        2,
+        384
+      ],
+      "parameters_by_module": {
+        "backbone": 4794264,
+        "bond_head": 446981,
+        "charge_descriptor_heads": 446979,
+        "charge_head": 385,
+        "element_descriptor_heads": 449674,
+        "element_head": 45815,
+        "energy_head": 592516,
+        "geometry_head": 12513,
+        "graph_descriptor_heads": 3426908,
+        "graph_pool": 0,
+        "task_adapters": 0
+      },
+      "total_parameters": 10216035,
+      "trainable_parameters": 10216035
+    }
+  },
+  "node": "compute-0-20",
+  "real_data_read": false,
+  "schema": "model_v3_baseline_audit_v1",
+  "source_sha256": {
+    "current/phychem_mfm/factory.py": "58177a7d84b7f22d5669deae8fed085fd9fd2ec176975ec3a6562f71a1a78ead",
+    "current/phychem_mfm/model/attention.py": "d9a716c58aa6a481978af13757fdac0d4f02d9aae1187f7a65b943de8c352183",
+    "current/phychem_mfm/model/backbone.py": "1d4798111e526a077f834740093c90ad2610081f0171ca6c778b14cac24288a3",
+    "current/phychem_mfm/model/heads.py": "8ebf0ea060023c08db4c053a6ddf41be5c75fba3abd0a0afca085fc527c3b8c4",
+    "current/phychem_mfm/model/routes.py": "bfd1139fab2cb719a1ebf27d62919caf1bba570f636b29768d0feb50d91f12e4",
+    "current/phychem_mfm/model/shared.py": "de937686edebe8f895295479d422a3d36f9d860ff5df152524a3122cbabb8d54",
+    "current/phychem_mfm/phase1/downstream_readout.py": "aa1b14ce6de85e26c2cc24b890a82c93cc9ab6e5216339e91fc054f05f076e50",
+    "current/phychem_mfm/phase1/downstream_training.py": "ee4640d246380ed89fe2391814969f72cb9ffd4239a154841fd3111000e54c81",
+    "current/phychem_mfm/phase1/full_corpus_loader.py": "827c10c7a4958e860710b3ccb2f8eb29dff4d5845654c230792bf6ce83935c0d",
+    "current/phychem_mfm/phase1/objectives.py": "25ee35354128f579f0249dd91b28f6928a57e55709b92b78294bbceaa598c68e",
+    "current/phychem_mfm/training/degrade_molecules.py": "3528566aed8bc0303dddfddfcafa400fdb7826a5be1471e7855a36af80587340",
+    "current/phychem_mfm/training/geometry.py": "d07eeb8545603576e902c1f5b908b987dec23f335923697ca5e8719d7a640aa5",
+    "workflows/phase1_downstream/stage60_downstream_binding_v3/downstream_binding_data.py": "2d79d1e73f07c2e277b28724225d64b138c7050d3a54a29de474d462c4bf5766",
+    "workflows/phase1_downstream/stage60_full_downstream_runner_v1/run_formal_readout.py": "672ba635e6e09a4c3f638c85f3d1cdb55af4e4ba2f4832c564385972fea92546",
+    "workflows/sprime_s/scripts/s_convergence_runner_v8.py": "ee8063cda7f33b80b136bfec436062abef9319cb40554bf9f1ba6616798f6b71",
+    "workflows/sprime_s/scripts/s_model_memory_v1.py": "170a7752bad1812d15dceace1613d19f579aec5d97a4965ed0960731cc53f232",
+    "workflows/sprime_s/scripts/s_training_components_v1.py": "2d2f689d5b6abeb475e515a9d0e8f287e6e8d41402675183a19bdbf1dba271c4",
+    "workflows/sprime_s/scripts/s_training_components_v2.py": "c4ba1aeb149dc91879481b9e5d0f60cce319a0d8f32f3cc408943a1f253bd6e5"
+  },
+  "status": "PASS",
+  "torch_version": "2.10.0+cu126"
+}

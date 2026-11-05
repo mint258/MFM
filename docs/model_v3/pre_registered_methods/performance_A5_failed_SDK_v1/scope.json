@@ -1,0 +1,44 @@
+{
+    "schema":  "A5_failed_log_scope_v1",
+    "scope":  "A5_FIXED20_FAILED_ZERO_HISTORY_LOG_ONLY",
+    "root_closure":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_R2_GPU_4524601_Root_negative_closure_v1.json",
+                         "bytes":  27376,
+                         "sha256":  "38bdcc2b0cc545035683d83e6be9c68bbaa1383cf14dbe31769f265b27d0a122"
+                     },
+    "model_job_id":  "4524601",
+    "sdks":  [
+                 {
+                     "run_id":  "89mp3smr",
+                     "descriptor":  {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/wandb/offline-run-20261028_084522-89mp3smr/run-89mp3smr.wandb",
+                                        "bytes":  101923
+                                    }
+                 },
+                 {
+                     "run_id":  "9j1swwgi",
+                     "descriptor":  {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/wandb/offline-run-20261028_084523-9j1swwgi/run-9j1swwgi.wandb",
+                                        "bytes":  101871
+                                    }
+                 }
+             ],
+    "expected_native_exit":  1,
+    "expected_committed_history_rows":  0,
+    "first_and_last_explicit_step":  null,
+    "actual_native_role_mapping":  null,
+    "role_mapping_reason":  "Unknown until CPU actual RunRecord.config; never directory order",
+    "expected_project":  "mfm_model_v3_development",
+    "source_summary_file":  null,
+    "source_summary_rule":  "No user summary writes before the fixed gate returns child2; original tap2 private SDK allowlist only; unexpected fields HOLD",
+    "SDK_source_cap_bytes":  134217728,
+    "explicit_input_envelope_bytes":  268435456,
+    "native_records_cap":  500000,
+    "history_rows_cap":  100000,
+    "record_bytes_cap":  4194304,
+    "export_bytes_cap":  67108864,
+    "per_SDK_wall_seconds":  180,
+    "source_expectations_not_native_verification":  true,
+    "author_opened_SDK_or_journal":  false,
+    "trajectory500_R1_or_scientific_acceptance":  false
+}

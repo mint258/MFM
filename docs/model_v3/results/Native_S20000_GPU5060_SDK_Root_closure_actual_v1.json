@@ -1,0 +1,81 @@
+{
+  "schema": "model_v3_native_S20000_panel_SDK_Root_closure_actual_v1",
+  "status": "NATIVE_S20000_FULL_LOG_AUDIT_AND_OFFICIAL_SELECTIVE_CLOUD_READBACK_CLOSED",
+  "failure": null,
+  "job_id": "4525060",
+  "run_id": "i59ur33t",
+  "GPU_Root_closure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_dev_panel_GPU_4525060_Root_closure_v1.json",
+    "bytes": 616038,
+    "sha256": "3605a8cfef566ada7377f757f3d8d46a67c15364345502aea12af77cb84fab11"
+  },
+  "source_package": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_panel_SDK_sync_v1_source/source_pins.json",
+    "bytes": 4278,
+    "sha256": "10e247b0b0c183c586045849953d6043e2cb26afa3e3c0cec93307a3adf1ebb7"
+  },
+  "audit_result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_SDK_audit_actual_v1/RESULT.json",
+    "bytes": 3320,
+    "sha256": "86154b19ee54657ad08e432b13de7e683ae5b69a0c6cb4a2538bffae0d5d5973"
+  },
+  "audit_supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_SDK_audit_actual_v1.supervisor.json",
+    "bytes": 3384,
+    "sha256": "a17012e2d7f2bb95a21303681d953fb8fbe69f4b590488702e7998a60b68b811"
+  },
+  "verification": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_SDK_audit_actual_v1/VERIFICATION.json",
+    "bytes": 16332,
+    "sha256": "a35448d19d102f1b01cc8c5b907889783267757d62a7c930d2a21a1b53956666"
+  },
+  "sync_result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_sync_actual_v1/RESULT.json",
+    "bytes": 14440,
+    "sha256": "6591e28ee57a216ae27a848488dc58480fc8adb64e4cd3058d938a962f61e677"
+  },
+  "sync_supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_sync_actual_v1.supervisor.json",
+    "bytes": 3379,
+    "sha256": "19a47312085400f5ad10309dbe01bc244d5f22469184fa1bf0e195c121ef031c"
+  },
+  "official_readback": {
+    "bytes": 2964,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_sync_actual_v1/run_0_i59ur33t/result.json",
+    "sha256": "8b8d4d3b7a8ac3eb2dcba8fa199d29e19519f6faeb8fbdb3804ba0537289a13b"
+  },
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4525060,4525084,4525086",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4525060|zixiao|COMPLETED|0:0|519|16|compute-0-21\n4525084|zixiao|COMPLETED|0:0|14|16|compute-0-19\n4525086|zixiao|COMPLETED|0:0|57|16|compute-0-2\n",
+    "stderr": ""
+  },
+  "history_rows": 56738,
+  "first_step": 0,
+  "last_step": 56737,
+  "all_history_scopes": 36,
+  "full_typed_config_summary_and_CRC_EOF_exit0": true,
+  "actual_remote_metadata": {
+    "entity": "mint_leaf258",
+    "first_step": 0,
+    "history_rows": 56738,
+    "last_step": 56737,
+    "project": "phychem-model-v3",
+    "run_id": "i59ur33t",
+    "state": "finished"
+  },
+  "remote_metric_values_independently_compared": false,
+  "Root_SDK_or_journal_payload_read": false,
+  "original_SDK_and_failures_preserved": true,
+  "scientific_acceptance": false,
+  "D5_or_B_or_Bstar_or_formal_training_accepted": false,
+  "reservation_released_by_this_script": false
+}

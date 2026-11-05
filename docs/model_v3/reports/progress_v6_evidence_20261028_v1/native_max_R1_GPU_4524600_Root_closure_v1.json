@@ -1,0 +1,154 @@
+{
+  "schema": "model_v3_Root_native_max_singleton_R1_GPU_closure_v1",
+  "status": "ACTUAL_C0_NATIVE_MAX712_FULL_THREE_VIEWS_22_UPDATES_SOURCE_RESOURCE_CLOSED_SDK_AUDIT_PENDING",
+  "actual_unix": 1793149030.2827742,
+  "job_id": "4524600",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524600",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524600|zixiao|COMPLETED|0:0|48|16|compute-0-21\n",
+    "stderr": ""
+  },
+  "configuration": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/child/configuration.json",
+    "bytes": 92619,
+    "sha256": "88ef9f29766f223df6363fe78acf3faab798193c295a1360963aa7f2e5271938"
+  },
+  "summary": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/child/summary.json",
+    "bytes": 3052,
+    "sha256": "3f7817ee06990eba997063b7e60f802629a61c28a550dbf732618293b553e614"
+  },
+  "run_status": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/child/run_status.json",
+    "bytes": 2164,
+    "sha256": "087112119727a2b40e972978bec23f4e39eb732bc1966e05f4b7e74ebce70def"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/supervisor.json",
+    "bytes": 2734,
+    "sha256": "d3318dd257b4bb6cfc073ef89100e84fa3c4b4ee7fb35bf8a3fc4392e0b9c252"
+  },
+  "submission": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/control/Root_submission_actual_v1.json",
+    "bytes": 8612,
+    "sha256": "c1556a3f614e0790d09d1e99d4d113fcd59cb84424e3236fae5d666146973efe"
+  },
+  "selection": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/child/selection.json",
+    "bytes": 1302,
+    "sha256": "42c73235221a9ebba2babb1a260f170725bd1aea4c1a959a795fcc28f2396985"
+  },
+  "source_package": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_GPU_v2_source/source_pins.json",
+    "bytes": 7023,
+    "sha256": "9e6bfd6eef2150206c9c73b8fa982af29dfff9521f561fc34e5e47d7a2895367"
+  },
+  "method_publication": {
+    "bytes": 6404,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v28_methods_publication_actual_v1.json",
+    "sha256": "116b7a81eda96fe9bc801b7d9388577cecc82f5bda43c47fb4d7f429fd40fd70"
+  },
+  "all_current_2131_sources_rehashed": true,
+  "selected_logical_ordinal": 2391113,
+  "maximum_native_atoms": 712,
+  "maximum_ties": 6,
+  "actual_dense_shape": [
+    3,
+    712
+  ],
+  "padded_cost": 1520832,
+  "real_optimizer_updates": 22,
+  "resident_models": 1,
+  "checkpoint_flags": {
+    "distance": true,
+    "backbone": true,
+    "head": false
+  },
+  "whole_peak_allocated_bytes": 872654848,
+  "whole_peak_reserved_bytes": 1121976320,
+  "observed_peak_NVML_own_bytes": 1820327936,
+  "observed_peak_RSS_bytes": 2414817280,
+  "resource_samples": 23,
+  "NVML_memory_all_known": true,
+  "whole_family_stat_bytes": 536385,
+  "output_census": {
+    "child_bytes": 444960,
+    "disjoint_external_files": [
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/supervisor.json.storage.json",
+        "bytes": 1193
+      },
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/supervisor.json.jsonl",
+        "bytes": 49700
+      },
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/supervisor.json",
+        "bytes": 2734
+      },
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/control/registry_before.json",
+        "bytes": 15936
+      },
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/control/principal.json",
+        "bytes": 741
+      },
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/control/Root_hold_actual_v1.json",
+        "bytes": 1464
+      },
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/control/Root_submission_actual_v1.json",
+        "bytes": 8612
+      },
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/control/Root_quota_actual_v1.json",
+        "bytes": 814
+      },
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/control/Root_admission_actual_v1.json",
+        "bytes": 5459
+      },
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/control/slurm_4524600.log",
+        "bytes": 4772
+      }
+    ],
+    "root_closure_reserve_bytes": 2097152
+  },
+  "private_sampling_cleanup_closed": true,
+  "SDK": {
+    "bytes": 158791,
+    "independent_native_audit_pending": true,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/child/wandb/offline-run-20261028_084200-pnugbb4q/run-pnugbb4q.wandb",
+    "payload_rehashed_or_decoded_here": false
+  },
+  "SDK_expected_summary": {
+    "bytes": 2795,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_v2/child/SDK_expected_summary.json",
+    "sha256": "3f848807241287b1b3189576cb6b1bca92278aae7b4f0c17c4ae5aada32ab126"
+  },
+  "tracking_run_id": "pnugbb4q",
+  "SDK_and_journal_independent_audit_pending": true,
+  "Root_SDK_journal_counts_or_ordinal_payload_opened": false,
+  "counts_cross_node_device_projection": {
+    "compute": 50,
+    "login": 2049,
+    "inode_size_mtime_owner_equal": true,
+    "compute_two_pass_raw_SHA_unchanged": true
+  },
+  "original_8worker_sampler_or_ABBA": false,
+  "universal_8M_capacity_qualification": false,
+  "automatic_capacity_qualification": false,
+  "scientific_adoption": false
+}

@@ -1,0 +1,19 @@
+{
+  "schema": "model_v3_B_precision_plan_v1",
+  "status": "BLOCKED_PENDING_D5_AND_PROXY_TRAIN_VALIDATION_BINDINGS",
+  "training_runs_launched": 0,
+  "prereg_sha": "3441b280bc34431bf8e7596465af28be073644b6",
+  "population": {"authority": "data_line_D5_nested_240000_TRAIN_molecules_all_allowed_conformations_PM7", "manifest_path": null, "manifest_sha256": null, "old_record_sampler_is_substitute": false},
+  "gpu_type": null,
+  "same_gpu_environment_for_all_four_runs": true,
+  "pretraining_seeds": [0, 1],
+  "updates_per_run": 20000,
+  "fp32_options": "b00_fp32.json",
+  "bf16_options": "b01_bf16.json",
+  "precision_only_difference": true,
+  "validation": {"authority": "proxy_TRAIN_only_molecular_inner_split_frozen_before_first_run", "molecule_manifest_sha256": null, "noise_seed": 0, "epoch": 0, "update_start": 0, "update_interval": 500, "update_end_inclusive": 20000, "metric_registry_sha256": null, "every_metric_with_effective_counts": true, "outer_final_population_read": false},
+  "acceptance": {"every_bf16_curve_within_two_fp32_seed_envelope_at_every_point": true, "denoising_RMSE_relative_difference_to_same_seed_fp32_max": 0.02, "incomplete_run_is_pass": false},
+  "launch_requires": ["D5_READY_and_population_rawSHA", "molecule_uniform_then_allowed_conformation_uniform_loader", "frozen_train_inner_validation_and_metrics", "bf16_training_and_resume_driver", "actual_GPU_bf16_dtype_geometry_fp32_smoke", "reviewed_wall_quota_and_storage_budget"],
+  "geometry_losses_normalization_parameter_dtype": "fp32",
+  "formal_pretraining_or_school_server_authorized": false
+}

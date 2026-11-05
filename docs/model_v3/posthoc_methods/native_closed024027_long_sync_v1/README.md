@@ -1,0 +1,3 @@
+# Exact closed024/025 and026/027 selective sync
+
+SOURCE ONLY. Mature closed020023 transport/prepare/installed API/4metadata tests copied unchanged; only finite run IDs, exact new audit-producer ref, source namespace and README rebound. All full typed config/summary/history/CRC/EOF/count/steps/exit/original route/exact-copy/official sync/all-row readback rules and caps remain original. Future actual audit C0/supervisor/verification proofs are mandatory; this package contains no fabricated sync request/certificate/online claim. Original6 fixture checks use the separately source-bound wrapper. CPU16, automatic memory/software16GiB/RSS12GiB/1h/dual2GiB unchanged; no new runner, dispatch, retry or scientific acceptance.

@@ -1,0 +1,123 @@
+{
+    "schema":  "native_max_R1_log_sources_v1",
+    "scope":  "NATIVE_MAX_SINGLETON_R1_LOG_ONLY",
+    "status":  "SOURCE_ONLY_FROZEN_NOT_EXECUTED",
+    "files":  [
+                  {
+                      "relative_path":  "max_common.py",
+                      "bytes":  19803,
+                      "sha256":  "be661ba45bcb25bb532699ebeb6c254c5d0df9a95d91ee0eb47255a6124bcdc4"
+                  },
+                  {
+                      "relative_path":  "audit_max.py",
+                      "bytes":  13483,
+                      "sha256":  "91a61a166efa81cf89fdb483d587eb0d5b2f334b9fabdfc468408d6c20a796f3"
+                  },
+                  {
+                      "relative_path":  "prepare.py",
+                      "bytes":  4219,
+                      "sha256":  "c7dc432600727ffee48be232d5a74b319b947ba5f210edd16257487680bfa7e6"
+                  },
+                  {
+                      "relative_path":  "sync_max.py",
+                      "bytes":  6528,
+                      "sha256":  "99bdffa6dae187c023e80b682478ce2bf9e2fd7b10ccca8bcc5350cc200376ed"
+                  },
+                  {
+                      "relative_path":  "one_run_max.py",
+                      "bytes":  11851,
+                      "sha256":  "67177cb7269b3011a41dadef985611da456fc394f3951a12115f9a76d95bfbbc"
+                  },
+                  {
+                      "relative_path":  "installed_sources.json",
+                      "bytes":  5921,
+                      "sha256":  "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+                  },
+                  {
+                      "relative_path":  "audit_cpu.sbatch",
+                      "bytes":  1188,
+                      "sha256":  "2e9ddabee908140d5b9f1af3fca146491c4b622a60328075332f78d08eb3bf8a"
+                  },
+                  {
+                      "relative_path":  "sync_cpu.sbatch",
+                      "bytes":  1288,
+                      "sha256":  "6f21b27cffeef232654e0f4269f23ee96e8149dc45c1b8e83791841aa7f07ea5"
+                  },
+                  {
+                      "relative_path":  "dependencies.json",
+                      "bytes":  10678,
+                      "sha256":  "2045adb0c5513b4ab504e98caf25f910c250837f7d38b858c015210f7539b8bd"
+                  },
+                  {
+                      "relative_path":  "scope.json",
+                      "bytes":  1241,
+                      "sha256":  "a2dd9689cd7c8bb3d6525a22ecb8596f9cad9de912b2f5a09dd108b87ba4f90f"
+                  },
+                  {
+                      "relative_path":  "README.md",
+                      "bytes":  5201,
+                      "sha256":  "437a1a1dfb1d5b495e3a13aefadb9cd74f82df2735078c67d508949fd54964e9"
+                  }
+              ],
+    "dependencies":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_Av2_auto_SDK_v1_source/dependencies.json",
+                         "bytes":  10678,
+                         "sha256":  "2045adb0c5513b4ab504e98caf25f910c250837f7d38b858c015210f7539b8bd"
+                     },
+    "Root_model_C0":  {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_max_current_auto_GPU4906_Root_closure_actual_v1.json",
+                          "bytes":  4921,
+                          "sha256":  "0414c40982568eba7c4eeb188f34c3c098b78213c056d8197b84fc105def2d51"
+                      },
+    "literal_reader":  {
+                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/literal_key_history_v1.py",
+                           "bytes":  11700,
+                           "sha256":  "74925c58edc61619c78533ff6cce8fc36b2b5f20f876cb011169906d8ba77e88"
+                       },
+    "tap":  {
+                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/profile_sdk_tap.py",
+                "bytes":  10910,
+                "sha256":  "e70022162ed70b983af88a0e445a08a6f81866ba96da7da6ad63643f951a5795"
+            },
+    "full_rb_decoder":  {
+                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_native_integrity_probe_v1_source/native_integrity.py",
+                            "bytes":  20296,
+                            "sha256":  "07b155e55f7721b1cc4b5f5781c5d260ae4e0300fc7d17a2c2b4a5c024e5c499"
+                        },
+    "original_v3_transport":  {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/one_run.py",
+                                  "bytes":  11852,
+                                  "sha256":  "0286ce7f8fd218eb8548e87596662f3027bf9f14363d2cc8762022c2b8300af9"
+                              },
+    "original_max_log_source_manifest":  {
+                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_SDK_v1_source/source_pins.json",
+                                             "bytes":  5288,
+                                             "sha256":  "c68921d381f8398001ee31fb3fe0e62c29d12c570f06296810d0b1db6ca647c7"
+                                         },
+    "original_auto_allocation_source":  {
+                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_failed_SDK_v3_source/failed_common.py",
+                                            "bytes":  21394,
+                                            "sha256":  "878ec7e6fce09b9ed417e9fcc057439b15ec49624848897a0174931bffe7f9ae"
+                                        },
+    "transport_only_change":  "Original v3 import substitution only; original one_run_max bytes retained.",
+    "unchanged_original_log_leaves":  [
+                                          "audit_max.py",
+                                          "sync_max.py",
+                                          "one_run_max.py",
+                                          "installed_sources.json"
+                                      ],
+    "installed_snapshot_rawbytes_preserved":  true,
+    "Slurm_memory_mode":  "automatic_default",
+    "CPU_request":  16,
+    "software_working_memory_budget_bytes":  17179869184,
+    "RSS_limit_bytes":  12884901888,
+    "whole_and_private_bytes":  2147483648,
+    "audit_wall_seconds":  900,
+    "sync_wall_seconds":  3300,
+    "author_opened_SDK_or_steps":  false,
+    "author_ran_project_Git_SSH_API_Slurm_or_tests":  false,
+    "actual_metadata_prepare":  null,
+    "actual_CPU_audit":  null,
+    "actual_selective_sync":  null,
+    "scientific_acceptance":  false
+}

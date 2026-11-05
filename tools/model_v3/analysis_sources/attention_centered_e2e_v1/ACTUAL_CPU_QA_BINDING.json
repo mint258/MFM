@@ -1,0 +1,100 @@
+{
+  "Root_actual_CPU_closure": {
+    "bytes": 5088,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_candidate_full_CPU_Root_closure_actual_v1.json",
+    "sha256": "5efcce3028dee7678b8d52772e9ead9003a99d89c9946c532b7834d2ce59c896"
+  },
+  "Root_actual_checker_closure": {
+    "bytes": 2109,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_candidate_checker_Root_closure_actual_v1.json",
+    "sha256": "9d3807052d5f4bc45ee8417a16302a0bb403c1b1353aa6b9df2089cec3056823"
+  },
+  "actual_XML": [
+    {
+      "bytes": 110288,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707/shard_00.xml",
+      "sha256": "785debb7bb6ea91801a3e22becabe9b56e30853e266589757f450dad9d8d0fb8"
+    },
+    {
+      "bytes": 87942,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707/shard_01.xml",
+      "sha256": "21fcdb95def0b7f43e14e2b13391de80d8d2f3c41dc7dd24b753ad2fa2cf48f1"
+    },
+    {
+      "bytes": 121160,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707/shard_02.xml",
+      "sha256": "5219c90baa880724b0dd5a4bf9a994d99267d3e93f12d8b90480601fc22acec1"
+    },
+    {
+      "bytes": 8492612,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707/shard_03.xml",
+      "sha256": "b81f8ac09814a56d22e166fc0356e286d07fdf5ab8cfc1f94b8a742e75868a73"
+    }
+  ],
+  "actual_counts": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 3,
+    "tests": 2712
+  },
+  "actual_new_attention_file_counts": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 73
+  },
+  "actual_pytest_processes": 4,
+  "actual_test_file_count": 114,
+  "assignment": {
+    "bytes": 20955,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centering_fullsuite_v1_assignment_v1.json",
+    "sha256": "30176f589e54e00cff56ddc3124aaa1d7b6f849886678e74efd231535d6a80c3"
+  },
+  "control_plan": {
+    "bytes": 199739,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centering_fullsuite_v1_control_v1.json",
+    "sha256": "d0a7d51d5c126f4a89ad50acc9ac79532689fa8fc28448f4ad688ed87a0f80c6"
+  },
+  "control_source": {
+    "bytes": 25767,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source/regression_control_v4.py",
+    "sha256": "d51000bfa8e5c169c7d71b7d4393e2fc6985162d2834df8006fd150d9c88fbea"
+  },
+  "job_id": "4521707",
+  "planned73_is_not_actual_collection": true,
+  "raw_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4521707",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "4521707|zixiao|COMPLETED|0:0|132|16|compute-0-13\n",
+    "stdout_sha256": "d04c3bdbdbc21962921735595ac06045e9d778f876127be0231450ca682a2c4c"
+  },
+  "schema": "model_v3_centered_actual_CPU_QA_binding_v1",
+  "scientific_GPU_acceptance": false,
+  "source_before_after_equal": true,
+  "status": "ACTUAL_QA_METADATA_VERIFIED",
+  "submission": {
+    "bytes": 4960,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centering_fullsuite_v1_part0_submission_v4.json",
+    "sha256": "86d58224e08c5d7c645b923a3ff3f58512d94968acdefd2f5e023008d7cffcea"
+  },
+  "summary": {
+    "bytes": 353498,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707/summary.json",
+    "sha256": "32278a442337fdaa09c564b98d780f13a7d90f4be123165f03ab935d7ef1bd21"
+  },
+  "supervisor": {
+    "bytes": 9881,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_supervisor_4521707.json",
+    "sha256": "96043e269837a69b5c6cc59341fabc8a3bee57bac33db349bbea574d67f89bdc"
+  }
+}

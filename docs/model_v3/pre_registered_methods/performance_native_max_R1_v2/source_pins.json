@@ -1,0 +1,116 @@
+{
+    "schema":  "model_v3_native_max_R1_sources_v1",
+    "revision":  2,
+    "status":  "FROZEN_SOURCE_ONLY_NO_EXECUTION",
+    "created_utc":  "2026-10-28T00:23:24.6620975Z",
+    "producer_kind":  "native_train_global_max_singleton_R1_v1",
+    "files":  [
+                  {
+                      "relative_path":  "native_max_input.py",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_GPU_v2_source/native_max_input.py",
+                      "bytes":  16756,
+                      "sha256":  "6fdc7fc412c1af16d6469b8a6ba3685f9b233e38f90213629825218153d75a3f"
+                  },
+                  {
+                      "relative_path":  "run_native_max_R1.py",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_GPU_v2_source/run_native_max_R1.py",
+                      "bytes":  25330,
+                      "sha256":  "8e521a05ecef04e9c08043ede83ae03c07d7570d951d2c4aea29898f8c1344e9"
+                  },
+                  {
+                      "relative_path":  "run_native_max_R1.sbatch",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_GPU_v2_source/run_native_max_R1.sbatch",
+                      "bytes":  4168,
+                      "sha256":  "1612500a13206668e1299d8c9c9bd002f3321b61a9e3c6e8705265ecffe405b3"
+                  },
+                  {
+                      "relative_path":  "dependencies.json",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_GPU_v2_source/dependencies.json",
+                      "bytes":  17483,
+                      "sha256":  "8b4fac0f9133219a745dc8cd9494410e99e4d4645bec17314e2e265caf9cde62"
+                  },
+                  {
+                      "relative_path":  "README.md",
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_GPU_v2_source/README.md",
+                      "bytes":  12740,
+                      "sha256":  "fbb8e0bd0958260f842f6d35316b735933ba497c4a350b2e381a32809f038058"
+                  }
+              ],
+    "baseline_source_package":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_GPU_v1_source/source_pins.json",
+                                    "bytes":  4748,
+                                    "sha256":  "4a9679ee63fec0e5be8046e0e8540040e70f858626230801fd631d5ef51c1b52"
+                                },
+    "preserved_v1_handoff":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_native_max_R1_GPU_source_handoff_v1.json",
+                                 "bytes":  10271,
+                                 "sha256":  "db153a975071e6868c3b32ae8160c4381080ab1d64f6a611fd6900b38a00470d"
+                             },
+    "v1_status":  "Unexecuted source retained; omitted required persistent W\u0026B for22actualAdamupdates",
+    "revision_scope":  "Original single_a_benchmark offline init/log(step1..22,commitTrue)/finally summary+finish; no model mathematics or resource policy change",
+    "reused_runtime_root":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1",
+    "reused_local_code_sha":  "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+    "reused_public_sha":  "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+    "reused_tree_sha":  "98b3b4bd8bc083a4150f536024e4dc81e6fb6108",
+    "protected_dependency_source":  "Exact raw_refs in dependencies.json; actual worker checks complete packaging2131 graph; no Windows full-tree rehash",
+    "original_runtime_modified":  false,
+    "resources":  {
+                      "cpus":  16,
+                      "memory_MiB":  65536,
+                      "RSS_bytes":  60129542144,
+                      "Slurm_wall_seconds":  7200,
+                      "supervisor_wall_seconds":  6900,
+                      "child_work_deadline_seconds":  6600,
+                      "cleanup_reserve_seconds":  300,
+                      "CPU_preparation_deadline_seconds":  600,
+                      "source_only_prelude_deadline_seconds":  30,
+                      "whole_output_bytes":  2147483648,
+                      "private_bytes":  2147483648,
+                      "inherited_child_ceiling_bytes":  2046820352,
+                      "GPU_fraction":  0.85,
+                      "resident_models":  1
+                  },
+    "selected_shape":  {
+                           "original_TRAIN_records":  11104772,
+                           "max_native_atoms":  712,
+                           "selected_base_records":  1,
+                           "views":  3,
+                           "physical_graphs":  3,
+                           "physical_atoms":  2136,
+                           "padded_cost":  1520832,
+                           "all_tie_count_or_ordinal_prefilled":  false
+                       },
+    "actual_updates":  {
+                           "warmup":  2,
+                           "observations":  20,
+                           "total":  22,
+                           "original_sampler":  false,
+                           "direct_CPU_reader_workers":  0,
+                           "original_8M_loader_queue_coverage":  false
+                       },
+    "source_text_comparison":  {
+                                   "count_and_native_helper_raw_unchanged":  true,
+                                   "original_zero_forward_loss_backward_clip_step_block_exact":  true,
+                                   "SB_only_new_package_path":  true,
+                                   "no_peak_reset_added":  true
+                               },
+    "persistent_WandB":  {
+                             "mode":  "offline",
+                             "project":  "mfm_model_v3_development",
+                             "SDK_version":  "0.28.1",
+                             "rows":  22,
+                             "first_step":  1,
+                             "last_step":  22,
+                             "all_steps_commit":  true,
+                             "source":  "Actual frozen9e single_a_benchmark.py API",
+                             "original_cache_and_private_layout":  true,
+                             "finish_failure_preserved":  true,
+                             "independent_native_audit_pending_until_real_CPU":  true
+                         },
+    "legacy_capacity_consumer_supported":  false,
+    "qualify_invocation_fabricated":  false,
+    "model_checkpoint_output_planned":  false,
+    "SDK_output_required_and_planned":  true,
+    "automatic_capacity_science_or_ABBA_acceptance":  false,
+    "author_executed_Python_AST_Git_SSH_Slurm_or_inputs":  false
+}

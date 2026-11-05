@@ -1,0 +1,77 @@
+{
+  "status": "FAILED",
+  "command": [
+    "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+    "-u",
+    "-B",
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance/tools/model_v3/check_composed_equivariance.py",
+    "run",
+    "--request",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/eq_gpu_request_prepare_4521011/request.json",
+    "--request-sha256",
+    "91db91f74a817f0af950d888877e361103206b1edb97219cede09fead443bdeb",
+    "--output-root",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/composed_eq_gpu_4521015"
+  ],
+  "job_id": "4521015",
+  "child_pid": 425129,
+  "launch_identity": {
+    "status": "ACTIVE",
+    "pid": 425129,
+    "uid": 1278,
+    "boot_id": "adf2e159-f575-4a27-a5d0-7840def635c4",
+    "start_ticks": 566499931,
+    "pgid": 425129,
+    "sid": 425129,
+    "argv": [
+      "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+      "-u",
+      "-B",
+      "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance/tools/model_v3/check_composed_equivariance.py",
+      "run",
+      "--request",
+      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/eq_gpu_request_prepare_4521011/request.json",
+      "--request-sha256",
+      "91db91f74a817f0af950d888877e361103206b1edb97219cede09fead443bdeb",
+      "--output-root",
+      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/composed_eq_gpu_4521015"
+    ],
+    "argv_sha256": "917702568536575946b9ad7766c6fa1e1bd2c98140fdd69a33e16161cf993966",
+    "cgroup": "1:freezer:/slurm/uid_1278/job_4521015/step_batch\n0::/system.slice/slurmd.service\n",
+    "slurm_job_id": "4521015",
+    "created": 1792961183.31
+  },
+  "supervisor_slurm_cgroup": "1:freezer:/slurm/uid_1278/job_4521015/step_batch\n0::/system.slice/slurmd.service\n",
+  "elapsed_seconds": 6.296915543265641,
+  "exit_code": 1,
+  "first_failure": {
+    "phase": "child_exit",
+    "exit_code": 1
+  },
+  "retirement": null,
+  "remaining_recorded_processes_before_retirement": [],
+  "output_budget_bytes": 2147483648,
+  "last_output_bytes": 6227,
+  "child_output_budget_bytes": 2046820352,
+  "private_storage_bindings_path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/composed_eq_gpu_supervisor_4521015.json.storage.json",
+  "private_storage_final": {
+    "last": {
+      "bytes": 496,
+      "root_bytes": {
+        "/tmp/mv3n_4521015": 496
+      },
+      "entries": 7
+    },
+    "sampled_max_bytes": 496,
+    "sampled_growth_above_initial_bytes": 0,
+    "samples": 14,
+    "sample_interval_seconds": 0.5,
+    "exact_peak": false,
+    "first_sampling_failure": null,
+    "budget_bytes": 2147483648
+  },
+  "private_storage_cleanup_errors": [],
+  "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+  "foreign_gpu_processes_signalled": false,
+  "supervisor_source_sha256": "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+}

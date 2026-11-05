@@ -1,0 +1,81 @@
+{
+  "status": "ACTUAL_C0_FULL_CORE_SUITE_SOURCE_AND_AUTOMATIC_MEMORY_OPERATIONAL_CLOSED",
+  "job_id": "4525085",
+  "node": "compute-0-19",
+  "code_commit": "e92b6125e0b3ea430970bc7ee24fc152e26919c5",
+  "counts": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 3,
+    "tests": 3189
+  },
+  "passed": 3186,
+  "test_file_count": 135,
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4525085",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "4525085|zixiao|COMPLETED|0:0|243|16|compute-0-19\n"
+  },
+  "actual_skips": [
+    {
+      "classname": "tests.test_model_v3_native_s_source_interop",
+      "message": "actual native corpus test requires explicit Root data admission",
+      "name": "test_actual_native_TRAIN_and_fixed_PRETRAIN_VAL_reader_bridge_and_close",
+      "text": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_delivery_integration_v2/current/tests/test_model_v3_native_s_source_interop.py:17: actual native corpus test requires explicit Root data admission"
+    },
+    {
+      "classname": "tests.test_model_v3_native_bond_transport",
+      "message": "Actual bond pin/transfer requires visible CUDA",
+      "name": "test_pinned_bond_arrays_and_nonblocking_cuda_transfer",
+      "text": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_delivery_integration_v2/current/tests/test_model_v3_native_bond_transport.py:299: Actual bond pin/transfer requires visible CUDA"
+    },
+    {
+      "classname": "tests.test_model_v3_transfer",
+      "message": "Actual pinned-memory transfer requires a visible CUDA device",
+      "name": "test_custom_batch_pin_protocol_and_nonblocking_cuda_transfer",
+      "text": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_delivery_integration_v2/current/tests/test_model_v3_transfer.py:28: Actual pinned-memory transfer requires a visible CUDA device"
+    }
+  ],
+  "source_before": {
+    "bytes": 153525,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4525085/sources_before.json",
+    "sha256": "95c95d94294ba7caf1f7e78b8851d2166dfb7d06f5b297b0b3bea88fa4fef711"
+  },
+  "source_after": {
+    "bytes": 153525,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4525085/sources_after.json",
+    "sha256": "95c95d94294ba7caf1f7e78b8851d2166dfb7d06f5b297b0b3bea88fa4fef711"
+  },
+  "summary": {
+    "bytes": 374498,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4525085/summary.json",
+    "sha256": "a066a134bd2bfb6171cc40250956cd41463513434412f7a4a3cd6f2935015fe4"
+  },
+  "supervisor": {
+    "bytes": 10102,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_supervisor_4525085.json",
+    "sha256": "27a0748b9dc4ecffb19ef47e7b39e4ce76b17b93448ae02c94411385a72708d5"
+  },
+  "all_runtime_before_after_and_current_verified": true,
+  "full_pass_is_not_scientific_adoption_or_D_final_or_recipe_acceptance": true,
+  "schema": "model_v3_concrete_C_CLI_full135_public_summary_v1",
+  "full_Root_closure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/C_cli_full135_auto_post_v1_CPU_4525085_Root_closure_actual_v1.json",
+    "bytes": 976793,
+    "sha256": "00848daf184e48e0b0c5aac52264d5db6a5d64244fd61ba07293e2d4d397f078"
+  },
+  "CLI_freeze": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/C_architecture_CLI_source_freeze_actual_v1.json",
+    "bytes": 1190,
+    "sha256": "32ccd368764929b025c0840e1b0da6178c962c32ca69059763d9d4217c1a99df"
+  }
+}

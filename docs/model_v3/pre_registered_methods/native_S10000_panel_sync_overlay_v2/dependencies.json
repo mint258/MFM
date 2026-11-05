@@ -1,0 +1,123 @@
+{
+    "schema":  "native_S10000_panel_sync_overlay_dependencies_v2",
+    "scope":  "Onlysync operational retry forvcxcfx54; no newSDK audit",
+    "baseline_source_pins":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S10000_panel_SDK_sync_v1_source/source_pins.json",
+                                 "bytes":  3312,
+                                 "sha256":  "e5573cfe9c80901e75009981ba5b1d1cbeeb1f11101857ceef6c08450be7dc68"
+                             },
+    "baseline_driver":  {
+                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S10000_panel_SDK_sync_v1_source/sync_panel.py",
+                            "bytes":  5704,
+                            "sha256":  "552bdd2d4bbc5d06dfa3191c7ad7a994e5fc7d597ce3867011dd67fb8a44aa62"
+                        },
+    "baseline_wrapper":  {
+                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S10000_panel_SDK_sync_v1_source/sync_cpu.sbatch",
+                             "bytes":  1367,
+                             "sha256":  "65d6c3d2febf17331e62b23ef03b326d5c8259e8620da0d30b051a40c25b8e4b"
+                         },
+    "metadata_refs":  {
+                          "verified4552":  {
+                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S10000_panel_SDK_audit_actual_v1/VERIFICATION.json",
+                                               "bytes":  13710,
+                                               "sha256":  "8b5d3446092086cc6cdcd60afd28a5eb26d3b579a55de801183b80cd010ebffa"
+                                           },
+                          "audit4552_result":  {
+                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S10000_panel_SDK_audit_actual_v1/RESULT.json",
+                                                   "bytes":  1963,
+                                                   "sha256":  "d060d1165672411c3b0f0ac9fcdf22260846ef5dd44b1af1c4d4e14c6a963bf0"
+                                               },
+                          "audit4552_supervisor":  {
+                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S10000_panel_SDK_audit_actual_v1.supervisor.json",
+                                                       "bytes":  3383,
+                                                       "sha256":  "f05befb35605b77ffe1a5913a2a7a1f9355e0102e64961955fc9f4a47bef9f67"
+                                                   },
+                          "failed4553_result":  {
+                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S10000_panel_sync_actual_v1/RESULT.json",
+                                                    "bytes":  11651,
+                                                    "sha256":  "6b5ab7fa5cc148768da83bb8e576f4e43fddb14457b5550ce676b2070c30c0da"
+                                                },
+                          "failed4553_supervisor":  {
+                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S10000_panel_sync_actual_v1.supervisor.json",
+                                                        "bytes":  3414,
+                                                        "sha256":  "97a7b17674a1aea64990f1ad5304931cf913e76dcf22c033f45a349187feaff3"
+                                                    },
+                          "failure_source_review":  {
+                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S10000_panel_sync4553_failure_source_review_v1.json",
+                                                        "bytes":  4374,
+                                                        "sha256":  "22f6e58df73af12b4bf3e1bf8a6d319ae6516e9c62405ffbee153713dde3a835"
+                                                    }
+                      },
+    "driver_edits":  [
+                         {
+                             "before":  "from panel_common import *",
+                             "after":  "import sys\nfrom pathlib import Path\nV1=Path(__file__).absolute().parent.parent/\u0027native_S10000_panel_SDK_sync_v1_source\u0027\nsys.path.insert(0,str(V1))\nfrom panel_common import *\nfrom overlay_metadata import verify_overlay\nOVERLAY=Path(__file__).absolute().parent"
+                         },
+                         {
+                             "before":  "def controls(request,row,transport):",
+                             "after":  "def transport_argv(request_path,request_sha,output_root):\n    require(isinstance(request_path,Path) and isinstance(output_root,Path)\n        and type(request_sha) is str and re.fullmatch(r\u0027[0-9a-f]{64}\u0027,request_sha),\n        \u0027Actual typedPath request/output and raw64SHA required\u0027)\n    child=output_root/(\u0027run_0_\u0027+RUN)\n    return [str(PYTHON),\u0027-B\u0027,str(HERE/\u0027one_run_panel.py\u0027),\u0027--request\u0027,str(request_path),\n        \u0027--request-sha256\u0027,request_sha,\u0027--run-id\u0027,RUN,\u0027--output\u0027,str(child)]\n\n\ndef controls(request,row,transport):"
+                         },
+                         {
+                             "before":  "    expected=transport.sync_argv(control_row,Path(\u0027/tmp/metadata_only/run-\u0027+RUN+\u0027.wandb\u0027))",
+                             "after":  "    expected=transport.sync_argv(control_row,Path(\u0027/tmp/metadata_only/run-\u0027+RUN+\u0027.wandb\u0027))\n    actual_constructor=transport_argv(Path(\u0027/tmp/metadata_only/request.json\u0027),\u00270\u0027*64,Path(\u0027/tmp/metadata_only\u0027))\n    require(actual_constructor[-4:]==[\u0027--run-id\u0027,RUN,\u0027--output\u0027,\u0027/tmp/metadata_only/run_0_\u0027+RUN],\n        \u0027Production typedPath transport argv constructor differs\u0027)\n    try:transport_argv(Path(\u0027/tmp/metadata_only/request.json\u0027),\u00270\u0027*64,\u0027/tmp/metadata_only\u0027)\n    except ValueError:pass\n    else:raise ValueError(\u0027Untyped output root admitted by actual transport constructor\u0027)"
+                         },
+                         {
+                             "before":  "\u0027exact_official_one_file_argv\u0027",
+                             "after":  "\u0027actual_typedPath_constructor_and_exact_official_one_file_argv\u0027"
+                         },
+                         {
+                             "before":  "    parser.add_argument(\u0027--pins-sha256\u0027,required=True);parser.add_argument(\u0027--output\u0027,type=Path,required=True)",
+                             "after":  "    parser.add_argument(\u0027--pins-sha256\u0027,required=True);parser.add_argument(\u0027--output\u0027,type=Path,required=True)\n    parser.add_argument(\u0027--overlay-pins-sha256\u0027,required=True)"
+                         },
+                         {
+                             "before":  "    args=parser.parse_args();process=allocation();pin=verify(args.pins_sha256);raw=ref(args.request)",
+                             "after":  "    args=parser.parse_args();overlay=verify_overlay(args.overlay_pins_sha256)\n    process=allocation();pin=verify(args.pins_sha256);raw=ref(args.request)"
+                         },
+                         {
+                             "before":  "    args.output.mkdir(mode=0o700);started=time.monotonic();failure=None;record=None",
+                             "after":  "    args.output.mkdir(mode=0o700);started=time.monotonic();failure=None;record=None;intent=None;stage=\u0027load_transport\u0027"
+                         },
+                         {
+                             "before":  "    before={str(p):ref(p) for p in sources}",
+                             "after":  "    sources += [OVERLAY/item[\u0027relative_path\u0027] for item in read(overlay)[\u0027files\u0027]]+[OVERLAY/\u0027source_pins.json\u0027]\n    before={str(p):ref(p) for p in sources}"
+                         },
+                         {
+                             "before":  "        qa=write(args.output/\u0027INLINE_METADATA_QA.json\u0027,controls(request,row,transport))",
+                             "after":  "        stage=\u0027inline_metadata_controls\u0027\n        qa=write(args.output/\u0027INLINE_METADATA_QA.json\u0027,controls(request,row,transport))"
+                         },
+                         {
+                             "before":  "        _,eligible=eligible_rows();require(list(eligible)==[RUN],\u0027One eligible panel run only\u0027)",
+                             "after":  "        stage=\u0027readonly_authenticated_eligible_row\u0027\n        _,eligible=eligible_rows();require(list(eligible)==[RUN],\u0027One eligible panel run only\u0027)"
+                         },
+                         {
+                             "before":  "        argv=[str(PYTHON),\u0027-B\u0027,str(HERE/\u0027one_run_panel.py\u0027),\u0027--request\u0027,str(args.request),\n            \u0027--request-sha256\u0027,args.request_sha256,\u0027--run-id\u0027,RUN,\u0027--output\u0027,str(args.output/\u0027run_0_\u0027+RUN)]",
+                             "after":  "        stage=\u0027construct_typed_transport_argv\u0027\n        argv=transport_argv(args.request,args.request_sha256,args.output)"
+                         },
+                         {
+                             "before":  "        tick=time.monotonic()",
+                             "after":  "        intent=write(args.output/\u0027actual_invocation.json\u0027,dict(schema=\u0027native_S10000_panel_transport_intent_v2\u0027,\n            status=\u0027INTENT_DURABLE_SUBPROCESS_START_NOT_YET_CONFIRMED\u0027,argv=argv,job_id=process[\u0027job_id\u0027],\n            stdout_path=str(out),stderr_path=str(err),prepared_unix=time.time(),execution_overlay=overlay,\n            underlying_audit_transport_source_manifest=pin))\n        stage=\u0027transport_subprocess_attempt\u0027\n        tick=time.monotonic()"
+                         },
+                         {
+                             "before":  "        invocation=write(args.output/\u0027actual_invocation.json\u0027,dict(argv=argv,returncode=completed.returncode,",
+                             "after":  "        stage=\u0027transport_result_verification\u0027\n        invocation=write(args.output/\u0027actual_invocation_result.json\u0027,dict(intent=intent,argv=argv,returncode=completed.returncode,"
+                         },
+                         {
+                             "before":  "        verify(args.pins_sha256)",
+                             "after":  "        stage=\u0027source_after\u0027\n        verify(args.pins_sha256);verify_overlay(args.overlay_pins_sha256)"
+                         },
+                         {
+                             "before":  "        failure=dict(type=type(error).__name__,reason=\u0027bounded_single_panel_sync_failed; inspect owned private metadata, no secrets exported\u0027)",
+                             "after":  "        import traceback\n        failure=dict(type=type(error).__name__,stage=stage,\n            traceback_frames=[dict(file=f.filename,line=f.lineno,function=f.name)\n                for f in traceback.extract_tb(error.__traceback__)[-32:]],\n            reason=\u0027bounded_sync_overlay_failed; messages_args_locals_source_lines_credentials_metrics_not_exported\u0027)"
+                         },
+                         {
+                             "before":  "schema=\u0027native_S10000_panel_selective_sync_result_v1\u0027",
+                             "after":  "schema=\u0027native_S10000_panel_selective_sync_result_v2\u0027"
+                         },
+                         {
+                             "before":  "            requested_ids=[RUN],records=[] if record is None else [record],failure=failure,request=raw,source_manifest=pin,",
+                             "after":  "            requested_ids=[RUN],records=[] if record is None else [record],failure=failure,request=raw,source_manifest=pin,\n            execution_overlay=overlay,underlying_certified_SDK_audit_source_manifest=pin,transport_intent=intent,"
+                         }
+                     ],
+    "new_SDK_scan_required":  false,
+    "original4552_source_identity_preserved":  true
+}

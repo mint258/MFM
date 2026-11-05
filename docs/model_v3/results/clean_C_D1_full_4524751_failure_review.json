@@ -1,0 +1,40 @@
+{
+  "schema": "model_v3_full_regression_failure_review_v1",
+  "status": "FAILED_PRESERVED_NOT_QUALIFIED",
+  "code_commit": "28d0f8ce51699d3b29fc9b34da067f955bb29976",
+  "counts": {
+    "tests": 3052,
+    "failures": 27,
+    "errors": 53,
+    "skipped": 3
+  },
+  "test_file_count": 131,
+  "failure_cases": 80,
+  "all_failures_same_missing_distance_bias_projection_bias": true,
+  "modules": {
+    "tests.test_model_v3_training_execution": 12,
+    "tests.test_model_v3_training_entry": 7,
+    "tests.test_model_v3_training_capacity": 5,
+    "tests.test_model_v3_execution_checkpoint_bridge": 50,
+    "tests.test_model_v3_performance_integration": 6
+  },
+  "cause": "Both logical-batch wrapper constructors omitted the new backbone configuration attribute.",
+  "proposed_fix": "Copy the original backbone distance_bias_projection_bias declaration alongside existing nonparameter attributes; no parameter/threshold changes.",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-j",
+      "4524751",
+      "-n",
+      "-P",
+      "-o",
+      "JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524751|zixiao|FAILED|1:0|114|16|compute-0-18\n",
+    "stderr": ""
+  },
+  "prior_history_rewritten": false,
+  "source_fix_executed_tests_or_C0_claimed": false
+}

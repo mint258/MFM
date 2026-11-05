@@ -1,0 +1,95 @@
+{
+  "schema": "NATIVE_B_ROOT_PRE_SUBMISSION_RESOURCE_RECONCILIATION_V1",
+  "status": "NO_SLOT031_SBATCH_OCCURRED_EXACT_PRE_REGISTRATION_RELEASED_READY_FOR_FRESH_ROOT_RESOURCE_ADMISSION",
+  "old_controller_identity": {
+    "pid": 3307320,
+    "uid": 1278,
+    "boot_id": "714ffbb7-2f6e-4346-acb3-68466446ca62",
+    "start_ticks": 8204854554,
+    "argv_sha256": "5e5c938649a590235479081fc8b6459ed0b43e14464b8a3c1785bbbad0410b19",
+    "pgid": 3307320,
+    "sid": 3307320,
+    "source_sha256": "c96a3b6bd41d8f053905c7cba035faf05d5bbf3ad2d5bbdc90d609e96f9f1365",
+    "started_unix": 1793252431.3006446
+  },
+  "old_controller_status": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v3/status.json",
+    "bytes": 1236,
+    "sha256": "ecd218d5b38987a96df4ab506aeed3e3311d4fd0b51d99cd5acb5a2acd594067"
+  },
+  "old_controller_log": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v3/controller.log",
+    "bytes": 4530,
+    "sha256": "200a322a2af7a488424a4d2a0586c3707a2c8bf34992b6dfb86a50dea3f659bb"
+  },
+  "actual_submitted_and_closed_slots": 30,
+  "no_slot031_intent_submission_layout_or_sbatch_copy": true,
+  "actual_squeue": {
+    "argv": [
+      "squeue",
+      "-h",
+      "-u",
+      "zixiao",
+      "-o",
+      "%i|%j|%t|%N"
+    ],
+    "returncode": 0,
+    "stdout": "4521338|model_v3_A01_4090_ABBA|PD|\n4524558|model_v3_manual_R2_4090|PD|\n4525100|dv1_q_pm7_hof_resume_cpu2_r2_20261029_v1|R|compute-0-2\n4525135|dv1_pack_sprime_day04_general13_v3_20261029_v1|R|compute-0-13\n",
+    "stderr": ""
+  },
+  "removed_pre_submission_registration": {
+    "Root_source": {
+      "bytes": 21648,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_operational_v8/long_operations.py",
+      "sha256": "b93709d70d7e6dcb9c0e10513d06a88dd663d2d648dc943d4bab7c558d674170"
+    },
+    "actual_submission": null,
+    "authority": "ROOT_ACTUAL",
+    "gpu_uuid": "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+    "job_id": null,
+    "job_id_field": "actual_sbatch_job_id",
+    "node": "compute-0-21",
+    "proof_refs": [
+      {
+        "bytes": 22757,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/OPERATIONAL_ADOPTION_v8.json",
+        "sha256": "c6b2df100fa202f1eda1ae5d41361d94841ed540c358526cd4d71cb60c79a24b"
+      },
+      {
+        "bytes": 46234,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/GPU_auto_memory_methods_publication_20261029_v1/PUBLICATION.json",
+        "sha256": "14668412044667a8fd77e0c697960721cabd7a072a8cafeb7e8097f52e25413b"
+      },
+      {
+        "bytes": 705,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/MODEL_GPU_AUTO_MEMORY_USER_APPROVAL_20261029_v1.json",
+        "sha256": "bd9461a4005060ad43b2ea214d82c9dfa085da7793a145f1884bb2a921cd0de7"
+      }
+    ],
+    "registration_id": "native_S_B20k_v3_slot_031_auto_v1",
+    "rss_limit_bytes": 30064771072,
+    "schema": "model_v3_GPU_software_memory_registration_v1",
+    "slurm_memory_mode": "automatic_default",
+    "software_budget_bytes": 34359738368,
+    "source_pins": {
+      "bytes": 14912,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_operational_v8/source_pins.json",
+      "sha256": "785f5fe3d475316c98818ee01c50b69352d9956374e17df069a6f72868973019"
+    },
+    "status": "PRE_SUBMISSION",
+    "uid": 1278,
+    "user": "zixiao"
+  },
+  "removed_registration_id": "native_S_B20k_v3_slot_031_auto_v1",
+  "registry_before_sha256": "ac10e75aef87e9002998f708b5cea9085a9050518d4905a5aca40b47e2142fba",
+  "registry_after": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_profile_registered_reservations_v6.json",
+    "bytes": 122674,
+    "sha256": "b8e5e3e0b17a2f9559adb38dad9ca47ec012b5b445f53ab555782074137b85a3"
+  },
+  "all_other_resource_and_storage_fields_unchanged": true,
+  "Native_principal_counters_or_future_holds_changed": false,
+  "original_outputs_retained": true,
+  "automatic_original_failure_retry": false,
+  "actual_unix": 1793260279.1296313
+}

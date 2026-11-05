@@ -1,0 +1,43 @@
+{
+    "schema":  "model_v3_C1a_three_GPU_checkpoint_off_spec_v1",
+    "status":  "SOURCE_ONLY_NO_MEASUREMENT",
+    "GPU_families":  [
+                         "3090",
+                         "4090",
+                         "5090"
+                     ],
+    "windows_per_GPU":  1,
+    "architecture":  "C1-a",
+    "distance_bias_projection_bias":  false,
+    "backbone":  {
+                     "dim":  512,
+                     "heads":  8,
+                     "layers":  6
+                 },
+    "activation_checkpoint_scopes":  {
+                                         "backbone":  false,
+                                         "denoising_head":  false,
+                                         "shared_pair_encoder":  false
+                                     },
+    "warmup":  2,
+    "measured_updates":  5,
+    "seed":  0,
+    "input":  "native_s",
+    "snapshot_sha256":  "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+    "sampler_max_padded_cost":  8000000,
+    "sampler_workers":  8,
+    "production_batch_ordinal":  0,
+    "small_batch_ABBA_C1control_OOMretry_or_trim":  false,
+    "same_batch_check":  "All three actual batch_identity.receipt.receipt_sha256 and stats must match; otherwise report mismatch, never call same batch",
+    "RAM_software_bytes":  68719476736,
+    "RSS_bytes":  60129542144,
+    "wall_seconds":  6900,
+    "whole_output_bytes":  2147483648,
+    "independent_private_bytes":  2147483648,
+    "Slurm_memory":  "automatic_default_no_explicit_mem",
+    "log_audit_SDK_sync_or_SHA_publication_precondition_added":  false,
+    "scientific_acceptance":  false,
+    "architecture_selected":  false,
+    "future_jobs":  null,
+    "future_results":  null
+}

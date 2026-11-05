@@ -1,0 +1,29 @@
+{
+  "schema": "model_v3_C2_coordinate_lookup_protocol_v1",
+  "status": "METHOD_PARAMETERS_FROZEN_REAL_FIT_NOT_RUN",
+  "purpose": "Analysis only; never a model-selection gate",
+  "prediction": "epsilon_hat_i = sum_j a[ordered_input_element_pair, floor(noisy_distance/0.1)] * (y_i-y_j); clean_hat=y-epsilon_hat",
+  "target_units": "epsilon=y-x in Angstrom",
+  "fit_objective": "sum_i squared_vector_error_i / n_fit_atoms + ridge * sum_k a_k^2",
+  "method": {
+    "radius_A": 5.0, "bin_width_A": 0.1, "element_types": 119, "ridge": 0.0001,
+    "atol": 1e-8, "btol": 1e-8, "condition_limit": 1e8, "maximum_iterations": 500,
+    "max_record_atoms": 512, "max_train_records": 8192, "max_train_atoms": 524288,
+    "max_directed_edges": 16000000, "max_coo_entries": 48000000,
+    "matrix_budget_bytes": 8589934592
+  },
+  "selection": {
+    "seed": 20261025, "train_records": 8192, "validation_records": 1024,
+    "max_candidates_per_role": 65536, "max_record_atoms": 512, "max_train_atoms": 524288
+  },
+  "role_map": {"TRAIN": "existing_S_train", "PRETRAIN_VAL": "existing_S_full_pretraining_validation"},
+  "source_noise": {"seed": 0, "epoch": 0, "noise_seed_includes_epoch": true, "sigma_A": 0.1},
+  "solver_normalization": "LSQR on A/sqrt(n_atoms), b/sqrt(n_atoms), damp=sqrt(ridge); equivalent unscaled damp_squared=ridge*n_atoms",
+  "execution_caps": {
+    "wall_seconds": 3300, "finalization_reserve_seconds": 30,
+    "maximum_process_RSS_bytes": 25769803776, "maximum_output_bytes": 134217728
+  },
+  "failure_policy": "Keep failed evidence; do not drop selected records, increase budgets, change ridge, or tune on validation",
+  "unknown_code_policy": "zero correction; retain every atom and every eligible evaluation pair in denominators",
+  "real_fit_requires": ["Root_published_preregistration_commit", "bound_source_request", "separate_closed_metadata_selection", "Root_Slurm_admission_and_supervision", "passed_component_and_integration_tests"]
+}

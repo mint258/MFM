@@ -1,0 +1,50 @@
+{
+  "schema": "model_v3_user_v3_full_regression_actual_v2",
+  "status": "PASS",
+  "job_id": "4525191",
+  "actual_sacct": "4525191|COMPLETED|0:0|262|16|compute-0-19",
+  "actual_code": "eb0b4e22adf356c4906dcc9655d4513b3edd3ffa",
+  "public_source_commit": "778f6ecd36209eecbf70d8ab69449ae7a0ce601a",
+  "test_modules": 138,
+  "pytest_counts": {
+    "tests": 3266,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 3
+  },
+  "passed": 3263,
+  "original_CUDA_and_corpus_skips_retained": 3,
+  "original_mature_four_pytest_source_entry": true,
+  "all_original_modules_retained": true,
+  "original_baseline_test_revision": "Only user-v3 budget boundary test explicitly reviewed; original baseline hashes/results preserved",
+  "actual_summary": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4525191/summary.json",
+    "bytes": 391218
+  },
+  "first_attempt": {
+    "job_id": "4525188",
+    "status": "FAILED",
+    "elapsed_seconds": 259,
+    "pytest_counts": {
+      "tests": 3266,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 3
+    },
+    "reason": "New UNIT CLI test treated existing (result, reference) helper return as dict",
+    "production_code_changed_for_fix": false,
+    "one_line_test_fix": "result, _ = invoke(...)",
+    "original_results_retained": true
+  },
+  "normal_check": {
+    "job_id": "4525189",
+    "status": "PASS",
+    "elapsed_seconds": 11,
+    "files": 3795,
+    "python_files": 1773,
+    "server_sources_verified": 1309
+  },
+  "new_real_Data_acceptance_claimed": false,
+  "stage5_second_seed_selection_or_training_claimed": false,
+  "waiting_resources_are_not_GPU_completion": true
+}

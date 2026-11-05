@@ -1,0 +1,150 @@
+{
+  "schema": "NATIVE_B_ROOT_RESOURCE_PREWAIT_HANDOFF_V4",
+  "status": "SOURCE_ONLY_STOPEDIT_NOT_LAUNCHED_PUBLICATION_REQUIRED",
+  "source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4_source/source_pins.json",
+    "bytes": 4585,
+    "sha256": "d7db5b660a6156635c1dfb5242df06246836961719b6695caf61b75c7ec50a76"
+  },
+  "files": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4_source/continue_original_B_auto.py",
+      "bytes": 7688,
+      "sha256": "43ee6da99f6c154c7fbf5cc0c5a3869eadfe01474ec1c42eef218b6597c33b38"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4_source/README.md",
+      "bytes": 3367,
+      "sha256": "fd9d38ea5f1ca4395c329ca81213f98fce44cee241ec15f078f73acec6e96d80"
+    }
+  ],
+  "control": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4",
+  "Root_argv": [
+    "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+    "-u",
+    "-B",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v4_source/continue_original_B_auto.py"
+  ],
+  "first_expected_step": {
+    "slot": 31,
+    "precision": "bf16",
+    "seed": 0,
+    "start_update": 9000,
+    "target_update": 10000
+  },
+  "target": {
+    "node": "compute-0-21",
+    "GPU": "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+    "name_contains": "5090",
+    "driver": "590.44.01",
+    "hostkeys": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+      "bytes": 94,
+      "sha256": "a8110aae3c90d6de954c49d2418acc17576eaca1373d4f47bf935a16d8b80398"
+    }
+  },
+  "Root_reconciliation": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_B_slot031_pre_submission_resource_reconciliation_actual_v1.json",
+    "bytes": 4232,
+    "sha256": "ff36fb76609edd1962b29623c736b04018bd293b87fb405cdb0fc1eb50c0297c"
+  },
+  "Root_reconciliation_schema": "NATIVE_B_ROOT_PRE_SUBMISSION_RESOURCE_RECONCILIATION_V1",
+  "Root_reconciliation_status": "NO_SLOT031_SBATCH_OCCURRED_EXACT_PRE_REGISTRATION_RELEASED_READY_FOR_FRESH_ROOT_RESOURCE_ADMISSION",
+  "original_v3_stop": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v3/status.json",
+    "bytes": 1236,
+    "sha256": "ecd218d5b38987a96df4ab506aeed3e3311d4fd0b51d99cd5acb5a2acd594067"
+  },
+  "old_v3_controller_identity": {
+    "pid": 3307320,
+    "uid": 1278,
+    "boot_id": "714ffbb7-2f6e-4346-acb3-68466446ca62",
+    "start_ticks": 8204854554,
+    "argv_sha256": "5e5c938649a590235479081fc8b6459ed0b43e14464b8a3c1785bbbad0410b19",
+    "pgid": 3307320,
+    "sid": 3307320,
+    "source_sha256": "c96a3b6bd41d8f053905c7cba035faf05d5bbf3ad2d5bbdc90d609e96f9f1365",
+    "started_unix": 1793252431.3006446
+  },
+  "original_v3_source": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v3_source/continue_original_B_auto.py",
+    "bytes": 6411,
+    "sha256": "c96a3b6bd41d8f053905c7cba035faf05d5bbf3ad2d5bbdc90d609e96f9f1365"
+  },
+  "original_v3_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_B_remaining_GPU_auto_resource_wait_20261029_v3_source/source_pins.json",
+    "bytes": 2004,
+    "sha256": "f5e35e76c6770feeb35e69a0f8abd2f2214b70209ab4fca7404e34bfd207c84a"
+  },
+  "diff": {
+    "literal_changes": 5,
+    "inverse_exact_to_v3": true,
+    "additional_encoder_or_science_calls": 0,
+    "GPU_logic": "Direct frozen native_resources.selected_gpu identity; same frozen normalized_uuid target-compute rule; busy waits, idle rechecks full original predicate"
+  },
+  "Root_before_launch": [
+    "Root核实际新v4 pins/raw字节、语法/差分及真实公开source；新publication现在缺失，不借旧v3 proof冒已公开v4。",
+    "核实际031 reconciliation与旧v3身份/stop：30段闭合、旧PID消失、无031 intent/submitted/layout/SB，仅exact PRE已释放；v4不清理任何登记。",
+    "确认无其他controller，建立独立空v4 control目录；原v3/v8/control/registry/holds全部保持。",
+    "原7天期限仍取native_B_remaining_20261029/identity.json；过期即停，不重置。81次有限循环原样保留。",
+    "Node21严格用原compute21_known_hosts_v1，无keyscan/accept-new/信任更改。等待不取得GPU/dispatch/registry锁；只持原独立controller.lock。",
+    "原v8在每个fresh submit-next重新核资源/登记/UUID公共锁/quota；任何竞态或原child失败/不明均STOP，不自动重试。",
+    "不杀、不取消、不改外部gmx/其他用户任务，不换节点/GPU，不碰1338/4558或学校。",
+    "Root唯一执行/SSH/调度；本handoff无futurejob、SDK、actual launch或科学通过。"
+  ],
+  "fixed_metadata_examples_not_executed": [
+    {
+      "case": "原身份 + 目标UUID compute-app/gmx",
+      "expected": "WAIT; 不调用submit-next、不触进程"
+    },
+    {
+      "case": "原身份 + 仅其他UUID compute-app",
+      "expected": "PREWAIT_READY; 原v8最终门仍重验"
+    },
+    {
+      "case": "原UUID缺失/重复或wrong name/driver",
+      "expected": "原selected_gpu抛错→STOP"
+    },
+    {
+      "case": "GPU/apps query nonzero",
+      "expected": "STOP，不自动调用/重试提交"
+    },
+    {
+      "case": "原CPU或MemAvailable不足",
+      "expected": "原等待"
+    },
+    {
+      "case": "GPU ready query完成已越原deadline",
+      "expected": "原Popen前断言STOP"
+    }
+  ],
+  "unchanged_limits": {
+    "absolute_days_from_original_identity": 7,
+    "finite_iterations": 81,
+    "software_GiB": 32,
+    "RSS_GiB": 28,
+    "Slurm_memory": "automatic_default",
+    "GPU_fraction": 0.85,
+    "MemAvailable_retained_fraction": 0.15,
+    "child_seconds": 6900,
+    "Slurm_seconds": 7200,
+    "whole_GiB": 2,
+    "private_GiB": 2,
+    "science": "原3d9/seed/CP/Sampler/500-validation/20k计划全部不变"
+  },
+  "author_operations": {
+    "source_only": true,
+    "old_sources_modified": false,
+    "control_or_registry_modified": false,
+    "Python_AST_or_project_tests_executed": false,
+    "SSH_Slurm_Git_SDK_executed": false,
+    "scientific_payload_read": false,
+    "new_QA_parent": false
+  },
+  "actual_launch": null,
+  "actual_process": null,
+  "actual_submission": false,
+  "actual_job_id": null,
+  "actual_SDK": null,
+  "science_acceptance": false
+}

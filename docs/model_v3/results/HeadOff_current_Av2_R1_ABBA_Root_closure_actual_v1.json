@@ -1,0 +1,177 @@
+{
+  "schema": "performance_current_Av2_R1_ABBA_Root_closure_v1",
+  "status": "FOUR_C0_NATIVE_SDK_AND_ORIGINAL_SPEED_REPORT_OFFICIAL_SYNC_CLOUD_READBACK_CLOSED",
+  "case": "head_off",
+  "captured_utc": "2026-10-29T02:29:31.906927+00:00",
+  "code_sha": "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+  "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+  "model_GPU_jobs": [
+    "4524784",
+    "4524786",
+    "4524792",
+    "4524797"
+  ],
+  "SDK_audit_CPU_job": "4524816",
+  "SDK_sync_CPU_jobs": [
+    "4524833",
+    "4524838"
+  ],
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-j",
+      "4524784,4524786,4524792,4524797,4524816,4524833,4524838",
+      "-n",
+      "-P",
+      "-o",
+      "JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524784|zixiao|COMPLETED|0:0|76|16|compute-0-21\n4524786|zixiao|COMPLETED|0:0|76|16|compute-0-21\n4524792|zixiao|COMPLETED|0:0|74|16|compute-0-21\n4524797|zixiao|COMPLETED|0:0|79|16|compute-0-21\n4524816|zixiao|COMPLETED|0:0|7|16|compute-0-19\n4524833|zixiao|COMPLETED|0:0|30|16|compute-0-19\n4524838|zixiao|COMPLETED|0:0|27|16|compute-0-19\n",
+    "stderr": ""
+  },
+  "audit": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_SDK_audit_actual_v1/BATCH_RESULT.json",
+    "bytes": 41354,
+    "sha256": "a52d9a2799c5e70b3a1d6c69f603d672b456d99130183907a329fbbf30810b23"
+  },
+  "verifications": [
+    {
+      "bytes": 23271,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_SDK_audit_actual_v1/tzawuph9_VERIFICATION.json",
+      "sha256": "9760ac0e4cd9a5cd0a2e09f85049350bdad1c334513e54bbb5c2c8414ce3b23b"
+    },
+    {
+      "bytes": 23272,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_SDK_audit_actual_v1/ozstq1id_VERIFICATION.json",
+      "sha256": "a9410e343b5688b05ffe1201b25c3f1d3d024614f415ac92d70881fd1d67589a"
+    },
+    {
+      "bytes": 23272,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_SDK_audit_actual_v1/t1069e8r_VERIFICATION.json",
+      "sha256": "99c09198741d561d04853f74930b449b661e2da2733cc42f1fc7bb8f34ce0ca0"
+    },
+    {
+      "bytes": 23271,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_SDK_audit_actual_v1/f4emiyn7_VERIFICATION.json",
+      "sha256": "5be7aae7b92840b60f22089ce2a85f6d7c24e5263d061a5ad2fe743268b49240"
+    }
+  ],
+  "syncs": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_sync12_actual_v1/RESULT.json",
+      "bytes": 17775,
+      "sha256": "1e2611588cad0ef5c3676c4964ff4ae2fee3ab7dd6481c2ce50066aa6ef7ebec"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_sync34_actual_v1/RESULT.json",
+      "bytes": 17774,
+      "sha256": "114f1687d3b1c4c69630879f7e943262f723d12e0cb93f42d685f955ebcc1536"
+    }
+  ],
+  "sync_run_results": [
+    {
+      "bytes": 2999,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_sync12_actual_v1/run_0_tzawuph9/result.json",
+      "sha256": "10547deb7b57e5b721644594b3bafcd64e09748396f90cb87b04a1fe68f7b07b"
+    },
+    {
+      "bytes": 3001,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_sync12_actual_v1/run_1_ozstq1id/result.json",
+      "sha256": "14fbeee2dc7fa0ed937ca6bce8bce1fa0788911b97d759252dce89405bcf017e"
+    },
+    {
+      "bytes": 2999,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_sync34_actual_v1/run_0_t1069e8r/result.json",
+      "sha256": "b5467132c50d3561f436bafe8c0180f00cf37fc3b790ae13aa15b388acb48f97"
+    },
+    {
+      "bytes": 2999,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_sync34_actual_v1/run_1_f4emiyn7/result.json",
+      "sha256": "a37e25de3227100e7fe182bbe6024ea7753a8834bfb701d2489be0779294f10f"
+    }
+  ],
+  "all_supervisors": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_sync12_actual_v1.supervisor.json",
+      "bytes": 3447,
+      "sha256": "4fa340e61deb8f4cdf8dedf66ebfceca5d465b447b37fbe01ccf8f8da4178248"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_sync34_actual_v1.supervisor.json",
+      "bytes": 3445,
+      "sha256": "cd3fe589e5855538002b2857d3fcad4fc516bb37d4ef55f7e8a9978a56ee8a7f"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_SDK_audit_actual_v1.supervisor.json",
+      "bytes": 3444,
+      "sha256": "d0ab4248a50b9d5c3fb05cbb546a6a6279024fe4765df8a38c6daa7d92fc3cab"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_R1_Av2_ABBA_v1/member_1/supervisor.json",
+      "bytes": 4673,
+      "sha256": "58453bf8a4bbc24b2d34845bebde67077a2b7b6afb646c9d638b9c0d073fa45e"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_R1_Av2_ABBA_v1/member_2/supervisor.json",
+      "bytes": 4674,
+      "sha256": "dbba352a2a866fa4cc9676e650ef27ca8778ed7cac521503730ad3b8f746bcaf"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_R1_Av2_ABBA_v1/member_3/supervisor.json",
+      "bytes": 4674,
+      "sha256": "c9d4e3c9b41bad5aa7bdf026ddf2b52fc4a78d15a8ea9990da1a16f6eb5384c4"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_R1_Av2_ABBA_v1/member_4/supervisor.json",
+      "bytes": 4674,
+      "sha256": "7e3771c13278f543cf1f9a0dfaf56d633dbf2312b8d14be2594782df8c46f71c"
+    }
+  ],
+  "run_roles": {
+    "tzawuph9": "reference",
+    "ozstq1id": "candidate",
+    "t1069e8r": "candidate",
+    "f4emiyn7": "reference"
+  },
+  "history_rows_each": 22,
+  "warmup_updates": 2,
+  "measured_updates": 20,
+  "speed_report": {
+    "bytes": 14029,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_current_Av2_R1_ABBA_SDK_audit_actual_v1/ORIGINAL_A_SPEED_REPORT.json",
+    "sha256": "e9a6bb1fd33615def69e5d7b08d4e9c55bd65f3c31240a2a88fdd7e757586c95"
+  },
+  "speedup_candidate_over_reference": 1.0584113049897554,
+  "base_records_per_second": {
+    "candidate_pooled": 156.1519418818316,
+    "reference_pooled": 147.53427249470187
+  },
+  "native_atoms_per_second": {
+    "candidate_pooled": 9577.551471046803,
+    "reference_pooled": 9048.988258056736
+  },
+  "speedup_adopted": false,
+  "engineering_speedup_supported": true,
+  "adoption_reason": "Same-C35 actual matched original ABBA speedup measured; frozen recipe adoption remains pending full guide decisions.",
+  "numeric_Root_closure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_GPU4722_Root_closure_actual_v1.json",
+    "bytes": 2772,
+    "sha256": "0fbdb4c6313e005f995c3bbe66a451f95ec4967bb08bcdeba938dd995abe0ab0"
+  },
+  "method_publication": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/current_A_performance_methods_publication_20261029/PUBLICATION.json",
+    "bytes": 15625,
+    "sha256": "1b2631cc3d2e42615836d088e6841d3f4d78c4b647e24638551e868bb355f2a3"
+  },
+  "source_pins": {
+    "bytes": 8425,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_current_Av2_R1_ABBA_SDK_v1_source/source_pins.json",
+    "sha256": "cb08caef78b7aedf8e6557208ae1ab3c6b8925142c5eab48172cb379e0f8554e"
+  },
+  "Root_SDK_or_step_journal_payload_read": false,
+  "original_SDKs_retained": true,
+  "global_online_registry_recounted": false,
+  "full_guide_completed": false
+}

@@ -1,0 +1,83 @@
+{
+  "schema": "model_v3_numeric_GPU_actual_failed_closure_v1",
+  "status": "ACTUAL_FAILURES_RETAINED_COMPLETE_MATRIX_VERIFIED_NOT_ADOPTED",
+  "actual_parent_accounting": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4521429,4521435",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "stdout": "4521429|zixiao|FAILED|1:0|2|16|compute-0-21\n4521435|zixiao|FAILED|1:0|35|16|compute-0-21\n",
+    "stderr": "",
+    "returncode": 0
+  },
+  "parents": [
+    {
+      "job_id": "4521429",
+      "actual_submission": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_composed_GPU_v1_attempt1.json",
+        "bytes": 10043,
+        "sha256": "29e01b4a30f4cbccbfc8c2397717605f29adb079244b25b542c4897a4d166229"
+      },
+      "supervisor": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_composed_GPU_supervisor_4521429.json",
+        "bytes": 3055,
+        "sha256": "91ec512ef2b345da4c2a92a8b7d28bf387ac190c26904b33647c3e3538a9d5f6"
+      },
+      "worker": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_composed_GPU_launch_v1_worker_4521429.json",
+        "bytes": 11140,
+        "sha256": "888135ba243380e8a8d6c27b8a25476ffe3002893e6c84290a62bbc3e55bba64"
+      },
+      "scientific_acceptance": false
+    },
+    {
+      "job_id": "4521435",
+      "actual_submission": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_composed_GPU_v2_attempt1.json",
+        "bytes": 16083,
+        "sha256": "5637b5fa2b200444a9c81cc34a8c76bd9d7793c5a57fcc377669f4b2fde21963"
+      },
+      "supervisor": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_composed_GPU_v2_supervisor_4521435.json",
+        "bytes": 3067,
+        "sha256": "5958d909dc110ac824b1a0ab433fb047084babaff34fd747c2e63f553dcc8736"
+      },
+      "worker": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_composed_GPU_v2_launch_v1_worker_4521435.json",
+        "bytes": 17209,
+        "sha256": "5a4ff6aed5d47c11c51980bba0263ac20715bb5e937b0684870617a9a2cab29a"
+      },
+      "scientific_acceptance": false
+    }
+  ],
+  "complete_matrix_result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/numeric_composed_GPU_v2_4521435/RESULT.json",
+    "bytes": 216295,
+    "sha256": "29b011b7753800a694f251d5a2f9b22ab2a9044651343532bb7c6d2c02e41885"
+  },
+  "counts": {
+    "errors": 0,
+    "failures": 38,
+    "skipped": 0,
+    "tests": 48
+  },
+  "passed": 10,
+  "source_before_after_equal": true,
+  "first_attempt_failed_before_model": true,
+  "first_failure_cause": "Two preregistered metadata JSON files have Git LF identities and working-tree CRLF identities; corrected explicitly in independent v2 launch package",
+  "candidate_code_unchanged": true,
+  "CPU_fullsuite": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_4521421_actual_closure_v1.json",
+    "bytes": 2779,
+    "sha256": "13d3daef71855f72871f0df71b9aa0b9bd8e3b7fc61c3d27e83e4e8c1db83ae0"
+  },
+  "public_commit": "5cdb2772dfa51e1cc72098c659fb741440219772",
+  "local_commit": "4068623cc455915a34a4aacae4f0df5c56f691b7",
+  "exact_shared_tree": "b2b53cde6a099bf4b4d1686bec8823bc0b30bc8e",
+  "candidate_adopted": false
+}

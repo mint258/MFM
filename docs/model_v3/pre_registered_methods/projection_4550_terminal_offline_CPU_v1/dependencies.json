@@ -1,0 +1,53 @@
+{
+    "schema":  "model_v3_projection_4550_terminal_offline_CPU_dependencies_v1",
+    "source_only":  true,
+    "common_IO":  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/counterfactual_common.py",
+                      "bytes":  9159,
+                      "sha256":  "f8404a7d5b558bcff49db1e5bb48d77caa63c4a54d92ead738fb9fd335ff79ee"
+                  },
+    "projection_adapter":  {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_fp32_e2e_v1_source/projection_adapter.py",
+                               "bytes":  9335,
+                               "sha256":  "dff1f1edf7f052c2634e720df4d779f5ab7260a210dab3016d79523a45a8fba1"
+                           },
+    "original_fixture":  {
+                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance_runtime_v3/current/phychem_mfm/phase1/v3_composed_equivariance.py",
+                             "bytes":  30285,
+                             "sha256":  "0c49debe901ee5db79a71fcbc8541d426231c5090eb9740b84649e867d8df0e8"
+                         },
+    "existing_CPU_supervisor":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_cpu_supervised_v3.py",
+                                    "bytes":  8479,
+                                    "sha256":  "10bb34aa74633bd139f8dcedd475901a85d4143422494f1249ffb85994c8c66c"
+                                },
+    "existing_CPU_helpers":  [
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/runtime_monitor.py",
+                                     "bytes":  16838,
+                                     "sha256":  "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/run_supervised.py",
+                                     "bytes":  15264,
+                                     "sha256":  "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+                                 },
+                                 {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/private_runtime_storage.py",
+                                     "bytes":  15452,
+                                     "sha256":  "791e2742b2131e5001ebc4fe549d8fcb43f7d28f399368a5aa5f82d7d592a041"
+                                 }
+                             ],
+    "original_CPU_template":  {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/run_counterfactual_CPU_v1.sbatch",
+                                  "bytes":  1557,
+                                  "sha256":  "0f8d935a03a556f63659b219508539096609b9bc917dc707eaa64e66e11aa883"
+                              },
+    "runtime_root":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_projection_fp32_candidate_v1",
+    "historical_capture_helpers_not_executed":  [
+                                                    "load_H64",
+                                                    "helpers",
+                                                    "functional heads",
+                                                    "any encoder builder or forward"
+                                                ]
+}

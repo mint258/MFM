@@ -1,0 +1,276 @@
+{
+    "schema":  "performance_R2_paired_SDK_handoff_v2",
+    "status":  "SOURCE_ONLY_V2_NESTED_DESCRIPTOR_REPAIR_FROZEN_NO_NEW_EXECUTION",
+    "source_pins":  {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_source/source_pins.json",
+                        "bytes":  6703,
+                        "sha256":  "17201a544261ff3ffff225dca2a45ce1d2eb9532b1adcd980ededf437bde2f85"
+                    },
+    "files":  [
+                  {
+                      "relative_path":  "paired_common.py",
+                      "bytes":  14878,
+                      "sha256":  "27dc0b58ed9558b8fe60c6d51fa339637ccfd165c6b261ce4564cb42096cc8d3"
+                  },
+                  {
+                      "relative_path":  "audit_paired.py",
+                      "bytes":  12211,
+                      "sha256":  "a50f78bfcf98e3a32a16b8d646c1756b5b17af6f9d2827ebb3f13e9700762a47"
+                  },
+                  {
+                      "relative_path":  "prepare.py",
+                      "bytes":  3429,
+                      "sha256":  "82cacd99bc4fd48896e9294084f2e2aa3a95c4a5c29b7cbb61a4283f93d13bb5"
+                  },
+                  {
+                      "relative_path":  "sync_paired.py",
+                      "bytes":  6500,
+                      "sha256":  "943c48cacd2ae5db2ea76b2ebaf294ab058d83045e1bb3c0d966810a939da04d"
+                  },
+                  {
+                      "relative_path":  "one_run_paired.py",
+                      "bytes":  11854,
+                      "sha256":  "78c23752ace625fffdb5ad745124020cd2a7746de527961775102274559031ec"
+                  },
+                  {
+                      "relative_path":  "audit_cpu.sbatch",
+                      "bytes":  1274,
+                      "sha256":  "c50b732f5faf7acc13d677cad9bedd7ddd914d1f6962558e2954e4b2ef5d5b50"
+                  },
+                  {
+                      "relative_path":  "sync_cpu.sbatch",
+                      "bytes":  1380,
+                      "sha256":  "6e2ff281749a9e1b37e6eb96ed15de66fd000ac02af46e3a9b49d7d32cc633b5"
+                  },
+                  {
+                      "relative_path":  "installed_sources.json",
+                      "bytes":  5921,
+                      "sha256":  "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+                  },
+                  {
+                      "relative_path":  "inputs.json",
+                      "bytes":  11571,
+                      "sha256":  "97631377a6fc7717768fc6dabcf1bcfa9ae3723d93f5eeaf3dca6f34c4e4f636"
+                  },
+                  {
+                      "relative_path":  "dependencies.json",
+                      "bytes":  7959,
+                      "sha256":  "5a32c66d05da7dbf066a789d58079f714b54dad9d8e6b4e77d0d24f68a4bce1d"
+                  },
+                  {
+                      "relative_path":  "README.md",
+                      "bytes":  7747,
+                      "sha256":  "c9faa62e6f1d7ed7e0dd8fe0e1bd53f543fe5b05ab5bb67dce34eb3afc40f2bb"
+                  }
+              ],
+    "inputs":  {
+                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_source/inputs.json",
+                   "bytes":  11571,
+                   "sha256":  "97631377a6fc7717768fc6dabcf1bcfa9ae3723d93f5eeaf3dca6f34c4e4f636"
+               },
+    "dependencies":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_source/dependencies.json",
+                         "bytes":  7959,
+                         "sha256":  "5a32c66d05da7dbf066a789d58079f714b54dad9d8e6b4e77d0d24f68a4bce1d"
+                     },
+    "source_scope":  "Fixed actual3976 and4551, twoSDKs each; no entire phase scan/no model/native scientific data read",
+    "Root_authorities":  [
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_and_consumer_Root_closure_actual_v1.json",
+                                 "bytes":  1784300,
+                                 "sha256":  "0a782651f639a72b6df70f9a6991ce7189bb4dd81bcd492205179d22b421d2fb"
+                             },
+                             {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_GPU_4524551_Root_closure_v1.json",
+                                 "bytes":  5082,
+                                 "sha256":  "0136894785baf0d47905bb1701c206dc3c2ea641cf972826d3c9f56d6c589162"
+                             }
+                         ],
+    "exact_source_protocol":  {
+                                  "project":  "mfm_model_v3_development",
+                                  "run_name":  "A_{actual_native_paired_role}_{original_GPU_job}",
+                                  "config":  "All original saved configuration fields plus paired_role, no stripping",
+                                  "role":  "CPU initial Native config only; never SDK directory/ID order",
+                                  "history":  "Actual A_plain500 committed rows per role, optimizer_updates/explicitsteps1..500;10 source fields",
+                                  "summary":  "Existing tap2 recursive last-leaf merge over each role journal; no explicit producer summary mutation",
+                                  "fixed20":  "Only original GPU fixed-gate Root metadata, never add20SDK rows",
+                                  "native_packets":  "Unknown until actual full scan; never inferred from500history"
+                              },
+    "original_SDK_descriptors":  [
+                                     {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/wandb/offline-run-20261027_204435-z4ts32w5/run-z4ts32w5.wandb",
+                                         "bytes":  1392761
+                                     },
+                                     {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/wandb/offline-run-20261027_204436-dr7zahoj/run-dr7zahoj.wandb",
+                                         "bytes":  1394449
+                                     },
+                                     {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/wandb/offline-run-20261028_025705-5thxuhw5/run-5thxuhw5.wandb",
+                                         "bytes":  1397798
+                                     },
+                                     {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/wandb/offline-run-20261028_025705-zotxsoay/run-zotxsoay.wandb",
+                                         "bytes":  1399264
+                                     }
+                                 ],
+    "source_SHA_matches_both_saved_producers":  true,
+    "transport_body_exact_except_common_import":  true,
+    "budgets":  {
+                    "CPU":  16,
+                    "memory_bytes":  17179869184,
+                    "RSS_limit_bytes":  12884901888,
+                    "whole_private_joint_bytes":  2147483648,
+                    "private_bytes":  2147483648,
+                    "audit_SB_seconds":  1200,
+                    "audit_outer_seconds":  900,
+                    "per_SDK_deadline_seconds":  180,
+                    "batch_loop_admission_seconds":  800,
+                    "SDK_limit_bytes":  134217728,
+                    "selected_sources_limit_bytes":  134217728,
+                    "journal_limit_bytes":  33554432,
+                    "record_limit_bytes":  4194304,
+                    "native_packets_cap":  500000,
+                    "history_cap":  100000,
+                    "normalized_stream_cap_bytes":  67108864,
+                    "sync_SB_seconds":  3600,
+                    "sync_outer_seconds":  3300,
+                    "maximum_runs_per_sync_batch":  3,
+                    "one_child_seconds":  900,
+                    "CLI_seconds":  600,
+                    "API_seconds":  180
+                },
+    "audit_prepare_argv":  [
+                               "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                               "-B",
+                               "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_source/prepare.py",
+                               "audit",
+                               "--pins-sha256",
+                               "17201a544261ff3ffff225dca2a45ce1d2eb9532b1adcd980ededf437bde2f85",
+                               "--plan-output",
+                               "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_audit_plan_v2",
+                               "--job-output",
+                               "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_audit_actual_v2"
+                           ],
+    "audit_wrapper":  {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_source/audit_cpu.sbatch",
+                          "bytes":  1274,
+                          "sha256":  "c50b732f5faf7acc13d677cad9bedd7ddd914d1f6962558e2954e4b2ef5d5b50"
+                      },
+    "audit_wrapper_target":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_performance_R2_paired_SDK_audit_v2.sbatch",
+    "audit_submit_argv_template":  [
+                                       "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                       "-B",
+                                       "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/submit_cpu_task_v2.py",
+                                       "--node",
+                                       "ACTUAL_LIVE_CPU_NODE",
+                                       "--memory-MiB",
+                                       "16384",
+                                       "--script",
+                                       "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_performance_R2_paired_SDK_audit_v2.sbatch",
+                                       "--bindings",
+                                       "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_audit_plan_v2/bindings.json",
+                                       "--output",
+                                       "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/performance_R2_paired_SDK_audit_submission_v2.json"
+                                   ],
+    "manual_sync_prepare_argv_after_actual_audit_C0":  [
+                                                           "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                                           "-B",
+                                                           "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_source/prepare.py",
+                                                           "sync",
+                                                           "--pins-sha256",
+                                                           "17201a544261ff3ffff225dca2a45ce1d2eb9532b1adcd980ededf437bde2f85",
+                                                           "--audit-result",
+                                                           "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_audit_actual_v2/BATCH_RESULT.json",
+                                                           "--audit-supervisor",
+                                                           "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_audit_actual_v2.supervisor.json",
+                                                           "--runs",
+                                                           "z4ts32w5",
+                                                           "dr7zahoj",
+                                                           "--plan-output",
+                                                           "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_sync_plan_v2",
+                                                           "--job-output",
+                                                           "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_sync_actual_v2"
+                                                       ],
+    "auto_sync_prepare_argv_after_actual_audit_C0":  [
+                                                         "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                                         "-B",
+                                                         "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_source/prepare.py",
+                                                         "sync",
+                                                         "--pins-sha256",
+                                                         "17201a544261ff3ffff225dca2a45ce1d2eb9532b1adcd980ededf437bde2f85",
+                                                         "--audit-result",
+                                                         "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_audit_actual_v2/BATCH_RESULT.json",
+                                                         "--audit-supervisor",
+                                                         "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_audit_actual_v2.supervisor.json",
+                                                         "--runs",
+                                                         "5thxuhw5",
+                                                         "zotxsoay",
+                                                         "--plan-output",
+                                                         "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_sync_plan_v2",
+                                                         "--job-output",
+                                                         "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_sync_actual_v2"
+                                                     ],
+    "sync_wrapper":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_source/sync_cpu.sbatch",
+                         "bytes":  1380,
+                         "sha256":  "6e2ff281749a9e1b37e6eb96ed15de66fd000ac02af46e3a9b49d7d32cc633b5"
+                     },
+    "sync_wrapper_targets":  [
+                                 "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_performance_manual_R2_selective_sync_v2.sbatch",
+                                 "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_performance_auto_R2_selective_sync_v2.sbatch"
+                             ],
+    "current_state":  "v1 Root AST5/bash2/rawsupport passed; actual metadata prepare KeyError before plan/SDK/API/Slurm. Newv2 only nested descriptor path repair + fresh wrapper/docs paths. Newv2 actual AST/prepare/audit/role assignment/online pendingRoot.",
+    "cloud_boundary":  "Original transport checks route/state/count/explicitstep endpoints; no independent full remote metric-value comparison.",
+    "Root_next":  [
+                      "Review5Py/2SB/rawrefs and actualAST/bash syntax; no newQA framework.",
+                      "Metadata prepare4SDK audit, normal live16CPU16GiB85%/MemAvailable/quota admission.",
+                      "Require inline6/full4+bothroles+500each+allconfig/summary/EOF/exit/actualsource/current+sup+SlurmC0.",
+                      "Then two explicit2+2 syncbatches under originalmax3 budgets using same originalv3 already-C0 method gate; no newpilot or QA parent.",
+                      "Root actualsource/SDK-staging/marker/API metadata+outerC0 required before online closed."
+                  ],
+    "original_source_or_SDK_or_scientific_results_changed":  false,
+    "formal_pretraining_recipe_B_D5_architecture_or_guide_acceptance":  false,
+    "revision_evidence":  {
+                              "v1_source_pins":  {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v1_source/source_pins.json",
+                                                     "bytes":  4001,
+                                                     "sha256":  "8d48302489d2320622aa53b4054f902e105a09ade05f1be3e5215eb77a66462a"
+                                                 },
+                              "v1_Root_static":  {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v1_Root_static_actual_v1.json",
+                                                     "bytes":  8731,
+                                                     "sha256":  "e196f4bfe885a8100c770741112f6f5148e884cd83f6041951a5d8dfa87ca1e2"
+                                                 },
+                              "v1_actual_prepare_failure":  {
+                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_metadata_prepare_attempt001_actual_v1.json",
+                                                                "bytes":  1385,
+                                                                "sha256":  "80f79c42c3c47a5294ddb6f6f39593b8da90c08c6b39ff3c25b21366485cb0cc"
+                                                            },
+                              "revision":  {
+                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_revision_v1.json",
+                                               "bytes":  2812,
+                                               "sha256":  "ded0f498eac4eb3e80aae6e1e5c088e6ab77f1a73d7f08c7c06014c98009c811"
+                                           },
+                              "reference_walk":  {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_reference_walk_v1.json",
+                                                     "bytes":  5998,
+                                                     "sha256":  "a982cd258d37ad66439bc4e0b9555aba8f2cc0232d7bc4df71cd8a8d0e775806"
+                                                 }
+                          },
+    "narrow_changed_leaves":  [
+                                  "paired_common.py",
+                                  "audit_cpu.sbatch",
+                                  "sync_cpu.sbatch",
+                                  "README.md"
+                              ],
+    "byte_unchanged_v2_leaves":  [
+                                     "audit_paired.py",
+                                     "prepare.py",
+                                     "sync_paired.py",
+                                     "one_run_paired.py",
+                                     "installed_sources.json",
+                                     "inputs.json",
+                                     "dependencies.json"
+                                 ]
+}

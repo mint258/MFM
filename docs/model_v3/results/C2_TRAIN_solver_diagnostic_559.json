@@ -1,0 +1,435 @@
+{
+  "array_artifact": {
+    "CSR_saved": false,
+    "binding": {
+      "bytes": 100361,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C2_train_diagnostic_4520559/active_coefficients_and_support.npz",
+      "sha256": "1e42b97174ca44bf779a4034880f3b12eb1e64431c8c1bbb0cd61ef587d0ef52"
+    },
+    "contents": {
+      "active_columns": {
+        "dtype": "int64",
+        "shape": [
+          4116
+        ]
+      },
+      "candidate_coefficient": {
+        "dtype": "float64",
+        "shape": [
+          4116
+        ]
+      },
+      "controlled_source_coefficient": {
+        "dtype": "float64",
+        "shape": [
+          4116
+        ]
+      },
+      "jacobi_scale": {
+        "dtype": "float64",
+        "shape": [
+          4116
+        ]
+      },
+      "observed_support": {
+        "dtype": "int64",
+        "shape": [
+          4116
+        ]
+      }
+    },
+    "member_IDs_or_coordinates_saved": false,
+    "saved": true,
+    "uncompressed_upper_bytes": 230176
+  },
+  "candidate": {
+    "KKT_acceptance_threshold_applied": false,
+    "inactive_coefficients_exact_zero": true,
+    "native_PRETRAIN_VAL_records_decoded": 0,
+    "original_coordinate_diagnostics": {
+      "TRAIN_component_MSE_A2": 0.004266989577663263,
+      "TRAIN_mean_atom_squared_vector_error_A2": 0.01280096873298979,
+      "acceptance_threshold_applied": false,
+      "normal_equation": "A.T@(A@c-b)/n_atoms + ridge*c",
+      "original_normal_residual_norm": 7.689767806001955e-09,
+      "original_objective": 0.013129137324130548,
+      "original_rhs_gradient_norm": 0.08603697635908975,
+      "relative_normal_residual_defined": true,
+      "relative_original_normal_residual": 8.937747619009087e-08,
+      "ridge_penalty": 0.00032816859114075895
+    },
+    "preprocessing": {
+      "augmented_nnz": 25666680,
+      "augmented_shape": [
+        1312476,
+        4116
+      ],
+      "damp": 0.0,
+      "dense_gram_constructed": false,
+      "inactive_zero_columns": 703934,
+      "numeric_upper_bytes": 1569563472,
+      "observed_support_columns": 4116,
+      "observed_zero_norm_columns": 0,
+      "operator": "[A_active/(sqrt(n_atoms)*D); sqrt(ridge)/D]",
+      "original_CSR_unchanged": true,
+      "original_nnz": 25662564,
+      "original_shape": [
+        1308360,
+        708050
+      ],
+      "ridge_center": "zero in original coefficient coordinates",
+      "scale": "sqrt(column_squared_norm/n_atoms + ridge)",
+      "status": "DIAGNOSTIC_ONLY_NOT_BASELINE_ACCEPTANCE",
+      "warm_start_used": false
+    },
+    "preprocessing_wall_seconds": 0.950620137155056,
+    "solver": {
+      "acond": 189.8398800714152,
+      "anorm": 14.804239070263456,
+      "arnorm": 1.637357788950704e-08,
+      "coefficients_finite": true,
+      "damped_rnorm": 0.11458244771399494,
+      "iterations": 74,
+      "nonfinite_fields": [],
+      "rnorm": 0.11458244771399494,
+      "solver_called": true,
+      "stop_code": 2,
+      "xnorm": 0.3185816101230982
+    },
+    "solver_wall_seconds": 4.711929500102997,
+    "status": "DIAGNOSTIC_ONLY_NOT_BASELINE_ACCEPTANCE",
+    "threadpools_before": [
+      {
+        "architecture": "SkylakeX",
+        "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/numpy.libs/libscipy_openblas64_-56d6093b.so",
+        "internal_api": "openblas",
+        "num_threads": 16,
+        "prefix": "libscipy_openblas",
+        "threading_layer": "pthreads",
+        "user_api": "blas",
+        "version": "0.3.29"
+      },
+      {
+        "architecture": "SkylakeX",
+        "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/scipy.libs/libscipy_openblas-68440149.so",
+        "internal_api": "openblas",
+        "num_threads": 16,
+        "prefix": "libscipy_openblas",
+        "threading_layer": "pthreads",
+        "user_api": "blas",
+        "version": "0.3.28"
+      },
+      {
+        "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch/lib/libgomp.so.1",
+        "internal_api": "openmp",
+        "num_threads": 16,
+        "prefix": "libgomp",
+        "user_api": "openmp",
+        "version": null
+      }
+    ],
+    "threadpools_inside_after": [
+      {
+        "architecture": "SkylakeX",
+        "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/numpy.libs/libscipy_openblas64_-56d6093b.so",
+        "internal_api": "openblas",
+        "num_threads": 1,
+        "prefix": "libscipy_openblas",
+        "threading_layer": "pthreads",
+        "user_api": "blas",
+        "version": "0.3.29"
+      },
+      {
+        "architecture": "SkylakeX",
+        "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/scipy.libs/libscipy_openblas-68440149.so",
+        "internal_api": "openblas",
+        "num_threads": 1,
+        "prefix": "libscipy_openblas",
+        "threading_layer": "pthreads",
+        "user_api": "blas",
+        "version": "0.3.28"
+      },
+      {
+        "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch/lib/libgomp.so.1",
+        "internal_api": "openmp",
+        "num_threads": 16,
+        "prefix": "libgomp",
+        "user_api": "openmp",
+        "version": null
+      }
+    ],
+    "threadpools_inside_before": [
+      {
+        "architecture": "SkylakeX",
+        "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/numpy.libs/libscipy_openblas64_-56d6093b.so",
+        "internal_api": "openblas",
+        "num_threads": 1,
+        "prefix": "libscipy_openblas",
+        "threading_layer": "pthreads",
+        "user_api": "blas",
+        "version": "0.3.29"
+      },
+      {
+        "architecture": "SkylakeX",
+        "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/scipy.libs/libscipy_openblas-68440149.so",
+        "internal_api": "openblas",
+        "num_threads": 1,
+        "prefix": "libscipy_openblas",
+        "threading_layer": "pthreads",
+        "user_api": "blas",
+        "version": "0.3.28"
+      },
+      {
+        "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch/lib/libgomp.so.1",
+        "internal_api": "openmp",
+        "num_threads": 16,
+        "prefix": "libgomp",
+        "user_api": "openmp",
+        "version": null
+      }
+    ],
+    "threadpools_restored": [
+      {
+        "architecture": "SkylakeX",
+        "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/numpy.libs/libscipy_openblas64_-56d6093b.so",
+        "internal_api": "openblas",
+        "num_threads": 16,
+        "prefix": "libscipy_openblas",
+        "threading_layer": "pthreads",
+        "user_api": "blas",
+        "version": "0.3.29"
+      },
+      {
+        "architecture": "SkylakeX",
+        "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/scipy.libs/libscipy_openblas-68440149.so",
+        "internal_api": "openblas",
+        "num_threads": 16,
+        "prefix": "libscipy_openblas",
+        "threading_layer": "pthreads",
+        "user_api": "blas",
+        "version": "0.3.28"
+      },
+      {
+        "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch/lib/libgomp.so.1",
+        "internal_api": "openmp",
+        "num_threads": 16,
+        "prefix": "libgomp",
+        "user_api": "openmp",
+        "version": null
+      }
+    ]
+  },
+  "elapsed_seconds": 1483.5458556599915,
+  "model_selection_gate": false,
+  "native_PRETRAIN_VAL_records_decoded": 0,
+  "online_sync_claimed": false,
+  "original_TRAIN_CSR": {
+    "data_bytes": 205300512,
+    "data_sha256": "f2d2ba3acfc83393296c83074e8acfc1dbf8613c464f26ce2c0ddb8c86bd4e84",
+    "dtype": "float64",
+    "indices_bytes": 102650256,
+    "indices_sha256": "f9795996938149601e8679ec8e46af0619dcebc39ebb58f014a198e0eb26e8e0",
+    "indptr_bytes": 5233444,
+    "indptr_sha256": "5b01f1e1ba817e66d29dd4eeb17e8ad3c46dd7906a6065504b187c85f2b9f3d2",
+    "nnz": 25662564,
+    "shape": [
+      1308360,
+      708050
+    ]
+  },
+  "original_v1_job_4520482_remains_FAILED": true,
+  "original_v1_stop_or_iteration_count_inferred": false,
+  "owned_output_bytes_before_finalization": 184033,
+  "process_peak_RSS_bytes": 4087635968,
+  "source": {
+    "baseline": {
+      "TRAIN_atoms": 436120,
+      "TRAIN_directed_edges": 9771514,
+      "acond": 5572.946837256671,
+      "anorm": 39.933580114381265,
+      "arnorm": 2.2520725444563407e-05,
+      "coefficients_finite": true,
+      "configured_iteration_limit": 500,
+      "damped_rnorm": 0.11458254913594224,
+      "iterations": 500,
+      "matrix_nnz": 25662564,
+      "matrix_shape": [
+        1308360,
+        708050
+      ],
+      "native_PRETRAIN_VAL_records_read": 0,
+      "nonfinite_fields": [],
+      "observed_support_columns": 4116,
+      "old_job_4520482_stop_inferred": false,
+      "original_configuration": {
+        "atol": 1e-08,
+        "bin_width_A": 0.1,
+        "btol": 1e-08,
+        "condition_limit": 100000000.0,
+        "element_types": 119,
+        "matrix_budget_bytes": 8589934592,
+        "max_coo_entries": 48000000,
+        "max_directed_edges": 16000000,
+        "max_record_atoms": 512,
+        "max_train_atoms": 524288,
+        "max_train_records": 8192,
+        "maximum_iterations": 500,
+        "radius_A": 5.0,
+        "ridge": 0.0001
+      },
+      "original_coordinate_diagnostics": {
+        "TRAIN_component_MSE_A2": 0.0042670313316753765,
+        "TRAIN_mean_atom_squared_vector_error_A2": 0.012801093995026129,
+        "acceptance_threshold_applied": false,
+        "normal_equation": "A.T@(A@c-b)/n_atoms + ridge*c",
+        "original_normal_residual_norm": 2.2520725444536322e-05,
+        "original_objective": 0.013129160566490824,
+        "original_rhs_gradient_norm": 0.08603697635908975,
+        "relative_normal_residual_defined": true,
+        "relative_original_normal_residual": 0.00026175635636638717,
+        "ridge_penalty": 0.00032806657146469464
+      },
+      "original_lsqr_options": {
+        "atol": 1e-08,
+        "btol": 1e-08,
+        "conlim": 100000000.0,
+        "damp": 0.01,
+        "iter_lim": 500,
+        "show": false
+      },
+      "rnorm": 0.11314338270986679,
+      "schema": "model_v3_C2_controlled_source_solver_return_v1",
+      "solver_wall_seconds": 34.550494480878115,
+      "status": "DIAGNOSTIC_ONLY_NOT_BASELINE_ACCEPTANCE",
+      "stop_code": 7,
+      "threadpools_before": [
+        {
+          "architecture": "SkylakeX",
+          "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/numpy.libs/libscipy_openblas64_-56d6093b.so",
+          "internal_api": "openblas",
+          "num_threads": 16,
+          "prefix": "libscipy_openblas",
+          "threading_layer": "pthreads",
+          "user_api": "blas",
+          "version": "0.3.29"
+        },
+        {
+          "architecture": "SkylakeX",
+          "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/scipy.libs/libscipy_openblas-68440149.so",
+          "internal_api": "openblas",
+          "num_threads": 16,
+          "prefix": "libscipy_openblas",
+          "threading_layer": "pthreads",
+          "user_api": "blas",
+          "version": "0.3.28"
+        },
+        {
+          "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch/lib/libgomp.so.1",
+          "internal_api": "openmp",
+          "num_threads": 16,
+          "prefix": "libgomp",
+          "user_api": "openmp",
+          "version": null
+        }
+      ],
+      "threadpools_inside_after": [
+        {
+          "architecture": "SkylakeX",
+          "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/numpy.libs/libscipy_openblas64_-56d6093b.so",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "threading_layer": "pthreads",
+          "user_api": "blas",
+          "version": "0.3.29"
+        },
+        {
+          "architecture": "SkylakeX",
+          "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/scipy.libs/libscipy_openblas-68440149.so",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "threading_layer": "pthreads",
+          "user_api": "blas",
+          "version": "0.3.28"
+        },
+        {
+          "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch/lib/libgomp.so.1",
+          "internal_api": "openmp",
+          "num_threads": 16,
+          "prefix": "libgomp",
+          "user_api": "openmp",
+          "version": null
+        }
+      ],
+      "threadpools_inside_before": [
+        {
+          "architecture": "SkylakeX",
+          "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/numpy.libs/libscipy_openblas64_-56d6093b.so",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "threading_layer": "pthreads",
+          "user_api": "blas",
+          "version": "0.3.29"
+        },
+        {
+          "architecture": "SkylakeX",
+          "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/scipy.libs/libscipy_openblas-68440149.so",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "threading_layer": "pthreads",
+          "user_api": "blas",
+          "version": "0.3.28"
+        },
+        {
+          "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch/lib/libgomp.so.1",
+          "internal_api": "openmp",
+          "num_threads": 16,
+          "prefix": "libgomp",
+          "user_api": "openmp",
+          "version": null
+        }
+      ],
+      "threadpools_restored": [
+        {
+          "architecture": "SkylakeX",
+          "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/numpy.libs/libscipy_openblas64_-56d6093b.so",
+          "internal_api": "openblas",
+          "num_threads": 16,
+          "prefix": "libscipy_openblas",
+          "threading_layer": "pthreads",
+          "user_api": "blas",
+          "version": "0.3.29"
+        },
+        {
+          "architecture": "SkylakeX",
+          "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/scipy.libs/libscipy_openblas-68440149.so",
+          "internal_api": "openblas",
+          "num_threads": 16,
+          "prefix": "libscipy_openblas",
+          "threading_layer": "pthreads",
+          "user_api": "blas",
+          "version": "0.3.28"
+        },
+        {
+          "filepath": "/share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch/lib/libgomp.so.1",
+          "internal_api": "openmp",
+          "num_threads": 16,
+          "prefix": "libgomp",
+          "user_api": "openmp",
+          "version": null
+        }
+      ],
+      "xnorm": 1.8112608516419126
+    },
+    "fit_build_plus_solver_wall_seconds": 1280.450685519725,
+    "native_PRETRAIN_VAL_records_decoded": 0,
+    "native_TRAIN_records_decoded": 8192,
+    "source_outcome": "ORIGINAL_CORE_REJECTED_NEW_CONTROLLED_SOLVER_RETURN"
+  },
+  "status": "DIAGNOSTIC_ONLY_COMPLETED_NO_BASELINE_ACCEPTANCE",
+  "tracking_mode": "persistent_offline",
+  "wandb_run_id": "vnfjg196"
+}

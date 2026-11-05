@@ -1,0 +1,65 @@
+{
+    "schema":  "model_v3_head_off_R2_Root_metadata_closer_source_handoff_v2",
+    "status":  "FROZEN_SOURCE_ONLY_ROOT_ACTUAL_EXECUTION_PENDING",
+    "files":  [
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/close_head_off_R2_metadata_v2.py",
+                      "bytes":  38577,
+                      "sha256":  "79c86b5dc08f3f87df88bfc91172cb8bad346efbad38ce18e6a04db1a4bb2d0c"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/head_off_R2_Root_closure_API_source_contract_v2.json",
+                      "bytes":  7473,
+                      "sha256":  "ccbd3cc5bc0205152a1c48cdd7235f7436a15979ec16d6361a7f1edd090b4a9c"
+                  }
+              ],
+    "preserved_v1":  [
+                         {
+                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/close_head_off_R2_metadata_v1.py",
+                             "bytes":  37839,
+                             "sha256":  "124895fb564e546067c6b648bdda26cea5fec2b6cec16ae9fbd8cde2c45a13e9"
+                         },
+                         {
+                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/head_off_R2_Root_closure_API_source_contract_v1.json",
+                             "bytes":  6226,
+                             "sha256":  "2d66d92ffb8eda2fa3ebd3bd45ad85c3ea36d1cd075362564e369a834125c8b6"
+                         },
+                         {
+                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/head_off_R2_metadata_close_handoff_v1.json",
+                             "bytes":  5372,
+                             "sha256":  "d73f7ba4a21b80cbfd33267190d219b21fe0c7189114af3d1a05e0fe3bde6733"
+                         }
+                     ],
+    "actual_closed_small_metadata_refs":  [
+                                              {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child/summary.json",
+                                                  "bytes":  891,
+                                                  "sha256":  "1b7a97477974824de39bf2d0502c098d1be598e0f39d3ca51d9d4ec5106427f1"
+                                              },
+                                              {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child/run_status.json",
+                                                  "bytes":  388,
+                                                  "sha256":  "8043eb8e4f9940d202c97ecb4b0cb9a2daabae825c42a460cb4b1858de661545"
+                                              },
+                                              {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child/trajectory_gate.json",
+                                                  "bytes":  42490,
+                                                  "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                              }
+                                          ],
+    "CLI":  "PY -B /share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/close_head_off_R2_metadata_v2.py --source-sha256 79c86b5dc08f3f87df88bfc91172cb8bad346efbad38ce18e6a04db1a4bb2d0c --output /share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_4524580_Root_closure_v2.json",
+    "exact_differences":  [
+                              "Replace or0 process memory summation with positive typed GPU total, typed bool own, nonnegative typed int process bytes; foreign list must equal typed not-own population, then same original no-foreign/85% rule",
+                              "Consumer binds exact strengthened v2 producer; cannot accept an old weaker v1-produced closure",
+                              "No change to original GPU guard, running/terminal parent, numeric20/500 rules, resource budgets, payload exclusions or API output schema/status"
+                          ],
+    "known_actual_separate_from_closure":  {
+                                               "Root_reported_parent":  "4524580 COMPLETED0:0/2445s/16CPU/node21",
+                                               "saved_summary_status":  "PAIRED_GATES_PASS",
+                                               "saved_full_A_numeric_acceptance":  true,
+                                               "Root_independent_closure":  "NOT_EXECUTED_BY_AUTHOR",
+                                               "NVML_sample_knownness":  "TO_BE_VALIDATED_BY_ROOT_v2",
+                                               "SDK_validation":  "SEPARATE_PENDING"
+                                           },
+    "author_executed_Python_AST_Git_SSH_Slurm_model_SDK":  false
+}

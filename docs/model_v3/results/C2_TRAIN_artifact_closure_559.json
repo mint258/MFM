@@ -1,0 +1,34 @@
+{
+  "schema": "model_v3_C2_TRAIN_artifact_closure_v1",
+  "captured_utc": "2026-10-25T12:45:12.649119+00:00",
+  "source_job": {
+    "job_id": "4520559",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_seconds": 1486
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C2_train_diagnostic_supervisor_4520559.json",
+    "bytes": 3130,
+    "sha256": "a9c3059c9777a66826d974382dadb08e205285fd19e52504622555cf8c1f43cf"
+  },
+  "raw_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4520559,4520575,4520591,4520587",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS"
+    ],
+    "stdout": "4520559|zixiao|COMPLETED|0:0|1486|16\n4520575|zixiao|COMPLETED|0:0|6|16\n4520587|zixiao|COMPLETED|0:0|3|16\n4520591|zixiao|COMPLETED|0:0|10|16\n",
+    "stdout_sha256": "05d54564210161e1b41cd259616c9d7fdec8b5a50f904c77b00dee2d184d54f9"
+  },
+  "independent_native_SDK_archive_manifest": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_full_corpus/wandb_archive/model_v3_20261025/closed_v9/job4520559/manifest.json",
+    "bytes": 21591,
+    "sha256": "8d40059f72042ac1905090bbd47e3de2006e9fa49aacca8264173edf5a63e681"
+  },
+  "independent_verification_and_archive_job": "4520587"
+}

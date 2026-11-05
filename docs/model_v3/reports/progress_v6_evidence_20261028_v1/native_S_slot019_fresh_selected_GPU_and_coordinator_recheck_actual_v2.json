@@ -1,0 +1,52 @@
+{
+  "schema": "model_v3_Root_Native_S_slot019_actual_resource_and_process_recheck_v2",
+  "actual_unix": 1793153355.2999854,
+  "old_coordinator_receipt_sha256": "d46ab4042022aebcc2f77977ebd77a169cf8999450d4bfedfcc3cc01e45a6837",
+  "old_coordinator_exact_kernel_identity_live": false,
+  "current_PID_metadata": null,
+  "slot019_known_paths": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_019.intent.json",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_019.submitted.json",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_019",
+      "exists": false,
+      "symlink": false
+    }
+  ],
+  "NVML": {
+    "argv": [
+      "ssh",
+      "-n",
+      "-o",
+      "BatchMode=yes",
+      "-o",
+      "StrictHostKeyChecking=yes",
+      "-o",
+      "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+      "compute-0-21",
+      "nvidia-smi --query-compute-apps=gpu_uuid,pid,used_gpu_memory --format=csv,noheader,nounits"
+    ],
+    "returncode": 0,
+    "stdout": "GPU-22e21021-e572-4562-fc51-cd8c83e74141, 626543, 514\n",
+    "stderr": "",
+    "elapsed_seconds": 20.572908893227577
+  },
+  "selected_GPU_processes": [
+    [
+      "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+      "626543",
+      "514"
+    ]
+  ],
+  "new_job_created": false,
+  "foreign_processes_signalled": false,
+  "safe_steps_not_changed": 17000
+}

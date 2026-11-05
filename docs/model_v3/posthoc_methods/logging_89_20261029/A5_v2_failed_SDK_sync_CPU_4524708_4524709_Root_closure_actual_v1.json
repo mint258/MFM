@@ -1,0 +1,75 @@
+{
+  "SA3_closure": {
+    "bytes": 107331,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_v2_failed_SDK_sync_CPU_4524708_4524709_SA3_metadata_closure_v1.json",
+    "sha256": "09507ad99efe9873bebb2cf2e590f9605587ac57917aae483383c7f39624237e"
+  },
+  "SDK_payload_opened_or_rehashed_by_Root": false,
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524708,4524709",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "4524708|zixiao|COMPLETED|0:0|2|16|compute-0-18\n4524709|zixiao|COMPLETED|0:0|21|16|compute-0-18\n"
+  },
+  "actual_unix": 1793218693.175208,
+  "all_89_fresh_API_requery_claimed": false,
+  "current_Linux_SDK_stat_only": [
+    {
+      "bytes": 113707,
+      "mtime_ns": 1793213222481336545,
+      "nlink": 1,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v2/child/wandb/offline-run-20261029_024500-n7wb3txh/run-n7wb3txh.wandb",
+      "payload_read_or_hash": false,
+      "uid": 1278
+    },
+    {
+      "bytes": 113707,
+      "mtime_ns": 1793216846997247997,
+      "nlink": 1,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_v3_failed_selective_sync_actual_v1/run_0_n7wb3txh/stage/offline-run-20261029_024500-n7wb3txh/run-n7wb3txh.wandb",
+      "payload_read_or_hash": false,
+      "uid": 1278
+    },
+    {
+      "bytes": 112186,
+      "mtime_ns": 1793213222635336548,
+      "nlink": 1,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v2/child/wandb/offline-run-20261029_024502-0dtrjv10/run-0dtrjv10.wandb",
+      "payload_read_or_hash": false,
+      "uid": 1278
+    },
+    {
+      "bytes": 112186,
+      "mtime_ns": 1793216855717275800,
+      "nlink": 1,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A5_v3_failed_selective_sync_actual_v1/run_1_0dtrjv10/stage/offline-run-20261029_024502-0dtrjv10/run-0dtrjv10.wandb",
+      "payload_read_or_hash": false,
+      "uid": 1278
+    }
+  ],
+  "current_metadata_source_rawrefs_verified": 85,
+  "known_online_ledger": {
+    "bytes": 86013,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/WandB_known_online_closed_records_89_20261029_v1.json",
+    "sha256": "a674fb23530b3ff8e56b534862cd85caf86479c51c168c5e1b8a0f63c622521c"
+  },
+  "known_online_records": 89,
+  "new_run_ids": [
+    "n7wb3txh",
+    "0dtrjv10"
+  ],
+  "original_A5_failure_preserved": true,
+  "prior87_independently_reconstructed": true,
+  "schema": "model_v3_Root_A5_v2_failed_SDK_metadata_closure_actual_v1",
+  "scientific_acceptance": false,
+  "status": "ACTUAL_BOTH_CPU_C0_NATIVE_FAILED0_HISTORY_CERTIFICATES_AND_EXACT_API_READBACK_CLOSED",
+  "supervisor_journal_body_independently_read_by_Root": false
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "model_v3_performance_execution_v1",
+  "checkpoint_policy": "manual",
+  "padding": {
+    "mode": "logical_batch_chunks_v1",
+    "atom_bucket_width": 16,
+    "max_graphs_per_chunk": 32,
+    "max_padded_cost_per_chunk": 1000000
+  }
+}

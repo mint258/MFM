@@ -1,0 +1,151 @@
+{
+    "schema":  "performance_R2_paired_log_inputs_v1",
+    "scope":  "PAIRED_R2_LOG_ONLY",
+    "cases":  [
+                  {
+                      "job_id":  "4523976",
+                      "phase":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child",
+                      "refs":  {
+                                   "configuration":  {
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/configuration.json",
+                                                         "bytes":  90471,
+                                                         "sha256":  "e499f52deae6eeb0799447d78454bfdd14a3ae600b8de5f56a4f0f3996cb2b9a"
+                                                     },
+                                   "summary":  {
+                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/summary.json",
+                                                   "bytes":  891,
+                                                   "sha256":  "27162df94d8ed0ccad96e52c09cefc4c09371e7292382db311838bf01a147800"
+                                               },
+                                   "status":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/run_status.json",
+                                                  "bytes":  387,
+                                                  "sha256":  "9628665721ac06e7026b7e3b79018dd0a6a5c5a1db56f9d36eb3556562c54ef1"
+                                              },
+                                   "supervisor":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/supervisor.json",
+                                                      "bytes":  4200,
+                                                      "sha256":  "64d2afbd4616c09ad57098aeaaa3cc51c879b25e1e556bf5769960c754dfc7d4"
+                                                  },
+                                   "root":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_and_consumer_Root_closure_actual_v1.json",
+                                                "bytes":  1784300,
+                                                "sha256":  "0a782651f639a72b6df70f9a6991ce7189bb4dd81bcd492205179d22b421d2fb"
+                                            },
+                                   "profile":  {
+                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_capacity_consumer_v1_source/closed_R2_capacity_profile_v1.json",
+                                                   "bytes":  2889,
+                                                   "sha256":  "a0c73f721b4d5638ab88ebed59113ec6a2ef75cc220a9f30f15b5cf82e4dafbe"
+                                               }
+                               },
+                      "journals":  {
+                                       "reference":  {
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/reference_history.jsonl",
+                                                         "bytes":  305271
+                                                     },
+                                       "candidate":  {
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/candidate_history.jsonl",
+                                                         "bytes":  305266
+                                                     }
+                                   },
+                      "sdks":  [
+                                   {
+                                       "run_id":  "z4ts32w5",
+                                       "descriptor":  {
+                                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/wandb/offline-run-20261027_204435-z4ts32w5/run-z4ts32w5.wandb",
+                                                          "bytes":  1392761
+                                                      },
+                                       "paired_role":  "PENDING_ACTUAL_CPU_NATIVE_CONFIG_ONLY"
+                                   },
+                                   {
+                                       "run_id":  "dr7zahoj",
+                                       "descriptor":  {
+                                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/wandb/offline-run-20261027_204436-dr7zahoj/run-dr7zahoj.wandb",
+                                                          "bytes":  1394449
+                                                      },
+                                       "paired_role":  "PENDING_ACTUAL_CPU_NATIVE_CONFIG_ONLY"
+                                   }
+                               ],
+                      "expected_role_set":  [
+                                                "reference",
+                                                "candidate"
+                                            ],
+                      "expected_rows_per_role":  500,
+                      "expected_first_step":  1,
+                      "expected_last_step":  500,
+                      "fixed20_is_GPU_gate_only_not_SDK_history":  true,
+                      "project_from_source":  "mfm_model_v3_development"
+                  },
+                  {
+                      "job_id":  "4524551",
+                      "phase":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child",
+                      "refs":  {
+                                   "configuration":  {
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/configuration.json",
+                                                         "bytes":  101805,
+                                                         "sha256":  "9e50d047d13370d3b235465d9731f24807d1ddf054cb906d48208f07a2a6d783"
+                                                     },
+                                   "summary":  {
+                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/summary.json",
+                                                   "bytes":  891,
+                                                   "sha256":  "9931f5205777536be38366f848f298e1ab50a4b00721b3f80992287788568fbf"
+                                               },
+                                   "status":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/run_status.json",
+                                                  "bytes":  389,
+                                                  "sha256":  "1c8cb877364cd19c96acb2b5793c1daa878eeec1cb2ed2f007bdcef2356bcaca"
+                                              },
+                                   "supervisor":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/supervisor.json",
+                                                      "bytes":  4477,
+                                                      "sha256":  "42dc544608fb08368e0c1fba213371b6752a2b9d4b3c699921b459972b83e291"
+                                                  },
+                                   "root":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_GPU_4524551_Root_closure_v1.json",
+                                                "bytes":  5082,
+                                                "sha256":  "0136894785baf0d47905bb1701c206dc3c2ea641cf972826d3c9f56d6c589162"
+                                            }
+                               },
+                      "journals":  {
+                                       "reference":  {
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/reference_history.jsonl",
+                                                         "bytes":  305297
+                                                     },
+                                       "candidate":  {
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/candidate_history.jsonl",
+                                                         "bytes":  305303
+                                                     }
+                                   },
+                      "sdks":  [
+                                   {
+                                       "run_id":  "5thxuhw5",
+                                       "descriptor":  {
+                                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/wandb/offline-run-20261028_025705-5thxuhw5/run-5thxuhw5.wandb",
+                                                          "bytes":  1397798
+                                                      },
+                                       "paired_role":  "PENDING_ACTUAL_CPU_NATIVE_CONFIG_ONLY"
+                                   },
+                                   {
+                                       "run_id":  "zotxsoay",
+                                       "descriptor":  {
+                                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/wandb/offline-run-20261028_025705-zotxsoay/run-zotxsoay.wandb",
+                                                          "bytes":  1399264
+                                                      },
+                                       "paired_role":  "PENDING_ACTUAL_CPU_NATIVE_CONFIG_ONLY"
+                                   }
+                               ],
+                      "expected_role_set":  [
+                                                "reference",
+                                                "candidate"
+                                            ],
+                      "expected_rows_per_role":  500,
+                      "expected_first_step":  1,
+                      "expected_last_step":  500,
+                      "fixed20_is_GPU_gate_only_not_SDK_history":  true,
+                      "project_from_source":  "mfm_model_v3_development"
+                  }
+              ],
+    "descriptor_scope":  "Only explicit path/stat bytes; no SDK/journal body/hash read by author/Rootprepare. CPU actual Native config decides role.",
+    "public_code_sha":  "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+    "scientific_acceptance":  false,
+    "SDK_verified_or_online_claimed":  false
+}

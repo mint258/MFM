@@ -1,0 +1,162 @@
+{
+    "schema":  "native_S20000_panel_Root_and_SDK_source_handoff_v1",
+    "status":  "SOURCE_ONLY_FROZEN_STOPEDIT_NO_EXECUTION_OR_ONLINE_CLAIM",
+    "source_freeze":  {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_panel_Root_and_SDK_source_freeze_v1.json",
+                          "bytes":  12638,
+                          "sha256":  "5b387b8b337e5741e0d78663e222ec83aa8609b3dd5f7a057971a0e171ab889c"
+                      },
+    "Root_closer":  {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_panel_GPU_Root_close_v1.py",
+                        "bytes":  45947,
+                        "sha256":  "14c6fb8367ff0df3084a172bb3d8b8c537ea671e4917729f7f4dfc34b5f5fa88"
+                    },
+    "SDK_source_pins":  {
+                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_panel_SDK_sync_v1_source/source_pins.json",
+                            "bytes":  4278,
+                            "sha256":  "10e247b0b0c183c586045849953d6043e2cb26afa3e3c0cec93307a3adf1ebb7"
+                        },
+    "Root_closer_argv":  [
+                             "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                             "-B",
+                             "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_panel_GPU_Root_close_v1.py",
+                             "--output",
+                             "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_dev_panel_GPU_4525060_Root_closure_v1.json"
+                         ],
+    "suggested_Root_output_is_NOT_an_existing_proof":  true,
+    "required_actual_Root_output":  {
+                                        "schema":  "model_v3_Native_S20000_panel_GPU_Root_metadata_closure_v1",
+                                        "status":  "ACTUAL_GPU_C0_NATIVE20000_FULL9_18CELL_H0_SOURCE_RESOURCE_CLOSED_SDK_PENDING",
+                                        "closer_source":  {
+                                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_panel_GPU_Root_close_v1.py",
+                                                              "bytes":  45947,
+                                                              "sha256":  "14c6fb8367ff0df3084a172bb3d8b8c537ea671e4917729f7f4dfc34b5f5fa88"
+                                                          },
+                                        "actual_parent_must_be_fresh_C0":  true
+                                    },
+    "audit_prepare_argv":  [
+                               "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                               "-B",
+                               "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_panel_SDK_sync_v1_source/prepare.py",
+                               "audit",
+                               "--pins-sha256",
+                               "10e247b0b0c183c586045849953d6043e2cb26afa3e3c0cec93307a3adf1ebb7",
+                               "--GPU-closure",
+                               "ACTUAL_COMPLETED_ROOT_CLOSURE_PATH",
+                               "--GPU-closure-sha256",
+                               "ACTUAL_ROOT_CLOSURE_RAW_SHA256",
+                               "--plan-output",
+                               "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_SDK_audit_plan_v1",
+                               "--job-output",
+                               "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_SDK_audit_actual_v1"
+                           ],
+    "sync_prepare_argv":  [
+                              "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                              "-B",
+                              "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_panel_SDK_sync_v1_source/prepare.py",
+                              "sync",
+                              "--pins-sha256",
+                              "10e247b0b0c183c586045849953d6043e2cb26afa3e3c0cec93307a3adf1ebb7",
+                              "--verification",
+                              "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_SDK_audit_actual_v1/VERIFICATION.json",
+                              "--audit-result",
+                              "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_SDK_audit_actual_v1/RESULT.json",
+                              "--audit-supervisor",
+                              "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_SDK_audit_actual_v1.supervisor.json",
+                              "--plan-output",
+                              "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_sync_plan_v1",
+                              "--job-output",
+                              "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_S20000_panel_sync_actual_v1"
+                          ],
+    "CPU_source_wrappers":  {
+                                "audit":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_panel_SDK_sync_v1_source/audit_cpu.sbatch",
+                                              "bytes":  1167,
+                                              "sha256":  "abe437c3695df0d23b020b76cdbee0836ae7745ad20e1f9ecac67b4449e1816b"
+                                          },
+                                "sync":  {
+                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S20000_panel_SDK_sync_v1_source/sync_cpu.sbatch",
+                                             "bytes":  1312,
+                                             "sha256":  "84089e2284e6359781c66fe0376f264adef47d459a9be06bed3e4746d803dab6"
+                                         },
+                                "Root_must_install_exact_raw_copy_to_O_or_N_root_before_actual_auto_CPU_submission":  true,
+                                "canonical_CPU_no_nodes_ntasks_mem_exclusive":  true,
+                                "proposed_audit_installed":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_native_S20000_panel_SDK_audit_auto_CPU_v1.sbatch",
+                                "proposed_sync_installed":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_native_S20000_panel_selective_sync_auto_CPU_v1.sbatch",
+                                "proposed_paths_NOT_claimed_installed":  true
+                            },
+    "CPU_resources":  {
+                          "cpus":  16,
+                          "automatic_default_Slurm_memory":  true,
+                          "actual_ReqMem_environment_not_fabricated":  true,
+                          "software_working_memory_bytes":  17179869184,
+                          "RSS_limit_bytes":  12884901888,
+                          "whole_bytes":  2147483648,
+                          "private_bytes":  2147483648,
+                          "audit_allocation_seconds":  600,
+                          "audit_supervisor_seconds":  540,
+                          "fullscan_inclusive_seconds":  180,
+                          "sync_allocation_seconds":  3600,
+                          "sync_supervisor_seconds":  3300,
+                          "transport_child_seconds":  900,
+                          "official_CLI_seconds":  600,
+                          "API_readback_seconds":  180,
+                          "RLIMIT_child_seconds":  3000,
+                          "allowed_CPU_nodes":  "compute-0-2,8..19",
+                          "CUDA_VISIBLE_DEVICES":  "",
+                          "original_a1b_supervision_and_identity":  true,
+                          "fresh_actual_CPU_admission_and_all_registered_plus64GiB_quota_required":  true
+                      },
+    "Root_read_boundary":  {
+                               "small_closed_JSON_source_Git_JUnit_metadata_sacct_lstat_census_only":  true,
+                               "Root_model_or_SDK_or_target_or_array_read":  false,
+                               "Root_step_or_resource_journal_open_or_hash":  false,
+                               "resource_sampling_proof":  "Completed exact pinned guard control flow + closed summaries; Root does not independently count rows or aggregate maxima",
+                               "payload_H0":  "STAT_ONLY; SHA from actual CPU/GPU producer, no patched saved SHA as fresh Root SHA"
+                           },
+    "science_preserved":  {
+                              "tasks":  9,
+                              "cells":  18,
+                              "readouts":  2,
+                              "bootstrap":  1000,
+                              "matched_H0_caches":  6,
+                              "dimension":  512,
+                              "cachekey_and_six_manifest_fields":  true,
+                              "geometry_ready_population_and_missing_geometry_counts_preserved":  true,
+                              "packing_and_source_kernel_identity_preserved":  true,
+                              "seed":  0,
+                              "pretraining_precision":  "fp32",
+                              "optimizer_updates":  20000,
+                              "samples_consumed":  8151040,
+                              "GPU_auto_software_bytes":  34359738368,
+                              "GPU_RSS_limit_bytes":  30064771072,
+                              "GPU_one_hour_target":  true,
+                              "guard3500_outer3590_unchanged":  true,
+                              "whole_private2GiB":  true
+                          },
+    "SDK_scope":  {
+                      "only_run":  "i59ur33t",
+                      "only_model_job":  "4525060",
+                      "project":  "phychem-model-v3",
+                      "Native_entity":  "Actual RunRecord or CPU authenticated viewer/default, never guessed",
+                      "all36_history_scopes":  true,
+                      "full_typed_config_summary_all_history_EOF":  true,
+                      "literal749_tap2_rb_CRC_fragment_EOF_exit0":  true,
+                      "history_count":  "Actual result/journal counts, no56738/native-packet guess",
+                      "official_transport_exact_copy_and_readback":  true,
+                      "remote_metric_values_independently_compared":  false,
+                      "old_10k_certificate_reused_as_20k":  false
+                  },
+    "hold_policy":  "No release by any new tool; no forged old10k released receipt; Root alone may release only this20k hold after actual closure/census; fresh CPU quota still covers all registered remaining",
+    "required_actual_sequence":  [
+                                     "Root independent source/static review",
+                                     "Root actually executes closer and reviews fresh5059/5060 C0/source/census/kernel/private proof",
+                                     "Root metadata audit prepare binds actual completed closure rawref to new plan inputs",
+                                     "Root original autoCPU submission/receipt; actual auditC0/full certificate/six inline/source-before-after cleanup",
+                                     "Root sync prepare only after actual auditC0; exact one-ID row and original official transport",
+                                     "Root actual syncC0/copy/source/remote route-state-count-endpoints cleanup closure; no remote per-metric claim",
+                                     "Root own ledger/hold reconciliation; neither is performed by source author"
+                                 ],
+    "actual_closure_or_audit_or_sync_or_hold_release":  null,
+    "stopped_editing":  true
+}

@@ -1,0 +1,72 @@
+{
+  "CPU_submitted_before_initial_literal_check_resolved": true,
+  "NPZ_CP_SDK_data_or_weight_payload_opened_or_hashed": false,
+  "RESULT": {
+    "bytes": 1482099,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/residual4701_vs_FFN4610_scalar_v2_checker_4524715/RESULT.json",
+    "sha256": "4abb608899fe30046d0382e388ba462d1d5c4d94c16877884b6b0873e38503bb"
+  },
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524714,4524715",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "4524714|zixiao|FAILED|1:0|1|16|compute-0-18\n4524715|zixiao|COMPLETED|0:0|1|16|compute-0-18\n"
+  },
+  "actual_unix": 1793220530.3792572,
+  "case_transitions": {
+    "F_to_F": 21,
+    "F_to_P": 13,
+    "P_to_F": 5,
+    "P_to_P": 9
+  },
+  "cohort_counts": {
+    "FFN4610": {
+      "cases": 48,
+      "failed": 34,
+      "failed_observations": 56,
+      "field_transform_observations": 1872,
+      "passed": 14
+    },
+    "residual4701": {
+      "cases": 48,
+      "failed": 26,
+      "failed_observations": 43,
+      "field_transform_observations": 1872,
+      "passed": 22
+    }
+  },
+  "field_transform_transitions": {
+    "F_to_F": 17,
+    "F_to_P": 39,
+    "P_to_F": 26,
+    "P_to_P": 1790
+  },
+  "final_posthoc_source_difference_verified_exact": true,
+  "initial_Root_literal_check_failed_due_to_source_line_wrap": true,
+  "job_id": "4524715",
+  "original_failed_CPU4714_preserved": true,
+  "original_models_and_thresholds_unchanged": true,
+  "schema": "model_v3_Root_closed_scalar_comparison_actual_v1",
+  "scientific_adoption": false,
+  "selected_input_rawrefs_verified": 104,
+  "source_and_all_input_metadata_before_after_current_equal": true,
+  "source_pins": {
+    "bytes": 7043,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/residual4701_vs_FFN4610_scalar_CPU_v2_source/source_pins.json",
+    "sha256": "94bfcf0069cdcc243ababaa831ddbef62a2e12d833c280021468d578b04a81a7"
+  },
+  "status": "ACTUAL_CPU_C0_COMPLETE48_1872_SCALAR_PAIRS_SOURCE_RESOURCE_CLOSED_NOT_ADOPTED",
+  "supervisor": {
+    "bytes": 3148,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/residual4701_vs_FFN4610_scalar_v2_checker_supervisor_4524715.json",
+    "sha256": "901b5a9a0a17b706a3a357b127f4c0af8ef625c3cc9767aceddd1422843f4c63"
+  }
+}

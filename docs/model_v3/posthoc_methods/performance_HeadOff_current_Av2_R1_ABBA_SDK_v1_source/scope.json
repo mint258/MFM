@@ -1,0 +1,151 @@
+{
+    "schema":  "performance_manual_R1_ABBA_scope_v1",
+    "scope":  "CURRENT_HEAD_OFF_AV2_R1_ABBA_LOG_AND_EXISTING_SPEED_REPORT_ONLY",
+    "series_id":  "A03_head_off_R1_Av2_C35_7ffe_v1",
+    "planned_order":  [
+                          "reference",
+                          "candidate",
+                          "candidate",
+                          "reference"
+                      ],
+    "actual_job_ids_or_run_ids_prefilled":  true,
+    "numeric_gate":  {
+                         "source_GPU_job_id":  "4524722",
+                         "source_CPU_job_id":  null,
+                         "Root_closure":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_GPU4722_Root_closure_actual_v1.json",
+                                              "bytes":  2772,
+                                              "sha256":  "0fbdb4c6313e005f995c3bbe66a451f95ec4967bb08bcdeba938dd995abe0ab0"
+                                          },
+                         "directory":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child",
+                         "files":  {
+                                       "summary":  {
+                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/summary.json",
+                                                       "bytes":  12121,
+                                                       "sha256":  "210bdd1413b27c3eb88c0368e8f334d57f7b5e10d2941d1380d773adc40484da"
+                                                   },
+                                       "configuration":  {
+                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/configuration.json",
+                                                             "bytes":  103272,
+                                                             "sha256":  "0cc382ec1479b428e295e0f85cac11e4fb04eb62ed477ba4661acebaa14e3a0d"
+                                                         },
+                                       "run_status":  {
+                                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/run_status.json",
+                                                          "bytes":  11717,
+                                                          "sha256":  "d3d24bcee751c5f1fe8c8ab10a054e4a53c9712ed92af031761237ea6c2a033a"
+                                                      },
+                                       "fixed_batch_gate":  {
+                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/fixed_batch_gate.json",
+                                                                "bytes":  6098743,
+                                                                "sha256":  "14abee946ddb298745e43426e844c6fb0fe38ceafae457fc222d929e727586a4"
+                                                            },
+                                       "trajectory_gate":  {
+                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/trajectory_gate.json",
+                                                               "bytes":  42490,
+                                                               "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                           }
+                                   },
+                         "Root_bound_metadata":  [
+                                                     {
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/configuration.json",
+                                                         "bytes":  103272,
+                                                         "sha256":  "0cc382ec1479b428e295e0f85cac11e4fb04eb62ed477ba4661acebaa14e3a0d"
+                                                     },
+                                                     {
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/summary.json",
+                                                         "bytes":  12121,
+                                                         "sha256":  "210bdd1413b27c3eb88c0368e8f334d57f7b5e10d2941d1380d773adc40484da"
+                                                     },
+                                                     {
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/run_status.json",
+                                                         "bytes":  11717,
+                                                         "sha256":  "d3d24bcee751c5f1fe8c8ab10a054e4a53c9712ed92af031761237ea6c2a033a"
+                                                     },
+                                                     {
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/fixed_batch_gate.json",
+                                                         "bytes":  6098743,
+                                                         "sha256":  "14abee946ddb298745e43426e844c6fb0fe38ceafae457fc222d929e727586a4"
+                                                     },
+                                                     {
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/child/trajectory_gate.json",
+                                                         "bytes":  42490,
+                                                         "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                     },
+                                                     {
+                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_v1/supervisor.json",
+                                                         "bytes":  5571,
+                                                         "sha256":  "853c7877654713dfde5bb4f2f9d0e7bc3c85cc5b8b69d0c586bfcf840a80d2f2"
+                                                     }
+                                                 ],
+                         "Root_schema_field":  "ABSENT_IN_IMMUTABLE_ACTUAL_ROOT_METADATA",
+                         "gate_refs_origin":  "Exact six refs of actual HeadOff4722 Root closure; no A00/CPU4717 qualification, no invented schema; large gate body not read by author",
+                         "actual_CPU_gate_check":  "Existing unchanged a_speed_report rehashes and consumes original full20/all-parameter-v2/500 results inside CPU allocation"
+                     },
+    "original_GPU_and_SDK_unchanged":  true,
+    "actual_members":  [
+                           {
+                               "position":  1,
+                               "role":  "reference",
+                               "job_id":  "4524784",
+                               "run_id":  "tzawuph9",
+                               "selector":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_current_Av2_R1_ABBA_SDK_v1_source/member_1_BOUND_METADATA.json",
+                                                "bytes":  3504,
+                                                "sha256":  "d22f4c6d77d0ca58396e7b56f76db282e5d93f2633f44513671425c25b8b4d07"
+                                            },
+                               "submission":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_R1_Av2_ABBA_v1/member_1/control/Root_submission_actual_v1.json",
+                                                  "bytes":  10688,
+                                                  "sha256":  "2bf4a94a0d939942fd275f1d27937aa3f63da31508d63b9ee4290bc974ccdab3"
+                                              }
+                           },
+                           {
+                               "position":  2,
+                               "role":  "candidate",
+                               "job_id":  "4524786",
+                               "run_id":  "ozstq1id",
+                               "selector":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_current_Av2_R1_ABBA_SDK_v1_source/member_2_BOUND_METADATA.json",
+                                                "bytes":  3505,
+                                                "sha256":  "b6480557c1fec78731d06165294061c3b77eb9b6de4e7789c0f4131f30e7f0ae"
+                                            },
+                               "submission":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_R1_Av2_ABBA_v1/member_2/control/Root_submission_actual_v1.json",
+                                                  "bytes":  13094,
+                                                  "sha256":  "f788c2bc19e9b6408a0ff52b1d6fc3e11e6969630d91b228739def4b96c00463"
+                                              }
+                           },
+                           {
+                               "position":  3,
+                               "role":  "candidate",
+                               "job_id":  "4524792",
+                               "run_id":  "t1069e8r",
+                               "selector":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_current_Av2_R1_ABBA_SDK_v1_source/member_3_BOUND_METADATA.json",
+                                                "bytes":  3505,
+                                                "sha256":  "08a3ce90847429c93c929a3a9bdbf047b4aa5f46d4b04065d085aa7abdbca321"
+                                            },
+                               "submission":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_R1_Av2_ABBA_v1/member_3/control/Root_submission_actual_v1.json",
+                                                  "bytes":  13095,
+                                                  "sha256":  "df86415d1136ff21b5c5419b1f8ffd6f5effc7663d9d21e66511907b293c9b33"
+                                              }
+                           },
+                           {
+                               "position":  4,
+                               "role":  "reference",
+                               "job_id":  "4524797",
+                               "run_id":  "f4emiyn7",
+                               "selector":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_current_Av2_R1_ABBA_SDK_v1_source/member_4_BOUND_METADATA.json",
+                                                "bytes":  3504,
+                                                "sha256":  "e5a375b635de044465a080aa87a0150742189d1698c1d803c6df465867082dea"
+                                            },
+                               "submission":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_R1_Av2_ABBA_v1/member_4/control/Root_submission_actual_v1.json",
+                                                  "bytes":  13095,
+                                                  "sha256":  "6799f0a79599dcad2afdaa05cdb876d8843fd566bde73d2fa05752d8d7a75fb4"
+                                              }
+                           }
+                       ]
+}

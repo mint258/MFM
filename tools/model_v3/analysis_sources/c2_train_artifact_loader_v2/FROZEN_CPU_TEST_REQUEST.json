@@ -1,0 +1,74 @@
+{
+    "schema":  "model_v3_C2_prior_TRAIN_artifact_v2_cpu_test_request_v1",
+    "status":  "SOURCE_FROZEN_TEST_NOT_RUN",
+    "frozen_at_utc":  "2026-10-25T12:41:28.4697530Z",
+    "source_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/c2_train_artifact_loader_v2_source",
+    "proposed_git_directory":  "tools/model_v3/analysis_sources/c2_train_artifact_loader_v2",
+    "environment":  {
+                        "PYTHONPATH":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_c2/current"
+                    },
+    "python_arguments":  [
+                             "-B",
+                             "-m",
+                             "pytest",
+                             "-q",
+                             "-p",
+                             "no:cacheprovider",
+                             "test_accepted_train_artifact_v2.py"
+                         ],
+    "expected_collected_cases":  31,
+    "test_result":  null,
+    "real_entrypoint_executed":  false,
+    "actual_native_TRAIN_or_VAL_geometry_read":  false,
+    "closed_TRAIN_metadata_and_NPZ_SHA_read":  true,
+    "prior_TRAIN_job":  "4520559",
+    "original_v1_job_4520482_remains_FAILED":  true,
+    "original_v1_stop_inferred":  false,
+    "adoption_status":  "PREPARED_CONDITIONAL_NOT_ADOPTED",
+    "base_v2_actual_test_evidence":  "Root job4520575 C0:17PASS, first package unchanged",
+    "artifact_runtime_source_inventory_sha256":  "3733a959542d1186f253ee7bc86058fb9a8c6f889505fa87ca354366d978d4ce",
+    "source_files":  [
+                         {
+                             "path":  "accepted_train_artifact_v2.py",
+                             "bytes":  26588,
+                             "sha256":  "37db0904fb7d0af6254f42f281b0a11aaccce9674397c53c8d09862d101a6ebf"
+                         },
+                         {
+                             "path":  "coordinate_baseline_v2.py",
+                             "bytes":  27285,
+                             "sha256":  "7af1678e8358c20b48470429ddefaff301918a69e7a948fba63daa12b9a696b1"
+                         },
+                         {
+                             "path":  "core_capture.py",
+                             "bytes":  8392,
+                             "sha256":  "9ac5b4be9a029a093419d0d6cb92673b3f89ca41a4a02e21b8c07f9a8fe33cd3"
+                         },
+                         {
+                             "path":  "diagnose_coordinate_lookup.py",
+                             "bytes":  21986,
+                             "sha256":  "7c78234b333dddd87ff5efd0927cf9f25642f455e6c31ca73c9abb936ed1e781"
+                         },
+                         {
+                             "path":  "solver_math.py",
+                             "bytes":  9409,
+                             "sha256":  "e0cf8ef6859d026e8dc6c260718f0c5ddc368779097fa48405572f1f26f79472"
+                         },
+                         {
+                             "path":  "test_accepted_train_artifact_v2.py",
+                             "bytes":  16487,
+                             "sha256":  "ae7ed1f181d7f5f0b39020e54cd88f93941ae521727ceb04eed6a89c1f78c259"
+                         },
+                         {
+                             "path":  "prior_TRAIN_artifact_v2_protocol.json",
+                             "bytes":  4656,
+                             "sha256":  "f650c3b4149ccdbf0bfd406c8b1559df7c14ff7ff37b2dad96016bdca99cd968"
+                         },
+                         {
+                             "path":  "README.md",
+                             "bytes":  9203,
+                             "sha256":  "96a3a3682dba8d074507ff2d1ea51223ad64c773484feaf0256b777b64270ed2"
+                         }
+                     ],
+    "submitter":  "Root only",
+    "real_execution_requires":  "Actual CPU tests, exact TRAIN closure/NPZ/source authority and new public ADOPTED artifact-origin protocol before first native VAL"
+}

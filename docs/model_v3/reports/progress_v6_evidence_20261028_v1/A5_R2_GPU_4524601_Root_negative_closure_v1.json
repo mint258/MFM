@@ -1,0 +1,940 @@
+{
+  "schema": "model_v3_Root_A5_R2_fixed20_gradient_failure_closure_v1",
+  "status": "ACTUAL_FAILED1_ALL20_FORWARD_PASS_120_ZERO_BIAS_RELATIVE_GRADIENT_FAILURES_SOURCE_RESOURCE_CLOSED",
+  "actual_unix": 1793149260.291808,
+  "job_id": "4524601",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524601",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524601|zixiao|FAILED|1:0|127|16|compute-0-21\n",
+    "stderr": ""
+  },
+  "actual_scientific_child_exit_code": 2,
+  "outer_supervisor_exit_mapping": "child2 fixed gate failure becomes parent1",
+  "configuration": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/configuration.json",
+    "bytes": 90608,
+    "sha256": "2c22e492d3a51ed20671a253a3545fe6bba54a2689c0d26414e9dc6f2cc71e40"
+  },
+  "fixed_batch_gate": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/fixed_batch_gate.json",
+    "bytes": 2489057,
+    "sha256": "49ae6fa14863d4d870d5c7d59374ab00954bd2028658b8509227ae3b222ee458"
+  },
+  "fixed_gate_metadata_cap_bytes": 4194304,
+  "run_status": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/run_status.json",
+    "bytes": 395,
+    "sha256": "8c48e02c28acae92e619b3e347ea8dc50797c28eddb739236780ee8f6b25d64c"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/supervisor.json",
+    "bytes": 4216,
+    "sha256": "2606cbfbf92867ef06f2de3758f733255453cddbfc0068aabe70f0f63a034c40"
+  },
+  "submission": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/control/Root_submission_actual_v1.json",
+    "bytes": 8480,
+    "sha256": "e8480ea6eba54392484c3e09b991002647ea1667a4a54f684cc149149d86a41d"
+  },
+  "source_package": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_GPU_v1_source/source_pins.json",
+    "bytes": 19588,
+    "sha256": "8273ee3ec1d703a9cef7e7701289a8d14995e751b7d6f172a174978da470b8fd"
+  },
+  "method_publication": {
+    "bytes": 6404,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v28_methods_publication_actual_v1.json",
+    "sha256": "116b7a81eda96fe9bc801b7d9388577cecc82f5bda43c47fb4d7f429fd40fd70"
+  },
+  "all_current_2131_source_refs_equal": true,
+  "fixed_batches": 20,
+  "forward_tensors_each": 8,
+  "named_gradients_each": 329,
+  "all20_forward_pass": true,
+  "maximum_forward_relative_l2": 1.9975306379930165e-06,
+  "failed_gradient_records": [
+    {
+      "batch": 0,
+      "max_absolute": 1.9043255861106445e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.945256531620469
+    },
+    {
+      "batch": 0,
+      "max_absolute": 2.8117597139498685e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.6880686348587035
+    },
+    {
+      "batch": 0,
+      "max_absolute": 2.0627766161851468e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.8067137196096203
+    },
+    {
+      "batch": 0,
+      "max_absolute": 1.509974367763789e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.026210257608849
+    },
+    {
+      "batch": 0,
+      "max_absolute": 9.439560244572931e-11,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.762802179111564
+    },
+    {
+      "batch": 0,
+      "max_absolute": 2.4871127379810787e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.7865123878451252
+    },
+    {
+      "batch": 1,
+      "max_absolute": 8.378719940083101e-11,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.9796676259688338
+    },
+    {
+      "batch": 1,
+      "max_absolute": 1.4136958270682953e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.9899605997715463
+    },
+    {
+      "batch": 1,
+      "max_absolute": 2.0722268345707562e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.047129209927575
+    },
+    {
+      "batch": 1,
+      "max_absolute": 1.3582734936790075e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.1980254656108211
+    },
+    {
+      "batch": 1,
+      "max_absolute": 6.622258297284134e-11,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.8436810950559098
+    },
+    {
+      "batch": 1,
+      "max_absolute": 1.3800161013932666e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.1984758606371613
+    },
+    {
+      "batch": 2,
+      "max_absolute": 1.6336798580596223e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.0951410514994204
+    },
+    {
+      "batch": 2,
+      "max_absolute": 3.168452167301439e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.6879635767128278
+    },
+    {
+      "batch": 2,
+      "max_absolute": 9.239897735824343e-11,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.0806945648873887
+    },
+    {
+      "batch": 2,
+      "max_absolute": 2.736442183959298e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.0892882749854813
+    },
+    {
+      "batch": 2,
+      "max_absolute": 1.4011902749189176e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.4069047200519613
+    },
+    {
+      "batch": 2,
+      "max_absolute": 6.576783562195487e-11,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.963240657173801
+    },
+    {
+      "batch": 3,
+      "max_absolute": 2.142428456863854e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.1551978236746496
+    },
+    {
+      "batch": 3,
+      "max_absolute": 1.1618794815149158e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.053245666797852
+    },
+    {
+      "batch": 3,
+      "max_absolute": 1.5904788597254083e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.1132816799837104
+    },
+    {
+      "batch": 3,
+      "max_absolute": 3.3946889743674546e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.4891065774545096
+    },
+    {
+      "batch": 3,
+      "max_absolute": 1.1311840353300795e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.8144286519632855
+    },
+    {
+      "batch": 3,
+      "max_absolute": 1.8911805454990827e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.165189228283977
+    },
+    {
+      "batch": 4,
+      "max_absolute": 1.4021317440437997e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.8209726819465848
+    },
+    {
+      "batch": 4,
+      "max_absolute": 1.4588152907890617e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.3455553871358132
+    },
+    {
+      "batch": 4,
+      "max_absolute": 2.141309352055032e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.4711353260620783
+    },
+    {
+      "batch": 4,
+      "max_absolute": 1.702149532434305e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.357183572369221
+    },
+    {
+      "batch": 4,
+      "max_absolute": 1.4834711237199372e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.5682635182980467
+    },
+    {
+      "batch": 4,
+      "max_absolute": 6.344436087601935e-11,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.9254500947283886
+    },
+    {
+      "batch": 5,
+      "max_absolute": 1.240820779457863e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.8251619947762057
+    },
+    {
+      "batch": 5,
+      "max_absolute": 1.84394721713943e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.6077443229852038
+    },
+    {
+      "batch": 5,
+      "max_absolute": 1.9879564661096083e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.015305393571319
+    },
+    {
+      "batch": 5,
+      "max_absolute": 1.6027312810251715e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.1542853387249965
+    },
+    {
+      "batch": 5,
+      "max_absolute": 1.5687007248743612e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.8676913432888176
+    },
+    {
+      "batch": 5,
+      "max_absolute": 4.8045123435258574e-11,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.687862151020668
+    },
+    {
+      "batch": 6,
+      "max_absolute": 4.803268893738277e-11,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.5064748382546347
+    },
+    {
+      "batch": 6,
+      "max_absolute": 1.6109424905152991e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.9657266942520756
+    },
+    {
+      "batch": 6,
+      "max_absolute": 1.3380940799834207e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.4380552618683842
+    },
+    {
+      "batch": 6,
+      "max_absolute": 1.134594640461728e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.2311314588264344
+    },
+    {
+      "batch": 6,
+      "max_absolute": 1.0228973224002402e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.6376175593898208
+    },
+    {
+      "batch": 6,
+      "max_absolute": 1.8592061223898781e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.822209612030182
+    },
+    {
+      "batch": 7,
+      "max_absolute": 2.0315837900852785e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.0308483517437417
+    },
+    {
+      "batch": 7,
+      "max_absolute": 1.4023271432961337e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.6320419478910032
+    },
+    {
+      "batch": 7,
+      "max_absolute": 1.014086592476815e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.4776093427401489
+    },
+    {
+      "batch": 7,
+      "max_absolute": 1.6785861589596607e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.1560425922059425
+    },
+    {
+      "batch": 7,
+      "max_absolute": 1.666933258093195e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.1279578069686111
+    },
+    {
+      "batch": 7,
+      "max_absolute": 8.93578544491902e-11,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.5273471981498434
+    },
+    {
+      "batch": 8,
+      "max_absolute": 1.2141754268668592e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.7419398479443352
+    },
+    {
+      "batch": 8,
+      "max_absolute": 1.3784529073745944e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.7678187014126202
+    },
+    {
+      "batch": 8,
+      "max_absolute": 6.767209015379194e-11,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.9213891348935653
+    },
+    {
+      "batch": 8,
+      "max_absolute": 2.1179857867537066e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.2106882830195338
+    },
+    {
+      "batch": 8,
+      "max_absolute": 1.8144419300369918e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.563434989676902
+    },
+    {
+      "batch": 8,
+      "max_absolute": 1.5205614545266144e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.2288981179566627
+    },
+    {
+      "batch": 9,
+      "max_absolute": 1.538182914373465e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.0444533543322043
+    },
+    {
+      "batch": 9,
+      "max_absolute": 2.1123014448676258e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.3867466056982214
+    },
+    {
+      "batch": 9,
+      "max_absolute": 1.0436451702844352e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.153492551838703
+    },
+    {
+      "batch": 9,
+      "max_absolute": 1.5779733075760305e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.5675204226258985
+    },
+    {
+      "batch": 9,
+      "max_absolute": 2.141860022675246e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.5909039781551098
+    },
+    {
+      "batch": 9,
+      "max_absolute": 2.759179551503621e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.4567346723829817
+    },
+    {
+      "batch": 10,
+      "max_absolute": 1.546140993013978e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.6521761266881512
+    },
+    {
+      "batch": 10,
+      "max_absolute": 2.573870006017387e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.274143578238493
+    },
+    {
+      "batch": 10,
+      "max_absolute": 2.0031620806548744e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.794204685112554
+    },
+    {
+      "batch": 10,
+      "max_absolute": 1.800799509510398e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.5973540152392436
+    },
+    {
+      "batch": 10,
+      "max_absolute": 1.3869794202037156e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.6377074897307125
+    },
+    {
+      "batch": 10,
+      "max_absolute": 2.2816948330728337e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.4895995890471418
+    },
+    {
+      "batch": 11,
+      "max_absolute": 1.766693458193913e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.8611184815446887
+    },
+    {
+      "batch": 11,
+      "max_absolute": 5.384208634495735e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.1466276821330355
+    },
+    {
+      "batch": 11,
+      "max_absolute": 4.1609382606111467e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.5048501784094177
+    },
+    {
+      "batch": 11,
+      "max_absolute": 1.8428636394673958e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.1495644332676482
+    },
+    {
+      "batch": 11,
+      "max_absolute": 2.247588781756349e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.2444667585226514
+    },
+    {
+      "batch": 11,
+      "max_absolute": 2.4419932742603123e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.227036556571826
+    },
+    {
+      "batch": 12,
+      "max_absolute": 4.270077624823898e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.8435436203186223
+    },
+    {
+      "batch": 12,
+      "max_absolute": 5.280753612169065e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.0419567335478082
+    },
+    {
+      "batch": 12,
+      "max_absolute": 3.5367975215194747e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.625779889280781
+    },
+    {
+      "batch": 12,
+      "max_absolute": 9.506493370281532e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.6035649049342933
+    },
+    {
+      "batch": 12,
+      "max_absolute": 3.821583050012123e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.9305911621053136
+    },
+    {
+      "batch": 12,
+      "max_absolute": 3.778950485866517e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.517427226303064
+    },
+    {
+      "batch": 13,
+      "max_absolute": 1.7121237760875374e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.8662295813577754
+    },
+    {
+      "batch": 13,
+      "max_absolute": 3.5367975215194747e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.295647802666294
+    },
+    {
+      "batch": 13,
+      "max_absolute": 1.5057821656228043e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.269466684648719
+    },
+    {
+      "batch": 13,
+      "max_absolute": 9.313083637607633e-11,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.4821681526520778
+    },
+    {
+      "batch": 13,
+      "max_absolute": 9.966072411771165e-11,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.425355341658814
+    },
+    {
+      "batch": 13,
+      "max_absolute": 1.1513101583204843e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.8695055830097278
+    },
+    {
+      "batch": 14,
+      "max_absolute": 1.1596057447604835e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.6016457046711715
+    },
+    {
+      "batch": 14,
+      "max_absolute": 3.7479708225873765e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.4454096458335797
+    },
+    {
+      "batch": 14,
+      "max_absolute": 1.1243628250667825e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.8993485251584488
+    },
+    {
+      "batch": 14,
+      "max_absolute": 1.582236563990591e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.2739148385704187
+    },
+    {
+      "batch": 14,
+      "max_absolute": 1.1811351896540145e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.596926403333354
+    },
+    {
+      "batch": 14,
+      "max_absolute": 7.506884003305458e-11,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.9630944128014177
+    },
+    {
+      "batch": 15,
+      "max_absolute": 2.1185542209423147e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.2024416894225447
+    },
+    {
+      "batch": 15,
+      "max_absolute": 1.787157088983804e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.9818766538723619
+    },
+    {
+      "batch": 15,
+      "max_absolute": 1.3141487897883053e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.1160182257403908
+    },
+    {
+      "batch": 15,
+      "max_absolute": 1.2613554645213298e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.271119481012055
+    },
+    {
+      "batch": 15,
+      "max_absolute": 1.2516920833149925e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.3279400867015652
+    },
+    {
+      "batch": 15,
+      "max_absolute": 1.0402345651527867e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.8428520968569582
+    },
+    {
+      "batch": 16,
+      "max_absolute": 9.872280770650832e-11,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.5504383321711168
+    },
+    {
+      "batch": 16,
+      "max_absolute": 2.0597212824213784e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.7657023556142828
+    },
+    {
+      "batch": 16,
+      "max_absolute": 1.1719691883627092e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.217528160381587
+    },
+    {
+      "batch": 16,
+      "max_absolute": 1.213038558489643e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.3880058158237234
+    },
+    {
+      "batch": 16,
+      "max_absolute": 8.077449820120819e-11,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.6488549833820076
+    },
+    {
+      "batch": 16,
+      "max_absolute": 8.473932666674955e-11,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.0104398296380805
+    },
+    {
+      "batch": 17,
+      "max_absolute": 1.3955059330328368e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.7805839966064466
+    },
+    {
+      "batch": 17,
+      "max_absolute": 1.3511680663214065e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.9982949287234595
+    },
+    {
+      "batch": 17,
+      "max_absolute": 1.8414425539958756e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.1541025276861492
+    },
+    {
+      "batch": 17,
+      "max_absolute": 1.2317968867137097e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.8282738756633763
+    },
+    {
+      "batch": 17,
+      "max_absolute": 2.1032064978498966e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.1327837253481214
+    },
+    {
+      "batch": 17,
+      "max_absolute": 1.5296564015443437e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.1433453063465135
+    },
+    {
+      "batch": 18,
+      "max_absolute": 1.23463905765675e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.107455567621366
+    },
+    {
+      "batch": 18,
+      "max_absolute": 1.184616849059239e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.0683890452538396
+    },
+    {
+      "batch": 18,
+      "max_absolute": 2.2089352569309995e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.7823048775711425
+    },
+    {
+      "batch": 18,
+      "max_absolute": 2.0941115508321673e-10,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 3.313171088616631
+    },
+    {
+      "batch": 18,
+      "max_absolute": 2.411297828075476e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.2168567444364746
+    },
+    {
+      "batch": 18,
+      "max_absolute": 1.3309886526258197e-10,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.1648270100369855
+    },
+    {
+      "batch": 19,
+      "max_absolute": 1.20508047984913e-10,
+      "name": "backbone.layers.0.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 0.6161535528516062
+    },
+    {
+      "batch": 19,
+      "max_absolute": 1.681428329902701e-10,
+      "name": "backbone.layers.1.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.59171262024152
+    },
+    {
+      "batch": 19,
+      "max_absolute": 1.0601297617540695e-10,
+      "name": "backbone.layers.2.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.0106886665133072
+    },
+    {
+      "batch": 19,
+      "max_absolute": 6.758682502550073e-11,
+      "name": "backbone.layers.3.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 1.1381909982259766
+    },
+    {
+      "batch": 19,
+      "max_absolute": 1.170405994344037e-10,
+      "name": "backbone.layers.4.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.2496376340905715
+    },
+    {
+      "batch": 19,
+      "max_absolute": 9.964651326299645e-11,
+      "name": "backbone.layers.5.attn.dist_mlp.2.bias",
+      "pass": false,
+      "relative_l2": 2.3619406037429487
+    }
+  ],
+  "failed_parameter_names": [
+    "backbone.layers.0.attn.dist_mlp.2.bias",
+    "backbone.layers.1.attn.dist_mlp.2.bias",
+    "backbone.layers.2.attn.dist_mlp.2.bias",
+    "backbone.layers.3.attn.dist_mlp.2.bias",
+    "backbone.layers.4.attn.dist_mlp.2.bias",
+    "backbone.layers.5.attn.dist_mlp.2.bias"
+  ],
+  "maximum_failed_gradient_absolute": 9.506493370281532e-10,
+  "maximum_other_gradient_relative_l2": 6.803597377699175e-05,
+  "original_gradient_relative_gate_unchanged": 0.0001,
+  "fixed_gate_satisfied": false,
+  "trajectory500_started": false,
+  "R1_started": false,
+  "SDK_descriptors_stat_only": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/wandb/offline-run-20261028_084522-89mp3smr/run-89mp3smr.wandb",
+      "bytes": 101923,
+      "run_id": "89mp3smr"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A5_R2_v1/child/wandb/offline-run-20261028_084523-9j1swwgi/run-9j1swwgi.wandb",
+      "bytes": 101871,
+      "run_id": "9j1swwgi"
+    }
+  ],
+  "independent_SDK_audit_and_online_pending": true,
+  "whole_family_stat_bytes": 4239039,
+  "resource_samples": 61,
+  "NVML_used_memory_all_known": true,
+  "private_sampling_cleanup_closed": true,
+  "Root_SDK_or_training_journal_payload_opened": false,
+  "scientific_adoption": false,
+  "no_automatic_retry": true
+}

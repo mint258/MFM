@@ -1,0 +1,73 @@
+{
+    "schema":  "model_v3_current_Av2_R2_capacity_consumer_dependencies_v1",
+    "status":  "SOURCE_ONLY_ACTUAL4712_C0_AND_COMPLETE20_500_REQUIRED",
+    "runtime_root":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1",
+    "runtime_code_sha":  "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+    "public_prereg_sha":  "2b4a4df8636e5d65915d535472ba01084ea72dab",
+    "source_GPU_job_id":  "4524712",
+    "workload_sha256":  "67d3c18442811509529be54fc9d77da02297a2f70b9db91fd1d288e697743080",
+    "metadata_source_refs":  {
+                                 "manual_package":  {
+                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_GPU_v1_source/source_pins.json",
+                                                        "bytes":  2299,
+                                                        "sha256":  "76d31b943415239e70590e970f08cfb08b06e9bfeaef8bccc2b737b2f667dc3d"
+                                                    },
+                                 "manual_source_guard":  {
+                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_GPU_v1_source/source_guard.py",
+                                                             "bytes":  10917,
+                                                             "sha256":  "66313b3c1d8276c6061edfa03ada69bf6478fded9b357149443f1a73425de4d8"
+                                                         },
+                                 "original_consumer_package":  {
+                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_capacity_consumer_v1_source/source_pins.json",
+                                                                   "bytes":  2447,
+                                                                   "sha256":  "fa7eb0a68ceb6e0023f33904c0a7fa2b79c96314c2a1c39a8b954dd76c3d3762"
+                                                               },
+                                 "original_consumer_auditor":  {
+                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_capacity_consumer_v1_source/audit_closed_R2_metadata.py",
+                                                                   "bytes":  8327,
+                                                                   "sha256":  "3e6b40938a065d5db4bda754e0dcf654d5f4f8ef795983b189c64a4676a592e5"
+                                                               },
+                                 "original_R2_consumer_Root_closer_pins":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_consumer_Root_close_v1_source/source_pins.json",
+                                                                               "bytes":  1086,
+                                                                               "sha256":  "04d0fb7e5f4ffc8885d6a856f15c8057360f63d1da2a74593ea1bbc8868b798e"
+                                                                           },
+                                 "consumer":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/v3_checkpoint_policy.py",
+                                                  "bytes":  29127,
+                                                  "sha256":  "b65c2064cb3ac403a9c663ec60a8a5db2ea8d5e0dc624700e3de50399044a244"
+                                              },
+                                 "performance_options":  {
+                                                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/v3_performance.py",
+                                                             "bytes":  18112,
+                                                             "sha256":  "32768ce0c5708d9e27b022a4ff5f207e928f4226ceb4e89847fe9d29ee5c88e2"
+                                                         }
+                             },
+    "actual_GPU_submission":  {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/control/Root_submission_actual_v1.json",
+                                  "bytes":  8522,
+                                  "sha256":  "fe29a3024f2275219cc9682fda51443e0da8ad0f46b2013066986b049640bbfa"
+                              },
+    "future_six_refs":  {
+                            "configuration":  null,
+                            "summary":  null,
+                            "run_status":  null,
+                            "supervisor":  null,
+                            "parent_sacct":  null,
+                            "steps":  null
+                        },
+    "future_profile":  null,
+    "future_auto_execution":  null,
+    "future_auto_options":  null,
+    "actual_GPU_C0":  null,
+    "actual_CPU_consumer_C0":  null,
+    "actual_auto_selection":  null,
+    "resident_models":  2,
+    "batch_padded_cost":  8000000,
+    "padding":  null,
+    "fixed_metadata_function_origin":  "Unchanged general audit_fixed_gate body from reviewed zero-based posthoc metadata source; no A5 module or closer imported.",
+    "fixed_exception":  "Only exact family child/fixed_batch_gate.json\u003c=16MiB; fixed0..19, trajectory1..500.",
+    "journal":  "Only raw stream SHA in binder \u003c=16MiB; actual500 rows decoded by original policy in CPU auditor.",
+    "CPU":  "Root existing CPU16 automatic-memory supervisor and unchanged software/RSS/time/whole2GiB/private2GiB controls; no new wrapper/allocation claim.",
+    "author_execution":  false
+}

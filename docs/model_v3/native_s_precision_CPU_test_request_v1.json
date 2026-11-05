@@ -1,0 +1,47 @@
+{
+  "schema": "existing_native_S_precision_CPU_test_request_v1",
+  "status": "PREPARED_NOT_EXECUTED",
+  "actual_test_result": null,
+  "worktree": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_s_precision",
+  "branch": "model-v3-native-s-precision",
+  "base_commit": "2c1d5e78c82c63db205d4006bd0b3ce0d168a7a9",
+  "coordinator": "Root_only",
+  "subagent_executes_or_submits": false,
+  "CPU_only": true,
+  "CPU_minimum": 16,
+  "resource_admission": "fresh_available_CPU_node_and_current_Root_policy_no_GPU_node",
+  "CUDA_VISIBLE_DEVICES": "",
+  "environment": {
+    "MODEL_V3_REQUIRE_NATIVE_S_INTEROP": "1",
+    "PYTHONPATH_required": ["current", "current/tests", "tools/model_v3", "workflows/sprime_s/scripts", "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps"],
+    "python": "Root_verified_chemprop_CPU_interpreter",
+    "threads": "Root_binds_allocation; numerical_tests_preserve_single_thread_repeatability"
+  },
+  "pytest_targets": [
+    "current/tests/test_model_v3_native_s_precision.py",
+    "current/tests/test_model_v3_native_s_precision_cli.py",
+    "current/tests/test_model_v3_native_s_source_interop.py"
+  ],
+  "estimated_parameterized_test_items_from_static_review": 26,
+  "expected_collection_is_not_actual_execution": true,
+  "required_checks": [
+    "new_source_SHA_before_and_after",
+    "fp32_and_selective_bf16_real_CPU_model_updates_safe_weights_only_resume_all_parameters_Adam_RNG",
+    "untrained_validation0_save_restore_no_replay",
+    "pause_at_committed_update_boundary_and_complete_checkpoint",
+    "explicit_raw_coordinate_SSE_and_masked_component_denominator",
+    "all_S_fields_nonzero_supervision_and_module_dtype_signatures",
+    "wrong_seed_precision_source_rejected",
+    "four_true_member_contracts_paired_input_chain_population_units_original_gates",
+    "protocol_and_pinned_Root_storage_hook_drift_rejected",
+    "actual_native_TRAIN_and_PRETRAIN_VAL_record_IO_with_two_spawn_workers",
+    "full_11104772_TRAIN_identity_metadata_disjointness_against_frozen1024",
+    "actual_uncommitted_prefetch_discard_restore_same_record_IDs",
+    "workers_close_join_and_original_input_FDs_closed"
+  ],
+  "real_IO_notes": "Original manifest/Arrow/count/snapshot/transport are hash-checked; TRAIN Arrow about2.585GB is scanned as metadata, not copied; direct TRAIN/VAL payloads and actual loader batch decoded read-only. No LOOKUP/NPZ/fitted outputs.",
+  "receipt": "pytest tmp_path small metadata-only actual_native_reader_receipt.json; no IDs/tensors/labels copied to Git",
+  "independent_remaining": ["Root_checker_and_full_regression", "persistent_native_SDK_synthetic_resume_closure", "real_CUDA_selective_QK_AV_dtype_and_resume_short_check", "public_native_S_B_preregistration", "Root_total_long_run_storage_adapter_and_fresh_resources", "four_actual20000_update_members_and_native_SDK_Slurm_closure"],
+  "D5_authority": false,
+  "formal_pretraining_or_school_server": false
+}

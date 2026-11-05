@@ -1,0 +1,98 @@
+{
+  "schema": "model_v3_Root_R1_ABBA_sync_C0_closure_v1",
+  "status": "ACTUAL_C0_TWO_EXACT_SDK_COPIES_SYNCED_REMOTE_ROUTE_STATE_22_STEPS_ROOT_CLOSED",
+  "actual_unix": 1793137100.4908586,
+  "job_id": "4524572",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524572",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524572|zixiao|COMPLETED|0:0|20|16|compute-0-14\n",
+    "stderr": ""
+  },
+  "result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_sync12_actual_v2/RESULT.json",
+    "bytes": 13536,
+    "sha256": "3f478cfad053234be1ba02a68fd64555b680da9d772a6eae8a542592c1f2d5e4"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_sync12_actual_v2.supervisor.json",
+    "bytes": 3366,
+    "sha256": "67da947855dcea4599b7480517dd051fb7e6775e67c98db2dbc5cac450fdf374"
+  },
+  "source_pins": {
+    "bytes": 4746,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_SDK_v2_source/source_pins.json",
+    "sha256": "d26fe3224121a94579276e51ac808a271a3f1737b01591fa2312eeddb79edc81"
+  },
+  "all_source_refs_before_after_equal": true,
+  "Root_SDK_body_opened": false,
+  "original_SDKs_retained": true,
+  "records": [
+    {
+      "run_id": "7prp45ox",
+      "remote": {
+        "entity": "mint_leaf258",
+        "project": "mfm_model_v3_development",
+        "run_id": "7prp45ox",
+        "state": "finished",
+        "history_rows": 22,
+        "first_step": 1,
+        "last_step": 22
+      },
+      "result": {
+        "bytes": 2956,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_sync12_actual_v2/run_0_7prp45ox/result.json",
+        "sha256": "90a5f243fe62a47ae53fb9b4eb4c203009953091717b23f0f16b786cea3a009e"
+      },
+      "invocation": {
+        "bytes": 1350,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_sync12_actual_v2/run_0_invocation.json",
+        "sha256": "4fe2c1376757bc30468f9e126dba966e666b9c65e5821b14f4a28605f75d938b"
+      },
+      "original_SDK_retained": true,
+      "exact_staged_copy": {
+        "bytes": 99165,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_sync12_actual_v2/run_0_7prp45ox/stage/offline-run-20261028_051602-7prp45ox/run-7prp45ox.wandb",
+        "sha256": "71cbfe67c2b32c6f01f8f530ba3108c14061e073b5f0dfb77c4c7aaf2434b5dd"
+      }
+    },
+    {
+      "run_id": "42kaw4ai",
+      "remote": {
+        "entity": "mint_leaf258",
+        "project": "mfm_model_v3_development",
+        "run_id": "42kaw4ai",
+        "state": "finished",
+        "history_rows": 22,
+        "first_step": 1,
+        "last_step": 22
+      },
+      "result": {
+        "bytes": 2957,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_sync12_actual_v2/run_1_42kaw4ai/result.json",
+        "sha256": "c6112118c908c7399ca9846b2d9072d82acb1c356a95a0939590210ea088ee5f"
+      },
+      "invocation": {
+        "bytes": 1351,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_sync12_actual_v2/run_1_invocation.json",
+        "sha256": "d38e5532c3ef8ffcb4683453047bf794c52bc3c7e84af946b3e98bb3b4f8c716"
+      },
+      "original_SDK_retained": true,
+      "exact_staged_copy": {
+        "bytes": 136078,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/manual_R1_ABBA_sync12_actual_v2/run_1_42kaw4ai/stage/offline-run-20261028_051845-42kaw4ai/run-42kaw4ai.wandb",
+        "sha256": "f299bf00cb61700edfca31ae7a5d73093b6c917e074422f5b5cadae337ae42cf"
+      }
+    }
+  ],
+  "remote_full_metric_values_independently_recompared": false,
+  "scientific_acceptance": false
+}

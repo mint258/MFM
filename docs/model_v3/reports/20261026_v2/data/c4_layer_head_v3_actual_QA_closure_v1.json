@@ -1,0 +1,25 @@
+{
+  "schema": "model_v3_C4_layer_head_QA_closure_v1",
+  "job_id": "4521186",
+  "unit_result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4521186/c4_layer_head_v3.json",
+    "bytes": 54616,
+    "sha256": "8360909e246da7d894d9f2835bd8a92cd168b6dedc01509802503f9ca23db43d"
+  },
+  "actual_parent": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4521186",
+      "--format=JobIDRaw,User,UID,Cluster,State,ExitCode,ElapsedRaw,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4521186|zixiao|1278|sonmi|COMPLETED|0:0|6|compute-0-13\n",
+    "stderr": ""
+  },
+  "source_scope": "Frozen inference-validation revision; original model/thresholds/controls preserved",
+  "scientific_acceptance": false
+}

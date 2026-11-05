@@ -1,0 +1,44 @@
+{
+    "schema":  "model_v3_C2_coordinate_baseline_v2_protocol_v1",
+    "adoption_status":  "PREPARED_CONDITIONAL_NOT_ADOPTED",
+    "fit_origin":  "NEW_TRAIN_FIT",
+    "solver":  {
+                   "kind":  "active_Jacobi_explicit_augmented_LSQR_v2",
+                   "damp":  0,
+                   "maximum_iterations":  2000,
+                   "atol":  1E-08,
+                   "btol":  1E-08,
+                   "condition_limit":  100000000,
+                   "ridge":  0.0001,
+                   "BLAS_threads":  1,
+                   "warm_start_used":  false,
+                   "KKT_acceptance_threshold":  null
+               },
+    "caps":  {
+                 "wall_seconds":  3300,
+                 "work_deadline_seconds":  3240,
+                 "finalization_deadline_seconds":  3270,
+                 "maximum_process_RSS_bytes":  25769803776,
+                 "maximum_output_bytes":  134217728,
+                 "maximum_array_bytes":  33554432,
+                 "maximum_numeric_bytes":  8589934592
+             },
+    "source_inventory_sha256":  "c96c5d277ccf8ad31efca94741e038fe10d834ac2c5a0ab280943ee18258efd6",
+    "executed_source_sha256":  {
+                                   "coordinate_baseline_v2.py":  "7af1678e8358c20b48470429ddefaff301918a69e7a948fba63daa12b9a696b1",
+                                   "core_capture.py":  "9ac5b4be9a029a093419d0d6cb92673b3f89ca41a4a02e21b8c07f9a8fe33cd3",
+                                   "diagnose_coordinate_lookup.py":  "7c78234b333dddd87ff5efd0927cf9f25642f455e6c31ca73c9abb936ed1e781",
+                                   "solver_math.py":  "e0cf8ef6859d026e8dc6c260718f0c5ddc368779097fa48405572f1f26f79472"
+                               },
+    "source_request_raw_sha256":  null,
+    "selection_plan_raw_sha256":  null,
+    "TRAIN_diagnostic_result_raw_sha256":  null,
+    "TRAIN_diagnostic_done_raw_sha256":  null,
+    "TRAIN_diagnostic_input_binding_raw_sha256":  null,
+    "original_diagnostic_public_preregistration":  "cd0c434bb39824cd75c24d7c6de0531946da1de5",
+    "conditional_route":  "Only when controlled source500 fails original stop/finite and same-objective candidate passes; original500 success uses original-v1 retry",
+    "original_v1_job_4520482_remains_FAILED":  true,
+    "original_v1_stop_inferred":  false,
+    "native_VAL_access":  "Only after new public ADOPTED protocol and successful fit; no real access during preparation",
+    "model_selection_gate":  false
+}

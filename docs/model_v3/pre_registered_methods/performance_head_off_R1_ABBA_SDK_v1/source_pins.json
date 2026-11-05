@@ -1,0 +1,96 @@
+{
+    "schema":  "performance_manual_R1_ABBA_log_sources_v1",
+    "revision":  1,
+    "scope":  "HEAD_OFF_R1_ABBA_LOG_AND_EXISTING_SPEED_REPORT_ONLY",
+    "source_stage":  "SOURCE_ONLY_PENDING_ROOT_AST_REVIEW_AND_REAL_CPU",
+    "created_utc":  "2026-10-27T23:49:54.6456813Z",
+    "files":  [
+                  {
+                      "relative_path":  "abba_common.py",
+                      "bytes":  20649,
+                      "sha256":  "6d20143fb197c4ef6e40a869f22997ec0074d0b7155f0e9206621af4ad8c9367"
+                  },
+                  {
+                      "relative_path":  "audit_abba.py",
+                      "bytes":  17619,
+                      "sha256":  "d6c6f38a0891c0e2a830e445d47fe6d1a988224b5efeb8b3deac0328cc0b7739"
+                  },
+                  {
+                      "relative_path":  "prepare.py",
+                      "bytes":  4644,
+                      "sha256":  "91c0f27d47daefc6b58d3a82a9a71e7bcb8158797e231cf0d83a559c5c8fb2ad"
+                  },
+                  {
+                      "relative_path":  "sync_abba.py",
+                      "bytes":  6548,
+                      "sha256":  "9c8730291e6b8f7313f4ef2f3e0498cf3d5c9b25904ecb5cff00ae673f1320e2"
+                  },
+                  {
+                      "relative_path":  "one_run_abba.py",
+                      "bytes":  11852,
+                      "sha256":  "702e842e71898e99270ed9beb5efcdda0fef82b359cc6e58729906832fbb4065"
+                  },
+                  {
+                      "relative_path":  "audit_cpu.sbatch",
+                      "bytes":  1241,
+                      "sha256":  "5e385f627514bb8c6e04b94d81735cf10fcd2a279a7db9ec1762ee06d5c3c6b8"
+                  },
+                  {
+                      "relative_path":  "sync_cpu.sbatch",
+                      "bytes":  1335,
+                      "sha256":  "89bebb9eb30272119f98627a5883621fc51cecb3a5bd06a60b765841630b407a"
+                  },
+                  {
+                      "relative_path":  "dependencies.json",
+                      "bytes":  14414,
+                      "sha256":  "cddcabaf55e87c7784577c40e528846d4f15463b4fecbbacb5d5a57f9cc78dde"
+                  },
+                  {
+                      "relative_path":  "installed_sources.json",
+                      "bytes":  5921,
+                      "sha256":  "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+                  },
+                  {
+                      "relative_path":  "scope.json",
+                      "bytes":  5016,
+                      "sha256":  "b066656cef0ecfeda0d791eb28268a9a5919d26df428d1e2a62a449bdde3ae8a"
+                  },
+                  {
+                      "relative_path":  "README.md",
+                      "bytes":  7582,
+                      "sha256":  "248ed62bf3fe129466446235a8da07a933911512abb44828e2a1035661bfcafc"
+                  }
+              ],
+    "baseline_source_pins":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_SDK_v2_source/source_pins.json",
+                                 "bytes":  4746,
+                                 "sha256":  "d26fe3224121a94579276e51ac808a271a3f1737b01591fa2312eeddb79edc81"
+                             },
+    "derivation":  "Thin A03 input eligibility rebind of actual A00 SDK v2; existing artifact schemas and audit/transport algorithms retained",
+    "unchanged_raw_leaves":  [
+                                 "audit_abba.py",
+                                 "prepare.py",
+                                 "sync_abba.py",
+                                 "one_run_abba.py",
+                                 "installed_sources.json"
+                             ],
+    "six_inline_checks_not_new_QA_parent":  true,
+    "no_actual_R1_job_or_run_prefilled":  true,
+    "resources":  {
+                      "CPUs":  16,
+                      "memory_MiB":  16384,
+                      "audit_outer_wall_seconds":  900,
+                      "sync_outer_wall_seconds":  3300,
+                      "RSS_bytes":  12884901888,
+                      "whole_output_bytes":  2147483648,
+                      "private_bytes":  2147483648,
+                      "original_transport_max_runs":  3,
+                      "explicit_sync_batch_sizes":  [
+                                                        2,
+                                                        2
+                                                    ],
+                      "combined_selected_input_cap_bytes":  134217728
+                  },
+    "scientific_acceptance":  false,
+    "author_executed_python_AST_models_Git_SSH_Slurm_or_payload":  false
+}

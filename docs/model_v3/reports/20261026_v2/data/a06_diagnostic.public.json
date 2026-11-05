@@ -1,0 +1,199 @@
+{
+    "schema":  "model_v3_progress_A06_public_v1",
+    "source_GPU_job":  "4521091",
+    "source_actual_parent":  {
+                                 "allocated_cpus":  16,
+                                 "elapsed_seconds":  106,
+                                 "exit_code":  "0:0",
+                                 "job_id":  "4521091",
+                                 "state":  "COMPLETED"
+                             },
+    "SDK_verifier_job":  "4521123",
+    "SDK_verifier_parent_observation":  "Root reports actual C0/1s; bind machine terminal receipt before publication",
+    "SDK_verification_status":  "VERIFIED_DIAGNOSTIC_ONLY",
+    "run_id":  "bb3fue46",
+    "native_packets":  74,
+    "history_rows":  17,
+    "verified_steps":  [
+                           0,
+                           1,
+                           2,
+                           3,
+                           4,
+                           5,
+                           6,
+                           7,
+                           8,
+                           9,
+                           10,
+                           11,
+                           12,
+                           13,
+                           14,
+                           15,
+                           16
+                       ],
+    "clean_eof":  true,
+    "SDK_exit_codes":  [
+                           0
+                       ],
+    "all_public_fields_config_summary_exact":  true,
+    "normalized_history_sha256":  "b08459ce7abc881e9d7ee848683790aa4cd7ef1ab55dcaa2b2c886369007cf04",
+    "original_gate_status":  "FAILED_UNCHANGED",
+    "original_relative_loss_threshold":  0.001,
+    "relative_loss_denominator":  "max(abs(reference_loss),1e-12)",
+    "first_original_threshold_failure":  14,
+    "consumed_base_records":  5120,
+    "native_updates":  15,
+    "single_seed":  0,
+    "shadow_has_model_forward":  false,
+    "shadow_semantics":  "optimizer-only; same real clipped reference gradient values/None, independent parameter/moment state; no automatic causal decomposition",
+    "all15_replay_exact457":  true,
+    "code_sha":  "8ece64c685fe287d6863fbbe2f6f52006632a5cc",
+    "original_A_prereg_sha":  "61658a4c1f472de035601dbedc17809315774784",
+    "fixed_logger_sha256":  "b8fb0c05feda698d35a56de40c62d060feb3fc5b3ae2eab7bd593ae95b926004",
+    "SDK_raw_sha256":  "ae6f073e20628e7418beda813e9b538f7c6ca8f3daf4a8f256a2af6995232df2",
+    "SDK_bytes":  121948,
+    "SDK_modified":  false,
+    "online_sync_performed":  false,
+    "scientific_acceptance":  false,
+    "original1122_attempt":  "input binding rejected because transcribed SHA had65 characters; before native decode; preserved infrastructure negative case, not model failure",
+    "updates":  [
+                    {
+                        "update":  1,
+                        "consumed_base_records":  512,
+                        "reference_loss":  3.0362606048583984,
+                        "free_fused_loss":  3.0362606048583984,
+                        "relative_difference":  0,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  0
+                    },
+                    {
+                        "update":  2,
+                        "consumed_base_records":  1024,
+                        "reference_loss":  1.3341082334518433,
+                        "free_fused_loss":  1.3341082334518433,
+                        "relative_difference":  0,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  2.2801901582318642
+                    },
+                    {
+                        "update":  3,
+                        "consumed_base_records":  1536,
+                        "reference_loss":  1.1797906160354614,
+                        "free_fused_loss":  1.1797878742218018,
+                        "relative_difference":  2.3239832749996689E-06,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  1.299308516192011
+                    },
+                    {
+                        "update":  4,
+                        "consumed_base_records":  2006,
+                        "reference_loss":  1.1643733978271484,
+                        "free_fused_loss":  1.1643712520599365,
+                        "relative_difference":  1.8428514563440775E-06,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  1.6743307670201668
+                    },
+                    {
+                        "update":  5,
+                        "consumed_base_records":  2433,
+                        "reference_loss":  0.96612668037414551,
+                        "free_fused_loss":  0.96612542867660522,
+                        "relative_difference":  1.2955832456655337E-06,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  1.5236752411879351
+                    },
+                    {
+                        "update":  6,
+                        "consumed_base_records":  2815,
+                        "reference_loss":  0.98800218105316162,
+                        "free_fused_loss":  0.98799502849578857,
+                        "relative_difference":  7.2394145581972309E-06,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  2.8681110708752469
+                    },
+                    {
+                        "update":  7,
+                        "consumed_base_records":  3110,
+                        "reference_loss":  0.9195021390914917,
+                        "free_fused_loss":  0.91950356960296631,
+                        "relative_difference":  1.5557456734388708E-06,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  2.5769229202415587
+                    },
+                    {
+                        "update":  8,
+                        "consumed_base_records":  3405,
+                        "reference_loss":  0.90795892477035522,
+                        "free_fused_loss":  0.90795934200286865,
+                        "relative_difference":  4.5952796106196385E-07,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  2.0235266576234818
+                    },
+                    {
+                        "update":  9,
+                        "consumed_base_records":  3621,
+                        "reference_loss":  0.85205256938934326,
+                        "free_fused_loss":  0.85205280780792236,
+                        "relative_difference":  2.798167480117271E-07,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  3.0823781847298592
+                    },
+                    {
+                        "update":  10,
+                        "consumed_base_records":  3831,
+                        "reference_loss":  0.92929518222808838,
+                        "free_fused_loss":  0.92928105592727661,
+                        "relative_difference":  1.5201091194617198E-05,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  1.6351554154848571
+                    },
+                    {
+                        "update":  11,
+                        "consumed_base_records":  3976,
+                        "reference_loss":  0.960835337638855,
+                        "free_fused_loss":  0.96080046892166138,
+                        "relative_difference":  3.6290002904440916E-05,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  1.9999536001562455
+                    },
+                    {
+                        "update":  12,
+                        "consumed_base_records":  4066,
+                        "reference_loss":  0.79474389553070068,
+                        "free_fused_loss":  0.795071005821228,
+                        "relative_difference":  0.00041159207685252056,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  1.9878832443796464
+                    },
+                    {
+                        "update":  13,
+                        "consumed_base_records":  4096,
+                        "reference_loss":  0.759456992149353,
+                        "free_fused_loss":  0.75971406698226929,
+                        "relative_difference":  0.00033849821066062952,
+                        "original_point_pass":  true,
+                        "raw_gradient_max_parameter_relative_l2":  2.34421421257092
+                    },
+                    {
+                        "update":  14,
+                        "consumed_base_records":  4608,
+                        "reference_loss":  0.97712302207946777,
+                        "free_fused_loss":  0.97996926307678223,
+                        "relative_difference":  0.0029128788627426007,
+                        "original_point_pass":  false,
+                        "raw_gradient_max_parameter_relative_l2":  1.9328528016697382
+                    },
+                    {
+                        "update":  15,
+                        "consumed_base_records":  5120,
+                        "reference_loss":  0.966064453125,
+                        "free_fused_loss":  0.9698415994644165,
+                        "relative_difference":  0.0039098285080237556,
+                        "original_point_pass":  false,
+                        "raw_gradient_max_parameter_relative_l2":  2.2211639779737737
+                    }
+                ],
+    "original_parameter_arrays_or_member_IDs_exported":  false
+}

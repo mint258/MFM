@@ -1,0 +1,109 @@
+{
+  "status": "WAITING_WITHOUT_SUBMISSION_FOR_16_CPU_MEMORY_AND_IDLE_ORIGINAL_GPU",
+  "next": {
+    "seed": 0,
+    "precision": "bf16",
+    "start_update": 9000,
+    "target_update": 10000,
+    "previous": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+      "bytes": 1776,
+      "sha256": "3a223d882f71fdbc4c559b670b231732ce98da20220a210782f1e5114fa951a4"
+    },
+    "resume_checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/child/checkpoint_u9000_log9019",
+    "resume_output_root": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/child",
+    "slot": 31
+  },
+  "completed_additional_segments": 0,
+  "identity": {
+    "pid": 3328253,
+    "uid": 1278,
+    "boot_id": "714ffbb7-2f6e-4346-acb3-68466446ca62",
+    "start_ticks": 8205756978,
+    "argv_sha256": "714766a8c5bbdb20d52b49a36a7402bd268c585676dcee5c3f090042eafe81ba",
+    "pgid": 3328253,
+    "sid": 3328253,
+    "source_sha256": "43ee6da99f6c154c7fbf5cc0c5a3869eadfe01474ec1c42eef218b6597c33b38",
+    "started_unix": 1793261455.5434294
+  },
+  "resource_observation": {
+    "node": {
+      "argv": [
+        "scontrol",
+        "show",
+        "node",
+        "compute-0-21",
+        "-o"
+      ],
+      "returncode": 0,
+      "stdout": "NodeName=compute-0-21 Arch=x86_64 CoresPerSocket=52  CPUAlloc=88 CPUEfctv=104 CPUTot=104 CPULoad=46.65 AvailableFeatures=(null) ActiveFeatures=(null) Gres=(null) NodeAddr=10.1.1.176 NodeHostName=compute-0-21 Version=22.05.7 OS=Linux 5.14.0-611.20.1.el9_7.x86_64 #1 SMP PREEMPT_DYNAMIC Thu Jan 15 13:21:39 UTC 2026  RealMemory=120000 AllocMem=0 FreeMem=20828 Sockets=2 Boards=1 State=MIXED ThreadsPerCore=1 TmpDisk=0 Weight=1 Owner=N/A MCS_label=N/A Partitions=all  BootTime=2026-08-21T15:08:30 SlurmdStartTime=2026-08-21T15:28:06 LastBusyTime=2026-10-29T15:04:01 CfgTRES=cpu=104,mem=120000M,billing=104 AllocTRES=cpu=88 CapWatts=n/a CurrentWatts=0 AveWatts=0 ExtSensorsJoules=n/s ExtSensorsWatts=0 ExtSensorsTemp=n/s\n",
+      "stderr": ""
+    },
+    "memory": {
+      "argv": [
+        "ssh",
+        "-n",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=8",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+        "compute-0-21",
+        "awk '/^MemAvailable:/ {print}' /proc/meminfo"
+      ],
+      "returncode": 0,
+      "stdout": "MemAvailable:   125804248 kB\n",
+      "stderr": ""
+    },
+    "gpu": {
+      "argv": [
+        "ssh",
+        "-n",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=8",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+        "compute-0-21",
+        "nvidia-smi --query-gpu=uuid,name,driver_version,memory.total,memory.free --format=csv,noheader,nounits"
+      ],
+      "returncode": 0,
+      "stdout": "GPU-22e21021-e572-4562-fc51-cd8c83e74141, NVIDIA GeForce RTX 5090, 590.44.01, 32607, 31573\nGPU-c35f2434-9137-9723-1af5-dc69b6295243, NVIDIA GeForce RTX 5090, 590.44.01, 32607, 31575\n",
+      "stderr": ""
+    },
+    "compute_apps": {
+      "argv": [
+        "ssh",
+        "-n",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=8",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/compute21_known_hosts_v1",
+        "compute-0-21",
+        "nvidia-smi --query-compute-apps=gpu_uuid,pid,process_name,used_gpu_memory --format=csv,noheader,nounits"
+      ],
+      "returncode": 0,
+      "stdout": "GPU-22e21021-e572-4562-fc51-cd8c83e74141, 871102, gmx, 514\nGPU-c35f2434-9137-9723-1af5-dc69b6295243, 871044, gmx, 514\n",
+      "stderr": ""
+    },
+    "selected_gpu_row": [
+      "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+      "NVIDIA GeForce RTX 5090",
+      "590.44.01",
+      "32607",
+      "31573"
+    ],
+    "observed_unix": 1793261832.7018468
+  },
+  "automatic_failure_retry": false
+}

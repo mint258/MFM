@@ -1,0 +1,52 @@
+# 阶段6：配置、数值证据与全量TRAIN接线
+
+状态：SOURCE PREPARATION / AWAITING ROOT CPU QA AND FINAL DATA。没有运行扫描、计算科学LR/SD/p99/B*或冻结配方。旧06_recipe.md是历史执行准备说明；现在已存在的WSD fork不再重复实现。本补充只连接既有模型/训练器/规则。
+
+`v3_recipe_readiness.py`使用PlannedTrial/Evidence、RulePolicy/RunEvidence和原LR/B/schedule/平台/B*规则。`v3_recipe_evidence.py`只读有界闭合标量日志；`v3_full_training.py`定义模型侧D6消费投影，不定义或认证任何未知数据线物理schema。
+
+## 扫描到实际请求
+
+既有recipe_plan保持10个B0 LR、4个top2×2B0、4个cosine/WSD及1个SDP。初始预算必须是事前已注册的值；6M不是默认平台。
+
+1. 先有clean committed代码、选定6×512模型、D1–D5实际冻结输入、固定两验证人口、原面板/容量及budget/validation/recipe等注册。`prepare_trial`验证原proxy请求及其真实adapter，缺实际证据即拒绝。纯`compile_trial`只产生具体配置，不能授予运行权威。
+2. `rank_learning_rates`复用既有LR交集/稳定性排除；top2排序必须预注册equal_mean_S_P或worst_condition，精确并列按较小LR。没有规则/不足两个稳定配置不补默认胜者。
+3. `joint_lr_batch`对两LR分别调用原choose_batch；任一S/P测量退化保留B0。再在原五LR网格应用相同LR选择函数；条件性身份只从事前注册的B0/2B0身份取值。选择2B0后的数值稳定性必须绑定新run，不能复用B0的bool。真正数值失败可以用闭合失败日志排除，不捏造开发集分数；未尝试/无panel也无失败证明仍是缺口。
+4. `resolve_inputs`从inspect_run、原全局双seed SD和闭合日志重新计算选择。实际训练配置的LR、B、budget、condition、模型、schedule/warmup及未扫描参数逐项对齐；不是只信candidate名字或savedselected字段。不会把bootstrap CI、单seed或synthetic结果当seed SD。
+5. 编译器将LR/批大小/调度/clip占位符全部变为具体值，并保留原atom/padded容量、数据/registry/D4、精度、验证上下文等。原PM7全部授权构象不变。余弦/WSD直接交给原SampleLRScheduler；warmup和WSD10–20%边界采用明确fraction与floor样本数。
+6. 生成configuration.json和request.UNADMITTED.json。后者明确缺新的注册/Root admission，不能运行；不存在字符串placeholder或假权威。`finalize_request`加入实际注册、Root admission及仅允许的seed-specific long_run操作ref，调用原validate_request + bind_inputs并close provider后才写final。Root必须对最终完整request重新授权；旧配置的reservation不能偷带过去。
+
+CLI入口是`tools/model_v3/prepare_recipe_experiment.py`，每次均要求`--inputs ABS --inputs-sha256 RAW --output FRESH_OUTSIDE_GIT`。commands为resolve/prepare/p99/stability/sdp/full/admit/budget；它从不sbatch、reserve、cancel或宣告实际Slurm C0。
+
+`prepare`输入有policy（固定Git注册ref）、policy_sha256、trial（asdict PlannedTrial）、base_request rawref，后继阶段另有resolution_inputs rawref。`resolve`输入指向`model_v3_recipe_resolution_inputs_v1`：policy_sha256、global_seed_sd、panel、panel_preregistration_commit、initial S/P×5的原inspect_run entries、logs（training_run_id→日志manifest rawref），随后按阶段新增doubled及schedules。失败尝试另列failed_attempts；没有panel的条件必须有真实数值失败链，不能只写diverged=true。所有结果恒为proposal/nonfrozen。
+
+policy.rules.recipe至少声明top_two_ranking、top_two_tie、model_sha256、B0、sample_budget、warmup_fraction、wsd_decay_fraction、minimum_lr_ratio、clip_source_condition及evidence_sha256（selected_backbone/budget_evidence/rules_evidence）。这些是先前闭合证据的SHA；不要用包含自身SHA的自引用policy。原learning_rate、schedule、batch_by_lr分别注册实际科学身份、seed角色和相应定量政策。
+
+## 梯度p99与数值确认
+
+逐有效更新只读原trainer `TRAIN_STEP.gradient_norm_before_clip`，不是postclip norm或每500更新的shared_gradient_norm。无标签批应为optimizer_updated=false、norm=None；消耗样本仍前进。每条history的commit=true、step/log_cursor、有效更新计数、样本数与独立producer/controller元数据端点完全匹配。每段必须有initial_anchor/final_anchor，不能只重写同份closure数字。首次origin绑定实际RUN_BINDING中的零游标且无resume；后段起点绑定RUN_BINDING实际resume_complete。成功终点读取既有EXPERIMENT_COMPLETE→STATE/INTENT/trainer COMPLETE/event的原rawrefs，核configuration、samples/updates/log_cursor和pending_log=false；不打开payload.pt、不重新宣称payload验收。原checkpoint物理闭合由既有Root/save/inspect_run证据负责。失败终点只可用本producer实际CHILD_RECEIPT的committed_cursors，不能据失败分布产生clip。多段必须从零开始首尾连续，重放/重叠/缺口不静默去重。拒绝NaN/Inf、缺字段、浮点或bool计数、截断尾、空分布、非成功段的clip估计；原件前后重新hash。默认总日志256MiB/200000rows、单文件128MiB/单record2MiB，超限诚实失败，不抽样冒充全分布。报告只导出聚合值和refs，不导出成员/样本序号。
+
+模型自有输入schema是`model_v3_recipe_log_inputs_v1`，含training_run_id、scientific_identity_sha256、seed及segments rawref列表。每段`model_v3_recipe_closed_log_segment_v1`含同身份、training_start_epoch、configuration/history/terminal rawrefs、job_id、initial/final三游标（optimizer_updates/samples_consumed/log_cursor）。terminal_pointer可显式选Root原JSON中的raw sacct对象；该对象必须有原argv/returncode/stdout，精确父行User=zixiao、≥16CPU和真实terminal状态。不是child COMPLETE或SDK退出bool。该模型侧Root投影的真实性仍由Root独立审阅；格式校验不是独立服务器认证。给定inspect_run时还校配置、真实起始时刻及最终checkpoint样本数。
+
+p99要求事前规则恰为population=all_effective_TRAIN_updates、quantile=.99、method=linear，精确线性插值且阈值必须>0。选择哪个S/P源或seed必须显式，本版本不默默混合分布。LR/B与四个调度扫描保持原共同base clip，p99仅在SDP确认阶段采用，不丢弃clip共同identity。
+
+stability规则显式给window、warmup_updates、minimum_updates、ratio、absolute_increase、baseline_floor、minimum_spikes及numeric_failure_literals。逐更新loss与先前window中位数比较，采用相对和绝对条件同时成立。规则Git时间必须早于实际训练。失败exit本身不是LR发散。failure_observations只接child_receipt/run_binding两份原rawrefs：receipt必须与同output root、实际failed job、原request/config匹配，primary_failure须为本producer新typed记录（job_id/phase/type/message），且与原first_failure逐字段一致。只有事前注册的源已知numeric类型(ValueError/FloatingPointError)、TRAIN_STEP/VALIDATION阶段及固定Nonfinite消息前缀可归类；OOM/IO/SETUP/created主因即使正文含numeric字样也拒绝，旧自由文本为UNKNOWN。此为窄模型日志协议，不是新D schema。不存在默认阈值或loss布尔自报。
+
+仅recipe scope且启用SDP的新入口会在首个实际step前，调用原validate()完成零样本的两人口初始验证（原RNG/provider/资源guard保护保留）；恢复已有completed validation不重放。其他默认训练路径不新增验证。SDP规则必须绑定S/D/P各组的registry field列表、minimum_observed_updates、minimum_nonzero_probes、minimum_relative_loss_improvement及固定validation_seed/epoch。只接受实际SDP配置；同一VAL与TRAIN_UNSEEN_CONFORMATION的首末population/input SHA、seed/epoch及逐field有效计数必须一致。对每组同时检查有效训练覆盖、非零组梯度及两验证人口equal-field loss的定量改善。缺政策、无初末验证、换cohort或组不学习不PASS。SDP CLI还要求实际training_request rawref，其recipe_preparation保存原base_request/trial/resolution_inputs。实际SDP配置必须逐项等于从前序扫描重新编译的选择，不能仅组学习却使用另一个配方。saved SDP artifact由原输入重新计算，不能凭一个PROPOSED_CONFIRMATION字符串启动全量曲线。
+
+## 独立D6 full TRAIN消费范围
+
+同一`run_proxy_experiment.py run`新增`--input authoritative_full_train`，request.scope=full_convergence。原默认authoritative_proxy严格240000 TRAIN/D5逻辑保留；新路径不是改proxy预算或把source FULL角色当TRAIN。其adapter另实现`verify_and_bind_model_v3_full_TRAIN_inputs(request)`，返回原ProxyInputs并附full_train_contract、exact request绑定及opaque owner authority receipt。必须由经过SHA固定和审阅的adapter核实际最终release原格式；未知原格式、draft、candidate或仅native fallback都拒绝。
+
+模型投影`model_v3_full_TRAIN_consumption_v1`的字段为role=TRAIN、population_scope=entire_frozen_v1_TRAIN、完整molecule_count/membership_sha256、实际D6 release_evidence rawref、geometry_source=PM7、conformations=all_authorized。actual index必须是data_line权威TRAIN、完整计数/身份一致；不是前缀或任意subset。Root admission另要求D1/D2/D3/D4/D6/three_GPU_SDP_smoke，D6 ref必须与投影一致；full_train专用事前注册也必须匹配。这里没有签署D1或制造D6交付权威。
+
+full配置保留1/2/4/8/16/32/64M七个原draw里程碑、相应完整开发面板/两验证人口和明确recovery_interval_samples/max_total_checkpoints。64M是cap；是否平台仍由原doubling_plateau及实际global SD决定，不能把cap当收敛。原propose_b_star取S/P较大预算、严格>2倍报告、所有有效预算仍待用户确认；budget命令只连接这些原函数。
+
+全量必须提供独立`full_resource_contract`：实测最终D profile ref、保守checkpoint_upper_bytes、retained_checkpoint_limit、atomic_inflight_checkpoints、noncheckpoint_upper_bytes、durable_upper_bytes；后者至少覆盖前两类checkpoint的和乘单份上界再加所有其他输出。保留上限须等于全局checkpoint attempt cap；不能只算七个milestone而遗漏常规恢复/失败/atomic/日志。该声明还必须与原long_run_policy的durable/checkpoint预算及request.long_run.profile逐项相同。原v3_long_run_storage继续核实际最终D profile、future state、吞吐/SDK/save/VAL/panel/cleanup、fresh≤90s quota、有限Root reservation/lease、全部历史roots/计数及逐segment admission。未知真实P头容量/资源profile必须拒绝，不用synthetic数值替代。
+
+原单segment2GiB/2h、whole/private监督与85%GPU政策不变；新的有限durable额度须Root显式声明和验证。无删除、隐藏历史、重置计数、自动扩额、续期或新dispatcher。seed-specific quota/reservation只进入request，不进入recipe的科学身份。
+
+## 验证范围
+
+新测试计划覆盖所有19项编译到原scheduler、正负LR×B/源run绑定、preclip p99、恢复重放/空/非有限/尾部/类型/失败、数值spike与非数值失败、SDP三组/固定cohort、D6与proxy区分/完整TRAIN/七milestone/不足存储拒绝、原运行入口D6注册/准入，以及一次原6×512producer的显式synthetic工程更新。测试不保存checkpoint、不读取实际权重/标签/SDK或预填实际结果。模型协议fixture不是D6验收。
+
+Root实际QA建议新test_model_v3_recipe_readiness.py单独一组；原decision_evidence+decision_rules+proxy_plan一组，原proxy_runner另组。旧Proxy/WSD checkpoint测试勿无估计合并到2GiB父作业。新组仅一个真实6×512内存模型/Adam，0 checkpoint、0 SDK，预计共享输出<32MiB、RSS<4GiB（预测，待实际监测），原16CPU16GiB/RSS12GiB/2GiB双cap足够时仍由Root现场决定。所有源码此刻仅写成，未执行Python、QA、模型、检查器或Slurm；实际收集数量/峰值以Root运行收据为准。

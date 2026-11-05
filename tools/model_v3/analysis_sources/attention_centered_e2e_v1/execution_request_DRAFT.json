@@ -1,0 +1,101 @@
+{
+    "schema":  "model_v3_centered_attention_complete48_GPU_request_v1",
+    "status":  "DRAFT_CANDIDATE_COMMIT_QA_PUBLICATION_AND_RAWREFS_PENDING",
+    "repository":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_attention_centering_v1",
+    "execution_branch":  "model-v3-attention-centering-20261027-v1",
+    "base_local_commit":  "4068623cc455915a34a4aacae4f0df5c56f691b7",
+    "parent_public_commit":  "5cdb2772dfa51e1cc72098c659fb741440219772",
+    "local_commit":  null,
+    "public_commit":  null,
+    "exact_shared_tree":  null,
+    "publication_receipt":  null,
+    "candidate_QA_evidence":  [
+
+                              ],
+    "required_public_paths":  [
+
+                              ],
+    "public_files":  [
+
+                     ],
+    "source_refs":  [
+
+                    ],
+    "mode":  "compensated_fp32_v1",
+    "attention_aggregation_mode":  "centered_fp32_v1",
+    "expected_case_count":  48,
+    "expected_case_ids":  [
+                              "C1-0__two__H1_fixed__seed20261026",
+                              "C1-0__two__H1_fixed__seed20261027",
+                              "C1-0__two__H1_learned__seed20261026",
+                              "C1-0__two__H1_learned__seed20261027",
+                              "C1-0__two__H2_fixed__seed20261026",
+                              "C1-0__two__H2_fixed__seed20261027",
+                              "C1-0__two__H3_fixed__seed20261026",
+                              "C1-0__two__H3_fixed__seed20261027",
+                              "C1-0__three__H1_fixed__seed20261026",
+                              "C1-0__three__H1_fixed__seed20261027",
+                              "C1-0__three__H1_learned__seed20261026",
+                              "C1-0__three__H1_learned__seed20261027",
+                              "C1-0__three__H2_fixed__seed20261026",
+                              "C1-0__three__H2_fixed__seed20261027",
+                              "C1-0__three__H3_fixed__seed20261026",
+                              "C1-0__three__H3_fixed__seed20261027",
+                              "C1-a__two__H1_fixed__seed20261026",
+                              "C1-a__two__H1_fixed__seed20261027",
+                              "C1-a__two__H1_learned__seed20261026",
+                              "C1-a__two__H1_learned__seed20261027",
+                              "C1-a__two__H2_fixed__seed20261026",
+                              "C1-a__two__H2_fixed__seed20261027",
+                              "C1-a__two__H3_fixed__seed20261026",
+                              "C1-a__two__H3_fixed__seed20261027",
+                              "C1-a__three__H1_fixed__seed20261026",
+                              "C1-a__three__H1_fixed__seed20261027",
+                              "C1-a__three__H1_learned__seed20261026",
+                              "C1-a__three__H1_learned__seed20261027",
+                              "C1-a__three__H2_fixed__seed20261026",
+                              "C1-a__three__H2_fixed__seed20261027",
+                              "C1-a__three__H3_fixed__seed20261026",
+                              "C1-a__three__H3_fixed__seed20261027",
+                              "C1-b__two__H1_fixed__seed20261026",
+                              "C1-b__two__H1_fixed__seed20261027",
+                              "C1-b__two__H1_learned__seed20261026",
+                              "C1-b__two__H1_learned__seed20261027",
+                              "C1-b__two__H2_fixed__seed20261026",
+                              "C1-b__two__H2_fixed__seed20261027",
+                              "C1-b__two__H3_fixed__seed20261026",
+                              "C1-b__two__H3_fixed__seed20261027",
+                              "C1-b__three__H1_fixed__seed20261026",
+                              "C1-b__three__H1_fixed__seed20261027",
+                              "C1-b__three__H1_learned__seed20261026",
+                              "C1-b__three__H1_learned__seed20261027",
+                              "C1-b__three__H2_fixed__seed20261026",
+                              "C1-b__three__H2_fixed__seed20261027",
+                              "C1-b__three__H3_fixed__seed20261026",
+                              "C1-b__three__H3_fixed__seed20261027"
+                          ],
+    "absolute_tolerance":  1E-05,
+    "relative_tolerance":  0,
+    "test_file":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/test_centered_matrix.py",
+    "original_capture_manifest":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/fixed_h0_capture_GPU_v2_4521492/CAPTURE_MANIFEST.json",
+                                      "bytes":  16202,
+                                      "sha256":  "670bf0a21b113d1b11bad4cb82e7e6a3995ac789524fb48b285e4ab33ef713a4"
+                                  },
+    "UUID_admission_source":  {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance_runtime_v3/tools/model_v3/check_composed_equivariance.py",
+                                  "bytes":  16749,
+                                  "sha256":  "7f642f09b7bdda021b150866a5afabcd3f5aa73966265962947de2fe99bac1dd"
+                              },
+    "supervisor_source":  {
+                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/run_supervised.py",
+                              "bytes":  15264,
+                              "sha256":  "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+                          },
+    "GPU_python":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+    "node":  "compute-0-21",
+    "gpu_uuid":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+    "original_fixed_fixture_source_sha256":  "0c49debe901ee5db79a71fcbc8541d426231c5090eb9740b84649e867d8df0e8",
+    "scientific_acceptance":  false,
+    "executable":  false
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "model_v3_C2_coordinate_baseline_v2_protocol_v1",
+  "adoption_status": "ADOPTED_AFTER_TRAIN_ONLY_DIAGNOSTIC",
+  "fit_origin": "prior_TRAIN_diagnostic_artifact",
+  "solver": {
+    "kind": "active_Jacobi_explicit_augmented_LSQR_v2",
+    "damp": 0,
+    "maximum_iterations": 2000,
+    "atol": 1e-08,
+    "btol": 1e-08,
+    "condition_limit": 100000000,
+    "ridge": 0.0001,
+    "BLAS_threads": 1,
+    "warm_start_used": false,
+    "KKT_acceptance_threshold": null
+  },
+  "caps": {
+    "wall_seconds": 3300,
+    "work_deadline_seconds": 3240,
+    "finalization_deadline_seconds": 3270,
+    "maximum_process_RSS_bytes": 25769803776,
+    "maximum_output_bytes": 134217728,
+    "maximum_array_bytes": 33554432,
+    "maximum_numeric_bytes": 8589934592
+  },
+  "source_inventory_sha256": "7b1fd593459cabf602c7888fc62eaa25e6eece4ba0e6749769cd234924c84ef4",
+  "artifact_runtime_source_inventory_sha256": "bf5e09abbdea933c0b6576836768106fab87d1f206f930726f28b0a22adc1633",
+  "base_runtime_sources": {
+    "coordinate_baseline_v2.py": "ffaba07c79e5acb74f90d4f732df10d7e81d89ad7468f04ee35800928e5c05b7",
+    "core_capture.py": "9ac5b4be9a029a093419d0d6cb92673b3f89ca41a4a02e21b8c07f9a8fe33cd3",
+    "diagnose_coordinate_lookup.py": "7c78234b333dddd87ff5efd0927cf9f25642f455e6c31ca73c9abb936ed1e781",
+    "solver_math.py": "e0cf8ef6859d026e8dc6c260718f0c5ddc368779097fa48405572f1f26f79472"
+  },
+  "artifact_runtime_sources": {
+    "accepted_train_artifact_v2.py": "704f2683fcb9751102712d639b1ffc1a4b8f218d1b9f3257b0fe2b3e4dede12b",
+    "coordinate_baseline_v2.py": "ffaba07c79e5acb74f90d4f732df10d7e81d89ad7468f04ee35800928e5c05b7",
+    "core_capture.py": "9ac5b4be9a029a093419d0d6cb92673b3f89ca41a4a02e21b8c07f9a8fe33cd3",
+    "diagnose_coordinate_lookup.py": "7c78234b333dddd87ff5efd0927cf9f25642f455e6c31ca73c9abb936ed1e781",
+    "solver_math.py": "e0cf8ef6859d026e8dc6c260718f0c5ddc368779097fa48405572f1f26f79472"
+  },
+  "source_request_raw_sha256": "3badade3dbbd4a721b3eb1ddf6b144f5e37778f9b29df9350ac4f0ffaa48ef1f",
+  "selection_plan_raw_sha256": "9ef81dcd5d3a84411328a76c5fbe7ccf123bc032e72e87a580d0b4c0bdf11e67",
+  "TRAIN_diagnostic_result_raw_sha256": "08427a3d89b06d9dfc19720217185a088b965edf7828d44cf6e9475f490dd4ec",
+  "TRAIN_diagnostic_done_raw_sha256": "82d4ef5c55dce036e62e1413ac3c7aaa7468ea389674e0bfc7f1dbe7ef001ec8",
+  "TRAIN_diagnostic_input_binding_raw_sha256": "56648c845925221c3311d862e577717a26ad4e599d0ab5579bb2f17a666e6ee7",
+  "TRAIN_closure_raw_sha256": "d5bdf8e6ca5864d8c7b8548f91c36b05f01bf7af6d5567c92c69466f14b4bfa1",
+  "TRAIN_artifact_raw_sha256": "1e42b97174ca44bf779a4034880f3b12eb1e64431c8c1bbb0cd61ef587d0ef52",
+  "TRAIN_artifact_bytes": 100361,
+  "TRAIN_fit_job_id": "4520559",
+  "TRAIN_records": 8192,
+  "active_columns": 4116,
+  "full_columns": 708050,
+  "TRAIN_supervisor_sources_sha256": {
+    "private_runtime_storage.py": "791e2742b2131e5001ebc4fe549d8fcb43f7d28f399368a5aa5f82d7d592a041",
+    "run_supervised.py": "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd",
+    "runtime_monitor.py": "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe",
+    "run_cpu_supervised_128m_v1.py": "23fe5a473918dc420621d98bef49e7e08c7bcd7b43e6f001ae8821bce96b976e"
+  },
+  "current_job_TRAIN_geometry_reads": 0,
+  "current_job_parameter_estimation_performed": false,
+  "candidate_coefficient_semantics": "already original-coordinate c; assign directly; do not divide D again",
+  "KKT_acceptance_threshold": null,
+  "original_v1_job_4520482_remains_FAILED": true,
+  "original_v1_stop_inferred": false,
+  "model_selection_gate": false,
+  "native_VAL_requires": "Actual Root CPU tests, verified closed TRAIN artifact/source job, and new public ADOPTED artifact-origin protocol",
+  "validation_revision": "TRAIN_artifact_loader_v3_local_public_mapping",
+  "diagnostic_registration_policy": {
+    "schema": "model_v3_C2_diagnostic_local_public_mapping_v1",
+    "public_commit": "cd0c434bb39824cd75c24d7c6de0531946da1de5",
+    "executed_local_protocol_blob_raw_sha256": "415f1fa96d0a510fa5c7eeeca381b27603edecba6d27ac1b01bc43712e847961",
+    "complete_local_ref_matches_closed_input_binding": true,
+    "actual_local_git_tree_equals_recorded_public_tree": true,
+    "exact_method_and_diagnostic_source_inventory_checked": true,
+    "local_and_public_commits_distinct": true,
+    "arbitrary_commit_alias_fallback": false
+  },
+  "prior_TRAIN_closure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/C2_TRAIN_artifact_closure_v1.json",
+    "bytes": 1299,
+    "sha256": "d5bdf8e6ca5864d8c7b8548f91c36b05f01bf7af6d5567c92c69466f14b4bfa1"
+  },
+  "actual_CPU_unit_jobs": [
+    "4520575",
+    "4520591",
+    "4520599"
+  ],
+  "identity_validation_revision": "v3_local_execution_ref_distinct_from_public_same_tree_registration",
+  "earlier_v2_VAL_entry_job_4520595_remains_FAILED_before_any_native_geometry": true,
+  "adoption_basis": "Same fixed TRAIN559 coefficients and original scientific method; v3 repairs local/public/tree identity validation only, before any VAL result"
+}

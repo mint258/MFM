@@ -1,0 +1,83 @@
+{
+  "schema": "model_v3_head_off_R2_sync_CPU_Root_closure_v1",
+  "status": "ACTUAL_C0_TWO_EXACT_COPY_SYNC_AND_CLOUD_ROUTE_STATE_COUNT_STEP_READBACK_CLOSED",
+  "job_id": "4524585",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524585",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524585|zixiao|COMPLETED|0:0|34|16|compute-0-14\n",
+    "stderr": ""
+  },
+  "result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_sync_actual_v2/RESULT.json",
+    "bytes": 12757,
+    "sha256": "dfce09b64d64faf025b0dc55f0f135f6d365ed125067bb073356a42c2940809b"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_sync_actual_v2.supervisor.json",
+    "bytes": 3392,
+    "sha256": "be033351d43e0bbe8f28d8904f8bd6b179e2c0d6071f770eb099a0d774126de7"
+  },
+  "records": [
+    {
+      "action": "SYNCED_EXACT_COPY_AND_API_VERIFIED",
+      "actual_invocation": {
+        "bytes": 1380,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_sync_actual_v2/run_0_invocation.json",
+        "sha256": "62b408fce8f0eb0d9065de3c767c7b66bca71d79e5fe2730381c8ce7a696d496"
+      },
+      "actual_remote_metadata": {
+        "entity": "mint_leaf258",
+        "first_step": 1,
+        "history_rows": 500,
+        "last_step": 500,
+        "project": "mfm_model_v3_development",
+        "run_id": "go2ye4dx",
+        "state": "finished"
+      },
+      "native_exit_code": 0,
+      "result": {
+        "bytes": 2964,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_sync_actual_v2/run_0_go2ye4dx/result.json",
+        "sha256": "c3cc5f5293ab0c9980646625573f00db229881d902a74787562ff30a723a5f63"
+      },
+      "run_id": "go2ye4dx"
+    },
+    {
+      "action": "SYNCED_EXACT_COPY_AND_API_VERIFIED",
+      "actual_invocation": {
+        "bytes": 1378,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_sync_actual_v2/run_1_invocation.json",
+        "sha256": "6e9d93797d53515449366e81b335acb37970ba7ca91fb5435b584fef0bf4f16c"
+      },
+      "actual_remote_metadata": {
+        "entity": "mint_leaf258",
+        "first_step": 1,
+        "history_rows": 500,
+        "last_step": 500,
+        "project": "mfm_model_v3_development",
+        "run_id": "oo1dj13d",
+        "state": "finished"
+      },
+      "native_exit_code": 0,
+      "result": {
+        "bytes": 2963,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_sync_actual_v2/run_1_oo1dj13d/result.json",
+        "sha256": "21650190adb8d30bcb1b12b1bc8b513e5196bf83abfe030a785c174c62c2bd8d"
+      },
+      "run_id": "oo1dj13d"
+    }
+  ],
+  "all_source_before_after_current_match": true,
+  "remote_metric_values_independently_recompared": false,
+  "known_online_total": 80,
+  "SDK_or_history_payload_opened_on_login": false
+}

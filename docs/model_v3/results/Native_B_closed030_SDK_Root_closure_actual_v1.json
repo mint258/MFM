@@ -1,0 +1,141 @@
+{
+  "schema": "model_v3_native_B_closed_segment_SDK_Root_closure_v1",
+  "status": "ONE_CLOSED_SEGMENT_NATIVE_LOG_MATCH_AND_OFFICIAL_SYNC_CLOUD_READBACK_CLOSED",
+  "captured_utc": "2026-10-29T08:15:19.670646+00:00",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4525129,4525153,4525154",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4525129|zixiao|COMPLETED|0:0|2474|16|compute-0-21\n4525153|zixiao|COMPLETED|0:0|9|16|compute-0-19\n4525154|zixiao|COMPLETED|0:0|17|16|compute-0-19\n",
+    "stderr": ""
+  },
+  "CPU_supervisors": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_SDK_audit_actual_v1.supervisor.json",
+      "bytes": 3360,
+      "sha256": "d296fd58d7689e02be06bb3b93c4bbd4a1db333d76ba7000eca0a1f77b108fd9"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_sync_actual_v1.supervisor.json",
+      "bytes": 3380,
+      "sha256": "7fd066d80f40f2dac30ac1276d12824921437d4d344d6f88e921a1ac18f9dbf1"
+    }
+  ],
+  "batches": [
+    {
+      "audit": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_SDK_audit_actual_v1/BATCH_RESULT.json",
+        "bytes": 1614,
+        "sha256": "ff68e8308f71df7b5e8427024b453486338a318056da6197e8acfe953195079e"
+      },
+      "sync": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_sync_actual_v1/RESULT.json",
+        "bytes": 18618,
+        "sha256": "f29d458a56110e9ac1497920a47cd016c88ae3c73cc9abad4408615007c98c66"
+      },
+      "metadata_QA": [
+        {
+          "XML": {
+            "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_SDK_audit_actual_v1/metadata.xml",
+            "bytes": 5514,
+            "sha256": "56f647df7771006a64e057fc66350e3298a8a885e1827b6c4bf1082415b0bd8d"
+          },
+          "counts": {
+            "tests": 28,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          }
+        },
+        {
+          "XML": {
+            "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_sync_actual_v1/metadata4.xml",
+            "bytes": 1008,
+            "sha256": "7668c673a2a486d47380978faf70607608bc1d05d6f5a235f84843a59b850a8e"
+          },
+          "counts": {
+            "tests": 4,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          }
+        }
+      ],
+      "fixture_accounting_selfchecks": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_sync_actual_v1/fixture_accounting_selfchecks.json",
+        "bytes": 6326,
+        "sha256": "f8c3dc606ff9d0ffaabc8f776009237a062e9cb0ca1dee08b53a8360c00b12b3"
+      }
+    }
+  ],
+  "runs": [
+    {
+      "slot": "030",
+      "run_id": "orokfokh",
+      "GPU_job_id": "4525129",
+      "history_rows": 1002,
+      "first_step": 8017,
+      "last_step": 9018,
+      "verification": {
+        "bytes": 6432,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_SDK_audit_actual_v1/0/VERIFICATION.json",
+        "sha256": "3dc94cd71c9564100b1bd1c846a3ec4d82457c004199da168b477b6793693d43"
+      },
+      "sync_result": {
+        "bytes": 2963,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_sync_actual_v1/run_0_orokfokh/result.json",
+        "sha256": "fa294407abb5cc56323cb52c1d51d03a3048e11f793b334cd59b5a298d1eac9b"
+      },
+      "original_segment_Root_closure": {
+        "bytes": 1776,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_030/management/ROOT_LONG_SEGMENT_CLOSURE.json",
+        "sha256": "3a223d882f71fdbc4c559b670b231732ce98da20220a210782f1e5114fa951a4"
+      }
+    }
+  ],
+  "Root_SDK_checkpoint_or_scientific_array_payload_read": false,
+  "global_online_registry_recounted": false,
+  "original_SDKs_retained": true,
+  "active_or_later_slots_audited": false,
+  "whole_B_four_curves_acceptance": false,
+  "preserved_failed_grouped_audit_parent": "4524980",
+  "preserved_failed_grouped_first_pair_output": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed024025_SDK_audit_actual_v1",
+  "published_exact_method": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Native_v4_resourcewait_closed030_methods_publication_20261029_v1/PUBLICATION.json",
+    "bytes": 20477,
+    "sha256": "061157d156d0a4d9b9d731ecbcda47fd3218dfdb383fa7a9139e5b17d6e2b481"
+  },
+  "audit_source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_sdk_audit_v1_source/source_pins.json",
+    "bytes": 5429,
+    "sha256": "0b49a786697df9b491377bdf4bc9ba7bd8a5fc15f6cbce7c6f7d0812a702f61b"
+  },
+  "sync_source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_long_sync_v1_source/source_pins.json",
+    "bytes": 6152,
+    "sha256": "575b7a65899037ffc95b7b9d4819e42c6db21cf33453e6cb3511e297e2de6194"
+  },
+  "fixture_source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_long_sync_fixture_v1_source/source_pins.json",
+    "bytes": 6578,
+    "sha256": "edd12e872b8126d673a2a45327b4a582606b9774e6ba97b80dd0ad93e64474ac"
+  },
+  "source_handoff": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed030_SDK_source_handoff_v1.json",
+    "bytes": 54140,
+    "sha256": "f3b78dcdd47383f2d66b7c5340fad0ab74dd82adfc6a20f4e12eb873fd7a0acf"
+  },
+  "original_science_code": "3d9b1cc0c580dacc9398a5570b0c2fff3e257618",
+  "only_new_actual_closed_difference_slots": [
+    30
+  ],
+  "remote_metric_values_independently_recompared": false,
+  "all_previous_SDK_closures_retained": true
+}

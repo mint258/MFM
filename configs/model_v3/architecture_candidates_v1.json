@@ -1,0 +1,19 @@
+{
+  "schema": "model_v3_architecture_implementation_candidates_v1",
+  "status": "IMPLEMENTATION_ONLY_NOT_SCIENTIFIC_SELECTION",
+  "builder": "phychem_mfm.model.v3_architecture.build_architecture_model",
+  "production_S_builder": "phychem_mfm.model.v3_architecture.build_source_s_architecture_model",
+  "model_configuration_sealer": "phychem_mfm.model.v3_architecture.source_s_architecture_configuration",
+  "trainer_class": "phychem_mfm.phase1.v3_architecture_training.ArchitectureStepTrainer",
+  "backbone": {"dim": 512, "layers": 6, "heads": 8, "ff_mult": 2, "use_radius_mask": false, "radius": 8.0},
+  "distance_candidates": [
+    {"distance_bias": "C1-0", "rbf_count": 64, "pair_dim": 64, "pair_hidden_dim": 64, "rbf_max_distance": 8.0, "cutoff": null},
+    {"distance_bias": "C1-a", "rbf_count": 64, "pair_dim": 64, "pair_hidden_dim": 64, "rbf_max_distance": 8.0, "cutoff": null},
+    {"distance_bias": "C1-b", "rbf_count": 64, "pair_dim": 64, "pair_hidden_dim": 64, "rbf_max_distance": 8.0, "cutoff": null}
+  ],
+  "view_candidates": [
+    {"name": "three", "physical_views": ["clean", "geom", "topo"], "builder": "phychem_mfm.phase1.v3_structural.build_structural_views"},
+    {"name": "two", "physical_views": ["clean", "both"], "builder": "phychem_mfm.phase1.v3_architecture_views.build_two_structural_views", "model_class": "phychem_mfm.phase1.v3_architecture_views.V3TwoViewModel"}
+  ],
+  "scientific_comparison_requires": ["separate_preregistered_experiment_configuration", "D-5_240k_molecules", "agreed_D-1_D-2_D-3_and_D-4", "TRAIN_inner_development_panel", "S_and_P_for_C1", "S_and_SDP_for_C3", "component_and_full_regression_accepted"]
+}

@@ -1,0 +1,112 @@
+{
+    "schema":  "model_v3_A01_4090_ABBA_protocol_v1",
+    "status":  "PREPARED_REQUIRES_BYTE_IDENTICAL_PUBLIC_PREREGISTRATION_AND_ACTUAL_QA",
+    "series_id":  "A01_4090_backbone_off_ABBA_v1",
+    "source_code_sha":  "8ece64c685fe287d6863fbbe2f6f52006632a5cc",
+    "original_A_prereg_sha":  "61658a4c1f472de035601dbedc17809315774784",
+    "candidate_options_sha256":  "d3bb101a8e5417fcbe998c39f97698e6902a9b06851a343aa0a0e4830ef0e8d4",
+    "numeric_gate_metadata":  {
+                                  "summary":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/summary.json",
+                                                  "bytes":  891,
+                                                  "sha256":  "bbf17e2e1ac4421d6a4468e449fffdc16534d967b261c85c7c863e5c8a407b1e"
+                                              },
+                                  "run_status":  {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/run_status.json",
+                                                     "bytes":  749,
+                                                     "sha256":  "fc1af95ec28ef84c5867c76382b79550e8d56e5d4d09ff38dadc2a198fb9f618"
+                                                 },
+                                  "configuration":  {
+                                                        "bytes":  18032,
+                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/configuration.json",
+                                                        "sha256":  "3abd37472f6eaae1af916f10ae798363120abe596944dd19e09f9147540abf12"
+                                                    },
+                                  "provenance":  {
+                                                     "bytes":  13627,
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/candidate_h0/provenance.json",
+                                                     "sha256":  "273deb8071f0eeba373a3ed773a25617fb44c9b3a5a659c899da815e3f9c6c05"
+                                                 },
+                                  "ready":  {
+                                                "bytes":  3760,
+                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/candidate_h0/READY.json",
+                                                "sha256":  "3c0df75e498841f9d82257a16a0b23cc1e112c542e4253f8bb61569c471631b9"
+                                            },
+                                  "fixed_batch_gate":  {
+                                                           "bytes":  2399567,
+                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/fixed_batch_gate.json",
+                                                           "sha256":  "9f3889b5988b38306b4355897001917ac71c5951beaf89faab4cc69606731e62"
+                                                       },
+                                  "trajectory_gate":  {
+                                                          "bytes":  42490,
+                                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/trajectory_gate.json",
+                                                          "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                      }
+                              },
+    "numeric_supervisor":  {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520456.json",
+                               "bytes":  3458,
+                               "sha256":  "c8f32918e1ad3dc6004615f3c2a333de49b2bb4b428b4c70f43e4c72b756f1be"
+                           },
+    "numeric_source_offline_run_ids":  [
+                                           "v37vklr4",
+                                           "6r67khz4"
+                                       ],
+    "numeric_qualification":  {
+                                  "numeric_SDKs_raw_hash_only_no_readback_inferred":  true,
+                                  "trajectory_updates":  500,
+                                  "saved_source_inventory_sha256":  "2e485c03ef7bd4cd0f29daf34e8787668732915ac62576ee63223564e8a11ee0",
+                                  "original_parent_job":  "4520456",
+                                  "checkpoint_weights_not_opened":  true,
+                                  "actual_parent_C0_required_on_every_submit":  true,
+                                  "fixed_batches":  20
+                              },
+    "actual_numeric_hardware":  {
+                                    "uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+                                    "torch_visible_total_bytes":  50896044032,
+                                    "capacity_origin":  "original machine configuration, not commercial specifications",
+                                    "NVML_total_bytes":  51527024640,
+                                    "name":  "NVIDIA GeForce RTX 4090",
+                                    "driver_version":  "560.35.05"
+                                },
+    "node":  "compute-0-20",
+    "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+    "python":  "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+    "seed":  0,
+    "order":  [
+                  "reference",
+                  "candidate",
+                  "candidate",
+                  "reference"
+              ],
+    "warmup_updates":  2,
+    "measured_updates":  20,
+    "measurements":  "four fresh processes, one resident model each, same initial seed/optimizer/data/source/UUID; no profiler",
+    "job_wall_seconds":  1200,
+    "supervisor_wall_seconds":  1100,
+    "timing_budget_origin":  "unchanged accepted A03 standalone 2warmup+20 protocol; 3043s numeric500 paired time is not a per-leg timing estimate",
+    "requested_cpus":  16,
+    "requested_memory_MiB":  65536,
+    "rss_limit_bytes":  60129542144,
+    "output_budget_bytes_per_member":  2147483648,
+    "private_budget_bytes_per_member":  2147483648,
+    "maximum_submitted_members":  4,
+    "maximum_admission_attempts":  12,
+    "management_metadata_budget_bytes":  67108864,
+    "maximum_cumulative_allocated_GPU_seconds":  4800,
+    "reservation_policy":  "max(all-user queue declarations, controller AllocMem)+new64GiB strictly below85% RealMemory; actual MemAvailable minus64GiB at least15% measured MemTotal; fresh quota minus new2GiB retains64GiB; exact selected UUID idle+public lock",
+    "stale_observation_max_seconds":  90,
+    "backend_policy":  "worker live hardware and physical-memory checks mandatory; only explicit Slurm transport outage can reuse matching \u003c=90s Root raw controller/C0 rows, with full new memory request added and no allocated-TRES claim",
+    "failure_policy":  "all files/Slurm failures/pending intents retained; no automatic deletion/retry/reset; one immutable submit intent per position; next leg requires actual C0+input/SDK/supervisor/source closure",
+    "report_policy":  {
+                          "unchanged_rule":  "same complete configuration/data/source/determinism/input receipt digest, pooled consumed base/atoms divided by summed measured wall for A vs B, no new threshold or adoption",
+                          "timing_window":  "loader/receipt/SDK/resource overhead included; cold start, finish, failures and allocated time retained separately",
+                          "actual_C0_and_byte_closure_required_for_all_four_members":  true,
+                          "adoption_inferred_from_short_windows":  false,
+                          "tool_sha256":  "d3a970530a58bc2582b3423adb7760398fed889afdf64044af2b2d4803ca3f66",
+                          "tool":  "tools/model_v3/a_speed_report.py",
+                          "numeric_gate_directory":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456"
+                      },
+    "formal_pretraining_started":  false,
+    "school_server_used":  false,
+    "expected_metadata_tests":  52
+}

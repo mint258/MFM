@@ -1,0 +1,175 @@
+{
+    "schema":  "model_v3_ffn_FP32_complete48_source_handoff_v2",
+    "status":  "FROZEN_V2_ROOT_PARALLEL_CAPTURE_NOT_GPU_ADMITTED",
+    "source_freeze":  {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/SOURCE_FREEZE_v2.json",
+                          "bytes":  21562,
+                          "sha256":  "4eeb06ea6f947240bdeb52a1b4e3b8f946f5896a60d4103815616508453ce04d"
+                      },
+    "copy_whitelist":  [
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/ffn_adapter.py",
+                               "bytes":  15628,
+                               "sha256":  "6e69adf2e202d2cb78eb7f42e2b6176b81b1f3d1c408a7b6b1969a9c781eb3f5"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/run_ffn_matrix.py",
+                               "bytes":  16760,
+                               "sha256":  "6346c8cd4bbb20e783dfd7f1943f81b0d7740095230f34134973b159a95f7004"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/test_ffn_matrix.py",
+                               "bytes":  5968,
+                               "sha256":  "f17fcaac1db542f75cb674205b00c11b8595abb4873d7710baa0de4bf390ef21"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/tiny_ffn_controls.py",
+                               "bytes":  16556,
+                               "sha256":  "c11453d0213c3835fbd3dee832475fef9fb2477331e9ad5eee5330df27d285fc"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/launch_ffn_matrix_GPU_v1.py",
+                               "bytes":  18354,
+                               "sha256":  "ca25ea51ab4b6baed9ac91d483274398f8d5c70a008be3d09c49b153e1c81bda"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/run_ffn_matrix_GPU_v1.sbatch",
+                               "bytes":  1954,
+                               "sha256":  "31e9f21178bd07cc865407d126e60679ca3998bffa88e5fb78235d55037d00e5"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/METHOD.md",
+                               "bytes":  8066,
+                               "sha256":  "3419c6e3d17c3c12ba60fef593d297225501bb6f304ee0ae260592bdbf03f663"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/ffn_publication.py",
+                               "bytes":  16396,
+                               "sha256":  "2e6d3b9762fd0589d38e9acedd231e854017185a4575b70b4150d4a490aba205"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/final_binding.py",
+                               "bytes":  11073,
+                               "sha256":  "0f92de76813bc145c4f0afacbc4aa90f55055f6720daee13a78b53fdea8df203"
+                           }
+                       ],
+    "method_target_prefix":  "docs/model_v3/pre_registered_methods/ffn_fp32_full48_v2/",
+    "method_publication":  null,
+    "v1_method_is_not_v2_admission":  true,
+    "actual_candidate_publication":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_candidate_publication_actual_v1.json",
+                                         "bytes":  2911,
+                                         "sha256":  "e6130e5d2bcae14394497c91b2d48f91c7e7cf928d238b0ae33bd94d08630669"
+                                     },
+    "actual_full_CPU":  {
+                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_full_CPU_4524602_Root_closure_v1.json",
+                            "bytes":  933132,
+                            "sha256":  "fcb61e0bcf7b00f94584777c6def316d3975e8b458a563bd53d5625390b3ea5f"
+                        },
+    "candidate8_sources_and_model_unchanged":  true,
+    "science_default_and_complete48_criteria_unchanged":  true,
+    "binding_inputs_DRAFT":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/ROOT_BINDING_INPUTS_DRAFT_v1.json",
+                                 "bytes":  2580,
+                                 "sha256":  "cdea32ea97488b7100336ed8edec70ec1962f253d70a730ae9b9a6983efaa382"
+                             },
+    "execution_request_DRAFT":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/execution_request_DRAFT_v1.json",
+                                    "bytes":  11083,
+                                    "sha256":  "4881206a42ceb5608e0775ed7a256b8db009ab3030a712a697fd0015471064c5"
+                                },
+    "output_prefix":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_e2e_GPU_v2_",
+    "suggested_new_attempt_receipt":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_e2e_GPU_v2_attempt1.json",
+    "worker_census_and_SB_all_v2_output_prefix":  true,
+    "protocol_schema_v1_retained_as_same_scientific_protocol":  true,
+    "Root_steps":  [
+                       "Actual9 leaf rawhash/7AST/bash/source review and peer review; no model/SSH execution by author",
+                       "Archive only9 static leaves under new full48_v2 method path; normal checker/exact publication before finalbinding",
+                       "Create fresh final inputs: stage FINAL, method_publication=metadata_publication=actual new9-leaf v2 receipt; no v1 proof reuse",
+                       "Root run original stdlib finalbinder and audit against new finalsource pins; method prefix/runtime source mapping enforces v2",
+                       "Root handles old never-executed v1 hold and new v2 source-bound hold separately; no reservation logic added here",
+                       "Fresh Root whole120s resource admission, only3 SSH parallel; resource30s includes real startup/node/queue/futures/parsing; no old values or autoretry",
+                       "Root alone unique submit new v2 attempt; worker original d3 local resource checks/UUID/fd9/private/source/cleanup/caps remain"
+                   ],
+    "Root_metadata_argv_template":  [
+                                        "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                        "-u",
+                                        "-B",
+                                        "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/final_binding.py",
+                                        "--inputs",
+                                        "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/ROOT_BINDING_INPUTS_FINAL_v1.json",
+                                        "--inputs-sha256",
+                                        "ROOT_ACTUAL_V2_FINAL_INPUT_SHA256"
+                                    ],
+    "Root_source_audit_argv_template":  [
+                                            "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                            "-u",
+                                            "-B",
+                                            "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/launch_ffn_matrix_GPU_v1.py",
+                                            "audit",
+                                            "--source-pins-sha",
+                                            "ROOT_ACTUAL_V2_FINAL_PINS_SHA256"
+                                        ],
+    "Root_submit_argv_template":  [
+                                      "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                      "-u",
+                                      "-B",
+                                      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v2_source/launch_ffn_matrix_GPU_v1.py",
+                                      "submit",
+                                      "--source-pins-sha",
+                                      "ROOT_ACTUAL_V2_FINAL_PINS_SHA256",
+                                      "--submission-receipt",
+                                      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_e2e_GPU_v2_attempt1.json"
+                                  ],
+    "prior_three_attempts_preserved":  [
+                                           {
+                                               "rawref":  {
+                                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_e2e_GPU_v1_attempt1.json",
+                                                              "bytes":  36243,
+                                                              "sha256":  "40301ec3d163cfe25cda9a99bb22753f3cf88616344be6e0879d8f15fe04004e"
+                                                          },
+                                               "job_id":  null,
+                                               "observations":  6,
+                                               "sbatch_observations":  0,
+                                               "admission_frame_exists":  false,
+                                               "status":  "FAILED_OR_UNKNOWN_DO_NOT_AUTORETRY",
+                                               "message":  "Live resource observations exceeded30seconds; repeat only as a fresh attempt"
+                                           },
+                                           {
+                                               "rawref":  {
+                                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_e2e_GPU_v1_attempt2.json",
+                                                              "bytes":  36243,
+                                                              "sha256":  "8babfcc962d84563f227af95e728d1f4bbb7a8d008b411aba6f641ac271282d3"
+                                                          },
+                                               "job_id":  null,
+                                               "observations":  6,
+                                               "sbatch_observations":  0,
+                                               "admission_frame_exists":  false,
+                                               "status":  "FAILED_OR_UNKNOWN_DO_NOT_AUTORETRY",
+                                               "message":  "Live resource observations exceeded30seconds; repeat only as a fresh attempt"
+                                           },
+                                           {
+                                               "rawref":  {
+                                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_e2e_GPU_v1_attempt3.json",
+                                                              "bytes":  36243,
+                                                              "sha256":  "0140e29d4b5a42cfa41c1f99238f9aaa58b6e1f25e574a00335a19d3e43a89e0"
+                                                          },
+                                               "job_id":  null,
+                                               "observations":  6,
+                                               "sbatch_observations":  0,
+                                               "admission_frame_exists":  false,
+                                               "status":  "FAILED_OR_UNKNOWN_DO_NOT_AUTORETRY",
+                                               "message":  "Live resource observations exceeded30seconds; repeat only as a fresh attempt"
+                                           }
+                                       ],
+    "old_guard_unchanged":  {
+                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/gpu_runtime_retry_v4/submit_composed_eq_gpu_runtime_retry_v4.py",
+                                "bytes":  38996,
+                                "sha256":  "d3cba6a8610e6bd55fa21873be5c770efbe30be73b7b16d4f1cbdfa6ccb1c193"
+                            },
+    "all_raw_aware_timestamps_elapsed_stdout_stderr_SHA_preserved":  true,
+    "no_new_monitor_dispatcher_QA_parent_or_scientific_method":  true,
+    "no_Python_AST_Git_SSH_Slurm_model_array_SDK_execution":  true,
+    "no_actual_v2_resource_or_GPU_success_claimed":  true,
+    "frozen_stop_editing":  true
+}

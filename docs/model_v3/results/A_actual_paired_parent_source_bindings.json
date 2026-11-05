@@ -1,0 +1,110 @@
+{
+  "schema": "model_v3_A_actual_paired_parent_summary_v1",
+  "granularity": "one actual paired-experiment Slurm parent, not one SDK; reference/candidate SDK evidence remains separate",
+  "allocated_gpu_seconds_are_utilization": false,
+  "paired_wall_is_speedup": false,
+  "pending_job_4520456_excluded": true,
+  "raw_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4520405,4520410,4520411,4520438,4520457,4520486,4520525,4520546,4520549,4520589,4520590",
+      "--format=JobIDRaw,State,ExitCode,ElapsedRaw,AllocCPUS"
+    ],
+    "stdout": "4520405|COMPLETED|0:0|3407|16\n4520410|FAILED|1:0|2424|16\n4520411|COMPLETED|0:0|2516|16\n4520438|COMPLETED|0:0|4244|16\n4520457|FAILED|1:0|2272|16\n4520486|COMPLETED|0:0|2332|16\n4520525|FAILED|1:0|567|16\n4520546|FAILED|1:0|39|16\n4520549|COMPLETED|0:0|2196|16\n4520589|FAILED|1:0|122|16\n4520590|FAILED|1:0|30|16\n",
+    "stdout_sha256": "431d1fa5391aa6b8b2eb24f9ab8684c592af6ad06eecb0c3882ab7b4c58fbba4"
+  },
+  "sources": [
+    {
+      "job_id": "4520405",
+      "configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520405/configuration.json",
+        "bytes": 16903,
+        "sha256": "55d0e8b5e9252f17d26f62df0ae84649d39b271c607e5c9efc39868b5bbfe8c4"
+      }
+    },
+    {
+      "job_id": "4520410",
+      "configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520410/configuration.json",
+        "bytes": 16902,
+        "sha256": "41302f25904d3c49feebf40ae20b6f37554035d68fdce45ac6d6d387c497f000"
+      }
+    },
+    {
+      "job_id": "4520411",
+      "configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520411/configuration.json",
+        "bytes": 16973,
+        "sha256": "a3040da41e88436a271b30a86c536c9f058d31e763800ac905b23780d960c228"
+      }
+    },
+    {
+      "job_id": "4520438",
+      "configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520438/configuration.json",
+        "bytes": 16902,
+        "sha256": "d41ca095f379031f9eb32901ba86e9f8cbeb613e58117545376371d55dd4534c"
+      }
+    },
+    {
+      "job_id": "4520457",
+      "configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a06_fused_4520457/configuration.json",
+        "bytes": 18090,
+        "sha256": "9cea65250ae6e3e34901988e6237edb6d4b1fd72d694344575fe5f02be937224"
+      }
+    },
+    {
+      "job_id": "4520486",
+      "configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a00_control_4520486/configuration.json",
+        "bytes": 18092,
+        "sha256": "03fe0ccad5499925ad791bcc93c4796d9f53959e3f9c31b17397febf82b9204b"
+      }
+    },
+    {
+      "job_id": "4520525",
+      "configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a05_compile_4520525/configuration.json",
+        "bytes": 18091,
+        "sha256": "95c2dbbb61caec0692053133c5aaac3e9914d29f4035422b2e647a89eb32b55c"
+      }
+    },
+    {
+      "job_id": "4520546",
+      "configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520546/configuration.json",
+        "bytes": 18098,
+        "sha256": "c17c85d4469d902543d86bb9a2aa6f4dbc862adbaab9332a26316ae5c44e672e"
+      }
+    },
+    {
+      "job_id": "4520549",
+      "configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a03_head_off_4520549/configuration.json",
+        "bytes": 18094,
+        "sha256": "1fdafa52175d66bd2eaf9c3498407e74cf445a2eb63cb28cf69cc1a195105a67"
+      }
+    },
+    {
+      "job_id": "4520589",
+      "configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a07_tf32_4520589/configuration.json",
+        "bytes": 18087,
+        "sha256": "e20862cc2268ab4621e15aaaa96a65da861de5f24e17414df078bd341c44ae2b"
+      }
+    },
+    {
+      "job_id": "4520590",
+      "configuration": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a02_distance_off_4520590/configuration.json",
+        "bytes": 18096,
+        "sha256": "d3efe6739913fcbb8c26e289ab615aaa8326b129afbf03ded6f75e386fc744ce"
+      }
+    }
+  ]
+}

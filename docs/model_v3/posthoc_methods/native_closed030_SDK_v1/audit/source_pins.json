@@ -1,0 +1,99 @@
+{
+    "schema":  "native_S_long_segment_log_source_pins_v3",
+    "status":  "SOURCE_ONLY_FINITE_CLOSED_TWO_PAIRS_NOT_EXECUTED",
+    "files":  [
+                  {
+                      "file":  "audit_closed_segments.py",
+                      "bytes":  18394,
+                      "sha256":  "27fb60892b9b0def1d024b6190fb9440cb433a83bd98d99575547d189349571a"
+                  },
+                  {
+                      "file":  "audit_closed_segments.sbatch",
+                      "bytes":  1354,
+                      "sha256":  "6442bcfb70b794a67a8d372bb66d25a30323a46b6d2d4f468ffd0a296f4f3638"
+                  },
+                  {
+                      "file":  "closed_entries.json",
+                      "bytes":  7425,
+                      "sha256":  "256f982fbdb634a78eae5a79851b385feb4a5ed30ce941bc8611db8079f776f8"
+                  },
+                  {
+                      "file":  "dependencies.json",
+                      "bytes":  12075,
+                      "sha256":  "9720132aab9547f5de2d49d9ef8b6299ded02565c47e6e35f2024adbc48621d1"
+                  },
+                  {
+                      "file":  "long_segment_log.py",
+                      "bytes":  13780,
+                      "sha256":  "0beaee76a2d6347cc4dce45037821dc87d62dd2d7d6df123ccea5cfff97902f4"
+                  },
+                  {
+                      "file":  "README.md",
+                      "bytes":  1462,
+                      "sha256":  "58637f329fc4f89562b93cb3a32f3188eebbdce1f273b5158b9fa2a4842ded31"
+                  },
+                  {
+                      "file":  "test_long_segment_log.py",
+                      "bytes":  12913,
+                      "sha256":  "bbf538fc28d9c21ba45312257dbdc4e1391baf9a201ca2ea0438aed0b66c54dd"
+                  }
+              ],
+    "metadata_tests":  28,
+    "original_tests":  21,
+    "retained_v2_tests":  7,
+    "max_closed_segments":  3,
+    "explicit_allowed_slots":  [
+                                   30
+                               ],
+    "explicit_allowed_run_ids":  [
+                                     "orokfokh"
+                                 ],
+    "scope":  "LONG_SEGMENT_LOG_ONLY",
+    "original_v2_manifest":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_segment_sdk_audit_v2/source_pins.json",
+                                 "bytes":  1886,
+                                 "sha256":  "c385ca027919f23a0e5f933562494ebfb38e1db6dd554b3f3b4239f9953540e3"
+                             },
+    "logic_and_tests_byte_identical_to_v2":  true,
+    "reader_tap_framing_unchanged":  true,
+    "CPU_scheduler_memory":  "automatic_default;no explicitSBmemory",
+    "CPU_working_memory_bytes":  17179869184,
+    "CPU_RSS_limit_bytes":  12884901888,
+    "whole_private_bytes_each":  2147483648,
+    "actual_prepare":  null,
+    "actual_CPU_audit":  null,
+    "actual_sync":  null,
+    "actual_online":  null,
+    "scientific_acceptance":  false,
+    "revision":  "finite_closed030_single_selector_rebind_only",
+    "previous_executed_v3_manifest":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_segment_sdk_audit_v3_source/source_pins.json",
+                                          "bytes":  3182,
+                                          "sha256":  "4c5ef41f5305be93142c313b1e1b21626b0ea3d5697fba3413aa6a0dafb57dce"
+                                      },
+    "original_v4_source":  {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_segment_sdk_audit_v4_source/source_pins.json",
+                               "bytes":  4069,
+                               "sha256":  "e96bfe972657ebce8a3c4747ff5e690475ffd15fa461ee2167f5e2afcb0dd2f0"
+                           },
+    "allowed_slot_pairs":  [
+                               [
+                                   30
+                               ]
+                           ],
+    "original_closed020023_source":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020023_sdk_audit_v1_source/source_pins.json",
+                                         "bytes":  4997,
+                                         "sha256":  "9faec648650b7587e9f1c64f1d9139173911a40f2877d260d84e19c138df8534"
+                                     },
+    "original_closed024027_source":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed024027_sdk_audit_v1_source/source_pins.json",
+                                         "bytes":  5515,
+                                         "sha256":  "20529ce669a4619e46fae030374b23f59c0f8fe933c51a9ba1d8cbac9c285177"
+                                     },
+    "original_closed028029_source":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_sdk_audit_v1_source/source_pins.json",
+                                         "bytes":  5131,
+                                         "sha256":  "cb01961b0b8289191f9430b27039dc4dfaf8ad9f3f51cb188d15e2f270fa5f61"
+                                     }
+}

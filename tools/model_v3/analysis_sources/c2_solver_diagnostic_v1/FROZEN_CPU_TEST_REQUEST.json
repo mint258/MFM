@@ -1,0 +1,87 @@
+{
+    "schema":  "model_v3_C2_solver_diagnostic_cpu_test_request_v1",
+    "status":  "SOURCE_FROZEN_TEST_NOT_RUN",
+    "frozen_at_utc":  "2026-10-25T11:31:32.4730735Z",
+    "source_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/c2_solver_diagnostic_v1_source",
+    "proposed_git_directory":  "tools/model_v3/analysis_sources/c2_solver_diagnostic_v1",
+    "environment":  {
+                        "PYTHONPATH":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_c2/current"
+                    },
+    "python_arguments":  [
+                             "-B",
+                             "-m",
+                             "pytest",
+                             "-q",
+                             "-p",
+                             "no:cacheprovider",
+                             "test_solver_math.py",
+                             "test_core_capture.py",
+                             "test_train_only_runtime.py"
+                         ],
+    "expected_collected_cases":  20,
+    "expected_math_cases":  9,
+    "expected_actual_core_capture_cases":  4,
+    "expected_runtime_cases":  7,
+    "test_result":  null,
+    "real_TRAIN_fit_started":  false,
+    "native_PRETRAIN_VAL_access":  false,
+    "original_v1_job_4520482_state":  "FAILED",
+    "original_v1_stop_code":  null,
+    "original_v1_iterations":  null,
+    "baseline_acceptance":  false,
+    "caps":  {
+                 "wall_seconds":  3300,
+                 "work_deadline_seconds":  3240,
+                 "finalization_deadline_seconds":  3270,
+                 "maximum_process_RSS_bytes":  25769803776,
+                 "maximum_output_bytes":  134217728,
+                 "maximum_array_bytes":  33554432,
+                 "maximum_numeric_bytes":  8589934592
+             },
+    "source_inventory_canonical_json":  "{\"core_capture.py\":\"9ac5b4be9a029a093419d0d6cb92673b3f89ca41a4a02e21b8c07f9a8fe33cd3\",\"diagnose_coordinate_lookup.py\":\"7c78234b333dddd87ff5efd0927cf9f25642f455e6c31ca73c9abb936ed1e781\",\"solver_math.py\":\"e0cf8ef6859d026e8dc6c260718f0c5ddc368779097fa48405572f1f26f79472\"}",
+    "source_inventory_sha256":  "b8d52bf7e5f52e80da7ab8c035889be3553119f869fd82c6a462f8eb9ad69cde",
+    "submitter":  "Root only, CPU node",
+    "real_execution_requires":  "Root actual unit pass, Git commit and public diagnostic preregistration before actual TRAIN replay",
+    "source_files":  [
+                         {
+                             "path":  "solver_math.py",
+                             "bytes":  9409,
+                             "sha256":  "e0cf8ef6859d026e8dc6c260718f0c5ddc368779097fa48405572f1f26f79472"
+                         },
+                         {
+                             "path":  "core_capture.py",
+                             "bytes":  8392,
+                             "sha256":  "9ac5b4be9a029a093419d0d6cb92673b3f89ca41a4a02e21b8c07f9a8fe33cd3"
+                         },
+                         {
+                             "path":  "diagnose_coordinate_lookup.py",
+                             "bytes":  21986,
+                             "sha256":  "7c78234b333dddd87ff5efd0927cf9f25642f455e6c31ca73c9abb936ed1e781"
+                         },
+                         {
+                             "path":  "test_solver_math.py",
+                             "bytes":  6284,
+                             "sha256":  "f7c5917731ce66dcaeb0d43d50c1d2f8a0da3eea0f550fdb22ab871a12a36ed8"
+                         },
+                         {
+                             "path":  "test_core_capture.py",
+                             "bytes":  5034,
+                             "sha256":  "6447c547899f9333011045e7c69e526072f09d9590d9a0016c61305172357793"
+                         },
+                         {
+                             "path":  "test_train_only_runtime.py",
+                             "bytes":  7251,
+                             "sha256":  "21f30c45efc007a2ddf2e09f222740e295a217fe9c5ff34f72da9f80dc8cf3fb"
+                         },
+                         {
+                             "path":  "diagnostic_protocol.json",
+                             "bytes":  3134,
+                             "sha256":  "415f1fa96d0a510fa5c7eeeca381b27603edecba6d27ac1b01bc43712e847961"
+                         },
+                         {
+                             "path":  "README.md",
+                             "bytes":  10089,
+                             "sha256":  "034042814338cfb17c57cd83bddea487958355cbd21f91c267439aa0c53f5b80"
+                         }
+                     ]
+}

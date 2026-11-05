@@ -1,0 +1,38 @@
+{
+  "schema": "model_v3_Av2_preflight_exact_integer_metadata_failure_review_v1",
+  "status": "PREFLIGHT_REJECTED_BEFORE_TORCH_OR_SCIENTIFIC_WORK",
+  "job_id": "4524907",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-j",
+      "4524907",
+      "-n",
+      "-P",
+      "-o",
+      "JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524907|zixiao|FAILED|1:0|0|16|compute-0-20\n",
+    "stderr": ""
+  },
+  "diagnostic": "Original cohort declaration differs",
+  "field": "original_data_version.original_shard_snapshot.mtime_ns",
+  "authoritative_value_decimal": "1791880208985935300",
+  "rounded_v6_value_decimal": "1791880208985935400",
+  "v6_source_and_failure_retained": true,
+  "data_files_changed": false,
+  "thresholds_or_scientific_cases_changed": false,
+  "repair": "Server CPython json.parse_int=int/deepcopy; exact six original configurations; 15 preflight predicates per case; new v7 package and namespace",
+  "actual_preparation": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/remaining_Av2_routing_v7_metadata_prepare_Root_actual_v1.json",
+    "bytes": 1150,
+    "sha256": "512ad5c87ff929aa28baf2bd53efbeef4158ae9a779386ac80970537a1d9ee57"
+  },
+  "new_handoff": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/remaining_Av2_routing_v7_CPython_metadata_handoff_v1.json",
+    "bytes": 16170,
+    "sha256": "70cec68a9b009fb11aaf779bca8f20302c736062005c0b9b936c34c499c78a9d"
+  }
+}

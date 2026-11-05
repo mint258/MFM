@@ -1,0 +1,250 @@
+{
+    "schema":  "model_v3_C4_layer_head_attribution_design_v1",
+    "status":  "DESIGN_FROZEN_IMPLEMENTATION_PENDING_NOT_EXECUTABLE",
+    "analysis_only":  true,
+    "scientific_adoption":  false,
+    "implementation_or_execution_started":  false,
+    "baseline_repository":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance",
+    "original_weight_seed_fixture_mask_noise_transform_and_units":  "exact original fixed48 cases; no changes",
+    "case_count":  48,
+    "proper_rigid_transforms":  3,
+    "terminal_fields":  13,
+    "unhooked_and_readonly_hooked_full_matrices":  2,
+    "actual_encoder_forwards":  384,
+    "absolute_tolerance":  1E-05,
+    "relative_tolerance":  0,
+    "original_NPZ_reads":  0,
+    "native_data_label_or_checkpoint_reads":  0,
+    "plan":  {
+                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/eq_layer_head_diagnostic_v1/PLAN.md",
+                 "bytes":  9401,
+                 "sha256":  "5f7c8022870789eaaea847493079d71fb1d5bfba0eebd0009078a1bf4a2ebef6"
+             },
+    "closed_aggregate":  {
+                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/eq_attribution_report_4521066/aggregate.json",
+                             "bytes":  443026,
+                             "sha256":  "6b24cb45e70803c5bdd22f147a0ece278fd02aac0b191c557adcebe4702ad4d1"
+                         },
+    "closed_actual_jobs":  {
+                               "baseline_measurement":  "4521006 FAILED1:0 retained",
+                               "attribution":  "4521049 COMPLETED0:0",
+                               "report":  "4521066 COMPLETED0:0"
+                           },
+    "actual_aggregate_summary":  [
+                                     {
+                                         "variant":  "original_formula_replay",
+                                         "passed_complete_cases":  0,
+                                         "target_fields":  [
+                                                               {
+                                                                   "field":  "PD/p_dipole",
+                                                                   "failed_measurements":  82,
+                                                                   "maximum_absolute_error":  5.14984130859375E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_dipole_magnitude",
+                                                                   "failed_measurements":  50,
+                                                                   "maximum_absolute_error":  3.0875205993652344E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_extensive",
+                                                                   "failed_measurements":  20,
+                                                                   "maximum_absolute_error":  2.288818359375E-05
+                                                               }
+                                                           ]
+                                     },
+                                     {
+                                         "variant":  "cdist_direct_only",
+                                         "passed_complete_cases":  0,
+                                         "target_fields":  [
+                                                               {
+                                                                   "field":  "PD/p_dipole",
+                                                                   "failed_measurements":  82,
+                                                                   "maximum_absolute_error":  5.14984130859375E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_dipole_magnitude",
+                                                                   "failed_measurements":  50,
+                                                                   "maximum_absolute_error":  3.0875205993652344E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_extensive",
+                                                                   "failed_measurements":  20,
+                                                                   "maximum_absolute_error":  2.288818359375E-05
+                                                               }
+                                                           ]
+                                     },
+                                     {
+                                         "variant":  "charge_center_only",
+                                         "passed_complete_cases":  0,
+                                         "target_fields":  [
+                                                               {
+                                                                   "field":  "PD/p_dipole",
+                                                                   "failed_measurements":  54,
+                                                                   "maximum_absolute_error":  4.7534704208374023E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_dipole_magnitude",
+                                                                   "failed_measurements":  52,
+                                                                   "maximum_absolute_error":  2.0593404769897461E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_extensive",
+                                                                   "failed_measurements":  20,
+                                                                   "maximum_absolute_error":  2.288818359375E-05
+                                                               }
+                                                           ]
+                                     },
+                                     {
+                                         "variant":  "pool_fp64_reference_only",
+                                         "passed_complete_cases":  0,
+                                         "target_fields":  [
+                                                               {
+                                                                   "field":  "PD/p_dipole",
+                                                                   "failed_measurements":  82,
+                                                                   "maximum_absolute_error":  5.14984130859375E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_dipole_magnitude",
+                                                                   "failed_measurements":  50,
+                                                                   "maximum_absolute_error":  3.0875205993652344E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_extensive",
+                                                                   "failed_measurements":  14,
+                                                                   "maximum_absolute_error":  1.52587890625E-05
+                                                               }
+                                                           ]
+                                     },
+                                     {
+                                         "variant":  "cdist_direct_and_charge_center",
+                                         "passed_complete_cases":  0,
+                                         "target_fields":  [
+                                                               {
+                                                                   "field":  "PD/p_dipole",
+                                                                   "failed_measurements":  54,
+                                                                   "maximum_absolute_error":  4.7534704208374023E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_dipole_magnitude",
+                                                                   "failed_measurements":  52,
+                                                                   "maximum_absolute_error":  2.0593404769897461E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_extensive",
+                                                                   "failed_measurements":  20,
+                                                                   "maximum_absolute_error":  2.288818359375E-05
+                                                               }
+                                                           ]
+                                     },
+                                     {
+                                         "variant":  "cdist_direct_and_pool_fp64_reference",
+                                         "passed_complete_cases":  0,
+                                         "target_fields":  [
+                                                               {
+                                                                   "field":  "PD/p_dipole",
+                                                                   "failed_measurements":  82,
+                                                                   "maximum_absolute_error":  5.14984130859375E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_dipole_magnitude",
+                                                                   "failed_measurements":  50,
+                                                                   "maximum_absolute_error":  3.0875205993652344E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_extensive",
+                                                                   "failed_measurements":  14,
+                                                                   "maximum_absolute_error":  1.52587890625E-05
+                                                               }
+                                                           ]
+                                     },
+                                     {
+                                         "variant":  "charge_center_and_pool_fp64_reference",
+                                         "passed_complete_cases":  0,
+                                         "target_fields":  [
+                                                               {
+                                                                   "field":  "PD/p_dipole",
+                                                                   "failed_measurements":  54,
+                                                                   "maximum_absolute_error":  4.7534704208374023E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_dipole_magnitude",
+                                                                   "failed_measurements":  52,
+                                                                   "maximum_absolute_error":  2.0593404769897461E-05
+                                                               },
+                                                               {
+                                                                   "field":  "PD/p_extensive",
+                                                                   "failed_measurements":  14,
+                                                                   "maximum_absolute_error":  1.52587890625E-05
+                                                               }
+                                                           ]
+                                     }
+                                 ],
+    "read_source_references":  [
+                                   {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance/current/phychem_mfm/phase1/v3_composed_equivariance.py",
+                                       "bytes":  30285,
+                                       "sha256":  "0c49debe901ee5db79a71fcbc8541d426231c5090eb9740b84649e867d8df0e8"
+                                   },
+                                   {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance/current/tests/test_model_v3_composed_equivariance.py",
+                                       "bytes":  9126,
+                                       "sha256":  "53bb8c0fee567713c6a789ffb88839c1d5951af0672311b658ba267b63afd53a"
+                                   },
+                                   {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance/current/phychem_mfm/model/v3_heads.py",
+                                       "bytes":  10776,
+                                       "sha256":  "6c48426f6956d7c9a65f0fa52c693068c1e37b7579c7968dde2267400cbd3750"
+                                   },
+                                   {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance/current/phychem_mfm/model/v3_architecture.py",
+                                       "bytes":  14537,
+                                       "sha256":  "e147d3808b5c4696f3f9c7cfbfff80a2d9665d721a6416852aa2cfd1c338caf0"
+                                   },
+                                   {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance/current/phychem_mfm/model/attention.py",
+                                       "bytes":  3898,
+                                       "sha256":  "d9a716c58aa6a481978af13757fdac0d4f02d9aae1187f7a65b943de8c352183"
+                                   },
+                                   {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance/current/phychem_mfm/model/backbone.py",
+                                       "bytes":  2784,
+                                       "sha256":  "1d4798111e526a077f834740093c90ad2610081f0171ca6c778b14cac24288a3"
+                                   },
+                                   {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance/current/phychem_mfm/model/heads.py",
+                                       "bytes":  14412,
+                                       "sha256":  "8ebf0ea060023c08db4c053a6ddf41be5c75fba3abd0a0afca085fc527c3b8c4"
+                                   },
+                                   {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_composed_equivariance/workflows/sprime_s/scripts/s_model_memory_v1.py",
+                                       "bytes":  2542,
+                                       "sha256":  "170a7752bad1812d15dceace1613d19f579aec5d97a4965ed0960731cc53f232"
+                                   }
+                               ],
+    "controls":  [
+                     "Unhooked/hooked fresh terminal bitwise equality for all48 cases x4 passes x13 terminals",
+                     "Exact baseline JSON measurements/domain/edges and weights/input/view/config digests",
+                     "All hooks return None; unknown module/dtype rejects",
+                     "OriginalFP32 four-way head(H0/P0,H1/P0,H0/P1,H1/P1), same full-batch shapes",
+                     "FP64 functional same-weight head shadow only as diagnostic, never FP32 acceptance",
+                     "Original threshold results retained with signed vector decomposition residual"
+                 ],
+    "proposed_caps":  {
+                          "CPU_only":  true,
+                          "allocated_cpus":  16,
+                          "allocated_memory_bytes":  17179869184,
+                          "Torch_and_BLAS_threads":  1,
+                          "child_wall_seconds":  600,
+                          "outer_wall_seconds":  660,
+                          "RSS_bytes":  12884901888,
+                          "child_output_bytes":  67108864,
+                          "outer_output_and_private_bytes":  2147483648
+                      },
+    "readiness_requirements":  [
+                                   "Root design review, no automatic execution from draft",
+                                   "Independent external runner plus meaningful synthetic tests and full runtime source inventory",
+                                   "Actual CPU test closure/sourcebeforeafter and Root public binding before measurement",
+                                   "Root selects available siteCPU2/8-19 and records exact job/node/guard/quota/resource request",
+                                   "All48 membership and budget closure; partial failure retained and marked incomplete"
+                               ]
+}

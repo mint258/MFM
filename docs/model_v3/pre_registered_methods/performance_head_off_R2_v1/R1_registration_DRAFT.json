@@ -1,0 +1,135 @@
+{
+    "schema":  "model_v3_head_off_R1_ABBA_registration_DRAFT_v1",
+    "status":  "NOT_RUN_HOLD_UNTIL_ACTUAL_MATCHED_HEAD_OFF_20_AND500_ROOT_CLOSURE",
+    "series_id":  "A03_head_off_R1_C35_9e16_v1",
+    "positions":  [
+                      {
+                          "position":  1,
+                          "role":  "reference"
+                      },
+                      {
+                          "position":  2,
+                          "role":  "candidate"
+                      },
+                      {
+                          "position":  3,
+                          "role":  "candidate"
+                      },
+                      {
+                          "position":  4,
+                          "role":  "reference"
+                      }
+                  ],
+    "code_sha":  "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+    "public_prereg_sha":  "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+    "runtime_root":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1",
+    "gpu_uuid":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+    "expected_node":  "compute-0-21",
+    "expected_gpu":  "5090",
+    "candidate_options":  {
+                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a03_head_off.json",
+                              "bytes":  302,
+                              "sha256":  "9e958e8fb4374211f80e2c8ed741266b93f701dbde15f2dd36cb862a9e10723e"
+                          },
+    "manual_execution":  {
+                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/current/configs/model_v3/performance/a1_manual_capacity_observation_v1.json",
+                             "bytes":  85,
+                             "sha256":  "7cabbd4a0300d551154ffb9bcbed5466fc9886d0eb886a1ae37ee3e7f70db46e"
+                         },
+    "reference_config":  {
+                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                             "bytes":  34127,
+                             "sha256":  "af26f79be41d99bac5de410b686bccdf608b830b772d0dde06491bb146d35324"
+                         },
+    "snapshot":  {
+                     "path":  "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/training_inputs_v1/shard_snapshot_v1.json",
+                     "bytes":  5974,
+                     "sha256":  "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f"
+                 },
+    "input":  "native_s",
+    "seed":  0,
+    "workers":  8,
+    "max_padded_cost":  8000000,
+    "warmup_updates":  2,
+    "measured_updates":  20,
+    "resident_models":  1,
+    "padding":  null,
+    "future_head_off_numeric_gate_root":  null,
+    "future_head_off_numeric_Root_closure":  null,
+    "future_members":  [
+
+                       ],
+    "command_template":  [
+                             "PY5090",
+                             "-u",
+                             "-B",
+                             "tools/model_v3/single_a_benchmark.py",
+                             "--candidate-options",
+                             "current/configs/model_v3/performance/a03_head_off.json",
+                             "--performance-execution",
+                             "current/configs/model_v3/performance/a1_manual_capacity_observation_v1.json",
+                             "--performance-execution-sha256",
+                             "7cabbd4a0300d551154ffb9bcbed5466fc9886d0eb886a1ae37ee3e7f70db46e",
+                             "--reference-config",
+                             "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                             "--input",
+                             "native_s",
+                             "--seed",
+                             "0",
+                             "--workers",
+                             "8",
+                             "--max-padded-cost",
+                             "8000000",
+                             "--expected-gpu",
+                             "5090",
+                             "--code-sha",
+                             "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+                             "--prereg-sha",
+                             "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+                             "--shard-snapshot-sha256",
+                             "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                             "--deterministic-controls",
+                             "--role",
+                             "POSITION_ROLE",
+                             "--abba-position",
+                             "POSITION_1_TO4",
+                             "--series-id",
+                             "A03_head_off_R1_C35_9e16_v1",
+                             "--output",
+                             "ACTUAL_FRESH_MEMBER_CHILD"
+                         ],
+    "numeric_binding_rule":  "Only actual new a03_head_off paired result/C0/clean closure on this code/C35/options/data/control. Existing3976 all-on summary does not qualify this head-off series.",
+    "comparison_rule":  "Unchanged a_speed_report.py compares source/model/optimizer/loss/schedule/native data/deterministic receipts, all4 equal measured input receipt digests, exact candidate options/resolved execution and all20+500 numeric rows.",
+    "capacity_scope":  "single tool derives resident_models=1; manual explicit flags require no borrowed R2 profile; record actual new R1 resources. R2 does not certify R1 capacity.",
+    "future_thin_adaptation_required":  [
+                                            "Use original R1 guarded single runner and Root per-member C0 closure flow; change only new package/family/series plus exact a03 option preflight to True/True/False.",
+                                            "Replace old all-on3976 numeric prerequisite refs with actual new head-off paired closure/configuration after it exists; preserve every original code/public/source/stream/role/admission/UUID/whole/private limit.",
+                                            "Do not run frozen A00 R1 SB/Root driver unchanged: both are intentionally all-on-specific.",
+                                            "Each member is explicit Root invocation and fresh admission/hold; no loop, queue, automatic retry or extra QA parent.",
+                                            "SDKs finish normally and original streams persist; one independent four-member SDK audit and unchanged speed report after all4 close."
+                                        ],
+    "existing_reference_SB":  {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_GPU_v1_source/run_manual_R1_ABBA.sbatch",
+                                  "bytes":  11051,
+                                  "sha256":  "1067974b2e889613798b051b4935e9396437d725a69e6852c1ee924daacf4b77"
+                              },
+    "existing_reference_pins":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_GPU_v1_source/source_pins.json",
+                                    "bytes":  14941,
+                                    "sha256":  "51a5d9c0d8aa5ab708bea6b04d33044e7a555d41e16492dc0e1e0857777aad89"
+                                },
+    "resources":  {
+                      "cpus":  16,
+                      "Slurm_mem_GiB":  64,
+                      "Slurm_wall_seconds":  7200,
+                      "supervisor_wall_seconds":  6900,
+                      "RSS_limit_bytes":  60129542144,
+                      "whole_persistent_output_budget_bytes":  2147483648,
+                      "private_storage_budget_bytes":  2147483648,
+                      "child_output_budget_bytes":  2046820352,
+                      "GPU_fraction_limit":  0.85,
+                      "shared_UUID_lock_owner":  "paired_a_acceptance only"
+                  },
+    "cross_residency_or_speed_acceptance_claimed":  false,
+    "author_executed":  false
+}

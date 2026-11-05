@@ -1,0 +1,122 @@
+{
+  "schema": "model_v3_pretraining_preparation_compact_evidence_v21",
+  "captured_utc": "2026-10-27T19:49:04.579175+00:00",
+  "original_scope": "All original405line guide stages0-7 remains required",
+  "guide_complete": false,
+  "formal_pretraining_started": false,
+  "all_model_recipe_or_Bstar_final_frozen": false,
+  "evidence_refs": {
+    "auto_R2_full20_500": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_GPU_4524551_Root_closure_v1.json",
+      "bytes": 5082,
+      "sha256": "0136894785baf0d47905bb1701c206dc3c2ea641cf972826d3c9f56d6c589162"
+    },
+    "auto_hold_release": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_hold_release_actual_v1.json",
+      "bytes": 1270,
+      "sha256": "ba105e2708572648217320787ded5211c2dc82e46f2079fa4bfed21fe6966694"
+    },
+    "projection_scientific_failure": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_FP32_GPU_4524550_Root_scientific_failure_closure_v1.json",
+      "bytes": 54322,
+      "sha256": "1923cd904f493bed4b7b45f993b86132feed4b3d97ad253b79a872e5f90be658"
+    },
+    "terminal_scalar_replay": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_terminal_CPU_4524554_Root_closure_v1.json",
+      "bytes": 2023,
+      "sha256": "5b40a803b92eafb7778928fb104fed852a730c8a4f72f41047e8c8c36b398a1d"
+    },
+    "Native_panel_SDK_audit": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S10000_panel_SDK_CPU_4524552_Root_closure_v1.json",
+      "bytes": 2688,
+      "sha256": "161d1ada91dc0ad6b735b90c347ea2f20cc7c0559e4c217c336c312ed298a405"
+    },
+    "Native_panel_exact_sync": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S10000_panel_sync_CPU_4524555_Root_closure_v1.json",
+      "bytes": 2903,
+      "sha256": "b4249212d328fe64f7a7c0863ea2ab270a17ce1c0e117d1386751d167f7bbd38"
+    },
+    "runtime_training_chain": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/training_chain_runtime_publication_actual_v1.json",
+      "bytes": 5965,
+      "sha256": "d46ac32c0fe54bcfcb4803c92f525ddbcfe23e432bb2fc51635f79b40918acaf"
+    }
+  },
+  "auto_R2": {
+    "job": "4524551",
+    "elapsed_seconds": 2274,
+    "full_fixed_batches": 20,
+    "full_optimizer_updates": 500,
+    "forward_relative_max": 0,
+    "gradient_relative_max": 0,
+    "trajectory_relative_max": 0,
+    "both_disabled_gradient_records": 4240,
+    "base_records": 201216,
+    "actual_profile_selection": "auto_closed_profile_v1 all three checkpoint flags true",
+    "same_runtime_code": "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+    "scope": "C35/R2/this nativeS stream only, no R1/A5/ABBA or standalone speed qualification",
+    "newSDK_verification_and_sync_complete": false
+  },
+  "new_FP32_projection": {
+    "GPU_job": "4524550",
+    "elapsed_seconds": 53,
+    "case_passed": 12,
+    "case_failed": 36,
+    "encoder_forwards": 192,
+    "FP64_encoder_forwards": 0,
+    "projection_calls": 2304,
+    "source_resource_closed": true,
+    "scientific_adopted": false,
+    "original_formal_FP32_21pass27fail_unchanged": true
+  },
+  "terminal_analysis": {
+    "CPU_job": "4524554",
+    "elapsed_seconds": 7,
+    "all_field_transform_records": 1872,
+    "scalar_replay_mismatches": 0,
+    "conditional_nearest_F32_unattainable_components": 0,
+    "new_model_calls": 0,
+    "encoder_head_input_rounding_cause_proven": false,
+    "universal_FP32_floor_claimed": false
+  },
+  "Native_S10000_panel_log": {
+    "GPU_job": "4524476",
+    "audit_CPU_job": "4524552",
+    "audit_seconds": 13,
+    "native_packets": 170295,
+    "history_rows": 56738,
+    "full_source_journal_config_summary_typed_matched": true,
+    "failed_sync_CPU_retained": "4524553",
+    "sync_overlay_CPU_job": "4524555",
+    "sync_seconds": 50,
+    "run_id": "vcxcfx54",
+    "entity": "mint_leaf258",
+    "project": "phychem-model-v3",
+    "remote_state": "finished",
+    "remote_history_rows": 56738,
+    "remote_first_step": 0,
+    "remote_last_step": 56737,
+    "original_SDK_retained": true,
+    "remote_metric_values_independently_recompared": false,
+    "known_online_total_two_projects": 70
+  },
+  "new_4090_scope": {
+    "source_frozen": true,
+    "actual_submitted": false,
+    "node": "compute-0-20",
+    "physical_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+    "old_pending_A01_4521338_unchanged": true,
+    "new4090_capacity_or_numeric_success_claimed": false
+  },
+  "passive_geometry_H0_trace": "Source preparation, no new math candidate or additional GPU yet",
+  "D1_current_authority": "draft3",
+  "draft5_jointfreeze": false,
+  "finalD1_D7_delivered": false,
+  "last_complete_ledger": "job_ledger_model_v3_active_v34.json",
+  "ledger34_parent_count": 523,
+  "ledger34_missing_new_parents": [
+    "4524554",
+    "4524555"
+  ],
+  "full_remaining_requirements_report": "PRETRAINING_PREPARATION_20261028_v1.md"
+}

@@ -1,0 +1,1914 @@
+{
+  "schema": "model_v3_Root_geometry_head_moment_passive_GPU_closure_v1",
+  "status": "ACTUAL_C0_FULL48_HEAD_MOMENT_PASSIVE_TRACE_ALL2496_TERMINALS_BITWISE_EQUAL_SOURCE_RESOURCE_CLOSED",
+  "actual_unix": 1793145996.3396037,
+  "job_id": "4524595",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524595",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4524595|zixiao|COMPLETED|0:0|67|16|compute-0-21\n",
+    "stderr": ""
+  },
+  "result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/RESULT.json",
+    "bytes": 34204,
+    "sha256": "f842093c4bddc279001f865264a854b97576047119ef1e20333e994c982434fa"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_supervisor_4524595.json",
+    "bytes": 3094,
+    "sha256": "82b2e32e2f5241b80e39473513dbfcf650f00d9ee1c03436ee248c064290a654"
+  },
+  "worker_receipt": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_launch_v1_worker_4524595.json",
+    "bytes": 43155,
+    "sha256": "c018c48211b635865d12639eb0ff74db98b176fe6f8cc1be569beb11567f431d"
+  },
+  "execution_request": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_passive_v1_source/execution_request_v1.json",
+    "bytes": 813728,
+    "sha256": "6a0d9c6b963074cf245047be6f6e7ff0122f8a132f83b492ccdbd4193406a8d5"
+  },
+  "source_pins": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_head_moment_passive_v1_source/source_pins_v1.json",
+    "bytes": 340666,
+    "sha256": "6262083fec8e5241e324bbb3fd32128f66ecaaffa781175ad954944caa6335de"
+  },
+  "method_publication": {
+    "bytes": 6686,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_v27_methods_publication_actual_v1.json",
+    "sha256": "9881908147c1f857a84cdd5beaf4de76c608f21a0f8a0da6cea44c551c1f751a"
+  },
+  "sources_before": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/sources_before.json",
+    "bytes": 473414,
+    "sha256": "5b9019e93273c9ab07c8da02847243fc0a1e6d4d51da54294ee3d2434b33dd6e"
+  },
+  "sources_after": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/sources_after.json",
+    "bytes": 473414,
+    "sha256": "5b9019e93273c9ab07c8da02847243fc0a1e6d4d51da54294ee3d2434b33dd6e"
+  },
+  "current_source_refs_rehashed": 1269,
+  "cases": [
+    {
+      "case_id": "C1-0__two__H1_fixed__seed20261026",
+      "case_json": {
+        "bytes": 123990,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_00/TRACE_CASE.json",
+        "sha256": "8f73415e34d6cefb5a3f6da6524dee7c0908e47f36c0495563432eb92a922293"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_00/role_0.npz",
+          "bytes": 2051744,
+          "sha256": "8107756c6530c353c9923d2086dbafe10807e1f2fa5372e238bd7739b68a9f73"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_00/role_1.npz",
+          "bytes": 1786088,
+          "sha256": "08efa5a63407a0f25638974db50c05764070f8710f85deedaec499d9e78d98a9"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_00/role_2.npz",
+          "bytes": 1786088,
+          "sha256": "e71700ded02c6ec5e6706c4e2ae9d84ac21c45413ab6f85e19da789777dfef63"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_00/role_3.npz",
+          "bytes": 1786088,
+          "sha256": "cb0db165df702ed10796f7dcbeed859675808c9ef7db1a5120885b6199effb66"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_00/C1-0__two__H1_fixed__seed20261026__terminals.npz",
+        "bytes": 182016,
+        "sha256": "7805a819856b3693e6ee57d69a0a9b3f2b97130609d20fefca74cb9ee3d560b8"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__two__H1_fixed__seed20261027",
+      "case_json": {
+        "bytes": 124000,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_01/TRACE_CASE.json",
+        "sha256": "993e5e0c4c726fbc0363e3b1bc27be9869a0aaf8e44a572a85c49b3f3ad54fd5"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_01/role_0.npz",
+          "bytes": 2051744,
+          "sha256": "6d1e635851a47bdcd9700b55cc252490b1f8fc4be06a518260cc605789365b2e"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_01/role_1.npz",
+          "bytes": 1786088,
+          "sha256": "20a11edf4c10ecb9a99d3a08b20d81343f16ae6e44235d0a7a99cc2fddbbb4b7"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_01/role_2.npz",
+          "bytes": 1786088,
+          "sha256": "dfb90bbc570717217318fa07caec86d616ecb36a03d96980393a34df276ba411"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_01/role_3.npz",
+          "bytes": 1786088,
+          "sha256": "904c19df8ac5adc7195352dc13e7fcd3e461143082392257af43a13c2a4e0fd3"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_01/C1-0__two__H1_fixed__seed20261027__terminals.npz",
+        "bytes": 182030,
+        "sha256": "9cf4e103ecde96ed33b4f3d798cc91b940dd6b8ead049d3396cf6d50105e41f5"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__two__H1_learned__seed20261026",
+      "case_json": {
+        "bytes": 124937,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_02/TRACE_CASE.json",
+        "sha256": "4905a48dcbac0c7d8d64453ecaf7021cb15175baa3496e0d521746068ba1d1e1"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_02/role_0.npz",
+          "bytes": 2051744,
+          "sha256": "8107756c6530c353c9923d2086dbafe10807e1f2fa5372e238bd7739b68a9f73"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_02/role_1.npz",
+          "bytes": 1786088,
+          "sha256": "08efa5a63407a0f25638974db50c05764070f8710f85deedaec499d9e78d98a9"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_02/role_2.npz",
+          "bytes": 1786088,
+          "sha256": "e71700ded02c6ec5e6706c4e2ae9d84ac21c45413ab6f85e19da789777dfef63"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_02/role_3.npz",
+          "bytes": 1786088,
+          "sha256": "cb0db165df702ed10796f7dcbeed859675808c9ef7db1a5120885b6199effb66"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_02/C1-0__two__H1_learned__seed20261026__terminals.npz",
+        "bytes": 182016,
+        "sha256": "d3c02c31327ef1d522b6199c8cc794a23aaf927f6cfa549b57eb1573797852d6"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__two__H1_learned__seed20261027",
+      "case_json": {
+        "bytes": 124929,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_03/TRACE_CASE.json",
+        "sha256": "6fc38eb35e1d402503bbf4cc4a2627c3bb4887643f0d8ff6de5eb2acd7b6db72"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_03/role_0.npz",
+          "bytes": 2051744,
+          "sha256": "6d1e635851a47bdcd9700b55cc252490b1f8fc4be06a518260cc605789365b2e"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_03/role_1.npz",
+          "bytes": 1786088,
+          "sha256": "20a11edf4c10ecb9a99d3a08b20d81343f16ae6e44235d0a7a99cc2fddbbb4b7"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_03/role_2.npz",
+          "bytes": 1786088,
+          "sha256": "dfb90bbc570717217318fa07caec86d616ecb36a03d96980393a34df276ba411"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_03/role_3.npz",
+          "bytes": 1786088,
+          "sha256": "904c19df8ac5adc7195352dc13e7fcd3e461143082392257af43a13c2a4e0fd3"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_03/C1-0__two__H1_learned__seed20261027__terminals.npz",
+        "bytes": 182027,
+        "sha256": "a9e38382b46fa905b1ca495e9e86836ab4de912c3195d39244bd759915fe6ad5"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__two__H2_fixed__seed20261026",
+      "case_json": {
+        "bytes": 124013,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_04/TRACE_CASE.json",
+        "sha256": "762b24793aaab6089bdd4f88877522b247fd90c9a73cf9c16a8bd6336260f85b"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_04/role_0.npz",
+          "bytes": 2051744,
+          "sha256": "0ce88548a42e4811dcafb6d996c9176191093f7721e27d16abe0ff905a9378e4"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_04/role_1.npz",
+          "bytes": 1786088,
+          "sha256": "5a1bccffffc5cd80a4b3e748ae7d6de3f6359e9962daa9ae11682a118d0d5e8d"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_04/role_2.npz",
+          "bytes": 1786088,
+          "sha256": "bf6107418139f20cdce7483ec46a18645d9aa561129a0afbcf65093387f44f68"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_04/role_3.npz",
+          "bytes": 1786088,
+          "sha256": "c29ef5dd4321610298fafe1c94113d8404ebab5839a4ad0fb7222c2241287ff4"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_04/C1-0__two__H2_fixed__seed20261026__terminals.npz",
+        "bytes": 182038,
+        "sha256": "2bc4ef60db3223a9fa26aeaeff145836de87ed9cace09f1326937493971b404a"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__two__H2_fixed__seed20261027",
+      "case_json": {
+        "bytes": 124021,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_05/TRACE_CASE.json",
+        "sha256": "3918cb12931c57d02d921071bee2ed9daf51587286f74dc6d70a1964f1141932"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_05/role_0.npz",
+          "bytes": 2051744,
+          "sha256": "59d160de506fe681d433e6258fce6762750c85322776cb796bad7782733bcd6b"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_05/role_1.npz",
+          "bytes": 1786088,
+          "sha256": "86e365591d3a1e05da1a028a0b42a5f9e2a1183e5b8cad3f7d16ec07c8932476"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_05/role_2.npz",
+          "bytes": 1786088,
+          "sha256": "9f3058d6dacde3c7c2d798c6af07be3f12cb1e10118f047282e9bd1f951f1013"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_05/role_3.npz",
+          "bytes": 1786088,
+          "sha256": "9f60b760159b56d262dddad2ec77239cf96cf8d70c54177211ea514fa77b1dee"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_05/C1-0__two__H2_fixed__seed20261027__terminals.npz",
+        "bytes": 182043,
+        "sha256": "2d08fbdb8ea3be036b47fbedbbda5cf2067103b6fe2a8ebedcf76012c17f4506"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__two__H3_fixed__seed20261026",
+      "case_json": {
+        "bytes": 124044,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_06/TRACE_CASE.json",
+        "sha256": "696cf572aa70231b28dce0faf636766da580f0efec2e9a15989c7188efc501bc"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_06/role_0.npz",
+          "bytes": 2051744,
+          "sha256": "01a3c1993d6067d1f67cae7007125f68c147f5947e0b2f6112f1261bf4f3cee6"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_06/role_1.npz",
+          "bytes": 1786088,
+          "sha256": "6c027261cf7bcf0edb3295b20e9a88ad796a331f241a159f5cec6583224629a8"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_06/role_2.npz",
+          "bytes": 1786088,
+          "sha256": "8e797d4727273081dd1ef25517e2c97a9664fb0264a6ac21d85cdbd5d57baf37"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_06/role_3.npz",
+          "bytes": 1786088,
+          "sha256": "a03e395707bb159cc0fd21cc2a4254ff0fb89f97fc850a8db0036af7c94fcb7d"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_06/C1-0__two__H3_fixed__seed20261026__terminals.npz",
+        "bytes": 182009,
+        "sha256": "20941fdd15b29b4331982a88fb1e0010825bd35bc39cbe2581d47dde56adef0a"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__two__H3_fixed__seed20261027",
+      "case_json": {
+        "bytes": 123961,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_07/TRACE_CASE.json",
+        "sha256": "3f9c5682c8501f07dd72bd1e65700caf43f0d57b4bba34d3aa67b2b62f92fef2"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_07/role_0.npz",
+          "bytes": 2051744,
+          "sha256": "d6bd1b974df30fa063b25ffde59a390f4d47cc9ffa20697241d97660f6d5817e"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_07/role_1.npz",
+          "bytes": 1786088,
+          "sha256": "7bb7fb1ec194fe4f0126934fd7b4340a56c674db7930ab4e50d62f4f410e9564"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_07/role_2.npz",
+          "bytes": 1786088,
+          "sha256": "32ef4007997a360ba8be1458ac7bf229d4ea4197d16f18c3c60b9320d8b75b59"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_07/role_3.npz",
+          "bytes": 1786088,
+          "sha256": "ca646731ae63568adf8292ec831bc8772d25c8ca00ef493328cc70ed6853786b"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_07/C1-0__two__H3_fixed__seed20261027__terminals.npz",
+        "bytes": 181968,
+        "sha256": "be564b2265387c32189407df0b94a1d0a5903ca8d4efa838322c9ba4783ecada"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__three__H1_fixed__seed20261026",
+      "case_json": {
+        "bytes": 124179,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_08/TRACE_CASE.json",
+        "sha256": "1c0f2e8c887f7d6ffc8d429ae438ff11bdc6d8b14cf37bcce3bfb6c9c0988ec7"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_08/role_0.npz",
+          "bytes": 2891568,
+          "sha256": "956ea6daf727f90cee5658b578360ca8c77ab37c9ed1f7bf6bc5f1af092797cb"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_08/role_1.npz",
+          "bytes": 2625912,
+          "sha256": "1bb23135129bcb62608fb3cf05b19d12c7faf83f1fa92012e801fb9e523fc0d5"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_08/role_2.npz",
+          "bytes": 2625912,
+          "sha256": "ed3b7db1afe5c815e23b3093b92605670ae7661650e6cb7a12f4ef55a1efa262"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_08/role_3.npz",
+          "bytes": 2625912,
+          "sha256": "9c54fe95d83a573e9a0fc0b9cfb7fbe4ad2ac5c1b7fac8ef5c46fc3ad0e45d18"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_08/C1-0__three__H1_fixed__seed20261026__terminals.npz",
+        "bytes": 241765,
+        "sha256": "c2f5c8a884b4c13160ee26011c3a5542377fcd66cb260978ec25df37c520a8b3"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__three__H1_fixed__seed20261027",
+      "case_json": {
+        "bytes": 124214,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_09/TRACE_CASE.json",
+        "sha256": "5f12049f69a3802cf3f42e2d92fb8f2069c2d9106a70d2af3f43e460175b9992"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_09/role_0.npz",
+          "bytes": 2891568,
+          "sha256": "dc576b53d1f702aeef6a2639efbd90e23ca40c5b3703867207578bdcaca064b4"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_09/role_1.npz",
+          "bytes": 2625912,
+          "sha256": "1674a6549feefb6efd0a9c7db6eed4db2ef6743fe6b4677ea2026c5f910be746"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_09/role_2.npz",
+          "bytes": 2625912,
+          "sha256": "6bbc91733f023880978c2c932582043f0aee2c97cc516fc04be62aa7fee63227"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_09/role_3.npz",
+          "bytes": 2625912,
+          "sha256": "e005e77b940379bb767d5cbbabaa11ba66394a2c1cb094fdca7e5c0f58830c24"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_09/C1-0__three__H1_fixed__seed20261027__terminals.npz",
+        "bytes": 241693,
+        "sha256": "4ecfc15bbdf4a593b8032c699d72667909c187bda75b7b3e347296fc64f7cb36"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__three__H1_learned__seed20261026",
+      "case_json": {
+        "bytes": 125145,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_10/TRACE_CASE.json",
+        "sha256": "b463e598073df9d59fb2a19d674a9a2b7f79fec896a14c69afabaf9ea75b593e"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_10/role_0.npz",
+          "bytes": 2891568,
+          "sha256": "956ea6daf727f90cee5658b578360ca8c77ab37c9ed1f7bf6bc5f1af092797cb"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_10/role_1.npz",
+          "bytes": 2625912,
+          "sha256": "1bb23135129bcb62608fb3cf05b19d12c7faf83f1fa92012e801fb9e523fc0d5"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_10/role_2.npz",
+          "bytes": 2625912,
+          "sha256": "ed3b7db1afe5c815e23b3093b92605670ae7661650e6cb7a12f4ef55a1efa262"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_10/role_3.npz",
+          "bytes": 2625912,
+          "sha256": "9c54fe95d83a573e9a0fc0b9cfb7fbe4ad2ac5c1b7fac8ef5c46fc3ad0e45d18"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_10/C1-0__three__H1_learned__seed20261026__terminals.npz",
+        "bytes": 241765,
+        "sha256": "53c36800cd6f1d262857416448698f33132e1f154dfce189fbb0e9b11a5947c0"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__three__H1_learned__seed20261027",
+      "case_json": {
+        "bytes": 125162,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_11/TRACE_CASE.json",
+        "sha256": "e0903d698abb2c0c2f85bf704e67f8f52aad43dd9e7245bcedf59d636dc67e77"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_11/role_0.npz",
+          "bytes": 2891568,
+          "sha256": "dc576b53d1f702aeef6a2639efbd90e23ca40c5b3703867207578bdcaca064b4"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_11/role_1.npz",
+          "bytes": 2625912,
+          "sha256": "1674a6549feefb6efd0a9c7db6eed4db2ef6743fe6b4677ea2026c5f910be746"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_11/role_2.npz",
+          "bytes": 2625912,
+          "sha256": "6bbc91733f023880978c2c932582043f0aee2c97cc516fc04be62aa7fee63227"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_11/role_3.npz",
+          "bytes": 2625912,
+          "sha256": "e005e77b940379bb767d5cbbabaa11ba66394a2c1cb094fdca7e5c0f58830c24"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_11/C1-0__three__H1_learned__seed20261027__terminals.npz",
+        "bytes": 241691,
+        "sha256": "a3d5e39944daeafb7e92aa3542e47c6b279d8f363ff10bcc492eedd42bbd44e2"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__three__H2_fixed__seed20261026",
+      "case_json": {
+        "bytes": 124209,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_12/TRACE_CASE.json",
+        "sha256": "bc6a6c41454e8780ddf8f34414b5d627d444519daa2687bd97d6c282664c04bf"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_12/role_0.npz",
+          "bytes": 2891568,
+          "sha256": "c9daf3bfe043faa717d18bfd4a58a869fe545e62854b8f3a5cea046bf72d4557"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_12/role_1.npz",
+          "bytes": 2625912,
+          "sha256": "8ed512528d10ee31ba5e4adfe5538c6e00e55746e53db3685b0782864fe4da32"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_12/role_2.npz",
+          "bytes": 2625912,
+          "sha256": "267e8338567fcd2b34247bd6fa32d50fb092a0315f6e963d776691da5a274b46"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_12/role_3.npz",
+          "bytes": 2625912,
+          "sha256": "64464993e866936a1f145cf35e4295e682a039ea27bab70c08dd02205e26069e"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_12/C1-0__three__H2_fixed__seed20261026__terminals.npz",
+        "bytes": 241798,
+        "sha256": "094f98ad25abae34fa06b476de08288f61eb37afc65b9936eabd3f739b192401"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__three__H2_fixed__seed20261027",
+      "case_json": {
+        "bytes": 124216,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_13/TRACE_CASE.json",
+        "sha256": "9ca03cdba17e3869ae5176651f6a806914ddaeac93dc7021d392b1f5b4cf20cc"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_13/role_0.npz",
+          "bytes": 2891568,
+          "sha256": "10f3cfcf261a66f893a9d1f27503438407d1aa904afda828f741fb99b167c48a"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_13/role_1.npz",
+          "bytes": 2625912,
+          "sha256": "3a1e87a2663623ec1c1365646db496143391e5d2a96e5b46cd6c9cef9a96a233"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_13/role_2.npz",
+          "bytes": 2625912,
+          "sha256": "ea5aa0934285841d2c9d115e05e4f5d34697a7d13f6b1467644c1b9ee6a5204c"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_13/role_3.npz",
+          "bytes": 2625912,
+          "sha256": "93b56556cb643bcb63a060532f648feb5a3b1a34b501da938d0c80ceea654eca"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_13/C1-0__three__H2_fixed__seed20261027__terminals.npz",
+        "bytes": 241705,
+        "sha256": "c861e0c7c73bca2d500154d32863959c3c44c9f7c39afac86990d06ac59caf16"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__three__H3_fixed__seed20261026",
+      "case_json": {
+        "bytes": 124246,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_14/TRACE_CASE.json",
+        "sha256": "56c386fefe224fdda29790ae8628f4d9514669fe7f2e3ea359ff27857a806024"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_14/role_0.npz",
+          "bytes": 2891568,
+          "sha256": "c79d1d7fa3008aa1e53e4fd3716c3ac1acad1e62918863e3298a1bd67086a286"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_14/role_1.npz",
+          "bytes": 2625912,
+          "sha256": "9a496f839c39bb2c7d9977b5f9feae7c7ad1658d8603c2faa665f0a327caa2f3"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_14/role_2.npz",
+          "bytes": 2625912,
+          "sha256": "9be65bb6d01c8c513caf16774c45b3628914cb8fcc586631b6b488f05a10781b"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_14/role_3.npz",
+          "bytes": 2625912,
+          "sha256": "01ad17d547174927f7c8c393f0b1a516c30b8f19008fa7c0f659ec4e67d6d2aa"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_14/C1-0__three__H3_fixed__seed20261026__terminals.npz",
+        "bytes": 241756,
+        "sha256": "7b17ff2677d223e3c88500806ebce48990ef4939d20f629b58b5733aecc4ae37"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-0__three__H3_fixed__seed20261027",
+      "case_json": {
+        "bytes": 124174,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_15/TRACE_CASE.json",
+        "sha256": "19584775e25451475e3c8890d42b45c8c3d4ef74927d11cd1014a5229e001754"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_15/role_0.npz",
+          "bytes": 2891568,
+          "sha256": "85b511ab097d408996547d867ceeace2dde9c7b33b57150b5b60cb7dd79129d2"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_15/role_1.npz",
+          "bytes": 2625912,
+          "sha256": "3e4d6b59cc2ad532ae7e8118c661063d3906d5b07983bfa99bec037fae9ef98e"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_15/role_2.npz",
+          "bytes": 2625912,
+          "sha256": "9da4970cef3ff7f270181bb58422d372a03945bc16a8481a30049c2eb9b1a952"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_15/role_3.npz",
+          "bytes": 2625912,
+          "sha256": "810cb641afdc7a40af1a9793c982f4695f7e54ef1b3bbbe8043cfc1f2f33d056"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_15/C1-0__three__H3_fixed__seed20261027__terminals.npz",
+        "bytes": 241638,
+        "sha256": "0d85782a9e2d6f2f409b959293e23cea2ed0ae95675d6d8fbedc1cdd0da838fd"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__two__H1_fixed__seed20261026",
+      "case_json": {
+        "bytes": 108235,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_16/TRACE_CASE.json",
+        "sha256": "4aa245f4af6f441f4010a0f3443735903c21ba92e45e07e2010bd4eb1b9f065b"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_16/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "a51d52b237c06723f7dda79859ea5ef29a5bc36fa96aa8e79dfb2ff52779acfc"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_16/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "4cbe9320e50a0c323ee70229d039eeb6ce2ade6a33d814a10aaad464463cf59f"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_16/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "1d1c92d0d1bc07c7a6a13be114806a3a9c5f7331a9bd732bc8f93953c882f634"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_16/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "0c3bd41b18139996151834ff05ca8692eae2a911fcf9050e33520340fd6c8e07"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_16/C1-a__two__H1_fixed__seed20261026__terminals.npz",
+        "bytes": 182570,
+        "sha256": "14c6caa3ad8065124ee1fc1955dca1898946a74c3c64ea2dd10ea5733b23e0b3"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__two__H1_fixed__seed20261027",
+      "case_json": {
+        "bytes": 108234,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_17/TRACE_CASE.json",
+        "sha256": "542d1ada7c802b11fe53e1c5f51b5c97690d36a91b797a7b63fed18901a1c363"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_17/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "eabdcd46947c9844e4fb0ff9d5639fb9eedc079ddcd92180be54b29e8cc9f9c4"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_17/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "b9db7f37aaebecd8dc7f4604511009f75542475637af82a07905bfdaac0c58ac"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_17/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "e6fc3cb3507defa988c7bfecceb934bd520a3d460d0f1834ae39686815d6b4f6"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_17/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "e4ffaed5971b4e24c2cfd74801dd0fabed8bde93ea3bc085d934b1005f9a269d"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_17/C1-a__two__H1_fixed__seed20261027__terminals.npz",
+        "bytes": 181947,
+        "sha256": "0f9493f6acefa9657bbc6e89da811a7cefe7b5ee7ae941900f14fdeeb7c6ade0"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__two__H1_learned__seed20261026",
+      "case_json": {
+        "bytes": 109180,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_18/TRACE_CASE.json",
+        "sha256": "fc4d31ff63c7c96dba7dbb6f3746f2f7940dbcf0e227fa1b643e046d643027ae"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_18/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "a51d52b237c06723f7dda79859ea5ef29a5bc36fa96aa8e79dfb2ff52779acfc"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_18/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "4cbe9320e50a0c323ee70229d039eeb6ce2ade6a33d814a10aaad464463cf59f"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_18/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "1d1c92d0d1bc07c7a6a13be114806a3a9c5f7331a9bd732bc8f93953c882f634"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_18/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "0c3bd41b18139996151834ff05ca8692eae2a911fcf9050e33520340fd6c8e07"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_18/C1-a__two__H1_learned__seed20261026__terminals.npz",
+        "bytes": 182570,
+        "sha256": "135c670e0478eb0a29b623fa21d57052c37b373c5a29db317d42c85ffc1c9688"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__two__H1_learned__seed20261027",
+      "case_json": {
+        "bytes": 109163,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_19/TRACE_CASE.json",
+        "sha256": "08a56d9b54d69ca6f2cb0e729bc9acc3ad5a4d7c169673f868334534e48af25a"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_19/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "eabdcd46947c9844e4fb0ff9d5639fb9eedc079ddcd92180be54b29e8cc9f9c4"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_19/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "b9db7f37aaebecd8dc7f4604511009f75542475637af82a07905bfdaac0c58ac"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_19/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "e6fc3cb3507defa988c7bfecceb934bd520a3d460d0f1834ae39686815d6b4f6"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_19/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "e4ffaed5971b4e24c2cfd74801dd0fabed8bde93ea3bc085d934b1005f9a269d"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_19/C1-a__two__H1_learned__seed20261027__terminals.npz",
+        "bytes": 181947,
+        "sha256": "8f9298419c3f8b42f918c0dbb2bdf55b1ab3caa932e3212131a31614a124f0aa"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__two__H2_fixed__seed20261026",
+      "case_json": {
+        "bytes": 108245,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_20/TRACE_CASE.json",
+        "sha256": "a4fa1c1937e9585bb9bd39675655272c01cdc066099f94fb88c43f46f87e3b10"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_20/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "4d0ee3fe69aa7b0bd88b7a246127f3636ad47939689387aa79366b1fd903e10e"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_20/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "f0a622e30a93d25ff3f0285fb36ba8b0985fd4d0c90953da7ff4a161bb4303e6"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_20/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "04cfe126acf845d7e0304160e2cea1b9efaffb7f2c77065211952caa8edb5c37"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_20/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "1cad2d9e79ee3850cc27ce2e5046b18b172cf4b81a0f64b6226a4ae4dc54ee40"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_20/C1-a__two__H2_fixed__seed20261026__terminals.npz",
+        "bytes": 182591,
+        "sha256": "50a9aca20deea957b761a75e01fd5607a6888d607c631620ce5f081bf6f966a1"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__two__H2_fixed__seed20261027",
+      "case_json": {
+        "bytes": 108248,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_21/TRACE_CASE.json",
+        "sha256": "75dc364533eecc9bde30e07f4611276feca43b34bd233f96ca58588918053e5a"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_21/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "4351b4fc87ea2fec5fcdcf0389609c12cd2a3f17d5bb23d1e5df27904c712e52"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_21/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "b99b0b643e7f65b5f268505d8e55681885d4b2eb1a642afbd3544dfe227481d7"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_21/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "c9568e8a0ca1cea4d0586f7e8fdd2d3cf1370214c55f4a21ea8aea248957c18a"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_21/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "c981e9f1e65c4e0af2385493ca3ffc264dbff009ba8151ac453059539236a970"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_21/C1-a__two__H2_fixed__seed20261027__terminals.npz",
+        "bytes": 181936,
+        "sha256": "836693b7fae5bf787ae1afd2632a05f5cf843f54b254695adb57c5405d295028"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__two__H3_fixed__seed20261026",
+      "case_json": {
+        "bytes": 108268,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_22/TRACE_CASE.json",
+        "sha256": "457d58dff88fe9f1c2b220b4c95aa62deb7d76ce5245182cb552e9cf9188c643"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_22/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "8fdba255d90859358ff28e815ca5173e0287afd3fb9c16256913b0413b0a0553"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_22/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "910078252a8a976018310f8e5257f5d422d48f7eac346ded8367600bd7c0468d"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_22/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "53a5d07e10a61cc9333f7289414cf050f011ed4a8a464334701e2835d43e409a"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_22/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "9cfb4ffd9de5c39166a990cbcb0d2e9a42cca5b13684beead4704abf3d4e52fb"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_22/C1-a__two__H3_fixed__seed20261026__terminals.npz",
+        "bytes": 182585,
+        "sha256": "5a29d025bfb5426623961e1616b9ef45a6cc2ff60f732228923465f0ca2b106b"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__two__H3_fixed__seed20261027",
+      "case_json": {
+        "bytes": 108228,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_23/TRACE_CASE.json",
+        "sha256": "0fbf74435c2aae0cbd2c4c9a79c1932b991a658de944e697c53d242fd3c488ab"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_23/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "82182082bba784b9abd08ba57f9de011c4b803e117d625ff9db107656cb5afb3"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_23/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "0bec9f3b8a6966894f769c088a34bc8fd74021fd242c5a9a3dfe6789e1ae7cf0"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_23/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "037fd09f683bcfb2ee48dc179ff0f52fa00c85f9010fff4ca0727364d2b042fd"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_23/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "92ca5db69e78fc959fe20f81edbec1b139d5f2eafb21ff1c0bef48c3fdf7be73"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_23/C1-a__two__H3_fixed__seed20261027__terminals.npz",
+        "bytes": 181927,
+        "sha256": "aa2dc42d4abaeea8c4f8af99608052695f719ed06183889369ca0d988be394ec"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__three__H1_fixed__seed20261026",
+      "case_json": {
+        "bytes": 108418,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_24/TRACE_CASE.json",
+        "sha256": "34cd5ba7b3293c514a7a7a81044f39c81258164e8260eab130aa4804cb067222"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_24/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "ad74112f46cd554c4b3228aebc54ae716395c0656486a3ee400ed380f0ee699e"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_24/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "7419da1deb267ed708abc195c24d8227336baa3896391cec2fd26c1d824d18f5"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_24/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "1e2590075667ea17045e4eed932598ef31f2b71b564e0d1f165303b1407b7287"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_24/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "1108f81e89b9bf9875bd91dd0d4ae9645cc5fcbaf3b02f2953568800715bb24b"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_24/C1-a__three__H1_fixed__seed20261026__terminals.npz",
+        "bytes": 242337,
+        "sha256": "69a8cdb1707b14e38af678ca9620bfea2d5c91e86395c1f32406ee3ef0eb5135"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__three__H1_fixed__seed20261027",
+      "case_json": {
+        "bytes": 108433,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_25/TRACE_CASE.json",
+        "sha256": "b4dfdbb616b15bafa1faca1fd46023e7670192cd966c045513fc90940c9ae767"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_25/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "b9f1b5da26663f01326d1bfc9adcb61440719b2fc220731d319d33a6b5ca3f52"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_25/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "0d524d9cdcb1df8dc67a53e79cd7eb32cc8fe786e9e36166207845b8f6131eb4"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_25/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "a5a0302ffcd52842a7d86bdf87f1a890d1498063fdfc7dc1c677dcfa59edc59b"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_25/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "ca0e75b49f104af7a59a50fc100b0da9b66a557d659e94fe44410e3ed8b475a9"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_25/C1-a__three__H1_fixed__seed20261027__terminals.npz",
+        "bytes": 241409,
+        "sha256": "8d900936a834b73ab5ab748fdf41a4030bebe31d9460b26153ef0ff6e966a0bf"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__three__H1_learned__seed20261026",
+      "case_json": {
+        "bytes": 109377,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_26/TRACE_CASE.json",
+        "sha256": "1869b56f4da9ac53ebba2a3e7fa99f8871aab5b3a3805bdba9246ee88f1f460e"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_26/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "ad74112f46cd554c4b3228aebc54ae716395c0656486a3ee400ed380f0ee699e"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_26/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "7419da1deb267ed708abc195c24d8227336baa3896391cec2fd26c1d824d18f5"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_26/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "1e2590075667ea17045e4eed932598ef31f2b71b564e0d1f165303b1407b7287"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_26/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "1108f81e89b9bf9875bd91dd0d4ae9645cc5fcbaf3b02f2953568800715bb24b"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_26/C1-a__three__H1_learned__seed20261026__terminals.npz",
+        "bytes": 242337,
+        "sha256": "05e8959fa09cca2fa11adffc943bdadc0fde3c5c599ab4e4a65776698b30b9b2"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__three__H1_learned__seed20261027",
+      "case_json": {
+        "bytes": 109362,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_27/TRACE_CASE.json",
+        "sha256": "23b3db244af7a0b44b059bcf220a1338c93ce3653f627c8e0898ea501eb15e34"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_27/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "b9f1b5da26663f01326d1bfc9adcb61440719b2fc220731d319d33a6b5ca3f52"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_27/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "0d524d9cdcb1df8dc67a53e79cd7eb32cc8fe786e9e36166207845b8f6131eb4"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_27/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "a5a0302ffcd52842a7d86bdf87f1a890d1498063fdfc7dc1c677dcfa59edc59b"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_27/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "ca0e75b49f104af7a59a50fc100b0da9b66a557d659e94fe44410e3ed8b475a9"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_27/C1-a__three__H1_learned__seed20261027__terminals.npz",
+        "bytes": 241409,
+        "sha256": "6af5b601b98d2e2f0d10eefc9648c756ca7b9f53d2409caf63c0f2ccbb27069c"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__three__H2_fixed__seed20261026",
+      "case_json": {
+        "bytes": 108423,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_28/TRACE_CASE.json",
+        "sha256": "2c888ca746e984924ca5bc4ada40c707d33a9aa680390423d03b118f0e3d8379"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_28/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "26c12565c063ade7e9395318f72fe61c7380b13be11dcf24a8acc8426357e3bb"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_28/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "916ad4832aa3977ed3bd564d053eb90625e169a2f6916362fca80fc6f9709622"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_28/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "d42f3abd780e337b1d3f5b82b454a48baa5079c120fb5996094dc3a6928bf477"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_28/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "80a8f68526760e7412ca591c305b736c7c9e72d9d7a655f94a362afb0c259f6b"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_28/C1-a__three__H2_fixed__seed20261026__terminals.npz",
+        "bytes": 242364,
+        "sha256": "61c70e6508ec899e7eba9e3085cc50169042ac6bd8193477a5b2ce494b9977f7"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__three__H2_fixed__seed20261027",
+      "case_json": {
+        "bytes": 108410,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_29/TRACE_CASE.json",
+        "sha256": "62c64ed1f4d78e61463febaf8240c0801aaeb50b1a41756a169e3e7b83ac5b89"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_29/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "cd4dccfd3442c2d1873dd610d1e569078cef19acad6dbcbcb85b9ac7f5e9749f"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_29/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "d56168d6b8134e0d48ab893d742f3f807723aee8618091c5ccd09ec8dd562c10"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_29/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "39e4e442cf8e03418b30e4c13ee4ee0aa9005d07eeb8d91062d1d77efa328a8b"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_29/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "abc76c89ace46be22be42066f4c79546b4ae6f0253386f4c842eb8034aa8d9a6"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_29/C1-a__three__H2_fixed__seed20261027__terminals.npz",
+        "bytes": 241401,
+        "sha256": "1ea1b0526dc1067c3b65d1037d849d1256ebd6a424de94d2d8b332ac9cdbbfce"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__three__H3_fixed__seed20261026",
+      "case_json": {
+        "bytes": 108449,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_30/TRACE_CASE.json",
+        "sha256": "360edc708eaf699e3606b3f2faecacf4812b87afbb8f7a72bd91810799f59a54"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_30/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "a9b26cd25260a397e2901addea63c5a085028b952735ea32b7996b6695c375a8"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_30/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "79b6714e53f76bb38bcb5c0c9131529579b42e68b60a4a1dd8e4fbd5e8246ef2"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_30/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "fe1c18a18f5ac18043256e2525751a9d97c19619301c1b3f544119886c935ea9"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_30/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "8fe6aa386cb616f05f264fb6e58b8cc345ba9985c9c72a5fdc9c5c10aeb437f9"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_30/C1-a__three__H3_fixed__seed20261026__terminals.npz",
+        "bytes": 242355,
+        "sha256": "80ef7bdb0456034f40a23afef47ddd0e8c84692fd99e8371a5b4de29bd166aa7"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-a__three__H3_fixed__seed20261027",
+      "case_json": {
+        "bytes": 108412,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_31/TRACE_CASE.json",
+        "sha256": "78e84386b1fc6f19d6914cc8c3d650c651196e6b00e11c9f6b178626fa72d72e"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_31/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "e3877740e9a2fecbea0e57b1c3bdf4ceb5217f06a8ad0dac5e6840bd550d7e95"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_31/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "e21ae56d463d1d6ca1b4c034d84c4ae19351ba92d4f00d0c50802b7ef907c182"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_31/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "d0072f2ee357b8bb68a9d218f14bd1c2b15c70032e6455ab6ca06fad6e775e75"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_31/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "f84be66e7e6881f610e819d553f10938a10c3914f3e777dd4362565bc24bddd9"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_31/C1-a__three__H3_fixed__seed20261027__terminals.npz",
+        "bytes": 241392,
+        "sha256": "bb1a2c454919e36ec14cd43ecdbc58595f5e1c74f72ac10bd301736b833b5c73"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__two__H1_fixed__seed20261026",
+      "case_json": {
+        "bytes": 108230,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_32/TRACE_CASE.json",
+        "sha256": "75f20899d2b87404c84654d787214ccb50cbb08bfd416a2a0ac8ac4464fd8ee5"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_32/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "913d11c61c3dcb584080ddef4ff1aa7d65bb4cc58559049daa6ab8dc0e1a3455"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_32/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "f563cca46950e2667282bd42fa62aa92cbb3f72e017dde99bed74d57dedc2970"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_32/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "9f78ccea307df23afd1fc4fe7a77edd94d89058e29a2a183326f9a3c6b4be040"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_32/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "47705102cdd67bd6fa5da144b9aa63a0ff06e2db01eb7c47b9151ba399c0bd83"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_32/C1-b__two__H1_fixed__seed20261026__terminals.npz",
+        "bytes": 182281,
+        "sha256": "bb73d6513f1c8d693ec95052cf4a665e59e96211b87302ee02f20a32a8c87ddf"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__two__H1_fixed__seed20261027",
+      "case_json": {
+        "bytes": 108250,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_33/TRACE_CASE.json",
+        "sha256": "f6f99efba36ba72f541f1978afc10055098a9caf962321dec025a2611519a352"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_33/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "944afceab6092a8358929a90efebadd02d26ca19d0efe7c852f90160693e9a1c"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_33/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "c1b650a3f20c13e75a9718e793258d64b36607cb56d4ba27d4a84b7606a3acda"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_33/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "811b140a7ffedc2a6100e8224d06cac2029946a54399207b5912f14bc6d8d8df"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_33/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "b822243a942b15f0dd3983e92c0c231842dd11acf1e16cb00b3d24bffd5a02b4"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_33/C1-b__two__H1_fixed__seed20261027__terminals.npz",
+        "bytes": 181993,
+        "sha256": "4e210585c5db912a8c4f82c7facf9602032894f27407f519760c9326f2c9b14d"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__two__H1_learned__seed20261026",
+      "case_json": {
+        "bytes": 109191,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_34/TRACE_CASE.json",
+        "sha256": "e4db3cbdf270c7e56e98e86ebba3ce0c733584858790334dd5eda8139bc38c2f"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_34/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "913d11c61c3dcb584080ddef4ff1aa7d65bb4cc58559049daa6ab8dc0e1a3455"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_34/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "f563cca46950e2667282bd42fa62aa92cbb3f72e017dde99bed74d57dedc2970"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_34/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "9f78ccea307df23afd1fc4fe7a77edd94d89058e29a2a183326f9a3c6b4be040"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_34/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "47705102cdd67bd6fa5da144b9aa63a0ff06e2db01eb7c47b9151ba399c0bd83"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_34/C1-b__two__H1_learned__seed20261026__terminals.npz",
+        "bytes": 182279,
+        "sha256": "50739b25f99884b8005b124636090ba636b67c46326d3ce4830303e7cbb3a711"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__two__H1_learned__seed20261027",
+      "case_json": {
+        "bytes": 109173,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_35/TRACE_CASE.json",
+        "sha256": "9591225714dd5dcac7f5b5bee61c1715e7ce6c591ae2b8f206b4b6332ddde26f"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_35/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "944afceab6092a8358929a90efebadd02d26ca19d0efe7c852f90160693e9a1c"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_35/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "c1b650a3f20c13e75a9718e793258d64b36607cb56d4ba27d4a84b7606a3acda"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_35/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "811b140a7ffedc2a6100e8224d06cac2029946a54399207b5912f14bc6d8d8df"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_35/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "b822243a942b15f0dd3983e92c0c231842dd11acf1e16cb00b3d24bffd5a02b4"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_35/C1-b__two__H1_learned__seed20261027__terminals.npz",
+        "bytes": 181989,
+        "sha256": "15ec9586ce6de683b3951d371d45821c8da472d1828500186871d5a592e347d0"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__two__H2_fixed__seed20261026",
+      "case_json": {
+        "bytes": 108256,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_36/TRACE_CASE.json",
+        "sha256": "384e23bcdf56f73f98721e7bbe1665214a4ff748938110cf9cb4bf5ec313ec4c"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_36/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "c494cce8613a9433c819764d7d957b96be7e6fc821dee2a57cbe638f31c40a9c"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_36/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "4ce3d3afcdd8dbdacf682209341e286b8fbf31416509add691bd5546e21f5f0b"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_36/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "5139315dd66f4cfe3366bd22b9eda2dfdcd0b56d97aae02ddf5c62040f0725c3"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_36/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "54b7bd03dd5dca1aa51deb028b51fdafbbf1f6c2eef297bb70a82e151c3019b6"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_36/C1-b__two__H2_fixed__seed20261026__terminals.npz",
+        "bytes": 182310,
+        "sha256": "4eb8ead6c6f8a64dcd32620e661f6339f5cb7aa78d8d626128f4b5614571f640"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__two__H2_fixed__seed20261027",
+      "case_json": {
+        "bytes": 108263,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_37/TRACE_CASE.json",
+        "sha256": "337f914c001d3e51682505f8ea8e68298e8e25bc7acb27919db4f3f97f6a74f3"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_37/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "b75d4251dd96d0a218ece82b8d590f8c138211ada71e8f51b625177a937de059"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_37/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "c8f9d9ab5e3248273976ee9c4c43726fb95c88946cc53e1e120d399c373e7dca"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_37/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "72b99def4eb434ef6abc8a2c2190b67937c4963587a6719c38d92d3c084b30f4"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_37/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "1cccfea5363cac18bbc073162bbb7ab555deadd6bb720f4662935d4b9c7a2b23"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_37/C1-b__two__H2_fixed__seed20261027__terminals.npz",
+        "bytes": 181985,
+        "sha256": "c8745c27beeb8681b577c7b2955947d13154071e61ab3a9f6b61db89f4d35a51"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__two__H3_fixed__seed20261026",
+      "case_json": {
+        "bytes": 108280,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_38/TRACE_CASE.json",
+        "sha256": "0fb000bf58d78c9b403d33c0b8488dd9a82e5f6e1144b14a278c792a25441384"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_38/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "0b769001f01483532eaf06e81e055b830d66e2e7b6c22e5b821c7d2404c35d52"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_38/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "f358fd474ec08d7e8266ce757a6096040449602787fd9dcc6b397881e2aba077"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_38/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "fe84063b90cceb98dc26e247f5a3b2906456f48b776fe4125c3db0696c144d1f"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_38/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "8ba7a1b16be188df9195fd5b80017c78583da67785a3b2a1b843a243f08d4598"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_38/C1-b__two__H3_fixed__seed20261026__terminals.npz",
+        "bytes": 182284,
+        "sha256": "b72635f11fdfed86467b2e37ba3119272a5aeca7667a1d0e8a12186ff73c31e4"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__two__H3_fixed__seed20261027",
+      "case_json": {
+        "bytes": 108234,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_39/TRACE_CASE.json",
+        "sha256": "d506cd85fa646a9e7391ce5cd8b86e300bc10f3ecc9863ae268b7e53c305615b"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_39/role_0.npz",
+          "bytes": 2005810,
+          "sha256": "c6bfeeaf361f8cd0d90e80418641194d45a8657db0329b43444b892fca4a4035"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_39/role_1.npz",
+          "bytes": 1740154,
+          "sha256": "024697c11ba2c889a18edc827b7e092f0eeff89c887fa95e16a5f9054d209ed6"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_39/role_2.npz",
+          "bytes": 1740154,
+          "sha256": "efc553a23fe4f1f24d4af0dfd32999c987f02fb2abd99081128b4027de548735"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_39/role_3.npz",
+          "bytes": 1740154,
+          "sha256": "37e72239a16b687177f383ffe6327dc7e2d1b548f76bc062abbe6f9fa3b9b298"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_39/C1-b__two__H3_fixed__seed20261027__terminals.npz",
+        "bytes": 181967,
+        "sha256": "488dd193afb0279ba9d009a5044c0a7fe9ff0dfdce54b9bf9efe3a04b110cda6"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__three__H1_fixed__seed20261026",
+      "case_json": {
+        "bytes": 108418,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_40/TRACE_CASE.json",
+        "sha256": "eaef72e347bb8614cdc01b9d2bf0e2b223ea8aaf956b90dd190d6caa859605c1"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_40/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "2a861a10acbb9b06d7dd769a17b79943c5cd7587d16919710c279104306aa798"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_40/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "81797652a3d41db5d5c0ded8296991fe05852dbb7e24c7c0db46591480579027"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_40/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "7f34a1be9115c1c38d56f074770916aa8ff756b72c73dbc4918ada6a0e592135"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_40/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "fb0258df73720a39197a3eea2d176bd3fc7ea1266804d9e1b5c57e6a3b220e2f"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_40/C1-b__three__H1_fixed__seed20261026__terminals.npz",
+        "bytes": 242096,
+        "sha256": "f4c008ed125b82a1df8a827bcce7b91de5700702ff2435de34ba1612df40e6f2"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__three__H1_fixed__seed20261027",
+      "case_json": {
+        "bytes": 108436,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_41/TRACE_CASE.json",
+        "sha256": "ff6d9923ccbd60e5ec4df2456bba1a2a262109b2b127468a39393037c0e5e1ce"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_41/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "d8a24f87ab332e8af3bcbb9b307a3cf6d091239ec0558b3927a22dd4042b9eb7"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_41/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "7dd8f8401959d472aea310178c720d84239f0aac3259e07dad79418e651d5d54"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_41/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "2d46cfa5c64a2d64e531d6887cfa73ac4afcae38b14572ecb7d4138b27bfbf49"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_41/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "3fd9cfa68774005d48c3b3b1a86cff456ced498dd35e7b61c39423eda63fedee"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_41/C1-b__three__H1_fixed__seed20261027__terminals.npz",
+        "bytes": 241500,
+        "sha256": "c1e6fecd0b72916008e8e49c09d3c4420c497fde0f53b054f2edc911e879330f"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__three__H1_learned__seed20261026",
+      "case_json": {
+        "bytes": 109352,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_42/TRACE_CASE.json",
+        "sha256": "93522c309c0c8908d625fdf385fbea26cd063774e4dfcb87d566f76fd2fe5b10"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_42/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "2a861a10acbb9b06d7dd769a17b79943c5cd7587d16919710c279104306aa798"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_42/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "81797652a3d41db5d5c0ded8296991fe05852dbb7e24c7c0db46591480579027"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_42/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "7f34a1be9115c1c38d56f074770916aa8ff756b72c73dbc4918ada6a0e592135"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_42/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "fb0258df73720a39197a3eea2d176bd3fc7ea1266804d9e1b5c57e6a3b220e2f"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_42/C1-b__three__H1_learned__seed20261026__terminals.npz",
+        "bytes": 242096,
+        "sha256": "cb98697292e92cc0bbe5aabbb0a53827cc841a07d7479f4a3576a9eb02906aac"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": true,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__three__H1_learned__seed20261027",
+      "case_json": {
+        "bytes": 109368,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_43/TRACE_CASE.json",
+        "sha256": "7c6602ece70af93df8206acde92e3e7679847ae465e27ee75bfaaf21b268ec45"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_43/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "d8a24f87ab332e8af3bcbb9b307a3cf6d091239ec0558b3927a22dd4042b9eb7"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_43/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "7dd8f8401959d472aea310178c720d84239f0aac3259e07dad79418e651d5d54"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_43/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "2d46cfa5c64a2d64e531d6887cfa73ac4afcae38b14572ecb7d4138b27bfbf49"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_43/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "3fd9cfa68774005d48c3b3b1a86cff456ced498dd35e7b61c39423eda63fedee"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_43/C1-b__three__H1_learned__seed20261027__terminals.npz",
+        "bytes": 241496,
+        "sha256": "1a45df155ee63423ff97a35aa4046693bc9f2dfdeb13f71fae0f7baee6f935b7"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__three__H2_fixed__seed20261026",
+      "case_json": {
+        "bytes": 108434,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_44/TRACE_CASE.json",
+        "sha256": "0a4eff01c09d20d3445d480562360986cc1d751ec8cd496367277454bf9df797"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_44/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "7b62793a52e569c12dc1b942911d8b44fcf78878081fcb45b2b0f7476a37ba3b"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_44/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "342366b93267bb68dfb43772a862a8620384fcef0a77a3d8ff4036d7125f8c16"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_44/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "d5e77d13d93a8e1589f130d10376f3c2a58b9f650ba4a6a4eb437687748773c7"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_44/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "aa6daa8063935e389f6c0ccbe46d41373c2725904e0eccaa0863ee712d9ecb01"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_44/C1-b__three__H2_fixed__seed20261026__terminals.npz",
+        "bytes": 242118,
+        "sha256": "04c9d1cbce316f2be72b9b2935bdcf3c796ca646099d7d54081c45618dca3788"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__three__H2_fixed__seed20261027",
+      "case_json": {
+        "bytes": 108450,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_45/TRACE_CASE.json",
+        "sha256": "7e5c9a88406769cfce0644cd1379f4c9ff46e40e755e53daafc19659d11510c5"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_45/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "3ac663c879a25b1652a8823aeed941ddb7b34f0bc3bb9922a1f25dc7969084d2"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_45/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "2163655523752ebaaec58174b5eb95810d87871dee107529f0373233a0b60b3e"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_45/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "05847e21a3a6173a28f533f4010f0ad8723ba2cfe13c46c4c08bff8fd0504b4b"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_45/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "86f35a1ee9206b53d7d94072f77c7f1d9ebbe77de71676f929d31bf9f4e5680b"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_45/C1-b__three__H2_fixed__seed20261027__terminals.npz",
+        "bytes": 241490,
+        "sha256": "49c5a23e9c5c04adca9406d48d398e0d8e99379ff663cc4b7d07e519b9adcdfb"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__three__H3_fixed__seed20261026",
+      "case_json": {
+        "bytes": 108467,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_46/TRACE_CASE.json",
+        "sha256": "b3a7e3b19c6af21255f7c2718fef9e2617866ac7187cfd5111d530f40dac453d"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_46/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "be6a2fd44a9f407b0fe52540bf9b54929bf0b884aae9741d8a647f6708c17d84"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_46/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "c806b2e494daf8b04a1325c2af0ae4e71645df71cb6fdd01bf6957887872550a"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_46/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "eeaec325852c6368f3738686606c6dbb60dbb5e4e38c8096ea934b866d05818e"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_46/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "aa78b5ec88bd060fb9fc3456973f1b8e1775e7d4169b2fb19e41fbd6efb4d2b5"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_46/C1-b__three__H3_fixed__seed20261026__terminals.npz",
+        "bytes": 242094,
+        "sha256": "d9cd33a8d37c1acfbedeb7cda23274ceae8b27eb7265c02449ef4d372ca030ab"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    },
+    {
+      "case_id": "C1-b__three__H3_fixed__seed20261027",
+      "case_json": {
+        "bytes": 108404,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_47/TRACE_CASE.json",
+        "sha256": "e31b570b2acf4fadb6ff8d4faed29db9aa0601d81cf3c0842847ca9f747a986f"
+      },
+      "role_archives": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_47/role_0.npz",
+          "bytes": 2823354,
+          "sha256": "4596b5f4e62f653d1ee7332accd909d98ea4212ea6adbbe223835ea28b143426"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_47/role_1.npz",
+          "bytes": 2557698,
+          "sha256": "5ec5b5eb601394f86eab51584da4f5c55899e569390f1474b715d35c8ff06e00"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_47/role_2.npz",
+          "bytes": 2557698,
+          "sha256": "b5b25ad77756bd55bac9f0dbb0ac3ab8a5ea4bf1a7da6661f8aa7a06679d3c96"
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_47/role_3.npz",
+          "bytes": 2557698,
+          "sha256": "4364e50e483aba2d36e7329076fcf1cc7e804fe7cd0c675cf98f7403ee0d2e0f"
+        }
+      ],
+      "terminal_artifact": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/geometry_head_moment_passive_GPU_v1_4524595/case_47/C1-b__three__H3_fixed__seed20261027__terminals.npz",
+        "bytes": 241460,
+        "sha256": "04de632c552b41b6cc3505c6293036162792a30e4e9c8f25ceec3dddaafb506b"
+      },
+      "all52_terminal_arrays_bitwise_equal_4579": true,
+      "physical_passed": false,
+      "parameter_subset_bytes": 263176
+    }
+  ],
+  "FP32_full_forwards": 192,
+  "FP64_model_or_local_replays": 0,
+  "stage_observations": 1728,
+  "geometry_observations": 512,
+  "terminal_bitwise_controls": 2496,
+  "projection_port_observations": 2304,
+  "head_observations": 384,
+  "magnitude_norm_observations": 192,
+  "parameter_subset_bytes": 12632448,
+  "contains_seeded_synthetic_qMLP_weights": true,
+  "actual_output_stat_bytes": 445643336,
+  "trace_cap_bytes": 536870912,
+  "physical_passed": 15,
+  "physical_failed": 33,
+  "Root_NPZ_payload_opened": false,
+  "whole_private_original_limits_unchanged": true,
+  "resource_samples": 32,
+  "all_NVML_used_memory_known": true,
+  "observed_peak_RSS_bytes": 2190417920,
+  "observed_peak_own_GPU_bytes": 817889280,
+  "scientific_adoption": false,
+  "formal_physics_gate_satisfied": false,
+  "baseline_negative_Root_closure": {
+    "bytes": 60573,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/geometry_FP32_GPU_4524579_Root_closure_v1.json",
+    "sha256": "0cd5a23f5177c42fd7d21dac2650101052483b341d40017e809aa0ce090866c3"
+  }
+}

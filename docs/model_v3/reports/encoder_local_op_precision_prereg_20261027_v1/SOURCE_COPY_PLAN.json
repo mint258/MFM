@@ -1,0 +1,189 @@
+{
+  "schema": "model_v3_combined_H0_actual_and_local_op_prereg_copy_plan_v1",
+  "status": "SOURCE_SNAPSHOTS_ONLY_QA_AND_PUBLICATION_PENDING",
+  "created_UTC": "2026-10-27T05:24:56.926221+00:00",
+  "worktree": "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3",
+  "base_local_commit": "2e9bd5b77c9ac76a2d15897168e20a959b026b6e",
+  "base_public_commit": "7dd1cfc09b6c85cd683ae30fb271a71cb00c3be3",
+  "base_tree": "494d47223c88039e8c283d751dda4caaecb96f98",
+  "held_checker": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_combined_v17_CPU_checker_hold_actual_v1.json",
+    "bytes": 4459,
+    "sha256": "c620fec538fd102de8ffb458157b7ad1e76b1dd6f80476159916bac45fd36bf0"
+  },
+  "previous_14_file_preflight": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/reporting_H0_quantization_actual_precommit_verification_v1.json",
+    "bytes": 6874,
+    "sha256": "753477164e17448b28c768fb5a8a2d04117e1710f2544956f37d1053ad6ce554"
+  },
+  "copy_rows": [
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/local_ops.py",
+        "bytes": 13933,
+        "sha256": "3c23b6100198cc80353d9322e61db7cf5b87413a0e8ccd61a1570a4b79507b99"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/local_ops.py"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/local_metrics.py",
+        "bytes": 4821,
+        "sha256": "90486a84ef4d944713a300a81e7f8a9c87e5b4eb9a602e68f94bda4f9dc026f4"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/local_metrics.py"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/local_common.py",
+        "bytes": 4300,
+        "sha256": "93c37896e34b2a0247692ff445ece80276b88412087c63bc022bd6e5a1aba516"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/local_common.py"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/run_local_op_GPU.py",
+        "bytes": 20546,
+        "sha256": "f09bc2b5d053ed82ea992f1c286cf693c27981b64b1c2c8a4460d3c7437d8155"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/run_local_op_GPU.py"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/prepare_metadata.py",
+        "bytes": 6723,
+        "sha256": "153b9b559251d91c5a18592f53714dfac9baed350627919ff463d4a0a512c984"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/prepare_metadata.py"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/launch_local_op_GPU_v1.py",
+        "bytes": 16120,
+        "sha256": "e6b09579e3ae81ff55c56ad94107881e8767740b887719a47e0867de7daefe19"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/launch_local_op_GPU_v1.py"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/run_local_op_GPU_v1.sbatch",
+        "bytes": 1982,
+        "sha256": "ba040842f141fb10397548b3bbd62d143ed33e835ed96c94357aa0d0699fb637"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/run_local_op_GPU_v1.sbatch"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/protocol_v1.json",
+        "bytes": 2928,
+        "sha256": "86d0eaa683ef9966566ff692ecd2c45d3ec8567bf48a62c3f7f569a01ded7169"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/protocol_v1.json"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/README.md",
+        "bytes": 9553,
+        "sha256": "444a250636264d23c61a1464d8f8434593c0bbe89fb993b29f32fbb6d78cfe05"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/README.md"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/DRAFT_DEPENDENCIES.json",
+        "bytes": 598173,
+        "sha256": "75199b5df18c6e38afd06551dd4dd91ea4837bcc194e07934619293be21ceada"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/DRAFT_DEPENDENCIES.json"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/DRAFT_SOURCE_INVENTORY.json",
+        "bytes": 4463,
+        "sha256": "730b4132a0692bcbfa7402fc37d89e5ecdd241dc645a50919940411406e5e5c5"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/DRAFT_SOURCE_INVENTORY.json"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/execution_request_v1.json",
+        "bytes": 455371,
+        "sha256": "121c82d31f0fb0d55ef4f7284c00406d6cec32751018badd46656646507ea359"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/execution_request_v1.json"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/source_pins_v1.json",
+        "bytes": 328979,
+        "sha256": "ef2e230fefb801d850c29186c66ec4702760503cd843fd88e69fb06259829b4c"
+      },
+      "target": "tools/model_v3/analysis_sources/encoder_local_op_precision_v1/source_pins_v1.json"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Root_encoder_local_op_DRAFT_static_actual_v1.json",
+        "bytes": 6086,
+        "sha256": "651e7c4ee9a8ad5fc1263532b7488f55f4e16daaf7f3736d4b50e45acaa458a1"
+      },
+      "target": "docs/model_v3/reports/encoder_local_op_precision_prereg_20261027_v1/ROOT_STATIC.json"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_metadata_assembly_actual_v1.json",
+        "bytes": 1314,
+        "sha256": "20950b86e9b1e86de6cca5dbce6ff5d354bde0f492586d61fc0c009bfaefe7e5"
+      },
+      "target": "docs/model_v3/reports/encoder_local_op_precision_prereg_20261027_v1/ROOT_METADATA_ASSEMBLY.json"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_GPU_source_audit_actual_v1.json",
+        "bytes": 5423,
+        "sha256": "6c4f144b9c821150e71fdc7e62d04bf4ec7074d1c11815f273ffc4bd1ddf0f29"
+      },
+      "target": "docs/model_v3/reports/encoder_local_op_precision_prereg_20261027_v1/ROOT_GPU_SOURCE_AUDIT.json"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_SA4_readonly_review_v1.json",
+        "bytes": 8740,
+        "sha256": "43196825fc6f1ecc52ad20c78b4a0aac35b7599efbf68637b61bbcbd0f09e96c"
+      },
+      "target": "docs/model_v3/reports/encoder_local_op_precision_prereg_20261027_v1/SA4_READONLY_REVIEW.json"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_Git_prereg_FINAL_v2.md",
+        "bytes": 9168,
+        "sha256": "7678ab5d2bf1095f84c2994773d367a59be6d662f6067baaf78e346f306c2d61"
+      },
+      "target": "docs/model_v3/reports/encoder_local_op_precision_prereg_20261027_v1/FINAL_PREREG_SOURCE_v2.md"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/job_ledger_model_v3_active_v21.json",
+        "bytes": 549981,
+        "sha256": "a2ab3806d6893c75d183a9692bcc372a86710e2842995de27690718379ed2ebe"
+      },
+      "target": "docs/model_v3/reports/encoder_local_op_precision_prereg_20261027_v1/ACTUAL_COST_SNAPSHOT_v21.json"
+    },
+    {
+      "source": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/job_ledger_model_v3_active_v23.json",
+        "bytes": 555425,
+        "sha256": "287b16e975aaffafd4734cab24801ab0ff13a74c0bea69493e218ec829c81f98"
+      },
+      "target": "docs/model_v3/reports/encoder_local_op_precision_prereg_20261027_v1/ACTUAL_COST_SNAPSHOT_v23.json"
+    }
+  ],
+  "manual_new_paths": [
+    "docs/model_v3/reports/encoder_local_op_precision_prereg_20261027_v1/.gitattributes",
+    "docs/model_v3/C4_encoder_local_op_precision_prereg_20261027_v1.md"
+  ],
+  "manual_append_path": "docs/interfaces/STATUS.md",
+  "copy_plan_public_target": "docs/model_v3/reports/encoder_local_op_precision_prereg_20261027_v1/SOURCE_COPY_PLAN.json",
+  "old_preflight_superseded_only_after_new_complete_freeze": true,
+  "actual_GPU_or_QA_or_publication_claimed": false
+}

@@ -1,0 +1,33 @@
+{
+    "schema":  "model_v3_full_encoder_precision_Root_GPU_invocations_v1",
+    "status":  "PREPARED_NOT_SUBMITTED_PUBLIC_PREREG_FIRST",
+    "source_pins":  {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_encoder_fp64_v1_source/source_pins_v1.json",
+                        "bytes":  114688,
+                        "sha256":  "e14c0d33b8b0bb7ef5cd019e1ad1189bf97a2c8815af7c6e27025753f21fbefd"
+                    },
+    "audit_argv":  [
+                       "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                       "-B",
+                       "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_encoder_fp64_v1_source/launch_encoder_precision_GPU_v1.py",
+                       "audit",
+                       "--source-pins-sha",
+                       "e14c0d33b8b0bb7ef5cd019e1ad1189bf97a2c8815af7c6e27025753f21fbefd"
+                   ],
+    "submit_argv":  [
+                        "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                        "-B",
+                        "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_encoder_fp64_v1_source/launch_encoder_precision_GPU_v1.py",
+                        "submit",
+                        "--source-pins-sha",
+                        "e14c0d33b8b0bb7ef5cd019e1ad1189bf97a2c8815af7c6e27025753f21fbefd",
+                        "--submission-receipt",
+                        "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/full_encoder_FP64_GPU_v1_attempt1.json"
+                    ],
+    "output_pattern":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/full_encoder_FP64_GPU_v1_\u003cactualjob\u003e",
+    "supervisor_pattern":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/full_encoder_FP64_GPU_v1_supervisor_\u003cactualjob\u003e.json",
+    "expected_scope":  "192originalFP32 then192F64;12tiny1layer4dim;4CPU+4CUDAfunctional64small;192functional64scientificbankcalls",
+    "Root_sole_submitter":  true,
+    "no_extra_CPU_QA_parent_or_full_regression_requested":  true,
+    "actual_model_execution_by_author":  false
+}

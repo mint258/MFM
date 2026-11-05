@@ -1,0 +1,112 @@
+{
+  "actual_QA_binding": {
+    "bytes": 4024,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/ACTUAL_CPU_QA_BINDING.json",
+    "sha256": "c3f8d63daf7c940f908b64e25786bcc6c52e4e596a327bb289dfbbd53ed0fc0c"
+  },
+  "actual_QA_counts": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 3,
+    "tests": 2712
+  },
+  "actual_new_attention_file_counts": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 73
+  },
+  "binding_source": {
+    "bytes": 22539,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/final_binding.py",
+    "sha256": "4e7e30c21a09d1f1783b8eb55e1bcd813b6826dc5239c29c799f46e04ef190c7"
+  },
+  "candidate_adopted": false,
+  "candidate_publication_verified": true,
+  "changed_API_files": 8,
+  "created_UTC": "2026-10-26T23:29:34.171151+00:00",
+  "execution_request": {
+    "bytes": 324104,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/execution_request_v1.json",
+    "sha256": "1049ca8e8a56ad3f9ff7e0c5e214acb485b81a4f8efbc6c7bf6f3c601c7cceb0"
+  },
+  "inputs": {
+    "bytes": 4169,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/FINAL_BINDING_INPUTS_ACTUAL.json",
+    "sha256": "a4a0b694cb85882ab5d3b808cfdd440426ad7e89cabec280a7d9513f2453b3b3"
+  },
+  "local_Git_observations": [
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_attention_centering_v1",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "cf8ce66d97cd518ebf279b40ee20294919bb95e1\n",
+      "stdout_sha256": "82eb6e317f00ec2f14923b296fd0bc6f349356ad7acd3c9805382008c3255cba"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_attention_centering_v1",
+        "rev-parse",
+        "HEAD^{tree}"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "2389ab046ee23f2ba92fcb61179d853dfdee8357\n",
+      "stdout_sha256": "68c5a665184c43cb37f216f3b5b3d416cd07835c90a19380f2f60750bb07640e"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_attention_centering_v1",
+        "status",
+        "--porcelain=v1",
+        "--untracked-files=all"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/share/home/zixiao/descriptor_analysis/MFM_model_v3_attention_centering_v1",
+        "diff",
+        "--name-only",
+        "4068623cc455915a34a4aacae4f0df5c56f691b7",
+        "cf8ce66d97cd518ebf279b40ee20294919bb95e1"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "current/phychem_mfm/model/attention.py\ncurrent/phychem_mfm/model/backbone.py\ncurrent/phychem_mfm/model/shared.py\ncurrent/phychem_mfm/model/v3_architecture.py\ncurrent/phychem_mfm/model/v3_attention_numerics.py\ncurrent/phychem_mfm/model/v3_performance.py\ncurrent/tests/test_model_v3_attention_centering.py\ndocs/model_v3/ATTENTION_CENTERING_V1.md\n",
+      "stdout_sha256": "790c73f2cbd2cd7ae94c5d1a2bb79b8966e3c171df56ebc013289256ede6a5b0"
+    }
+  ],
+  "new_runner_protocol_publication_still_required": true,
+  "own_runtime_leaves": 15,
+  "public_files": 10,
+  "reservation_or_job_submitted": false,
+  "runtime_sources": 1213,
+  "schema": "model_v3_centered_final_metadata_binding_result_v1",
+  "scientific_GPU_executed": false,
+  "source_pins": {
+    "bytes": 321228,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centered_e2e_v1_source/source_pins_v1.json",
+    "sha256": "52d4ad7679a9d40807d8899371811381e93bec9041fd88cad042de61d99002df"
+  },
+  "status": "FINAL_METADATA_BOUND_PENDING_RUNNER_PREREGISTRATION_AND_GPU"
+}

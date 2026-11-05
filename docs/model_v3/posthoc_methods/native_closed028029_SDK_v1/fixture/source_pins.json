@@ -1,0 +1,102 @@
+{
+    "schema":  "native_closed_long_sync_fixture_source_pins_v1",
+    "revision":  "closed028029_namespace_exact_sync_binding_only",
+    "status":  "SOURCE_ONLY_NOT_EXECUTED_AWAITING_ROOT_REVIEW",
+    "scope":  "EXPLICIT_NATIVE_CLOSED_LONG_SYNC_METADATA_TMP_INTERNAL_FIXTURES_ONLY",
+    "previous_v1_source_pins":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed_long_sync_fixture_v1_source/source_pins.json",
+                                    "bytes":  2638,
+                                    "sha256":  "e5903933a5022484b061cb3a3f8908fca5cd6a123aa29a20499576a0b77e9898"
+                                },
+    "files":  [
+                  {
+                      "file":  "dependencies.json",
+                      "bytes":  7507,
+                      "sha256":  "10b2a77002ef7dba5095ebf772b782e37d004c60e67da20bb1b8a64a9d60fbde"
+                  },
+                  {
+                      "file":  "native_long_sync_fixture_census.py",
+                      "bytes":  9785,
+                      "sha256":  "0e37319f3a0a7a36aa0d082a8cbed76630dd832ae288c8e92f737abe40ef08af"
+                  },
+                  {
+                      "file":  "native_long_sync_fixture_checks.py",
+                      "bytes":  5610,
+                      "sha256":  "2f1e4ed9e12a4d833de35e544176a886341530b2da74a03739d0a27d77ba34d5"
+                  },
+                  {
+                      "file":  "README.md",
+                      "bytes":  1119,
+                      "sha256":  "2f968122891175f2e9a58c4d89b1337f10c4068d977522e17d80f6fb79b3c626"
+                  },
+                  {
+                      "file":  "supervise_fixture.py",
+                      "bytes":  9328,
+                      "sha256":  "27ba26dd4bb1a7bdf5697f621a886da74392e2bbecc079d180e82b10b286da1d"
+                  },
+                  {
+                      "file":  "sync_cpu.sbatch",
+                      "bytes":  1607,
+                      "sha256":  "7cb10a7b5b27bc9822f5ea3d2ef10b8f01ac25f9392fdff30b660fe105adb7a1"
+                  }
+              ],
+    "declared_fixture_subtrees":  [
+                                      "metadata_tmp"
+                                  ],
+    "fixture_root_must_remain_ordinary_directory":  true,
+    "same_job_selfchecks":  6,
+    "extra_pytest_cases":  0,
+    "original_metadata_tests_required":  4,
+    "original_sync_source_modified":  false,
+    "original_strict_supervisor_modified":  false,
+    "production_WandB_rules_unchanged":  true,
+    "private_storage_census_modified":  false,
+    "budgets":  {
+                    "cpus":  16,
+                    "memory_MiB":  null,
+                    "SBATCH_seconds":  3600,
+                    "adapter_setup_ceiling_seconds":  30,
+                    "adapter_setup_including_original_module_import_deducted_from_guard_seconds":  3300,
+                    "end_source_verification_is_outside_original_supervisor_clock":  true,
+                    "rss_bytes":  12884901888,
+                    "shared_joint_bytes":  2147483648,
+                    "private_bytes":  2147483648,
+                    "output_entries":  50000,
+                    "software_working_memory_MiB":  16384,
+                    "Slurm_memory_mode":  "automatic_default"
+                },
+    "corrections":  [
+                        "Allow only links strictly inside metadata_tmp; metadata_tmp itself remains subject to original strict link policy",
+                        "Load original supervisor and install census callback before final setup measurement; subtract ceil setup from original3300; tail verification is end-of-run source checking"
+                    ],
+    "actual_tests_or_Python_AST_SSH_Slurm_network_run_by_author":  false,
+    "actual_sync_or_scientific_acceptance_claimed":  false,
+    "previous_v2_source_pins":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed_long_sync_fixture_v2_source/source_pins.json",
+                                    "bytes":  3696,
+                                    "sha256":  "9f5da4d6179604b2cd278c5e92a4ecc9ac2863659dd4cf37193ee8099e3b2f7e"
+                                },
+    "rebind_target_sync_manifest":  {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed028029_long_sync_v1_source/source_pins.json",
+                                        "bytes":  5769,
+                                        "sha256":  "ffd3a5b543c2a386a94591c8ba192037ea4c0810e81d82d0aae9094a24857317"
+                                    },
+    "actual_prepare":  null,
+    "actual_sync":  null,
+    "actual_online":  null,
+    "previous_v3_source_pins":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed_long_sync_fixture_v3_source/source_pins.json",
+                                    "bytes":  4806,
+                                    "sha256":  "349b1e4138e4fe7204c4eace0ad24724f08f5639bacbcdeb8963417b199997aa"
+                                },
+    "original_closed020023_source":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020023_long_sync_fixture_v1_source/source_pins.json",
+                                         "bytes":  5239,
+                                         "sha256":  "fd22ef1804540efca76f35927440fa83ef64378b08a4ebc453b004279b443058"
+                                     },
+    "original_closed024027_source":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed024027_long_sync_fixture_v1_source/source_pins.json",
+                                         "bytes":  5679,
+                                         "sha256":  "803e558d2999e8d4a79479def22c9a51bb282297d9280ba7e57e7f4a2ee12d15"
+                                     }
+}

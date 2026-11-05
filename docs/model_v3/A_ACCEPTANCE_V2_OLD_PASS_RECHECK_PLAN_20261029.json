@@ -1,0 +1,1136 @@
+{
+    "schema":  "model_v3_A_old_PASS_v2_recheck_plan_v1",
+    "status":  "METADATA_SOURCE_PLAN_NO_NEW_VERDICT_OR_SUBMISSION",
+    "input_inventory":  {
+                            "path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\model_v3_A5_v2_source_transport_20261029\\A_acceptance_v2_old_PASS_cohort_capability_v2.json",
+                            "bytes":  187667,
+                            "sha256":  "e2e3a374c3bde4600b467a04f5284c4134cfef8a8a15a5a72f7a595efcbb4f64"
+                        },
+    "rows":  [
+                 {
+                     "old_job_id":  "4520405",
+                     "case":  "A00_control",
+                     "suggested_order":  5,
+                     "historical_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520405",
+                     "historical_GPU":  "NVIDIA GeForce RTX 4090",
+                     "historical_GPU_UUID":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+                     "historical_node":  "compute-0-20",
+                     "historical_code":  "a6c62038643b69d4e44dbb2eb2adf235472cd344",
+                     "historical_public":  "33671a8f8c13a5907d34102a649a7d0a998c6e54",
+                     "candidate_options":  {
+                                               "attention_backend":  "dense",
+                                               "backbone_checkpointing":  true,
+                                               "compile_backbone":  false,
+                                               "compile_dynamic":  true,
+                                               "distance_checkpointing":  true,
+                                               "distance_implementation":  "tiled",
+                                               "distance_pair_rows":  65536,
+                                               "fused_adamw":  false,
+                                               "head_checkpointing":  true,
+                                               "precision":  "fp32",
+                                               "sparse_query_chunk":  32,
+                                               "tf32":  false
+                                           },
+                     "candidate_options_sha256":  "52ae1dae8ff65229a2b4f26b281a0e488e751e08671dbf953d33601e6c1a6bf0",
+                     "original_evidence_rawrefs":  {
+                                                       "configuration":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520405/configuration.json",
+                                                                             "bytes":  16903,
+                                                                             "sha256":  "55d0e8b5e9252f17d26f62df0ae84649d39b271c607e5c9efc39868b5bbfe8c4"
+                                                                         },
+                                                       "summary":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520405/summary.json",
+                                                                       "bytes":  891,
+                                                                       "sha256":  "026ceabc41884487a960d95d7d199de569b242c726159d7c2ca7d7f374227951"
+                                                                   },
+                                                       "fixed_batch_gate_exact_4MiB_old_file":  {
+                                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520405/fixed_batch_gate.json",
+                                                                                                    "bytes":  2399567,
+                                                                                                    "sha256":  "9f3889b5988b38306b4355897001917ac71c5951beaf89faab4cc69606731e62"
+                                                                                                },
+                                                       "trajectory_gate":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520405/trajectory_gate.json",
+                                                                               "bytes":  42490,
+                                                                               "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                                           },
+                                                       "original_supervisor":  {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_supervisor_4520405.json",
+                                                                                   "bytes":  3151,
+                                                                                   "sha256":  "2d3c40c58b210a56c73ec4788ac7c50a2e1cb4480ae125913fb03e14899e60bd"
+                                                                               }
+                                                   },
+                     "source_map_entries":  54,
+                     "fixed_input_receipts_sha256":  "38c80a677bae4dc1b057554088c79fb3254347d2e950a177dd14ed02f4c59f46",
+                     "old_trajectory":  {
+                                            "gate":  "A_500_update_loss_trajectory",
+                                            "pass":  true,
+                                            "updates":  500,
+                                            "record_count":  500
+                                        },
+                     "old_trajectory_base_records":  201216,
+                     "old_configuration_sha256":  "45a11473df9c9021dd404f57c32621c78ae409ce6f3d77a2da6e01157703bc91",
+                     "init_and_old500_reuse_gap":  "Original runner checks reference/candidate initial state equality within that run. This inventory has not proved cross-run initial parameter/RNG byte identity from configuration alone.",
+                     "old500_reuse_requirements":  [
+                                                       "Original complete real500PASS/closure",
+                                                       "Same declared model/config and actual initial parameters/RNG",
+                                                       "Same actual input/reset/seed/precision/deterministic controls",
+                                                       "Same GPU applicability and model/loss/optimizer/data semantic sources; only Host verifier rules differ",
+                                                       "New actual full20v2 plus both active zero-bias norm observations",
+                                                       "If any comparability proof is insufficient, full rerun; no invented certificate"
+                                                   ],
+                     "new_full_child_argv_template":  [
+                                                          "ACTUAL_GPU_PYTHON",
+                                                          "-u",
+                                                          "-B",
+                                                          "tools/model_v3/paired_a_acceptance.py",
+                                                          "--candidate-options",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a00_control.json",
+                                                          "--reference-config",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                                                          "--input",
+                                                          "native_s",
+                                                          "--seed",
+                                                          "0",
+                                                          "--workers",
+                                                          "8",
+                                                          "--max-padded-cost",
+                                                          "8000000",
+                                                          "--expected-gpu",
+                                                          "4090",
+                                                          "--code-sha",
+                                                          "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+                                                          "--prereg-sha",
+                                                          "2b4a4df8636e5d65915d535472ba01084ea72dab",
+                                                          "--shard-snapshot-sha256",
+                                                          "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                                                          "--acceptance-version",
+                                                          "v2",
+                                                          "--acceptance-rule-document",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/DECISION_RULES_A_ACCEPTANCE_V2_20261028.md",
+                                                          "--acceptance-rule-document-sha256",
+                                                          "78bd6ac4a4ebfa605cf668217ddd89d5443516d4977101444590321cb16175ae",
+                                                          "--acceptance-prereg-sha",
+                                                          "4f6ba16973ea4a30472c7fb33d3aadec974a4462",
+                                                          "--acceptance-rule-publication",
+                                                          "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_gradient_rules_v2_publication_actual_v1.json",
+                                                          "--acceptance-rule-publication-sha256",
+                                                          "f5a8980fc0a4f11e4e6f9745f861147a0bd3a786b0da29078157ad91503f94d6",
+                                                          "--deterministic-controls",
+                                                          "--output",
+                                                          "ACTUAL_FRESH_CHILD_OUTPUT"
+                                                      ],
+                     "v2_result":  null,
+                     "actual_new_job":  null
+                 },
+                 {
+                     "old_job_id":  "4520411",
+                     "case":  "A00_control",
+                     "suggested_order":  8,
+                     "historical_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520411",
+                     "historical_GPU":  "NVIDIA GeForce RTX 5090",
+                     "historical_GPU_UUID":  "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+                     "historical_node":  "compute-0-21",
+                     "historical_code":  "a6c62038643b69d4e44dbb2eb2adf235472cd344",
+                     "historical_public":  "33671a8f8c13a5907d34102a649a7d0a998c6e54",
+                     "candidate_options":  {
+                                               "attention_backend":  "dense",
+                                               "backbone_checkpointing":  true,
+                                               "compile_backbone":  false,
+                                               "compile_dynamic":  true,
+                                               "distance_checkpointing":  true,
+                                               "distance_implementation":  "tiled",
+                                               "distance_pair_rows":  65536,
+                                               "fused_adamw":  false,
+                                               "head_checkpointing":  true,
+                                               "precision":  "fp32",
+                                               "sparse_query_chunk":  32,
+                                               "tf32":  false
+                                           },
+                     "candidate_options_sha256":  "52ae1dae8ff65229a2b4f26b281a0e488e751e08671dbf953d33601e6c1a6bf0",
+                     "original_evidence_rawrefs":  {
+                                                       "configuration":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520411/configuration.json",
+                                                                             "bytes":  16973,
+                                                                             "sha256":  "a3040da41e88436a271b30a86c536c9f058d31e763800ac905b23780d960c228"
+                                                                         },
+                                                       "summary":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520411/summary.json",
+                                                                       "bytes":  891,
+                                                                       "sha256":  "58a6c59259664fe2369315a7346725e7eb6448a961c286e62d2372c7b8ab6199"
+                                                                   },
+                                                       "fixed_batch_gate_exact_4MiB_old_file":  {
+                                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520411/fixed_batch_gate.json",
+                                                                                                    "bytes":  2399567,
+                                                                                                    "sha256":  "9f3889b5988b38306b4355897001917ac71c5951beaf89faab4cc69606731e62"
+                                                                                                },
+                                                       "trajectory_gate":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520411/trajectory_gate.json",
+                                                                               "bytes":  42490,
+                                                                               "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                                           },
+                                                       "original_supervisor":  {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_supervisor_4520411.json",
+                                                                                   "bytes":  3279,
+                                                                                   "sha256":  "0368b1e7606804a43323967992c816ee3e6e5a6c1e8fc6673e7e9c5e8919ecba"
+                                                                               }
+                                                   },
+                     "source_map_entries":  54,
+                     "fixed_input_receipts_sha256":  "38c80a677bae4dc1b057554088c79fb3254347d2e950a177dd14ed02f4c59f46",
+                     "old_trajectory":  {
+                                            "gate":  "A_500_update_loss_trajectory",
+                                            "pass":  true,
+                                            "updates":  500,
+                                            "record_count":  500
+                                        },
+                     "old_trajectory_base_records":  201216,
+                     "old_configuration_sha256":  "afa8a6583908f08535ad90855a8b9a31560ae0a96f4416bc48b250bea2c0efc6",
+                     "init_and_old500_reuse_gap":  "Original runner checks reference/candidate initial state equality within that run. This inventory has not proved cross-run initial parameter/RNG byte identity from configuration alone.",
+                     "old500_reuse_requirements":  [
+                                                       "Original complete real500PASS/closure",
+                                                       "Same declared model/config and actual initial parameters/RNG",
+                                                       "Same actual input/reset/seed/precision/deterministic controls",
+                                                       "Same GPU applicability and model/loss/optimizer/data semantic sources; only Host verifier rules differ",
+                                                       "New actual full20v2 plus both active zero-bias norm observations",
+                                                       "If any comparability proof is insufficient, full rerun; no invented certificate"
+                                                   ],
+                     "new_full_child_argv_template":  [
+                                                          "ACTUAL_GPU_PYTHON",
+                                                          "-u",
+                                                          "-B",
+                                                          "tools/model_v3/paired_a_acceptance.py",
+                                                          "--candidate-options",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a00_control.json",
+                                                          "--reference-config",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                                                          "--input",
+                                                          "native_s",
+                                                          "--seed",
+                                                          "0",
+                                                          "--workers",
+                                                          "8",
+                                                          "--max-padded-cost",
+                                                          "8000000",
+                                                          "--expected-gpu",
+                                                          "5090",
+                                                          "--code-sha",
+                                                          "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+                                                          "--prereg-sha",
+                                                          "2b4a4df8636e5d65915d535472ba01084ea72dab",
+                                                          "--shard-snapshot-sha256",
+                                                          "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                                                          "--acceptance-version",
+                                                          "v2",
+                                                          "--acceptance-rule-document",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/DECISION_RULES_A_ACCEPTANCE_V2_20261028.md",
+                                                          "--acceptance-rule-document-sha256",
+                                                          "78bd6ac4a4ebfa605cf668217ddd89d5443516d4977101444590321cb16175ae",
+                                                          "--acceptance-prereg-sha",
+                                                          "4f6ba16973ea4a30472c7fb33d3aadec974a4462",
+                                                          "--acceptance-rule-publication",
+                                                          "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_gradient_rules_v2_publication_actual_v1.json",
+                                                          "--acceptance-rule-publication-sha256",
+                                                          "f5a8980fc0a4f11e4e6f9745f861147a0bd3a786b0da29078157ad91503f94d6",
+                                                          "--deterministic-controls",
+                                                          "--output",
+                                                          "ACTUAL_FRESH_CHILD_OUTPUT"
+                                                      ],
+                     "v2_result":  null,
+                     "actual_new_job":  null
+                 },
+                 {
+                     "old_job_id":  "4520438",
+                     "case":  "A00_control",
+                     "suggested_order":  7,
+                     "historical_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520438",
+                     "historical_GPU":  "NVIDIA GeForce RTX 3090",
+                     "historical_GPU_UUID":  "GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332",
+                     "historical_node":  "compute-0-0",
+                     "historical_code":  "6df0aa51e497df0d3aee3781110a9a42e029c373",
+                     "historical_public":  "33671a8f8c13a5907d34102a649a7d0a998c6e54",
+                     "candidate_options":  {
+                                               "attention_backend":  "dense",
+                                               "backbone_checkpointing":  true,
+                                               "compile_backbone":  false,
+                                               "compile_dynamic":  true,
+                                               "distance_checkpointing":  true,
+                                               "distance_implementation":  "tiled",
+                                               "distance_pair_rows":  65536,
+                                               "fused_adamw":  false,
+                                               "head_checkpointing":  true,
+                                               "precision":  "fp32",
+                                               "sparse_query_chunk":  32,
+                                               "tf32":  false
+                                           },
+                     "candidate_options_sha256":  "52ae1dae8ff65229a2b4f26b281a0e488e751e08671dbf953d33601e6c1a6bf0",
+                     "original_evidence_rawrefs":  {
+                                                       "configuration":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520438/configuration.json",
+                                                                             "bytes":  16902,
+                                                                             "sha256":  "d41ca095f379031f9eb32901ba86e9f8cbeb613e58117545376371d55dd4534c"
+                                                                         },
+                                                       "summary":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520438/summary.json",
+                                                                       "bytes":  891,
+                                                                       "sha256":  "17e1438664fdca6d7949239e53ef2567e85e10f79b422de54c2c831f39a8c83e"
+                                                                   },
+                                                       "fixed_batch_gate_exact_4MiB_old_file":  {
+                                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520438/fixed_batch_gate.json",
+                                                                                                    "bytes":  2399567,
+                                                                                                    "sha256":  "9f3889b5988b38306b4355897001917ac71c5951beaf89faab4cc69606731e62"
+                                                                                                },
+                                                       "trajectory_gate":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_4520438/trajectory_gate.json",
+                                                                               "bytes":  42490,
+                                                                               "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                                           },
+                                                       "original_supervisor":  {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_native_control_supervisor_4520438.json",
+                                                                                   "bytes":  3152,
+                                                                                   "sha256":  "c685c8082f9009f1ddc3a6807608f6f65f4c0b30cffaaaf7540030afe54cce9d"
+                                                                               }
+                                                   },
+                     "source_map_entries":  54,
+                     "fixed_input_receipts_sha256":  "38c80a677bae4dc1b057554088c79fb3254347d2e950a177dd14ed02f4c59f46",
+                     "old_trajectory":  {
+                                            "gate":  "A_500_update_loss_trajectory",
+                                            "pass":  true,
+                                            "updates":  500,
+                                            "record_count":  500
+                                        },
+                     "old_trajectory_base_records":  201216,
+                     "old_configuration_sha256":  "42ac7c74ec2ec606b6484ff39d1ed8ec9d7ed060e9cf10660a362ecb1d0759a9",
+                     "init_and_old500_reuse_gap":  "Original runner checks reference/candidate initial state equality within that run. This inventory has not proved cross-run initial parameter/RNG byte identity from configuration alone.",
+                     "old500_reuse_requirements":  [
+                                                       "Original complete real500PASS/closure",
+                                                       "Same declared model/config and actual initial parameters/RNG",
+                                                       "Same actual input/reset/seed/precision/deterministic controls",
+                                                       "Same GPU applicability and model/loss/optimizer/data semantic sources; only Host verifier rules differ",
+                                                       "New actual full20v2 plus both active zero-bias norm observations",
+                                                       "If any comparability proof is insufficient, full rerun; no invented certificate"
+                                                   ],
+                     "new_full_child_argv_template":  [
+                                                          "ACTUAL_GPU_PYTHON",
+                                                          "-u",
+                                                          "-B",
+                                                          "tools/model_v3/paired_a_acceptance.py",
+                                                          "--candidate-options",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a00_control.json",
+                                                          "--reference-config",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                                                          "--input",
+                                                          "native_s",
+                                                          "--seed",
+                                                          "0",
+                                                          "--workers",
+                                                          "8",
+                                                          "--max-padded-cost",
+                                                          "8000000",
+                                                          "--expected-gpu",
+                                                          "3090",
+                                                          "--code-sha",
+                                                          "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+                                                          "--prereg-sha",
+                                                          "2b4a4df8636e5d65915d535472ba01084ea72dab",
+                                                          "--shard-snapshot-sha256",
+                                                          "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                                                          "--acceptance-version",
+                                                          "v2",
+                                                          "--acceptance-rule-document",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/DECISION_RULES_A_ACCEPTANCE_V2_20261028.md",
+                                                          "--acceptance-rule-document-sha256",
+                                                          "78bd6ac4a4ebfa605cf668217ddd89d5443516d4977101444590321cb16175ae",
+                                                          "--acceptance-prereg-sha",
+                                                          "4f6ba16973ea4a30472c7fb33d3aadec974a4462",
+                                                          "--acceptance-rule-publication",
+                                                          "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_gradient_rules_v2_publication_actual_v1.json",
+                                                          "--acceptance-rule-publication-sha256",
+                                                          "f5a8980fc0a4f11e4e6f9745f861147a0bd3a786b0da29078157ad91503f94d6",
+                                                          "--deterministic-controls",
+                                                          "--output",
+                                                          "ACTUAL_FRESH_CHILD_OUTPUT"
+                                                      ],
+                     "v2_result":  null,
+                     "actual_new_job":  null
+                 },
+                 {
+                     "old_job_id":  "4520456",
+                     "case":  "A01_backbone_off",
+                     "suggested_order":  6,
+                     "historical_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456",
+                     "historical_GPU":  "NVIDIA GeForce RTX 4090",
+                     "historical_GPU_UUID":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+                     "historical_node":  "compute-0-20",
+                     "historical_code":  "8ece64c685fe287d6863fbbe2f6f52006632a5cc",
+                     "historical_public":  "61658a4c1f472de035601dbedc17809315774784",
+                     "candidate_options":  {
+                                               "attention_backend":  "dense",
+                                               "backbone_checkpointing":  false,
+                                               "compile_backbone":  false,
+                                               "compile_dynamic":  true,
+                                               "distance_checkpointing":  true,
+                                               "distance_implementation":  "tiled",
+                                               "distance_pair_rows":  65536,
+                                               "fused_adamw":  false,
+                                               "head_checkpointing":  true,
+                                               "precision":  "fp32",
+                                               "sparse_query_chunk":  32,
+                                               "tf32":  false
+                                           },
+                     "candidate_options_sha256":  "d3bb101a8e5417fcbe998c39f97698e6902a9b06851a343aa0a0e4830ef0e8d4",
+                     "original_evidence_rawrefs":  {
+                                                       "configuration":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/configuration.json",
+                                                                             "bytes":  18032,
+                                                                             "sha256":  "3abd37472f6eaae1af916f10ae798363120abe596944dd19e09f9147540abf12"
+                                                                         },
+                                                       "summary":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/summary.json",
+                                                                       "bytes":  891,
+                                                                       "sha256":  "bbf17e2e1ac4421d6a4468e449fffdc16534d967b261c85c7c863e5c8a407b1e"
+                                                                   },
+                                                       "fixed_batch_gate_exact_4MiB_old_file":  {
+                                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/fixed_batch_gate.json",
+                                                                                                    "bytes":  2399567,
+                                                                                                    "sha256":  "9f3889b5988b38306b4355897001917ac71c5951beaf89faab4cc69606731e62"
+                                                                                                },
+                                                       "trajectory_gate":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a01_backbone_off_4520456/trajectory_gate.json",
+                                                                               "bytes":  42490,
+                                                                               "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                                           },
+                                                       "original_supervisor":  {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520456.json",
+                                                                                   "bytes":  3458,
+                                                                                   "sha256":  "c8f32918e1ad3dc6004615f3c2a333de49b2bb4b428b4c70f43e4c72b756f1be"
+                                                                               }
+                                                   },
+                     "source_map_entries":  61,
+                     "fixed_input_receipts_sha256":  "38c80a677bae4dc1b057554088c79fb3254347d2e950a177dd14ed02f4c59f46",
+                     "old_trajectory":  {
+                                            "gate":  "A_500_update_loss_trajectory",
+                                            "pass":  true,
+                                            "updates":  500,
+                                            "record_count":  500
+                                        },
+                     "old_trajectory_base_records":  201216,
+                     "old_configuration_sha256":  "aaa7f2f47da95b9d8f293eb1e620801c62aec5890ffbc5440a1fb9d9bfa73436",
+                     "init_and_old500_reuse_gap":  "Original runner checks reference/candidate initial state equality within that run. This inventory has not proved cross-run initial parameter/RNG byte identity from configuration alone.",
+                     "old500_reuse_requirements":  [
+                                                       "Original complete real500PASS/closure",
+                                                       "Same declared model/config and actual initial parameters/RNG",
+                                                       "Same actual input/reset/seed/precision/deterministic controls",
+                                                       "Same GPU applicability and model/loss/optimizer/data semantic sources; only Host verifier rules differ",
+                                                       "New actual full20v2 plus both active zero-bias norm observations",
+                                                       "If any comparability proof is insufficient, full rerun; no invented certificate"
+                                                   ],
+                     "new_full_child_argv_template":  [
+                                                          "ACTUAL_GPU_PYTHON",
+                                                          "-u",
+                                                          "-B",
+                                                          "tools/model_v3/paired_a_acceptance.py",
+                                                          "--candidate-options",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a01_backbone_off.json",
+                                                          "--reference-config",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                                                          "--input",
+                                                          "native_s",
+                                                          "--seed",
+                                                          "0",
+                                                          "--workers",
+                                                          "8",
+                                                          "--max-padded-cost",
+                                                          "8000000",
+                                                          "--expected-gpu",
+                                                          "4090",
+                                                          "--code-sha",
+                                                          "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+                                                          "--prereg-sha",
+                                                          "2b4a4df8636e5d65915d535472ba01084ea72dab",
+                                                          "--shard-snapshot-sha256",
+                                                          "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                                                          "--acceptance-version",
+                                                          "v2",
+                                                          "--acceptance-rule-document",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/DECISION_RULES_A_ACCEPTANCE_V2_20261028.md",
+                                                          "--acceptance-rule-document-sha256",
+                                                          "78bd6ac4a4ebfa605cf668217ddd89d5443516d4977101444590321cb16175ae",
+                                                          "--acceptance-prereg-sha",
+                                                          "4f6ba16973ea4a30472c7fb33d3aadec974a4462",
+                                                          "--acceptance-rule-publication",
+                                                          "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_gradient_rules_v2_publication_actual_v1.json",
+                                                          "--acceptance-rule-publication-sha256",
+                                                          "f5a8980fc0a4f11e4e6f9745f861147a0bd3a786b0da29078157ad91503f94d6",
+                                                          "--deterministic-controls",
+                                                          "--output",
+                                                          "ACTUAL_FRESH_CHILD_OUTPUT"
+                                                      ],
+                     "v2_result":  null,
+                     "actual_new_job":  null
+                 },
+                 {
+                     "old_job_id":  "4520486",
+                     "case":  "A00_control_legacy",
+                     "suggested_order":  4,
+                     "historical_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a00_control_4520486",
+                     "historical_GPU":  "NVIDIA GeForce RTX 5090",
+                     "historical_GPU_UUID":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+                     "historical_node":  "compute-0-21",
+                     "historical_code":  "8ece64c685fe287d6863fbbe2f6f52006632a5cc",
+                     "historical_public":  "61658a4c1f472de035601dbedc17809315774784",
+                     "candidate_options":  {
+                                               "attention_backend":  "dense",
+                                               "backbone_checkpointing":  true,
+                                               "compile_backbone":  false,
+                                               "compile_dynamic":  true,
+                                               "distance_checkpointing":  true,
+                                               "distance_implementation":  "tiled",
+                                               "distance_pair_rows":  65536,
+                                               "fused_adamw":  false,
+                                               "head_checkpointing":  true,
+                                               "precision":  "fp32",
+                                               "sparse_query_chunk":  32,
+                                               "tf32":  false
+                                           },
+                     "candidate_options_sha256":  "52ae1dae8ff65229a2b4f26b281a0e488e751e08671dbf953d33601e6c1a6bf0",
+                     "original_evidence_rawrefs":  {
+                                                       "configuration":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a00_control_4520486/configuration.json",
+                                                                             "bytes":  18092,
+                                                                             "sha256":  "03fe0ccad5499925ad791bcc93c4796d9f53959e3f9c31b17397febf82b9204b"
+                                                                         },
+                                                       "summary":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a00_control_4520486/summary.json",
+                                                                       "bytes":  891,
+                                                                       "sha256":  "d1e3c38fd791f5975cf9bac74d62295986234ca8aeac1516c4684b7b7c16d5f6"
+                                                                   },
+                                                       "fixed_batch_gate_exact_4MiB_old_file":  {
+                                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a00_control_4520486/fixed_batch_gate.json",
+                                                                                                    "bytes":  2399567,
+                                                                                                    "sha256":  "9f3889b5988b38306b4355897001917ac71c5951beaf89faab4cc69606731e62"
+                                                                                                },
+                                                       "trajectory_gate":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a00_control_4520486/trajectory_gate.json",
+                                                                               "bytes":  42490,
+                                                                               "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                                           },
+                                                       "original_supervisor":  {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520486.json",
+                                                                                   "bytes":  3556,
+                                                                                   "sha256":  "35fb6d3f1ed3e198750c879f58a2ee88f0ff26d9d26fcb89dfc0f9010b0e26b7"
+                                                                               }
+                                                   },
+                     "source_map_entries":  61,
+                     "fixed_input_receipts_sha256":  "38c80a677bae4dc1b057554088c79fb3254347d2e950a177dd14ed02f4c59f46",
+                     "old_trajectory":  {
+                                            "gate":  "A_500_update_loss_trajectory",
+                                            "pass":  true,
+                                            "updates":  500,
+                                            "record_count":  500
+                                        },
+                     "old_trajectory_base_records":  201216,
+                     "old_configuration_sha256":  "45e4cf43ee143db59e7150f1484cf07d90899aee666ecfd54435637294c73bd4",
+                     "init_and_old500_reuse_gap":  "Original runner checks reference/candidate initial state equality within that run. This inventory has not proved cross-run initial parameter/RNG byte identity from configuration alone.",
+                     "old500_reuse_requirements":  [
+                                                       "Original complete real500PASS/closure",
+                                                       "Same declared model/config and actual initial parameters/RNG",
+                                                       "Same actual input/reset/seed/precision/deterministic controls",
+                                                       "Same GPU applicability and model/loss/optimizer/data semantic sources; only Host verifier rules differ",
+                                                       "New actual full20v2 plus both active zero-bias norm observations",
+                                                       "If any comparability proof is insufficient, full rerun; no invented certificate"
+                                                   ],
+                     "new_full_child_argv_template":  [
+                                                          "ACTUAL_GPU_PYTHON",
+                                                          "-u",
+                                                          "-B",
+                                                          "tools/model_v3/paired_a_acceptance.py",
+                                                          "--candidate-options",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a00_control.json",
+                                                          "--reference-config",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                                                          "--input",
+                                                          "native_s",
+                                                          "--seed",
+                                                          "0",
+                                                          "--workers",
+                                                          "8",
+                                                          "--max-padded-cost",
+                                                          "8000000",
+                                                          "--expected-gpu",
+                                                          "5090",
+                                                          "--code-sha",
+                                                          "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+                                                          "--prereg-sha",
+                                                          "2b4a4df8636e5d65915d535472ba01084ea72dab",
+                                                          "--shard-snapshot-sha256",
+                                                          "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                                                          "--acceptance-version",
+                                                          "v2",
+                                                          "--acceptance-rule-document",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/DECISION_RULES_A_ACCEPTANCE_V2_20261028.md",
+                                                          "--acceptance-rule-document-sha256",
+                                                          "78bd6ac4a4ebfa605cf668217ddd89d5443516d4977101444590321cb16175ae",
+                                                          "--acceptance-prereg-sha",
+                                                          "4f6ba16973ea4a30472c7fb33d3aadec974a4462",
+                                                          "--acceptance-rule-publication",
+                                                          "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_gradient_rules_v2_publication_actual_v1.json",
+                                                          "--acceptance-rule-publication-sha256",
+                                                          "f5a8980fc0a4f11e4e6f9745f861147a0bd3a786b0da29078157ad91503f94d6",
+                                                          "--deterministic-controls",
+                                                          "--output",
+                                                          "ACTUAL_FRESH_CHILD_OUTPUT"
+                                                      ],
+                     "v2_result":  null,
+                     "actual_new_job":  null
+                 },
+                 {
+                     "old_job_id":  "4520549",
+                     "case":  "A03_head_off_legacy",
+                     "suggested_order":  9,
+                     "historical_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a03_head_off_4520549",
+                     "historical_GPU":  "NVIDIA GeForce RTX 5090",
+                     "historical_GPU_UUID":  "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+                     "historical_node":  "compute-0-21",
+                     "historical_code":  "8ece64c685fe287d6863fbbe2f6f52006632a5cc",
+                     "historical_public":  "61658a4c1f472de035601dbedc17809315774784",
+                     "candidate_options":  {
+                                               "attention_backend":  "dense",
+                                               "backbone_checkpointing":  true,
+                                               "compile_backbone":  false,
+                                               "compile_dynamic":  true,
+                                               "distance_checkpointing":  true,
+                                               "distance_implementation":  "tiled",
+                                               "distance_pair_rows":  65536,
+                                               "fused_adamw":  false,
+                                               "head_checkpointing":  false,
+                                               "precision":  "fp32",
+                                               "sparse_query_chunk":  32,
+                                               "tf32":  false
+                                           },
+                     "candidate_options_sha256":  "9e958e8fb4374211f80e2c8ed741266b93f701dbde15f2dd36cb862a9e10723e",
+                     "original_evidence_rawrefs":  {
+                                                       "configuration":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a03_head_off_4520549/configuration.json",
+                                                                             "bytes":  18094,
+                                                                             "sha256":  "1fdafa52175d66bd2eaf9c3498407e74cf445a2eb63cb28cf69cc1a195105a67"
+                                                                         },
+                                                       "summary":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a03_head_off_4520549/summary.json",
+                                                                       "bytes":  891,
+                                                                       "sha256":  "a90721aa3e54b36317bd384f75dd43c7f0a9426959a9a5c62975e9feae56240a"
+                                                                   },
+                                                       "fixed_batch_gate_exact_4MiB_old_file":  {
+                                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a03_head_off_4520549/fixed_batch_gate.json",
+                                                                                                    "bytes":  2399567,
+                                                                                                    "sha256":  "9f3889b5988b38306b4355897001917ac71c5951beaf89faab4cc69606731e62"
+                                                                                                },
+                                                       "trajectory_gate":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_a03_head_off_4520549/trajectory_gate.json",
+                                                                               "bytes":  42490,
+                                                                               "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                                           },
+                                                       "original_supervisor":  {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/A_candidate_supervisor_4520549.json",
+                                                                                   "bytes":  3561,
+                                                                                   "sha256":  "96fb7af3d732583656a18b86a9898a40cbabf88098010b21ae47d46b88b92332"
+                                                                               }
+                                                   },
+                     "source_map_entries":  61,
+                     "fixed_input_receipts_sha256":  "38c80a677bae4dc1b057554088c79fb3254347d2e950a177dd14ed02f4c59f46",
+                     "old_trajectory":  {
+                                            "gate":  "A_500_update_loss_trajectory",
+                                            "pass":  true,
+                                            "updates":  500,
+                                            "record_count":  500
+                                        },
+                     "old_trajectory_base_records":  201216,
+                     "old_configuration_sha256":  "228373c229cbcb4f68d157a05e94403b497454128ea9353d1c572e486c9219a8",
+                     "init_and_old500_reuse_gap":  "Original runner checks reference/candidate initial state equality within that run. This inventory has not proved cross-run initial parameter/RNG byte identity from configuration alone.",
+                     "old500_reuse_requirements":  [
+                                                       "Original complete real500PASS/closure",
+                                                       "Same declared model/config and actual initial parameters/RNG",
+                                                       "Same actual input/reset/seed/precision/deterministic controls",
+                                                       "Same GPU applicability and model/loss/optimizer/data semantic sources; only Host verifier rules differ",
+                                                       "New actual full20v2 plus both active zero-bias norm observations",
+                                                       "If any comparability proof is insufficient, full rerun; no invented certificate"
+                                                   ],
+                     "new_full_child_argv_template":  [
+                                                          "ACTUAL_GPU_PYTHON",
+                                                          "-u",
+                                                          "-B",
+                                                          "tools/model_v3/paired_a_acceptance.py",
+                                                          "--candidate-options",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a03_head_off.json",
+                                                          "--reference-config",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                                                          "--input",
+                                                          "native_s",
+                                                          "--seed",
+                                                          "0",
+                                                          "--workers",
+                                                          "8",
+                                                          "--max-padded-cost",
+                                                          "8000000",
+                                                          "--expected-gpu",
+                                                          "5090",
+                                                          "--code-sha",
+                                                          "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+                                                          "--prereg-sha",
+                                                          "2b4a4df8636e5d65915d535472ba01084ea72dab",
+                                                          "--shard-snapshot-sha256",
+                                                          "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                                                          "--acceptance-version",
+                                                          "v2",
+                                                          "--acceptance-rule-document",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/DECISION_RULES_A_ACCEPTANCE_V2_20261028.md",
+                                                          "--acceptance-rule-document-sha256",
+                                                          "78bd6ac4a4ebfa605cf668217ddd89d5443516d4977101444590321cb16175ae",
+                                                          "--acceptance-prereg-sha",
+                                                          "4f6ba16973ea4a30472c7fb33d3aadec974a4462",
+                                                          "--acceptance-rule-publication",
+                                                          "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_gradient_rules_v2_publication_actual_v1.json",
+                                                          "--acceptance-rule-publication-sha256",
+                                                          "f5a8980fc0a4f11e4e6f9745f861147a0bd3a786b0da29078157ad91503f94d6",
+                                                          "--deterministic-controls",
+                                                          "--output",
+                                                          "ACTUAL_FRESH_CHILD_OUTPUT"
+                                                      ],
+                     "v2_result":  null,
+                     "actual_new_job":  null
+                 },
+                 {
+                     "old_job_id":  "4523976",
+                     "case":  "A00_manual_R2",
+                     "suggested_order":  1,
+                     "historical_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child",
+                     "historical_GPU":  "NVIDIA GeForce RTX 5090",
+                     "historical_GPU_UUID":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+                     "historical_node":  "compute-0-21",
+                     "historical_code":  "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+                     "historical_public":  "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+                     "candidate_options":  {
+                                               "attention_backend":  "dense",
+                                               "backbone_checkpointing":  true,
+                                               "compile_backbone":  false,
+                                               "compile_dynamic":  true,
+                                               "distance_checkpointing":  true,
+                                               "distance_implementation":  "tiled",
+                                               "distance_pair_rows":  65536,
+                                               "fused_adamw":  false,
+                                               "head_checkpointing":  true,
+                                               "precision":  "fp32",
+                                               "sparse_query_chunk":  32,
+                                               "tf32":  false
+                                           },
+                     "candidate_options_sha256":  "52ae1dae8ff65229a2b4f26b281a0e488e751e08671dbf953d33601e6c1a6bf0",
+                     "original_evidence_rawrefs":  {
+                                                       "configuration":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/configuration.json",
+                                                                             "bytes":  90471,
+                                                                             "sha256":  "e499f52deae6eeb0799447d78454bfdd14a3ae600b8de5f56a4f0f3996cb2b9a"
+                                                                         },
+                                                       "summary":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/summary.json",
+                                                                       "bytes":  891,
+                                                                       "sha256":  "27162df94d8ed0ccad96e52c09cefc4c09371e7292382db311838bf01a147800"
+                                                                   },
+                                                       "fixed_batch_gate_exact_4MiB_old_file":  {
+                                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/fixed_batch_gate.json",
+                                                                                                    "bytes":  2399567,
+                                                                                                    "sha256":  "9f3889b5988b38306b4355897001917ac71c5951beaf89faab4cc69606731e62"
+                                                                                                },
+                                                       "trajectory_gate":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_v1/child/trajectory_gate.json",
+                                                                               "bytes":  42490,
+                                                                               "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                                           },
+                                                       "original_Root_C0_closure":  {
+                                                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_and_consumer_Root_closure_actual_v1.json",
+                                                                                        "bytes":  1784300,
+                                                                                        "sha256":  "0a782651f639a72b6df70f9a6991ce7189bb4dd81bcd492205179d22b421d2fb"
+                                                                                    }
+                                                   },
+                     "source_map_entries":  305,
+                     "fixed_input_receipts_sha256":  "38c80a677bae4dc1b057554088c79fb3254347d2e950a177dd14ed02f4c59f46",
+                     "old_trajectory":  {
+                                            "gate":  "A_500_update_loss_trajectory",
+                                            "pass":  true,
+                                            "updates":  500,
+                                            "record_count":  500
+                                        },
+                     "old_trajectory_base_records":  201216,
+                     "old_configuration_sha256":  "113fb70f6668aa752ac47a156cd5cd26d5cad4fd71eccfe4e4df1464f198940e",
+                     "init_and_old500_reuse_gap":  "Original runner checks reference/candidate initial state equality within that run. This inventory has not proved cross-run initial parameter/RNG byte identity from configuration alone.",
+                     "old500_reuse_requirements":  [
+                                                       "Original complete real500PASS/closure",
+                                                       "Same declared model/config and actual initial parameters/RNG",
+                                                       "Same actual input/reset/seed/precision/deterministic controls",
+                                                       "Same GPU applicability and model/loss/optimizer/data semantic sources; only Host verifier rules differ",
+                                                       "New actual full20v2 plus both active zero-bias norm observations",
+                                                       "If any comparability proof is insufficient, full rerun; no invented certificate"
+                                                   ],
+                     "new_full_child_argv_template":  [
+                                                          "ACTUAL_GPU_PYTHON",
+                                                          "-u",
+                                                          "-B",
+                                                          "tools/model_v3/paired_a_acceptance.py",
+                                                          "--candidate-options",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a00_control.json",
+                                                          "--performance-execution",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a1_manual_capacity_observation_v1.json",
+                                                          "--performance-execution-sha256",
+                                                          "7cabbd4a0300d551154ffb9bcbed5466fc9886d0eb886a1ae37ee3e7f70db46e",
+                                                          "--reference-config",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                                                          "--input",
+                                                          "native_s",
+                                                          "--seed",
+                                                          "0",
+                                                          "--workers",
+                                                          "8",
+                                                          "--max-padded-cost",
+                                                          "8000000",
+                                                          "--expected-gpu",
+                                                          "5090",
+                                                          "--code-sha",
+                                                          "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+                                                          "--prereg-sha",
+                                                          "2b4a4df8636e5d65915d535472ba01084ea72dab",
+                                                          "--shard-snapshot-sha256",
+                                                          "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                                                          "--acceptance-version",
+                                                          "v2",
+                                                          "--acceptance-rule-document",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/DECISION_RULES_A_ACCEPTANCE_V2_20261028.md",
+                                                          "--acceptance-rule-document-sha256",
+                                                          "78bd6ac4a4ebfa605cf668217ddd89d5443516d4977101444590321cb16175ae",
+                                                          "--acceptance-prereg-sha",
+                                                          "4f6ba16973ea4a30472c7fb33d3aadec974a4462",
+                                                          "--acceptance-rule-publication",
+                                                          "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_gradient_rules_v2_publication_actual_v1.json",
+                                                          "--acceptance-rule-publication-sha256",
+                                                          "f5a8980fc0a4f11e4e6f9745f861147a0bd3a786b0da29078157ad91503f94d6",
+                                                          "--deterministic-controls",
+                                                          "--output",
+                                                          "ACTUAL_FRESH_CHILD_OUTPUT"
+                                                      ],
+                     "v2_result":  null,
+                     "actual_new_job":  null
+                 },
+                 {
+                     "old_job_id":  "4524551",
+                     "case":  "A00_auto_R2",
+                     "suggested_order":  2,
+                     "historical_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child",
+                     "historical_GPU":  "NVIDIA GeForce RTX 5090",
+                     "historical_GPU_UUID":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+                     "historical_node":  "compute-0-21",
+                     "historical_code":  "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+                     "historical_public":  "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+                     "candidate_options":  {
+                                               "attention_backend":  "dense",
+                                               "backbone_checkpointing":  null,
+                                               "compile_backbone":  false,
+                                               "compile_dynamic":  true,
+                                               "distance_checkpointing":  true,
+                                               "distance_implementation":  "tiled",
+                                               "distance_pair_rows":  65536,
+                                               "fused_adamw":  false,
+                                               "head_checkpointing":  true,
+                                               "precision":  "fp32",
+                                               "sparse_query_chunk":  32,
+                                               "tf32":  false
+                                           },
+                     "candidate_options_sha256":  "a618f741e42c681e735c13b837d9d72ea3381e2ccbfc6240f6e2eaaea6c13d64",
+                     "original_evidence_rawrefs":  {
+                                                       "configuration":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/configuration.json",
+                                                                             "bytes":  101805,
+                                                                             "sha256":  "9e50d047d13370d3b235465d9731f24807d1ddf054cb906d48208f07a2a6d783"
+                                                                         },
+                                                       "summary":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/summary.json",
+                                                                       "bytes":  891,
+                                                                       "sha256":  "9931f5205777536be38366f848f298e1ab50a4b00721b3f80992287788568fbf"
+                                                                   },
+                                                       "fixed_batch_gate_exact_4MiB_old_file":  {
+                                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/fixed_batch_gate.json",
+                                                                                                    "bytes":  2399567,
+                                                                                                    "sha256":  "9f3889b5988b38306b4355897001917ac71c5951beaf89faab4cc69606731e62"
+                                                                                                },
+                                                       "trajectory_gate":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_v1/child/trajectory_gate.json",
+                                                                               "bytes":  42490,
+                                                                               "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                                           },
+                                                       "original_Root_C0_closure":  {
+                                                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_GPU_4524551_Root_closure_v1.json",
+                                                                                        "bytes":  5082,
+                                                                                        "sha256":  "0136894785baf0d47905bb1701c206dc3c2ea641cf972826d3c9f56d6c589162"
+                                                                                    }
+                                                   },
+                     "source_map_entries":  305,
+                     "fixed_input_receipts_sha256":  "38c80a677bae4dc1b057554088c79fb3254347d2e950a177dd14ed02f4c59f46",
+                     "old_trajectory":  {
+                                            "gate":  "A_500_update_loss_trajectory",
+                                            "pass":  true,
+                                            "updates":  500,
+                                            "record_count":  500
+                                        },
+                     "old_trajectory_base_records":  201216,
+                     "old_configuration_sha256":  "b8ef95b569642fce39251aaed29bb3fa95c593185309518afa9cbc9be6ac7c19",
+                     "init_and_old500_reuse_gap":  "Original runner checks reference/candidate initial state equality within that run. This inventory has not proved cross-run initial parameter/RNG byte identity from configuration alone.",
+                     "old500_reuse_requirements":  [
+                                                       "Original complete real500PASS/closure",
+                                                       "Same declared model/config and actual initial parameters/RNG",
+                                                       "Same actual input/reset/seed/precision/deterministic controls",
+                                                       "Same GPU applicability and model/loss/optimizer/data semantic sources; only Host verifier rules differ",
+                                                       "New actual full20v2 plus both active zero-bias norm observations",
+                                                       "If any comparability proof is insufficient, full rerun; no invented certificate"
+                                                   ],
+                     "new_full_child_argv_template":  [
+                                                          "ACTUAL_GPU_PYTHON",
+                                                          "-u",
+                                                          "-B",
+                                                          "tools/model_v3/paired_a_acceptance.py",
+                                                          "--candidate-options",
+                                                          "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_capacity_consumer_v1_source/auto_R2_options_DRAFT_v1.json",
+                                                          "--performance-execution",
+                                                          "ACTUAL_NEW_CURRENT_SOURCE_AUTO_R2_EXECUTION_JSON",
+                                                          "--performance-execution-sha256",
+                                                          "ACTUAL_NEW_EXECUTION_RAW_SHA_AFTER_CURRENT_MANUAL_C0",
+                                                          "--reference-config",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                                                          "--input",
+                                                          "native_s",
+                                                          "--seed",
+                                                          "0",
+                                                          "--workers",
+                                                          "8",
+                                                          "--max-padded-cost",
+                                                          "8000000",
+                                                          "--expected-gpu",
+                                                          "5090",
+                                                          "--code-sha",
+                                                          "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+                                                          "--prereg-sha",
+                                                          "2b4a4df8636e5d65915d535472ba01084ea72dab",
+                                                          "--shard-snapshot-sha256",
+                                                          "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                                                          "--acceptance-version",
+                                                          "v2",
+                                                          "--acceptance-rule-document",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/DECISION_RULES_A_ACCEPTANCE_V2_20261028.md",
+                                                          "--acceptance-rule-document-sha256",
+                                                          "78bd6ac4a4ebfa605cf668217ddd89d5443516d4977101444590321cb16175ae",
+                                                          "--acceptance-prereg-sha",
+                                                          "4f6ba16973ea4a30472c7fb33d3aadec974a4462",
+                                                          "--acceptance-rule-publication",
+                                                          "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_gradient_rules_v2_publication_actual_v1.json",
+                                                          "--acceptance-rule-publication-sha256",
+                                                          "f5a8980fc0a4f11e4e6f9745f861147a0bd3a786b0da29078157ad91503f94d6",
+                                                          "--deterministic-controls",
+                                                          "--output",
+                                                          "ACTUAL_FRESH_CHILD_OUTPUT"
+                                                      ],
+                     "v2_result":  null,
+                     "actual_new_job":  null
+                 },
+                 {
+                     "old_job_id":  "4524580",
+                     "case":  "A03_head_off_manual_R2",
+                     "suggested_order":  3,
+                     "historical_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child",
+                     "historical_GPU":  "NVIDIA GeForce RTX 5090",
+                     "historical_GPU_UUID":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+                     "historical_node":  "compute-0-21",
+                     "historical_code":  "9e16d4c5a15c558051499d3dc0c55c9bd3787734",
+                     "historical_public":  "8147f44baa1ea1ecc3822af7affd0a95401ed248",
+                     "candidate_options":  {
+                                               "attention_backend":  "dense",
+                                               "backbone_checkpointing":  true,
+                                               "compile_backbone":  false,
+                                               "compile_dynamic":  true,
+                                               "distance_checkpointing":  true,
+                                               "distance_implementation":  "tiled",
+                                               "distance_pair_rows":  65536,
+                                               "fused_adamw":  false,
+                                               "head_checkpointing":  false,
+                                               "precision":  "fp32",
+                                               "sparse_query_chunk":  32,
+                                               "tf32":  false
+                                           },
+                     "candidate_options_sha256":  "9e958e8fb4374211f80e2c8ed741266b93f701dbde15f2dd36cb862a9e10723e",
+                     "original_evidence_rawrefs":  {
+                                                       "configuration":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child/configuration.json",
+                                                                             "bytes":  90476,
+                                                                             "sha256":  "9c1fb63b7cf680a407274c16697f4512718005473ca55cf2d71ad7810c35c2f9"
+                                                                         },
+                                                       "summary":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child/summary.json",
+                                                                       "bytes":  891,
+                                                                       "sha256":  "1b7a97477974824de39bf2d0502c098d1be598e0f39d3ca51d9d4ec5106427f1"
+                                                                   },
+                                                       "fixed_batch_gate_exact_4MiB_old_file":  {
+                                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child/fixed_batch_gate.json",
+                                                                                                    "bytes":  2399567,
+                                                                                                    "sha256":  "9f3889b5988b38306b4355897001917ac71c5951beaf89faab4cc69606731e62"
+                                                                                                },
+                                                       "trajectory_gate":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_v1/child/trajectory_gate.json",
+                                                                               "bytes":  42490,
+                                                                               "sha256":  "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+                                                                           },
+                                                       "original_Root_C0_closure":  {
+                                                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_GPU_4524580_Root_closure_v2.json",
+                                                                                        "bytes":  591480,
+                                                                                        "sha256":  "b3cf458a83c29a30a4bc8adffd7f5c5fd07a4cce86de9fd790cfbcbf41c533af"
+                                                                                    }
+                                                   },
+                     "source_map_entries":  305,
+                     "fixed_input_receipts_sha256":  "38c80a677bae4dc1b057554088c79fb3254347d2e950a177dd14ed02f4c59f46",
+                     "old_trajectory":  {
+                                            "gate":  "A_500_update_loss_trajectory",
+                                            "pass":  true,
+                                            "updates":  500,
+                                            "record_count":  500
+                                        },
+                     "old_trajectory_base_records":  201216,
+                     "old_configuration_sha256":  "572e4271450a123b9db8152d58e9f3071aed14455b20f96b63d619ff3b5e2092",
+                     "init_and_old500_reuse_gap":  "Original runner checks reference/candidate initial state equality within that run. This inventory has not proved cross-run initial parameter/RNG byte identity from configuration alone.",
+                     "old500_reuse_requirements":  [
+                                                       "Original complete real500PASS/closure",
+                                                       "Same declared model/config and actual initial parameters/RNG",
+                                                       "Same actual input/reset/seed/precision/deterministic controls",
+                                                       "Same GPU applicability and model/loss/optimizer/data semantic sources; only Host verifier rules differ",
+                                                       "New actual full20v2 plus both active zero-bias norm observations",
+                                                       "If any comparability proof is insufficient, full rerun; no invented certificate"
+                                                   ],
+                     "new_full_child_argv_template":  [
+                                                          "ACTUAL_GPU_PYTHON",
+                                                          "-u",
+                                                          "-B",
+                                                          "tools/model_v3/paired_a_acceptance.py",
+                                                          "--candidate-options",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a03_head_off.json",
+                                                          "--performance-execution",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/configs/model_v3/performance/a1_manual_capacity_observation_v1.json",
+                                                          "--performance-execution-sha256",
+                                                          "7cabbd4a0300d551154ffb9bcbed5466fc9886d0eb886a1ae37ee3e7f70db46e",
+                                                          "--reference-config",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/formal_s/B1_seed0_v2.json",
+                                                          "--input",
+                                                          "native_s",
+                                                          "--seed",
+                                                          "0",
+                                                          "--workers",
+                                                          "8",
+                                                          "--max-padded-cost",
+                                                          "8000000",
+                                                          "--expected-gpu",
+                                                          "5090",
+                                                          "--code-sha",
+                                                          "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+                                                          "--prereg-sha",
+                                                          "2b4a4df8636e5d65915d535472ba01084ea72dab",
+                                                          "--shard-snapshot-sha256",
+                                                          "d2e1ace1636485cd3dd0106b1177518dd37eb9741919195a9efcd846c1c2242f",
+                                                          "--acceptance-version",
+                                                          "v2",
+                                                          "--acceptance-rule-document",
+                                                          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_reporting_v3/docs/model_v3/DECISION_RULES_A_ACCEPTANCE_V2_20261028.md",
+                                                          "--acceptance-rule-document-sha256",
+                                                          "78bd6ac4a4ebfa605cf668217ddd89d5443516d4977101444590321cb16175ae",
+                                                          "--acceptance-prereg-sha",
+                                                          "4f6ba16973ea4a30472c7fb33d3aadec974a4462",
+                                                          "--acceptance-rule-publication",
+                                                          "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A_gradient_rules_v2_publication_actual_v1.json",
+                                                          "--acceptance-rule-publication-sha256",
+                                                          "f5a8980fc0a4f11e4e6f9745f861147a0bd3a786b0da29078157ad91503f94d6",
+                                                          "--deterministic-controls",
+                                                          "--output",
+                                                          "ACTUAL_FRESH_CHILD_OUTPUT"
+                                                      ],
+                     "v2_result":  null,
+                     "actual_new_job":  null
+                 }
+             ],
+    "common_model":  {
+                         "architecture":  {
+                                              "preset":  "shared_light",
+                                              "task_route":  "light",
+                                              "type":  "shared_multitask"
+                                          },
+                         "backbone":  {
+                                          "activation_checkpointing":  true,
+                                          "dim":  512,
+                                          "dropout":  0.0,
+                                          "ff_mult":  2,
+                                          "heads":  8,
+                                          "layers":  6,
+                                          "n_atom_types":  119,
+                                          "radius":  8.0,
+                                          "use_dist_bias":  true,
+                                          "use_radius_mask":  false
+                                      },
+                         "expert":  {
+                                        "dropout":  0.0,
+                                        "ff_mult":  2,
+                                        "heads":  8,
+                                        "internal_layers":  0,
+                                        "real_layers":  2
+                                    },
+                         "head":  {
+                                      "geometry_head":  "equivariant_noise",
+                                      "geometry_hidden_dim":  64,
+                                      "geometry_message_layers":  0,
+                                      "geometry_normalization":  "none",
+                                      "geometry_pair_chunk_size":  8192,
+                                      "geometry_radius":  5.0,
+                                      "geometry_rbf_count":  32,
+                                      "geometry_residual_scale":  0.1,
+                                      "profile":  "phase1"
+                                  }
+                     },
+    "common_optimizer":  {
+                             "betas":  [
+                                           0.9,
+                                           0.95
+                                       ],
+                             "lr":  0.0003,
+                             "weight_decay":  0.01
+                         },
+    "common_schedule":  {
+                            "kind":  "fixed_lr_numeric_equivalence",
+                            "lr":  0.0003
+                        },
+    "common_sampler":  {
+                           "atom_bucket_width":  16,
+                           "block_size":  4096,
+                           "max_molecules":  512,
+                           "max_native_atoms":  65536,
+                           "max_padded_cost":  8000000,
+                           "padded_cost_multiplier":  3
+                       },
+    "common_loader":  {
+                          "num_workers":  8,
+                          "persistent_workers":  false,
+                          "pin_memory":  true,
+                          "prefetch_factor":  2,
+                          "worker_timeout_seconds":  600.0
+                      },
+    "all_nine_actual_fixed20_required":  true,
+    "old_500_not_automatically_upgraded":  true,
+    "default_is_full20_then500_when_comparability_not_closed":  true,
+    "fixed_only_optional_scope":  "Only after Root comparability evidence, never full_A_numeric_acceptance by itself",
+    "auto4551_dependency":  "New same-current-source actual manual R2 complete20+500 C0 with genuine six-ref closed observation, then existing source-bound auto selector; not old9e profile/manual relabel",
+    "frame_and_CLI_templates_are_not_live_admission":  true,
+    "fresh_source_hashes_for_old_server_results_claimed":  false,
+    "no_old_SDK_NPZ_CP_gradient_or_history_payload_read":  true,
+    "author_executed_models_Python_AST_Git_SSH_Slurm":  false,
+    "method":  {
+                   "path":  "C:\\Users\\mint\\AppData\\Local\\Temp\\A_acceptance_v2_old_PASS_recheck_plan_20261029_v1\\RECHECK_PLAN_v1.md",
+                   "bytes":  8462,
+                   "sha256":  "14d8219ac3521b08bcecf23ac76a481f92556cde04965013aee9793531bc6b2f"
+               }
+}

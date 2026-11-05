@@ -1,0 +1,92 @@
+{
+    "schema":  "native_closed_long_sync_fixture_source_pins_v1",
+    "revision":  "closed020023-finite-v1",
+    "status":  "SOURCE_ONLY_NOT_EXECUTED_AWAITING_ROOT_REVIEW",
+    "scope":  "EXPLICIT_NATIVE_CLOSED_LONG_SYNC_METADATA_TMP_INTERNAL_FIXTURES_ONLY",
+    "previous_v1_source_pins":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed_long_sync_fixture_v1_source/source_pins.json",
+                                    "bytes":  2638,
+                                    "sha256":  "e5903933a5022484b061cb3a3f8908fca5cd6a123aa29a20499576a0b77e9898"
+                                },
+    "files":  [
+                  {
+                      "file":  "supervise_fixture.py",
+                      "bytes":  9328,
+                      "sha256":  "410d705dcc0611e780490aec4198f82a0bb00a71e22b2c5368c548c7fb76c06a"
+                  },
+                  {
+                      "file":  "native_long_sync_fixture_census.py",
+                      "bytes":  9785,
+                      "sha256":  "0e37319f3a0a7a36aa0d082a8cbed76630dd832ae288c8e92f737abe40ef08af"
+                  },
+                  {
+                      "file":  "native_long_sync_fixture_checks.py",
+                      "bytes":  5610,
+                      "sha256":  "2f1e4ed9e12a4d833de35e544176a886341530b2da74a03739d0a27d77ba34d5"
+                  },
+                  {
+                      "file":  "dependencies.json",
+                      "bytes":  7507,
+                      "sha256":  "6c47fadf6bdbbf69d285da287e0d54b4bb844ea68f6684d02fadaf67514c2db8"
+                  },
+                  {
+                      "file":  "sync_cpu.sbatch",
+                      "bytes":  1607,
+                      "sha256":  "0b30cdd00e5e04c19dde94851828efc7959ae45a0d2744d9c4e1e775d73a2e3e"
+                  },
+                  {
+                      "file":  "README.md",
+                      "bytes":  585,
+                      "sha256":  "5efeecceaf4b192b5ffb3ff35efddce7983b5c55fed46d5014620ef6adb5d65a"
+                  }
+              ],
+    "declared_fixture_subtrees":  [
+                                      "metadata_tmp"
+                                  ],
+    "fixture_root_must_remain_ordinary_directory":  true,
+    "same_job_selfchecks":  6,
+    "extra_pytest_cases":  0,
+    "original_metadata_tests_required":  4,
+    "original_sync_source_modified":  false,
+    "original_strict_supervisor_modified":  false,
+    "production_WandB_rules_unchanged":  true,
+    "private_storage_census_modified":  false,
+    "budgets":  {
+                    "cpus":  16,
+                    "memory_MiB":  null,
+                    "SBATCH_seconds":  3600,
+                    "adapter_setup_ceiling_seconds":  30,
+                    "adapter_setup_including_original_module_import_deducted_from_guard_seconds":  3300,
+                    "end_source_verification_is_outside_original_supervisor_clock":  true,
+                    "rss_bytes":  12884901888,
+                    "shared_joint_bytes":  2147483648,
+                    "private_bytes":  2147483648,
+                    "output_entries":  50000,
+                    "software_working_memory_MiB":  16384,
+                    "Slurm_memory_mode":  "automatic_default"
+                },
+    "corrections":  [
+                        "Allow only links strictly inside metadata_tmp; metadata_tmp itself remains subject to original strict link policy",
+                        "Load original supervisor and install census callback before final setup measurement; subtract ceil setup from original3300; tail verification is end-of-run source checking"
+                    ],
+    "actual_tests_or_Python_AST_SSH_Slurm_network_run_by_author":  false,
+    "actual_sync_or_scientific_acceptance_claimed":  false,
+    "previous_v2_source_pins":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed_long_sync_fixture_v2_source/source_pins.json",
+                                    "bytes":  3696,
+                                    "sha256":  "9f5da4d6179604b2cd278c5e92a4ecc9ac2863659dd4cf37193ee8099e3b2f7e"
+                                },
+    "rebind_target_sync_manifest":  {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed020023_long_sync_v1_source/source_pins.json",
+                                        "bytes":  4980,
+                                        "sha256":  "fec196d55f164b77a96b589b98e1f2fd39e6e736b2947ab829bc980f252bee7e"
+                                    },
+    "actual_prepare":  null,
+    "actual_sync":  null,
+    "actual_online":  null,
+    "previous_v3_source_pins":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_closed_long_sync_fixture_v3_source/source_pins.json",
+                                    "bytes":  4806,
+                                    "sha256":  "349b1e4138e4fe7204c4eace0ad24724f08f5639bacbcdeb8963417b199997aa"
+                                }
+}

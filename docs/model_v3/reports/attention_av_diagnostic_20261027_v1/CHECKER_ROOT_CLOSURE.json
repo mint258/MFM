@@ -1,0 +1,49 @@
+{
+  "schema": "model_v3_attention_candidate_repository_checker_Root_closure_v1",
+  "status": "ROOT_CLOSED_REPOSITORY_CHECKER_C0",
+  "code_commit": "cf8ce66d97cd518ebf279b40ee20294919bb95e1",
+  "source_manifest": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centering_candidate_source_freeze_v1.json",
+    "bytes": 14944,
+    "sha256": "1c936622fdc4809a3011b7127160377e72c27ed3155933ca13764b2d8d49b905"
+  },
+  "current_all15_declared_source_refs_equal": true,
+  "checker_output": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_checker_4521699.log",
+    "bytes": 177,
+    "sha256": "7c79aecbdcac6647f8289b4b49a43fe350542d3dc7dc0d8ed68be901db2f8f6a"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_checker_supervisor_4521699.json",
+    "bytes": 2286,
+    "sha256": "e04d02a369828d6c78f6f47717ff324f668e50d8c194135a98481d8a4f3cefe8"
+  },
+  "submission": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_candidate_checker_submission_v2.json",
+    "bytes": 4508,
+    "sha256": "18386570f87416297da75afbc1faffce7a86eef5f9a043b8b407cd5916945d0a"
+  },
+  "failed_original_submission_retained": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_candidate_checker_submission_v1.json",
+    "bytes": 4530,
+    "sha256": "b2cc94b0199f80119b185a0a55180fff244896a6ee643b001d93bacd9c96786f"
+  },
+  "original_failure_reason": "Root wrapper v1 omitted existing Git tool PATH; actual FAILED1/1s before checker completion; v2 only supplies PATH",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4521694,4521699",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "stdout": "4521694|zixiao|FAILED|1:0|1|16|compute-0-13\n4521699|zixiao|COMPLETED|0:0|4|16|compute-0-13\n",
+    "stderr": "",
+    "returncode": 0
+  },
+  "full_CPU_regression_executed": false,
+  "scientific_GPU_executed": false,
+  "candidate_adopted": false
+}

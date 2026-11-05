@@ -1,0 +1,188 @@
+{
+    "schema":  "model_v3_manual_R1_ABBA_Root_submit_source_handoff_v1",
+    "status":  "FROZEN_SOURCE_ONLY_PENDING_ROOT_AST_FIVE_BLOB_PUBLICATION_AND_ACTUAL_EXECUTION",
+    "driver":  {
+                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_Root_submit_v1.py",
+                   "bytes":  22142,
+                   "sha256":  "f392bf5a5b67c172b3894c8862b70b50f4649e3d740858b8cc046061ec2fb6d5"
+               },
+    "derived_from_actual_Root_flow":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Root_submit_v1.py",
+                                          "bytes":  11525,
+                                          "sha256":  "6a080f5ddfae55d087a5106fb8e67e1dfc43a102b8cf5f2bb9933824dddcb6b4"
+                                      },
+    "frozen_package":  {
+                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_GPU_v1_source/source_pins.json",
+                           "bytes":  14941,
+                           "sha256":  "51a5d9c0d8aa5ab708bea6b04d33044e7a555d41e16492dc0e1e0857777aad89"
+                       },
+    "frozen_four_leaves_unchanged":  true,
+    "expected_public_files":  [
+                                  {
+                                      "repository_relative_path":  "docs/model_v3/pre_registered_methods/performance_manual_R1_ABBA_v1/run_manual_R1_ABBA.sbatch",
+                                      "runtime":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_GPU_v1_source/run_manual_R1_ABBA.sbatch",
+                                                      "bytes":  11051,
+                                                      "sha256":  "1067974b2e889613798b051b4935e9396437d725a69e6852c1ee924daacf4b77"
+                                                  },
+                                      "expected_raw_Git_blob_sha":  "dce0055e0055f504595fdfd792435326e167ab19"
+                                  },
+                                  {
+                                      "repository_relative_path":  "docs/model_v3/pre_registered_methods/performance_manual_R1_ABBA_v1/dependencies.json",
+                                      "runtime":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_GPU_v1_source/dependencies.json",
+                                                      "bytes":  18742,
+                                                      "sha256":  "5c740669ce61e0d3ec21ba3bb0ecc4313edbd31d96c106eafea1a8abdda5b44c"
+                                                  },
+                                      "expected_raw_Git_blob_sha":  "bf55ce9afc9e4d8bdd067279ba0ca078458e5c03"
+                                  },
+                                  {
+                                      "repository_relative_path":  "docs/model_v3/pre_registered_methods/performance_manual_R1_ABBA_v1/METHODS_README.md",
+                                      "runtime":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_GPU_v1_source/METHODS_README.md",
+                                                      "bytes":  10344,
+                                                      "sha256":  "d4263c43a4cb3746d3dea31e4e26554b6abdffa5763baf1e1628c422a944370e"
+                                                  },
+                                      "expected_raw_Git_blob_sha":  "7fe4e14b87bcd4bd0e49cee9f4603c134f463436"
+                                  },
+                                  {
+                                      "repository_relative_path":  "docs/model_v3/pre_registered_methods/performance_manual_R1_ABBA_v1/source_pins.json",
+                                      "runtime":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_GPU_v1_source/source_pins.json",
+                                                      "bytes":  14941,
+                                                      "sha256":  "51a5d9c0d8aa5ab708bea6b04d33044e7a555d41e16492dc0e1e0857777aad89"
+                                                  },
+                                      "expected_raw_Git_blob_sha":  "bf23722e02c16b102e3b6104642d27308c5eae8f"
+                                  },
+                                  {
+                                      "repository_relative_path":  "docs/model_v3/pre_registered_methods/performance_manual_R1_ABBA_v1/Root_submit_v1.py",
+                                      "runtime":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_Root_submit_v1.py",
+                                                      "bytes":  22142,
+                                                      "sha256":  "f392bf5a5b67c172b3894c8862b70b50f4649e3d740858b8cc046061ec2fb6d5"
+                                                  },
+                                      "expected_raw_Git_blob_sha":  "18e0828ef3c5a371bb6cc19fa0b586a48b251600"
+                                  }
+                              ],
+    "publication_contract":  {
+                                 "argument":  "--method-publication ACTUAL_ROOT_JSON --method-publication-sha256 ACTUAL_RAW_SHA",
+                                 "schema":  "model_v3_exact_tree_publication_actual_v1",
+                                 "repository_full_name":  "mint258/MFM",
+                                 "branch":  "model-v3",
+                                 "required_true":  [
+                                                       "public_branch_readback_verified",
+                                                       "public_Git_API_tree_readback_verified"
+                                                   ],
+                                 "actual_full_SHA_fields":  [
+                                                                "local_code_sha",
+                                                                "public_code_sha",
+                                                                "tree_sha"
+                                                            ],
+                                 "files":  "Actual files map must include all five exact raw Git blobs above; other actual report/consumer paths may coexist",
+                                 "future_public_commit_or_tree_not_invented":  true
+                             },
+    "Root_command":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python -u -B /share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_Root_submit_v1.py --position 1 --method-publication ACTUAL_ROOT_OPUB_JSON --method-publication-sha256 ACTUAL_RAW_SHA",
+    "position_contract":  {
+                              "allowed":  [
+                                              1,
+                                              2,
+                                              3,
+                                              4
+                                          ],
+                              "derived_roles":  [
+                                                    "reference",
+                                                    "candidate",
+                                                    "candidate",
+                                                    "reference"
+                                                ],
+                              "series_id":  "A00_manual_R1_C35_9e16_v1",
+                              "series_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_v1",
+                              "selected_family":  "series_root/member_{position}",
+                              "child":  "selected_family/child",
+                              "control":  "selected_family/control",
+                              "supervisor":  "selected_family/supervisor.json",
+                              "reservation_id":  "performance_manual_R1_ABBA_v1_member_{position}",
+                              "previous_closure_for_position_greater_than_one":  "series_root/member_{position-1}/control/Root_closure_actual_v1.json",
+                              "predecessor_schema":  "model_v3_Root_single_R1_ABBA_member_closure_v1",
+                              "predecessor_status":  "ACTUAL_C0_SOURCE_INPUT_22_UPDATES_TRAINER_SDK_FINISHED",
+                              "predecessor_core_fields":  [
+                                                              "schema",
+                                                              "status",
+                                                              "position",
+                                                              "role",
+                                                              "series_id",
+                                                              "job_id",
+                                                              "source_package",
+                                                              "configuration",
+                                                              "summary",
+                                                              "run_status",
+                                                              "supervisor",
+                                                              "actual_sacct"
+                                                          ],
+                              "actual_Root_closer_additional_fields_consumed":  [
+                                                                                    "submission",
+                                                                                    "tracking_run_id",
+                                                                                    "SDK",
+                                                                                    "step_journal",
+                                                                                    "trainer_SDK_finish_completed",
+                                                                                    "SDK_native_stream_independent_audit_pending",
+                                                                                    "step_journal_body_independent_audit_pending"
+                                                                                ],
+                              "exact_sacct_argv":  [
+                                                       "sacct",
+                                                       "-X",
+                                                       "-n",
+                                                       "-P",
+                                                       "-j",
+                                                       "ACTUAL_PREVIOUS_JOB_ID",
+                                                       "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+                                                   ],
+                              "requires_both_saved_and_fresh_previous_parent_C0":  true,
+                              "Source_QA_and_config_scope":  "Actual same9e16 HEAD/tree/clean; frozen package, model publication, complete2131 map and current saved source graph; exact native input/config/options, original2warmup+20measured, original supervisor/input/private cleanup"
+                          },
+    "SDK_scope":  {
+                      "source":  "Root actual immutable closer: N/close_R1_ABBA_member_metadata_Root_v1.py; not dynamically imported or given a new SHA prerequisite",
+                      "per_member":  "Frozen trainer normal finish + clean C0 and durable original SDK/steps lstat only",
+                      "SDK_cap_bytes":  134217728,
+                      "steps_stat_cap_bytes":  33554432,
+                      "current_SDK_journal_hash_or_content_read_by_driver":  false,
+                      "native_EOF_exit_fullpayload_or_observed_history_count_claimed":  false,
+                      "independent_native_payload_audit_sync":  "One batch after all four; no extra per-member QA parent"
+                  },
+    "preserved_actual_admission":  {
+                                       "node":  "compute-0-21",
+                                       "UUID":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+                                       "CPU":  16,
+                                       "requested_memory_MiB":  65536,
+                                       "Slurm_seconds":  7200,
+                                       "supervisor_seconds":  6900,
+                                       "RSS_bytes":  60129542144,
+                                       "whole_persistent_limit_bytes":  2147483648,
+                                       "private_limit_bytes":  2147483648,
+                                       "registry":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_profile_registered_reservations_v6.json",
+                                       "one_new_hold_bytes_per_explicit_member":  2147483648,
+                                       "registered_holds_plus_quota_reserve_bytes":  68719476736,
+                                       "all_user_declared_memory_and_actual_available_policy":  "Original max(queue declarations,AllocMem)+64GiB \u003c85% RealMemory and actual MemAvailable reserve",
+                                       "node_commands":  "Original ssh -n BatchMode/ConnectTimeout8/StrictHostKeyChecking=yes, O/compute21_known_hosts_v1",
+                                       "GPU":  "Actual exact C35 name/memory and no selected compute app; check/release public lock then original single holds lifetime lock",
+                                       "fresh_resource_frame_seconds":  120,
+                                       "SB":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_GPU_v1_source/run_manual_R1_ABBA.sbatch",
+                                       "export":  "--export=ALL with fixed series, derived position/role and original actual Root frame bindings"
+                                   },
+    "mutation_boundary":  "Only Root actual invocation may append one independent registry hold/control and attempt; no loop/dispatcher/automatic retry, no hold deletion/release, no Native/source/job/process changes. Unknown sbatch outcome is retained and never blindly repeated.",
+    "source_only_correction":  "Before freeze, inherited Git loop variable args was renamed task_git_args at both references to preserve argparse namespace; nothing was executed.",
+    "author_activity":  {
+                            "small_source_metadata_read":  true,
+                            "new_driver_handoff_only":  true,
+                            "Windows_full_source_graph_hash":  false,
+                            "Python":  false,
+                            "AST":  false,
+                            "Git":  false,
+                            "SSH":  false,
+                            "Slurm":  false,
+                            "models":  false,
+                            "arrays":  false,
+                            "SDK_journal_payload":  false
+                        },
+    "new_member_family_hold_or_job_created_by_author":  false
+}

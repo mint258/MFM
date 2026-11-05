@@ -1,0 +1,95 @@
+{
+    "schema":  "model_v3_encoder_local_op_SA4_readonly_review_v1",
+    "status":  "NO_SOURCE_REVIEW_BLOCKER_NOT_EXECUTION_OR_SCIENTIFIC_ACCEPTANCE",
+    "reviewer":  "/root/sa4_architecture",
+    "frozen_source_inventory":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/DRAFT_SOURCE_INVENTORY.json",
+                                    "bytes":  4463,
+                                    "sha256":  "730b4132a0692bcbfa7402fc37d89e5ecdd241dc645a50919940411406e5e5c5"
+                                },
+    "reviewed_core_source_count":  9,
+    "reviewed_raw_refs":  [
+                              {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/local_ops.py",
+                                  "bytes":  13933,
+                                  "sha256":  "3c23b6100198cc80353d9322e61db7cf5b87413a0e8ccd61a1570a4b79507b99"
+                              },
+                              {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/local_metrics.py",
+                                  "bytes":  4821,
+                                  "sha256":  "90486a84ef4d944713a300a81e7f8a9c87e5b4eb9a602e68f94bda4f9dc026f4"
+                              },
+                              {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/local_common.py",
+                                  "bytes":  4300,
+                                  "sha256":  "93c37896e34b2a0247692ff445ece80276b88412087c63bc022bd6e5a1aba516"
+                              },
+                              {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/run_local_op_GPU.py",
+                                  "bytes":  20546,
+                                  "sha256":  "f09bc2b5d053ed82ea992f1c286cf693c27981b64b1c2c8a4460d3c7437d8155"
+                              },
+                              {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/prepare_metadata.py",
+                                  "bytes":  6723,
+                                  "sha256":  "153b9b559251d91c5a18592f53714dfac9baed350627919ff463d4a0a512c984"
+                              },
+                              {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/launch_local_op_GPU_v1.py",
+                                  "bytes":  16120,
+                                  "sha256":  "e6b09579e3ae81ff55c56ad94107881e8767740b887719a47e0867de7daefe19"
+                              },
+                              {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/run_local_op_GPU_v1.sbatch",
+                                  "bytes":  1982,
+                                  "sha256":  "ba040842f141fb10397548b3bbd62d143ed33e835ed96c94357aa0d0699fb637"
+                              },
+                              {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/protocol_v1.json",
+                                  "bytes":  2928,
+                                  "sha256":  "86d0eaa683ef9966566ff692ecd2c45d3ec8567bf48a62c3f7f569a01ded7169"
+                              },
+                              {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/README.md",
+                                  "bytes":  9553,
+                                  "sha256":  "444a250636264d23c61a1464d8f8434593c0bbe89fb993b29f32fbb6d78cfe05"
+                              },
+                              {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/encoder_local_op_precision_v1_source/DRAFT_DEPENDENCIES.json",
+                                  "bytes":  598173,
+                                  "sha256":  "75199b5df18c6e38afd06551dd4dd91ea4837bcc194e07934619293be21ceada"
+                              }
+                          ],
+    "Root_independent_static_proof":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/Root_encoder_local_op_DRAFT_static_actual_v1.json",
+                                          "bytes":  6086,
+                                          "sha256":  "651e7c4ee9a8ad5fc1263532b7488f55f4e16daaf7f3736d4b50e45acaa458a1"
+                                      },
+    "scope":  "Read-only source and stdlib metadata/hash; no Python/AST/model/NPZ/network/Slurm execution or source edits by reviewer",
+    "conclusion":  "No blocker in the frozen complete science chain. Root may perform metadata-only assembly before preregistration and actual job execution; no actual new measurement accepted here",
+    "checks":  [
+                   "All9 core leaves plus separate dependency inventory match declared raw bytes/SHA; launcher source diff is naming/schema/path retargeting only",
+                   "Hooks retain actual tensors only and are disarmed/removed with StageReferences before local replay/reference; no reference output injected",
+                   "NativeFP32 replay uses original GPU tensor objects/strides/storageoffset and original module; raw output bit gate includes padding",
+                   "Strict reference deepcopy/state load precedes clone-only legacy numeric/aggregation metadata mapping and losslessF64 parameter/buffer castback",
+                   "Reference is independent same-real-formula numerical algorithm plus precision; centeredAV vsdirectAV/compensated distance vsdirectF64 not falsely called dtype-only",
+                   "SharedPairAttention F64 reference promotes actualF32 pair_features/distances; separate Gaussian reference never injected upstream",
+                   "Original192 bankH0 header/value SHA and full52 actual1838 external terminals/case/config/state/fixture/passmatrix gates remain mandatory",
+                   "Original48 cases/all6 layers/bothseeds/allnativephysical88or132 rows and masks preserved; no selected cohort/layer/seed",
+                   "Valid-node vsordered-pair vsattentionweight-byhead populations explicit; padding excluded only from statistics,never native replay",
+                   "Signed local closure D32-Dref=(et-e0) independently audited at1e-10 and complete5-term tuples at common component;physical1e-5/rtol0 unchanged",
+                   "All5312 direct boundaryF32 replays+5312 direct boundaryF64 references/4368 port-transform observations planned; counts include nested overlapping scopes,not exclusive causal units",
+                   "Numerical mismatch retains all48 but producesHOLD/nonzero and does not authorize attribution;corrupt inputs/context/resources remain executionfailure",
+                   "All original model/parameter/bank state and clone states hashed beforeafter; finally restores constructor/forward/hooks",
+                   "Both selected input and produced artifact128MiB guards and originalresource/UUID/fd9/2GiB/1100s guards remain; actualfinalinputfit awaits assembler"
+               ],
+    "limits":  [
+                   "DenseGeo returnsweightsport;SharedPairAttention returnsonlyfeatureout,so no independenta/b softmaxweights claim",
+                   "C1-0 distanceMLP boundary takes alreadycomputedactualFP32 dist2,not standalone rawdistance/norm attribution",
+                   "Node/pair/head denominators and nested module residuals cannot be cross-ranked as wholemodelcauses or added as independentcontributions",
+                   "The referenceF64 sameactualinput drift includes inheritedinput change and finite referencealgorithm behavior;not an exact-real oracle",
+                   "LocalF32 replay failures may have retained reference statistics,which remain inadmissible because finalstatusHOLD",
+                   "Nativeper-graph sizes remain in the originalcase domain; localpopulation rows/channels areaggregatephysicalcounts,not a newlyinventedper-graph tensor",
+                   "No new candidate,production/API/precision/threshold changes or adoption;existingC4 remains21PASS27FAIL"
+               ]
+}

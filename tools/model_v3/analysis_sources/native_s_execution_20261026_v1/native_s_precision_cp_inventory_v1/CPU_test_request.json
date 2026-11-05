@@ -1,0 +1,17 @@
+{
+  "schema": "native_S_CP_inventory_CPU_test_request_v1",
+  "status": "PREPARED_NOT_EXECUTED",
+  "expected_cases_from_static_review": 4,
+  "pytest_files": ["test_inventory.py"],
+  "purpose": "single shared supplemental readiness CPU allocation; real weights_only audit, no training or target use",
+  "minimum_cpus": 16,
+  "CUDA_VISIBLE_DEVICES": "",
+  "expected_torch_major_minor": "2.10",
+  "estimated_inventory_peak_RSS_bytes": 2147483648,
+  "estimated_seconds_per_native_payload": [10, 30],
+  "per_artifact_output_cap_bytes": 2097152,
+  "max_input_payload_bytes": 536870912,
+  "whole_parent_limits_are_owned_by_Root": true,
+  "required_checks": ["real safe CPU weights_only roundtrip", "lazy Adam state upper bound", "unknown state/provider/variant rejection", "tuple/list config normalization", "no tensor value export", "byte cap and raw reference tamper rejection"],
+  "science_or_outer_C0_claimed": false
+}

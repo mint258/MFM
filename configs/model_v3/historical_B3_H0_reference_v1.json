@@ -1,0 +1,32 @@
+{
+  "schema": "model_v3_historical_b3_reference_v1",
+  "status": "SOURCE_RECEIPT_AND_CONFIGURATION_PINNED_WEIGHTS_NOT_YET_RELOADED",
+  "observed_on": "2026-10-25",
+  "source_baseline_commit": "037546cd7f07b32dbb46bc21a69109dfd273f8da",
+  "source_receipt": {
+    "path": "configs/model_v3/historical_B3_checkpoint_receipt_v1.json",
+    "original_path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/s_training/B3_seed0/latest_checkpoint.json",
+    "sha256": "8013f608dbd81e260f3aa358d5a97b0cdfab79e5770ebf7db1b9026ea2621043"
+  },
+  "configuration": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/formal_s/B3_seed0_v2.json",
+    "repository_path": "workflows/sprime_s/formal_s/B3_seed0_v2.json",
+    "sha256": "64f1e0a85f81b774d4a00cd4728766143662e196d9d8e5189550b69ad8bfed1f"
+  },
+  "checkpoint": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/s_training/B3_seed0/segment_4515402/segment_final.pt",
+    "sha256": "f4a67719950277341017ae8f492ad65f721761a5523390ab97a654945a74c322",
+    "bytes": 127610777,
+    "state_key": "model"
+  },
+  "observed_cursors": {"consumed_records": 33314316, "optimizer_updates": 81751, "label": "segment_final"},
+  "model": {"kind": "B3", "variant": "S", "layers": 4, "dimension": 384, "geometry_head": "residual"},
+  "memory_implementation": {
+    "path": "workflows/sprime_s/scripts/s_model_memory_v1.py",
+    "sha256": "170a7752bad1812d15dceace1613d19f579aec5d97a4965ed0960731cc53f232",
+    "pair_rows": 65536,
+    "candidate_and_random_use_identical_builder": true
+  },
+  "use": "descriptive sanity reference only; no downstream final-target records or scores were read",
+  "checkpoint_hash_status": "observed in the pinned source receipt; loader must independently verify the exact checkpoint bytes before use"
+}

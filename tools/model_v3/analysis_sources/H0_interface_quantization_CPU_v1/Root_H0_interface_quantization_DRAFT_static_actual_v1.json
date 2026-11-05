@@ -1,0 +1,71 @@
+{
+  "status": "STATIC_ONLY_NO_MODEL_NO_NPZ_NO_SUBMISSION",
+  "created_UTC": "2026-10-27T01:16:44.474071+00:00",
+  "inventory": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/DRAFT_SOURCE_INVENTORY.json",
+    "bytes": 3363,
+    "sha256": "6680c4524410e86730fb35e9abc69c38506f1c538a791f248278cafa5da11faf"
+  },
+  "dependencies": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/DRAFT_DEPENDENCIES.json",
+    "bytes": 8245,
+    "sha256": "65b081b3a43214ad7d12b8a11149852804ec3e1cd213679155eeee3085da80a6"
+  },
+  "leaf_refs": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/counterfactual_common.py",
+      "bytes": 9159,
+      "sha256": "f8404a7d5b558bcff49db1e5bb48d77caa63c4a54d92ead738fb9fd335ff79ee"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/DRAFT_DEPENDENCIES.json",
+      "bytes": 8245,
+      "sha256": "65b081b3a43214ad7d12b8a11149852804ec3e1cd213679155eeee3085da80a6"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/prepare_metadata.py",
+      "bytes": 6484,
+      "sha256": "5766267e28d26f0c6f7dd29008eec4fe4d69581997622e332390064c8cdc5b8e"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/protocol_v1.json",
+      "bytes": 1804,
+      "sha256": "2a7c2afc543288880bd00cc8e5fdff217e2be7cfa6ac895b3ccb1127b2383b34"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/README.md",
+      "bytes": 6235,
+      "sha256": "b18d370341a19853fb42b774325c6df58e6bd6959b99756157015d3b1b63e1ce"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/run_counterfactual_CPU.py",
+      "bytes": 12642,
+      "sha256": "a3cb288660b023b5433d92fbb912abb4cfcec2c0659f0c7bc3b360025af4d14e"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/run_counterfactual_CPU_v1.sbatch",
+      "bytes": 1557,
+      "sha256": "0f8d935a03a556f63659b219508539096609b9bc917dc707eaa64e66e11aa883"
+    }
+  ],
+  "external_implementation_refs_verified": 16,
+  "checks": [
+    {
+      "file": "counterfactual_common.py",
+      "status": "AST_PASS"
+    },
+    {
+      "file": "prepare_metadata.py",
+      "status": "AST_PASS"
+    },
+    {
+      "file": "run_counterfactual_CPU.py",
+      "status": "AST_PASS"
+    },
+    {
+      "file": "run_counterfactual_CPU_v1.sbatch",
+      "status": "BASH_N_PASS"
+    }
+  ],
+  "independent_SA4_read_review": "SAME_SEVEN_FROZEN_LEAVES_NO_BLOCKER"
+}

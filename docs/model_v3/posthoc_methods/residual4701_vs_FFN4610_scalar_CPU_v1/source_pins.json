@@ -1,0 +1,72 @@
+{
+    "schema":  "model_v3_residual4701_vs_FFN4610_scalar_source_pins_v1",
+    "status":  "SOURCE_ONLY_FROZEN_PENDING_ROOT_AST_AND_ACTUAL_CPU",
+    "files":  [
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/residual4701_vs_FFN4610_scalar_CPU_v1_source/compare_scalars.py",
+                      "bytes":  16845,
+                      "sha256":  "0a349b9018894773c3106de9dca1e8c198ea7b63d06a9d6db1bb9acddc28126f"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/residual4701_vs_FFN4610_scalar_CPU_v1_source/README.md",
+                      "bytes":  3414,
+                      "sha256":  "6f6690e4e1fd18fd07a5863e5eaff40dc3566a7ff783240406878ce984da86bd"
+                  }
+              ],
+    "inputs":  {
+                   "FFN4610":  {
+                                   "closure":  {
+                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/FFN_fp32_GPU_4524610_Root_negative_closure_v1.json",
+                                                   "bytes":  80142,
+                                                   "sha256":  "61c446b94ca985918f947492027876e51a4f48694cde97e04e0009d3c398706b"
+                                               },
+                                   "result":  {
+                                                  "bytes":  229093,
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/ffn_fp32_e2e_GPU_v2_4524610/RESULT.json",
+                                                  "sha256":  "b114cc435124d0bc552ec5c71d7a5c4206d0f0f5fe19dde9f286e53e71bff917"
+                                              }
+                               },
+                   "residual4701":  {
+                                        "closure":  {
+                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/residual_fp32_GPU4701_Root_negative_closure_actual_v1.json",
+                                                        "bytes":  34721,
+                                                        "sha256":  "4b6aa314eab659271a422ab0faa67261a3ad1042f46a5bb82b68793d3826bb90"
+                                                    },
+                                        "result":  {
+                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/residual_fp32_e2e_GPU_v2_4524701/RESULT.json",
+                                                       "bytes":  233485,
+                                                       "sha256":  "126b5b88d8a47ce404b17292a1aeec3c2da941b11bf6da616e5a6c8935fd3000"
+                                                   }
+                                    }
+               },
+    "context_reference":  {
+                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/FFN4610_vs_geometry4579_Root_scalar_comparison_actual_v1.json",
+                              "bytes":  81421,
+                              "sha256":  "3886eb3b1c6e6c9203ceea571681c2701b5373b5f5c98f989f29387563106b16"
+                          },
+    "fixed_scope":  {
+                        "cases":  48,
+                        "fields":  13,
+                        "transforms":  3,
+                        "paired_scalar_observations":  1872,
+                        "FP32_encoder_forwards_per_original_GPU_job":  192,
+                        "new_encoder_or_model_forwards":  0,
+                        "absolute_tolerance":  1E-05,
+                        "relative_tolerance":  0,
+                        "expected_complete_parameter_source":  "original1492",
+                        "selected_metadata_budget_bytes":  33554432,
+                        "per_metadata_file_limit_bytes":  1048576,
+                        "scalar_output_budget_bytes":  4194304
+                    },
+    "execution":  {
+                      "author_Python_AST_model_test_Slurm_SDK_or_array_execution":  false,
+                      "Root_CPU_job_id":  null,
+                      "Root_CPU_wrapper":  "Existing supervised16CPU auto-memory; no new runner",
+                      "statistics":  null,
+                      "case_transitions":  null,
+                      "field_statistics":  null,
+                      "H0_diagnostics":  null,
+                      "actual_output_ref":  null
+                  },
+    "scientific_adoption":  false
+}

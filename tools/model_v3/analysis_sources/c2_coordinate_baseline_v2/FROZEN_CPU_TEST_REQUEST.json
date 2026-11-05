@@ -1,0 +1,74 @@
+{
+    "schema":  "model_v3_C2_coordinate_baseline_v2_cpu_test_request_v1",
+    "status":  "SOURCE_FROZEN_TEST_NOT_RUN",
+    "frozen_at_utc":  "2026-10-25T12:12:14.3777058Z",
+    "source_root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/c2_coordinate_baseline_v2_source",
+    "proposed_git_directory":  "tools/model_v3/analysis_sources/c2_coordinate_baseline_v2",
+    "environment":  {
+                        "PYTHONPATH":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_c2/current"
+                    },
+    "python_arguments":  [
+                             "-B",
+                             "-m",
+                             "pytest",
+                             "-q",
+                             "-p",
+                             "no:cacheprovider",
+                             "test_coordinate_baseline_v2.py"
+                         ],
+    "expected_collected_cases":  17,
+    "test_result":  null,
+    "actual_native_VAL_access":  false,
+    "real_v2_execution_started":  false,
+    "adoption_status":  "PREPARED_CONDITIONAL_NOT_ADOPTED",
+    "original_v1_job_4520482_remains_FAILED":  true,
+    "caps":  {
+                 "wall_seconds":  3300,
+                 "work_deadline_seconds":  3240,
+                 "finalization_deadline_seconds":  3270,
+                 "maximum_process_RSS_bytes":  25769803776,
+                 "maximum_output_bytes":  134217728,
+                 "maximum_array_bytes":  33554432,
+                 "maximum_numeric_bytes":  8589934592
+             },
+    "source_inventory_sha256":  "c96c5d277ccf8ad31efca94741e038fe10d834ac2c5a0ab280943ee18258efd6",
+    "source_files":  [
+                         {
+                             "path":  "solver_math.py",
+                             "bytes":  9409,
+                             "sha256":  "e0cf8ef6859d026e8dc6c260718f0c5ddc368779097fa48405572f1f26f79472"
+                         },
+                         {
+                             "path":  "core_capture.py",
+                             "bytes":  8392,
+                             "sha256":  "9ac5b4be9a029a093419d0d6cb92673b3f89ca41a4a02e21b8c07f9a8fe33cd3"
+                         },
+                         {
+                             "path":  "diagnose_coordinate_lookup.py",
+                             "bytes":  21986,
+                             "sha256":  "7c78234b333dddd87ff5efd0927cf9f25642f455e6c31ca73c9abb936ed1e781"
+                         },
+                         {
+                             "path":  "coordinate_baseline_v2.py",
+                             "bytes":  27285,
+                             "sha256":  "7af1678e8358c20b48470429ddefaff301918a69e7a948fba63daa12b9a696b1"
+                         },
+                         {
+                             "path":  "test_coordinate_baseline_v2.py",
+                             "bytes":  10773,
+                             "sha256":  "1931261bd3ed303822cdc1cc001f4928d46248f31064a774782b4a6074176855"
+                         },
+                         {
+                             "path":  "coordinate_baseline_v2_protocol.json",
+                             "bytes":  2511,
+                             "sha256":  "2ff00364c75662528d927c6f150e9f44a93895fa0eb30ce6ca0060ab57cdeaab"
+                         },
+                         {
+                             "path":  "README.md",
+                             "bytes":  9895,
+                             "sha256":  "79dcb7d41baa8d612e05f39c5392832cafd58a43c865ba3d724c112cda544839"
+                         }
+                     ],
+    "submitter":  "Root only",
+    "real_execution_requires":  "New public adopted protocol plus actual TRAIN-only diagnostic eligibility; this request authorizes synthetic CPU tests only"
+}

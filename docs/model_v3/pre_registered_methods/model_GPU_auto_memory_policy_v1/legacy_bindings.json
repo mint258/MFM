@@ -1,0 +1,71 @@
+{
+    "schema":  "model_v3_GPU_auto_memory_source_bound_legacy_bindings_v1",
+    "status":  "SOURCE_ONLY_NO_LIVE_JOB_OR_REGISTRY_MUTATION",
+    "registry_lock_delegate":  {
+                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Av2_GPU_v1_source/source_guard.py",
+                                   "bytes":  18298,
+                                   "sha256":  "bd851e687272cd8b1a57e2e85bf5e08a0a7b0836958a528a5b50122464f4b698"
+                               },
+    "registry_lock_delegate_dependencies":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_R2_Av2_GPU_v1_source/dependencies.json",
+                                                "bytes":  18715,
+                                                "sha256":  "a839478ab4b745ff4c569f05090883137f5229974f5aecc363c0817f5cce3208"
+                                            },
+    "registrations":  [
+                          {
+                              "schema":  "model_v3_GPU_software_memory_registration_v1",
+                              "authority":  "ROOT_ACTUAL",
+                              "uid":  1278,
+                              "user":  "zixiao",
+                              "registration_id":  "legacy_native_S_B20k_v3_slot_026_4524782",
+                              "node":  "compute-0-21",
+                              "gpu_uuid":  "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+                              "software_budget_bytes":  34359738368,
+                              "rss_limit_bytes":  30064771072,
+                              "Root_source":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_operational_v7/long_operations.py",
+                                                  "bytes":  22568,
+                                                  "sha256":  "e25cf6bc8e1fab654279fa8aec3cb7b2352ba0747c4ce7ac327133018052ab5f"
+                                              },
+                              "source_pins":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_operational_v7/source_pins.json",
+                                                  "bytes":  8105,
+                                                  "sha256":  "83f05fff155204fc4443803aba67107cc8d4d63bc6c4452e5ec098e294e31bf1"
+                                              },
+                              "slurm_memory_mode":  "fixed_declared",
+                              "status":  "SUBMITTED",
+                              "job_id":  "4524782",
+                              "actual_submission":  {
+                                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/control/attempts/slot_026.submitted.json",
+                                                        "bytes":  32798,
+                                                        "sha256":  "087c3b49f19430f8a357f5042f8a77b6d1419401a0e956ac5c13e70d47cafbe5"
+                                                    },
+                              "job_id_field":  "actual_sbatch_job_id",
+                              "proof_refs":  [
+                                                 {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_026/management/actual_supervisor_launch.json",
+                                                     "bytes":  10395,
+                                                     "sha256":  "9d529e14fa2af8598be94daab1cb0b67c83c3929c7ba1d9e44881bfc890ba6c0"
+                                                 },
+                                                 {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_B20k_v3/slots/slot_026/management/Root_segment_admission.json",
+                                                     "bytes":  18297,
+                                                     "sha256":  "017935dec4373a2c41f0f9766919f438d72be767fd2eb9b0832d8628312a4ce3"
+                                                 },
+                                                 {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_operational_v7/long_policy.json",
+                                                     "bytes":  1584,
+                                                     "sha256":  "64f9c5765da36196f0dc54219ec132e9213c365ee31bed2d0fd669096e61599f"
+                                                 },
+                                                 {
+                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_S_long_operational_v7/long_gpu.sbatch",
+                                                     "bytes":  1105,
+                                                     "sha256":  "9d521fdba99ef9ba7b214f8eecba6850c650cef8a37d4360e9417f7458a6f857"
+                                                 }
+                                             ]
+                          }
+                      ],
+    "legacy_fixed_job_relabelled_automatic":  false,
+    "legacy_counted_only_when_fresh_queue_contains_job":  true,
+    "author_source_or_payload_execution":  false
+}

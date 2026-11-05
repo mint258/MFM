@@ -1,0 +1,13 @@
+--- a/current/phychem_mfm/phase1/v3_proxy_run.py
++++ b/current/phychem_mfm/phase1/v3_proxy_run.py
+@@ -167,7 +167,9 @@
+     contract = configuration['proxy_contract']; model = configuration['model']
+     from .v3_pilot_smoke import validate_pilot_configuration, update_limit
+     pilot_contract = validate_pilot_configuration(request, configuration)
+-    update_limit(request, configuration)
++    update_limit(request, configuration)
++    from .v3_architecture_smoke import validate_architecture_wiring_smoke
++    validate_architecture_wiring_smoke(request, configuration)
+     require(configuration.get('recipe_identity_schema') in (None, 'model_v3_training_recipe_identity_v2'),
+         'Unknown recipe identity projection')
+     require(model['backbone']['dim'] == 512 and (engineering or model['backbone']['layers'] == 6), 'Canonical scientific6x512 model required')

@@ -1,0 +1,22 @@
+{
+  "schema": "model_v3_B_unexecuted_pre_review_receipt_v1",
+  "worktree_base_sha": "dd6cbafb5f6bc86fb064fedfab313c7983003bee",
+  "status": "SUPERSEDED_BEFORE_ANY_TEST_OR_EXECUTION",
+  "tests_run": 0,
+  "training_runs_launched": 0,
+  "review_findings": [
+    "Unexecuted draft default validation grid1000..20000 did not match published0,500..20000",
+    "Unexecuted draft noise_seed20261025 did not match published seed0/epoch0",
+    "Both validation roles lacked explicit B inner-TRAIN gate versus diagnostic source purpose",
+    "Published B options resolve backbone_checkpointing=true; consume pinned original option files",
+    "Production proxy needs actual240000 molecule index plus exact-request-bound authority verification"
+  ],
+  "superseded_source_sha256": {
+    "current/phychem_mfm/phase1/v3_precision_experiment.py": "2bbe00b0aeb1c0fab9216772f2170378c7fb7a0bee72bb8417591fb4d9565098",
+    "current/phychem_mfm/phase1/v3_precision_synthetic.py": "aadc9020ae42edb2ed6aef262bd89fdfa4a2c806af357e7388aec7f99509c192",
+    "tools/model_v3/run_precision_experiment.py": "58f2d65b550681f394a046765e8db6fe05f9a2fb4419cd8942256f7b878e19d9",
+    "current/tests/test_model_v3_precision_experiment.py": "2fae75ed519bdefd6d27aa892b80e04b8b29451d296aa7bd64068a2ed8bd3c60"
+  },
+  "unchanged_published_plan_sha256": "0781a77b8b8e7e9343eb5e967581e8a48fc1520bb4520bec7ee7494e4698ad70",
+  "scientific_acceptance": false
+}

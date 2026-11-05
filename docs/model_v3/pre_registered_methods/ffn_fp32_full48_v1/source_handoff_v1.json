@@ -1,0 +1,173 @@
+{
+    "schema":  "model_v3_ffn_FP32_complete48_source_handoff_v1",
+    "status":  "FROZEN_METHOD_SOURCE_NOT_GPU_ADMITTED",
+    "source_freeze":  {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/SOURCE_FREEZE_v1.json",
+                          "bytes":  8420,
+                          "sha256":  "fd1427a0fbc85fde7c9b2676371be1b5287533d985984aa39cd5038cc2ca7f71"
+                      },
+    "copy_whitelist":  [
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/ffn_adapter.py",
+                               "bytes":  15628,
+                               "sha256":  "6e69adf2e202d2cb78eb7f42e2b6176b81b1f3d1c408a7b6b1969a9c781eb3f5"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/run_ffn_matrix.py",
+                               "bytes":  16760,
+                               "sha256":  "6346c8cd4bbb20e783dfd7f1943f81b0d7740095230f34134973b159a95f7004"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/test_ffn_matrix.py",
+                               "bytes":  5968,
+                               "sha256":  "f17fcaac1db542f75cb674205b00c11b8595abb4873d7710baa0de4bf390ef21"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/tiny_ffn_controls.py",
+                               "bytes":  16556,
+                               "sha256":  "c11453d0213c3835fbd3dee832475fef9fb2477331e9ad5eee5330df27d285fc"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/launch_ffn_matrix_GPU_v1.py",
+                               "bytes":  16464,
+                               "sha256":  "978421066cb1cd8f36d4cc9389fa686a16a33ec224a4b355380ab79c5b4641ab"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/run_ffn_matrix_GPU_v1.sbatch",
+                               "bytes":  1951,
+                               "sha256":  "2071b62ffb9ad95045c31007e160fb217b819d71de82cc2af95cea5e192b77cd"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/METHOD.md",
+                               "bytes":  5623,
+                               "sha256":  "8ce761ac723bcb71b34e8cd2282a913ef37dfef4ffbb0234f91ba96c05c2a9e3"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/ffn_publication.py",
+                               "bytes":  16396,
+                               "sha256":  "f65b7ae61a97fe302c58e22201373c7b8f7953514e3e9472e4f2795f9d8bdad3"
+                           },
+                           {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/final_binding.py",
+                               "bytes":  11073,
+                               "sha256":  "0f92de76813bc145c4f0afacbc4aa90f55055f6720daee13a78b53fdea8df203"
+                           }
+                       ],
+    "candidate_source_freeze":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_candidate_source_freeze_v1.json",
+                                    "bytes":  17488,
+                                    "sha256":  "d2a74aab02399ee07d422793c83ade7e99610230a5cdc322d85073a46ed076a8"
+                                },
+    "full_CPU":  {
+                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_full_CPU_4524602_Root_closure_v1.json",
+                     "bytes":  933132,
+                     "sha256":  "fcb61e0bcf7b00f94584777c6def316d3975e8b458a563bd53d5625390b3ea5f"
+                 },
+    "candidate_publication":  {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_candidate_publication_actual_v1.json",
+                                  "bytes":  2911,
+                                  "sha256":  "e6130e5d2bcae14394497c91b2d48f91c7e7cf928d238b0ae33bd94d08630669"
+                              },
+    "method_publication":  null,
+    "execution_request_DRAFT":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/execution_request_DRAFT_v2.json",
+                                    "bytes":  11024,
+                                    "sha256":  "3f5aef4ac797487a5a2195e898c2108eeb8b6ce60c3475349810168ff4fc0728"
+                                },
+    "binding_inputs_DRAFT":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/ROOT_BINDING_INPUTS_DRAFT_v2.json",
+                                 "bytes":  2579,
+                                 "sha256":  "38d84e9e493f65c51678f28e1a5f47b69b74652404d4320f8f5ec88a10363798"
+                             },
+    "required_method_target_prefix":  "docs/model_v3/pre_registered_methods/ffn_fp32_full48_v1/",
+    "one_actual_method_publication_required":  {
+                                                   "leaf_count":  9,
+                                                   "science":  6,
+                                                   "metadata":  2,
+                                                   "method":  1,
+                                                   "actual_exact_tree_receipt_schema":  "model_v3_exact_tree_publication_actual_v1",
+                                                   "future_receipt_missing_rejected":  true,
+                                                   "moving_reporting_HEAD_not_required_equal_to_method_commit":  true
+                                               },
+    "Root_finalization_steps":  [
+                                    "Actual9 source hash/7Python AST/bash-n and source review; do not execute model yet",
+                                    "Copy only9 whitelist leaves to method target; normal checker and exact immutable Git tree/double-readback publication",
+                                    "Create fresh ROOT_BINDING_INPUTS_FINAL_v1.json from DRAFT_v2: stage FINAL, method_publication and metadata_publication both actual9-leaf publication rawref; preserve all prior DRAFTs",
+                                    "Machine hash actual final input; run bound stdlib final_binding.py; source collector binds actual4602 full map, all8 candidate leaves, exact2-field external descriptors and strict3-field metadata, no full-tree Windows hash",
+                                    "Root verify final request/pins/source/clean candidate actuale4b/public9977, then original fresh GPU resource/quota/hold/frame/UUID/fd9 audit and unique submission"
+                                ],
+    "Root_metadata_argv_template":  [
+                                        "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                        "-u",
+                                        "-B",
+                                        "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/final_binding.py",
+                                        "--inputs",
+                                        "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/ROOT_BINDING_INPUTS_FINAL_v1.json",
+                                        "--inputs-sha256",
+                                        "ROOT_ACTUAL_FINAL_INPUT_RAW_SHA256"
+                                    ],
+    "Root_source_audit_argv_template":  [
+                                            "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                            "-u",
+                                            "-B",
+                                            "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/launch_ffn_matrix_GPU_v1.py",
+                                            "audit",
+                                            "--source-pins-sha",
+                                            "ROOT_ACTUAL_FINAL_SOURCE_PINS_RAW_SHA256"
+                                        ],
+    "Root_submit_argv_template":  [
+                                      "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+                                      "-u",
+                                      "-B",
+                                      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/ffn_fp32_e2e_v1_source/launch_ffn_matrix_GPU_v1.py",
+                                      "submit",
+                                      "--source-pins-sha",
+                                      "ROOT_ACTUAL_FINAL_SOURCE_PINS_RAW_SHA256"
+                                  ],
+    "resources":  {
+                      "node":  "compute-0-21",
+                      "GPU_UUID":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+                      "CPUs":  16,
+                      "memory_GiB":  32,
+                      "RSS_bytes":  30064771072,
+                      "wall_seconds":  1100,
+                      "Slurm_minutes":  20,
+                      "whole_output_bytes":  2147483648,
+                      "private_bytes":  2147483648,
+                      "GPU_percent":  85,
+                      "public_lock_fd":  9,
+                      "runtime_guard":  "Original d3cba6 helper",
+                      "supervisor":  {
+                                         "bytes":  15264,
+                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/run_supervised.py",
+                                         "sha256":  "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+                                     }
+                  },
+    "coverage":  {
+                     "case_count":  48,
+                     "FP32_encoder_forwards":  192,
+                     "FP64_encoder_forwards":  0,
+                     "fields":  13,
+                     "transforms":  3,
+                     "terminal_arrays_per_case":  52,
+                     "atol":  1E-05,
+                     "rtol":  0,
+                     "FFN_mode":  "blocked_k64_compensated_fp32_v1",
+                     "attention_aggregation":  "centered_fp32_v1",
+                     "attention_projection":  "blocked_k64_compensated_fp32_v1",
+                     "geometry":  "residual_expansion_fp32_v1",
+                     "FFN_helper_calls":  2304,
+                     "FFN_K64_leaf_calls":  69120,
+                     "all12sites_each_forward":  true,
+                     "new_terminal_equal4579_not_required":  true,
+                     "all_failures_durable_before_gate":  true
+                 },
+    "new_spy_alias":  "phychem_mfm.model.attention.ffn_projection(module,linear,values)",
+    "spy_scope":  "One actual FFN helper only, saved original called exactly once and identical result returned; full restore finally",
+    "no_new_monitor_dispatcher_QA_parent_or_extra_encoder":  true,
+    "CPU_optional_skips_do_not_authorize_CUDA_or_real_D3":  true,
+    "author_executed_Python_AST_Git_model_arrays_SDK_network_or_Slurm":  false,
+    "scientific_or_GPU_pass_claimed":  false,
+    "old_worktrees_sources_and_negative_results_unchanged":  true,
+    "frozen_stop_editing":  true
+}

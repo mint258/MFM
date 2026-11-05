@@ -1,0 +1,5 @@
+# Exact Native030 sync fixture adapter — source only
+
+Only namespace/original-sync rawrefs rebound from completed/public028029. Original fixture census/checks remain rawbyte-identical: symlink test exception only inside metadata_tmp descendants, root ordinary, no target following, no production/private/UID/inode/type/cap relaxation. Same six functionality checks run in original4pytest cases, no extra QA parent/case. Imports/setup<=30s deducted from3300s; tail source verification retains honest scope.
+
+supervise_fixture.py and sourceSB only namespace change. Runtime still derives sourceSB from matching original syncSB by the sole supervision-entry substitution. Root canonical autoCPU16/RSS12GiB/whole+private2GiB/3300s must bind exact manifest/request/source. Source historical nodes/ntasks are not a claimed actualcanonical submission. No author project/AST/QA/SDKbody/Slurm/API/prepare/sync/hold changes. No031 or oldSDK re-audit; source/proofs/failures stay original. Actualfuture fields null, B/D5 false.

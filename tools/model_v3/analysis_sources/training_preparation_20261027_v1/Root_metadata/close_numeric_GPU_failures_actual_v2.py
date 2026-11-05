@@ -1,0 +1,15 @@
+import hashlib,json,pathlib,subprocess
+B=pathlib.Path('/share/home/zixiao/descriptor_analysis');N=B/'runs/model_v3_20261026';O=B/'runs/model_v3_20261025'
+def read(p):return json.loads(p.read_bytes())
+def ref(p):
+ p=pathlib.Path(p);d=p.read_bytes();return dict(path=str(p),bytes=len(d),sha256=hashlib.sha256(d).hexdigest())
+argv=['sacct','-X','-n','-P','-j','4521429,4521435','--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList'];r=subprocess.run(argv,stdin=subprocess.DEVNULL,capture_output=True,text=True,timeout=45,check=True);lines=[x.split('|') for x in r.stdout.splitlines() if x.strip()];assert len(lines)==2 and {x[0] for x in lines}=={'4521429','4521435'} and all(x[1:4]==['zixiao','FAILED','1:0'] and x[5]=='16' and x[6]=='compute-0-21' for x in lines)
+records=[]
+for job,supname,workername,receipt in [('4521429','numeric_composed_GPU_supervisor_','numeric_composed_GPU_launch_v1_worker_','numeric_composed_GPU_v1_attempt1.json'),('4521435','numeric_composed_GPU_v2_supervisor_','numeric_composed_GPU_v2_launch_v1_worker_','numeric_composed_GPU_v2_attempt1.json')]:
+ sp=O/(supname+job+'.json');wp=O/(workername+job+'.json');s=read(sp);w=read(wp);assert s['job_id']==job and s['status']=='FAILED' and s['exit_code']==1 and s['remaining_recorded_processes_before_retirement']==[] and s['private_storage_cleanup_errors']==[] and s['foreign_gpu_processes_signalled'] is False;assert w['job_id']==job and w['status']=='CHILD_RETURNED' and w['child_exit_code']==1 and w['closed_control_output_census']['conservative_total_bytes']<=2147483648
+ records.append(dict(job_id=job,actual_submission=ref(O/receipt),supervisor=ref(sp),worker=ref(wp),scientific_acceptance=False))
+p=O/'numeric_composed_GPU_v2_4521435/RESULT.json';v=read(p);assert v['status']=='FAIL' and v['failure'] is None and v['pytest_exit_code']==1 and v['counts']==dict(tests=48,failures=38,errors=0,skipped=0) and v['source_before_after_equal'] is True and len(v['cases'])==48 and len({x['case_id'] for x in v['cases']})==48 and sum(x['passed'] for x in v['cases'])==10
+for x in v['cases']:assert ref(x['case_json']['path'])==x['case_json']
+out=N/'numeric_GPU_1429_1435_actual_closure_v1.json';report=dict(schema='model_v3_numeric_GPU_actual_failed_closure_v1',status='ACTUAL_FAILURES_RETAINED_COMPLETE_MATRIX_VERIFIED_NOT_ADOPTED',actual_parent_accounting=dict(argv=argv,stdout=r.stdout,stderr=r.stderr,returncode=r.returncode),parents=records,complete_matrix_result=ref(p),counts=v['counts'],passed=10,source_before_after_equal=True,first_attempt_failed_before_model=True,first_failure_cause='Two preregistered metadata JSON files have Git LF identities and working-tree CRLF identities; corrected explicitly in independent v2 launch package',candidate_code_unchanged=True,CPU_fullsuite=ref(N/'numeric_full_regression_4521421_actual_closure_v1.json'),public_commit=v['public_commit'],local_commit=v['local_commit'],exact_shared_tree=v['exact_shared_tree'],candidate_adopted=False)
+with out.open('x') as f:json.dump(report,f,indent=2);f.write('\n')
+print(json.dumps(dict(status=report['status'],result=ref(out),counts=v['counts'],passed=10)))

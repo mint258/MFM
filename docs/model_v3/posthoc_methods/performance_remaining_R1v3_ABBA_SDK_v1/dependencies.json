@@ -1,0 +1,784 @@
+{
+    "schema":  "performance_remaining_R1v3_ABBA_SDK_dependencies_v1",
+    "sources":  {
+                    "literal_reader":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/literal_key_history_v1.py",
+                                           "bytes":  11700,
+                                           "sha256":  "74925c58edc61619c78533ff6cce8fc36b2b5f20f876cb011169906d8ba77e88"
+                                       },
+                    "tap":  {
+                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/profile_sdk_tap.py",
+                                "bytes":  10910,
+                                "sha256":  "e70022162ed70b983af88a0e445a08a6f81866ba96da7da6ad63643f951a5795"
+                            },
+                    "framing":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_native_integrity_probe_v1_source/native_integrity.py",
+                                    "bytes":  20296,
+                                    "sha256":  "07b155e55f7721b1cc4b5f5781c5d260ae4e0300fc7d17a2c2b4a5c024e5c499"
+                                },
+                    "decoder_reference":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_native_integrity_probe_v1_source/decoder_reference.json",
+                                              "bytes":  2197,
+                                              "sha256":  "6e20968e043f4ff61787718080de34785f305d3d1c5202c77d279ace8d29a71b"
+                                          },
+                    "producer":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/single_a_benchmark.py",
+                                     "bytes":  13246,
+                                     "sha256":  "0a522edd0ffce5891492974b6170de3b874a767b3099b5c328cdd2dce9567c9a"
+                                 },
+                    "base_common":  {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/sync_common.py",
+                                        "bytes":  8617,
+                                        "sha256":  "712bedf22bb3c6ce7732dab55f8cb7cfa87a01fffa812ecfddba36d4ab862cfc"
+                                    },
+                    "base_transport":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/one_run.py",
+                                           "bytes":  11852,
+                                           "sha256":  "0286ce7f8fd218eb8548e87596662f3027bf9f14363d2cc8762022c2b8300af9"
+                                       },
+                    "base_prepare":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/prepare_sync.py",
+                                         "bytes":  4689,
+                                         "sha256":  "d9fa93365824555f66bed6b2448eca3e93961c4736da7c1b44d97bf81cddfd52"
+                                     },
+                    "base_installed_sources":  {
+                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/installed_sources.json",
+                                                   "bytes":  5921,
+                                                   "sha256":  "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+                                               },
+                    "base_inventory":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/source_pins.json",
+                                           "bytes":  3697,
+                                           "sha256":  "4e97d0f413564ace06555067e828bb7109334573c5e43338426cdecf083609c3"
+                                       },
+                    "CPU_supervisor":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_cpu_supervised_v3.py",
+                                           "bytes":  8479,
+                                           "sha256":  "10bb34aa74633bd139f8dcedd475901a85d4143422494f1249ffb85994c8c66c"
+                                       },
+                    "CPU_process_helpers":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/run_supervised.py",
+                                                "bytes":  15264,
+                                                "sha256":  "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+                                            },
+                    "CPU_runtime_monitor":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/runtime_monitor.py",
+                                                "bytes":  16838,
+                                                "sha256":  "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe"
+                                            },
+                    "CPU_private_storage":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/private_runtime_storage.py",
+                                                "bytes":  15452,
+                                                "sha256":  "791e2742b2131e5001ebc4fe549d8fcb43f7d28f399368a5aa5f82d7d592a041"
+                                            },
+                    "CPU_submit_helper":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/submit_cpu_task_v2.py",
+                                              "bytes":  4633,
+                                              "sha256":  "1820e6abb08fcc34befeccdfd32788b47c8b81f9ccf8ae61922231c7c4ec9761"
+                                          },
+                    "v7_protocol":  {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_s_runtime_v1/tools/model_v3/analysis_sources/archive_closed_v7/bounded_history_v7.py",
+                                        "bytes":  11112,
+                                        "sha256":  "6aee76e16c182be97b7f88e635b43948510d0fc335e0ccfbf9ba107a1c29ab95"
+                                    },
+                    "installed_API_snapshot":  {
+                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/installed_wandb_0281_sync_api_source_v1/apis/public/api.py",
+                                                   "bytes":  97921,
+                                                   "sha256":  "4983f5b8d661f29d6480992d98c2e538b8748030ba3def1691c41df3cf76e09f"
+                                               },
+                    "speed_report":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/a_speed_report.py",
+                                         "bytes":  11218,
+                                         "sha256":  "c4427d32db4ca429c7bcfa6a8494cb0e07ccd24009e2ea0a6fe076b71673ed27"
+                                     },
+                    "paired_baseline_pins":  {
+                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_source/source_pins.json",
+                                                 "bytes":  6703,
+                                                 "sha256":  "17201a544261ff3ffff225dca2a45ce1d2eb9532b1adcd980ededf437bde2f85"
+                                             },
+                    "paired_baseline_actual_C0":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_CPU_4524559_Root_closure_v1.json",
+                                                      "bytes":  7147,
+                                                      "sha256":  "5f13f5aeb928f9ca3797562230472ae24e96cf1be8e9bb258a3174703a9dc0ac"
+                                                  },
+                    "speed_runtime":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/a_execution_runtime.py",
+                                          "bytes":  17280,
+                                          "sha256":  "ed2577bbb1d265b91edb1b515e2203cec1977d18b46553ff28120d0d8bfa46d0"
+                                      },
+                    "speed_profile_helpers":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/profile_s_baseline.py",
+                                                  "bytes":  30691,
+                                                  "sha256":  "ecbea5174a314293ab5cce81e7a08d00981619155b1d8d088ffa5f93b692f965"
+                                              },
+                    "baseline_R1_v1_source_pins":  {
+                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_SDK_v1_source/source_pins.json",
+                                                       "bytes":  3903,
+                                                       "sha256":  "8c25ed66fc0a74c590db2444976d56de499b3152600e22a93b4c0ced4c7c87a1"
+                                                   },
+                    "baseline_R1_v1_handoff":  {
+                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_SDK_handoff_v1.json",
+                                                   "bytes":  17994,
+                                                   "sha256":  "a9d04674e1783cded42d6e1b946d6b86395479968c79148d375f91726e0693d0"
+                                               },
+                    "automatic_allocation_derivation":  {
+                                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_Av2_R2_SDK_v1_source/paired_common.py",
+                                                            "bytes":  26206,
+                                                            "sha256":  "2773a52d21b44ebca18582dc15242101dd978654278cedad0c44a1c7b75e7c73"
+                                                        },
+                    "baseline_current_A00_SDK_source_pins":  {
+                                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A00_current_Av2_R1_ABBA_SDK_v1_source/source_pins.json",
+                                                                 "bytes":  7412,
+                                                                 "sha256":  "975b865cd55a7989235f0f4b2c83f7b0dd46d02d2a20ea7d4ee7ca64c1189839"
+                                                             },
+                    "R1_GPU_package":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_R1_ABBA_v3_source/source_pins.json",
+                                           "bytes":  6898,
+                                           "sha256":  "6b89fd69fc0e1f286792490a5879e3ce4d286c933cc1325c884e7725a7b6a63b"
+                                       },
+                    "R1_admission":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_R1_ABBA_v3_source/admission.py",
+                                         "bytes":  21631,
+                                         "sha256":  "cb48f3105aa462618700b9a1f05a0f4ff5a806fdd6ed6af51e344400b9f8e13d"
+                                     },
+                    "R1_PLAN":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_R1_ABBA_v3_source/PLAN.json",
+                                    "bytes":  8254,
+                                    "sha256":  "9ea1f76653f1b9d1e1e3427ad1697aa9d2ebc29d8f3dd24b962e9b224394684c"
+                                },
+                    "R1_Root_submit_source":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_R1_ABBA_v3_source/Root_submit.py",
+                                                  "bytes":  16272,
+                                                  "sha256":  "e687176d9ee9d6127596c171d4de0dae547c3aeba51f767a5e2fd384e37d3598"
+                                              },
+                    "routing_PLAN":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/PLAN.json",
+                                         "bytes":  59726,
+                                         "sha256":  "96f76028cabd4e4fcd692746a517a28b5922ba8054190dca2f7ebd676b9c3391"
+                                     },
+                    "mature_four_R1_Source":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_HeadOff_current_Av2_R1_ABBA_SDK_v1_source/source_pins.json",
+                                                  "bytes":  8425,
+                                                  "sha256":  "cb08caef78b7aedf8e6557208ae1ab3c6b8925142c5eab48172cb379e0f8554e"
+                                              },
+                    "runtime_current/phychem_mfm/__init__.py":  {
+                                                                    "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/__init__.py",
+                                                                    "bytes":  409,
+                                                                    "sha256":  "3b73b42536f555d93fc5727d36afcbb964875c493fd40529d62707bb0982c51a"
+                                                                },
+                    "runtime_current/phychem_mfm/config.py":  {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/config.py",
+                                                                  "bytes":  1430,
+                                                                  "sha256":  "47da797a16a55dc315e50c1c5bdac07125381bb677d0dad5160854f2b19fb3f3"
+                                                              },
+                    "runtime_current/phychem_mfm/data/__init__.py":  {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/data/__init__.py",
+                                                                         "bytes":  432,
+                                                                         "sha256":  "722a0239fe8fd6123512270c84e488cc44850d75c58a1d0e16ab16267c0684f2"
+                                                                     },
+                    "runtime_current/phychem_mfm/data/dataset_infer.py":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/data/dataset_infer.py",
+                                                                              "bytes":  5885,
+                                                                              "sha256":  "165ebb5db26d7af0250c7fa910ec83a7885a9b89447a8c79e1be0a8515702cdd"
+                                                                          },
+                    "runtime_current/phychem_mfm/data/dataset_lmdb.py":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/data/dataset_lmdb.py",
+                                                                             "bytes":  21422,
+                                                                             "sha256":  "5f4dc312b1314f07d4533a6348947e366e071813ab89bac17e2f0ecdce36e5a3"
+                                                                         },
+                    "runtime_current/phychem_mfm/data/dataset_without_charge.py":  {
+                                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/data/dataset_without_charge.py",
+                                                                                       "bytes":  12612,
+                                                                                       "sha256":  "d921db47a01c12d3cd0d21db0b74ad04c7fc8d6346dddd4b9ff04762b7a7d752"
+                                                                                   },
+                    "runtime_current/phychem_mfm/data/descriptor_schema.py":  {
+                                                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/data/descriptor_schema.py",
+                                                                                  "bytes":  9889,
+                                                                                  "sha256":  "b9cf8020ffca3fe5c578fd5ddad9ecc5839dabbe763df00fa0e414f626389243"
+                                                                              },
+                    "runtime_current/phychem_mfm/factory.py":  {
+                                                                   "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/factory.py",
+                                                                   "bytes":  1414,
+                                                                   "sha256":  "58177a7d84b7f22d5669deae8fed085fd9fd2ec176975ec3a6562f71a1a78ead"
+                                                               },
+                    "runtime_current/phychem_mfm/model/__init__.py":  {
+                                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/__init__.py",
+                                                                          "bytes":  346,
+                                                                          "sha256":  "9dac47024daad9bfb98ab3a356d2a0e2b5ca64d3a7cab0a3a9a9daa360536ab6"
+                                                                      },
+                    "runtime_current/phychem_mfm/model/adaptation.py":  {
+                                                                            "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/adaptation.py",
+                                                                            "bytes":  2361,
+                                                                            "sha256":  "bcfb55a30f796ba5756d171c62d02745c7e53a493f4af41299d62b9b12579ac7"
+                                                                        },
+                    "runtime_current/phychem_mfm/model/attention.py":  {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/attention.py",
+                                                                           "bytes":  3898,
+                                                                           "sha256":  "d9a716c58aa6a481978af13757fdac0d4f02d9aae1187f7a65b943de8c352183"
+                                                                       },
+                    "runtime_current/phychem_mfm/model/backbone.py":  {
+                                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/backbone.py",
+                                                                          "bytes":  2784,
+                                                                          "sha256":  "1d4798111e526a077f834740093c90ad2610081f0171ca6c778b14cac24288a3"
+                                                                      },
+                    "runtime_current/phychem_mfm/model/common.py":  {
+                                                                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/common.py",
+                                                                        "bytes":  2518,
+                                                                        "sha256":  "819157b7f25d98eba9cdb55d28b41b90c146bf1e4f321b7a762efcfb78fe0cab"
+                                                                    },
+                    "runtime_current/phychem_mfm/model/expert_blocks.py":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/expert_blocks.py",
+                                                                               "bytes":  6041,
+                                                                               "sha256":  "d5604414bdde3200fbeda8781923128b6f9ec10423330ca994377f036d7d140f"
+                                                                           },
+                    "runtime_current/phychem_mfm/model/heads.py":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/heads.py",
+                                                                       "bytes":  14412,
+                                                                       "sha256":  "8ebf0ea060023c08db4c053a6ddf41be5c75fba3abd0a0afca085fc527c3b8c4"
+                                                                   },
+                    "runtime_current/phychem_mfm/model/normalization.py":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/normalization.py",
+                                                                               "bytes":  8902,
+                                                                               "sha256":  "d3ae06c3b40efca8ef3e165c40315f655f5641302bf2a38e027cedce4b6309a8"
+                                                                           },
+                    "runtime_current/phychem_mfm/model/outputs.py":  {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/outputs.py",
+                                                                         "bytes":  2437,
+                                                                         "sha256":  "922985febe981578d3c95deb4bf8e8b46267181b487bd54d92f552c46b30efd9"
+                                                                     },
+                    "runtime_current/phychem_mfm/model/phase1_specs.py":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/phase1_specs.py",
+                                                                              "bytes":  1529,
+                                                                              "sha256":  "d0bacdbd808b4af9be36b9f04976af96b0a697ac6358bb7c8c69062aee641e22"
+                                                                          },
+                    "runtime_current/phychem_mfm/model/routes.py":  {
+                                                                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/routes.py",
+                                                                        "bytes":  4949,
+                                                                        "sha256":  "bfd1139fab2cb719a1ebf27d62919caf1bba570f636b29768d0feb50d91f12e4"
+                                                                    },
+                    "runtime_current/phychem_mfm/model/shared.py":  {
+                                                                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/shared.py",
+                                                                        "bytes":  26989,
+                                                                        "sha256":  "de937686edebe8f895295479d422a3d36f9d860ff5df152524a3122cbabb8d54"
+                                                                    },
+                    "runtime_current/phychem_mfm/model/v3_performance.py":  {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/v3_performance.py",
+                                                                                "bytes":  18112,
+                                                                                "sha256":  "32768ce0c5708d9e27b022a4ff5f207e928f4226ceb4e89847fe9d29ee5c88e2"
+                                                                            },
+                    "runtime_current/phychem_mfm/model/v3_profiler_attribution.py":  {
+                                                                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/v3_profiler_attribution.py",
+                                                                                         "bytes":  16816,
+                                                                                         "sha256":  "95449944b1c3aabda12a410a477528f653aaa64bcf9ce05eb0eebc1c89c4ec8b"
+                                                                                     },
+                    "runtime_current/phychem_mfm/model/v3_profiling.py":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/v3_profiling.py",
+                                                                              "bytes":  5014,
+                                                                              "sha256":  "485a4eb94d52195f088d700ec01fafa2c6f662c758f9237958455b21228b2801"
+                                                                          },
+                    "runtime_current/phychem_mfm/phase1/__init__.py":  {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/__init__.py",
+                                                                           "bytes":  82,
+                                                                           "sha256":  "551180d17da20fe8b157f3d0870783429ed90c65fac00e6381b8e8f7908ce81c"
+                                                                       },
+                    "runtime_current/phychem_mfm/phase1/full_corpus_loader.py":  {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/full_corpus_loader.py",
+                                                                                     "bytes":  43234,
+                                                                                     "sha256":  "827c10c7a4958e860710b3ccb2f8eb29dff4d5845654c230792bf6ce83935c0d"
+                                                                                 },
+                    "runtime_current/phychem_mfm/phase1/objectives.py":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/objectives.py",
+                                                                             "bytes":  23664,
+                                                                             "sha256":  "25ee35354128f579f0249dd91b28f6928a57e55709b92b78294bbceaa598c68e"
+                                                                         },
+                    "runtime_current/phychem_mfm/phase1/v3_dev_panel.py":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/v3_dev_panel.py",
+                                                                               "bytes":  15617,
+                                                                               "sha256":  "81786f6351e20a34285cfd44caef528e4c16ecb69c3355d69d679e1b53a5ed0f"
+                                                                           },
+                    "runtime_current/phychem_mfm/phase1/v3_dev_store.py":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/v3_dev_store.py",
+                                                                               "bytes":  10222,
+                                                                               "sha256":  "c0f87b24ec0cd0492444689a99cab9eb309baaa9d02dfdd532bf3e196eba7c9b"
+                                                                           },
+                    "runtime_current/phychem_mfm/phase1/v3_encoder_bridge.py":  {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/v3_encoder_bridge.py",
+                                                                                    "bytes":  20244,
+                                                                                    "sha256":  "8246c723f6613f4bcc6bc374971e7cfb7a1e10b1fa55f6d162d7607a175b4bf1"
+                                                                                },
+                    "runtime_current/phychem_mfm/phase1/v3_h0_packing.py":  {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/v3_h0_packing.py",
+                                                                                "bytes":  5517,
+                                                                                "sha256":  "4cceb4856337d078fc204d07d4602e3753bbddb4f519e3ddf738f0a6f2e97fe8"
+                                                                            },
+                    "runtime_current/phychem_mfm/phase1/v3_h0_runtime.py":  {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/v3_h0_runtime.py",
+                                                                                "bytes":  5138,
+                                                                                "sha256":  "87642cca5d5c16d70ed8b04c96982526a576791b668e8014239cde31c6ffcb44"
+                                                                            },
+                    "runtime_current/phychem_mfm/phase1/v3_padding.py":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/v3_padding.py",
+                                                                             "bytes":  1207,
+                                                                             "sha256":  "ac2ee2f89856eca47d7fc999fe4d39f1240bf983cc27e6cb92749b93d71e3bc5"
+                                                                         },
+                    "runtime_current/phychem_mfm/supervision.py":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/supervision.py",
+                                                                       "bytes":  3205,
+                                                                       "sha256":  "5316014706dd470f5b448549f19c2a6668ca423c3c309601201a2ab6bf8fcd4f"
+                                                                   },
+                    "runtime_current/phychem_mfm/training/__init__.py":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/__init__.py",
+                                                                             "bytes":  59,
+                                                                             "sha256":  "774479f5a534c8daca796f38a5d97fb466d2edc2b06e70c2ec6b670ff43f5d00"
+                                                                         },
+                    "runtime_current/phychem_mfm/training/checkpoint.py":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/checkpoint.py",
+                                                                               "bytes":  9896,
+                                                                               "sha256":  "706ac72ba10a2431b2bf9c2fd059b8f4e5ce00662dcef0ea42efc9cfddf91e0a"
+                                                                           },
+                    "runtime_current/phychem_mfm/training/data.py":  {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/data.py",
+                                                                         "bytes":  51863,
+                                                                         "sha256":  "8228ab721bd821c316b279f992178f351c37fa0ba3c309203e9375117d861a8f"
+                                                                     },
+                    "runtime_current/phychem_mfm/training/dataloader_debug.py":  {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/dataloader_debug.py",
+                                                                                     "bytes":  11485,
+                                                                                     "sha256":  "cdf2a5b2651fbc7437b3f7d22447b804180becb91b5e90537355655ef05264bc"
+                                                                                 },
+                    "runtime_current/phychem_mfm/training/degrade_molecules.py":  {
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/degrade_molecules.py",
+                                                                                      "bytes":  25358,
+                                                                                      "sha256":  "3528566aed8bc0303dddfddfcafa400fdb7826a5be1471e7855a36af80587340"
+                                                                                  },
+                    "runtime_current/phychem_mfm/training/geometry.py":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/geometry.py",
+                                                                             "bytes":  7264,
+                                                                             "sha256":  "d07eeb8545603576e902c1f5b908b987dec23f335923697ca5e8719d7a640aa5"
+                                                                         },
+                    "runtime_current/phychem_mfm/training/losses.py":  {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/losses.py",
+                                                                           "bytes":  21507,
+                                                                           "sha256":  "e6748230041f6c0ea3a8d7086a3046a78f64f79cbbffa11a63705ad9a6c971e9"
+                                                                       },
+                    "runtime_current/phychem_mfm/training/utils_debug.py":  {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/utils_debug.py",
+                                                                                "bytes":  2240,
+                                                                                "sha256":  "ad224040fd36f44940a33fca1ed6c17e0eb5efc65d5c3f620d912512e4e1cfcc"
+                                                                            },
+                    "runtime_current/phychem_mfm/training/v3_performance_acceptance.py":  {
+                                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/v3_performance_acceptance.py",
+                                                                                              "bytes":  18967,
+                                                                                              "sha256":  "018735ead12b8a2f0cc59ac6ed3b91987b6d5841bd9395c7005a599ba4bb1912"
+                                                                                          },
+                    "runtime_tools/model_v3/a_checkpoint_export.py":  {
+                                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/a_checkpoint_export.py",
+                                                                          "bytes":  19116,
+                                                                          "sha256":  "5ce54db689c847739bdac71e6577e67653d719070e68c7f29460fa509636a270"
+                                                                      },
+                    "runtime_tools/model_v3/a_execution_runtime.py":  {
+                                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/a_execution_runtime.py",
+                                                                          "bytes":  17280,
+                                                                          "sha256":  "ed2577bbb1d265b91edb1b515e2203cec1977d18b46553ff28120d0d8bfa46d0"
+                                                                      },
+                    "runtime_tools/model_v3/a_speed_report.py":  {
+                                                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/a_speed_report.py",
+                                                                     "bytes":  11218,
+                                                                     "sha256":  "c4427d32db4ca429c7bcfa6a8494cb0e07ccd24009e2ea0a6fe076b71673ed27"
+                                                                 },
+                    "runtime_tools/model_v3/analyze_trace_v3.py":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/analyze_trace_v3.py",
+                                                                       "bytes":  3100,
+                                                                       "sha256":  "307607f1667205565f78d2e81605a6d0b6ae1697c6873d2f5af11ed054de55d0"
+                                                                   },
+                    "runtime_tools/model_v3/native_runtime_bindings.py":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/native_runtime_bindings.py",
+                                                                              "bytes":  2990,
+                                                                              "sha256":  "ed2e069d408a671c93e8c42ec827162db3d98333587c08c9d37010fc6d7e464d"
+                                                                          },
+                    "runtime_tools/model_v3/paired_a_acceptance.py":  {
+                                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/paired_a_acceptance.py",
+                                                                          "bytes":  27732,
+                                                                          "sha256":  "1f8178be2c7dc4c724d58769216012a96d895d84fc94076db0a16594b1da07f7"
+                                                                      },
+                    "runtime_tools/model_v3/private_runtime_storage.py":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/private_runtime_storage.py",
+                                                                              "bytes":  15452,
+                                                                              "sha256":  "791e2742b2131e5001ebc4fe549d8fcb43f7d28f399368a5aa5f82d7d592a041"
+                                                                          },
+                    "runtime_tools/model_v3/profile_s_baseline.py":  {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/profile_s_baseline.py",
+                                                                         "bytes":  30691,
+                                                                         "sha256":  "ecbea5174a314293ab5cce81e7a08d00981619155b1d8d088ffa5f93b692f965"
+                                                                     },
+                    "runtime_tools/model_v3/profile_sampling.py":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/profile_sampling.py",
+                                                                       "bytes":  1466,
+                                                                       "sha256":  "4d7837258f7a4113f5cfd879412e89cc380afa5e7d64d4042d02112614d895b0"
+                                                                   },
+                    "runtime_tools/model_v3/run_supervised.py":  {
+                                                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/run_supervised.py",
+                                                                     "bytes":  15264,
+                                                                     "sha256":  "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+                                                                 },
+                    "runtime_tools/model_v3/runtime_monitor.py":  {
+                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/runtime_monitor.py",
+                                                                      "bytes":  16838,
+                                                                      "sha256":  "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe"
+                                                                  },
+                    "runtime_tools/model_v3/s_input_stream.py":  {
+                                                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/s_input_stream.py",
+                                                                     "bytes":  8055,
+                                                                     "sha256":  "12433fddd1518ce9a488f12f997a5e53053136d3d396c50e3a0fbbdd64021212"
+                                                                 },
+                    "runtime_tools/model_v3/single_a_benchmark.py":  {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/single_a_benchmark.py",
+                                                                         "bytes":  13246,
+                                                                         "sha256":  "0a522edd0ffce5891492974b6170de3b874a767b3099b5c328cdd2dce9567c9a"
+                                                                     },
+                    "runtime_workflows/sprime_s/scripts/prepare.py":  {
+                                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/scripts/prepare.py",
+                                                                          "bytes":  6040,
+                                                                          "sha256":  "4b10dc5c0c2c1f3c42250ca1c8541c43661ada301484f92a6ce7bfce512f4a10"
+                                                                      },
+                    "runtime_workflows/sprime_s/scripts/s_loader_recovery_v1.py":  {
+                                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/scripts/s_loader_recovery_v1.py",
+                                                                                       "bytes":  3099,
+                                                                                       "sha256":  "070e294e063197ff2388f6e0933ca078546293cbd221a9a86c93580e522c1efa"
+                                                                                   },
+                    "runtime_workflows/sprime_s/scripts/s_loader_recovery_v2.py":  {
+                                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/scripts/s_loader_recovery_v2.py",
+                                                                                       "bytes":  555,
+                                                                                       "sha256":  "5ee5be2f9e15a3a6c12090bb4adcdc67bf4d3de3eb5f376c3d76fbab1690e154"
+                                                                                   },
+                    "runtime_workflows/sprime_s/scripts/s_model_memory_v1.py":  {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/scripts/s_model_memory_v1.py",
+                                                                                    "bytes":  2542,
+                                                                                    "sha256":  "170a7752bad1812d15dceace1613d19f579aec5d97a4965ed0960731cc53f232"
+                                                                                },
+                    "runtime_workflows/sprime_s/scripts/s_native_adapter_v1.py":  {
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/scripts/s_native_adapter_v1.py",
+                                                                                      "bytes":  8247,
+                                                                                      "sha256":  "0e81348b046829151e42c67280ec9a5e7d8ef6a5b4034f422b31b5e82dea68e2"
+                                                                                  },
+                    "runtime_workflows/sprime_s/scripts/s_native_adapter_v2.py":  {
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/scripts/s_native_adapter_v2.py",
+                                                                                      "bytes":  1204,
+                                                                                      "sha256":  "fb0527d84d645d4e037255f0e22155d1f2e760a3220036d951953ef642308a2a"
+                                                                                  }
+                },
+    "runtime_sources":  {
+                            "current/phychem_mfm/__init__.py":  {
+                                                                    "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/__init__.py",
+                                                                    "bytes":  409,
+                                                                    "sha256":  "3b73b42536f555d93fc5727d36afcbb964875c493fd40529d62707bb0982c51a"
+                                                                },
+                            "current/phychem_mfm/config.py":  {
+                                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/config.py",
+                                                                  "bytes":  1430,
+                                                                  "sha256":  "47da797a16a55dc315e50c1c5bdac07125381bb677d0dad5160854f2b19fb3f3"
+                                                              },
+                            "current/phychem_mfm/data/__init__.py":  {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/data/__init__.py",
+                                                                         "bytes":  432,
+                                                                         "sha256":  "722a0239fe8fd6123512270c84e488cc44850d75c58a1d0e16ab16267c0684f2"
+                                                                     },
+                            "current/phychem_mfm/data/dataset_infer.py":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/data/dataset_infer.py",
+                                                                              "bytes":  5885,
+                                                                              "sha256":  "165ebb5db26d7af0250c7fa910ec83a7885a9b89447a8c79e1be0a8515702cdd"
+                                                                          },
+                            "current/phychem_mfm/data/dataset_lmdb.py":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/data/dataset_lmdb.py",
+                                                                             "bytes":  21422,
+                                                                             "sha256":  "5f4dc312b1314f07d4533a6348947e366e071813ab89bac17e2f0ecdce36e5a3"
+                                                                         },
+                            "current/phychem_mfm/data/dataset_without_charge.py":  {
+                                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/data/dataset_without_charge.py",
+                                                                                       "bytes":  12612,
+                                                                                       "sha256":  "d921db47a01c12d3cd0d21db0b74ad04c7fc8d6346dddd4b9ff04762b7a7d752"
+                                                                                   },
+                            "current/phychem_mfm/data/descriptor_schema.py":  {
+                                                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/data/descriptor_schema.py",
+                                                                                  "bytes":  9889,
+                                                                                  "sha256":  "b9cf8020ffca3fe5c578fd5ddad9ecc5839dabbe763df00fa0e414f626389243"
+                                                                              },
+                            "current/phychem_mfm/factory.py":  {
+                                                                   "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/factory.py",
+                                                                   "bytes":  1414,
+                                                                   "sha256":  "58177a7d84b7f22d5669deae8fed085fd9fd2ec176975ec3a6562f71a1a78ead"
+                                                               },
+                            "current/phychem_mfm/model/__init__.py":  {
+                                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/__init__.py",
+                                                                          "bytes":  346,
+                                                                          "sha256":  "9dac47024daad9bfb98ab3a356d2a0e2b5ca64d3a7cab0a3a9a9daa360536ab6"
+                                                                      },
+                            "current/phychem_mfm/model/adaptation.py":  {
+                                                                            "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/adaptation.py",
+                                                                            "bytes":  2361,
+                                                                            "sha256":  "bcfb55a30f796ba5756d171c62d02745c7e53a493f4af41299d62b9b12579ac7"
+                                                                        },
+                            "current/phychem_mfm/model/attention.py":  {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/attention.py",
+                                                                           "bytes":  3898,
+                                                                           "sha256":  "d9a716c58aa6a481978af13757fdac0d4f02d9aae1187f7a65b943de8c352183"
+                                                                       },
+                            "current/phychem_mfm/model/backbone.py":  {
+                                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/backbone.py",
+                                                                          "bytes":  2784,
+                                                                          "sha256":  "1d4798111e526a077f834740093c90ad2610081f0171ca6c778b14cac24288a3"
+                                                                      },
+                            "current/phychem_mfm/model/common.py":  {
+                                                                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/common.py",
+                                                                        "bytes":  2518,
+                                                                        "sha256":  "819157b7f25d98eba9cdb55d28b41b90c146bf1e4f321b7a762efcfb78fe0cab"
+                                                                    },
+                            "current/phychem_mfm/model/expert_blocks.py":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/expert_blocks.py",
+                                                                               "bytes":  6041,
+                                                                               "sha256":  "d5604414bdde3200fbeda8781923128b6f9ec10423330ca994377f036d7d140f"
+                                                                           },
+                            "current/phychem_mfm/model/heads.py":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/heads.py",
+                                                                       "bytes":  14412,
+                                                                       "sha256":  "8ebf0ea060023c08db4c053a6ddf41be5c75fba3abd0a0afca085fc527c3b8c4"
+                                                                   },
+                            "current/phychem_mfm/model/normalization.py":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/normalization.py",
+                                                                               "bytes":  8902,
+                                                                               "sha256":  "d3ae06c3b40efca8ef3e165c40315f655f5641302bf2a38e027cedce4b6309a8"
+                                                                           },
+                            "current/phychem_mfm/model/outputs.py":  {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/outputs.py",
+                                                                         "bytes":  2437,
+                                                                         "sha256":  "922985febe981578d3c95deb4bf8e8b46267181b487bd54d92f552c46b30efd9"
+                                                                     },
+                            "current/phychem_mfm/model/phase1_specs.py":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/phase1_specs.py",
+                                                                              "bytes":  1529,
+                                                                              "sha256":  "d0bacdbd808b4af9be36b9f04976af96b0a697ac6358bb7c8c69062aee641e22"
+                                                                          },
+                            "current/phychem_mfm/model/routes.py":  {
+                                                                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/routes.py",
+                                                                        "bytes":  4949,
+                                                                        "sha256":  "bfd1139fab2cb719a1ebf27d62919caf1bba570f636b29768d0feb50d91f12e4"
+                                                                    },
+                            "current/phychem_mfm/model/shared.py":  {
+                                                                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/shared.py",
+                                                                        "bytes":  26989,
+                                                                        "sha256":  "de937686edebe8f895295479d422a3d36f9d860ff5df152524a3122cbabb8d54"
+                                                                    },
+                            "current/phychem_mfm/model/v3_performance.py":  {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/v3_performance.py",
+                                                                                "bytes":  18112,
+                                                                                "sha256":  "32768ce0c5708d9e27b022a4ff5f207e928f4226ceb4e89847fe9d29ee5c88e2"
+                                                                            },
+                            "current/phychem_mfm/model/v3_profiler_attribution.py":  {
+                                                                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/v3_profiler_attribution.py",
+                                                                                         "bytes":  16816,
+                                                                                         "sha256":  "95449944b1c3aabda12a410a477528f653aaa64bcf9ce05eb0eebc1c89c4ec8b"
+                                                                                     },
+                            "current/phychem_mfm/model/v3_profiling.py":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/model/v3_profiling.py",
+                                                                              "bytes":  5014,
+                                                                              "sha256":  "485a4eb94d52195f088d700ec01fafa2c6f662c758f9237958455b21228b2801"
+                                                                          },
+                            "current/phychem_mfm/phase1/__init__.py":  {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/__init__.py",
+                                                                           "bytes":  82,
+                                                                           "sha256":  "551180d17da20fe8b157f3d0870783429ed90c65fac00e6381b8e8f7908ce81c"
+                                                                       },
+                            "current/phychem_mfm/phase1/full_corpus_loader.py":  {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/full_corpus_loader.py",
+                                                                                     "bytes":  43234,
+                                                                                     "sha256":  "827c10c7a4958e860710b3ccb2f8eb29dff4d5845654c230792bf6ce83935c0d"
+                                                                                 },
+                            "current/phychem_mfm/phase1/objectives.py":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/objectives.py",
+                                                                             "bytes":  23664,
+                                                                             "sha256":  "25ee35354128f579f0249dd91b28f6928a57e55709b92b78294bbceaa598c68e"
+                                                                         },
+                            "current/phychem_mfm/phase1/v3_dev_panel.py":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/v3_dev_panel.py",
+                                                                               "bytes":  15617,
+                                                                               "sha256":  "81786f6351e20a34285cfd44caef528e4c16ecb69c3355d69d679e1b53a5ed0f"
+                                                                           },
+                            "current/phychem_mfm/phase1/v3_dev_store.py":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/v3_dev_store.py",
+                                                                               "bytes":  10222,
+                                                                               "sha256":  "c0f87b24ec0cd0492444689a99cab9eb309baaa9d02dfdd532bf3e196eba7c9b"
+                                                                           },
+                            "current/phychem_mfm/phase1/v3_encoder_bridge.py":  {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/v3_encoder_bridge.py",
+                                                                                    "bytes":  20244,
+                                                                                    "sha256":  "8246c723f6613f4bcc6bc374971e7cfb7a1e10b1fa55f6d162d7607a175b4bf1"
+                                                                                },
+                            "current/phychem_mfm/phase1/v3_h0_packing.py":  {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/v3_h0_packing.py",
+                                                                                "bytes":  5517,
+                                                                                "sha256":  "4cceb4856337d078fc204d07d4602e3753bbddb4f519e3ddf738f0a6f2e97fe8"
+                                                                            },
+                            "current/phychem_mfm/phase1/v3_h0_runtime.py":  {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/v3_h0_runtime.py",
+                                                                                "bytes":  5138,
+                                                                                "sha256":  "87642cca5d5c16d70ed8b04c96982526a576791b668e8014239cde31c6ffcb44"
+                                                                            },
+                            "current/phychem_mfm/phase1/v3_padding.py":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/phase1/v3_padding.py",
+                                                                             "bytes":  1207,
+                                                                             "sha256":  "ac2ee2f89856eca47d7fc999fe4d39f1240bf983cc27e6cb92749b93d71e3bc5"
+                                                                         },
+                            "current/phychem_mfm/supervision.py":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/supervision.py",
+                                                                       "bytes":  3205,
+                                                                       "sha256":  "5316014706dd470f5b448549f19c2a6668ca423c3c309601201a2ab6bf8fcd4f"
+                                                                   },
+                            "current/phychem_mfm/training/__init__.py":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/__init__.py",
+                                                                             "bytes":  59,
+                                                                             "sha256":  "774479f5a534c8daca796f38a5d97fb466d2edc2b06e70c2ec6b670ff43f5d00"
+                                                                         },
+                            "current/phychem_mfm/training/checkpoint.py":  {
+                                                                               "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/checkpoint.py",
+                                                                               "bytes":  9896,
+                                                                               "sha256":  "706ac72ba10a2431b2bf9c2fd059b8f4e5ce00662dcef0ea42efc9cfddf91e0a"
+                                                                           },
+                            "current/phychem_mfm/training/data.py":  {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/data.py",
+                                                                         "bytes":  51863,
+                                                                         "sha256":  "8228ab721bd821c316b279f992178f351c37fa0ba3c309203e9375117d861a8f"
+                                                                     },
+                            "current/phychem_mfm/training/dataloader_debug.py":  {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/dataloader_debug.py",
+                                                                                     "bytes":  11485,
+                                                                                     "sha256":  "cdf2a5b2651fbc7437b3f7d22447b804180becb91b5e90537355655ef05264bc"
+                                                                                 },
+                            "current/phychem_mfm/training/degrade_molecules.py":  {
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/degrade_molecules.py",
+                                                                                      "bytes":  25358,
+                                                                                      "sha256":  "3528566aed8bc0303dddfddfcafa400fdb7826a5be1471e7855a36af80587340"
+                                                                                  },
+                            "current/phychem_mfm/training/geometry.py":  {
+                                                                             "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/geometry.py",
+                                                                             "bytes":  7264,
+                                                                             "sha256":  "d07eeb8545603576e902c1f5b908b987dec23f335923697ca5e8719d7a640aa5"
+                                                                         },
+                            "current/phychem_mfm/training/losses.py":  {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/losses.py",
+                                                                           "bytes":  21507,
+                                                                           "sha256":  "e6748230041f6c0ea3a8d7086a3046a78f64f79cbbffa11a63705ad9a6c971e9"
+                                                                       },
+                            "current/phychem_mfm/training/utils_debug.py":  {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/utils_debug.py",
+                                                                                "bytes":  2240,
+                                                                                "sha256":  "ad224040fd36f44940a33fca1ed6c17e0eb5efc65d5c3f620d912512e4e1cfcc"
+                                                                            },
+                            "current/phychem_mfm/training/v3_performance_acceptance.py":  {
+                                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/current/phychem_mfm/training/v3_performance_acceptance.py",
+                                                                                              "bytes":  18967,
+                                                                                              "sha256":  "018735ead12b8a2f0cc59ac6ed3b91987b6d5841bd9395c7005a599ba4bb1912"
+                                                                                          },
+                            "tools/model_v3/a_checkpoint_export.py":  {
+                                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/a_checkpoint_export.py",
+                                                                          "bytes":  19116,
+                                                                          "sha256":  "5ce54db689c847739bdac71e6577e67653d719070e68c7f29460fa509636a270"
+                                                                      },
+                            "tools/model_v3/a_execution_runtime.py":  {
+                                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/a_execution_runtime.py",
+                                                                          "bytes":  17280,
+                                                                          "sha256":  "ed2577bbb1d265b91edb1b515e2203cec1977d18b46553ff28120d0d8bfa46d0"
+                                                                      },
+                            "tools/model_v3/a_speed_report.py":  {
+                                                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/a_speed_report.py",
+                                                                     "bytes":  11218,
+                                                                     "sha256":  "c4427d32db4ca429c7bcfa6a8494cb0e07ccd24009e2ea0a6fe076b71673ed27"
+                                                                 },
+                            "tools/model_v3/analyze_trace_v3.py":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/analyze_trace_v3.py",
+                                                                       "bytes":  3100,
+                                                                       "sha256":  "307607f1667205565f78d2e81605a6d0b6ae1697c6873d2f5af11ed054de55d0"
+                                                                   },
+                            "tools/model_v3/native_runtime_bindings.py":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/native_runtime_bindings.py",
+                                                                              "bytes":  2990,
+                                                                              "sha256":  "ed2e069d408a671c93e8c42ec827162db3d98333587c08c9d37010fc6d7e464d"
+                                                                          },
+                            "tools/model_v3/paired_a_acceptance.py":  {
+                                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/paired_a_acceptance.py",
+                                                                          "bytes":  27732,
+                                                                          "sha256":  "1f8178be2c7dc4c724d58769216012a96d895d84fc94076db0a16594b1da07f7"
+                                                                      },
+                            "tools/model_v3/private_runtime_storage.py":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/private_runtime_storage.py",
+                                                                              "bytes":  15452,
+                                                                              "sha256":  "791e2742b2131e5001ebc4fe549d8fcb43f7d28f399368a5aa5f82d7d592a041"
+                                                                          },
+                            "tools/model_v3/profile_s_baseline.py":  {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/profile_s_baseline.py",
+                                                                         "bytes":  30691,
+                                                                         "sha256":  "ecbea5174a314293ab5cce81e7a08d00981619155b1d8d088ffa5f93b692f965"
+                                                                     },
+                            "tools/model_v3/profile_sampling.py":  {
+                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/profile_sampling.py",
+                                                                       "bytes":  1466,
+                                                                       "sha256":  "4d7837258f7a4113f5cfd879412e89cc380afa5e7d64d4042d02112614d895b0"
+                                                                   },
+                            "tools/model_v3/run_supervised.py":  {
+                                                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/run_supervised.py",
+                                                                     "bytes":  15264,
+                                                                     "sha256":  "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+                                                                 },
+                            "tools/model_v3/runtime_monitor.py":  {
+                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/runtime_monitor.py",
+                                                                      "bytes":  16838,
+                                                                      "sha256":  "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe"
+                                                                  },
+                            "tools/model_v3/s_input_stream.py":  {
+                                                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/s_input_stream.py",
+                                                                     "bytes":  8055,
+                                                                     "sha256":  "12433fddd1518ce9a488f12f997a5e53053136d3d396c50e3a0fbbdd64021212"
+                                                                 },
+                            "tools/model_v3/single_a_benchmark.py":  {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/single_a_benchmark.py",
+                                                                         "bytes":  13246,
+                                                                         "sha256":  "0a522edd0ffce5891492974b6170de3b874a767b3099b5c328cdd2dce9567c9a"
+                                                                     },
+                            "workflows/sprime_s/scripts/prepare.py":  {
+                                                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/scripts/prepare.py",
+                                                                          "bytes":  6040,
+                                                                          "sha256":  "4b10dc5c0c2c1f3c42250ca1c8541c43661ada301484f92a6ce7bfce512f4a10"
+                                                                      },
+                            "workflows/sprime_s/scripts/s_loader_recovery_v1.py":  {
+                                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/scripts/s_loader_recovery_v1.py",
+                                                                                       "bytes":  3099,
+                                                                                       "sha256":  "070e294e063197ff2388f6e0933ca078546293cbd221a9a86c93580e522c1efa"
+                                                                                   },
+                            "workflows/sprime_s/scripts/s_loader_recovery_v2.py":  {
+                                                                                       "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/scripts/s_loader_recovery_v2.py",
+                                                                                       "bytes":  555,
+                                                                                       "sha256":  "5ee5be2f9e15a3a6c12090bb4adcdc67bf4d3de3eb5f376c3d76fbab1690e154"
+                                                                                   },
+                            "workflows/sprime_s/scripts/s_model_memory_v1.py":  {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/scripts/s_model_memory_v1.py",
+                                                                                    "bytes":  2542,
+                                                                                    "sha256":  "170a7752bad1812d15dceace1613d19f579aec5d97a4965ed0960731cc53f232"
+                                                                                },
+                            "workflows/sprime_s/scripts/s_native_adapter_v1.py":  {
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/scripts/s_native_adapter_v1.py",
+                                                                                      "bytes":  8247,
+                                                                                      "sha256":  "0e81348b046829151e42c67280ec9a5e7d8ef6a5b4034f422b31b5e82dea68e2"
+                                                                                  },
+                            "workflows/sprime_s/scripts/s_native_adapter_v2.py":  {
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/workflows/sprime_s/scripts/s_native_adapter_v2.py",
+                                                                                      "bytes":  1204,
+                                                                                      "sha256":  "fb0527d84d645d4e037255f0e22155d1f2e760a3220036d951953ef642308a2a"
+                                                                                  }
+                        },
+    "base_manifest":  {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/source_pins.json",
+                          "bytes":  3697,
+                          "sha256":  "4e97d0f413564ace06555067e828bb7109334573c5e43338426cdecf083609c3"
+                      },
+    "new_model_decoder_monitor_or_transport":  false,
+    "original_speed_report_unchanged":  true
+}

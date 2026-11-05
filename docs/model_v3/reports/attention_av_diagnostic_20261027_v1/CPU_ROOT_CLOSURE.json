@@ -1,0 +1,125 @@
+{
+  "schema": "model_v3_attention_candidate_full_CPU_Root_closure_v1",
+  "status": "ROOT_CLOSED_FULL114_CPU_C0_SOURCE_STABLE",
+  "actual_job_id": "4521707",
+  "code_commit": "cf8ce66d97cd518ebf279b40ee20294919bb95e1",
+  "counts": {
+    "tests": 2712,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 3
+  },
+  "passed": 2709,
+  "test_file_count": 114,
+  "new_attention_tests": 73,
+  "old_numeric_tests": 47,
+  "new_attention_zero_skip_failure_error": true,
+  "old_three_skip_identities_unchanged": true,
+  "actual_skips": [
+    {
+      "classname": "tests.test_model_v3_native_s_source_interop",
+      "name": "test_actual_native_TRAIN_and_fixed_PRETRAIN_VAL_reader_bridge_and_close",
+      "reason": "actual native corpus test requires explicit Root data admission"
+    },
+    {
+      "classname": "tests.test_model_v3_transfer",
+      "name": "test_custom_batch_pin_protocol_and_nonblocking_cuda_transfer",
+      "reason": "Actual pinned-memory transfer requires a visible CUDA device"
+    },
+    {
+      "classname": "tests.test_model_v3_native_bond_transport",
+      "name": "test_pinned_bond_arrays_and_nonblocking_cuda_transfer",
+      "reason": "Actual bond pin/transfer requires visible CUDA"
+    }
+  ],
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4521707",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "stdout": "4521707|zixiao|COMPLETED|0:0|132|16|compute-0-13\n",
+    "stderr": "",
+    "returncode": 0
+  },
+  "plan": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centering_fullsuite_v1_control_v1.json",
+    "bytes": 199739,
+    "sha256": "d0a7d51d5c126f4a89ad50acc9ac79532689fa8fc28448f4ad688ed87a0f80c6"
+  },
+  "submission": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/attention_centering_fullsuite_v1_part0_submission_v4.json",
+    "bytes": 4960,
+    "sha256": "86d58224e08c5d7c645b923a3ff3f58512d94968acdefd2f5e023008d7cffcea"
+  },
+  "summary": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707/summary.json",
+    "bytes": 353498,
+    "sha256": "32278a442337fdaa09c564b98d780f13a7d90f4be123165f03ab935d7ef1bd21"
+  },
+  "supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_supervisor_4521707.json",
+    "bytes": 9881,
+    "sha256": "96043e269837a69b5c6cc59341fabc8a3bee57bac33db349bbea574d67f89bdc"
+  },
+  "XML": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707/shard_00.xml",
+      "bytes": 110288,
+      "sha256": "785debb7bb6ea91801a3e22becabe9b56e30853e266589757f450dad9d8d0fb8"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707/shard_01.xml",
+      "bytes": 87942,
+      "sha256": "21fcdb95def0b7f43e14e2b13391de80d8d2f3c41dc7dd24b753ad2fa2cf48f1"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707/shard_02.xml",
+      "bytes": 121160,
+      "sha256": "5219c90baa880724b0dd5a4bf9a994d99267d3e93f12d8b90480601fc22acec1"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707/shard_03.xml",
+      "bytes": 8492612,
+      "sha256": "b81f8ac09814a56d22e166fc0356e286d07fdf5ab8cfc1f94b8a742e75868a73"
+    }
+  ],
+  "sources_before": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707/sources_before.json",
+    "bytes": 147814,
+    "sha256": "153f5faa2503604a04173bbf44ed5306402de03286d4fdfaa1a2eb5d5f5ee95f"
+  },
+  "sources_after": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707/sources_after.json",
+    "bytes": 147814,
+    "sha256": "153f5faa2503604a04173bbf44ed5306402de03286d4fdfaa1a2eb5d5f5ee95f"
+  },
+  "all_runtime_before_after_and_current_verified": true,
+  "source_inventory": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centering_full_regression_v1_source/source_pins_v1.json",
+    "bytes": 8928,
+    "sha256": "df0949d21de48bd553c8d45554ea645e0e71512ac6818d390ec02f622c873d9a"
+  },
+  "runtime_inventory_count": 31,
+  "source_manifest": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_centering_candidate_source_freeze_v1.json",
+    "bytes": 14944,
+    "sha256": "1c936622fdc4809a3011b7127160377e72c27ed3155933ca13764b2d8d49b905"
+  },
+  "ordinary_checker_Root_closure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/attention_candidate_checker_Root_closure_actual_v1.json",
+    "bytes": 2109,
+    "sha256": "9d3807052d5f4bc45ee8417a16302a0bb403c1b1353aa6b9df2089cec3056823"
+  },
+  "private_peak_sampled_bytes": 167028,
+  "private_exact_peak_claimed": false,
+  "cleanup_diagnostics": [],
+  "remaining": [],
+  "scientific_GPU_executed": false,
+  "FP32_physics_acceptance": false,
+  "candidate_adopted": false
+}

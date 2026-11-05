@@ -1,0 +1,605 @@
+{
+  "CPU_job_id": "4524717",
+  "CPU_result": {
+    "bytes": 11706,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/manual_Av2_capacity_consumer_checker_4524717/consumer/RESULT.json",
+    "sha256": "27d5247a885ebe5126ea8e4acf04ffb2a88e372fda965a5f2fd02da3d288aae1"
+  },
+  "CPU_supervisor": {
+    "bytes": 3260,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/manual_Av2_capacity_consumer_checker_supervisor_4524717.json",
+    "sha256": "4f2bd139d9ae5e27e8f6b441a3bb2580b619f6d0d4e7da2ef93a13a2e06a9c9d"
+  },
+  "CUDA_initialized_by_CPU": false,
+  "GPU_job_id": "4524712",
+  "R1_ABBA_speed_accepted": false,
+  "Root_hold_remaining_bytes": 2147483648,
+  "SDK_payload_read_or_sync_claimed": false,
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4524712,4524717",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "4524712|zixiao|COMPLETED|0:0|2305|16|compute-0-21\n4524717|zixiao|COMPLETED|0:0|6|16|compute-0-18\n"
+  },
+  "actual_unix": 1793221708.6644595,
+  "auto_GPU_numeric_gate_accepted": false,
+  "binding": {
+    "bytes": 3197,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_capacity_bound_actual_v1/BINDING.json",
+    "sha256": "d902ec46fdc12de44e1c7a1e4d6840eabe1a21548a88a9b1ea977bbeb32c20e2"
+  },
+  "capacity_observation": {
+    "compile_backbone": false,
+    "cuda_version": "12.8",
+    "cudnn_version": 91002,
+    "driver_version": "590.44.01",
+    "flags": {
+      "backbone_checkpointing": true,
+      "distance_checkpointing": true,
+      "head_checkpointing": true
+    },
+    "gpu_name": "NVIDIA GeForce RTX 5090",
+    "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+    "observed_dense_shapes": [
+      [
+        3,
+        224
+      ],
+      [
+        9,
+        196
+      ],
+      [
+        12,
+        189
+      ],
+      [
+        12,
+        331
+      ],
+      [
+        15,
+        233
+      ],
+      [
+        15,
+        246
+      ],
+      [
+        24,
+        195
+      ],
+      [
+        45,
+        242
+      ],
+      [
+        48,
+        182
+      ],
+      [
+        54,
+        210
+      ],
+      [
+        78,
+        256
+      ],
+      [
+        90,
+        263
+      ],
+      [
+        108,
+        187
+      ],
+      [
+        108,
+        207
+      ],
+      [
+        114,
+        212
+      ],
+      [
+        120,
+        195
+      ],
+      [
+        159,
+        224
+      ],
+      [
+        162,
+        190
+      ],
+      [
+        171,
+        209
+      ],
+      [
+        222,
+        137
+      ],
+      [
+        228,
+        185
+      ],
+      [
+        231,
+        184
+      ],
+      [
+        231,
+        186
+      ],
+      [
+        243,
+        161
+      ],
+      [
+        246,
+        166
+      ],
+      [
+        255,
+        97
+      ],
+      [
+        255,
+        101
+      ],
+      [
+        255,
+        105
+      ],
+      [
+        255,
+        108
+      ],
+      [
+        255,
+        110
+      ],
+      [
+        255,
+        114
+      ],
+      [
+        255,
+        116
+      ],
+      [
+        255,
+        117
+      ],
+      [
+        255,
+        119
+      ],
+      [
+        255,
+        122
+      ],
+      [
+        255,
+        123
+      ],
+      [
+        255,
+        125
+      ],
+      [
+        255,
+        129
+      ],
+      [
+        255,
+        134
+      ],
+      [
+        255,
+        139
+      ],
+      [
+        255,
+        142
+      ],
+      [
+        270,
+        115
+      ],
+      [
+        270,
+        172
+      ],
+      [
+        276,
+        114
+      ],
+      [
+        276,
+        170
+      ],
+      [
+        282,
+        132
+      ],
+      [
+        291,
+        119
+      ],
+      [
+        291,
+        127
+      ],
+      [
+        297,
+        114
+      ],
+      [
+        303,
+        149
+      ],
+      [
+        318,
+        158
+      ],
+      [
+        324,
+        152
+      ],
+      [
+        327,
+        126
+      ],
+      [
+        330,
+        139
+      ],
+      [
+        330,
+        155
+      ],
+      [
+        351,
+        144
+      ],
+      [
+        369,
+        142
+      ],
+      [
+        375,
+        133
+      ],
+      [
+        381,
+        136
+      ],
+      [
+        390,
+        143
+      ],
+      [
+        396,
+        142
+      ],
+      [
+        402,
+        141
+      ],
+      [
+        408,
+        127
+      ],
+      [
+        414,
+        139
+      ],
+      [
+        435,
+        127
+      ],
+      [
+        441,
+        131
+      ],
+      [
+        489,
+        127
+      ],
+      [
+        495,
+        127
+      ],
+      [
+        501,
+        126
+      ],
+      [
+        510,
+        125
+      ],
+      [
+        522,
+        123
+      ],
+      [
+        561,
+        111
+      ],
+      [
+        630,
+        111
+      ],
+      [
+        639,
+        111
+      ],
+      [
+        648,
+        111
+      ],
+      [
+        657,
+        110
+      ],
+      [
+        660,
+        110
+      ],
+      [
+        669,
+        107
+      ],
+      [
+        678,
+        107
+      ],
+      [
+        684,
+        100
+      ],
+      [
+        843,
+        95
+      ],
+      [
+        885,
+        95
+      ],
+      [
+        903,
+        94
+      ],
+      [
+        924,
+        93
+      ],
+      [
+        1032,
+        85
+      ],
+      [
+        1146,
+        79
+      ],
+      [
+        1155,
+        79
+      ],
+      [
+        1161,
+        82
+      ],
+      [
+        1179,
+        79
+      ],
+      [
+        1206,
+        79
+      ],
+      [
+        1209,
+        79
+      ],
+      [
+        1239,
+        79
+      ],
+      [
+        1239,
+        80
+      ],
+      [
+        1245,
+        79
+      ],
+      [
+        1254,
+        79
+      ],
+      [
+        1260,
+        79
+      ],
+      [
+        1266,
+        79
+      ],
+      [
+        1281,
+        79
+      ],
+      [
+        1308,
+        78
+      ],
+      [
+        1314,
+        78
+      ],
+      [
+        1410,
+        75
+      ],
+      [
+        1509,
+        72
+      ],
+      [
+        1530,
+        63
+      ],
+      [
+        1536,
+        31
+      ],
+      [
+        1536,
+        47
+      ],
+      [
+        1536,
+        57
+      ],
+      [
+        1536,
+        62
+      ],
+      [
+        1536,
+        63
+      ]
+    ],
+    "observed_size_limits": {
+      "atoms": 92355,
+      "graphs": 1536,
+      "max_nodes": 331,
+      "padded_cost": 7998894
+    },
+    "peak_bytes": 14183038976,
+    "runtime_controls": {
+      "cublas_workspace_config": ":4096:8",
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": true,
+      "cudnn_tf32_before_role_context": false,
+      "deterministic_algorithms": true,
+      "deterministic_warn_only": false,
+      "float32_matmul_precision_before_role_context": "highest",
+      "matmul_tf32_before_role_context": false
+    },
+    "sampled_capacity_not_universal_bound": true,
+    "source": {
+      "configuration": {
+        "bytes": 103264,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/configuration.json",
+        "sha256": "08d0b21b4e14772be1982f52bb27f6dd9ccdb34a04a5d01751b65fa36aa3e34e"
+      },
+      "parent_sacct": {
+        "bytes": 367,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A00_manual_Av2_GPU4712_parent_sacct_Root_actual_v1.json",
+        "sha256": "7b7140c2b6e3f44ca76355f17d627d46725c5d970f1c24e20c4af2024a6579e0"
+      },
+      "run_status": {
+        "bytes": 11720,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/run_status.json",
+        "sha256": "979f00b5254066d9621bfa69e32bf7266df0eff9741039951ee2c84ba016f5ad"
+      },
+      "steps": {
+        "bytes": 2924027,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/resources.jsonl",
+        "sha256": "8ea7329f9cef3e943510a8d7c767d8c7f07d1820c97988d597788a4cdc40d1c9"
+      },
+      "summary": {
+        "bytes": 12121,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/summary.json",
+        "sha256": "2fd5a7ec3d9de39e5a2bded0c08feb4c3e1c86f989db03e51fda7788d05167db"
+      },
+      "supervisor": {
+        "bytes": 5562,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/supervisor.json",
+        "sha256": "ed94404f301289e7bf244dee486261d96190bb11e92d7efdbfe2d3907959fad0"
+      }
+    },
+    "torch_total_bytes": 33671348224,
+    "torch_version": "2.10.0+cu128",
+    "total_bytes": 34190917632
+  },
+  "fixed20": {
+    "batches": 20,
+    "both_disabled_records": 4240,
+    "maximum_analytic_zero_norm": 8.722549703540776e-10,
+    "maximum_error_to_threshold": 0.0,
+    "maximum_forward_relative_l2": 0.0,
+    "maximum_gradient_absolute": 0.0,
+    "outputs_each": 8,
+    "parameters_each": 329,
+    "passed": true
+  },
+  "local_code_sha": "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+  "maximum_trajectory_loss_relative_difference": 0.0,
+  "new_oldPASS_cohort_current_source_rechecks_complete": 1,
+  "old3976_result_not_relabelled": true,
+  "oldPASS_cohort_count": 9,
+  "profile": {
+    "bytes": 1730,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_capacity_bound_actual_v1/closed_R2_capacity_profile_v1.json",
+    "sha256": "d7c055a2467968de752676746f83a36b94ae43d9c056649748920d200e9e95ac"
+  },
+  "public_prereg_sha": "2b4a4df8636e5d65915d535472ba01084ea72dab",
+  "recipe_model_or_D3_accepted": false,
+  "rule_public_sha": "4f6ba16973ea4a30472c7fb33d3aadec974a4462",
+  "schema": "model_v3_Root_current_Av2_manual_full_and_original_capacity_consumer_closure_v1",
+  "six_closed_rawrefs": {
+    "configuration": {
+      "bytes": 103264,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/configuration.json",
+      "sha256": "08d0b21b4e14772be1982f52bb27f6dd9ccdb34a04a5d01751b65fa36aa3e34e"
+    },
+    "parent_sacct": {
+      "bytes": 367,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A00_manual_Av2_GPU4712_parent_sacct_Root_actual_v1.json",
+      "sha256": "7b7140c2b6e3f44ca76355f17d627d46725c5d970f1c24e20c4af2024a6579e0"
+    },
+    "run_status": {
+      "bytes": 11720,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/run_status.json",
+      "sha256": "979f00b5254066d9621bfa69e32bf7266df0eff9741039951ee2c84ba016f5ad"
+    },
+    "steps": {
+      "bytes": 2924027,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/resources.jsonl",
+      "sha256": "8ea7329f9cef3e943510a8d7c767d8c7f07d1820c97988d597788a4cdc40d1c9"
+    },
+    "summary": {
+      "bytes": 12121,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/child/summary.json",
+      "sha256": "2fd5a7ec3d9de39e5a2bded0c08feb4c3e1c86f989db03e51fda7788d05167db"
+    },
+    "supervisor": {
+      "bytes": 5562,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_v1/supervisor.json",
+      "sha256": "ed94404f301289e7bf244dee486261d96190bb11e92d7efdbfe2d3907959fad0"
+    }
+  },
+  "source_current_graph_verified_by_binder_and_CPU": true,
+  "source_pins": {
+    "bytes": 2337,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_capacity_consumer_v1_source/source_pins.json",
+    "sha256": "cebd1b49b4998fd28cab9b9c050bb93d0a47996fd3cbf6d608bc382f1367ce9e"
+  },
+  "status": "ACTUAL_CURRENT_SOURCE_V2_FULL20_AND500_PASS_AND_EXISTING_CPU_CAPACITY_CONSUMER_C0",
+  "trajectory_updates": 500,
+  "universal_capacity_accepted": false
+}

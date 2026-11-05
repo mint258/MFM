@@ -1,0 +1,7 @@
+# Wire provider fixture placement revision
+
+The initial provider implementation and its 26 targeted tests passed in Slurm job 4520964. In full regression attempt 4520977, the private-storage census sampled the deliberately invalid `alias` link created by `test_codebook_hash_and_physical_shard_ancestry_are_not_boolean_claims` and terminated the owned process group. This is an actual failed test execution and remains in the record.
+
+This revision changes only the placement of that negative filesystem fixture: `tmp_path_factory` creates the rejected link under the supervisor-declared pytest fixture subtree. Valid synthetic geometry, physics, and descriptor LMDBs remain under the actual node-local `TMPDIR`; the provider and private-storage census are unchanged. The negative assertion still requires rejection of a shard path outside the physical node-local fixture root. No links are traversed by the output census, and the existing wall, RSS, 2 GiB, and entry-count limits remain in effect.
+
+The original source inventory `wire_provider_source_pins_v1.json` records the initial candidate. This revision is bound separately by its complete frozen unit request and later regression source manifests; the original failed receipt and source tree are retained. A targeted pass alone does not establish complete regression or real D-3 acceptance.

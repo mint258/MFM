@@ -1,0 +1,140 @@
+{
+  "schema": "model_v3_routing7_current_full_A_v2_Root_closure_v1",
+  "status": "CURRENT_SOURCE_FULL20_AND500_V2_PASS_ROOT_CLOSED",
+  "failure": null,
+  "full_A_numeric_acceptance": true,
+  "job_id": "4525046",
+  "old_job_id": "4520456",
+  "actual_code_sha": "7ffe8a5557590b1481f4ca74073007f070dc6a50",
+  "configuration_sha256": "0b20b2606bf7478919f2b72d8304347d4528479127605f7556179dc24f9bddf2",
+  "metadata_CPU_result": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/remaining_Av2_routing7_metadata_actual_v3_456/RESULT.json",
+    "bytes": 8032,
+    "sha256": "b2bb5e7f0e45f8b325974953c39b592d4bc3aa88aab6de64bd337ecbeb7dab92"
+  },
+  "metadata_CPU_supervisor": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/remaining_Av2_routing7_metadata_actual_v3_456.supervisor.json",
+    "bytes": 3563,
+    "sha256": "387f0f62cc1bfb353dda18519fe550416515d655dd00b044e15055c303a26fd0"
+  },
+  "metadata_CPU_job_id": "4525074",
+  "actual_sacct": {
+    "argv": [
+      "sacct",
+      "-X",
+      "-n",
+      "-P",
+      "-j",
+      "4525046,4525074",
+      "--format=JobIDRaw,User,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "returncode": 0,
+    "stdout": "4525046|zixiao|COMPLETED|0:0|2921|16|compute-0-20\n4525074|zixiao|COMPLETED|0:0|1|16|compute-0-2\n",
+    "stderr": ""
+  },
+  "closed_metadata": [
+    {
+      "bytes": 9885,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520456_routing_v7/control/GPU_auto_memory_startup_actual_v1.json",
+      "sha256": "0b0143f39fbc5b5efad864bae89a1d5f896609b9d2aa1f988f2c52dda5fab56d"
+    },
+    {
+      "bytes": 8728,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520456_routing_v7/control/Root_admission_actual_v1.json",
+      "sha256": "063bd518d7851528c077b46317f900ddc235c8f4e60ee52cea3a7a35f31dd1da"
+    },
+    {
+      "bytes": 30113,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520456_routing_v7/child/configuration.json",
+      "sha256": "9ace9f0db38b397242dea1bef8827329c1f240dcba87ff05bbc7b81c3113cd6c"
+    },
+    {
+      "bytes": 6098715,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520456_routing_v7/child/fixed_batch_gate.json",
+      "sha256": "9ba52832593aab96519dc15af7c25ecdf136e02e78ffa2b4cae8615277c26f65"
+    },
+    {
+      "bytes": 1192,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520456_routing_v7/supervisor.json.storage.json",
+      "sha256": "cb5d8cd4db1fd23313d6930f98e6a62267059a0c2d506f25c92d97ebfb63f56c"
+    },
+    {
+      "bytes": 11720,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520456_routing_v7/child/run_status.json",
+      "sha256": "ca34d0cc73da070663f1b1b655f67c7a46ef44faab579fe3941d2660dbfa584e"
+    },
+    {
+      "bytes": 12121,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520456_routing_v7/child/summary.json",
+      "sha256": "024e37a77ce72b61758287a672b037633a2aaebf9750af98479be34616732e09"
+    },
+    {
+      "bytes": 5305,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520456_routing_v7/supervisor.json",
+      "sha256": "e8584592477dc906c2256e559c2a043d00765076dc29d878b4d9dd8561e8b5e5"
+    },
+    {
+      "bytes": 42490,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520456_routing_v7/child/trajectory_gate.json",
+      "sha256": "28c819cbb4dbd813921c6eb4714ec227fc803120c23ab908946f3f2a49459d7a"
+    }
+  ],
+  "fixed": {
+    "batches": 20,
+    "both_disabled_records": 4240,
+    "maximum_analytic_zero_norm": 6.472290245596499e-10,
+    "maximum_error_to_threshold": 0.0,
+    "maximum_forward_relative_l2": 0.0,
+    "maximum_gradient_absolute": 0.0,
+    "outputs_each": 8,
+    "parameters_each": 329,
+    "passed": true
+  },
+  "trajectory_updates": 500,
+  "maximum_loss_difference": 0.0,
+  "source_package": {
+    "bytes": 16019,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/trials/recheck_4520456_routing_v7/control/Root_submission_actual_v1.json",
+    "sha256": "0cc3ba9d5f559715e3cb0b415d4f0a9ba760ceaa38a3ead08d18f83370729546"
+  },
+  "GPU_numeric_source_package": {
+    "bytes": 59726,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_20261029_routing_v7/PLAN.json",
+    "sha256": "96f76028cabd4e4fcd692746a517a28b5922ba8054190dca2f7ebd676b9c3391"
+  },
+  "CPU_audit_source_package": {
+    "bytes": 3641,
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_remaining_Av2_routing_v7_metadata_audit_v3_source/source_pins.json",
+    "sha256": "aa4b72df5a92a467dcf020c9d307bcc03f84a48cd4e6a2d02a8fc394a80316e0"
+  },
+  "inline_metadata_selfchecks": {
+    "checks": [
+      "four_declared_float_spellings",
+      "head.geometry_radius_bool_rejected",
+      "backbone.dropout_bool_rejected",
+      "backbone.radius_bool_rejected",
+      "expert.dropout_bool_rejected",
+      "dimension_float_rejected",
+      "dimension_bool_rejected",
+      "radius_5.000000000000001_rejected",
+      "radius_inf_rejected",
+      "radius_nan_rejected",
+      "other_numeric_type_rejected",
+      "extra_model_key_rejected",
+      "large_int_float_projection_rejected",
+      "large_mtime_float_and_value_rejected",
+      "exact_large_integer_preserved"
+    ],
+    "count": 15,
+    "scope": "PURE_METADATA_ONLY_NO_TENSORS_OR_SCIENTIFIC_REEXECUTION"
+  },
+  "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+  "gpu_name": "NVIDIA GeForce RTX 4090",
+  "node": "compute-0-20",
+  "captured_utc": "2026-10-29T05:36:47.047112+00:00",
+  "Root_model_SDK_array_step_resource_journal_or_large_gate_body_parsed": false,
+  "big_gate_numeric_verification_performed_by_actual_CPU": true,
+  "SDK_independent_audit_and_sync": "PENDING",
+  "R1_speed_accepted": false,
+  "scientific_architecture_adoption": false
+}

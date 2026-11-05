@@ -1,0 +1,108 @@
+{
+    "schema":  "model_v3_numeric_single_parent_mechanical_source_map_v1",
+    "status":  "READ_ONLY_MAPPING_NOT_EXECUTION",
+    "files":  [
+                  {
+                      "file":  "run_cpu_supervised_v4.py",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/cpu_supervisor_revision_v4_source/run_cpu_supervised_v4.py",
+                                       "bytes":  16183,
+                                       "sha256":  "3cbffc2888a21e8d1ccc6aa6cdd77efdc3b5725026049d3f4cd1ea67601fcd8f"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source/run_cpu_supervised_v4.py",
+                                      "bytes":  16183,
+                                      "sha256":  "3cbffc2888a21e8d1ccc6aa6cdd77efdc3b5725026049d3f4cd1ea67601fcd8f"
+                                  },
+                      "raw_equal":  true,
+                      "allowed_change":  "none, byte-for-byte copy"
+                  },
+                  {
+                      "file":  "fixture_census_v4.py",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/cpu_supervisor_revision_v4_source/fixture_census_v4.py",
+                                       "bytes":  4114,
+                                       "sha256":  "a1cd6e1ff45715ca96ec1179ddf57bc8678b0bcf00228944c2f17d712853107f"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source/fixture_census_v4.py",
+                                      "bytes":  4114,
+                                      "sha256":  "a1cd6e1ff45715ca96ec1179ddf57bc8678b0bcf00228944c2f17d712853107f"
+                                  },
+                      "raw_equal":  true,
+                      "allowed_change":  "none, byte-for-byte copy"
+                  },
+                  {
+                      "file":  "identity_revision_v4.py",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/cpu_supervisor_revision_v4_source/identity_revision_v4.py",
+                                       "bytes":  23272,
+                                       "sha256":  "77751f5c56a12e518eb8f41d5e4dab8607ec60f281250eb88b3f3ed1632db2e7"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source/identity_revision_v4.py",
+                                      "bytes":  23284,
+                                      "sha256":  "147352c76e30b6e890d72577efe01e2a01519f7870e10fa2c37ea861d40ec315"
+                                  },
+                      "raw_equal":  false,
+                      "allowed_change":  "CONTROL directory literal only"
+                  },
+                  {
+                      "file":  "run_regression_worker_identity_v4.py",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/cpu_supervisor_revision_v4_source/run_regression_worker_identity_v4.py",
+                                       "bytes":  9706,
+                                       "sha256":  "1b6aba652d3cf99ede4afc089c467361daf83bdcf8319b62a5b995cf7b0cd048"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source/run_regression_worker_identity_v4.py",
+                                      "bytes":  9706,
+                                      "sha256":  "060e5182410846d7ce64b4aa09ff4fce4708c07f1967f13566f2905616d9849f"
+                                  },
+                      "raw_equal":  false,
+                      "allowed_change":  "2partition count literals8to1 only"
+                  },
+                  {
+                      "file":  "regression_control_v4.py",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/regression_control_v4/regression_control_v4.py",
+                                       "bytes":  25745,
+                                       "sha256":  "9c7b62afad2bf9dff2406124eee0fa6da5d05a928c22509144e1e6718942bbe8"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source/regression_control_v4.py",
+                                      "bytes":  25767,
+                                      "sha256":  "d51000bfa8e5c169c7d71b7d4393e2fc6985162d2834df8006fd150d9c88fbea"
+                                  },
+                      "allowed_change":  "11 targeted directory/schema/single-parent constraint substitutions; Git/source/identity semantics unchanged"
+                  },
+                  {
+                      "file":  "run_numeric_full_regression_v1.sbatch",
+                      "original":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/cpu_supervisor_revision_v4_source/run_regression_identity_v4.sbatch",
+                                       "bytes":  2485,
+                                       "sha256":  "fab17babf04c43be6bbdeb1dbdb94c5f1e93660559957df51b29b0a6e39de830"
+                                   },
+                      "derived":  {
+                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/numeric_full_regression_v1_source/run_numeric_full_regression_v1.sbatch",
+                                      "bytes":  2632,
+                                      "sha256":  "1c0c151daf53d2226f56219b502bdfa4f5d281788bea95161400f7c0446d9eff"
+                                  },
+                      "allowed_change":  "newfixedpackage;wall3300/allocation1h/RSS24GiB;4threadsx4children;failedretention;explicittests/toolsPYTHONPATH"
+                  }
+              ],
+    "identity_keys_unchanged":  [
+                                    "pid",
+                                    "uid",
+                                    "boot_id",
+                                    "start_ticks",
+                                    "pgid",
+                                    "sid",
+                                    "argv_sha256",
+                                    "cgroup",
+                                    "slurm_job_id"
+                                ],
+    "historical45QA_not_a_new_harness_pass":  true,
+    "historical2592_not_a_new_fullsuite_pass":  true,
+    "no_old_files_rewritten":  true
+}

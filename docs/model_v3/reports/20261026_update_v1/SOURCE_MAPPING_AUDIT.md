@@ -1,0 +1,17 @@
+# 公开源码映射与安全复制复核
+
+本审查使用Root原始发布回执、实际报告pubtree文件及白名单manifest；没有请求更改GitHub或任何工作树。审查快照固定到985f599adf15ca6f107eb49f3d47db34def5baa0，不声称重新查询了远端最新HEAD。
+
+1. 实际报告pubtree是MFM_model_v3_reporting_v3，由reporting_public_local_commit_v4.json绑定local41b72bf9…/treeaa9e91ce…。生产Root仍以3d9作为完整回归执行码。生产Root目录没有后来报告文件，不构成“未公开”的证据。
+2. public_source_mapping.root.json的23678B/SHA c25ffd6e…与pubtree文件相符。其PENDING字段是创建时的历史状态；新附注补充retry1 PASS和985公开，不覆盖它。该映射已单独绑定1123核验父C0（而非误借1091源GPU父）。
+3. 旧candidate_interfaces_publication_payload_v1.json使用commit_sha/elements，不是local_code_sha/tree_elements。该运输JSON为2097352B，不能把整包当普通小型Git报告复制；也不能用错误字段读出的空数组判断源码缺失。它和reporting_v3/v4逐blob manifest应分别解析。
+4. publication_candidate_interfaces_public_receipt_v1.json明确绑定A06 producer五叶；pubtree的diagnose_native_feedback.py为40539B/SHA b8fb0c05…，与实际1123证书的fixed_logger_source相同。其公开目标：
+   tools/model_v3/analysis_sources/candidate_interfaces_20261026_v1/a06_gradient_feedback_diagnostic_v1/。
+   原README、test、source_pins和original_evidence_review也已公开。白名单列ALREADY_PUBLISHED_MATCH，不重复复制或更换目标。
+5. archive_closed_v7/bounded_history_v7.py已存在pubtree，11112B/SHA6aee76e1…与实际1123 bounded reader一致，继续使用该固定版本。
+6. 未在当前pubtree找到独立A06 verifier/aggregation源包。建议新增A06_native_feedback_verification_v1下七个精确文件：feedback_schema.py、verify_feedback_sdk.py、report_feedback.py、prepare_feedback_inputs.py、test_feedback_verification.py、README.md及source_pins_v1.json。源码源清单只含代码/只读源码依赖，未见SDK/NPZ/weights/LMDB路径payload。程序中的旧job/run/hash常量是证据绑定，不是可重新解释为新Native实验的通用授权。
+7. plot_public_figures.py目前也是外部报告源。它可作为可选小型绘图源码新增；本审查不重画图、不改变聚合数据或数值。论文复现仍需要获授权的原始数据/运行环境，公开源码不等于提供私有数据。
+
+A06_SOURCE_WHITELIST.json为逐文件source/path/bytes/SHA/target及已存在状态。SAFE_COPY_PLAN.json只给Root可审查的复制计划；没有复制动作。每个目标必须在指定Git工作树内解析，源重新hash、目标已存在且不同则停止；相同则跳过。生产Root、pubtree、旧报告/协议、SDK及原始结果不在本次写入范围。目标路径不用glob、目录递归或shell拼接。
+
+新增进展报告和public JSON只保留计数、公开执行码、job与小型原件引用。不得复制完整unit source maps、完整request/selection/Root frame、source case/argmax、每原子/每分子行、参数数组或SDK内容。目标报告中的“complete”仅指那一份回归证书，整份模型v3指南继续进行。

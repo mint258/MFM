@@ -1,0 +1,289 @@
+--- a/current/phychem_mfm/model/v3_checkpoint_policy.py
++++ b/current/phychem_mfm/model/v3_checkpoint_policy.py
+@@ -11,6 +11,7 @@
+ from pathlib import Path
+ import re
+ import subprocess
++import sys
+ import torch
+ from .v3_logical_batch import LogicalBatchPadding
+ 
+@@ -124,7 +125,7 @@
+ 
+     def __post_init__(self):
+         require(self.schema=="model_v3_performance_execution_v1" and self.checkpoint_policy in
+-                {"manual","auto_closed_profile_v1"},"Unknown execution schema/checkpoint policy")
++                {"manual","auto_closed_profile_v1","auto_adopted_A_v1"},"Unknown execution schema/checkpoint policy")
+         require(type(self.batch_padded_cost) is int and self.batch_padded_cost>0
+                 and type(self.resident_models) is int and self.resident_models in (1,2),"Actual batch/residency limits required")
+         if self.padding is not None:LogicalBatchPadding(**self.padding)
+@@ -133,6 +134,9 @@
+         if self.checkpoint_policy=="auto_closed_profile_v1":
+             require(self.capacity_profile is not None and self.workload_sha256 is not None,
+                     "Auto checkpoint policy needs a bound actual profile and workload; unknown capacity is refused")
++        elif self.checkpoint_policy=="auto_adopted_A_v1":
++            require(self.padding is None and (self.capacity_profile is None or self.workload_sha256 is not None),
++                    "Adopted A selection needs an actual workload for optional capacity, without new packing")
+         else:require(self.capacity_profile is None,"Manual mode cannot silently consume an automatic profile")
+ 
+     def semantic(self):
+@@ -398,7 +402,40 @@
+         require(options.precision=="fp32","Logical-batch A padding is currently fp32 only")
+         require(float(configuration["backbone"].get("dropout",0.))==0.,"Logical-batch padding requires zero dropout before construction")
+     require("v3_architecture" not in configuration["backbone"],"Execution integration requires the declared original backbone, not unreviewed C1 mathematics")
+-    sources=implementation_sources();resolved=options;guard=None;selection=None
++    # The new adoption route consumes already closed ordinary R1 facts. A
++    # changed mandatory source inventory is reported by the runner, not used
++    # to invalidate the known mathematical qualification or memory observation.
++    sources={} if spec.checkpoint_policy=="auto_adopted_A_v1" else implementation_sources()
++    resolved=options;guard=None;selection=None
++    if spec.checkpoint_policy=="auto_adopted_A_v1":
++        from .v3_adopted_checkpoint_policy import (CONSERVATIVE_FLAGS, conservative_selection,
++            fresh_A22_scope,load_R1_capacity,FreshR1WindowGuard)
++        require(options.precision=="fp32" and not options.tf32 and not options.fused_adamw
++            and not options.compile_backbone and options.attention_backend=="dense"
++            and options.distance_implementation=="tiled" and options.backbone_checkpointing is None
++            and options.distance_checkpointing and options.head_checkpointing,
++            "Adopted A does not combine failed/unqualified candidates or override manual flags")
++        resolved=replace(options,**CONSERVATIVE_FLAGS)
++        selection=conservative_selection("NO_MATCHED_CAPACITY_KEEP_OLD_CHECKPOINTS")
++        if spec.capacity_profile is not None and fresh_A22_scope(sys.argv,ROOT):
++            # Resource observation stays hard even if later metadata is stale.
++            environment=current_cuda_capacity()
++            try:
++                records,warnings=load_R1_capacity(spec.capacity_profile,model=configuration,
++                    workload_sha256=spec.workload_sha256,options=asdict(options),
++                    configured_cost=spec.batch_padded_cost,resident_models=spec.resident_models,gpu_uuid=environment['uuid'])
++            except (ValueError,KeyError,TypeError,OSError):
++                selection=conservative_selection("CAPACITY_EVIDENCE_UNAVAILABLE_KEEP_OLD_CHECKPOINTS",admission=spec.capacity_profile)
++            else:
++                # Keep physical GPU/foreign/unknown-memory guards OUTSIDE the
++                # operational metadata fallback. They remain hard protections.
++                row=select_capacity(records,environment)
++                if row is not None:
++                    resolved=replace(options,**row["flags"]);guard=FreshR1WindowGuard(row)
++                    selection={"environment":environment,"measured":row,"reason":"QUALIFIED_A_WITH_MATCHED_MEASURED_CAPACITY",
++                        "architecture_selected":False,"metadata_warnings":warnings,
++                        "scope":"ONLY_FRESH_ORIGINAL_S_2WARM_20MEASURED_NOT_GENERIC_SHAPE_CAPACITY"}
++                else:selection=conservative_selection("NO_SAFE_MATCHED_ADOPTED_A_PROFILE_KEEP_OLD_CHECKPOINTS",admission=spec.capacity_profile)
+     if spec.checkpoint_policy=="auto_closed_profile_v1":
+         require(options.backbone_checkpointing is None and options.distance_checkpointing and options.head_checkpointing,
+                 "Auto checkpoint policy cannot silently override manual checkpoint flags")
+--- a/current/phychem_mfm/model/v3_training_capacity.py
++++ b/current/phychem_mfm/model/v3_training_capacity.py
+@@ -467,6 +467,15 @@
+     if spec.checkpoint_policy == "manual":
+         require(admission is None, "Manual training must not silently use an automatic capacity profile")
+         return options, None, None
++    adopted = spec.checkpoint_policy == "auto_adopted_A_v1"
++    if adopted:
++        from .v3_adopted_checkpoint_policy import (CONSERVATIVE_FLAGS, adopted_capacity_records,
++            conservative_selection)
++        require(options.backbone_checkpointing is None and options.distance_checkpointing and options.head_checkpointing,
++                "Automatic training policy cannot override explicit checkpoint flags")
++        conservative = replace(options, **CONSERVATIVE_FLAGS)
++        if admission is None:
++            return conservative, None, conservative_selection("NO_MATCHED_CAPACITY_KEEP_OLD_CHECKPOINTS")
+     require(type(admission) is dict and set(admission) == {"schema", "capacity_profile"}
+             and admission["schema"] == "model_v3_training_execution_admission_v1",
+             "Actual operational training capacity admission required")
+@@ -473,11 +482,20 @@
+     require(options.backbone_checkpointing is None and options.distance_checkpointing and options.head_checkpointing,
+             "Automatic training policy cannot override explicit checkpoint flags")
+-    profile = read_bound(admission["capacity_profile"])
+-    require(set(profile) == {"schema", "observations"} and profile["schema"] == PROFILE_SCHEMA
+-            and type(profile["observations"]) is list and 0 < len(profile["observations"]) <= 32,
+-            "Unknown/empty/oversized closed training capacity profile")
+-    records = [load_closed_training_observation(item, spec, workload, options, sources) for item in profile["observations"]]
+-    environment = current_cuda_capacity()
++    try:
++        profile = read_bound(admission["capacity_profile"])
++        require(set(profile) == {"schema", "observations"} and profile["schema"] == PROFILE_SCHEMA
++                and type(profile["observations"]) is list and 0 < len(profile["observations"]) <= 32,
++                "Unknown/empty/oversized closed training capacity profile")
++        records = [load_closed_training_observation(item, spec, workload, options, sources) for item in profile["observations"]]
++    except (ValueError, KeyError, TypeError, OSError):
++        if not adopted:
++            raise
++        return conservative, None, conservative_selection("CAPACITY_EVIDENCE_UNAVAILABLE_KEEP_OLD_CHECKPOINTS", admission=_json(admission))
++    # Actual physical GPU/foreign-process checks are deliberately outside the
++    # metadata fallback handler. They remain hard resource protections.
++    environment = current_cuda_capacity()
++    if adopted:
++        records = adopted_capacity_records(records, environment["name"])
+     if existing_model:
+         # WSD rebind allocates NO second model or optimizer. Remove the actual
+         # already-resident owned process from the hypothetical preallocation
+@@ -499,6 +517,8 @@
+         selected = select_capacity(records, virtual)
+     else:
+         selected = select_capacity(records, environment)
++    if adopted and selected is None:
++        return conservative, None, conservative_selection("NO_SAFE_MATCHED_ADOPTED_A_PROFILE_KEEP_OLD_CHECKPOINTS", admission=_json(admission))
+     require(selected is not None, "No closed same-seed/source/GPU/training-workload capacity observation")
+     guard = TrainingCapacityGuard(selected)
+     guard.capacity_selection = {"admission": _json(admission), "environment": _json(environment),
+--- a/current/phychem_mfm/phase1/v3_training_execution.py
++++ b/current/phychem_mfm/phase1/v3_training_execution.py
+@@ -46,7 +46,7 @@
+ 
+     def __post_init__(self):
+         require(self.schema == "model_v3_training_execution_v1" and self.checkpoint_policy in
+-            {"manual", "auto_closed_training_profile_v1"}, "Unknown training execution policy")
++            {"manual", "auto_closed_training_profile_v1", "auto_adopted_A_v1"}, "Unknown training execution policy")
+         require(self.geometry_scope in {"c1_scalar_distance_v1", "c1_shared_pair_v1"},
+                 "Unknown explicit geometry checkpoint scope")
+         require(type(self.options) is dict, "Explicit performance options mapping required")
+@@ -109,6 +109,10 @@
+             "Architecture needs its explicit geometry checkpoint scope")
+     require(not options.tf32 and not options.fused_adamw,
+             "Failed/unadmitted TF32 or fused optimizer is not a training default")
++    if spec.checkpoint_policy == "auto_adopted_A_v1":
++        require(options.precision == "fp32" and options.attention_backend == "dense"
++                and not options.compile_backbone and spec.padding is None,
++                "Adopted A policy does not combine unqualified precision/compile/packing changes")
+     require(not (spec.padding is not None and options.compile_backbone
+                  and spec.checkpoint_policy != "manual"),
+             "Automatic compiled packing lacks observed actual chunk workspace evidence")
+@@ -163,7 +167,8 @@
+     padding = None if spec.padding is None else LogicalBatchPadding(**spec.padding)
+     install_training_performance(encoder, resolved, padding=padding, capacity_guard=guard)
+     observer = TrainingCapacityObserver(workload, spec.semantic(), asdict(resolved), sources)
+-    observer.capacity_selection = None if guard is None else deepcopy(guard.capacity_selection)
++    observer.capacity_selection = (deepcopy(admission) if spec.checkpoint_policy == "auto_adopted_A_v1" and guard is None
++        else None if guard is None else deepcopy(guard.capacity_selection))
+     return TrainingEncoderExecution(encoder, resolved, observer=observer, specification=spec,
+         model_configuration=configuration, workload_binding=workload, implementation_sha256=sources,
+         operational_admission=admission)
+@@ -400,6 +405,20 @@
+     sources = training_implementation_sources()
+     resolved, guard, admission = resolve_training_capacity(spec, parent_execution.model_configuration,
+         child_workload, requested_options, sources, operational_admission, existing_model=True)
++    if spec.checkpoint_policy == "auto_adopted_A_v1" and guard is None:
++        # A missing operational receipt must not mutate the already restored
++        # parent flags or prevent a schedule-only child. The exact workload
++        # comparison above retains model/data/heads/views/shape policy; reuse
++        # its SAME live size guard instead of inventing a larger capacity.
++        parent_flags = parent_execution.resolved_options
++        if any(getattr(parent_flags, key) is False for key in
++                ("backbone_checkpointing", "distance_checkpointing", "head_checkpointing")):
++            guard = full_model.encoder.backbone.capacity_guard
++            require(guard is not None, "Parent adopted checkpoint flags require their existing actual capacity guard")
++            resolved = parent_flags
++            admission = {"schema": "model_v3_adopted_A_parent_capacity_retained_v1",
++                "reason": "KEEP_RESTORED_PARENT_FLAGS_AND_SAME_WORKLOAD_SIZE_GUARD",
++                "fresh_capacity_evidence": admission, "new_capacity_claimed": False}
+     if resolved.backbone_checkpointing is None:
+         resolved = replace(resolved, backbone_checkpointing=bool(
+             parent_execution.model_configuration["backbone"].get("activation_checkpointing", False)))
+@@ -406,7 +425,8 @@
+     require(asdict(resolved) == asdict(parent_execution.resolved_options),
+             "Child capacity selection changed actual parent checkpoint/options; no implicit rebuild")
+     observer = TrainingCapacityObserver(child_workload, spec.semantic(), asdict(resolved), sources)
+-    observer.capacity_selection = None if guard is None else deepcopy(guard.capacity_selection)
++    observer.capacity_selection = (deepcopy(admission) if spec.checkpoint_policy == "auto_adopted_A_v1" and guard is None
++        else None if guard is None else deepcopy(guard.capacity_selection))
+     result = TrainingEncoderExecution(full_model.encoder, resolved, observer=observer, specification=spec,
+         model_configuration=deepcopy(parent_execution.model_configuration), workload_binding=child_workload,
+         implementation_sha256=sources, operational_admission=admission,
+--- a/current/phychem_mfm/phase1/v3_proxy_run.py
++++ b/current/phychem_mfm/phase1/v3_proxy_run.py
+@@ -198,6 +198,14 @@
+                 and operational['schema'] == 'model_v3_training_execution_admission_v1',
+                 'Auto training requires a bound actual training-specific capacity profile')
+             binding_matches(operational['capacity_profile'])
++        elif execution['checkpoint_policy'] == 'auto_adopted_A_v1':
++            # Optional operational evidence never holds the scientific run.
++            # The runtime falls back to all original checkpoints if its bytes,
++            # source/workload/shape/capacity evidence cannot be qualified.
++            require(operational is None or type(operational) is dict
++                and set(operational) == {'schema', 'capacity_profile'}
++                and operational['schema'] == 'model_v3_training_execution_admission_v1',
++                'Explicit optional adopted-A capacity admission required')
+         else:
+             require(operational is None, 'Manual execution does not silently consume an automatic profile')
+     else:
+--- a/tools/model_v3/a_execution_runtime.py
++++ b/tools/model_v3/a_execution_runtime.py
+@@ -58,7 +58,14 @@
+     integration_sha = getattr(args, "performance_execution_sha256", None)
+     if (integration is None) != (integration_sha is None) or (integration_sha is not None
+             and not re.fullmatch("[0-9a-f]{64}", integration_sha)):
+-        raise ValueError("Opt-in performance execution requires its explicit source SHA")
++        # This explicit new route follows user-v3: missing/stale SHA transport
++        # metadata is recorded. Existing manual/strict profile calls keep their
++        # original argument semantics. No payload or project import is used.
++        adopted = False
++        if integration is not None and Path(integration).suffix == ".json" and Path(integration).stat().st_size <= 2 * 1024**2:
++            adopted = json.loads(Path(integration).read_bytes()).get("checkpoint_policy") == "auto_adopted_A_v1"
++        if not adopted:
++            raise ValueError("Opt-in performance execution requires its explicit source SHA")
+     grouping = args.atom_bucket_width is not None or args.exact_atom_sort
+     if grouping and args.input != "native_s":
+         raise ValueError("Grouping experiments require native S, not a synthetic substitute")
+@@ -267,9 +274,13 @@
+     if path is None:return None
+     from phychem_mfm.model.v3_checkpoint_policy import PerformanceExecution, file_reference, read_bound, workload_identity, bind_execution_sources, ROOT as execution_source_root
+     ref = file_reference(path, 2 * 1024**2)
+-    if ref["sha256"] != args.performance_execution_sha256:
+-        raise ValueError("Performance execution configuration source changed")
+-    payload = read_bound(ref)
++    payload = read_bound(ref)
++    adopted = payload.get("checkpoint_policy") == "auto_adopted_A_v1"
++    if ref["sha256"] != args.performance_execution_sha256:
++        if not adopted:
++            raise ValueError("Performance execution configuration source changed")
++        bound_configuration["execution_source_SHA_warning"] = {
++            "status": "REPORT_ONLY_USER_AMENDMENT_V3", "expected": args.performance_execution_sha256, "actual": ref}
+     workload = workload_identity(model_configuration,seed=args.seed,input_kind=args.input,
+                                  snapshot=args.shard_snapshot_sha256,binding=bound_configuration)
+     defaults = {"batch_padded_cost": args.max_padded_cost, "resident_models": resident_models, "workload_sha256": workload}
+@@ -278,7 +289,10 @@
+             raise ValueError("Execution profile differs from the actual runner workload: " + name)
+         payload[name] = value
+     spec = PerformanceExecution(**payload)
+-    bind_execution_sources(bound_configuration)
++    if not adopted:
++        bind_execution_sources(bound_configuration)
++    else:
++        bound_configuration["A_adoption_capacity_scope"] = "ONLY_FRESH_ORIGINAL_S_2WARM_20MEASURED_NOT_GENERIC_SHAPE_CAPACITY"
+     bound_configuration["performance_execution_invocation"] = {
+         "source_root": str(execution_source_root), "cwd": str(Path.cwd().resolve()),
+         "logical_python": str(Path(sys.executable).absolute()), "argv": list(sys.argv)}
+--- a/tools/model_v3/single_a_benchmark.py
++++ b/tools/model_v3/single_a_benchmark.py
+@@ -81,6 +81,8 @@
+     failure, status, cleanup_errors = None, "FAILED", []
+     started = time.monotonic()
+     measured_receipts, rows, foreign = [], [], False
++    adoption_scope_confirmed = False
++    adoption_scope_observation = None
+     try:
+         stream = stream_for(args, reference, candidate=args.role == "candidate")
+         configuration["data_version"] = stream.bindings
+@@ -161,6 +163,13 @@
+             del outputs, loss, batch, corpus
+             print(json.dumps({"optimizer_updates": ordinal + 1, "measured": ordinal >= warmup,
+                               "compute_seconds": compute_seconds}), flush=True)
++        if integration is not None and args.role == "candidate":
++            # The ordinary R1 memory fact applies to this exact original input
++            # population, not a generic8M sampler bound or longer training.
++            confirm = getattr(getattr(model.backbone, "capacity_guard", None), "confirm_measured_inputs", None)
++            if confirm is not None:
++                adoption_scope_observation = confirm(measured_receipts)
++                adoption_scope_confirmed = adoption_scope_observation["same_measured_input_population"]
+         elapsed = time.perf_counter() - window_started
+         base = sum(row["input"]["base_records"] for row in rows)
+         atoms = sum(row["input"]["native_atoms"] for row in rows)
+@@ -185,7 +194,10 @@
+             "compiler_counters_before_warmup": compile_before,
+             "compiler_counters_after_warmup": compile_after_warmup,
+             "compiler_counters_after_window": compiler_counters(selected.compile_backbone),
+-            "tracking_run_id": tracker.id, "tracking_mode": "offline", "resume_supported": False})
++            "tracking_run_id": tracker.id, "tracking_mode": "offline", "resume_supported": False,
++            **({"A_adoption_original_R1_input_population_matched": adoption_scope_confirmed,
++                "A_adoption_input_population_observation": adoption_scope_observation}
++                if adoption_scope_observation is not None else {})})
+         return 0
+     except BaseException as exc:
+         failure = {"type": type(exc).__name__, "message": str(exc)}

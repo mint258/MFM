@@ -1,0 +1,162 @@
+{
+    "schema":  "performance_manual_R1_ABBA_log_sources_v1",
+    "revision":  "current-HeadOff-Av2-finite-v1",
+    "scope":  "CURRENT_HEAD_OFF_AV2_R1_ABBA_LOG_AND_EXISTING_SPEED_REPORT_ONLY",
+    "source_stage":  "SOURCE_ONLY_FROZEN_FOUR_ACTUAL_C0_METADATA_REBIND_PENDING_ROOT_PREPARE_AND_CPU",
+    "created_utc":  "2026-10-29T02:06:36.2553273Z",
+    "files":  [
+                  {
+                      "relative_path":  "abba_common.py",
+                      "bytes":  26389,
+                      "sha256":  "550119a14a30daef30fb39689865f095ee1bcfc8ded9945729c80a7805dd9a5e"
+                  },
+                  {
+                      "relative_path":  "audit_abba.py",
+                      "bytes":  17619,
+                      "sha256":  "d6c6f38a0891c0e2a830e445d47fe6d1a988224b5efeb8b3deac0328cc0b7739"
+                  },
+                  {
+                      "relative_path":  "prepare.py",
+                      "bytes":  4644,
+                      "sha256":  "91c0f27d47daefc6b58d3a82a9a71e7bcb8158797e231cf0d83a559c5c8fb2ad"
+                  },
+                  {
+                      "relative_path":  "sync_abba.py",
+                      "bytes":  6548,
+                      "sha256":  "9c8730291e6b8f7313f4ef2f3e0498cf3d5c9b25904ecb5cff00ae673f1320e2"
+                  },
+                  {
+                      "relative_path":  "one_run_abba.py",
+                      "bytes":  11852,
+                      "sha256":  "702e842e71898e99270ed9beb5efcdda0fef82b359cc6e58729906832fbb4065"
+                  },
+                  {
+                      "relative_path":  "audit_cpu.sbatch",
+                      "bytes":  1234,
+                      "sha256":  "752049899069e00c0ccda4373ae28f7c64f5d0f2bb6a898c22c08bb63c129b44"
+                  },
+                  {
+                      "relative_path":  "sync_cpu.sbatch",
+                      "bytes":  1328,
+                      "sha256":  "dcac10efc3193f3621127a8023768228c68cafeab16375be956bc263e0f6eebd"
+                  },
+                  {
+                      "relative_path":  "dependencies.json",
+                      "bytes":  16041,
+                      "sha256":  "8da2b0ed1db18d41ef11d0afc3e3f4622dc19a05bf6af1d8970ae6d0154ea29c"
+                  },
+                  {
+                      "relative_path":  "installed_sources.json",
+                      "bytes":  5921,
+                      "sha256":  "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+                  },
+                  {
+                      "relative_path":  "scope.json",
+                      "bytes":  12579,
+                      "sha256":  "400b8b5e2a994f1be6ab90274c326958ad43ecf87630df2f31abe732e60b6a5f"
+                  },
+                  {
+                      "relative_path":  "README.md",
+                      "bytes":  3550,
+                      "sha256":  "fdd926eefcfe55a22dd8c24c02fb692320b93f175885ff6401dbc722cf3180a2"
+                  },
+                  {
+                      "relative_path":  "member_1_BOUND_METADATA.json",
+                      "bytes":  3504,
+                      "sha256":  "d22f4c6d77d0ca58396e7b56f76db282e5d93f2633f44513671425c25b8b4d07"
+                  },
+                  {
+                      "relative_path":  "member_2_BOUND_METADATA.json",
+                      "bytes":  3505,
+                      "sha256":  "b6480557c1fec78731d06165294061c3b77eb9b6de4e7789c0f4131f30e7f0ae"
+                  },
+                  {
+                      "relative_path":  "member_3_BOUND_METADATA.json",
+                      "bytes":  3505,
+                      "sha256":  "08a3ce90847429c93c929a3a9bdbf047b4aa5f46d4b04065d085aa7abdbca321"
+                  },
+                  {
+                      "relative_path":  "member_4_BOUND_METADATA.json",
+                      "bytes":  3504,
+                      "sha256":  "e5a375b635de044465a080aa87a0150742189d1698c1d803c6df465867082dea"
+                  }
+              ],
+    "baseline_source_pins":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_A00_current_Av2_R1_ABBA_SDK_v1_source/source_pins.json",
+                                 "bytes":  7412,
+                                 "sha256":  "975b865cd55a7989235f0f4b2c83f7b0dd46d02d2a20ea7d4ee7ca64c1189839"
+                             },
+    "unchanged_raw_leaves":  [
+                                 "audit_abba.py",
+                                 "prepare.py",
+                                 "sync_abba.py",
+                                 "one_run_abba.py",
+                                 "installed_sources.json"
+                             ],
+    "derivation":  "Five mature current-A00/manual-R1-v2 core byte-identical; only metadata/selector/HeadOff actual numeric+SDK qualifier and namespace rebound",
+    "source_selector_not_old_Root_closure":  true,
+    "Native_RunRecord_role_entity_prefilled":  false,
+    "actual_GPU_job_ids":  [
+                               "4524784",
+                               "4524786",
+                               "4524792",
+                               "4524797"
+                           ],
+    "actual_run_ids":  [
+                           "tzawuph9",
+                           "ozstq1id",
+                           "t1069e8r",
+                           "f4emiyn7"
+                       ],
+    "numeric_gate":  {
+                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_head_off_R2_Av2_GPU4722_Root_closure_actual_v1.json",
+                         "bytes":  2772,
+                         "sha256":  "0fbdb4c6313e005f995c3bbe66a451f95ec4967bb08bcdeba938dd995abe0ab0"
+                     },
+    "numeric_Root_schema_field":  "ABSENT_IN_ACTUAL_ORIGINAL_NOT_FABRICATED",
+    "numeric_A00_or_CPU4717_reused":  false,
+    "actual_HeadOff_R2_SDK_closure":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/HeadOff_Av2_R2_SDK_Root_closure_actual_v1.json",
+                                          "bytes":  3581,
+                                          "sha256":  "d430d86fe2378ef5f3cee4e726919b9ec98d2180147b17b3efc6ca87359c4841"
+                                      },
+    "actual_current_R1_source":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_current_Av2_R1_ABBA_v1_source/source_pins.json",
+                                     "bytes":  16690,
+                                     "sha256":  "7a7544310828af89ef2f75446bbee3f74e029b5a4676797b30ff1bcef2866ba5"
+                                 },
+    "six_inline_checks_inherited_but_not_executed_by_author":  true,
+    "resources":  {
+                      "CPUs":  16,
+                      "memory_MiB":  null,
+                      "Slurm_memory_mode":  "automatic_default;16GiB software working plan only; actual scheduler env recorded or null",
+                      "legal_nodes":  "compute-0-2,8-19",
+                      "audit_outer_wall_seconds":  900,
+                      "audit_SB_seconds":  1200,
+                      "sync_outer_wall_seconds":  3300,
+                      "sync_SB_seconds":  3600,
+                      "RSS_bytes":  12884901888,
+                      "whole_output_bytes":  2147483648,
+                      "private_bytes":  2147483648,
+                      "original_transport_max_runs":  3,
+                      "explicit_sync_batch_sizes":  [
+                                                        2,
+                                                        2
+                                                    ]
+                  },
+    "author_static_QA":  {
+                             "Python_AST_files":  5,
+                             "bash_n_files":  2,
+                             "exact_core_byte_comparisons":  5,
+                             "actual_small_metadata_member_checks":  4,
+                             "project_imports_executed":  false,
+                             "SDK_or_steps_opened":  false,
+                             "inline_runtime_checks_executed":  false
+                         },
+    "actual_prepare":  null,
+    "actual_CPU_audit":  null,
+    "actual_speed_report":  null,
+    "actual_sync":  null,
+    "actual_online":  null,
+    "scientific_acceptance":  false
+}

@@ -1,0 +1,79 @@
+{
+  "status": "COMPLETED",
+  "job_id": "4521917",
+  "command": [
+    "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+    "-u",
+    "-B",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/run_counterfactual_CPU.py",
+    "--output-root",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/H0_interface_quantization_CPU_v1_4521917",
+    "--inputs",
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/inputs_v1.json",
+    "--inputs-sha256",
+    "3f44c53a1b0de92af699360a48cabd8b6593c837913a5d48a1bafd5f3c25141c",
+    "--source-pins-sha256",
+    "6c62f4adcc92b86ca9c56568f63e485f8f7c03086f5c367d56c559d80616e352",
+    "--expected-node",
+    "compute-0-15"
+  ],
+  "launch_identity": {
+    "status": "ACTIVE",
+    "pid": 3193988,
+    "uid": 1278,
+    "boot_id": "b5af7db1-25f5-4883-972c-9c0108b5fb8f",
+    "start_ticks": 4528205590,
+    "pgid": 3193988,
+    "sid": 3193988,
+    "argv": [
+      "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+      "-u",
+      "-B",
+      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/run_counterfactual_CPU.py",
+      "--output-root",
+      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/H0_interface_quantization_CPU_v1_4521917",
+      "--inputs",
+      "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/H0_interface_quantization_CPU_v1_source/inputs_v1.json",
+      "--inputs-sha256",
+      "3f44c53a1b0de92af699360a48cabd8b6593c837913a5d48a1bafd5f3c25141c",
+      "--source-pins-sha256",
+      "6c62f4adcc92b86ca9c56568f63e485f8f7c03086f5c367d56c559d80616e352",
+      "--expected-node",
+      "compute-0-15"
+    ],
+    "argv_sha256": "c9639cec2dc9f365ac3345aca2b39b8b1d3bb91dca4d9c592a66b0f119578b8e",
+    "cgroup": "1:freezer:/slurm/uid_1278/job_4521917/step_batch\n0::/system.slice/slurmd.service\n",
+    "slurm_job_id": "4521917",
+    "created": 1793064892.9
+  },
+  "supervisor_cgroup": "1:freezer:/slurm/uid_1278/job_4521917/step_batch\n0::/system.slice/slurmd.service\n",
+  "exit_code": 0,
+  "first_failure": null,
+  "retirement": null,
+  "remaining": [],
+  "elapsed_seconds": 10.15443267673254,
+  "last_total_bytes": 2135964,
+  "private_storage": {
+    "last": {
+      "bytes": 495,
+      "root_bytes": {
+        "/tmp/mv3n_4521917": 495
+      },
+      "entries": 7
+    },
+    "sampled_max_bytes": 495,
+    "sampled_growth_above_initial_bytes": 0,
+    "samples": 22,
+    "sample_interval_seconds": 0.5,
+    "exact_peak": false,
+    "first_sampling_failure": null,
+    "budget_bytes": 2147483648
+  },
+  "sources_sha256": {
+    "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_cpu_supervised_v3.py": "10bb34aa74633bd139f8dcedd475901a85d4143422494f1249ffb85994c8c66c",
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/runtime_monitor.py": "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe",
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/run_supervised.py": "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd",
+    "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/private_runtime_storage.py": "791e2742b2131e5001ebc4fe549d8fcb43f7d28f399368a5aa5f82d7d592a041"
+  },
+  "gpu_initialization_permitted": false
+}

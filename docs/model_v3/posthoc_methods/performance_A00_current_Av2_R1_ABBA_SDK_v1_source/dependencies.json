@@ -1,0 +1,173 @@
+{
+    "schema":  "performance_manual_R1_ABBA_log_dependencies_v1",
+    "sources":  {
+                    "literal_reader":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/literal_key_history_v1.py",
+                                           "bytes":  11700,
+                                           "sha256":  "74925c58edc61619c78533ff6cce8fc36b2b5f20f876cb011169906d8ba77e88"
+                                       },
+                    "tap":  {
+                                "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/native_s_profile_sdk_tap_v2_source/profile_sdk_tap.py",
+                                "bytes":  10910,
+                                "sha256":  "e70022162ed70b983af88a0e445a08a6f81866ba96da7da6ad63643f951a5795"
+                            },
+                    "framing":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_native_integrity_probe_v1_source/native_integrity.py",
+                                    "bytes":  20296,
+                                    "sha256":  "07b155e55f7721b1cc4b5f5781c5d260ae4e0300fc7d17a2c2b4a5c024e5c499"
+                                },
+                    "decoder_reference":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_native_integrity_probe_v1_source/decoder_reference.json",
+                                              "bytes":  2197,
+                                              "sha256":  "6e20968e043f4ff61787718080de34785f305d3d1c5202c77d279ace8d29a71b"
+                                          },
+                    "producer":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/single_a_benchmark.py",
+                                     "bytes":  13246,
+                                     "sha256":  "0a522edd0ffce5891492974b6170de3b874a767b3099b5c328cdd2dce9567c9a"
+                                 },
+                    "base_common":  {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/sync_common.py",
+                                        "bytes":  8617,
+                                        "sha256":  "712bedf22bb3c6ce7732dab55f8cb7cfa87a01fffa812ecfddba36d4ab862cfc"
+                                    },
+                    "base_transport":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/one_run.py",
+                                           "bytes":  11852,
+                                           "sha256":  "0286ce7f8fd218eb8548e87596662f3027bf9f14363d2cc8762022c2b8300af9"
+                                       },
+                    "base_prepare":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/prepare_sync.py",
+                                         "bytes":  4689,
+                                         "sha256":  "d9fa93365824555f66bed6b2448eca3e93961c4736da7c1b44d97bf81cddfd52"
+                                     },
+                    "base_installed_sources":  {
+                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/installed_sources.json",
+                                                   "bytes":  5921,
+                                                   "sha256":  "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+                                               },
+                    "base_inventory":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/source_pins.json",
+                                           "bytes":  3697,
+                                           "sha256":  "4e97d0f413564ace06555067e828bb7109334573c5e43338426cdecf083609c3"
+                                       },
+                    "CPU_supervisor":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/run_cpu_supervised_v3.py",
+                                           "bytes":  8479,
+                                           "sha256":  "10bb34aa74633bd139f8dcedd475901a85d4143422494f1249ffb85994c8c66c"
+                                       },
+                    "CPU_process_helpers":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/run_supervised.py",
+                                                "bytes":  15264,
+                                                "sha256":  "a1b16ea1af0400dd695a6b1e651b9f88a5ed88bcabe4ed718d5e19ad11abd7bd"
+                                            },
+                    "CPU_runtime_monitor":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/runtime_monitor.py",
+                                                "bytes":  16838,
+                                                "sha256":  "dbe875ab7ceec7e5002c5b70bff0608e3506f7451bdacd38e5f5bfc0700663fe"
+                                            },
+                    "CPU_private_storage":  {
+                                                "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_sa1_a/tools/model_v3/private_runtime_storage.py",
+                                                "bytes":  15452,
+                                                "sha256":  "791e2742b2131e5001ebc4fe549d8fcb43f7d28f399368a5aa5f82d7d592a041"
+                                            },
+                    "CPU_submit_helper":  {
+                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/submit_cpu_task_v2.py",
+                                              "bytes":  4633,
+                                              "sha256":  "1820e6abb08fcc34befeccdfd32788b47c8b81f9ccf8ae61922231c7c4ec9761"
+                                          },
+                    "v7_protocol":  {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_native_s_runtime_v1/tools/model_v3/analysis_sources/archive_closed_v7/bounded_history_v7.py",
+                                        "bytes":  11112,
+                                        "sha256":  "6aee76e16c182be97b7f88e635b43948510d0fc335e0ccfbf9ba107a1c29ab95"
+                                    },
+                    "installed_API_snapshot":  {
+                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/installed_wandb_0281_sync_api_source_v1/apis/public/api.py",
+                                                   "bytes":  97921,
+                                                   "sha256":  "4983f5b8d661f29d6480992d98c2e538b8748030ba3def1691c41df3cf76e09f"
+                                               },
+                    "speed_report":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/a_speed_report.py",
+                                         "bytes":  11218,
+                                         "sha256":  "c4427d32db4ca429c7bcfa6a8494cb0e07ccd24009e2ea0a6fe076b71673ed27"
+                                     },
+                    "R1_GPU_package":  {
+                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_current_Av2_R1_ABBA_v1_source/source_pins.json",
+                                           "bytes":  16690,
+                                           "sha256":  "7a7544310828af89ef2f75446bbee3f74e029b5a4676797b30ff1bcef2866ba5"
+                                       },
+                    "R1_Root_close_source":  {
+                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/close_R1_ABBA_member_metadata_Root_v1.py",
+                                                 "bytes":  5547,
+                                                 "sha256":  "88a66b0ab545fc00221f5cce8e9422f14355faddb6a7c2b91090bcd68e8cb90e"
+                                             },
+                    "R1_Root_submit_source":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_current_Av2_R1_ABBA_v1_source/Root_submit.py",
+                                                  "bytes":  19745,
+                                                  "sha256":  "1ed8a7418e3a4a48877bfb34c58b5e388ed5d0192bc2809703abbdafbea94b54"
+                                              },
+                    "paired_baseline_pins":  {
+                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_v2_source/source_pins.json",
+                                                 "bytes":  6703,
+                                                 "sha256":  "17201a544261ff3ffff225dca2a45ce1d2eb9532b1adcd980ededf437bde2f85"
+                                             },
+                    "paired_baseline_actual_C0":  {
+                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_R2_paired_SDK_CPU_4524559_Root_closure_v1.json",
+                                                      "bytes":  7147,
+                                                      "sha256":  "5f13f5aeb928f9ca3797562230472ae24e96cf1be8e9bb258a3174703a9dc0ac"
+                                                  },
+                    "R2_numeric_Root":  {
+                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R2_Av2_GPU4712_CPU4717_Root_closure_actual_v1.json",
+                                            "bytes":  11962,
+                                            "sha256":  "0c9486fe4c431948de80725c52f87ee10464b306d76db7e261b37d8b2f2c50c9"
+                                        },
+                    "speed_runtime":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_A_acceptance_v2_candidate_v1/tools/model_v3/a_execution_runtime.py",
+                                          "bytes":  17280,
+                                          "sha256":  "ed2577bbb1d265b91edb1b515e2203cec1977d18b46553ff28120d0d8bfa46d0"
+                                      },
+                    "speed_profile_helpers":  {
+                                                  "path":  "/share/home/zixiao/descriptor_analysis/MFM_model_v3_performance_integration_v1/tools/model_v3/profile_s_baseline.py",
+                                                  "bytes":  30691,
+                                                  "sha256":  "ecbea5174a314293ab5cce81e7a08d00981619155b1d8d088ffa5f93b692f965"
+                                              },
+                    "baseline_R1_v1_source_pins":  {
+                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_SDK_v1_source/source_pins.json",
+                                                       "bytes":  3903,
+                                                       "sha256":  "8c25ed66fc0a74c590db2444976d56de499b3152600e22a93b4c0ced4c7c87a1"
+                                                   },
+                    "baseline_R1_v1_handoff":  {
+                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_SDK_handoff_v1.json",
+                                                   "bytes":  17994,
+                                                   "sha256":  "a9d04674e1783cded42d6e1b946d6b86395479968c79148d375f91726e0693d0"
+                                               },
+                    "current_R1_method_publication":  {
+                                                          "bytes":  15625,
+                                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/current_A_performance_methods_publication_20261029/PUBLICATION.json",
+                                                          "sha256":  "1b2631cc3d2e42615836d088e6841d3f4d78c4b647e24638551e868bb355f2a3"
+                                                      },
+                    "current_A00_R2_SDK_closure":  {
+                                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A00_manual_Av2_R2_SDK_Root_closure_actual_v1.json",
+                                                       "bytes":  3544,
+                                                       "sha256":  "2f4423359b67d85269a4cfc09ce60d4a98345f4643d2b3a6968e73e41c274e62"
+                                                   },
+                    "current_R1_actual_sacct":  {
+                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/A00_current_R1_ABBA_four_actual_sacct_v1.json",
+                                                    "bytes":  488,
+                                                    "sha256":  "6661eda1b7139c32dc4f79a6150844b3977dad42516896661f0111c0c9df8369"
+                                                },
+                    "automatic_allocation_derivation":  {
+                                                            "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_auto_Av2_R2_SDK_v1_source/paired_common.py",
+                                                            "bytes":  26206,
+                                                            "sha256":  "2773a52d21b44ebca18582dc15242101dd978654278cedad0c44a1c7b75e7c73"
+                                                        }
+                },
+    "base_manifest":  {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/wandb_selective_sync50_v3/source_pins.json",
+                          "bytes":  3697,
+                          "sha256":  "4e97d0f413564ace06555067e828bb7109334573c5e43338426cdecf083609c3"
+                      },
+    "existing_A_plain_literal749_tap2_and_full_framing_reused":  true,
+    "new_model_decoder_monitor_or_transport":  false,
+    "prior_paired_C0_is_method_reference_not_this_new_adapter_actual_QA":  true
+}

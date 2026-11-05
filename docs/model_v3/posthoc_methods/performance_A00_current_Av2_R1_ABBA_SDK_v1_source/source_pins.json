@@ -1,0 +1,139 @@
+{
+    "schema":  "performance_manual_R1_ABBA_log_sources_v1",
+    "revision":  "current-A00-Av2-finite-v1",
+    "scope":  "CURRENT_A00_AV2_R1_ABBA_LOG_AND_EXISTING_SPEED_REPORT_ONLY",
+    "source_stage":  "SOURCE_ONLY_CURRENT_FOUR_ACTUAL_C0_METADATA_REBIND_PENDING_ROOT_REVIEW",
+    "created_utc":  "2026-10-27T21:22:14.5474808Z",
+    "files":  [
+                  {
+                      "relative_path":  "abba_common.py",
+                      "bytes":  24521,
+                      "sha256":  "6dfbdc5094419a946305ea6137d0d6b5e5bef792801c21bb1ed0be05cb8197ec"
+                  },
+                  {
+                      "relative_path":  "audit_abba.py",
+                      "bytes":  17619,
+                      "sha256":  "d6c6f38a0891c0e2a830e445d47fe6d1a988224b5efeb8b3deac0328cc0b7739"
+                  },
+                  {
+                      "relative_path":  "prepare.py",
+                      "bytes":  4644,
+                      "sha256":  "91c0f27d47daefc6b58d3a82a9a71e7bcb8158797e231cf0d83a559c5c8fb2ad"
+                  },
+                  {
+                      "relative_path":  "sync_abba.py",
+                      "bytes":  6548,
+                      "sha256":  "9c8730291e6b8f7313f4ef2f3e0498cf3d5c9b25904ecb5cff00ae673f1320e2"
+                  },
+                  {
+                      "relative_path":  "one_run_abba.py",
+                      "bytes":  11852,
+                      "sha256":  "702e842e71898e99270ed9beb5efcdda0fef82b359cc6e58729906832fbb4065"
+                  },
+                  {
+                      "relative_path":  "audit_cpu.sbatch",
+                      "bytes":  1230,
+                      "sha256":  "ed7a49eda901ab33843550ac08d1516b186a79d86474f3492066943cd6d7cda6"
+                  },
+                  {
+                      "relative_path":  "sync_cpu.sbatch",
+                      "bytes":  1324,
+                      "sha256":  "4005d1e8bff06178e67ef9424acf624622f3bea1af7a45b7f81893bbeb90fea0"
+                  },
+                  {
+                      "relative_path":  "dependencies.json",
+                      "bytes":  15178,
+                      "sha256":  "64f091c635712f32b2df06e6477c57274fdc304a7c5f7f44d78de03f0f3cd617"
+                  },
+                  {
+                      "relative_path":  "installed_sources.json",
+                      "bytes":  5921,
+                      "sha256":  "80c9c13d856dac9f8ddb2ea020d5d93475b0b9b5aa3d55e0a998f77b291fab6e"
+                  },
+                  {
+                      "relative_path":  "scope.json",
+                      "bytes":  9462,
+                      "sha256":  "d3f8aee6c16c4d0149e29921f62cad02156bd1286bdf6e079d40baad43880910"
+                  },
+                  {
+                      "relative_path":  "README.md",
+                      "bytes":  1886,
+                      "sha256":  "878366637a75c5641fd4f0fc09cefcae37cd6c4f23203b28f67a0cfedcc1e819"
+                  },
+                  {
+                      "relative_path":  "member_1_BOUND_METADATA.json",
+                      "bytes":  3575,
+                      "sha256":  "c6191f73384bbbdb2408a4f0112edf5ad393697ed1ab760ec4a6d88efd81d358"
+                  },
+                  {
+                      "relative_path":  "member_2_BOUND_METADATA.json",
+                      "bytes":  3576,
+                      "sha256":  "b50959135447f3c19f9775d777609d8164d657fe39cd6f1b431cd41bcc8b668c"
+                  },
+                  {
+                      "relative_path":  "member_3_BOUND_METADATA.json",
+                      "bytes":  3576,
+                      "sha256":  "b19f14c56febcbda876fc859b1838d729f04f411baf2510b10a06dcf160992e6"
+                  },
+                  {
+                      "relative_path":  "member_4_BOUND_METADATA.json",
+                      "bytes":  3575,
+                      "sha256":  "fed280fbee8498f43ee1243924598bf448db6e3030993510e815b9de350ccb55"
+                  }
+              ],
+    "baseline_source_pins":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_manual_R1_ABBA_SDK_v1_source/source_pins.json",
+                                 "bytes":  3903,
+                                 "sha256":  "8c25ed66fc0a74c590db2444976d56de499b3152600e22a93b4c0ced4c7c87a1"
+                             },
+    "v1_status":  "BLOCKED_SOURCE_ONLY_NOT_EXECUTED",
+    "v1_blocker":  "literal749._apply_config projects only paired_role; v1 mirror_factory config.get(role) was None and would falsely reject a valid single stream",
+    "role_fix":  "Use observed original Native RunRecord role and checked header count; unchanged full typed Audit retains config.role before history and EOF",
+    "six_inline_checks_not_new_QA_parent":  true,
+    "no_actual_job_or_run_prefilled":  false,
+    "resources":  {
+                      "CPUs":  16,
+                      "memory_MiB":  null,
+                      "audit_outer_wall_seconds":  900,
+                      "sync_outer_wall_seconds":  3300,
+                      "RSS_bytes":  12884901888,
+                      "whole_output_bytes":  2147483648,
+                      "private_bytes":  2147483648,
+                      "original_transport_max_runs":  3,
+                      "explicit_sync_batch_sizes":  [
+                                                        2,
+                                                        2
+                                                    ],
+                      "Slurm_memory_mode":  "automatic_default;16GiB software working plan only"
+                  },
+    "text_only_derivations":  {
+                                  "six_other_leaves_same_as_v1":  true,
+                                  "SBs_only_package_path_changed":  true,
+                                  "original_decoder_and_transport_unchanged":  true
+                              },
+    "derivation":  "Exact mature manual-R1 SDK-v2 audit/prepare/transport body and inline checks retained; only current authoritative metadata/selectors/source/schema and automatic-memory allocation rebind",
+    "actual_GPU_job_ids":  [
+                               "4524772",
+                               "4524776",
+                               "4524779",
+                               "4524780"
+                           ],
+    "actual_run_ids":  [
+                           "u1uzv01l",
+                           "2sf4qpp3",
+                           "tk5rdfxd",
+                           "inbcr272"
+                       ],
+    "actual_current_R1_source":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/performance_current_Av2_R1_ABBA_v1_source/source_pins.json",
+                                     "bytes":  16690,
+                                     "sha256":  "7a7544310828af89ef2f75446bbee3f74e029b5a4676797b30ff1bcef2866ba5"
+                                 },
+    "unchanged_raw_leaves":  [
+                                 "audit_abba.py",
+                                 "prepare.py",
+                                 "sync_abba.py",
+                                 "one_run_abba.py",
+                                 "installed_sources.json"
+                             ]
+}

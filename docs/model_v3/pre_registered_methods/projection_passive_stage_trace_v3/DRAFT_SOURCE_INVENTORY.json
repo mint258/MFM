@@ -1,0 +1,125 @@
+{
+    "schema":  "model_v3_projection_passive_stage_trace_source_DRAFT_inventory_v3",
+    "status":  "FROZEN_SOURCE_ONLY_PENDING_ROOT_AST_FINAL_REVIEW_PREREG_AND_ACTUAL_GPU",
+    "root":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_v3_source",
+    "authored_count":  8,
+    "files":  [
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_v3_source/passive_capture.py",
+                      "bytes":  16304,
+                      "sha256":  "20e6ef8d0e534707b6eada9ba19b512e5cc6eaae320579aa2c883f63281324ff"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_v3_source/run_passive_trace.py",
+                      "bytes":  15468,
+                      "sha256":  "684224cb3e198374edffef0641ede36b592296435c8125db5030a150e26d6c08"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_v3_source/prepare_metadata.py",
+                      "bytes":  9800,
+                      "sha256":  "04ce7758d28c42d30a6459bd030e6acab4bd6f297e332db3273d25191a57efa4"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_v3_source/launch_passive_trace_GPU_v1.py",
+                      "bytes":  16467,
+                      "sha256":  "2351d585399bd1c87a033f89ce73ae316601e25ffbe2433ef54c6311fee13016"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_v3_source/run_passive_trace_GPU_v1.sbatch",
+                      "bytes":  2015,
+                      "sha256":  "d64f8c72745e429576621e7f208afeb166c938d1ece0024fb49a84b8d8b75517"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_v3_source/PROTOCOL_README.md",
+                      "bytes":  9122,
+                      "sha256":  "11f705188ae81e9155b585ce0cbc13a3ef2b609dababf217b138fce91ee2e1b4"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_v3_source/inputs_DRAFT.json",
+                      "bytes":  2758,
+                      "sha256":  "aa64dca4d104423e15903cb3817261bdd6efb8cf130acdd79342f8f879d4f302"
+                  },
+                  {
+                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_v3_source/dependencies.json",
+                      "bytes":  13291,
+                      "sha256":  "1f791604364925a0ac9e7337337b9ed2677ed0e1c572883a0a97da937011e5b5"
+                  }
+              ],
+    "previous_inventory":  {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_v2_source/DRAFT_SOURCE_INVENTORY.json",
+                               "bytes":  7743,
+                               "sha256":  "ffdba0f20f1d3cf5284f811740ca39ad1ea4f4be4b5c45bf216388f15be99609"
+                           },
+    "previous_Root_static":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_v2_Root_static_actual_v1.json",
+                                 "bytes":  9005,
+                                 "sha256":  "4ad9dba93683743be59c156cccbfe59eb62c035bf80ae7a21e70b4d7729656aa"
+                             },
+    "previous_SA4_boundary_report":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_SA4_readonly_review_v2.json",
+                                         "bytes":  21128,
+                                         "sha256":  "e2c4348f52275ed9850fccbbaad837e672d308b9eee6f238d9bbe6cf7426387b"
+                                     },
+    "previous_SA4_boundary_MD":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_SA4_readonly_review_v2.md",
+                                     "bytes":  2023,
+                                     "sha256":  "7b609b8950b5d7171cedf4ad4b8f30cf47178a5c82fdaf4cf362cbec3670f9be"
+                                 },
+    "original_v1_snapshot":  {
+                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261026/projection_passive_stage_trace_v1_source_snapshot/SNAPSHOT.json",
+                                 "bytes":  11585,
+                                 "sha256":  "9642324c608a4ef65212b200f549dfd3383dd04ce0953809f23e107dfaf70c37"
+                             },
+    "original_v1_v2_source_modified":  false,
+    "change_scope":  [
+                         "Only wrap original forward/disarm/take in outer finally observer.close; original exception propagates and original result object returns normally, single original call",
+                         "Other changes limited to v3 owned package/output/publication paths and actual v2 historical refs/documentation",
+                         "run_passive_trace.py and inputs_DRAFT.json remain raw-identical"
+                     ],
+    "exact_candidate":  {
+                            "local":  "f4652e940823141ac376eba5b6b1195f700fa692",
+                            "public":  "b2c4c6772d751ba08ac611cbe563ee2e1b40e709",
+                            "tree":  "411ebc59652f8aecf2d06938842aeca4782a184d"
+                        },
+    "fixed_population":  {
+                             "cases":  48,
+                             "roles":  4,
+                             "original_encoder_forwards":  192,
+                             "terminal_arrays_per_case":  52,
+                             "node_stage_observations":  1728,
+                             "geometry_observations":  512,
+                             "extra_encoder_baselines":  0,
+                             "local_module_replays":  0,
+                             "FP64_model_calls":  0
+                         },
+    "budget":  {
+                   "selected_input_bytes":  134217728,
+                   "trace_bytes":  536870912,
+                   "role_bytes":  4194304,
+                   "stage_F32_payload_bytes":  389283840,
+                   "geometry_F32_payload_bytes":  5703680,
+                   "position_F32_payload_bytes":  253440,
+                   "other_int_bool_payload_upper_bytes":  1048576,
+                   "whole_output_bytes":  2147483648,
+                   "private_bytes":  2147483648,
+                   "wall_seconds":  1100,
+                   "RSS_bytes":  30064771072,
+                   "cpus":  16,
+                   "mem_MiB":  32768
+               },
+    "actual_author_activity":  {
+                                   "source_and_small_metadata_read":  true,
+                                   "new_text_and_ref_metadata_only":  true,
+                                   "Python":  false,
+                                   "AST":  false,
+                                   "Git":  false,
+                                   "models":  false,
+                                   "NPZ_payload_read":  false,
+                                   "SDK_read":  false,
+                                   "SSH":  false,
+                                   "Slurm":  false,
+                                   "tests":  false
+                               },
+    "previous_AST_and_Bash_are_not_v3_AST_or_GPU_evidence":  true,
+    "final_execution_request_or_pins_written":  false
+}
