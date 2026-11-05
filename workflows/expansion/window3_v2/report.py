@@ -98,7 +98,7 @@ def run(config):
 
 **UFF与标签。** 恰3构象{good:,}分子（{good/n:.2%}），不足3构象{insufficient:,}；交付{totals['conformers']:,}个实际构象。状态：{json.dumps(dict(states),ensure_ascii=False)}。失败原因保留于source_status，逐分子耗时在timings家族。物理范围新增掩码最高{highest['fraction']:.3%}（{highest['field_stream']}，{highest['newly_masked_records']}/{highest['records']}）；源缺失另计，比例不触发停止。
 
-**运行与存储。** 1万试跑墙钟{pilot['wall_seconds']/60:.2f}分钟，分子内科学/处理CPU合计{pilot['counts']['molecule_CPU_seconds']/3600:.2f}核时；其结果直接采用。全批并发见生产配置。本次v2作业分配核时{cost+main_cost:,.2f}（Alpha生产/统计{cost:,.2f}，Main授权NN{main_cost:,.2f}；含失败/续接，不重复计步骤）。Alpha目录实际占用{stored/1e9:.3f}GB，Main NN运行目录{nn_native['allocated_storage_bytes']/1e9:.3f}GB，交付Parquet合计{sum(f['size'] for f in files)/1e9:.3f}GB。历史筛选/NN成本按周汇总。数据根：`{config['data_root']}`；唯一交付清单：`{output/'manifest.json'}`（仅路径、大小、行数）。
+**运行与存储。** 1万试跑墙钟{pilot['wall_seconds']/60:.2f}分钟，结果直接采用。UFF/D全批分子内处理CPU合计{totals['molecule_CPU_seconds']/3600:,.2f}核时。全批并发见生产配置。本次v2作业分配核时{cost+main_cost:,.2f}（Alpha生产/统计{cost:,.2f}，Main授权NN{main_cost:,.2f}；含失败/续接，不重复计步骤）。Alpha目录实际占用{stored/1e9:.3f}GB，Main NN运行目录{nn_native['allocated_storage_bytes']/1e9:.3f}GB，交付Parquet合计{sum(f['size'] for f in files)/1e9:.3f}GB。历史筛选/NN成本按周汇总。数据根：`{config['data_root']}`；唯一交付清单：`{output/'manifest.json'}`（仅路径、大小、行数）。
 
 不做QM/P′或训练格式导出；v1原数据未修改。草稿PR1保持未合并，后续单点/训练格式由对应窗口决定。
 '''
