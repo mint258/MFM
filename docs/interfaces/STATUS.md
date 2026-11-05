@@ -213,3 +213,8 @@ S′恢复4521110仍按原2 missing +14 controls执行；不根据已完成14个
 ## 2026-11-05 窗口二任务书v2开始执行（当前）
 
 本任务书解除旧D6暂停并取代旧数据线准入/多层证据门。delivery/d3-v1-pilot-20261105已并入data-v1并推送。D1 v3.1存储修订和既有55k D3/10GPU分发继续有效；训练视图生产中，模型阶段5 P/D使用前须消费即将冻结的configs/data_v1/training_view_v1.json。当前Common1220466源遍历完成，但S′收尾、最终Common/D4/D5/D7及D6尚未交付。跟踪[一页DAILY](../data_v1/DAILY_20261105.md)；D6完成后再在此通知真实路径，不能以正在运行代填完成。
+
+2026-11-05 B2候选已生成：50k TRAIN完成一次统计，134列纳入、7项众数退化字段与r674六分量排除。r73实际有混合对称性/δ条目，两列归属定义已请求用户决定；当前training_view_v1.json为候选，模型线P/D阶段5须待其status正式FROZEN后消费。
+
+
+2026-11-05 B2正式冻结：用户已批准r73同对称性分块，sigma-sigma求和为sigma、pi-pi求和为pi，mixed/delta不纳入这两列，原始r73完整保留。训练视图 configs/data_v1/training_view_v1.json 状态为FROZEN_BEFORE_STAGE5_PD；134个启用目标，7个众数退化字段及r674六分量排除，组内字段等权，无覆盖率/冗余筛选。说明见 docs/data_v1/training_view_v1.md。最终PM7与Pprime D4将各给这两列独立统计，不拿raw-K统计冒充。
