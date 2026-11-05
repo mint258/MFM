@@ -82,7 +82,7 @@ def main():
     torch.backends.cudnn.allow_tf32 = False
     started = time.monotonic()
     predictions = {'candidate': {}, 'reference': {}}
-    details = {}
+    details, validation_model = {}, None
     with (output / 'readout_history.jsonl').open('w', buffering=1) as history:
         for label, seed in (('reference', 20261025), ('candidate', config['seed'])):
             torch.manual_seed(seed)
@@ -95,13 +95,10 @@ def main():
                 model.load_state_dict(state)
             encoder = model.encoder.cuda().eval()
             if label == 'candidate' and args.validation_index and config.get('condition', 'S') in ('S', 'SDP'):
-                from phychem_mfm.phase1.v2_s_validation import validate_s
-                validation = validate_s(model, args.validation_index, views=config['views'])
-                (output / 'pretraining_validation.json').write_text(json.dumps(validation, indent=2) + '\n')
+                validation_model = model
             for dataset, view in views.items():
                 cached = encode_view(encoder, view)
-                # H0 is computed once and reused by every task/readout.
-                torch.save(cached, output / (label + '_' + dataset + '_h0.pt'))
+                # H0 is computed once and reused in memory by every readout.
                 for task in (task for task in tasks if task.dataset_id == dataset):
                     train = task_rows(view, cached, task, role='train')
                     valid = task_rows(view, cached, task, role='train_inner_validation')
@@ -125,6 +122,10 @@ def main():
                    source_roles=['train', 'train_inner_validation'], downstream_TEST_read=False)
     (output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     print(json.dumps({key: summary[key] for key in ('complete', 'mean_normalized_improvement', 'seconds')}))
+    if validation_model is not None:
+        from phychem_mfm.phase1.v2_s_validation import validate_s
+        validation = validate_s(validation_model, args.validation_index, views=config['views'])
+        (output / 'pretraining_validation.json').write_text(json.dumps(validation, indent=2) + '\n')
 
 
 if __name__ == '__main__':
