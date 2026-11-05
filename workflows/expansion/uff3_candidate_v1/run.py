@@ -99,6 +99,8 @@ def ranking_parents(manifest):
 def open_index(root, manifest, manifest_reference, budget):
     """Validate the full 2.5M source census before the first native call."""
     db=sqlite3.connect(root/'index.sqlite',timeout=120)
+    db.execute('PRAGMA cache_size=-4194304')
+    db.execute('PRAGMA temp_store=MEMORY')
     db.executescript('''PRAGMA journal_mode=DELETE;
       CREATE TABLE IF NOT EXISTS source(ordinal INTEGER PRIMARY KEY,mid TEXT UNIQUE,cid INTEGER UNIQUE,
         full_key TEXT UNIQUE,stream TEXT,stream_rank INTEGER,body TEXT,UNIQUE(stream,stream_rank));
