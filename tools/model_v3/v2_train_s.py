@@ -15,5 +15,6 @@ parser.add_argument('--schedule', choices=['cosine', 'wsd'], default='cosine')
 parser.add_argument('--clip', type=float, default=1.)
 parser.add_argument('--workers', type=int, default=14)
 parser.add_argument('--resume')
+parser.add_argument('--microbatch-size', type=int, default=4)
 if __name__ == '__main__':
     train_s(**vars(parser.parse_args()))

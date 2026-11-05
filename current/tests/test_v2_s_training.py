@@ -53,3 +53,45 @@ def test_validation_roles_keep_source_ordinals_and_never_pool_diagnostic_into_fu
     assert [i for i, _ in selected['ROUTINE']] == [1]
     assert [i for i, _ in selected['TRAIN_UNSEEN_CONFORMATION']] == [2]
     assert [i for i, _ in validation_populations(rows, 'FULL')['FULL']] == [0, 1]
+
+
+def test_microbatch_backward_preserves_field_observation_means_and_gradient():
+    from torch_geometric.data import Data
+    from phychem_mfm.phase1.v2_s_training import accumulated_s_backward
+    from phychem_mfm.phase1.v3_losses import V3LossResult
+    class Model(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.weight = torch.nn.Parameter(torch.tensor(.7))
+        def forward_pretrain(self, batch, **kwargs):
+            return batch.x * self.weight
+        def compute_loss(self, prediction, batch, *args, **kwargs):
+            masks = {'s_element': batch.x[:, 0] > 1, 's_noise': batch.x[:, 0] > 0,
+                     's_bond': batch.x[:, 0] > 3}
+            counts = {k: int(v.sum()) for k, v in masks.items()}
+            fields = {k: (prediction[v].square().mean() if counts[k] else prediction.sum() * 0.)
+                      for k, v in masks.items()}
+            total = torch.stack([fields[k] for k, n in counts.items() if n]).mean()
+            return V3LossResult(total, fields, {'S': total}, counts,
+                                {'S': sum(n > 0 for n in counts.values())}, ('S',))
+    model = Model()
+    records = [Data(x=torch.arange(1, n + 1, dtype=torch.float32)[:, None]) for n in (2, 5, 3)]
+    from torch_geometric.data import Batch
+    full = Batch.from_data_list(records)
+    expected = model.compute_loss(model.forward_pretrain(full), full)
+    expected.total.backward()
+    gradient = model.weight.grad.clone()
+    model.zero_grad()
+    actual = accumulated_s_backward(model, records, (0, 1, 2), lambda batch, **kw: batch,
+                                    None, 1, 0)
+    assert actual.counts == expected.counts
+    torch.testing.assert_close(actual.total, expected.total.detach(), atol=1e-6, rtol=1e-6)
+    torch.testing.assert_close(model.weight.grad, gradient, atol=1e-6, rtol=1e-6)
+
+
+def test_preregistered_wsd_has_two_percent_warmup_and_linear_final_twenty_percent():
+    from phychem_mfm.phase1.v2_s_training import sample_lr_ratio
+    assert sample_lr_ratio(100, 10000, 'wsd') == pytest.approx(.5, abs=1e-6, rel=1e-6)
+    assert sample_lr_ratio(7000, 10000, 'wsd') == pytest.approx(1., abs=1e-6, rel=1e-6)
+    assert sample_lr_ratio(8500, 10000, 'wsd') == pytest.approx(.75, abs=1e-6, rel=1e-6)
+    assert sample_lr_ratio(10000, 10000, 'wsd') == pytest.approx(0., abs=1e-6, rel=1e-6)

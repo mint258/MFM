@@ -89,8 +89,19 @@ def aggregate_r73(arrays, codebook, rule):
     published_blocks = rule.get('code_to_symmetry')
     if published_blocks is not None:
         # Frozen training_view_v1: BOTH basis axes must belong to the block.
-        groups = {name: [int(code) for code, block in published_blocks.items()
-                         if block == name] for name in ('sigma', 'pi')}
+        suffixes = rule.get('symmetry_by_label_suffix')
+        if suffixes is not None:
+            groups = {name: [i for i, label in enumerate(codebook) if any(
+                block == name and suffix != 'other' and label.endswith(suffix)
+                for suffix, block in suffixes.items())] for name in ('sigma', 'pi')}
+        elif rule.get('codebook'):
+            labels = rule['codebook']
+            groups = {name: [i for i, label in enumerate(codebook) if label in {
+                labels[int(code)] for code, block in published_blocks.items() if block == name}]
+                for name in ('sigma', 'pi')}
+        else:
+            groups = {name: [int(code) for code, block in published_blocks.items()
+                             if block == name] for name in ('sigma', 'pi')}
         axes, missing, empty = (0, 1), 'propagate', 'nan'
     elif rule.get('reduction') != 'sum':
         raise ValueError('r73 requires the published sum reduction')
@@ -192,6 +203,11 @@ class TrainingView:
             field.setdefault('representation', meta.get('kind', 'scalar'))
             if field.get('registry_id') == 73 and field['name'].rsplit('.', 1)[-1] in ('sigma', 'pi'):
                 field['r73_component'] = field['name'].rsplit('.', 1)[-1]
+                preferred = field.get('preferred_schema_selector')
+                if preferred:
+                    derived = schema.get(preferred['mapping'], {}).get(preferred['target'])
+                    if derived is not None:
+                        field['_derived_r73_column'] = derived[preferred['column_key']]
             self.fields.append(field)
         self.normalizations = (manifest.get('normalizations', {})
                                if normalizations is None else normalizations)
@@ -199,9 +215,9 @@ class TrainingView:
             self.normalizations = json.loads(Path(self.normalizations).read_text())
         self.locations = {}
         for name, columns in schema['columns'].items():
-            for column in columns:
+            for ordinal, column in enumerate(columns):
                 self.locations.setdefault(column['field_key'], []).append(
-                    (name, column['column_index']))
+                    (name, column.get('column_index', ordinal)))
         for target_id, layout in schema.get('target_layout', {}).items():
             if layout['array_name'] in ARRAY_IDS:
                 self.locations[target_id] = [(layout['array_name'], c)
@@ -226,12 +242,17 @@ class TrainingView:
         for field in self.fields:
             name = field['name']
             if field.get('r73_component'):
-                if 34 not in conformer:
-                    continue  # U geometry-only records have no P-prime labels.
-                if r73 is None:
-                    r73 = aggregate_r73(conformer, self.schema['r73_channel_codebook'],
-                                        self.manifest['r73'])
-                raw = r73[:, ['sigma', 'pi'].index(field['r73_component'])][:, None]
+                if '_derived_r73_column' in field:
+                    if 27 not in conformer:
+                        continue
+                    raw = conformer[27][:, [field['_derived_r73_column']]]
+                else:
+                    if 34 not in conformer:
+                        continue  # U geometry-only records have no P-prime labels.
+                    if r73 is None:
+                        r73 = aggregate_r73(conformer, self.schema['r73_channel_codebook'],
+                                            self.manifest['r73'])
+                    raw = r73[:, ['sigma', 'pi'].index(field['r73_component'])][:, None]
                 array_name = 'pair_labels'
             else:
                 key = field.get('_location_key', field.get('target_id', field.get('field_key', name)))

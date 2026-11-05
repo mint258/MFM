@@ -132,6 +132,24 @@ def test_frozen_training_view_selectors_keep_distinct_components():
     assert result['P.test.y'].family == 'test'
 
 
+def test_r73_dictionary_is_dataset_specific_and_precomputed_column_is_preferred():
+    rule = {'code_to_symmetry': {'1': 'sigma', '2': 'sigma', '3': 'pi'},
+            'symmetry_by_label_suffix': {'-SIGMA': 'sigma', '-PI': 'pi', 'other': None}}
+    arrays = {26: np.array([[0, 0]]), 31: np.array([0, 0, 0]),
+              32: np.array([[5, 2, 0], [1, 3, 0], [2, 3, 0]]),
+              34: np.array([3., 4., 900.], dtype=np.float32)}
+    codebook = ['__ABSENT__', 'D-PI', 'P-SIGMA', 'P-PI', 'D-SIGMA', 'S-SIGMA']
+    np.testing.assert_allclose(aggregate_r73(arrays, codebook, rule), [[3., 4.]], atol=1e-6, rtol=1e-6)
+    schema = {'columns': {'pair_labels': [dict(field_key='r73.sigma')]}, 'fields': [dict(field_key='r73', family='bonding',
+        level='sparse_atom_pair')], 'derived_r73_pair_targets': {'sigma': {'column_index': 0}}}
+    field = dict(field_key='r73.sigma', source_field='r73', registry_id=73, group='P',
+        preferred_schema_selector=dict(mapping='derived_r73_pair_targets', target='sigma', column_key='column_index'),
+        normalization=dict(fit_role='TRAIN', center=0., scale=1.))
+    view = TrainingView(schema, {'fields': [field]})
+    actual = view.extract(molecule(), {26: arrays[26], 27: np.array([[23.]], dtype=np.float32)})
+    np.testing.assert_allclose(actual['r73.sigma'].raw, [[23.]], atol=1e-6, rtol=1e-6)
+
+
 def test_r674_cannot_be_enabled():
     schema, manifest = schema_view()
     manifest['fields'][0]['registry_id'] = 674

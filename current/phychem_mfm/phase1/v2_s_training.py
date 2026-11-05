@@ -119,9 +119,21 @@ def s_model(distance_bias, views):
     return cls(encoder, None, registry, binding), configuration
 
 
+def sample_lr_ratio(consumed, budget, schedule):
+    from math import cos, pi
+    warmup = int(budget * .02)
+    if consumed < warmup:
+        return consumed / warmup
+    begin = int(budget * .8) if schedule == 'wsd' else warmup
+    if consumed < begin:
+        return 1.
+    progress = (consumed - begin) / (budget - begin)
+    return 1. - progress if schedule == 'wsd' else .5 * (1. + cos(pi * progress))
+
+
 def train_s(*, index_path, output, distance_bias='C1-0', views='three', seed=0,
             samples=6_000_000, batch_size=32, lr=3e-4, schedule='cosine', clip=1., workers=14,
-            resume=None):
+            resume=None, microbatch_size=None):
     import pyarrow.parquet as pq
     from torch_geometric.data import Batch
     from .v3_structural import build_structural_views, StructuralViewConfig
@@ -145,13 +157,8 @@ def train_s(*, index_path, output, distance_bias='C1-0', views='three', seed=0,
     model, configuration = s_model(distance_bias, views)
     model = model.cuda().train()
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr, betas=(.9, .95))
-    from math import cos, pi
     def set_lr(consumed):
-        warmup = int(samples * .02)
-        begin = int(samples * .8) if schedule == 'wsd' else warmup
-        ratio = (consumed / warmup if consumed < warmup else
-                 (1. if consumed < begin else
-                  .5 * (1 + cos(pi * (consumed - begin) / (samples - begin)))))
+        ratio = sample_lr_ratio(consumed, samples, schedule)
         for group in optimizer.param_groups:
             group['lr'] = lr * ratio
     set_lr(0)
@@ -163,6 +170,8 @@ def train_s(*, index_path, output, distance_bias='C1-0', views='three', seed=0,
     trial = dict(distance_bias=distance_bias, views=views, seed=seed, samples=samples,
                  batch_size=batch_size, lr=lr, betas=[.9, .95], schedule=schedule, clip=clip,
                  D5_index=str(index_path), model=configuration, TRAIN_molecules=index.molecules)
+    if microbatch_size is not None and not 0 < microbatch_size <= batch_size:
+        raise ValueError('Microbatch size must be between one and B0')
     if resume is not None:
         checkpoint = torch.load(resume, map_location='cpu', weights_only=True)
         if checkpoint['configuration'] != trial:
@@ -175,6 +184,8 @@ def train_s(*, index_path, output, distance_bias='C1-0', views='three', seed=0,
         torch.cuda.set_rng_state(checkpoint['cuda_rng'])
         set_lr(clock.samples_consumed)
     (output / 'configuration.json').write_text(json.dumps(trial, indent=2) + '\n')
+    (output / 'execution.json').write_text(json.dumps({'microbatch_size': microbatch_size,
+        'effective_batch_size': batch_size, 'field_count_weighted_accumulation': microbatch_size is not None}, indent=2) + '\n')
     try:
         with (output / 'losses.csv').open('w', buffering=1) as log:
             log.write('samples,updates,total,element,noise,bond,preclip_norm,lr,seconds\n')
@@ -183,13 +194,18 @@ def train_s(*, index_path, output, distance_bias='C1-0', views='three', seed=0,
                 selected = index.draw(rng, count)
                 records = list(pool.map(_read_native, selected, chunksize=1))
                 clean = Batch.from_data_list(records)
-                view = builder(clean, ordinals=tuple(range(clock.samples_consumed,
-                    clock.samples_consumed + count)), config=config).to('cuda')
+                ordinals = tuple(range(clock.samples_consumed, clock.samples_consumed + count))
+                if microbatch_size is None:
+                    view = builder(clean, ordinals=ordinals, config=config).to('cuda')
                 optimizer.zero_grad(set_to_none=True)
-                prediction = model.forward_pretrain(view, enabled_groups=('S',))
-                loss = model.compute_loss(prediction, view, {}, {}, enabled_groups=('S',),
-                    weights=LossWeights(), exposure_step=clock.optimizer_updates)
-                loss.total.backward()
+                if microbatch_size is None:
+                    prediction = model.forward_pretrain(view, enabled_groups=('S',))
+                    loss = model.compute_loss(prediction, view, {}, {}, enabled_groups=('S',),
+                        weights=LossWeights(), exposure_step=clock.optimizer_updates)
+                    loss.total.backward()
+                else:
+                    loss = accumulated_s_backward(model, records, ordinals, builder, config,
+                        microbatch_size, clock.optimizer_updates)
                 norm = torch.nn.utils.clip_grad_norm_(model.parameters(), clip)
                 optimizer.step()
                 clock.advance(count)
@@ -200,11 +216,18 @@ def train_s(*, index_path, output, distance_bias='C1-0', views='three', seed=0,
                     f'{float(fields["s_element"])},{float(fields["s_noise"])},'
                     f'{float(fields["s_bond"])},{float(norm)},'
                     f'{optimizer.param_groups[0]["lr"]},{time.monotonic()-started}\n')
-                if clock.samples_consumed in clock.milestones or clock.samples_consumed == samples:
-                    torch.save(dict(model=model.state_dict(), optimizer=optimizer.state_dict(),
+                if (clock.samples_consumed in clock.milestones or clock.samples_consumed == samples
+                        or clock.optimizer_updates % 1000 == 0):
+                    payload = dict(model=model.state_dict(), optimizer=optimizer.state_dict(),
                         configuration=trial, clock=clock.state_dict(), rng=rng.bit_generator.state,
-                        torch_rng=torch.get_rng_state(), cuda_rng=torch.cuda.get_rng_state()),
-                        output / f'samples_{clock.samples_consumed}.pt')
+                        torch_rng=torch.get_rng_state(), cuda_rng=torch.cuda.get_rng_state())
+                    if clock.samples_consumed in clock.milestones or clock.samples_consumed == samples:
+                        torch.save(payload, output / f'samples_{clock.samples_consumed}.pt')
+                    else:
+                        # Update this run's rolling recovery state; milestone
+                        # and historical failed-run artifacts remain separate.
+                        torch.save(payload, output / 'recovery_next.pt')
+                        (output / 'recovery_next.pt').replace(output / 'recovery.pt')
                 if clock.optimizer_updates % 100 == 0:
                     print(f'samples={clock.samples_consumed} loss={float(loss.total):.7f}', flush=True)
         summary = {**trial, 'status': 'TRAINING_COMPLETE_DEV_EVALUATION_PENDING',
@@ -215,3 +238,51 @@ def train_s(*, index_path, output, distance_bias='C1-0', views='three', seed=0,
         (output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     finally:
         pool.shutdown(wait=True, cancel_futures=True)
+
+
+def accumulated_s_backward(model, records, ordinals, builder, config, microbatch_size, exposure_step):
+    """Exact field-observation means across microbatches, with one B0 update.
+
+    A no-grad count pass determines the original field denominators. Restoring
+    RNG before the gradient pass uses the same stochastic head choices. Views
+    are built once on CPU; this is training, not an additional smoke/QA run.
+    """
+    from torch_geometric.data import Batch
+    from .v3_losses import V3LossResult
+    from ..training.losses import LossWeights
+    views = [builder(Batch.from_data_list(records[start:start + microbatch_size]),
+                     ordinals=ordinals[start:start + microbatch_size], config=config)
+             for start in range(0, len(records), microbatch_size)]
+    device = next(model.parameters()).device
+    cpu_rng = torch.get_rng_state()
+    cuda_rng = torch.cuda.get_rng_state(device) if device.type == 'cuda' else None
+    counts = {}
+    with torch.no_grad():
+        for source in views:
+            view = source.to(device)
+            prediction = model.forward_pretrain(view, enabled_groups=('S',))
+            loss = model.compute_loss(prediction, view, {}, {}, enabled_groups=('S',),
+                weights=LossWeights(), exposure_step=exposure_step)
+            for name, count in loss.counts.items():
+                counts[name] = counts.get(name, 0) + count
+            del prediction, loss, view
+    torch.set_rng_state(cpu_rng)
+    if cuda_rng is not None:
+        torch.cuda.set_rng_state(cuda_rng, device)
+    active = sum(n > 0 for n in counts.values())
+    values = {name: torch.zeros((), device=device) for name in counts}
+    for source in views:
+        view = source.to(device)
+        prediction = model.forward_pretrain(view, enabled_groups=('S',))
+        loss = model.compute_loss(prediction, view, {}, {}, enabled_groups=('S',),
+            weights=LossWeights(), exposure_step=exposure_step)
+        total = loss.total.new_zeros(())
+        for name, value in loss.fields.items():
+            if counts[name]:
+                weighted = value * (loss.counts[name] / counts[name])
+                values[name] += weighted.detach()
+                total = total + weighted / active
+        total.backward()
+        del prediction, loss, total, view
+    total = torch.stack([values[name] for name, n in counts.items() if n]).mean()
+    return V3LossResult(total, values, {'S': total}, counts, {'S': active}, ('S',))

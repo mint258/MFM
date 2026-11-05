@@ -85,7 +85,8 @@ class V3HeadBank(nn.Module):
                  forms: str | Mapping[str, str] = "H1", hidden_dim=64,
                  vector_radius=5.0, vector_rbf_count=32, pair_chunk_size=8192,
                  pooling_overrides: Mapping[str,str] | None = None,
-                 domain_head_configs: Mapping[str, Mapping] | None = None):
+                 domain_head_configs: Mapping[str, Mapping] | None = None,
+                 allow_onsite_fields=()):
         super().__init__()
         require(type(dim) is int and dim > 0 and type(hidden_dim) is int and hidden_dim >= 2,
                 "Valid H0/head dimensions required")
@@ -96,6 +97,10 @@ class V3HeadBank(nn.Module):
         require(set(overrides)<=graph_scalars and all(type(v) is str and v in ('registry','learned')
                 for v in overrides.values()),'Only registry/learned graph-scalar pooling overrides are supported')
         self.pooling_overrides=overrides
+        self.allow_onsite_fields = tuple(allow_onsite_fields)
+        require(len(set(self.allow_onsite_fields)) == len(self.allow_onsite_fields)
+                and set(self.allow_onsite_fields) <= {f.name for f in registry.fields if f.level == 'pair'},
+                'Onsite permission must name explicit pair fields')
         self.registry, self.dim, self.hidden_dim = registry, dim, hidden_dim
         typed_fields = {field.name for field in registry.fields
                         if field.level == "ordered_entry" or field.representation == "symmetric_tensor6"}
@@ -163,6 +168,7 @@ class V3HeadBank(nn.Module):
         result={"schema": "model_v3_head_bank_v1", "registry_sha256": self.registry.content_sha256,
                 "dim": self.dim, "hidden_dim": self.hidden_dim, "forms": dict(self.forms)}
         if self.pooling_overrides:result['pooling_overrides']=dict(self.pooling_overrides)
+        if self.allow_onsite_fields:result['allow_onsite_fields']=list(self.allow_onsite_fields)
         if self.domain_head_bindings:result["domain_head_bindings"] = deepcopy(self.domain_head_bindings)
         return result
 
@@ -224,7 +230,8 @@ class V3HeadBank(nn.Module):
                         and index.size(0) == 2 and index.device == h0.device
                         and bool(((index >= 0) & (index < len(h0))).all()), "Native pair index shape/domain differs")
                 require(bool((batch[index[0]] == batch[index[1]]).all())
-                        and bool((index[0] != index[1]).all()), "Pairs must be distinct atoms in one molecule")
+                        and (field.name in self.allow_onsite_fields or bool((index[0] != index[1]).all())),
+                        "Pairs must be in one molecule; onsite rows require explicit source permission")
                 prediction = head(h0, pos, index)
             elif field.level == "atom":
                 prediction = head(h0)

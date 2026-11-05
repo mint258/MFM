@@ -12,9 +12,11 @@ element_reference）。亦保留旧模型侧显式字段和 target_id 接口。
 没有 D4 参数时不能自行拟合或用单位尺度冒充。
 D4 缩尾仅用于统计拟合；加载时不裁剪原始训练标签。
 
-r73 按正式清单 code_to_symmetry 映射，两个轨道轴均属 sigma 或均属 pi 时才纳入
-对应的和；mixed/delta 不纳入。F64 累加后转训练 F32，保留原有向 pair、自环与
-重复贡献；所选项任一无效则该和缺失，无项为 NaN。兼容旧显式列分类接口。
+r73 优先读取 schema.derived_r73_pair_targets 声明的 array27 列（原 F64 分块求和后
+单次转 F32）。历史 D3 无此映射才按实际 schema 码表的标签及清单后缀规则聚合原
+F32 K，保留已有舍入；两个轨道轴均属 sigma 或均属 pi 才纳入，mixed/delta 不纳入。
+保留有向 pair、自环与重复贡献；所选项任一无效则该和缺失，无项为 NaN。
+不把试点整数码映射当作全量通用码表，兼容旧显式列分类接口。
 r674 不能启用。U 缺少标签数组时只提供其实际拥有的几何和分子级 D20。
 
 MFM4Dataset 支持 source=PM7/UFF、order=fixed_random/energy/diversity、k=None/正整数。
