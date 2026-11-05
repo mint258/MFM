@@ -90,7 +90,7 @@ def train_v31(configuration):
         lr=3e-4, schedule='cosine', clip=1., mean_labels=False,
         families=None, fixed_full_condition=False, expected_molecules=240_000)
     unknown = set(configuration) - (set(c) | {'root', 'training_view', 'normalizations',
-        'subset_path', 'output', 'resume', 'stage', 'candidate'})
+        'subset_path', 'output', 'resume', 'stage', 'candidate', 'code_tag'})
     if unknown:
         raise ValueError('Unknown experiment configuration keys: ' + ', '.join(sorted(unknown)))
     c.update(configuration)

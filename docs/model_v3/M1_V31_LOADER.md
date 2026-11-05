@@ -33,3 +33,9 @@ field_weights 提供组间/字段等权和家族析因的完整条件固定权�
 这里的训练字段指物理字段，不能因xyz分列重复计算三个训练权重。
 enabled_encoder_fields 为无坐标编码器关闭去噪和等变矢量字段；本阶段不实现二维编码器。
 样本进度在 1/2/4/8/16/32/64M 保存，已有训练 SampleClock 可截断批次到精确保存点。
+
+`v31_validation.py`和`tools/model_v3/v2_validate_v31.py`逐split读取实际ID映射，FULL
+（或其ROUTINE子集）与TRAIN_UNSEEN_CONFORMATION分别输出物理字段损失/有效数、
+原始单位下逐列R²/MAE；仅在实际有标签的记录上评价，不作开发选型依据。
+通用训练入口`v2_train_v31.py --configuration FILE`支持S/P/D/SDP、C1、视图、H1/2/3、
+池化、几何来源/k/顺序、构象平均与固定完整条件权重；实际训练仍按阶段依赖启动。
