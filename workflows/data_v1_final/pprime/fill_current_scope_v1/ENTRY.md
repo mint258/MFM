@@ -1,0 +1,39 @@
+# Current closed-fill Pprime input bridge — source-only candidate
+
+No code in this directory has been executed, tested, deployed or submitted. Existing/pinned modules and outputs are unchanged. The candidate is an actual two-seam bridge, with a matching current-component admission adapter, rather than a PENDING interface list. Root reviews, deploys and binds real CPU/storage/startup metadata before running. There is no paid-server or new-QM action here.
+
+## What runs
+
+Deploy the eight Python files as `repository/workflows/data_v1_final/pprime/fill_current_scope_v1/` after source review. `contract.HERE/MODULE/BASE` already name that isolated namespace. Do not overwrite any existing producer.
+
+1. `metadata draft` builds the existing generic queue-stage shape from a Root request using only small metadata. `prepare_request.candidate.json` already contains actual source/pilot/role/once references. Its node and six resource/cost/pool fields are intentionally unbound; Root supplies fresh admitted runtime references, without borrowing the old job's allocation. Update output path if occupied. The existing once namespace and protocol are inherited from the actual original pilot. No dummy prepared header is needed before the scope job runs.
+2. `run --plan --startup-proof` calls the existing three Source checks before DATA, then the scope builder and original shared publication path. `scope.freeze` reads all closed5659 membership and ordinary physical pointers through the existing `common_component` reader; it preserves the real5659 FAILED1:0/32CPU/compute21 accounting and does not freeze the whole parent.
+3. The actual original-ready MID set is reconstructed from all38 original registered MID shards plus its original main190 and1000-pilot domains. The original partition closure proves these disjoint and complete at1,110,751 MIDs. This is an actual MID anti-join, not subtraction of aggregate counts or a scan of numerical Pprime labels. Scope membership is closed common=true, fill_status=SUCCESS, original N>=2, outside that original-ready set, with the exact existing complete ordinary geometry count and an actual data_v1_fill witness.
+4. Every existing ordinary physical conformer of each selected MID is ordered with the unchanged `formal_cpu_auto_v3.identity.fixed_random_ids` (original stable_key, seed20261025, source uff_sprime, canonical physical int64, string tie-break). Only after that complete order is fixed are ranks0/1 selected. Kernel/package-local row numbers are never used as physical/random IDs. The closed outcome report's80740 SUCCESS is provenance; `actual_chosen_MIDs` and actual first-two records come from the real join and may be smaller. No energy/diversity D7 or N1 publication is required.
+5. The closed members/order/physical-task Parquets and source manifest are byte-identically published once to the admitted PREP pool. New small headers point to the real relocated files. Worker-readable scope inputs never depend on an unpublished `/tmp` file. Internal metadata DuckDB is not published. Components are whole MID slices of at most50000 MIDs/100000 first-two records.
+6. `prepare.build` reads those exact raw physical pointers using the original formal_common `physical_row` function (private import only), preserving source identity/atom order/coordinate witnesses. It creates current-compatible DuckDB `pairs(rid,mid,rank,pair,hashes)`, source audit, audit selection and headers. Original native graph reading, graph validation, coordinate adaptation, `NoInvoke`, original input_hashes, software whitelist and all12 rendering/input comparisons are reused through original `hash_block`. This phase starts no QM, writes no production claim and does not repeat the2000 pilot; it reuses its already closed reuse receipt.
+7. The shared preparation publishes the original V2 header/index shape. `component.metadata_bind` accepts this explicit fill scope instead of falsely passing it as the old ready partition. It retains actual startup/submission/parent observation, identical Source3, immutable-source, Root external assignment and full original closed-publication/pair/input-hash checks. `component.verify_component` invokes the unchanged original verifier body with that private metadata binding. `run.execution` then invokes the original current execution body and worker when Root separately admits an EXECUTE stage.
+
+The only relaxation of the legacy formal_common script is that its old99.5 pilot-review CLI is never called. Actual authority/precision still goes through the already approved current99.45 chain. Twelve tasks,900s each, versions/keywords/precision/input IDs/perturbation, full raw retention and quality rules are unchanged. No diagnostic precision is promoted.
+
+## Once / source / audit semantics
+
+The production key is the original `pilot2000_execution_day_v1.contract.record_once_key` object and the original `pilot_once/physical_records_v1` root. Preparation only checks exact prospective keys. An existing STARTED/FAILED/UNKNOWN/success claim is retained as consumed and never reopened; already computed1.110m/2.221m source scope is anti-joined first. No alternate formal_common task-key namespace is used. The original Native executor remains the only claimant.
+
+Raw audit uses the original retention `stable_source_row`/threshold100/10000/seed20261010. Accepted original identities retain accepted_original_sprime/source_conformer_id. Fill identities retain actual data_v1_fill/task_key/seed/candidate_id and their closed original once-ledger witness; they are never relabelled as old conformers. Source record/payload SHA, role, native source path/real index, atom order and physical pointer are retained. The unchanged hash worker reads and checks the original native bond graph; the executor reads that same source graph again. It does not repair or derive a replacement graph.
+
+## Root entry points
+
+After isolated deployment, use the established interpreter, repository PYTHONPATH and existing generic queue wrapper:
+
+```bash
+python -B -m workflows.data_v1_final.pprime.fill_current_scope_v1.metadata draft --request <Root-filled-prepare-request.json> --output <fresh-control-draft-directory>
+python -B -m workflows.data_v1_final.pprime.fill_current_scope_v1.metadata finalize --draft <draft_receipt.json> --root-review <actual-current-runtime-binding.json>
+python -B -m workflows.data_v1_final.pprime.fill_current_scope_v1.run --plan <plan.json> --startup-proof <actual-startup-proof.json>
+```
+
+These are source instructions, not submissions already made. `run` uses one real16CPU parent and original no-Slurm-memory request policy, with the current Pprime resource/cost guards and accounting. Root must combine actual Main/Lustre futures and100GB floor; no whole-volume free capacity, old provider lifespan, free CPU or stale allocation is invented.
+
+For later EXECUTE, the Root request additionally supplies the actual prepared_shard_header_reference and shared_preparation_root_acceptance_reference. That existing current-component handoff shape contains prepare_parent_registration (actual request/submission/proof/plan), actual_source3_reference, native parent observation/raw row and external_assignment_reference. Keep its existing truthful parent_C0_claimed=false/hash_workers_closed_claimed=false flags if consuming a closed component while the preparation parent is still running; a later terminal parent remains independently reported. The exclusive assignment must bind the actual component/header, original physical once root and original central serialization lock. Source geometry/publication closure is never substituted for whole-parent C0.
+
+No full Common, final normalization, Model ACK, D6 readiness, training release or completed calculation is claimed by this candidate. Final norm/outlier/admission remain separate after actual original inputs and computations close.
