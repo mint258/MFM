@@ -1,0 +1,57 @@
+{
+  "schema": "expansion_exact_cost_profile_plan_v1",
+  "version": "0.1.0",
+  "status": "PREPARED_NO_REAL_QUERY_PROFILE_YET",
+  "input_schema": "expansion_exact_query_cost_pilot_v1",
+  "source_kind": "v1_common_structure_projection",
+  "candidate_release_authorized": false,
+  "reference_manifest": null,
+  "query_manifest": null,
+  "quota_receipt": null,
+  "source_projections_must_have_physical_sha256": true,
+  "initial_profile": {
+    "queries": 16,
+    "workers": 16,
+    "query_batch": 1,
+    "reference_block": 8192,
+    "max_comparisons": 1000000000
+  },
+  "conditional_larger_profile": {
+    "queries": 512,
+    "workers": 16,
+    "query_batch": 8,
+    "reference_block": 8192,
+    "max_comparisons": 1000000000,
+    "condition": "Root reviews initial actual runtime/RSS/storage; allocate only when within the declared bound"
+  },
+  "allocation": {
+    "cpus": 16,
+    "memory": "64G",
+    "time_limit_hours": 1,
+    "partition": "cpu",
+    "submitter": "Root_only",
+    "node_selection": "Fresh site resource and total-user declared memory <=85% check; no GPU allocation"
+  },
+  "output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/exact_cost",
+  "stop_if_actual_cost_over_pilot_ratio": 1.5,
+  "formal_batches_above_500_core_hours_require_root_review": true,
+  "query_projection_fields": [
+    "cid",
+    "full_key",
+    "heavy_atoms",
+    "element_combination",
+    "generic_murcko",
+    "generic_ring_systems",
+    "ecfp4_2048_hex"
+  ],
+  "cost_only_manifest_fields": [
+    "schema",
+    "fingerprint_recipe",
+    "targets_present=false",
+    "downstream_features_present=false",
+    "candidate_release_authorized=false",
+    "source_kind=v1_common_structure_projection",
+    "source_projection_manifest{path,bytes,sha256}",
+    "projection{path,bytes,sha256,rows}"
+  ]
+}

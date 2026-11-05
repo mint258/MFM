@@ -1,0 +1,38 @@
+"""Exact fixed24 retained calls, original evidence and finite technical budgets."""
+from pathlib import Path
+ROOT=Path('/gfshome/alpha/codex_data_v1_20261026')
+HERE=ROOT/'code/native72_retained_raw_diagnosis_alpha_v1'
+OLD=ROOT/'code/frame_native_precision_alpha_v2'
+KEY='pprime_native72_retained_raw_diagnosis_alpha_v1'
+STAGE='PPRIME_NATIVE72_RETAINED_SCF_TERMINATION_FRAME'
+MODULE='native72_retained_raw_diagnosis_alpha_v1.run'
+PLAN='SECONDARY_NATIVE72_RETAINED_RAW_DIAGNOSIS_PLAN_V1'
+PROOF='SECONDARY_NATIVE72_RETAINED_RAW_DIAGNOSIS_STARTUP_V1'
+FILES=('__init__.py','contract.py','guard.py','analysis.py','run.py','test_analysis.py','frozen_scf.py','README.md','plan_schema.json')
+SCOPE={'parent_alpha_job_id':'1884789','original_main_job_id':'4521124','precision_diagnosis_job_id':'1884773',
+ 'maximum_PM7_B_raw_calls':12,'maximum_xtb_noisy_raw_calls':12,'exact_selected_raw_calls':24,'actual_program_input_bodies':24,
+ 'target_python':'3.11.14','target_numpy':'2.2.6','population_members_added':0,
+ 'maximum_atoms':80,'new_synthetic_methods':3,'new_fixtures_before_data':True,'prior_eight_fixture_PASS_required':True,
+ 'original_covariance_failures':15,'original_tolerances_changed':False,'new_QM_calls':0,'new_UFF_calls':0,
+ 'maximum_raw_bytes_per_call':16777216,'maximum_result_bytes_per_call':8388608,'maximum_actual_input_bytes_per_call':65536,
+ 'maximum_database_locator_bytes':67108864,'maximum_pending':16,'workers':16,'wall_seconds':1800,'dispatch_reserve_seconds':120,
+ 'algorithm_rss_soft_cap_bytes':8589934592,'minimum_mem_available_bytes':4294967296,'whole_output_cap_bytes':67108864,
+ 'maximum_report_bytes':16777216,'maximum_summary_bytes':262144,'maximum_case_evidence_bytes':1048576,
+ 'maximum_marker_evidence_lines':32,'maximum_line_characters':1024,'same_frozen_SCF_metadata_V2':True,
+ 'own_output_coordinates_only':True,'borrow_companion_output_frame':False,'normal_exit_implies_SCF_convergence':False,
+ 'physical_cause_proven_automatically':False,'scientific_PASS':False,'full_or2000_QM_release':False,'cost_overrun_action':'REPORT_AND_CONTINUE'}
+PM7_GROUPS=(('molecule_01200493','pm7'),('molecule_01201800','pm7'),('molecule_01201800','uff_sprime'),
+ ('molecule_01207072','pm7'),('molecule_01207072','uff_sprime'),('principal_00112266','pm7'))
+NOISY_GROUPS=(('molecule_01200493','pm7'),('molecule_01201800','uff_sprime'),('principal_00112266','pm7'))
+SCF_SOURCE={'bytes':8410,'sha256':'565c55a2b63ce0de7a7c84302b69cccc0bffe5afb2516cb0df4013bbbf54d64a'}
+DATA=[{'path':str(ROOT/'artifacts/pprime_native72_readonly_v2/v1/native72_report.json'),
+       'bytes':2456111,'sha256':'0720c0fec59631ab02b6b574bf00933b31bd62062a38052b12c9de8375b77c8f'},
+      {'path':str(ROOT/'inputs/native72_v1/main/runs/data_v1_20261025/artifacts/vector_frame_audit/cpu_auto_memory_20261026_v1/frame_evaluation.json'),
+       'bytes':766822,'sha256':'36732244c5bcdaddfec9e22be847f3244076fdb3594d0ab8a663fbc9b3b91725'}]
+CONFIG={'path':str(ROOT/'inputs/native72_v1/main/runs/data_v1_20261025/repository/configs/data_v1/pprime/vector_frame_audit_root_v1.json'),
+    'bytes':6165,'sha256':'17d579c09ead14f01c747ca40d70796af1df0e6619f5ddcba334d595d94ad8fe'}
+SMALL_SUMMARY={"bytes":36483,"path":"/gfshome/alpha/codex_data_v1_20261026/artifacts/native72_invariants_v2/v1/diagnosis_summary.json","sha256":"72724983b0109abfaaefaf3ef615e243cdc6eb2e334a9104cda4dd08ec7c6086"}
+PARENT_ACCOUNT={"bytes":1657,"path":"/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/native72_invariants_v2/accounting_1793027680547697018.json","sha256":"f5b0ca51e89c41fa88b474f6d0584387e144cab3cc3f77b3e2bb99031e7a7cf5"}
+PARENT_RAW_ACCOUNT={"bytes":273,"path":"/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/native72_invariants_v2/sacct_1793027680547697018.txt","sha256":"bd7de6956257072843e4b8ad92258c3c9c232f29e9983d6052fa9bc3ce048d8f"}
+EXPECTED_FAILURES=[{"field":"pm7_dipole_Debye","group":["molecule_01200493","pm7","pm7_B"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"pm7_gradient_kcal_mol_A","group":["molecule_01200493","pm7","pm7_B"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"xtb_dipole_Debye","group":["molecule_01200493","pm7","xtb_perturbed_gradient"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"xtb_gradient_Eh_bohr","group":["molecule_01200493","pm7","xtb_perturbed_gradient"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"xtb_dipole_Debye","group":["molecule_01200493","pm7","xtb_singlepoint_noisy_companion"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"pm7_dipole_Debye","group":["molecule_01201800","pm7","pm7_B"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"pm7_gradient_kcal_mol_A","group":["molecule_01201800","pm7","pm7_B"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"pm7_gradient_kcal_mol_A","group":["molecule_01201800","uff_sprime","pm7_B"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"xtb_dipole_Debye","group":["molecule_01201800","uff_sprime","xtb_perturbed_gradient"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"xtb_dipole_Debye","group":["molecule_01201800","uff_sprime","xtb_singlepoint_noisy_companion"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"pm7_gradient_kcal_mol_A","group":["molecule_01207072","pm7","pm7_B"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"pm7_gradient_kcal_mol_A","group":["molecule_01207072","uff_sprime","pm7_B"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"pm7_gradient_kcal_mol_A","group":["principal_00112266","pm7","pm7_B"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"xtb_dipole_Debye","group":["principal_00112266","pm7","xtb_perturbed_gradient"],"reason":"VECTOR_NOT_COVARIANT"},{"field":"xtb_dipole_Debye","group":["principal_00112266","pm7","xtb_singlepoint_noisy_companion"],"reason":"VECTOR_NOT_COVARIANT"}]
+OLD_HELPERS=[{"path":"/gfshome/alpha/codex_data_v1_20261026/code/frame_native_precision_alpha_v2/__init__.py","sha256":"f0fa5b74e3491e16039bfd91bc42ac5d4c300c4be2a4803a504882e142025d7f","bytes":89},{"path":"/gfshome/alpha/codex_data_v1_20261026/code/frame_native_precision_alpha_v2/precision.py","sha256":"1de0073f2face3b0b40a70e5a95b7ef98b1c2ee1ed2746bb33ac79791f2986d2","bytes":6476},{"path":"/gfshome/alpha/codex_data_v1_20261026/code/frame_native_precision_alpha_v2/tokens.py","sha256":"8b1e7fdf21a0fc77b0684727750f8d3cf9947a30ee2a5ff33fbf1e398fb529fc","bytes":4657},{"path":"/gfshome/alpha/codex_data_v1_20261026/code/frame_native_precision_alpha_v2/math_v1.py","sha256":"98db545b56f87b4fb2fc4c0f7ad69c3e6f05ebbe507f4d19369a037599241e24","bytes":9377},{"path":"/gfshome/alpha/codex_data_v1_20261026/code/frame_native_precision_alpha_v2/raw_reader.py","sha256":"f13d3b2ba7869dd8b402c621ba21f5957d6635ffd4d68567c9dccaeafd4d708a","bytes":4317},{"path":"/gfshome/alpha/codex_data_v1_20261026/code/frame_native_precision_alpha_v2/read_outputs_v1.py","sha256":"ba56625441ca390e24d00fe3f630c05dee3d38861614c25a2fcec93a16599849","bytes":5328},{"path":"/gfshome/alpha/codex_data_v1_20261026/code/frame_native_precision_alpha_v2/relocation.py","sha256":"9cea98a7db51e05d09084335d22f6169f3166eca45f691346336efd7934b1439","bytes":12606},{"path":"/gfshome/alpha/codex_data_v1_20261026/code/frame_native_precision_alpha_v2/origin_inventory.json","sha256":"83e58412628c6c0048f39b9cdc8f8ddda2bfe181eca8f9d7d74b40f9d99022cf","bytes":546050}]

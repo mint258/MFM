@@ -1,0 +1,137 @@
+{
+    "schema":  "PUBCHEM_C_FINITE500_SOURCE_ONLY_HANDOFF_V1",
+    "status":  "SOURCE_FINAL_UNEXECUTED_PENDING_ROOT_REVIEW_AND_ACTUAL4_CPU_FIXTURES",
+    "source_files":  6,
+    "source_references":  [
+                              {
+                                  "root_repository_relative_path":  "workflows/expansion/pubchem_c_finite500_queue_v1/__init__.py",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_finite500_queue_v1/__init__.py",
+                                                           "sha256":  "0e992b77c2366162684569d15603b26ed277ecd5ba357c0640d8878afb37c6aa",
+                                                           "bytes":  89
+                                                       },
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_finite500_queue_v1\\__init__.py"
+                              },
+                              {
+                                  "root_repository_relative_path":  "workflows/expansion/pubchem_c_finite500_queue_v1/controller.py",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_finite500_queue_v1/controller.py",
+                                                           "sha256":  "f7968f44e97ed2934658b7dfb931df707435822b0e0723ed4144d0230e54b1d6",
+                                                           "bytes":  24103
+                                                       },
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_finite500_queue_v1\\controller.py"
+                              },
+                              {
+                                  "root_repository_relative_path":  "workflows/expansion/pubchem_c_finite500_queue_v1/state.py",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_finite500_queue_v1/state.py",
+                                                           "sha256":  "9cc596ff88b7f1aa7afaaeddf8f9d8924b7b6ae23e3727426a86545a11bd31dd",
+                                                           "bytes":  2296
+                                                       },
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_finite500_queue_v1\\state.py"
+                              },
+                              {
+                                  "root_repository_relative_path":  "workflows/expansion/pubchem_c_finite500_queue_v1/test_state.py",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_finite500_queue_v1/test_state.py",
+                                                           "sha256":  "7a5dad2377cbc98de71fa75f14fb6029e67aef0a293ae437ca96e73e9b52fe0e",
+                                                           "bytes":  2167
+                                                       },
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_finite500_queue_v1\\test_state.py"
+                              },
+                              {
+                                  "root_repository_relative_path":  "workflows/expansion/pubchem_c_finite500_queue_v1/README.md",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_finite500_queue_v1/README.md",
+                                                           "sha256":  "46337a32bae978a62736b2e44c9735e1f4865de5237191f4e5c2dc6096828635",
+                                                           "bytes":  10281
+                                                       },
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_finite500_queue_v1\\README.md"
+                              },
+                              {
+                                  "root_repository_relative_path":  "workflows/expansion/pubchem_c_finite500_queue_v1/review_schema.json",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_finite500_queue_v1/review_schema.json",
+                                                           "sha256":  "3228242aad9de3a51df4a19750b52c9ae784b98c08808f9de2e4f25dbbd43c92",
+                                                           "bytes":  4449
+                                                       },
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_finite500_queue_v1\\review_schema.json"
+                              }
+                          ],
+    "only_manifest_population":  124857440,
+    "shards":  500,
+    "one_physical_part_per_shard":  true,
+    "fixed_freeze_reference":  {
+                                   "path":  "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_C_frozen_metadata_v1/freeze_receipt.json",
+                                   "sha256":  "9bf78c8baaea5a8f75a5931221b8089755c698e3b6d514e5613b7b90010e124a5",
+                                   "bytes":  9775
+                               },
+    "new_queue_or_scientific_kernel_created":  false,
+    "exact_frozen_implementations_reused":  [
+                                                "pubchem_c_root_materializer_v1.materialize.plan_one",
+                                                "secondary_cpu_readonly_queue_v13.controller.prepare",
+                                                "secondary_cpu_readonly_queue_v13.controller.submit_held",
+                                                "secondary_cpu_readonly_queue_v13.controller.observe",
+                                                "secondary_cpu_readonly_queue_v13.controller.account"
+                                            ],
+    "Root_approval_required":  "One actual ROOT_APPROVED_PUBCHEM_C_FINITE500_QUEUE_RANGE_V1 with preapproved single_shard_approval_template and explicit delegation, actual six-source fixture evidence and actual0/1 C0 receipt/account pins. No approval instance created by author.",
+    "initial_two_jobs_known_actual":  [
+                                          "1884797",
+                                          "1884798"
+                                      ],
+    "initial_two_current_terminal_or_C0_or_complete_rows_not_observed_by_author":  true,
+    "first_two_actual_C0_complete250k_each_mandatory":  true,
+    "Root_explicit_max_nonterminal_C_allowed":  [
+                                                    2,
+                                                    3,
+                                                    4,
+                                                    5,
+                                                    6
+                                                ],
+    "current_Root_proposal_max":  6,
+    "CPU_selection_nodes":  [
+                                "compute-0-1",
+                                "compute-0-6",
+                                "sonmi1"
+                            ],
+    "CPU_snapshot_not_frozen_or_assumed_permanent":  true,
+    "contiguous_diagnosis_reserve_cpus":  16,
+    "all_users_CPUAlloc_refreshed_before_placement":  true,
+    "cpus_per_shard":  16,
+    "memory_policy":  "SLURM_DEFAULT_UNSPECIFIED",
+    "exclusive":  false,
+    "scope7_current_caps_plus200GB_guard_reused_unchanged":  true,
+    "per_shard_wall_seconds":  28800,
+    "per_shard_output_cap_bytes":  8589934592,
+    "simultaneous_all500_output_caps_registered":  false,
+    "Root_explicit_foreground_seconds_allowed":  [
+                                                     43200,
+                                                     72000
+                                                 ],
+    "resume":  "Same unchanged Root review and same owned state; no repeated submission; only existing gate/held parents observed. Ready scientific jobs only scheduler-observed.",
+    "unknown_failed_partial_or_HOLD":  "Stop new dispatch, retain everything, no retry/seed/delete/cancel/signal",
+    "own_control_state_cap_bytes":  16777216,
+    "own_control_state_drain_reserve_bytes":  65536,
+    "terminal_metadata_basis":  "Actual parent+raw sacct and CPU producer receipt/counts/claim/plan/proof/source pins. No controller scientific body SHA/footer reread claimed.",
+    "three_screening_counts_remain_separate":  [
+                                                   "accepted",
+                                                   "chemReject",
+                                                   "technicalUnresolved"
+                                               ],
+    "quality_and_cost":  "REPORT_AND_CONTINUE allocations; no scientific threshold change, no technical unknown chemical exclusion; existing failed/startup accounting preserved",
+    "new_pure_fixture_methods_pending":  4,
+    "fixture_coverage":  [
+                             "Initial2 real C0 complete-row gate",
+                             "Root-selected2..6 cap/contiguous16CPU reserve/current CPU changes",
+                             "Failed/unknown/attempted state never retried",
+                             "Exact500 gap-free nonoverlapping physical partition and107440 last part"
+                         ],
+    "pure_fixture_PASS_not_claimed":  true,
+    "old_source_or_results_modified_by_this_task":  false,
+    "future_jobIDs_or_terminal_receipt_accounting_or_fixture_hashes_fabricated":  false,
+    "scientific_data_body_reads":  false,
+    "full_pool_decontamination_filtered_dedup1M_UFF_QM_training_release":  false,
+    "Root_new_targets_observed_absent":  true,
+    "Alpha_new6_installation_or_execution_not_performed_or_claimed":  true,
+    "Python_AST_tests_body_IO_SSH_Slurm_Git_executed":  false
+}

@@ -1,0 +1,1 @@
+"""Current closed-fill fixed-random Pprime input bridge; source candidate."""

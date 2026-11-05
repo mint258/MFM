@@ -1,0 +1,36 @@
+{
+  "schema": "FINAL_NORMALIZATION_CONFIG_V1",
+  "status": "DRAFT_WAITING_FOR_REAL_FROZEN_COMMON_GEOMETRY_DIAGNOSTIC_AND_FULL_MASK_INPUTS",
+  "workers": 16,
+  "memory_gib": 64,
+  "wall_seconds": 14400,
+  "output_cap_bytes": 68719476736,
+  "spill_cap": "16GiB",
+  "worker_rss_stop_bytes": 2684354560,
+  "worker_histogram_row_cap": 1000000,
+  "worker_serialized_buffer_cap_bytes": 268435456,
+  "series_cap": 100000,
+  "maximum_source_passes": 10,
+  "external_output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/normalization_v1",
+  "source_config": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/labels/streaming_v1.json",
+    "bytes": 4022,
+    "sha256": "92445408cf6a64de2e3b30e41cb0ee99136046acaf6f4848faeb3e8b80694bb3"
+  },
+  "authority": {
+    "common": null,
+    "roles": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/roles/routine_v1_job4520334/manifest.json",
+      "bytes": 22642,
+      "sha256": "16619f25f2bec53ed2d3c5e8e8381faa746e03f141d9fba87f93b6ec1e8ef8a1"
+    },
+    "geometry_map": null,
+    "diagnostic": null
+  },
+  "datasets": [
+    {"dataset_id": "wp5_pm7_P_D", "label_group": "P_D", "manifest": null},
+    {"dataset_id": "pprime_uff_sprime", "label_group": "Pprime", "manifest": null}
+  ],
+  "missing_input_policy": "Refuse final authority gaps. Independently absent Pprime remains pending; never substitute PM7 P values.",
+  "model_norm_head_contract": "DRAFT; component statistics do not choose anisotropic or equivariant normalization"
+}

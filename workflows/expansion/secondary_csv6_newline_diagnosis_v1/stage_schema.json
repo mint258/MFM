@@ -1,0 +1,86 @@
+{
+    "$schema":  "https://json-schema.org/draft/2020-12/schema",
+    "type":  "object",
+    "title":  "Exact retained six-CSV bounded newline diagnosis",
+    "required":  [
+                     "schema",
+                     "producer_key",
+                     "scope_key",
+                     "stage",
+                     "mode",
+                     "scope_mode",
+                     "performance_profile",
+                     "scope_parameters",
+                     "kind",
+                     "pilot",
+                     "endpoint",
+                     "uid",
+                     "run_root",
+                     "node",
+                     "cpus",
+                     "memory_policy",
+                     "wall_seconds",
+                     "output_cap_bytes",
+                     "python",
+                     "execution_argv",
+                     "source_references",
+                     "data_references",
+                     "parent_evidence_references",
+                     "format_authority_reference",
+                     "format_accounting_reference",
+                     "resource_authority_reference",
+                     "cost_decision_reference",
+                     "root_review_reference",
+                     "startup_proof_path",
+                     "output_directory"
+                 ],
+    "properties":  {
+                       "schema":  {
+                                      "const":  "SECONDARY_CSV6_NEWLINE_DIAGNOSIS_PLAN_V1"
+                                  },
+                       "scope_key":  {
+                                         "const":  "moleculenet_csv6_newline_diagnosis_alpha_v1"
+                                     },
+                       "mode":  {
+                                    "const":  "newline_diagnosis"
+                                },
+                       "kind":  {
+                                    "const":  "analysis"
+                                },
+                       "pilot":  {
+                                     "const":  false
+                                 },
+                       "performance_profile":  {
+                                                   "const":  false
+                                               },
+                       "cpus":  {
+                                    "const":  16
+                                },
+                       "uid":  {
+                                   "const":  1264
+                               },
+                       "memory_policy":  {
+                                             "const":  "SLURM_DEFAULT_UNSPECIFIED"
+                                         },
+                       "wall_seconds":  {
+                                            "maximum":  1800,
+                                            "multipleOf":  60,
+                                            "type":  "integer",
+                                            "minimum":  60
+                                        },
+                       "output_cap_bytes":  {
+                                                "const":  67108864
+                                            },
+                       "execution_argv":  {
+                                              "minItems":  8,
+                                              "type":  "array",
+                                              "maxItems":  8
+                                          },
+                       "data_references":  {
+                                               "minItems":  6,
+                                               "type":  "array",
+                                               "maxItems":  6
+                                           }
+                   },
+    "description":  "Not accepted by queue v12. Requires a new exact Root adapter/review/fresh startup proof; source-only schema is not authorization to run or alter scientific populations."
+}

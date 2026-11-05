@@ -1,0 +1,541 @@
+{
+    "schema":  "PUBCHEM_METADATA_RECOVERY_SOURCE9_HANDOFF_V4",
+    "status":  "SOURCE_FINAL_STOPEDIT",
+    "source_count":  9,
+    "old13_bytes_and_SHA_unchanged_verified_against_actual_grant":  true,
+    "static_text_controller_inverse_exact":  true,
+    "fixture_queue_controller_old_v13_bytes_exact":  true,
+    "python_AST_tests_SSH_Slurm_or_scientific_DATA_executed_by_child":  false,
+    "scope":  {
+                  "source3_key":  "pubchem_c_metadata_recovery_source3_alpha_v4",
+                  "source3_module":  "pubchem_c_metadata_recovery_v4.fixture_cpu",
+                  "source3_plan":  "SECONDARY_PUBCHEM_C_METADATA_RECOVERY_SOURCE3_PLAN_V4",
+                  "source3_proof":  "SECONDARY_PUBCHEM_C_METADATA_RECOVERY_SOURCE3_STARTUP_V4",
+                  "source3_stage":  "PUBCHEM_C_METADATA_RECOVERY_SOURCE3_NO_DATA",
+                  "mode":  "FIXTURE_ONLY",
+                  "data_references":  [
+
+                                      ],
+                  "parent_evidence_references":  [
+
+                                                 ],
+                  "uid":  1264,
+                  "endpoint":  "218.192.171.238:22",
+                  "cpus":  16,
+                  "memory_policy":  "SLURM_DEFAULT_UNSPECIFIED",
+                  "wall_seconds":  600,
+                  "output_cap_bytes":  2147483648,
+                  "storage":  "scope7",
+                  "actual_source3_C0_required_before_live":  true,
+                  "fixture_count":  3,
+                  "actual_test_pass_not_claimed":  true
+              },
+    "controller":  {
+                       "module":  "pubchem_c_metadata_recovery_v4.controller",
+                       "review_schema":  "ROOT_REVIEWED_PUBCHEM_METADATA_RECOVERY_V4",
+                       "original_state_directory":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_C_continuation52_v3",
+                       "original_grant_reference":  {
+                                                        "bytes":  36920,
+                                                        "path":  "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_cont52_range_root_review_v4.json",
+                                                        "sha256":  "40d3d083f21eb5cf8552da7780bad2e6543f1a7fe24e516302e73577ab04e4d6"
+                                                    },
+                       "original_binding_reference":  {
+                                                          "bytes":  527,
+                                                          "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_C_continuation52_v3/binding.json",
+                                                          "sha256":  "bac96757ac394b14c3ff350acbbcd223a7d265e44460f3b5790cdf2ae35a38e4"
+                                                      },
+                       "original_failure_event_reference":  {
+                                                                "bytes":  1966,
+                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_C_continuation52_v3/event_01793078742725196973.json",
+                                                                "sha256":  "243545e9c0df551b82a97c5682ad5ce904a0ee5427d5a19ce1a71db8c6ffb37e"
+                                                            },
+                       "original_launch_reference":  {
+                                                         "bytes":  4173,
+                                                         "path":  "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_cont52_finite_live_actual_launch_v4.json",
+                                                         "sha256":  "397124b6878e199406a9b7b3506ff537ed6de1fc81515a996598c54b5459b98b"
+                                                     },
+                       "newreview_required":  true,
+                       "original_authorized_unix_seconds":  1793077349.9710016,
+                       "original_deadline_unix_seconds":  1793149349.1500428,
+                       "deadline_renewed":  false,
+                       "max_C_parents":  6,
+                       "reserved_non_C_cpus":  16,
+                       "metadata_cap_bytes":  16777216,
+                       "no_retry_renewal_cancel_or_signals":  true,
+                       "future_children_approved_source_set":  "OLD_A_SOURCES_13_UNCHANGED",
+                       "new_controller_delta_groups":  [
+                                                           "HERE_NEW_PRIMARY",
+                                                           "STRICT_DATA_LOCATOR_NO_SMALL_CAP_DENIED_RETAINED",
+                                                           "EXPLICIT_NEW_REVIEW_GATE_AND_CLI"
+                                                       ],
+                       "new_controller_text_edits":  4,
+                       "original_state_object_direct":  true,
+                       "existing52_57_science_rerun_authorized":  false,
+                       "first_observe_only_single_cycle_required_for_Root_review":  true
+                   },
+    "actual_six_context":  {
+                               "origin_Main_reference":  {
+                                                             "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/alpha_pubchem_six_C0_metadata_recovery_context_v1.json",
+                                                             "bytes":  14422,
+                                                             "sha256":  "53488cac80261b1a1b959e2a217df18535248253317b135d9377907706482b20"
+                                                         },
+                               "Alpha_copy_locator_not_assumed":  true,
+                               "parents":  [
+                                               {
+                                                   "accounting_reference":  {
+                                                                                "bytes":  1661,
+                                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0052/accounting_1793081122650705656.json",
+                                                                                "sha256":  "a439381f18a7b8f7bf6ae919205e2665f248a3cf920de396905d10e97ba5eb98"
+                                                                            },
+                                                   "actual_parent":  {
+                                                                         "AllocCPUS":  "16",
+                                                                         "ElapsedRaw":  "1245",
+                                                                         "ExitCode":  "0:0",
+                                                                         "JobIDRaw":  "1884859",
+                                                                         "MaxRSS":  "",
+                                                                         "NodeList":  "compute-0-6",
+                                                                         "Partition":  "cpu",
+                                                                         "State":  "COMPLETED",
+                                                                         "TotalCPU":  "00:00:00",
+                                                                         "UID":  "1264",
+                                                                         "User":  "alpha"
+                                                                     },
+                                                   "allocated_core_seconds_observed":  19920,
+                                                   "job_id":  "1884859",
+                                                   "plan_reference":  {
+                                                                          "bytes":  62807,
+                                                                          "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/continuation_specs_v3/pubchem_cont_v3_0052/plan.json",
+                                                                          "sha256":  "61fe2aa295c9f6cd4007202681f367416f71a2d9325e65f160f61873e55c0a55"
+                                                                      },
+                                                   "producer_completed_rows":  250000,
+                                                   "producer_counts":  {
+                                                                           "accepted":  229304,
+                                                                           "chemReject":  20681,
+                                                                           "technicalUnresolved":  15
+                                                                       },
+                                                   "producer_source_row_conservation":  true,
+                                                   "producer_unread_rows":  0,
+                                                   "queue_directory":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0052",
+                                                   "raw_sacct_reference":  {
+                                                                               "bytes":  279,
+                                                                               "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0052/sacct_1793081122650705656.txt",
+                                                                               "sha256":  "ccff23f36071caf46ca750195aff0bcb1c363a9657c3b2c1314c0399dd8a21ad"
+                                                                           },
+                                                   "receipt_reference":  {
+                                                                             "bytes":  50576,
+                                                                             "path":  "/gfshome/alpha/codex_data_v1_20261026/artifacts/pubchem_continuation_alpha_v3/shard-0052/receipt.json",
+                                                                             "sha256":  "09ae6021ad4ecea54e522474ae64d30cc83cdda186934119c881b93d6378b9e0"
+                                                                         },
+                                                   "request_reference":  {
+                                                                             "bytes":  83068,
+                                                                             "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0052/request.json",
+                                                                             "sha256":  "42b26a7e3a07daaac98ae23c748c027afa3a76ba838c7b39a8ae6ab480ce7761"
+                                                                         },
+                                                   "startup_proof_reference":  {
+                                                                                   "bytes":  48596,
+                                                                                   "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_startup/pubchem_cont_v3_0052.json",
+                                                                                   "sha256":  "a1c89c0ff6601374b632347f4ec5da7900e0738bad7abc68aa568c9ca91a3db0"
+                                                                               },
+                                                   "submission_reference":  {
+                                                                                "bytes":  1349,
+                                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0052/submission.json",
+                                                                                "sha256":  "26e8ff053b089882e04ba819a10a2891751b0ecd9de1d8dc49c0450a9ee590d3"
+                                                                            }
+                                               },
+                                               {
+                                                   "accounting_reference":  {
+                                                                                "bytes":  1661,
+                                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0053/accounting_1793081123440734274.json",
+                                                                                "sha256":  "471904989d8bb2457cc6099a447c5bfa9e1c634fb501b119b5d6587932b1c58c"
+                                                                            },
+                                                   "actual_parent":  {
+                                                                         "AllocCPUS":  "16",
+                                                                         "ElapsedRaw":  "2019",
+                                                                         "ExitCode":  "0:0",
+                                                                         "JobIDRaw":  "1884860",
+                                                                         "MaxRSS":  "",
+                                                                         "NodeList":  "compute-0-1",
+                                                                         "Partition":  "cpu",
+                                                                         "State":  "COMPLETED",
+                                                                         "TotalCPU":  "00:00:00",
+                                                                         "UID":  "1264",
+                                                                         "User":  "alpha"
+                                                                     },
+                                                   "allocated_core_seconds_observed":  32304,
+                                                   "job_id":  "1884860",
+                                                   "plan_reference":  {
+                                                                          "bytes":  62807,
+                                                                          "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/continuation_specs_v3/pubchem_cont_v3_0053/plan.json",
+                                                                          "sha256":  "38c59775fdbf70f06080a0e8b1094c40dfccbdb6992239916e4b68b4a038ce4b"
+                                                                      },
+                                                   "producer_completed_rows":  250000,
+                                                   "producer_counts":  {
+                                                                           "accepted":  248727,
+                                                                           "chemReject":  1273,
+                                                                           "technicalUnresolved":  0
+                                                                       },
+                                                   "producer_source_row_conservation":  true,
+                                                   "producer_unread_rows":  0,
+                                                   "queue_directory":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0053",
+                                                   "raw_sacct_reference":  {
+                                                                               "bytes":  279,
+                                                                               "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0053/sacct_1793081123440734274.txt",
+                                                                               "sha256":  "adad267aec26cb3e5bdd8a59af02b8fed18c819b751c0953c2bffd7a0c72489b"
+                                                                           },
+                                                   "receipt_reference":  {
+                                                                             "bytes":  50548,
+                                                                             "path":  "/gfshome/alpha/codex_data_v1_20261026/artifacts/pubchem_continuation_alpha_v3/shard-0053/receipt.json",
+                                                                             "sha256":  "ea98194b518c7bf9038607714abfde6746c894252ae12bc7b7b92040ee665e3a"
+                                                                         },
+                                                   "request_reference":  {
+                                                                             "bytes":  83068,
+                                                                             "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0053/request.json",
+                                                                             "sha256":  "aa0783db6f8afa47c350110b8de40cf666ab6115ce0443c7b5de19fcf86b4b7f"
+                                                                         },
+                                                   "startup_proof_reference":  {
+                                                                                   "bytes":  49213,
+                                                                                   "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_startup/pubchem_cont_v3_0053.json",
+                                                                                   "sha256":  "cfbd5f8209c03a5d728c3cca0c336558bd87298a1b643ba03905dbd370a8aac1"
+                                                                               },
+                                                   "submission_reference":  {
+                                                                                "bytes":  1405,
+                                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0053/submission.json",
+                                                                                "sha256":  "1eb57c1d5fd1410ae496b2df0771b6768cd272a6584ea4d8c5aaca0165021df6"
+                                                                            }
+                                               },
+                                               {
+                                                   "accounting_reference":  {
+                                                                                "bytes":  1661,
+                                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0054/accounting_1793081124205620827.json",
+                                                                                "sha256":  "b847c53348a982ec756e276609227ecdd1a35b2f60100cad3a5170776366eb1d"
+                                                                            },
+                                                   "actual_parent":  {
+                                                                         "AllocCPUS":  "16",
+                                                                         "ElapsedRaw":  "1251",
+                                                                         "ExitCode":  "0:0",
+                                                                         "JobIDRaw":  "1884861",
+                                                                         "MaxRSS":  "",
+                                                                         "NodeList":  "compute-0-6",
+                                                                         "Partition":  "cpu",
+                                                                         "State":  "COMPLETED",
+                                                                         "TotalCPU":  "00:00:00",
+                                                                         "UID":  "1264",
+                                                                         "User":  "alpha"
+                                                                     },
+                                                   "allocated_core_seconds_observed":  20016,
+                                                   "job_id":  "1884861",
+                                                   "plan_reference":  {
+                                                                          "bytes":  62807,
+                                                                          "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/continuation_specs_v3/pubchem_cont_v3_0054/plan.json",
+                                                                          "sha256":  "6b532c62d9c6029a3c947419632548dab44adb68e451a72734f4facc5e715add"
+                                                                      },
+                                                   "producer_completed_rows":  250000,
+                                                   "producer_counts":  {
+                                                                           "accepted":  219637,
+                                                                           "chemReject":  30321,
+                                                                           "technicalUnresolved":  42
+                                                                       },
+                                                   "producer_source_row_conservation":  true,
+                                                   "producer_unread_rows":  0,
+                                                   "queue_directory":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0054",
+                                                   "raw_sacct_reference":  {
+                                                                               "bytes":  279,
+                                                                               "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0054/sacct_1793081124205620827.txt",
+                                                                               "sha256":  "d9e1c6f32defa0d91c9831e15f7bb6ceefa37a3afcb88949050a052b51776a10"
+                                                                           },
+                                                   "receipt_reference":  {
+                                                                             "bytes":  50574,
+                                                                             "path":  "/gfshome/alpha/codex_data_v1_20261026/artifacts/pubchem_continuation_alpha_v3/shard-0054/receipt.json",
+                                                                             "sha256":  "a2f3c4dfacbe8048dbf264638797e0922ef82a5a9962e6b9d7ad8229ecb7ddb2"
+                                                                         },
+                                                   "request_reference":  {
+                                                                             "bytes":  83068,
+                                                                             "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0054/request.json",
+                                                                             "sha256":  "829679a5d55458c34e79c85cd41b331c1aa0ef94322b4d7518e450e795ab84b8"
+                                                                         },
+                                                   "startup_proof_reference":  {
+                                                                                   "bytes":  49812,
+                                                                                   "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_startup/pubchem_cont_v3_0054.json",
+                                                                                   "sha256":  "7f2998a46705578b00b62294562f095451511dcdbd9b628b05675b46f253de47"
+                                                                               },
+                                                   "submission_reference":  {
+                                                                                "bytes":  1459,
+                                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0054/submission.json",
+                                                                                "sha256":  "85aea942727a2d658f0a508cd57098245ecd04de3728ac50703cbca907e25e7e"
+                                                                            }
+                                               },
+                                               {
+                                                   "accounting_reference":  {
+                                                                                "bytes":  1661,
+                                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0055/accounting_1793081124985605476.json",
+                                                                                "sha256":  "4a36e416b908ed5e0645d1722807d1f7a38ac50a5c6184a14ffaffed2232e780"
+                                                                            },
+                                                   "actual_parent":  {
+                                                                         "AllocCPUS":  "16",
+                                                                         "ElapsedRaw":  "2024",
+                                                                         "ExitCode":  "0:0",
+                                                                         "JobIDRaw":  "1884862",
+                                                                         "MaxRSS":  "",
+                                                                         "NodeList":  "compute-0-1",
+                                                                         "Partition":  "cpu",
+                                                                         "State":  "COMPLETED",
+                                                                         "TotalCPU":  "00:00:00",
+                                                                         "UID":  "1264",
+                                                                         "User":  "alpha"
+                                                                     },
+                                                   "allocated_core_seconds_observed":  32384,
+                                                   "job_id":  "1884862",
+                                                   "plan_reference":  {
+                                                                          "bytes":  62807,
+                                                                          "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/continuation_specs_v3/pubchem_cont_v3_0055/plan.json",
+                                                                          "sha256":  "3ff0f6dee9ad2091cdcab67f493de6796f120c2b85f5b33b1deb340d79442a7e"
+                                                                      },
+                                                   "producer_completed_rows":  250000,
+                                                   "producer_counts":  {
+                                                                           "accepted":  228616,
+                                                                           "chemReject":  21322,
+                                                                           "technicalUnresolved":  62
+                                                                       },
+                                                   "producer_source_row_conservation":  true,
+                                                   "producer_unread_rows":  0,
+                                                   "queue_directory":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0055",
+                                                   "raw_sacct_reference":  {
+                                                                               "bytes":  279,
+                                                                               "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0055/sacct_1793081124985605476.txt",
+                                                                               "sha256":  "2a3a36c0307af14295b6facfb30b863cb82935f24cbadd9e15b4c18f809ba504"
+                                                                           },
+                                                   "receipt_reference":  {
+                                                                             "bytes":  50578,
+                                                                             "path":  "/gfshome/alpha/codex_data_v1_20261026/artifacts/pubchem_continuation_alpha_v3/shard-0055/receipt.json",
+                                                                             "sha256":  "b2009648212671b67061fa992d814313b2a1e4dfc95d1a794d96ad6105a50c87"
+                                                                         },
+                                                   "request_reference":  {
+                                                                             "bytes":  83068,
+                                                                             "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0055/request.json",
+                                                                             "sha256":  "91baed210c6965823790eed9169e7d4692f8f95f0814ce52d2204585a1432e57"
+                                                                         },
+                                                   "startup_proof_reference":  {
+                                                                                   "bytes":  50418,
+                                                                                   "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_startup/pubchem_cont_v3_0055.json",
+                                                                                   "sha256":  "19612559fcba8e7c1f4617af2648ad4408fbec1186ee6bff931a368f77f5fa5b"
+                                                                               },
+                                                   "submission_reference":  {
+                                                                                "bytes":  1512,
+                                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0055/submission.json",
+                                                                                "sha256":  "665f2e39a2414370aa15f7785dba00a65dda8b2fe94fb3b1179a44d2aeb43597"
+                                                                            }
+                                               },
+                                               {
+                                                   "accounting_reference":  {
+                                                                                "bytes":  1661,
+                                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0056/accounting_1793081125765548309.json",
+                                                                                "sha256":  "c0dba108e7c7259fd49d8d7e1b85dca837a8a5b402c17c60746857ef5ad592a1"
+                                                                            },
+                                                   "actual_parent":  {
+                                                                         "AllocCPUS":  "16",
+                                                                         "ElapsedRaw":  "1244",
+                                                                         "ExitCode":  "0:0",
+                                                                         "JobIDRaw":  "1884863",
+                                                                         "MaxRSS":  "",
+                                                                         "NodeList":  "compute-0-6",
+                                                                         "Partition":  "cpu",
+                                                                         "State":  "COMPLETED",
+                                                                         "TotalCPU":  "00:00:00",
+                                                                         "UID":  "1264",
+                                                                         "User":  "alpha"
+                                                                     },
+                                                   "allocated_core_seconds_observed":  19904,
+                                                   "job_id":  "1884863",
+                                                   "plan_reference":  {
+                                                                          "bytes":  62807,
+                                                                          "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/continuation_specs_v3/pubchem_cont_v3_0056/plan.json",
+                                                                          "sha256":  "7f8c0ed3d950ab5007c20783c14d49c49da36decba20244b48b6c54df2211fe5"
+                                                                      },
+                                                   "producer_completed_rows":  250000,
+                                                   "producer_counts":  {
+                                                                           "accepted":  227010,
+                                                                           "chemReject":  22974,
+                                                                           "technicalUnresolved":  16
+                                                                       },
+                                                   "producer_source_row_conservation":  true,
+                                                   "producer_unread_rows":  0,
+                                                   "queue_directory":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0056",
+                                                   "raw_sacct_reference":  {
+                                                                               "bytes":  279,
+                                                                               "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0056/sacct_1793081125765548309.txt",
+                                                                               "sha256":  "3565dae02f2775ee3ac81489968ca07442c49e94e906157660c9706be5e1c251"
+                                                                           },
+                                                   "receipt_reference":  {
+                                                                             "bytes":  50572,
+                                                                             "path":  "/gfshome/alpha/codex_data_v1_20261026/artifacts/pubchem_continuation_alpha_v3/shard-0056/receipt.json",
+                                                                             "sha256":  "6b7d5e48ea3f8d75faf7ba10dd6913aae3f15d376d62b00d436f940ced24f295"
+                                                                         },
+                                                   "request_reference":  {
+                                                                             "bytes":  83068,
+                                                                             "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0056/request.json",
+                                                                             "sha256":  "21386327ee19931c2bd8a1d2b317ee247474d175ae2fe57556fbc04adc9c71e6"
+                                                                         },
+                                                   "startup_proof_reference":  {
+                                                                                   "bytes":  51033,
+                                                                                   "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_startup/pubchem_cont_v3_0056.json",
+                                                                                   "sha256":  "0313a85b2921bb4652ee15160133f47c883abfec719bbe838f1b8a2ace6df4d2"
+                                                                               },
+                                                   "submission_reference":  {
+                                                                                "bytes":  1567,
+                                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0056/submission.json",
+                                                                                "sha256":  "bdb4105e30431c8ec4e1614abceab8b8014f43af93217e157f31378c6e493486"
+                                                                            }
+                                               },
+                                               {
+                                                   "accounting_reference":  {
+                                                                                "bytes":  1661,
+                                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0057/accounting_1793081126529470178.json",
+                                                                                "sha256":  "e4f7ddb4e84b0bb87439e81ed58a319a6c0993417ea213bfd4af60b0bacb7a03"
+                                                                            },
+                                                   "actual_parent":  {
+                                                                         "AllocCPUS":  "16",
+                                                                         "ElapsedRaw":  "2031",
+                                                                         "ExitCode":  "0:0",
+                                                                         "JobIDRaw":  "1884864",
+                                                                         "MaxRSS":  "",
+                                                                         "NodeList":  "compute-0-1",
+                                                                         "Partition":  "cpu",
+                                                                         "State":  "COMPLETED",
+                                                                         "TotalCPU":  "00:00:00",
+                                                                         "UID":  "1264",
+                                                                         "User":  "alpha"
+                                                                     },
+                                                   "allocated_core_seconds_observed":  32496,
+                                                   "job_id":  "1884864",
+                                                   "plan_reference":  {
+                                                                          "bytes":  62807,
+                                                                          "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/continuation_specs_v3/pubchem_cont_v3_0057/plan.json",
+                                                                          "sha256":  "a8089c921719234b1c63313c363d2c625ef36c52d7b3396e895cd267a5d1e2a0"
+                                                                      },
+                                                   "producer_completed_rows":  250000,
+                                                   "producer_counts":  {
+                                                                           "accepted":  241684,
+                                                                           "chemReject":  8311,
+                                                                           "technicalUnresolved":  5
+                                                                       },
+                                                   "producer_source_row_conservation":  true,
+                                                   "producer_unread_rows":  0,
+                                                   "queue_directory":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0057",
+                                                   "raw_sacct_reference":  {
+                                                                               "bytes":  279,
+                                                                               "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0057/sacct_1793081126529470178.txt",
+                                                                               "sha256":  "e95abf26298b70dcbf255c3e9a9bf59afa4bc79b0371900f8f3120c5a59cce71"
+                                                                           },
+                                                   "receipt_reference":  {
+                                                                             "bytes":  50559,
+                                                                             "path":  "/gfshome/alpha/codex_data_v1_20261026/artifacts/pubchem_continuation_alpha_v3/shard-0057/receipt.json",
+                                                                             "sha256":  "9ab11bfa8a1e52ee079b9cbf9f5657a4c4be56ca8274be3b74a183931236be69"
+                                                                         },
+                                                   "request_reference":  {
+                                                                             "bytes":  83068,
+                                                                             "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0057/request.json",
+                                                                             "sha256":  "a212dacb148e6b89315d40439d55e4859664be2a1639c38b6bc5c819a77d4aa2"
+                                                                         },
+                                                   "startup_proof_reference":  {
+                                                                                   "bytes":  51636,
+                                                                                   "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_startup/pubchem_cont_v3_0057.json",
+                                                                                   "sha256":  "272fef38f390f072eacc052d31ea5d6d1a001a6135d308979a02538947018426"
+                                                                               },
+                                                   "submission_reference":  {
+                                                                                "bytes":  1622,
+                                                                                "path":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/pubchem_cont_v3_0057/submission.json",
+                                                                                "sha256":  "f41f1bae9f71834735a8b558f316d3e69a38762b96ee301df031cf04a9923fbc"
+                                                                            }
+                                               }
+                                           ],
+                               "allocated_core_seconds":  157024,
+                               "producer_rows":  1500000,
+                               "accepted":  1394978,
+                               "chemReject":  104882,
+                               "technicalUnresolved":  140,
+                               "old_controller_terminal_cache_closed_not_claimed":  true
+                           },
+    "cli":  {
+                "fixture_candidate":  "AlphaPy -B -m pubchem_c_metadata_recovery_v4.fixture_cpu --authority AUTH --node ACTUAL_NODE --plan-path NEW_PLAN --proof-path NEW_PROOF --stage-output ROOT/artifacts/pubchem_metadata_recovery_source3_alpha_v4/NEW --metadata-output NEW_CANDIDATE_DIR",
+                "fixture_finalize":  "Repeat same metadata command with NEW metadata-output directory and --scope-review ACTUAL_ROOT_SIGNED_SCOPE",
+                "fixture_queue":  "AlphaPy -B -m secondary_cpu_readonly_pubchem_metadata_recovery_v4.controller submit --producer readonly --input ACTUAL_PLAN --authority AUTH --storage-review SCOPE7 --controller-review EXISTING_BASE8_SOURCE_REVIEW --output NEW_QUEUE_DIR --node ACTUAL_NODE --job-name NEW_SAFE_NAME --reviewer root --wall-seconds 600 --max-poll-seconds 90",
+                "source3_actual_account":  "Same fixed wrapper account --output ACTUAL_QUEUE_DIR",
+                "recovery_candidate":  "AlphaPy -B -m pubchem_c_metadata_recovery_v4.recovery --root-range-review OLD_GRANT --state-directory OLD_STATE --source3-receipt REAL_SOURCE3_RECEIPT --source3-accounting REAL_SOURCE3_ACCOUNT --failure-event REAL_OLD_EVENT --actual-context EXACT_ALPHA_CONTEXT_COPY --output NEW_UNSIGNED_RECOVERY_REVIEW",
+                "observe":  "AlphaPy -B -m pubchem_c_metadata_recovery_v4.controller run --root-range-review OLD_GRANT --metadata-recovery-review REAL_ROOT_REVIEW --state-directory OLD_STATE --root-run-reviewed-continuation --reason ROOT_REASON --observe-only --single-cycle",
+                "live":  "Same command without --observe-only --single-cycle, same original state/grant/absolute deadline",
+                "Root_approval_or_submission_created_by_helper":  false
+            },
+    "limitations":  [
+                        "Large DATA refs never use Q.normalized; small source/receipt/account pin() and meta() retain old 2MiB guard.",
+                        "Exact3keys/nonbool positive int/64lowerhex/literal Alpha artifacts only; DENIED still blocks metadata reads of SCI bodies.",
+                        "Source3 source inverse AST and tests are pending actual Alpha CPU. Only static text inverse and source byte hashes were checked here.",
+                        "Root signs an independent source3 scope and later metadata recovery review after actual Alpha C0/raw account; no Main C0 substitutes.",
+                        "Original controller close_new/registry/materialize/once/chemistry algorithms are unchanged; source3 and Root review do not self-certify science/pool release.",
+                        "Original old failure51/QA0 and new fixture costs stay in full actual parent ledger; unchanged compact controller cost scope is not global total."
+                    ],
+    "files":  [
+                  {
+                      "child_relative_path":  "workflows/expansion/pubchem_c_metadata_recovery_v4/__init__.py",
+                      "root_relative_path":  "workflows/expansion/pubchem_c_metadata_recovery_v4/__init__.py",
+                      "alpha_target_locator":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_metadata_recovery_v4/__init__.py",
+                      "bytes":  131,
+                      "sha256":  "3c08076c15534dd894783c0810fae8f1b0b71f67cd2bc06a6783efa2f6249e10"
+                  },
+                  {
+                      "child_relative_path":  "workflows/expansion/pubchem_c_metadata_recovery_v4/controller.py",
+                      "root_relative_path":  "workflows/expansion/pubchem_c_metadata_recovery_v4/controller.py",
+                      "alpha_target_locator":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_metadata_recovery_v4/controller.py",
+                      "bytes":  28228,
+                      "sha256":  "ae01ee03e24345631c322d9706ee9005dc19acd0bea1f36963ceadbc30c22076"
+                  },
+                  {
+                      "child_relative_path":  "workflows/expansion/pubchem_c_metadata_recovery_v4/fixture_cpu.py",
+                      "root_relative_path":  "workflows/expansion/pubchem_c_metadata_recovery_v4/fixture_cpu.py",
+                      "alpha_target_locator":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_metadata_recovery_v4/fixture_cpu.py",
+                      "bytes":  13386,
+                      "sha256":  "203bd42124221bbf99e8ebf134895153658b5001e1e6bc53befc75d5d256b918"
+                  },
+                  {
+                      "child_relative_path":  "workflows/expansion/pubchem_c_metadata_recovery_v4/README.md",
+                      "root_relative_path":  "workflows/expansion/pubchem_c_metadata_recovery_v4/README.md",
+                      "alpha_target_locator":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_metadata_recovery_v4/README.md",
+                      "bytes":  8398,
+                      "sha256":  "d6a7947c68a8c70283863e23187c59d562ecec10e8596e00daf5848cc4a6f7c6"
+                  },
+                  {
+                      "child_relative_path":  "workflows/expansion/pubchem_c_metadata_recovery_v4/recovery.py",
+                      "root_relative_path":  "workflows/expansion/pubchem_c_metadata_recovery_v4/recovery.py",
+                      "alpha_target_locator":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_metadata_recovery_v4/recovery.py",
+                      "bytes":  14921,
+                      "sha256":  "24597e90678567f217162682ab6fa4b072ec186cc292bd29736127a5444a4f41"
+                  },
+                  {
+                      "child_relative_path":  "workflows/expansion/pubchem_c_metadata_recovery_v4/test_recovery.py",
+                      "root_relative_path":  "workflows/expansion/pubchem_c_metadata_recovery_v4/test_recovery.py",
+                      "alpha_target_locator":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_metadata_recovery_v4/test_recovery.py",
+                      "bytes":  3864,
+                      "sha256":  "eddf1f2475b6e65a4c6b637bdaf5225f1078326aa092ae2e88eccc4b8cc3266e"
+                  },
+                  {
+                      "child_relative_path":  "workflows/data_v1_final/execution/secondary_cpu_readonly_pubchem_metadata_recovery_v4/__init__.py",
+                      "root_relative_path":  "workflows/data_v1_final/execution/secondary_cpu_readonly_pubchem_metadata_recovery_v4/__init__.py",
+                      "alpha_target_locator":  "/gfshome/alpha/codex_data_v1_20261026/code/secondary_cpu_readonly_pubchem_metadata_recovery_v4/__init__.py",
+                      "bytes":  80,
+                      "sha256":  "4d3cd6158a3587eba93b25a5cb2e600e6e8c94355150d290cdf5de3ad297b759"
+                  },
+                  {
+                      "child_relative_path":  "workflows/data_v1_final/execution/secondary_cpu_readonly_pubchem_metadata_recovery_v4/adapters.py",
+                      "root_relative_path":  "workflows/data_v1_final/execution/secondary_cpu_readonly_pubchem_metadata_recovery_v4/adapters.py",
+                      "alpha_target_locator":  "/gfshome/alpha/codex_data_v1_20261026/code/secondary_cpu_readonly_pubchem_metadata_recovery_v4/adapters.py",
+                      "bytes":  4706,
+                      "sha256":  "ec4a1ba1a275127cac16df8aa3a638f78b71f6b9d97afd625cb06c654b21252b"
+                  },
+                  {
+                      "child_relative_path":  "workflows/data_v1_final/execution/secondary_cpu_readonly_pubchem_metadata_recovery_v4/controller.py",
+                      "root_relative_path":  "workflows/data_v1_final/execution/secondary_cpu_readonly_pubchem_metadata_recovery_v4/controller.py",
+                      "alpha_target_locator":  "/gfshome/alpha/codex_data_v1_20261026/code/secondary_cpu_readonly_pubchem_metadata_recovery_v4/controller.py",
+                      "bytes":  25237,
+                      "sha256":  "b681e7b40fbbbd42366a239ab2acb82df6704aac4de20eae50f2b99bbd23b450"
+                  }
+              ]
+}

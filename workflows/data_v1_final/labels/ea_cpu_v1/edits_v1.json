@@ -1,0 +1,25 @@
+{
+  "schema": "EA_CPU_CONTROL_ONLY_EDITS_V1",
+  "files": {
+    "bounded_probe.py": [
+      {"kind": "checkpoint_import", "old": "from urllib.parse import quote\n", "new": "from urllib.parse import quote\n\nfrom workflows.data_v1_final.labels.streaming_cpu_v1.support import checkpoint, checkpoint_iter\n"},
+      {"kind": "checkpoint", "old": "for block in iter(lambda: stream.read(1 << 20), b\"\"):", "new": "for block in checkpoint_iter(iter(lambda: stream.read(1 << 20), b\"\")):"},
+      {"kind": "checkpoint", "old": "def initialize(cfg, candidates, barrier):\n", "new": "def initialize(cfg, candidates, barrier):\n    checkpoint()\n"},
+      {"kind": "checkpoint", "old": "def project(partition):\n", "new": "def project(partition):\n    checkpoint()\n"},
+      {"kind": "checkpoint", "old": "for pin, row_group in partition:", "new": "for pin, row_group in checkpoint_iter(partition):"},
+      {"kind": "checkpoint", "old": "for batch in source.iter_batches(row_groups=[row_group], batch_size=cfg[\"source_batch_records\"],\n                                         columns=columns, use_threads=False):", "new": "for batch in checkpoint_iter(source.iter_batches(row_groups=[row_group], batch_size=cfg[\"source_batch_records\"],\n                                         columns=columns, use_threads=False)):"},
+      {"kind": "checkpoint", "old": "def latest_owners(cfg):\n", "new": "def latest_owners(cfg):\n    checkpoint()\n"},
+      {"kind": "checkpoint", "old": "for batch in pq.ParquetFile(path).iter_batches(batch_size=4096, columns=columns, use_threads=False):", "new": "for batch in checkpoint_iter(pq.ParquetFile(path).iter_batches(batch_size=4096, columns=columns, use_threads=False)):"},
+      {"kind": "checkpoint", "old": "    checked(cfg[\"archive_reader_v4\"])\n", "new": "    checkpoint()\n    checked(cfg[\"archive_reader_v4\"])\n"},
+      {"kind": "checkpoint", "old": "for pin in cfg[\"archives\"]:", "new": "for pin in checkpoint_iter(cfg[\"archives\"]):"},
+      {"kind": "checkpoint", "old": "for case in cases.values():", "new": "for case in checkpoint_iter(cases.values()):"},
+      {"kind": "checkpoint", "old": "for task in (\"xtb_vipea\", \"xtb_singlepoint\"):", "new": "for task in checkpoint_iter((\"xtb_vipea\", \"xtb_singlepoint\")):"},
+      {"kind": "checkpoint", "old": "                        reader = archive.ArchiveReader(path, cfg[\"dictionary_manifest\"][\"path\"])\n", "new": "                        checkpoint()\n                        reader = archive.ArchiveReader(path, cfg[\"dictionary_manifest\"][\"path\"])\n"},
+      {"kind": "checkpoint", "old": "    proof = support.root_guard(args.root_preflight, args.config, cfg[\"output_cap_bytes\"], cfg[\"wall_seconds\"])\n", "new": "    proof = support.root_guard(args.root_preflight, args.config, cfg[\"output_cap_bytes\"], cfg[\"wall_seconds\"])\n    checkpoint()\n"},
+      {"kind": "checkpoint", "old": "for pin in cfg[\"metadata_sources\"]:", "new": "for pin in checkpoint_iter(cfg[\"metadata_sources\"]):"},
+      {"kind": "checkpoint", "old": "for pin in cfg[\"sources\"]:", "new": "for pin in checkpoint_iter(cfg[\"sources\"]):"},
+      {"kind": "checkpoint", "old": "        with concurrent.futures.ProcessPoolExecutor(max_workers=16", "new": "        checkpoint()\n        with concurrent.futures.ProcessPoolExecutor(max_workers=16"},
+      {"kind": "checkpoint", "old": "pool.map(project, partitions, chunksize=1)", "new": "pool.map(project, checkpoint_iter(partitions), chunksize=1)"}
+    ]
+  }
+}

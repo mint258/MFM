@@ -1,0 +1,36 @@
+#!/bin/bash
+# Root renders/reviews/pins this template before the sole authorized submission.
+#SBATCH --job-name=dv1_export_pipeline_v1
+#SBATCH --partition=all
+#SBATCH --nodelist=compute-0-20
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=32G
+#SBATCH --time=01:00:00
+#SBATCH --output=__ABSOLUTE_EXTERNAL_LOG__
+set -euo pipefail
+export CUDA_VISIBLE_DEVICES=''
+export PYTHONDONTWRITEBYTECODE=1
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+: "${REPO:?Root-reviewed execution checkout required}"
+: "${DEPS:?Existing pinned Arrow/LMDB dependency directory required}"
+: "${ACTION:?materialize|mask_binding|export|verify|distributions}"
+: "${INPUT:?Pinned config, export manifest, or D5 manifest required}"
+: "${OUTPUT:?Fresh absolute external output required}"
+: "${SQLITE_SCRATCH:?Root-checked fresh node-local directory for disk sorts required}"
+test ! -e "$SQLITE_SCRATCH"
+mkdir -- "$SQLITE_SCRATCH"
+export SQLITE_TMPDIR="$SQLITE_SCRATCH"
+PY=/share/home/zixiao/.conda/envs/chemprop/bin/python
+export PYTHONPATH="$REPO/workflows/data_v1_final/export:$DEPS"
+cd "$REPO"
+case "$ACTION" in
+  materialize|mask_binding|export)
+    "$PY" -B -m "pipeline_v1.$ACTION" --config "$INPUT" --output "$OUTPUT" ;;
+  verify)
+    "$PY" -B -m pipeline_v1.verify --export-manifest "$INPUT" --output "$OUTPUT" ;;
+  distributions)
+    "$PY" -B -m pipeline_v1.distributions --d5-manifest "$INPUT" --output "$OUTPUT" ;;
+  *) printf '%s\n' 'Unsupported action' >&2; exit 2 ;;
+esac

@@ -1,0 +1,238 @@
+{
+    "$schema":  "https://json-schema.org/draft/2020-12/schema",
+    "title":  "Explicit Root C metadata approval shapes, never an approval instance",
+    "type":  "object",
+    "$defs":  {
+                  "small_pin":  {
+                                    "type":  "object",
+                                    "required":  [
+                                                     "path",
+                                                     "bytes",
+                                                     "sha256"
+                                                 ],
+                                    "additionalProperties":  false,
+                                    "properties":  {
+                                                       "path":  {
+                                                                    "type":  "string",
+                                                                    "pattern":  "^/gfshome/alpha/codex_data_v1_20261026/"
+                                                                },
+                                                       "bytes":  {
+                                                                     "maximum":  2097152,
+                                                                     "type":  "integer",
+                                                                     "minimum":  0
+                                                                 },
+                                                       "sha256":  {
+                                                                      "type":  "string",
+                                                                      "pattern":  "^[0-9a-f]{64}$"
+                                                                  }
+                                                   }
+                                }
+              },
+    "properties":  {
+                       "status":  {
+                                      "const":  "ROOT_APPROVED"
+                                  },
+                       "reviewer":  {
+                                        "const":  "root"
+                                    },
+                       "endpoint":  {
+                                        "const":  "218.192.171.238:22"
+                                    },
+                       "uid":  {
+                                   "const":  1264
+                               },
+                       "run_root":  {
+                                        "const":  "/gfshome/alpha/codex_data_v1_20261026"
+                                    },
+                       "generator_source_references":  {
+                                                           "minItems":  6,
+                                                           "items":  {
+                                                                         "$ref":  "#/$defs/small_pin"
+                                                                     },
+                                                           "type":  "array",
+                                                           "maxItems":  6
+                                                       },
+                       "parts_per_shard":  {
+                                               "const":  1
+                                           },
+                       "expected_shards":  {
+                                               "const":  500
+                                           },
+                       "population_N":  {
+                                            "const":  124857440
+                                        },
+                       "shard_index":  {
+                                           "maximum":  499,
+                                           "type":  "integer",
+                                           "minimum":  0
+                                       },
+                       "wall_seconds":  {
+                                            "maximum":  172800,
+                                            "multipleOf":  60,
+                                            "type":  "integer",
+                                            "minimum":  60
+                                        },
+                       "output_cap_bytes":  {
+                                                "maximum":  1099511627776,
+                                                "type":  "integer",
+                                                "minimum":  1
+                                            },
+                       "admin_reserved_bytes":  {
+                                                    "type":  "integer",
+                                                    "minimum":  1
+                                                },
+                       "root_IO_and_startup_allowance_seconds":  {
+                                                                     "type":  "integer",
+                                                                     "minimum":  0
+                                                                 },
+                       "wall_projection_basis":  {
+                                                     "enum":  [
+                                                                  "UNIFORM_PHASE_WALL_ROW_SCALED_REFERENCE",
+                                                                  "UNIFORM_WORKER_CPU_AT16_PLUS_ROOT_IO_ALLOWANCE"
+                                                              ]
+                                                 },
+                       "output_expansion_factor":  {
+                                                       "type":  [
+                                                                    "number",
+                                                                    "string"
+                                                                ]
+                                                   },
+                       "wall_expansion_factor":  {
+                                                     "type":  [
+                                                                  "number",
+                                                                  "string"
+                                                              ]
+                                                 },
+                       "pool_decontamination_or_filtered_dedup1M_release":  {
+                                                                                "const":  false
+                                                                            },
+                       "a_receipt_reference":  {
+                                                   "$ref":  "#/$defs/small_pin"
+                                               },
+                       "a_accounting_reference":  {
+                                                      "$ref":  "#/$defs/small_pin"
+                                                  },
+                       "b_receipt_reference":  {
+                                                   "$ref":  "#/$defs/small_pin"
+                                               },
+                       "b_accounting_reference":  {
+                                                      "$ref":  "#/$defs/small_pin"
+                                                  },
+                       "freeze_receipt_reference":  {
+                                                        "$ref":  "#/$defs/small_pin"
+                                                    },
+                       "supplemental_source_catalog_reference":  {
+                                                                     "$ref":  "#/$defs/small_pin"
+                                                                 },
+                       "actual_profile_equivalence_reviewed":  {
+                                                                   "const":  true
+                                                               },
+                       "actual_related_cost_accounting_reviewed":  {
+                                                                       "const":  true
+                                                                   },
+                       "one_part_partition_reviewed":  {
+                                                           "const":  true
+                                                       },
+                       "technical_unknown4_preserved_not_excluded":  {
+                                                                         "const":  true
+                                                                     },
+                       "scientific_quality_thresholds_unchanged":  {
+                                                                       "const":  true
+                                                                   },
+                       "metadata_freeze_only_no_submission":  {
+                                                                  "const":  true
+                                                              },
+                       "single_shard_only_no_submission":  {
+                                                               "const":  true
+                                                           }
+                   },
+    "oneOf":  [
+                  {
+                      "required":  [
+                                       "schema",
+                                       "status",
+                                       "reviewer",
+                                       "endpoint",
+                                       "uid",
+                                       "run_root",
+                                       "generator_source_references",
+                                       "a_receipt_reference",
+                                       "a_accounting_reference",
+                                       "b_receipt_reference",
+                                       "b_accounting_reference",
+                                       "actual_profile_equivalence_reviewed",
+                                       "actual_related_cost_accounting_reviewed",
+                                       "one_part_partition_reviewed",
+                                       "technical_unknown4_preserved_not_excluded",
+                                       "scientific_quality_thresholds_unchanged",
+                                       "metadata_freeze_only_no_submission",
+                                       "parts_per_shard",
+                                       "expected_shards",
+                                       "population_N",
+                                       "pool_decontamination_or_filtered_dedup1M_release",
+                                       "output_expansion_factor",
+                                       "admin_reserved_bytes",
+                                       "output_cap_bytes",
+                                       "wall_projection_basis",
+                                       "wall_expansion_factor",
+                                       "root_IO_and_startup_allowance_seconds",
+                                       "wall_seconds"
+                                   ],
+                      "properties":  {
+                                         "schema":  {
+                                                        "const":  "ROOT_APPROVED_PUBCHEM_C_METADATA_FREEZE_V1"
+                                                    }
+                                     }
+                  },
+                  {
+                      "required":  [
+                                       "schema",
+                                       "status",
+                                       "reviewer",
+                                       "endpoint",
+                                       "uid",
+                                       "run_root",
+                                       "generator_source_references",
+                                       "freeze_receipt_reference",
+                                       "single_shard_only_no_submission",
+                                       "shard_index",
+                                       "node",
+                                       "python",
+                                       "output_directory",
+                                       "startup_proof_path",
+                                       "wall_seconds",
+                                       "output_cap_bytes",
+                                       "supplemental_source_catalog_reference"
+                                   ],
+                      "properties":  {
+                                         "schema":  {
+                                                        "const":  "ROOT_APPROVED_SINGLE_PUBCHEM_C_SHARD_PLAN_V1"
+                                                    }
+                                     }
+                  },
+                  {
+                      "required":  [
+                                       "schema",
+                                       "status",
+                                       "reviewer",
+                                       "endpoint",
+                                       "uid",
+                                       "run_root",
+                                       "source_references"
+                                   ],
+                      "properties":  {
+                                         "schema":  {
+                                                        "const":  "ROOT_APPROVED_PUBCHEM_C_SOURCE_CATALOG_V1"
+                                                    },
+                                         "source_references":  {
+                                                                   "minItems":  2,
+                                                                   "items":  {
+                                                                                 "$ref":  "#/$defs/small_pin"
+                                                                             },
+                                                                   "type":  "array"
+                                                               }
+                                     }
+                  }
+              ],
+    "description":  "Root writes real instances only after current source/evidence/cost/partition review. All refs are actual known small metadata/code pins. Scientific references are inherited producer locators and never early metadata bodies. No future job/hash or submission is created."
+}

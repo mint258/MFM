@@ -1,0 +1,126 @@
+{
+    "edits":  [
+                  {
+                      "new":  "sys.path.insert(0, str(Path(__file__).absolute().parents[2]))\nsys.path.insert(0, str(Path(__file__).absolute().parents[1]))\nfrom common import (canonical, digest, load_config, load_engine, new_output, output_guard,\n                    reference, require_pin, write_json)\nimport threading\nfrom workflows.data_v1_final.execution.cpu_analysis_v1 import runtime as cpu_runtime\nfrom runtime_control import (checkpoint_iter, cpu_observed, load_runconfig,\n                             prepared_authority, source_lineage)",
+                      "old":  "sys.path.insert(0, str(Path(__file__).absolute().parent.parent))\nfrom common import (canonical, digest, load_config, load_engine, new_output, output_guard,\n                    reference, require_pin, require_preflight, runtime, write_json)",
+                      "reason":  "Only import/path/runtime-control binding; original common/math/geometry implementation remains imported",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "for mid, pair in checkpoint_iter(sorted(first.items())):",
+                      "old":  "for mid, pair in sorted(first.items()):",
+                      "reason":  "Check before the next source SMILES parse",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "for condition, task_name, companion in checkpoint_iter(conditions):",
+                      "old":  "for condition, task_name, companion in conditions:",
+                      "reason":  "Check before next condition",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "for arm in checkpoint_iter((\u0027base\u0027, \u0027rotated\u0027)):",
+                      "old":  "for arm in (\u0027base\u0027, \u0027rotated\u0027):",
+                      "reason":  "Check before next rotation arm",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "    cpu_runtime.checkpoint()\n    import numpy as np\n    coordinates =",
+                      "old":  "    import numpy as np\n    coordinates =",
+                      "reason":  "Check before translated-coordinate stage",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "    p.add_argument(\u0027--config\u0027, type=Path, required=True)\n    p.add_argument(\u0027--cpu-runconfig\u0027, type=Path, required=True)",
+                      "old":  "    p.add_argument(\u0027--config\u0027, type=Path, required=True)",
+                      "reason":  "Explicit new metadata runconfig argument",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "    cpu = load_runconfig(args.cpu_runconfig, args.config, args.pilot_config, args.prepared_pprime)\n    observed, preflight = cpu_observed(args.root_preflight, args.cpu_runconfig, args.config, c, cpu)",
+                      "old":  "    observed = runtime(prepare=True)",
+                      "reason":  "Central real CPU allocation/memory/heartbeat guard replaces original node20 guard",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "    source_manifest =",
+                      "old":  "    preflight = require_preflight(args.root_preflight, args.config, c)\n    source_manifest =",
+                      "reason":  "Original preflight replaced, never bypassed or hostname-mocked",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "    prepared_authority(saved, source_manifest, args.prepared_pprime_sha256, cpu, args.root_preflight)\n    for pin in checkpoint_iter(saved[\u0027outputs\u0027]):",
+                      "old":  "    for pin in saved[\u0027outputs\u0027]:",
+                      "reason":  "Require exact closed1000/2000 non-QM input authority and declared data refs before reading pair body",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "    cpu_runtime.checkpoint()\n    pairs = [json.loads(line) for line in (args.prepared_pprime / \u0027pairs.jsonl\u0027).read_text().splitlines()]",
+                      "old":  "    pairs = [json.loads(line) for line in (args.prepared_pprime / \u0027pairs.jsonl\u0027).read_text().splitlines()]",
+                      "reason":  "Check before bounded19MB pair read",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "    for pair in checkpoint_iter(chosen):",
+                      "old":  "    for pair in chosen:",
+                      "reason":  "Check before new molecule work (audit metadata and native reads)",
+                      "occurrences":  2
+                  },
+                  {
+                      "new":  "            for geometry, native in checkpoint_iter(((\u0027pm7\u0027, original), (\u0027uff_sprime\u0027, uff))):",
+                      "old":  "            for geometry, native in ((\u0027pm7\u0027, original), (\u0027uff_sprime\u0027, uff)):",
+                      "reason":  "Check before next geometry context",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "        render_barrier = threading.Barrier(16)\n        render_state = threading.local()\n        def render(case):\n            cpu_runtime.checkpoint()\n            if not getattr(render_state, \u0027seen\u0027, False):\n                render_state.seen = True\n                render_barrier.wait(timeout=180)\n            native =",
+                      "old":  "        def render(case):\n            native =",
+                      "reason":  "Actual16 nonempty render threads rendezvous once; no mathematical change",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "            for name, body in checkpoint_iter(rendered.items()):",
+                      "old":  "            for name, body in rendered.items():",
+                      "reason":  "Check before next input body write",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "                        serialization_max_error_A=error, render_worker_pid=os.getpid(),\n                        render_worker_tid=threading.get_native_id())",
+                      "old":  "                        serialization_max_error_A=error)",
+                      "reason":  "Additional real render-process/thread metadata only",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "            cases = list(checkpoint_iter(workers.map(render, cases)))",
+                      "old":  "            cases = list(workers.map(render, cases))",
+                      "reason":  "Check before next future result read; render itself checks before new work",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "                   \u0027runtime\u0027: observed, \u0027config\u0027: reference(args.config), \u0027pilot_config\u0027: reference(args.pilot_config),\n                   \u0027cpu_runconfig\u0027: reference(args.cpu_runconfig),\n                   \u0027execution_variant\u0027: \u0027CPU_PARTITION_READONLY_VECTOR_PREPARATION_V1\u0027,\n                   \u0027actual_render_worker_tids\u0027: sorted({row[\u0027render_worker_tid\u0027] for row in cases}),",
+                      "old":  "                   \u0027runtime\u0027: observed, \u0027config\u0027: reference(args.config), \u0027pilot_config\u0027: reference(args.pilot_config),",
+                      "reason":  "CPU execution provenance and actual render-thread evidence",
+                      "occurrences":  1
+                  },
+                  {
+                      "new":  "                                              \u0027sprime_conf_idx\u0027: p[\u0027conformer\u0027][\u0027sprime_conf_idx\u0027],\n                                              **source_lineage(p[\u0027source\u0027])} for p in chosen],",
+                      "old":  "                                              \u0027sprime_conf_idx\u0027: p[\u0027conformer\u0027][\u0027sprime_conf_idx\u0027]} for p in chosen],",
+                      "reason":  "Keep native source shard and legacy engine group distinct without changing original source record",
+                      "occurrences":  1
+                  }
+              ],
+    "science_functions":  [
+                              "load_audit",
+                              "choose_pairs",
+                              "make_cases",
+                              "render"
+                          ],
+    "schema":  "VECTOR_PREPARE_CPU_DECLARED_EDITS_V1",
+    "no_QM_execution_added":  true,
+    "candidate_relative_path":  "prepare_cpu_v1.py",
+    "baseline":  {
+                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/prepare_v1.py",
+                     "sha256":  "6e5e9fd886324044af9fd38db416b39a01c6e439ff98059ad9e5cf19e1b10119",
+                     "bytes":  11520
+                 }
+}

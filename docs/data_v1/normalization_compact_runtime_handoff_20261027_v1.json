@@ -1,0 +1,78 @@
+{
+    "schema":  "NORMALIZATION_COMPACT_RUNTIME_SOURCEFINAL_HANDOFF_V1",
+    "status":  "SOURCE_FINAL_STOPEDIT",
+    "source_count":  14,
+    "source_directory":  "workflows/data_v1_final/labels/normalization_compact_runtime_v1",
+    "source_manifest":  "manifest.json",
+    "actual_tests_or_DATA_execution":  false,
+    "Root_repo_edited":  false,
+    "pure_test_command":  "PY -B -m unittest -v workflows.data_v1_final.labels.normalization_compact_runtime_v1.test_boundaries",
+    "expected_pure_methods":  3,
+    "metadata_cli":  "PY -B -m workflows.data_v1_final.labels.normalization_compact_runtime_v1.metadata candidate --request ACTUAL_SMALL_REQUEST --output FRESH_CONTROL",
+    "finalize_cli":  "PY -B -m workflows.data_v1_final.labels.normalization_compact_runtime_v1.metadata finalize --directory SAME_CONTROL --scope-review ACTUAL_ROOT_SIGNED_SCOPE",
+    "entry_modules":  [
+                          "run",
+                          "coverage",
+                          "statistics"
+                      ],
+    "namespace":  "workflows.data_v1_final.labels.normalization_compact_runtime_v1",
+    "entry_options":  "--config ACTUAL --startup-proof ACTUAL --output FRESH",
+    "request_schema":  "ROOT_COMPACT_NUMERIC_STAGE_REQUEST_V1",
+    "technical_review_schema":  "ROOT_COMPACT_NUMERIC_TECHNICAL_REPROJECTION_REVIEW_V1",
+    "new_coverage_schema":  "COMPACT_NUMERIC_ORIGINAL_SOURCE_COVERAGE_V1",
+    "scope_keys":  [
+                       "compact_numeric_original_source_project_v1",
+                       "compact_numeric_original_source_coverage_v1",
+                       "compact_numeric_provisional_train_statistics_v1"
+                   ],
+    "actual_sequence":  [
+                            "Root technical reprojection/resource review; old1904/seed/UNKNOWN unchanged",
+                            "Actual central-v2 CPU16/no_mem + exactSOURCE/inverse/3pure before DATA",
+                            "Original512 compact project with at least8GiB reviewed ticket ceiling",
+                            "Actual project C0 -\u003e exact512 CPU coverage/formal pointer verification",
+                            "Actual coverage C0 -\u003e legacy512 exact group histogram and256TSQR state match",
+                            "Actual new512 profile C0/cost/size/resource acceptance before full bounded source windows",
+                            "Only actual C0/verified committed windows advance new immutable cursors",
+                            "All2208/full14+base+roles+physical+shadow+1% CPU coverage",
+                            "TRAIN element reference actual C0 -\u003e exact0.001/0.999 series radix actual C0 chain -\u003e originalWinsorMoments/Chan mean/std+atomic-by-Z+raw joint audit"
+                        ],
+    "statistical_routes":  [
+                               "legacy512",
+                               "diagnostic_median_MAD",
+                               "element_reference",
+                               "normalization_quantiles",
+                               "normalization_moments"
+                           ],
+    "mathematics":  {
+                        "TSQR_chunk":  256,
+                        "state_lifetime":  "ONE_ORIGINAL_LOGICAL_GROUP_ACROSS_ALL_PARTS_WINDOWS_RGS",
+                        "merge_order":  "ORIGINAL_GROUP_LIST_LEFT_FOLD",
+                        "quantiles":  "ORIGINAL_EXACT_F64_TYPE7_0.001_0.999",
+                        "winsorization":  "STATISTICAL_COPIES_ONLY",
+                        "original_cache_or_training_labels_clipped":  false,
+                        "mean_std":  "ORIGINAL_WinsorMoments_Chan_ddof0",
+                        "median_MAD":  "GUIDE1_5_DIAGNOSTIC_AND_LEGACY_PARITY_NOT_D4_NORMALIZER",
+                        "old_module_globals_patched":  false
+                    },
+    "resources":  {
+                      "endpoint":  "202.38.247.57:22",
+                      "uid":  1278,
+                      "cpus":  16,
+                      "memory_policy":  "SLURM_DEFAULT_UNSPECIFIED",
+                      "wall_seconds_max":  172800,
+                      "project_cap_min_bytes":  8589934592,
+                      "quota_headroom_bytes":  200000000000,
+                      "old32GiB_logical_charge_retained":  true,
+                      "future_caps":  "EXPLICIT_ROOT_REVIEW_NOT_FORECAST"
+                  },
+    "limitations":  [
+                        "SourceOnly: no actual fixture/CPU/science result exists yet.",
+                        "PM7 D4 numerical view, not native CELL/text or original integer-precision recovery.",
+                        "All final Common/D4/model-normalizer publication flags remain false.",
+                        "Independent genuine Pprime, final masks/native/frame/geometry/Common/diagnostic/jointpolicy/replay remain separate release gates.",
+                        "Resource path is original fresh central full-reservation quota plus continuous RSS/MemAvailable and conservative output tickets; no new provider/publisher.",
+                        "Histogram/RSS/output/timeout/unknown never approximates/truncates data or auto-retries.",
+                        "Scientific query/model/tail JSON are CPU-only DATA with separate64MiB bounds, never small-source validation."
+                    ],
+    "audit_memo":  "normalization_compact_runtime_seam_audit_20261027_v1.md"
+}

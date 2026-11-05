@@ -1,0 +1,101 @@
+{
+    "schema":  "PUBCHEM_C_FINITE500_V2_MACHINE_PIN_ONLY_SOURCE_HANDOFF_V1",
+    "status":  "SOURCE_FINAL_UNEXECUTED_PENDING_NEW4_CPU_AND_CONTEXT",
+    "source_files":  6,
+    "source_references":  [
+                              {
+                                  "root_repository_relative_path":  "workflows/expansion/pubchem_c_finite500_queue_v2/__init__.py",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_finite500_queue_v2/__init__.py",
+                                                           "sha256":  "0e992b77c2366162684569d15603b26ed277ecd5ba357c0640d8878afb37c6aa",
+                                                           "bytes":  89
+                                                       },
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_finite500_queue_v2\\__init__.py"
+                              },
+                              {
+                                  "root_repository_relative_path":  "workflows/expansion/pubchem_c_finite500_queue_v2/controller.py",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_finite500_queue_v2/controller.py",
+                                                           "sha256":  "c1cf0fbdec6ac13f5336ceec8dab69554bc544a049f3eebe90228c1c4308e735",
+                                                           "bytes":  24102
+                                                       },
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_finite500_queue_v2\\controller.py"
+                              },
+                              {
+                                  "root_repository_relative_path":  "workflows/expansion/pubchem_c_finite500_queue_v2/state.py",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_finite500_queue_v2/state.py",
+                                                           "sha256":  "9cc596ff88b7f1aa7afaaeddf8f9d8924b7b6ae23e3727426a86545a11bd31dd",
+                                                           "bytes":  2296
+                                                       },
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_finite500_queue_v2\\state.py"
+                              },
+                              {
+                                  "root_repository_relative_path":  "workflows/expansion/pubchem_c_finite500_queue_v2/test_state.py",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_finite500_queue_v2/test_state.py",
+                                                           "sha256":  "7d5858b291204146ccb5ec09bb6ab15a9e2e3dff5cc9a92ff1bcc5e5f95fb719",
+                                                           "bytes":  3508
+                                                       },
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_finite500_queue_v2\\test_state.py"
+                              },
+                              {
+                                  "root_repository_relative_path":  "workflows/expansion/pubchem_c_finite500_queue_v2/README.md",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_finite500_queue_v2/README.md",
+                                                           "sha256":  "efd2b4fc6e235b637f3fe5c303beb8d30ccaea8f464c05fa5396dad9939a1340",
+                                                           "bytes":  10837
+                                                       },
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_finite500_queue_v2\\README.md"
+                              },
+                              {
+                                  "root_repository_relative_path":  "workflows/expansion/pubchem_c_finite500_queue_v2/review_schema.json",
+                                  "target_reference":  {
+                                                           "path":  "/gfshome/alpha/codex_data_v1_20261026/code/pubchem_c_finite500_queue_v2/review_schema.json",
+                                                           "sha256":  "3228242aad9de3a51df4a19750b52c9ae784b98c08808f9de2e4f25dbbd43c92",
+                                                           "bytes":  4449
+                                                       },
+                                  "local_path":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\expansion\\pubchem_c_finite500_queue_v2\\review_schema.json"
+                              }
+                          ],
+    "actual_machine_correction_metadata_reference":  {
+                                                         "path":  "X:\\runs\\data_v1_20261025\\control\\secondary_cluster_20261026_v1\\alpha_short_followups_v1\\pubchem_C_freeze_actual_machine_pin_correction_v1.json",
+                                                         "sha256":  "858a84df76f3c089602af1d1352b034c17a6fee618fc4eb4fd40f22b5e4b7180",
+                                                         "bytes":  1637
+                                                     },
+    "actual_FREEZE_reference_from_machine_JSON":  {
+                                                      "bytes":  9775,
+                                                      "path":  "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_C_frozen_metadata_v1/freeze_receipt.json",
+                                                      "sha256":  "9bf78c8baaea5a8f75a5931221b8089755c698e3b6d514e5613b7b9010e124a5"
+                                                  },
+    "actual_SHA_is_64_lowercase_hex":  true,
+    "controller_inverse_full_text_equals_frozen_v1":  true,
+    "controller_declared_text_changes_only":  [
+                                                  "pubchem_c_finite500_queue_v1 namespace to v2",
+                                                  "FREEZE.sha256 exact actual_reference.sha256 taken programmatically from actual machine JSON"
+                                              ],
+    "byte_identical_files":  [
+                                 "__init__.py",
+                                 "state.py",
+                                 "review_schema.json"
+                             ],
+    "test_methods_still":  4,
+    "first_method_new_assertions":  [
+                                        "Root runner supplies test_state.MACHINE_PIN_REFERENCE actual JSON triple on either endpoint",
+                                        "Check actual small correction JSON bytes/SHA/schema",
+                                        "AST extract current source FREEZE.sha256:64hex and equals machine actual_reference.sha256"
+                                    ],
+    "new_test_uses_no_hardcoded_Main_or_Alpha_metadata_path":  true,
+    "README_changes":  [
+                           "modulev2",
+                           "actual new range review examplev2",
+                           "machine-supplied fixture reference instructions"
+                       ],
+    "state_logic_or_old_M_v13_science19_results_changed":  false,
+    "old_v1_bytes_changed":  false,
+    "prior_v1_4PASS_or_v1_context_rejection_rebranded_as_v2_PASS":  false,
+    "Python_AST_tests_body_IO_SSH_Slurm_Git_executed":  false,
+    "new_actual_CPU4_and_source_context_required":  true,
+    "new_Root_range_review_required":  true,
+    "new_jobs_or_scientific_claims_created":  false
+}

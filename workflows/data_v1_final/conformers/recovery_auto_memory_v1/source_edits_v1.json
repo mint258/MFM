@@ -1,0 +1,61 @@
+{
+    "schema":  "AUTO_MEMORY_RECOVERY_EXACT_SOURCE_EDITS_DRAFT_V1",
+    "baseline":  {
+                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/recovery_v1/run_recovery.py",
+                     "sha256":  "1f3b989c3766c6a3b6b2c3a82d292aeec5c1fd303732e2285f2d4c57d6f278ea",
+                     "bytes":  10654
+                 },
+    "variant_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/recovery_auto_memory_v1/run_recovery_auto.py",
+    "edits":  [
+                  {
+                      "before":  "from recovery_common import (IO,PARENT,MISSING,bind_inputs,generation_admit,load_plan,",
+                      "after":  "ORIGINAL_RECOVERY_DIR=Path(__file__).parent.parent/\u0027recovery_v1\u0027\nsys.path.insert(0,str(ORIGINAL_RECOVERY_DIR))\nfrom workflows.data_v1_final.conformers.recovery_auto_memory_v1.resource_runtime import (\n    generation_admit,RecoverySampler,memory_evidence_metadata,related_cost_lower_bound)\nfrom recovery_common import (IO,PARENT,MISSING,bind_inputs,load_plan,"
+                  },
+                  {
+                      "before":  "class RecoverySampler:\n    \"\"\"Stricter64G envelope around unchanged owned-process sampling; no signals.\"\"\"\n    def __init__(self,job,proof):\n        from live_memory_policy_32g_v1 import ProcSampler\n        real=re.search(r\u0027(?:^|\\s)RealMemory=(\\d+)(?:\\s|$)\u0027,proof[\u0027node_metadata\u0027])\n        self.limit=int(real[1])*1024**2\n        self.reserved=int(proof[\u0027committed_memory_mib\u0027]*1024**2)\n        self.old=ProcSampler(job,self.limit)\n    def __call__(self):\n        try:\n            row=self.old()\n            # The original24G RSS guard is deliberately retained as an extra\n            # conservative guard. This does not grant the old32G policy approval.\n            envelope=row[\u0027node_used_bytes\u0027]+self.reserved+64*1024**3\n            row.update(memory_basis=\u0027STRICT64G_DECLARED85_PLUS_LIVE_ENVELOPE_V1\u0027,\n                full_own_request_bytes=64*1024**3,positive_other_reservations_bytes=self.reserved,\n                original24G_RSS_guard_retained=True,\n                dispatch_allowed=row[\u0027dispatch_allowed\u0027] and envelope*100\u003c=row[\u0027capacity_bytes\u0027]*85)\n            return row\n        except Exception as exc:\n            return {\u0027dispatch_allowed\u0027:False,\u0027observed_epoch\u0027:time.time(),\n                \u0027observed_monotonic\u0027:time.monotonic(),\u0027metric_invalid\u0027:True,\n                \u0027memory_basis\u0027:\u0027STRICT64G_DECLARED85_PLUS_LIVE_ENVELOPE_V1\u0027,\u0027error\u0027:repr(exc)}\n\n",
+                      "after":  ""
+                  },
+                  {
+                      "before":  "    a=p.parse_args();value=load_plan(a.plan,approved=True)",
+                      "after":  "    p.add_argument(\u0027--resource-binding\u0027,type=Path,required=True)\n    a=p.parse_args();value=load_plan(a.plan,approved=True)"
+                  },
+                  {
+                      "before":  "    runtime,proof=generation_admit(a.plan,value,a.root_preflight,a.approval)",
+                      "after":  "    runtime,proof=generation_admit(a.plan,value,a.root_preflight,a.approval,\n        resource_binding_path=a.resource_binding,output=a.output)"
+                  },
+                  {
+                      "before":  "                observed_core_seconds=(time.monotonic()-started)*16\n                if not cost_gate_observed and 230800+observed_core_seconds\u003e1.5*230400:",
+                      "after":  "                observed_related_core_seconds=related_cost_lower_bound(proof)\n                if not cost_gate_observed and observed_related_core_seconds\u003e1.5*230400:"
+                  },
+                  {
+                      "before":  "{\u0027reason\u0027:\u0027ORIGINAL_PILOT_ACTUAL_COST_OVER1P5_ESTIMATE\u0027,\u0027stop_new_dispatch\u0027:True,",
+                      "after":  "{\u0027reason\u0027:\u0027ALL_RELATED_ACTUAL_COST_LOWER_BOUND_OVER_ORIGINAL_GATE\u0027,\u0027stop_new_dispatch\u0027:True,"
+                  },
+                  {
+                      "before":  "\u0027observed_generation_core_seconds_lower_bound\u0027:230800+observed_core_seconds}",
+                      "after":  "\u0027observed_all_related_core_seconds_lower_bound\u0027:observed_related_core_seconds}"
+                  },
+                  {
+                      "before":  "    save_gzip_new(out/\u0027memory_evidence.json.gz\u0027,{\u0027samples\u0027:monitor.samples,\n        \u0027first_denial\u0027:monitor.first_denial,\u0027memory_basis\u0027:\u0027STRICT64G_DECLARED85_PLUS_LIVE_ENVELOPE_V1\u0027,\n        \u0027old32G_approval_reused\u0027:False,\u0027extra_original_RSS_guard_bytes\u0027:24*1024**3})",
+                      "after":  "    save_gzip_new(out/\u0027memory_evidence.json.gz\u0027,memory_evidence_metadata(monitor))"
+                  },
+                  {
+                      "before":  "        \u0027root_preflight\u0027:IO.reference(a.root_preflight),\u0027partial_audit_report\u0027:value[\u0027partial_audit_report\u0027],",
+                      "after":  "        \u0027root_preflight\u0027:IO.reference(a.root_preflight),\u0027partial_audit_report\u0027:value[\u0027partial_audit_report\u0027],\n        \u0027resource_binding_reference\u0027:IO.reference(a.resource_binding),\n        \u0027memory_policy\u0027:\u0027SLURM_DEFAULT_UNSPECIFIED\u0027,\u0027slurm_memory_requested\u0027:False,"
+                  },
+                  {
+                      "before":  "\"\"\"Unsubmitted strict64G replay of two missing tasks and fourteen controls.\"\"\"",
+                      "after":  "\"\"\"CPU16 replay of original two missing tasks and fourteen controls; Slurm memory omitted.\"\"\""
+                  },
+                  {
+                      "before":  "require(monitor.allow_dispatch(),\u0027STRICT_GENERATION_MEMORY_ADMISSION_DENIED\u0027)",
+                      "after":  "require(monitor.allow_dispatch(),\u0027ALGORITHM_SOFT_MEMORY_DISPATCH_GUARD_DENIED\u0027)"
+                  }
+              ],
+    "status":  "DRAFT_SOURCE_ONLY_NOT_RUN",
+    "variant":  {
+                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/recovery_auto_memory_v1/run_recovery_auto.py",
+                    "bytes":  9707,
+                    "sha256":  "541d733c0f00058b6da418454df13bc080ceae68155e9fc7f8395b0b2c2ffbc5"
+                }
+}

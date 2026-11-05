@@ -1,0 +1,229 @@
+{
+    "schema":  "LOSSLESS_PROJECTION_SOURCE_REUSE_OBSERVATION_V1",
+    "status":  "FROZEN_SOURCES_BYTE_UNCHANGED",
+    "scientific_functions_copied_or_modified":  [
+
+                                                ],
+    "scientific_functions_called_directly":  [
+                                                 "payload_audit_v1.run.source_columns",
+                                                 "payload_audit_v1.payload.evaluate",
+                                                 "legacy common.decode_cell/component_values/task_components",
+                                                 "legacy pilot_masks.source_value_mask/add_cross_field_checks",
+                                                 "streaming_v1.compact.encode"
+                                             ],
+    "new_implementation":  [
+                               "typed cache encoding and signatures",
+                               "original Arrow buffer float-width/bit observation",
+                               "ordered component path proof at runtime",
+                               "new sink/readback/resource and metadata wrapper"
+                           ],
+    "whole_new_AST_equivalence_claimed":  false,
+    "original_sources_unchanged_by_actual_byte_hash":  [
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/common.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\common.py",
+                                                               "expected_sha256":  "1506eaa6596c63a82dbcbbe8e1a58ecb73b01fa5f6cb846b7ecf881c42c2b364",
+                                                               "observed_sha256":  "1506eaa6596c63a82dbcbbe8e1a58ecb73b01fa5f6cb846b7ecf881c42c2b364",
+                                                               "bytes":  9925,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/pilot_masks.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\pilot_masks.py",
+                                                               "expected_sha256":  "3338fd8b3d0617b2bcdaaf1d5577991f19e76aa7d8f8009d10bf2deee7466859",
+                                                               "observed_sha256":  "3338fd8b3d0617b2bcdaaf1d5577991f19e76aa7d8f8009d10bf2deee7466859",
+                                                               "bytes":  12295,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/payload_audit_v1/materialize.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\payload_audit_v1\\materialize.py",
+                                                               "expected_sha256":  "0bb164dfb236cd4fbfb370ebf560b89084bca495ffb3d8488500ff48e83e6bf7",
+                                                               "observed_sha256":  "0bb164dfb236cd4fbfb370ebf560b89084bca495ffb3d8488500ff48e83e6bf7",
+                                                               "bytes":  12706,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/payload_audit_v1/run.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\payload_audit_v1\\run.py",
+                                                               "expected_sha256":  "566b76bddf4be8cae45fb0c82e818f1bfb283703076b2ed1fd3a737e00fe9d08",
+                                                               "observed_sha256":  "566b76bddf4be8cae45fb0c82e818f1bfb283703076b2ed1fd3a737e00fe9d08",
+                                                               "bytes":  22273,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/payload_audit_v1/payload.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\payload_audit_v1\\payload.py",
+                                                               "expected_sha256":  "5f29b355abe5f5eed9de9c570cc2844c4bf394c1408e3ae302bef0e8e222bb0d",
+                                                               "observed_sha256":  "5f29b355abe5f5eed9de9c570cc2844c4bf394c1408e3ae302bef0e8e222bb0d",
+                                                               "bytes":  7834,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/payload_audit_v1/reduce.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\payload_audit_v1\\reduce.py",
+                                                               "expected_sha256":  "dc7b2a3f3084089155edb8639cb69ec5979a2f65235aa33e8bee87834da14ae6",
+                                                               "observed_sha256":  "dc7b2a3f3084089155edb8639cb69ec5979a2f65235aa33e8bee87834da14ae6",
+                                                               "bytes":  6520,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/size_semantics_v1/size_reader.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\size_semantics_v1\\size_reader.py",
+                                                               "expected_sha256":  "b7c08af2fa70ab90114257472626d208b6b16afb3b84a6e65b0efd97d1d1ee26",
+                                                               "observed_sha256":  "b7c08af2fa70ab90114257472626d208b6b16afb3b84a6e65b0efd97d1d1ee26",
+                                                               "bytes":  4624,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/size_semantics_v1/aggregate.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\size_semantics_v1\\aggregate.py",
+                                                               "expected_sha256":  "7c3ce2fba03c4d72419dba9094814c09ba2bb9929f9ac904ac4de2930d6a95c0",
+                                                               "observed_sha256":  "7c3ce2fba03c4d72419dba9094814c09ba2bb9929f9ac904ac4de2930d6a95c0",
+                                                               "bytes":  6604,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/normalization_v1/reader.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\normalization_v1\\reader.py",
+                                                               "expected_sha256":  "2f3a16b2feb1c700a589e43f8112be7468ccee85c0670695fb5dede6ceecaef9",
+                                                               "observed_sha256":  "2f3a16b2feb1c700a589e43f8112be7468ccee85c0670695fb5dede6ceecaef9",
+                                                               "bytes":  8203,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/normalization_v1/authority.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\normalization_v1\\authority.py",
+                                                               "expected_sha256":  "7ffc0df6375401aa2ac44196cea2d2efa6cc55ce5e617277678c5430e1d90ea3",
+                                                               "observed_sha256":  "7ffc0df6375401aa2ac44196cea2d2efa6cc55ce5e617277678c5430e1d90ea3",
+                                                               "bytes":  10703,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/normalization_v1/sources.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\normalization_v1\\sources.py",
+                                                               "expected_sha256":  "eaf4db178fcd2f1e3643299cb0bf1db7debbb18879362c165f6743704bb34c1e",
+                                                               "observed_sha256":  "eaf4db178fcd2f1e3643299cb0bf1db7debbb18879362c165f6743704bb34c1e",
+                                                               "bytes":  11220,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/normalization_v1/run.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\normalization_v1\\run.py",
+                                                               "expected_sha256":  "2f67797d84b47dcda1871c7980d1a61ed89b6b415ee5d96a9ce09e29607f14df",
+                                                               "observed_sha256":  "2f67797d84b47dcda1871c7980d1a61ed89b6b415ee5d96a9ce09e29607f14df",
+                                                               "bytes":  13814,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/normalization_v1/runtime.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\normalization_v1\\runtime.py",
+                                                               "expected_sha256":  "7352a1a471557f2b2832023d91b309e09d2bcca8b875a6f82e3d4fc701d26238",
+                                                               "observed_sha256":  "7352a1a471557f2b2832023d91b309e09d2bcca8b875a6f82e3d4fc701d26238",
+                                                               "bytes":  3100,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/normalization_cpu_v2/runtime.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\normalization_cpu_v2\\runtime.py",
+                                                               "expected_sha256":  "ccea83e1a0d800ca5816d029fe24a86ac631e6fce5a1f3ad222afefdd805c940",
+                                                               "observed_sha256":  "ccea83e1a0d800ca5816d029fe24a86ac631e6fce5a1f3ad222afefdd805c940",
+                                                               "bytes":  3104,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/streaming_v1/prepare.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\streaming_v1\\prepare.py",
+                                                               "expected_sha256":  "af7d1ae9a4b03c4e37c5b973a09ac22d0c49929179b2bbaa0bb5697eba0d5ce8",
+                                                               "observed_sha256":  "af7d1ae9a4b03c4e37c5b973a09ac22d0c49929179b2bbaa0bb5697eba0d5ce8",
+                                                               "bytes":  11151,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/ea_cpu_v2/bounded_probe_v4.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\ea_cpu_v2\\bounded_probe_v4.py",
+                                                               "expected_sha256":  "f3ee7f60e8269db9fd4c9816089599ab0918797ed547719fb2bdd7c08868a338",
+                                                               "observed_sha256":  "f3ee7f60e8269db9fd4c9816089599ab0918797ed547719fb2bdd7c08868a338",
+                                                               "bytes":  29399,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/source_status_cpu_auto_memory_v1/support.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\source_status_cpu_auto_memory_v1\\support.py",
+                                                               "expected_sha256":  "9445c8cbddb59ee83b4c82d7d7e53168663fb612f2e5724f216cae4bdd517ac4",
+                                                               "observed_sha256":  "9445c8cbddb59ee83b4c82d7d7e53168663fb612f2e5724f216cae4bdd517ac4",
+                                                               "bytes":  7827,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/source_status_cpu_auto_memory_v1/resource_runtime.py",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\source_status_cpu_auto_memory_v1\\resource_runtime.py",
+                                                               "expected_sha256":  "615770935cc5f6a2ebe11beb71a2c8d4b17f55f85cd6e124b46e1a6a690d4c96",
+                                                               "observed_sha256":  "615770935cc5f6a2ebe11beb71a2c8d4b17f55f85cd6e124b46e1a6a690d4c96",
+                                                               "bytes":  9256,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "configs/data_v1/label_registry_v3.json",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\configs\\data_v1\\label_registry_v3.json",
+                                                               "expected_sha256":  "b6a230b74b5bebfa0108e67572ed2ccc699718c2958fb69e99c58b8323c6ce45",
+                                                               "observed_sha256":  "b6a230b74b5bebfa0108e67572ed2ccc699718c2958fb69e99c58b8323c6ce45",
+                                                               "bytes":  585411,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "configs/data_v1/labels/normalization_v1.json",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\configs\\data_v1\\labels\\normalization_v1.json",
+                                                               "expected_sha256":  "d25a18b30af367619a361feea79adb4cec2f3387c5146c2f750f055a1966abd7",
+                                                               "observed_sha256":  "d25a18b30af367619a361feea79adb4cec2f3387c5146c2f750f055a1966abd7",
+                                                               "bytes":  1591,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  "workflows/data_v1_final/labels/size_semantics_v1/PROPOSAL.md",
+                                                               "observed_path":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\labels\\size_semantics_v1\\PROPOSAL.md",
+                                                               "expected_sha256":  "e46049ea432150cb3564fbe96fbacccf7e4931f79eefa8b3fdeddec314c7cbcd",
+                                                               "observed_sha256":  "e46049ea432150cb3564fbe96fbacccf7e4931f79eefa8b3fdeddec314c7cbcd",
+                                                               "bytes":  14795,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  null,
+                                                               "observed_path":  "X:\\runs\\phase1_dataset_rebuild_20261010\\scripts\\wp4_parsers.py",
+                                                               "expected_sha256":  "66938afa8d3d7b7f51e8922c875c0987687a865a97cb1591d6f6c511b38098e0",
+                                                               "observed_sha256":  "66938afa8d3d7b7f51e8922c875c0987687a865a97cb1591d6f6c511b38098e0",
+                                                               "bytes":  20763,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  null,
+                                                               "observed_path":  "X:\\runs\\phase1_wp5_20261011\\scripts\\wp5_parser.py",
+                                                               "expected_sha256":  "aafa3c2808ccfa3a6bcea49f9807563351f0252e5e9f7cd57d86e40ddc291aa3",
+                                                               "observed_sha256":  "aafa3c2808ccfa3a6bcea49f9807563351f0252e5e9f7cd57d86e40ddc291aa3",
+                                                               "bytes":  7795,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  null,
+                                                               "observed_path":  "X:\\runs\\phase1_wp5_20261011\\scripts\\wp5_parquet_v2.py",
+                                                               "expected_sha256":  "2864d129336d597ac224d494547143fac35591b6cdcaff6b4520a094fef6c6cd",
+                                                               "observed_sha256":  "2864d129336d597ac224d494547143fac35591b6cdcaff6b4520a094fef6c6cd",
+                                                               "bytes":  11543,
+                                                               "unchanged":  true
+                                                           },
+                                                           {
+                                                               "root_relative_path":  null,
+                                                               "observed_path":  "X:\\runs\\phase1_wp5_20261011\\configs\\protocol.json",
+                                                               "expected_sha256":  "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc",
+                                                               "observed_sha256":  "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc",
+                                                               "bytes":  18720,
+                                                               "unchanged":  true
+                                                           }
+                                                       ],
+    "errors":  [
+
+               ],
+    "python_AST_tests_or_scientific_execution_performed":  false,
+    "scientific_body_read":  false,
+    "source_only_review_not_actual_pilot":  true
+}

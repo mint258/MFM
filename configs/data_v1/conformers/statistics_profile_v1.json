@@ -1,0 +1,42 @@
+{
+  "schema": "DATA_V1_D7_PROFILE_V1",
+  "mode": "bounded_readonly_profile_not_population_completion",
+  "molecules": 256,
+  "workers": 16,
+  "max_owner_jobs": 16,
+  "selection_seed": 2026102507,
+  "order_seed": 20261025,
+  "rmsd_A": 0.5,
+  "external_output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/conformers/statistics_v1",
+  "max_output_bytes": 1073741824,
+  "quota_reserve_bytes": 200000000000,
+  "formal_source_receipt": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/input_pins/x_regression_inputs_v1.json",
+  "owner_receipt": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/owner_prepared_v1/owner_receipt.json",
+  "projection_receipt": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/sb3_catalog_projection_v1/projection_receipt.json",
+  "per_molecule": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/tables/s_sprime_per_molecule_v4.parquet",
+  "sprime_manifest": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/dataset/manifest.json",
+  "small_authority_pins": [
+    {"path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/input_pins/x_regression_inputs_v1.json", "bytes": 3485, "sha256": "3b2a91fa4ed0b3fe0cccfda74671db96d5620b7d9c92f61c20f951c371965ac9"},
+    {"path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/owner_prepared_v1/owner_receipt.json", "bytes": 9941, "sha256": "956515adb25e207540ed5a17d318f1c80ddee565225ab193864302b3eed21c3e"},
+    {"path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/sb3_catalog_projection_v1/projection_receipt.json", "bytes": 1189, "sha256": "36cd80930322c9629f8687734aa6f918d28063ba825fa300c5eea0c3c197f3f0"},
+    {"path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/dataset/manifest.json", "bytes": 11430, "sha256": "a67e36e4fb1203f7fb72074abad3614bef6cd0e34140a38088f2492005912e01"}
+  ],
+  "metadata_data_pins": [
+    {"path": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/tables/s_sprime_per_molecule_v4.parquet", "bytes": 5650950, "sha256": "9b53e4611c5a3f199f785c8c201aa56ce76f559e3c81ccf10d1819624e03e354"}
+  ],
+  "science_source_pins": [
+    {"path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/sprime_v6.py", "bytes": 20644, "sha256": "d6f1d29a6de673a1faf186e095c4fef7534a81022a09a4840ec65e5d8fa424d3"},
+    {"path": "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/prepare.py", "bytes": 6040, "sha256": "4b10dc5c0c2c1f3c42250ca1c8541c43661ada301484f92a6ce7bfce512f4a10"}
+  ],
+  "history_search_files": [
+    "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/github_checkout/legacy/descriptor/dataset/build_lmdb.py",
+    "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/github_checkout/workflows/dataset_rebuild/scripts/wp0_inventory.py",
+    "/share/home/zixiao/descriptor_analysis/modern_ML_representation/support_scripts/MFM_descriptor/dataset/build_lmdb.py",
+    "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/prepare.py",
+    "/share/home/zixiao/descriptor_analysis/runs/sprime_s_convergence_20261013/scripts/full_dataset_v7.py"
+  ],
+  "population_scope": "Original source TRAIN/FULL; final common-population statistics wait for frozen TRAIN plus ROUTINE VAL roles",
+  "hof_policy": "canonical pm7_B registry60 kind1 finite f64 kcal/mol, complete owner identity and lane/atom count; converged False invalid, NULL retained with review flag",
+  "unique_count_order": "Greedy 0.5A dedup in fixed-random order for both geometries; do not silently use different orders",
+  "prohibited_operations": ["embedding", "UFF optimization", "quantum chemistry", "source writes", "new LMDB", "automatic Slurm submission"]
+}

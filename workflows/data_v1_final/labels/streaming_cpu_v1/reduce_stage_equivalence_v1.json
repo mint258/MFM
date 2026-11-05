@@ -1,0 +1,19 @@
+{
+    "schema":  "CPU_REDUCER_EXPLICIT_WALL_CONTROL_BINDING_V1",
+    "status":  "SOURCE_PREPARED_EXACT_ONE_EDIT_INVERSE_BYTES_EQUAL_STATIC_PENDING_ROOT",
+    "old_reference":  {
+                          "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_cpu_v1/reduce.py",
+                          "bytes":  13887,
+                          "sha256":  "fa5f2867887bcd0948180080bb35fa0faa3367b88cdd4d23fcdbf024d7db3ce8"
+                      },
+    "prepared_variant_reference":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/sb3/workflows/data_v1_final/labels/streaming_cpu_v1/reduce_stage_v1.py",
+                                       "bytes":  13892,
+                                       "sha256":  "725795c9375cb27dc69e3fbdb8d90f6a53ae7a99c5a26b300bdec5dcb71e08f3"
+                                   },
+    "old":  "root_guard(a.root_preflight,a.scan_manifest,cfg[\"reduce_output_cap_bytes\"])",
+    "new":  "root_guard(a.root_preflight,a.scan_manifest,cfg[\"reduce_output_cap_bytes\"],7200)",
+    "reverse_edit_original_utf8_bytes_equal":  true,
+    "science_memory_threshold_or_statistics_changed":  false,
+    "reason":  "Central label_canonical_512 scope builder uses7200s; default frozen reducer guard3600 rejects it. Only explicit approved resource wall_limit7200 added, no change to old10files or central runtime."
+}
