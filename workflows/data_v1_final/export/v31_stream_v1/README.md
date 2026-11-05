@@ -224,3 +224,84 @@ compaction has its own checkpoint stage. Original science, seed/order, target
 arrays, masks, F64 cast and single producer-end QA remain unchanged. The only
 new `test_block_checkpoint` fixture uses tiny owned LMDB/ID metadata and mocked
 source jobs/compaction/QA, including an interrupted MID and interrupted compact.
+
+Optional shared external IDmap: `id_map_storage="external_symlink"` retains the
+single closed ID Parquet in the central NFS output root; the Lustre split's
+`id_map.parquet` is an absolute symlink, so ordinary relative-path readers keep
+working. Manifest `id_map_physical_paths` states its actual shared location.
+The target's original bytes/schema/identity order are unchanged. After the
+merged IDmap and raw_closed checkpoint are durable, registered fresh input
+ID fragments are consumed and reclaimed; unknown/partial files are preserved.
+
+Optional TRAIN compact streaming uses `chunk_compaction` with `enabled=true`,
+`splits=["TRAIN"]` (default), `chunk_bytes` (default 4 GiB), and `targets`.
+Each target supplies `directory` and positive `capacity_bytes`; remote targets
+also supply `node`, `repository`, `python`, and `guard_plan`. Targets are storage
+allocations, not scientific thresholds. Their combined admitted capacity must
+cover the actual closed raw data.mdb file-size upper bound; descriptive pilot
+means are never used as a hard bound. All target paths must be covered by an
+actual-node disk_guard plan with system/site/concurrent/quota reserves. NFS or
+Lustre targets visible on the producer omit node. A node20/node21 local target
+always uses its actual guarded SSH receiver, never the producer's /tmp. SSH
+retains stdin, receiver admission validates a clean JSON protocol before any
+stream begins, and each receiver checks its own statvfs/quota before writes.
+No new Slurm allocation, undrain or model-node LMDB distribution is introduced.
+
+The original installed LMDB0.9.31 `mdb_copy -c SOURCE` emits one compact stream
+to stdout when destination is omitted. That single stream is split into exact
+ordered binary chunks with one-MiB memory buffering, no compression/hash or
+scientific interpretation. Each chunk closes by fsync and atomic rename; only
+path/bytes/ordinal/target checkpoint metadata is recorded. Disk pressure blocks
+the sink; pipe backpressure keeps the same compact process alive without more
+writes. CHUNKS_CLOSED requires every chunk plus the one mdb_copy process C0.
+Only then may the checkpoint-owned fresh raw LMDB be consumed/reclaimed.
+Concatenation writes one actual final data.mdb, checkpointing/fsyncing per chunk.
+Cold continuation truncates only its uncheckpointed output tail and resumes at
+the next chunk, without repeating compact or QA. COMPLETE then allows normal
+lifecycle cleanup of only that attempt's private temporary chunks. Final TRAIN
+and FULL still each have exactly one shared LMDB; schema/checkpoints may stay
+on NFS while compact_roots point to Lustre.
+
+A dead mid-stream compact prefix is INCOMPLETE, not CHUNKS_CLOSED. Raw and all
+partial/closed chunks are preserved. No new attempt is automatically launched.
+Root may select ordinary failed-attempt recovery after confirming the exact
+old PID/attempt is dead and raw is still closed, using
+`recover_incomplete_attempt={"attempt":OLD_TOKEN,"confirmed_old_pid_dead":true}`
+after renewed target admission. Existing complete chunks/concat are always
+reused and never re-compacted. Earlier failed attempt metadata/chunks remain
+preserved. This is an execution recovery, not a scientific change.
+
+Limited shared quota targets may use `quota_available_reference`,
+`quota_expected_uid`, `quota_expected_filesystem` and `quota_max_age_seconds`
+(at most five) instead of quota_probe_argv. Every check validates the fresh
+small snapshot through quota_snapshot.read_available; unknown/stale/future or
+identity mismatch waits fail-closed. Mount inspection first triggers autofs,
+then requires exactly one matching non-autofs actual filesystem/device.
+
+The only new `test_chunk_compaction` fixture uses toy bytes, fake SSH/mdb_copy,
+concat interruption and tiny external-ID metadata. It adds no dataset QA or
+numeric replay; already passed guard/block suites need not be repeated.
+
+Checkpoint I/O uses owned append-only `producer_seen_journal.bin` and
+`producer_samples_journal.bin` ledgers. Only new MID strings and dirty sample
+append/replacement events are serialized, with framed protocol5 payloads that
+preserve the existing F32 array bytes. In-memory seen/sample algorithms, RNG,
+source order and the chosen 1000 physical sample keys are unchanged. The main
+checkpoint stores closed byte offsets, event counts and set/list counts instead
+of repeatedly storing the entire seen set and every sampled array. A checkpoint
+with no dirty events appends no ledger bytes. This avoids rewriting stable
+sample payloads and the growing full MID set at every source-block boundary.
+
+Closure remains LMDB.sync -> ID fragment closed -> both journal fsyncs -> atomic
+checkpoint -> acknowledgement -> spool-reader close/unlink. Cold continuation
+reconstructs the in-memory set and sample slots from only closed journal prefixes
+and truncates only those owned ledgers' uncheckpointed tails. It reopens no
+numerical source, recasts no target, and performs no QM/D3/QA. Existing legacy
+checkpoints with full seen/samples are migrated once from their already loaded
+objects into fresh ledgers, then atomically published with journal references;
+legacy or unrelated journal files are never adopted or overwritten. The sole
+new test_state_journal fixture covers dirty replacements, append-only prefixes,
+truncated tail recovery, legacy migration and tiny writer cold continuation.
+Previously passed chunk/guard/block fixtures are not rerun for this change.
+
+Root executed only the new chunk/external-ID fixture (1 PASS, 1.604s) and dirty-state journal fixture (1 PASS, 6.096s) once successfully in the production Python environment. Prior guard/block fixtures are not repeated. Actual D6 data writes remain unadmitted pending closed producer sizes and combined storage budgets.

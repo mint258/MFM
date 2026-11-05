@@ -70,3 +70,16 @@ class IDFragments:
             if writer.rows!=self.rows:raise ValueError('ID_FRAGMENT_ROW_COUNTS_DIFFER')
         finally:writer.close()
         return path
+
+
+def consume_id_fragments(active):
+    """The merged IDmap is closed/checkpointed; only its owned inputs expire."""
+    path=P(active['idpath'])
+    if not path.is_file() or path.stat().st_size!=active['idmap_file_bytes']:raise ValueError('CLOSED_MERGED_IDMAP_REQUIRED_FOR_FRAGMENT_LIFECYCLE')
+    root=P(active['fragment_root']).resolve()
+    for ref in active['id_fragments']:
+        fragment=P(ref['path'])
+        if fragment.parent.resolve()!=root or fragment.is_symlink():raise ValueError('ONLY_OWNED_ID_FRAGMENT_INPUTS_MAY_EXPIRE')
+        if fragment.exists():
+            if fragment.stat().st_size!=ref['bytes']:raise ValueError('ID_FRAGMENT_CHANGED_BEFORE_LIFECYCLE_END')
+            fragment.unlink()

@@ -4,7 +4,8 @@ import numpy as np
 from ..pilot_v31_compact_v1.codec import encode,decode,encode_key
 from ..pilot_v31_compact_v1.run import Writer,IDMap,identity_row,compact_once,load,save
 from .disk_guard import from_plan
-from .block_checkpoint import BlockWriter,IDFragments
+from .block_checkpoint import BlockWriter,IDFragments,consume_id_fragments
+from .state_journal import Journals
 
 P=pathlib.Path
 
@@ -117,22 +118,30 @@ def export(plan,molecules,schema):
     schema['U_contains_original_Pprime_labels']=True
     schema['r73_channel_codebook']=['__ABSENT__'];codes={}
     indices=collections.Counter();counts=collections.Counter();seen=set();samples=[];conformers=0
-    rng=random.Random(plan['sample_seed']);start=time.monotonic();roots={};files=[];scratch_cleanup=[];storage={};active=None
+    rng=random.Random(plan['sample_seed']);start=time.monotonic();roots={};files=[];scratch_cleanup=[];storage={};active=None;idmaps={};journals=None
     def save_checkpoint():
-        value={'plan':plan,'schema':schema,'indices':indices,'counts':counts,'seen':seen,'samples':samples,'conformers':conformers,'roots':roots,'files':files,'scratch_cleanup':scratch_cleanup,'storage':storage,'active':active,'rng_state':rng.getstate()}
+        journal_state=journals.flush(len(seen),len(samples))
+        value={'plan':plan,'schema':schema,'indices':indices,'counts':counts,'journal_state':journal_state,'conformers':conformers,'roots':roots,'files':files,'scratch_cleanup':scratch_cleanup,'storage':storage,'active':active,'rng_state':rng.getstate(),'id_map_physical_paths':idmaps}
         if guard:guard.wait(root,inodes_needed=2)
         pending=checkpoint.with_suffix('.writing')
-        with pending.open('wb') as target:pickle.dump(value,target,protocol=5)
+        with pending.open('wb') as target:
+            pickle.dump(value,target,protocol=5);target.flush();os.fsync(target.fileno())
         os.replace(pending,checkpoint)
     if resume:
         with checkpoint.open('rb') as source:state=pickle.load(source)
-        frozen=lambda p:{k:v for k,v in p.items() if k not in ('disk_protection','streaming_buffer_blocks','workers','metadata_working_root')}
+        frozen=lambda p:{k:v for k,v in p.items() if k not in ('disk_protection','streaming_buffer_blocks','workers','metadata_working_root','chunk_compaction','id_map_storage')}
         if frozen(state['plan'])!=frozen(plan):raise ValueError('RESUME_FROZEN_PRODUCER_INPUTS_CHANGED')
-        schema=state['schema'];indices=state['indices'];counts=state['counts'];seen=state['seen'];samples=state['samples'];conformers=state['conformers']
+        schema=state['schema'];indices=state['indices'];counts=state['counts'];conformers=state['conformers']
+        if 'journal_state' in state:journals,seen,samples=Journals.restore(root,state['journal_state'],guard)
+        else:
+            seen=state['seen'];samples=state['samples'];journals=Journals.migrate(root,seen,samples,guard)
         roots=state['roots'];files=state['files'];scratch_cleanup=state['scratch_cleanup'];storage=state['storage']
+        idmaps=state.get('id_map_physical_paths',{})
         active=state.get('active');rng.setstate(state.get('rng_state',rng.getstate()))
         codes={word:i for i,word in enumerate(schema['r73_channel_codebook']) if i}
-    else:save_checkpoint()
+        if 'journal_state' not in state:save_checkpoint()
+    else:
+        journals=Journals(root,guard);save_checkpoint()
     if not isinstance(molecules,dict):raise ValueError('SEQUENTIAL_SOURCE_REQUIRES_SPLIT_ITERATOR_FACTORIES')
     for split in ('TRAIN','FULL'):
         if split in roots:continue
@@ -168,7 +177,7 @@ def export(plan,molecules,schema):
                     mid=item['mid'];actual,routine=split_role(item['role']);routine=bool(item.get('routine',routine))
                     if actual!=split:raise ValueError('SOURCE_SPLIT_ALIGNMENT:'+mid)
                     if mid in seen:raise ValueError('DUPLICATE_FINAL_MOLECULE:'+mid)
-                    seen.add(mid);mi=indices[split];indices[split]+=1
+                    seen.add(mid);journals.mark_seen(mid);mi=indices[split];indices[split]+=1
                     arrays=item['m_arrays'];arrays[5]=np.asarray(0 if split=='TRAIN'else 2,dtype='u1')
                     arrays[15]=np.asarray(routine,dtype='u1');arrays[16]=np.asarray(bool(item['common_population']),dtype='u1')
                     p_records=item['p_records'];u_records=item['u_records']
@@ -187,6 +196,7 @@ def export(plan,molecules,schema):
                                 entry=(split,encode_key(kind,mi,ci),{k:v.copy() for k,v in body.items()},encode_key('M',mi),{k:v.copy() for k,v in arrays.items()},note)
                                 if replace==len(samples):samples.append(entry)
                                 else:samples[replace]=entry
+                                journals.sample(replace,entry)
                             counts[split+'_'+kind]+=1
                     if guard:
                         guard.wait(work,sum(len(raw) for *_,raw in encoded),2)
@@ -208,21 +218,55 @@ def export(plan,molecules,schema):
                 key=split+'_'+kind
                 if counts[key]!=plan['expected_conformers'][key]:raise ValueError('FINAL_CONFORMER_COUNTS_DIFFERS:'+key)
             if guard:guard.wait(idpath,inodes_needed=2)
-            idpath=table.finish(idpath);active['idpath']=str(idpath)
+            idpath=table.finish(idpath);active['idpath']=str(idpath);active['idmap_file_bytes']=idpath.stat().st_size
             active['work_bytes']=sum(p.stat().st_size for p in work.iterdir() if p.is_file())
             active['phase']='raw_closed';save_checkpoint()
+        if active['phase']=='raw_closed' and not active.get('id_fragments_consumed'):
+            consume_id_fragments(active);active['id_fragments_consumed']=True;save_checkpoint()
         if active['phase']=='raw_closed':
-            attempt=0;original_final=final
-            while final.exists():attempt+=1;final=original_final.with_name(original_final.name+'_compact_attempt_%03d'%attempt)
-            active['final']=str(final);save_checkpoint()
-            if guard:
-                guard.wait(final,active['work_bytes'],4);final.mkdir(exist_ok=False)
-                binary=shutil.which('mdb_copy') or '/share/apps/softwares/anaconda3/bin/mdb_copy'
-                guard.run([binary,'-c',str(work),str(final)],final)
-            else:compact_once(work,final)
+            chunked=bool(plan.get('chunk_compaction',{}).get('enabled')) and split in plan['chunk_compaction'].get('splits',['TRAIN'])
+            if 'chunk_catalog' not in active:
+                attempt=0;original_final=final
+                while final.exists():attempt+=1;final=original_final.with_name(original_final.name+'_compact_attempt_%03d'%attempt)
+                active['final']=str(final)
+                if chunked:active['chunk_catalog']=str(root/(work.name+'_compact_chunks.json'))
+                save_checkpoint()
+            if chunked or 'chunk_catalog' in active:
+                from . import chunk_compaction as chunks
+                if guard is None:raise ValueError('CHUNK_COMPACTION_REQUIRES_ACTUAL_DISK_GUARD')
+                chunks.compact(plan,work,active['chunk_catalog'],guard)
+                active['phase']='chunks_closed';save_checkpoint()
+            else:
+                if guard:
+                    guard.wait(final,active['work_bytes'],4);final.mkdir(exist_ok=False)
+                    binary=shutil.which('mdb_copy') or '/share/apps/softwares/anaconda3/bin/mdb_copy'
+                    guard.run([binary,'-c',str(work),str(final)],final)
+                else:compact_once(work,final)
+                active['phase']='compacted';save_checkpoint()
+        if active['phase']=='chunks_closed':
+            from . import chunk_compaction as chunks
+            catalog=chunks.read(active['chunk_catalog'])
+            if catalog['phase'] not in ('CHUNKS_CLOSED','CONCATENATING','COMPLETE') or catalog['source']!=str(work):raise ValueError('FULL_C0_CHUNKS_REQUIRED_BEFORE_RAW_LIFECYCLE')
+            if work.exists():shutil.rmtree(work) # only this checkpoint-owned fresh raw, all chunks C0
+            active['raw_reclaimed_after_chunks_C0']=True;save_checkpoint()
+            chunks.concatenate(active['chunk_catalog'],final/'data.mdb',guard)
             active['phase']='compacted';save_checkpoint()
+        if active['phase']=='compacted' and active.get('chunk_catalog'):
+            from . import chunk_compaction as chunks
+            if not chunks.read(active['chunk_catalog']).get('chunks_consumed'):chunks.cleanup(active['chunk_catalog'],guard)
         if active['phase']!='compacted':raise ValueError('UNKNOWN_OWNED_WRITER_PHASE')
-        if idpath.is_file():
+        if plan.get('id_map_storage','in_split')=='external_symlink':
+            if not idpath.is_file():raise ValueError('CLOSED_EXTERNAL_IDMAP_MISSING')
+            link=final/'id_map.parquet';physical=str(idpath.resolve())
+            if link.is_symlink():
+                if os.readlink(link)!=physical:raise ValueError('EXISTING_IDMAP_LINK_TARGET_DIFFERS')
+            elif link.exists():raise ValueError('EXTERNAL_IDMAP_MUST_NOT_OVERWRITE_EXISTING_FILE')
+            else:
+                if guard:guard.wait(link,inodes_needed=2)
+                os.symlink(physical,link)
+            idmaps[split]=physical
+        elif plan.get('id_map_storage','in_split')!='in_split':raise ValueError('UNKNOWN_IDMAP_STORAGE_MODE')
+        elif idpath.is_file():
             if guard:
                 guard.wait(final,idpath.stat().st_size,2)
                 if idpath.stat().st_dev==final.stat().st_dev:os.replace(idpath,final/'id_map.parquet')
@@ -245,7 +289,7 @@ def export(plan,molecules,schema):
     save(root/'schema.json',schema)
     path=root/'schema.json';files.append({'path':str(path),'bytes':path.stat().st_size,'records':1})
     manifest={'format':'v3.1/MFM4','data_version':plan['data_version'],'molecules':dict(indices),'conformers':dict(counts),
-        'files':files,'split_roots':{s:str(p) for s,p in roots.items()},'storage':storage,'scratch_cleanup':scratch_cleanup,
+        'files':files,'split_roots':{s:str(p) for s,p in roots.items()},'id_map_physical_paths':idmaps,'storage':storage,'scratch_cleanup':scratch_cleanup,
         'producer_end_check':check,'normalization_by_source_condition':schema.get('normalization_by_source_condition'),
         'normalization_condition_contract':schema.get('normalization_condition_contract'),'normalization_applied':False,'export_seconds':time.monotonic()-start,'new_F64_copies':False,'new_content_hashes':False,
         'compact_copies_per_split':1,'full_source_dependencies':plan.get('source_dependencies',{})}
