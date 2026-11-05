@@ -218,3 +218,7 @@ S′恢复4521110仍按原2 missing +14 controls执行；不根据已完成14个
 
 
 2026-11-05 B2正式冻结：用户已批准r73同对称性分块，sigma-sigma求和为sigma、pi-pi求和为pi，mixed/delta不纳入这两列，原始r73完整保留。训练视图 configs/data_v1/training_view_v1.json 状态为FROZEN_BEFORE_STAGE5_PD；134个启用目标，7个众数退化字段及r674六分量排除，组内字段等权，无覆盖率/冗余筛选。说明见 docs/data_v1/training_view_v1.md。最终PM7与Pprime D4将各给这两列独立统计，不拿raw-K统计冒充。
+
+## 2026-11-05 窗口二：已冻结 r73 目标的存储绑定
+
+用户已批准同对称性 SIGMA/SIGMA、PI/PI 分块。134 个训练字段与排除项保持冻结；`training_view_v1.json` 的 `preferred_schema_selector` 优先读取 D6 `schema.derived_r73_pair_targets` 所声明的 array27 列：原始 F64 分块求和后只转一次 F32，与最终 D4 一致。原 r73 四数组完整保留；历史 D3 无此 schema 映射时按原 F32 K 聚合，保留其存储舍入，不重新导出 D3。通道整数必须按各数据集 schema 的标签字典解析，不能将试点代码表当作全量通用表。D6 全量交付仍在进行，未分发完成。

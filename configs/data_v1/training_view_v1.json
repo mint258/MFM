@@ -3528,6 +3528,14 @@
       "exclusion_reasons": [],
       "field_key": "P.pm7_B.r73.value.sigma",
       "group": "P",
+      "preferred_schema_selector": {
+        "array_index": 27,
+        "column_key": "column_index",
+        "fallback_to_original_selectors_if_absent": true,
+        "label": "pair_labels",
+        "mapping": "derived_r73_pair_targets",
+        "target": "sigma"
+      },
       "registry_id": 73,
       "selectors": [
         [
@@ -3555,6 +3563,14 @@
       "exclusion_reasons": [],
       "field_key": "P.pm7_B.r73.value.pi",
       "group": "P",
+      "preferred_schema_selector": {
+        "array_index": 27,
+        "column_key": "column_index",
+        "fallback_to_original_selectors_if_absent": true,
+        "label": "pair_labels",
+        "mapping": "derived_r73_pair_targets",
+        "target": "pi"
+      },
       "registry_id": 73,
       "selectors": [
         [
@@ -3584,6 +3600,7 @@
   "new_hashes": false,
   "numeric_precision": "statistics_F64_over_single_export_F32",
   "r73": {
+    "code_mapping_source": "Resolve each dataset schema.r73_channel_codebook by label; the pilot integer code map is descriptive, not universal across new codebooks.",
     "code_to_symmetry": {
       "0": null,
       "1": "sigma",
@@ -3617,7 +3634,13 @@
       32,
       33,
       34
-    ]
+    ],
+    "symmetry_by_label_suffix": {
+      "-PI": "pi",
+      "-SIGMA": "sigma",
+      "other": null
+    },
+    "target_storage": "Prefer schema.derived_r73_pair_targets sigma/pi: arrays[27] at declared column_index. D6 sums original F64 pure blocks, then casts once to F32. Historical D3 without derived schema may aggregate raw F32 K; its rounding is retained and no re-export is required."
   },
   "r73_user_decision": "2026-11-05用户明确批准同对称性分块：sigma-sigma sum，pi-pi sum；mixed/delta不纳入两列，原始r73完整保留。",
   "redundancy_processing_performed": false,

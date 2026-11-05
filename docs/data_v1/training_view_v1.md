@@ -14,3 +14,5 @@ r73定义（用户已明确批准）：按原pair_index行求和；S-SIGMA/P-SIG
 - `P.pm7_water.r393.d`：mode_fraction_gt_0.95。
 - `D20.NumBridgeheadAtoms`：mode_fraction_gt_0.95。
 - `D20.NumSpiroAtoms`：mode_fraction_gt_0.95。
+
+D6 优先读取 schema.derived_r73_pair_targets 指定的两列：原F64分块求和后单次转F32，与D4同定义。历史D3无此映射时可从原F32 K聚合，保留其存储舍入；不重新导出D3。各数据集通道字典按标签后缀解析，试点整数代码不是全量通用字典。
