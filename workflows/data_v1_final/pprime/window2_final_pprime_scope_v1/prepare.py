@@ -5,7 +5,7 @@ only metadata for existing labels; reads each newly needed geometry once and
 stores its original F64 values for the unchanged original compute_pair engine.
 """
 from __future__ import annotations
-import argparse, collections, functools, gzip, json, os, sqlite3
+import argparse, bisect, collections, functools, gzip, json, os, sqlite3
 from pathlib import Path
 from .binding import BindingStore,same_geometry
 
@@ -65,12 +65,12 @@ def old_closed_keys(index_ref,wanted,bindings):
                 need(type(conf) is int,'OLD_BASE_ACTUAL_INTEGER_UFF_ID')
                 k=(mid,conf)
                 if k not in wanted:continue
-                matched,evidence=same_geometry(value,bindings.get(k))
+                actual=bindings.get(k);matched,evidence=same_geometry(value,actual)
                 if matched is None:
                     if files is None:files={entry['id']:entry for entry in read(index['files_reference'])}
                     original=next((row for row in bindings.base_rows(files[file_id]['reference']['path']) if row['record_id']==rid),None)
                     need(original is not None and original['molecule_id']==mid,'OLD_CLOSED_BASE_SOURCE_IDENTITY')
-                    matched,evidence=same_geometry(original,bindings.get(k))
+                    matched,evidence=same_geometry(original,actual)
                 need(matched is not None,'INSUFFICIENT_REAL_GEOMETRY_BINDING_EVIDENCE')
                 if not matched:continue
                 need(k not in closed or closed[k]['record_id']==rid,'CONFLICTING_CLOSED_PPRIME_PHYSICAL_ID')
@@ -101,6 +101,7 @@ def supplemental_keys(roots,wanted,bindings):
                     if not matched:continue
                     need(k not in closed or closed[k]['record_id']==row['record_id'],'SUPPLEMENTAL_PHYSICAL_ID_CONFLICT')
                     closed[k]={'record_id':row['record_id'],'source':str(root),'geometry_binding':evidence}
+            base=None  # release the caller's whole-file reference before switching
         claimfile=root/'claims.sqlite'
         if claimfile.exists():
             db=sqlite3.connect('file:'+str(claimfile)+'?mode=ro',uri=True)
@@ -110,32 +111,51 @@ def supplemental_keys(roots,wanted,bindings):
             finally:db.close()
     return closed,claims
 
+_PARQUET_LAYOUT=(None,None,())
+
+def close_parquet_layout():
+    global _PARQUET_LAYOUT
+    if _PARQUET_LAYOUT[1] is not None:_PARQUET_LAYOUT[1].close()
+    _PARQUET_LAYOUT=(None,None,())
+
+def parquet_layout(filename):
+    global _PARQUET_LAYOUT
+    if _PARQUET_LAYOUT[0]==filename:return _PARQUET_LAYOUT[1:]
+    close_parquet_layout()
+    import pyarrow.parquet as pq
+    table=pq.ParquetFile(filename);offsets=[0]
+    for group in range(table.num_row_groups):offsets.append(offsets[-1]+table.metadata.row_group(group).num_rows)
+    _PARQUET_LAYOUT=(filename,table,offsets)
+    return table,offsets
+
 @functools.lru_cache(maxsize=4)
 def parquet_group(filename,group):
-    import pyarrow.parquet as pq
-    return pq.ParquetFile(filename).read_row_group(group)
+    table,_=parquet_layout(filename)
+    return table.read_row_group(group)
 
 @functools.lru_cache(maxsize=2)
 def packet(filename):
     with gzip.open(filename,'rb') as stream:return json.load(stream)
 
-def geometry(row):
-    """One actual source row; never synthesize an extra conformer or ordinal."""
-    import pyarrow.parquet as pq
-    filename=row['source_path'];position=int(row['source_row_index']);need(position>=0,'NEGATIVE_SOURCE_ROW')
-    if row['source_format']=='parquet':
-        pf=pq.ParquetFile(filename);offset=0
-        for group in range(pf.num_row_groups):
-            count=pf.metadata.row_group(group).num_rows
-            if position<offset+count:
-                raw=parquet_group(filename,group).slice(position-offset,1).to_pylist()[0];break
-            offset+=count
-        else:raise ValueError('ACTUAL_GEOMETRY_ROW_MISSING')
-    elif row['source_format']=='reproduction_json_gz':
-        value=packet(filename);need(value['summary']['molecule_id']==row['molecule_id'],'PACKET_MID_DIFFERS')
-        raw=value['conformers'][position]
-    else:raise ValueError('UNSUPPORTED_ACTUAL_SOURCE_FORMAT:'+str(row['source_format']))
+def declared_geometry(raw,row):
+    """Restore explicit publisher N1 metadata; never default acceptance.
+
+    n1_extra_common_day_v3.reduce.output writes all original fields except Z
+    and coordinates into metadata_json alongside typed F64 geometry columns.
+    """
+    if raw.get('metadata_json') is not None:
+        need(isinstance(raw['metadata_json'],str),'LEGACY_GEOMETRY_METADATA_JSON_REQUIRED')
+        metadata=json.loads(raw['metadata_json']);need(isinstance(metadata,dict),'LEGACY_GEOMETRY_METADATA_OBJECT_REQUIRED')
+        need(metadata.get('geometry_source')=='uff_sprime' and metadata.get('ordinary_sprime_member') is False
+             and metadata.get('usage_domain')=='pprime_extra','REGISTERED_N1_PPRIME_ONLY_METADATA_REQUIRED')
+        need(row.get('usage_domain')!='ordinary','N1_EXTRA_CANNOT_BECOME_ORDINARY_UFF')
+        need('atomic_numbers' not in metadata and 'coordinates' not in metadata,'LEGACY_METADATA_CANNOT_REPLACE_F64_GEOMETRY')
+        for name,value in metadata.items():
+            if name in raw:need(raw[name]==value,'LEGACY_GEOMETRY_METADATA_CONFLICT:'+name)
+        raw=dict(metadata,**raw)
+        if row.get('geometry_id') is not None:need(raw.get('geometry_id')==row['geometry_id'],'REGISTERED_N1_SOURCE_GID_DIFFERS')
     need(raw.get('molecule_id',row['molecule_id'])==row['molecule_id'],'GEOMETRY_MID_DIFFERS')
+    need('status' in raw and 'converged' in raw,'GEOMETRY_STATUS_AND_CONVERGENCE_DECLARATION_REQUIRED')
     need(raw['status']=='SUCCESS' and raw['converged'] is True,'GEOMETRY_NOT_ACTUALLY_USABLE')
     need(type(raw['sprime_conf_idx']) is int,'ORIGINAL_PHYSICAL_ID_REQUIRED')
     need(isinstance(raw.get('source_record_id'),str) and raw['source_record_id'],'SOURCE_NATIVE_ANCHOR_REQUIRED')
@@ -143,6 +163,20 @@ def geometry(row):
     need(bool(raw.get('atom_order_sha256')) or numbers is not None,'EXISTING_ATOM_WITNESS_OR_ACTUAL_ORDERED_Z_REQUIRED')
     if numbers is not None:need(len(numbers)==len(raw['coordinates']),'GEOMETRY_ATOM_COORDINATE_ALIGNMENT')
     return raw
+
+def geometry(row):
+    """One actual source row; never synthesize an extra conformer or ordinal."""
+    filename=row['source_path'];position=int(row['source_row_index']);need(position>=0,'NEGATIVE_SOURCE_ROW')
+    if row['source_format']=='parquet':
+        _,offsets=parquet_layout(filename)
+        need(position<offsets[-1],'ACTUAL_GEOMETRY_ROW_MISSING')
+        group=bisect.bisect_right(offsets,position)-1
+        raw=parquet_group(filename,group).slice(position-offsets[group],1).to_pylist()[0]
+    elif row['source_format']=='reproduction_json_gz':
+        value=packet(filename);need(value['summary']['molecule_id']==row['molecule_id'],'PACKET_MID_DIFFERS')
+        raw=value['conformers'][position]
+    else:raise ValueError('UNSUPPORTED_ACTUAL_SOURCE_FORMAT:'+str(row['source_format']))
+    return declared_geometry(raw,row)
 
 def source_shards(source_plan):
     value=read(source_plan)
@@ -154,6 +188,14 @@ def source_shards(source_plan):
     need(len(shards)==11 and set(shards.values())==set(range(11)),'EXACT_ORIGINAL_ELEVEN_NATIVE_SHARDS')
     return shards
 
+def selected_bindings(bindings,all_selected):
+    """Resume only a complete producer phase, without replaying its geometry."""
+    if bindings.selected_complete():return False
+    for row in sorted(all_selected.values(),key=lambda row:(row['source_path'],row['source_row_index'])):
+        bindings.add(row,geometry(row))
+    bindings.close_selected(len(all_selected))
+    return True
+
 def prepare(plan):
     import duckdb,pyarrow as pa,pyarrow.parquet as pq
     out=Path(plan['scope_output']);out.mkdir(parents=True,exist_ok=True)
@@ -161,10 +203,11 @@ def prepare(plan):
     scope=read(plan['first2']);selected=selected_rows(scope);all_selected=selected_rows(scope,eligible_only=False)
     binding_path=out/'physical_bindings.sqlite'
     bindings=BindingStore(binding_path)
+    bindings.freeze_inputs({name:plan.get(name,[]) for name in ('first2','common','source_index','additional_pprime_roots','native_record_index','source_plan')})
     # This is the single production geometry/alignment consumption. Downstream
     # fit uses these F64 bindings, and reuses any original base rows read here.
-    for row in sorted(all_selected.values(),key=lambda row:(row['source_path'],row['source_row_index'])):
-        bindings.add(row,geometry(row))
+    computed=selected_bindings(bindings,all_selected)
+    print(json.dumps({'prepare_phase':'selected_bindings','status':'COMPLETED' if computed else 'REUSED_CLOSED_PHASE','records':len(all_selected)}),flush=True)
     common=read(plan['common'])
     for reference in common.get('physical_geometry_tables',[]):
         for batch in pq.ParquetFile(path(reference)).iter_batches(batch_size=8192):

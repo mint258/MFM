@@ -54,7 +54,12 @@ intent file, and references the finalizer's existing shortage state table.
 Production produces original family Parquet, raw-retention containers, necessary
 record outcomes/checkpoints, claim state and one final manifest. A completed
 scope is reusable. A partial scope publication requires a fresh output path;
-existing files are retained. Production resumes its same output and claims:
+existing files are retained. The selected-binding phase now commits its complete
+bindings and `selected_complete` marker atomically. On the same frozen input
+JSON, a retry skips this closed phase without reading its original geometries;
+an interrupted partial phase is not marked complete. Later task publication
+guards remain unchanged. Normal completion still closes the binding database.
+Production resumes its same output and claims:
 completed publications close claims; interrupted Native intents stay UNKNOWN.
 No fresh hashes, independent QA, receipts, resource stopping gates, or second
 numerical readback are added.

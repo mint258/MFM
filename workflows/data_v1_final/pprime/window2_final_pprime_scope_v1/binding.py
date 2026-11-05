@@ -42,10 +42,27 @@ class BindingStore:
     """Necessary producer geometry bindings and same-pass original base cache."""
     def __init__(self,filename):
         self.db=sqlite3.connect(filename)
-        self.db.executescript('''CREATE TABLE selected(mid TEXT,conf INTEGER,locator TEXT,raw TEXT,PRIMARY KEY(mid,conf));
-            CREATE TABLE bases(path TEXT PRIMARY KEY,rows BLOB);
-            CREATE TABLE candidates(gid TEXT PRIMARY KEY,mid TEXT,conf INTEGER,locator TEXT);
-            CREATE INDEX candidate_key ON candidates(mid,conf);''')
+        self._decoded_base_file=None;self._decoded_base_rows=None
+        self.db.executescript('''CREATE TABLE IF NOT EXISTS selected(mid TEXT,conf INTEGER,locator TEXT,raw TEXT,PRIMARY KEY(mid,conf));
+            CREATE TABLE IF NOT EXISTS bases(path TEXT PRIMARY KEY,rows BLOB);
+            CREATE TABLE IF NOT EXISTS candidates(gid TEXT PRIMARY KEY,mid TEXT,conf INTEGER,locator TEXT);
+            CREATE INDEX IF NOT EXISTS candidate_key ON candidates(mid,conf);
+            CREATE TABLE IF NOT EXISTS progress(stage TEXT PRIMARY KEY,value TEXT);''')
+    def freeze_inputs(self,inputs):
+        saved=self.db.execute("SELECT value FROM progress WHERE stage='frozen_inputs'").fetchone()
+        if saved:
+            if json.loads(saved[0])!=inputs:raise ValueError('SAME_FROZEN_BINDING_INPUTS_REQUIRED')
+        else:
+            if self.db.execute('SELECT 1 FROM selected LIMIT 1').fetchone():
+                raise ValueError('UNBOUND_OLD_BINDINGS_REQUIRE_FRESH_OUTPUT')
+            self.db.execute('INSERT INTO progress VALUES(?,?)',('frozen_inputs',json.dumps(inputs,sort_keys=True,separators=(',',':'))))
+            self.db.commit()
+    def selected_complete(self):
+        return self.db.execute("SELECT 1 FROM progress WHERE stage='selected_complete'").fetchone() is not None
+    def close_selected(self,records):
+        # The marker and all selected bindings become durable in one commit.
+        self.db.execute('INSERT INTO progress VALUES(?,?)',('selected_complete',json.dumps({'records':records})))
+        self.db.commit()
     def candidate(self,row):
         previous=self.db.execute('SELECT locator FROM candidates WHERE gid=?',(row['geometry_id'],)).fetchone()
         value=json.dumps(row,allow_nan=False,separators=(',',':'))
@@ -64,11 +81,17 @@ class BindingStore:
         return binding(json.loads(locator),json.loads(raw))
     def raw(self,k):return json.loads(self.db.execute('SELECT raw FROM selected WHERE mid=? AND conf=?',k).fetchone()[0])
     def base_rows(self,filename):
+        if filename==self._decoded_base_file:return self._decoded_base_rows
+        # All callers only inspect these rows. Drop the previous whole-file
+        # decode before loading another; retain at most one decoded publication.
+        self._decoded_base_file=None;self._decoded_base_rows=None
         found=self.db.execute('SELECT rows FROM bases WHERE path=?',(filename,)).fetchone()
-        if found:return json.loads(zlib.decompress(found[0]))
-        import pyarrow.parquet as pq
-        values=pq.read_table(filename).to_pylist()
-        self.db.execute('INSERT INTO bases VALUES(?,?)',(filename,zlib.compress(json.dumps(values,allow_nan=False,separators=(',',':')).encode())))
+        if found:values=json.loads(zlib.decompress(found[0]))
+        else:
+            import pyarrow.parquet as pq
+            values=pq.read_table(filename).to_pylist()
+            self.db.execute('INSERT INTO bases VALUES(?,?)',(filename,zlib.compress(json.dumps(values,allow_nan=False,separators=(',',':')).encode())))
+        self._decoded_base_file=filename;self._decoded_base_rows=values
         return values
     def close(self):self.db.commit();self.db.close()
 
