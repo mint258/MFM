@@ -1,0 +1,162 @@
+import json
+import struct
+
+import numpy as np
+import pytest
+
+from phychem_mfm.phase1.v31_loader import (
+    decode_mfm4, record_key, allowed_conformers, aggregate_r73,
+    TrainingView, normalize_values, MFM4Dataset, field_weights,
+    enabled_encoder_fields, SampleMilestones,
+)
+
+
+def encode(arrays):
+    codes = {'|u1': 1, '<i2': 2, '<u2': 3, '<u4': 4, '<i4': 5, '<f4': 6}
+    result = bytearray(struct.pack('<4sHH', b'MFM4', 1, len(arrays)))
+    for key, array in sorted(arrays.items()):
+        array = np.asarray(array)
+        result += struct.pack('<HBB', key, codes[array.dtype.str], array.ndim)
+        result += struct.pack('<' + 'I' * array.ndim, *array.shape)
+        result += array.tobytes()
+        result += b'\0' * (-len(result) % 4)
+    return bytes(result)
+
+
+def molecule():
+    return {1: np.array([6, 1], dtype='u1'), 2: np.array([[0, 1]], dtype='<i2'),
+            3: np.array([1], dtype='u1'), 4: np.array([5.], dtype='<f4'),
+            5: np.array(0, dtype='u1'), 6: np.array([3, 3], dtype='<u2'),
+            7: np.array([1, 2, 0], dtype='<u2'), 8: np.array([0, 1, 2], dtype='<u2'),
+            13: np.array([0, 1, 0], dtype='u1'), 14: np.array([0, 0, 1], dtype='u1')}
+
+
+def schema_view():
+    schema = {'columns': {'d20': [{'field_key': 'D20.test', 'column_index': 0}],
+        'mol_labels': [{'field_key': 'P.test', 'column_index': 0}],
+        'atom_labels': [], 'atom_vectors': [], 'pair_labels': []}}
+    norm = {'fit_role': 'TRAIN', 'center': [1.], 'scale': [2.]}
+    fields = [dict(name=key, group=g, family='test', level='graph', normalization=norm)
+              for key, g in [('D20.test', 'D'), ('P.test', 'P')]]
+    return schema, {'fields': fields}
+
+
+def test_codec_scalar_empty_nan_and_integer_widths():
+    arrays = {1: np.array([6, 1], dtype='u1'), 2: np.empty((0, 2), dtype='<i2'),
+              5: np.array(0, dtype='u1'), 23: np.array([1., np.nan], dtype='<f4')}
+    actual = decode_mfm4(encode(arrays))
+    for key, expected in arrays.items():
+        np.testing.assert_array_equal(actual[key], expected)
+        assert actual[key].dtype == expected.dtype
+    assert record_key('M', 5) == b'M\0\0\0\5'
+    assert record_key('U', 5, 2) == b'U\0\0\0\5\0\2'
+
+
+@pytest.mark.parametrize('mutation', ['truncated', 'magic', 'padding', 'trailing', 'dtype'])
+def test_codec_rejects_malformed_records(mutation):
+    raw = bytearray(encode({1: np.array([1], dtype='u1')}))
+    if mutation == 'truncated': raw = raw[:-1]
+    if mutation == 'magic': raw[0] = 0
+    if mutation == 'padding': raw[-1] = 1
+    if mutation == 'trailing': raw += b'\0'
+    if mutation == 'dtype': raw[10] = 99
+    with pytest.raises(ValueError): decode_mfm4(raw)
+
+
+def test_holdout_removed_before_first_k_and_diagnostic_separate():
+    m = molecule()
+    assert allowed_conformers(m, k=1).tolist() == [2]
+    assert allowed_conformers(m).tolist() == [2, 0]
+    assert allowed_conformers(m, diagnostic=True).tolist() == [1]
+    assert allowed_conformers(m, source='UFF').tolist() == [0, 1]
+    with pytest.raises(ValueError, match='not published'):
+        allowed_conformers(m, order='energy')
+
+
+def test_r73_directed_pairs_sum_channels_missing_and_empty():
+    arrays = {26: np.array([[0, 1], [1, 0], [0, 0]]),
+              31: np.array([0, 0, 0, 1, 1]),
+              32: np.array([[0, 0, i] for i in [1, 2, 3, 1, 2]]),
+              34: np.array([1., 2., 4., np.nan, 3.], dtype=np.float32)}
+    rule = dict(reduction='sum', code_column=2, channels={'sigma': ['S', 'P'], 'pi': ['PI']},
+                missing_components='propagate', empty_sum='nan')
+    output = aggregate_r73(arrays, ['absent', 'S', 'P', 'PI'], rule)
+    np.testing.assert_allclose(output[0], [3., 4.], atol=1e-6, rtol=1e-6)
+    assert np.isnan(output[1:]).all()
+    rule['missing_components'] = 'ignore'
+    assert aggregate_r73(arrays, ['absent', 'S', 'P', 'PI'], rule)[1, 0] == 3.
+
+
+def test_field_selection_nan_mask_and_no_pm7_labels_for_uff():
+    schema, manifest = schema_view()
+    view = TrainingView(schema, manifest)
+    c = {21: np.zeros((2, 3), dtype=np.float32), 23: np.array([np.nan], dtype=np.float32)}
+    targets = view.extract(molecule(), c)
+    np.testing.assert_allclose(targets['D20.test'].values, [[2.]], atol=1e-6, rtol=1e-6)
+    assert not targets['P.test'].valid.any()
+    assert set(view.extract(molecule(), {21: c[21]})) == {'D20.test'}
+
+
+def test_r674_cannot_be_enabled():
+    schema, manifest = schema_view()
+    manifest['fields'][0]['registry_id'] = 674
+    with pytest.raises(ValueError, match='r674'): TrainingView(schema, manifest)
+
+
+def test_d4_train_reference_and_no_refitting():
+    spec = dict(fit_role='TRAIN', center=1., scale=2.,
+                element_reference=dict(basis=[6, 1], coefficients=[2., 1.], intercept=1.))
+    actual = normalize_values(np.array([[8.], [np.nan]]), spec, Z=np.array([6, 1]))
+    np.testing.assert_allclose(actual[0], [1.5], atol=1e-6, rtol=1e-6)
+    assert np.isnan(actual[1]).all()
+    spec['fit_role'] = 'VAL'
+    with pytest.raises(ValueError, match='TRAIN'): normalize_values([8.], spec, Z=np.array([6, 1]))
+
+
+def test_equal_group_weights_and_fixed_family_ablation():
+    fields = [dict(name='a', group='P', family='x'), dict(name='b', group='P', family='y'),
+              dict(name='c', group='D', family='x')]
+    assert field_weights(fields, groups=['P', 'D']) == {'a': .25, 'b': .25, 'c': .5}
+    assert field_weights(fields, groups=['P', 'D'], families=['x']) == {'a': .5, 'c': .5}
+    assert field_weights(fields, groups=['P', 'D'], families=['x'],
+                         fixed_full_condition=True) == {'a': .25, 'c': .5}
+
+
+def test_coordinate_free_encoder_closes_vector_and_denoise_fields():
+    fields = [dict(name='scalar'), dict(name='vector', representation='vector'),
+              dict(name='denoise', kind='denoise_eps_mse')]
+    encoder = type('Encoder', (), {'accepts_coordinates': False})()
+    assert enabled_encoder_fields(fields, encoder) == (fields[0],)
+
+
+def test_sample_milestones_crossed_once():
+    clock = SampleMilestones(999_999)
+    assert clock.advance(1) == (1_000_000,)
+    assert clock.advance(2_000_001) == (2_000_000,)
+    assert clock.advance(61_000_000) == (4_000_000, 8_000_000, 16_000_000, 32_000_000, 64_000_000)
+
+
+def test_real_lmdb_api_process_handle_sampling_and_mean(tmp_path):
+    lmdb = pytest.importorskip('lmdb')
+    schema, view = schema_view()
+    (tmp_path / 'schema.json').write_text(json.dumps(schema))
+    directory = tmp_path / 'v31_pilot_TRAIN'
+    directory.mkdir()
+    (directory / 'manifest.json').write_text(json.dumps({'molecule_count': 2}))
+    env = lmdb.open(str(directory), map_size=1 << 20)
+    with env.begin(write=True) as txn:
+        for i in range(2):
+            txn.put(record_key('M', i), encode(molecule()))
+            for j in range(3):
+                txn.put(record_key('P', i, j), encode({21: np.zeros((2, 3), dtype='<f4'),
+                    23: np.array([float(j)], dtype='<f4')}))
+    env.close()
+    dataset = MFM4Dataset(tmp_path, training_view=view)
+    rng = np.random.default_rng(512)
+    draws = [dataset.sample(rng) for _ in range(200)]
+    assert {d['molecule_index'] for d in draws} == {0, 1}
+    assert {d['conformer_index'] for d in draws} == {0, 2}
+    assert dataset.molecule_mean(0)['P.test'].raw.item() == 1.
+    with pytest.raises(ValueError, match='excluded'): dataset.read(0, 1)
+    assert dataset.__getstate__()['_env'] is None
+    dataset.close()
