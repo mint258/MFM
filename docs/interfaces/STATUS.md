@@ -260,3 +260,8 @@ D6的U记录将保留全部已有P′真实标签。模型训练需使用M18 `Pp
 
 
 2026-11-06 窗口二保护恢复更新：UFF6127在一次容量快照失效后被安全STOP，闭合数据保留。实际Slurm返回STOPPED，保护器原识别列表遗漏该状态；现已窄修并通过唯一新转移测试，仅own STOP_ACK+两次新鲜容量/精确身份才CONT，其他STOPPED/SUSPENDED不接管。旧控制器精确pidfd SIGINT退出后，新控制器3546033读取原恢复状态并恢复同一6127；当前RUNNING、parked为空，原作业继续增长。真实节点19/20快照与quota均新鲜，未改变5秒时效、100GB底线、8GiB突发或任何科学定义；Native6126/900秒未受影响。
+
+
+## 2026-11-06 窗口二 B3 最终实际前二 Pprime 已交付
+
+Native4526126实际COMPLETED/0:0，elapsed05:59:13。最终实际范围1,200,832个MID、2,396,675条固定随机前二记录；复用2,367,432条既有闭合标签，仅新增29,243条，其中28,796条十二项均成功、447条保留实际失败任务和原掩码，未解决0。不外推复用子集的成功率；原ready和历史80,728分子初批161,456条全部保留，未计算第三及以后或新N1、未重跑闭合QM。交付索引 configs/data_v1/Pprime_final_first2_v1_DELIVERY.json，说明 docs/data_v1/Pprime_final_first2_v1_DELIVERY.md，引用唯一producer原始F64文件path/bytes/counts及真实不足状态表，无新hash/数值回读/独立QA。独立Pprime统计6128已按既有依赖在节点0/32CPU启动，写共享NFS安全目录；D4与UFF继续，D6仍held待容量准入，尚未最终LMDB交付。

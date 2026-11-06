@@ -1,0 +1,140 @@
+{
+  "schema": "WINDOW2_FINAL_PPRIME_FIRST2_DELIVERY_V1",
+  "status": "FINAL_ACTUAL_FIRST2_COMPUTATION_COMPLETE",
+  "scope_reference": {
+    "path": "/lfshome/zixiao/data_v1_20261025/window2_final_pprime_scope_20261106_v3/manifest.json",
+    "bytes": 1990
+  },
+  "producer_manifest_reference": {
+    "path": "/lfshome/zixiao/data_v1_20261025/window2_final_pprime_labels_20261105_v1/manifest.json",
+    "bytes": 894808
+  },
+  "actual_closing_native_parent": {
+    "job_id": "4526126",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "05:59:13"
+  },
+  "producer_status": "COMPLETED_ALL_MISSING_PHYSICAL_RECORDS",
+  "population": "Frozen final Common TRAIN/VAL; all historical raw roles retained",
+  "actual_chosen_MIDs": 1200832,
+  "actual_first2_records": 2396675,
+  "existing_closed_geometry_records_reused": 2367432,
+  "new_geometry_records_completed": 29243,
+  "new_records_all12_success": 28796,
+  "new_records_with_scientific_task_failures": 447,
+  "unresolved_records": 0,
+  "reused_subset_all12_success": null,
+  "success_count_scope": "New final delta only; no extrapolation to reused subset",
+  "shortfall_state_reference": {
+    "path": "/lfshome/zixiao/data_v1_20261025/window2_final_population_20261105_v1/Pprime_first2_scope_states.parquet",
+    "bytes": 6560601,
+    "records": 1220466
+  },
+  "shortfall_counts": {
+    "TWO_REAL_GEOMETRIES_AVAILABLE": 1195843,
+    "actual_shortfall_to_two": 7561,
+    "EXHAUSTED_N_NO_NEW_ACTUAL_SHORTFALL": 6254,
+    "ORIGINAL_N1_ONLY_ONE_REAL_GEOMETRY_NO_REGISTERED_SECOND": 21
+  },
+  "historical_initial_fill": {
+    "delivery_reference": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/Pprime_initial_fill_v1_DELIVERY.json",
+      "bytes": 1556
+    },
+    "producer_manifest_reference": {
+      "path": "/lfshome/zixiao/data_v1_20261025/window2_pprime_fill_20261105_v1/manifest.json",
+      "bytes": 4742124
+    },
+    "raw_output_root": "/lfshome/zixiao/data_v1_20261025/window2_pprime_fill_20261105_v1",
+    "missing_molecule_ids": "/lfshome/zixiao/data_v1_20261025/Pprime_fill_scope_20261105_v1/closed_scope/members.parquet",
+    "missing_reason": "These ordinary S-prime completions closed after the original ready population. 80740 successful TRAIN/VAL fill molecules minus 12 already ready gives 80728 new molecules.",
+    "molecules": 80728,
+    "records_completed": 161456,
+    "all12_success": 161044,
+    "records_with_scientific_task_failures": 412,
+    "status_at_initial_delivery": "INITIAL_SCOPE_COMPLETE_FINAL_POPULATION_DELTA_PENDING"
+  },
+  "original_ready_delivery_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/pprime_complete_remaining_20261104_v1/final_delivery/completion_manifest.json",
+    "bytes": 1548
+  },
+  "original_ready_and_initial_raw_labels_retained": true,
+  "new_raw_output_root": "/lfshome/zixiao/data_v1_20261025/window2_final_pprime_labels_20261105_v1",
+  "new_family_parquet": {
+    "QC": {
+      "files": 229,
+      "bytes": 6092091,
+      "rows": 29243
+    },
+    "base_geometry": {
+      "files": 229,
+      "bytes": 73189701,
+      "rows": 29243
+    },
+    "perturbed": {
+      "files": 229,
+      "bytes": 218141601,
+      "rows": 29243
+    },
+    "pm7_ions": {
+      "files": 229,
+      "bytes": 116598376,
+      "rows": 58486
+    },
+    "pm7_neutral": {
+      "files": 229,
+      "bytes": 1476488678,
+      "rows": 29243
+    },
+    "pm7_solvents": {
+      "files": 229,
+      "bytes": 117018609,
+      "rows": 58486
+    },
+    "xtb_alpb": {
+      "files": 229,
+      "bytes": 20684790,
+      "rows": 58486
+    },
+    "xtb_fod": {
+      "files": 229,
+      "bytes": 37466451,
+      "rows": 29243
+    },
+    "xtb_singlepoint": {
+      "files": 229,
+      "bytes": 85508253,
+      "rows": 29243
+    },
+    "xtb_vfukui": {
+      "files": 229,
+      "bytes": 22707251,
+      "rows": 29243
+    },
+    "xtb_vipea": {
+      "files": 229,
+      "bytes": 17311106,
+      "rows": 29243
+    }
+  },
+  "new_family_parquet_files": 2519,
+  "new_family_parquet_bytes": 2191206907,
+  "new_raw_output_sqlite_bytes": 399089664,
+  "fixed_random_seed": 20261025,
+  "selection": "first min(2,actual_available) in the frozen physical-ID order",
+  "native_tasks_per_geometry": 12,
+  "native_timeout_seconds": 900,
+  "old_closed_QM_recomputed": false,
+  "Pprime_third_or_later_computed": false,
+  "new_N1_generation": false,
+  "padding_or_duplicate_geometry": false,
+  "scientific_task_failures_retained_with_original_masks": true,
+  "independent_readback": false,
+  "additional_hash_or_QA_jobs": false,
+  "D4_D6_or_Model_ACK_claimed": false,
+  "task_document_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/data_v1/Pprime_final_first2_v1_DELIVERY.md",
+    "bytes": 1835
+  }
+}
