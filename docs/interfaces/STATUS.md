@@ -268,3 +268,6 @@ Native4526126实际COMPLETED/0:0，elapsed05:59:13。最终实际范围1,200,832
 
 
 2026-11-06 窗口二节点0 RAM预算释放：Native6126已真实C0，原父2866924及RAM guard3144286均已退出；节点0/dev/shm实核可用160,644,616,192字节、49,278,210空闲inode。原32GiB Native后续临时增长预留现在释放，20GiB系统/共享余量继续保留；现有只读binding/index缓存仍按df实占计入，未删除任何文件。Pprime统计6128的输出和临时文件均在已准入NFS，未在节点0根盘或RAM新增大文件。其他窗口使用释放余量仍须实际目标预检与并发预算，不能直接据旧数值开写；本窗口未来D6 RAM缓存/临时块也必须重新准入。
+
+
+2026-11-06 窗口二采样修复：容量publisher运行期重复findmnt/df/df-Pi/statvfs，在负载下导致刚发布快照已过期并触发保护。已改为启动时完整实际挂载/device预检一次，运行期只做实际statvfs及前后device核验，并记录容量读取完成时间；设备变化/unknown仍不发布。唯一新sampler测试通过(.001s)，未重复旧测试，5秒时效/100GB quota底线/8GiB突发均未放宽。旧metadata publisher经精确UID/argv/start_ticks/pidfd TERM退出，只替换sampler：节点20新PID2719878、节点19新PID1684785；controller3546033保持。当前三个快照年龄约0.9–1.5秒、parked为空，6117/6127同作业RUNNING；6128独立统计继续。未触碰Native、科学定义、Slurm管理员状态或任何原始数据。

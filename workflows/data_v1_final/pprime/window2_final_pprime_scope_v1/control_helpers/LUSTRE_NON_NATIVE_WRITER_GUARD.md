@@ -33,8 +33,11 @@ PROFILE below. From project-root Python with repo/deps on PYTHONPATH:
 login: python -B HELPER --profile PROFILE quota --output QUOTA_REFERENCE
 node20: python -B HELPER --profile PROFILE capacity --node compute-0-20
 node19: python -B HELPER --profile PROFILE capacity --node compute-0-19
-Each runs every2seconds; capacity obtains actual findmnt/df bytes/inodes and
-statvfs on that node. A failed probe never refreshes its old timestamp. Snapshot
+Each runs every2seconds. Capacity performs full actual findmnt/df byte/inode
+inspection and mount/device verification once at startup. Runtime sampling uses
+only actual statvfs plus device verification before/after the read; unknown or
+drift never publishes. Each target is timestamped after its read completes; a
+multi-target snapshot uses the earliest completed read timestamp. A failed probe never refreshes its old timestamp. Snapshot
 freshness is checked on every controller read, including immediately before CONT.
 
 Preview (no signal): python -B HELPER --profile PROFILE watch --state STATE
@@ -53,3 +56,5 @@ requests cannot be delivered; no controller can promise delivery during one.
 Only one new fixture, Root runs once in an actual safe-temp parent:
 python -B -m unittest workflows.data_v1_final.pprime.window2_final_pprime_scope_v1.control_helpers.test_lustre_non_native_writer_guard
 No existing quota/temporary/guard tests are repeated.
+Only the new runtime-sampler fixture for this update (old two methods stay passed):
+python -B -m unittest workflows.data_v1_final.pprime.window2_final_pprime_scope_v1.control_helpers.test_lustre_non_native_writer_guard.LustreWriterGuard.test_runtime_sampler_inspects_once_and_never_publishes_unknown_or_drift

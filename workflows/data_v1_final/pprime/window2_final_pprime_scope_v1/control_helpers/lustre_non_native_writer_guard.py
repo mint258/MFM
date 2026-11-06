@@ -73,6 +73,32 @@ def capacity(profile,node,inspector,now):
     return {'schema':'NODE_WRITER_CAPACITY_V1','uid':UID,'node':node,'observed_time':now,'targets':rows}
 
 
+class CapacitySampler:
+    """Full startup inspection, then cheap actual statvfs/device samples only."""
+    def __init__(self,profile,node,inspector,statvfs=os.statvfs,stat=os.stat,clock=time.time):
+        self.node=node;self.statvfs=statvfs;self.stat=stat;self.clock=clock;self.targets=[]
+        for spec in profile['nodes'][node]['targets']:
+            facts=inspector(spec['path'])
+            if facts['mount']!=spec['mount']:raise Unsafe('ACTUAL_TARGET_MOUNT_CHANGED')
+            if self.stat(spec['path']).st_dev!=facts['device']:raise Unsafe('ACTUAL_TARGET_DEVICE_CHANGED')
+            self.targets.append((spec['path'],facts['device'],dict(facts['mount']),facts['root_filesystem']))
+    def sample(self):
+        rows=[];completed=[]
+        try:
+            for path,device,mount,root in self.targets:
+                if self.stat(path).st_dev!=device:raise Unsafe('ACTUAL_TARGET_DEVICE_CHANGED')
+                value=self.statvfs(path)
+                if self.stat(path).st_dev!=device:raise Unsafe('ACTUAL_TARGET_DEVICE_CHANGED')
+                if any(type(getattr(value,key))is not int for key in ('f_frsize','f_blocks','f_bavail','f_favail')) or value.f_frsize<=0 or value.f_blocks<=0 or value.f_bavail<0 or value.f_favail<0:
+                    raise Unsafe('CAPACITY_BYTE_OR_INODE_UNKNOWN')
+                observed=self.clock()
+                if type(observed) not in (int,float) or not math.isfinite(observed) or observed<=0:raise Unsafe('CAPACITY_OBSERVATION_TIME_UNKNOWN')
+                completed.append(observed)
+                rows.append({'path':path,'mount':mount,'total':value.f_blocks*value.f_frsize,'available':value.f_bavail*value.f_frsize,'inodes':value.f_favail,'root_filesystem':root})
+        except OSError as error:raise Unsafe('ACTUAL_TARGET_STATVFS_UNKNOWN:'+repr(error)) from error
+        if not completed:raise Unsafe('ACTUAL_TARGET_PROFILE_EMPTY')
+        return {'schema':'NODE_WRITER_CAPACITY_V1','uid':UID,'node':self.node,'observed_time':min(completed),'targets':rows}
+
 def safe(profile,job,reader=load,now=None):
     now=time.time() if now is None else now
     try:
@@ -161,13 +187,14 @@ def main():
         if args.mode=='capacity':
             if socket.gethostname().split('.')[0]!=args.node or args.node not in profile['nodes']:raise Unsafe('ACTUAL_TARGET_NODE_REQUIRED')
             from workflows.data_v1_final.export.v31_stream_v1.disk_guard import inspect
+            sampler=CapacitySampler(profile,args.node,inspect)
         while True:
             started=time.monotonic()
             try:
                 if args.mode=='quota':
                     observed=time.time();text=subprocess.check_output(['lfs','quota','-u','zixiao','/lfshome'],text=True,timeout=2)
                     value={'schema':'LUSTRE_USER_QUOTA_AVAILABLE_V1','uid':UID,'filesystem':'/lfshome',**parse_quota(text),'observed_time':observed};path=args.output
-                else:value=capacity(profile,args.node,inspect,time.time());path=profile['nodes'][args.node]['reference']
+                else:value=sampler.sample();path=profile['nodes'][args.node]['reference']
                 atomic(path,value)
             except Exception as error:print(json.dumps({'phase':'WRITER_CAPACITY_SNAPSHOT_UNKNOWN','reason':repr(error),'previous_timestamp_unchanged':True}),flush=True)
             time.sleep(max(0,2-(time.monotonic()-started)))

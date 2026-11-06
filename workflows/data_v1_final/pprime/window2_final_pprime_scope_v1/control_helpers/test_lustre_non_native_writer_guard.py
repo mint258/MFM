@@ -61,3 +61,33 @@ class LustreWriterGuard(unittest.TestCase):
             self.assertEqual(signals,expected)
             if expected:self.assertNotIn('4526127',state['parked'])
             elif ownership:self.assertIn('4526127',report['parked_or_uncertain'])
+    def test_runtime_sampler_inspects_once_and_never_publishes_unknown_or_drift(self):
+        from types import SimpleNamespace
+        node='compute-0-19';mount={'target':'/lfshome','source':'toy@net:/fs','fstype':'lustre'}
+        profile={'nodes':{node:{'targets':[{'path':'/lfshome/a','mount':mount},{'path':'/lfshome/b','mount':mount}]}}}
+        calls=[];device=[7];now=iter((1001,1002,1003,1004))
+        def inspect(path):
+            calls.append(path);return {'mount':mount,'device':7,'root_filesystem':False}
+        stats=SimpleNamespace(f_frsize=4096,f_blocks=100000,f_bavail=12345,f_favail=9876)
+        def stat(path):return SimpleNamespace(st_dev=device[0])
+        sampler=G.CapacitySampler(profile,node,inspect,lambda path:stats,stat,lambda:next(now))
+        self.assertEqual(calls,['/lfshome/a','/lfshome/b'])
+        first=sampler.sample();second=sampler.sample()
+        self.assertEqual(calls,['/lfshome/a','/lfshome/b']) # no runtime findmnt/df/inspector
+        self.assertEqual((first['observed_time'],second['observed_time']),(1001,1003))
+        self.assertEqual(first['targets'][0]['available'],12345*4096)
+        self.assertEqual(first['targets'][0]['inodes'],9876)
+        published=[];device[0]=8
+        with self.assertRaisesRegex(G.Unsafe,'DEVICE_CHANGED'):published.append(sampler.sample())
+        self.assertEqual(published,[]);device[0]=7
+        def unknown(path):raise OSError('TOY_STATVFS_UNAVAILABLE')
+        sampler.statvfs=unknown
+        with self.assertRaisesRegex(G.Unsafe,'STATVFS_UNKNOWN'):published.append(sampler.sample())
+        self.assertEqual(published,[])
+        sampler.statvfs=lambda path:SimpleNamespace(f_frsize=0,f_blocks=1,f_bavail=0,f_favail=0)
+        with self.assertRaisesRegex(G.Unsafe,'BYTE_OR_INODE_UNKNOWN'):published.append(sampler.sample())
+        self.assertEqual(published,[])
+        wrong=lambda path:{'mount':dict(mount,source='different'),'device':7,'root_filesystem':False}
+        with self.assertRaisesRegex(G.Unsafe,'MOUNT_CHANGED'):G.CapacitySampler(profile,node,wrong,lambda path:stats,stat)
+        device[0]=8
+        with self.assertRaisesRegex(G.Unsafe,'DEVICE_CHANGED'):G.CapacitySampler(profile,node,inspect,lambda path:stats,stat)
