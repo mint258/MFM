@@ -35,3 +35,22 @@ wait preserves all closed work until capacity information recovers.
 
 Only new fixture; Root runs once in its actual safe-temp parent:
 `python -B -m unittest workflows.data_v1_final.export.v31_stream_v1.test_quota_snapshot`
+Optional conservative clock safety bias
+--------------------------------------
+
+Root may explicitly pass `--clock-safety-bias-seconds 1.25` after measuring a client clock lag. Default0 preserves prior timestamps.
+Each snapshot retains the actual source_probe_time and records the explicit
+clock_safety_bias_seconds; observed_time is source_probe_time minus that bias.
+This is a conservative lower timestamp bound, so client-side age is increased.
+It does not change a system clock or extend the reader's five-second freshness
+window. Bias must be finite, nonnegative and strictly below5seconds, the whole
+freshness window; larger values cannot provide a usable fresh publication.
+
+For measured compute0 lag0.995seconds, Root's explicit1.25-second bias leaves
+0.255seconds conservative margin at publication. UID, filesystem, future-time
+rejection and strict max_age<=5second checks in read_available are unchanged.
+Root alone rolls the metadata publisher with the explicit CLI flag; no worker,
+scientific parameter or active plan is modified by this source update.
+
+Only new pure fixture for this update; prior snapshot fixture stays passed:
+python -B -m unittest workflows.data_v1_final.export.v31_stream_v1.test_quota_snapshot.QuotaSnapshot.test_conservative_clock_bias_preserves_strict_freshness

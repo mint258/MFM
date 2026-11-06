@@ -27,6 +27,15 @@ def number(value):
     except OverflowError:return False
 
 
+def observation_times(source_probe_time,clock_safety_bias_seconds=0):
+    """Publish an older bound; never extend the reader's five-second lifetime."""
+    bias=clock_safety_bias_seconds
+    if not number(bias) or not 0<=bias<5:
+        raise SnapshotUnavailable('CLOCK_SAFETY_BIAS_MUST_BE_FINITE_NONNEGATIVE_BELOW_5S')
+    if not number(source_probe_time) or source_probe_time-bias<=0:
+        raise SnapshotUnavailable('SOURCE_PROBE_TIME_MUST_BE_FINITE_AND_POSITIVE')
+    return {'source_probe_time':source_probe_time,'clock_safety_bias_seconds':bias,'observed_time':source_probe_time-bias}
+
 def read_available(reference,*,expected_uid,expected_filesystem,max_age_seconds,now=None):
     """Read and validate freshness on every call; no subprocess or cached age."""
     try:
@@ -67,7 +76,9 @@ def atomic_write(path,value,admit):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',required=True)
-    parser.add_argument('--reserve-bytes',type=int,default=100_000_000_000);args=parser.parse_args()
+    parser.add_argument('--reserve-bytes',type=int,default=100_000_000_000)
+    parser.add_argument('--clock-safety-bias-seconds',type=float,default=0);args=parser.parse_args()
+    observation_times(time.time(),args.clock_safety_bias_seconds)
     if os.getuid()!=UID:raise SnapshotUnavailable('ACTUAL_MAIN_UID_REQUIRED')
     path=Path(args.output).absolute()
     if not path.parent.is_dir() or not path.is_relative_to(Path(FILESYSTEM)) or args.reserve_bytes<100_000_000_000:
@@ -81,12 +92,12 @@ def main():
         stat=os.statvfs(path.parent)
         if os.stat(path.parent).st_dev!=facts['device'] or stat.f_bavail*stat.f_frsize<reserve+65536 or stat.f_favail<10 or available<args.reserve_bytes+65536:
             raise SnapshotUnavailable('SNAPSHOT_CONTROL_DISK_OR_QUOTA_RESERVE')
-    print(json.dumps({'phase':'QUOTA_SNAPSHOT_PUBLISHER','uid':UID,'filesystem':FILESYSTEM,'output':str(path),'interval_seconds':2}),flush=True)
+    print(json.dumps({'phase':'QUOTA_SNAPSHOT_PUBLISHER','uid':UID,'filesystem':FILESYSTEM,'output':str(path),'interval_seconds':2,'clock_safety_bias_seconds':args.clock_safety_bias_seconds}),flush=True)
     while True:
         started=time.monotonic()
         try:
             text=subprocess.check_output(COMMAND,text=True,timeout=2)
-            value={'schema':SCHEMA,'uid':UID,'filesystem':FILESYSTEM,**parse_xfs(text),'observed_time':time.time()}
+            value={'schema':SCHEMA,'uid':UID,'filesystem':FILESYSTEM,**parse_xfs(text),**observation_times(time.time(),args.clock_safety_bias_seconds)}
             atomic_write(path,value,admit)
         except (SnapshotUnavailable,OSError,subprocess.SubprocessError) as error:
             print(json.dumps({'phase':'QUOTA_SNAPSHOT_UNAVAILABLE','reason':repr(error),'previous_snapshot_not_refreshed':True}),flush=True)

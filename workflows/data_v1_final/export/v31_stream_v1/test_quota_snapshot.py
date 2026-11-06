@@ -28,3 +28,21 @@ class QuotaSnapshot(unittest.TestCase):
             path.write_text('{bad json')
             with self.assertRaises(Q.SnapshotUnavailable):read()
             with self.assertRaises(Q.SnapshotUnavailable):Q.read_available(str(path.parent/'missing'),expected_uid=1278,expected_filesystem='/share',max_age_seconds=5,now=1000)
+    def test_conservative_clock_bias_preserves_strict_freshness(self):
+        import io
+        from unittest.mock import patch
+        source=1000.0;offset=0.995
+        plain={'schema':Q.SCHEMA,'uid':1278,'filesystem':'/share','available_bytes':123,**Q.observation_times(source)}
+        biased=dict(plain,**Q.observation_times(source,1.25))
+        self.assertEqual((biased['source_probe_time'],biased['observed_time']),(1000.0,998.75))
+        self.assertEqual(plain['observed_time'],source)
+        def read(value,now):
+            with patch('builtins.open',side_effect=lambda *args,**kwargs:io.StringIO(json.dumps(value))):
+                return Q.read_available('metadata-only.json',expected_uid=1278,expected_filesystem='/share',max_age_seconds=5,now=now)
+        with self.assertRaisesRegex(Q.SnapshotUnavailable,'FUTURE_OR_STALE'):read(plain,source-offset)
+        self.assertEqual(read(biased,source-offset),123)
+        self.assertEqual(read(biased,biased['observed_time']+5),123)
+        with self.assertRaisesRegex(Q.SnapshotUnavailable,'FUTURE_OR_STALE'):read(biased,biased['observed_time']+5.001)
+        with self.assertRaisesRegex(Q.SnapshotUnavailable,'FUTURE_OR_STALE'):read(biased,source+5.001-offset)
+        for invalid in (-0.001,float('nan'),float('inf'),float('-inf'),5,6,10**1000,True,'1.25'):
+            with self.assertRaisesRegex(Q.SnapshotUnavailable,'CLOCK_SAFETY_BIAS'):Q.observation_times(source,invalid)
