@@ -55,3 +55,10 @@ enabled_encoder_fields 为无坐标编码器关闭去噪和等变矢量字段；
 通用训练的可选 `run_until_samples` 在既定样本检查点结束本段执行；`samples`仍是
 学习率/时钟的总计划预算。检查点包含优化器、RNG、全程梯度历史、累计时间及可知的
 累计GPU峰值，后续段修改执行终点而不修改科学配置；阶段状态与完整训练完成分开。
+
+向量尺度按数据线 configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json 的用户冻结方针：
+零中心；每物理头用已有 invariant norm 序列在精确 type7 .001/.999 统计副本截尾后的总体标准差(ddof0)，共用单一尺度。
+atom_vector 对应 <field_id>/norm，其余向量对应 physical/<registry_id>/<task>/norm；具体键以生产绑定为准。
+训练标签保持原值/NaN，空/未定义/零尺度沿用官方 target-local disabled/unbound，不造 epsilon 或 fallback。
+P/D 与 Pprime 各用自己的真实 TRAIN（按实际D5留出）统计；Pprime限定最终前二独立范围。
+当前只收到方针，实际数值参数尚未交付，M2尚未执行。
