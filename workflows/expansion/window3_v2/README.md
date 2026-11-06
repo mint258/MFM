@@ -41,3 +41,6 @@ Root 的轻量协调入口为 coordinate.py：等待真实 1 万父作业完成�
 原精确去污染每个完整键同时插入wp5键，并取否决并集，对纯立体变化不敏感；无新去污染查询。全部来源图NN采用已关闭结果；仅含3D的补充行沿用原固定100万查询、全部1196122 v1顺序前缀和原chirality=False指纹，只选择有效实际构象数>0的PubChem成员，采用既有整数核搜索完整配置参考；不重算指纹。新的pack单测不调用NN。
 
 本次无冒烟或数值二次读回；新逻辑单测只用合成结构、模拟native失败和元数据。所有新增写入在实际共享盘/根盘容量预检后执行；capacity.protect在spool及导出入口检查字节/inode，独立disk_guard每5秒保护精确作业进程。四节点共用512GiB/百万inode峰值预算，账户另留100GiB/10000inode与16GiB写入突发余量，根盘保留max(10GiB,10%)；临时目录也在共享盘。
+Main的NFS整盘statvfs不表示用户4TiB hard quota。后续仅3D覆盖配置须带quota_status，由登录节点quota_guard原生quota -v -u元数据（无hash/收据）提供可用字节，联合现有跨窗口未来预算及100GB账户底线；超过20秒或UID/容量未知均暂停新增写入。capacity和独立disk_guard同时检查；计算端不把NFS整盘5.7TB当作用户余量。3项合成quota单测已在Main4526176真实C0通过，不调用真实quota/信号/科学核。Main compute-0-17根盘仅余36.6MB已排除；compute-0-21实核根盘余830.65GB，正式覆盖启动前仍需再核。所有参考/查询/结果临时文件写共享盘。
+
+assigned_isomeric_smiles是规范化的化学立体参照，geometry坐标和逐原子SASA仍按原source isomeric_smiles的原子顺序。消费者应在原来源图上应用坐标后比较规范化立体信息，不把规范SMILES的书写顺序当作坐标顺序。

@@ -102,6 +102,9 @@ def observe(config, probe=False):
     while True:
         targets = job_processes(config["job_id"], uid)
         checks = [inspect_filesystem(check) for check in config["checks"]]
+        if config.get('quota_status'):
+            from .quota_guard import inspect_quota
+            checks.append(inspect_quota(config['quota_status']))
         state = {"time_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                  "node": config["node"], "job_id": str(config["job_id"]),
                  "matching_processes": len(targets), "filesystems": checks,
