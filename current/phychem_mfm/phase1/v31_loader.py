@@ -15,6 +15,8 @@ import struct
 import numpy as np
 import torch
 
+from .v31_normalization_routes import resolve_normalization_routes
+
 
 DTYPES = {1: 'u1', 2: '<i2', 3: '<u2', 4: '<u4', 5: '<i4', 6: '<f4'}
 ARRAY_IDS = {'d20': 4, 'mol_labels': 23, 'atom_labels': 24,
@@ -207,8 +209,9 @@ class TrainingView:
     instead of embedding it. This simple public JSON interface carries no SHA
     or acceptance receipts.
     """
-    def __init__(self, schema, manifest, normalizations=None):
+    def __init__(self, schema, manifest, normalizations=None, *, normalization_dataset='P_D'):
         self.schema, self.manifest = schema, manifest
+        self.normalization_dataset = normalization_dataset
         fields = manifest.get('fields')
         if not isinstance(fields, list) or not fields:
             raise ValueError('A nonempty data-line training field list is required')
@@ -239,6 +242,10 @@ class TrainingView:
                                if normalizations is None else normalizations)
         if isinstance(self.normalizations, str):
             self.normalizations = json.loads(Path(self.normalizations).read_text())
+        normalization_fields = [field for field in self.fields
+                                if normalization_dataset != 'Pprime' or field['group'] == 'P']
+        self.normalizations = resolve_normalization_routes(self.normalizations, normalization_fields,
+            dataset=normalization_dataset)
         self.locations = {}
         for name, columns in schema['columns'].items():
             for ordinal, column in enumerate(columns):
@@ -266,6 +273,8 @@ class TrainingView:
     def extract(self, molecule, conformer):
         output, r73 = {}, None
         for field in self.fields:
+            if self.normalization_dataset == 'Pprime' and field['group'] != 'P':
+                continue
             name = field['name']
             if field.get('r73_component'):
                 if '_derived_r73_column' in field:
@@ -329,7 +338,8 @@ class MFM4Dataset:
         if isinstance(training_view, (str, Path)):
             training_view = json.loads(Path(training_view).read_text())
         self.view = (None if training_view is None else
-                     TrainingView(self.schema, training_view, normalizations))
+                     TrainingView(self.schema, training_view, normalizations,
+                         normalization_dataset='Pprime' if pprime else 'P_D'))
         self.indices = (np.arange(self.manifest['molecule_count']) if molecule_indices is None
                         else np.asarray(molecule_indices, dtype=np.int64))
         self._index_set = set(map(int, self.indices))

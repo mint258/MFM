@@ -13,6 +13,10 @@ TrainingView 直接消费窗口二正式冻结的 training_view_v1.json；字段
 target_id 相同的独立分量仍分别选取，不扩展成整个目标。显式 D4 参数可由
 normalizations 映射按字段名提供（fit_role=TRAIN、center、scale；需要时包含已有
 element_reference）。亦保留旧模型侧显式字段和 target_id 接口。
+也可直接传入窗口二正式 `WINDOW2_D4_MODEL_NORMALIZATION_ROUTES_V1` 的 routes.json：
+仅按当前数据集及原字段/物理target绑定已就绪center/scale/元素参考，不拟合、不改原值。
+r73原始容器只保留诊断用途，sigma/pi分别绑定已发布派生字段；同一矢量各列复用同一物理尺度。
+Pprime保留完整注册表/头初始化顺序，仅消费P标签及独立Pprime路由，普通P/D仍用P_D；缺失/歧义/未就绪参数及显式禁用源损失均明确报出，不能用其他数据集或单位尺度兜底。
 选择与R²保留列名；训练损失仍按原physical target：共享target_id的偶极xyz重组为
 一个等变向量、一个原径向Huber及一个组内权重，不改成三个独立标量Huber。
 矢量D4零中心且各分量同一尺度；完整观测资格沿用原逻辑，组件mask仍保留。

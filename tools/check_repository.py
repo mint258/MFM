@@ -39,6 +39,24 @@ MODEL_RESULT_OPTIONAL = {
 
 def model_summary_csv(name: str, raw: bytes) -> bool:
     """Allow only small, typed, one-row-per-run model experiment summaries."""
+    if name == 'results/model_v3_v2_validation.csv':
+        try:
+            if len(raw) > 128 * 1024 or b'\x00' in raw:
+                return False
+            reader = csv.DictReader(io.StringIO(raw.decode('utf-8')))
+            fields = ('run_id', 'consumed_samples', 'panel', 'records', 'molecules',
+                      's_element_loss', 's_noise_loss', 's_bond_loss',
+                      'noise_component_RMSE_A', 'selection_use')
+            rows = list(reader)
+            return (tuple(reader.fieldnames or ()) == fields and 0 < len(rows) <= 2000
+                    and len({(row['run_id'], row['panel']) for row in rows}) == len(rows)
+                    and all(None not in row and row['selection_use'].lower() == 'false'
+                            and row['panel'] in {'FULL', 'ROUTINE', 'TRAIN_UNSEEN_CONFORMATION'}
+                            and all(row[key].isdigit() for key in ('consumed_samples', 'records', 'molecules'))
+                            and all(math.isfinite(float(row[key])) and float(row[key]) >= 0
+                                    for key in fields[5:9]) for row in rows))
+        except (UnicodeError, csv.Error, KeyError, TypeError, ValueError):
+            return False
     if name == 'results/model_v3_v2_runs.csv':
         try:
             reader = csv.DictReader(io.StringIO(raw.decode('utf-8')))
