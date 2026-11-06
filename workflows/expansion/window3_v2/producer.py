@@ -18,6 +18,8 @@ import time
 import uuid
 
 from .kernel import Kernel, generate, molecule_id
+from . import stereo
+from .capacity import protect
 
 KERNEL = CONFIG = None
 
@@ -90,6 +92,7 @@ class Writer:
 
 
 def write_packets(packets, folder):
+    protect(CONFIG)
     from ..uff3_candidate_v1 import families
     # This new process uses only the already established family row layout.
     # Supply a writer which writes once and never calculates a content digest.
@@ -102,13 +105,15 @@ def write_packets(packets, folder):
         packet['once_key'] = packet['molecule_id']
         items.append(({'sha256': None}, packet))
     files = [{k: ref[k] for k in ('path', 'size', 'rows')}
-             for ref in families.export_packets(items, folder, budget, os.environ['SLURM_JOB_ID'])]
+             for ref in families.export_packets(items, folder, budget, os.environ['SLURM_JOB_ID'],
+                 include_families={'D3','geometry','source_status'} if CONFIG.get('stereo_supplement') else None)]
     import pyarrow as pa
     import pyarrow.parquet as pq
     masks, mask_counts, candidates, timing = [], collections.defaultdict(collections.Counter), [], []
     for packet in packets:
         source, mid = packet['source'], packet['molecule_id']
         records = [('D20', mid + ':graph', packet['D20'])]
+        if CONFIG.get('stereo_supplement'): records = []
         records += [('D3', mid + ':uff:' + str(c['conformer_id']), c['D3']) for c in packet['conformers']]
         for task, rid, value in records:
             for field in CONFIG['fields']:
@@ -133,10 +138,15 @@ def write_packets(packets, folder):
                            'pubchem_version': source['pubchem_version'],
                            'candidates_json': json.dumps(packet['candidates'], allow_nan=False),
                            'attempts_json': json.dumps(packet['attempts'], allow_nan=False)})
+        candidates[-1].update({k: packet.get(k) for k in stereo.FIELDS})
+        candidates[-1]['stereo_draws_json'] = json.dumps(packet.get('stereo_draws', []), allow_nan=False)
         timing.append({'molecule_id': mid, 'pubchem_cid': source['cid'], 'stream': source['stream'],
                        'dataset_version': 'v2_candidate', 'pubchem_version': source['pubchem_version'],
                        'seconds': packet['worker_wall_seconds'], 'CPU_seconds': packet['worker_CPU_seconds'],
                        'actual_conformers': len(packet['conformers']), 'state': packet['state']})
+        timing[-1].update({k: packet.get(k) for k in stereo.FIELDS})
+        timing[-1]['assigned_CIP_counts_json'] = json.dumps(packet.get('assigned_CIP_counts', {}))
+        timing[-1]['assigned_EZ_counts_json'] = json.dumps(packet.get('assigned_EZ_counts', {}))
     mask_schema = pa.schema([('record_id', pa.string()), ('molecule_id', pa.string()), ('field_id', pa.string()),
         ('field_key', pa.string()), ('source_path', pa.string()), ('values_float64', pa.large_list(pa.float64())),
         ('source_value_mask', pa.large_list(pa.bool_())), ('value_mask', pa.large_list(pa.bool_())),
@@ -149,6 +159,7 @@ def write_packets(packets, folder):
 
 
 def process(task):
+    protect(CONFIG)
     index, sources = task
     folder = Path(CONFIG['output']) / ('chunk_%06d' % index)
     folder.mkdir(parents=True, exist_ok=True)
@@ -168,6 +179,7 @@ def process(task):
     # Every gzip member is closed before the next scientific call. Resume reads
     # only a failed chunk, never completed parquet files for independent QA.
     def append(row):
+        protect(CONFIG)
         with gzip.open(spool, 'at', encoding='utf-8') as stream:
             stream.write(json.dumps(row, allow_nan=False) + '\n')
     for i, source in enumerate(sources):
@@ -179,9 +191,10 @@ def process(task):
                 'insufficient_conformers': True, 'generation_count_unknown': True, 'cache_complete': False,
                 'candidate_cache_sha256': None, 'atom_order_sha256': None,
                 'worker_wall_seconds': None, 'worker_CPU_seconds': None}
+            packet.update(stereo.defaults())
         else:
             append({'index': i})
-            packet = generate(source, KERNEL)
+            packet = generate(source, KERNEL, reuse_d20=True) if CONFIG.get('stereo_supplement') else generate(source, KERNEL)
         results[i] = packet
         append({'index': i, 'packet': packet})
     packets = [results[i] for i in range(len(sources))]
@@ -196,6 +209,12 @@ def process(task):
               'native_attempt_states': dict(collections.Counter(a['state'] for p in packets for a in p['attempts'])),
               'molecule_seconds': sum(p['worker_wall_seconds'] for p in packets if p['worker_wall_seconds'] is not None),
               'molecule_CPU_seconds': sum(p['worker_CPU_seconds'] for p in packets if p['worker_CPU_seconds'] is not None)}
+    result['stereo'] = {'redrawn_molecules': sum(p.get('stereo_draw_index', 0) > 0 for p in packets),
+        'draws': sum(len(p.get('stereo_draws', [])) for p in packets),
+        'molecules_with_3D': sum(bool(p['conformers']) for p in packets),
+        'final_zero_3D': sum(not p['conformers'] for p in packets),
+        'CIP': dict(sum((collections.Counter(p.get('assigned_CIP_counts', {})) for p in packets), collections.Counter())),
+        'EZ': dict(sum((collections.Counter(p.get('assigned_EZ_counts', {})) for p in packets), collections.Counter()))}
     save(done, result)
     return result
 
@@ -206,6 +225,13 @@ def accept_shard(rank, config):
 
 def selected_sources(config):
     manifest = read(config['source_manifest'])
+    if config.get('stereo_supplement'):
+        for ref in manifest['stereo_source_parts']:
+            with Path(ref['path']).open() as stream:
+                for line in stream:
+                    row = json.loads(line)
+                    if accept_shard(row['stream_rank'], config): yield row
+        return
     rng = random.Random(20261025)
     ranks = {s: set(rng.sample(range(1, 1250001), 5000)) for s in ('R', 'N')}
     pilot_keys = {(s, rank) for s, selected in ranks.items() for rank in selected}
@@ -221,6 +247,7 @@ def selected_sources(config):
 
 
 def run(config):
+    protect(config)
     workers = config['workers']
     if not os.environ.get('SLURM_JOB_ID') or int(os.environ['SLURM_CPUS_PER_TASK']) < workers:
         raise RuntimeError('REAL_SLURM_ALLOCATION_REQUIRED')
@@ -233,11 +260,16 @@ def run(config):
     totals, states, streams, masks = collections.Counter(), collections.Counter(), collections.Counter(), collections.defaultdict(collections.Counter)
     reasons, attempts, expected_streams = collections.Counter(), collections.Counter(), collections.Counter()
     files = []
+    stereo_counts, cip_counts, ez_counts = collections.Counter(), collections.Counter(), collections.Counter()
     def consume(result):
         for k in ('molecules', 'conformers', 'molecule_seconds', 'molecule_CPU_seconds'): totals[k] += result[k]
         states.update(result['states']); streams.update(result['streams']); files.extend(result['files'])
         reasons.update(result.get('failure_reasons', {})); attempts.update(result.get('native_attempt_states', {}))
         for k, value in result['masks'].items(): masks[k].update(value)
+        for k,v in result.get('stereo', {}).items():
+            if k == 'CIP': cip_counts.update(v)
+            elif k == 'EZ': ez_counts.update(v)
+            else: stereo_counts[k] += v
         save(root / 'progress.json', {'counts': dict(totals), 'states': dict(states), 'streams': dict(streams),
                                     'wall_seconds': time.monotonic() - began, 'job_id': os.environ['SLURM_JOB_ID']})
     pending, batch, index = set(), [], 0
@@ -254,7 +286,7 @@ def run(config):
     expected = sum(expected_streams.values())
     if totals['molecules'] != expected or streams != expected_streams:
         raise ValueError('EXACT_FROZEN_BATCH_COVERAGE_DIFFERS')
-    if config.get('shard_count', 1) == 1 and expected != (10000 if config['mode'] == 'pilot' else 2490000):
+    if not config.get('stereo_supplement') and config.get('shard_count', 1) == 1 and expected != (10000 if config['mode'] == 'pilot' else 2490000):
         raise ValueError('WHOLE_BATCH_SIZE_DIFFERS')
     summary = {'mode': config['mode'], 'counts': dict(totals), 'states': dict(states), 'streams': dict(streams),
                'masks': {k: dict(v) for k, v in masks.items()}, 'wall_seconds': time.monotonic() - began,
@@ -262,6 +294,7 @@ def run(config):
                'shard_index': config.get('shard_index', 0), 'shard_count': config.get('shard_count', 1),
                'shard_residues': config.get('shard_residues', [config.get('shard_index', 0)]),
                'failure_reasons': dict(reasons), 'native_attempt_states': dict(attempts)}
+    summary['stereo'] = {**dict(stereo_counts), 'CIP': dict(cip_counts), 'EZ': dict(ez_counts)}
     save(root / 'manifest.json', files)
     save(root / 'summary.json', summary)
     print(json.dumps(summary), flush=True)

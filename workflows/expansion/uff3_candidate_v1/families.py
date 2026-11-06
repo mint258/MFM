@@ -27,7 +27,8 @@ def quality_init(review):
     return _CAPSULE.quality_init(review)
 
 
-def export_packets(items,out,budget,job_id):
+def export_packets(items,out,budget,job_id,include_families=None):
+    items=list(items)
     import pyarrow as pa
     pa.set_cpu_count(1);pa.set_io_thread_count(1)
     writer=load_writer()
@@ -37,6 +38,10 @@ def export_packets(items,out,budget,job_id):
         ('conformer_id',pa.int64()),('training_eligible',pa.bool_()),
         ('producer_packet_sha256',pa.string()),('writer_job_id',pa.int64()),
         ('candidate_cache_sha256',pa.string())]
+    stereo_fields = [('stereo_assigned',pa.bool_()), ('assigned_isomeric_smiles',pa.large_string()),
+        ('n_assigned_tetrahedral',pa.int64()), ('n_assigned_double_bond',pa.int64()),
+        ('stereo_draw_index',pa.int64())] if any('stereo_assigned' in p for _,p in items) else []
+    extra += stereo_fields
     d20=[];d3=[];geometry=[];statuses=[]
     for packet_ref,packet in items:
         source=packet['source'];mid=packet['molecule_id']
@@ -50,6 +55,7 @@ def export_packets(items,out,budget,job_id):
             'geometry_source':'uff_sprime','geometry_context':'NEW_UFF_NO_PM7',
             'training_eligible':False,'producer_packet_sha256':packet_ref['sha256'],
             'writer_job_id':int(job_id),'candidate_cache_sha256':packet['candidate_cache_sha256']}
+        common.update({name:packet.get(name) for name,_ in stereo_fields})
         value=packet.get('D20')
         d20.append({**common,'record_id':mid+':graph','conformer_id':None,
             'geometry_source':None,'geometry_context':'SOURCE_SMILES_GRAPH_NO_GEOMETRY',
@@ -107,6 +113,7 @@ def export_packets(items,out,budget,job_id):
     for family,rows,schema in (('D20',d20,pa.schema(list(writer.D20_SCHEMA)+extra)),
         ('D3',d3,pa.schema(list(writer.D3_SCHEMA)+extra)),('geometry',geometry,geometry_schema),
         ('source_status',statuses,status_schema)):
+        if include_families is not None and family not in include_families:continue
         if not rows:continue
         budget.check(False)
         ref=writer.write_family_rows(rows,out/(family+'.parquet'),schema,

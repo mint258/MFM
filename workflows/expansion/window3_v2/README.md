@@ -31,3 +31,13 @@ Root 的轻量协调入口为 coordinate.py：等待真实 1 万父作业完成�
 本次四分片du合计109670126080字节。按已消费2292496条、剩余人口加160×2×256条最大排队/并发量，以当前单位占用的4倍并加1GiB控制/清单临时估算，后续峰值约52.6GiB；四个作业共用一份256GiB/500000inode增长预留，另保留100GiB和10000inode，不按四节点重复分配。其他窗口在同一Alpha账户盘计划写入时须扣除此预留。实际计划位于仓库外 disk_guard_20261106/。
 
 `test_disk_guard.py` 的5项单测覆盖根盘系统余量加计划增长、字节/inode双条件、容量未知、精确作业ID及UID隔离/只暂停匹配进程。信号使用替身，测试没有暂停任何真实作业。1885281在监控部署前已自然C0；其余三个实际监控保持独立于生产科学代码，sonmi1使用持久SSH前台会话。观察状态为WATCHING才表示监控正在运行；进程记录文件本身不证明存活。
+
+## 2026-11-06 已批准的未指定立体规则（覆盖上文旧立体拒绝规则）
+
+`stereo.py` 使用 `(seed_for(MID)+0x53544552+draw_index*0x9E3779B9) mod 2^32` 的独立 Random 流，每个未指定四面体/可有 E/Z 双键取一个公平 bit；不枚举或排序异构体。RDKit 清理并规范化，再恢复原子顺序；原已指定立体按邻接顺序奇偶与双键参考原子关系检查保留。实际 assigned_isomeric_smiles 成为嵌入及原几何立体检查的参照。只有某次全部嵌入/UFF候选失败才取下一立体 seed，最多四次；正的1/2构象立即停止，不补足。UFF嵌入 seed、30候选、原S′/UFF参数、0.5Å及D3/SASA函数不变。普通未来批次从 `Kernel` 默认使用此规则；原冻结运行保持历史版本。
+
+首批补跑由 `stereo_batch prepare` 从旧 source_status 元数据选且仅选1,285,342条旧立体拒绝行；已有几何不动。`producer` 配置 stereo_supplement=true 时完全不调用D20，也不写重复D20/掩码；原D20文件直接引用。新实际几何/D3、候选缓存及timings含五个立体字段，缓存保留全部draw元数据。`finalize` 为全体来源扩展source_status，旧state/error/actual_conformers/SMILES/CID等原列保留，补跑结果写stereo_state/stereo_error/stereo_actual_conformers，effective_*供当前消费。旧Parquet全部保留，唯一新交付清单以新状态分区替换旧状态引用，其余旧家族继续引用并追加新实际构象。候选缓存/timings是分阶段历史，不按重复MID误当新分子。
+
+原精确去污染每个完整键同时插入wp5键，并取否决并集，对纯立体变化不敏感；无新去污染查询。全部来源图NN采用已关闭结果；仅含3D的补充行沿用原固定100万查询、全部1196122 v1顺序前缀和原chirality=False指纹，只选择有效实际构象数>0的PubChem成员，采用既有整数核搜索完整配置参考；不重算指纹。新的pack单测不调用NN。
+
+本次无冒烟或数值二次读回；新逻辑单测只用合成结构、模拟native失败和元数据。所有新增写入在实际共享盘/根盘容量预检后执行；capacity.protect在spool及导出入口检查字节/inode，独立disk_guard每5秒保护精确作业进程。四节点共用512GiB/百万inode峰值预算，账户另留100GiB/10000inode与16GiB写入突发余量，根盘保留max(10GiB,10%)；临时目录也在共享盘。

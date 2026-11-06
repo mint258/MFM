@@ -15,6 +15,7 @@ import types
 
 from ..uff3_candidate_v1.core import seed_for, IntegrityError
 from ..uff3_candidate_v1.native import NativeKernel
+from . import stereo
 
 
 def load_module(name, path):
@@ -51,9 +52,11 @@ class Kernel(NativeKernel):
     def _graph(self, source):
         from rdkit import Chem
         self.kernels = self._kernels
-        self.template = Chem.MolFromSmiles(source['isomeric_smiles'])
-        if self.template is None or Chem.MolToInchiKey(self.template) != source['full_key']:
+        self.source_template = Chem.MolFromSmiles(source['isomeric_smiles'])
+        if self.source_template is None or Chem.MolToInchiKey(self.source_template) != source['full_key']:
             raise ValueError('SOURCE_FULLKEY_GRAPH_MISMATCH')
+        self.template, self.stereo_metadata = stereo.assign(
+            self.source_template, molecule_id(source), getattr(self, 'stereo_draw_index', 0))
         self.mol = Chem.AddHs(self.template)
         self.source = source
         self.numbers = [a.GetAtomicNum() for a in self.mol.GetAtoms()]
@@ -61,6 +64,18 @@ class Kernel(NativeKernel):
         return [{'type': str(i.type), 'center': int(i.centeredOn), 'specified': str(i.specified)}
                 for i in Chem.FindPotentialStereo(self.mol)
                 if str(i.specified) != 'Specified' and self.kernels['science'].stereo_scope(self.mol, i)]
+
+    def prepare_geometry(self, source):
+        from rdkit.Chem import AllChem
+        unresolved = self._graph(source)
+        return dict(D20=None, atomic_numbers=self.numbers, unassigned_stereo=unresolved,
+                    uff_supported=bool(AllChem.UFFHasAllMoleculeParams(self.mol)))
+
+    def prepare(self, source):
+        prepared = self.prepare_geometry(source)
+        # D20 always belongs to the original graph and is calculated once only.
+        prepared['D20'], _, _ = self.d20(self.source_template)
+        return prepared
 
     def d20(self, template):
         values, mask, issues = [], [], []
@@ -100,23 +115,31 @@ def select_three(candidates, distance):
     return selected
 
 
-def generate(source, kernel):
+def _generate_once(source, kernel, reuse_d20=False):
     start, cpu = time.monotonic(), time.process_time()
     mid = molecule_id(source)
     packet = {'source': source, 'molecule_id': mid, 'seed': seed_for(mid), 'D20': None,
               'atomic_numbers': [], 'conformers': [], 'candidates': [], 'attempts': [],
               'requested_conformers': 3, 'orders': {'fixed_random': [], 'energy': [], 'diversity': []},
               'state': 'TECHNICAL_UNKNOWN', 'error': None, 'cache_complete': False,
-              'candidate_cache_sha256': None, 'atom_order_sha256': None}
+              'candidate_cache_sha256': None, 'atom_order_sha256': None,
+              'native_all_failed': False, **stereo.defaults()}
     try:
-        prepared = kernel.prepare(source)
+        prepared = kernel.prepare_geometry(source) if reuse_d20 else kernel.prepare(source)
+        packet.update(getattr(kernel, 'stereo_metadata', stereo.defaults()))
         packet['D20'], packet['atomic_numbers'] = prepared['D20'], prepared['atomic_numbers']
         if prepared['unassigned_stereo']:
             packet['state'] = 'STEREO_REFERENCE_UNAVAILABLE_NO_PM7'
         elif not prepared['uff_supported']:
             packet['state'] = 'UFF_UNSUPPORTED'
         else:
-            candidates = [int(c) for c in kernel.embed(packet['seed'], 30)]
+            try:
+                candidates = [int(c) for c in kernel.embed(packet['seed'], 30)]
+            except IntegrityError:
+                raise
+            except Exception:
+                packet['native_all_failed'] = True
+                raise
             if len(candidates) > 30 or len(set(candidates)) != len(candidates):
                 raise ValueError('INVALID_NATIVE_CANDIDATE_IDS')
             for cid in candidates:
@@ -131,6 +154,7 @@ def generate(source, kernel):
                 except Exception as exc:
                     packet['attempts'].append({'candidate_id': cid, 'state': 'NATIVE_FAILED', 'error': repr(exc)})
             selected = select_three(packet['candidates'], kernel.distance)
+            packet['native_all_failed'] = not packet['candidates']
             for index, row in enumerate(selected[:3]):
                 row = dict(row, conformer_id=index, geometry_sha256=None)
                 try:
@@ -153,5 +177,29 @@ def generate(source, kernel):
     packet['insufficient_conformers'] = len(packet['conformers']) < 3
     packet['generation_order'] = list(range(len(packet['conformers'])))
     packet['worker_wall_seconds'] = time.monotonic() - start
+    packet['worker_CPU_seconds'] = time.process_time() - cpu
+    return packet
+
+
+def generate(source, kernel, reuse_d20=False):
+    """One native recipe per draw; only all-native-failed stereo draws repeat."""
+    began, cpu = time.monotonic(), time.process_time()
+    draws, d20 = [], None
+    for index in range(stereo.MAX_DRAWS):
+        kernel.stereo_draw_index = index
+        packet = _generate_once(source, kernel, reuse_d20=reuse_d20 or index > 0)
+        if index == 0:
+            d20 = packet['D20']
+        packet['D20'] = d20
+        draws.append({**{k: packet[k] for k in stereo.FIELDS},
+                      'state': packet['state'], 'error': packet['error'],
+                      'native_all_failed': packet['native_all_failed'],
+                      'attempts': packet['attempts'],
+                      'assigned_CIP_counts': packet['assigned_CIP_counts'],
+                      'assigned_EZ_counts': packet['assigned_EZ_counts']})
+        if not stereo.redraw_required(packet):
+            break
+    packet['stereo_draws'] = draws
+    packet['worker_wall_seconds'] = time.monotonic() - began
     packet['worker_CPU_seconds'] = time.process_time() - cpu
     return packet

@@ -1,0 +1,183 @@
+"""Root's metadata-only coordinator for the approved stereo supplement."""
+import argparse
+import json
+import os
+from pathlib import Path
+import subprocess
+import time
+
+
+def read(path):
+    return json.loads(Path(path).read_text())
+
+
+def save(path, value):
+    path = Path(path)
+    temporary = path.with_suffix('.pending')
+    temporary.write_text(json.dumps(value) + '\n')
+    os.replace(temporary, path)
+
+
+def wait_jobs(ids):
+    active = {'RUNNING','PENDING','CONFIGURING','COMPLETING','SUSPENDED','REQUEUED','RESIZING'}
+    while True:
+        try:
+            text = subprocess.check_output(['sacct','-X','-P','-n','-j',','.join(ids),
+                '-o','JobIDRaw,State,ExitCode,ElapsedRaw,AllocCPUS'], text=True)
+            rows = {r[0]:r for line in text.splitlines() if (r:=line.split('|'))[0] in ids}
+        except subprocess.CalledProcessError as exc:
+            print('Native accounting temporarily unavailable', str(exc), flush=True)
+            time.sleep(55)
+            continue
+        if set(rows) == set(ids) and not any(r[1].split()[0] in active for r in rows.values()):
+            if any(r[1] != 'COMPLETED' or r[2] != '0:0' for r in rows.values()):
+                raise RuntimeError('ACTUAL_JOB_NOT_C0: ' + json.dumps(rows))
+            return list(rows.values())
+        time.sleep(55)
+
+
+def job_script(root, runtime, python, config_path, node, partition, cpus, tag, command):
+    """Actual allocated-node disk preflight and an independent five-second guard."""
+    return f'''#!/bin/bash
+#SBATCH --partition={partition}
+#SBATCH --nodelist={node}
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task={cpus}
+#SBATCH --nice=1000
+#SBATCH --job-name=pubchem_stereo_{tag}
+#SBATCH --output={root}/{tag}_%j.out
+set -euo pipefail
+unset SBATCH_MEM SBATCH_MEM_PER_NODE SBATCH_MEM_PER_CPU SBATCH_MEM_PER_GPU
+export CUDA_VISIBLE_DEVICES= PYTHONDONTWRITEBYTECODE=1
+export LD_LIBRARY_PATH=/gfshome/alpha/codex_data_v1_20261026/chemprop_compatible_v2/lib:${{LD_LIBRARY_PATH:-}}
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+cd {runtime}
+{python} -B - <<'PY'
+import json,os,pathlib,socket,subprocess
+from workflows.expansion.window3_v2.disk_guard import inspect_filesystem
+root=pathlib.Path({str(root)!r})
+config=json.loads(pathlib.Path({str(config_path)!r}).read_text())
+for args in [['findmnt','-T',str(root)],['df','-B1',str(root),'/'],['df','-Pi',str(root),'/']]:
+    subprocess.run(args,check=True)
+checks=[inspect_filesystem(dict(config['disk_checks'][0],planned_bytes=512*1024**3,planned_inodes=1000000)),inspect_filesystem(config['disk_checks'][1])]
+print(json.dumps(dict(state='ACTUAL_NODE_PREFLIGHT',checks=checks)),flush=True)
+if not all(v['safe'] for v in checks): raise RuntimeError('ACTUAL_NODE_DISK_CAPACITY_UNSAFE')
+job=os.environ['SLURM_JOB_ID']
+guard=dict(uid=os.getuid(),node=socket.gethostname().split('.')[0],job_id=job,checks=config['disk_checks'],interval_seconds=5,state_path=str(root/('guard_'+job+'.state.json')),reservation_scope='single shared512GiB stereo supplement budget')
+(root/('guard_'+job+'.json')).write_text(json.dumps(guard)+'\\n')
+(root/('tmp_'+job)).mkdir(exist_ok=True)
+PY
+export TMPDIR={root}/tmp_${{SLURM_JOB_ID}}
+{python} -B -m workflows.expansion.window3_v2.disk_guard --config {root}/guard_${{SLURM_JOB_ID}}.json > {root}/guard_${{SLURM_JOB_ID}}.out 2>&1 &
+stereo_guard_pid=$!
+trap 'kill "$stereo_guard_pid" 2>/dev/null || true' EXIT
+{python} -B -m {command} --config {config_path}
+'''
+
+
+def submit(path, script):
+    path.write_text(script)
+    job = subprocess.check_output(['sbatch','--parsable',str(path)],text=True).strip().split(';')[0]
+    if not job.isdecimal():
+        raise RuntimeError('NATIVE_SUBMISSION_JOB_ID_MISSING')
+    print('SUBMITTED', job, str(path), flush=True)
+    return job
+
+
+def choose_nodes():
+    text = subprocess.check_output(['sinfo','-N','-h','-o','%N|%P|%C'],text=True)
+    nodes = {}
+    for line in text.splitlines():
+        name,partition,counts = line.split('|')
+        idle = int(counts.split('/')[1])
+        row = nodes.setdefault(name,dict(idle=idle,partitions=set()))
+        row['partitions'].add(partition.rstrip('*'))
+    result, used = [], set()
+    roles = [(64,'compute-0-1'),(32,'compute-0-2'),(48,'compute-0-8'),(16,'sonmi1')]
+    for cpus,fallback in roles:
+        candidates = [(0 if 'cpu' in v['partitions'] else 1, 0 if n==fallback else 1,n)
+                      for n,v in nodes.items() if n not in used and v['idle']>=cpus
+                      and ('cpu' in v['partitions'] or 'all' in v['partitions'])]
+        name = min(candidates)[2] if candidates else fallback
+        if name in used:
+            raise RuntimeError('CPU_NODE_ASSIGNMENT_CONFLICT')
+        used.add(name)
+        partition = 'cpu' if 'cpu' in nodes[name]['partitions'] else 'all'
+        result.append((name,partition,cpus))
+    print(json.dumps(dict(fresh_sinfo=text,chosen=result)),flush=True)
+    return result
+
+
+def run(config):
+    import fcntl
+    root = Path(config['root'])
+    lock = (root/'stereo_coordinator.lock').open('a')
+    fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    if config.get('validation_jobs'):
+        wait_jobs(config['validation_jobs'])
+    wait_jobs([config['prepare_job']])
+    prepared = read(config['prepared'])
+    if prepared['stereo_molecules'] != 1285342 or prepared['original_rows'] != 2500000:
+        raise ValueError('FROZEN_STEREO_SCOPE_DIFFERS')
+    launch = root/'full_launch.json'
+    if launch.exists():
+        jobs = read(launch)
+    else:
+        old = read('/gfshome/alpha/pubchem_window3_v2_20261105/full_0_config.json')
+        checks = read(config['prepare_config'])['disk_checks']
+        plan = root/'full_plan.json'
+        if plan.exists():
+            nodes = read(plan)
+        else:
+            nodes = choose_nodes()
+            save(plan,nodes)
+        jobs = []
+        for index,((node,partition,cpus),residues) in enumerate(zip(nodes,[[0,1,2,3],[4,5],[6,7,8],[9]])):
+            slot = root/('full_'+str(index)+'_launch.json')
+            if slot.exists():
+                jobs.append(read(slot))
+                continue
+            intent = root/('full_'+str(index)+'_submission_pending.json')
+            if intent.exists():
+                raise RuntimeError('RECOVER_ACTUAL_SUBMISSION_BEFORE_RELAUNCH: '+str(intent))
+            output = root/('full_'+str(index))
+            value = dict(old,source_manifest=config['prepared'],output=str(output),
+                mode='stereo_supplement',stereo_supplement=True,workers=cpus,batch_size=128,
+                shard_count=10,shard_residues=residues,disk_checks=checks)
+            path = root/('full_'+str(index)+'_config.json')
+            save(path,value)
+            script = job_script(root,config['runtime'],config['python'],path,node,partition,cpus,
+                                'full_'+str(index),'workflows.expansion.window3_v2.producer')
+            save(intent,dict(config=str(path),job_name='pubchem_stereo_full_'+str(index)))
+            job = submit(root/('full_'+str(index)+'.sbatch'),script)
+            jobs.append(dict(job_id=job,node=node,cpus=cpus,output=str(output),config=str(path)))
+            # Persist every actual submission immediately; coordinator restart
+            # must never submit a second producer against that output.
+            save(slot,jobs[-1])
+        save(launch,jobs)
+    rows = wait_jobs([j['job_id'] for j in jobs])
+    summaries = [read(Path(j['output'])/'summary.json') for j in jobs]
+    if sum(s['counts']['molecules'] for s in summaries) != 1285342:
+        raise ValueError('STEREO_PRODUCER_POPULATION_DIFFERS')
+    save(root/'full_accounting.json',dict(rows=rows,allocated_core_hours=sum(int(r[3])*int(r[4]) for r in rows)/3600))
+    final_launch = root/'finalize_launch.json'
+    if final_launch.exists():
+        final_job = read(final_launch)['job_id']
+    else:
+        value = dict(prepared=config['prepared'],delivery=str(root/'delivery'),
+                     producer_outputs=[j['output'] for j in jobs],
+                     disk_checks=read(config['prepare_config'])['disk_checks'])
+        path=root/'finalize_config.json';save(path,value)
+        final_job=submit(root/'finalize.sbatch',job_script(root,config['runtime'],config['python'],path,
+                         'sonmi1','cpu',1,'finalize','workflows.expansion.window3_v2.stereo_batch finalize'))
+        save(final_launch,dict(job_id=final_job))
+    final_rows=wait_jobs([final_job])
+    save(root/'finalize_accounting.json',dict(rows=final_rows))
+    print('STEREO_DELIVERY_CLOSED_PENDING_3D_ONLY_COVERAGE_AND_REPORT',flush=True)
+
+
+if __name__ == '__main__':
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--config',required=True)
+    run(read(parser.parse_args().config))

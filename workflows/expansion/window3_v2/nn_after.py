@@ -1,8 +1,10 @@
-"""One user-authorized fixed1M NN run against the full 3,696,122 reference.
+"""Fixed1M NN against an explicitly configured full reference.
 
 Reuse the existing validated integer native kernel. Fork inherits its sealed
-reference; each process has its own COW order cache and query workspace. No
-reference subset, chemistry, new fingerprints, artifact digests or QA pass.
+reference; each process has its own COW order cache and query workspace. The
+closed all-graph result is reused. The stereo supplement adds one explicit
+3D-member reference, preserving the whole v1 prefix and original fingerprints.
+No chemistry, new fingerprints, artifact digests or QA pass.
 """
 import argparse
 from array import array
@@ -15,8 +17,8 @@ import math
 import multiprocessing
 import os
 from pathlib import Path
-import shutil
 import time
+from .capacity import protect
 
 WIDTH=256
 NATIVE=CACHE=None
@@ -32,7 +34,7 @@ def save(path, value):
     os.replace(temporary,path)
 
 
-def pack(inputs, out, base_count=1196122, added_count=2500000):
+def pack(inputs, out, base_count=1196122, added_count=2500000, members_path=None, config=None):
     """Original ordinals are a byte-copied prefix; additions keep source order."""
     done=out/'reference.json'
     if done.exists(): return read(done)
@@ -40,16 +42,34 @@ def pack(inputs, out, base_count=1196122, added_count=2500000):
     base_fp=inputs/'before_fingerprints.bin'; base_keys=inputs/'before_keys.ascii'
     if base_fp.stat().st_size!=base_count*WIDTH or base_keys.stat().st_size!=base_count*28:
         raise ValueError('ORIGINAL_REFERENCE_CARDINALITY')
-    shutil.copyfile(base_fp,fp); shutil.copyfile(base_keys,keys)
+    guard = config or {}
+    members = None
+    if members_path is not None:
+        with Path(members_path).open() as source:
+            members = {json.loads(line)['molecule_id'] for line in source}
+        if len(members) != added_count:
+            raise ValueError('EXACT_3D_MEMBER_POPULATION_REQUIRED')
+    for source_path,target_path in ((base_fp,fp),(base_keys,keys)):
+        protect(guard)
+        with source_path.open('rb') as src, target_path.open('wb') as dst:
+            for raw in iter(lambda:src.read(8<<20),b''):
+                protect(guard); dst.write(raw)
     count=0
     with (inputs/'addition_projection.jsonl').open() as source, fp.open('ab') as f, keys.open('ab') as k:
         for line in source:
-            row=json.loads(line); raw=bytes.fromhex(row['ecfp4_2048_hex']); key=row['full_key'].encode('ascii')
+            row=json.loads(line)
+            if members is not None:
+                if row['molecule_id'] not in members: continue
+                members.remove(row['molecule_id'])
+            raw=bytes.fromhex(row['ecfp4_2048_hex']); key=row['full_key'].encode('ascii')
             if len(raw)!=WIDTH or len(key)!=27: raise ValueError('REFERENCE_FP_KEY_SHAPE')
             f.write(raw); k.write(key+b'\n'); count+=1
+            if count % 4096 == 0: protect(guard)
+    if members: raise ValueError('3D_MEMBER_MISSING_FROM_ORIGINAL_PROJECTION')
     if count!=added_count: raise ValueError('FULL_SELECTED_ADDITION_REQUIRED')
     value={'molecules':base_count+count,'original_prefix':base_count,'added':count,
-           'fingerprints':str(fp),'keys':str(keys),'fingerprint_recipe':'ECFP4_2048_radius2_chiralityFalse_rdkit2025.09.5'}
+           'fingerprints':str(fp),'keys':str(keys),'fingerprint_recipe':'ECFP4_2048_radius2_chiralityFalse_rdkit2025.09.5',
+           'members_path':str(members_path) if members_path is not None else None}
     save(done,value); return value
 
 
@@ -110,6 +130,7 @@ def queries(inputs, expected=1000000):
 
 
 def run(config):
+    protect(config)
     if not os.environ.get('SLURM_JOB_ID') or int(os.environ.get('SLURM_CPUS_PER_TASK','0'))<config['workers']:
         raise RuntimeError('ACTUAL_CPU_SLURM_ALLOCATION_REQUIRED')
     out=Path(config['output']); out.mkdir(parents=True,exist_ok=True)
@@ -119,8 +140,17 @@ def run(config):
         print('Existing completed fixed1M result retained; no new NN calls',flush=True)
         return
     inputs=Path(config['inputs']); started=time.monotonic()
-    reference=pack(inputs,out)
-    if reference['molecules']!=3696122 or reference['original_prefix']!=1196122 or reference['added']!=2500000:
+    added_count=config.get('added_reference_molecules',2500000)
+    members_path=config.get('members_path')
+    scope=config.get('reference_scope','all_source_graphs')
+    if (scope not in {'all_source_graphs','pubchem_with_3D'} or
+            (scope=='pubchem_with_3D') != bool(members_path) or
+            (members_path and not config.get('disk_checks'))):
+        raise ValueError('EXPLICIT_REFERENCE_SCOPE_AND_DISK_PROTECTION_REQUIRED')
+    reference=pack(inputs,out,added_count=added_count,members_path=members_path,config=config)
+    reference_count=1196122+added_count
+    if (reference['molecules']!=reference_count or reference['original_prefix']!=1196122
+            or reference['added']!=added_count or reference.get('members_path')!=members_path):
         raise ValueError('ORIGINAL_PREFIX_PLUS_WHOLE_FIRST_BATCH')
     load_native(config['binary'],reference['fingerprints'],reference['molecules'])
     print('Loaded sealed full reference',reference['molecules'],flush=True)
@@ -129,7 +159,7 @@ def run(config):
     context=multiprocessing.get_context('fork')
     with ProcessPoolExecutor(max_workers=config['workers'],mp_context=context) as pool:
         ready_values=[f.result() for f in [pool.submit(ready) for _ in range(config['workers'])]]
-        if any(n!=3696122 for _,n in ready_values): raise ValueError('FULL_REFERENCE_WORKERS')
+        if any(n!=reference_count for _,n in ready_values): raise ValueError('FULL_REFERENCE_WORKERS')
         records,raws=queries(inputs)
         if len(raws)!=990134: raise ValueError('FROZEN_BASELINE_DISTINCT_FINGERPRINT_COUNT')
         print('Fixed query rows',len(records),'distinct fingerprints',len(raws),flush=True)
@@ -141,6 +171,7 @@ def run(config):
         schema=pa.schema([('fp_id',pa.int32()),('numerator',pa.int16()),('denominator',pa.int16()),('reference_ordinal',pa.int32())])
         def consume(index, values, write):
             if write:
+                protect(config)
                 path=blocks/('%06d.parquet'%index)
                 pq.write_table(pa.Table.from_pylist([dict(zip(schema.names,row)) for row in values],schema=schema),path,compression='zstd')
                 save(blocks/('%06d.done.json'%index),{'rows':len(values),'path':str(path)})
@@ -160,7 +191,7 @@ def run(config):
                 future=next(as_completed(waiting)); waiting.remove(future)
                 i,values=future.result(); consume(i,values,True); closed+=len(values)
                 save(out/'progress.json',{'closed_distinct_fingerprints':closed,'expected_distinct_fingerprints':len(raws),
-                     'queries':len(records),'reference_molecules':3696122,'wall_seconds':time.monotonic()-started,
+                     'queries':len(records),'reference_molecules':reference_count,'wall_seconds':time.monotonic()-started,
                      'job_id':os.environ['SLURM_JOB_ID']})
         for future in as_completed(waiting):
             i,values=future.result(); consume(i,values,True); closed+=len(values)
@@ -170,7 +201,7 @@ def run(config):
     from ..distribution_report_v1.aggregate import Moments
     before_m=Moments('nearest_tanimoto'); after_m=Moments('nearest_tanimoto')
     keys=Path(reference['keys']).read_bytes()
-    if len(keys)!=3696122*28: raise ValueError('REFERENCE_KEY_ORDINAL_ALIGNMENT')
+    if len(keys)!=reference_count*28: raise ValueError('REFERENCE_KEY_ORDINAL_ALIGNMENT')
     identities=set(keys.splitlines()); counts=Counter(); files=[]; buffer=[]
     result_schema=pa.schema([('sample_ordinal',pa.int64()),('cid',pa.int64()),('full_key',pa.string()),
         ('before_tanimoto',pa.float64()),('nearest_reference_tanimoto',pa.float64()),('gain',pa.float64()),
@@ -178,6 +209,7 @@ def run(config):
         ('fingerprint_self_match',pa.bool_()),('nearest_identity_self_match',pa.bool_()),('reference_role',pa.string())])
     def flush():
         if not buffer:return
+        protect(config)
         path=out/('coverage_%04d.parquet'%len(files))
         pq.write_table(pa.Table.from_pylist(buffer,schema=result_schema),path,compression='zstd')
         files.append({'path':str(path),'size':path.stat().st_size,'rows':len(buffer)}); buffer.clear()
@@ -199,14 +231,15 @@ def run(config):
     flush()
     if sum(f['rows'] for f in files)!=1000000: raise ValueError('FULL_FROZEN_QUERY_OUTPUT_COUNT')
     save(out/'manifest.json',files)
-    summary={'queries':1000000,'distinct_query_fingerprints':len(raws),'reference_molecules':3696122,
-        'original_reference_prefix':1196122,'added_reference_molecules':2500000,'query_membership_and_order':'original1885183 sample_ordinal ASC',
+    summary={'queries':1000000,'distinct_query_fingerprints':len(raws),'reference_molecules':reference_count,
+        'original_reference_prefix':1196122,'added_reference_molecules':added_count,'query_membership_and_order':'original1885183 sample_ordinal ASC',
         'fingerprint_recipe':reference['fingerprint_recipe'],'native_binary':config['binary'],
         'before':dict(zip(('n','mean','population_std','min','max'),before_m.summary())),
         'after':dict(zip(('n','mean','population_std','min','max'),after_m.summary())),
         'before_histogram':before_m.result(),'after_histogram':after_m.result(),'counts':dict(counts),
         'wall_seconds':time.monotonic()-started,'job_id':os.environ['SLURM_JOB_ID'],'workers':config['workers'],
-        'new_fingerprints_computed':0,'new_nn_scope':'one user-authorized original fixed1M against full augmented reference'}
+        'new_fingerprints_computed':0,'reference_scope':scope,
+        'new_nn_scope':'original fixed1M against full configured reference; all-graph result reused for stereo supplement'}
     save(out/'summary.json',summary)
     print(json.dumps(summary),flush=True)
 
