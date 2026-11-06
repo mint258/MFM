@@ -283,3 +283,6 @@ Native4526126实际COMPLETED/0:0，elapsed05:59:13。最终实际范围1,200,832
 
 
 2026-11-06 窗口二配额快照修复：旧元数据PID3593645实际卡在rename/__break_lease，导致6128按5秒规则DISK_WAIT，并非空间不足；旧快照/所有数据保留。Main bb29b47的AtomicPublisher从rename前持续持有当前inode写FD，下一次成功替换才关闭previous；新单测1PASS .029s，累计68项不重复。旧元数据精确pidfd TERM退出，新Main元数据PID3640096使用 /share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/window2_20261105/share_quota_available_v3.json；实际node0连续5代读取有效，旧share_quota_available.json已停更勿用于后续准入。6128已正常CANCELLED且实际node0无steps，保留32/32投影、首遍112/112、第2遍50/112闭合组；同32CPU节点0的新6169已RUNNING，使用原output/checkpoint并进入attempt_001，不重投影或重算QM。D6 6125依赖已改6117:6169:6127，仍held/NOT_ADMITTED；旧spooled compare小manifest兼容要求顺延至6169真C0。剩余规划160,993,980,283B及100GB+6GB+8GiB保留，未降低存储余量/5秒新鲜度/科学参数。PM7第4轮166/171无错误，UFF续跑。
+
+
+2026-11-06 窗口二元数据续调：NFS快照新鲜度边界等待反复自恢复，刷新间隔从2秒缩至1秒，5秒新鲜度、1.25秒保守下界、100GB/并发/突发余量均不变。仅交接元数据：精确旧PID3640096 STOP时保持已发布inode写FD，新PID3645685在同v3路径成功发布并核实持有当前inode写FD后，旧进程TERM+CONT确认退出；未再次重启6169或其他科学作业。P′第2轮已从50组续至56/112，PM7第4轮170/171，均无统计错误。仅修改两个刷新常量，无新统计逻辑，不重复已过测试；累计68项新逻辑测试事实不变。

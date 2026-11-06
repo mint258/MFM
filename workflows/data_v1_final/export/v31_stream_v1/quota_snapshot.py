@@ -119,7 +119,7 @@ def main():
         stat=os.statvfs(path.parent)
         if os.stat(path.parent).st_dev!=facts['device'] or stat.f_bavail*stat.f_frsize<reserve+65536 or stat.f_favail<10 or available<args.reserve_bytes+65536:
             raise SnapshotUnavailable('SNAPSHOT_CONTROL_DISK_OR_QUOTA_RESERVE')
-    print(json.dumps({'phase':'QUOTA_SNAPSHOT_PUBLISHER','uid':UID,'filesystem':FILESYSTEM,'output':str(path),'interval_seconds':2,'clock_safety_bias_seconds':args.clock_safety_bias_seconds}),flush=True)
+    print(json.dumps({'phase':'QUOTA_SNAPSHOT_PUBLISHER','uid':UID,'filesystem':FILESYSTEM,'output':str(path),'interval_seconds':1,'clock_safety_bias_seconds':args.clock_safety_bias_seconds}),flush=True)
     with AtomicPublisher(path,admit) as publisher:
         while True:
             started=time.monotonic()
@@ -129,7 +129,7 @@ def main():
                 publisher.publish(value)
             except (SnapshotUnavailable,OSError,subprocess.SubprocessError) as error:
                 print(json.dumps({'phase':'QUOTA_SNAPSHOT_UNAVAILABLE','reason':repr(error),'previous_snapshot_not_refreshed':True}),flush=True)
-            time.sleep(max(0,2-(time.monotonic()-started)))
+            time.sleep(max(0,1-(time.monotonic()-started)))
 
 
 if __name__=='__main__':main()
