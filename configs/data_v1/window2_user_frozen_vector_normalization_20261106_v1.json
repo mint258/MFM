@@ -1,0 +1,23 @@
+{
+  "schema": "WINDOW2_USER_FROZEN_VECTOR_NORMALIZATION_POLICY_V1",
+  "status": "USER_FROZEN_20261106",
+  "user_approval": "采用模长的截尾总体标准差（推荐，与既有 r674 方针一致）",
+  "scope": "All vector heads in the existing delivered v3.1 schema; original target identities, masks and exposure policies remain authoritative.",
+  "normalization": {
+    "centering": "FIXED_ZERO",
+    "scale": "SERIES_STD_DDOF0",
+    "per_head_single_scale": true,
+    "scale_definition": "Population standard deviation of the existing invariant vector-norm series after the already frozen exact type7 0.001/0.999 statistical-copy winsorization.",
+    "norm_series_selection": "Existing physical_key mapping: atom_vector uses <field_id>/norm; other vector heads use physical/<registry_id>/<task>/norm.",
+    "componentwise_scales": false,
+    "training_labels_clipped": false,
+    "epsilon_or_fallback_scale": null
+  },
+  "datasets": {
+    "P_D": "Use only its own actual final Common TRAIN minus actual D5 producer statistics.",
+    "Pprime": "Use only its own actual final Common TRAIN first2 minus actual D5 independent producer statistics; no PM7 substitution."
+  },
+  "r674": "Existing formal D1 policy and LOSS_DISABLED/UNKNOWN exposure flags remain unchanged.",
+  "degenerate_scale": "Preserve the existing target-local disabled/unbound behavior for empty, undefined or zero scale; no invented epsilon.",
+  "implementation_scope": "Metadata binding to already running statistics only; no added scan, refit, clipping of source labels or change to scientific population."
+}

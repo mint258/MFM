@@ -289,3 +289,6 @@ Native4526126实际COMPLETED/0:0，elapsed05:59:13。最终实际范围1,200,832
 
 
 2026-11-06 窗口二D4阶段进度：PM7 6117分位数第4轮171/171已闭合，第5轮70/171 errors[]；后续截尾矩/median/MAD未完成，尚非D4交付。P′6169第2轮92/112；node0实际时钟及productionPython一致，快照10次年龄1.395–1.913秒有效；对单worker仅quotaJSON路径8秒运行诊断确认读取v3当前代、有效年龄与连续批次，已detach，不再重启/改数值逻辑。整组检查点暂不变化不能当成绝对零工作。UFF6127继续，D6仍held/NOT_ADMITTED，非r674向量定义待用户答复。没有新数值QA/源数组复读/吞吐基准/验收收据。
+
+
+2026-11-06 窗口二用户科学定义已冻结：用户明确选择“采用模长的截尾总体标准差（与既有r674方针一致）”。正式文件 configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json 规定vector零中心、每头各分量共用既定模长统计副本截尾std_ddof0，PM7/P′各自拟合；window2_D4_physical_route_bindings_v1.json 已将现有schema全部9个vector头指向该正式方针。r674仍用原D1方针，原loss exposure/掩码、退化尺度禁用和不造epsilon保持。只绑定既有在算统计，不增加源扫描、重拟合或训练标签截尾；数值生产作业不变，原3项publisher逻辑测试不重跑。M2不再等待矢量定义答复，但正式数值仍须等实际D4生产C0后发布，不能把配置冻结当成D4完成。

@@ -1,5 +1,60 @@
 {
   "schema": "WINDOW2_EXISTING_PHYSICAL_POLICY_ROUTE_POINTERS_V1",
-  "targets": {},
-  "policy": "Pointers only into already formally frozen policies. Unresolved vector norm-std versus RMS remains pending; this template does not choose it. Existing r674 is read from the supplied formal D1 policy."
+  "targets": {
+    "native_1a27be48ebdef80d90b6866a15a81ccc2faffd931f475c2ba4a28954d85cb009": {
+      "policy_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json"
+      },
+      "json_pointer": "/normalization"
+    },
+    "native_5022d83a73e966efaabd1b9bf556570915bad4437b3f6f01edbde6340705a43d": {
+      "policy_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json"
+      },
+      "json_pointer": "/normalization"
+    },
+    "native_58e7224565852cdbd6aef5888324451353bff67cb759fcc94b331a84b0b5e09b": {
+      "policy_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json"
+      },
+      "json_pointer": "/normalization"
+    },
+    "native_87df2d49857e9d2cbfe36abe39b842fbbc9a93c0b7b7eacd3f2d735ff90ea690": {
+      "policy_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json"
+      },
+      "json_pointer": "/normalization"
+    },
+    "native_a3278ab7c7ede17a13bbc32c4e62c18647664a6cb5a46ecd36b1f9e4a715a650": {
+      "policy_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json"
+      },
+      "json_pointer": "/normalization"
+    },
+    "native_b4f94607697f4623043c441dfb1b65f802077ee7e587e1ed47f2ac40a850b0f2": {
+      "policy_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json"
+      },
+      "json_pointer": "/normalization"
+    },
+    "native_c99079b9e9a17e1c8d835a9d19444b62d68b757f3949046a23a0d9a0c61e2a0e": {
+      "policy_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json"
+      },
+      "json_pointer": "/normalization"
+    },
+    "native_d7537467324ce28c2a4491fdabab4eaec53ba97f5fd322849951a616b9f53f7c": {
+      "policy_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json"
+      },
+      "json_pointer": "/normalization"
+    },
+    "native_f9552909dfa993a7472768d3071f2ca25bb1fadc66d0e41512eef1f7948b5750": {
+      "policy_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json"
+      },
+      "json_pointer": "/normalization"
+    }
+  },
+  "policy": "User2026-11-06 explicitly froze vector norm statistical-copy winsorized population std_ddof0, fixed zero center and one scale per head. These pointers bind existing independent PM7/Pprime series; original r674 continues using supplied formal D1 policy. No numeric source scan or refit."
 }
