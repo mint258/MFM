@@ -77,6 +77,7 @@ class CapacitySampler:
     """Full startup inspection, then cheap actual statvfs/device samples only."""
     def __init__(self,profile,node,inspector,statvfs=os.statvfs,stat=os.stat,clock=time.time):
         self.node=node;self.statvfs=statvfs;self.stat=stat;self.clock=clock;self.targets=[]
+        self.clock_safety_bias_seconds=profile['nodes'][node].get('clock_safety_bias_seconds',0)
         for spec in profile['nodes'][node]['targets']:
             facts=inspector(spec['path'])
             if facts['mount']!=spec['mount']:raise Unsafe('ACTUAL_TARGET_MOUNT_CHANGED')
@@ -97,7 +98,8 @@ class CapacitySampler:
                 rows.append({'path':path,'mount':mount,'total':value.f_blocks*value.f_frsize,'available':value.f_bavail*value.f_frsize,'inodes':value.f_favail,'root_filesystem':root})
         except OSError as error:raise Unsafe('ACTUAL_TARGET_STATVFS_UNKNOWN:'+repr(error)) from error
         if not completed:raise Unsafe('ACTUAL_TARGET_PROFILE_EMPTY')
-        return {'schema':'NODE_WRITER_CAPACITY_V1','uid':UID,'node':self.node,'observed_time':min(completed),'targets':rows}
+        from workflows.data_v1_final.export.v31_stream_v1.quota_snapshot import observation_times
+        return {'schema':'NODE_WRITER_CAPACITY_V1','uid':UID,'node':self.node,**observation_times(min(completed),self.clock_safety_bias_seconds),'targets':rows}
 
 def safe(profile,job,reader=load,now=None):
     now=time.time() if now is None else now

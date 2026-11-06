@@ -91,3 +91,23 @@ class LustreWriterGuard(unittest.TestCase):
         with self.assertRaisesRegex(G.Unsafe,'MOUNT_CHANGED'):G.CapacitySampler(profile,node,wrong,lambda path:stats,stat)
         device[0]=8
         with self.assertRaisesRegex(G.Unsafe,'DEVICE_CHANGED'):G.CapacitySampler(profile,node,inspect,lambda path:stats,stat)
+    def test_capacity_clock_bias_keeps_real_probe_and_strict_five_seconds(self):
+        from types import SimpleNamespace
+        node='compute-0-19';mount={'target':'/lfshome','source':'toy@net:/fs','fstype':'lustre'}
+        profile={'nodes':{node:{'clock_safety_bias_seconds':0.5,'targets':[{'path':'/lfshome/a','mount':mount}]}}}
+        def inspect(path):return {'mount':mount,'device':7,'root_filesystem':False}
+        stats=SimpleNamespace(f_frsize=4096,f_blocks=100000,f_bavail=12345,f_favail=9876)
+        def sample(config):
+            return G.CapacitySampler(config,node,inspect,lambda path:stats,lambda path:SimpleNamespace(st_dev=7),lambda:1000.0).sample()
+        value=sample(profile)
+        self.assertEqual(value['source_probe_time'],1000.0)
+        self.assertEqual(value['observed_time'],999.5)
+        self.assertEqual(value['clock_safety_bias_seconds'],0.5)
+        G.fresh(value,'NODE_WRITER_CAPACITY_V1',1000.0-0.168,5)
+        with self.assertRaisesRegex(G.Unsafe,'FUTURE_OR_STALE'):
+            G.fresh(value,'NODE_WRITER_CAPACITY_V1',1000.0+5.001-0.168,5)
+        plain=copy.deepcopy(profile);del plain['nodes'][node]['clock_safety_bias_seconds']
+        default=sample(plain)
+        self.assertEqual(default['source_probe_time'],default['observed_time'])
+        with self.assertRaisesRegex(G.Unsafe,'FUTURE_OR_STALE'):
+            G.fresh(default,'NODE_WRITER_CAPACITY_V1',1000.0-0.168,5)

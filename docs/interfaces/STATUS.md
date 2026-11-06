@@ -274,3 +274,6 @@ Native4526126实际COMPLETED/0:0，elapsed05:59:13。最终实际范围1,200,832
 
 
 2026-11-06 窗口二NFS配额时钟修复：节点0相对登录节点的5次同连接clock RPC严格偏差约[-0.99511,-0.99486]秒，导致刚发布quota在node0被判future。新publisher显式clock-safety-bias=1.25秒，将observed_time设为真实source_probe_time减保守偏差，并同时保留source_probe_time/bias；读取端UID/fs和0<=age<=5秒未改，未调系统时间/NTP或科学900秒。新唯一fixture通过2.601s；精确UID/argv/start/pidfd只停止旧metadata publisher3536643，新Main publisher3593645发布同一路径。node0实际校验age约.608秒通过，Pprime6128投影分片继续闭合；无原始/闭合标签重算或删除。未来写入节点使用此reference仍须核实相对时钟界限，不能把偏差配置当作放宽时效。D4第3轮171组已闭合，后续数值阶段继续；D6仍held/未最终准入。
+
+
+2026-11-06 窗口二运行续报：D4 6117首遍及分位数第2/3轮171组闭合，第4轮116/171 errors[]，尚未完成；P′6128独立F64投影持续闭合，非r674向量尺度仍待用户答复。容量监控对19/20节点使用显式0.5秒保守时间下界并保留真实source_probe_time，5秒新鲜度不变；仅滚动替换自身元数据采样器，6117/6127均RUNNING、parked{}。新逻辑单测累计67项一次通过，无重复数值读取/QA。D6仍held待实际容量准入，最终每split一份共享LMDB，所有模型节点共读。

@@ -58,3 +58,19 @@ python -B -m unittest workflows.data_v1_final.pprime.window2_final_pprime_scope_
 No existing quota/temporary/guard tests are repeated.
 Only the new runtime-sampler fixture for this update (old two methods stay passed):
 python -B -m unittest workflows.data_v1_final.pprime.window2_final_pprime_scope_v1.control_helpers.test_lustre_non_native_writer_guard.LustreWriterGuard.test_runtime_sampler_inspects_once_and_never_publishes_unknown_or_drift
+
+Per-node conservative clock bound (optional)
+-------------------------------------------
+
+Each nodes entry may explicitly set clock_safety_bias_seconds; default0 keeps
+prior times. CapacitySampler reuses quota_snapshot.observation_times: it retains
+source_probe_time=min(completed target reads), publishes observed_time equal to
+that real source time minus the configured bias, and records the bias. Values
+must satisfy the existing pure helper's finite/nonnegative/<5seconds rule.
+Root may choose0.5seconds only after measuring node19/20 clock offsets. This
+makes a conservative age bound; it neither changes a clock nor relaxes the
+unchanged five-second reader/controller/freshness rule. Root alone edits the
+actual profile and rolls metadata publishers; controller and producers stay put.
+
+Only the new capacity-clock fixture for this update; old methods stay passed:
+python -B -m unittest workflows.data_v1_final.pprime.window2_final_pprime_scope_v1.control_helpers.test_lustre_non_native_writer_guard.LustreWriterGuard.test_capacity_clock_bias_keeps_real_probe_and_strict_five_seconds
