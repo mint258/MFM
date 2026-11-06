@@ -304,3 +304,6 @@ Native4526126实际COMPLETED/0:0，elapsed05:59:13。最终实际范围1,200,832
 
 
 2026-11-06 窗口二 D4 进度：PM7 6117 的量化第2/3/4/5/6轮均171/171闭合，第7轮19/171；独立P′ 6172的首遍及量化第2/3/4轮112/112闭合，第5轮63/112。两项实际Slurm仍RUNNING，无统计错误。后续原算法截尾矩及median/MAD继续，D4尚未完成、M2正式参数尚未发布。用户已批准矢量以模长截尾总体std_ddof0为每头共尺度、零中心，9个既有矢量头已绑定正式策略，PM7/P′各自计算，r674保留原D1策略及LOSS_DISABLED。现有PM7 reader的14任务完整性检查保持，不套用P′整part切分。UFF 6127已实际C0，D6 6125仍held/NOT_ADMITTED、依赖6117:6172:6127；待两路统计C0后发布参数、按真实容量准入全量导出。最终每split仅一份共享compact LMDB，各模型节点共读，不复制至GPU节点。仅继续原算法生产统计，无额外QA扫描、数值复读、hash/收据/独立QA/测试重跑；已通过70项新逻辑测试保持。
+
+
+2026-11-07 窗口二：PM7原精确分位数第2至8轮各171/171完整闭合，已进入原截尾矩第9轮（46/171、无统计错误）。P′的首遍及精确分位数第2至8轮各112/112闭合；6172在截尾矩初始化遇瞬时配额快照过期，原Temp.activate未等待该异常导致分组失败，最终36组闭合后自然FAILED1:0/10:23:51，实际节点0已无旧steps。仅为ACCOUNT_QUOTA_SNAPSHOT_UNKNOWN加入初始化等待；5秒时效、UID/schema、容量/inode/100GB与并发余量、原F64数学和浮点整组顺序全保持。新合成用例真实snapshot解析stale/future均零写、fresh后继续、无关策略错误仍拒绝，新增1项仅运行一次0.099秒，实际6117.25/1CPU C0；原70项未重跑。Main804a317（childc0a2b49）。新6181已RUNNING32CPU节点0，同plan/output/cache、pass9 attempt001复用全部36闭合组；无重复投影/QM/已闭合组或额外QA扫描。D6 6125仍Priority0/JobHeldAdmin、NOT_ADMITTED，依赖6117:6181；UFF6127实际C0且已从Slurm活动缓存清除，先决条件已履行、F64缓存保持。旧spooled compare小manifest兼容顺延至6181真正C0后；正式D4路由与全量D6仍待剩余统计完成和实际容量准入。最终每split一份共享compact LMDB，各模型节点共读，不做GPU节点LMDB复制。

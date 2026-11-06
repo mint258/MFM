@@ -51,7 +51,7 @@ def activate(plan,admit=True):
             if limit>target['budget']['peak_additional_bytes']:raise D.DiskUnavailable('SPILL_LIMIT_NOT_COVERED_BY_DECLARED_PEAK')
             break
         except D.DiskUnavailable as error:
-            if not str(error).startswith(('DISK_RESERVE_REACHED','ACCOUNT_QUOTA_RESERVE_REACHED','TARGET_CAPACITY_UNKNOWN','TARGET_MOUNT_UNKNOWN')):raise
+            if not str(error).startswith(('DISK_RESERVE_REACHED','ACCOUNT_QUOTA_RESERVE_REACHED','ACCOUNT_QUOTA_SNAPSHOT_UNKNOWN','TARGET_CAPACITY_UNKNOWN','TARGET_MOUNT_UNKNOWN')):raise
             print(json.dumps({'phase':'TEMPORARY_STORAGE_WAIT','reason':str(error),'no_temp_write_started':True}),flush=True)
             time.sleep(float(spec['disk_protection'].get('poll_seconds',1)))
         except (OSError,ValueError,__import__('subprocess').CalledProcessError) as error:
