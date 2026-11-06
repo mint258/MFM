@@ -49,12 +49,21 @@ class Kernel(NativeKernel):
         self.old = types.SimpleNamespace(d20=self.d20)
         self.writer = load_module('_window3_family_schema', roles['family_writer'])
 
+    def _source_graph(self, source):
+        from rdkit import Chem
+        if getattr(self, '_template_source', None) is source:
+            return self.source_template
+        template = Chem.MolFromSmiles(source['isomeric_smiles'])
+        if template is None or Chem.MolToInchiKey(template) != source['full_key']:
+            raise ValueError('SOURCE_FULLKEY_GRAPH_MISMATCH')
+        self.source_template = template
+        self._template_source = source
+        return self.source_template
+
     def _graph(self, source):
         from rdkit import Chem
         self.kernels = self._kernels
-        self.source_template = Chem.MolFromSmiles(source['isomeric_smiles'])
-        if self.source_template is None or Chem.MolToInchiKey(self.source_template) != source['full_key']:
-            raise ValueError('SOURCE_FULLKEY_GRAPH_MISMATCH')
+        self._source_graph(source)
         self.template, self.stereo_metadata = stereo.assign(
             self.source_template, molecule_id(source), getattr(self, 'stereo_draw_index', 0))
         self.mol = Chem.AddHs(self.template)
@@ -72,9 +81,12 @@ class Kernel(NativeKernel):
                     uff_supported=bool(AllChem.UFFHasAllMoleculeParams(self.mol)))
 
     def prepare(self, source):
-        prepared = self.prepare_geometry(source)
         # D20 always belongs to the original graph and is calculated once only.
-        prepared['D20'], _, _ = self.d20(self.source_template)
+        # Keep it even if subsequent stereo assignment cannot be normalized.
+        self._prepared_d20 = None
+        self._prepared_d20, _, _ = self.d20(self._source_graph(source))
+        prepared = self.prepare_geometry(source)
+        prepared['D20'] = self._prepared_d20
         return prepared
 
     def d20(self, template):
@@ -170,6 +182,8 @@ def _generate_once(source, kernel, reuse_d20=False):
             packet['orders']['energy'] = list(range(len(packet['conformers'])))
         packet['cache_complete'] = True
     except Exception as exc:
+        if not reuse_d20 and packet['D20'] is None:
+            packet['D20'] = getattr(kernel, '_prepared_d20', None)
         packet['error'] = type(exc).__name__ + ': ' + str(exc)
         if isinstance(exc, IntegrityError):
             packet['conformers'] = []

@@ -3,7 +3,7 @@ import collections
 import unittest
 
 from . import stereo
-from .kernel import generate
+from .kernel import Kernel, generate
 
 
 class AssignmentTests(unittest.TestCase):
@@ -135,6 +135,28 @@ class RedrawTests(unittest.TestCase):
         p = generate(SOURCE, k, reuse_d20=True)
         self.assertEqual(k.draws, [0, 1])
         self.assertEqual(len(p['conformers']), 3)
+
+    def test_future_graph_d20_survives_stereo_assignment_failure_without_recomputation(self):
+        from unittest.mock import Mock
+        k=Kernel.__new__(Kernel)
+        k._source_graph=Mock(return_value=object())
+        k.d20=Mock(return_value=({'original_D20':True},None,None))
+        k.prepare_geometry=Mock(side_effect=ValueError('synthetic stereo normalization failure'))
+        p=generate(SOURCE,k)
+        self.assertEqual(p['D20'],{'original_D20':True})
+        self.assertEqual(p['state'],'TECHNICAL_UNKNOWN')
+        self.assertEqual(k.d20.call_count,1)
+        self.assertEqual(k.prepare_geometry.call_count,1)
+
+    def test_failed_source_cannot_inherit_previous_molecules_d20(self):
+        from unittest.mock import Mock
+        k=Kernel.__new__(Kernel)
+        k._prepared_d20={'previous_molecule':True}
+        k._source_graph=Mock(side_effect=ValueError('synthetic invalid source'))
+        k.d20=Mock()
+        p=generate(SOURCE,k)
+        self.assertIsNone(p['D20'])
+        k.d20.assert_not_called()
 
 
 if __name__ == '__main__':
