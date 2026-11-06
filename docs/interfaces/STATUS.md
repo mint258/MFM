@@ -292,3 +292,6 @@ Native4526126实际COMPLETED/0:0，elapsed05:59:13。最终实际范围1,200,832
 
 
 2026-11-06 窗口二用户科学定义已冻结：用户明确选择“采用模长的截尾总体标准差（与既有r674方针一致）”。正式文件 configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json 规定vector零中心、每头各分量共用既定模长统计副本截尾std_ddof0，PM7/P′各自拟合；window2_D4_physical_route_bindings_v1.json 已将现有schema全部9个vector头指向该正式方针。r674仍用原D1方针，原loss exposure/掩码、退化尺度禁用和不造epsilon保持。只绑定既有在算统计，不增加源扫描、重拟合或训练标签截尾；数值生产作业不变，原3项publisher逻辑测试不重跑。M2不再等待矢量定义答复，但正式数值仍须等实际D4生产C0后发布，不能把配置冻结当成D4完成。
+
+
+2026-11-06 窗口二UFF真实闭合：4526127实际COMPLETED0:0，batch/extern均0:0，当前作业elapsed11:24:50。生产端 /lfshome/zixiao/data_v1_20261025/window2_full_UFF_D3_20261105_v1/manifest.json 已闭合10,861,980实际UFF几何、9,441文件、28,831,514,624字节；文件records合计一致，新掩码2仅报告保留，不重试/不造人工复查列表。清单保留原corrected_base内部HBA和每新增实际几何调用一次、源F64几何不变；累计缓存包含此前214闭合块的续用，不能把累计调用数当成仅本Slurm段调用量。范围含10,857,356普通S′及4,624注册extra几何，原诊断extra表为0；D20仍原PM7按M共享。D6使用该真实缓存，不重算全UFF；Native/元数据缓存19仍有D6后续消费者，未删除。PM7 D4 pass5 135/171、P′6169 pass2 95/112尚运行；D6 6125仍held/NOT_ADMITTED，最终各split一份共享LMDB、无GPU节点复制。该完成记录只读闭合JSON及Slurm状态，无额外数值QA/hash/收据。
