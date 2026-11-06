@@ -295,3 +295,6 @@ Native4526126实际COMPLETED/0:0，elapsed05:59:13。最终实际范围1,200,832
 
 
 2026-11-06 窗口二UFF真实闭合：4526127实际COMPLETED0:0，batch/extern均0:0，当前作业elapsed11:24:50。生产端 /lfshome/zixiao/data_v1_20261025/window2_full_UFF_D3_20261105_v1/manifest.json 已闭合10,861,980实际UFF几何、9,441文件、28,831,514,624字节；文件records合计一致，新掩码2仅报告保留，不重试/不造人工复查列表。清单保留原corrected_base内部HBA和每新增实际几何调用一次、源F64几何不变；累计缓存包含此前214闭合块的续用，不能把累计调用数当成仅本Slurm段调用量。范围含10,857,356普通S′及4,624注册extra几何，原诊断extra表为0；D20仍原PM7按M共享。D6使用该真实缓存，不重算全UFF；Native/元数据缓存19仍有D6后续消费者，未删除。PM7 D4 pass5 135/171、P′6169 pass2 95/112尚运行；D6 6125仍held/NOT_ADMITTED，最终各split一份共享LMDB、无GPU节点复制。该完成记录只读闭合JSON及Slurm状态，无额外数值QA/hash/收据。
+
+
+2026-11-06 窗口二整数radix执行优化已备：Main5381da1（child247d96c），仅P′ normalization_quantiles/diagnostic_median_MAD，默认OFF flag shard_radix_typed_parts。原112逻辑组/顺序保持，现有190个互斥typed parts可flatpool分派；同一Original._group_pass逐行F64字节码，每part仍只消费一次，histogram/field/role/task/series仅精确整数合并；TSQR和浮点moments维持原整组路径，PM7不变。已闭合组/part按stage+有序原ref恢复，单part直接复用不读写额外hist。唯一新增合成golden测试在既有6117/16CPU步骤PASS1/7.881秒，覆盖原量化及median→MAD全部refinement/F64逐bit、恢复乱序/冲突/float拒绝；旧通过项未重跑，累计69项。111个已闭合P′整组hist元数据共63,407,816B、最大957,451B；额外前缀/merge纳入原剩余160,993,980,283B规划，运行期真实quota/字节/inode余量不变。当前6169 pass2 111/112最后大组仍继续，未为优化中断；到当前阶段闭合才考虑切换。无生产数值重读QA/吞吐基准/新hash/收据。

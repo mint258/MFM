@@ -3,7 +3,7 @@ import argparse,collections,concurrent.futures as cf,json,multiprocessing as mp,
 from pathlib import Path
 from . import projection as P,statistics as T
 from ..window2_normalization_v1 import io as I,run as Original
-from . import temporary as Temp
+from . import temporary as Temp,radix_parts as RP
 
 
 def fit(plan,cache):
@@ -31,17 +31,20 @@ def fit(plan,cache):
             attempt=0
             while(stage_root/('attempt_%03d'%attempt)).exists():attempt+=1
             attempt_root=stage_root/('attempt_%03d'%attempt);attempt_root.mkdir();pending={}
-            for group in groups:
-                key=str(group['group_index'])
-                if key not in state['groups']:pending[pool.submit(T.group_pass,(current,stage,str(attempt_root),group))]=key
-            errors=[]
-            for future in cf.as_completed(pending):
-                key=pending[future]
-                try:state['groups'][key]=future.result()
-                except BaseException as exc:errors.append({'group':key,'error':repr(exc)})
-                I.save(checkpoint,state)
-                print(json.dumps({'purpose':purpose,'pass':state['pass_index'],'closed_groups':len(state['groups']),'total_groups':len(groups),'errors':errors}),flush=True)
-            if errors:raise ValueError('PPRIME_STATISTIC_GROUP_ERRORS:'+repr(errors))
+            if RP.enabled(plan,purpose):
+                RP.run_stage(pool,current,stage,state['active_stage'],stage_root,attempt_root,groups,state,checkpoint)
+            else:
+                for group in groups:
+                    key=str(group['group_index'])
+                    if key not in state['groups']:pending[pool.submit(T.group_pass,(current,stage,str(attempt_root),group))]=key
+                errors=[]
+                for future in cf.as_completed(pending):
+                    key=pending[future]
+                    try:state['groups'][key]=future.result()
+                    except BaseException as exc:errors.append({'group':key,'error':repr(exc)})
+                    I.save(checkpoint,state)
+                    print(json.dumps({'purpose':purpose,'pass':state['pass_index'],'closed_groups':len(state['groups']),'total_groups':len(groups),'errors':errors}),flush=True)
+                if errors:raise ValueError('PPRIME_STATISTIC_GROUP_ERRORS:'+repr(errors))
             reports=[I.load_data(state['groups'][str(g['group_index'])])for g in groups]
             if purpose=='element_reference':
                 models={str(f['field_id']):T.Original.B.merge_qr([report['energy_TSQR'][str(f['field_id'])]for report in reports])for f in fields if f['element_reference_eligible']}
