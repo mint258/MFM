@@ -44,3 +44,10 @@ Root 的轻量协调入口为 coordinate.py：等待真实 1 万父作业完成�
 Main的NFS整盘statvfs不表示用户4TiB hard quota。后续仅3D覆盖配置须带quota_status，由登录节点quota_guard原生quota -v -u元数据（无hash/收据）提供可用字节，联合现有跨窗口未来预算及100GB账户底线；超过20秒或UID/容量未知均暂停新增写入。capacity和独立disk_guard同时检查；计算端不把NFS整盘5.7TB当作用户余量。3项合成quota单测已在Main4526176真实C0通过，不调用真实quota/信号/科学核。Main compute-0-17根盘仅余36.6MB已排除；compute-0-21实核根盘余830.65GB，正式覆盖启动前仍需再核。所有参考/查询/结果临时文件写共享盘。
 
 assigned_isomeric_smiles是规范化的化学立体参照，geometry坐标和逐原子SASA仍按原source isomeric_smiles的原子顺序。消费者应在原来源图上应用坐标后比较规范化立体信息，不把规范SMILES的书写顺序当作坐标顺序。
+## 2026-11-06 显式氢与零原生调用的准备修复
+
+立体元素按原native一致的AddHs图感知；N–H亚胺可用显式H作E/Z参考，规范SMILES保留必要显式H并恢复原全原子顺序。每轮新显露的桥头元素各消耗同一MID立体流的下一个公平bit；已经抽取而被RDKit规范化清除的无意义标记不反复赋值，也不再触发旧no-PM7拒绝门。仍不枚举异构体，嵌入/UFF组合重抽仍最多4次，参数/实际构象规则不变。
+
+已运行的四个v3生产分片不修改或中断。修复选择器仅接受在嵌入/UFF前返回的STEREO_REFERENCE_UNAVAILABLE_NO_PM7或POTENTIAL_DOUBLE_WITHOUT_STEREO_REFERENCES，且actual_conformers严格为0；所有原生嵌入/UFF失败、正的构象数及其他完整性错误均排除。各分片真实C0释放CPU后才选择并生成这些记录，属于修复准备路径，不重做已有几何，不给原生失败增加尝试。原中间文件全部保留。
+
+finalize保留原state/error/actual_conformers/orders等全部原列；effective_state/actual_conformers/orders_json/generation_order_json/generation_count_unknown/cache_complete/insufficient_conformers提供当前消费接口，stereo_preparation_repaired标记准备修复。候选和timings按阶段保留历史；最终R/S与E/Z统计减去被替换的准备失败元数据，再加修复结果，不重复计MID。输出另列实际0/1/2/3/unknown构象分布及零几何的状态类别。修复只读关闭的source_status和timings计数元数据，不读D20/D3值、坐标或原子SASA来复核。

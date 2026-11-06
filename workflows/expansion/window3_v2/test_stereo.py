@@ -17,7 +17,7 @@ class AssignmentTests(unittest.TestCase):
             a, x = stereo.assign(self.mol, 'synthetic:repeat', draw)
             b, y = stereo.assign(self.mol, 'synthetic:repeat', draw)
             self.assertEqual(x, y)
-            self.assertEqual(stereo.graph(a), stereo.graph(self.mol))
+            self.assertEqual(stereo.graph(a), stereo.graph(self.Chem.AddHs(self.mol)))
             self.assertEqual(stereo.stereo_seed('synthetic:repeat', draw),
                              (stereo.seed_for('synthetic:repeat') + stereo.STEREO_OFFSET
                               + draw * stereo.STEREO_STRIDE) & 0xffffffff)
@@ -34,8 +34,7 @@ class AssignmentTests(unittest.TestCase):
         for index in range(32):
             result, _ = stereo.assign(mol, 'synthetic:specified:' + str(index), index % 4)
             self.assertTrue(result.HasSubstructMatch(mol, useChirality=True))
-            for atom, tag in original_atoms.items():
-                self.assertEqual(result.GetAtomWithIdx(atom).GetChiralTag(), tag)
+            stereo.preserve_specified(Chem.AddHs(mol),result)
             for a, b, tag, refs in original_bonds:
                 bond = result.GetBondBetweenAtoms(a, b)
                 # Preserve geometric relation for the original reference pair.
@@ -71,6 +70,31 @@ class AssignmentTests(unittest.TestCase):
         result,metadata=stereo.assign(mol,'synthetic:already-specified',0)
         self.assertFalse(metadata['stereo_assigned'])
         self.assertEqual(native_graph(result),before)
+
+    def test_imine_uses_explicit_hydrogen_reference_and_keeps_source_full_atom_order(self):
+        Chem=self.Chem
+        mol=Chem.MolFromSmiles('CC(=N)N')
+        for i in range(16):
+            assigned,metadata=stereo.assign(mol,'synthetic:imine:'+str(i),0)
+            self.assertEqual(stereo.graph(assigned),stereo.graph(Chem.AddHs(mol)))
+            self.assertEqual(metadata['n_assigned_double_bond'],1)
+            self.assertTrue(metadata['stereo_assignment_complete'])
+            self.assertIn('[H]',metadata['assigned_isomeric_smiles'])
+
+    def test_bridgehead_elements_exposed_after_assignment_are_visited_once(self):
+        Chem=self.Chem
+        mol=Chem.MolFromSmiles('CC(=CCl)CC12CCN(CC1)CC2')
+        for i in range(16):
+            assigned,metadata=stereo.assign(mol,'synthetic:bridgehead:'+str(i),0)
+            self.assertEqual(stereo.graph(assigned),stereo.graph(Chem.AddHs(mol)))
+            self.assertTrue(metadata['stereo_assignment_complete'])
+        # A normalized reference must not be vetoed by the inherited no-PM7
+        # gate when RDKit removes a meaningless symmetry tag.
+        from types import SimpleNamespace
+        k=Kernel.__new__(Kernel)
+        k._kernels={'science':SimpleNamespace(ordered_graph=stereo.graph)}
+        source=dict(SOURCE,full_key=Chem.MolToInchiKey(mol),isomeric_smiles=Chem.MolToSmiles(mol))
+        self.assertEqual(k._graph(source),[])
 
 
 class MockNative:

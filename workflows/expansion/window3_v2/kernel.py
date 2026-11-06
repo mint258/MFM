@@ -70,9 +70,12 @@ class Kernel(NativeKernel):
         self.source = source
         self.numbers = [a.GetAtomicNum() for a in self.mol.GetAtoms()]
         self.original_graph = self.kernels['science'].ordered_graph(self.mol)
-        return [{'type': str(i.type), 'center': int(i.centeredOn), 'specified': str(i.specified)}
-                for i in Chem.FindPotentialStereo(self.mol)
-                if str(i.specified) != 'Specified' and self.kernels['science'].stereo_scope(self.mol, i)]
+        # assign() visits all potential elements, including those exposed by an
+        # earlier assignment. RDKit may then remove meaningless tags. Reusing
+        # the old no-PM7 veto here would reject those normalized references.
+        if not self.stereo_metadata['stereo_assignment_complete']:
+            raise IntegrityError('STEREO_ASSIGNMENT_INCOMPLETE')
+        return []
 
     def prepare_geometry(self, source):
         from rdkit.Chem import AllChem

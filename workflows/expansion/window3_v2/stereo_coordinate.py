@@ -109,6 +109,94 @@ def choose_nodes():
     return result
 
 
+def native_rows(ids):
+    raw=subprocess.check_output(['sacct','-X','-P','-n','-j',','.join(ids),
+        '-o','JobIDRaw,State,ExitCode,ElapsedRaw,AllocCPUS'],text=True)
+    return {r[0]:r for line in raw.splitlines() if (r:=line.split('|'))[0] in ids}
+
+
+def submit_once(root, tag, script, metadata):
+    launch=root/(tag+'_launch.json')
+    if launch.exists():return read(launch)
+    intent=root/(tag+'_submission_pending.json')
+    if intent.exists():raise RuntimeError('RECOVER_ACTUAL_SUBMISSION_BEFORE_RELAUNCH: '+str(intent))
+    save(intent,metadata)
+    result=dict(metadata,job_id=submit(root/(tag+'.sbatch'),script))
+    save(launch,result)
+    return result
+
+
+def monitor_preparation_repairs(root,config,jobs):
+    """Use each released shard's CPUs for only its zero-native preparation fixes."""
+    plans=read(root/'full_plan.json')
+    checks=read(config['prepare_config'])['disk_checks']
+    active={'RUNNING','PENDING','CONFIGURING','COMPLETING','SUSPENDED','REQUEUED','RESIZING'}
+    outcomes={}
+    while len(outcomes)<len(jobs):
+        ids=[j['job_id'] for j in jobs]
+        for tag in ('prepare_repair','repair'):
+            for i in range(len(jobs)):
+                path=root/(tag+'_'+str(i)+'_launch.json')
+                if path.exists():ids.append(read(path)['job_id'])
+        try:rows=native_rows(ids)
+        except subprocess.CalledProcessError:
+            time.sleep(55);continue
+        for job,row in rows.items():
+            if row[1].split()[0] not in active and (row[1]!='COMPLETED' or row[2]!='0:0'):
+                raise RuntimeError('ACTUAL_JOB_NOT_C0: '+json.dumps(row))
+        for i,base in enumerate(jobs):
+            if i in outcomes:continue
+            if rows.get(base['job_id'],['',''])[1]!='COMPLETED':continue
+            node,partition,_=plans[i]
+            selector_tag='prepare_repair_'+str(i)
+            selector_config=root/(selector_tag+'_config.json')
+            selector_output=root/('repair_inputs_'+str(i))
+            if not (root/(selector_tag+'_launch.json')).exists():
+                value=dict(base_output=base['output'],output=str(selector_output),metadata_readers=8,disk_checks=checks)
+                save(selector_config,value)
+                script=job_script(root,config['runtime'],config['python'],selector_config,node,partition,4,
+                                  selector_tag,'workflows.expansion.window3_v2.stereo_batch prepare-repair')
+                submit_once(root,selector_tag,script,dict(config=str(selector_config),output=str(selector_output)))
+                continue
+            selector=read(root/(selector_tag+'_launch.json'))
+            if rows.get(selector['job_id'],['',''])[1]!='COMPLETED':continue
+            prepared_path=selector_output/'prepared.json'
+            prepared=read(prepared_path)
+            if not prepared['stereo_molecules']:
+                outcomes[i]=dict(prepared=str(prepared_path),output=None)
+                continue
+            repair_tag='repair_'+str(i)
+            repair_config=root/(repair_tag+'_config.json')
+            output=root/repair_tag
+            if not (root/(repair_tag+'_launch.json')).exists():
+                workers=min(base['cpus'],(prepared['stereo_molecules']+127)//128)
+                value=dict(read(base['config']),source_manifest=str(prepared_path),output=str(output),
+                    mode='stereo_preparation_repair',stereo_supplement=True,workers=workers,batch_size=128,
+                    shard_count=1,shard_residues=[0],shard_index=0,disk_checks=checks,
+                    stereo_phase='explicit_H_normalization_preparation_fix')
+                save(repair_config,value)
+                script=job_script(root,config['runtime'],config['python'],repair_config,node,partition,workers,
+                                  repair_tag,'workflows.expansion.window3_v2.producer')
+                submit_once(root,repair_tag,script,dict(config=str(repair_config),output=str(output)))
+                continue
+            repair=read(root/(repair_tag+'_launch.json'))
+            if rows.get(repair['job_id'],['',''])[1]!='COMPLETED':continue
+            if read(output/'summary.json')['counts']['molecules']!=prepared['stereo_molecules']:
+                raise ValueError('ZERO_NATIVE_PREPARATION_REPAIR_COUNT_DIFFERS')
+            outcomes[i]=dict(prepared=str(prepared_path),output=str(output))
+        save(root/'preparation_repair_progress.json',dict(closed_shards=sorted(outcomes),base_jobs=[j['job_id'] for j in jobs]))
+        if len(outcomes)<len(jobs):time.sleep(55)
+    all_ids=[j['job_id'] for j in jobs]
+    for tag in ('prepare_repair','repair'):
+        for i in range(len(jobs)):
+            path=root/(tag+'_'+str(i)+'_launch.json')
+            if path.exists():all_ids.append(read(path)['job_id'])
+    accounting=wait_jobs(all_ids)
+    save(root/'science_and_preparation_accounting.json',dict(rows=accounting,
+        allocated_core_hours=sum(int(r[3])*int(r[4]) for r in accounting)/3600))
+    return [outcomes[i] for i in range(len(jobs))]
+
+
 def run(config):
     import fcntl
     root = Path(config['root'])
@@ -156,6 +244,7 @@ def run(config):
             # must never submit a second producer against that output.
             save(slot,jobs[-1])
         save(launch,jobs)
+    repairs=monitor_preparation_repairs(root,config,jobs) if config.get('preparation_repair_enabled') else []
     rows = wait_jobs([j['job_id'] for j in jobs])
     summaries = [read(Path(j['output'])/'summary.json') for j in jobs]
     if sum(s['counts']['molecules'] for s in summaries) != 1285342:
@@ -167,6 +256,7 @@ def run(config):
     else:
         value = dict(prepared=config['prepared'],delivery=str(root/'delivery'),
                      producer_outputs=[j['output'] for j in jobs],
+                     preparation_repairs=repairs,
                      disk_checks=read(config['prepare_config'])['disk_checks'])
         path=root/'finalize_config.json';save(path,value)
         final_job=submit(root/'finalize.sbatch',job_script(root,config['runtime'],config['python'],path,

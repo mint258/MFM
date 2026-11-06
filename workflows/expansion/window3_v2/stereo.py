@@ -75,7 +75,10 @@ def assign(template, mid, draw_index):
     """
     from rdkit import Chem
     from rdkit.Chem import rdCIPLabeler
-    mol = Chem.Mol(template)
+    # The native recipe perceives stereo after AddHs. In particular an imine
+    # N-H may need its hydrogen as the explicit double-bond reference atom.
+    reference = Chem.AddHs(template)
+    mol = Chem.Mol(reference)
     rng = random.Random(stereo_seed(mid, draw_index))
     targets = [i for i in Chem.FindPotentialStereo(mol, cleanIt=True)
                if str(i.specified) != 'Specified' and in_scope(mol, i)]
@@ -85,40 +88,58 @@ def assign(template, mid, draw_index):
         result = defaults()
         result['assigned_isomeric_smiles'] = Chem.MolToSmiles(template, isomericSmiles=True)
         return Chem.Mol(template), result
-    atoms, bonds = [], []
-    for info in sorted(targets, key=lambda i: (str(i.type), int(i.centeredOn))):
-        bit = rng.getrandbits(1)
+    atoms, bonds, attempted = [], [], set()
+    def element_key(info):
         if str(info.type) == 'Atom_Tetrahedral':
-            index = int(info.centeredOn)
-            mol.GetAtomWithIdx(index).SetChiralTag(
-                Chem.ChiralType.CHI_TETRAHEDRAL_CW if bit else Chem.ChiralType.CHI_TETRAHEDRAL_CCW)
-            atoms.append(index)
-        else:
-            bond = mol.GetBondWithIdx(info.centeredOn)
-            a, b = bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()
-            # Explicit references are required by RDKit's E/Z stereo storage.
-            left = sorted(n.GetIdx() for n in mol.GetAtomWithIdx(a).GetNeighbors() if n.GetIdx() != b)
-            right = sorted(n.GetIdx() for n in mol.GetAtomWithIdx(b).GetNeighbors() if n.GetIdx() != a)
-            if not left or not right:
-                raise IntegrityError('POTENTIAL_DOUBLE_WITHOUT_STEREO_REFERENCES')
-            bond.SetStereoAtoms(left[0], right[0])
-            bond.SetStereo(Chem.BondStereo.STEREOE if bit else Chem.BondStereo.STEREOZ)
-            bonds.append((a, b))
-    Chem.SetDoubleBondNeighborDirections(mol)
-    Chem.FindPotentialStereo(mol, cleanIt=True)
-    smiles = Chem.MolToSmiles(mol, isomericSmiles=True)
-    order = ast.literal_eval(mol.GetProp('_smilesAtomOutputOrder'))
-    normalized = Chem.MolFromSmiles(smiles)
-    if normalized is None or len(order) != mol.GetNumAtoms():
-        raise IntegrityError('STEREO_NORMALIZATION_FAILED')
-    inverse = [0] * len(order)
-    for new, old in enumerate(order):
-        inverse[old] = new
-    normalized = Chem.RenumberAtoms(normalized, inverse)
-    if graph(normalized) != graph(template):
-        raise IntegrityError('STEREO_NORMALIZATION_CHANGED_ORDERED_GRAPH')
+            return ('atom', int(info.centeredOn))
+        b = mol.GetBondWithIdx(info.centeredOn)
+        return ('bond', min(b.GetBeginAtomIdx(),b.GetEndAtomIdx()), max(b.GetBeginAtomIdx(),b.GetEndAtomIdx()))
+    while targets:
+        for info in sorted(targets, key=lambda i: (str(i.type), int(i.centeredOn))):
+            attempted.add(element_key(info))
+            bit = rng.getrandbits(1)
+            if str(info.type) == 'Atom_Tetrahedral':
+                index = int(info.centeredOn)
+                mol.GetAtomWithIdx(index).SetChiralTag(
+                    Chem.ChiralType.CHI_TETRAHEDRAL_CW if bit else Chem.ChiralType.CHI_TETRAHEDRAL_CCW)
+                atoms.append(index)
+            else:
+                bond = mol.GetBondWithIdx(info.centeredOn)
+                a, b = bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()
+                left = sorted(n.GetIdx() for n in mol.GetAtomWithIdx(a).GetNeighbors() if n.GetIdx() != b)
+                right = sorted(n.GetIdx() for n in mol.GetAtomWithIdx(b).GetNeighbors() if n.GetIdx() != a)
+                if not left or not right:
+                    raise IntegrityError('POTENTIAL_DOUBLE_WITHOUT_STEREO_REFERENCES')
+                bond.SetStereoAtoms(left[0], right[0])
+                bond.SetStereo(Chem.BondStereo.STEREOE if bit else Chem.BondStereo.STEREOZ)
+                bonds.append((a, b))
+        Chem.SetDoubleBondNeighborDirections(mol)
+        Chem.AssignStereochemistry(mol, cleanIt=True, force=True)
+        Chem.FindPotentialStereo(mol, cleanIt=True)
+        smiles = Chem.MolToSmiles(mol, isomericSmiles=True)
+        order = ast.literal_eval(mol.GetProp('_smilesAtomOutputOrder'))
+        params = Chem.SmilesParserParams()
+        params.removeHs = False
+        normalized = Chem.MolFromSmiles(smiles, params)
+        if normalized is None or len(order) != mol.GetNumAtoms() or normalized.GetNumAtoms() != len(order):
+            raise IntegrityError('STEREO_NORMALIZATION_FAILED')
+        inverse = [0] * len(order)
+        for new, old in enumerate(order):
+            inverse[old] = new
+        normalized = Chem.RenumberAtoms(normalized, inverse)
+        if graph(normalized) != graph(reference):
+            raise IntegrityError('STEREO_NORMALIZATION_CHANGED_ORDERED_GRAPH')
+        mol = normalized
+        remaining = [i for i in Chem.FindPotentialStereo(mol, cleanIt=True)
+                     if str(i.specified) != 'Specified' and in_scope(mol,i)]
+        # Assignment can distinguish formerly equivalent paths at a bridgehead.
+        # Such newly exposed elements get the next fair bit of the same stream.
+        # A previously attempted tag removed by normalization is meaningless
+        # under the chosen combination; it is not assigned repeatedly.
+        targets = [i for i in remaining if element_key(i) not in attempted]
     rdCIPLabeler.AssignCIPLabels(normalized)
-    specified_reference = Chem.Mol(template)
+    smiles = Chem.MolToSmiles(normalized, isomericSmiles=True)
+    specified_reference = Chem.Mol(reference)
     Chem.FindPotentialStereo(specified_reference, cleanIt=True)
     preserve_specified(specified_reference, normalized)
     atom_labels = collections.Counter()
@@ -132,17 +153,18 @@ def assign(template, mid, draw_index):
         if bond.GetStereo() != Chem.BondStereo.STEREONONE:
             label = bond.GetProp('_CIPCode') if bond.HasProp('_CIPCode') else str(bond.GetStereo()).removeprefix('STEREO')
             bond_labels[label] += 1
-    metadata = dict(stereo_assigned=bool(targets), assigned_isomeric_smiles=smiles,
+    metadata = dict(stereo_assigned=bool(attempted), assigned_isomeric_smiles=smiles,
                     n_assigned_tetrahedral=sum(atom_labels.values()),
                     n_assigned_double_bond=sum(bond_labels.values()), stereo_draw_index=draw_index,
-                    assigned_CIP_counts=dict(atom_labels), assigned_EZ_counts=dict(bond_labels))
+                    assigned_CIP_counts=dict(atom_labels), assigned_EZ_counts=dict(bond_labels),
+                    stereo_assignment_complete=True, normalized_removed_stereo_elements=len(remaining))
     return normalized, metadata
 
 
 def defaults():
     return dict(stereo_assigned=False, assigned_isomeric_smiles=None,
                 n_assigned_tetrahedral=0, n_assigned_double_bond=0, stereo_draw_index=0,
-                assigned_CIP_counts={}, assigned_EZ_counts={})
+                assigned_CIP_counts={}, assigned_EZ_counts={}, stereo_assignment_complete=True)
 
 
 def redraw_required(packet):
