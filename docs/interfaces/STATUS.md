@@ -301,3 +301,6 @@ Native4526126实际COMPLETED/0:0，elapsed05:59:13。最终实际范围1,200,832
 
 
 2026-11-06 窗口二P′两项执行优化已启用：Main20df760（child4b6ced1）histogram_guard_writes_only与已过golden的shard_radix_typed_parts均true，仅整数quantile/median/MAD。Original._group_pass数学bytecode/B/逐row F64运算不变，worker-local完整IOproxy安装后才省掉每32行只读wait；mkdir/inode、Parquet header/footer、JSON partial/rename均经实际target/quotaguard，每次底层write≤64KiB，原8GiB burst/100GB+并发余量/5秒TTL不变。新合成IO保护/原结果parity/拒绝不写/无FD泄漏fixture仅1PASS1.202秒在6117/16CPU；69th旧golden未重跑，累计70项。原6169的pass2 112/112已完整闭合后才切换；6169正常CANCELLED03:57:39，实际node0无steps。新6172 RUNNING同32CPU节点0/同output/checkpoint，保留pass3原18个闭合组，并已出现15个新closed part，源projection不重做/原QM不重算。持久shard按原stage/group/part ref绑定，原112组顺序、TSQR/浮点moments整组路径及PM7均保持。D6 6125依赖改6117:6172:6127，仍held/NOT_ADMITTED；旧spooled compare兼容小manifest顺延至6172真C0。PM7 pass5 170/171；UFF已C0。无生产数值QA/新hash/收据/吞吐基准/人为耗时门。
+
+
+2026-11-06 窗口二 D4 进度：PM7 6117 的量化第2/3/4/5/6轮均171/171闭合，第7轮19/171；独立P′ 6172的首遍及量化第2/3/4轮112/112闭合，第5轮63/112。两项实际Slurm仍RUNNING，无统计错误。后续原算法截尾矩及median/MAD继续，D4尚未完成、M2正式参数尚未发布。用户已批准矢量以模长截尾总体std_ddof0为每头共尺度、零中心，9个既有矢量头已绑定正式策略，PM7/P′各自计算，r674保留原D1策略及LOSS_DISABLED。现有PM7 reader的14任务完整性检查保持，不套用P′整part切分。UFF 6127已实际C0，D6 6125仍held/NOT_ADMITTED、依赖6117:6172:6127；待两路统计C0后发布参数、按真实容量准入全量导出。最终每split仅一份共享compact LMDB，各模型节点共读，不复制至GPU节点。无新科学数据扫描、数值复读、hash/收据/独立QA/测试重跑；已通过70项新逻辑测试保持。
