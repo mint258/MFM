@@ -20,7 +20,7 @@ def fit(plan,cache):
     groups=I.load_data(cache['logical_group_plan_reference'])['groups'];fields=I.load_data(cache['field_map_reference'])
     with cf.ProcessPoolExecutor(cfg['workers'],mp_context=mp.get_context('spawn'))as pool:
         while state['purpose_index']<len(Original.ROUTES):
-            purpose=Original.ROUTES[state['purpose_index']];current=dict(cfg,statistics_purpose=purpose,_temporary_runtime=Temp.specification(plan))
+            purpose=Original.ROUTES[state['purpose_index']];current=dict(cfg,statistics_purpose=purpose,_temporary_runtime=Temp.specification(plan),histogram_guard_writes_only=plan.get('histogram_guard_writes_only',False))
             current.update({key:value for key,value in state['results'].items()if key in('element_models_reference','exact_tail_reference','query_stage_reference')})
             if state['active_stage']is None:
                 state['pass_index']+=1;stage_root=root/('pass_%04d'%state['pass_index']);stage_root.mkdir()

@@ -13,7 +13,7 @@ def observations(cfg,group,fields,**unused):
         pf=pq.ParquetFile(I.require(reference),pre_buffer=False)
         try:
             for batch in pf.iter_batches(batch_size=32,use_threads=False):
-                if runtime:runtime.wait(cfg['_current_group_output'])
+                if runtime and not cfg.get('_histogram_write_proxy_active',False):runtime.wait(cfg['_current_group_output'])
                 for row in batch.to_pylist():
                     owner={'record_id':row['record_id'],'molecule_id':row['molecule_id'],'fit_eligible':row['fit_eligible'],'geometry_source':'uff_sprime'}
                     entries=K.unpack_entries(row,byid)
@@ -45,11 +45,14 @@ def group_pass(work):
     pa.set_cpu_count(1);pa.set_io_thread_count(1)
     from . import temporary as Temp
     runtime=Temp.activate(cfg['_temporary_runtime'],admit=False);runtime.wait(root)
-    cfg=dict(cfg,_current_group_output=str(Path(root)/('group_%04d'%group['group_index'])),_temporary_guard=runtime)
+    cfg=dict(cfg,_current_group_output=str(Path(root)/('group_%04d'%group['group_index'])),_temporary_guard=runtime,_histogram_write_proxy_active=False)
     state={'cfg':cfg,'stage':stage,'root':Path(root),'fields':I.load_data(cfg['field_map_reference'])}
     # Same full mathematical worker bytecode and original TSQR/Radix/moment
     # objects; only the source generator and process-local work state differ.
-    original=Original._group_pass
-    fn=types.FunctionType(original.__code__,dict(original.__globals__,observations=observations,WORK=state),original.__name__,original.__defaults__,original.__closure__)
+    original=Original._group_pass;overrides={}
+    from . import histogram_io as H
+    if H.enabled(cfg,cfg['statistics_purpose']):
+        state['root'],overrides=H.bindings(runtime,root);cfg['_histogram_write_proxy_active']=True
+    fn=types.FunctionType(original.__code__,dict(original.__globals__,observations=observations,WORK=state,**overrides),original.__name__,original.__defaults__,original.__closure__)
     fn.__kwdefaults__=original.__kwdefaults__
     return fn((group,False))
