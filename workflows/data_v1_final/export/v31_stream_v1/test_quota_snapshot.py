@@ -46,3 +46,45 @@ class QuotaSnapshot(unittest.TestCase):
         with self.assertRaisesRegex(Q.SnapshotUnavailable,'FUTURE_OR_STALE'):read(biased,source+5.001-offset)
         for invalid in (-0.001,float('nan'),float('inf'),float('-inf'),5,6,10**1000,True,'1.25'):
             with self.assertRaisesRegex(Q.SnapshotUnavailable,'CLOCK_SAFETY_BIAS'):Q.observation_times(source,invalid)
+    def test_published_inode_keeps_writer_open_and_failed_publish_keeps_current(self):
+        import os
+        from unittest.mock import patch
+        real_open=open;real_replace=os.replace;opened=[];checks=[];allowed=[True]
+        def admit(available):
+            if not allowed[0]:raise Q.SnapshotUnavailable('TOY_ADMISSION_FAILED')
+        def tracked_open(*args,**kwargs):
+            handle=real_open(*args,**kwargs)
+            if len(args)>1 and args[1]=='w':opened.append(handle)
+            return handle
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'fresh-quota.json';publisher=Q.AtomicPublisher(path,admit)
+            def replace(source,destination):
+                candidate=opened[-1]
+                self.assertFalse(candidate.closed);self.assertTrue(candidate.writable())
+                self.assertEqual(os.fstat(candidate.fileno()).st_ino,os.stat(source).st_ino)
+                if publisher.current_file is not None:self.assertFalse(publisher.current_file.closed)
+                real_replace(source,destination)
+                self.assertFalse(candidate.closed) # remains open through rename
+                checks.append(os.stat(destination).st_ino)
+            try:
+                with patch('builtins.open',side_effect=tracked_open),patch.object(Q.os,'replace',side_effect=replace):
+                    publisher.publish({'available_bytes':123,'generation':1})
+                    first=publisher.current_file;self.assertFalse(first.closed)
+                    self.assertEqual(json.loads(path.read_text())['generation'],1)
+                    self.assertEqual(os.fstat(first.fileno()).st_ino,os.stat(path).st_ino)
+                    publisher.publish({'available_bytes':123,'generation':2})
+                    current=publisher.current_file;self.assertTrue(first.closed);self.assertFalse(current.closed)
+                    self.assertEqual(json.loads(path.read_text())['generation'],2)
+                    self.assertEqual(os.fstat(current.fileno()).st_ino,os.stat(path).st_ino)
+                    before=path.read_bytes()
+                    with patch.object(Q.os,'replace',side_effect=OSError('TOY_REPLACE_FAILED')):
+                        with self.assertRaisesRegex(OSError,'TOY_REPLACE_FAILED'):publisher.publish({'available_bytes':123,'generation':3})
+                    self.assertTrue(opened[-1].closed);self.assertIs(publisher.current_file,current)
+                    self.assertFalse(current.closed);self.assertEqual(path.read_bytes(),before)
+                    count=len(opened);allowed[0]=False
+                    with self.assertRaisesRegex(Q.SnapshotUnavailable,'TOY_ADMISSION_FAILED'):publisher.publish({'available_bytes':123,'generation':4})
+                    self.assertEqual(len(opened),count);self.assertFalse(current.closed)
+                    self.assertEqual(path.read_bytes(),before)
+                self.assertEqual(len(checks),2)
+            finally:publisher.close()
+            self.assertTrue(current.closed);self.assertIsNone(publisher.current_file)

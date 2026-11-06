@@ -280,3 +280,6 @@ Native4526126实际COMPLETED/0:0，elapsed05:59:13。最终实际范围1,200,832
 
 
 2026-11-06 窗口二P′投影闭合：6128的32/32分区已生成总清单，2,412,201物理几何、28,946,412任务行，typed F64块143,035,837,161字节，含身份表等闭合引用的已发生物理占用159,006,019,717字节。原320GB规划增长的未发生部分现记160,993,980,283字节，另保留账户100GB、模型5GB/控制1GB与8GiB突发余量；已发生文件不再重复计入未来增长。15,305个未注册源几何继续保留GID NULL、原F64/Z/锚点，不改标为最终选择；D4拟合只用实际TRAIN前二减D5。P′已进入112逻辑组第一遍独立统计，PM7第4轮139/171 errors[]，D4尚未完成；D6仍held、NOT_ADMITTED。该记录只读生产端闭合JSON，无数值复读或新QA。
+
+
+2026-11-06 窗口二配额快照修复：旧元数据PID3593645实际卡在rename/__break_lease，导致6128按5秒规则DISK_WAIT，并非空间不足；旧快照/所有数据保留。Main bb29b47的AtomicPublisher从rename前持续持有当前inode写FD，下一次成功替换才关闭previous；新单测1PASS .029s，累计68项不重复。旧元数据精确pidfd TERM退出，新Main元数据PID3640096使用 /share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/window2_20261105/share_quota_available_v3.json；实际node0连续5代读取有效，旧share_quota_available.json已停更勿用于后续准入。6128已正常CANCELLED且实际node0无steps，保留32/32投影、首遍112/112、第2遍50/112闭合组；同32CPU节点0的新6169已RUNNING，使用原output/checkpoint并进入attempt_001，不重投影或重算QM。D6 6125依赖已改6117:6169:6127，仍held/NOT_ADMITTED；旧spooled compare小manifest兼容要求顺延至6169真C0。剩余规划160,993,980,283B及100GB+6GB+8GiB保留，未降低存储余量/5秒新鲜度/科学参数。PM7第4轮166/171无错误，UFF续跑。

@@ -64,15 +64,42 @@ def read_available(reference,*,expected_uid,expected_filesystem,max_age_seconds,
         raise SnapshotUnavailable('SNAPSHOT_UNREADABLE:'+repr(error)) from error
 
 
-def atomic_write(path,value,admit):
-    """Only the sole publisher replaces its JSON; failed probes leave it unchanged."""
-    data=json.dumps(value,separators=(',',':'))+'\n'
-    if len(data.encode('utf-8'))>4096:raise SnapshotUnavailable('SNAPSHOT_TOO_LARGE')
-    admit(value['available_bytes'])
-    path=Path(path);partial=path.with_name('.'+path.name+'.'+str(os.getpid())+'.partial')
-    with open(partial,'w',encoding='utf-8') as handle:handle.write(data)
-    os.replace(partial,path)
+class AtomicPublisher:
+    """Keep each new inode open for write before and throughout publication.
 
+    Linux3.10 fs/locks.c generic_add_lease rejects READ leases while a local
+    writer is open; newer NFSD checks conflicting local opens itself. Holding
+    this FD prevents a newly published snapshot acquiring a READ delegation.
+    An existing old target may already have a delegation: the first replace
+    can still wait for that old lease. Root may select a fresh metadata path;
+    this helper neither removes the old target nor changes NFS settings.
+    """
+    def __init__(self,path,admit):self.path=Path(path);self.admit=admit;self.current_file=None
+    def publish(self,value):
+        data=json.dumps(value,separators=(',',':'))+'\n'
+        if len(data.encode('utf-8'))>4096:raise SnapshotUnavailable('SNAPSHOT_TOO_LARGE')
+        self.admit(value['available_bytes'])
+        partial=self.path.with_name('.'+self.path.name+'.'+str(os.getpid())+'.partial')
+        candidate=open(partial,'w',encoding='utf-8')
+        try:
+            candidate.write(data);candidate.flush()
+            # Do not close before rename or reopen only after publication: that
+            # would expose a window for the NFS reader's READ delegation.
+            os.replace(partial,self.path)
+        except BaseException:
+            candidate.close() # The still-current published FD remains owned.
+            raise
+        previous=self.current_file;self.current_file=candidate
+        if previous is not None:previous.close() # Only after successful replace.
+    def close(self):
+        if self.current_file is not None:self.current_file.close();self.current_file=None
+    def __enter__(self):return self
+    def __exit__(self,*unused):self.close()
+
+
+def atomic_write(path,value,admit):
+    """Compatibility for one-shot callers; recurring publishers retain the object."""
+    with AtomicPublisher(path,admit) as publisher:publisher.publish(value)
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',required=True)
@@ -93,15 +120,16 @@ def main():
         if os.stat(path.parent).st_dev!=facts['device'] or stat.f_bavail*stat.f_frsize<reserve+65536 or stat.f_favail<10 or available<args.reserve_bytes+65536:
             raise SnapshotUnavailable('SNAPSHOT_CONTROL_DISK_OR_QUOTA_RESERVE')
     print(json.dumps({'phase':'QUOTA_SNAPSHOT_PUBLISHER','uid':UID,'filesystem':FILESYSTEM,'output':str(path),'interval_seconds':2,'clock_safety_bias_seconds':args.clock_safety_bias_seconds}),flush=True)
-    while True:
-        started=time.monotonic()
-        try:
-            text=subprocess.check_output(COMMAND,text=True,timeout=2)
-            value={'schema':SCHEMA,'uid':UID,'filesystem':FILESYSTEM,**parse_xfs(text),**observation_times(time.time(),args.clock_safety_bias_seconds)}
-            atomic_write(path,value,admit)
-        except (SnapshotUnavailable,OSError,subprocess.SubprocessError) as error:
-            print(json.dumps({'phase':'QUOTA_SNAPSHOT_UNAVAILABLE','reason':repr(error),'previous_snapshot_not_refreshed':True}),flush=True)
-        time.sleep(max(0,2-(time.monotonic()-started)))
+    with AtomicPublisher(path,admit) as publisher:
+        while True:
+            started=time.monotonic()
+            try:
+                text=subprocess.check_output(COMMAND,text=True,timeout=2)
+                value={'schema':SCHEMA,'uid':UID,'filesystem':FILESYSTEM,**parse_xfs(text),**observation_times(time.time(),args.clock_safety_bias_seconds)}
+                publisher.publish(value)
+            except (SnapshotUnavailable,OSError,subprocess.SubprocessError) as error:
+                print(json.dumps({'phase':'QUOTA_SNAPSHOT_UNAVAILABLE','reason':repr(error),'previous_snapshot_not_refreshed':True}),flush=True)
+            time.sleep(max(0,2-(time.monotonic()-started)))
 
 
 if __name__=='__main__':main()
