@@ -355,3 +355,17 @@ Only new all-mock/no-file fixture76 ran once:1 PASS/0.011s, actual4526187.5 C0/1
 - 新输入路由 fixture77 首次 1PASS；原有通过套件未重跑。输入来源明确保留真实 Common/D5/tail 绑定，`PM7_D4_complete=false`、`PM7_parent_C0_claimed=false`；完整 D4 仍继续 MAD20..23。
 
 D6 6125 仍 held / NOT_ADMITTED，当前只余 6214、6187 未满足；比较清单已存在，原 D6 脚本将直接复用。最终 LMDB 继续每 split 单份共享 compact，全部模型节点共读。无需模型线确认或新增等待门。
+
+
+## 2026-11-08 窗口二：最终 D4 全量 TRAIN 已完成
+
+正式入口：[window2_D4_final_DELIVERY.json](../../configs/data_v1/window2_D4_final_DELIVERY.json)。PM7 4526214 主/batch/extern 均 COMPLETED 0:0（15:01:45）；原 element、精确截尾、moments、median/MAD 的 pass1..23 全部闭合。独立 P′ 4526181 已 C0（09:10:06），两方法各用自己的 TRAIN 统计，D5 预留 base 及全部14任务输入视图排除保持。
+
+- PM7最终清单：`/lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_normalization_20261105_v1/manifest.json`（4447 B）。
+- P′最终清单：`/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/window2_full_TRAIN_Pprime_statistics_20261106_shared_v1/statistics/manifest.json`（24863 B）。
+- 正式路由清单：`/lfshome/zixiao/data_v1_20261025/window2_D4_model_routes_20261106_v1/manifest.json`（266 B）；同目录 `routes.json` 1256136 B、262条dataset-target路由。实际发布4526187.6 C0/1CPU/1秒，仅绑定闭合JSON。
+- 原始median/MAD、元素参考、精确分位数、均值/std、有效性及mask引用均在正式入口；P/P′的121字段相关性/850series分布已由6244 C0完成。无完整第二遍统计、独立数值复读、新内容hash/收据或旧测试重跑。
+
+现用早交付TRAIN训练参数继续有效，绑定的原element/tail/moments引用未变；其D4_pending字段保留早交付时的历史状态，完整D4完成以本正式入口及真实producer C0为准。既有D3试点继续按原发布mask_overrides_reference应用EA覆盖。每目标normalizer_ready及原物理loss标记继续适用，不由有尺度自动启用字段；9矢量头、r73同对称性求和及r674 LOSS_DISABLED不变。
+
+PM7剩余56GiB统计预测现在释放为0，既有源/缓存/结果均保留。6187原缓存准备仍在运行，全量D6仍未准入；Node20既有Native闭合缓存已作文件元数据可用性确认，可供后续容量计划复用，无新复制/数据读回。最终TRAIN/FULL按原角色互斥，各一份共享compact LMDB，全部模型节点共读；无需模型ACK，不启动付费服务器或正式预训练。

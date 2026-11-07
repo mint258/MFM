@@ -1,0 +1,181 @@
+{
+  "schema": "WINDOW2_FINAL_D4_DELIVERY_V1",
+  "status": "COMPLETE",
+  "D4_complete": true,
+  "fit_role": "TRAIN_ONLY",
+  "data_version": "data-v1-final-window2",
+  "PM7": {
+    "actual_producer_job": 4526214,
+    "actual_terminal": "COMPLETED0:0",
+    "actual_elapsed": "15:01:45",
+    "manifest": {
+      "path": "/lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_normalization_20261105_v1/manifest.json",
+      "bytes": 4447
+    },
+    "eligibility": {
+      "Common_TRAIN_only": true,
+      "D5_excludes_base_and_all_14_source_tasks": true,
+      "PM7_diagnostic_records": 20000,
+      "eligibility_reference": {
+        "bytes": 1502855168,
+        "path": "/lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_normalization_20261105_v1/eligibility/eligibility.sqlite"
+      },
+      "fit_records": 11003656,
+      "reason_counts": {
+        "COMMON_TRAIN_NOT_D5": 11003656,
+        "D5_HELDOUT_BASE_AND_ALL_TASK_INPUT_VIEWS": 20000,
+        "OUTSIDE_FINAL_COMMON": 81116,
+        "ROLE_FULL": 54557,
+        "ROLE_VAL": 72525
+      },
+      "source_records": 11231854
+    },
+    "statistics": {
+      "diagnostic_median_MAD_reference": {
+        "bytes": 14047,
+        "path": "/lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_normalization_20261105_v1/pass_0023/diagnostic_median_MAD.json"
+      },
+      "element_models_reference": {
+        "bytes": 17632,
+        "path": "/lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_normalization_20261105_v1/pass_0001/element_models.json"
+      },
+      "exact_tail_reference": {
+        "bytes": 441830,
+        "path": "/lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_normalization_20261105_v1/pass_0008/exact001_999.json"
+      },
+      "mask_overrides_reference": {
+        "bytes": 38491,
+        "path": "/lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_normalization_20261105_v1/pass_0001/mask_overrides.json"
+      },
+      "molecule_field_means_reference": {
+        "bytes": 29388,
+        "path": "/lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_normalization_20261105_v1/pass_0009/molecule_field_means.json"
+      },
+      "r73_derived_reference": {
+        "bytes": 31343,
+        "path": "/lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_normalization_20261105_v1/pass_0001/r73_derived.json"
+      },
+      "validity_mask_counts_reference": {
+        "bytes": 22306,
+        "path": "/lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_normalization_20261105_v1/pass_0001/validity_mask_counts.json"
+      },
+      "winsorized_statistics_reference": {
+        "bytes": 530273,
+        "path": "/lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_normalization_20261105_v1/pass_0009/winsorized_statistics.json"
+      }
+    }
+  },
+  "Pprime": {
+    "actual_producer_job": 4526181,
+    "actual_terminal": "COMPLETED0:0",
+    "actual_elapsed": "09:10:06",
+    "manifest": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/window2_full_TRAIN_Pprime_statistics_20261106_shared_v1/statistics/manifest.json",
+      "bytes": 24863
+    },
+    "statistics": {
+      "diagnostic_median_MAD_reference": {
+        "bytes": 11444,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/window2_full_TRAIN_Pprime_statistics_20261106_shared_v1/statistics/pass_0023/diagnostic_median_MAD.json"
+      },
+      "element_models_reference": {
+        "bytes": 17589,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/window2_full_TRAIN_Pprime_statistics_20261106_shared_v1/statistics/pass_0001/element_models.json"
+      },
+      "exact_tail_reference": {
+        "bytes": 423940,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/window2_full_TRAIN_Pprime_statistics_20261106_shared_v1/statistics/pass_0008/exact001_999.json"
+      },
+      "molecule_field_means_reference": {
+        "bytes": 26882,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/window2_full_TRAIN_Pprime_statistics_20261106_shared_v1/statistics/pass_0009/molecule_field_means.json"
+      },
+      "validity_mask_counts_reference": {
+        "bytes": 24424,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/window2_full_TRAIN_Pprime_statistics_20261106_shared_v1/statistics/pass_0001/validity_mask_counts.json"
+      },
+      "winsorized_statistics_reference": {
+        "bytes": 508674,
+        "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/window2_full_TRAIN_Pprime_statistics_20261106_shared_v1/statistics/pass_0009/winsorized_statistics.json"
+      }
+    },
+    "producer_flags": {
+      "full_second_statistics_pass_performed": false,
+      "independent_numeric_replay_equal": null,
+      "VAL_used_for_fitting": null,
+      "source_labels_modified": false,
+      "content_hashes_computed": false
+    },
+    "normalization_is_independent_of_PM7": true
+  },
+  "model_routes": {
+    "actual_publication_step": "4526187.6",
+    "actual_terminal": "COMPLETED0:0",
+    "manifest": {
+      "path": "/lfshome/zixiao/data_v1_20261025/window2_D4_model_routes_20261106_v1/manifest.json",
+      "bytes": 266
+    },
+    "files": [
+      {
+        "path": "/lfshome/zixiao/data_v1_20261025/window2_D4_model_routes_20261106_v1/routes.json",
+        "bytes": 1256136,
+        "records": 262,
+        "record_unit": "dataset-target route"
+      }
+    ],
+    "target_local_normalizer_ready_and_existing_physical_loss_flags_must_apply": true
+  },
+  "P_vs_Pprime_comparison": {
+    "actual_producer_job": 4526244,
+    "actual_terminal": "COMPLETED0:0",
+    "manifest": {
+      "path": "/lfshome/zixiao/data_v1_20261025/window2_P_vs_Pprime_TRAIN_20261105_v1/manifest.json",
+      "bytes": 6076
+    },
+    "files": [
+      {
+        "kind": "correlation",
+        "bytes": 7129,
+        "path": "/lfshome/zixiao/data_v1_20261025/window2_P_vs_Pprime_TRAIN_20261105_v1/P_vs_Pprime_same_MID_correlations.parquet",
+        "records": 121
+      },
+      {
+        "kind": "distributions",
+        "bytes": 323351,
+        "path": "/lfshome/zixiao/data_v1_20261025/window2_P_vs_Pprime_TRAIN_20261105_v1/P_vs_Pprime_distributions.json",
+        "records": 850
+      }
+    ],
+    "original_label_or_geometry_files_reopened": false
+  },
+  "compatibility": {
+    "existing_early_TRAIN_parameter_manifest": "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/manifest.json",
+    "existing_early_parameters_remain_valid": "They bind the same original immutable closed element models, exact tails and moments. Their D4-pending label records their earlier publication time; the full producer manifests above now prove diagnostic closure.",
+    "PM7_pilot_EA_mask_overrides_reference": {
+      "bytes": 38491,
+      "path": "/lfshome/zixiao/data_v1_20261025/window2_full_TRAIN_normalization_20261105_v1/pass_0001/mask_overrides.json"
+    },
+    "existing_pilot_mask_overlay_remains_required": "For the existing v3.1 pilot, consume the original published override reference as already implemented by the model line; no new threshold or mask is introduced."
+  },
+  "frozen_policies": {
+    "training_view": "configs/data_v1/training_view_v1.json",
+    "vector_normalization": "configs/data_v1/window2_user_frozen_vector_normalization_20261106_v1.json",
+    "physical_route_bindings": "configs/data_v1/window2_D4_physical_route_bindings_v1.json",
+    "r674_policy": "configs/data_v1/interfaces/D1_v3_0_user_frozen_design_policy_20261029_v1.json",
+    "r73": "Only user-frozen sigma-sigma and pi-pi pair sums train; original ordered raw r73 remains complete.",
+    "r674_loss_disabled": true
+  },
+  "publication": {
+    "label_arrays_scanned": false,
+    "numeric_statistics_refitted": false,
+    "source_values_or_masks_modified": false,
+    "old_tests_repeated": false,
+    "new_content_hashes": false,
+    "independent_numeric_replay_performed": false
+  },
+  "full_D6": {
+    "status": "INCOMPLETE_NOT_ADMITTED",
+    "shared_single_copy_per_disjoint_TRAIN_FULL_part": true,
+    "node_LMDB_copies_enabled": false
+  }
+}
