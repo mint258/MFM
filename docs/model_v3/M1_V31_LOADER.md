@@ -65,4 +65,7 @@ enabled_encoder_fields 为无坐标编码器关闭去噪和等变矢量字段；
 atom_vector 对应 `<field_id>/norm`，其余向量对应 `physical/<registry_id>/<task>/norm`；具体键以生产绑定为准。
 训练标签保持原值/NaN，空/未定义/零尺度沿用官方 target-local disabled/unbound，不造 epsilon 或 fallback。
 P/D 与 Pprime 各用自己的真实 TRAIN（按实际D5留出）统计；Pprime限定最终前二独立范围。
-当前只收到方针，实际数值参数尚未交付，M2尚未执行。
+2026-11-07已收到正式训练参数routes（完整D4的MAD仍继续），M2按此直接消费。
+同时加载正式source_references中的mask_overrides_reference元数据，按native_record_id与MID
+联合映射到实际P记录；仅应用已发布的标量leaf0 NaN覆盖，在归一化前同步raw/valid。
+不重新套EA阈值，不修改源LMDB，也不读取原始标签进行复核。其他布局的覆盖明确报错。

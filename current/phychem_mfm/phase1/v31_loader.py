@@ -270,7 +270,7 @@ class TrainingView:
             if not field.get('r73_component') and field.get('_location_key', key) not in self.locations:
                 raise ValueError('Training field is absent from schema: ' + key)
 
-    def extract(self, molecule, conformer):
+    def extract(self, molecule, conformer, *, mask_overrides=None):
         output, r73 = {}, None
         for field in self.fields:
             if self.normalization_dataset == 'Pprime' and field['group'] != 'P':
@@ -306,6 +306,9 @@ class TrainingView:
                     if raw.ndim == 1:
                         raw = raw[None, :]
             raw = np.asarray(raw, dtype=np.float32)
+            if mask_overrides and field.get('field_key', name) in mask_overrides:
+                from .v31_record_masks import apply_published_scalar_mask
+                raw = apply_published_scalar_mask(raw, mask_overrides[field.get('field_key', name)])
             valid = ~np.isnan(raw)
             spec = field.get('normalization', self.normalizations.get(name))
             if spec is None:
@@ -345,6 +348,10 @@ class MFM4Dataset:
         self._index_set = set(map(int, self.indices))
         self._env = self._pid = self._ids = None
         self._molecules = {}
+        from .v31_record_masks import published_record_masks
+        self._record_masks = ({} if geometry_only or training_view is None else
+            published_record_masks(normalizations or {}, self.directory,
+                dataset='Pprime' if pprime else 'P_D'))
 
     def __len__(self):
         return len(self.indices)
@@ -400,7 +407,8 @@ class MFM4Dataset:
         return {'molecule_index': molecule, 'conformer_index': conformer,
                 'geometry_source': self.source, 'Z': m[1], 'pos': c[21],
                 'pos_perturbed': c.get(22), 'bonds': m[2], 'bond_order': m[3],
-                'targets': {} if self.view is None else self.view.extract(m, c)}
+                'targets': {} if self.view is None else self.view.extract(m, c,
+                    mask_overrides=self._record_masks.get((molecule, conformer)))}
 
     def molecule_mean(self, molecule):
         """Mean allowed-conformer labels, aligning directed pair endpoints."""
