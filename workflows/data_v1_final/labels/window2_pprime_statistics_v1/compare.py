@@ -32,15 +32,31 @@ def distributions(pm7,pprime):
     return rows
 
 
-def compare(pm7_path,pprime_path,output,temporary_plan=None):
-    pm7=I.load(pm7_path);pprime=I.load(pprime_path)
+def pm7_comparison_input(pm7_path=None,closed_checkpoint=None):
+    need((pm7_path is None)!=(closed_checkpoint is None),'EXACTLY_ONE_PM7_COMPARISON_INPUT_REQUIRED')
+    if closed_checkpoint is None:return I.load(pm7_path),None,None
+    from ..window2_normalization_publish_v1.run import pm7_closed_checkpoint_input
+    _,_,_,references=pm7_closed_checkpoint_input(closed_checkpoint)
+    closed=references['closed_training_stage_references'];means=closed.get('molecule_field_means_reference')
+    def valid_ref(ref):
+        return isinstance(ref,dict) and isinstance(ref.get('path'),str) and bool(ref['path']) and type(ref.get('bytes'))is int and ref['bytes']>0
+    need(valid_ref(means),'PM7_CLOSED_CHECKPOINT_MEANS_REFERENCE_REQUIRED')
+    metadata=I.load_data(means)
+    need(isinstance(metadata,dict) and metadata.get('fit_role')=='TRAIN' and metadata.get('geometry_source')=='pm7','PM7_CLOSED_CHECKPOINT_TRAIN_MEANS_REQUIRED')
+    files=metadata.get('files')
+    need(isinstance(files,list) and bool(files) and all(valid_ref(ref) for ref in files),'PM7_CLOSED_CHECKPOINT_MEANS_FILES_REQUIRED')
+    # These are actual committed references, not a fabricated complete D4 manifest.
+    return {'fit_role':'TRAIN','statistics':{'winsorized_statistics_reference':closed['winsorized_statistics_reference'],'molecule_field_means_reference':means}},references,metadata
+
+def compare(pm7_path,pprime_path,output,temporary_plan=None,*,pm7_closed_checkpoint=None):
+    pm7,pm7_source,pm7_means=pm7_comparison_input(pm7_path,pm7_closed_checkpoint);pprime=I.load(pprime_path)
     plan=I.load(temporary_plan) if isinstance(temporary_plan,(str,Path)) else temporary_plan
     plan=plan or pprime.get('compare_temporary_runtime')
     need(plan is not None,'EXPLICIT_SAFE_COMPARE_TEMPORARY_PLAN_REQUIRED')
     runtime=Temp.activate(plan)
     import duckdb,pyarrow as pa,pyarrow.parquet as pq
     need(pm7['fit_role']==pprime['fit_role']=='TRAIN','TRAIN_ONLY_COMPARISON_SUMMARIES')
-    pfiles=I.load_data(pm7['statistics']['molecule_field_means_reference'])['files']
+    pfiles=(pm7_means if pm7_means is not None else I.load_data(pm7['statistics']['molecule_field_means_reference']))['files']
     ufiles=I.load_data(pprime['statistics']['molecule_field_means_reference'])['files']
     root=Path(output);runtime.guard.target(root);runtime.wait(root)
     db=duckdb.connect()
@@ -73,9 +89,20 @@ def compare(pm7_path,pprime_path,output,temporary_plan=None):
         'coordinate_dependent_components':'Raw vector/tensor components are descriptive in their stored frames; correlation is not a claim of rotational equivalence or a new scientific normalization policy.',
         'geometry_difference':'PM7 all usable non-heldout conformers versus selected first-two UFF; no fabricated one-to-one conformer pairing',
         'source_label_or_geometry_files_reopened':False,'new_content_hashes':False}
+    if pm7_source is not None:
+        result.update(pm7_input_source=pm7_source,PM7_D4_complete=False,PM7_parent_C0_claimed=False)
     I.save(root/'manifest.json',result);return result
 
-if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--pm7',required=True);p.add_argument('--pprime',required=True);p.add_argument('--output',required=True)
-    p.add_argument('--temporary-plan');a=p.parse_args()
-    print(json.dumps(compare(a.pm7,a.pprime,a.output,a.temporary_plan)),flush=True)
+def argument_parser():
+    p=argparse.ArgumentParser();pm7=p.add_mutually_exclusive_group(required=True)
+    pm7.add_argument('--pm7');pm7.add_argument('--pm7-closed-checkpoint')
+    p.add_argument('--pprime',required=True);p.add_argument('--output',required=True);p.add_argument('--temporary-plan')
+    return p
+
+
+def main():
+    a=argument_parser().parse_args()
+    print(json.dumps(compare(a.pm7,a.pprime,a.output,a.temporary_plan,pm7_closed_checkpoint=a.pm7_closed_checkpoint)),flush=True)
+
+
+if __name__=='__main__':main()
