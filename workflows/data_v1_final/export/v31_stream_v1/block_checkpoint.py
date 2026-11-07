@@ -29,15 +29,22 @@ class BlockWriter(Writer):
         return {'map_size':self.env.info()['map_size'],'count':dict(self.count),'bytes':dict(self.bytes)}
 
 
+def id_fragment_root(plan,output_root,work):
+    return P(plan.get('id_fragment_working_root') or output_root)/(P(work).name+'_id_fragments')
+
+
 class IDFragments:
-    def __init__(self,root,closed=()):
-        self.root=P(root);self.root.mkdir(parents=True,exist_ok=True)
+    def __init__(self,root,closed=(),guard=None):
+        self.guard=guard;self.root=P(root)
+        if self.guard:self.guard.wait(self.root,inodes_needed=4)
+        self.root.mkdir(parents=True,exist_ok=True)
         self.closed=list(closed);self.current=None;self.path=None
         self.rows=sum(ref['records'] for ref in self.closed)
         for ref in self.closed:
             if not P(ref['path']).is_file() or P(ref['path']).stat().st_size!=ref['bytes']:raise ValueError('CLOSED_ID_FRAGMENT_MISSING_OR_SIZE_DIFFERS')
 
     def append(self,rows):
+        if self.guard:self.guard.wait(self.root,inodes_needed=2)
         if self.current is None:
             path=self.root/('fragment_%07d.parquet'%len(self.closed));attempt=0;original=path
             while path.exists():attempt+=1;path=original.with_name(original.stem+'_attempt_%03d.parquet'%attempt)
@@ -46,6 +53,7 @@ class IDFragments:
 
     def close_block(self,ordinal):
         if self.current is None:raise ValueError('EMPTY_SOURCE_BLOCK_CANNOT_BE_ACKNOWLEDGED')
+        if self.guard:self.guard.wait(self.path,inodes_needed=2)
         records=self.current.rows;self.current.close();self.current=None
         with self.path.open('rb') as stream:os.fsync(stream.fileno())
         self.closed.append({'path':str(self.path),'bytes':self.path.stat().st_size,'records':records,'source_block':ordinal})
@@ -59,12 +67,14 @@ class IDFragments:
         if self.current is not None:raise ValueError('UNCLOSED_ID_FRAGMENT')
         path=P(path);attempt=0;original=path
         while path.exists():attempt+=1;path=original.with_name(original.stem+'_attempt_%03d.parquet'%attempt)
+        if self.guard:self.guard.wait(path,inodes_needed=2)
         writer=IDMap(path)
         try:
             for ref in self.closed:
                 table=pq.ParquetFile(ref['path'],pre_buffer=False)
                 try:
                     for batch in table.iter_batches(batch_size=8192,use_threads=False):
+                        if self.guard:self.guard.wait(path,batch.nbytes,2)
                         writer.writer.write_table(pa.Table.from_batches([batch]));writer.rows+=batch.num_rows
                 finally:table.close()
             if writer.rows!=self.rows:raise ValueError('ID_FRAGMENT_ROW_COUNTS_DIFFER')

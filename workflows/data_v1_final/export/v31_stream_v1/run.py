@@ -4,7 +4,7 @@ import numpy as np
 from ..pilot_v31_compact_v1.codec import encode,decode,encode_key
 from ..pilot_v31_compact_v1.run import Writer,IDMap,identity_row,compact_once,load,save
 from .disk_guard import from_plan
-from .block_checkpoint import BlockWriter,IDFragments,consume_id_fragments
+from .block_checkpoint import BlockWriter,IDFragments,consume_id_fragments,id_fragment_root
 from .state_journal import Journals
 
 P=pathlib.Path
@@ -129,7 +129,7 @@ def export(plan,molecules,schema):
         os.replace(pending,checkpoint)
     if resume:
         with checkpoint.open('rb') as source:state=pickle.load(source)
-        frozen=lambda p:{k:v for k,v in p.items() if k not in ('disk_protection','streaming_buffer_blocks','workers','metadata_working_root','chunk_compaction','id_map_storage','source_spool_root')}
+        frozen=lambda p:{k:v for k,v in p.items() if k not in ('disk_protection','streaming_buffer_blocks','workers','metadata_working_root','chunk_compaction','id_map_storage','source_spool_root','id_fragment_working_root')}
         if frozen(state['plan'])!=frozen(plan):raise ValueError('RESUME_FROZEN_PRODUCER_INPUTS_CHANGED')
         schema=state['schema'];indices=state['indices'];counts=state['counts'];conformers=state['conformers']
         if 'journal_state' in state:journals,seen,samples=Journals.restore(root,state['journal_state'],guard)
@@ -150,11 +150,11 @@ def export(plan,molecules,schema):
             work=P(plan.get('working_roots',{}).get(split,str(scratch/split)));work.parent.mkdir(parents=True,exist_ok=True)
             idpath=root/('id_map_'+split+'.parquet');attempt=0
             original_work=work;original_final=final;original_id=idpath
-            while work.exists() or final.exists() or idpath.exists() or (root/(work.name+'_id_fragments')).exists():
+            while work.exists() or final.exists() or idpath.exists() or id_fragment_root(plan,root,work).exists():
                 attempt+=1;work=original_work.with_name(original_work.name+'_attempt_%03d'%attempt)
                 final=original_final.with_name(original_final.name+'_attempt_%03d'%attempt);idpath=original_id.with_name(original_id.stem+'_attempt_%03d.parquet'%attempt)
             active={'split':split,'phase':'writing','work':str(work),'final':str(final),'idpath':str(idpath),
-                    'fragment_root':str(root/(work.name+'_id_fragments')),'id_fragments':[],'id_rows':0,
+                    'fragment_root':str(id_fragment_root(plan,root,work)),'id_fragments':[],'id_rows':0,
                     'writer':None,'source_cursor':None,'committed_molecules':indices[split]}
             save_checkpoint()
         if active['split']!=split:raise ValueError('ACTIVE_WRITER_SPLIT_DIFFERS')
@@ -169,7 +169,7 @@ def export(plan,molecules,schema):
                 original=work;attempt=0
                 while work.exists():attempt+=1;work=original.with_name(original.name+'_bootstrap_attempt_%03d'%attempt)
                 active['work']=str(work);save_checkpoint()
-            writer=BlockWriter(work,estimate,closed,active['committed_molecules']);table=IDFragments(active['fragment_root'],active['id_fragments'])
+            writer=BlockWriter(work,estimate,closed,active['committed_molecules']);table=IDFragments(active['fragment_root'],active['id_fragments'],guard=guard)
             try:
                 source=molecules[split]
                 source=source(start_after=active['source_cursor']) if callable(source) and active['source_cursor'] is not None else source() if callable(source) else source

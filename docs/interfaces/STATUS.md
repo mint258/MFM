@@ -369,3 +369,10 @@ D6 6125 仍 held / NOT_ADMITTED，当前只余 6214、6187 未满足；比较清
 现用早交付TRAIN训练参数继续有效，绑定的原element/tail/moments引用未变；其D4_pending字段保留早交付时的历史状态，完整D4完成以本正式入口及真实producer C0为准。既有D3试点继续按原发布mask_overrides_reference应用EA覆盖。每目标normalizer_ready及原物理loss标记继续适用，不由有尺度自动启用字段；9矢量头、r73同对称性求和及r674 LOSS_DISABLED不变。
 
 PM7剩余56GiB统计预测现在释放为0，既有源/缓存/结果均保留。6187原缓存准备仍在运行，全量D6仍未准入；Node20既有Native闭合缓存已作文件元数据可用性确认，可供后续容量计划复用，无新复制/数据读回。最终TRAIN/FULL按原角色互斥，各一份共享compact LMDB，全部模型节点共读；无需模型ACK，不启动付费服务器或正式预训练。
+
+
+## 2026-11-08 窗口二：D6 存储位置改动已验证，联合容量待准入
+
+已继承窗口一全局 Lustre 100GB 检查点预留。候选采用 Node20 既有 Native 缓存、W16/B16、共享闭合几何索引及本地临时 source spool/ID fragments；最终 IDmap 在共享 NFS，TRAIN/FULL 各一份共享 compact LMDB，全部模型节点共读。新增 id_fragment_working_root 只调整新 attempt 的临时位置；已关闭分片引用、恢复游标、ID 内容/行序及科学定义保持。新增 fixture78 首次 1PASS/1.554秒，实际4526187.7 C0/1CPU/3秒；旧77不重跑。
+
+计入模型100GB后旧容量预测不够。已列出38个已关闭 r73 派生 SQLite 缓存，共100000190464B，拟完整迁至NFS并保留原canonical路径符号链接；原盘副本移除已依任务书向用户询问，尚无答复，未复制/迁移/移除。候选 control/window2_20261105/D6_node20_shared_candidate_20261108_v1/ 仍 NOT_ADMITTED；没有模型ACK/额外基准或科学扫描。6187 缓存准备继续，D6 6125 保持held；正式导出将以实际6187 C0、用户必要迁移决定及实际节点字节/inode/quota联合容量准入为准。

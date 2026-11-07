@@ -51,7 +51,7 @@ def prepare(plan_path,bind_plan=True):
         bound=I.load(marker)
         if bound['plan_path']!=str(path):raise ValueError('FROZEN_RUNTIME_PLAN_PATH_CHANGED')
         resumed=dict(bound['plan'])
-        for key in ('gpu_nodes','node_destination_root','metadata_working_root','disk_protection','source_spool_root'):
+        for key in ('gpu_nodes','node_destination_root','metadata_working_root','disk_protection','source_spool_root','id_fragment_working_root'):
             if key in plan:resumed[key]=plan[key]
         if bind_plan:I.save(path,resumed)
         return resumed

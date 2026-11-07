@@ -323,3 +323,22 @@ closed-ref reuse, admission before new directories and bound-plan hint update.
 No previously passed suite or scientific data is read or replayed.
 
 The new optional spool-path/closed-ref fixture passed once in the production environment (1 test, 0.179s); existing successful suites were not repeated. No real D6 spool/compact stream has started.
+
+Optional `id_fragment_working_root` relocates only newly created temporary
+ID fragment directories to a producer-visible, guarded scratch filesystem.
+Missing/empty preserves output_root/<raw-name>_id_fragments. Final merged
+id_map.parquet remains at its original output path; external_symlink behavior,
+row contents/order, source block ordinal and scientific checkpoint inputs do
+not change. Guard checks the actual fragment destination before append/close
+and the final destination before every existing8192-row metadata merge batch.
+
+Cold recovery always keeps active.fragment_root and each closed fragment ref;
+changing this resource hint never migrates, deletes or rewrites closed inputs.
+The old local mount must therefore remain accessible after a cold continuation.
+Only a new split/attempt chooses the new hint. Existing merged-IDmap closure,
+raw_closed checkpoint and owned-fragment consumption order are unchanged.
+prepare_runtime bound-plan storage hints and producer resource comparison allow
+this key. The sole new test_local_id_fragments synthetic fixture covers default
+paths, local writes and guard destinations, interruption/closed-ref reuse,
+final shared IDmap contents/order and bound-plan update. It has not been run;
+Root runs only this new fixture once on actual compute resources.
