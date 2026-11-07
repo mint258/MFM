@@ -568,3 +568,6 @@ D20.BertzCT, D20.FractionCSP3, D20.HallKierAlpha, D20.MolLogP, D20.NumAliphaticR
 
 
 2026-11-07 模型M1/M2阶段PR已提交：https://github.com/mint258/MFM/pull/5 。实际完整CPU回归4526242主/batch/extern C0，3368 PASS/3旧条件跳过/5警告，1765.37秒；随后仓库检查PASS/errors=[]。真实M2结果仍为40/133字段R²达标、93未达标已通知，一次SDP三组下降，不提升过拟合结论。PR与main仅共享文档冲突，保留双方全部新增记录完成合并；实际模型代码未因合并改变。联合架构、M4配方/B*和最终冻结仍待原定实验；D6由窗口二继续，无性能网格/付费服务器/正式预训练。
+
+
+2026-11-07 模型窗口一后续M3/M4检查点存储预留：正式D6仍每split单份共享compact，模型各节点共读，不复制数据。后续新增模型检查点/恢复partial/旧新共存/曲线拟写 `/lfshome/zixiao/model_v31_20261105`，全节点合计新增峰值预估100,000,000,000B（不是每节点，也不是输出/时间硬限）；近期原NFS模型5GB改作该共享Lustre预测，NFS仅模型配置/控制日志约1GB，其他窗口尚未调减其既有6GB合并预留时继续保守扣除。实际compute-0-21 findmnt为10.1.1.100@tcp:/data Lustre，df可用41,729,069,383,680B、inode36,288,634；真实UID1278 quota余1,032,528,035,840B。联合扣PM7未来56GiB、窗口二缓存100GiB、其余6GB、参数temporary1GiB、本模型100GB、账户100GB及8GiB突发仍有余量；根盘830,651,338,752B可用，高于95,415,907,124B保留，root/tmp无新增bulk。三项P模板仍root=null，未启动任何训练/未写Lustre检查点；每次真正启动仍在实际目标节点重查字节/inode/真实quota、计入并发并落实运行保护，无新ACK等待门。旧模型产物保留，不迁移/删除，不改变科学配置。
