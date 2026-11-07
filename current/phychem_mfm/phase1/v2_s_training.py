@@ -83,6 +83,10 @@ def structural_record(record):
 
 
 def s_model(distance_bias, views):
+    # Every real v3.1 entry uses the same existing S precision configuration.
+    torch.set_float32_matmul_precision('highest')
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
     from ..model.v3_architecture import build_architecture_model, ArchitectureOptions
     from ..model.v3_multiview import V3MultiViewModel
     from .v3_architecture_views import V3TwoViewModel
