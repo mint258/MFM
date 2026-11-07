@@ -342,3 +342,17 @@ this key. The sole new test_local_id_fragments synthetic fixture covers default
 paths, local writes and guard destinations, interruption/closed-ref reuse,
 final shared IDmap contents/order and bound-plan update. It has not been run;
 Root runs only this new fixture once on actual compute resources.
+
+Optional `cache_index_working_root` changes only the physical directory of a new
+private cache_index SQLite (including normal attempt filenames). Default remains
+source_working_root. SQL, source traversal/UID/row order and cache_index.json
+schema are unchanged; its canonical marker stays shared and its database ref
+points to the actual local file. Only the exporter on that node consumes it.
+Guard covers both new physical path and shared marker; Root's existing outer
+process-group Guard monitors all admitted filesystems during the bulk build.
+An existing closed marker is returned before any new directory/admission/source
+read, even if the resource hint changes. Immutable cache inputs still reject
+changes. The local file must remain available for this export's continuation;
+no implicit copy/rebuild/cleanup is added. Bound-plan resource merge and writer
+resume permit the hint. Only new test_cache_index_path is pending Root's first
+execution; no existing unit or scientific data was read/replayed.

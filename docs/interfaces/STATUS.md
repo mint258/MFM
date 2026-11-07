@@ -397,3 +397,12 @@ PM7剩余56GiB统计预测现在释放为0，既有源/缓存/结果均保留。
 - 实际4526265 main/batch/extern C0／16CPU20／6秒；新增fixture79首次1PASS／1.332秒，旧78不重跑。模板root/output资源更新允许，身份/科学消费字段保持冻结。
 
 真实D6发布后由原绑定CLI仅刷新JSON根目录，复用已闭合MID表，无需重扫或新ACK。代码/配置入口 `configs/data_v1/S240k_PD_shared_binding_20261108_v1.json`；全量D6继续原范围、TRAIN/FULL各一份共享文件。原6187目前仍受Lustre元数据I/O拖慢，Node20本地元数据工作副本的检查点续接正在准备；未把此身份绑定冒称可用P/D数据。
+
+
+## 2026-11-08 窗口二：完整 D6 已实际启动，原 S240k P/D 入口随正式发布刷新
+
+全量 D6 实际4526271／compute-0-20／16CPU已RUNNING，冻结源码835a1a251414e56de94b0fc99aea02b1947c2e5f，W16/B16；不是试点或仅身份表。前置6268主/batch/extern C0／21:09：真实闭合几何索引与UID元数据在Node20续接，复用10861980几何，仅补15305次D3，合计10877285记录／120新part；原6187只在已发布几何且零Native边界取消，旧数据/检查点保留。旧held6125经确认未分配、零运行后退役。
+
+启动前实际Node20的Lustre、NFS、根盘、SHM以及Node21根盘字节/inode/quota准入全部通过。Root20新峰值334183533568B、Root21临时分片708589934592B，两根盘各保留95415907124B；已存在Node20 geometry/UID约24.41GB及Native327.41GB计入实际used，不重复预算。SHM cache-index新峰值48589934592B，保留8GiB；仅改物理位置，SQL/行序/科学输入不变。新增fixture80首次1PASS/0.304秒，实际6270 C0，原79不重跑。运行Guard持续检查全部目标；模型线Lustre100GB、其他6GB、账号100GB底线及窗口三NFS16GiB继续保留，完整输出估计不是科学截断上限。
+
+最终仍是TRAIN/FULL互斥、各一份Lustre共享compact LMDB，无各节点副本。根目录将是 `/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact`，当前尚未发布可用manifest。原S240k绑定当前保持NOT_READY/root=null；完整producer通过原一次检查/各split一次压缩并exit0后，自动仅刷新 `.../artifacts/export/S240k_PD_input_binding_20261108_v1/manifest.json`，复用已闭合240000 MID表，无重扫、换人或独立24万LMDB导出。模型线应以该实际READY/root为准；不设新ACK门、不重复科学QA/基准/hash，不启动付费服务器或正式预训练。

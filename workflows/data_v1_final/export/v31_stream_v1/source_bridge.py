@@ -40,8 +40,12 @@ def cache_index(plan):
         result=I.load(marker)
         if result['inputs']!=inputs:raise ValueError('FROZEN_CACHE_INDEX_INPUTS_CHANGED')
         return result
-    path=root/'cache_index.sqlite';attempt=0
-    while path.exists():attempt+=1;path=root/('cache_index_attempt_%03d.sqlite'%attempt)
+    physical=Path(plan.get('cache_index_working_root') or root)
+    guard=from_plan(plan,admit=False)
+    if guard:guard.wait(physical,inodes_needed=4);guard.wait(marker,inodes_needed=2)
+    physical.mkdir(parents=True,exist_ok=True)
+    path=physical/'cache_index.sqlite';attempt=0
+    while path.exists():attempt+=1;path=physical/('cache_index_attempt_%03d.sqlite'%attempt)
     db=sqlite3.connect(path)
     db.executescript('CREATE TABLE pp(mid TEXT,conf INTEGER,task TEXT,path TEXT,row INTEGER,gid TEXT,PRIMARY KEY(mid,conf,task)); CREATE INDEX pp_mid ON pp(mid); CREATE TABLE d3(gid TEXT PRIMARY KEY,path TEXT); CREATE TABLE overrides(rid TEXT,fid INTEGER,row BLOB,PRIMARY KEY(rid,fid));')
     source_aliases={}
@@ -72,6 +76,7 @@ def cache_index(plan):
         for ref in I.load_data(norm['statistics']['mask_overrides_reference'])['files']:
             db.executemany('INSERT INTO overrides VALUES(?,?,?)',[(r['record_id'],r['field_id'],pickle.dumps(r,protocol=5)) for r in A.rows(ref)]);db.commit()
     finally:db.close()
+    if guard:guard.wait(marker,inodes_needed=2)
     result={'inputs':inputs,'database':I.ref(path)};I.save(marker,result);return result
 
 
