@@ -376,3 +376,12 @@ PM7剩余56GiB统计预测现在释放为0，既有源/缓存/结果均保留。
 已继承窗口一全局 Lustre 100GB 检查点预留。候选采用 Node20 既有 Native 缓存、W16/B16、共享闭合几何索引及本地临时 source spool/ID fragments；最终 IDmap 在共享 NFS，TRAIN/FULL 各一份共享 compact LMDB，全部模型节点共读。新增 id_fragment_working_root 只调整新 attempt 的临时位置；已关闭分片引用、恢复游标、ID 内容/行序及科学定义保持。新增 fixture78 首次 1PASS/1.554秒，实际4526187.7 C0/1CPU/3秒；旧77不重跑。
 
 计入模型100GB后旧容量预测不够。已列出38个已关闭 r73 派生 SQLite 缓存，共100000190464B，拟完整迁至NFS并保留原canonical路径符号链接；原盘副本移除已依任务书向用户询问，尚无答复，未复制/迁移/移除。候选 control/window2_20261105/D6_node20_shared_candidate_20261108_v1/ 仍 NOT_ADMITTED；没有模型ACK/额外基准或科学扫描。6187 缓存准备继续，D6 6125 保持held；正式导出将以实际6187 C0、用户必要迁移决定及实际节点字节/inode/quota联合容量准入为准。
+
+
+## 2026-11-08 窗口二：用户批准的缓存迁移完成，D6 继续准备
+
+经用户明确同意，已完成所列38个闭合 r73 派生缓存迁移，共100000190464B；实际4526252 / compute-0-20 /16CPU 主、batch、extern 均 COMPLETED0:0（10:19）。完整数据位于 `/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_r73_cache_relocation_candidate_20261108_v1/group_*/r73_derived.sqlite`，原 `/lfshome/.../window2_full_TRAIN_normalization_20261105_v1/pass_0001/attempt_001/group_*/r73_derived.sqlite` 保留为对应符号链接；38条canonical路径/UID/文件大小元数据匹配。原统计清单和数值保持；无SQLite数值读取、新内容hash或独立科学QA。
+
+用户澄清所指存储为现用 Lustre `/lfshome`，正式D6目标仍在此；账号原生硬配额2TiB，与约41.7TB全盘空闲分开核算。迁移完成后实际账号余量约Lustre1127.82GB、NFS227.41GB，模型线Lustre100GB、账号100GB底线、窗口三NFS16GiB及其余并发预算保持。固定版本代码目录已准备，6187几何索引/缓存准备仍运行；全量D6未开始，须待其真实C0后在实际节点重查联合容量。
+
+供三个窗口合并预算的D6临时存储计划：Node20同盘新增峰值取max(200GB source spool+80GB ID fragments,300GB compact chunks)，另8GiB运行突发；Node21一次压缩流的临时分片700GB，另8GiB突发。两根盘均保留max(10GiB,10%总容量)，真实其他窗口并发仍在准入时合并；尚未写这些临时分片。关闭分片拼回共享单份后沿原producer生命周期释放。最终TRAIN/FULL互斥、各一份Lustre共享compact，全部模型节点共读；无模型ACK等待门。
