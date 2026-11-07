@@ -343,3 +343,15 @@ The actual Lustre quota metadata writer4024673 was blocked in kernel `__break_le
 Actual new metadata writer208051 publishes fresh real probes to `/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/window2_20261105/lustre_quota_available_v2_20261107.json`. The existing `lustre_writer_guard_profile.json` changes only `quota_reference`. A writable current-snapshot FD was observed; Main effective ages1.99/2.62 seconds passed the same five-second validator. The old own metadata PID was terminated only after exact UID/boot/start-ticks/PGID/SID/argv/cgroup witness checks, and old files remain. Both4526214 and4526187 automatically resumed; PM7 MAD19 advanced18→23 closed groups without restarting either scientific parent or replaying closed data.
 
 Only new all-mock/no-file fixture76 ran once:1 PASS/0.011s, actual4526187.5 C0/1CPU; old75 fixtures were not rerun. No scientific inputs, labels, masks, normalizers, budgets or training-view definitions changed. Closed TRAIN normalization parameters remain delivered; complete D4 and full D6 remain pending. Final LMDB delivery remains SHARED_SINGLE_COPY for TRAIN/FULL, with all model nodes reading the shared files.
+
+
+## 2026-11-07 窗口二：P/P′ TRAIN 描述性比较已完成
+
+实际 Slurm 4526244 / compute-0-20 / 16CPU 已 COMPLETED 0:0（00:09:09）。复用已关闭的 PM7 normalization_moments/per-M means 及 P′ 6181 C0 汇总，提前与 MAD 并行完成原定比较；原 valid-leaf 加权合并、Pearson/Spearman SQL 与分布算法保持，无原始标签/几何重读或重新拟合。
+
+- 清单：`/lfshome/zixiao/data_v1_20261025/window2_P_vs_Pprime_TRAIN_20261105_v1/manifest.json`（6076 B）。
+- 同 MID 字段均值相关性：121 字段，`P_vs_Pprime_same_MID_correlations.parquet`，7129 B。
+- 分布：850 series，`P_vs_Pprime_distributions.json`，323351 B；两文件均在清单同目录。
+- 新输入路由 fixture77 首次 1PASS；原有通过套件未重跑。输入来源明确保留真实 Common/D5/tail 绑定，`PM7_D4_complete=false`、`PM7_parent_C0_claimed=false`；完整 D4 仍继续 MAD20..23。
+
+D6 6125 仍 held / NOT_ADMITTED，当前只余 6214、6187 未满足；比较清单已存在，原 D6 脚本将直接复用。最终 LMDB 继续每 split 单份共享 compact，全部模型节点共读。无需模型线确认或新增等待门。
