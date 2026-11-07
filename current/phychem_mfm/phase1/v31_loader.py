@@ -322,6 +322,42 @@ class TrainingView:
         return output
 
 
+def split_metadata(root, split):
+    """Follow released D6 locations while retaining the delivered pilot layout."""
+    delivery_path = root / 'manifest.json'
+    delivery = json.loads(delivery_path.read_text()) if delivery_path.is_file() else {}
+    if 'split_roots' in delivery:
+        roots = delivery['split_roots']
+        if not isinstance(roots, dict) or split not in roots:
+            raise ValueError(f'Split {split} is not delivered')
+        location = roots[split]
+        if not isinstance(location, str) or not location:
+            raise ValueError('Invalid published split location')
+        directory = Path(location)
+        if not directory.is_absolute():
+            directory = root / directory
+    else:
+        directory = root / ('v31_pilot_' + split)
+        if not directory.exists():
+            directory = root / split
+    counts = delivery.get('molecules', {})
+    declared = counts.get(split) if isinstance(counts, dict) else None
+    metadata_path = directory / 'manifest.json'
+    if metadata_path.is_file():
+        metadata = json.loads(metadata_path.read_text())
+    elif 'split_roots' in delivery and declared is not None:
+        # Full D6 publishes its per-role counts once, in the schema root.
+        metadata = {'molecule_count': declared}
+    else:
+        metadata = json.loads(metadata_path.read_text())
+    count = metadata.get('molecule_count')
+    if type(count) is not int or count < 0:
+        raise ValueError('Invalid molecule_count in delivered metadata')
+    if declared is not None and declared != count:
+        raise ValueError('Delivered root and split molecule counts disagree')
+    return directory, metadata
+
+
 class MFM4Dataset:
     """Per-process LMDB handles, molecule-first sampling and explicit geometry."""
     def __init__(self, root, *, split='TRAIN', training_view=None, source='PM7',
@@ -331,11 +367,8 @@ class MFM4Dataset:
             raise ValueError('Geometry-only reading cannot discard a requested training view')
         self.geometry_only = geometry_only
         self.root = Path(root)
-        self.directory = self.root / ('v31_pilot_' + split)
-        if not self.directory.exists():
-            self.directory = self.root / split
+        self.directory, self.manifest = split_metadata(self.root, split)
         self.schema = json.loads((self.root / 'schema.json').read_text())
-        self.manifest = json.loads((self.directory / 'manifest.json').read_text())
         self.source, self.order, self.k, self.diagnostic = source, order, k, diagnostic
         self.pprime, self.evaluation = pprime, split != 'TRAIN'
         if source not in ('PM7', 'UFF'):

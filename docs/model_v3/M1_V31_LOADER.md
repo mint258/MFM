@@ -2,6 +2,12 @@
 
 入口为 `current/phychem_mfm/phase1/v31_loader.py`。读取每 split 的单默认 LMDB、
 共享 schema.json 和外部 id_map.parquet；无 v3.0 回退、文件哈希或独立重读。
+全量D6以schema根目录的manifest.split_roots选择TRAIN/FULL实际共享LMDB路径，
+支持绝对路径与相对schema根目录的路径。完整D6的分子数取根manifest.molecules，
+无需在compact目录另造manifest；已交付试点仍读原per-split清单。
+有正式split_roots时不被同根旧pilot目录覆盖；矛盾的角色计数明确报出。
+外部ID map沿用producer提供的id_map.parquet符号链接，子集MID绑定与已发布EA覆盖
+均通过该实际目录读取，不复制ID map或LMDB。
 M1已在M2真实数据加载/优化中跑通；格式、采样、字段及缺失规则有单元测试。
 逐字段过拟合实际40/133达标、93未达标已报告；SDP三组下降，详见M2_V31_RESULTS.md。
 纯S通用训练/验证使用 `geometry_only=True`：分子信息仍完整读取，P/U只复制原21/22

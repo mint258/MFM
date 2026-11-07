@@ -67,3 +67,27 @@ def save_checkpoint(payload, path):
     require_capacity(filesystem_status(path.parent), peak)
     with path.open('wb') as file:
         torch.save(payload, CheckedWriter(file, path.parent, peak))
+
+
+def _metadata_path(path, peak):
+    path = Path(path)
+    require_capacity(filesystem_status(path.parent), peak, 3)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+def save_metadata_parquet(table, path):
+    """Guard native-index publication, including serialization's remaining peak."""
+    import pyarrow.parquet as pq
+    peak = 2 * table.nbytes + 1024 ** 2
+    path = _metadata_path(path, peak)
+    with path.open('xb') as file:
+        pq.write_table(table, CheckedWriter(file, path.parent, peak), compression='zstd')
+
+
+def save_metadata_json(payload, path):
+    import json
+    data = (json.dumps(payload, indent=2) + '\n').encode('utf-8')
+    path = _metadata_path(path, len(data))
+    with path.open('xb') as file:
+        CheckedWriter(file, path.parent, len(data)).write(data)

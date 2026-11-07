@@ -6,6 +6,7 @@ from pathlib import Path
 import duckdb
 import pyarrow as pa
 import pyarrow.parquet as pq
+from phychem_mfm.phase1.v2_disk import save_metadata_json, save_metadata_parquet
 
 
 def main():
@@ -45,14 +46,13 @@ def main():
     if len(rows) != expected:
         raise ValueError(f'Validation identity join: {len(rows)} located, {expected} expected')
     output = Path(args.output)
-    output.mkdir(parents=True, exist_ok=True)
     path = output / 'records.parquet'
-    pq.write_table(rows, path, compression='zstd')
+    save_metadata_parquet(rows, path)
     con.register('result', rows)
     counts = con.execute('SELECT role,count(*),count(DISTINCT molecule_id) FROM result GROUP BY role').fetchall()
     summary = dict(path=str(path), bytes=path.stat().st_size, records=len(rows),
                    populations=counts, labels_read=False)
-    (output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
+    save_metadata_json(summary, output / 'summary.json')
     print(json.dumps(summary), flush=True)
 
 

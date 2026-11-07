@@ -574,3 +574,6 @@ D20.BertzCT, D20.FractionCSP3, D20.HallKierAlpha, D20.MolLogP, D20.NumAliphaticR
 
 
 2026-11-07 模型磁盘观察器已补真实账户quota：新增5项逻辑单测4526245实际主/batch/extern C0，5PASS/0.84秒、旧4项未重跑；仓库检查PASS/errors=[]，累计110项新增逻辑测试。读取已有原生quota快照，校验UID/文件系统及有效时间0..5秒；扣账户100GB、全节点未来增长/同盘并发和8GiB突发，整盘df充足不能绕过用户quota。未知/不足只对本窗口绑定UID/节点/Slurm作业STOP；原字节/inode及根盘规则保留。后续实际训练绑定相应原生快照及实际预测，未新增科学QA/哈希/收据/内存或墙钟限制，未改变模型/数据/科学规则；仍待D6。
+
+
+2026-11-08 模型窗口一：已接收最终D4，现用早交付TRAIN参数仍有效，原M2历史结论不变。加载器已按实际D6 producer合同从schema根manifest.split_roots读取TRAIN/FULL共享LMDB并消费根molecules计数；外部ID map沿发布符号链接供MID/EA覆盖共同使用，无复制。6249/16CPU节点20实际新增7PASS/0.75秒，主/batch/extern C0。两个原生S索引生成入口另补峰值/inode预检与写入期CheckedWriter，已有文件不覆盖，空间不足保留partial；6250首次4PASS/1失败为新fixture未跨8MiB检查边界，修正后仅失败项6251首次PASS/0.07秒/C0，其余不重跑，仓库检查PASS/errors=[]。新增逻辑累计122项，既有完整回归3368PASS/3旧条件skip保留。窗口二缓存6187继续，D6未交付；P模板仍待其实际根路径，沿用原S24万MID/6M，不提前训练、不新增ACK或数据QA/hash/收据，不动其他窗口作业。

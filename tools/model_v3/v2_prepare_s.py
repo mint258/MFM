@@ -10,6 +10,7 @@ import json
 import duckdb
 import pyarrow as pa
 import pyarrow.parquet as pq
+from phychem_mfm.phase1.v2_disk import save_metadata_json, save_metadata_parquet
 
 
 def main():
@@ -43,19 +44,18 @@ def main():
     expected = con.execute('SELECT count(*), count(DISTINCT molecule_id) FROM bases').fetchone()
     observed = (len(rows), len(set(rows['molecule_id'].to_pylist())))
     output = Path(args.output)
-    output.mkdir(parents=True, exist_ok=True)
     if observed != expected or observed[1] != 240_000:
         summary = {'status': 'IDENTITY_JOIN_INCOMPLETE', 'expected_records_molecules': expected,
                    'observed_records_molecules': observed}
-        (output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
+        save_metadata_json(summary, output / 'summary.json')
         raise ValueError(str(summary))
     path = output / 'records.parquet'
-    pq.write_table(rows, path, compression='zstd')
+    save_metadata_parquet(rows, path)
     summary = {'status': 'READY', 'molecules': observed[1], 'records': observed[0],
                'geometry': 'PM7', 'sampling': 'uniform_molecule_then_uniform_allowed_conformer',
                'D5_holdouts': 'excluded_by_delivered_training_fixed_random_base_index',
                'labels_read': False, 'path': str(path), 'bytes': path.stat().st_size}
-    (output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
+    save_metadata_json(summary, output / 'summary.json')
     print(json.dumps(summary), flush=True)
 
 

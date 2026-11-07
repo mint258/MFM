@@ -23,7 +23,9 @@ cd /share/home/zixiao/descriptor_analysis/MFM_model_v3
   --node "$COMPUTE_NODE" --gpu-uuid "$GPU_UUID" --python "$GPU_PYTHON"
 ```
 
-`V31_ROOT` 是实际 D6 的 schema 根目录；`TRAIN_SUBSET` 是对应 M 的真实 TRAIN
+`V31_ROOT` 是实际 D6 的 schema/manifest 根目录；加载器按manifest.split_roots读取
+实际TRAIN/FULL共享LMDB及其ID map链接，schema与compact可以位于不同共享文件系统。
+`TRAIN_SUBSET` 是对应 M 的真实 TRAIN
 分子 ID Parquet。`TRAINING_VIEW` 为窗口二正式冻结清单；`D4_MAPPING` 为模型加载器
 按字段消费的正式 TRAIN 参数映射（原 D4 的接口翻译，不能另拟合）。`RUN_OUTPUT`
 为仓库外新的绝对输出目录。命令生成 `<RUN_OUTPUT>.input.json` 和 `.sbatch`，并打印
