@@ -420,3 +420,26 @@ PM7剩余56GiB统计预测现在释放为0，既有源/缓存/结果均保留。
 4526273实际FAILED1:0／10:00：首批PM7原数据投影遇到原包 `333f2de011605bcf73db65cad4cb7534a526b85e0ebc946d46f7a60aaf62078e` 未登记，未绕过输入重建。原 `reproduction_package/queue_recovery_job_4514065/manifest.json` 的original_manifest明确指向 `supplement_job_4513971/manifest.json` 及该既有SHA；读取被引用原包protocol，精确为原 `configs/protocol.json` /既有3e831aa5...引用。继承各原包original_manifest链后共6个包键，全部记录相同原协议；登记见 `configs/data_v1/D6_original_package_protocol_map_v1.json`，执行control原map路径保持。
 
 这是缺失静态配置补齐：不更改原协议/坐标重建/标签，不算新内容hash，不增加逻辑或重复测试/QA。实际写入检查点committed_molecules=0、source_cursor=null；闭合14.52GB cache-index、几何/D3/Pprime/D4和未闭合spool均保留。Node20全部四文件系统及Node21根盘实际Guard再次返回0后，4526274／16CPU20已实测RUNNING，冻结代码835a1a/W16/B16与全部容量余量保持。原S240k入口仍NOT_READY，完整D6发布前不提前宣称可用；最终每split单份共享LMDB，不复制模型节点。
+
+
+## 2026-11-08 窗口二：D6路径变量覆盖已定位，准备修复后续接
+
+6274在进入Pprime后实际出现DISK_WAIT/WRITE_TARGET_NOT_UNIQUELY_BUDGETED；代码定位为work中的临时SQLite `path` 被PM7 raw及Pprime输入循环变量覆盖，最终Guard与spool返回引用误指来源Parquet。没有扩大allowlist或改科学/写来源文件。Root核实writer committed_molecules=0/source_cursor=null、精确UID1278/Node20/cgroup6274/PID2808953/start_ticks1198083922后，对自有producer组发SIGINT，让未提交SQLite事务正常退出。实际6274父作业FAILED1:0/01:00:11，非C0；旧进程已消失，根盘可用恢复468458229760B，原源/闭合14.52GB索引与所有上游结果保留，未闭合attempt保留。
+
+当前D6未运行，正在原D6代码准备工作树修复变量名并补synthetic单测81；通过后按原检查点/同科学范围和真实容量准入续接。S240k入口继续NOT_READY/root=null，不能据此前运行状态启动训练。最终TRAIN/FULL各一份共享LMDB、模型Lustre100GB与全盘并发/余量规则保持。
+
+
+## 2026-11-08 窗口二：spool路径修复首次单测通过，实际D6作业4526278续接
+
+三处输入路径覆盖已最小改名，SQL/投影数值/行序不变。新增唯一fixture81真实执行tiny PM7+Pprime work/SQLite/assembler，确认Guard与闭合marker使用私有SQLite、源Parquet bytes不变，并验证future成功/失败/取消的诊断日志和原异常重抛。实际6277／16CPU20主/batch/extern C0／6秒，首次1PASS／2.775秒，旧80不重跑。future完成日志只报告错误，ordered消费/原异常传播保持。
+
+完整D6新作业4526278／16CPU20已实际RUNNING，冻结代码bad6efa59f45dbdc2ab64a0745e0e1453ae3847f，source_snapshot81已在Main实际quota/目标容量保护下准备。Node20全部四文件系统及Node21根盘重新Guard准入返回0；原W16/B16、全部来源/科学参数/样本/划分/角色/cursor保持。仅在0已提交记录边界把checkpoint schema.code_commit绑定实际新代码，原checkpoint备份保留，未改科学计数或闭合阶段。全部上游、14.52GB索引和未闭合旧attempt保留。
+
+S240k仍NOT_READY/root=null；完整producer原一次末尾检查及TRAIN/FULL各一次压缩完成后自动发布共享入口。每split仅一份共享LMDB，无节点复制/新科学QA/hash/吞吐基准/模型ACK门。
+
+
+## 2026-11-08 窗口二：原D7 status元数据解析修复，完整D6实际4526281续接
+
+6278的新SOURCE_BLOCK_FAILED即时日志提前定位block7 TypeError。仅查询闭合D7顺序元数据后，确认 `molecule_01000052` 的原orders字典含三种真实顺序及 `status: COMPLETE`；旧adapter误遍历全部metadata。现仅提取原fixed_random/energy/diversity，原列表/index完全保留，None/缺失仍不造顺序。无标签或坐标读回/重新排序。新增唯一fixture82覆盖PM7 string、UFF int、status及额外metadata、缺失/None和原列表不变；实际6279主/batch/extern C0，首次1PASS（unittest显示0.000秒），81及旧80不重跑。
+
+Root在6278 writer0提交/cursor=null、UID1278/Node20/cgroup6278/PID2813739/start_ticks1198490264精确匹配后发SIGINT优雅退出；父实际FAILED1:0/04:41，未冒称C0。新冻结代码0040a90ed27f3f12fdec2e9d6723c8ebffbed94b/source_snapshot82包含81与82修复；Main代码目录及Node20四文件系统/Node21根盘再次真实容量Guard准入通过，已提交4526281／16CPU20。原checkpoint副本保留，仅在0记录边界绑定schema.code_commit；所有科学参数、样本、counts、cursor、源/上游/14.52GB索引和旧attempt均保留。最终仍每split单份共享LMDB，S240k须等真实D6 manifest后READY。

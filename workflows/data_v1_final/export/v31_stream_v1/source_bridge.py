@@ -201,6 +201,14 @@ def spool_paths(plan,number,split):
     return physical/('block_%07d.sqlite'%number),logical/('block_%07d.json'%number)
 
 
+def order_ranks(source_orders,identity):
+    ranks={}
+    for name in ('fixed_random','energy','diversity'):
+        values=source_orders.get(name)
+        if values is not None and identity in values:ranks[name]=values.index(identity)
+    return ranks
+
+
 def work(task):
     number,mids,split=task;STATE['sample_notes']={}
     path,marker=spool_paths(STATE['plan'],number,split)
@@ -230,7 +238,7 @@ def work(task):
                 if src=='uff_sprime' and physical!=str(p['sprime_conf_idx']):p['storage_physical_alias']=physical
                 bases[(mid,src,physical)]=p
                 source_orders=json.loads(order['pm7_orders_json'] if src=='pm7' else order['sprime_orders_json']);identity=physical if src=='pm7' else p['sprime_conf_idx']
-                ranks[(mid,src,physical)]={name:values.index(identity) for name,values in source_orders.items() if values is not None and identity in values} if ordinary else {}
+                ranks[(mid,src,physical)]=order_ranks(source_orders,identity) if ordinary else {}
         locations=list(locators_for_mids(STATE['plan']['source_index'],mids,domains=(0,),families=('base_geometry',)))
         base_locs=[loc for loc in locations if loc['family']=='base_geometry']
         for loc,raw in iter_source_rows(base_locs,['atomic_numbers','positions_A','bond_pairs','bond_order_codes']):
@@ -269,9 +277,9 @@ def work(task):
                     if list(z)!=list(zmap[key]):raise ValueError('PM7_TYPED_ORIGINAL_BASE_ATOM_ORDER_ALIGNMENT')
                     task=next(t for t,c in B.TASKS.items() if c==row['task_code']);tasksets[key].add(task)
                     if STATE['recipe']['tasks'][task]['input_kind']=='ORIGINAL_REGISTRY_CELL_PARQUET':
-                        path=source['path']
-                        if path not in raws:raws[path]=ForwardRaw(path,['record_id','molecule_id','calc_type','total_atoms','values','numeric_issues','reproduction_package_sha256','input_bundle_sha256','input_file_sha256'])
-                        raw=raws[path].get(row['physical_row'])
+                        pm7_raw_path=source['path']
+                        if pm7_raw_path not in raws:raws[pm7_raw_path]=ForwardRaw(pm7_raw_path,['record_id','molecule_id','calc_type','total_atoms','values','numeric_issues','reproduction_package_sha256','input_bundle_sha256','input_file_sha256'])
+                        raw=raws[pm7_raw_path].get(row['physical_row'])
                         if raw['record_id']!=owner['record_id'] or raw['molecule_id']!=mid or raw['calc_type']!=task:raise ValueError('ORIGINAL_RAW_TYPED_PHYSICAL_ROW_ALIGNMENT')
                     else:raw={'record_id':owner['record_id'],'molecule_id':mid,'calc_type':task}
                     role,_=contexts[mid];bonds,codes=topology[key]
@@ -284,11 +292,11 @@ def work(task):
             for raw in raws.values():raw.close()
         wanted=collections.defaultdict(dict)
         for mid in mids:
-            for conf,task,path,row,gid in cache.execute('SELECT conf,task,path,row,gid FROM pp WHERE mid=? ORDER BY path,row',(mid,)):wanted[path][row]=(mid,conf,task,gid)
-        for path,positions in wanted.items():
+            for conf,task,typed_path,row,gid in cache.execute('SELECT conf,task,path,row,gid FROM pp WHERE mid=? ORDER BY path,row',(mid,)):wanted[typed_path][row]=(mid,conf,task,gid)
+        for typed_path,positions in wanted.items():
             # Read each selected typed Pprime row, then its exact original raw
             # CELL once. The cache already owns all final validity decisions.
-            rows=list(read_selected(path,positions));raws=collections.defaultdict(dict)
+            rows=list(read_selected(typed_path,positions));raws=collections.defaultdict(dict)
             for position,row in rows:
                 row['geometry_id']=positions[position][3]
                 raws[row['source_path']][row['physical_row']]=(position,row)
@@ -340,6 +348,22 @@ def source_molecule_groups(plan,index):
     result=list(groups.values());I.save(marker,{'groups':result,'primary_order':'original source job then original canonical ordinal; each MID selected once'})
     return result
 
+def report_source_block_failure(number,future):
+    if future.cancelled():error=repr(cf.CancelledError())
+    else:
+        failure=future.exception()
+        if failure is None:return
+        error=repr(failure)
+    print(json.dumps({'phase':'SOURCE_BLOCK_FAILED','block':number,'error':error}),flush=True)
+
+
+def submit_source_block(pool,task):
+    future=pool.submit(work,task)
+    callback=getattr(future,'add_done_callback',None)
+    if callback is not None:callback(lambda done,number=task[0]:report_source_block_failure(number,done))
+    return future
+
+
 def stream_split(plan,index,cache,schema,split,start_after=None):
     groups=source_molecule_groups(plan,index)
     tasks=iter((i,g[split],split) for i,g in enumerate(groups) if g[split] and (start_after is None or i>start_after));workers=int(plan['workers'])
@@ -350,7 +374,7 @@ def stream_split(plan,index,cache,schema,split,start_after=None):
         pending=collections.deque()
         for _ in range(buffer):
             task=next(tasks,None)
-            if task is not None:pending.append((task[0],pool.submit(work,task)))
+            if task is not None:pending.append((task[0],submit_source_block(pool,task)))
         while pending:
             number,future=pending.popleft();ref=future.result();db=sql_ro(ref['path']);ack={'committed':False}
             try:
@@ -366,7 +390,7 @@ def stream_split(plan,index,cache,schema,split,start_after=None):
             if not ack['committed']:raise ValueError('SOURCE_BLOCK_CONSUMPTION_NOT_CHECKPOINTED')
             Path(ref['path']).unlink()
             task=next(tasks,None)
-            if task is not None:pending.append((task[0],pool.submit(work,task)))
+            if task is not None:pending.append((task[0],submit_source_block(pool,task)))
 
 
 def factory(plan):
