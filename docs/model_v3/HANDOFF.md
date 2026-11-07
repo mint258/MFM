@@ -1,6 +1,6 @@
 # 模型 v3 网格交接
 
-状态：启动接口已实现；M2、M3/M4 实验、两份最终冻结配置与代码标签尚待完成。
+状态：启动接口已实现；M1/M2已实际接入，逐字段过拟合与SDP结果见[M2结果](M2_V31_RESULTS.md)。M3/M4 实验、两份最终冻结配置与代码标签尚待完成。
 本文当前不能当作模型/配方/B* 已冻结的声明，也未启动性能实验。
 最终科学口径见 [PREREG_round1.md](PREREG_round1.md)。
 
@@ -79,7 +79,23 @@ M3/M4 结果页与实际 B*。这些依赖实际实验完成，当前未填写�
 新增文件峰值，并于序列化期间复查余量；不足即停止新增写入并保留原检查点/已写partial，
 不自动清理文件。运行前仍须按共享STATUS协调实际账户quota及各窗口待写预算。
 
-当前三条旧保存代码的S作业另有 tools/model_v3/v2_watch_disk.py 在各自节点每5秒实际观察。
+已结束的S/M2/回归观察已按真实作业终态退役。后续训练须在实际计算节点启动
+`tools/model_v3/v2_watch_disk.py`，每5秒观察根盘/输出盘字节与inode，并绑定实际账户quota：
+
+```bash
+python tools/model_v3/v2_watch_disk.py \
+  --output "$RUN_OUTPUT" --state "$DISK_STATE" --node "$COMPUTE_NODE" --jobs "$SLURM_JOB_ID" \
+  --growth-bytes "$GLOBAL_MODEL_FUTURE_BYTES" \
+  --quota-reference "$QUOTA_REFERENCE" --quota-filesystem "$OUTPUT_FILESYSTEM" \
+  --quota-concurrent-bytes "$OTHER_WINDOWS_FUTURE_BYTES"
+```
+
+此观察须与训练并行，正常结束时退出；状态由主监控读取。`QUOTA_REFERENCE` 使用实际
+原生配额发布器的当前快照；`OUTPUT_FILESYSTEM` 为对应的 `/lfshome` 或 `/share`。
+快照须匹配真实UID/文件系统/schema，使用发布器已有有效时间且age在0..5秒；不会重写
+时间冒充新观测。quota扣账户100GB、同盘全局未来增长、其他窗口并发及8GiB突发余量。
+增长预估全节点合计，不能按节点重复预算，也不是固定输出上限；每次启动更新实际预估。
+后续M3/M4检查点拟用共享Lustre；原NFS输出/检查点保留，不自动迁移或清理。
 容量不足/未知时仅暂停明确绑定的本UID/节点/Slurm作业，保留原训练进程；空间恢复后，
 须在实际节点复核根盘/输出盘及并发quota预算，再对原作业发送CONT并重启观察。
 主进度观察器同时检查其状态新鲜度，不把观察进程失联当作已完成保护。
