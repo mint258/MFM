@@ -111,6 +111,51 @@ def dataset_input(path,name):
         'element_models':references['element_models_reference'],'fields':fields_ref}
 
 
+def pm7_closed_checkpoint_input(path):
+    """Consume committed full-TRAIN parameter stages, not an invented C0 manifest."""
+    state=read(path);cfg=state.get('inputs',{});results=state.get('results',{});eligibility=state.get('eligibility',{})
+    def need(value,reason):
+        if not value:raise ValueError('PM7_CLOSED_CHECKPOINT:'+reason)
+    need(cfg.get('mode')=='full','FULL_INPUT_REQUIRED')
+    # At index3 all three parameter purposes have closed; the diagnostic purpose
+    # is still pending/running. Index4 belongs to the original post-C0 mode.
+    need(type(state.get('purpose_index')) is int and state['purpose_index']==3,'THREE_PARAMETER_PURPOSES_CLOSED_DIAGNOSTICS_PENDING_REQUIRED')
+    required=('element_models_reference','exact_tail_reference','winsorized_statistics_reference')
+    for key in required:
+        need(isinstance(results.get(key),dict) and isinstance(results[key].get('path'),str) and bool(results[key]['path']),'CLOSED_REFERENCE_REQUIRED:'+key)
+    for key in ('coverage_reference','common_reference','d5_reference','field_map_reference','input_release_reference'):
+        need(isinstance(cfg.get(key),dict) and bool(cfg[key].get('path')),'FULL_INPUT_REFERENCE_REQUIRED:'+key)
+    need(cfg['input_release_reference']==cfg['common_reference'],'FINAL_COMMON_INPUT_RELEASE_REQUIRED')
+    need(eligibility.get('Common_TRAIN_only') is True and eligibility.get('D5_excludes_base_and_all_14_source_tasks') is True,'COMMON_TRAIN_ANTI_D5_ELIGIBILITY_REQUIRED')
+    need(type(cfg.get('source_records')) is int and cfg['source_records']>0 and eligibility.get('source_records')==cfg['source_records'] and eligibility.get('fit_records',0)>0,'FULL_SOURCE_ELIGIBILITY_CLOSURE_REQUIRED')
+    eligibility_ref=eligibility.get('eligibility_reference')
+    need(isinstance(eligibility_ref,dict) and bool(eligibility_ref.get('path')),'ELIGIBILITY_REFERENCE_REQUIRED')
+    need(not results.get('diagnostic_median_MAD_reference'),'DIAGNOSTICS_ALREADY_CLOSED_USE_POST_C0_MODE')
+    tail=read(results['exact_tail_reference'])
+    for key,expected in (('coverage_reference',cfg['coverage_reference']),('field_map_reference',cfg['field_map_reference']),
+        ('input_release_reference',cfg['input_release_reference']),('eligibility_reference',eligibility_ref),
+        ('element_models_reference',results['element_models_reference'])):
+        need(tail.get(key)==expected,'CLOSED_TAIL_SOURCE_BINDING:'+key)
+    numeric=read(results['winsorized_statistics_reference'])
+    need(numeric.get('fit_role')=='TRAIN_ONLY' and numeric.get('source_labels_modified') is False,'TRAIN_MOMENTS_CLOSURE_REQUIRED')
+    models=read(results['element_models_reference']);fields_ref=cfg['field_map_reference']
+    closed_keys=(*required,'mask_overrides_reference','validity_mask_counts_reference','r73_derived_reference','molecule_field_means_reference')
+    references={'source_kind':'PM7_CLOSED_PARAMETER_CHECKPOINT','checkpoint':str(Path(path).absolute()),
+        'statistics':copy.deepcopy(results['winsorized_statistics_reference']),'element_models':copy.deepcopy(results['element_models_reference']),
+        'exact_tail':copy.deepcopy(results['exact_tail_reference']),'fields':copy.deepcopy(fields_ref),
+        'eligibility_reference':copy.deepcopy(eligibility_ref),'eligibility':copy.deepcopy(eligibility),
+        'inputs':copy.deepcopy(cfg),'closed_training_stage_references':{key:copy.deepcopy(results[key]) for key in closed_keys if key in results},
+        'completed_parameter_purposes':['element_reference','normalization_quantiles','normalization_moments'],
+        'diagnostic_progress':{'purpose_index':state['purpose_index'],'pass_index':state.get('pass_index'),'active_stage_reference':copy.deepcopy(state.get('active_stage'))},
+        'publication_state':{'status':'NORMALIZATION_PARAMETERS_READY_D4_PENDING_MAD','D4_complete':False,
+            'PM7_parent_C0_not_claimed':True,'PM7_parent_C0_claimed':False,'PM7_diagnostic_status':'PENDING_MAD','PM7_diagnostics_continue':True}}
+    return read(fields_ref),numeric,models,references
+
+
+def pm7_input(args):
+    checkpoint=getattr(args,'pm7_closed_checkpoint',None)
+    return pm7_closed_checkpoint_input(checkpoint) if checkpoint else dataset_input(args.pm7,'P_D')
+
 def publish(args):
     from workflows.data_v1_final.export.v31_stream_v1.derived_pair import augment_schema
     from workflows.data_v1_final.export.v31_stream_v1.disk_guard import Guard
@@ -127,11 +172,12 @@ def publish(args):
         'physical_policy_reference':policy_reference,'datasets':{},'source_references':{},
         'numeric_statistics_refitted':False,'label_or_Parquet_scanned':False,'source_values_or_masks_modified':False,
         'componentwise_statistics_are_not_a_vector_training_route':True,'Pprime_falls_back_to_PM7':False}
-    for name,path in (('P_D',args.pm7),('Pprime',args.pprime)):
+    for name,path in (('P_D',args.pm7 or getattr(args,'pm7_closed_checkpoint',None)),('Pprime',args.pprime)):
         if path:
-            fields,numeric,models,references=dataset_input(path,name)
+            fields,numeric,models,references=pm7_input(args) if name=='P_D' else dataset_input(path,name)
             result['datasets'][name]=build_dataset(name,fields,numeric,models,schema,policy,policy_reference,rules)
             result['source_references'][name]=references
+            if name=='P_D':result.update(references.get('publication_state',{}))
         else:result['datasets'][name]={'status':'PENDING_REAL_INDEPENDENT_PRODUCER_C0','field_series':{},'targets':{}}
     guard=Guard(read(args.disk_plan));out=Path(args.output)
     raw=(json.dumps(result,ensure_ascii=False,allow_nan=False,indent=2)+'\n').encode('utf-8')
@@ -148,11 +194,18 @@ def publish(args):
     return manifest
 
 
-def main():
+def argument_parser():
     parser=argparse.ArgumentParser(description=__doc__)
-    for key in ('pm7','schema','physical-policy','disk-plan','output'):parser.add_argument('--'+key,required=True)
+    pm7=parser.add_mutually_exclusive_group(required=True)
+    pm7.add_argument('--pm7',help='original producer-complete PM7 manifest (default publication mode)')
+    pm7.add_argument('--pm7-closed-checkpoint',help='committed full-TRAIN parameter checkpoint; complete D4 remains pending MAD')
+    for key in ('schema','physical-policy','disk-plan','output'):parser.add_argument('--'+key,required=True)
     parser.add_argument('--pprime');parser.add_argument('--physical-routes')
-    args=parser.parse_args();print(json.dumps(publish(args)),flush=True)
+    return parser
+
+
+def main():
+    args=argument_parser().parse_args();print(json.dumps(publish(args)),flush=True)
 
 
 if __name__=='__main__':main()
