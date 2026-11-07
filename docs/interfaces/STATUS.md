@@ -406,3 +406,10 @@ PM7剩余56GiB统计预测现在释放为0，既有源/缓存/结果均保留。
 启动前实际Node20的Lustre、NFS、根盘、SHM以及Node21根盘字节/inode/quota准入全部通过。Root20新峰值334183533568B、Root21临时分片708589934592B，两根盘各保留95415907124B；已存在Node20 geometry/UID约24.41GB及Native327.41GB计入实际used，不重复预算。SHM cache-index新峰值48589934592B，保留8GiB；仅改物理位置，SQL/行序/科学输入不变。新增fixture80首次1PASS/0.304秒，实际6270 C0，原79不重跑。运行Guard持续检查全部目标；模型线Lustre100GB、其他6GB、账号100GB底线及窗口三NFS16GiB继续保留，完整输出估计不是科学截断上限。
 
 最终仍是TRAIN/FULL互斥、各一份Lustre共享compact LMDB，无各节点副本。根目录将是 `/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact`，当前尚未发布可用manifest。原S240k绑定当前保持NOT_READY/root=null；完整producer通过原一次检查/各split一次压缩并exit0后，自动仅刷新 `.../artifacts/export/S240k_PD_input_binding_20261108_v1/manifest.json`，复用已闭合240000 MID表，无重扫、换人或独立24万LMDB导出。模型线应以该实际READY/root为准；不设新ACK门、不重复科学QA/基准/hash，不启动付费服务器或正式预训练。
+
+
+## 2026-11-08 窗口二：D6 复用已关闭索引续接，实际作业4526273
+
+初始全量作业4526271实际FAILED1:0／13:45，发生在cache-index已经闭合、LMDB写入检查点尚不存在时。原因是进入writer再次Guard准入，把已完成索引的48.59GB未来预算重复扣除；不是磁盘已满。真实Node20闭合索引14521466880B（allocated14521462784B）已保留，输入绑定与文件大小元数据匹配，无数据库数值重读。
+
+只把已完成索引的后续build预测释放为0，SHM仍保留8GiB及8GiB运行突发；其余科学输入、W16/B16、Root/Lustre/NFS联合预算不变。Node20全部四文件系统及Node21根盘实际Guard预检再次返回0后，已提交4526273／16CPU20并实测RUNNING；同一冻结代码835a1a，复用原索引，不重做Pprime/D3或数值QA。原S240k仍NOT_READY，完整D6结束后自动刷新共享根目录；不复制模型节点LMDB。
