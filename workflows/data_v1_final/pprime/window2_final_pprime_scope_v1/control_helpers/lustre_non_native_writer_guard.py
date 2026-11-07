@@ -28,14 +28,19 @@ def quota_observation(profile,text,source_probe_time):
     return {'schema':'LUSTRE_USER_QUOTA_AVAILABLE_V1','uid':UID,'filesystem':'/lfshome',**parse_quota(text),
         **observation_times(source_probe_time,profile.get('quota_clock_safety_bias_seconds',0))}
 
-def atomic(path,value):
-    path=Path(path);data=json.dumps(value,separators=(',',':'))+'\n'
-    if len(data)>131072:raise Unsafe('CONTROL_METADATA_SIZE_LIMIT')
+def control_admission(path):
+    path=Path(path)
     # Root reserves1GiB CONTROL budget. Only fixed-size own JSON and partial are
     # written; no data, hashes or new unbounded event log is produced here.
     stat=os.statvfs(path.parent);reserve=1<<30
     if os.stat(path.parent).st_dev==os.stat('/').st_dev:reserve=max(10*(1<<30),(stat.f_blocks*stat.f_frsize+9)//10)
     if stat.f_bavail*stat.f_frsize<reserve+131072 or stat.f_favail<10:raise Unsafe('CONTROL_CAPACITY_UNKNOWN_OR_LOW')
+
+
+def atomic(path,value):
+    path=Path(path);data=json.dumps(value,separators=(',',':'))+'\n'
+    if len(data)>131072:raise Unsafe('CONTROL_METADATA_SIZE_LIMIT')
+    control_admission(path)
     partial=path.with_name('.'+path.name+'.'+str(os.getpid())+'.partial')
     with open(partial,'w',encoding='utf-8') as handle:handle.write(data)
     os.replace(partial,path)
@@ -195,16 +200,24 @@ def main():
             if socket.gethostname().split('.')[0]!=args.node or args.node not in profile['nodes']:raise Unsafe('ACTUAL_TARGET_NODE_REQUIRED')
             from workflows.data_v1_final.export.v31_stream_v1.disk_guard import inspect
             sampler=CapacitySampler(profile,args.node,inspect)
-        while True:
-            started=time.monotonic()
-            try:
-                if args.mode=='quota':
-                    observed=time.time();text=subprocess.check_output(['lfs','quota','-u','zixiao','/lfshome'],text=True,timeout=2)
-                    value=quota_observation(profile,text,observed);path=args.output
-                else:value=sampler.sample();path=profile['nodes'][args.node]['reference']
-                atomic(path,value)
-            except Exception as error:print(json.dumps({'phase':'WRITER_CAPACITY_SNAPSHOT_UNKNOWN','reason':repr(error),'previous_timestamp_unchanged':True}),flush=True)
-            time.sleep(max(0,2-(time.monotonic()-started)))
+        publisher=None
+        if args.mode=='quota':
+            from workflows.data_v1_final.export.v31_stream_v1.quota_snapshot import AtomicPublisher
+            publisher=AtomicPublisher(args.output,lambda unused:control_admission(args.output))
+        try:
+            while True:
+                started=time.monotonic()
+                try:
+                    if args.mode=='quota':
+                        observed=time.time();text=subprocess.check_output(['lfs','quota','-u','zixiao','/lfshome'],text=True,timeout=2)
+                        value=quota_observation(profile,text,observed);path=args.output
+                    else:value=sampler.sample();path=profile['nodes'][args.node]['reference']
+                    if publisher is not None:publisher.publish(value)
+                    else:atomic(path,value)
+                except Exception as error:print(json.dumps({'phase':'WRITER_CAPACITY_SNAPSHOT_UNKNOWN','reason':repr(error),'previous_timestamp_unchanged':True}),flush=True)
+                time.sleep(max(0,2-(time.monotonic()-started)))
+        finally:
+            if publisher is not None:publisher.close()
     else:
         if args.execute:
             import fcntl
