@@ -23,6 +23,11 @@ def parse_quota(text):
     return {'used_KiB':used,'hard_KiB':hard,'available_bytes':max(0,hard-used)*1024}
 
 
+def quota_observation(profile,text,source_probe_time):
+    from workflows.data_v1_final.export.v31_stream_v1.quota_snapshot import observation_times
+    return {'schema':'LUSTRE_USER_QUOTA_AVAILABLE_V1','uid':UID,'filesystem':'/lfshome',**parse_quota(text),
+        **observation_times(source_probe_time,profile.get('quota_clock_safety_bias_seconds',0))}
+
 def atomic(path,value):
     path=Path(path);data=json.dumps(value,separators=(',',':'))+'\n'
     if len(data)>131072:raise Unsafe('CONTROL_METADATA_SIZE_LIMIT')
@@ -195,7 +200,7 @@ def main():
             try:
                 if args.mode=='quota':
                     observed=time.time();text=subprocess.check_output(['lfs','quota','-u','zixiao','/lfshome'],text=True,timeout=2)
-                    value={'schema':'LUSTRE_USER_QUOTA_AVAILABLE_V1','uid':UID,'filesystem':'/lfshome',**parse_quota(text),'observed_time':observed};path=args.output
+                    value=quota_observation(profile,text,observed);path=args.output
                 else:value=sampler.sample();path=profile['nodes'][args.node]['reference']
                 atomic(path,value)
             except Exception as error:print(json.dumps({'phase':'WRITER_CAPACITY_SNAPSHOT_UNKNOWN','reason':repr(error),'previous_timestamp_unchanged':True}),flush=True)
