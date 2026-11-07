@@ -413,3 +413,10 @@ PM7剩余56GiB统计预测现在释放为0，既有源/缓存/结果均保留。
 初始全量作业4526271实际FAILED1:0／13:45，发生在cache-index已经闭合、LMDB写入检查点尚不存在时。原因是进入writer再次Guard准入，把已完成索引的48.59GB未来预算重复扣除；不是磁盘已满。真实Node20闭合索引14521466880B（allocated14521462784B）已保留，输入绑定与文件大小元数据匹配，无数据库数值重读。
 
 只把已完成索引的后续build预测释放为0，SHM仍保留8GiB及8GiB运行突发；其余科学输入、W16/B16、Root/Lustre/NFS联合预算不变。Node20全部四文件系统及Node21根盘实际Guard预检再次返回0后，已提交4526273／16CPU20并实测RUNNING；同一冻结代码835a1a，复用原索引，不重做Pprime/D3或数值QA。原S240k仍NOT_READY，完整D6结束后自动刷新共享根目录；不复制模型节点LMDB。
+
+
+## 2026-11-08 窗口二：补齐原历史包协议登记，D6实际4526274续接
+
+4526273实际FAILED1:0／10:00：首批PM7原数据投影遇到原包 `333f2de011605bcf73db65cad4cb7534a526b85e0ebc946d46f7a60aaf62078e` 未登记，未绕过输入重建。原 `reproduction_package/queue_recovery_job_4514065/manifest.json` 的original_manifest明确指向 `supplement_job_4513971/manifest.json` 及该既有SHA；读取被引用原包protocol，精确为原 `configs/protocol.json` /既有3e831aa5...引用。继承各原包original_manifest链后共6个包键，全部记录相同原协议；登记见 `configs/data_v1/D6_original_package_protocol_map_v1.json`，执行control原map路径保持。
+
+这是缺失静态配置补齐：不更改原协议/坐标重建/标签，不算新内容hash，不增加逻辑或重复测试/QA。实际写入检查点committed_molecules=0、source_cursor=null；闭合14.52GB cache-index、几何/D3/Pprime/D4和未闭合spool均保留。Node20全部四文件系统及Node21根盘实际Guard再次返回0后，4526274／16CPU20已实测RUNNING，冻结代码835a1a/W16/B16与全部容量余量保持。原S240k入口仍NOT_READY，完整D6发布前不提前宣称可用；最终每split单份共享LMDB，不复制模型节点。
