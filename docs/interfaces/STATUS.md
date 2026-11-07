@@ -385,3 +385,15 @@ PM7剩余56GiB统计预测现在释放为0，既有源/缓存/结果均保留。
 用户澄清所指存储为现用 Lustre `/lfshome`，正式D6目标仍在此；账号原生硬配额2TiB，与约41.7TB全盘空闲分开核算。迁移完成后实际账号余量约Lustre1127.82GB、NFS227.41GB，模型线Lustre100GB、账号100GB底线、窗口三NFS16GiB及其余并发预算保持。固定版本代码目录已准备，6187几何索引/缓存准备仍运行；全量D6未开始，须待其真实C0后在实际节点重查联合容量。
 
 供三个窗口合并预算的D6临时存储计划：Node20同盘新增峰值取max(200GB source spool+80GB ID fragments,300GB compact chunks)，另8GiB运行突发；Node21一次压缩流的临时分片700GB，另8GiB突发。两根盘均保留max(10GiB,10%总容量)，真实其他窗口并发仍在准入时合并；尚未写这些临时分片。关闭分片拼回共享单份后沿原producer生命周期释放。最终TRAIN/FULL互斥、各一份Lustre共享compact，全部模型节点共读；无模型ACK等待门。
+
+
+## 2026-11-08 窗口二：原 S240k 的 P/D 身份入口已绑定，等待真实 D6 数据
+
+原 S 实验使用的 `.../day02_finite_census_full5178_cpu13/train_240000.parquet` 已按原顺序逐MID绑定：240000行、240000唯一MID均为最终Common TRAIN，0缺口、0换人；保留原S的2209619条PM7构象索引引用，未把旧S行号当D6索引，也未替换为新D5 240k。
+
+- 入口绑定：`/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/S240k_PD_input_binding_20261108_v1/manifest.json`，6334B。
+- 同目录 `membership_binding.parquet`，2033909B／240000行；只读取原名单MID及Common三身份列，未读S记录载荷、标签或坐标。
+- P/D复用同一原subset、TRAIN、PM7、冻结training_view及现有正式TRAIN参数；不另导出/复制24万LMDB。当前明确 `NOT_READY/root=null`，唯一未就绪原因 `FINAL_D6_MANIFEST_NOT_PUBLISHED`，不可据此启动P/D训练。
+- 实际4526265 main/batch/extern C0／16CPU20／6秒；新增fixture79首次1PASS／1.332秒，旧78不重跑。模板root/output资源更新允许，身份/科学消费字段保持冻结。
+
+真实D6发布后由原绑定CLI仅刷新JSON根目录，复用已闭合MID表，无需重扫或新ACK。代码/配置入口 `configs/data_v1/S240k_PD_shared_binding_20261108_v1.json`；全量D6继续原范围、TRAIN/FULL各一份共享文件。原6187目前仍受Lustre元数据I/O拖慢，Node20本地元数据工作副本的检查点续接正在准备；未把此身份绑定冒称可用P/D数据。
