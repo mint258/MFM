@@ -45,7 +45,7 @@ def source_pprime_addresses(plan,projection):
     I.save(marker,result);return result
 
 
-def prepare(plan_path):
+def prepare(plan_path,bind_plan=True):
     path=Path(plan_path);plan=I.load(path);marker=Path(plan['runtime_metadata_root'])/'bound_plan.json'
     if marker.is_file():
         bound=I.load(marker)
@@ -53,7 +53,8 @@ def prepare(plan_path):
         resumed=dict(bound['plan'])
         for key in ('gpu_nodes','node_destination_root','metadata_working_root','disk_protection','source_spool_root'):
             if key in plan:resumed[key]=plan[key]
-        I.save(path,resumed);return resumed
+        if bind_plan:I.save(path,resumed)
+        return resumed
     common=I.load(plan['common'])
     if common['status']!='COMMON_POPULATION_V1_FROZEN':raise ValueError('CLOSED_FINAL_COMMON_REQUIRED')
     extra=common['registered_extra_geometry_map_tables']+common.get('diagnostic_addressable_geometry_tables',[])
@@ -65,11 +66,15 @@ def prepare(plan_path):
         plan['source_working_root']=plan['source_working_root']+'_with_Pprime_sources'
         new=dict(plan,uff_d3_cache_root=plan['additional_uff_d3_cache_root'],reuse_uff_d3_caches=[old])
         produce(new);plan['uff_d3_cache']=str(Path(plan['additional_uff_d3_cache_root'])/'manifest.json')
-    I.save(path,plan);I.save(marker,{'plan_path':str(path),'plan':plan});return plan
+    if bind_plan:
+        I.save(path,plan);I.save(marker,{'plan_path':str(path),'plan':plan})
+    return plan
 
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--plan',required=True);args=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--plan',required=True)
+    p.add_argument('--cache-only',action='store_true',help='Close the same address/D3 caches without writing the input plan or bound_plan marker')
+    args=p.parse_args()
     from_plan(I.load(args.plan),required=True)
-    print(json.dumps(prepare(args.plan)),flush=True)
+    print(json.dumps(prepare(args.plan,bind_plan=not args.cache_only)),flush=True)
 if __name__=='__main__':main()

@@ -310,3 +310,9 @@ Native4526126实际COMPLETED/0:0，elapsed05:59:13。最终实际范围1,200,832
 
 
 2026-11-07 06:52 窗口二D4：PM7 6117的首遍、原精确分位数第2至8轮及截尾矩第9轮均171/171闭合；独立P′ 6181对应阶段各112/112闭合，已完成全部均值/std统计，36组原检查点+76组续接全部保留，未改F64数学、元素参照或PM7/P′独立性。原median/MAD仍在生产：PM7第10轮171组已闭合、第11轮132/171；P′第10至13轮各112组已闭合、第14轮继续；无新增分组错误。整项D4尚未完成，正式模型路由仍按实际生产C0后发布，不把中间参数或检查点标为最终就绪。两项实际Slurm仍RUNNING64CPU20/32CPU0，D6 6125仍Priority0/JobHeldAdmin、NOT_ADMITTED、依赖6117:6181，UFF6127已实际C0且原缓存保留；完成统计后再按实际挂载/字节/inode/quota及跨窗口并发余量准入。用户已冻结的σ/π同对称性分块、9矢量头零中心/模长截尾总体std共尺度与r674原D1/LOSS_DISABLED保持。最终每split仅一份共享compact LMDB，各模型节点共读；原71项新逻辑测试未重跑，无额外QA/数值复读/内容hash/收据/吞吐基准。
+
+
+2026-11-07 窗口二新增并行准备预留：仅把不依赖D4的Pprime原始未注册几何地址/缺失UFF D3缓存提前准备，复用已C0的6127全部10861980条D3，不追加QM、不变科学规则；D6全量6125仍held/NOT_ADMITTED。实际compute-0-19的/lfshome为10.1.1.100@tcp:/data Lustre，df可用41752698667008B、inode36290377，账户quota可用1051802779648B。所有新metadata/SQLite journal/temp/partial/D3均落Lustre；合计新增峰值预留100GiB，另计PM7剩余56GiB预测及其他窗口元数据6GB、账户100GB底线和8GiB突发余量。节点根盘、/tmp和/dev/shm新增bulk均0，不复制Native LMDB，不删除已有源/缓存；5秒quota TTL、实际mount/bytes/inodes与运行期保护保持。NFS控制日志继续占既有1GB控制预留，窗口三NFS16GiB不挪用。准备代码单测通过后由Root提交；本通知不表示全量D6容量准入或完成。
+
+
+2026-11-07 窗口二并行缓存准备已启动：Main d546621（child0a1287a）仅给prepare新增默认bind_plan=True与--cache-only；缓存/地址/原D3数学不变，cache-only不改输入plan、不写bound_plan，默认绑定及路径冲突拒绝保持。新增唯一合成fixture真实Slurm4526187/24CPU节点19首次1PASS0.267s、子进程exit0；旧71项未重复。4526187继续独立准备原Pprime source地址与缺失D3，主D6 plan未改、全量6125仍held/NOT_ADMITTED，依赖6117:6181:6187。首次6186因误接XFS-only quota reader在零输出/零测试/零科学工作边界取消（00:01:41），实际节点19无旧steps；现原quota_probe_argv接口直接复用已测G.safe校验捕获的Lustre quota/实际node19容量快照，UID/schema/filesystem/5秒不变，Guard实际target准入及整进程组运行保护保持。Lustre100GiB联合峰值预留持续；无root/tmp/shm新增bulk，无新Native LMDB副本，无已有数据删除。D4仍RUNNING：Pprime原中位数pass10至16全部112/112闭合，现MAD pass17；PM7仍median pass12，均值/std两路早已闭合。整项D4与正式路由仍未完成。最终每split单份共享compact，各模型节点共读。
