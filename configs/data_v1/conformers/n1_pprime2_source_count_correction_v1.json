@@ -1,0 +1,63 @@
+{
+  "schema": "ROOT_REVIEWED_N1_SOURCE_POPULATION_COUNT_CORRECTION_V1",
+  "status": "APPROVED_FOR_EXACT_SOURCE_COUNT_CORRECTION_AND_RECOUNT",
+  "reviewer": "root",
+  "observed_at": "2026-10-26T14:25:56.428515+00:00",
+  "endpoint": "202.38.247.57:22",
+  "uid": 1278,
+  "actual_parent": {
+    "JobIDRaw": "4521326",
+    "User": "zixiao",
+    "UID": "1278",
+    "State": "FAILED",
+    "ExitCode": "3:0",
+    "ElapsedRaw": "123",
+    "AllocCPUS": "16",
+    "NodeList": "compute-0-13",
+    "Partition": "cpu"
+  },
+  "actual_allocated_core_seconds": 1968,
+  "prepared_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/conformers/n1_pprime2_pilot_v2/prepared_v1/prepared.json",
+    "bytes": 2670,
+    "sha256": "cc8203a3e5af6d6ac5f8104afc2272ff2d1ce2f5adab587a3278f7d197b6dd2c"
+  },
+  "source_sha_validation_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/conformers/n1_pprime2_pilot_v2/prepared_v1/source_sha_validation.json",
+    "bytes": 16006,
+    "sha256": "087c3089f1928d086a9e6ec7001bce255f817090bc17d57703186e2e474de4d9"
+  },
+  "source_population_authority_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/conformers/n1_pprime2_pilot_v2/prepared_v1/source_population_authority.json",
+    "bytes": 8583,
+    "sha256": "b3230f829f1ea3ad8f1cc48c174cf71d148fa285ca0681d8fda873277e25e5e2"
+  },
+  "per_molecule_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/tables/s_sprime_per_molecule_v4.parquet",
+    "bytes": 5650950,
+    "sha256": "9b53e4611c5a3f199f785c8c201aa56ce76f559e3c81ccf10d1819624e03e354"
+  },
+  "source_population_rows": 1220466,
+  "predicate": "S_conformers=1",
+  "role_filter_before_mother_count": false,
+  "expected_source_pm7_n1_molecules": 5105,
+  "legacy_expected_count": 5040,
+  "legacy_count_provenance": "UNPROVEN_HARDCODE_NOT_INDEPENDENT_SOURCE_MEASUREMENT",
+  "difference65_classification": "UNKNOWN_REQUIRES_CPU_ROLE_STATUS_USABLE_AGGREGATION",
+  "prior_eligible0_meaning": "GLOBAL_COUNT_GATE_SHORT_CIRCUITED_ALL_ROWS_NOT_EVIDENCE_OF_NO_PHYSICAL_BASELINES",
+  "all5105_source_rows_preserved": true,
+  "common": false,
+  "final_common_reference": null,
+  "pilot_membership": false,
+  "production_membership": false,
+  "scientific_recipe_tolerances_and_quality_thresholds_changed": false,
+  "second_geometry_clones_allowed": false,
+  "same_task_key_seed_and_once_ledger_required": true,
+  "retry_or_new_UFF_QM_authorized_by_this_count_record": false,
+  "required_next_CPU_audit": [
+    "Rehash_same_input_sources",
+    "Recount_distinct_mother_and_preserve_all5105",
+    "Aggregate_source_role_effective_role_Sprime_status_strictusable_without_filter",
+    "Apply_original_role_baseline_graph_stereo_rules_then_select32"
+  ]
+}

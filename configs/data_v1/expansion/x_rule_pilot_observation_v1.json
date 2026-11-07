@@ -1,0 +1,94 @@
+{
+  "status": "REAL_STRATIFIED_PILOT_STOP_REVIEW_NO_FULL_SCREENING",
+  "job_id": "4520357",
+  "actual_parent": {
+    "JobIDRaw": "4520357",
+    "JobName": "dv1_x_regression_pilot_v1",
+    "State": "FAILED",
+    "ExitCode": "1:0",
+    "ElapsedRaw": "43",
+    "AllocCPUS": "16",
+    "NodeList": "compute-0-20",
+    "Start": "2026-10-25T13:55:34",
+    "End": "2026-10-25T13:56:17"
+  },
+  "allocated_core_seconds": 688,
+  "receipt": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/pilot_v1/receipt.json",
+    "bytes": 6553,
+    "sha256": "a7f99064e2940e8d1c81468e0d175606d97791ec72af1e51941afa74b7f278d6"
+  },
+  "failure": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/pilot_v1/failure.json",
+    "bytes": 605,
+    "sha256": "70e25d1f05d7fb0764f7de7ae40274c7c7b151e528919c3893044a94d3c66d67"
+  },
+  "mismatches": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/pilot_v1/all_mismatches.jsonl",
+    "bytes": 408944,
+    "sha256": "2695a40be9e570f116768a3e97253e6f8b7ed96f216f6df4ad224fa0d8329236"
+  },
+  "decisions": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/pilot_v1/record_decisions.parquet",
+    "bytes": 142999,
+    "sha256": "9f8693b3eebbf46f2e93ab632f7fd487154a385eeb72d8ae349b7bac146ddc91"
+  },
+  "evaluated_records": 8741,
+  "source_population_records": 15879477,
+  "counts": {
+    "records": 8741,
+    "old_chemical_admit": 1031,
+    "new_graph_admit": 1031,
+    "old_final": 416,
+    "conditional_new_final": 416,
+    "native_rule_mismatch": 335,
+    "portable_flag_mismatch": 489,
+    "unexplained": 335,
+    "cached_geometry_x1_augmentation": 847,
+    "chemical_admission_changed": 0,
+    "conditional_final_changed": 0
+  },
+  "causes": {
+    "ORIGINAL_SMILES_UNPARSEABLE": 489,
+    "UNEXPLAINED_CACHED_RULE_DRIFT": 335
+  },
+  "agreement": 1.0,
+  "worker_pids_observed": [
+    2284647,
+    2284650,
+    2284651,
+    2284652,
+    2284653,
+    2284654,
+    2284655,
+    2284656,
+    2284657,
+    2284658,
+    2284659,
+    2284660,
+    2284661,
+    2284662,
+    2284663,
+    2284664
+  ],
+  "scope": "Stratified pilot observations only; agreement1.0 in selected decisions does not resolve335 native cached rule flag disagreements or establish full-population99.9%. No source/filter changes authorized by this observation.",
+  "source_refs": {
+    "original_index": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/record_index.parquet",
+      "bytes": 2005784925,
+      "sha256": "c16f84bf93c997d627fbad2e51fc0513661165b82372a1d43d3301bb54603eff"
+    },
+    "relaxed_quality": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_screening_20261011/a_retained/relaxed_quality_annotations.parquet",
+      "bytes": 2529572637,
+      "sha256": "f59a82954be5b68b5ec7bf301bcc552c074c67864379c3d1cf207d67a73334e5"
+    },
+    "formal_population": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+      "bytes": 1242386629,
+      "sha256": "ef2d99ae1b6c1001f6ffeb979ebafd10b04c13fa4774e52527a90a6276c06276"
+    },
+    "common_population": null
+  },
+  "diagnosis_status": "PENDING_READ_ONLY_HISTORICAL_PARSER_REVIEW"
+}

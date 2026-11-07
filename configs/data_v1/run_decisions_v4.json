@@ -1,0 +1,25 @@
+{
+  "schema": "DATA_V1_USER_DECISIONS_V4",
+  "recorded_at": "2026-10-25T18:00:58.530735+08:00",
+  "supersedes_only_general_CPU_node_scope": true,
+  "unchanged_previous_decisions": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/run_decisions_v2.json",
+      "bytes": 1940,
+      "sha256": "f62f3938f3449a652dfa4f02b5dfc667f9e8f3efaecda73911828b582815fec2"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/run_decisions_v3.json",
+      "bytes": 4442,
+      "sha256": "d7c25b091e8a284fd07f061ae79bfc87870d9d10b232560df60abf8d5429f3f0"
+    }
+  ],
+  "latest_user_instruction": "你需要完成的是什么任务？如果是gpu任务那可以这样做，如果是cpu任务请从cpu节点里面选可用的运行",
+  "task_type": "CPU-only data acquisition/finalization/analysis; no GPU task",
+  "analysis_nodes": "Actual site cpu partition: compute-0-2 andcompute-0-8..19; require live partition membership and free16CPU",
+  "prior_user_small_test_instruction": "在小规模数据测试时可以降低资源使用情况，但是之后的正式数据生成必须使用原有硬件要求",
+  "root_interpretation_for_this_run_only": "For the finite analytical pilots enumerated in cpu_analysis_small_scopes_v1, use conservatively reserved actual node memory and a cooperative1s memory monitor where other CPU jobs declare unlimited memory. This is Root operational interpretation of permitted small-test resource reduction and selection of available CPU nodes, not a claim that unknown memory is zero or that formal-generation memory rules were waived. No blanket extension to other work.",
+  "formal_generation": "Original16CPU64GiB and all-user declared-memory85% admission retained; UFF/conformer/QM restricted14-19; no school server; no other jobs modified/cancelled",
+  "immutable_history": "Do not mutate old sources/configs/prepared/results; new registered variants and exact source equivalence required",
+  "all_scientific_stop_thresholds_unchanged": true
+}

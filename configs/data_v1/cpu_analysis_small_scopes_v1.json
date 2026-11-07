@@ -1,0 +1,1251 @@
+{
+    "schema":  "FINITE_CPU_ANALYTICAL_TEST_SCOPES_V1",
+    "status":  "ROOT_REVIEWED_OPERATIONAL_SMALL_TEST_SCOPES_NOT_FORMAL_AUTHORITY",
+    "resource_policy":  "CPU_BOUNDED_TEST_LIVE_MEMORY_V1",
+    "decision_reference":  {
+                               "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/run_decisions_v4.json",
+                               "bytes":  2090,
+                               "sha256":  "27590b15716c4caaccd7335758e2dbd2e7e20f1047bd3f770ee858dba8d74fa2"
+                           },
+    "cpu_nodes":  [
+                      "compute-0-2",
+                      "compute-0-8",
+                      "compute-0-9",
+                      "compute-0-10",
+                      "compute-0-11",
+                      "compute-0-12",
+                      "compute-0-13",
+                      "compute-0-14",
+                      "compute-0-15",
+                      "compute-0-16",
+                      "compute-0-17",
+                      "compute-0-18",
+                      "compute-0-19"
+                  ],
+    "monitor":  {
+                    "poll_seconds":  1,
+                    "heartbeat_max_age_seconds":  5,
+                    "own_tree_RSS_stop_fraction":  0.75,
+                    "node_used_plus_positive_other_reservations_plus_full_request_limit_fraction":  0.85,
+                    "guard_output_cap_bytes":  33554432,
+                    "signals_or_forced_termination_allowed":  false
+                },
+    "scopes":  {
+                   "label_canonical_512":  {
+                                               "memory_gib":  32,
+                                               "wall_seconds":  7200,
+                                               "output_cap_bytes":  8589934592,
+                                               "parameters":  {
+                                                                  "records":  4251,
+                                                                  "molecules":  512,
+                                                                  "groups":  16,
+                                                                  "population":  "ORIGINAL_SOURCE_TRAIN_PILOT_NOT_FINAL_D4"
+                                                              },
+                                               "base_request_reference":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/requests/dv1_label_mad_r0_p32_v1.json",
+                                                                              "bytes":  12964,
+                                                                              "sha256":  "58db82cf1afdd9d133486d2ba29804f9e0593a909d034a44f93f4f1b8d749ec2"
+                                                                          },
+                                               "authority_references":  [
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/label_same_pilot_ordinary_32g_review_v1.json",
+                                                                                "bytes":  5806,
+                                                                                "sha256":  "9aed27c902c16d5d00db71510b1baeba0b76d77d55a8ed862d798025b81a9dc4"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/reduce_med_r6_p32_v1/reduction.json",
+                                                                                "bytes":  63322,
+                                                                                "sha256":  "cdc2a78a0f4d0e450e248baafda65fd402a6dfaa0ebeb515381919341dda4b6b"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/group_plan.json",
+                                                                                "bytes":  146009,
+                                                                                "sha256":  "065f6adc6615b8f281bc7373a30fe928d3bb971b5044928ffa01854ce262cc13"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/labels/streaming_v1.json",
+                                                                                "bytes":  4022,
+                                                                                "sha256":  "92445408cf6a64de2e3b30e41cb0ee99136046acaf6f4848faeb3e8b80694bb3"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/field_map.json",
+                                                                                "bytes":  296373,
+                                                                                "sha256":  "92bab06f489396483e3a0a3a215369cc59635cfdad8852aa47b7235e37ea9141"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/submit_reviewed.py",
+                                                                                "bytes":  8838,
+                                                                                "sha256":  "6d1e3f5623bcdf04351d50710ccc81b5ca50f23d3b19051cba29f6fee173ee7f"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/calibration.py",
+                                                                                "bytes":  11177,
+                                                                                "sha256":  "b6b3205cfe20fdbf8eb9b925a825155f928b33a077653c37c24ec8504a22fee9"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/compact.py",
+                                                                                "bytes":  5273,
+                                                                                "sha256":  "6cbbbb9f309a97d340f3a12cca0fc7a0d72da5ba0c9358a166071d2e4128e624"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/normalization_gate.py",
+                                                                                "bytes":  1822,
+                                                                                "sha256":  "6b4ae194039c6f2defb18ac67ecdb76bebfb655fb6cff14ab59152046e56e1ae"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/prepare.py",
+                                                                                "bytes":  11151,
+                                                                                "sha256":  "af7d1ae9a4b03c4e37c5b973a09ac22d0c49929179b2bbaa0bb5697eba0d5ce8"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/reduce.py",
+                                                                                "bytes":  13611,
+                                                                                "sha256":  "cbe30ad07eb21a9f25844ac0a4310a580332f520aceeed05455f4c1745d097ba"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/scan.py",
+                                                                                "bytes":  23094,
+                                                                                "sha256":  "88db75cde8fd79903387bbc37bf4b1cf3fda7c5c485d16d9a7dab6dd5d18c773"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/support.py",
+                                                                                "bytes":  6469,
+                                                                                "sha256":  "b2626f2e5e231b57baea17201a9d13231d9eb17cd3581c225cb3215de8421f8f"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/test_semantics.py",
+                                                                                "bytes":  9612,
+                                                                                "sha256":  "a2a868841b73ab3707a749132620f8775309c2d237d9e1ac6540393509e559d9"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/probe_arrow_v2.py",
+                                                                                "bytes":  4517,
+                                                                                "sha256":  "1c782118df14526f1486c9b840610c4435dd054a4f4d6efe28353a46232a60d5"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/scan_v2.py",
+                                                                                "bytes":  23173,
+                                                                                "sha256":  "d072df4468d7a502f713df35f17bdc399190143843d3b9bdb2c006a341384786"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/common.py",
+                                                                                "bytes":  9925,
+                                                                                "sha256":  "1506eaa6596c63a82dbcbbe8e1a58ecb73b01fa5f6cb846b7ecf881c42c2b364"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/pilot_masks.py",
+                                                                                "bytes":  12295,
+                                                                                "sha256":  "3338fd8b3d0617b2bcdaaf1d5577991f19e76aa7d8f8009d10bf2deee7466859"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/canonical_reader.py",
+                                                                                "bytes":  6462,
+                                                                                "sha256":  "db824fdbb14a42f39647bb0e433cabdf533184c4327cb5925b7b529d6193cdb9"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/prepare_pilot_plan.py",
+                                                                                "bytes":  5902,
+                                                                                "sha256":  "136cc16d776b96234d822fb82975136318b8b0740ca276894a6e2989e34afd2a"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0000.parquet",
+                                                                                "bytes":  11122,
+                                                                                "sha256":  "21d34f3258ef31995a07042e74316662c9e1fa13f6bcabad59bc6ee4f64b7333"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0001.parquet",
+                                                                                "bytes":  17591,
+                                                                                "sha256":  "b340b8f32b92f616ec33f618bfff2e7d527de423a5837332c3c176f6683b9651"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0002.parquet",
+                                                                                "bytes":  5688,
+                                                                                "sha256":  "cc29a6c3e5ddb662a57d04b894d73ced9a6f4d83b4e1307f927ea4601e7009e2"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0003.parquet",
+                                                                                "bytes":  17472,
+                                                                                "sha256":  "5700a8e64b031a5761c08d0a37d930d1ce3df4593b6a079b2181085390678bb1"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0004.parquet",
+                                                                                "bytes":  17536,
+                                                                                "sha256":  "14f93cb151e91f2d5789ad7f8fdd35efd0fa028448a1062abca81410c3f7e2c8"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0005.parquet",
+                                                                                "bytes":  17480,
+                                                                                "sha256":  "bd4dd88c6d2cdecb21b5bbf47855efba2e98fdee335b60912e75daae93855d78"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0006.parquet",
+                                                                                "bytes":  5696,
+                                                                                "sha256":  "211a9dbe65f98c70d94fc56b0d2f64847d31a4ff7e31cf6b0470a3b4a1d2cd61"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0007.parquet",
+                                                                                "bytes":  18151,
+                                                                                "sha256":  "b6c914973382100827c9794e6aac12619b658d89ba058769671a90ba712e7435"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0008.parquet",
+                                                                                "bytes":  18166,
+                                                                                "sha256":  "1fce8f1ffbf38a742faa916ba52623ec77789ae974a20d604bfc65960dd10127"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0009.parquet",
+                                                                                "bytes":  17716,
+                                                                                "sha256":  "972a71e58a4d68f4bfa043ff62cffa28c35b56db89b747189c763b2ff15b9446"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0010.parquet",
+                                                                                "bytes":  18090,
+                                                                                "sha256":  "ce5435d11bab59be168298ac52025ff028b7f95ebb3609bbb25e55a24d56b66c"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0011.parquet",
+                                                                                "bytes":  17615,
+                                                                                "sha256":  "fcc7d1f086d8d7c2151485e91178b85818ab5b954baa7217f42d0e35cd12bc80"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0012.parquet",
+                                                                                "bytes":  17177,
+                                                                                "sha256":  "c9de0f2d73184595a568766e519ef4097cce709e22983503d8d3a7adef002634"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0013.parquet",
+                                                                                "bytes":  17773,
+                                                                                "sha256":  "2ee5ecc9df83cb943afec6054fd60dc437745f9fe393ad0785d44b0759b3ce66"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0014.parquet",
+                                                                                "bytes":  14063,
+                                                                                "sha256":  "ddd8f2dba67fb506a0f9c27da79c4752edd40983388bd2c281b80f5a60ab9b9a"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/owner_index_0015.parquet",
+                                                                                "bytes":  17836,
+                                                                                "sha256":  "70084750983b6a528ccb35f0e22daf6e849db9059824837a1de520cbb5b5a72f"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/reduce_med_r6_p32_v1/radix_next_queries.json",
+                                                                                "bytes":  32311,
+                                                                                "sha256":  "47878f43fc64e37272eca688af5f1b67bc6718b1e5091d4b87a21f5d6d5bc831"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/reduce_med_r6_p32_v1/exact_TRAIN_medians.json",
+                                                                                "bytes":  33041,
+                                                                                "sha256":  "d082dd02c61096ac0d255a09b374176d1cac27fda1141f791f51d8e590fd27dd"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/reduce_med_r6_p32_v1/MAD_queries_round0.json",
+                                                                                "bytes":  49835,
+                                                                                "sha256":  "a376b61f792a7e5cadea2ff9a0973cdfbfed9e63ac5c3a5c4721e6ed53e4ac35"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/reduction_profile_v2/energy_reference.json",
+                                                                                "bytes":  25864,
+                                                                                "sha256":  "30c57e7c82154050cf5f8b060c09812bad1f32ae576549a93b6c87e4a6dc10de"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/reduce_med_r6_p32_v1/TRAIN_size_spearman.json",
+                                                                                "bytes":  253,
+                                                                                "sha256":  "dcde0f6f7b3e4be098f99fa47af88503945eb5e8533cc7e705c6cec1a32ddabc"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/reduce_med_r6_p32_v1/worst20_by_field_reason.json",
+                                                                                "bytes":  3,
+                                                                                "sha256":  "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/label_chain_actual_4520444_v1.json",
+                                                                                "bytes":  857,
+                                                                                "sha256":  "301c447c273df858f5be6461ce181256d5bfe04086624e4ac2d85c8126fc00d5"
+                                                                            }
+                                                                        ]
+                                           },
+                   "prefix_feature_three_cid":  {
+                                                    "memory_gib":  4,
+                                                    "wall_seconds":  3600,
+                                                    "output_cap_bytes":  33554432,
+                                                    "parameters":  {
+                                                                       "target_cids":  [
+                                                                                           7,
+                                                                                           52,
+                                                                                           53
+                                                                                       ],
+                                                                       "input_prefix_limit":  10000,
+                                                                       "repair_or_pool_release":  false
+                                                                   },
+                                                    "base_request_reference":  {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/requests/dv1_prefix_feature_diag_v1.json",
+                                                                                   "bytes":  6031,
+                                                                                   "sha256":  "28daa73ba68397d8df4689447c7888608aaf0978df69d5245ab3097aa79bdd55"
+                                                                               },
+                                                    "authority_references":  [
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/submit_reviewed.py",
+                                                                                     "bytes":  8838,
+                                                                                     "sha256":  "6d1e3f5623bcdf04351d50710ccc81b5ca50f23d3b19051cba29f6fee173ee7f"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/materialize_prefix_feature_diag_v2.py",
+                                                                                     "bytes":  12922,
+                                                                                     "sha256":  "2cce02b73c87ac7c58edf62a86d620feaf0181040178ebdf1a5834770fd525ea"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/expansion/prefix_feature_diagnostic_plan_template_v1.json",
+                                                                                     "bytes":  3314,
+                                                                                     "sha256":  "cef530deec7ce96563c3e31eadf4debc26a7be71b3ff9df5703ddc8697bbce85"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/expansion/prefix_feature_diagnostic_v1.md",
+                                                                                     "bytes":  3043,
+                                                                                     "sha256":  "5470fbc3df4f5b0175ea1824812ede094c29bcae0beaa1f88e7176095f0dad2a"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/screening/bounded_prefix_v2/receipt.json",
+                                                                                     "bytes":  5811,
+                                                                                     "sha256":  "2806743412901d748efb26c1f1f1addbc5dd72e0d3c866fef009d9eeda9db25c"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/expansion/bounded_prefix_root_v2.json",
+                                                                                     "bytes":  6371,
+                                                                                     "sha256":  "434619f59a466fa339158662e992bdeb2cf50a57c53237d19e7a0c2707356b27"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/screening/bounded_prefix_v2/all_prefix_rejections.jsonl",
+                                                                                     "bytes":  167688,
+                                                                                     "sha256":  "f758c7bb5e59c40341e4629c3fd6a27bca60f09d07176c20176e0d2001f5b8ae"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/raw/pubchem_20261025_v1/attempt_4520348/receipt.json",
+                                                                                     "bytes":  10827,
+                                                                                     "sha256":  "2a945e3bfa378b1f958d0214e6a2448cf97d22f81ec2455f359077e3887ad478"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/publish_fresh_pubchem_quota_v1.py",
+                                                                                     "bytes":  1705,
+                                                                                     "sha256":  "913d1be2f282281afcc2fc3cb5b91b28d6d14b656eb1a3fbf6a1bbcf5e1d1ceb"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/prefix_feature_diagnostic_v1.py",
+                                                                                     "bytes":  14852,
+                                                                                     "sha256":  "ffd5507dc469f9e1bea4cd780fb7023697cae3800455dcf43d970268b1e06a53"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/prefix_feature_diagnostic_v1.sbatch",
+                                                                                     "bytes":  913,
+                                                                                     "sha256":  "f4be9b7a9743364e3435a819d267774a1fc4cf4f5eb2a30283312da249c81603"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/common.py",
+                                                                                     "bytes":  4312,
+                                                                                     "sha256":  "8c988f617776ad05354deae1cf69933e7ff95210f7a2609f903e4826172ccbad"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/screen.py",
+                                                                                     "bytes":  11880,
+                                                                                     "sha256":  "bb31d57a4749f9ef9843dc075bc75f7c268cb781f60c7b4f0d77a121a73dcc88"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/data_authority_v1.py",
+                                                                                     "bytes":  5569,
+                                                                                     "sha256":  "19cc48687b53ecf114973af1941ed9d8571d18016d59bde147586d57ee6302f1"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/__init__.py",
+                                                                                     "bytes":  76,
+                                                                                     "sha256":  "5e013a9d678c55d30f22eb358597f8caf6ddf99cb4920ddabd677dd0985491dd"
+                                                                                 },
+                                                                                 {
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/requests/prefix_feature_diagnostic_ready_v1.json",
+                                                                                     "bytes":  4116,
+                                                                                     "sha256":  "67cab37171607b10fae1e88fee2a45b9b162efadc60fa6de244b5524124f3a08"
+                                                                                 }
+                                                                             ]
+                                                },
+                   "identity_source_pins_76":  {
+                                                   "memory_gib":  4,
+                                                   "wall_seconds":  3600,
+                                                   "output_cap_bytes":  33554432,
+                                                   "parameters":  {
+                                                                      "sources":  76,
+                                                                      "metadata_authorities":  8,
+                                                                      "identity_export_or_all_source_acceptance":  false
+                                                                  },
+                                                   "base_request_reference":  {
+                                                                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/requests/dv1_identity_input_pins_v1.json",
+                                                                                  "bytes":  24033,
+                                                                                  "sha256":  "be3e3d83bfc1a070cdcc4a30c838febecb7f90f368498b2008c0aedcfc8f47bf"
+                                                                              },
+                                                   "authority_references":  [
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/identity_v2/__init__.py",
+                                                                                    "bytes":  83,
+                                                                                    "sha256":  "738b60eefcbcd95fcfa33e19807d79555a3f5dc2071cb4489d428a90fce0eefa"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/identity_v2/pin_inputs_v1.py",
+                                                                                    "bytes":  13146,
+                                                                                    "sha256":  "d85d8b003e20e331ea90e2d6068fcf963dc694d174a868625266709c8c3784dc"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/identity_v2/pin_inputs_v1.sbatch",
+                                                                                    "bytes":  972,
+                                                                                    "sha256":  "9d2ea9aaa781250b49fa70a39603c1e2b295a423817b9cf0f0c287cff4b27888"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/identity_v2/test_pin_inputs_v1.py",
+                                                                                    "bytes":  3366,
+                                                                                    "sha256":  "70f69df7dd234744e7791eb860b9294f31a6a4c712a478312433c1657a473e7c"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/expansion/identity_v2/source_locator_catalog_v2.json",
+                                                                                    "bytes":  79878,
+                                                                                    "sha256":  "166b0be94d9e867fc156b76f2ea115487614d25b21053d50541cdfe58fd65b0c"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/expansion/identity_v2/input_pin_plan_template_v1.json",
+                                                                                    "bytes":  998,
+                                                                                    "sha256":  "d8fd3fbff76847cf04529d831a59605d7ea56349d1a765bb373bc51169f183a2"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/docs/expansion/identity_source_locators_v2.md",
+                                                                                    "bytes":  5763,
+                                                                                    "sha256":  "3365f572f81be5d1fda44c62bc7dd1975371b6046d7045eb92cc4f89261e8ba6"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_downstream_membership/run_4511949/membership_manifest.json",
+                                                                                    "bytes":  23930,
+                                                                                    "sha256":  "b778eac757e06774d829031780bae8ca595dd9550f4484f4382902896a7c98fa"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/full_som_structures_4511893/summary.json",
+                                                                                    "bytes":  20260,
+                                                                                    "sha256":  "67757d049b4018072b2fa1c01e72263c30d7cfd7d82d9cadace475030e4612b5"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/full_qm_sources_4511889/summary.json",
+                                                                                    "bytes":  10271,
+                                                                                    "sha256":  "a0e4fc16f5a81e92169a761573151f795d8171c24830b1b2678ea9ca3390a1f2"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/qm7_mat_lineage_4511900/summary.json",
+                                                                                    "bytes":  6924,
+                                                                                    "sha256":  "3bfa2ee1f2e30c16bccda00874de49692491345bb4a80bff6a1dfca95cc07d6c"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/manifest.json",
+                                                                                    "bytes":  6767,
+                                                                                    "sha256":  "d21bae7f7b6c1dfbfe9342635ded80a55ddc05baba46ebfaa66cb7831866b96e"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/downstream_preprocess_sources/download_qm7_qm9.py",
+                                                                                    "bytes":  16945,
+                                                                                    "sha256":  "966ea9820c0cc0b00e4c13553a2b59cc4fcabb30ada6dedd52c41ced1fee6ea1"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/downstream_preprocess_sources/download_som_datasets.py",
+                                                                                    "bytes":  20320,
+                                                                                    "sha256":  "c056e938f285e8760f4bcf98293ed1efd90d63625a02229d238fcdb8a3f650da"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_population.py",
+                                                                                    "bytes":  25211,
+                                                                                    "sha256":  "5c177db7c6f132f330838be58db7133954c9dba13e95d50c24b47bd645ed1fd7"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/publish_fresh_pubchem_quota_v1.py",
+                                                                                    "bytes":  1705,
+                                                                                    "sha256":  "913d1be2f282281afcc2fc3cb5b91b28d6d14b656eb1a3fbf6a1bbcf5e1d1ceb"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/common.py",
+                                                                                    "bytes":  4312,
+                                                                                    "sha256":  "8c988f617776ad05354deae1cf69933e7ff95210f7a2609f903e4826172ccbad"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/download_raw_v1.py",
+                                                                                    "bytes":  17471,
+                                                                                    "sha256":  "836418372c9d90bd18cfd9a8d7403404e9db1b69435b85efc3c77a8c1fed65ba"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/source.py",
+                                                                                    "bytes":  6103,
+                                                                                    "sha256":  "87e864000cafdedfd4ff7562462069f45804e9e822074a45beeb04829f8c92e6"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/__init__.py",
+                                                                                    "bytes":  76,
+                                                                                    "sha256":  "5e013a9d678c55d30f22eb358597f8caf6ddf99cb4920ddabd677dd0985491dd"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/identity_v2/materialize_input_pins_v1.py",
+                                                                                    "bytes":  14127,
+                                                                                    "sha256":  "967e22a96c11c6dd74170cba0e0b8f03ba1c4d212f785dc9b01789be8f9d99da"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/submit_reviewed.py",
+                                                                                    "bytes":  8838,
+                                                                                    "sha256":  "6d1e3f5623bcdf04351d50710ccc81b5ca50f23d3b19051cba29f6fee173ee7f"
+                                                                                },
+                                                                                {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/requests/identity_input_pin_ready_v1.json",
+                                                                                    "bytes":  3265,
+                                                                                    "sha256":  "5b6c7b94e8cd5b46566815dbe87de6f3166d71cf2c740298e850ec19f61c58d2"
+                                                                                }
+                                                                            ]
+                                               },
+                   "vector_prepare_1000":  {
+                                               "memory_gib":  32,
+                                               "wall_seconds":  3600,
+                                               "output_cap_bytes":  8589934592,
+                                               "parameters":  {
+                                                                  "molecules":  1000,
+                                                                  "UFF_records":  2000,
+                                                                  "actual_QM_calls":  0
+                                                              },
+                                               "base_request_reference":  {
+                                                                              "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/requests/dv1_vector_prepare_32g_v1.json",
+                                                                              "bytes":  6931,
+                                                                              "sha256":  "923912c7da32ba2d60c5e22247b8ff85cee536d7ae4835d2f287824b212ab0cb"
+                                                                          },
+                                               "authority_references":  [
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/submit_reviewed.py",
+                                                                                "bytes":  8838,
+                                                                                "sha256":  "6d1e3f5623bcdf04351d50710ccc81b5ca50f23d3b19051cba29f6fee173ee7f"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/pprime/vector_frame_audit_root_v1.json",
+                                                                                "bytes":  6165,
+                                                                                "sha256":  "17d579c09ead14f01c747ca40d70796af1df0e6619f5ddcba334d595d94ad8fe"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/pprime/pilot_v1.json",
+                                                                                "bytes":  5982,
+                                                                                "sha256":  "be8a7571f411881f02d6889d9df7e61c36c0e57e976ea60f3f0f5ee1671d60a8"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/pprime/prepared_v1/prepared.json",
+                                                                                "bytes":  4012,
+                                                                                "sha256":  "3fd2feb6adf9bc125c81fb8be07f97bdbe5737d7bb09f4690da115a8468dcfca"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/pprime_preparation_actual_closure_v1.json",
+                                                                                "bytes":  1627,
+                                                                                "sha256":  "29c4787a57d10180837116f178dacf160be64610d7bba37ed716764aab18b2d4"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/README_v1.md",
+                                                                                "bytes":  7496,
+                                                                                "sha256":  "a6f0ad5f0d3d3d86783c7df6d9a11666124b69f0bbef40aabddc83f24250be3b"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/evaluate_v1.py",
+                                                                                "bytes":  13951,
+                                                                                "sha256":  "7821dac32b7995bf7b15cc9f0d2012f620578309a29670e1e0bfa2620ddee29a"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/math_v1.py",
+                                                                                "bytes":  9377,
+                                                                                "sha256":  "98db545b56f87b4fb2fc4c0f7ad69c3e6f05ebbe507f4d19369a037599241e24"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/prepare_v1.py",
+                                                                                "bytes":  11520,
+                                                                                "sha256":  "6e5e9fd886324044af9fd38db416b39a01c6e439ff98059ad9e5cf19e1b10119"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/prepare_v1.sbatch.in",
+                                                                                "bytes":  806,
+                                                                                "sha256":  "5c0716438417c0c3da5efbc420fa514e070c5b2b192ed0acde0be566bd3d7721"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/read_outputs_v1.py",
+                                                                                "bytes":  5328,
+                                                                                "sha256":  "ba56625441ca390e24d00fe3f630c05dee3d38861614c25a2fcec93a16599849"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/run_v1.py",
+                                                                                "bytes":  11831,
+                                                                                "sha256":  "fe098d9dfcae4f17cdad54243c35137e2750652e7d0610ea8b910d2790fc5b2b"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/run_v1.sbatch.in",
+                                                                                "bytes":  858,
+                                                                                "sha256":  "3ee59d4646c52f574a63dfe3263336808b14bbfa1f65f9279f134296ef050376"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/test_v1.py",
+                                                                                "bytes":  7567,
+                                                                                "sha256":  "c40e4d86afa99b85ac8ef3dbeead62f7a2096bd857f439711b083252bf5d3277"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/common.py",
+                                                                                "bytes":  8494,
+                                                                                "sha256":  "4001d905b2b9fcb253fabf5a4d5e72f18cd445277b628ec65319399d126057ad"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/geometry.py",
+                                                                                "bytes":  3468,
+                                                                                "sha256":  "669c2a6b8806f752000a15f09a667ddc1a2a92ffabcbe03b070ba19812490af8"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/raw_archive.py",
+                                                                                "bytes":  4870,
+                                                                                "sha256":  "4721da478cc56ad1abd7bf6b1e75ba78e1dfdc4ff65166c19ba3d25d4b46a12a"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/requests/dv1_vector_prepare_v1.json",
+                                                                                "bytes":  5692,
+                                                                                "sha256":  "bb63fbf4bc61e295d24d2ea5db5588880bb5279e555bba5b638113ce71464689"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/scripts/dv1_vector_prepare_v1.sbatch",
+                                                                                "bytes":  1514,
+                                                                                "sha256":  "d8b97272842212072ed62de04eb603df167ee6fe26297f4440c5e76636e85f82"
+                                                                            },
+                                                                            {
+                                                                                "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/vector_prepare_ordinary_32g_root_review_v1.json",
+                                                                                "bytes":  679,
+                                                                                "sha256":  "1e36d14ea9b93ce0395937ef6d55161e4de62d79954390fa9d0f7aa7ca6439b8"
+                                                                            }
+                                                                        ]
+                                           },
+                   "size_rho_canonical_512":  {
+                                                  "memory_gib":  64,
+                                                  "wall_seconds":  7200,
+                                                  "output_cap_bytes":  8589934592,
+                                                  "parameters":  {
+                                                                     "records":  4251,
+                                                                     "molecules":  512,
+                                                                     "groups":  16,
+                                                                     "final_registry_or_D4":  false
+                                                                 },
+                                                  "base_request_reference":  {
+                                                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/requests/dv1_size_rho_pilot_v1.json",
+                                                                                 "bytes":  163086,
+                                                                                 "sha256":  "87105ffd343a2fa1b12c25b778cf80e4323d45c359d5787bc48d653c6363a85b"
+                                                                             },
+                                                  "authority_references":  [
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/modern_ML_representation/support_scripts/MFM_descriptor/dataset/rdkit_descriptor_generator.py",
+                                                                                   "bytes":  24615,
+                                                                                   "sha256":  "86a3c5b8181d25c6b892bedb3ac599fbd3e643d3aede19b0b38edb03ed0469d9"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/field_map.json",
+                                                                                   "bytes":  296373,
+                                                                                   "sha256":  "92bab06f489396483e3a0a3a215369cc59635cfdad8852aa47b7235e37ea9141"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/prepared_pilot_v1/group_plan.json",
+                                                                                   "bytes":  146009,
+                                                                                   "sha256":  "065f6adc6615b8f281bc7373a30fe928d3bb971b5044928ffa01854ce262cc13"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0000/group_receipt.json",
+                                                                                   "bytes":  147169,
+                                                                                   "sha256":  "512ce19d8d835c3957e5db99b1af93ff00cb0718059d2bb3d4c85a5621815414"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0001/group_receipt.json",
+                                                                                   "bytes":  172948,
+                                                                                   "sha256":  "db41ab334d7c98a904036cb9c7df7dd357b5c7e9c94a76738a174ec374062f1a"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0002/group_receipt.json",
+                                                                                   "bytes":  153918,
+                                                                                   "sha256":  "c7f3055b41dd7aea1068903dfd95dfe21a849052a4ac4c503319bdecce06aa89"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0003/group_receipt.json",
+                                                                                   "bytes":  152944,
+                                                                                   "sha256":  "ac379ba4f163d64b3c780016f5e1abc82f7be0c7d7153407ee73f5bdf275c749"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0004/group_receipt.json",
+                                                                                   "bytes":  150726,
+                                                                                   "sha256":  "1b32ec3ffaf4e017553731482c22105f67edacf4007d8366bc40ed5405d61b00"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0005/group_receipt.json",
+                                                                                   "bytes":  156322,
+                                                                                   "sha256":  "d0ae778cad28a493cd7a289d197ffe11a758985bbc2e6baa9b85208e47a6d79a"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0006/group_receipt.json",
+                                                                                   "bytes":  160869,
+                                                                                   "sha256":  "87b8d80116397a3e9291bdec4d0d12019a2bdda723d25f2def3cbe6312440f9a"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0007/group_receipt.json",
+                                                                                   "bytes":  157064,
+                                                                                   "sha256":  "f81a2e65c1654ed1f976c941c7174b07231cec832a53ef6ffe614d5c5440cd67"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0008/group_receipt.json",
+                                                                                   "bytes":  160814,
+                                                                                   "sha256":  "f77f7fd00429d47a4cc165ad9c58fca981cfe8d6763fd4ed95bd731634125f63"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0009/group_receipt.json",
+                                                                                   "bytes":  152220,
+                                                                                   "sha256":  "ad87cb8248cf9bd2549487cf5e12eda48631528f88381d34a94b0589afc5b6ea"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0010/group_receipt.json",
+                                                                                   "bytes":  152546,
+                                                                                   "sha256":  "91393688f0023a1537ace35ef0fdce7d99070dc76e01b11ae5ca88cabd1b6591"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0011/group_receipt.json",
+                                                                                   "bytes":  155364,
+                                                                                   "sha256":  "a90a3b18d218819201ea08b6d688b82ab3a456853e60aa5d018b2f21c4160cd4"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0012/group_receipt.json",
+                                                                                   "bytes":  158285,
+                                                                                   "sha256":  "53f59ffa459782fb2fbe02a5cb04b13fdb32a8f1c1bdb3508e2cdef0a04d9686"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0013/group_receipt.json",
+                                                                                   "bytes":  155172,
+                                                                                   "sha256":  "fba8a2838acf6b1bbf41b69c2f54ce55e5fb4ae3387e2c4c67582d97c456def9"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0014/group_receipt.json",
+                                                                                   "bytes":  157762,
+                                                                                   "sha256":  "8b7ec3341bf583feb59b7988b27fd4d2ce93212e71b9e9e65c5cb3a3e36f27b3"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/group_0015/group_receipt.json",
+                                                                                   "bytes":  152663,
+                                                                                   "sha256":  "53938d4b0a6bf433bd5368877ce05d77e1dd533dcf09e10cc88ecc9cfde90d71"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/profile_pilot_v2/scan_manifest.json",
+                                                                                   "bytes":  5916,
+                                                                                   "sha256":  "7b6633864a1142da21a6e74311655f0807551557a97da2823aa037e848811e7c"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1/reduction_profile_v2/reduction.json",
+                                                                                   "bytes":  62815,
+                                                                                   "sha256":  "7e60dbc5fa90cf810673c6138789f74bc7294c845d65346b193c743ac3cbc779"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/requests/dv1_size_rho_pilot_v1.run_actual.json",
+                                                                                   "bytes":  2175,
+                                                                                   "sha256":  "76d27fad041ec8681a98d0ec33f695165aafc3226d71eea5eee67073d7b5b8e9"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/root_size_rho_integration_v1.json",
+                                                                                   "bytes":  177,
+                                                                                   "sha256":  "c0fcad318442a369b1598d8b4ee94018216a5a28d15dc3f48416b4cf3f2ce43c"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/sb3_size_rho_static_v1.json",
+                                                                                   "bytes":  171,
+                                                                                   "sha256":  "ee73f871aa5d2bc458c5886f14cc37a39ac26f349fc34efe7477e3c4ed2263e4"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/size_rho_incremental_fixtures_v1.json",
+                                                                                   "bytes":  4175,
+                                                                                   "sha256":  "dd22e291361352a499bae5f43839af0ee2b09e27ca58e91b5476b3c1de406d66"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/size_semantics_metadata_proposal_v1/metadata_receipt.json",
+                                                                                   "bytes":  1568,
+                                                                                   "sha256":  "1a135d82c2996495d71d35ef28e501eec9d2c2fc19d23d8dc6c9e890979f0a80"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/label_registry_v3.json",
+                                                                                   "bytes":  585411,
+                                                                                   "sha256":  "b6a230b74b5bebfa0108e67572ed2ccc699718c2958fb69e99c58b8323c6ce45"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/labels/mask_rules_v1.json",
+                                                                                   "bytes":  1601,
+                                                                                   "sha256":  "70558fa361f862c6f16cb99beb7fcf2f693611f7faebfaec9bc68e20af610b64"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/labels/size_rho_pilot_v1.json",
+                                                                                   "bytes":  2175,
+                                                                                   "sha256":  "76d27fad041ec8681a98d0ec33f695165aafc3226d71eea5eee67073d7b5b8e9"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/labels/size_semantics_proposal_v1.json",
+                                                                                   "bytes":  3445,
+                                                                                   "sha256":  "b720150d538ef4a01718434dc1788c6381561489d73ffe151ce6fd166f5d954a"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/labels/streaming_v1.json",
+                                                                                   "bytes":  4022,
+                                                                                   "sha256":  "92445408cf6a64de2e3b30e41cb0ee99136046acaf6f4848faeb3e8b80694bb3"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/submit_reviewed.py",
+                                                                                   "bytes":  8838,
+                                                                                   "sha256":  "6d1e3f5623bcdf04351d50710ccc81b5ca50f23d3b19051cba29f6fee173ee7f"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/canonical_reader.py",
+                                                                                   "bytes":  6462,
+                                                                                   "sha256":  "db824fdbb14a42f39647bb0e433cabdf533184c4327cb5925b7b529d6193cdb9"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/common.py",
+                                                                                   "bytes":  9925,
+                                                                                   "sha256":  "1506eaa6596c63a82dbcbbe8e1a58ecb73b01fa5f6cb846b7ecf881c42c2b364"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/normalization_v1/reader.py",
+                                                                                   "bytes":  8203,
+                                                                                   "sha256":  "2f3a16b2feb1c700a589e43f8112be7468ccee85c0670695fb5dede6ceecaef9"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/normalization_v1/runtime.py",
+                                                                                   "bytes":  3100,
+                                                                                   "sha256":  "7352a1a471557f2b2832023d91b309e09d2bcca8b875a6f82e3d4fc701d26238"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/pilot_masks.py",
+                                                                                   "bytes":  12295,
+                                                                                   "sha256":  "3338fd8b3d0617b2bcdaaf1d5577991f19e76aa7d8f8009d10bf2deee7466859"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/prepare_pilot_plan.py",
+                                                                                   "bytes":  5902,
+                                                                                   "sha256":  "136cc16d776b96234d822fb82975136318b8b0740ca276894a6e2989e34afd2a"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/size_request_v1/materialize.py",
+                                                                                   "bytes":  14801,
+                                                                                   "sha256":  "aecf4ce953a50c8d674334f3177f3a397df7a7ed8e88d51e6cec05a009ffa8d2"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/size_semantics_v1/aggregate.py",
+                                                                                   "bytes":  6604,
+                                                                                   "sha256":  "7c3ce2fba03c4d72419dba9094814c09ba2bb9929f9ac904ac4de2930d6a95c0"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/size_semantics_v1/build_proposal.py",
+                                                                                   "bytes":  11452,
+                                                                                   "sha256":  "392dff3230c2618431a375102a72b04c3fd0b416c0749d07000312343d591bdf"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/size_semantics_v1/rank_sql.py",
+                                                                                   "bytes":  2454,
+                                                                                   "sha256":  "728d84c6bd215bf0a6cf88c660c96bed3c79759be15a552ffeb63df3a1cb8ecc"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/size_semantics_v1/run_size.py",
+                                                                                   "bytes":  10185,
+                                                                                   "sha256":  "16ffb4ad17ac0b6530f9c9e2ab30aca70c61e90dcef21c0263b58f1e7cd8116e"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/size_semantics_v1/size_reader.py",
+                                                                                   "bytes":  4624,
+                                                                                   "sha256":  "b7c08af2fa70ab90114257472626d208b6b16afb3b84a6e65b0efd97d1d1ee26"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/size_semantics_v1/size_rho.sbatch.in",
+                                                                                   "bytes":  1007,
+                                                                                   "sha256":  "f0473cba4932d0f281d4d28da68b031303cd847912ae5ead6a58ff20f02954b7"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/size_semantics_v1/size_shared.py",
+                                                                                   "bytes":  3847,
+                                                                                   "sha256":  "ea86364ecc876cde26f5ea922b67132a50b32dd97775fe72e8d6717fddc12f5b"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/size_semantics_v1/size_worker.py",
+                                                                                   "bytes":  6692,
+                                                                                   "sha256":  "c7444f0a46252a80fd7335ee2a162e21559975e9624297fabf4a33e1da20e6ab"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/calibration.py",
+                                                                                   "bytes":  11177,
+                                                                                   "sha256":  "b6b3205cfe20fdbf8eb9b925a825155f928b33a077653c37c24ec8504a22fee9"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/compact.py",
+                                                                                   "bytes":  5273,
+                                                                                   "sha256":  "6cbbbb9f309a97d340f3a12cca0fc7a0d72da5ba0c9358a166071d2e4128e624"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/scan_v2.py",
+                                                                                   "bytes":  23173,
+                                                                                   "sha256":  "d072df4468d7a502f713df35f17bdc399190143843d3b9bdb2c006a341384786"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/support.py",
+                                                                                   "bytes":  6469,
+                                                                                   "sha256":  "b2626f2e5e231b57baea17201a9d13231d9eb17cd3581c225cb3215de8421f8f"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_screening_20261011/c_engineering/storage/storage_report.json",
+                                                                                   "bytes":  694878,
+                                                                                   "sha256":  "6e4a1260f9df31611d7c00b801ce3309a52feee93821eba5b59131efb909f12c"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_screening_20261011/scripts/c_engineering_wire.py",
+                                                                                   "bytes":  11655,
+                                                                                   "sha256":  "ce9bbdf15459e647fc21592941c99664141b7d7a4442619f433c88a3536d99a1"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+                                                                                   "bytes":  18720,
+                                                                                   "sha256":  "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_engine_v2.py",
+                                                                                   "bytes":  30096,
+                                                                                   "sha256":  "d6fba12c31c59854eed5e8eb5ac82d074464a9b6f43eeb7272d8a925164470ef"
+                                                                               },
+                                                                               {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/reports/compound_field_semantics_v1.md",
+                                                                                   "bytes":  2597,
+                                                                                   "sha256":  "dd9444ffe1488f60f4c3a4776cba08c0bca485f0c761e919fd1dfcfafd4ba91e"
+                                                                               }
+                                                                           ]
+                                              },
+                   "EA_known_seven":  {
+                                          "memory_gib":  32,
+                                          "wall_seconds":  3600,
+                                          "output_cap_bytes":  67108864,
+                                          "parameters":  {
+                                                             "known_cases":  7,
+                                                             "contexts":  14,
+                                                             "source_files":  6,
+                                                             "new_QM_calls":  0,
+                                                             "new_masks":  0
+                                                         },
+                                          "base_request_reference":  {
+                                                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/requests/dv1_ea_diagnostic_v1.json",
+                                                                         "bytes":  19037,
+                                                                         "sha256":  "7acd332fd9575edbfec2dcd64a15257826bcb3af8d7b4453a2d25cabaab5bdd1"
+                                                                     },
+                                          "authority_references":  [
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/requests/dv1_ea_diagnostic_v1.run_actual.json",
+                                                                           "bytes":  19259,
+                                                                           "sha256":  "17a8147478ab532612518ebf1958fc9c4b8d2fa75d527168da6023ee893f7b04"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/root_ea_diagnostic_integration_v1.json",
+                                                                           "bytes":  177,
+                                                                           "sha256":  "db2bbc8d9f7f8e35be64f84ac56930c9e7b2e8a2c602ead1adbfa7392dae0264"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/sb3_catalog_projection_v1/source_files.json",
+                                                                           "bytes":  1010451,
+                                                                           "sha256":  "2ace0ded289e1bd63a16ea919cbae777c5bc177df3cc5924c983fb94dbcbeb5d"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/sb3_ea_diagnostic_static_v1.json",
+                                                                           "bytes":  171,
+                                                                           "sha256":  "075cdeb295a3b2086cc44f88ce59027941144824ea38427fff12fd655e0731b3"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/labels/ea_diagnostic_v1.json",
+                                                                           "bytes":  19259,
+                                                                           "sha256":  "17a8147478ab532612518ebf1958fc9c4b8d2fa75d527168da6023ee893f7b04"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/labels/streaming_v1.json",
+                                                                           "bytes":  4022,
+                                                                           "sha256":  "92445408cf6a64de2e3b30e41cb0ee99136046acaf6f4848faeb3e8b80694bb3"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/submit_reviewed.py",
+                                                                           "bytes":  8838,
+                                                                           "sha256":  "6d1e3f5623bcdf04351d50710ccc81b5ca50f23d3b19051cba29f6fee173ee7f"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/ea_diagnostic_v1/PROPOSAL.md",
+                                                                           "bytes":  8047,
+                                                                           "sha256":  "ceaeb64e74a23e4bdf468ab7517f4161d9e387c202010ad87d1b7403daa1447c"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/ea_diagnostic_v1/bounded_probe.py",
+                                                                           "bytes":  21182,
+                                                                           "sha256":  "52602db16e73f10e4797f149e8e19942f5e11eb92543e555c111827ab447fbfc"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/ea_diagnostic_v1/diagnostic.sbatch.in",
+                                                                           "bytes":  899,
+                                                                           "sha256":  "29e44badda4d21a8bf924189e45f8588eb8d6f31454c466c9f035e5bd4c803f7"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/ea_request_v1/materialize.py",
+                                                                           "bytes":  17488,
+                                                                           "sha256":  "230ebac74015f633c5377a5a5d34886837136ec9187ff2335be7aa393b6eaef6"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/support.py",
+                                                                           "bytes":  6469,
+                                                                           "sha256":  "b2626f2e5e231b57baea17201a9d13231d9eb17cd3581c225cb3215de8421f8f"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/wp4_parsers.py",
+                                                                           "bytes":  20763,
+                                                                           "sha256":  "66938afa8d3d7b7f51e8922c875c0987687a865a97cb1591d6f6c511b38098e0"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/acceptance/final_20261016_v1/D20_failure_aware_v2_4515602/verification_report.json",
+                                                                           "bytes":  1442624,
+                                                                           "sha256":  "ce9b58e988f66f8a402dc93eeb050a8f7b55317cfe37db3c3b1f08dd7b2045e5"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+                                                                           "bytes":  18720,
+                                                                           "sha256":  "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/dictionaries/job_4513894/dictionary_manifest.json",
+                                                                           "bytes":  1184015,
+                                                                           "sha256":  "b294cf8f1f0440999e5814728eda14678e0e470c93b1ecdc1f23ceceefa17e9c"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_10/job_4515374_f13c04b3/run.json",
+                                                                           "bytes":  8439,
+                                                                           "sha256":  "7dc8cfc192df7470df0f9cec4d5499b2b567a46332bb8d0c3586a2b57a7bd2dd"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_11/job_4514439_69c7a572/run.json",
+                                                                           "bytes":  8439,
+                                                                           "sha256":  "a09342feacf12825d082a93dcaa97dc35b3a38b7b940373aad80e9e0a06c5f0b"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_25/job_4513984_723c3140/run.json",
+                                                                           "bytes":  8422,
+                                                                           "sha256":  "4f0f0e55cd050467bd8913370fb4f00b1172c1616991ef652cae84353669f4be"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_archive_v4.py",
+                                                                           "bytes":  32161,
+                                                                           "sha256":  "56039c79a353a0c2c1459add065f6aa46ca0514e2b8bee18fbf5ccd97c94939b"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_archive_v5.py",
+                                                                           "bytes":  23925,
+                                                                           "sha256":  "3ef37935402fffc9a5111f0dd6b942b279f42581cdea9aeea1a358169d766477"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_engine_v3.py",
+                                                                           "bytes":  31025,
+                                                                           "sha256":  "53c09b68938ead8449f0da2ec7a03337df3125826080ece58fabe107cdd9f26b"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_parser.py",
+                                                                           "bytes":  7795,
+                                                                           "sha256":  "aafa3c2808ccfa3a6bcea49f9807563351f0252e5e9f7cd57d86e40ddc291aa3"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_parser_v2.py",
+                                                                           "bytes":  6892,
+                                                                           "sha256":  "33d5cb65429f6f969d8739c2f244cf8249f35d23792dca4e73cd52ffe4eaaf6f"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/scripts/wp5_scf_metadata_v2.py",
+                                                                           "bytes":  8410,
+                                                                           "sha256":  "565c55a2b63ce0de7a7c84302b69cccc0bffe5afb2516cb0df4013bbbf54d64a"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/manifests/registry_physical_summary_v1.json",
+                                                                           "bytes":  111106,
+                                                                           "sha256":  "84cec939025e55d41050abb83db64496848c0c7b191f7b171d7d1ca8ed83419a"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/reports/xtb_EA_actual_probe_closed_excerpt_v1.json",
+                                                                           "bytes":  8522,
+                                                                           "sha256":  "de6086ae5db3139a4ad8933737e277674282c8b49069ca77f4bd51daf5e82f87"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/reports/xtb_EA_sample_outliers_v1_4520167/EA_sample_outlier_report.json",
+                                                                           "bytes":  30071,
+                                                                           "sha256":  "cf8bf17b3ba899cd79444f11b05720974d7872414ab2bdf6b23b361f2ef21864"
+                                                                       },
+                                                                       {
+                                                                           "path":  "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/reports/xtb_EA_static_validity_review_v1.json",
+                                                                           "bytes":  7771,
+                                                                           "sha256":  "1d3d644dbafd2c31c003815c34f27acb42d82b978327c5c9fe5bbb1428c0ab31"
+                                                                       }
+                                                                   ]
+                                      },
+                   "sprime_closure_fixtures_6":  {
+                                                     "memory_gib":  8,
+                                                     "wall_seconds":  600,
+                                                     "output_cap_bytes":  67108864,
+                                                     "parameters":  {
+                                                                        "fixtures":  6,
+                                                                        "actual_scientific_data_reads":  false,
+                                                                        "additional_CPU_boundary_tests":  2
+                                                                    },
+                                                     "base_request_reference":  {
+                                                                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/materialized/sb2_closure_fixtures_v1/request.proposed.json",
+                                                                                    "bytes":  3191,
+                                                                                    "sha256":  "e9a42a2076ab948cdf887d2eb9b6a4b5072640a5959395fe91995918f0530fa6"
+                                                                                },
+                                                     "authority_references":  [
+                                                                                  {
+                                                                                      "bytes":  546,
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/approvals/sprime_closure_fixture_root_review_v1.json",
+                                                                                      "sha256":  "da289f3375eaac0c39f809973361dd81ab501dab5c6065524034b8d116b76821"
+                                                                                  },
+                                                                                  {
+                                                                                      "bytes":  946,
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/conformers/pilot_closure_v1.json",
+                                                                                      "sha256":  "d68f0ca9bfbe851d5331ab8f6e0950201a4486c85ed55cd193aa1acbb7d144d5"
+                                                                                  },
+                                                                                  {
+                                                                                      "bytes":  7240,
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/common.py",
+                                                                                      "sha256":  "ffa4fc9b6ce97be5b62af926c35337168b687f1f80a0fdd3564957dfe169b83b"
+                                                                                  },
+                                                                                  {
+                                                                                      "bytes":  9523,
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_v1/full_common.py",
+                                                                                      "sha256":  "7c4aac1f010898efaa6229216c3d0de34b208d8008bd319b4175b2dacb2619c7"
+                                                                                  },
+                                                                                  {
+                                                                                      "bytes":  13543,
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/pilot_closure_materializer_v1.py",
+                                                                                      "sha256":  "eb4c3acbf838fff5556a2db2a02ed3756094526c4fe0addbc7fe480aef5e4898"
+                                                                                  },
+                                                                                  {
+                                                                                      "bytes":  19770,
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/pilot_closure_v1/close_pilot.py",
+                                                                                      "sha256":  "e7c8992c06c305a53c3d706e0335b6a94db752d9053594c7bc0571f3e642907f"
+                                                                                  },
+                                                                                  {
+                                                                                      "bytes":  3631,
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/pilot_closure_v1/test_closure.py",
+                                                                                      "sha256":  "4b2817d082fc7831f618d74dfec3ad01f3a6c2f202ee900256f425bf3901b60f"
+                                                                                  },
+                                                                                  {
+                                                                                      "bytes":  8838,
+                                                                                      "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/submit_reviewed.py",
+                                                                                      "sha256":  "6d1e3f5623bcdf04351d50710ccc81b5ca50f23d3b19051cba29f6fee173ee7f"
+                                                                                  }
+                                                                              ]
+                                                 },
+                   "sprime_pilot_closure_336":  {
+                                                    "memory_gib":  32,
+                                                    "wall_seconds":  3600,
+                                                    "output_cap_bytes":  1140850688,
+                                                    "parameters":  {
+                                                                       "expected_molecules":  336,
+                                                                       "original_pilot_job":  "4520364",
+                                                                       "new_UFF_QM_calls":  0
+                                                                   },
+                                                    "base_request_reference":  {
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/materialized/sb2_closure_fixtures_v1/request.proposed.json",
+                                                                                   "bytes":  3191,
+                                                                                   "sha256":  "e9a42a2076ab948cdf887d2eb9b6a4b5072640a5959395fe91995918f0530fa6"
+                                                                               },
+                                                    "authority_references":  [
+                                                                                 {
+                                                                                     "bytes":  546,
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/approvals/sprime_closure_fixture_root_review_v1.json",
+                                                                                     "sha256":  "da289f3375eaac0c39f809973361dd81ab501dab5c6065524034b8d116b76821"
+                                                                                 },
+                                                                                 {
+                                                                                     "bytes":  946,
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/conformers/pilot_closure_v1.json",
+                                                                                     "sha256":  "d68f0ca9bfbe851d5331ab8f6e0950201a4486c85ed55cd193aa1acbb7d144d5"
+                                                                                 },
+                                                                                 {
+                                                                                     "bytes":  7240,
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/common.py",
+                                                                                     "sha256":  "ffa4fc9b6ce97be5b62af926c35337168b687f1f80a0fdd3564957dfe169b83b"
+                                                                                 },
+                                                                                 {
+                                                                                     "bytes":  9523,
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_v1/full_common.py",
+                                                                                     "sha256":  "7c4aac1f010898efaa6229216c3d0de34b208d8008bd319b4175b2dacb2619c7"
+                                                                                 },
+                                                                                 {
+                                                                                     "bytes":  13543,
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/pilot_closure_materializer_v1.py",
+                                                                                     "sha256":  "eb4c3acbf838fff5556a2db2a02ed3756094526c4fe0addbc7fe480aef5e4898"
+                                                                                 },
+                                                                                 {
+                                                                                     "bytes":  19770,
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/pilot_closure_v1/close_pilot.py",
+                                                                                     "sha256":  "e7c8992c06c305a53c3d706e0335b6a94db752d9053594c7bc0571f3e642907f"
+                                                                                 },
+                                                                                 {
+                                                                                     "bytes":  3631,
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/pilot_closure_v1/test_closure.py",
+                                                                                     "sha256":  "4b2817d082fc7831f618d74dfec3ad01f3a6c2f202ee900256f425bf3901b60f"
+                                                                                 },
+                                                                                 {
+                                                                                     "bytes":  8838,
+                                                                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/submit_reviewed.py",
+                                                                                     "sha256":  "6d1e3f5623bcdf04351d50710ccc81b5ca50f23d3b19051cba29f6fee173ee7f"
+                                                                                 }
+                                                                             ]
+                                                },
+                   "cpu_runtime_boundaries":  {
+                                                  "memory_gib":  8,
+                                                  "wall_seconds":  600,
+                                                  "output_cap_bytes":  67108864,
+                                                  "parameters":  {
+                                                                     "boundary_tests":  8,
+                                                                     "scientific_data_reads":  false
+                                                                 },
+                                                  "base_request_reference":  {
+                                                                                 "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/materialized/sb2_closure_fixtures_v1/request.proposed.json",
+                                                                                 "bytes":  3191,
+                                                                                 "sha256":  "e9a42a2076ab948cdf887d2eb9b6a4b5072640a5959395fe91995918f0530fa6"
+                                                                             },
+                                                  "authority_references":  [
+                                                                               {
+                                                                                   "bytes":  546,
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/approvals/sprime_closure_fixture_root_review_v1.json",
+                                                                                   "sha256":  "da289f3375eaac0c39f809973361dd81ab501dab5c6065524034b8d116b76821"
+                                                                               },
+                                                                               {
+                                                                                   "bytes":  946,
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/conformers/pilot_closure_v1.json",
+                                                                                   "sha256":  "d68f0ca9bfbe851d5331ab8f6e0950201a4486c85ed55cd193aa1acbb7d144d5"
+                                                                               },
+                                                                               {
+                                                                                   "bytes":  7240,
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/common.py",
+                                                                                   "sha256":  "ffa4fc9b6ce97be5b62af926c35337168b687f1f80a0fdd3564957dfe169b83b"
+                                                                               },
+                                                                               {
+                                                                                   "bytes":  9523,
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/formal_v1/full_common.py",
+                                                                                   "sha256":  "7c4aac1f010898efaa6229216c3d0de34b208d8008bd319b4175b2dacb2619c7"
+                                                                               },
+                                                                               {
+                                                                                   "bytes":  13543,
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/pilot_closure_materializer_v1.py",
+                                                                                   "sha256":  "eb4c3acbf838fff5556a2db2a02ed3756094526c4fe0addbc7fe480aef5e4898"
+                                                                               },
+                                                                               {
+                                                                                   "bytes":  19770,
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/pilot_closure_v1/close_pilot.py",
+                                                                                   "sha256":  "e7c8992c06c305a53c3d706e0335b6a94db752d9053594c7bc0571f3e642907f"
+                                                                               },
+                                                                               {
+                                                                                   "bytes":  3631,
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/conformers/pilot_closure_v1/test_closure.py",
+                                                                                   "sha256":  "4b2817d082fc7831f618d74dfec3ad01f3a6c2f202ee900256f425bf3901b60f"
+                                                                               },
+                                                                               {
+                                                                                   "bytes":  8838,
+                                                                                   "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/submit_reviewed.py",
+                                                                                   "sha256":  "6d1e3f5623bcdf04351d50710ccc81b5ca50f23d3b19051cba29f6fee173ee7f"
+                                                                               }
+                                                                           ]
+                                              }
+               },
+    "formal_generation_authorized":  false
+}

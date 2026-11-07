@@ -1,0 +1,98 @@
+{
+  "status": "STOP_RULE_CONFLICT_PRECOMPUTATION",
+  "observed_at": "2026-10-25T11:53:53+08:00",
+  "base_commit": "037546cd7f07b32dbb46bc21a69109dfd273f8da",
+  "source_branch": "data-v1",
+  "references": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/preflight_v1.json",
+      "bytes": 157541,
+      "sha256": "9975dc6a5a03e0b1e8470579112a4b4b0fc28a7565289e3b474bc9386d2ad15b"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/pubchem_network_probe_v1.json",
+      "bytes": 1562,
+      "sha256": "d985bc877d8881896e81a0f1414396d254eb8a1bf0777a4fd041efa3577b667b"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/preconditions_v2.json",
+      "bytes": 7694,
+      "sha256": "8cd645c257356be1c569ff703fbebecddf19207e21cab2c92cb76ad5c41ac088"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/tables/train_pd_stats_v3/all_field_statistics.csv",
+      "bytes": 138838,
+      "sha256": "eea97cd80c4103944c80cd3aeba6269937407f8358b8a0f99e45ed087e60b008"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/tables/sprime_problem_elements_v4.parquet",
+      "bytes": 2354,
+      "sha256": "652cfb0eec6105edb2d0d08692dc49c62ab57f3a5862b44d54e718e75036e84e"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/tables/s_population_marginals_v5/element_presence_marginals.csv",
+      "bytes": 12123,
+      "sha256": "0b6e0f65760373364680c47f4cf7effbe0277ba2e0e1d912ca4d3f431be59520"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/reports/s_sprime_alignment_v4.json",
+      "bytes": 3804,
+      "sha256": "764b4ccde3e51ed99990084bb4d26fd2972b27d4fb7b0f22ac6ef84e595286fa"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/数据线工作流程：v1 定稿与数据扩充（Codex B）.md",
+      "bytes": 23196,
+      "sha256": "1905868ca4f9b9515f7bdfc3c05de48cf2be7692fa4ed9e9300b324e8996b05b"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/audit_preconditions.py",
+      "bytes": 4942,
+      "sha256": "f071f79e785db068a0886e66743a11b6b2c942ba69519813f7287d8240a84df0"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/report_preflight.py",
+      "bytes": 10327,
+      "sha256": "2d6988ca4572a4a033b621d03de638dfbf31fe180f46475784d3f81a0d1baa93"
+    }
+  ],
+  "account_quota_free_bytes_as_observed": 1579686219776,
+  "selenium_unavoidable_exclusion_lower_bounds": {
+    "ALL": {
+      "unavoidable_exclusions": 7441,
+      "population": 24683,
+      "minimum_fraction": 0.3014625450715067,
+      "exceeds_20_percent": true
+    },
+    "FULL": {
+      "unavoidable_exclusions": 58,
+      "population": 287,
+      "minimum_fraction": 0.20209059233449478,
+      "exceeds_20_percent": true
+    },
+    "TRAIN": {
+      "unavoidable_exclusions": 7383,
+      "population": 24396,
+      "minimum_fraction": 0.3026315789473684,
+      "exceeds_20_percent": true
+    }
+  },
+  "labels": {
+    "all_components": 264,
+    "nonempty_nonconstant_components": 146,
+    "original_molecular_scalars_by_group": {
+      "P": 43,
+      "D": 26
+    },
+    "D_atom_fields": [
+      "D3.SASA_atom_A2"
+    ],
+    "guide_molecular_scalars_by_group": {
+      "P": 42,
+      "D": 27
+    },
+    "guide_scalar_allocation_matches_source": false
+  },
+  "scientific_jobs_submitted": [],
+  "dataset_completion_claimed": false,
+  "original_data_modified": false
+}

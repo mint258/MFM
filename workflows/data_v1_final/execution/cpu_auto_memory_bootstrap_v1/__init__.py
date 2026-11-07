@@ -1,0 +1,1 @@
+"""Finite actual CPU no-memory-request synthetic bootstrap."""

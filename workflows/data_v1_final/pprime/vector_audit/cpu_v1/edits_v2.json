@@ -1,0 +1,146 @@
+{
+    "schema":  "VECTOR_PREPARE_CPU_RUNTIME_DELTA_V2",
+    "status":  "SOURCE_DECLARATION_NOT_EXECUTED",
+    "baseline_variant":  "Frozen CPU v1; original scientific proof is retained and chained",
+    "scope_key":  "vector_prepare_1000",
+    "science_functions":  [
+                              "load_audit",
+                              "choose_pairs",
+                              "make_cases",
+                              "render"
+                          ],
+    "files":  [
+                  {
+                      "edits":  [
+                                    {
+                                        "occurrences":  1,
+                                        "new":  "from workflows.data_v1_final.execution.cpu_analysis_v1 import runtime_v2 as cpu_runtime",
+                                        "old":  "from workflows.data_v1_final.execution.cpu_analysis_v1 import runtime as cpu_runtime",
+                                        "reason":  "Bind the central node-local monotonic runtime"
+                                    },
+                                    {
+                                        "occurrences":  1,
+                                        "new":  "from runtime_control_v2 import (checkpoint_iter, cpu_observed, load_runconfig,",
+                                        "old":  "from runtime_control import (checkpoint_iter, cpu_observed, load_runconfig,",
+                                        "reason":  "Bind the separately visible v2 controls"
+                                    }
+                                ],
+                      "baseline":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/cpu_v1/prepare_cpu_v1.py",
+                                       "sha256":  "9d5616117bf90dc1eedc8671e1c68f77f7348df238278bba06b0a5f996d48c46",
+                                       "bytes":  12968
+                                   },
+                      "candidate_relative_path":  "workflows/data_v1_final/pprime/vector_audit/cpu_v1/prepare_cpu_v2.py"
+                  },
+                  {
+                      "edits":  [
+                                    {
+                                        "occurrences":  1,
+                                        "new":  "from workflows.data_v1_final.execution.cpu_analysis_v1 import runtime_v2 as cpu_runtime",
+                                        "old":  "from workflows.data_v1_final.execution.cpu_analysis_v1 import runtime as cpu_runtime",
+                                        "reason":  "Bind the central node-local monotonic runtime"
+                                    },
+                                    {
+                                        "occurrences":  1,
+                                        "new":  "    c=policy.load(path)\n    policy.require(c[\u0027runtime_path\u0027]==str(pathlib.Path(cpu_runtime.__file__)), \u0027EXACT_NODE_LOCAL_RUNTIME_METADATA_REQUIRED\u0027)",
+                                        "old":  "    c=policy.load(path)",
+                                        "reason":  "Require the new metadata runtime_path to identify the actual central v2 runtime"
+                                    },
+                                    {
+                                        "occurrences":  1,
+                                        "new":  "\u0027prepare_cpu_v2.py\u0027",
+                                        "old":  "\u0027prepare_cpu_v1.py\u0027",
+                                        "reason":  "Require the actually executed v2 entry pin"
+                                    }
+                                ],
+                      "baseline":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/cpu_v1/runtime_control.py",
+                                       "sha256":  "f4f58039fbca1c943159cd6d41b186ba3468e6f866f1f58d8a5ef26c042fa1a8",
+                                       "bytes":  3601
+                                   },
+                      "candidate_relative_path":  "workflows/data_v1_final/pprime/vector_audit/cpu_v1/runtime_control_v2.py"
+                  },
+                  {
+                      "edits":  [
+                                    {
+                                        "occurrences":  1,
+                                        "new":  "\"runtime_path\":  \"/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/cpu_analysis_v1/runtime_v2.py\",\n    \"original_UFF_records\":  2000",
+                                        "old":  "\"original_UFF_records\":  2000",
+                                        "reason":  "Identify the node-local monotonic guard runtime without changing scientific metadata"
+                                    }
+                                ],
+                      "baseline":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/pprime/vector_prepare_cpu_v1.json",
+                                       "sha256":  "735ab621613289c66c7181f1a7b776c650377beadfde545ddf014449aef22bb1",
+                                       "bytes":  3465
+                                   },
+                      "candidate_relative_path":  "configs/data_v1/pprime/vector_prepare_cpu_v2.json"
+                  },
+                  {
+                      "edits":  [
+                                    {
+                                        "occurrences":  1,
+                                        "new":  "from runtime_control_v2 import checkpoint_iter,source_lineage",
+                                        "old":  "from runtime_control import checkpoint_iter,source_lineage",
+                                        "reason":  "Exercise the v2 controls with the same three incremental cases"
+                                    },
+                                    {
+                                        "occurrences":  1,
+                                        "new":  "from verify_source_delta_v2 import verify",
+                                        "old":  "from verify_source_delta_v1 import verify",
+                                        "reason":  "Exercise the original-to-v1-to-v2 byte and scientific source proof"
+                                    },
+                                    {
+                                        "occurrences":  1,
+                                        "new":  "from workflows.data_v1_final.execution.cpu_analysis_v1 import runtime_v2 as cpu_runtime",
+                                        "old":  "from workflows.data_v1_final.execution.cpu_analysis_v1 import runtime as cpu_runtime",
+                                        "reason":  "Require a real monitored v2 CPU allocation"
+                                    }
+                                ],
+                      "baseline":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/cpu_v1/test_cpu_boundary_v1.py",
+                                       "sha256":  "1f43c88ce622e42fa33d9d31edf3ec5765b592795a0ac3dfc1eb66cb924f714b",
+                                       "bytes":  3037
+                                   },
+                      "candidate_relative_path":  "workflows/data_v1_final/pprime/vector_audit/cpu_v1/test_cpu_boundary_v2.py"
+                  }
+              ],
+    "unchanged_v1_references":  [
+                                    {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/cpu_v1/prepare_cpu_v1.py",
+                                        "sha256":  "9d5616117bf90dc1eedc8671e1c68f77f7348df238278bba06b0a5f996d48c46",
+                                        "bytes":  12968
+                                    },
+                                    {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/cpu_v1/runtime_control.py",
+                                        "sha256":  "f4f58039fbca1c943159cd6d41b186ba3468e6f866f1f58d8a5ef26c042fa1a8",
+                                        "bytes":  3601
+                                    },
+                                    {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/cpu_v1/edits_v1.json",
+                                        "sha256":  "92f9a1ae20933c849204fbbc1f6b609dabf7a7ab5321bfbbfcc3e6b63e43d935",
+                                        "bytes":  9455
+                                    },
+                                    {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/cpu_v1/verify_source_delta_v1.py",
+                                        "sha256":  "3ebcf5369b19eb98d93af1c6cb062172dda42939acd8492785734447eec6ef9e",
+                                        "bytes":  4636
+                                    },
+                                    {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/cpu_v1/test_cpu_boundary_v1.py",
+                                        "sha256":  "1f43c88ce622e42fa33d9d31edf3ec5765b592795a0ac3dfc1eb66cb924f714b",
+                                        "bytes":  3037
+                                    },
+                                    {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/pprime/vector_audit/cpu_v1/README.md",
+                                        "sha256":  "ba07977fb02d57a838447be87d5d54a7d76feb8fb4d1710a3211f9c45bce79f1",
+                                        "bytes":  4877
+                                    },
+                                    {
+                                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/pprime/vector_prepare_cpu_v1.json",
+                                        "sha256":  "735ab621613289c66c7181f1a7b776c650377beadfde545ddf014449aef22bb1",
+                                        "bytes":  3465
+                                    }
+                                ],
+    "limits":  "Only runtime imports, visible v2 control import/pin, exact runtime_path metadata validation, and the three boundary-test imports change. No math, input rendering, threading barrier, PID/TID metadata, dual source IDs, scientific config, or input bytes change."
+}

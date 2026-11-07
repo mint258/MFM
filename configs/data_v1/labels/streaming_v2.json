@@ -1,0 +1,96 @@
+{
+    "schema":  "STREAMING_LABEL_SCAN_CONFIG_V1",
+    "status":  "PREPARED_NOT_EXECUTED_NOT_FULL_SCIENTIFIC_ACCEPTANCE",
+    "workers":  16,
+    "pilot_molecules_per_group":  32,
+    "pilot_max_group_source_bytes":  536870912,
+    "selection_seed":  2026102504,
+    "source_read_batch_records":  16,
+    "compact_row_group_records":  1024,
+    "joint_buffer_values":  8192,
+    "worker_serialized_buffer_cap_bytes":  268435456,
+    "worker_rss_stop_bytes":  3221225472,
+    "prepare_output_cap_bytes":  17179869184,
+    "scan_output_cap_bytes":  8589934592,
+    "reduce_output_cap_bytes":  8589934592,
+    "scan_wall_seconds":  7200,
+    "audit_seed":  20261025,
+    "audit_basis_points":  100,
+    "audit_preview_leaf_limit":  32,
+    "audit_total_preview_rows_per_group":  4096,
+    "external_output_root":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/streaming_v1",
+    "sources":  {
+                    "catalog":  {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/acceptance/final_20261016_v1/catalog/catalog.json",
+                                    "bytes":  3485465,
+                                    "sha256":  "b5aed096ae0dc4c479a64b9b05e8709205911a0f9a474b71ae1490992ce28765"
+                                },
+                    "verification":  {
+                                         "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/acceptance/final_20261016_v1/D20_failure_aware_v2_4515602/verification_report.json",
+                                         "bytes":  1442624,
+                                         "sha256":  "ce9b58e988f66f8a402dc93eeb050a8f7b55317cfe37db3c3b1f08dd7b2045e5"
+                                     },
+                    "roles":  {
+                                  "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/roles/routine_v1_job4520334/manifest.json",
+                                  "bytes":  22642,
+                                  "sha256":  "16619f25f2bec53ed2d3c5e8e8381faa746e03f141d9fba87f93b6ec1e8ef8a1"
+                              },
+                    "strict_sprime":  {
+                                          "path":  "/share/home/zixiao/descriptor_analysis/runs/pretraining_readonly_audit_20261023_v1/tables/s_sprime_per_molecule_v4.parquet",
+                                          "bytes":  5650950,
+                                          "sha256":  "9b53e4611c5a3f199f785c8c201aa56ce76f559e3c81ccf10d1819624e03e354"
+                                      },
+                    "population":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+                                       "bytes":  1242386629,
+                                       "sha256":  "ef2d99ae1b6c1001f6ffeb979ebafd10b04c13fa4774e52527a90a6276c06276"
+                                   },
+                    "registry":  {
+                                     "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/label_registry_v3.json",
+                                     "bytes":  585411,
+                                     "sha256":  "b6a230b74b5bebfa0108e67572ed2ccc699718c2958fb69e99c58b8323c6ce45"
+                                 },
+                    "mask_rules":  {
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/labels/mask_rules_v1.json",
+                                       "bytes":  1601,
+                                       "sha256":  "70558fa361f862c6f16cb99beb7fcf2f693611f7faebfaec9bc68e20af610b64"
+                                   }
+                },
+    "adapter_source_pins":  [
+                                {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/common.py",
+                                    "bytes":  9925,
+                                    "sha256":  "1506eaa6596c63a82dbcbbe8e1a58ecb73b01fa5f6cb846b7ecf881c42c2b364"
+                                },
+                                {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/pilot_masks.py",
+                                    "bytes":  12295,
+                                    "sha256":  "3338fd8b3d0617b2bcdaaf1d5577991f19e76aa7d8f8009d10bf2deee7466859"
+                                },
+                                {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/canonical_reader.py",
+                                    "bytes":  6462,
+                                    "sha256":  "db824fdbb14a42f39647bb0e433cabdf533184c4327cb5925b7b529d6193cdb9"
+                                },
+                                {
+                                    "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/prepare_pilot_plan.py",
+                                    "bytes":  5902,
+                                    "sha256":  "136cc16d776b96234d822fb82975136318b8b0740ca276894a6e2989e34afd2a"
+                                }
+                            ],
+    "mask_rule_changes":  false,
+    "NULL_convergence":  "review only; never proven nonconvergence",
+    "robust_z_gt20":  "review only; no automatic mask",
+    "TRAIN_reference_scope":  "TRAIN only before final common and diagnostic filtering; not final D4",
+    "full_execution":  "Requires Root nonpilot request and accepted measured streaming pilot; no automatic full submission",
+    "full_storage_budget":  "Must be re-estimated from compact/temporary/audit measurements; 40kB per old copied-label record is not reused",
+    "scan_driver":  {
+                        "path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/labels/streaming_v1/scan_v2.py",
+                        "bytes":  23173,
+                        "sha256":  "d072df4468d7a502f713df35f17bdc399190143843d3b9bdb2c006a341384786"
+                    },
+    "worker_arrow_limits":  {
+                                "cpu":  1,
+                                "io":  1
+                            }
+}

@@ -1,0 +1,1 @@
+"""Actual registered phase metadata reporting."""

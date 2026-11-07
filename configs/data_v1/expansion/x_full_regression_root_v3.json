@@ -1,0 +1,247 @@
+{
+  "schema": "v1_X_full_regression_execution_plan_v3",
+  "status": "READY",
+  "mode": "full",
+  "workers": 16,
+  "seed": 20261025,
+  "expected_original_records": 15879477,
+  "expected_formal_records": 11231854,
+  "rdkit": "2025.09.5",
+  "duckdb_memory_gib": 8,
+  "spill_gib": 8,
+  "peak_output_cap_bytes": 17179869184,
+  "output_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/full_v3",
+  "quota": {
+    "mode": "published_receipt",
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/pubchem_quota_feed_v1.json"
+  },
+  "sources": {
+    "original_index": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/record_index.parquet",
+      "bytes": 2005784925,
+      "sha256": "c16f84bf93c997d627fbad2e51fc0513661165b82372a1d43d3301bb54603eff"
+    },
+    "relaxed_quality": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_screening_20261011/a_retained/relaxed_quality_annotations.parquet",
+      "bytes": 2529572637,
+      "sha256": "f59a82954be5b68b5ec7bf301bcc552c074c67864379c3d1cf207d67a73334e5"
+    },
+    "formal_population": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+      "bytes": 1242386629,
+      "sha256": "ef2d99ae1b6c1001f6ffeb979ebafd10b04c13fa4774e52527a90a6276c06276"
+    },
+    "common_population": null
+  },
+  "code_sources": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/regression_x_v2.py",
+      "bytes": 20590,
+      "sha256": "77a2e67f782d250b6250050b1e6ee3f7e22bd1f1e2fa5965a5073c966034d90d"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/regression_x_v1.py",
+      "bytes": 22112,
+      "sha256": "ae182529b51e7a5e69ed456f4f44da987bac89503d104cc22abffdfec6d3a54a"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/common.py",
+      "bytes": 4312,
+      "sha256": "8c988f617776ad05354deae1cf69933e7ff95210f7a2609f903e4826172ccbad"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/screen.py",
+      "bytes": 11880,
+      "sha256": "bb31d57a4749f9ef9843dc075bc75f7c268cb781f60c7b4f0d77a121a73dcc88"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/source.py",
+      "bytes": 6103,
+      "sha256": "87e864000cafdedfd4ff7562462069f45804e9e822074a45beeb04829f8c92e6"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/download_raw_v1.py",
+      "bytes": 17471,
+      "sha256": "836418372c9d90bd18cfd9a8d7403404e9db1b69435b85efc3c77a8c1fed65ba"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/data_authority_v1.py",
+      "bytes": 5569,
+      "sha256": "19cc48687b53ecf114973af1941ed9d8571d18016d59bde147586d57ee6302f1"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/__init__.py",
+      "bytes": 76,
+      "sha256": "5e013a9d678c55d30f22eb358597f8caf6ddf99cb4920ddabd677dd0985491dd"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/regression_x_v2.sbatch",
+      "bytes": 953,
+      "sha256": "45cb50a02b9d631221721b5786f49ee207f8610f09746baff57ed2cd578ad9b7"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/regression_x_full_v3.py",
+      "bytes": 21461,
+      "sha256": "586cf56064521c088047399408ec12b7883dccbbd2e7da12e411df0aa19ffccd"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/expansion/regression_x_full_v3.sbatch",
+      "bytes": 934,
+      "sha256": "fd1f6f0700291dc024da5b9950379167f6c32130e91ce4a683acc24fecaf96d5"
+    }
+  ],
+  "data_authorization_receipts": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/input_pins/x_regression_inputs_v1.json",
+      "bytes": 3485,
+      "sha256": "3b2a91fa4ed0b3fe0cccfda74671db96d5620b7d9c92f61c20f951c371965ac9"
+    }
+  ],
+  "authorized_data_pin_jobs": [
+    "4520356"
+  ],
+  "allow_small_fixture_legacy_authority": false,
+  "budget": {
+    "node": "compute-0-20",
+    "cpus": 16,
+    "memory_gib": 32,
+    "wall_seconds": 14400,
+    "internal_wall_seconds": 13800,
+    "peak_output_bytes": 17179869184,
+    "artifact_soft_cap_bytes": 7516192768,
+    "spill_cap_bytes": 8589934592,
+    "estimated_total_core_hours_ceiling": 64,
+    "full_rule_replay_only": true,
+    "common_scope_pending": true,
+    "no_source_screening_or_training_gate_released": true
+  },
+  "scope_notes": [
+    "Full 15879477 source IDs; no source sampling and no retained-only shortcut",
+    "Reuse actual closed immutable v2 evaluator and exact historical enrichment formula for every row; original335 IDs only check the frozen pilot subset",
+    "Compact uint16 ternary layers for every row; all mismatch details retained in compressed Parquet",
+    "Full unique ID coverage and every old8741 decision checked against both frozen v1 and completed v2",
+    "Fixed geometry/identity held; common scope unbound means only FULL_X_RULE_PASS_COMMON_SCOPE_PENDING",
+    "No original source changes, source screening, training or final expansion gate release"
+  ],
+  "historical_proof_refs": {
+    "assigned_parser_source": {
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/scripts/scan.py",
+      "bytes": 32431,
+      "sha256": "73a4e3e9dbf5722c976bda640474b1778328bd79f9b24b3acf82de3c6617f632"
+    },
+    "assigned_parser_receipt": {
+      "path": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/pieces/000_000000000_000005000/receipt.json",
+      "bytes": 3450,
+      "sha256": "eba224a5f8d3c00e330b5dcd827882dc10f664ec8ee1e86a5043dfd2e9acc558"
+    },
+    "wp0_inventory_source": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/wp0_inventory.py",
+      "bytes": 29540,
+      "sha256": "dae1d25ade45719eb8a393dc83daec8853dc85471a3d2d6ead9520cf9b4a60c7"
+    },
+    "wp0_execution": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/inventory.json",
+      "bytes": 51931,
+      "sha256": "a012e1fd6c7a980cc5c4a846c71dff4a41ec0dd55ffed1a8a4edb4377cb7db10"
+    },
+    "unassigned_parser_source": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/wp0_unassigned_inventory_v2.py",
+      "bytes": 24757,
+      "sha256": "043cc9cd1fac0662c54ac357d682849482831a98aa1297013dd65d7b4dad50e1"
+    },
+    "unassigned_execution": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/unassigned_v2/unassigned_inventory.json",
+      "bytes": 2543,
+      "sha256": "def85580755263f30600b5d35ac6158ff935fcb68fc4bf5744925b2c4fdc72e5"
+    },
+    "enrichment_source": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/enrich_geometry_cache.py",
+      "bytes": 3321,
+      "sha256": "4fa8a1d6108691eb6b1a0700f7b11e8598737214e78194d94a0f26a020f9a6cd"
+    },
+    "enrichment_execution": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/reports/geometry_cache_enrichment.json",
+      "bytes": 681,
+      "sha256": "2350d7907c9877ed95b32c79d6b8e20475c1531c7e1c80874a971b67ecf968d7"
+    },
+    "quality_source": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/wp1_report.py",
+      "bytes": 21204,
+      "sha256": "c8a5e896bb2560d80ad2bbefb00a36a90b9ace4e4bb69f8b6d4d2083d1114740"
+    },
+    "frozen_v1_stop": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/pilot_v1/receipt.json",
+      "bytes": 6553,
+      "sha256": "a7f99064e2940e8d1c81468e0d175606d97791ec72af1e51941afa74b7f278d6"
+    },
+    "frozen_v1_submission": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/submissions/dv1_x_regression_pilot_v1.json",
+      "bytes": 10133,
+      "sha256": "180df460b92a2b0685b40e0c6a9ad7584db1441fd048b798eec55c329a45ae3c"
+    },
+    "frozen_v1_decisions": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/pilot_v1/record_decisions.parquet",
+      "bytes": 142999,
+      "sha256": "9f8693b3eebbf46f2e93ab632f7fd487154a385eeb72d8ae349b7bac146ddc91"
+    },
+    "diagnosis_receipt": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/stop_diagnosis_v1/receipt.json",
+      "bytes": 11346,
+      "sha256": "9205a786f74126a4ce22e453e1ece74f79fde7abd893eae47def839765df407a"
+    },
+    "diagnosis_rows": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/stop_diagnosis_v1/native_mismatch_original_fields.json",
+      "bytes": 223898,
+      "sha256": "ad13ee05f2565db3b1d6b0091a1c04cf6c53c42b68a46c846c0a78d88b281ca4"
+    }
+  },
+  "artifact_soft_cap_bytes": 7516192768,
+  "spill_cap_bytes": 8589934592,
+  "internal_wall_seconds": 13800,
+  "closed_v2_proof_refs": {
+    "receipt": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/pilot_v2/receipt.json",
+      "bytes": 10970,
+      "sha256": "6b417231c56e51e32e176a7b85136aff0fea231169971380cc6419e16c4c1925"
+    },
+    "actual_closure": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/x_replay_v2_actual_closure_v1.json",
+      "bytes": 1104,
+      "sha256": "7b5abf6fe511754ad35ef55940797dc218646e289eda08906623a7315ca6a927"
+    },
+    "plan": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/requests/x_regression_pilot_plan_v2.json",
+      "bytes": 8679,
+      "sha256": "ab68e3bfaacab2d9befca20f8b9a405529a3876fd3a587e3e8499811c714acdd"
+    },
+    "decisions": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/regression/pilot_v2/record_decisions.parquet",
+      "bytes": 175606,
+      "sha256": "66ef844e1ea11ce90c1fd382967af48d984aae953fe6d539f3c3605c2b0fe9be"
+    }
+  },
+  "timing_estimate": {
+    "basis_job": "4520376",
+    "observed_records": 8741,
+    "observed_molecules_via_exact_frozen_v1_identity_comparison": 6034,
+    "observed_total_wall_seconds": 61.69289942458272,
+    "observed_source_verify_join_seconds": 6.582439426332712,
+    "observed_full_population_sampling_sort_seconds_not_repeated": 54.2934462018311,
+    "observed_worker_output_check_pipeline_seconds": 0.81701535359025,
+    "pure_rdkit_seconds_not_available": true,
+    "linear_pipeline_projection_seconds": 1484.2439670499077,
+    "independent_v1_job": "4520357",
+    "independent_v1_pipeline_projection_minutes": 62.6,
+    "predicted_wall_minutes_range": [
+      40,
+      120
+    ],
+    "prediction_is_not_a_measured_confidence_interval": true,
+    "uncertainties": [
+      "Stratified 8741 rows are not representative of full graph sizes, parser failures or cache locality",
+      "Full compact coding, Parquet and 15.879M-ID/molecule aggregation are not timed by pilot",
+      "Shared filesystem/cache and node contention vary; sourcepin cold parallel hashing was246.95s"
+    ],
+    "exact_existing_cache": "immutable graph(smiles) LRU4096 per worker; all native/geometry/identity annotations still evaluated per record"
+  }
+}

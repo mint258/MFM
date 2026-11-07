@@ -1,0 +1,69 @@
+{
+  "schema": "USER_AUTHORIZED_PPRIME_NEW20_ALL12_STRICT_QA_V1",
+  "status": "USER_AUTHORIZED",
+  "authorization_basis": "EXPLICIT_USER_MESSAGE_IN_THIS_SESSION",
+  "actual_user_statement": "批准仅此轮最多1200次QA",
+  "candidate_protocol_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/pprime/strict_numerics15_qa_v1_protocol_proposed.json",
+    "bytes": 19218,
+    "sha256": "f72bb07780b28026df5931478b50495d3cb4d75fe5edecac7593b90af9356302"
+  },
+  "original_protocol_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+    "bytes": 18720,
+    "sha256": "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+  },
+  "prepared20_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/pprime_strict20_zero_invoke_prepare_v1/prepared_v1/prepared20.json",
+    "bytes": 450663,
+    "sha256": "914396b240ccadc0cef4d37ec80c4fe511f1b47f36b2bb849fd282077f774800"
+  },
+  "maximum_new_QM_calls": 1200,
+  "new_unique_MIDs": 20,
+  "task_names": [
+    "pm7_B",
+    "pm7_water",
+    "pm7_octanol",
+    "pm7_cation",
+    "pm7_anion",
+    "xtb_singlepoint",
+    "xtb_vipea",
+    "xtb_vfukui",
+    "xtb_ALPB_water",
+    "xtb_ALPB_octanol",
+    "xtb_fod",
+    "xtb_perturbed_gradient"
+  ],
+  "arms": [
+    "B1",
+    "B2",
+    "R1",
+    "P1",
+    "P2"
+  ],
+  "cpus": 16,
+  "maximum_wall_seconds": 86400,
+  "per_call_timeout_seconds": 900,
+  "combined_shared_output_cap_bytes": 34359738368,
+  "execution_cap_bytes": 33285996544,
+  "prepare_cap_bytes": 1073741824,
+  "closed_call_cap_bytes": 26214400,
+  "UNKNOWN_private_partition_bytes": 117440512,
+  "maximum_simultaneous_native_calls": 16,
+  "scratch_soft_observation_is_not_hard_limit_acknowledged": true,
+  "unsupported_semantics_remain_UNKNOWN_no_scientific_release": true,
+  "automatic_retry": false,
+  "original_quality_thresholds_unchanged": true,
+  "production_recipe_unchanged": true,
+  "original15FAIL_preserved": true,
+  "production_or2000_full_release": "HOLD",
+  "not_authorized_by_this_template": false,
+  "actual_question_item_id": "[\"request_user_input_async\",\"call_98eccf431992405584335bbdd02e0035\",0]",
+  "actual_proposal_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/pprime_new20_concrete_user_review_v1/actual_prepared20_user_proposal.json",
+    "bytes": 5401,
+    "sha256": "bce1796b878bf5d9d0a0ff5771599462296d1f66f994b1555dcc0b5139eb548c"
+  },
+  "only_this_round_no_automatic_larger_QA_2000_full": true,
+  "recorded_unix_seconds": 1793116386.8529866
+}

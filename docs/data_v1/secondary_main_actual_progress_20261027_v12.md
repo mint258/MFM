@@ -1,0 +1,13 @@
+# 双集群实际进度 v12（2026-10-27）
+
+本次核验时主集群标签全源第一批4521904仍RUNNING（16CPU，compute-0-17）。其它排队作业未计为完成。S′原wave2有94批、47000个验证包闭合；95科学任务已C0但待闭合索引；96原500任务全部未启动且0消费，失败及成本保留。资源探针4522070在实际运行前发现900秒wall与conformer的7200秒预留不相容，Root核PENDING/0耗时/无proof后取消，独立analysis探针与新有限资源链待实际验证。旧96失败原因仍UNKNOWN。
+
+Alpha修复51的1884855实际C0/1162秒/16CPU：250000行完成，accepted234929、chemReject15071、technicalUnresolved0。连同原0–50，共52片、13000000原始物理行闭合；累计accepted11896317、chemReject1102951、technicalUnresolved732。历史失败1884853、QA0与state5测试成本均单列保留。52–499续跑candidate仅因审查SHA手抄65位失败，尚未读DATA、claim或新提交；新源码只修真实64位引用，不将这次metadata失败称为科学失败或成功。
+
+MoleculeNet四原生来源试点1884856实际C0/677秒/16CPU，3195个抽样实体。has_unknown与已有key可共存，暂不推断高unknown原因；单一闭合journal的0重新解析诊断待实际CPU。TDC原44 CSV已完成，两个原UNKNOWN保留；另立最多两行的显式原子组成证据任务，不自动释放身份、候选池或去污染结果。Drugs全量558002构象的原SMILES来源扫描及Kraken全源键扫描均已有实际C0；原生图验收仍分开推进。
+
+P′原15项协变FAIL及2000/full HOLD保持。精度15调用提案尚待明确用户批准；源码/纯测试不构成执行批准。
+
+D1需要模型线共同审阅[原生domain draft4提案](../interfaces/training_format_v3_draft4_native_domains_proposal.md)及[剩余冻结项](d1_joint_freeze_remaining_20261027_v1.md)：r73原生条目包含基函数通道、同原子端点及多条目，不能静默压成原子唯一无自环边；r674六分量的张量消费及frame/origin证据仍需闭合。当前权威仍draft3，提案不等于共同签署。已有candidate provider和采样桥接的真实PASS不降级为未实现。
+
+D1–D7、完整共同人群/归一化/导出/正式试点、扩充去重去污染/精确NN/ordered10M及首2.5M尚未全部完成。核时超估报告后继续，质量阈值不变；无SBATCH内存申请，CPU-only，不修改其他任务。

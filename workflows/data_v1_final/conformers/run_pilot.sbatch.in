@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH --job-name=dv1_sb2_fill_pilot_v1
+#SBATCH --partition=cpu
+#SBATCH --nodelist=__ONE_REVIEWED_NODE_14_TO_19__
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=64G
+#SBATCH --time=04:00:00
+#SBATCH --output=__LOG_PATH__
+set -euo pipefail
+export PYTHONDONTWRITEBYTECODE=1
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+export CUDA_VISIBLE_DEVICES=""
+REPOSITORY=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository
+PYTHON=/share/home/zixiao/.conda/envs/chemprop/bin/python
+"$PYTHON" "$REPOSITORY/workflows/data_v1_final/conformers/run_pilot.py" \
+  --config "$REPOSITORY/configs/data_v1/conformers/pilot_v1.json" \
+  --root-preflight __ROOT_INTENT_JSON__ \
+  --prepared __CLOSED_PREPARED_DIRECTORY__ \
+  --output __NEW_PILOT_DIRECTORY__ --workers 16

@@ -1,0 +1,135 @@
+{
+    "schema":  "ALPHA_NATIVE4_THIN_ADAPTER_SOURCE_HANDOFF_V1",
+    "status":  "SOURCE_FINAL_NOT_DEPLOYED_NOT_EXECUTED",
+    "files":  [
+                  {
+                      "canonical_local_source":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\data_v1_final\\execution\\secondary_cpu_readonly_native4_v1\\controller.py",
+                      "root_repository_relative_path":  "workflows/data_v1_final/execution/secondary_cpu_readonly_native4_v1/controller.py",
+                      "root_target_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/secondary_cpu_readonly_native4_v1/controller.py",
+                      "alpha_code_relative_path":  "secondary_cpu_readonly_native4_v1/controller.py",
+                      "alpha_target_path":  "/gfshome/alpha/codex_data_v1_20261026/code/secondary_cpu_readonly_native4_v1/controller.py",
+                      "bytes":  25237,
+                      "sha256":  "b681e7b40fbbbd42366a239ab2acb82df6704aac4de20eae50f2b99bbd23b450"
+                  },
+                  {
+                      "canonical_local_source":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\data_v1_final\\execution\\secondary_cpu_readonly_native4_v1\\adapters.py",
+                      "root_repository_relative_path":  "workflows/data_v1_final/execution/secondary_cpu_readonly_native4_v1/adapters.py",
+                      "root_target_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/secondary_cpu_readonly_native4_v1/adapters.py",
+                      "alpha_code_relative_path":  "secondary_cpu_readonly_native4_v1/adapters.py",
+                      "alpha_target_path":  "/gfshome/alpha/codex_data_v1_20261026/code/secondary_cpu_readonly_native4_v1/adapters.py",
+                      "bytes":  13352,
+                      "sha256":  "3dfd6fdcfee281ac3c300866db145cfb92c073c0923e8756fc3e018f0fabe3c7"
+                  },
+                  {
+                      "canonical_local_source":  "X:\\runs\\data_v1_20261025\\worktrees\\sb4\\workflows\\data_v1_final\\execution\\secondary_cpu_readonly_native4_v1\\materialize.py",
+                      "root_repository_relative_path":  "workflows/data_v1_final/execution/secondary_cpu_readonly_native4_v1/materialize.py",
+                      "root_target_path":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/workflows/data_v1_final/execution/secondary_cpu_readonly_native4_v1/materialize.py",
+                      "alpha_code_relative_path":  "secondary_cpu_readonly_native4_v1/materialize.py",
+                      "alpha_target_path":  "/gfshome/alpha/codex_data_v1_20261026/code/secondary_cpu_readonly_native4_v1/materialize.py",
+                      "bytes":  8513,
+                      "sha256":  "806066e3ff2e7f0a16cbb1b867f0d85240ad7d6c6b0ab576faf360e207c6a793"
+                  }
+              ],
+    "controller_equivalence":  {
+                                   "basis":  "ACTUAL_COMPLETE_FILE_BYTES_AND_SHA_IDENTITY",
+                                   "original_local_source":  "X:\\runs\\data_v1_20261025\\repository\\workflows\\data_v1_final\\execution\\secondary_cpu_readonly_queue_v13\\controller.py",
+                                   "bytes":  25237,
+                                   "sha256":  "b681e7b40fbbbd42366a239ab2acb82df6704aac4de20eae50f2b99bbd23b450",
+                                   "scheduling_submission_observation_lease_accounting_algorithm_changed":  false,
+                                   "relative_adapters_only_binding":  true,
+                                   "inherited_V13_PUBCHEM_error_labels":  "unchanged diagnostic strings required by byte identity; adapter whitelist is only literal native4"
+                               },
+    "protocol":  {
+                     "key":  "moleculenet_native4_identity_profile_alpha_v1",
+                     "plan":  "SECONDARY_MOLECULENET_NATIVE4_IDENTITY_PROFILE_PLAN_V1",
+                     "proof":  "SECONDARY_MOLECULENET_NATIVE4_IDENTITY_PROFILE_STARTUP_V1",
+                     "module":  "secondary_moleculenet_native4_identity_v1.run",
+                     "endpoint":  "218.192.171.238:22",
+                     "uid":  1264,
+                     "kind":  "analysis",
+                     "pilot":  true,
+                     "performance_profile":  true,
+                     "cpus":  16,
+                     "memory_policy":  "SLURM_DEFAULT_UNSPECIFIED",
+                     "wall_seconds":  14400,
+                     "output_cap_bytes":  2147483648,
+                     "storage_scope":  "/gfshome/alpha/codex_data_v1_20261026/control/secondary_cpu_queue/storage_scope_v7_pubchem_uniform_index_copy_v1.json",
+                     "arbitrary_module_support":  false
+                 },
+    "actual_methods":  "Root alone executes metadata/source reviews or submit; child did source packaging only",
+    "workflow":  [
+                     {
+                         "step":  1,
+                         "action":  "Deploy native4 frozen8 and new3 exact bytes; copy this small source_manifest to Alpha control; retain current base8 source review."
+                     },
+                     {
+                         "step":  2,
+                         "CLI":  "PY -B -m secondary_cpu_readonly_native4_v1.materialize source-template --source-manifest ACTUAL_ALPHA_MANIFEST --output FRESH_SOURCE_TEMPLATE",
+                         "Root_only_edit":  "copy template; status APPROVED_FOR_EXACT_METADATA_ADAPTER and reviewer root; preserve every other field",
+                         "source_review_schema":  "ROOT_SECONDARY_NATIVE4_THIN_SOURCE_REVIEW_V1"
+                     },
+                     {
+                         "step":  3,
+                         "CLI":  "PY -B -m secondary_cpu_readonly_native4_v1.materialize draft --request ACTUAL_ROOT_REQUEST --output FRESH_CONTROL",
+                         "result":  "plan.candidate.json, scope_review.template.json, draft_receipt.json; no runnable final plan or submission"
+                     },
+                     {
+                         "step":  4,
+                         "Root_only_edit":  "copy scope template; status APPROVED_FOR_EXACT_STAGE and reviewer root; preserve every other field",
+                         "CLI":  "PY -B -m secondary_cpu_readonly_native4_v1.materialize finalize --draft ACTUAL_DRAFT --root-review INDEPENDENT_APPROVED_SCOPE",
+                         "result":  "actual plan.json pin + finalize_receipt.json; validates readonly exact single protocol, no sbatch"
+                     },
+                     {
+                         "step":  5,
+                         "CLI":  "PY -B -m secondary_cpu_readonly_native4_v1.controller submit --producer readonly --input ACTUAL_FINAL_PLAN --authority ACTUAL_RESOURCE_AUTHORITY --storage-review EXACT_SCOPE7 --controller-review ACTUAL_APPROVED_BASE8_REVIEW --output FRESH_QUEUE_CONTROL --node ACTUAL_NODE --job-name UNIQUE_NAME --reviewer root --wall-seconds 14400 --max-poll-seconds 90",
+                         "behavior":  "unaltered v13 prepare -\u003e submit_held -\u003e observe; held own submission, all-user freeCPU/current registered caps+200GB/fresh Alpha gate; no retry or cancellation"
+                     },
+                     {
+                         "step":  6,
+                         "CLI":  [
+                                     "PY -B -m secondary_cpu_readonly_native4_v1.controller resume --output ACTUAL_QUEUE_CONTROL --max-poll-seconds 90",
+                                     "PY -B -m secondary_cpu_readonly_native4_v1.controller account --output ACTUAL_QUEUE_CONTROL"
+                                 ],
+                         "behavior":  "same exact existing job; endpoint-owned actual parent+steps accounting including failures/startup"
+                     }
+                 ],
+    "minimal_Root_request":  {
+                                 "schema":  "ROOT_REQUESTED_ALPHA_NATIVE4_PROFILE_V1",
+                                 "status":  "REQUESTED_FOR_REVIEW",
+                                 "requested_by":  "root",
+                                 "required_fields":  [
+                                                         "adapter_source_review_reference(actual approved new3)",
+                                                         "base_controller_review_reference(actual approved base8)",
+                                                         "resource_authority_reference",
+                                                         "cost_decision_reference",
+                                                         "storage_review_reference(exact actual scope7)",
+                                                         "format_accounting_reference(actual1884792 C0/raw)",
+                                                         "kernel_profile_receipt_reference(actual1884785)",
+                                                         "kernel_profile_accounting_reference(actual1884785 C0/raw)",
+                                                         "node",
+                                                         "output_directory(fresh artifacts child)",
+                                                         "startup_proof_path(fresh actual-known location only)"
+                                                     ],
+                                 "optional_field":  "python; defaults to actual1884785 plan Python",
+                                 "auto_derived_from_existing_small_metadata":  [
+                                                                                   "authority792 exact8 DATA locators",
+                                                                                   "792 receipt/plan/proof/format8/four native reports",
+                                                                                   "1884785 plan/proof/frozen helper references and actual3 PASS",
+                                                                                   "current consumer8+new3+CSV helper11+base8 source pins",
+                                                                                   "inherited previously registered792/B source closures"
+                                                                               ],
+                                 "unknown_future_N_SHA_or_account_created":  false
+                             },
+    "boundaries":  {
+                       "old_native4_eight_modified":  false,
+                       "old_v13_modified":  false,
+                       "old_B3_reexecuted":  false,
+                       "new_fixture_framework":  false,
+                       "data_bodies_opened_hashed_or_parsed_by_login_helpers":  false,
+                       "new_queue_algorithm":  false,
+                       "new_QM_UFF_or_network_calls_by_child":  0,
+                       "scientific_execution_by_child":  false,
+                       "full_or_pool_release":  false
+                   },
+    "source_manifest_purpose":  "Root reviews every entry then byte-preserving install; manifest is declared source authority and target bytes are independently checked on Alpha. This bundle does not claim deployment or PASS."
+}

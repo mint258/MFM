@@ -1,0 +1,78 @@
+{
+  "schema": "expansion_common_v1_structure_projection_v1",
+  "producer_schema": "ALPHA_COMMON_GENERIC_REPRESENTATION_REPAIR_COMPLETION_PRODUCER_V1",
+  "status": "COMPLETE_ALPHA_FULL_COMMON_GENERIC_REPRESENTATION_REPAIRED_REFERENCE",
+  "fingerprint_recipe": "ECFP4_2048_radius2_chiralityFalse_rdkit2025.09.5",
+  "targets_present": false,
+  "downstream_features_present": false,
+  "population_roles": [
+    "TRAIN",
+    "VAL"
+  ],
+  "one_row_per_common_molecule": true,
+  "projection": {
+    "bytes": 851793935,
+    "path": "/gfshome/alpha/pubchem_expansion_20261103/exact/fullCommon_representation_repaired_completion_v1_job_1885176/strict5_projection.DATA.jsonl",
+    "sha256": "2026758e90e1687d44ec78649c62550873aecf39b842e06b61d6832e96847109",
+    "rows": 1196122
+  },
+  "structural_features": {
+    "bytes": 1521223613,
+    "path": "/gfshome/alpha/pubchem_expansion_20261103/exact/fullCommon_representation_repaired_completion_v1_job_1885176/structural_features.DATA.jsonl",
+    "sha256": "703b92beb728aa6cde6e3ae2212aa674e6fb097d850ed5873cedec11860309ab",
+    "rows": 1196122
+  },
+  "common_molecules": 1196122,
+  "exact_common_census": {
+    "molecules": 1196122,
+    "molecules_by_role": {
+      "TRAIN": 1188592,
+      "VAL": 7530
+    },
+    "native_records_by_role": {
+      "TRAIN": 10973084,
+      "VAL": 71884
+    },
+    "sorted_length_prefixed_MID_role_sha256": "32b1c44624042b5698a4de86566b4a203518fc502abb05d048b2b1353e8c9d96"
+  },
+  "common_population_manifest": {
+    "bytes": 25572,
+    "path": "/gfshome/alpha/pubchem_expansion_20261103/exact/source_transport/common_main_4525659/033_manifest.json",
+    "sha256": "46db43dc1217b383af96fa48f32003e5e648610f68bc8d6fcf87f7d53ba5ea0e"
+  },
+  "denominator_molecules": 1214218,
+  "excluded_molecules": 18096,
+  "original_execution_UNKNOWN_excluded": 3436,
+  "actual_full_receipt_reference": {
+    "path": "/gfshome/alpha/pubchem_expansion_20261103/exact/fullCommon_representation_repaired_completion_v1_job_1885176/receipt.json",
+    "bytes": 11449,
+    "sha256": "0afc9bc4cceef373907a7ea249b03983c14ef5b91c8ac9bef2bdad9744a14ea8"
+  },
+  "actual_full_accounting_reference": {
+    "bytes": 645,
+    "path": "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_expansion_runtime_20261103/fullCommon_repaired_1885176_actual.accounting.json",
+    "sha256": "9245bde0b90286a4f1354a98cdcc3402dd99951c6250eabb2e706623c3b30ae2"
+  },
+  "final_Root_graph_review_reference": {
+    "path": "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_expansion_runtime_20261103/fullCommon_repaired_1885176_root_actual_v1.json",
+    "bytes": 2289,
+    "sha256": "7846038d349f8b2e3895dc7a11611dfc384ca42763cf2fb2371918ef5c8fd9c1"
+  },
+  "original_full_source_receipt_reference": {
+    "bytes": 40252,
+    "path": "/gfshome/alpha/pubchem_expansion_20261103/exact/common_grouped_node_v2_job_1885153/receipt.json",
+    "sha256": "39ce898f6f1648ab9af1db437f46c5a9cb5611c27912af6a0504118d2fb369e3"
+  },
+  "generic_representation_repair_review_reference": {
+    "bytes": 1606,
+    "path": "/gfshome/alpha/codex_data_v1_20261026/control/pubchem_expansion_runtime_20261103/generic_repair_validation_1885175_root_actual_v1.json",
+    "sha256": "820f1c74046809263937c99c578ec8631a879c55b9a2db8bf99330fdd80dab75"
+  },
+  "original_HOLD_molecules": 119,
+  "current_HOLD_molecules": 0,
+  "representation_version": "GENERIC_ALLC_SINGLE_HEAVY_ADJACENCY_DEFERRED_VALENCE_V1",
+  "Main_origin_parent_state": "STOPPED",
+  "Main_parent_C0_claimed": false,
+  "NN_1M_pool_training_release_authorized": false,
+  "D7_or_orders_release": false
+}

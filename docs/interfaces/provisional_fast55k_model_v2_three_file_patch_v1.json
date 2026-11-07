@@ -1,0 +1,62 @@
+{
+    "shared_model_modified_by_author":  false,
+    "Model_payload_ACK":  false,
+    "new_source_required":  "Data provisional_fast55k_adapter_v1.adapter",
+    "version":  "v1-pilot-provisional",
+    "old_final_and_fixture_logic_retained":  true,
+    "files":  [
+                  {
+                      "relative_path":  "current/phychem_mfm/phase1/v3_data_adapter.py",
+                      "before_sha256":  "09e86b77d7ad58e4f7576d09fdf6101d553085eda7d2d6dbbd054676140aea38",
+                      "replacements":  [
+                                           {
+                                               "before":  "def is_actual_data_release(self): return self.authority_family == \"actual_final_release_v1\"",
+                                               "after":  "def is_actual_data_release(self): return self.authority_family in (\"actual_final_release_v1\", \"actual_pilot_provisional_fast55k_v1\")"
+                                           },
+                                           {
+                                               "before":  "    require(type(evidence) is dict and set(evidence) == set(REQUIRED_EVIDENCE), \"Complete real release/D4/Common/heldout evidence required\")",
+                                               "after":  "    provisional = \"provisional_fast55k_binding\" in request\n    expected_evidence = tuple(\"provisional_population\" if k == \"common_population\" else k for k in REQUIRED_EVIDENCE) if provisional else REQUIRED_EVIDENCE\n    require(type(evidence) is dict and set(evidence) == set(expected_evidence), \"Complete exact scoped release/D4/heldout evidence required\")"
+                                           },
+                                           {
+                                               "before":  "    if joint.get(\"schema\") == \"ROOT_MODEL_JOINT_FINAL_LABEL_POLICY_V1\":",
+                                               "after":  "    if provisional:\n        require(joint.get(\"schema\") == \"ROOT_MODEL_D1_V3_INTERFACE_POLICY_CONFIG_FREEZE_V1\"\n                and docs[\"release\"].get(\"schema\") == \"DATA_V1_PILOT_D3_FORMAL_EXPORT_DELIVERY_V1\"\n                and request.get(\"mode\") == \"authoritative_pilot\"\n                and request.get(\"UNIT_FIXTURE_ONLY_NOT_A_REAL_REQUEST\") is not True,\n                \"Exact provisional family only; never final/Common or a fixture alias\")\n        # The pinned interpreter below independently joins formal D3 C0, D4,\n        # signed D1 policy, local payloads and actual diagnostic membership.\n        authority_family = \"actual_pilot_provisional_fast55k_v1\"\n    elif joint.get(\"schema\") == \"ROOT_MODEL_JOINT_FINAL_LABEL_POLICY_V1\":"
+                                           },
+                                           {
+                                               "before":  "def _tensor6_record(release, field_name):",
+                                               "after":  "def _provisional_interpreter(release):\n    require(release.authority_family == \"actual_pilot_provisional_fast55k_v1\", \"Exact provisional family required\")\n    release.reverify()\n    source = release.verifier\n    bound_bytes(source)\n    module = sys.modules.get(\"model_v3_actual_Data_verifier_\" + source[\"sha256\"])\n    require(module is not None and Path(module.__file__).resolve() == Path(source[\"path\"]).resolve(), \"Same bound provisional interpreter required\")\n    return module\n\n\ndef _tensor6_record(release, field_name):"
+                                           },
+                                           {
+                                               "before":  "    binding, target, record, lower, upper, evidence = _tensor6_record(release, field_name)",
+                                               "after":  "    if release.authority_family == \"actual_pilot_provisional_fast55k_v1\":\n        value = _provisional_interpreter(release).tensor_normalization(release, field_name)\n        require(target_local is True or not isinstance(value, DisabledNormalization), \"Legacy strict normalization rejects unavailable or degenerate scale\")\n        return value\n    binding, target, record, lower, upper, evidence = _tensor6_record(release, field_name)"
+                                           },
+                                           {
+                                               "before":  "    binding, _, record, _, _, _ = _tensor6_record(release, field_name)",
+                                               "after":  "    if release.authority_family == \"actual_pilot_provisional_fast55k_v1\":\n        return _provisional_interpreter(release).tensor_raw_mean(release, field_name)\n    binding, _, record, _, _, _ = _tensor6_record(release, field_name)"
+                                           }
+                                       ]
+                  },
+                  {
+                      "relative_path":  "current/phychem_mfm/phase1/v3_pilot_smoke.py",
+                      "before_sha256":  "bfa1bba5ff3f17ee789851841e88de7440f2feb58230eb36206657c28e374403",
+                      "replacements":  [
+                                           {
+                                               "before":  "    expected = {\"D1\": joint[\"contract_reference\"], \"D2\": release_evidence[\"registry\"],",
+                                               "after":  "    if joint.get(\"schema\") == \"ROOT_MODEL_D1_V3_INTERFACE_POLICY_CONFIG_FREEZE_V1\":\n        source = [r for r in joint[\"frozen_data_source_references\"] if r[\"role\"] == \"formal_design.md\"]\n        require(len(source) == 1, \"Exact signed provisional D1 design source required\")\n        contract = {k: source[0][k] for k in (\"path\", \"bytes\", \"sha256\")}\n    else:\n        contract = joint[\"contract_reference\"]\n    expected = {\"D1\": contract, \"D2\": release_evidence[\"registry\"],"
+                                           }
+                                       ]
+                  },
+                  {
+                      "relative_path":  "current/phychem_mfm/phase1/v3_physical_policy.py",
+                      "before_sha256":  "8a01f0f9580aa4e75471a38ae72a27dc7614f56056f1ad96c78faad761c0d761",
+                      "replacements":  [
+                                           {
+                                               "before":  "    joint = bound_json(release.evidence[\"joint_contract\"])",
+                                               "after":  "    if release.authority_family == \"actual_pilot_provisional_fast55k_v1\":\n        from .v3_data_adapter import _provisional_interpreter\n        return _provisional_interpreter(release).physical_policy(release, registry, reference)\n    joint = bound_json(release.evidence[\"joint_contract\"])"
+                                           }
+                                       ]
+                  }
+              ],
+    "schema":  "MODEL_V3_PROVISIONAL_FAST55K_LITERAL_PATCH_V1",
+    "tests_run":  false,
+    "reviewed_model_origin":  "MFM_model_v3_delivery_integration_v2"
+}

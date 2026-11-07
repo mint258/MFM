@@ -1,0 +1,1 @@
+"""PubChem max-three UFF candidates, user amendment 2026-11-03."""
