@@ -26,6 +26,8 @@ def head_layout(view, selected_fields=None):
     metadata = {c['field_key']: c for cs in view.schema['columns'].values() for c in cs}
     heads, fields, routes, selections, onsite = {}, [], {}, {}, []
     for field in view.fields if selected_fields is None else selected_fields:
+        if field.get('loss_enabled', True) is False:
+            continue
         name = field['name']
         meta = metadata.get(field.get('source_field', name), {})
         level = LEVELS[field['level']]

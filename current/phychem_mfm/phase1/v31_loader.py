@@ -242,6 +242,8 @@ class TrainingView:
                                if normalizations is None else normalizations)
         if isinstance(self.normalizations, str):
             self.normalizations = json.loads(Path(self.normalizations).read_text())
+        from .v31_normalization_routes import inherit_source_loss_policy
+        inherit_source_loss_policy(self.normalizations, self.fields, dataset=normalization_dataset)
         normalization_fields = [field for field in self.fields
                                 if normalization_dataset != 'Pprime' or field['group'] == 'P']
         self.normalizations = resolve_normalization_routes(self.normalizations, normalization_fields,
@@ -315,7 +317,7 @@ class TrainingView:
                 raise ValueError('Missing D4 normalization for ' + name)
             values = normalize_values(raw, spec, Z=molecule[1])
             output[name] = V31Target(raw, values, valid, field['group'], field['family'],
-                field['level'], field.get('representation', 'scalar'), True,
+                field['level'], field.get('representation', 'scalar'), field.get('loss_enabled', True),
                 conformer.get(26) if array_name == 'pair_labels' else None)
         return output
 

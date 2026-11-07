@@ -32,15 +32,30 @@ def resolve_normalization_routes(payload, fields, *, dataset='P_D'):
             route = candidates[0]
         else:
             raise ValueError('D4 field route missing or ambiguous: ' + dataset + '/' + key)
-        if route.get('original_loss_enabled') is False:
-            raise ValueError('D4 preserves disabled source loss for ' + key)
         if route.get('normalizer_ready') is not True or route.get('status') != 'NORMALIZER_AVAILABLE':
             raise ValueError('D4 field parameters are not ready: ' + key + ': ' + str(route.get('status')))
         specification = {parameter: deepcopy(route[parameter]) for parameter in ('center', 'scale')}
         specification.update(fit_role='TRAIN', dataset=dataset,
                              target_id=route['target_id'], training_labels_clipped=False,
-                             source_route_status=route['status'])
+                             source_route_status=route['status'],
+                             loss_enabled=route.get('original_loss_enabled', True),
+                             source_loss_policy=deepcopy(route.get('source_loss_policy', {})))
         if 'element_reference' in route:
             specification['element_reference'] = deepcopy(route['element_reference'])
         result[name] = specification
     return result
+
+
+def inherit_source_loss_policy(payload, fields, *, dataset='P_D'):
+    """Selection, numerical binding and physical-loss exposure are independent."""
+    if payload.get('schema') != SCHEMA:
+        return
+    targets = payload.get('datasets', {}).get(dataset, {}).get('targets', {})
+    for field in fields:
+        key = field.get('field_key', field['name'])
+        routes = [r for r in targets.values() if key in r.get('members', [])
+                  and r.get('status') != 'RAW_CONTAINER_STATISTICS_ONLY']
+        disabled = [r for r in routes if r.get('original_loss_enabled') is False]
+        if disabled:
+            field['loss_enabled'] = False
+            field['source_loss_policy'] = deepcopy(disabled[0].get('source_loss_policy', {}))

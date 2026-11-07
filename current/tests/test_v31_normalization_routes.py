@@ -83,10 +83,40 @@ def test_explicit_unready_target_never_gets_a_fallback_scale():
 
 
 def test_ready_numerics_do_not_enable_disabled_source_loss():
+    from phychem_mfm.phase1.v31_training import head_layout
     target = route('p', ['P.a'])
     target['original_loss_enabled'] = False
-    with pytest.raises(ValueError, match='disabled source loss'):
-        resolve_normalization_routes(payload({'p': target}), [field('P.a', 'p')])
+    document = payload({'p': target, 'b': route('b', ['P.b'])})
+    resolved = resolve_normalization_routes(document, [field('P.a', 'p')])
+    assert resolved['P.a']['loss_enabled'] is False
+    fields = [field('P.a', 'p'), field('P.b', 'b')]
+    schema = dict(columns={'mol_labels': [dict(field_key='P.a'), dict(field_key='P.b')]},
+                  target_layout={'p': dict(array_name='mol_labels',column_indices=[0]),
+                                 'b': dict(array_name='mol_labels',column_indices=[1])})
+    view = TrainingView(schema,dict(fields=fields),document)
+    targets = view.extract({1:np.array([6])},{23:np.array([[9.,4.]],dtype=np.float32)})
+    assert list(targets) == ['P.a','P.b'] and not targets['P.a'].loss_enabled
+    assert targets['P.b'].loss_enabled
+    heads, metrics, *_ = head_layout(view)
+    assert [f.name for f in heads] == [f.name for f in metrics] == ['P.b']
+    np.testing.assert_allclose(targets['P.a'].raw,[[9.]],atol=1e-7,rtol=1e-7)
+
+
+def test_pprime_inherits_disabled_D_policy_without_consuming_D_numerics():
+    from phychem_mfm.phase1.v31_training import head_layout
+    disabled = dict(target_id='d',members=['D.a'],original_loss_enabled=False,
+                    normalizer_ready=False,status='NOT_IN_THIS_STATISTICS_DATASET')
+    document = payload({}, {'d':disabled,'p':route('p',['P.b'])})
+    fields = [field('D.a','d',group='D'),field('P.b','p')]
+    schema = dict(columns={'d20':[dict(field_key='D.a')],
+                           'mol_labels':[dict(field_key='P.b')]},
+        target_layout={'d':dict(array_name='d20',column_indices=[0]),
+                       'p':dict(array_name='mol_labels',column_indices=[0])})
+    view = TrainingView(schema,dict(fields=fields),document,normalization_dataset='Pprime')
+    assert [f['name'] for f in view.fields] == ['D.a','P.b']
+    assert view.fields[0]['loss_enabled'] is False
+    assert set(view.normalizations) == {'P.b'}
+    assert [f.name for f in head_layout(view)[0]] == ['P.b']
 
 
 @pytest.mark.parametrize('count', [0, 2])

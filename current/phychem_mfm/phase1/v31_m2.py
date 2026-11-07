@@ -102,6 +102,9 @@ def run_m2(*, root, training_view, normalizations, output, mode,
         normalizations=str(normalizations), seed=seed, lr=lr, betas=[.9, .95],
         clip=1., batch_size=batch_size, model=configuration,
         enabled_training_view_columns=len(pd.registry.fields), physical_loss_fields=len(pd.head_registry.fields),
+        selected_columns=len(dataset.view.fields),
+        excluded_physical_loss_fields=[dict(field=f['name'], source_loss_policy=f.get('source_loss_policy', {}))
+            for f in dataset.view.fields if f.get('loss_enabled', True) is False],
         overfit_molecules=1000 if mode == 'overfit' else None,
         updates=overfit_updates if mode == 'overfit' else 2000)
     (output/'configuration.json').write_text(json.dumps(recipe, indent=2) + '\n')
