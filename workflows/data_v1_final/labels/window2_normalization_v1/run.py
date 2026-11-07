@@ -7,6 +7,13 @@ P=pathlib.Path
 ROUTES=('element_reference','normalization_quantiles','normalization_moments','diagnostic_median_MAD')
 
 
+def pending_groups(groups,closed,largest_first=False):
+    """Schedule whole original groups using closed reference metadata only."""
+    pending=[group for group in groups if str(group['group_index'])not in closed]
+    if largest_first:
+        pending=sorted(pending,key=lambda group:-sum(ref['bytes'] for name in ('base_files','label_files') for ref in group.get(name,[])))
+    return pending
+
 def histogram_rows(reports,name):
     import pyarrow.parquet as pq
     merged=collections.Counter()
@@ -115,7 +122,7 @@ def run(args):
                     group_producer_inputs={'inputs':state['inputs'],'stage_reference':state['active_stage'],
                         'eligibility_reference':current['eligibility_reference'],
                         'upstream_statistics':{name:current.get(name) for name in ('element_models_reference','exact_tail_reference','query_stage_reference','mask_overrides_reference','r73_derived_reference')}})
-            for group in groups:
+            for group in pending_groups(groups,state['groups'],getattr(args,'largest_groups_first',False)):
                 key=str(group['group_index'])
                 if key not in state['groups']:pending[pool.submit(T.group_pass,(group_cfg,stage,str(attempt_root),group))]=key
             errors=[]
@@ -149,6 +156,7 @@ def main():
     parser.add_argument('--workers',type=int,default=16)
     parser.add_argument('--group-scratch-root',help='optional node-local group output; shared output/checkpoint stay authoritative')
     parser.add_argument('--scratch-from-pass',type=int,default=1,help='first future pass index using local group output')
+    parser.add_argument('--largest-groups-first',action='store_true',help='submit pending whole groups by existing reference bytes; reduction order unchanged')
     args=parser.parse_args()
     print(json.dumps(run(args),ensure_ascii=False),flush=True)
 
