@@ -77,8 +77,12 @@ def element_offset(Z, specification):
 
 class V31PDModel(nn.Module):
     """Adapter only: existing backbone, V3HeadBank and compute_v3_loss."""
-    def __init__(self, encoder, view, *, forms='H1', pooling='registry'):
+    def __init__(self, encoder, view, *, forms='H1', pooling='registry',
+                 output_parameterization='raw', head_hidden_dim=64):
         super().__init__()
+        if output_parameterization not in ('raw', 'normalized'):
+            raise ValueError('Explicit raw or normalized head output required')
+        self.output_parameterization = output_parameterization
         from ..model.v3_heads import V3HeadBank
         head_fields, loss_fields, self.routes, self.selections, onsite = head_layout(
             view, enabled_encoder_fields(view.fields, encoder))
@@ -90,7 +94,7 @@ class V31PDModel(nn.Module):
         self.definitions = {f['name']: f for f in view.fields}
         self.encoder, self.view = encoder, view
         overrides = {f.name: pooling for f in head_fields if f.level == 'graph' and f.representation == 'scalar'}
-        self.heads = V3HeadBank(self.head_registry, dim=encoder.latent_dim, forms=forms,
+        self.heads = V3HeadBank(self.head_registry, dim=encoder.latent_dim, forms=forms, hidden_dim=head_hidden_dim,
             pooling_overrides=overrides, allow_onsite_fields=onsite)
         # Unit transform is used ONLY after applying the actual D4 transform to
         # both sides; it is not a replacement for missing data-line statistics.
@@ -186,7 +190,8 @@ class V31PDModel(nn.Module):
             valid = torch.as_tensor(np.concatenate([s['targets'][name].valid for s in samples]),
                                     dtype=torch.bool, device=prediction.device)
             head_name, component = self.selections[name]
-            members.setdefault(head_name, []).append((component, torch_affine(prediction, specification),
+            normalized = prediction if self.output_parameterization == 'normalized' else torch_affine(prediction, specification)
+            members.setdefault(head_name, []).append((component, normalized,
                                                        values, valid, specification))
         for name, columns in members.items():
             field = self.head_by_name[name]
@@ -248,6 +253,8 @@ class V31PDModel(nn.Module):
             field = self.by_name[name]
             definition = self.definitions[name]
             specification = definition.get('normalization', self.view.normalizations.get(name))
+            if self.output_parameterization == 'normalized':
+                value = torch_affine(value, specification, inverse=True)
             if specification.get('element_reference') is not None:
                 if field.level != 'graph':
                     raise ValueError('Element reference is only valid for molecular energy fields')
