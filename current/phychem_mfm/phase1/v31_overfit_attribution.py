@@ -131,7 +131,11 @@ def build_attribution(plan_path,output):
                         '按指南E2桶归类；仅clip10对照达标，不能单独归因于步数')
             elif field['family'] in family_runs:
                 entry,e3,e4=family_runs[field['family']]
-                if name in entry['target_fields']:
+                if complete(e3,10000) and passed(e3['_metrics'][name]):
+                    metric=e3['_metrics'][name];evidence=e3['_directory']
+                    category='多任务干扰';scope='model'
+                    reason='原clip1联合30k未达标，同配方实际单家族10k达标'
+                elif name in entry['target_fields']:
                     if complete(e3,10000):
                         metric=e3['_metrics'][name];evidence=e3['_directory']
                         if passed(metric):
