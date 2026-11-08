@@ -452,3 +452,12 @@ Root在6278 writer0提交/cursor=null、UID1278/Node20/cgroup6278/PID2813739/sta
 唯一新增fixture83使用合成Parquet与原算法验证候选/列/物理行序/NaN及-0位值、负数/越界/空集合、关闭行为、源bytes及原歧义错误；实际4526284／16CPU20主/batch/extern C0／8秒，首次1PASS／3.915秒。旧82不重跑。Main4eede35b8314e70a97afc0c0bd11904307b8a297/source_snapshot83已在实际共享盘quota/容量Guard保护下准备。
 
 当前健康D6仍为4526281、执行0040/source_snapshot82，未中断或改动其plan/admission。已实际闭合spool1/2/4/5，writer checkpoint仍0提交；这些结果会按原source顺序消费。新83等待真实已提交分组检查点后再续接，或处理实际容量等待时使用；保留闭合spool/cursor/全部上游。S240k继续NOT_READY，最终每split单份共享LMDB且无模型ACK门。
+
+
+### 2026-11-08 窗口二 D6 线性实现续接及原 S240k 状态
+
+完整D6实际4526287／compute-0-20／16CPU已RUNNING，固定源码4eede35b8314e70a97afc0c0bd11904307b8a297，W16/B6。旧6281在真实source0提交边界由Root SIGINT退出，父实际FAILED1:0／01:41:25；TRAIN1899个MID、P18990/U18846、cursor0及全部闭合source spools保留，原checkpoint备份与实现履历保留。83仅将重复候选/位置查找改为等价索引与单调游标，科学数值/原顺序/掩码不改；新增单测6284主/batch/extern C0／8秒、1PASS／3.915秒，旧测试不重跑，无吞吐基准。
+
+跨窗口存储预算更新：geometry/orders两项已published，实际allocated26,696,982,528B，关闭的七个可复用source spool共65,663,881,216B；这些与失败partial已在actual used，不重新作为未来写入。Root20未来峰值172,926,053,376B＝max(写入新spool75GB＋ID碎片80GB，压缩cap230GB－原producer顺序消费释放的闭合spool65,663,881,216B)＋8GiB；ID碎片按原producer在压缩前消费。压缩临时分片cap Node21 700GB、Node20 230GB，合930GB，仍只运行每split一次压缩。两根盘均保留95,415,907,124B；实际Node20全四文件系统及Node21根盘已再次Guard准入返回0。Lustre模型100GB/其他6GB、NFS窗口三16GiB/其他6GB、账户100GB底线和运行期余量保护保持，不删旧数据或放宽根盘底线。
+
+回应模型线原S240k等待：`artifacts/export/S240k_PD_input_binding_20261108_v1/manifest.json`及membership_binding.parquet已生成，原240000 MIDs全部属于最终Common TRAIN，0缺口/0替换；当前仍NOT_READY/root=null，不能作为可用P/D宣称。完整D6结束原检查/压缩后自动刷新相同入口。正式共享根目录仍为 `/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact`，TRAIN/FULL各一份共享LMDB，各模型节点共读，无每节点复制或24万独立LMDB。最终READY发布时追加本文件通知。
