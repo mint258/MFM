@@ -197,6 +197,31 @@ def proposal_reference(model,samples,phase0_csv):
     return references
 
 
+def e2_trajectory(history_path, completed_updates):
+    """Apply the requested 10k/25k/30k trajectory rule to the producer history."""
+    snapshots={}
+    with Path(history_path).open() as file:
+        for row in csv.DictReader(file):
+            update=int(row['updates'])
+            if update in (10000,25000,30000):
+                snapshots.setdefault(row['field'],{})[update]=float(row['R2']) if row['R2'] else None
+    rows=[]
+    for name,points in snapshots.items():
+        initial,final=points.get(10000),points.get(30000)
+        gain=(final-points[25000]) if final is not None and points.get(25000) is not None else None
+        if completed_updates!=30000 or final is None or initial is None or gain is None:
+            disposition='OVERFIT_UNRESOLVED_INCOMPLETE_TRAJECTORY'
+        elif final>=.95:
+            disposition='E2_REACHED_095_AFTER_10000' if initial<.95 else 'REACHED_095_BY_10000'
+        elif gain<.005:
+            disposition='PLATEAU_ELIGIBLE_FOR_E3'
+        else:
+            disposition='NOT_CONVERGED_NO_MORE_UPDATES'
+        rows.append(dict(field=name,R2_10000=initial,R2_30000=final,
+            final5000_R2_gain=gain,disposition=disposition))
+    return rows
+
+
 def run_controlled(*, fixed_path, output, experiment, updates, output_parameterization='normalized',
                    clip=1., lr=3e-4, family=None, head_hidden_dim=64, resume=None,
                    device='cuda', baseline=BASELINE):
@@ -224,6 +249,11 @@ def run_controlled(*, fixed_path, output, experiment, updates, output_parameteri
     start, prior_seconds, norms = 0,0.,[]
     if resume:
         state = torch.load(resume,map_location=device,weights_only=True)
+        previous=state['configuration']
+        if (experiment!='E2' or previous.get('family') is not None
+                or previous.get('output_parameterization','raw')!=output_parameterization
+                or previous['lr']!=lr or previous['clip']!=clip):
+            raise ValueError('E2 continuation must preserve its predecessor recipe; clip10 starts fresh')
         combined.load_state_dict(state['model'])
         optimizer.load_state_dict(state['optimizer'])
         start = state['updates']
@@ -232,6 +262,13 @@ def run_controlled(*, fixed_path, output, experiment, updates, output_parameteri
         torch.cuda.set_rng_state(state['cuda_rng'].cpu())
         prior_seconds = state.get('elapsed_seconds',0.)
         norms = state.get('preclip_norms',[])
+        if not norms:
+            with (Path(resume).parent/'losses.csv').open() as file:
+                norms=[float(r['preclip_norm']) for r in csv.DictReader(file) if int(r['updates'])<=start]
+        if not prior_seconds:
+            prior_seconds=json.loads((Path(resume).parent/'summary.json').read_text())['seconds']
+    if start>=updates:
+        raise ValueError('The continuation must include later updates')
     recipe = dict(experiment=experiment,baseline_job=4526238,fixed_set=str(fixed_path),
         output_parameterization=output_parameterization,lr=lr,betas=[.9,.95],clip=clip,batch_size=8,
         planned_updates=updates,seed=0,family=family,head_hidden_dim=head_hidden_dim,head_form=forms,
@@ -248,8 +285,32 @@ def run_controlled(*, fixed_path, output, experiment, updates, output_parameteri
         writer.writeheader()
         hwriter=csv.DictWriter(history,fieldnames=['updates','field','valid_components','R2','MAE','passed','RMSE',
             'proposed_criterion','proposed_pass','proposed_accuracy','proposed_RMSE_threshold',
-            'epsilon_abs','epsilon_source','proposed_criterion_approved','trained'])
+            'epsilon_abs','epsilon_source','proposed_criterion_approved','trained','history_source'])
         hwriter.writeheader()
+        if resume:
+            source_history=Path(resume).parent/'per_head_history.csv'
+            if source_history.is_file():
+                with source_history.open() as source:
+                    for row in csv.DictReader(source):
+                        if int(row['updates'])<=start:
+                            row.setdefault('history_source','completed_predecessor_history')
+                            hwriter.writerow(row)
+            else:
+                # The original baseline kept only its terminal metrics. Its
+                # already checked label variance supplies RMSE without a new forward.
+                with (Path(fixed_path).parent/'phase0_fields.csv').open() as file:
+                    statistics={r['field']:r for r in csv.DictReader(file)}
+                with (Path(resume).parent/'per_head_metrics.csv').open() as file:
+                    for row in csv.DictReader(file):
+                        name=row['field']; reference=proposals[name]
+                        score=float(row['R2']) if row['R2'] else None
+                        rmse=(max(0.,1-score)**.5*float(statistics[name]['label_std'])) if score is not None else None
+                        hwriter.writerow(dict(updates=start,field=name,valid_components=row['valid_components'],
+                            R2=score,MAE=row['MAE'],passed=row['passed'],RMSE=rmse,
+                            proposed_criterion=reference['kind'],proposed_pass=None,proposed_accuracy=None,
+                            proposed_RMSE_threshold=reference['threshold'],epsilon_abs=reference['epsilon'],
+                            epsilon_source=reference['epsilon_source'],proposed_criterion_approved=False,
+                            trained=True,history_source='original_stored_metrics_and_phase0_label_variance'))
         for step in range(start+1,updates+1):
             batch=[samples[int(i)] for i in rng.integers(1000,size=8)]
             optimizer.zero_grad(set_to_none=True)
@@ -267,7 +328,8 @@ def run_controlled(*, fixed_path, output, experiment, updates, output_parameteri
                 metrics=field_evaluation(pd,samples,8,residual_sink=residuals if step==updates else None,
                                          criterion_reference=proposals)
                 for row in metrics:
-                    hwriter.writerow(dict(updates=step,**row,trained=row['field'] in active))
+                    hwriter.writerow(dict(updates=step,**row,trained=row['field'] in active,
+                                          history_source='controlled_run_forward'))
                 print(json.dumps(dict(experiment=experiment,family=family,updates=step,
                     active_passed=sum(r['passed'] for r in metrics if r['field'] in active),
                     active_fields=len(active),seconds=time.monotonic()-started)),flush=True)
@@ -278,11 +340,14 @@ def run_controlled(*, fixed_path, output, experiment, updates, output_parameteri
         updates=step,rng=rng.bit_generator.state,torch_rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state(),
         preclip_norms=norms,elapsed_seconds=prior_seconds+time.monotonic()-started),output/'final.pt')
     summary=dict(recipe,status=status,actual_updates=step,actual_samples=step*8,
+        reused_prefix_updates=start,process_updates=step-start,
         seconds=prior_seconds+time.monotonic()-started,process_seconds=time.monotonic()-started,
         clipped_fraction=float((np.array(norms)>clip).mean()),median_preclip_norm=float(np.median(norms)),
         active_passed=sum(r['passed'] for r in metrics if r['field'] in active),
         active_failed_fields=[r for r in metrics if r['field'] in active and not r['passed']],
         all_133_final_metrics=metrics,gpu_peak_bytes=torch.cuda.max_memory_allocated())
+    if experiment=='E2':
+        summary['E2_trajectory']=e2_trajectory(output/'per_head_history.csv',step)
     if residuals is not None and step==updates:
         failures={r['field'] for r in summary['active_failed_fields']}
         if failures:
