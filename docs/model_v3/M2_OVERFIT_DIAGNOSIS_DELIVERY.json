@@ -1,36 +1,63 @@
 {
-    "A_rule":  "User-delegated abs(mean_bias)/label_std \u003e sqrt(1-0.95), threshold0.22360679774997907",
-    "files":  [
-                  {
-                      "records":  1000,
-                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M2_DIAG_PHASE0_20261108/overfit_set_4526238.json",
-                      "bytes":  113553
-                  },
-                  {
-                      "records":  133,
-                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M2_DIAG_PHASE0_20261108/phase0_fields.csv",
-                      "bytes":  54721
-                  },
-                  {
-                      "records":  1,
-                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M2_DIAG_PHASE0_20261108/summary.json",
-                      "bytes":  1168
-                  },
-                  {
-                      "records":  1,
-                      "path":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M2_DIAG_PHASE0_20261108/fixed_set_check.json",
-                      "bytes":  147
-                  }
-              ],
-    "baseline_data_parameters_unchanged":  true,
-    "baseline_job":  4526238,
-    "fixed_set_check":  "PASS",
-    "controlled_training_runs":  2,
-    "status":  "PARTIAL_E2_RUNNING",
-    "inference_passes":  1,
-    "E1":  "SKIPPED_BY_GUIDE: A12/93\u003c30%, Spearman+0.111832\u003e-0.3",
-    "running_jobs":  [
-                         4526323,
-                         4526324
-                     ]
+  "A_rule": "User-delegated abs(mean_bias)/label_std > sqrt(1-0.95), threshold0.22360679774997907",
+  "files": [
+    {
+      "records": 1000,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M2_DIAG_PHASE0_20261108/overfit_set_4526238.json",
+      "bytes": 113553
+    },
+    {
+      "records": 133,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M2_DIAG_PHASE0_20261108/phase0_fields.csv",
+      "bytes": 54721
+    },
+    {
+      "records": 1,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M2_DIAG_PHASE0_20261108/summary.json",
+      "bytes": 1168
+    },
+    {
+      "records": 1,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M2_DIAG_PHASE0_20261108/fixed_set_check.json",
+      "bytes": 147
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108/configuration.json",
+      "bytes": 4570,
+      "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108/summary.json",
+      "bytes": 140230,
+      "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108/final.pt",
+      "bytes": 220947923,
+      "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108/losses.csv",
+      "bytes": 2177710,
+      "records": 20000
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108/per_head_history.csv",
+      "bytes": 1249533,
+      "records": 5453
+    }
+  ],
+  "baseline_data_parameters_unchanged": true,
+  "baseline_job": 4526238,
+  "fixed_set_check": "PASS",
+  "controlled_training_runs": 2,
+  "status": "PARTIAL_DIAGNOSIS_IN_PROGRESS",
+  "inference_passes": 1,
+  "E1": "SKIPPED_BY_GUIDE: A12/93<30%, Spearman+0.111832>-0.3",
+  "running_jobs": [
+    4526324
+  ],
+  "closed_jobs": [
+    4526323
+  ]
 }
