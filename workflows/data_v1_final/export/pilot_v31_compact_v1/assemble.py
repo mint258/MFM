@@ -189,6 +189,30 @@ def _r73(entry,tid,perm):
       raw=values.copy(),valid=valid.copy(),masked=masked)
 
 
+def _pair_arrays(pair_values,ordered_pairs,ncolumns):
+    """Index already validated directed int16 endpoints; never alter values."""
+    def keys(pairs):
+        pairs=np.asarray(pairs,dtype=np.int64)
+        return (pairs[:,0]<<16)|pairs[:,1]
+    blocks=[(keys(pairs),values,column)for pairs,values,column in pair_values]
+    ordered_keys=None if ordered_pairs is None else keys(ordered_pairs)
+    parts=[block[0]for block in blocks]
+    if ordered_keys is not None:parts.append(ordered_keys)
+    union=np.unique(np.concatenate(parts)) if parts else np.empty(0,dtype=np.int64)
+    pairs=np.empty((len(union),2),dtype='<i2')
+    pairs[:,0]=union>>16;pairs[:,1]=union&65535
+    values=np.full((len(union),ncolumns),np.nan,dtype='<f4');occupied={}
+    for block_keys,block_values,column in blocks:
+        rows=np.searchsorted(union,block_keys)
+        if not len(rows):continue
+        used=occupied.get(column)
+        if used is None:used=np.zeros(len(union),dtype=bool);occupied[column]=used
+        _need(len(np.unique(rows))==len(rows)and not np.any(used[rows]),'ordinary pair target repeats a pair; fixed scalar cell would lose multiplicity')
+        used[rows]=True;values[rows,column]=block_values
+    ordered_rows=np.empty(0,dtype='<u4') if ordered_keys is None else np.searchsorted(union,ordered_keys).astype('<u4')
+    return pairs,values,ordered_rows
+
+
 def assemble_molecule(mid,readers,schema,*,include_uff_labels=False):
     """Return M arrays, physical P/U records, ID aliases and existing QA refs."""
     layouts=schema['target_layout'];columns=schema['columns'];entries=[]
@@ -314,21 +338,11 @@ def assemble_molecule(mid,readers,schema,*,include_uff_labels=False):
                     _need(value.shape==(len(pairs),)and len(indices)==1,'sparse scalar pair layout differs');pair_values.append((pairs,value,indices[0]))
                 else:raise ScientificLayoutError('unsupported declared target layout: '+str(name))
             for tid in contributed_tids:_append_target_qa(qa,e,tid)
-        all_pairs={tuple(map(int,row))for pairs,_,_ in pair_values for row in pairs}
-        if ordered is not None:all_pairs.update(tuple(map(int,row))for row in ordered['pairs'])
-        union=sorted(all_pairs);lookup={pair:i for i,pair in enumerate(union)}
-        arrays[26]=np.asarray(union,dtype='<i2').reshape(-1,2);arrays[27]=np.full((len(union),len(columns['pair_labels'])),np.nan,dtype='<f4')
-        assigned=set()
-        for pairs,values,column in pair_values:
-            for pair,value in zip(pairs,values):
-                row=lookup[tuple(map(int,pair))];cell=(row,column)
-                _need(cell not in assigned,'ordinary pair target repeats a pair; fixed scalar cell would lose multiplicity')
-                assigned.add(cell);arrays[27][row,column]=value
+        arrays[26],arrays[27],arrays[31]=_pair_arrays(pair_values,None if ordered is None else ordered['pairs'],len(columns['pair_labels']))
         if ordered is not None:
-            arrays[31]=np.asarray([lookup[tuple(map(int,row))]for row in ordered['pairs']],dtype='<u4')
             arrays[33]=ordered['onsite'];arrays[34]=ordered['masked'];record['r73_channels']=ordered['channels']
         else:
-            arrays[31]=np.empty(0,dtype='<u4');arrays[33]=np.empty(0,dtype='u1');arrays[34]=np.empty(0,dtype='<f4')
+            arrays[33]=np.empty(0,dtype='u1');arrays[34]=np.empty(0,dtype='<f4')
         (p_records if source=='pm7'else u_records).append(record)
     _need(len(p_records)<=65535 and len(u_records)<=65535,'conformer count exceeds uint16')
     m_arrays[6]=np.asarray([len(p_records),len(u_records)],dtype='<u2')

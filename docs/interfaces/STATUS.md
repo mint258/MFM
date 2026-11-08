@@ -495,3 +495,14 @@ Root在6278 writer0提交/cursor=null、UID1278/Node20/cgroup6278/PID2813739/sta
 唯一新tiny87在4526295／16CPU20首过，main/batch/extern实际C0／2秒，1PASS／0.071秒。fixture证明解压payload逐字节等于原pickle5、默认字节相同，NaN payload/负零/整数/布尔mask/dtype/形状/字典序/alias保留；真实tinySQLite混合piece→work→tagged molecule加legacy molecule→stream保持原MID/record顺序、旧ref不重放、未ACK保留/ACK后消费，最终codec record/key bytes一致。无生产标签/数组读回、独立QA/hash或吞吐基准，旧86不重跑，累计87项新增首过。
 
 Root已合入固定代码d9a0f4088bbe6d83688c8976f4ccef1be9bbf409，`source_snapshot87`约59.18MB纯代码已准备，未复制数据。当前正式4526292仍使用source86（a727a75）推进，已提交prefix至少5136MIDs，source87为READY_NOT_DEPLOYED；后续在新提交边界按真实文件系统/inode/quota/并发峰值续接。提高buffer必须依据实际生产关闭spool的物理大小重新准入，不以fixture压缩比例作预算保证。最终共享TRAIN/FULL和原S240k成员定义保持，S240k仍NOT_READY，完整producer关闭后自动绑定；各节点共读同一份LMDB。
+
+
+### 2026-11-08 窗口二 source88 已实际续接 D6，原 S240k P/D 仍待关闭
+
+完整D6实际4526299／compute-0-20／16CPU已RUNNING，固定源码0bfaca3a8a396b383d8c5df48bcdabb2cbf6e637，W16/B5、原0–17组不变/tail2048MID、source_spool_compression=zlib1。Source88将原子对索引改为等价NumPy整数操作，新增唯一单测4526298主/batch/extern C0/1秒、1PASS0.066秒；26/27/31与完整codec字节、NaN payload/负零、原r73顺序/引用及重复项错误保持。Source87无损私有spool封装已首过4526295 C0/2秒、1PASS0.071秒，两项合并部署；最终MFM4/LMDB和每split一次mdb_copy-c不改，旧测试不重跑。
+
+旧4526292由Root对准确UID1278、cgroup job_4526292、cwd source_snapshot86、PID/PGID2825500、startticks1199502355的own进程组SIGINT以部署等价实现；父实际FAILED1:0/01:51:35，非C0。真实checkpoint cursor6／14519MID、TRAIN_P139502/U136877保留，备份producer_checkpoint.before_bounded_source88_4526292.pkl；全部旧临时文件及关闭spool8/13/15/16保留。无新Native/QM/Pprime/D3、成员/排序/掩码/标签定义更改。
+
+实际Node20四文件系统及Node21根盘Guard预检均0。Node20可用247596130304B，闭合spool43258773504B已在used；rolling5待处理MID×7MB保守估计（未以fixture压缩比预算），legacy ID未来5GB/tail80GB，扣按序消费existing闭合spool；联合writing/compact180GB分阶段峰值145331161088B，另留95415907124B根盘底线。Node21临时chunk720GB加8GiB，实际可用830651727872B并保留同样根盘底线。raw既有allocated19004166144B，Lustre剩余forecast889585768448B，非科学上限；模型100GB/其他6GB、账号100GB、窗口三NFS16GiB/其他6GB、SHM及运行Guard保持。未额外迁移或删除旧数据。后续依据自然生成的压缩关闭spool物理大小重新准入提高并行。
+
+模型线原240000MID成员入口表已准备、全在最终Common TRAIN、0缺口/换人，P/D manifest仍NOT_READY/root=null：runs/data_v1_20261025/artifacts/export/S240k_PD_input_binding_20261108_v1/manifest.json。必须等待完整D6原一次末尾检查和每split一次压缩后自动刷新原表入口；尚不能作为READY训练数据。TRAIN/FULL各单份共享compact，各模型节点共读同一份，不创建节点LMDB或额外24万LMDB。本通知为实际续接状态，非最终交付。
