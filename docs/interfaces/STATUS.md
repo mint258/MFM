@@ -506,3 +506,10 @@ Root已合入固定代码d9a0f4088bbe6d83688c8976f4ccef1be9bbf409，`source_snap
 实际Node20四文件系统及Node21根盘Guard预检均0。Node20可用247596130304B，闭合spool43258773504B已在used；rolling5待处理MID×7MB保守估计（未以fixture压缩比预算），legacy ID未来5GB/tail80GB，扣按序消费existing闭合spool；联合writing/compact180GB分阶段峰值145331161088B，另留95415907124B根盘底线。Node21临时chunk720GB加8GiB，实际可用830651727872B并保留同样根盘底线。raw既有allocated19004166144B，Lustre剩余forecast889585768448B，非科学上限；模型100GB/其他6GB、账号100GB、窗口三NFS16GiB/其他6GB、SHM及运行Guard保持。未额外迁移或删除旧数据。后续依据自然生成的压缩关闭spool物理大小重新准入提高并行。
 
 模型线原240000MID成员入口表已准备、全在最终Common TRAIN、0缺口/换人，P/D manifest仍NOT_READY/root=null：runs/data_v1_20261025/artifacts/export/S240k_PD_input_binding_20261108_v1/manifest.json。必须等待完整D6原一次末尾检查和每split一次压缩后自动刷新原表入口；尚不能作为READY训练数据。TRAIN/FULL各单份共享compact，各模型节点共读同一份，不创建节点LMDB或额外24万LMDB。本通知为实际续接状态，非最终交付。
+
+
+### 2026-11-08 窗口二共享入口目录已在 10 个模型节点核实可见
+
+按用户“各节点共读同一份LMDB、不逐节点复制”要求，对原D3分发清单中的compute-0-0、1、20、21、22、3、4、5、6、7做只读目录/挂载预检：实际UID均1278，Lustre目录 /lfshome/zixiao/data_v1_20261025/D6_full_v31_20261105_v1 均可读/搜索、inode144115362626110850；NFS清单目录 runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact 均可读/搜索、inode12946813073。10节点指向相同共享对象，无LMDB/标签payload读取、无文件复制、无新QA或hash。
+
+这只证明共享目录可见；最终TRAIN/FULL单份compact文件仍待完整D6导出/原一次末尾检查/每split一次压实。当前实际4526299继续source88，S240k P/D manifest仍NOT_READY/root=null；不得据此把目录预检当作数据READY。最终文件关闭后再确认同一共享文件可读并发布同入口。
