@@ -513,3 +513,16 @@ Root已合入固定代码d9a0f4088bbe6d83688c8976f4ccef1be9bbf409，`source_snap
 按用户“各节点共读同一份LMDB、不逐节点复制”要求，对原D3分发清单中的compute-0-0、1、20、21、22、3、4、5、6、7做只读目录/挂载预检：实际UID均1278，Lustre目录 /lfshome/zixiao/data_v1_20261025/D6_full_v31_20261105_v1 均可读/搜索、inode144115362626110850；NFS清单目录 runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact 均可读/搜索、inode12946813073。10节点指向相同共享对象，无LMDB/标签payload读取、无文件复制、无新QA或hash。
 
 这只证明共享目录可见；最终TRAIN/FULL单份compact文件仍待完整D6导出/原一次末尾检查/每split一次压实。当前实际4526299继续source88，S240k P/D manifest仍NOT_READY/root=null；不得据此把目录预检当作数据READY。最终文件关闭后再确认同一共享文件可读并发布同入口。
+
+
+### 2026-11-08 窗口二 source90 已以 28 CPU 实际续接完整 D6
+
+完整D6实际4526311／compute-0-20／28CPU已RUNNING，固定源码9a5092eb315ad3634afacbb11f27cfd4ef9ad9c5，W28/B28、source_task_molecules=1024、prefix_groups=12、whole_groups=[13,15,16]、私有spool zlib1。旧关闭13/15/16以新encoded sub0 marker指向原SQLite，原marker保留、无数据复制，避免重算；未关闭12/14及后续按原MID顺序切连续小块。编号从12*1048576开始且保持单调；原全局记录次序、r73 codebook、掩码、规范化、holdout和P′前二范围不变。
+
+source89只把私有molecules提交改为每16或末尾，pieces完成后的提交、BLOB字节和关闭后marker生命周期不变；新增4526304主/batch/extern实际C0/1秒，1PASS0.007秒，真实tinySQLite覆盖逐条reference的BLOB/rowid/MID顺序、提交可见性、异常未提交尾回滚。source90新增prefix/encoded-whole资源hint、MID ref顺序核对和cursor兼容检查；唯一新增4526306主/batch/extern实际C0/1秒，1PASS0.071秒，默认/两split顺序、逐cursor续接、实际stream+SQLite+M/P codec/key/globalbook字节一致，alias物理payload ACK只回收一次、旧marker保留。旧测试未重跑；没有生产标签读回、额外数值QA/hash/吞吐基准。单测提交前曾两次控制错误（子进程PYTHONPATH和父控制目录未纳入目标范围），改用既有单NFS代码准入后才实际提交，两次均未产生Slurm作业。
+
+旧4526299由Root对UID1278、cgroup job_4526299、cwd source_snapshot88、PID/PGID2833589/startticks1200179718的own进程组SIGINT，父实际FAILED1:0/02:12:21（非C0）。已重新确认旧组无进程，真实cursor11／34612MID、TRAIN_P339601/U334469已保存，备份producer_checkpoint.before_source90_4526299.pkl；完整RNG/schema/codebook/样本/ID fragments/历史及旧临时文件保留，仅追加等价实现履历。
+
+实际Node20全4文件系统及Node21根盘fresh Guard预检均0。Root20可用261461925888B，未来唯一physical关闭payload27983097856B已在used，仅实际future encoded任务得一次消费credit，旧marker与alias不重复计。自然关闭source9/10/11分别6539214848/3842、6661967872/3906、6519975936/3824 B/MID，翻倍计XFS预分配、按100000B上取整为3500000B/MID，另加8GiB突发；ID增长按顺序writer前沿（18前5GB、tail80GB），不按pending末端提前重复预算。Root20联合writing/compact净增160958836736B，另留95415907124B根盘底线，余5087182028B；B32超预算9248817972B，B28获准。Node21临时chunk720GB/Node20180GB；raw既有allocated37149413376B计入used，Lustre剩余forecast871440521216B，预测非科学上限。模型Lustre100GB/其他6GB、账号100GB、NFS窗口三16GiB/其他6GB、SHM和运行Guard不变。无额外迁移或旧数据删除。
+
+共享目录通报的Lustre inode末位此前经过展示层大整数舍入；保留的原始元数据精确十进制字符串为 `144115362626110856`，NFS inode为 `12946813073`，10节点均完全一致。本条仅修正表示，未再次读取标签或LMDB。最终文件仍待完整D6原一次末尾检查和每split一次压实；原S240k manifest仍NOT_READY/root=null，成员表240000且0替换。完成后自动刷新同一入口，TRAIN/FULL各单份共享compact，各节点共读，无节点LMDB或额外S240k LMDB。本通知是实际续接，非最终READY交付。

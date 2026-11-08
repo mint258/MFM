@@ -95,9 +95,16 @@ def distribute(root,nodes,destination):
 
 
 def validate_source_task_resume(previous,current,active):
+    from .source_bridge import source_task_layout,SOURCE_TASK_NUMBER_STRIDE
     cursor=None if active is None else active.get('source_cursor')
-    if cursor is not None and cursor>=(1<<20) and previous.get('source_task_molecules')!=current.get('source_task_molecules'):
+    if cursor is not None and cursor>=SOURCE_TASK_NUMBER_STRIDE and previous.get('source_task_molecules')!=current.get('source_task_molecules'):
         raise ValueError('ENCODED_SOURCE_CURSOR_CHUNK_HINT_CHANGED')
+    width,prefix,whole=source_task_layout(current,cursor)
+    if cursor is not None and cursor>=SOURCE_TASK_NUMBER_STRIDE:
+        old_width,old_prefix,old_whole=source_task_layout(previous)
+        group=cursor//SOURCE_TASK_NUMBER_STRIDE
+        if (old_width is None or group<old_prefix or group in old_whole)!=(group in whole):
+            raise ValueError('ENCODED_SOURCE_CURSOR_WHOLE_MODE_CHANGED')
 
 
 def export(plan,molecules,schema):
@@ -135,7 +142,7 @@ def export(plan,molecules,schema):
         os.replace(pending,checkpoint)
     if resume:
         with checkpoint.open('rb') as source:state=pickle.load(source)
-        frozen=lambda p:{k:v for k,v in p.items() if k not in ('disk_protection','streaming_buffer_blocks','workers','metadata_working_root','chunk_compaction','id_map_storage','source_spool_root','id_fragment_working_root','cache_index_working_root','source_task_molecules','source_spool_compression')}
+        frozen=lambda p:{k:v for k,v in p.items() if k not in ('disk_protection','streaming_buffer_blocks','workers','metadata_working_root','chunk_compaction','id_map_storage','source_spool_root','id_fragment_working_root','cache_index_working_root','source_task_molecules','source_spool_compression','source_task_prefix_groups','source_task_whole_groups')}
         if frozen(state['plan'])!=frozen(plan):raise ValueError('RESUME_FROZEN_PRODUCER_INPUTS_CHANGED')
         validate_source_task_resume(state['plan'],plan,state.get('active'))
         schema=state['schema'];indices=state['indices'];counts=state['counts'];conformers=state['conformers']

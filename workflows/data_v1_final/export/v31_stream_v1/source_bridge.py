@@ -236,12 +236,18 @@ def pprime_candidate_key(lookup,mid,conf,bound_gid):
     return candidates[0]
 
 
+def molecule_commit_due(completed,total):
+    return completed%16==0 or completed==total
+
+
 def work(task):
     number,mids,split=task;STATE['sample_notes']={}
     path,marker=spool_paths(STATE['plan'],number,split)
     if marker.is_file():
         closed=I.load(marker)
-        if Path(closed['path']).is_file():return closed
+        if Path(closed['path']).is_file():
+            if closed.get('mids')!=list(mids):raise ValueError('CLOSED_SOURCE_BLOCK_MIDS_DIFFER_FROM_REQUESTED')
+            return closed
     # A changed storage hint never bypasses an already closed canonical ref.
     # Both physical scratch and canonical metadata must be admitted before mkdir.
     if STATE.get('disk_guard'):
@@ -342,7 +348,7 @@ def work(task):
                     if list(row['atomic_numbers'])!=list(zmap[key]):raise ValueError('PPRIME_AND_REGISTERED_PHYSICAL_ATOM_ORDER_ALIGNMENT')
                     project_row(spool,bases[key],entries,row,raw,{'path':rawpath,'bytes':row['source_bytes'],'family':row['family']},row['atomic_numbers'],base_xyz[key],bonds,codes,ranks[key],role,key in held)
         spool.commit();book=['__ABSENT__'];codes={}
-        for mid in mids:
+        for completed,mid in enumerate(mids,1):
             entries=[spool_loads(row[0]) for row in spool.execute('SELECT row FROM pieces WHERE mid=?',(mid,))]
             item=assemble_entries(mid,entries,STATE['schema']);apply_pprime_eligibility(item,pprime_fit);item['common_population']=contexts[mid][1];item['routine']=routine_by_mid[mid]
             for record in item['p_records']+item['u_records']:
@@ -351,7 +357,8 @@ def work(task):
                 if key in STATE['sample_notes']:record['source_F64_cast_comparison']=STATE['sample_notes'][key]
             packed=spool_dumps(item,STATE['plan'].get('source_spool_compression'))
             if STATE.get('disk_guard'):STATE['disk_guard'].wait(path,len(packed),2)
-            spool.execute('INSERT INTO molecules VALUES(?,?)',(mid,packed));spool.execute('DELETE FROM pieces WHERE mid=?',(mid,));spool.commit()
+            spool.execute('INSERT INTO molecules VALUES(?,?)',(mid,packed));spool.execute('DELETE FROM pieces WHERE mid=?',(mid,))
+            if molecule_commit_due(completed,len(mids)):spool.commit()
     finally:identities.close();cache.close();spool.close()
     result={'path':str(path),'mids':mids};I.save(marker,result);return result
 
@@ -394,27 +401,43 @@ SOURCE_TASK_PREFIX_GROUPS=18
 SOURCE_TASK_NUMBER_STRIDE=1<<20
 
 
-def source_tasks(plan,groups,split,start_after=None):
+def source_task_layout(plan,start_after=None):
     width=plan.get('source_task_molecules')
     if width is not None and (type(width)is not int or width<=0):raise ValueError('SOURCE_TASK_MOLECULES_MUST_BE_POSITIVE_INTEGER_OR_NULL')
-    if width is None and start_after is not None and start_after>=SOURCE_TASK_NUMBER_STRIDE:
-        raise ValueError('ENCODED_SOURCE_CURSOR_REQUIRES_ORIGINAL_CHUNK_HINT')
+    prefix=plan.get('source_task_prefix_groups',SOURCE_TASK_PREFIX_GROUPS)
+    if type(prefix)is not int or prefix<1:raise ValueError('SOURCE_TASK_PREFIX_GROUPS_MUST_BE_POSITIVE_INTEGER')
+    whole=plan.get('source_task_whole_groups',[])
+    if not isinstance(whole,(list,tuple)) or any(type(group)is not int or group<0 for group in whole):raise ValueError('SOURCE_TASK_WHOLE_GROUPS_MUST_BE_NONNEGATIVE_INTEGERS')
+    whole=frozenset(whole)
+    if start_after is not None and start_after>=SOURCE_TASK_NUMBER_STRIDE:
+        if width is None:raise ValueError('ENCODED_SOURCE_CURSOR_REQUIRES_ORIGINAL_CHUNK_HINT')
+        group,subindex=divmod(start_after,SOURCE_TASK_NUMBER_STRIDE)
+        if group<prefix:raise ValueError('ENCODED_SOURCE_CURSOR_CONFLICTS_WITH_PREFIX')
+        if group in whole and subindex:raise ValueError('ENCODED_WHOLE_SOURCE_CURSOR_HAS_SUBINDEX')
+    return width,prefix,whole
+
+
+def source_tasks(plan,groups,split,start_after=None):
+    width,prefix,whole=source_task_layout(plan,start_after)
     legacy=start_after is not None and start_after<SOURCE_TASK_NUMBER_STRIDE
     def tasks():
         for group,values in enumerate(groups):
             mids=values[split]
             if not mids:continue
-            if width is None or group<SOURCE_TASK_PREFIX_GROUPS:
+            if width is None or group<prefix:
                 if start_after is None or group>start_after:yield group,mids,split
                 continue
             if legacy and group<=start_after:continue
+            if group in whole:
+                number=group*SOURCE_TASK_NUMBER_STRIDE
+                if start_after is None or legacy or number>start_after:yield number,mids,split
+                continue
             chunks=(len(mids)+width-1)//width
             if chunks>SOURCE_TASK_NUMBER_STRIDE:raise ValueError('SOURCE_TASK_SUBINDEX_EXCEEDS_NUMBER_STRIDE')
             for subindex,lo in enumerate(range(0,len(mids),width)):
                 number=group*SOURCE_TASK_NUMBER_STRIDE+subindex
                 if start_after is None or legacy or number>start_after:yield number,mids[lo:lo+width],split
     return tasks()
-
 
 def stream_split(plan,index,cache,schema,split,start_after=None):
     groups=source_molecule_groups(plan,index)
