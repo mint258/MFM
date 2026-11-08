@@ -285,6 +285,91 @@
       "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_FAMILY_PLAN_20261108/E4_F06.json",
       "bytes": 372,
       "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F01_20261108/configuration.json",
+      "bytes": 919,
+      "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F01_20261108/summary.json",
+      "bytes": 72655,
+      "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F01_20261108/final.pt",
+      "bytes": 352549497,
+      "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F01_20261108/losses.csv",
+      "bytes": 2742066,
+      "records": 30000
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F01_20261108/per_head_history.csv",
+      "bytes": 1826937,
+      "records": 7980
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M2_final_regression_4526357.log",
+      "bytes": 28862,
+      "records": 338
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M2_wire_retry_4526365.log",
+      "bytes": 2740,
+      "records": 33
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F02_20261108/configuration.json",
+      "bytes": 983,
+      "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F02_20261108/summary.json",
+      "bytes": 71265,
+      "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F02_20261108/final.pt",
+      "bytes": 364345977,
+      "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F02_20261108/losses.csv",
+      "bytes": 2787827,
+      "records": 30000
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F02_20261108/per_head_history.csv",
+      "bytes": 1828444,
+      "records": 7980
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F03_20261108/configuration.json",
+      "bytes": 1135,
+      "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F03_20261108/summary.json",
+      "bytes": 70444,
+      "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F03_20261108/final.pt",
+      "bytes": 363093117,
+      "records": 1
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F03_20261108/losses.csv",
+      "bytes": 2744463,
+      "records": 30000
+    },
+    {
+      "path": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E4_F03_20261108/per_head_history.csv",
+      "bytes": 1832069,
+      "records": 7980
     }
   ],
   "baseline_data_parameters_unchanged": true,
@@ -295,9 +380,6 @@
   "inference_passes": 1,
   "E1": "SKIPPED_BY_GUIDE: A12/93<30%, Spearman+0.111832>-0.3",
   "running_jobs": [
-    4526350,
-    4526354,
-    4526355,
     4526358,
     4526360,
     4526361
@@ -310,7 +392,10 @@
     4526339,
     4526340,
     4526341,
-    4526342
+    4526342,
+    4526350,
+    4526354,
+    4526355
   ],
   "family_jobs": [
     {
@@ -350,5 +435,21 @@
       "E4_job": 4526361
     }
   ],
-  "final_regression_job": 4526357
+  "final_regression_job": 4526357,
+  "regression": {
+    "full_job": 4526357,
+    "full_state": "FAILED:fixture_environment",
+    "full_passed": 3361,
+    "full_skipped": 3,
+    "full_fixture_errors": 25,
+    "cause": "Local wire fixture requires TMPDIR under actual /tmp; no model-code failure",
+    "recovery_job": 4526365,
+    "recovery_state": "COMPLETED",
+    "recovery_passed": 26,
+    "repeated_previously_passed": 1,
+    "unique_passed": 3386,
+    "unique_skipped": 3,
+    "full_regression_executions": 1
+  },
+  "final_attribution_job": 4526364
 }
