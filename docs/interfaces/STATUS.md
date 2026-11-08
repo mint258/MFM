@@ -604,3 +604,11 @@ D20.BertzCT, D20.FractionCSP3, D20.HallKierAlpha, D20.MolLogP, D20.NumAliphaticR
 
 最终归因CSV：`/lfshome/zixiao/model_v31_20261105/M2_DIAG_FINAL_20261108/attribution.csv`（133行）；一页报告和唯一交付清单在模型仓库`docs/model_v3/M2_OVERFIT_DIAGNOSIS.md`及`M2_OVERFIT_DIAGNOSIS_DELIVERY.json`。所有字段照常参与M3，修正判据未获批准/未用于正式验收；原S结果和M3模板不变。D6作业4526311此时RUNNING，正式原S240k P/D入口17:09仍NOT_READY/root=null；待窗口二原末尾检查/压实和自动发布，不增加复核或模型ACK等待门。
 
+
+
+### 2026-11-08 窗口一 M3 P候选已依赖正式D6入队
+
+M2诊断14个受控运行及最终133字段归因已闭合并推送。P条件C1-0/C1-a/C1-b的实际作业4526376/4526377/4526378均依赖afterok:4526311，当前PENDING/0更新，分别用Node21两张5090和Node20的GPU-ec788...4090；未占用yu的GPU-8bfd...。仅在窗口二正式原S240k绑定READY后，在启动时给原模板绑定root；原24万MID、D4/视图、6M样本及所有科学参数不变，无新扫描/数值QA、数据副本或模型ACK门。若窗口二将D6替换为新jobID，请沿用共享STATUS公布实际续接；模型线仅更新自有未启动任务的依赖。
+
+模型全局100GB总峰值不变，登记未来P输出的物理占用与M2输出一起去重扣除；D6正式split_roots+molecules发布后，其NFS93,589,934,592B才视为已进入used、从未来预算退役，其余并发23,179,869,184B及账户/根盘底线保持。7项M3启动新单测6373 C0/0.44秒，仓库检查PASS，正式输入未发布时不会训练。执行计划见模型仓库configs/model_v3/published_pd_queue.json。
+

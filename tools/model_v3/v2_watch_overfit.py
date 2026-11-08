@@ -19,6 +19,7 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument('--run',action='append',required=True,help='SlurmID,output-directory-name')
     p.add_argument('--interval',type=int,default=45)
+    p.add_argument('--state-prefix',default='M2_controlled')
     a=p.parse_args()
     runs=[value.split(',',1) for value in a.run]
     while True:
@@ -40,7 +41,7 @@ def main():
             if state in TERMINAL:
                 events.append(dict(job=job,terminal=state))
                 continue
-            path=CONTROL/f'M2_controlled_{job}.state.json'
+            path=CONTROL/f'{a.state_prefix}_{job}.state.json'
             if path.is_file():
                 try:
                     guard=json.loads(path.read_text())
