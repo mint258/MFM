@@ -1,0 +1,694 @@
+{
+  "phase0": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M2_DIAG_PHASE0_20261108",
+  "E2_directories": [
+    "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+    "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108"
+  ],
+  "families": [
+    {
+      "index": 1,
+      "family": "3D shape",
+      "target_fields": [
+        "D3.PMI3",
+        "D3.PMI2"
+      ],
+      "E3_configuration": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_FAMILY_PLAN_20261108/E3_F01.json",
+      "E3_output": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E3_F01_20261108"
+    },
+    {
+      "index": 2,
+      "family": "bonding",
+      "target_fields": [
+        "P.pm7_B.r73.value.pi",
+        "P.pm7_B.r65.value"
+      ],
+      "E3_configuration": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_FAMILY_PLAN_20261108/E3_F02.json",
+      "E3_output": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E3_F02_20261108"
+    },
+    {
+      "index": 3,
+      "family": "reactivity",
+      "target_fields": [
+        "P.xtb_vfukui.r712.f_radical",
+        "P.pm7_B.r44.value"
+      ],
+      "E3_configuration": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_FAMILY_PLAN_20261108/E3_F03.json",
+      "E3_output": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E3_F03_20261108"
+    },
+    {
+      "index": 4,
+      "family": "multipole",
+      "target_fields": [
+        "P.pm7_anion.r196.z"
+      ],
+      "E3_configuration": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_FAMILY_PLAN_20261108/E3_F04.json",
+      "E3_output": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E3_F04_20261108"
+    },
+    {
+      "index": 5,
+      "family": "off-equilibrium",
+      "target_fields": [
+        "P.pm7_B.r58.value"
+      ],
+      "E3_configuration": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_FAMILY_PLAN_20261108/E3_F05.json",
+      "E3_output": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E3_F05_20261108"
+    },
+    {
+      "index": 6,
+      "family": "topology/rings",
+      "target_fields": [
+        "D20.BertzCT"
+      ],
+      "E3_configuration": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_FAMILY_PLAN_20261108/E3_F06.json",
+      "E3_output": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E3_F06_20261108"
+    }
+  ],
+  "E2_dispositions": [
+    {
+      "field": "P.pm7_water.r399.x",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.6079967351012596,
+      "R2_30000": 0.8007349679322261,
+      "final5000_R2_gain": 0.06199647037920197,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r73.value.pi",
+      "family": "bonding",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.018716843409866013,
+      "R2_30000": 0.035512646644820345,
+      "final5000_R2_gain": -0.001735325881826455,
+      "disposition": "PLATEAU_ELIGIBLE_FOR_E3"
+    },
+    {
+      "field": "D20.RingCount",
+      "family": "topology/rings",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.7641894775605244,
+      "R2_30000": 0.9397316306981551,
+      "final5000_R2_gain": 0.012833837046563046,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D3.SASA_total_A2",
+      "family": "3D shape",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.6894948537333456,
+      "R2_30000": 0.9383774161652609,
+      "final5000_R2_gain": 0.02210438292344885,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r82.Dn",
+      "family": "reactivity",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.6048148461928987,
+      "R2_30000": 0.6403220934112832,
+      "final5000_R2_gain": 0.032632554064975006,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_vfukui.r712.f_minus",
+      "family": "reactivity",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.47699900080504365,
+      "R2_30000": 0.7016255403282285,
+      "final5000_R2_gain": 0.04833243474500337,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_singlepoint.r671.value",
+      "family": "frontier/IP-EA",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.3633733843500013,
+      "R2_30000": 0.6510603774325905,
+      "final5000_R2_gain": 0.061040734638440175,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D3.SASA_atom_A2",
+      "family": "atom-level",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.4681566026669446,
+      "R2_30000": 0.8060248083679437,
+      "final5000_R2_gain": 0.0510519753309594,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D3.PMI1",
+      "family": "3D shape",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.46948928454439154,
+      "R2_30000": 0.4316790552757134,
+      "final5000_R2_gain": 0.035985721664126835,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_water.r408.value",
+      "family": "frontier/IP-EA",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.2828388975938876,
+      "R2_30000": 0.6988277756539819,
+      "final5000_R2_gain": 0.08717058243553277,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D20.BertzCT",
+      "family": "topology/rings",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": -2.168827891612036,
+      "R2_30000": -3.402349447087821,
+      "final5000_R2_gain": -0.03068431430973284,
+      "disposition": "PLATEAU_ELIGIBLE_FOR_E3"
+    },
+    {
+      "field": "P.xtb_ALPB_water.r498.value",
+      "family": "solvation",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": -139.4320987477616,
+      "R2_30000": -0.18748578309321706,
+      "final5000_R2_gain": 6.447996331480093,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_anion.r196.z",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.3964022940250985,
+      "R2_30000": 0.5065078123379907,
+      "final5000_R2_gain": -0.00909073437789365,
+      "disposition": "PLATEAU_ELIGIBLE_FOR_E3"
+    },
+    {
+      "field": "P.pm7_B.r64.value",
+      "family": "charge",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.9036954429145774,
+      "R2_30000": 0.9396091598475119,
+      "final5000_R2_gain": 0.009018171390971275,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D20.MolLogP",
+      "family": "polarity/H-bond",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.3094526757913586,
+      "R2_30000": 0.7794048306145483,
+      "final5000_R2_gain": 0.06469362241233056,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r63.value",
+      "family": "frontier/IP-EA",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.5984379424897048,
+      "R2_30000": 0.8209367975505707,
+      "final5000_R2_gain": 0.037993673049054544,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_singlepoint.r669.z",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.8137500017971406,
+      "R2_30000": 0.9012926881406063,
+      "final5000_R2_gain": 0.04613182568507135,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_octanol.r343.value",
+      "family": "frontier/IP-EA",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.5526556416607018,
+      "R2_30000": 0.8257918866918595,
+      "final5000_R2_gain": 0.043574700664192556,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_vfukui.r712.f_radical",
+      "family": "reactivity",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.6000833459185049,
+      "R2_30000": 0.7121941900840336,
+      "final5000_R2_gain": -0.022111901441472792,
+      "disposition": "PLATEAU_ELIGIBLE_FOR_E3"
+    },
+    {
+      "field": "P.pm7_B.r58.value",
+      "family": "off-equilibrium",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": -2.591497170478796e-05,
+      "R2_30000": 0.0004536857956165541,
+      "final5000_R2_gain": 0.00037164163195446687,
+      "disposition": "PLATEAU_ELIGIBLE_FOR_E3"
+    },
+    {
+      "field": "P.pm7_water.r399.z",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.781295733284032,
+      "R2_30000": 0.8725579363271112,
+      "final5000_R2_gain": 0.030482037811370266,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_anion.r210.value",
+      "family": "charge",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.905022186566315,
+      "R2_30000": 0.9439881075737396,
+      "final5000_R2_gain": 0.010046700396410979,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_vfukui.r712.f_plus",
+      "family": "reactivity",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.4181832286457552,
+      "R2_30000": 0.6348974158500562,
+      "final5000_R2_gain": 0.04302763200355586,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_water.r399.y",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.7292897030965342,
+      "R2_30000": 0.8467538375620881,
+      "final5000_R2_gain": 0.028038092038945583,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r46.value",
+      "family": "reactivity",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.255911594979484,
+      "R2_30000": 0.33008910084442766,
+      "final5000_R2_gain": 0.006333343345217846,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_octanol.r332.x",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.6051774180259522,
+      "R2_30000": 0.803295460392975,
+      "final5000_R2_gain": 0.0634920734448835,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r82.De",
+      "family": "reactivity",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.42561926223199553,
+      "R2_30000": 0.480837380491262,
+      "final5000_R2_gain": 0.032782634104298713,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_cation.r265.y",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.29561369461344855,
+      "R2_30000": 0.4188235023421939,
+      "final5000_R2_gain": 0.03437820147022652,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_anion.r196.y",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.3491623597746423,
+      "R2_30000": 0.4853801661388627,
+      "final5000_R2_gain": 0.019073394166070567,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_fod.r538.value",
+      "family": "reactivity",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": -2.1619018449529714,
+      "R2_30000": 0.8161541038836613,
+      "final5000_R2_gain": 0.5482545672234881,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_cation.r279.value",
+      "family": "charge",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.9205567317047243,
+      "R2_30000": 0.9389044591734994,
+      "final5000_R2_gain": 0.0050314051967012,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r49.value",
+      "family": "frontier/IP-EA",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.4804345232352065,
+      "R2_30000": 0.7002236286074528,
+      "final5000_R2_gain": 0.03675668436675372,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_fod.r537.value",
+      "family": "reactivity",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.43952066346445107,
+      "R2_30000": 0.5913167708843328,
+      "final5000_R2_gain": 0.02232230849178385,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_octanol.r332.y",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.7282737521056727,
+      "R2_30000": 0.8504917176020745,
+      "final5000_R2_gain": 0.03030607752989023,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D20.HallKierAlpha",
+      "family": "topology/rings",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.7100414915605284,
+      "R2_30000": 0.876526139825163,
+      "final5000_R2_gain": 0.018346868224395907,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r73.value.sigma",
+      "family": "bonding",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.019538267935535703,
+      "R2_30000": 0.12993631439742825,
+      "final5000_R2_gain": 0.06203282128417398,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_vipea.r752.value",
+      "family": "frontier/IP-EA",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.3867940070597162,
+      "R2_30000": 0.8177030888763797,
+      "final5000_R2_gain": 0.06558379091261968,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_ALPB_octanol.r459.value",
+      "family": "solvation",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": -283.39011457564396,
+      "R2_30000": 0.24216147765358298,
+      "final5000_R2_gain": 2.6910131680172675,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_cation.r265.x",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.22060828766412655,
+      "R2_30000": 0.38833622045219374,
+      "final5000_R2_gain": 0.07514372640128353,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_octanol.r341.value",
+      "family": "frontier/IP-EA",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.29327325876383814,
+      "R2_30000": 0.7131318587909049,
+      "final5000_R2_gain": 0.08480800240162245,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r52.z",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.7967316674628067,
+      "R2_30000": 0.8825964188479087,
+      "final5000_R2_gain": 0.028126069960020983,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_singlepoint.r672.value",
+      "family": "frontier/IP-EA",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.471189639188735,
+      "R2_30000": 0.7038709878140337,
+      "final5000_R2_gain": 0.04834880635302863,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r52.x",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.6079361259948892,
+      "R2_30000": 0.793490481077425,
+      "final5000_R2_gain": 0.05315517220555055,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D20.NumHAcceptors",
+      "family": "polarity/H-bond",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.7429975293757471,
+      "R2_30000": 0.9440804763737752,
+      "final5000_R2_gain": 0.04714206467604243,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_water.r398.value",
+      "family": "solvation",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.6346098949859864,
+      "R2_30000": 0.9212278018752309,
+      "final5000_R2_gain": 0.08455138083123359,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D3.PBF_A",
+      "family": "3D shape",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.1794865934514177,
+      "R2_30000": 0.6785093777781396,
+      "final5000_R2_gain": 0.10481816731853899,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r50.value",
+      "family": "frontier/IP-EA",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.2795379095830056,
+      "R2_30000": 0.6553379712838903,
+      "final5000_R2_gain": 0.12133217872606894,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D20.NumHeterocycles",
+      "family": "topology/rings",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.4982541643664731,
+      "R2_30000": 0.8664930185238459,
+      "final5000_R2_gain": 0.119747267052567,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D3.PMI3",
+      "family": "3D shape",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.28868730524784936,
+      "R2_30000": -0.3342233131404415,
+      "final5000_R2_gain": -0.01877842249063888,
+      "disposition": "PLATEAU_ELIGIBLE_FOR_E3"
+    },
+    {
+      "field": "P.pm7_B.r44.value",
+      "family": "reactivity",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.16228098792965184,
+      "R2_30000": 0.24020671464738985,
+      "final5000_R2_gain": 0.00035388590594664926,
+      "disposition": "PLATEAU_ELIGIBLE_FOR_E3"
+    },
+    {
+      "field": "P.pm7_B.r48.value",
+      "family": "solvation",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.8175448667153663,
+      "R2_30000": 0.9498672523114506,
+      "final5000_R2_gain": 0.016498607151178457,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_water.r410.value",
+      "family": "frontier/IP-EA",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.5411155585053617,
+      "R2_30000": 0.8225584909294967,
+      "final5000_R2_gain": 0.044741516459360864,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r62.value",
+      "family": "energy",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.3045499597316994,
+      "R2_30000": 0.5567500987921148,
+      "final5000_R2_gain": 0.1253453052957355,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D20.NumAromaticRings",
+      "family": "topology/rings",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.844336856739383,
+      "R2_30000": 0.947729484358401,
+      "final5000_R2_gain": 0.01850390796713519,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r52.y",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.7425730251283656,
+      "R2_30000": 0.8559807202605472,
+      "final5000_R2_gain": 0.030727880218584414,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_singlepoint.r669.x",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.6331492417676701,
+      "R2_30000": 0.8176297956105443,
+      "final5000_R2_gain": 0.06971083769871089,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_anion.r196.x",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.3247044484732369,
+      "R2_30000": 0.4361208880560282,
+      "final5000_R2_gain": 0.06737791310760644,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_octanol.r331.value",
+      "family": "solvation",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.4030243934471681,
+      "R2_30000": 0.9403406833890744,
+      "final5000_R2_gain": 0.11292766967944878,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_octanol.r332.z",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.782007466039991,
+      "R2_30000": 0.8770684359453889,
+      "final5000_R2_gain": 0.031632761085300665,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r61.value",
+      "family": "frontier/IP-EA",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.3171778257434935,
+      "R2_30000": 0.7458311944702872,
+      "final5000_R2_gain": 0.12510442976067215,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r45.value",
+      "family": "reactivity",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.12946548346953812,
+      "R2_30000": 0.17080910432618102,
+      "final5000_R2_gain": 0.01289147507489985,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D20.NumAliphaticRings",
+      "family": "topology/rings",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.15795352660507722,
+      "R2_30000": 0.7843657855499401,
+      "final5000_R2_gain": 0.08636808448996669,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "D20.NumSaturatedRings",
+      "family": "topology/rings",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.247662781818332,
+      "R2_30000": 0.7886580983824226,
+      "final5000_R2_gain": 0.12350321390162555,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r65.value",
+      "family": "bonding",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.8996972317329349,
+      "R2_30000": 0.9089522895054593,
+      "final5000_R2_gain": 0.0019459885915078523,
+      "disposition": "PLATEAU_ELIGIBLE_FOR_E3"
+    },
+    {
+      "field": "D3.PMI2",
+      "family": "3D shape",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.24572182596120618,
+      "R2_30000": -0.2461805607397145,
+      "final5000_R2_gain": -0.013607982951162834,
+      "disposition": "PLATEAU_ELIGIBLE_FOR_E3"
+    },
+    {
+      "field": "P.pm7_cation.r265.z",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.1787484356339325,
+      "R2_30000": 0.3978403496317504,
+      "final5000_R2_gain": 0.06989946569402483,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.pm7_B.r82.charge_density_q_minus_Z",
+      "family": "reactivity",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip10_20261108",
+      "R2_10000": 0.35163495454377147,
+      "R2_30000": 0.40968334787158056,
+      "final5000_R2_gain": 0.020089543571265134,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_singlepoint.r669.y",
+      "family": "multipole",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.7791067416995925,
+      "R2_30000": 0.8751562740269692,
+      "final5000_R2_gain": 0.029324609946228763,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    },
+    {
+      "field": "P.xtb_vipea.r751.value",
+      "family": "frontier/IP-EA",
+      "best_joint_run": "/lfshome/zixiao/model_v31_20261105/M2_DIAG_E2_clip1_20261108",
+      "R2_10000": 0.6289888457840376,
+      "R2_30000": 0.8538070603947887,
+      "final5000_R2_gain": 0.041815899266334,
+      "disposition": "NOT_CONVERGED_NO_MORE_UPDATES"
+    }
+  ],
+  "unrun_cap_families": [],
+  "priority": "Number of still-failed plateau target fields descending; family name for ties; at most12",
+  "E3_recipe": "Original clip1 chain, fresh seed0, original family definitions; no automatic M3 recipe change",
+  "eligibility": "Originally failed; no E2 terminal pass; best E2 variant final5k gain<.005",
+  "fields_outside_eligibility": "Report unresolved; do not infer label-side failure"
+}

@@ -135,6 +135,10 @@ def build_attribution(plan_path,output):
                     metric=e3['_metrics'][name];evidence=e3['_directory']
                     category='多任务干扰';scope='model'
                     reason='原clip1联合30k未达标，同配方实际单家族10k达标'
+                elif complete(e4,30000) and passed(e4['_metrics'][name]):
+                    metric=e4['_metrics'][name];evidence=e4['_directory']
+                    scope='model_unresolved'
+                    reason='实际E4探针已可学；同时改lr与头容量，模型侧细分原因未定'
                 elif name in entry['target_fields']:
                     if complete(e3,10000):
                         metric=e3['_metrics'][name];evidence=e3['_directory']

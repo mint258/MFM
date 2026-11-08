@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import socket
+import stat
 import subprocess
 import time
 
@@ -41,11 +42,17 @@ def model_growth_forecast():
     # The initial 100GB covers this window globally. Closed/partial model
     # outputs already reduce quota available and must not be reserved twice.
     seen=set();allocated=0
-    for path in Path('/lfshome/zixiao/model_v31_20261105').glob('M2_DIAG_*/*'):
-        if path.is_file():
-            stat=path.stat();identity=(stat.st_dev,stat.st_ino)
+    for path in (p for root in Path('/lfshome/zixiao/model_v31_20261105').glob('M2_DIAG_*')
+                 if root.is_dir() for p in root.rglob('*')):
+        try:
+            info=path.lstat()
+        except FileNotFoundError:
+            # Live pytest temporary files may naturally close/disappear.
+            continue
+        if stat.S_ISREG(info.st_mode):
+            identity=(info.st_dev,info.st_ino)
             if identity not in seen:
-                seen.add(identity);allocated+=stat.st_blocks*512
+                seen.add(identity);allocated+=info.st_blocks*512
     return allocated,max(2_000_000_000,100_000_000_000-allocated)
 
 
