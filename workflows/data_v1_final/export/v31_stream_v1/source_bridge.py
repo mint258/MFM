@@ -4,7 +4,7 @@ No synthetic physical identities, labels, ranks or missing conformers. The
 metadata join is separate from numerical traversal; PM7 original typed masks
 plus D4 sparse overrides and Pprime final typed masks are reused directly.
 """
-import collections,concurrent.futures as cf,importlib.util,json,multiprocessing as mp,os,pickle,random,sqlite3,sys
+import collections,concurrent.futures as cf,importlib.util,json,multiprocessing as mp,os,pickle,random,sqlite3,sys,zlib
 from pathlib import Path
 import numpy as np
 from . import identities as A,physical as G
@@ -168,6 +168,20 @@ def project_row(spool,base,entries,typed,raw,source,z,xyz,bonds,codes,ranks,role
     add_piece(spool,base['molecule_id'],gid,'labels',meta,arrays,held)
 
 
+SPOOL_ZLIB1_MAGIC=b'D6_PRIVATE_SPOOL_ZLIB1:'
+
+
+def spool_dumps(value,compression=None):
+    if compression not in (None,'zlib1'):raise ValueError('UNKNOWN_SOURCE_SPOOL_COMPRESSION:'+repr(compression))
+    raw=pickle.dumps(value,protocol=5)
+    return raw if compression is None else SPOOL_ZLIB1_MAGIC+zlib.compress(raw,level=1)
+
+
+def spool_loads(raw):
+    if raw.startswith(SPOOL_ZLIB1_MAGIC):raw=zlib.decompress(raw[len(SPOOL_ZLIB1_MAGIC):])
+    return pickle.loads(raw)
+
+
 def add_piece(db,mid,gid,kind,meta,arrays,held):
     # Only the training F32 representation is spooled; original F64 sources
     # and the independently generated UFF D3 cache remain the authority.
@@ -189,7 +203,7 @@ def add_piece(db,mid,gid,kind,meta,arrays,held):
                 note['max_relative_error']=max(note['max_relative_error'],float(np.max(relative)))
                 note['within_tolerance']&=bool(np.all(np.isfinite(observed)) and np.all(delta<=1e-6+1e-6*np.abs(expected)))
     entry={'gid':gid,'metadata':meta,'arrays':cast,'descriptor':{'kind':kind,'geometry_source':meta['geometry_source'],'path':'original-source-projection','is_holdout':held}}
-    packed=pickle.dumps(entry,protocol=5)
+    packed=spool_dumps(entry,STATE.get('plan',{}).get('source_spool_compression'))
     if STATE.get('disk_guard'):STATE['disk_guard'].wait(STATE['spool_path'],len(packed),2)
     db.execute('INSERT INTO pieces VALUES(?,?)',(mid,packed))
 
@@ -329,13 +343,13 @@ def work(task):
                     project_row(spool,bases[key],entries,row,raw,{'path':rawpath,'bytes':row['source_bytes'],'family':row['family']},row['atomic_numbers'],base_xyz[key],bonds,codes,ranks[key],role,key in held)
         spool.commit();book=['__ABSENT__'];codes={}
         for mid in mids:
-            entries=[pickle.loads(row[0]) for row in spool.execute('SELECT row FROM pieces WHERE mid=?',(mid,))]
+            entries=[spool_loads(row[0]) for row in spool.execute('SELECT row FROM pieces WHERE mid=?',(mid,))]
             item=assemble_entries(mid,entries,STATE['schema']);apply_pprime_eligibility(item,pprime_fit);item['common_population']=contexts[mid][1];item['routine']=routine_by_mid[mid]
             for record in item['p_records']+item['u_records']:
                 channel_codes(record,book,codes);record['r73_codebook']=book.copy();record.pop('r73_channels',None)
                 identity=record['identity'];key=physical_key(identity['geometry_source'],mid,identity['native_record_id'] if identity['geometry_source']=='pm7' else identity.get('storage_physical_alias') or identity['sprime_conf_idx'])
                 if key in STATE['sample_notes']:record['source_F64_cast_comparison']=STATE['sample_notes'][key]
-            packed=pickle.dumps(item,protocol=5)
+            packed=spool_dumps(item,STATE['plan'].get('source_spool_compression'))
             if STATE.get('disk_guard'):STATE['disk_guard'].wait(path,len(packed),2)
             spool.execute('INSERT INTO molecules VALUES(?,?)',(mid,packed));spool.execute('DELETE FROM pieces WHERE mid=?',(mid,));spool.commit()
     finally:identities.close();cache.close();spool.close()
@@ -419,7 +433,7 @@ def stream_split(plan,index,cache,schema,split,start_after=None):
                 for position,mid in enumerate(ref['mids']):
                     row=db.execute('SELECT row FROM molecules WHERE mid=?',(mid,)).fetchone()
                     if row is None:raise ValueError('SOURCE_BLOCK_MOLECULE_MISSING')
-                    item=pickle.loads(row[0])
+                    item=spool_loads(row[0])
                     if position==len(ref['mids'])-1:item['_source_block_end']={'number':number,'ack':ack}
                     yield item
             finally:db.close()

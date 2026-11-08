@@ -486,3 +486,12 @@ Root在6278 writer0提交/cursor=null、UID1278/Node20/cgroup6278/PID2813739/sta
 实际Node20根盘可用265,882,451,968B，现有关闭spool4/5/13/15/16共46,231,064,576B已在used。按rolling6待处理MID×7MB估计新spool，legacy ID未来5GB/tail ID未来80GB，扣原producer按序消费的existing闭合spool；最坏writing净增156,418,033,280B。压缩cap改为Node21 700GB/Node20 205GB，ID碎片仍在压缩前按原流程消费，compact阶段净增158,768,935,424B。Root20联合峰值取两阶段max再加8GiB，得167,358,870,016B；另留95,415,907,124B根盘底线。原raw已allocated7,995,121,664B，计入实际used，Lustre原900GB总量执行预测扣此部分后再加8GiB，剩余900,594,812,928B；预测不作科学输出上限。模型Lustre100GB/其他6GB、账号100GB、NFS窗口三16GiB/其他6GB、SHM8GiB及运行保护保持。实际Node20四文件系统及Node21根盘再次Guard预检0后提交，本次不需要额外迁移闲置缓存。
 
 新增84/85/86均已首次通过并公开，旧测试不重跑；原producer的末尾一次检查/每split一次压缩仍待全量完成。S240k绑定仍NOT_READY，原240000MID不替换；完整D6发布后自动刷新相同共享入口。TRAIN/FULL各单份共享compact，各模型节点共读，无节点LMDB复制。此通知为真实运行续接，尚非最终READY交付。
+
+
+### 2026-11-08 窗口二私有临时 BLOB 封装已测试、待续接
+
+为减少spool临时空间占用、准备在真实容量允许时提高并行，新增可选资源hint `source_spool_compression`：None/default严格保持原pickle5 bytes，zlib1仅对私有SQLite pieces/molecules的既有pickle5外加明确tag与stdlib level1封装；读取自识别tag，旧关闭spool与混合新旧BLOB均沿原流程恢复，损坏tag数据报错。只改add_piece写入、work的piece读取/molecule写入、stream_split读取四处私有路径，以及资源hint名单；cache_index override、D3/witness缓存、科学投影、单次F32转换、最终MFM4编码和每split一次mdb_copy-c不变。
+
+唯一新tiny87在4526295／16CPU20首过，main/batch/extern实际C0／2秒，1PASS／0.071秒。fixture证明解压payload逐字节等于原pickle5、默认字节相同，NaN payload/负零/整数/布尔mask/dtype/形状/字典序/alias保留；真实tinySQLite混合piece→work→tagged molecule加legacy molecule→stream保持原MID/record顺序、旧ref不重放、未ACK保留/ACK后消费，最终codec record/key bytes一致。无生产标签/数组读回、独立QA/hash或吞吐基准，旧86不重跑，累计87项新增首过。
+
+Root已合入固定代码d9a0f4088bbe6d83688c8976f4ccef1be9bbf409，`source_snapshot87`约59.18MB纯代码已准备，未复制数据。当前正式4526292仍使用source86（a727a75）推进，已提交prefix至少5136MIDs，source87为READY_NOT_DEPLOYED；后续在新提交边界按真实文件系统/inode/quota/并发峰值续接。提高buffer必须依据实际生产关闭spool的物理大小重新准入，不以fixture压缩比例作预算保证。最终共享TRAIN/FULL和原S240k成员定义保持，S240k仍NOT_READY，完整producer关闭后自动绑定；各节点共读同一份LMDB。
