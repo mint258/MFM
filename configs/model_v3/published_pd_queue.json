@@ -1,66 +1,75 @@
 {
-  "stage": 5,
-  "status": "PENDING_PUBLISHED_D6",
-  "dependency": {
-    "job": 4526311,
-    "slurm": "afterok:4526311",
-    "binding": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/S240k_PD_input_binding_20261108_v1/manifest.json",
-    "requires": "READY, original240000 membership, unchanged input fields; root bound only at job start"
-  },
-  "source_revision": "e5a3eb86e13cbc4fd7a6261955156ffbaa9220d1",
-  "scientific_recipe": "Original templates: P, C1-0/a/b, seed0, three views, H1, registry pooling, PM7, uniform molecules/conformers, 6M samples, B32/micro4, lr3e-4, clip1, 2% warmup/cosine",
-  "runs": [
-    {
-      "job": 4526376,
-      "candidate": "C1-0",
-      "node": "compute-0-21",
-      "gpu": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
-      "suffix": "0",
-      "template": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_0_seed0.template.json",
-      "execution_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_0_seed0.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0",
-      "actual_updates": 0,
-      "observed_state": "PENDING:Dependency"
-    },
-    {
-      "job": 4526377,
-      "candidate": "C1-a",
-      "node": "compute-0-21",
-      "gpu": "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
-      "suffix": "a",
-      "template": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_a_seed0.template.json",
-      "execution_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_a_seed0.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0",
-      "actual_updates": 0,
-      "observed_state": "PENDING:Dependency"
-    },
-    {
-      "job": 4526378,
-      "candidate": "C1-b",
-      "node": "compute-0-20",
-      "gpu": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-      "suffix": "b",
-      "template": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_b_seed0.template.json",
-      "execution_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_b_seed0.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0",
-      "actual_updates": 0,
-      "observed_state": "PENDING:Dependency"
-    }
-  ],
-  "validation": {
-    "job": 4526373,
-    "new_unit_cases": 7,
-    "passed": 7,
-    "seconds": 0.44,
-    "repository": "PASS",
-    "prior_zero_case_fixture_error_job": 4526372
-  },
-  "budget": {
-    "registry": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/model_output_budget.json",
-    "global_total_forecast_bytes": 100000000000,
-    "physical_allocations_deduplicated": true,
-    "D6_NFS_future_retired_only_after_final_publication": true
-  },
-  "selection": "Do not choose joint C1 winner or supplementary seeds until actual P dev scores are available with the retained S scores"
+    "stage":  5,
+    "status":  "PENDING_PUBLISHED_D6",
+    "dependency":  {
+                       "job":  4526311,
+                       "slurm":  "afterok:4526311",
+                       "binding":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/S240k_PD_input_binding_20261108_v1/manifest.json",
+                       "requires":  "READY, original240000 membership, unchanged input fields; root bound only at job start"
+                   },
+    "source_revision":  "e5a3eb86e13cbc4fd7a6261955156ffbaa9220d1",
+    "scientific_recipe":  "Original templates: P, C1-0/a/b, seed0, three views, H1, registry pooling, PM7, uniform molecules/conformers, 6M samples, B32/micro4, lr3e-4, clip1, 2% warmup/cosine",
+    "runs":  [
+                 {
+                     "job":  4526376,
+                     "candidate":  "C1-0",
+                     "node":  "compute-0-21",
+                     "gpu":  "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+                     "suffix":  "0",
+                     "template":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_0_seed0.template.json",
+                     "execution_configuration":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_0_seed0.json",
+                     "output":  "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0",
+                     "actual_updates":  0,
+                     "observed_state":  "PENDING:Dependency",
+                     "evaluation_job":  4526381,
+                     "evaluation_dependency":  "afterok:4526376",
+                     "evaluation_output":  "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0/dev_eval"
+                 },
+                 {
+                     "job":  4526377,
+                     "candidate":  "C1-a",
+                     "node":  "compute-0-21",
+                     "gpu":  "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+                     "suffix":  "a",
+                     "template":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_a_seed0.template.json",
+                     "execution_configuration":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_a_seed0.json",
+                     "output":  "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0",
+                     "actual_updates":  0,
+                     "observed_state":  "PENDING:Dependency",
+                     "evaluation_job":  4526382,
+                     "evaluation_dependency":  "afterok:4526377",
+                     "evaluation_output":  "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0/dev_eval"
+                 },
+                 {
+                     "job":  4526378,
+                     "candidate":  "C1-b",
+                     "node":  "compute-0-20",
+                     "gpu":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+                     "suffix":  "b",
+                     "template":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_b_seed0.template.json",
+                     "execution_configuration":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_b_seed0.json",
+                     "output":  "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0",
+                     "actual_updates":  0,
+                     "observed_state":  "PENDING:Dependency",
+                     "evaluation_job":  4526383,
+                     "evaluation_dependency":  "afterok:4526378",
+                     "evaluation_output":  "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0/dev_eval"
+                 }
+             ],
+    "validation":  {
+                       "job":  4526373,
+                       "new_unit_cases":  7,
+                       "passed":  7,
+                       "seconds":  0.44,
+                       "repository":  "PASS",
+                       "prior_zero_case_fixture_error_job":  4526372
+                   },
+    "budget":  {
+                   "registry":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/model_output_budget.json",
+                   "global_total_forecast_bytes":  100000000000,
+                   "physical_allocations_deduplicated":  true,
+                   "D6_NFS_future_retired_only_after_final_publication":  true
+               },
+    "selection":  "Do not choose joint C1 winner or supplementary seeds until actual P dev scores are available with the retained S scores",
+    "evaluation_protocol":  "Reuse existing v2_evaluate_s.py exactly: frozen TRAIN/train_inner_validation panel, all18 cells, paired random reference and bootstrap; no downstream TEST"
 }
-
