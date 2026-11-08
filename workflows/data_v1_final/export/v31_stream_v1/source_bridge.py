@@ -114,13 +114,16 @@ def init(plan,index,cache,schema):
 def read_selected(path,positions,columns=None):
     """One forward selected source stream; never materialize an entire RG."""
     import pyarrow.parquet as pq
-    pf=pq.ParquetFile(path,pre_buffer=False);positions=set(positions);lo=0
+    pf=pq.ParquetFile(path,pre_buffer=False);positions=sorted(set(positions));cursor=0;lo=0
     try:
         for batch in pf.iter_batches(batch_size=16,columns=columns,use_threads=False):
             hi=lo+batch.num_rows
-            for pos in sorted(p for p in positions if lo<=p<hi):yield pos,batch.slice(pos-lo,1).to_pylist()[0]
+            while cursor<len(positions) and positions[cursor]<lo:cursor+=1
+            while cursor<len(positions) and positions[cursor]<hi:
+                pos=positions[cursor];cursor+=1
+                yield pos,batch.slice(pos-lo,1).to_pylist()[0]
             lo=hi
-            if positions and lo>max(positions):break
+            if positions and lo>positions[-1]:break
     finally:pf.close()
 
 
@@ -209,6 +212,19 @@ def order_ranks(source_orders,identity):
     return ranks
 
 
+def uff_candidate_index(bases):
+    lookup=collections.defaultdict(list)
+    for key,base in bases.items():
+        if key[1]=='uff_sprime':lookup[(key[0],base['geometry_id'])].append(key)
+    return lookup
+
+
+def pprime_candidate_key(lookup,mid,conf,bound_gid):
+    candidates=lookup.get((mid,bound_gid),())
+    if len(candidates)!=1:raise ValueError('ACTUAL_PPRIME_PHYSICAL_GEOMETRY_MUST_BE_UNAMBIGUOUS:'+repr((mid,conf,bound_gid)))
+    return candidates[0]
+
+
 def work(task):
     number,mids,split=task;STATE['sample_notes']={}
     path,marker=spool_paths(STATE['plan'],number,split)
@@ -239,6 +255,7 @@ def work(task):
                 bases[(mid,src,physical)]=p
                 source_orders=json.loads(order['pm7_orders_json'] if src=='pm7' else order['sprime_orders_json']);identity=physical if src=='pm7' else p['sprime_conf_idx']
                 ranks[(mid,src,physical)]=order_ranks(source_orders,identity) if ordinary else {}
+        uff_by_mid_gid=uff_candidate_index(bases)
         locations=list(locators_for_mids(STATE['plan']['source_index'],mids,domains=(0,),families=('base_geometry',)))
         base_locs=[loc for loc in locations if loc['family']=='base_geometry']
         for loc,raw in iter_source_rows(base_locs,['atomic_numbers','positions_A','bond_pairs','bond_order_codes']):
@@ -304,9 +321,7 @@ def work(task):
                 for physical,raw in read_selected(rawpath,physical_rows,['record_id','molecule_id','calc_type','total_atoms','values','numeric_issues','reproduction_package_sha256','input_bundle_sha256','input_file_sha256']):
                     _,row=physical_rows[physical];mid=row['molecule_id']
                     if raw.get('record_id')!=row['record_id'] or raw.get('molecule_id')!=mid or raw.get('calc_type')!=row['calc_type']:raise ValueError('PPRIME_ORIGINAL_RAW_TYPED_PHYSICAL_ROW_ALIGNMENT')
-                    bound_gid=row['geometry_id'];candidates=[k for k,b in bases.items() if k[0]==mid and k[1]=='uff_sprime' and b['geometry_id']==bound_gid]
-                    if len(candidates)!=1:raise ValueError('ACTUAL_PPRIME_PHYSICAL_GEOMETRY_MUST_BE_UNAMBIGUOUS:'+repr((mid,row['sprime_conf_idx'],bound_gid)))
-                    key=candidates[0]
+                    bound_gid=row['geometry_id'];key=pprime_candidate_key(uff_by_mid_gid,mid,row['sprime_conf_idx'],bound_gid)
                     if bound_gid in pprime_fit and pprime_fit[bound_gid]!=bool(row['fit_eligible']):raise ValueError('INCONSISTENT_PRODUCED_PPRIME_FIT_FLAGS')
                     pprime_fit[bound_gid]=bool(row['fit_eligible'])
                     entries=K.unpack_entries(row,STATE['fields']);role,_=contexts[mid];bonds,codes=topology[key]

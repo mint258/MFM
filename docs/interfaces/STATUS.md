@@ -443,3 +443,12 @@ S240k仍NOT_READY/root=null；完整producer原一次末尾检查及TRAIN/FULL�
 6278的新SOURCE_BLOCK_FAILED即时日志提前定位block7 TypeError。仅查询闭合D7顺序元数据后，确认 `molecule_01000052` 的原orders字典含三种真实顺序及 `status: COMPLETE`；旧adapter误遍历全部metadata。现仅提取原fixed_random/energy/diversity，原列表/index完全保留，None/缺失仍不造顺序。无标签或坐标读回/重新排序。新增唯一fixture82覆盖PM7 string、UFF int、status及额外metadata、缺失/None和原列表不变；实际6279主/batch/extern C0，首次1PASS（unittest显示0.000秒），81及旧80不重跑。
 
 Root在6278 writer0提交/cursor=null、UID1278/Node20/cgroup6278/PID2813739/start_ticks1198490264精确匹配后发SIGINT优雅退出；父实际FAILED1:0/04:41，未冒称C0。新冻结代码0040a90ed27f3f12fdec2e9d6723c8ebffbed94b/source_snapshot82包含81与82修复；Main代码目录及Node20四文件系统/Node21根盘再次真实容量Guard准入通过，已提交4526281／16CPU20。原checkpoint副本保留，仅在0记录边界绑定schema.code_commit；所有科学参数、样本、counts、cursor、源/上游/14.52GB索引和旧attempt均保留。最终仍每split单份共享LMDB，S240k须等真实D6 manifest后READY。
+
+
+## 2026-11-08 窗口二：两处重复查找改为线性，首次unit83通过；当前6281保持运行
+
+代码检查确认原PP每行扫描全部bases为O(RG)，每16行读取批次重扫K个位置为O(TK)。现按原predicate一次建(MID,GID)→UFF候选list，保留候选顺序及原歧义错误；行号只排序去重一次并前向移动，原16-row batch/pre_buffer/use_threads/slice及输出升序不变。没有数值运算、顺序定义、样本或筛选改动，也没有吞吐benchmark。
+
+唯一新增fixture83使用合成Parquet与原算法验证候选/列/物理行序/NaN及-0位值、负数/越界/空集合、关闭行为、源bytes及原歧义错误；实际4526284／16CPU20主/batch/extern C0／8秒，首次1PASS／3.915秒。旧82不重跑。Main4eede35b8314e70a97afc0c0bd11904307b8a297/source_snapshot83已在实际共享盘quota/容量Guard保护下准备。
+
+当前健康D6仍为4526281、执行0040/source_snapshot82，未中断或改动其plan/admission。已实际闭合spool1/2/4/5，writer checkpoint仍0提交；这些结果会按原source顺序消费。新83等待真实已提交分组检查点后再续接，或处理实际容量等待时使用；保留闭合spool/cursor/全部上游。S240k继续NOT_READY，最终每split单份共享LMDB且无模型ACK门。
