@@ -280,8 +280,8 @@ def work(task):
             entries=K.unpack_entries(pickle.loads(packed),STATE['fields'])
             project_row(spool,p,entries,{}, {'calc_type':'D3','record_id':p['geometry_id']},{'path':hit[0],'family':'D3'},zmap[key],xyz,bonds,codes,ranks[key],role,key in held)
         from ...labels.window2_normalization_v1.reader import observations
-        from ...labels.window2_normalization_v1.r73 import ForwardRaw
-        cfg=dict(STATE['normalization']['inputs'],statistics_purpose='D6_export',emit_source=True,filter_mids=set(mids),
+        from ...labels.window2_normalization_v1.selected import RowGroupForwardRaw as ForwardRaw
+        cfg=dict(STATE['normalization']['inputs'],statistics_purpose='D6_export',emit_source=True,filter_mids=set(mids),d6_selected_row_groups=True,
                  field_map_reference=STATE['normalization']['inputs']['field_map_reference'],
                  r73_derived_reference=STATE['normalization']['statistics']['r73_derived_reference'],
                  mask_overrides_reference=STATE['normalization']['statistics']['mask_overrides_reference'])
@@ -379,9 +379,35 @@ def submit_source_block(pool,task):
     return future
 
 
+SOURCE_TASK_PREFIX_GROUPS=18
+SOURCE_TASK_NUMBER_STRIDE=1<<20
+
+
+def source_tasks(plan,groups,split,start_after=None):
+    width=plan.get('source_task_molecules')
+    if width is not None and (type(width)is not int or width<=0):raise ValueError('SOURCE_TASK_MOLECULES_MUST_BE_POSITIVE_INTEGER_OR_NULL')
+    if width is None and start_after is not None and start_after>=SOURCE_TASK_NUMBER_STRIDE:
+        raise ValueError('ENCODED_SOURCE_CURSOR_REQUIRES_ORIGINAL_CHUNK_HINT')
+    legacy=start_after is not None and start_after<SOURCE_TASK_NUMBER_STRIDE
+    def tasks():
+        for group,values in enumerate(groups):
+            mids=values[split]
+            if not mids:continue
+            if width is None or group<SOURCE_TASK_PREFIX_GROUPS:
+                if start_after is None or group>start_after:yield group,mids,split
+                continue
+            if legacy and group<=start_after:continue
+            chunks=(len(mids)+width-1)//width
+            if chunks>SOURCE_TASK_NUMBER_STRIDE:raise ValueError('SOURCE_TASK_SUBINDEX_EXCEEDS_NUMBER_STRIDE')
+            for subindex,lo in enumerate(range(0,len(mids),width)):
+                number=group*SOURCE_TASK_NUMBER_STRIDE+subindex
+                if start_after is None or legacy or number>start_after:yield number,mids[lo:lo+width],split
+    return tasks()
+
+
 def stream_split(plan,index,cache,schema,split,start_after=None):
     groups=source_molecule_groups(plan,index)
-    tasks=iter((i,g[split],split) for i,g in enumerate(groups) if g[split] and (start_after is None or i>start_after));workers=int(plan['workers'])
+    tasks=source_tasks(plan,groups,split,start_after);workers=int(plan['workers'])
     buffer=int(plan.get('streaming_buffer_blocks',workers))
     if not 1<=buffer<=workers:raise ValueError('STREAMING_BUFFER_MUST_BE_BETWEEN_ONE_AND_WORKERS')
     # Same source-job/MID order; only the bounded pending window is adjustable.

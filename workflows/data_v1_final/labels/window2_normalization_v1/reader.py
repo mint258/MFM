@@ -43,6 +43,11 @@ def observations(cfg,group,fields,**unused):
     eligibility={row[0]:row[1:] for row in rows};owners={}
     for row in index.execute('SELECT '+','.join(RECORD_COLUMNS)+' FROM records WHERE job_id=? ORDER BY record_ordinal',(group['source_job_id'],)):
         owner=dict(zip(RECORD_COLUMNS,row));owners[owner['record_id']]=effective_owner(owner,eligibility.get(owner['record_ordinal']))
+    selected_ordinals=None
+    if cfg.get('d6_selected_row_groups'):
+        need(cfg['statistics_purpose']=='D6_export','SELECTED_ROW_GROUPS_ARE_D6_ONLY')
+        selected_ordinals=tuple(sorted(owner['record_ordinal'] for owner in owners.values()
+                                       if owner['molecule_id'] in cfg['filter_mids']))
     numbers_cache={};counts={task:0 for task in B.TASKS};overrides=[];means={}
     from .r73 import Derived
     derived=Derived(cfg,group,fields) if any(f['field_id']>=146 for f in fields) else None
@@ -61,7 +66,11 @@ def observations(cfg,group,fields,**unused):
                 windows.setdefault((lo,hi),[]).append((task,json.loads(pr)))
             previous=-1
             for (lo,hi),parts in windows.items():
-                streams=[one_part(pr,fid,lo,hi) for _,pr in parts];heap=[]
+                if selected_ordinals is None:streams=[one_part(pr,fid,lo,hi) for _,pr in parts]
+                else:
+                    from .selected import one_part_selected
+                    streams=[one_part_selected(pr,fid,lo,hi,selected_ordinals) for _,pr in parts]
+                heap=[]
                 try:
                     for k,stream in enumerate(streams):
                         row=next(stream,None)
@@ -99,7 +108,8 @@ def observations(cfg,group,fields,**unused):
                         if nxt is not None:heapq.heappush(heap,(nxt['physical_row'],k,nxt))
                 finally:
                     for stream in streams:stream.close()
-        need(all(value==len(owners) for value in counts.values()),'ORIGINAL_14_TASK_RECORD_MASS')
+        expected=len(owners) if selected_ordinals is None else len(selected_ordinals)
+        need(all(value==expected for value in counts.values()),'ORIGINAL_14_TASK_RECORD_MASS')
         if purpose=='element_reference':
             cfg['mask_override_rows']=len(overrides);cfg['EA_newly_masked_records']=sum(override['newly_masked_leaves']>0 for override in overrides)
             write_overrides(Path(cfg['group_output_root'])/'mask_overrides.parquet',overrides)

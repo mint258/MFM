@@ -94,6 +94,12 @@ def distribute(root,nodes,destination):
     return completed
 
 
+def validate_source_task_resume(previous,current,active):
+    cursor=None if active is None else active.get('source_cursor')
+    if cursor is not None and cursor>=(1<<20) and previous.get('source_task_molecules')!=current.get('source_task_molecules'):
+        raise ValueError('ENCODED_SOURCE_CURSOR_CHUNK_HINT_CHANGED')
+
+
 def export(plan,molecules,schema):
     """Consume TRAIN then FULL; only one uncompressed split exists at a time.
 
@@ -129,8 +135,9 @@ def export(plan,molecules,schema):
         os.replace(pending,checkpoint)
     if resume:
         with checkpoint.open('rb') as source:state=pickle.load(source)
-        frozen=lambda p:{k:v for k,v in p.items() if k not in ('disk_protection','streaming_buffer_blocks','workers','metadata_working_root','chunk_compaction','id_map_storage','source_spool_root','id_fragment_working_root','cache_index_working_root')}
+        frozen=lambda p:{k:v for k,v in p.items() if k not in ('disk_protection','streaming_buffer_blocks','workers','metadata_working_root','chunk_compaction','id_map_storage','source_spool_root','id_fragment_working_root','cache_index_working_root','source_task_molecules')}
         if frozen(state['plan'])!=frozen(plan):raise ValueError('RESUME_FROZEN_PRODUCER_INPUTS_CHANGED')
+        validate_source_task_resume(state['plan'],plan,state.get('active'))
         schema=state['schema'];indices=state['indices'];counts=state['counts'];conformers=state['conformers']
         if 'journal_state' in state:journals,seen,samples=Journals.restore(root,state['journal_state'],guard)
         else:

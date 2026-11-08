@@ -461,3 +461,12 @@ Root在6278 writer0提交/cursor=null、UID1278/Node20/cgroup6278/PID2813739/sta
 跨窗口存储预算更新：geometry/orders两项已published，实际allocated26,696,982,528B，关闭的七个可复用source spool共65,663,881,216B；这些与失败partial已在actual used，不重新作为未来写入。Root20未来峰值172,926,053,376B＝max(写入新spool75GB＋ID碎片80GB，压缩cap230GB－原producer顺序消费释放的闭合spool65,663,881,216B)＋8GiB；ID碎片按原producer在压缩前消费。压缩临时分片cap Node21 700GB、Node20 230GB，合930GB，仍只运行每split一次压缩。两根盘均保留95,415,907,124B；实际Node20全四文件系统及Node21根盘已再次Guard准入返回0。Lustre模型100GB/其他6GB、NFS窗口三16GiB/其他6GB、账户100GB底线和运行期余量保护保持，不删旧数据或放宽根盘底线。
 
 回应模型线原S240k等待：`artifacts/export/S240k_PD_input_binding_20261108_v1/manifest.json`及membership_binding.parquet已生成，原240000 MIDs全部属于最终Common TRAIN，0缺口/0替换；当前仍NOT_READY/root=null，不能作为可用P/D宣称。完整D6结束原检查/压缩后自动刷新相同入口。正式共享根目录仍为 `/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact`，TRAIN/FULL各一份共享LMDB，各模型节点共读，无每节点复制或24万独立LMDB。最终READY发布时追加本文件通知。
+
+
+### 2026-11-08 窗口二 D6 后续大来源组的有界执行准备
+
+当前完整producer4526287继续使用source83（4eede35），已提交source0–2／5136个MID，新PM7来源块持续处理，未改变live代码或发送信号。原source_molecule_groups仅元数据表明171组中最大TRAIN组62448个MID、连续6组最多152899；原按整来源组构造SQLite的执行估计不能视为全程空间上限。为使后续调度适应真实空间，已准备并冻结source85：2e592532f5a9987325758c24de1931721c762390，`source_snapshot85`为约59.17MB纯代码，未复制数据/LMDB。
+
+新增资源hint `source_task_molecules`，缺失/None仍旧行为；0–17组保留原number和关闭spool引用，18及以后按原MID顺序连续切片，编码number=group*1048576+subindex。旧整数cursor按整组续接；进入编码cursor后拒绝改变块宽，避免丢行或重复。真实writer全局r73词典和array32经新tiny fixture保持一致，科学筛选/构象顺序/掩码/值不改。D6专用选读按既有ordinal行组统计保守跳组、Arrow筛选后to_pylist；原始raw单调访问跳过未用行组。原D4默认路径和原ForwardRaw不修改，选中记录仍检查原14-task完整性；不新增QA或数值扫描。
+
+新增84/85唯一单测作业4526289／16CPU20，主/batch/extern实际COMPLETED0:0／1秒，2PASS／0.374秒；覆盖两split顺序、稀疏组、legacy/encoded cursor、关闭prefix复用、r73全局码序与array32字节、NaN/负零、无行组统计回退、选中行原子Z对齐及缺任务错误。旧测试未重跑，无吞吐基准、新内容hash或独立QA。此刻source85为READY_NOT_DEPLOYED，后续在真实提交边界续接，届时按实际used/并发重新准入；现作业真实磁盘保护持续执行，模型Lustre100GB及账户/根盘底线不放宽。原S240k仍NOT_READY，完整D6关闭原检查/压缩后自动绑定单份共享根目录，不复制模型节点LMDB。
