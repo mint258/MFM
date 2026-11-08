@@ -112,19 +112,16 @@ def init(plan,index,cache,schema):
 
 
 def read_selected(path,positions,columns=None):
-    """One forward selected source stream; never materialize an entire RG."""
-    import pyarrow.parquet as pq
-    pf=pq.ParquetFile(path,pre_buffer=False);positions=sorted(set(positions));cursor=0;lo=0
+    """Exact increasing selected positions, skipping unused physical row groups."""
+    from ...labels.window2_normalization_v1.selected import RowGroupForwardRaw
+    raw=RowGroupForwardRaw(path,columns)
     try:
-        for batch in pf.iter_batches(batch_size=16,columns=columns,use_threads=False):
-            hi=lo+batch.num_rows
-            while cursor<len(positions) and positions[cursor]<lo:cursor+=1
-            while cursor<len(positions) and positions[cursor]<hi:
-                pos=positions[cursor];cursor+=1
-                yield pos,batch.slice(pos-lo,1).to_pylist()[0]
-            lo=hi
-            if positions and lo>positions[-1]:break
-    finally:pf.close()
+        for position in sorted(set(positions)):
+            if position<0:continue
+            try:row=raw.get(position)
+            except StopIteration:break
+            yield position,row
+    finally:raw.close()
 
 
 def metadata(base,role,ranks,task=None,view=None):

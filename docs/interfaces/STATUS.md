@@ -470,3 +470,10 @@ Root在6278 writer0提交/cursor=null、UID1278/Node20/cgroup6278/PID2813739/sta
 新增资源hint `source_task_molecules`，缺失/None仍旧行为；0–17组保留原number和关闭spool引用，18及以后按原MID顺序连续切片，编码number=group*1048576+subindex。旧整数cursor按整组续接；进入编码cursor后拒绝改变块宽，避免丢行或重复。真实writer全局r73词典和array32经新tiny fixture保持一致，科学筛选/构象顺序/掩码/值不改。D6专用选读按既有ordinal行组统计保守跳组、Arrow筛选后to_pylist；原始raw单调访问跳过未用行组。原D4默认路径和原ForwardRaw不修改，选中记录仍检查原14-task完整性；不新增QA或数值扫描。
 
 新增84/85唯一单测作业4526289／16CPU20，主/batch/extern实际COMPLETED0:0／1秒，2PASS／0.374秒；覆盖两split顺序、稀疏组、legacy/encoded cursor、关闭prefix复用、r73全局码序与array32字节、NaN/负零、无行组统计回退、选中行原子Z对齐及缺任务错误。旧测试未重跑，无吞吐基准、新内容hash或独立QA。此刻source85为READY_NOT_DEPLOYED，后续在真实提交边界续接，届时按实际used/并发重新准入；现作业真实磁盘保护持续执行，模型Lustre100GB及账户/根盘底线不放宽。原S240k仍NOT_READY，完整D6关闭原检查/压缩后自动绑定单份共享根目录，不复制模型节点LMDB。
+
+
+### 2026-11-08 窗口二 Pprime 物理行组选读补充（待续接）
+
+已将read_selected的既定物理行号集合接到同一RowGroupForwardRaw：先按原规则去重/排序，负行号仍跳过，越界不产出，空选择不解码无关组；每个返回位置/列顺序/NaN/负零与原算法一致。这样Pprime typed/raw与PM7原始读取均可跳过未使用的前缀行组，避免tail小块反复扫描无关数值。此变更只修改读取实现，不改科学标签/掩码、身份、成员、任务或排序。
+
+唯一新增unit86在实际4526290／16CPU20首过：main/batch COMPLETED0:0（显示0秒），extern C0／1秒，1PASS／0.287秒；微型53行/5行组fixture覆盖重复/负数/越界/空集合/列选择/行序/NaN/负零和真实跳组，原83/84/85不重跑，无生产标签扫描、独立QA或吞吐基准。包含已通过84/85的完整待续接代码为a727a75045784e3dd94d6c7af558100807ed0289，`source_snapshot86`约59.17MB纯代码已准备；累计86项新增测试首过。当前正式4526287仍使用source83（4eede35），未切换、未发信号，已有source0–2/5136MID前缀及关闭spool保留。待真实新提交边界后按实际文件系统/quota/并发峰值准入再续接。S240k仍NOT_READY；最终TRAIN/FULL各单份共享LMDB，各节点共读。
