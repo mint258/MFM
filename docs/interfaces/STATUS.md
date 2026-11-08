@@ -477,3 +477,12 @@ Root在6278 writer0提交/cursor=null、UID1278/Node20/cgroup6278/PID2813739/sta
 已将read_selected的既定物理行号集合接到同一RowGroupForwardRaw：先按原规则去重/排序，负行号仍跳过，越界不产出，空选择不解码无关组；每个返回位置/列顺序/NaN/负零与原算法一致。这样Pprime typed/raw与PM7原始读取均可跳过未使用的前缀行组，避免tail小块反复扫描无关数值。此变更只修改读取实现，不改科学标签/掩码、身份、成员、任务或排序。
 
 唯一新增unit86在实际4526290／16CPU20首过：main/batch COMPLETED0:0（显示0秒），extern C0／1秒，1PASS／0.287秒；微型53行/5行组fixture覆盖重复/负数/越界/空集合/列选择/行序/NaN/负零和真实跳组，原83/84/85不重跑，无生产标签扫描、独立QA或吞吐基准。包含已通过84/85的完整待续接代码为a727a75045784e3dd94d6c7af558100807ed0289，`source_snapshot86`约59.17MB纯代码已准备；累计86项新增测试首过。当前正式4526287仍使用source83（4eede35），未切换、未发信号，已有source0–2/5136MID前缀及关闭spool保留。待真实新提交边界后按实际文件系统/quota/并发峰值准入再续接。S240k仍NOT_READY；最终TRAIN/FULL各单份共享LMDB，各节点共读。
+
+
+### 2026-11-08 窗口二 source86 已实际续接完整 D6
+
+完整D6实际4526292／compute-0-20／16CPU已RUNNING，固定源码a727a75045784e3dd94d6c7af558100807ed0289，W16/B6、`source_task_molecules=2048`（0–17原组/关闭ref保持，tail连续切片）。旧6287因前向部署等价选读/有界调度，由Root对准确UID1278/cgroup4526287/cwd source_snapshot83/PID2822064、startticks1199234837的own进程组SIGINT；父实际FAILED1:0／00:41:18，非C0。真实cursor2／5136MID、P51360/U50691前缀、所有关闭ref和旧临时文件保留；原checkpoint备份`producer_checkpoint.before_bounded_source86_4526287.pkl`，schema实现履历保留0040→4eede→a727。无新Native/QM/Pprime/D3，无科学规则/成员/排序变更。
+
+实际Node20根盘可用265,882,451,968B，现有关闭spool4/5/13/15/16共46,231,064,576B已在used。按rolling6待处理MID×7MB估计新spool，legacy ID未来5GB/tail ID未来80GB，扣原producer按序消费的existing闭合spool；最坏writing净增156,418,033,280B。压缩cap改为Node21 700GB/Node20 205GB，ID碎片仍在压缩前按原流程消费，compact阶段净增158,768,935,424B。Root20联合峰值取两阶段max再加8GiB，得167,358,870,016B；另留95,415,907,124B根盘底线。原raw已allocated7,995,121,664B，计入实际used，Lustre原900GB总量执行预测扣此部分后再加8GiB，剩余900,594,812,928B；预测不作科学输出上限。模型Lustre100GB/其他6GB、账号100GB、NFS窗口三16GiB/其他6GB、SHM8GiB及运行保护保持。实际Node20四文件系统及Node21根盘再次Guard预检0后提交，本次不需要额外迁移闲置缓存。
+
+新增84/85/86均已首次通过并公开，旧测试不重跑；原producer的末尾一次检查/每split一次压缩仍待全量完成。S240k绑定仍NOT_READY，原240000MID不替换；完整D6发布后自动刷新相同共享入口。TRAIN/FULL各单份共享compact，各模型节点共读，无节点LMDB复制。此通知为真实运行续接，尚非最终READY交付。
