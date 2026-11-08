@@ -173,6 +173,43 @@ def finish_phase0_summary(output, baseline=BASELINE):
     return summary
 
 
+def classify_phase0(output):
+    """User-delegated A screen, derived from the unchanged R2>=.95 budget."""
+    import math
+    output=Path(output)
+    path=output/'phase0_fields.csv'
+    with path.open() as file:
+        rows=list(csv.DictReader(file))
+    threshold=math.sqrt(1-.95)
+    for row in rows:
+        # Jensen: MSE >= mean(error)^2; this bias alone exceeds the
+        # entire original R2 error budget. It is suspicion, not attribution.
+        a=bool(row['mean_bias_over_std'] and abs(float(row['mean_bias_over_std']))>threshold)
+        p=row['P_flag']=='True'; c=row['C_flag']=='True'
+        row['A_flag']=a
+        row['main_class']='P' if p else 'A' if a else 'C' if c else 'U'
+    summary_path=output/'summary.json'
+    summary=json.loads(summary_path.read_text())
+    failures=[row for row in rows if row['original_pass']=='False']
+    a_failures=sum(row['main_class']=='A' for row in failures)
+    summary.update(status='PHASE0_CLASSIFIED',
+        A_definition='abs(mean_bias)/label_std > sqrt(1-0.95); bias alone exceeds the original R2 error budget',
+        A_threshold=threshold,A_rule_authority='User explicitly delegated the missing definition on2026-11-08',
+        A_is_suspicion_not_causal_attribution=True,
+        primary_counts_all={k:sum(row['main_class']==k for row in rows) for k in ('P','A','C','U')},
+        primary_counts_failed={k:sum(row['main_class']==k for row in failures) for k in ('P','A','C','U')},
+        A_fraction_failed=a_failures/len(failures),
+        E1_required=summary['E1_required_by_spearman'] or a_failures/len(failures)>=.3)
+    # Preserve the original pending-classification publications in full.
+    path.rename(output/'phase0_fields.before_A_rule.csv')
+    summary_path.rename(output/'summary.before_A_rule.json')
+    write_rows(path,rows)
+    save_metadata_json(summary,summary_path)
+    print(json.dumps({k:summary[k] for k in ('status','primary_counts_all','primary_counts_failed',
+        'A_threshold','A_fraction_failed','E1_required')}),flush=True)
+    return summary
+
+
 def proposal_reference(model,samples,phase0_csv):
     """Unapproved side-by-side proposal, never a replacement for R2>=.95."""
     with Path(phase0_csv).open() as file:
