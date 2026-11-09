@@ -34,5 +34,43 @@
              ],
     "selection_scope":  "Prepare top-two repeats only; no final architecture choice or seed SD",
     "preparation_job":  4529082,
-    "dependency":  "afterok:4526381:4526382:4526383"
+    "dependency":  "afterok:4526381:4526382:4526383",
+    "execution_overrides":  {
+                                "S":  {
+                                          "C1-b":  {
+                                                       "microbatch_size":  8
+                                                   },
+                                          "C1-a":  {
+                                                       "microbatch_size":  8
+                                                   }
+                                      },
+                                "P":  {
+                                          "C1-a":  {
+                                                       "microbatch_size":  8
+                                                   },
+                                          "C1-b":  {
+                                                       "microbatch_size":  8
+                                                   },
+                                          "C1-0":  {
+                                                       "microbatch_size":  8
+                                                   }
+                                      }
+                            },
+    "execution_resource_basis":  {
+                                     "unknown_S_C1_0_peak":  "Retain microbatch4",
+                                     "source_microbatch":  4,
+                                     "science":  "Only execution microbatch changes; weighted observation means, effective batch32, sample budget, data, optimizer, clipping and schedule preserved",
+                                     "P_peak_checkpoint_samples":  64000,
+                                     "S_full_6M_peak_bytes":  {
+                                                                  "C1-b":  6118976000,
+                                                                  "C1-a":  6111961088
+                                                              },
+                                     "forecast":  "2x recorded peak with25pct execution margin; fresh assigned GPU capacity required before actual launch",
+                                     "effective_batch":  32,
+                                     "P_peak_bytes":  {
+                                                          "C1-a":  3448503808,
+                                                          "C1-b":  3461263872,
+                                                          "C1-0":  4023376896
+                                                      }
+                                 }
 }

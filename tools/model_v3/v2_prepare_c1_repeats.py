@@ -53,16 +53,22 @@ def initial_result(entry, cells):
     return row, configuration
 
 
-def repeat_configuration(condition, candidate, original):
+def repeat_configuration(condition, candidate, original, *, microbatch_size=None):
+    if microbatch_size is not None and (type(microbatch_size) is not int
+            or not 0 < microbatch_size <= original['batch_size']):
+        raise ValueError('Execution microbatch must fit the unchanged effective batch')
     output = str(BASE/f'M3_{condition}_{candidate}_seed1')
     if condition == 'P':
-        return 'v31', dict(original, seed=1, output=output)
+        configuration = dict(original, seed=1, output=output)
+        if microbatch_size is not None:
+            configuration['microbatch_size'] = microbatch_size
+        return 'v31', configuration
     if condition != 'S' or original['betas'] != [.9, .95]:
         raise ValueError('The original native S recipe is required')
     configuration = {name: original[name] for name in
         ('distance_bias', 'views', 'samples', 'batch_size', 'lr', 'schedule', 'clip')}
     configuration.update(index_path=original['D5_index'], output=output, seed=1,
-        workers=14, microbatch_size=4)
+        workers=14, microbatch_size=4 if microbatch_size is None else microbatch_size)
     return 'native_s', configuration
 
 
@@ -80,7 +86,11 @@ def prepare(inputs, output):
     pending = []
     for candidate in result['selected_top_two']:
         for condition in ('S', 'P'):
-            mode, configuration = repeat_configuration(condition, candidate, originals[(condition,candidate)])
+            execution = inputs.get('execution_overrides', {}).get(condition, {}).get(candidate, {})
+            if set(execution) - {'microbatch_size'}:
+                raise ValueError('Only the execution microbatch may be overridden; preserve the scientific recipe')
+            mode, configuration = repeat_configuration(condition, candidate,
+                originals[(condition,candidate)], **execution)
             path = output/f'{condition}_{candidate}_seed1.json'
             pending.append((path,configuration))
             result['prepared_repeats'].append(dict(candidate=candidate,condition=condition,seed=1,

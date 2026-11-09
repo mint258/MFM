@@ -51,7 +51,7 @@
                                              "seed":  1,
                                              "samples":  6000000,
                                              "batch_size":  32,
-                                             "microbatch_size":  4,
+                                             "microbatch_size":  8,
                                              "workers":  14,
                                              "lr":  0.0003,
                                              "schedule":  "cosine",
@@ -75,7 +75,7 @@
                                              "seed":  1,
                                              "samples":  6000000,
                                              "batch_size":  32,
-                                             "microbatch_size":  4,
+                                             "microbatch_size":  8,
                                              "lr":  0.0003,
                                              "schedule":  "cosine",
                                              "clip":  1,
@@ -105,7 +105,7 @@
                                              "seed":  1,
                                              "samples":  6000000,
                                              "batch_size":  32,
-                                             "microbatch_size":  4,
+                                             "microbatch_size":  8,
                                              "workers":  14,
                                              "lr":  0.0003,
                                              "schedule":  "cosine",
@@ -129,7 +129,7 @@
                                              "seed":  1,
                                              "samples":  6000000,
                                              "batch_size":  32,
-                                             "microbatch_size":  4,
+                                             "microbatch_size":  8,
                                              "lr":  0.0003,
                                              "schedule":  "cosine",
                                              "clip":  1,
@@ -159,7 +159,7 @@
                                              "seed":  1,
                                              "samples":  6000000,
                                              "batch_size":  32,
-                                             "microbatch_size":  4,
+                                             "microbatch_size":  8,
                                              "workers":  14,
                                              "lr":  0.0003,
                                              "schedule":  "cosine",
@@ -1276,5 +1276,6 @@
                                              "run_until_samples":  1000000
                                          }
                    }
-               ]
+               ],
+    "C1_repeat_execution_microbatch":  "Use c1_initial_results.json actual peak-based execution overrides; effective batch32 unchanged"
 }
