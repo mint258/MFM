@@ -19,6 +19,7 @@ from .v2_disk import save_checkpoint
 
 from .v31_loader import MFM4Dataset, collate_samples
 from .v31_training import V31PDModel
+from .v31_prefetch import ordered_sample_batches
 from .v2_s_training import s_model, sample_lr_ratio, structural_observation_counts
 from .v3_losses import V3LossResult
 from .v3_structural import build_structural_views, StructuralViewConfig, combine_structural_loss
@@ -178,7 +179,7 @@ def train_v31(configuration):
     (output/'architecture.json').write_text(json.dumps(architecture, indent=2) + '\n')
     initial_samples, initial_updates = clock.samples_consumed, clock.optimizer_updates
     (output/'execution.json').write_text(json.dumps(dict(microbatch_size=c['microbatch_size'],
-        effective_batch_size=c['batch_size'], initial_samples=initial_samples,
+        effective_batch_size=c['batch_size'], prefetched_batches=1, initial_samples=initial_samples,
         initial_updates=initial_updates, elapsed_seconds_prior=elapsed_prior), indent=2) + '\n')
 
     def pd_counts(samples):
@@ -217,13 +218,9 @@ def train_v31(configuration):
             initializer=_init_reader, initargs=(reader,)) as pool, (output/'losses.csv').open('w', buffering=1) as log:
         writer = csv.DictWriter(log, fieldnames=['samples','updates','total','S','D','P','preclip_norm','lr','seconds'])
         writer.writeheader()
-        while clock.samples_consumed < stop_samples:
-            count = min(clock.max_next_samples(c['batch_size']), stop_samples - clock.samples_consumed)
-            choices = []
-            for _ in range(count):
-                molecule = int(rng.choice(dataset.indices))
-                choices.append((molecule, int(rng.choice(dataset.choices(molecule)))))
-            samples = list(pool.map(_read_choice, choices, chunksize=1))
+        for samples, consumed_rng in ordered_sample_batches(pool, _read_choice, dataset,
+                clock, rng, c['batch_size'], stop_samples):
+            count = len(samples)
             chunks = [(samples[start:start+c['microbatch_size']], tuple(range(clock.samples_consumed+start,
                        clock.samples_consumed+min(start+c['microbatch_size'], count))))
                       for start in range(0, count, c['microbatch_size'])]
@@ -237,6 +234,7 @@ def train_v31(configuration):
             norm = torch.nn.utils.clip_grad_norm_(parameters, c['clip'], error_if_nonfinite=True)
             optimizer.step()
             clock.advance(count)
+            rng.bit_generator.state = consumed_rng
             gradients.append(float(norm))
             row = dict(samples=clock.samples_consumed, updates=clock.optimizer_updates,
                 total=float(loss.total), preclip_norm=float(norm), lr=lr, seconds=elapsed_prior+time.monotonic()-started,
