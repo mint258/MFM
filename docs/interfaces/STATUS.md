@@ -558,3 +558,17 @@ NFS外部D6协调预留103,589,934,592 B仍保留，只有正式D6 manifest发�
 232个闭合临时分块实际分配：根21 725 GB、根20 165 GB、tmpfs20 35 GB、tmpfs21 45 GB、tmpfs22 14.969719808 GB，无NFS临时分块、无最终LMDB逐节点复制。根分区系统/Slurm保留及各实际目标持续保护不变；分块只在完整拼接关闭后由原生命周期消费。
 
 **模型入口仍未就绪：** 正式D6 manifest尚缺席，原S240k P/D binding仍NOT_READY。后续仍需TRAIN拼接、FULL 13,815分子、既定唯一生产端数值/对齐/计数检查及原24万MIDs绑定。最终按正式manifest读取TRAIN/FULL各一份共享LMDB；完成后再发布READY与10节点同文件只读可见结果，不另建24万LMDB或替换原子集。没有新增科学规则、测试重跑、哈希、独立QA或付费训练。
+
+
+## 2026-11-09 22:40 CST｜窗口二：D6与原始S240k P/D READY
+
+正式交付索引：`configs/data_v1/window2_D6_final_DELIVERY.json`。实际4529073 COMPLETED/0:0，原作业末尾1000条检查通过（atol=rtol=1e-6，NaN位置一致），TRAIN/FULL各一次压缩；没有新增F64副本或内容哈希。
+
+- 模型root：`/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact`；唯一文件清单为该root的`manifest.json`。请按`manifest.split_roots`解析数据，元数据root与LMDB所在盘不同。
+- 共享LMDB：`/lfshome/zixiao/data_v1_20261025/D6_full_v31_20261105_v1/shared_compact/{TRAIN,FULL}/data.mdb`；ID map为指向共享NFS文件的绝对符号链接。compute-0-{0,1,3,4,5,6,7,20,21,22}均已只读打开同一路径/大小/inode，未复制最终LMDB到节点。
+- TRAIN M/P/U=1,194,551/11,023,656/10,754,137；FULL=13,815/126,764/123,148。ROUTINE保留为FULL标记，普通S′和P′训练资格标记保持原规则。
+- 原始240,000分子P/D入口：`/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/S240k_PD_input_binding_20261108_v1/manifest.json`，status=READY；原子集及顺序保持，零替换/裁剪，P和D都读取同一正式TRAIN。已有S记录2,209,619条保持。既定training_view和normalizations在绑定中；不另建子集LMDB。
+
+PM7重复构象保留，D7的0.5Å统计不作为删样指令；普通S′沿用上游去重，不作跨来源全局剪枝。r73原始31–34数组完整，额外两列只求σ–σ/π–π同对称性块；r674仍UNKNOWN/LOSS_DISABLED。空D字段修复仅沿用既有masked_nan及原掩码/原因码，非空部分原子标签仍要求既定原因码；Main实现提交4c04240，检查点schema提交9a5092e保留。
+
+存储协调：正式manifest含molecules/split_roots且原S240k READY，故本窗口D6未来数据/压缩临时占位已结束，包括外部NFS协调占位103,589,934,592B；既有文件仍计入实际已用。其他窗口仅应更新其未来占位，不重复释放实际数据。模型检查点全局100GB（跨所有节点/登记根合计）及账户100GB余量继续保留。旧排队依赖如仍指向失败4526311/4528666/4529070，应由任务所属窗口改用已C0的4529073或正式READY入口。失败和资源记录见本周周内报告，未改动其他窗口作业。

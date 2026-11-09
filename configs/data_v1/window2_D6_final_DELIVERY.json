@@ -1,0 +1,139 @@
+{
+  "schema": "WINDOW2_V1_D6_SHARED_FINAL_DELIVERY_V1",
+  "status": "DELIVERED",
+  "taskbook": "数据线 v1 任务书 v2（窗口二）.md",
+  "data_version": "data-v1-final-v31-window2-20261105",
+  "format": "v3.1/MFM4",
+  "authoritative_single_file_inventory": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact/manifest.json",
+    "bytes": 5280,
+    "contains": "paths, bytes and record counts; producer-end check and split roots"
+  },
+  "root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+  "shared_split_roots": {
+    "FULL": "/lfshome/zixiao/data_v1_20261025/D6_full_v31_20261105_v1/shared_compact/FULL",
+    "TRAIN": "/lfshome/zixiao/data_v1_20261025/D6_full_v31_20261105_v1/shared_compact/TRAIN"
+  },
+  "records": {
+    "molecules": {
+      "FULL": 13815,
+      "TRAIN": 1194551
+    },
+    "conformers": {
+      "FULL_P": 126764,
+      "FULL_U": 123148,
+      "TRAIN_P": 11023656,
+      "TRAIN_U": 10754137
+    },
+    "total": {
+      "M": 1208366,
+      "P": 11150420,
+      "U": 10877285
+    },
+    "total_M_P_U_records": 23236071
+  },
+  "storage": {
+    "one_shared_LMDB_per_split": true,
+    "node_local_final_copies": false,
+    "ID_maps": "absolute symlinks to the shared NFS files named by manifest.id_map_physical_paths",
+    "LMDB_logical_bytes": 995924754432,
+    "LMDB_allocated_bytes": 995925135360,
+    "shared_ID_map_bytes": 101748590416,
+    "LMDB_bytes_per_molecule": 824191.3082890449
+  },
+  "readonly_node_access": {
+    "nodes": [
+      "compute-0-0",
+      "compute-0-1",
+      "compute-0-20",
+      "compute-0-21",
+      "compute-0-22",
+      "compute-0-3",
+      "compute-0-4",
+      "compute-0-5",
+      "compute-0-6",
+      "compute-0-7"
+    ],
+    "all10_readable": true,
+    "same_resolved_path_bytes_and_inode": true,
+    "LMDB_payload_readback": false,
+    "observed_UTC": "2026-11-09T14:26:46.889087+00:00"
+  },
+  "producer": {
+    "job": 4529073,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "once_check_reference": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact/manifest.json#producer_end_check",
+    "once_samples": 1000,
+    "atol": 1e-06,
+    "rtol": 1e-06,
+    "NaN_positions_equal": true,
+    "compact_copies_per_split": 1,
+    "new_F64_copies": false,
+    "new_content_hashes": false,
+    "normalization_applied": false,
+    "final_resume_scheduler_seconds": 290,
+    "final_resume_export_seconds": 258.32975834421813,
+    "end_to_end_export_seconds": null
+  },
+  "original_S240k_PD": {
+    "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/S240k_PD_input_binding_20261108_v1/manifest.json",
+    "status": "READY",
+    "root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+    "molecules": 240000,
+    "unique_molecules": 240000,
+    "rows_filtered_or_replaced": 0,
+    "original_subset_path": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/bounded_old_complete_d5_resume_v2/day02_finite_census_full5178_cpu13/train_240000.parquet",
+    "original_subset_order_preserved": true,
+    "source": "PM7",
+    "split": "TRAIN",
+    "membership_table": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/S240k_PD_input_binding_20261108_v1/membership_binding.parquet",
+    "new_LMDB_or_dataset_copy": false
+  },
+  "training_view": "configs/data_v1/training_view_v1.json",
+  "normalizations": "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json",
+  "final_D4_delivery": "configs/data_v1/window2_D4_final_DELIVERY.json",
+  "Common_D5_D7_delivery": "configs/data_v1/final_Common_D5_D7_v1_DELIVERY.json",
+  "scientific_policies": {
+    "PM7_duplicates": "retained; D7 at0.5 Angstrom is statistical, not deletion from D6",
+    "ordinary_Sprime": "upstream deduplicated; no additional cross-source/protocol pruning",
+    "Pprime": "original frozen first2 only; no third-or-later calculations",
+    "r73": "raw31-34 retain order, direction, onsite and duplicates; cached original-F64 sigma-sigma/pi-pi sums receive one F32 cast; mixed/delta excluded from derived two columns only",
+    "r674": "UNKNOWN/LOSS_DISABLED; no scientific substitution",
+    "vectors": "existing final D4 zero centres and common-component winsorized-magnitude population std(ddof0), separately for PM7/Pprime",
+    "UFF_D3_normalization": "existing P_D routes; no independent UFF or mixed refit"
+  },
+  "implementation": {
+    "schema_code_commit": "9a5092eb315ad3634afacbb11f27cfd4ef9ad9c5",
+    "source_Main_commits": [
+      "bd04303de05267b73723030f1fcc162df1a82eea",
+      "4c04240a54fa3c6a0da86e562c33ccb42df11020"
+    ],
+    "final_runtime_source": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/window2_20261105/D6_node20_shared_candidate_20261108_v1/source_snapshot_empty_typed_atoms_20261109_v1",
+    "repair": "Empty typed D cells follow existing masked_nan; wholly absent atom fields use existing whole-field missingness before scatter, with a lazy private recipe copy; nonempty partial subsets keep the frozen missing-reason requirement",
+    "new_unit_tests": "6 original new boundaries passed once;2 additional empty-atom boundaries passed once; no old-suite repeat",
+    "static_checks": "5142-file check then changed2-file check; optional historical export hashes disabled"
+  },
+  "prior_deliveries": {
+    "B1": "configs/data_v1/v1-pilot-provisional-v31/D3_export.json",
+    "B2": "configs/data_v1/training_view_v1.json",
+    "B3": "configs/data_v1/Pprime_final_first2_v1_DELIVERY.json",
+    "B4": [
+      "configs/data_v1/final_Common_D5_D7_v1_DELIVERY.json",
+      "configs/data_v1/window2_D4_final_DELIVERY.json"
+    ],
+    "B6": "configs/data_v1/B6_downstream_descriptors_v2_DELIVERY.json",
+    "source_and_license": "docs/data_v1/original_source_and_license_v1.md"
+  },
+  "resource_week": "docs/data_v1/RESOURCE_WEEK_20261109_20261115.md",
+  "storage_coordination": {
+    "D6_future_data_and_chunk_reservations_retired": true,
+    "previous_external_NFS_D6_future_hold_retired_bytes": 103589934592,
+    "model_checkpoint_global_budget_unchanged_bytes": 100000000000,
+    "account_reserve_floor_bytes": 100000000000,
+    "no_manual_deletion_of_preexisting_user_data": true,
+    "retiring_future_holds_does_not_change_account_used_bytes": true,
+    "scratch_lifecycle": "Original producer consumed only its checkpoint-owned raw files and compact temporary chunks after successful compact closure."
+  },
+  "published_observation_CST": "2026-11-09T22:40:28.069738+08:00"
+}

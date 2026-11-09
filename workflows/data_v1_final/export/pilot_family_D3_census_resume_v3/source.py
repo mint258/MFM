@@ -47,12 +47,17 @@ def target_row(entries,compact,recipe,raw,n):
         row,spec,_=P.prepare(entries,compact,recipe,raw,n);return row,spec
     C.need(recipe['input_kind']=='ORIGINAL_TYPED_FIELD_ENTRIES' and all(e['field']['group']=='D' for e in entries),'NO_TYPED_RECONSTRUCTION_OF_ORDERED_R73_CHANNELS_OR_PAIR_LAYOUT')
     import numpy as np
-    virtual={}
+    virtual={};original_recipe=recipe
     for e in entries:
         selector=recipe['components'][e['field_key']];C.need(selector['value']=={'column':'field_'+str(e['field_id'])}
           and selector.get('reshape') is True,'EXPLICIT_TYPED_FLAT_F64_SELECTOR_NOT_GUESSED_RAW_LAYOUT')
         values=e['values_float64'];C.need(all(v is not None or not m for v,m in zip(values,e['value_mask'])),'NONE_NEVER_BECOMES_VALID_NUMERIC_VALUE')
-        virtual['field_'+str(e['field_id'])]=[np.nan if v is None else v for v in values]
+        # A wholly absent atom field is not a partial atom-index subset.
+        # Match the original registry-cell adapter's existing missing-field path.
+        if not values:
+            if recipe is original_recipe:recipe=copy.deepcopy(recipe)
+            recipe['components'][e['field_key']].pop('atom_indices',None)
+        virtual['field_'+str(e['field_id'])]=None if not values else [np.nan if v is None else v for v in values]
         if e['atom_indices'] is not None:virtual['indices_'+str(e['field_id'])]=e['atom_indices']
     return virtual,recipe
 def extract(entries,typed,raw,n,recipe,target,*,capture_native_payload=True):
