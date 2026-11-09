@@ -59,3 +59,22 @@ def test_log_from_before_the_declared_resume_is_not_silently_clipped_to_zero(tmp
     write(tmp_path,'execution.json',dict(initial_samples=96000,initial_updates=3000,elapsed_seconds_prior=4000.))
     (tmp_path/'losses.csv').write_text('samples,updates,seconds\n64000,2000,3000.\n')
     with pytest.raises(ValueError,match='predates'):collect(tmp_path)
+
+
+def test_native_s_stage_comes_from_actual_queue_without_changing_training_counts(tmp_path):
+    write(tmp_path,'configuration.json',dict(views='three',seed=0,lr=1e-3,batch_size=32))
+    write(tmp_path,'summary.json',dict(samples=6000000,updates=187500,seconds=1000.))
+    original=collect(tmp_path)
+    actual=collector.collect_run(tmp_path,name='P_resume',job='123',gpu='RTX5090',
+                                 state='COMPLETED',stage=6)
+    assert original['stage']==5
+    assert actual=={**original,'stage':6}
+
+
+def test_explicit_stage_cannot_relabel_a_configured_stage5_run_as_new_stage6(tmp_path):
+    write(tmp_path,'configuration.json',dict(stage=5,condition='P'))
+    with pytest.raises(ValueError,match='conflicts with the original'):
+        collector.collect_run(tmp_path,name='P_reused',job='123',gpu='RTX5090',
+                              state='COMPLETED',stage=6)
+    assert collector.collect_run(tmp_path,name='P_reused',job='123',gpu='RTX5090',
+                                 state='COMPLETED',stage=5)['stage']==5

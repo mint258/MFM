@@ -31,13 +31,16 @@ def last_training_row(path):
     return dict(samples=int(values['samples']), updates=int(values['updates']), seconds=float(values['seconds']))
 
 
-def collect_run(root, *, name, job, gpu, state):
+def collect_run(root, *, name, job, gpu, state, stage=None):
     root = Path(root)
     def read(suffix):
         path = root/suffix
         return json.loads(path.read_text()) if path.exists() else {}
     config, summary, dev, execution = (read(suffix) for suffix in
         ('configuration.json', 'summary.json', 'dev_eval/summary.json', 'execution.json'))
+    if stage is not None and config.get('stage', stage) != stage:
+        raise ValueError('Explicit stage conflicts with the original experiment configuration')
+    actual_stage = stage if stage is not None else config.get('stage', 2 if 'mode' in config else 5)
     progress = last_training_row(root/'losses.csv')
     initial_samples, initial_updates = execution.get('initial_samples', 0), execution.get('initial_updates', 0)
     prior_seconds = execution.get('elapsed_seconds_prior', 0.)
@@ -50,7 +53,7 @@ def collect_run(root, *, name, job, gpu, state):
     if min(samples, updates) < 0 or (seconds != '' and seconds < 0):
         raise ValueError('Observed progress predates this execution segment')
     phase = summary.get('status')
-    return dict(run_id=name, stage=config.get('stage', 2 if 'mode' in config else 5),
+    return dict(run_id=name, stage=actual_stage,
         condition=config.get('condition', 'SDP' if config.get('mode') == 'sdp' else 'PD' if config.get('mode') == 'overfit' else 'S'),
         candidate=config.get('candidate', config.get('distance_bias', '')),
         views=config.get('views', ''), seed=config.get('seed', ''),
@@ -67,6 +70,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', required=True)
     parser.add_argument('--output', required=True)
+    parser.add_argument('--stage', type=int, help='Actual queue stage when the producer config omits it')
     parser.add_argument('--run', action='append', required=True, help='directory,SlurmID,GPUmodel')
     args = parser.parse_args()
     runs = [value.split(',') for value in args.run]
@@ -75,7 +79,8 @@ def main():
     states = dict(line.split('|')[:2] for line in query.stdout.splitlines() if line.strip())
     rows = []
     for name, job, gpu in runs:
-        rows.append(collect_run(Path(args.root)/name, name=name,job=job,gpu=gpu,state=states.get(job,'UNKNOWN')))
+        rows.append(collect_run(Path(args.root)/name, name=name,job=job,gpu=gpu,
+                                state=states.get(job,'UNKNOWN'),stage=args.stage))
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open('w', newline='') as stream:
