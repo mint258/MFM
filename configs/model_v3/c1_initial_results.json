@@ -7,7 +7,7 @@
                      "condition":  "S"
                  },
                  {
-                     "directory":  "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0",
+                     "directory":  "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro8_continuation_20261110",
                      "candidate":  "C1-0",
                      "condition":  "P"
                  },
@@ -17,7 +17,7 @@
                      "condition":  "S"
                  },
                  {
-                     "directory":  "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0",
+                     "directory":  "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro8_continuation_20261110",
                      "candidate":  "C1-a",
                      "condition":  "P"
                  },
@@ -27,14 +27,14 @@
                      "condition":  "S"
                  },
                  {
-                     "directory":  "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0",
+                     "directory":  "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro8_continuation_20261110",
                      "candidate":  "C1-b",
                      "condition":  "P"
                  }
              ],
     "selection_scope":  "Prepare top-two repeats only; no final architecture choice or seed SD",
-    "preparation_job":  4529082,
-    "dependency":  "afterok:4526381:4526382:4526383",
+    "preparation_job":  4529103,
+    "dependency":  "afterok:4529099:4529100:4529101",
     "execution_overrides":  {
                                 "S":  {
                                           "C1-b":  {
@@ -60,17 +60,18 @@
                                      "unknown_S_C1_0_peak":  "Retain microbatch4",
                                      "source_microbatch":  4,
                                      "science":  "Only execution microbatch changes; weighted observation means, effective batch32, sample budget, data, optimizer, clipping and schedule preserved",
-                                     "P_peak_checkpoint_samples":  64000,
+                                     "P_peak_checkpoint_samples":  480000,
                                      "S_full_6M_peak_bytes":  {
                                                                   "C1-b":  6118976000,
                                                                   "C1-a":  6111961088
                                                               },
-                                     "forecast":  "P:4x recorded micro4 peak plus25pct execution margin (largest20116884480B); S-a/b:2x recorded micro4 peak plus25pct margin. Fresh assigned GPU capacity required before actual launch; no measured speedup claimed",
+                                     "forecast":  "P prospective micro16:4x actual micro4 checkpoint peak plus25pct execution margin (largest20646384640B). S-a/b micro8:2x recorded peak plus25pct. Fresh GPU capacity required at actual launch; no measured speedup claimed",
                                      "effective_batch":  32,
                                      "P_peak_bytes":  {
-                                                          "C1-a":  3448503808,
-                                                          "C1-b":  3461263872,
-                                                          "C1-0":  4023376896
+                                                          "C1-a":  4113306624,
+                                                          "C1-b":  4129276928,
+                                                          "C1-0":  4108229632
                                                       }
-                                 }
+                                 },
+    "prior_preparation_job":  4529082
 }
