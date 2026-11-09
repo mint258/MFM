@@ -23,3 +23,9 @@ C1补种子执行微批：P在64k样本检查点记录的GPU峰值为C1-0 4,023,
 分段训练计数：MFM4生产器的execution.json记录本段起始累计samples/updates/seconds，summary保留累计科学时钟并另列actual_samples/actual_updates/actual_seconds。结果CSV中的曝光/更新/耗时按本作业新增工作记录；开发分数与dev.consumed_samples累计检查点对齐。M4倍增平台判定仍用累计检查点样本数，不用分段CSV新增曝光代替。seed1生成时移除seed0的resume指针并取消执行分段终点，保持6M从随机初始化开始。
 
 当前三组P切换微批8的可审阅方案和三份PROPOSED配置位于仓库外runs/model_v31_20261105/M3_P_micro8_continuation.PROPOSAL.json及其列出的配置路径。切换会从最近完整检查点重放尚未持久化的后缀，按任务书工作原则5先与用户商量。原三组与原评价链继续，尚未执行切换或提交新GPU任务。获准后先核实实际自有任务/目标容量，冻结检查点为同盘硬链接后续跑，仅替换自有未启动评价/依赖并登记同一个100GB预算；原检查点/日志保留。
+
+已有运行复用：v31_experiments.py仅在S启用时调用视图builder/structural前向；P/D由V31PDModel直接调用相同encoder。s_model在选择V3TwoViewModel/V3MultiViewModel包装前已构造同一encoder；两视图类不覆盖构造函数，只覆盖此处P/D不调用的结构前向/损失。因此纯P/D的views二/三元数据不构成不同有效训练条件。保留原配置与结果原样，在阶段结果表记录引用关系，不另添一行虚构的新训练。
+
+条件相同才复用：核对实际完整6M检查点/开发结果、种子、C1、数据/原子与构象采样、D4/字段/掩码/家族、头形式、池化、有效批、LR/betas/clip/调度及精度。C3三视图S可用选定C1已有S；H1/P可用相同选定C1已有P（P的S视图数未启用）；H1/SDP可用选定C3已有SDP；H1注册表池化P可用同一H1/P。M4的3e-4/B32/cosine点只在最终所有有效模型/输入/配方参数也完全相同的条件下引用M3实测，其他LR/B/调度及头/池化组合按原网格执行。S/SDP视图变化是实际输入变化，不作这种复用；native S与MFM4 S输入引擎也不据成员相同就互相替代。
+
+训练CSV维持每个实际训练一行；阶段表引用被复用run_id及原阶段，不能将一次运行记为两个新作业或新增曝光。M4新native S运行的stage需从其实际阶段6队列记录填写；旧native S配置未包含stage，不能盲用汇总器默认stage5。此处仅核对源码分支并完善执行引用，不新增数据检查、模型测试或科学判定规则。
