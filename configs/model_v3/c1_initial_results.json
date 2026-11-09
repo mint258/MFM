@@ -46,13 +46,13 @@
                                       },
                                 "P":  {
                                           "C1-a":  {
-                                                       "microbatch_size":  8
+                                                       "microbatch_size":  16
                                                    },
                                           "C1-b":  {
-                                                       "microbatch_size":  8
+                                                       "microbatch_size":  16
                                                    },
                                           "C1-0":  {
-                                                       "microbatch_size":  8
+                                                       "microbatch_size":  16
                                                    }
                                       }
                             },
@@ -65,7 +65,7 @@
                                                                   "C1-b":  6118976000,
                                                                   "C1-a":  6111961088
                                                               },
-                                     "forecast":  "2x recorded peak with25pct execution margin; fresh assigned GPU capacity required before actual launch",
+                                     "forecast":  "P:4x recorded micro4 peak plus25pct execution margin (largest20116884480B); S-a/b:2x recorded micro4 peak plus25pct margin. Fresh assigned GPU capacity required before actual launch; no measured speedup claimed",
                                      "effective_batch":  32,
                                      "P_peak_bytes":  {
                                                           "C1-a":  3448503808,
