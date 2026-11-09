@@ -534,3 +534,15 @@ source89只把私有molecules提交改为每16或末尾，pieces完成后的提�
 
 2026-11-09 11:21 CST 窗口二 D6恢复与存储协调：4526311实际FAILED1:0（20:43:29／28CPU，BrokenProcessPool；内核日志无权限，OOM未证实），4528614仅准备阶段配置路径失败2秒、无新数据；已归档旧配置并沿用冻结原路径，4528616实际RUNNING（compute-0-20／20CPU，source90 9a5092e，W20/B20）。截至11:15 TRAIN提交1069216/1194551，P10130920／U9902541，FULL13815待写；原始库910.76GB，正式manifest尚未发布，原240000 MID的S240k P/D仍NOT_READY。已闭合前缀/分块复用，原科学/掩码/顺序和末尾一次QA、每split一次compact保持；PM7重复构象保留，普通S′上游去重，D7排序元数据不删除PM7。最终TRAIN/FULL各一份共享LMDB，10节点读同一路径，不增加节点完整副本。
 当前执行分块分配975GB（21根盘725、20根盘165、NFS15、20节点SHM35、Lustre35GB），SHM仅在源池关闭后使用；实际容量/inode已准入，压缩前按真实raw字节再准入，不以975GB截断数据。NFS D6未来峰值更新为103589934592B（含8GiB），其他并发23179869184B、账户100GB和模型全局100GB不变；窗口三原planned125359738368B对应的新D6口径为135359738368B，仍含其已有16GiB并保留既有8GiB突发，无新增模型预算。D6预留仅在正式split_roots+molecules发布后退役，原始/既有数据未清理，旧失败及部分文件保留。02:00 UTC实测compute-0-0/3/4根盘分别3686375424/9956003840/10510766080B，低于10GiB；本窗未向这些根盘传输，后续必须按实际目标重新核实字节/inode并保护底线，未改管理员目录/权限或drain。无新数值复读、benchmark、hash或ACK等待门。
+
+### 2026-11-09 14:56 CST 窗口二 TRAIN raw_closed、D6实际续接4528666及临时存储协调
+
+4528616实际FAILED1:0／3:20:20／20CPU，原因ADMITTED_CHUNK_CAPACITY_MUST_COVER_RAW_FILE_UPPER_BOUND：完整TRAIN raw984969814016B超过原975GB暂存容量，在首个mdb_copy启动前退出。TRAIN1194551、P11023656／U10754137均匹配冻结目标；ID map100740773078B／22972344行已闭合，自有闭合ID fragments按检查点消费。完整raw及所有既有来源/失败部分文件保留，无手动数据清理。canonical D6.plan.json沿用冻结原路径，旧配置已归档；仅调整chunk_compaction/disk_protection执行字段，科学源码仍source90 9a5092eb315ad3634afacbb11f27cfd4ef9ad9c5，W20/B20及1024/prefix12/whole[13,15,16]不变。
+
+最新实际D6作业4528666已RUNNING／compute-0-20／20CPU，从raw_closed直接继续；mdb_copy PID3051933已启动，catalog为COMPACTING、首块仍.partial（14:56实测315621376B且持续增长），尚未compact C0，主要等待Lustre I/O。无重复生产扫描/数值QA/hash/benchmark或新的科学代码。旧4526311、4528614、4528616均保留实际FAILED历史，不冒称C0。
+
+实际节点字节/inode、native quota及接收端Guard预检均通过：临时容量995000000000B，按顺序为node21根盘725GB、node20根盘165GB、node20 SHM35GB、node21 SHM45GB、node22 SHM15GB、Lustre10GB；取消NFS临时分块。node22仅用/dev/shm/zixiao/D6_node22_compact_20261109_v2，SHM保留8GiB系统＋8GiB其他并发＋8GiB运行余量，未改根盘/管理员目录、权限或drain；其余保护底线保持，所有实际传输仍逐写检查目标余量。SHM阶段在本窗源池关闭后开始；这是临时chunk，不是各节点完整LMDB副本。
+
+TRAIN ID map100740773078B已实际占用NFS，当前阶段新增forecast仅FULL元数据2GB＋8GiB运行余量；Lustre阶段forecast32GB（含FULL后续增长及暂存，非数据上限）。这不是外部D6协调预留退役：外部D6 NFS hold103589934592B、窗口三既有联合planned135359738368B仍仅在正式split_roots+molecules发布后退役，其他并发23179869184B及账户100GB、模型全局100GB保持；不另加每节点100GB或新模型预算。执行准入按已经进入used的TRAIN map与当前剩余阶段分别计，不重复要求再空出整份已写map。
+
+正式D6 manifest尚未发布，FULL13815仍待写；原240000 MID的S240k P/D仍NOT_READY/root=null。已核实绑定脚本只在当前producer退出0后读取正式manifest，不硬依赖旧失败jobID；原成员/顺序/模板不变。模型线自有未启动P候选如仍依赖旧D6，应沿本条更新为afterok:4528666（由模型窗口修改自有未启动任务；本窗不增加ACK等待门）。最终TRAIN/FULL各单份共享compact LMDB，compute-0-0、1、20、21、22、3、4、5、6、7共读同一共享文件；无额外S240k LMDB、无最终节点副本。完整末尾原一次检查、每split一次compact、正式入口及最终10节点文件可读性仍待闭合，勿以raw_closed或COMPACTING当作READY。
