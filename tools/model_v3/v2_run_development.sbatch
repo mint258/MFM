@@ -34,4 +34,10 @@ PY
 "$python" -B -u tools/model_v3/v2_diagnosis_disk.py --output "$output" --state "$state" --node "$(hostname -s)" --job "$SLURM_JOB_ID" &
 guard=$!
 trap 'kill "$guard" 2>/dev/null || true; wait "$guard" 2>/dev/null || true' EXIT
+if [[ "$mode" == v31 || "$mode" == native_s ]]; then
+    "$python" -B tools/model_v3/v2_wandb_tracking.py \
+        --manifest "$root/runs/model_v31_20261105/M3_wandb_manifest_20261110.json" \
+        --register-configuration "$configuration" --training-mode "$mode" \
+        --job "$SLURM_JOB_ID" --node "$(hostname -s)" --gpu "$gpu_uuid"
+fi
 "$python" -B -u tools/model_v3/v2_run_development.py --mode "$mode" --configuration "$configuration"
