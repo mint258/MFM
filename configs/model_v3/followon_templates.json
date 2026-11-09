@@ -1275,7 +1275,82 @@
                                              "candidate":  "M4_full_P_seed0_segment1M",
                                              "run_until_samples":  1000000
                                          }
+                   },
+                   {
+                       "name":  "M4_full_S_seed1_segment1M",
+                       "mode":  "v31",
+                       "requires":  [
+                                        "actual SDP recipe confirmation",
+                                        "full TRAIN scope",
+                                        "Hold scheduler budget64M across milestone segments",
+                                        "Actual same-condition full-data seed0/1 checkpoint results supply pretraining seed SD"
+                                    ],
+                       "configuration":  {
+                                             "root":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+                                             "training_view":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json",
+                                             "normalizations":  "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json",
+                                             "subset_path":  null,
+                                             "output":  "/lfshome/zixiao/model_v31_20261105/M4_full_S_seed1_segment1M",
+                                             "condition":  "S",
+                                             "distance_bias":  null,
+                                             "views":  null,
+                                             "head_form":  null,
+                                             "pooling":  null,
+                                             "source":  "PM7",
+                                             "order":  "fixed_random",
+                                             "k":  null,
+                                             "seed":  1,
+                                             "samples":  64000000,
+                                             "batch_size":  null,
+                                             "microbatch_size":  4,
+                                             "workers":  14,
+                                             "lr":  null,
+                                             "schedule":  null,
+                                             "clip":  null,
+                                             "expected_molecules":  1194551,
+                                             "stage":  6,
+                                             "candidate":  "M4_full_S_seed1_segment1M",
+                                             "run_until_samples":  1000000
+                                         }
+                   },
+                   {
+                       "name":  "M4_full_P_seed1_segment1M",
+                       "mode":  "v31",
+                       "requires":  [
+                                        "actual SDP recipe confirmation",
+                                        "full TRAIN scope",
+                                        "Hold scheduler budget64M across milestone segments",
+                                        "Actual same-condition full-data seed0/1 checkpoint results supply pretraining seed SD"
+                                    ],
+                       "configuration":  {
+                                             "root":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+                                             "training_view":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json",
+                                             "normalizations":  "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json",
+                                             "subset_path":  null,
+                                             "output":  "/lfshome/zixiao/model_v31_20261105/M4_full_P_seed1_segment1M",
+                                             "condition":  "P",
+                                             "distance_bias":  null,
+                                             "views":  null,
+                                             "head_form":  null,
+                                             "pooling":  null,
+                                             "source":  "PM7",
+                                             "order":  "fixed_random",
+                                             "k":  null,
+                                             "seed":  1,
+                                             "samples":  64000000,
+                                             "batch_size":  null,
+                                             "microbatch_size":  4,
+                                             "workers":  14,
+                                             "lr":  null,
+                                             "schedule":  null,
+                                             "clip":  null,
+                                             "expected_molecules":  1194551,
+                                             "stage":  6,
+                                             "candidate":  "M4_full_P_seed1_segment1M",
+                                             "run_until_samples":  1000000
+                                         }
                    }
                ],
-    "C1_repeat_execution_microbatch":  "Use c1_initial_results.json actual peak-based execution overrides; effective batch32 unchanged"
+    "C1_repeat_execution_microbatch":  "Use c1_initial_results.json actual peak-based execution overrides; effective batch32 unchanged",
+    "full_curve_seed_repeats":  "S and P separately use actual full-data seed0/1 checkpoint curves of the same selected recipe and population; checkpoint-aligned pretraining seed SD (ddof1), never cross-condition/proxy/readout or bootstrap noise. No B-star is filled before actual evidence."
 }
