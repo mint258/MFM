@@ -99,3 +99,21 @@ def test_publication_exports_snapshots_not_sdk_or_weights(tmp_path):
     result = json.loads(destination.read_text())
     assert result['records'] == [dict(actual_samples=100000)]
     assert result['status'] == 'OFFLINE_UNSYNCED'
+
+
+def test_launch_registration_appends_once_and_does_not_guess_native_stage(tmp_path, monkeypatch):
+    repo = tmp_path / 'repo'
+    (repo / '.git/refs/heads').mkdir(parents=True)
+    (repo / '.git/HEAD').write_text('ref: refs/heads/model-v3\n')
+    (repo / '.git/refs/heads/model-v3').write_text('actual-source-revision\n')
+    monkeypatch.setattr(m, '__file__', str(repo / 'tools/model_v3/runner.py'))
+    manifest = tmp_path / 'manifest.json'
+    manifest.write_text(json.dumps(dict(runs=[dict(job=1, terminal_state='FAILED')])))
+    config = tmp_path / 'native.json'
+    config.write_text(json.dumps(dict(output='/owned/M4_S', distance_bias='C1-0', seed=1)))
+    for _ in range(2):
+        m.register(manifest, config, job=2, node='actual-node', gpu='actual-gpu', mode='native_s')
+    rows = json.loads(manifest.read_text())['runs']
+    assert len(rows) == 2 and rows[0] == dict(job=1, terminal_state='FAILED')
+    assert rows[1]['source_revision'] == 'actual-source-revision'
+    assert rows[1]['group'].startswith('stageunspecified_S_')

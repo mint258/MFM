@@ -120,7 +120,7 @@ def register(manifest_path, configuration_path, *, job, node, gpu, mode):
         condition = configuration.get('condition', 'S' if mode == 'native_s' else '')
         manifest['runs'].append(dict(job=job, output=configuration['output'],
             name=Path(configuration['output']).name,
-            group='stage' + str(configuration.get('stage', 5)) + '_' + condition + '_' + candidate +
+            group='stage' + str(configuration.get('stage', 'unspecified')) + '_' + condition + '_' + candidate +
                 '_seed' + str(configuration.get('seed', 0)),
             node=node, gpu=gpu, source_revision=revision))
         save(manifest_path, manifest)
