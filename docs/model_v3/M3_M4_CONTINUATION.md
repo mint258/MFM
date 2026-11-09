@@ -13,3 +13,5 @@ native_s配置只含原CLI参数：index_path、output、distance_bias、views�
 M4依次为五个lr×S/P/B32、前两lr×S/P/B64、最佳lr下cosine/WSD（末20%线性衰减），再用实际TRAIN preclip范数p99确认SDP。全量S/P按D6正式TRAIN，保持完整64M调度预算，以run_until_samples分段取得1/2/4/8/16/32/64M开发读数；每段恢复原优化器/RNG/样本时钟。实际达到平台才决定B*；64M仅观测上限。最后冻结模型/配方两份配置、代码标签，并补全现有PREREG/HANDOFF。无下游TEST、性能网格、正式预训练或付费服务器运行。
 
 本入口新增10项分派测试及2项共享输出注册测试，只验证既有CLI参数保留与同一预算登记；不增加实际模型冒烟或独立数据复核。实际测试结果记本日DAILY。
+
+机器可读配置位于 configs/model_v3/followon_templates.json：42个条件模板覆盖C1各候选潜在补种子、C3/头/池化、M4扫描与全量首段。它们不是42个获选或已提交任务：C1只运行实际前两候选补种子，其他比较同样仅给实际前两名补种子；相同已完成配置复用。所有未决选择保持null，正式数据根/D4/原240k索引已绑定；不能将模板文件直接作为执行JSON。
