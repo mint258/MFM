@@ -60,6 +60,9 @@ def repeat_configuration(condition, candidate, original, *, microbatch_size=None
     output = str(BASE/f'M3_{condition}_{candidate}_seed1')
     if condition == 'P':
         configuration = dict(original, seed=1, output=output)
+        # A different pretraining seed starts fresh even when seed0 was resumed.
+        configuration.pop('resume', None)
+        configuration['run_until_samples'] = None
         if microbatch_size is not None:
             configuration['microbatch_size'] = microbatch_size
         return 'v31', configuration

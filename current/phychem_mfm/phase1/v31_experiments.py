@@ -176,6 +176,10 @@ def train_v31(configuration):
         stop_samples = segment_stop_samples(c, clock.samples_consumed)
     (output/'configuration.json').write_text(json.dumps(c, indent=2) + '\n')
     (output/'architecture.json').write_text(json.dumps(architecture, indent=2) + '\n')
+    initial_samples, initial_updates = clock.samples_consumed, clock.optimizer_updates
+    (output/'execution.json').write_text(json.dumps(dict(microbatch_size=c['microbatch_size'],
+        effective_batch_size=c['batch_size'], initial_samples=initial_samples,
+        initial_updates=initial_updates, elapsed_seconds_prior=elapsed_prior), indent=2) + '\n')
 
     def pd_counts(samples):
         return {} if pd is None else pd.field_counts(samples, groups=pd_groups, fields=fields)
@@ -253,8 +257,11 @@ def train_v31(configuration):
                 print(json.dumps(row), flush=True)
     status = ('TRAINING_COMPLETE_DEV_EVALUATION_PENDING' if clock.samples_consumed == c['samples']
               else 'SEGMENT_COMPLETE_DEV_EVALUATION_PENDING')
+    actual_seconds = time.monotonic()-started
     summary = dict(status=status, sample_budget=c['samples'], samples=clock.samples_consumed,
-        updates=clock.optimizer_updates, seconds=elapsed_prior+time.monotonic()-started,
+        updates=clock.optimizer_updates, seconds=elapsed_prior+actual_seconds,
+        actual_samples=clock.samples_consumed-initial_samples,
+        actual_updates=clock.optimizer_updates-initial_updates, actual_seconds=actual_seconds,
         gpu_peak_bytes=peak_gpu_bytes(), process_gpu_peak_bytes=torch.cuda.max_memory_allocated(),
         preclip_gradient_p99=float(np.quantile(gradients, .99)))
     (output/'summary.json').write_text(json.dumps(summary, indent=2) + '\n')

@@ -46,8 +46,9 @@ def test_p_repeat_changes_only_seed_and_output():
         samples=6000000,batch_size=32,lr=.0003,clip=1.,extra_scientific_option={'fixed':True})
     mode,result=preparer.repeat_configuration('P','C1-a',original)
     assert mode=='v31' and result['seed']==1 and result['output']!=original['output']
-    assert {k:v for k,v in result.items() if k not in ('seed','output')}=={
-        k:v for k,v in original.items() if k not in ('seed','output')}
+    assert result['run_until_samples'] is None
+    assert {k:v for k,v in result.items() if k not in ('seed','output','run_until_samples')}=={
+        k:v for k,v in original.items() if k not in ('seed','output','run_until_samples')}
     assert original['seed']==0
 
 
@@ -142,3 +143,13 @@ def test_execution_microbatch_does_not_change_effective_batch_or_other_scientifi
 def test_execution_override_cannot_exceed_or_replace_the_effective_batch(microbatch):
     with pytest.raises(ValueError,match='unchanged effective batch'):
         preparer.repeat_configuration('P','C1-a',dict(batch_size=32),microbatch_size=microbatch)
+
+
+def test_seed1_starts_fresh_after_a_resumed_seed0_without_inheriting_its_checkpoint_or_segment_end():
+    original=dict(seed=0,output='/seed0',batch_size=32,samples=6000000,
+        resume='/seed0_prefix/recovery.pt',run_until_samples=6000000,lr=.0003,clip=1.)
+    mode,result=preparer.repeat_configuration('P','C1-a',original,microbatch_size=8)
+    assert mode=='v31' and result['seed']==1 and 'resume' not in result
+    assert result['run_until_samples'] is None and result['samples']==6000000
+    assert result['lr']==original['lr'] and result['clip']==original['clip']
+    assert original['resume']=='/seed0_prefix/recovery.pt'
