@@ -120,7 +120,7 @@ def markdown(rows, progress):
         time_text = datetime.fromtimestamp(stamp, CST).isoformat(timespec='seconds') if stamp is not None else '尚无观测'
         sample = latest.get('metrics', {}).get('samples/cumulative')
         lines.append(f"- 作业{row['job']}：{row['entry']['node']}，`{row['entry']['gpu']}`；系统观测{time_text}，对应样本{sample if sample is not None else '缺测'}。")
-    lines += ['', '交付方式：GitHub报告及每10万样本JSON持续更新；W&B保持离线，训练完成后另行提供完整W&B离线运行文件包。', '']
+    lines += ['', '交付方式：GitHub报告及每10万样本JSON持续更新；W&B保持离线，已关闭执行的[完整W&B文件包与恢复说明](https://github.com/mint258/MFM/blob/model-v3/docs/model_v3/WANDB_OFFLINE_ARCHIVES.md)按候选提供，仍在训练的执行完成后归档。', '']
     return '\n'.join(lines)
 
 
