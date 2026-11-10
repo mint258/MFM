@@ -159,6 +159,12 @@ def prepare_publication(manifest, cursor, repo):
         save(Path(repo) / relative, record)
         entries.append(dict(path=relative, mode='100644', type='blob',
             content=json.dumps(record, indent=2, allow_nan=False) + '\n'))
+    if entries and manifest.get('report_progress'):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location('v2_training_report', Path(__file__).with_name('v2_training_report.py'))
+        report = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(report)
+        entries.extend(report.write_report(manifest, json.loads(Path(manifest['report_progress']).read_text()), repo))
     return entries
 
 
