@@ -1,6 +1,6 @@
 {
     "stage":  5,
-    "status":  "RUNNING_APPROVED_MICRO32_EFFECTIVE32_CONTINUATIONS",
+    "status":  "TWO_APPROVED_MICRO32_CONTINUATIONS_RUNNING_C1_B_6M_DEV_COMPLETE",
     "dependency":  {
                        "job":  4529073,
                        "slurm":  "Formal READY consumed; failed historical afterok:4526311 cleared on original unstarted jobs",
@@ -72,8 +72,11 @@
                      "template":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_b_seed0.template.json",
                      "execution_configuration":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_b_seed0_micro32.APPROVED.json",
                      "output":  "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro32_continuation_20261110",
-                     "observed_state":  "RUNNING",
+                     "observed_state":  "COMPLETED",
                      "evaluation_job":  4529113,
+                     "evaluation_observed_state": "COMPLETED",
+                     "evaluation_consumed_samples": 6000000,
+                     "evaluation_dev_score": 0.20315388182067007,
                      "evaluation_dependency":  "afterok:4529110",
                      "evaluation_output":  "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro32_continuation_20261110/dev_eval",
                      "prior_train_job":  4526378,
@@ -120,7 +123,7 @@
                   "cadence_samples":  100000,
                   "root":  "/lfshome/zixiao/model_v31_20261105/WANDB_20261110",
                   "publication":  "results/model_v3_wandb/points/\u003cSlurm_job\u003e/\u003cboundary_samples\u003e.json",
-                  "auth":  "Actual API AuthenticationError; secure relogin requested; no credential in Git",
+                  "auth":  "User chose offline GitHub reports and complete closed-run W&B archives; cloud authentication investigation stopped",
                   "history":  "One run per actual Slurm execution; imported rows labelled; replay costs retained"
               },
     "telemetry_validation":  {

@@ -37,3 +37,7 @@ MFM4输入预取：v31_prefetch.py通过原14个CPU reader预取下一有效批�
 W&B由独立CPU任务4529106读取真实CSV，原始SDK留在共享Lustre的WANDB_20261110。每次Slurm执行单独run，导入历史明确标注；重复计算不冒充规范曲线新曝光。每100000累计样本保存快照，根协调器将每个新边界的轻量快照推至results/model_v3_wandb/points/<Slurm作业>/<样本数>.json，同时更新results/model_v3_wandb/report/LATEST.md及四面板图；最初19点的汇总文件保留。独立CPU诊断4529240约30秒记录实际系统指标，并按连续1000次优化器更新汇总总/分项损失。新dispatcher训练自动登记到同一个manifest。按用户最新决定保持OFFLINE_UNSYNCED，停止云端认证排查；对应训练和SDK真实结束后，将完整离线W&B文件上传GitHub并提供下载/重组说明，原文件保留。运行中的SDK不作为最终归档；数据、权重、检查点和密钥不进Git。
 
 实时作业状态优先读取scontrol控制器并核对UID1278，sacct只作显式历史回退；同步读取原磁盘保护状态，控制器/保护观察异常交回Root核查。09:16两组node21训练被NFS配额快照future/stale保护STOP，sacct仍延迟显示RUNNING；实际容量复查通过后CONT原进程、样本已恢复增长。原原因保存在仓库外runs/model_v31_20261105/M3_micro32_disk_pause_1794273383.json，5项定向状态回归通过。原模型/AdamW/RNG、B32、6M预算和保护规则保持。
+
+2026-11-11：P/C1-b训练4529110及开发4529113均真实C0，科学累计6M/187500更新，18格TRAIN汇总0.20315388182067007，原检查点samples_6000000.pt。当前执行新增5392000样本；该段CSV按新增工作计账，分数仍对应累计6M。其逐步与配对诊断SDK均已正常关闭，完整离线归档待上传。C1-0/a仍继续；此处不是联合C1选择。
+
+持久恢复入口为tools/model_v3/v2_recover_quota_pause.py，使用仓库外runs/model_v31_20261105/M3_guard_recovery_20261111.json及同名前缀.state.json。它只协调登记的自有现存作业：UID1278、节点、完整启动命令和Restarts必须匹配；原guard须DISK_PAUSED；随后通过SSH在实际目标节点执行原v2_diagnosis_disk.py --once的全部容量/并发/native quota检查，再复查控制器STOPPED后CONT。实际容量未知时不发信号，不重启模型或回退检查点。10项控制单测PASS/0.07秒。当前协调器作为Main轻量元数据进程持续运行，服务配置enabled=false可退出，两组实际终态后自动退出；新运行需显式登记实际job/配置/UUID/解释器。11月10日晚同类快照暂停已按原容量规则重新准入，原进程/优化器/RNG/样本时钟恢复并实际推进。
