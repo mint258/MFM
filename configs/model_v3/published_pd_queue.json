@@ -129,5 +129,24 @@
                                  "seconds":  0.05,
                                  "native_persisted_history":  "Actual SDK job4526376:15102 rows, actual100k/200k/300k/400k; job4529108:531 rows observed, continuing",
                                  "online_confirmed":  false
-                             }
+                             },
+    "runtime_observation":  {
+                                "primary":  "Slurm controller via scontrol, UID1278 checked",
+                                "fallback":  "Accounting explicitly marked; unavailable controller is an observation event",
+                                "disk_guard_alerts":  true,
+                                "recovered_pause":  {
+                                                        "epoch":  1794273383,
+                                                        "jobs":  [
+                                                                     4529108,
+                                                                     4529109
+                                                                 ],
+                                                        "cause":  "NFS account quota snapshot future or stale",
+                                                        "action":  "Actual-node filesystem/inode/quota readmission then CONT same original processes",
+                                                        "diagnostic":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_micro32_disk_pause_1794273383.json",
+                                                        "restarted":  false,
+                                                        "unit_cases":  5,
+                                                        "unit_passed":  5,
+                                                        "unit_seconds":  0.03
+                                                    }
+                            }
 }
