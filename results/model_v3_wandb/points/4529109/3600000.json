@@ -1,0 +1,102 @@
+{
+  "schema": "MODEL_V2_WANDB_100K_V1",
+  "job": 4529109,
+  "name": "P_C1-a_seed0_micro32",
+  "group": "M3_P_C1-a_seed0",
+  "boundary_samples": 3600000,
+  "actual_samples": 3600000,
+  "execution_samples": 3056000,
+  "updates": 112500,
+  "metrics": {
+    "samples/cumulative": 3600000,
+    "samples/execution": 3056000,
+    "optimizer/updates": 112500,
+    "history/imported": false,
+    "loss/P": 0.03846300020813942,
+    "loss/total": 0.03846300020813942,
+    "optimizer/lr": 0.00010732332057801898,
+    "optimizer/preclip_norm": 29.555458068847656,
+    "time/cumulative_seconds": 47186.817401991226,
+    "time/execution_seconds": 25264.21777159162,
+    "time/samples_per_second": 120.96159190949989
+  },
+  "wandb_run_id": "m3-4529109",
+  "wandb_url": null,
+  "synchronization": "OFFLINE_UNSYNCED",
+  "imported_history": false,
+  "output": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro32_continuation_20261110",
+  "restore_checkpoint": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro8_continuation_20261110/micro32_resume_20261110_v2.pt",
+  "source_revision": "46902ce",
+  "training_diagnostics": {
+    "job": 4529109,
+    "node": "compute-0-21",
+    "gpu": "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+    "observed_at": 1794293008.6052167,
+    "available": true,
+    "metrics": {
+      "gpu/utilization_percent": 17.0,
+      "gpu/memory_utilization_percent": 5.0,
+      "gpu/memory_used_mib": 29382.0,
+      "gpu/memory_total_mib": 32607.0,
+      "gpu/power_watts": 165.43,
+      "gpu/temperature_celsius": 44.0,
+      "gpu/sm_clock_mhz": 2812.0,
+      "gpu/memory_clock_mhz": 13801.0,
+      "gpu/other_process_count": 0,
+      "gpu/own_process_memory_mib": 29356.0,
+      "process/main_rss_sum_bytes": 3244462080,
+      "process/observed_main_count": 1,
+      "node/memory_total_bytes": 134026452992,
+      "node/memory_available_bytes": 53250400256,
+      "node/load1": 10.63,
+      "filesystem/root_available_bytes": 830647521280,
+      "filesystem/root_available_inodes": 465702653,
+      "filesystem/output_available_bytes": 40785124081664,
+      "filesystem/output_available_inodes": 47185882,
+      "process/main_cpu_percent": 99.91144978284507,
+      "io/main_read_bytes_per_second": 528.9011932931462,
+      "io/main_write_bytes_per_second": 1454.478281556152,
+      "io/main_major_faults_per_second": 0.0,
+      "gpu/observed_interval_energy_joules": 5270.964700688124,
+      "gpu/observed_interval_seconds": 30.97743058204651,
+      "samples/cumulative": 3606816,
+      "time/observed_unix_seconds": 1794293008.6052167,
+      "throughput/samples_per_second_window": 131.19228818013588
+    },
+    "processes": [
+      {
+        "pid": 3145813,
+        "start_ticks": 697171734,
+        "cpu_seconds": 23410.44,
+        "rss_bytes": 3244462080,
+        "major_faults": 5988177,
+        "read_bytes": 247630036992,
+        "write_bytes": 21432684544
+      }
+    ],
+    "power_scope": "whole physical GPU; not exclusive model energy",
+    "wandb_run_id": "m3-4529109-diagnostics",
+    "wandb_url": null,
+    "synchronization": "OFFLINE_UNSYNCED",
+    "last_completed_loss_window": {
+      "first_update": 111001,
+      "last_update": 112000,
+      "first_samples": 3552032,
+      "last_samples": 3584000,
+      "updates": 1000,
+      "requested_updates": 1000,
+      "partial": false,
+      "imported_records": 0,
+      "reduction": "arithmetic mean of logged optimizer-update losses",
+      "means": {
+        "P": 0.03737768948078155,
+        "total": 0.03737768948078155
+      },
+      "counts": {
+        "P": 1000,
+        "total": 1000
+      }
+    }
+  },
+  "diagnostic_alignment": "Latest wall-time observation at publication; use its own sample/time clocks"
+}
