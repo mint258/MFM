@@ -11,3 +11,5 @@
 持久记录位于 `WANDB_20261110/diagnostics/<job>/`：真实 SDK、`system_metrics.jsonl`、`loss_windows.jsonl`、`latest.json` 和运行状态。新 GitHub 10 万样本点附上最近诊断观测及其独立时间/样本计数，明确它与边界的对齐方式；原发布历史保留。系统指标从接入时开始采集，历史平均损失使用原 CSV 补录。
 
 2026-11-10 定向测试 18 PASS / 0.09 秒，仓库检查 PASS（4003 文件、1837 Python）。用户重新登录后，实际 SDK 仍报 AuthenticationError，直接 API 请求返回 HTTP403 且非 JSON；云端可见性仍待核实。当前离线持久记录与每 10 万样本 GitHub 发布继续，未声称在线同步成功。
+
+独立CPU记录4529240已在compute-0-20实际运行，原损失记录4529106继续。一次原生SDK检查读到三组系统历史5/9/8条与完整均值50/71/74窗，每窗有效total条数1000；这些是检查时刻的已持久记录数量，随后继续增长。数字与原训练作业对应关系见[实际记录摘录](../../results/model_v3_wandb/diagnostics_delivery_20261110.json)。源码与交付元数据检查为4005文件/1837Python PASS；未启动额外GPU测试或重跑模型。安装CLI已确认默认登录仅保存凭据，已请求安全使用--verify确认，API拒绝原因尚未确定。根观察器同时核实两个记录作业的实际Slurm控制状态和磁盘保护状态。
