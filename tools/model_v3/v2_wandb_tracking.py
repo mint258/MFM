@@ -147,6 +147,14 @@ def prepare_publication(manifest, cursor, repo):
             raise ValueError('Snapshot paths require actual numeric job/sample boundaries')
         if str(job) + ':' + str(boundary) in published:
             continue
+        diagnostics_root = manifest.get('tracking_root')
+        latest_path = Path(diagnostics_root) / 'diagnostics' / str(job) / 'latest.json' if diagnostics_root else None
+        if latest_path is not None and latest_path.exists():
+            latest = json.loads(latest_path.read_text())
+            if latest.get('job') != job:
+                raise ValueError('Diagnostic observation belongs to a different training job')
+            record = dict(record, training_diagnostics=latest,
+                diagnostic_alignment='Latest wall-time observation at publication; use its own sample/time clocks')
         relative = 'results/model_v3_wandb/points/' + str(job) + '/' + str(boundary) + '.json'
         save(Path(repo) / relative, record)
         entries.append(dict(path=relative, mode='100644', type='blob',

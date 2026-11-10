@@ -139,3 +139,18 @@ def test_publication_rejects_non_numeric_output_path(tmp_path):
     pending.write_text(json.dumps(dict(records=[dict(job='../outside', boundary_samples=100000)])))
     with pytest.raises(ValueError, match='numeric'):
         m.prepare_publication(dict(publication_pending=str(pending)), {}, tmp_path / 'repo')
+
+
+def test_new_publication_attaches_observation_with_its_own_clock(tmp_path):
+    root = tmp_path / 'tracking'
+    directory = root / 'diagnostics/23'
+    directory.mkdir(parents=True)
+    observation = dict(job=23, observed_at=10., metrics={'gpu/power_watts': 100., 'samples/cumulative': 100032})
+    (directory / 'latest.json').write_text(json.dumps(observation))
+    pending = tmp_path / 'pending.json'
+    pending.write_text(json.dumps(dict(records=[dict(job=23, boundary_samples=100000, actual_samples=100000)])))
+    entries = m.prepare_publication(dict(publication_pending=str(pending), tracking_root=str(root)), {}, tmp_path / 'repo')
+    record = json.loads(entries[0]['content'])
+    assert record['actual_samples'] == 100000
+    assert record['training_diagnostics'] == observation
+    assert 'own sample/time clocks' in record['diagnostic_alignment']
