@@ -90,6 +90,16 @@ def markdown(rows, progress):
             f"{window['last_samples']:,}" if window else '缺测',
             display(metrics.get('gpu/power_watts')), display(memory/1024 if finite(memory) else None),
             display(metrics.get('gpu/utilization_percent'), 0)]) + ' |')
+    lines += ['', '显卡共享情况（与上表系统指标同一次观测）：', '',
+        '| 候选 / 实际作业 | 本训练GPU进程显存 GiB | 其他计算进程数 |',
+        '|---|---:|---:|']
+    for row in rows:
+        observation = row['latest'] or {}
+        metrics = observation.get('metrics', {}) if observation.get('available') else {}
+        own_memory = metrics.get('gpu/own_process_memory_mib')
+        lines.append('| ' + str(row['candidate']) + ' / ' + str(row['job']) + ' | ' +
+            display(own_memory/1024 if finite(own_memory) else None) + ' | ' +
+            display(metrics.get('gpu/other_process_count'), 0) + ' |')
     components = sorted({key for row in rows for key in (row['latest_window'] or {}).get('means', {}) if key != 'total'})
     if components:
         lines += ['', '最近完整1000更新的分项均值（括号为有效条数）：', '',
@@ -102,7 +112,7 @@ def markdown(rows, progress):
             lines.append('| ' + str(row['candidate']) + ' / ' + str(row['job']) + ' | ' + ' | '.join(values) + ' |')
     lines += ['', '![1000步平均损失与实际系统指标](training_curves.svg)', '',
         '损失为每个实际执行内连续1000优化器更新的算术均值，缺失分项使用各自有效条数；不混合不同续跑的重放记录。原逐步损失继续保存在完整离线SDK中。', '',
-        '功率、显存和利用率属于实际物理卡；主进程指标与整卡读数分别保存。系统指标约30秒采样，缺测和超过90秒的间隔断线。图表采用实际观测时间（UTC+8），各组硬件可能不同，不按异构卡原始速度选择架构。', '',
+        '功率、整卡显存和利用率属于实际物理卡；本训练GPU进程显存单独列出。其他计算进程数大于0表示观测到同卡共享，整卡高利用率或功率不能归因于本训练；显存占用也不等同于计算占用。系统指标约30秒采样，缺测和超过90秒的间隔断线。图表采用实际观测时间（UTC+8），各组硬件可能不同，不按异构卡或共享卡原始速度选择架构。', '',
         '系统观测与进度、损失窗口有各自时钟：', '']
     for row in rows:
         latest = row['latest'] or {}
@@ -121,8 +131,8 @@ def figure(rows, svg, preview=None):
     import matplotlib.pyplot as plt
     plt.rcParams.update({'font.size': 10, 'svg.hashsalt': 'model-v3-training-report', 'svg.fonttype': 'none'})
     fig, axes = plt.subplots(2, 2, figsize=(12, 7.2), constrained_layout=True)
-    definitions = [(axes[0, 1], 'gpu/utilization_percent', 'GPU utilization (%)', 1.),
-        (axes[1, 0], 'gpu/memory_used_mib', 'GPU memory used (GiB)', 1/1024),
+    definitions = [(axes[0, 1], 'gpu/utilization_percent', 'Whole-GPU utilization (%)', 1.),
+        (axes[1, 0], 'gpu/memory_used_mib', 'Whole-GPU memory used (GiB)', 1/1024),
         (axes[1, 1], 'gpu/power_watts', 'Whole-GPU power (W)', 1.)]
     for index, row in enumerate(rows):
         color = f'C{index%10}'
