@@ -135,6 +135,25 @@ def export_snapshots(manifest):
         records=records))
 
 
+def prepare_publication(manifest, cursor, repo):
+    """Materialize only unpublished boundaries, keeping Git pushes bounded."""
+    publication = json.loads(Path(manifest['publication_pending']).read_text())
+    published = set(cursor.get('published_keys', []))
+    entries = []
+    for record in publication['records']:
+        job, boundary = record['job'], record['boundary_samples']
+        if (type(job) is not int or job <= 0 or type(boundary) is not int
+                or boundary <= 0 or boundary % CADENCE):
+            raise ValueError('Snapshot paths require actual numeric job/sample boundaries')
+        if str(job) + ':' + str(boundary) in published:
+            continue
+        relative = 'results/model_v3_wandb/points/' + str(job) + '/' + str(boundary) + '.json'
+        save(Path(repo) / relative, record)
+        entries.append(dict(path=relative, mode='100644', type='blob',
+            content=json.dumps(record, indent=2, allow_nan=False) + '\n'))
+    return entries
+
+
 def worker(manifest_path, job):
     manifest = json.loads(Path(manifest_path).read_text())
     entry = next(row for row in manifest['runs'] if row['job'] == job)
@@ -273,8 +292,16 @@ def main():
     parser.add_argument('--node')
     parser.add_argument('--gpu')
     parser.add_argument('--export-only', action='store_true')
+    parser.add_argument('--prepare-publication', action='store_true')
+    parser.add_argument('--published-cursor', type=Path)
     args = parser.parse_args()
-    if args.export_only:
+    if args.prepare_publication:
+        if not args.published_cursor:
+            parser.error('The confirmed GitHub publication cursor is required')
+        entries = prepare_publication(json.loads(args.manifest.read_text()),
+            json.loads(args.published_cursor.read_text()), Path(__file__).absolute().parents[2])
+        print(json.dumps(entries), flush=True)
+    elif args.export_only:
         export_snapshots(json.loads(args.manifest.read_text()))
     elif args.register_configuration:
         if not all((args.job, args.node, args.gpu, args.training_mode)):

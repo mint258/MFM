@@ -117,3 +117,25 @@ def test_launch_registration_appends_once_and_does_not_guess_native_stage(tmp_pa
     assert len(rows) == 2 and rows[0] == dict(job=1, terminal_state='FAILED')
     assert rows[1]['source_revision'] == 'actual-source-revision'
     assert rows[1]['group'].startswith('stageunspecified_S_')
+
+
+def test_publication_only_materializes_unpublished_actual_boundaries(tmp_path):
+    pending = tmp_path / 'pending.json'
+    record = dict(job=23, boundary_samples=200000, actual_samples=200000,
+        synchronization='OFFLINE_UNSYNCED', metrics={'loss/P': .3})
+    pending.write_text(json.dumps(dict(records=[dict(job=23, boundary_samples=100000), record])))
+    repo = tmp_path / 'repo'
+    entries = m.prepare_publication(dict(publication_pending=str(pending)),
+        dict(published_keys=['23:100000']), repo)
+    assert len(entries) == 1
+    assert entries[0]['path'] == 'results/model_v3_wandb/points/23/200000.json'
+    assert json.loads(entries[0]['content']) == record
+    assert json.loads((repo / entries[0]['path']).read_text()) == record
+    assert not (repo / 'results/model_v3_wandb/points/23/100000.json').exists()
+
+
+def test_publication_rejects_non_numeric_output_path(tmp_path):
+    pending = tmp_path / 'pending.json'
+    pending.write_text(json.dumps(dict(records=[dict(job='../outside', boundary_samples=100000)])))
+    with pytest.raises(ValueError, match='numeric'):
+        m.prepare_publication(dict(publication_pending=str(pending)), {}, tmp_path / 'repo')

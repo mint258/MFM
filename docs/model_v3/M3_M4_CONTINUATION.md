@@ -34,4 +34,4 @@ MFM4输入预取：v31_prefetch.py通过原14个CPU reader预取下一有效批�
 
 当前micro32执行：4529096/9097/9098实际574624/550656/611232后取消，本次v2冻结544000/544000/608000，重放30624/6656/3232。新训练4529108/9109/9110、开发9111/9112/9113；B32及全部科学配方保持。此前micro8与第一次micro32冻结映射保留为历史；只从v2绑定启动。配置准备9103先改新依赖，再取消旧未启动开发任务，无hold。
 
-W&B由独立CPU任务4529106读取真实CSV，原始SDK留在共享Lustre的WANDB_20261110。每次Slurm执行单独run，导入历史明确标注；重复计算不冒充规范曲线新曝光。每100000累计样本保存快照，根协调器将轻量快照推至results/model_v3_wandb/100k_snapshots.json。新dispatcher训练自动登记到同一个manifest。实际API凭据失败，当前OFFLINE_UNSYNCED，待安全重登后补传；SDK文件、权重及数据不进Git。
+W&B由独立CPU任务4529106读取真实CSV，原始SDK留在共享Lustre的WANDB_20261110。每次Slurm执行单独run，导入历史明确标注；重复计算不冒充规范曲线新曝光。每100000累计样本保存快照，根协调器将每个新边界的轻量快照推至results/model_v3_wandb/points/<Slurm作业>/<样本数>.json；最初19点的汇总文件保留，不反复推不断增大的总表。新dispatcher训练自动登记到同一个manifest。实际API凭据失败，当前OFFLINE_UNSYNCED，待安全重登后补传；SDK文件、权重及数据不进Git。
