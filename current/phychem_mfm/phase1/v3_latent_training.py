@@ -199,10 +199,10 @@ def train_native_s(c):
             writer = csv.DictWriter(log, fieldnames=('samples', 'updates', 'total', 'S', 'rec',
                 'preclip_norm', 'lr', 'seconds', 'cumulative_samples', 'gpu_peak_bytes'))
             writer.writeheader()
-            while clock.samples_consumed < c['samples']:
-                count = clock.max_next_samples(32)
-                selected = index.draw(rng, count)
-                records = list(pool.map(_read_native, selected, chunksize=1))
+            from .v31_prefetch import ordered_sample_batches
+            for records, consumed_rng in ordered_sample_batches(pool, _read_native, index,
+                    clock, rng, 32, c['samples'], draw=index.draw):
+                count = len(records)
                 clean = Batch.from_data_list(records)
                 optimizer.zero_grad(set_to_none=True)
                 structural = torch.zeros((), device='cuda')
@@ -233,6 +233,7 @@ def train_native_s(c):
                 norm = torch.nn.utils.clip_grad_norm_(parameters, 1., error_if_nonfinite=True)
                 optimizer.step()
                 clock.advance(count)
+                rng.bit_generator.state = consumed_rng
                 gradients.append(float(norm))
                 row = dict(samples=clock.samples_consumed, updates=clock.optimizer_updates,
                     total=float(total), S=float(structural), rec=float(rec), preclip_norm=float(norm),

@@ -1,6 +1,7 @@
 """Original native240k S proxy with the selected latent, recipe and exact resume."""
 from concurrent.futures import ProcessPoolExecutor
 import csv
+import json
 import multiprocessing
 from pathlib import Path
 import time
@@ -23,6 +24,10 @@ def train_selected_native_s(c):
     from .v3_architecture_views import build_two_structural_views
     from ..training.losses import LossWeights
     kind, specification = c['latent'], c.get('latent_spec')
+    if kind != 'none' and not isinstance(specification, dict):
+        raise ValueError('Bind the actual selected latent specification; no implicit defaults')
+    if c['views'] not in ('two', 'three') or c['schedule'] not in ('cosine', 'wsd'):
+        raise ValueError('Use the registered view and schedule choices')
     if c['condition'] != 'S' or kind not in ('none', 'pma', 'lite_rec'):
         raise ValueError('Use the selected architecture for native proxy S only')
     if c['seed'] != 0 or c['samples'] != 6_000_000 or c['batch_size'] not in (32, 64):
@@ -83,10 +88,10 @@ def train_selected_native_s(c):
             writer = csv.DictWriter(log, fieldnames=('samples', 'updates', 'total', 'S', 'rec',
                 'preclip_norm', 'lr', 'seconds', 'cumulative_samples', 'gpu_peak_bytes'))
             writer.writeheader()
-            while clock.samples_consumed < c['samples']:
-                count = clock.max_next_samples(c['batch_size'])
-                selected = index.draw(rng, count)
-                records = list(pool.map(_read_native, selected, chunksize=1))
+            from .v31_prefetch import ordered_sample_batches
+            for records, consumed_rng in ordered_sample_batches(pool, _read_native, index,
+                    clock, rng, c['batch_size'], c['samples'], draw=index.draw):
+                count = len(records)
                 clean = Batch.from_data_list(records)
                 optimizer.zero_grad(set_to_none=True)
                 structural = torch.zeros((), device='cuda')
@@ -114,6 +119,7 @@ def train_selected_native_s(c):
                 norm = torch.nn.utils.clip_grad_norm_(parameters, c['clip'], error_if_nonfinite=True)
                 optimizer.step()
                 clock.advance(count)
+                rng.bit_generator.state = consumed_rng
                 gradients.append(float(norm))
                 row = dict(samples=clock.samples_consumed, updates=clock.optimizer_updates,
                     total=float(total), S=float(structural), rec=float(rec), preclip_norm=float(norm),

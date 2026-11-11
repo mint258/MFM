@@ -2,7 +2,7 @@
 from copy import deepcopy
 
 
-def ordered_sample_batches(pool, read_choice, dataset, clock, rng, batch_size, stop_samples):
+def ordered_sample_batches(pool, read_choice, dataset, clock, rng, batch_size, stop_samples, *, draw=None):
     """Yield samples and their post-draw RNG state; caller commits after its update.
 
     Only the private planning clock/RNG run ahead. Checkpoints continue to contain
@@ -16,10 +16,14 @@ def ordered_sample_batches(pool, read_choice, dataset, clock, rng, batch_size, s
             return None
         count = min(planned_clock.max_next_samples(batch_size),
                     stop_samples - planned_clock.samples_consumed)
-        choices = []
-        for _ in range(count):
-            molecule = int(planned_rng.choice(dataset.indices))
-            choices.append((molecule, int(planned_rng.choice(dataset.choices(molecule)))))
+        if draw is None:
+            choices = []
+            for _ in range(count):
+                molecule = int(planned_rng.choice(dataset.indices))
+                choices.append((molecule, int(planned_rng.choice(dataset.choices(molecule)))))
+        else:
+            # Native S preserves its vectorized molecule draw before conformer draws.
+            choices = draw(planned_rng, count)
         planned_clock.advance(count)
         state = deepcopy(planned_rng.bit_generator.state)
         return state, pool.map(read_choice, choices, chunksize=1)

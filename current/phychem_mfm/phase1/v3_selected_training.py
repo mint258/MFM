@@ -53,6 +53,8 @@ def train_selected(configuration):
     if unknown:
         raise ValueError('Unknown experiment configuration keys: ' + ', '.join(sorted(unknown)))
     c.update(configuration)
+    if c['latent'] != 'none' and not isinstance(c['latent_spec'], dict):
+        raise ValueError('Bind the actual selected latent specification; no implicit defaults')
     if c['latent'] not in ('none', 'pma', 'lite_rec'):
         raise ValueError('Use only the actual adopted architecture or original none')
     if c['latent'] != 'none' and c['microbatch_size'] != c['batch_size']:

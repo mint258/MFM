@@ -46,10 +46,15 @@ def full_budget(curves):
     checkpoints = {1_000_000, 2_000_000, 4_000_000, 8_000_000, 16_000_000, 32_000_000, 64_000_000}
     if any(set(curve) - checkpoints for curve in curves.values()):
         raise ValueError('Use only the registered doubling endpoints')
+    ordered = sorted(checkpoints)
+    if any(set(curve) != set(ordered[:len(curve)]) for curve in curves.values()):
+        raise ValueError('A sequential curve prefix is required to identify the earliest plateau')
     conditions = {name: convergence_budget(curve) for name, curve in curves.items()}
     known = all(value['budget'] is not None for value in conditions.values())
     return dict(status='B_STAR_OBSERVED' if known else 'B_STAR_UNDETERMINED',
         B_star=max(value['budget'] for value in conditions.values()) if known else None,
         conditions=conditions, schedule_budget=64_000_000,
-        full_observation_complete=all(set(curve) == checkpoints for curve in curves.values()),
+        observation_complete=all(value['status'] in ('OBSERVED_PLATEAU',
+            'CEILING_REACHED_WITHOUT_OBSERVED_PLATEAU') for value in conditions.values()),
+        all_ceiling_checkpoints_available=all(set(curve) == checkpoints for curve in curves.values()),
         endpoint='before_doubling', ceiling_is_not_plateau=True)
