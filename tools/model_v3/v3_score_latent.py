@@ -68,10 +68,13 @@ def main():
     parser.add_argument('--plan', required=True)
     parser.add_argument('--results', required=True)
     parser.add_argument('--page', required=True)
+    parser.add_argument('--stage', choices=('T0','T1','all'), default='all')
     args = parser.parse_args()
     plan = json.loads(Path(args.plan).read_text())
     panels, rows = {}, []
     for run in plan['runs']:
+        if args.stage != 'all' and run['stage'] != args.stage:
+            continue
         if not run.get('evaluation_output'):
             raise ValueError('Bind the actual frozen evaluation outputs first')
         summaries = score(run['evaluation_output'])
@@ -81,11 +84,22 @@ def main():
         rows.append(row)
         if run['stage'] == 'T1':
             panels.setdefault(run['arm'], {})[run['condition']] = summaries
-    result = t1_result(panels)
+    if args.stage == 'T0':
+        if len(rows) != 4 or {(r['arm'],r['condition']) for r in rows} != {(a,c) for a in ('T0-3','T0-4') for c in ('S','P')}:
+            raise ValueError('Require the four user-confirmed T0 trained readouts')
+        result = dict(status='T0_TRAINED_READOUTS_COMPLETE', provisional_latent=None, comparisons={},
+            selection_use=False, module_finally_confirmed=False,
+            T0_1_reused_source='docs/model_v3/M3_C1_RESULTS.md',
+            T0_2_separate_report='/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/T0_2_four_statistics/summary.json',
+            source_roles=['train','train_inner_validation'], downstream_TEST_read=False)
+    else:
+        result = t1_result(panels)
     result['rows'] = rows
     _json(result, args.results)
     lines = ['# 潜变量第0/1层结果', '',
-        'T1暂定结论：**' + result['provisional_latent'] + '**。采用新模块时仍须规定的从头6M确认；不在这里宣布冻结。', '',
+        ('T0的4组训练读出已闭合，只报告，不作采用门槛。T0-1引用C1结果，T0-2四统计量单独交付。'
+         if args.stage == 'T0' else
+         'T1暂定结论：**' + result['provisional_latent'] + '**。采用新模块时仍须规定的从头6M确认；不在这里宣布冻结。'), '',
         '| 层 | 组 | 条件 | R1(X) | R2(X) | R3(X) | R1z | R2z |',
         '| --- | --- | --- | ---: | ---: | ---: | ---: | ---: |']
     for r in rows:
@@ -96,8 +110,11 @@ def main():
     for name, r in result['comparisons'].items():
         conclusion = r['A'] if r['A_wins'] else r['B'] if r['B_wins'] else '平局'
         lines.append('| {} | {:.8f} | [{:.8f}, {:.8f}] | {} |'.format(name, r['delta'], *r['ci95'], conclusion))
-    lines += ['', 'SoM使用两格R2(X)的归一化改善，条件内两任务等权再S/P等权；不得用原始误差退化替代此判据。',
-              '完整逐格SoM、保护阈值及配对区间见结果JSON。方法见V3_METHODS.md。机制分析仅报告，不参与本结论。', '']
+    if args.stage == 'T0':
+        lines += ['', 'T0的R1z新置信区间仅覆盖7个分子任务；加入原SoM两格后的九任务汇总仅报告点分数。方法见V3_METHODS.md。', '']
+    else:
+        lines += ['', 'SoM使用两格R2(X)的归一化改善，条件内两任务等权再S/P等权；不得用原始误差退化替代此判据。',
+                  '完整逐格SoM、保护阈值及配对区间见结果JSON。方法见V3_METHODS.md。机制分析仅报告，不参与本结论。', '']
     Path(args.page).write_text('\n'.join(lines))
     print(json.dumps(dict(provisional_latent=result['provisional_latent'], results=args.results)))
 

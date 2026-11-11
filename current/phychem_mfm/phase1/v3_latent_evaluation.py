@@ -226,10 +226,34 @@ def produce(args, checkpoint, *, store_factory, encode):
         completed = True
     finally:
         history_owner.close(completed)
-    _json(dict(status='PREDICTIONS_COMPLETE', seconds=time.monotonic()-started), output / 'producer_complete.json')
     # The allocated evaluation job also produces its paired statistical summary.
     # No extra CPU-only calculation is launched on a login node.
     score(output)
+    _json(dict(status='PREDICTIONS_COMPLETE', statistics_complete=True, seconds=time.monotonic()-started), output / 'producer_complete.json')
+    finish_stage_if_ready(config['stage'])
+
+
+def finish_stage_if_ready(stage):
+    """Last allocated evaluation produces the group's report, once."""
+    import subprocess
+    import sys
+    control = REPO.parent / 'runs/model_v31_20261105/LATENT_V3_20261111'
+    plan_path = control / 'plan.json'
+    plan = json.loads(plan_path.read_text())
+    runs = [r for r in plan['runs'] if r['stage'] == stage]
+    expected = 4 if stage == 'T0' else 10
+    if len(runs) != expected or not all(
+            (Path(r['evaluation_output']) / 'producer_complete.json').exists() for r in runs):
+        return
+    with (control / (stage + '_stage_report.lock')).open('a') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        result = REPO / 'results' / ('model_v3_' + stage.lower() + '.json')
+        page = REPO / 'docs/model_v3' / ('M3_' + stage + '_RESULTS.md')
+        if result.exists() and page.exists():
+            return
+        subprocess.run([sys.executable, '-B', str(REPO / 'tools/model_v3/v3_score_latent.py'),
+            '--plan', str(plan_path), '--stage', stage, '--results', str(result), '--page', str(page)],
+            cwd=REPO, check=True)
 
 
 def score(directory):
