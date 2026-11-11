@@ -1,4 +1,4 @@
-"""Taskbook-v3 continuations; native S records and the original sample recipe."""
+"""Taskbook-v3 paired continuations and genuine fresh S/P confirmations."""
 from __future__ import annotations
 
 from concurrent.futures import ProcessPoolExecutor
@@ -23,19 +23,55 @@ def latent_configuration(c):
     stage, arm = c['stage'], c['arm']
     t0 = {'T0-3': 'pma', 'T0-4': 'lite_rec'}
     t1 = {'A0': 'none', 'A1': 'pma', 'A2': 'lite', 'A3': 'lite_rec', 'A4': 'dense_addon'}
-    if stage not in ('T0', 'T1') or arm not in (t0 if stage == 'T0' else t1):
-        raise ValueError('Use a specified T0/T1 arm')
+    allowed = t0 if stage == 'T0' else (t1 if stage == 'T1' else {'A1': 'pma', 'A3': 'lite_rec'})
+    if stage not in ('T0', 'T1', 'T2') or arm not in allowed:
+        raise ValueError('Use a specified T0/T1 arm or adopted T2 A1/A3')
+    if stage == 'T2' and c.get('adopted_option') != allowed[arm]:
+        raise ValueError('Fresh confirmation requires the actual provisional adoption')
     if c['seed'] != 0 or c['batch_size'] != 32:
         raise ValueError('The latent experiment uses seed0 and effective B32')
-    kind = (t0 if stage == 'T0' else t1)[arm]
+    kind = allowed[arm]
     specification = dict(c['latent_spec'], kind=kind)
     specification['write_back'] = stage != 'T0' and kind in ('lite', 'lite_rec')
     specification['reconstruction'] = (kind == 'lite_rec' or
         (stage == 'T0' and arm == 'T0-3' and c['condition'] == 'S'))
-    expected = (500_000, 3e-4) if stage == 'T0' else (1_500_000, 1e-4)
+    expected = {'T0': (500_000, 3e-4), 'T1': (1_500_000, 1e-4),
+                'T2': (6_000_000, 3e-4)}[stage]
     if (c['samples'], c['lr']) != expected or c['clip'] != 1.:
         raise ValueError('Keep the taskbook stage budget, learning rate and clipping')
+    pair = (specification.get('reconstruction_weight', .1), specification.get('k', 8))
+    if pair not in ((.1, 8), (.3, 8), (.1, 16)) or (pair != (.1, 8) and kind != 'lite_rec'):
+        raise ValueError('Only the default and two taskbook lambda/k settings are allowed')
     return kind, specification
+
+
+def initialization_source(c):
+    """Fresh training reads recipe metadata only, never original model/RNG weights."""
+    if c['stage'] == 'T2':
+        if c.get('initialize_from') is not None or c.get('resume') is not None:
+            raise ValueError('Fresh confirmation cannot inherit a checkpoint or sample clock')
+        previous = json.loads(Path(c['recipe_from']).read_text())
+        for name in ('distance_bias', 'views', 'seed', 'samples', 'batch_size', 'lr', 'clip'):
+            if previous[name] != c[name]:
+                raise ValueError('Fresh confirmation must retain the original C1 recipe: ' + name)
+        if previous['schedule'] != 'cosine':
+            raise ValueError('Keep the original C1 cosine schedule')
+        return None, previous
+    checkpoint = torch.load(c['initialize_from'], map_location='cpu', weights_only=True)
+    return checkpoint, checkpoint['configuration']
+
+
+def source_rng(checkpoint, seed):
+    rng = np.random.default_rng(seed)
+    if checkpoint is None:
+        return rng, 0, 0
+    rng.bit_generator.state = checkpoint['rng']
+    torch.set_rng_state(checkpoint['torch_rng'])
+    torch.cuda.set_rng_state(checkpoint['cuda_rng'])
+    base = checkpoint['clock']['samples_consumed']
+    if base != 6_000_000:
+        raise ValueError('Paired continuation requires the original6M sample clock')
+    return rng, base, checkpoint['clock']['optimizer_updates']
 
 
 def load_initial_weights(model, checkpoint):
@@ -115,8 +151,7 @@ def train_native_s(c):
     from .v3_architecture_views import build_two_structural_views
     from ..training.losses import LossWeights
     kind, specification = latent_configuration(c)
-    checkpoint = torch.load(c['initialize_from'], map_location='cpu', weights_only=True)
-    previous = checkpoint['configuration']
+    checkpoint, previous = initialization_source(c)
     if (previous['distance_bias'], previous['views'], previous['samples'], previous['batch_size']) != (
             c['distance_bias'], c['views'], 6_000_000, 32):
         raise ValueError('Continue the selected original C1 six-million S checkpoint')
@@ -131,7 +166,8 @@ def train_native_s(c):
     torch.backends.cudnn.allow_tf32 = False
     model, architecture = s_model(c['distance_bias'], c['views'], latent=kind,
                                   latent_config=specification if kind != 'none' else None)
-    load_initial_weights(model, checkpoint)
+    if checkpoint is not None:
+        load_initial_weights(model, checkpoint)
     if c['stage'] == 'T0':
         for name, parameter in model.named_parameters():
             parameter.requires_grad_(name.startswith('encoder.latent_module.'))
@@ -150,15 +186,8 @@ def train_native_s(c):
         mp_context=multiprocessing.get_context('spawn'), initializer=_worker_init, initargs=(str(repo),))
     model = model.cuda().train()
     optimizer = torch.optim.AdamW(parameters, lr=c['lr'], betas=(.9, .95))
-    # Reinitialize optimizer/stage clocks; preserve the paired source draw/RNG state.
-    rng = np.random.default_rng()
-    rng.bit_generator.state = checkpoint['rng']
-    torch.set_rng_state(checkpoint['torch_rng'])
-    torch.cuda.set_rng_state(checkpoint['cuda_rng'])
-    base_samples = checkpoint['clock']['samples_consumed']
-    base_updates = checkpoint['clock']['optimizer_updates']
-    if base_samples != 6_000_000:
-        raise ValueError('Start every paired arm from the same6M checkpoint')
+    # T0/T1 inherit only source draw/RNG; T2 starts its real sample/update clock at zero.
+    rng, base_samples, base_updates = source_rng(checkpoint, c['seed'])
     clock = SampleClock(c['samples'])
     view_config = StructuralViewConfig(seed=c['seed'])
     builder = build_two_structural_views if c['views'] == 'two' else build_structural_views
@@ -273,8 +302,7 @@ def train_native_p(c):
     from .v31_experiments import _init_reader, _read_choice
     from .v31_prefetch import ordered_sample_batches
     kind, specification = latent_configuration(c)
-    checkpoint = torch.load(c['initialize_from'], map_location='cpu', weights_only=True)
-    previous = checkpoint['configuration']
+    checkpoint, previous = initialization_source(c)
     if (previous['condition'], previous['distance_bias'], previous['views'], previous['seed'],
             previous['samples'], previous['batch_size']) != ('P', c['distance_bias'], c['views'], 0, 6_000_000, 32):
         raise ValueError('Continue the selected original C1 six-million P checkpoint')
@@ -345,13 +373,7 @@ def train_native_p(c):
                                initializer=_init_reader, initargs=(reader,))
     model = model.cuda().train()
     optimizer = torch.optim.AdamW(parameters, lr=c['lr'], betas=(.9, .95))
-    rng = np.random.default_rng()
-    rng.bit_generator.state = checkpoint['rng']
-    torch.set_rng_state(checkpoint['torch_rng'])
-    torch.cuda.set_rng_state(checkpoint['cuda_rng'])
-    base_samples = checkpoint['clock']['samples_consumed']
-    if base_samples != 6_000_000:
-        raise ValueError('Every P arm starts from the same6M checkpoint')
+    rng, base_samples, _ = source_rng(checkpoint, c['seed'])
     clock = SampleClock(c['samples'])
     gradients, started, success = [], time.monotonic(), False
     try:

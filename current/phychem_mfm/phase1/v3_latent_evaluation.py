@@ -209,10 +209,10 @@ def produce(args, checkpoint, *, store_factory, encode):
                 for name in names:
                     key = task.task_id + '/' + name
                     if task.output_level == 'atom' and name in ('R3', 'R1z', 'R2z'):
-                        original = 'R1' if name == 'R1z' else 'R2'
-                        files[key] = files[task.task_id + '/' + original]
+                        source_name = 'R1' if name == 'R1z' else 'R2'
+                        files[key] = files[task.task_id + '/' + source_name]
                         if name.endswith('z'):
-                            references[key] = references[task.task_id + '/' + original]
+                            references[key] = references[task.task_id + '/' + source_name]
                         continue
                     fit, held = (z_rows(train, cached), z_rows(validation, cached)) if name.endswith('z') else (train, validation)
                     history.cell = config['stage'] + '/' + config['arm'] + '/' + config['condition'] + '/' + key
