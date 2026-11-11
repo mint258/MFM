@@ -29,6 +29,9 @@ Report-only existing native W&B statistics. No scientific selection or timing co
 | T1_A0_A1_S_training_closed | 4529725 | training host | 2008 | 297.308 | 69.792 | 20.932 | 79.000 |
 | T1_A0_A1_S_training_closed | 4529726 | training host | 2012 | 295.756 | 67.616 | 23.493 | 78.000 |
 
+| T1_A0_A1_S_evaluation_closed | 4529741 | evaluation host | 38 | 102.434 | 9.158 | 1.286 | 55.000 |
+| T1_A0_A1_S_evaluation_closed | 4529742 | evaluation host | 54 | 111.448 | 9.333 | 1.286 | 56.000 |
+
 The complete native-key summaries, including CPU, memory, disk and network fields, are in [the complete JSON summaries](../../results/model_v3_wandb/closed_sdk_hardware_20261112.json). Raw timestamped JSONL and original .wandb files are in each complete SDK archive.
 
 Device-side GPU statistics describe the whole device. They differ from the own-process torch allocator peak in training histories and can include other compute contexts. Earlier node5 sharing observations remain recorded in RESOURCE_STATUS.md.
