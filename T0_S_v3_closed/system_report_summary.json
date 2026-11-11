@@ -1,0 +1,715 @@
+{
+  "reports": [
+    {
+      "job": 4529723,
+      "source_sdk_directory": "/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/T0_T0-3_S_seed0/offline_wandb/4529723",
+      "raw_series": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/T0_S_v3_closed/system_reports/4529723_0.jsonl",
+      "statistics_records": 248,
+      "statistics_available": true,
+      "unavailable_reason": null,
+      "native_metric_names_and_units_preserved": true,
+      "metrics": {
+        "gpu.0.gpu": {
+          "count": 124,
+          "minimum": 0,
+          "maximum": 100,
+          "last": 31,
+          "mean_observed": 22.008064516129032
+        },
+        "gpu.0.memory": {
+          "count": 124,
+          "minimum": 0,
+          "maximum": 100,
+          "last": 29,
+          "mean_observed": 21.18548387096774
+        },
+        "gpu.0.memoryAllocated": {
+          "count": 124,
+          "minimum": 7.993316650390625,
+          "maximum": 10.442860921223957,
+          "last": 10.442860921223957,
+          "mean_observed": 9.368379654422887
+        },
+        "gpu.0.memoryAllocatedBytes": {
+          "count": 124,
+          "minimum": 2059862016,
+          "maximum": 2691104768,
+          "last": 2691104768,
+          "mean_observed": 2414213053.935484
+        },
+        "gpu.0.temp": {
+          "count": 124,
+          "minimum": 51,
+          "maximum": 68,
+          "last": 64,
+          "mean_observed": 62.475806451612904
+        },
+        "gpu.0.powerWatts": {
+          "count": 124,
+          "minimum": 130.696,
+          "maximum": 251.944,
+          "last": 199.363,
+          "mean_observed": 178.8728951612904
+        },
+        "gpu.0.enforcedPowerLimitWatts": {
+          "count": 124,
+          "minimum": 350,
+          "maximum": 350,
+          "last": 350,
+          "mean_observed": 350
+        },
+        "gpu.0.powerPercent": {
+          "count": 124,
+          "minimum": 37.34171428571428,
+          "maximum": 71.984,
+          "last": 56.960857142857144,
+          "mean_observed": 51.106541474654406
+        },
+        "gpu.0.smClock": {
+          "count": 124,
+          "minimum": 1695,
+          "maximum": 1950,
+          "last": 1935,
+          "mean_observed": 1789.9596774193549
+        },
+        "gpu.0.memoryClock": {
+          "count": 124,
+          "minimum": 9501,
+          "maximum": 9501,
+          "last": 9501,
+          "mean_observed": 9501
+        },
+        "gpu.0.fanSpeed": {
+          "count": 124,
+          "minimum": 30,
+          "maximum": 57,
+          "last": 56,
+          "mean_observed": 48.58064516129032
+        },
+        "proc.memory.rssMB": {
+          "count": 124,
+          "minimum": 4937.44921875,
+          "maximum": 4953.375,
+          "last": 4939.9921875,
+          "mean_observed": 4941.902060231855
+        },
+        "proc.memory.percent": {
+          "count": 124,
+          "minimum": 1.2824946026613295,
+          "maximum": 1.286631299079133,
+          "last": 1.2831551347604195,
+          "mean_observed": 1.283651221173029
+        },
+        "cpu": {
+          "count": 124,
+          "minimum": 2.2146937350138285,
+          "maximum": 2.832345032670838,
+          "last": 2.2744421103592134,
+          "mean_observed": 2.318423707458945
+        },
+        "proc.cpu.threads": {
+          "count": 124,
+          "minimum": 12,
+          "maximum": 12,
+          "last": 12,
+          "mean_observed": 12
+        },
+        "network.recv": {
+          "count": 124,
+          "minimum": 57161118,
+          "maximum": 7722803501,
+          "last": 7722803501,
+          "mean_observed": 4069706755.435484
+        },
+        "disk./.usageGB": {
+          "count": 124,
+          "minimum": 49.204097747802734,
+          "maximum": 49.20425033569336,
+          "last": 49.204200744628906,
+          "mean_observed": 49.20415493749803
+        },
+        "disk.dm-0.in": {
+          "count": 124,
+          "minimum": 0,
+          "maximum": 0.15625,
+          "last": 0.15625,
+          "mean_observed": 0.010080645161290322
+        },
+        "disk.dm-0.out": {
+          "count": 124,
+          "minimum": 0.125,
+          "maximum": 4.47265625,
+          "last": 4.47265625,
+          "mean_observed": 2.3196509576612905
+        },
+        "network.sent": {
+          "count": 124,
+          "minimum": 7879328,
+          "maximum": 2448338111,
+          "last": 2448338111,
+          "mean_observed": 1238140591.3548386
+        },
+        "disk./.usagePercent": {
+          "count": 124,
+          "minimum": 70.3259070329402,
+          "maximum": 70.32612512212995,
+          "last": 70.32605424314328,
+          "mean_observed": 70.32598877241684
+        },
+        "memory_percent": {
+          "count": 124,
+          "minimum": 3.6644798894153596,
+          "maximum": 4.487587100187581,
+          "last": 4.487587100187581,
+          "mean_observed": 4.118126230938191
+        },
+        "proc.memory.availableMB": {
+          "count": 124,
+          "minimum": 367711.24609375,
+          "maximum": 370880.109375,
+          "last": 367711.24609375,
+          "mean_observed": 369133.6257875504
+        }
+      },
+      "parsing_error": null,
+      "selection_use": false,
+      "interpretation": "Descriptive observed mean/min/max; no model-selection or GPU-time gate",
+      "original_SDK_files_modified": false
+    },
+    {
+      "job": 4529739,
+      "source_sdk_directory": "/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/T0_T0-3_S_seed0/dev_eval_v2/offline_wandb/4529739",
+      "raw_series": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/T0_S_v3_closed/system_reports/4529739_1.jsonl",
+      "statistics_records": 34,
+      "statistics_available": true,
+      "unavailable_reason": null,
+      "native_metric_names_and_units_preserved": true,
+      "metrics": {
+        "gpu.0.gpu": {
+          "count": 17,
+          "minimum": 0,
+          "maximum": 37,
+          "last": 12,
+          "mean_observed": 9.352941176470589
+        },
+        "gpu.0.memory": {
+          "count": 17,
+          "minimum": 0,
+          "maximum": 19,
+          "last": 0,
+          "mean_observed": 1.1176470588235294
+        },
+        "gpu.0.memoryAllocated": {
+          "count": 17,
+          "minimum": 5.120595296223959,
+          "maximum": 6.731923421223958,
+          "last": 5.250803629557291,
+          "mean_observed": 5.330269009459253
+        },
+        "gpu.0.memoryAllocatedBytes": {
+          "count": 17,
+          "minimum": 1319567360,
+          "maximum": 1734803456,
+          "last": 1353121792,
+          "mean_observed": 1373599864.4705882
+        },
+        "gpu.0.temp": {
+          "count": 17,
+          "minimum": 54,
+          "maximum": 61,
+          "last": 54,
+          "mean_observed": 54.94117647058823
+        },
+        "gpu.0.powerWatts": {
+          "count": 17,
+          "minimum": 112.194,
+          "maximum": 168.551,
+          "last": 113.394,
+          "mean_observed": 116.79358823529411
+        },
+        "gpu.0.enforcedPowerLimitWatts": {
+          "count": 17,
+          "minimum": 350,
+          "maximum": 350,
+          "last": 350,
+          "mean_observed": 350
+        },
+        "gpu.0.powerPercent": {
+          "count": 17,
+          "minimum": 32.05542857142857,
+          "maximum": 48.15742857142857,
+          "last": 32.39828571428572,
+          "mean_observed": 33.369596638655466
+        },
+        "gpu.0.smClock": {
+          "count": 17,
+          "minimum": 1695,
+          "maximum": 1950,
+          "last": 1695,
+          "mean_observed": 1710
+        },
+        "gpu.0.memoryClock": {
+          "count": 17,
+          "minimum": 9501,
+          "maximum": 9501,
+          "last": 9501,
+          "mean_observed": 9501
+        },
+        "gpu.0.fanSpeed": {
+          "count": 17,
+          "minimum": 30,
+          "maximum": 50,
+          "last": 30,
+          "mean_observed": 32.8235294117647
+        },
+        "disk./.usagePercent": {
+          "count": 17,
+          "minimum": 70.32589612848071,
+          "maximum": 70.32597791192686,
+          "last": 70.32589612848071,
+          "mean_observed": 70.32595866876306
+        },
+        "disk./.usageGB": {
+          "count": 17,
+          "minimum": 49.2040901184082,
+          "maximum": 49.20414733886719,
+          "last": 49.2040901184082,
+          "mean_observed": 49.20413387522978
+        },
+        "disk.dm-0.in": {
+          "count": 17,
+          "minimum": 0,
+          "maximum": 0,
+          "last": 0,
+          "mean_observed": 0
+        },
+        "disk.dm-0.out": {
+          "count": 17,
+          "minimum": 0.0390625,
+          "maximum": 0.8828125,
+          "last": 0.8828125,
+          "mean_observed": 0.6238511029411765
+        },
+        "proc.memory.rssMB": {
+          "count": 17,
+          "minimum": 3983.7890625,
+          "maximum": 4410.39453125,
+          "last": 4120.69921875,
+          "mean_observed": 4175.058363970588
+        },
+        "proc.memory.percent": {
+          "count": 17,
+          "minimum": 1.034782889795668,
+          "maximum": 1.14559298361091,
+          "last": 1.0703450857111931,
+          "mean_observed": 1.0844647874563662
+        },
+        "cpu": {
+          "count": 17,
+          "minimum": 5.86428010523098,
+          "maximum": 6.26215164592608,
+          "last": 6.26215164592608,
+          "mean_observed": 6.193707090420781
+        },
+        "proc.cpu.threads": {
+          "count": 17,
+          "minimum": 38,
+          "maximum": 38,
+          "last": 38,
+          "mean_observed": 38
+        },
+        "network.sent": {
+          "count": 17,
+          "minimum": 761108141,
+          "maximum": 1613354597,
+          "last": 1613354597,
+          "mean_observed": 1185576639
+        },
+        "network.recv": {
+          "count": 17,
+          "minimum": 4689094,
+          "maximum": 14978547,
+          "last": 14978547,
+          "mean_observed": 9800261.823529411
+        },
+        "memory_percent": {
+          "count": 17,
+          "minimum": 2.090402472658791,
+          "maximum": 2.207950805598544,
+          "last": 2.1373164859700444,
+          "mean_observed": 2.1452376188934053
+        },
+        "proc.memory.availableMB": {
+          "count": 17,
+          "minimum": 376487.5703125,
+          "maximum": 376940.1171875,
+          "last": 376759.50390625,
+          "mean_observed": 376729.00850183825
+        }
+      },
+      "parsing_error": null,
+      "selection_use": false,
+      "interpretation": "Descriptive observed mean/min/max; no model-selection or GPU-time gate",
+      "original_SDK_files_modified": false
+    },
+    {
+      "job": 4529724,
+      "source_sdk_directory": "/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/T0_T0-4_S_seed0/offline_wandb/4529724",
+      "raw_series": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/T0_S_v3_closed/system_reports/4529724_2.jsonl",
+      "statistics_records": 248,
+      "statistics_available": true,
+      "unavailable_reason": null,
+      "native_metric_names_and_units_preserved": true,
+      "metrics": {
+        "gpu.0.gpu": {
+          "count": 124,
+          "minimum": 0,
+          "maximum": 73,
+          "last": 41,
+          "mean_observed": 22.693548387096776
+        },
+        "gpu.0.memory": {
+          "count": 124,
+          "minimum": 0,
+          "maximum": 75,
+          "last": 40,
+          "mean_observed": 21.70967741935484
+        },
+        "gpu.0.memoryAllocated": {
+          "count": 124,
+          "minimum": 8.066558837890625,
+          "maximum": 11.036936442057293,
+          "last": 11.036936442057293,
+          "mean_observed": 9.93725356235299
+        },
+        "gpu.0.memoryAllocatedBytes": {
+          "count": 124,
+          "minimum": 2078736384,
+          "maximum": 2844196864,
+          "last": 2844196864,
+          "mean_observed": 2560810743.7419353
+        },
+        "gpu.0.temp": {
+          "count": 124,
+          "minimum": 52,
+          "maximum": 69,
+          "last": 65,
+          "mean_observed": 63.5
+        },
+        "gpu.0.powerWatts": {
+          "count": 124,
+          "minimum": 131.744,
+          "maximum": 231.3,
+          "last": 216.962,
+          "mean_observed": 185.21700806451602
+        },
+        "gpu.0.enforcedPowerLimitWatts": {
+          "count": 124,
+          "minimum": 350,
+          "maximum": 350,
+          "last": 350,
+          "mean_observed": 350
+        },
+        "gpu.0.powerPercent": {
+          "count": 124,
+          "minimum": 37.64114285714285,
+          "maximum": 66.08571428571429,
+          "last": 61.98914285714285,
+          "mean_observed": 52.91914516129034
+        },
+        "gpu.0.smClock": {
+          "count": 124,
+          "minimum": 1695,
+          "maximum": 1980,
+          "last": 1905,
+          "mean_observed": 1784.758064516129
+        },
+        "gpu.0.memoryClock": {
+          "count": 124,
+          "minimum": 9501,
+          "maximum": 9501,
+          "last": 9501,
+          "mean_observed": 9501
+        },
+        "gpu.0.fanSpeed": {
+          "count": 124,
+          "minimum": 30,
+          "maximum": 61,
+          "last": 59,
+          "mean_observed": 52.86290322580645
+        },
+        "disk.dm-0.out": {
+          "count": 124,
+          "minimum": 0.14453125,
+          "maximum": 4.3359375,
+          "last": 4.3359375,
+          "mean_observed": 2.5504662298387095
+        },
+        "memory_percent": {
+          "count": 124,
+          "minimum": 5.238949223860032,
+          "maximum": 6.0490538354082375,
+          "last": 6.0490538354082375,
+          "mean_observed": 5.682824010335884
+        },
+        "proc.memory.percent": {
+          "count": 124,
+          "minimum": 1.2825616341163162,
+          "maximum": 1.2857689184037961,
+          "last": 1.283419006853716,
+          "mean_observed": 1.2835911360091259
+        },
+        "cpu": {
+          "count": 124,
+          "minimum": 2.242720975311194,
+          "maximum": 2.8504856437172643,
+          "last": 2.3024346706931897,
+          "mean_observed": 2.348368477152068
+        },
+        "disk./.usagePercent": {
+          "count": 124,
+          "minimum": 69.98897559145789,
+          "maximum": 69.99037681450206,
+          "last": 69.9890410182148,
+          "mean_observed": 69.98934506796235
+        },
+        "proc.memory.availableMB": {
+          "count": 124,
+          "minimum": 361699.76953125,
+          "maximum": 364818.57421875,
+          "last": 361699.76953125,
+          "mean_observed": 363109.71002394153
+        },
+        "proc.memory.rssMB": {
+          "count": 124,
+          "minimum": 4937.70703125,
+          "maximum": 4950.0546875,
+          "last": 4941.0078125,
+          "mean_observed": 4941.670488911291
+        },
+        "proc.cpu.threads": {
+          "count": 124,
+          "minimum": 12,
+          "maximum": 12,
+          "last": 12,
+          "mean_observed": 12
+        },
+        "network.sent": {
+          "count": 124,
+          "minimum": 10017344,
+          "maximum": 2850369196,
+          "last": 2850369196,
+          "mean_observed": 1450788532.185484
+        },
+        "network.recv": {
+          "count": 124,
+          "minimum": 84426269,
+          "maximum": 10669869747,
+          "last": 10669869747,
+          "mean_observed": 5733780892.435484
+        },
+        "disk./.usageGB": {
+          "count": 124,
+          "minimum": 48.968360900878906,
+          "maximum": 48.96934127807617,
+          "last": 48.968406677246094,
+          "mean_observed": 48.968619408146026
+        },
+        "disk.dm-0.in": {
+          "count": 124,
+          "minimum": 0,
+          "maximum": 0,
+          "last": 0,
+          "mean_observed": 0
+        }
+      },
+      "parsing_error": null,
+      "selection_use": false,
+      "interpretation": "Descriptive observed mean/min/max; no model-selection or GPU-time gate",
+      "original_SDK_files_modified": false
+    },
+    {
+      "job": 4529740,
+      "source_sdk_directory": "/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/T0_T0-4_S_seed0/dev_eval_v2/offline_wandb/4529740",
+      "raw_series": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/T0_S_v3_closed/system_reports/4529740_3.jsonl",
+      "statistics_records": 34,
+      "statistics_available": true,
+      "unavailable_reason": null,
+      "native_metric_names_and_units_preserved": true,
+      "metrics": {
+        "gpu.0.gpu": {
+          "count": 17,
+          "minimum": 0,
+          "maximum": 50,
+          "last": 12,
+          "mean_observed": 12.235294117647058
+        },
+        "gpu.0.memory": {
+          "count": 17,
+          "minimum": 0,
+          "maximum": 34,
+          "last": 0,
+          "mean_observed": 2
+        },
+        "gpu.0.memoryAllocated": {
+          "count": 17,
+          "minimum": 5.242665608723959,
+          "maximum": 6.748199462890625,
+          "last": 5.250803629557291,
+          "mean_observed": 5.338407030292586
+        },
+        "gpu.0.memoryAllocatedBytes": {
+          "count": 17,
+          "minimum": 1351024640,
+          "maximum": 1738997760,
+          "last": 1353121792,
+          "mean_observed": 1375697016.4705882
+        },
+        "gpu.0.temp": {
+          "count": 17,
+          "minimum": 55,
+          "maximum": 64,
+          "last": 56,
+          "mean_observed": 56.588235294117645
+        },
+        "gpu.0.powerWatts": {
+          "count": 17,
+          "minimum": 117.047,
+          "maximum": 294.748,
+          "last": 120.536,
+          "mean_observed": 130.452
+        },
+        "gpu.0.enforcedPowerLimitWatts": {
+          "count": 17,
+          "minimum": 350,
+          "maximum": 350,
+          "last": 350,
+          "mean_observed": 350
+        },
+        "gpu.0.powerPercent": {
+          "count": 17,
+          "minimum": 33.442,
+          "maximum": 84.21371428571427,
+          "last": 34.438857142857145,
+          "mean_observed": 37.272
+        },
+        "gpu.0.smClock": {
+          "count": 17,
+          "minimum": 1695,
+          "maximum": 1950,
+          "last": 1695,
+          "mean_observed": 1710
+        },
+        "gpu.0.memoryClock": {
+          "count": 17,
+          "minimum": 9501,
+          "maximum": 9501,
+          "last": 9501,
+          "mean_observed": 9501
+        },
+        "gpu.0.fanSpeed": {
+          "count": 17,
+          "minimum": 30,
+          "maximum": 55,
+          "last": 30,
+          "mean_observed": 34.411764705882355
+        },
+        "cpu": {
+          "count": 17,
+          "minimum": 6.083932677266415,
+          "maximum": 6.282186506717466,
+          "last": 6.281589309234705,
+          "mean_observed": 6.249311769542853
+        },
+        "proc.cpu.threads": {
+          "count": 17,
+          "minimum": 38,
+          "maximum": 38,
+          "last": 38,
+          "mean_observed": 38
+        },
+        "network.recv": {
+          "count": 17,
+          "minimum": 2944874,
+          "maximum": 14068152,
+          "last": 14068152,
+          "mean_observed": 8452801.411764706
+        },
+        "disk./.usagePercent": {
+          "count": 17,
+          "minimum": 69.98897013922813,
+          "maximum": 69.98961350233792,
+          "last": 69.98897013922813,
+          "mean_observed": 69.98934858811624
+        },
+        "disk.dm-0.in": {
+          "count": 17,
+          "minimum": 0,
+          "maximum": 0,
+          "last": 0,
+          "mean_observed": 0
+        },
+        "memory_percent": {
+          "count": 17,
+          "minimum": 3.6555228131615056,
+          "maximum": 3.772278716434073,
+          "last": 3.702652947661169,
+          "mean_observed": 3.703847420379135
+        },
+        "proc.memory.percent": {
+          "count": 17,
+          "minimum": 1.0374291293919642,
+          "maximum": 1.1544184003918712,
+          "last": 1.0718569570283059,
+          "mean_observed": 1.081254991737926
+        },
+        "network.sent": {
+          "count": 17,
+          "minimum": 763092476,
+          "maximum": 1615807679,
+          "last": 1615807679,
+          "mean_observed": 1168721584
+        },
+        "disk./.usageGB": {
+          "count": 17,
+          "minimum": 48.96835708618164,
+          "maximum": 48.968807220458984,
+          "last": 48.96835708618164,
+          "mean_observed": 48.968621871050665
+        },
+        "disk.dm-0.out": {
+          "count": 17,
+          "minimum": 0.04296875,
+          "maximum": 1.078125,
+          "last": 1.078125,
+          "mean_observed": 0.7221966911764706
+        },
+        "proc.memory.availableMB": {
+          "count": 17,
+          "minimum": 370465.078125,
+          "maximum": 370914.57421875,
+          "last": 370733.12890625,
+          "mean_observed": 370728.53033088235
+        },
+        "proc.memory.rssMB": {
+          "count": 17,
+          "minimum": 3993.9765625,
+          "maximum": 4444.37109375,
+          "last": 4126.51953125,
+          "mean_observed": 4162.700827205882
+        }
+      },
+      "parsing_error": null,
+      "selection_use": false,
+      "interpretation": "Descriptive observed mean/min/max; no model-selection or GPU-time gate",
+      "original_SDK_files_modified": false
+    }
+  ],
+  "jobs": [
+    4529723,
+    4529739,
+    4529724,
+    4529740
+  ],
+  "selection_use": false
+}
