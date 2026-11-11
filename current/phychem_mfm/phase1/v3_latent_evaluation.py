@@ -156,6 +156,8 @@ def produce(args, checkpoint, *, store_factory, encode):
     architecture = checkpoint['architecture']
     spec = architecture['backbone'].get('v3_latent')
     has_z = spec is not None and spec['kind'] in ('pma', 'lite', 'lite_rec')
+    t0 = config['stage'] == 'T0'
+    original = BASE / ('C1-0_' + config['condition'] + '_seed0') if t0 else None
     _json(dict(checkpoint=str(args.checkpoint), stage=config['stage'], arm=config['arm'],
         condition=config['condition'], panel='v2', cache_root=str(root)), output / 'configuration.json')
     store = store_factory(args.store)
@@ -172,13 +174,14 @@ def produce(args, checkpoint, *, store_factory, encode):
     torch.backends.cudnn.allow_tf32 = False
     completed, started = False, time.monotonic()
     try:
-        references = _base_r1(views, tasks, root, history)
+        references = {} if t0 else _base_r1(views, tasks, root, history)
         baseline = json.loads((BASE / 'reference/C1-0/predictions.json').read_text())['files']
         references.update(baseline)
         if has_z:
             references.update(_z_reference(spec, config, views, tasks, root, encode, history))
         cache = root / (Path(args.checkpoint).parent.name + '__' + Path(args.checkpoint).stem)
-        if not all((cache / (dataset + '.pt')).exists() for dataset in DATASETS):
+        needed_views = {d: v for d, v in views.items() if not t0 or d != 'cyp_isoform'}
+        if not all((cache / (dataset + '.pt')).exists() for dataset in needed_views):
             model, _ = s_model(config['distance_bias'], config['views'],
                 latent='none' if spec is None else spec['kind'], latent_config=spec)
             state = checkpoint['model']
@@ -187,17 +190,23 @@ def produce(args, checkpoint, *, store_factory, encode):
                          if key.startswith('structural.')}
             model.load_state_dict(state)
             model = model.cuda().eval()
-            feature_cache(model, views, encode, cache)
+            feature_cache(model, needed_views, encode, cache)
             del model
             torch.cuda.empty_cache()
-        files = {}
+        files = json.loads((original / 'predictions.json').read_text())['files'] if t0 else {}
         for dataset, view in views.items():
+            if t0 and dataset == 'cyp_isoform':
+                for task in (t for t in tasks if t.dataset_id == dataset):
+                    files[task.task_id + '/R2z'] = files[task.task_id + '/R2']
+                    references[task.task_id + '/R2z'] = references[task.task_id + '/R2']
+                continue
             payload = torch.load(cache / (dataset + '.pt'), map_location='cpu', weights_only=True)
             cached = cached_rows(payload)
             for task in (t for t in tasks if t.dataset_id == dataset):
                 train = task_rows(view, cached, task, role='train')
                 validation = task_rows(view, cached, task, role='train_inner_validation')
-                for name in ('R1', 'R2', 'R3') + (('R1z', 'R2z') if has_z else ()):
+                names = ('R1z', 'R2z') if t0 else ('R1', 'R2', 'R3') + (('R1z', 'R2z') if has_z else ())
+                for name in names:
                     key = task.task_id + '/' + name
                     if task.output_level == 'atom' and name in ('R3', 'R1z', 'R2z'):
                         original = 'R1' if name == 'R1z' else 'R2'
@@ -212,6 +221,7 @@ def produce(args, checkpoint, *, store_factory, encode):
         _json(dict(files=files, reference_files=references, architecture=architecture,
             checkpoint=str(args.checkpoint), condition=config['condition'], stage=config['stage'], arm=config['arm'],
             has_z=has_z, primary='R2z' if has_z else 'R3', source_roles=['train', 'train_inner_validation'],
+            reused_X_summary_directory=None if original is None else str(original),
             downstream_TEST_read=False), output / 'predictions.json')
         completed = True
     finally:
@@ -228,6 +238,22 @@ def score(directory):
         if path.exists():
             summaries[name] = json.loads(path.read_text())
             continue
+        original = manifest.get('reused_X_summary_directory')
+        if original and name in ('R1', 'R2', 'R3'):
+            original = Path(original)
+            if name == 'R1':
+                old = json.loads((original / 'summary.json').read_text())
+                legacy = json.loads(Path(old['legacy_summary']).read_text())
+                summary = dict(complete=True,
+                    tasks={k.rsplit('/', 1)[0]: v for k, v in legacy['tasks'].items() if k.endswith('/ridge')},
+                    mean_normalized_improvement=old['R1_mean_normalized_improvement'],
+                    bootstrap_ci=None, source_summary=old['legacy_summary'])
+            else:
+                summary = json.loads((original / (name + '_summary.json')).read_text())
+            summary.update(readout=name, primary=False, unchanged_frozen_X_result_reused=True)
+            _json(summary, path)
+            summaries[name] = summary
+            continue
         actual, reference = {}, {}
         for key, source in manifest['files'].items():
             if not key.endswith('/' + name):
@@ -239,6 +265,18 @@ def score(directory):
         identity = 'C1-0:matched-initial-encoder-function:' + name
         summary = compare_panel(actual, reference, architecture_sha256=identity,
             reference_architecture_sha256=identity, retain_paired_samples=True, retain_task_samples=True)
+        if original and name == 'R1z':
+            import numpy as np
+            atom = {k: v for k, v in summaries['R1']['tasks'].items() if k.startswith('cyp.')}
+            summary['graph_only_mean'] = summary['mean_normalized_improvement']
+            summary['graph_only_bootstrap_ci'] = summary.pop('bootstrap_ci')
+            summary['graph_only_paired_bootstrap'] = summary.pop('paired_bootstrap')
+            summary['mean_normalized_improvement'] = float(np.mean(
+                [r['normalized_improvement'] for r in summary['tasks'].values()] +
+                [r['normalized_improvement'] for r in atom.values()]))
+            summary['tasks'].update(atom)
+            summary.update(bootstrap_ci=None,
+                bootstrap_scope='seven graph tasks only; two unchanged old atom point cells reused')
         summary.update(readout=name, primary=name == manifest['primary'], downstream_TEST_read=False)
         _json(summary, path)
         summaries[name] = summary
