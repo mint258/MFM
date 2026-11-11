@@ -9,3 +9,5 @@
 - node20/21/22已观察到其他用户GPU任务；node2驱动不可用。本次不在这些已占用或未准入的卡上新增运行。新任务继续执行实际节点字节/inode/native quota、公共UUID锁和启动时foreign-context检查。
 
 来源：仓库外MODEL_V3_GPU_inventory_20261111T1015.json、MODEL_V3_NODE0_capacity_before_A2_20261111.txt、MODEL_V3_legacy_recorders_retirement_20261111.json及原生W&B。观测是点时状态，后续按半小时巡检更新。
+
+- 23:28 CST巡检：node0空闲3090的根盘余量3,684,495,360B，仍低于10GiB底线，未新增任务或传输。node1/21仍有其他任务CUDA上下文；node20分配96/104核，剩余8核不足本任务16核请求，四统计量与SDK归档继续等待，节点本身为MIXED。5/6磁盘守护均OBSERVING且记录新鲜，模型所有根目录合计24,714,448,896B，统一剩余峰值预算75,285,551,104B；Lustre/NFS实际账户余量分别约210.30/153.88GB，均覆盖当前已登记并发需求。
