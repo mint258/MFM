@@ -10,7 +10,32 @@
 模型配置和配方配置必须来自实际 M5 交付且 `status=FROZEN`；配置内含实际代码标签与 B*。
 本阶段尚无这些最终文件，不用候选配置、6M 临时预算或 64M 上限代填。
 
-下面是任意主网格单格的完整启动接口。先将大写变量设为实际交付/选择的值：
+已交付的数据绑定如下，直接读取共享文件，不复制到节点。依据窗口二
+`configs/data_v1/window2_D6_final_DELIVERY.json`、`final_Common_D5_D7_v1_DELIVERY.json`：
+
+```bash
+V31_ROOT=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact
+TRAINING_VIEW=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json
+D4_MAPPING=/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json
+D5_FINAL=/lfshome/zixiao/data_v1_20261025/window2_final_population_20261105_v1/D5
+```
+
+主网格的 `TRAIN_SUBSET` 按 M 绑定；这些是最终嵌套人口，不将旧 provisional 的
+`train_all` 用作获批的 1,126,937 全池。
+
+| M | TRAIN_SUBSET | 窗口二交付字节 / 分子数 |
+| ---: | --- | ---: |
+| 120000 | `$D5_FINAL/train_120000.parquet` | 939915 / 120000 |
+| 240000 | `$D5_FINAL/train_240000.parquet` | 1574278 / 240000 |
+| 600000 | `$D5_FINAL/train_600000.parquet` | 3409568 / 600000 |
+| 1126937 | `$D5_FINAL/train_all.parquet` | 6337465 / 1126937 |
+
+阶段5/6代理对比继续使用已运行的原240k及其正式S240k绑定，不切换成员；
+上表用于M5性能网格。M4全量S/P则不指定子集，使用D6实际完整TRAIN 1,194,551。
+D6的FULL实际13,815分子用于独立未见分子诊断，不能由较早Common VAL 7,567推断其数量。
+上述数量来自生产者交付，不新增数值扫描或人口复核。能量/多样性顺序由D6中的正式D7映射读取。
+
+下面是任意主网格单格的完整启动接口。其余大写变量使用实际冻结/选择的值：
 
 ```bash
 cd /share/home/zixiao/descriptor_analysis/MFM_model_v3
@@ -74,7 +99,7 @@ TRAIN开发评价后，按既定平台规则决定后续倍增；继续时新JSO
 
 全量S/P各保留seed0/1的实际检查点曲线，使用同条件、同选定配方/人口、同检查点的预训练种子标准差（ddof=1）。对应首段条件模板见followon_templates.json的M4_full_S/P_seed0/1_segment1M；未决模型/配方参数先由实际M3/M4结果绑定。种子读数不足则B*待定，不用S/P之间的差异、240k代理或下游readout/bootstrap噪声代替。此处补齐标准差的实际来源，原翻倍平台判据及每次64M预算保持。
 
-最终交接还需在此补入：两份实际冻结配置路径、代码标签、D6/正式 D4 路径、
+最终交接还需在此补入：两份实际冻结配置路径、代码标签、
 M3/M4 结果页与实际 B*。这些依赖实际实验完成，当前未填写候选胜者或虚构数值。
 
 2026-11-06磁盘规则：正式D6直接读取唯一共享compact副本，不分发节点本地副本。
