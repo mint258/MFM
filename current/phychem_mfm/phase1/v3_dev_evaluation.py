@@ -38,6 +38,7 @@ class TaskMolecule:
     candidate_mask: object
     supervision_mask: object
     source_member_uid: str = ""
+    graph_features: object = None
 
 
 @dataclass(frozen=True)
@@ -105,7 +106,10 @@ def _arrays(rows, task):
     features, targets, valid, groups = [], [], [], []
     for row in rows:
         atom = row.h0.detach().cpu().numpy().astype(np.float64)
-        x = (atom.mean(0, keepdims=True) if task.pooling == "mean" else atom.sum(0, keepdims=True)) if task.output_level == "graph" else atom
+        x = (np.asarray(row.graph_features.detach().cpu(),dtype=np.float64).reshape(1,-1)
+             if task.output_level == "graph" and row.graph_features is not None else
+             (atom.mean(0, keepdims=True) if task.pooling == "mean" else atom.sum(0, keepdims=True))
+             if task.output_level == "graph" else atom)
         features.append(x); targets.append(row.targets.cpu().numpy().astype(np.float64))
         valid.append((row.candidate_mask & row.supervision_mask).cpu().numpy())
         groups.extend([row.molecule_uid] * len(x))
@@ -293,9 +297,23 @@ def nonlinear_probe(train, validation, task, *, seed=0, device="cpu", tracker):
         "readout": "SourceAlignedH0Readout/Linear64/ReLU"}
 
 
+def mlp_pooled_probe(train, validation, task, *, n_ref, seed=0, device="cpu", tracker):
+    """Taskbook-v3 R2; optimization-only standardization, fixed final30 epochs."""
+    from .v3_dev_readouts import run_probe
+    return run_probe(train,validation,task,readout='R2',n_ref=n_ref,seed=seed,
+                     device=device,tracker=tracker)
+
+
+def deep_atom_probe(train, validation, task, *, n_ref, seed=0, device="cpu", tracker):
+    """Taskbook-v3 R3; callers reuse R2 predictions for atom-level tasks."""
+    from .v3_dev_readouts import run_probe
+    return run_probe(train,validation,task,readout='R3' if task.output_level=='graph' else 'R2',
+                     n_ref=n_ref,seed=seed,device=device,tracker=tracker)
+
+
 def compare_panel(candidate: Mapping[str, TaskPrediction], reference: Mapping[str, TaskPrediction],
                   *, architecture_sha256, reference_architecture_sha256, bootstrap_samples=1000,
-                  confidence=.95, seed=20261025):
+                  confidence=.95, seed=20261025, retain_paired_samples=False):
     """Paired, molecule-cluster bootstrap; one common draw per dataset/task set."""
     if architecture_sha256 != reference_architecture_sha256:
         raise ValueError("Random reference must use the same architecture")
@@ -320,8 +338,11 @@ def compare_panel(candidate: Mapping[str, TaskPrediction], reference: Mapping[st
                          "observed_molecules": len({uid for uid, mask in zip(actual.molecule_uids, actual.valid) if mask})}
         groups.setdefault(actual.task.dataset_id, set()).update(actual.molecule_uids)
     groups = {key: tuple(sorted(values)) for key, values in groups.items()}
+    if retain_paired_samples:
+        groups = {key:list(groups[key]) for key in sorted(groups)}
     rng = np.random.default_rng(seed)
     task_boot = {key: [] for key in candidate}; summary_boot = []
+    indexed_boot = []
     for _ in range(bootstrap_samples):
         draws = {dataset: rng.choice(uids, len(uids), replace=True).tolist() for dataset, uids in groups.items()}
         values = []
@@ -338,17 +359,23 @@ def compare_panel(candidate: Mapping[str, TaskPrediction], reference: Mapping[st
                 values.append(value)
         if len(values) == len(candidate):
             summary_boot.append(float(np.mean(values)))
+        if retain_paired_samples:
+            indexed_boot.append(float(np.mean(values)) if len(values)==len(candidate) else None)
     quantiles = [(1-confidence)/2, (1+confidence)/2]
     for key, values in task_boot.items():
         per_task[key]["bootstrap_ci"] = np.quantile(values, quantiles).tolist() if values else None
         per_task[key]["bootstrap_defined"] = len(values)
     complete = all(row["normalized_improvement"] is not None for row in per_task.values())
-    return {"tasks": per_task, "complete": complete,
+    result = {"tasks": per_task, "complete": complete,
             "mean_normalized_improvement": float(np.mean([r["normalized_improvement"] for r in per_task.values()])) if complete else None,
             "bootstrap_ci": np.quantile(summary_boot, quantiles).tolist() if summary_boot and complete else None,
             "bootstrap_samples": bootstrap_samples, "bootstrap_defined": len(summary_boot),
             "bootstrap_unit": "molecule", "bootstrap_seed": seed,
             "architecture_sha256": architecture_sha256}
+    if retain_paired_samples:
+        result['paired_bootstrap'] = dict(groups=groups,values=indexed_boot,
+            seed=seed,samples=bootstrap_samples,confidence=confidence)
+    return result
 
 
 def seed_standard_deviation(scores, *, scientific_configuration_hashes):

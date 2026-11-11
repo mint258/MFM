@@ -39,12 +39,18 @@ def command(mode, configuration, configuration_path, *, python=sys.executable):
                 argv += ['--' + name.replace('_', '-'), str(configuration[name])]
         return argv
     if mode == 'dev':
-        if set(configuration) - {'checkpoint', 'output', 'validation_index'} or not configuration.get('checkpoint'):
+        if set(configuration) - {'checkpoint', 'output', 'validation_index','panel','reference_only','cache_root'} or not configuration.get('checkpoint'):
             raise ValueError('Use the existing development panel inputs')
         argv = prefix + ['tools/model_v3/v2_evaluate_s.py', '--checkpoint',
             str(configuration['checkpoint']), '--output', str(output)]
         if configuration.get('validation_index'):
             argv += ['--validation-index', str(configuration['validation_index'])]
+        if configuration.get('panel'):
+            argv += ['--panel',str(configuration['panel'])]
+        if configuration.get('reference_only'):
+            argv += ['--reference-only']
+        if configuration.get('cache_root'):
+            argv += ['--cache-root',str(configuration['cache_root'])]
         return argv
     if mode == 'validation':
         names = ('checkpoint', 'output', 'unseen_root', 'train_root', 'unseen_split',
