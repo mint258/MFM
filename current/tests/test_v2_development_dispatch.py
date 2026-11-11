@@ -64,3 +64,30 @@ def test_registry_cannot_authorize_an_outside_or_parent_model_directory():
         with pytest.raises(ValueError):
             dispatch.require_registered_output(dispatch.BASE/'trial',
                 dict(schema='MODEL_OUTPUT_BUDGET_V1', roots=[root]))
+
+
+def test_paired_validation_keeps_full_routine_and_training_holdout_inputs_separate():
+    configuration = dict(checkpoint='/closed/samples_6000000.pt',
+        output=str(dispatch.BASE/'closed/validation/full_and_unseen.json'),
+        unseen_root='/published/D6', train_root='/published/D6',
+        unseen_subset='/frozen/ROUTINE.parquet', train_subset='/original/TRAIN240k.parquet',
+        batch_size=16)
+    argv = dispatch.command('validation', configuration, '/validation.json', python='python')
+    assert argv == ['python','-B','-u','tools/model_v3/v2_validate_v31.py',
+        '--checkpoint','/closed/samples_6000000.pt','--output',configuration['output'],
+        '--unseen-root','/published/D6','--train-root','/published/D6',
+        '--unseen-subset','/frozen/ROUTINE.parquet',
+        '--train-subset','/original/TRAIN240k.parquet','--batch-size','16']
+
+
+@pytest.mark.parametrize('extra', [
+    {'unseen_split':'TEST'},
+    {'normalizations':'/refit-on-validation'},
+    {'checkpoint':None},
+])
+def test_paired_validation_cannot_read_test_or_override_frozen_normalization(extra):
+    configuration = dict(checkpoint='/closed/samples_6000000.pt',
+        output=str(dispatch.BASE/'closed/validation/result.json'))
+    configuration.update(extra)
+    with pytest.raises(ValueError):
+        dispatch.command('validation', configuration, '/validation.json')

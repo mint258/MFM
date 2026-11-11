@@ -46,12 +46,24 @@ def command(mode, configuration, configuration_path, *, python=sys.executable):
         if configuration.get('validation_index'):
             argv += ['--validation-index', str(configuration['validation_index'])]
         return argv
+    if mode == 'validation':
+        names = ('checkpoint', 'output', 'unseen_root', 'train_root', 'unseen_split',
+                 'unseen_subset', 'train_subset', 'batch_size')
+        if set(configuration) - set(names) or not configuration.get('checkpoint'):
+            raise ValueError('Use the existing paired validation inputs')
+        if configuration.get('unseen_split', 'FULL') != 'FULL':
+            raise ValueError('Use FULL or its ROUTINE subset, never downstream TEST')
+        argv = prefix + ['tools/model_v3/v2_validate_v31.py']
+        for name in names:
+            if name in configuration and configuration[name] is not None:
+                argv += ['--' + name.replace('_', '-'), str(configuration[name])]
+        return argv
     raise ValueError('Unknown existing development program')
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--mode', choices=('v31', 'native_s', 'dev'), required=True)
+    parser.add_argument('--mode', choices=('v31', 'native_s', 'dev', 'validation'), required=True)
     parser.add_argument('--configuration', required=True)
     parser.add_argument('--show-output', action='store_true')
     args = parser.parse_args()

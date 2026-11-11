@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=16
 #SBATCH --output=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_%j.log
 set -euo pipefail
-mode=${1:?v31, native_s or dev}
+mode=${1:?v31, native_s, dev or validation}
 configuration=${2:?actual experiment configuration}
 gpu_uuid=${3:?actual GPU UUID}
 python=${4:?existing compatible Python}

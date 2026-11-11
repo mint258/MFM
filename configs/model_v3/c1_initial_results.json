@@ -1,77 +1,119 @@
 {
-    "status":  "WAITING_FOR_ALL_INITIAL_DEV_RESULTS",
-    "runs":  [
-                 {
-                     "directory":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2",
-                     "candidate":  "C1-0",
-                     "condition":  "S"
-                 },
-                 {
-                     "directory":  "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110",
-                     "candidate":  "C1-0",
-                     "condition":  "P"
-                 },
-                 {
-                     "directory":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_a_seed0",
-                     "candidate":  "C1-a",
-                     "condition":  "S"
-                 },
-                 {
-                     "directory":  "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro32_continuation_20261110",
-                     "candidate":  "C1-a",
-                     "condition":  "P"
-                 },
-                 {
-                     "directory":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_b_seed0_v2",
-                     "candidate":  "C1-b",
-                     "condition":  "S"
-                 },
-                 {
-                     "directory":  "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro32_continuation_20261110",
-                     "candidate":  "C1-b",
-                     "condition":  "P"
-                 }
-             ],
-    "selection_scope":  "Prepare top-two repeats only; no final architecture choice or seed SD",
-    "preparation_job":  4529103,
-    "dependency":  "afterok:4529111:4529112:4529113",
-    "execution_overrides":  {
-                                "S":  {
-                                          "C1-b":  {
-                                                       "microbatch_size":  8
-                                                   },
-                                          "C1-a":  {
-                                                       "microbatch_size":  8
-                                                   }
-                                      },
-                                "P":  {
-                                          "C1-a":  {
-                                                       "microbatch_size":  16
-                                                   },
-                                          "C1-b":  {
-                                                       "microbatch_size":  16
-                                                   },
-                                          "C1-0":  {
-                                                       "microbatch_size":  16
-                                                   }
-                                      }
-                            },
-    "execution_resource_basis":  {
-                                     "unknown_S_C1_0_peak":  "Retain microbatch4",
-                                     "source_microbatch":  4,
-                                     "science":  "Only execution microbatch changes; weighted observation means, effective batch32, sample budget, data, optimizer, clipping and schedule preserved",
-                                     "P_peak_checkpoint_samples":  480000,
-                                     "S_full_6M_peak_bytes":  {
-                                                                  "C1-b":  6118976000,
-                                                                  "C1-a":  6111961088
-                                                              },
-                                     "forecast":  "P prospective micro16:4x actual micro4 checkpoint peak plus25pct execution margin (largest20646384640B). S-a/b micro8:2x recorded peak plus25pct. Fresh GPU capacity required at actual launch; no measured speedup claimed",
-                                     "effective_batch":  32,
-                                     "P_peak_bytes":  {
-                                                          "C1-a":  4113306624,
-                                                          "C1-b":  4129276928,
-                                                          "C1-0":  4108229632
-                                                      }
-                                 },
-    "prior_preparation_job":  4529082
+  "status": "WAITING_FOR_ALL_INITIAL_DEV_RESULTS",
+  "runs": [
+    {
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2",
+      "candidate": "C1-0",
+      "condition": "S"
+    },
+    {
+      "directory": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110",
+      "candidate": "C1-0",
+      "condition": "P"
+    },
+    {
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_a_seed0",
+      "candidate": "C1-a",
+      "condition": "S"
+    },
+    {
+      "directory": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro32_continuation_20261110",
+      "candidate": "C1-a",
+      "condition": "P"
+    },
+    {
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_b_seed0_v2",
+      "candidate": "C1-b",
+      "condition": "S"
+    },
+    {
+      "directory": "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro32_continuation_20261110",
+      "candidate": "C1-b",
+      "condition": "P"
+    }
+  ],
+  "selection_scope": "Prepare top-two repeats only; no final architecture choice or seed SD",
+  "preparation_job": 4529710,
+  "dependency": "afterok:4529708",
+  "execution_overrides": {
+    "S": {
+      "C1-b": {
+        "microbatch_size": 8
+      },
+      "C1-a": {
+        "microbatch_size": 8
+      }
+    },
+    "P": {
+      "C1-a": {
+        "microbatch_size": 32
+      },
+      "C1-b": {
+        "microbatch_size": 16
+      },
+      "C1-0": {
+        "microbatch_size": 16
+      }
+    }
+  },
+  "execution_resource_basis": {
+    "unknown_S_C1_0_peak": "Retain microbatch4",
+    "source_microbatch": 4,
+    "science": "Only execution microbatch changes; weighted observation means, effective batch32, sample budget, data, optimizer, clipping and schedule preserved",
+    "P_peak_checkpoint_samples": 480000,
+    "S_full_6M_peak_bytes": {
+      "C1-b": 6118976000,
+      "C1-a": 6111961088
+    },
+    "forecast": "C1-a P micro32 uses actual full6M footprint on a fresh free5090. Other P repeats retain micro16 projection from originalmicro4 peaks; S-a/b micro8 uses actual full6M micro4 peaks. Fresh physical capacity is required at each launch; scientific recipe remains fixed.",
+    "effective_batch": 32,
+    "P_peak_bytes": {
+      "C1-a": 4113306624,
+      "C1-b": 4129276928,
+      "C1-0": 4108229632
+    },
+    "P_C1_a_full_6M_micro32_peak_bytes": 29204564480,
+    "P_C1_a_repeat_resource": "Now node22 RTX5090,32097MiB free at launch; micro32/B32 based on actual seed0 full6M peak29204564480B. S repeat node5 RTX3090 micro8/B32."
+  },
+  "prior_preparation_job": 4529082,
+  "early_required_repeat_scope": "May execute only mathematically guaranteed initial top-two repeats before all six results; no partial ranking or final C1 selection. C1-a outranks completed C1-b on the fixed equal-S/P seed0 aggregate, leaving at most one other candidate above C1-a.",
+  "early_submitted_repeats": [
+    {
+      "candidate": "C1-a",
+      "condition": "S",
+      "seed": 1,
+      "mode": "native_s",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/S_C1-a_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_S_C1-a_seed1",
+      "job": 4529691,
+      "node": "compute-0-5",
+      "gpu": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+      "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+      "submission_file": "M3_required_a_S_submission_20261111.txt",
+      "dev_job": 4529693,
+      "dev_dependency": "afterok:4529691"
+    },
+    {
+      "candidate": "C1-a",
+      "condition": "P",
+      "seed": 1,
+      "mode": "v31",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-a_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_P_C1-a_seed1",
+      "job": 4529704,
+      "node": "compute-0-22",
+      "gpu": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+      "python": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+      "submission_file": "M3_required_a_P_node22_submission_20261111.txt",
+      "dev_job": 4529705,
+      "dev_dependency": "afterok:4529704"
+    }
+  ],
+  "preparation_history": [
+    {
+      "job": 4529103,
+      "status": "CANCELLED_PENDING_ZERO_RUNTIME",
+      "reason": "4529111 failed before evaluation; replacement dev4529708"
+    }
+  ]
 }
