@@ -48,7 +48,7 @@ def make_configuration(model, recipe, *, condition, molecules, k, order, seed,
     actual_condition = {'Sprime':'S', 'Pprime':'P'}.get(condition, condition)
     if actual_condition != 'S' and (not training_view or not normalizations):
         raise ValueError('Explicit frozen training view and source-specific D4 mapping required')
-    return dict(root=str(root), subset_path=str(subset), output=str(output), stage='performance',
+    configuration = dict(root=str(root), subset_path=str(subset), output=str(output), stage='performance',
         code_tag=model['code_tag'], candidate=condition, condition=actual_condition,
         distance_bias=architecture['distance_bias'], views=architecture['views'],
         head_form=architecture['head_form'], pooling=architecture['pooling'],
@@ -56,18 +56,31 @@ def make_configuration(model, recipe, *, condition, molecules, k, order, seed,
         order=order, k=k, seed=seed, expected_molecules=molecules,
         samples=recipe['sample_budget'], batch_size=recipe['batch_size'], lr=recipe['lr'],
         schedule=recipe['schedule'], clip=recipe['clip'])
+    latent = architecture.get('latent', 'none')
+    if latent not in ('none', 'pma', 'lite_rec'):
+        raise ValueError('Use the actual confirmed frozen latent choice')
+    if latent != 'none':
+        spec = architecture.get('latent_spec')
+        if not isinstance(spec, dict) or spec.get('kind') != latent:
+            raise ValueError('A confirmed latent requires its full frozen specification')
+        configuration.update(latent=latent, latent_spec=spec, arm='frozen_grid',
+            microbatch_size=recipe['batch_size'])
+    return configuration
 
 
-def slurm_script(configuration_path, output, *, node, gpu_uuid, python, repo):
+
+def slurm_script(configuration_path, output, *, node, gpu_uuid, python, repo, mode='v31'):
     if not re.fullmatch(r'compute-0-\d+', node) or not re.fullmatch(r'GPU-[0-9a-fA-F-]+', gpu_uuid):
         raise ValueError('Explicit development compute node and GPU UUID required')
+    if mode not in ('v31', 'selected'):
+        raise ValueError('Use an existing development training mode')
     q = shlex.quote
     dispatcher = repo / 'tools/model_v3/v2_run_development.sbatch'
     return '\n'.join(['#!/bin/bash', '#SBATCH --job-name=model-v3-grid-cell', '#SBATCH --partition=all',
         '#SBATCH --nodelist=' + node, '#SBATCH --nodes=1', '#SBATCH --ntasks=1',
         '#SBATCH --cpus-per-task=16', '#SBATCH --output=' + str(output) + '.log',
         'set -euo pipefail', 'cd ' + q(str(repo)),
-        'exec /bin/bash ' + q(str(dispatcher)) + ' v31 ' + q(str(configuration_path))
+        'exec /bin/bash ' + q(str(dispatcher)) + ' ' + mode + ' ' + q(str(configuration_path))
         + ' ' + q(gpu_uuid) + ' ' + q(python), ''])
 
 
@@ -98,7 +111,7 @@ def main():
     script = Path(str(output) + '.sbatch')
     repo = Path(__file__).absolute().parents[2]
     body = slurm_script(configuration_path, output, node=args.node, gpu_uuid=args.gpu_uuid,
-                        python=args.python, repo=repo)
+                        python=args.python, repo=repo, mode='selected' if config.get('latent', 'none') != 'none' else 'v31')
     with configuration_path.open('x') as file:
         file.write(json.dumps(config, indent=2) + '\n')
     with script.open('x') as file:
