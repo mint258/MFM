@@ -215,7 +215,7 @@ def produce(args, checkpoint, *, store_factory, encode):
                             references[key] = references[task.task_id + '/' + source_name]
                         continue
                     fit, held = (z_rows(train, cached), z_rows(validation, cached)) if name.endswith('z') else (train, validation)
-                    history.cell = config['stage'] + '/' + config['arm'] + '/' + config['condition'] + '/' + key
+                    history.cell = str(config['stage']) + '/' + str(config['arm']) + '/' + config['condition'] + '/' + key
                     files[key] = _probe(name, fit, held, task, payload['n_ref'], history,
                         output / 'probes' / (task.task_id.replace('.', '_') + '__' + name + '.pt'))
         _json(dict(files=files, reference_files=references, architecture=architecture,
