@@ -1,6 +1,6 @@
 {
   "stage": 5,
-  "status": "ALL_INITIAL_C1_RESULTS_COMPLETE_TOP_TWO_SEED1_A_RUNNING_ZERO_QUEUED",
+  "status": "USER_PAUSED_WAITING_FOR_NOTIFICATION",
   "dependency": {
     "job": 4529073,
     "slurm": "Formal READY consumed; failed historical afterok:4526311 cleared on original unstarted jobs",
@@ -112,7 +112,9 @@
       "gpu": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
       "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/S_C1-a_seed1.json",
       "evaluation_job": 4529693,
-      "resource_dependency": null
+      "resource_dependency": null,
+      "observed_state": "STOPPED",
+      "user_paused": true
     },
     {
       "job": 4529704,
@@ -126,7 +128,8 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-a_seed1.json",
       "evaluation_job": 4529705,
       "resource_dependency": null,
-      "observed_state": "RUNNING"
+      "observed_state": "STOPPED",
+      "user_paused": true
     }
   ],
   "validation": {
@@ -207,7 +210,9 @@
       "output": "/lfshome/zixiao/model_v31_20261105/M3_S_C1-0_seed1",
       "evaluation_job": 4529712,
       "resource_dependency": "afterok:4529709",
-      "mode": "native_s"
+      "mode": "native_s",
+      "observed_state": "STOPPED",
+      "user_paused": true
     },
     {
       "job": 4529713,
@@ -223,7 +228,10 @@
       "resource_dependency": "afterok:4529712",
       "mode": "v31",
       "microbatch_size": 32,
-      "execution_change": "Before first model start; actual original C1-0 full6M micro32 peak7947732480B, unchanged effectiveB32."
+      "execution_change": "Before first model start; actual original C1-0 full6M micro32 peak7947732480B, unchanged effectiveB32.",
+      "observed_state": "PENDING",
+      "pending_reason": "JobHeldUser",
+      "user_paused": true
     }
   ],
   "auxiliary_runs": [
@@ -300,5 +308,36 @@
       "status": "CANCELLED_PENDING_ZERO_NATIVE_WORK",
       "replacement": "Same summary-only preparation executed by SSH on compute-0-20; actual exit0, no Slurm job claimed"
     }
-  ]
+  ],
+  "user_pause": {
+    "status": "USER_PAUSED_WAITING_FOR_NOTIFICATION",
+    "directive": "等一下，你先不要做补种子任务了，等待通知",
+    "epoch": 1794372002,
+    "stopped_jobs": [
+      4529691,
+      4529704,
+      4529711
+    ],
+    "held_jobs": [
+      4529693,
+      4529705,
+      4529712,
+      4529713,
+      4529714
+    ],
+    "controller_verified_states": {
+      "4529691": "STOPPED",
+      "4529693": "PENDING JobHeldUser",
+      "4529704": "STOPPED",
+      "4529705": "PENDING JobHeldUser",
+      "4529711": "STOPPED",
+      "4529712": "PENDING JobHeldUser",
+      "4529713": "PENDING JobHeldUser",
+      "4529714": "PENDING JobHeldUser"
+    },
+    "action": "Slurm suspend denied; scancel --signal=STOP --full --user=zixiao --nodelist=<verified node> succeeded for each actual running job. Pending user holds succeeded. No cancellation, restart or checkpoint rollback.",
+    "automatic_recovery_seed1_entries_removed": true,
+    "process_state_and_checkpoints_retained": true,
+    "resume_requires_new_explicit_user_instruction": true
+  }
 }
