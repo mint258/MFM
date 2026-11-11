@@ -28,7 +28,7 @@ cd /share/home/zixiao/descriptor_analysis/MFM_model_v3
 `TRAIN_SUBSET` 是对应 M 的真实 TRAIN
 分子 ID Parquet。`TRAINING_VIEW` 为窗口二正式冻结清单；`D4_MAPPING` 为模型加载器
 按字段消费的正式 TRAIN 参数映射（原 D4 的接口翻译，不能另拟合）。`RUN_OUTPUT`
-为仓库外新的绝对输出目录。命令生成 `<RUN_OUTPUT>.input.json` 和 `.sbatch`，并打印
+为 /lfshome/zixiao/model_v31_20261105/ 下新的绝对输出目录；先将实际训练输出根登记到仓库外 runs/model_v31_20261105/model_output_budget.json 的 roots，并按实际新增峰值更新同一全局预测（登记方法见 M3_M4_CONTINUATION.md）。命令生成 `<RUN_OUTPUT>.input.json` 和 `.sbatch`，并打印
 可执行的 `sbatch` 命令。确认使用该实际科学格子后，执行打印的命令，或初次生成时加
 `--submit`；已生成时直接提交现有脚本，不重复生成覆盖。
 
@@ -83,23 +83,17 @@ M3/M4 结果页与实际 B*。这些依赖实际实验完成，当前未填写�
 新增文件峰值，并于序列化期间复查余量；不足即停止新增写入并保留原检查点/已写partial，
 不自动清理文件。运行前仍须按共享STATUS协调实际账户quota及各窗口待写预算。
 
-已结束的S/M2/回归观察已按真实作业终态退役。后续训练须在实际计算节点启动
-`tools/model_v3/v2_watch_disk.py`，每5秒观察根盘/输出盘字节与inode，并绑定实际账户quota：
+主网格脚本现在复用已在M3实际训练中使用的
+`tools/model_v3/v2_run_development.sbatch v31 CONFIG GPU_UUID PYTHON`。
+该入口在任何训练更新前要求输出根已登记到同一个全局模型预测，核实实际根盘/输出盘字节与inode、
+原生账户quota与全部并发增长，获取既有UUID锁并确认所分配卡无其他计算上下文；
+随后启动原持续磁盘观察与真实W&B登记。科学JSON原样传入v2_train_v31.py，
+不会复制数据、改变抽样/优化器/RNG或补写未决冻结参数，也不必另起第二个磁盘观察器。
 
-```bash
-python tools/model_v3/v2_watch_disk.py \
-  --output "$RUN_OUTPUT" --state "$DISK_STATE" --node "$COMPUTE_NODE" --jobs "$SLURM_JOB_ID" \
-  --growth-bytes "$GLOBAL_MODEL_FUTURE_BYTES" \
-  --quota-reference "$QUOTA_REFERENCE" --quota-filesystem "$OUTPUT_FILESYSTEM" \
-  --quota-concurrent-bytes "$OTHER_WINDOWS_FUTURE_BYTES"
-```
-
-此观察须与训练并行，正常结束时退出；状态由主监控读取。`QUOTA_REFERENCE` 使用实际
-原生配额发布器的当前快照；`OUTPUT_FILESYSTEM` 为对应的 `/lfshome` 或 `/share`。
-快照须匹配真实UID/文件系统/schema，使用发布器已有有效时间且age在0..5秒；不会重写
-时间冒充新观测。quota扣账户100GB、同盘全局未来增长、其他窗口并发及8GiB突发余量。
-增长预估全节点合计，不能按节点重复预算，也不是固定输出上限；每次启动更新实际预估。
-后续M3/M4检查点拟用共享Lustre；原NFS输出/检查点保留，不自动迁移或清理。
-容量不足/未知时仅暂停明确绑定的本UID/节点/Slurm作业，保留原训练进程；空间恢复后，
-须在实际节点复核根盘/输出盘及并发quota预算，再对原作业发送CONT并重启观察。
-主进度观察器同时检查其状态新鲜度，不把观察进程失联当作已完成保护。
+运行期保护状态仍在仓库外runs/model_v31_20261105/M3_controlled_<job>.state.json。
+quota快照须沿用发布器的真实UID/文件系统/schema及有效时间，包含账户100GB底线、
+其他窗口未来增长和8GiB突发余量；不会改写时间冒充新观测。容量不足/未知只暂停已绑定
+自有作业并保留原进程，恢复时仍须在实际节点重核容量/并发后CONT，不能将未知容量当作通过。
+后续性能格子的新增峰值须纳入真实全局预测；当前开发100GB不是每格再加一份，也不是固定输出硬上限。
+本次仅修正交接入口，未提交或启动性能实验；网格启动相关4项定向单测验证真实命令分派与参数保留，
+无额外模型冒烟或完整回归。

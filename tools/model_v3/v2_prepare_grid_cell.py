@@ -62,18 +62,13 @@ def slurm_script(configuration_path, output, *, node, gpu_uuid, python, repo):
     if not re.fullmatch(r'compute-0-\d+', node) or not re.fullmatch(r'GPU-[0-9a-fA-F-]+', gpu_uuid):
         raise ValueError('Explicit development compute node and GPU UUID required')
     q = shlex.quote
-    base = '/share/home/zixiao/descriptor_analysis'
-    lock = base + '/docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks/' + gpu_uuid + '.lock'
-    dependencies = base + '/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps'
+    dispatcher = repo / 'tools/model_v3/v2_run_development.sbatch'
     return '\n'.join(['#!/bin/bash', '#SBATCH --job-name=model-v3-grid-cell', '#SBATCH --partition=all',
         '#SBATCH --nodelist=' + node, '#SBATCH --nodes=1', '#SBATCH --ntasks=1',
-        '#SBATCH --cpus-per-task=16', '#SBATCH --output=' + str(output) + '.log', 'set -e',
-        'cd ' + q(str(repo)), 'export CUDA_VISIBLE_DEVICES=' + q(gpu_uuid),
-        'export PYTHONPATH=' + q(str(repo/'current') + ':' + dependencies),
-        'export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1',
-        'export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True',
-        'flock ' + q(lock) + ' ' + q(python) + ' -u ' + q(str(repo/'tools/model_v3/v2_train_v31.py'))
-        + ' --configuration ' + q(str(configuration_path)), ''])
+        '#SBATCH --cpus-per-task=16', '#SBATCH --output=' + str(output) + '.log',
+        'set -euo pipefail', 'cd ' + q(str(repo)),
+        'exec /bin/bash ' + q(str(dispatcher)) + ' v31 ' + q(str(configuration_path))
+        + ' ' + q(gpu_uuid) + ' ' + q(python), ''])
 
 
 def main():

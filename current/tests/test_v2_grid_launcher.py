@@ -43,13 +43,31 @@ def test_sprime_and_actual_kstar_pprime_use_uff_and_explicit_d4():
         module.make_configuration(model, recipe, condition='Pprime', k=2, **common)
 
 
-def test_prepared_job_uses_slurm_and_one_uuid_lock_without_memory_or_time_gates(tmp_path):
+def test_prepared_job_reuses_guarded_dispatcher_and_preserves_arguments(tmp_path):
+    import os
+    import subprocess
+
     module = launcher()
-    script = module.slurm_script(tmp_path/'input.json', tmp_path/'run', node='compute-0-5',
-        gpu_uuid='GPU-1234-abcd', python='/env/bin/python', repo=tmp_path/'repo')
+    repo = tmp_path / 'repo with spaces'
+    dispatcher = repo / 'tools/model_v3/v2_run_development.sbatch'
+    dispatcher.parent.mkdir(parents=True)
+    dispatcher.write_text('#!/bin/bash\nset -e\nprintf "%s\\0" "$@" > "$CAPTURE"\nprintf "%s" "$PWD" > "$CAPTURE.cwd"\n')
+    configuration = tmp_path / 'input with spaces.json'
+    configuration.write_text('{"seed":1,"views":"two","samples":8000000}\n')
+    original = configuration.read_bytes()
+    python = '/environment with spaces/bin/python'
+    script = module.slurm_script(configuration, tmp_path/'run', node='compute-0-5',
+        gpu_uuid='GPU-1234-abcd', python=python, repo=repo)
     assert '#SBATCH --partition=all' in script and '#SBATCH --cpus-per-task=16' in script
-    assert 'flock ' in script and 'CUDA_VISIBLE_DEVICES=GPU-1234-abcd' in script
-    assert '--mem' not in script and '--time' not in script and 'v2_train_v31.py' in script
+    assert '--mem' not in script and '--time' not in script
+    path = tmp_path / 'grid.sbatch'
+    path.write_text(script)
+    capture = tmp_path / 'arguments'
+    subprocess.run(['/bin/bash', str(path)], check=True, env={**os.environ, 'CAPTURE':str(capture)})
+    assert capture.read_bytes().split(b'\0')[:-1] == [
+        b'v31', str(configuration).encode(), b'GPU-1234-abcd', python.encode()]
+    assert Path(str(capture)+'.cwd').read_text() == str(repo)
+    assert configuration.read_bytes() == original
 
 
 def test_user_approved_final_d5_pool_replaces_nominal_maximum():
