@@ -57,9 +57,13 @@ def main():
     for row in manifest['runs']:
         for directory in row['sdk_directories']:
             registry.require_registered_output(directory['path'], budget)
+    base, roots = sdk_roots(manifest, c['jobs'])
+    capacity = actual_capacity_check(Path(c['output']))
+    from v3_sdk_system_report import export_system_reports
+    reports = export_system_reports(roots, c['jobs'], Path(c['output']), capacity)
     result = pack_closed_runs(manifest, c['jobs'], Path(c['output']), c['name'],
-        capacity_check=actual_capacity_check(Path(c['output'])),
-        root_resolver=sdk_roots, archive_prefix='MODEL_V3_OFFLINE_SDK')
+        capacity_check=capacity, root_resolver=lambda _manifest, _jobs: (base, roots + [reports]),
+        archive_prefix='MODEL_V3_OFFLINE_SDK')
     print(json.dumps({k: v for k, v in result.items() if k != 'files'}), flush=True)
 
 
