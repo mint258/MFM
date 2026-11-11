@@ -119,3 +119,8 @@ significance tests or size-specific fitting. Existing T1 X/z caches are reused.
 Full input/solver and continuation conventions are in MECHANISM_ANALYSIS.md.
 This producer is implemented but awaits canonical SMARTS/structure delivery and
 closed T1 P evaluations; it has not produced scientific results.
+
+
+## Training progress reports across stages
+
+The report producer `tools/model_v3/v3_prepare_training_reports.py` reads actual submitted run plans and the original producer configuration, snapshots and histories. Effective batch size and scientific sample budget come from the run configuration. The original sample offset is the recorded cumulative clock minus the recorded stage clock, or zero when samples already use the absolute clock. Fresh6M confirmations therefore do not inherit the paired-continuation6M offset, and B64 reports retain the actual64 batch. Numeric stage labels are displayed as strings. The1000-update loss means are copied from existing history records, not refitted or reaveraged. Published point IDs remain unchanged and are skipped. Multiple actual plans can be supplied with repeated `--plan`; no job is queried, submitted or recovered by this tool. Native per-step SDK histories,30-second system statistics and actual training recipes are unaffected.
