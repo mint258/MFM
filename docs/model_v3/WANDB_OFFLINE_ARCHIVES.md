@@ -39,3 +39,10 @@ The seed1 bundle preserves historical stopped partial executions; none was resum
 [Readable hardware table](CLOSED_SDK_HARDWARE_20261112.md) and [complete native-key summaries](../../results/model_v3_wandb/closed_sdk_hardware_20261112.json) reuse the completed exporter outputs. Timestamped raw JSONL is included in each bundle. Device-wide GPU metrics differ from own-process torch allocator peaks. Legacy diagnostic SDK StatsRecords describe the recorder host; customized remote training observations remain in original HistoryRecords/system_metrics.jsonl and are not relabeled as native training-device measurements.
 
 SDK reading/compression is single-threaded operational work. After verifying ownership, exact commands, zero-work PENDING state and actual node20 capacity, the four archive jobs changed NumCPUs/CPUsPerTask/MinCPUsNode to1. Jobs4529839/4529840/4529986/4529987 completed0:0 on node20 with1CPU each in28/17/15/17seconds. Training, readout evaluation and regression requests were unchanged. Existing filesystem/inode, shared forecast, native quota and runtime protection remained active. No SDK files were modified or deleted; no model or extra validation was rerun.
+
+
+## T1 first two S continuations: closed training SDKs
+
+[A0/S and A1/S complete training bundle](https://github.com/mint258/MFM/tree/model-v3-wandb-archives-20261111/T1_A0_A1_S_training_closed), artifact commit `df701c50af64a66e08e4bcce953cfe0d1fb84758`: two successful closed training sessions,51 ordinary files,18890531 gzip bytes,7 parts. Jobs4529725/4529726 each reached1.5M continuation samples (7.5M cumulative). Archive4529994 completed0:0 on node20 in14seconds with1CPU. [Manifest](../../results/model_v3_wandb/archives/T1_A0_A1_S_training_closed.json).
+
+Paired evaluations are separate SDKs; later T1 arms are not included. The new-delivery index now totals23 sessions,300 files and47 parts across five bundles; original P0/a/b330 files remain. The earlier statement that T1 sessions were open describes the previous delivery. System summaries extend the same hardware table/JSON; raw native-key JSONL is in the complete bundle. No cloud sync, deletion or model rerun.

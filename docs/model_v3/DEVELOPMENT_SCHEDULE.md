@@ -8,7 +8,7 @@
 | 2 | 1 | R2/R3；6已有C1检查点+1匹配参考作业组；选C1 / 10 | 2026-11-11已完成：实际1.0156GPU时，C1-0 |
 | 3 | 1；与2并行 | Lite核心及指定3项数学验收 / 0 | 2026-11-11已完成；训练接入继续 |
 | 4 | 2、3 | 第0层；4组训练与评价全部C0 / 10 | 2026-11-11已闭合4组；T0-2因node20缺16核，调度器暂估2026-11-18晚运行（动态预估） |
-| 5 | 2、3；与4并行 | 第1层10次1.5M配对续训（A0/S、A1/S已启动）及机制分析 / 60 | 2026-11-14 main comparison; mechanism report awaits canonical inputs |
+| 5 | 2、3；与4并行 | 第1层10次1.5M配对续训（A0/S、A1/S续训已C0，评价后接P）及机制分析 / 60 | 2026-11-14 main comparison; mechanism report awaits canonical inputs |
 | 6 | 5且A3采用 | λ=.3、k=16各S/P，共4次 / 24 | 2026-11-15（条件成立时） |
 | 7 | 5–6且A3/A1采用 | 两次从头6M确认+6次只报告微调 / 42 | 2026-11-17（条件成立时） |
 | 8 | 模块结论 | 两/三视图S/SDP，精确复用相同运行 / 50 | 2026-11-19 |
@@ -21,3 +21,5 @@
 
 
 2026-11-12 execution update: original closed P/C1-b independent validation4529709 is now published. Four closed SDK archives completed with1CPU each and were uploaded:21sessions,249files,40parts. T0-2 four-statistics16CPU work still waits on node20; its scheduling delay does not block the T1 main comparison or adoption decisions.
+
+2026-11-12 02:02 CST: T1 A0/S and A1/S continuation training completed1.5M each in8:22:03 and8:23:05. Frozen evaluations were running, followed automatically by paired P continuations. The full10-case group and adoption comparisons remain pending; Nov14 estimate retained. Their two closed training SDKs are delivered in7 additional archive parts.
