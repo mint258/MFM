@@ -82,7 +82,7 @@ def structural_record(record):
     return result
 
 
-def s_model(distance_bias, views):
+def s_model(distance_bias, views, *, latent='none',latent_config=None):
     # Every real v3.1 entry uses the same existing S precision configuration.
     torch.set_float32_matmul_precision('highest')
     torch.backends.cuda.matmul.allow_tf32 = False
@@ -107,7 +107,9 @@ def s_model(distance_bias, views):
         module = importlib.util.module_from_spec(spec)
         sys.modules[name] = module
         spec.loader.exec_module(module)
-    encoder = build_architecture_model(configuration, ArchitectureOptions(distance_bias=distance_bias),
+    if latent!='none':
+        configuration['backbone']['v3_latent'] = dict(latent_config or {},kind=latent)
+    encoder = build_architecture_model(configuration, ArchitectureOptions(distance_bias=distance_bias,latent=latent),
         legacy_builder=sys.modules[name].build_memory_bounded_model)
     from ..model.v3_performance import ConfigurableDenoisingHead
     encoder.geometry_head = ConfigurableDenoisingHead(encoder.geometry_head, activation_checkpointing=False)
