@@ -13,3 +13,6 @@
 - 23:28 CST巡检：node0空闲3090的根盘余量3,684,495,360B，仍低于10GiB底线，未新增任务或传输。node1/21仍有其他任务CUDA上下文；node20分配96/104核，剩余8核不足本任务16核请求，四统计量与SDK归档继续等待，节点本身为MIXED。5/6磁盘守护均OBSERVING且记录新鲜，模型所有根目录合计24,714,448,896B，统一剩余峰值预算75,285,551,104B；Lustre/NFS实际账户余量分别约210.30/153.88GB，均覆盖当前已登记并发需求。
 
 - 23:58–23:59 CST巡检：T1 A0/S、A1/S各1,166,080/1,500,000阶段样本，实际两作业均RUNNING，磁盘守护OBSERVING且观察年龄<4秒。node5/6当次仅见本训练CUDA上下文，不撤销node5历史共享时段。node0根盘余量仍3,684,495,360B，未迁移任务；node1/21仍见其他上下文。`TZ=UTC squeue --start`给CPU4529737的当前预估为2026-11-18T12:44:40Z（20:44 CST），其余归档作业同时段；这是调度器估计，不是已运行或完成。
+
+- 2026-11-12 00:07 CST: four zero-work pending single-thread SDK archive jobs changed NumCPUs/CPUsPerTask/MinCPUsNode to1. Actual4529839/4529840/4529986/4529987 completed0:0 on node20,1CPU each,28/17/15/17seconds. The previously estimated Nov18 archive start is superseded by these completions; the16CPU four-statistics readout still waits. Node20 actual root headroom was about275GB with sufficient inodes; native Lustre/NFS quota covered registered concurrency. Upload read shared Lustre directly without extra node/tmp/NFS archive copies.
+- 00:29 CST: both T1 S jobs RUNNING at1256256 stage samples, disk guards OBSERVING with age<4seconds. Node0 root available3684335616B remains below10GiB; no new work/writes there. Node1/21 have other CUDA contexts; node5/6 showed only own training contexts at this observation.

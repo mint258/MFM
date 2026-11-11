@@ -8,7 +8,7 @@
 | 2 | 1 | R2/R3；6已有C1检查点+1匹配参考作业组；选C1 / 10 | 2026-11-11已完成：实际1.0156GPU时，C1-0 |
 | 3 | 1；与2并行 | Lite核心及指定3项数学验收 / 0 | 2026-11-11已完成；训练接入继续 |
 | 4 | 2、3 | 第0层；4组训练与评价全部C0 / 10 | 2026-11-11已闭合4组；T0-2因node20缺16核，调度器暂估2026-11-18晚运行（动态预估） |
-| 5 | 2、3；与4并行 | 第1层10次1.5M配对续训（A0/S、A1/S已启动）及机制分析 / 60 | 2026-11-14 |
+| 5 | 2、3；与4并行 | 第1层10次1.5M配对续训（A0/S、A1/S已启动）及机制分析 / 60 | 2026-11-14 main comparison; mechanism report awaits canonical inputs |
 | 6 | 5且A3采用 | λ=.3、k=16各S/P，共4次 / 24 | 2026-11-15（条件成立时） |
 | 7 | 5–6且A3/A1采用 | 两次从头6M确认+6次只报告微调 / 42 | 2026-11-17（条件成立时） |
 | 8 | 模块结论 | 两/三视图S/SDP，精确复用相同运行 / 50 | 2026-11-19 |
@@ -18,3 +18,6 @@
 | 12 | 11 | 两份FROZEN配置、代码标签、PREREG/HANDOFF / 0 | 2026-12-07 |
 
 任务书总估计约970 GPU时。每个完成组当天更新分数和本表；比此计划迟超过1天，日报第二行写实际原因。每周一汇总实际GPU时；>1.5倍报告继续，>3倍停下询问。诊断/修复累计4小时或连续2次失败记未解决并按原路径/原架构继续。正式E2按研究主线至少3种子，D6的3/5种子取舍待用户届时决定，当前不启动。
+
+
+2026-11-12 execution update: original closed P/C1-b independent validation4529709 is now published. Four closed SDK archives completed with1CPU each and were uploaded:21sessions,249files,40parts. T0-2 four-statistics16CPU work still waits on node20; its scheduling delay does not block the T1 main comparison or adoption decisions.

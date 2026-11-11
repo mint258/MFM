@@ -56,3 +56,6 @@ P/a独立验证9706真实C0：FULL13815分子/126764构象、TRAIN留出4292/429
 
 
 用户2026-11-10批准的新任务书v3取代本文所有尚未执行的选型：取消全部seed1，后续单seed0；面板v2以九任务R3为主指标，采用配对bootstrap/绝对及相对效果阈值，B*取首次平台的翻倍前端点。旧规则及已完成记录保留为历史。先重评6个原C1 checkpoint，再做Lite模块及三层实验、原后续阶段和冻结。本文未冲突的分派/共享输出登记/真实物理磁盘保护/W&B归档接口沿用；后续详情以根任务书v3、修订后的DECISION_RULES_TASKBOOK_V2.md、dev_panel_v2.json及DEVELOPMENT_SCHEDULE.md为准。
+
+
+2026-11-12 publication: original P/C1-b independent validation4529709 completed0:0 in00:34:38, FULL13815 molecules/126764 conformers and TRAIN held-out4292/4292. The closed producer JSON is published unchanged as results/model_v3_c1_b_validation_seed0.json; see M3_C1_B_VALIDATION.md. selection_use=false; no recomputation or C1-selection use. This closes the previous historical pending-validation notice.
