@@ -108,9 +108,11 @@ class TrainingHistory:
         recorded = dict(configuration, source_revision=revision,
             slurm_job_id=os.environ.get('SLURM_JOB_ID'),
             node=os.environ.get('SLURMD_NODENAME'), visible_gpu=os.environ.get('CUDA_VISIBLE_DEVICES'))
-        self.run = wandb.init(project='MFM-model-v3', name=output.name, mode='offline',
-            dir=str(root), config=recorded,
-            settings=wandb.Settings(x_stats_sampling_interval=30))
+        devices = [torch.cuda.current_device()] if torch.cuda.is_initialized() else []
+        with torch.random.fork_rng(devices=devices):
+            self.run = wandb.init(project='MFM-model-v3', name=output.name, mode='offline',
+                dir=str(root), config=recorded,
+                settings=wandb.Settings(x_stats_sampling_interval=30))
         if self.run is None or self.run.disabled:
             raise RuntimeError('A genuine offline W&B SDK execution is required')
         self.root, self.output = root, output

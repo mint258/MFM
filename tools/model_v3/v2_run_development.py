@@ -28,6 +28,8 @@ def command(mode, configuration, configuration_path, *, python=sys.executable):
     prefix = [python, '-B', '-u']
     if mode == 'latent':
         return prefix + ['tools/model_v3/v3_train_latent.py', '--configuration', str(configuration_path)]
+    if mode == 'native_selected':
+        return prefix + ['tools/model_v3/v3_train_selected_native_s.py', '--configuration', str(configuration_path)]
     if mode == 'selected':
         return prefix + ['tools/model_v3/v3_train_selected.py', '--configuration', str(configuration_path)]
     if mode == 'finetune':
@@ -79,7 +81,7 @@ def command(mode, configuration, configuration_path, *, python=sys.executable):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--mode', choices=('v31', 'native_s', 'dev', 'validation', 'latent', 'cached_pooling', 'archive_sdk', 'finetune', 'selected'), required=True)
+    parser.add_argument('--mode', choices=('v31', 'native_s', 'dev', 'validation', 'latent', 'cached_pooling', 'archive_sdk', 'finetune', 'selected', 'native_selected'), required=True)
     parser.add_argument('--configuration', required=True)
     parser.add_argument('--show-output', action='store_true')
     args = parser.parse_args()
