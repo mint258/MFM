@@ -227,6 +227,9 @@ def produce(args, checkpoint, *, store_factory, encode):
     finally:
         history_owner.close(completed)
     _json(dict(status='PREDICTIONS_COMPLETE', seconds=time.monotonic()-started), output / 'producer_complete.json')
+    # The allocated evaluation job also produces its paired statistical summary.
+    # No extra CPU-only calculation is launched on a login node.
+    score(output)
 
 
 def score(directory):
