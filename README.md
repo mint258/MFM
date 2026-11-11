@@ -15,4 +15,16 @@ tar -xzf P_C1_b_seed0_complete_wandb.tar.gz
 
 The ten parts are ordered part01 through part10; concatenation restores the original gzip archive exactly. See P_C1_b_seed0/manifest.json for source paths, file sizes and per-part sizes. Recovered native SDK directories are WANDB_20261110/{4526378,4529098,4529110}/wandb and WANDB_20261110/diagnostics/{4526378,4529098,4529110}/wandb. W&B cloud synchronization was not completed; upload here preserves the complete offline run files.
 
-C1-0 and C1-a remain training and will be archived after their corresponding SDK executions close.
+C1-0 remains training and will be archived after its corresponding SDK executions close.
+
+P/C1-a seed0 also completed 6,000,000 cumulative samples. Executions 4526377 → 4529097 → 4529109 and their paired diagnostics SDK runs are all closed. Its complete archive contains 110 regular files, compressed to 30,929,928 bytes (224,501,103 regular-file bytes before compression). Original files are retained.
+
+After cloning the same branch, reconstruct C1-a with:
+
+```bash
+cd MFM-wandb/P_C1_a_seed0
+cat P_C1_a_seed0_complete_wandb.tar.gz.part?? > P_C1_a_seed0_complete_wandb.tar.gz
+tar -xzf P_C1_a_seed0_complete_wandb.tar.gz
+```
+
+See P_C1_a_seed0/manifest.json for the complete file/part inventory. Both candidates retain native offline SDK histories, 1000-update means, system observations and original execution provenance. These archives do not imply a joint architecture winner.
