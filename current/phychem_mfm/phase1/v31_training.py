@@ -107,7 +107,8 @@ class V31PDModel(nn.Module):
     def encode_graph(self, batch, pooling='mean'):
         return self.encoder.encode_graph(batch, pooling=pooling)
 
-    def predict(self, samples, *, groups=('D', 'P'), fields=None, clean_features=None, clean_batch=None):
+    def predict(self, samples, *, groups=('D', 'P'), fields=None, clean_features=None, clean_batch=None,
+                clean_z=None):
         active = {f.name for f in self.registry.enabled(groups, fields)}
         physical = {self.selections[name][0] for name in active}
         device = next(self.parameters()).device
@@ -134,11 +135,14 @@ class V31PDModel(nn.Module):
             working_samples = [samples[i] for i in sample_indices]
             if route == 21 and clean_features is not None:
                 batch, h0 = clean_batch, clean_features
+                z = clean_z
             else:
                 source = working_samples
                 if route == 22:
                     source = [{**s, 'pos': s['pos_perturbed']} for s in working_samples]
                 batch, h0 = encode_samples(source, self.encoder, device=device)
+                module = getattr(self.encoder, 'latent_module', None)
+                z = None if module is None else module.last_z
                 if batch.pos is None:
                     # A coordinate-free encoder never receives coordinates;
                     # invariant pair heads may still use the supplied distances.
@@ -156,8 +160,9 @@ class V31PDModel(nn.Module):
                 pairs[head_name] = torch.cat(indices, dim=1)
                 mask = np.concatenate(masks)
                 pair_rows[head_name] = (torch.as_tensor(np.flatnonzero(mask), device=device), len(mask))
+            latent = {} if not hasattr(self.heads, 'latent_scalar_dim') else dict(graph_latent=z)
             values = self.heads(h0, batch.batch, batch.pos, enabled_groups=groups,
-                enabled_fields=selected, pair_indices=pairs)
+                enabled_fields=selected, pair_indices=pairs, **latent)
             for name, (rows, total) in pair_rows.items():
                 value = values[name]
                 values[name] = value.new_full((total, value.shape[-1]), float('nan')).index_copy(0, rows, value)

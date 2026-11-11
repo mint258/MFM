@@ -25,6 +25,7 @@ class LatentSpec:
     reconstruction: bool | None = None
     radial_count: int = 32
     radial_max_A: float = 8.
+    dense_hidden_dim: int | None = None
 
     def __post_init__(self):
         if self.kind not in ('none','pma','lite','lite_rec','dense_addon'):
@@ -39,6 +40,10 @@ class LatentSpec:
             raise ValueError('Only the default and two expressly registered lambda/k settings exist')
         if tuple(self.insert_layers)!=(5,6):
             raise ValueError('Insert only after layers5 and6')
+        if self.dense_hidden_dim is not None and (self.kind != 'dense_addon' or
+                type(self.dense_hidden_dim) is not int or self.dense_hidden_dim < 8 or
+                self.dense_hidden_dim % 8):
+            raise ValueError('Dense width is the producer-derived positive multiple8')
         object.__setattr__(self,'insert_layers',tuple(self.insert_layers))
         if self.write_back is None:
             object.__setattr__(self,'write_back',self.kind in ('lite','lite_rec'))
@@ -157,12 +162,12 @@ class MolecularLatent(nn.Module):
             # Fixed algebraic parameter matching, never a performance scan.
             with torch.random.fork_rng(devices=[]):
                 prototype = MolecularLatent(replace(spec,kind='lite_rec',write_back=True,
-                    reconstruction=True,k=8,reconstruction_weight=.1))
+                    reconstruction=True,k=8,reconstruction_weight=.1,dense_hidden_dim=None))
                 target = sum(p.numel() for p in prototype.parameters())
-            width = max(8,round(((target-4096)/2050)/8)*8)
+            width = spec.dense_hidden_dim or max(8,round(((target-4096)/2050)/8)*8)
             self.layers = nn.ModuleList([DenseResidual(width),DenseResidual(width)])
             actual = sum(p.numel() for p in self.parameters())
-            if abs(actual-target)/target>.05:
+            if spec.dense_hidden_dim is None and abs(actual-target)/target>.05:
                 raise ValueError('Dense addon must match lite_rec new-module parameters within5%')
             self.parameter_match = dict(reference=target,actual=actual,relative_error=abs(actual-target)/target,
                                         hidden_dim=width)
@@ -172,6 +177,10 @@ class MolecularLatent(nn.Module):
         return dict(schema='model_v3_molecular_latent_v1',spec=asdict(self.spec))
 
     def set_extra_state(self,value):
+        # The first live T0 producers predate this serialization-only optional
+        # width; absent/None is identical for every non-dense module.
+        if 'dense_hidden_dim' not in value.get('spec',{}):
+            value = dict(value,spec=dict(value['spec'],dense_hidden_dim=None))
         if value!=self.get_extra_state():
             raise ValueError('Latent checkpoint/specification differs')
 

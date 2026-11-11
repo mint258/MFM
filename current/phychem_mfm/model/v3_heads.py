@@ -170,7 +170,31 @@ class V3HeadBank(nn.Module):
         if self.pooling_overrides:result['pooling_overrides']=dict(self.pooling_overrides)
         if self.allow_onsite_fields:result['allow_onsite_fields']=list(self.allow_onsite_fields)
         if self.domain_head_bindings:result["domain_head_bindings"] = deepcopy(self.domain_head_bindings)
+        if hasattr(self, 'latent_scalar_dim'):
+            result['latent_scalar_routes'] = dict(dim=self.latent_scalar_dim,
+                mean='independent_MLP_z', sum='sum_independent_MLP_X_plus_zero_linear_z',
+                vectors='original_equivariant_path')
         return result
+
+    def enable_latent_scalar_routes(self, dimension, *, seed=0):
+        """Replace only molecular scalar heads, after original checkpoint loading."""
+        require(not hasattr(self, 'latent_scalar_dim') and type(dimension) is int and dimension > 0,
+                'Install the approved scalar-z routing once')
+        self.latent_scalar_dim = dimension
+        self.latent_sum_offsets = nn.ModuleDict()
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(seed)
+            for field in self.registry.fields:
+                if field.level != 'graph' or field.representation != 'scalar':
+                    continue
+                require(field.pooling in ('mean', 'sum'), 'Use the existing registry mean/sum route')
+                key = self.keys[field.name]
+                self.field_heads[key] = _mlp(dimension if field.pooling == 'mean' else self.dim,
+                                             field.prediction_width, self.hidden_dim)
+                if field.pooling == 'sum':
+                    offset = nn.Linear(dimension, field.prediction_width, bias=False)
+                    nn.init.zeros_(offset.weight)
+                    self.latent_sum_offsets[key] = offset
 
     def set_extra_state(self, state):
         compared = json_metadata(state) if self.domain_head_bindings else state
@@ -178,7 +202,7 @@ class V3HeadBank(nn.Module):
 
     def forward(self, h0: Tensor, batch: Tensor, pos: Tensor, *, enabled_groups,
                 enabled_fields=None, pair_indices=None, prediction_offsets=None,
-                domain_inputs=None, geometry_context=None):
+                domain_inputs=None, geometry_context=None, graph_latent=None):
         require(h0.ndim == 2 and h0.size(1) == self.dim and h0.is_floating_point()
                 and len(h0) > 0 and bool(torch.isfinite(h0).all()), "Finite packed H0 required")
         require(batch.dtype == torch.long and batch.shape == (len(h0),) and bool((batch >= 0).all())
@@ -235,6 +259,11 @@ class V3HeadBank(nn.Module):
                 prediction = head(h0, pos, index)
             elif field.level == "atom":
                 prediction = head(h0)
+            elif hasattr(self, 'latent_scalar_dim'):
+                require(graph_latent is not None and graph_latent.shape == (graphs, self.latent_scalar_dim)
+                        and bool(torch.isfinite(graph_latent).all()), 'Same-clean-view molecular z required')
+                prediction = (head(graph_latent) if field.pooling == 'mean' else
+                    _pool(head(h0), batch, graphs, 'sum') + self.latent_sum_offsets[key](graph_latent))
             else:
                 feature = self.pooling_mixers[key](h0, batch, graphs) if (self.pooling_overrides.get(field.name)=='learned'
                     or field.pooling == "learned") else (

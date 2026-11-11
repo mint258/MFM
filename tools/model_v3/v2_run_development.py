@@ -28,6 +28,8 @@ def command(mode, configuration, configuration_path, *, python=sys.executable):
     prefix = [python, '-B', '-u']
     if mode == 'latent':
         return prefix + ['tools/model_v3/v3_train_latent.py', '--configuration', str(configuration_path)]
+    if mode == 'cached_pooling':
+        return prefix + ['tools/model_v3/v3_evaluate_cached_pooling.py', '--configuration', str(configuration_path)]
     if mode == 'v31':
         if not configuration.get('root'):
             raise ValueError('Bind the published data root before launching a trial')
@@ -71,7 +73,7 @@ def command(mode, configuration, configuration_path, *, python=sys.executable):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--mode', choices=('v31', 'native_s', 'dev', 'validation', 'latent'), required=True)
+    parser.add_argument('--mode', choices=('v31', 'native_s', 'dev', 'validation', 'latent', 'cached_pooling'), required=True)
     parser.add_argument('--configuration', required=True)
     parser.add_argument('--show-output', action='store_true')
     args = parser.parse_args()
