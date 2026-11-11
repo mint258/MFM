@@ -49,11 +49,12 @@ def closed_roots(manifest, jobs):
     return tracking, roots
 
 
-def pack_closed_runs(manifest, jobs, destination, name, *, capacity_check):
+def pack_closed_runs(manifest, jobs, destination, name, *, capacity_check,
+                     root_resolver=None, archive_prefix='WANDB_20261110'):
     if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*', name):
         raise ValueError('Use a plain archive name, without path separators')
     jobs = list(jobs)
-    tracking, roots = closed_roots(manifest, jobs)
+    tracking, roots = (closed_roots if root_resolver is None else root_resolver)(manifest, jobs)
     destination = Path(destination)
     archive = destination / (name + '.tar.gz')
     manifest_path = destination / (name + '.manifest.json')
@@ -85,13 +86,13 @@ def pack_closed_runs(manifest, jobs, destination, name, *, capacity_check):
     with tarfile.open(partial, 'x:gz', compresslevel=6) as output:
         for path, relative, _ in files:
             capacity_check(peak_bytes, len(files) + 2)
-            output.add(path, arcname='WANDB_20261110/' + relative, recursive=False)
+            output.add(path, arcname=archive_prefix + '/' + relative, recursive=False)
     partial.rename(archive)
     value = dict(schema='MODEL_OFFLINE_WANDB_ARCHIVE_V1', jobs=jobs,
         native_sdk_finished=True, archive=str(archive), bytes=archive.stat().st_size,
         file_count=len(files), uncompressed_bytes=raw_bytes,
         source_tracking_root=str(tracking), files=[
-            dict(path='WANDB_20261110/' + relative, bytes=size) for _, relative, size in files],
+            dict(path=archive_prefix + '/' + relative, bytes=size) for _, relative, size in files],
         symlinks=SYMLINK_NOTE, original_files_retained=True, cloud_synchronized=False,
         created_at=time.time(), elapsed_seconds=time.monotonic()-started)
     capacity_check(peak_bytes, len(files) + 2)

@@ -13,7 +13,7 @@ python=${4:?existing compatible Python}
 root=/share/home/zixiao/descriptor_analysis
 cd "$root/MFM_model_v3"
 export CUDA_VISIBLE_DEVICES="$gpu_uuid" PYTHONDONTWRITEBYTECODE=1 PYTHONIOENCODING=utf-8
-if [[ "$mode" == cached_pooling ]]; then
+if [[ "$mode" == cached_pooling || "$mode" == archive_sdk ]]; then
     export CUDA_VISIBLE_DEVICES=""
 fi
 export PYTHONPATH=$PWD/current:$root/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps
@@ -26,7 +26,7 @@ df -Pi / /lfshome/zixiao "$root"
 free -b
 state=$root/runs/model_v31_20261105/M3_controlled_${SLURM_JOB_ID}.state.json
 "$python" -B tools/model_v3/v2_diagnosis_disk.py --once --output "$output" --node "$(hostname -s)" --job "$SLURM_JOB_ID" --state "$state"
-if [[ "$mode" != cached_pooling ]]; then
+if [[ "$mode" != cached_pooling && "$mode" != archive_sdk ]]; then
     exec 9>"$root/docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks/${gpu_uuid}.lock"
     flock -n 9
     "$python" -B - "$gpu_uuid" <<'PY'
