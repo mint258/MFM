@@ -313,7 +313,8 @@ def deep_atom_probe(train, validation, task, *, n_ref, seed=0, device="cpu", tra
 
 def compare_panel(candidate: Mapping[str, TaskPrediction], reference: Mapping[str, TaskPrediction],
                   *, architecture_sha256, reference_architecture_sha256, bootstrap_samples=1000,
-                  confidence=.95, seed=20261025, retain_paired_samples=False):
+                  confidence=.95, seed=20261025, retain_paired_samples=False,
+                  retain_task_samples=False):
     """Paired, molecule-cluster bootstrap; one common draw per dataset/task set."""
     if architecture_sha256 != reference_architecture_sha256:
         raise ValueError("Random reference must use the same architecture")
@@ -343,6 +344,7 @@ def compare_panel(candidate: Mapping[str, TaskPrediction], reference: Mapping[st
     rng = np.random.default_rng(seed)
     task_boot = {key: [] for key in candidate}; summary_boot = []
     indexed_boot = []
+    indexed_tasks = {key: [] for key in candidate} if retain_task_samples else None
     for _ in range(bootstrap_samples):
         draws = {dataset: rng.choice(uids, len(uids), replace=True).tolist() for dataset, uids in groups.items()}
         values = []
@@ -354,6 +356,8 @@ def compare_panel(candidate: Mapping[str, TaskPrediction], reference: Mapping[st
             indices = [i for uid in draws[actual.task.dataset_id] for i in rows.get(uid, ())]
             a, r = error(actual, indices), error(ref, indices)
             value = (r-a)/r if a is not None and r is not None and r > 0 else None
+            if indexed_tasks is not None:
+                indexed_tasks[key].append(value)
             if value is not None:
                 task_boot[key].append(value)
                 values.append(value)
@@ -375,6 +379,8 @@ def compare_panel(candidate: Mapping[str, TaskPrediction], reference: Mapping[st
     if retain_paired_samples:
         result['paired_bootstrap'] = dict(groups=groups,values=indexed_boot,
             seed=seed,samples=bootstrap_samples,confidence=confidence)
+        if indexed_tasks is not None:
+            result['paired_bootstrap']['task_values'] = indexed_tasks
     return result
 
 

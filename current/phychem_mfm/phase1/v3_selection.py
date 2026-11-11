@@ -5,7 +5,7 @@ import math
 import numpy as np
 
 
-def paired_difference(a, b):
+def paired_difference(a, b, *, expected_task_count=9):
     """Condition-keyed complete primary panels from the existing common-draw bootstrap.
 
     Indexed draws, not separately estimated confidence-interval endpoints, are
@@ -22,7 +22,7 @@ def paired_difference(a, b):
         for condition in conditions:
             value = panels[condition]
             boot = value['paired_bootstrap']
-            if (not value['complete'] or len(value['tasks'])!=9 or len(boot['values'])!=1000 or
+            if (not value['complete'] or len(value['tasks'])!=expected_task_count or len(boot['values'])!=1000 or
                     boot['groups']!=exemplar['groups'] or
                     any(boot[k]!=exemplar[k] for k in ('samples','seed','confidence'))):
                 raise ValueError('Primary panels must share the exact molecule-group draws')

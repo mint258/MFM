@@ -65,8 +65,15 @@ class TrainingHistory:
             path = root / suffix
             path.mkdir()
             os.environ['WANDB_' + suffix.upper() + '_DIR'] = str(path)
+        repo = Path(__file__).absolute().parents[3]
+        revision = (repo / '.git/HEAD').read_text().strip()
+        if revision.startswith('ref: '):
+            revision = (repo / '.git' / revision[5:]).read_text().strip()
+        recorded = dict(configuration, source_revision=revision,
+            slurm_job_id=os.environ.get('SLURM_JOB_ID'),
+            node=os.environ.get('SLURMD_NODENAME'), visible_gpu=os.environ.get('CUDA_VISIBLE_DEVICES'))
         self.run = wandb.init(project='MFM-model-v3', name=output.name, mode='offline',
-            dir=str(root), config=configuration,
+            dir=str(root), config=recorded,
             settings=wandb.Settings(x_stats_sampling_interval=30))
         if self.run is None or self.run.disabled:
             raise RuntimeError('A genuine offline W&B SDK execution is required')

@@ -149,7 +149,11 @@ def evaluate(args,*,store_factory,encode):
     registry.require_registered_output(args.cache_root,json.loads(registry.REGISTRY.read_text()))
     output.mkdir(parents=True,exist_ok=True)
     panel = json.loads((REPO/'configs/dev_panel_v2.json').read_text())
-    config = torch.load(args.checkpoint,map_location='cpu',weights_only=True)['configuration']
+    checkpoint = torch.load(args.checkpoint,map_location='cpu',weights_only=True)
+    config = checkpoint['configuration']
+    if config.get('stage') in ('T0','T1'):
+        from .v3_latent_evaluation import produce
+        return produce(args,checkpoint,store_factory=store_factory,encode=encode)
     specification = dict(checkpoint=str(args.checkpoint),panel='v2',reference_only=args.reference_only,
                          store=str(args.store),readout_seed=0)
     _json(specification,output/'configuration.json')

@@ -172,7 +172,7 @@ class V3HeadBank(nn.Module):
         if self.domain_head_bindings:result["domain_head_bindings"] = deepcopy(self.domain_head_bindings)
         if hasattr(self, 'latent_scalar_dim'):
             result['latent_scalar_routes'] = dict(dim=self.latent_scalar_dim,
-                mean='independent_MLP_z', sum='sum_independent_MLP_X_plus_zero_linear_z',
+                mean='field_function_z', sum='sum_field_function_X_plus_zero_linear_z',
                 vectors='original_equivariant_path')
         return result
 
@@ -182,15 +182,30 @@ class V3HeadBank(nn.Module):
                 'Install the approved scalar-z routing once')
         self.latent_scalar_dim = dimension
         self.latent_sum_offsets = nn.ModuleDict()
+        self.latent_group_projectors = nn.ModuleDict()
         with torch.random.fork_rng(devices=[]):
             torch.manual_seed(seed)
+            # All graph scalar routes are replaced; old H2 projectors would
+            # otherwise become unused counted parameters.
+            self.group_projectors = nn.ModuleDict()
             for field in self.registry.fields:
                 if field.level != 'graph' or field.representation != 'scalar':
                     continue
                 require(field.pooling in ('mean', 'sum'), 'Use the existing registry mean/sum route')
                 key = self.keys[field.name]
-                self.field_heads[key] = _mlp(dimension if field.pooling == 'mean' else self.dim,
-                                             field.prediction_width, self.hidden_dim)
+                input_dim = dimension if field.pooling == 'mean' else self.dim
+                form = self.forms[field.name]
+                if form == 'H1':
+                    head = Linear(input_dim, field.prediction_width)
+                elif form == 'H2':
+                    group_key = field.group + '_' + field.pooling
+                    if group_key not in self.latent_group_projectors:
+                        self.latent_group_projectors[group_key] = nn.Sequential(
+                            Linear(input_dim, self.hidden_dim), nn.SiLU())
+                    head = Linear(self.hidden_dim, field.prediction_width)
+                else:
+                    head = _mlp(input_dim, field.prediction_width, self.hidden_dim)
+                self.field_heads[key] = head
                 if field.pooling == 'sum':
                     offset = nn.Linear(dimension, field.prediction_width, bias=False)
                     nn.init.zeros_(offset.weight)
@@ -262,8 +277,11 @@ class V3HeadBank(nn.Module):
             elif hasattr(self, 'latent_scalar_dim'):
                 require(graph_latent is not None and graph_latent.shape == (graphs, self.latent_scalar_dim)
                         and bool(torch.isfinite(graph_latent).all()), 'Same-clean-view molecular z required')
-                prediction = (head(graph_latent) if field.pooling == 'mean' else
-                    _pool(head(h0), batch, graphs, 'sum') + self.latent_sum_offsets[key](graph_latent))
+                feature = graph_latent if field.pooling == 'mean' else h0
+                if self.forms[field.name] == 'H2':
+                    feature = self.latent_group_projectors[field.group + '_' + field.pooling](feature)
+                prediction = (head(feature) if field.pooling == 'mean' else
+                    _pool(head(feature), batch, graphs, 'sum') + self.latent_sum_offsets[key](graph_latent))
             else:
                 feature = self.pooling_mixers[key](h0, batch, graphs) if (self.pooling_overrides.get(field.name)=='learned'
                     or field.pooling == "learned") else (
