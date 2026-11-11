@@ -1,0 +1,430 @@
+{
+  "schema": "model_v3_dev_panel_v2",
+  "status": "FROZEN_TASKS_MEMBERSHIPS_SPLITS_AND_READOUT_RULES",
+  "decisions_fixed_on": "2026-11-10",
+  "timezone": "Asia/Shanghai",
+  "authority": {
+    "baseline_code_commit": "037546cd7f07b32dbb46bc21a69109dfd273f8da",
+    "preregistration_commit": "3441b280bc34431bf8e7596465af28be073644b6",
+    "original_frozen_protocol_sha256": "cde2ca717934955f340a5f160a3390ff1dd6eda12c9ffbab93fc54fce0c8a2a4",
+    "task_definition_source": "reproduction/linked_sources/docs/phase1/evidence/stage59_three_epoch_protocol_v1/actual_scientific_freeze_v1/phase1_three_epoch_scientific_protocol.json",
+    "classification_coverage_user_decision": {
+      "date": "2026-10-25",
+      "instruction": "允许用现有 SoM 二分类满足分类覆盖",
+      "original_difference": "The existing nine ExpansionRx endpoints are continuous regressions; no new thresholded ADMET labels are introduced."
+    },
+    "taskbook": "模型线任务书 v3：C1 收尾、读出扩展与分子潜变量模块.md",
+    "approval": "用户 2026-11-10 批准",
+    "research_mainline": "docs/RESEARCH_MAINLINE.md (file location requested; not yet supplied)"
+  },
+  "tasks": [
+    {
+      "task_id": "exp.LogD",
+      "dataset_id": "expansionrx",
+      "field": "LogD",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "source_label:LogD",
+      "coverage": [
+        "ADMET",
+        "intensive"
+      ]
+    },
+    {
+      "task_id": "exp.Log_HLM_CLint",
+      "dataset_id": "expansionrx",
+      "field": "Log_HLM_CLint",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "source_label:Log_HLM_CLint",
+      "coverage": [
+        "ADMET",
+        "metabolism"
+      ]
+    },
+    {
+      "task_id": "exp.LogS",
+      "dataset_id": "expansionrx",
+      "field": "LogS",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "source_label:LogS",
+      "coverage": [
+        "ADMET",
+        "solubility"
+      ]
+    },
+    {
+      "task_id": "cyp.3A4",
+      "dataset_id": "cyp_isoform",
+      "field": "3A4",
+      "kind": "native_binary",
+      "output_level": "atom",
+      "error_metric": "one_minus_hit1",
+      "pooling": "mean",
+      "unit": "binary",
+      "coverage": [
+        "SoM",
+        "classification",
+        "atom"
+      ]
+    },
+    {
+      "task_id": "cyp.2D6",
+      "dataset_id": "cyp_isoform",
+      "field": "2D6",
+      "kind": "native_binary",
+      "output_level": "atom",
+      "error_metric": "one_minus_hit1",
+      "pooling": "mean",
+      "unit": "binary",
+      "coverage": [
+        "SoM",
+        "classification",
+        "atom"
+      ]
+    },
+    {
+      "task_id": "qm9.U0",
+      "dataset_id": "qm9",
+      "field": "U0",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "Ha",
+      "coverage": [
+        "quantum_energy",
+        "size_related",
+        "extensive"
+      ]
+    },
+    {
+      "task_id": "qm9.homo",
+      "dataset_id": "qm9",
+      "field": "homo",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "Ha",
+      "coverage": [
+        "quantum_orbital",
+        "intensive"
+      ]
+    },
+    {
+      "task_id": "qm9.lumo",
+      "dataset_id": "qm9",
+      "field": "lumo",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "Ha",
+      "coverage": [
+        "quantum_orbital",
+        "intensive"
+      ]
+    },
+    {
+      "task_id": "qm9.alpha",
+      "dataset_id": "qm9",
+      "field": "alpha",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "bohr^3",
+      "coverage": [
+        "quantum_response",
+        "size_related"
+      ]
+    }
+  ],
+  "source_roles": {
+    "allowed": [
+      "train",
+      "train_inner_validation"
+    ],
+    "scaffold_datasets": {
+      "fold_id": "0",
+      "optimization": "original eight training folds",
+      "inner_validation": "original fold 1",
+      "reassign_original_members": false
+    },
+    "expansionrx": {
+      "fold_id": "official",
+      "source_population": "original official TRAIN only",
+      "new_inner_folds": 5,
+      "validation_fold": 0
+    },
+    "molecule_group": "full source InChIKey from byte-bound native membership metadata; require an explicit source-member-to-group map",
+    "no_member_uid_identity_substitution": true,
+    "fit_group_overlap_rule": "Exclude optimization members whose full molecule group occurs in the original inner-validation population; preserve original role files and report exclusions.",
+    "selection": {
+      "seed": 20261025,
+      "algorithm": "sort unique molecule groups by SHA256([seed,dataset,group]); retain first cap groups; retain every native member/isoform/atom belonging to each selected group",
+      "max_train_molecule_groups": 8192,
+      "max_inner_validation_molecule_groups": 2048,
+      "below_cap": "retain all",
+      "labels_consulted": false,
+      "shared_across_tasks_and_encoders": true
+    },
+    "membership_freeze": "Persist selected native member IDs, molecule groups, source bindings and hashes outside Git before encoding any checkpoint. A different membership requires a new panel version."
+  },
+  "readouts": {
+    "ridge": {
+      "alphas": [
+        0.000001,
+        0.0001,
+        0.01,
+        1,
+        100
+      ],
+      "inner_folds": 5,
+      "seed": 20261025,
+      "fold_unit": "full source molecule group",
+      "selection": "smallest mean molecular inner-CV error; smaller alpha breaks exact ties",
+      "feature_and_target_normalization": "fit each optimization fold only; refit on optimization population for inner-validation prediction",
+      "unavailable_fold_metric": "report unavailable and do not silently omit the fold"
+    },
+    "linear64_relu": {
+      "implementation": "SourceAlignedH0Readout",
+      "hidden_dim": 64,
+      "atom_layers": 1,
+      "epochs": 20,
+      "batch_graphs": 32,
+      "seed": 0,
+      "graph_pooling": "mean",
+      "selection": "fixed final endpoint; no early stopping",
+      "regression_loss": "TRAIN-standardized MSE",
+      "atom_loss": "BCE with logits on native observed candidate masks",
+      "optimizer": {
+        "name": "AdamW",
+        "lr": 0.001,
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-8,
+        "weight_decay": 0.01,
+        "foreach": false,
+        "fused": false
+      }
+    },
+    "pooling_note": "The source-aligned development readout uses its fixed mean pooling for all graph endpoints, including U0. This is separate from registry-defined pretraining-head pooling comparisons.",
+    "R0": {
+      "source": "linear64_relu",
+      "role": "historical_secondary_only",
+      "existing_v1_results": "reference_existing_summary_without_retraining"
+    },
+    "R1": {
+      "source": "ridge",
+      "graph_input": "mean(H)",
+      "atom_input": "h_i",
+      "role": "secondary_only",
+      "existing_v1_results": "reference_existing_summary_without_retraining"
+    },
+    "R2": {
+      "activation": "ReLU",
+      "dropout": 0,
+      "layers": 2,
+      "hidden_dim": 256,
+      "layer_convention": "two affine layers with one ReLU; atom transform ends in256 channels",
+      "epochs": 30,
+      "batch_graphs": 32,
+      "seed": 0,
+      "selection": "last_epoch_no_early_stop",
+      "optimizer": {
+        "name": "AdamW",
+        "lr": 0.001,
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "weight_decay": 0.01,
+        "eps": 1e-8
+      },
+      "feature_normalization": "per_dimension_fit_on_optimization_population_only",
+      "regression_loss": "optimization_TARGET_standardized_MSE",
+      "atom_loss": "masked_BCE_with_logits",
+      "function": "mlp_pooled_probe",
+      "graph_input": "concat(mean(H),sum(H)/N_ref)",
+      "atom_input": "h_i"
+    },
+    "R3": {
+      "activation": "ReLU",
+      "dropout": 0,
+      "layers": 2,
+      "hidden_dim": 256,
+      "layer_convention": "two affine layers with one ReLU; atom transform ends in256 channels",
+      "epochs": 30,
+      "batch_graphs": 32,
+      "seed": 0,
+      "selection": "last_epoch_no_early_stop",
+      "optimizer": {
+        "name": "AdamW",
+        "lr": 0.001,
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "weight_decay": 0.01,
+        "eps": 1e-8
+      },
+      "feature_normalization": "per_dimension_fit_on_optimization_population_only",
+      "regression_loss": "optimization_TARGET_standardized_MSE",
+      "atom_loss": "masked_BCE_with_logits",
+      "function": "deep_atom_probe",
+      "graph_input": "atom_MLP_2_layers_width256 -> concat(mean,sum/N_ref) -> MLP_2_layers_width256",
+      "atom_task": "reuse_same_task_R2_prediction_without_retraining"
+    },
+    "N_ref": {
+      "definition": "mean_atom_count_of_this_dataset_optimization_subset",
+      "constant": true,
+      "scope": "dataset_not_endpoint",
+      "use": "fixed_scaling_only"
+    },
+    "R1z": {
+      "alphas": [
+        0.000001,
+        0.0001,
+        0.01,
+        1,
+        100
+      ],
+      "inner_folds": 5,
+      "seed": 20261025,
+      "fold_unit": "full source molecule group",
+      "selection": "smallest mean molecular inner-CV error; smaller alpha breaks exact ties",
+      "feature_and_target_normalization": "fit each optimization fold only; refit on optimization population for inner-validation prediction",
+      "unavailable_fold_metric": "report unavailable and do not silently omit the fold",
+      "graph_input": "z",
+      "output_level": "graph_only",
+      "role": "latent_secondary"
+    },
+    "R2z": {
+      "activation": "ReLU",
+      "dropout": 0,
+      "layers": 2,
+      "hidden_dim": 256,
+      "layer_convention": "two affine layers with one ReLU; atom transform ends in256 channels",
+      "epochs": 30,
+      "batch_graphs": 32,
+      "seed": 0,
+      "selection": "last_epoch_no_early_stop",
+      "optimizer": {
+        "name": "AdamW",
+        "lr": 0.001,
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "weight_decay": 0.01,
+        "eps": 1e-8
+      },
+      "feature_normalization": "per_dimension_fit_on_optimization_population_only",
+      "regression_loss": "optimization_TARGET_standardized_MSE",
+      "atom_loss": "masked_BCE_with_logits",
+      "function": "mlp_pooled_probe",
+      "graph_input": "z",
+      "atom_input": "h_i",
+      "output_level": "graph_only",
+      "atom_task": "use_R2_from_X_for_two_SoM_tasks"
+    },
+    "statistics4": {
+      "graph_input": "concat(mean(H),sum(H)/N_ref,max(H),std_population(H))",
+      "readouts": [
+        "R1",
+        "R2"
+      ],
+      "encoder_training": false
+    }
+  },
+  "reference": {
+    "primary": "same architecture, same native membership, same readout recipe and readout seed, random encoder initialization seed 20261025",
+    "historical_s_B3": "descriptive sanity reference only; use a matching 384x4 random reference, never the 512x6 random reference",
+    "v2_execution": "One random-reference evaluation group computes each architecture-matched C1 random encoder once per new readout, shared by S and P; retain v1 same-architecture reference policy. No six duplicated references."
+  },
+  "aggregation": {
+    "per_endpoint": "(matched_readout_random_error-candidate_error)/matched_readout_random_error",
+    "primary": "equal_mean_R3_normalized_improvement_over_exact_nine_tasks",
+    "cross_condition": "equal_condition_means_after_task_means",
+    "secondary": [
+      "R1_nine_task_mean",
+      "R2_nine_task_mean",
+      "historical_R0_plus_R1_18_cell_mean"
+    ],
+    "missing_or_zero_reference_error": "unavailable_no_complete_score_no_decision",
+    "no_readout_post_selection": true
+  },
+  "uncertainty": {
+    "bootstrap_unit": "full source molecule group",
+    "bootstrap_samples": 1000,
+    "confidence": 0.95,
+    "seed": 20261025,
+    "paired": true,
+    "same_draw_across_candidates_conditions_and_all_cells_within_dataset": true,
+    "seed_SD": "not_used_for_selection_per_taskbook_v3"
+  },
+  "operating_rules": {
+    "cache": "target-free native atom H0 persisted once per checkpoint/geometry/frozen-membership binding, shared by all readouts, outsideGit",
+    "primary_H0_dimension": 512,
+    "readout_device_count": 1,
+    "wall_target_gpu_seconds_per_checkpoint": 3600,
+    "wall_target_measured": false,
+    "wandb": "persistent offline or online with explicit committed history; preserve unsynced SDK files",
+    "downstream_final_evaluation": false,
+    "invariance_tolerance": {
+      "rule": "abs_error<=max(atol,rtol*abs(reference))",
+      "R3": {
+        "atol": 0.000001,
+        "rtol": 0.00001
+      }
+    }
+  },
+  "parent_panel": "configs/dev_panel_v1.json",
+  "decision": {
+    "delta": "candidateA_minus_candidateB_equal_task_means_then_equal_conditions",
+    "win_if": "CI_lower>0 AND delta>=max(absolute_improvement,relative_improvement*max(scoreA,scoreB))",
+    "absolute_improvement": 0.01,
+    "relative_improvement": 0.05,
+    "ties": "predeclared_simplicity_between_top_two",
+    "multiple_candidates": "rank_by_primary_score_then_compare_first_and_second",
+    "simplicity": {
+      "C1": [
+        "C1-0",
+        "C1-a",
+        "C1-b"
+      ],
+      "views": [
+        "two",
+        "three"
+      ],
+      "heads": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "latent": [
+        "none",
+        "adopted_latent"
+      ]
+    }
+  },
+  "budget_plateau": {
+    "gain_threshold": "max(0.01,0.05*max(score_before,score_after))",
+    "plateau_if": "doubling_gain<threshold OR paired_delta_CI_contains_zero",
+    "budget": "earlier_endpoint_of_first_observed_plateau",
+    "shared": "max(S_budget,P_budget)",
+    "ceiling": 64000000,
+    "ceiling_is_not_plateau": true
+  }
+}

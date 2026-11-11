@@ -1,6 +1,6 @@
 {
   "stage": 5,
-  "status": "USER_PAUSED_WAITING_FOR_NOTIFICATION",
+  "status": "SUPERSEDED_BY_TASKBOOK_V3_ALL_SELECTION_SEED1_CANCELLED",
   "dependency": {
     "job": 4529073,
     "slurm": "Formal READY consumed; failed historical afterok:4526311 cleared on original unstarted jobs",
@@ -113,8 +113,10 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/S_C1-a_seed1.json",
       "evaluation_job": 4529693,
       "resource_dependency": null,
-      "observed_state": "STOPPED",
-      "user_paused": true
+      "observed_state": "CANCELLED",
+      "user_paused": false,
+      "cancel_reason": "User taskbook v3 removes selection seed1",
+      "evaluation_observed_state": "CANCELLED"
     },
     {
       "job": 4529704,
@@ -128,8 +130,10 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-a_seed1.json",
       "evaluation_job": 4529705,
       "resource_dependency": null,
-      "observed_state": "STOPPED",
-      "user_paused": true
+      "observed_state": "CANCELLED",
+      "user_paused": false,
+      "cancel_reason": "User taskbook v3 removes selection seed1",
+      "evaluation_observed_state": "CANCELLED"
     }
   ],
   "validation": {
@@ -146,7 +150,7 @@
     "physical_allocations_deduplicated": true,
     "D6_NFS_future_retired_only_after_final_publication": true
   },
-  "selection": "All six original6M TRAIN dev summaries complete: top two C1-a/C1-0 by unchanged equal-S/P seed0 ranking; final architecture/seed SD pending actual seed1.",
+  "selection": "Original v1 ranking remains historical only. C1 must be selected after panelv2 R2/R3 evaluation of six existing seed0 checkpoints.",
   "evaluation_protocol": "Reuse existing v2_evaluate_s.py exactly: frozen TRAIN/train_inner_validation panel, all18 cells, paired random reference and bootstrap; no downstream TEST",
   "execution_source_revision": "46902ce6cfddda0d1aff8f72d387e9da81906495",
   "continuation_authorization": "User approved micro32/effectiveB32 from the latest complete checkpoint; cumulative6M/model/AdamW/RNG/scientific inputs unchanged; all earlier executions and freezes retained",
@@ -211,8 +215,10 @@
       "evaluation_job": 4529712,
       "resource_dependency": "afterok:4529709",
       "mode": "native_s",
-      "observed_state": "STOPPED",
-      "user_paused": true
+      "observed_state": "CANCELLED",
+      "user_paused": false,
+      "cancel_reason": "User taskbook v3 removes selection seed1",
+      "evaluation_observed_state": "CANCELLED"
     },
     {
       "job": 4529713,
@@ -229,9 +235,11 @@
       "mode": "v31",
       "microbatch_size": 32,
       "execution_change": "Before first model start; actual original C1-0 full6M micro32 peak7947732480B, unchanged effectiveB32.",
-      "observed_state": "PENDING",
+      "observed_state": "CANCELLED",
       "pending_reason": "JobHeldUser",
-      "user_paused": true
+      "user_paused": false,
+      "cancel_reason": "User taskbook v3 removes selection seed1",
+      "evaluation_observed_state": "CANCELLED"
     }
   ],
   "auxiliary_runs": [
@@ -310,7 +318,7 @@
     }
   ],
   "user_pause": {
-    "status": "USER_PAUSED_WAITING_FOR_NOTIFICATION",
+    "status": "SUPERSEDED_USER_V3_CANCELLED",
     "directive": "等一下，你先不要做补种子任务了，等待通知",
     "epoch": 1794372002,
     "stopped_jobs": [
@@ -339,5 +347,6 @@
     "automatic_recovery_seed1_entries_removed": true,
     "process_state_and_checkpoints_retained": true,
     "resume_requires_new_explicit_user_instruction": true
-  }
+  },
+  "v3_directive": "All eight original supplement/dev jobs scancel by user taskbook v3; logs/checkpoints retained. Original v1 seed0 remains historical; new decisions use panelv2/R3/seed0."
 }
