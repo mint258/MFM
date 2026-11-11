@@ -93,7 +93,7 @@ def reconstruction_from_clean(module, projected, batch, teacher):
 
 class TrainingHistory:
     """One real offline SDK execution, raw losses, fixed means and native stats."""
-    def __init__(self, output, configuration):
+    def __init__(self, output, configuration, *, initial_samples=0):
         import wandb
         root = output / 'offline_wandb' / os.environ.get('SLURM_JOB_ID', str(os.getpid()))
         root.mkdir(parents=True, exist_ok=False)
@@ -116,7 +116,7 @@ class TrainingHistory:
         self.root, self.output = root, output
         self.stream = (root / 'training_history.jsonl').open('x', buffering=1)
         self.window = []
-        self.next_boundary = 100_000
+        self.next_boundary = (initial_samples // 100_000 + 1) * 100_000
 
     def log(self, row):
         self.window.append(row['total'])

@@ -151,7 +151,7 @@ def evaluate(args,*,store_factory,encode):
     panel = json.loads((REPO/'configs/dev_panel_v2.json').read_text())
     checkpoint = torch.load(args.checkpoint,map_location='cpu',weights_only=True)
     config = checkpoint['configuration']
-    if config.get('stage') in ('T0','T1','T2'):
+    if config.get('stage') in ('T0','T1','T2') or 'latent' in config:
         from .v3_latent_evaluation import produce
         return produce(args,checkpoint,store_factory=store_factory,encode=encode)
     specification = dict(checkpoint=str(args.checkpoint),panel='v2',reference_only=args.reference_only,
