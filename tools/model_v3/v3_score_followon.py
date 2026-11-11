@@ -31,7 +31,7 @@ def main():
         prior = json.loads(Path(manifest['T1_result']).read_text())
         result = fresh_confirmation(panels['new'], panels['original'], prior['provisional_latent'])
     elif kind == 'candidate_set':
-        result = candidate_set(panels, manifest['simplicity_order'])
+        result = candidate_set(panels, manifest['simplicity_order'], comparison=manifest['comparison'])
     elif kind == 'convergence':
         curves = {condition: {int(samples): json.loads(Path(path).read_text())
             for samples, path in values.items()} for condition, values in manifest['curves'].items()}

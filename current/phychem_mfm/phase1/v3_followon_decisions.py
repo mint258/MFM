@@ -36,8 +36,23 @@ def fresh_confirmation(new, original, provisional_latent):
         report_only_finetunes_required=True)
 
 
-def candidate_set(panels, simplicity_order):
-    return dict(status='CANDIDATE_GROUP_SELECTED', **select_candidate(panels, simplicity_order))
+def candidate_set(panels, simplicity_order, *, comparison):
+    required = {
+        'views': {'S', 'SDP'}, 'heads': {'P', 'D', 'SDP'},
+        'pooling': {'P'}, 'learning_rate': {'S', 'P'},
+        'batch': {'S', 'P'}, 'schedule': {'S', 'P'}}
+    if comparison not in required:
+        raise ValueError('Bind the registered follow-on comparison')
+    if (not panels or any(set(value) != required[comparison] for value in panels.values())
+            or len(simplicity_order) != len(set(simplicity_order))
+            or set(panels) != set(simplicity_order)):
+        raise ValueError('Every declared candidate and required condition must be complete')
+    fixed_orders = {'views': ['two', 'three'], 'heads': ['H1', 'H2', 'H3'],
+                    'pooling': ['registry', 'learned']}
+    if comparison in fixed_orders and list(simplicity_order) != fixed_orders[comparison]:
+        raise ValueError('Keep the taskbook simplicity order')
+    return dict(status='CANDIDATE_GROUP_SELECTED', comparison=comparison,
+        **select_candidate(panels, simplicity_order))
 
 
 def full_budget(curves):
