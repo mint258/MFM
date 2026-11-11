@@ -48,3 +48,8 @@ W&B由独立CPU任务4529106读取真实CSV，原始SDK留在共享Lustre的WAND
 2026-11-11 空闲卡并行推进：C1-a完整S/P seed0均分0.2601907066129589>b的0.22559578728623164，三候选仅剩一个未知，故a对所有剩余有效结果均必在前二；仅提前执行原必需S/P seed1，不提前公布全排名、C1胜者或种子SD。实际S4529691/node5/3090/micro8、P4529704/node22/5090/micro32，均B32/6M、从seed1随机初始化开始；P使用已实测a完整micro32峰值29204564480B选卡。预生成配置与完整准备器使用同一路径，prepare按内容相同复用；完整准备器selection.gpu_jobs_submitted=false只表示CPU准备器未提交，不能据此重复提交已运行a。以c1_initial_results.json.early_submitted_repeats和真实作业为准。原P首次9692被外部GPU上下文保护挡住、0样本，保留历史。
 
 0的P训练4529108已C0/6M；旧开发4529111在保护处被同卡外部进程挡住、0评价工作，替代4529708在node6 afterok4529706。完整准备作业替换为4529710 afterok4529708，仍读取全部六个完整18格TRAIN结果再按原规则排名。未启动旧准备9103、旧b验证9707以PENDING/零运行时间取消并保留，b验证替代9709等待9708。node6的a验证9706在运行，依次接关键dev0和b验证；validation模式只分派既有v2_validate_v31.py，FULL/ROUTINE与TRAIN未见构象分开原始诊断，selection_use=false，禁止TEST/新归一化。16项分派测试PASS/0.07秒，共同100GB预算/原容量保护继续，无数据复制。
+
+
+2026-11-11 12:09后：P0替代开发9708 C0，六组初始结果完整，联合均分C1-a=0.2601907066129589、C1-0=0.24211216453990045、C1-b=0.22559578728623164；原rank_initial选前二a/0，最终C1与种子SD仍null。原16CPU汇总9710在compute20不可调度（预计Nov18），PENDING/零运行取消，原脚本仅读取六个关闭JSON，现按短元数据方式在指定compute20经容量检查后exit0，未进行模型/数据计算或宣称Slurm完成。a运行复用，新增0的S9711→dev9712→P9713→dev9714在node6 afterok9709之后同卡串接，有其他卡释放则优先改派尚未开始的任务。S0保持micro4；P0依据完整6M/micro32实测峰值7947732480B，在首次启动前由micro16提高为32；有效B32/6M/原240k/全部配方不变。新根已登记同一全局100GB预测，详见M3_C1_RESULTS.md与results/model_v3_c1_initial.json。
+
+P/a独立验证9706真实C0：FULL13815分子/126764构象、TRAIN留出4292/4292，各97损失头和109源列原单位R²/MAE/计数，完整结果results/model_v3_c1_a_validation_seed0.json，selection_use=false，不参与C1选择；P/b验证9709继续。原20k为全局诊断MID范围，此处4292是原240k已见人口的实际交集，不伪称20k或补入其他分子。监控器不再轮询已结束的CPU准备作业；已确认C0的验证允许显式历史记账回退，控制器不可见本身不当作训练失败。

@@ -1,6 +1,6 @@
 {
   "stage": 5,
-  "status": "C1_A_S_P_SEED1_RUNNING_P0_TRAIN_COMPLETE_DEV_RECOVERY_QUEUED",
+  "status": "ALL_INITIAL_C1_RESULTS_COMPLETE_TOP_TWO_SEED1_A_RUNNING_ZERO_QUEUED",
   "dependency": {
     "job": 4529073,
     "slurm": "Formal READY consumed; failed historical afterok:4526311 cleared on original unstarted jobs",
@@ -36,10 +36,12 @@
       "previous_evaluation_job": 4529099,
       "previous_output": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro8_continuation_20261110",
       "previous_execution_actual_samples": 94624,
-      "evaluation_observed_state": "PENDING",
+      "evaluation_observed_state": "COMPLETED",
       "evaluation_node": "compute-0-6",
       "failed_evaluation_job": 4529111,
-      "failed_evaluation_reason": "Foreign GPU context at startup; zero native evaluation work"
+      "failed_evaluation_reason": "Foreign GPU context at startup; zero native evaluation work",
+      "evaluation_consumed_samples": 6000000,
+      "evaluation_dev_score": 0.21181254914141473
     },
     {
       "job": 4529109,
@@ -111,6 +113,20 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/S_C1-a_seed1.json",
       "evaluation_job": 4529693,
       "resource_dependency": null
+    },
+    {
+      "job": 4529704,
+      "candidate": "C1-a/P/seed1",
+      "scientific_candidate": "C1-a",
+      "condition": "P",
+      "seed": 1,
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_P_C1-a_seed1",
+      "node": "compute-0-22",
+      "gpu": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-a_seed1.json",
+      "evaluation_job": 4529705,
+      "resource_dependency": null,
+      "observed_state": "RUNNING"
     }
   ],
   "validation": {
@@ -127,16 +143,21 @@
     "physical_allocations_deduplicated": true,
     "D6_NFS_future_retired_only_after_final_publication": true
   },
-  "selection": "Final initial ranking waits for all six complete dev results; only C1-a repeats mathematically required for every valid remaining result may start early.",
+  "selection": "All six original6M TRAIN dev summaries complete: top two C1-a/C1-0 by unchanged equal-S/P seed0 ranking; final architecture/seed SD pending actual seed1.",
   "evaluation_protocol": "Reuse existing v2_evaluate_s.py exactly: frozen TRAIN/train_inner_validation panel, all18 cells, paired random reference and bootstrap; no downstream TEST",
   "execution_source_revision": "46902ce6cfddda0d1aff8f72d387e9da81906495",
   "continuation_authorization": "User approved micro32/effectiveB32 from the latest complete checkpoint; cumulative6M/model/AdamW/RNG/scientific inputs unchanged; all earlier executions and freezes retained",
   "repeat_preparation": {
     "prior_job": 4529082,
-    "reason": "Prior own preparer cancelled pending/zero runtime after P0 dev startup GPU-context failure; same inputs/script/node/16CPU with replacement dev.",
-    "dependency": "afterok:4529708",
-    "job": 4529710,
-    "prior_failed_dependency_job": 4529103
+    "reason": "Original pending summary-only job requested16 CPUs on currently unavailable node20 (controller start estimate Nov18); cancelled before start, same metadata script ran directly on required development node.",
+    "dependency": null,
+    "job": null,
+    "prior_failed_dependency_job": 4529103,
+    "prior_pending_job": 4529710,
+    "status": "COMPLETE_BY_SHORT_SUMMARY_METADATA_COMMAND",
+    "node": "compute-0-20",
+    "execution": "SSH metadata only: existing v2_prepare_c1_repeats.py reads six closed JSON summaries; no model/data computation or Slurm completion claimed",
+    "selection": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/selection.json"
   },
   "wandb": {
     "mode": "OFFLINE_UNSYNCED",
@@ -175,17 +196,34 @@
   },
   "queued_runs": [
     {
-      "job": 4529704,
-      "candidate": "C1-a/P/seed1",
-      "scientific_candidate": "C1-a",
+      "job": 4529711,
+      "candidate": "C1-0/S/seed1",
+      "scientific_candidate": "C1-0",
+      "condition": "S",
+      "seed": 1,
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/S_C1-0_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_S_C1-0_seed1",
+      "evaluation_job": 4529712,
+      "resource_dependency": "afterok:4529709",
+      "mode": "native_s"
+    },
+    {
+      "job": 4529713,
+      "candidate": "C1-0/P/seed1",
+      "scientific_candidate": "C1-0",
       "condition": "P",
       "seed": 1,
-      "output": "/lfshome/zixiao/model_v31_20261105/M3_P_C1-a_seed1",
-      "node": "compute-0-22",
-      "gpu": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
-      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-a_seed1.json",
-      "evaluation_job": 4529705,
-      "resource_dependency": null
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-0_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_P_C1-0_seed1",
+      "evaluation_job": 4529714,
+      "resource_dependency": "afterok:4529712",
+      "mode": "v31",
+      "microbatch_size": 32,
+      "execution_change": "Before first model start; actual original C1-0 full6M micro32 peak7947732480B, unchanged effectiveB32."
     }
   ],
   "auxiliary_runs": [
@@ -198,7 +236,13 @@
       "node": "compute-0-6",
       "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
       "dependency": null,
-      "selection_use": false
+      "selection_use": false,
+      "observed_state": "COMPLETED",
+      "observed_exit_code": "0:0",
+      "records": {
+        "FULL": 126764,
+        "TRAIN_UNSEEN_CONFORMATION": 4292
+      }
     },
     {
       "job": 4529709,
@@ -250,6 +294,11 @@
         4529710
       ],
       "reason": "Prioritize critical C1 dev before second raw diagnostic; replace failed dependency"
+    },
+    {
+      "job": 4529710,
+      "status": "CANCELLED_PENDING_ZERO_NATIVE_WORK",
+      "replacement": "Same summary-only preparation executed by SSH on compute-0-20; actual exit0, no Slurm job claimed"
     }
   ]
 }

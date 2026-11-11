@@ -1,5 +1,5 @@
 {
-  "status": "WAITING_FOR_ALL_INITIAL_DEV_RESULTS",
+  "status": "ALL_SIX_INITIAL_DEV_RESULTS_COMPLETE_TOP_TWO_PREPARED",
   "runs": [
     {
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2",
@@ -33,8 +33,8 @@
     }
   ],
   "selection_scope": "Prepare top-two repeats only; no final architecture choice or seed SD",
-  "preparation_job": 4529710,
-  "dependency": "afterok:4529708",
+  "preparation_job": null,
+  "dependency": null,
   "execution_overrides": {
     "S": {
       "C1-b": {
@@ -52,7 +52,7 @@
         "microbatch_size": 16
       },
       "C1-0": {
-        "microbatch_size": 16
+        "microbatch_size": 32
       }
     }
   },
@@ -73,7 +73,9 @@
       "C1-0": 4108229632
     },
     "P_C1_a_full_6M_micro32_peak_bytes": 29204564480,
-    "P_C1_a_repeat_resource": "Now node22 RTX5090,32097MiB free at launch; micro32/B32 based on actual seed0 full6M peak29204564480B. S repeat node5 RTX3090 micro8/B32."
+    "P_C1_a_repeat_resource": "Now node22 RTX5090,32097MiB free at launch; micro32/B32 based on actual seed0 full6M peak29204564480B. S repeat node5 RTX3090 micro8/B32.",
+    "P_C1_0_full_6M_micro32_peak_bytes": 7947732480,
+    "P_C1_0_repeat_resource": "Pending first start on node6 RTX3090, micro32/effectiveB32. Actual complete seed0 C1-0 micro32 peak7947732480B fits24GiB; replaces prior micro16 projection before any seed1 samples. Other scientific parameters unchanged."
   },
   "prior_preparation_job": 4529082,
   "early_required_repeat_scope": "May execute only mathematically guaranteed initial top-two repeats before all six results; no partial ranking or final C1 selection. C1-a outranks completed C1-b on the fixed equal-S/P seed0 aggregate, leaving at most one other candidate above C1-a.",
@@ -114,6 +116,58 @@
       "job": 4529103,
       "status": "CANCELLED_PENDING_ZERO_RUNTIME",
       "reason": "4529111 failed before evaluation; replacement dev4529708"
+    },
+    {
+      "job": 4529710,
+      "status": "CANCELLED_PENDING_ZERO_RUNTIME",
+      "reason": "Node20 unavailable for16CPU batch; existing summary-only metadata script executed directly on node20, actual exit0"
+    }
+  ],
+  "preparation_execution": {
+    "prior_job": 4529082,
+    "reason": "Original pending summary-only job requested16 CPUs on currently unavailable node20 (controller start estimate Nov18); cancelled before start, same metadata script ran directly on required development node.",
+    "dependency": null,
+    "job": null,
+    "prior_failed_dependency_job": 4529103,
+    "prior_pending_job": 4529710,
+    "status": "COMPLETE_BY_SHORT_SUMMARY_METADATA_COMMAND",
+    "node": "compute-0-20",
+    "execution": "SSH metadata only: existing v2_prepare_c1_repeats.py reads six closed JSON summaries; no model/data computation or Slurm completion claimed",
+    "selection": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/selection.json"
+  },
+  "top_two_selected": [
+    "C1-a",
+    "C1-0"
+  ],
+  "final_architecture": null,
+  "later_submitted_repeats": [
+    {
+      "job": 4529711,
+      "candidate": "C1-0/S/seed1",
+      "scientific_candidate": "C1-0",
+      "condition": "S",
+      "seed": 1,
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/S_C1-0_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_S_C1-0_seed1",
+      "evaluation_job": 4529712,
+      "resource_dependency": "afterok:4529709",
+      "mode": "native_s"
+    },
+    {
+      "job": 4529713,
+      "candidate": "C1-0/P/seed1",
+      "scientific_candidate": "C1-0",
+      "condition": "P",
+      "seed": 1,
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-0_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_P_C1-0_seed1",
+      "evaluation_job": 4529714,
+      "resource_dependency": "afterok:4529712",
+      "mode": "v31"
     }
   ]
 }
