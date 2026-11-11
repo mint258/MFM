@@ -34,6 +34,8 @@ def command(mode, configuration, configuration_path, *, python=sys.executable):
         return prefix + ['tools/model_v3/v3_train_selected.py', '--configuration', str(configuration_path)]
     if mode == 'finetune':
         return prefix + ['tools/model_v3/v3_finetune.py', '--configuration', str(configuration_path)]
+    if mode == 'mechanism':
+        return prefix + ['tools/model_v3/v3_mechanism.py', '--configuration', str(configuration_path)]
     if mode == 'archive_sdk':
         return prefix + ['tools/model_v3/v3_archive_offline_sdk.py', '--configuration', str(configuration_path)]
     if mode == 'cached_pooling':
@@ -81,7 +83,7 @@ def command(mode, configuration, configuration_path, *, python=sys.executable):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--mode', choices=('v31', 'native_s', 'dev', 'validation', 'latent', 'cached_pooling', 'archive_sdk', 'finetune', 'selected', 'native_selected'), required=True)
+    parser.add_argument('--mode', choices=('v31', 'native_s', 'dev', 'validation', 'latent', 'cached_pooling', 'archive_sdk', 'finetune', 'selected', 'native_selected', 'mechanism'), required=True)
     parser.add_argument('--configuration', required=True)
     parser.add_argument('--show-output', action='store_true')
     args = parser.parse_args()

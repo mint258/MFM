@@ -99,3 +99,23 @@ SoM评价中的R1/R2预测别名只用于文件映射，独立于历史X结果�
 ## 后续比较的输入完整性
 
 后续决策清单的candidate_set类须显式给出comparison：views要求S/SDP，heads要求P/D/SDP，pooling要求P，learning_rate/batch/schedule要求S/P。每个声明候选都必须提供所有规定条件的已闭合九任务主面板；缺候选或缺条件时不选型。views/heads/pooling的简单性顺序分别固定为two/three、H1/H2/H3、registry/learned；配方候选沿用各自实验前声明的既定顺序。所有比较仍调用原配对1000次bootstrap及原效果阈值，不重算探针或重采样。该输入约束落实任务书的完整比较矩阵，未增加新的科学指标或测试。
+
+
+## T1 report-only functional-group logistic probes
+
+The canonical data-line set of 28 SMARTS is applied with RDKit to bonded TRAIN
+structures, with native member and full-molecule identity preserved. Original
+panel optimization and inner-validation populations are retained separately by
+dataset. Mean(H) is probed for A0/P and A3/P; z is additionally probed for A3/P.
+A0 has no z. Five-fold molecule-group CV uses the same folds, seed and positive
+regularization strengths as R1. Fold-local feature standardization and final
+optimization-only normalization prevent inner-validation leakage. L2 logistic
+regression selects minimum mean 1-AUROC, with smaller alpha for exact ties.
+All five fold metrics must be available. The liblinear implementation uses
+C=1/alpha, seed0, tol1e-4 and max_iter1000, without class weighting. Failed or
+single-class fits are explicitly unavailable, with no omitted folds. Final
+held-out AUROC is stratified at <=20, 21-35 and >35 heavy atoms, without new
+significance tests or size-specific fitting. Existing T1 X/z caches are reused.
+Full input/solver and continuation conventions are in MECHANISM_ANALYSIS.md.
+This producer is implemented but awaits canonical SMARTS/structure delivery and
+closed T1 P evaluations; it has not produced scientific results.
