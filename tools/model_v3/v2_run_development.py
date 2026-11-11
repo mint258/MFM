@@ -26,6 +26,8 @@ def command(mode, configuration, configuration_path, *, python=sys.executable):
     if not output.is_absolute() or output == BASE or not output.resolve().is_relative_to(BASE):
         raise ValueError('Use an owned experiment output below the shared model root')
     prefix = [python, '-B', '-u']
+    if mode == 'latent':
+        return prefix + ['tools/model_v3/v3_train_latent.py', '--configuration', str(configuration_path)]
     if mode == 'v31':
         if not configuration.get('root'):
             raise ValueError('Bind the published data root before launching a trial')
@@ -69,7 +71,7 @@ def command(mode, configuration, configuration_path, *, python=sys.executable):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--mode', choices=('v31', 'native_s', 'dev', 'validation'), required=True)
+    parser.add_argument('--mode', choices=('v31', 'native_s', 'dev', 'validation', 'latent'), required=True)
     parser.add_argument('--configuration', required=True)
     parser.add_argument('--show-output', action='store_true')
     args = parser.parse_args()
