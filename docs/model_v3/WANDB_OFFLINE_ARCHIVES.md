@@ -75,3 +75,9 @@ These are submitted operational archive jobs, not completed deliveries. Each run
 | T1 A4/P training and evaluation | 4530195 | 4529736,4529752 |
 
 The existing first P evaluation archive4530009 follows recovered evaluation4530187 and retains completed4529749. Its sources manifest and recovery metadata now agree on the actual source IDs; failed zero-native-work4529748 is preserved as history. Pending archive outputs are not included in delivered byte/session/file totals. Originals and all prior archive bundles remain.
+
+## Completed T0-2 and first P paired evaluation SDK delivery
+
+[Download and reconstruction instructions](https://github.com/mint258/MFM/blob/model-v3-wandb-archives-20261111/CLOSED_20261112.md), artifact commit `74ce2736ddbc85d5e4369ca5e93d4ae48baa4998`. T0-2 job4529737:1 closed session,11 files,12345092 gzip bytes,4 parts (archive4530189,1CPU/10seconds/C0). P evaluation jobs4530187/4529749:2 closed sessions,21 files,20824400 gzip bytes,7 parts (archive4530009,1CPU/13seconds/C0). New manifests: [T0-2](../../results/model_v3_wandb/archives/T0_2_four_statistics_closed.json), [P evaluations](../../results/model_v3_wandb/archives/T1_A0_A1_P_evaluation_closed.json).
+
+Nine new-delivery bundles now total30 closed SDK sessions,404 ordinary files,210707446 gzip bytes and72 parts. Earlier original P0/a/b330 files remain. Raw SDK/history and producer-derived native-key hardware series/summaries are included; originals retained, no cloud sync, extraction/readback QA or scientific recomputation. Queued table rows4530189 and earlier4530009 above are historical submission states now superseded by this closure; the six remaining T1 archives still await their actual source closures.
