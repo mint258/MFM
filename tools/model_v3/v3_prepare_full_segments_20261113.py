@@ -38,7 +38,7 @@ def first(args):
  source=read(args.sdp_configuration)
  summary=read(Path(source['output'])/'summary.json')
  panel=closed_evaluation(args.sdp_evaluation)
- if (source.get('condition')!='SDP' or source.get('samples')!=6000000
+ if (source.get('stage')!='M4_SDP' or source.get('condition')!='SDP' or source.get('samples')!=6000000
      or source.get('expected_molecules')!=240000 or source.get('latent')!='none'
      or summary.get('status')!='TRAINING_COMPLETE_DEV_EVALUATION_PENDING'
      or summary.get('samples')!=6000000):
