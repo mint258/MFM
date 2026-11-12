@@ -1,0 +1,128 @@
+{
+  "tasks": {
+    "exp.LogD": {
+      "error": 0.3907120918408896,
+      "reference_error": 0.5805760315093452,
+      "normalized_improvement": 0.3270268308783937,
+      "observed_labels": 1009,
+      "observed_molecules": 1009,
+      "bootstrap_ci": [
+        0.2920470789751244,
+        0.36147111528297904
+      ],
+      "bootstrap_defined": 1000
+    },
+    "exp.LogS": {
+      "error": 0.3716499059093725,
+      "reference_error": 0.43145576944672287,
+      "normalized_improvement": 0.13861412402490844,
+      "observed_labels": 1025,
+      "observed_molecules": 1025,
+      "bootstrap_ci": [
+        0.09865474949420784,
+        0.17769318494835307
+      ],
+      "bootstrap_defined": 1000
+    },
+    "exp.Log_HLM_CLint": {
+      "error": 0.34998245472624073,
+      "reference_error": 0.38832143239272904,
+      "normalized_improvement": 0.09873000681485478,
+      "observed_labels": 747,
+      "observed_molecules": 747,
+      "bootstrap_ci": [
+        0.051617974670861363,
+        0.14617458346392523
+      ],
+      "bootstrap_defined": 1000
+    },
+    "qm9.U0": {
+      "error": 0.8226816542224601,
+      "reference_error": 0.019621745492714,
+      "normalized_improvement": -40.92703725200902,
+      "observed_labels": 2068,
+      "observed_molecules": 2048,
+      "bootstrap_ci": [
+        -43.01472477137361,
+        -38.974141223744994
+      ],
+      "bootstrap_defined": 1000
+    },
+    "qm9.alpha": {
+      "error": 0.5248648979276123,
+      "reference_error": 0.7184859869441066,
+      "normalized_improvement": 0.26948485083197143,
+      "observed_labels": 2068,
+      "observed_molecules": 2048,
+      "bootstrap_ci": [
+        0.22898119929612842,
+        0.30444801788182146
+      ],
+      "bootstrap_defined": 1000
+    },
+    "qm9.homo": {
+      "error": 0.006054354014845075,
+      "reference_error": 0.008608137819481984,
+      "normalized_improvement": 0.29667087797516106,
+      "observed_labels": 2068,
+      "observed_molecules": 2048,
+      "bootstrap_ci": [
+        0.26950393433167097,
+        0.321491525804585
+      ],
+      "bootstrap_defined": 1000
+    },
+    "qm9.lumo": {
+      "error": 0.007541297463569008,
+      "reference_error": 0.01687274378470007,
+      "normalized_improvement": 0.5530485403086999,
+      "observed_labels": 2068,
+      "observed_molecules": 2048,
+      "bootstrap_ci": [
+        0.5323827182397435,
+        0.5724345102999646
+      ],
+      "bootstrap_defined": 1000
+    }
+  },
+  "complete": true,
+  "mean_normalized_improvement": -5.606208860167862,
+  "bootstrap_ci": [
+    -5.90307827387171,
+    -5.327289550139089
+  ],
+  "bootstrap_samples": 1000,
+  "bootstrap_defined": 1000,
+  "bootstrap_unit": "molecule",
+  "bootstrap_seed": 20261025,
+  "architecture_sha256": "C1-0:three:four_statistics",
+  "unchanged_atom_cells": {
+    "cyp.2D6/ridge": {
+      "error": 0.6538461538461539,
+      "reference_error": 0.6153846153846154,
+      "normalized_improvement": -0.06249999999999996,
+      "observed_labels": 471,
+      "observed_molecules": 26,
+      "bootstrap_ci": [
+        -0.4169642857142854,
+        0.17647058823529416
+      ],
+      "bootstrap_defined": 1000
+    },
+    "cyp.3A4/ridge": {
+      "error": 0.6,
+      "reference_error": 0.6571428571428571,
+      "normalized_improvement": 0.08695652173913046,
+      "observed_labels": 656,
+      "observed_molecules": 35,
+      "bootstrap_ci": [
+        -0.1363636363636364,
+        0.2962962962962963
+      ],
+      "bootstrap_defined": 1000
+    }
+  },
+  "nine_task_mean": -4.3576672777151,
+  "bootstrap_scope": "seven graph tasks only; old two atom cells reused without retraining",
+  "selection_use": false
+}
