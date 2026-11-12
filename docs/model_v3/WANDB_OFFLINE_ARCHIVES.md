@@ -95,3 +95,9 @@ The ten new-delivery bundles now total32 closed SDK sessions,440 ordinary files,
 [Complete A3/S bundle](https://github.com/mint258/MFM/tree/model-v3-wandb-archives-20261111/T1_A3_S_train_evaluation_closed), artifact commit `0aa0779af11fec31d22e9e0e696cd652243655d0`: jobs4529728/4529744,2 closed sessions,36 ordinary files,23302334 gzip bytes,8 parts. Archive4530191 completed0:0/1CPU/16seconds. [Manifest](../../results/model_v3_wandb/archives/T1_A3_S_train_evaluation_closed.json).
 
 Eleven new-delivery bundles now total34 closed SDK sessions,476 ordinary files,260016787 gzip bytes and89 parts; originalP0/a/b330 files remain. Raw SDK/history,losses,1000-update means and producer-derived native-key hardware series/summaries are retained. No cloud sync, deletion, extraction/readback QA or scientific recomputation. Earlier queued191 is superseded by closure; running A3/P is excluded.
+
+## T1 A4/S training and evaluation SDKs delivered
+
+[Complete A4/S bundle](https://github.com/mint258/MFM/tree/model-v3-wandb-archives-20261111/T1_A4_S_train_evaluation_closed), artifact commit `047e10c8714b70ca70056186b12dfcb244441f5a`: jobs4529729/4529745,2 closed sessions,36 ordinary files,17716802 gzip bytes,6 parts. Archive4530192 completed0:0/1CPU/18seconds. [Manifest](../../results/model_v3_wandb/archives/T1_A4_S_train_evaluation_closed.json).
+
+Twelve new-delivery bundles now total36 closed SDK sessions,512 ordinary files,277733589 gzip bytes and95 parts; originalP0/a/b330 files remain. Raw SDK/history,losses,1000-update means and producer-derived native-key hardware series/summaries are retained. No cloud sync, deletion, extraction/readback QA or scientific recomputation. Earlier queued192 is superseded by closure; A2/P,A3/P,A4/P remain running and are excluded.
