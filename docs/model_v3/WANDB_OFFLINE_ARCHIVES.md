@@ -59,3 +59,19 @@ The six new bundles now total25 closed SDK sessions,321 ordinary files,158609543
 [A0/P and A1/P complete training bundle](https://github.com/mint258/MFM/tree/model-v3-wandb-archives-20261111/T1_A0_A1_P_training_closed), artifact commit `86c9541a80c95bfc0f83c0131fbbe86bdeaae38f`: jobs4529732/4529733,2 closed sessions,51 ordinary files,18928411 gzip bytes,7 parts. Both continuations reached1.5M samples (7.5M cumulative). Archive4530008 completed0:0 on compute-0-20,1CPU,14seconds. [Manifest](../../results/model_v3_wandb/archives/T1_A0_A1_P_training_closed.json).
 
 The seven new bundles now total27 closed SDK sessions,372 ordinary files,177537954 gzip bytes and61 parts. Full native .wandb files, per-update loss,1000-update means,snapshots and original hardware observations/producer-derived native-key system JSONL and summaries are included. The first P paired evaluations are separate and await closure. The original P0/a/b330 files remain; no cloud sync, file deletion or training rerun.
+
+## Queued closure archives for the remaining current executions
+
+These are submitted operational archive jobs, not completed deliveries. Each runs on compute-0-20 with1CPU,nice10000,no GPU,afterok its listed original source jobs. All use the existing closed-SDK archive/system-report producer and the same combined model output forecast; actual destination,inode,quota and concurrent growth admission runs again at execution. No training/evaluation dependencies,scientific recipes or original SDK files are changed.
+
+| Scope | Archive job | Source jobs required to finish successfully |
+| --- | ---: | --- |
+| T0-2 four-statistics readouts | 4530189 | 4529737 |
+| T1 A2/S training and evaluation | 4530190 | 4530010,4530011 |
+| T1 A3/S training and evaluation | 4530191 | 4529728,4529744 |
+| T1 A4/S training and evaluation | 4530192 | 4529729,4529745 |
+| T1 A2/P training and evaluation | 4530193 | 4530012,4530013 |
+| T1 A3/P training and evaluation | 4530194 | 4529735,4529751 |
+| T1 A4/P training and evaluation | 4530195 | 4529736,4529752 |
+
+The existing first P evaluation archive4530009 follows recovered evaluation4530187 and retains completed4529749. Its sources manifest and recovery metadata now agree on the actual source IDs; failed zero-native-work4529748 is preserved as history. Pending archive outputs are not included in delivered byte/session/file totals. Originals and all prior archive bundles remain.
