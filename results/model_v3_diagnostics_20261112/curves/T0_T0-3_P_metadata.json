@@ -1,0 +1,32 @@
+{
+  "cell": {
+    "name": "T0_T0-3_P",
+    "stage": "T0",
+    "directory": "/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/T0_T0-3_P_seed0/dev_eval_v2",
+    "cache": "/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/readout_cache/T0_T0-3_P_seed0__samples_500000",
+    "legacy": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/dev_eval/summary.json"
+  },
+  "selection_use": false,
+  "original_results": "/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/T0_T0-3_P_seed0/dev_eval_v2",
+  "device": "cpu",
+  "original_device": "cuda",
+  "epochs": 30,
+  "seed": 0,
+  "batch_graphs": 32,
+  "original_recipe_function": "v3_dev_readouts.run_probe",
+  "changes": "Only extra inference/native validation error after every epoch; device recorded explicitly",
+  "original_error_not_recomputed": true,
+  "unavailable": [
+    {
+      "task": "cyp.3A4",
+      "readout": "R2z",
+      "reason": "No z for C1/reference; SoM R2z is the predefined X/R2 alias"
+    },
+    {
+      "task": "cyp.2D6",
+      "readout": "R2z",
+      "reason": "No z for C1/reference; SoM R2z is the predefined X/R2 alias"
+    }
+  ],
+  "differences_policy": "Original scores/predictions are retained separately; diagnostic values never feed decisions"
+}

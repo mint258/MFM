@@ -1,0 +1,67 @@
+{
+  "cell": {
+    "name": "C1-b_S",
+    "stage": "C1",
+    "directory": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-b_S_seed0",
+    "cache": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/h0_cache/S_C1_b_seed0_v2__samples_6000000",
+    "legacy": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_b_seed0_v2/dev_eval/summary.json"
+  },
+  "selection_use": false,
+  "original_results": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-b_S_seed0",
+  "device": "cpu",
+  "original_device": "cuda",
+  "epochs": 30,
+  "seed": 0,
+  "batch_graphs": 32,
+  "original_recipe_function": "v3_dev_readouts.run_probe",
+  "changes": "Only extra inference/native validation error after every epoch; device recorded explicitly",
+  "original_error_not_recomputed": true,
+  "unavailable": [
+    {
+      "task": "exp.LogD",
+      "readout": "R2z",
+      "reason": "No z for C1/reference; SoM R2z is the predefined X/R2 alias"
+    },
+    {
+      "task": "exp.Log_HLM_CLint",
+      "readout": "R2z",
+      "reason": "No z for C1/reference; SoM R2z is the predefined X/R2 alias"
+    },
+    {
+      "task": "exp.LogS",
+      "readout": "R2z",
+      "reason": "No z for C1/reference; SoM R2z is the predefined X/R2 alias"
+    },
+    {
+      "task": "cyp.3A4",
+      "readout": "R2z",
+      "reason": "No z for C1/reference; SoM R2z is the predefined X/R2 alias"
+    },
+    {
+      "task": "cyp.2D6",
+      "readout": "R2z",
+      "reason": "No z for C1/reference; SoM R2z is the predefined X/R2 alias"
+    },
+    {
+      "task": "qm9.U0",
+      "readout": "R2z",
+      "reason": "No z for C1/reference; SoM R2z is the predefined X/R2 alias"
+    },
+    {
+      "task": "qm9.homo",
+      "readout": "R2z",
+      "reason": "No z for C1/reference; SoM R2z is the predefined X/R2 alias"
+    },
+    {
+      "task": "qm9.lumo",
+      "readout": "R2z",
+      "reason": "No z for C1/reference; SoM R2z is the predefined X/R2 alias"
+    },
+    {
+      "task": "qm9.alpha",
+      "readout": "R2z",
+      "reason": "No z for C1/reference; SoM R2z is the predefined X/R2 alias"
+    }
+  ],
+  "differences_policy": "Original scores/predictions are retained separately; diagnostic values never feed decisions"
+}
