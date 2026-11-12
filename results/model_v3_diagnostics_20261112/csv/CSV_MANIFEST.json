@@ -1,0 +1,7499 @@
+{
+  "schema": "MODEL_V3_DIAGNOSTICS_CSV_DELIVERY_V1",
+  "status": "COMPLETE",
+  "selection_use": false,
+  "source_scope": "Existing three diagnostic Parquet families including nested controls, observed-feature statistics and reconstructed predictions",
+  "csv_tables": 93,
+  "files": [
+    {
+      "path": "predictions/C1-0_S.csv",
+      "bytes": 14585778
+    },
+    {
+      "path": "features/C1-0_S.csv",
+      "bytes": 4831189
+    },
+    {
+      "path": "predictions/C1-0_P.csv",
+      "bytes": 14567321
+    },
+    {
+      "path": "features/C1-0_P.csv",
+      "bytes": 4916169
+    },
+    {
+      "path": "predictions/C1-a_S.csv",
+      "bytes": 14529350
+    },
+    {
+      "path": "features/C1-a_S.csv",
+      "bytes": 4814256
+    },
+    {
+      "path": "predictions/C1-a_P.csv",
+      "bytes": 14566596
+    },
+    {
+      "path": "features/C1-a_P.csv",
+      "bytes": 4901182
+    },
+    {
+      "path": "predictions/C1-b_S.csv",
+      "bytes": 14585894
+    },
+    {
+      "path": "features/C1-b_S.csv",
+      "bytes": 4819524
+    },
+    {
+      "path": "predictions/C1-b_P.csv",
+      "bytes": 14567362
+    },
+    {
+      "path": "features/C1-b_P.csv",
+      "bytes": 4892037
+    },
+    {
+      "path": "predictions/random_C1-0.csv",
+      "bytes": 14661423
+    },
+    {
+      "path": "features/random_C1-0.csv",
+      "bytes": 4767963
+    },
+    {
+      "path": "predictions/random_C1-a.csv",
+      "bytes": 14604872
+    },
+    {
+      "path": "features/random_C1-a.csv",
+      "bytes": 4771526
+    },
+    {
+      "path": "predictions/random_C1-b.csv",
+      "bytes": 14660630
+    },
+    {
+      "path": "features/random_C1-b.csv",
+      "bytes": 4771526
+    },
+    {
+      "path": "predictions/T0_T0-3_S.csv",
+      "bytes": 22377297
+    },
+    {
+      "path": "features/T0_T0-3_S.csv",
+      "bytes": 5656076
+    },
+    {
+      "path": "predictions/T0_T0-4_S.csv",
+      "bytes": 22377273
+    },
+    {
+      "path": "features/T0_T0-4_S.csv",
+      "bytes": 5651190
+    },
+    {
+      "path": "predictions/T1_A0_S.csv",
+      "bytes": 14344687
+    },
+    {
+      "path": "features/T1_A0_S.csv",
+      "bytes": 4815978
+    },
+    {
+      "path": "predictions/T1_A1_S.csv",
+      "bytes": 23970587
+    },
+    {
+      "path": "features/T1_A1_S.csv",
+      "bytes": 5665167
+    },
+    {
+      "path": "predictions/T0_T0-3_P.csv",
+      "bytes": 22359163
+    },
+    {
+      "path": "features/T0_T0-3_P.csv",
+      "bytes": 5747717
+    },
+    {
+      "path": "predictions/T0_T0-4_P.csv",
+      "bytes": 22359089
+    },
+    {
+      "path": "features/T0_T0-4_P.csv",
+      "bytes": 5741245
+    },
+    {
+      "path": "curves/C1-0_S.csv",
+      "bytes": 86923
+    },
+    {
+      "path": "curves/C1-0_S_diagnostic_endpoint_predictions.csv",
+      "bytes": 7996126
+    },
+    {
+      "path": "curves/C1-0_P.csv",
+      "bytes": 86667
+    },
+    {
+      "path": "curves/C1-0_P_diagnostic_endpoint_predictions.csv",
+      "bytes": 8807092
+    },
+    {
+      "path": "curves/C1-a_S.csv",
+      "bytes": 86355
+    },
+    {
+      "path": "curves/C1-a_S_diagnostic_endpoint_predictions.csv",
+      "bytes": 7906051
+    },
+    {
+      "path": "curves/C1-a_P.csv",
+      "bytes": 86842
+    },
+    {
+      "path": "curves/C1-a_P_diagnostic_endpoint_predictions.csv",
+      "bytes": 8807301
+    },
+    {
+      "path": "curves/C1-b_S.csv",
+      "bytes": 86889
+    },
+    {
+      "path": "curves/C1-b_S_diagnostic_endpoint_predictions.csv",
+      "bytes": 7995682
+    },
+    {
+      "path": "curves/C1-b_P.csv",
+      "bytes": 86758
+    },
+    {
+      "path": "curves/C1-b_P_diagnostic_endpoint_predictions.csv",
+      "bytes": 8807128
+    },
+    {
+      "path": "curves/random_C1-0.csv",
+      "bytes": 86057
+    },
+    {
+      "path": "curves/random_C1-0_diagnostic_endpoint_predictions.csv",
+      "bytes": 7606760
+    },
+    {
+      "path": "curves/random_C1-a.csv",
+      "bytes": 86302
+    },
+    {
+      "path": "curves/random_C1-a_diagnostic_endpoint_predictions.csv",
+      "bytes": 7606858
+    },
+    {
+      "path": "curves/random_C1-b.csv",
+      "bytes": 86302
+    },
+    {
+      "path": "curves/random_C1-b_diagnostic_endpoint_predictions.csv",
+      "bytes": 7606858
+    },
+    {
+      "path": "curves/T0_T0-3_S.csv",
+      "bytes": 117192
+    },
+    {
+      "path": "curves/T0_T0-3_S_diagnostic_endpoint_predictions.csv",
+      "bytes": 11118070
+    },
+    {
+      "path": "curves/T0_T0-4_S.csv",
+      "bytes": 117219
+    },
+    {
+      "path": "curves/T0_T0-4_S_diagnostic_endpoint_predictions.csv",
+      "bytes": 11118009
+    },
+    {
+      "path": "curves/T0_T0-3_P.csv",
+      "bytes": 116855
+    },
+    {
+      "path": "curves/T0_T0-3_P_diagnostic_endpoint_predictions.csv",
+      "bytes": 11118023
+    },
+    {
+      "path": "curves/T0_T0-4_P.csv",
+      "bytes": 116906
+    },
+    {
+      "path": "curves/T0_T0-4_P_diagnostic_endpoint_predictions.csv",
+      "bytes": 11118266
+    },
+    {
+      "path": "reference_z_controls/predictions/random_z_pma_k8_write0.csv",
+      "bytes": 6337335
+    },
+    {
+      "path": "reference_z_controls/features/random_z_pma_k8_write0.csv",
+      "bytes": 4569214
+    },
+    {
+      "path": "reference_z_controls/predictions/random_z_lite_k8_write0.csv",
+      "bytes": 6360197
+    },
+    {
+      "path": "reference_z_controls/features/random_z_lite_k8_write0.csv",
+      "bytes": 4562085
+    },
+    {
+      "path": "reference_z_controls/predictions/random_C1-0_R1_v2_reference.csv",
+      "bytes": 4898111
+    },
+    {
+      "path": "reference_z_controls/features/random_C1-0_R1_v2_reference.csv",
+      "bytes": 4767963
+    },
+    {
+      "path": "reference_z_controls/features_observed/C1-0_S.csv",
+      "bytes": 4796620
+    },
+    {
+      "path": "reference_z_controls/features_observed/C1-0_P.csv",
+      "bytes": 4881504
+    },
+    {
+      "path": "reference_z_controls/features_observed/C1-a_S.csv",
+      "bytes": 4775879
+    },
+    {
+      "path": "reference_z_controls/features_observed/C1-a_P.csv",
+      "bytes": 4869430
+    },
+    {
+      "path": "reference_z_controls/features_observed/C1-b_S.csv",
+      "bytes": 4786968
+    },
+    {
+      "path": "reference_z_controls/features_observed/C1-b_P.csv",
+      "bytes": 4858828
+    },
+    {
+      "path": "reference_z_controls/features_observed/random_C1-0.csv",
+      "bytes": 4727656
+    },
+    {
+      "path": "reference_z_controls/features_observed/random_C1-a.csv",
+      "bytes": 4732378
+    },
+    {
+      "path": "reference_z_controls/features_observed/random_C1-b.csv",
+      "bytes": 4732378
+    },
+    {
+      "path": "reference_z_controls/features_observed/T0_T0-3_S.csv",
+      "bytes": 5578243
+    },
+    {
+      "path": "reference_z_controls/features_observed/T0_T0-4_S.csv",
+      "bytes": 5577959
+    },
+    {
+      "path": "reference_z_controls/features_observed/T1_A0_S.csv",
+      "bytes": 4778812
+    },
+    {
+      "path": "reference_z_controls/features_observed/T1_A1_S.csv",
+      "bytes": 5590229
+    },
+    {
+      "path": "reference_z_controls/features_observed/T0_T0-3_P.csv",
+      "bytes": 5674952
+    },
+    {
+      "path": "reference_z_controls/features_observed/T0_T0-4_P.csv",
+      "bytes": 5666114
+    },
+    {
+      "path": "reference_z_controls/features_observed/random_z_pma_k8_write0.csv",
+      "bytes": 4350245
+    },
+    {
+      "path": "reference_z_controls/features_observed/random_z_lite_k8_write0.csv",
+      "bytes": 4346180
+    },
+    {
+      "path": "reference_z_controls/features_observed/random_C1-0_R1_v2_reference.csv",
+      "bytes": 4727656
+    },
+    {
+      "path": "reference_z_controls/curves/random_z_pma_k8_write0.csv",
+      "bytes": 30283
+    },
+    {
+      "path": "reference_z_controls/curves/random_z_pma_k8_write0_diagnostic_endpoint_predictions.csv",
+      "bytes": 3126356
+    },
+    {
+      "path": "reference_z_controls/curves/random_z_lite_k8_write0.csv",
+      "bytes": 30271
+    },
+    {
+      "path": "reference_z_controls/curves/random_z_lite_k8_write0_diagnostic_endpoint_predictions.csv",
+      "bytes": 3137725
+    },
+    {
+      "path": "r0_reconstruction/predictions/C1-0_S_R0_reconstructed.csv",
+      "bytes": 5214483
+    },
+    {
+      "path": "r0_reconstruction/predictions/C1-0_P_R0_reconstructed.csv",
+      "bytes": 5717158
+    },
+    {
+      "path": "r0_reconstruction/predictions/C1-a_S_R0_reconstructed.csv",
+      "bytes": 5159252
+    },
+    {
+      "path": "r0_reconstruction/predictions/C1-a_P_R0_reconstructed.csv",
+      "bytes": 5716742
+    },
+    {
+      "path": "r0_reconstruction/predictions/C1-b_S_R0_reconstructed.csv",
+      "bytes": 5214872
+    },
+    {
+      "path": "r0_reconstruction/predictions/C1-b_P_R0_reconstructed.csv",
+      "bytes": 5717917
+    },
+    {
+      "path": "r0_reconstruction/predictions/random_C1-0_R0_reconstructed.csv",
+      "bytes": 4974254
+    },
+    {
+      "path": "r0_reconstruction/predictions/random_C1-a_R0_reconstructed.csv",
+      "bytes": 4974275
+    },
+    {
+      "path": "r0_reconstruction/predictions/random_C1-b_R0_reconstructed.csv",
+      "bytes": 4974275
+    }
+  ],
+  "tables": [
+    {
+      "source": "predictions/C1-0_S.parquet",
+      "csv": "predictions/C1-0_S.csv",
+      "rows": 55758,
+      "bytes": 14585778,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/C1-0_S.parquet",
+      "csv": "features/C1-0_S.csv",
+      "rows": 23040,
+      "bytes": 4831189,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/C1-0_P.parquet",
+      "csv": "predictions/C1-0_P.csv",
+      "rows": 55758,
+      "bytes": 14567321,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/C1-0_P.parquet",
+      "csv": "features/C1-0_P.csv",
+      "rows": 23040,
+      "bytes": 4916169,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/C1-a_S.parquet",
+      "csv": "predictions/C1-a_S.csv",
+      "rows": 55758,
+      "bytes": 14529350,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/C1-a_S.parquet",
+      "csv": "features/C1-a_S.csv",
+      "rows": 23040,
+      "bytes": 4814256,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/C1-a_P.parquet",
+      "csv": "predictions/C1-a_P.csv",
+      "rows": 55758,
+      "bytes": 14566596,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/C1-a_P.parquet",
+      "csv": "features/C1-a_P.csv",
+      "rows": 23040,
+      "bytes": 4901182,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/C1-b_S.parquet",
+      "csv": "predictions/C1-b_S.csv",
+      "rows": 55758,
+      "bytes": 14585894,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/C1-b_S.parquet",
+      "csv": "features/C1-b_S.csv",
+      "rows": 23040,
+      "bytes": 4819524,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/C1-b_P.parquet",
+      "csv": "predictions/C1-b_P.csv",
+      "rows": 55758,
+      "bytes": 14567362,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/C1-b_P.parquet",
+      "csv": "features/C1-b_P.csv",
+      "rows": 23040,
+      "bytes": 4892037,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/random_C1-0.parquet",
+      "csv": "predictions/random_C1-0.csv",
+      "rows": 55758,
+      "bytes": 14661423,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/random_C1-0.parquet",
+      "csv": "features/random_C1-0.csv",
+      "rows": 23040,
+      "bytes": 4767963,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/random_C1-a.parquet",
+      "csv": "predictions/random_C1-a.csv",
+      "rows": 55758,
+      "bytes": 14604872,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/random_C1-a.parquet",
+      "csv": "features/random_C1-a.csv",
+      "rows": 23040,
+      "bytes": 4771526,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/random_C1-b.parquet",
+      "csv": "predictions/random_C1-b.csv",
+      "rows": 55758,
+      "bytes": 14660630,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/random_C1-b.parquet",
+      "csv": "features/random_C1-b.csv",
+      "rows": 23040,
+      "bytes": 4771526,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/T0_T0-3_S.parquet",
+      "csv": "predictions/T0_T0-3_S.csv",
+      "rows": 85790,
+      "bytes": 22377297,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/T0_T0-3_S.parquet",
+      "csv": "features/T0_T0-3_S.csv",
+      "rows": 27079,
+      "bytes": 5656076,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/T0_T0-4_S.parquet",
+      "csv": "predictions/T0_T0-4_S.csv",
+      "rows": 85790,
+      "bytes": 22377273,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/T0_T0-4_S.parquet",
+      "csv": "features/T0_T0-4_S.csv",
+      "rows": 27079,
+      "bytes": 5651190,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/T1_A0_S.parquet",
+      "csv": "predictions/T1_A0_S.csv",
+      "rows": 55758,
+      "bytes": 14344687,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/T1_A0_S.parquet",
+      "csv": "features/T1_A0_S.csv",
+      "rows": 23040,
+      "bytes": 4815978,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/T1_A1_S.parquet",
+      "csv": "predictions/T1_A1_S.csv",
+      "rows": 92930,
+      "bytes": 23970587,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/T1_A1_S.parquet",
+      "csv": "features/T1_A1_S.csv",
+      "rows": 27079,
+      "bytes": 5665167,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/T0_T0-3_P.parquet",
+      "csv": "predictions/T0_T0-3_P.csv",
+      "rows": 85790,
+      "bytes": 22359163,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/T0_T0-3_P.parquet",
+      "csv": "features/T0_T0-3_P.csv",
+      "rows": 27079,
+      "bytes": 5747717,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "predictions/T0_T0-4_P.parquet",
+      "csv": "predictions/T0_T0-4_P.csv",
+      "rows": 85790,
+      "bytes": 22359089,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "features/T0_T0-4_P.parquet",
+      "csv": "features/T0_T0-4_P.csv",
+      "rows": 27079,
+      "bytes": 5741245,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/C1-0_S.parquet",
+      "csv": "curves/C1-0_S.csv",
+      "rows": 600,
+      "bytes": 86923,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/C1-0_S_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/C1-0_S_diagnostic_endpoint_predictions.csv",
+      "rows": 30032,
+      "bytes": 7996126,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/C1-0_P.parquet",
+      "csv": "curves/C1-0_P.csv",
+      "rows": 600,
+      "bytes": 86667,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/C1-0_P_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/C1-0_P_diagnostic_endpoint_predictions.csv",
+      "rows": 30032,
+      "bytes": 8807092,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/C1-a_S.parquet",
+      "csv": "curves/C1-a_S.csv",
+      "rows": 600,
+      "bytes": 86355,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/C1-a_S_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/C1-a_S_diagnostic_endpoint_predictions.csv",
+      "rows": 30032,
+      "bytes": 7906051,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/C1-a_P.parquet",
+      "csv": "curves/C1-a_P.csv",
+      "rows": 600,
+      "bytes": 86842,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/C1-a_P_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/C1-a_P_diagnostic_endpoint_predictions.csv",
+      "rows": 30032,
+      "bytes": 8807301,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/C1-b_S.parquet",
+      "csv": "curves/C1-b_S.csv",
+      "rows": 600,
+      "bytes": 86889,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/C1-b_S_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/C1-b_S_diagnostic_endpoint_predictions.csv",
+      "rows": 30032,
+      "bytes": 7995682,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/C1-b_P.parquet",
+      "csv": "curves/C1-b_P.csv",
+      "rows": 600,
+      "bytes": 86758,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/C1-b_P_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/C1-b_P_diagnostic_endpoint_predictions.csv",
+      "rows": 30032,
+      "bytes": 8807128,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/random_C1-0.parquet",
+      "csv": "curves/random_C1-0.csv",
+      "rows": 600,
+      "bytes": 86057,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/random_C1-0_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/random_C1-0_diagnostic_endpoint_predictions.csv",
+      "rows": 30032,
+      "bytes": 7606760,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/random_C1-a.parquet",
+      "csv": "curves/random_C1-a.csv",
+      "rows": 600,
+      "bytes": 86302,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/random_C1-a_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/random_C1-a_diagnostic_endpoint_predictions.csv",
+      "rows": 30032,
+      "bytes": 7606858,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/random_C1-b.parquet",
+      "csv": "curves/random_C1-b.csv",
+      "rows": 600,
+      "bytes": 86302,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/random_C1-b_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/random_C1-b_diagnostic_endpoint_predictions.csv",
+      "rows": 30032,
+      "bytes": 7606858,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/T0_T0-3_S.parquet",
+      "csv": "curves/T0_T0-3_S.csv",
+      "rows": 810,
+      "bytes": 117192,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/T0_T0-3_S_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/T0_T0-3_S_diagnostic_endpoint_predictions.csv",
+      "rows": 41478,
+      "bytes": 11118070,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/T0_T0-4_S.parquet",
+      "csv": "curves/T0_T0-4_S.csv",
+      "rows": 810,
+      "bytes": 117219,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/T0_T0-4_S_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/T0_T0-4_S_diagnostic_endpoint_predictions.csv",
+      "rows": 41478,
+      "bytes": 11118009,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/T0_T0-3_P.parquet",
+      "csv": "curves/T0_T0-3_P.csv",
+      "rows": 810,
+      "bytes": 116855,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/T0_T0-3_P_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/T0_T0-3_P_diagnostic_endpoint_predictions.csv",
+      "rows": 41478,
+      "bytes": 11118023,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/T0_T0-4_P.parquet",
+      "csv": "curves/T0_T0-4_P.csv",
+      "rows": 810,
+      "bytes": 116906,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "curves/T0_T0-4_P_diagnostic_endpoint_predictions.parquet",
+      "csv": "curves/T0_T0-4_P_diagnostic_endpoint_predictions.csv",
+      "rows": 41478,
+      "bytes": 11118266,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/predictions/random_z_pma_k8_write0.parquet",
+      "csv": "reference_z_controls/predictions/random_z_pma_k8_write0.csv",
+      "rows": 22892,
+      "bytes": 6337335,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "null",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features/random_z_pma_k8_write0.parquet",
+      "csv": "reference_z_controls/features/random_z_pma_k8_write0.csv",
+      "rows": 21959,
+      "bytes": 4569214,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/predictions/random_z_lite_k8_write0.parquet",
+      "csv": "reference_z_controls/predictions/random_z_lite_k8_write0.csv",
+      "rows": 22892,
+      "bytes": 6360197,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "null",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features/random_z_lite_k8_write0.parquet",
+      "csv": "reference_z_controls/features/random_z_lite_k8_write0.csv",
+      "rows": 21959,
+      "bytes": 4562085,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/predictions/random_C1-0_R1_v2_reference.parquet",
+      "csv": "reference_z_controls/predictions/random_C1-0_R1_v2_reference.csv",
+      "rows": 18586,
+      "bytes": 4898111,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features/random_C1-0_R1_v2_reference.parquet",
+      "csv": "reference_z_controls/features/random_C1-0_R1_v2_reference.csv",
+      "rows": 23040,
+      "bytes": 4767963,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/C1-0_S.parquet",
+      "csv": "reference_z_controls/features_observed/C1-0_S.csv",
+      "rows": 24064,
+      "bytes": 4796620,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/C1-0_P.parquet",
+      "csv": "reference_z_controls/features_observed/C1-0_P.csv",
+      "rows": 24064,
+      "bytes": 4881504,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/C1-a_S.parquet",
+      "csv": "reference_z_controls/features_observed/C1-a_S.csv",
+      "rows": 24064,
+      "bytes": 4775879,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/C1-a_P.parquet",
+      "csv": "reference_z_controls/features_observed/C1-a_P.csv",
+      "rows": 24064,
+      "bytes": 4869430,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/C1-b_S.parquet",
+      "csv": "reference_z_controls/features_observed/C1-b_S.csv",
+      "rows": 24064,
+      "bytes": 4786968,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/C1-b_P.parquet",
+      "csv": "reference_z_controls/features_observed/C1-b_P.csv",
+      "rows": 24064,
+      "bytes": 4858828,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/random_C1-0.parquet",
+      "csv": "reference_z_controls/features_observed/random_C1-0.csv",
+      "rows": 24064,
+      "bytes": 4727656,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/random_C1-a.parquet",
+      "csv": "reference_z_controls/features_observed/random_C1-a.csv",
+      "rows": 24064,
+      "bytes": 4732378,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/random_C1-b.parquet",
+      "csv": "reference_z_controls/features_observed/random_C1-b.csv",
+      "rows": 24064,
+      "bytes": 4732378,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/T0_T0-3_S.parquet",
+      "csv": "reference_z_controls/features_observed/T0_T0-3_S.csv",
+      "rows": 28103,
+      "bytes": 5578243,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/T0_T0-4_S.parquet",
+      "csv": "reference_z_controls/features_observed/T0_T0-4_S.csv",
+      "rows": 28103,
+      "bytes": 5577959,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/T1_A0_S.parquet",
+      "csv": "reference_z_controls/features_observed/T1_A0_S.csv",
+      "rows": 24064,
+      "bytes": 4778812,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/T1_A1_S.parquet",
+      "csv": "reference_z_controls/features_observed/T1_A1_S.csv",
+      "rows": 28103,
+      "bytes": 5590229,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/T0_T0-3_P.parquet",
+      "csv": "reference_z_controls/features_observed/T0_T0-3_P.csv",
+      "rows": 28103,
+      "bytes": 5674952,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/T0_T0-4_P.parquet",
+      "csv": "reference_z_controls/features_observed/T0_T0-4_P.csv",
+      "rows": 28103,
+      "bytes": 5666114,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/random_z_pma_k8_write0.parquet",
+      "csv": "reference_z_controls/features_observed/random_z_pma_k8_write0.csv",
+      "rows": 21959,
+      "bytes": 4350245,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/random_z_lite_k8_write0.parquet",
+      "csv": "reference_z_controls/features_observed/random_z_lite_k8_write0.csv",
+      "rows": 21959,
+      "bytes": 4346180,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/features_observed/random_C1-0_R1_v2_reference.parquet",
+      "csv": "reference_z_controls/features_observed/random_C1-0_R1_v2_reference.csv",
+      "rows": 24064,
+      "bytes": 4727656,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "feature",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dimension",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "molecule_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mean",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "minimum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "maximum",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_threshold",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_std_dimensions",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "median_std",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "n_ref",
+          "arrow_type": "double",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/curves/random_z_pma_k8_write0.parquet",
+      "csv": "reference_z_controls/curves/random_z_pma_k8_write0.csv",
+      "rows": 210,
+      "bytes": 30283,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "null",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/curves/random_z_pma_k8_write0_diagnostic_endpoint_predictions.parquet",
+      "csv": "reference_z_controls/curves/random_z_pma_k8_write0_diagnostic_endpoint_predictions.csv",
+      "rows": 11446,
+      "bytes": 3126356,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "null",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/curves/random_z_lite_k8_write0.parquet",
+      "csv": "reference_z_controls/curves/random_z_lite_k8_write0.csv",
+      "rows": 210,
+      "bytes": 30271,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "epoch",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "updates",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_updates",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "training_loss_mean_labels",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_labels",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "validation_native_error",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "error_metric",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "training_objective",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "device",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alias_of",
+          "arrow_type": "null",
+          "nullable": true
+        },
+        {
+          "name": "selection_use",
+          "arrow_type": "bool",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "reference_z_controls/curves/random_z_lite_k8_write0_diagnostic_endpoint_predictions.parquet",
+      "csv": "reference_z_controls/curves/random_z_lite_k8_write0_diagnostic_endpoint_predictions.csv",
+      "rows": 11446,
+      "bytes": 3137725,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "null",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "r0_reconstruction/predictions/C1-0_S_R0_reconstructed.parquet",
+      "csv": "r0_reconstruction/predictions/C1-0_S_R0_reconstructed.csv",
+      "rows": 18586,
+      "bytes": 5214483,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "r0_reconstruction/predictions/C1-0_P_R0_reconstructed.parquet",
+      "csv": "r0_reconstruction/predictions/C1-0_P_R0_reconstructed.csv",
+      "rows": 18586,
+      "bytes": 5717158,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "r0_reconstruction/predictions/C1-a_S_R0_reconstructed.parquet",
+      "csv": "r0_reconstruction/predictions/C1-a_S_R0_reconstructed.csv",
+      "rows": 18586,
+      "bytes": 5159252,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "r0_reconstruction/predictions/C1-a_P_R0_reconstructed.parquet",
+      "csv": "r0_reconstruction/predictions/C1-a_P_R0_reconstructed.csv",
+      "rows": 18586,
+      "bytes": 5716742,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "r0_reconstruction/predictions/C1-b_S_R0_reconstructed.parquet",
+      "csv": "r0_reconstruction/predictions/C1-b_S_R0_reconstructed.csv",
+      "rows": 18586,
+      "bytes": 5214872,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "r0_reconstruction/predictions/C1-b_P_R0_reconstructed.parquet",
+      "csv": "r0_reconstruction/predictions/C1-b_P_R0_reconstructed.csv",
+      "rows": 18586,
+      "bytes": 5717917,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "r0_reconstruction/predictions/random_C1-0_R0_reconstructed.parquet",
+      "csv": "r0_reconstruction/predictions/random_C1-0_R0_reconstructed.csv",
+      "rows": 18586,
+      "bytes": 4974254,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "r0_reconstruction/predictions/random_C1-a_R0_reconstructed.parquet",
+      "csv": "r0_reconstruction/predictions/random_C1-a_R0_reconstructed.csv",
+      "rows": 18586,
+      "bytes": 4974275,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    },
+    {
+      "source": "r0_reconstruction/predictions/random_C1-b_R0_reconstructed.parquet",
+      "csv": "r0_reconstruction/predictions/random_C1-b_R0_reconstructed.csv",
+      "rows": 18586,
+      "bytes": 4974275,
+      "columns": [
+        {
+          "name": "task",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "readout",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "molecule_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_member_id",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "atom_id",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "atom_count",
+          "arrow_type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "prediction",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "truth",
+          "arrow_type": "double",
+          "nullable": true
+        },
+        {
+          "name": "valid",
+          "arrow_type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "prediction_provenance",
+          "arrow_type": "string",
+          "nullable": true
+        },
+        {
+          "name": "source",
+          "arrow_type": "string",
+          "nullable": true
+        }
+      ],
+      "uploaded_as": "csv"
+    }
+  ],
+  "encoding": "UTF-8 with BOM",
+  "delimiter": ",",
+  "null_token": "\\N",
+  "backslash_string_rule": "A scalar string beginning with backslash gets one extra leading backslash; remove it when interpreting a string column.",
+  "nested_values": "JSON in one CSV cell",
+  "float_rule": "Shortest round-trip representation of the original Arrow scalar; NaN/Infinity/-Infinity preserved as tokens",
+  "scientific_recomputation": false,
+  "export_review_or_second_readback": false,
+  "total_upload_bytes": 629674357
+}

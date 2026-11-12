@@ -24,3 +24,7 @@ T1 仅纳入本次导出开始时已完成评价且有 producer_complete.json �
 `reference_z_controls/` 同时导出 T1 实际保存的 `base_reference_R1` 原预测和 α/五折详情，文件名为 `random_C1-0_R1_v2_reference`；它与 C1/T0 的旧 R1 重建预测分别保留。SoM 参考的别名按 T0/T1 原上下文区分。`X_R2` 是图读出的拼接特征，SoM 实际使用 `X_atom`，无读出切换。
 
 `r0_reconstruction/` 补齐旧 R0 未持久化的逐分子/逐原子预测：C1 六检查点和三个既有匹配随机配置，使用原 `nonlinear_probe`（20轮、Linear64/ReLU、B32、seed0），只在既有缓存上重建预测，不计算验证误差/CV/bootstrap，不重写原 R0 分数。原设备 CUDA、本次 CPU，均标记 reconstructed。T0 的既有冻结 X/R0 通过别名复用对应 C1-0/S 或 P 预测，T1 未做过的 R0 不补造原分数。
+
+## CSV追加导出
+
+按用户追加要求，[csv/](csv/)另提供上述三类Parquet的93份CSV（逐轮曲线及其终点预测、逐分子/原子预测、特征统计，含原嵌套对照）。共629674357字节，最大单CSV23970587字节，均低于50MB，直接提供CSV。文件、来源、行数及列类型见csv/CSV_MANIFEST.json；空值和格式说明见csv/README.md。原Parquet及原结果保持，本次只读取原Parquet做一次格式转换，不作额外拟合、重算、导出复核或二次读回。原T1快照范围保持。
