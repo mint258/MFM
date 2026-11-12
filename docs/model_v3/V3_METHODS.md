@@ -148,3 +148,10 @@ Four own zero-work follow-ons became JobHeldAdmin after dependency rebinding. Th
 
 
 The original H1 registry/learned pooling comparison remains required because latent=none. Its registry-P cell exactly reuses the original C1-0 H1/P seed0 full6M checkpoint and existing v2 R3 panel. Only the learned-pooling H1/P cell is a new6M seed0/B32 training,with original240k sampling,D4,fields,AdamW3e-4,2% warmup/cosine and clip1. Pure P views remain inactive,and H1 is fixed by the original pooling experiment rather than selected from the head comparison. This cell is queued after the existing H2/D evaluation on node6; the comparison still uses paired bootstrap and the registered registry-before-learned simplicity rule. No baseline score is recomputed.
+
+
+## C3-to-SDP-head execution handoff (2026-11-13)
+
+After the last actual C3 evaluation has produced its complete panel,the existing C3 completion hook scores the registered comparison once. It then invokes the required H2/SDP and H3/SDP queue preparer on compute-0-20. Only the actual status=CANDIDATE_GROUP_SELECTED,comparison=views result can supply the view count; no fallback view is used. The two runs are fresh6M seed0/B32 trainings on nodes5/7 with their prescribed head forms and the selected views. H1/P exactly reuses the original C1-0 P6M panel,and H1/SDP exactly reuses the winning C3 SDP6M panel. All P/D/SDP cells are recorded in the head comparison manifest before head selection.
+
+The new jobs depend on the still-live last C3 evaluation job,not purged historical job IDs. Actual target capacity/inodes/native quota are checked before queueing and by the original startup guard. Queued jobs are held until their actual identities,SDK follow-ons and recovery entries are recorded; all outputs stay within the existing common100GB forecast. An incomplete submission journal requires coordinator recovery and never triggers blind resubmission. Failure to queue does not reclassify or rerun the completed native evaluation; it is retained separately in heads_sdp_queue_attempts.jsonl. Actual first training use remains the wiring acceptance.
