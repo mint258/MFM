@@ -13,7 +13,7 @@ BASE = Path('/share/home/zixiao/descriptor_analysis')
 REPO = BASE / 'MFM_model_v3_cpu_perf_20261112'
 CHECKPOINT = Path('/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/samples_4000000.pt')
 SCRATCH = Path('/lfshome/zixiao/model_v3_perf_20261112')
-GPUS = ['GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5', 'GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02']
+GPUS = os.environ.get('MFM_CPU_GPU_UUIDS', 'GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5,GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02').split(',')
 
 
 def query(*args):
@@ -56,7 +56,7 @@ def idle_gpu():
     for gpu in GPUS:
         if gpu not in occupied:
             return gpu
-    raise RuntimeError('No idle 4090; leaving all existing processes untouched')
+    raise RuntimeError('No idle authorized GPU; leaving all existing processes untouched')
 
 
 def train(mode, directory):
@@ -68,7 +68,9 @@ def train(mode, directory):
     assert configuration['batch_size'] == configuration['microbatch_size'] == 32
     assert configuration['expected_molecules'] == 240000
     assert checkpoint['clock']['samples_consumed'] == 4000000
-    configuration.update(output=str(directory), resume=str(CHECKPOINT), run_until_samples=None)
+    cores = int(os.environ.get('SLURM_CPUS_PER_TASK', '16'))
+    workers = min(configuration['workers'], max(1, cores-2))
+    configuration.update(output=str(directory), resume=str(CHECKPOINT), run_until_samples=None, workers=workers)
     os.environ['MFM_CPU_MEASURE_STEPS'] = '1100' if mode == 'profile' else '1000'
     if mode == 'profile':
         os.environ['MFM_CPU_PROFILE_DIR'] = str(directory.parent / 'segments')
@@ -95,16 +97,14 @@ def run():
             raise RuntimeError('GPU availability changed')
         root = SCRATCH / ('step1_' + os.environ['SLURM_JOB_ID'])
         root.mkdir(parents=True, exist_ok=False)
-        (root / 'admission.json').write_text(json.dumps(dict(gpu=gpu, quota=quota, checkpoint=str(CHECKPOINT)), indent=2))
+        (root / 'admission.json').write_text(json.dumps(dict(gpu=gpu, gpu_name=query('nvidia-smi','-i',gpu,'--query-gpu=name','--format=csv,noheader'), cores=int(os.environ['SLURM_CPUS_PER_TASK']), workers=min(14,max(1,int(os.environ['SLURM_CPUS_PER_TASK'])-2)), quota=quota, checkpoint=str(CHECKPOINT)), indent=2))
         temporary = root / 'tmp'
         temporary.mkdir()
         env = dict(os.environ, CUDA_VISIBLE_DEVICES=gpu, TMPDIR=str(temporary))
-        # Install the sampler only into this run's isolated tool directory.
-        subprocess.run([sys.executable, '-m', 'pip', 'install', '--no-cache-dir', '--no-deps',
-                        '--target', str(root / 'tools'), 'py-spy'], check=True, env=env)
-        spy = root / 'tools/bin/py-spy'
+        # Prepared in isolated scratch before requesting a GPU, not in a shared environment.
+        spy = SCRATCH / 'sampler_tools_v1/bin/py-spy'
         if not spy.is_file():
-            raise RuntimeError('py-spy executable not installed at isolated target')
+            raise RuntimeError('Prepare the isolated native sampler before requesting a GPU')
         for mode in ('profile', 'baseline'):
             capacity()
             if idle_gpu() != gpu:

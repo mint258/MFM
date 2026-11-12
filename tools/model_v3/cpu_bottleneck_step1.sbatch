@@ -17,5 +17,5 @@ findmnt -T /lfshome/zixiao
 findmnt -T /tmp
 df -B1 / /tmp /lfshome/zixiao "$PWD"
 df -Pi / /tmp /lfshome/zixiao "$PWD"
-python=$base/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python
+python=${MFM_CPU_PYTHON:-$base/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python}
 "$python" -B -u tools/model_v3/cpu_bottleneck_step1.py
