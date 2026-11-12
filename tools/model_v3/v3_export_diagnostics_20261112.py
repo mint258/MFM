@@ -25,7 +25,7 @@ from v2_evaluate_s import RememberedStore
 from v2_archive_wandb import actual_capacity_check
 from phychem_mfm.phase1.v2_disk import save_metadata_parquet, save_metadata_json
 from phychem_mfm.phase1.v3_dev_evaluation import (
-    TaskSpec, task_rows, _arrays, _Ridge, _prediction, error,
+    TaskSpec, task_rows, _arrays, _Ridge, _prediction, error, nonlinear_probe,
 )
 from phychem_mfm.phase1.v3_dev_evaluation_v2 import BASE, DATASETS, _cached_rows
 from phychem_mfm.phase1.v3_latent_evaluation import cached_rows, z_rows
@@ -362,6 +362,42 @@ def export_observed_feature_statistics(exporter, views, tasks):
         exporter.status('OBSERVED_OPTIMIZATION_FEATURES_EXPORTED',cell=cell['name'])
 
 
+def export_legacy_r0_predictions(exporter, views, tasks, device):
+    """Recover unpersisted legacy endpoint predictions at the original recipe.
+    No validation error, CV, bootstrap, early stopping or original score is run.
+    """
+    source_cells=json.loads((CONTROL/'MODEL_V3_DIAGNOSTICS_SOURCE_CELLS_20261112.json').read_text())
+    source_cells=[c for c in source_cells if c['stage'] in ('C1','reference')]
+    exporter.add('scope.json',value=dict(source_cells=source_cells,readout='R0',
+        prediction_status='reconstructed_original_recipe_not_original_persisted_predictions',
+        original_scores_recomputed=False,selection_use=False,encoder_updated=False,
+        device=device,original_device='cuda',epochs=20,hidden_dim=64,batch_graphs=32,seed=0))
+    for cell in source_cells:
+        exporter.capacity(2_000_000_000, 2000)
+        predictions,details=[],{}
+        for dataset in DATASETS:
+            path=Path(cell['cache'])/(dataset+'.pt')
+            payload=torch.load(path,map_location='cpu',weights_only=True)
+            cached=cached_rows(payload)
+            for task in (t for t in tasks if t.dataset_id==dataset):
+                train=task_rows(views[dataset],cached,task,role='train')
+                held=task_rows(views[dataset],cached,task,role='train_inner_validation')
+                prediction,detail=nonlinear_probe(train,held,task,seed=0,device=device,tracker=CurveHistory())
+                packed=dict(molecule_uids=prediction.molecule_uids,source_record_uids=prediction.source_record_uids,
+                    targets=prediction.targets,predictions=prediction.predictions,valid=prediction.valid)
+                predictions.extend(prediction_rows(packed,held,task,'R0',
+                    'reconstructed_original_R0_recipe_no_rescoring',str(path)))
+                details[task.task_id]={k:v for k,v in detail.items() if k!='history'}
+                exporter.status('R0_TASK_PREDICTIONS_RECONSTRUCTED',cell=cell['name'],task=task.task_id)
+            del payload,cached
+        exporter.add('predictions/'+cell['name']+'_R0_reconstructed.parquet',rows=predictions)
+        exporter.add('metadata/'+cell['name']+'.json',value=dict(cell=cell,details=details,
+            original_scores_recomputed=False,selection_use=False,device=device,original_device='cuda',
+            original_summary_directory=cell['directory'],original_prediction_not_persisted=True,
+            original_recipe='nonlinear_probe / SourceAlignedH0Readout / Linear64 / ReLU /20epochs /B32 /seed0'))
+        exporter.status('R0_CELL_PREDICTIONS_RECONSTRUCTED',cell=cell['name'])
+
+
 class CurveHistory:
     disabled = False
     def __init__(self):
@@ -472,6 +508,8 @@ def main():
                         help='Continue after the original static producer completed; metadata only, no exported-content readback')
     parser.add_argument('--reference-z-only', action='store_true',
                         help='Export existing molecular-z and v2 R1 controls; replay only their requested R2z curves from cached features')
+    parser.add_argument('--legacy-r0-only',action='store_true',
+                        help='Recover missing legacy R0 predictions at its saved recipe without scoring')
     args=parser.parse_args()
     if os.getuid()!=1278 or socket.gethostname().split('.')[0]!='compute-0-20':
         raise ValueError('Export and cached-only computation belong to compute-0-20')
@@ -484,6 +522,12 @@ def main():
     tasks=[TaskSpec(**{k:r[k] for k in ('task_id','dataset_id','field','output_level','error_metric','pooling')}) for r in panel['tasks']]
     store=RememberedStore(PROJECT/'runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json')
     views={d:GroupedTrainingView(store,d,'official' if d=='expansionrx' else '0',store.group_map) for d in DATASETS}
+    if args.legacy_r0_only:
+        export_legacy_r0_predictions(exporter,views,tasks,args.device)
+        exporter.manifest('MANIFEST.json',status='ALL_SIX_REQUESTED_EXPORTS_COMPLETE',
+            purpose='Legacy R0 predictions reconstruction only; no new scores')
+        exporter.status('ALL_SIX_REQUESTED_EXPORTS_COMPLETE')
+        return
     all_cells=cells(reference_z_only=args.reference_z_only)
     if args.resume_static:
         # Restore the known completed producer prefix using paths/sizes only.
