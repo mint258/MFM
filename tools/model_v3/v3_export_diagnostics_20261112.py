@@ -149,10 +149,14 @@ class Export:
 
 def cells(*, reference_z_only=False):
     if reference_z_only:
-        return [dict(name='random_z_'+profile, stage='reference_z', legacy=None,
+        references=[dict(name='random_z_'+profile, stage='reference_z', legacy=None,
                 directory=str(LATENT/'readout_cache'/('reference_z_'+profile)),
                 cache=str(LATENT/'readout_cache'/('reference_z_'+profile)/'features'))
                 for profile in ('pma_k8_write0','lite_k8_write0')]
+        references.append(dict(name='random_C1-0_R1_v2_reference',stage='reference_R1',legacy=None,
+            directory=str(LATENT/'readout_cache/base_reference_R1'),
+            cache=str(BASE/'h0_cache/random__C1-0__three')))
+        return references
     c1 = json.loads((REPO / 'results/model_v3_c1_final.json').read_text())['rows']
     output = []
     for row in c1:
@@ -198,12 +202,15 @@ def original_summaries(cell, manifest):
         result['recorded_reference_errors_from_original_T0_summaries'] = {
             condition: json.loads((LATENT/('T0_'+arm+'_'+condition+'_seed0')/'dev_eval_v2/R2z_summary.json').read_text())
             for condition in ('S','P')}
+    if cell['stage']=='reference_R1':
+        result['recorded_reference_errors_from_original_T1_A0_S_R1_summary'] = json.loads(
+            (LATENT/'T1_A0_S_seed0/dev_eval_v2/R1_summary.json').read_text())
     result['prediction_manifest_unchanged'] = manifest
     return result
 
 
 def export_static(exporter, all_cells, views, tasks):
-    u0_done = all(c['stage']=='reference_z' for c in all_cells)
+    u0_done = all(c['stage'] in ('reference_z','reference_R1') for c in all_cells)
     for cell in all_cells:
         exporter.capacity(2_000_000_000, 2000)
         directory = Path(cell['directory'])
@@ -390,7 +397,7 @@ def diagnostic_probe():
 def replay_curves(exporter, all_cells, views, tasks, device):
     namespace = diagnostic_probe()
     for cell in all_cells:
-        if cell['stage'] == 'T1':
+        if cell['stage'] in ('T1','reference_R1'):
             continue  # Explicit request is C1/reference + four T0 cases only.
         exporter.capacity(2_000_000_000, 2000)
         curves, endpoint, unavailable = [], [], []
@@ -464,7 +471,7 @@ def main():
     parser.add_argument('--resume-static', action='store_true',
                         help='Continue after the original static producer completed; metadata only, no exported-content readback')
     parser.add_argument('--reference-z-only', action='store_true',
-                        help='Export/replay the two existing matched random molecular-z controls, without generating features')
+                        help='Export existing molecular-z and v2 R1 controls; replay only their requested R2z curves from cached features')
     args=parser.parse_args()
     if os.getuid()!=1278 or socket.gethostname().split('.')[0]!='compute-0-20':
         raise ValueError('Export and cached-only computation belong to compute-0-20')
