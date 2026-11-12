@@ -2,6 +2,7 @@
 import argparse
 import csv
 import json
+import importlib.util
 import os
 import signal
 from pathlib import Path
@@ -38,17 +39,30 @@ def capacity():
         raise RuntimeError('Unknown or stale NFS quota; refusing writes')
     if nfs['available_bytes'] < 100_000_000_000 + 23_179_869_184 + 8*1024**3 + 64*1024**2:
         raise RuntimeError('Insufficient NFS quota after concurrent data-line forecast')
-    # This independent run adds 4GB; it does not reuse the mainline's reservation.
-    # Include the mainline 72GB remaining forecast and its other 6GB future writers.
-    budget = json.loads((BASE/'runs/model_v31_20261105/model_output_budget.json').read_text())
-    if budget['total_peak_bytes'] > 100_000_000_000:
-        raise RuntimeError('Mainline forecast grew; recompute independent admission first')
-    required = 100_000_000_000 + 72_000_000_000 + 6_000_000_000 + 4_000_000_000 + 8 * 1024**3
+    # Debit already allocated files from each shared forecast exactly once.
+    spec = importlib.util.spec_from_file_location('cpu_perf_model_budget', REPO/'tools/model_v3/v2_diagnosis_disk.py')
+    guard = importlib.util.module_from_spec(spec); spec.loader.exec_module(guard)
+    model_allocated, model_remaining = guard.model_growth_forecast()
+    other_remaining = guard.remaining_d6() + 6_000_000_000
+    own_allocated = 0
+    for path in SCRATCH.rglob('*') if SCRATCH.exists() else ():
+        try:
+            if path.is_file():
+                own_allocated += path.stat().st_blocks*512
+        except FileNotFoundError:
+            # An atomic checkpoint rename may race metadata observation.
+            # Skipping it over-reserves future bytes rather than under-reserving.
+            continue
+    own_remaining = max(0, 4_000_000_000-own_allocated)
+    if own_remaining == 0:
+        raise RuntimeError('Own 4GB physical forecast consumed; replan before new writes')
+    required = 100_000_000_000 + model_remaining + other_remaining + own_remaining + 8*1024**3
     if limit <= 0 or (limit-used)*1024 < required:
-        raise RuntimeError('Insufficient quota after mainline concurrent forecast and own 4GB peak')
+        raise RuntimeError('Insufficient quota after actual concurrent remaining forecasts')
     return dict(available_bytes=(limit-used)*1024, required_bytes=required,
-                mainline_remaining_forecast=72_000_000_000, own_peak_bytes=4_000_000_000)
-
+                mainline_allocated_bytes=model_allocated, mainline_remaining_forecast=model_remaining,
+                own_allocated_bytes=own_allocated, own_remaining_forecast=own_remaining,
+                other_remaining_forecast=other_remaining)
 
 def idle_gpu():
     occupied = {line.split(',')[0].strip() for line in query('nvidia-smi',
@@ -104,7 +118,7 @@ def run():
         fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
         if idle_gpu() != gpu:
             raise RuntimeError('GPU availability changed')
-        root = SCRATCH / ('step1_' + os.environ['SLURM_JOB_ID'])
+        root = SCRATCH / (os.environ.get('MFM_CPU_RUN_PREFIX', 'step1') + '_' + os.environ['SLURM_JOB_ID'])
         root.mkdir(parents=True, exist_ok=False)
         (root / 'admission.json').write_text(json.dumps(dict(gpu=gpu, gpu_name=query('nvidia-smi','-i',gpu,'--query-gpu=name','--format=csv,noheader'), cores=int(os.environ['SLURM_CPUS_PER_TASK']), workers=min(14,max(1,int(os.environ['SLURM_CPUS_PER_TASK'])-2)), quota=quota, checkpoint=str(CHECKPOINT)), indent=2))
         temporary = root / 'tmp'
@@ -114,7 +128,8 @@ def run():
         spy = SCRATCH / 'sampler_tools_v1/bin/py-spy'
         if not spy.is_file():
             raise RuntimeError('Prepare the isolated native sampler before requesting a GPU')
-        for mode in ('profile', 'baseline'):
+        modes = ('baseline',) if os.environ.get('MFM_CPU_BASELINE_ONLY') == '1' else ('profile', 'baseline')
+        for mode in modes:
             capacity()
             if idle_gpu() != gpu:
                 raise RuntimeError('Selected GPU is no longer idle; controlled card must stay fixed')

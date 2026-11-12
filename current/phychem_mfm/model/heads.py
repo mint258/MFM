@@ -149,13 +149,13 @@ class EquivariantDenoisingHead(nn.Module):
             aggregated = torch.zeros_like(h)
             for start in range(0, len(src), self.pair_chunk_size):
                 i, j = src[start:start + self.pair_chunk_size], dst[start:start + self.pair_chunk_size]
-                value = checkpoint(message_chunk, h, pos, i, j, use_reentrant=False) if torch.is_grad_enabled() else message_chunk(h, pos, i, j)
+                value = checkpoint(message_chunk, h, pos, i, j, use_reentrant=False) if torch.is_grad_enabled() and getattr(self, "activation_checkpointing", True) else message_chunk(h, pos, i, j)
                 aggregated = aggregated.index_add(0, i, value)
             h = h + aggregated / degree.to(h.dtype)
         noise = torch.zeros_like(pos)
         for start in range(0, len(src), self.pair_chunk_size):
             i, j = src[start:start + self.pair_chunk_size], dst[start:start + self.pair_chunk_size]
-            value = checkpoint(self._predict_chunk, h, pos, i, j, use_reentrant=False) if torch.is_grad_enabled() else self._predict_chunk(h, pos, i, j)
+            value = checkpoint(self._predict_chunk, h, pos, i, j, use_reentrant=False) if torch.is_grad_enabled() and getattr(self, "activation_checkpointing", True) else self._predict_chunk(h, pos, i, j)
             noise = noise.index_add(0, i, value.to(pos.dtype))
         return noise / degree if self.normalization == "sqrt_neighbors" else noise
 

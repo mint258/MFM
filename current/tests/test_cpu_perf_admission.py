@@ -3,6 +3,8 @@ import importlib.util
 from pathlib import Path
 import unittest
 import tempfile
+import sys,json
+from types import SimpleNamespace
 from unittest.mock import patch
 path=Path(__file__).parents[2]/'tools/model_v3/cpu_perf_wait.py'
 spec=importlib.util.spec_from_file_location('cpu_wait',path)
@@ -71,5 +73,36 @@ class SamplerReadinessTests(unittest.TestCase):
                 file.write('101,0.2,0.3\n')
             self.assertTrue(runner.measured_updates_available(path))
 
+
+class CapacityDebitTests(unittest.TestCase):
+    def test_allocated_model_and_own_files_are_not_charged_twice(self):
+        runner_path=Path(__file__).parents[2]/'tools/model_v3/cpu_bottleneck_step1.py'
+        spec=importlib.util.spec_from_file_location('cpu_step1_budget',runner_path)
+        runner=importlib.util.module_from_spec(spec);spec.loader.exec_module(runner)
+        model=[30_000_000_000,70_000_000_000]
+        used=[100_000_000]
+        guard=SimpleNamespace(model_growth_forecast=lambda:tuple(model),remaining_d6=lambda:0)
+        loader=SimpleNamespace(exec_module=lambda module:None)
+        disk=SimpleNamespace(filesystem_status=lambda path:{}, require_capacity=lambda *args:None)
+        quota=json.dumps(dict(schema='XFS_USER_QUOTA_AVAILABLE_V1',uid=runner.os.getuid(),
+            filesystem='/share',observed_time=1000.,available_bytes=200_000_000_000))
+        with tempfile.TemporaryDirectory() as directory:
+            scratch=Path(directory)
+            with patch.object(runner,'SCRATCH',scratch),patch.object(runner.time,'time',return_value=1000.), \
+                 patch.dict(sys.modules,{'phychem_mfm.phase1.v2_disk':disk}), \
+                 patch.object(runner,'query',side_effect=lambda *args:f'/lfshome {used[0]} 0 300000000 -'), \
+                 patch.object(Path,'read_text',return_value=quota), \
+                 patch.object(runner.importlib.util,'spec_from_file_location',return_value=SimpleNamespace(loader=loader)), \
+                 patch.object(runner.importlib.util,'module_from_spec',return_value=guard):
+                first=runner.capacity()
+                path=scratch/'retained_checkpoint'
+                path.write_bytes(b'x'*(1024**2))
+                allocated=path.stat().st_blocks*512
+                model[0]+=1024**2;model[1]-=1024**2
+                used[0]+=(allocated+1024**2)//1024
+                second=runner.capacity()
+            self.assertEqual(second['own_allocated_bytes'],allocated)
+            self.assertEqual(first['available_bytes']-first['required_bytes'],
+                             second['available_bytes']-second['required_bytes'])
 
 if __name__=='__main__': unittest.main()

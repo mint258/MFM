@@ -183,7 +183,9 @@ def train_v31(configuration):
     (output/'architecture.json').write_text(json.dumps(architecture, indent=2) + '\n')
     initial_samples, initial_updates = clock.samples_consumed, clock.optimizer_updates
     (output/'execution.json').write_text(json.dumps(dict(microbatch_size=c['microbatch_size'],
-        effective_batch_size=c['batch_size'], prefetched_batches=1, initial_samples=initial_samples,
+        effective_batch_size=c['batch_size'], prefetched_batches=1,
+        pd_heads_without_recomputation=(sum(getattr(head, 'activation_checkpointing', True) is False
+            for head in pd.heads.field_heads.values()) if pd is not None else 0), initial_samples=initial_samples,
         initial_updates=initial_updates, elapsed_seconds_prior=elapsed_prior), indent=2) + '\n')
 
     def pd_counts(samples):

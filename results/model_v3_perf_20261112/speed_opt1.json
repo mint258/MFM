@@ -1,0 +1,29 @@
+{
+  "runs": [
+    {
+      "name": "baseline5090",
+      "job": "4530313",
+      "updates": 1000,
+      "samples_per_second": 84.53178250272597,
+      "main_cpu_percent_mean": 92.92654620275945,
+      "gpu_power_watts_mean": 259.81505586592186,
+      "gpu_memory_MiB_mean": 6656.466480446928,
+      "gpu_memory_MiB_max": 8514.0
+    },
+    {
+      "name": "no_recomputation",
+      "job": "4530314",
+      "updates": 1000,
+      "samples_per_second": 96.31663309462907,
+      "main_cpu_percent_mean": 96.71691706698854,
+      "gpu_power_watts_mean": 282.7205923344947,
+      "gpu_memory_MiB_mean": 6888.484320557492,
+      "gpu_memory_MiB_max": 8680.0
+    }
+  ],
+  "speedup": 1.139413250767817,
+  "baseline_parent_status": "FAILED_RESOURCE_GUARD_AFTER_1000_UPDATES",
+  "candidate_parent_status": "COMPLETED_0_0",
+  "correctness_acceptance": "NOT_STARTED",
+  "same_gpu": "GPU-c35f2434-9137-9723-1af5-dc69b6295243"
+}
