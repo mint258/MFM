@@ -1,6 +1,6 @@
 # CPU performance measurements
 
-Original job 4530218 was verified PENDING and cancelled after the user authorized fewer CPUs. Adaptive observer PID3251303 on compute-0-20 now selects an idle authorized GPU and 4–16 available CPUs before submission. No mainline jobs changed.
+Original job 4530218 was verified PENDING and cancelled after the user authorized fewer CPUs. Adaptive observer on compute-0-20 (identity in adaptive_state.json) now selects an idle authorized GPU and 4–16 available CPUs before submission. No mainline jobs changed.
 
 Current status: WAITING_FOR_IDLE_AUTHORIZED_GPU. No timing CSV or flame graph has been produced yet. adaptive_state.json records the current process identity and live inventory; the original submission files preserve the retired plan.
 

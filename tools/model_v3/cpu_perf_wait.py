@@ -8,7 +8,7 @@ import time
 
 ROOT = Path('/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112')
 OUT = ROOT/'results/model_v3_perf_20261112'
-NODES = ('compute-0-20', 'compute-0-21', 'compute-0-22', 'compute-0-1', 'compute-0-3', 'compute-0-4')
+NODES = ('compute-0-20', 'compute-0-21', 'compute-0-22', 'compute-0-1', 'compute-0-3', 'compute-0-4', 'compute-0-0', 'compute-0-5', 'compute-0-6', 'compute-0-7')
 PYTHON128 = '/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python'
 PYTHON118 = '/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python'
 
@@ -35,8 +35,23 @@ def publish(value):
 
 
 def choose():
+    # Do not compete with the model line's already running or queued chains.
+    reserved=set()
+    for row in command(['squeue','-h','-u','zixiao','-o','%i|%T|%r|%j']).splitlines():
+        job,state,reason,name=row.split('|',3)
+        if name.startswith(('v3-cpu-perf','v3-sdk-')) or reason=='JobHeldUser':
+            continue
+        info=command(['scontrol','show','job',job,'--oneliner'])
+        fields=dict(re.findall(r'(\w+)=([^ ]+)',info))
+        for field in ('ReqNodeList','NodeList'):
+            value=fields.get(field,'')
+            if value and value!='(null)':
+                reserved.update(command(['scontrol','show','hostnames',value]).splitlines())
     observations=[]
     for node in NODES:
+        if node in reserved:
+            observations.append(dict(node=node,status='MODEL_LINE_RESERVED'))
+            continue
         text=command(['scontrol','show','node',node,'--oneliner'])
         fields=dict(re.findall(r'(\w+)=([^ ]+)',text))
         free=int(fields['CPUTot'])-int(fields['CPUAlloc'])
