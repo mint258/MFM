@@ -1,0 +1,45 @@
+{
+  "status": "SUBMITTED_CHAINS_RELEASED",
+  "selected_C1": "C1-0",
+  "selected_latent": "none",
+  "selection_source": "/share/home/zixiao/descriptor_analysis/MFM_model_v3/results/model_v3_t1.json",
+  "seed": 0,
+  "source_roles": [
+    "train",
+    "train_inner_validation"
+  ],
+  "downstream_TEST_read": false,
+  "scientific_sample_budget": 6000000,
+  "effective_batch_size": 32,
+  "single_global_output_forecast": true,
+  "runs": [
+    {
+      "stage": "HEADS",
+      "arm": "H1",
+      "condition": "D",
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "mode": "selected",
+      "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H1_D_seed0.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H1_D_seed0",
+      "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H1_D_seed0_dev.json",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H1_D_seed0/dev_eval_v2",
+      "gpu_peak_estimate_bytes": 11000000000,
+      "microbatch_size": 32,
+      "restarts": 0,
+      "taskbook_stage": 5,
+      "job": 4530289,
+      "evaluation_job": 4530290,
+      "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/HEADS_H1_D_train_evaluation_closed_archive.json",
+      "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/HEADS_H1_D_train_evaluation_closed",
+      "archive_job": 4530291
+    }
+  ],
+  "execution_reason": "Pure P/D do not call structural view builder; start prescribed H1/D while C3 views are pending.",
+  "view_metadata": "three, scientifically inactive in pure D; retain original metadata for reuse",
+  "remaining_heads_matrix": "Complete H1/H2/H3 x P/D/SDP after C3; H1/P original C1-0 P6M and H1/SDP winning C3 are exact reuse candidates.",
+  "estimated_GPU_hours": 115,
+  "report_above_GPU_hours": 172.5,
+  "ask_above_GPU_hours": 345
+}
