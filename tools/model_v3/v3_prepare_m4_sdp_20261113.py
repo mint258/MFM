@@ -25,19 +25,11 @@ def main():
  recipe={key:joint[key] for key in ('selected_C1','selected_latent','selected_views',
   'selected_head','selected_pooling','learning_rate','batch_size')}
  recipe.update(schedule=schedule['selected'],samples=6000000,seed=0)
- # The producer's original statistic is consumed,not independently recomputed.
- if (clip.get('schema')!='MODEL_V3_TRAIN_PRECLIP_P99_V1'
-     or clip.get('quantile')!=.99 or clip.get('method')!='linear'
-     or clip.get('population')!='all_effective_TRAIN_updates' or clip.get('recipe')!=recipe):
-  raise ValueError('Require actual selected-recipe TRAIN p99 evidence and an explicit population')
- conditions=clip.get('source_conditions',[]);sources=clip.get('source_runs',[])
- if (not conditions or len(conditions)!=len(set(conditions)) or not set(conditions)<={'S','P'}
-     or len(sources)!=len(conditions) or {row['condition'] for row in sources}!=set(conditions)
-     or any(row['scientific_samples']!=6000000 for row in sources)):
-  raise ValueError('Use the explicitly defined complete logical S/P TRAIN sources; no implicit mixture')
- value=float(clip['p99'])
- if not math.isfinite(value) or value<=0:raise ValueError('Use the actual finite positive TRAIN p99')
- # No source condition or pooled statistic is chosen by this configurator.
+ # User2026-11-13: SDP consumes its own trial's TRAIN p99,never S/P or pooled values.
+ sys.path.insert(0,str(R/'tools/model_v3'))
+ from v3_prepare_condition_clip_20261113 import condition_clip
+ value=condition_clip(clip,'SDP',recipe)
+ conditions=['SDP']
  sys.path.insert(0,str(R/'tools/model_v3'))
  from v3_prepare_m4_batch_20261113 import fresh_control_output
  output=fresh_control_output(args.output)
@@ -63,7 +55,7 @@ def main():
   effective_batch_size=cfg['batch_size'],microbatch_size=cfg['microbatch_size'])
  plan=dict(status='M4_SDP_CONFIGURATION_PREPARED_NOT_SUBMITTED',runs=[row],
   selected_recipe=recipe,clip=value,clip_evidence=str(args.clip_evidence),
-  explicit_clip_source_conditions=conditions,joint_selection=str(args.joint_selection),
+  explicit_clip_source_conditions=conditions,clip_source_policy='per_condition_and_trial',joint_selection=str(args.joint_selection),
   schedule_selection=str(args.schedule_selection),source_roles=['train','train_inner_validation'],
   downstream_TEST_read=False,output_registration_and_actual_node_admission_required=True,
   gpu_jobs_submitted=False,new_probe_scores_computed=False,model_and_recipe_frozen=False,

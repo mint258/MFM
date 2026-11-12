@@ -59,3 +59,5 @@ P/a独立验证9706真实C0：FULL13815分子/126764构象、TRAIN留出4292/429
 
 
 2026-11-12 publication: original P/C1-b independent validation4529709 completed0:0 in00:34:38, FULL13815 molecules/126764 conformers and TRAIN held-out4292/4292. The closed producer JSON is published unchanged as results/model_v3_c1_b_validation_seed0.json; see M3_C1_B_VALIDATION.md. selection_use=false; no recomputation or C1-selection use. This closes the previous historical pending-validation notice.
+
+2026-11-13 用户补充：M4 p99 按 S/P/SDP 及各组自己的 TRAIN 运行分别确定，不合并或跨条件使用。SDP 接入口只接受匹配的 SDP 来源；全量 S/P 接入口必须各传一份对应来源证据，不能继承 SDP 阈值。具体来源不足时不默认加跑、不使用在线替代规则。

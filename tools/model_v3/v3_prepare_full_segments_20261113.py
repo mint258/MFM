@@ -43,7 +43,13 @@ def first(args):
      or summary.get('status')!='TRAINING_COMPLETE_DEV_EVALUATION_PENDING'
      or summary.get('samples')!=6000000):
   raise ValueError('Require the actual completed prescribed6M SDP recipe confirmation')
- # The source is the actual producer configuration; retain all selected scientific settings.
+ # Common recipe comes from SDP confirmation; S/P thresholds come from their own trials.
+ sys.path.insert(0,str(R/'tools/model_v3'))
+ from v3_prepare_condition_clip_20261113 import condition_clip,recipe_from_configuration
+ recipe=recipe_from_configuration(source)
+ evidence_paths={'S':args.s_clip_evidence,'P':args.p_clip_evidence}
+ condition_clips={condition:condition_clip(read(path),condition,recipe)
+  for condition,path in evidence_paths.items()}
  output=fresh(args.output)
  native=subprocess.check_output(['/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/cpu_git_tools_v1/bin/git',
   '-c','core.filemode=false','rev-parse','HEAD'],text=True).strip()
@@ -51,7 +57,7 @@ def first(args):
  for condition in ('S','P'):
   cfg=copy.deepcopy(source)
   cfg.pop('resume',None)
-  cfg.update(condition=condition,samples=64000000,run_until_samples=1000000,
+  cfg.update(condition=condition,clip=condition_clips[condition],samples=64000000,run_until_samples=1000000,
    expected_molecules=1194551,subset_path=None,stage='FULL_TRAIN',arm=condition,
    candidate='M4_full_'+condition+'_seed0',seed=0,code_tag='model-v3:'+native,
    microbatch_size=min(32,cfg['batch_size']))
@@ -64,7 +70,8 @@ def first(args):
   runs=rows,expected_molecules=1194551,subset_path=None,schedule_budget=64000000,
   endpoints=list(ENDPOINTS),initial_endpoint=1000000,
   recipe_source_configuration=str(args.sdp_configuration),recipe_source_summary=str(Path(source['output'])/'summary.json'),
-  recipe_source_panel=panel,curve_manifest=str(output/'curve_manifest.json'),
+  recipe_source_panel=panel,clip_source_policy='per_condition_and_trial',condition_clips=condition_clips,
+  condition_clip_evidence={key:str(value) for key,value in evidence_paths.items()},curve_manifest=str(output/'curve_manifest.json'),
   planned_curve_points=planned_points,only_completed_readouts_enter_actual_curve=True,
   initial_optimizer='fresh_seed0_random_initialization',model_and_recipe_frozen=False,B_star=None,
   output_registration_and_actual_node_admission_required=True,gpu_jobs_submitted=False,
@@ -126,6 +133,8 @@ def main():
  parser.add_argument('--output',type=Path,required=True)
  parser.add_argument('--sdp-configuration',type=Path)
  parser.add_argument('--sdp-evaluation',type=Path)
+ parser.add_argument('--s-clip-evidence',type=Path)
+ parser.add_argument('--p-clip-evidence',type=Path)
  parser.add_argument('--previous-configuration',type=Path)
  parser.add_argument('--previous-evaluation',type=Path)
  parser.add_argument('--budget-decision',type=Path)
@@ -134,7 +143,8 @@ def main():
   raise ValueError('Use the existing development node')
  os.chdir(R)
  if args.command=='first':
-  if args.sdp_configuration is None or args.sdp_evaluation is None:parser.error('first requires actual SDP configuration/evaluation')
+  if any(value is None for value in (args.sdp_configuration,args.sdp_evaluation,args.s_clip_evidence,args.p_clip_evidence)):
+   parser.error('first requires actual SDP configuration/evaluation and separate S/P TRAIN clip evidence')
   first(args)
  else:
   if args.previous_configuration is None or args.previous_evaluation is None or args.budget_decision is None:
