@@ -43,19 +43,32 @@
       "gpu": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
       "mode": "selected",
       "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
-      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_micro32_resume.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_micro32_resume_20261113",
       "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_dev.json",
       "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0/dev_eval_v2",
       "gpu_peak_estimate_bytes": 22000000000,
-      "microbatch_size": 16,
+      "microbatch_size": 32,
       "restarts": 0,
       "taskbook_stage": 5,
-      "job": 4530283,
-      "evaluation_job": 4530284,
+      "job": 4530292,
+      "evaluation_job": 4530294,
       "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_two_SDP_train_evaluation_closed_archive.json",
       "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/C3_two_SDP_train_evaluation_closed",
-      "archive_job": 4530285
+      "archive_job": 4530295,
+      "partial_training_segments": [
+        {
+          "job": 4530283,
+          "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0.json",
+          "state": "INTERRUPTED_FOR_EXECUTION_ONLY_CONTINUATION"
+        }
+      ],
+      "frozen_complete_resume": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0/micro32_resume_complete_20261113.pt",
+      "superseded_zero_work_followons": [
+        4530284,
+        4530285
+      ]
     },
     {
       "stage": "C3",
@@ -65,19 +78,32 @@
       "gpu": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
       "mode": "selected",
       "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
-      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_micro32_resume.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_micro32_resume_20261113",
       "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_dev.json",
       "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/dev_eval_v2",
       "gpu_peak_estimate_bytes": 22000000000,
-      "microbatch_size": 16,
+      "microbatch_size": 32,
       "restarts": 0,
       "taskbook_stage": 5,
-      "job": 4530286,
-      "evaluation_job": 4530287,
+      "job": 4530293,
+      "evaluation_job": 4530296,
       "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_three_SDP_train_evaluation_closed_archive.json",
       "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/C3_three_SDP_train_evaluation_closed",
-      "archive_job": 4530288
+      "archive_job": 4530297,
+      "partial_training_segments": [
+        {
+          "job": 4530286,
+          "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0.json",
+          "state": "INTERRUPTED_FOR_EXECUTION_ONLY_CONTINUATION"
+        }
+      ],
+      "frozen_complete_resume": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/micro32_resume_complete_20261113.pt",
+      "superseded_zero_work_followons": [
+        4530287,
+        4530288
+      ]
     }
   ],
   "reused_three_S": {

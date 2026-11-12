@@ -1,0 +1,122 @@
+{
+  "status": "SUBMITTED_CHAINS_RELEASED",
+  "selected_C1": "C1-0",
+  "selected_latent": "none",
+  "selection_source": "/share/home/zixiao/descriptor_analysis/MFM_model_v3/results/model_v3_t1.json",
+  "seed": 0,
+  "source_roles": [
+    "train",
+    "train_inner_validation"
+  ],
+  "downstream_TEST_read": false,
+  "scientific_sample_budget": 6000000,
+  "effective_batch_size": 32,
+  "single_global_output_forecast": true,
+  "runs": [
+    {
+      "stage": "C3",
+      "arm": "two",
+      "condition": "S",
+      "node": "compute-0-0",
+      "gpu": "GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332",
+      "mode": "native_selected",
+      "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0",
+      "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0_dev.json",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0/dev_eval_v2",
+      "gpu_peak_estimate_bytes": 14800000000,
+      "microbatch_size": 32,
+      "restarts": 0,
+      "taskbook_stage": 5,
+      "job": 4530280,
+      "evaluation_job": 4530281,
+      "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_two_S_train_evaluation_closed_archive.json",
+      "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/C3_two_S_train_evaluation_closed",
+      "archive_job": 4530282
+    },
+    {
+      "stage": "C3",
+      "arm": "two",
+      "condition": "SDP",
+      "node": "compute-0-5",
+      "gpu": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+      "mode": "selected",
+      "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_micro32_resume.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_micro32_resume_20261113",
+      "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_dev.json",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0/dev_eval_v2",
+      "gpu_peak_estimate_bytes": 22000000000,
+      "microbatch_size": 32,
+      "restarts": 0,
+      "taskbook_stage": 5,
+      "job": 4530292,
+      "evaluation_job": 4530294,
+      "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_two_SDP_train_evaluation_closed_archive.json",
+      "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/C3_two_SDP_train_evaluation_closed",
+      "archive_job": 4530295,
+      "partial_training_segments": [
+        {
+          "job": 4530283,
+          "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0.json",
+          "state": "INTERRUPTED_FOR_EXECUTION_ONLY_CONTINUATION"
+        }
+      ],
+      "frozen_complete_resume": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0/micro32_resume_complete_20261113.pt",
+      "superseded_zero_work_followons": [
+        4530284,
+        4530285
+      ]
+    },
+    {
+      "stage": "C3",
+      "arm": "three",
+      "condition": "SDP",
+      "node": "compute-0-7",
+      "gpu": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+      "mode": "selected",
+      "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_micro32_resume.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_micro32_resume_20261113",
+      "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_dev.json",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/dev_eval_v2",
+      "gpu_peak_estimate_bytes": 22000000000,
+      "microbatch_size": 32,
+      "restarts": 0,
+      "taskbook_stage": 5,
+      "job": 4530293,
+      "evaluation_job": 4530296,
+      "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_three_SDP_train_evaluation_closed_archive.json",
+      "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/C3_three_SDP_train_evaluation_closed",
+      "archive_job": 4530297,
+      "partial_training_segments": [
+        {
+          "job": 4530286,
+          "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0.json",
+          "state": "INTERRUPTED_FOR_EXECUTION_ONLY_CONTINUATION"
+        }
+      ],
+      "frozen_complete_resume": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/micro32_resume_complete_20261113.pt",
+      "superseded_zero_work_followons": [
+        4530287,
+        4530288
+      ]
+    }
+  ],
+  "reused_three_S": {
+    "run_id": "S_C1_0_seed0_v2",
+    "original_stage": "C1",
+    "output": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2",
+    "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2/samples_6000000.pt",
+    "panel": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_S_seed0/R3_summary.json",
+    "new_training_samples": 0,
+    "scientific_budget": 6000000
+  },
+  "estimated_GPU_hours": 50,
+  "report_above_GPU_hours": 75,
+  "ask_above_GPU_hours": 150,
+  "decision_manifest": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/decision_manifest.json"
+}

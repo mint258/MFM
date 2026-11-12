@@ -1,0 +1,22 @@
+{
+  "sources_manifest": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_three_SDP_train_evaluation_closed_sources.json",
+  "jobs": [
+    4530293,
+    4530296
+  ],
+  "output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/C3_three_SDP_train_evaluation_closed",
+  "name": "C3_three_SDP_train_evaluation_closed_offline_SDK_20261113",
+  "retained_partial_executions": [
+    {
+      "job": 4530286,
+      "path": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/offline_wandb/4530286",
+      "terminal_controller": "JobId=4530286 JobName=v3-C3-three-SDP UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294624534 Nice=0 Account=(null) QOS=normal JobState=FAILED Reason=JobLaunchFailure Dependency=(null) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:2 RunTime=00:24:33 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T02:52:19 EligibleTime=2026-11-13T02:53:18 AccrueTime=2026-11-13T02:53:18 StartTime=2026-11-13T02:53:18 EndTime=2026-11-13T03:17:51 Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T02:53:18 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3286666 ReqNodeList=compute-0-7 ExcNodeList=(null) NodeList=compute-0-7 BatchHost=compute-0-7 NumNodes=1 NumCPUs=16 NumTasks=1 CPUs/Task=16 ReqB:S:C:T=0:0:*:* TRES=cpu=16,node=1,billing=16 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=16 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch selected /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0.json GPU-9db54192-dd3f-3177-e56f-dcd161ff932c /share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530286.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530286.log Power=",
+      "original_sdk_completion": {
+        "sdk_finished": false,
+        "interrupted": true,
+        "reason": "Slurm all-process INT ended SDK before its finish marker"
+      },
+      "classification": "INTERRUPTED_PARTIAL_RAW_SDK"
+    }
+  ]
+}

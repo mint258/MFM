@@ -40,6 +40,28 @@ def sdk_roots(manifest, jobs):
     return base, roots
 
 
+
+def retained_partial_roots(records, registry, budget):
+    """Retain raw interrupted SDK bytes without claiming a normal SDK finish."""
+    import re
+    roots = []
+    for record in records:
+        job, root = record['job'], Path(record['path'])
+        raw = record['terminal_controller']
+        if (type(job) is not int or job <= 0 or root.name != str(job)
+                or root.is_symlink() or not root.is_dir() or root.stat().st_uid != 1278
+                or not root.resolve().is_relative_to(BASE)
+                or not re.search(r'\bJobId=' + str(job) + r'\b', raw)
+                or 'UserId=zixiao(1278)' not in raw
+                or not re.search(r'\bJobState=(FAILED|CANCELLED|COMPLETED)\b', raw)
+                or record.get('classification') != 'INTERRUPTED_PARTIAL_RAW_SDK'):
+            raise ValueError('Require an owned, originally terminal interrupted SDK source')
+        registry.require_registered_output(root, budget)
+        roots.append(root)
+    if len(set(map(str, roots))) != len(roots):
+        raise ValueError('Retain each interrupted raw SDK directory once')
+    return roots
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--configuration', required=True)
@@ -58,12 +80,16 @@ def main():
         for directory in row['sdk_directories']:
             registry.require_registered_output(directory['path'], budget)
     base, roots = sdk_roots(manifest, c['jobs'])
+    partial_records = c.get('retained_partial_executions', [])
+    partial_roots = retained_partial_roots(partial_records, registry, budget)
+    if set(map(str, roots)) & set(map(str, partial_roots)):
+        raise ValueError('Closed and interrupted SDK sources must be distinct')
     capacity = actual_capacity_check(Path(c['output']))
     from v3_sdk_system_report import export_system_reports
     reports = export_system_reports(roots, c['jobs'], Path(c['output']), capacity)
     result = pack_closed_runs(manifest, c['jobs'], Path(c['output']), c['name'],
-        capacity_check=capacity, root_resolver=lambda _manifest, _jobs: (base, roots + [reports]),
-        archive_prefix='MODEL_V3_OFFLINE_SDK')
+        capacity_check=capacity, root_resolver=lambda _manifest, _jobs: (base, roots + partial_roots + [reports]),
+        archive_prefix='MODEL_V3_OFFLINE_SDK', retained_partial_executions=partial_records)
     print(json.dumps({k: v for k, v in result.items() if k != 'files'}), flush=True)
 
 
