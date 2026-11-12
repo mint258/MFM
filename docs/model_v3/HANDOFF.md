@@ -132,14 +132,17 @@ quota快照须沿用发布器的真实UID/文件系统/schema及有效时间，�
 
 ## v3 最终冻结交付约定（实验尚未闭合）
 
-E0实际交付是两份status=FROZEN配置和同一代码标签，随后补全本页与PREREG_round1.md的实际路径。当前仍在T1，以下内容待实际结果确定：
+E0实际交付是两份status=FROZEN配置和同一代码标签，随后补全本页与PREREG_round1.md的实际路径。T1十组已闭合并按原规则保留latent=none；C3及预测头/池化正在执行，以下最终字段仍待真实结果确定：
 
 | 交付物 | 从实际结果绑定的字段 | 当前状态 |
 | --- | --- | --- |
-| 模型配置 | architecture.layers=6、dim=512；C1、视图、预测头、池化；backbone_activation_checkpointing=false、head_activation_checkpointing=false；latent及采用时的完整latent_spec；code_tag | C1-0已选，其余依后续实验；尚无最终FROZEN文件 |
+| 模型配置 | architecture.layers=6、dim=512；C1、视图、预测头、池化；backbone_activation_checkpointing=false、head_activation_checkpointing=false；latent及采用时的完整latent_spec；code_tag | C1-0、latent=none已选，视图/头/池化依后续实验；尚无最终FROZEN文件 |
 | 配方配置 | AdamW、betas[0.9,0.95]、weight_decay0.01、warmup_fraction0.02；实际选定lr、batch_size、schedule；WSD末20%线性衰减；TRAIN裁剪前梯度p99作为clip；真实B*作为sample_budget | M4及全量曲线待完成 |
 | 结果与代码标签 | T1与条件性λ/k、从头确认、微调报告，C3/头/条件性池化，M4与完整曲线；合并前唯一一次完整回归；实际code_tag | 仅已闭合产物已发布，最终回归与标签待交付 |
 
 选定架构带z时，开发主指标用R2z；none用R3。分子级标量按注册表接z，分子级矢量保留用户批准的原等变X/坐标头；原子头和结构自监督头沿用原输入路径。最终模块只能由完整T1及必要的从头确认结论确定；配置采用实际模型序列化的完整LatentSpec。
 
 RESEARCH_MAINLINE.md中的E1 D4（保留格子、单格上限与总GPU预算）及E2 D6（关键比较3/5种子）在各自开始前由用户决定。E1现有预注册和历史模板作为届时决策的输入；本次E0不启动E1网格或E2正式预训练。
+
+
+2026-11-13接口接续：M4五LR、前二B64与WSD配置准备器已提交，必须消费实际已闭合的前置选择；当前未产生M4配置或分数。全量首段/续段准备器和实际曲线汇总器也已接入：D6 TRAIN1,194,551、完整64M调度、逐端点恢复优化器/RNG/样本时钟，实际平台后停止相应条件，64M未见平台仍记未定。这些入口不代表全量运行或最终冻结已完成；详细CLI和科学方法见V3_METHODS.md。
