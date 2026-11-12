@@ -24,6 +24,7 @@ def main():
  parser.add_argument('--views',type=Path,default=R/'results/model_v3_c3_views.json')
  parser.add_argument('--heads',type=Path,default=R/'results/model_v3_heads.json')
  parser.add_argument('--pooling',type=Path,default=R/'results/model_v3_pooling.json')
+ parser.add_argument('--s-lookahead-plan',type=Path)
  parser.add_argument('--output',type=Path,required=True)
  args=parser.parse_args()
  if os.getuid()!=1278 or socket.gethostname().split('.')[0]!='compute-0-20':
@@ -43,6 +44,23 @@ def main():
  pool=read(C/'HEADS_V3_20261113/pooling_plan.json')
  if c3['selected_C1']!='C1-0' or heads.get('selected_views')!=views:
   raise ValueError('Use the actual chosen C3 view and complete head-stage metadata')
+ existing_s=[]
+ lookahead_path=args.s_lookahead_plan or C/'M4_V3_S_LOOKAHEAD_20261113/plan.json'
+ if args.s_lookahead_plan is not None and not lookahead_path.is_file():
+  raise ValueError('Require the actual S lookahead plan supplied by the coordinator')
+ if lookahead_path.is_file():
+  lookahead=read(lookahead_path)
+  if (lookahead['selected_C1']!='C1-0' or lookahead['selected_latent']!='none'
+      or lookahead['selected_views']!=views or len(lookahead['runs'])!=4
+      or lookahead['scientific_grid']!=dict(learning_rates=list(LR),conditions=['S'],batch_size=32,
+       samples=6000000,seed=0,schedule='cosine',clip=1.0)
+      or any(r['condition']!='S' or r['mode']!='native_selected' for r in lookahead['runs'])
+      or {r['arm'] for r in lookahead['runs']}!={'lr0.0001','lr0.0006','lr0.001','lr0.002'}
+      or any(type(r.get('job')) is not int or type(r.get('evaluation_job')) is not int
+             or r['job']<=0 or r['evaluation_job']<=0
+             for r in lookahead['runs'])):
+   raise ValueError('Link the four actual submitted matching S cells;never duplicate unsubmitted lookahead')
+  existing_s=copy.deepcopy(lookahead['runs'])
  # Reuse only logical cells whose effective scientific configuration is identical.
  # Pure S has no P/D heads; pure P never invokes structural views.
  baseline_s=(copy.deepcopy(c3['reused_three_S']) if views=='three' else
@@ -75,6 +93,10 @@ def main():
   candidate='lr'+str(lr)
   panels[candidate]={}
   for condition in ('S','P'):
+   if condition=='S' and lr!=.0003 and existing_s:
+    linked=next(r for r in existing_s if r['arm']==candidate)
+    panels[candidate][condition]=linked['evaluation_output']+'/R3_summary.json'
+    continue
    baseline=baseline_s if condition=='S' else baseline_p
    if lr==.0003 and baseline is not None:
     # Upstream result use is the acceptance; no extra model/data audit is added.
@@ -108,7 +130,8 @@ def main():
   selected_C1='C1-0',selected_latent='none',selected_views=views,
   selected_head=head,selected_pooling=pooling)
  write(output/'decision_manifest.json',manifest)
- plan=dict(status='M4_LR_CONFIGURATIONS_PREPARED_NOT_SUBMITTED',runs=rows,reused_cells=reused,
+ plan=dict(status='M4_LR_CONFIGURATIONS_PREPARED_NOT_SUBMITTED',runs=rows,reused_cells=reused,existing_S_cells=existing_s,
+  S_lookahead_plan=str(lookahead_path) if existing_s else None,
   scientific_grid=dict(learning_rates=list(LR),conditions=['S','P'],batch_size=32,
    samples=6000000,seed=0,schedule='cosine',clip=1.0),
   selected_C1='C1-0',selected_latent='none',selected_views=views,selected_head=head,selected_pooling=pooling,

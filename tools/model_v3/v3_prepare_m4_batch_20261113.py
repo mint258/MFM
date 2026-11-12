@@ -35,7 +35,8 @@ def prepare(args,initial,selection):
  model_output=B/output.name
  rows=[];panels={}
  # Copy an actual generated config for each condition; reused3e-4 needs no duplicate B32 config.
- bases={condition:read(next(row for row in initial['runs'] if row['condition']==condition)['configuration'])
+ physical_initial=initial['runs']+initial.get('existing_S_cells',[])
+ bases={condition:read(next(row for row in physical_initial if row['condition']==condition)['configuration'])
         for condition in ('S','P')}
  for candidate in top:
   panels[candidate]={}

@@ -27,3 +27,20 @@ with (C/'comparison.lock').open('a') as lock:
  if queued.returncode:
   print('C3 panel selection retained; SDP queue needs coordinator recovery',flush=True)
  else:print(queued.stdout,flush=True)
+
+ # Pure S does not invoke P/D prediction heads or graph pooling.
+ # Prepare its four prescribed new LR cells once views are actually selected.
+ s_plan=control/'M4_V3_S_LOOKAHEAD_20261113/plan.json'
+ if not s_plan.exists():
+  prepared=subprocess.run(['ssh','-n','compute-0-20',
+   '/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python -B '+
+   str(control/'MODEL_V3_prepare_M4_S_LOOKAHEAD_20261113.py')+
+   ' --output '+str(s_plan.parent)],capture_output=True,text=True)
+  info=dict(at_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+   returncode=prepared.returncode,stdout=prepared.stdout,stderr=prepared.stderr,
+   actual_C3_selection_required=True,new_GPU_jobs_submitted=False)
+  with (C/'m4_s_lookahead_preparation_attempts.jsonl').open('a') as stream:
+   stream.write(json.dumps(info)+'\n')
+  if prepared.returncode:
+   print('C3 result retained; pure-S M4 configuration preparation needs coordinator recovery',flush=True)
+  else:print(prepared.stdout,flush=True)

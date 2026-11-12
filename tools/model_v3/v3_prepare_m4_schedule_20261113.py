@@ -21,7 +21,8 @@ def main():
  initial=read(joint['initial_plan']);doubled=read(joint['batch_plan'])
  candidate=joint['selected_candidate'];batch=joint['batch_size']
  # Registry/heads/pooling were chosen before M4; no new model default is assigned.
- bases={condition:read(next(row for row in initial['runs'] if row['condition']==condition)['configuration'])
+ physical_initial=initial['runs']+initial.get('existing_S_cells',[])
+ bases={condition:read(next(row for row in physical_initial if row['condition']==condition)['configuration'])
         for condition in ('S','P')}
  cosine={}
  for condition in ('S','P'):
@@ -36,7 +37,7 @@ def main():
     cosine[condition]=copy.deepcopy(prior['source'])
     cosine[condition]['new_training_samples']=0
    else:
-    row=next(row for row in initial['runs'] if row['arm']==candidate and row['condition']==condition)
+    row=next(row for row in physical_initial if row['arm']==candidate and row['condition']==condition)
     cosine[condition]=dict(run_id=str(row.get('job',Path(row['output']).name)),original_stage='M4_LR',
      checkpoint=str(Path(row['output'])/'samples_6000000.pt'),
      panel=row['evaluation_output']+'/R3_summary.json',new_training_samples=0)
