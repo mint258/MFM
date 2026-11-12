@@ -13,6 +13,10 @@ from torch import nn
 from .v31_loader import encode_samples, enabled_encoder_fields
 from .v3_contract import FieldSpec, FieldTarget, LabelRegistry, TrainNormalization
 from .v3_losses import compute_v3_loss
+from .v31_segment_timing import timed
+
+# Count each existing host-to-device conversion in the opt-in measurement.
+_as_tensor = timed('h2d')(torch.as_tensor)
 
 
 LEVELS = {'molecule': 'graph', 'molecule_vector': 'graph',
@@ -107,6 +111,7 @@ class V31PDModel(nn.Module):
     def encode_graph(self, batch, pooling='mean'):
         return self.encoder.encode_graph(batch, pooling=pooling)
 
+    @timed('forward')
     def predict(self, samples, *, groups=('D', 'P'), fields=None, clean_features=None, clean_batch=None,
                 clean_z=None):
         active = {f.name for f in self.registry.enabled(groups, fields)}
@@ -146,7 +151,7 @@ class V31PDModel(nn.Module):
                 if batch.pos is None:
                     # A coordinate-free encoder never receives coordinates;
                     # invariant pair heads may still use the supplied distances.
-                    batch.pos = torch.as_tensor(np.concatenate([s['pos'] for s in source]),
+                    batch.pos = _as_tensor(np.concatenate([s['pos'] for s in source]),
                                                 dtype=torch.float32, device=device)
             pairs, pair_rows = {}, {}
             for name in active:
@@ -155,11 +160,11 @@ class V31PDModel(nn.Module):
                 if head_name not in selected or field.level != 'pair':
                     continue
                 masks = [s['targets'][name].valid.any(-1) for s in working_samples]
-                indices = [torch.as_tensor(s['targets'][name].pair_index[mask].T.copy(), device=device,
+                indices = [_as_tensor(s['targets'][name].pair_index[mask].T.copy(), device=device,
                            dtype=torch.long) + batch.ptr[i] for i, (s, mask) in enumerate(zip(working_samples, masks))]
                 pairs[head_name] = torch.cat(indices, dim=1)
                 mask = np.concatenate(masks)
-                pair_rows[head_name] = (torch.as_tensor(np.flatnonzero(mask), device=device), len(mask))
+                pair_rows[head_name] = (_as_tensor(np.flatnonzero(mask), device=device), len(mask))
             latent = {} if not hasattr(self.heads, 'latent_scalar_dim') else dict(graph_latent=z)
             values = self.heads(h0, batch.batch, batch.pos, enabled_groups=groups,
                 enabled_fields=selected, pair_indices=pairs, **latent)
@@ -175,10 +180,11 @@ class V31PDModel(nn.Module):
                         offsets = np.r_[0, np.cumsum(lengths)]
                         rows = np.concatenate([np.arange(offsets[i], offsets[i+1]) for i in sample_indices])
                         value = value.new_full((int(offsets[-1]), value.shape[-1]), float('nan')).index_copy(
-                            0, torch.as_tensor(rows, device=device), value)
+                            0, _as_tensor(rows, device=device), value)
                     predictions[name] = value
         return predictions
 
+    @timed('loss')
     def loss(self, predictions, samples, *, groups=('D', 'P'), fields=None,
              fixed_full_condition=False):
         active = self.registry.enabled(groups, fields)
@@ -190,9 +196,9 @@ class V31PDModel(nn.Module):
             if specification is None:
                 raise ValueError('Missing D4 normalization for ' + name)
             prediction = predictions[name]
-            values = torch.as_tensor(np.concatenate([s['targets'][name].values for s in samples]),
+            values = _as_tensor(np.concatenate([s['targets'][name].values for s in samples]),
                                      dtype=torch.float32, device=prediction.device)
-            valid = torch.as_tensor(np.concatenate([s['targets'][name].valid for s in samples]),
+            valid = _as_tensor(np.concatenate([s['targets'][name].valid for s in samples]),
                                     dtype=torch.bool, device=prediction.device)
             head_name, component = self.selections[name]
             normalized = prediction if self.output_parameterization == 'normalized' else torch_affine(prediction, specification)
