@@ -53,3 +53,9 @@ Paired evaluations are separate SDKs; later T1 arms are not included. The new-de
 [A0/S and A1/S complete evaluation bundle](https://github.com/mint258/MFM/tree/model-v3-wandb-archives-20261111/T1_A0_A1_S_evaluation_closed), artifact commit `213ab9ad241a01f623a4f0dafe1f0d383c9cfb3e`: jobs4529741/4529742,2 closed sessions,21 ordinary files,20800946 gzip bytes,7 parts. Archive4529995 completed0:0 on node20,1CPU,11seconds. [Manifest](../../results/model_v3_wandb/archives/T1_A0_A1_S_evaluation_closed.json).
 
 The six new bundles now total25 closed SDK sessions,321 ordinary files,158609543 gzip bytes and54 parts. Both first S continuation training and their paired evaluation SDKs are complete; remaining T1 arms await actual closure. The original P0/a/b330 files are retained. Native hardware summaries are extended without replay or new scientific analysis.
+
+## First T1 P continuation training: closed SDKs
+
+[A0/P and A1/P complete training bundle](https://github.com/mint258/MFM/tree/model-v3-wandb-archives-20261111/T1_A0_A1_P_training_closed), artifact commit `86c9541a80c95bfc0f83c0131fbbe86bdeaae38f`: jobs4529732/4529733,2 closed sessions,51 ordinary files,18928411 gzip bytes,7 parts. Both continuations reached1.5M samples (7.5M cumulative). Archive4530008 completed0:0 on compute-0-20,1CPU,14seconds. [Manifest](../../results/model_v3_wandb/archives/T1_A0_A1_P_training_closed.json).
+
+The seven new bundles now total27 closed SDK sessions,372 ordinary files,177537954 gzip bytes and61 parts. Full native .wandb files, per-update loss,1000-update means,snapshots and original hardware observations/producer-derived native-key system JSONL and summaries are included. The first P paired evaluations are separate and await closure. The original P0/a/b330 files remain; no cloud sync, file deletion or training rerun.
