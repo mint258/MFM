@@ -77,9 +77,11 @@ def prediction_rows(packed, native_rows, task, readout, provenance, source):
     return output
 
 
-def feature_rows(rows, task, n_ref):
+def feature_rows(rows, task, n_ref, *, observed_only=False):
     # Match the original feature-normalization population, including masked
     # endpoints: labels do not select the frozen optimization feature subset.
+    if observed_only:
+        rows=[r for r in rows if bool((r.candidate_mask & r.supervision_mask).any())]
     h_mean = np.stack([r.h0.double().mean(0).numpy() for r in rows])
     h_sum = np.stack([r.h0.double().sum(0).numpy() for r in rows])
     arrays = {'H0_mean': h_mean, 'H0_sum': h_sum,
@@ -87,6 +89,9 @@ def feature_rows(rows, task, n_ref):
               'X_R2': np.concatenate((h_mean, h_sum / n_ref), axis=1)}
     if rows[0].graph_features is not None:
         arrays['z'] = np.stack([r.graph_features.double().numpy() for r in rows])
+    if observed_only and task.output_level=='atom':
+        arrays['X_observed_atom']=np.concatenate([
+            r.h0[r.candidate_mask & r.supervision_mask].numpy() for r in rows]).astype(np.float64)
     output = []
     for name, values in arrays.items():
         std = values.std(0)
@@ -97,7 +102,8 @@ def feature_rows(rows, task, n_ref):
                 count=len(values), molecule_count=len(rows), mean=float(m), std=float(s),
                 minimum=float(lo), maximum=float(hi), low_std_threshold=threshold,
                 low_std_dimensions=low, median_std=float(np.median(std)),
-                role='train', scope='all_frozen_optimization_members', n_ref=float(n_ref)))
+                role='train', scope='observed_task_members' if observed_only else 'all_frozen_optimization_members',
+                n_ref=float(n_ref)))
     return output
 
 
@@ -321,6 +327,34 @@ def export_s_logs(exporter):
         archive_bytes=sink.total, content_readback_performed=False))
 
 
+def export_observed_feature_statistics(exporter, views, tasks):
+    """Requested task-specific optimization populations, separately from the
+    original neural-probe feature normalization population (all TRAIN members).
+    Reads original caches only; no exported table is opened or reviewed.
+    """
+    source_cells=json.loads((CONTROL/'MODEL_V3_DIAGNOSTICS_SOURCE_CELLS_20261112.json').read_text())
+    source_cells += cells(reference_z_only=True)
+    original={c['name']:c for c in source_cells}
+    for cell in source_cells:
+        exporter.capacity(2_000_000_000, 2000)
+        statistics=[]
+        for dataset in DATASETS:
+            if cell['stage']=='reference_z' and dataset=='cyp_isoform':continue
+            path=Path(cell['cache'])/(dataset+'.pt')
+            if not path.exists() and cell['stage']=='T0':
+                path=Path(original['C1-0_'+cell['name'].rsplit('_',1)[1]]['cache'])/(dataset+'.pt')
+            payload=torch.load(path,map_location='cpu',weights_only=True)
+            cached=cached_rows(payload)
+            for task in (t for t in tasks if t.dataset_id==dataset):
+                rows=task_rows(views[dataset],cached,task,role='train')
+                if dataset!='cyp_isoform' and all(r.z is not None for r in cached):
+                    rows=z_rows(rows,cached)
+                statistics.extend(feature_rows(rows,task,payload['n_ref'],observed_only=True))
+            del payload,cached
+        exporter.add('features_observed/'+cell['name']+'.parquet',rows=statistics)
+        exporter.status('OBSERVED_OPTIMIZATION_FEATURES_EXPORTED',cell=cell['name'])
+
+
 class CurveHistory:
     disabled = False
     def __init__(self):
@@ -460,6 +494,8 @@ def main():
         export_static(exporter,all_cells,views,tasks)
     if not args.reference_z_only:
         export_s_logs(exporter)
+    else:
+        export_observed_feature_statistics(exporter,views,tasks)
     exporter.manifest('STATIC_MANIFEST.json', status='STATIC_EXPORT_COMPLETE', cells=all_cells)
     exporter.status('STATIC_EXPORT_COMPLETE')
     replay_curves(exporter,all_cells,views,tasks,args.device)
