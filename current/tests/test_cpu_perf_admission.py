@@ -2,6 +2,7 @@
 import importlib.util
 from pathlib import Path
 import unittest
+import tempfile
 from unittest.mock import patch
 path=Path(__file__).parents[2]/'tools/model_v3/cpu_perf_wait.py'
 spec=importlib.util.spec_from_file_location('cpu_wait',path)
@@ -54,6 +55,21 @@ class AdmissionTests(unittest.TestCase):
         with patch.object(wait,'command',side_effect=command), patch.object(wait,'NODES',('compute-0-20',)):
             plan,_=wait.choose()
         self.assertIsNone(plan)
+
+
+class SamplerReadinessTests(unittest.TestCase):
+    def test_native_sampler_waits_for_post_warmup_data_row(self):
+        runner_path=Path(__file__).parents[2]/'tools/model_v3/cpu_bottleneck_step1.py'
+        spec=importlib.util.spec_from_file_location('cpu_step1',runner_path)
+        runner=importlib.util.module_from_spec(spec);spec.loader.exec_module(runner)
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'segments.csv'
+            self.assertFalse(runner.measured_updates_available(path))
+            path.write_text('step,forward,total\n')
+            self.assertFalse(runner.measured_updates_available(path))
+            with path.open('a') as file:
+                file.write('101,0.2,0.3\n')
+            self.assertTrue(runner.measured_updates_available(path))
 
 
 if __name__=='__main__': unittest.main()

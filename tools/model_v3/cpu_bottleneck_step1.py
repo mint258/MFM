@@ -59,6 +59,15 @@ def idle_gpu():
     raise RuntimeError('No idle authorized GPU; leaving all existing processes untouched')
 
 
+def measured_updates_available(path):
+    """The first segment row is emitted only after all 100 warmup updates."""
+    try:
+        with Path(path).open(newline='') as file:
+            return next(csv.DictReader(file), None) is not None
+    except FileNotFoundError:
+        return False
+
+
 def train(mode, directory):
     import torch
     from phychem_mfm.phase1.v31_experiments import train_v31
@@ -115,11 +124,11 @@ def run():
             telemetry = root / (mode + '_telemetry.csv')
             with (root / (mode + '.log')).open('x') as log, telemetry.open('x', newline='') as file:
                 writer = csv.writer(file)
-                writer.writerow(['unix_time', 'main_cpu_percent', 'gpu_power_watts', 'gpu_memory_MiB'])
+                writer.writerow(['unix_time', 'main_cpu_percent', 'gpu_power_watts', 'gpu_memory_MiB', 'training_started', 'losses_bytes'])
                 child = subprocess.Popen(command, env=env, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
                 sampler = None
                 previous_cpu, previous_time = None, None
-                launched = time.monotonic()
+                training_started = False
                 try:
                     while child.poll() is None:
                         capacity()  # real byte/inode/quota protection while writes grow
@@ -129,7 +138,7 @@ def run():
                             if parts[0] == gpu and int(parts[1]) != child.pid:
                                 raise RuntimeError('External GPU process appeared; stopping own measurement')
                         now = time.monotonic()
-                        if mode == 'profile' and sampler is None and now-launched >= 30:
+                        if mode == 'profile' and sampler is None and measured_updates_available(root/'segments/segments.csv'):
                             sampler = subprocess.Popen([str(spy), 'record', '--native', '-d', '120',
                                 '--pid', str(child.pid), '-o', str(root/'flame.svg')], env=env,
                                 stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
@@ -140,7 +149,11 @@ def run():
                             previous_cpu, previous_time = cpu, now
                             power, memory = query('nvidia-smi', '-i', gpu, '--query-gpu=power.draw,memory.used',
                                                   '--format=csv,noheader,nounits').split(',')
-                            writer.writerow([time.time(), percent, power.strip(), memory.strip()])
+                            losses_path = directory/'losses.csv'
+                            if not training_started:
+                                training_started = measured_updates_available(losses_path)
+                            losses_bytes = losses_path.stat().st_size if losses_path.is_file() else 0
+                            writer.writerow([time.time(), percent, power.strip(), memory.strip(), int(training_started), losses_bytes])
                             file.flush()
                         except FileNotFoundError:
                             if child.poll() is None:
