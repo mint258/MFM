@@ -231,6 +231,8 @@ def produce(args, checkpoint, *, store_factory, encode):
     score(output)
     _json(dict(status='PREDICTIONS_COMPLETE', statistics_complete=True, seconds=time.monotonic()-started), output / 'producer_complete.json')
     finish_stage_if_ready(config['stage'])
+    if config['stage'] in ('HEADS', 'POOLING'):
+        finish_heads_pooling_if_ready(output)
 
 
 def finish_stage_if_ready(stage):
@@ -311,3 +313,17 @@ def score(directory):
         primary=manifest['primary'], means={name: row['mean_normalized_improvement'] for name, row in summaries.items()},
         source_roles=['train', 'train_inner_validation'], downstream_TEST_read=False), directory / 'summary.json')
     return summaries
+
+
+def finish_heads_pooling_if_ready(output):
+    """Consume only the actual complete named head/pooling matrix in this allocation."""
+    import subprocess
+    import sys
+    try:
+        result = subprocess.run([sys.executable, '-B',
+            str(REPO / 'tools/model_v3/v3_finish_heads_pooling_20261113.py'),
+            '--evaluation-output', str(output)], cwd=REPO, check=False)
+        if result.returncode:
+            print('Completed native panel retained; head/pooling summary needs coordinator recovery', flush=True)
+    except Exception as error:
+        print('Completed native panel retained; postprocessing launch: ' + str(error), flush=True)

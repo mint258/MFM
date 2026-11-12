@@ -10,8 +10,8 @@ def write(path,value):path.write_text(json.dumps(value,indent=2)+'\n')
 def closed_evaluation(output):
  root=Path(output)
  marker=read(root/'producer_complete.json')
- if (marker.get('status')!='PREDICTIONS_COMPLETE' or marker.get('panel')!='v2'
-     or marker.get('reference_only') is not False):
+ if (marker.get('status')!='PREDICTIONS_COMPLETE'
+     or marker.get('statistics_complete') is not True):
   raise ValueError('Require the original completed v2 evaluation')
  return str(root/'R3_summary.json')
 def prepare_row(config,output,condition,endpoint):

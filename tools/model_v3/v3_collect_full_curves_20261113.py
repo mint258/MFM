@@ -27,8 +27,8 @@ def main():
    marker=evaluation/'producer_complete.json'
    if not marker.exists():continue
    completed=read(marker)
-   if (completed.get('status')!='PREDICTIONS_COMPLETE' or completed.get('panel')!='v2'
-       or completed.get('reference_only') is not False):
+   if (completed.get('status')!='PREDICTIONS_COMPLETE'
+       or completed.get('statistics_complete') is not True):
     raise ValueError('Use the actual native completed primary evaluation')
    panel=str(evaluation/'R3_summary.json')
    existing=curves[condition].get(str(endpoint))
