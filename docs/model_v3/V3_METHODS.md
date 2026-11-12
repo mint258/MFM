@@ -155,3 +155,26 @@ The original H1 registry/learned pooling comparison remains required because lat
 After the last actual C3 evaluation has produced its complete panel,the existing C3 completion hook scores the registered comparison once. It then invokes the required H2/SDP and H3/SDP queue preparer on compute-0-20. Only the actual status=CANDIDATE_GROUP_SELECTED,comparison=views result can supply the view count; no fallback view is used. The two runs are fresh6M seed0/B32 trainings on nodes5/7 with their prescribed head forms and the selected views. H1/P exactly reuses the original C1-0 P6M panel,and H1/SDP exactly reuses the winning C3 SDP6M panel. All P/D/SDP cells are recorded in the head comparison manifest before head selection.
 
 The new jobs depend on the still-live last C3 evaluation job,not purged historical job IDs. Actual target capacity/inodes/native quota are checked before queueing and by the original startup guard. Queued jobs are held until their actual identities,SDK follow-ons and recovery entries are recorded; all outputs stay within the existing common100GB forecast. An incomplete submission journal requires coordinator recovery and never triggers blind resubmission. Failure to queue does not reclassify or rerun the completed native evaluation; it is retained separately in heads_sdp_queue_attempts.jsonl. Actual first training use remains the wiring acceptance.
+
+
+## M4 initial learning-rate configuration binding (2026-11-13)
+
+The first recipe grid has exactly five rates(1e-4,3e-4,6e-4,1e-3,2e-3) x S/P,seed0,original240k,6M,B32,2%warmup/cosine,clip1 and original AdamW(.9,.95). The preparer consumes the actual closed C1,latent,view,head and pooling selections,and supplies no implicit winner. The current completed latent choice is none. Native S retains the original GroupedSIndex/LMDB engine; P retains original MFM4 fields,D4 and two-level sampling. New executions use micro32 while effective batch stays32. Readouts use the same v2 R3 panel and frozen random reference.
+
+Only an identical effective3e-4 baseline is reused. S reuses the selected-view original C3/native6M cell,because P/D heads and graph pooling are inactive for pure S. P with registry pooling reuses the selected H1/H2/H3 P6M cell; H1 learned pooling reuses its original pooling comparison cell. A learned-pooling H2/H3 combination has no identical earlier baseline and therefore receives a new3e-4 run. Reused cells retain their source run/stage and zero new exposure; they are never new training rows. All ten logical panels remain required for the registered equal-S/P learning-rate comparison.
+
+CLI: tools/model_v3/v3_prepare_m4_lr_20261113.py --output /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M4_V3_LR_20261113,run on compute-0-20 only after the actual model_v3_c3_views.json,model_v3_heads.json and model_v3_pooling.json exist. It prepares concrete configurations and a comparison manifest only; it submits no job,reserves no GPU and freezes no model or recipe. Output registration and actual-node capacity/UUID admission remain at submission. Actual scan execution waits for all required model decisions.
+
+
+## M4 top-two effective-batch continuation
+
+The B64 preparer requires the actual complete five-rate B32 decision and takes exactly its score-ranked top two rates. Each rate is retrained for S and P,6M,seed0,B64,with execution micro32 and the same selected model,clip1 and2%warmup/cosine. The original B32 cells remain unchanged. For each measured rate,the original single-seed paired rule compares B32/B64 across S/P,ties retaining B32. The retained measurements then populate the complete five-rate matrix for the same registered learning-rate selection. This implements the original joint LR/batch sequence with the v3 paired rule; it does not introduce another LR,condition,seed or metric. Outputs retain every per-rate batch comparison and the final common rate/batch choice.
+
+CLI tools/model_v3/v3_prepare_m4_batch_20261113.py prepare consumes --initial-plan and --initial-selection and writes fresh --output configurations only. Its select command additionally consumes --batch-plan and writes --results only after the actual B64 panels exist. Preparation submits no GPU job; selection fits no new probe. All recipe results remain unfrozen until schedule,TRAIN clipping,SDP confirmation and full-data B* work are complete.
+
+
+## M4 schedule configuration continuation
+
+The schedule preparer consumes the actual M4_LR_BATCH_SELECTED result,retaining its common LR,batch,model and original240k inputs. The cosine cells are the identical already measured selected S/P6M cells,whether obtained from a new LR/B64 trial or exact M3 reuse. Only two fresh WSD S/P trainings are generated. WSD keeps2%warmup and starts linear decay at80% of the6M budget,ending at zero; clip stays1 during schedule comparison. The v2 paired schedule comparison uses cosine-before-WSD simplicity and the original common random references. No cosine probe or training is duplicated.
+
+CLI tools/model_v3/v3_prepare_m4_schedule_20261113.py --joint-selection <actual_joint_result.json> --output <fresh_control_directory> prepares configurations only. It does not set the TRAIN p99,submit SDP/full-data jobs or freeze the recipe. Those steps still require their real preceding results and original source definition.

@@ -1,6 +1,6 @@
 # 模型线v3训练进度
 
-更新时间：2026-11-12 19:40:27 UTC。每100000阶段样本保存报告，根协调器每1800秒批量推送所有新边界；阶段样本与原6M累计样本分别保留。
+更新时间：2026-11-12 20:10:55 UTC。每100000阶段样本保存报告，根协调器每1800秒批量推送所有新边界；阶段样本与原6M累计样本分别保留。
 
 C1-0已按v2选定。此页仅报告实际提交计划中的开发训练；潜变量采用、模型/配方冻结及B*均以对应完整结果为准。
 
@@ -20,17 +20,18 @@ C1-0已按v2选定。此页仅报告实际提交计划中的开发训练；潜�
 | T1/A2 | P | 4530201 | 1500000 | 0.022949 | 7.901 |
 | T1/A3 | P | 4530203 | 1500000 | 0.187400 | 7.961 |
 | T1/A4 | P | 4530205 | 1500000 | 0.016354 | 8.080 |
-| C3/two | S | 4530280 | 188064 | 0.426467 | 6.533 |
-| C3/two | SDP | 4530292 | 67680 | 2.381496 | 9.573 |
-| C3/three | SDP | 4530293 | 62560 | 2.355712 | 12.272 |
-| HEADS/H1 | D | 4530289 | 358912 | 0.145523 | 3.404 |
+| C3/two | S | 4530280 | 310176 | 0.369129 | 6.533 |
+| C3/two | SDP | 4530292 | 126336 | 0.655119 | 9.573 |
+| C3/three | SDP | 4530293 | 116640 | 1.187592 | 12.272 |
+| HEADS/H1 | D | 4530289 | 604448 | 0.073017 | 3.404 |
 | HEADS/H2 | P | 4530298 | 待运行 | — | — |
 | HEADS/H2 | D | 4530301 | 待运行 | — | — |
 | HEADS/H3 | P | 4530304 | 待运行 | — | — |
 | HEADS/H3 | D | 4530307 | 待运行 | — | — |
 | C3_PARTIAL_EXECUTION/two-micro16-partial | SDP | 4530283 | 40640 | 4.738544 | 5.075 |
 | C3_PARTIAL_EXECUTION/three-micro16-partial | SDP | 4530286 | 38976 | 5.539207 | 6.378 |
+| POOLING/learned | P | 4530310 | 待运行 | — | — |
 
 逐更新损失、每1000更新均值、preclip梯度、学习率、阶段/累计样本与显存峰值保留在真实离线SDK和JSONL中；SDK原生系统指标每30秒采样。每个10万边界的原始指标见results/model_v3_wandb/points/<作业>/<边界>.json，原始SDK关闭后完整归档。不同GPU原始耗时不用于选择。
 
-报告来源计划：/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/LATENT_V3_20261111/plan.json, /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/plan.json, /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/plan.json, /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_MICRO16_PARTIAL_SEGMENTS_20261113.json。实际资源与队列状态见日报；此工具不查询、提交或恢复作业。
+报告来源计划：/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/LATENT_V3_20261111/plan.json, /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/plan.json, /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/plan.json, /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_MICRO16_PARTIAL_SEGMENTS_20261113.json, /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/pooling_plan.json。实际资源与队列状态见日报；此工具不查询、提交或恢复作业。
