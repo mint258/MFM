@@ -1,6 +1,7 @@
 """T0-2: four fixed atom statistics from the already produced target-free H0."""
 from dataclasses import replace
 import json
+import os
 from pathlib import Path
 import time
 
@@ -39,9 +40,10 @@ def evaluate_cached_pooling(c, *, store_factory):
     tasks = [TaskSpec(**{k: item[k] for k in
         ('task_id', 'dataset_id', 'field', 'output_level', 'error_metric', 'pooling')})
         for item in panel['tasks']]
-    tracker = TrainingHistory(output, dict(c, selection_use=False))
+    threads = max(1, min(16, int(os.environ.get('SLURM_CPUS_PER_TASK', '16'))))
+    torch.set_num_threads(threads)
+    tracker = TrainingHistory(output, dict(c, selection_use=False, torch_threads=threads))
     history = ProbeHistory(tracker.stream, tracker.run)
-    torch.set_num_threads(16)
     completed, started = False, time.monotonic()
     packets, files = {}, {}
     try:
