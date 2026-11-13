@@ -26,13 +26,19 @@ def record_gpu_telemetry(configuration):
   if not exists:writer.writerow(['timestamp_utc_epoch','run','gpu_uuid','gpu_name','batch_size','samples','training_seconds','power_watts','utilization_percent','memory_used_mib'])
   writer.writerow([time.time(),c['run'],gpu[0].strip(),gpu[1].strip(),c['batch_size'],samples,elapsed,*[v.strip() for v in gpu[2:]]])
 
-def main():
- p=argparse.ArgumentParser();p.add_argument('--configuration',required=True);a=p.parse_args();c=json.loads(Path(a.configuration).read_text())
+def run(c):
  node=socket.gethostname().split('.')[0]
- if node!=c['node'] or node not in ('compute-0-20','compute-0-21','compute-0-22'):raise ValueError('Native rule is limited to the actual configured node20-22')
+ execution=c.get('execution','native_SSH')
+ if node!=c['node']:raise ValueError('Runner is on the wrong configured node')
+ if execution=='native_SSH' and node not in ('compute-0-20','compute-0-21','compute-0-22'):raise ValueError('Native rule is limited to node20-22')
+ if execution=='Slurm' and not os.environ.get('SLURM_JOB_ID'):raise ValueError('Slurm runner requires a real allocation')
  gpu=c['gpu_uuid'];rows=csv.reader(subprocess.check_output(['nvidia-smi','--query-gpu=uuid,memory.used,memory.total','--format=csv,noheader,nounits'],text=True).splitlines())
  card=next(row for row in rows if row[0].strip()==gpu);used,total=map(lambda x:float(x.strip()),card[1:])
  if used/total>.30:raise RuntimeError('GPU occupancy exceeds user30% native-start rule')
+ if total-used<c.get('minimum_free_gpu_mib',0):raise RuntimeError('GPU free memory is below the configured task allowance')
+ if node not in ('compute-0-20','compute-0-21','compute-0-22') and c.get('gpu_work',True):
+  contexts=csv.reader(subprocess.check_output(['nvidia-smi','--query-compute-apps=gpu_uuid,pid','--format=csv,noheader,nounits'],text=True).splitlines())
+  if any(row and row[0].strip()==gpu for row in contexts):raise RuntimeError('GPU sharing exception applies only to node20-22')
  locks=R/'docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks'
  lock=None
  if c.get('gpu_work',True):
@@ -50,14 +56,18 @@ def main():
  environment=dict(os.environ,CUDA_VISIBLE_DEVICES=gpu,P_RECIPE_RUN_ID=c['run'],PYTHONDONTWRITEBYTECODE='1',PYTORCH_ALLOC_CONF='expandable_segments:True',OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',PYTHONPATH=str(REPO/'current')+':'+str(R/'runs/data_v1_20261025/repository')+':'+str(R/'docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps'))
  environment.update(c.get('environment',{}))
  if not c.get('gpu_work',True):environment['CUDA_VISIBLE_DEVICES']=''
- for key in list(environment):
-  if key.startswith('SLURM_'):environment.pop(key)
+ if execution=='native_SSH':
+  for key in list(environment):
+   if key.startswith('SLURM_'):environment.pop(key)
  child=subprocess.Popen(c['command'],cwd=REPO,env=environment,start_new_session=True)
- bound=identity(child.pid);record=dict(started_at=time.time(),run=c['run'],execution='native_SSH',node=node,gpu_uuid=gpu,admission_used_mib=used,admission_total_mib=total,admission_fraction=used/total,**bound)
- state=R/'runs/p_recipe_20261113'/(c['run']+'_native.json')
+ bound=identity(child.pid);record=dict(started_at=time.time(),run=c['run'],execution=execution,node=node,gpu_uuid=gpu,admission_used_mib=used,admission_total_mib=total,admission_fraction=used/total,**bound)
+ if execution=='Slurm':record['job_id']=int(os.environ['SLURM_JOB_ID'])
+ state=Path(c.get('state_path',str(R/'runs/p_recipe_20261113'/(c['run']+'_native.json'))))
  def save(**values):
   record.update(values)
-  try:state.write_text(json.dumps(record,indent=2)+'\n')
+  try:
+   from execution_ledger import write
+   write(state,record)
   except OSError as error:record['state_write_error']=str(error)
  save(status='RUNNING');print(json.dumps(record),flush=True);paused=False
  while child.poll() is None:
@@ -71,4 +81,7 @@ def main():
    except ProcessLookupError:pass
   time.sleep(5)
  code=child.wait();save(status='COMPLETED' if code==0 else 'FAILED',exit_code=code,ended_at=time.time(),elapsed_seconds=time.time()-record['started_at']);return code
+
+def main():
+ p=argparse.ArgumentParser();p.add_argument('--configuration',required=True);a=p.parse_args();return run(json.loads(Path(a.configuration).read_text()))
 if __name__=='__main__':raise SystemExit(main())

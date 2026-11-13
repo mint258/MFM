@@ -17,6 +17,8 @@ if __name__=='__main__':
  finally:
   stop.set()
   if monitor:monitor.join(timeout=12)
+ if summary.get('status')=='HANDOFF_SAVED':
+  print(json.dumps(summary),flush=True);raise SystemExit(0)
  from evaluate import run,score,REPO
  checkpoint=str(Path(c['output'])/('samples_'+str(c['samples'])+'.pt'))
  evaluation={**c,'checkpoint':checkpoint,'features':str(Path(c['output'])/'features'),

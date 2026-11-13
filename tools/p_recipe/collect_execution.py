@@ -1,6 +1,7 @@
 """One scheduled observation of real study handles, progress and occupied GPU time."""
 import csv,json,shlex,subprocess,time
 from pathlib import Path
+from execution_ledger import locked_ledger,write
 R=Path('/share/home/zixiao/descriptor_analysis');C=R/'runs/p_recipe_20261113'
 PY='/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python'
 TERMINAL={'COMPLETED','FAILED','CANCELLED','TIMEOUT','OUT_OF_MEMORY','NODE_FAIL','PREEMPTED','BOOT_FAIL','DEADLINE'}
@@ -14,7 +15,7 @@ def observe_native(record):
  state=read(path);result=dict(state=state['status'],native_pid=state['pid'],native_uid=state['uid'],native_start_ticks=state['start_ticks'],native_pgid=state['pgid'])
  if 'exit_code' in state:
   result.update(exit_code=state['exit_code'],state='COMPLETED' if state['exit_code']==0 else 'TIMEOUT' if state['exit_code']==124 else 'FAILED',elapsed_seconds=state['elapsed_seconds'],observation_status='TERMINAL_EXIT_RECORDED')
-  if state['exit_code'] in (-15,143) and record.get('end_reason')=='user_requested_sbatch_migration':result['state']='CANCELLED'
+  if state['exit_code'] in (0,-15,143) and record.get('end_reason')=='user_requested_sbatch_migration':result['state']='CANCELLED'
   return result
  code='import json;from pathlib import Path;p=Path("/proc/'+str(state['pid'])+'");f=p.joinpath("stat").read_text().rsplit(")",1)[1].split() if p.exists() else None;print(json.dumps(dict(alive=f is not None,uid=p.stat().st_uid if f else None,start_ticks=int(f[19]) if f else None)))'
  response=subprocess.check_output(['ssh','-n','-o','BatchMode=yes','-o','ConnectTimeout=10',record['node'],shlex.join([PY,'-c',code])],text=True,timeout=30)
@@ -35,8 +36,8 @@ def progress(configuration):
  return dict(samples=int(last[0]),budget=configuration['samples'],updates=int(last[1]),last_loss=float(last[2]),samples_per_second=speed,remaining_hours=(configuration['samples']-int(last[0]))/speed/3600 if speed else None)
 
 
-def collect():
- path=C/'study_execution.json';ledger=read(path);records=list(ledger['runs'].values())+list(ledger.get('reservations',{}).values())
+def collect_locked(ledger):
+ path=C/'study_execution.json';records=list(ledger['runs'].values())+list(ledger.get('reservations',{}).values())
  jobs=sorted({str(r['job_id']) for r in records if r['backend']=='Slurm' and 'job_id' in r});accounting={}
  if jobs:
   text=subprocess.check_output(['sacct','--noheader','--parsable2','--jobs',','.join(jobs),'--format','JobIDRaw,State,ElapsedRaw,ExitCode'],text=True,timeout=30)
@@ -47,7 +48,7 @@ def collect():
    if record['backend']=='native_SSH':record.update(observe_native(record))
    elif record.get('job_id') in accounting:
     observed=dict(accounting[record['job_id']]);observed['allocation_elapsed_seconds']=observed['elapsed_seconds']
-    observed['elapsed_seconds']=max(0.,observed['elapsed_seconds']-record.get('overlap_native_gpu_seconds',0.))
+    observed['elapsed_seconds']=max(0.,observed['elapsed_seconds']-record.get('allocation_pretraining_seconds',record.get('overlap_native_gpu_seconds',0.)))
     record.update(observed)
    record['progress']=progress(read(record['configuration']));record['observed_at']=time.time();record.pop('observation_error',None)
   except (OSError,ValueError,KeyError,subprocess.SubprocessError) as error:record['observation_error']=str(error)
@@ -58,6 +59,9 @@ def collect():
   if record['stage']==2 and record.get('state') in TERMINAL and 'elapsed_seconds' in record:
    key=str(record['round']);hours[key]=hours.get(key,0.)+record['elapsed_seconds']/3600
  ledger.update(last_observed_at=time.time(),completed_screening_gpu_hours_by_round=hours)
- path.write_text(json.dumps(ledger,indent=2)+'\n');print(json.dumps(ledger,indent=2),flush=True);return ledger
+ write(path,ledger);print(json.dumps(ledger,indent=2),flush=True);return ledger
+
+def collect():
+ with locked_ledger() as ledger:return collect_locked(ledger)
 
 if __name__=='__main__':collect()

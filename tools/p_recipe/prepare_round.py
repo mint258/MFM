@@ -26,8 +26,9 @@ def prepare(round_number,previous=None):
   path=destination/(arm+'.json')
   if path.is_file():
    existing=read_json(path)
+   c.update({key:existing[key] for key in ('handoff_request','handoff_ack') if key in existing})
    if existing.get('attempt',1)>1:
-    c.update({key:existing[key] for key in ('run','output','attempt','batch_size','microbatch_size')})
+    c.update({key:existing[key] for key in ('run','output','attempt','batch_size','microbatch_size','resume','resume_samples','handoff_request','handoff_ack') if key in existing})
   path.write_text(json.dumps(c,indent=2)+'\n');configs.append(str(path))
  plan=dict(round=round_number,baseline=baseline,baseline_components=sorted(components),configurations=configs,skipped=skipped,label_parameters_to_fit=fits,batch_size=base.get('batch_size',128),
   batch_size_by_run={read_json(path)['run']:read_json(path)['batch_size'] for path in configs})

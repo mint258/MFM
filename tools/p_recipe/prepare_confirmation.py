@@ -29,8 +29,9 @@ def prepare(state):
   path=destination/(arm+'.json')
   if path.is_file():
    existing=read_json(path)
+   c.update({key:existing[key] for key in ('handoff_request','handoff_ack') if key in existing})
    if existing.get('attempt',1)>1:
-    c.update({key:existing[key] for key in ('run','output','attempt','batch_size','microbatch_size')})
+    c.update({key:existing[key] for key in ('run','output','attempt','batch_size','microbatch_size','resume','resume_samples','handoff_request','handoff_ack') if key in existing})
   path.write_text(json.dumps(c,indent=2)+'\n');configs.append(str(path))
  m2=state['merge_base_components'] if state['round']==3 else state['merged_components'] if state['round']==2 else None
  plan=dict(configurations=configs,final_components=sorted(final),runner_up_components=sorted(runner),

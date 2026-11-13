@@ -1,0 +1,13 @@
+{
+  "schema": "P_HYBRID_SCHEDULING_V1",
+  "nodes": ["compute-0-22", "compute-0-21", "compute-0-20"],
+  "partition": "all",
+  "exclusive": false,
+  "cpu_overhead": 2,
+  "maximum_existing_gpu_memory_fraction": 0.30,
+  "minimum_free_gpu_mib": 18432,
+  "gpu_preference": ["5090", "4090", "3090"],
+  "handoff": "checkpoint_after_committed_optimizer_update",
+  "checkpoint_protocol": "atomic_publish_and_acknowledge",
+  "standby_if_native": true
+}
