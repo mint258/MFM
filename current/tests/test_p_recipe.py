@@ -71,3 +71,38 @@ def test_state_groups_follow_dipole_definition_inside_multipole_family():
     groups=physical_state_groups(view,{f['name'] for f in fields})
     assert len(groups)==1
     assert next(iter(groups.values()))=={'neutral':'P.pm7_B.r1.x','anion':'P.pm7_anion.r1.x'}
+def test_fit_state_reference_difference_and_zero_centered_vector_scale():
+    import numpy as np
+    from phychem_mfm.phase1.p_recipe_fit import fit_parameters
+    counts=np.array([[1,0],[0,1],[2,0],[0,2]])
+    specs={'state':{'center':0.,'scale':1.,'fit_role':'TRAIN','element_reference':{'basis':[1,2],'coefficients':[3.,5.],'intercept':.4}},'neutral':{'center':0.,'scale':1.,'fit_role':'TRAIN','element_reference':{'basis':[1,2],'coefficients':[1.,2.],'intercept':.1}}}
+    definitions={'state':{'level':'molecule'}};selections={'state':('state',None)}
+    values={'state':np.array([[4.],[7.],[8.],[9.]])}
+    for name,column in zip(('x','y','z'),([1.,2.,3.,4.],[0.,2.,0.,3.],[2.,1.,4.,1.])):
+        specs[name]={'center':0.,'scale':1.,'fit_role':'TRAIN'}
+        definitions[name]={'level':'molecule_vector','representation':'vector'};selections[name]=('dipole',len(definitions)-2)
+        values[name]=np.array(column)[:,None]
+    fitted=fit_parameters(specs,definitions,selections,counts,values,differences={'state':'neutral'})
+    state=fitted['normalizations']['state'];reference=state['element_reference']
+    assert reference=={'basis':[1,2],'coefficients':[2.,3.],'intercept':.30000000000000004}
+    expected=values['state'].ravel()-(counts@np.array([2.,3.])+.3)
+    assert np.isclose(state['center'],expected.mean(),atol=1e-12,rtol=1e-12)
+    vector=np.concatenate([values[n] for n in ('x','y','z')],axis=1)
+    for name in ('x','y','z'):
+        assert fitted['normalizations'][name]['center']==0.
+        assert np.isclose(fitted['normalizations'][name]['scale'],np.linalg.norm(vector,axis=1).std(),atol=1e-12,rtol=1e-12)
+
+
+def test_fit_a1_tail_and_affine_invert_to_original_values():
+    import numpy as np
+    from phychem_mfm.phase1.p_recipe_fit import fit_parameters,reference_values
+    counts=np.array([[1,0],[0,1],[2,0],[0,2],[1,1],[2,1]])
+    truth=(counts@np.array([3.,5.])+2.+np.array([.2,-.3,.4,.1,-.2,.5]))[:,None]
+    fitted=fit_parameters({'energy':{'center':0.,'scale':1.,'fit_role':'TRAIN'}},{'energy':{'level':'molecule'}},{'energy':('energy',None)},counts,{'energy':truth},a1_fields=['energy'],tail_fields=['energy'],minimum_a1_molecules=6)
+    spec=fitted['normalizations']['energy'];tail=fitted['heavy_tail']['energy']
+    offset=reference_values(counts,tail['offset_reference'])[:,None]
+    raw=truth-offset;encoded=np.sign(raw)*np.log1p(np.abs(raw)/tail['m']);standardized=(encoded-spec['center'])/spec['scale']
+    decoded=standardized*spec['scale']+spec['center'];restored=np.sign(decoded)*np.expm1(np.abs(decoded))*tail['m']+offset
+    assert np.allclose(restored,truth,atol=1e-9,rtol=1e-9)
+    assert fitted['fit']['energy']['A1_molecules']==6
+    assert spec['element_reference'] is None

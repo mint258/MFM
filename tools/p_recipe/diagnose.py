@@ -202,8 +202,8 @@ def field_diagnostic():
     for role,data,indices in (('TRAIN',train,chosen),('VAL',val,val.indices)):
         totals={n:dict(n=0,absolute=0.,squared=0.,sum_y=0.,squared_y=0.) for n in fields}
         with torch.no_grad():
-            for start in range(0,len(indices),160):
-                samples=[data.read(int(i),int(data.choices(int(i))[0])) for i in indices[start:start+160]]
+            for start in range(0,len(indices),c['batch_size']):
+                samples=[data.read(int(i),int(data.choices(int(i))[0])) for i in indices[start:start+c['batch_size']]]
                 pred=corrected_prediction(pd,samples,oldnorm,fields)
                 for name,value in pred.items():
                     spec=pd.definitions[name].get('normalization',pd.view.normalizations[name])

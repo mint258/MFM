@@ -45,7 +45,7 @@ def train(configuration):
   modules['uncertainty']=UncertaintyWeights(names)
  model=torch.nn.ModuleDict(modules).cuda().train();params=list(model.parameters())
  optimizer=torch.optim.AdamW(params,lr=c['lr'],betas=tuple(c['betas']),weight_decay=c['weight_decay'])
- clock=SampleClock(c['samples']);rng=np.random.default_rng(c['seed']);clip=read_json(c['clip_reference'])['clip']
+ clock=SampleClock(c['samples'],milestones=tuple(range(500000,c['samples']+1,500000)));rng=np.random.default_rng(c['seed']);clip=read_json(c['clip_reference'])['clip']
  gamma=recipe.get('gamma',0.1597693323500406);output=Path(c['output']);resuming=c.get('resume')
  output.mkdir(parents=True,exist_ok=bool(resuming));prior=0.;window={};window_updates=0;clipped=0;total_window=[]
  if resuming:
@@ -114,8 +114,8 @@ def train(configuration):
     final=clock.samples_consumed==c['samples'];milestone=clock.samples_consumed%500000==0 or final
     if milestone or clock.optimizer_updates%1000==0:
      payload=dict(model=model.state_dict(),optimizer=optimizer.state_dict(),configuration=c,architecture=architecture,clock=clock.state_dict(),rng=rng.bit_generator.state,torch_rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state(),elapsed_seconds=prior+time.monotonic()-started,family_window=window,family_window_updates=window_updates,clipped_updates=clipped,total_window=history.window)
-     destination=output/('samples_'+str(clock.samples_consumed)+'.pt') if milestone else output/'recovery_next.pt';save_checkpoint(payload,destination)
-     if not milestone:destination.replace(output/'recovery.pt')
+     destination=output/('samples_'+str(clock.samples_consumed)+'.pt') if final else output/'recovery_next.pt';save_checkpoint(payload,destination)
+     if not final:destination.replace(output/'recovery.pt')
     if clock.optimizer_updates%100==0:print(json.dumps(row),flush=True)
   if window:deliver([dict(run=c['run'],kind='TRAIN_final_partial_window',samples=clock.samples_consumed,updates=clock.optimizer_updates,family=n,loss=s/num,clipped_fraction=clipped/clock.optimizer_updates,seconds=prior+time.monotonic()-started) for n,(s,num) in window.items()])
   summary=dict(status='TRAINING_COMPLETE_EVALUATION_PENDING',run=c['run'],samples=clock.samples_consumed,updates=clock.optimizer_updates,actual_samples=clock.samples_consumed-initial_samples,seconds=prior+time.monotonic()-started,clipped_fraction=clipped/clock.optimizer_updates,clip=clip,batch_size=c['batch_size'],microbatch_size=c['microbatch_size'],GPU_peak_bytes=torch.cuda.max_memory_allocated())

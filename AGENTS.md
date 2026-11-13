@@ -1,3 +1,7 @@
+## 2026-11-13 用户最新决定：后续P训练固定B128
+
+所有后续P筛选、放大确认、P′及分子数运行固定 batch_size=128、microbatch_size=128，无常规梯度累积。覆盖此前公共B160，即使显存有余量也不自行放大；边界末批按剩余样本数执行以精确保持样本预算/每500k验证。冻结的评价探针仍为batch32，历史测量保留。任务书、配置、三个共享STATUS和HPC技能1.0.150已同步。新P训练尚未开始，D4修正继续。
+
 ## 2026-11-13 P task current user authority
 
 The full P recipe task is active. Exclude the approved323 overlapping TRAIN molecules and refit affected P_D/Pprime D4 in a P-study overlay; retain all original data and history. The new TRAIN count is1194228. All new P screening/confirmation/Pprime/scaling runs use effective and actual batch160, replacing training batch32; the frozen R1/R3 probe protocol remains as specified. Use configs/p_recipe/protocol.json and the taskbook. PR6 is merged and adopted; run the required full regression and repair only failed cases. Old model-development queues remain terminated.

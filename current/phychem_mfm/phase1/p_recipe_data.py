@@ -60,7 +60,7 @@ def dataset_configuration(c,*,validation=False):
 def original_predictions(model,predictions,samples,parameters):
  import torch
  from .p_recipe import heavy_tail
- result=model.original_predictions(predictions,samples)
+ result=model.original_predictions({n:v.double() for n,v in predictions.items()},samples)
  for name,tail in parameters.get('heavy_tail',{}).items():
   if name not in result:continue
   value=heavy_tail(result[name],tail['m'],inverse=True)

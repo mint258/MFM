@@ -61,7 +61,7 @@
                      "source":  "PM7",
                      "sampling":  "uniform_molecule_then_uniform_allowed_conformer",
                      "max_conformers":  10,
-                     "batch_size":  160,
+                     "batch_size":  128,
                      "optimizer":  "AdamW",
                      "lr":  0.0003,
                      "betas":  [
@@ -74,9 +74,9 @@
                      "normalization":  "P_study_repaired_D4_after_323_exclusions",
                      "clip":  "4529108_complete_preclip_norm_p99_once",
                      "loss":  "standardized_Huber_delta1_and_radial_huber_v1",
-                     "microbatch_size":  160,
+                     "microbatch_size":  128,
                      "gradient_accumulation":  false,
-                     "batch_authority":  "User goal update20261113; largest admitted common32-multiple160,8batch3090peak21.4685GB,192OOM; count existing foreign VRAM"
+                     "batch_authority":  "User latest20261113: fixed128 for every subsequent P screening/confirmation/Pprime/scaling run; supersedes160; do not auto-enlarge"
                  },
     "screening":  {
                       "samples":  1500000,

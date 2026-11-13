@@ -715,3 +715,9 @@ MODEL_NODE0_ROOT_RESERVE_RECOVERED_20261112：用户明确批准仅清理compute
 The active P-only task excludes323 overlaps (TRAIN1194228) and repairs D4 without altering original products. C1 S/P new-protocol table and fixed5000VAL covariance/LN CSVs are in results/p_recipe; B4 gamma0.1597693323500406 is for P0 ordering only. All new P training runs share actual/effective B160 after 8-batch 24GB3090 admission (peak reserved21.4685GB;192OOM). Probe protocol stays frozen. PR6 merged/adopted; one full regression ran and failed cases are being repaired, with passes retained. D4 now native node21 and regression native node22, replacing only the still-pending own jobs4530455/4530480.
 
 User explicitly authorized direct SSH launch on occupied compute-0-20/21/22 when target GPU used/total<=30%; no sbatch needed, no foreign-process cancellation, true native identity/exit and disk protections required. HPC skill1.0.149 updated; other windows' work is unchanged. Historical T0/T1 readout queue and P0 D5 continue. Old model development is not resumed.
+
+
+## 2026-11-13 用户最新决定：后续P训练固定B128
+
+所有后续P筛选、放大确认、P′及分子数运行固定 batch_size=128、microbatch_size=128，无常规梯度累积。覆盖此前公共B160，即使显存有余量也不自行放大；边界末批按剩余样本数执行以精确保持样本预算/每500k验证。冻结的评价探针仍为batch32，历史测量保留。任务书、配置、三个共享STATUS和HPC技能1.0.150已同步。新P训练尚未开始，D4修正继续。
+
