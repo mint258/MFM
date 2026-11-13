@@ -101,7 +101,7 @@ def train(configuration):
  try:
   with ProcessPoolExecutor(c['workers'],mp_context=multiprocessing.get_context('spawn'),initializer=init_reader,initargs=(reader,c['mean_labels'])) as pool,(output/'losses.csv').open('a' if resuming else 'w',buffering=1) as stream:
    writer=csv.DictWriter(stream,fieldnames=['samples','updates','total','preclip_norm','lr','seconds'])
-   if not resuming:writer.writeheader()
+   if stream.tell()==0:writer.writeheader()
    for samples,consumed_rng in ordered_sample_batches(pool,read_choice,data,clock,rng,c['batch_size'],c['samples']):
     lr=c['lr']*sample_lr_ratio(clock.samples_consumed,c['samples'],'cosine')
     for group in optimizer.param_groups:group['lr']=lr
