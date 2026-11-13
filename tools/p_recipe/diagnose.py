@@ -1,6 +1,6 @@
 """The P0 diagnostics; D6 reads frozen identity metadata and no targets."""
 from __future__ import annotations
-import argparse, json, time
+import argparse, csv, json, time
 from pathlib import Path
 import numpy as np
 import pyarrow.parquet as pq
@@ -8,6 +8,68 @@ import pyarrow.parquet as pq
 ROOT=Path('/share/home/zixiao/descriptor_analysis')
 CONTROL=ROOT/'runs/p_recipe_20261113'
 REPO=Path(__file__).resolve().parents[2]
+
+def validation_indices():
+    corpus=json.loads(Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/corpus/corpus.json').read_text())
+    source=Path(corpus['source_root']);manifest=json.loads((source/'manifest.json').read_text())
+    common=json.loads(Path(manifest['full_source_dependencies']['common']).read_text())
+    mids=[]
+    for ref in common['membership_tables']:
+        table=pq.read_table(ref['path'],columns=['molecule_id','effective_role','common_population_v1'])
+        mids.extend(r['molecule_id'] for r in table.to_pylist() if r['effective_role']=='VAL' and r['common_population_v1'])
+    chosen=set(np.random.default_rng(20261112).choice(sorted(mids),5000,replace=False).tolist())
+    table=pq.read_table(Path(manifest['split_roots']['FULL'])/'id_map.parquet',
+        columns=['molecule_id','molecule_index'],filters=[('record_kind','=','M')])
+    return [r['molecule_index'] for r in table.to_pylist() if r['molecule_id'] in chosen]
+
+def csv_output(name,rows):
+    path=REPO/'results/p_recipe/diagnostics'/name;path.parent.mkdir(parents=True,exist_ok=True)
+    with path.open('w',newline='') as stream:
+        writer=csv.DictWriter(stream,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
+
+def representation_diagnostic():
+    import torch
+    from phychem_mfm.phase1.v2_s_training import s_model
+    from phychem_mfm.phase1.v31_loader import MFM4Dataset,collate_samples
+    torch.set_num_threads(16)
+    corpus=json.loads(Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/corpus/corpus.json').read_text())
+    data=MFM4Dataset(corpus['source_root'],split='FULL',geometry_only=True,k=10,
+        molecule_indices=validation_indices())
+    inputs=json.loads((CONTROL/'input_metadata.json').read_text())['features']
+    spectra=[];summary=[];gains=[];gamma=None
+    for condition in ('S','P'):
+        source=next(r for r in inputs if r['candidate']=='C1-0' and r['condition']==condition)
+        payload=torch.load(source['checkpoint'],map_location='cpu',weights_only=True)
+        model,_=s_model('C1-0','three');state=payload['model']
+        if any(k.startswith('structural.') for k in state):
+            state={k.removeprefix('structural.'):v for k,v in state.items() if k.startswith('structural.')}
+        model.load_state_dict(state);encoder=model.encoder.cuda().eval()
+        totals={name:dict(n=0,s=np.zeros(512),outer=np.zeros((512,512))) for name in ('atom','mean')}
+        for start in range(0,len(data.indices),32):
+            samples=[data.read(int(index),int(data.choices(int(index))[0])) for index in data.indices[start:start+32]]
+            batch=collate_samples(samples,device='cuda')
+            with torch.no_grad():h=encoder.encode_atoms(batch).cpu().double().numpy()
+            ptr=batch.ptr.cpu().tolist();means=np.stack([h[a:b].mean(0) for a,b in zip(ptr,ptr[1:])])
+            for name,values in (('atom',h),('mean',means)):
+                total=totals[name];total['n']+=len(values);total['s']+=values.sum(0);total['outer']+=values.T@values
+        for name,total in totals.items():
+            mean=total['s']/total['n'];cov=total['outer']/total['n']-np.outer(mean,mean)
+            spectrum=np.linalg.eigvalsh(cov)[::-1];std=np.sqrt(np.maximum(np.diag(cov),0.))
+            threshold=max(1e-12,1e-4*float(np.median(std)))
+            pr=float(spectrum.sum()**2/(spectrum@spectrum))
+            summary.append(dict(condition=condition,representation=name,observations=total['n'],
+                participation_ratio=pr,near_constant_dimensions=int((std<threshold).sum()),
+                std_median=float(np.median(std)),near_constant_threshold=threshold))
+            spectra.extend(dict(condition=condition,representation=name,rank=i+1,eigenvalue=float(value))
+                           for i,value in enumerate(spectrum))
+            if condition=='S' and name=='atom':gamma=float(np.median(std))
+        gain=encoder.backbone.out_norm.weight.detach().cpu().tolist()
+        gains.extend(dict(condition=condition,dimension=i,gain=value) for i,value in enumerate(gain))
+        del encoder,model,payload,state;torch.cuda.empty_cache()
+    data.close();csv_output('D4_spectrum.csv',spectra);csv_output('D4_summary.csv',summary)
+    csv_output('D4_layernorm_gain.csv',gains)
+    (CONTROL/'D4_gamma.json').write_text(json.dumps(dict(gamma=gamma,source='S atom H std median on fixed5000VAL'),indent=2)+'\n')
+    print(json.dumps(dict(diagnostic='D4',gamma=gamma,summary=summary)),flush=True)
 
 def identity_gate():
     d=json.loads((CONTROL/'D6_metadata.json').read_text())
@@ -61,5 +123,7 @@ def identity_gate():
     return result
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--stage',choices=['D6'],required=True)
-    args=p.parse_args();identity_gate()
+    p=argparse.ArgumentParser();p.add_argument('--stage',choices=['D4','D6'],required=True)
+    args=p.parse_args()
+    if args.stage=='D4':representation_diagnostic()
+    else:identity_gate()
