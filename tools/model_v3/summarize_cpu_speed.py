@@ -19,5 +19,8 @@ for label,name in (('baseline5090','baseline5090_4530313'),('no_recomputation','
     rows.append(result)
 output=dict(runs=rows,speedup=rows[1]['samples_per_second']/rows[0]['samples_per_second'],
             baseline_parent_status='FAILED_RESOURCE_GUARD_AFTER_1000_UPDATES',candidate_parent_status='COMPLETED_0_0',
-            correctness_acceptance='NOT_STARTED',same_gpu='GPU-c35f2434-9137-9723-1af5-dc69b6295243')
+            correctness_acceptance='FAIL_REJECTED',acceptance_job='4530319',
+            parameter_relative_l2=0.0012234179502054808,parameter_relative_l2_limit=1e-5,
+            violation_count=365,candidate_retained=False,
+            same_gpu='GPU-c35f2434-9137-9723-1af5-dc69b6295243')
 print(json.dumps(output,indent=2))

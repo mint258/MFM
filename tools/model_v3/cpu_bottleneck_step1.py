@@ -83,6 +83,22 @@ def measured_updates_available(path):
 
 
 def train(mode, directory):
+    if os.environ.get('MFM_CPU_COHORT_GATE'):
+        from model_gpu_registry import register_current
+        cores = [int(value) for value in os.environ['MFM_CPU_COHORT_CORES'].split(',')]
+        if not set(cores) <= os.sched_getaffinity(0):
+            raise RuntimeError('Requested cores are outside the actual Slurm affinity')
+        os.sched_setaffinity(0, cores)
+        identity = register_current(os.environ['CUDA_VISIBLE_DEVICES'], directory, benchmark=True)
+        ready = directory.parent / (directory.name+'.registered.json')
+        pending = ready.with_suffix('.pending')
+        pending.write_text(json.dumps(identity)+'\n')
+        pending.replace(ready)
+        parent_pid = os.getppid()
+        while not Path(os.environ['MFM_CPU_COHORT_GATE']).is_file():
+            if os.getppid() != parent_pid:
+                raise RuntimeError('Cohort parent exited before release')
+            time.sleep(.05)
     import torch
     from phychem_mfm.phase1.v31_experiments import train_v31
     checkpoint = torch.load(CHECKPOINT, weights_only=True, map_location='cpu')
@@ -92,7 +108,7 @@ def train(mode, directory):
     assert configuration['expected_molecules'] == 240000
     assert checkpoint['clock']['samples_consumed'] == 4000000
     cores = int(os.environ.get('SLURM_CPUS_PER_TASK', '16'))
-    workers = min(configuration['workers'], max(1, cores-2))
+    workers = int(os.environ['MFM_CPU_FIXED_WORKERS']) if os.environ.get('MFM_CPU_FIXED_WORKERS') else min(configuration['workers'], max(1, cores-2))
     configuration.update(output=str(directory), resume=str(CHECKPOINT), run_until_samples=None, workers=workers)
     os.environ['MFM_CPU_MEASURE_STEPS'] = '1100' if mode == 'profile' else '1000'
     if mode == 'profile':

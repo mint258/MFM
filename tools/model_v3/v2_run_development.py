@@ -1,6 +1,7 @@
 """Dispatch existing taskbook-v2 programs from an explicit experiment JSON."""
 import argparse
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -93,6 +94,10 @@ def main():
     if args.show_output:
         print(configuration['output'])
         return 0
+    gpu = os.environ.get('CUDA_VISIBLE_DEVICES')
+    if gpu and args.mode not in ('cached_pooling', 'archive_sdk', 'mechanism'):
+        argv = argv[:3] + ['tools/model_v3/model_gpu_registry.py', '--gpu', gpu,
+            '--output', str(configuration['output']), '--'] + argv[3:]
     return subprocess.run(argv, check=False).returncode
 
 
