@@ -106,3 +106,15 @@ def test_fit_a1_tail_and_affine_invert_to_original_values():
     assert np.allclose(restored,truth,atol=1e-9,rtol=1e-9)
     assert fitted['fit']['energy']['A1_molecules']==6
     assert spec['element_reference'] is None
+def test_state_total_energy_matches_physical_path_across_loss_families():
+    from types import SimpleNamespace
+    from phychem_mfm.phase1.p_recipe_data import physical_state_groups
+    fields=[];metadata=[]
+    for state,family,path in [('xtb_singlepoint','electronic','values.energy_Eh'),('xtb_ALPB_water','solvation','values.energy_Eh'),('xtb_ALPB_octanol','solvation','values.energy_Eh'),('xtb_ALPB_water','solvation','values.Gsolv_Eh')]:
+        name=f'P.{state}.r{len(fields)}.value'
+        fields.append(dict(name=name,group='P',family=family,level='molecule',unit='Eh'))
+        metadata.append(dict(field_key=name,source_path=path,component='value',unit='Eh'))
+    view=SimpleNamespace(fields=fields,schema={'columns':{'mol_labels':metadata}})
+    groups=physical_state_groups(view,{f['name'] for f in fields})
+    assert len(groups)==1
+    assert next(iter(groups.values()))=={'neutral':'P.xtb_singlepoint.r0.value','water':'P.xtb_ALPB_water.r1.value','octanol':'P.xtb_ALPB_octanol.r2.value'}

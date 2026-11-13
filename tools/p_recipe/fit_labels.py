@@ -54,18 +54,24 @@ def fit(c,output,count=128000,workers=8):
  if not needed:
   parameters=dict(normalizations={},state_difference={},heavy_tail={},fit={})
  else:
-  chosen=np.random.default_rng(20261112).choice(data.indices,min(count,len(data.indices)),replace=False)
-  rng=np.random.default_rng(20261112)
-  choices=[(int(m),int(rng.choice(data.choices(int(m))))) for m in chosen]
-  blocks=[choices[i:i+256] for i in range(0,len(choices),256)]
-  counts=[];values={n:[] for n in needed}
+  order=np.random.default_rng(20261112).permutation(data.indices);rng=np.random.default_rng(20261112)
+  counts=[];values={n:[] for n in needed};collected=0;target=min(count,len(order));valid_a1={n:0 for n in a1}
   with ProcessPoolExecutor(workers,mp_context=multiprocessing.get_context('spawn'),initializer=initialize,initargs=(reader,tuple(sorted(needed)),differences)) as pool:
-   for i,(z,observed) in enumerate(pool.map(read_block,blocks,chunksize=1)):
-    counts.append(z)
-    for name,value in observed.items():values[name].append(value)
-    if (i+1)%32==0:print(json.dumps(dict(run=c['run'],fit_molecules=sum(len(a) for a in counts),target_molecules=len(chosen))),flush=True)
+   while collected<target:
+    chosen=order[collected:target];choices=[(int(m),int(rng.choice(data.choices(int(m))))) for m in chosen]
+    blocks=[choices[i:i+256] for i in range(0,len(choices),256)]
+    for i,(z,observed) in enumerate(pool.map(read_block,blocks,chunksize=1)):
+     counts.append(z);collected+=len(z)
+     for name,value in observed.items():
+      values[name].append(value)
+      if name in valid_a1:valid_a1[name]+=int(np.isfinite(value).all(1).sum())
+     if (i+1)%32==0:print(json.dumps(dict(run=c['run'],fit_molecules=collected,target_molecules=target)),flush=True)
+    if a1 and min(valid_a1.values())<100000 and collected<len(order):
+     minimum=min(valid_a1.values());estimate=int(np.ceil(105000*collected/minimum)) if minimum else collected+count
+     target=min(len(order),max(collected+16384,estimate))
+     print(json.dumps(dict(run=c['run'],A1_valid_molecules=valid_a1,extend_TRAIN_to=target)),flush=True)
   parameters=fit_parameters(data.view.normalizations,definitions,selections,np.concatenate(counts),{n:np.concatenate(v) for n,v in values.items()},a1_fields=a1,differences=differences,tail_fields=tails)
-  parameters.update(fit_molecules=len(chosen),fit_seed=20261112,fit_role='TRAIN',source=c['source'],cohort=c['corpus'])
+  parameters.update(fit_molecules=collected,fit_seed=20261112,fit_role='TRAIN',source=c['source'],cohort=c['corpus'])
  output=Path(output);output.parent.mkdir(parents=True,exist_ok=True);output.write_text(json.dumps(parameters,indent=2)+'\n')
  data.close();print(json.dumps(dict(status='LABEL_PARAMETERS_FITTED',path=str(output),A1_fields=len(a1),A2_fields=len(differences),A5_fields=len(tails))),flush=True)
  return parameters

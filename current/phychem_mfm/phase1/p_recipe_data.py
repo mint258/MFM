@@ -89,7 +89,10 @@ def physical_state_groups(view,fields):
         method,state=states[condition];m=metadata.get(field.get('source_field',name),{})
         path=m.get('source_path');unit=field.get('unit',m.get('unit'))
         if not path or not unit or unit in ('UNKNOWN','source_registry_unit'):continue
-        if field['family'] not in ('charge','energy') and 'dipole' not in path.lower():continue
-        key=(method,field['family'],field['level'],path,str(m.get('component')),unit)
+        physical=('dipole' if 'dipole' in path.lower() else
+            'energy' if field['family']=='energy' or 'energy' in path.lower() or 'heat_of_formation' in path.lower() else
+            'charge' if field['family']=='charge' else None)
+        if physical is None:continue
+        key=(method,physical,field['level'],path,str(m.get('component')),unit)
         result.setdefault(key,{})[state]=name
     return {key:members for key,members in result.items() if 'neutral' in members and len(members)>1}

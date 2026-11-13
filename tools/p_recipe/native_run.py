@@ -37,7 +37,7 @@ def main():
  for key in list(environment):
   if key.startswith('SLURM_'):environment.pop(key)
  child=subprocess.Popen(c['command'],cwd=REPO,env=environment,start_new_session=True)
- bound=identity(child.pid);record=dict(run=c['run'],execution='native_SSH',node=node,gpu_uuid=gpu,admission_used_mib=used,admission_total_mib=total,admission_fraction=used/total,**bound)
+ bound=identity(child.pid);record=dict(started_at=time.time(),run=c['run'],execution='native_SSH',node=node,gpu_uuid=gpu,admission_used_mib=used,admission_total_mib=total,admission_fraction=used/total,**bound)
  state=R/'runs/p_recipe_20261113'/(c['run']+'_native.json')
  def save(**values):
   record.update(values);state.write_text(json.dumps(record,indent=2)+'\n')
@@ -52,5 +52,5 @@ def main():
     save(status='RUNNING' if ok else 'DISK_PAUSED')
    except ProcessLookupError:pass
   time.sleep(5)
- code=child.wait();save(status='COMPLETED' if code==0 else 'FAILED',exit_code=code,ended_at=time.time());return code
+ code=child.wait();save(status='COMPLETED' if code==0 else 'FAILED',exit_code=code,ended_at=time.time(),elapsed_seconds=time.time()-record['started_at']);return code
 if __name__=='__main__':raise SystemExit(main())
