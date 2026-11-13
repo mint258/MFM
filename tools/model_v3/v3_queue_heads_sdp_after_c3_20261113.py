@@ -34,7 +34,7 @@ if decision.get('status')!='CANDIDATE_GROUP_SELECTED' or decision.get('compariso
  raise ValueError('Require the actual completed registered C3 comparison')
 views=decision['selected']
 if views not in ('two','three'):raise ValueError('No implicit view winner')
-t1=json.loads((R/'results/model_v3_t1.json').read_text())
+t1=json.loads((R/'results/model_v3_t1_panel_v3.json').read_text())
 assert t1['provisional_latent']=='none' and len(t1['rows'])==10
 c3=json.loads((C/'C3_VIEWS_20261113/plan.json').read_text())
 assert c3['selected_C1']=='C1-0' and c3['selected_latent']=='none'

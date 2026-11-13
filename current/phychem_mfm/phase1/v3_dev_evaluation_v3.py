@@ -220,6 +220,17 @@ def evaluate(args,*,store_factory,encode):
   owner.close(success)
  _json(dict(status='PREDICTIONS_COMPLETE',panel='v3',statistics_complete=True,
   seconds=time.monotonic()-started),complete)
+ # The last real retrospective evaluation consumes its group's new summaries once.
+ retrospective_plan=REPO.parent/'runs/model_v31_20261105/RETROSPECTIVE_PANEL_V3_20261113/plan.json'
+ if retrospective_plan.is_file():
+  import subprocess,sys
+  attempt=subprocess.run([sys.executable,'-B',str(REPO/'tools/model_v3/v3_finish_reselection_20261113.py'),
+   '--plan',str(retrospective_plan),'--evaluation-output',str(output)],
+   cwd=REPO,capture_output=True,text=True)
+  if attempt.returncode:
+   with (retrospective_plan.parent/'aggregation_failures.jsonl').open('a') as stream:
+    stream.write(json.dumps(dict(output=str(output),returncode=attempt.returncode,
+     stdout=attempt.stdout,stderr=attempt.stderr,completed_panel_retained=True))+'\n')
  if stage in ('HEADS','POOLING'):
   from .v3_latent_evaluation import finish_heads_pooling_if_ready
   finish_heads_pooling_if_ready(output)

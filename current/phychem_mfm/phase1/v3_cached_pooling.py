@@ -28,6 +28,9 @@ def four_statistics(rows, n_ref):
 
 def evaluate_cached_pooling(c, *, store_factory):
     """One production, no encoder invocation or new data split."""
+    if c.get('panel') == 'v3':
+        from .v3_cached_pooling_v3 import evaluate_cached_pooling_v3
+        return evaluate_cached_pooling_v3(c, store_factory=store_factory)
     from .v3_latent_training import TrainingHistory
     from .v3_dev_evaluation_v2 import REPO
     output = Path(c['output'])

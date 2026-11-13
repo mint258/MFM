@@ -15,7 +15,7 @@ def main():
  if os.getuid()!=1278 or socket.gethostname().split('.')[0]!='compute-0-20':
   raise ValueError('Use the existing development node')
  os.chdir(R)
- c1=read(R/'results/model_v3_c1_final.json');t1=read(R/'results/model_v3_t1.json')
+ c1=read(R/'results/model_v3_c1_panel_v3.json');t1=read(R/'results/model_v3_t1_panel_v3.json')
  if c1['decision']['selected']!='C1-0' or t1['provisional_latent']!='none' or len(t1['rows'])!=10:
   raise ValueError('Bind the actual completed C1 and original-architecture result')
  views=selected(args.views,'views',{'two','three'})
@@ -53,7 +53,7 @@ def main():
   head_and_pooling_scientifically_active=False,baseline_S=baseline,panels=panels,
   scientific_grid=dict(learning_rates=list(LR),conditions=['S'],batch_size=32,
    samples=6000000,seed=0,schedule='cosine',clip=1.0),
-  selection_sources=dict(C1=str(R/'results/model_v3_c1_final.json'),latent=str(R/'results/model_v3_t1.json'),
+  selection_sources=dict(C1=str(R/'results/model_v3_c1_panel_v3.json'),latent=str(R/'results/model_v3_t1_panel_v3.json'),
    views=str(args.views)),planned_model_output=str(model_output),
   output_registration_and_actual_node_admission_required=True,gpu_jobs_submitted=False,
   model_and_recipe_frozen=False,full_S_P_selection_performed=False,
