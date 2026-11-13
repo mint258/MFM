@@ -1,0 +1,571 @@
+{
+  "phase": "FORWARD_V3_EVALUATIONS_ACTIVE_BASELINES_QUEUED",
+  "created_utc": "2026-11-13T01:09:53.569498+00:00",
+  "authority": "User20261113 explicitly requested U0 atomization and SoM report-only for current methods",
+  "retrospective_scope_pending": true,
+  "old_controller": {
+    "4530281": "JobId=4530281 JobName=v3-dev-C3-two-S UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294624539 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530280(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T02:52:19 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T02:52:19 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3286666 ReqNodeList=compute-0-0 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=16 NumTasks=1 CPUs/Task=16 ReqB:S:C:T=0:0:*:* TRES=cpu=16,mem=375000M,node=1,billing=16 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=16 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch dev /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0_dev.json GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332 /share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530281.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530281.log Power=",
+    "4530282": "JobId=4530282 JobName=v3-sdk-C3-two-S UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294614538 Nice=10000 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530280(unfulfilled),afterok:4530281(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T02:52:19 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T02:52:19 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3286666 ReqNodeList=compute-0-20 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:* TRES=cpu=1,mem=375000M,node=1,billing=1 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch archive_sdk /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_two_S_train_evaluation_closed_archive.json none /share/home/zixiao/.conda/envs/chemprop/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530282.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530282.log Power=",
+    "4530294": "JobId=4530294 JobName=v3-dev-C3-two-micro32 UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294624526 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530292(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T03:22:51 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T03:22:51 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3287618 ReqNodeList=compute-0-5 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=16 NumTasks=1 CPUs/Task=16 ReqB:S:C:T=0:0:*:* TRES=cpu=16,mem=375000M,node=1,billing=16 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=16 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch dev /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_dev.json GPU-dac07d74-6269-c7db-8832-340dd3c0b377 /share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530294.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530294.log Power=",
+    "4530295": "JobId=4530295 JobName=v3-sdk-C3-two-micro32 UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294614525 Nice=10000 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530292(unfulfilled),afterok:4530294(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T03:22:51 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T03:22:51 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3287618 ReqNodeList=compute-0-20 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:* TRES=cpu=1,mem=375000M,node=1,billing=1 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch archive_sdk /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_two_SDP_train_evaluation_closed_archive.json none /share/home/zixiao/.conda/envs/chemprop/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530295.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530295.log Power=",
+    "4530296": "JobId=4530296 JobName=v3-dev-C3-three-micro32 UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294624524 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530293(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T03:22:51 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T03:22:51 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3287618 ReqNodeList=compute-0-7 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=16 NumTasks=1 CPUs/Task=16 ReqB:S:C:T=0:0:*:* TRES=cpu=16,mem=375000M,node=1,billing=16 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=16 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch dev /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_dev.json GPU-9db54192-dd3f-3177-e56f-dcd161ff932c /share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530296.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530296.log Power=",
+    "4530297": "JobId=4530297 JobName=v3-sdk-C3-three-micro32 UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294614523 Nice=10000 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530293(unfulfilled),afterok:4530296(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T03:22:51 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T03:22:51 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3287618 ReqNodeList=compute-0-20 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:* TRES=cpu=1,mem=375000M,node=1,billing=1 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch archive_sdk /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_three_SDP_train_evaluation_closed_archive.json none /share/home/zixiao/.conda/envs/chemprop/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530297.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530297.log Power=",
+    "4530290": "JobId=4530290 JobName=v3-dev-HEADS-H1-D UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294624530 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530289(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T02:52:20 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T02:52:20 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3286666 ReqNodeList=compute-0-6 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=16 NumTasks=1 CPUs/Task=16 ReqB:S:C:T=0:0:*:* TRES=cpu=16,mem=375000M,node=1,billing=16 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=16 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch dev /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H1_D_seed0_dev.json GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef /share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530290.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530290.log Power=",
+    "4530291": "JobId=4530291 JobName=v3-sdk-HEADS-H1-D UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294614529 Nice=10000 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530289(unfulfilled),afterok:4530290(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T02:52:20 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T02:52:20 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3286666 ReqNodeList=compute-0-20 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:* TRES=cpu=1,mem=375000M,node=1,billing=1 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch archive_sdk /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/HEADS_H1_D_train_evaluation_closed_archive.json none /share/home/zixiao/.conda/envs/chemprop/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530291.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530291.log Power=",
+    "4530321": "JobId=4530321 JobName=v3-dev-H2-P-free5090 UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294624499 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530320(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T08:19:25 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T08:19:25 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3307939 ReqNodeList=compute-0-22 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=16 NumTasks=1 CPUs/Task=16 ReqB:S:C:T=0:0:*:* TRES=cpu=16,mem=375000M,node=1,billing=16 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=16 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch dev /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_P_seed0_dev.json GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef /share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530321.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530321.log Power=",
+    "4530322": "JobId=4530322 JobName=v3-sdk-H2-P-free5090 UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294614498 Nice=10000 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530320(unfulfilled),afterok:4530321(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T08:19:25 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T08:19:25 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3307939 ReqNodeList=compute-0-20 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:* TRES=cpu=1,mem=375000M,node=1,billing=1 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch archive_sdk /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_P_seed0_free5090_archive_20261113.json none /share/home/zixiao/.conda/envs/chemprop/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530322.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530322.log Power=",
+    "4530324": "JobId=4530324 JobName=v3-dev-H2-D-free5090 UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294624496 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530323(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T08:19:25 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T08:19:25 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3307939 ReqNodeList=compute-0-22 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=16 NumTasks=1 CPUs/Task=16 ReqB:S:C:T=0:0:*:* TRES=cpu=16,mem=375000M,node=1,billing=16 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=16 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch dev /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_D_seed0_dev.json GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef /share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530324.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530324.log Power=",
+    "4530325": "JobId=4530325 JobName=v3-sdk-H2-D-free5090 UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294614495 Nice=10000 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530323(unfulfilled),afterok:4530324(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T08:19:25 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T08:19:25 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3307939 ReqNodeList=compute-0-20 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:* TRES=cpu=1,mem=375000M,node=1,billing=1 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch archive_sdk /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_D_seed0_free5090_archive_20261113.json none /share/home/zixiao/.conda/envs/chemprop/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530325.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530325.log Power=",
+    "4530305": "JobId=4530305 JobName=v3-dev-H3-P UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294624515 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530304(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T03:27:12 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T03:27:12 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3287833 ReqNodeList=compute-0-0 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=16 NumTasks=1 CPUs/Task=16 ReqB:S:C:T=0:0:*:* TRES=cpu=16,mem=375000M,node=1,billing=16 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=16 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch dev /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_P_seed0_dev.json GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332 /share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530305.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530305.log Power=",
+    "4530306": "JobId=4530306 JobName=v3-sdk-H3-P UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294614514 Nice=10000 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530304(unfulfilled),afterok:4530305(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T03:27:12 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T03:27:12 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3287833 ReqNodeList=compute-0-20 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:* TRES=cpu=1,mem=375000M,node=1,billing=1 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch archive_sdk /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_P_seed0_archive.json none /share/home/zixiao/.conda/envs/chemprop/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530306.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530306.log Power=",
+    "4530308": "JobId=4530308 JobName=v3-dev-H3-D UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294624512 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530307(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T03:27:12 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T03:27:12 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3287833 ReqNodeList=compute-0-0 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=16 NumTasks=1 CPUs/Task=16 ReqB:S:C:T=0:0:*:* TRES=cpu=16,mem=375000M,node=1,billing=16 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=16 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch dev /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_D_seed0_dev.json GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332 /share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530308.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530308.log Power=",
+    "4530309": "JobId=4530309 JobName=v3-sdk-H3-D UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294614511 Nice=10000 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530307(unfulfilled),afterok:4530308(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T03:27:12 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T03:27:12 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3287833 ReqNodeList=compute-0-20 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:* TRES=cpu=1,mem=375000M,node=1,billing=1 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch archive_sdk /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_D_seed0_archive.json none /share/home/zixiao/.conda/envs/chemprop/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530309.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530309.log Power=",
+    "4530316": "JobId=4530316 JobName=v3-dev-H1-pool-P-free5090 UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294624504 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530315(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T04:43:50 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T04:43:50 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3290974 ReqNodeList=compute-0-21 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=16 NumTasks=1 CPUs/Task=16 ReqB:S:C:T=0:0:*:* TRES=cpu=16,mem=375000M,node=1,billing=16 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=16 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch dev /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0_dev.json GPU-c35f2434-9137-9723-1af5-dc69b6295243 /share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530316.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530316.log Power=",
+    "4530317": "JobId=4530317 JobName=v3-sdk-H1-pool-P-free5090 UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294614503 Nice=10000 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:4530315(unfulfilled),afterok:4530316(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-13T04:43:50 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T04:43:50 Scheduler=Main Partition=all AllocNode:Sid=compute-0-20:3290974 ReqNodeList=compute-0-20 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:* TRES=cpu=1,mem=375000M,node=1,billing=1 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_run_development.sbatch archive_sdk /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0_free5090_archive_20261113.json none /share/home/zixiao/.conda/envs/chemprop/bin/python WorkDir=/share/home/zixiao/descriptor_analysis/MFM_model_v3 StdErr=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530317.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/development_4530317.log Power="
+  },
+  "admission": [
+    {
+      "D6_remaining_forecast": 0,
+      "model_allocated_bytes": 45255315456,
+      "model_remaining_forecast": 54744684544,
+      "lustre": {
+        "filesystem": "/lfshome",
+        "available": 188654702592,
+        "required": 169334619136,
+        "age": 2.5153331756591797
+      },
+      "nfs": {
+        "filesystem": "/share",
+        "available": 152966549504,
+        "required": 131836912640,
+        "age": 1.8727891445159912
+      }
+    },
+    {
+      "D6_remaining_forecast": 0,
+      "model_allocated_bytes": 45255315456,
+      "model_remaining_forecast": 54744684544,
+      "lustre": {
+        "filesystem": "/lfshome",
+        "available": 188654702592,
+        "required": 169334619136,
+        "age": 1.5281527042388916
+      },
+      "nfs": {
+        "filesystem": "/share",
+        "available": 152966549504,
+        "required": 131836912640,
+        "age": 1.8841052055358887
+      }
+    }
+  ],
+  "old_plans": {
+    "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/plan.json": {
+      "status": "SUBMITTED_CHAINS_RELEASED",
+      "selected_C1": "C1-0",
+      "selected_latent": "none",
+      "selection_source": "/share/home/zixiao/descriptor_analysis/MFM_model_v3/results/model_v3_t1.json",
+      "seed": 0,
+      "source_roles": [
+        "train",
+        "train_inner_validation"
+      ],
+      "downstream_TEST_read": false,
+      "scientific_sample_budget": 6000000,
+      "effective_batch_size": 32,
+      "single_global_output_forecast": true,
+      "runs": [
+        {
+          "stage": "C3",
+          "arm": "two",
+          "condition": "S",
+          "node": "compute-0-0",
+          "gpu": "GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332",
+          "mode": "native_selected",
+          "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0.json",
+          "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0",
+          "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0_dev.json",
+          "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0/dev_eval_v2",
+          "gpu_peak_estimate_bytes": 14800000000,
+          "microbatch_size": 32,
+          "restarts": 0,
+          "taskbook_stage": 5,
+          "job": 4530280,
+          "evaluation_job": 4530281,
+          "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_two_S_train_evaluation_closed_archive.json",
+          "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/C3_two_S_train_evaluation_closed",
+          "archive_job": 4530282
+        },
+        {
+          "stage": "C3",
+          "arm": "two",
+          "condition": "SDP",
+          "node": "compute-0-5",
+          "gpu": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+          "mode": "selected",
+          "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_micro32_resume.json",
+          "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_micro32_resume_20261113",
+          "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_dev.json",
+          "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0/dev_eval_v2",
+          "gpu_peak_estimate_bytes": 22000000000,
+          "microbatch_size": 32,
+          "restarts": 0,
+          "taskbook_stage": 5,
+          "job": 4530292,
+          "evaluation_job": 4530294,
+          "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_two_SDP_train_evaluation_closed_archive.json",
+          "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/C3_two_SDP_train_evaluation_closed",
+          "archive_job": 4530295,
+          "partial_training_segments": [
+            {
+              "job": 4530283,
+              "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0",
+              "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0.json",
+              "state": "INTERRUPTED_FOR_EXECUTION_ONLY_CONTINUATION"
+            }
+          ],
+          "frozen_complete_resume": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0/micro32_resume_complete_20261113.pt",
+          "superseded_zero_work_followons": [
+            4530284,
+            4530285
+          ]
+        },
+        {
+          "stage": "C3",
+          "arm": "three",
+          "condition": "SDP",
+          "node": "compute-0-7",
+          "gpu": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+          "mode": "selected",
+          "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_micro32_resume.json",
+          "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_micro32_resume_20261113",
+          "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_dev.json",
+          "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/dev_eval_v2",
+          "gpu_peak_estimate_bytes": 22000000000,
+          "microbatch_size": 32,
+          "restarts": 0,
+          "taskbook_stage": 5,
+          "job": 4530293,
+          "evaluation_job": 4530296,
+          "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_three_SDP_train_evaluation_closed_archive.json",
+          "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/C3_three_SDP_train_evaluation_closed",
+          "archive_job": 4530297,
+          "partial_training_segments": [
+            {
+              "job": 4530286,
+              "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0",
+              "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0.json",
+              "state": "INTERRUPTED_FOR_EXECUTION_ONLY_CONTINUATION"
+            }
+          ],
+          "frozen_complete_resume": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/micro32_resume_complete_20261113.pt",
+          "superseded_zero_work_followons": [
+            4530287,
+            4530288
+          ]
+        }
+      ],
+      "reused_three_S": {
+        "run_id": "S_C1_0_seed0_v2",
+        "original_stage": "C1",
+        "output": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2",
+        "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2/samples_6000000.pt",
+        "panel": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_S_seed0/R3_summary.json",
+        "new_training_samples": 0,
+        "scientific_budget": 6000000
+      },
+      "estimated_GPU_hours": 50,
+      "report_above_GPU_hours": 75,
+      "ask_above_GPU_hours": 150,
+      "decision_manifest": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/decision_manifest.json"
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/plan.json": {
+      "status": "RELEASED_REQUIRED_H2_P_D_ON_EMPTY_GPU",
+      "selected_C1": "C1-0",
+      "selected_latent": "none",
+      "selection_source": "/share/home/zixiao/descriptor_analysis/MFM_model_v3/results/model_v3_t1.json",
+      "seed": 0,
+      "source_roles": [
+        "train",
+        "train_inner_validation"
+      ],
+      "downstream_TEST_read": false,
+      "scientific_sample_budget": 6000000,
+      "effective_batch_size": 32,
+      "single_global_output_forecast": true,
+      "runs": [
+        {
+          "stage": "HEADS",
+          "arm": "H1",
+          "condition": "D",
+          "node": "compute-0-6",
+          "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+          "mode": "selected",
+          "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H1_D_seed0.json",
+          "output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H1_D_seed0",
+          "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H1_D_seed0_dev.json",
+          "evaluation_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H1_D_seed0/dev_eval_v2",
+          "gpu_peak_estimate_bytes": 11000000000,
+          "microbatch_size": 32,
+          "restarts": 0,
+          "taskbook_stage": 5,
+          "job": 4530289,
+          "evaluation_job": 4530290,
+          "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/HEADS_H1_D_train_evaluation_closed_archive.json",
+          "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/HEADS_H1_D_train_evaluation_closed",
+          "archive_job": 4530291
+        },
+        {
+          "stage": "HEADS",
+          "arm": "H2",
+          "condition": "P",
+          "node": "compute-0-22",
+          "gpu": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+          "python": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+          "mode": "selected",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_P_seed0.json",
+          "output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H2_P_seed0",
+          "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_P_seed0_dev.json",
+          "evaluation_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H2_P_seed0/dev_eval_v2",
+          "restarts": 0,
+          "taskbook_stage": 5,
+          "execution_predecessor": null,
+          "structural_views_scientifically_active": false,
+          "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_P_seed0_free5090_archive_20261113.json",
+          "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/H2_P_seed0_train_evaluation_closed",
+          "superseded_zero_work_jobs": [
+            4530298,
+            4530299,
+            4530300
+          ],
+          "execution_reason": "Freshly empty5090 lane; same prescribed H2 P/D6M cells and scientific outputs",
+          "job": 4530320,
+          "evaluation_job": 4530321,
+          "archive_job": 4530322
+        },
+        {
+          "stage": "HEADS",
+          "arm": "H2",
+          "condition": "D",
+          "node": "compute-0-22",
+          "gpu": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+          "python": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+          "mode": "selected",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_D_seed0.json",
+          "output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H2_D_seed0",
+          "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_D_seed0_dev.json",
+          "evaluation_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H2_D_seed0/dev_eval_v2",
+          "restarts": 0,
+          "taskbook_stage": 5,
+          "execution_predecessor": 4530321,
+          "structural_views_scientifically_active": false,
+          "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_D_seed0_free5090_archive_20261113.json",
+          "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/H2_D_seed0_train_evaluation_closed",
+          "superseded_zero_work_jobs": [
+            4530301,
+            4530302,
+            4530303
+          ],
+          "execution_reason": "Freshly empty5090 lane; same prescribed H2 P/D6M cells and scientific outputs",
+          "job": 4530323,
+          "evaluation_job": 4530324,
+          "archive_job": 4530325
+        },
+        {
+          "stage": "HEADS",
+          "arm": "H3",
+          "condition": "P",
+          "node": "compute-0-0",
+          "gpu": "GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332",
+          "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "mode": "selected",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_P_seed0.json",
+          "output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H3_P_seed0",
+          "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_P_seed0_dev.json",
+          "evaluation_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H3_P_seed0/dev_eval_v2",
+          "restarts": 0,
+          "taskbook_stage": 5,
+          "execution_predecessor": 4530281,
+          "structural_views_scientifically_active": false,
+          "job": 4530304,
+          "evaluation_job": 4530305,
+          "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_P_seed0_archive.json",
+          "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/H3_P_seed0_train_evaluation_closed",
+          "archive_job": 4530306
+        },
+        {
+          "stage": "HEADS",
+          "arm": "H3",
+          "condition": "D",
+          "node": "compute-0-0",
+          "gpu": "GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332",
+          "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "mode": "selected",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_D_seed0.json",
+          "output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H3_D_seed0",
+          "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_D_seed0_dev.json",
+          "evaluation_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H3_D_seed0/dev_eval_v2",
+          "restarts": 0,
+          "taskbook_stage": 5,
+          "execution_predecessor": 4530305,
+          "structural_views_scientifically_active": false,
+          "job": 4530307,
+          "evaluation_job": 4530308,
+          "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_D_seed0_archive.json",
+          "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/H3_D_seed0_train_evaluation_closed",
+          "archive_job": 4530309
+        }
+      ],
+      "execution_reason": "Pure P/D do not call structural view builder; start prescribed H1/D while C3 views are pending.",
+      "view_metadata": "three, scientifically inactive in pure D; retain original metadata for reuse",
+      "remaining_heads_matrix": "H1/P original C1-0 P6M reuse; H1/SDP actual winning C3 reuse; H2/SDP,H3/SDP await actual C3 views.",
+      "estimated_GPU_hours": 115,
+      "report_above_GPU_hours": 172.5,
+      "ask_above_GPU_hours": 345,
+      "queued_independent_P_D_complete": true
+    },
+    "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/pooling_plan.json": {
+      "status": "RELEASED_REQUIRED_POOLING_ON_EMPTY_GPU",
+      "selected_C1": "C1-0",
+      "selected_latent": "none",
+      "runs": [
+        {
+          "stage": "POOLING",
+          "arm": "learned",
+          "condition": "P",
+          "node": "compute-0-21",
+          "gpu": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+          "python": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+          "mode": "selected",
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0.json",
+          "output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0",
+          "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0_dev.json",
+          "evaluation_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0/dev_eval_v2",
+          "restarts": 0,
+          "taskbook_stage": 5,
+          "execution_predecessor": null,
+          "structural_views_scientifically_active": false,
+          "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0_free5090_archive_20261113.json",
+          "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/POOL_H1_learned_P_seed0_train_evaluation_closed",
+          "superseded_zero_work_jobs": [
+            4530310,
+            4530311,
+            4530312
+          ],
+          "execution_reason": "Freshly empty5090 lane; prescribed independent H1 pooling P6M,science unchanged",
+          "job": 4530315,
+          "evaluation_job": 4530316,
+          "archive_job": 4530317
+        }
+      ],
+      "scientific_sample_budget": 6000000,
+      "effective_batch_size": 32,
+      "seed": 0,
+      "registry_reuse": {
+        "run_id": "P_C1_0_seed0_micro32_continuation_20261110",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/samples_6000000.pt",
+        "panel": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_P_seed0/R3_summary.json",
+        "scientific_samples": 6000000,
+        "new_samples": 0
+      },
+      "view_metadata": "three, scientifically inactive in pure P; H1 fixed by original pooling experiment",
+      "decision_manifest": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/pooling_decision_manifest.json"
+    }
+  },
+  "changed_files": [
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0_dev.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/C3_VIEWS_20261113__two_S_seed0_dev.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_two_S_train_evaluation_closed_sources.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/C3_VIEWS_20261113__C3_two_S_train_evaluation_closed_sources.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_dev.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/C3_VIEWS_20261113__two_SDP_seed0_dev.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_two_SDP_train_evaluation_closed_sources.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/C3_VIEWS_20261113__C3_two_SDP_train_evaluation_closed_sources.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_dev.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/C3_VIEWS_20261113__three_SDP_seed0_dev.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_three_SDP_train_evaluation_closed_sources.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/C3_VIEWS_20261113__C3_three_SDP_train_evaluation_closed_sources.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H1_D_seed0_dev.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__H1_D_seed0_dev.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/HEADS_H1_D_train_evaluation_closed_sources.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__HEADS_H1_D_train_evaluation_closed_sources.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_P_seed0_dev.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__H2_P_seed0_dev.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_P_seed0_free5090_sources_20261113.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__H2_P_seed0_free5090_sources_20261113.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_D_seed0_dev.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__H2_D_seed0_dev.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H2_D_seed0_free5090_sources_20261113.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__H2_D_seed0_free5090_sources_20261113.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_P_seed0_dev.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__H3_P_seed0_dev.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_P_seed0_closed_sdk_sources.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__H3_P_seed0_closed_sdk_sources.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_D_seed0_dev.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__H3_D_seed0_dev.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/H3_D_seed0_closed_sdk_sources.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__H3_D_seed0_closed_sdk_sources.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0_dev.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__POOL_H1_learned_P_seed0_dev.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0_free5090_sources_20261113.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__POOL_H1_learned_P_seed0_free5090_sources_20261113.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/plan.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/C3_VIEWS_20261113__plan.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/plan.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__plan.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/pooling_plan.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__pooling_plan.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/decision_manifest.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/C3_VIEWS_20261113__decision_manifest.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/pooling_decision_manifest.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/HEADS_V3_20261113__pooling_decision_manifest.json"
+    },
+    {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/MODEL_V3_latent_guard_recovery_20261111.json",
+      "backup": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/original/MODEL_V3_latent_guard_recovery_20261111.json"
+    }
+  ],
+  "baseline_runs": [
+    {
+      "condition": "S",
+      "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/reused_three_S_6M/dev_eval_v3",
+      "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2/samples_6000000.pt",
+      "reuse_predictions": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_S_seed0/predictions.json",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/S_baseline_dev.json",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/reused_three_S_6M/dev_eval_v3",
+      "mode": "dev",
+      "stage": "FORWARD_BASELINE",
+      "arm": "reused_C1_6M",
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+      "restated_original_training_samples": 6000000,
+      "new_training_samples": 0,
+      "selection_use": "future C3/heads/pooling baseline only",
+      "job": 4530326,
+      "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/S_baseline_sdk_archive.json",
+      "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/FORWARD_BASELINE_S_v3_evaluation_closed",
+      "archive_job": 4530327
+    },
+    {
+      "condition": "P",
+      "output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/reused_H1_P_6M/dev_eval_v3",
+      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/samples_6000000.pt",
+      "reuse_predictions": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_P_seed0/predictions.json",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/P_baseline_dev.json",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/reused_H1_P_6M/dev_eval_v3",
+      "mode": "dev",
+      "stage": "FORWARD_BASELINE",
+      "arm": "reused_C1_6M",
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+      "restated_original_training_samples": 6000000,
+      "new_training_samples": 0,
+      "selection_use": "future C3/heads/pooling baseline only",
+      "job": 4530328,
+      "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/P_baseline_sdk_archive.json",
+      "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/FORWARD_BASELINE_P_v3_evaluation_closed",
+      "archive_job": 4530329
+    }
+  ],
+  "pretraining_configuration_changed": false,
+  "old_scientific_results_preserved": true,
+  "evaluation_updates": {
+    "4530281": {
+      "old_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0/dev_eval_v2",
+      "new_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0/dev_eval_v3",
+      "training_job": 4530280
+    },
+    "4530294": {
+      "old_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0/dev_eval_v2",
+      "new_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0/dev_eval_v3",
+      "training_job": 4530292
+    },
+    "4530296": {
+      "old_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/dev_eval_v2",
+      "new_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/dev_eval_v3",
+      "training_job": 4530293
+    },
+    "4530290": {
+      "old_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H1_D_seed0/dev_eval_v2",
+      "new_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H1_D_seed0/dev_eval_v3",
+      "training_job": 4530289
+    },
+    "4530321": {
+      "old_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H2_P_seed0/dev_eval_v2",
+      "new_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H2_P_seed0/dev_eval_v3",
+      "training_job": 4530320
+    },
+    "4530324": {
+      "old_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H2_D_seed0/dev_eval_v2",
+      "new_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H2_D_seed0/dev_eval_v3",
+      "training_job": 4530323
+    },
+    "4530305": {
+      "old_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H3_P_seed0/dev_eval_v2",
+      "new_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H3_P_seed0/dev_eval_v3",
+      "training_job": 4530304
+    },
+    "4530308": {
+      "old_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H3_D_seed0/dev_eval_v2",
+      "new_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/H3_D_seed0/dev_eval_v3",
+      "training_job": 4530307
+    },
+    "4530316": {
+      "old_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0/dev_eval_v2",
+      "new_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0/dev_eval_v3",
+      "training_job": 4530315
+    }
+  },
+  "recovery_entries": 101
+}

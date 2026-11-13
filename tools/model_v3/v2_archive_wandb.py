@@ -50,7 +50,7 @@ def closed_roots(manifest, jobs):
 
 
 def pack_closed_runs(manifest, jobs, destination, name, *, capacity_check,
-                     root_resolver=None, archive_prefix='WANDB_20261110'):
+                     root_resolver=None, archive_prefix='WANDB_20261110', retained_partial_executions=()):
     if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*', name):
         raise ValueError('Use a plain archive name, without path separators')
     jobs = list(jobs)
@@ -89,13 +89,20 @@ def pack_closed_runs(manifest, jobs, destination, name, *, capacity_check,
             output.add(path, arcname=archive_prefix + '/' + relative, recursive=False)
     partial.rename(archive)
     value = dict(schema='MODEL_OFFLINE_WANDB_ARCHIVE_V1', jobs=jobs,
-        native_sdk_finished=True, archive=str(archive), bytes=archive.stat().st_size,
+        native_sdk_finished=not bool(retained_partial_executions), archive=str(archive), bytes=archive.stat().st_size,
         file_count=len(files), uncompressed_bytes=raw_bytes,
         source_tracking_root=str(tracking), files=[
             dict(path=archive_prefix + '/' + relative, bytes=size) for _, relative, size in files],
         symlinks=SYMLINK_NOTE, original_files_retained=True, cloud_synchronized=False,
         created_at=time.time(), elapsed_seconds=time.monotonic()-started)
     capacity_check(peak_bytes, len(files) + 2)
+    if retained_partial_executions:
+        value.update(closed_sdk_source_jobs=jobs, closed_sdk_sessions=len(jobs),
+            interrupted_raw_sdk_sessions=len(retained_partial_executions),
+            retained_partial_executions=list(retained_partial_executions),
+            sdk_status='CLOSED_SOURCES_PLUS_ORIGINAL_INTERRUPTED_RAW_SDK_BYTES',
+            partial_sdk_processing='Raw ordinary files retained; no normal finish or parsed system-report claim',
+            symlinks=SYMLINK_NOTE + ' Original interrupted raw SDK directories are retained without a finish claim.')
     pending = manifest_path.with_suffix(manifest_path.suffix + '.partial')
     with pending.open('x') as stream:
         stream.write(json.dumps(value, indent=2) + '\n')

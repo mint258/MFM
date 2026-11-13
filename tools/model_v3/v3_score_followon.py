@@ -38,8 +38,15 @@ def main():
         result = full_budget(curves)
     else:
         raise ValueError('Use a specified follow-on experiment group')
+    actual_panels = ([value for group in curves.values() for value in group.values()]
+                     if kind == 'convergence' else
+                     [value for group in panels.values() for value in group.values()])
+    versions = {value.get('panel') or 'v2' for value in actual_panels}
+    if 'v3' in versions and versions != {'v3'}:
+        raise ValueError('A group cannot mix old and atomization/report-only panel revisions')
+    panel_version = 'v3' if versions == {'v3'} else manifest.get('panel','v2')
     result.update(group=manifest['group'], input_manifest=str(args.manifest),
-        panel='v2', source_roles=['train', 'train_inner_validation'], downstream_TEST_read=False)
+        panel=panel_version, source_roles=['train', 'train_inner_validation'], downstream_TEST_read=False)
     _json(result, args.results)
     title = '# ' + manifest['group']
     lines = [title, '', 'Status: ' + result['status'], '',

@@ -1,6 +1,6 @@
 # Functional-group mechanism analysis (taskbook v3)
 
-Status: IMPLEMENTED_AWAITING_CANONICAL_INPUTS_AND_T1_P_CHECKPOINTS.
+Status: IMPLEMENTED_AWAITING_CANONICAL_INPUTS.
 This is a report-only T1 analysis. It cannot change module adoption, the
 development panel, enabled pretraining fields or D4.
 
@@ -69,3 +69,5 @@ Only Python AST and shell syntax were checked for this new entry. Actual first
 use is acceptance; no smoke run, extra data audit or repeated regression was
 added. The mandated single full regression remains reserved for final merge.
 No mechanism scores or complete-input delivery are claimed by this document.
+
+2026-11-13: the original A0/P evaluation4530187 and A3/P evaluation4530204 are both complete0:0. The producer will use their existing cache/configuration entries. Canonical28 SMARTS and the source-bound TRAIN bonded-structure map remain pending; no substitute definitions, bond inference, encoder rerun or mechanism job was introduced.

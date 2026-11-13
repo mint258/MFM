@@ -38,3 +38,7 @@ if [[ "$mode" == v31 || "$mode" == native_s ]]; then
         --job "$SLURM_JOB_ID" --node "$(hostname -s)" --gpu "$gpu_uuid"
 fi
 "$python" -B -u tools/model_v3/v2_run_development.py --mode "$mode" --configuration "$configuration"
+
+if [[ "$mode" == dev && -n "${MODEL_V3_FOLLOWON_PLAN:-}" ]]; then
+    "$python" -B "$root/runs/model_v31_20261105/MODEL_V3_finish_C3_20261113.py" "$MODEL_V3_FOLLOWON_PLAN"
+fi

@@ -1,0 +1,47 @@
+{
+    "phase":  "MICRO32_CONTINUATION_RELEASED",
+    "effective_batch":  32,
+    "sample_budget":  6000000,
+    "science_changed":  false,
+    "original_files_retained":  true,
+    "runs":  [
+                 {
+                     "old_job":  4530283,
+                     "new_job":  4530292,
+                     "condition":  "SDP",
+                     "views":  "two",
+                     "node":  "compute-0-5",
+                     "restored_samples":  32000,
+                     "restored_updates":  1000,
+                     "old_last_samples":  40640,
+                     "replayed_samples":  8640,
+                     "frozen_resume":  "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0/micro32_resume_complete_20261113.pt",
+                     "original_sdk_completion":  {
+                                                     "sdk_finished":  false,
+                                                     "interrupted":  true,
+                                                     "reason":  "Slurm all-process INT ended SDK before its finish marker"
+                                                 },
+                     "evaluation_job":  4530294,
+                     "archive_job":  4530295
+                 },
+                 {
+                     "old_job":  4530286,
+                     "new_job":  4530293,
+                     "condition":  "SDP",
+                     "views":  "three",
+                     "node":  "compute-0-7",
+                     "restored_samples":  32000,
+                     "restored_updates":  1000,
+                     "old_last_samples":  38976,
+                     "replayed_samples":  6976,
+                     "frozen_resume":  "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/micro32_resume_complete_20261113.pt",
+                     "original_sdk_completion":  {
+                                                     "sdk_finished":  false,
+                                                     "interrupted":  true,
+                                                     "reason":  "Slurm all-process INT ended SDK before its finish marker"
+                                                 },
+                     "evaluation_job":  4530296,
+                     "archive_job":  4530297
+                 }
+             ]
+}

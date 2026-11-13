@@ -1,0 +1,50 @@
+{
+  "status": "FORWARD_V3_EVALUATIONS_ACTIVE_BASELINES_QUEUED",
+  "runs": [
+    {
+      "condition": "S",
+      "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/reused_three_S_6M/dev_eval_v3",
+      "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2/samples_6000000.pt",
+      "reuse_predictions": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_S_seed0/predictions.json",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/S_baseline_dev.json",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/reused_three_S_6M/dev_eval_v3",
+      "mode": "dev",
+      "stage": "FORWARD_BASELINE",
+      "arm": "reused_C1_6M",
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+      "restated_original_training_samples": 6000000,
+      "new_training_samples": 0,
+      "selection_use": "future C3/heads/pooling baseline only",
+      "job": 4530326,
+      "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/S_baseline_sdk_archive.json",
+      "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/FORWARD_BASELINE_S_v3_evaluation_closed",
+      "archive_job": 4530327
+    },
+    {
+      "condition": "P",
+      "output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/reused_H1_P_6M/dev_eval_v3",
+      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/samples_6000000.pt",
+      "reuse_predictions": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_P_seed0/predictions.json",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/P_baseline_dev.json",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/reused_H1_P_6M/dev_eval_v3",
+      "mode": "dev",
+      "stage": "FORWARD_BASELINE",
+      "arm": "reused_C1_6M",
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+      "restated_original_training_samples": 6000000,
+      "new_training_samples": 0,
+      "selection_use": "future C3/heads/pooling baseline only",
+      "job": 4530328,
+      "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/FORWARD_PANEL_V3_20261113/P_baseline_sdk_archive.json",
+      "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/FORWARD_BASELINE_P_v3_evaluation_closed",
+      "archive_job": 4530329
+    }
+  ],
+  "new_pretraining_samples": 0,
+  "retrospective_selection_pending": true,
+  "panel": "v3"
+}

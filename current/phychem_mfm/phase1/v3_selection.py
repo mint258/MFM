@@ -5,7 +5,21 @@ import math
 import numpy as np
 
 
-def paired_difference(a, b, *, expected_task_count=9):
+def _primary_task_count(panels):
+    """Keep historical nine-task panels; accept only explicitly tagged new seven-task panels."""
+    panels = tuple(panels)
+    versions = {panel.get('panel') or 'v2' for panel in panels}
+    if 'v3' in versions:
+        from .v3_downstream_targets import PRIMARY_TASK_IDS
+        if versions != {'v3'} or any(
+                set(panel['tasks']) != set(PRIMARY_TASK_IDS)
+                or panel.get('SoM_selection_use') is not False for panel in panels):
+            raise ValueError('Do not mix panel revisions or substitute total U0/SoM for the seven tasks')
+        return 7
+    return 9
+
+
+def paired_difference(a, b, *, expected_task_count=None):
     """Condition-keyed complete primary panels from the existing common-draw bootstrap.
 
     Indexed draws, not separately estimated confidence-interval endpoints, are
@@ -15,6 +29,8 @@ def paired_difference(a, b, *, expected_task_count=9):
     if set(a)!=set(b) or not a:
         raise ValueError('The same complete compared conditions are required')
     conditions = sorted(a)
+    if expected_task_count is None:
+        expected_task_count = _primary_task_count([p[c] for p in (a,b) for c in conditions])
     exemplar = a[conditions[0]]['paired_bootstrap']
     if exemplar['samples']!=1000 or exemplar['seed']!=20261025 or exemplar['confidence']!=.95:
         raise ValueError('Taskbook-v3 fixed molecule bootstrap is required')
@@ -54,10 +70,11 @@ def select_candidate(panels, simplicity_order):
         raise ValueError('At least two declared candidates required')
     rank = {name:i for i,name in enumerate(simplicity_order)}
     conditions = set(next(iter(panels.values())))
+    expected_task_count = _primary_task_count([p for group in panels.values() for p in group.values()])
     if not conditions or any(set(v)!=conditions or
-            any(not p['complete'] or len(p['tasks'])!=9 for p in v.values())
+            any(not p['complete'] or len(p['tasks'])!=expected_task_count for p in v.values())
             for v in panels.values()):
-        raise ValueError('Rank only complete nine-task results in every compared condition')
+        raise ValueError('Rank only complete results under one explicit task-panel revision')
     scores = {name:float(np.mean([v['mean_normalized_improvement'] for v in conditions.values()]))
               for name,conditions in panels.items()}
     ordered = sorted(scores,key=lambda name:(-scores[name],rank[name]))
