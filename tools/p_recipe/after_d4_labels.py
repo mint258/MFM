@@ -1,4 +1,4 @@
-"""Fit A1/A2 after training parameters close while MAD may continue."""
+"""Fit A1/A2 using the same frozen 2026-11-07 base normalizations as all P runs."""
 import json,shlex,subprocess
 from pathlib import Path
 from after_d4 import wait_for_routes,set_normalizations

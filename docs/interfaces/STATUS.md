@@ -734,3 +734,11 @@ P′独立D4将用compute-0-20的/tmp/zixiao_p_recipe_D4_Pprime_20261113（4work
 2026-11-13 09:05UTC P-recipe CPU continuation: node20 Pprime D4 increases4->16 workers/nice10 using the same group checkpoints and scratch. Measured104 logical CPUs/28%idle/74.03GB MemAvailable; current four-worker maxRSS2.78GB, estimated incremental RSS~38GB leaves>20GB system RAM margin. Target GPU6345/49140MiB<=30%, CPU-only/noCUDA. Actual root275930087424B free, inode464398339; existing local peak forecast120GB/system reserve95.42GB unchanged. node21 PM7 remains16 workers/scratch forecast160GB. Other users' processes untouched; all new P training B128.
 
 2026-11-13 13:14UTC P-recipe readiness: reuse the existing publisher's separation of closed element-reference/exact-tail/moment parameters from pending MAD diagnostics. The study adds guarded one-shot TRAINING_READY exports and training_routes.json (training_normalizations_complete=true, D4_complete=false while MAD pending). P0/label fits can start after these parameter stages close; MAD continues on existing16-worker producers. Metadata waiters replaced at a verified no-launch boundary:3792435/3792436; D4 producers3628047/3336857 unchanged. Existing local160/120GB scratch forecasts,45GB P shared output peak and fixed B128 remain. No new P model training started.
+
+## 2026-11-14 P研究最新执行规则与D4预算解除
+
+用户已明确停止本次D4重算；323个分子仅从P专用TRAIN分子清单剔除（1194228分子）。整个P研究固定使用数据线window2_TRAIN_normalization_parameters_20261107_v1/routes.json，中途不切换；A1/A2自身变换仍在TRAIN拟合。旧D4生产者及等待器已按真实绑定身份停止，真实exit -15保留；经所有权与依赖核实，已清除本窗node21/node20独立D4 scratch共11249文件、178381381632已分配字节。原node21 160GB/node20 120GB本地D4峰值预留解除，共享P检查点45GB及系统/Slurm余量规则继续。
+
+空闲且满足当前准入条件的GPU优先顺序固定5090 > 4090 > 3090；新任务按此分配。20–22仍按实际UUID显存占用<=30%直接SSH，不使用sbatch、不操作其他用户进程；后续P训练固定B128/micro128。全局HPC技能已更新1.0.152。
+
+P0 D1、D3已真实exit0，D2与A1/A2拟合已启动；第一轮B0/3090作业4532406、A3/5090 PID3633440、A4/4090 PID3346967均已进入实际训练。B0早于最新优先级启动，继续原运行；后续臂按新优先级分配。第一轮按卡型的实测B128吞吐及整卡功耗见P日报2026-11-14与results/p_recipe/training/round1_B128_initial_throughput_power.csv。旧模型开发线仍终止，其他窗口任务不改动。

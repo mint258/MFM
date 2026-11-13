@@ -7,6 +7,25 @@ def identity(pid):
  path=Path('/proc')/str(pid);fields=(path/'stat').read_text().rsplit(')',1)[1].split()
  return dict(pid=pid,uid=path.stat().st_uid,start_ticks=int(fields[19]),pgid=os.getpgid(pid))
 
+def record_gpu_telemetry(configuration):
+ """Actual running-arm throughput context and whole-card power; no benchmark."""
+ c=configuration;output=Path(c['output']);samples=0;elapsed=None
+ try:
+  with (output/'losses.csv').open('rb') as source:
+   source.seek(max(0,source.seek(0,2)-8192));lines=source.read().decode().splitlines()
+  row=next(row for row in reversed(list(csv.reader(lines))) if len(row)==6 and row[0].isdigit())
+  samples=int(row[0]);elapsed=float(row[5])
+ except (FileNotFoundError,StopIteration,ValueError):pass
+ if samples<=0 or samples>=c['training_budget']:return
+ query=['nvidia-smi','--id='+c['gpu_uuid'],'--query-gpu=uuid,name,power.draw,utilization.gpu,memory.used','--format=csv,noheader,nounits']
+ gpu=next(csv.reader(subprocess.check_output(query,text=True,timeout=10).splitlines()))
+ path=REPO/'results/p_recipe/training'/c['run']/'gpu_telemetry.csv';path.parent.mkdir(parents=True,exist_ok=True)
+ exists=path.exists()
+ with path.open('a',newline='') as stream:
+  writer=csv.writer(stream)
+  if not exists:writer.writerow(['timestamp_utc_epoch','run','gpu_uuid','gpu_name','batch_size','samples','training_seconds','power_watts','utilization_percent','memory_used_mib'])
+  writer.writerow([time.time(),c['run'],gpu[0].strip(),gpu[1].strip(),c['batch_size'],samples,elapsed,*[v.strip() for v in gpu[2:]]])
+
 def main():
  p=argparse.ArgumentParser();p.add_argument('--configuration',required=True);a=p.parse_args();c=json.loads(Path(a.configuration).read_text())
  node=socket.gethostname().split('.')[0]
@@ -22,9 +41,6 @@ def main():
  def capacity():
   allocated,remaining=disk.model_growth_forecast()
   future=c.get('root_future_bytes',0)
-  if c.get('root_allocation_root'):
-   from watch_local_d4 import remaining as root_remaining
-   future=root_remaining(Path(c['root_allocation_root']),future)
   disk.m.require_capacity(disk.m.filesystem_status('/'),future,2000)
   disk.m.require_capacity(disk.m.filesystem_status(c['output']),remaining,10000)
   disk.m.require_capacity(disk.m.filesystem_status(R/'runs/model_v31_20261105'),67108864,1000)

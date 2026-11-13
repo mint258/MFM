@@ -1,21 +1,12 @@
-"""Start bounded P0 when repaired training parameters close; MAD may continue."""
+"""Start remaining P0 with the user's frozen data-line 2026-11-07 parameters."""
 import json,os,shlex,subprocess,time
 from pathlib import Path
 R=Path('/share/home/zixiao/descriptor_analysis');C=R/'runs/p_recipe_20261113'
-READY=Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/D4_REPAIRED/routes.json')
-TRAINING_READY=READY.with_name('training_routes.json')
+READY=Path('/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json')
 
 def wait_for_routes():
- print(json.dumps(dict(state='WAITING_FOR_CLOSED_TRAINING_PARAMETERS',pid=os.getpid(),
-     paths=[str(TRAINING_READY),str(READY)])),flush=True)
- while True:
-  for path in (TRAINING_READY,READY):
-   try:
-    routes=json.loads(path.read_text())
-    if routes.get('numeric_statistics_refitted') and (routes.get('training_normalizations_complete') or routes.get('D4_complete')):
-     return path
-   except (FileNotFoundError,json.JSONDecodeError):pass
-  time.sleep(30)
+ print(json.dumps(dict(state='USING_FROZEN_1107_NORMALIZATIONS',pid=os.getpid(),path=str(READY))),flush=True)
+ return READY
 
 def set_normalizations(path,routes):
  configuration=json.loads(path.read_text());configuration['normalizations']=str(routes)
