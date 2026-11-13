@@ -61,11 +61,16 @@ def main():
     parser.add_argument('--checkpoint', required=True)
     parser.add_argument('--output', required=True)
     parser.add_argument('--validation-index')
-    parser.add_argument('--panel',choices=('v1','v2'),default='v1')
+    parser.add_argument('--panel',choices=('v1','v2','v3'),default='v1')
     parser.add_argument('--reference-only',action='store_true')
+    parser.add_argument('--reuse-predictions')
+    parser.add_argument('--condition')
     parser.add_argument('--cache-root',default='/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/h0_cache')
     parser.add_argument('--store', default='/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json')
     args = parser.parse_args()
+    if args.panel=='v3':
+        from phychem_mfm.phase1.v3_dev_evaluation_v3 import evaluate
+        return evaluate(args,store_factory=RememberedStore,encode=encode_view)
     if args.panel=='v2':
         from phychem_mfm.phase1.v3_dev_evaluation_v2 import evaluate
         return evaluate(args,store_factory=RememberedStore,encode=encode_view)

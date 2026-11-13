@@ -59,6 +59,8 @@ def compare_report_only_panel(candidate,reference,**kwargs):
  expected=set(PRIMARY_TASK_IDS)|set(REPORT_ONLY_TASK_IDS)
  if set(candidate)!=expected or set(reference)!=expected:
   raise ValueError('Require exact seven molecular and two report-only SoM tasks')
+ if any(group[key].task.task_id!=key for group in (candidate,reference) for key in expected):
+  raise ValueError('Prediction task identity must match its new panel key; total U0 cannot be relabeled')
  main=compare_panel({key:candidate[key] for key in PRIMARY_TASK_IDS},
   {key:reference[key] for key in PRIMARY_TASK_IDS},**kwargs)
  report=compare_panel({key:candidate[key] for key in REPORT_ONLY_TASK_IDS},

@@ -17,6 +17,14 @@ def finish(group,plan_path,manifest_path,result,page,evaluation):
    path=Path(source);marker=path.parent/'producer_complete.json'
    if not path.is_file() or not marker.is_file():return
    if read(marker).get('status')!='PREDICTIONS_COMPLETE':return
+ revision=R/'configs/dev_panel_v3.json'
+ if revision.exists():
+  scope=read(revision)['authority']['retrospective_scope']
+  if (scope not in ('FORWARD_ONLY_KEEP_C1_T0_T1','REEVALUATE_C1_T0_T1')
+      or any(read(source).get('panel')!='v3'
+       for conditions in manifest['panels'].values() for source in conditions.values())):
+   print(group+' comparison deferred until the requested new panel and scope are ready',flush=True)
+   return
  with (H/(group+'_comparison.lock')).open('a') as lock:
   fcntl.flock(lock,fcntl.LOCK_EX)
   if result.exists():

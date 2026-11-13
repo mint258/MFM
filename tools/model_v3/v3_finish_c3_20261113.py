@@ -7,6 +7,16 @@ control=R.parent/'runs/model_v31_20261105'
 p=json.loads(plan_path.read_text())
 if not all((Path(row['evaluation_output'])/'producer_complete.json').exists() for row in p['runs']):
  raise SystemExit(0)
+# The user's new target/report-only policy applies to the next unfinished selection.
+revision=R/'configs/dev_panel_v3.json'
+if revision.exists():
+ scope=json.loads(revision.read_text())['authority']['retrospective_scope']
+ manifest=json.loads((C/'decision_manifest.json').read_text())
+ if (scope not in ('FORWARD_ONLY_KEEP_C1_T0_T1','REEVALUATE_C1_T0_T1')
+     or any(json.loads(Path(path).read_text()).get('panel')!='v3'
+      for group in manifest['panels'].values() for path in group.values())):
+  print('C3 comparison deferred until the requested new panel and scope are ready',flush=True)
+  raise SystemExit(0)
 with (C/'comparison.lock').open('a') as lock:
  fcntl.flock(lock,fcntl.LOCK_EX)
  result=R/'results/model_v3_c3_views.json';page=R/'docs/model_v3/M3_C3_RESULTS.md'
