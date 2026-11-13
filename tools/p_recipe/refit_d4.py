@@ -80,7 +80,10 @@ def fit(dataset,output,workers):
     checkpoint=root/'checkpoint.json'
     if checkpoint.exists():
         state=I.load(checkpoint)
-        if state['inputs']!=cfg:raise ValueError('Retain the original closed inputs when resuming D4')
+        scientific=lambda value:{k:v for k,v in value.items() if k!='workers'}
+        if scientific(state['inputs'])!=scientific(cfg):
+            raise ValueError('Retain the original closed inputs when resuming D4')
+        state['inputs']=cfg
     else:
         state=dict(inputs=cfg,purpose_index=0,pass_index=0,active_stage=None,groups={},results={})
         I.save(checkpoint,state)
@@ -98,6 +101,20 @@ def fit(dataset,output,workers):
                 state['active_stage']=I.save(stage_root/'stage.json',stage);state['groups']={};I.save(checkpoint,state)
             else:
                 stage=I.load_data(state['active_stage']);stage_root=Path(state['active_stage']['path']).parent
+            # A worker may finish before the interrupted parent records its reference.
+            # Reports are atomically published only after all group outputs close.
+            recovered={}
+            for g in groups:
+                key=str(g['group_index'])
+                if key in state['groups']:continue
+                for path in sorted(stage_root.glob('attempt_*/group_%04d/report.json'%g['group_index'])):
+                    try:report=I.load(path)
+                    except (OSError,ValueError):continue
+                    if report.get('group_index')!=g['group_index'] or report.get('statistics_purpose')!=purpose:continue
+                    state['groups'][key]=I.ref(path);recovered[key]=report;break
+            I.save(checkpoint,state)
+            print(json.dumps(dict(dataset=dataset,purpose=purpose,pass_index=state['pass_index'],
+                resumed_groups=len(state['groups']),recovered_groups=len(recovered),workers=workers)),flush=True)
             attempt=0
             while (stage_root/('attempt_%03d'%attempt)).exists():attempt+=1
             attempt_root=stage_root/('attempt_%03d'%attempt);attempt_root.mkdir()
@@ -107,7 +124,8 @@ def fit(dataset,output,workers):
                 key=pending[future];state['groups'][key]=future.result();I.save(checkpoint,state)
                 print(json.dumps(dict(dataset=dataset,purpose=purpose,pass_index=state['pass_index'],
                     closed_groups=len(state['groups']),groups=len(groups))),flush=True)
-            reports=[I.load_data(state['groups'][str(g['group_index'])]) for g in groups]
+            reports=[recovered[str(g['group_index'])] if str(g['group_index']) in recovered
+                     else I.load_data(state['groups'][str(g['group_index'])]) for g in groups]
             if purpose=='element_reference' and dataset=='Pprime':
                 models={str(f['field_id']):Original.B.merge_qr([r['energy_TSQR'][str(f['field_id'])]
                     for r in reports]) for f in fields if f['element_reference_eligible']}

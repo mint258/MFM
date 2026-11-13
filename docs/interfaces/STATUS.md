@@ -729,3 +729,4 @@ P′独立D4将用compute-0-20的/tmp/zixiao_p_recipe_D4_Pprime_20261113（4work
 ## 2026-11-13 P研究检查点固定留存/共享写入预算
 
 新P训练每500k样本保存独立samples_<n>.pt，保留全部已有点，不使用滚动恢复点覆盖；最多16条筛选×3点+7条确认×9点=111份，以每份300MB及6份并发临时文件估算新增约35.1GB。P阶段共享输出总预测改为45GB（包含已写P缓存），全模型峰值98569896448字节，独立PR6的8GB预留保持。compute-0-20实际预检：模型已分配50900611072B，全局剩余47669285376B；Lustre quota可用179904507904B/需要162259219968B，NFS可用143451877376B/需要131836912640B。100GB账户安全余量及全部节点磁盘/inode保护保持。根盘两个D4节点各120GB是独立本地文件系统预算，不加入共享输出重复计数。所有后续训练仍固定B128。
+2026-11-13 08:03UTC P-recipe resource update: node21 P_D D4 resumes its original logical-group checkpoints with 16 CPU workers (was8), nice10. Actual104 CPUs/51%idle/65.6GB MemAvailable; root702.42GB free, system reserve95.42GB, total scratch peak forecast raised120->160GB including retained attempts. node20 Pprime4 workers/scratch120GB unchanged. No other users' processes changed; P training remains fixed B128.
