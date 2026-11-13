@@ -35,3 +35,7 @@ Stop and archive further 1slg/1pts correspondence research. Rebuild source keys 
 - Paid school server `202264640132@202.38.252.202:22` is only for explicitly approved formal pretraining. Recover its existing sbatch workflow before submitting; never use it for development/tests.
 - Use the installed `huagong_hpc_requirement` skill for actual server operations. Do not modify/cancel others' tasks or unrelated active WP5 work.
 - Normalization and model selection use TRAIN only. Preserve official ExpansionRx membership and source atom IDs. PM7 energy is FINAL HEAT OF FORMATION (kcal/mol); charge is NET ATOMIC CHARGES (e).
+
+### 2026-11-13 P任务D6(d)科学停止，等待用户决定
+
+新P任务已经开始，旧任务仍不恢复。P任务D6(d)一次实际身份比较发现323个TRAIN/下游重叠分子，其中16个完整InChIKey精确重叠、307个仅既有WP5结构键重叠；按任务书9.3停止。新P训练未启动；六个未完成P任务评价作业已取消，结果保留。不得自行恢复P任务或调整TRAIN/D4，等待用户明确处理决定。结果见X:/MFM_p_recipe/docs/p_recipe/daily/2026-11-13.md及runs/p_recipe_20261113/D6_identity.json。独立PR6、数据线和PubChem未取消。

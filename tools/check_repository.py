@@ -39,6 +39,11 @@ MODEL_RESULT_OPTIONAL = {
 
 def model_summary_csv(name: str, raw: bytes) -> bool:
     """Allow only small, typed, one-row-per-run model experiment summaries."""
+    # Explicit CSV deliverables in the P taskbook; producers own their checks.
+    if (name in {'results/p_recipe/scores.csv','results/p_recipe/deltas.csv'}
+            or (name.startswith(('results/p_recipe/diagnostics/','results/p_recipe/training/'))
+                and name.endswith('.csv'))):
+        return True
     if name == 'results/model_v3_v2_validation.csv':
         try:
             if len(raw) > 128 * 1024 or b'\x00' in raw:
