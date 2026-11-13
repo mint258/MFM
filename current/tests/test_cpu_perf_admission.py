@@ -59,6 +59,35 @@ class AdmissionTests(unittest.TestCase):
         self.assertIsNone(plan)
 
 
+    def test_known_binding_reserves_only_one_card_on_a_dual_gpu_node(self):
+        a='GPU-aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+        b='GPU-22222222-2222-2222-2222-222222222222'
+        def command(argv):
+            if argv[0]=='squeue':return '13|PENDING|Dependency|v3-H2-P'
+            if argv[:3]==['scontrol','show','job']:
+                return 'ReqNodeList=compute-0-21 Command=runner config.json '+a.upper()
+            if argv[:3]==['scontrol','show','node']:return 'CPUTot=104 CPUAlloc=16 State=MIXED'
+            if argv[0]=='ssh':return a+', NVIDIA GeForce RTX 5090\n'+b+', NVIDIA GeForce RTX 5090'
+            self.fail(argv)
+        with patch.object(wait,'command',side_effect=command),patch.object(wait,'NODES',('compute-0-21',)):
+            plan,observations=wait.choose()
+        self.assertEqual(plan['gpu'],b)
+        self.assertEqual(observations[0]['reserved_gpus'],[a])
+
+    def test_pending_bound_card_is_not_taken_when_other_card_is_busy(self):
+        a='GPU-11111111-1111-1111-1111-111111111111'
+        b='GPU-22222222-2222-2222-2222-222222222222'
+        def command(argv):
+            if argv[0]=='squeue':return '13|PENDING|Dependency|v3-H2-P'
+            if argv[:3]==['scontrol','show','job']:
+                return 'ReqNodeList=compute-0-21 Command=runner config.json '+a
+            if argv[:3]==['scontrol','show','node']:return 'CPUTot=104 CPUAlloc=16 State=MIXED'
+            if argv[0]=='ssh':return a+', NVIDIA GeForce RTX 5090\n'+b+', NVIDIA GeForce RTX 5090\n'+b+', 999'
+            self.fail(argv)
+        with patch.object(wait,'command',side_effect=command),patch.object(wait,'NODES',('compute-0-21',)):
+            plan,_=wait.choose()
+        self.assertIsNone(plan)
+
 class SamplerReadinessTests(unittest.TestCase):
     def test_native_sampler_waits_for_post_warmup_data_row(self):
         runner_path=Path(__file__).parents[2]/'tools/model_v3/cpu_bottleneck_step1.py'

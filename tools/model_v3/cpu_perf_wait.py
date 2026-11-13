@@ -36,20 +36,26 @@ def publish(value):
 
 def choose():
     # Do not compete with the model line's already running or queued chains.
-    reserved=set()
+    reserved_nodes=set();reserved_gpus=set()
     for row in command(['squeue','-h','-u','zixiao','-o','%i|%T|%r|%j']).splitlines():
         job,state,reason,name=row.split('|',3)
         if name.startswith(('v3-cpu-perf','v3-sdk-')) or reason=='JobHeldUser':
             continue
         info=command(['scontrol','show','job',job,'--oneliner'])
         fields=dict(re.findall(r'(\w+)=([^ ]+)',info))
-        for field in ('ReqNodeList','NodeList'):
-            value=fields.get(field,'')
-            if value and value!='(null)':
-                reserved.update(command(['scontrol','show','hostnames',value]).splitlines())
+        assigned=set(re.findall(r'GPU-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',info))
+        if assigned:
+            # A dual-GPU node's other card remains eligible when truly idle.
+            reserved_gpus.update(uuid.lower() for uuid in assigned)
+        else:
+            # An unknown binding must not weaken protection of the model line.
+            for field in ('ReqNodeList','NodeList'):
+                value=fields.get(field,'')
+                if value and value!='(null)':
+                    reserved_nodes.update(command(['scontrol','show','hostnames',value]).splitlines())
     observations=[]
     for node in NODES:
-        if node in reserved:
+        if node in reserved_nodes:
             observations.append(dict(node=node,status='MODEL_LINE_RESERVED'))
             continue
         text=command(['scontrol','show','node',node,'--oneliner'])
@@ -69,9 +75,10 @@ def choose():
                 busy.add(parts[0])
             elif any(x in parts[1] for x in ('5090','4090','3090')):
                 gpus.append((parts[0],parts[1]))
-        observations.append(dict(node=node,free_cpu=free,gpus=gpus,busy=sorted(busy)))
+        observations.append(dict(node=node,free_cpu=free,gpus=gpus,busy=sorted(busy),
+                                 reserved_gpus=sorted(uuid for uuid,_ in gpus if uuid.lower() in reserved_gpus)))
         for uuid,name in gpus:
-            if uuid not in busy:
+            if uuid not in busy and uuid.lower() not in reserved_gpus:
                 cores=min(16,free)
                 return dict(node=node,gpu=uuid,name=name,cores=cores,
                             python=PYTHON118 if '3090' in name else PYTHON128),observations
