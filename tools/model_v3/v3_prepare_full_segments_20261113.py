@@ -11,7 +11,7 @@ def closed_evaluation(output):
  root=Path(output)
  marker=read(root/'producer_complete.json')
  if (marker.get('status')!='PREDICTIONS_COMPLETE'
-     or marker.get('statistics_complete') is not True):
+     or marker.get('statistics_complete') is not True or marker.get('panel')!='v3'):
   raise ValueError('Require the original completed v2 evaluation')
  return str(root/'R3_summary.json')
 def prepare_row(config,output,condition,endpoint):
@@ -21,7 +21,7 @@ def prepare_row(config,output,condition,endpoint):
  cp=output/(name+'.json');write(cp,config)
  ep=output/(name+'_dev.json')
  ev=dict(checkpoint=str(model_output/('samples_'+str(endpoint)+'.pt')),
-  output=str(model_output/'dev_eval_v2'),panel='v2',
+  output=str(model_output/'dev_eval_v3'),panel='v3',evaluation_scope='forward',
   cache_root=str(B/'LATENT_V3_20261111/readout_cache'))
  write(ep,ev)
  return dict(stage='FULL_TRAIN',arm=condition,condition=condition,mode='selected',

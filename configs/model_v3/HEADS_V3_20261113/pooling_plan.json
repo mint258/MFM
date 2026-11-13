@@ -1,0 +1,51 @@
+{
+  "status": "RELEASED_REQUIRED_POOLING_ON_EMPTY_GPU",
+  "selected_C1": "C1-0",
+  "selected_latent": "none",
+  "runs": [
+    {
+      "stage": "POOLING",
+      "arm": "learned",
+      "condition": "P",
+      "node": "compute-0-21",
+      "gpu": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+      "python": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+      "mode": "selected",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0",
+      "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0_dev.json",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0/dev_eval_v3",
+      "restarts": 0,
+      "taskbook_stage": 5,
+      "execution_predecessor": null,
+      "structural_views_scientifically_active": false,
+      "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0_free5090_archive_20261113.json",
+      "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/POOL_H1_learned_P_seed0_train_evaluation_closed",
+      "superseded_zero_work_jobs": [
+        4530310,
+        4530311,
+        4530312
+      ],
+      "execution_reason": "Freshly empty5090 lane; prescribed independent H1 pooling P6M,science unchanged",
+      "job": 4530315,
+      "evaluation_job": 4530316,
+      "archive_job": 4530317,
+      "historical_v2_evaluation_output": "/lfshome/zixiao/model_v31_20261105/HEADS_V3_20261113/POOL_H1_learned_P_seed0/dev_eval_v2"
+    }
+  ],
+  "scientific_sample_budget": 6000000,
+  "effective_batch_size": 32,
+  "seed": 0,
+  "registry_reuse": {
+    "run_id": "P_C1_0_seed0_micro32_continuation_20261110",
+    "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/samples_6000000.pt",
+    "panel": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_P_seed0/R3_summary.json",
+    "scientific_samples": 6000000,
+    "new_samples": 0
+  },
+  "view_metadata": "three, scientifically inactive in pure P; H1 fixed by original pooling experiment",
+  "decision_manifest": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/HEADS_V3_20261113/pooling_decision_manifest.json",
+  "development_panel": "v3",
+  "evaluation_scope": "forward",
+  "historical_C1_T0_T1_reselection": "WAITING_USER_SCOPE_REPLY"
+}

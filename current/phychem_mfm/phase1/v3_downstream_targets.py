@@ -13,6 +13,13 @@ REPORT_ONLY_TASK_IDS=('cyp.3A4','cyp.2D6')
 PRIMARY_TASK_IDS=('exp.LogD','exp.Log_HLM_CLint','exp.LogS',
  ATOMIZATION_TASK_ID,'qm9.homo','qm9.lumo','qm9.alpha')
 
+def evaluation_scope_ready(panel,evaluation_scope):
+ """The new future method is requested; historical reselection remains a separate question."""
+ scope=panel['authority']['retrospective_scope']
+ if scope in ('FORWARD_ONLY_KEEP_C1_T0_T1','REEVALUATE_C1_T0_T1'):return True
+ return (evaluation_scope=='forward'
+  and panel['authority'].get('forward_evaluation_requested') is True)
+
 def qm9_u0_atomization(u0,element_ids,*,element_index_base):
  """U0-sum(atom references),including every native H; no per-atom division."""
  if element_index_base not in (0,1):

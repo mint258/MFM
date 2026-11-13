@@ -19,8 +19,13 @@ def finish(group,plan_path,manifest_path,result,page,evaluation):
    if read(marker).get('status')!='PREDICTIONS_COMPLETE':return
  revision=R/'configs/dev_panel_v3.json'
  if revision.exists():
-  scope=read(revision)['authority']['retrospective_scope']
-  if (scope not in ('FORWARD_ONLY_KEEP_C1_T0_T1','REEVALUATE_C1_T0_T1')
+  policy=read(revision)
+  scope=policy['authority']['retrospective_scope']
+  if scope=='REEVALUATE_C1_T0_T1' and policy['authority'].get('reselection_status')!='COMPLETE_MATCHES_CURRENT_RUNNING_ARCHITECTURE':
+   print(group+' selection waits for actual new C1/T1 reselection and architecture compatibility',flush=True)
+   return
+  if ((scope not in ('FORWARD_ONLY_KEEP_C1_T0_T1','REEVALUATE_C1_T0_T1')
+       and not policy['authority'].get('forward_evaluation_requested'))
       or any(read(source).get('panel')!='v3'
        for conditions in manifest['panels'].values() for source in conditions.values())):
    print(group+' comparison deferred until the requested new panel and scope are ready',flush=True)

@@ -41,7 +41,7 @@ def main():
   cp=output/(name+'.json');write(cp,cfg)
   ep=output/(name+'_dev.json')
   ev=dict(checkpoint=str(Path(cfg['output'])/'samples_6000000.pt'),
-   output=str(Path(cfg['output'])/'dev_eval_v2'),panel='v2',
+   output=str(Path(cfg['output'])/'dev_eval_v3'),panel='v3',evaluation_scope='forward',
    cache_root=str(B/'LATENT_V3_20261111/readout_cache'))
   write(ep,ev);panels[candidate]={'S':ev['output']+'/R3_summary.json'}
   rows.append(dict(stage='M4_LR',arm=candidate,condition='S',mode='native_selected',

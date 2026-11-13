@@ -49,7 +49,7 @@ def prepare(args,initial,selection):
    cp=output/(name+'.json');write(cp,cfg)
    ep=output/(name+'_dev.json')
    ev=dict(checkpoint=str(Path(cfg['output'])/'samples_6000000.pt'),
-    output=str(Path(cfg['output'])/'dev_eval_v2'),panel='v2',
+    output=str(Path(cfg['output'])/'dev_eval_v3'),panel='v3',evaluation_scope='forward',
     cache_root=str(B/'LATENT_V3_20261111/readout_cache'))
    write(ep,ev)
    panels[candidate][condition]=ev['output']+'/R3_summary.json'
@@ -98,7 +98,7 @@ def select_batch(args,initial,selection):
   initial_selection=str(args.initial_selection),batch_plan=str(args.batch_plan),
   selected_C1=initial['selected_C1'],selected_latent=initial['selected_latent'],
   selected_views=initial['selected_views'],selected_head=initial['selected_head'],
-  selected_pooling=initial['selected_pooling'],panel='v2',primary='R3',
+  selected_pooling=initial['selected_pooling'],panel='v3',evaluation_scope='forward',primary='R3',
   source_roles=['train','train_inner_validation'],downstream_TEST_read=False,
   model_and_recipe_frozen=False)
  _json(result,args.results)

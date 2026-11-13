@@ -9,7 +9,7 @@ def read(path):
  return json.loads(Path(path).read_text())
 def selected(path,comparison,allowed):
  result=read(path)
- if (result.get('status')!='CANDIDATE_GROUP_SELECTED' or result.get('comparison')!=comparison
+ if (result.get('status')!='CANDIDATE_GROUP_SELECTED' or result.get('panel')!='v3' or result.get('comparison')!=comparison
      or result.get('selected') not in allowed):
   raise ValueError('Require the actual closed '+comparison+' selection: '+str(path))
  return result['selected']
@@ -115,7 +115,7 @@ def main():
    configuration=output/(name+'.json');write(configuration,cfg)
    evaluation=output/(name+'_dev.json')
    ev=dict(checkpoint=str(Path(cfg['output'])/'samples_6000000.pt'),
-    output=str(Path(cfg['output'])/'dev_eval_v2'),panel='v2',
+    output=str(Path(cfg['output'])/'dev_eval_v3'),panel='v3',evaluation_scope='forward',
     cache_root=str(B/'LATENT_V3_20261111/readout_cache'))
    write(evaluation,ev)
    panels[candidate][condition]=ev['output']+'/R3_summary.json'

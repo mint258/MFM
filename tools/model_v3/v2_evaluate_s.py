@@ -65,6 +65,7 @@ def main():
     parser.add_argument('--reference-only',action='store_true')
     parser.add_argument('--reuse-predictions')
     parser.add_argument('--condition')
+    parser.add_argument('--evaluation-scope',choices=('forward','retrospective'))
     parser.add_argument('--cache-root',default='/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/h0_cache')
     parser.add_argument('--store', default='/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json')
     args = parser.parse_args()

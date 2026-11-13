@@ -24,7 +24,7 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0.json",
       "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0",
       "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0_dev.json",
-      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0/dev_eval_v2",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0/dev_eval_v3",
       "gpu_peak_estimate_bytes": 14800000000,
       "microbatch_size": 32,
       "restarts": 0,
@@ -33,7 +33,8 @@
       "evaluation_job": 4530281,
       "archive_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/C3_two_S_train_evaluation_closed_archive.json",
       "archive_output": "/lfshome/zixiao/model_v31_20261105/WANDB_ARCHIVES_20261111/C3_two_S_train_evaluation_closed",
-      "archive_job": 4530282
+      "archive_job": 4530282,
+      "historical_v2_evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_S_seed0/dev_eval_v2"
     },
     {
       "stage": "C3",
@@ -46,7 +47,7 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_micro32_resume.json",
       "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_micro32_resume_20261113",
       "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0_dev.json",
-      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0/dev_eval_v2",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0/dev_eval_v3",
       "gpu_peak_estimate_bytes": 22000000000,
       "microbatch_size": 32,
       "restarts": 0,
@@ -68,7 +69,8 @@
       "superseded_zero_work_followons": [
         4530284,
         4530285
-      ]
+      ],
+      "historical_v2_evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/two_SDP_seed0/dev_eval_v2"
     },
     {
       "stage": "C3",
@@ -81,7 +83,7 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_micro32_resume.json",
       "output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_micro32_resume_20261113",
       "evaluation_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0_dev.json",
-      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/dev_eval_v2",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/dev_eval_v3",
       "gpu_peak_estimate_bytes": 22000000000,
       "microbatch_size": 32,
       "restarts": 0,
@@ -103,7 +105,8 @@
       "superseded_zero_work_followons": [
         4530287,
         4530288
-      ]
+      ],
+      "historical_v2_evaluation_output": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/three_SDP_seed0/dev_eval_v2"
     }
   ],
   "reused_three_S": {
@@ -111,12 +114,17 @@
     "original_stage": "C1",
     "output": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2",
     "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2/samples_6000000.pt",
-    "panel": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_S_seed0/R3_summary.json",
+    "panel": "/lfshome/zixiao/model_v31_20261105/C3_VIEWS_20261113/reused_three_S_6M/dev_eval_v3/R3_summary.json",
     "new_training_samples": 0,
-    "scientific_budget": 6000000
+    "scientific_budget": 6000000,
+    "historical_v2_panel": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_S_seed0/R3_summary.json",
+    "forward_evaluation_job": 4530326
   },
   "estimated_GPU_hours": 50,
   "report_above_GPU_hours": 75,
   "ask_above_GPU_hours": 150,
-  "decision_manifest": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/decision_manifest.json"
+  "decision_manifest": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/C3_VIEWS_20261113/decision_manifest.json",
+  "development_panel": "v3",
+  "evaluation_scope": "forward",
+  "historical_C1_T0_T1_reselection": "WAITING_USER_SCOPE_REPLY"
 }

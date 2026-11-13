@@ -1,6 +1,6 @@
 {
     "schema":  "model_v3_dev_panel_v3",
-    "status":  "FROZEN_TARGET_AND_REPORT_ONLY_RULES_RETROSPECTIVE_SCOPE_PENDING",
+    "status":  "ACTIVE_FORWARD_AND_RETROSPECTIVE_REEVALUATION",
     "decisions_fixed_on":  "2026-11-13",
     "timezone":  "Asia/Shanghai",
     "authority":  {
@@ -18,7 +18,11 @@
                       "research_mainline":  "docs/RESEARCH_MAINLINE.md",
                       "mainline_scope":  "E0 only; E1 grid choices await mainline D4; E2 formal seed count awaits D6 (mainline min3), no formal pretraining here.",
                       "target_revision_user_instruction":  "U0就改为原子化能，SOM只报告",
-                      "retrospective_scope":  "AWAITING_USER_RESPONSE_EXISTING_C1_T0_T1_DECISIONS"
+                      "retrospective_scope":  "REEVALUATE_C1_T0_T1",
+                      "forward_evaluation_requested":  true,
+                      "forward_authority":  "User20261113 requested current downstream U0 atomization and SoM report-only; historical reselection remains a separate pending scope question",
+                      "retrospective_user_answer":  "连C1/T0/T1也按新口径重评并重新选型",
+                      "reselection_status":  "PENDING_C1_THEN_T0_T1"
                   },
     "tasks":  [
                   {
@@ -434,7 +438,7 @@
                                                                     "rtol":  0.00001
                                                                 }
                                                      },
-                            "activation":  "Pending retrospective-scope response; existing v2 evaluator and all queued evaluation jobs remain unchanged"
+                            "activation":  "Forward evaluations active; C1/T0/T1 historical reselection awaits answer,with no default chosen"
                         },
     "parent_panel":  "configs/dev_panel_v2.json",
     "decision":  {

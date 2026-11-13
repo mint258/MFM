@@ -69,7 +69,7 @@ state=dict(phase='PREPARING_REQUIRED_SELECTED_VIEW_SDP_HEADS',
  rows=[],admission=admission,original_files_retained=True,
  H1_P_reuse=dict(run_id='P_C1_0_seed0_micro32_continuation_20261110',
   checkpoint=str(B/'P_C1_0_seed0_micro32_continuation_20261110/samples_6000000.pt'),
-  panel=str(B/'DEV_PANEL_V2_20261111/C1-0_P_seed0/R3_summary.json'),scientific_samples=6000000,new_samples=0),
+  panel=str(B/'HEADS_V3_20261113/reused_H1_P_6M/dev_eval_v3/R3_summary.json'),scientific_samples=6000000,new_samples=0),
  H1_SDP_reuse=dict(job=winner['job'],checkpoint=str(Path(winner['output'])/'samples_6000000.pt'),
   panel=winner['evaluation_output']+'/R3_summary.json',scientific_samples=6000000,new_samples=0))
 save(J,state)
@@ -81,7 +81,7 @@ for arm,node,gpu in specs:
  cfg.pop('resume',None)
  cp=H/(name+'.json');save(cp,cfg)
  ep=H/(name+'_dev.json');ev=dict(checkpoint=str(output/'samples_6000000.pt'),
-  output=str(output/'dev_eval_v2'),panel='v2',cache_root=str(B/'LATENT_V3_20261111/readout_cache'))
+  output=str(output/'dev_eval_v3'),panel='v3',evaluation_scope='forward',cache_root=str(B/'LATENT_V3_20261111/readout_cache'))
  save(ep,ev)
  row=dict(stage='HEADS',arm=arm,condition='SDP',node=node,gpu=gpu,python=PY,mode='selected',
   configuration=str(cp),output=str(output),evaluation_configuration=str(ep),evaluation_output=ev['output'],

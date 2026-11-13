@@ -53,9 +53,9 @@ def command(mode, configuration, configuration_path, *, python=sys.executable):
                 argv += ['--' + name.replace('_', '-'), str(configuration[name])]
         return argv
     if mode == 'dev':
-        if set(configuration) - {'checkpoint', 'output', 'validation_index','panel','reference_only','cache_root','reuse_predictions','condition'} or not configuration.get('checkpoint'):
+        if set(configuration) - {'checkpoint', 'output', 'validation_index','panel','reference_only','cache_root','reuse_predictions','condition','evaluation_scope'} or not configuration.get('checkpoint'):
             raise ValueError('Use the existing development panel inputs')
-        if any(key in configuration for key in ('reuse_predictions','condition')) and configuration.get('panel')!='v3':
+        if any(key in configuration for key in ('reuse_predictions','condition','evaluation_scope')) and configuration.get('panel')!='v3':
             raise ValueError('New panel inputs require the explicit panel-v3 route')
         argv = prefix + ['tools/model_v3/v2_evaluate_s.py', '--checkpoint',
             str(configuration['checkpoint']), '--output', str(output)]

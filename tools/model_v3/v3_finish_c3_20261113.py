@@ -10,9 +10,14 @@ if not all((Path(row['evaluation_output'])/'producer_complete.json').exists() fo
 # The user's new target/report-only policy applies to the next unfinished selection.
 revision=R/'configs/dev_panel_v3.json'
 if revision.exists():
- scope=json.loads(revision.read_text())['authority']['retrospective_scope']
+ policy=json.loads(revision.read_text())
+ scope=policy['authority']['retrospective_scope']
+ if scope=='REEVALUATE_C1_T0_T1' and policy['authority'].get('reselection_status')!='COMPLETE_MATCHES_CURRENT_RUNNING_ARCHITECTURE':
+  print('C3 selection waits for actual new C1/T1 reselection and architecture compatibility',flush=True)
+  raise SystemExit(0)
  manifest=json.loads((C/'decision_manifest.json').read_text())
- if (scope not in ('FORWARD_ONLY_KEEP_C1_T0_T1','REEVALUATE_C1_T0_T1')
+ if ((scope not in ('FORWARD_ONLY_KEEP_C1_T0_T1','REEVALUATE_C1_T0_T1')
+      and not policy['authority'].get('forward_evaluation_requested'))
      or any(json.loads(Path(path).read_text()).get('panel')!='v3'
       for group in manifest['panels'].values() for path in group.values())):
   print('C3 comparison deferred until the requested new panel and scope are ready',flush=True)

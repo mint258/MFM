@@ -10,7 +10,7 @@ from .v3_dev_evaluation_v2 import (_json,_pack,_unpack,ProbeHistory,BASE,REPO,DA
 from .v3_latent_evaluation import (_probe,feature_cache,cached_rows,z_rows)
 from .v3_latent_training import TrainingHistory
 from .v3_downstream_targets import (ATOMIZATION_TASK_ID,atomization_rows,
- compare_report_only_panel,PRIMARY_TASK_IDS)
+ compare_report_only_panel,PRIMARY_TASK_IDS,evaluation_scope_ready)
 
 def rows_for(view,cached,task,role):
  return (atomization_rows if task.task_id==ATOMIZATION_TASK_ID else task_rows)(
@@ -118,8 +118,8 @@ def reference_files(config,spec,views,tasks,root,encode,history):
 def evaluate(args,*,store_factory,encode):
  panel=json.loads((REPO/'configs/dev_panel_v3.json').read_text())
  scope=panel['authority']['retrospective_scope']
- if scope not in ('FORWARD_ONLY_KEEP_C1_T0_T1','REEVALUATE_C1_T0_T1'):
-  raise ValueError('Wait for the actual user retrospective-scope answer before panel-v3 evaluation')
+ if not evaluation_scope_ready(panel,getattr(args,'evaluation_scope',None)):
+  raise ValueError('Retrospective scope is pending; only explicitly requested forward evaluation is active')
  from importlib.util import spec_from_file_location,module_from_spec
  spec_loader=spec_from_file_location('existing_development_registry',REPO/'tools/model_v3/v2_run_development.py')
  registry=module_from_spec(spec_loader);spec_loader.loader.exec_module(registry)
@@ -145,7 +145,8 @@ def evaluate(args,*,store_factory,encode):
  stage=config.get('stage','C1');arm=config.get('arm',config['distance_bias'])
  output.mkdir(parents=True,exist_ok=True)
  _json(dict(checkpoint=str(args.checkpoint),panel='v3',retrospective_scope=scope,
-  stage=stage,arm=arm,condition=config['condition'],cache_root=str(root)),output/'configuration.json')
+  stage=stage,arm=arm,condition=config['condition'],cache_root=str(root),
+  evaluation_scope=getattr(args,'evaluation_scope',None)),output/'configuration.json')
  store=store_factory(args.store)
  views={dataset:GroupedTrainingView(store,dataset,
   'official' if dataset=='expansionrx' else '0',store.group_map) for dataset in DATASETS}

@@ -43,6 +43,16 @@ class SevenTaskSelectionTest(unittest.TestCase):
    compare_report_only_panel(candidate,reference,architecture_sha256='same',
     reference_architecture_sha256='same')
 
+ def test_forward_request_does_not_implicitly_authorize_historical_reselection(self):
+  from phychem_mfm.phase1.v3_downstream_targets import evaluation_scope_ready
+  panel={'authority':{'retrospective_scope':'AWAITING_USER',
+   'forward_evaluation_requested':True}}
+  self.assertTrue(evaluation_scope_ready(panel,'forward'))
+  self.assertFalse(evaluation_scope_ready(panel,'retrospective'))
+  self.assertFalse(evaluation_scope_ready(panel,None))
+  panel['authority']['forward_evaluation_requested']=False
+  self.assertFalse(evaluation_scope_ready(panel,'forward'))
+
  def test_pending_scope_cannot_open_checkpoint_labels_or_start_encoding(self):
   from phychem_mfm.phase1 import v3_dev_evaluation_v3 as producer
   store_factory=Mock(side_effect=AssertionError('No source store before scope'))
