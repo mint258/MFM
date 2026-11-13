@@ -1,0 +1,103 @@
+{
+  "status": "PASS",
+  "job": "4530454",
+  "node": "compute-0-22",
+  "source_revision": "795286891516f9f76f956cf30eacc31a8935e61d",
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "continued_from_job": "4530452",
+  "pytest_processes": 4,
+  "test_file_count": 174,
+  "counts": {
+    "tests": 3555,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 4
+  },
+  "admission": {
+    "existing_forecasts": {
+      "available_bytes": 185333985280,
+      "required_bytes": 130309176320,
+      "mainline_allocated_bytes": 45471641600,
+      "mainline_remaining_forecast": 11917760512,
+      "own_allocated_bytes": 4198518784,
+      "own_remaining_forecast": 3801481216,
+      "other_remaining_forecast": 6000000000
+    },
+    "regression_allocated": 0,
+    "nfs_available": 143461363712,
+    "nfs_required": 139836912640
+  },
+  "final_capacity": {
+    "existing_forecasts": {
+      "available_bytes": 185333985280,
+      "required_bytes": 130309176320,
+      "mainline_allocated_bytes": 45471641600,
+      "mainline_remaining_forecast": 11917760512,
+      "own_allocated_bytes": 4198518784,
+      "own_remaining_forecast": 3801481216,
+      "other_remaining_forecast": 6000000000
+    },
+    "regression_allocated": 786432,
+    "nfs_available": 143460655104,
+    "nfs_required": 139836126208
+  },
+  "partitions": [],
+  "private_storage": {
+    "last": {
+      "bytes": 494,
+      "root_bytes": {
+        "/tmp/mv3n_4530454": 494
+      },
+      "entries": 7
+    },
+    "sampled_max_bytes": 166944,
+    "sampled_growth_above_initial_bytes": 166450,
+    "samples": 94,
+    "sample_interval_seconds": 0.5,
+    "exact_peak": false,
+    "first_sampling_failure": null,
+    "budget_bytes": 2147483648
+  },
+  "raw_root": "/share/home/zixiao/descriptor_analysis/runs/model_v3_cpu_perf_20261112/regression_4530454",
+  "github_runtime_source_commit": "73cbdb2ddaaddfccb28f921d0a1ecf4efbae0382",
+  "skip_reasons": [
+    {
+      "module": "tests.test_cpu_perf_recompute",
+      "name": "test_checkpoint_policy_preserves_function_gradients_rng_and_state",
+      "reason": "No-recomputation candidate rejected by job4530319; original implementation restored"
+    },
+    {
+      "module": "tests.test_model_v3_transfer",
+      "name": "test_custom_batch_pin_protocol_and_nonblocking_cuda_transfer",
+      "reason": "Actual pinned-memory transfer requires a visible CUDA device"
+    },
+    {
+      "module": "tests.test_model_v3_native_s_source_interop",
+      "name": "test_actual_native_TRAIN_and_fixed_PRETRAIN_VAL_reader_bridge_and_close",
+      "reason": "actual native corpus test requires explicit Root data admission"
+    },
+    {
+      "module": "tests.test_model_v3_native_bond_transport",
+      "name": "test_pinned_bond_arrays_and_nonblocking_cuda_transfer",
+      "reason": "Actual bond pin/transfer requires visible CUDA"
+    }
+  ],
+  "interpretation": "One complete eight-partition suite with preserved passes and targeted failure follow-ups; initial Slurm failures retained."
+}

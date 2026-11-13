@@ -9,6 +9,7 @@ from concurrent.futures import ProcessPoolExecutor
 import csv
 import json
 import multiprocessing
+import os
 from pathlib import Path
 import time
 
@@ -16,6 +17,7 @@ import numpy as np
 import torch
 
 from .v2_disk import save_checkpoint
+from .v31_segment_timing import phase, SegmentTimer
 
 from .v31_loader import MFM4Dataset, collate_samples
 from .v31_training import V31PDModel
@@ -43,7 +45,7 @@ def accumulated_backward(chunks, step, count, field_groups, groups, *, fixed_den
     cpu_rng = torch.get_rng_state()
     cuda_rng = torch.cuda.get_rng_state(device) if device.type == 'cuda' else None
     totals = {}
-    with torch.no_grad():
+    with phase('count'), torch.no_grad():
         for chunk in chunks:
             for name, n in count(chunk).items():
                 totals[name] = totals.get(name, 0) + n
@@ -54,14 +56,16 @@ def accumulated_backward(chunks, step, count, field_groups, groups, *, fixed_den
     values = {name: torch.zeros((), device=device) for name in totals}
     for chunk in chunks:
         loss = step(chunk)
-        total = loss.total.new_zeros(())
-        for name, value in loss.fields.items():
-            if totals[name]:
-                weighted = value * (loss.counts[name] / totals[name])
-                values[name] += weighted.detach()
-                total = total + weighted * weights[name]
+        with phase('loss'):
+            total = loss.total.new_zeros(())
+            for name, value in loss.fields.items():
+                if totals[name]:
+                    weighted = value * (loss.counts[name] / totals[name])
+                    values[name] += weighted.detach()
+                    total = total + weighted * weights[name]
         if total.requires_grad:
-            total.backward()
+            with phase('backward'):
+                total.backward()
     group_values = {group: sum((values[name] * weights.get(name, 0.) * len(groups)
         for name in values if field_groups[name] == group), torch.zeros((), device=device))
         for group in groups}
@@ -179,7 +183,9 @@ def train_v31(configuration):
     (output/'architecture.json').write_text(json.dumps(architecture, indent=2) + '\n')
     initial_samples, initial_updates = clock.samples_consumed, clock.optimizer_updates
     (output/'execution.json').write_text(json.dumps(dict(microbatch_size=c['microbatch_size'],
-        effective_batch_size=c['batch_size'], prefetched_batches=1, initial_samples=initial_samples,
+        effective_batch_size=c['batch_size'], prefetched_batches=1,
+        pd_heads_without_recomputation=(sum(getattr(head, 'activation_checkpointing', True) is False
+            for head in pd.heads.field_heads.values()) if pd is not None else 0), initial_samples=initial_samples,
         initial_updates=initial_updates, elapsed_seconds_prior=elapsed_prior), indent=2) + '\n')
 
     def pd_counts(samples):
@@ -212,6 +218,9 @@ def train_v31(configuration):
             loss = V3LossResult(torch.zeros((), device='cuda'), {}, {}, {}, {}, ())
         return loss if s_loss is None else combine_structural_loss(loss, s_loss.fields, s_loss.counts, enabled_groups=groups)
 
+    timing_directory = os.environ.get('MFM_CPU_PROFILE_DIR')
+    timer = SegmentTimer(timing_directory) if timing_directory else None
+    measured_steps = int(os.environ.get('MFM_CPU_MEASURE_STEPS', '0'))
     started = time.monotonic()
     reader = dict(dataset=dataset_configuration, mean_labels=c['mean_labels'])
     with ProcessPoolExecutor(c['workers'], mp_context=multiprocessing.get_context('spawn'),
@@ -231,28 +240,38 @@ def train_v31(configuration):
             loss = accumulated_backward(chunks, evaluate_chunk,
                 lambda chunk: evaluate_chunk(chunk, count_only=True) if 'S' in groups else pd_counts(chunk[0]),
                 field_groups, groups, fixed_denominators=full_denominators)
-            norm = torch.nn.utils.clip_grad_norm_(parameters, c['clip'], error_if_nonfinite=True)
-            optimizer.step()
+            with phase('clip_optimizer'):
+                norm = torch.nn.utils.clip_grad_norm_(parameters, c['clip'], error_if_nonfinite=True)
+                optimizer.step()
             clock.advance(count)
             rng.bit_generator.state = consumed_rng
-            gradients.append(float(norm))
-            row = dict(samples=clock.samples_consumed, updates=clock.optimizer_updates,
-                total=float(loss.total), preclip_norm=float(norm), lr=lr, seconds=elapsed_prior+time.monotonic()-started,
-                **{g: float(loss.groups[g]) if g in loss.groups else None for g in ('S','D','P')})
-            writer.writerow(row)
+            with phase('logging'):
+                gradients.append(float(norm))
+                row = dict(samples=clock.samples_consumed, updates=clock.optimizer_updates,
+                    total=float(loss.total), preclip_norm=float(norm), lr=lr, seconds=elapsed_prior+time.monotonic()-started,
+                    **{g: float(loss.groups[g]) if g in loss.groups else None for g in ('S','D','P')})
+                writer.writerow(row)
             milestone = clock.samples_consumed in clock.milestones or clock.samples_consumed == c['samples']
             if milestone or clock.optimizer_updates % 1000 == 0:
-                payload = dict(model=model.state_dict(), optimizer=optimizer.state_dict(), configuration=c,
-                    clock=clock.state_dict(), rng=rng.bit_generator.state, torch_rng=torch.get_rng_state(),
-                    cuda_rng=torch.cuda.get_rng_state(), preclip_norms=gradients,
-                    elapsed_seconds=elapsed_prior+time.monotonic()-started, gpu_peak_bytes=peak_gpu_bytes())
-                if milestone:
-                    save_checkpoint(payload, output/f'samples_{clock.samples_consumed}.pt')
-                else:
-                    save_checkpoint(payload, output/'recovery_next.pt')
-                    (output/'recovery_next.pt').replace(output/'recovery.pt')
+                with phase('checkpoint'):
+                    payload = dict(model=model.state_dict(), optimizer=optimizer.state_dict(), configuration=c,
+                        clock=clock.state_dict(), rng=rng.bit_generator.state, torch_rng=torch.get_rng_state(),
+                        cuda_rng=torch.cuda.get_rng_state(), preclip_norms=gradients,
+                        elapsed_seconds=elapsed_prior+time.monotonic()-started, gpu_peak_bytes=peak_gpu_bytes())
+                    if milestone:
+                        save_checkpoint(payload, output/f'samples_{clock.samples_consumed}.pt')
+                    else:
+                        save_checkpoint(payload, output/'recovery_next.pt')
+                        (output/'recovery_next.pt').replace(output/'recovery.pt')
             if clock.optimizer_updates % 100 == 0:
-                print(json.dumps(row), flush=True)
+                with phase('logging'):
+                    print(json.dumps(row), flush=True)
+            if timer is not None:
+                timer.end_step()
+            if measured_steps and clock.optimizer_updates - initial_updates >= measured_steps:
+                break
+    if timer is not None:
+        timer.close()
     status = ('TRAINING_COMPLETE_DEV_EVALUATION_PENDING' if clock.samples_consumed == c['samples']
               else 'SEGMENT_COMPLETE_DEV_EVALUATION_PENDING')
     actual_seconds = time.monotonic()-started

@@ -1,9 +1,9 @@
-## 2026-11-13 用户已批准排除重叠并修正TRAIN/D4后继续（最新）
+## 2026-11-13 P task current user authority
 
-用户对P任务D6(d)明确选择“排除重叠分子，修正受影响的 TRAIN/D4 后继续（建议）”。本授权解除此前9.3等待：排除已识别的全部323个分子（16个完整键+307个既有WP5键），新TRAIN为1194228分子；修订受影响的TRAIN清单及P/Pprime所用D4统计，随后继续完整P任务书。这覆盖原不改TRAIN/不重拟合基础D4条款，其他科学规则保持。采用P研究专用派生清单/归一化，保留原始数据、旧D4和历史结果；不复制或改写大数据、不删除文件。不得恢复旧模型任务或干预独立PR6。此前科学停止记录保留为历史，STOP_D6_OVERLAP.json的resolved=true表示本次授权已收到。
-## 2026-11-13 新 P 任务授权（当前）
+The full P recipe task is active. Exclude the approved323 overlapping TRAIN molecules and refit affected P_D/Pprime D4 in a P-study overlay; retain all original data and history. The new TRAIN count is1194228. All new P screening/confirmation/Pprime/scaling runs use effective and actual batch160, replacing training batch32; the frozen R1/R3 probe protocol remains as specified. Use configs/p_recipe/protocol.json and the taskbook. PR6 is merged and adopted; run the required full regression and repair only failed cases. Old model-development queues remain terminated.
 
-用户已明确要求完整执行根《模型线任务书 P：P 预训练配方研究（迁移前）.md》，这是终止旧模型任务后的新独立授权。工作树X:/MFM_p_recipe、分支p-recipe；仅P配方研究、任务书指定旧检查点评价/P0及最终P′对照。旧任务不重启；CPU瓶颈PR6由其他工作线独立负责，本线不取消或修改该线作业。以新任务书的科学规则、校验范围、日志文件和六条停止条件为准，禁止额外防御/诊断/试验臂。训练或排队每1800秒查询，阶段结论及时推送GitHub。真实磁盘字节/inode和跨窗口峰值保护继续。保留旧终止记录。数据线与PubChem不变。
+New HPC user rule: on developer compute-0-20/21/22, inspect actual target GPU UUID memory.used/total before launch. At<=30%, launch own task directly through SSH without sbatch even if the node has a Slurm allocation or foreign CUDA contexts. Preserve all other users' tasks. Record real native PID/UID/start_ticks/PGID/exit; never invent a Slurm identity. Keep actual disk/inode/root-reserve/quota protection. Global huagong_hpc_requirement skill1.0.149 and shared STATUS hold this rule.
+
 ## 2026-11-06 用户要求：节点文件传输不得占满磁盘
 
 适用于所有 Codex 窗口、子 agent、CPU/GPU 节点及下载、复制、rsync、缓存、解压和临时输出；执行任何节点大文件传输前必须遵守。
@@ -38,7 +38,3 @@ Stop and archive further 1slg/1pts correspondence research. Rebuild source keys 
 - Paid school server `202264640132@202.38.252.202:22` is only for explicitly approved formal pretraining. Recover its existing sbatch workflow before submitting; never use it for development/tests.
 - Use the installed `huagong_hpc_requirement` skill for actual server operations. Do not modify/cancel others' tasks or unrelated active WP5 work.
 - Normalization and model selection use TRAIN only. Preserve official ExpansionRx membership and source atom IDs. PM7 energy is FINAL HEAT OF FORMATION (kcal/mol); charge is NET ATOMIC CHARGES (e).
-
-### 2026-11-13 P任务D6(d)科学停止，等待用户决定
-
-新P任务已经开始，旧任务仍不恢复。P任务D6(d)一次实际身份比较发现323个TRAIN/下游重叠分子，其中16个完整InChIKey精确重叠、307个仅既有WP5结构键重叠；按任务书9.3停止。新P训练未启动；六个未完成P任务评价作业已取消，结果保留。不得自行恢复P任务或调整TRAIN/D4，等待用户明确处理决定。结果见X:/MFM_p_recipe/docs/p_recipe/daily/2026-11-13.md及runs/p_recipe_20261113/D6_identity.json。独立PR6、数据线和PubChem未取消。

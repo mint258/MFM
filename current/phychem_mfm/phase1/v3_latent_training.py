@@ -102,9 +102,13 @@ class TrainingHistory:
             path.mkdir()
             os.environ['WANDB_' + suffix.upper() + '_DIR'] = str(path)
         repo = Path(__file__).absolute().parents[3]
-        revision = (repo / '.git/HEAD').read_text().strip()
+        gitdir = repo / '.git'
+        if gitdir.is_file():
+            gitdir = (repo / gitdir.read_text().strip().removeprefix('gitdir: ')).resolve()
+        revision = (gitdir / 'HEAD').read_text().strip()
         if revision.startswith('ref: '):
-            revision = (repo / '.git' / revision[5:]).read_text().strip()
+            common = (gitdir / (gitdir/'commondir').read_text().strip()).resolve() if (gitdir/'commondir').is_file() else gitdir
+            revision = (common / revision[5:]).read_text().strip()
         recorded = dict(configuration, source_revision=revision,
             slurm_job_id=os.environ.get('SLURM_JOB_ID'),
             node=os.environ.get('SLURMD_NODENAME'), visible_gpu=os.environ.get('CUDA_VISIBLE_DEVICES'))

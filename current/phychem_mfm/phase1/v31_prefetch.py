@@ -1,5 +1,6 @@
 """Overlap one ordered CPU input batch with training, without consuming it."""
 from copy import deepcopy
+from .v31_segment_timing import phase
 
 
 def ordered_sample_batches(pool, read_choice, dataset, clock, rng, batch_size, stop_samples, *, draw=None):
@@ -31,6 +32,7 @@ def ordered_sample_batches(pool, read_choice, dataset, clock, rng, batch_size, s
     pending = submit_next()
     while pending is not None:
         state, reads = pending
-        samples = list(reads)
+        with phase('wait_batch'):
+            samples = list(reads)
         pending = submit_next()
         yield samples, state

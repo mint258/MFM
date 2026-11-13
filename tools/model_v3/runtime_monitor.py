@@ -20,7 +20,7 @@ def _proc_frame(pid):
             "start_ticks": int(fields[19])}
 
 
-def capture_process_identity(pid, *, expected_cgroup=None, expected_argv=None):
+def capture_process_identity(pid, *, expected_cgroup=None, expected_argv=None, expected_job=None):
     """Bind an active process, distinguishing actual exit from live drift.
 
     PF_EXITING is the kernel-header value verified in the site's Stage60 probe.
@@ -54,7 +54,7 @@ def capture_process_identity(pid, *, expected_cgroup=None, expected_argv=None):
             return {"status": "IDENTITY_CHANGED", "pid": pid, "reason": "process_session_changed"}
         if uid != os.getuid():
             return {"status": "IDENTITY_CHANGED", "pid": pid, "reason": "uid_changed"}
-        job = os.environ.get("SLURM_JOB_ID")
+        job = os.environ.get("SLURM_JOB_ID") if expected_job is None else str(expected_job)
         if not job or not re.search(r"(?:^|/)job[_-]?" + re.escape(job) + r"(?:/|$)", cgroup, re.M):
             return {"status": "IDENTITY_CHANGED", "pid": pid, "reason": "actual_slurm_job_cgroup_missing"}
         if expected_cgroup is not None and cgroup != expected_cgroup:
@@ -267,6 +267,7 @@ def inherited_log_bytes(*, exclude_root=None):
 
 
 def gpu_observation(uuid, *, own_pids=()):
+    from model_gpu_registry import registered_model_pids
     rows = query(["nvidia-smi", "--query-gpu=uuid,name,driver_version,memory.total,memory.free,memory.used,utilization.gpu",
                   "--format=csv,noheader,nounits"]).splitlines()
     selected = [row.split(",") for row in rows if row.split(",")[0].strip() == uuid]
@@ -276,12 +277,13 @@ def gpu_observation(uuid, *, own_pids=()):
     applications = query(["nvidia-smi", "--query-compute-apps=gpu_uuid,pid,used_memory",
                           "--format=csv,noheader,nounits"]).splitlines()
     apps = []
+    registered = registered_model_pids(uuid)
     for line in applications:
         parts = [field.strip() for field in line.split(",")]
         if len(parts) >= 3 and parts[0] == uuid:
             memory = int(parts[2]) * 1024**2 if parts[2].isdecimal() else None
             apps.append({"pid": int(parts[1]), "used_memory_bytes": memory,
-                         "own": int(parts[1]) in set(own_pids)})
+                         "own": int(parts[1]) in set(own_pids) or int(parts[1]) in registered})
     return {"captured_unix": time.time(), "uuid": uuid, "name": row[1], "driver_version": row[2],
             "total_bytes": int(row[3]) * 1024**2, "free_bytes": int(row[4]) * 1024**2,
             "used_bytes": int(row[5]) * 1024**2, "utilization_percent": float(row[6]),

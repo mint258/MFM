@@ -13,6 +13,9 @@ from torch import nn
 from .v31_loader import encode_samples, enabled_encoder_fields
 from .v3_contract import FieldSpec, FieldTarget, LabelRegistry, TrainNormalization
 from .v3_losses import compute_v3_loss
+from .v31_segment_timing import timed
+
+_as_tensor = timed('h2d')(torch.as_tensor)
 
 
 LEVELS = {'molecule': 'graph', 'molecule_vector': 'graph',
@@ -78,11 +81,16 @@ def element_offset(Z, specification):
 class V31PDModel(nn.Module):
     """Adapter only: existing backbone, V3HeadBank and compute_v3_loss."""
     def __init__(self, encoder, view, *, forms='H1', pooling='registry',
-                 output_parameterization='raw', head_hidden_dim=64):
+                 output_parameterization='raw', head_hidden_dim=64, p_recipe=None):
         super().__init__()
         if output_parameterization not in ('raw', 'normalized'):
             raise ValueError('Explicit raw or normalized head output required')
         self.output_parameterization = output_parameterization
+        recipe = p_recipe or {}
+        self.shared_projector = None
+        if recipe.get('shared_projector',False):
+            with torch.random.fork_rng(devices=[]):
+                self.shared_projector = nn.Sequential(nn.Linear(512,512),nn.SiLU(),nn.Linear(512,512))
         from ..model.v3_heads import V3HeadBank
         head_fields, loss_fields, self.routes, self.selections, onsite = head_layout(
             view, enabled_encoder_fields(view.fields, encoder))
@@ -95,7 +103,14 @@ class V31PDModel(nn.Module):
         self.encoder, self.view = encoder, view
         overrides = {f.name: pooling for f in head_fields if f.level == 'graph' and f.representation == 'scalar'}
         self.heads = V3HeadBank(self.head_registry, dim=encoder.latent_dim, forms=forms, hidden_dim=head_hidden_dim,
-            pooling_overrides=overrides, allow_onsite_fields=onsite)
+            pooling_overrides=overrides, allow_onsite_fields=onsite,
+            pair_distance=not recipe.get('pair_without_distance',False))
+        self.p_recipe_pma = None
+        if recipe.get('pma_pooling',False):
+            from ..model.v3_latent import MolecularLatent, LatentSpec
+            self.p_recipe_pma = MolecularLatent(LatentSpec(kind='pma',n_ref=53.64145,
+                write_back=False,reconstruction=False))
+            self.heads.enable_p_recipe_pma(self.p_recipe_pma.representation_dim)
         # Unit transform is used ONLY after applying the actual D4 transform to
         # both sides; it is not a replacement for missing data-line statistics.
         self.unit_normalizations = {f.name: TrainNormalization((0.,), (1.,), inherited,
@@ -107,6 +122,7 @@ class V31PDModel(nn.Module):
     def encode_graph(self, batch, pooling='mean'):
         return self.encoder.encode_graph(batch, pooling=pooling)
 
+    @timed('forward')
     def predict(self, samples, *, groups=('D', 'P'), fields=None, clean_features=None, clean_batch=None,
                 clean_z=None):
         active = {f.name for f in self.registry.enabled(groups, fields)}
@@ -146,21 +162,28 @@ class V31PDModel(nn.Module):
                 if batch.pos is None:
                     # A coordinate-free encoder never receives coordinates;
                     # invariant pair heads may still use the supplied distances.
-                    batch.pos = torch.as_tensor(np.concatenate([s['pos'] for s in source]),
+                    batch.pos = _as_tensor(np.concatenate([s['pos'] for s in source]),
                                                 dtype=torch.float32, device=device)
             pairs, pair_rows = {}, {}
+            if self.shared_projector is not None:
+                h0 = self.shared_projector(h0)
+            if self.p_recipe_pma is not None:
+                from torch_geometric.utils import to_dense_batch
+                dense, mask = to_dense_batch(h0,batch.batch)
+                z = self.p_recipe_pma.finish(dense,mask)
             for name in active:
                 head_name, _ = self.selections[name]
                 field = self.by_name[name]
                 if head_name not in selected or field.level != 'pair':
                     continue
                 masks = [s['targets'][name].valid.any(-1) for s in working_samples]
-                indices = [torch.as_tensor(s['targets'][name].pair_index[mask].T.copy(), device=device,
+                indices = [_as_tensor(s['targets'][name].pair_index[mask].T.copy(), device=device,
                            dtype=torch.long) + batch.ptr[i] for i, (s, mask) in enumerate(zip(working_samples, masks))]
                 pairs[head_name] = torch.cat(indices, dim=1)
                 mask = np.concatenate(masks)
-                pair_rows[head_name] = (torch.as_tensor(np.flatnonzero(mask), device=device), len(mask))
-            latent = {} if not hasattr(self.heads, 'latent_scalar_dim') else dict(graph_latent=z)
+                pair_rows[head_name] = (_as_tensor(np.flatnonzero(mask), device=device), len(mask))
+            latent = (dict(graph_latent=z) if hasattr(self.heads,'latent_scalar_dim')
+                      or self.p_recipe_pma is not None else {})
             values = self.heads(h0, batch.batch, batch.pos, enabled_groups=groups,
                 enabled_fields=selected, pair_indices=pairs, **latent)
             for name, (rows, total) in pair_rows.items():
@@ -175,10 +198,11 @@ class V31PDModel(nn.Module):
                         offsets = np.r_[0, np.cumsum(lengths)]
                         rows = np.concatenate([np.arange(offsets[i], offsets[i+1]) for i in sample_indices])
                         value = value.new_full((int(offsets[-1]), value.shape[-1]), float('nan')).index_copy(
-                            0, torch.as_tensor(rows, device=device), value)
+                            0, _as_tensor(rows, device=device), value)
                     predictions[name] = value
         return predictions
 
+    @timed('loss')
     def loss(self, predictions, samples, *, groups=('D', 'P'), fields=None,
              fixed_full_condition=False):
         active = self.registry.enabled(groups, fields)
@@ -190,9 +214,9 @@ class V31PDModel(nn.Module):
             if specification is None:
                 raise ValueError('Missing D4 normalization for ' + name)
             prediction = predictions[name]
-            values = torch.as_tensor(np.concatenate([s['targets'][name].values for s in samples]),
+            values = _as_tensor(np.concatenate([s['targets'][name].values for s in samples]),
                                      dtype=torch.float32, device=prediction.device)
-            valid = torch.as_tensor(np.concatenate([s['targets'][name].valid for s in samples]),
+            valid = _as_tensor(np.concatenate([s['targets'][name].valid for s in samples]),
                                     dtype=torch.bool, device=prediction.device)
             head_name, component = self.selections[name]
             normalized = prediction if self.output_parameterization == 'normalized' else torch_affine(prediction, specification)
@@ -266,3 +290,4 @@ class V31PDModel(nn.Module):
                 value = value + value.new_tensor([element_offset(s['Z'], specification) for s in samples])[:, None]
             output[name] = value
         return output
+

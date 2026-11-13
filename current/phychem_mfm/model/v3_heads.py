@@ -38,11 +38,12 @@ class _PoolingMixer(nn.Module):
 
 
 class _PairHead(nn.Module):
-    def __init__(self, dim, output, hidden, radius=8.0, rbf_count=64):
+    def __init__(self, dim, output, hidden, radius=8.0, rbf_count=64, *, use_distance=True):
         super().__init__()
         self.radius, self.gamma = float(radius), ((rbf_count - 1) / radius) ** 2
         self.register_buffer("centers", torch.linspace(0., self.radius, rbf_count))
-        self.predict = _mlp(2 * dim + rbf_count, output, hidden)
+        self.use_distance = use_distance
+        self.predict = _mlp(2 * dim + (rbf_count if use_distance else 0), output, hidden)
 
     def forward(self, h, pos, pairs):
         if not pairs.size(1):
@@ -55,7 +56,8 @@ class _PairHead(nn.Module):
                                    0.5 * (1 + torch.cos(torch.pi * distance / self.radius)),
                                    torch.zeros_like(distance))
             rbf = rbf * envelope[:, None]
-        feature = torch.cat((h[src] + h[dst], (h[src] - h[dst]).abs(), rbf.to(h.dtype)), dim=-1)
+        parts = (h[src] + h[dst], (h[src] - h[dst]).abs())
+        feature = torch.cat(parts + ((rbf.to(h.dtype),) if self.use_distance else ()), dim=-1)
         return self.predict(feature)
 
 
@@ -86,7 +88,7 @@ class V3HeadBank(nn.Module):
                  vector_radius=5.0, vector_rbf_count=32, pair_chunk_size=8192,
                  pooling_overrides: Mapping[str,str] | None = None,
                  domain_head_configs: Mapping[str, Mapping] | None = None,
-                 allow_onsite_fields=()):
+                 allow_onsite_fields=(), pair_distance=True):
         super().__init__()
         require(type(dim) is int and dim > 0 and type(hidden_dim) is int and hidden_dim >= 2,
                 "Valid H0/head dimensions required")
@@ -97,6 +99,7 @@ class V3HeadBank(nn.Module):
         require(set(overrides)<=graph_scalars and all(type(v) is str and v in ('registry','learned')
                 for v in overrides.values()),'Only registry/learned graph-scalar pooling overrides are supported')
         self.pooling_overrides=overrides
+        self.pair_distance=pair_distance
         self.allow_onsite_fields = tuple(allow_onsite_fields)
         require(len(set(self.allow_onsite_fields)) == len(self.allow_onsite_fields)
                 and set(self.allow_onsite_fields) <= {f.name for f in registry.fields if f.level == 'pair'},
@@ -147,7 +150,7 @@ class V3HeadBank(nn.Module):
                 else:
                     self.field_heads[key] = _DipoleHead(dim, hidden_dim, field.representation == "magnitude")
             elif field.level == "pair":
-                self.field_heads[key] = _PairHead(dim, field.prediction_width, hidden_dim)
+                self.field_heads[key] = _PairHead(dim, field.prediction_width, hidden_dim, use_distance=pair_distance)
             elif field.level == "atom":
                 self.field_heads[key] = _mlp(dim, field.prediction_width, hidden_dim)
             else:
@@ -168,6 +171,8 @@ class V3HeadBank(nn.Module):
         result={"schema": "model_v3_head_bank_v1", "registry_sha256": self.registry.content_sha256,
                 "dim": self.dim, "hidden_dim": self.hidden_dim, "forms": dict(self.forms)}
         if self.pooling_overrides:result['pooling_overrides']=dict(self.pooling_overrides)
+        if not self.pair_distance:result['pair_distance']=False
+        if hasattr(self,'p_recipe_pma_dim'):result['p_recipe_pma_dim']=self.p_recipe_pma_dim
         if self.allow_onsite_fields:result['allow_onsite_fields']=list(self.allow_onsite_fields)
         if self.domain_head_bindings:result["domain_head_bindings"] = deepcopy(self.domain_head_bindings)
         if hasattr(self, 'latent_scalar_dim'):
@@ -210,6 +215,14 @@ class V3HeadBank(nn.Module):
                     offset = nn.Linear(dimension, field.prediction_width, bias=False)
                     nn.init.zeros_(offset.weight)
                     self.latent_sum_offsets[key] = offset
+
+    def enable_p_recipe_pma(self, dimension):
+        """B3 sends every P molecular scalar to the existing PMA output."""
+        self.p_recipe_pma_dim=dimension
+        for field in self.registry.fields:
+            if field.group=='P' and field.level=='graph' and field.representation=='scalar':
+                self.field_heads[self.keys[field.name]]=(Linear(dimension,field.prediction_width)
+                    if self.forms[field.name]=='H1' else _mlp(dimension,field.prediction_width,self.hidden_dim))
 
     def set_extra_state(self, state):
         compared = json_metadata(state) if self.domain_head_bindings else state
@@ -274,6 +287,8 @@ class V3HeadBank(nn.Module):
                 prediction = head(h0, pos, index)
             elif field.level == "atom":
                 prediction = head(h0)
+            elif hasattr(self,'p_recipe_pma_dim') and field.group=='P':
+                prediction = head(graph_latent)
             elif hasattr(self, 'latent_scalar_dim'):
                 require(graph_latent is not None and graph_latent.shape == (graphs, self.latent_scalar_dim)
                         and bool(torch.isfinite(graph_latent).all()), 'Same-clean-view molecular z required')

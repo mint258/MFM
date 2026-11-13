@@ -709,3 +709,9 @@ MODEL_NODE0_ROOT_RESERVE_RECOVERED_20261112：用户明确批准仅清理compute
 
 00:03 UTC（08:03 CST）首次真实A2/S已8704样本/272更新，loss0.311022、rec0，守护OBSERVING；0/5/6各一张3090分别运行A2/S、A0/P、A1/P。恢复协调器已登记41项；根巡检1800秒和原磁盘/配额保护继续。该清理授权仅覆盖上述node0旧副本，其他节点副本保持原权限与审批范围。
 
+
+### 2026-11-13 P recipe: stage0, common B160 and native node20-22 rule
+
+The active P-only task excludes323 overlaps (TRAIN1194228) and repairs D4 without altering original products. C1 S/P new-protocol table and fixed5000VAL covariance/LN CSVs are in results/p_recipe; B4 gamma0.1597693323500406 is for P0 ordering only. All new P training runs share actual/effective B160 after 8-batch 24GB3090 admission (peak reserved21.4685GB;192OOM). Probe protocol stays frozen. PR6 merged/adopted; one full regression ran and failed cases are being repaired, with passes retained. D4 now native node21 and regression native node22, replacing only the still-pending own jobs4530455/4530480.
+
+User explicitly authorized direct SSH launch on occupied compute-0-20/21/22 when target GPU used/total<=30%; no sbatch needed, no foreign-process cancellation, true native identity/exit and disk protections required. HPC skill1.0.149 updated; other windows' work is unchanged. Historical T0/T1 readout queue and P0 D5 continue. Old model development is not resumed.

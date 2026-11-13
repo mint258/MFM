@@ -122,8 +122,48 @@ def identity_gate():
     print(json.dumps({k:v for k,v in result.items() if k!='overlapping_molecules'}),flush=True)
     return result
 
+
+def layer_diagnostic():
+    import torch
+    from evaluate import run,score
+    from phychem_mfm.phase1.p_recipe import paired_decision
+    base=Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113')
+    metadata=json.loads((CONTROL/'input_metadata.json').read_text())['features']
+    summaries=[]
+    for condition in ('S','P'):
+        source=next(r for r in metadata if r['candidate']=='C1-0' and r['condition']==condition)
+        original=json.loads((CONTROL/('C1_0_'+condition+'.json')).read_text())
+        last=json.loads((base/('C1_0_'+condition)/'scores.json').read_text())
+        for layer in (3,4,5):
+            name=f'D5_{condition}_layer{layer}'
+            configuration={**original,'run':name,'stage':1,'arm':f'layer{layer}',
+                'layer':layer,'checkpoint':source['checkpoint'],
+                'features':str(base/'layer_features'/name),'output':str(base/name)}
+            run(configuration)
+            result=score(Path(configuration['output'])/'predictions.json',
+                configuration['reference_manifest'],REPO/'results/p_recipe/scores.csv')
+            for readout in ('R1','R3'):
+                a,b=result[readout],last[readout]
+                decision=paired_decision(a['mean_normalized_improvement'],b['mean_normalized_improvement'],
+                    a['paired_bootstrap']['values'],b['paired_bootstrap']['values'])
+                summaries.append(dict(condition=condition,layer=layer,readout=readout,
+                    score=a['mean_normalized_improvement'],layer6_score=b['mean_normalized_improvement'],**decision))
+            torch.cuda.empty_cache()
+        for readout in ('R1','R3'):
+            summaries.append(dict(condition=condition,layer=6,readout=readout,
+                score=last[readout]['mean_normalized_improvement'],layer6_score=last[readout]['mean_normalized_improvement'],
+                delta=0.,ci_lower=0.,ci_upper=0.,verdict='reference'))
+    csv_output('D5_layers.csv',summaries)
+    import csv
+    with (REPO/'results/p_recipe/scores.csv').open() as stream:
+        rows=[r for r in csv.DictReader(stream) if r['run'].startswith('D5_') or r['run'] in ('C1_0_S','C1_0_P')]
+    csv_output('D5_layer_tasks.csv',rows)
+    (CONTROL/'D5_decision.json').write_text(json.dumps(dict(B1_priority=any(
+        r['condition']=='P' and r['readout']=='R3' and r['verdict']=='win' for r in summaries)),indent=2)+'\n')
+    print(json.dumps(dict(diagnostic='D5',summary=summaries)),flush=True)
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--stage',choices=['D4','D6'],required=True)
+    p=argparse.ArgumentParser();p.add_argument('--stage',choices=['D4','D5','D6'],required=True)
     args=p.parse_args()
     if args.stage=='D4':representation_diagnostic()
+    elif args.stage=='D5':layer_diagnostic()
     else:identity_gate()

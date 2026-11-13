@@ -14,6 +14,43 @@ from phychem_mfm.phase1.v3_dev_store import TrainOnlyPackedStore
 
 REPO = Path(__file__).resolve().parents[2]
 
+def feature_path(configuration,dataset):
+    source=configuration['features']
+    return Path(source[dataset]) if isinstance(source,dict) else Path(source)/(dataset+'.pt')
+
+def produce_missing_features(configuration,dataset,view):
+    from torch_geometric.data import Batch,Data
+    from phychem_mfm.phase1.v2_s_training import s_model
+    path=feature_path(configuration,dataset)
+    if path.is_file():return
+    checkpoint=torch.load(configuration['checkpoint'],map_location='cpu',weights_only=True)
+    cfg=checkpoint['configuration'];spec=checkpoint.get('architecture',{}).get('backbone',{}).get('v3_latent')
+    model,_=s_model(cfg['distance_bias'],cfg['views'],latent='none' if spec is None else spec['kind'],latent_config=spec)
+    state=checkpoint['model']
+    if any(key.startswith('structural.') for key in state):
+        state={key.removeprefix('structural.'):value for key,value in state.items() if key.startswith('structural.')}
+    model.load_state_dict(state);encoder=model.encoder.cuda().eval()
+    members=[(index,view.get(index,role=role)) for role in ('train','train_inner_validation') for index in view.view(role)]
+    members=[(i,s) for i,s in members if s.geometry_ready];records=[];sizes=[];fit=set(view.view('train'))
+    with torch.no_grad():
+        for start in range(0,len(members),32):
+            selected=members[start:start+32]
+            batch=Batch.from_data_list([Data(x=s.x.reshape(-1,1),pos=s.pos) for _,s in selected]).cuda()
+            if configuration.get('layer',6)==6:
+                h=encoder.encode_atoms(batch)
+            else:
+                _,layers=encoder.encode_atoms(batch,return_intermediates=True)
+                h=layers[configuration['layer']-1]
+            h=h.detach().cpu().float();offset=0
+            for index,sample in selected:
+                n=len(sample.x)
+                records.append(dict(molecule_uid=sample.member_uid,member_index=index,h0=h[offset:offset+n],source_atom_ids=sample.source_atom_ids))
+                if index in fit:sizes.append(n)
+                offset+=n
+    path.parent.mkdir(parents=True,exist_ok=True)
+    torch.save(dict(records=records,n_ref=sum(sizes)/len(sizes)),path)
+    del checkpoint,model,encoder,state;torch.cuda.empty_cache()
+
 class History:
     disabled = False
     def __init__(self, path): self.path, self.cell = path, ''
@@ -37,7 +74,8 @@ def run(configuration):
     torch.backends.cuda.matmul.allow_tf32=False; torch.backends.cudnn.allow_tf32=False
     files, details, label_stds = {}, {}, {}
     for dataset, view in views.items():
-        payload = torch.load(Path(c['features'])/(dataset+'.pt'),map_location='cpu',weights_only=True)
+        produce_missing_features(c,dataset,view)
+        payload = torch.load(feature_path(c,dataset),map_location='cpu',weights_only=True)
         cached = cached_rows(payload)
         for task in (t for t in tasks if t.dataset_id==dataset):
             rows = atomization_rows if task.task_id==ATOMIZATION_TASK_ID else task_rows
