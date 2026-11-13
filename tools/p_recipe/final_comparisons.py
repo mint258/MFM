@@ -84,7 +84,8 @@ def close(plan):
   runnable_configuration=str(target),T2_T3=decision,Pprime_comparator=plan['Pprime_comparator'],
   Pprime_and_scaling_recipe='T2/M3',repeat_on_T3='Pending user decision; no rerun' if chosen=='T3' else 'Not needed',
   neither_candidate_beats_T1=not any(row['purpose']=='confirmation' and row['readout']=='R3' and row['verdict']=='win' for row in rows),
-  comparisons=rows,B0_M2_budget_sign=budget_sign_comparison(plan,configs),training_samples=4500000,batch_size=128,full_TRAIN_molecules=full_count,
+  comparisons=rows,B0_M2_budget_sign=budget_sign_comparison(plan,configs),training_samples=4500000,batch_size=c['batch_size'],
+  batch_size_by_arm={arm:item['batch_size'] for arm,item in configs.items()},full_TRAIN_molecules=full_count,
   molecule_repeats={'250000':18.,'500000':9.,str(full_count):4500000/full_count},
   molecule_repeat_note='Fixed sample budget increases repetition when molecule count decreases; descriptive only, no expansion decision.')
  return verdict
