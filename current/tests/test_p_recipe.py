@@ -1,0 +1,41 @@
+"""Only taskbook-required tests of new label/loss logic."""
+import torch
+from phychem_mfm.phase1.p_recipe import (
+    element_residual,state_difference,heavy_tail,normalized_field_weights,
+    UncertaintyWeights,collapse_penalty)
+
+def test_reversible_fp64_label_transforms():
+    y=torch.tensor([-3e4,-.01,0.,.2,7e4],dtype=torch.float64)
+    counts=torch.tensor([[1.,2.],[2.,3.],[0.,4.],[1.,5.],[3.,2.]],dtype=torch.float64)
+    coefficients=torch.tensor([12.3,-45.6],dtype=torch.float64)
+    for transformed,inverse in (
+        (element_residual(y,counts,coefficients,2.1),lambda x:element_residual(x,counts,coefficients,2.1,inverse=True)),
+        (state_difference(y,y*.37),lambda x:state_difference(x,y*.37,inverse=True)),
+        (heavy_tail(y,.125),lambda x:heavy_tail(x,.125,inverse=True))):
+        restored=inverse(transformed)
+        assert torch.all((restored-y).abs()<=torch.maximum(torch.full_like(y,1e-9),y.abs()*1e-9))
+
+def test_a4_weights_sum_to_one_and_equal_family_mass():
+    families={'a':'energy','b':'energy','c':'charge'}
+    weights=normalized_field_weights(families,family_equal=True,dtype=torch.float64)
+    assert abs(float(sum(weights.values()))-1)<1e-12
+    assert float(weights['a']+weights['b'])==float(weights['c'])
+
+def test_c4_normalized_weights_and_exact_kendall_loss():
+    layer=UncertaintyWeights(['a','b']).double()
+    with torch.no_grad():layer.log_variance.copy_(torch.tensor([-.4,.7]))
+    assert torch.allclose(layer.weights().sum(),torch.tensor(1.,dtype=torch.float64),atol=1e-12,rtol=1e-12)
+    values={'a':torch.tensor(2.,dtype=torch.float64),'b':torch.tensor(.3,dtype=torch.float64)}
+    expected=(.5*torch.exp(-layer.log_variance)*torch.stack(list(values.values()))+.5*layer.log_variance).mean()
+    assert torch.allclose(layer(values),expected,atol=1e-12,rtol=1e-12)
+    layer(values).backward()
+    assert torch.isfinite(layer.log_variance.grad).all()
+
+def test_b4_zero_for_uncorrelated_sufficient_variance_and_finite_gradient():
+    h=torch.tensor([[-1.,-1.],[-1.,1.],[1.,-1.],[1.,1.]],dtype=torch.float64,requires_grad=True)
+    penalty=collapse_penalty(h,1.)
+    assert torch.allclose(penalty,torch.zeros_like(penalty),atol=1e-12,rtol=1e-12)
+    penalty.backward();assert torch.isfinite(h.grad).all()
+    collapsed=torch.zeros((4,2),dtype=torch.float64,requires_grad=True)
+    collapse_penalty(collapsed,1.).backward()
+    assert torch.isfinite(collapsed.grad).all()
