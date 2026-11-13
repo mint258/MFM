@@ -43,6 +43,7 @@ class PrivateMPS:
             CUDA_MPS_PIPE_DIRECTORY=str(self.pipe),CUDA_MPS_LOG_DIRECTORY=str(self.logs))
         self.process = self.controller = self.server = self.stream = None
         self.seen_clients = set()
+        self.client_identities = {}
 
     def check(self):
         capacity()
@@ -75,11 +76,32 @@ class PrivateMPS:
         for pid in clients:
             bound=identities[pid]
             current=capture_process_identity(pid)
-            if bound.get('slurm_job_id')!=self.job or not same_identity(bound,current):
+            if bound.get('slurm_job_id')!=self.job or not (same_identity(bound,current) or self.verified_exit(pid,current)):
                 raise RuntimeError('MPS client identity unavailable; refusing termination')
             reply=self.command(f'terminate_client {self.server["pid"]} {pid}').strip()
-            if reply!='0':
+            if reply!='0' and pid in self.clients():
                 raise RuntimeError('MPS did not confirm safe CUDA client termination: '+reply)
+
+    def verified_exit(self, pid, current):
+        prior=self.client_identities.get(pid)
+        while (prior and current.get('status')=='EXITING' and current.get('uid') is None
+                and current.get('start_ticks')==prior['start_ticks']):
+            time.sleep(.01)
+            current=capture_process_identity(pid)
+        return bool(prior and (current.get('status')=='GONE' or (current.get('status')=='EXITING'
+            and current.get('uid')==prior['uid'] and current.get('start_ticks')==prior['start_ticks'])))
+
+    def wait_closed(self, identities):
+        while True:
+            clients=self.clients()
+            if not clients:return
+            if not clients<=set(identities):
+                raise RuntimeError('Unknown MPS client during phase shutdown')
+            for pid in clients:
+                current=capture_process_identity(pid)
+                if not (self.verified_exit(pid,current) or same_identity(identities[pid],current)):
+                    raise RuntimeError('MPS client lifetime changed during shutdown')
+            time.sleep(.1)
 
     def validate_gpu_contexts(self, active, cohort):
         """The NVIDIA-visible server replaces client contexts; never mask others."""
@@ -89,8 +111,28 @@ class PrivateMPS:
         clients=self.clients()
         if not clients <= set(cohort):
             raise RuntimeError('MPS client is outside the registered measurement cohort')
-        if (set(active)&set(cohort))-clients:
-            raise RuntimeError('A benchmark client bypassed its private MPS server')
+        retired=set()
+        for pid in clients:
+            current=capture_process_identity(pid)
+            prior=self.client_identities.get(pid)
+            if self.verified_exit(pid,current):
+                retired.add(pid)
+                continue
+            if current.get('status')!='ACTIVE' or (prior and not same_identity(prior,current)):
+                raise RuntimeError('MPS client kernel lifetime changed')
+            self.client_identities[pid]=current
+        active=set(active)-retired
+        for pid in (active&set(cohort))-clients:
+            prior=self.client_identities.get(pid)
+            if prior is None:
+                raise RuntimeError('A benchmark client bypassed its private MPS server')
+            current=capture_process_identity(pid)
+            if same_identity(prior,current):
+                continue  # Previously confirmed client, now closing its CUDA context.
+            if self.verified_exit(pid,current):
+                active.discard(pid)  # NVML can outlive a confirmed client's actual context.
+            else:
+                raise RuntimeError('Retiring MPS client identity changed')
         self.seen_clients.update(clients)
         return set(active)-{self.server['pid']}
 

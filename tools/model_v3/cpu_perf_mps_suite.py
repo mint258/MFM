@@ -42,6 +42,19 @@ def main():
         raise ValueError('One physical GPU must be bound')
     gpu=bench.GPUS[0]
     previous=None
+    reuse=os.environ.get('MFM_CPU_REUSE_JOB')
+    reused=[]
+    if reuse:
+        previous=bench.SCRATCH/('concurrency_'+reuse)
+        admission=json.loads((previous/'admission.json').read_text())
+        if admission['gpu']!=gpu or admission['authorized_background']:
+            raise RuntimeError('Reuse requires the same idle card and no background')
+        for name in ('ordinary_single','mps_single'):
+            bench.measured_rate(previous/name/'task0')
+            row=json.loads((previous/name/'summary.json').read_text())
+            if row['tasks']!=1 or row['cpus_per_task']!=int(os.environ.get('MFM_CPU_CORES_PER_MODEL','16')):
+                raise RuntimeError('Reused phase execution configuration differs')
+            reused.append(row)
     background=bench.capture_background(gpu)
     if os.environ.get('MFM_CPU_BASELINE_JOB'):
         previous=bench.SCRATCH/('concurrency_'+os.environ['MFM_CPU_BASELINE_JOB'])
@@ -64,26 +77,30 @@ def main():
         (root/'admission.json').write_text(json.dumps(dict(gpu=gpu,quota=quota,
             cpu_affinity=allocated,model_cores=cores,workers=14,authorized_background=background,
             baseline_job=os.environ.get('MFM_CPU_BASELINE_JOB'),
+            reused_completed_phases_from=reuse,
             source_revision=os.environ.get('MFM_CPU_SOURCE_REVISION'),
             numerical_path='ORIGINAL_RECOMPUTATION_RESTORED',execution='PRIVATE_MPS'),indent=2)+'\n')
-        results=[]
+        results=[row for row in reused if not row['name'].startswith('mps_')]
         if previous is None:
             results.append(bench.phase(root,gpu,'ordinary_single',1,cores,allocated,background))
-        mps_results=[]
+        mps_results=[row for row in reused if row['name'].startswith('mps_')]
         with PrivateMPS(gpu,root) as service:
             keys=('CUDA_VISIBLE_DEVICES','CUDA_MPS_PIPE_DIRECTORY','CUDA_MPS_LOG_DIRECTORY')
             old={key:os.environ.get(key) for key in keys}
             os.environ.update({key:service.env[key] for key in keys})
             try:
                 with mps_observer(service):
-                    phases=[('mps_single',1),('mps_concurrent2',2)]
+                    phases=[] if reuse else [('mps_single',1)]
+                    phases.append(('mps_concurrent2',2))
                     if len(allocated)>=3*cores:phases.append(('mps_concurrent3',3))
                     phases.append(('mps_single_final',1))
                     for name,count in phases:
                         result=bench.phase(root,gpu,name,count,cores,allocated,background)
-                        identities=[json.loads(path.read_text())['pid']
+                        records=[json.loads(path.read_text())
                             for path in (root/name).glob('task*.registered.json')]
+                        identities={record['pid']:record for record in records}
                         service.confirm_clients(identities)
+                        service.wait_closed(identities)
                         mps_results.append(result)
             finally:
                 for key,value in old.items():
@@ -94,6 +111,7 @@ def main():
         eligible=[row['tasks'] for row in mps_results if min(row['samples_per_second'])>=.85*reference]
         summary=dict(status='MEASUREMENTS_COMPLETE',job=os.environ['SLURM_JOB_ID'],gpu=gpu,
             execution='PRIVATE_MPS',baseline_job=os.environ.get('MFM_CPU_BASELINE_JOB'),results=results,
+            reused_completed_phases_from=reuse,
             recommended_concurrency=max(eligible),threshold_fraction=.85,
             recommendation_single_reference=reference,
             single_baseline_drift_fraction=mps_results[-1]['samples_per_second'][0]/mps_results[0]['samples_per_second'][0]-1)

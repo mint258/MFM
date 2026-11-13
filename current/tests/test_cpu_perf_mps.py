@@ -98,3 +98,37 @@ def test_mps_clients_are_drained_before_process_cleanup(module,monkeypatch):
     with suite.mps_observer(service):
         suite.bench.stop_own([SimpleNamespace(poll=lambda:None)],{10:identity()})
     assert calls==['drain','signal']
+
+
+def test_confirmed_client_exit_race_is_allowed_but_pid_reuse_is_rejected(module,tmp_path,monkeypatch):
+    service=module.PrivateMPS('GPU-12345678-1234-1234-1234-123456789abc',tmp_path)
+    service.server=identity(20)
+    clients={10};current=identity(10)
+    monkeypatch.setattr(service,'check',lambda:None)
+    monkeypatch.setattr(service,'clients',lambda:set(clients))
+    monkeypatch.setattr(module,'capture_process_identity',lambda pid:identity(20) if pid==20 else current)
+    assert service.validate_gpu_contexts({20,10},{10})=={10}
+    clients.clear()
+    assert service.validate_gpu_contexts({20,10},{10})=={10}
+    current=dict(status='GONE',pid=10)
+    assert service.validate_gpu_contexts({20,10},{10})==set()
+    clients.add(10)
+    assert service.validate_gpu_contexts({20,10},{10})==set()
+    clients.clear()
+    current=dict(identity(10),start_ticks=999)
+    with pytest.raises(RuntimeError,match='identity changed'):
+        service.validate_gpu_contexts({20,10},{10})
+
+
+def test_partial_exit_observation_repolls_same_kernel_lifetime(module,tmp_path,monkeypatch):
+    service=module.PrivateMPS('GPU-12345678-1234-1234-1234-123456789abc',tmp_path)
+    service.client_identities[10]=identity(10)
+    observed=[]
+    monkeypatch.setattr(module.time,'sleep',lambda seconds:None)
+    def capture(pid):
+        observed.append(pid)
+        return dict(status='GONE',pid=pid)
+    monkeypatch.setattr(module,'capture_process_identity',capture)
+    assert service.verified_exit(10,dict(status='EXITING',pid=10,start_ticks=3))
+    assert observed==[10]
+    assert not service.verified_exit(10,dict(status='EXITING',pid=10,start_ticks=4))
