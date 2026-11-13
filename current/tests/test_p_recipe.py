@@ -118,3 +118,35 @@ def test_state_total_energy_matches_physical_path_across_loss_families():
     groups=physical_state_groups(view,{f['name'] for f in fields})
     assert len(groups)==1
     assert next(iter(groups.values()))=={'neutral':'P.xtb_singlepoint.r0.value','water':'P.xtb_ALPB_water.r1.value','octanol':'P.xtb_ALPB_octanol.r2.value'}
+def test_fitted_normalization_keeps_small_residual_before_fp32_output():
+    import numpy as np
+    from phychem_mfm.phase1.v31_loader import normalize_values
+    raw=np.array([[100000000.]],dtype=np.float32)
+    spec=dict(fit_role='TRAIN',center=0.,scale=.125,element_reference=dict(basis=[6],coefficients=[99999999.875],intercept=0.))
+    assert normalize_values(raw,spec,Z=np.array([6]))[0,0]==0.
+    value=normalize_values(raw,{**spec,'p_recipe_fitted':True},Z=np.array([6]))
+    assert value.dtype==np.float32 and value[0,0]==1.
+
+
+def test_fitted_label_mean_preserves_fp64_until_reference_subtraction():
+    import numpy as np
+    from types import SimpleNamespace
+    from unittest.mock import patch
+    from phychem_mfm.phase1.v31_loader import MFM4Dataset,V31Target
+    from phychem_mfm.phase1.p_recipe_data import PRecipeDataset
+    spec=dict(fit_role='TRAIN',center=0.,scale=.125,p_recipe_fitted=True,element_reference=dict(basis=[6],coefficients=[99999999.875],intercept=0.))
+    samples=[]
+    for scalar in (100000000.,100000008.):
+        raw=np.array([[scalar]],dtype=np.float32)
+        target=V31Target(raw,raw.copy(),np.ones_like(raw,dtype=bool),'P','energy','molecule','scalar',True,None)
+        samples.append(dict(Z=np.array([6]),targets={'energy':target}))
+    dataset=object.__new__(PRecipeDataset)
+    dataset.label_parameters={'normalizations':{'energy':spec}}
+    dataset.view=SimpleNamespace(fields=[dict(name='energy',normalization=spec)],normalizations={'energy':spec})
+    dataset.choices=lambda molecule:np.array([0,1])
+    with patch.object(MFM4Dataset,'read',side_effect=lambda molecule,conformer:samples[conformer]):
+        first=dataset.read(0,0)['targets']['energy']
+        averaged=dataset.molecule_mean(0)['energy']
+    assert first.raw.dtype==np.float64 and first.values[0,0]==1.
+    assert averaged.raw.dtype==np.float64 and averaged.raw[0,0]==100000004.
+    assert averaged.values.dtype==np.float32 and averaged.values[0,0]==33.

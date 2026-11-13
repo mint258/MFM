@@ -40,7 +40,9 @@ def main():
  bound=identity(child.pid);record=dict(started_at=time.time(),run=c['run'],execution='native_SSH',node=node,gpu_uuid=gpu,admission_used_mib=used,admission_total_mib=total,admission_fraction=used/total,**bound)
  state=R/'runs/p_recipe_20261113'/(c['run']+'_native.json')
  def save(**values):
-  record.update(values);state.write_text(json.dumps(record,indent=2)+'\n')
+  record.update(values)
+  try:state.write_text(json.dumps(record,indent=2)+'\n')
+  except OSError as error:record['state_write_error']=str(error)
  save(status='RUNNING');print(json.dumps(record),flush=True);paused=False
  while child.poll() is None:
   try:capacity();ok=True

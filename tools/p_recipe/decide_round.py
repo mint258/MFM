@@ -12,7 +12,7 @@ def compare(a,b,purpose,round_number):
  for readout in ('R3','R1'):
   aa,bb=sa[readout],sb[readout]
   result=paired_decision(aa['mean_normalized_improvement'],bb['mean_normalized_improvement'],aa['paired_bootstrap']['values'],bb['paired_bootstrap']['values'])
-  rows.append(dict(purpose=purpose,round=round_number,readout=readout,A=a['run'],B=b['run'],**result))
+  rows.append(dict(purpose=purpose,round=round_number,readout=readout,task='MEAN',A=a['run'],B=b['run'],**result))
  return rows
 
 
@@ -43,15 +43,20 @@ def close(plan,previous,round_gpu_hours):
   best_single_configuration=best_path,best_single_run=best['run'],consecutive_empty_rounds=empty,
   round_gpu_hours=round_gpu_hours,screening_gpu_hours=hours,screening_finished=bool(reasons),stop_reasons=reasons,
   secondary_disagreement=[name for name,d in decisions.items() if d['verdict']=='win' and next(r for r in rows if r['purpose']=='screening' and r['A']==by_arm[name]['run'] and r['readout']=='R1')['verdict']=='loss'])
+ write_deltas(rows)
+ return state
+
+
+def write_deltas(rows):
  destination=REPO/'results/p_recipe/deltas.csv';destination.parent.mkdir(parents=True,exist_ok=True)
  previous_rows=[]
  if destination.is_file():
   with destination.open() as stream:previous_rows=list(csv.DictReader(stream))
- keys={(r['purpose'],str(r['round']),r['readout'],r['A'],r['B']) for r in rows}
- previous_rows=[r for r in previous_rows if (r['purpose'],str(r['round']),r['readout'],r['A'],r['B']) not in keys]
+ def key(row):return (row['purpose'],str(row['round']),row['readout'],row.get('task','MEAN'),row['A'],row['B'])
+ keys={key(row) for row in rows};previous_rows=[row for row in previous_rows if key(row) not in keys]
  with destination.open('w',newline='') as stream:
-  writer=csv.DictWriter(stream,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(previous_rows+rows)
- return state
+  writer=csv.DictWriter(stream,fieldnames=['purpose','round','readout','task','A','B','delta','ci_lower','ci_upper','verdict'])
+  writer.writeheader();writer.writerows(previous_rows+rows)
 
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--plan',required=True);p.add_argument('--previous-state');p.add_argument('--round-gpu-hours',type=float,required=True);p.add_argument('--output',required=True);a=p.parse_args()

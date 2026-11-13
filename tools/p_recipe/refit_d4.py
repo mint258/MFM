@@ -182,4 +182,16 @@ if __name__=='__main__':
     p.add_argument('--output');p.add_argument('--workers',type=int,default=16);p.add_argument('--publish',action='store_true')
     a=p.parse_args()
     if a.publish:publish_routes()
-    else:fit(a.dataset,a.output,a.workers)
+    else:
+        import fcntl
+        # One dataset producer; a completed parallel fit is an ordinary resume.
+        with (CONTROL/('D4_'+a.dataset+'.lock')).open('a') as lock:
+            fcntl.flock(lock,fcntl.LOCK_EX)
+            shared=Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/D4_REPAIRED')/a.dataset/'manifest.json'
+            corpus=json.loads(Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/corpus/corpus.json').read_text())
+            expected=dict(json.loads((CONTROL/'refit_source_inputs.json').read_text())[a.dataset]['inputs'],dataset=a.dataset,excluded_molecule_ids=corpus['excluded_molecule_ids'])
+            expected.pop('workers',None)
+            prior=json.loads(shared.read_text()) if shared.is_file() else None
+            if prior and {k:v for k,v in prior['inputs'].items() if k!='workers'}==expected:
+                print(json.dumps(dict(status='REUSED_COMPLETED_D4',dataset=a.dataset,manifest=str(shared))),flush=True)
+            else:fit(a.dataset,a.output,a.workers)

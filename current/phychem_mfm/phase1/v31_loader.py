@@ -180,7 +180,9 @@ def normalize_values(raw, specification, *, Z):
     """Apply explicit D4 affine/element-reference parameters, never fit them."""
     if specification.get('fit_role') != 'TRAIN':
         raise ValueError('Normalization must come from TRAIN')
-    values = np.asarray(raw, dtype=np.float32).copy()
+    fitted = specification.get('p_recipe_fitted', False)
+    dtype = np.float64 if fitted else np.float32
+    values = np.asarray(raw, dtype=dtype).copy()
     reference = specification.get('element_reference')
     if reference is not None:
         counts = {int(z): int((Z == z).sum()) for z in np.unique(Z)}
@@ -189,16 +191,17 @@ def normalize_values(raw, specification, *, Z):
             for z, coefficient in zip(reference['basis'], reference['coefficients']))
         if not np.isfinite(offset):
             raise ValueError('D4 element reference must be finite')
-        values -= np.float32(offset)
+        values -= dtype(offset)
     # D4 winsorizes the statistical fit, not the original training labels.
     # Quantile bounds may be present as provenance; never clip target values.
-    center = np.asarray(specification['center'], dtype=np.float32)
-    scale = np.asarray(specification['scale'], dtype=np.float32)
+    center = np.asarray(specification['center'], dtype=dtype)
+    scale = np.asarray(specification['scale'], dtype=dtype)
     if not np.all(np.isfinite(scale) & (scale > 0)):
         raise ValueError('D4 scale must be finite and positive')
     if not np.all(np.isfinite(center)):
         raise ValueError('D4 center must be finite')
-    return (values - center) / scale
+    result = (values - center) / scale
+    return result.astype(np.float32) if fitted else result
 
 
 class TrainingView:
@@ -454,11 +457,14 @@ class MFM4Dataset:
         for name in set.intersection(*(set(s['targets']) for s in samples)):
             targets = [s['targets'][name] for s in samples]
             template = targets[0]
+            field = next(f for f in self.view.fields if f['name'] == name)
+            spec = field.get('normalization', self.view.normalizations.get(name))
+            dtype = np.float64 if spec.get('p_recipe_fitted', False) else np.float32
             if template.pair_index is not None:
                 pairs = sorted(set(tuple(p) for t in targets for p in t.pair_index.tolist()))
                 index = {p: i for i, p in enumerate(pairs)}
                 raw = np.full((len(targets), len(pairs), template.raw.shape[-1]), np.nan,
-                              dtype=np.float32)
+                              dtype=dtype)
                 for i, target in enumerate(targets):
                     for j, pair in enumerate(target.pair_index.tolist()):
                         raw[i, index[tuple(pair)]] = target.raw[j]
@@ -468,7 +474,7 @@ class MFM4Dataset:
                 pair_index = None
             count = (~np.isnan(raw)).sum(0)
             mean = np.divide(np.nansum(raw, axis=0), count,
-                             out=np.full(raw.shape[1:], np.nan), where=count > 0).astype(np.float32)
+                             out=np.full(raw.shape[1:], np.nan), where=count > 0).astype(dtype)
             field = next(f for f in self.view.fields if f['name'] == name)
             spec = field.get('normalization', self.view.normalizations.get(name))
             output[name] = V31Target(mean, normalize_values(mean, spec, Z=samples[0]['Z']),

@@ -52,7 +52,7 @@ def train(configuration):
   cp=torch.load(resuming,map_location='cpu',weights_only=True);model.load_state_dict(cp['model']);optimizer.load_state_dict(cp['optimizer']);clock.load_state_dict(cp['clock']);rng.bit_generator.state=cp['rng'];torch.set_rng_state(cp['torch_rng']);torch.cuda.set_rng_state(cp['cuda_rng']);prior=cp['elapsed_seconds'];window=cp['family_window'];window_updates=cp['family_window_updates'];clipped=cp['clipped_updates'];total_window=cp.get('total_window',[])
  (output/'configuration.json').write_text(json.dumps(c,indent=2)+'\n')
  history=TrainingHistory(output,c,initial_samples=clock.samples_consumed);history.window=total_window
- csv_path=REPO/'results/p_recipe/training'/(c['run']+'.csv');csv_path.parent.mkdir(parents=True,exist_ok=True)
+ csv_path=REPO/'results/p_recipe/training'/c['run']/'family_losses.csv';csv_path.parent.mkdir(parents=True,exist_ok=True)
  columns=['run','kind','samples','updates','family','loss','clipped_fraction','seconds']
  def deliver(rows):
   exists=csv_path.exists()
@@ -90,7 +90,7 @@ def train(configuration):
       a,n=native.get(name,(0.,0));native[name]=(a+float(np.abs(values[valid]-truth[valid]).sum()),n+int(valid.sum()))
   result={f:float(np.mean([sums[n]/counts[n] for n in sums if families[n]==f and counts[n]>0])) for f in sorted(set(families.values())) if any(families[n]==f and counts[n]>0 for n in sums)}
   native_rows=[dict(field=n,MAE_original_units=a/nobs,observations=nobs,unit=pd.definitions[n].get('unit','source_registry_unit')) for n,(a,nobs) in native.items()]
-  with (output/('VAL_original_units_'+str(clock.samples_consumed)+'.csv')).open('w',newline='') as stream:
+  with (csv_path.parent/('VAL_original_units_'+str(clock.samples_consumed)+'.csv')).open('w',newline='') as stream:
    writer=csv.DictWriter(stream,fieldnames=['field','MAE_original_units','observations','unit']);writer.writeheader();writer.writerows(native_rows)
   model.train();return result
  try:
@@ -112,10 +112,9 @@ def train(configuration):
     if clock.samples_consumed%500000==0:
      values=validate();deliver([dict(run=c['run'],kind='VAL_fixed2000',samples=clock.samples_consumed,updates=clock.optimizer_updates,family=n,loss=v,clipped_fraction=clipped/clock.optimizer_updates,seconds=prior+time.monotonic()-started) for n,v in values.items()])
     final=clock.samples_consumed==c['samples'];milestone=clock.samples_consumed%500000==0 or final
-    if milestone or clock.optimizer_updates%1000==0:
+    if milestone:
      payload=dict(model=model.state_dict(),optimizer=optimizer.state_dict(),configuration=c,architecture=architecture,clock=clock.state_dict(),rng=rng.bit_generator.state,torch_rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state(),elapsed_seconds=prior+time.monotonic()-started,family_window=window,family_window_updates=window_updates,clipped_updates=clipped,total_window=history.window)
-     destination=output/('samples_'+str(clock.samples_consumed)+'.pt') if final else output/'recovery_next.pt';save_checkpoint(payload,destination)
-     if not final:destination.replace(output/'recovery.pt')
+     destination=output/('samples_'+str(clock.samples_consumed)+'.pt');save_checkpoint(payload,destination)
     if clock.optimizer_updates%100==0:print(json.dumps(row),flush=True)
   if window:deliver([dict(run=c['run'],kind='TRAIN_final_partial_window',samples=clock.samples_consumed,updates=clock.optimizer_updates,family=n,loss=s/num,clipped_fraction=clipped/clock.optimizer_updates,seconds=prior+time.monotonic()-started) for n,(s,num) in window.items()])
   summary=dict(status='TRAINING_COMPLETE_EVALUATION_PENDING',run=c['run'],samples=clock.samples_consumed,updates=clock.optimizer_updates,actual_samples=clock.samples_consumed-initial_samples,seconds=prior+time.monotonic()-started,clipped_fraction=clipped/clock.optimizer_updates,clip=clip,batch_size=c['batch_size'],microbatch_size=c['microbatch_size'],GPU_peak_bytes=torch.cuda.max_memory_allocated())

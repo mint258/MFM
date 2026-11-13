@@ -40,13 +40,15 @@ class PRecipeDataset(MFM4Dataset):
   if not self.label_parameters:return sample
   differences=self.label_parameters.get('state_difference',{});tails=self.label_parameters.get('heavy_tail',{});targets={}
   for name,target in original.items():
+   if name not in self.label_parameters.get('normalizations',{}):
+    targets[name]=target;continue
    value=target.raw.astype(np.float64);valid=target.valid.copy()
    if name in differences:
     neutral=original[differences[name]];value=value-neutral.raw.astype(np.float64);valid=valid&neutral.valid
    if name in tails:
     tail=tails[name];offset=element_offset(sample['Z'],{'element_reference':tail.get('offset_reference')})
     value=value-offset;value=np.sign(value)*np.log1p(np.abs(value)/tail['m'])
-   value=np.where(valid,value,np.nan).astype(np.float32)
+   value=np.where(valid,value,np.nan)
    spec=self.view.normalizations[name]
    targets[name]=replace(target,raw=value,valid=valid,values=normalize_values(value,spec,Z=sample['Z']))
   sample['targets']=targets;return sample
