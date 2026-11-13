@@ -11,8 +11,9 @@ RECIPE_FLAGS={'A1':'element_residual','A2':'state_difference','A3':'pair_without
 
 
 def configuration(base,components,*,run,round_number,arm,samples=1500000,stage=2):
+ batch=base.get('batch_size',128)
  c=deepcopy(base);c.update(run=run,round=round_number,arm=arm,samples=samples,stage=stage,
-  batch_size=128,microbatch_size=128,persist_features=False,components=sorted(components))
+  batch_size=batch,microbatch_size=batch,persist_features=False,components=sorted(components))
  c['p_recipe']={};c['head_form']='H1';c['lr']=base['lr'];c['mean_labels']=False
  c.pop('resume',None);c.pop('label_parameters',None)
  c['output']=str(Path(base['output']).parent/run)

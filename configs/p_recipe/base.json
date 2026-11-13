@@ -38,5 +38,9 @@
     "schema":  "P_RECIPE_BASE_V1",
     "samples":  1500000,
     "persist_features":  false,
-    "activation_checkpointing":  true
+    "activation_checkpointing":  true,
+    "oom_batch_fallback":  [
+                               96,
+                               64
+                           ]
 }

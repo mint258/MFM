@@ -78,7 +78,11 @@
                      "gradient_accumulation":  false,
                      "batch_authority":  "User latest20261113: fixed128 for every subsequent P screening/confirmation/Pprime/scaling run; supersedes160; do not auto-enlarge",
                      "checkpoint_policy":  "Immutable samples_\u003cn\u003e.pt at each500k boundary and final budget; preserve all existing checkpoints, no rolling overwrite",
-                     "activation_checkpointing":  true
+                     "activation_checkpointing":  true,
+                     "oom_batch_fallback":  [
+                                                96,
+                                                64
+                                            ]
                  },
     "screening":  {
                       "samples":  1500000,
