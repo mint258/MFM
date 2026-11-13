@@ -24,7 +24,7 @@ def query(*args):
 def capacity():
     from v2_watch_disk import filesystem_status, require_capacity
     require_capacity(filesystem_status('/'), 0)
-    require_capacity(filesystem_status(SCRATCH), 4_000_000_000, 500)
+    require_capacity(filesystem_status(SCRATCH), 8_000_000_000, 500)
     require_capacity(filesystem_status(REPO), 64 * 1024**2, 100)
     text = query('lfs', 'quota', '-u', str(os.getuid()), '/lfshome')
     # Lustre output uses KiB, including hard limit; zero quota is not unlimited.
@@ -53,9 +53,9 @@ def capacity():
             # An atomic checkpoint rename may race metadata observation.
             # Skipping it over-reserves future bytes rather than under-reserving.
             continue
-    own_remaining = max(0, 4_000_000_000-own_allocated)
+    own_remaining = max(0, 8_000_000_000-own_allocated)
     if own_remaining == 0:
-        raise RuntimeError('Own 4GB physical forecast consumed; replan before new writes')
+        raise RuntimeError('Own 8GB physical forecast consumed; replan before new writes')
     required = 100_000_000_000 + model_remaining + other_remaining + own_remaining + 8*1024**3
     if limit <= 0 or (limit-used)*1024 < required:
         raise RuntimeError('Insufficient quota after actual concurrent remaining forecasts')
