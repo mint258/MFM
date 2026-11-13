@@ -25,7 +25,7 @@ IDENTITY = ('pid', 'uid', 'boot_id', 'start_ticks', 'pgid', 'sid', 'argv_sha256'
 
 
 def metadata_capacity():
-    from phychem_mfm.phase1.v2_disk import filesystem_status, require_capacity
+    from v2_watch_disk import filesystem_status, require_capacity
     for path in (Path('/'), LOCKS):
         require_capacity(filesystem_status(path), 1024**2, 16)
     path = BASE / 'runs/data_v1_20261025/control/window2_20261105/share_quota_available_v3.json'

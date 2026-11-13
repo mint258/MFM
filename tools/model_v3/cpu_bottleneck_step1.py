@@ -22,7 +22,7 @@ def query(*args):
 
 
 def capacity():
-    from phychem_mfm.phase1.v2_disk import filesystem_status, require_capacity
+    from v2_watch_disk import filesystem_status, require_capacity
     require_capacity(filesystem_status('/'), 0)
     require_capacity(filesystem_status(SCRATCH), 4_000_000_000, 500)
     require_capacity(filesystem_status(REPO), 64 * 1024**2, 100)

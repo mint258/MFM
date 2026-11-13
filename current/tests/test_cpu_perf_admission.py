@@ -118,7 +118,7 @@ class CapacityDebitTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             scratch=Path(directory)
             with patch.object(runner,'SCRATCH',scratch),patch.object(runner.time,'time',return_value=1000.), \
-                 patch.dict(sys.modules,{'phychem_mfm.phase1.v2_disk':disk}), \
+                 patch.dict(sys.modules,{'v2_watch_disk':disk}), \
                  patch.object(runner,'query',side_effect=lambda *args:f'/lfshome {used[0]} 0 300000000 -'), \
                  patch.object(Path,'read_text',return_value=quota), \
                  patch.object(runner.importlib.util,'spec_from_file_location',return_value=SimpleNamespace(loader=loader)), \
