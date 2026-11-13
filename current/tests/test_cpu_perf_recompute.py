@@ -1,7 +1,10 @@
-"""Recomputation removal preserves head values, derivatives, RNG and state keys."""
+"""Historical CPU reproducer for the candidate rejected by the real 200-step gate."""
 from copy import deepcopy
+import pytest
 import torch
 from phychem_mfm.model.heads import EquivariantDenoisingHead
+
+pytestmark = pytest.mark.skip(reason='No-recomputation candidate rejected by job4530319; original implementation restored')
 
 
 def test_checkpoint_policy_preserves_function_gradients_rng_and_state():

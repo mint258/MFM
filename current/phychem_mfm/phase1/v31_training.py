@@ -6,7 +6,6 @@ component field_keys. Perturbed labels use array22, never S's random noise.
 from __future__ import annotations
 
 from dataclasses import replace
-import os
 import numpy as np
 import torch
 from torch import nn
@@ -101,12 +100,6 @@ class V31PDModel(nn.Module):
         overrides = {f.name: pooling for f in head_fields if f.level == 'graph' and f.representation == 'scalar'}
         self.heads = V3HeadBank(self.head_registry, dim=encoder.latent_dim, forms=forms, hidden_dim=head_hidden_dim,
             pooling_overrides=overrides, allow_onsite_fields=onsite)
-        # Execution-only recomputation policy; retain parameter objects/state keys.
-        if os.environ.get('MFM_CPU_HEAD_NO_RECOMPUTE', '0') == '1':
-            from ..model.heads import EquivariantDenoisingHead
-            for head in self.heads.field_heads.values():
-                if isinstance(head, EquivariantDenoisingHead):
-                    head.activation_checkpointing = False
         # Unit transform is used ONLY after applying the actual D4 transform to
         # both sides; it is not a replacement for missing data-line statistics.
         self.unit_normalizations = {f.name: TrainNormalization((0.,), (1.,), inherited,
