@@ -89,9 +89,11 @@ def failed_nodes(xml):
         lock_case = (case.attrib['classname']=='tests.test_cpu_perf_concurrency' and case.attrib['name'] in (
             'test_previous_exclusive_launcher_cannot_be_joined',
             'test_new_registered_launchers_can_hold_shared_lock_together'))
+        fixture_case = case.attrib['classname']=='tests.test_model_v3_training_execution'
         for error in errors:
             diagnostic = (error.text or '')+' '+error.get('message','')
-            if '8 >= 16' not in diagnostic and not (lock_case and 'Bad file descriptor' in diagnostic):
+            if ('8 >= 16' not in diagnostic and not (lock_case and 'Bad file descriptor' in diagnostic)
+                    and not (fixture_case and 'Declared C1 configuration/options differ' in diagnostic)):
                 raise RuntimeError('Prior failure differs from the reviewed resource/NFS lock failures')
         parts = case.attrib['classname'].split('.')
         if len(parts)<2 or parts[0]!='tests' or not parts[1].startswith('test_'):
@@ -109,6 +111,12 @@ def repair_partition(previous, root, index, original):
         nodes = failed_nodes(previous/f'part{index}/shard_{shard["shard"]:02d}.xml')
         if not nodes:
             continue
+        failed_count = len(nodes)
+        if any('test_model_v3_training_execution.py::' in node for node in nodes):
+            # The fixture changed: retest its complete module, retaining unrelated passes.
+            cases = ET.parse(previous/f'part{index}/shard_{shard["shard"]:02d}.xml').getroot().iter('testcase')
+            nodes = [str(REPO/'current/tests/test_model_v3_training_execution.py')+'::'+case.attrib['name']
+                     for case in cases if case.attrib['classname']=='tests.test_model_v3_training_execution']
         xml = root/f'repair_part{index}_{shard["shard"]:02d}.xml'
         argv = [sys.executable,'-B','-m','pytest',*nodes,'-q','-p','no:cacheprovider',
                 f'--junitxml={xml}',f'--basetemp={root/("repair_tmp_"+str(index)+"_"+str(shard["shard"]))}']
@@ -118,15 +126,31 @@ def repair_partition(previous, root, index, original):
         cases = list(ET.parse(xml).getroot().iter('testcase'))
         if len(cases)!=len(nodes) or any(case.find('skipped') is not None for case in cases):
             raise RuntimeError('Resource repair coverage differs')
-        repairs.append(dict(nodes=nodes,execution=result))
-    count = sum(len(row['nodes']) for row in repairs)
+        repairs.append(dict(nodes=nodes,original_failed_nodes=failed_count,execution=result))
+    count = sum(row['original_failed_nodes'] for row in repairs)
     if count != original['counts']['failures']+original['counts']['errors']:
         raise RuntimeError('Repair did not cover every initial resource failure')
     effective = {**original,'status':'PASS','counts':{**original['counts'],'failures':0,'errors':0}}
+    update = fixture_update()
+    if update and update['path'] in effective['test_source_sha256']:
+        effective['test_source_sha256'] = {**effective['test_source_sha256'],update['path']:update['sha256']}
     (root/f'part{index}_repair.json').write_text(json.dumps(dict(
         initial_job=previous.name,initial_status=original['status'],original_counts=original['counts'],
         repaired_nodes=count,repairs=repairs,effective_summary=effective),indent=2)+'\n')
     return effective
+
+
+def fixture_update():
+    name = os.environ.get('MFM_CPU_REGRESSION_FIXTURE_UPDATE')
+    if not name:
+        return None
+    path = REPO/'results/model_v3_perf_20261112/regression_fixture_update.json'
+    if Path(name).resolve()!=path.resolve():
+        raise RuntimeError('Only the reviewed test-fixture update is allowed')
+    value=json.loads(path.read_text())
+    if value['schema']!='CPU_PERF_REVIEWED_FIXTURE_UPDATE_V1' or value['path']!='current/tests/test_model_v3_training_execution.py':
+        raise RuntimeError('Unknown fixture update')
+    return value
 
 
 def resume_completed(previous, root):
@@ -145,7 +169,11 @@ def resume_completed(previous, root):
             original = json.loads(old_resource.read_text())['effective_summary']
         else:
             break
-        if current != original['all_test_file_sha256']:
+        expected = dict(original['all_test_file_sha256'])
+        update = fixture_update()
+        if update and expected.get(update['path'])==update['previous_sha256']:
+            expected[update['path']]=update['sha256']
+        if current != expected:
             raise RuntimeError('Continuation requires unchanged full-suite test sources')
         if original['status']=='FAIL':
             original = repair_partition(previous,root,index,original)
@@ -186,26 +214,32 @@ def main():
             '--code-commit', os.environ['MFM_CPU_SOURCE_REVISION'], '--workers', '4',
             '--expected-node', os.environ['MFM_CPU_EXPECTED_NODE'],
             '--partitions', '8', '--partition-index', str(index)]
+        if fixture_update():
+            argv += ['--fixture-update',os.environ['MFM_CPU_REGRESSION_FIXTURE_UPDATE']]
         record = supervise(argv, root, root/f'part{index}.log')
         records.append(record)
         if record['returncode']:
-            raise RuntimeError(f'Full regression partition {index} failed; preserve evidence')
+            print(f'PARTITION_{index}_FAILED_PRESERVED_CONTINUING_UNEXECUTED_GROUPS',flush=True)
         summaries.append(json.loads((root/f'part{index}/summary.json').read_text()))
     actual = [path for row in summaries for path in row['test_source_sha256']]
-    expected = summaries[0]['all_test_file_sha256']
+    expected = {str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest()
+                for p in sorted((REPO/'current/tests').glob('test_*.py'))}
     if len(actual) != len(set(actual)) or set(actual) != set(expected):
         raise RuntimeError('Full regression source coverage differs')
     counts = {key:sum(row['counts'][key] for row in summaries) for key in ('tests','failures','errors','skipped')}
-    if any(row['status'] != 'PASS' for row in summaries) or not counts['tests'] or counts['failures'] or counts['errors']:
-        raise RuntimeError('Full regression did not pass')
-    result = dict(status='PASS', job=os.environ['SLURM_JOB_ID'], node=os.environ['MFM_CPU_EXPECTED_NODE'],
+    covered = {path:sha for row in summaries for path,sha in row['test_source_sha256'].items()}
+    if covered != expected:
+        raise RuntimeError('Covered test sources differ from final actual test sources')
+    passed = all(row['status']=='PASS' for row in summaries) and counts['tests']>0 and not counts['failures'] and not counts['errors']
+    result = dict(status='PASS' if passed else 'FAIL', job=os.environ['SLURM_JOB_ID'], node=os.environ['MFM_CPU_EXPECTED_NODE'],
         source_revision=os.environ['MFM_CPU_SOURCE_REVISION'], cpu_affinity=cores,
         continued_from_job=resume,
         pytest_processes=4, test_file_count=len(actual), counts=counts, admission=admission,
         final_capacity=storage(root), partitions=records)
     (root/'summary.json').write_text(json.dumps(result, indent=2)+'\n')
     print(json.dumps({key:result[key] for key in ('status','job','node','test_file_count','counts')}), flush=True)
+    return int(not passed)
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())
