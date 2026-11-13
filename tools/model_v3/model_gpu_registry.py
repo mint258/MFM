@@ -115,7 +115,8 @@ def register_current(gpu, output, *, benchmark=False):
 @contextmanager
 def shared_model_gpu(gpu, output):
     metadata_capacity()
-    with (LOCKS/(gpu+'.lock')).open('a') as shared:
+    # NFS maps flock(LOCK_SH) to a read lock, so the descriptor must be readable.
+    with (LOCKS/(gpu+'.lock')).open('a+') as shared:
         # Existing launchers retain their exclusive locks. They cannot be joined.
         fcntl.flock(shared, fcntl.LOCK_SH | fcntl.LOCK_NB)
         with (LOCKS/(gpu+'.admission.lock')).open('a') as admission:

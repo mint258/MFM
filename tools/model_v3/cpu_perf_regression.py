@@ -86,8 +86,13 @@ def failed_nodes(xml):
         errors = list(case.findall('failure')) + list(case.findall('error'))
         if not errors:
             continue
-        if any('8 >= 16' not in ((error.text or '')+' '+error.get('message','')) for error in errors):
-            raise RuntimeError('Prior failure is not the reviewed eight-core resource assertion')
+        lock_case = (case.attrib['classname']=='tests.test_cpu_perf_concurrency' and case.attrib['name'] in (
+            'test_previous_exclusive_launcher_cannot_be_joined',
+            'test_new_registered_launchers_can_hold_shared_lock_together'))
+        for error in errors:
+            diagnostic = (error.text or '')+' '+error.get('message','')
+            if '8 >= 16' not in diagnostic and not (lock_case and 'Bad file descriptor' in diagnostic):
+                raise RuntimeError('Prior failure differs from the reviewed resource/NFS lock failures')
         parts = case.attrib['classname'].split('.')
         if len(parts)<2 or parts[0]!='tests' or not parts[1].startswith('test_'):
             raise RuntimeError('Unknown failing test module')
@@ -98,23 +103,18 @@ def failed_nodes(xml):
     return nodes
 
 
-def resume_first_partition(previous, root):
-    original = json.loads((previous/'part0/summary.json').read_text())
-    current = {str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest()
-               for p in sorted((REPO/'current/tests').glob('test_*.py'))}
-    if current != original['all_test_file_sha256'] or original['status']!='FAIL':
-        raise RuntimeError('Continuation requires the exact unchanged full-suite test sources')
+def repair_partition(previous, root, index, original):
     repairs = []
     for shard in original['shards']:
-        nodes = failed_nodes(previous/f'part0/shard_{shard["shard"]:02d}.xml')
+        nodes = failed_nodes(previous/f'part{index}/shard_{shard["shard"]:02d}.xml')
         if not nodes:
             continue
-        xml = root/f'repair_{shard["shard"]:02d}.xml'
+        xml = root/f'repair_part{index}_{shard["shard"]:02d}.xml'
         argv = [sys.executable,'-B','-m','pytest',*nodes,'-q','-p','no:cacheprovider',
-                f'--junitxml={xml}',f'--basetemp={root/("repair_tmp_"+str(shard["shard"]))}']
-        result = supervise(argv,root,root/f'repair_{shard["shard"]:02d}.log')
+                f'--junitxml={xml}',f'--basetemp={root/("repair_tmp_"+str(index)+"_"+str(shard["shard"]))}']
+        result = supervise(argv,root,root/f'repair_part{index}_{shard["shard"]:02d}.log')
         if result['returncode'] or failed_nodes(xml):
-            raise RuntimeError('Resource repair did not pass; preserve all evidence')
+            raise RuntimeError('Targeted failure repair did not pass; preserve all evidence')
         cases = list(ET.parse(xml).getroot().iter('testcase'))
         if len(cases)!=len(nodes) or any(case.find('skipped') is not None for case in cases):
             raise RuntimeError('Resource repair coverage differs')
@@ -123,10 +123,40 @@ def resume_first_partition(previous, root):
     if count != original['counts']['failures']+original['counts']['errors']:
         raise RuntimeError('Repair did not cover every initial resource failure')
     effective = {**original,'status':'PASS','counts':{**original['counts'],'failures':0,'errors':0}}
-    (root/'part0_resource_repair.json').write_text(json.dumps(dict(
+    (root/f'part{index}_repair.json').write_text(json.dumps(dict(
         initial_job=previous.name,initial_status=original['status'],original_counts=original['counts'],
         repaired_nodes=count,repairs=repairs,effective_summary=effective),indent=2)+'\n')
     return effective
+
+
+def resume_completed(previous, root):
+    current = {str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest()
+               for p in sorted((REPO/'current/tests').glob('test_*.py'))}
+    summaries = []
+    for index in range(8):
+        raw = previous/f'part{index}/summary.json'
+        continued = previous/f'continued_part{index}.json'
+        old_resource = previous/'part0_resource_repair.json'
+        if raw.is_file():
+            original = json.loads(raw.read_text())
+        elif continued.is_file():
+            original = json.loads(continued.read_text())['effective_summary']
+        elif index==0 and old_resource.is_file():
+            original = json.loads(old_resource.read_text())['effective_summary']
+        else:
+            break
+        if current != original['all_test_file_sha256']:
+            raise RuntimeError('Continuation requires unchanged full-suite test sources')
+        if original['status']=='FAIL':
+            original = repair_partition(previous,root,index,original)
+        if original['status']!='PASS':
+            raise RuntimeError('Unknown prior regression status')
+        (root/f'continued_part{index}.json').write_text(json.dumps(dict(
+            source_directory=str(previous),effective_summary=original),indent=2)+'\n')
+        summaries.append(original)
+    if not summaries:
+        raise RuntimeError('No closed partitions to continue')
+    return summaries
 
 
 def main():
@@ -149,8 +179,8 @@ def main():
         if not resume.isdigit():
             raise ValueError('One original numeric regression job is required')
         previous = root.parent/('regression_'+resume)
-        summaries.append(resume_first_partition(previous,root))
-    for index in range(1 if resume else 0,8):
+        summaries.extend(resume_completed(previous,root))
+    for index in range(len(summaries),8):
         argv = [sys.executable, '-B', '-u', str(REPO/'tools/model_v3/run_regression.py'),
             '--root', str(REPO), '--output', str(root/f'part{index}'),
             '--code-commit', os.environ['MFM_CPU_SOURCE_REVISION'], '--workers', '4',

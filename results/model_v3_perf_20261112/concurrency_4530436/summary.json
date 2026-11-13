@@ -1,0 +1,249 @@
+{
+  "status": "MEASUREMENTS_COMPLETE",
+  "job": "4530436",
+  "gpu": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+  "execution": "PRIVATE_MPS",
+  "baseline_job": null,
+  "results": [
+    {
+      "name": "ordinary_single",
+      "tasks": 1,
+      "cpus_per_task": 16,
+      "workers_per_task": 14,
+      "cpu_affinity": [
+        [
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67
+        ]
+      ],
+      "samples_per_second": [
+        92.19398767518439
+      ],
+      "total_samples_per_second": 92.19398767518439,
+      "gpu_power_watts_mean": 259.33351681957174,
+      "gpu_memory_MiB_max": 8516.0,
+      "main_cpu_percent_mean": [
+        90.5487933971607
+      ]
+    },
+    {
+      "name": "mps_single",
+      "tasks": 1,
+      "cpus_per_task": 16,
+      "workers_per_task": 14,
+      "cpu_affinity": [
+        [
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67
+        ]
+      ],
+      "samples_per_second": [
+        91.65877012031767
+      ],
+      "total_samples_per_second": 91.65877012031767,
+      "gpu_power_watts_mean": 257.92717532467526,
+      "gpu_memory_MiB_max": 8568.0,
+      "main_cpu_percent_mean": [
+        88.36368866833921
+      ]
+    },
+    {
+      "name": "mps_concurrent2",
+      "tasks": 2,
+      "cpus_per_task": 16,
+      "workers_per_task": 14,
+      "cpu_affinity": [
+        [
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67
+        ],
+        [
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83
+        ]
+      ],
+      "samples_per_second": [
+        71.4911067930271,
+        71.45411711863771
+      ],
+      "total_samples_per_second": 142.9452239116648,
+      "gpu_power_watts_mean": 365.84993403693846,
+      "gpu_memory_MiB_max": 17060.0,
+      "main_cpu_percent_mean": [
+        91.60483677357203,
+        92.21703690887803
+      ]
+    },
+    {
+      "name": "mps_concurrent3",
+      "tasks": 3,
+      "cpus_per_task": 16,
+      "workers_per_task": 14,
+      "cpu_affinity": [
+        [
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67
+        ],
+        [
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83
+        ],
+        [
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99
+        ]
+      ],
+      "samples_per_second": [
+        57.81675367477657,
+        57.20777259426507,
+        57.77983496453208
+      ],
+      "total_samples_per_second": 172.80436123357373,
+      "gpu_power_watts_mean": 433.98263808139404,
+      "gpu_memory_MiB_max": 25553.0,
+      "main_cpu_percent_mean": [
+        93.59053958594808,
+        93.54656522107713,
+        93.50653119839683
+      ]
+    },
+    {
+      "name": "mps_single_final",
+      "tasks": 1,
+      "cpus_per_task": 16,
+      "workers_per_task": 14,
+      "cpu_affinity": [
+        [
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67
+        ]
+      ],
+      "samples_per_second": [
+        92.76600590769569
+      ],
+      "total_samples_per_second": 92.76600590769569,
+      "gpu_power_watts_mean": 264.564731543624,
+      "gpu_memory_MiB_max": 8568.0,
+      "main_cpu_percent_mean": [
+        90.43431680928668
+      ]
+    }
+  ],
+  "reused_completed_phases_from": "4530420",
+  "recommended_concurrency": 1,
+  "threshold_fraction": 0.85,
+  "recommendation_single_reference": 92.76600590769569,
+  "single_baseline_drift_fraction": 0.012079976481514931
+}
