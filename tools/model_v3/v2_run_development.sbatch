@@ -26,16 +26,8 @@ df -Pi / /lfshome/zixiao "$root"
 free -b
 state=$root/runs/model_v31_20261105/M3_controlled_${SLURM_JOB_ID}.state.json
 "$python" -B tools/model_v3/v2_diagnosis_disk.py --once --output "$output" --node "$(hostname -s)" --job "$SLURM_JOB_ID" --state "$state"
-if [[ "$mode" != cached_pooling && "$mode" != archive_sdk && "$mode" != mechanism ]]; then
-    exec 9>"$root/docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks/${gpu_uuid}.lock"
-    flock -n 9
-    "$python" -B - "$gpu_uuid" <<'PY'
-import csv,subprocess,sys
-result=subprocess.run(['nvidia-smi','--query-compute-apps=gpu_uuid,pid','--format=csv,noheader,nounits'],capture_output=True,text=True,check=True)
-if any(row and row[0].strip()==sys.argv[1] for row in csv.reader(result.stdout.splitlines())):
-    raise RuntimeError('Assigned GPU has another compute context; no experiment started')
-PY
-fi
+# The dispatcher registers the actual Python GPU process and holds the common
+# UUID lock shared. Existing exclusive launchers and unregistered contexts block it.
 "$python" -B -u tools/model_v3/v2_diagnosis_disk.py --output "$output" --state "$state" --node "$(hostname -s)" --job "$SLURM_JOB_ID" &
 guard=$!
 trap 'kill "$guard" 2>/dev/null || true; wait "$guard" 2>/dev/null || true' EXIT

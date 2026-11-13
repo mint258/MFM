@@ -37,8 +37,37 @@ MODEL_RESULT_OPTIONAL = {
 }
 
 
+def cpu_perf_csv(name: str, raw: bytes) -> bool:
+    """Task-authorized timing/telemetry CSVs only; training data stays excluded."""
+    if not re.fullmatch(r'results/model_v3_perf_20261112/(?:profiling|comparison)_[0-9]+/(?:segments/(?:segments|summary)|(?:baseline|profile)/losses|(?:baseline|profile)_telemetry)\.csv', name):
+        return False
+    stages=('wait_batch','count','collate','h2d','forward','loss','backward','clip_optimizer','logging','checkpoint')
+    try:
+        if len(raw)>2*1024**2 or b'\x00' in raw: return False
+        reader=csv.DictReader(io.StringIO(raw.decode('utf-8')))
+        headers=tuple(reader.fieldnames or ())
+        allowed=(('step',*stages,'total'),('stage','median_seconds','share_of_measured_time'),
+            ('unix_time','main_cpu_percent','gpu_power_watts','gpu_memory_MiB','training_started','losses_bytes'),
+            ('samples','updates','total','S','D','P','preclip_norm','lr','seconds'))
+        if headers not in allowed: return False
+        rows=list(reader)
+        if not 0<len(rows)<=2000: return False
+        for row in rows:
+            if None in row or any(value is None for value in row.values()): return False
+            for key,value in row.items():
+                if key=='stage':
+                    if value not in stages:return False
+                elif value:
+                    if not math.isfinite(float(value)):return False
+                elif key not in ('main_cpu_percent','S','D','P'):return False
+        return True
+    except (UnicodeError,ValueError,csv.Error,OverflowError):
+        return False
+
 def model_summary_csv(name: str, raw: bytes) -> bool:
     """Allow only small, typed, one-row-per-run model experiment summaries."""
+    if cpu_perf_csv(name, raw):
+        return True
     if name == 'results/model_v3_v2_validation.csv':
         try:
             if len(raw) > 128 * 1024 or b'\x00' in raw:

@@ -1,0 +1,132 @@
+{
+  "status": "PASS",
+  "job": "4530462",
+  "node": "compute-0-22",
+  "native_source_revision": "27ec28ea706dba52494b0c8bd74128a4afb1ea4a",
+  "base_commit": "42b75b98a4d044b968c8fdec6294446bef3a1a1b",
+  "original_full_regression_job": "4530454",
+  "counts": {
+    "tests": 101,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test_files": [
+    "test_model_v2_archive_wandb",
+    "test_model_v3_decision_evidence",
+    "test_model_v3_dev_evaluation",
+    "test_model_v3_dev_membership",
+    "test_model_v3_downstream_targets",
+    "test_model_v3_reselection",
+    "test_model_v3_seven_task_selection",
+    "test_model_v3_condition_clip",
+    "test_v2_development_dispatch",
+    "test_cpu_perf_concurrency",
+    "test_v3_r3_invariance",
+    "test_model_v3_wandb_layout"
+  ],
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "checks": [
+    "panel_v3_arguments_preserved",
+    "registered_GPU_wrapper_preserved",
+    "followon_and_shell_syntax_preserved"
+  ],
+  "execution": {
+    "returncode": 0,
+    "peak_rss_bytes": 954933248,
+    "observed_identities": [
+      {
+        "status": "ACTIVE",
+        "pid": 64624,
+        "uid": 1278,
+        "boot_id": "3378265d-2740-4829-802c-a94d7c7d2ba9",
+        "start_ticks": 17998508,
+        "pgid": 64624,
+        "sid": 64624,
+        "argv": [
+          "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/current/tests/test_model_v2_archive_wandb.py",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/current/tests/test_model_v3_decision_evidence.py",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/current/tests/test_model_v3_dev_evaluation.py",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/current/tests/test_model_v3_dev_membership.py",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/current/tests/test_model_v3_downstream_targets.py",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/current/tests/test_model_v3_reselection.py",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/current/tests/test_model_v3_seven_task_selection.py",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/current/tests/test_model_v3_condition_clip.py",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/current/tests/test_v2_development_dispatch.py",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/current/tests/test_cpu_perf_concurrency.py",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/current/tests/test_v3_r3_invariance.py",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/current/tests/test_model_v3_wandb_layout.py",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "--junitxml=/share/home/zixiao/descriptor_analysis/runs/model_v3_cpu_perf_20261112/merge_4530462/junit.xml",
+          "--basetemp=/share/home/zixiao/descriptor_analysis/runs/model_v3_cpu_perf_20261112/merge_4530462/test_tmp"
+        ],
+        "argv_sha256": "da6fcfb52f1763893c2ffea0c0dd9b4a55213cc1e2089694d1d827b15d1ed8da",
+        "cgroup": "1:freezer:/slurm/uid_1278/job_4530462/step_batch\n0::/system.slice/slurmd.service\n",
+        "slurm_job_id": "4530462",
+        "created": 1794542539.08
+      },
+      {
+        "status": "ACTIVE",
+        "pid": 64726,
+        "uid": 1278,
+        "boot_id": "3378265d-2740-4829-802c-a94d7c7d2ba9",
+        "start_ticks": 17999113,
+        "pgid": 64624,
+        "sid": 64624,
+        "argv": [
+          "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python",
+          "-B",
+          "-c",
+          "\nimport hashlib, importlib.util, json, pathlib, sys\nrunner_path, monitor_path, output_text = sys.argv[1:]\noutput = pathlib.Path(output_text)\nspec = importlib.util.spec_from_file_location('actual_layout_runner', runner_path)\nrunner = importlib.util.module_from_spec(spec); sys.modules[spec.name] = runner; spec.loader.exec_module(runner)\nrunner.configure_wandb_layout(output)\nassert 'wandb' not in sys.modules\nimport wandb\nrun = wandb.init(project='model-v3-sdk-layout-synthetic', name='synthetic_layout_only', mode='offline', dir=str(output))\nassert run is not None and not run.disabled\nrun.log({'synthetic_layout_probe': 1.0}, step=0, commit=True)\nrun.finish(exit_code=0)\nspec = importlib.util.spec_from_file_location('fixed_layout_monitor', monitor_path)\nmonitor = importlib.util.module_from_spec(spec); sys.modules[spec.name] = monitor; spec.loader.exec_module(monitor)\nsize = monitor.owned_output_bytes(output)\nsdk_files = list(output.rglob('*.wandb'))\nassert sdk_files and all(path.stat().st_size > 0 for path in sdk_files)\nassert size > 0\nassert (output/'cache').is_dir() and (output/'wandb_data').is_dir()\nprint(json.dumps({'status':'REAL_OFFLINE_SDK_LAYOUT_PASS', 'sdk_files':len(sdk_files), 'owned_output_bytes':size,\n 'monitor_sha256':hashlib.sha256(pathlib.Path(monitor_path).read_bytes()).hexdigest(),\n 'SDK_links':[str(path.relative_to(output)) for path in output.rglob('*') if path.is_symlink()]}))\n",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_cpu_perf_20261112/tools/model_v3/evaluate_dev_panel.py",
+          "/share/home/zixiao/descriptor_analysis/MFM_model_v3_profiler_v2/tools/model_v3/runtime_monitor.py",
+          "/share/home/zixiao/descriptor_analysis/runs/model_v3_cpu_perf_20261112/merge_4530462/test_tmp/test_actual_offline_sdk_layout0/actual_sdk"
+        ],
+        "argv_sha256": "97fe3f5e3a3dff036decbbf6e4767aa685ae77592f0dad41bc71a93aeb44da7e",
+        "cgroup": "1:freezer:/slurm/uid_1278/job_4530462/step_batch\n0::/system.slice/slurmd.service\n",
+        "slurm_job_id": "4530462",
+        "created": 1794542545.13
+      }
+    ]
+  },
+  "final_capacity": {
+    "existing_forecasts": {
+      "available_bytes": 185313804288,
+      "required_bytes": 130289024000,
+      "mainline_allocated_bytes": 45491793920,
+      "mainline_remaining_forecast": 11897608192,
+      "own_allocated_bytes": 4198518784,
+      "own_remaining_forecast": 3801481216,
+      "other_remaining_forecast": 6000000000
+    },
+    "regression_allocated": 3022848,
+    "nfs_available": 143455248384,
+    "nfs_required": 139833889792
+  },
+  "raw_root": "/share/home/zixiao/descriptor_analysis/runs/model_v3_cpu_perf_20261112/merge_4530462",
+  "github_integration_source_commit": "55a80f9dc94e9fe853e5458fad66466dbc3c71e2",
+  "scope": "Only twelve affected modules and explicit launcher integration assertions after model-v3 advanced; original full suite retained."
+}

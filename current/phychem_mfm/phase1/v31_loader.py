@@ -514,6 +514,10 @@ def encode_samples(samples, encoder, *, graph=False, pooling='mean', device=None
     return batch, features
 
 
+from .v31_segment_timing import phase, timed
+
+
+@timed('collate')
 def collate_samples(samples, *, coordinates=True, device=None):
     """Pack source model inputs without carrying any P/D targets into PyG."""
     from torch_geometric.data import Batch, Data
@@ -529,7 +533,8 @@ def collate_samples(samples, *, coordinates=True, device=None):
         records.append(record)
     batch = Batch.from_data_list(records)
     if device is not None:
-        batch = batch.to(device)
+        with phase('h2d'):
+            batch = batch.to(device)
     return batch
 
 
