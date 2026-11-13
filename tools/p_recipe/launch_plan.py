@@ -54,7 +54,7 @@ def launch(plan):
     reserved.update(state='SUBMISSION_OBSERVATION_UNCERTAIN',observation_error=str(error));path.write_text(json.dumps(ledger,indent=2)+'\n');continue
    record=dict(backend='native_SSH',node=node,gpu_uuid=gpu,wrapper_pid=pid,native_state=str(C/(name+'_native.json')),state='LAUNCHED',submitted_at=submitted,configuration=filename,stage=configuration['stage'],round=configuration['round'])
   else:
-   command=['sbatch','--parsable','--job-name='+name,'--nodelist='+node,'--exclusive',str(REPO/'tools/p_recipe/train.sbatch'),filename,gpu,configuration['output']]
+   command=['sbatch','--parsable','--job-name='+name,'--nodelist='+node,str(REPO/'tools/p_recipe/train.sbatch'),filename,gpu,configuration['output']]
    try:job_id=int(subprocess.check_output(command,cwd=REPO,text=True,timeout=30).strip().split(';')[0])
    except (OSError,ValueError,subprocess.SubprocessError) as error:
     reserved.update(state='SUBMISSION_OBSERVATION_UNCERTAIN',observation_error=str(error));path.write_text(json.dumps(ledger,indent=2)+'\n');continue
