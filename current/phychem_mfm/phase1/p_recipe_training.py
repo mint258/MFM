@@ -32,10 +32,15 @@ def family_losses(loss,families):
 
 def train(configuration):
  c=dict(configuration);recipe=c.get('p_recipe',{});torch.set_num_threads(1);torch.manual_seed(c['seed'])
+ c.setdefault('activation_checkpointing',True)
  reader=dataset_configuration(c);data=PRecipeDataset(**reader);validation=PRecipeDataset(**dataset_configuration(c,validation=True))
  fixed=[(int(m),int(validation.choices(int(m))[0])) for m in validation.indices]
  print(json.dumps(dict(run=c['run'],TRAIN_molecules=len(data),batch_size=c['batch_size'],microbatch_size=c['microbatch_size'],source=c['source'])),flush=True)
  structural,architecture=s_model('C1-0','three')
+ # Keep the actual B128 batch and recompute existing layers during backward.
+ # This preserves parameter/state keys, losses and the original sampled graphs.
+ structural.encoder.backbone.activation_checkpointing=c['activation_checkpointing']
+ architecture['backbone']['activation_checkpointing']=c['activation_checkpointing']
  pd=V31PDModel(structural.encoder,data.view,forms=c['head_form'],pooling='registry',p_recipe=recipe)
  modules=dict(structural=structural,pd=pd)
  fields=tuple(f.name for f in pd.registry.enabled(('P',)) if c.get('fields') is None or f.name in c['fields'])

@@ -23,7 +23,12 @@ def prepare(round_number,previous=None):
   if labels:
    target=OUT/'label_parameters'/('PM7_'+'_'.join(labels)+'.json');c['label_parameters']=str(target)
    if not target.is_file():fits[str(target)]=str(destination/(arm+'.json'))
-  path=destination/(arm+'.json');path.write_text(json.dumps(c,indent=2)+'\n');configs.append(str(path))
+  path=destination/(arm+'.json')
+  if path.is_file():
+   existing=read_json(path)
+   if existing.get('attempt',1)>1:
+    c.update({key:existing[key] for key in ('run','output','attempt')})
+  path.write_text(json.dumps(c,indent=2)+'\n');configs.append(str(path))
  plan=dict(round=round_number,baseline=baseline,baseline_components=sorted(components),configurations=configs,skipped=skipped,label_parameters_to_fit=fits,batch_size=128)
  path=destination/'plan.json';path.write_text(json.dumps(plan,indent=2)+'\n');print(json.dumps(plan,indent=2),flush=True);return plan
 
