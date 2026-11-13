@@ -21,9 +21,9 @@ def main():
     parser.add_argument("--workers", type=int, default=16)
     parser.add_argument("--partitions", type=int, default=1)
     parser.add_argument("--partition-index", type=int, default=0)
-    parser.add_argument("--expected-node", choices=tuple("compute-0-"+str(i) for i in (2, *range(8, 20))),
+    parser.add_argument("--expected-node", choices=tuple("compute-0-"+str(i) for i in (2, *range(8, 20), 22)),
                         required=True,
-                        help="Explicit CPU node; user reserves GPU nodes for GPU work")
+                        help="Explicit node; node22 CPU fallback is authorized for the performance task")
     args = parser.parse_args()
     if not os.environ.get("SLURM_JOB_ID") or socket.gethostname().split(".")[0] != args.expected_node:
         raise RuntimeError("Regression needs its own Slurm allocation on the explicitly expected node")
