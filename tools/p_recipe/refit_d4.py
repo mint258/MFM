@@ -158,7 +158,34 @@ def fit(dataset,output,workers):
     I.save(shared/'manifest.json',manifest)
     return manifest
 
-def publish_routes():
+def export_training_parameters(output):
+    """Publish only already committed parameter stages; MAD continues separately."""
+    from shutil import copy2
+    import socket
+    from workflows.data_v1_final.labels.window2_normalization_v1 import io as I
+    checkpoint=Path(output)/'checkpoint.json';state=I.load(checkpoint)
+    dataset=state['inputs']['dataset']
+    if state['purpose_index']<3:
+        print(json.dumps(dict(status='WAITING_FOR_CLOSED_TRAINING_PARAMETERS',dataset=dataset,
+            purpose_index=state['purpose_index'])),flush=True);return
+    shared=Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/D4_REPAIRED')/dataset/'TRAINING_READY'
+    manifest_path=shared/'manifest.json'
+    if manifest_path.is_file():
+        print(json.dumps(dict(status='REUSED_CLOSED_TRAINING_PARAMETERS',path=str(manifest_path))),flush=True);return
+    shared.mkdir(parents=True,exist_ok=True);references={}
+    for key in ('element_models_reference','exact_tail_reference','winsorized_statistics_reference'):
+        source=state['results'][key];destination=shared/Path(source['path']).name
+        copy2(I.require(source),destination);references[key]=I.ref(destination)
+    I.save(manifest_path,dict(schema='P_RECIPE_CLOSED_TRAINING_PARAMETERS',dataset=dataset,
+        inputs=state['inputs'],statistics=references,fit_role='TRAIN',training_normalizations_complete=True,
+        D4_diagnostics_complete='diagnostic_median_MAD_reference' in state['results'],
+        producer_checkpoint=str(checkpoint),producer_node=socket.gethostname(),
+        excluded_molecules=len(state['inputs']['excluded_molecule_ids']),
+        original_labels_modified=False,statistics_recomputed=False))
+    print(json.dumps(dict(status='CLOSED_TRAINING_PARAMETERS_PUBLISHED',path=str(manifest_path))),flush=True)
+
+
+def publish_routes(training_only=False):
     from copy import deepcopy
     from workflows.data_v1_final.labels.window2_normalization_v1 import io as I
     from workflows.data_v1_final.labels.window2_normalization_publish_v1.run import build_dataset,pointer
@@ -173,8 +200,12 @@ def publish_routes():
         ref=binding['policy_reference'];source=ref['path'] if isinstance(ref,dict) else ref
         rules[tid]=dict(binding,recipe=pointer(I.load(source),binding['json_pointer']))
     destination=Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/D4_REPAIRED')
+    output=destination/('training_routes.json' if training_only else 'routes.json')
+    if training_only and output.is_file():
+        print(json.dumps(dict(status='REUSED_TRAINING_ROUTES',path=str(output))),flush=True);return
     for name in ('P_D','Pprime'):
-        manifest=I.load(destination/name/'manifest.json');cfg=manifest['inputs']
+        manifest_path=destination/name/('TRAINING_READY/manifest.json' if training_only else 'manifest.json')
+        manifest=I.load(manifest_path);cfg=manifest['inputs']
         fields=I.load_data(cfg['field_map_reference'])
         numerical=I.load_data(manifest['statistics']['winsorized_statistics_reference'])
         models=I.load_data(manifest['statistics']['element_models_reference'])
@@ -182,24 +213,27 @@ def publish_routes():
         # Mask predicates are unchanged; retain their original shared catalogs.
         old=routes.get('source_references',{}).get(name,{})
         inherited=old.get('closed_training_stage_references',{}).get('mask_overrides_reference')
-        ref=dict(manifest=str(destination/name/'manifest.json'),
+        ref=dict(manifest=str(manifest_path),
             statistics=manifest['statistics']['winsorized_statistics_reference'],
             element_models=manifest['statistics']['element_models_reference'],fields=cfg['field_map_reference'])
         if inherited:ref['closed_training_stage_references']={'mask_overrides_reference':inherited}
         routes['source_references'][name]=ref
-    routes.update(numeric_statistics_refitted=True,D4_complete=True,PM7_diagnostic_status='COMPLETE',
-        PM7_diagnostics_continue=False,p_recipe_user_authorization='Exclude323, revise affected TRAIN/D4, continue',
+    routes.update(numeric_statistics_refitted=True,training_normalizations_complete=True,
+        D4_complete=not training_only,PM7_diagnostic_status='PENDING_MAD' if training_only else 'COMPLETE',
+        PM7_diagnostics_continue=training_only,p_recipe_user_authorization='Exclude323, revise affected TRAIN/D4, continue',
         train_molecules=1194228,excluded_molecules=323,
         p_recipe_corpus='/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/corpus/corpus.json')
-    I.save(destination/'routes.json',routes)
-    print(json.dumps(dict(status='REPAIRED_D4_ROUTES_PUBLISHED',path=str(destination/'routes.json'),
+    I.save(output,routes)
+    print(json.dumps(dict(status='CLOSED_TRAINING_ROUTES_PUBLISHED' if training_only else 'REPAIRED_D4_ROUTES_PUBLISHED',path=str(output),
         train_molecules=1194228)),flush=True)
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--dataset',choices=['P_D','Pprime'])
     p.add_argument('--output');p.add_argument('--workers',type=int,default=16);p.add_argument('--publish',action='store_true')
+    p.add_argument('--export-training-parameters',action='store_true');p.add_argument('--publish-training',action='store_true')
     a=p.parse_args()
-    if a.publish:publish_routes()
+    if a.publish or a.publish_training:publish_routes(training_only=a.publish_training)
+    elif a.export_training_parameters:export_training_parameters(a.output)
     else:
         import fcntl
         # One dataset producer; a completed parallel fit is an ordinary resume.

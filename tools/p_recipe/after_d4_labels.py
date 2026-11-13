@@ -1,19 +1,16 @@
-"""Fit the registered A1/A2 label recipes after the repaired D4 is published."""
-import json,os,shlex,subprocess,time
+"""Fit A1/A2 after training parameters close while MAD may continue."""
+import json,shlex,subprocess
 from pathlib import Path
+from after_d4 import wait_for_routes,set_normalizations
 R=Path('/share/home/zixiao/descriptor_analysis');C=R/'runs/p_recipe_20261113'
-READY=Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/D4_REPAIRED/routes.json')
 
 def main():
- print(json.dumps(dict(state='WAITING_FOR_REPAIRED_D4',pid=os.getpid(),path=str(READY))),flush=True)
- while True:
-  try:
-   routes=json.loads(READY.read_text())
-   if routes.get('D4_complete') and routes.get('numeric_statistics_refitted'):break
-  except (FileNotFoundError,json.JSONDecodeError):pass
-  time.sleep(30)
+ routes=wait_for_routes()
  for stage in ('fit_A1','fit_A2'):
   path=C/('P0_'+stage+'.json');c=json.loads(path.read_text());py=c['command'][4]
+  configuration=Path(c['command'][c['command'].index('--configuration')+1])
+  if not configuration.is_absolute():configuration=R/'MFM_p_recipe'/configuration
+  set_normalizations(configuration,routes)
   command=[py,'-B','-u',str(R/'MFM_p_recipe/tools/p_recipe/native_run.py'),'--configuration',str(path)]
   code='import subprocess;f=open('+repr(str(C/('P0_'+stage+'.log')))+',"ab",buffering=0);p=subprocess.Popen('+repr(command)+',stdin=subprocess.DEVNULL,stdout=f,stderr=subprocess.STDOUT,start_new_session=True);print(p.pid)'
   try:
