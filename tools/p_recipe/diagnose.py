@@ -161,9 +161,136 @@ def layer_diagnostic():
     (CONTROL/'D5_decision.json').write_text(json.dumps(dict(B1_priority=any(
         r['condition']=='P' and r['readout']=='R3' and r['verdict']=='win' for r in summaries)),indent=2)+'\n')
     print(json.dumps(dict(diagnostic='D5',summary=summaries)),flush=True)
+
+def p_context():
+    import torch
+    from phychem_mfm.phase1.v31_loader import TrainingView
+    from phychem_mfm.phase1.v31_training import V31PDModel
+    from phychem_mfm.phase1.v2_s_training import s_model
+    from phychem_mfm.phase1.p_recipe_data import PRecipeDataset,dataset_configuration,read_json
+    c=read_json(REPO/'configs/p_recipe/base.json')
+    train=PRecipeDataset(**dataset_configuration(c))
+    old=read_json(ROOT/'runs/model_v31_20261105/M3_P_C1_0_seed0_micro32.APPROVED.json')
+    oldview=TrainingView(train.schema,read_json(old['training_view']),read_json(old['normalizations']))
+    source=next(r for r in read_json(CONTROL/'input_metadata.json')['features'] if r['candidate']=='C1-0' and r['condition']=='P')
+    torch.set_num_threads(1);structural,_=s_model('C1-0','three');pd=V31PDModel(structural.encoder,train.view)
+    model=torch.nn.ModuleDict(dict(structural=structural,pd=pd));checkpoint=torch.load(source['checkpoint'],map_location='cpu',weights_only=True)
+    model.load_state_dict(checkpoint['model']);model.cuda().eval()
+    fields=tuple(f.name for f in pd.registry.enabled(('P',)))
+    return c,train,model,pd,oldview.normalizations,fields
+
+def corrected_prediction(pd,samples,oldnorm,fields):
+    import torch
+    from phychem_mfm.phase1.v31_training import element_offset
+    prediction=pd.predict(samples,groups=('P',),fields=fields)
+    # Preserve the old checkpoint's physical predictions under the repaired D4.
+    for name,value in prediction.items():
+        if pd.by_name[name].level!='graph':continue
+        oldspec=oldnorm[name];new=pd.definitions[name].get('normalization',pd.view.normalizations[name])
+        offset=[np.float32(element_offset(s['Z'],oldspec))-np.float32(element_offset(s['Z'],new)) for s in samples]
+        prediction[name]=value+value.new_tensor(offset)[:,None]
+    return prediction
+
+def field_diagnostic():
+    import torch
+    from phychem_mfm.phase1.p_recipe_data import PRecipeDataset,validation_indices as choose_val,dataset_configuration
+    from phychem_mfm.phase1.v31_training import torch_affine
+    c,train,model,pd,oldnorm,fields=p_context();valcfg=dataset_configuration(c,validation=True)
+    valcfg['molecule_indices']=choose_val(c,5000);val=PRecipeDataset(**valcfg)
+    chosen=np.random.default_rng(20261112).choice(train.indices,5000,replace=False)
+    rows=[]
+    for role,data,indices in (('TRAIN',train,chosen),('VAL',val,val.indices)):
+        totals={n:dict(n=0,absolute=0.,squared=0.,sum_y=0.,squared_y=0.) for n in fields}
+        with torch.no_grad():
+            for start in range(0,len(indices),160):
+                samples=[data.read(int(i),int(data.choices(int(i))[0])) for i in indices[start:start+160]]
+                pred=corrected_prediction(pd,samples,oldnorm,fields)
+                for name,value in pred.items():
+                    spec=pd.definitions[name].get('normalization',pd.view.normalizations[name])
+                    predicted=torch_affine(value,spec).cpu().double().numpy()
+                    truth=np.concatenate([s['targets'][name].values for s in samples]).astype(np.float64)
+                    valid=np.concatenate([s['targets'][name].valid for s in samples]);a,y=predicted[valid],truth[valid];t=totals[name]
+                    t['n']+=len(y);t['absolute']+=float(np.abs(a-y).sum());t['squared']+=float(np.square(a-y).sum());t['sum_y']+=float(y.sum());t['squared_y']+=float(y@y)
+        for name,t in totals.items():
+            denominator=t['squared_y']-t['sum_y']**2/t['n'] if t['n'] else 0.
+            rows.append(dict(role=role,field=name,family=pd.by_name[name].family,observations=t['n'],MAE_standardized=t['absolute']/t['n'] if t['n'] else None,R2_standardized_target=1-t['squared']/denominator if denominator>0 else None))
+    csv_output('D1_fields.csv',rows);families=sorted({r['family'] for r in rows});summary=[]
+    for family in families:
+        row=dict(family=family)
+        for role in ('TRAIN','VAL'):
+            selected=[r for r in rows if r['family']==family and r['role']==role]
+            maes=[r['MAE_standardized'] for r in selected if r['MAE_standardized'] is not None];r2=[r['R2_standardized_target'] for r in selected if r['R2_standardized_target'] is not None]
+            row[role+'_MAE_standardized']=float(np.mean(maes)) if maes else None;row[role+'_R2_standardized_target']=float(np.mean(r2)) if r2 else None
+        summary.append(row)
+    csv_output('D1_families.csv',summary);train.close();val.close();print(json.dumps(dict(diagnostic='D1',summary=summary)),flush=True)
+
+def correlation_diagnostic():
+    from phychem_mfm.phase1.p_recipe_data import PRecipeDataset,dataset_configuration,read_json,physical_state_groups
+    c=read_json(REPO/'configs/p_recipe/base.json');data=PRecipeDataset(**dataset_configuration(c))
+    fields=[f for f in data.view.fields if f['group']=='P' and f.get('loss_enabled',True)]
+    names=[f['name'] for f in fields];groups=physical_state_groups(data.view,set(names))
+    graph=[f['name'] for f in fields if f['level'] in ('graph','molecule','molecule_vector')]
+    blocks={'overall_graph_scalar_coordinates':graph}
+    for key,members in groups.items():
+        if key[0]!='PM7':continue
+        blocks['|'.join(key)]=[members[s] for s in ('neutral','anion','cation','water','octanol') if s in members]
+    chunks={k:[] for k in blocks};chosen=np.random.default_rng(20261112).choice(data.indices,20000,replace=False)
+    for i,index in enumerate(chosen):
+        sample=data.read(int(index),int(data.choices(int(index))[0]))
+        for key,columns in blocks.items():
+            values=[sample['targets'][name].values.reshape(-1) for name in columns]
+            chunks[key].append(np.stack(values,axis=1).astype(np.float64))
+        if (i+1)%5000==0:print(json.dumps(dict(diagnostic='D3',molecules=i+1)),flush=True)
+    rows=[]
+    for key,columns in blocks.items():
+        values=np.concatenate(chunks[key]);complete=values[np.isfinite(values).all(1)]
+        std=complete.std(0) if len(complete)>1 else np.zeros(len(columns));active=std>0
+        if active.any() and len(complete)>1:
+            z=(complete[:,active]-complete[:,active].mean(0))/std[active];corr=z.T@z/len(z);pr=float(np.trace(corr)**2/np.square(corr).sum())
+        else:pr=None
+        rows.append(dict(block=key,molecules=len(chosen),observations=len(values),complete_observations=len(complete),fields=len(columns),constant_fields=int((~active).sum()),participation_ratio=pr,source_fields=';'.join(columns)))
+    csv_output('D3_target_correlation.csv',rows);data.close();print(json.dumps(dict(diagnostic='D3',summary=rows)),flush=True)
+
+def gradient_diagnostic():
+    import torch,math
+    from phychem_mfm.phase1.p_recipe_training import family_losses
+    c,data,model,pd,oldnorm,fields=p_context();rng=np.random.default_rng(20261112);batch_size=c['batch_size']
+    chosen=rng.choice(data.indices,50*batch_size,replace=False)
+    choices=[(int(i),int(rng.choice(data.choices(int(i))))) for i in chosen]
+    parameters=tuple(pd.encoder.backbone.parameters());families={f.name:f.family for f in pd.head_registry.enabled(('P',))}
+    norms={};field_energy={};molecules=[]
+    def norm(value,retain=False):
+        gradient=torch.autograd.grad(value,parameters,retain_graph=retain,allow_unused=True)
+        return float(torch.sqrt(sum((g.detach().double().square().sum() for g in gradient if g is not None),value.new_zeros((),dtype=torch.float64))))
+    for batch in range(50):
+        samples=[data.read(i,conf) for i,conf in choices[batch*batch_size:(batch+1)*batch_size]]
+        pred=corrected_prediction(pd,samples,oldnorm,fields);loss=pd.loss(pred,samples,groups=('P',),fields=fields)
+        for family,value in family_losses(loss,families).items():norms.setdefault(family,[]).append(norm(value,True))
+        for name,value in loss.fields.items():
+            if loss.counts[name]:field_energy[name]=field_energy.get(name,0.)+norm(value,True)**2
+        del pred,loss,value
+        for molecule,conformer in choices[batch*batch_size:(batch+1)*batch_size]:
+            sample=data.read(molecule,conformer);pred=corrected_prediction(pd,[sample],oldnorm,fields);loss=pd.loss(pred,[sample],groups=('P',),fields=fields)
+            g=norm(loss.total);molecules.append(dict(molecule_index=molecule,conformer_index=conformer,gradient_norm=g,gradient_norm_squared=g*g));del pred,loss
+        print(json.dumps(dict(diagnostic='D2',closed_batches=batch+1,batches=50)),flush=True)
+    rows=[dict(family=n,batches=len(v),mean_gradient_norm=float(np.mean(v)),mean_gradient_norm_squared=float(np.mean(np.square(v)))) for n,v in norms.items()]
+    csv_output('D2_family_gradients.csv',rows);ranked=sorted(field_energy,key=field_energy.get,reverse=True);denominator=sum(field_energy.values());cumulative=0.;marked=[]
+    for name in ranked:
+        marked.append(name);cumulative+=field_energy[name]
+        if cumulative>.5*denominator:break
+    field_rows=[dict(field=n,family=families[n],gradient_norm_squared=field_energy[n],fraction=field_energy[n]/denominator,source_fields=';'.join(k for k,v in pd.selections.items() if v[0]==n)) for n in ranked]
+    csv_output('D2_field_gradients.csv',field_rows)
+    molecules.sort(key=lambda r:r['gradient_norm_squared'],reverse=True);top=molecules[:math.ceil(.01*len(molecules))]
+    fraction=sum(r['gradient_norm_squared'] for r in top)/sum(r['gradient_norm_squared'] for r in molecules)
+    csv_output('D2_top_one_percent_molecules.csv',top)
+    decision=dict(A5=len(marked)<=5 or fraction>.5,marked_fields=marked,top_fields_for_half_energy=len(marked),top_one_percent_molecule_fraction=fraction,batches=50,batch_size=batch_size,molecules=len(molecules),gradient_energy_definition='Sum of individual field/molecule squared shared-backbone gradient norms')
+    (CONTROL/'D2_decision.json').write_text(json.dumps(decision,indent=2)+'\n');data.close();print(json.dumps(dict(diagnostic='D2',decision=decision)),flush=True)
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--stage',choices=['D4','D5','D6'],required=True)
+    p=argparse.ArgumentParser();p.add_argument('--stage',choices=['D1','D2','D3','D4','D5','D6'],required=True)
     args=p.parse_args()
-    if args.stage=='D4':representation_diagnostic()
+    if args.stage=='D1':field_diagnostic()
+    elif args.stage=='D2':gradient_diagnostic()
+    elif args.stage=='D3':correlation_diagnostic()
+    elif args.stage=='D4':representation_diagnostic()
     elif args.stage=='D5':layer_diagnostic()
     else:identity_gate()

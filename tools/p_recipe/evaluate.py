@@ -47,9 +47,12 @@ def produce_missing_features(configuration,dataset,view):
                 records.append(dict(molecule_uid=sample.member_uid,member_index=index,h0=h[offset:offset+n],source_atom_ids=sample.source_atom_ids))
                 if index in fit:sizes.append(n)
                 offset+=n
-    path.parent.mkdir(parents=True,exist_ok=True)
-    torch.save(dict(records=records,n_ref=sum(sizes)/len(sizes)),path)
+    payload=dict(records=records,n_ref=sum(sizes)/len(sizes))
     del checkpoint,model,encoder,state;torch.cuda.empty_cache()
+    if not configuration.get('persist_features',True):
+        return payload
+    path.parent.mkdir(parents=True,exist_ok=True)
+    torch.save(payload,path)
 
 class History:
     disabled = False
@@ -74,8 +77,9 @@ def run(configuration):
     torch.backends.cuda.matmul.allow_tf32=False; torch.backends.cudnn.allow_tf32=False
     files, details, label_stds = {}, {}, {}
     for dataset, view in views.items():
-        produce_missing_features(c,dataset,view)
-        payload = torch.load(feature_path(c,dataset),map_location='cpu',weights_only=True)
+        memory_payload=produce_missing_features(c,dataset,view)
+        payload=(torch.load(feature_path(c,dataset),map_location='cpu',weights_only=True)
+                 if memory_payload is None else memory_payload)
         cached = cached_rows(payload)
         for task in (t for t in tasks if t.dataset_id==dataset):
             rows = atomization_rows if task.task_id==ATOMIZATION_TASK_ID else task_rows

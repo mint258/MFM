@@ -111,7 +111,7 @@ class TrainingHistory:
             revision = (common / revision[5:]).read_text().strip()
         recorded = dict(configuration, source_revision=revision,
             slurm_job_id=os.environ.get('SLURM_JOB_ID'),
-            node=os.environ.get('SLURMD_NODENAME'), visible_gpu=os.environ.get('CUDA_VISIBLE_DEVICES'))
+            node=os.environ.get('SLURMD_NODENAME') or __import__('socket').gethostname(), visible_gpu=os.environ.get('CUDA_VISIBLE_DEVICES'))
         devices = [torch.cuda.current_device()] if torch.cuda.is_initialized() else []
         with torch.random.fork_rng(devices=devices):
             self.run = wandb.init(project='MFM-model-v3', name=output.name, mode='offline',

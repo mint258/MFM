@@ -48,7 +48,7 @@ def main():
   records.append(row);print(json.dumps(row),flush=True)
   optimizer.zero_grad(set_to_none=True);gc.collect();torch.cuda.empty_cache()
   if not row['headroom_pass']:break
- result=dict(device=torch.cuda.get_device_name(0),device_total_bytes=total_at_start,device_free_at_start_bytes=free_at_start,reserve_bytes=margin,selected_batch_size=selected,records=records,source='approved clean TRAIN; original normalization used for memory only while repaired D4 is queued',numerical_recipe='FP32 noTF32; H3+projector+PMA+B4; P clean and required perturbed label route; AdamW state allocated; lr0; no checkpoint',actual_maximum_tested=a.maximum)
+ result=dict(device=torch.cuda.get_device_name(0),device_total_bytes=total_at_start,device_free_at_start_bytes=free_at_start,reserve_bytes=margin,selected_batch_size=selected,records=records,source='approved clean TRAIN; original normalization used for memory only while repaired D4 is queued',numerical_recipe='FP32 noTF32; H3+projector+PMA+B4; P clean and required perturbed label route; AdamW state allocated; lr0; no checkpoint',configured_maximum=a.maximum,actual_maximum_tested=max(r["batch_size"] for r in records))
  path=C/('batch_capacity_'+str(__import__('os').environ.get('SLURM_JOB_ID',__import__('os').environ.get('P_RECIPE_RUN_ID','unknown')))+'.json');path.write_text(json.dumps(result,indent=2)+'\n')
  data.close();print(json.dumps(result),flush=True)
 if __name__=='__main__':main()

@@ -39,3 +39,23 @@ def test_b4_zero_for_uncorrelated_sufficient_variance_and_finite_gradient():
     collapsed=torch.zeros((4,2),dtype=torch.float64,requires_grad=True)
     collapse_penalty(collapsed,1.).backward()
     assert torch.isfinite(collapsed.grad).all()
+
+def test_inverse_composed_labels_uses_predicted_neutral_in_fp64():
+    import numpy as np
+    from phychem_mfm.phase1.p_recipe_data import original_predictions
+    class NativeHeads:
+        def original_predictions(self,predictions,samples):return dict(predictions)
+    y=torch.tensor([[12.],[-.4]],dtype=torch.float64)
+    neutral=torch.tensor([[3.],[1.]],dtype=torch.float64)
+    counts=torch.tensor([[2.],[1.]],dtype=torch.float64)
+    reference=counts*1.25+.1
+    encoded=heavy_tail(y-neutral-reference,.75)
+    samples=[{'Z':np.array([6,6]),'targets':{'neutral':'unused target'}},
+             {'Z':np.array([6]),'targets':{'neutral':'unused target'}}]
+    parameters={'state_difference':{'charged':'neutral'},'heavy_tail':{'charged':{'m':.75,
+        'offset_reference':{'basis':[6],'coefficients':[1.25],'intercept':.1}}}}
+    prediction={'charged':encoded,'neutral':neutral}
+    restored=original_predictions(NativeHeads(),prediction,samples,parameters)['charged']
+    assert torch.allclose(restored,y,atol=1e-9,rtol=1e-9)
+    shifted=original_predictions(NativeHeads(),{**prediction,'neutral':neutral+2.},samples,parameters)['charged']
+    assert torch.allclose(shifted,y+2.,atol=1e-9,rtol=1e-9)
