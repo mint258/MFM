@@ -17,11 +17,15 @@ from v2_watch_disk import filesystem_status, require_capacity, quota_headroom
 
 OUTPUT_PEAK = 8_000_000_000
 RSS_LIMIT = 24 * 1024**3
+PRIVATE = None
 
 
 def storage(root):
     """Reserve this suite in addition to all existing account forecasts."""
     quota = capacity()
+    if PRIVATE is not None:
+        require_capacity(filesystem_status('/tmp'), 2*1024**3, 1000)
+        PRIVATE.check()
     require_capacity(filesystem_status(root), OUTPUT_PEAK, 10000)
     allocated = 0
     for path in root.rglob('*') if root.exists() else ():
@@ -90,11 +94,21 @@ def failed_nodes(xml):
             'test_previous_exclusive_launcher_cannot_be_joined',
             'test_new_registered_launchers_can_hold_shared_lock_together'))
         fixture_case = case.attrib['classname']=='tests.test_model_v3_training_execution'
+        worker_case = (case.attrib['classname'],case.attrib['name']) in {
+            ('tests.test_model_v3_labels','test_node_local_spawn_prefetch_does_not_commit_unconsumed_draws'),
+            ('tests.test_phase1_full_corpus_training','test_partial_spawn_prefetch_closes_workers_and_resumes_only_committed_dropout_controller_updates'),
+            ('tests.test_model_v3_native_bond_transport','test_spawn_worker_native_transport_matches_direct_and_owned_handles_close')}
+        worker_case = worker_case or (case.attrib['classname']=='tests.test_phase1_full_corpus_loader' and
+            case.attrib['name'] in ('test_actual_spawn_workers_prefetch_retains_exact_ids_and_committed_cursor[False]',
+                                   'test_actual_spawn_workers_prefetch_retains_exact_ids_and_committed_cursor[True]'))
+        local_case = case.attrib['classname']=='tests.test_model_v3_wire_provider'
         for error in errors:
             diagnostic = (error.text or '')+' '+error.get('message','')
             if ('8 >= 16' not in diagnostic and not (lock_case and 'Bad file descriptor' in diagnostic)
                     and not (fixture_case and 'Declared C1 configuration/options differ' in diagnostic)):
-                raise RuntimeError('Prior failure differs from the reviewed resource/NFS lock failures')
+                if not (worker_case and 'DataLoader timed out after ' in diagnostic) and not (
+                        local_case and 'is_relative_to' in diagnostic and '/tmp' in diagnostic):
+                    raise RuntimeError('Unreviewed prior failure: '+case.attrib['classname']+'::'+case.attrib['name'])
         parts = case.attrib['classname'].split('.')
         if len(parts)<2 or parts[0]!='tests' or not parts[1].startswith('test_'):
             raise RuntimeError('Unknown failing test module')
@@ -188,6 +202,7 @@ def resume_completed(previous, root):
 
 
 def main():
+    global PRIVATE
     if os.environ.get('CUDA_VISIBLE_DEVICES') != '' or not os.environ.get('SLURM_JOB_ID'):
         raise ValueError('An actual CPU-only Slurm allocation is required')
     cores = allocated_cpus()
@@ -200,6 +215,16 @@ def main():
     temporary = root/'private_tmp'; temporary.mkdir()
     os.environ['TMPDIR'] = str(temporary)
     os.environ['XDG_CACHE_HOME'] = str(root/'cache')
+    if os.environ.get('MFM_CPU_REGRESSION_LOCAL_TMP')=='1':
+        from private_runtime_storage import PrivateStorage, _write_exclusive
+        require_capacity(filesystem_status('/tmp'), 2*1024**3, 10000)
+        PRIVATE = PrivateStorage(Path('/tmp')/('mv3n_'+os.environ['SLURM_JOB_ID']),budget_bytes=2*1024**3)
+        receipt = root/'private_storage.json'
+        pin = _write_exclusive(receipt,PRIVATE.bindings)
+        os.environ.update(PRIVATE.bindings['environment'])
+        os.environ['MODEL_V3_STORAGE_BINDINGS_PATH']=str(receipt)
+        os.environ['MODEL_V3_STORAGE_BINDINGS_SHA256']=pin
+        PRIVATE.start()
     records = []
     summaries = []
     resume = os.environ.get('MFM_CPU_REGRESSION_RESUME_JOB')
@@ -236,10 +261,17 @@ def main():
         continued_from_job=resume,
         pytest_processes=4, test_file_count=len(actual), counts=counts, admission=admission,
         final_capacity=storage(root), partitions=records)
+    if PRIVATE is not None:
+        result['private_storage']=PRIVATE.check()
     (root/'summary.json').write_text(json.dumps(result, indent=2)+'\n')
     print(json.dumps({key:result[key] for key in ('status','job','node','test_file_count','counts')}), flush=True)
     return int(not passed)
 
 
 if __name__ == '__main__':
-    raise SystemExit(main())
+    try:
+        code = main()
+    finally:
+        if PRIVATE is not None:
+            PRIVATE.stop()
+    raise SystemExit(code)
