@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-13 19:01UTC（11-14 03:01CST） · PM7分位数首遍完成 · PM7进入精确细化pass3，目前35/171；Pprime细化pass6为97/112。producer checkpoint确认两者purpose_index均1、训练参数就绪均false；实际主PID和衔接PID均活跃，Slurm队列空。node21/20根盘可用652422680576/275826192384B、内存可用64744501248/52166336512B，原预留保持。完整精确分位数和moments尚未闭合，无新P模型训练；下一次19:31UTC。
+
+2026-11-13 18:31UTC（11-14 02:31CST） · 定期查询 · PM7首遍pass2仍170/171，最后worker3628064为RN、累计CPU07:46:59；Pprime细化pass6推进87/112。实际主PID与衔接PID活跃，Slurm队列空。直接读取producer checkpoint确认两者purpose_index均1，训练参数就绪均false；不按pass序号误判参数闭合。node21/20根盘可用652429090816/275826745344B、内存可用65340006400/54849568768B，原预留保持。尚无新P模型训练，下一次19:01UTC。
+
 2026-11-13 18:01UTC（11-14 02:01CST） · 恢复后实际查询 · PM7分位数首遍pass2为170/171，Pprime精确细化pass6为40/112；实际PID3628047/3336857及衔接3792435/3792436均活跃，Slurm队列空、未出现P0原生启动句柄。node21/20根盘可用652429012992/275829551104B，内存可用65351643136/58770403328B，inode充足、原预算不变。native状态RUNNING；旧quota stale原因留历史，当前进程已运行，不重启。训练参数未闭合、尚无新P模型训练；下一次18:31UTC。
 
 2026-11-13 13:14UTC · 训练参数就绪与MAD解耦 · 沿用原发布器既有三参数阶段闭合即可消费的规则，增加只读参数导出和training_routes入口；训练就绪单独标记，MAD未完成时D4_complete仍false，MAD正常续算。P0及A1/A2衔接器已在零启动边界替换为PID3792435/3792436，实际活跃等待；源统计PID3628047/3336857未重启。待producer purpose_index>=3后以已备D4_parameters_*原生配置导出，再运行D4_publish_training配置；计划见control/training_parameters_readiness_plan.json。当前未生成就绪参数或启动新P模型训练。
