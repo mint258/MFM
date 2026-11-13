@@ -1,4 +1,4 @@
-"""Taskbook step 4 and fixed-worker CPU scaling on one initially idle GPU."""
+"""Controlled concurrency/CPU scaling, optionally alongside an authorized fixed job."""
 import csv
 import fcntl
 import json
@@ -10,8 +10,8 @@ import subprocess
 import sys
 import time
 
-from cpu_bottleneck_step1 import BASE, REPO, SCRATCH, capacity, idle_gpu, query
-from model_gpu_registry import LOCKS, compute_pids, registered_model_pids
+from cpu_bottleneck_step1 import BASE, REPO, SCRATCH, GPUS, capacity, idle_gpu, query
+from model_gpu_registry import LOCKS, IDENTITY, compute_pids, registered_model_pids
 from runtime_monitor import capture_process_identity
 
 
@@ -20,6 +20,52 @@ def cpu_layout(available, tasks, per_task):
     if tasks < 1 or per_task < 4 or len(available) < tasks*per_task:
         raise ValueError('Insufficient allocated CPU affinity for disjoint model tasks')
     return [available[i*per_task:(i+1)*per_task] for i in range(tasks)]
+
+
+def capture_background(gpu):
+    job = os.environ.get('MFM_CPU_BACKGROUND_JOB')
+    pids = {int(value) for value in os.environ.get('MFM_CPU_BACKGROUND_PIDS','').split(',') if value}
+    if not job and not pids:
+        return {}
+    if not job or not pids or compute_pids(gpu) != pids:
+        raise RuntimeError('Existing GPU contexts must match the explicitly authorized background job')
+    result = {}
+    for pid in pids:
+        identity = capture_process_identity(pid,expected_job=job)
+        if identity.get('status') != 'ACTIVE':
+            raise RuntimeError('Background model must be a live identified same-account Slurm job')
+        result[pid] = identity
+    return result
+
+
+def require_controlled_contexts(gpu, background, own=(), *, registered=False):
+    active = compute_pids(gpu)
+    if not set(background) <= active or active-set(background)-set(own):
+        raise RuntimeError('Authorized background disappeared or an unregistered context appeared')
+    for pid, identity in background.items():
+        current = capture_process_identity(pid,expected_job=identity['slurm_job_id'])
+        if current.get('status') != 'ACTIVE' or any(current.get(k)!=identity.get(k) for k in IDENTITY):
+            raise RuntimeError('Background process identity changed; comparison is no longer controlled')
+    if registered and not active-set(background) <= registered_model_pids(gpu):
+        raise RuntimeError('A measured participant is not a registered model process')
+
+
+def background_progress():
+    name = os.environ.get('MFM_CPU_BACKGROUND_LOSSES')
+    if not name:
+        return None
+    # Read only the first header and at most 8 KiB of the existing append-only log.
+    # Existing model output is never opened for writing.
+    with Path(name).open('rb') as file:
+        header = file.readline().decode().strip()
+        file.seek(0,2)
+        file.seek(max(0,file.tell()-8192))
+        tail = file.read()
+    lines = tail.split(b'\n')[:-1]
+    if not lines or lines[-1].decode() == header:
+        return None
+    row = next(csv.DictReader([header,lines[-1].decode()]))
+    return int(row['samples'])
 
 
 def allocated_cpus():
@@ -74,10 +120,10 @@ def measured_rate(directory):
     return (int(rows[-1]['samples'])-int(rows[0]['samples'])) / (float(rows[-1]['seconds'])-float(rows[0]['seconds']))
 
 
-def phase(root, gpu, name, tasks, cores, allocated):
+def phase(root, gpu, name, tasks, cores, allocated, background=None):
     capacity()
-    if compute_pids(gpu):
-        raise RuntimeError('A controlled phase must start with no GPU contexts')
+    background = background or {}
+    require_controlled_contexts(gpu,background)
     layouts = cpu_layout(allocated, tasks, cores)
     output = root/name
     output.mkdir(exist_ok=False)
@@ -103,8 +149,7 @@ def phase(root, gpu, name, tasks, cores, allocated):
         # Each child registers itself before importing torch or opening the GPU.
         while len(identities) < tasks:
             capacity()
-            if compute_pids(gpu):
-                raise RuntimeError('GPU appeared before all controlled participants registered')
+            require_controlled_contexts(gpu,background)
             for rank, child in enumerate(children):
                 ready = output/f'task{rank}.registered.json'
                 if ready.is_file():
@@ -123,16 +168,14 @@ def phase(root, gpu, name, tasks, cores, allocated):
         with telemetry.open('x', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(['unix_time', 'rank', 'pid', 'main_cpu_percent', 'gpu_power_watts',
-                'gpu_memory_MiB', 'losses_bytes'])
+                'gpu_memory_MiB', 'losses_bytes', 'background_samples'])
             while any(child.poll() is None for child in children):
                 capacity()
-                # Even a registered model from another job would spoil this comparison.
-                active = compute_pids(gpu)
-                if active-set(identities) or not active <= registered_model_pids(gpu):
-                    raise RuntimeError('GPU context outside the exact registered measurement cohort')
+                require_controlled_contexts(gpu,background,identities,registered=True)
                 power, memory = map(float, query('nvidia-smi', '-i', gpu,
                     '--query-gpu=power.draw,memory.used', '--format=csv,noheader,nounits').split(','))
                 now = time.monotonic()
+                background_samples = background_progress()
                 for rank, child in enumerate(children):
                     if child.poll() is not None:
                         if child.returncode:
@@ -146,7 +189,7 @@ def phase(root, gpu, name, tasks, cores, allocated):
                         previous[child.pid] = cpu, now
                         loss = output/f'task{rank}/losses.csv'
                         size = loss.stat().st_size if loss.exists() else 0
-                        row = [time.time(), rank, child.pid, percent, power, memory, size]
+                        row = [time.time(), rank, child.pid, percent, power, memory, size, background_samples]
                         writer.writerow(row)
                         samples.append(row)
                     except FileNotFoundError:
@@ -175,6 +218,11 @@ def phase(root, gpu, name, tasks, cores, allocated):
             gpu_memory_MiB_max=max(row[5] for row in common),
             main_cpu_percent_mean=[sum(float(row[3]) for row in common if row[1]==rank and row[3]!='') /
                 sum(row[1]==rank and row[3]!='' for row in common) for rank in range(tasks)])
+        if background:
+            progress = [row for row in common if row[1]==0 and row[7] is not None]
+            result.update(background_job=next(iter(background.values()))['slurm_job_id'],
+                background_samples_per_second=(progress[-1][7]-progress[0][7])/(progress[-1][0]-progress[0][0])
+                    if len(progress)>1 else None)
         capacity()
         (output/'summary.json').write_text(json.dumps(result,indent=2)+'\n')
         print(json.dumps(result), flush=True)
@@ -187,32 +235,48 @@ def phase(root, gpu, name, tasks, cores, allocated):
 
 def main():
     quota = capacity()
-    gpu = idle_gpu()
+    shared = bool(os.environ.get('MFM_CPU_BACKGROUND_JOB'))
+    if shared and len(GPUS) != 1:
+        raise ValueError('A shared comparison must bind one explicit physical GPU')
+    gpu = GPUS[0] if shared else idle_gpu()
+    background = capture_background(gpu)
     allocated = allocated_cpus()
     per_task = int(os.environ.get('MFM_CPU_CORES_PER_MODEL', '16'))
     if per_task > int(os.environ['SLURM_CPUS_PER_TASK']):
         raise ValueError('Model core count exceeds the actual Slurm allocation')
-    with (LOCKS/(gpu+'.lock')).open('a') as lock:
+    # A user-authorized shared benchmark uses a separate cohort lock. The running
+    # background job keeps its original exclusive lock and is never signalled.
+    lock_name = gpu+('.cpu_perf_benchmark.lock' if shared else '.lock')
+    with (LOCKS/lock_name).open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        if compute_pids(gpu):
-            raise RuntimeError('Controlled suite requires an idle GPU')
+        require_controlled_contexts(gpu,background)
         root = SCRATCH/('concurrency_'+os.environ['SLURM_JOB_ID'])
         root.mkdir(exist_ok=False)
         (root/'admission.json').write_text(json.dumps(dict(gpu=gpu, quota=quota, cpu_affinity=allocated,
             model_cores=per_task, workers=14, source_revision=os.environ.get('MFM_CPU_SOURCE_REVISION'),
+            authorized_background=background,
             numerical_path='ORIGINAL_RECOMPUTATION_RESTORED'),indent=2)+'\n')
-        results = [phase(root,gpu,'single',1,per_task,allocated)]
+        results = [phase(root,gpu,'single',1,per_task,allocated,background)]
         for cores in (4,8):
             if cores < per_task:
-                results.append(phase(root,gpu,f'cpu{cores}',1,cores,allocated))
+                results.append(phase(root,gpu,f'cpu{cores}',1,cores,allocated,background))
         for tasks in (2,3):
             if len(allocated) >= tasks*per_task:
-                results.append(phase(root,gpu,f'concurrent{tasks}',tasks,per_task,allocated))
+                results.append(phase(root,gpu,f'concurrent{tasks}',tasks,per_task,allocated,background))
+        if background:
+            results.append(phase(root,gpu,'single_final',1,per_task,allocated,background))
         baseline = results[0]['samples_per_second'][0]
+        drift = None
+        if background:
+            final_rate = results[-1]['samples_per_second'][0]
+            drift = final_rate/baseline-1
+            baseline = max(baseline,final_rate)
         concurrency = [r for r in results if r['cpus_per_task']==per_task]
         eligible = [r['tasks'] for r in concurrency if min(r['samples_per_second']) >= .85*baseline]
         summary = dict(status='MEASUREMENTS_COMPLETE',gpu=gpu,job=os.environ['SLURM_JOB_ID'],
             results=results,recommended_concurrency=max(eligible),threshold_fraction=.85,
+            background_job=os.environ.get('MFM_CPU_BACKGROUND_JOB'),single_baseline_drift_fraction=drift,
+            recommendation_single_reference=baseline,
             unique_equivalence='FAILED_CANDIDATE_ABANDONED_ORIGINAL_MATH_RESTORED')
         capacity()
         (root/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')

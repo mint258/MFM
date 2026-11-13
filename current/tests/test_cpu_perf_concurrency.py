@@ -152,3 +152,51 @@ def test_failed_cohort_cleanup_signals_only_bound_own_process_group(modules,monk
     monkeypatch.setattr(os,'killpg',lambda pid,signum:sent.append((pid,signum)))
     suite.stop_own([Child()],{100:identity()})
     assert len(sent) == (0 if reused else 1)
+
+
+def test_shared_comparison_allows_only_the_named_background_and_registered_cohort(modules,monkeypatch):
+    _,suite=modules
+    background={100:identity()}
+    active={100,200}
+    monkeypatch.setattr(suite,'compute_pids',lambda gpu:active)
+    monkeypatch.setattr(suite,'capture_process_identity',lambda pid,**kw:identity())
+    monkeypatch.setattr(suite,'registered_model_pids',lambda gpu:{200})
+    suite.require_controlled_contexts('GPU-test',background,[200],registered=True)
+    active.add(999)
+    with pytest.raises(RuntimeError,match='unregistered context'):
+        suite.require_controlled_contexts('GPU-test',background,[200],registered=True)
+    active.remove(999);active.remove(100)
+    with pytest.raises(RuntimeError,match='disappeared'):
+        suite.require_controlled_contexts('GPU-test',background,[200],registered=True)
+
+
+def test_background_pid_reuse_or_command_change_invalidates_comparison(modules,monkeypatch):
+    _,suite=modules
+    monkeypatch.setattr(suite,'compute_pids',lambda gpu:{100})
+    monkeypatch.setattr(suite,'capture_process_identity',lambda pid,**kw:dict(identity(),start_ticks=772))
+    with pytest.raises(RuntimeError,match='identity changed'):
+        suite.require_controlled_contexts('GPU-test',{100:identity()})
+
+
+def test_background_registration_requires_the_actual_named_live_job(modules,monkeypatch):
+    _,suite=modules
+    monkeypatch.setenv('MFM_CPU_BACKGROUND_JOB','123')
+    monkeypatch.setenv('MFM_CPU_BACKGROUND_PIDS','100')
+    monkeypatch.setattr(suite,'compute_pids',lambda gpu:{100})
+    monkeypatch.setattr(suite,'capture_process_identity',lambda pid,**kw:identity())
+    assert suite.capture_background('GPU-test') == {100:identity()}
+    monkeypatch.setattr(suite,'capture_process_identity',lambda pid,**kw:dict(status='IDENTITY_CHANGED'))
+    with pytest.raises(RuntimeError,match='live identified'):
+        suite.capture_background('GPU-test')
+
+
+def test_background_log_is_read_only_and_incomplete_append_is_excluded(modules,monkeypatch,tmp_path):
+    _,suite=modules
+    path=tmp_path/'background.csv'
+    original=b'samples,seconds\n32,1.0\n64,2.0\n96,3.'
+    path.write_bytes(original)
+    monkeypatch.setenv('MFM_CPU_BACKGROUND_LOSSES',str(path))
+    assert suite.background_progress() == 64
+    assert path.read_bytes() == original
+    path.write_bytes(b'samples,seconds\n')
+    assert suite.background_progress() is None
