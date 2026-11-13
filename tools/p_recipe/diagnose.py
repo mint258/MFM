@@ -229,8 +229,10 @@ def correlation_diagnostic():
     c=read_json(REPO/'configs/p_recipe/base.json');data=PRecipeDataset(**dataset_configuration(c))
     fields=[f for f in data.view.fields if f['group']=='P' and f.get('loss_enabled',True)]
     names=[f['name'] for f in fields];groups=physical_state_groups(data.view,set(names))
-    graph=[f['name'] for f in fields if f['level'] in ('graph','molecule','molecule_vector')]
-    blocks={'overall_graph_scalar_coordinates':graph}
+    graph=[f['name'] for f in fields if f['level'] in ('graph','molecule')
+        and f.get('representation','scalar')!='vector'
+        and data.schema.get('target_layout',{}).get(f.get('target_id'),{}).get('kind')!='vector']
+    blocks={'overall_graph_scalars':graph}
     for key,members in groups.items():
         if key[0]!='PM7':continue
         blocks['|'.join(key)]=[members[s] for s in ('neutral','anion','cation','water','octanol') if s in members]

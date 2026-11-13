@@ -83,12 +83,13 @@ def physical_state_groups(view,fields):
     result={}
     for field in view.fields:
         name=field['name']
-        if name not in fields or field['group']!='P' or field['family'] not in ('charge','dipole','energy'):continue
+        if name not in fields or field['group']!='P':continue
         condition=name.split('.')[1].lower()
         if condition not in states:continue
         method,state=states[condition];m=metadata.get(field.get('source_field',name),{})
         path=m.get('source_path');unit=field.get('unit',m.get('unit'))
         if not path or not unit or unit in ('UNKNOWN','source_registry_unit'):continue
+        if field['family'] not in ('charge','energy') and 'dipole' not in path.lower():continue
         key=(method,field['family'],field['level'],path,str(m.get('component')),unit)
         result.setdefault(key,{})[state]=name
     return {key:members for key,members in result.items() if 'neutral' in members and len(members)>1}

@@ -59,3 +59,15 @@ def test_inverse_composed_labels_uses_predicted_neutral_in_fp64():
     assert torch.allclose(restored,y,atol=1e-9,rtol=1e-9)
     shifted=original_predictions(NativeHeads(),{**prediction,'neutral':neutral+2.},samples,parameters)['charged']
     assert torch.allclose(shifted,y+2.,atol=1e-9,rtol=1e-9)
+def test_state_groups_follow_dipole_definition_inside_multipole_family():
+    from types import SimpleNamespace
+    from phychem_mfm.phase1.p_recipe_data import physical_state_groups
+    fields=[];metadata=[]
+    for state,unit,path in [('pm7_B','Debye','values.dipole_Debye'),('pm7_anion','Debye','values.dipole_Debye'),('pm7_water','unknown_unit','values.dipole_Debye'),('pm7_cation','Debye','values.quadrupole')]:
+        name=f'P.{state}.r1.x'
+        fields.append(dict(name=name,group='P',family='multipole',level='molecule_vector',unit=unit))
+        metadata.append(dict(field_key=name,source_path=path,component='x',unit=unit))
+    view=SimpleNamespace(fields=fields,schema={'columns':{'mol_labels':metadata}})
+    groups=physical_state_groups(view,{f['name'] for f in fields})
+    assert len(groups)==1
+    assert next(iter(groups.values()))=={'neutral':'P.pm7_B.r1.x','anion':'P.pm7_anion.r1.x'}
