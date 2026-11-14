@@ -95,3 +95,44 @@ def test_new_deltas_upsert_without_overwriting_the_old_archive(tmp_path):
 def test_comparison_refuses_a_previous_state_from_another_revision():
     with pytest.raises(ValueError,match='different study revisions'):
         tool('decide_round').close(dict(study_revision='new'),dict(study_revision='old',selection_valid=True),0.)
+
+
+def test_final_budget_comparison_uses_revised_screening_not_old_1p5m(tmp_path,monkeypatch):
+    module=tool('final_comparisons');monkeypatch.setattr(module,'REPO',tmp_path)
+    root=tmp_path/'configs/p_recipe/new';old=tmp_path/'configs/p_recipe/round2/old.json'
+    old.parent.mkdir(parents=True);old.write_text(json.dumps(dict(stage=2,round=2,components=['B1'],output='unused_old')))
+    def config(name,components,samples,score):
+        output=tmp_path/'weights'/name;(output/'readout').mkdir(parents=True)
+        (output/'readout/scores.json').write_text(json.dumps(dict(R3=dict(mean_normalized_improvement=score))))
+        return dict(run=name,stage=2,round=2,components=components,samples=samples,output=str(output),study_revision='new')
+    baseline=config('new_B0',[],2000000,.35);small=config('new_M2',['B1'],2000000,.4)
+    for path,value in ((root/'round1/B0.json',baseline),(root/'round2/B1.json',small)):
+        path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value))
+    full=config('new_T2',['B1'],4500000,.5);full_base=config('new_T1',[],4500000,.42)
+    result=module.budget_sign_comparison(dict(base_configuration=str(root/'base.json'),study_revision='new',M2_components=['B1']),dict(T1=full_base,T2=full))
+    assert result['M2_screening_run']=='new_M2' and result['screening_samples']==2000000
+    assert result['delta_screening']==pytest.approx(.05) and result['same_sign']
+
+
+def test_final_export_is_isolated_and_drops_live_handoff_state(tmp_path,monkeypatch):
+    module=tool('final_comparisons');monkeypatch.setattr(module,'REPO',tmp_path)
+    root=tmp_path/'configs/p_recipe/new';root.mkdir(parents=True)
+    corpus=tmp_path/'corpus.json';corpus.write_text('{"train_molecules":1194228}')
+    paths=[]
+    for arm in ('T1','T2','T3','T4','T5','T6'):
+        c=dict(run='new_'+arm,arm=arm,components=['B1'] if arm!='T1' else [],
+               output=str(tmp_path/'weights'/arm),batch_size=32,corpus=str(corpus),study_revision='new',run_prefix='new_',
+               resume='old_cp',resume_samples=32,resume_from_output='old_output',attempt=2,
+               handoff_request='old_request',handoff_ack='old_ack',required_gpu_uuid='old_card')
+        path=root/(arm+'.json');path.write_text(json.dumps(c));paths.append(str(path))
+    captured=[]
+    monkeypatch.setattr(module,'compare',lambda a,b,purpose,round_number:[dict(purpose=purpose,readout='R3',verdict='win')])
+    monkeypatch.setattr(module,'task_rows',lambda a,b:[])
+    monkeypatch.setattr(module,'write_deltas',lambda rows,destination:captured.append(destination))
+    result=module.close(dict(configurations=paths,base_configuration=str(root/'base.json'),study_revision='new',
+                             results_directory='results/new',Pprime_comparator='T2',M2_components=None))
+    exported=json.loads((root/'final_recipe.json').read_text())
+    assert captured==[tmp_path/'results/new/deltas.csv'] and result['study_revision']=='new'
+    assert exported['run']=='new_P_final_recipe_reproduction'
+    assert not {'resume','resume_samples','resume_from_output','attempt','handoff_request','handoff_ack','required_gpu_uuid'}&exported.keys()
+    assert not (tmp_path/'configs/p_recipe/final_recipe.json').exists()

@@ -16,6 +16,11 @@ def read(path):return json.loads(Path(path).read_text())
 def summaries(c):return read(Path(c['output'])/'readout/scores.json')
 
 
+def study_root(plan):
+ path=Path(plan.get('base_configuration',REPO/'configs/p_recipe/base.json'))
+ return (path if path.is_absolute() else REPO/path).parent
+
+
 def report_task_values(c,readout):
  """Retain frozen seven-task means; bootstrap excluded report-only tasks separately."""
  result=summaries(c)[readout];tasks=dict(result['tasks']);values=dict(result['paired_bootstrap']['task_values'])
@@ -48,31 +53,36 @@ def budget_sign_comparison(plan,configs):
  components=plan.get('M2_components')
  if components is None:return dict(status='M2 was not formed before the registered screening stop')
  candidates=[]
- for path in (REPO/'configs/p_recipe').glob('round*/*.json'):
+ for path in study_root(plan).glob('round*/*.json'):
   item=read(path)
-  if item.get('stage')==2 and item.get('components')==components and (Path(item['output'])/'readout/scores.json').is_file():candidates.append(item)
+  if item.get('stage')==2 and item.get('study_revision','original_20261113')==plan.get('study_revision','original_20261113') and item.get('components')==components and (Path(item['output'])/'readout/scores.json').is_file():candidates.append(item)
  full=next((configs[arm] for arm in ('T2','T3','T1') if configs[arm]['components']==components),None)
  if not candidates or full is None:return dict(status='M2 lacks a separately measured matched configuration at one budget; no extra run',components=components)
- small=max(candidates,key=lambda item:item['round']);baseline=read(REPO/'configs/p_recipe/round1/B0.json')
+ small=max(candidates,key=lambda item:item['round']);baseline=read(study_root(plan)/'round1/B0.json')
  d1=summaries(small)['R3']['mean_normalized_improvement']-summaries(baseline)['R3']['mean_normalized_improvement']
  d2=summaries(full)['R3']['mean_normalized_improvement']-summaries(configs['T1'])['R3']['mean_normalized_improvement']
- return dict(status='MEASURED',definition='R3 score(M2)-score(B0)',M2_1p5M_run=small['run'],M2_4p5M_run=full['run'],after_registered_rollback=plan.get('M2_after_rollback',False),delta_1p5M=d1,delta_4p5M=d2,same_sign=bool(np.sign(d1)==np.sign(d2)))
+ return dict(status='MEASURED',definition='R3 score(M2)-score(B0)',M2_screening_run=small['run'],screening_samples=small['samples'],M2_4p5M_run=full['run'],after_registered_rollback=plan.get('M2_after_rollback',False),delta_screening=d1,delta_4p5M=d2,same_sign=bool(np.sign(d1)==np.sign(d2)))
 
 def close(plan):
+ if plan.get('selection_valid') is False:raise ValueError('The user invalidated this confirmation evidence')
  configs={read(path)['arm']:read(path) for path in plan['configurations']}
+ if any(c.get('study_revision','original_20261113')!=plan.get('study_revision','original_20261113') for c in configs.values()):raise ValueError('Confirmation configurations belong to another study revision')
  rows=[]
  for a,b,purpose in [('T2','T1','confirmation'),('T3','T1','confirmation'),('T2','T3','final_recipe'),
   (plan['Pprime_comparator'],'T4','P_vs_Pprime'),('T2','T6','molecule_scaling'),('T6','T5','molecule_scaling')]:
   rows.extend(compare(configs[a],configs[b],purpose,0))
- rows.extend(task_rows(configs[plan['Pprime_comparator']],configs['T4']));write_deltas(rows)
+ rows.extend(task_rows(configs[plan['Pprime_comparator']],configs['T4']));write_deltas(rows,REPO/plan.get('results_directory','results/p_recipe')/'deltas.csv')
  decision=next(row for row in rows if row['purpose']=='final_recipe' and row['readout']=='R3')
  if decision['verdict']=='win':chosen='T2'
  elif decision['verdict']=='loss':chosen='T3'
  else:chosen=min(('T2','T3'),key=lambda arm:len(configs[arm]['components']))
- target=REPO/'configs/p_recipe/final_recipe.json';c=dict(configs[chosen]);c.pop('resume',None)
- c.update(run='P_final_recipe_reproduction',output=str(Path(c['output']).parent/'P_final_recipe_reproduction'))
+ target=study_root(plan)/'final_recipe.json';c=dict(configs[chosen])
+ for key in ('resume','resume_samples','resume_from_output','attempt','handoff_request','handoff_ack','required_gpu_uuid'):
+  c.pop(key,None)
+ reproduction_name=c.get('run_prefix','')+'P_final_recipe_reproduction'
+ c.update(run=reproduction_name,output=str(Path(c['output']).parent/reproduction_name))
  parameter_paths={Path(item['label_parameters']) for item in configs.values() if item.get('label_parameters')}
- for path in (REPO/'configs/p_recipe').glob('round*/*.json'):
+ for path in study_root(plan).glob('round*/*.json'):
   item=read(path)
   if item.get('label_parameters') and (Path(item['output'])/'readout/scores.json').is_file():parameter_paths.add(Path(item['label_parameters']))
  exported=REPO/'configs/p_recipe/label_parameters';exported.mkdir(parents=True,exist_ok=True)
@@ -81,6 +91,7 @@ def close(plan):
  target.write_text(json.dumps(c,indent=2)+'\n')
  cohort=read(configs['T2']['corpus']);full_count=cohort['train_molecules']
  verdict=dict(final_run=configs[chosen]['run'],final_arm=chosen,final_components=configs[chosen]['components'],
+  study_revision=plan.get('study_revision','original_20261113'),
   runnable_configuration=str(target),T2_T3=decision,Pprime_comparator=plan['Pprime_comparator'],
   Pprime_and_scaling_recipe='T2/M3',repeat_on_T3='Pending user decision; no rerun' if chosen=='T3' else 'Not needed',
   neither_candidate_beats_T1=not any(row['purpose']=='confirmation' and row['readout']=='R3' and row['verdict']=='win' for row in rows),
