@@ -1,0 +1,105 @@
+{
+  "schema": "P_RECIPE_RELOCATION_PROPOSAL_V1",
+  "status": "AWAITING_USER",
+  "execution_started": false,
+  "source": {
+    "run": "fixed_20261115_round1_A4",
+    "job_id": 4532599,
+    "node": "compute-0-20",
+    "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+    "pid": 3385199,
+    "uid": 1278,
+    "start_ticks": 1258400515,
+    "pgid": 3385199,
+    "last_verified_samples": 136576,
+    "last_verified_at": "2026-11-15 07:07:08 CST",
+    "recent_samples_per_second": 9.674095604061979,
+    "checkpoint_samples": [
+      3000000
+    ],
+    "existing_checkpoints": [],
+    "live_handoff_request_configured": false
+  },
+  "destination": {
+    "node": "compute-0-21",
+    "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+    "card": "5090",
+    "memory_used_mib": 3819,
+    "memory_total_mib": 32607,
+    "memory_fraction": 0.11712209034869814,
+    "execution": "Official launch_plan: fresh admission, 16 CPUs, no exclusive, native + same-task sbatch standby when allocated",
+    "python": "/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python"
+  },
+  "effect": "Requires explicit user approval to stop source and discard its current progress. New run starts at sample0 with identical B32/3M/seed/recipe/normalization and fits its own fixed-window p99. Keep all source outputs and actual occupied cost. Recheck source identity, source progress and destination resources immediately before execution.",
+  "reason": "A4 shared4090 cohost gmx observed99%SM, recent speed~10samples/s; no live save request or intermediate checkpoint is available. Destination previously sustained G1~60samples/s in different shared conditions; speed for A4 is not guaranteed.",
+  "requires_user_decision": "Additional from-scratch3M computation exceeds2h and user forbids stopping running training without specific instruction.",
+  "proposed_configuration": {
+    "arm": "A4",
+    "weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "p_recipe": {
+      "family_equal": true
+    },
+    "pooling": "registry",
+    "lr": 0.0003,
+    "k": 10,
+    "root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+    "condition": "P",
+    "order": "fixed_random",
+    "training_view": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json",
+    "distance_bias": "C1-0",
+    "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round1_A4_5090_restart",
+    "run": "fixed_20261115_round1_A4_5090_restart",
+    "subset_seed": 20261112,
+    "source": "PM7",
+    "schedule": "cosine",
+    "workers": 14,
+    "microbatch_size": 32,
+    "stage": 2,
+    "head_form": "H1",
+    "batch_size": 32,
+    "round": 1,
+    "normalizations": "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json",
+    "clip_reference": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/P_clip.json",
+    "corpus": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/corpus/corpus.json",
+    "subset_molecules": null,
+    "seed": 0,
+    "mean_labels": false,
+    "views": "three",
+    "warmup_fraction": 0.02,
+    "schema": "P_RECIPE_BASE_V1",
+    "samples": 3000000,
+    "persist_features": false,
+    "activation_checkpointing": false,
+    "screening_samples": 3000000,
+    "confirmation_multiplier": 3,
+    "confirmation_samples": 9000000,
+    "gradient_accumulation_steps": 1,
+    "lr_sample_axis": "completed_samples",
+    "clip_calibration": {
+      "calibration_samples": 150000,
+      "window_start_samples": 60000,
+      "initial_clip": 281.7,
+      "quantile": 0.99,
+      "sample_axis": "optimizer_step_start"
+    },
+    "study_revision": "fixed_20261115",
+    "run_prefix": "fixed_20261115_",
+    "results_directory": "results/p_recipe/fixed_20261115",
+    "control_directory": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115",
+    "checkpoint_policy": "screen_final_confirmation_milestones",
+    "fixed_user_protocol": "20261114_supplement",
+    "confirmation_checkpoint_interval": 1000000,
+    "components": [
+      "A4"
+    ],
+    "checkpoint_samples": [
+      3000000
+    ],
+    "attempt": 2,
+    "required_gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243"
+  }
+}
