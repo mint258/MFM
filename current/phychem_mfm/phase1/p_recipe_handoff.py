@@ -29,3 +29,8 @@ def read_request(configuration):
 def publish_ack(configuration,request,checkpoint,clock):
  ack=dict(request_id=request['request_id'],job_id=request['job_id'],checkpoint=str(checkpoint),clock=clock,run=configuration['run'])
  atomic_json(configuration['handoff_ack'],ack);return ack
+
+
+def finish_handoff(configuration,request,checkpoint,clock):
+ """Keep the acknowledged run identity while returning a successful train result."""
+ return dict(publish_ack(configuration,request,checkpoint,clock),status='HANDOFF_SAVED')

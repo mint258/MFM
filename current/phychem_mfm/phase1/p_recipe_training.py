@@ -11,7 +11,7 @@ from .v31_training import V31PDModel
 from .v31_prefetch import ordered_sample_batches
 from .v2_s_training import s_model,sample_lr_ratio
 from .v3_training import SampleClock
-from .p_recipe_handoff import publish_checkpoint,read_request,publish_ack
+from .p_recipe_handoff import publish_checkpoint,read_request,finish_handoff
 from .p_recipe_clip import GroupClipCalibration
 from .v3_latent_training import TrainingHistory
 
@@ -136,8 +136,8 @@ def train(configuration):
      payload=dict(model=model.state_dict(),optimizer=optimizer.state_dict(),configuration=c,architecture=architecture,clock=clock.state_dict(),rng=rng.bit_generator.state,torch_rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state(),elapsed_seconds=prior+time.monotonic()-started,family_window=window,family_window_updates=window_updates,clipped_updates=clipped,total_window=history.window,clip_calibration=clip_calibration.state_dict() if clip_calibration else None)
      destination=output/('samples_'+str(clock.samples_consumed)+'.pt');publish_checkpoint(payload,destination)
     if handoff:
-     ack=publish_ack(c,handoff,destination,clock.state_dict())
-     success=True;return dict(status='HANDOFF_SAVED',run=c['run'],**ack)
+     result=finish_handoff(c,handoff,destination,clock.state_dict())
+     success=True;return result
     if clock.optimizer_updates%100==0:print(json.dumps(row),flush=True)
   if window:deliver([dict(run=c['run'],kind='TRAIN_final_partial_window',samples=clock.samples_consumed,updates=clock.optimizer_updates,family=n,loss=s/num,clipped_fraction=clipped/clock.optimizer_updates,seconds=prior+time.monotonic()-started) for n,(s,num) in window.items()])
   summary=dict(status='TRAINING_COMPLETE_EVALUATION_PENDING',run=c['run'],samples=clock.samples_consumed,updates=clock.optimizer_updates,actual_samples=clock.samples_consumed-initial_samples,seconds=prior+time.monotonic()-started,clipped_fraction=clipped/clock.optimizer_updates,clip=clip,batch_size=c['batch_size'],microbatch_size=c['microbatch_size'],GPU_peak_bytes=torch.cuda.max_memory_allocated())

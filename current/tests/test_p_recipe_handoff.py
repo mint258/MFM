@@ -88,7 +88,7 @@ def test_cooperative_worker_exits_before_handoff_returns(tmp_path,monkeypatch):
  configuration=tmp_path/'configuration.json';h.atomic_json(configuration,c)
  source='''import json,sys,time,torch
 from pathlib import Path
-from phychem_mfm.phase1.p_recipe_handoff import read_request,publish_checkpoint,publish_ack
+from phychem_mfm.phase1.p_recipe_handoff import read_request,publish_checkpoint,finish_handoff
 c=json.loads(Path(sys.argv[1]).read_text())
 for update in range(1,c['samples']):
  request=read_request(c)
@@ -96,7 +96,8 @@ for update in range(1,c['samples']):
   clock=dict(samples_consumed=update,optimizer_updates=update)
   checkpoint=Path(c['output'])/('samples_'+str(update)+'.pt')
   publish_checkpoint(dict(model={'weight':torch.tensor(update)},clock=clock),checkpoint)
-  publish_ack(c,request,checkpoint,clock)
+  result=finish_handoff(c,request,checkpoint,clock)
+  assert result['status']=='HANDOFF_SAVED' and result['run']==c['run']
   break
  time.sleep(.01)
 '''
