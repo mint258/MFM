@@ -46,7 +46,8 @@ if __name__=='__main__':
  for evaluated_samples in c.get('evaluation_samples',[c['samples']]):
   import gc,torch
   gc.collect();torch.cuda.empty_cache()
-  checkpoint=str(Path(c['output'])/('samples_'+str(evaluated_samples)+'.pt'))
+  from checkpoint_paths import evaluation_checkpoint
+  checkpoint=str(evaluation_checkpoint(c,evaluated_samples))
   evaluation={**c,'samples':evaluated_samples,'checkpoint':checkpoint,'features':str(Path(c['output'])/('features_'+str(evaluated_samples))),
    'output':str(Path(c['output'])/('readout' if evaluated_samples==c['samples'] else 'readout_'+str(evaluated_samples))),'persist_features':False,
    'store':'/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json',
