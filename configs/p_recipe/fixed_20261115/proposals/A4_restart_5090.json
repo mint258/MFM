@@ -1,7 +1,7 @@
 {
   "schema": "P_RECIPE_RELOCATION_PROPOSAL_V1",
-  "status": "AWAITING_USER",
-  "execution_started": false,
+  "status": "RUNNING",
+  "execution_started": true,
   "source": {
     "run": "fixed_20261115_round1_A4",
     "job_id": 4532599,
@@ -101,5 +101,42 @@
     ],
     "attempt": 2,
     "required_gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243"
-  }
+  },
+  "authorization": "User: \u540c\u610f\u505c\u65e7 A4\uff0c\u5728 5090 \u4ece\u5934\u91cd\u8dd1",
+  "execution_phase": "TRAINING_COMMITTED",
+  "source_archive_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/archive/A4_attempt1.json",
+  "source_terminal_state": "CANCELLED",
+  "source_elapsed_seconds": 9371,
+  "source_final_progress": {
+    "samples": 153024,
+    "budget": 3000000,
+    "updates": 4782,
+    "last_loss": 0.6633549928665161,
+    "samples_per_second": 9.052198144124018,
+    "remaining_hours": 87.36294257765553
+  },
+  "new_worker": {
+    "started_at": 1794699503.7863731,
+    "run": "fixed_20261115_round1_A4_5090_restart",
+    "execution": "native_SSH",
+    "node": "compute-0-21",
+    "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+    "admission_used_mib": 3819.0,
+    "admission_total_mib": 32607.0,
+    "admission_fraction": 0.11712209034869814,
+    "pid": 3678666,
+    "uid": 1278,
+    "start_ticks": 740360559,
+    "pgid": 3678666,
+    "status": "RUNNING"
+  },
+  "new_progress": {
+    "samples": 5024,
+    "budget": 3000000,
+    "updates": 157,
+    "last_loss": 84.76038360595703,
+    "samples_per_second": 43.82452352275455,
+    "remaining_hours": 18.98338443647469
+  },
+  "new_standby_job_id": 4532608
 }
