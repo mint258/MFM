@@ -17,6 +17,8 @@ def compare(a,b,purpose,round_number):
 
 
 def close(plan,previous,round_gpu_hours):
+ if plan.get('selection_valid') is False or previous and previous.get('selection_valid') is False:raise ValueError('The user invalidated this screening evidence')
+ if previous and previous.get('study_revision','original_20261113')!=plan.get('study_revision','original_20261113'):raise ValueError('Cannot merge screening evidence from different study revisions')
  configurations=[(path,read_json(path)) for path in plan['configurations']]
  baseline=next(c for path,c in configurations if c['arm']==plan['baseline']);round_number=plan['round']
  decisions={};rows=[];by_arm={c['arm']:c for path,c in configurations}
@@ -39,16 +41,17 @@ def close(plan,previous,round_gpu_hours):
  if empty>=2:reasons.append('Two consecutive rounds without winning components')
  if hours>=200:reasons.append('Screening reached200GPUh; current round completed')
  state=dict(round=round_number,decisions=decisions,adopted_winners=sorted(selected),merged_components=sorted(merged),
+  study_revision=plan.get('study_revision','original_20261113'),selection_valid=True,
   merge_base_components=sorted(base_components),merge_rollback=rollback,component_evidence=evidence,
   best_single_configuration=best_path,best_single_run=best['run'],consecutive_empty_rounds=empty,
   round_gpu_hours=round_gpu_hours,screening_gpu_hours=hours,screening_finished=bool(reasons),stop_reasons=reasons,
   secondary_disagreement=[name for name,d in decisions.items() if d['verdict']=='win' and next(r for r in rows if r['purpose']=='screening' and r['A']==by_arm[name]['run'] and r['readout']=='R1')['verdict']=='loss'])
- write_deltas(rows)
+ write_deltas(rows,REPO/plan.get('results_directory','results/p_recipe')/'deltas.csv')
  return state
 
 
-def write_deltas(rows):
- destination=REPO/'results/p_recipe/deltas.csv';destination.parent.mkdir(parents=True,exist_ok=True)
+def write_deltas(rows,destination=None):
+ destination=Path(destination) if destination is not None else REPO/'results/p_recipe/deltas.csv';destination.parent.mkdir(parents=True,exist_ok=True)
  previous_rows=[]
  if destination.is_file():
   with destination.open() as stream:previous_rows=list(csv.DictReader(stream))

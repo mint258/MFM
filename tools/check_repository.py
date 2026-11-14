@@ -72,7 +72,8 @@ def model_summary_csv(name: str, raw: bytes) -> bool:
     # Explicit CSV deliverables in the P taskbook; producers own their checks.
     if (name in {'results/p_recipe/scores.csv','results/p_recipe/deltas.csv',
                  'results/p_recipe/calibration_20261114/calibration.csv',
-                 'results/p_recipe/calibration_20261114/throughput.csv'}
+                 'results/p_recipe/calibration_20261114/throughput.csv',
+                 'results/p_recipe/recalibrated_20261114/deltas.csv'}
             or (name.startswith(('results/p_recipe/diagnostics/','results/p_recipe/training/'))
                 and name.endswith('.csv'))):
         return True

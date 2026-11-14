@@ -69,7 +69,7 @@ def main(task_path):
   with locked_ledger() as ledger:
    source=ledger['runs'][original['run']]
    source.update(configuration=str(snapshot),end_reason='user_requested_sbatch_migration',handoff_job_id=job,state='CANCELLED',exit_code=native['exit_code'],elapsed_seconds=native['elapsed_seconds'])
-   ledger['runs'][name]=dict(backend='Slurm',node=node,gpu_uuid=task['gpu_uuid'],job_id=job,state='RUNNING',submitted_at=task['submitted_at'],configuration=task['configuration'],stage=c['stage'],round=c['round'],resume_from_run=original['run'],resume_samples=c['resume_samples'],allocation_pretraining_seconds=max(0,time.time()-started))
+   ledger['runs'][name]=dict(backend='Slurm',node=node,gpu_uuid=task['gpu_uuid'],job_id=job,state='RUNNING',submitted_at=task['submitted_at'],configuration=task['configuration'],stage=c['stage'],round=c['round'],study_revision=c.get('study_revision','original_20261113'),resume_from_run=original['run'],resume_samples=c['resume_samples'],allocation_pretraining_seconds=max(0,time.time()-started))
    ledger['reservations'][task['reservation_key']].update(phase='HANDED_OFF',training_run=name)
    write(task['configuration'],c)
    plan_path=Path(task['configuration']).parent/'plan.json'

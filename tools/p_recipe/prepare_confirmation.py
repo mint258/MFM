@@ -7,8 +7,12 @@ R=Path('/share/home/zixiao/descriptor_analysis');REPO=Path(__file__).resolve().p
 OUT=Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113')
 
 
-def prepare(state):
- base=read_json(REPO/'configs/p_recipe/base.json');final=set(state['merged_components'])
+def prepare(state,*,base_configuration=None,study_directory=None):
+ if state.get('selection_valid') is False:raise ValueError('The user invalidated this screening decision')
+ base_path=Path(base_configuration) if base_configuration else REPO/'configs/p_recipe/base.json'
+ if not base_path.is_absolute():base_path=REPO/base_path
+ base=read_json(base_path);final=set(state['merged_components'])
+ if state.get('study_revision','original_20261113')!=base.get('study_revision','original_20261113'):raise ValueError('Screening decision belongs to a different study revision')
  third=state['adopted_winners'] if state['round']==3 else []
  runner=runner_up_components(final,third,state['merge_base_components'],state['component_evidence'])
  scope=read_json(R/'runs/p_recipe_20261113/D6_metadata.json');p=set(scope['P_enabled']);prime=set(scope['Pprime_enabled']);common=sorted(p&prime)
@@ -16,9 +20,11 @@ def prepare(state):
  specifications=[('T1',set(),'PM7',None,None),('T2',final,'PM7',None,None),('T3',runner,'PM7',None,None),
   ('T4',final,'UFF',None,common),('T5',final,'PM7',250000,None),('T6',final,'PM7',500000,None)]
  if need_t7:specifications.append(('T7',final,'PM7',None,common))
- destination=REPO/'configs/p_recipe/confirmation';destination.mkdir(parents=True,exist_ok=True);configs=[];fits={}
+ root=Path(study_directory) if study_directory else REPO/'configs/p_recipe'
+ if not root.is_absolute():root=REPO/root
+ destination=root/'confirmation';destination.mkdir(parents=True,exist_ok=True);configs=[];fits={}
  for arm,components,source,count,fields in specifications:
-  c=configuration(base,components,run='confirmation_'+arm,round_number=0,arm=arm,samples=4500000,stage=3)
+  c=configuration(base,components,run=base.get('run_prefix','')+'confirmation_'+arm,round_number=0,arm=arm,samples=4500000,stage=3)
   c.update(source=source,condition='Pprime' if source=='UFF' else 'P',subset_molecules=count,subset_seed=20261112)
   if fields is not None:c['fields']=fields
   if 'B4' in components:c['p_recipe']['gamma']=read_json(R/'runs/p_recipe_20261113/D4_gamma.json')['gamma']
@@ -35,6 +41,8 @@ def prepare(state):
   path.write_text(json.dumps(c,indent=2)+'\n');configs.append(str(path))
  m2=state['merge_base_components'] if state['round']==3 else state['merged_components'] if state['round']==2 else None
  plan=dict(configurations=configs,final_components=sorted(final),runner_up_components=sorted(runner),
+  study_revision=base.get('study_revision','original_20261113'),results_directory=base.get('results_directory','results/p_recipe'),base_configuration=str(base_path),
+  control_directory=base.get('control_directory',str(R/'runs/p_recipe_20261113')),
   M2_components=m2,M2_after_rollback=bool(state['round']==3 and state['merge_rollback']),
   P_fields=len(p),Pprime_fields=len(prime),common_fields=common,lost_P_fields=lost,lost_P_fraction=lost/len(p),
   Pprime_comparator='T7' if need_t7 else 'T2',T7_required=need_t7,T7_queue_after_initial_six=need_t7,
@@ -43,4 +51,4 @@ def prepare(state):
  (destination/'plan.json').write_text(json.dumps(plan,indent=2)+'\n');print(json.dumps(plan,indent=2),flush=True);return plan
 
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('--state',required=True);a=p.parse_args();prepare(read_json(a.state))
+ p=argparse.ArgumentParser();p.add_argument('--state',required=True);p.add_argument('--base-configuration');p.add_argument('--study-directory');a=p.parse_args();prepare(read_json(a.state),base_configuration=a.base_configuration,study_directory=a.study_directory)

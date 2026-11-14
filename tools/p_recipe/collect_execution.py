@@ -9,6 +9,17 @@ TERMINAL={'COMPLETED','FAILED','CANCELLED','TIMEOUT','OUT_OF_MEMORY','NODE_FAIL'
 
 def read(path):return json.loads(Path(path).read_text())
 
+
+def completed_screening_hours(records):
+ hours={};revisions={}
+ for record in records:
+  if record['stage']==2 and record.get('state') in TERMINAL and 'elapsed_seconds' in record:
+   key=str(record['round']);value=record['elapsed_seconds']/3600
+   hours[key]=hours.get(key,0.)+value
+   revision=revisions.setdefault(record.get('study_revision','original_20261113'),{})
+   revision[key]=revision.get(key,0.)+value
+ return hours,revisions
+
 def observe_native(record):
  path=Path(record['native_state'])
  if not path.is_file():return dict(observation_status='WAITING_FOR_NATIVE_HANDLE; do not resubmit')
@@ -50,15 +61,13 @@ def collect_locked(ledger):
     observed=dict(accounting[record['job_id']]);observed['allocation_elapsed_seconds']=observed['elapsed_seconds']
     observed['elapsed_seconds']=max(0.,observed['elapsed_seconds']-record.get('allocation_pretraining_seconds',record.get('overlap_native_gpu_seconds',0.)))
     record.update(observed)
-   record['progress']=progress(read(record['configuration']));record['observed_at']=time.time();record.pop('observation_error',None)
+   configuration=read(record['configuration']);record.setdefault('study_revision',configuration.get('study_revision','original_20261113'))
+   record['progress']=progress(configuration);record['observed_at']=time.time();record.pop('observation_error',None)
   except (OSError,ValueError,KeyError,subprocess.SubprocessError) as error:record['observation_error']=str(error)
  for record in ledger.get('reservations',{}).values():
   if record.get('job_id') in accounting:record.update(accounting[record['job_id']],observed_at=time.time())
- hours={}
- for record in ledger['runs'].values():
-  if record['stage']==2 and record.get('state') in TERMINAL and 'elapsed_seconds' in record:
-   key=str(record['round']);hours[key]=hours.get(key,0.)+record['elapsed_seconds']/3600
- ledger.update(last_observed_at=time.time(),completed_screening_gpu_hours_by_round=hours)
+ hours,revisions=completed_screening_hours(ledger['runs'].values())
+ ledger.update(last_observed_at=time.time(),completed_screening_gpu_hours_by_round=hours,completed_screening_gpu_hours_by_revision=revisions)
  write(path,ledger);print(json.dumps(ledger,indent=2),flush=True);return ledger
 
 def collect():

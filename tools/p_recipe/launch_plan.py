@@ -69,7 +69,7 @@ def launch_locked(plan,ledger):
   py=NEW if '5090' in card.get('gpu_name','') else OLD
   task_path=C/(name+'_scheduling.json');reservation_key=name+'_standby'
   task=dict(mode=mode,node=node,gpu_uuid=gpu,python=py,configuration=filename,submitted_at=submitted,cpus=cpus,exclusive=False,minimum_free_gpu_mib=policy['minimum_free_gpu_mib'],reservation_key=reservation_key,native_state=str(C/(name+'_native.json')),handoff_state=str(C/(name+'_handoff_state.json')))
-  reserved=dict(backend='native_SSH' if mode=='native_with_standby' else 'Slurm',node=node,gpu_uuid=gpu,state='SUBMITTING',submitted_at=submitted,configuration=filename,stage=configuration['stage'],round=configuration['round'],scheduling_task=str(task_path),cpus=cpus,exclusive=False)
+  reserved=dict(backend='native_SSH' if mode=='native_with_standby' else 'Slurm',node=node,gpu_uuid=gpu,state='SUBMITTING',submitted_at=submitted,configuration=filename,stage=configuration['stage'],round=configuration['round'],study_revision=configuration.get('study_revision','original_20261113'),scheduling_task=str(task_path),cpus=cpus,exclusive=False)
   if mode=='native_with_standby':
    reserved['native_state']=task['native_state']
    configuration.update(handoff_request=str(C/(name+'_handoff_request.json')),handoff_ack=str(C/(name+'_handoff_ack.json')))

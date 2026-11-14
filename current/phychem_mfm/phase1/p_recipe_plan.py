@@ -15,8 +15,12 @@ def configuration(base,components,*,run,round_number,arm,samples=1500000,stage=2
  c=deepcopy(base);c.update(run=run,round=round_number,arm=arm,samples=samples,stage=stage,
   batch_size=batch,microbatch_size=batch,persist_features=False,components=sorted(components))
  c['p_recipe']={};c['head_form']='H1';c['lr']=base['lr'];c['mean_labels']=False
- c.pop('resume',None);c.pop('label_parameters',None)
+ for key in ('resume','resume_samples','resume_from_output','attempt','handoff_request','handoff_ack',
+             'label_parameters','speed_calibration','calibration_training','speed_board','required_gpu_uuid','evaluation_samples'):
+  c.pop(key,None)
  c['output']=str(Path(base['output']).parent/run)
+ if c.get('checkpoint_policy')=='screen_final_confirmation_milestones':
+  c['checkpoint_samples']=[samples] if stage==2 else list(range(500000,samples+1,500000))
  for component in sorted(components):
   if component in RECIPE_FLAGS:c['p_recipe'][RECIPE_FLAGS[component]]=True
   elif component=='B2':c['head_form']='H3'
