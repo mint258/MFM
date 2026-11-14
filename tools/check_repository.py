@@ -73,7 +73,12 @@ def model_summary_csv(name: str, raw: bytes) -> bool:
     if (name in {'results/p_recipe/scores.csv','results/p_recipe/deltas.csv',
                  'results/p_recipe/calibration_20261114/calibration.csv',
                  'results/p_recipe/calibration_20261114/throughput.csv',
-                 'results/p_recipe/recalibrated_20261114/deltas.csv'}
+                 'results/p_recipe/recalibrated_20261114/deltas.csv',
+                 'results/p_recipe/fixed_20261115/deltas.csv',
+                 'results/p_recipe/fixed_20261115/hardware_round1.csv',
+                 'results/p_recipe/fixed_20261115/hardware_round2.csv',
+                 'results/p_recipe/fixed_20261115/hardware_round3.csv',
+                 'results/p_recipe/fixed_20261115/hardware_confirmation.csv'}
             or (name.startswith(('results/p_recipe/diagnostics/','results/p_recipe/training/'))
                 and name.endswith('.csv'))):
         return True
@@ -235,4 +240,3 @@ def main():
 
 if __name__ == '__main__':
     sys.exit(main())
-

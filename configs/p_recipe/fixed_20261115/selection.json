@@ -1,0 +1,44 @@
+{
+  "selection_method": "user_fixed",
+  "authority": "User20261114 supplement and explicit follow-up replies",
+  "batch_size": 32,
+  "lr": 0.0003,
+  "activation_checkpointing": false,
+  "screening_samples": 3000000,
+  "confirmation_multiplier": 3,
+  "confirmation_samples": 9000000,
+  "observation_source": "Explicit user choice3M; no four-group calibration winner selection",
+  "baseline_reuse": {
+    "reuse_existing_G1": true,
+    "baseline_arm": "B0",
+    "samples": 3000000,
+    "clip_window_exception": "Current G1 original p99 window retained and disclosed",
+    "authorization": "Explicit user reply: 复用 G1 作为 B0",
+    "do_not_launch_duplicate_B0": true
+  },
+  "learning_rate_adoption": {
+    "screening": {
+      "default": 0.0003,
+      "C1": 0.0006,
+      "C2": 0.00015,
+      "only_round": 3
+    },
+    "merge": "Winning C1 or C2 is part of M3; conflict keeps larger delta",
+    "confirmation": {
+      "T1": "3e-4",
+      "T2": "M3 adopted lr",
+      "T3": "M2; 3e-4",
+      "T4": "M3 adopted lr",
+      "T5": "M3 adopted lr",
+      "T6": "M3 adopted lr",
+      "T7": "M3 adopted lr"
+    }
+  },
+  "clip_calibration": {
+    "calibration_samples": 150000,
+    "window_start_samples": 60000,
+    "initial_clip": 281.7,
+    "quantile": 0.99,
+    "sample_axis": "optimizer_step_start"
+  }
+}

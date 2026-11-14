@@ -1,4 +1,4 @@
-"""Apply the user-approved 323-molecule exclusion to the delivered ID map."""
+"""Exclude discovered TRAIN/downstream overlaps; never refit normalization."""
 import json
 from pathlib import Path
 import numpy as np
@@ -29,9 +29,10 @@ def main():
     result=dict(source_root=str(source),split='TRAIN',source_molecules=manifest['molecules']['TRAIN'],
         train_molecules=len(indices),excluded_molecules=len(removed),excluded_indices=sorted(removed.values()),
         excluded_molecule_ids=sorted(removed),train_indices=str(OUTPUT/'train_indices.npy'),
-        authorization='User20261113: exclude all323 overlaps and revise affected TRAIN/D4',
+        authorization='User20261114 supplement: exclude discovered overlaps, preserve 20261107 fullTRAIN normalization and continue',
         original_files_modified=False,identity_audit_repeated=False)
     (OUTPUT/'corpus.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({k:result[k] for k in ('source_molecules','train_molecules','excluded_molecules')}),flush=True)
+    return result
 
 if __name__=='__main__':main()

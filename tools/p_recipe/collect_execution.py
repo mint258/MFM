@@ -18,6 +18,12 @@ def completed_screening_hours(records):
    hours[key]=hours.get(key,0.)+value
    revision=revisions.setdefault(record.get('study_revision','original_20261113'),{})
    revision[key]=revision.get(key,0.)+value
+  reuse=record.get('screening_reuse_attribution')
+  if reuse and record['stage']!=2 and record.get('state') in TERMINAL and 'elapsed_seconds' in record:
+   key=str(reuse['round']);value=record['elapsed_seconds']/3600
+   hours[key]=hours.get(key,0.)+value
+   revision=revisions.setdefault(reuse['study_revision'],{})
+   revision[key]=revision.get(key,0.)+value
  return hours,revisions
 
 def observe_native(record):

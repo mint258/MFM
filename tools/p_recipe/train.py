@@ -4,7 +4,7 @@ from phychem_mfm.phase1.p_recipe_training import train
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--configuration',required=True);a=p.parse_args();c=json.loads(Path(a.configuration).read_text());started=time.monotonic()
  stop=threading.Event();monitor=None
- if c['round']==1:
+ if c['round'] in (1,2,3) or c.get('stage')==3 or c.get('protocol_exception'):
   from native_run import record_gpu_telemetry
   telemetry=dict(c,training_budget=c['samples'],gpu_uuid=os.environ['CUDA_VISIBLE_DEVICES'].split(',')[0])
   def capture():

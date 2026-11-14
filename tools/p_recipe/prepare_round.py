@@ -24,9 +24,14 @@ def prepare(round_number,previous=None,*,base_configuration=None,study_directory
  configs=[];fits={};destination=root/('round'+str(round_number))
  if (destination/'plan.json').is_file() and read_json(destination/'plan.json').get('selection_valid') is False:raise ValueError('This archived plan is invalid; use the new study directory')
  destination.mkdir(parents=True,exist_ok=True)
- for arm in [baseline]+arms:
+ dispatch=[baseline]+arms
+ if round_number==2:dispatch=['B1']+[arm for arm in dispatch if arm!='B1']
+ for arm in dispatch:
   selected=components|({arm} if arm!=baseline else set());name=base.get('run_prefix','')+f'round{round_number}_{arm}'
   c=configuration(base,selected,run=name,round_number=round_number,arm=arm,samples=base.get('screening_samples',base.get('samples',1500000)))
+  if arm=='B0' and base.get('reuse_baseline_configuration'):
+   from reuse_baseline import baseline_configuration
+   c=baseline_configuration(base)
   if 'B4' in selected:c['p_recipe']['gamma']=read_json(R/'runs/p_recipe_20261113/D4_gamma.json')['gamma']
   labels=sorted(selected&LABEL_COMPONENTS)
   if labels:

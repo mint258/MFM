@@ -12,9 +12,11 @@ def prepare(state,*,base_configuration=None,study_directory=None):
  base_path=Path(base_configuration) if base_configuration else REPO/'configs/p_recipe/base.json'
  if not base_path.is_absolute():base_path=REPO/base_path
  base=read_json(base_path);final=set(state['merged_components'])
+ screening_samples=base.get('screening_samples',base.get('samples',3000000))
+ confirmation_samples=3*screening_samples
  if state.get('study_revision','original_20261113')!=base.get('study_revision','original_20261113'):raise ValueError('Screening decision belongs to a different study revision')
  third=state['adopted_winners'] if state['round']==3 else []
- runner=runner_up_components(final,third,state['merge_base_components'],state['component_evidence'])
+ runner=set(state['merge_base_components']) if state['round']==3 else set(state['merged_components']) if state['round']==2 else runner_up_components(final,third,state['merge_base_components'],state['component_evidence'])
  scope=read_json(R/'runs/p_recipe_20261113/D6_metadata.json');p=set(scope['P_enabled']);prime=set(scope['Pprime_enabled']);common=sorted(p&prime)
  lost=len(p)-len(common);need_t7=20*lost>len(p)
  specifications=[('T1',set(),'PM7',None,None),('T2',final,'PM7',None,None),('T3',runner,'PM7',None,None),
@@ -24,7 +26,7 @@ def prepare(state,*,base_configuration=None,study_directory=None):
  if not root.is_absolute():root=REPO/root
  destination=root/'confirmation';destination.mkdir(parents=True,exist_ok=True);configs=[];fits={}
  for arm,components,source,count,fields in specifications:
-  c=configuration(base,components,run=base.get('run_prefix','')+'confirmation_'+arm,round_number=0,arm=arm,samples=4500000,stage=3)
+  c=configuration(base,components,run=base.get('run_prefix','')+'confirmation_'+arm,round_number=0,arm=arm,samples=confirmation_samples,stage=3)
   c.update(source=source,condition='Pprime' if source=='UFF' else 'P',subset_molecules=count,subset_seed=20261112)
   if fields is not None:c['fields']=fields
   if 'B4' in components:c['p_recipe']['gamma']=read_json(R/'runs/p_recipe_20261113/D4_gamma.json')['gamma']
@@ -47,7 +49,7 @@ def prepare(state,*,base_configuration=None,study_directory=None):
   P_fields=len(p),Pprime_fields=len(prime),common_fields=common,lost_P_fields=lost,lost_P_fraction=lost/len(p),
   Pprime_comparator='T7' if need_t7 else 'T2',T7_required=need_t7,T7_queue_after_initial_six=need_t7,
   label_parameters_to_fit=fits,batch_size=base.get('batch_size',128),
-  batch_size_by_run={read_json(path)['run']:read_json(path)['batch_size'] for path in configs},samples_per_run=4500000)
+  batch_size_by_run={read_json(path)['run']:read_json(path)['batch_size'] for path in configs},samples_per_run=confirmation_samples,screening_samples=screening_samples,confirmation_multiplier=3)
  (destination/'plan.json').write_text(json.dumps(plan,indent=2)+'\n');print(json.dumps(plan,indent=2),flush=True);return plan
 
 if __name__=='__main__':

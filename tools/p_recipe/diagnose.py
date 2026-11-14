@@ -117,8 +117,16 @@ def identity_gate():
         overlapping_molecules={mid:sorted(keys) for mid,keys in hits.items()},
         target_values_read=False,new_identity_computation=False)
     result['passed']=not any(result[k] for k in ('TRAIN_VAL_molecule_id_overlap',
-        'TRAIN_VAL_full_key_overlap','TRAIN_VAL_wp5_key_overlap','TRAIN_downstream_overlap_molecules'))
+        'TRAIN_VAL_full_key_overlap','TRAIN_VAL_wp5_key_overlap'))
     (CONTROL/'D6_identity.json').write_text(json.dumps(result,indent=2)+'\n')
+    if hits:
+        from prepare_corpus import main as exclude_train_overlaps
+        corpus=exclude_train_overlaps()
+        result.update(overlap_action='excluded_from_TRAIN_and_continue',normalization_recomputed=False,
+                      remaining_TRAIN_molecules=corpus['train_molecules'])
+        log=ROOT/'MFM_p_recipe/docs/p_recipe/LOG.md'
+        with log.open('a') as stream:stream.write(f"\nTRAIN/downstream overlap: excluded {len(hits)} molecule IDs; 20261107 fullTRAIN normalization unchanged; continued.\n")
+        (CONTROL/'D6_identity.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({k:v for k,v in result.items() if k!='overlapping_molecules'}),flush=True)
     return result
 

@@ -38,7 +38,7 @@ def train(configuration):
  fixed=[(int(m),int(validation.choices(int(m))[0])) for m in validation.indices]
  print(json.dumps(dict(run=c['run'],TRAIN_molecules=len(data),batch_size=c['batch_size'],microbatch_size=c['microbatch_size'],source=c['source'])),flush=True)
  structural,architecture=s_model('C1-0','three')
- # Keep the actual B128 batch and recompute existing layers during backward.
+ # The selected configuration controls existing layer recomputation.
  # This preserves parameter/state keys, losses and the original sampled graphs.
  structural.encoder.backbone.activation_checkpointing=c['activation_checkpointing']
  architecture['backbone']['activation_checkpointing']=c['activation_checkpointing']
@@ -53,15 +53,20 @@ def train(configuration):
  optimizer=torch.optim.AdamW(params,lr=c['lr'],betas=tuple(c['betas']),weight_decay=c['weight_decay'])
  clip_calibration=GroupClipCalibration(c['clip_calibration'],c['samples']) if c.get('clip_calibration') else None
  milestones=set(range(500000,c['samples']+1,500000))
- if clip_calibration:milestones.add(clip_calibration.calibration_samples)
+ if clip_calibration and clip_calibration.exact_boundary:milestones.add(clip_calibration.calibration_samples)
  clock=SampleClock(c['samples'],milestones=tuple(sorted(milestones)));rng=np.random.default_rng(c['seed']);clip=clip_calibration.threshold if clip_calibration else read_json(c['clip_reference'])['clip']
  gamma=recipe.get('gamma',0.1597693323500406);output=Path(c['output']);resuming=c.get('resume')
  output.mkdir(parents=True,exist_ok=bool(resuming));prior=0.;window={};window_updates=0;clipped=0;total_window=[]
+ def publish_clip_summary():
+  payload=json.dumps(clip_calibration.fitted_summary(),indent=2)+'\n'
+  (output/'clip_calibration.json').write_text(payload)
+  target=REPO/'results/p_recipe/training'/c['run']/'clip_calibration.json'
+  target.parent.mkdir(parents=True,exist_ok=True);target.write_text(payload)
  if resuming:
   cp=torch.load(resuming,map_location='cpu',weights_only=True);model.load_state_dict(cp['model']);optimizer.load_state_dict(cp['optimizer']);clock.load_state_dict(cp['clock']);rng.bit_generator.state=cp['rng'];torch.set_rng_state(cp['torch_rng']);torch.cuda.set_rng_state(cp['cuda_rng']);prior=cp['elapsed_seconds'];window=cp['family_window'];window_updates=cp['family_window_updates'];clipped=cp['clipped_updates'];total_window=cp.get('total_window',[])
   if clip_calibration:
    clip_calibration.load_state_dict(cp['clip_calibration']);clip=clip_calibration.threshold
-   if clip_calibration.fitted:(output/'clip_calibration.json').write_text(json.dumps(clip_calibration.fitted_summary(),indent=2)+'\n')
+   if clip_calibration.fitted:publish_clip_summary()
  (output/'configuration.json').write_text(json.dumps(c,indent=2)+'\n')
  history=TrainingHistory(output,c,initial_samples=clock.samples_consumed);history.window=total_window
  csv_path=REPO/'results/p_recipe/training'/c['run']/'family_losses.csv';csv_path.parent.mkdir(parents=True,exist_ok=True)
@@ -110,14 +115,16 @@ def train(configuration):
    writer=csv.DictWriter(stream,fieldnames=['samples','updates','total','preclip_norm','lr','seconds'])
    if stream.tell()==0:writer.writeheader()
    for samples,consumed_rng in ordered_sample_batches(pool,read_choice,data,clock,rng,c['batch_size'],c['samples']):
-    lr=c['lr']*sample_lr_ratio(clock.samples_consumed,c['samples'],'cosine')
+    samples_before=clock.samples_consumed
+    lr_cursor=samples_before+len(samples) if c.get('lr_sample_axis')=='completed_samples' else samples_before
+    lr=c['lr']*sample_lr_ratio(lr_cursor,c['samples'],'cosine')
     for group in optimizer.param_groups:group['lr']=lr
     optimizer.zero_grad(set_to_none=True);total,family,_=calculate(samples);total.backward();norm=torch.nn.utils.clip_grad_norm_(params,clip,error_if_nonfinite=True);optimizer.step()
     clock.advance(len(samples));rng.bit_generator.state=consumed_rng;clipped+=int(float(norm)>clip);window_updates+=1
     if clip_calibration:
-     if clip_calibration.observe(float(norm),clock.samples_consumed):
+     if clip_calibration.observe(float(norm),clock.samples_consumed,samples_before=samples_before):
       fitted=clip_calibration.fitted_summary()
-      (output/'clip_calibration.json').write_text(json.dumps(fitted,indent=2)+'\n')
+      publish_clip_summary()
       print(json.dumps(dict(run=c['run'],clip_calibration=fitted)),flush=True)
      clip=clip_calibration.threshold
     for name,value in family.items():

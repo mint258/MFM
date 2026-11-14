@@ -105,7 +105,7 @@ def scaling_plot(configs, summaries, output):
             if result['bootstrap_ci'] is not None:
                 ax.vlines(count, *result['bootstrap_ci'], color=color, linewidth=1.3)
     ax.set(xlabel='Training molecules (nested subsets)', ylabel='Mean normalized improvement',
-           title='Fixed 4.5M training samples; molecular bootstrap 95% CI', xticks=counts,
+           title=f"Fixed {configs['T2']['samples']/1e6:g}M training samples; molecular bootstrap 95% CI", xticks=counts,
            xticklabels=[f'{count:,}' for count in counts])
     ax.grid(alpha=.2)
     ax.legend()
@@ -116,6 +116,7 @@ def scaling_plot(configs, summaries, output):
 
 def render(plan, verdict, states, selection, code_commit):
     configs = {read(path)['arm']: read(path) for path in plan['configurations']}
+    confirmation_samples = plan.get('samples_per_run', configs['T2']['samples'])
     summaries = {arm: read(Path(c['output']) / 'readout/scores.json') for arm, c in configs.items()}
     results = REPO / plan.get('results_directory', 'results/p_recipe')
     delta_source = results / 'deltas.csv'
@@ -138,11 +139,15 @@ def render(plan, verdict, states, selection, code_commit):
              for arm, c in configs.items()}
     family_losses = {arm: {row['family']: row['loss'] for row in
                           rows(REPO / 'results/p_recipe/training' / configs[arm]['run'] / 'family_losses.csv')
-                          if row['kind'] == 'VAL_fixed2000' and int(row['samples']) == 4500000}
+                          if row['kind'] == 'VAL_fixed2000' and int(row['samples']) == confirmation_samples}
                      for arm in ('T1', 'T2', 'T3')}
     panel = read(REPO / 'configs/dev_panel_v3.json')['tasks']
     full_count = verdict['full_TRAIN_molecules']
     final_config = Path(verdict['runnable_configuration'])
+    fixed_description=(f"用户固定配置：batch={selection['batch_size']}，lr={selection['lr']:g}，逐层重算关闭；"
+                       f"三轮筛选均{selection['screening_samples']:,}样本，确认{confirmation_samples:,}样本。"
+                       "既有G1按用户要求原样完成并复用为B0，旧裁剪窗口作为明确例外记录。") if selection.get('selection_method')=='user_fixed' else (
+                       f"校准选中{selection['winner_group']}；batch={selection['batch_size']}，lr={selection['lr']:g}；筛选{selection['screening_samples']:,}样本。")
     content = ['# P 预训练配方研究：最终交付', '',
                f"最终配方为 **{verdict['final_arm']}**，组件：{', '.join(verdict['final_components']) or 'B0，无新增组件'}。"
                f"可运行配置：{link(final_config)}。研究修订：`{verdict['study_revision']}`。", '',
@@ -151,10 +156,7 @@ def render(plan, verdict, states, selection, code_commit):
                        chosen['head_form'], json.dumps(chosen['p_recipe'], ensure_ascii=False, sort_keys=True)]]), '',
                '旧1.5M首轮结论已按用户要求作废，旧第二轮停止；旧输出只作历史记录，未用于本次配方选择。', '',
                '## 校准及固定设置', '',
-               f"四组各3M的校准按最高3M R3选中 `{selection['winner_group']}`："
-               f"batch={selection['batch_size']}，lr={selection['lr']:g}，"
-               f"逐层重算={selection['activation_checkpointing']}；新筛选预算为 {selection['screening_samples']:,} 样本。"
-               f"预算观测来源：`{selection['observation_source']}`。", '',
+               fixed_description, '',
                link(REPO / 'results/p_recipe/calibration_20261114/calibration.csv', '完整校准表') + '；' +
                link(REPO / 'results/p_recipe/calibration_20261114/throughput.csv', '逐卡1000步实测吞吐') + '。', '',
                f"全量TRAIN为 {full_count:,} 分子，排除323个重叠分子；VAL为7567。"
@@ -162,9 +164,9 @@ def render(plan, verdict, states, selection, code_commit):
                '主干C1-0：512维、6层、8头、FFN宽2d、FP32、TF32关闭，PM7几何下单独P/clean视图。'
                '先均匀抽分子，再均匀抽构象，每分子最多10个构象。', '',
                'AdamW betas=(0.9,0.95)、wd=0.01；各运行在自己的样本预算内执行完整cosine退火，warmup 2%，种子0。'
-               '裁剪阈值在每条运行前5%样本内以281.7作初始值，记录裁剪前梯度范数，随后冻结该运行自己的p99。'
+               '新运行前150000样本以281.7作初始裁剪，按步起点60000≤samples<150000收集裁剪前范数；保持完整32批，在150016样本边界冻结自身p99，此后只报告不调整。'
                '标准化标量采用Huber δ=1，向量采用radial_huber_v1。每1000更新记录家族损失，每500k样本在固定2000个VAL分子上记录家族损失，均不用于配方选择。', '',
-               table(['确认运行', '实际batch', '学习率', '自身前5%范数p99', '标签/几何', 'TRAIN分子数'],
+               table(['确认运行', '实际batch', '学习率', '自身60k–150k范数p99', '标签/几何', 'TRAIN分子数'],
                      [[arm, c['batch_size'], f"{c['lr']:g}", number(clips[arm]), c['source'],
                        c.get('subset_molecules') or full_count] for arm, c in configs.items()]), '',
                '## 放大确认：T1/T2/T3', '',
@@ -177,10 +179,10 @@ def render(plan, verdict, states, selection, code_commit):
                       for arm in ('T1', 'T2', 'T3')]), '',
                '逐任务单元格为 R3 / R1；SoM只报告，不进入平均分。', '',
                table(['任务'] + ['T1 R3/R1', 'T2 R3/R1', 'T3 R3/R1'],
-                     [[task['task_id']] + [' / '.join(number(score_index[(configs[arm]['run'], readout, task['task_id'], 4500000)]['score'])
+                     [[task['task_id']] + [' / '.join(number(score_index[(configs[arm]['run'], readout, task['task_id'], confirmation_samples)]['score'])
                                                                for readout in ('R3', 'R1')) for arm in ('T1', 'T2', 'T3')]
                       for task in panel]), '',
-               '固定2000个VAL分子、最终4.5M点的标准化家族P损失：', '',
+               f'固定2000个VAL分子、最终{confirmation_samples/1e6:g}M点的标准化家族P损失：', '',
                table(['家族', 'T1', 'T2', 'T3'],
                      [[family] + [number(family_losses[arm].get(family)) for arm in ('T1', 'T2', 'T3')]
                       for family in sorted(set().union(*(set(value) for value in family_losses.values())))]), '',
@@ -193,10 +195,10 @@ def render(plan, verdict, states, selection, code_commit):
                f"P比较臂为 {plan['Pprime_comparator']}，P′为T4；共同启用字段 {len(plan['common_fields'])} 个，"
                f"丢失P字段 {plan['lost_P_fields']} 个（{plan['lost_P_fraction']:.3%}），T7要求为 {plan['T7_required']}。", '',
                comparison_table(verdict['comparisons'], 'P_vs_Pprime', delta_source, line_numbers), '',
-               '## 分子数扩展：固定4.5M样本', '',
+               f'## 分子数扩展：固定{confirmation_samples/1e6:g}M样本', '',
                table(['分子数', '运行', 'R3主分', 'R1副分', '平均重复次数'],
                      [[f'{count:,}', arm, number(summaries[arm]['R3']['mean_normalized_improvement']),
-                       number(summaries[arm]['R1']['mean_normalized_improvement']), number(4500000 / count)]
+                       number(summaries[arm]['R1']['mean_normalized_improvement']), number(confirmation_samples / count)]
                       for count, arm in ((250000, 'T5'), (500000, 'T6'), (full_count, 'T2'))]), '',
                comparison_table(verdict['comparisons'], 'molecule_scaling', delta_source, line_numbers), '',
                '子集种子20261112，250k ⊂ 500k ⊂ 全量。分子数减少会提高重复次数；这里只报告，不作扩量决策。', '',
@@ -269,7 +271,7 @@ def main():
                                                 [read(path) for path in args.states],
                                                 read(args.selection), args.code_commit)
     scaling_plot(configs, summaries, results / 'molecule_scaling.svg')
-    hashes = [[arm, checkpoint_sha(Path(configs[arm]['output']) / 'samples_4500000.pt')]
+    hashes = [[arm, checkpoint_sha(Path(configs[arm]['output']) / f"samples_{configs[arm]['samples']}.pt")]
               for arm in ('T2', 'T3', 'T4')]
     content += '\n' + table(['最终检查点', 'SHA256'], hashes) + '\n'
     Path(args.output).write_text(content)

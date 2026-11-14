@@ -121,7 +121,7 @@ def test_final_export_is_isolated_and_drops_live_handoff_state(tmp_path,monkeypa
     paths=[]
     for arm in ('T1','T2','T3','T4','T5','T6'):
         c=dict(run='new_'+arm,arm=arm,components=['B1'] if arm!='T1' else [],
-               output=str(tmp_path/'weights'/arm),batch_size=32,corpus=str(corpus),study_revision='new',run_prefix='new_',
+               output=str(tmp_path/'weights'/arm),batch_size=32,samples=9000000,corpus=str(corpus),study_revision='new',run_prefix='new_',
                resume='old_cp',resume_samples=32,resume_from_output='old_output',attempt=2,
                handoff_request='old_request',handoff_ack='old_ack',required_gpu_uuid='old_card')
         path=root/(arm+'.json');path.write_text(json.dumps(c));paths.append(str(path))
