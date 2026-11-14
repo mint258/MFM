@@ -15,7 +15,7 @@ def observe_native(record):
  state=read(path);result=dict(state=state['status'],native_pid=state['pid'],native_uid=state['uid'],native_start_ticks=state['start_ticks'],native_pgid=state['pgid'])
  if 'exit_code' in state:
   result.update(exit_code=state['exit_code'],state='COMPLETED' if state['exit_code']==0 else 'TIMEOUT' if state['exit_code']==124 else 'FAILED',elapsed_seconds=state['elapsed_seconds'],observation_status='TERMINAL_EXIT_RECORDED')
-  if state['exit_code'] in (0,-15,143) and record.get('end_reason')=='user_requested_sbatch_migration':result['state']='CANCELLED'
+  if state['exit_code'] in (0,-15,143) and record.get('end_reason') in ('user_requested_sbatch_migration','user_requested_recalibration'):result['state']='CANCELLED'
   return result
  code='import json;from pathlib import Path;p=Path("/proc/'+str(state['pid'])+'");f=p.joinpath("stat").read_text().rsplit(")",1)[1].split() if p.exists() else None;print(json.dumps(dict(alive=f is not None,uid=p.stat().st_uid if f else None,start_ticks=int(f[19]) if f else None)))'
  response=subprocess.check_output(['ssh','-n','-o','BatchMode=yes','-o','ConnectTimeout=10',record['node'],shlex.join([PY,'-c',code])],text=True,timeout=30)

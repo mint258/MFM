@@ -12,6 +12,7 @@ from .v31_prefetch import ordered_sample_batches
 from .v2_s_training import s_model,sample_lr_ratio
 from .v3_training import SampleClock
 from .p_recipe_handoff import publish_checkpoint,read_request,publish_ack
+from .p_recipe_clip import GroupClipCalibration
 from .v3_latent_training import TrainingHistory
 
 REPO=Path(__file__).resolve().parents[3]
@@ -50,11 +51,17 @@ def train(configuration):
   modules['uncertainty']=UncertaintyWeights(names)
  model=torch.nn.ModuleDict(modules).cuda().train();params=list(model.parameters())
  optimizer=torch.optim.AdamW(params,lr=c['lr'],betas=tuple(c['betas']),weight_decay=c['weight_decay'])
- clock=SampleClock(c['samples'],milestones=tuple(range(500000,c['samples']+1,500000)));rng=np.random.default_rng(c['seed']);clip=read_json(c['clip_reference'])['clip']
+ clip_calibration=GroupClipCalibration(c['clip_calibration'],c['samples']) if c.get('clip_calibration') else None
+ milestones=set(range(500000,c['samples']+1,500000))
+ if clip_calibration:milestones.add(clip_calibration.calibration_samples)
+ clock=SampleClock(c['samples'],milestones=tuple(sorted(milestones)));rng=np.random.default_rng(c['seed']);clip=clip_calibration.threshold if clip_calibration else read_json(c['clip_reference'])['clip']
  gamma=recipe.get('gamma',0.1597693323500406);output=Path(c['output']);resuming=c.get('resume')
  output.mkdir(parents=True,exist_ok=bool(resuming));prior=0.;window={};window_updates=0;clipped=0;total_window=[]
  if resuming:
   cp=torch.load(resuming,map_location='cpu',weights_only=True);model.load_state_dict(cp['model']);optimizer.load_state_dict(cp['optimizer']);clock.load_state_dict(cp['clock']);rng.bit_generator.state=cp['rng'];torch.set_rng_state(cp['torch_rng']);torch.cuda.set_rng_state(cp['cuda_rng']);prior=cp['elapsed_seconds'];window=cp['family_window'];window_updates=cp['family_window_updates'];clipped=cp['clipped_updates'];total_window=cp.get('total_window',[])
+  if clip_calibration:
+   clip_calibration.load_state_dict(cp['clip_calibration']);clip=clip_calibration.threshold
+   if clip_calibration.fitted:(output/'clip_calibration.json').write_text(json.dumps(clip_calibration.fitted_summary(),indent=2)+'\n')
  (output/'configuration.json').write_text(json.dumps(c,indent=2)+'\n')
  history=TrainingHistory(output,c,initial_samples=clock.samples_consumed);history.window=total_window
  csv_path=REPO/'results/p_recipe/training'/c['run']/'family_losses.csv';csv_path.parent.mkdir(parents=True,exist_ok=True)
@@ -107,6 +114,12 @@ def train(configuration):
     for group in optimizer.param_groups:group['lr']=lr
     optimizer.zero_grad(set_to_none=True);total,family,_=calculate(samples);total.backward();norm=torch.nn.utils.clip_grad_norm_(params,clip,error_if_nonfinite=True);optimizer.step()
     clock.advance(len(samples));rng.bit_generator.state=consumed_rng;clipped+=int(float(norm)>clip);window_updates+=1
+    if clip_calibration:
+     if clip_calibration.observe(float(norm),clock.samples_consumed):
+      fitted=clip_calibration.fitted_summary()
+      (output/'clip_calibration.json').write_text(json.dumps(fitted,indent=2)+'\n')
+      print(json.dumps(dict(run=c['run'],clip_calibration=fitted)),flush=True)
+     clip=clip_calibration.threshold
     for name,value in family.items():
      value_sum,n=window.get(name,(0.,0));window[name]=(value_sum+float(value.detach()),n+1)
     seconds=prior+time.monotonic()-started;row=dict(samples=clock.samples_consumed,updates=clock.optimizer_updates,total=float(total.detach()),preclip_norm=float(norm),lr=lr,seconds=seconds);writer.writerow(row);history.log(row)
@@ -117,9 +130,10 @@ def train(configuration):
     if clock.samples_consumed%500000==0:
      values=validate();deliver([dict(run=c['run'],kind='VAL_fixed2000',samples=clock.samples_consumed,updates=clock.optimizer_updates,family=n,loss=v,clipped_fraction=clipped/clock.optimizer_updates,seconds=prior+time.monotonic()-started) for n,v in values.items()])
     final=clock.samples_consumed==c['samples'];milestone=clock.samples_consumed%500000==0 or final
+    if 'checkpoint_samples' in c:milestone=clock.samples_consumed in c['checkpoint_samples']
     handoff=read_request(c) if not final else None
     if milestone or handoff:
-     payload=dict(model=model.state_dict(),optimizer=optimizer.state_dict(),configuration=c,architecture=architecture,clock=clock.state_dict(),rng=rng.bit_generator.state,torch_rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state(),elapsed_seconds=prior+time.monotonic()-started,family_window=window,family_window_updates=window_updates,clipped_updates=clipped,total_window=history.window)
+     payload=dict(model=model.state_dict(),optimizer=optimizer.state_dict(),configuration=c,architecture=architecture,clock=clock.state_dict(),rng=rng.bit_generator.state,torch_rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state(),elapsed_seconds=prior+time.monotonic()-started,family_window=window,family_window_updates=window_updates,clipped_updates=clipped,total_window=history.window,clip_calibration=clip_calibration.state_dict() if clip_calibration else None)
      destination=output/('samples_'+str(clock.samples_consumed)+'.pt');publish_checkpoint(payload,destination)
     if handoff:
      ack=publish_ack(c,handoff,destination,clock.state_dict())

@@ -155,7 +155,7 @@ def score(candidate_path, reference_path, csv_path):
     with destination.open('a+',newline='') as stream:
         fcntl.flock(stream,fcntl.LOCK_EX);stream.seek(0)
         previous=list(csv.DictReader(stream))
-        previous=[r for r in previous if r['run']!=candidate['run']]
+        previous=[r for r in previous if r['run']!=candidate['run'] or int(r['samples'])!=candidate['samples']]
         stream.seek(0);stream.truncate();writer=csv.DictWriter(stream,fieldnames=list(rows[0]))
         writer.writeheader();writer.writerows(previous+rows)
     (Path(candidate_path).parent/'scores.json').write_text(json.dumps(summaries,indent=2)+'\n')

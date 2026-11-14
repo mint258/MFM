@@ -13,6 +13,14 @@ NATIVE=('compute-0-22','compute-0-21','compute-0-20')
 
 def read(path):return json.loads(Path(path).read_text())
 
+
+def take_card(cards,fallback,required_gpu_uuid=None):
+ for pool in (cards,fallback):
+  for index,card in enumerate(pool):
+   if required_gpu_uuid is None or card['gpu_uuid']==required_gpu_uuid:
+    return pool.pop(index)
+ return None
+
 def own_gpu_busy(gpu):
  path=R/'docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks'/(gpu+'.lock')
  with path.open('a') as lock:
@@ -52,9 +60,9 @@ def launch_locked(plan,ledger):
  for filename in plan['configurations']:
   configuration=read(filename);name=configuration['run']
   if name in ledger['runs']:continue
-  if not cards and not fallback:
-   print(json.dumps(dict(run=name,state='WAITING_FOR_OWN_GPU_SLOT')),flush=True);continue
-  card=cards.pop(0) if cards else fallback.pop(0)
+  card=take_card(cards,fallback,configuration.get('required_gpu_uuid'))
+  if card is None:
+   print(json.dumps(dict(run=name,state='WAITING_FOR_OWN_GPU_SLOT',required_gpu_uuid=configuration.get('required_gpu_uuid'))),flush=True);continue
   node=card['node'];gpu=card['gpu_uuid'];submitted=time.time()
   cpus=requested_cpus(configuration,policy)
   mode=route(card['free_cpus'],cpus,card['used_mib'],card['total_mib'],policy) if node in NATIVE else 'Slurm'

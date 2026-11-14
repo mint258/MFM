@@ -62,7 +62,7 @@ def main(task_path):
    return 0
   original,native,ack=result
   name=original['run']+'_sbatch';new_configuration=C/(name+'_configuration.json');snapshot=C/(original['run']+'_native_configuration.json')
-  c=dict(original,run=name,output=str(Path(original['output']).parent/name),attempt=original.get('attempt',1)+1,resume=ack['checkpoint'],resume_samples=ack['clock']['samples_consumed'])
+  c=dict(original,run=name,output=str(Path(original['output']).parent/name),attempt=original.get('attempt',1)+1,resume=ack['checkpoint'],resume_samples=ack['clock']['samples_consumed'],resume_from_output=original['output'])
   c.pop('handoff_request',None);c.pop('handoff_ack',None)
   if Path(c['output']).exists():raise RuntimeError('Takeover output already exists; inspect existing handle')
   write(snapshot,original);write(new_configuration,c)
