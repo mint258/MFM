@@ -916,3 +916,6 @@ G4已从264816样本/2069更新的完整停止点由4532553接管，原生PID337
 
 
 2026-11-15 02:43 CST · P校准G1故障续接：原4532550实际FAILED/1:0（02:13:36），训练日志CUDA kernel launch timeout，最后提交2198080样本；源PID3656685已缺失。最近完整检查点2M（220321833B），从该点重做198080未保存样本，旧输出/失败状态/全部占用成本保留。原5090/node21b UUID GPU-c35f2434-9137-9723-1af5-dc69b6295243可响应、15MiB/32607MiB，正式sbatch4532594请求16CPU、不exclusive；实际RUNNING，新PID3660590/UID1278/start_ticks738579913/PGID3660590，已推进2000032样本，B32无逐层重算/lr3e-4/p99=8426.777509765629/原11-07归一化保持。最终1.5M评估沿resume祖先使用精确同样本检查点，新增2项CPU测试PASS，无GPU重测或额外科学实验。node21实际根可用830.68GB>95.42GB保留、/share可用7.22TB、/lfshome可用40.56TB、inode充足；node20 CPU验证的根可用275.95GB>95.42GB保留，临时文件不足1MB。G2/G3/G4继续，旧G4源4532553失败及新4532593续接关系保持。
+
+
+2026-11-15 04:10 CST · 用户立即停止校准G2-G4：正式scancel4532551/4532552/4532593后，实际sacct均CANCELLED、批处理0:15；原G2 PID3656690/node21、G3 PID94064/node22、G4 PID3381321/node20均已缺失，squeue仅余G1 4532594 RUNNING/node21，其PID3660590仍在。所有已有输出/检查点保留。账本标记user_requested_stop_G2_G4及do_not_resume，训练计划记录user_stopped_arms/auto_restart_stopped_runs=false；未获新指令不重启三组。G1按原B32/lr3e-4/冻结p99继续3M及既定读出。四组对照尚未完成，当前不据此宣称选定新配置/新预算。node20实际/share可用7199982092288B、空闲2965690464inode，本次仅写入少量状态元数据。
