@@ -55,7 +55,8 @@
     "selection":  {
                       "configuration":  "Highest3M R3 mean",
                       "screening_budget":  "WinnerfirstobservedR3\u003e=.30,roundup0.5M; ifnotreachedby3M use3M",
-                      "intermediate_R3_backfill":  "Awaiting user\u0027s answer; all0.5M checkpoints retained"
+                      "intermediate_R3_backfill":  "Awaiting user\u0027s answer; all0.5M checkpoints retained",
+                      "producer":  "tools/p_recipe/select_calibration.py (consumes existing scores only; no additional evaluations)"
                   },
     "normalization":  "window2_TRAIN_normalization_parameters_20261107_v1",
     "clean_train_molecules":  1194228,
