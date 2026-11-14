@@ -55,10 +55,10 @@ class Tests(unittest.TestCase):
             other=dict(SOURCE,cid=2,stream_rank=2)
             packet=generate(other,FakeKernel())
             with patch.object(producer,'CONFIG',{'output':folder}), patch.object(producer,'KERNEL',None), \
-                 patch.object(producer,'generate',return_value=packet) as compute, \
+                 patch.object(producer,'generate_limited',return_value=packet) as compute, \
                  patch.object(producer,'write_packets',return_value=([],{})):
                 result=producer.process((0,[SOURCE,other]))
-                compute.assert_called_once_with(other,None)
+                compute.assert_called_once_with(other,producer.CONFIG)
                 self.assertEqual(result['states']['INTERRUPTED_NO_RETRY'],1)
                 self.assertEqual(result['molecules'],2)
                 self.assertEqual(producer.process((0,[SOURCE,other])),result)

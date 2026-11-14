@@ -88,6 +88,8 @@ class Kernel(NativeKernel):
         # Keep it even if subsequent stereo assignment cannot be normalized.
         self._prepared_d20 = None
         self._prepared_d20, _, _ = self.d20(self._source_graph(source))
+        if getattr(self, 'deadline_progress', None):
+            self.deadline_progress('D20', {'molecule_id': molecule_id(source), 'D20': self._prepared_d20})
         prepared = self.prepare_geometry(source)
         prepared['D20'] = self._prepared_d20
         return prepared
@@ -130,7 +132,7 @@ def select_three(candidates, distance):
     return selected
 
 
-def _generate_once(source, kernel, reuse_d20=False):
+def _generate_once(source, kernel, reuse_d20=False, progress=None):
     start, cpu = time.monotonic(), time.process_time()
     mid = molecule_id(source)
     packet = {'source': source, 'molecule_id': mid, 'seed': seed_for(mid), 'D20': None,
@@ -143,6 +145,8 @@ def _generate_once(source, kernel, reuse_d20=False):
         prepared = kernel.prepare_geometry(source) if reuse_d20 else kernel.prepare(source)
         packet.update(getattr(kernel, 'stereo_metadata', stereo.defaults()))
         packet['D20'], packet['atomic_numbers'] = prepared['D20'], prepared['atomic_numbers']
+        if progress:
+            progress('prepared', packet)
         if prepared['unassigned_stereo']:
             packet['state'] = 'STEREO_REFERENCE_UNAVAILABLE_NO_PM7'
         elif not prepared['uff_supported']:
@@ -198,13 +202,13 @@ def _generate_once(source, kernel, reuse_d20=False):
     return packet
 
 
-def generate(source, kernel, reuse_d20=False):
+def generate(source, kernel, reuse_d20=False, progress=None):
     """One native recipe per draw; only all-native-failed stereo draws repeat."""
     began, cpu = time.monotonic(), time.process_time()
     draws, d20 = [], None
     for index in range(stereo.MAX_DRAWS):
         kernel.stereo_draw_index = index
-        packet = _generate_once(source, kernel, reuse_d20=reuse_d20 or index > 0)
+        packet = _generate_once(source, kernel, reuse_d20=reuse_d20 or index > 0, progress=progress)
         if index == 0:
             d20 = packet['D20']
         packet['D20'] = d20
@@ -214,6 +218,8 @@ def generate(source, kernel, reuse_d20=False):
                       'attempts': packet['attempts'],
                       'assigned_CIP_counts': packet['assigned_CIP_counts'],
                       'assigned_EZ_counts': packet['assigned_EZ_counts']})
+        if progress:
+            progress('draw_complete', dict(packet, stereo_draws=list(draws)))
         if not stereo.redraw_required(packet):
             break
     packet['stereo_draws'] = draws

@@ -17,7 +17,8 @@ import random
 import time
 import uuid
 
-from .kernel import Kernel, generate, molecule_id
+from .kernel import Kernel, molecule_id
+from .deadline import generate_limited
 from . import stereo
 from .capacity import protect
 
@@ -192,9 +193,18 @@ def process(task):
                 'candidate_cache_sha256': None, 'atom_order_sha256': None,
                 'worker_wall_seconds': None, 'worker_CPU_seconds': None}
             packet.update(stereo.defaults())
+            override = CONFIG.get('interrupted_timeout_overrides', {}).get(packet['molecule_id'])
+            if override:
+                replacement = read(override)
+                if (replacement.get('molecule_id') != packet['molecule_id'] or
+                        replacement.get('state') != 'UFF_TIMEOUT' or
+                        replacement.get('source') != source or
+                        replacement.get('molecule_timeout_seconds') != 3600):
+                    raise ValueError('APPROVED_INTERRUPTED_TIMEOUT_RECORD_DIFFERS')
+                packet = replacement
         else:
             append({'index': i})
-            packet = generate(source, KERNEL, reuse_d20=True) if CONFIG.get('stereo_supplement') else generate(source, KERNEL)
+            packet = generate_limited(source, CONFIG)
         results[i] = packet
         append({'index': i, 'packet': packet})
     packets = [results[i] for i in range(len(sources))]
@@ -295,6 +305,8 @@ def run(config):
                'shard_residues': config.get('shard_residues', [config.get('shard_index', 0)]),
                'failure_reasons': dict(reasons), 'native_attempt_states': dict(attempts)}
     summary['stereo'] = {**dict(stereo_counts), 'CIP': dict(cip_counts), 'EZ': dict(ez_counts)}
+    summary['molecule_timeout_seconds'] = config.get('molecule_timeout_seconds', 3600)
+    summary['timeout_policy'] = 'USER_APPROVED_UFF_MOLECULE_WALL_1H_20261115'
     save(root / 'manifest.json', files)
     save(root / 'summary.json', summary)
     print(json.dumps(summary), flush=True)

@@ -169,11 +169,12 @@ def monitor_preparation_repairs(root,config,jobs):
             repair_config=root/(repair_tag+'_config.json')
             output=root/repair_tag
             if not (root/(repair_tag+'_launch.json')).exists():
-                workers=min(base['cpus'],(prepared['stereo_molecules']+127)//128)
+                repair_cpus=config.get('repair_max_workers',{}).get(str(i),base['cpus'])
+                workers=min(repair_cpus,(prepared['stereo_molecules']+127)//128)
                 value=dict(read(base['config']),source_manifest=str(prepared_path),output=str(output),
                     mode='stereo_preparation_repair',stereo_supplement=True,workers=workers,batch_size=128,
                     shard_count=1,shard_residues=[0],shard_index=0,disk_checks=checks,
-                    stereo_phase='explicit_H_normalization_preparation_fix')
+                    stereo_phase='explicit_H_normalization_preparation_fix',molecule_timeout_seconds=3600)
                 save(repair_config,value)
                 script=job_script(root,config['runtime'],config['python'],repair_config,node,partition,workers,
                                   repair_tag,'workflows.expansion.window3_v2.producer')
@@ -208,7 +209,7 @@ def run(config):
     prepared = read(config['prepared'])
     if prepared['stereo_molecules'] != 1285342 or prepared['original_rows'] != 2500000:
         raise ValueError('FROZEN_STEREO_SCOPE_DIFFERS')
-    launch = root/'full_launch.json'
+    launch = Path(config.get('full_launch_path', str(root/'full_launch.json')))
     if launch.exists():
         jobs = read(launch)
     else:
@@ -244,12 +245,23 @@ def run(config):
             # must never submit a second producer against that output.
             save(slot,jobs[-1])
         save(launch,jobs)
+    historical=native_rows(config.get('historical_job_ids',[])) if config.get('historical_job_ids') else {}
+    if set(historical)!=set(config.get('historical_job_ids',[])):
+        raise RuntimeError('HISTORICAL_ACCOUNTING_MISSING')
+    if any(r[1].split()[0] in {'RUNNING','PENDING','CONFIGURING','COMPLETING','SUSPENDED'} for r in historical.values()):
+        raise RuntimeError('HISTORICAL_JOB_STILL_ACTIVE')
     repairs=monitor_preparation_repairs(root,config,jobs) if config.get('preparation_repair_enabled') else []
+    if historical:
+        science=read(root/'science_and_preparation_accounting.json')
+        science['historical_terminal_rows']=list(historical.values())
+        science['allocated_core_hours']+=sum(int(r[3])*int(r[4]) for r in historical.values())/3600
+        save(root/'science_and_preparation_accounting.json',science)
     rows = wait_jobs([j['job_id'] for j in jobs])
     summaries = [read(Path(j['output'])/'summary.json') for j in jobs]
     if sum(s['counts']['molecules'] for s in summaries) != 1285342:
         raise ValueError('STEREO_PRODUCER_POPULATION_DIFFERS')
-    save(root/'full_accounting.json',dict(rows=rows,allocated_core_hours=sum(int(r[3])*int(r[4]) for r in rows)/3600))
+    save(root/'full_accounting.json',dict(rows=rows,historical_terminal_rows=list(historical.values()),
+        allocated_core_hours=sum(int(r[3])*int(r[4]) for r in rows+list(historical.values()))/3600))
     final_launch = root/'finalize_launch.json'
     if final_launch.exists():
         final_job = read(final_launch)['job_id']
