@@ -230,7 +230,7 @@ class V3HeadBank(nn.Module):
 
     def forward(self, h0: Tensor, batch: Tensor, pos: Tensor, *, enabled_groups,
                 enabled_fields=None, pair_indices=None, prediction_offsets=None,
-                domain_inputs=None, geometry_context=None, graph_latent=None):
+                domain_inputs=None, geometry_context=None, graph_latent=None, observed_fields=None):
         require(h0.ndim == 2 and h0.size(1) == self.dim and h0.is_floating_point()
                 and len(h0) > 0 and bool(torch.isfinite(h0).all()), "Finite packed H0 required")
         require(batch.dtype == torch.long and batch.shape == (len(h0),) and bool((batch >= 0).all())
@@ -255,9 +255,14 @@ class V3HeadBank(nn.Module):
         if any(field.name in self.domain_head_bindings for field in active):
             actual_geometry_ids, actual_geometry_bindings = validate_geometry_context(batch, graphs, geometry_context)
         outputs = {}
+        if getattr(self, 'grouped_fields', False):
+            from .v31_grouped_heads import grouped_head_predictions
+            outputs = grouped_head_predictions(self, h0, batch, pos, active, pairs, graph_latent, observed_fields)
         for field in active:
             key, head = self.keys[field.name], self.field_heads[self.keys[field.name]]
-            if field.level == "ordered_entry":
+            if field.name in outputs:
+                prediction = outputs[field.name]
+            elif field.level == "ordered_entry":
                 require(field.name in domains and isinstance(domains[field.name], OrderedEntryInputs),
                         f"{field.name}: explicit ordered-entry domain inputs required")
                 prediction = head(h0, pos, batch, domains[field.name], actual_geometry_ids=actual_geometry_ids,

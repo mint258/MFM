@@ -99,6 +99,7 @@ class EquivariantDenoisingHead(nn.Module):
             raise ValueError("Invalid equivariant normalization/message layers")
         self.radius, self.normalization = float(radius), normalization
         self.message_layers, self.pair_chunk_size = int(message_layers), int(pair_chunk_size)
+        self.activation_checkpointing = True
         self.register_buffer("rbf_centers", torch.linspace(0.0, self.radius, rbf_count))
         self.rbf_gamma = ((rbf_count - 1) / self.radius) ** 2
         self.pair_mlp = nn.Sequential(Linear(2 * dim + rbf_count, hidden_dim), nn.SiLU(),
@@ -149,13 +150,13 @@ class EquivariantDenoisingHead(nn.Module):
             aggregated = torch.zeros_like(h)
             for start in range(0, len(src), self.pair_chunk_size):
                 i, j = src[start:start + self.pair_chunk_size], dst[start:start + self.pair_chunk_size]
-                value = checkpoint(message_chunk, h, pos, i, j, use_reentrant=False) if torch.is_grad_enabled() else message_chunk(h, pos, i, j)
+                value = checkpoint(message_chunk, h, pos, i, j, use_reentrant=False) if self.activation_checkpointing and torch.is_grad_enabled() else message_chunk(h, pos, i, j)
                 aggregated = aggregated.index_add(0, i, value)
             h = h + aggregated / degree.to(h.dtype)
         noise = torch.zeros_like(pos)
         for start in range(0, len(src), self.pair_chunk_size):
             i, j = src[start:start + self.pair_chunk_size], dst[start:start + self.pair_chunk_size]
-            value = checkpoint(self._predict_chunk, h, pos, i, j, use_reentrant=False) if torch.is_grad_enabled() else self._predict_chunk(h, pos, i, j)
+            value = checkpoint(self._predict_chunk, h, pos, i, j, use_reentrant=False) if self.activation_checkpointing and torch.is_grad_enabled() else self._predict_chunk(h, pos, i, j)
             noise = noise.index_add(0, i, value.to(pos.dtype))
         return noise / degree if self.normalization == "sqrt_neighbors" else noise
 

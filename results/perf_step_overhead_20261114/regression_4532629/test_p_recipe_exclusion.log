@@ -1,0 +1,43 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________ test_exclusion_is_whole_molecule_and_preserves_original_owner _________
+
+    def test_exclusion_is_whole_molecule_and_preserves_original_owner():
+        path=Path(__file__).resolve().parents[2]/'tools/p_recipe/refit_d4.py'
+        spec=importlib.util.spec_from_file_location('p_recipe_refit',path)
+>       module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_p_recipe_exclusion.py:8: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+<frozen importlib._bootstrap_external>:936: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:1073: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x7efbe8115c10>
+path = '/share/home/zixiao/descriptor_analysis/MFM_step_overhead_20261114/tools/p_recipe/refit_d4.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/share/home/zixiao/descriptor_analysis/MFM_step_overhead_20261114/tools/p_recipe/refit_d4.py'
+
+<frozen importlib._bootstrap_external>:1130: FileNotFoundError
+=============================== warnings summary ===============================
+../../docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/lib/python3.11/site-packages/torch/__config__.py:9
+  /share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/lib/python3.11/site-packages/torch/__config__.py:9: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 11080). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:119.)
+    return torch._C._show_config()
+
+../../../.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26
+  /share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26: DeprecationWarning: `torch_geometric.distributed` has been deprecated since 2.7.0 and will no longer be maintained. For distributed training, refer to our tutorials on distributed training at https://pytorch-geometric.readthedocs.io/en/latest/tutorial/distributed.html or cuGraph examples at https://github.com/rapidsai/cugraph-gnn/tree/main/python/cugraph-pyg/cugraph_pyg/examples
+    from torch_geometric.distributed import (
+
+../../docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/lib/python3.11/site-packages/torch/jit/_script.py:1480
+../../docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/lib/python3.11/site-packages/torch/jit/_script.py:1480
+  /share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/lib/python3.11/site-packages/torch/jit/_script.py:1480: DeprecationWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_p_recipe_exclusion.py::test_exclusion_is_whole_molecule_and_preserves_original_owner
+1 failed, 4 warnings in 0.12s

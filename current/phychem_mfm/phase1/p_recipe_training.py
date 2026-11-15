@@ -33,9 +33,11 @@ def family_losses(loss,families):
 
 def train(configuration):
  c=dict(configuration);recipe=c.get('p_recipe',{});torch.set_num_threads(1);torch.manual_seed(c['seed'])
+ c.setdefault('step_overhead',dict(grouped_fields=True,head_checkpointing=False,distance_tiling=True,prepared_input=True))
+ prepared_input=c.get('step_overhead',{}).get('prepared_input',False)
  c.setdefault('activation_checkpointing',True)
  reader=dataset_configuration(c);data=PRecipeDataset(**reader);validation=PRecipeDataset(**dataset_configuration(c,validation=True))
- fixed=[(int(m),int(validation.choices(int(m))[0])) for m in validation.indices]
+ fixed=[(int(m),None if prepared_input else int(validation.choices(int(m))[0])) for m in validation.indices]
  print(json.dumps(dict(run=c['run'],TRAIN_molecules=len(data),batch_size=c['batch_size'],microbatch_size=c['microbatch_size'],source=c['source'])),flush=True)
  structural,architecture=s_model('C1-0','three')
  # The selected configuration controls existing layer recomputation.
@@ -43,6 +45,7 @@ def train(configuration):
  structural.encoder.backbone.activation_checkpointing=c['activation_checkpointing']
  architecture['backbone']['activation_checkpointing']=c['activation_checkpointing']
  pd=V31PDModel(structural.encoder,data.view,forms=c['head_form'],pooling='registry',p_recipe=recipe)
+ pd.configure_step_overhead(c.get('step_overhead',{}))
  modules=dict(structural=structural,pd=pd)
  fields=tuple(f.name for f in pd.registry.enabled(('P',)) if c.get('fields') is None or f.name in c['fields'])
  heads={pd.selections[n][0] for n in fields};families={f.name:f.family for f in pd.head_registry.fields if f.name in heads}
@@ -86,16 +89,26 @@ def train(configuration):
    total=model['uncertainty'](values)
   else:
    active={n:families[n] for n in loss.fields if loss.counts[n]>0}
-   weights=normalized_field_weights(active,family_equal=recipe.get('family_equal',False),device='cuda')
-   total=sum((loss.fields[n]*w for n,w in weights.items()),loss.total.new_zeros(()))
+   if pd.grouped_fields and active:
+    values=torch.stack([loss.fields[n] for n in active])
+    if recipe.get('family_equal',False):
+     groups=set(active.values());counts={g:list(active.values()).count(g) for g in groups}
+     weights=values.new_tensor([1/(len(groups)*counts[g]) for g in active.values()])
+     total=(values*weights).sum()
+    else:total=values.mean()
+   else:
+    weights=normalized_field_weights(active,family_equal=recipe.get('family_equal',False),device='cuda')
+    total=sum((loss.fields[n]*w for n,w in weights.items()),loss.total.new_zeros(()))
   if recipe.get('anti_collapse',False):total=total+.1*collapse_penalty(h,gamma)
   return total,family,prediction
- started=time.monotonic();initial_samples=clock.samples_consumed;clip_reported=False;success=False
+ started=time.monotonic();initial_samples=clock.samples_consumed;clip_reported=False;success=False;benchmark_started=None;benchmark_finished=None
  def validate():
   model.eval();sums={};counts={};native={}
   with torch.no_grad():
    for start in range(0,len(fixed),c['batch_size']):
-    samples=[validation.read(m,conf) for m,conf in fixed[start:start+c['batch_size']]]
+    if prepared_input:
+     samples=pool.submit(read_prepared_validation,[m for m,_ in fixed[start:start+c['batch_size']]]).result()
+    else:samples=[validation.read(m,conf) for m,conf in fixed[start:start+c['batch_size']]]
     clean,h=encode_samples(samples,pd.encoder,device='cuda');pred=pd.predict(samples,groups=('P',),fields=fields,clean_features=h,clean_batch=clean)
     loss=pd.loss(pred,samples,groups=('P',),fields=fields)
     for name,value in loss.fields.items():
@@ -111,10 +124,17 @@ def train(configuration):
    writer=csv.DictWriter(stream,fieldnames=['field','MAE_original_units','observations','unit']);writer.writeheader();writer.writerows(native_rows)
   model.train();return result
  try:
-  with ProcessPoolExecutor(c['workers'],mp_context=multiprocessing.get_context('spawn'),initializer=init_reader,initargs=(reader,c['mean_labels'])) as pool,(output/'losses.csv').open('a' if resuming else 'w',buffering=1) as stream:
+  initializer=init_reader;initargs=(reader,c['mean_labels'])
+  if prepared_input:
+   from .p_recipe_input import init_prepared_reader,reader_metadata,ordered_prepared_batches,read_prepared_validation
+   initializer=init_prepared_reader;initargs=(reader,c['mean_labels'],reader_metadata(pd,fields),dataset_configuration(c,validation=True))
+  with ProcessPoolExecutor(c['workers'],mp_context=multiprocessing.get_context('spawn'),initializer=initializer,initargs=initargs) as pool,(output/'losses.csv').open('a' if resuming else 'w',buffering=1) as stream:
    writer=csv.DictWriter(stream,fieldnames=['samples','updates','total','preclip_norm','lr','seconds'])
    if stream.tell()==0:writer.writeheader()
-   for samples,consumed_rng in ordered_sample_batches(pool,read_choice,data,clock,rng,c['batch_size'],c['samples']):
+   stop_samples=min(c['samples'],c.get('benchmark_updates',c['samples'])*c['batch_size'])
+   batches=(ordered_prepared_batches(pool,clock,rng,c['batch_size'],stop_samples) if prepared_input else
+            ordered_sample_batches(pool,read_choice,data,clock,rng,c['batch_size'],stop_samples))
+   for samples,consumed_rng in batches:
     samples_before=clock.samples_consumed
     lr_cursor=samples_before+len(samples) if c.get('lr_sample_axis')=='completed_samples' else samples_before
     lr=c['lr']*sample_lr_ratio(lr_cursor,c['samples'],'cosine')
@@ -146,7 +166,19 @@ def train(configuration):
      result=finish_handoff(c,handoff,destination,clock.state_dict())
      success=True;return result
     if clock.optimizer_updates%100==0:print(json.dumps(row),flush=True)
+    if c.get('benchmark_updates') and clock.optimizer_updates==100:
+     torch.cuda.synchronize();benchmark_started=(time.monotonic(),time.process_time(),time.time())
+     print('MEASUREMENT_START',flush=True)
+    if c.get('benchmark_updates') and clock.optimizer_updates==c['benchmark_updates']:
+     torch.cuda.synchronize();benchmark_finished=(time.monotonic(),time.process_time(),time.time())
+     print('MEASUREMENT_END',flush=True)
   if window:deliver([dict(run=c['run'],kind='TRAIN_final_partial_window',samples=clock.samples_consumed,updates=clock.optimizer_updates,family=n,loss=s/num,clipped_fraction=clipped/clock.optimizer_updates,seconds=prior+time.monotonic()-started) for n,(s,num) in window.items()])
   summary=dict(status='TRAINING_COMPLETE_EVALUATION_PENDING',run=c['run'],samples=clock.samples_consumed,updates=clock.optimizer_updates,actual_samples=clock.samples_consumed-initial_samples,seconds=prior+time.monotonic()-started,clipped_fraction=clipped/clock.optimizer_updates,clip=clip,batch_size=c['batch_size'],microbatch_size=c['microbatch_size'],GPU_peak_bytes=torch.cuda.max_memory_allocated())
+  if benchmark_started is not None:
+   seconds=benchmark_finished[0]-benchmark_started[0]
+   summary.update(status='BENCHMARK_COMPLETE',measured_updates=clock.optimizer_updates-100,
+    measured_seconds=seconds,samples_per_second=(clock.optimizer_updates-100)*c['batch_size']/seconds,
+    main_CPU_percent=100*(benchmark_finished[1]-benchmark_started[1])/seconds,
+    measure_wall_start=benchmark_started[2],measure_wall_end=benchmark_finished[2])
   (output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');success=True;return summary
  finally:history.close(success);data.close();validation.close()

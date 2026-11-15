@@ -526,6 +526,10 @@ from .v31_segment_timing import phase, timed
 @timed('collate')
 def collate_samples(samples, *, coordinates=True, device=None):
     """Pack source model inputs without carrying any P/D targets into PyG."""
+    prepared = getattr(samples, 'prepared', {})
+    if coordinates and 'clean_batch' in prepared:
+        batch = prepared['clean_batch']
+        return batch if device is None else batch.to(device)
     from torch_geometric.data import Batch, Data
     from ..data.descriptor_schema import BOND_INDEX_FIELD, BOND_ORDER_FIELD, BOND_STATUS_FIELD
     records = []

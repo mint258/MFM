@@ -1,0 +1,15 @@
+{
+  "decision": "Disable vector-head checkpointing, retain distance-MLP tiling",
+  "options": {
+    "grouped_fields": true,
+    "head_checkpointing": false,
+    "distance_tiling": true,
+    "prepared_input": true
+  },
+  "flat_trial": "capacity3090_4532620/capacity.json",
+  "flat_trial_result": "CUDA OOM at first selected heavy batch, ordinal188",
+  "retained_tiling_trial": "capacity_tiled_4532623/capacity.json",
+  "retained_tiling_completed_batches": 8,
+  "retained_tiling_peak_allocated_bytes": 6143677440,
+  "note": "The retained-tiling raw record's execution field is authoritative; its options field was initially derived incorrectly from the fallback peak alone. The prior flat OOM requires retaining tiling."
+}

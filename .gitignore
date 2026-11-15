@@ -4,3 +4,10 @@ __pycache__/
 .venv/
 outputs/
 wandb/
+
+# Raw measurements remain in the server results tree; publish summaries and flame graphs.
+results/perf_step_overhead_20261114/**/*.csv
+results/perf_step_overhead_20261114/**/*.pt
+results/perf_step_overhead_20261114/regression_*/*.xml
+results/perf_step_overhead_20261114/*guard*.json
+results/perf_step_overhead_20261114/disk_*.json
