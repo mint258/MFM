@@ -16,14 +16,35 @@ def compare(a,b,purpose,round_number):
  return rows
 
 
+def unresolved_entries(plan,configurations):
+ """Read explicit arm-to-reason entries after the registered diagnosis timebox.
+
+ This records a scientific disposition; it sends no signals to live trainers.
+ Missing evidence without this declaration remains an error.
+ """
+ by_arm={c['arm']:(path,c) for path,c in configurations}
+ unresolved={}
+ for arm,reason in plan.get('unresolved_arms',{}).items():
+  if arm not in by_arm:raise ValueError('Unknown unresolved arm: '+arm)
+  if arm==plan['baseline']:raise ValueError('The round baseline cannot be unresolved')
+  if not isinstance(reason,str) or not reason.strip():raise ValueError('An unresolved arm needs its recorded reason: '+arm)
+  path,c=by_arm[arm]
+  if (Path(c['output'])/'readout/scores.json').is_file():
+   raise ValueError('Cannot omit an arm with completed readout evidence: '+arm)
+  unresolved[arm]=dict(status='UNRESOLVED',reason=reason,configuration=str(path),run=c['run'])
+ return unresolved
+
+
 def close(plan,previous,round_gpu_hours):
  if plan.get('selection_valid') is False or previous and previous.get('selection_valid') is False:raise ValueError('The user invalidated this screening evidence')
  if previous and previous.get('study_revision','original_20261113')!=plan.get('study_revision','original_20261113'):raise ValueError('Cannot merge screening evidence from different study revisions')
  configurations=[(path,read_json(path)) for path in plan['configurations']]
+ unresolved=unresolved_entries(plan,configurations)
+ eligible=[(path,c) for path,c in configurations if c['arm'] not in unresolved]
  baseline=next(c for path,c in configurations if c['arm']==plan['baseline']);round_number=plan['round']
  decisions={};rows=[];by_arm={c['arm']:c for path,c in configurations}
  evidence=dict(previous.get('component_evidence',{})) if previous else {}
- for path,c in configurations:
+ for path,c in eligible:
   if c['arm']==plan['baseline']:continue
   compared=compare(c,baseline,'screening',round_number);rows.extend(compared);decisions[c['arm']]=compared[0]
   evidence[c['arm']]=dict(compared[0],configuration=path)
@@ -32,8 +53,8 @@ def close(plan,previous,round_gpu_hours):
   best=read_json(previous['best_single_configuration']);compared=compare(baseline,best,'merge_rollback',round_number);rows.extend(compared)
   if compared[0]['verdict']=='loss':base_components=set(best['components']);rollback=True
  merged=base_components|selected
- single=[(path,c) for path,c in configurations if c['arm']!=plan['baseline']]
- best_path,best=max(single or configurations,key=lambda item:read_json(Path(item[1]['output'])/'readout/scores.json')['R3']['mean_normalized_improvement'])
+ single=[(path,c) for path,c in eligible if c['arm']!=plan['baseline']]
+ best_path,best=max(single or eligible,key=lambda item:read_json(Path(item[1]['output'])/'readout/scores.json')['R3']['mean_normalized_improvement'])
  empty=(previous.get('consecutive_empty_rounds',0) if previous else 0)+1 if not selected else 0
  hours=(previous.get('screening_gpu_hours',0.) if previous else 0.)+round_gpu_hours
  reasons=[]
@@ -41,6 +62,7 @@ def close(plan,previous,round_gpu_hours):
  if empty>=2:reasons.append('Two consecutive rounds without winning components')
  if hours>=200:reasons.append('Screening reached200GPUh; current round completed')
  state=dict(round=round_number,decisions=decisions,adopted_winners=sorted(selected),merged_components=sorted(merged),
+  unresolved_arms=unresolved,skipped_arms=dict(plan.get('skipped',{})),
   study_revision=plan.get('study_revision','original_20261113'),selection_valid=True,
   merge_base_components=sorted(base_components),merge_rollback=rollback,component_evidence=evidence,
   best_single_configuration=best_path,best_single_run=best['run'],consecutive_empty_rounds=empty,

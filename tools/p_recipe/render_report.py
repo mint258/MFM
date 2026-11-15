@@ -114,6 +114,21 @@ def scaling_plot(configs, summaries, output):
     plt.close(fig)
 
 
+def screening_rows(states, delta_source, line_numbers):
+    result = []
+    for state in states:
+        for arm, decision in state['decisions'].items():
+            source = link(delta_source, 'deltas.csv')[:-1] + f"#L{line_numbers[key(decision)]})"
+            result.append([state['round'], arm, number(decision['delta']),
+                           f"[{number(decision['ci_lower'])}, {number(decision['ci_upper'])}]",
+                           decision['verdict'], '是' if arm in state['adopted_winners'] else '否', source])
+        for arm, entry in state.get('unresolved_arms', {}).items():
+            result.append([state['round'], arm, '—', '—', '未解决', '否', entry['reason']])
+        for arm, reason in state.get('skipped_arms', {}).items():
+            result.append([state['round'], arm, '—', '—', '条件未触发', '否', reason])
+    return result
+
+
 def render(plan, verdict, states, selection, code_commit):
     configs = {read(path)['arm']: read(path) for path in plan['configurations']}
     confirmation_samples = plan.get('samples_per_run', configs['T2']['samples'])
@@ -204,13 +219,7 @@ def render(plan, verdict, states, selection, code_commit):
                '子集种子20261112，250k ⊂ 500k ⊂ 全量。分子数减少会提高重复次数；这里只报告，不作扩量决策。', '',
                f"![固定预算分子数曲线]({os.path.relpath(results / 'molecule_scaling.svg', REPO / 'docs/p_recipe').replace(os.sep, '/')})", '',
                '## 全部筛选臂及组件取舍', '']
-    experiment_rows = []
-    for state in states:
-        for arm, decision in state['decisions'].items():
-            source = link(delta_source, 'deltas.csv')[:-1] + f"#L{line_numbers[key(decision)]})"
-            experiment_rows.append([state['round'], arm, number(decision['delta']),
-                                    f"[{number(decision['ci_lower'])}, {number(decision['ci_upper'])}]",
-                                    decision['verdict'], '是' if arm in state['adopted_winners'] else '否', source])
+    experiment_rows = screening_rows(states, delta_source, line_numbers)
     content.extend([table(['轮', '臂', 'ΔR3', '95% CI', '判定', '当轮并入', '证据'], experiment_rows), '',
                     '合并、冲突与停止记录：', '',
                     table(['轮', '合并组件', '合并回退', '累计筛选GPUh', '停止原因'],
