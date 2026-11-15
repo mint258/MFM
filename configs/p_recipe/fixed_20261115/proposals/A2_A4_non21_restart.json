@@ -1,88 +1,109 @@
 {
-    "user_instruction":  "A2、A4都停掉，换到不在node21上的卡，从头重跑；原来的输出存档保留。",
-    "authorized":  true,
-    "applied_at":  1794730158.6836014,
-    "status":  "RUNNING",
-    "runs":  [
-                 {
-                     "arm":  "A2",
-                     "source_run":  "fixed_20261115_round1_A2",
-                     "source_configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/archive/A2_attempt1.json",
-                     "source_output":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round1_A2",
-                     "source_samples":  444736,
-                     "source_exit_code":  -15,
-                     "source_elapsed_seconds":  39601.15332078934,
-                     "new_run":  "fixed_20261115_round1_A2_non21_restart",
-                     "new_configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/A2.json",
-                     "target_node":  "compute-0-20",
-                     "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-                     "from_samples":  0,
-                     "status":  "RUNNING",
-                     "active_run":  "fixed_20261115_round1_A2_non21_restart",
-                     "backend":  "native_SSH",
-                     "job_id":  null,
-                     "standby_job_id":  4532641,
-                     "first_verified_progress":  {
-                                                     "samples":  6976,
-                                                     "budget":  3000000,
-                                                     "updates":  218,
-                                                     "last_loss":  106.81410217285156,
-                                                     "samples_per_second":  61.91466098700388,
-                                                     "remaining_hours":  13.428088635259888
-                                                 },
-                     "native_pid":  1598874,
-                     "native_uid":  1278,
-                     "native_start_ticks":  1262458523
-                 },
-                 {
-                     "arm":  "A4",
-                     "source_run":  "fixed_20261115_round1_A4_5090_restart",
-                     "source_configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/archive/A4_attempt2.json",
-                     "source_output":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round1_A4_5090_restart",
-                     "source_samples":  199072,
-                     "source_exit_code":  -15,
-                     "source_elapsed_seconds":  30167.710052013397,
-                     "new_run":  "fixed_20261115_round1_A4_non21_restart",
-                     "new_configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/A4.json",
-                     "target_node":  "compute-0-7",
-                     "gpu_uuid":  "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
-                     "from_samples":  0,
-                     "status":  "RUNNING",
-                     "active_run":  "fixed_20261115_round1_A4_non21_restart",
-                     "backend":  "Slurm",
-                     "job_id":  4532642,
-                     "standby_job_id":  null,
-                     "first_verified_progress":  {
-                                                     "samples":  25568,
-                                                     "budget":  3000000,
-                                                     "updates":  799,
-                                                     "last_loss":  29.62967872619629,
-                                                     "samples_per_second":  51.81939426272659,
-                                                     "remaining_hours":  15.944437847383613
-                                                 },
-                     "native_pid":  null,
-                     "native_uid":  null,
-                     "native_start_ticks":  null
-                 }
-             ],
-    "verified_at":  1794730960.2585287,
-    "cancelled_source_standby_jobs":  [
-                                          4532597,
-                                          4532608
-                                      ],
-    "source_standby_elapsed_seconds":  0,
-    "source_residual_workers":  {
-                                    "node":  "compute-0-21",
-                                    "arm":  "A4",
-                                    "pids":  [
-                                                 3678945,
-                                                 3678970,
-                                                 3678983,
-                                                 3678997,
-                                                 3679112
-                                             ],
-                                    "state":  "I/O wait; main trainer exited",
-                                    "signal_sent":  "SIGKILL",
-                                    "count":  5
-                                }
+  "user_instruction": "A2\u3001A4\u90fd\u505c\u6389\uff0c\u6362\u5230\u4e0d\u5728node21\u4e0a\u7684\u5361\uff0c\u4ece\u5934\u91cd\u8dd1\uff1b\u539f\u6765\u7684\u8f93\u51fa\u5b58\u6863\u4fdd\u7559\u3002",
+  "authorized": true,
+  "applied_at": 1794730158.6836014,
+  "status": "RUNNING",
+  "runs": [
+    {
+      "arm": "A2",
+      "source_run": "fixed_20261115_round1_A2",
+      "source_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/archive/A2_attempt1.json",
+      "source_output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round1_A2",
+      "source_samples": 444736,
+      "source_exit_code": -15,
+      "source_elapsed_seconds": 39601.15332078934,
+      "new_run": "fixed_20261115_round1_A2_non21_restart",
+      "new_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/A2.json",
+      "target_node": "compute-0-20",
+      "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "from_samples": 0,
+      "status": "COMPLETED",
+      "active_run": "fixed_20261115_round1_A2_non21_restart",
+      "backend": "native_SSH",
+      "job_id": null,
+      "standby_job_id": 4532641,
+      "first_verified_progress": {
+        "samples": 6976,
+        "budget": 3000000,
+        "updates": 218,
+        "last_loss": 106.81410217285156,
+        "samples_per_second": 61.91466098700388,
+        "remaining_hours": 13.428088635259888
+      },
+      "native_pid": 1598874,
+      "native_uid": 1278,
+      "native_start_ticks": 1262458523,
+      "completion": {
+        "run": "fixed_20261115_round1_A2_non21_restart",
+        "samples": 3000000,
+        "summary_status": "COMPLETE",
+        "native_exit_code": 0,
+        "elapsed_seconds": 43748.051307201385,
+        "R3": 0.27085730694986215,
+        "R1": 0.1376806709219207,
+        "verified_at": 1794774983.5794444
+      },
+      "unused_standby_retirement": {
+        "job_id": 4532641,
+        "state": "CANCELLED",
+        "phase": "RETIRED_SOURCE_COMPLETED",
+        "end_reason": "source_training_and_evaluation_completed",
+        "elapsed_seconds": 0,
+        "exit_code": "0:0",
+        "observed_at": 1794774983.5745752,
+        "cancelled_by_uid": 1278
+      }
+    },
+    {
+      "arm": "A4",
+      "source_run": "fixed_20261115_round1_A4_5090_restart",
+      "source_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/archive/A4_attempt2.json",
+      "source_output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round1_A4_5090_restart",
+      "source_samples": 199072,
+      "source_exit_code": -15,
+      "source_elapsed_seconds": 30167.710052013397,
+      "new_run": "fixed_20261115_round1_A4_non21_restart",
+      "new_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/A4.json",
+      "target_node": "compute-0-7",
+      "gpu_uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+      "from_samples": 0,
+      "status": "RUNNING",
+      "active_run": "fixed_20261115_round1_A4_non21_restart",
+      "backend": "Slurm",
+      "job_id": 4532642,
+      "standby_job_id": null,
+      "first_verified_progress": {
+        "samples": 25568,
+        "budget": 3000000,
+        "updates": 799,
+        "last_loss": 29.62967872619629,
+        "samples_per_second": 51.81939426272659,
+        "remaining_hours": 15.944437847383613
+      },
+      "native_pid": null,
+      "native_uid": null,
+      "native_start_ticks": null
+    }
+  ],
+  "verified_at": 1794730960.2585287,
+  "cancelled_source_standby_jobs": [
+    4532597,
+    4532608
+  ],
+  "source_standby_elapsed_seconds": 0,
+  "source_residual_workers": {
+    "node": "compute-0-21",
+    "arm": "A4",
+    "pids": [
+      3678945,
+      3678970,
+      3678983,
+      3678997,
+      3679112
+    ],
+    "state": "I/O wait; main trainer exited",
+    "signal_sent": "SIGKILL",
+    "count": 5
+  },
+  "updated_at": 1794774983.6247854
 }
