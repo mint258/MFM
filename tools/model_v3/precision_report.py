@@ -30,11 +30,17 @@ def select(speeds,qualified,protocol):
     weights=protocol['hardware_expected']
     totals={mode:sum(weights[card]*speeds[(card,mode,32)] for card in weights) for mode in qualified}
     if not totals:raise ValueError('No qualified scheme')
-    best=max(totals.values())
-    candidates={mode for mode,value in totals.items() if best-value<=protocol['higher_precision_tolerance']*best}
-    chosen=next(mode for mode in ('fp32','tf32_islands','bf16_islands') if mode in candidates)
+    def choose(values):
+        best=max(values.values())
+        candidates={mode for mode,value in values.items() if best-value<=protocol['higher_precision_tolerance']*best}
+        return next(mode for mode in ('fp32','tf32_islands','bf16_islands') if mode in candidates)
+    chosen=choose(totals)
+    planning_weights=protocol['hardware_planning_expected']
+    planning={mode:sum(planning_weights[card]*speeds[(card,mode,32)] for card in planning_weights) for mode in qualified}
     return dict(chosen=chosen,expected_aggregate_samples_per_second=totals,
         maximum_aggregate_samples_per_second={mode:2*value for mode,value in totals.items()},
+        planning_scenario_only=dict(chosen=choose(planning),expected_aggregate_samples_per_second=planning,
+            maximum_aggregate_samples_per_second={mode:2*value for mode,value in planning.items()}),
         tie_rule='Within 10% of the fastest qualified fleet throughput, prefer FP32 > TF32 > BF16')
 
 
@@ -50,6 +56,7 @@ if __name__=='__main__':
     for root in a.speed_root:
         for path in Path(root).glob('**/benchmark.json'):
             record=json.loads(path.read_text());card=next((name for name in protocol['hardware_expected'] if name in record['gpu']),None)
+            if record.get('node') in protocol['excluded_development_nodes']:continue
             if card is None:continue
             key=(card,record['precision'],record['batch_size'])
             if key in speeds:raise ValueError('Multiple closed benchmarks for '+str(key)+'; explicitly select the controlled run')
