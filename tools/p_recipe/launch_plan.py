@@ -7,8 +7,8 @@ from scheduling import node_capacity,requested_cpus,route,gpu_rank
 R=Path('/share/home/zixiao/descriptor_analysis');REPO=Path(__file__).resolve().parents[2];C=R/'runs/p_recipe_20261113'
 OLD='/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python'
 NEW=str(R/'docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python')
-# Idle compatible resources: RTX5090 (22/21), then RTX4090 (20), then3090.
-NATIVE=('compute-0-22','compute-0-21','compute-0-20')
+# Idle compatible resources: RTX5090 (22), then RTX4090 (20), then3090. Node21 is user-disabled.
+NATIVE=('compute-0-22','compute-0-20')
 
 
 def read(path):return json.loads(Path(path).read_text())
