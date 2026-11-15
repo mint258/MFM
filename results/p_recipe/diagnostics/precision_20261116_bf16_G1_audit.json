@@ -1,0 +1,1301 @@
+{
+    "status":  "COMPLETE",
+    "node":  "compute-0-20",
+    "gpu":  "RTX 4090",
+    "fixed_batch_ids":  [
+                            0,
+                            12,
+                            13,
+                            19
+                        ],
+    "optimizer_updates":  0,
+    "dtype_or_flag_violations":  [
+
+                                 ],
+    "tensor_dtype_observations":  54183,
+    "dtype_groups":  [
+                         {
+                             "phase":  "fp32",
+                             "operation":  "aten::native_layer_norm",
+                             "dtype":  "torch.float32",
+                             "count":  624
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:layer_norm",
+                             "dtype":  "torch.float32",
+                             "count":  104
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:coordinate_subtraction",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:distance_squared",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.0.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:attention_bias_add",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "aten::_softmax",
+                             "dtype":  "torch.float32",
+                             "count":  96
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:attention_softmax",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.1.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.2.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.3.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.4.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.5.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:denoising_distance",
+                             "dtype":  "torch.float32",
+                             "count":  12
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:denoising_relative_position",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:distance",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:denoising_rbf",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:denoising_direction",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "aten::index_add",
+                             "dtype":  "torch.float32",
+                             "count":  867
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:scatter_pool",
+                             "dtype":  "torch.float32",
+                             "count":  196
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:vector_relative_position",
+                             "dtype":  "torch.float32",
+                             "count":  24
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:vector_index_add",
+                             "dtype":  "torch.float32",
+                             "count":  24
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:pair_distance",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "island:pair_rbf",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "aten::native_layer_norm_backward",
+                             "dtype":  "torch.float32",
+                             "count":  936
+                         },
+                         {
+                             "phase":  "fp32",
+                             "operation":  "aten::_softmax_backward_data",
+                             "dtype":  "torch.float32",
+                             "count":  144
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "aten::native_layer_norm",
+                             "dtype":  "torch.float32",
+                             "count":  624
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:layer_norm",
+                             "dtype":  "torch.float32",
+                             "count":  104
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:coordinate_subtraction",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:distance_squared",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.0.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:attention_bias_add",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "aten::_softmax",
+                             "dtype":  "torch.float32",
+                             "count":  96
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:attention_softmax",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.1.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.2.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.3.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.4.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.5.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:denoising_distance",
+                             "dtype":  "torch.float32",
+                             "count":  12
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:denoising_relative_position",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:distance",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:denoising_rbf",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:denoising_direction",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "aten::index_add",
+                             "dtype":  "torch.float32",
+                             "count":  867
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:scatter_pool",
+                             "dtype":  "torch.float32",
+                             "count":  196
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:vector_relative_position",
+                             "dtype":  "torch.float32",
+                             "count":  24
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:vector_index_add",
+                             "dtype":  "torch.float32",
+                             "count":  24
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:pair_distance",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "island:pair_rbf",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "aten::native_layer_norm_backward",
+                             "dtype":  "torch.float32",
+                             "count":  936
+                         },
+                         {
+                             "phase":  "fp32_repeat",
+                             "operation":  "aten::_softmax_backward_data",
+                             "dtype":  "torch.float32",
+                             "count":  144
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "aten::native_layer_norm",
+                             "dtype":  "torch.float32",
+                             "count":  624
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:layer_norm",
+                             "dtype":  "torch.float32",
+                             "count":  104
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:coordinate_subtraction",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:distance_squared",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first_forward:aten::t",
+                             "dtype":  "torch.float32",
+                             "count":  1584
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first_forward:aten::addmm",
+                             "dtype":  "torch.float32",
+                             "count":  3168
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:distance_bias_first_layer",
+                             "dtype":  "torch.float32",
+                             "count":  792
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.0.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:attention_bias_add",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "aten::_softmax",
+                             "dtype":  "torch.float32",
+                             "count":  96
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:attention_softmax",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.1.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.2.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.3.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.4.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.5.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:denoising_distance",
+                             "dtype":  "torch.float32",
+                             "count":  12
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:denoising_relative_position",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:distance",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:denoising_rbf",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:denoising_direction",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "aten::index_add",
+                             "dtype":  "torch.float32",
+                             "count":  867
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:scatter_pool",
+                             "dtype":  "torch.float32",
+                             "count":  196
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:vector_relative_position",
+                             "dtype":  "torch.float32",
+                             "count":  24
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:vector_index_add",
+                             "dtype":  "torch.float32",
+                             "count":  24
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:pair_distance",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "island:pair_rbf",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "aten::native_layer_norm_backward",
+                             "dtype":  "torch.float32",
+                             "count":  936
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "aten::_softmax_backward_data",
+                             "dtype":  "torch.float32",
+                             "count":  144
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first_backward:aten::detach",
+                             "dtype":  "torch.float32",
+                             "count":  792
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first_backward:aten::view",
+                             "dtype":  "torch.float32",
+                             "count":  2376
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first_backward:aten::permute",
+                             "dtype":  "torch.float32",
+                             "count":  792
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first_backward:aten::mm",
+                             "dtype":  "torch.float32",
+                             "count":  1188
+                         },
+                         {
+                             "phase":  "bf16_islands",
+                             "operation":  "distance_first_backward:aten::sum",
+                             "dtype":  "torch.float32",
+                             "count":  792
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "aten::native_layer_norm",
+                             "dtype":  "torch.float32",
+                             "count":  624
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:layer_norm",
+                             "dtype":  "torch.float32",
+                             "count":  104
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:coordinate_subtraction",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:distance_squared",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first_forward:aten::t",
+                             "dtype":  "torch.float32",
+                             "count":  1584
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first_forward:aten::addmm",
+                             "dtype":  "torch.float32",
+                             "count":  3168
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:distance_bias_first_layer",
+                             "dtype":  "torch.float32",
+                             "count":  792
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.0.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:attention_bias_add",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "aten::_softmax",
+                             "dtype":  "torch.float32",
+                             "count":  96
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:attention_softmax",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.1.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.2.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.3.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.4.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.5.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:denoising_distance",
+                             "dtype":  "torch.float32",
+                             "count":  12
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:denoising_relative_position",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:distance",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:denoising_rbf",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:denoising_direction",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "aten::index_add",
+                             "dtype":  "torch.float32",
+                             "count":  867
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:scatter_pool",
+                             "dtype":  "torch.float32",
+                             "count":  196
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:vector_relative_position",
+                             "dtype":  "torch.float32",
+                             "count":  24
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:vector_index_add",
+                             "dtype":  "torch.float32",
+                             "count":  24
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:pair_distance",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "island:pair_rbf",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "aten::native_layer_norm_backward",
+                             "dtype":  "torch.float32",
+                             "count":  936
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "aten::_softmax_backward_data",
+                             "dtype":  "torch.float32",
+                             "count":  144
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first_backward:aten::detach",
+                             "dtype":  "torch.float32",
+                             "count":  792
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first_backward:aten::view",
+                             "dtype":  "torch.float32",
+                             "count":  2376
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first_backward:aten::permute",
+                             "dtype":  "torch.float32",
+                             "count":  792
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first_backward:aten::mm",
+                             "dtype":  "torch.float32",
+                             "count":  1188
+                         },
+                         {
+                             "phase":  "bf16_heads_fp32",
+                             "operation":  "distance_first_backward:aten::sum",
+                             "dtype":  "torch.float32",
+                             "count":  792
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "aten::native_layer_norm",
+                             "dtype":  "torch.float32",
+                             "count":  624
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:layer_norm",
+                             "dtype":  "torch.float32",
+                             "count":  104
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:coordinate_subtraction",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:distance_squared",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.0.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:attention_bias_add",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "aten::_softmax",
+                             "dtype":  "torch.float32",
+                             "count":  96
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:attention_softmax",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.1.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.2.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.3.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.4.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "distance_first:structural.encoder.backbone.layers.5.attn.dist_mlp.0",
+                             "dtype":  "torch.float32",
+                             "count":  396
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:denoising_distance",
+                             "dtype":  "torch.float32",
+                             "count":  12
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:denoising_relative_position",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:distance",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:denoising_rbf",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:denoising_direction",
+                             "dtype":  "torch.float32",
+                             "count":  138
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "aten::index_add",
+                             "dtype":  "torch.float32",
+                             "count":  867
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:scatter_pool",
+                             "dtype":  "torch.float32",
+                             "count":  196
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:vector_relative_position",
+                             "dtype":  "torch.float32",
+                             "count":  24
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:vector_index_add",
+                             "dtype":  "torch.float32",
+                             "count":  24
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:pair_distance",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "island:pair_rbf",
+                             "dtype":  "torch.float32",
+                             "count":  48
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "aten::native_layer_norm_backward",
+                             "dtype":  "torch.float32",
+                             "count":  936
+                         },
+                         {
+                             "phase":  "bf16_encoder_fp32",
+                             "operation":  "aten::_softmax_backward_data",
+                             "dtype":  "torch.float32",
+                             "count":  144
+                         }
+                     ],
+    "geometry_max_by_name":  [
+                                 {
+                                     "phase_and_name":  "fp32_repeat, coordinate_subtraction",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "fp32_repeat, distance_squared",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "fp32_repeat, denoising_distance",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "fp32_repeat, denoising_relative_position",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "fp32_repeat, distance",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "fp32_repeat, denoising_rbf",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "fp32_repeat, denoising_direction",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "fp32_repeat, vector_relative_position",
+                                     "max_abs_difference":  5.7220458984375E-06
+                                 },
+                                 {
+                                     "phase_and_name":  "fp32_repeat, pair_distance",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "fp32_repeat, pair_rbf",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_islands, coordinate_subtraction",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_islands, distance_squared",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_islands, denoising_distance",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_islands, denoising_relative_position",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_islands, distance",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_islands, denoising_rbf",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_islands, denoising_direction",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_islands, vector_relative_position",
+                                     "max_abs_difference":  4.76837158203125E-06
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_islands, pair_distance",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_islands, pair_rbf",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_heads_fp32, coordinate_subtraction",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_heads_fp32, distance_squared",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_heads_fp32, denoising_distance",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_heads_fp32, denoising_relative_position",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_heads_fp32, distance",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_heads_fp32, denoising_rbf",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_heads_fp32, denoising_direction",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_heads_fp32, vector_relative_position",
+                                     "max_abs_difference":  5.7220458984375E-06
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_heads_fp32, pair_distance",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_heads_fp32, pair_rbf",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_encoder_fp32, coordinate_subtraction",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_encoder_fp32, distance_squared",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_encoder_fp32, denoising_distance",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_encoder_fp32, denoising_relative_position",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_encoder_fp32, distance",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_encoder_fp32, denoising_rbf",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_encoder_fp32, denoising_direction",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_encoder_fp32, vector_relative_position",
+                                     "max_abs_difference":  4.76837158203125E-06
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_encoder_fp32, pair_distance",
+                                     "max_abs_difference":  0
+                                 },
+                                 {
+                                     "phase_and_name":  "bf16_encoder_fp32, pair_rbf",
+                                     "max_abs_difference":  0
+                                 }
+                             ],
+    "head_quantization":  {
+                              "value":  [
+                                            {
+                                                "batch":  0,
+                                                "field":  "P.xtb_ALPB_octanol.r460.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.10605547577142715,
+                                                "bf16_head_only_max_abs_error":  0.03136717528104782,
+                                                "head_error_over_normalization_scale":  0.5923419077156207,
+                                                "absolute_dot_terms_max":  35.380958557128906,
+                                                "maximum_cancellation_ratio":  7203.73583984375
+                                            },
+                                            {
+                                                "batch":  0,
+                                                "field":  "P.xtb_singlepoint.r670.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.10491112619638443,
+                                                "bf16_head_only_max_abs_error":  0.030634181573987007,
+                                                "head_error_over_normalization_scale":  0.5774018087064962,
+                                                "absolute_dot_terms_max":  41.74189376831055,
+                                                "maximum_cancellation_ratio":  12806.2041015625
+                                            },
+                                            {
+                                                "batch":  0,
+                                                "field":  "P.xtb_ALPB_octanol.r459.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.010671619325876236,
+                                                "bf16_head_only_max_abs_error":  0.003896716982126236,
+                                                "head_error_over_normalization_scale":  0.8942583610856578,
+                                                "absolute_dot_terms_max":  5.421389579772949,
+                                                "maximum_cancellation_ratio":  5609.359375
+                                            },
+                                            {
+                                                "batch":  0,
+                                                "field":  "P.xtb_ALPB_water.r499.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.10991165786981583,
+                                                "bf16_head_only_max_abs_error":  0.022752564400434494,
+                                                "head_error_over_normalization_scale":  0.4338030735493471,
+                                                "absolute_dot_terms_max":  24.937984466552734,
+                                                "maximum_cancellation_ratio":  11267.8701171875
+                                            },
+                                            {
+                                                "batch":  0,
+                                                "field":  "P.xtb_ALPB_water.r498.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.01630862057209015,
+                                                "bf16_head_only_max_abs_error":  0.0024101282469928265,
+                                                "head_error_over_normalization_scale":  0.3657095849599149,
+                                                "absolute_dot_terms_max":  3.8418338298797607,
+                                                "maximum_cancellation_ratio":  13212.291015625
+                                            },
+                                            {
+                                                "batch":  12,
+                                                "field":  "P.xtb_ALPB_octanol.r460.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.0657641813158989,
+                                                "bf16_head_only_max_abs_error":  0.04122183471918106,
+                                                "head_error_over_normalization_scale":  0.7784386065471068,
+                                                "absolute_dot_terms_max":  37.62745666503906,
+                                                "maximum_cancellation_ratio":  18892.103515625
+                                            },
+                                            {
+                                                "batch":  12,
+                                                "field":  "P.xtb_singlepoint.r670.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.06753384321928024,
+                                                "bf16_head_only_max_abs_error":  0.04154011607170105,
+                                                "head_error_over_normalization_scale":  0.782959978733204,
+                                                "absolute_dot_terms_max":  45.81438064575195,
+                                                "maximum_cancellation_ratio":  190506.234375
+                                            },
+                                            {
+                                                "batch":  12,
+                                                "field":  "P.xtb_ALPB_octanol.r459.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.010850058868527412,
+                                                "bf16_head_only_max_abs_error":  0.005019081756472588,
+                                                "head_error_over_normalization_scale":  1.151830078059464,
+                                                "absolute_dot_terms_max":  6.294867038726807,
+                                                "maximum_cancellation_ratio":  1077956.75
+                                            },
+                                            {
+                                                "batch":  12,
+                                                "field":  "P.xtb_ALPB_water.r499.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.06432969123125076,
+                                                "bf16_head_only_max_abs_error":  0.031155459582805634,
+                                                "head_error_over_normalization_scale":  0.5940136631194614,
+                                                "absolute_dot_terms_max":  26.7297420501709,
+                                                "maximum_cancellation_ratio":  2880.75732421875
+                                            },
+                                            {
+                                                "batch":  12,
+                                                "field":  "P.xtb_ALPB_water.r498.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.009451452642679214,
+                                                "bf16_head_only_max_abs_error":  0.002508155070245266,
+                                                "head_error_over_normalization_scale":  0.3805840419068922,
+                                                "absolute_dot_terms_max":  4.327519416809082,
+                                                "maximum_cancellation_ratio":  6957.734375
+                                            },
+                                            {
+                                                "batch":  13,
+                                                "field":  "P.xtb_ALPB_octanol.r460.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.18005681037902832,
+                                                "bf16_head_only_max_abs_error":  0.12747548520565033,
+                                                "head_error_over_normalization_scale":  2.4072640082230228,
+                                                "absolute_dot_terms_max":  73.1812744140625,
+                                                "maximum_cancellation_ratio":  3849.1513671875
+                                            },
+                                            {
+                                                "batch":  13,
+                                                "field":  "P.xtb_singlepoint.r670.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.18136948347091675,
+                                                "bf16_head_only_max_abs_error":  0.04511737823486328,
+                                                "head_error_over_normalization_scale":  0.8503852382668591,
+                                                "absolute_dot_terms_max":  88.51412200927734,
+                                                "maximum_cancellation_ratio":  30307.53125
+                                            },
+                                            {
+                                                "batch":  13,
+                                                "field":  "P.xtb_ALPB_octanol.r459.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.009786355309188366,
+                                                "bf16_head_only_max_abs_error":  0.011080858297646046,
+                                                "head_error_over_normalization_scale":  2.5429483912040376,
+                                                "absolute_dot_terms_max":  12.047307968139648,
+                                                "maximum_cancellation_ratio":  18680.8515625
+                                            },
+                                            {
+                                                "batch":  13,
+                                                "field":  "P.xtb_ALPB_water.r499.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.18104061484336853,
+                                                "bf16_head_only_max_abs_error":  0.01809539645910263,
+                                                "head_error_over_normalization_scale":  0.3450089608757591,
+                                                "absolute_dot_terms_max":  52.01728439331055,
+                                                "maximum_cancellation_ratio":  4553.54248046875
+                                            },
+                                            {
+                                                "batch":  13,
+                                                "field":  "P.xtb_ALPB_water.r498.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.01804766058921814,
+                                                "bf16_head_only_max_abs_error":  0.008811796084046364,
+                                                "head_error_over_normalization_scale":  1.3370899630212048,
+                                                "absolute_dot_terms_max":  8.359517097473145,
+                                                "maximum_cancellation_ratio":  6261.7158203125
+                                            },
+                                            {
+                                                "batch":  19,
+                                                "field":  "P.xtb_ALPB_octanol.r460.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.27147430181503296,
+                                                "bf16_head_only_max_abs_error":  0.04164424538612366,
+                                                "head_error_over_normalization_scale":  0.7864154657336394,
+                                                "absolute_dot_terms_max":  43.76799011230469,
+                                                "maximum_cancellation_ratio":  23431.095703125
+                                            },
+                                            {
+                                                "batch":  19,
+                                                "field":  "P.xtb_singlepoint.r670.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.23693516850471497,
+                                                "bf16_head_only_max_abs_error":  0.041440390050411224,
+                                                "head_error_over_normalization_scale":  0.7810803141850007,
+                                                "absolute_dot_terms_max":  51.5718879699707,
+                                                "maximum_cancellation_ratio":  9237.833984375
+                                            },
+                                            {
+                                                "batch":  19,
+                                                "field":  "P.xtb_ALPB_octanol.r459.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.03756401687860489,
+                                                "bf16_head_only_max_abs_error":  0.006987225729972124,
+                                                "head_error_over_normalization_scale":  1.6034998329314107,
+                                                "absolute_dot_terms_max":  6.611254692077637,
+                                                "maximum_cancellation_ratio":  252239.671875
+                                            },
+                                            {
+                                                "batch":  19,
+                                                "field":  "P.xtb_ALPB_water.r499.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.26515474915504456,
+                                                "bf16_head_only_max_abs_error":  0.024920374155044556,
+                                                "head_error_over_normalization_scale":  0.47513478974051815,
+                                                "absolute_dot_terms_max":  31.05535125732422,
+                                                "maximum_cancellation_ratio":  7995.7412109375
+                                            },
+                                            {
+                                                "batch":  19,
+                                                "field":  "P.xtb_ALPB_water.r498.value",
+                                                "pooling_input_dtype":  "torch.float32",
+                                                "weight_dtype":  "torch.float32",
+                                                "prediction_dtype":  "torch.float32",
+                                                "fp32_prediction_abs_max":  0.036932218819856644,
+                                                "bf16_head_only_max_abs_error":  0.0023744218051433563,
+                                                "head_error_over_normalization_scale":  0.36029153799687136,
+                                                "absolute_dot_terms_max":  4.708930969238281,
+                                                "maximum_cancellation_ratio":  13325.7177734375
+                                            }
+                                        ],
+                              "Count":  20
+                          }
+}
