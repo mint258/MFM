@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import math
 from typing import Tuple
@@ -8,6 +8,7 @@ import torch.nn as nn
 from torch import Tensor
 
 from .common import Linear
+from .precision import fp32_island, island_tensor, matmul
 from .v3_distance_bias import (validate_distance_bias_projection_bias,
     require_distance_bias_constructor,remove_initialized_head_bias,require_bias_free_attention)
 
@@ -65,15 +66,18 @@ class DenseGeoSelfAttention(nn.Module):
         k = k.transpose(1, 2)
         v = v.transpose(1, 2)
 
-        logits = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.d_head)
+        precision = getattr(self, 'precision', 'fp32')
+        logits = matmul(q, k.transpose(-2, -1), precision) / math.sqrt(self.d_head)
 
-        diff = pos[:, :, None, :] - pos[:, None, :, :]
-        dist2 = (diff * diff).sum(dim=-1)
+        with fp32_island(pos):
+            diff = island_tensor('coordinate_subtraction', pos.float()[:, :, None, :] - pos.float()[:, None, :, :])
+            dist2 = island_tensor('distance_squared', (diff * diff).sum(dim=-1))
 
         if self.use_dist_bias and self.dist_mlp is not None:
             bias = self.dist_mlp(dist2.unsqueeze(-1))
             bias = bias.permute(0, 3, 1, 2).contiguous()
-            logits = logits + bias
+            with fp32_island(logits):
+                logits = island_tensor('attention_bias_add', logits.float() + bias.float())
 
         key_invalid = ~mask
         logits = logits.masked_fill(key_invalid[:, None, None, :], -1e9)
@@ -82,10 +86,11 @@ class DenseGeoSelfAttention(nn.Module):
             rad2 = self.radius * self.radius
             logits = logits.masked_fill(dist2[:, None, :, :] > rad2, -1e9)
 
-        attn = torch.softmax(logits, dim=-1)
+        with fp32_island(logits):
+            attn = island_tensor('attention_softmax', torch.softmax(logits.float(), dim=-1))
         attn = self.attn_drop(attn)
 
-        ctx = torch.matmul(attn, v)
+        ctx = matmul(attn, v, precision)
         ctx = ctx.transpose(1, 2).contiguous().view(bsz, seqlen, self.dim)
 
         out = self.proj(ctx)
@@ -135,8 +140,12 @@ class RealCoordTransformerLayer(nn.Module):
         self.ffn = DenseFFN(dim=dim, ff_mult=ff_mult, dropout=dropout)
 
     def forward(self, x: Tensor, pos: Tensor, mask: Tensor) -> Tensor:
-        attn_out, _ = self.attn(self.norm1(x), pos, mask)
+        with fp32_island(x):
+            normalized = island_tensor('layer_norm', self.norm1(x.float()))
+        attn_out, _ = self.attn(normalized, pos, mask)
         x = x + attn_out
-        x = x + self.ffn(self.norm2(x))
+        with fp32_island(x):
+            normalized = island_tensor('layer_norm', self.norm2(x.float()))
+        x = x + self.ffn(normalized)
         x = x * mask.unsqueeze(-1).to(x.dtype)
         return x

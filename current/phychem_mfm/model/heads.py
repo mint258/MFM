@@ -9,6 +9,7 @@ from torch_geometric.nn import global_add_pool, global_max_pool, global_mean_poo
 from torch_geometric.utils import to_dense_batch
 
 from .common import Linear
+from .precision import fp32_island, island_tensor
 
 
 class CoordinateDecoder(nn.Module):
@@ -116,7 +117,8 @@ class EquivariantDenoisingHead(nn.Module):
         sorted_batch = batch[order]
         _, dense_batch = torch.unique_consecutive(sorted_batch, return_inverse=True)
         coordinates, mask = to_dense_batch(pos[order], dense_batch)
-        distance = torch.cdist(coordinates, coordinates)
+        with fp32_island(coordinates):
+            distance = island_tensor('denoising_distance', torch.cdist(coordinates.float(), coordinates.float()))
         valid = mask[:, :, None] & mask[:, None, :]
         eye = torch.eye(distance.size(-1), dtype=torch.bool, device=pos.device)
         graph, src, dst = torch.where(valid & ~eye & (distance < self.radius) & (distance > 1e-8))
@@ -124,11 +126,13 @@ class EquivariantDenoisingHead(nn.Module):
         return order[offsets[graph] + src], order[offsets[graph] + dst]
 
     def _features(self, h: Tensor, pos: Tensor, src: Tensor, dst: Tensor):
-        relative = pos[src] - pos[dst]
-        distance = relative.norm(dim=-1).clamp_min(1e-8)
-        rbf = torch.exp(-self.rbf_gamma * (distance[:, None] - self.rbf_centers) ** 2)
-        rbf = rbf * (0.5 * (1.0 + torch.cos(torch.pi * distance / self.radius)))[:, None]
-        return torch.cat((h[src], h[dst], rbf.to(h.dtype)), dim=-1), relative / distance[:, None]
+        with fp32_island(pos):
+            relative = island_tensor('denoising_relative_position', pos[src].float() - pos[dst].float())
+            distance = island_tensor('distance', relative.norm(dim=-1).clamp_min(1e-8))
+            rbf = torch.exp(-self.rbf_gamma * (distance[:, None] - self.rbf_centers.float()) ** 2)
+            rbf = island_tensor('denoising_rbf', rbf * (0.5 * (1.0 + torch.cos(torch.pi * distance / self.radius)))[:, None])
+            direction = island_tensor('denoising_direction', relative / distance[:, None])
+        return torch.cat((h[src].float(), h[dst].float(), rbf), dim=-1), direction
 
     def _predict_chunk(self, h, pos, src, dst):
         feature, direction = self._features(h, pos, src, dst)

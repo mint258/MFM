@@ -11,16 +11,19 @@ from torch import Tensor, nn
 from ..phase1.v3_contract import LabelRegistry, require
 from ..phase1.v3_label_domains import OrderedEntryInputs, Tensor6Inputs
 from .common import Linear, ensure_batch_attr
+from .precision import fp32_island, island_tensor
 from .heads import EquivariantDenoisingHead
 from .v3_ordered_entries import OrderedEntryHead, json_metadata, validate_frame_binding, validate_geometry_context
 from .v3_rank2_targets import SymmetricTensor6Head
 
 
 def _pool(h: Tensor, batch: Tensor, graphs: int, mode: str):
-    result = h.new_zeros((graphs, h.size(-1))).index_add(0, batch, h)
-    if mode == "mean":
-        result = result / torch.bincount(batch, minlength=graphs).to(h.dtype).clamp_min(1)[:, None]
-    return result
+    with fp32_island(h):
+        h = h.float()
+        result = h.new_zeros((graphs, h.size(-1))).index_add(0, batch, h)
+        if mode == "mean":
+            result = result / torch.bincount(batch, minlength=graphs).float().clamp_min(1)[:, None]
+        return island_tensor('scatter_pool', result)
 
 
 def _mlp(dim, output, hidden):
@@ -49,13 +52,14 @@ class _PairHead(nn.Module):
         if not pairs.size(1):
             return h.new_zeros((0, self.predict[-1].out_features))
         src, dst = pairs
-        with torch.autocast(device_type=pos.device.type, enabled=False):
-            distance = (pos[src].float() - pos[dst].float()).norm(dim=-1)
+        with fp32_island(pos):
+            distance = island_tensor('pair_distance', (pos[src].float() - pos[dst].float()).norm(dim=-1))
             rbf = torch.exp(-self.gamma * (distance[:, None] - self.centers.float()) ** 2)
             envelope = torch.where(distance < self.radius,
                                    0.5 * (1 + torch.cos(torch.pi * distance / self.radius)),
                                    torch.zeros_like(distance))
             rbf = rbf * envelope[:, None]
+            rbf = island_tensor('pair_rbf', rbf)
         parts = (h[src] + h[dst], (h[src] - h[dst]).abs())
         feature = torch.cat(parts + ((rbf.to(h.dtype),) if self.use_distance else ()), dim=-1)
         return self.predict(feature)
@@ -68,11 +72,12 @@ class _DipoleHead(nn.Module):
         self.magnitude = magnitude
 
     def forward(self, h, pos, batch, graphs):
-        with torch.autocast(device_type=h.device.type, enabled=False):
+        with fp32_island(h):
             center = _pool(pos.float(), batch, graphs, "mean")
             charges = self.charges(h.float())
-            vector = pos.float().new_zeros((graphs, 3)).index_add(
-                0, batch, charges * (pos.float() - center[batch]))
+            relative = island_tensor('vector_relative_position', pos.float() - center[batch])
+            vector = island_tensor('vector_index_add', pos.float().new_zeros((graphs, 3)).index_add(
+                0, batch, charges.float() * relative))
             return vector.norm(dim=-1, keepdim=True) if self.magnitude else vector
 
 
