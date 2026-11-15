@@ -6,7 +6,7 @@ from torch_geometric.data import Batch, Data
 
 from phychem_mfm.model.backbone import RealCoordTransformerBackbone
 from phychem_mfm.model.v3_heads import V3HeadBank
-from phychem_mfm.model.precision import configure_precision, observe_islands, fp32_island, island_tensor
+from phychem_mfm.model.precision import configure_precision, observe_islands
 from phychem_mfm.phase1.v31_training import torch_affine
 from phychem_mfm.phase1.v3_contract import FieldSpec, LabelRegistry, FieldTarget, TrainNormalization
 from phychem_mfm.phase1.v3_losses import compute_v3_loss
@@ -58,20 +58,21 @@ def test_precision_islands_are_fp32_and_geometry_matches_fp32():
             h = model['backbone'](batch)
             predictions = model['heads'](h,batch.batch,batch.pos,enabled_groups=('P',),pair_indices=pairs)
             for name, value in predictions.items():
-                predictions[name] = island_tensor('standardization',torch_affine(value,dict(center=0.,scale=2.)))
-                island_tensor('inverse_standardization',torch_affine(predictions[name],dict(center=0.,scale=2.),inverse=True))
+                predictions[name] = torch_affine(value,dict(center=0.,scale=2.))
+                observe('standardization',predictions[name])
+                observe('inverse_standardization',torch_affine(predictions[name],dict(center=0.,scale=2.),inverse=True))
             norms = {f.name:TrainNormalization((0.,),(1.,),'a'*64,'TRAIN') for f in registry.fields}
             targets = {name:FieldTarget(torch.zeros_like(value),torch.ones(len(value),dtype=torch.bool,device=device))
                        for name,value in predictions.items()}
-            with fp32_island(h):
-                loss = compute_v3_loss(predictions,targets,registry,norms,enabled_groups=('P',))
-                island_tensor('loss',loss.total).backward()
-                island_tensor('gradient_clipping',torch.nn.utils.clip_grad_norm_(model.parameters(),281.7,error_if_nonfinite=True))
-                optimizer.step()
-                for parameter in model.parameters():
-                    island_tensor('optimizer',parameter)
-                    if parameter.grad is not None:
-                        assert parameter.grad.dtype == torch.float32
+            loss = compute_v3_loss(predictions,targets,registry,norms,enabled_groups=('P',))
+            observe('loss',loss.total)
+            loss.total.backward()
+            observe('gradient_clipping',torch.nn.utils.clip_grad_norm_(model.parameters(),281.7,error_if_nonfinite=True))
+            optimizer.step()
+            for parameter in model.parameters():
+                observe('optimizer',parameter)
+                if parameter.grad is not None:
+                    assert parameter.grad.dtype == torch.float32
         if mode != 'fp32':
             assert required <= seen, required-seen
             assert len(measured) == len(geometry['fp32'])
