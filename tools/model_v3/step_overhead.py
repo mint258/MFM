@@ -332,6 +332,13 @@ def numerical(c, output, options):
     from phychem_mfm.phase1.p_recipe_input import prepare_samples, reader_metadata
     model, data, fields, families = model_for(c, {})
     metadata = reader_metadata(model['pd'], fields)
+    layout = []
+    cursor = 0
+    for name, parameter in model.named_parameters():
+        layout.append(dict(name=name,shape=list(parameter.shape),start=cursor,end=cursor+parameter.numel()))
+        cursor += parameter.numel()
+    (output/'gradient_layout.json').write_text(json.dumps(dict(dtype='float32',elements=cursor,parameters=layout),indent=2)+'\n')
+    from phychem_mfm.phase1.v2_disk import save_checkpoint
     rng = np.random.default_rng(0)
     batches = [draw(data,rng,32) for _ in range(20)]
     details, comparisons = [], []
@@ -346,6 +353,7 @@ def numerical(c, output, options):
             cpu_rng, cuda_rng = torch.get_rng_state(), torch.cuda.get_rng_state()
             runs = []
             none_sets = []
+            gradient_paths = {}
             for variant in ('old1','old2','new'):
                 torch.set_rng_state(cpu_rng)
                 torch.cuda.set_rng_state(cuda_rng)
@@ -355,8 +363,13 @@ def numerical(c, output, options):
                 total.backward()
                 torch.cuda.synchronize()
                 field_losses = {name:float(value.detach()) for name,value in loss.fields.items()}
-                gradients = torch.cat([parameter.grad.detach().flatten() if parameter.grad is not None
-                    else parameter.new_zeros(parameter.numel()) for parameter in model.parameters()]).cpu().double()
+                gradient = torch.cat([parameter.grad.detach().flatten() if parameter.grad is not None
+                    else parameter.new_zeros(parameter.numel()) for parameter in model.parameters()]).cpu()
+                destination = output/'gradients'/weights/f'batch_{ordinal:02d}_{variant}.pt'
+                destination.parent.mkdir(parents=True,exist_ok=True)
+                save_checkpoint(gradient,destination)
+                gradient_paths[variant] = str(destination.relative_to(output))
+                gradients = gradient.double()
                 none_sets.append({name for name,p in model.named_parameters() if p.grad is None})
                 runs.append((field_losses,gradients))
                 for name,value in field_losses.items():
@@ -368,6 +381,7 @@ def numerical(c, output, options):
             eps_loss=max(abs(old[n]-old2[n])/max(abs(old[n]),1e-30) for n in old)
             comparisons.append(dict(weights=weights,batch=ordinal,epsilon_loss=eps_loss,epsilon_grad=eps_grad,
                 grad_relative=difference,unused_parameters_equal=none_sets[0]==none_sets[1]==none_sets[2],
+                gradient_paths=gradient_paths,unused_parameters=sorted(none_sets[0]),
                 losses=[dict(field=n,old=old[n],new=new[n],absolute_difference=abs(old[n]-new[n])) for n in old]))
             print('NUMERICAL',weights,ordinal,'grad_relative',difference,flush=True)
     eps_loss=max(row['epsilon_loss'] for row in comparisons) or 1e-6
@@ -383,7 +397,8 @@ def numerical(c, output, options):
             violations.append([row['weights'],row['batch']])
     result=dict(status='PASS' if not violations else 'FAIL',epsilon_loss=eps_loss,epsilon_grad=eps_grad,
         violations=violations,comparisons=comparisons,options=options,gpu=torch.cuda.get_device_name(0),
-        uuid=os.environ['CUDA_VISIBLE_DEVICES'],torch=torch.__version__,cuda=torch.version.cuda)
+        uuid=os.environ['CUDA_VISIBLE_DEVICES'],torch=torch.__version__,cuda=torch.version.cuda,
+        gradient_vectors=len(comparisons)*3,gradient_elements=cursor,gradient_layout='gradient_layout.json')
     (output/'numerical.json').write_text(json.dumps(result,indent=2)+'\n')
     with (output/'field_losses.csv').open('w',newline='') as stream:
         writer=csv.DictWriter(stream,fieldnames=['weights','batch','variant','field','loss'])

@@ -20,7 +20,7 @@ python=${STEP_PYTHON:-/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/pyth
 findmnt -T "$PWD"
 df -B1 / "$PWD" /dev/shm
 df -Pi / "$PWD" /dev/shm
-/usr/bin/python3 -B -c 'import v2_diagnosis_disk as d; d.m.require_capacity(d.m.filesystem_status("/"),0); d.m.require_capacity(d.m.filesystem_status(d.ROOT),4000000000,10000); d.m.quota_headroom(d.CONTROL/"share_quota_available_v3.json","/share",4000000000,d.remaining_nfs_other())'
+/usr/bin/python3 -B -c 'import v2_diagnosis_disk as d; d.m.require_capacity(d.m.filesystem_status("/"),0); d.m.require_capacity(d.m.filesystem_status(d.ROOT),16000000000,10000); d.m.quota_headroom(d.CONTROL/"share_quota_available_v3.json","/share",16000000000,d.remaining_nfs_other())'
 if [[ "${STEP_MODE:-capacity}" != input ]]; then
  gpu_state=$(nvidia-smi -i "$CUDA_VISIBLE_DEVICES" --query-gpu=memory.used,memory.total --format=csv,noheader,nounits)
  awk -F, '{if ($1/$2>0.30) exit 1}' <<< "$gpu_state"
@@ -32,7 +32,7 @@ fi
 root="$PWD/results/perf_step_overhead_20261114"
 export TMPDIR="$base/.st_$SLURM_JOB_ID"
 mkdir "$TMPDIR"
-/usr/bin/python3 -B tools/model_v3/v2_watch_disk.py --output "$root" --state "$root/disk_$SLURM_JOB_ID.json" --node "$(hostname -s)" --jobs "$SLURM_JOB_ID" --growth-bytes 4000000000 --quota-reference "$base/runs/data_v1_20261025/control/window2_20261105/share_quota_available_v3.json" --quota-filesystem /share --quota-concurrent-bytes 23179869184 &
+/usr/bin/python3 -B tools/model_v3/v2_watch_disk.py --output "$root" --state "$root/disk_$SLURM_JOB_ID.json" --node "$(hostname -s)" --jobs "$SLURM_JOB_ID" --growth-bytes 16000000000 --quota-reference "$base/runs/data_v1_20261025/control/window2_20261105/share_quota_available_v3.json" --quota-filesystem /share --quota-concurrent-bytes 23179869184 &
 observer=$!
 trap 'kill "$observer" 2>/dev/null || true' EXIT
 options='{}'
