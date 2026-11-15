@@ -45,6 +45,7 @@ class RepairTests(unittest.TestCase):
                 original_status_schema=str(root/'schema'),original_status_index=str(root/'old.sqlite'),
                 original_molecules_with_3D=0,original_conformers=0))
             rows=[dict(r,**{k:defaults()[k] for k in batch.FIELDS},job_id=1) for r in original]
+            rows[0].update(stereo_draw_index=3)  # Superseded preparation redraw.
             rows[1].update(state='EMBED_FAILED',stereo_draw_index=3)
             status=base/'source_status.parquet';pq.write_table(pa.Table.from_pylist(rows),status)
             timing=base/'timings.parquet'
@@ -53,13 +54,13 @@ class RepairTests(unittest.TestCase):
                 for r,label in zip(rows,['R','S'])]),timing)
             batch.save(base/'manifest.json',[dict(path=str(p),size=p.stat().st_size,rows=2) for p in [status,timing]])
             batch.save(base/'summary.json',dict(counts=dict(molecules=2,conformers=0),
-                stereo=dict(CIP=dict(R=1,S=1),EZ={},redrawn_molecules=1)))
+                stereo=dict(CIP=dict(R=1,S=1),EZ={},redrawn_molecules=2)))
             selection=batch.prepare_repair(dict(base_output=str(base),output=str(root/'selection')))
             self.assertEqual(selection['stereo_molecules'],1)
             selected=[json.loads(line) for r in selection['stereo_source_parts'] for line in Path(r['path']).read_text().splitlines()]
             self.assertEqual([r['cid'] for r in selected],[1])
             repair=root/'repair';repair.mkdir()
-            corrected=dict(rows[0],state='SUCCESS',actual_conformers=3,job_id=2,stereo_assigned=True,
+            corrected=dict(rows[0],state='SUCCESS',actual_conformers=3,job_id=2,stereo_assigned=True,stereo_draw_index=0,
                 orders_json='{"energy":[0,1,2]}',generation_order_json='[0,1,2]',cache_complete=True)
             corrected_path=repair/'source_status.parquet';pq.write_table(pa.Table.from_pylist([corrected]),corrected_path)
             batch.save(repair/'manifest.json',[dict(path=str(corrected_path),size=corrected_path.stat().st_size,rows=1),
@@ -75,6 +76,9 @@ class RepairTests(unittest.TestCase):
             self.assertEqual(summary['processing_events'],3)
             self.assertEqual(summary['assigned_CIP_counts'],dict(R=0,S=2))
             self.assertEqual(summary['redrawn_molecules'],1)
+            self.assertEqual(summary['redrawn_processing_events'],2)
+            self.assertEqual(summary['redrawn_final_zero_conformers'],1)
+            self.assertEqual(summary['redrawn_unknown_conformer_count'],0)
             self.assertEqual(summary['effective_conformer_counts'],{'0':1,'3':1})
             self.assertEqual(summary['zero_geometry_states'],{'EMBED_FAILED':1})
             refs=batch.read(root/'delivery/manifest.json')

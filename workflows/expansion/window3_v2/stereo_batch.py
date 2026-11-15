@@ -253,6 +253,7 @@ def finalize(config):
         ('effective_cache_complete',pa.bool_()),('effective_insufficient_conformers',pa.bool_())])
     source_refs, buffer, effective, positives = [], [], collections.Counter(), 0
     conformer_counts,zero_states=collections.Counter(),collections.Counter()
+    redrawn_final=collections.Counter()
     members = (root / 'molecules_with_3D.jsonl').open('x')
     def flush():
         protect(config)
@@ -289,6 +290,10 @@ def finalize(config):
                 effective_cache_complete=current.get('cache_complete',False),
                 effective_insufficient_conformers=actual is None or actual<3)
             effective[state] += 1
+            if assigned_json is not None and (row['stereo_draw_index'] or 0)>0:
+                redrawn_final['molecules']+=1
+                if actual is None: redrawn_final['unknown']+=1
+                elif actual==0: redrawn_final['zero']+=1
             conformer_counts['unknown' if actual is None else str(actual)]+=1
             if (actual or 0) > 0:
                 positives += 1
@@ -323,7 +328,10 @@ def finalize(config):
         source_status_original_fields_preserved=True, D20_recomputed=0,
         original_historical_files_preserved=True, member_path=str(root / 'molecules_with_3D.jsonl'),
         stereo_unique_molecules=EXPECTED,preparation_repairs=repair_total,processing_events=EXPECTED+repair_total,
-        assigned_CIP_counts=dict(cip),assigned_EZ_counts=dict(ez),redrawn_molecules=redraws)
+        assigned_CIP_counts=dict(cip),assigned_EZ_counts=dict(ez),
+        redrawn_molecules=redrawn_final['molecules'],redrawn_processing_events=redraws,
+        redrawn_final_zero_conformers=redrawn_final['zero'],
+        redrawn_unknown_conformer_count=redrawn_final['unknown'])
     summary.update(effective_conformer_counts=dict(conformer_counts),zero_geometry_states=dict(zero_states))
     save(root / 'batch_summary.json', summary)
     print(json.dumps(summary), flush=True)
