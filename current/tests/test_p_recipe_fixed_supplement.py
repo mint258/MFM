@@ -125,11 +125,17 @@ def test_round2_dispatch_starts_B1_before_other_runs(tmp_path,monkeypatch):
     control=tmp_path/'runs/p_recipe_20261113';control.mkdir(parents=True)
     (control/'D4_gamma.json').write_text('{"gamma":0.1597693323500406}')
     base=dict(output=str(tmp_path/'out/base'),lr=3e-4,batch_size=32,samples=3000000,
-              screening_samples=3000000,study_revision='new')
+              screening_samples=3000000,study_revision='new',
+              checkpoint_policy='screen_final_confirmation_milestones',
+              screening_checkpoint_interval=1000000,initial_checkpoint_samples=32)
     path=tmp_path/'base.json';path.write_text(json.dumps(base))
     plan=tool.prepare(2,dict(merged_components=[],study_revision='new'),
                       base_configuration=path,study_directory=tmp_path/'study')
     assert json.loads(Path(plan['configurations'][0]).read_text())['arm']=='B1'
+    for config_path in plan['configurations']:
+        cfg=json.loads(Path(config_path).read_text())
+        assert cfg['checkpoint_samples']==[32,1000000,2000000,3000000]
+        assert cfg['batch_size']==cfg['microbatch_size']==32
 
 
 @pytest.mark.parametrize('winner,lr',[('C1',6e-4),('C2',1.5e-4)])

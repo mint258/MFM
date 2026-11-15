@@ -6,6 +6,7 @@ def node_capacity(text):
  state=values['State'].upper()
  if any(word in state for word in ('DRAIN','DOWN','FAIL','MAINT','REBOOT','UNKNOWN')):
   raise ValueError('Node is not available for new work: '+state)
+ if 'COMPLETING' in state:return 0
  return max(0,int(values['CPUTot'])-int(values['CPUAlloc']))
 
 def requested_cpus(configuration,policy):

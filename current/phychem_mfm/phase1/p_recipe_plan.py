@@ -22,8 +22,11 @@ def configuration(base,components,*,run,round_number,arm,samples=None,stage=2):
   c.pop(key,None)
  c['output']=str(Path(base['output']).parent/run)
  if c.get('checkpoint_policy')=='screen_final_confirmation_milestones':
-  interval=base.get('confirmation_checkpoint_interval',500000)
-  c['checkpoint_samples']=[samples] if stage==2 else sorted(set(range(interval,samples+1,interval))|{samples})
+  interval=base.get('screening_checkpoint_interval') if stage==2 else base.get('confirmation_checkpoint_interval',500000)
+  points=set(range(interval,samples+1,interval)) if interval else set()
+  if stage==2 and base.get('initial_checkpoint_samples'):
+   points.add(min(samples,base['initial_checkpoint_samples']))
+  c['checkpoint_samples']=sorted(points|{samples})
  for component in sorted(components):
   if component in RECIPE_FLAGS:c['p_recipe'][RECIPE_FLAGS[component]]=True
   elif component=='B2':c['head_form']='H3'

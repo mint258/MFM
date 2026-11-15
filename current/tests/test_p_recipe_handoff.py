@@ -24,6 +24,8 @@ def test_cpu_route_is_based_on_required_count_and_gpu_threshold():
  assert s.route(16,needed,9600,32000,policy)=='Slurm'
  assert s.route(52,needed,9601,32000,policy)=='WAIT_GPU'
  assert s.route(52,needed,0,0,policy)=='WAIT_GPU'
+ completing=s.node_capacity('State=IDLE+COMPLETING CPUAlloc=0 CPUTot=104')
+ assert s.route(completing,needed,0,32000,policy)=='native_with_standby'
  assert s.route(52,needed,7000,24000,dict(policy,minimum_free_gpu_mib=18432))=='WAIT_GPU'
  with pytest.raises(ValueError):s.node_capacity('State=MIXED+DRAIN CPUAlloc=1 CPUTot=104')
  assert [s.gpu_rank(name,policy) for name in ('RTX5090','RTX4090','RTX3090')]==[0,1,2]

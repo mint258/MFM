@@ -9,6 +9,7 @@ OLD='/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python'
 NEW=str(R/'docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python')
 # Idle compatible resources: RTX5090 (22), then RTX4090 (20), then3090. Node21 is user-disabled.
 NATIVE=('compute-0-22','compute-0-20')
+FALLBACK=('compute-0-5','compute-0-0','compute-0-6','compute-0-7','compute-0-1','compute-0-3','compute-0-4')
 
 
 def read(path):return json.loads(Path(path).read_text())
@@ -34,24 +35,31 @@ def observe(node):
  if result.returncode:raise OSError(node+': '+result.stderr.strip())
  text=subprocess.check_output(['scontrol','show','node',node,'-o'],text=True,timeout=15)
  free=node_capacity(text)
- return [dict(node=node,gpu_uuid=row[0].strip(),used_mib=float(row[1]),total_mib=float(row[2]),gpu_name=row[3].strip(),free_cpus=free) for row in csv.reader(result.stdout.splitlines())]
+ busy=set()
+ if node not in NATIVE:
+  contexts=subprocess.check_output(['ssh','-n','-o','BatchMode=yes','-o','ConnectTimeout=10',node,
+      'nvidia-smi --query-compute-apps=gpu_uuid --format=csv,noheader,nounits'],text=True,timeout=30)
+  busy={row.strip() for row in contexts.splitlines() if row.strip()}
+ return [dict(node=node,gpu_uuid=row[0].strip(),used_mib=float(row[1]),total_mib=float(row[2]),gpu_name=row[3].strip(),free_cpus=free,existing_compute_context=row[0].strip() in busy) for row in csv.reader(result.stdout.splitlines())]
 
 
 def launch_locked(plan,ledger):
  path=C/'study_execution.json';policy=read(REPO/'configs/p_recipe/scheduling.json')
  if policy['exclusive']:raise ValueError('User forbids exclusive allocation')
  inventory=read(C/'batch_gpu_inventory.json');known={gpu[0] for item in inventory for gpu in item.get('gpus',[])}
+ fallback_ids={item['node']:item['gpus'][0][0] for item in inventory if item['node'] in FALLBACK and item.get('gpus')}
  observed={};errors={}
  with concurrent.futures.ThreadPoolExecutor(3) as pool:
-  futures={pool.submit(observe,node):node for node in NATIVE}
+  futures={pool.submit(observe,node):node for node in (*NATIVE,*fallback_ids)}
   for future in concurrent.futures.as_completed(futures):
    node=futures[future]
    try:observed[node]=future.result()
    except (OSError,ValueError,subprocess.SubprocessError) as error:errors[node]=str(error)
  cards=[card for node in NATIVE for card in observed.get(node,[]) if card['gpu_uuid'] in known and route(card['free_cpus'],1,card['used_mib'],card['total_mib'],policy)!='WAIT_GPU']
  cards.sort(key=lambda card:gpu_rank(card['gpu_name'],policy))
- fallback={item['node']:item['gpus'][0][0] for item in inventory if item['node'] not in NATIVE and item.get('gpus')}
- fallback=[dict(node=node,gpu_uuid=fallback[node]) for node in ('compute-0-5','compute-0-0','compute-0-6','compute-0-7','compute-0-1','compute-0-3','compute-0-4') if node in fallback]
+ fallback=[card for node in FALLBACK for card in observed.get(node,[])
+     if card['gpu_uuid']==fallback_ids.get(node) and not card.get('existing_compute_context',False)
+     and route(card['free_cpus'],1,card['used_mib'],card['total_mib'],policy)!='WAIT_GPU']
  # Every run keeps its original handle. Repairs use an explicit new run/attempt.
  used={record['gpu_uuid'] for record in ledger['runs'].values() if record.get('state') not in TERMINAL}
  used.update(record['gpu_uuid'] for record in ledger.get('reservations',{}).values() if record.get('state') in ('RUNNING','CONFIGURING') and record.get('phase') not in ('HANDED_OFF','SOURCE_ALREADY_COMPLETE','HANDOFF_ABORTED'))
