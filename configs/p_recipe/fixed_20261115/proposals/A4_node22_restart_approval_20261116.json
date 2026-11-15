@@ -1,6 +1,6 @@
 {
   "schema": "P_RECIPE_RESTART_APPROVAL_PROPOSAL_V1",
-  "status": "WAITING_USER_APPROVAL",
+  "status": "DECLINED_ZERO_RESTART_LOSSLESS_RESUME_AUTHORIZED",
   "authorized": false,
   "created_from_observed_at": 1794769350.000416,
   "reason": "A4 continued training but dropped to 8.8455 samples/s; a bounded read-only observation found 16 UID1275 gmx contexts on the same node7 GPU. No running task has been stopped for this proposal.",
@@ -121,5 +121,27 @@
     "replaces_run": "fixed_20261115_round1_A4_non21_restart",
     "user_approved_restart_from_zero": false
   },
-  "no_approval_behavior": "Do not submit or signal anything for this proposal. Current A4 continues unchanged, and normal half-hour monitoring and the full registered P study continue."
+  "no_approval_behavior": "Do not submit or signal anything for this proposal. Current A4 continues unchanged, and normal half-hour monitoring and the full registered P study continue.",
+  "lossless_resume_authorized": true,
+  "user_decision": "Do not restart from zero or move to node22. Save a normal full checkpoint, exit, select fastest idle4090 then3090, resume samecodeFP32 to3M. Preserveoutputs/cost; afterA4eval R1paireddecision, mergePR8, thenR2B1first.",
+  "migration_status": "UNRESOLVED_SAFE_CHECKPOINT_TRIGGER_SOURCE_CONTINUES",
+  "actual_A4_attached": false,
+  "actual_A4_stopped": false,
+  "checkpoint_trigger_note": "Loaded A4 has final-only checkpoint policy and no request/ack paths. CPU-only bridge failed twice; discontinued per taskbook2.8. No live injection into A4, no zero restart, no new A4 job.",
+  "current_execution": {
+    "run": "fixed_20261115_round1_A4_non21_restart",
+    "node": "compute-0-7",
+    "job_id": 4532642,
+    "pid": 2499989,
+    "uid": 1278,
+    "start_ticks": 1953132907,
+    "samples": 1894848,
+    "budget": 3000000,
+    "observed_at_utc": "2026-11-15 21:14 UTC"
+  },
+  "after_A4_evaluation": [
+    "round1 paired decision",
+    "merge PR #8",
+    "start round2 with B1 first"
+  ]
 }
