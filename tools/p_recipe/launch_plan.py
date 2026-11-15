@@ -72,10 +72,11 @@ def launch_locked(plan,ledger):
   reserved=dict(backend='native_SSH' if mode=='native_with_standby' else 'Slurm',node=node,gpu_uuid=gpu,state='SUBMITTING',submitted_at=submitted,configuration=filename,stage=configuration['stage'],round=configuration['round'],study_revision=configuration.get('study_revision','original_20261113'),scheduling_task=str(task_path),cpus=cpus,exclusive=False)
   if mode=='native_with_standby':
    reserved['native_state']=task['native_state']
-   configuration.update(handoff_request=str(C/(name+'_handoff_request.json')),handoff_ack=str(C/(name+'_handoff_ack.json')))
-   for key in ('handoff_request','handoff_ack'):
-    if Path(configuration[key]).exists():raise RuntimeError('Existing handoff control file; inspect before starting')
-   write(filename,configuration)
+  # Slurm trainers also need the existing normal full-checkpoint save/exit hook.
+  configuration.update(handoff_request=str(C/(name+'_handoff_request.json')),handoff_ack=str(C/(name+'_handoff_ack.json')))
+  for key in ('handoff_request','handoff_ack'):
+   if Path(configuration[key]).exists():raise RuntimeError('Existing handoff control file; inspect before starting')
+  write(filename,configuration)
   write(task_path,task);ledger['runs'][name]=reserved;write(path,ledger)
   if mode=='native_with_standby':
    native=dict(run=name,node=node,gpu_uuid=gpu,output=configuration['output'],root_future_bytes=16777216,minimum_free_gpu_mib=policy['minimum_free_gpu_mib'],

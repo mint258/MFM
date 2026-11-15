@@ -2,6 +2,8 @@
 
 配置入口：`configs/p_recipe/scheduling.json`。提交入口保持 `tools/p_recipe/launch_plan.py --plan <plan.json>`；只申请 `workers + cpu_overhead` 个 CPU（当前14+2=16），不使用 `--exclusive`。
 
+2026-11-16：所有新启动的P训练（含普通sbatch）都配置独立的 `handoff_request`/`handoff_ack`，以便以后按既有协议正常保存完整断点并退出。这只作用于尚未启动的运行；不会给已加载旧配置的进程补装控制入口。当前A4仍沿原代码运行，用户未授权从0重跑。compute-0-21禁止新计算。当前科学配置为B32、关闭逐层重算、筛选3M/确认9M；全局P存储预算61GB。这些后续明确规则优先于下方历史B128/57GB记录。
+
 | 实际目标节点资源 | 执行方式 |
 | --- | --- |
 | 可分配CPU足够，GPU显存符合准入条件 | 普通sbatch直接运行 |
