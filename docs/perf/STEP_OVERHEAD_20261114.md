@@ -21,9 +21,9 @@
 
 | [旧实现原生火焰图](../../results/perf_step_overhead_20261114/timing3090_4532627/profile_old/flame.svg) | [最终实现原生火焰图](../../results/perf_step_overhead_20261114/timing3090_4532627/profile_new/flame.svg) |
 |---|---|
-| <img src="../../results/perf_step_overhead_20261114/timing3090_4532627/profile_old/flame.svg" width="360" alt="旧实现原生火焰图"> | <img src="../../results/perf_step_overhead_20261114/timing3090_4532627/profile_new/flame.svg" width="360" alt="最终实现原生火焰图"> |
+| 损失19.6%；主进程CPU输入3.52%；IPC9.11% | 损失6.6%；主进程CPU输入0.22%；IPC4.78% |
 
-另行原生采样30秒、100Hz，不纳入测速。损失栈占比19.6%→6.6%，主进程CPU输入3.52%→0.22%，IPC9.11%→4.78%。占比为各自30秒窗口的采样栈覆盖率。
+另行原生采样30秒、100Hz，不纳入测速；上表为各自窗口的采样栈覆盖率，点击可查看完整原生图。
 
 验证：唯一新增合成单测通过；全量回归3592通过、24跳过，1项既有失败为测试引用目标分支已删除的`refit_d4.py`；本次冻结来源问题已修复并通过补测。仓库检查通过。完整数值、计时与图见[证据索引](../../results/perf_step_overhead_20261114/README.md)；原始CSV、完整JUnit XML保留服务器同名results目录。
 
