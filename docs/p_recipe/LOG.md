@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-16 16:32UTC · fixed20261115 round2 · B1 COMPLETED 3000000/3000000；M1 RUNNING 2570112/3000000；B2 COMPLETED 3000000/3000000；B3 RUNNING 1221472/3000000；B4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:02:58UTC。
+
+2026-11-16 16:32UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2524128/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:02:58UTC。
+
 2026-11-16 16:02UTC · fixed20261115 round2 · B1 COMPLETED 3000000/3000000；M1 RUNNING 2448448/3000000；B2 COMPLETED 3000000/3000000；B3 RUNNING 1146880/3000000；B4 RUNNING 2908256/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次16:32:46UTC。
 
 2026-11-16 16:02UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2485632/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次16:32:46UTC。
@@ -545,3 +549,9 @@ Actual target-node metadata confirms B3/node5 `samples_1000000.pt` =232053373 by
 ### 2026-11-17 00:02 CST — recorded screening budget
 
 Current revised-study training records161.49028759248452 GPUh plus reused G1/B0 attribution11.6148533405198 GPUh =173.10514093300432 GPUh. These totals retain the explicit lower bound for the failed M1 segment whose raw Slurm clock reset; older invalid B128/calibration physical costs do not consume this revised screening cap. The registered200 GPUh rule remains: finish the current round when reached, then stop screening; do not interrupt ongoing training. Current A4/M1/B3/B4 all advance. Daily wording now labels the aggregate as a recorded lower bound.
+
+### 2026-11-17 00:34 CST — B4 complete, idle takeover retired
+
+B4 completed3M/93750 updates with summary COMPLETE and native exit0 (31571.44924378395 seconds); old bound PID140692 is absent. Full readouts: R1=0.07281967403066877, R3=0.38003860362976416;1000 paired bootstrap replicates each. Its clip remains485.6373559570314. These are absolute scores, not a paired round2 verdict while M1/B3 remain incomplete and A4 baseline validation is pending.
+
+Verified own job4534848 was PENDING, RunTime00:00:00, UserId1278 after source completion, then used scancel --state=PENDING. Actual accounting confirms CANCELLED by1278 /0 elapsed /0:0. Reservation phase is RETIRED_SOURCE_COMPLETED; no running process was stopped and outputs/costs remain. Reporter now labels retired standby handles and includes standby state/phase in its runtime checkpoint metadata.
