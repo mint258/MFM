@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-16 03:35UTC · fixed20261115 round2 · B1 RUNNING 1583040/3000000；M1 RUNNING 1021824/3000000；B2 RUNNING 1345312/3000000；B3 PENDING 0/3000000；B4 NOT_SUBMITTED 0/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次04:05:26UTC。
+
+2026-11-16 03:35UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2094208/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次04:05:26UTC。
+
 2026-11-16 03:04UTC · fixed20261115 round2 · B1 RUNNING 1385920/3000000；M1 RUNNING 854624/3000000；B2 RUNNING 1182656/3000000；B3 PENDING 0/3000000；B4 NOT_SUBMITTED 0/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次03:34:55UTC。
 
 2026-11-16 03:04UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2078112/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次03:34:55UTC。
@@ -441,3 +445,7 @@ B1 on compute-0-22 (native PID 132047, UID 1278, start_ticks 42358734; same take
 ### 2026-11-16 10:35 CST — B2 1M checkpoint observed
 
 B2 on compute-0-20 (native PID 1643284, UID 1278, start_ticks 1267945962; takeover job 4534812) atomically published `samples_1000000.pt`, 240126051 bytes, mtime 1794796287. The live-bound training process continued to 1016896 samples in the 10:34 producer snapshot. B1 also continues beyond its previously observed 1M save (1181664 samples). No training was stopped or restarted; checkpoint weights were not read.
+
+### 2026-11-16 11:36 CST — M1 1M checkpoint observed
+
+Provisional M1 attempt3 on compute-0-20 (native PID 1653103, UID 1278, start_ticks 1268295487; takeover job 4534816) atomically published `samples_1000000.pt`, 220304041 bytes, mtime 1794799869. Its bound process remains live and the 11:35 producer snapshot reached 1021824 samples. All three currently running provisional B cases have now actually saved their first regular 1M complete checkpoint and continued. No training was stopped/restarted and checkpoint weights were not read.
