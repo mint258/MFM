@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-16 16:02UTC · fixed20261115 round2 · B1 COMPLETED 3000000/3000000；M1 RUNNING 2448448/3000000；B2 COMPLETED 3000000/3000000；B3 RUNNING 1146880/3000000；B4 RUNNING 2908256/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次16:32:46UTC。
+
+2026-11-16 16:02UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2485632/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次16:32:46UTC。
+
 2026-11-16 15:32UTC · fixed20261115 round2 · B1 COMPLETED 3000000/3000000；M1 RUNNING 2325600/3000000；B2 COMPLETED 3000000/3000000；B3 RUNNING 1080864/3000000；B4 RUNNING 2731072/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次16:02:32UTC。
 
 2026-11-16 15:32UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2469760/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次16:02:32UTC。
@@ -537,3 +541,7 @@ The scheduled runner now recognizes an already committed SSH-to-Slurm handoff be
 ### 2026-11-16 23:33 CST — ongoing checkpoint observations
 
 Actual target-node metadata confirms B3/node5 `samples_1000000.pt` =232053373 bytes; B4/node22 `samples_1000000.pt` =220303785 bytes and `samples_2000000.pt` =220306025 bytes. Producer progress already exceeds these sample cursors (B3 1080864, B4 2731072), proving regular saves followed by continued training. M1 explicit infrastructure recovery advances to2325600 samples; A4 remains on its original node7 run at2469760. No trainer was stopped and no checkpoint weights were read.
+
+### 2026-11-17 00:02 CST — recorded screening budget
+
+Current revised-study training records161.49028759248452 GPUh plus reused G1/B0 attribution11.6148533405198 GPUh =173.10514093300432 GPUh. These totals retain the explicit lower bound for the failed M1 segment whose raw Slurm clock reset; older invalid B128/calibration physical costs do not consume this revised screening cap. The registered200 GPUh rule remains: finish the current round when reached, then stop screening; do not interrupt ongoing training. Current A4/M1/B3/B4 all advance. Daily wording now labels the aggregate as a recorded lower bound.
