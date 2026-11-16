@@ -3,7 +3,7 @@
   "chosen_precision": "fp32",
   "quality_study_complete": false,
   "candidate_quality_eligibility": {
-    "tf32_islands": "PENDING_FULL_3M_AND_EVALUATION",
+    "tf32_islands": "INELIGIBLE_FP32_WINS_R3",
     "bf16_islands": "PENDING_FULL_3M_AND_EVALUATION"
   },
   "baseline": {
@@ -45,7 +45,7 @@
   "measurement_scope": "The prescribed controlled grid before the CPU rebase; only the agreed single-step numerical check was repeated after rebase.",
   "usage": "One uniform precision across cards; switch only between P rounds at the user-selected time. No production setting was changed.",
   "remaining_requirements": [
-    "Complete both 3M quality runs and original R1/R3 evaluations",
+    "Complete the BF16 3M quality run and original R1/R3 evaluations",
     "Publish R3/R1 paired differences and confidence intervals plus final VAL families",
     "Finish the one-page report with only the final code SHA"
   ]
