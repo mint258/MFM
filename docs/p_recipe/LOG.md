@@ -425,3 +425,7 @@
 
 2026-11-16 00:00UTC · B阶段实跑凭据：B1/node22/5090已通过SSH运行，132047/UID1278/start42358734，同4534810保留接管；首32完整点226584793字节。B2/node20b/4090原生1643284/UID1278/start1267945962，同4534812接管；首32完整点240098467字节。B3/3090由4534813在gpu分区排队。M1两次原生准入因精度窗口GPU锁拒绝、均未训练（0样本/0GPU秒），原日志/配置保留；4534811与4534814均PENDING零运行取消。第三份M1配置及B4等待可用卡。已在实际node20验证同一UUID锁：head探测FREE、目标节点BUSY；提交器改为在实际计算节点探测，后续14项相关CPU测试通过。A4保持原训练独立运行；正式首轮及B证据有效性待A4评价后判定，不提前启动第3轮或确认。
 
+
+### 2026-11-16 10:07 CST — B1 1M checkpoint observed
+
+B1 on compute-0-22 (native PID 132047, UID 1278, start_ticks 42358734; same takeover job 4534810) atomically published `samples_1000000.pt`, 226612377 bytes, mtime 1794794793. Training then reached 1001792 samples / 31306 updates in losses.csv; no pause, restart or weight read was performed. This is the first regular 1M save after the real first-32 checkpoint. A4 continues its original run independently.
