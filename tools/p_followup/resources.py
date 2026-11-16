@@ -30,7 +30,7 @@ def guard(force=False, lustre=False):
  # mainline reservation using these separately reserved side-line outputs.
  if TRAIN.exists() and TRAIN.resolve().stat().st_dev==pathlib.Path('/lfshome').stat().st_dev:main_future+=own_training
  lustre_future=max(0,int(1.1*GIB)-allocated(SIDE))
- nfs_future=max(0,10*GIB-allocated(CONTROL)-allocated(REPO))
+ nfs_future=max(0,18*GIB-allocated(CONTROL)-allocated(REPO))
  checks=[('/',16*1024**2),(R,nfs_future)]
  if lustre:checks.append((pathlib.Path('/lfshome'),main_future+lustre_future+disk.remaining_d6()+6_000_000_000))
  for path,future in checks:
