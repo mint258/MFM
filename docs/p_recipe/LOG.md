@@ -1,5 +1,13 @@
 # P 配方研究日志
 
+2026-11-16 15:02UTC · fixed20261115 round2 · B1 COMPLETED 3000000/3000000；M1 RUNNING 2207264/3000000；B2 COMPLETED 3000000/3000000；B3 RUNNING 1014816/3000000；B4 RUNNING 2558400/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次15:32:13UTC。
+
+2026-11-16 15:02UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2453984/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次15:32:13UTC。
+
+2026-11-16 14:58UTC · fixed20261115 round2 · B1 COMPLETED 3000000/3000000；M1 RUNNING 0/3000000；B2 COMPLETED 3000000/3000000；B3 RUNNING 1006528/3000000；B4 RUNNING 2537600/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次15:28:27UTC。
+
+2026-11-16 14:58UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2452000/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次15:28:27UTC。
+
 2026-11-16 08:40UTC · fixed20261115 round2 · B1 COMPLETED 3000000/3000000；M1 RUNNING 2632704/3000000；B2 RUNNING 2922048/3000000；B3 RUNNING 183744/3000000；B4 RUNNING 325856/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次09:10:23UTC。
 
 2026-11-16 08:40UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2252672/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次09:10:23UTC。
@@ -507,3 +515,11 @@ M1 attempt3 on compute-0-20 (native PID 1653103, UID 1278, start_ticks 126829548
 The registered same-task takeover executed without restarting from zero: B1 saved/exited SSH at 2963040 samples and resumed under job4534810 on node22; B2 resumed at2492512 under4534812 and M1 attempt3 at2195584 under4534816 on node20. All three SSH sources recorded exit0; their original outputs/costs remain preserved and their exact native configurations are now archived under provisional_B_20261116/round2/archive/. B1 job4534810 completed exit0:0, summary COMPLETE at3M/93750 updates, retained clip298.7445410156252, and produced R1=0.06997195785507009 / R3=0.3024122485787705 (1000 bootstrap replicates each). Its old source PID132047 no longer exists. This is an absolute result, not a paired B-stage verdict; the current M1 comparator and A4 baseline validation remain pending.
 
 B3 job4534813 now runs on node5 and has its actual first32 complete checkpoint (232025789 bytes). After B1 released node22, B4 was admitted at695/32607MiB, launched native PID140692/UID1278/start_ticks45226464/PGID140692 with same-task takeover4534848 pending, and saved first32 complete checkpoint220276201 bytes. Actual B4 process identity was verified live. A4 continues the original node7 run independently. No running task was restarted for a recipe change, no other user's task was modified, and no checkpoint weights were read.
+
+### 2026-11-16 23:05 CST — reconnect and infrastructure recovery
+
+Reconnected after the monitoring runtime/session was lost. B2 job4534812 completed exit0:0 at3M; R1=0.12473495588315361/R3=0.38954673103641596, each1000 paired bootstrap replicates. B1 remains complete. A4/B3/B4 continue their original processes; no running trainer was stopped.
+
+M1 job4534816 is terminal FAILED1:0; the re-entered takeover script raised KeyError handoff_ack after the plan configuration had already been replaced by its Slurm continuation. Actual old bound PID1668131 is absent; that output has no complete checkpoint or summary. The retained native handoff checkpoint at2195584 samples remains the latest complete state, so infrastructure recovery now uses that exact checkpoint, FP32/B32/original optimizer schedule and clipping, in a new output. Failed output/log/config are retained. New run fixed_20261115_provisional_B_20261116_round2_M1_infra_recovery_20261116 is native node20/PID8303/UID1278/start_ticks2002696 with takeover4535090; it actually advanced above2201824 samples. No from-zero restart was used. Lost progress since the last complete state is retained in the failed segment's cost/history.
+
+Slurm reset failed job elapsed to0. Its training CSV still proves elapsed31922.25654986687 minus source24433.611313110217 =7488.645236756653 seconds (lower bound). Collector now honors an explicitly recorded elapsed_seconds_floor, retaining raw accounting independently. Two focused CPU tests passed. Generic takeover re-entry recovery remains to be fixed; this does not block the active explicit recovery. No weights or content hashes were read.
