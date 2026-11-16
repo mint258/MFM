@@ -1,0 +1,323 @@
+{
+  "status": "FAIL",
+  "counts": {
+    "tests": 3531,
+    "failures": 35,
+    "errors": 166,
+    "skipped": 24
+  },
+  "modules": 198,
+  "seconds": 638.979682930003,
+  "reason": "Full current/tests CPU regression with isolated modules",
+  "workers": 2,
+  "failed_modules": [
+    {
+      "module": "test_cpu_perf_repository.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 2,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_a_checkpoint_export.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 5,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_a_execution.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 14,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_architecture_cli.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 18,
+        "failures": 0,
+        "errors": 18,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_architecture_repeats.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 23,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_architecture_wiring_smoke.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 36,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_coordinate_lookup_runner.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 9,
+        "failures": 5,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_decision_evidence.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 23,
+        "failures": 12,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_deterministic_controls.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 5,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_encoder_bridge.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 8,
+        "failures": 0,
+        "errors": 6,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_execution_checkpoint_bridge.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 74,
+        "failures": 0,
+        "errors": 50,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_labels.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 19,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_long_run_storage.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 21,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_native_bond_transport.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 21,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 1
+      }
+    },
+    {
+      "module": "test_model_v3_native_checkpoint_bridge.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 46,
+        "failures": 0,
+        "errors": 46,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_native_s_precision_cli.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 9,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_pilot_entry.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 46,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_proxy_runner.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 20,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_selected_training_store.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 7,
+        "failures": 0,
+        "errors": 6,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_source_sample_compat.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 13,
+        "failures": 0,
+        "errors": 5,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_training_entry.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 35,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_wire_provider.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 26,
+        "failures": 0,
+        "errors": 25,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_wsd_fork.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 18,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_p_f64_sidecar.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 3,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_p_recipe_exclusion.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_phase1_full_corpus_loader.py",
+      "returncode": 2,
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_phase1_full_corpus_original_validation.py",
+      "returncode": 2,
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_phase1_full_corpus_training.py",
+      "returncode": 2,
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_phase1_initialization.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 34,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_phase1_positive_strategy.py",
+      "returncode": 2,
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      }
+    }
+  ],
+  "job_id": "4535184",
+  "disposition": "INTERIM_NOT_FINAL_GATE",
+  "limitations": [
+    "Compute node lacked Git required by fixtures",
+    "Sparse worktree omitted tracked test fixtures",
+    "D source changed during this interim run"
+  ],
+  "repairs": "Tracked fixtures restored; existing login Git copied into own NFS tools and tested on compute20; mocked C2 fixture gets its own CPU context; final full suite remains required"
+}
