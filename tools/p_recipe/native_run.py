@@ -19,7 +19,7 @@ def record_gpu_telemetry(configuration):
  if samples<=0 or samples>=c['training_budget']:return
  query=['nvidia-smi','--id='+c['gpu_uuid'],'--query-gpu=uuid,name,power.draw,utilization.gpu,memory.used','--format=csv,noheader,nounits']
  gpu=next(csv.reader(subprocess.check_output(query,text=True,timeout=10).splitlines()))
- path=REPO/'results/p_recipe/training'/c['run']/'gpu_telemetry.csv';path.parent.mkdir(parents=True,exist_ok=True)
+ path=REPO/('results/p_followup/training' if c.get('results_directory')=='results/p_followup' else 'results/p_recipe/training')/c['run']/'gpu_telemetry.csv';path.parent.mkdir(parents=True,exist_ok=True)
  exists=path.exists()
  with path.open('a',newline='') as stream:
   writer=csv.writer(stream)

@@ -79,6 +79,8 @@ def condition(name,entry,panel,weights,device):
     if not entry.get('checkpoint') or not pathlib.Path(entry['checkpoint']).is_file():
         return dict(status='MISSING',reason=entry.get('reason','Specified checkpoint unavailable'),source=entry),{}
     encoder,payload=load_representation_encoder(entry['checkpoint'],device=device)
+    provenance=['condition','distance_bias','views','samples','subset_molecules','seed','source','head_form','root','training_view','normalizations','label_parameters','batch_size','p_recipe']
+    entry['checkpoint_configuration']={k:payload.get('configuration',{}).get(k) for k in provenance if k in payload.get('configuration',{})}
 
     clock=payload.get('clock',{});expected=6000000 if name.startswith('P0-') else 3000000
     cursor=clock.get('samples_consumed',payload.get('samples'))
@@ -166,7 +168,7 @@ def deliver(results):
         m=c.get('layers',{}).get('6',{});lines.append(f"|{name}|{c['status']}|{m.get('CEV',{}).get('value')}|{m.get('CVF_res',{}).get('value')}|")
     lines+=['','|预注册假设|判定|配对差值及95%CI|','|---|---|---|']
     for c in claims:lines.append(f"|{c['id']}|{c['verdict']}|{c.get('delta')}|")
-    lines+=['','![CEV与CVF_res](../../results/p_followup/A_collapse_composition/composition.svg)','','PC1相关和目标参照仅作描述，不追加检验或阈值扫描。逐条件来源、完整CI及逐字段目标参照见summary.json。缺失条件未由其他运行替换，待指定C/D侧线完成后只补其注册条件。组成解释率不等于独立的化学准确性或迁移收益证明。']
+    lines+=['',('H1与H4联合支持，可形成预注册组成来源声明。' if payload['joint_claim_supported'] else 'H1与H4联合声明未获支持，不能据此将P的谱塌缩主要归因为组成或构象压缩。'),'','![CEV与CVF_res](../../results/p_followup/A_collapse_composition/composition.svg)','','PC1–3取首允许构象分子均值的F64全样本PCA轴；对应回归和目标参照仅作描述，不追加检验或阈值扫描。逐条件来源、完整CI及逐字段目标参照见summary.json。缺失条件未由其他运行替换，待指定C/D侧线完成后只补其注册条件。组成解释率不等于独立的化学准确性或迁移收益证明。']
     guard();(REPO/'docs/p_followup/A_COLLAPSE_COMPOSITION.md').write_text('\n'.join(lines)+'\n')
 
 def main():
