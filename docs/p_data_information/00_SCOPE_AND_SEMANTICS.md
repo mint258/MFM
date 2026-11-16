@@ -23,3 +23,6 @@
 
 提交前已运行默认 tools/check_repository.py：当前稀疏工作目录 PASS，9399 个 Git 路径、608 个实际 Python 文件、errors=0。该检查跳过未检出的大型历史资产，因此不宣称原整仓202项历史错误已消失。计算节点未安装git，首次检查未运行；改用登录节点执行纯标准库源码检查，数值处理仍只在compute-0-20。
 
+
+字段集合补充核对：已直接读取固定数据提交bc47699c709f57bb00108473f17bf4652333d2ec的training_view_v1.json（Git已有blob 800cd02bfbdde63c4c8b29e34da2b329cceba90c），与本次实际视图启用P字段逐名一致，均为109项；未新增文件内容hash。
+
