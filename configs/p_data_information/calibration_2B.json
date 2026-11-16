@@ -1,0 +1,357 @@
+{
+  "status": "EXECUTED_PM7_CASES_ONLY",
+  "planned_new_calls": 8,
+  "max_new_calls": 32,
+  "reused_original_outputs": 8,
+  "max_parallel_calls": 4,
+  "CPU_per_call": 1,
+  "timeout_seconds": 300,
+  "max_CPU_minutes": 160,
+  "geometry_optimization": false,
+  "original_SCFCRT_default": 0.0001,
+  "tight_SCFCRT": 1e-05,
+  "parameter_source": "https://openmopac.net/Manual/scf_test.html",
+  "binary_version": "23.0.3",
+  "xtb_calls": 0,
+  "xtb_reason": "Independent SCF-only 10x control not recovered; --acc not substituted",
+  "cases": [
+    {
+      "molecule_id": "molecule_03806715",
+      "native_record_id": "unimol_03000001_04000000.lmdb:375653",
+      "task": "pm7_B",
+      "protocol_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+        "sha256": "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+      },
+      "reproduction_package_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/queue_recovery_v13_job_4514282/manifest.json",
+        "sha256": "0f4c345b5ba5351b6472ce2d612285adb0faddce9b3af0b5a26e8e8c8768b3a3",
+        "bytes": 200974
+      },
+      "software": {
+        "software_version_id": 1,
+        "version": "23.0.3",
+        "executable": "/share/home/zixiao/.conda/envs/mopac/bin/mopac",
+        "sha256": "ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963",
+        "copied_binary": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/job_4513947/assets/binary_mopac/ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963_mopac",
+        "protect_original_entry": "At worker initialization reject original executable/parameter/source SHA changes relative to this permanent package"
+      },
+      "original_input_directory": "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/calibration_2B_inputs/96c8dbb287e57af4_pm7_B",
+      "reconstructed_files": [
+        {
+          "name": "input.mop",
+          "sha256": "5cd06d660ce46a66350248ede0a25cc4a6cff0b2fe7fdce8cbf5651304e17599"
+        },
+        {
+          "name": "input.xyz",
+          "sha256": "f8427ded02ce9e480166cc7ff766ae4749ff7c1c82dfcacb22922bbdfb091f92"
+        }
+      ],
+      "reconstructed_bundle_sha256": "0dca212bf744230dd887b7ca5f82060927c2f807b13440b016e8c7f7e7d0ec43",
+      "original_inputs_exact_hash_match": true,
+      "setting": {
+        "parameter": "SCFCRT",
+        "original_default": 0.0001,
+        "tight": 1e-05,
+        "source": "https://openmopac.net/Manual/scf_test.html",
+        "only_changed_keyword": "SCFCRT=0.00001"
+      }
+    },
+    {
+      "molecule_id": "molecule_03806715",
+      "native_record_id": "unimol_03000001_04000000.lmdb:375449",
+      "task": "pm7_B",
+      "protocol_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+        "sha256": "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+      },
+      "reproduction_package_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/queue_recovery_v13_job_4514282/manifest.json",
+        "sha256": "0f4c345b5ba5351b6472ce2d612285adb0faddce9b3af0b5a26e8e8c8768b3a3",
+        "bytes": 200974
+      },
+      "software": {
+        "software_version_id": 1,
+        "version": "23.0.3",
+        "executable": "/share/home/zixiao/.conda/envs/mopac/bin/mopac",
+        "sha256": "ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963",
+        "copied_binary": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/job_4513947/assets/binary_mopac/ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963_mopac",
+        "protect_original_entry": "At worker initialization reject original executable/parameter/source SHA changes relative to this permanent package"
+      },
+      "original_input_directory": "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/calibration_2B_inputs/7b1a2c19a588834b_pm7_B",
+      "reconstructed_files": [
+        {
+          "name": "input.mop",
+          "sha256": "542accaa973798d49b963818b9448ae1a971b47a9fe2253936fba045f7f4f779"
+        },
+        {
+          "name": "input.xyz",
+          "sha256": "732039bfb78d63678f1d579c7430ebb07a2bf3dc3d2c96cc3639cdadfbce298e"
+        }
+      ],
+      "reconstructed_bundle_sha256": "4352699ce48d89a0bc0e38a4018f6a118c8fc258dc979fbd43f4a8fb6bc1bd45",
+      "original_inputs_exact_hash_match": true,
+      "setting": {
+        "parameter": "SCFCRT",
+        "original_default": 0.0001,
+        "tight": 1e-05,
+        "source": "https://openmopac.net/Manual/scf_test.html",
+        "only_changed_keyword": "SCFCRT=0.00001"
+      }
+    },
+    {
+      "molecule_id": "molecule_01623775",
+      "native_record_id": "unimol_01000001_02000000.lmdb:850908",
+      "task": "pm7_B",
+      "protocol_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+        "sha256": "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+      },
+      "reproduction_package_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/queue_recovery_v13_job_4514282/manifest.json",
+        "sha256": "0f4c345b5ba5351b6472ce2d612285adb0faddce9b3af0b5a26e8e8c8768b3a3",
+        "bytes": 200974
+      },
+      "software": {
+        "software_version_id": 1,
+        "version": "23.0.3",
+        "executable": "/share/home/zixiao/.conda/envs/mopac/bin/mopac",
+        "sha256": "ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963",
+        "copied_binary": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/job_4513947/assets/binary_mopac/ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963_mopac",
+        "protect_original_entry": "At worker initialization reject original executable/parameter/source SHA changes relative to this permanent package"
+      },
+      "original_input_directory": "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/calibration_2B_inputs/9045470bf7597c2b_pm7_B",
+      "reconstructed_files": [
+        {
+          "name": "input.mop",
+          "sha256": "9d80296eae63d7ab73a12664cb3775fac34f5f723ca15e303ec60e1b9a8a6c36"
+        },
+        {
+          "name": "input.xyz",
+          "sha256": "c62959ebba18aa2fd827c4491a4a73689bbb26ced437d34d666cc9c92594680a"
+        }
+      ],
+      "reconstructed_bundle_sha256": "352f9c7f35f1444e21ae04e39cba62a575a1a16c9fa5fbbac64b64ca565f1676",
+      "original_inputs_exact_hash_match": true,
+      "setting": {
+        "parameter": "SCFCRT",
+        "original_default": 0.0001,
+        "tight": 1e-05,
+        "source": "https://openmopac.net/Manual/scf_test.html",
+        "only_changed_keyword": "SCFCRT=0.00001"
+      }
+    },
+    {
+      "molecule_id": "molecule_01623775",
+      "native_record_id": "unimol_01000001_02000000.lmdb:849484",
+      "task": "pm7_B",
+      "protocol_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+        "sha256": "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+      },
+      "reproduction_package_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/queue_recovery_v13_job_4514282/manifest.json",
+        "sha256": "0f4c345b5ba5351b6472ce2d612285adb0faddce9b3af0b5a26e8e8c8768b3a3",
+        "bytes": 200974
+      },
+      "software": {
+        "software_version_id": 1,
+        "version": "23.0.3",
+        "executable": "/share/home/zixiao/.conda/envs/mopac/bin/mopac",
+        "sha256": "ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963",
+        "copied_binary": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/job_4513947/assets/binary_mopac/ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963_mopac",
+        "protect_original_entry": "At worker initialization reject original executable/parameter/source SHA changes relative to this permanent package"
+      },
+      "original_input_directory": "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/calibration_2B_inputs/7170d0f078cf4eb8_pm7_B",
+      "reconstructed_files": [
+        {
+          "name": "input.mop",
+          "sha256": "7c607673c6a400ef49ab5ab6cf6beb10c97338435d6da5a9a57f5a19f8c66998"
+        },
+        {
+          "name": "input.xyz",
+          "sha256": "996e3740e075d3f0a46aad9aab092ebcb20eb96d88b6829019d9032666d312ab"
+        }
+      ],
+      "reconstructed_bundle_sha256": "c89e9875bbd26b6b09d04fb8d79007cc889b5b44af89133d06e83d93d36a38ff",
+      "original_inputs_exact_hash_match": true,
+      "setting": {
+        "parameter": "SCFCRT",
+        "original_default": 0.0001,
+        "tight": 1e-05,
+        "source": "https://openmopac.net/Manual/scf_test.html",
+        "only_changed_keyword": "SCFCRT=0.00001"
+      }
+    },
+    {
+      "molecule_id": "molecule_03822896",
+      "native_record_id": "unimol_03000001_04000000.lmdb:1209687",
+      "task": "pm7_B",
+      "protocol_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+        "sha256": "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+      },
+      "reproduction_package_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/queue_recovery_v13_job_4514282/manifest.json",
+        "sha256": "0f4c345b5ba5351b6472ce2d612285adb0faddce9b3af0b5a26e8e8c8768b3a3",
+        "bytes": 200974
+      },
+      "software": {
+        "software_version_id": 1,
+        "version": "23.0.3",
+        "executable": "/share/home/zixiao/.conda/envs/mopac/bin/mopac",
+        "sha256": "ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963",
+        "copied_binary": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/job_4513947/assets/binary_mopac/ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963_mopac",
+        "protect_original_entry": "At worker initialization reject original executable/parameter/source SHA changes relative to this permanent package"
+      },
+      "original_input_directory": "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/calibration_2B_inputs/dc201d3a92b42758_pm7_B",
+      "reconstructed_files": [
+        {
+          "name": "input.mop",
+          "sha256": "939814e1e1e9c51dd669df65d03950ae394920e1b6ac51f655c1afe8f695ee46"
+        },
+        {
+          "name": "input.xyz",
+          "sha256": "dc93465fdf88abdcf56bc441ad54fce61446c99defd0e1e77dad63780f2e99df"
+        }
+      ],
+      "reconstructed_bundle_sha256": "0ebef4da64ac84b102dc3b70577a524f36ab0370217f1702cd491ed81d5aafe1",
+      "original_inputs_exact_hash_match": true,
+      "setting": {
+        "parameter": "SCFCRT",
+        "original_default": 0.0001,
+        "tight": 1e-05,
+        "source": "https://openmopac.net/Manual/scf_test.html",
+        "only_changed_keyword": "SCFCRT=0.00001"
+      }
+    },
+    {
+      "molecule_id": "molecule_03822896",
+      "native_record_id": "unimol_03000001_04000000.lmdb:1210736",
+      "task": "pm7_B",
+      "protocol_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+        "sha256": "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+      },
+      "reproduction_package_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/queue_recovery_v13_job_4514282/manifest.json",
+        "sha256": "0f4c345b5ba5351b6472ce2d612285adb0faddce9b3af0b5a26e8e8c8768b3a3",
+        "bytes": 200974
+      },
+      "software": {
+        "software_version_id": 1,
+        "version": "23.0.3",
+        "executable": "/share/home/zixiao/.conda/envs/mopac/bin/mopac",
+        "sha256": "ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963",
+        "copied_binary": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/job_4513947/assets/binary_mopac/ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963_mopac",
+        "protect_original_entry": "At worker initialization reject original executable/parameter/source SHA changes relative to this permanent package"
+      },
+      "original_input_directory": "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/calibration_2B_inputs/614fc730b25e1432_pm7_B",
+      "reconstructed_files": [
+        {
+          "name": "input.mop",
+          "sha256": "6c3d565013c7a99054a37f29db8cac9a0ac071339e77208b62a4148135991051"
+        },
+        {
+          "name": "input.xyz",
+          "sha256": "f1729ab706d574eaa45f2cac7eab64db67c786f1b2a0c5dec9044137224e8a44"
+        }
+      ],
+      "reconstructed_bundle_sha256": "ebb2fb033438fa9f28b5af6f08d923df2f60b0352e9d4998db807b9901b87714",
+      "original_inputs_exact_hash_match": true,
+      "setting": {
+        "parameter": "SCFCRT",
+        "original_default": 0.0001,
+        "tight": 1e-05,
+        "source": "https://openmopac.net/Manual/scf_test.html",
+        "only_changed_keyword": "SCFCRT=0.00001"
+      }
+    },
+    {
+      "molecule_id": "principal_00515644",
+      "native_record_id": "principal_00300001_00600000.lmdb:927344",
+      "task": "pm7_B",
+      "protocol_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+        "sha256": "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+      },
+      "reproduction_package_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/queue_recovery_v13_job_4514282/manifest.json",
+        "sha256": "0f4c345b5ba5351b6472ce2d612285adb0faddce9b3af0b5a26e8e8c8768b3a3",
+        "bytes": 200974
+      },
+      "software": {
+        "software_version_id": 1,
+        "version": "23.0.3",
+        "executable": "/share/home/zixiao/.conda/envs/mopac/bin/mopac",
+        "sha256": "ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963",
+        "copied_binary": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/job_4513947/assets/binary_mopac/ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963_mopac",
+        "protect_original_entry": "At worker initialization reject original executable/parameter/source SHA changes relative to this permanent package"
+      },
+      "original_input_directory": "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/calibration_2B_inputs/fe348bf95a4a774d_pm7_B",
+      "reconstructed_files": [
+        {
+          "name": "input.mop",
+          "sha256": "35fab9a1ff8c93369430d00b1557da8fd085883aaf662e56ffcbb86d78b775b8"
+        },
+        {
+          "name": "input.xyz",
+          "sha256": "cbabaa751b280e7c65081e8ff85513b5b174bb0af3204d15ff5e9f867fa040d3"
+        }
+      ],
+      "reconstructed_bundle_sha256": "1b8b4a9c28befb0759969bba558e6f6fdbf9e556dd082ca0f430c1ed9e42c1b7",
+      "original_inputs_exact_hash_match": true,
+      "setting": {
+        "parameter": "SCFCRT",
+        "original_default": 0.0001,
+        "tight": 1e-05,
+        "source": "https://openmopac.net/Manual/scf_test.html",
+        "only_changed_keyword": "SCFCRT=0.00001"
+      }
+    },
+    {
+      "molecule_id": "principal_00515644",
+      "native_record_id": "principal_00300001_00600000.lmdb:922497",
+      "task": "pm7_B",
+      "protocol_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/configs/protocol.json",
+        "sha256": "3e831aa57d4d90376c6107e309484e231038a3536ed0f28371d2f8554149a6bc"
+      },
+      "reproduction_package_reference": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/queue_recovery_v13_job_4514282/manifest.json",
+        "sha256": "0f4c345b5ba5351b6472ce2d612285adb0faddce9b3af0b5a26e8e8c8768b3a3",
+        "bytes": 200974
+      },
+      "software": {
+        "software_version_id": 1,
+        "version": "23.0.3",
+        "executable": "/share/home/zixiao/.conda/envs/mopac/bin/mopac",
+        "sha256": "ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963",
+        "copied_binary": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/reproduction_package/job_4513947/assets/binary_mopac/ce59fe0efb1f97159ac4c4c26cd319a2da9c9964c0d9425d00c5c2151f12e963_mopac",
+        "protect_original_entry": "At worker initialization reject original executable/parameter/source SHA changes relative to this permanent package"
+      },
+      "original_input_directory": "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/calibration_2B_inputs/f3b18604e5cc1945_pm7_B",
+      "reconstructed_files": [
+        {
+          "name": "input.mop",
+          "sha256": "009f218c086a5bb8bdd95583b99b35ae1698b42c6e73e5d628cb2aed769eab3d"
+        },
+        {
+          "name": "input.xyz",
+          "sha256": "9108a4d00a82fe3ecf328384929229c866f861b960556b097d0e66f9f6b323a1"
+        }
+      ],
+      "reconstructed_bundle_sha256": "e7ab285713c827fdfb08bfd0503844df3d02262d886a20590aa8f7d4eaa11a41",
+      "original_inputs_exact_hash_match": true,
+      "setting": {
+        "parameter": "SCFCRT",
+        "original_default": 0.0001,
+        "tight": 1e-05,
+        "source": "https://openmopac.net/Manual/scf_test.html",
+        "only_changed_keyword": "SCFCRT=0.00001"
+      }
+    }
+  ],
+  "external_output_directory": "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/calibration_2B_tight",
+  "actual_new_calls": 8
+}

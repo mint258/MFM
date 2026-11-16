@@ -1,0 +1,68 @@
+{
+  "status": "EXECUTED_PM7_CASES_XTB_SCF_ONLY_CONTROL_UNRESOLVED",
+  "actual_new_calls": 8,
+  "original_outputs_reused": 8,
+  "original_setting_reruns": 0,
+  "new_geometry": false,
+  "retries": 0,
+  "independent_molecules": 4,
+  "original_geometries": 8,
+  "successful_converged_tight_calls": 8,
+  "cumulative_call_wall_seconds": 9.244539499282837,
+  "case_sensitivity": [
+    {
+      "molecule_id": "principal_00515644",
+      "heavy_rmsd": 0.5361305485637433,
+      "scope": "Frozen case; numerical-setting sensitivity, no global error bound",
+      "original_outputs_reused": true,
+      "original_pair_difference_kcal_mol": 0.24186000000000263,
+      "tight_pair_difference_kcal_mol": 0.24186000000000263,
+      "absolute_change_in_signed_pair_difference_kcal_mol": 0.0,
+      "largest_endpoint_setting_shift_kcal_mol": 0.0,
+      "storage_direction_changed": false
+    },
+    {
+      "molecule_id": "molecule_03822896",
+      "heavy_rmsd": 3.523458663739235,
+      "scope": "Frozen case; numerical-setting sensitivity, no global error bound",
+      "original_outputs_reused": true,
+      "original_pair_difference_kcal_mol": 13.291730000000001,
+      "tight_pair_difference_kcal_mol": 13.291730000000001,
+      "absolute_change_in_signed_pair_difference_kcal_mol": 0.0,
+      "largest_endpoint_setting_shift_kcal_mol": 0.0,
+      "storage_direction_changed": false
+    },
+    {
+      "molecule_id": "molecule_03806715",
+      "heavy_rmsd": 2.5116559949064214,
+      "scope": "Frozen case; numerical-setting sensitivity, no global error bound",
+      "original_outputs_reused": true,
+      "original_pair_difference_kcal_mol": 1.0811599999999988,
+      "tight_pair_difference_kcal_mol": 1.0811600000000006,
+      "absolute_change_in_signed_pair_difference_kcal_mol": 1.7763568394002505e-15,
+      "largest_endpoint_setting_shift_kcal_mol": 1.000000000139778e-05,
+      "storage_direction_changed": false
+    },
+    {
+      "molecule_id": "molecule_01623775",
+      "heavy_rmsd": 2.156783798936411,
+      "scope": "Frozen case; numerical-setting sensitivity, no global error bound",
+      "original_outputs_reused": true,
+      "original_pair_difference_kcal_mol": 0.013049999999992679,
+      "tight_pair_difference_kcal_mol": 0.013040000000003715,
+      "absolute_change_in_signed_pair_difference_kcal_mol": 9.999999988963282e-06,
+      "largest_endpoint_setting_shift_kcal_mol": 9.999999988963282e-06,
+      "storage_direction_changed": false
+    }
+  ],
+  "endpoint_shift_median_kcal_mol": 0.0,
+  "endpoint_shift_max_observed_kcal_mol": 1.000000000139778e-05,
+  "global_deterministic_error_bound": null,
+  "global_family_null": null,
+  "reason": "Four molecules/eight settings comparisons are case evidence only; maxima are not population error bounds",
+  "configuration": "configs/p_data_information/calibration_2B.json",
+  "exact_input_lineage": "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/calibration_2B_lineage.json",
+  "actual_call_results": "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/calibration_2B_actual_calls.json",
+  "xtb_reason": "Official --acc couples integral screening and SCC convergence; no independent 10x SCF-only control recovered for the actual version",
+  "xtb_parameter_source": "https://xtb-docs.readthedocs.io/en/latest/sp.html"
+}
