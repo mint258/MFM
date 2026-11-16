@@ -15,8 +15,7 @@ def panel():
     # B3's closed identity mapping is reused; no new source identity scan.
     with (CONTROL/'B3_frozen_current_identities.pkl').open('rb') as stream:records=pickle.load(stream)['VAL']
     pairs=load(OLD/'pairs.json')['VAL']['conformer']
-    mapping={(mid,oldci):(mi,ci) for mid,rid,oldci,mi,ci in records}
-    return records,pairs,mapping
+    return records,pairs
 
 
 def predictions(c,records,device):
@@ -66,7 +65,7 @@ def main():
         used,total=map(float,subprocess.check_output(['nvidia-smi','--id='+gpu,'--query-gpu=memory.used,memory.total','--format=csv,noheader,nounits'],text=True).strip().split(','))
         if used/total>.30:raise RuntimeError('GPU admission changed')
         lock=(R/'docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks'/(gpu+'.lock')).open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-    started=time.monotonic();records,pairs,mapping=panel();results={};provenance={}
+    started=time.monotonic();records,pairs=panel();results={};provenance={}
     for arm,file in [('C','C_dedup.json'),('D','D_decomposition.json')]:
         results[arm],provenance[arm]=predictions(load(REPO/'configs/p_followup'/file),records,args.device)
     totals={};used_pairs=0;unavailable_pairs=0
@@ -91,7 +90,7 @@ def main():
     for name,row in sorted(totals.items()):
         n=row['observations'];fields[name]=dict(C_MAE=row['C_absolute_error']/n,D_MAE=row['D_absolute_error']/n,
             D_minus_C=(row['D_absolute_error']-row['C_absolute_error'])/n,observations=n,conformer_pairs=row['conformer_pairs'],molecules=len(row['molecules']),**provenance['C']['fields'][name])
-    result=dict(status='COMPLETE',scope='Existing frozen VAL physical conformer pairs, current allowed k10 intersection; All 33 C molecular scalar candidate fields, existing frozen VAL conformer pairs',
+    result=dict(status='COMPLETE',scope='All33 C molecular scalar candidates, frozen VAL conformer pairs within current allowed k10',
         raw_target='Current existing F32 labels promoted to F64; sidecar off in both arms',descriptive_only=True,
         frozen_records=len(records),requested_pairs=len(pairs),used_pairs=used_pairs,unavailable_pairs=unavailable_pairs,
         provenance=provenance,fields=fields,seconds=time.monotonic()-started)
