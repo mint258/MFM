@@ -1,11 +1,11 @@
 {
-  "observed_at": 1794855822.031923,
+  "observed_at": 1794857630.015802,
   "runs": [
     {
       "arm": "A4",
       "run": "fixed_20261115_round1_A4_non21_restart",
-      "samples": 2990464,
-      "state": "RUNNING",
+      "samples": 3000000,
+      "state": "COMPLETED",
       "backend": "Slurm",
       "node": "compute-0-7",
       "job_id": 4532642,
@@ -18,7 +18,9 @@
         3000000
       ],
       "handoff_request": null,
-      "handoff_ack": null
+      "handoff_ack": null,
+      "final_checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round1_A4_non21_restart/samples_3000000.pt",
+      "final_checkpoint_bytes": 220307561
     },
     {
       "arm": "B1",
@@ -89,7 +91,7 @@
     {
       "arm": "B3",
       "run": "fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117",
-      "samples": 1960192,
+      "samples": 2128160,
       "state": "RUNNING",
       "backend": "native_SSH",
       "node": "compute-0-22",

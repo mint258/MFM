@@ -1,0 +1,48 @@
+{
+  "round": 2,
+  "baseline": "M1",
+  "baseline_components": [
+    "A1"
+  ],
+  "configurations": [
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2/B1.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2/M1.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2/B2.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2/B3.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2/B4.json"
+  ],
+  "skipped": {},
+  "label_parameters_to_fit": {},
+  "batch_size": 32,
+  "study_revision": "fixed_20261115",
+  "results_directory": "results/p_recipe/fixed_20261115",
+  "base_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/base.json",
+  "control_directory": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115",
+  "batch_size_by_run": {
+    "fixed_20261115_provisional_B_20261116_round2_B4": 32,
+    "fixed_20261115_provisional_B_20261116_round2_B1_sbatch": 32,
+    "fixed_20261115_provisional_B_20261116_round2_M1_attempt3_sbatch": 32,
+    "fixed_20261115_provisional_B_20261116_round2_B2_sbatch": 32,
+    "fixed_20261115_provisional_B_20261116_round2_M1_infra_recovery_20261116": 32,
+    "fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117": 32
+  },
+  "provisional": false,
+  "pending_arms": [],
+  "previous_state": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/provisional_B_20261116/provisional_M1_state.json",
+  "user_authorized_parallel_with_A4": true,
+  "checkpoint_policy_description": "First committed32 samples, then1M/2M/final3M; complete optimizer/clock/RNG/clip state; save/exit control on all launches",
+  "A4_later_win_requires_B_evidence_reassessment": true,
+  "archived_configurations": [
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/archive/M1_attempt1.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/archive/M1_attempt2.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/archive/B1_native.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/archive/B2_native.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/archive/M1_attempt3_native.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/archive/M1_attempt3_sbatch_failed.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/archive/B3_node5_before_5090_20261117.json"
+  ],
+  "adopted_existing_runs_without_retraining": true,
+  "validated_against_final_round1": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1_decision.json",
+  "source_provisional_plan": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/plan.json",
+  "validation_observed_at": 1794857749.4882207
+}
