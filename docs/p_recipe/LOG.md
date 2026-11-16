@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-16 05:06UTC · fixed20261115 round2 · B1 RUNNING 2157984/3000000；M1 RUNNING 1498304/3000000；B2 RUNNING 1812608/3000000；B3 PENDING 0/3000000；B4 NOT_SUBMITTED 0/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次05:36:44UTC。
+
+2026-11-16 05:06UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2142656/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次05:36:44UTC。
+
 2026-11-16 04:36UTC · fixed20261115 round2 · B1 RUNNING 1970528/3000000；M1 RUNNING 1338880/3000000；B2 RUNNING 1657248/3000000；B3 PENDING 0/3000000；B4 NOT_SUBMITTED 0/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次05:06:16UTC。
 
 2026-11-16 04:36UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2126528/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次05:06:16UTC。
@@ -457,3 +461,7 @@ B2 on compute-0-20 (native PID 1643284, UID 1278, start_ticks 1267945962; takeov
 ### 2026-11-16 11:36 CST — M1 1M checkpoint observed
 
 Provisional M1 attempt3 on compute-0-20 (native PID 1653103, UID 1278, start_ticks 1268295487; takeover job 4534816) atomically published `samples_1000000.pt`, 220304041 bytes, mtime 1794799869. Its bound process remains live and the 11:35 producer snapshot reached 1021824 samples. All three currently running provisional B cases have now actually saved their first regular 1M complete checkpoint and continued. No training was stopped/restarted and checkpoint weights were not read.
+
+### 2026-11-16 13:07 CST — B1 2M checkpoint observed
+
+B1 on compute-0-22 (native PID 132047, UID 1278, start_ticks 42358734; takeover 4534810) published complete `samples_2000000.pt`, 226614617 bytes, mtime 1794804092. The bound process is still live and the producer snapshot reached 2157984 samples. The regular checkpoint cadence continues after its first 1M save; original output and costs remain preserved.
