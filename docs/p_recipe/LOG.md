@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-16 06:07UTC · fixed20261115 round2 · B1 RUNNING 2550688/3000000；M1 RUNNING 1828672/3000000；B2 RUNNING 2132576/3000000；B3 PENDING 0/3000000；B4 NOT_SUBMITTED 0/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次06:37:37UTC。
+
+2026-11-16 06:07UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2174848/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次06:37:37UTC。
+
 2026-11-16 05:37UTC · fixed20261115 round2 · B1 RUNNING 2352640/3000000；M1 RUNNING 1659296/3000000；B2 RUNNING 1971328/3000000；B3 PENDING 0/3000000；B4 NOT_SUBMITTED 0/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次06:07:10UTC。
 
 2026-11-16 05:37UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2158752/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次06:07:10UTC。
@@ -469,3 +473,7 @@ Provisional M1 attempt3 on compute-0-20 (native PID 1653103, UID 1278, start_tic
 ### 2026-11-16 13:07 CST — B1 2M checkpoint observed
 
 B1 on compute-0-22 (native PID 132047, UID 1278, start_ticks 42358734; takeover 4534810) published complete `samples_2000000.pt`, 226614617 bytes, mtime 1794804092. The bound process is still live and the producer snapshot reached 2157984 samples. The regular checkpoint cadence continues after its first 1M save; original output and costs remain preserved.
+
+### 2026-11-16 14:08 CST — B2 2M checkpoint observed
+
+B2 on compute-0-20 (native PID 1643284, UID 1278, start_ticks 1267945962; takeover 4534812) published complete `samples_2000000.pt`, 240128291 bytes, mtime 1794807778. The bound process remains live and the producer snapshot reached 2132576 samples; no stop/restart or checkpoint weight read was performed. B1 continues at 2550688 samples and the existing train entrypoint will perform its registered R1/R3 evaluations after 3M.
