@@ -88,6 +88,9 @@ class UnitSDKRun:
 
 @pytest.fixture
 def bound_unit(tmp_path, monkeypatch):
+    # Fixture authority only: no real scheduler allocation or source work.
+    monkeypatch.setenv("SLURM_JOB_ID", "unit_metadata_only")
+    monkeypatch.setenv("SLURM_CPUS_PER_TASK", "16")
     monkeypatch.setenv("CUDA_VISIBLE_DEVICES", "")
     request = {"schema": "unit_request_not_a_native_delivery", "code_sha": "c"*40,
         "preregistration_sha": "d"*40, "method": asdict(CoordinateLookupConfig()),

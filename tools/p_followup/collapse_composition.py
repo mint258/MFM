@@ -177,7 +177,7 @@ def write_report(payload):
     h2=next(h for h in claims if h['id']=='A-H2')
     if h2.get('delta',{}).get('value',0)>0 and h2['verdict']=='NOT_SUPPORT':lines+=['','R1-B0减A1虽为正差，仍未满足预注册支持标准；不将其改判为支持。']
     lines+=['','## 实际训练目标参照','','仅纳入该条件实际训练且有效比例≥99%的P分子标量，使用该检查点实际D4/A1参数，按每字段目标方差加权汇总CEV与CVF。该参照只作描述。',
-        '', '|条件|纳入字段数|目标CEV（方差加权）|目标CVF（方差加权）|','|---|---:|---|---|']
+        '', '|条件|纳入目标分量数|目标CEV（方差加权）|目标CVF（方差加权）|','|---|---:|---|---|']
     for name,c in results.items():
         t=c.get('target_reference',{});lines.append(f"|{name}|{t.get('included_fields','NA')}|{stat(t.get('variance_weighted_CEV'))}|{stat(t.get('variance_weighted_CVF'))}|")
     lines+=['','D的t1/t2按实际分量mask分别执行99%有效比例门槛，各带原字段一半权重；详细条目同时标明物理字段和分量。S条件没有训练P标量目标，参照为NA；指定C/D条件未完成时也记NA。','','![CEV与CVF_res](../../results/p_followup/A_collapse_composition/composition.svg)',
