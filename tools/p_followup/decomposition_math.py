@@ -17,6 +17,7 @@ class TrainMoments:
         self.m2=np.zeros(width);self.within=np.zeros(width)
         self.multi=np.zeros(width,np.int64);self.conformers=np.zeros(width,np.int64)
     def add(self,mean,count,within):
+        count=np.asarray(count,dtype=np.int64)
         valid=np.isfinite(mean);nb=valid.sum(0)
         mb=np.divide(np.where(valid,mean,0).sum(0),nb,out=np.zeros_like(self.mean),where=nb>0)
         m2b=np.square(np.where(valid,mean-mb,0)).sum(0)
