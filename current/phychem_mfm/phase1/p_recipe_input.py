@@ -23,6 +23,7 @@ def reader_metadata(model, fields):
         selections=model.selections, definitions=model.definitions,
         view=SimpleNamespace(normalizations=model.view.normalizations),
         routes=model.routes, fields=fields, grouped_fields=model.grouped_fields,
+        decomposition_fields=getattr(model,'decomposition_fields',set()),
         _require_vector_normalization=V31PDModel._require_vector_normalization)
 
 
@@ -37,9 +38,11 @@ def init_prepared_reader(configuration, mean_labels, metadata, validation_config
 def prepare_samples(samples, metadata, *, retain_samples=True):
     prepared = dict(clean_batch=collate_samples(samples))
     targets, affines, names = prepare_v31_targets(metadata, samples, ('P',), metadata.fields)
-    prepared['loss_targets'] = dict(values=torch.cat([target.values.flatten() for target in targets.values()]),
-        valid=torch.cat([target.valid for target in targets.values()]),
+    prepared['loss_targets'] = dict(values=(torch.cat([target.values.flatten() for target in targets.values()]) if targets else torch.empty(0)),
+        valid=(torch.cat([target.valid for target in targets.values()]) if targets else torch.empty(0,dtype=torch.bool)),
         layout=[(name,tuple(target.values.shape)) for name,target in targets.items()],affines=affines,names=names)
+    decomposed=getattr(metadata,'decomposition_fields',set())
+    prepared['decomposition_targets']={n:(torch.as_tensor(np.concatenate([s['targets'][n].values for s in samples])),torch.as_tensor(np.concatenate([s['targets'][n].valid for s in samples]))) for n in metadata.fields if n in decomposed}
     pairs, pair_rows, observed, indices, scatter = {}, {}, {}, {}, {}
     shapes = {n: (sum(len(s['targets'][n].raw) for s in samples), samples[0]['targets'][n].raw.shape[-1])
               for n in metadata.fields}
@@ -77,7 +80,7 @@ def prepare_samples(samples, metadata, *, retain_samples=True):
             mask = np.concatenate(masks)
             pair_rows[head] = (torch.as_tensor(np.flatnonzero(mask)), len(mask))
         observed[route] = {head for head, columns in physical.items() if any(
-            np.concatenate([s['targets'][n].valid for n in columns], -1).all(-1).any() for s in working)}
+            (np.concatenate([s['targets'][n].valid for n in columns], -1).any(-1) if head in decomposed else np.concatenate([s['targets'][n].valid for n in columns], -1).all(-1)).any() for s in working)}
     prepared.update(pairs=pairs, pair_rows=pair_rows, observed=observed, route_indices=indices,
                     shapes=shapes, scatter_rows=scatter)
     identities = [dict(molecule_index=s['molecule_index'],conformer_index=s['conformer_index']) for s in samples]

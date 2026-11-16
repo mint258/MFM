@@ -28,16 +28,20 @@ def validation_indices(configuration,count=2000):
  return np.asarray([r['molecule_index'] for r in table.to_pylist() if r['molecule_id'] in chosen],dtype=np.int64)
 
 class PRecipeDataset(MFM4Dataset):
- def __init__(self,*args,label_parameters=None,**kwargs):
+ def __init__(self,*args,label_parameters=None,conformer_decomposition=None,**kwargs):
   super().__init__(*args,**kwargs)
   self.label_parameters={} if label_parameters is None else read_json(label_parameters)
+  self.conformer_decomposition=None
+  if conformer_decomposition is not None:
+   from .p_conformer_decomposition import ConformerDecomposition
+   self.conformer_decomposition=ConformerDecomposition(conformer_decomposition,'FULL' if self.evaluation else 'TRAIN',self.directory,self.view)
   for name,spec in self.label_parameters.get('normalizations',{}).items():
    self.view.normalizations[name]=spec
    for field in self.view.fields:
     if field['name']==name:field['normalization']=spec
  def read(self,molecule,conformer):
   sample=super().read(molecule,conformer);original=sample['targets'];sample['original_targets']=original
-  if not self.label_parameters:return sample
+  if not self.label_parameters:return sample if self.conformer_decomposition is None else self.conformer_decomposition.apply(sample)
   differences=self.label_parameters.get('state_difference',{});tails=self.label_parameters.get('heavy_tail',{});targets={}
   for name,target in original.items():
    if name not in self.label_parameters.get('normalizations',{}):
@@ -51,18 +55,27 @@ class PRecipeDataset(MFM4Dataset):
    value=np.where(valid,value,np.nan)
    spec=self.view.normalizations[name]
    targets[name]=replace(target,raw=value,valid=valid,values=normalize_values(value,spec,Z=sample['Z']))
-  sample['targets']=targets;return sample
+  sample['targets']=targets
+  return sample if self.conformer_decomposition is None else self.conformer_decomposition.apply(sample)
 
 def dataset_configuration(c,*,validation=False):
  return dict(root=c['root'],split='FULL' if validation else 'TRAIN',training_view=c['training_view'],
   normalizations=read_json(c['normalizations']),source=c['source'],order=c.get('order','fixed_random'),k=10,
   pprime=c['source']=='UFF',molecule_indices=validation_indices(c) if validation else train_indices(c),
-  label_parameters=c.get('label_parameters'),p_f64_sidecar=c.get('p_f64_sidecar'))
+  label_parameters=c.get('label_parameters'),p_f64_sidecar=c.get('p_f64_sidecar'),conformer_decomposition=c.get('conformer_decomposition'))
 
 def original_predictions(model,predictions,samples,parameters):
  import torch
  from .p_recipe import heavy_tail
- result=model.original_predictions({n:v.double() for n,v in predictions.items()},samples)
+ decomposed=getattr(model,'decomposition_fields',set())
+ result=model.original_predictions({n:v.double() for n,v in predictions.items() if n not in decomposed},samples)
+ if decomposed:
+  from .p_conformer_decomposition import restore_predictions
+  for name in decomposed:
+   if name not in predictions:continue
+   value=predictions[name].double();spec=model.conformer_decomposition
+   offsets=value.new_tensor([element_offset(s['Z'],spec['normalizations'][name]) for s in samples])[:,None]
+   result[name]=restore_predictions(value,spec['fields'][name],offsets)
  for name,tail in parameters.get('heavy_tail',{}).items():
   if name not in result:continue
   value=heavy_tail(result[name],tail['m'],inverse=True)

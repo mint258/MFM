@@ -82,6 +82,7 @@ def prepare_v31_targets(model, samples, groups, fields):
     members = defaultdict(list)
     for field in model.registry.enabled(groups, fields):
         name = field.name
+        if name in getattr(model,'decomposition_fields',set()):continue
         spec = model.definitions[name].get('normalization', model.view.normalizations.get(name))
         if spec is None:
             raise ValueError('Missing D4 normalization for ' + name)

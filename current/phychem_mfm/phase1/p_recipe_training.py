@@ -44,7 +44,7 @@ def train(configuration):
  # This preserves parameter/state keys, losses and the original sampled graphs.
  structural.encoder.backbone.activation_checkpointing=c['activation_checkpointing']
  architecture['backbone']['activation_checkpointing']=c['activation_checkpointing']
- pd=V31PDModel(structural.encoder,data.view,forms=c['head_form'],pooling='registry',p_recipe=recipe)
+ pd=V31PDModel(structural.encoder,data.view,forms=c['head_form'],pooling='registry',p_recipe=recipe,conformer_decomposition=c.get('conformer_decomposition'))
  pd.configure_step_overhead(c.get('step_overhead',{}))
  modules=dict(structural=structural,pd=pd)
  fields=selected_training_fields(pd.registry,recipe,c.get('fields'))

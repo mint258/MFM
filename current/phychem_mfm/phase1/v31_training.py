@@ -81,7 +81,7 @@ def element_offset(Z, specification):
 class V31PDModel(nn.Module):
     """Adapter only: existing backbone, V3HeadBank and compute_v3_loss."""
     def __init__(self, encoder, view, *, forms='H1', pooling='registry',
-                 output_parameterization='raw', head_hidden_dim=64, p_recipe=None):
+                 output_parameterization='raw', head_hidden_dim=64, p_recipe=None, conformer_decomposition=None):
         super().__init__()
         if output_parameterization not in ('raw', 'normalized'):
             raise ValueError('Explicit raw or normalized head output required')
@@ -106,6 +106,10 @@ class V31PDModel(nn.Module):
         self.heads = V3HeadBank(self.head_registry, dim=encoder.latent_dim, forms=forms, hidden_dim=head_hidden_dim,
             pooling_overrides=overrides, allow_onsite_fields=onsite,
             pair_distance=not recipe.get('pair_without_distance',False))
+        from .p_conformer_decomposition import definition,install_heads
+        self.conformer_decomposition=definition(conformer_decomposition)
+        self.decomposition_fields=set(self.conformer_decomposition.get('selected_fields',[]))
+        if self.decomposition_fields:install_heads(self,self.conformer_decomposition,forms)
         self.p_recipe_pma = None
         if recipe.get('pma_pooling',False):
             from ..model.v3_latent import MolecularLatent, LatentSpec
@@ -219,7 +223,7 @@ class V31PDModel(nn.Module):
                 observed = prepared['observed'].get(route, set()) if prepared else set()
                 for head_name in selected if not prepared else ():
                     names = [name for name in route_fields if self.selections[name][0] == head_name]
-                    if any(np.concatenate([sample['targets'][name].valid for name in names], axis=-1).all(-1).any()
+                    if any((np.concatenate([sample['targets'][name].valid for name in names], axis=-1).any(-1) if head_name in self.decomposition_fields else np.concatenate([sample['targets'][name].valid for name in names], axis=-1).all(-1)).any()
                            for sample in working_samples):
                         observed.add(head_name)
                 latent['observed_fields'] = observed
@@ -249,6 +253,9 @@ class V31PDModel(nn.Module):
     @timed('loss')
     def loss(self, predictions, samples, *, groups=('D', 'P'), fields=None,
              fixed_full_condition=False):
+        if self.decomposition_fields and any(f.name in self.decomposition_fields for f in self.registry.enabled(groups,fields)):
+            from .p_conformer_decomposition import decomposition_loss
+            return decomposition_loss(self,predictions,samples,groups,fields,fixed_full_condition)
         if self.grouped_fields and not fixed_full_condition:
             from .v31_grouped_loss import grouped_v31_loss
             return grouped_v31_loss(self, predictions, samples, groups, fields)
@@ -323,7 +330,8 @@ class V31PDModel(nn.Module):
                 columns.sort(key=lambda item: item[0])
                 if [item[0] for item in columns] != [0,1,2]:
                     raise ValueError('The physical vector count requires all three components')
-            counts[name] = int(np.concatenate([item[1] for item in columns], axis=-1).all(-1).sum())
+            mask=np.concatenate([item[1] for item in columns],axis=-1)
+            counts[name]=int((mask.any(-1) if name in self.decomposition_fields else mask.all(-1)).sum())
         return counts
 
     def original_predictions(self, predictions, samples):
