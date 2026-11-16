@@ -6,7 +6,7 @@ and separate projections per layer; it is not a Uni-Mol model reproduction.
 """
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from copy import deepcopy
 import math
 import hashlib
@@ -36,9 +36,11 @@ class ArchitectureOptions:
     pair_hidden_dim: int = 64
     rbf_max_distance: float = 8.0
     cutoff: float | None = None
+    latent: str = 'none'
 
     def __post_init__(self):
         require(self.distance_bias in ("C1-0", "C1-a", "C1-b"), "Unknown C1 candidate")
+        require(self.latent in ('none','pma','lite','lite_rec','dense_addon'), 'Unknown latent option')
         require(type(self.rbf_count) is int and self.rbf_count == 64, "C1 uses exactly 64 Gaussian kernels")
         require(all(type(value) is int and value > 0 for value in (self.pair_dim, self.pair_hidden_dim)),
                 "Positive pair embedding/hidden dimensions required")
@@ -62,6 +64,14 @@ class ArchitectureOptions:
         else:
             require(self.cutoff is None,
                     "Global attention requires cutoff=None; an unused radius is not a cutoff")
+
+
+def _option_state(options):
+    # Preserve the exact legacy checkpoint/config declaration for the default.
+    result = asdict(options)
+    if result['latent']=='none':
+        result.pop('latent')
+    return result
 
 
 class SharedGaussianPairEncoder(nn.Module):
@@ -169,7 +179,7 @@ class SharedPairBackbone(nn.Module):
         self.layers = nn.ModuleList([SharedPairTransformerLayer(layer, options.pair_dim) for layer in original.layers])
 
     def get_extra_state(self):
-        result={"schema": "model_v3_shared_gaussian_backbone_v1", "options": asdict(self.options),
+        result={"schema": "model_v3_shared_gaussian_backbone_v1", "options": _option_state(self.options),
                 "n_atom_types": self.n_atom_types, "dim": self.dim}
         if not self.distance_bias_projection_bias:result['distance_bias_projection_bias']=False
         return result
@@ -201,11 +211,19 @@ def configuration_with_architecture(config, options: ArchitectureOptions):
     result = deepcopy(dict(config))
     options.validate_attention(result["backbone"])
     existing = result["backbone"].get("v3_architecture")
-    require(existing is None or existing == asdict(options), "Declared C1 configuration/options differ")
+    base_options = replace(options,latent='none')
+    require(existing is None or existing == _option_state(base_options), "Declared C1 configuration/options differ")
     if options.distance_bias == "C1-0":
         require(existing is None, "C1-0 must retain its original unextended model configuration")
     else:
-        result["backbone"]["v3_architecture"] = asdict(options)
+        result["backbone"]["v3_architecture"] = _option_state(base_options)
+    latent = result['backbone'].get('v3_latent')
+    if options.latent!='none':
+        require(latent is None or latent.get('kind')==options.latent,'Declared latent option differs')
+        result['backbone']['v3_latent'] = dict(latent or {},kind=options.latent)
+    else:
+        require(latent is None or latent.get('kind')=='none','Latent configuration requires its explicit option')
+        result['backbone'].pop('v3_latent',None)
     return result
 
 
@@ -213,7 +231,10 @@ def source_s_architecture_configuration(config, options=None):
     """Seal the actual stage1 tiled65536 control builder into model identity."""
     if options is None:
         declared = config["backbone"].get("v3_architecture")
-        options = ArchitectureOptions(**declared) if declared is not None else ArchitectureOptions()
+        kwargs = dict(declared or {})
+        if config['backbone'].get('v3_latent'):
+            kwargs['latent'] = config['backbone']['v3_latent']['kind']
+        options = ArchitectureOptions(**kwargs)
     result = configuration_with_architecture(config, options)
     memory = {"kind": "source_s_tiled_distance_v1", "pair_rows": 65536,
               "source_sha256": SOURCE_S_MEMORY_SHA256}
@@ -252,10 +273,14 @@ def build_architecture_model(config, options=None, *, legacy_builder=build_model
     declared = config["backbone"].get("v3_architecture")
     if options is None:
         require(declared is None or type(declared) is dict, "Explicit C1 configuration mapping required")
-        options = ArchitectureOptions(**declared) if declared is not None else ArchitectureOptions()
+        kwargs = dict(declared or {})
+        if config['backbone'].get('v3_latent'):
+            kwargs['latent'] = config['backbone']['v3_latent']['kind']
+        options = ArchitectureOptions(**kwargs)
     resolved = configuration_with_architecture(config, options)
     legacy_config = deepcopy(resolved)
     legacy_config["backbone"].pop("v3_architecture", None)
+    latent_spec = legacy_config['backbone'].pop('v3_latent',None)
     memory = legacy_config["backbone"].pop("v3_legacy_memory", None)
     if memory is not None:
         require(legacy_builder is build_model, "Sealed S memory config chooses its own fixed builder")
@@ -266,10 +291,16 @@ def build_architecture_model(config, options=None, *, legacy_builder=build_model
     if options.distance_bias != "C1-0":
         require(not next(model.parameters()).is_cuda, "Build architecture on CPU before device transfer")
         with torch.random.fork_rng(devices=[]):
-            model.backbone = SharedPairBackbone(model.backbone, options)
-        model.backbone_config["v3_architecture"] = asdict(options)
+            model.backbone = SharedPairBackbone(model.backbone, replace(options,latent='none'))
+        model.backbone_config["v3_architecture"] = _option_state(replace(options,latent='none'))
         if hasattr(model, "s_memory_implementation"):
             model.v3_legacy_control_memory_implementation = deepcopy(model.s_memory_implementation)
             del model.s_memory_implementation
-    model.v3_architecture_options = asdict(options)
+    model.v3_architecture_options = _option_state(options)
+    if options.latent!='none':
+        from .v3_latent import LatentSpec,attach_latent
+        spec = LatentSpec(**latent_spec)
+        attach_latent(model,spec)
+        model.backbone_config['v3_latent'] = asdict(spec)
+        model.v3_latent_spec = asdict(spec)
     return model

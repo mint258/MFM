@@ -85,7 +85,8 @@ class V3HeadBank(nn.Module):
                  forms: str | Mapping[str, str] = "H1", hidden_dim=64,
                  vector_radius=5.0, vector_rbf_count=32, pair_chunk_size=8192,
                  pooling_overrides: Mapping[str,str] | None = None,
-                 domain_head_configs: Mapping[str, Mapping] | None = None):
+                 domain_head_configs: Mapping[str, Mapping] | None = None,
+                 allow_onsite_fields=()):
         super().__init__()
         require(type(dim) is int and dim > 0 and type(hidden_dim) is int and hidden_dim >= 2,
                 "Valid H0/head dimensions required")
@@ -96,6 +97,10 @@ class V3HeadBank(nn.Module):
         require(set(overrides)<=graph_scalars and all(type(v) is str and v in ('registry','learned')
                 for v in overrides.values()),'Only registry/learned graph-scalar pooling overrides are supported')
         self.pooling_overrides=overrides
+        self.allow_onsite_fields = tuple(allow_onsite_fields)
+        require(len(set(self.allow_onsite_fields)) == len(self.allow_onsite_fields)
+                and set(self.allow_onsite_fields) <= {f.name for f in registry.fields if f.level == 'pair'},
+                'Onsite permission must name explicit pair fields')
         self.registry, self.dim, self.hidden_dim = registry, dim, hidden_dim
         typed_fields = {field.name for field in registry.fields
                         if field.level == "ordered_entry" or field.representation == "symmetric_tensor6"}
@@ -163,8 +168,48 @@ class V3HeadBank(nn.Module):
         result={"schema": "model_v3_head_bank_v1", "registry_sha256": self.registry.content_sha256,
                 "dim": self.dim, "hidden_dim": self.hidden_dim, "forms": dict(self.forms)}
         if self.pooling_overrides:result['pooling_overrides']=dict(self.pooling_overrides)
+        if self.allow_onsite_fields:result['allow_onsite_fields']=list(self.allow_onsite_fields)
         if self.domain_head_bindings:result["domain_head_bindings"] = deepcopy(self.domain_head_bindings)
+        if hasattr(self, 'latent_scalar_dim'):
+            result['latent_scalar_routes'] = dict(dim=self.latent_scalar_dim,
+                mean='field_function_z', sum='sum_field_function_X_plus_zero_linear_z',
+                vectors='original_equivariant_path')
         return result
+
+    def enable_latent_scalar_routes(self, dimension, *, seed=0):
+        """Replace only molecular scalar heads, after original checkpoint loading."""
+        require(not hasattr(self, 'latent_scalar_dim') and type(dimension) is int and dimension > 0,
+                'Install the approved scalar-z routing once')
+        self.latent_scalar_dim = dimension
+        self.latent_sum_offsets = nn.ModuleDict()
+        self.latent_group_projectors = nn.ModuleDict()
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(seed)
+            # All graph scalar routes are replaced; old H2 projectors would
+            # otherwise become unused counted parameters.
+            self.group_projectors = nn.ModuleDict()
+            for field in self.registry.fields:
+                if field.level != 'graph' or field.representation != 'scalar':
+                    continue
+                require(field.pooling in ('mean', 'sum'), 'Use the existing registry mean/sum route')
+                key = self.keys[field.name]
+                input_dim = dimension if field.pooling == 'mean' else self.dim
+                form = self.forms[field.name]
+                if form == 'H1':
+                    head = Linear(input_dim, field.prediction_width)
+                elif form == 'H2':
+                    group_key = field.group + '_' + field.pooling
+                    if group_key not in self.latent_group_projectors:
+                        self.latent_group_projectors[group_key] = nn.Sequential(
+                            Linear(input_dim, self.hidden_dim), nn.SiLU())
+                    head = Linear(self.hidden_dim, field.prediction_width)
+                else:
+                    head = _mlp(input_dim, field.prediction_width, self.hidden_dim)
+                self.field_heads[key] = head
+                if field.pooling == 'sum':
+                    offset = nn.Linear(dimension, field.prediction_width, bias=False)
+                    nn.init.zeros_(offset.weight)
+                    self.latent_sum_offsets[key] = offset
 
     def set_extra_state(self, state):
         compared = json_metadata(state) if self.domain_head_bindings else state
@@ -172,7 +217,7 @@ class V3HeadBank(nn.Module):
 
     def forward(self, h0: Tensor, batch: Tensor, pos: Tensor, *, enabled_groups,
                 enabled_fields=None, pair_indices=None, prediction_offsets=None,
-                domain_inputs=None, geometry_context=None):
+                domain_inputs=None, geometry_context=None, graph_latent=None):
         require(h0.ndim == 2 and h0.size(1) == self.dim and h0.is_floating_point()
                 and len(h0) > 0 and bool(torch.isfinite(h0).all()), "Finite packed H0 required")
         require(batch.dtype == torch.long and batch.shape == (len(h0),) and bool((batch >= 0).all())
@@ -224,10 +269,19 @@ class V3HeadBank(nn.Module):
                         and index.size(0) == 2 and index.device == h0.device
                         and bool(((index >= 0) & (index < len(h0))).all()), "Native pair index shape/domain differs")
                 require(bool((batch[index[0]] == batch[index[1]]).all())
-                        and bool((index[0] != index[1]).all()), "Pairs must be distinct atoms in one molecule")
+                        and (field.name in self.allow_onsite_fields or bool((index[0] != index[1]).all())),
+                        "Pairs must be in one molecule; onsite rows require explicit source permission")
                 prediction = head(h0, pos, index)
             elif field.level == "atom":
                 prediction = head(h0)
+            elif hasattr(self, 'latent_scalar_dim'):
+                require(graph_latent is not None and graph_latent.shape == (graphs, self.latent_scalar_dim)
+                        and bool(torch.isfinite(graph_latent).all()), 'Same-clean-view molecular z required')
+                feature = graph_latent if field.pooling == 'mean' else h0
+                if self.forms[field.name] == 'H2':
+                    feature = self.latent_group_projectors[field.group + '_' + field.pooling](feature)
+                prediction = (head(feature) if field.pooling == 'mean' else
+                    _pool(head(feature), batch, graphs, 'sum') + self.latent_sum_offsets[key](graph_latent))
             else:
                 feature = self.pooling_mixers[key](h0, batch, graphs) if (self.pooling_overrides.get(field.name)=='learned'
                     or field.pooling == "learned") else (

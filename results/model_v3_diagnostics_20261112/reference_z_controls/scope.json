@@ -1,0 +1,162 @@
+{
+  "cells": [
+    {
+      "name": "random_z_pma_k8_write0",
+      "stage": "reference_z",
+      "legacy": null,
+      "directory": "/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/readout_cache/reference_z_pma_k8_write0",
+      "cache": "/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/readout_cache/reference_z_pma_k8_write0/features"
+    },
+    {
+      "name": "random_z_lite_k8_write0",
+      "stage": "reference_z",
+      "legacy": null,
+      "directory": "/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/readout_cache/reference_z_lite_k8_write0",
+      "cache": "/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/readout_cache/reference_z_lite_k8_write0/features"
+    },
+    {
+      "name": "random_C1-0_R1_v2_reference",
+      "stage": "reference_R1",
+      "legacy": null,
+      "directory": "/lfshome/zixiao/model_v31_20261105/LATENT_V3_20261111/readout_cache/base_reference_R1",
+      "cache": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/h0_cache/random__C1-0__three"
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "exp.LogD",
+      "dataset_id": "expansionrx",
+      "field": "LogD",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "source_label:LogD",
+      "coverage": [
+        "ADMET",
+        "intensive"
+      ]
+    },
+    {
+      "task_id": "exp.Log_HLM_CLint",
+      "dataset_id": "expansionrx",
+      "field": "Log_HLM_CLint",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "source_label:Log_HLM_CLint",
+      "coverage": [
+        "ADMET",
+        "metabolism"
+      ]
+    },
+    {
+      "task_id": "exp.LogS",
+      "dataset_id": "expansionrx",
+      "field": "LogS",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "source_label:LogS",
+      "coverage": [
+        "ADMET",
+        "solubility"
+      ]
+    },
+    {
+      "task_id": "cyp.3A4",
+      "dataset_id": "cyp_isoform",
+      "field": "3A4",
+      "kind": "native_binary",
+      "output_level": "atom",
+      "error_metric": "one_minus_hit1",
+      "pooling": "mean",
+      "unit": "binary",
+      "coverage": [
+        "SoM",
+        "classification",
+        "atom"
+      ]
+    },
+    {
+      "task_id": "cyp.2D6",
+      "dataset_id": "cyp_isoform",
+      "field": "2D6",
+      "kind": "native_binary",
+      "output_level": "atom",
+      "error_metric": "one_minus_hit1",
+      "pooling": "mean",
+      "unit": "binary",
+      "coverage": [
+        "SoM",
+        "classification",
+        "atom"
+      ]
+    },
+    {
+      "task_id": "qm9.U0",
+      "dataset_id": "qm9",
+      "field": "U0",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "Ha",
+      "coverage": [
+        "quantum_energy",
+        "size_related",
+        "extensive"
+      ]
+    },
+    {
+      "task_id": "qm9.homo",
+      "dataset_id": "qm9",
+      "field": "homo",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "Ha",
+      "coverage": [
+        "quantum_orbital",
+        "intensive"
+      ]
+    },
+    {
+      "task_id": "qm9.lumo",
+      "dataset_id": "qm9",
+      "field": "lumo",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "Ha",
+      "coverage": [
+        "quantum_orbital",
+        "intensive"
+      ]
+    },
+    {
+      "task_id": "qm9.alpha",
+      "dataset_id": "qm9",
+      "field": "alpha",
+      "kind": "regression",
+      "output_level": "graph",
+      "error_metric": "mae",
+      "pooling": "mean",
+      "unit": "bohr^3",
+      "coverage": [
+        "quantum_response",
+        "size_related"
+      ]
+    }
+  ],
+  "T1_scope": "completed evaluation producer markers at export start only",
+  "random_control": "One logical control group; all three existing architecture-matched random profiles retained",
+  "original_scores_recomputed": false,
+  "downstream_TEST_read": false,
+  "no_pretraining": true,
+  "no_export_review_or_second_readback": true
+}

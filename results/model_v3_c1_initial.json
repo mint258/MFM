@@ -1,0 +1,172 @@
+{
+  "status": "TOP_TWO_REPEATS_REQUIRED_NOT_FINAL_ARCHITECTURE",
+  "joint_seed0_scores": {
+    "C1-0": 0.24211216453990045,
+    "C1-a": 0.2601907066129589,
+    "C1-b": 0.22559578728623164
+  },
+  "selected_top_two": [
+    "C1-a",
+    "C1-0"
+  ],
+  "selected_architecture": null,
+  "seed_standard_deviation": null,
+  "initial_runs": [
+    {
+      "candidate": "C1-0",
+      "condition": "S",
+      "seed": 0,
+      "score": 0.27241177993838617,
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2/configuration.json",
+      "dev_summary": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2/dev_eval/summary.json"
+    },
+    {
+      "candidate": "C1-0",
+      "condition": "P",
+      "seed": 0,
+      "score": 0.21181254914141473,
+      "configuration": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/configuration.json",
+      "dev_summary": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/dev_eval/summary.json"
+    },
+    {
+      "candidate": "C1-a",
+      "condition": "S",
+      "seed": 0,
+      "score": 0.26045875148866454,
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_a_seed0/configuration.json",
+      "dev_summary": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_a_seed0/dev_eval/summary.json"
+    },
+    {
+      "candidate": "C1-a",
+      "condition": "P",
+      "seed": 0,
+      "score": 0.25992266173725326,
+      "configuration": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro32_continuation_20261110/configuration.json",
+      "dev_summary": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro32_continuation_20261110/dev_eval/summary.json"
+    },
+    {
+      "candidate": "C1-b",
+      "condition": "S",
+      "seed": 0,
+      "score": 0.24803769275179322,
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_b_seed0_v2/configuration.json",
+      "dev_summary": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_b_seed0_v2/dev_eval/summary.json"
+    },
+    {
+      "candidate": "C1-b",
+      "condition": "P",
+      "seed": 0,
+      "score": 0.20315388182067007,
+      "configuration": "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro32_continuation_20261110/configuration.json",
+      "dev_summary": "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro32_continuation_20261110/dev_eval/summary.json"
+    }
+  ],
+  "prepared_repeats": [
+    {
+      "candidate": "C1-a",
+      "condition": "S",
+      "seed": 1,
+      "mode": "native_s",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/S_C1-a_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_S_C1-a_seed1"
+    },
+    {
+      "candidate": "C1-a",
+      "condition": "P",
+      "seed": 1,
+      "mode": "v31",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-a_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_P_C1-a_seed1"
+    },
+    {
+      "candidate": "C1-0",
+      "condition": "S",
+      "seed": 1,
+      "mode": "native_s",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/S_C1-0_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_S_C1-0_seed1"
+    },
+    {
+      "candidate": "C1-0",
+      "condition": "P",
+      "seed": 1,
+      "mode": "v31",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-0_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_P_C1-0_seed1"
+    }
+  ],
+  "gpu_jobs_submitted": false,
+  "repeat_executions": [
+    {
+      "job": 4529691,
+      "candidate": "C1-a/S/seed1",
+      "scientific_candidate": "C1-a",
+      "condition": "S",
+      "seed": 1,
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_S_C1-a_seed1",
+      "node": "compute-0-5",
+      "gpu": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/S_C1-a_seed1.json",
+      "evaluation_job": 4529693,
+      "resource_dependency": null
+    },
+    {
+      "job": 4529704,
+      "candidate": "C1-a/P/seed1",
+      "scientific_candidate": "C1-a",
+      "condition": "P",
+      "seed": 1,
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_P_C1-a_seed1",
+      "node": "compute-0-22",
+      "gpu": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-a_seed1.json",
+      "evaluation_job": 4529705,
+      "resource_dependency": null,
+      "observed_state": "RUNNING"
+    },
+    {
+      "job": 4529711,
+      "candidate": "C1-0/S/seed1",
+      "scientific_candidate": "C1-0",
+      "condition": "S",
+      "seed": 1,
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/S_C1-0_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_S_C1-0_seed1",
+      "evaluation_job": 4529712,
+      "resource_dependency": "afterok:4529709",
+      "mode": "native_s"
+    },
+    {
+      "job": 4529713,
+      "candidate": "C1-0/P/seed1",
+      "scientific_candidate": "C1-0",
+      "condition": "P",
+      "seed": 1,
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-0_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_P_C1-0_seed1",
+      "evaluation_job": 4529714,
+      "resource_dependency": "afterok:4529712",
+      "mode": "v31",
+      "microbatch_size": 32,
+      "effective_batch_size": 32,
+      "actual_same_candidate_seed0_micro32_peak_bytes": 7947732480
+    }
+  ],
+  "preparation_execution": {
+    "prior_job": 4529082,
+    "reason": "Original pending summary-only job requested16 CPUs on currently unavailable node20 (controller start estimate Nov18); cancelled before start, same metadata script ran directly on required development node.",
+    "dependency": null,
+    "job": null,
+    "prior_failed_dependency_job": 4529103,
+    "prior_pending_job": 4529710,
+    "status": "COMPLETE_BY_SHORT_SUMMARY_METADATA_COMMAND",
+    "node": "compute-0-20",
+    "execution": "SSH metadata only: existing v2_prepare_c1_repeats.py reads six closed JSON summaries; no model/data computation or Slurm completion claimed",
+    "selection": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/selection.json"
+  },
+  "final_architecture": null
+}

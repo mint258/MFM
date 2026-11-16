@@ -39,6 +39,7 @@ def configuration(architecture="C1-0"):
     if architecture != "C1-0":
         cfg["backbone"]["v3_architecture"] = asdict(ArchitectureOptions(
             distance_bias=architecture, pair_dim=4, pair_hidden_dim=8))
+        cfg["backbone"]["v3_architecture"].pop("latent")
     return cfg
 
 

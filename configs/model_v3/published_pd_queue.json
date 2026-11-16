@@ -1,0 +1,352 @@
+{
+  "stage": 5,
+  "status": "SUPERSEDED_BY_TASKBOOK_V3_ALL_SELECTION_SEED1_CANCELLED",
+  "dependency": {
+    "job": 4529073,
+    "slurm": "Formal READY consumed; failed historical afterok:4526311 cleared on original unstarted jobs",
+    "binding": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/S240k_PD_input_binding_20261108_v1/manifest.json",
+    "requires": "READY, original240000 membership, unchanged input fields; root bound only at job start",
+    "historical_failed_job": 4526311
+  },
+  "source_revision": "e5a3eb86e13cbc4fd7a6261955156ffbaa9220d1",
+  "scientific_recipe": "Original templates: P, C1-0/a/b, seed0, three views, H1, registry pooling, PM7, uniform molecules/conformers, 6M samples, B32/micro4, lr3e-4, clip1, 2% warmup/cosine",
+  "runs": [
+    {
+      "job": 4529108,
+      "candidate": "C1-0",
+      "node": "compute-0-21",
+      "gpu": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+      "suffix": "0",
+      "template": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_0_seed0.template.json",
+      "execution_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_0_seed0_micro32.APPROVED.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110",
+      "observed_state": "COMPLETED",
+      "evaluation_job": 4529708,
+      "evaluation_dependency": "afterok:4529706",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/dev_eval",
+      "prior_train_job": 4526376,
+      "prior_evaluation_job": 4526381,
+      "prior_output": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0",
+      "prior_state": "CANCELLED by user1278 after frozen complete checkpoint",
+      "resume_checkpoint": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro8_continuation_20261110/micro32_resume_20261110_v2.pt",
+      "restored_samples": 544000,
+      "replayed_samples": 30624,
+      "microbatch_size": 32,
+      "previous_train_job": 4529096,
+      "previous_evaluation_job": 4529099,
+      "previous_output": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro8_continuation_20261110",
+      "previous_execution_actual_samples": 94624,
+      "evaluation_observed_state": "COMPLETED",
+      "evaluation_node": "compute-0-6",
+      "failed_evaluation_job": 4529111,
+      "failed_evaluation_reason": "Foreign GPU context at startup; zero native evaluation work",
+      "evaluation_consumed_samples": 6000000,
+      "evaluation_dev_score": 0.21181254914141473
+    },
+    {
+      "job": 4529109,
+      "candidate": "C1-a",
+      "node": "compute-0-21",
+      "gpu": "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+      "suffix": "a",
+      "template": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_a_seed0.template.json",
+      "execution_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_a_seed0_micro32.APPROVED.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro32_continuation_20261110",
+      "observed_state": "COMPLETED",
+      "evaluation_job": 4529112,
+      "evaluation_dependency": "afterok:4529109",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro32_continuation_20261110/dev_eval",
+      "prior_train_job": 4526377,
+      "prior_evaluation_job": 4526382,
+      "prior_output": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0",
+      "prior_state": "CANCELLED by user1278 after frozen complete checkpoint",
+      "resume_checkpoint": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro8_continuation_20261110/micro32_resume_20261110_v2.pt",
+      "restored_samples": 544000,
+      "replayed_samples": 6656,
+      "microbatch_size": 32,
+      "previous_train_job": 4529097,
+      "previous_evaluation_job": 4529100,
+      "previous_output": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro8_continuation_20261110",
+      "previous_execution_actual_samples": 70656,
+      "evaluation_observed_state": "COMPLETED",
+      "evaluation_consumed_samples": 6000000,
+      "evaluation_dev_score": 0.25992266173725326
+    },
+    {
+      "job": 4529110,
+      "candidate": "C1-b",
+      "node": "compute-0-20",
+      "gpu": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "suffix": "b",
+      "template": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_b_seed0.template.json",
+      "execution_configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_P_C1_b_seed0_micro32.APPROVED.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro32_continuation_20261110",
+      "observed_state": "COMPLETED",
+      "evaluation_job": 4529113,
+      "evaluation_observed_state": "COMPLETED",
+      "evaluation_consumed_samples": 6000000,
+      "evaluation_dev_score": 0.20315388182067007,
+      "evaluation_dependency": "afterok:4529110",
+      "evaluation_output": "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro32_continuation_20261110/dev_eval",
+      "prior_train_job": 4526378,
+      "prior_evaluation_job": 4526383,
+      "prior_output": "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0",
+      "prior_state": "CANCELLED by user1278 after frozen complete checkpoint",
+      "resume_checkpoint": "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro8_continuation_20261110/micro32_resume_20261110_v2.pt",
+      "restored_samples": 608000,
+      "replayed_samples": 3232,
+      "microbatch_size": 32,
+      "previous_train_job": 4529098,
+      "previous_evaluation_job": 4529101,
+      "previous_output": "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro8_continuation_20261110",
+      "previous_execution_actual_samples": 131232
+    },
+    {
+      "job": 4529691,
+      "candidate": "C1-a/S/seed1",
+      "scientific_candidate": "C1-a",
+      "condition": "S",
+      "seed": 1,
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_S_C1-a_seed1",
+      "node": "compute-0-5",
+      "gpu": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/S_C1-a_seed1.json",
+      "evaluation_job": 4529693,
+      "resource_dependency": null,
+      "observed_state": "CANCELLED",
+      "user_paused": false,
+      "cancel_reason": "User taskbook v3 removes selection seed1",
+      "evaluation_observed_state": "CANCELLED"
+    },
+    {
+      "job": 4529704,
+      "candidate": "C1-a/P/seed1",
+      "scientific_candidate": "C1-a",
+      "condition": "P",
+      "seed": 1,
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_P_C1-a_seed1",
+      "node": "compute-0-22",
+      "gpu": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-a_seed1.json",
+      "evaluation_job": 4529705,
+      "resource_dependency": null,
+      "observed_state": "CANCELLED",
+      "user_paused": false,
+      "cancel_reason": "User taskbook v3 removes selection seed1",
+      "evaluation_observed_state": "CANCELLED"
+    }
+  ],
+  "validation": {
+    "job": 4526373,
+    "new_unit_cases": 7,
+    "passed": 7,
+    "seconds": 0.44,
+    "repository": "PASS",
+    "prior_zero_case_fixture_error_job": 4526372
+  },
+  "budget": {
+    "registry": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/model_output_budget.json",
+    "global_total_forecast_bytes": 100000000000,
+    "physical_allocations_deduplicated": true,
+    "D6_NFS_future_retired_only_after_final_publication": true
+  },
+  "selection": "Original v1 ranking remains historical only. C1 must be selected after panelv2 R2/R3 evaluation of six existing seed0 checkpoints.",
+  "evaluation_protocol": "Reuse existing v2_evaluate_s.py exactly: frozen TRAIN/train_inner_validation panel, all18 cells, paired random reference and bootstrap; no downstream TEST",
+  "execution_source_revision": "46902ce6cfddda0d1aff8f72d387e9da81906495",
+  "continuation_authorization": "User approved micro32/effectiveB32 from the latest complete checkpoint; cumulative6M/model/AdamW/RNG/scientific inputs unchanged; all earlier executions and freezes retained",
+  "repeat_preparation": {
+    "prior_job": 4529082,
+    "reason": "Original pending summary-only job requested16 CPUs on currently unavailable node20 (controller start estimate Nov18); cancelled before start, same metadata script ran directly on required development node.",
+    "dependency": null,
+    "job": null,
+    "prior_failed_dependency_job": 4529103,
+    "prior_pending_job": 4529710,
+    "status": "COMPLETE_BY_SHORT_SUMMARY_METADATA_COMMAND",
+    "node": "compute-0-20",
+    "execution": "SSH metadata only: existing v2_prepare_c1_repeats.py reads six closed JSON summaries; no model/data computation or Slurm completion claimed",
+    "selection": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/selection.json"
+  },
+  "wandb": {
+    "mode": "OFFLINE_UNSYNCED",
+    "tracking_job": 4529106,
+    "cadence_samples": 100000,
+    "root": "/lfshome/zixiao/model_v31_20261105/WANDB_20261110",
+    "publication": "results/model_v3_wandb/points/<Slurm_job>/<boundary_samples>.json",
+    "auth": "User chose offline GitHub reports and complete closed-run W&B archives; cloud authentication investigation stopped",
+    "history": "One run per actual Slurm execution; imported rows labelled; replay costs retained"
+  },
+  "telemetry_validation": {
+    "new_unit_cases": 9,
+    "passed": 9,
+    "seconds": 0.05,
+    "native_persisted_history": "Actual SDK job4526376:15102 rows, actual100k/200k/300k/400k; job4529108:531 rows observed, continuing",
+    "online_confirmed": false
+  },
+  "runtime_observation": {
+    "primary": "Slurm controller via scontrol, UID1278 checked",
+    "fallback": "Accounting explicitly marked; unavailable controller is an observation event",
+    "disk_guard_alerts": true,
+    "recovered_pause": {
+      "epoch": 1794273383,
+      "jobs": [
+        4529108,
+        4529109
+      ],
+      "cause": "NFS account quota snapshot future or stale",
+      "action": "Actual-node filesystem/inode/quota readmission then CONT same original processes",
+      "diagnostic": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_micro32_disk_pause_1794273383.json",
+      "restarted": false,
+      "unit_cases": 5,
+      "unit_passed": 5,
+      "unit_seconds": 0.03
+    }
+  },
+  "queued_runs": [
+    {
+      "job": 4529711,
+      "candidate": "C1-0/S/seed1",
+      "scientific_candidate": "C1-0",
+      "condition": "S",
+      "seed": 1,
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/S_C1-0_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_S_C1-0_seed1",
+      "evaluation_job": 4529712,
+      "resource_dependency": "afterok:4529709",
+      "mode": "native_s",
+      "observed_state": "CANCELLED",
+      "user_paused": false,
+      "cancel_reason": "User taskbook v3 removes selection seed1",
+      "evaluation_observed_state": "CANCELLED"
+    },
+    {
+      "job": 4529713,
+      "candidate": "C1-0/P/seed1",
+      "scientific_candidate": "C1-0",
+      "condition": "P",
+      "seed": 1,
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/P_C1-0_seed1.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/M3_P_C1-0_seed1",
+      "evaluation_job": 4529714,
+      "resource_dependency": "afterok:4529712",
+      "mode": "v31",
+      "microbatch_size": 32,
+      "execution_change": "Before first model start; actual original C1-0 full6M micro32 peak7947732480B, unchanged effectiveB32.",
+      "observed_state": "CANCELLED",
+      "pending_reason": "JobHeldUser",
+      "user_paused": false,
+      "cancel_reason": "User taskbook v3 removes selection seed1",
+      "evaluation_observed_state": "CANCELLED"
+    }
+  ],
+  "auxiliary_runs": [
+    {
+      "job": 4529706,
+      "kind": "FULL_AND_TRAIN_UNSEEN_CONFORMATION",
+      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro32_continuation_20261110/samples_6000000.pt",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/validation_Pa_seed0.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/P_C1_a_seed0_micro32_continuation_20261110/validation/full_and_train_unseen_6M_seed0.json",
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "dependency": null,
+      "selection_use": false,
+      "observed_state": "COMPLETED",
+      "observed_exit_code": "0:0",
+      "records": {
+        "FULL": 126764,
+        "TRAIN_UNSEEN_CONFORMATION": 4292
+      }
+    },
+    {
+      "job": 4529709,
+      "kind": "FULL_AND_TRAIN_UNSEEN_CONFORMATION",
+      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro32_continuation_20261110/samples_6000000.pt",
+      "configuration": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/M3_C1_TOP2_20261110/validation_Pb_seed0.json",
+      "output": "/lfshome/zixiao/model_v31_20261105/P_C1_b_seed0_micro32_continuation_20261110/validation/full_and_train_unseen_6M_seed0.json",
+      "node": "compute-0-6",
+      "gpu": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "dependency": "afterok:4529708",
+      "selection_use": false,
+      "previous_job": 4529707
+    }
+  ],
+  "retired_submissions": [
+    {
+      "job": 4529692,
+      "dev_job": 4529694,
+      "status": "FAILED_GPU_CONTEXT_BEFORE_MODEL_START",
+      "training_samples": 0,
+      "new_job": 4529704,
+      "new_node": "compute-0-22"
+    },
+    {
+      "jobs": [
+        4529696,
+        4529697
+      ],
+      "status": "CANCELLED_PENDING_ZERO_NATIVE_WORK",
+      "replacement_jobs": [
+        4529706,
+        4529707
+      ]
+    },
+    {
+      "job": 4529111,
+      "status": "FAILED_GPU_CONTEXT_BEFORE_EVALUATION_START",
+      "evaluation_work": 0,
+      "replacement_job": 4529708
+    },
+    {
+      "jobs": [
+        4529707,
+        4529103
+      ],
+      "status": "CANCELLED_PENDING_ZERO_NATIVE_WORK",
+      "replacement_jobs": [
+        4529709,
+        4529710
+      ],
+      "reason": "Prioritize critical C1 dev before second raw diagnostic; replace failed dependency"
+    },
+    {
+      "job": 4529710,
+      "status": "CANCELLED_PENDING_ZERO_NATIVE_WORK",
+      "replacement": "Same summary-only preparation executed by SSH on compute-0-20; actual exit0, no Slurm job claimed"
+    }
+  ],
+  "user_pause": {
+    "status": "SUPERSEDED_USER_V3_CANCELLED",
+    "directive": "等一下，你先不要做补种子任务了，等待通知",
+    "epoch": 1794372002,
+    "stopped_jobs": [
+      4529691,
+      4529704,
+      4529711
+    ],
+    "held_jobs": [
+      4529693,
+      4529705,
+      4529712,
+      4529713,
+      4529714
+    ],
+    "controller_verified_states": {
+      "4529691": "STOPPED",
+      "4529693": "PENDING JobHeldUser",
+      "4529704": "STOPPED",
+      "4529705": "PENDING JobHeldUser",
+      "4529711": "STOPPED",
+      "4529712": "PENDING JobHeldUser",
+      "4529713": "PENDING JobHeldUser",
+      "4529714": "PENDING JobHeldUser"
+    },
+    "action": "Slurm suspend denied; scancel --signal=STOP --full --user=zixiao --nodelist=<verified node> succeeded for each actual running job. Pending user holds succeeded. No cancellation, restart or checkpoint rollback.",
+    "automatic_recovery_seed1_entries_removed": true,
+    "process_state_and_checkpoints_retained": true,
+    "resume_requires_new_explicit_user_instruction": true
+  },
+  "v3_directive": "All eight original supplement/dev jobs scancel by user taskbook v3; logs/checkpoints retained. Original v1 seed0 remains historical; new decisions use panelv2/R3/seed0."
+}

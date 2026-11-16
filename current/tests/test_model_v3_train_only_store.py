@@ -39,6 +39,17 @@ def fixture_store(tmp_path):
     return path, hashlib.sha256(raw).hexdigest(), payload, records
 
 
+def test_taskbook_v2_reads_allowed_frames_without_recomputing_digests(tmp_path, monkeypatch):
+    path, _, _, _ = fixture_store(tmp_path)
+    def forbidden(*args, **kwargs):
+        raise AssertionError('Taskbook v2 does not recompute metadata/record digests')
+    monkeypatch.setattr(hashlib, 'sha256', forbidden)
+    store = TrainOnlyPackedStore(path, verify_digests=False)
+    assert store.get('qm9', 0).targets.item() == pytest.approx(1., abs=1e-6, rel=1e-6)
+    with pytest.raises(ValueError, match='outside'):
+        store.get('qm9', 2)
+
+
 def test_only_selected_frame_bytes_are_read_and_unknown_member_is_denied(tmp_path, monkeypatch):
     path, digest, payload, records = fixture_store(tmp_path)
     original = Path.open; reads = []

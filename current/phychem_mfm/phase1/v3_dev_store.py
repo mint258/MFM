@@ -57,8 +57,10 @@ class TrainOnlyPackedStore:
     This consumer verifies sidecar SHA and every selected record's exact SHA.
     """
 
-    def __init__(self, path, expected_sha256):
-        document = bound_json(path, expected_sha256)
+    def __init__(self, path, expected_sha256=None, *, verify_digests=True):
+        self.verify_digests = verify_digests
+        document = (bound_json(path, expected_sha256) if verify_digests
+                    else json.loads(Path(path).read_text()))
         if (document.get("schema") != "model_v3_training_role_store_v1"
                 or document.get("source_complete") is not True
                 or document.get("targets_in_metadata") is not False
@@ -147,7 +149,8 @@ class TrainOnlyPackedStore:
             stream.seek(row["offset"]); raw = stream.read(row["bytes"])
         after = self._path.stat()
         if ((before.st_size, before.st_mtime_ns) != (after.st_size, after.st_mtime_ns)
-                or len(raw) != row["bytes"] or hashlib.sha256(raw).hexdigest() != row["sha256"]):
+                or len(raw) != row["bytes"] or (self.verify_digests
+                    and hashlib.sha256(raw).hexdigest() != row["sha256"])):
             raise ValueError("Selected physical native record changed")
         n, nr, nt, ready = struct.unpack_from("<4I", raw)
         if (n, nr, nt, ready) != (row["native_n_atoms"], row["target_rows"], len(row["tasks"]), int(row["geometry_ready"])):

@@ -21,9 +21,10 @@ def main():
     parser.add_argument("--workers", type=int, default=16)
     parser.add_argument("--partitions", type=int, default=1)
     parser.add_argument("--partition-index", type=int, default=0)
-    parser.add_argument("--expected-node", choices=tuple("compute-0-"+str(i) for i in (2, *range(8, 20))),
+    parser.add_argument("--fixture-update", type=Path)
+    parser.add_argument("--expected-node", choices=tuple("compute-0-"+str(i) for i in (2, *range(8, 20), 22)),
                         required=True,
-                        help="Explicit CPU node; user reserves GPU nodes for GPU work")
+                        help="Explicit node; node22 CPU fallback is authorized for the performance task")
     args = parser.parse_args()
     if not os.environ.get("SLURM_JOB_ID") or socket.gethostname().split(".")[0] != args.expected_node:
         raise RuntimeError("Regression needs its own Slurm allocation on the explicitly expected node")
@@ -35,23 +36,34 @@ def main():
     if not files:
         raise RuntimeError("No core test files found")
     all_files = list(files)
+    size_overrides = {}
+    if args.fixture_update:
+        update = json.loads(args.fixture_update.read_text())
+        path = root/update['path']
+        if (update['schema'] != 'CPU_PERF_REVIEWED_FIXTURE_UPDATE_V1' or path not in files
+                or hashlib.sha256(path.read_bytes()).hexdigest() != update['sha256']
+                or type(update['previous_bytes']) is not int or update['previous_bytes'] <= 0):
+            raise RuntimeError('Reviewed fixture/assignment binding differs')
+        size_overrides[path] = update['previous_bytes']
+    def source_size(path):
+        return size_overrides.get(path, path.stat().st_size)
     if not 0 <= args.partition_index < args.partitions <= min(8, len(files)):
         raise ValueError("Invalid bounded regression partition")
     if args.partitions > 1:
         partitions, weights = [[] for _ in range(args.partitions)], [0] * args.partitions
-        for path in sorted(files, key=lambda p: (-p.stat().st_size, p.name)):
+        for path in sorted(files, key=lambda p: (-source_size(p), p.name)):
             chosen = min(range(args.partitions), key=lambda i: (weights[i], i))
             partitions[chosen].append(path)
-            weights[chosen] += path.stat().st_size
+            weights[chosen] += source_size(path)
         files = sorted(partitions[args.partition_index])
     workers = min(args.workers, len(files))
     # Size-balanced assignment avoids putting every large parametrized module
     # into the same worker while preserving a reproducible assignment.
     groups, sizes = [[] for _ in range(workers)], [0] * workers
-    for path in sorted(files, key=lambda p: (-p.stat().st_size, p.name)):
+    for path in sorted(files, key=lambda p: (-source_size(p), p.name)):
         group = min(range(workers), key=lambda i: (sizes[i], i))
         groups[group].append(path)
-        sizes[group] += path.stat().st_size
+        sizes[group] += source_size(path)
 
     def run(index):
         log, xml = out / f"shard_{index:02d}.log", out / f"shard_{index:02d}.xml"
@@ -84,6 +96,7 @@ def main():
               "node": socket.gethostname(), "job_id": os.environ["SLURM_JOB_ID"],
               "expected_node": args.expected_node,
               "partitions": args.partitions, "partition_index": args.partition_index,
+              "assignment_size_overrides": {str(p.relative_to(root)):v for p,v in size_overrides.items()},
               "all_test_file_sha256": {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest() for p in all_files},
               "code_commit": args.code_commit, "test_file_count": len(files),
               "test_source_sha256": {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},

@@ -1,0 +1,47 @@
+{
+  "status": "FIXED_SPECIFICATION_NOT_AN_ADOPTION_DECISION",
+  "authority": "docs/model_v3/TASKBOOK_V3.md",
+  "default": {
+    "kind": "lite_rec",
+    "n_ref": 53.64145,
+    "d": 512,
+    "heads": 8,
+    "k": 8,
+    "latent_dim": 256,
+    "projected_dim": 64,
+    "sum_dim": 64,
+    "decoder_dim": 256,
+    "reconstruction_weight": 0.1,
+    "insert_layers": [5, 6],
+    "write_back": true,
+    "reconstruction": true,
+    "radial_count": 32,
+    "radial_max_A": 8.0
+  },
+  "N_ref_source": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S240k/records.parquet",
+  "N_ref_molecules": 240000,
+  "N_ref_method": "Mean original total_atoms once per originalD5 molecule, not once per conformer; computed once without labels or D4 refit",
+  "fixed_implementation": {
+    "attention_projection_dim": 256,
+    "attention_projection_bias": false,
+    "layer_norm_eps": 0.00001,
+    "latent_ffn": [256, 512, 256],
+    "latent_ffn_activation": "GELU, fixed for the new latent/decoder/dense FFNs; legacy backbone SiLU unchanged",
+    "decoder_ffn": [256, 512, 256],
+    "initial_Z0_std": 0.02,
+    "radial_basis": "32 normalized Gaussian centers uniformly0..8Angstrom, width8/31; same radial range as existing C1",
+    "reconstruction": "Squared512-dimensional vector norm, mean across valid batch atoms, divided by stop-gradient per-feature population variance averaged over features; no divide512",
+    "variance_zero_handling": "clamp only at floating dtype machine epsilon",
+    "dense_addon_matching": "Deterministic algebraic hidden width, nearest multiple8, matching lite_rec new-module parameter count within5%; full condition model counts recorded before its first actual run"
+  },
+  "conditional_A3_only": [
+    {"k": 8, "reconstruction_weight": 0.3},
+    {"k": 16, "reconstruction_weight": 0.1}
+  ],
+  "T0_short_runs": 4,
+  "T0_user_confirmation_date": "2026-11-11",
+  "molecular_scalar_routes": "mean -> MLP(z); sum -> sum_i MLP(x_i)+zero-initialized w_z^Tz",
+  "molecular_vector_routes": "User2026-11-11 approved: scalar heads use z; physical molecular vector heads retain original equivariant X/coordinate path; no field/D4 changes",
+  "field_enablement_changes": false,
+  "D4_refit": false
+}

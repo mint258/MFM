@@ -1,0 +1,668 @@
+{
+  "schema": "MODEL_V3_DIAGNOSTICS_DELIVERY_20261112",
+  "status": "ALL_SIX_EXPORTS_COMPLETE",
+  "selection_use": false,
+  "original_scores_recomputed": false,
+  "original_rules_or_ongoing_training_modified": false,
+  "export_review_or_second_readback_performed": false,
+  "curve_device": "cpu",
+  "original_readout_device": "cuda",
+  "jobs": {
+    "initial_static_attempt": 4530014,
+    "continuation": 4530015,
+    "existing_random_z_controls": 4530016,
+    "legacy_R0_predictions": 4530064
+  },
+  "file_count": 162,
+  "total_bytes": 78623911,
+  "files": [
+    {
+      "path": "scope.json",
+      "bytes": 8984
+    },
+    {
+      "path": "u0/label_and_atom_count_distributions.json",
+      "bytes": 2568
+    },
+    {
+      "path": "u0/molecules.parquet",
+      "bytes": 220399
+    },
+    {
+      "path": "summaries/C1-0_S.json",
+      "bytes": 236648
+    },
+    {
+      "path": "predictions/C1-0_S.parquet",
+      "bytes": 454279
+    },
+    {
+      "path": "features/C1-0_S.parquet",
+      "bytes": 238658
+    },
+    {
+      "path": "summaries/C1-0_P.json",
+      "bytes": 236792
+    },
+    {
+      "path": "predictions/C1-0_P.parquet",
+      "bytes": 452911
+    },
+    {
+      "path": "features/C1-0_P.parquet",
+      "bytes": 239887
+    },
+    {
+      "path": "summaries/C1-a_S.json",
+      "bytes": 237843
+    },
+    {
+      "path": "predictions/C1-a_S.parquet",
+      "bytes": 457332
+    },
+    {
+      "path": "features/C1-a_S.parquet",
+      "bytes": 237877
+    },
+    {
+      "path": "summaries/C1-a_P.json",
+      "bytes": 238101
+    },
+    {
+      "path": "predictions/C1-a_P.parquet",
+      "bytes": 457626
+    },
+    {
+      "path": "features/C1-a_P.parquet",
+      "bytes": 239652
+    },
+    {
+      "path": "summaries/C1-b_S.json",
+      "bytes": 238271
+    },
+    {
+      "path": "predictions/C1-b_S.parquet",
+      "bytes": 452015
+    },
+    {
+      "path": "features/C1-b_S.parquet",
+      "bytes": 237710
+    },
+    {
+      "path": "summaries/C1-b_P.json",
+      "bytes": 237425
+    },
+    {
+      "path": "predictions/C1-b_P.parquet",
+      "bytes": 455906
+    },
+    {
+      "path": "features/C1-b_P.parquet",
+      "bytes": 237400
+    },
+    {
+      "path": "summaries/random_C1-0.json",
+      "bytes": 244803
+    },
+    {
+      "path": "predictions/random_C1-0.parquet",
+      "bytes": 451196
+    },
+    {
+      "path": "features/random_C1-0.parquet",
+      "bytes": 239250
+    },
+    {
+      "path": "summaries/random_C1-a.json",
+      "bytes": 246102
+    },
+    {
+      "path": "predictions/random_C1-a.parquet",
+      "bytes": 451397
+    },
+    {
+      "path": "features/random_C1-a.parquet",
+      "bytes": 239706
+    },
+    {
+      "path": "summaries/random_C1-b.json",
+      "bytes": 246410
+    },
+    {
+      "path": "predictions/random_C1-b.parquet",
+      "bytes": 451414
+    },
+    {
+      "path": "features/random_C1-b.parquet",
+      "bytes": 239706
+    },
+    {
+      "path": "summaries/T0_T0-3_S.json",
+      "bytes": 1074550
+    },
+    {
+      "path": "predictions/T0_T0-3_S.parquet",
+      "bytes": 662461
+    },
+    {
+      "path": "features/T0_T0-3_S.parquet",
+      "bytes": 354578
+    },
+    {
+      "path": "summaries/T0_T0-4_S.json",
+      "bytes": 1074998
+    },
+    {
+      "path": "predictions/T0_T0-4_S.parquet",
+      "bytes": 665647
+    },
+    {
+      "path": "features/T0_T0-4_S.parquet",
+      "bytes": 354614
+    },
+    {
+      "path": "summaries/T1_A0_S.json",
+      "bytes": 1340026
+    },
+    {
+      "path": "predictions/T1_A0_S.parquet",
+      "bytes": 459798
+    },
+    {
+      "path": "features/T1_A0_S.parquet",
+      "bytes": 236237
+    },
+    {
+      "path": "summaries/T1_A1_S.json",
+      "bytes": 2235749
+    },
+    {
+      "path": "predictions/T1_A1_S.parquet",
+      "bytes": 679510
+    },
+    {
+      "path": "features/T1_A1_S.parquet",
+      "bytes": 353388
+    },
+    {
+      "path": "summaries/T0_T0-3_P.json",
+      "bytes": 1076776
+    },
+    {
+      "path": "predictions/T0_T0-3_P.parquet",
+      "bytes": 663350
+    },
+    {
+      "path": "features/T0_T0-3_P.parquet",
+      "bytes": 356218
+    },
+    {
+      "path": "summaries/T0_T0-4_P.json",
+      "bytes": 1075108
+    },
+    {
+      "path": "predictions/T0_T0-4_P.parquet",
+      "bytes": 670488
+    },
+    {
+      "path": "features/T0_T0-4_P.parquet",
+      "bytes": 356372
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0000",
+      "bytes": 3145728
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0001",
+      "bytes": 3145728
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0002",
+      "bytes": 3145728
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0003",
+      "bytes": 3145728
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0004",
+      "bytes": 3145728
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0005",
+      "bytes": 3145728
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0006",
+      "bytes": 3145728
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0007",
+      "bytes": 3145728
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0008",
+      "bytes": 3145728
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0009",
+      "bytes": 3145728
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0010",
+      "bytes": 3145728
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0011",
+      "bytes": 3145728
+    },
+    {
+      "path": "native_s_logs/S_seed0_losses_v2.tar.gz.part0012",
+      "bytes": 52733
+    },
+    {
+      "path": "native_s_logs/manifest.json",
+      "bytes": 2007
+    },
+    {
+      "path": "STATIC_MANIFEST.json",
+      "bytes": 17778
+    },
+    {
+      "path": "curves/C1-0_S.parquet",
+      "bytes": 18049
+    },
+    {
+      "path": "curves/C1-0_S_diagnostic_endpoint_predictions.parquet",
+      "bytes": 270996
+    },
+    {
+      "path": "curves/C1-0_S_metadata.json",
+      "bytes": 2227
+    },
+    {
+      "path": "curves/C1-0_P.parquet",
+      "bytes": 18039
+    },
+    {
+      "path": "curves/C1-0_P_diagnostic_endpoint_predictions.parquet",
+      "bytes": 270876
+    },
+    {
+      "path": "curves/C1-0_P_metadata.json",
+      "bytes": 2253
+    },
+    {
+      "path": "curves/C1-a_S.parquet",
+      "bytes": 18048
+    },
+    {
+      "path": "curves/C1-a_S_diagnostic_endpoint_predictions.parquet",
+      "bytes": 270734
+    },
+    {
+      "path": "curves/C1-a_S_metadata.json",
+      "bytes": 2221
+    },
+    {
+      "path": "curves/C1-a_P.parquet",
+      "bytes": 18005
+    },
+    {
+      "path": "curves/C1-a_P_diagnostic_endpoint_predictions.parquet",
+      "bytes": 270210
+    },
+    {
+      "path": "curves/C1-a_P_metadata.json",
+      "bytes": 2253
+    },
+    {
+      "path": "curves/C1-b_S.parquet",
+      "bytes": 18067
+    },
+    {
+      "path": "curves/C1-b_S_diagnostic_endpoint_predictions.parquet",
+      "bytes": 270700
+    },
+    {
+      "path": "curves/C1-b_S_metadata.json",
+      "bytes": 2227
+    },
+    {
+      "path": "curves/C1-b_P.parquet",
+      "bytes": 18031
+    },
+    {
+      "path": "curves/C1-b_P_diagnostic_endpoint_predictions.parquet",
+      "bytes": 270333
+    },
+    {
+      "path": "curves/C1-b_P_metadata.json",
+      "bytes": 2253
+    },
+    {
+      "path": "curves/random_C1-0.parquet",
+      "bytes": 17992
+    },
+    {
+      "path": "curves/random_C1-0_diagnostic_endpoint_predictions.parquet",
+      "bytes": 269242
+    },
+    {
+      "path": "curves/random_C1-0_metadata.json",
+      "bytes": 2230
+    },
+    {
+      "path": "curves/random_C1-a.parquet",
+      "bytes": 17976
+    },
+    {
+      "path": "curves/random_C1-a_diagnostic_endpoint_predictions.parquet",
+      "bytes": 268897
+    },
+    {
+      "path": "curves/random_C1-a_metadata.json",
+      "bytes": 2227
+    },
+    {
+      "path": "curves/random_C1-b.parquet",
+      "bytes": 17976
+    },
+    {
+      "path": "curves/random_C1-b_diagnostic_endpoint_predictions.parquet",
+      "bytes": 268897
+    },
+    {
+      "path": "curves/random_C1-b_metadata.json",
+      "bytes": 2230
+    },
+    {
+      "path": "curves/T0_T0-3_S.parquet",
+      "bytes": 23596
+    },
+    {
+      "path": "curves/T0_T0-3_S_diagnostic_endpoint_predictions.parquet",
+      "bytes": 371244
+    },
+    {
+      "path": "curves/T0_T0-3_S_metadata.json",
+      "bytes": 1260
+    },
+    {
+      "path": "curves/T0_T0-4_S.parquet",
+      "bytes": 23626
+    },
+    {
+      "path": "curves/T0_T0-4_S_diagnostic_endpoint_predictions.parquet",
+      "bytes": 371505
+    },
+    {
+      "path": "curves/T0_T0-4_S_metadata.json",
+      "bytes": 1260
+    },
+    {
+      "path": "curves/T0_T0-3_P.parquet",
+      "bytes": 23617
+    },
+    {
+      "path": "curves/T0_T0-3_P_diagnostic_endpoint_predictions.parquet",
+      "bytes": 370893
+    },
+    {
+      "path": "curves/T0_T0-3_P_metadata.json",
+      "bytes": 1259
+    },
+    {
+      "path": "curves/T0_T0-4_P.parquet",
+      "bytes": 23606
+    },
+    {
+      "path": "curves/T0_T0-4_P_diagnostic_endpoint_predictions.parquet",
+      "bytes": 370997
+    },
+    {
+      "path": "curves/T0_T0-4_P_metadata.json",
+      "bytes": 1259
+    },
+    {
+      "path": "MANIFEST.json",
+      "bytes": 25738
+    },
+    {
+      "path": "reference_z_controls/scope.json",
+      "bytes": 4241
+    },
+    {
+      "path": "reference_z_controls/summaries/random_z_pma_k8_write0.json",
+      "bytes": 945538
+    },
+    {
+      "path": "reference_z_controls/predictions/random_z_pma_k8_write0.parquet",
+      "bytes": 309954
+    },
+    {
+      "path": "reference_z_controls/features/random_z_pma_k8_write0.parquet",
+      "bytes": 283121
+    },
+    {
+      "path": "reference_z_controls/summaries/random_z_lite_k8_write0.json",
+      "bytes": 943882
+    },
+    {
+      "path": "reference_z_controls/predictions/random_z_lite_k8_write0.parquet",
+      "bytes": 308648
+    },
+    {
+      "path": "reference_z_controls/features/random_z_lite_k8_write0.parquet",
+      "bytes": 283150
+    },
+    {
+      "path": "reference_z_controls/summaries/random_C1-0_R1_v2_reference.json",
+      "bytes": 454438
+    },
+    {
+      "path": "reference_z_controls/predictions/random_C1-0_R1_v2_reference.parquet",
+      "bytes": 232682
+    },
+    {
+      "path": "reference_z_controls/features/random_C1-0_R1_v2_reference.parquet",
+      "bytes": 239250
+    },
+    {
+      "path": "reference_z_controls/features_observed/C1-0_S.parquet",
+      "bytes": 415504
+    },
+    {
+      "path": "reference_z_controls/features_observed/C1-0_P.parquet",
+      "bytes": 426302
+    },
+    {
+      "path": "reference_z_controls/features_observed/C1-a_S.parquet",
+      "bytes": 414351
+    },
+    {
+      "path": "reference_z_controls/features_observed/C1-a_P.parquet",
+      "bytes": 419235
+    },
+    {
+      "path": "reference_z_controls/features_observed/C1-b_S.parquet",
+      "bytes": 412857
+    },
+    {
+      "path": "reference_z_controls/features_observed/C1-b_P.parquet",
+      "bytes": 426369
+    },
+    {
+      "path": "reference_z_controls/features_observed/random_C1-0.parquet",
+      "bytes": 423439
+    },
+    {
+      "path": "reference_z_controls/features_observed/random_C1-a.parquet",
+      "bytes": 423602
+    },
+    {
+      "path": "reference_z_controls/features_observed/random_C1-b.parquet",
+      "bytes": 423602
+    },
+    {
+      "path": "reference_z_controls/features_observed/T0_T0-3_S.parquet",
+      "bytes": 542573
+    },
+    {
+      "path": "reference_z_controls/features_observed/T0_T0-4_S.parquet",
+      "bytes": 542161
+    },
+    {
+      "path": "reference_z_controls/features_observed/T1_A0_S.parquet",
+      "bytes": 415320
+    },
+    {
+      "path": "reference_z_controls/features_observed/T1_A1_S.parquet",
+      "bytes": 541180
+    },
+    {
+      "path": "reference_z_controls/features_observed/T0_T0-3_P.parquet",
+      "bytes": 551850
+    },
+    {
+      "path": "reference_z_controls/features_observed/T0_T0-4_P.parquet",
+      "bytes": 552050
+    },
+    {
+      "path": "reference_z_controls/features_observed/random_z_pma_k8_write0.parquet",
+      "bytes": 386316
+    },
+    {
+      "path": "reference_z_controls/features_observed/random_z_lite_k8_write0.parquet",
+      "bytes": 387280
+    },
+    {
+      "path": "reference_z_controls/features_observed/random_C1-0_R1_v2_reference.parquet",
+      "bytes": 423439
+    },
+    {
+      "path": "reference_z_controls/STATIC_MANIFEST.json",
+      "bytes": 7612
+    },
+    {
+      "path": "reference_z_controls/curves/random_z_pma_k8_write0.parquet",
+      "bytes": 10583
+    },
+    {
+      "path": "reference_z_controls/curves/random_z_pma_k8_write0_diagnostic_endpoint_predictions.parquet",
+      "bytes": 167067
+    },
+    {
+      "path": "reference_z_controls/curves/random_z_pma_k8_write0_metadata.json",
+      "bytes": 929
+    },
+    {
+      "path": "reference_z_controls/curves/random_z_lite_k8_write0.parquet",
+      "bytes": 10585
+    },
+    {
+      "path": "reference_z_controls/curves/random_z_lite_k8_write0_diagnostic_endpoint_predictions.parquet",
+      "bytes": 167054
+    },
+    {
+      "path": "reference_z_controls/curves/random_z_lite_k8_write0_metadata.json",
+      "bytes": 933
+    },
+    {
+      "path": "reference_z_controls/MANIFEST.json",
+      "bytes": 9306
+    },
+    {
+      "path": "r0_reconstruction/scope.json",
+      "bytes": 3895
+    },
+    {
+      "path": "r0_reconstruction/predictions/C1-0_S_R0_reconstructed.parquet",
+      "bytes": 186091
+    },
+    {
+      "path": "r0_reconstruction/metadata/C1-0_S.json",
+      "bytes": 3480
+    },
+    {
+      "path": "r0_reconstruction/predictions/C1-0_P_R0_reconstructed.parquet",
+      "bytes": 185552
+    },
+    {
+      "path": "r0_reconstruction/metadata/C1-0_P.json",
+      "bytes": 3506
+    },
+    {
+      "path": "r0_reconstruction/predictions/C1-a_S_R0_reconstructed.parquet",
+      "bytes": 185863
+    },
+    {
+      "path": "r0_reconstruction/metadata/C1-a_S.json",
+      "bytes": 3474
+    },
+    {
+      "path": "r0_reconstruction/predictions/C1-a_P_R0_reconstructed.parquet",
+      "bytes": 185222
+    },
+    {
+      "path": "r0_reconstruction/metadata/C1-a_P.json",
+      "bytes": 3506
+    },
+    {
+      "path": "r0_reconstruction/predictions/C1-b_S_R0_reconstructed.parquet",
+      "bytes": 185677
+    },
+    {
+      "path": "r0_reconstruction/metadata/C1-b_S.json",
+      "bytes": 3480
+    },
+    {
+      "path": "r0_reconstruction/predictions/C1-b_P_R0_reconstructed.parquet",
+      "bytes": 185435
+    },
+    {
+      "path": "r0_reconstruction/metadata/C1-b_P.json",
+      "bytes": 3506
+    },
+    {
+      "path": "r0_reconstruction/predictions/random_C1-0_R0_reconstructed.parquet",
+      "bytes": 185074
+    },
+    {
+      "path": "r0_reconstruction/metadata/random_C1-0.json",
+      "bytes": 3483
+    },
+    {
+      "path": "r0_reconstruction/predictions/random_C1-a_R0_reconstructed.parquet",
+      "bytes": 184433
+    },
+    {
+      "path": "r0_reconstruction/metadata/random_C1-a.json",
+      "bytes": 3480
+    },
+    {
+      "path": "r0_reconstruction/predictions/random_C1-b_R0_reconstructed.parquet",
+      "bytes": 184433
+    },
+    {
+      "path": "r0_reconstruction/metadata/random_C1-b.json",
+      "bytes": 3483
+    },
+    {
+      "path": "r0_reconstruction/MANIFEST.json",
+      "bytes": 4379
+    },
+    {
+      "path": "README.md",
+      "bytes": 4490
+    },
+    {
+      "path": "READOUT_ALIASES.json",
+      "bytes": 27610
+    },
+    {
+      "path": "DELIVERY_MANIFEST.json",
+      "bytes": 15517
+    }
+  ]
+}
