@@ -9,6 +9,7 @@ from torch.utils.checkpoint import checkpoint
 
 from .attention import RealCoordTransformerLayer
 from .common import ensure_batch_attr
+from .precision import fp32_island, island_tensor
 from .v3_distance_bias import (validate_distance_bias_projection_bias,
     require_distance_bias_constructor,require_distance_bias_backbone)
 
@@ -85,7 +86,8 @@ class RealCoordTransformerBackbone(nn.Module):
             if return_intermediates:
                 intermediate.append(x_dense[mask])
 
-        x_dense = self.out_norm(x_dense) * mask.unsqueeze(-1).to(x_dense.dtype)
+        with fp32_island(x_dense):
+            x_dense = island_tensor('layer_norm', self.out_norm(x_dense.float())) * mask.unsqueeze(-1).float()
         if return_intermediates:
             intermediate[-1] = x_dense[mask]
             return x_dense[mask], tuple(intermediate)

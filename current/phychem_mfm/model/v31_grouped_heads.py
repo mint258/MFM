@@ -8,15 +8,19 @@ from torch.nn.utils.rnn import pad_sequence
 from torch.utils.checkpoint import checkpoint
 
 from .v3_heads import _pool
+from .precision import fp32_island, island_tensor, linear, matmul
 
 
 def _linear(modules, value):
+    mode = getattr(modules[0], 'precision', 'fp32')
     if value.ndim == 2:
         weight = torch.cat([module.weight for module in modules])
         bias = None if modules[0].bias is None else torch.cat([module.bias for module in modules])
-        return F.linear(value, weight, bias).reshape(len(value), len(modules), modules[0].out_features)
+        result = F.linear(value, weight, bias) if mode == 'fp32' else linear(value, weight, bias, mode)
+        return result.reshape(len(value), len(modules), modules[0].out_features)
     weight = torch.stack([module.weight for module in modules])
-    result = torch.bmm(value.transpose(0, 1), weight.transpose(1, 2)).transpose(0, 1)
+    left, right = value.transpose(0, 1), weight.transpose(1, 2)
+    result = (torch.bmm(left, right) if mode == 'fp32' else matmul(left, right, mode)).transpose(0, 1)
     if modules[0].bias is not None:
         result = result + torch.stack([module.bias for module in modules])[None]
     return result
@@ -47,11 +51,15 @@ def _atom_vectors(heads, h, pos, batch):
 
     def chunk(features, coordinates, i, j):
         relative = coordinates[i] - coordinates[j]
+        if getattr(first, 'precision', 'fp32') != 'fp32':
+            relative = island_tensor('grouped_vector_relative_positions', relative)
         distance = relative.norm(dim=-1).clamp_min(1e-8)
         centers = torch.stack([head.rbf_centers for head in heads])
         rbf = torch.exp(-first.rbf_gamma*(distance[:, None, None]-centers[None])**2)
         envelope = .5*(1.+torch.cos(torch.pi*distance/first.radius))
         rbf = rbf*envelope[:, None, None]
+        if getattr(first, 'precision', 'fp32') != 'fp32':
+            rbf = island_tensor('grouped_vector_rbf', rbf)
         left = features[i, None].expand(-1, len(heads), -1)
         right = features[j, None].expand(-1, len(heads), -1)
         values = _bank([head.pair_mlp for head in heads], torch.cat((left, right, rbf.to(features.dtype)), -1))
@@ -62,6 +70,8 @@ def _atom_vectors(heads, h, pos, batch):
         value = (checkpoint(chunk, h, pos, i, j, use_reentrant=False) if first.activation_checkpointing and torch.is_grad_enabled()
                  else chunk(h, pos, i, j))
         noise = noise.index_add(0, i, value.to(pos.dtype))
+    if getattr(first, 'precision', 'fp32') != 'fp32':
+        noise = island_tensor('grouped_vector_scatter', noise)
     return noise/degree if first.normalization == 'sqrt_neighbors' else noise
 
 
@@ -74,6 +84,8 @@ def _pairs(heads, h, pos, indices):
     features = (h[src]+h[dst], (h[src]-h[dst]).abs())
     if heads[0].use_distance:
         distance = (pos[src].float()-pos[dst].float()).norm(dim=-1)
+        if getattr(heads[0], 'precision', 'fp32') != 'fp32':
+            distance = island_tensor('grouped_pair_distance', distance)
         centers = torch.stack([head.centers for head in heads])
         rbf = torch.exp(-heads[0].gamma*(distance[..., None]-centers[None].float())**2)
         envelope = torch.where(distance < heads[0].radius,
@@ -84,6 +96,17 @@ def _pairs(heads, h, pos, indices):
 
 
 def grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, observed_fields):
+    if getattr(bank, 'precision', 'fp32') == 'fp32':
+        return _grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, observed_fields)
+    # Nested GEMM helpers select their own mode; all surrounding geometry,
+    # bias additions, nonlinearities and reductions retain FP32 boundaries.
+    with fp32_island(h):
+        h = island_tensor('grouped_head_features', h)
+        pos = island_tensor('grouped_head_positions', pos) if pos is not None else None
+        return _grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, observed_fields)
+
+
+def _grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, observed_fields):
     graphs = int(batch.max())+1
     buckets = defaultdict(list)
     for field in fields:
@@ -132,6 +155,8 @@ def grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, o
                 charges = _bank([head.charges for head in heads], h.float())
                 vectors = pos.new_zeros((graphs, len(heads), 3)).index_add(
                     0, batch, charges*(pos.float()-center[batch])[:, None])
+                if getattr(bank, 'precision', 'fp32') != 'fp32':
+                    vectors = island_tensor('grouped_graph_vector_scatter', vectors)
                 values = [vectors[:, i].norm(dim=-1, keepdim=True) if head.magnitude else vectors[:, i]
                           for i, head in enumerate(heads)]
             else:
