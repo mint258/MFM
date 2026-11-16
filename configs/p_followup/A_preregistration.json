@@ -1,0 +1,24 @@
+{
+ "taskbook":"TASKBOOK_V2.md (original filename v1)",
+ "analysis":"mean(H) composition origin, existing fixed5000VAL only",
+ "seed":20261025,"validation_selection_seed":20261112,"molecules":5000,"maximum_conformers":10,"layers":[3,4,5,6],
+ "conditions":["P0-S","P0-P","R1-B0","R1-A1","R2-M1","R2-B1","C","D"],
+ "missing_checkpoint":"MISSING; never substitute another condition/sample count",
+ "representation_storage":"F32 conformer mean(H) only; atom H streaming; remove own mean cache after use",
+ "metric_dtype":"float64","outer_folds":5,"split_unit":"molecule","alpha_grid":[0.001,0.01,0.1,1,10,100,1000],
+ "inner_alpha_selection":"five inner molecule folds within each outer training fold, summed SSE across512outputs; features centered/scaled within fold, intercept unpenalized",
+ "composition_features":"D4 element-reference basis counts,total atoms,heavy atoms","size_features":"total atoms,heavy atoms",
+ "PCs":3,"bootstrap_repetitions":1000,"bootstrap_refit":false,"bootstrap_pairing":"same resampled molecule IDs across conditions; fixed OOF residuals",
+ "hypotheses":[
+ {"id":"A-H1","metric":"CEV6","left":"P0-P","right":"P0-S"},
+ {"id":"A-H2","metric":"CEV6","left":"R1-B0","right":"R1-A1"},
+ {"id":"A-H3","metric":"CEV6","left":"R2-M1","right":"R2-B1"},
+ {"id":"A-H4","metric":"CVF_res6","left":"P0-S","right":"P0-P"},
+ {"id":"A-H5","metric":"CEV6-CEV3","left":"P0-P","right":"P0-S","reference":"P0-S CEV6"},
+ {"id":"A-H6","metric":"CVF_res6","left":"D","right":"C"}],
+ "support":"paired95CI lower>0 AND delta>=max(0.10,0.20*right reference)",
+ "not_support":"paired95CI upper<0.05 OR entireCI<=0","otherwise":"UNCERTAIN",
+ "joint_claim_requires":["A-H1 SUPPORT","A-H4 SUPPORT"],
+ "target_reference":"actual condition molecular scalar targets,valid fraction>=0.99,field variance-weighted CEV/CVF; no fitted production parameters",
+ "new_training":false
+}
