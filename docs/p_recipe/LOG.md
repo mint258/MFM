@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-16 07:08UTC · fixed20261115 round2 · B1 RUNNING 2929536/3000000；M1 RUNNING 2147616/3000000；B2 RUNNING 2446880/3000000；B3 PENDING 0/3000000；B4 NOT_SUBMITTED 0/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次07:38:40UTC。
+
+2026-11-16 07:08UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2204864/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次07:38:40UTC。
+
 2026-11-16 06:38UTC · fixed20261115 round2 · B1 RUNNING 2740736/3000000；M1 RUNNING 1989696/3000000；B2 RUNNING 2289440/3000000；B3 PENDING 0/3000000；B4 NOT_SUBMITTED 0/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次07:08:08UTC。
 
 2026-11-16 06:38UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2190880/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次07:08:08UTC。
@@ -481,3 +485,7 @@ B1 on compute-0-22 (native PID 132047, UID 1278, start_ticks 42358734; takeover 
 ### 2026-11-16 14:08 CST — B2 2M checkpoint observed
 
 B2 on compute-0-20 (native PID 1643284, UID 1278, start_ticks 1267945962; takeover 4534812) published complete `samples_2000000.pt`, 240128291 bytes, mtime 1794807778. The bound process remains live and the producer snapshot reached 2132576 samples; no stop/restart or checkpoint weight read was performed. B1 continues at 2550688 samples and the existing train entrypoint will perform its registered R1/R3 evaluations after 3M.
+
+### 2026-11-16 15:09 CST — M1 2M checkpoint observed
+
+M1 attempt3 on compute-0-20 (native PID 1653103, UID 1278, start_ticks 1268295487; takeover 4534816) published complete `samples_2000000.pt`, 220306345 bytes, mtime 1794811231. Its bound process is live and the producer snapshot reached 2147616 samples. All three currently running B cases have saved both regular 1M and 2M complete checkpoints and continued. B1 is at 2929536 samples; its existing entrypoint will finish registered R1/R3 before declaring completion.
