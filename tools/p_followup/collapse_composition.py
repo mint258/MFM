@@ -49,7 +49,7 @@ def target_reader(name,payload,entry,panel):
     needed=['training_view','normalizations']
     if not all(c.get(k) for k in needed):return None,'Exact checkpoint target parameters unavailable; no substituted recipe'
     try:
-        ds=PRecipeDataset(panel['base']['root'],split='FULL',training_view=c['training_view'],normalizations=load(c['normalizations']),label_parameters=c.get('label_parameters'),source='PM7',k=10,molecule_indices=panel['indices'])
+        ds=PRecipeDataset(panel['base']['root'],split='FULL',training_view=c['training_view'],normalizations=load(c['normalizations']),label_parameters=c.get('label_parameters'),conformer_decomposition=c.get('conformer_decomposition'),source='PM7',k=10,molecule_indices=panel['indices'])
     except (OSError,ValueError,KeyError) as e:return None,str(e)
     return ds,None
 
@@ -57,11 +57,13 @@ def subset_outer(valid,n):
     ids=np.flatnonzero(valid);mapping=np.full(n,-1,dtype=int);mapping[ids]=np.arange(len(ids))
     return [mapping[part[valid[part]]] for part in folds(n)]
 
-def targets_summary(values,valid,owners,first,X,weights):
+def targets_summary(values,valid,owners,first,X,weights,metadata=None):
     details={};cev_num=np.zeros(len(weights));cev_den=np.zeros(len(weights));cvf_num=np.zeros(len(weights));cvf_den=np.zeros(len(weights))
     for name,a in values.items():
+        meta=(metadata or {}).get(name,dict(physical_field=name,component=0,loss_weight=1.))
+        factor=meta['loss_weight']
         mask=valid[name]&np.isfinite(a);fraction=float(mask.mean())
-        if fraction<.99:details[name]=dict(included=False,valid_fraction=fraction);continue
+        if fraction<.99:details[name]=dict(included=False,valid_fraction=fraction,**meta);continue
         first_valid=mask[first];y=a[first][first_valid,None]
         pred,_=ridge_oof(X[first_valid],y,outer=subset_outer(first_valid,len(X)))
         w=weights[:,first_valid];ce=cev_values(y,pred,w)
@@ -69,17 +71,17 @@ def targets_summary(values,valid,owners,first,X,weights):
         h=a[mask,None];o=owners[mask];dummy=np.zeros((len(X),1));cv,_=cvf_values(h,o,dummy,weights)
         sums,sq,n,within=conformer_moments(h,o,len(X));good=n>=2;n=np.where(good,n,0.);sums=np.where(good[:,None],sums,0.);sq=np.where(good,sq,0.)
         variance=ratio(total_ss(weights,sums,sq,n),weights@n)
-        cev_num+=np.nan_to_num(ce*var);cev_den+=np.nan_to_num(var);cvf_num+=np.nan_to_num(cv*variance);cvf_den+=np.nan_to_num(variance)
-        details[name]=dict(included=True,valid_fraction=fraction,CEV=summary(ce),CVF=summary(cv),variance_first=float(var[0]))
+        cev_num+=factor*np.nan_to_num(ce*var);cev_den+=factor*np.nan_to_num(var);cvf_num+=factor*np.nan_to_num(cv*variance);cvf_den+=factor*np.nan_to_num(variance)
+        details[name]=dict(included=True,valid_fraction=fraction,CEV=summary(ce),CVF=summary(cv),variance_first=float(var[0]),**meta)
     ce=ratio(cev_num,cev_den);cv=ratio(cvf_num,cvf_den)
-    return dict(fields=details,variance_weighted_CEV=summary(ce),variance_weighted_CVF=summary(cv),included_fields=sum(v['included'] for v in details.values())),dict(target_CEV=ce,target_CVF=cv)
+    return dict(fields=details,variance_weighted_CEV=summary(ce),variance_weighted_CVF=summary(cv),included_fields=sum(v['included'] for v in details.values()),included_physical_fields=len({v['physical_field'] for v in details.values() if v['included']}),component_policy='D t1/t2 use separate actual masks and each half the original physical-field weight; per-component99%valid threshold'),dict(target_CEV=ce,target_CVF=cv)
 
 def condition(name,entry,panel,weights,device):
     started=time.monotonic();entry=resolve(name,entry)
     if not entry.get('checkpoint') or not pathlib.Path(entry['checkpoint']).is_file():
         return dict(status='MISSING',reason=entry.get('reason','Specified checkpoint unavailable'),source=entry),{}
     encoder,payload=load_representation_encoder(entry['checkpoint'],device=device)
-    provenance=['condition','distance_bias','views','samples','subset_molecules','seed','source','head_form','root','training_view','normalizations','label_parameters','batch_size','p_recipe']
+    provenance=['condition','distance_bias','views','samples','subset_molecules','seed','source','head_form','root','training_view','normalizations','label_parameters','conformer_decomposition','batch_size','p_recipe']
     entry['checkpoint_configuration']={k:payload.get('configuration',{}).get(k) for k in provenance if k in payload.get('configuration',{})}
 
     clock=payload.get('clock',{});expected=6000000 if name.startswith('P0-') else 3000000
@@ -90,10 +92,16 @@ def condition(name,entry,panel,weights,device):
     candidate=[] if data.view is None else [f['name'] for f in data.view.fields if f['group']=='P' and f['level']=='molecule' and f.get('loss_enabled',True)]
     if entry.get('configuration'):
         cfg=load(entry['configuration']);candidate=[n for n in candidate if n not in cfg.get('p_recipe',{}).get('excluded_fields',[])]
+    decomposition=getattr(data,'conformer_decomposition',None);decomposed=set() if decomposition is None else set(decomposition.selected)
+    columns={}
+    for field in candidate:
+        for component in range(2 if field in decomposed else 1):
+            key=field+('::t'+str(component+1) if field in decomposed else '')
+            columns[key]=dict(physical_field=field,component=component,loss_weight=.5 if field in decomposed else 1.)
     n=len(panel['rows']);cache=CONTROL/('A_mean_H_'+name+'.npy');guard()
     means=np.lib.format.open_memmap(cache,mode='w+',dtype=np.float32,shape=(n,4,512))
     atom_sums=np.zeros((len(panel['element_ids']),4,512),np.float64);atom_square=np.zeros((len(atom_sums),4),np.float64)
-    target_values={key:np.full(n,np.nan) for key in candidate};target_valid={key:np.zeros(n,bool) for key in candidate}
+    target_values={key:np.full(n,np.nan) for key in columns};target_valid={key:np.zeros(n,bool) for key in columns}
     with torch.no_grad():
         for start in range(0,n,32):
             samples=[data.read(mi,ci) for mi,ci in panel['rows'][start:start+32]];batch=collate_samples(samples,device=device)
@@ -103,9 +111,9 @@ def condition(name,entry,panel,weights,device):
                 row=start+j;owner=int(panel['owners'][row]);v=features[a:b];z=samples[j]['Z'];means[row]=v.mean(0).astype(np.float32)
                 for element,key in panel['element_rows'][owner].items():
                     part=v[z==element];atom_sums[key]+=part.sum(0);atom_square[key]+=np.square(part).sum((0,2))
-                for key in candidate:
-                    t=samples[j]['targets'].get(key)
-                    if t is not None and t.values.size==1 and t.valid.all():target_values[key][row]=float(t.values.flat[0]);target_valid[key][row]=True
+                for key,meta in columns.items():
+                    t=samples[j]['targets'].get(meta['physical_field']);component=meta['component']
+                    if t is not None and t.valid.reshape(-1)[component]:target_values[key][row]=float(t.values.reshape(-1)[component]);target_valid[key][row]=True
             if start%1024==0:guard();means.flush();print('A_FORWARD',name,start,n,flush=True)
     means.flush();data.close();del encoder,payload
     if device=='cuda':torch.cuda.empty_cache()
@@ -121,7 +129,7 @@ def condition(name,entry,panel,weights,device):
         metrics[str(layer)]=dict(CEV=summary(cev),CEV_size=summary(size),CVF=summary(cv),CVF_res=summary(res),EEV=summary(eev),PC_R2=pc_results)
         for metric,values in [('CEV',cev),('CEV_size',size),('CVF',cv),('CVF_res',res),('EEV',eev)]:boots[str(layer)+'_'+metric]=values
         alphas[str(layer)]=alpha;print('A_METRICS',name,layer,metrics[str(layer)]['CEV'],flush=True)
-    targets,target_boot=targets_summary(target_values,target_valid,owners,first,X,weights) if candidate else (dict(reason=target_reason),{})
+    targets,target_boot=targets_summary(target_values,target_valid,owners,first,X,weights,columns) if candidate else (dict(reason=target_reason),{})
     boots.update(target_boot);guard();np.savez_compressed(CONTROL/('A_bootstrap_'+name+'.npz'),**boots)
     # Explicitly task-authorized disposal of this producer's temporary means.
     del means;cache.unlink()
@@ -172,7 +180,7 @@ def write_report(payload):
         '', '|条件|纳入字段数|目标CEV（方差加权）|目标CVF（方差加权）|','|---|---:|---|---|']
     for name,c in results.items():
         t=c.get('target_reference',{});lines.append(f"|{name}|{t.get('included_fields','NA')}|{stat(t.get('variance_weighted_CEV'))}|{stat(t.get('variance_weighted_CVF'))}|")
-    lines+=['','S条件没有训练P标量目标，参照为NA；指定C/D条件未完成时也记NA。','','![CEV与CVF_res](../../results/p_followup/A_collapse_composition/composition.svg)',
+    lines+=['','D的t1/t2按实际分量mask分别执行99%有效比例门槛，各带原字段一半权重；详细条目同时标明物理字段和分量。S条件没有训练P标量目标，参照为NA；指定C/D条件未完成时也记NA。','','![CEV与CVF_res](../../results/p_followup/A_collapse_composition/composition.svg)',
         '', '逐层指标、PC1–3描述结果、每字段目标参照、精确检查点及参数路径见results/p_followup/A_collapse_composition/summary.json和metrics.csv。缺失条件不由其他运行替换；不追加检验或阈值扫描。组成解释率本身不证明独立化学准确性或迁移收益。']
     guard();(REPO/'docs/p_followup/A_COLLAPSE_COMPOSITION.md').write_text('\n'.join(lines)+'\n')
 

@@ -6,6 +6,8 @@ import numpy as np
 
 def paired_ci(a,b):
     if a['included_tasks']!=b['included_tasks']:raise ValueError('C/M1 primary task membership differs')
+    for key in ['groups','seed','samples','confidence']:
+        if a['paired_bootstrap'].get(key)!=b['paired_bootstrap'].get(key):raise ValueError('Paired bootstrap metadata differs: '+key)
     x=np.asarray(a['paired_bootstrap']['values'],np.float64);y=np.asarray(b['paired_bootstrap']['values'],np.float64)
     if x.shape!=y.shape or len(x)!=1000:raise ValueError('Paired mainline bootstrap draws differ')
     lower,upper=np.quantile(x-y,[.025,.975]);delta=a['mean_normalized_improvement']-b['mean_normalized_improvement']
