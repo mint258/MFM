@@ -45,7 +45,7 @@ def test_occupied_fallback_is_skipped_before_submission(tmp_path,monkeypatch):
         return [dict(node=node,gpu_uuid='busy' if busy else 'free',used_mib=100,total_mib=24576,
                      gpu_name='RTX3090',free_cpus=64,existing_compute_context=busy)]
     monkeypatch.setattr(module,'observe',observe)
-    monkeypatch.setattr(module,'own_gpu_busy',lambda gpu:False)
+    monkeypatch.setattr(module,'own_gpu_busy',lambda gpu,node=None:False)
     calls=[]
     def submit(command,**kwargs):
         calls.append(command)
@@ -54,3 +54,15 @@ def test_occupied_fallback_is_skipped_before_submission(tmp_path,monkeypatch):
     ledger=module.launch_locked(dict(configurations=[str(configuration)]),dict(runs={}))
     assert ledger['runs']['A']['gpu_uuid']=='free'
     assert len(calls)==1 and '--nodelist=compute-0-6' in calls[0]
+
+
+def test_lock_admission_checks_actual_compute_node(tmp_path,monkeypatch):
+    from types import SimpleNamespace
+    module=launcher();monkeypatch.setattr(module,'R',tmp_path)
+    calls=[]
+    def query(command,**kwargs):
+        calls.append(command)
+        return SimpleNamespace(returncode=0,stdout='BUSY\n')
+    monkeypatch.setattr(module.subprocess,'run',query)
+    assert module.own_gpu_busy('GPU-fixture','compute-0-20')
+    assert calls[0][0]=='ssh' and 'compute-0-20' in calls[0]

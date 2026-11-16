@@ -22,8 +22,13 @@ def take_card(cards,fallback,required_gpu_uuid=None):
     return pool.pop(index)
  return None
 
-def own_gpu_busy(gpu):
+def own_gpu_busy(gpu,node=None):
  path=R/'docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks'/(gpu+'.lock')
+ if node is not None:
+  code='import fcntl;f=open('+repr(str(path))+',"a")\ntry:fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB);print("FREE")\nexcept BlockingIOError:print("BUSY")'
+  result=subprocess.run(['ssh','-n','-o','BatchMode=yes','-o','ConnectTimeout=10',node,
+      shlex.join(['/usr/bin/python3','-B','-c',code])],text=True,capture_output=True,timeout=15)
+  return result.returncode!=0 or result.stdout.strip()!='FREE'
  with path.open('a') as lock:
   try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
   except BlockingIOError:return True
@@ -63,7 +68,7 @@ def launch_locked(plan,ledger):
  # Every run keeps its original handle. Repairs use an explicit new run/attempt.
  used={record['gpu_uuid'] for record in ledger['runs'].values() if record.get('state') not in TERMINAL}
  used.update(record['gpu_uuid'] for record in ledger.get('reservations',{}).values() if record.get('state') in ('RUNNING','CONFIGURING') and record.get('phase') not in ('HANDED_OFF','SOURCE_ALREADY_COMPLETE','HANDOFF_ABORTED'))
- cards=[card for card in cards if card['gpu_uuid'] not in used and not own_gpu_busy(card['gpu_uuid'])];fallback=[card for card in fallback if card['gpu_uuid'] not in used and not own_gpu_busy(card['gpu_uuid'])]
+ cards=[card for card in cards if card['gpu_uuid'] not in used and not own_gpu_busy(card['gpu_uuid'],card['node'])];fallback=[card for card in fallback if card['gpu_uuid'] not in used and not own_gpu_busy(card['gpu_uuid'],card['node'])]
  ledger.update(last_admission_at=time.time(),last_admission_errors=errors)
  for filename in plan['configurations']:
   configuration=read(filename);name=configuration['run']

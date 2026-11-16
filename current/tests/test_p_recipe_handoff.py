@@ -132,7 +132,7 @@ def test_launcher_submits_only_needed_cpus_and_native_twin(tmp_path,monkeypatch,
  configuration=tmp_path/'A.json'
  h.atomic_json(configuration,dict(run='A',workers=4,output=str(tmp_path/'output'),stage=2,round=1,batch_size=128))
  monkeypatch.setattr(launch,'observe',lambda node:[dict(node=node,gpu_uuid='GPU-test',used_mib=100,total_mib=32000,gpu_name='RTX5090',free_cpus=free)] if node=='compute-0-22' else [])
- monkeypatch.setattr(launch,'own_gpu_busy',lambda gpu:False)
+ monkeypatch.setattr(launch,'own_gpu_busy',lambda gpu,node=None:False)
  calls=[]
  def execute(command,**kwargs):
   calls.append(command);return '4321\n' if command[0]=='ssh' else '12345\n'

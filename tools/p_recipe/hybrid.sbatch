@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=p-recipe-hybrid
-#SBATCH --partition=all
+#SBATCH --partition=gpu
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --output=/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/%x_%j.log

@@ -85,7 +85,7 @@ def choose_destination(configuration, benchmark):
     for node in NATIVE:
         for card in observe(node):
             gpu = card['gpu_uuid']
-            if gpu in benchmark and not own_gpu_busy(gpu) and route(card['free_cpus'], cpus,
+            if gpu in benchmark and not own_gpu_busy(gpu,node) and route(card['free_cpus'], cpus,
                     card['used_mib'], card['total_mib'], policy) != 'WAIT_GPU':
                 candidates.append(card)
     candidates.sort(key=lambda card: (gpu_rank(card['gpu_name'], policy), -benchmark[card['gpu_uuid']]))
