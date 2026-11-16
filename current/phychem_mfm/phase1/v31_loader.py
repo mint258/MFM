@@ -275,7 +275,7 @@ class TrainingView:
             if not field.get('r73_component') and field.get('_location_key', key) not in self.locations:
                 raise ValueError('Training field is absent from schema: ' + key)
 
-    def extract(self, molecule, conformer, *, mask_overrides=None):
+    def extract(self, molecule, conformer, *, mask_overrides=None, raw_only=False):
         output, r73 = {}, None
         for field in self.fields:
             if self.normalization_dataset == 'Pprime' and field['group'] != 'P':
@@ -318,7 +318,7 @@ class TrainingView:
             spec = field.get('normalization', self.normalizations.get(name))
             if spec is None:
                 raise ValueError('Missing D4 normalization for ' + name)
-            values = normalize_values(raw, spec, Z=molecule[1])
+            values = None if raw_only else normalize_values(raw, spec, Z=molecule[1])
             output[name] = V31Target(raw, values, valid, field['group'], field['family'],
                 field['level'], field.get('representation', 'scalar'), field.get('loss_enabled', True),
                 conformer.get(26) if array_name == 'pair_labels' else None)
