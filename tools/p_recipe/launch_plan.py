@@ -1,10 +1,10 @@
 """Submit one prepared study plan using native high GPUs and established Slurm."""
-import argparse,concurrent.futures,csv,fcntl,json,shlex,subprocess,time
+import os,argparse,concurrent.futures,csv,fcntl,json,shlex,subprocess,time
 from pathlib import Path
 from collect_execution import TERMINAL
 from execution_ledger import locked_ledger,write
 from scheduling import node_capacity,requested_cpus,route,gpu_rank
-R=Path('/share/home/zixiao/descriptor_analysis');REPO=Path(__file__).resolve().parents[2];C=R/'runs/p_recipe_20261113'
+R=Path('/share/home/zixiao/descriptor_analysis');REPO=Path(__file__).resolve().parents[2];C=Path(os.environ.get('P_RECIPE_CONTROL_DIRECTORY',str(R/'runs/p_recipe_20261113')))
 OLD='/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python'
 NEW=str(R/'docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python')
 # Idle compatible resources: RTX5090 (22), then RTX4090 (20), then3090. Node21 is user-disabled.
@@ -92,7 +92,7 @@ def launch_locked(plan,ledger):
   write(filename,configuration)
   write(task_path,task);ledger['runs'][name]=reserved;write(path,ledger)
   if mode=='native_with_standby':
-   native=dict(run=name,node=node,gpu_uuid=gpu,output=configuration['output'],root_future_bytes=16777216,minimum_free_gpu_mib=policy['minimum_free_gpu_mib'],
+   native=dict(run=name,node=node,gpu_uuid=gpu,output=configuration['output'],root_future_bytes=16777216,minimum_free_gpu_mib=policy['minimum_free_gpu_mib'],state_path=str(C/(name+'_native.json')),environment=dict(P_RECIPE_CONTROL_DIRECTORY=str(C)),
        command=[py,'-B','-u','tools/p_recipe/train.py','--configuration',filename])
    native_path=C/(name+'_launch.json');write(native_path,native)
    command=[py,'-B','-u',str(REPO/'tools/p_recipe/native_run.py'),'--configuration',str(native_path)]
@@ -101,7 +101,7 @@ def launch_locked(plan,ledger):
    except (OSError,ValueError,subprocess.SubprocessError) as error:
     reserved.update(state='SUBMISSION_OBSERVATION_UNCERTAIN',observation_error=str(error));write(path,ledger);continue
    reserved.update(wrapper_pid=pid,state='LAUNCHED')
-  command=['sbatch','--parsable','--job-name='+name+('_takeover' if mode=='native_with_standby' else ''),'--partition='+policy['partition'],'--nodelist='+node,'--cpus-per-task='+str(cpus),str(REPO/'tools/p_recipe/hybrid.sbatch'),str(task_path)]
+  command=['sbatch','--parsable','--job-name='+name+('_takeover' if mode=='native_with_standby' else ''),'--partition='+policy['partition'],'--nodelist='+node,'--cpus-per-task='+str(cpus),'--output='+str(C/'%x_%j.log'),str(REPO/'tools/p_recipe/hybrid.sbatch'),str(task_path),str(REPO)]
   try:job_id=int(subprocess.check_output(command,cwd=REPO,text=True,timeout=30).strip().split(';')[0])
   except (OSError,ValueError,subprocess.SubprocessError) as error:
    reserved.update(standby_submission_error=str(error)) if mode=='native_with_standby' else reserved.update(state='SUBMISSION_OBSERVATION_UNCERTAIN',observation_error=str(error))

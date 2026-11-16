@@ -2,7 +2,7 @@
 from contextlib import contextmanager
 import fcntl,json,os
 from pathlib import Path
-C=Path('/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113')
+C=Path(os.environ.get('P_RECIPE_CONTROL_DIRECTORY','/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113'))
 
 def read(path):return json.loads(Path(path).read_text())
 

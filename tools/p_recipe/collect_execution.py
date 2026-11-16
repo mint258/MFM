@@ -1,8 +1,8 @@
 """One scheduled observation of real study handles, progress and occupied GPU time."""
-import csv,json,shlex,subprocess,time
+import os,csv,json,shlex,subprocess,time
 from pathlib import Path
 from execution_ledger import locked_ledger,write
-R=Path('/share/home/zixiao/descriptor_analysis');C=R/'runs/p_recipe_20261113'
+R=Path('/share/home/zixiao/descriptor_analysis');C=Path(os.environ.get('P_RECIPE_CONTROL_DIRECTORY',str(R/'runs/p_recipe_20261113')))
 PY='/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python'
 TERMINAL={'COMPLETED','FAILED','CANCELLED','TIMEOUT','OUT_OF_MEMORY','NODE_FAIL','PREEMPTED','BOOT_FAIL','DEADLINE'}
 

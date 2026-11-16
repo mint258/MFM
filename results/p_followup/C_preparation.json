@@ -1,0 +1,65 @@
+{
+  "status": "C1_C2_READY",
+  "baseline_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/M1.json",
+  "baseline_commit": "e1926db",
+  "configuration": "configs/p_followup/C_dedup.json",
+  "excluded_fields": [
+    "P.pm7_anion.r193.value",
+    "P.pm7_cation.r262.value",
+    "P.pm7_octanol.r329.value",
+    "P.pm7_water.r396.value",
+    "P.pm7_anion.r194.value",
+    "P.pm7_cation.r263.value",
+    "P.pm7_octanol.r330.value",
+    "P.pm7_water.r397.value",
+    "P.pm7_B.r41.value",
+    "P.pm7_B.r54.value"
+  ],
+  "stored_fields": 99,
+  "physical_loss_fields": 87,
+  "loss_denominator": "Existing M1 physical-head equality gives87 terms; user clarification pending before C/D launch",
+  "source_values": "Existing original F64 graph cache cast once to F32; earlier all-record source/pilot match reused",
+  "volume_comparisons": {
+    "P.pm7_anion.r194.value": {
+      "common_records": 42960,
+      "bitwise_equal_records": 42960,
+      "maximum_relative_difference": 0.0,
+      "descriptive_only": true
+    },
+    "P.pm7_cation.r263.value": {
+      "common_records": 42961,
+      "bitwise_equal_records": 42961,
+      "maximum_relative_difference": 0.0,
+      "descriptive_only": true
+    },
+    "P.pm7_octanol.r330.value": {
+      "common_records": 42961,
+      "bitwise_equal_records": 10697,
+      "maximum_relative_difference": 0.0040233738067942315,
+      "descriptive_only": true
+    },
+    "P.pm7_water.r397.value": {
+      "common_records": 42961,
+      "bitwise_equal_records": 10697,
+      "maximum_relative_difference": 0.0040233738067942315,
+      "descriptive_only": true
+    }
+  },
+  "removed_M1_runtime_keys": [
+    "resume",
+    "resume_samples",
+    "resume_from_output",
+    "attempt",
+    "replaces_run",
+    "predecessor_samples",
+    "restart_reason",
+    "handoff_request",
+    "handoff_ack"
+  ],
+  "scientific_changes": [
+    "p_recipe.excluded_fields"
+  ],
+  "new_fit": false,
+  "mainline_modified": false,
+  "sidecar_enabled": false
+}

@@ -57,7 +57,7 @@ def dataset_configuration(c,*,validation=False):
  return dict(root=c['root'],split='FULL' if validation else 'TRAIN',training_view=c['training_view'],
   normalizations=read_json(c['normalizations']),source=c['source'],order=c.get('order','fixed_random'),k=10,
   pprime=c['source']=='UFF',molecule_indices=validation_indices(c) if validation else train_indices(c),
-  label_parameters=c.get('label_parameters'))
+  label_parameters=c.get('label_parameters'),p_f64_sidecar=c.get('p_f64_sidecar'))
 
 def original_predictions(model,predictions,samples,parameters):
  import torch

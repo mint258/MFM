@@ -72,3 +72,13 @@ def paired_decision(a, b, bootstrap_a, bootstrap_b):
     threshold=max(.01,.05*max(a,b))
     verdict='win' if lower>0 and delta>=threshold else ('loss' if upper<0 and -delta>=threshold else 'tie')
     return dict(delta=delta,ci_lower=float(lower),ci_upper=float(upper),verdict=verdict)
+
+def selected_training_fields(registry, recipe, requested=None):
+    """Opt-in field exclusion; retain physical-vector loss grouping."""
+    enabled = registry.enabled(('P',))
+    excluded = set(recipe.get('excluded_fields', ()))
+    unknown = excluded - {f.name for f in enabled}
+    if unknown:
+        raise ValueError('Unknown excluded P fields: '+', '.join(sorted(unknown)))
+    return tuple(f.name for f in enabled
+                 if f.name not in excluded and (requested is None or f.name in requested))

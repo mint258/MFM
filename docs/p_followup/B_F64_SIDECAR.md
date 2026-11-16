@@ -1,0 +1,11 @@
+# B：大数值能量标签F64补存
+
+当前状态：B0完成并推送ca639d0；B2实现及新逻辑3项单元测试通过；B1全split生成、B3冻结面板真实loader与指定吞吐、B4最终SHA/manifest待执行。未宣称全量sidecar已经交付。
+
+B0在冻结TRAIN核心构象对上按已预注册的数值规则选出r83、r460、r499、r670。完整43字段的原单位误差/相对误差/归零计数见B_field_selection.json和csv；不是计算误差或化学有效性阈值。
+
+MFM4Dataset新增可选p_f64_sidecar，默认None；sidecar按split绑定D6目录，以原7字节record_key和molecule/conformer双重定位，分子offset只索引sidecar自身。NaN行回退原F32，掩码不改变。没有改MFM4格式/已有LMDB或D4/A1参数。raw为F64时，元素参考、中心和尺度运算均在F64中完成，最终values转F32；PRecipeDataset的A1/状态差值沿原base read继承。
+
+新逻辑测试覆盖：稳定句柄查找和NaN回退、错误split拒绝、大绝对值参考相减保留小残差、F32默认归一化逐位不变。全109字段与当前p-recipe loader的真实比较留在B3一次执行，不用单元夹具替代。
+
+物理sidecar计划存/lfshome/zixiao/data_v1_20261025/p_followup_f64_20261116；根据D6公布的22027705条P/U记录，45字节行加分子offset预计约1.00GB，预留1.1GiB、上限2GiB。最终文件只算一次SHA256；中间不生成新hash或审批收据。当前没有sidecar用于C/D或主线。

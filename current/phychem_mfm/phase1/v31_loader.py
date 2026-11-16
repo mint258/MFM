@@ -181,7 +181,7 @@ def normalize_values(raw, specification, *, Z):
     if specification.get('fit_role') != 'TRAIN':
         raise ValueError('Normalization must come from TRAIN')
     fitted = specification.get('p_recipe_fitted', False)
-    dtype = np.float64 if fitted else np.float32
+    dtype = np.float64 if fitted or np.asarray(raw).dtype == np.float64 else np.float32
     values = np.asarray(raw, dtype=dtype).copy()
     reference = specification.get('element_reference')
     if reference is not None:
@@ -201,7 +201,7 @@ def normalize_values(raw, specification, *, Z):
     if not np.all(np.isfinite(center)):
         raise ValueError('D4 center must be finite')
     result = (values - center) / scale
-    return result.astype(np.float32) if fitted else result
+    return result.astype(np.float32) if dtype == np.float64 else result
 
 
 class TrainingView:
@@ -365,13 +365,17 @@ class MFM4Dataset:
     """Per-process LMDB handles, molecule-first sampling and explicit geometry."""
     def __init__(self, root, *, split='TRAIN', training_view=None, source='PM7',
                  order='fixed_random', k=None, diagnostic=False, molecule_indices=None,
-                 normalizations=None, pprime=False, geometry_only=False):
+                 normalizations=None, pprime=False, geometry_only=False, p_f64_sidecar=None):
         if geometry_only and training_view is not None:
             raise ValueError('Geometry-only reading cannot discard a requested training view')
         self.geometry_only = geometry_only
         self.root = Path(root)
         self.directory, self.manifest = split_metadata(self.root, split)
         self.schema = json.loads((self.root / 'schema.json').read_text())
+        self._p_f64_sidecar = None
+        if p_f64_sidecar is not None:
+            from .p_f64_sidecar import PFloat64Sidecar
+            self._p_f64_sidecar = PFloat64Sidecar(p_f64_sidecar, split, self.directory)
         self.source, self.order, self.k, self.diagnostic = source, order, k, diagnostic
         self.pprime, self.evaluation = pprime, split != 'TRAIN'
         if source not in ('PM7', 'UFF'):
@@ -442,11 +446,15 @@ class MFM4Dataset:
         if conformer not in self.choices(molecule):
             raise ValueError('Conformer is excluded by the training/diagnostic manifest')
         c = self.record('P' if self.source == 'PM7' else 'U', molecule, conformer)
+        targets = {} if self.view is None else self.view.extract(m, c,
+                    mask_overrides=self._record_masks.get((molecule, conformer)))
+        if self._p_f64_sidecar is not None and self.view is not None:
+            targets = self._p_f64_sidecar.apply(targets, molecule, conformer,
+                'P' if self.source == 'PM7' else 'U', self.view, m[1])
         return {'molecule_index': molecule, 'conformer_index': conformer,
                 'geometry_source': self.source, 'Z': m[1], 'pos': c[21],
                 'pos_perturbed': c.get(22), 'bonds': m[2], 'bond_order': m[3],
-                'targets': {} if self.view is None else self.view.extract(m, c,
-                    mask_overrides=self._record_masks.get((molecule, conformer)))}
+                'targets': targets}
 
     def molecule_mean(self, molecule):
         """Mean allowed-conformer labels, aligning directed pair endpoints."""

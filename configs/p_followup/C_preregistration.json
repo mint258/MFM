@@ -1,1 +1,36 @@
-{"baseline":"current fixed_20261115/provisional_B_20261116/round2/M1.json; exact3M checkpoint via evaluation_checkpoint","excluded_fields":["P.pm7_anion.r193.value","P.pm7_cation.r262.value","P.pm7_octanol.r329.value","P.pm7_water.r396.value","P.pm7_anion.r194.value","P.pm7_cation.r263.value","P.pm7_octanol.r330.value","P.pm7_water.r397.value","P.pm7_B.r41.value","P.pm7_B.r54.value"],"expected_enabled_columns":99,"expected_molecular_columns":33,"changes":"excluded_fields and execution identity/paths only; clear baseline resume metadata for fresh seed0","samples":3000000,"seeds":[0],"field_equal":true,"sidecar":null,"volume_descriptive_check":"frozen panel r194/r263==r43; max relative r330/r397 vsr43<=1e-3; report only,never change exclusion","evaluation":["R1","R3"],"primary_comparison":"C minus M1,paired existing mainline method","win":"R3 paired95CI entirely>0","loss":"R3 paired95CI entirely<0","otherwise":"tie","recommendation":"win or tie suggests dedup; user confirmation required before any mainline integration","mainline_modified":false}
+{
+    "baseline":  "current fixed_20261115/provisional_B_20261116/round2/M1.json; exact3M checkpoint via evaluation_checkpoint",
+    "excluded_fields":  [
+                            "P.pm7_anion.r193.value",
+                            "P.pm7_cation.r262.value",
+                            "P.pm7_octanol.r329.value",
+                            "P.pm7_water.r396.value",
+                            "P.pm7_anion.r194.value",
+                            "P.pm7_cation.r263.value",
+                            "P.pm7_octanol.r330.value",
+                            "P.pm7_water.r397.value",
+                            "P.pm7_B.r41.value",
+                            "P.pm7_B.r54.value"
+                        ],
+    "expected_enabled_columns":  99,
+    "expected_molecular_columns":  33,
+    "changes":  "excluded_fields and execution identity/paths only; clear baseline resume metadata for fresh seed0",
+    "samples":  3000000,
+    "seeds":  [
+                  0
+              ],
+    "field_equal":  true,
+    "sidecar":  null,
+    "volume_descriptive_check":  "frozen panel r194/r263==r43; max relative r330/r397 vsr43\u003c=1e-3; report only,never change exclusion",
+    "evaluation":  [
+                       "R1",
+                       "R3"
+                   ],
+    "primary_comparison":  "C minus M1,paired existing mainline method",
+    "win":  "R3 paired95CI entirely\u003e0",
+    "loss":  "R3 paired95CI entirely\u003c0",
+    "otherwise":  "tie",
+    "recommendation":  "win or tie suggests dedup; user confirmation required before any mainline integration",
+    "mainline_modified":  false,
+    "loss_denominator_user_clarification":  "2026-11-17 user confirmed preserve M1 physical-head equality:99 stored fields,87 physical loss terms when all valid; unchanged missing-field policy"
+}

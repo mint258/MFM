@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from .p_recipe_data import PRecipeDataset,dataset_configuration,read_json,original_predictions
-from .p_recipe import normalized_field_weights,UncertaintyWeights,collapse_penalty
+from .p_recipe import normalized_field_weights,UncertaintyWeights,collapse_penalty,selected_training_fields
 from .v31_loader import encode_samples
 from .v31_training import V31PDModel
 from .v31_prefetch import ordered_sample_batches
@@ -32,7 +32,7 @@ def family_losses(loss,families):
          for family in sorted({families[n] for n in names})}
 
 def train(configuration):
- c=dict(configuration);recipe=c.get('p_recipe',{});torch.set_num_threads(1);torch.manual_seed(c['seed'])
+ c=dict(configuration);recipe=c.get('p_recipe',{});results_root=REPO/('results/p_followup' if c.get('results_directory')=='results/p_followup' else 'results/p_recipe');torch.set_num_threads(1);torch.manual_seed(c['seed'])
  c.setdefault('step_overhead',dict(grouped_fields=True,head_checkpointing=False,distance_tiling=True,prepared_input=True))
  prepared_input=c.get('step_overhead',{}).get('prepared_input',False)
  c.setdefault('activation_checkpointing',True)
@@ -47,7 +47,7 @@ def train(configuration):
  pd=V31PDModel(structural.encoder,data.view,forms=c['head_form'],pooling='registry',p_recipe=recipe)
  pd.configure_step_overhead(c.get('step_overhead',{}))
  modules=dict(structural=structural,pd=pd)
- fields=tuple(f.name for f in pd.registry.enabled(('P',)) if c.get('fields') is None or f.name in c['fields'])
+ fields=selected_training_fields(pd.registry,recipe,c.get('fields'))
  heads={pd.selections[n][0] for n in fields};families={f.name:f.family for f in pd.head_registry.fields if f.name in heads}
  if recipe.get('uncertainty_weighting',False):
   names=sorted(set(families.values())) if recipe.get('family_equal',False) else list(families)
@@ -63,7 +63,7 @@ def train(configuration):
  def publish_clip_summary():
   payload=json.dumps(clip_calibration.fitted_summary(),indent=2)+'\n'
   (output/'clip_calibration.json').write_text(payload)
-  target=REPO/'results/p_recipe/training'/c['run']/'clip_calibration.json'
+  target=results_root/'training'/c['run']/'clip_calibration.json'
   target.parent.mkdir(parents=True,exist_ok=True);target.write_text(payload)
  if resuming:
   cp=torch.load(resuming,map_location='cpu',weights_only=True);model.load_state_dict(cp['model']);optimizer.load_state_dict(cp['optimizer']);clock.load_state_dict(cp['clock']);rng.bit_generator.state=cp['rng'];torch.set_rng_state(cp['torch_rng']);torch.cuda.set_rng_state(cp['cuda_rng']);prior=cp['elapsed_seconds'];window=cp['family_window'];window_updates=cp['family_window_updates'];clipped=cp['clipped_updates'];total_window=cp.get('total_window',[])
@@ -72,7 +72,7 @@ def train(configuration):
    if clip_calibration.fitted:publish_clip_summary()
  (output/'configuration.json').write_text(json.dumps(c,indent=2)+'\n')
  history=TrainingHistory(output,c,initial_samples=clock.samples_consumed);history.window=total_window
- csv_path=REPO/'results/p_recipe/training'/c['run']/'family_losses.csv';csv_path.parent.mkdir(parents=True,exist_ok=True)
+ csv_path=results_root/'training'/c['run']/'family_losses.csv';csv_path.parent.mkdir(parents=True,exist_ok=True)
  columns=['run','kind','samples','updates','family','loss','clipped_fraction','seconds']
  def deliver(rows):
   exists=csv_path.exists()

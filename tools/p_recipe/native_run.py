@@ -45,6 +45,11 @@ def run(c):
   lock=(locks/(gpu+'.lock')).open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
  spec=importlib.util.spec_from_file_location('disk',REPO/'tools/model_v3/v2_diagnosis_disk.py');disk=importlib.util.module_from_spec(spec);spec.loader.exec_module(disk)
  def capacity():
+  if c['run'].startswith('p_followup_20261116_'):
+   import sys
+   sys.path.insert(0,str(REPO/'tools/p_followup'))
+   from resources import guard
+   guard(force=True)
   allocated,remaining=disk.model_growth_forecast()
   future=c.get('root_future_bytes',0)
   disk.m.require_capacity(disk.m.filesystem_status('/'),future,2000)

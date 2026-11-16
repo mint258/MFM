@@ -53,6 +53,6 @@ if __name__=='__main__':
    'store':'/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json',
    'reference_manifest':'/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/predictions.json'}
   if not (Path(evaluation['output'])/'scores.json').is_file():
-   run(evaluation);score(Path(evaluation['output'])/'predictions.json',evaluation['reference_manifest'],REPO/'results/p_recipe/scores.csv')
+   run(evaluation);score(Path(evaluation['output'])/'predictions.json',evaluation['reference_manifest'],REPO/('results/p_followup/scores.csv' if c.get('results_directory')=='results/p_followup' else 'results/p_recipe/scores.csv'))
  summary.update(status='COMPLETE',training_and_evaluation_seconds=time.monotonic()-started)
  (Path(c['output'])/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')

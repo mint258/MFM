@@ -4,7 +4,7 @@ from pathlib import Path
 from execution_ledger import C,locked_ledger,read,write
 from native_run import identity,run as guarded_run
 from scheduling import requested_cpus
-R=Path('/share/home/zixiao/descriptor_analysis');REPO=R/'MFM_p_recipe'
+R=Path('/share/home/zixiao/descriptor_analysis');REPO=Path(__file__).resolve().parents[2]
 
 def allocation_start(job):
  text=subprocess.check_output(['scontrol','show','job',str(job),'-o'],text=True)

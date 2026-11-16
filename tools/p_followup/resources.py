@@ -3,7 +3,7 @@ import importlib.util,json,os,pathlib,time
 R=pathlib.Path('/share/home/zixiao/descriptor_analysis');REPO=pathlib.Path(__file__).resolve().parents[2]
 CONTROL=R/'runs/p_followup_20261116';OLD=R/'runs/p_data_information_20261115_v1'
 SIDE=pathlib.Path('/lfshome/zixiao/data_v1_20261025/p_followup_f64_20261116')
-MEAN=pathlib.Path('/lfshome/zixiao/data_v1_20261025/p_followup_decomposition_20261116')
+MEAN=CONTROL/'D_mean_table'
 TRAIN=pathlib.Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116')
 GIB=1024**3
 spec=importlib.util.spec_from_file_location('followup_existing_disk_guard',REPO/'tools/model_v3/v2_diagnosis_disk.py');disk=importlib.util.module_from_spec(spec);spec.loader.exec_module(disk)
@@ -28,15 +28,15 @@ def guard(force=False, lustre=False):
  own_training=allocated(TRAIN)
  # The old global scanner sees all P_RECIPE children; do not debit its
  # mainline reservation using these separately reserved side-line outputs.
- main_future+=own_training
- lustre_future=max(0,7*GIB-allocated(SIDE)-allocated(MEAN)-own_training)
- nfs_future=max(0,4*GIB-allocated(CONTROL)-allocated(REPO))
+ if TRAIN.exists() and TRAIN.resolve().stat().st_dev==pathlib.Path('/lfshome').stat().st_dev:main_future+=own_training
+ lustre_future=max(0,int(1.1*GIB)-allocated(SIDE))
+ nfs_future=max(0,10*GIB-allocated(CONTROL)-allocated(REPO))
  checks=[('/',16*1024**2),(R,nfs_future)]
  if lustre:checks.append((pathlib.Path('/lfshome'),main_future+lustre_future+disk.remaining_d6()+6_000_000_000))
  for path,future in checks:
   disk.m.require_capacity(disk.m.filesystem_status(path),future,10000)
  q=disk.CONTROL
- result=dict(lustre=(disk.m.quota_headroom(q/'lustre_quota_available_v2_20261107.json','/lfshome',main_future+lustre_future,disk.remaining_d6()+6_000_000_000) if lustre else None),share=disk.m.quota_headroom(q/'share_quota_available_v3.json','/share',nfs_future,disk.remaining_nfs_other()),mainline_remaining=main_future,own_lustre_remaining=lustre_future,own_nfs_remaining=nfs_future)
+ result=dict(lustre=(disk.m.quota_headroom(q/'lustre_quota_available_v2_20261107.json','/lfshome',main_future+lustre_future,disk.remaining_d6()+6_000_000_000) if lustre else None),share=disk.m.quota_headroom(q/'share_quota_available_v3.json','/share',nfs_future,disk.remaining_nfs_other()+18_000_000_000),mainline_remaining=main_future,own_lustre_remaining=lustre_future,own_nfs_remaining=nfs_future)
  _last=now;_last_capacity=result;return result
 
 def load(path):return json.loads(pathlib.Path(path).read_text())
