@@ -1,0 +1,54 @@
+{
+  "roles": {
+    "TRAIN": {
+      "counts": {
+        "candidate_records": 39220,
+        "mapped_native_records": 39220,
+        "native_single_F32_cast_reproduces_pilot_records": 39220,
+        "candidate_pairs": 25406,
+        "common_source_pilot_pairs": 25406,
+        "native_stored_coordinate_different_pairs": 23448,
+        "native_difference_collapsed_at_F32_pairs": 0
+      },
+      "rates": {
+        "core": {
+          "independent_molecules": 2786,
+          "equal_molecule_mean": 0.0,
+          "median": 0.0
+        },
+        "enriched": {
+          "independent_molecules": 1272,
+          "equal_molecule_mean": 0.0,
+          "median": 0.0
+        }
+      }
+    },
+    "VAL": {
+      "counts": {
+        "candidate_records": 3741,
+        "mapped_native_records": 3741,
+        "native_single_F32_cast_reproduces_pilot_records": 3741,
+        "candidate_pairs": 2371,
+        "common_source_pilot_pairs": 2371,
+        "native_stored_coordinate_different_pairs": 2262,
+        "native_difference_collapsed_at_F32_pairs": 0
+      },
+      "rates": {
+        "core": {
+          "independent_molecules": 288,
+          "equal_molecule_mean": 0.0,
+          "median": 0.0
+        },
+        "enriched": {
+          "independent_molecules": 101,
+          "equal_molecule_mean": 0.0,
+          "median": 0.0
+        }
+      }
+    }
+  },
+  "source_layer": "Original registered native base_geometry F64 container, unambiguous source-to-M mapping",
+  "scope": "Stored coordinates only; binary inequality is not physical inequivalence. Does not claim that two actual QM input files differ.",
+  "vector_frame_integration": "UNRESOLVED_AFTER_TWO_FAILED_RUNS, reported separately",
+  "additional_Kabsch_comparisons": 0
+}

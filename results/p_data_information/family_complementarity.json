@@ -3840,5 +3840,31 @@
     }
   ],
   "interpretation": "Distance correlation is descriptive; no detection or no-information claim",
-  "vector_packing_review": "Actual P preparation reassembles vector components and enforces a shared zero-centered scale; known positive scales reused. Charged-origin-uncertain vectors remain incomparable."
+  "vector_packing_review": "Actual P preparation reassembles vector components and enforces a shared zero-centered scale; known positive scales reused. Charged-origin-uncertain vectors remain incomparable.",
+  "documented_energy_relations": {
+    "definition": {
+      "PM7_native_total_energy": "E_electronic + E_nuclear",
+      "PM7_heat_of_formation": "E_electronic + E_nuclear - E_isolated_atoms + E_atomization + E_bits",
+      "E_bits": "Hydrogen-bond and dispersion contributions",
+      "scope": "Native MOPAC PM7 outputs; heat of formation and native TOTAL ENERGY must not be treated as identical up to unit conversion/elemental constants alone",
+      "source": "https://openmopac.net/Manual/SCF_calc_hof.html"
+    },
+    "check": {
+      "TRAIN": {
+        "comparable_records": 39220,
+        "median_absolute_native_sum_residual_eV": 0.0,
+        "p90_absolute_native_sum_residual_eV": 9.999999747378752e-06,
+        "max_observed_absolute_native_sum_residual_eV": 1.0000017937272787e-05,
+        "interpretation": "Residual of separately parsed/rounded native outputs; not a calculation noise bound or independent-property evidence"
+      },
+      "VAL": {
+        "comparable_records": 3741,
+        "median_absolute_native_sum_residual_eV": 0.0,
+        "p90_absolute_native_sum_residual_eV": 9.999999747378752e-06,
+        "max_observed_absolute_native_sum_residual_eV": 1.0000017937272787e-05,
+        "interpretation": "Residual of separately parsed/rounded native outputs; not a calculation noise bound or independent-property evidence"
+      }
+    },
+    "not_unique_information_claim": true
+  }
 }

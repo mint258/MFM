@@ -2,7 +2,7 @@
 
 2026-11-15（America/New_York） · @Zixiao
 
-状态：阶段0–4已完成（2026-11-16 Asia/Shanghai，含明确精度未知项）；阶段5待执行。见各阶段报告与progress.json。
+状态：阶段0–5已执行并交付（2026-11-16 Asia/Shanghai）；含按规则关闭的原向量参考系、全域误差与校准互补率UNRESOLVED。见FINAL_REPORT.md及progress.json。
 
 ## 本版范围与当前起点
 
@@ -303,15 +303,16 @@ P 字段集合固定为起始提交 5b42908d364e84e39bf384b19a5c6ab08d13ab63 的
 
 | 项目 | 状态 |
 | --- | --- |
-| 计划格式与已有来源核查 | COMPLETE；见 SOURCE_REVIEW.md |
-| 本版计划 | IN_PROGRESS；阶段0–4已交付 |
-| 阶段 0 | COMPLETE_WITH_EXPLICIT_UNKNOWNS；55000连接，8项现行TRAIN排除 |
-| 阶段 1 | COMPLETE_AT_PILOT_GEOMETRY_LAYER |
-| 阶段 2 | COMPLETE_WITH_UNRESOLVED_SOURCE_PRECISION |
-| 阶段 3 | COMPLETE_AT_STORED_LABEL_LAYER |
-| 阶段 4 | COMPLETE_WITH_UNCALIBRATED_JOINT_INFORMATION |
-| 阶段 5 | NOT_RUN |
-| 条件单点校准 2B | TRIGGERED_UNRESOLVED_INPUT_LINEAGE；实际调用0 |
+| 计划格式与已有来源核查 | COMPLETE；见SOURCE_REVIEW.md |
+| 阶段0 | COMPLETE_WITH_EXPLICIT_UNKNOWNS；55k身份与109字段 |
+| 阶段1 | COMPLETE；4665分子、42961记录，正式物理ID配对 |
+| 阶段2及条件2B | COMPLETE_WITH_SCOPED_CALIBRATION；8次新增PM7，xTB0；全域误差未知 |
+| 阶段3 | COMPLETE；78个原F64标量和pilot对齐向量分报 |
+| 阶段4 | COMPLETE_WITH_UNCALIBRATED_JOINT_INFORMATION；互补率null |
+| 阶段5 | COMPLETE_WITH_EXPLICIT_UNRESOLVED_VECTOR_FRAME；同物理记录、CPU实际准备与历史F32量化分段追踪 |
+| 本版研究 | COMPLETE_WITH_UNRESOLVED_EVIDENCE；FINAL_REPORT.md逐条回答Q1–Q7 |
+
+未解决项不作为0效应或数据无定义；未启动任何新训练、探针、拟合或GPU计算。分阶段提交见COMMITS.md。
 
 ## 依据
 
