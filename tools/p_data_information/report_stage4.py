@@ -1,0 +1,12 @@
+"""Write the stage4 report from its producer aggregates."""
+from stage0_cohort import R,load,save
+B=R/'MFM_p_data_information'
+def main():
+ a=load(B/'results/p_data_information/family_complementarity.json');lines=[]
+ for role,levels in a['roles'].items():
+  for level in ['composition','isomer','conformer']:
+   r=levels[level];lines.append(f"|{role}|{level}|{r['candidate_pairs']}|{r['common_all_family_pairs']}|{len(r['families'])}|UNKNOWN|")
+ (B/'docs/p_data_information/04_JOINT_INFORMATION_AND_MISSINGNESS.md').write_text('''# 阶段4：联合距离、碰撞与选择性缺失\n\n状态：COMPLETE_WITH_UNCALIBRATED_JOINT_INFORMATION。\n\n注册表可证明的derived_from/dedup_of关系直接列在family_complementarity.json。每个比较层级在查看结果前按可比较字段层次和现有正D4标量尺度固定家族/字段集合，T_f=max_j(d_j/s_j)。实际P准备会把三个分量重组成物理向量并要求零中心、共同尺度；已按原参数核对后复用共同尺度。带电原点变换不确定的分量保持未知，因此构象层完整家族共同可比集为0，不表示其余字段没有信息。家族距离相关按固定独立单位等权汇总后计算；正/负相关均不等于因果独立或信息冗余证明。\n\n|角色|层次|候选配对|相关家族共同可比|家族数|校准互补率|\n|---|---|---:|---:|---:|---|\n'''+ '\n'.join(lines)+'''\n\n现有证据没有提供适用的确定计算差值误差界，也没有与这些字段、有效维度、局部位点数和映射匹配的经验零对照。因此D_f与联合/独有补充分辨率均为null，不能写0。Holm0.05的完整家族集合及未知p=1占位规则保留，但没有凭空生成可检验p值；去掉家族时不会重新校正。家族矩阵明确标记校准互补性UNKNOWN，旁边的条件距离相关仅作描述。\n\n五状态绝对标签相关没有用作判决；额外给出可同方法/源属性连接的状态−中性对比，在各冻结结构对上的结构差值及独立单位区间。共享中性锚点本身会引入代数耦合，不能据高相关删除状态。\n\n碰撞只列所有当前可比较字段都恰为FP32零差的配对，并给实际已比较字段数和限制；最多2个/角色/层级，总计不超过12个，按固定hash选取。缺失或未知部分不当作相同，真实几何、预期不敏感与源重复嫌疑均不能仅凭容器相等诊断。\n\nmissingness.json同时给记录有效率、两端共同有效mask配对、可比较配对、每分子可用对0–6分布。核心/富集、TRAIN/VAL、实际来源、重原子≤20/21–35/>35、可旋转键0/1–3/≥4、0.5Å代表覆盖分别分层。可旋转键分层使用现有分子图上的RDKit Strict定义；阶段1二面角候选的非环重原子单键定义另行保留，不混为一个计数。任务实际电荷/状态/几何随每个字段登记。mask和数值提供的信息分开；没有补零或新增已排除的化学体系。\n\n下一步只追踪同一物理记录至当前D6/实际loader的差值、掩码和几何保留；不据此选择新损失或训练模型。\n''')
+ p=load(B/'results/p_data_information/progress.json');p['stage4']='COMPLETE_WITH_UNCALIBRATED_JOINT_INFORMATION';save(B/'results/p_data_information/progress.json',p)
+ print('\n'.join(lines),flush=True)
+if __name__=='__main__':main()

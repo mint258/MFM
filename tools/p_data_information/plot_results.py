@@ -54,10 +54,10 @@ def phase4():
   if v['conditional_distance_correlation'] is not None:m[families.index(v['family_a']),families.index(v['family_b'])]=v['conditional_distance_correlation']
  im=axs[0].imshow(np.ma.masked_invalid(m),vmin=-1,vmax=1,cmap='coolwarm');axs[0].set_xticks(range(len(families)),families,rotation=90);axs[0].set_yticks(range(len(families)),families);axs[0].set_title('Conditional family-distance correlation\nUncalibrated; not independent information');fig.colorbar(im,ax=axs[0],shrink=.6)
  axs[1].imshow(np.zeros_like(m),cmap='Greys',vmin=0,vmax=1);axs[1].set_xticks(range(len(families)),families,rotation=90);axs[1].set_yticks(range(len(families)),families);axs[1].set_title('Unique calibrated complementarity: UNKNOWN\nNo matched calculation-error controls')
- fig.tight_layout();fig.savefig(OUT/'family_matrix.svg');plt.close(fig)
+ fig.tight_layout();fig.savefig(OUT/'family_matrix.svg');fig.savefig(OUT/'family_matrix.png',dpi=150);plt.close(fig)
  fig,ax=plt.subplots(figsize=(8,4));labels=[];total=[];common=[]
  for role,levels in data['roles'].items():
   for level in ['composition','isomer','conformer']:labels.append(role+' '+level);total.append(levels[level]['candidate_pairs']);common.append(levels[level]['common_all_family_pairs'])
- x=np.arange(len(labels));ax.bar(x,total,color='#b9cfdf',label='Candidate pairs');ax.bar(x,common,color='#126782',label='All eligible families comparable');ax.set_xticks(x,labels,rotation=25,ha='right');ax.legend();ax.set_ylabel('Pairs (not independent units)');fig.tight_layout();fig.savefig(OUT/'pair_coverage.svg');plt.close(fig)
+ x=np.arange(len(labels));ax.bar(x,total,color='#b9cfdf',label='Candidate pairs');ax.bar(x,common,color='#126782',label='All eligible families comparable');ax.set_xticks(x,labels,rotation=25,ha='right');ax.legend();ax.set_ylabel('Pairs (not independent units)');fig.tight_layout();fig.savefig(OUT/'pair_coverage.svg');fig.savefig(OUT/'pair_coverage.png',dpi=150);plt.close(fig)
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('stage',type=int,choices=[3,4]);a=p.parse_args();phase3() if a.stage==3 else phase4()

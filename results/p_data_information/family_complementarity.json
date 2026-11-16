@@ -1,0 +1,3844 @@
+{
+  "roles": {
+    "TRAIN": {
+      "composition": {
+        "candidate_pairs": 1500,
+        "families": [
+          "energy",
+          "frontier/IP-EA",
+          "reactivity",
+          "size",
+          "solvation"
+        ],
+        "field_sets": {
+          "energy": [
+            "P.pm7_B.r53.value",
+            "P.pm7_B.r60.value",
+            "P.pm7_B.r62.value",
+            "P.pm7_anion.r204.value",
+            "P.pm7_cation.r273.value",
+            "P.pm7_octanol.r340.value",
+            "P.pm7_water.r407.value"
+          ],
+          "frontier/IP-EA": [
+            "P.pm7_B.r49.value",
+            "P.pm7_B.r50.value",
+            "P.pm7_B.r61.value",
+            "P.pm7_B.r63.value",
+            "P.pm7_octanol.r341.value",
+            "P.pm7_octanol.r343.value",
+            "P.pm7_water.r408.value",
+            "P.pm7_water.r410.value",
+            "P.xtb_singlepoint.r671.value",
+            "P.xtb_singlepoint.r672.value",
+            "P.xtb_vipea.r751.value",
+            "P.xtb_vipea.r752.value"
+          ],
+          "reactivity": [
+            "P.xtb_fod.r538.value"
+          ],
+          "size": [
+            "P.pm7_B.r41.value",
+            "P.pm7_B.r42.value",
+            "P.pm7_B.r43.value",
+            "P.pm7_B.r54.value",
+            "P.pm7_B.r83.value",
+            "P.pm7_anion.r193.value",
+            "P.pm7_anion.r194.value",
+            "P.pm7_cation.r262.value",
+            "P.pm7_cation.r263.value",
+            "P.pm7_octanol.r329.value",
+            "P.pm7_octanol.r330.value",
+            "P.pm7_water.r396.value",
+            "P.pm7_water.r397.value",
+            "P.xtb_ALPB_octanol.r460.value",
+            "P.xtb_ALPB_water.r499.value",
+            "P.xtb_perturbed_gradient.r623.value",
+            "P.xtb_singlepoint.r670.value"
+          ],
+          "solvation": [
+            "P.pm7_B.r47.value",
+            "P.pm7_B.r48.value",
+            "P.pm7_octanol.r331.value",
+            "P.pm7_water.r398.value",
+            "P.xtb_ALPB_octanol.r459.value",
+            "P.xtb_ALPB_water.r498.value"
+          ]
+        },
+        "common_all_family_pairs": 1494,
+        "conditional_correlations": [
+          {
+            "family_a": "energy",
+            "family_b": "energy",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "energy",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 1494,
+            "conditional_distance_correlation": 0.1905804008672012
+          },
+          {
+            "family_a": "energy",
+            "family_b": "reactivity",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 0.15874558782635545
+          },
+          {
+            "family_a": "energy",
+            "family_b": "size",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 0.6424047749685101
+          },
+          {
+            "family_a": "energy",
+            "family_b": "solvation",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 0.297735516462239
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "energy",
+            "independent_units": 1494,
+            "conditional_distance_correlation": 0.1905804008672012
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 1494,
+            "conditional_distance_correlation": 0.9999999999999998
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "reactivity",
+            "independent_units": 1494,
+            "conditional_distance_correlation": 0.3756973156809638
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "size",
+            "independent_units": 1494,
+            "conditional_distance_correlation": 0.17973593989796444
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "solvation",
+            "independent_units": 1494,
+            "conditional_distance_correlation": 0.23762880248553309
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "energy",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 0.15874558782635545
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 1494,
+            "conditional_distance_correlation": 0.3756973156809638
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "reactivity",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "size",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 0.23613710803755436
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "solvation",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 0.24283288318401716
+          },
+          {
+            "family_a": "size",
+            "family_b": "energy",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 0.6424047749685101
+          },
+          {
+            "family_a": "size",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 1494,
+            "conditional_distance_correlation": 0.1797359398979644
+          },
+          {
+            "family_a": "size",
+            "family_b": "reactivity",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 0.2361371080375544
+          },
+          {
+            "family_a": "size",
+            "family_b": "size",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "size",
+            "family_b": "solvation",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 0.5240580933033232
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "energy",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 0.29773551646223906
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 1494,
+            "conditional_distance_correlation": 0.23762880248553309
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "reactivity",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 0.24283288318401716
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "size",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 0.5240580933033232
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "solvation",
+            "independent_units": 1500,
+            "conditional_distance_correlation": 1.0
+          }
+        ],
+        "calibrated_joint_detection_rate": null,
+        "unique_family_detection_rate": null,
+        "D_f": null,
+        "Holm": {
+          "alpha": 0.05,
+          "unknown_p_placeholder": 1,
+          "reason": "No field has applicable deterministic calculation-difference bound or matched empirical null; unknown is not zero"
+        },
+        "uncalibrated_exact_FP32_collision_count": 0,
+        "collision_case_ids": [],
+        "collision_reason": "Exact stored equality only; not proof of physical indistinguishability",
+        "unscaled_fields": {
+          "energy": [],
+          "frontier/IP-EA": [],
+          "reactivity": [],
+          "size": [],
+          "solvation": []
+        }
+      },
+      "isomer": {
+        "candidate_pairs": 1322,
+        "families": [
+          "energy",
+          "frontier/IP-EA",
+          "reactivity",
+          "size",
+          "solvation"
+        ],
+        "field_sets": {
+          "energy": [
+            "P.pm7_B.r53.value",
+            "P.pm7_B.r60.value",
+            "P.pm7_B.r62.value",
+            "P.pm7_anion.r204.value",
+            "P.pm7_cation.r273.value",
+            "P.pm7_octanol.r340.value",
+            "P.pm7_water.r407.value"
+          ],
+          "frontier/IP-EA": [
+            "P.pm7_B.r49.value",
+            "P.pm7_B.r50.value",
+            "P.pm7_B.r61.value",
+            "P.pm7_B.r63.value",
+            "P.pm7_octanol.r341.value",
+            "P.pm7_octanol.r343.value",
+            "P.pm7_water.r408.value",
+            "P.pm7_water.r410.value",
+            "P.xtb_singlepoint.r671.value",
+            "P.xtb_singlepoint.r672.value",
+            "P.xtb_vipea.r751.value",
+            "P.xtb_vipea.r752.value"
+          ],
+          "reactivity": [
+            "P.xtb_fod.r538.value"
+          ],
+          "size": [
+            "P.pm7_B.r41.value",
+            "P.pm7_B.r42.value",
+            "P.pm7_B.r43.value",
+            "P.pm7_B.r54.value",
+            "P.pm7_B.r83.value",
+            "P.pm7_anion.r193.value",
+            "P.pm7_anion.r194.value",
+            "P.pm7_cation.r262.value",
+            "P.pm7_cation.r263.value",
+            "P.pm7_octanol.r329.value",
+            "P.pm7_octanol.r330.value",
+            "P.pm7_water.r396.value",
+            "P.pm7_water.r397.value",
+            "P.xtb_ALPB_octanol.r460.value",
+            "P.xtb_ALPB_water.r499.value",
+            "P.xtb_perturbed_gradient.r623.value",
+            "P.xtb_singlepoint.r670.value"
+          ],
+          "solvation": [
+            "P.pm7_B.r47.value",
+            "P.pm7_B.r48.value",
+            "P.pm7_octanol.r331.value",
+            "P.pm7_water.r398.value",
+            "P.xtb_ALPB_octanol.r459.value",
+            "P.xtb_ALPB_water.r498.value"
+          ]
+        },
+        "common_all_family_pairs": 1322,
+        "conditional_correlations": [
+          {
+            "family_a": "energy",
+            "family_b": "energy",
+            "independent_units": 500,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "energy",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.2785693595611469
+          },
+          {
+            "family_a": "energy",
+            "family_b": "reactivity",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.24248969604501197
+          },
+          {
+            "family_a": "energy",
+            "family_b": "size",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.738322117812719
+          },
+          {
+            "family_a": "energy",
+            "family_b": "solvation",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.19793449261212068
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "energy",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.27856935956114687
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.9999999999999998
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "reactivity",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.396731171955951
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "size",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.21734158360975492
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "solvation",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.1677126714454071
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "energy",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.242489696045012
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.396731171955951
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "reactivity",
+            "independent_units": 500,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "size",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.21774944554669132
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "solvation",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.23087939298705926
+          },
+          {
+            "family_a": "size",
+            "family_b": "energy",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.738322117812719
+          },
+          {
+            "family_a": "size",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.21734158360975495
+          },
+          {
+            "family_a": "size",
+            "family_b": "reactivity",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.21774944554669132
+          },
+          {
+            "family_a": "size",
+            "family_b": "size",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.9999999999999998
+          },
+          {
+            "family_a": "size",
+            "family_b": "solvation",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.15316205242229933
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "energy",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.19793449261212065
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.1677126714454071
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "reactivity",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.23087939298705926
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "size",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.15316205242229933
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "solvation",
+            "independent_units": 500,
+            "conditional_distance_correlation": 0.9999999999999999
+          }
+        ],
+        "calibrated_joint_detection_rate": null,
+        "unique_family_detection_rate": null,
+        "D_f": null,
+        "Holm": {
+          "alpha": 0.05,
+          "unknown_p_placeholder": 1,
+          "reason": "No field has applicable deterministic calculation-difference bound or matched empirical null; unknown is not zero"
+        },
+        "uncalibrated_exact_FP32_collision_count": 0,
+        "collision_case_ids": [],
+        "collision_reason": "Exact stored equality only; not proof of physical indistinguishability",
+        "unscaled_fields": {
+          "energy": [],
+          "frontier/IP-EA": [],
+          "reactivity": [],
+          "size": [],
+          "solvation": []
+        }
+      },
+      "conformer": {
+        "candidate_pairs": 25406,
+        "families": [
+          "bonding",
+          "charge",
+          "energy",
+          "frontier/IP-EA",
+          "multipole",
+          "off-equilibrium",
+          "reactivity",
+          "response",
+          "size",
+          "solvation"
+        ],
+        "field_sets": {
+          "bonding": [
+            "P.pm7_B.r84.value",
+            "P.pm7_B.r40.value",
+            "P.pm7_B.r65.value",
+            "P.xtb_singlepoint.r677.value",
+            "P.pm7_B.r73.value.sigma",
+            "P.pm7_B.r73.value.pi"
+          ],
+          "charge": [
+            "P.pm7_B.r39.p",
+            "P.pm7_B.r39.s",
+            "P.pm7_B.r64.value",
+            "P.pm7_B.r68.value",
+            "P.pm7_anion.r190.p",
+            "P.pm7_anion.r190.s",
+            "P.pm7_anion.r210.value",
+            "P.pm7_cation.r259.p",
+            "P.pm7_cation.r259.s",
+            "P.pm7_cation.r279.value",
+            "P.pm7_octanol.r326.p",
+            "P.pm7_octanol.r326.s",
+            "P.pm7_octanol.r346.value",
+            "P.pm7_water.r393.p",
+            "P.pm7_water.r393.s",
+            "P.pm7_water.r413.value",
+            "P.xtb_singlepoint.r668.value"
+          ],
+          "energy": [
+            "P.pm7_B.r55.electron_electron",
+            "P.pm7_B.r55.electron_nuclear",
+            "P.pm7_B.r55.total",
+            "P.pm7_B.r53.value",
+            "P.pm7_B.r60.value",
+            "P.pm7_B.r62.value",
+            "P.pm7_anion.r204.value",
+            "P.pm7_cation.r273.value",
+            "P.pm7_octanol.r340.value",
+            "P.pm7_water.r407.value",
+            "P.pm7_B.r56.C",
+            "P.pm7_B.r56.EE",
+            "P.pm7_B.r56.EN",
+            "P.pm7_B.r56.J",
+            "P.pm7_B.r56.K",
+            "P.pm7_B.r56.NN",
+            "P.pm7_B.r56.total"
+          ],
+          "frontier/IP-EA": [
+            "P.pm7_B.r49.value",
+            "P.pm7_B.r50.value",
+            "P.pm7_B.r61.value",
+            "P.pm7_B.r63.value",
+            "P.pm7_octanol.r341.value",
+            "P.pm7_octanol.r343.value",
+            "P.pm7_water.r408.value",
+            "P.pm7_water.r410.value",
+            "P.xtb_singlepoint.r671.value",
+            "P.xtb_singlepoint.r672.value",
+            "P.xtb_vipea.r751.value",
+            "P.xtb_vipea.r752.value"
+          ],
+          "multipole": [
+            "P.pm7_B.r52.x",
+            "P.pm7_B.r52.y",
+            "P.pm7_B.r52.z",
+            "P.pm7_anion.r196.x",
+            "P.pm7_anion.r196.y",
+            "P.pm7_anion.r196.z",
+            "P.pm7_cation.r265.x",
+            "P.pm7_cation.r265.y",
+            "P.pm7_cation.r265.z",
+            "P.pm7_octanol.r332.x",
+            "P.pm7_octanol.r332.y",
+            "P.pm7_octanol.r332.z",
+            "P.pm7_water.r399.x",
+            "P.pm7_water.r399.y",
+            "P.pm7_water.r399.z",
+            "P.xtb_singlepoint.r669.x",
+            "P.xtb_singlepoint.r669.y",
+            "P.xtb_singlepoint.r669.z"
+          ],
+          "off-equilibrium": [
+            "P.pm7_B.r58.value",
+            "P.xtb_perturbed_gradient.r624.value",
+            "P.xtb_perturbed_gradient.r625.value"
+          ],
+          "reactivity": [
+            "P.pm7_B.r44.value",
+            "P.pm7_B.r45.value",
+            "P.pm7_B.r46.value",
+            "P.pm7_B.r82.De",
+            "P.pm7_B.r82.Dn",
+            "P.pm7_B.r82.charge_density_q_minus_Z",
+            "P.xtb_fod.r537.value",
+            "P.xtb_vfukui.r712.f_minus",
+            "P.xtb_vfukui.r712.f_plus",
+            "P.xtb_vfukui.r712.f_radical",
+            "P.xtb_fod.r538.value"
+          ],
+          "response": [
+            "P.xtb_singlepoint.r666.value",
+            "P.xtb_singlepoint.r667.value"
+          ],
+          "size": [
+            "P.pm7_B.r41.value",
+            "P.pm7_B.r42.value",
+            "P.pm7_B.r43.value",
+            "P.pm7_B.r54.value",
+            "P.pm7_B.r83.value",
+            "P.pm7_anion.r193.value",
+            "P.pm7_anion.r194.value",
+            "P.pm7_cation.r262.value",
+            "P.pm7_cation.r263.value",
+            "P.pm7_octanol.r329.value",
+            "P.pm7_octanol.r330.value",
+            "P.pm7_water.r396.value",
+            "P.pm7_water.r397.value",
+            "P.xtb_ALPB_octanol.r460.value",
+            "P.xtb_ALPB_water.r499.value",
+            "P.xtb_perturbed_gradient.r623.value",
+            "P.xtb_singlepoint.r670.value"
+          ],
+          "solvation": [
+            "P.pm7_B.r47.value",
+            "P.pm7_B.r48.value",
+            "P.pm7_octanol.r331.value",
+            "P.pm7_water.r398.value",
+            "P.xtb_ALPB_octanol.r459.value",
+            "P.xtb_ALPB_water.r498.value"
+          ]
+        },
+        "common_all_family_pairs": 0,
+        "conditional_correlations": [
+          {
+            "family_a": "bonding",
+            "family_b": "bonding",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "charge",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.5917956137895555
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "energy",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.022371320862513172
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 4245,
+            "conditional_distance_correlation": 0.03200579039523037
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "off-equilibrium",
+            "independent_units": 4248,
+            "conditional_distance_correlation": -0.007394771363879135
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "reactivity",
+            "independent_units": 4247,
+            "conditional_distance_correlation": 0.011039953536014781
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "response",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.008850816879936916
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "size",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.0069817081054904286
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "solvation",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.03888193812200821
+          },
+          {
+            "family_a": "charge",
+            "family_b": "bonding",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.5917956137895555
+          },
+          {
+            "family_a": "charge",
+            "family_b": "charge",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.9999999999999998
+          },
+          {
+            "family_a": "charge",
+            "family_b": "energy",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.3513662558317892
+          },
+          {
+            "family_a": "charge",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 0.5237053777532993
+          },
+          {
+            "family_a": "charge",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "charge",
+            "family_b": "off-equilibrium",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.06787662557836882
+          },
+          {
+            "family_a": "charge",
+            "family_b": "reactivity",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.6986618189701305
+          },
+          {
+            "family_a": "charge",
+            "family_b": "response",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.44041493902539264
+          },
+          {
+            "family_a": "charge",
+            "family_b": "size",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.04994898869629004
+          },
+          {
+            "family_a": "charge",
+            "family_b": "solvation",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.4065355796176095
+          },
+          {
+            "family_a": "energy",
+            "family_b": "bonding",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.022371320862513172
+          },
+          {
+            "family_a": "energy",
+            "family_b": "charge",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.3513662558317892
+          },
+          {
+            "family_a": "energy",
+            "family_b": "energy",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.9999999999999999
+          },
+          {
+            "family_a": "energy",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 0.5866150428550725
+          },
+          {
+            "family_a": "energy",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "energy",
+            "family_b": "off-equilibrium",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.10359873280880122
+          },
+          {
+            "family_a": "energy",
+            "family_b": "reactivity",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.4604609430620571
+          },
+          {
+            "family_a": "energy",
+            "family_b": "response",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.4725609064681652
+          },
+          {
+            "family_a": "energy",
+            "family_b": "size",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.15852400440201786
+          },
+          {
+            "family_a": "energy",
+            "family_b": "solvation",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.6764898382312459
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "bonding",
+            "independent_units": 4245,
+            "conditional_distance_correlation": 0.03200579039523037
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "charge",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 0.5237053777532993
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "energy",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 0.5866150428550725
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "off-equilibrium",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 0.10953066758550567
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "reactivity",
+            "independent_units": 4245,
+            "conditional_distance_correlation": 0.7047364653363475
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "response",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 0.6034939651374408
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "size",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 0.08808388938030354
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "solvation",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 0.5971976279855825
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "bonding",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "charge",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "energy",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "off-equilibrium",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "reactivity",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "response",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "size",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "solvation",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "bonding",
+            "independent_units": 4248,
+            "conditional_distance_correlation": -0.0073947713638791365
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "charge",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.06787662557836882
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "energy",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.1035987328088012
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 0.10953066758550567
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "off-equilibrium",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "reactivity",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.10096048944580335
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "response",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.09692841185004895
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "size",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.17911600241453338
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "solvation",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.09877052578494963
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "bonding",
+            "independent_units": 4247,
+            "conditional_distance_correlation": 0.01103995353601478
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "charge",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.6986618189701306
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "energy",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.4604609430620571
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 4245,
+            "conditional_distance_correlation": 0.7047364653363476
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "off-equilibrium",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.10096048944580337
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "reactivity",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.9999999999999999
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "response",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.5704473541074347
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "size",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.03656450737142209
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "solvation",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.5056889037191277
+          },
+          {
+            "family_a": "response",
+            "family_b": "bonding",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.008850816879936916
+          },
+          {
+            "family_a": "response",
+            "family_b": "charge",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.44041493902539264
+          },
+          {
+            "family_a": "response",
+            "family_b": "energy",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.4725609064681652
+          },
+          {
+            "family_a": "response",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 0.6034939651374408
+          },
+          {
+            "family_a": "response",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "response",
+            "family_b": "off-equilibrium",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.09692841185004897
+          },
+          {
+            "family_a": "response",
+            "family_b": "reactivity",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.5704473541074349
+          },
+          {
+            "family_a": "response",
+            "family_b": "response",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "response",
+            "family_b": "size",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.07639296019429784
+          },
+          {
+            "family_a": "response",
+            "family_b": "solvation",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.6671291310820301
+          },
+          {
+            "family_a": "size",
+            "family_b": "bonding",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.006981708105490428
+          },
+          {
+            "family_a": "size",
+            "family_b": "charge",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.049948988696290046
+          },
+          {
+            "family_a": "size",
+            "family_b": "energy",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.15852400440201786
+          },
+          {
+            "family_a": "size",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 0.08808388938030354
+          },
+          {
+            "family_a": "size",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "size",
+            "family_b": "off-equilibrium",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.17911600241453335
+          },
+          {
+            "family_a": "size",
+            "family_b": "reactivity",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.03656450737142209
+          },
+          {
+            "family_a": "size",
+            "family_b": "response",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.07639296019429782
+          },
+          {
+            "family_a": "size",
+            "family_b": "size",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "size",
+            "family_b": "solvation",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.1398084524353716
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "bonding",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.0388819381220082
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "charge",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.4065355796176095
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "energy",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.6764898382312459
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 4246,
+            "conditional_distance_correlation": 0.5971976279855825
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "off-equilibrium",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.09877052578494963
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "reactivity",
+            "independent_units": 4248,
+            "conditional_distance_correlation": 0.5056889037191278
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "response",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.6671291310820301
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "size",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 0.1398084524353716
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "solvation",
+            "independent_units": 4249,
+            "conditional_distance_correlation": 1.0
+          }
+        ],
+        "calibrated_joint_detection_rate": null,
+        "unique_family_detection_rate": null,
+        "D_f": null,
+        "Holm": {
+          "alpha": 0.05,
+          "unknown_p_placeholder": 1,
+          "reason": "No field has applicable deterministic calculation-difference bound or matched empirical null; unknown is not zero"
+        },
+        "uncalibrated_exact_FP32_collision_count": 0,
+        "collision_case_ids": [],
+        "collision_reason": "Exact stored equality only; not proof of physical indistinguishability",
+        "unscaled_fields": {
+          "bonding": [],
+          "charge": [],
+          "energy": [],
+          "frontier/IP-EA": [],
+          "multipole": [],
+          "off-equilibrium": [],
+          "reactivity": [],
+          "response": [],
+          "size": [],
+          "solvation": []
+        }
+      },
+      "state_contrasts": {
+        "composition": {
+          "P.pm7_anion.r193.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_anion.r194.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_anion.r204.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 16.4474515914917,
+              "p10": 3.207324552536011,
+              "p90": 40.98568572998048,
+              "ci95": [
+                15.210518741607666,
+                17.320465087890625
+              ]
+            }
+          },
+          "P.pm7_cation.r262.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_cation.r263.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_cation.r273.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 12.80484414100647,
+              "p10": 2.6378246307373048,
+              "p90": 32.066246870160114,
+              "ci95": [
+                12.092535161972046,
+                13.387435913085938
+              ]
+            }
+          },
+          "P.pm7_octanol.r329.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 0.0099945068359375,
+              "p10": 0.0,
+              "p90": 0.039950561523437504,
+              "ci95": [
+                0.009979248046875,
+                0.010009765625
+              ]
+            }
+          },
+          "P.pm7_octanol.r330.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 0.009979248046875,
+              "p10": 0.0,
+              "p90": 0.040008544921875,
+              "ci95": [
+                0.009979248046875,
+                0.00998687744140625
+              ]
+            }
+          },
+          "P.pm7_octanol.r340.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 5.876123428344727,
+              "p10": 0.998812484741211,
+              "p90": 14.765013885498048,
+              "ci95": [
+                5.556796073913574,
+                6.114824295043945
+              ]
+            }
+          },
+          "P.pm7_octanol.r341.value": {
+            "neutral_anchor": "P.pm7_B.r61.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 0.1381077766418457,
+              "p10": 0.028023624420166017,
+              "p90": 0.35640192031860357,
+              "ci95": [
+                0.12915774583816528,
+                0.14692211151123047
+              ]
+            }
+          },
+          "P.pm7_octanol.r343.value": {
+            "neutral_anchor": "P.pm7_B.r63.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 0.14604345709085464,
+              "p10": 0.027124468982219697,
+              "p90": 0.35258927643299104,
+              "ci95": [
+                0.13575517386198044,
+                0.15419731782749296
+              ]
+            }
+          },
+          "P.pm7_water.r396.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 0.0099945068359375,
+              "p10": 0.0,
+              "p90": 0.039950561523437504,
+              "ci95": [
+                0.009979248046875,
+                0.010009765625
+              ]
+            }
+          },
+          "P.pm7_water.r397.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 0.009979248046875,
+              "p10": 0.0,
+              "p90": 0.040008544921875,
+              "ci95": [
+                0.009979248046875,
+                0.00998687744140625
+              ]
+            }
+          },
+          "P.pm7_water.r407.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 6.919921875,
+              "p10": 1.1614654541015625,
+              "p90": 17.427481842041022,
+              "ci95": [
+                6.4619041085243225,
+                7.25440045595169
+              ]
+            }
+          },
+          "P.pm7_water.r408.value": {
+            "neutral_anchor": "P.pm7_B.r61.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 0.1624279022216797,
+              "p10": 0.033311653137207034,
+              "p90": 0.41747331619262706,
+              "ci95": [
+                0.1543874740600586,
+                0.17141669988632202
+              ]
+            }
+          },
+          "P.pm7_water.r410.value": {
+            "neutral_anchor": "P.pm7_B.r63.value",
+            "structural_state_contrast": {
+              "independent_units": 1500,
+              "median": 0.17211275547742844,
+              "p10": 0.032624468207359314,
+              "p90": 0.41318110860884194,
+              "ci95": [
+                0.16140345046296717,
+                0.18141259998083115
+              ]
+            }
+          }
+        },
+        "isomer": {
+          "P.pm7_anion.r193.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_anion.r194.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_anion.r204.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 10.392548720041912,
+              "p10": 2.541902542114258,
+              "p90": 22.31626224517823,
+              "ci95": [
+                9.456540513038636,
+                11.034008979797363
+              ]
+            }
+          },
+          "P.pm7_cation.r262.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_cation.r263.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_cation.r273.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 10.271249930063885,
+              "p10": 2.0998078629374506,
+              "p90": 21.4038316488266,
+              "ci95": [
+                9.466169369220735,
+                11.100129894415536
+              ]
+            }
+          },
+          "P.pm7_octanol.r329.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 0.00665283203125,
+              "p10": 0.0,
+              "p90": 0.02424621582031252,
+              "ci95": [
+                0.0050201416015625,
+                0.0074920654296875
+              ]
+            }
+          },
+          "P.pm7_octanol.r330.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 0.005839029947916667,
+              "p10": 0.0,
+              "p90": 0.029998779296875,
+              "ci95": [
+                0.0050048828125,
+                0.006673177083333333
+              ]
+            }
+          },
+          "P.pm7_octanol.r340.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 2.3539247512817383,
+              "p10": 0.5090598464012146,
+              "p90": 5.489236450195313,
+              "ci95": [
+                2.2012011289596556,
+                2.492861346900463
+              ]
+            }
+          },
+          "P.pm7_octanol.r341.value": {
+            "neutral_anchor": "P.pm7_B.r61.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 0.1129136880238851,
+              "p10": 0.031986045837402347,
+              "p90": 0.2527340014775595,
+              "ci95": [
+                0.10329556465148926,
+                0.11927624742190043
+              ]
+            }
+          },
+          "P.pm7_octanol.r343.value": {
+            "neutral_anchor": "P.pm7_B.r63.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 0.11804734170436859,
+              "p10": 0.03156165023101494,
+              "p90": 0.232713674257199,
+              "ci95": [
+                0.10792327816598117,
+                0.1279987096786499
+              ]
+            }
+          },
+          "P.pm7_water.r396.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 0.00665283203125,
+              "p10": 0.0,
+              "p90": 0.02424621582031252,
+              "ci95": [
+                0.0050201416015625,
+                0.0074920654296875
+              ]
+            }
+          },
+          "P.pm7_water.r397.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 0.005839029947916667,
+              "p10": 0.0,
+              "p90": 0.029998779296875,
+              "ci95": [
+                0.0050048828125,
+                0.006673177083333333
+              ]
+            }
+          },
+          "P.pm7_water.r407.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 2.722176770369212,
+              "p10": 0.6444203694661459,
+              "p90": 6.4907881418863935,
+              "ci95": [
+                2.588061921298504,
+                2.9461429198582962
+              ]
+            }
+          },
+          "P.pm7_water.r408.value": {
+            "neutral_anchor": "P.pm7_B.r61.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 0.12854198614756268,
+              "p10": 0.03885445594787598,
+              "p90": 0.29843730926513673,
+              "ci95": [
+                0.12194101015726726,
+                0.139828364054362
+              ]
+            }
+          },
+          "P.pm7_water.r410.value": {
+            "neutral_anchor": "P.pm7_B.r63.value",
+            "structural_state_contrast": {
+              "independent_units": 500,
+              "median": 0.1371466473986705,
+              "p10": 0.035830342769622804,
+              "p90": 0.27032514102781235,
+              "ci95": [
+                0.1230358933409055,
+                0.14971514201024547
+              ]
+            }
+          }
+        },
+        "conformer": {
+          "P.pm7_anion.r193.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_anion.r194.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_anion.r204.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 1.9125912984212239,
+              "p10": 0.06033159891764324,
+              "p90": 8.007178751627617,
+              "ci95": [
+                1.810925801595052,
+                2.0096638997395835
+              ]
+            }
+          },
+          "P.pm7_cation.r262.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_cation.r263.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_cation.r273.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 2.160243352254232,
+              "p10": 0.05582478841145834,
+              "p90": 7.370397949218753,
+              "ci95": [
+                2.064733680089315,
+                2.2453853289286294
+              ]
+            }
+          },
+          "P.pm7_octanol.r329.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.006678263346354167,
+              "p10": 0.0016632080078125,
+              "p90": 0.023345947265625,
+              "ci95": [
+                0.006673177083333333,
+                0.008326212565104166
+              ]
+            }
+          },
+          "P.pm7_octanol.r330.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.006673177083333333,
+              "p10": 1.52587890625e-05,
+              "p90": 0.033330281575520836,
+              "ci95": [
+                0.0066680908203125,
+                0.006673177083333333
+              ]
+            }
+          },
+          "P.pm7_octanol.r340.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.7216033935546875,
+              "p10": 0.03274586995442709,
+              "p90": 1.9399326324462898,
+              "ci95": [
+                0.6933466593424479,
+                0.7464307149251302
+              ]
+            }
+          },
+          "P.pm7_octanol.r341.value": {
+            "neutral_anchor": "P.pm7_B.r61.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.04833269119262695,
+              "p10": 0.0016893386840820313,
+              "p90": 0.13450625737508143,
+              "ci95": [
+                0.04612954457600912,
+                0.050144195556640625
+              ]
+            }
+          },
+          "P.pm7_octanol.r343.value": {
+            "neutral_anchor": "P.pm7_B.r63.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.04282192885875702,
+              "p10": 0.0018361290295918786,
+              "p90": 0.12172292023897172,
+              "ci95": [
+                0.04089121023813883,
+                0.04466532481213411
+              ]
+            }
+          },
+          "P.pm7_water.r396.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.006678263346354167,
+              "p10": 0.0016632080078125,
+              "p90": 0.023345947265625,
+              "ci95": [
+                0.006673177083333333,
+                0.008326212565104166
+              ]
+            }
+          },
+          "P.pm7_water.r397.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.006673177083333333,
+              "p10": 1.52587890625e-05,
+              "p90": 0.033330281575520836,
+              "ci95": [
+                0.0066680908203125,
+                0.006673177083333333
+              ]
+            }
+          },
+          "P.pm7_water.r407.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.8625469207763672,
+              "p10": 0.03841603597005209,
+              "p90": 2.331994311014811,
+              "ci95": [
+                0.8333752746383348,
+                0.8983272870381673
+              ]
+            }
+          },
+          "P.pm7_water.r408.value": {
+            "neutral_anchor": "P.pm7_B.r61.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.05704800287882487,
+              "p10": 0.001933097839355469,
+              "p90": 0.15786422093709312,
+              "ci95": [
+                0.05424006779988607,
+                0.059580326080322266
+              ]
+            }
+          },
+          "P.pm7_water.r410.value": {
+            "neutral_anchor": "P.pm7_B.r63.value",
+            "structural_state_contrast": {
+              "independent_units": 4249,
+              "median": 0.050647119681040444,
+              "p10": 0.002079200247923533,
+              "p90": 0.14332108485201997,
+              "ci95": [
+                0.04866353468969464,
+                0.05259544085711241
+              ]
+            }
+          }
+        }
+      },
+      "shared_neutral_anchor_warning": "State contrasts sharing an anchor are algebraically coupled; absolute five-state correlation is not used as evidence of conditional equivalence."
+    },
+    "VAL": {
+      "composition": {
+        "candidate_pairs": 150,
+        "families": [
+          "energy",
+          "frontier/IP-EA",
+          "reactivity",
+          "size",
+          "solvation"
+        ],
+        "field_sets": {
+          "energy": [
+            "P.pm7_B.r53.value",
+            "P.pm7_B.r60.value",
+            "P.pm7_B.r62.value",
+            "P.pm7_anion.r204.value",
+            "P.pm7_cation.r273.value",
+            "P.pm7_octanol.r340.value",
+            "P.pm7_water.r407.value"
+          ],
+          "frontier/IP-EA": [
+            "P.pm7_B.r49.value",
+            "P.pm7_B.r50.value",
+            "P.pm7_B.r61.value",
+            "P.pm7_B.r63.value",
+            "P.pm7_octanol.r341.value",
+            "P.pm7_octanol.r343.value",
+            "P.pm7_water.r408.value",
+            "P.pm7_water.r410.value",
+            "P.xtb_singlepoint.r671.value",
+            "P.xtb_singlepoint.r672.value",
+            "P.xtb_vipea.r751.value",
+            "P.xtb_vipea.r752.value"
+          ],
+          "reactivity": [
+            "P.xtb_fod.r538.value"
+          ],
+          "size": [
+            "P.pm7_B.r41.value",
+            "P.pm7_B.r42.value",
+            "P.pm7_B.r43.value",
+            "P.pm7_B.r54.value",
+            "P.pm7_B.r83.value",
+            "P.pm7_anion.r193.value",
+            "P.pm7_anion.r194.value",
+            "P.pm7_cation.r262.value",
+            "P.pm7_cation.r263.value",
+            "P.pm7_octanol.r329.value",
+            "P.pm7_octanol.r330.value",
+            "P.pm7_water.r396.value",
+            "P.pm7_water.r397.value",
+            "P.xtb_ALPB_octanol.r460.value",
+            "P.xtb_ALPB_water.r499.value",
+            "P.xtb_perturbed_gradient.r623.value",
+            "P.xtb_singlepoint.r670.value"
+          ],
+          "solvation": [
+            "P.pm7_B.r47.value",
+            "P.pm7_B.r48.value",
+            "P.pm7_octanol.r331.value",
+            "P.pm7_water.r398.value",
+            "P.xtb_ALPB_octanol.r459.value",
+            "P.xtb_ALPB_water.r498.value"
+          ]
+        },
+        "common_all_family_pairs": 150,
+        "conditional_correlations": [
+          {
+            "family_a": "energy",
+            "family_b": "energy",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.9999999999999999
+          },
+          {
+            "family_a": "energy",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.0018788849921699642
+          },
+          {
+            "family_a": "energy",
+            "family_b": "reactivity",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.21666782593754194
+          },
+          {
+            "family_a": "energy",
+            "family_b": "size",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.5574882457894565
+          },
+          {
+            "family_a": "energy",
+            "family_b": "solvation",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.24887699934485785
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "energy",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.001878884992169964
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 150,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "reactivity",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.22137663513282305
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "size",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.06879486495622807
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "solvation",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.23707799586163888
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "energy",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.21666782593754197
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.22137663513282302
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "reactivity",
+            "independent_units": 150,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "size",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.24213790621969306
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "solvation",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.17165859224854332
+          },
+          {
+            "family_a": "size",
+            "family_b": "energy",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.5574882457894565
+          },
+          {
+            "family_a": "size",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.06879486495622807
+          },
+          {
+            "family_a": "size",
+            "family_b": "reactivity",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.24213790621969303
+          },
+          {
+            "family_a": "size",
+            "family_b": "size",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.9999999999999998
+          },
+          {
+            "family_a": "size",
+            "family_b": "solvation",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.5403180860662135
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "energy",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.24887699934485788
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.23707799586163888
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "reactivity",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.17165859224854332
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "size",
+            "independent_units": 150,
+            "conditional_distance_correlation": 0.5403180860662135
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "solvation",
+            "independent_units": 150,
+            "conditional_distance_correlation": 1.0
+          }
+        ],
+        "calibrated_joint_detection_rate": null,
+        "unique_family_detection_rate": null,
+        "D_f": null,
+        "Holm": {
+          "alpha": 0.05,
+          "unknown_p_placeholder": 1,
+          "reason": "No field has applicable deterministic calculation-difference bound or matched empirical null; unknown is not zero"
+        },
+        "uncalibrated_exact_FP32_collision_count": 0,
+        "collision_case_ids": [],
+        "collision_reason": "Exact stored equality only; not proof of physical indistinguishability",
+        "unscaled_fields": {
+          "energy": [],
+          "frontier/IP-EA": [],
+          "reactivity": [],
+          "size": [],
+          "solvation": []
+        }
+      },
+      "isomer": {
+        "candidate_pairs": 57,
+        "families": [
+          "energy",
+          "frontier/IP-EA",
+          "reactivity",
+          "size",
+          "solvation"
+        ],
+        "field_sets": {
+          "energy": [
+            "P.pm7_B.r53.value",
+            "P.pm7_B.r60.value",
+            "P.pm7_B.r62.value",
+            "P.pm7_anion.r204.value",
+            "P.pm7_cation.r273.value",
+            "P.pm7_octanol.r340.value",
+            "P.pm7_water.r407.value"
+          ],
+          "frontier/IP-EA": [
+            "P.pm7_B.r49.value",
+            "P.pm7_B.r50.value",
+            "P.pm7_B.r61.value",
+            "P.pm7_B.r63.value",
+            "P.pm7_octanol.r341.value",
+            "P.pm7_octanol.r343.value",
+            "P.pm7_water.r408.value",
+            "P.pm7_water.r410.value",
+            "P.xtb_singlepoint.r671.value",
+            "P.xtb_singlepoint.r672.value",
+            "P.xtb_vipea.r751.value",
+            "P.xtb_vipea.r752.value"
+          ],
+          "reactivity": [
+            "P.xtb_fod.r538.value"
+          ],
+          "size": [
+            "P.pm7_B.r41.value",
+            "P.pm7_B.r42.value",
+            "P.pm7_B.r43.value",
+            "P.pm7_B.r54.value",
+            "P.pm7_B.r83.value",
+            "P.pm7_anion.r193.value",
+            "P.pm7_anion.r194.value",
+            "P.pm7_cation.r262.value",
+            "P.pm7_cation.r263.value",
+            "P.pm7_octanol.r329.value",
+            "P.pm7_octanol.r330.value",
+            "P.pm7_water.r396.value",
+            "P.pm7_water.r397.value",
+            "P.xtb_ALPB_octanol.r460.value",
+            "P.xtb_ALPB_water.r499.value",
+            "P.xtb_perturbed_gradient.r623.value",
+            "P.xtb_singlepoint.r670.value"
+          ],
+          "solvation": [
+            "P.pm7_B.r47.value",
+            "P.pm7_B.r48.value",
+            "P.pm7_octanol.r331.value",
+            "P.pm7_water.r398.value",
+            "P.xtb_ALPB_octanol.r459.value",
+            "P.xtb_ALPB_water.r498.value"
+          ]
+        },
+        "common_all_family_pairs": 57,
+        "conditional_correlations": [
+          {
+            "family_a": "energy",
+            "family_b": "energy",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.9999999999999999
+          },
+          {
+            "family_a": "energy",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.06458461018864212
+          },
+          {
+            "family_a": "energy",
+            "family_b": "reactivity",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.10247274121180068
+          },
+          {
+            "family_a": "energy",
+            "family_b": "size",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.6693586403699355
+          },
+          {
+            "family_a": "energy",
+            "family_b": "solvation",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.17455900719499626
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "energy",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.06458461018864212
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 50,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "reactivity",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.14840123657160983
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "size",
+            "independent_units": 50,
+            "conditional_distance_correlation": -0.11542685590654443
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "solvation",
+            "independent_units": 50,
+            "conditional_distance_correlation": -0.05585027685515509
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "energy",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.10247274121180068
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.14840123657160983
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "reactivity",
+            "independent_units": 50,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "size",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.012970638760136852
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "solvation",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.27357780539141263
+          },
+          {
+            "family_a": "size",
+            "family_b": "energy",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.6693586403699354
+          },
+          {
+            "family_a": "size",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 50,
+            "conditional_distance_correlation": -0.11542685590654443
+          },
+          {
+            "family_a": "size",
+            "family_b": "reactivity",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.012970638760136852
+          },
+          {
+            "family_a": "size",
+            "family_b": "size",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.9999999999999998
+          },
+          {
+            "family_a": "size",
+            "family_b": "solvation",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.15405319875848467
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "energy",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.17455900719499626
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 50,
+            "conditional_distance_correlation": -0.0558502768551551
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "reactivity",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.27357780539141263
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "size",
+            "independent_units": 50,
+            "conditional_distance_correlation": 0.1540531987584847
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "solvation",
+            "independent_units": 50,
+            "conditional_distance_correlation": 1.0
+          }
+        ],
+        "calibrated_joint_detection_rate": null,
+        "unique_family_detection_rate": null,
+        "D_f": null,
+        "Holm": {
+          "alpha": 0.05,
+          "unknown_p_placeholder": 1,
+          "reason": "No field has applicable deterministic calculation-difference bound or matched empirical null; unknown is not zero"
+        },
+        "uncalibrated_exact_FP32_collision_count": 0,
+        "collision_case_ids": [],
+        "collision_reason": "Exact stored equality only; not proof of physical indistinguishability",
+        "unscaled_fields": {
+          "energy": [],
+          "frontier/IP-EA": [],
+          "reactivity": [],
+          "size": [],
+          "solvation": []
+        }
+      },
+      "conformer": {
+        "candidate_pairs": 2371,
+        "families": [
+          "bonding",
+          "charge",
+          "energy",
+          "frontier/IP-EA",
+          "multipole",
+          "off-equilibrium",
+          "reactivity",
+          "response",
+          "size",
+          "solvation"
+        ],
+        "field_sets": {
+          "bonding": [
+            "P.pm7_B.r84.value",
+            "P.pm7_B.r40.value",
+            "P.pm7_B.r65.value",
+            "P.xtb_singlepoint.r677.value",
+            "P.pm7_B.r73.value.sigma",
+            "P.pm7_B.r73.value.pi"
+          ],
+          "charge": [
+            "P.pm7_B.r39.p",
+            "P.pm7_B.r39.s",
+            "P.pm7_B.r64.value",
+            "P.pm7_B.r68.value",
+            "P.pm7_anion.r190.p",
+            "P.pm7_anion.r190.s",
+            "P.pm7_anion.r210.value",
+            "P.pm7_cation.r259.p",
+            "P.pm7_cation.r259.s",
+            "P.pm7_cation.r279.value",
+            "P.pm7_octanol.r326.p",
+            "P.pm7_octanol.r326.s",
+            "P.pm7_octanol.r346.value",
+            "P.pm7_water.r393.p",
+            "P.pm7_water.r393.s",
+            "P.pm7_water.r413.value",
+            "P.xtb_singlepoint.r668.value"
+          ],
+          "energy": [
+            "P.pm7_B.r55.electron_electron",
+            "P.pm7_B.r55.electron_nuclear",
+            "P.pm7_B.r55.total",
+            "P.pm7_B.r53.value",
+            "P.pm7_B.r60.value",
+            "P.pm7_B.r62.value",
+            "P.pm7_anion.r204.value",
+            "P.pm7_cation.r273.value",
+            "P.pm7_octanol.r340.value",
+            "P.pm7_water.r407.value",
+            "P.pm7_B.r56.C",
+            "P.pm7_B.r56.EE",
+            "P.pm7_B.r56.EN",
+            "P.pm7_B.r56.J",
+            "P.pm7_B.r56.K",
+            "P.pm7_B.r56.NN",
+            "P.pm7_B.r56.total"
+          ],
+          "frontier/IP-EA": [
+            "P.pm7_B.r49.value",
+            "P.pm7_B.r50.value",
+            "P.pm7_B.r61.value",
+            "P.pm7_B.r63.value",
+            "P.pm7_octanol.r341.value",
+            "P.pm7_octanol.r343.value",
+            "P.pm7_water.r408.value",
+            "P.pm7_water.r410.value",
+            "P.xtb_singlepoint.r671.value",
+            "P.xtb_singlepoint.r672.value",
+            "P.xtb_vipea.r751.value",
+            "P.xtb_vipea.r752.value"
+          ],
+          "multipole": [
+            "P.pm7_B.r52.x",
+            "P.pm7_B.r52.y",
+            "P.pm7_B.r52.z",
+            "P.pm7_anion.r196.x",
+            "P.pm7_anion.r196.y",
+            "P.pm7_anion.r196.z",
+            "P.pm7_cation.r265.x",
+            "P.pm7_cation.r265.y",
+            "P.pm7_cation.r265.z",
+            "P.pm7_octanol.r332.x",
+            "P.pm7_octanol.r332.y",
+            "P.pm7_octanol.r332.z",
+            "P.pm7_water.r399.x",
+            "P.pm7_water.r399.y",
+            "P.pm7_water.r399.z",
+            "P.xtb_singlepoint.r669.x",
+            "P.xtb_singlepoint.r669.y",
+            "P.xtb_singlepoint.r669.z"
+          ],
+          "off-equilibrium": [
+            "P.pm7_B.r58.value",
+            "P.xtb_perturbed_gradient.r624.value",
+            "P.xtb_perturbed_gradient.r625.value"
+          ],
+          "reactivity": [
+            "P.pm7_B.r44.value",
+            "P.pm7_B.r45.value",
+            "P.pm7_B.r46.value",
+            "P.pm7_B.r82.De",
+            "P.pm7_B.r82.Dn",
+            "P.pm7_B.r82.charge_density_q_minus_Z",
+            "P.xtb_fod.r537.value",
+            "P.xtb_vfukui.r712.f_minus",
+            "P.xtb_vfukui.r712.f_plus",
+            "P.xtb_vfukui.r712.f_radical",
+            "P.xtb_fod.r538.value"
+          ],
+          "response": [
+            "P.xtb_singlepoint.r666.value",
+            "P.xtb_singlepoint.r667.value"
+          ],
+          "size": [
+            "P.pm7_B.r41.value",
+            "P.pm7_B.r42.value",
+            "P.pm7_B.r43.value",
+            "P.pm7_B.r54.value",
+            "P.pm7_B.r83.value",
+            "P.pm7_anion.r193.value",
+            "P.pm7_anion.r194.value",
+            "P.pm7_cation.r262.value",
+            "P.pm7_cation.r263.value",
+            "P.pm7_octanol.r329.value",
+            "P.pm7_octanol.r330.value",
+            "P.pm7_water.r396.value",
+            "P.pm7_water.r397.value",
+            "P.xtb_ALPB_octanol.r460.value",
+            "P.xtb_ALPB_water.r499.value",
+            "P.xtb_perturbed_gradient.r623.value",
+            "P.xtb_singlepoint.r670.value"
+          ],
+          "solvation": [
+            "P.pm7_B.r47.value",
+            "P.pm7_B.r48.value",
+            "P.pm7_octanol.r331.value",
+            "P.pm7_water.r398.value",
+            "P.xtb_ALPB_octanol.r459.value",
+            "P.xtb_ALPB_water.r498.value"
+          ]
+        },
+        "common_all_family_pairs": 0,
+        "conditional_correlations": [
+          {
+            "family_a": "bonding",
+            "family_b": "bonding",
+            "independent_units": 396,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "charge",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.6780323913833499
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "energy",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.05438103836903781
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.05016581075386401
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "off-equilibrium",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.034393274581577316
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "reactivity",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.05117525056992303
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "response",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.04541292213362411
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "size",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.0011308584725560576
+          },
+          {
+            "family_a": "bonding",
+            "family_b": "solvation",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.04461106631775186
+          },
+          {
+            "family_a": "charge",
+            "family_b": "bonding",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.6780323913833499
+          },
+          {
+            "family_a": "charge",
+            "family_b": "charge",
+            "independent_units": 396,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "charge",
+            "family_b": "energy",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.3262249717518125
+          },
+          {
+            "family_a": "charge",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.4995194796379598
+          },
+          {
+            "family_a": "charge",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "charge",
+            "family_b": "off-equilibrium",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.07231433175098698
+          },
+          {
+            "family_a": "charge",
+            "family_b": "reactivity",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.6880984837590688
+          },
+          {
+            "family_a": "charge",
+            "family_b": "response",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.3867109371284326
+          },
+          {
+            "family_a": "charge",
+            "family_b": "size",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.03499398186208868
+          },
+          {
+            "family_a": "charge",
+            "family_b": "solvation",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.11896753431247063
+          },
+          {
+            "family_a": "energy",
+            "family_b": "bonding",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.05438103836903781
+          },
+          {
+            "family_a": "energy",
+            "family_b": "charge",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.3262249717518125
+          },
+          {
+            "family_a": "energy",
+            "family_b": "energy",
+            "independent_units": 396,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "energy",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.5978695935397517
+          },
+          {
+            "family_a": "energy",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "energy",
+            "family_b": "off-equilibrium",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.132867809054837
+          },
+          {
+            "family_a": "energy",
+            "family_b": "reactivity",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.4386165504849675
+          },
+          {
+            "family_a": "energy",
+            "family_b": "response",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.48072848600796564
+          },
+          {
+            "family_a": "energy",
+            "family_b": "size",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.11401242572528252
+          },
+          {
+            "family_a": "energy",
+            "family_b": "solvation",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.28692945356591265
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "bonding",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.05016581075386402
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "charge",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.4995194796379597
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "energy",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.5978695935397518
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.9999999999999998
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "off-equilibrium",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.03401150279172407
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "reactivity",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.7112622080947907
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "response",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.5846982495783759
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "size",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.05744117425649811
+          },
+          {
+            "family_a": "frontier/IP-EA",
+            "family_b": "solvation",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.2023081433788075
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "bonding",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "charge",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "energy",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "off-equilibrium",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "reactivity",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "response",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "size",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "multipole",
+            "family_b": "solvation",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "bonding",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.03439327458157732
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "charge",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.07231433175098699
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "energy",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.13286780905483703
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.034011502791724074
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "off-equilibrium",
+            "independent_units": 396,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "reactivity",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.051232584065392724
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "response",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.03208872031953904
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "size",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.18000788581278038
+          },
+          {
+            "family_a": "off-equilibrium",
+            "family_b": "solvation",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.008794425241548222
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "bonding",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.05117525056992303
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "charge",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.6880984837590688
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "energy",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.4386165504849675
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.7112622080947906
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "off-equilibrium",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.051232584065392724
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "reactivity",
+            "independent_units": 396,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "response",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.5101402403706707
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "size",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.04444788653356027
+          },
+          {
+            "family_a": "reactivity",
+            "family_b": "solvation",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.1498877454774171
+          },
+          {
+            "family_a": "response",
+            "family_b": "bonding",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.04541292213362412
+          },
+          {
+            "family_a": "response",
+            "family_b": "charge",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.3867109371284326
+          },
+          {
+            "family_a": "response",
+            "family_b": "energy",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.4807284860079657
+          },
+          {
+            "family_a": "response",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.5846982495783759
+          },
+          {
+            "family_a": "response",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "response",
+            "family_b": "off-equilibrium",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.032088720319539035
+          },
+          {
+            "family_a": "response",
+            "family_b": "reactivity",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.5101402403706707
+          },
+          {
+            "family_a": "response",
+            "family_b": "response",
+            "independent_units": 396,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "response",
+            "family_b": "size",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.07972688804254789
+          },
+          {
+            "family_a": "response",
+            "family_b": "solvation",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.24124641027126947
+          },
+          {
+            "family_a": "size",
+            "family_b": "bonding",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.0011308584725560574
+          },
+          {
+            "family_a": "size",
+            "family_b": "charge",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.034993981862088686
+          },
+          {
+            "family_a": "size",
+            "family_b": "energy",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.11401242572528252
+          },
+          {
+            "family_a": "size",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.05744117425649812
+          },
+          {
+            "family_a": "size",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "size",
+            "family_b": "off-equilibrium",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.18000788581278038
+          },
+          {
+            "family_a": "size",
+            "family_b": "reactivity",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.044447886533560264
+          },
+          {
+            "family_a": "size",
+            "family_b": "response",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.0797268880425479
+          },
+          {
+            "family_a": "size",
+            "family_b": "size",
+            "independent_units": 396,
+            "conditional_distance_correlation": 1.0
+          },
+          {
+            "family_a": "size",
+            "family_b": "solvation",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.1577891074658896
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "bonding",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.04461106631775186
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "charge",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.11896753431247063
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "energy",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.28692945356591265
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "frontier/IP-EA",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.20230814337880748
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "multipole",
+            "independent_units": 0,
+            "conditional_distance_correlation": null
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "off-equilibrium",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.008794425241548222
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "reactivity",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.1498877454774171
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "response",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.2412464102712695
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "size",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.1577891074658896
+          },
+          {
+            "family_a": "solvation",
+            "family_b": "solvation",
+            "independent_units": 396,
+            "conditional_distance_correlation": 0.9999999999999999
+          }
+        ],
+        "calibrated_joint_detection_rate": null,
+        "unique_family_detection_rate": null,
+        "D_f": null,
+        "Holm": {
+          "alpha": 0.05,
+          "unknown_p_placeholder": 1,
+          "reason": "No field has applicable deterministic calculation-difference bound or matched empirical null; unknown is not zero"
+        },
+        "uncalibrated_exact_FP32_collision_count": 0,
+        "collision_case_ids": [],
+        "collision_reason": "Exact stored equality only; not proof of physical indistinguishability",
+        "unscaled_fields": {
+          "bonding": [],
+          "charge": [],
+          "energy": [],
+          "frontier/IP-EA": [],
+          "multipole": [],
+          "off-equilibrium": [],
+          "reactivity": [],
+          "response": [],
+          "size": [],
+          "solvation": []
+        }
+      },
+      "state_contrasts": {
+        "composition": {
+          "P.pm7_anion.r193.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_anion.r194.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_anion.r204.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 17.175029754638672,
+              "p10": 2.629068946838379,
+              "p90": 36.434580421447755,
+              "ci95": [
+                13.65916690826416,
+                20.638729095458984
+              ]
+            }
+          },
+          "P.pm7_cation.r262.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_cation.r263.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_cation.r273.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 13.405967712402344,
+              "p10": 3.435777282714844,
+              "p90": 29.879702961444853,
+              "ci95": [
+                12.174127578735352,
+                16.166439056396484
+              ]
+            }
+          },
+          "P.pm7_octanol.r329.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 0.009979248046875,
+              "p10": 0.0,
+              "p90": 0.029998779296875,
+              "ci95": [
+                0.0099639892578125,
+                0.010009765625
+              ]
+            }
+          },
+          "P.pm7_octanol.r330.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 0.010009765625,
+              "p10": 0.0,
+              "p90": 0.03997802734375,
+              "ci95": [
+                0.0099945068359375,
+                0.010009765625
+              ]
+            }
+          },
+          "P.pm7_octanol.r340.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 5.481079578399658,
+              "p10": 0.7555511474609375,
+              "p90": 14.300799942016601,
+              "ci95": [
+                4.4499731183052065,
+                6.857111096382141
+              ]
+            }
+          },
+          "P.pm7_octanol.r341.value": {
+            "neutral_anchor": "P.pm7_B.r61.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 0.1498279571533203,
+              "p10": 0.026898860931396484,
+              "p90": 0.4368945121765136,
+              "ci95": [
+                0.12583255767822266,
+                0.1773233413696289
+              ]
+            }
+          },
+          "P.pm7_octanol.r343.value": {
+            "neutral_anchor": "P.pm7_B.r63.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 0.12411246448755264,
+              "p10": 0.029607434570789338,
+              "p90": 0.29307156354188907,
+              "ci95": [
+                0.10218757390975952,
+                0.1422508955001831
+              ]
+            }
+          },
+          "P.pm7_water.r396.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 0.009979248046875,
+              "p10": 0.0,
+              "p90": 0.029998779296875,
+              "ci95": [
+                0.0099639892578125,
+                0.010009765625
+              ]
+            }
+          },
+          "P.pm7_water.r397.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 0.010009765625,
+              "p10": 0.0,
+              "p90": 0.03997802734375,
+              "ci95": [
+                0.0099945068359375,
+                0.010009765625
+              ]
+            }
+          },
+          "P.pm7_water.r407.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 6.552330017089844,
+              "p10": 0.8962870597839355,
+              "p90": 16.821619033813473,
+              "ci95": [
+                5.336651049554348,
+                8.174537658691406
+              ]
+            }
+          },
+          "P.pm7_water.r408.value": {
+            "neutral_anchor": "P.pm7_B.r61.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 0.1744222640991211,
+              "p10": 0.0299006462097168,
+              "p90": 0.5345623970031738,
+              "ci95": [
+                0.1497812271118164,
+                0.222625732421875
+              ]
+            }
+          },
+          "P.pm7_water.r410.value": {
+            "neutral_anchor": "P.pm7_B.r63.value",
+            "structural_state_contrast": {
+              "independent_units": 150,
+              "median": 0.14911961555480957,
+              "p10": 0.03350579105317593,
+              "p90": 0.3695645973086357,
+              "ci95": [
+                0.12207771646790207,
+                0.17393782921135426
+              ]
+            }
+          }
+        },
+        "isomer": {
+          "P.pm7_anion.r193.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_anion.r194.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_anion.r204.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 8.622201919555664,
+              "p10": 1.7414143323898317,
+              "p90": 25.19644718170166,
+              "ci95": [
+                4.867652893066406,
+                11.85327935218811
+              ]
+            }
+          },
+          "P.pm7_cation.r262.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_cation.r263.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_cation.r273.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 8.6104154586792,
+              "p10": 2.059193420410156,
+              "p90": 23.79958305060864,
+              "ci95": [
+                6.022406876087189,
+                11.815425872802734
+              ]
+            }
+          },
+          "P.pm7_octanol.r329.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 0.0050048828125,
+              "p10": 0.0,
+              "p90": 0.01999969482421875,
+              "ci95": [
+                0.0050048828125,
+                0.009979248046875
+              ]
+            }
+          },
+          "P.pm7_octanol.r330.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 0.0050048828125,
+              "p10": 0.0,
+              "p90": 0.0200042724609375,
+              "ci95": [
+                0.004159291585286458,
+                0.010009765625
+              ]
+            }
+          },
+          "P.pm7_octanol.r340.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 2.1044273376464844,
+              "p10": 0.39937572479248046,
+              "p90": 5.819947624206543,
+              "ci95": [
+                1.156280517578125,
+                3.540409803390503
+              ]
+            }
+          },
+          "P.pm7_octanol.r341.value": {
+            "neutral_anchor": "P.pm7_B.r61.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 0.10886049270629883,
+              "p10": 0.02372393608093262,
+              "p90": 0.2772524833679199,
+              "ci95": [
+                0.07512831687927246,
+                0.14607620239257812
+              ]
+            }
+          },
+          "P.pm7_octanol.r343.value": {
+            "neutral_anchor": "P.pm7_B.r63.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 0.08875345221410194,
+              "p10": 0.010191551968455314,
+              "p90": 0.2518695592880249,
+              "ci95": [
+                0.06189214438199997,
+                0.14461877942085266
+              ]
+            }
+          },
+          "P.pm7_water.r396.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 0.0050048828125,
+              "p10": 0.0,
+              "p90": 0.01999969482421875,
+              "ci95": [
+                0.0050048828125,
+                0.009979248046875
+              ]
+            }
+          },
+          "P.pm7_water.r397.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 0.0050048828125,
+              "p10": 0.0,
+              "p90": 0.0200042724609375,
+              "ci95": [
+                0.004159291585286458,
+                0.010009765625
+              ]
+            }
+          },
+          "P.pm7_water.r407.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 2.5953102111816406,
+              "p10": 0.48271636962890624,
+              "p90": 6.991017413139343,
+              "ci95": [
+                1.3790206909179688,
+                4.077790856361389
+              ]
+            }
+          },
+          "P.pm7_water.r408.value": {
+            "neutral_anchor": "P.pm7_B.r61.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 0.1281290054321289,
+              "p10": 0.03765110969543457,
+              "p90": 0.35112428665161133,
+              "ci95": [
+                0.09216928482055664,
+                0.17431155840555826
+              ]
+            }
+          },
+          "P.pm7_water.r410.value": {
+            "neutral_anchor": "P.pm7_B.r63.value",
+            "structural_state_contrast": {
+              "independent_units": 50,
+              "median": 0.11659244075417519,
+              "p10": 0.013700457336381078,
+              "p90": 0.3008125336840749,
+              "ci95": [
+                0.08099450420122593,
+                0.1638629138469696
+              ]
+            }
+          }
+        },
+        "conformer": {
+          "P.pm7_anion.r193.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_anion.r194.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_anion.r204.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 2.005953013896942,
+              "p10": 0.1408398946126302,
+              "p90": 9.125768025716145,
+              "ci95": [
+                1.712320327758789,
+                2.330884440739949
+              ]
+            }
+          },
+          "P.pm7_cation.r262.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_cation.r263.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "P.pm7_cation.r273.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 2.2647979756196337,
+              "p10": 0.1435381571451823,
+              "p90": 6.980201438069344,
+              "ci95": [
+                1.9981937408447266,
+                2.5006701151529946
+              ]
+            }
+          },
+          "P.pm7_octanol.r329.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.008326212565104166,
+              "p10": 0.0016937255859375,
+              "p90": 0.024993896484375,
+              "ci95": [
+                0.006673177083333333,
+                0.008341471354166666
+              ]
+            }
+          },
+          "P.pm7_octanol.r330.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.006673177083333333,
+              "p10": 3.0517578125e-05,
+              "p90": 0.03667449951171875,
+              "ci95": [
+                0.0066680908203125,
+                0.008331298828125
+              ]
+            }
+          },
+          "P.pm7_octanol.r340.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.7545139752328396,
+              "p10": 0.06712849934895834,
+              "p90": 2.015594482421875,
+              "ci95": [
+                0.6877405484517416,
+                0.846843072772026
+              ]
+            }
+          },
+          "P.pm7_octanol.r341.value": {
+            "neutral_anchor": "P.pm7_B.r61.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.04983337720235188,
+              "p10": 0.0037094751993815103,
+              "p90": 0.14932401974995932,
+              "ci95": [
+                0.04422775904337565,
+                0.056999127070109054
+              ]
+            }
+          },
+          "P.pm7_octanol.r343.value": {
+            "neutral_anchor": "P.pm7_B.r63.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.043160587549209595,
+              "p10": 0.00415310263633728,
+              "p90": 0.12249614795049033,
+              "ci95": [
+                0.03841805706421534,
+                0.04814264674981435
+              ]
+            }
+          },
+          "P.pm7_water.r396.value": {
+            "neutral_anchor": "P.pm7_B.r42.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.008326212565104166,
+              "p10": 0.0016937255859375,
+              "p90": 0.024993896484375,
+              "ci95": [
+                0.006673177083333333,
+                0.008341471354166666
+              ]
+            }
+          },
+          "P.pm7_water.r397.value": {
+            "neutral_anchor": "P.pm7_B.r43.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.006673177083333333,
+              "p10": 3.0517578125e-05,
+              "p90": 0.03667449951171875,
+              "ci95": [
+                0.0066680908203125,
+                0.008331298828125
+              ]
+            }
+          },
+          "P.pm7_water.r407.value": {
+            "neutral_anchor": "P.pm7_B.r60.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.8996785481770833,
+              "p10": 0.07589848836263022,
+              "p90": 2.4343398412068686,
+              "ci95": [
+                0.8212567488352458,
+                1.0099945068359375
+              ]
+            }
+          },
+          "P.pm7_water.r408.value": {
+            "neutral_anchor": "P.pm7_B.r61.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.059419314066569015,
+              "p10": 0.004919687906901042,
+              "p90": 0.17672832806905112,
+              "ci95": [
+                0.051938738425572714,
+                0.0676349699497223
+              ]
+            }
+          },
+          "P.pm7_water.r410.value": {
+            "neutral_anchor": "P.pm7_B.r63.value",
+            "structural_state_contrast": {
+              "independent_units": 396,
+              "median": 0.05141131455699603,
+              "p10": 0.004772926370302836,
+              "p90": 0.14731643847577894,
+              "ci95": [
+                0.0448716456691424,
+                0.05770364555840691
+              ]
+            }
+          }
+        }
+      },
+      "shared_neutral_anchor_warning": "State contrasts sharing an anchor are algebraically coupled; absolute five-state correlation is not used as evidence of conditional equivalence."
+    }
+  },
+  "calibration": "UNRESOLVED",
+  "algebraic_relations": [
+    {
+      "field": "P.pm7_B.r44.value",
+      "derived_from": [
+        "pm7_B.values.heat_of_formation_kcal_mol",
+        "pm7_cation.values.heat_of_formation_kcal_mol",
+        "pm7_anion.values.heat_of_formation_kcal_mol",
+        "corresponding stored net_charges_e or solvent HOF as formula requires"
+      ],
+      "dedup_of": null
+    },
+    {
+      "field": "P.pm7_B.r45.value",
+      "derived_from": [
+        "pm7_B.values.heat_of_formation_kcal_mol",
+        "pm7_cation.values.heat_of_formation_kcal_mol",
+        "pm7_anion.values.heat_of_formation_kcal_mol",
+        "corresponding stored net_charges_e or solvent HOF as formula requires"
+      ],
+      "dedup_of": null
+    },
+    {
+      "field": "P.pm7_B.r46.value",
+      "derived_from": [
+        "pm7_B.values.heat_of_formation_kcal_mol",
+        "pm7_cation.values.heat_of_formation_kcal_mol",
+        "pm7_anion.values.heat_of_formation_kcal_mol",
+        "corresponding stored net_charges_e or solvent HOF as formula requires"
+      ],
+      "dedup_of": null
+    },
+    {
+      "field": "P.xtb_perturbed_gradient.r624.value",
+      "derived_from": [
+        "xtb_perturbed_gradient.values.gradient_Eh_bohr"
+      ],
+      "dedup_of": null
+    },
+    {
+      "field": "P.pm7_B.r47.value",
+      "derived_from": [
+        "pm7_B.values.heat_of_formation_kcal_mol",
+        "pm7_cation.values.heat_of_formation_kcal_mol",
+        "pm7_anion.values.heat_of_formation_kcal_mol",
+        "corresponding stored net_charges_e or solvent HOF as formula requires"
+      ],
+      "dedup_of": null
+    },
+    {
+      "field": "P.pm7_B.r48.value",
+      "derived_from": [
+        "pm7_B.values.heat_of_formation_kcal_mol",
+        "pm7_cation.values.heat_of_formation_kcal_mol",
+        "pm7_anion.values.heat_of_formation_kcal_mol",
+        "corresponding stored net_charges_e or solvent HOF as formula requires"
+      ],
+      "dedup_of": null
+    },
+    {
+      "field": "P.pm7_B.r49.value",
+      "derived_from": [
+        "pm7_B.values.heat_of_formation_kcal_mol",
+        "pm7_cation.values.heat_of_formation_kcal_mol",
+        "pm7_anion.values.heat_of_formation_kcal_mol",
+        "corresponding stored net_charges_e or solvent HOF as formula requires"
+      ],
+      "dedup_of": null
+    },
+    {
+      "field": "P.pm7_B.r50.value",
+      "derived_from": [
+        "pm7_B.values.heat_of_formation_kcal_mol",
+        "pm7_cation.values.heat_of_formation_kcal_mol",
+        "pm7_anion.values.heat_of_formation_kcal_mol",
+        "corresponding stored net_charges_e or solvent HOF as formula requires"
+      ],
+      "dedup_of": null
+    }
+  ],
+  "interpretation": "Distance correlation is descriptive; no detection or no-information claim",
+  "vector_packing_review": "Actual P preparation reassembles vector components and enforces a shared zero-centered scale; known positive scales reused. Charged-origin-uncertain vectors remain incomparable."
+}

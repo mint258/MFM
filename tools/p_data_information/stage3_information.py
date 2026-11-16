@@ -54,7 +54,7 @@ def statistics(values,units):
 def main():
  started=time.time();panels=load(O/'panel.json');pairs=load(O/'pairs.json');fields=load(B/'configs/p_data_information/fields.json')['fields'];names=[f['field_key'] for f in fields];byname={f['field_key']:f for f in fields};view=load(D/'configs/data_v1/training_view_v1.json');view['fields']=[f for f in view['fields'] if f.get('group')=='P'];routes=load(ROUTES);summary={};coverage={}
  for role,rows in panels.items():
-  bymid={r['molecule_id']:r for r in rows};ds=MFM4Dataset(P,split=role,training_view=view,normalizations=routes,k=10,molecule_indices=[r['pilot_index'] for r in rows]);graph={};records=[];within=[];within_units=[];record_counts=np.zeros((len(rows),len(fields),2),dtype=np.int64);scales={n:float(np.asarray(ds.view.normalizations[n]['scale']).reshape(-1)[0]) if np.asarray(ds.view.normalizations[n]['scale']).size==1 and n.rsplit('.',1)[-1] not in ('x','y','z') else None for n in names}
+  bymid={r['molecule_id']:r for r in rows};ds=MFM4Dataset(P,split=role,training_view=view,normalizations=routes,k=10,molecule_indices=[r['pilot_index'] for r in rows]);graph={};records=[];within=[];within_units=[];record_counts=np.zeros((len(rows),len(fields),2),dtype=np.int64);scales={n:float(np.asarray(ds.view.normalizations[n]['scale']).reshape(-1)[0]) if np.asarray(ds.view.normalizations[n]['scale']).size==1 else None for n in names}
   cache_dir=O/'samples'/role;cache_dir.mkdir(parents=True,exist_ok=True)
   save(O/('normalizations_'+role+'.json'),ds.view.normalizations)
   pairbymid=collections.defaultdict(list)

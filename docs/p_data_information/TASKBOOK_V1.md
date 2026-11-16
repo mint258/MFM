@@ -2,7 +2,7 @@
 
 2026-11-15（America/New_York） · @Zixiao
 
-状态：阶段0–3已完成（2026-11-16 Asia/Shanghai，含明确精度未知项）；阶段4–5待执行。见各阶段报告与progress.json。
+状态：阶段0–4已完成（2026-11-16 Asia/Shanghai，含明确精度未知项）；阶段5待执行。见各阶段报告与progress.json。
 
 ## 本版范围与当前起点
 
@@ -304,12 +304,13 @@ P 字段集合固定为起始提交 5b42908d364e84e39bf384b19a5c6ab08d13ab63 的
 | 项目 | 状态 |
 | --- | --- |
 | 计划格式与已有来源核查 | COMPLETE；见 SOURCE_REVIEW.md |
-| 本版计划 | IN_PROGRESS；阶段0–3已交付 |
+| 本版计划 | IN_PROGRESS；阶段0–4已交付 |
 | 阶段 0 | COMPLETE_WITH_EXPLICIT_UNKNOWNS；55000连接，8项现行TRAIN排除 |
 | 阶段 1 | COMPLETE_AT_PILOT_GEOMETRY_LAYER |
 | 阶段 2 | COMPLETE_WITH_UNRESOLVED_SOURCE_PRECISION |
 | 阶段 3 | COMPLETE_AT_STORED_LABEL_LAYER |
-| 阶段 4–5 | NOT_RUN |
+| 阶段 4 | COMPLETE_WITH_UNCALIBRATED_JOINT_INFORMATION |
+| 阶段 5 | NOT_RUN |
 | 条件单点校准 2B | TRIGGERED_UNRESOLVED_INPUT_LINEAGE；实际调用0 |
 
 ## 依据
