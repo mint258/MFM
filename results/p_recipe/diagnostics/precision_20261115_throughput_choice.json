@@ -1,0 +1,52 @@
+{
+  "status": "PRECISION_CHOICE_DETERMINED_QUALITY_STUDY_RUNNING",
+  "chosen_precision": "fp32",
+  "quality_study_complete": false,
+  "candidate_quality_eligibility": {
+    "tf32_islands": "PENDING_FULL_3M_AND_EVALUATION",
+    "bf16_islands": "PENDING_FULL_3M_AND_EVALUATION"
+  },
+  "baseline": {
+    "name": "G1",
+    "status": "COMPLETE",
+    "samples": 3000000,
+    "R3": 0.34750313299524777,
+    "R1": 0.11185894831188528
+  },
+  "all_modes_throughput_bound": {
+    "chosen": "fp32",
+    "expected_aggregate_samples_per_second": {
+      "fp32": 419.59513046487996,
+      "tf32_islands": 397.7969515021674,
+      "bf16_islands": 383.91659527211533
+    },
+    "maximum_aggregate_samples_per_second": {
+      "fp32": 839.1902609297599,
+      "tf32_islands": 795.5939030043348,
+      "bf16_islands": 767.8331905442307
+    },
+    "planning_scenario_only": {
+      "chosen": "fp32",
+      "expected_aggregate_samples_per_second": {
+        "fp32": 512.2829277366453,
+        "tf32_islands": 487.8658189244272,
+        "bf16_islands": 470.1149572318262
+      },
+      "maximum_aggregate_samples_per_second": {
+        "fp32": 1024.5658554732906,
+        "tf32_islands": 975.7316378488543,
+        "bf16_islands": 940.2299144636524
+      }
+    },
+    "tie_rule": "Within 10% of the fastest qualified fleet throughput, prefer FP32 > TF32 > BF16"
+  },
+  "baseline_throughput_is_highest": true,
+  "proof": "FP32 is the registered eligible baseline and is fastest even when all candidates are retained. Filtering candidates by their pending quality outcomes cannot change the selected precision.",
+  "measurement_scope": "The prescribed controlled grid before the CPU rebase; only the agreed single-step numerical check was repeated after rebase.",
+  "usage": "One uniform precision across cards; switch only between P rounds at the user-selected time. No production setting was changed.",
+  "remaining_requirements": [
+    "Complete both 3M quality runs and original R1/R3 evaluations",
+    "Publish R3/R1 paired differences and confidence intervals plus final VAL families",
+    "Finish the one-page report with only the final code SHA"
+  ]
+}
