@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-16 17:22UTC · fixed20261115 round2 · B1 COMPLETED 3000000/3000000；M1 RUNNING 2774880/3000000；B2 COMPLETED 3000000/3000000；B3 RUNNING 1402144/3000000；B4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:52:25UTC。
+
+2026-11-16 17:22UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2678464/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:52:25UTC。
+
 2026-11-16 17:03UTC · fixed20261115 round2 · B1 COMPLETED 3000000/3000000；M1 RUNNING 2694112/3000000；B2 COMPLETED 3000000/3000000；B3 RUNNING 1328352/3000000；B4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:33:13UTC。
 
 2026-11-16 17:03UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2617824/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:33:13UTC。
@@ -559,3 +563,11 @@ Current revised-study training records161.49028759248452 GPUh plus reused G1/B0 
 B4 completed3M/93750 updates with summary COMPLETE and native exit0 (31571.44924378395 seconds); old bound PID140692 is absent. Full readouts: R1=0.07281967403066877, R3=0.38003860362976416;1000 paired bootstrap replicates each. Its clip remains485.6373559570314. These are absolute scores, not a paired round2 verdict while M1/B3 remain incomplete and A4 baseline validation is pending.
 
 Verified own job4534848 was PENDING, RunTime00:00:00, UserId1278 after source completion, then used scancel --state=PENDING. Actual accounting confirms CANCELLED by1278 /0 elapsed /0:0. Reservation phase is RETIRED_SOURCE_COMPLETED; no running process was stopped and outputs/costs remain. Reporter now labels retired standby handles and includes standby state/phase in its runtime checkpoint metadata.
+
+### 2026-11-17 01:24 CST — user-approved B3 migration completed
+
+User explicitly approved the prepared complete-checkpoint migration. Destination node22/RTX5090 passed real GPU admission (695/32607MiB), actual root/Lustre/NFS bytes/inodes, fresh UID quotas/global remaining output forecast and target-node own GPU lock checks before requesting source exit. B3 node5 PID1252305/UID1278/start_ticks1114756286 used its already loaded SAVE_AND_EXIT handler at the next committed update, saving samples_1393408.pt. ACK matched the request; guard exited0, PID disappeared, and source job4534813 completed0:0/36269 allocation seconds. No forced signal or checkpoint rollback was used.
+
+The exact original configuration is archived under provisional_B_20261116/round2/archive/B3_node5_before_5090_20261117.json; original output and all cost remain. The same registered B3 case now resumes from that full checkpoint in fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117, same PR8 scientific code, FP32/TF32off/B32/no accumulation/no recomputation, original3M schedule/seed/normalization. Node22 native PID148428/UID1278/start_ticks48709165/PGID148428 (wrapper148407) is actually live, with same-task sbatch takeover4535105 PENDING0. Training advanced to1402144 samples; restored clip remains34.97425765991212 and loss rows show the continued cosine learning rate (~0.00017167), not a reset. Normal full model/optimizer/clock/sampler/Torch RNG/clip/statistics continuation is active.
+
+Proposal file now records MIGRATED_RUNNING with approval, source ACK/terminal data and actual destination identity. Continue the original01:33 monitoring deadline. No benchmark or extra scientific arm was added; A4 and M1 were unchanged.

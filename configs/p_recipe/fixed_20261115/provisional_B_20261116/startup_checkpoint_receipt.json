@@ -1,10 +1,10 @@
 {
-  "observed_at": 1794848593.847039,
+  "observed_at": 1794849745.420361,
   "runs": [
     {
       "arm": "A4",
       "run": "fixed_20261115_round1_A4_non21_restart",
-      "samples": 2617824,
+      "samples": 2678464,
       "state": "RUNNING",
       "backend": "Slurm",
       "node": "compute-0-7",
@@ -45,7 +45,7 @@
     {
       "arm": "M1",
       "run": "fixed_20261115_provisional_B_20261116_round2_M1_infra_recovery_20261116",
-      "samples": 2694112,
+      "samples": 2774880,
       "state": "RUNNING",
       "backend": "native_SSH",
       "node": "compute-0-20",
@@ -88,15 +88,15 @@
     },
     {
       "arm": "B3",
-      "run": "fixed_20261115_provisional_B_20261116_round2_B3",
-      "samples": 1328352,
+      "run": "fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117",
+      "samples": 1402144,
       "state": "RUNNING",
-      "backend": "Slurm",
-      "node": "compute-0-5",
-      "job_id": 4534813,
-      "standby_job_id": null,
-      "standby_state": null,
-      "standby_phase": null,
+      "backend": "native_SSH",
+      "node": "compute-0-22",
+      "job_id": null,
+      "standby_job_id": 4535105,
+      "standby_state": "PENDING",
+      "standby_phase": "WAITING_FOR_ALLOCATION",
       "first_checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_B3/samples_32.pt",
       "first_checkpoint_bytes": 232025789,
       "configured_checkpoint_samples": [
@@ -105,8 +105,8 @@
         2000000,
         3000000
       ],
-      "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B3_handoff_request.json",
-      "handoff_ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B3_handoff_ack.json"
+      "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117_handoff_request.json",
+      "handoff_ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117_handoff_ack.json"
     },
     {
       "arm": "B4",
