@@ -27,6 +27,23 @@ def csv_output(name,rows):
     with path.open('w',newline='') as stream:
         writer=csv.DictWriter(stream,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
 
+def load_representation_encoder(checkpoint, *, device='cuda'):
+    """Shared strict loading route for the P0 and follow-up representation studies."""
+    import torch
+    from phychem_mfm.phase1.v2_s_training import s_model
+    payload=torch.load(checkpoint,map_location='cpu',weights_only=True)
+    model,_=s_model('C1-0','three');state=payload['model']
+    if any(k.startswith('structural.') for k in state):
+        state={k.removeprefix('structural.'):v for k,v in state.items() if k.startswith('structural.')}
+    model.load_state_dict(state)
+    return model.encoder.to(device).eval(),payload
+
+
+def representation_layers(encoder,batch):
+    """Registered layers3-5 and final out_norm, before the optional projector."""
+    h,layers=encoder.encode_atoms(batch,return_intermediates=True)
+    return [layers[2],layers[3],layers[4],h]
+
 def representation_diagnostic():
     import torch
     from phychem_mfm.phase1.v2_s_training import s_model
@@ -39,11 +56,8 @@ def representation_diagnostic():
     spectra=[];summary=[];gains=[];gamma=None
     for condition in ('S','P'):
         source=next(r for r in inputs if r['candidate']=='C1-0' and r['condition']==condition)
-        payload=torch.load(source['checkpoint'],map_location='cpu',weights_only=True)
-        model,_=s_model('C1-0','three');state=payload['model']
-        if any(k.startswith('structural.') for k in state):
-            state={k.removeprefix('structural.'):v for k,v in state.items() if k.startswith('structural.')}
-        model.load_state_dict(state);encoder=model.encoder.cuda().eval()
+        encoder,payload=load_representation_encoder(source['checkpoint'])
+
         totals={name:dict(n=0,s=np.zeros(512),outer=np.zeros((512,512))) for name in ('atom','mean')}
         for start in range(0,len(data.indices),32):
             samples=[data.read(int(index),int(data.choices(int(index))[0])) for index in data.indices[start:start+32]]
@@ -65,7 +79,7 @@ def representation_diagnostic():
             if condition=='S' and name=='atom':gamma=float(np.median(std))
         gain=encoder.backbone.out_norm.weight.detach().cpu().tolist()
         gains.extend(dict(condition=condition,dimension=i,gain=value) for i,value in enumerate(gain))
-        del encoder,model,payload,state;torch.cuda.empty_cache()
+        del encoder,payload;torch.cuda.empty_cache()
     data.close();csv_output('D4_spectrum.csv',spectra);csv_output('D4_summary.csv',summary)
     csv_output('D4_layernorm_gain.csv',gains)
     (CONTROL/'D4_gamma.json').write_text(json.dumps(dict(gamma=gamma,source='S atom H std median on fixed5000VAL'),indent=2)+'\n')

@@ -5,7 +5,7 @@ import torch
 from resources import REPO,R,CONTROL,OLD,load,save,guard
 from composition_statistics import folds,ridge_oof,bootstrap_weights,cev_values,cvf_values,eev_values,summary,total_ss,conformer_moments,ratio
 sys.path.insert(0,str(REPO/'tools/p_recipe'))
-from diagnose import validation_indices
+from diagnose import validation_indices,load_representation_encoder,representation_layers
 from checkpoint_paths import evaluation_checkpoint
 from phychem_mfm.phase1.v31_loader import MFM4Dataset,collate_samples
 from phychem_mfm.phase1.p_recipe_data import PRecipeDataset
@@ -39,7 +39,7 @@ def resolve(name,entry):
     if entry.get('configuration'):
         c=load(entry['configuration'])
         # The same M1 configuration can progress naturally to its exact endpoint.
-        try:entry['checkpoint']=str(evaluation_checkpoint(c,3000000));entry['status']='EXISTS'
+        try:entry['checkpoint']=str(evaluation_checkpoint(c,3000000));entry['status']='EXISTS';entry['reason']=None
         except FileNotFoundError as e:entry.update(checkpoint=None,status='MISSING',reason=str(e))
     return entry
 
@@ -78,10 +78,8 @@ def condition(name,entry,panel,weights,device):
     started=time.monotonic();entry=resolve(name,entry)
     if not entry.get('checkpoint') or not pathlib.Path(entry['checkpoint']).is_file():
         return dict(status='MISSING',reason=entry.get('reason','Specified checkpoint unavailable'),source=entry),{}
-    payload=torch.load(entry['checkpoint'],map_location='cpu',weights_only=True)
-    encoder_model,_=s_model('C1-0','three');state=payload['model']
-    if any(k.startswith('structural.') for k in state):state={k.removeprefix('structural.'):v for k,v in state.items() if k.startswith('structural.')}
-    encoder_model.load_state_dict(state);encoder=encoder_model.encoder.to(device).eval();del state
+    encoder,payload=load_representation_encoder(entry['checkpoint'],device=device)
+
     clock=payload.get('clock',{});expected=6000000 if name.startswith('P0-') else 3000000
     cursor=clock.get('samples_consumed',payload.get('samples'))
     if cursor is not None and int(cursor)!=expected:raise ValueError('Checkpoint sample endpoint differs')
@@ -97,8 +95,7 @@ def condition(name,entry,panel,weights,device):
     with torch.no_grad():
         for start in range(0,n,32):
             samples=[data.read(mi,ci) for mi,ci in panel['rows'][start:start+32]];batch=collate_samples(samples,device=device)
-            h,layers=encoder.encode_atoms(batch,return_intermediates=True)
-            selected=[layers[2],layers[3],layers[4],h];features=np.stack([v.detach().cpu().double().numpy() for v in selected],axis=1)
+            selected=representation_layers(encoder,batch);features=np.stack([v.detach().cpu().double().numpy() for v in selected],axis=1)
             pointer=batch.ptr.cpu().tolist();assert features.shape==(pointer[-1],4,512)
             for j,(a,b) in enumerate(zip(pointer,pointer[1:])):
                 row=start+j;owner=int(panel['owners'][row]);v=features[a:b];z=samples[j]['Z'];means[row]=v.mean(0).astype(np.float32)
@@ -108,7 +105,7 @@ def condition(name,entry,panel,weights,device):
                     t=samples[j]['targets'].get(key)
                     if t is not None and t.values.size==1 and t.valid.all():target_values[key][row]=float(t.values.flat[0]);target_valid[key][row]=True
             if start%1024==0:guard();means.flush();print('A_FORWARD',name,start,n,flush=True)
-    means.flush();data.close();del encoder,encoder_model,payload
+    means.flush();data.close();del encoder,payload
     if device=='cuda':torch.cuda.empty_cache()
     X=panel['X'];owners=panel['owners'];first=panel['first'];metrics={};boots={};alphas={}
     for index,layer in enumerate([3,4,5,6]):
@@ -183,7 +180,7 @@ def main():
     panel=setup();weights=np.vstack([np.ones((1,5000)),bootstrap_weights(5000)]);results={}
     path=RESULTS/'summary.json'
     if path.exists():results=load(path)['conditions']
-    entries=load(REPO/'configs/p_followup/A_conditions.json')['conditions'];entries.update(C={},D={})
+    entries=load(REPO/'configs/p_followup/A_conditions.json')['conditions'];entries.setdefault('C',{'configuration':str(REPO/'configs/p_followup/C_dedup.json')});entries.setdefault('D',{'configuration':str(REPO/'configs/p_followup/D_decomposition.json')} if (REPO/'configs/p_followup/D_decomposition.json').exists() else {})
     for name,entry in entries.items():
         if args.conditions and name not in args.conditions:continue
         if results.get(name,{}).get('status')=='COMPLETE':continue
