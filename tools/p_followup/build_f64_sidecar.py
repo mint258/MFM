@@ -1,5 +1,5 @@
 """B1: stream delivered D6 and existing physical locators; original CELL reader only."""
-import argparse,collections,concurrent.futures as cf,hashlib,importlib.util,json,pathlib,sqlite3,sys,time
+import argparse,collections,concurrent.futures as cf,hashlib,importlib.util,json,pathlib,sqlite3,sys,time,multiprocessing
 import numpy as np
 import pyarrow.parquet as pq
 from resources import REPO,R,CONTROL,SIDE,load,save,guard
@@ -40,6 +40,29 @@ def source_file(item):
         del table
     q.close();return outputs
 
+def d6_worker(rows):
+    DATA._open();rows=[r for r in rows if r['record_kind'] in ('P','U')]
+    packed=np.zeros(len(rows),dtype=TABLE_DTYPE)
+    for name in NAMES:packed[name]=np.nan
+    reference=np.full((len(rows),len(NAMES)),np.nan,np.float32);identities=[];labels=collections.Counter()
+    with DATA._env.begin(buffers=True) as transaction:
+        for i,r in enumerate(rows):
+            kind=r['record_kind'];mi=int(r['molecule_index']);ci=int(r['conformer_index']);handle=record_key(kind,mi,ci)
+            payload=transaction.get(handle)
+            if payload is None:raise KeyError((kind,mi,ci))
+            arrays=decode_mfm4(payload,array_ids={23})
+            target=DATA.view.extract({1:np.empty(0,np.int16)},arrays,
+                mask_overrides=(DATA._record_masks if kind=='P' else PRIME_MASKS).get((mi,ci)),raw_only=True)
+            packed[i]['molecule_index']=mi;packed[i]['conformer_index']=ci;packed[i]['record_handle']=handle
+            present=False
+            for j,name in enumerate(NAMES):
+                t=target.get(name)
+                if t is not None and t.valid.all() and np.isfinite(t.raw).all():reference[i,j]=t.raw.flat[0];present=True;labels[kind]+=1
+            if present:
+                rid=r['native_record_id'] if kind=='P' else 'pprime:'+r['molecule_id']+':'+str(r['sprime_conf_idx'])
+                identities.append((i,r['molecule_id'],rid))
+    return packed,reference,identities,labels
+
 def digest(path):
     h=hashlib.sha256()
     with path.open('rb') as stream:
@@ -47,7 +70,7 @@ def digest(path):
     return h.hexdigest()
 
 def main():
-    global FIELDS,FILES,WANTED
+    global FIELDS,FILES,WANTED,DATA,PRIME_MASKS,NAMES,TABLE_DTYPE
     p=argparse.ArgumentParser();p.add_argument('--workers',type=int,default=4);a=p.parse_args()
     if not 1<=a.workers<=16:raise ValueError('B CPU limit16')
     guard(force=True,lustre=True);started=time.monotonic();SIDE.mkdir(parents=True,exist_ok=True)
@@ -59,7 +82,7 @@ def main():
     for f in fields:FIELDS.setdefault(f['task'],[]).append(f)
     manifest=load(pathlib.Path(c['root'])/'manifest.json');tables={};references={};offsets={};splits={};ranges=[];prefix=0;done=0;first=False
     total=sum(manifest['conformers'].values())
-    dtype=np.dtype([('molecule_index','<u4'),('conformer_index','<u2'),('record_handle','S7')]+[(n,'<f8') for n in names])
+    dtype=np.dtype([('molecule_index','<u4'),('conformer_index','<u2'),('record_handle','S7')]+[(n,'<f8') for n in names]);NAMES=names;TABLE_DTYPE=dtype
     # Numeric source routing is memory-only; no new full source index is persisted.
     WANTED={};seen={}
     for split in ['TRAIN','FULL']:
@@ -67,39 +90,37 @@ def main():
         count=int(manifest['conformers'][split+'_P']+manifest['conformers'][split+'_U'])
         out=SIDE/split;out.mkdir(exist_ok=True);values=out/'values.npy';route=out/'molecule_offsets.npy'
         table=np.lib.format.open_memmap(values,mode='w+',dtype=dtype,shape=(count,))
-        for n in names:table[n]=np.nan
+
         ref=np.full((count,len(names)),np.nan,dtype=np.float32);offset=np.zeros(meta['molecule_count']+1,dtype=np.int64)
         view=load(c['training_view']);view=dict(view,fields=[f for f in view['fields'] if f.get('name',f.get('field_key')) in names])
         data=MFM4Dataset(c['root'],split=split,training_view=view,normalizations=load(c['normalizations']),k=10)
         from phychem_mfm.phase1.v31_record_masks import published_record_masks
         prime_masks=published_record_masks(load(c['normalizations']),directory,dataset='Pprime')
-        data._open();position=0;last_mi=-1;carrying=0;labels=collections.Counter()
+        position=0;last_mi=-1;carrying=0;labels=collections.Counter();DATA=data;PRIME_MASKS=prime_masks
         q=pq.ParquetFile(directory/'id_map.parquet',pre_buffer=False)
         columns=['record_kind','molecule_index','conformer_index','molecule_id','native_record_id','sprime_conf_idx']
-        with data._env.begin(buffers=True) as tx:
-            for batch in q.iter_batches(batch_size=4096,columns=columns,use_threads=False):
-                for r in batch.to_pylist():
-                    kind=r['record_kind']
-                    if kind not in ('P','U'):continue
-                    mi=int(r['molecule_index']);ci=int(r['conformer_index']);assert mi>=last_mi;last_mi=mi
-                    handle=record_key(kind,mi,ci);payload=tx.get(handle)
-                    if payload is None:raise KeyError((split,kind,mi,ci))
-                    arrays=decode_mfm4(payload,array_ids={23})
-                    target=data.view.extract({1:np.empty(0,np.int16)},arrays,mask_overrides=(data._record_masks if kind=='P' else prime_masks).get((mi,ci)),raw_only=True)
-                    table[position]['molecule_index']=mi;table[position]['conformer_index']=ci;table[position]['record_handle']=handle;offset[mi+1]+=1
-                    present=False
-                    for j,n in enumerate(names):
-                        t=target.get(n)
-                        if t is not None and t.valid.all() and np.isfinite(t.raw).all():ref[position,j]=t.raw.flat[0];present=True;labels[kind]+=1
-                    if present:
-                        rid=r['native_record_id'] if kind=='P' else 'pprime:'+r['molecule_id']+':'+str(r['sprime_conf_idx'])
-                        key=(sys.intern(r['molecule_id']),rid)
+        batches=iter(q.iter_batches(batch_size=4096,columns=columns,use_threads=False));pending=collections.deque()
+        with cf.ProcessPoolExecutor(max_workers=a.workers,mp_context=multiprocessing.get_context('fork')) as pool:
+            for _ in range(a.workers*2):
+                batch=next(batches,None)
+                if batch is not None:pending.append(pool.submit(d6_worker,batch.to_pylist()))
+            while pending:
+                packed,raw,identities,counts=pending.popleft().result();n=len(packed)
+                if n:
+                    index=packed['molecule_index'].astype(np.int64)
+                    if index[0]<last_mi or np.any(np.diff(index)<0):raise ValueError('D6 record order differs')
+                    last_mi=int(index[-1]);table[position:position+n]=packed;ref[position:position+n]=raw;np.add.at(offset,index+1,1)
+                    for row,mid,rid in identities:
+                        key=(sys.intern(mid),rid)
                         if key in WANTED:raise ValueError(('Duplicate original physical identity',key))
-                        WANTED[key]=prefix+position;carrying+=1
-                    position+=1;done+=1
+                        WANTED[key]=prefix+position+row
+                    carrying+=len(identities);labels.update(counts);position+=n;done+=n
+                batch=next(batches,None)
+                if batch is not None:pending.append(pool.submit(d6_worker,batch.to_pylist()))
                 if not first and done>=total*.01:
-                    elapsed=time.monotonic()-started;print('B1_FIRST_PERCENT_D6',dict(records=done,total=total,seconds=elapsed,records_per_second=done/elapsed,D6_remaining_hours=(total-done)*elapsed/done/3600,source_phase_not_yet_measured=True),flush=True);first=True
-                if done//100000!=(done-batch.num_rows)//100000:guard(lustre=True);table.flush();print('B1_D6',split,done,total,flush=True)
+                    elapsed=time.monotonic()-started;print('B1_FIRST_PERCENT_D6',dict(records=done,total=total,seconds=elapsed,records_per_second=done/elapsed,D6_remaining_hours=(total-done)*elapsed/done/3600,source_phase_not_yet_measured=True,reader_workers=a.workers),flush=True);first=True
+                guard(lustre=True)
+                if done//100000!=(done-n)//100000:table.flush();print('B1_D6',split,done,total,flush=True)
         q.close();data.close();assert position==count
         np.cumsum(offset,out=offset);np.save(route,offset);table.flush();tables[split]=table;references[split]=ref;offsets[split]=offset;seen[split]=np.zeros(ref.shape,dtype=bool)
         splits[split]=dict(D6_directory=str(directory),values=str(values),molecule_offsets=str(route),records=count,records_carrying_selected=carrying,valid_values_by_kind=dict(labels));ranges.append((prefix,prefix+count,split));prefix+=count

@@ -46,10 +46,6 @@ def identities(c):
     return result
 
 
-def same(a,b):
-    if a.dtype!=b.dtype or a.shape!=b.shape:return False
-    return np.array_equal(a.view(np.uint8),b.view(np.uint8))
-
 
 def main():
     guard(force=True);started=time.monotonic();c=load(REPO/'configs/p_followup/C_dedup.json')
