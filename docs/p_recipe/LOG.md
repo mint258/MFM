@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-16 02:34UTC · fixed20261115 round2 · B1 RUNNING 1181664/3000000；M1 RUNNING 684256/3000000；B2 RUNNING 1016896/3000000；B3 PENDING 0/3000000；B4 NOT_SUBMITTED 0/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次03:04:31UTC。
+
+2026-11-16 02:34UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2062080/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次03:04:31UTC。
+
 2026-11-16 02:04UTC · fixed20261115 round2 · B1 RUNNING 985888/3000000；M1 RUNNING 522976/3000000；B2 RUNNING 849408/3000000；B3 PENDING 0/3000000；B4 NOT_SUBMITTED 0/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次02:34:04UTC。
 
 2026-11-16 02:04UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2045984/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次02:34:04UTC。
@@ -429,3 +433,7 @@
 ### 2026-11-16 10:07 CST — B1 1M checkpoint observed
 
 B1 on compute-0-22 (native PID 132047, UID 1278, start_ticks 42358734; same takeover job 4534810) atomically published `samples_1000000.pt`, 226612377 bytes, mtime 1794794793. Training then reached 1001792 samples / 31306 updates in losses.csv; no pause, restart or weight read was performed. This is the first regular 1M save after the real first-32 checkpoint. A4 continues its original run independently.
+
+### 2026-11-16 10:35 CST — B2 1M checkpoint observed
+
+B2 on compute-0-20 (native PID 1643284, UID 1278, start_ticks 1267945962; takeover job 4534812) atomically published `samples_1000000.pt`, 240126051 bytes, mtime 1794796287. The live-bound training process continued to 1016896 samples in the 10:34 producer snapshot. B1 also continues beyond its previously observed 1M save (1181664 samples). No training was stopped or restarted; checkpoint weights were not read.
