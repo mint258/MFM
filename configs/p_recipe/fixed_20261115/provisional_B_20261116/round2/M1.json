@@ -16,8 +16,8 @@
   "order": "fixed_random",
   "training_view": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json",
   "distance_bias": "C1-0",
-  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_M1_attempt3",
-  "run": "fixed_20261115_provisional_B_20261116_round2_M1_attempt3",
+  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_M1_attempt3_sbatch",
+  "run": "fixed_20261115_provisional_B_20261116_round2_M1_attempt3_sbatch",
   "subset_seed": 20261112,
   "source": "PM7",
   "schedule": "cosine",
@@ -83,10 +83,11 @@
     3000000
   ],
   "label_parameters": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/label_parameters/PM7_A1.json",
-  "attempt": 3,
+  "attempt": 4,
   "replaces_run": "fixed_20261115_provisional_B_20261116_round2_M1_attempt2",
   "predecessor_samples": 0,
   "restart_reason": "Original native runner rejected GPU lock before starting any training; old outputs/logs and pending-only cancellation retained",
-  "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_M1_attempt3_handoff_request.json",
-  "handoff_ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_M1_attempt3_handoff_ack.json"
+  "resume": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_M1_attempt3/samples_2195584.pt",
+  "resume_samples": 2195584,
+  "resume_from_output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_M1_attempt3"
 }

@@ -1,10 +1,10 @@
 {
-  "observed_at": 1794812920.681491,
+  "observed_at": 1794814794.140314,
   "runs": [
     {
       "arm": "A4",
       "run": "fixed_20261115_round1_A4_non21_restart",
-      "samples": 2204864,
+      "samples": 2221152,
       "state": "RUNNING",
       "backend": "Slurm",
       "node": "compute-0-7",
@@ -20,13 +20,13 @@
     },
     {
       "arm": "B1",
-      "run": "fixed_20261115_provisional_B_20261116_round2_B1",
-      "samples": 2929536,
-      "state": "RUNNING",
-      "backend": "native_SSH",
+      "run": "fixed_20261115_provisional_B_20261116_round2_B1_sbatch",
+      "samples": 3000000,
+      "state": "COMPLETED",
+      "backend": "Slurm",
       "node": "compute-0-22",
-      "job_id": null,
-      "standby_job_id": 4534810,
+      "job_id": 4534810,
+      "standby_job_id": null,
       "first_checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_B1/samples_32.pt",
       "first_checkpoint_bytes": 226584793,
       "configured_checkpoint_samples": [
@@ -35,18 +35,18 @@
         2000000,
         3000000
       ],
-      "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B1_handoff_request.json",
-      "handoff_ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B1_handoff_ack.json"
+      "handoff_request": null,
+      "handoff_ack": null
     },
     {
       "arm": "M1",
-      "run": "fixed_20261115_provisional_B_20261116_round2_M1_attempt3",
-      "samples": 2147616,
+      "run": "fixed_20261115_provisional_B_20261116_round2_M1_attempt3_sbatch",
+      "samples": 2309632,
       "state": "RUNNING",
-      "backend": "native_SSH",
+      "backend": "Slurm",
       "node": "compute-0-20",
-      "job_id": null,
-      "standby_job_id": 4534816,
+      "job_id": 4534816,
+      "standby_job_id": null,
       "first_checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_M1_attempt3/samples_32.pt",
       "first_checkpoint_bytes": 220276457,
       "configured_checkpoint_samples": [
@@ -55,18 +55,18 @@
         2000000,
         3000000
       ],
-      "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_M1_attempt3_handoff_request.json",
-      "handoff_ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_M1_attempt3_handoff_ack.json"
+      "handoff_request": null,
+      "handoff_ack": null
     },
     {
       "arm": "B2",
-      "run": "fixed_20261115_provisional_B_20261116_round2_B2",
-      "samples": 2446880,
+      "run": "fixed_20261115_provisional_B_20261116_round2_B2_sbatch",
+      "samples": 2601056,
       "state": "RUNNING",
-      "backend": "native_SSH",
+      "backend": "Slurm",
       "node": "compute-0-20",
-      "job_id": null,
-      "standby_job_id": 4534812,
+      "job_id": 4534812,
+      "standby_job_id": null,
       "first_checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_B2/samples_32.pt",
       "first_checkpoint_bytes": 240098467,
       "configured_checkpoint_samples": [
@@ -75,20 +75,20 @@
         2000000,
         3000000
       ],
-      "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B2_handoff_request.json",
-      "handoff_ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B2_handoff_ack.json"
+      "handoff_request": null,
+      "handoff_ack": null
     },
     {
       "arm": "B3",
       "run": "fixed_20261115_provisional_B_20261116_round2_B3",
-      "samples": 0,
-      "state": "PENDING",
+      "samples": 53408,
+      "state": "RUNNING",
       "backend": "Slurm",
       "node": "compute-0-5",
       "job_id": 4534813,
       "standby_job_id": null,
-      "first_checkpoint": null,
-      "first_checkpoint_bytes": null,
+      "first_checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_B3/samples_32.pt",
+      "first_checkpoint_bytes": 232025789,
       "configured_checkpoint_samples": [
         32,
         1000000,
@@ -101,22 +101,22 @@
     {
       "arm": "B4",
       "run": "fixed_20261115_provisional_B_20261116_round2_B4",
-      "samples": 0,
-      "state": "NOT_SUBMITTED",
-      "backend": null,
-      "node": "\u5f85\u5206\u914d",
+      "samples": 416,
+      "state": "RUNNING",
+      "backend": "native_SSH",
+      "node": "compute-0-22",
       "job_id": null,
-      "standby_job_id": null,
-      "first_checkpoint": null,
-      "first_checkpoint_bytes": null,
+      "standby_job_id": 4534848,
+      "first_checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_B4/samples_32.pt",
+      "first_checkpoint_bytes": 220276201,
       "configured_checkpoint_samples": [
         32,
         1000000,
         2000000,
         3000000
       ],
-      "handoff_request": null,
-      "handoff_ack": null
+      "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B4_handoff_request.json",
+      "handoff_ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B4_handoff_ack.json"
     }
   ]
 }

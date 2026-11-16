@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-16 07:39UTC · fixed20261115 round2 · B1 COMPLETED 3000000/3000000；M1 RUNNING 2309632/3000000；B2 RUNNING 2601056/3000000；B3 RUNNING 53408/3000000；B4 RUNNING 416/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次08:09:54UTC。
+
+2026-11-16 07:39UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2221152/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次08:09:54UTC。
+
 2026-11-16 07:08UTC · fixed20261115 round2 · B1 RUNNING 2929536/3000000；M1 RUNNING 2147616/3000000；B2 RUNNING 2446880/3000000；B3 PENDING 0/3000000；B4 NOT_SUBMITTED 0/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次07:38:40UTC。
 
 2026-11-16 07:08UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2204864/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次07:38:40UTC。
@@ -489,3 +493,9 @@ B2 on compute-0-20 (native PID 1643284, UID 1278, start_ticks 1267945962; takeov
 ### 2026-11-16 15:09 CST — M1 2M checkpoint observed
 
 M1 attempt3 on compute-0-20 (native PID 1653103, UID 1278, start_ticks 1268295487; takeover 4534816) published complete `samples_2000000.pt`, 220306345 bytes, mtime 1794811231. Its bound process is live and the producer snapshot reached 2147616 samples. All three currently running B cases have saved both regular 1M and 2M complete checkpoints and continued. B1 is at 2929536 samples; its existing entrypoint will finish registered R1/R3 before declaring completion.
+
+### 2026-11-16 15:43 CST — real Slurm takeovers and first B completion
+
+The registered same-task takeover executed without restarting from zero: B1 saved/exited SSH at 2963040 samples and resumed under job4534810 on node22; B2 resumed at2492512 under4534812 and M1 attempt3 at2195584 under4534816 on node20. All three SSH sources recorded exit0; their original outputs/costs remain preserved and their exact native configurations are now archived under provisional_B_20261116/round2/archive/. B1 job4534810 completed exit0:0, summary COMPLETE at3M/93750 updates, retained clip298.7445410156252, and produced R1=0.06997195785507009 / R3=0.3024122485787705 (1000 bootstrap replicates each). Its old source PID132047 no longer exists. This is an absolute result, not a paired B-stage verdict; the current M1 comparator and A4 baseline validation remain pending.
+
+B3 job4534813 now runs on node5 and has its actual first32 complete checkpoint (232025789 bytes). After B1 released node22, B4 was admitted at695/32607MiB, launched native PID140692/UID1278/start_ticks45226464/PGID140692 with same-task takeover4534848 pending, and saved first32 complete checkpoint220276201 bytes. Actual B4 process identity was verified live. A4 continues the original node7 run independently. No running task was restarted for a recipe change, no other user's task was modified, and no checkpoint weights were read.
