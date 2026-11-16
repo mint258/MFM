@@ -67,8 +67,20 @@ def cpu_perf_csv(name: str, raw: bytes) -> bool:
 
 def model_summary_csv(name: str, raw: bytes) -> bool:
     """Allow only small, typed, one-row-per-run model experiment summaries."""
+    if name in {'results/p_followup/B_field_selection.csv',
+                'results/p_followup/A_collapse_composition/metrics.csv',
+                'results/p_followup/scores.csv','results/p_followup/deltas.csv'} or (
+            name.startswith('results/p_followup/training/') and re.fullmatch(
+                r'.*/(?:family_losses|VAL_original_units_[0-9]+|gpu_telemetry)\.csv',name)):
+        return len(raw)<=2*1024**2 and b'\x00' not in raw
     if cpu_perf_csv(name, raw):
         return True
+    # The follow-up taskbook explicitly requests these aggregate CSVs.
+    if (name in {'results/p_followup/B_field_selection.csv',
+                 'results/p_followup/A_collapse_composition/metrics.csv',
+                 'results/p_followup/scores.csv','results/p_followup/deltas.csv'}
+            or re.fullmatch(r'results/p_followup/training/[^/]+/(?:family_losses|gpu_telemetry|VAL_original_units_[0-9]+)\.csv', name)):
+        return len(raw) <= 2*1024**2 and b'\x00' not in raw
     # Explicit CSV deliverables in the P taskbook; producers own their checks.
     if (name in {'results/p_recipe/scores.csv','results/p_recipe/deltas.csv',
                  'results/p_recipe/calibration_20261114/calibration.csv',

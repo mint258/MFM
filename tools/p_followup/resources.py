@@ -1,0 +1,45 @@
+"""Reuse the real-node disk guard, preserving mainline future growth."""
+import importlib.util,json,os,pathlib,time
+R=pathlib.Path('/share/home/zixiao/descriptor_analysis');REPO=pathlib.Path(__file__).resolve().parents[2]
+CONTROL=R/'runs/p_followup_20261116';OLD=R/'runs/p_data_information_20261115_v1'
+SIDE=pathlib.Path('/lfshome/zixiao/data_v1_20261025/p_followup_f64_20261116')
+MEAN=pathlib.Path('/lfshome/zixiao/data_v1_20261025/p_followup_decomposition_20261116')
+TRAIN=pathlib.Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116')
+GIB=1024**3
+spec=importlib.util.spec_from_file_location('followup_existing_disk_guard',REPO/'tools/model_v3/v2_diagnosis_disk.py');disk=importlib.util.module_from_spec(spec);spec.loader.exec_module(disk)
+_last=0.;_last_capacity=None
+
+def allocated(path):
+ if not path.exists():return 0
+ seen=set();total=0
+ for directory,subdirs,files in os.walk(path):
+  for name in files:
+   try:s=(pathlib.Path(directory)/name).lstat()
+   except FileNotFoundError:continue
+   key=(s.st_dev,s.st_ino)
+   if key not in seen:total+=s.st_blocks*512;seen.add(key)
+ return total
+
+def guard(force=False, lustre=False):
+ global _last,_last_capacity
+ now=time.monotonic()
+ if not force and now-_last<2:return _last_capacity
+ main_allocated,main_future=disk.model_growth_forecast()
+ own_training=allocated(TRAIN)
+ # The old global scanner sees all P_RECIPE children; do not debit its
+ # mainline reservation using these separately reserved side-line outputs.
+ main_future+=own_training
+ lustre_future=max(0,7*GIB-allocated(SIDE)-allocated(MEAN)-own_training)
+ nfs_future=max(0,4*GIB-allocated(CONTROL)-allocated(REPO))
+ checks=[('/',16*1024**2),(R,nfs_future)]
+ if lustre:checks.append((pathlib.Path('/lfshome'),main_future+lustre_future+disk.remaining_d6()+6_000_000_000))
+ for path,future in checks:
+  disk.m.require_capacity(disk.m.filesystem_status(path),future,10000)
+ q=disk.CONTROL
+ result=dict(lustre=(disk.m.quota_headroom(q/'lustre_quota_available_v2_20261107.json','/lfshome',main_future+lustre_future,disk.remaining_d6()+6_000_000_000) if lustre else None),share=disk.m.quota_headroom(q/'share_quota_available_v3.json','/share',nfs_future,disk.remaining_nfs_other()),mainline_remaining=main_future,own_lustre_remaining=lustre_future,own_nfs_remaining=nfs_future)
+ _last=now;_last_capacity=result;return result
+
+def load(path):return json.loads(pathlib.Path(path).read_text())
+def save(path,value):
+ guard();path=pathlib.Path(path);path.parent.mkdir(parents=True,exist_ok=True)
+ path.write_text(json.dumps(value,indent=2,allow_nan=False)+'\n')
