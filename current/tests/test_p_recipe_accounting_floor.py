@@ -4,8 +4,8 @@ from pathlib import Path
 import pytest
 
 
-@pytest.mark.parametrize('elapsed,floor,expected',[(0,7488.645236756653,7488.645236756653),(100,0,90)])
-def test_accounting_retains_observed_cost_floor(monkeypatch,elapsed,floor,expected):
+@pytest.mark.parametrize('elapsed,floor,expected,closed',[(0,7488.645236756653,7488.645236756653,False),(100,0,90,False),(100,0,50,True)])
+def test_accounting_retains_observed_cost_floor(monkeypatch,elapsed,floor,expected,closed):
     root=Path(__file__).resolve().parents[2]
     monkeypatch.syspath_prepend(str(root/'tools/p_recipe'))
     spec=importlib.util.spec_from_file_location('collector_cost_test',root/'tools/p_recipe/collect_execution.py')
@@ -15,7 +15,9 @@ def test_accounting_retains_observed_cost_floor(monkeypatch,elapsed,floor,expect
     monkeypatch.setattr(module,'progress',lambda c:{})
     monkeypatch.setattr(module,'write',lambda *a:None)
     record=dict(backend='Slurm',job_id=9,stage=2,round=2,configuration='cfg',
-                allocation_pretraining_seconds=10,elapsed_seconds_floor=floor)
+                allocation_pretraining_seconds=10,elapsed_seconds_floor=floor,
+                accounting_closed=closed,elapsed_seconds=50,state='FAILED')
     module.collect_locked({'runs':{'run':record}})
     assert record['elapsed_seconds']==pytest.approx(expected)
-    assert record['allocation_elapsed_seconds']==elapsed
+    if not closed:assert record['allocation_elapsed_seconds']==elapsed
+    else:assert 'allocation_elapsed_seconds' not in record

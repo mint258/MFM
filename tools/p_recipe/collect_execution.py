@@ -63,7 +63,7 @@ def collect_locked(ledger):
  for name,record in ledger['runs'].items():
   try:
    if record['backend']=='native_SSH':record.update(observe_native(record))
-   elif record.get('job_id') in accounting:
+   elif not record.get('accounting_closed') and record.get('job_id') in accounting:
     observed=dict(accounting[record['job_id']]);observed['allocation_elapsed_seconds']=observed['elapsed_seconds']
     observed['elapsed_seconds']=max(0.,observed['elapsed_seconds']-record.get('allocation_pretraining_seconds',record.get('overlap_native_gpu_seconds',0.)),record.get('elapsed_seconds_floor',0.))
     record.update(observed)
