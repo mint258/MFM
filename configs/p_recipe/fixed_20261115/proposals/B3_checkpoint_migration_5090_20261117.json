@@ -1,0 +1,53 @@
+{
+  "schema": "P_CHECKPOINT_MIGRATION_PROPOSAL",
+  "status": "AWAITING_EXPLICIT_USER_APPROVAL",
+  "created_at": "2026-11-17T00:39:00+08:00",
+  "source": {
+    "arm": "B3",
+    "run": "fixed_20261115_provisional_B_20261116_round2_B3",
+    "node": "compute-0-5",
+    "job_id": 4534813,
+    "pid": 1252305,
+    "uid": 1278,
+    "start_ticks": 1114756286,
+    "pgid": 1252305,
+    "last_observed_samples": 1221472,
+    "recent_samples_per_second": 42.52274415012495,
+    "control_request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B3_handoff_request.json",
+    "control_ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B3_handoff_ack.json",
+    "configuration": "configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json"
+  },
+  "destination": {
+    "node": "compute-0-22",
+    "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+    "gpu_type": "RTX5090",
+    "observed_used_mib": 695,
+    "total_mib": 32607,
+    "observed_root_free_bytes": 52540915712,
+    "root_total_bytes": 75125227520,
+    "cpus": 16,
+    "exclusive": false,
+    "submission": "Existing launch_plan native+same-task sbatch takeover when Slurm CPUs unavailable, otherwise sbatch",
+    "admission": "Recheck target node GPU/own lock, actual filesystem bytes/inodes, fresh UID quotas and remaining study forecast BEFORE requesting source exit; if unavailable keep original source running."
+  },
+  "continuation": {
+    "precision": "FP32, TF32 off",
+    "batch_size": 32,
+    "microbatch_size": 32,
+    "activation_checkpointing": false,
+    "training_implementation": "Same already-merged PR8 scientific implementation; no recipe change",
+    "samples": 3000000,
+    "frozen_clip": 34.97425765991212,
+    "normalization": "window2_TRAIN_normalization_parameters_20261107_v1",
+    "procedure": [
+      "Only after explicit approval, recheck source PID UID start_ticks and actual Slurm state, plus destination admission.",
+      "Use loaded SAVE_AND_EXIT handler to atomically save full model/optimizer/sample clock/sampler RNG/Torch RNG/clip/statistics at next committed optimizer update.",
+      "Require matching ACK/checkpoint, source guard exit0 and source PID gone before starting destination. No force kill.",
+      "Archive original config/output/cost; create distinct resumed run/output and update plan to that same B3 case.",
+      "Resume from the newly acknowledged exact sample cursor on target; no from-zero restart and no discarded completed optimizer updates.",
+      "If source has already completed before approval, keep its result and do not run a duplicate."
+    ]
+  },
+  "execution_gate": "No control request, signal, cancellation or destination training has been executed by this proposal.",
+  "approval_reason": "User explicitly requires special instructions before stopping running training; permission is needed for this optional speed migration."
+}
