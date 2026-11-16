@@ -11,9 +11,9 @@
       "conformer_pairs": 25406,
       "isomer_pairs": 1322,
       "composition_pairs": 1500,
-      "median_pair_heavy_rmsd": 1.571625156083832,
-      "near_duplicate_pairs": 5912,
-      "distinct_pairs": 19494
+      "median_pair_heavy_rmsd": 1.5705162771342516,
+      "near_duplicate_pairs": 5882,
+      "distinct_pairs": 19524
     },
     "VAL": {
       "molecules": 396,
@@ -26,9 +26,9 @@
       "conformer_pairs": 2371,
       "isomer_pairs": 57,
       "composition_pairs": 150,
-      "median_pair_heavy_rmsd": 1.6157383085707397,
-      "near_duplicate_pairs": 465,
-      "distinct_pairs": 1906
+      "median_pair_heavy_rmsd": 1.6294373874774943,
+      "near_duplicate_pairs": 471,
+      "distinct_pairs": 1900
     }
   },
   "external_pair_manifest": "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/pairs.json",
@@ -37,186 +37,330 @@
   "cases": {
     "TRAIN": [
       {
-        "molecule_id": "principal_00046981",
-        "a": 6,
-        "b": 0,
-        "heavy_rmsd": 2.4461993181805037,
-        "all_atom_rmsd": 2.6694627016679373,
+        "molecule_id": "molecule_02664430",
+        "a": 2,
+        "b": 8,
+        "native_record_id_a": "unimol_02000001_03000000.lmdb:2528379",
+        "native_record_id_b": "unimol_02000001_03000000.lmdb:2531291",
+        "physical_pair_id": [
+          [
+            "molecule_02664430",
+            "unimol_02000001_03000000.lmdb:2528379"
+          ],
+          [
+            "molecule_02664430",
+            "unimol_02000001_03000000.lmdb:2531291"
+          ]
+        ],
+        "heavy_rmsd": 1.8762263289774088,
+        "all_atom_rmsd": 2.5079924582501425,
         "exact_stored_geometry": false,
+        "perturbed_heavy_rmsd": 1.937429238510377,
         "contact_pairs": 128,
-        "contact_distance_rms": 1.8218325333237642,
-        "rotatable_dihedrals": 15,
-        "valid_dihedrals": 15,
-        "dihedral_change_median_deg": 10.994677147952151,
-        "dihedral_change_max_deg": 179.12195304174156,
-        "perturbed_heavy_rmsd": 2.468913650445226
+        "contact_distance_rms": 0.6364134892312455,
+        "rotatable_dihedrals": 7,
+        "valid_dihedrals": 7,
+        "dihedral_change_median_deg": 6.4032065264044595,
+        "dihedral_change_max_deg": 172.9680007161899
       },
       {
-        "molecule_id": "molecule_03623089",
-        "a": 4,
-        "b": 2,
-        "heavy_rmsd": 1.3327142135365655,
-        "all_atom_rmsd": 1.9036814545733747,
+        "molecule_id": "molecule_04401325",
+        "a": 1,
+        "b": 9,
+        "native_record_id_a": "unimol_04000001_05000000.lmdb:1306",
+        "native_record_id_b": "unimol_04000001_05000000.lmdb:97417",
+        "physical_pair_id": [
+          [
+            "molecule_04401325",
+            "unimol_04000001_05000000.lmdb:1306"
+          ],
+          [
+            "molecule_04401325",
+            "unimol_04000001_05000000.lmdb:97417"
+          ]
+        ],
+        "heavy_rmsd": 0.9667410303027866,
+        "all_atom_rmsd": 1.5647314219800816,
         "exact_stored_geometry": false,
+        "perturbed_heavy_rmsd": 0.9609639704134197,
         "contact_pairs": 128,
-        "contact_distance_rms": 0.6407684278481138,
-        "rotatable_dihedrals": 6,
-        "valid_dihedrals": 6,
-        "dihedral_change_median_deg": 3.6172474097276632,
-        "dihedral_change_max_deg": 176.19470190900267,
-        "perturbed_heavy_rmsd": 1.3290960068596955
+        "contact_distance_rms": 0.24073411233041211,
+        "rotatable_dihedrals": 4,
+        "valid_dihedrals": 4,
+        "dihedral_change_median_deg": 0.6140728934845008,
+        "dihedral_change_max_deg": 179.9497012522941
       },
       {
-        "molecule_id": "principal_00257140",
+        "molecule_id": "molecule_04416521",
         "a": 0,
         "b": 4,
-        "heavy_rmsd": 0.036284577633835635,
-        "all_atom_rmsd": 0.05546302664451098,
+        "native_record_id_a": "unimol_04000001_05000000.lmdb:776124",
+        "native_record_id_b": "unimol_04000001_05000000.lmdb:859273",
+        "physical_pair_id": [
+          [
+            "molecule_04416521",
+            "unimol_04000001_05000000.lmdb:776124"
+          ],
+          [
+            "molecule_04416521",
+            "unimol_04000001_05000000.lmdb:859273"
+          ]
+        ],
+        "heavy_rmsd": 1.5946564592537438,
+        "all_atom_rmsd": 2.1670446112425092,
         "exact_stored_geometry": false,
-        "contact_pairs": 66,
-        "contact_distance_rms": 0.02475430798854457,
-        "rotatable_dihedrals": 4,
-        "valid_dihedrals": 4,
-        "dihedral_change_median_deg": 1.1888568338383894,
-        "dihedral_change_max_deg": 3.1432257504114074,
-        "perturbed_heavy_rmsd": 0.2824401863308464
-      },
-      {
-        "molecule_id": "molecule_04801637",
-        "a": 4,
-        "b": 9,
-        "heavy_rmsd": 0.7784289765971297,
-        "all_atom_rmsd": 1.3494202021456572,
-        "exact_stored_geometry": false,
+        "perturbed_heavy_rmsd": 1.6430756852259567,
         "contact_pairs": 128,
-        "contact_distance_rms": 0.4655506992002441,
+        "contact_distance_rms": 0.948974927289364,
         "rotatable_dihedrals": 6,
         "valid_dihedrals": 6,
-        "dihedral_change_median_deg": 8.615566684651066,
-        "dihedral_change_max_deg": 173.5132687049998,
-        "perturbed_heavy_rmsd": 0.8254767788773955
+        "dihedral_change_median_deg": 29.265658709338346,
+        "dihedral_change_max_deg": 163.3324176625856
       },
       {
-        "molecule_id": "molecule_05624805",
-        "a": 8,
-        "b": 1,
-        "heavy_rmsd": 2.5876622519711963,
-        "all_atom_rmsd": 3.3572513136424464,
+        "molecule_id": "molecule_04000846",
+        "a": 4,
+        "b": 6,
+        "native_record_id_a": "unimol_04000001_05000000.lmdb:48999",
+        "native_record_id_b": "unimol_04000001_05000000.lmdb:50995",
+        "physical_pair_id": [
+          [
+            "molecule_04000846",
+            "unimol_04000001_05000000.lmdb:48999"
+          ],
+          [
+            "molecule_04000846",
+            "unimol_04000001_05000000.lmdb:50995"
+          ]
+        ],
+        "heavy_rmsd": 1.6072395911473796,
+        "all_atom_rmsd": 2.0265213632293553,
         "exact_stored_geometry": false,
+        "perturbed_heavy_rmsd": 1.6837933637939255,
         "contact_pairs": 128,
-        "contact_distance_rms": 1.6374773093395432,
-        "rotatable_dihedrals": 4,
-        "valid_dihedrals": 4,
-        "dihedral_change_median_deg": 123.82342080593209,
-        "dihedral_change_max_deg": 164.02849496675333,
-        "perturbed_heavy_rmsd": 2.660275258928437
+        "contact_distance_rms": 1.237278688843392,
+        "rotatable_dihedrals": 5,
+        "valid_dihedrals": 5,
+        "dihedral_change_median_deg": 114.92334575408731,
+        "dihedral_change_max_deg": 162.64997690283553
       },
       {
-        "molecule_id": "principal_01653804",
-        "a": 2,
-        "b": 3,
-        "heavy_rmsd": 0.006986256718603114,
-        "all_atom_rmsd": 0.01237287447940522,
+        "molecule_id": "molecule_04423632",
+        "a": 1,
+        "b": 9,
+        "native_record_id_a": "unimol_04000001_05000000.lmdb:1223818",
+        "native_record_id_b": "unimol_04000001_05000000.lmdb:1226189",
+        "physical_pair_id": [
+          [
+            "molecule_04423632",
+            "unimol_04000001_05000000.lmdb:1223818"
+          ],
+          [
+            "molecule_04423632",
+            "unimol_04000001_05000000.lmdb:1226189"
+          ]
+        ],
+        "heavy_rmsd": 3.2828094388892572,
+        "all_atom_rmsd": 3.749119856355569,
         "exact_stored_geometry": false,
-        "contact_pairs": 62,
-        "contact_distance_rms": 0.0068934204346283974,
-        "rotatable_dihedrals": 8,
-        "valid_dihedrals": 8,
-        "dihedral_change_median_deg": 0.44338627402050035,
-        "dihedral_change_max_deg": 1.007190724210669,
-        "perturbed_heavy_rmsd": 0.2191384450240914
+        "perturbed_heavy_rmsd": 3.3242281079583424,
+        "contact_pairs": 128,
+        "contact_distance_rms": 3.307710616037238,
+        "rotatable_dihedrals": 9,
+        "valid_dihedrals": 9,
+        "dihedral_change_median_deg": 84.25050027240565,
+        "dihedral_change_max_deg": 178.31391181769396
+      },
+      {
+        "molecule_id": "molecule_04609518",
+        "a": 1,
+        "b": 4,
+        "native_record_id_a": "unimol_04000001_05000000.lmdb:494521",
+        "native_record_id_b": "unimol_04000001_05000000.lmdb:497843",
+        "physical_pair_id": [
+          [
+            "molecule_04609518",
+            "unimol_04000001_05000000.lmdb:494521"
+          ],
+          [
+            "molecule_04609518",
+            "unimol_04000001_05000000.lmdb:497843"
+          ]
+        ],
+        "heavy_rmsd": 1.081436238164061,
+        "all_atom_rmsd": 1.5425166842101121,
+        "exact_stored_geometry": false,
+        "perturbed_heavy_rmsd": 1.131863863061926,
+        "contact_pairs": 128,
+        "contact_distance_rms": 0.38605112716395484,
+        "rotatable_dihedrals": 6,
+        "valid_dihedrals": 6,
+        "dihedral_change_median_deg": 96.8753770115217,
+        "dihedral_change_max_deg": 133.65147575781427
       }
     ],
     "VAL": [
       {
-        "molecule_id": "molecule_03406932",
+        "molecule_id": "principal_01227217",
         "a": 2,
-        "b": 7,
-        "heavy_rmsd": 1.5978203004955296,
-        "all_atom_rmsd": 2.217079356559142,
+        "b": 3,
+        "native_record_id_a": "principal_01200001_01500000.lmdb:511917",
+        "native_record_id_b": "principal_01200001_01500000.lmdb:512074",
+        "physical_pair_id": [
+          [
+            "principal_01227217",
+            "principal_01200001_01500000.lmdb:511917"
+          ],
+          [
+            "principal_01227217",
+            "principal_01200001_01500000.lmdb:512074"
+          ]
+        ],
+        "heavy_rmsd": 2.724895677369934,
+        "all_atom_rmsd": 3.0547650204063745,
         "exact_stored_geometry": false,
+        "perturbed_heavy_rmsd": 2.719787037878496,
         "contact_pairs": 128,
-        "contact_distance_rms": 0.5285178558553532,
-        "rotatable_dihedrals": 8,
-        "valid_dihedrals": 8,
-        "dihedral_change_median_deg": 45.93567923082526,
-        "dihedral_change_max_deg": 122.41211030359666,
-        "perturbed_heavy_rmsd": 1.632863847818026
-      },
-      {
-        "molecule_id": "molecule_03861943",
-        "a": 3,
-        "b": 7,
-        "heavy_rmsd": 1.1357761484731757,
-        "all_atom_rmsd": 1.766285218539553,
-        "exact_stored_geometry": false,
-        "contact_pairs": 128,
-        "contact_distance_rms": 0.5476634122280343,
+        "contact_distance_rms": 1.1748498021146143,
         "rotatable_dihedrals": 7,
         "valid_dihedrals": 7,
-        "dihedral_change_median_deg": 15.503705334059086,
-        "dihedral_change_max_deg": 137.1452452572866,
-        "perturbed_heavy_rmsd": 1.1423164752914399
+        "dihedral_change_median_deg": 129.78856497028738,
+        "dihedral_change_max_deg": 166.7091773879513
       },
       {
-        "molecule_id": "molecule_03800332",
+        "molecule_id": "molecule_04837442",
+        "a": 8,
+        "b": 9,
+        "native_record_id_a": "unimol_04000001_05000000.lmdb:1917144",
+        "native_record_id_b": "unimol_04000001_05000000.lmdb:1917146",
+        "physical_pair_id": [
+          [
+            "molecule_04837442",
+            "unimol_04000001_05000000.lmdb:1917144"
+          ],
+          [
+            "molecule_04837442",
+            "unimol_04000001_05000000.lmdb:1917146"
+          ]
+        ],
+        "heavy_rmsd": 0.45553080982117533,
+        "all_atom_rmsd": 1.0118179394159945,
+        "exact_stored_geometry": false,
+        "perturbed_heavy_rmsd": 0.49474991981322386,
+        "contact_pairs": 128,
+        "contact_distance_rms": 0.3416770580372194,
+        "rotatable_dihedrals": 2,
+        "valid_dihedrals": 2,
+        "dihedral_change_median_deg": 16.81891919864449,
+        "dihedral_change_max_deg": 29.64178688271349
+      },
+      {
+        "molecule_id": "principal_01756622",
+        "a": 3,
+        "b": 5,
+        "native_record_id_a": "principal_01500001_01800000.lmdb:364179",
+        "native_record_id_b": "principal_01500001_01800000.lmdb:364408",
+        "physical_pair_id": [
+          [
+            "principal_01756622",
+            "principal_01500001_01800000.lmdb:364179"
+          ],
+          [
+            "principal_01756622",
+            "principal_01500001_01800000.lmdb:364408"
+          ]
+        ],
+        "heavy_rmsd": 3.2170084679716095e-15,
+        "all_atom_rmsd": 1.7714331588542806e-15,
+        "exact_stored_geometry": true,
+        "perturbed_heavy_rmsd": 0.2278929087366147,
+        "contact_pairs": 128,
+        "contact_distance_rms": 0.0,
+        "rotatable_dihedrals": 7,
+        "valid_dihedrals": 7,
+        "dihedral_change_median_deg": 0.0,
+        "dihedral_change_max_deg": 0.0
+      },
+      {
+        "molecule_id": "molecule_02289529",
         "a": 1,
-        "b": 4,
-        "heavy_rmsd": 1.5795627760755715,
-        "all_atom_rmsd": 2.3889630132231354,
+        "b": 6,
+        "native_record_id_a": "unimol_02000001_03000000.lmdb:2571813",
+        "native_record_id_b": "unimol_02000001_03000000.lmdb:2573785",
+        "physical_pair_id": [
+          [
+            "molecule_02289529",
+            "unimol_02000001_03000000.lmdb:2571813"
+          ],
+          [
+            "molecule_02289529",
+            "unimol_02000001_03000000.lmdb:2573785"
+          ]
+        ],
+        "heavy_rmsd": 3.1903962372273886,
+        "all_atom_rmsd": 3.7037628043550805,
         "exact_stored_geometry": false,
+        "perturbed_heavy_rmsd": 3.164029509237149,
         "contact_pairs": 128,
-        "contact_distance_rms": 0.6132985811787609,
-        "rotatable_dihedrals": 3,
-        "valid_dihedrals": 3,
-        "dihedral_change_median_deg": 117.82332308932008,
-        "dihedral_change_max_deg": 160.0289302126273,
-        "perturbed_heavy_rmsd": 1.5984249870158023
+        "contact_distance_rms": 3.5078259986545643,
+        "rotatable_dihedrals": 12,
+        "valid_dihedrals": 12,
+        "dihedral_change_median_deg": 133.01579337424204,
+        "dihedral_change_max_deg": 170.55323960625734
       },
       {
-        "molecule_id": "molecule_03432975",
-        "a": 7,
-        "b": 8,
-        "heavy_rmsd": 1.3561218754217672,
-        "all_atom_rmsd": 1.81363017435572,
-        "exact_stored_geometry": false,
+        "molecule_id": "molecule_05435447",
+        "a": 0,
+        "b": 6,
+        "native_record_id_a": "unimol_05000001_06000000.lmdb:2001311",
+        "native_record_id_b": "unimol_05000001_06000000.lmdb:2010878",
+        "physical_pair_id": [
+          [
+            "molecule_05435447",
+            "unimol_05000001_06000000.lmdb:2001311"
+          ],
+          [
+            "molecule_05435447",
+            "unimol_05000001_06000000.lmdb:2010878"
+          ]
+        ],
+        "heavy_rmsd": 1.4320425357874867e-15,
+        "all_atom_rmsd": 2.4824929081808667e-15,
+        "exact_stored_geometry": true,
+        "perturbed_heavy_rmsd": 0.20612595522479515,
         "contact_pairs": 128,
-        "contact_distance_rms": 0.8062123864268954,
-        "rotatable_dihedrals": 5,
-        "valid_dihedrals": 5,
-        "dihedral_change_median_deg": 4.43463667249002,
-        "dihedral_change_max_deg": 175.88651833783538,
-        "perturbed_heavy_rmsd": 1.352892650071899
+        "contact_distance_rms": 0.0,
+        "rotatable_dihedrals": 6,
+        "valid_dihedrals": 6,
+        "dihedral_change_median_deg": 0.0,
+        "dihedral_change_max_deg": 0.0
       },
       {
-        "molecule_id": "principal_00414212",
-        "a": 1,
-        "b": 7,
-        "heavy_rmsd": 1.457192064974755,
-        "all_atom_rmsd": 2.2546956080629457,
-        "exact_stored_geometry": false,
+        "molecule_id": "molecule_04207522",
+        "a": 6,
+        "b": 9,
+        "native_record_id_a": "unimol_04000001_05000000.lmdb:438391",
+        "native_record_id_b": "unimol_04000001_05000000.lmdb:438870",
+        "physical_pair_id": [
+          [
+            "molecule_04207522",
+            "unimol_04000001_05000000.lmdb:438391"
+          ],
+          [
+            "molecule_04207522",
+            "unimol_04000001_05000000.lmdb:438870"
+          ]
+        ],
+        "heavy_rmsd": 1.4184833866484072e-15,
+        "all_atom_rmsd": 1.473779574986032e-15,
+        "exact_stored_geometry": true,
+        "perturbed_heavy_rmsd": 0.2182123696914404,
         "contact_pairs": 128,
-        "contact_distance_rms": 0.8098662607583055,
-        "rotatable_dihedrals": 5,
-        "valid_dihedrals": 5,
-        "dihedral_change_median_deg": 122.23164720114342,
-        "dihedral_change_max_deg": 136.0134789824082,
-        "perturbed_heavy_rmsd": 1.463396901495606
-      },
-      {
-        "molecule_id": "molecule_01206148",
-        "a": 2,
-        "b": 7,
-        "heavy_rmsd": 1.684376867869459,
-        "all_atom_rmsd": 2.3393753782347484,
-        "exact_stored_geometry": false,
-        "contact_pairs": 128,
-        "contact_distance_rms": 1.0884826834416408,
-        "rotatable_dihedrals": 5,
-        "valid_dihedrals": 5,
-        "dihedral_change_median_deg": 8.846636065411646,
-        "dihedral_change_max_deg": 88.1463714373918,
-        "perturbed_heavy_rmsd": 1.6825262390480034
+        "contact_distance_rms": 0.0,
+        "rotatable_dihedrals": 6,
+        "valid_dihedrals": 6,
+        "dihedral_change_median_deg": 0.0,
+        "dihedral_change_max_deg": 0.0
       }
     ]
   }

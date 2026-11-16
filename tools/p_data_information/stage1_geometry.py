@@ -4,6 +4,7 @@ import numpy as np
 from stage0_cohort import R,D,O,P,load,save,guard
 sys.path.insert(0,str(R/'MFM_p_data_information/current'))
 from phychem_mfm.phase1.v31_loader import MFM4Dataset
+from physical_pair_identity import select_pairs,read_native_ids
 SEED=20261025
 def key(role,panel,identity):return hashlib.sha256(json.dumps(['P-DATA-INFORMATION-v1',SEED,role,panel,identity],sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
 def rmsd(a,b,heavy):
@@ -68,6 +69,7 @@ def main():
   for formula,reps in selected:
    for r in reps:panel.setdefault(r['molecule_id'],dict(r,core=False,enriched=False))['enriched']=True
   ds=MFM4Dataset(P,split=role,geometry_only=True,k=10,molecule_indices=[r['pilot_index'] for r in panel.values()]);geometries={};counts=collections.Counter();conformerpairs=[];geometry_stats=[]
+  allowed={(r['pilot_index'],int(ci)) for r in panel.values() for ci in ds.choices(r['pilot_index'])};native_ids=read_native_ids(P,role,list(panel.values()),allowed)
   for n,(mid,r) in enumerate(panel.items()):
    guard();mi=r['pilot_index'];m=ds.record('M',mi);choices=list(map(int,ds.choices(mi)));r['allowed_conformers']=choices;r['heavy_atoms']=int((m[1]>1).sum());r['atom_count']=len(m[1]);r['elements']=m[1].tolist();r['bonds']=m[2].tolist();r['bond_order']=m[3].tolist()
    raw_geometries={ci:ds.record('P',mi,ci) for ci in choices};c={ci:a[21] for ci,a in raw_geometries.items()};heavy=m[1]>1;representatives=[];pair_metrics={};contacts,torsions=local_setup(m,role,mid)
@@ -75,8 +77,8 @@ def main():
     if not any(rmsd(c[ci],c[rj],heavy)<.5 for rj in representatives):representatives.append(ci)
    for ca,cb in itertools.combinations(choices,2):
     pair_metrics[(ca,cb)]=dict(heavy_rmsd=rmsd(c[ca],c[cb],heavy),all_atom_rmsd=rmsd(c[ca],c[cb],np.ones(len(heavy),dtype=bool)),exact_stored_geometry=bool(np.array_equal(c[ca],c[cb])))
-   selected_pairs=sorted(pair_metrics,key=lambda p:(key(role,'conformer_pair',[mid,*p]),p))[:6]
-   for ca,cb in selected_pairs:conformerpairs.append(dict(molecule_id=mid,a=ca,b=cb,**pair_metrics[(ca,cb)]))
+   mapping={ci:native_ids[(mi,ci)] for ci in choices};selected_pairs=[(a,b) for a,b,identity in select_pairs(role,mid,mapping)]
+   for ca,cb in selected_pairs:conformerpairs.append(dict(molecule_id=mid,a=ca,b=cb,native_record_id_a=mapping[ca],native_record_id_b=mapping[cb],physical_pair_id=[[mid,mapping[ca]],[mid,mapping[cb]]],**pair_metrics[(ca,cb) if (ca,cb) in pair_metrics else (cb,ca)]))
    for pair in conformerpairs[-len(selected_pairs):] if selected_pairs else []:
     pair.update(local_difference(c[pair['a']],c[pair['b']],contacts,torsions))
     ga,gb=raw_geometries[pair['a']].get(22),raw_geometries[pair['b']].get(22)
