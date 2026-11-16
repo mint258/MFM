@@ -90,6 +90,23 @@ pilot 紧凑导出的 ID map 实现记录 molecule_id、native_record_id、局�
 | 新模型训练 | 不在计划内 |
 | 条件单点校准 | 尚未评估触发条件，未执行 |
 
+## 7. 文档检查与 GitHub 交付
+
+首次提交 9c08e7834c6736fa5e11257f572fdbfff02bd888 已发布到 docs/p-data-information-20261115，只新增本报告与 TASKBOOK_V1.md。本地文档候选集通过原 tools/check_repository.py，未声称在本地重跑完整仓库。
+
+GitHub 的完整 Source checks 未通过。已读取并逐项比较本次首次提交与其原始基线的检查输出：
+
+| 检查对象 | 错误数 | 本次新增文档的错误 |
+| --- | ---: | ---: |
+| 基线 p-recipe@5b42908d364e84e39bf384b19a5c6ab08d13ab63 | 202 | 不适用 |
+| 本次首次文档提交 9c08e7834c6736fa5e11257f572fdbfff02bd888 | 202 | 0 |
+
+错误集合逐项相同：111 项为已有文件格式与仓库数据/资产规则冲突，91 项超过已有 2 MiB 文件大小限制。本次新增错误为 0。这些是已有仓库内容的检查问题，不能写成“整仓检查通过”，也没有因此扩大本任务去删除历史产物或改检查规则。
+
+- [本次完整检查](https://github.com/mint258/MFM/actions/runs/43788164925)
+- [基线完整检查](https://github.com/mint258/MFM/actions/runs/43784255900)
+- [首次文档提交](https://github.com/mint258/MFM/commit/9c08e7834c6736fa5e11257f572fdbfff02bd888)
+
 ## 来源索引
 
 - [TASKBOOK_V3.md](https://github.com/mint258/MFM/blob/5b42908d364e84e39bf384b19a5c6ab08d13ab63/docs/model_v3/TASKBOOK_V3.md)
