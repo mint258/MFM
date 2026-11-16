@@ -63,7 +63,7 @@ def main():
     eligibility=set(map(int,train_indices(c)));errors={v['field']:v['median_abs_error'] for v in load(REPO/'results/p_followup/B_field_selection.json')['fields']}
     directories={};sizes={}
     for split in ['TRAIN','FULL']:
-        directory,meta=split_metadata(c['root'],split);directories[split]=directory;sizes[split]=meta['molecule_count']
+        directory,meta=split_metadata(pathlib.Path(c['root']),split);directories[split]=directory;sizes[split]=meta['molecule_count']
     total=sum(sizes.values());chosen=np.random.default_rng(20261025).choice(total,1000,replace=False)
     checks={};offset=0
     for split,n in sizes.items():checks[split]=(chosen[(chosen>=offset)&(chosen<offset+n)]-offset).tolist();offset+=n
@@ -98,39 +98,6 @@ def main():
                         elapsed=time.monotonic()-started;print('D1_ONE_PERCENT',dict(molecules=done,seconds=elapsed,molecules_per_second=done/elapsed,remaining_hours=(total-done)*elapsed/done/3600),flush=True);reported=True
         means.flush();counts.flush();del means,counts,mids
         splits[split]=dict(directory=str(directories[split]),molecules=n,**{k:str(p) for k,p in paths.items()})
-    for split,n in sizes.items():
-        guard(force=True);directory=MEAN/split;directory.mkdir(exist_ok=True)
-        ids=directory/'molecule_ids.npy';mu=directory/'means.npy';cnt=directory/'valid_counts.npy'
-        identities=pq.read_table(directories[split]/'id_map.parquet',columns=['molecule_index','molecule_id'],filters=[('record_kind','=','M')],use_threads=False)
-        indices=identities['molecule_index'].to_numpy();assert np.array_equal(indices,np.arange(n))
-        mids=identities['molecule_id'].to_pylist()
-        if any(len(v.encode())>64 for v in mids):raise ValueError('MID exceeds declared storage width')
-        np.save(ids,np.asarray(mids,dtype='S64'));del identities,mids
-        means=np.lib.format.open_memmap(mu,mode='w+',dtype='<f8',shape=(n,len(names)))
-        counts=np.lib.format.open_memmap(cnt,mode='w+',dtype='u1',shape=(n,len(names)))
-        pending=set();chunks=iter([indices[i:i+1024] for i in range(0,n,1024)])
-        split_started=time.monotonic()
-        with cf.ProcessPoolExecutor(max_workers=a.workers,initializer=init_worker,initargs=(c,split,view,names,checks[split])) as executor:
-            for _ in range(a.workers*2):
-                part=next(chunks,None)
-                if part is not None:pending.add(executor.submit(chunk,part))
-            while pending:
-                finished,pending=cf.wait(pending,return_when=cf.FIRST_COMPLETED)
-                for future in finished:
-                    index,mean,count,within,verified=future.result();guard()
-                    means[index]=mean;counts[index]=count;all_checks.extend(dict(split=split,**r) for r in verified)
-                    if split=='TRAIN':
-                        good=np.fromiter((int(i) in eligibility for i in index),bool,len(index))
-                        fit.add(mean[good],count[good],within[good])
-                    done+=len(index)
-                    if done>=max(1,int(.01*total)) and not reported:
-                        elapsed=time.monotonic()-started
-                        print('D1_FIRST_PERCENT',dict(molecules=done,total=total,seconds=elapsed,eta_seconds=elapsed/done*(total-done)),flush=True);reported=True
-                    if done%10240<1024:means.flush();counts.flush();print('D1_PROGRESS',split,done,total,time.monotonic()-started,flush=True)
-                    part=next(chunks,None)
-                    if part is not None:pending.add(executor.submit(chunk,part))
-        means.flush();counts.flush();del means,counts
-        splits[split]=dict(directory=str(directories[split]),molecules=n,means=str(mu),valid_counts=str(cnt),molecule_ids=str(ids),seconds=time.monotonic()-split_started)
     assert len(all_checks)==1000
     result=fit.result(len(eligibility),errors,names);chosen=[name for name in names if result[name]['selected']]
     params=dict(status='D1_COMPLETE',candidate_fields=names,selected_fields=chosen,fields=result,
