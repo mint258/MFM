@@ -14,3 +14,5 @@
 全人口D7的已发表7,483,854/11,229,900口径只作背景，不能移用为当前成员、D5排除和first10下的代表数；这里保留本面板实际计算的几何距离。没有把近似重复当作独立计算对照。以上为pilot FP32坐标层，原WP5目标实际输入的最终跨层对应待阶段5；这些几何统计不能独自判定全部任务的物理变化。
 
 外部面板/完整配对：/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/panel.json、pairs.json；汇总与总计最多12个的标签无关贯穿案例在coverage.json。几何计算耗时878.9秒。后续不依据标签结果重选这些成员和配对。
+
+阶段5闭合补充：已通过登记source_to_M将全部42961条原F64 native base几何连接到pilot，单次F32 cast完全复现pilot坐标，冻结存储坐标不同的对在该步归并0；不据此替代未完成的原程序向量参考系链或声称全部物理精度已验证。见05_PIPELINE_RETENTION.md。
