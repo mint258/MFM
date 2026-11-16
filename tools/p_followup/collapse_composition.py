@@ -144,6 +144,38 @@ def hypotheses(conditions):
         row.update(delta=s,reference=float(reference),support_effect_threshold=threshold,verdict=verdict);out.append(row)
     return out
 
+def write_report(payload):
+    """Paper-ready rendering of already computed statistics, without refitting."""
+    results=payload['conditions'];claims=payload['hypotheses']
+    def point(value):return 'NA' if value is None else f'{value:.5g}'
+    def stat(value):
+        if not value or value.get('value') is None:return 'NA'
+        ci=value.get('ci95');return point(value['value'])+(f" [{point(ci[0])}, {point(ci[1])}]" if ci else '')
+    lines=['# A：表示塌缩的组成来源检验','','## 范围与方法','',
+        '固定5000个VAL分子，复用diagnose.validation_indices（seed20261112）。组成分析取首允许构象；构象分析覆盖同一分子的全部允许k10构象（每条件47698条记录）。只用指定检查点，P0-S/P为6M，R1-B0/A1、R2-M1/B1为3M；C/D仅在各自指定3M端点可用时补充。未启动额外模型训练。',
+        '', '第3–5层取中间输出，第6层取out_norm后输出；B1取共享投影器之前。encoder计算为F32，各构象mean(H)暂存为F32，统计为F64；原子H只流式累计元素矩，不落盘。每个条件完成后删除其mean(H)缓存。',
+        '', 'Xc使用既有D4元素参考基底的元素计数，并加入总原子数/重原子数；Xsize只用后两列。按MID做5外折交叉验证，5内折只在外层训练折选择ridge参数（1e-3至1e3，每次乘10），折内拟合标准化及不惩罚的截距。CEV是多输出OOF解释方差1−SSE/SST；CEV_size使用Xsize。PC1–3来自首构象mean(H)的全样本F64 PCA轴，其OOF R²仅作描述。',
+        '', 'EEV为按元素分组的原子H组间平方和/原子总平方和。CVF为同分子构象内平方和/总平方和；CVF_res将每个构象减去该MID的组成OOF预测后计算相同比值，均限有至少2个允许构象的分子，并按实际构象记录加权。1000次配对MID bootstrap（seed20261025）重采分子及其全部构象，复用固定OOF预测，不重新拟合。以下区间均为95% percentile CI。',
+        '', '## 第6层表示结果','','|条件|状态|CEV|CEV_size|EEV|CVF|CVF_res|','|---|---|---|---|---|---|---|']
+    for name,c in results.items():
+        m=c.get('layers',{}).get('6',{})
+        lines.append('|'+ '|'.join([name,c['status']]+[stat(m.get(k)) for k in ['CEV','CEV_size','EEV','CVF','CVF_res']])+'|')
+    lines+=['','## 预注册判定','','支持要求CI下界>0，且点效应≥max(0.10,0.20×右侧参照)；H5参照固定为P0-S第6层CEV。CI上界<0.05或全区间≤0为NOT_SUPPORT，其余为UNCERTAIN。H1与H4同时获支持才允许组成来源/构象压缩的联合声明。',
+        '', '|假设|差值定义|效应及95%CI|支持效应阈值|判定|','|---|---|---|---:|---|']
+    for h in claims:
+        expression=(f"(CEV6−CEV3)({h['left']}) − (CEV6−CEV3)({h['right']})" if h['id']=='A-H5' else f"{h['metric']}({h['left']}) − {h['metric']}({h['right']})")
+        lines.append(f"|{h['id']}|{expression}|{stat(h.get('delta'))}|{point(h.get('support_effect_threshold'))}|{h['verdict']}|")
+    lines+=['',('H1与H4联合声明获得支持。' if payload['joint_claim_supported'] else 'H1与H4联合声明未获支持，不能据此将P的既有谱塌缩主要归因为组成或构象压缩。')]
+    h2=next(h for h in claims if h['id']=='A-H2')
+    if h2.get('delta',{}).get('value',0)>0 and h2['verdict']=='NOT_SUPPORT':lines+=['','R1-B0减A1虽为正差，仍未满足预注册支持标准；不将其改判为支持。']
+    lines+=['','## 实际训练目标参照','','仅纳入该条件实际训练且有效比例≥99%的P分子标量，使用该检查点实际D4/A1参数，按每字段目标方差加权汇总CEV与CVF。该参照只作描述。',
+        '', '|条件|纳入字段数|目标CEV（方差加权）|目标CVF（方差加权）|','|---|---:|---|---|']
+    for name,c in results.items():
+        t=c.get('target_reference',{});lines.append(f"|{name}|{t.get('included_fields','NA')}|{stat(t.get('variance_weighted_CEV'))}|{stat(t.get('variance_weighted_CVF'))}|")
+    lines+=['','S条件没有训练P标量目标，参照为NA；指定C/D条件未完成时也记NA。','','![CEV与CVF_res](../../results/p_followup/A_collapse_composition/composition.svg)',
+        '', '逐层指标、PC1–3描述结果、每字段目标参照、精确检查点及参数路径见results/p_followup/A_collapse_composition/summary.json和metrics.csv。缺失条件不由其他运行替换；不追加检验或阈值扫描。组成解释率本身不证明独立化学准确性或迁移收益。']
+    guard();(REPO/'docs/p_followup/A_COLLAPSE_COMPOSITION.md').write_text('\n'.join(lines)+'\n')
+
 def deliver(results):
     import matplotlib;matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -163,16 +195,12 @@ def deliver(results):
         layers=[3,4,5,6];axes[0].plot(layers,[c['layers'][str(l)]['CEV']['value'] for l in layers],'-o',label=name)
         v=c['layers']['6']['CVF_res'];k=len(axes[1].lines);axes[1].plot([k],[v['value']],'o');axes[1].set_xticks(range(k+1),[label for label,item in results.items() if item.get('status')=='COMPLETE'][:k+1]);axes[1].vlines(k,*v['ci95']) if v['ci95'] else None
     axes[0].set(xlabel='Encoder layer',ylabel='Composition explained variance (OOF)',xticks=[3,4,5,6]);axes[0].legend();axes[1].set(ylabel='Within-molecule / composition-residual variance');axes[1].tick_params(axis='x',rotation=30);fig.tight_layout();fig.savefig(RESULTS/'composition.svg');fig.savefig(RESULTS/'composition.png',dpi=150);plt.close(fig)
-    lines=['# A：表示塌缩的组成来源检验','','固定5000个VAL分子（原diagnose.validation_indices，seed20261112），组成取首允许构象、构象分析取全部允许k10。第3–5层取中间输出，第6层取out_norm之后；B1在共享投影器之前。新模型训练0。','','所有指标以F64计算；逐元素原子统计流式累积，原子H不落盘。只暂存各构象mean(H)的F32值，完成该条件后删除。组成基底为既有D4元素参考基底计数，加总/重原子数；CEV_size只用两种大小计数。岭回归为按分子的5外折、5内折选alpha，折内标准化并拟合截距，候选1e-3到1e3。1000次分子配对bootstrap复用固定OOF预测，不重新拟合。CVF及CVF_res限有>=2允许构象的分子；权重按其实际构象记录。','','|条件|状态|第6层CEV|第6层CVF_res|','|---|---|---:|---:|']
-    for name,c in results.items():
-        m=c.get('layers',{}).get('6',{});lines.append(f"|{name}|{c['status']}|{m.get('CEV',{}).get('value')}|{m.get('CVF_res',{}).get('value')}|")
-    lines+=['','|预注册假设|判定|配对差值及95%CI|','|---|---|---|']
-    for c in claims:lines.append(f"|{c['id']}|{c['verdict']}|{c.get('delta')}|")
-    lines+=['',('H1与H4联合支持，可形成预注册组成来源声明。' if payload['joint_claim_supported'] else 'H1与H4联合声明未获支持，不能据此将P的谱塌缩主要归因为组成或构象压缩。'),'','![CEV与CVF_res](../../results/p_followup/A_collapse_composition/composition.svg)','','PC1–3取首允许构象分子均值的F64全样本PCA轴；对应回归和目标参照仅作描述，不追加检验或阈值扫描。逐条件来源、完整CI及逐字段目标参照见summary.json。缺失条件未由其他运行替换，待指定C/D侧线完成后只补其注册条件。组成解释率不等于独立的化学准确性或迁移收益证明。']
-    guard();(REPO/'docs/p_followup/A_COLLAPSE_COMPOSITION.md').write_text('\n'.join(lines)+'\n')
+    write_report(payload)
+
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--device',choices=['cpu','cuda'],default='cuda');parser.add_argument('--conditions',nargs='*');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--device',choices=['cpu','cuda'],default='cuda');parser.add_argument('--conditions',nargs='*');parser.add_argument('--report-only',action='store_true');args=parser.parse_args()
+    if args.report_only:write_report(load(RESULTS/'summary.json'));return
     guard(force=True);torch.set_num_threads(4 if args.device=='cuda' else 16);lock=None
     if args.device=='cuda':
         gpu=os.environ['CUDA_VISIBLE_DEVICES'].split(',')[0]
