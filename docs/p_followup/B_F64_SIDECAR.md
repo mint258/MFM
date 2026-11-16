@@ -9,3 +9,7 @@ MFM4Dataset新增可选p_f64_sidecar，默认None；sidecar按split绑定D6目�
 新逻辑测试覆盖：稳定句柄查找和NaN回退、错误split拒绝、大绝对值参考相减保留小残差、F32默认归一化逐位不变。全109字段与当前p-recipe loader的真实比较留在B3一次执行，不用单元夹具替代。
 
 物理sidecar计划存/lfshome/zixiao/data_v1_20261025/p_followup_f64_20261116；根据D6公布的22027705条P/U记录，45字节行加分子offset预计约1.00GB，预留1.1GiB、上限2GiB。最终文件只算一次SHA256；中间不生成新hash或审批收据。当前没有sidecar用于C/D或主线。
+
+B2实际读取子集结果：复用已有映射的64 MID、316记录，不增加源F64读取。原11-07和A1分别验证了4字段的F64 raw、与D6单次F32 cast对齐、全部未入选P字段逐位不变；每字段1232个源非零构象对在该子集中归零0、数值容差失败0。此项是工程smoke，不代表完整B3通过。
+
+B1作业4535155在compute-0-20运行，覆盖D6的全部TRAIN/FULL P/U记录。只读既有物理索引，源数值通过原common.task_components读取；CELL投影保留标量叶而不读取无关数组。源路由仅在内存，不持久化新的全源索引。逐记录cast对齐在写出时完成，冲突写NaN回退，字段超过0.01%不启用；最终只对sidecar文件计算一次SHA。B3随后只读冻结42961记录，用两个实际loader与主线当前loader比较，另作开/关各一次20k CPU读取。
