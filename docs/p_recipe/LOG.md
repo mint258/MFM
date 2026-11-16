@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-16 15:32UTC · fixed20261115 round2 · B1 COMPLETED 3000000/3000000；M1 RUNNING 2325600/3000000；B2 COMPLETED 3000000/3000000；B3 RUNNING 1080864/3000000；B4 RUNNING 2731072/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次16:02:32UTC。
+
+2026-11-16 15:32UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2469760/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次16:02:32UTC。
+
 2026-11-16 15:02UTC · fixed20261115 round2 · B1 COMPLETED 3000000/3000000；M1 RUNNING 2207264/3000000；B2 COMPLETED 3000000/3000000；B3 RUNNING 1014816/3000000；B4 RUNNING 2558400/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次15:32:13UTC。
 
 2026-11-16 15:02UTC · fixed20261115 round1 · B0 COMPLETED 3000000/3000000；A1 COMPLETED 3000000/3000000；A2 COMPLETED 3000000/3000000；A3 COMPLETED 3000000/3000000；A4 RUNNING 2453984/3000000；A5 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次15:32:13UTC。
@@ -529,3 +533,7 @@ Slurm reset failed job elapsed to0. Its training CSV still proves elapsed31922.2
 The scheduled runner now recognizes an already committed SSH-to-Slurm handoff before entering the SSH handshake. It leaves a completed run complete, waits for a matching surviving trainer rather than double-running it, and, after the previous worker is actually missing, selects the newest atomically published full checkpoint (or the retained resume checkpoint) into a distinct output. It preserves the interrupted configuration/output/cost segment and updates the plan to the continued run. Closed cost segments are not overwritten when Slurm reuses the job ID. No checkpoint weights are reopened by scheduling. The main-entry regression reproduces a continued configuration without handoff_ack and confirms it never repeats handoff().
 
 17 focused CPU tests passed in6.20s on compute-0-20 (re-entry, accounting floor, existing handoff tests). No benchmark, extra model training or full regression was added. Running A4/B3/B4 and the explicit M1 infrastructure recovery were not stopped or restarted for this code fix.
+
+### 2026-11-16 23:33 CST — ongoing checkpoint observations
+
+Actual target-node metadata confirms B3/node5 `samples_1000000.pt` =232053373 bytes; B4/node22 `samples_1000000.pt` =220303785 bytes and `samples_2000000.pt` =220306025 bytes. Producer progress already exceeds these sample cursors (B3 1080864, B4 2731072), proving regular saves followed by continued training. M1 explicit infrastructure recovery advances to2325600 samples; A4 remains on its original node7 run at2469760. No trainer was stopped and no checkpoint weights were read.
