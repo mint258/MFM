@@ -2,7 +2,7 @@
 
 2026-11-15（America/New_York） · @Zixiao
 
-状态：计划书已形成；阶段 0–5 的新数值实验尚未执行。已完成的仓库来源核查见 SOURCE_REVIEW.md。
+状态：阶段0已完成（2026-11-16 Asia/Shanghai）；阶段1–5待执行。阶段0见00_SCOPE_AND_SEMANTICS.md。
 
 ## 本版范围与当前起点
 
@@ -305,7 +305,8 @@ P 字段集合固定为起始提交 5b42908d364e84e39bf384b19a5c6ab08d13ab63 的
 | --- | --- |
 | 计划格式与已有来源核查 | COMPLETE；见 SOURCE_REVIEW.md |
 | 本版计划 | READY_FOR_EXECUTION：计划可交付，数值阶段尚未启动 |
-| 阶段 0–5 的新数据实验 | NOT_RUN |
+| 阶段 0 | COMPLETE_WITH_EXPLICIT_UNKNOWNS；55000连接，8项现行TRAIN排除 |
+| 阶段 1–5 的新数据实验 | NOT_RUN |
 | 条件单点校准 2B | NOT_EVALUATED；不是已经触发 |
 
 ## 依据
