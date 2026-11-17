@@ -18,7 +18,7 @@ def source_commit():
 def main():
     import argparse
     from resources import disk,GIB,allocated
-    parser=argparse.ArgumentParser();parser.add_argument('--repair-from');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--repair-from');parser.add_argument('--extra-modules',nargs='*',default=[]);args=parser.parse_args()
     guard(force=True);job=os.environ['SLURM_JOB_ID'];output=CONTROL/('regression_'+job)
     scratch=pathlib.Path('/tmp')/('mpTests_'+job);private=pathlib.Path('/tmp')/('mv3n_'+job)
     def capacity():
@@ -26,6 +26,9 @@ def main():
         future=max(0,10*GIB-allocated(scratch)-allocated(private))
         disk.m.require_capacity(disk.m.filesystem_status('/tmp'),future,10000)
     capacity();started_commit=source_commit();base=load(args.repair_from) if args.repair_from else None
+    removed={} if base is None else {r['module']:r for r in base['failed_modules']}
+    for module in args.extra_modules:
+        removed[module]=load(pathlib.Path(base['output'])/(pathlib.Path(module).stem+'.json'))
     sys.path.insert(0,str(REPO/'tools/model_v3'))
     from private_runtime_storage import PrivateStorage,_write_exclusive
     output.mkdir();storage=PrivateStorage(private,budget_bytes=2*GIB)
@@ -35,8 +38,8 @@ def main():
     storage.start()
     # The established runner creates its output itself; keep the binding separate.
     core_output=output/'core'
-    argv=[sys.executable,'-B','-u',str(REPO/'tools/p_recipe/regression.py'),'--output',str(core_output),'--scratch',str(scratch),'--workers','2','--preserve-storage-environment']
-    if base:argv+=['--modules',*[r['module'] for r in base['failed_modules']]]
+    argv=[sys.executable,'-B','-u',str(REPO/'tools/p_recipe/regression.py'),'--output',str(core_output),'--scratch',str(scratch),'--workers',str(min(2,int(os.environ['SLURM_CPUS_PER_TASK']))),'--preserve-storage-environment']
+    if base:argv+=['--modules',*removed]
     child=subprocess.Popen(argv,cwd=REPO,start_new_session=True)
     try:
         while child.poll() is None:capacity();time.sleep(5)
@@ -53,11 +56,11 @@ def main():
     if observer_error:summary['post_test_storage_observer_error']=observer_error
     if base:
         repaired_counts=dict(summary['counts']);repaired_modules=summary['modules']
-        summary['counts']={k:base['counts'][k]-sum(r['counts'][k] for r in base['failed_modules'])+repaired_counts[k] for k in repaired_counts}
+        summary['counts']={k:base['counts'][k]-sum(r['counts'][k] for r in removed.values())+repaired_counts[k] for k in repaired_counts}
         summary.update(modules=base['modules'],repair_modules=repaired_modules,repair_counts=repaired_counts,
-            preserved_pass_modules=base['modules']-len(base['failed_modules']),original_full_result=str(pathlib.Path(args.repair_from).resolve()),original_source_commit=base.get('source_commit'))
+            preserved_pass_modules=base['modules']-len(removed),original_full_result=str(pathlib.Path(args.repair_from).resolve()),original_source_commit=base.get('source_commit'))
     summary.update(job_id=job,output=str(core_output),scratch=str(scratch),private_scratch=str(private),source_commit=started_commit,
-        source_commit_at_finish=source_commit(),scope='Full current/tests CPU suite; on repair, rerun every failed module with real16CPU/local storage/native imports and preserve successful modules')
+        source_commit_at_finish=source_commit(),allocated_cpus=int(os.environ['SLURM_CPUS_PER_TASK']),scope='Full current/tests CPU suite, preserving successful modules and repairing failures/changed modules; actual CPU/local-storage/native-reference context retained per stage')
     save(output/'summary.json',summary);save(REPO/'results/p_followup/REGRESSION_FULL.json',summary)
     print('FOLLOWUP_FULL_REGRESSION',summary,flush=True)
     return child.returncode

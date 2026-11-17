@@ -15,4 +15,4 @@ export GIT_TEMPLATE_DIR=/share/home/zixiao/descriptor_analysis/runs/p_followup_2
 export PHASE1_NATIVE_TRANSPORT_PATH=/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage48_full_corpus_qa/native_qa_stats_v3.py
 export PHASE1_JOINT_REFERENCE_PATH=/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage50_full_corpus_training/actual_api_reference/full_corpus_training.py
 export PYTHONPATH=$PWD/current:/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps
-exec /share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python -B -u tools/p_followup/full_regression.py --repair-from /share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/results/p_followup/REGRESSION_4535192.json
+exec /share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python -B -u tools/p_followup/full_regression.py --repair-from "${1:-$PWD/results/p_followup/REGRESSION_4535192.json}" "${@:2}"

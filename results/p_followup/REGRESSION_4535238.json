@@ -1,0 +1,42 @@
+{
+  "status": "FAIL",
+  "counts": {
+    "tests": 3659,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 24
+  },
+  "modules": 200,
+  "seconds": 168.0744085039987,
+  "reason": "Full current/tests CPU regression with isolated modules",
+  "workers": 2,
+  "failed_modules": [
+    {
+      "module": "test_p_f64_sidecar.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 3,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "repair_modules": 18,
+  "repair_counts": {
+    "tests": 490,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 1
+  },
+  "preserved_pass_modules": 182,
+  "original_full_result": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/results/p_followup/REGRESSION_4535192.json",
+  "original_source_commit": "f9f0b2c02667e83a38ff590b9df86c6957f93da6",
+  "job_id": "4535238",
+  "output": "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/regression_4535238/core",
+  "scratch": "/tmp/mpTests_4535238",
+  "private_scratch": "/tmp/mv3n_4535238",
+  "source_commit": "d20c6051f5d32599036e8eb19a952318a2a23d4b",
+  "source_commit_at_finish": "d20c6051f5d32599036e8eb19a952318a2a23d4b",
+  "scope": "Full current/tests CPU suite; on repair, rerun every failed module with real16CPU/local storage/native imports and preserve successful modules"
+}

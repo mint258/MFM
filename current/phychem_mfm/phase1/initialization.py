@@ -107,7 +107,8 @@ def prepare_initialization(config, seed, *, scope="preparation"):
     _integer(seed, "seed", 0)
     if seed > 2 ** 64 - 1:
         raise ValueError("seed exceeds the PyTorch generator's unsigned 64-bit range")
-    if torch.get_default_dtype() != torch.float32 or torch.empty(0).device.type != "cpu":
+    if (torch.get_default_dtype() != torch.float32 or torch.get_default_device().type != "cpu"
+            or torch.empty(0).device.type != "cpu"):
         raise ValueError("CPU float32 defaults are required, as in the formal construction entry")
     payload, normalization = _configuration(config, scope)
     with torch.random.fork_rng(devices=[]):

@@ -25,7 +25,6 @@ class F64SidecarChecks(unittest.TestCase):
             np.save(p/'values.npy',data);np.save(p/'offsets.npy',np.array([0,2,3]))
             (p/'manifest.json').write_text(json.dumps(dict(status='SUBSET_TEST',enabled_fields=['energy'],splits=dict(TRAIN=dict(D6_directory=directory,values='values.npy',molecule_offsets='offsets.npy')))))
             side=PFloat64Sidecar(p/'manifest.json','TRAIN',p)
-            cleanup.callback(side.close)
             resources.callback(side.close)
             self.assertEqual(side.lookup(0,0,'P')['energy'],1e9+.125)
             self.assertTrue(np.isnan(side.lookup(0,0,'U')['energy']));self.assertEqual(side.lookup(0,2,'P'),{})
