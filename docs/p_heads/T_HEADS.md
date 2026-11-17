@@ -29,6 +29,10 @@ T3首次启动4535405在0样本、0更新时因冻结源缺Git身份元数据退
 
 一次运行资源事实观察保存在 `results/p_heads/T/T3_resources_4535476.json`：真实主Python PID3481447、GPU UUID `GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332`，CUDA_VISIBLE与nvidia-smi实际GPU上下文均匹配。Slurm分配15CPU，CPU_IDs与主进程实际mask均为 `16-23,39-45`，所观测后代的mask均受其约束。配置workers=14未改；现场实际4个reader属于现有4批prefetch和spawn池按需创建，未强行增建worker，也未增加训练门或benchmark。运行速度待稳态常规日志估计。
 
+T3自身的既定裁剪阈值现已由训练生产者冻结：初始clip=281.7，按optimizer_step_start使用60,000–150,000样本窗口的2,813次裁剪前梯度范数，quantile=0.99，得到p99 **35.02704330444336**。完整B32批次使实际冻结点为150,016样本；fitted=true，此后按原协议固定至3M结束。
+
+以上数值唯一读取生产者已有 `/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T3_seed0_attempt2/clip_calibration.json` 后直接记入本报告，未重新计算p99、未加检查点、未调参或改变正在运行的训练。
+
 ## 全部新开关关闭的整模型对照
 
 任务开始前的9d66cf3原模块与当前实现由独立进程加载，PYTHONPATH分别指向隔离的old/new源码；相同seed19、相同输入，以512维轻量合成编码器调用完整V31PDModel.predict。B3既有PMA与grouped_fields原执行路径开启，全部本任务新开关关闭/为空。molecule标量、atom标量、pair、atom vector、dipole x/y/z、下游H0及577维PMA z全部逐位torch.equal。此项是任务书明确要求的整模型off路径测试，不代替此前真实B3 state strict加载；没有重新读取真实B3 checkpoint，没有训练或benchmark。
