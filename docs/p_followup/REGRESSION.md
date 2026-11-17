@@ -25,3 +25,5 @@ B1恢复新增的固定7字节句柄比较修复后，在compute-0-20以CPU执�
 用户补充计划要求只验证新组合，不重复64 TRAIN逐头验收。新增test_p_followup_pma_decomposition.py覆盖PMA下两个实际输出，以及conformer_decomposition=None与未设置开关的参数/预测逐位一致。原5项consumer测试同次通过，验证无PMA的D行为与mask/梯度权重仍成立。
 
 实际compute-0-20、CUDA_VISIBLE_DEVICES为空、CPU单线程、既有chemprop环境，执行：python -B -m pytest current/tests/test_p_followup_pma_decomposition.py current/tests/test_p_followup_decomposition_consumer.py -q -p no:cacheprovider；结果7 passed（新增2、复用5），0.16s。改动仅将可选分解头安装移至PMA头安装后；关闭路径不变，正在运行D的冻结源码未改。既有完整回归记录保留，未把该定向结果表述为重新运行完整套件。
+
+D′自动判定逻辑补充定向CPU测试：test_p_followup_dprime_decision.py的2项边界测试通过（2 passed，0.03s），覆盖0.06单种子门槛与严格CI、双seed共同符号和平均效应门槛，以及未触发时拒绝额外seed。四个后续脚本的AST语法检查通过；几何与MAE复用已有数学和固定面板，不新增科学对照。

@@ -20,7 +20,7 @@ def panel():
     return records,pairs
 
 
-def predictions(c,records,device):
+def predictions(c,records,device,expected_fields=99):
     checkpoint=evaluation_checkpoint(c,3000000)
     payload=torch.load(checkpoint,map_location='cpu',weights_only=True)
     if int(payload['clock']['samples_consumed'])!=3000000:raise ValueError('D3 requires the exact 3M endpoint')
@@ -31,7 +31,7 @@ def predictions(c,records,device):
     pd=V31PDModel(structural.encoder,data.view,forms=c['head_form'],pooling='registry',p_recipe=c['p_recipe'],conformer_decomposition=c.get('conformer_decomposition'))
     model=torch.nn.ModuleDict(dict(structural=structural,pd=pd));model.load_state_dict(payload['model'],strict=True)
     del payload;model.to(device).eval();fields=selected_training_fields(pd.registry,c['p_recipe'],c.get('fields'))
-    if len(fields)!=99:raise ValueError('D3 must report all99 C/D source training fields')
+    if len(fields)!=expected_fields:raise ValueError('Conformer MAE must report all expected source training fields')
     allowed={int(mi):set(map(int,data.choices(int(mi)))) for mi in data.indices}
     output={};skipped=0
     usable=[r for r in records if r[4] in allowed[r[3]]];skipped=len(records)-len(usable)
@@ -62,7 +62,8 @@ def predictions(c,records,device):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--device',choices=['cpu','cuda'],default='cuda');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--device',choices=['cpu','cuda'],default='cuda')
+    parser.add_argument('--comparison',choices=['D','Dprime'],default='D');args=parser.parse_args()
     guard(force=True);torch.set_num_threads(2 if args.device=='cuda' else 16)
     torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
     lock=None
@@ -71,9 +72,13 @@ def main():
         used,total=map(float,subprocess.check_output(['nvidia-smi','--id='+gpu,'--query-gpu=memory.used,memory.total','--format=csv,noheader,nounits'],text=True).strip().split(','))
         if used/total>.30:raise RuntimeError('GPU admission changed')
         lock=(R/'docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks'/(gpu+'.lock')).open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-    started=time.monotonic();records,pairs=panel();results={};provenance={}
-    for arm,file in [('C','C_dedup.json'),('D','D_decomposition.json')]:
-        results[arm],provenance[arm]=predictions(load(REPO/'configs/p_followup'/file),records,args.device)
+    if args.comparison=='D':
+        reference,candidate='C','D';reference_file='C_dedup.json';candidate_file='D_decomposition.json';expected_fields=99
+    else:
+        reference,candidate='M2','Dprime';reference_file='M2_reference.json';candidate_file='Dprime_M2_seed0_continued.json';expected_fields=109
+    stem=args.comparison;started=time.monotonic();records,pairs=panel();results={};provenance={}
+    for arm,file in [('C',reference_file),('D',candidate_file)]:
+        results[arm],provenance[arm]=predictions(load(REPO/'configs/p_followup'/file),records,args.device,expected_fields)
     totals={};used_pairs=0;unavailable_pairs=0
     for pair in pairs:
         ka=(pair['molecule_id'],int(pair['a']));kb=(pair['molecule_id'],int(pair['b']))
@@ -89,22 +94,23 @@ def main():
             row['conformer_pairs']+=1;row['molecules'].add(pair['molecule_id'])
         guard()
     fields={}
-    if set(provenance['C']['fields'])!=set(provenance['D']['fields']):raise ValueError('C/D evaluated field sets differ')
+    if set(provenance['C']['fields'])!=set(provenance['D']['fields']):raise ValueError('Compared field sets differ')
     for name,meta in sorted(provenance['C']['fields'].items()):
         row=totals.get(name,dict(observations=0,conformer_pairs=0,molecules=set()));n=row['observations']
-        fields[name]=dict(C_MAE=row['C_absolute_error']/n if n else None,D_MAE=row['D_absolute_error']/n if n else None,
-            D_minus_C=(row['D_absolute_error']-row['C_absolute_error'])/n if n else None,
-            observations=n,conformer_pairs=row['conformer_pairs'],molecules=len(row['molecules']),**meta)
-    result=dict(status='COMPLETE',scope='All common C/D P training fields, frozen VAL conformer pairs within current allowed k10; source atom order and directed pair endpoints preserved',
-        raw_target='Current existing F32 labels promoted to F64; sidecar off in both arms',descriptive_only=True,
+        fields[name]={reference+'_MAE':row['C_absolute_error']/n if n else None,candidate+'_MAE':row['D_absolute_error']/n if n else None,
+            candidate+'_minus_'+reference:(row['D_absolute_error']-row['C_absolute_error'])/n if n else None,
+            'observations':n,'conformer_pairs':row['conformer_pairs'],'molecules':len(row['molecules']),**meta}
+    result=dict(status='COMPLETE',scope=f'All {expected_fields} common {reference}/{candidate} P training fields, frozen VAL conformer pairs within current allowed k10; source atom order and directed pair endpoints preserved',
+        raw_target='Current existing F32 labels promoted to F64; sidecar off in both arms',descriptive_only=True,seed=0,
         frozen_records=len(records),requested_pairs=len(pairs),used_pairs=used_pairs,unavailable_pairs=unavailable_pairs,
-        provenance=provenance,fields=fields,seconds=time.monotonic()-started)
-    save(REPO/'results/p_followup/D_VAL_conformer_MAE.json',result)
-    lines=['# D3：VAL同分子构象差的原单位MAE','','复用既有冻结VAL子集及构象对，通过B3已完成的物理身份映射定位当前D6记录，只保留采样器实际允许k10的交集。使用C/D各自精确3M检查点及实际loader、预测还原路径，sidecar均关闭。参考差来自现存F32原始标签转F64；两臂共享原始标签、mask及有限预测交集。按现有存储字段报告C/D全部共同P训练字段，保留loader已有的同MID原子顺序；稀疏原子对按有向端点交集对齐。MAE按两臂共同有效的分量加权，无有效分量的字段记NA。只作描述，不加显著性检验或采纳门槛。',
+        provenance={reference:provenance['C'],candidate:provenance['D']},fields=fields,seconds=time.monotonic()-started)
+    save(REPO/f'results/p_followup/{stem}_VAL_conformer_MAE.json',result)
+    lines=[f'# {candidate}：VAL同分子构象差的原单位MAE','',
+        f'复用既有冻结VAL子集及构象对，通过B3已完成的物理身份映射定位当前D6记录，只保留采样器实际允许k10的交集。使用{reference}/{candidate}各自seed0精确3M检查点及实际loader、预测还原路径，sidecar均关闭。参考差来自现存F32原始标签转F64；两臂共享原始标签、mask及有限预测交集。按现有存储字段报告全部{expected_fields}个共同P训练字段，保留loader已有的同MID原子顺序；稀疏原子对按有向端点交集对齐。MAE按两臂共同有效的分量加权，无有效分量的字段记NA。只作描述，不加显著性检验或采纳门槛。',
         '',f'冻结记录{len(records)}；既有构象对{len(pairs)}，实际使用{used_pairs}，不在当前允许交集的对{unavailable_pairs}。',
-        '','|字段|单位|层级|有效分量|构象对|分子|C MAE|D MAE|D−C|','|---|---|---|---:|---:|---:|---:|---:|---:|']
-    def point(value):return 'NA' if value is None else f'{value:.8g}'
-    for name,row in fields.items():lines.append(f"|{name}|{row['unit']}|{row['level']}|{row['observations']}|{row['conformer_pairs']}|{row['molecules']}|{point(row['C_MAE'])}|{point(row['D_MAE'])}|{point(row['D_minus_C'])}|")
-    (REPO/'docs/p_followup/D_VAL_CONFORMER_MAE.md').write_text('\n'.join(lines)+'\n')
-    print('D3_NATIVE_COMPLETE',used_pairs,len(fields),flush=True)
+        '',f'|字段|单位|层级|有效分量|构象对|分子|{reference} MAE|{candidate} MAE|{candidate}−{reference}|','|---|---|---|---:|---:|---:|---:|---:|---:|']
+    for name,row in fields.items():
+        lines.append('|'+ '|'.join(str(v) if v is not None else 'NA' for v in [name,row['unit'],row['level'],row['observations'],row['conformer_pairs'],row['molecules'],row[reference+'_MAE'],row[candidate+'_MAE'],row[candidate+'_minus_'+reference]])+'|')
+    (REPO/f'docs/p_followup/{stem.upper()}_VAL_CONFORMER_MAE.md').write_text('\n'.join(lines)+'\n')
+    print('D3_NATIVE_COMPLETE',args.comparison,used_pairs,len(fields),flush=True)
 if __name__=='__main__':main()
