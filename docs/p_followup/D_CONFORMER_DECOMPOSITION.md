@@ -97,3 +97,9 @@ D配置仅在C基底上增加conformer_decomposition及运行标识/路径；实
 D1/4535185为COMPLETED/0：TRAIN 1194551与FULL 13815个分子，共1208366 MID；拟合只用剔除323后的1194228 TRAIN。生成器的1000 MID实际read身份/均值检查通过，未另回读均值表。33/33字段入选；D2/4535191为COMPLETED/0，固定64 TRAIN的33/33双输出H1通过，两分支分别低于各自初始loss的1%，正式运行不复用任何验收权重。
 
 D1实际Slurm分配3CPU×49022秒，约13.617小时墙钟/40.852 CPU-h；D2为3CPU×169秒。D1耗时超过初估但完整完成。D配置与C的科学差异仅conformer_decomposition；C的恢复键已从新臂移除，seed0、3M及既定采样/优化/clip协议保持，sidecar关闭。D3原单位构象差MAE覆盖全部99个存储字段。
+
+## D3实际启动
+
+2026-11-17 12:46 UTC，Slurm4535660（16CPU、非exclusive）在compute-0-20运行，GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02 / RTX4090。实际启动显存829/49140MiB，通过共享UUID锁及真实节点磁盘/quota守卫；不改动同节点其他任务。源码固定在D_source/75c598e，结果写本研究目录。trainer PID57383/UID1278/start_ticks9856802/PGID57383，已3200样本/100更新，首32样本完整点220421477字节；预算仍seed0、3M，不采用D2验收权重，不启用sidecar。
+
+D1/D2为COMPLETED/0；D3此时仍RUNNING，没有科学胜负结论。完成后只运行既定R1/R3、D−C主比较与D−M1补充比较、冻结VAL全部99字段同MID构象差MAE，以及固定5000VAL的A-D/H6。C−M1的loss结果不改变D的预注册定义与比较。
