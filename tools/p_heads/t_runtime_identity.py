@@ -14,7 +14,7 @@ def identity(pid):
     return dict(pid=pid,uid=os.getuid(),pgid=os.getpgid(pid),ppid=int(fields[1]),start_ticks=int(fields[19]),cpu_mask=sorted(os.sched_getaffinity(pid)))
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--job',type=int,required=True);p.add_argument('--arm',choices=['T2','T3'],required=True);p.add_argument('--gpu',required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--job',type=int,required=True);p.add_argument('--arm',choices=['T2','T3','T4','T5'],required=True);p.add_argument('--gpu',required=True);a=p.parse_args()
     guard(force=True)
     target=REPO/'results/p_heads/T'/(a.arm+'_resources_'+str(a.job)+'.json')
     if target.exists():
