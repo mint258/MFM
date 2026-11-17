@@ -1,0 +1,51 @@
+{
+  "schema": "P_CHECKPOINT_MIGRATION_PLAN_V1",
+  "status": "AUTHORIZED_WAITING_FOR_COMPLETE_1M_AND_FASTER_IDLE_GPU",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261117.md#本线要做的事",
+  "source": {
+    "arm": "C3",
+    "configuration": "configs/p_recipe/fixed_20261115/round3/C3.json",
+    "run": "fixed_20261115_round3_C3",
+    "node": "compute-0-6",
+    "job_id": 4535189,
+    "pid": 1956854,
+    "uid": 1278,
+    "start_ticks": 1966970859,
+    "pgid": 1956854,
+    "observed_samples": 905536,
+    "observed_at_utc": "2026-11-17T17:25:00Z",
+    "observed_samples_per_second": 14.996336512824355,
+    "earliest_full_checkpoint_samples": 1000000
+  },
+  "conditions": {
+    "source_complete_1M_checkpoint_required": true,
+    "perf_line_received_gpu_evidence": "4535718 RUNNING compute-0-5 verified 2026-11-17 17:27 UTC; perf work and all other lines remain untouched",
+    "faster_idle_card_required": true,
+    "perf_idle_5090_4090_priority_until_gpu_complete": true,
+    "target_admission": "Fresh actual target GPU UUID/available memory, demand16CPU/noexclusive, own lock, root/target bytes+inodes, actual UID quotas and all concurrent forecasts before requesting source exit",
+    "no_action_before_all_conditions": true
+  },
+  "continuation": {
+    "same_scientific_code": true,
+    "precision": "FP32, TF32 off",
+    "batch_size": 32,
+    "microbatch_size": 32,
+    "gradient_accumulation_steps": 1,
+    "activation_checkpointing": false,
+    "samples": 3000000,
+    "lr": 0.0003,
+    "frozen_clip": 35.49390029907228,
+    "normalization": "window2_TRAIN_normalization_parameters_20261107_v1",
+    "procedure": [
+      "While waiting, keep original Slurm4535189 running; do not queue a duplicate trainer.",
+      "After complete1M exists and a faster idle admitted card is available after perf priority, recheck bound source identity and job state.",
+      "Use already loaded SAVE_AND_EXIT control at a committed optimizer update, requesting a fresh full checkpoint so progress after1M need not be lost.",
+      "Require matching request/ACK, complete checkpoint, source wrapper exit0, absent original PID and released CUDA context/own UUID lock before destination training.",
+      "Archive original configuration and preserve output/cost. Use distinct resumed run/output in the same registered C3 case, inheriting full optimizer, sample clock, sampler/RNG and clip statistics.",
+      "Submit via existing launch_plan: sufficient demandCPU=>sbatch; allocated20/22 with adequate memory=>native plus same-task queued takeover. Pin admitted destination UUID for this migration.",
+      "Record exact source last observed sample count, acknowledged checkpoint cursor, rollback and destination identity; verify positive resumed progress and restored frozen clip.",
+      "If source already finishes, retain its result and perform no duplicate run."
+    ]
+  },
+  "actual_migration_executed": false
+}
