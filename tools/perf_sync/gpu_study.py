@@ -191,7 +191,7 @@ def benchmark(name):
     if selected.startswith('S7_'):
         _,cores,readers=selected.split('_')
         allowed=sorted(os.sched_getaffinity(0))
-        if int(cores)>len(allowed):raise RuntimeError('CPU scan cannot exceed actual allocation')
+        if int(cores)>min(len(allowed),int(os.environ['SLURM_CPUS_PER_TASK'])):raise RuntimeError('CPU scan cannot exceed actual allocation')
         os.sched_setaffinity(0,allowed[:int(cores)])
         c['workers']=int(readers)
     c.update(run=f'perf_sync_{name}_20261118',output=str(ROOT/f'{name}_training'),
@@ -332,7 +332,7 @@ def finish_suite():
         (REPORT/'S6.json').write_text(json.dumps(dict(status='NOT_APPLICABLE',sync_per_step=s1['synchronizations_per_step']))+'\n')
     else:
         (REPORT/'NEEDS_DIAGNOSIS.json').write_text(json.dumps(dict(stage='S6_zero_sync_capture_required'))+'\n');return
-    allocation=len(os.sched_getaffinity(0));scan=[]
+    allocation=min(len(os.sched_getaffinity(0)),int(os.environ['SLURM_CPUS_PER_TASK']));scan=[]
     for cores in (4,8,16,24):
         for readers in (7,14,20):
             name=f'S7_{cores}_{readers}'
@@ -360,6 +360,24 @@ def finish_suite():
         (REPORT/'S8.json').write_text(json.dumps(dict(status='PASS' if accepted else 'FAIL',category=numeric['category'],speedup=run['samples_per_second']/base['samples_per_second'],items=[a['item'] for a in selected]),indent=2)+'\n')
 
 
+def scan24():
+    # Supplementary CPU allocation, using the original continuously held UUID
+    # reservation after its GPU stages have ended. No second GPU is acquired.
+    owner=os.environ['PERF_SYNC_OWNER_JOB']
+    observed=subprocess.check_output(['squeue','-h','-j',owner,'-o','%T'],text=True).strip()
+    if observed!='RUNNING':raise RuntimeError('Original GPU reservation must remain live')
+    if min(len(os.sched_getaffinity(0)),int(os.environ['SLURM_CPUS_PER_TASK']))<24:raise RuntimeError('Real 24-CPU allocation required')
+    scan=json.loads((REPORT/'S7.json').read_text())
+    for readers in (7,14,20):
+        name=f'S7_24_{readers}';stage='benchmark_'+name
+        if not (REPORT/f'{stage}_complete.json').exists():
+            if subprocess.call([sys.executable,'-B','-u',__file__,stage]):raise RuntimeError(stage+' failed; retain output')
+        r=json.loads((REPORT/f'{name}_benchmark.json').read_text())
+        scan=[row for row in scan if not (row['cores']==24 and row['readers']==readers)]
+        scan.append(dict(cores=24,readers=readers,status='COMPLETE',samples_per_second=r['samples_per_second'],power_W=r['power_W'],main_CPU_percent=r['main_CPU_percent'],GPU_peak_bytes=r['GPU_peak_bytes']))
+        (REPORT/'S7.json').write_text(json.dumps(sorted(scan,key=lambda row:(row['cores'],row['readers'])),indent=2)+'\n')
+
+
 def main():
     def terminated(signum, frame): raise SystemExit(128+signum)
     signal.signal(signal.SIGTERM, terminated)
@@ -377,7 +395,7 @@ def main():
                 sys.path.insert(0, str(REPO.parent/'MFM_p_recipe/tools/model_v3'))
                 import v2_diagnosis_disk as disk
                 disk.m.require_capacity(disk.m.filesystem_status('/dev/shm'), 2*1024**3, 10000)
-                if args.stage not in ('suite','finish_suite') and time.monotonic()-started>4*3600:
+                if args.stage not in ('suite','finish_suite','scan24') and time.monotonic()-started>4*3600:
                     (REPORT/f'{args.stage}_unresolved.json').write_text(json.dumps(dict(status='UNRESOLVED',reason='4h individual-stage timebox'))+'\n')
                     raise TimeoutError('Individual-stage timebox exceeded; retain output')
                 time.sleep(5)
