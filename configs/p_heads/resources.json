@@ -33,5 +33,10 @@
     "training_requested_cpus":  15,
     "slurm_cpu_affinity_required":  true,
     "evaluation_torch_threads":  16,
-    "cpu_rationale":  "Direct sbatch T entry has 14 single-thread readers plus one main training process. Auxiliary threads share the allocated mask; pool closes before unchanged16-thread evaluation. Slurm task/affinity must constrain parent and descendants to the actual15 allocated Linux CPUs. No science/execution configuration keys change."
+    "cpu_rationale":  "Direct sbatch T entry has 14 single-thread readers plus one main training process. Auxiliary threads share the allocated mask; pool closes before unchanged16-thread evaluation. Slurm task/affinity must constrain parent and descendants to the actual15 allocated Linux CPUs. No science/execution configuration keys change.",
+    "H_low_occupancy_shared_nodes":  [
+                                         "compute-0-4"
+                                     ],
+    "H_shared_cuda_contexts_maximum_memory_fraction":  0.3,
+    "H_shared_nodes_require_slurm":  true
 }
