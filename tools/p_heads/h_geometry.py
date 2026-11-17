@@ -99,7 +99,9 @@ def report(results):
  for name in ('T1','T2'):
   if results.get(name,{}).get('status')=='COMPLETE' and results.get('B3',{}).get('status')=='COMPLETE':
    delta=results[name]['layers']['6']['EEV']['value']-results['B3']['layers']['6']['EEV']['value'];lines+=['',f'{name}相对T0/B3的EEV差为{delta:.6g}，仅作机制描述。']
- lines+=['','局限：组成解释率与构象比例是描述性几何指标，不能单独证明下游效应的因果来源。T的第6层在其3M检查点产出后补充；M2仅在精确3M已产出时纳入，不为其等待。']
+ if results.get('M2',{}).get('status')=='COMPLETE':
+  lines+=['','M2的精确3M检查点已在H执行期间产出，按原范围补充同一5000 VAL分子、47698个允许构象的第3–6层几何，仅作机制描述，不新增显著性检验或独立判定。','','M2运行：Slurm 4535641，compute-0-20，4 CPU，COMPLETED 0:0，8分52秒；producer前向与统计合计522.33秒。截至M2几何完成，H已执行GPU作业累计墙钟5.0148小时，后续T几何另计。']
+ lines+=['','局限：组成解释率与构象比例是描述性几何指标，不能单独证明下游效应的因果来源。T1验收未通过，未产生新3M检查点，故其几何缺失；T2/T3及按预注册实际触发的seed1只在各自精确最终3M检查点产出后补充第6层，不分析中间恢复点。']
  guard();(REPO/'docs/p_heads/H1_GEOMETRY.md').write_text('\n'.join(lines)+'\n')
 
 def main():
