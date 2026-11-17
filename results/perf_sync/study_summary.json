@@ -103,16 +103,18 @@
   "recommended_flags": [],
   "new_flags_default_off": true,
   "mainline_configuration_unchanged": true,
-  "new_logic_cpu_tests": 12,
+  "new_logic_cpu_tests": 13,
   "regression": {
     "modules": 193,
-    "passed": 3624,
+    "passed": 3625,
     "failed": 2,
     "errors": 0,
     "skipped": 24,
-    "status": "TWO_BASELINE_FAILURES_NEW_LOGIC_12_PASS"
+    "status": "TWO_BASELINE_FAILURES_NEW_LOGIC_13_PASS",
+    "original_full_regression_tests": 3650,
+    "focused_supplement_tests": 1
   },
-  "allocated_cpu_hours_slurm": 5.145555555555555,
+  "allocated_cpu_hours_slurm": 7.456666666666667,
   "native_debug_cpu_hours": null,
   "paid_server_used": false,
   "benchmark_1100_update_clarification": "Not needed for skipped measurements; no >1000-update training launched",
@@ -125,5 +127,25 @@
     "pr_run": "https://github.com/mint258/MFM/actions/runs/44037558296",
     "base_run": "https://github.com/mint258/MFM/actions/runs/44036399114"
   },
-  "pull_request": "https://github.com/mint258/MFM/pull/13"
+  "pull_request": "https://github.com/mint258/MFM/pull/13",
+  "cpu_input_equivalence": {
+    "S1": {
+      "status": "PASS",
+      "sampling_batches": 1000,
+      "tensor_batches": 20,
+      "readers": 14,
+      "sequence_and_per_batch_rng_equal": true,
+      "scope": "Original input/target/mask/pair tensors; new derived layout metadata is excluded from the original key set; GPU forward remains untested",
+      "sampling_job": 4535479,
+      "tensor_recheck_job": 4535481
+    },
+    "S5": {
+      "status": "PASS",
+      "sampling_batches": 1000,
+      "tensor_batches": 20,
+      "readers": 14,
+      "sequence_and_per_batch_rng_equal": true,
+      "job_id": 4535482
+    }
+  }
 }

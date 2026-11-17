@@ -198,6 +198,7 @@ class SharedBackboneMFM(nn.Module):
             raise ValueError("Task adapters require batch.pos")
         return self.task_adapters[task_name](h0, batch=ensure_batch_attr(batch), pos=batch.pos)
 
+    @layout_forward
     def forward_pretrain(
         self,
         batch: Data,

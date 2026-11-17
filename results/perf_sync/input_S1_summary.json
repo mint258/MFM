@@ -1,0 +1,57 @@
+{
+  "status": "FAIL",
+  "batches": 1000,
+  "tensor_batches": 20,
+  "violations": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "final_clock": {
+    "schema": "model_v3_consumed_sample_clock_v1",
+    "sample_budget": 3000000,
+    "milestones": [
+      1000000,
+      2000000,
+      4000000,
+      8000000,
+      16000000,
+      32000000,
+      64000000
+    ],
+    "samples_consumed": 32000,
+    "optimizer_updates": 1000,
+    "saved_milestones": []
+  },
+  "final_rng": {
+    "bit_generator": "PCG64",
+    "state": {
+      "state": 227217392288825644083488948292337152801,
+      "inc": 87136372517582989555478159403783844777
+    },
+    "has_uint32": 1,
+    "uinteger": 4085053076
+  },
+  "flag": "S1",
+  "tool": "PR8 tools/model_v3/step_overhead.py verify_input",
+  "readers": 14,
+  "gpu_used": false,
+  "raw_result": "/share/home/zixiao/descriptor_analysis/.perf_sync_scratch_20261117/input_S1/input_equivalence.json"
+}

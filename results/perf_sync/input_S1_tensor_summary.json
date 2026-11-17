@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "batches": 20,
+  "tensor_batches": 20,
+  "violations": [],
+  "final_clock": {
+    "schema": "model_v3_consumed_sample_clock_v1",
+    "sample_budget": 3000000,
+    "milestones": [
+      1000000,
+      2000000,
+      4000000,
+      8000000,
+      16000000,
+      32000000,
+      64000000
+    ],
+    "samples_consumed": 640,
+    "optimizer_updates": 20,
+    "saved_milestones": []
+  },
+  "final_rng": {
+    "bit_generator": "PCG64",
+    "state": {
+      "state": 33690091921674580982771976594641108323,
+      "inc": 87136372517582989555478159403783844777
+    },
+    "has_uint32": 0,
+    "uinteger": 3249001499
+  },
+  "flag": "S1",
+  "tool": "PR8 tools/model_v3/step_overhead.py verify_input",
+  "readers": 14,
+  "gpu_used": false,
+  "raw_result": "/share/home/zixiao/descriptor_analysis/.perf_sync_scratch_20261117/input_S1_tensor/input_equivalence.json",
+  "ignored_non_input_metadata_keys": [
+    "perf_sync_layout"
+  ],
+  "scope": "20-batch tensor correction only",
+  "raw_full_tool_status": "FAIL"
+}

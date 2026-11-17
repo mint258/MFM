@@ -12,11 +12,12 @@ _finite = ContextVar('perf_sync_finite', default=None)
 
 def layout_forward(function):
     @wraps(function)
-    def wrapped(self, data, *args, **kwargs):
+    def wrapped(self, *args, **kwargs):
+        data = args[0] if args else kwargs.get('batch', kwargs.get('data'))
         if not hasattr(data, 'perf_sync_layout'):
-            return function(self, data, *args, **kwargs)
+            return function(self, *args, **kwargs)
         with batch_layout(data):
-            return function(self, data, *args, **kwargs)
+            return function(self, *args, **kwargs)
     return wrapped
 
 

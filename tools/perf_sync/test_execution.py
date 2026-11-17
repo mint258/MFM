@@ -43,6 +43,24 @@ def test_invalid_reader_coordinates_rejected_before_forward():
         prepare_layout(data)
 
 
+def test_shared_public_keyword_api_preserves_outputs_with_reader_layout():
+    from phychem_mfm.factory import build_model
+    config = dict(architecture=dict(preset='shared_light',task_route='light'),
+        backbone=dict(n_atom_types=119,dim=16,layers=1,heads=4,ff_mult=2,dropout=0.,
+                      use_dist_bias=True,use_radius_mask=False,radius=8.),
+        expert=dict(real_layers=1,internal_layers=0,heads=4,ff_mult=2,dropout=0.),
+        head=dict(bond_negative_ratio=1.),supervision=dict(variant='SPD'),loss={},schedule={},
+        optimizer=dict(lr=3e-5,weight_decay=.01,betas=[.9,.95],grad_clip_norm=1.),training=dict(seed=0))
+    model = build_model(config,preset='light').eval()
+    data = packed()
+    expected = model.encode_atoms(batch=data)
+    prepared = prepare_layout(data)
+    actual = model.encode_atoms(batch=prepared)
+    assert torch.equal(expected,actual)
+    result = model.forward_pretrain(batch=prepared,objectives=())
+    assert torch.equal(result.atom_repr,expected)
+
+
 def test_gpu_buffer_preserves_python_double_sums_and_resume_window():
     buffer = StepBuffer(device='cpu')
     initial = 0.12345678912345
