@@ -945,3 +945,5 @@ G4已从264816样本/2069更新的完整停止点由4532553接管，原生PID337
 
 ### 2026-11-17 19:35 CST — p-heads H sources complete
 H2–H4 全部12组已完成，最后H4535469 COMPLETED/0:0/25:08，node4本线H串行队列已释放。结果只形成建议，不接入主线或侧线。T3 4535476/node0 与 T2 4535630/node20 仍运行；不停止/迁移任何在跑任务，主线新卡优先，18GiB共享峰值和磁盘守卫继续。后续仅按任务书补实际最终3M几何/触发的seed1。
+
+[P heads M2 geometry 2026-11-17 20:03 CST] Exact mainlineM2 samples_3000000.pt observed20:00 (mtime19:48), now included once in H1 layers3–6. Own4535641 RUNNING compute20/4CPU/nice10000 on4090_20b UUID GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02, sharedUUID lock/startup<=30%/actual-node disk+UIDquota watchdog; same5000VAL/allallowedconformers, no CP/data copies. 5090/node22 has0 allocatableCPUs; GPU20b829/49140MiB and22CPU free met complete resource needs, no pending mainline new-card demand observed. Existing node20 low-VRAM coexistence policy applies; other gmx/jobs unchanged. Actualnode20 root346134642688B free, UID466539855872B vs required174984591360B; own18GiB total and mainline priority remain. Expected forward~10min, no training. T34535476 and T24535630 continue unchanged.
