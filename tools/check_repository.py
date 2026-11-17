@@ -78,7 +78,10 @@ def model_summary_csv(name: str, raw: bytes) -> bool:
                  'results/p_recipe/fixed_20261115/hardware_round1.csv',
                  'results/p_recipe/fixed_20261115/hardware_round2.csv',
                  'results/p_recipe/fixed_20261115/hardware_round3.csv',
-                 'results/p_recipe/fixed_20261115/hardware_confirmation.csv'}
+                 'results/p_recipe/fixed_20261115/hardware_confirmation.csv',
+                 'results/p_recipe/fixed_20261115/provisional_B_20261116/deltas.csv',
+                 'results/p_recipe/fixed_20261115/provisional_B_20261116/hardware_round2.csv',
+                 'results/p_recipe/noise_seed1_20261117/hardware_round3.csv'}
             or (name.startswith(('results/p_recipe/diagnostics/','results/p_recipe/training/'))
                 and name.endswith('.csv'))):
         return True
@@ -240,3 +243,4 @@ def main():
 
 if __name__ == '__main__':
     sys.exit(main())
+

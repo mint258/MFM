@@ -806,3 +806,9 @@ Attempt1 failed before any optimizer update because the admission helper had pre
 Actual sacct confirms C3/4535189 and M2 seed1/4535736 RUNNING, with both advancing. C3 is930240/3M at01:55, still before its complete1M migration gate. Seed1 reached its own150016-sample freeze: preclip norm p99=35.794393157958986 from2813 updates in the registered60k–150k step-start window, initial281.7; threshold fixed from here through3M and written under its training run. No recipe adjustment or restart occurred.
 
 Read-only perf-line evidence:4535718 RUNNING/node5. Its GPU_RESULTS_20261118.md is still explicitly in progress, with no final switch recommendations; partial S1 fails quality, S2 passes quality but gains only3.69%, and S3–S8 remain unsettled. Keep9M on HOLD until full GPU delivery and user switch confirmation. C3 migration plan is published and authorized; no save/exit request has been made before the1M/faster-idle/perf-priority conditions. No other line was changed.
+
+### 2026-11-18 05:49 CST — registered report paths admitted by the repository checker
+
+Added exact CSV exceptions for the user-registered M2 seed1 hardware summary and the preserved provisional round2 delta/hardware summaries. These are the same report types already authorized elsewhere in the P study; no dataset directory or CSV wildcard was added. Existing file-size, secret, syntax and binary-asset checks remain active, and all original outputs remain in place.
+
+The full current p-recipe worktree source check passed on compute-0-20:5150 files,1984 Python files,0 errors. The compute node has no git executable, so the login node performed only git file enumeration; the unchanged checker.check implementation inspected those exact paths on the compute node with verify_export=False, matching the normal CI setting. This source-artifact result does not represent the other research branches or a new scientific regression. C3 and M2 seed1 continue; no training was restarted.
