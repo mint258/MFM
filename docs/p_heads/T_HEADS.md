@@ -139,6 +139,7 @@ T1初值来自B3已有MLP与零初始化decoder，本次没有重置旧MLP；只
 
 正式配置configs/p_heads/T/T2_seed0.json现固定启用6电荷与3Fukui，共9头：六电荷复用原验收，三Fukui依据新补验收。正式训练从seed0新建模型/优化器和采样状态，Fukui包装新建bank的原MLP，不加载B3或补验收拟合权重；保持全量TRAIN、B32、3M及B3所有执行键。旧4535453由协调窗口核实held/PENDING、0秒后取消，未产生训练样本；旧T2_source保留不改。修复提交1a23d66的独立T2_source_fukui_fix已由4535599/node16冻结成功（COMPLETED/0:0，8秒，源码16,615,295字节）；资源等待作业4535619由协调窗口确认held/PENDING、0秒后取消，未启动或产生训练样本。当前正式3M真实作业4535630已在node20/15CPU/nice10000运行，无资源依赖；实际4090_20a UUID为GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5。该卡准入现场829/49140MiB（含其他两个gmx上下文，低于30%），节点空余21CPU且实际磁盘/配额guard通过，沿现行混合规则共享；5090高占用不准入。原run/output/config、B32/3M/seed0及冻结源T2_source_fukui_fix/1a23d66均不变，不加载验收权重。启动日志已记录1194228 TRAIN/B32及offline W&B；首32完整检查点及losses首条32样本已由生产者发布；本线唯一资源事实观察已完成，未重读CP内容。T3在跑源及任务完全不动。
 T2唯一运行资源事实记录在 `results/p_heads/T/T2_resources_4535630.json`：compute-0-20真实主Python PID54234，Slurm分配及主进程实际mask均为0–14共15核；现场实际3个按需spawn的reader及其余所观测后代均受此mask约束。workers最大14配置保持原样，未强行启动额外reader。CUDA_VISIBLE与nvidia-smi真实GPU上下文均匹配GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5。首32完整CP只确认存在，没有读取内容、benchmark或新增训练门。
+T2自身裁剪阈值已由训练生产者冻结：初始clip=281.7，按optimizer_step_start轴取60,000–150,000样本窗口的2,813次裁剪前梯度范数，quantile=0.99，p99为 **33.84247207641602**。实际完整B32冻结点150,016样本，fitted=true，此后按原协议固定至3M。数值只从生产者 `/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T2_seed0/clip_calibration.json` 唯一读取并原样记录；现场4535630仍RUNNING/compute-0-20，未重算p99、另行测速、重复资源身份观察或读取中间CP内容。
 
 下表直接抄录原T2_acceptance.json。通过步是原生产者记录；r44/r45/r46三行仅为被替代的历史记录，六项电荷头继续复用。
 
