@@ -27,11 +27,12 @@ T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。�
 
 T3首次启动4535405在0样本、0更新时因冻结源缺Git身份元数据退出，原输出保留。身份元数据已修复，冻结可执行源码T3_source未改。当前正式attempt2真实作业4535476已在node0/3090运行，常规生产者已提交32、64样本及首32完整检查点；没有重读CP内容。此前未运行的资源等待队列已取消，无训练样本重跑。当前尚无3M或下游质量结果。
 
-一次运行资源事实观察保存在 `results/p_heads/T/T3_resources_4535476.json`：真实主Python PID3481447、GPU UUID `GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332`，CUDA_VISIBLE与nvidia-smi实际GPU上下文均匹配。Slurm分配15CPU，CPU_IDs与主进程实际mask均为 `16-23,39-45`，所观测后代的mask均受其约束。配置workers=14未改；现场实际4个reader属于现有4批prefetch和spawn池按需创建，未强行增建worker，也未增加训练门或benchmark。运行速度待稳态常规日志估计。
+一次运行资源事实观察保存在 `results/p_heads/T/T3_resources_4535476.json`：真实主Python PID3481447、GPU UUID `GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332`，CUDA_VISIBLE与nvidia-smi实际GPU上下文均匹配。Slurm分配15CPU，CPU_IDs与主进程实际mask均为 `16-23,39-45`，所观测后代的mask均受其约束。配置workers=14未改；现场实际4个reader属于现有4批prefetch和spawn池按需创建，未强行增建worker，也未增加训练门或benchmark。早期最近500更新普通日志窗口曾一次估计46.5823样本/秒，后续未重复测速。
 
 T3自身的既定裁剪阈值现已由训练生产者冻结：初始clip=281.7，按optimizer_step_start使用60,000–150,000样本窗口的2,813次裁剪前梯度范数，quantile=0.99，得到p99 **35.02704330444336**。完整B32批次使实际冻结点为150,016样本；fitted=true，此后按原协议固定至3M结束。
 
 以上数值唯一读取生产者已有 `/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T3_seed0_attempt2/clip_calibration.json` 后直接记入本报告，未重新计算p99、未加检查点、未调参或改变正在运行的训练。
+T3第一个常规1M里程碑已由生产者发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T3_seed0_attempt2/samples_1000000.pt`，230,472,905字节，文件mtime为2026-11-17 19:56:56.545488 CST。本线在约20:51的常规状态检查中首次观察到该产物；原publish_checkpoint使用临时文件完整保存/fsync后发布最终.pt名称，本次仅记录最终文件存在、大小及mtime，没有读取CP内容、作中间几何或额外评价。现场squeue确认4535476仍RUNNING/compute-0-0，4535630仍RUNNING/compute-0-20；两臂3M检查点及既有readout/scores.json尚未发布。该1M保存是原配置既定里程碑，没有新增训练或保存点。
 
 ## 全部新开关关闭的整模型对照
 
