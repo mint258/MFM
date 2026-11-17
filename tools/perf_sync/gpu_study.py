@@ -110,7 +110,7 @@ def profile(name='S0'):
             prof.stop(); active = False
         trace = ROOT/f'{name}_trace.json'
         prof.export_chrome_trace(str(trace))
-        (REPORT/f'{name}_sync_warnings.txt').write_text('\n'.join(f'{w.filename}:{w.lineno}: {w.message}' for w in captured)+'\n')
+        (ROOT/f'{name}_sync_warnings.txt').write_text('\n'.join(f'{w.filename}:{w.lineno}: {w.message}' for w in captured)+'\n')
         (REPORT/f'{name}_profile_runtime.json').write_text(json.dumps(dict(result=result, trace=str(trace), warmup=100, profiled=100, uuid=os.environ['CUDA_VISIBLE_DEVICES']), indent=2)+'\n')
     finally:
         torch.cuda.set_sync_debug_mode('default')
@@ -130,7 +130,7 @@ def numerical(name):
     el, eg = noise_result['epsilon_loss'], noise_result['epsilon_grad']
     rng = np.random.default_rng(0)
     choices = [ref.draw(data, rng, 32) for _ in range(20)]
-    comparisons, rows = [], []
+    comparisons, rows, backend_ops = [], [], []
     try:
         for weights in ('random_seed0', 'B3_3M'):
             if weights == 'B3_3M':
@@ -145,9 +145,13 @@ def numerical(name):
                     samples, _ = next(transfer)
                 torch.set_rng_state(base['cpu_rng']); torch.cuda.set_rng_state(base['cuda_rng'])
                 model.zero_grad(set_to_none=True)
-                with finite_checks() if options['sync_free'] else __import__('contextlib').nullcontext():
-                    total, loss = ref.calculate(model, samples, c, fields, families)
-                    total.backward()
+                backend_profile = torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU]) if name == 'S3' and weights == 'random_seed0' and batch == 0 else None
+                with backend_profile if backend_profile is not None else __import__('contextlib').nullcontext():
+                    with finite_checks() if options['sync_free'] else __import__('contextlib').nullcontext():
+                        total, loss = ref.calculate(model, samples, c, fields, families)
+                        total.backward()
+                if backend_profile is not None:
+                    backend_ops = sorted({e.key for e in backend_profile.key_averages() if 'scaled_dot_product' in e.key})
                 torch.cuda.synchronize()
                 if transfer is not None: transfer.close()
                 grad = torch.cat([p.grad.detach().flatten() if p.grad is not None else p.new_zeros(p.numel()) for p in model.parameters()]).cpu()
@@ -161,7 +165,7 @@ def numerical(name):
                 print('NUMERICAL',name,weights,batch,bitwise,passed,gd,flush=True)
         category = 'A' if name in ('S1','S5') and all(r['bitwise'] for r in comparisons) else 'B'
         result = dict(item=name,category=category,A_pass=all(r['bitwise'] for r in comparisons),B_single_step_pass=all(r['B_pass'] for r in comparisons),
-                      comparisons=comparisons,epsilon_loss=el,epsilon_grad=eg,options=options)
+                      comparisons=comparisons,epsilon_loss=el,epsilon_grad=eg,options=options,SDPA_observed_operators=backend_ops)
         (REPORT/f'{name}_numerical.json').write_text(json.dumps(result,indent=2)+'\n')
         with (ROOT/f'{name}_field_deviations.csv').open('w',newline='') as f:
             writer=csv.DictWriter(f,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
@@ -210,6 +214,38 @@ def suite():
             (REPORT/'NEEDS_DIAGNOSIS.json').write_text(json.dumps(dict(stage=stage,returncode=code,time=time.time()))+'\n')
             return
     (REPORT/'S1_S5_execution_complete.json').write_text(json.dumps(dict(time=time.time(),note='Await profile analysis, S6 condition, S7 and S8; not final acceptance'))+'\n')
+
+
+def analyze_profiles():
+    for name in ('S0','S1'):
+        source=REPORT/f'{name}_profile_runtime.json'
+        if not source.exists(): continue
+        runtime=json.loads(source.read_text())
+        events=json.loads(Path(runtime['trace']).read_text())['traceEvents']
+        kernels=[e for e in events if e.get('cat')=='kernel' and e.get('ph')=='X']
+        copies=[e for e in events if e.get('cat')=='gpu_memcpy' and e.get('ph')=='X']
+        intervals=sorted((e['ts'],e['ts']+e['dur']) for e in kernels+copies)
+        busy=0.;right=float('-inf')
+        for start,end in intervals:
+            busy+=max(0.,end-max(start,right));right=max(right,end)
+        api=[e for e in events if e.get('cat')=='cuda_runtime' and e.get('ph')=='X']
+        sync=[e for e in api if 'Synchronize' in e.get('name','')]
+        launch=[e for e in api if 'LaunchKernel' in e.get('name','')]
+        h2d=[e for e in copies if 'HtoD' in e.get('name','')]
+        seconds=runtime['result']['measured_seconds']
+        result=dict(profiled_steps=100,trace=runtime['trace'],GPU_busy_wall_ratio=busy/1e6/seconds,
+                    kernels_per_step=len(kernels)/100,synchronizations_per_step=len(sync)/100,
+                    host_kernel_launch_seconds_per_step=sum(e['dur'] for e in launch)/1e6/100,
+                    H2D_copies_per_step=len(h2d)/100,H2D_bytes_per_step=sum(float(e.get('args',{}).get('bytes',0)) for e in h2d)/100,
+                    synchronization_APIs={n:sum(e['name']==n for e in sync) for n in sorted({e['name'] for e in sync})},
+                    note='Profiler overhead included; throughput acceptance uses separate unprofiled runs. During first200 updates, clip calibration intentionally retains CPU norm synchronization.')
+        warnings_file=ROOT/f'{name}_sync_warnings.txt'
+        if warnings_file.exists():
+            locations={}
+            for line in warnings_file.read_text().splitlines(): locations[line]=locations.get(line,0)+1
+            result['sync_warning_locations']=locations
+        (REPORT/f'{name}_profile_summary.json').write_text(json.dumps(result,indent=2)+'\n')
+        print('PROFILE_SUMMARY',name,json.dumps(result),flush=True)
 
 
 def main():
