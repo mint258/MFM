@@ -28,5 +28,10 @@
     "seed0_training_count":  3,
     "maximum_conditional_seed1_training_count":  4,
     "training_samples_per_run":  3000000,
-    "notes":  "All owned jobs share this total budget. Existing data already charged to df/quota are not a second future-growth charge. Recheck actual target node bytes/inodes and live UID quota plus all other-window remaining growth before and during writes. Preserves all existing reservations."
+    "notes":  "All owned jobs share this total budget. Existing data already charged to df/quota are not a second future-growth charge. Recheck actual target node bytes/inodes and live UID quota plus all other-window remaining growth before and during writes. Preserves all existing reservations.",
+    "training_loader_workers":  14,
+    "training_requested_cpus":  15,
+    "slurm_cpu_affinity_required":  true,
+    "evaluation_torch_threads":  16,
+    "cpu_rationale":  "Direct sbatch T entry has 14 single-thread readers plus one main training process. Auxiliary threads share the allocated mask; pool closes before unchanged16-thread evaluation. Slurm task/affinity must constrain parent and descendants to the actual15 allocated Linux CPUs. No science/execution configuration keys change."
 }
