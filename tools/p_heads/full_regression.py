@@ -8,6 +8,7 @@ import concurrent.futures
 import json
 import os
 from pathlib import Path
+import re
 import signal
 import shutil
 import subprocess
@@ -69,8 +70,21 @@ def main():
 
     job = os.environ['SLURM_JOB_ID']
     cpus = int(os.environ['SLURM_CPUS_PER_TASK'])
-    if cpus != 16 or len(os.sched_getaffinity(0)) < cpus:
+    if cpus != 16:
         raise ValueError('Final CPU regression needs a real 16-CPU Slurm allocation')
+    allocation = subprocess.check_output(['scontrol', 'show', 'job', '-d', job], text=True)
+    if not re.search(r'\bNumNodes=1\b', allocation):
+        raise ValueError('Final CPU regression requires a single-node allocation')
+    ids = re.search(r'\bCPU_IDs=([^\s]+)', allocation)
+    if ids is None:
+        raise ValueError('Slurm did not report the actual allocated CPU IDs')
+    cpu_ids = set()
+    for part in ids[1].split(','):
+        bounds = [int(value) for value in part.split('-')]
+        cpu_ids.update(range(bounds[0], bounds[-1] + 1))
+    if len(cpu_ids) != cpus or not cpu_ids.issubset(os.sched_getaffinity(0)):
+        raise ValueError('Actual Slurm CPU IDs do not match the available 16-CPU allocation')
+    os.sched_setaffinity(0, cpu_ids)
     output = CONTROL / ('regression_' + job)
     scratch = Path('/tmp') / ('mpHeads_' + job)
     private = Path('/tmp') / ('mv3n_' + job)
@@ -118,7 +132,7 @@ def main():
             storage_observation = dict(error=str(error))
     summary = load(output / 'core/summary.json')
     summary.update(job_id=job, output=str(output / 'core'), scratch=str(scratch),
-                   source_commit=commit, allocated_cpus=cpus,
+                   source_commit=commit, allocated_cpus=cpus, cpu_ids=sorted(cpu_ids),
                    private_storage=storage_observation,
                    scope='All current/tests/test_*.py, established isolated CPU module protocol')
     save(output / 'summary.json', summary)
