@@ -1,0 +1,23 @@
+{
+  "schema": "P_PRECISION_20261115",
+  "excluded_development_nodes": ["compute-0-21"],
+  "precision": "fp32",
+  "data_precision": "Unchanged G1 protocol, including FP64 r73 accumulation followed by one FP32 cast and all other existing FP64 processing; precision controls model GPU forward/backward only",
+  "modes": ["fp32", "tf32_islands", "bf16_islands"],
+  "speed_batch_sizes": [32, 128],
+  "warmup_updates": 100,
+  "measured_updates": 1000,
+  "numerical_batches": 20,
+  "seed": 0,
+  "quality_samples": 3000000,
+  "hardware_maximum": {"RTX 5090": 1, "RTX 4090": 2, "RTX 3090": 6, "A800": 4},
+  "hardware_expected": {"RTX 5090": 0.5, "RTX 4090": 1, "RTX 3090": 3, "A800": 2},
+  "hardware_planning_maximum": {"RTX 5090": 3, "RTX 4090": 2, "RTX 3090": 6, "A800": 4},
+  "hardware_planning_expected": {"RTX 5090": 1.5, "RTX 4090": 1, "RTX 3090": 3, "A800": 2},
+  "hardware_choice": "User confirmed the effective fleet after excluding node21; original fleet is a separate planning scenario only",
+  "recommendation_batch_size": 32,
+  "higher_precision_tolerance": 0.1,
+  "school_partition": "gpuA800",
+  "school_gpus_per_job": 1,
+  "school_cpus_per_job": 9
+}

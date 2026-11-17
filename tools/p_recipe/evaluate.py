@@ -29,7 +29,8 @@ def produce_missing_features(configuration,dataset,view):
     state=checkpoint['model']
     if any(key.startswith('structural.') for key in state):
         state={key.removeprefix('structural.'):value for key,value in state.items() if key.startswith('structural.')}
-    model.load_state_dict(state);encoder=model.encoder.cuda().eval()
+    from phychem_mfm.model.precision import configure_precision
+    model.load_state_dict(state);configure_precision(model,cfg.get('precision','fp32'));encoder=model.encoder.cuda().eval()
     members=[(index,view.get(index,role=role)) for role in ('train','train_inner_validation') for index in view.view(role)]
     members=[(i,s) for i,s in members if s.geometry_ready];records=[];sizes=[];fit=set(view.view('train'))
     with torch.no_grad():

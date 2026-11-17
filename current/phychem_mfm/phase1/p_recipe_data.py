@@ -28,13 +28,32 @@ def validation_indices(configuration,count=2000):
  return np.asarray([r['molecule_index'] for r in table.to_pylist() if r['molecule_id'] in chosen],dtype=np.int64)
 
 class PRecipeDataset(MFM4Dataset):
- def __init__(self,*args,label_parameters=None,**kwargs):
+ def __init__(self,*args,label_parameters=None,compressed_lmdb=False,**kwargs):
+  self.compressed_lmdb=compressed_lmdb
   super().__init__(*args,**kwargs)
   self.label_parameters={} if label_parameters is None else read_json(label_parameters)
   for name,spec in self.label_parameters.get('normalizations',{}).items():
    self.view.normalizations[name]=spec
    for field in self.view.fields:
     if field['name']==name:field['normalization']=spec
+ def record(self,kind,molecule,conformer=None):
+  if not self.compressed_lmdb:return super().record(kind,molecule,conformer)
+  # Storage-only adapter: use the decompressor shipped with the user's
+  # portable LMDB. Sampling, masks, targets and normalization are untouched.
+  from .v31_loader import record_key,decode_mfm4
+  import importlib.util
+  if kind=='M' and molecule in self._molecules:return self._molecules[molecule]
+  if not hasattr(self,'_portable_decompress'):
+   spec=importlib.util.spec_from_file_location('p_recipe_portable_zstd',self.root/'zstd_compat.py')
+   module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+   self._portable_decompress=module.ZstdDecompressor()
+  self._open()
+  with self._env.begin() as txn:
+   raw=txn.get(record_key(kind,molecule,conformer))
+   if raw is None:raise KeyError((kind,molecule,conformer))
+   result=decode_mfm4(self._portable_decompress.decompress(raw))
+  if kind=='M':self._molecules[molecule]=result
+  return result
  def read(self,molecule,conformer):
   sample=super().read(molecule,conformer);original=sample['targets'];sample['original_targets']=original
   if not self.label_parameters:return sample
@@ -54,6 +73,12 @@ class PRecipeDataset(MFM4Dataset):
   sample['targets']=targets;return sample
 
 def dataset_configuration(c,*,validation=False):
+ if c.get('compressed_lmdb',False):
+  root=Path(c['root'])
+  return dict(root=root,split='FULL' if validation else 'TRAIN',training_view=root/'training_view.json',
+   normalizations=read_json(root/'normalizations.json'),source=c['source'],order=c.get('order','fixed_random'),k=10,
+   pprime=c['source']=='UFF',molecule_indices=np.load(root/('validation_indices.npy' if validation else 'train_indices.npy'),allow_pickle=False),
+   label_parameters=c.get('label_parameters'),compressed_lmdb=True)
  return dict(root=c['root'],split='FULL' if validation else 'TRAIN',training_view=c['training_view'],
   normalizations=read_json(c['normalizations']),source=c['source'],order=c.get('order','fixed_random'),k=10,
   pprime=c['source']=='UFF',molecule_indices=validation_indices(c) if validation else train_indices(c),

@@ -1,0 +1,42 @@
+{
+  "schema": "PRECISION_CLOSED_ARM_COMPARISON_V1",
+  "mode": "tf32_islands",
+  "job_id": 4532684,
+  "job_state": "COMPLETED",
+  "exit_code": "0:0",
+  "elapsed_seconds": 128590,
+  "samples": 3000000,
+  "updates": 93751,
+  "training_finite_audit": "/share/home/zixiao/descriptor_analysis/MFM_precision_20261115/results/precision_20261115/quality_tf32_training_audit_20261117.json",
+  "paired_quality": {
+    "R3": {
+      "delta": -0.05847123309396324,
+      "ci_lower": -0.07206998176666406,
+      "ci_upper": -0.044796734278171636,
+      "verdict": "loss"
+    },
+    "R1": {
+      "delta": -0.023836434673288776,
+      "ci_lower": -0.042607660831468414,
+      "ci_upper": -0.005396864475121984,
+      "verdict": "loss"
+    }
+  },
+  "baseline": {
+    "R3": 0.34750313299524777,
+    "R1": 0.11185894831188528
+  },
+  "candidate": {
+    "R3": 0.28903189990128453,
+    "R1": 0.0880225136385965
+  },
+  "evaluation_1500000": {
+    "R3": 0.24216819666174733,
+    "R1": 0.04014696288772367
+  },
+  "arm_complete": true,
+  "quality_study_complete": false,
+  "remaining_arm": "bf16_islands",
+  "observed_at": 1794863498.4008148,
+  "qualified": false
+}

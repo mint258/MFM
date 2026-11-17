@@ -1,0 +1,37 @@
+{
+  "status": "COMPLETE",
+  "node": "compute-0-20",
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "uuid": "GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5",
+  "batches": 1,
+  "initializations": [
+    "seed0",
+    "G1_3M"
+  ],
+  "step_overhead": {
+    "grouped_fields": true,
+    "head_checkpointing": false,
+    "distance_tiling": true,
+    "prepared_input": true
+  },
+  "post_rebase_single_step": true,
+  "island_observations": {
+    "layer_norm": 208,
+    "coordinate_subtraction": 96,
+    "distance_squared": 96,
+    "attention_bias_add": 96,
+    "attention_softmax": 96,
+    "denoising_distance": 16,
+    "scatter_pool": 32,
+    "distance_bias_first_layer": 336,
+    "grouped_head_features": 8,
+    "grouped_head_positions": 8,
+    "grouped_vector_relative_positions": 48,
+    "grouped_vector_rbf": 48,
+    "grouped_vector_scatter": 8,
+    "grouped_graph_vector_scatter": 4,
+    "grouped_pair_distance": 4
+  },
+  "gradient_elements": 24755300,
+  "numeric_acceptance": "Report only; NaN/Inf fails"
+}

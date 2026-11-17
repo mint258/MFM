@@ -1,0 +1,48 @@
+{
+  "schema": "PRECISION_TRAINING_FINITE_AUDIT_V1",
+  "observed_utc": "2026-11-16T20:57:31.148474+00:00",
+  "mode": "tf32_islands",
+  "job_id": 4532684,
+  "node": "compute-0-20",
+  "source_files": [
+    "/share/home/zixiao/descriptor_analysis/MFM_precision_20261115/results/precision_20261115/artifacts/precision_20261115_tf32_islands_G1_3M_local_compressed_retry/losses.csv",
+    "/share/home/zixiao/descriptor_analysis/MFM_precision_20261115/results/precision_20261115/artifacts/precision_20261115_tf32_islands_G1_3M_non21/losses.csv"
+  ],
+  "resume_samples": 2304,
+  "rows": 93751,
+  "first": {
+    "samples": 32,
+    "updates": 1
+  },
+  "last": {
+    "samples": 3000000,
+    "updates": 93751,
+    "loss": 0.049155738204717636
+  },
+  "nonfinite_training_values": 0,
+  "continuity_violations": 0,
+  "sample_deltas": {
+    "32": 93749,
+    "16": 2
+  },
+  "val_fields": 109,
+  "val_nonfinite": 0,
+  "val_schema_count_unit_equal": true,
+  "val_families": {
+    "bonding": 0.05295181491977081,
+    "charge": 0.0034379716773652765,
+    "energy": 0.018036022029880472,
+    "frontier/IP-EA": 0.06250582239611302,
+    "multipole": 0.12071140290300053,
+    "off-equilibrium": 0.03290383840960142,
+    "reactivity": 0.11756164886622165,
+    "response": 0.0013609493570763583,
+    "size": 0.0530397060179042,
+    "solvation": 0.056159653613964716
+  },
+  "family_nonfinite": 0,
+  "summary_status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+  "quality_complete": false,
+  "qualification": "PENDING_R3_R1_EVALUATION",
+  "training_closure_verified": true
+}

@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import math
 from typing import Optional
@@ -47,6 +47,14 @@ class Linear(nn.Linear):
 
     def reset_parameters(self) -> None:
         _init_linear(self.weight, self.bias, initializer=self.weight_initializer)
+
+    def forward(self, value: Tensor) -> Tensor:
+        mode = getattr(self, '_precision_mode', 'fp32')
+        if mode == 'fp32':
+            return super().forward(value)
+        from .precision import linear
+        return linear(value, self.weight, self.bias, mode,
+                      island=getattr(self, '_precision_island', False))
 
 
 class MLP(nn.Module):

@@ -1,0 +1,242 @@
+{
+  "status": "COMPLETE",
+  "quality_study_complete": true,
+  "quality": {
+    "tf32_islands": {
+      "R3": {
+        "delta": -0.05847123309396324,
+        "ci_lower": -0.07206998176666406,
+        "ci_upper": -0.044796734278171636,
+        "verdict": "loss"
+      },
+      "R1": {
+        "delta": -0.023836434673288776,
+        "ci_lower": -0.042607660831468414,
+        "ci_upper": -0.005396864475121984,
+        "verdict": "loss"
+      }
+    },
+    "bf16_islands": {
+      "R3": {
+        "delta": -0.019910461058460283,
+        "ci_lower": -0.03290689987038777,
+        "ci_upper": -0.007469941472092795,
+        "verdict": "loss"
+      },
+      "R1": {
+        "delta": -0.005949498093585387,
+        "ci_lower": -0.026722834816161115,
+        "ci_upper": 0.01803181442484396,
+        "verdict": "tie"
+      }
+    }
+  },
+  "qualified": [
+    "fp32"
+  ],
+  "selection": {
+    "chosen": "fp32",
+    "expected_aggregate_samples_per_second": {
+      "fp32": 419.59513046487996
+    },
+    "maximum_aggregate_samples_per_second": {
+      "fp32": 839.1902609297599
+    },
+    "planning_scenario_only": {
+      "chosen": "fp32",
+      "expected_aggregate_samples_per_second": {
+        "fp32": 512.2829277366453
+      },
+      "maximum_aggregate_samples_per_second": {
+        "fp32": 1024.5658554732906
+      }
+    },
+    "tie_rule": "Within 10% of the fastest qualified fleet throughput, prefer FP32 > TF32 > BF16"
+  },
+  "all_modes_throughput_bound": {
+    "chosen": "fp32",
+    "expected_aggregate_samples_per_second": {
+      "fp32": 419.59513046487996,
+      "tf32_islands": 397.7969515021674,
+      "bf16_islands": 383.91659527211533
+    },
+    "maximum_aggregate_samples_per_second": {
+      "fp32": 839.1902609297599,
+      "tf32_islands": 795.5939030043348,
+      "bf16_islands": 767.8331905442307
+    },
+    "planning_scenario_only": {
+      "chosen": "fp32",
+      "expected_aggregate_samples_per_second": {
+        "fp32": 512.2829277366453,
+        "tf32_islands": 487.8658189244272,
+        "bf16_islands": 470.1149572318262
+      },
+      "maximum_aggregate_samples_per_second": {
+        "fp32": 1024.5658554732906,
+        "tf32_islands": 975.7316378488543,
+        "bf16_islands": 940.2299144636524
+      }
+    },
+    "tie_rule": "Within 10% of the fastest qualified fleet throughput, prefer FP32 > TF32 > BF16"
+  },
+  "quality_closures": {
+    "tf32_islands": {
+      "summary_status": "COMPLETE",
+      "samples": 3000000,
+      "updates": 93751,
+      "training_finite": true,
+      "config_matches_G1_recipe": true,
+      "evaluations": [
+        1500000,
+        3000000
+      ]
+    },
+    "bf16_islands": {
+      "summary_status": "COMPLETE",
+      "samples": 3000000,
+      "updates": 93751,
+      "training_finite": true,
+      "config_matches_G1_recipe": true,
+      "evaluations": [
+        1500000,
+        3000000
+      ]
+    }
+  },
+  "fixed_VAL_validation": {
+    "tf32_islands": [
+      {
+        "samples": 500000,
+        "fields": 109,
+        "families": 10,
+        "finite": true,
+        "schema_matches_G1": true
+      },
+      {
+        "samples": 1000000,
+        "fields": 109,
+        "families": 10,
+        "finite": true,
+        "schema_matches_G1": true
+      },
+      {
+        "samples": 1500000,
+        "fields": 109,
+        "families": 10,
+        "finite": true,
+        "schema_matches_G1": true
+      },
+      {
+        "samples": 2000000,
+        "fields": 109,
+        "families": 10,
+        "finite": true,
+        "schema_matches_G1": true
+      },
+      {
+        "samples": 2500000,
+        "fields": 109,
+        "families": 10,
+        "finite": true,
+        "schema_matches_G1": true
+      },
+      {
+        "samples": 3000000,
+        "fields": 109,
+        "families": 10,
+        "finite": true,
+        "schema_matches_G1": true
+      }
+    ],
+    "bf16_islands": [
+      {
+        "samples": 500000,
+        "fields": 109,
+        "families": 10,
+        "finite": true,
+        "schema_matches_G1": true
+      },
+      {
+        "samples": 1000000,
+        "fields": 109,
+        "families": 10,
+        "finite": true,
+        "schema_matches_G1": true
+      },
+      {
+        "samples": 1500000,
+        "fields": 109,
+        "families": 10,
+        "finite": true,
+        "schema_matches_G1": true
+      },
+      {
+        "samples": 2000000,
+        "fields": 109,
+        "families": 10,
+        "finite": true,
+        "schema_matches_G1": true
+      },
+      {
+        "samples": 2500000,
+        "fields": 109,
+        "families": 10,
+        "finite": true,
+        "schema_matches_G1": true
+      },
+      {
+        "samples": 3000000,
+        "fields": 109,
+        "families": 10,
+        "finite": true,
+        "schema_matches_G1": true
+      }
+    ]
+  },
+  "final_VAL_families": {
+    "fp32": {
+      "bonding": 0.052399056476830796,
+      "charge": 0.0031556616428687198,
+      "energy": 0.01688210260311804,
+      "frontier/IP-EA": 0.052469841337530604,
+      "multipole": 0.10734685323139032,
+      "off-equilibrium": 0.032987583697907025,
+      "reactivity": 0.10982055561775277,
+      "response": 0.001202320358466451,
+      "size": 0.050882235560127914,
+      "solvation": 0.050109866715967656
+    },
+    "tf32_islands": {
+      "bonding": 0.05295181491977081,
+      "charge": 0.0034379716773652765,
+      "energy": 0.018036022029880472,
+      "frontier/IP-EA": 0.06250582239611302,
+      "multipole": 0.12071140290300053,
+      "off-equilibrium": 0.03290383840960142,
+      "reactivity": 0.11756164886622165,
+      "response": 0.0013609493570763583,
+      "size": 0.0530397060179042,
+      "solvation": 0.056159653613964716
+    },
+    "bf16_islands": {
+      "bonding": 0.05305405796970225,
+      "charge": 0.003603668888443886,
+      "energy": 0.018318361919934256,
+      "frontier/IP-EA": 0.060941296904790276,
+      "multipole": 0.1160168917203943,
+      "off-equilibrium": 0.03291776709349579,
+      "reactivity": 0.11734830783733939,
+      "response": 0.0014361907093836178,
+      "size": 0.06047915589879267,
+      "solvation": 0.06569997761646906
+    }
+  },
+  "speed_cells": 24,
+  "speed_audit_passed": true,
+  "baseline_scores": {
+    "R3": 0.34750313299524777,
+    "R1": 0.11185894831188528
+  },
+  "measurement_scope": "Prescribed controlled runs before CPU rebase; only the agreed one-step numeric check repeated after rebase"
+}
