@@ -17,3 +17,5 @@
 实际sacct终态依次为FAILED/1、FAILED/1、COMPLETED/0。连同中间4535184，分配时间分别为2CPU×640s、2CPU×636s、16CPU×174s、1CPU×16s，合计1.487 CPU-h；失败消耗包含在内。测试/tmp合计峰值预留10GiB，实际compute20根盘可用349.0GB，并在写入前及过程中保留系统10%下限。所有测试作业均已终止，其未来写入预留关闭；保留文件仍计入实际已用空间。NFS18GiB总预留继续覆盖历史scratch及尚在运行的研究产物。
 
 本回归证明代码检查及上述模块修复通过。B3真实loader验收、C/D的3M训练和R1/R3，以及D2逐头真实使用验收仍分别由各阶段完成。
+
+B1恢复新增的固定7字节句柄比较修复后，在compute-0-20以CPU执行现有F64 sidecar模块：4 passed，0.04秒；源c2984b6。命令为 python -B -m pytest current/tests/test_p_f64_sidecar.py -q -p no:cacheprovider。新增1项覆盖S7标量丢弃尾零、P/U类别和MI/CI差异；其余3项替换该模块原有结果后，当前有效合并3660项、24跳过、0失败/错误。REGRESSION_FULL.json保留原完整门禁3659项及28cb506溯源；本增量结果另存REGRESSION_B1_HANDLE_REPAIR.json，不将新代码归入旧作业。

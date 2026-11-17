@@ -1,0 +1,17 @@
+{
+    "status":  "PASS",
+    "source_commit":  "c2984b6",
+    "node":  "compute-0-20",
+    "execution":  "native SSH CPU; no Slurm job claimed",
+    "command":  "python -B -m pytest current/tests/test_p_f64_sidecar.py -q -p no:cacheprovider",
+    "tests":  4,
+    "failures":  0,
+    "errors":  0,
+    "skipped":  0,
+    "pytest_reported_seconds":  0.04,
+    "base_gate":  "REGRESSION_FULL.json",
+    "base_module_tests_replaced":  3,
+    "effective_combined_tests":  3660,
+    "effective_combined_skipped":  24,
+    "note":  "Existing full suite preserved; only changed F64 sidecar module rerun after actual B1 handle check failure."
+}
