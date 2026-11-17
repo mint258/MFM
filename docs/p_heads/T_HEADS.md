@@ -25,7 +25,9 @@ T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。�
 
 生产者新逻辑单元测试在 compute-0-20 通过2项：有效原子均匀参考（atol1e-6、rtol1e-5）；padding替换为1e8后结果逐位一致；参数数量一致；默认关闭/显式False与原softmax公式逐位一致；相同state dict严格加载。实际 B3 完整 ModuleDict(structural,pd) 也已在CPU strict加载通过，clock为3M样本、93,750更新，见 `results/p_heads/T/B3_checkpoint_loading.json`。这证明对照可复用，不构成新臂科学结果。
 
-T3首次启动4535405在0更新时退出，原输出保留；冻结源Git身份已修复，可执行源码T3_source未改。当前正式attempt2作业4535452在node20/4090_20a低优先级等待侧线C4535150释放同卡，15CPU硬绑定，workers14及其他B3执行键不变；此前未运行的资源等待队列已取消，无样本重跑。尚无新臂3M训练质量结果。
+T3首次启动4535405在0样本、0更新时因冻结源缺Git身份元数据退出，原输出保留。身份元数据已修复，冻结可执行源码T3_source未改。当前正式attempt2真实作业4535476已在node0/3090运行，常规生产者已提交32、64样本及首32完整检查点；没有重读CP内容。此前未运行的资源等待队列已取消，无训练样本重跑。当前尚无3M或下游质量结果。
+
+一次运行资源事实观察保存在 `results/p_heads/T/T3_resources_4535476.json`：真实主Python PID3481447、GPU UUID `GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332`，CUDA_VISIBLE与nvidia-smi实际GPU上下文均匹配。Slurm分配15CPU，CPU_IDs与主进程实际mask均为 `16-23,39-45`，所观测后代的mask均受其约束。配置workers=14未改；现场实际4个reader属于现有4批prefetch和spawn池按需创建，未强行增建worker，也未增加训练门或benchmark。运行速度待稳态常规日志估计。
 
 ## 全部新开关关闭的整模型对照
 
