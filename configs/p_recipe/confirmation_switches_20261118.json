@@ -1,0 +1,50 @@
+{
+  "schema": "P_RECIPE_CONFIRMATION_PERF_SWITCH_PROPOSAL_V1",
+  "status": "PENDING_USER_CONFIRMATION",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261117.md section3",
+  "gpu_delivery": "https://github.com/mint258/MFM/blob/perf/sync-free-20261117/docs/perf_sync/GPU_RESULTS_20261118.md",
+  "gpu_delivery_status": "GPU_COMPLETE_FINAL_CPU_REGRESSION_RUNNING",
+  "verified_gpu_job": {
+    "job_id": 4535772,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_seconds": 504
+  },
+  "recommendation": {
+    "new_perf_switches": {
+      "S1_no_sync": false,
+      "S2_fused_adamw": false,
+      "S3_sdpa": false,
+      "S4_compile_encoder": false,
+      "S4_compile_encoder_heads": false,
+      "S5_async_h2d": false,
+      "S6_cuda_graph": false
+    },
+    "S8_composed_new_switches": [],
+    "workers": 14,
+    "cpus": 16,
+    "batch_size": 32,
+    "precision": "FP32",
+    "TF32": false,
+    "activation_checkpointing": false,
+    "gradient_accumulation_steps": 1,
+    "legacy_runtime_settings": "Keep existing adopted baseline/PR8 paths unchanged; proposal covers only the new perf-line switches",
+    "scientific_recipe": "Use the registered final selection; no recipe/LR change is proposed by this switch decision"
+  },
+  "evidence": {
+    "baseline_samples_per_second": 68.6202,
+    "empty_combination_samples_per_second": 71.4009,
+    "empty_combination_ratio": 1.04052,
+    "adoptable_code_speedup": 1,
+    "reason": "S1/S3/S4 fail numerical or short-training acceptance; S2/S5 pass quality but <5%; S6 inapplicable; S7 shows no clear benefit of more CPU; no valid new switch"
+  },
+  "execution_conditions": {
+    "user_confirmation_required": true,
+    "round3_C3_complete_and_M3_decided_required": true,
+    "submit_all_registered_9M_together_after_conditions": true,
+    "read_and_record_switches_at_start": true,
+    "freeze_switches_for_entire_run": true,
+    "no_9M_submitted": true
+  },
+  "no_other_branch_changes": true
+}

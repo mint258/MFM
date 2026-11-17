@@ -26,7 +26,7 @@
   },
   "conditions": {
     "source_complete_1M_checkpoint_required": true,
-    "perf_line_received_gpu_evidence": "4535718 RUNNING compute-0-5 verified 2026-11-17 17:27 UTC; perf work and all other lines remain untouched",
+    "perf_line_received_gpu_evidence": "4535772 actualCOMPLETED0:0/504s, GPU_RESULTS_20261118.md finalGPUdelivered; originalGPUprioritynowcomplete. CPUregression4535749stillrunning, notGPUpriority.",
     "faster_idle_card_required": true,
     "perf_idle_5090_4090_priority_until_gpu_complete": true,
     "target_admission": "Fresh actual target GPU UUID/available memory, demand16CPU/noexclusive, own lock, root/target bytes+inodes, actual UID quotas and all concurrent forecasts before requesting source exit",
@@ -56,15 +56,15 @@
   },
   "actual_migration_executed": false,
   "latest_resource_observation": {
-    "observed_at_utc": "2026-11-17 20:30 UTC",
+    "observed_at_utc": "2026-11-17 21:02 UTC",
     "cards": [
       {
         "node": "compute-0-22",
         "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
         "type": "5090",
-        "used_mib": 10583,
+        "used_mib": 10749,
         "total_mib": 32607,
-        "free_cpus": 14,
+        "free_cpus": 16,
         "own_gpu_busy": true
       },
       {
@@ -73,7 +73,7 @@
         "type": "4090",
         "used_mib": 18371,
         "total_mib": 49140,
-        "free_cpus": 31,
+        "free_cpus": 41,
         "own_gpu_busy": true
       },
       {
@@ -82,7 +82,7 @@
         "type": "4090",
         "used_mib": 18185,
         "total_mib": 49140,
-        "free_cpus": 31,
+        "free_cpus": 41,
         "own_gpu_busy": true
       }
     ],
