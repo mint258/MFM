@@ -1,0 +1,120 @@
+{
+  "schema": "PERF_SYNC_STUDY_SUMMARY_V1",
+  "base": "p-recipe@1237304",
+  "branch": "perf/sync-free-20261117",
+  "gpu_hours": 0,
+  "card_types": {
+    "3090": {
+      "status": "SKIPPED_NO_ELIGIBLE_FREE_GPU",
+      "samples_per_second": null,
+      "speedup": null,
+      "epsilon_loss": null,
+      "epsilon_grad": null,
+      "gpu_acceptance": null,
+      "gpu_busy_fraction": null,
+      "kernels_per_step": null,
+      "synchronizations_per_step": null,
+      "sync_call_sites": null,
+      "main_thread_launch_ms_per_step": null,
+      "h2d_copies_per_step": null,
+      "h2d_bytes_per_step": null,
+      "mean_gpu_power_W": null,
+      "main_cpu_percent": null,
+      "peak_cuda_allocated_bytes": null,
+      "trace_paths": []
+    },
+    "4090": {
+      "status": "SKIPPED_NO_ELIGIBLE_FREE_GPU",
+      "samples_per_second": null,
+      "speedup": null,
+      "epsilon_loss": null,
+      "epsilon_grad": null,
+      "gpu_acceptance": null,
+      "gpu_busy_fraction": null,
+      "kernels_per_step": null,
+      "synchronizations_per_step": null,
+      "sync_call_sites": null,
+      "main_thread_launch_ms_per_step": null,
+      "h2d_copies_per_step": null,
+      "h2d_bytes_per_step": null,
+      "mean_gpu_power_W": null,
+      "main_cpu_percent": null,
+      "peak_cuda_allocated_bytes": null,
+      "trace_paths": []
+    },
+    "5090": {
+      "status": "SKIPPED_NO_ELIGIBLE_FREE_GPU",
+      "samples_per_second": null,
+      "speedup": null,
+      "epsilon_loss": null,
+      "epsilon_grad": null,
+      "gpu_acceptance": null,
+      "gpu_busy_fraction": null,
+      "kernels_per_step": null,
+      "synchronizations_per_step": null,
+      "sync_call_sites": null,
+      "main_thread_launch_ms_per_step": null,
+      "h2d_copies_per_step": null,
+      "h2d_bytes_per_step": null,
+      "mean_gpu_power_W": null,
+      "main_cpu_percent": null,
+      "peak_cuda_allocated_bytes": null,
+      "trace_paths": []
+    }
+  },
+  "items": {
+    "S0": {
+      "status": "GPU_PROFILE_SKIPPED",
+      "effective": null
+    },
+    "S1": {
+      "status": "IMPLEMENTED_GPU_UNVERIFIED",
+      "effective": null
+    },
+    "S2": {
+      "status": "IMPLEMENTED_GPU_UNVERIFIED",
+      "effective": null
+    },
+    "S3": {
+      "status": "IMPLEMENTED_GPU_UNVERIFIED",
+      "effective": null
+    },
+    "S4": {
+      "status": "IMPLEMENTED_GPU_UNVERIFIED",
+      "effective": null
+    },
+    "S5": {
+      "status": "IMPLEMENTED_GPU_UNVERIFIED",
+      "effective": null
+    },
+    "S6": {
+      "status": "NOT_APPLICABLE_NO_ZERO_SYNC_PROFILE",
+      "effective": null
+    },
+    "S7": {
+      "status": "SKIPPED_NO_FREE_5090",
+      "effective": null
+    },
+    "S8": {
+      "status": "NO_QUALIFIED_FLAGS_TO_COMBINE",
+      "effective": null
+    }
+  },
+  "recommended_flags": [],
+  "new_flags_default_off": true,
+  "mainline_configuration_unchanged": true,
+  "new_logic_cpu_tests": 12,
+  "regression": {
+    "modules": 193,
+    "passed": 3624,
+    "failed": 2,
+    "errors": 0,
+    "skipped": 24,
+    "status": "TWO_BASELINE_FAILURES_NEW_LOGIC_12_PASS"
+  },
+  "allocated_cpu_hours_slurm": 5.145555555555555,
+  "native_debug_cpu_hours": null,
+  "paid_server_used": false,
+  "benchmark_1100_update_clarification": "Not needed for skipped measurements; no >1000-update training launched",
+  "gpu_study_optimizer_updates": 0
+}
