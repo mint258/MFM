@@ -11,6 +11,12 @@ import sys
 import time
 import warnings
 
+# Node5 driver520 accepts CUDA11.8 binaries; bundled Triton ptxas12.4
+# produced CUDA_ERROR_INVALID_IMAGE. Keep that failed cache intact.
+os.environ['TRITON_PTXAS_PATH']='/usr/local/cuda-11.8/bin/ptxas'
+os.environ['TORCHINDUCTOR_CACHE_DIR']='/share/home/zixiao/descriptor_analysis/.perf_sync_scratch_20261117/inductor_cuda118_v2'
+os.environ['TRITON_CACHE_DIR']='/share/home/zixiao/descriptor_analysis/.perf_sync_scratch_20261117/triton_cuda118_v2'
+
 import numpy as np
 import torch
 
@@ -428,7 +434,7 @@ def main():
                 sys.path.insert(0, str(REPO.parent/'MFM_p_recipe/tools/model_v3'))
                 import v2_diagnosis_disk as disk
                 disk.m.require_capacity(disk.m.filesystem_status('/dev/shm'), 2*1024**3, 10000)
-                if args.stage not in ('suite','finish_suite','scan24') and time.monotonic()-started>4*3600:
+                if not args.stage.startswith(('suite','finish_suite','resume_suite','resume_finish','scan24')) and time.monotonic()-started>4*3600:
                     (REPORT/f'{args.stage}_unresolved.json').write_text(json.dumps(dict(status='UNRESOLVED',reason='4h individual-stage timebox'))+'\n')
                     raise TimeoutError('Individual-stage timebox exceeded; retain output')
                 time.sleep(5)
@@ -447,7 +453,9 @@ def main():
     REPORT.mkdir(parents=True, exist_ok=True)
     marker = REPORT/f'{args.stage}_complete.json'
     if marker.exists(): raise RuntimeError('Completed GPU stage must not be repeated')
-    if args.stage.startswith('analyze_'): analyze_profiles()
+    if args.stage.startswith('resume_suite_'): suite()
+    elif args.stage.startswith('resume_finish_'): finish_suite()
+    elif args.stage.startswith('analyze_'): analyze_profiles()
     elif args.stage.startswith('profile_'): profile(args.stage.removeprefix('profile_'))
     elif args.stage.startswith('numerical_'): numerical(args.stage.removeprefix('numerical_'))
     elif args.stage.startswith('benchmark_'): benchmark(args.stage.removeprefix('benchmark_'))
