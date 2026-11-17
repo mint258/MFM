@@ -5,7 +5,7 @@ from h_resources import R,REPO,CONTROL,guard,watchdog
 def main():
     watchdog()
     parser=argparse.ArgumentParser()
-    parser.add_argument('--name',default='T3_source',choices=['T3_source','T12_source','T1_source','T2_source','B3_seed1_source','T1_seed1_source','T2_seed1_source','T3_seed1_source'])
+    parser.add_argument('--name',default='T3_source',choices=['T3_source','T12_source','T1_source','T2_source','T2_source_fukui_fix','B3_seed1_source','T1_seed1_source','T2_seed1_source','T3_seed1_source'])
     args=parser.parse_args()
     destination=CONTROL/args.name
     if destination.exists():raise FileExistsError(destination)

@@ -42,8 +42,8 @@ class ChargeHead(nn.Module):
 
 class FukuiHead(nn.Module):
     p_heads_constraint=True
-    def __init__(self,dimension):
-        super().__init__();self.predict=nn.Sequential(nn.Linear(dimension,64),nn.SiLU(),nn.Linear(64,1))
+    def __init__(self,original_mlp):
+        super().__init__();self.predict=original_mlp
     def forward(self,h,pos,batch):return fukui_projection(self.predict(h),batch)
 
 def install_physical_heads(bank,configuration):
@@ -51,4 +51,6 @@ def install_physical_heads(bank,configuration):
     for name,spec in configuration.items():
         field=bank.registry.by_name()[name]
         if field.level!='atom' or field.representation!='scalar':raise ValueError('Only approved atom scalar fields')
-        bank.field_heads[bank.keys[name]]=(ChargeHead(bank.dim,spec['Q']) if spec['kind']=='charge' else FukuiHead(bank.dim))
+        key=bank.keys[name]
+        original=bank.field_heads[key]
+        bank.field_heads[key]=(ChargeHead(bank.dim,spec['Q']) if spec['kind']=='charge' else FukuiHead(original))
