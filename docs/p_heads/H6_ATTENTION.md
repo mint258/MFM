@@ -4,7 +4,7 @@
 
 固定使用与H1相同的5000个预训练VAL分子，每分子取第一个允许构象。D6无直接总电荷列，以完整原始中性PM7原子电荷和的最近整数作为总电荷，用RDKit DetermineBonds从元素和坐标重建；在CPU生产步骤唯一一次核对元素序列。5000个分子均成功，排除0个。GPU阶段复用完整类别缓存，没有重复重建或对齐。未定位到现成28类SMARTS交付，不等待。
 
-类别包括元素×杂化、芳香、成环以及RDKit BaseFeatures.fdef的Donor、Acceptor、PosIonizable、NegIonizable、Aromatic、Hydrophobe。读取B3 PMA首次query-to-atom交叉注意力（8 query×8 head×原子）。主分析先平均8个头；逐头均值只在JSON附表。
+类别包括元素×杂化、芳香、成环以及RDKit BaseFeatures.fdef的Donor、Acceptor、PosIonizable、NegIonizable、Aromatic、Hydrophobe。读取B3 PMA首次query-to-atom交叉注意力（8 query×8 head×原子）。主分析先平均8个头；逐头均值只在JSON的head_mean_enrichments附表；维序为head×query×category，category顺序由categories列出。
 
 每分子、每类别的富集比为该类别原子的平均注意力除以1/N；在出现该类别的分子间取均值。按分子进行1000次bootstrap（seed=20261025），95%百分位CI。熵为−Σa log(a)/log(N)，报告各query在分子间的中位数和所有query/分子的总中位数。
 
