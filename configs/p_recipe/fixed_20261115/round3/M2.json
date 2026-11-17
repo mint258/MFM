@@ -19,8 +19,8 @@
   "order": "fixed_random",
   "training_view": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json",
   "distance_bias": "C1-0",
-  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117",
-  "run": "fixed_20261115_round3_M2_infra_recovery_20261117",
+  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+  "run": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
   "subset_seed": 20261112,
   "source": "PM7",
   "schedule": "cosine",
@@ -73,14 +73,12 @@
     3000000
   ],
   "label_parameters": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/label_parameters/PM7_A1.json",
-  "attempt": 2,
-  "resume": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2/samples_1000000.pt",
-  "resume_samples": 1000000,
-  "resume_from_output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2",
+  "attempt": 3,
+  "resume": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117/samples_1068864.pt",
+  "resume_samples": 1068864,
+  "resume_from_output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117",
   "recovery_reason": "Verified node reboot and original bound process absent; resume last complete1M checkpoint",
   "replaces_run": "fixed_20261115_round3_M2",
   "source_last_samples": 1014368,
-  "rollback_samples": 14368,
-  "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_round3_M2_infra_recovery_20261117_handoff_request.json",
-  "handoff_ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_round3_M2_infra_recovery_20261117_handoff_ack.json"
+  "rollback_samples": 14368
 }
