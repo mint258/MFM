@@ -1,5 +1,6 @@
 """One final module-by-module regression with owned scratch bounded to 20 GiB."""
 import json
+import argparse
 import os
 from pathlib import Path
 import shutil
@@ -54,13 +55,25 @@ def counts(path):
 
 
 def main():
+    global OUTPUT, PREVIOUS
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--final',action='store_true')
+    args=parser.parse_args()
+    if args.final:
+        OUTPUT=REPO/'results/perf_sync/final_regression_20261118'
+        PREVIOUS=OUTPUT
     if not os.environ.get('SLURM_JOB_ID') or int(os.environ.get('SLURM_CPUS_PER_TASK','0')) < 16:
         raise RuntimeError('Legacy real CLI fixtures require an actual 16-CPU Slurm allocation')
     capacity()
+    if args.final:
+        sys.path.insert(0,str(REPO.parent/'MFM_p_recipe/tools/model_v3'))
+        import v2_diagnosis_disk as disk
+        disk.m.require_capacity(disk.m.filesystem_status('/dev/shm'),2*1024**3,10000)
     OUTPUT.mkdir(parents=True,exist_ok=True)
     SCRATCH.mkdir(parents=True,exist_ok=True)
     modules = sorted((REPO/'current/tests').glob('test_*.py'))
     modules.append(REPO/'tools/perf_sync/test_execution.py')
+    if args.final: modules.append(REPO/'tools/perf_sync/test_disk_guard.py')
     environment = dict(os.environ,CUDA_VISIBLE_DEVICES='',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1',
         PYTHONDONTWRITEBYTECODE='1',PYTHONPATH=str(REPO/'current')+':'+str(REPO.parent/'docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps'),
         TMPDIR=str(SCRATCH),XDG_CACHE_HOME=str(SCRATCH/'cache'),
@@ -78,15 +91,34 @@ def main():
                        counts=counts(retained),retained_from=str(retained))
         else:
             capacity()
+            child_environment=dict(environment)
+            local=None
+            if args.final and module.name=='test_model_v3_wire_provider.py':
+                # This legacy fixture requires physical/tmp; all other modules
+                # retain the external NFS paths required by their own guards.
+                local=Path('/tmp')/('perf_sync_final_wire_'+os.environ['SLURM_JOB_ID'])
+                sys.path.insert(0,str(REPO.parent/'MFM_p_recipe/tools/model_v3'))
+                import v2_diagnosis_disk as disk
+                disk.m.require_capacity(disk.m.filesystem_status('/tmp'),512*1024**2,1000)
+                if local.is_symlink() or (local.exists() and (not local.is_dir() or local.stat().st_uid!=os.getuid())):
+                    raise OSError('Private wire scratch is not an owned directory')
+                local.mkdir(mode=0o700,exist_ok=True)
+                child_environment['TMPDIR']=str(local)
             temporary = SCRATCH/('pytest_'+str(index))
             command = [sys.executable,'-B','-m','pytest',str(module),'-q','-p','no:cacheprovider',
                        '--junitxml='+str(xml),'--basetemp='+str(temporary)]
             with destination.with_suffix('.log').open('w') as log:
-                child = subprocess.Popen(command,cwd=REPO/'current',env=environment,
+                child = subprocess.Popen(command,cwd=REPO/'current',env=child_environment,
                     stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
                 try:
                     while child.poll() is None:
                         capacity()
+                        if args.final:
+                            disk.m.require_capacity(disk.m.filesystem_status('/dev/shm'),2*1024**3,10000)
+                        if local is not None:
+                            disk.m.require_capacity(disk.m.filesystem_status('/tmp'),512*1024**2,1000)
+                            if allocated_bytes((SCRATCH,REPO/'results/perf_sync/scratch',local))>LIMIT:
+                                raise OSError('Combined NFS and local scratch exceeded20GiB')
                         time.sleep(5)
                 except BaseException:
                     if child.poll() is None:
@@ -105,7 +137,8 @@ def main():
         started_at=started,elapsed_seconds=time.time()-started,modules=rows,
         counts={key:sum(row['counts'][key] for row in rows) for key in ('tests','failures','errors','skipped')},
         gpu_acceptance=False)
-    (REPO/'results/perf_sync/regression_summary.json').write_text(json.dumps(result,indent=2)+'\n')
+    summary_name='final_regression_20261118_summary.json' if args.final else 'regression_summary.json'
+    (REPO/'results/perf_sync'/summary_name).write_text(json.dumps(result,indent=2)+'\n')
     return int(result['status']!='PASS')
 
 

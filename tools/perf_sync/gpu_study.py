@@ -384,19 +384,21 @@ def finish_suite():
             r=json.loads((REPORT/f'{name}_benchmark.json').read_text())
             scan.append(dict(cores=cores,readers=readers,status='COMPLETE',samples_per_second=r['samples_per_second'],power_W=r['power_W'],main_CPU_percent=r['main_CPU_percent'],GPU_peak_bytes=r['GPU_peak_bytes']))
     (REPORT/'S7.json').write_text(json.dumps(scan,indent=2)+'\n')
-    if not selected:
-        (REPORT/'S8.json').write_text(json.dumps(dict(status='NO_EFFECTIVE_FLAGS',speedup=None,items=[]))+'\n')
-    else:
-        for stage in ('numerical_S8','benchmark_S8','profile_S8'):
-            if not (REPORT/f'{stage}_complete.json').exists():
-                if subprocess.call([sys.executable,'-B','-u',__file__,stage]):
-                    (REPORT/'NEEDS_DIAGNOSIS.json').write_text(json.dumps(dict(stage=stage))+'\n');return
-        analyze_profiles()
-        numeric=json.loads((REPORT/'S8_numerical.json').read_text())
-        run=json.loads((REPORT/'S8_benchmark.json').read_text())
-        short_pass=run['finite'] and abs(run['last200_mean']-base['last200_mean'])<=.01+.03*base['last200_mean']
-        accepted=numeric['A_pass'] if numeric['category']=='A' else numeric['B_single_step_pass'] and short_pass
-        (REPORT/'S8.json').write_text(json.dumps(dict(status='PASS' if accepted else 'FAIL',category=numeric['category'],speedup=run['samples_per_second']/base['samples_per_second'],items=[a['item'] for a in selected]),indent=2)+'\n')
+    # The amended directive requires S8 on the tested card. With no effective
+    # flags it is an explicitly labelled empty-combination control, not a gain
+    # attributable to new code. Do not replace this measurement with a made-up1x.
+    for stage in ('numerical_S8','benchmark_S8','profile_S8'):
+        if not (REPORT/f'{stage}_complete.json').exists():
+            if subprocess.call([sys.executable,'-B','-u',__file__,stage]):
+                (REPORT/'NEEDS_DIAGNOSIS.json').write_text(json.dumps(dict(stage=stage))+'\n');return
+    analyze_profiles()
+    numeric=json.loads((REPORT/'S8_numerical.json').read_text())
+    run=json.loads((REPORT/'S8_benchmark.json').read_text())
+    short_pass=run['finite'] and abs(run['last200_mean']-base['last200_mean'])<=.01+.03*base['last200_mean']
+    accepted=numeric['A_pass'] if numeric['category']=='A' else numeric['B_single_step_pass'] and short_pass
+    (REPORT/'S8.json').write_text(json.dumps(dict(status='PASS' if accepted else 'FAIL',category=numeric['category'],speedup=run['samples_per_second']/base['samples_per_second'],items=[a['item'] for a in selected],
+        empty_combination_control=not bool(selected),adoptable_speedup=(run['samples_per_second']/base['samples_per_second'] if selected and accepted else 1.0),
+        note='Empty combination is unchanged M2; any timing drift is not an optimization gain' if not selected else ''),indent=2)+'\n')
 
 
 def scan24():
