@@ -3,6 +3,7 @@ import argparse,array,collections,concurrent.futures as cf,hashlib,importlib.uti
 import numpy as np
 import pyarrow.parquet as pq
 from resources import REPO,R,CONTROL,SIDE,load,save,guard
+from phychem_mfm.phase1.p_f64_sidecar import record_handle_equal
 from phychem_mfm.phase1.v31_loader import MFM4Dataset,decode_mfm4,record_key,split_metadata
 
 INDEX='/lfshome/zixiao/data_v1_20261025/D6_full_physical_index_20261105_v3/manifest.json'
@@ -104,7 +105,7 @@ def main():
                     kind=r['record_kind']
                     if kind not in ('P','U'):continue
                     handle=record_key(kind,int(r['molecule_index']),int(r['conformer_index']))
-                    if table[position]['record_handle']!=np.bytes_(handle):raise ValueError('Existing sidecar/D6 metadata alignment differs')
+                    if not record_handle_equal(table[position]['record_handle'],handle):raise ValueError('Existing sidecar/D6 metadata alignment differs')
                     if np.isfinite(ref[position]).any():
                         rid=r['native_record_id'] if kind=='P' else 'pprime:'+r['molecule_id']+':'+str(r['sprime_conf_idx'])
                         key=(sys.intern(r['molecule_id']),rid)

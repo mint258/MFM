@@ -4,6 +4,10 @@ from dataclasses import replace
 from pathlib import Path
 import numpy as np
 
+def record_handle_equal(stored,expected):
+    """Restore the fixed S7 storage width after NumPy scalar trailing-NUL trimming."""
+    return bytes(stored).ljust(7,b'\0')==expected
+
 class PFloat64Sidecar:
     def __init__(self, manifest, split, directory):
         self.path=Path(manifest);self.manifest=json.loads(self.path.read_text())

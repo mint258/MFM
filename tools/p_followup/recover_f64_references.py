@@ -3,6 +3,7 @@ import argparse,collections,concurrent.futures as cf,multiprocessing,os,pathlib,
 import lmdb
 import numpy as np
 from resources import REPO,CONTROL,SIDE,load,save,guard
+from phychem_mfm.phase1.p_f64_sidecar import record_handle_equal
 from phychem_mfm.phase1.v31_loader import MFM4Dataset,decode_mfm4,record_key,split_metadata
 CACHE=CONTROL/'B1_F32_reference_cache'
 
@@ -16,7 +17,7 @@ def recover_range(task):
             selected=sorted((r for r in rows if bytes(TABLE[r]['record_handle'])[:1]==kind.encode()),key=lambda r:int(TABLE[r]['conformer_index']))
             for row in selected:
                 ci=int(TABLE[row]['conformer_index']);handle=record_key(kind,mi,ci)
-                if int(TABLE[row]['molecule_index'])!=mi or TABLE[row]['record_handle']!=np.bytes_(handle):raise ValueError('Recovered F32 row/handle differs')
+                if int(TABLE[row]['molecule_index'])!=mi or not record_handle_equal(TABLE[row]['record_handle'],handle):raise ValueError('Recovered F32 row/handle differs')
                 payload=tx.get(handle)
                 if payload is None:raise KeyError((kind,mi,ci))
                 target=DATA.view.extract({1:np.empty(0,np.int16)},decode_mfm4(payload,array_ids={23}),

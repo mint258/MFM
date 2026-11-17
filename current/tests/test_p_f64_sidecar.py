@@ -3,9 +3,17 @@ from pathlib import Path
 from types import SimpleNamespace
 import numpy as np
 from phychem_mfm.phase1.v31_loader import normalize_values,record_key,V31Target
-from phychem_mfm.phase1.p_f64_sidecar import PFloat64Sidecar
+from phychem_mfm.phase1.p_f64_sidecar import PFloat64Sidecar,record_handle_equal
 
 class F64SidecarChecks(unittest.TestCase):
+    def test_scalar_handle_padding_preserves_kind_molecule_and_conformer(self):
+        for mi,ci in [(0,0),(1,0),(256,256),(131072,0),(131072,512),(2,1)]:
+            for kind in ['P','U']:
+                expected=record_key(kind,mi,ci);stored=np.array([expected],dtype='S7')[0]
+                self.assertTrue(record_handle_equal(stored,expected))
+                self.assertFalse(record_handle_equal(stored,record_key('U' if kind=='P' else 'P',mi,ci)))
+                self.assertFalse(record_handle_equal(stored,record_key(kind,mi+1,ci)))
+                self.assertFalse(record_handle_equal(stored,record_key(kind,mi,ci+1)))
     def test_float64_reference_cancellation_precedes_final_f32_cast(self):
         spec=dict(fit_role='TRAIN',center=0.,scale=2.,element_reference=dict(basis=[6],coefficients=[1e9],intercept=0.))
         raw=np.array([[1e9+.125]],dtype=np.float64)
