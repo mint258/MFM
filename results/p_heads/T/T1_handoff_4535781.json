@@ -1,0 +1,390 @@
+{
+  "arm": "T1",
+  "observed_time_unix": 1794950833.4447217,
+  "source_snapshot": "T1_hybrid_source@18e4043",
+  "source_native": {
+    "run": "p_heads_T1_seed0",
+    "execution": "native_SSH",
+    "node": "compute-0-22",
+    "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+    "started_at": 1794935555.3911498,
+    "status": "COMPLETED",
+    "cpu_mask": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "native_affinity_only": true,
+    "pid": 18810,
+    "uid": 1278,
+    "start_ticks": 5372205,
+    "pgid": 18810,
+    "worker_tree_exited": true,
+    "exit_code": 0,
+    "ended_at": 1794950668.0291133,
+    "elapsed_seconds": 15112.63796377182
+  },
+  "original_failed_standby": 4535733,
+  "terminal_replacement_history": [
+    {
+      "old_job_id": 4535733,
+      "new_job_id": 4535781,
+      "observed": {
+        "job_id": 4535733,
+        "status": "CONTROLLER_CONFIRMED_MISSING",
+        "controller_error": "slurm_load_jobs error: Invalid job id specified",
+        "observed_at": 1794950650.6021426
+      },
+      "source_identity": {
+        "pid": 18810,
+        "uid": 1278,
+        "start_ticks": 5372205,
+        "pgid": 18810
+      },
+      "previous_binding": {
+        "backend": "Slurm",
+        "state": "SUBMITTED",
+        "phase": "WAITING_FOR_ALLOCATION",
+        "native_run": "p_heads_T1_seed0",
+        "node": "compute-0-22",
+        "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+        "job_id": 4535733,
+        "registered_at": 1794935555.423608
+      },
+      "replaced_at": 1794950650.6029644
+    }
+  ],
+  "request": {
+    "action": "SAVE_AND_EXIT",
+    "run": "p_heads_T1_seed0",
+    "job_id": 4535781,
+    "request_id": "1028142f-8ba3-4a62-8e2e-744b0c45cf5d"
+  },
+  "ack": {
+    "request_id": "1028142f-8ba3-4a62-8e2e-744b0c45cf5d",
+    "job_id": 4535781,
+    "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T1_seed0/samples_809696.pt",
+    "clock": {
+      "schema": "model_v3_consumed_sample_clock_v1",
+      "sample_budget": 3000000,
+      "milestones": [
+        500000,
+        1000000,
+        1500000,
+        2000000,
+        2500000,
+        3000000
+      ],
+      "samples_consumed": 809696,
+      "optimizer_updates": 25303,
+      "saved_milestones": []
+    },
+    "run": "p_heads_T1_seed0"
+  },
+  "handoff_state": {
+    "phase": "SOURCE_EXITED_RESUME_READY",
+    "job_id": 4535781,
+    "run": "p_heads_T1_seed0_sbatch",
+    "resume": "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T1_seed0/samples_809696.pt",
+    "resume_samples": 809696
+  },
+  "actual_configuration_path": "/share/home/zixiao/descriptor_analysis/MFM_p_heads_20261117/configs/p_heads/T/T1_seed0.json",
+  "actual_run": "p_heads_T1_seed0_sbatch",
+  "actual_output": "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T1_seed0_sbatch",
+  "slurm_worker_state": {
+    "run": "p_heads_T1_seed0_sbatch",
+    "execution": "Slurm",
+    "node": "compute-0-22",
+    "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+    "started_at": 1794950669.7317896,
+    "status": "RUNNING",
+    "cpu_mask": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "native_affinity_only": false,
+    "pid": 24035,
+    "uid": 1278,
+    "start_ticks": 6883839,
+    "pgid": 24035,
+    "job_id": 4535781
+  },
+  "parent": {
+    "pid": 24035,
+    "uid": 1278,
+    "pgid": 24035,
+    "ppid": 24023,
+    "start_ticks": 6883839,
+    "cpu_mask": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  "descendants": [
+    {
+      "pid": 24114,
+      "uid": 1278,
+      "pgid": 24035,
+      "ppid": 24035,
+      "start_ticks": 6885257,
+      "cpu_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "reader": true
+    },
+    {
+      "pid": 24159,
+      "uid": 1278,
+      "pgid": 24035,
+      "ppid": 24035,
+      "start_ticks": 6887415,
+      "cpu_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "reader": true
+    },
+    {
+      "pid": 24145,
+      "uid": 1278,
+      "pgid": 24035,
+      "ppid": 24035,
+      "start_ticks": 6886471,
+      "cpu_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "reader": true
+    },
+    {
+      "pid": 24113,
+      "uid": 1278,
+      "pgid": 24035,
+      "ppid": 24035,
+      "start_ticks": 6885255,
+      "cpu_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "reader": false
+    },
+    {
+      "pid": 24128,
+      "uid": 1278,
+      "pgid": 24035,
+      "ppid": 24035,
+      "start_ticks": 6885819,
+      "cpu_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "reader": true
+    },
+    {
+      "pid": 24073,
+      "uid": 1278,
+      "pgid": 24073,
+      "ppid": 24035,
+      "start_ticks": 6885151,
+      "cpu_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "reader": false
+    },
+    {
+      "pid": 24092,
+      "uid": 1278,
+      "pgid": 24073,
+      "ppid": 24073,
+      "start_ticks": 6885174,
+      "cpu_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "reader": false
+    }
+  ],
+  "environment": {
+    "SLURM_CPUS_PER_TASK": "15",
+    "SLURM_JOB_ID": "4535781",
+    "CUDA_VISIBLE_DEVICES": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef"
+  },
+  "slurm": {
+    "JobId": "4535781",
+    "JobState": "RUNNING",
+    "NodeList": "compute-0-22",
+    "NumCPUs": "15",
+    "CPUs/Task": "15",
+    "CPU_IDs": "0-14"
+  },
+  "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+  "new_worker_uuid_lock_fds": [
+    {
+      "fd": 3,
+      "lock_lines": [
+        "lock:\t1: FLOCK  ADVISORY  WRITE 24035 00:2c:49457054235 0 EOF"
+      ]
+    }
+  ],
+  "first_resumed_producer_loss": {
+    "samples": "809728",
+    "updates": "25304",
+    "total": "0.043533697724342346",
+    "preclip_norm": "3.9273345470428467",
+    "lr": "0.0002543836964988362",
+    "seconds": "15109.038924951994"
+  },
+  "configuration_workers": 14,
+  "observations": {
+    "old_known_workers_still_live": [],
+    "old_owned_group_still_live": [],
+    "source_exit_zero": true,
+    "source_wrapper_tree_exit": true,
+    "request_ack_match": true,
+    "ack_clock_matches_resume": true,
+    "old_cuda_context_absent": true,
+    "new_cuda_context_matches": true,
+    "new_worker_uuid_lock_fdinfo_confirmed": true,
+    "actual_slurm_job_matches": true,
+    "parent_has15cpu": true,
+    "descendants_within_parent_mask": true,
+    "actual_reader_count": 4,
+    "visible_gpu_matches": true,
+    "produced_resume_configuration_matches": true,
+    "first_update_continues_cursor": true
+  },
+  "checkpoint_contents_reread": false,
+  "p99_or_rate_recomputed": false,
+  "training_operated": false
+}
