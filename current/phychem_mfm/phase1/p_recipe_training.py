@@ -1,5 +1,6 @@
 """P-only full-TRAIN execution; every arm owns its complete sample schedule."""
 from concurrent.futures import ProcessPoolExecutor
+from contextlib import nullcontext
 import csv,json,multiprocessing,os,time
 from pathlib import Path
 import numpy as np
@@ -160,7 +161,7 @@ def train(configuration):
     for group in optimizer.param_groups:group['lr']=lr
     optimizer.zero_grad(set_to_none=True)
     from ..model.perf_sync import finite_checks
-    with finite_checks() if sync_free else __import__('contextlib').nullcontext([]) as checks:
+    with finite_checks() if sync_free else nullcontext([]) as checks:
      total,family,_=calculate(samples);total.backward()
     clip_used=clip
     norm=torch.nn.utils.clip_grad_norm_(params,clip_used,error_if_nonfinite=not sync_free,

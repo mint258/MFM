@@ -10,15 +10,17 @@ import time
 import xml.etree.ElementTree as ET
 
 REPO = Path(__file__).resolve().parents[2]
-OUTPUT = REPO/'results/perf_sync/regression'
-SCRATCH = REPO/'results/perf_sync/scratch'
+PREVIOUS = REPO/'results/perf_sync/regression'
+OUTPUT = REPO/'results/perf_sync/regression_slurm'
+SCRATCH = REPO.parent/'.perf_sync_scratch_20261117'
 LIMIT = 20*1024**3
 
 
 def capacity():
     sys.path.insert(0,str(REPO.parent/'MFM_p_recipe/tools/model_v3'))
     import v2_diagnosis_disk as disk
-    allocated = sum(p.stat().st_blocks*512 for p in SCRATCH.rglob('*') if p.is_file()) if SCRATCH.exists() else 0
+    allocated = sum(p.stat().st_blocks*512 for root in (SCRATCH,REPO/'results/perf_sync/scratch')
+        if root.exists() for p in root.rglob('*') if p.is_file())
     if allocated > LIMIT:
         raise OSError('Owned scratch exceeded 20 GiB')
     remaining = LIMIT-allocated
@@ -38,6 +40,8 @@ def counts(path):
 
 
 def main():
+    if not os.environ.get('SLURM_JOB_ID') or int(os.environ.get('SLURM_CPUS_PER_TASK','0')) < 16:
+        raise RuntimeError('Legacy real CLI fixtures require an actual 16-CPU Slurm allocation')
     capacity()
     OUTPUT.mkdir(parents=True,exist_ok=True)
     SCRATCH.mkdir(parents=True,exist_ok=True)
@@ -52,10 +56,12 @@ def main():
     for index,module in enumerate(modules):
         destination = OUTPUT/module.stem
         xml = destination.with_suffix('.xml')
-        if xml.exists():
+        previous = PREVIOUS/(module.stem+'.xml')
+        retained = xml if xml.exists() else previous if previous.exists() and not (counts(previous)['failures']+counts(previous)['errors']) else None
+        if retained is not None:
             # Infrastructure resumption reuses completed modules, including failures.
-            row = dict(module=module.name,returncode=int(bool(counts(xml)['failures']+counts(xml)['errors'])),
-                       counts=counts(xml),retained=True)
+            row = dict(module=module.name,returncode=int(bool(counts(retained)['failures']+counts(retained)['errors'])),
+                       counts=counts(retained),retained_from=str(retained))
         else:
             capacity()
             temporary = SCRATCH/('pytest_'+str(index))
