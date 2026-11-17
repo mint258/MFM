@@ -1,0 +1,201 @@
+{
+  "status": "FAIL",
+  "counts": {
+    "tests": 3538,
+    "failures": 13,
+    "errors": 79,
+    "skipped": 24
+  },
+  "modules": 200,
+  "seconds": 634.0634712690007,
+  "reason": "Full current/tests CPU regression with isolated modules",
+  "workers": 2,
+  "failed_modules": [
+    {
+      "module": "test_model_v3_architecture_wiring_smoke.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 36,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_execution_checkpoint_bridge.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 74,
+        "failures": 0,
+        "errors": 50,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_labels.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 19,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_long_run_storage.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 21,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_native_bond_transport.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 21,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 1
+      }
+    },
+    {
+      "module": "test_model_v3_pilot_entry.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 46,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_proxy_runner.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 20,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_training_entry.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 35,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_wire_provider.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 26,
+        "failures": 0,
+        "errors": 25,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_wsd_fork.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 18,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_p_f64_sidecar.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 3,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_p_recipe.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 11,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_p_recipe_exclusion.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_phase1_full_corpus_loader.py",
+      "returncode": 2,
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_phase1_full_corpus_original_validation.py",
+      "returncode": 2,
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_phase1_full_corpus_training.py",
+      "returncode": 2,
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_phase1_initialization.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 34,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_phase1_positive_strategy.py",
+      "returncode": 2,
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      }
+    }
+  ],
+  "job_id": "4535192",
+  "output": "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/regression_4535192",
+  "scratch": "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/regression_scratch_4535192",
+  "source_commit": "f9f0b2c02667e83a38ff590b9df86c6957f93da6",
+  "source_commit_at_finish": "f9f0b2c02667e83a38ff590b9df86c6957f93da6",
+  "scope": "Every current/tests/test_*.py module, same existing per-module runner, CPU only"
+}

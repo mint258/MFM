@@ -211,7 +211,7 @@ def test_nonstandard_global_dtype_or_device_is_rejected_without_changing_caller_
     with torch.device("meta"):
         with pytest.raises(ValueError, match="CPU float32 defaults"):
             prepare(config)
-        assert torch.get_default_device().type == "meta"
+        assert torch.empty(0).device.type == "meta"
     assert torch.equal(torch.get_rng_state(), before) and torch.get_default_device().type == "cpu"
 
 

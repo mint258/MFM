@@ -141,7 +141,9 @@ def test_fitted_label_mean_preserves_fp64_until_reference_subtraction():
         target=V31Target(raw,raw.copy(),np.ones_like(raw,dtype=bool),'P','energy','molecule','scalar',True,None)
         samples.append(dict(Z=np.array([6]),targets={'energy':target}))
     dataset=object.__new__(PRecipeDataset)
+    dataset.conformer_decomposition=None
     dataset.label_parameters={'normalizations':{'energy':spec}}
+    dataset.conformer_decomposition=None
     dataset.view=SimpleNamespace(fields=[dict(name='energy',normalization=spec)],normalizations={'energy':spec})
     dataset.choices=lambda molecule:np.array([0,1])
     with patch.object(MFM4Dataset,'read',side_effect=lambda molecule,conformer:samples[conformer]):

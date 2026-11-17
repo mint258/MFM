@@ -1,4 +1,4 @@
-import json,tempfile,unittest
+import contextlib,json,tempfile,unittest
 from pathlib import Path
 from types import SimpleNamespace
 import numpy as np
@@ -18,13 +18,15 @@ class F64SidecarChecks(unittest.TestCase):
         reference=(raw-np.float32(.127+2*.083)-np.float32(1.37))/np.float32(2.19)
         np.testing.assert_array_equal(normalize_values(raw,spec,Z=Z).view('u4'),reference.view('u4'))
     def test_lookup_handles_and_nan_fallback(self):
-        with tempfile.TemporaryDirectory() as directory:
+        with tempfile.TemporaryDirectory() as directory, contextlib.ExitStack() as resources:
             p=Path(directory);data=np.zeros(3,dtype=[('molecule_index','<u4'),('conformer_index','<u2'),('record_handle','S7'),('energy','<f8')])
             data['molecule_index']=[0,0,1];data['conformer_index']=[0,0,2]
             data['record_handle']=[record_key('P',0,0),record_key('U',0,0),record_key('P',1,2)];data['energy']=[1e9+.125,np.nan,2.5]
             np.save(p/'values.npy',data);np.save(p/'offsets.npy',np.array([0,2,3]))
             (p/'manifest.json').write_text(json.dumps(dict(status='SUBSET_TEST',enabled_fields=['energy'],splits=dict(TRAIN=dict(D6_directory=directory,values='values.npy',molecule_offsets='offsets.npy')))))
             side=PFloat64Sidecar(p/'manifest.json','TRAIN',p)
+            cleanup.callback(side.close)
+            resources.callback(side.close)
             self.assertEqual(side.lookup(0,0,'P')['energy'],1e9+.125)
             self.assertTrue(np.isnan(side.lookup(0,0,'U')['energy']));self.assertEqual(side.lookup(0,2,'P'),{})
             spec=dict(fit_role='TRAIN',center=0.,scale=1.)

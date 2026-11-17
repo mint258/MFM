@@ -28,8 +28,8 @@
   "order": "fixed_random",
   "training_view": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json",
   "distance_bias": "C1-0",
-  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/C_dedup",
-  "run": "p_followup_20261116_C_dedup",
+  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/p_followup_20261116_C_dedup_sbatch",
+  "run": "p_followup_20261116_C_dedup_sbatch",
   "subset_seed": 20261112,
   "source": "PM7",
   "schedule": "cosine",
@@ -95,6 +95,8 @@
     3000000
   ],
   "label_parameters": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/label_parameters/PM7_A1.json",
-  "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/p_followup_20261116_C_dedup_handoff_request.json",
-  "handoff_ack": "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/p_followup_20261116_C_dedup_handoff_ack.json"
+  "attempt": 2,
+  "resume": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/C_dedup/samples_1472416.pt",
+  "resume_samples": 1472416,
+  "resume_from_output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/C_dedup"
 }
