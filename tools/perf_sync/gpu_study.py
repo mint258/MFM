@@ -22,7 +22,7 @@ import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'model_v3'))
 import step_overhead as ref
-from regression import REPO, SCRATCH, capacity
+from regression import REPO, SCRATCH, capacity, allocated_bytes, LIMIT
 
 ROOT = SCRATCH / 'gpu_20261118'
 REPORT = REPO / 'results/perf_sync/gpu_20261118'
@@ -96,7 +96,33 @@ def noise():
         data.close()
 
 
+
+def archive_closed_profiles():
+    # Only closed artifacts from the terminal4535744 allocation. gzip is
+    # lossless; its success removes only the owned uncompressed source.
+    for name in ('S8_trace.json.tmp', 'S8_profile_training'):
+        source=ROOT/name
+        target=ROOT/(name+'.failed_4535744')
+        if source.exists():
+            if source.is_symlink() or source.resolve().parent!=ROOT.resolve() or source.stat().st_uid!=os.getuid() or target.exists():
+                raise OSError('Closed-profile archival path/ownership differs')
+            source.rename(target)
+    for name in ('S0_trace.json','S1_trace.json','S8_trace.json.tmp.failed_4535744'):
+        source=ROOT/name
+        target=ROOT/(name+'.gz')
+        if not source.exists() and target.exists():continue
+        if source.is_symlink() or source.resolve().parent!=ROOT.resolve() or source.stat().st_uid!=os.getuid() or target.exists():
+            raise OSError('Closed trace archival path/ownership differs')
+        capacity()
+        print('COMPRESS_CLOSED_TRACE',source,flush=True)
+        subprocess.run(['gzip','-1','--',str(source)],check=True)
+
+
 def profile(name='S0'):
+    # Kineto exports a temporary copy beside the final JSON. Reserve both;
+    # the failed4535744 trace is retained compressed by archive_closed_profiles.
+    if allocated_bytes((SCRATCH, REPO/'results/perf_sync/scratch')) + 12*1024**3 > LIMIT:
+        raise OSError('Profiler export requires12GiB headroom for trace and temporary copy')
     from phychem_mfm.phase1.p_recipe_training import train
     c = configuration()
     c.update(run=f'perf_sync_{name}_profile_20261118', output=str(ROOT/f'{name}_profile_training'), benchmark_updates=200)
@@ -376,7 +402,7 @@ def finish_suite():
     for cores in (4,8,16,24):
         for readers in (7,14,20):
             name=f'S7_{cores}_{readers}'
-            if cores>allocation:
+            if cores>allocation and not (REPORT/f'benchmark_{name}_complete.json').exists():
                 scan.append(dict(cores=cores,readers=readers,status='PENDING_CPU_EXTENSION_CHECK'));continue
             stage='benchmark_'+name
             if not (REPORT/f'{stage}_complete.json').exists():
@@ -434,6 +460,8 @@ def main():
         try:
             while process.poll() is None:
                 capacity()
+                if args.stage=='archive_closed_profiles' and allocated_bytes((SCRATCH, REPO/'results/perf_sync/scratch'))>LIMIT-1024**3:
+                    raise OSError('Stop compression before scratch reserve is consumed')
                 sys.path.insert(0, str(REPO.parent/'MFM_p_recipe/tools/model_v3'))
                 import v2_diagnosis_disk as disk
                 disk.m.require_capacity(disk.m.filesystem_status('/dev/shm'), 2*1024**3, 10000)

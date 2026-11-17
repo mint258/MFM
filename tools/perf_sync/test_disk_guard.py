@@ -26,3 +26,30 @@ def test_unreadable_directory_still_stops_accounting(tmp_path):
         yield str(tmp_path),[],[]
     with patch.object(os,'walk',walker),pytest.raises(PermissionError):
         allocated_bytes([tmp_path])
+
+
+def test_closed_trace_archive_preserves_bytes_and_failed_training(tmp_path):
+    import gzip
+    import gpu_study as study
+    payload=b'closed profiler JSON fixture\n'*100
+    for name in ('S0_trace.json','S1_trace.json','S8_trace.json.tmp'):
+        (tmp_path/name).write_bytes(payload)
+    training=tmp_path/'S8_profile_training'
+    training.mkdir();(training/'losses.csv').write_text('retained failed-run log')
+    with patch.object(study,'ROOT',tmp_path),patch.object(study,'capacity',lambda:None):
+        study.archive_closed_profiles()
+    for name in ('S0_trace.json','S1_trace.json','S8_trace.json.tmp.failed_4535744'):
+        assert gzip.decompress((tmp_path/(name+'.gz')).read_bytes())==payload
+        assert not (tmp_path/name).exists()
+    assert (tmp_path/'S8_profile_training.failed_4535744/losses.csv').read_text()=='retained failed-run log'
+
+
+def test_closed_trace_archive_rejects_external_symlink(tmp_path):
+    import gpu_study as study
+    root=tmp_path/'owned';root.mkdir()
+    outside=tmp_path/'outside';outside.write_bytes(b'untouched')
+    (root/'S0_trace.json').symlink_to(outside)
+    with patch.object(study,'ROOT',root),patch.object(study,'capacity',lambda:None),pytest.raises(OSError):
+        study.archive_closed_profiles()
+    assert outside.read_bytes()==b'untouched'
+    assert not (root/'S0_trace.json.gz').exists()
