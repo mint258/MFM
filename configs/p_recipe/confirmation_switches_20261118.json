@@ -1,6 +1,13 @@
 {
     "schema":  "P_RECIPE_CONFIRMATION_PERF_SWITCH_PROPOSAL_V1",
-    "status":  "PENDING_USER_CONFIRMATION",
+    "status":  "USER_CONFIRMED",
+    "user_confirmation": {
+        "answer": "确认全部关闭（建议）",
+        "recorded_at_utc": "2026-11-17T22:08:30Z",
+        "recorded_at_Asia_Shanghai": "2026-11-18T06:08:30+08:00",
+        "source": "Explicit user reply to request_user_input_async call_e9d7ebe7d54f4f8db0abd94d7248cfeb item0",
+        "scope": "All new perf switches off; keep16CPU/14readers,B32,FP32 and existing adopted baseline paths; wait for C3 completion and M3 before9M submission"
+    },
     "authority":  "docs/p_recipe/USER_DIRECTIVE_20261117.md section3",
     "gpu_delivery":  "https://github.com/mint258/MFM/blob/perf/sync-free-20261117/docs/perf_sync/GPU_RESULTS_20261118.md",
     "gpu_delivery_status":  "GPU_COMPLETE_FINAL_CPU_REGRESSION_FINISHED_WITH_BASELINE_FAILURES",
@@ -42,6 +49,7 @@
                  },
     "execution_conditions":  {
                                  "user_confirmation_required":  true,
+                                 "user_confirmation_received": true,
                                  "round3_C3_complete_and_M3_decided_required":  true,
                                  "submit_all_registered_9M_together_after_conditions":  true,
                                  "read_and_record_switches_at_start":  true,

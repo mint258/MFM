@@ -1,93 +1,93 @@
 {
-  "schema": "P_CHECKPOINT_MIGRATION_PLAN_V1",
-  "status": "COMPLETE_1M_SAVED_WAITING_FOR_FASTER_IDLE_GPU",
-  "authority": "docs/p_recipe/USER_DIRECTIVE_20261117.md#本线要做的事",
-  "source": {
-    "arm": "C3",
-    "configuration": "configs/p_recipe/fixed_20261115/round3/C3.json",
-    "run": "fixed_20261115_round3_C3",
-    "node": "compute-0-6",
-    "job_id": 4535189,
-    "pid": 1956854,
-    "uid": 1278,
-    "start_ticks": 1966970859,
-    "pgid": 1956854,
-    "observed_samples": 905536,
-    "observed_at_utc": "2026-11-17T17:25:00Z",
-    "observed_samples_per_second": 14.996336512824355,
-    "earliest_full_checkpoint_samples": 1000000,
-    "observed_complete_checkpoint": {
-      "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_C3/samples_1000000.pt",
-      "bytes": 232053117,
-      "mtime": "2026-11-18 03:24:08 +0800",
-      "observed_via": "actual compute-0-6 stat 2026-11-17 19:28 UTC"
-    },
-    "continues_running": true
-  },
-  "conditions": {
-    "source_complete_1M_checkpoint_required": true,
-    "perf_line_received_gpu_evidence": "4535772 actualCOMPLETED0:0/504s, GPU_RESULTS_20261118.md finalGPUdelivered; originalGPUprioritynowcomplete. CPUregression4535749stillrunning, notGPUpriority.",
-    "faster_idle_card_required": true,
-    "perf_idle_5090_4090_priority_until_gpu_complete": true,
-    "target_admission": "Fresh actual target GPU UUID/available memory, demand16CPU/noexclusive, own lock, root/target bytes+inodes, actual UID quotas and all concurrent forecasts before requesting source exit",
-    "no_action_before_all_conditions": true
-  },
-  "continuation": {
-    "same_scientific_code": true,
-    "precision": "FP32, TF32 off",
-    "batch_size": 32,
-    "microbatch_size": 32,
-    "gradient_accumulation_steps": 1,
-    "activation_checkpointing": false,
-    "samples": 3000000,
-    "lr": 0.0003,
-    "frozen_clip": 35.49390029907228,
-    "normalization": "window2_TRAIN_normalization_parameters_20261107_v1",
-    "procedure": [
-      "While waiting, keep original Slurm4535189 running; do not queue a duplicate trainer.",
-      "After complete1M exists and a faster idle admitted card is available after perf priority, recheck bound source identity and job state.",
-      "Use already loaded SAVE_AND_EXIT control at a committed optimizer update, requesting a fresh full checkpoint so progress after1M need not be lost.",
-      "Require matching request/ACK, complete checkpoint, source wrapper exit0, absent original PID and released CUDA context/own UUID lock before destination training.",
-      "Archive original configuration and preserve output/cost. Use distinct resumed run/output in the same registered C3 case, inheriting full optimizer, sample clock, sampler/RNG and clip statistics.",
-      "Submit via existing launch_plan: sufficient demandCPU=>sbatch; allocated20/22 with adequate memory=>native plus same-task queued takeover. Pin admitted destination UUID for this migration.",
-      "Record exact source last observed sample count, acknowledged checkpoint cursor, rollback and destination identity; verify positive resumed progress and restored frozen clip.",
-      "If source already finishes, retain its result and perform no duplicate run."
-    ]
-  },
-  "actual_migration_executed": false,
-  "latest_resource_observation": {
-    "observed_at_utc": "2026-11-17 21:33 UTC",
-    "cards": [
-      {
-        "node": "compute-0-22",
-        "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
-        "type": "5090",
-        "used_mib": 8203,
-        "total_mib": 32607,
-        "free_cpus": 1,
-        "own_gpu_busy": true
-      },
-      {
-        "node": "compute-0-20",
-        "gpu_uuid": "GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5",
-        "type": "4090",
-        "used_mib": 18371,
-        "total_mib": 49140,
-        "free_cpus": 41,
-        "own_gpu_busy": true
-      },
-      {
-        "node": "compute-0-20",
-        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-        "type": "4090",
-        "used_mib": 18185,
-        "total_mib": 49140,
-        "free_cpus": 41,
-        "own_gpu_busy": true
-      }
-    ],
-    "eligible_faster_cards": 0,
-    "reason": "Node22/5090 memory now <=30% but own GPU UUID lock is still held by another line; node20/4090 cards exceed30% and their own locks are held. No eligible idle slot; keep C3 running. CPU allocation alone does not block the authorized native+standby route.",
-    "target_disk_admission": "Not attempted: no eligible card, no source stop and no transfer"
-  }
+    "schema":  "P_CHECKPOINT_MIGRATION_PLAN_V1",
+    "status":  "COMPLETE_1M_SAVED_WAITING_FOR_FASTER_IDLE_GPU",
+    "authority":  "docs/p_recipe/USER_DIRECTIVE_20261117.md#本线要做的事",
+    "source":  {
+                   "arm":  "C3",
+                   "configuration":  "configs/p_recipe/fixed_20261115/round3/C3.json",
+                   "run":  "fixed_20261115_round3_C3",
+                   "node":  "compute-0-6",
+                   "job_id":  4535189,
+                   "pid":  1956854,
+                   "uid":  1278,
+                   "start_ticks":  1966970859,
+                   "pgid":  1956854,
+                   "observed_samples":  1126656,
+                   "observed_at_utc":  "2026-11-17T22:09:00.228Z",
+                   "observed_samples_per_second":  12.731869323408052,
+                   "earliest_full_checkpoint_samples":  1000000,
+                   "observed_complete_checkpoint":  {
+                                                        "path":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_C3/samples_1000000.pt",
+                                                        "bytes":  232053117,
+                                                        "mtime":  "2026-11-18 03:24:08 +0800",
+                                                        "observed_via":  "actual compute-0-6 stat 2026-11-17 19:28 UTC"
+                                                    },
+                   "continues_running":  true
+               },
+    "conditions":  {
+                       "source_complete_1M_checkpoint_required":  true,
+                       "perf_line_received_gpu_evidence":  "Perf GPU4535772 COMPLETED0:0/504s, final GPU delivery complete; final CPU4535749 finished with baseline failures; original GPU allocation priority restored.",
+                       "faster_idle_card_required":  true,
+                       "perf_idle_5090_4090_priority_until_gpu_complete":  true,
+                       "target_admission":  "Fresh actual target GPU UUID/available memory, demand16CPU/noexclusive, own lock, root/target bytes+inodes, actual UID quotas and all concurrent forecasts before requesting source exit",
+                       "no_action_before_all_conditions":  true
+                   },
+    "continuation":  {
+                         "same_scientific_code":  true,
+                         "precision":  "FP32, TF32 off",
+                         "batch_size":  32,
+                         "microbatch_size":  32,
+                         "gradient_accumulation_steps":  1,
+                         "activation_checkpointing":  false,
+                         "samples":  3000000,
+                         "lr":  0.0003,
+                         "frozen_clip":  35.49390029907228,
+                         "normalization":  "window2_TRAIN_normalization_parameters_20261107_v1",
+                         "procedure":  [
+                                           "While waiting, keep original Slurm4535189 running; do not queue a duplicate trainer.",
+                                           "After complete1M exists and a faster idle admitted card is available after perf priority, recheck bound source identity and job state.",
+                                           "Use already loaded SAVE_AND_EXIT control at a committed optimizer update, requesting a fresh full checkpoint so progress after1M need not be lost.",
+                                           "Require matching request/ACK, complete checkpoint, source wrapper exit0, absent original PID and released CUDA context/own UUID lock before destination training.",
+                                           "Archive original configuration and preserve output/cost. Use distinct resumed run/output in the same registered C3 case, inheriting full optimizer, sample clock, sampler/RNG and clip statistics.",
+                                           "Submit via existing launch_plan: sufficient demandCPU=\u003esbatch; allocated20/22 with adequate memory=\u003enative plus same-task queued takeover. Pin admitted destination UUID for this migration.",
+                                           "Record exact source last observed sample count, acknowledged checkpoint cursor, rollback and destination identity; verify positive resumed progress and restored frozen clip.",
+                                           "If source already finishes, retain its result and perform no duplicate run."
+                                       ]
+                     },
+    "actual_migration_executed":  false,
+    "latest_resource_observation":  {
+                                        "observed_at_utc":  "2026-11-17 22:03 UTC",
+                                        "cards":  [
+                                                      {
+                                                          "node":  "compute-0-22",
+                                                          "gpu_uuid":  "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+                                                          "type":  "5090",
+                                                          "used_mib":  9285,
+                                                          "total_mib":  32607,
+                                                          "free_cpus":  1,
+                                                          "own_gpu_busy":  true
+                                                      },
+                                                      {
+                                                          "node":  "compute-0-20",
+                                                          "gpu_uuid":  "GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5",
+                                                          "type":  "4090",
+                                                          "used_mib":  18371,
+                                                          "total_mib":  49140,
+                                                          "free_cpus":  41,
+                                                          "own_gpu_busy":  true
+                                                      },
+                                                      {
+                                                          "node":  "compute-0-20",
+                                                          "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+                                                          "type":  "4090",
+                                                          "used_mib":  18185,
+                                                          "total_mib":  49140,
+                                                          "free_cpus":  41,
+                                                          "own_gpu_busy":  true
+                                                      }
+                                                  ],
+                                        "eligible_faster_cards":  0,
+                                        "reason":  "Node22/5090 memory now \u003c=30% but own GPU UUID lock is still held by another line; node20/4090 cards exceed30% and their own locks are held. No eligible idle slot; keep C3 running. CPU allocation alone does not block the authorized native+standby route.",
+                                        "target_disk_admission":  "Not attempted: no eligible card, no source stop and no transfer"
+                                    }
 }

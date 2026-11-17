@@ -1,5 +1,13 @@
 # P 配方研究日志
 
+2026-11-17 22:09UTC · fixed20261115 round3 · M2_seed1 RUNNING 1178016/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:39:00UTC。
+
+2026-11-17 22:09UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 1126656/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:39:00UTC。
+
+2026-11-17 22:03UTC · fixed20261115 round3 · M2_seed1 RUNNING 1153472/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:33:09UTC。
+
+2026-11-17 22:03UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 1122304/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:33:09UTC。
+
 2026-11-17 21:33UTC · M2 seed1首个完整1M断点已在实际node7核实：232053693字节，05:26:07CST写出；继续原3M运行，1M仅用于恢复、共享控制仍等3M/R1/R3/成功终态。快卡仍无空闲自有槽：node22/5090显存8203/32607MiB已低于30%但另一线仍持有UUID锁，node20两卡显存>30%且锁占用；不因CPU仅剩1核而拒绝获授权的SSH路径，当前阻塞是GPU自有槽未释放，C3继续node6。9M开关确认项已发出但尚未收到答复，不重复询问。提速回归3655项3629通过/24跳过/2基线失败/0错误，GPU结论不变、保持新开关全关建议。
 
 2026-11-17 21:33UTC · fixed20261115 round3 · M2_seed1 RUNNING 1028416/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:03:02UTC。
@@ -818,3 +826,9 @@ The full current p-recipe worktree source check passed on compute-0-20:5150 file
 The fixed_20261115 confirmation producer now requires the round3 decision, the received perf GPU delivery and an explicit USER_CONFIRMED switch record before creating its destination or any run configuration. It embeds the approved recommendation, user confirmation and delivery source in every generated configuration and the plan. The trainer's existing configuration.json write records this snapshot at run start; it never reads the proposal again during training. Legacy runtime paths stay unchanged, and unimplemented new switches cannot be silently enabled.
 
 Five targeted checks passed on compute-0-20: pending approval creates no configurations, round3/GPU prerequisites, all six9M configurations retain the approved snapshot after the proposal changes, unsupported switch refusal, and the existing three-times-screening-budget behavior. No real confirmation configuration or9M job was created; the live proposal remains PENDING_USER_CONFIRMATION and C3/M2 seed1 continue.
+
+### 2026-11-18 06:08 CST — user confirmed all new perf switches off
+
+The user explicitly answered "确认全部关闭（建议）" to the pending9M switch question. confirmation_switches_20261118.json is now USER_CONFIRMED with the exact answer and source; the directive records received approval and waits only for round3/C3 completion and M3 selection. Keep16CPU/14readers,B32/FP32,TF32off,no accumulation/recomputation, with existing adopted runtime paths unchanged. All registered9M configurations will embed this approved snapshot and freeze it for the full run; none have been created or submitted yet. The daily formatter now reports approval instead of asking again.
+
+At06:09 C3/4535189 remains RUNNING on node6 at1126656/3M,12.73samples/s; M2 seed1/4535736 remains RUNNING on node7 at1178016/3M,69.89samples/s. Existing complete1M checkpoints and frozen clips remain in place. The06:03 fast-card inventory found node22/5090 at9285/32607MiB but its own GPU slot still occupied, and both node20/4090 slots occupied with memory above30%; no migration or source stop occurred. The next regular progress check is06:39CST.
