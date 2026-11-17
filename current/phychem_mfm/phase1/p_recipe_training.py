@@ -156,6 +156,19 @@ def train(configuration):
     from .perf_sync_transfer import async_batches
     batches=async_batches(batches)
    for samples,consumed_rng in batches:
+    if c.get('benchmark_warmup_batches') and benchmark_started is None:
+     # Short-study warmup performs no optimizer updates and preserves RNG.
+     cpu_state,cuda_state=torch.get_rng_state(),torch.cuda.get_rng_state()
+     from ..model.perf_sync import finite_checks
+     for _ in range(c['benchmark_warmup_batches']):
+      optimizer.zero_grad(set_to_none=True)
+      with finite_checks() if sync_free else nullcontext([]):
+       warm_total,_,_=calculate(samples);warm_total.backward()
+     optimizer.zero_grad(set_to_none=True)
+     torch.set_rng_state(cpu_state);torch.cuda.set_rng_state(cuda_state)
+     torch.cuda.synchronize();torch.cuda.reset_peak_memory_stats()
+     benchmark_started=(time.monotonic(),time.process_time(),time.time())
+     print('MEASUREMENT_START no-update warmup complete',flush=True)
     samples_before=clock.samples_consumed
     lr_cursor=samples_before+len(samples) if c.get('lr_sample_axis')=='completed_samples' else samples_before
     lr=c['lr']*sample_lr_ratio(lr_cursor,c['samples'],'cosine')
@@ -204,7 +217,7 @@ def train(configuration):
      result=finish_handoff(c,handoff,destination,clock.state_dict())
      success=True;return result
     if not sync_free and clock.optimizer_updates%100==0:print(json.dumps(row),flush=True)
-    if c.get('benchmark_updates') and clock.optimizer_updates==100:
+    if c.get('benchmark_updates') and not c.get('benchmark_warmup_batches') and clock.optimizer_updates==100:
      torch.cuda.synchronize();benchmark_started=(time.monotonic(),time.process_time(),time.time())
      print('MEASUREMENT_START',flush=True)
     if c.get('benchmark_updates') and clock.optimizer_updates==c['benchmark_updates']:
@@ -215,8 +228,9 @@ def train(configuration):
   summary=dict(status='TRAINING_COMPLETE_EVALUATION_PENDING',run=c['run'],samples=clock.samples_consumed,updates=clock.optimizer_updates,actual_samples=clock.samples_consumed-initial_samples,seconds=prior+time.monotonic()-started,clipped_fraction=clipped/clock.optimizer_updates,clip=clip,batch_size=c['batch_size'],microbatch_size=c['microbatch_size'],GPU_peak_bytes=torch.cuda.max_memory_allocated())
   if benchmark_started is not None:
    seconds=benchmark_finished[0]-benchmark_started[0]
-   summary.update(status='BENCHMARK_COMPLETE',measured_updates=clock.optimizer_updates-100,
-    measured_seconds=seconds,samples_per_second=(clock.optimizer_updates-100)*c['batch_size']/seconds,
+   measured_updates=clock.optimizer_updates-(0 if c.get('benchmark_warmup_batches') else 100)
+   summary.update(status='BENCHMARK_COMPLETE',measured_updates=measured_updates,
+    measured_seconds=seconds,samples_per_second=measured_updates*c['batch_size']/seconds,
     main_CPU_percent=100*(benchmark_finished[1]-benchmark_started[1])/seconds,
     measure_wall_start=benchmark_started[2],measure_wall_end=benchmark_finished[2])
   (output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');success=True;return summary
