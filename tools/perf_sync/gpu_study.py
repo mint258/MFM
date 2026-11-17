@@ -30,6 +30,13 @@ def configuration():
     return json.loads((REPO / 'configs/perf_sync/M2.json').read_text())
 
 
+def variant_options(name):
+    if name == 'S8':return json.loads((REPORT/'combination.json').read_text())['options']
+    if name.endswith('_dynamic'):
+        return dict(VARIANTS[name.removesuffix('_dynamic')],compile_mark_dynamic=True)
+    return VARIANTS.get(name,{})
+
+
 def noise():
     from phychem_mfm.phase1.p_recipe_input import prepare_samples, reader_metadata
     c = configuration()
@@ -86,7 +93,7 @@ def profile(name='S0'):
     from phychem_mfm.phase1.p_recipe_training import train
     c = configuration()
     c.update(run=f'perf_sync_{name}_profile_20261118', output=str(ROOT/f'{name}_profile_training'), benchmark_updates=200)
-    if name == 'S1': c['step_overhead'].update(VARIANTS['S1'])
+    if name != 'S0': c['step_overhead'].update(variant_options(name))
     prof = torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA], with_stack=True)
     original = torch.optim.AdamW.zero_grad
     steps = 0
@@ -123,7 +130,7 @@ def numerical(name):
     from phychem_mfm.phase1.perf_sync_transfer import async_batches
     from phychem_mfm.model.perf_sync import finite_checks
     c = configuration()
-    options = dict(c['step_overhead'], **VARIANTS[name])
+    options = dict(c['step_overhead'], **variant_options(name))
     model, data, fields, families = ref.model_for(c, options)
     meta = reader_metadata(model['pd'], fields, sync_free=options['sync_free'], async_transfer=options['async_transfer'])
     noise_result = json.loads((REPORT/'S0_noise.json').read_text())
@@ -163,7 +170,8 @@ def numerical(name):
                 comparisons.append(dict(weights=weights,batch=batch,bitwise=bitwise,grad_relative=gd,B_pass=passed))
                 rows.extend(dict(weights=weights,batch=batch,field=n,baseline=base['losses'][n],variant=v,absolute_difference=abs(v-base['losses'][n])) for n,v in values.items())
                 print('NUMERICAL',name,weights,batch,bitwise,passed,gd,flush=True)
-        category = 'A' if name in ('S1','S5') and all(r['bitwise'] for r in comparisons) else 'B'
+        expects_A=name in ('S1','S5') or (name=='S8' and set(json.loads((REPORT/'combination.json').read_text())['items']).issubset({'S1','S5'}))
+        category = 'A' if expects_A and all(r['bitwise'] for r in comparisons) else 'B'
         result = dict(item=name,category=category,A_pass=all(r['bitwise'] for r in comparisons),B_single_step_pass=all(r['B_pass'] for r in comparisons),
                       comparisons=comparisons,epsilon_loss=el,epsilon_grad=eg,options=options,SDPA_observed_operators=backend_ops)
         (REPORT/f'{name}_numerical.json').write_text(json.dumps(result,indent=2)+'\n')
@@ -175,7 +183,17 @@ def numerical(name):
 def benchmark(name):
     from phychem_mfm.phase1.p_recipe_training import train
     c=configuration()
-    options=dict(c['step_overhead'], **VARIANTS.get(name,{}))
+    selected=name.removesuffix('_repeat2')
+    options=dict(c['step_overhead'], **variant_options(selected))
+    specification=REPORT/'combination.json'
+    if selected == 'S8' or selected.startswith('S7_'):
+        options.update(json.loads(specification.read_text())['options'])
+    if selected.startswith('S7_'):
+        _,cores,readers=selected.split('_')
+        allowed=sorted(os.sched_getaffinity(0))
+        if int(cores)>len(allowed):raise RuntimeError('CPU scan cannot exceed actual allocation')
+        os.sched_setaffinity(0,allowed[:int(cores)])
+        c['workers']=int(readers)
     c.update(run=f'perf_sync_{name}_20261118',output=str(ROOT/f'{name}_training'),
              step_overhead=options,benchmark_updates=1000,benchmark_warmup_batches=100)
     stopped=threading.Event(); telemetry=[]
@@ -184,8 +202,9 @@ def benchmark(name):
             row=subprocess.check_output(['nvidia-smi','-i',os.environ['CUDA_VISIBLE_DEVICES'],'--query-gpu=power.draw,utilization.gpu','--format=csv,noheader,nounits'],text=True)
             telemetry.append([time.time(),*map(float,row.strip().split(','))]);stopped.wait(1)
     monitor=threading.Thread(target=capture,daemon=True);monitor.start()
-    from torch._dynamo.utils import counters
+    from torch._dynamo.utils import counters, guard_failures, compile_times
     counters.clear()
+    guard_failures.clear()
     try: result=train(c)
     finally: stopped.set();monitor.join(timeout=5)
     measured=[r for r in telemetry if result['measure_wall_start']<=r[0]<=result['measure_wall_end']]
@@ -195,6 +214,8 @@ def benchmark(name):
                   last200_mean=float(np.mean(last)),finite=bool(np.isfinite([float(r['total']) for r in losses]).all()),
                   warmup='100 forward/backward passes on first batch, no optimizer updates, RNG restored',actual_optimizer_updates=1000)
     result['compile_counters']={group:dict(values) for group,values in counters.items()}
+    result['recompilations']=sum(len(reasons) for reasons in guard_failures.values())
+    result['compiler_timing_table']=compile_times()
     (REPORT/f'{name}_benchmark.json').write_text(json.dumps(result,indent=2)+'\n')
     with (ROOT/f'{name}_gpu.csv').open('w',newline='') as f:
         writer=csv.writer(f);writer.writerow(['unix_seconds','power_W','utilization_percent']);writer.writerows(telemetry)
@@ -217,9 +238,10 @@ def suite():
 
 
 def analyze_profiles():
-    for name in ('S0','S1'):
+    for name in ('S0','S1','S8'):
         source=REPORT/f'{name}_profile_runtime.json'
         if not source.exists(): continue
+        if (REPORT/f'{name}_profile_summary.json').exists(): continue
         runtime=json.loads(source.read_text())
         events=json.loads(Path(runtime['trace']).read_text())['traceEvents']
         kernels=[e for e in events if e.get('cat')=='kernel' and e.get('ph')=='X']
@@ -248,6 +270,96 @@ def analyze_profiles():
         print('PROFILE_SUMMARY',name,json.dumps(result),flush=True)
 
 
+def finish_suite():
+    # Only executed after the original single-allocation S1-S5 queue closes.
+    baseline_path=REPORT/'baseline_benchmark.json'
+    if not baseline_path.exists() or not (REPORT/'S1_S5_execution_complete.json').exists():
+        print('WAIT_FOR_DIAGNOSIS: original suite incomplete',flush=True);return
+    base=json.loads(baseline_path.read_text())
+    assessments=[]
+    for name in VARIANTS:
+        numeric=json.loads((REPORT/f'{name}_numerical.json').read_text())
+        run=json.loads((REPORT/f'{name}_benchmark.json').read_text())
+        tested_name=name
+        if name.startswith('S4') and run.get('recompilations',0)>20:
+            tested_name=name+'_dynamic'
+            for stage in ('numerical_'+tested_name,'benchmark_'+tested_name):
+                if not (REPORT/f'{stage}_complete.json').exists():
+                    if subprocess.call([sys.executable,'-B','-u',__file__,stage]):
+                        (REPORT/'NEEDS_DIAGNOSIS.json').write_text(json.dumps(dict(stage=stage))+'\n');return
+            numeric=json.loads((REPORT/f'{tested_name}_numerical.json').read_text())
+            run=json.loads((REPORT/f'{tested_name}_benchmark.json').read_text())
+        speed=run['samples_per_second']/base['samples_per_second']
+        rates=[run['samples_per_second']]
+        repeated_quality=True
+        if speed<1.03:
+            stage=f'benchmark_{tested_name}_repeat2'
+            if not (REPORT/f'{stage}_complete.json').exists():
+                if subprocess.call([sys.executable,'-B','-u',__file__,stage]):
+                    (REPORT/'NEEDS_DIAGNOSIS.json').write_text(json.dumps(dict(stage=stage))+'\n');return
+            repeated=json.loads((REPORT/f'{tested_name}_repeat2_benchmark.json').read_text())
+            rates.append(repeated['samples_per_second'])
+            repeated_quality=repeated['finite'] and abs(repeated['last200_mean']-base['last200_mean'])<=.01+.03*base['last200_mean']
+        mean_speed=float(np.mean(rates))/base['samples_per_second']
+        short_pass=repeated_quality and run['finite'] and base['finite'] and abs(run['last200_mean']-base['last200_mean'])<=.01+.03*base['last200_mean']
+        accepted=numeric['A_pass'] if numeric['category']=='A' else numeric['B_single_step_pass'] and short_pass
+        if name.startswith('S4') and run.get('recompilations',0)>20:accepted=False
+        # S1's A path also needs log equality; timestamps are run-dependent.
+        log_equal=None
+        if name in ('S1','S5'):
+            def logs(item):
+                with (ROOT/f'{item}_training/losses.csv').open() as f:
+                    return [{k:v for k,v in r.items() if k!='seconds'} for r in csv.DictReader(f)]
+            log_equal=logs(name)==logs('baseline')
+            if numeric['category']=='A' and not log_equal:
+                numeric['category']='B';accepted=numeric['B_single_step_pass'] and short_pass
+        assessments.append(dict(item=name,tested_variant=tested_name,category=numeric['category'],accepted=accepted,log_equal=log_equal,
+             short_training_pass=short_pass,speedup=mean_speed,repetitions=len(rates),effective=accepted and mean_speed>=1.05,
+             last200_mean=run['last200_mean'],recompilations=run.get('recompilations'),single_card_only=True))
+    selected=[a for a in assessments if a['effective']]
+    compile_arms=[a for a in selected if a['item'].startswith('S4')]
+    if len(compile_arms)>1:
+        winner=max(compile_arms,key=lambda a:a['speedup'])['item']
+        selected=[a for a in selected if not a['item'].startswith('S4') or a['item']==winner]
+    options={}
+    for a in selected: options.update(variant_options(a['tested_variant']))
+    (REPORT/'assessments.json').write_text(json.dumps(assessments,indent=2)+'\n')
+    (REPORT/'combination.json').write_text(json.dumps(dict(items=[a['item'] for a in selected],options=options),indent=2)+'\n')
+    # S6 is assessed from the S1 trace, never inferred from CPU utilization.
+    analyze_profiles()
+    s1=json.loads((REPORT/'S1_profile_summary.json').read_text())
+    if s1['synchronizations_per_step']>0:
+        (REPORT/'S6.json').write_text(json.dumps(dict(status='NOT_APPLICABLE',sync_per_step=s1['synchronizations_per_step']))+'\n')
+    else:
+        (REPORT/'NEEDS_DIAGNOSIS.json').write_text(json.dumps(dict(stage='S6_zero_sync_capture_required'))+'\n');return
+    allocation=len(os.sched_getaffinity(0));scan=[]
+    for cores in (4,8,16,24):
+        for readers in (7,14,20):
+            name=f'S7_{cores}_{readers}'
+            if cores>allocation:
+                scan.append(dict(cores=cores,readers=readers,status='PENDING_CPU_EXTENSION_CHECK'));continue
+            stage='benchmark_'+name
+            if not (REPORT/f'{stage}_complete.json').exists():
+                if subprocess.call([sys.executable,'-B','-u',__file__,stage]):
+                    (REPORT/'NEEDS_DIAGNOSIS.json').write_text(json.dumps(dict(stage=stage))+'\n');return
+            r=json.loads((REPORT/f'{name}_benchmark.json').read_text())
+            scan.append(dict(cores=cores,readers=readers,status='COMPLETE',samples_per_second=r['samples_per_second'],power_W=r['power_W'],main_CPU_percent=r['main_CPU_percent'],GPU_peak_bytes=r['GPU_peak_bytes']))
+    (REPORT/'S7.json').write_text(json.dumps(scan,indent=2)+'\n')
+    if not selected:
+        (REPORT/'S8.json').write_text(json.dumps(dict(status='NO_EFFECTIVE_FLAGS',speedup=None,items=[]))+'\n')
+    else:
+        for stage in ('numerical_S8','benchmark_S8','profile_S8'):
+            if not (REPORT/f'{stage}_complete.json').exists():
+                if subprocess.call([sys.executable,'-B','-u',__file__,stage]):
+                    (REPORT/'NEEDS_DIAGNOSIS.json').write_text(json.dumps(dict(stage=stage))+'\n');return
+        analyze_profiles()
+        numeric=json.loads((REPORT/'S8_numerical.json').read_text())
+        run=json.loads((REPORT/'S8_benchmark.json').read_text())
+        short_pass=run['finite'] and abs(run['last200_mean']-base['last200_mean'])<=.01+.03*base['last200_mean']
+        accepted=numeric['A_pass'] if numeric['category']=='A' else numeric['B_single_step_pass'] and short_pass
+        (REPORT/'S8.json').write_text(json.dumps(dict(status='PASS' if accepted else 'FAIL',category=numeric['category'],speedup=run['samples_per_second']/base['samples_per_second'],items=[a['item'] for a in selected]),indent=2)+'\n')
+
+
 def main():
     def terminated(signum, frame): raise SystemExit(128+signum)
     signal.signal(signal.SIGTERM, terminated)
@@ -257,6 +369,7 @@ def main():
     args = p.parse_args()
     if not args.child:
         capacity()
+        started=time.monotonic()
         process = subprocess.Popen([sys.executable, '-B', '-u', __file__, args.stage, '--child'], start_new_session=True)
         try:
             while process.poll() is None:
@@ -264,6 +377,9 @@ def main():
                 sys.path.insert(0, str(REPO.parent/'MFM_p_recipe/tools/model_v3'))
                 import v2_diagnosis_disk as disk
                 disk.m.require_capacity(disk.m.filesystem_status('/dev/shm'), 2*1024**3, 10000)
+                if args.stage not in ('suite','finish_suite') and time.monotonic()-started>4*3600:
+                    (REPORT/f'{args.stage}_unresolved.json').write_text(json.dumps(dict(status='UNRESOLVED',reason='4h individual-stage timebox'))+'\n')
+                    raise TimeoutError('Individual-stage timebox exceeded; retain output')
                 time.sleep(5)
         except BaseException:
             if process.poll() is None:
