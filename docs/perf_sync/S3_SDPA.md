@@ -1,11 +1,17 @@
-# S3：SDPA注意力
+# S3：3090 GPU实测结果（2026-11-18）
 
-开关：`step_overhead.sdpa=false`。仅打开时替换attention.py及v3_latent.py的手写注意力，保留原距离加性偏置、padding及radius mask数值、dropout概率；不强迫不支持加性偏置的后端。两种实际模块均改动，默认关闭保持原公式及返回值。
+开关：step_overhead.sdpa，默认false。attention.py与v3_latent.py可选SDPA，保留距离加性偏置、padding/radius mask和dropout；默认关闭。实际观测memory-efficient前向与反向算子。
 
-CPU单测覆盖有/无radius、不同长度padding、距离偏置的前反向及PMA交叉注意力。真实CUDA所用后端必须由运行trace记录；本次未运行GPU，后端为null，不能从CPU测试推断使用了flash/efficient。
+|卡型|样本/秒|相对M2|主进程CPU%|整卡W|CUDA分配峰值GB|验收|
+|---|---:|---:|---:|---:|---:|---|
+|5090|未测|未测|未测|未测|未测|可选补测未执行|
+|4090|未测|未测|未测|未测|未测|可选补测未执行|
+|3090|71.2058|1.03768×|100.81|314.71|6.5137|B单步FAIL；1000更新通过|
 
-验收B；5090/4090/3090均SKIPPED_NO_FREE_GPU，吞吐/倍数/噪声底/单步门槛/1000步质量均未测，**不判为有效、不建议开启**。现场依据见S0_PROFILE.md。
+**判定：无效，保持关闭。** B3检查点若干批完整梯度相对L2差超出1.15446e-5门槛，例如第17批0.00287919；不因短训练损失降低而放宽单步门槛。 末200步平均总损失0.4387715039，基线0.4524085382；固定短训练门槛为差值≤0.0235722561。均无NaN/Inf。提速超过3%，按协议不重复测速。
 
-2026-11-18 GPU补充：已实际观测aten::_scaled_dot_product_efficient_attention及其backward（memory-efficient后端）。随机/B3 3M各20批已完成，B3若干批的完整梯度相对L2差超过10×epsilon_grad=1.15446e-5（例第17批0.00287919），B类单步门槛FAIL；不放宽阈值。原始逐字段CSV留scratch，汇总见S3_numerical.json。按任务书继续完成1000更新质量和测速；当前不建议开启。
+同卡GPU UUID GPU-dac07d74-6269-c7db-8832-340dd3c0b377，M2/B32/FP32/TF32关闭/14读进程上限；A/B工作负载绑定原16核。两组权重为seed0初始化与关闭的B3 3M。PR8噪声底使用保存的原始loss对校正统计口径，整体结论不变。
 
-1000更新测速完成：71.2058样本/秒，1.03768倍（+3.77%），314.71W；末200均损失0.4387715039，对基线差0.0136370343≤0.0235722561，短训练PASS。但单步B类FAIL且提速不足5%，最终无效、不建议开启；提速超过3%不重复测速。
+证据：results/perf_sync/gpu_20261118/S3_numerical.json、S3_benchmark.json；逐字段CSV及原始梯度在外部scratch。测量方法、预热和基础设施恢复见GPU_RESULTS_20261118.md。
+
+2026-11-17阶段只有CPU验收、GPU未测；该历史不作为本轮GPU通过证据。CPU新逻辑测试已通过；未改变标签、mask、归一化和既有FP64预处理，未接入其他线配置。

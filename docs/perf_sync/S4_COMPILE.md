@@ -1,15 +1,16 @@
-# S4：torch.compile
+# S4：3090 torch.compile 实测（2026-11-18）
 
-开关：`step_overhead.compile=none|encoder|encoder_heads`，默认none。按层调用Module.compile(dynamic=True)，encoder_heads同时原位编译预测头，避免包装Module导致state_dict参数名前缀变化。默认恢复none清除编译调用，旧checkpoint键名及参数共享身份保持。若实际1000步重编译超过20次，唯一一次后续尝试可启用compile_mark_dynamic在编译层外标记原子维；不得无限重试。
+开关step_overhead.compile=none|encoder|encoder_heads，默认none。逐层Module.compile(dynamic=True)，encoder_heads同时编译预测头；保留state_dict键名与共享参数身份。CPU新逻辑兼容单测通过，GPU结论如下。
 
-编译兼容性CPU单测已独立通过（1 passed；eager编译后端，只验证状态字典/参数别名/动态输入，不作为速度或GPU等价性结论）。
+|3090模式|样本/秒|相对M2|主进程CPU%|整卡W|CUDA分配峰值GB|计时内重编译|
+|---|---:|---:|---:|---:|---:|---:|
+|encoder|71.0852|1.03592×|100.86|309.96|7.8235|8|
+|encoder_heads|79.9832|1.16559×|100.62|317.88|7.4630|17|
 
-本次5090/4090/3090均SKIPPED_NO_FREE_GPU，实际CUDA编译耗时、1000步重编译数、吞吐和倍率均null；encoder及encoder_heads的B类GPU验收均未执行。**不判为有效，不建议开启**。见S0_PROFILE.md。
+5090、4090可选补测未执行。固定同卡M2/B32/FP32/TF32关闭/14读进程。每模式100次无优化更新预热后计时1000实际更新，完整指标、编译时间表与CompileId见对应S4_*_benchmark.json。
 
-2026-11-18 编译基础设施恢复：node5驱动520.61.05（CUDA11.8），Torch2.7.1+cu118/Triton3.3.1默认ptxas12.4首次生成的kernel报device kernel image is invalid。仅本线子进程改用现有/usr/local/cuda-11.8/bin/ptxas，使用inductor_cuda118_v2/triton_cuda118_v2独立缓存，原错误日志与缓存保留；没有更换驱动或包、没有修改其他任务环境，没有打开TF32。原4535718预约/UUID锁保持，resume_suite_1只续跑未完成S4/S5；已观测恢复后的S4_encoder前几批实际GPU前反向运行并通过B类门槛，完整验收仍在进行。
+**两种模式均无效，保持none。** 两组权重各20批B类：随机组通过，B3组完整梯度超出10ε_grad=1.15446e-5；encoder最大相对L2为0.00643813。encoder短训练末200均损失0.4694998796，差0.0170913415，PASS；encoder_heads为0.4235410847，绝对差0.0288674535>0.0235722561，FAIL。所有训练有限。损失变低同样必须满足绝对差门槛，不放宽验收。
 
-恢复后encoder模式已完成两组权重各20批单步验收：随机组通过B门槛，B3组梯度相对L2差超标（最大0.00643813，对比门槛1.15446e-5），该模式B单步FAIL。1000更新测速继续；encoder_heads尚待执行，不用随机组通过代替B3组验收。
+重编译按实际Torch CompileId.frame_compile_id>0去重，排除预热，不能把guard失败条数当重编译。8/17均未超过20，不触发mark_dynamic再试。部分distance-tiling形状命中Torch自身recompile_limit=8并回退eager，计时如实包含。原生编译记录分别16/62条；包括预热和命中缓存的整个frame编译时间总和11.273286/33.083706秒，inductor合计1.333614/4.496836秒。数值验收已预热编译缓存，不能称为冷启动编译成本。提速均超过3%，不补测。
 
-encoder模式1000更新已完成：71.0852样本/秒（1.03592倍，+3.59%），309.96W；末200均损失0.4694998796，短训练PASS。计时1000更新内实际重编译8次（排除预热，以Torch CompileId去重计数），编译器16条时间记录和完整时间表见S4_encoder_benchmark.json。部分distance-tiling形状命中Torch自身recompile_limit=8而回退eager，此行为如实计入测速；总重编译未超过任务书20次门槛，不额外启动mark_dynamic重试。B3单步验收FAIL且提速<5%，本模式无效、不建议开启。encoder_heads仍在运行。
-
-encoder_heads模式也已测完：79.9832样本/秒（1.16559倍，+16.56%），317.88W，计时内重编译17次，未超过20故不追加mark_dynamic。B3单步梯度FAIL；末200均损失0.4235410847相对基线差0.0288674535>0.0235722561，短训练FAIL（严格使用绝对差门槛）。本模式无效，不因速度或损失降低而放宽等价门槛。完整编译计时/CompileId记录见S4_encoder_heads_benchmark.json。
+基础设施记录：Torch2.7.1+cu118、Triton3.3.1、node5驱动520.61.05、SM8.6。默认ptxas12.4产物首次报invalid kernel image；仅本线进程改用现有/usr/local/cuda-11.8/bin/ptxas和独立inductor_cuda118_v2/triton_cuda118_v2缓存后成功执行。旧缓存/错误日志保留，未更改驱动、包或其他任务环境，TF32仍关闭。随后磁盘监控遭临时目录删除竞争而误退出，保留4535718失败记录，修复仅此监控并以4535744同UUID续接未完成部分，没有重跑已完成项目。
