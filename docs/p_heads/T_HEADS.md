@@ -25,7 +25,7 @@ T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。�
 
 生产者新逻辑单元测试在 compute-0-20 通过2项：有效原子均匀参考（atol1e-6、rtol1e-5）；padding替换为1e8后结果逐位一致；参数数量一致；默认关闭/显式False与原softmax公式逐位一致；相同state dict严格加载。实际 B3 完整 ModuleDict(structural,pd) 也已在CPU strict加载通过，clock为3M样本、93,750更新，见 `results/p_heads/T/B3_checkpoint_loading.json`。这证明对照可复用，不构成新臂科学结果。
 
-T3训练已提交真实Slurm作业4535405（node0/3090、15CPU硬绑定（workers14及其他执行键不变）），使用独立冻结源码T3_source。依赖4535404仅用于等待同卡H前向释放GPU资源，资源等待不依赖H的科学判定。首次启动在0更新时因缺少冻结源Git身份元数据退出，恢复由协调窗口处理；尚无新臂训练质量结果。
+T3首次启动4535405在0更新时退出，原输出保留；冻结源Git身份已修复，可执行源码T3_source未改。当前正式attempt2作业4535452在node20/4090_20a低优先级等待侧线C4535150释放同卡，15CPU硬绑定，workers14及其他B3执行键不变；此前未运行的资源等待队列已取消，无样本重跑。尚无新臂3M训练质量结果。
 
 ## 全部新开关关闭的整模型对照
 
@@ -129,7 +129,7 @@ T1初值来自B3已有MLP与零初始化decoder，本次没有重置旧MLP；只
 
 真实作业4535407在compute-0-0 COMPLETED/0:0，耗时00:18:59；使用64个实际TRAIN分子、冻结B3编码器，共1046次更新即9/9头全部达到初始loss的1%以下，无未见字段。没有调参、重置或重复验收。正式T2仅启用面板检查与实际验收均通过的6个电荷头（r68/r210/r279/r346/r413/r668）及3个PM7 Fukui投影头（r44/r45/r46）；r64和r712三个分量保持原MLP。
 
-正式配置configs/p_heads/T/T2_seed0.json中的physical_constraint_heads保留这9个字段。正式训练从seed0新建模型/优化器和采样状态，不加载验收拟合权重；保持全量TRAIN、B32、3M、原B3所有执行键。尚未产生正式3M或下游质量结果。
+正式配置configs/p_heads/T/T2_seed0.json中的physical_constraint_heads保留这9个字段。正式训练从seed0新建模型/优化器和采样状态，不加载验收拟合权重；保持全量TRAIN、B32、3M、原B3所有执行键。当前正式作业4535453在node20/4090_20b低优先级等待主线C14535187释放同卡，15CPU硬绑定，与T3无科学结果依赖。尚未产生正式3M或下游质量结果。
 
 下表直接抄录T2_acceptance.json。通过步是生产者记录的首次达到门槛的optimizer更新数；每头达到即记通过。
 
