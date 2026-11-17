@@ -202,23 +202,27 @@ def benchmark(name):
             row=subprocess.check_output(['nvidia-smi','-i',os.environ['CUDA_VISIBLE_DEVICES'],'--query-gpu=power.draw,utilization.gpu','--format=csv,noheader,nounits'],text=True)
             telemetry.append([time.time(),*map(float,row.strip().split(','))]);stopped.wait(1)
     monitor=threading.Thread(target=capture,daemon=True);monitor.start()
-    from torch._dynamo.utils import counters, guard_failures, compile_times
+    from torch._dynamo.utils import counters, guard_failures, compile_times, get_compilation_metrics, clear_compilation_metrics, set_compilation_metrics_limit
+    from torch._guards import CompileId
     counters.clear()
     guard_failures.clear()
+    clear_compilation_metrics();set_compilation_metrics_limit(10000)
     from phychem_mfm.phase1 import perf_sync_step
     original_optimizer=perf_sync_step.make_optimizer
     optimizer_observation={}
     warm_guard_count=0
+    warm_compile_ids=set()
     def observe_optimizer(parameters, configuration):
         optimizer=original_optimizer(parameters, configuration)
         optimizer_observation.update(backend=getattr(optimizer,'perf_sync_backend','default'),
             param_groups=[dict(fused=g.get('fused'),foreach=g.get('foreach')) for g in optimizer.param_groups])
         zero=optimizer.zero_grad;calls=0
         def counted_zero(*args,**kwargs):
-            nonlocal calls,warm_guard_count
+            nonlocal calls,warm_guard_count,warm_compile_ids
             calls+=1
             if calls==c['benchmark_warmup_batches']+2:
                 warm_guard_count=sum(len(reasons) for reasons in guard_failures.values())
+                warm_compile_ids={m.compile_id for m in get_compilation_metrics()}
             return zero(*args,**kwargs)
         optimizer.zero_grad=counted_zero
         return optimizer
@@ -234,8 +238,15 @@ def benchmark(name):
                   last200_mean=float(np.mean(last)),finite=bool(np.isfinite([float(r['total']) for r in losses]).all()),
                   warmup='100 forward/backward passes on first batch, no optimizer updates, RNG restored',actual_optimizer_updates=1000)
     result['compile_counters']={group:dict(values) for group,values in counters.items()}
-    result['recompilations_total_including_warmup']=sum(len(reasons) for reasons in guard_failures.values())
-    result['recompilations']=result['recompilations_total_including_warmup']-warm_guard_count
+    metrics=get_compilation_metrics()
+    recompile_ids={m.compile_id for m in metrics if m.compile_id is not None
+        and (CompileId.from_string(m.compile_id).frame_compile_id or 0)>0}
+    result['recompilations_total_including_warmup']=len(recompile_ids)
+    result['recompilations']=len(recompile_ids-warm_compile_ids)
+    result['guard_failure_diagnostics_in_measured_window']=sum(len(reasons) for reasons in guard_failures.values())-warm_guard_count
+    result['compilation_metrics']=[dict(compile_id=m.compile_id,co_name=m.co_name,
+        entire_frame_compile_time_s=m.entire_frame_compile_time_s,backend_compile_time_s=m.backend_compile_time_s,
+        inductor_compile_time_s=m.inductor_compile_time_s,fail_type=m.fail_type) for m in metrics]
     result['optimizer_execution']=optimizer_observation
     result['compiler_timing_table']=compile_times()
     (REPORT/f'{name}_benchmark.json').write_text(json.dumps(result,indent=2)+'\n')

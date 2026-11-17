@@ -5,3 +5,5 @@
 CPU单测覆盖有/无radius、不同长度padding、距离偏置的前反向及PMA交叉注意力。真实CUDA所用后端必须由运行trace记录；本次未运行GPU，后端为null，不能从CPU测试推断使用了flash/efficient。
 
 验收B；5090/4090/3090均SKIPPED_NO_FREE_GPU，吞吐/倍数/噪声底/单步门槛/1000步质量均未测，**不判为有效、不建议开启**。现场依据见S0_PROFILE.md。
+
+2026-11-18 GPU补充：已实际观测aten::_scaled_dot_product_efficient_attention及其backward（memory-efficient后端）。随机/B3 3M各20批已完成，B3若干批的完整梯度相对L2差超过10×epsilon_grad=1.15446e-5（例第17批0.00287919），B类单步门槛FAIL；不放宽阈值。原始逐字段CSV留scratch，汇总见S3_numerical.json。按任务书继续完成1000更新质量和测速；当前不建议开启。
