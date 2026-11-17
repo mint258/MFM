@@ -9,6 +9,10 @@ def main():
     for n in m['requested_fields']:
         s=m['field_status'][n];a=b['recipes']['D4']['fields'][n];z=b['recipes']['A1']['fields'][n]
         lines.append(f"|{n}|{s['D6_valid_values']}|{s['mismatch']+s['missing_source']}|{a['normalized_zero_pairs']}/{a['source_nonzero_pairs']}|{z['normalized_zero_pairs']}/{z['source_nonzero_pairs']}|{a['numerical_failures']+z['numerical_failures']}|{'COMPLETE' if n in b['accepted_fields'] else 'UNRESOLVED'}|")
+    if not m['enabled_fields']:
+        lines+=['','本次B1没有可启用字段：已定位源值的记录单次F32 cast错配为0，但每字段约19.07万条D6有效记录未能经指定物理索引定位原F64，缺源率约1.406%，超过预注册0.01%上限，因此四字段整体UNRESOLVED。保留既有索引与完整P/U范围，不缩成P-only、不另建全源索引、不放宽阈值。',
+            '', '因此本次B3的打开开关路径对这四字段仍回退原F32；表中的归零和数值失败描述的是回退路径，不能用来判断完整覆盖的F64读取是否有效，也不能与64MID工程smoke的F64覆盖结果混为一谈。当前没有通过验收、可建议启用的字段。']
+    lines+=['','B1实际分配成本包含工程失败及恢复：原扫描4535157为5CPU×25723秒，句柄检查失败4535380为4CPU×15秒，参考缓存恢复4535384为4CPU×4422秒，源值续接4535385为4CPU×9605秒；合计51.329 CPU-h。未执行的依赖作业不计CPU成本。manifest.seconds=9593.85秒只属于最后一次源值调用，不代表B1总耗时或总成本。B3的实际资源另由最终sacct终态汇总；不重复算SHA或源标签。']
     lines+=['','|路径|实际验收记录|关闭开关与主线不一致记录|未入选字段开/关不一致记录|','|---|---:|---:|---:|']
     for n,r in b['recipes'].items():
         k=r['checks'];lines.append(f"|{n}|{k['records']}|{k['baseline_off_mismatch_records']}|{k['nonselected_on_mismatch_records']}|")
