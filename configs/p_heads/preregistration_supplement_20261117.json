@@ -1,0 +1,38 @@
+{
+  "schema": "P_HEADS_PREREGISTRATION_SUPPLEMENT_V2",
+  "authority": "docs/p_heads/USER_DIRECTIVE_20261117.md, user invoked 2026-11-18; GitHub commit 063af0920dc0d069a5825f7354f3b3caa7f4e7b5",
+  "preserved_original": "configs/p_heads/preregistration.json remains unchanged; this supplement supersedes only conflicting provisions",
+  "T1": {
+    "action": "Direct fresh 3M training, no head acceptance gate; all45 atom-scalar/pair fields use the existing zero-output-initialized decoder",
+    "base": "M2 round3 configuration, execution keys unchanged; check subsequently published CURRENT_BEST before a new startup",
+    "reference_seed0": "Reuse recipe-line M2 exact3M and its existing R1/R3",
+    "reference_seed1": "Reuse recipe-line M2 seed1 exact3M; never train a separate M2 seed1 in this line",
+    "history": "Retain the original gate result as historical, not a current missing-arm decision"
+  },
+  "T2_T3": "Keep running B3-based jobs unchanged; use original B3 paired-bootstrap and conditional shared B3 seed1 rules",
+  "T2_confirmation": "Only if T2 wins its registered comparison: one fresh CURRENT_BEST-based3M seed0 confirmation, reusing the recipe-line reference; no additional confirmation arm or automatic confirmation seed1",
+  "T4": "B3 base; actual scalar sigmoid sum gate fixed to1, preserving sum_norm, sum_project and N_ref scaling",
+  "T5": "B3 base; remove PMA and route each molecular scalar field through a linear readout of [mean(H),sum(H)/N_ref,logN] with1025 features; atom-level path unchanged",
+  "new_arm_acceptance": "Only new-logic unit tests; no head-only fitting gates for T1,T4,T5; fresh3M training is real-use acceptance",
+  "T_decision": "Original1000 paired MID bootstrap; seed0 win delta>=.06 with CIlo>0, loss delta<=-.06 with CIhi<0, otherwise arm seed1. Two-seed win bothCIlo>0 and meanDelta>=max(.03,.08*referenceMeanR3); loss bothCIhi<0; otherwise tie. R1 separate without triggering runs. B3 seed1 shared once among B3-based arms",
+  "interpretation_preregistered": [
+    "T3 approximately B3 and T4 clearly below B3: gain mainly from gated sum",
+    "T5 approximately B3: intensive summary, extensive summary and molecular size suffice for most gain",
+    "T3 and T4 approximately B3, T5 clearly below B3: gain from nonlinear processing after queries",
+    "Report all other combinations without adding arms; approximately/clearly use the registered tie/loss decisions"
+  ],
+  "H4_M2": "Original H4 z and standardized[meanH6,z], R1/R2, same downstream panel/protocol; each compared to existing M2 layer6 R1; no cross-protocol ranking or new z-versus-concat test",
+  "H7": {
+    "scope": "B3 and M2, original H6 chemistry cache and5000 first allowed conformers; descriptive only, no verdict",
+    "actual_gate": "Existing sum_gate is Linear512to1, not64 independent gates: g_i=sigmoid(sum_gate(sum_norm(H6_i))); this scalar broadcasts across64 sum_project dimensions",
+    "category_enrichment": "For each molecule normalize a_i=g_i/sum_j(g_j). For each present category compute N*mean_category(a_i), then average over molecules containing that category; same H6 category set",
+    "bootstrap": "1000 paired MID resamples, seed20261025,95percentile CI, same H6 molecular scheme; compute scalar gate statistics once and map identically to64 shared output indices as report formatting",
+    "distribution": "Raw g atom-weighted mean and population standard deviation",
+    "within_atom_variance_fraction": "sum_m sum_i(g_mi-mean_m(g))^2 / sum_m sum_i(g_mi-global_atom_mean(g))^2; between-molecule fraction is complementary; zero total variance yields null with reason",
+    "excluded": "No model modification, invented independent gates, g-times-projection analysis or new directional test"
+  },
+  "final_geometry": "All actually produced new final3M T1-T5 and triggered seed/reference checkpoints: original H1 layer6 once per actual checkpoint; no intermediate-checkpoint geometry",
+  "priority": "Speedup line until its GPU portion completes, then recipe line, then this line and task-decoupling line; preserve all running jobs",
+  "naming": "This line T0-T5; recipe confirmation runs are written as recipe-line9M-Tk",
+  "unchanged": "No9M runs, no other arms, no hyperparameter tuning, no p_recipe tool or docs/paper edits; final full regression and repository check after all scientific work, then PR"
+}
