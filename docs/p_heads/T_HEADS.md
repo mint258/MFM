@@ -20,10 +20,13 @@ T4新增默认关闭 `p_recipe.pma_sum_gate_one`：实际门是Linear(512,1)加s
 
 T5新增默认关闭 `p_recipe.simple_molecular_readout`：不构造PMA，严格排除padding后生成512维均值、512维sum/N_ref及1维logN，共1025维，送入各P分子标量字段的线性层；原子、pair、向量和下游H0保持B3路径。T4/T5仅新增三项单元测试：T4门恒1与padding，T5维度/线性及padding排除，关闭开关后的原finish逐位一致。实际Slurm4535715/compute16/1CPU已COMPLETED/0:0，20秒，三项全部PASS（测试0.629秒）；未重复旧测试或做逐头验收。
 
-配置入口 `t_prepare_configuration.py` 必须指定实际基底JSON（CURRENT_BEST若是发布清单，先由协调窗口解析到实际配置），不猜未发布的M2 seed1路径。`t_decide.py`按显式p_heads_reference绑定主对照；T1种子1只请求本臂，对外部M2 seed1缺失记录等待，不新建本线M2/B3对照。T2/T3/T4/T5原B3对照的条件seed1共享同一B3_seed1.json。T2胜出只发CURRENT_BEST seed0确认需求，确认不自动衍生额外seed1。统计阈值仍按原规则，新增机制组合解释由预注册补充冻结。
+配置入口 `t_prepare_configuration.py` 必须指定实际基底JSON（CURRENT_BEST若是发布清单，先由协调窗口解析到实际配置），外部M2 seed1只绑定已发布路径，不猜运行或结果。`t_decide.py`按显式p_heads_reference绑定主对照；T1种子1只请求本臂，对外部M2 seed1缺失记录等待，不新建本线M2/B3对照。T2/T3/T4/T5原B3对照的条件seed1共享同一B3_seed1.json。T2胜出只发CURRENT_BEST seed0确认需求，确认不自动衍生额外seed1。统计阈值仍按原规则，新增机制组合解释由预注册补充冻结。
 本线T侧薄接管入口已准备：`t_native.py`记录真实worker PID/UID/start_ticks/PGID/退出码，并将原生worker及其后代亲和性限制在实际allowed集合中的15核；这只是native亲和性，不声明Slurm分配。共享UUID锁仅由t_train持有，原生薄runner持续使用本线24GiB H/T guard；其磁盘暂停/恢复信号仅可作用经身份核实的本worker新进程组。原生主worker及已记录子树退出后才发布终态。`t_hybrid.py`只把原scheduled_run协议绑定到冻结T源、CONTROL/hybrid独立台账、15CPU和T入口，不改p_recipe的完整保存/回执/真实job/旧GPU上下文与锁释放等待流程；接管后使用真实Slurm mask。源端HANDOFF_SAVED即退出，最后评价仍只在t_train执行一次，已完成全部评价时不再接管训练。
 
 新薄入口仅3项fixture/mock CPU单测由Slurm4535726/compute16/1CPU完成（COMPLETED/0:0，5秒，测试0.003秒，全部PASS）：独立账本与15CPU、保留原协议并将入口单次路由至T训练、native身份/亲和性/清除伪Slurm环境与无外层GPU锁。该测试不代表已发生真实接管。原0d04c40三个冻结源保留；新增T1/T4/T5_hybrid_source供后续按真实资源启动，准备/原生启动/真实sbatch/register由协调窗口执行；实际T1原生运行事实见下节，尚未据此声称完成真实接管。
+配方线现已发布外部共享参考清单 `/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/M2_SEED1_REFERENCE.json`，其reference configuration为 `/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/noise_seed1/M2_seed1.json`（清单内相对路径以MFM_p_recipe为前缀）。已发布run为fixed_20261115_M2_seed1_noise_20261117_attempt2，真实job4535736／node7，当前发布状态RUNNING_NOT_YET_REUSABLE。必须等3M检查点、完整R1/R3及成功终态均确认后才可复用，不能把当前参考当已完成或据此作质量判定。本次仅文档绑定，不修改live T1 canonical配置；最终若本线T1触发seed1，使用已有参数 `--reference-seed1-configuration /share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/noise_seed1/M2_seed1.json` 显式绑定外部对照，并由协调窗口在调用前确认其就绪；不新跑本线M2 seed1。
+
+T4当前真实句柄保持4535734。T5原队列4535735的旧依赖提速线4535718失败后，协调窗口确认T5仍PENDING／0秒再hold并更新；release被Slurm拒绝，遂取消该未开始句柄，以相同冻结源／配置／B3基底干净重提真实4535747：node5／15CPU／nice10000，afterok当前提速线4535744。此处只替换零进度等待队列，T5没有训练进度重启；旧0秒记录保留，T1/T2/T3未改动。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
@@ -79,7 +82,8 @@ T3既定2M里程碑已发布：`/share/home/zixiao/descriptor_analysis/runs/p_he
 
 既有生产者losses首条记录为32样本、1更新、total=7.489604473114014、preclip_norm=96.15419006347656、lr=1.6e-7、seconds=14.942423879998387。这表明原生训练已完成首个优化器更新，不是仅初始化。T1按原M2配置没有首32保存要求，本次未要求或读取首32CP，也未增加硬gate、benchmark或训练操作。
 
-T1首个普通日志稳态估计由协调窗口唯一计算：actual_run=p_heads_T1_seed0，窗口从332更新／10,624样本到832更新／26,624样本，500次更新共16,000样本、337.9894569340031秒，速率47.33875472075513样本/秒。按此早期窗口和已有日志时间，3M训练更新ETA为2026-11-18 18:48:46 CST，不含未来固定VAL及最终R1/R3读出额外耗时；估计可变，不代表全程平均速度。此前569更新时仅记录窗口不足，未估算速率；本次未新增测速或读取CP，不因较早估计慢而调参、诊断扫描或停训。下一个T1科学记录点是其自身150,016样本处生产者p99冻结，尚未到该阶段，不重读其他臂阈值或反复估计当前窗口。
+T1首个普通日志稳态估计由协调窗口唯一计算：actual_run=p_heads_T1_seed0，窗口从332更新／10,624样本到832更新／26,624样本，500次更新共16,000样本、337.9894569340031秒，速率47.33875472075513样本/秒。按此早期窗口和已有日志时间，3M训练更新ETA为2026-11-18 18:48:46 CST，不含未来固定VAL及最终R1/R3读出额外耗时；估计可变，不代表全程平均速度。此前569更新时仅记录窗口不足，未估算速率；本次未新增测速或读取CP，不因较早估计慢而调参、诊断扫描或停训。该窗口记录时尚未到自身150,016样本处p99冻结；其后实际冻结结果见下段，不重读其他臂阈值或反复估计该速率窗口。
+T1自身p99现已由原训练生产者冻结。02:22后沿task的真实configuration读取canonical配置，actual_run仍为p_heads_T1_seed0，actual_output仍为 `/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T1_seed0`，当次尚无handoff_state文件。仅从该实际输出下已发布的 `clip_calibration.json` 唯一读取：initial_clip=281.7，window_start_samples=60,000，calibration_samples=150,000，sample_axis=optimizer_step_start，observed_updates=2,813，quantile=0.99，threshold=**36.04056640625**，fitted=true，effective_freeze_samples=150,016。此后按原协议固定至3M；未重算p99、另行测速、复观资源、读取CP或要求首32保存。
 后续接管由原协议将实际run/output写回task的configuration路径；最终t_decide读取这份canonical配置，再从其实际output/readout/scores.json取candidate。不会猜测旧native输出目录；M2对照与外部seed1绑定随原配置保留。最终3M产出时才向H交付准确CP路径补第6层几何，中间保存不补几何。
 ## T2 物理约束头
 
