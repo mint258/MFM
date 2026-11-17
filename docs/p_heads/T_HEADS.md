@@ -21,7 +21,7 @@ T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。�
 
 ## T3 PMA 均匀权重
 
-新增 `p_recipe.pma_uniform_weights`，默认关闭。仅将 PMA 从原子读取信息的 cross-attention 权重改为每个有效原子 1/N；padding为0。PMA 后续 query self-attention、残差、FFN、sum分支和所有参数保持原结构；不删除q/k投影。因此参数量与 B3 完全一致。下游仍读编码器H0。
+新增 `p_recipe.pma_uniform_weights`，默认关闭。仅将 PMA 从原子读取信息的 cross-attention 权重改为每个有效原子 1/N；padding为0。PMA 后续 query self-attention、残差、FFN、sum分支和所有参数保持原结构；不删除q/k投影。因此参数量与 B3 完全一致。下游仍读编码器H0。既有577维z由8×64维query块、64维sigmoid门控求和及1维logN组成；T3仅均匀query→atom softmax，64维门控求和与logN完整保留，门控分支仍可依据原子特征加权。
 
 生产者新逻辑单元测试在 compute-0-20 通过2项：有效原子均匀参考（atol1e-6、rtol1e-5）；padding替换为1e8后结果逐位一致；参数数量一致；默认关闭/显式False与原softmax公式逐位一致；相同state dict严格加载。实际 B3 完整 ModuleDict(structural,pd) 也已在CPU strict加载通过，clock为3M样本、93,750更新，见 `results/p_heads/T/B3_checkpoint_loading.json`。这证明对照可复用，不构成新臂科学结果。
 
@@ -156,5 +156,7 @@ T1初值来自B3已有MLP与零初始化decoder，本次没有重置旧MLP；只
 所有科学规则以冻结 `configs/p_heads/preregistration.json` 原文为准。各臂3M seed0相对B3以1000次配对bootstrap求95%CI；R3差≥0.06且下界>0判胜，差≤−0.06且上界<0判负。其他情况触发该臂seed1及共享一次B3 seed1；最终按两种子CI及预注册平均增益门槛判定。R1独立报告但不触发补跑；CYP及逐字段VAL原单位MAE仅作描述。判定辅助程序已实现但尚未应用真实新臂分数；其单种子门槛及两种子效果/方向边界2项CPU测试通过。当前没有新分数、差值或机制结论，不能据单元测试采纳新头。
 
 ## 限制
+
+机制解释范围限于query→atom softmax的选择性；H6观察和T3消融均未移除64维sigmoid门控求和，logN大小信息也仍存在。最终胜/负/平严格沿用冻结预注册，结果不能扩展成所有PMA加权均已被均匀化或排除。
 
 新代码默认关闭；不接入主线或p-followup在跑任务。标签、mask、归一化及字段集合不改。T1在本次固定真实验收设置下未通过并记录缺失，T2仅通过头部实际拟合验收；新训练质量尚无结果，资源等待不视为科学完成。
