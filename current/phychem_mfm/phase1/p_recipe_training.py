@@ -35,6 +35,9 @@ def train(configuration):
  c=dict(configuration);recipe=c.get('p_recipe',{});torch.set_num_threads(1);torch.manual_seed(c['seed'])
  c.setdefault('step_overhead',dict(grouped_fields=True,head_checkpointing=False,distance_tiling=True,prepared_input=True))
  prepared_input=c.get('step_overhead',{}).get('prepared_input',False)
+ options=c['step_overhead'];sync_free=options.get('sync_free',False)
+ if (sync_free or options.get('async_transfer')) and not prepared_input:raise ValueError('Reader preparation is required')
+ if options.get('cuda_graphs'):raise ValueError('CUDA graphs require a measured zero-sync S1 profile; no approved capture exists')
  c.setdefault('activation_checkpointing',True)
  reader=dataset_configuration(c);data=PRecipeDataset(**reader);validation=PRecipeDataset(**dataset_configuration(c,validation=True))
  fixed=[(int(m),None if prepared_input else int(validation.choices(int(m))[0])) for m in validation.indices]
@@ -53,7 +56,9 @@ def train(configuration):
   names=sorted(set(families.values())) if recipe.get('family_equal',False) else list(families)
   modules['uncertainty']=UncertaintyWeights(names)
  model=torch.nn.ModuleDict(modules).cuda().train();params=list(model.parameters())
- optimizer=torch.optim.AdamW(params,lr=c['lr'],betas=tuple(c['betas']),weight_decay=c['weight_decay'])
+ from .perf_sync_step import make_optimizer,StepBuffer
+ optimizer=make_optimizer(params,c)
+ buffered=StepBuffer() if sync_free else None
  clip_calibration=GroupClipCalibration(c['clip_calibration'],c['samples']) if c.get('clip_calibration') else None
  milestones=set(range(500000,c['samples']+1,500000))
  if clip_calibration and clip_calibration.exact_boundary:milestones.add(clip_calibration.calibration_samples)
@@ -71,6 +76,7 @@ def train(configuration):
    clip_calibration.load_state_dict(cp['clip_calibration']);clip=clip_calibration.threshold
    if clip_calibration.fitted:publish_clip_summary()
  (output/'configuration.json').write_text(json.dumps(c,indent=2)+'\n')
+ if buffered is not None:buffered.seed_family(window)
  history=TrainingHistory(output,c,initial_samples=clock.samples_consumed);history.window=total_window
  csv_path=REPO/'results/p_recipe/training'/c['run']/'family_losses.csv';csv_path.parent.mkdir(parents=True,exist_ok=True)
  columns=['run','kind','samples','updates','family','loss','clipped_fraction','seconds']
@@ -127,51 +133,82 @@ def train(configuration):
   initializer=init_reader;initargs=(reader,c['mean_labels'])
   if prepared_input:
    from .p_recipe_input import init_prepared_reader,reader_metadata,ordered_prepared_batches,read_prepared_validation
-   initializer=init_prepared_reader;initargs=(reader,c['mean_labels'],reader_metadata(pd,fields),dataset_configuration(c,validation=True))
+   initializer=init_prepared_reader;initargs=(reader,c['mean_labels'],reader_metadata(pd,fields,
+    sync_free=sync_free,async_transfer=options.get('async_transfer',False)),dataset_configuration(c,validation=True))
   with ProcessPoolExecutor(c['workers'],mp_context=multiprocessing.get_context('spawn'),initializer=initializer,initargs=initargs) as pool,(output/'losses.csv').open('a' if resuming else 'w',buffering=1) as stream:
    writer=csv.DictWriter(stream,fieldnames=['samples','updates','total','preclip_norm','lr','seconds'])
    if stream.tell()==0:writer.writeheader()
+   def flush_buffer():
+    nonlocal clipped
+    if buffered is None:return
+    rows,family_sums,new_clipped=buffered.drain();clipped+=new_clipped
+    for name,(value,n) in family_sums.items():
+     window[name]=(value,n)
+    for saved in rows:
+     writer.writerow(saved);history.log(saved)
+     if saved['updates']%100==0:print(json.dumps(saved),flush=True)
    stop_samples=min(c['samples'],c.get('benchmark_updates',c['samples'])*c['batch_size'])
    batches=(ordered_prepared_batches(pool,clock,rng,c['batch_size'],stop_samples) if prepared_input else
             ordered_sample_batches(pool,read_choice,data,clock,rng,c['batch_size'],stop_samples))
+   if options.get('async_transfer',False):
+    from .perf_sync_transfer import async_batches
+    batches=async_batches(batches)
    for samples,consumed_rng in batches:
     samples_before=clock.samples_consumed
     lr_cursor=samples_before+len(samples) if c.get('lr_sample_axis')=='completed_samples' else samples_before
     lr=c['lr']*sample_lr_ratio(lr_cursor,c['samples'],'cosine')
     for group in optimizer.param_groups:group['lr']=lr
-    optimizer.zero_grad(set_to_none=True);total,family,_=calculate(samples);total.backward();norm=torch.nn.utils.clip_grad_norm_(params,clip,error_if_nonfinite=True);optimizer.step()
-    clock.advance(len(samples));rng.bit_generator.state=consumed_rng;clipped+=int(float(norm)>clip);window_updates+=1
-    if clip_calibration:
+    optimizer.zero_grad(set_to_none=True)
+    from ..model.perf_sync import finite_checks
+    with finite_checks() if sync_free else __import__('contextlib').nullcontext([]) as checks:
+     total,family,_=calculate(samples);total.backward()
+    clip_used=clip
+    norm=torch.nn.utils.clip_grad_norm_(params,clip_used,error_if_nonfinite=not sync_free,
+     foreach=True if options.get('fused_optimizer',False) else None);optimizer.step()
+    clock.advance(len(samples));rng.bit_generator.state=consumed_rng;window_updates+=1
+    if not sync_free:clipped+=int(float(norm)>clip)
+    if clip_calibration and (not sync_free or not clip_calibration.fixed_window or
+       clip_calibration.window_start_samples<=samples_before<clip_calibration.calibration_samples):
      if clip_calibration.observe(float(norm),clock.samples_consumed,samples_before=samples_before):
       fitted=clip_calibration.fitted_summary()
       publish_clip_summary()
       print(json.dumps(dict(run=c['run'],clip_calibration=fitted)),flush=True)
      clip=clip_calibration.threshold
-    for name,value in family.items():
-     value_sum,n=window.get(name,(0.,0));window[name]=(value_sum+float(value.detach()),n+1)
-    seconds=prior+time.monotonic()-started;row=dict(samples=clock.samples_consumed,updates=clock.optimizer_updates,total=float(total.detach()),preclip_norm=float(norm),lr=lr,seconds=seconds);writer.writerow(row);history.log(row)
+    seconds=prior+time.monotonic()-started
+    if sync_free:
+     row=dict(samples=clock.samples_consumed,updates=clock.optimizer_updates,lr=lr,seconds=seconds)
+     buffered.add(row,total,norm,clip_used,family,checks)
+    else:
+     for name,value in family.items():
+      value_sum,n=window.get(name,(0.,0));window[name]=(value_sum+float(value.detach()),n+1)
+     row=dict(samples=clock.samples_consumed,updates=clock.optimizer_updates,total=float(total.detach()),preclip_norm=float(norm),lr=lr,seconds=seconds);writer.writerow(row);history.log(row)
     if clock.optimizer_updates%1000==0:
+     flush_buffer()
      deliver([dict(run=c['run'],kind='TRAIN_1000_updates',samples=clock.samples_consumed,updates=clock.optimizer_updates,family=n,loss=s/num,clipped_fraction=clipped/clock.optimizer_updates,seconds=seconds) for n,(s,num) in window.items()]);window={};window_updates=0
+     if buffered is not None:buffered.family.clear()
      if clipped/clock.optimizer_updates>.2 and not clip_reported:
       print(json.dumps(dict(run=c['run'],clipped_fraction=clipped/clock.optimizer_updates,clip_unchanged=clip)),flush=True);clip_reported=True
     if clock.samples_consumed%500000==0:
+     flush_buffer()
      values=validate();deliver([dict(run=c['run'],kind='VAL_fixed2000',samples=clock.samples_consumed,updates=clock.optimizer_updates,family=n,loss=v,clipped_fraction=clipped/clock.optimizer_updates,seconds=prior+time.monotonic()-started) for n,v in values.items()])
     final=clock.samples_consumed==c['samples'];milestone=clock.samples_consumed%500000==0 or final
     if 'checkpoint_samples' in c:milestone=clock.samples_consumed in c['checkpoint_samples']
     handoff=read_request(c) if not final else None
     if milestone or handoff:
+     flush_buffer()
      payload=dict(model=model.state_dict(),optimizer=optimizer.state_dict(),configuration=c,architecture=architecture,clock=clock.state_dict(),rng=rng.bit_generator.state,torch_rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state(),elapsed_seconds=prior+time.monotonic()-started,family_window=window,family_window_updates=window_updates,clipped_updates=clipped,total_window=history.window,clip_calibration=clip_calibration.state_dict() if clip_calibration else None)
      destination=output/('samples_'+str(clock.samples_consumed)+'.pt');publish_checkpoint(payload,destination)
     if handoff:
      result=finish_handoff(c,handoff,destination,clock.state_dict())
      success=True;return result
-    if clock.optimizer_updates%100==0:print(json.dumps(row),flush=True)
+    if not sync_free and clock.optimizer_updates%100==0:print(json.dumps(row),flush=True)
     if c.get('benchmark_updates') and clock.optimizer_updates==100:
      torch.cuda.synchronize();benchmark_started=(time.monotonic(),time.process_time(),time.time())
      print('MEASUREMENT_START',flush=True)
     if c.get('benchmark_updates') and clock.optimizer_updates==c['benchmark_updates']:
      torch.cuda.synchronize();benchmark_finished=(time.monotonic(),time.process_time(),time.time())
      print('MEASUREMENT_END',flush=True)
+   flush_buffer()
   if window:deliver([dict(run=c['run'],kind='TRAIN_final_partial_window',samples=clock.samples_consumed,updates=clock.optimizer_updates,family=n,loss=s/num,clipped_fraction=clipped/clock.optimizer_updates,seconds=prior+time.monotonic()-started) for n,(s,num) in window.items()])
   summary=dict(status='TRAINING_COMPLETE_EVALUATION_PENDING',run=c['run'],samples=clock.samples_consumed,updates=clock.optimizer_updates,actual_samples=clock.samples_consumed-initial_samples,seconds=prior+time.monotonic()-started,clipped_fraction=clipped/clock.optimizer_updates,clip=clip,batch_size=c['batch_size'],microbatch_size=c['microbatch_size'],GPU_peak_bytes=torch.cuda.max_memory_allocated())
   if benchmark_started is not None:

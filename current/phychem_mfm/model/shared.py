@@ -8,7 +8,7 @@ import torch
 import torch.nn as nn
 from torch import Tensor
 from torch_geometric.data import Data
-from torch_geometric.utils import to_dense_batch
+from .perf_sync import dense_batch as to_dense_batch, graph_count, layout_forward
 
 from ..data.descriptor_schema import (
     BOND_INDEX_FIELD,
@@ -177,6 +177,7 @@ class SharedBackboneMFM(nn.Module):
             }
         )
 
+    @layout_forward
     def encode_atoms(self, batch: Data, *, return_intermediates=False) -> Tensor:
         """Return canonical shared representation H0 with shape [N_atom, D]."""
         if self.distance_bias_projection_bias != validate_distance_bias_projection_bias(
@@ -185,6 +186,7 @@ class SharedBackboneMFM(nn.Module):
         return (self.backbone(batch,return_intermediates=True) if return_intermediates
                 else self.backbone(batch))
 
+    @layout_forward
     def encode_graph(self, batch: Data, pooling: str = "mean") -> Tensor:
         h0 = self.encode_atoms(batch)
         return self.graph_pool(h0, ensure_batch_attr(batch), pooling=pooling)
@@ -253,7 +255,7 @@ class SharedBackboneMFM(nn.Module):
                     list(outputs.graph_descriptor_by_name.values()), dim=-1
                 )
             else:
-                num_graphs = int(batch_index.max().item() + 1) if batch_index.numel() else 1
+                num_graphs = graph_count(batch_index) if batch_index.numel() else 1
                 outputs.graph_descriptor_pred = h0.new_zeros((num_graphs, 0))
         if Objective.CHARGE_DESCRIPTOR in active:
             outputs.charge_descriptor_pred = self._forward_node_descriptors(
@@ -270,7 +272,7 @@ class SharedBackboneMFM(nn.Module):
 
     def _forward_graph_descriptors(self, h0: Tensor, batch_index: Tensor) -> Tensor:
         if not self.graph_descriptor_names:
-            num_graphs = int(batch_index.max().item() + 1) if batch_index.numel() else 1
+            num_graphs = graph_count(batch_index) if batch_index.numel() else 1
             return h0.new_zeros((num_graphs, 0))
         return torch.cat(
             [self._original_regression_units("graph_descriptor/" + name, self.graph_descriptor_heads[name](h0, batch_index))
@@ -364,7 +366,7 @@ class SharedBackboneMFM(nn.Module):
         if self.bond_order_only:
             return self._phase1_positive_bond_pairs(data, batch_index)
         device = batch_index.device
-        num_graphs = int(batch_index.max().item() + 1) if batch_index.numel() else 1
+        num_graphs = graph_count(batch_index) if batch_index.numel() else 1
         bond_index = getattr(data, BOND_INDEX_FIELD, None)
         bond_index = (
             bond_index.to(device=device, dtype=torch.long).view(2, -1)
@@ -466,7 +468,7 @@ class SharedBackboneMFM(nn.Module):
     def _phase1_positive_bond_pairs(self, data: Data, batch_index: Tensor) -> BondOutputs:
         """Select labeled clean positive edges; never sample or classify nonedges."""
         device = batch_index.device
-        num_graphs = int(batch_index.max().item() + 1) if batch_index.numel() else 1
+        num_graphs = graph_count(batch_index) if batch_index.numel() else 1
         statuses = self._graph_string_attr(data, BOND_STATUS_FIELD, num_graphs)
         sample_types = self._graph_long_attr(data, SAMPLE_TYPE_ID_FIELD, num_graphs)
         counts = torch.bincount(batch_index, minlength=num_graphs)

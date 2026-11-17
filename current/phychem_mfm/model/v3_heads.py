@@ -14,6 +14,7 @@ from .common import Linear, ensure_batch_attr
 from .heads import EquivariantDenoisingHead
 from .v3_ordered_entries import OrderedEntryHead, json_metadata, validate_frame_binding, validate_geometry_context
 from .v3_rank2_targets import SymmetricTensor6Head
+from .perf_sync import graph_count, check_finite, has_layout
 
 
 def _pool(h: Tensor, batch: Tensor, graphs: int, mode: str):
@@ -232,13 +233,15 @@ class V3HeadBank(nn.Module):
                 enabled_fields=None, pair_indices=None, prediction_offsets=None,
                 domain_inputs=None, geometry_context=None, graph_latent=None, observed_fields=None):
         require(h0.ndim == 2 and h0.size(1) == self.dim and h0.is_floating_point()
-                and len(h0) > 0 and bool(torch.isfinite(h0).all()), "Finite packed H0 required")
-        require(batch.dtype == torch.long and batch.shape == (len(h0),) and bool((batch >= 0).all())
+                and len(h0) > 0 and (check_finite(h0) if getattr(self, 'perf_sync_free', False)
+                                    else bool(torch.isfinite(h0).all())), "Finite packed H0 required")
+        trusted = getattr(self, 'perf_sync_free', False) and has_layout()
+        require(batch.dtype == torch.long and batch.shape == (len(h0),) and (trusted or bool((batch >= 0).all()))
                 and pos.shape == (len(h0), 3) and pos.dtype == torch.float32
-                and batch.device == pos.device == h0.device and bool(torch.isfinite(pos).all()),
+                and batch.device == pos.device == h0.device and (trusted or bool(torch.isfinite(pos).all())),
                 "Explicit packed molecule IDs/fp32 coordinates required")
-        graphs = int(batch.max()) + 1
-        require(bool((torch.bincount(batch, minlength=graphs) > 0).all()), "Packed molecule IDs must be contiguous")
+        graphs = graph_count(batch)
+        require(trusted or bool((torch.bincount(batch, minlength=graphs) > 0).all()), "Packed molecule IDs must be contiguous")
         pairs = dict(pair_indices or {})
         offsets = dict(prediction_offsets or {})
         require(domain_inputs is None or isinstance(domain_inputs, Mapping), "Typed domain-input mapping required")
@@ -285,9 +288,9 @@ class V3HeadBank(nn.Module):
                 index = pairs[field.name]
                 require(isinstance(index, Tensor) and index.dtype == torch.long and index.ndim == 2
                         and index.size(0) == 2 and index.device == h0.device
-                        and bool(((index >= 0) & (index < len(h0))).all()), "Native pair index shape/domain differs")
-                require(bool((batch[index[0]] == batch[index[1]]).all())
-                        and (field.name in self.allow_onsite_fields or bool((index[0] != index[1]).all())),
+                        and (trusted or bool(((index >= 0) & (index < len(h0))).all())), "Native pair index shape/domain differs")
+                require(trusted or (bool((batch[index[0]] == batch[index[1]]).all())
+                        and (field.name in self.allow_onsite_fields or bool((index[0] != index[1]).all()))),
                         "Pairs must be in one molecule; onsite rows require explicit source permission")
                 prediction = head(h0, pos, index)
             elif field.level == "atom":
@@ -296,7 +299,7 @@ class V3HeadBank(nn.Module):
                 prediction = head(graph_latent)
             elif hasattr(self, 'latent_scalar_dim'):
                 require(graph_latent is not None and graph_latent.shape == (graphs, self.latent_scalar_dim)
-                        and bool(torch.isfinite(graph_latent).all()), 'Same-clean-view molecular z required')
+                        and (check_finite(graph_latent) if trusted else bool(torch.isfinite(graph_latent).all())), 'Same-clean-view molecular z required')
                 feature = graph_latent if field.pooling == 'mean' else h0
                 if self.forms[field.name] == 'H2':
                     feature = self.latent_group_projectors[field.group + '_' + field.pooling](feature)
@@ -314,7 +317,7 @@ class V3HeadBank(nn.Module):
                 require(field.kind == "regression" and field.level == "graph" and field.representation == "scalar"
                         and isinstance(offset, Tensor) and offset.shape == prediction.shape
                         and offset.device == prediction.device and offset.dtype == torch.float32
-                        and not offset.requires_grad and bool(torch.isfinite(offset).all()),
+                        and not offset.requires_grad and (check_finite(offset) if trusted else bool(torch.isfinite(offset).all())),
                         "Only explicit detached D-4 graph-scalar prediction offsets are supported")
                 prediction = prediction.float() + offset
             outputs[field.name] = prediction

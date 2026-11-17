@@ -18,11 +18,12 @@ class PreparedSamples(list):
         self.prepared = prepared
 
 
-def reader_metadata(model, fields):
+def reader_metadata(model, fields, *, sync_free=False, async_transfer=False):
     return SimpleNamespace(registry=model.registry, head_by_name=model.head_by_name,
         selections=model.selections, definitions=model.definitions,
         view=SimpleNamespace(normalizations=model.view.normalizations),
         routes=model.routes, fields=fields, grouped_fields=model.grouped_fields,
+        sync_free=sync_free, async_transfer=async_transfer, allow_onsite_fields=model.heads.allow_onsite_fields,
         _require_vector_normalization=V31PDModel._require_vector_normalization)
 
 
@@ -80,6 +81,25 @@ def prepare_samples(samples, metadata, *, retain_samples=True):
             np.concatenate([s['targets'][n].valid for n in columns], -1).all(-1).any() for s in working)}
     prepared.update(pairs=pairs, pair_rows=pair_rows, observed=observed, route_indices=indices,
                     shapes=shapes, scatter_rows=scatter)
+    if getattr(metadata, 'sync_free', False):
+        from ..model.perf_sync import prepare_layout
+        for name in ('clean_batch', 'perturbed_batch'):
+            if name in prepared:
+                prepare_layout(prepared[name])
+        for head, index in pairs.items():
+            route = metadata.routes[head]
+            batch = prepared['perturbed_batch' if route == 22 else 'clean_batch']
+            if index.dtype != torch.long or index.ndim != 2 or index.shape[0] != 2:
+                raise ValueError('Native pair index shape/domain differs')
+            if not bool(((index >= 0) & (index < len(batch.batch))).all()):
+                raise ValueError('Native pair index outside atom domain')
+            if not bool((batch.batch[index[0]] == batch.batch[index[1]]).all()):
+                raise ValueError('Pairs cross molecule boundaries')
+            if head not in metadata.allow_onsite_fields and not bool((index[0] != index[1]).all()):
+                raise ValueError('Onsite rows lack source permission')
+    if getattr(metadata, 'async_transfer', False):
+        from .perf_sync_transfer import share_tensors
+        prepared = share_tensors(prepared)
     identities = [dict(molecule_index=s['molecule_index'],conformer_index=s['conformer_index']) for s in samples]
     return PreparedSamples(samples if retain_samples else identities, prepared)
 

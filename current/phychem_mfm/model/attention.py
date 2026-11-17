@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import math
 from typing import Tuple
@@ -65,7 +65,9 @@ class DenseGeoSelfAttention(nn.Module):
         k = k.transpose(1, 2)
         v = v.transpose(1, 2)
 
-        logits = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.d_head)
+        use_sdpa = getattr(self, 'perf_sync_sdpa', False)
+        logits = (q.new_zeros((bsz, 1, seqlen, seqlen)) if use_sdpa else
+                  torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.d_head))
 
         diff = pos[:, :, None, :] - pos[:, None, :, :]
         dist2 = (diff * diff).sum(dim=-1)
@@ -82,10 +84,15 @@ class DenseGeoSelfAttention(nn.Module):
             rad2 = self.radius * self.radius
             logits = logits.masked_fill(dist2[:, None, :, :] > rad2, -1e9)
 
-        attn = torch.softmax(logits, dim=-1)
-        attn = self.attn_drop(attn)
-
-        ctx = torch.matmul(attn, v)
+        if use_sdpa:
+            # Additive distance bias and both original finite masks are preserved.
+            ctx = torch.nn.functional.scaled_dot_product_attention(q, k, v, attn_mask=logits,
+                dropout_p=self.attn_drop.p if self.training and isinstance(self.attn_drop, nn.Dropout) else 0.)
+            attn = None
+        else:
+            attn = torch.softmax(logits, dim=-1)
+            attn = self.attn_drop(attn)
+            ctx = torch.matmul(attn, v)
         ctx = ctx.transpose(1, 2).contiguous().view(bsz, seqlen, self.dim)
 
         out = self.proj(ctx)

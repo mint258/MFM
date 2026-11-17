@@ -8,6 +8,7 @@ from torch.nn.utils.rnn import pad_sequence
 from torch.utils.checkpoint import checkpoint
 
 from .v3_heads import _pool
+from .perf_sync import graph_count
 
 
 def _linear(modules, value):
@@ -84,7 +85,7 @@ def _pairs(heads, h, pos, indices):
 
 
 def grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, observed_fields):
-    graphs = int(batch.max())+1
+    graphs = graph_count(batch)
     buckets = defaultdict(list)
     for field in fields:
         if field.group != 'P' or field.level == 'ordered_entry' or field.representation == 'symmetric_tensor6':
