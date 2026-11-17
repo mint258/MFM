@@ -10,10 +10,11 @@ def main():
     if c['batch_size']!=32 or c['microbatch_size']!=32: raise ValueError('Frozen B32 required')
     import subprocess,csv
     gpu=os.environ['CUDA_VISIBLE_DEVICES'].split(',')[0]
-    row=next(csv.reader(subprocess.check_output(['nvidia-smi','--id='+gpu,'--query-gpu=memory.used,memory.total','--format=csv,noheader,nounits'],text=True).splitlines()))
-    if float(row[0])/float(row[1])>.30: raise RuntimeError('Actual GPU occupancy exceeds30%')
     locks=pathlib.Path('/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks')
     lock=(locks/(gpu+'.lock')).open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    row=next(csv.reader(subprocess.check_output(['nvidia-smi','--id='+gpu,'--query-gpu=memory.used,memory.total','--format=csv,noheader,nounits'],text=True).splitlines()))
+    if float(row[0])/float(row[1])>.30: raise RuntimeError('Actual GPU occupancy exceeds30%')
+
     torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
     import phychem_mfm.phase1.p_recipe_training as training
     # Only log destinations change. Imports and the entire B3 engine are reused.
