@@ -155,8 +155,11 @@ def test_pprime_never_guesses_missing_eligibility_or_order():
         allowed_conformers(m, source='UFF', pprime=True)
     m[18] = np.array([0, 1, 0], dtype='u1')
     m[8] = np.array([0], dtype='<u2')
+    # Explicit membership identifies the only eligible geometry unambiguously.
+    assert allowed_conformers(m, source='UFF', pprime=True).tolist() == [1]
+    m[18] = np.array([1, 1, 0], dtype='u1')
     with pytest.raises(ValueError, match='source order'):
-        allowed_conformers(m, source='UFF', pprime=True)
+        allowed_conformers(m, source='UFF', pprime=True, k=1)
 
 
 def test_pprime_full_does_not_apply_train_only_eligibility():
@@ -340,3 +343,28 @@ def test_subset_id_mapping_reads_molecule_rows_and_preserves_requested_order(tmp
     dataset = MFM4Dataset.__new__(MFM4Dataset)
     dataset.directory = tmp_path
     assert dataset.indices_from_ids(['B', 'A']).tolist() == [5, 3]
+
+
+def test_pprime_only_geometry_uses_published_membership_for_uniform_all():
+    # Delivered molecule989292: ordinary UFF order[0], M17[1,0], M18[1,1].
+    m = molecule()
+    m.update({6: np.array([1, 2], dtype='<u2'),
+              8: np.array([0], dtype='<u2'), 11: np.array([0], dtype='<u2'),
+              14: np.array([0, 0], dtype='u1'),
+              17: np.array([1, 0], dtype='u1'), 18: np.array([1, 1], dtype='u1')})
+    assert allowed_conformers(m, source='UFF').tolist() == [0]
+    assert allowed_conformers(m, source='UFF', pprime=True, k=10).tolist() == [0, 1]
+    assert allowed_conformers(m, source='UFF', pprime=True, k=2).tolist() == [0, 1]
+    with pytest.raises(ValueError, match='source order'):
+        allowed_conformers(m, source='UFF', pprime=True, k=1)
+    with pytest.raises(ValueError, match='source order'):
+        allowed_conformers(m, source='UFF', pprime=True, order='energy', k=10)
+
+
+def test_pprime_membership_fallback_excludes_d5_before_selection():
+    m = molecule()
+    m.update({8: np.array([0], dtype='<u2'),
+              14: np.array([1, 0, 1], dtype='u1'),
+              17: np.array([1, 0, 0], dtype='u1'),
+              18: np.array([1, 1, 1], dtype='u1')})
+    assert allowed_conformers(m, source='UFF', pprime=True, k=1).tolist() == [1]

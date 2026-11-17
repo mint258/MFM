@@ -18,7 +18,11 @@ def train_indices(configuration):
 
 def validation_indices(configuration,count=2000):
  import pyarrow.parquet as pq
- corpus=read_json(configuration['corpus']);manifest=read_json(Path(corpus['source_root'])/'manifest.json')
+ corpus=read_json(configuration['corpus'])
+ if corpus.get('source_available_common_validation_indices'):
+  eligible=np.load(corpus['source_available_common_validation_indices'])
+  return np.sort(np.random.default_rng(20261112).choice(eligible,count,replace=False))
+ manifest=read_json(Path(corpus['source_root'])/'manifest.json')
  common=read_json(manifest['full_source_dependencies']['common']);mids=[]
  for ref in common['membership_tables']:
   table=pq.read_table(ref['path'],columns=['molecule_id','effective_role','common_population_v1'])

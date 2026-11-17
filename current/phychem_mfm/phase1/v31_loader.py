@@ -94,6 +94,11 @@ def allowed_conformers(molecule, *, source='PM7', order='fixed_random',
                 raise ValueError('Pprime training requires published M18 eligibility')
             eligible = molecule[18].astype(bool) & ~holdout
             if np.any(eligible & ~np.isin(np.arange(len(eligible)), values)):
+                # M8/M11/M12 order ordinary S-prime (M17), not P-prime-only
+                # geometries. M18 already publishes the P-prime first2 set.
+                # Uniform sampling of its entire set needs no invented order.
+                if order == 'fixed_random' and (k is None or np.count_nonzero(eligible) <= k):
+                    return np.flatnonzero(eligible)
                 raise ValueError('Eligible Pprime geometry lacks the published source order')
         else:
             eligible = (molecule[17].astype(bool) if 17 in molecule

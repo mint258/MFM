@@ -177,13 +177,15 @@ def render(plan, verdict, states, selection, code_commit):
                f"全量TRAIN为 {full_count:,} 分子，排除323个重叠分子；VAL为7567。"
                '整个研究固定使用 window2_TRAIN_normalization_parameters_20261107_v1，不重拟合基础归一化。'
                '主干C1-0：512维、6层、8头、FFN宽2d、FP32、TF32关闭，PM7几何下单独P/clean视图。'
-               '先均匀抽分子，再均匀抽构象，每分子最多10个构象。', '',
+               '先均匀抽分子，再均匀抽构象，每分子最多10个构象。'
+               'P′采用数据方M18前二资格并排除M14留出，包含M17之外的P′专用几何；'
+               '固定随机采样且资格数不超过k时，从全部合格成员中均匀抽一个，不用普通S′排列截断。', '',
                'AdamW betas=(0.9,0.95)、wd=0.01；各运行在自己的样本预算内执行完整cosine退火，warmup 2%，种子0。'
                '新运行前150000样本以281.7作初始裁剪，按步起点60000≤samples<150000收集裁剪前范数；保持完整32批，在150016样本边界冻结自身p99，此后只报告不调整。'
                '标准化标量采用Huber δ=1，向量采用radial_huber_v1。每1000更新记录家族损失，每500k样本在固定2000个VAL分子上记录家族损失，均不用于配方选择。', '',
                table(['确认运行', '实际batch', '学习率', '自身60k–150k范数p99', '标签/几何', 'TRAIN分子数'],
                      [[arm, c['batch_size'], f"{c['lr']:g}", number(clips[arm]), c['source'],
-                       c.get('subset_molecules') or full_count] for arm, c in configs.items()]), '',
+                       c.get('subset_molecules') or read(c['corpus'])['train_molecules']] for arm, c in configs.items()]), '',
                '## 放大确认：T1/T2/T3', '',
                table(['运行', '组件', '实际batch/lr', 'R3主分', 'R1副分', 'VAL家族损失'],
                      [[arm, ', '.join(configs[arm]['components']) or 'B0',

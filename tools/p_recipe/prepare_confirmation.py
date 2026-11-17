@@ -28,6 +28,7 @@ def prepare(state,*,base_configuration=None,study_directory=None):
  for arm,components,source,count,fields in specifications:
   c=configuration(base,components,run=base.get('run_prefix','')+'confirmation_'+arm,round_number=0,arm=arm,samples=confirmation_samples,stage=3)
   c.update(source=source,condition='Pprime' if source=='UFF' else 'P',subset_molecules=count,subset_seed=20261112)
+  if source=='UFF' and (OUT/'corpus/Pprime_corpus.json').is_file():c['corpus']=str(OUT/'corpus/Pprime_corpus.json')
   if fields is not None:c['fields']=fields
   if 'B4' in components:c['p_recipe']['gamma']=read_json(R/'runs/p_recipe_20261113/D4_gamma.json')['gamma']
   labels=sorted(components&LABEL_COMPONENTS)
