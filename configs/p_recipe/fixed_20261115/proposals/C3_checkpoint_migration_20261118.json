@@ -56,15 +56,15 @@
   },
   "actual_migration_executed": false,
   "latest_resource_observation": {
-    "observed_at_utc": "2026-11-17 21:02 UTC",
+    "observed_at_utc": "2026-11-17 21:33 UTC",
     "cards": [
       {
         "node": "compute-0-22",
         "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
         "type": "5090",
-        "used_mib": 10749,
+        "used_mib": 8203,
         "total_mib": 32607,
-        "free_cpus": 16,
+        "free_cpus": 1,
         "own_gpu_busy": true
       },
       {
@@ -87,7 +87,7 @@
       }
     ],
     "eligible_faster_cards": 0,
-    "reason": "All faster cards exceed30% memory occupancy and all own UUID locks are held by other lines; leave all existing work unchanged",
+    "reason": "Node22/5090 memory now <=30% but own GPU UUID lock is still held by another line; node20/4090 cards exceed30% and their own locks are held. No eligible idle slot; keep C3 running. CPU allocation alone does not block the authorized native+standby route.",
     "target_disk_admission": "Not attempted: no eligible card, no source stop and no transfer"
   }
 }

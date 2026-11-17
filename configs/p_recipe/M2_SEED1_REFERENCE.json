@@ -13,5 +13,13 @@
     "ready_requires":  "3M full checkpoint, complete R1/R3 and successful terminal; then other lines reuse instead of retraining",
     "noise_only":  true,
     "clip_calibration":  "results/p_recipe/training/fixed_20261115_M2_seed1_noise_20261117_attempt2/clip_calibration.json",
-    "frozen_clip_threshold":  35.794393157958986
+    "frozen_clip_threshold":  35.794393157958986,
+    "latest_complete_checkpoint":  {
+                                       "samples":  1000000,
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_noise_training/fixed_20261115_M2_seed1_noise_20261117_attempt2/samples_1000000.pt",
+                                       "bytes":  232053693,
+                                       "mtime":  "2026-11-18 05:26:07 +0800",
+                                       "observed_on_node":  "compute-0-7",
+                                       "use":  "Recovery only; shared scientific control still requires completed3M/readouts/terminal"
+                                   }
 }
