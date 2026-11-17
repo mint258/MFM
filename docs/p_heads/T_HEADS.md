@@ -26,7 +26,8 @@ T5新增默认关闭 `p_recipe.simple_molecular_readout`：不构造PMA，严格
 新薄入口仅3项fixture/mock CPU单测由Slurm4535726/compute16/1CPU完成（COMPLETED/0:0，5秒，测试0.003秒，全部PASS）：独立账本与15CPU、保留原协议并将入口单次路由至T训练、native身份/亲和性/清除伪Slurm环境与无外层GPU锁。该测试不代表已发生真实接管。原0d04c40三个冻结源保留；新增T1/T4/T5_hybrid_source供后续按真实资源启动，准备/原生启动/真实sbatch/register由协调窗口执行；实际T1原生运行事实见下节，尚未据此声称完成真实接管。
 配方线现已发布外部共享参考清单 `/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/M2_SEED1_REFERENCE.json`，其reference configuration为 `/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/noise_seed1/M2_seed1.json`（清单内相对路径以MFM_p_recipe为前缀）。已发布run为fixed_20261115_M2_seed1_noise_20261117_attempt2，真实job4535736／node7，当前发布状态RUNNING_NOT_YET_REUSABLE。必须等3M检查点、完整R1/R3及成功终态均确认后才可复用，不能把当前参考当已完成或据此作质量判定。本次仅文档绑定，不修改live T1 canonical配置；最终若本线T1触发seed1，使用已有参数 `--reference-seed1-configuration /share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/noise_seed1/M2_seed1.json` 显式绑定外部对照，并由协调窗口在调用前确认其就绪；不新跑本线M2 seed1。
 
-T4当前真实句柄保持4535734。T5原队列4535735的旧依赖提速线4535718失败后，协调窗口确认T5仍PENDING／0秒再hold并更新；release被Slurm拒绝，遂取消该未开始句柄，以相同冻结源／配置／B3基底干净重提真实4535747：node5／15CPU／nice10000，afterok当前提速线4535744。此处只替换零进度等待队列，T5没有训练进度重启；旧0秒记录保留，T1/T2/T3未改动。
+旧T4队列4535734已由协调窗口hold并确认PENDING／0秒后取消，没有启动或重跑训练。当前真实T4队列为4535771：node4／15CPU／nice10000，afterany独立H层6任务4535770，只是同卡资源接续，不依赖H科学结果。原T4_source@0d04c40、B3基底和配置不变，日志CONTROL/T4_seed0_4535771.log，目标GPU UUID前缀6965a7c7；尚不把PENDING队列记为已启动。T5原队列4535735的旧依赖提速线4535718失败后，协调窗口确认T5仍PENDING／0秒再hold并更新；release被Slurm拒绝，遂取消该未开始句柄，以相同冻结源／配置／B3基底干净重提真实4535747：node5／15CPU／nice10000，afterok当前提速线4535744。此处只替换零进度等待队列，T5没有训练进度重启；旧0秒记录保留，T1/T2/T3未改动。
+用户新增明确授权T4/T5在node4低显存条件下与原有4个gmx上下文共用，现已由协调窗口记入resources.json的对应scope；原gmx进程保持不动，只使用真实Slurm分配，不扩展为node4原生SSH混合启动许可。本次T3最终点H层6任务4535770实际已在node4／4CPU运行，T4等待其同卡物理资源释放后再接续。T5仍为4535747／node5／afterok提速线4535744，不将T4/T5挤在同一卡。T4只在真正RUNNING并发布首32后做一次实际主进程/后代Slurm mask与完整GPU UUID观察，不提前观察等待队列或增加硬gate。T1/T2/T3既有运行未改动；T3原作业继续自动评价，完整scores.json发布后仅由根窗口运行一次既定t_decide。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
@@ -50,7 +51,7 @@ T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。�
 
 生产者新逻辑单元测试在 compute-0-20 通过2项：有效原子均匀参考（atol1e-6、rtol1e-5）；padding替换为1e8后结果逐位一致；参数数量一致；默认关闭/显式False与原softmax公式逐位一致；相同state dict严格加载。实际 B3 完整 ModuleDict(structural,pd) 也已在CPU strict加载通过，clock为3M样本、93,750更新，见 `results/p_heads/T/B3_checkpoint_loading.json`。这证明对照可复用，不构成新臂科学结果。
 
-T3首次启动4535405在0样本、0更新时因冻结源缺Git身份元数据退出，原输出保留。身份元数据已修复，冻结可执行源码T3_source未改。当前正式attempt2真实作业4535476已在node0/3090运行，常规生产者已提交32、64样本及首32完整检查点；没有重读CP内容。此前未运行的资源等待队列已取消，无训练样本重跑。当前尚无3M或下游质量结果。
+T3首次启动4535405在0样本、0更新时因冻结源缺Git身份元数据退出，原输出保留。身份元数据已修复，冻结可执行源码T3_source未改。当前正式attempt2真实作业4535476已在node0/3090运行，常规生产者已提交32、64样本及首32完整检查点；没有重读CP内容。此前未运行的资源等待队列已取消，无训练样本重跑。当前3M训练检查点已发布，原流程下游评价待完成（见下段最终里程碑）。
 
 一次运行资源事实观察保存在 `results/p_heads/T/T3_resources_4535476.json`：真实主Python PID3481447、GPU UUID `GPU-a967b766-fb5e-8db3-b09c-4ddc6c02b332`，CUDA_VISIBLE与nvidia-smi实际GPU上下文均匹配。Slurm分配15CPU，CPU_IDs与主进程实际mask均为 `16-23,39-45`，所观测后代的mask均受其约束。配置workers=14未改；现场实际4个reader属于现有4批prefetch和spawn池按需创建，未强行增建worker，也未增加训练门或benchmark。早期最近500更新普通日志窗口曾一次估计46.5823样本/秒，后续未重复测速。
 
@@ -60,6 +61,9 @@ T3自身的既定裁剪阈值现已由训练生产者冻结：初始clip=281.7�
 T3第一个常规1M里程碑已由生产者发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T3_seed0_attempt2/samples_1000000.pt`，230,472,905字节，文件mtime为2026-11-17 19:56:56.545488 CST。本线在约20:51的常规状态检查中首次观察到该产物；原publish_checkpoint使用临时文件完整保存/fsync后发布最终.pt名称，本次仅记录最终文件存在、大小及mtime，没有读取CP内容、作中间几何或额外评价。现场squeue确认4535476仍RUNNING/compute-0-0，4535630仍RUNNING/compute-0-20；两臂3M检查点及既有readout/scores.json尚未发布。该1M保存是原配置既定里程碑，没有新增训练或保存点。
 
 T3既定2M里程碑已发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T3_seed0_attempt2/samples_2000000.pt`，230,475,145字节，LastWriteTime为2026-11-18 00:22:28 CST（协调窗口通过live X:/观察，Windows显示为秒精度）。本次直接引用该唯一生产者元数据，不重复读取同CP或解析其内容，不做中间几何、额外评价或测速。同期既有普通日志已达T3 2,044,800样本／63,900更新，T2 848,000样本／26,500更新；T3最终3M及readout、T2首1M当时尚未发布。原SSH会话失效且新连接暂被拒绝，尚未核实终态；文件日志仍live可读，连接失败不作为训练失败或重启依据，两条既有任务均不作操作。
+T3最终3M检查点现已由原生产者发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T3_seed0_attempt2/samples_3000000.pt`，230,477,385字节，mtime=2026-11-18 04:31:25 CST（秒精度）。协调窗口04:33通过live X:/唯一观察最终元数据，本报告仅引用，不重复读取该文件或解析CP体。训练已达到3M，原4535476继续既定末尾流程与自动R1/R3，完整评价尚待完成；这不提前等同于全部任务完成或质量判定。根窗口已通知H并协调仅最终点的第6层几何，不补中间点。
+
+后续仅在原 `readout/scores.json` 完整产出后，协调窗口运行既有t_decide，以实际T3 canonical配置和原B3配置作1000条既有配对bootstrap差值判定；没有新增bootstrap、评价或更换CURRENT_BEST基底。只有R3原门槛实际触发时才生成T3_seed1及共享B3_seed1配置。CYP直接取CONTROL/scores.csv，原单位VAL直接取CONTROL/runtime/results/p_recipe/training/p_heads_T3_seed0_attempt2/VAL_original_units_3000000.csv，不重评或重算。
 ## 全部新开关关闭的整模型对照
 
 任务开始前的9d66cf3原模块与当前实现由独立进程加载，PYTHONPATH分别指向隔离的old/new源码；相同seed19、相同输入，以512维轻量合成编码器调用完整V31PDModel.predict。B3既有PMA与grouped_fields原执行路径开启，全部本任务新开关关闭/为空。molecule标量、atom标量、pair、atom vector、dipole x/y/z、下游H0及577维PMA z全部逐位torch.equal。此项是任务书明确要求的整模型off路径测试，不代替此前真实B3 state strict加载；没有重新读取真实B3 checkpoint，没有训练或benchmark。

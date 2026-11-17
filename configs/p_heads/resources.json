@@ -28,7 +28,7 @@
     "seed0_training_count":  5,
     "maximum_conditional_seed1_training_count":  6,
     "training_samples_per_run":  3000000,
-    "notes":  "All owned jobs share this total budget. Existing data already charged to df/quota are not a second future-growth charge. Recheck actual target node bytes/inodes and live UID quota plus all other-window remaining growth before and during writes. Preserves all existing reservations. User directive063af09 expands combined peak to24GiB=H10+T12+source/control2, max12 own3M runs including conditional seeds and one T2-win confirmation; recipeM2 seed1 reused externally. Actual compute20 expanded admission checked before this update.",
+    "notes":  "All owned jobs share this total budget. Existing data already charged to df/quota are not a second future-growth charge. Recheck actual target node bytes/inodes and live UID quota plus all other-window remaining growth before and during writes. Preserves all existing reservations. User directive063af09 expands combined peak to24GiB=H10+T12+source/control2, max12 own3M runs including conditional seeds and one T2-win confirmation; recipeM2 seed1 reused externally. Actual compute20 expanded admission checked before this update. User explicitly extends node4 low-memory CUDA coexistence to this line T4/T5, existing gmx unchanged, real Slurm CPU allocation and startup\u003c=30percent plus adequate remaining VRAM required.",
     "training_loader_workers":  14,
     "training_requested_cpus":  15,
     "slurm_cpu_affinity_required":  true,
@@ -44,5 +44,13 @@
                               "speedup_until_GPU_complete",
                               "recipe",
                               "heads_and_task_decoupling"
-                          ]
+                          ],
+    "T_low_occupancy_shared_nodes":  [
+                                         "compute-0-4"
+                                     ],
+    "T_low_occupancy_shared_arms":  [
+                                        "T4",
+                                        "T5"
+                                    ],
+    "T_shared_nodes_require_slurm":  true
 }
