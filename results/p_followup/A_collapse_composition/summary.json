@@ -7276,14 +7276,1268 @@
       "encoder_route": "structural encoder before any shared projector; layer6 out_norm,3-5 intermediates"
     },
     "C": {
-      "status": "MISSING",
-      "reason": "No exact 3000000-sample checkpoint in resume ancestry",
+      "status": "COMPLETE",
       "source": {
         "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/C_dedup.json",
-        "checkpoint": null,
-        "status": "MISSING",
-        "reason": "No exact 3000000-sample checkpoint in resume ancestry"
-      }
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/p_followup_20261116_C_dedup_sbatch/samples_3000000.pt",
+        "status": "EXISTS",
+        "reason": null,
+        "checkpoint_configuration": {
+          "condition": "P",
+          "distance_bias": "C1-0",
+          "views": "three",
+          "samples": 3000000,
+          "subset_molecules": null,
+          "seed": 0,
+          "source": "PM7",
+          "head_form": "H1",
+          "root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+          "training_view": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json",
+          "normalizations": "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json",
+          "label_parameters": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/label_parameters/PM7_A1.json",
+          "batch_size": 32,
+          "p_recipe": {
+            "element_residual": true,
+            "excluded_fields": [
+              "P.pm7_anion.r193.value",
+              "P.pm7_cation.r262.value",
+              "P.pm7_octanol.r329.value",
+              "P.pm7_water.r396.value",
+              "P.pm7_anion.r194.value",
+              "P.pm7_cation.r263.value",
+              "P.pm7_octanol.r330.value",
+              "P.pm7_water.r397.value",
+              "P.pm7_B.r41.value",
+              "P.pm7_B.r54.value"
+            ]
+          }
+        }
+      },
+      "checkpoint_samples": 3000000,
+      "records": 47698,
+      "molecules": 5000,
+      "layers": {
+        "3": {
+          "CEV": {
+            "value": 0.8229270339600676,
+            "ci95": [
+              0.7848678948356738,
+              0.8487555993536938
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CEV_size": {
+            "value": 0.752297851581747,
+            "ci95": [
+              0.7232674693217279,
+              0.774128898930117
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF": {
+            "value": 0.0002844771526495959,
+            "ci95": [
+              0.00026586336799131307,
+              0.0003025543853604868
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF_res": {
+            "value": 0.0017380267175312483,
+            "ci95": [
+              0.0015099407554374734,
+              0.00201171477895876
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "EEV": {
+            "value": 0.9642095089271738,
+            "ci95": [
+              0.9639941607507707,
+              0.9644380780962024
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "PC_R2": [
+            {
+              "value": 0.8428655690797756,
+              "ci95": [
+                0.8031475267650826,
+                0.8695793802740417
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            {
+              "value": 0.7739770484658112,
+              "ci95": [
+                0.7123623999081466,
+                0.8224720774475803
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            {
+              "value": -0.0008195204524077404,
+              "ci95": [
+                -0.011311314117897353,
+                0.009067306239753803
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            }
+          ]
+        },
+        "4": {
+          "CEV": {
+            "value": 0.8346002147629445,
+            "ci95": [
+              0.7950838030374155,
+              0.8605501185859568
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CEV_size": {
+            "value": 0.7854176080880938,
+            "ci95": [
+              0.7562964179494215,
+              0.806986876361301
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF": {
+            "value": 0.0003901561077920271,
+            "ci95": [
+              0.00036246034197861036,
+              0.00041841953785693445
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF_res": {
+            "value": 0.002559842733655491,
+            "ci95": [
+              0.00218354540724978,
+              0.002992439134887503
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "EEV": {
+            "value": 0.9773382109671831,
+            "ci95": [
+              0.9772047841027635,
+              0.9774872747204493
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "PC_R2": [
+            {
+              "value": 0.844858561058563,
+              "ci95": [
+                0.8045246769243662,
+                0.8711524465158339
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            {
+              "value": 0.6883295934556402,
+              "ci95": [
+                0.6358442445090658,
+                0.7266956525768917
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            {
+              "value": 0.04637140173351684,
+              "ci95": [
+                0.018096338337353617,
+                0.07414428787689285
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            }
+          ]
+        },
+        "5": {
+          "CEV": {
+            "value": 0.8483920324524264,
+            "ci95": [
+              0.8114583282834222,
+              0.8728311598441979
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CEV_size": {
+            "value": 0.8133935563975032,
+            "ci95": [
+              0.783109333251352,
+              0.8342520703120273
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF": {
+            "value": 0.00019975136696929284,
+            "ci95": [
+              0.0001874236067097005,
+              0.00021334333879416978
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF_res": {
+            "value": 0.0014393013118372394,
+            "ci95": [
+              0.0012291080706474,
+              0.0016805614506193816
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "EEV": {
+            "value": 0.9911235602375975,
+            "ci95": [
+              0.9910620701484322,
+              0.9911845856468182
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "PC_R2": [
+            {
+              "value": 0.8521011264629335,
+              "ci95": [
+                0.8149143093790719,
+                0.8766093819611317
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            {
+              "value": 0.27227221789830236,
+              "ci95": [
+                0.23304127161664157,
+                0.3105830928476814
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            {
+              "value": 0.2567368412037504,
+              "ci95": [
+                0.17779999583508466,
+                0.33311739437192867
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            }
+          ]
+        },
+        "6": {
+          "CEV": {
+            "value": 0.8522668180122588,
+            "ci95": [
+              0.8168414344949088,
+              0.8748619485663822
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CEV_size": {
+            "value": 0.8317782210181244,
+            "ci95": [
+              0.8009489687339191,
+              0.8527366533572038
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF": {
+            "value": 9.134702809706595e-05,
+            "ci95": [
+              8.639117671246754e-05,
+              9.685713043087554e-05
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF_res": {
+            "value": 0.0006702662623239813,
+            "ci95": [
+              0.0005842317366946851,
+              0.0007753283182342525
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "EEV": {
+            "value": 0.9976604237242671,
+            "ci95": [
+              0.9976176503660213,
+              0.9976922850648069
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "PC_R2": [
+            {
+              "value": 0.8544113672437348,
+              "ci95": [
+                0.8189457211901616,
+                0.8771566520335516
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            {
+              "value": 0.028734197883608315,
+              "ci95": [
+                0.012179919394459712,
+                0.04295442127495486
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            {
+              "value": 0.35803208537950293,
+              "ci95": [
+                0.3148977672851147,
+                0.39983649709983804
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            }
+          ]
+        }
+      },
+      "selected_alphas": {
+        "3": [
+          10.0,
+          10.0,
+          10.0,
+          1.0,
+          1.0
+        ],
+        "4": [
+          10.0,
+          10.0,
+          10.0,
+          1.0,
+          1.0
+        ],
+        "5": [
+          10.0,
+          10.0,
+          10.0,
+          1.0,
+          1.0
+        ],
+        "6": [
+          10.0,
+          10.0,
+          10.0,
+          1.0,
+          1.0
+        ]
+      },
+      "target_reference": {
+        "fields": {
+          "P.pm7_B.r42.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.007762439272016808,
+              "ci95": [
+                -0.012586437689507906,
+                -0.003170464589929001
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.17937428586742868,
+              "ci95": [
+                0.16185600812830822,
+                0.19675768622019738
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 0.8634878995803763,
+            "physical_field": "P.pm7_B.r42.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_B.r43.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.0016615743082273315,
+              "ci95": [
+                -0.011815217676509431,
+                0.007579616807824298
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.12861814427945728,
+              "ci95": [
+                0.11942489323659108,
+                0.13748953751217546
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 0.8974625255601905,
+            "physical_field": "P.pm7_B.r43.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_B.r47.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.0007466051226268089,
+              "ci95": [
+                -0.006750750053991195,
+                0.006449365342157072
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.10100736815808666,
+              "ci95": [
+                0.09219899004565556,
+                0.11029819970038485
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.0794624893668838,
+            "physical_field": "P.pm7_B.r47.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_B.r48.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.0007330275231294259,
+              "ci95": [
+                -0.006638775749480058,
+                0.006345737172925983
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.10340709182221287,
+              "ci95": [
+                0.09444049544328487,
+                0.11290108832217448
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.079322486832472,
+            "physical_field": "P.pm7_B.r48.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_B.r49.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.489844432971301,
+              "ci95": [
+                0.4650067374880324,
+                0.511259983691307
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.06709382205027574,
+              "ci95": [
+                0.062282873751937605,
+                0.07317655569098273
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.0151082629218326,
+            "physical_field": "P.pm7_B.r49.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_B.r50.value": {
+            "included": true,
+            "valid_fraction": 0.9999790347603673,
+            "CEV": {
+              "value": 0.2453369247490612,
+              "ci95": [
+                0.21178815880209026,
+                0.278662702039522
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.08554553153607299,
+              "ci95": [
+                0.07663142592187416,
+                0.09758448280525964
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.040376209842576,
+            "physical_field": "P.pm7_B.r50.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_B.r53.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.008418039177525705,
+              "ci95": [
+                -0.01278162836994407,
+                -0.004409205463189675
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.2056042628376827,
+              "ci95": [
+                0.189499645724323,
+                0.22226431523477178
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 0.9796831066068126,
+            "physical_field": "P.pm7_B.r53.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_B.r60.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.033278531868009775,
+              "ci95": [
+                -0.044341231008827864,
+                -0.019495546162825346
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.011144010544138258,
+              "ci95": [
+                0.007802169325441613,
+                0.015563345755314265
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.2069189238610019,
+            "physical_field": "P.pm7_B.r60.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_B.r61.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.27907302493057884,
+              "ci95": [
+                0.2381752978771152,
+                0.3155738617642909
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.038007908258793764,
+              "ci95": [
+                0.03515218359261773,
+                0.04087381786809762
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.0506951298157496,
+            "physical_field": "P.pm7_B.r61.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_B.r62.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.005100437367832722,
+              "ci95": [
+                -0.009884762839967948,
+                -0.0004661168291716439
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.3756611233850678,
+              "ci95": [
+                0.34138095309931565,
+                0.40762229455920684
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.030479304587307,
+            "physical_field": "P.pm7_B.r62.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_B.r63.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.5814300968440993,
+              "ci95": [
+                0.5580972787266981,
+                0.6020061061157537
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.017379382449940913,
+              "ci95": [
+                0.016354867673491362,
+                0.018501607331200955
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.0158847003547657,
+            "physical_field": "P.pm7_B.r63.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_B.r83.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.03203295133223638,
+              "ci95": [
+                -0.04262640259950398,
+                -0.01949068315465336
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.008597339870076397,
+              "ci95": [
+                0.005677597408813611,
+                0.012677398969168216
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.2264406097573837,
+            "physical_field": "P.pm7_B.r83.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_anion.r204.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.03176854705821763,
+              "ci95": [
+                -0.04339039827957931,
+                -0.020637790248434592
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.031453031864278266,
+              "ci95": [
+                0.023174300186347953,
+                0.040398305468809056
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.1962260644233846,
+            "physical_field": "P.pm7_anion.r204.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_cation.r273.value": {
+            "included": true,
+            "valid_fraction": 0.9999790347603673,
+            "CEV": {
+              "value": -0.02786508731557258,
+              "ci95": [
+                -0.037681789833940764,
+                -0.016606883832428122
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.023729792314041997,
+              "ci95": [
+                0.01748786641736634,
+                0.03052464289154091
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.1947004208326224,
+            "physical_field": "P.pm7_cation.r273.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_octanol.r331.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.0005641288558836388,
+              "ci95": [
+                -0.006542997260581701,
+                0.00592518966278975
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.11412892204887401,
+              "ci95": [
+                0.10407478004176603,
+                0.12446894790649851
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.0784828866649445,
+            "physical_field": "P.pm7_octanol.r331.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_octanol.r340.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.03384765076552543,
+              "ci95": [
+                -0.047196631475974575,
+                -0.018352194558704692
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.008740692261891801,
+              "ci95": [
+                0.005927988302348897,
+                0.012594897287466383
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.1955673380083918,
+            "physical_field": "P.pm7_octanol.r340.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_octanol.r341.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.27187744096258315,
+              "ci95": [
+                0.2382260414723598,
+                0.30586578975786505
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.029115232651019347,
+              "ci95": [
+                0.02659185682062197,
+                0.03171290075503225
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.0456282857065335,
+            "physical_field": "P.pm7_octanol.r341.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_octanol.r343.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.5481159624127125,
+              "ci95": [
+                0.5257416191043163,
+                0.5686351966770623
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.0071498947711053406,
+              "ci95": [
+                0.006698407972739046,
+                0.007655772307600396
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.012497711046868,
+            "physical_field": "P.pm7_octanol.r343.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_water.r398.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.00046615771811897577,
+              "ci95": [
+                -0.006591010509633672,
+                0.005804711863949771
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.11947552792101435,
+              "ci95": [
+                0.10901380515802603,
+                0.1304037040223648
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.0782518866379263,
+            "physical_field": "P.pm7_water.r398.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_water.r407.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.03386494862601053,
+              "ci95": [
+                -0.04761700743210063,
+                -0.017986779724937486
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.008503074128290647,
+              "ci95": [
+                0.0057693229189184105,
+                0.01227508868734509
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.1932733097667365,
+            "physical_field": "P.pm7_water.r407.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_water.r408.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.268641266784049,
+              "ci95": [
+                0.23610086818810216,
+                0.30264762107459064
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.03033738981121533,
+              "ci95": [
+                0.027730115273045378,
+                0.033087885339233694
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.0449644933547155,
+            "physical_field": "P.pm7_water.r408.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.pm7_water.r410.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.5399110922322901,
+              "ci95": [
+                0.5173662203327418,
+                0.5603623816013222
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.006774821854424396,
+              "ci95": [
+                0.00634370893322854,
+                0.007239835428977093
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.0118071017540478,
+            "physical_field": "P.pm7_water.r410.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.xtb_ALPB_octanol.r459.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.0028194194349331347,
+              "ci95": [
+                -0.008314008409497753,
+                0.012107838426320478
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.08816765533633762,
+              "ci95": [
+                0.07802040687835447,
+                0.09788293122882379
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.1605320203043301,
+            "physical_field": "P.xtb_ALPB_octanol.r459.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.xtb_ALPB_octanol.r460.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.02341482618116908,
+              "ci95": [
+                -0.03428189656035022,
+                -0.01049550942713504
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.006923600199067117,
+              "ci95": [
+                0.00499246443035878,
+                0.009463619915057326
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.1474859538058155,
+            "physical_field": "P.xtb_ALPB_octanol.r460.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.xtb_ALPB_water.r498.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.0014848405225491579,
+              "ci95": [
+                -0.007948356922639843,
+                0.009531562107445834
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.0884240102569198,
+              "ci95": [
+                0.08010977254674129,
+                0.09697740221266654
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.0775393116818182,
+            "physical_field": "P.xtb_ALPB_water.r498.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.xtb_ALPB_water.r499.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.023541493335395014,
+              "ci95": [
+                -0.034570985223733613,
+                -0.01030181179631014
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.007035772898180226,
+              "ci95": [
+                0.00507017205777451,
+                0.009653027573084378
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.1510592307711596,
+            "physical_field": "P.xtb_ALPB_water.r499.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.xtb_fod.r538.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.00562258205754107,
+              "ci95": [
+                -0.010033263447863766,
+                -0.0019647014097035572
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.02458112206096451,
+              "ci95": [
+                0.02048698365318993,
+                0.02984107339138557
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 0.9832713075526365,
+            "physical_field": "P.xtb_fod.r538.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.xtb_perturbed_gradient.r623.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.00265284440940472,
+              "ci95": [
+                -0.006131347182535152,
+                0.0007150815051753186
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.8350066969404821,
+              "ci95": [
+                0.8200415359154815,
+                0.8474591638784312
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 0.9780024711931526,
+            "physical_field": "P.xtb_perturbed_gradient.r623.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.xtb_singlepoint.r670.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": -0.02208614675340681,
+              "ci95": [
+                -0.0322876857585086,
+                -0.010010698814435622
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.007578002198450339,
+              "ci95": [
+                0.00556773133445633,
+                0.010231841263547132
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.1525583664104702,
+            "physical_field": "P.xtb_singlepoint.r670.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.xtb_singlepoint.r671.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.2816247335883473,
+              "ci95": [
+                0.22513350591945472,
+                0.330969154489239
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.045296521717269146,
+              "ci95": [
+                0.04148051852964209,
+                0.049402613487526156
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.0635198179548562,
+            "physical_field": "P.xtb_singlepoint.r671.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.xtb_singlepoint.r672.value": {
+            "included": true,
+            "valid_fraction": 1.0,
+            "CEV": {
+              "value": 0.4192828703713547,
+              "ci95": [
+                0.39461786154364037,
+                0.4445058302279984
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.012921265096458018,
+              "ci95": [
+                0.011554487696948895,
+                0.014398809407581628
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 0.9942309641557103,
+            "physical_field": "P.xtb_singlepoint.r672.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.xtb_vipea.r751.value": {
+            "included": true,
+            "valid_fraction": 0.9999580695207346,
+            "CEV": {
+              "value": 0.6112709798978626,
+              "ci95": [
+                0.5921876866860893,
+                0.6303877808714201
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.006832055469319882,
+              "ci95": [
+                0.0063279804308722576,
+                0.0073439469076025145
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 0.9959070757288232,
+            "physical_field": "P.xtb_vipea.r751.value",
+            "component": 0,
+            "loss_weight": 1.0
+          },
+          "P.xtb_vipea.r752.value": {
+            "included": true,
+            "valid_fraction": 0.9999580695207346,
+            "CEV": {
+              "value": 0.5048278342487216,
+              "ci95": [
+                0.468096218343294,
+                0.5315535773781856
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "CVF": {
+              "value": 0.018731542926552488,
+              "ci95": [
+                0.017338507315049042,
+                0.020241042257859453
+              ],
+              "valid_bootstrap_replicates": 1000,
+              "reason": null
+            },
+            "variance_first": 1.0116949092867003,
+            "physical_field": "P.xtb_vipea.r752.value",
+            "component": 0,
+            "loss_weight": 1.0
+          }
+        },
+        "variance_weighted_CEV": {
+          "value": 0.13630871077365644,
+          "ci95": [
+            0.11832170059793302,
+            0.15291802310601832
+          ],
+          "valid_bootstrap_replicates": 1000,
+          "reason": null
+        },
+        "variance_weighted_CVF": {
+          "value": 0.08572505935337743,
+          "ci95": [
+            0.0780624446629799,
+            0.09250630713438528
+          ],
+          "valid_bootstrap_replicates": 1000,
+          "reason": null
+        },
+        "included_fields": 33,
+        "included_physical_fields": 33,
+        "component_policy": "D t1/t2 use separate actual masks and each half the original physical-field weight; per-component99%valid threshold"
+      },
+      "seconds": 830.7043534959957,
+      "mean_cache_removed": true,
+      "encoder_route": "structural encoder before any shared projector; layer6 out_norm,3-5 intermediates"
     },
     "D": {
       "status": "MISSING",
