@@ -57,7 +57,7 @@ def train(configuration):
   names=sorted(set(families.values())) if recipe.get('family_equal',False) else list(families)
   modules['uncertainty']=UncertaintyWeights(names)
  model=torch.nn.ModuleDict(modules).cuda().train();params=list(model.parameters())
- from .perf_sync_step import make_optimizer,StepBuffer
+ from .perf_sync_step import make_optimizer,StepBuffer,defer_norm_checks,restore_optimizer_backend
  optimizer=make_optimizer(params,c)
  buffered=StepBuffer() if sync_free else None
  clip_calibration=GroupClipCalibration(c['clip_calibration'],c['samples']) if c.get('clip_calibration') else None
@@ -73,6 +73,7 @@ def train(configuration):
   target.parent.mkdir(parents=True,exist_ok=True);target.write_text(payload)
  if resuming:
   cp=torch.load(resuming,map_location='cpu',weights_only=True);model.load_state_dict(cp['model']);optimizer.load_state_dict(cp['optimizer']);clock.load_state_dict(cp['clock']);rng.bit_generator.state=cp['rng'];torch.set_rng_state(cp['torch_rng']);torch.cuda.set_rng_state(cp['cuda_rng']);prior=cp['elapsed_seconds'];window=cp['family_window'];window_updates=cp['family_window_updates'];clipped=cp['clipped_updates'];total_window=cp.get('total_window',[])
+  restore_optimizer_backend(optimizer,options.get('fused_optimizer',False))
   if clip_calibration:
    clip_calibration.load_state_dict(cp['clip_calibration']);clip=clip_calibration.threshold
    if clip_calibration.fitted:publish_clip_summary()
@@ -164,12 +165,12 @@ def train(configuration):
     with finite_checks() if sync_free else nullcontext([]) as checks:
      total,family,_=calculate(samples);total.backward()
     clip_used=clip
-    norm=torch.nn.utils.clip_grad_norm_(params,clip_used,error_if_nonfinite=not sync_free,
+    defer_norm=defer_norm_checks(sync_free,clip_calibration)
+    norm=torch.nn.utils.clip_grad_norm_(params,clip_used,error_if_nonfinite=not defer_norm,
      foreach=True if options.get('fused_optimizer',False) else None);optimizer.step()
     clock.advance(len(samples));rng.bit_generator.state=consumed_rng;window_updates+=1
-    if not sync_free:clipped+=int(float(norm)>clip)
-    if clip_calibration and (not sync_free or not clip_calibration.fixed_window or
-       clip_calibration.window_start_samples<=samples_before<clip_calibration.calibration_samples):
+    if not defer_norm:clipped+=int(float(norm)>clip_used)
+    if clip_calibration and not defer_norm:
      if clip_calibration.observe(float(norm),clock.samples_consumed,samples_before=samples_before):
       fitted=clip_calibration.fitted_summary()
       publish_clip_summary()
@@ -178,7 +179,7 @@ def train(configuration):
     seconds=prior+time.monotonic()-started
     if sync_free:
      row=dict(samples=clock.samples_consumed,updates=clock.optimizer_updates,lr=lr,seconds=seconds)
-     buffered.add(row,total,norm,clip_used,family,checks)
+     buffered.add(row,total,norm,clip_used,family,checks,count_clipped=defer_norm)
     else:
      for name,value in family.items():
       value_sum,n=window.get(name,(0.,0));window[name]=(value_sum+float(value.detach()),n+1)

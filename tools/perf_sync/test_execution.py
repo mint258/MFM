@@ -10,7 +10,8 @@ from phychem_mfm.model.perf_sync import (prepare_layout, batch_layout, dense_bat
     unpack_dense, finite_checks, check_finite, configure)
 from phychem_mfm.model.attention import DenseGeoSelfAttention
 from phychem_mfm.model.v3_latent import MaskedAttention
-from phychem_mfm.phase1.perf_sync_step import StepBuffer, make_optimizer
+from phychem_mfm.phase1.perf_sync_step import (StepBuffer, make_optimizer,
+    defer_norm_checks, restore_optimizer_backend)
 from phychem_mfm.phase1.perf_sync_transfer import share_tensors, map_tensors
 
 
@@ -75,6 +76,29 @@ def test_deferred_internal_nonfinite_is_not_silently_dropped():
     buffer.add({}, torch.tensor(1.), torch.tensor(1.), 2., {}, flags)
     with pytest.raises(RuntimeError, match='internal activation'):
         buffer.drain()
+
+
+def test_calibration_checks_are_immediate_and_freeze_step_is_counted_once():
+    from phychem_mfm.phase1.p_recipe_clip import GroupClipCalibration
+    calibration = GroupClipCalibration(dict(calibration_samples=150000,
+        window_start_samples=60000,initial_clip=281.7,quantile=.99),3000000)
+    assert not defer_norm_checks(True,calibration)
+    parameter = torch.nn.Parameter(torch.zeros(1))
+    parameter.grad = torch.tensor([float('nan')])
+    with pytest.raises(RuntimeError,match='non-finite'):
+        torch.nn.utils.clip_grad_norm_([parameter],calibration.threshold,
+            error_if_nonfinite=not defer_norm_checks(True,calibration))
+    calibration.observe(8.,60032,samples_before=60000)
+    before_freeze = defer_norm_checks(True,calibration)
+    old_threshold = calibration.threshold
+    calibration.observe(9.,150000,samples_before=149968)
+    assert not before_freeze and defer_norm_checks(True,calibration)
+    buffer = StepBuffer(device='cpu')
+    norm = torch.tensor(300.)
+    cpu_count = int(float(norm)>old_threshold)
+    buffer.add({},torch.tensor(1.),norm,old_threshold,{},[],count_clipped=before_freeze)
+    _,_,gpu_count = buffer.drain()
+    assert cpu_count+gpu_count == 1
 
 
 def test_shared_transport_keeps_source_values_and_typed_batch():
@@ -166,3 +190,8 @@ def test_optimizer_default_and_fallback_preserve_checkpoint_loading(monkeypatch)
     candidate = make_optimizer(parameters,dict(c,step_overhead={'fused_optimizer':True}))
     assert candidate.perf_sync_backend == 'foreach'
     candidate.load_state_dict(baseline.state_dict())
+    restore_optimizer_backend(candidate,True)
+    assert candidate.param_groups[0]['foreach'] is True and candidate.param_groups[0]['fused'] is False
+    parameters[0].grad = torch.ones_like(parameters[0])
+    candidate.step()
+    assert bool((parameters[0] < 1.).all())

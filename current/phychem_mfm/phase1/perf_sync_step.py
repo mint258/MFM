@@ -2,6 +2,11 @@
 import torch
 
 
+def defer_norm_checks(enabled, calibration):
+    """Only the frozen-threshold phase may defer norm checks/accounting."""
+    return enabled and (calibration is None or calibration.fitted)
+
+
 def make_optimizer(parameters, configuration):
     options = configuration.get('step_overhead', {})
     keywords = dict(lr=configuration['lr'], betas=tuple(configuration['betas']),
@@ -19,6 +24,14 @@ def make_optimizer(parameters, configuration):
         return optimizer
 
 
+def restore_optimizer_backend(optimizer, enabled):
+    """Old checkpoint groups must not silently disable the selected new backend."""
+    if enabled:
+        fused = optimizer.perf_sync_backend == 'fused'
+        for group in optimizer.param_groups:
+            group.update(fused=fused, foreach=not fused)
+
+
 class StepBuffer:
     """One CPU transfer per drain; FP64 sums preserve Python float accumulation."""
     def __init__(self, *, device='cuda'):
@@ -32,10 +45,11 @@ class StepBuffer:
         self.family = {name: (self.clipped.new_tensor(value, dtype=torch.float64), count)
                        for name, (value, count) in window.items()}
 
-    def add(self, row, total, norm, clip, family, checks):
+    def add(self, row, total, norm, clip, family, checks, *, count_clipped=True):
         self.rows.append(row)
         self.values.append(torch.stack((total.detach().double(), norm.detach().double())))
-        self.clipped.add_(norm.detach().double() > clip)
+        if count_clipped:
+            self.clipped.add_(norm.detach().double() > clip)
         self.finite.logical_and_(torch.isfinite(norm) & torch.isfinite(total))
         for check in checks:
             self.finite.logical_and_(check.detach())
