@@ -56,7 +56,10 @@ def main():
   for r,d in result['deltas'].items():
    score=result['scores'][r]['mean_normalized_improvement'];ci=d["ci95"];lines.append(f'|{c}|{labels[m]}|{r}|{score:.6g}|{d["delta"]:.6g}|[{ci[0]:.6g}, {ci[1]:.6g}]|{d["verdict"]}|')
   if m=='whiten':notes.append(c+'未白化的下游原子数：'+', '.join(str(k)+'='+str(v) for k,v in result.get('unwhitened_atoms',{}).items())+'。')
- lines+=['']+notes+['',f'已完成{completed}/{len(expected)}组。尚未产出：'+(', '.join(missing) if missing else '无')+'。','','局限：同一checkpoint的读出比较不含训练种子变异；所有结果仅构成建议，不自动接入主线。H4的R2相对线性R1基线还包含非线性读出容量变化，不能单独将增益归因于z信息更优。不同元素中的稀有元素估计、PMA广播站点读出和白化常数维的数值处理均已明确；未搜索新超参数或读出结构。']
+ lines+=['']+notes+['',f'已完成{completed}/{len(expected)}组。尚未产出：'+(', '.join(missing) if missing else '无')+'。']
+ if not missing:
+  lines+=['','结果解释：H2的R1在B3第3/4层和M1第4层相对各自第6层R1更差，其余所测换层或等权平均持平；H3的R1在B3和M1均持平。H2/H3的R3在全部所测变体中均相对同checkpoint第6层R3更差，因此这些结果不支持用本次换层、等权平均或元素白化替换该R3来源。','','H4中，z及[mean(H6), z]的R1各自相对B3第6层R1更优；按同一预注册R1参照，z的R2更差，拼接向量的R2更优。这支持将两种分子向量的线性读出作为后续表示建议，未比较z与拼接向量的直接配对差异，也未作跨读出协议的胜负判定。','','截至H2–H4完成，H1、H2–H4和H6已执行GPU作业累计墙钟4.8670小时；后续新checkpoint的几何计算另计，保持原≤15 GPU小时预算。']
+ lines+=['','局限：同一checkpoint的读出比较不含训练种子变异；所有结果仅构成建议，不自动接入主线。H4的R2相对线性R1基线还包含非线性读出容量变化，不能单独将增益归因于z信息更优。不同元素中的稀有元素估计、PMA广播站点读出和白化常数维的数值处理均已明确；未搜索新超参数或读出结构。']
  lines+=cyp_report(expected)
  guard();(REPO/'docs/p_heads/H2_H4_SOURCES.md').write_text('\n'.join(lines)+'\n')
 
