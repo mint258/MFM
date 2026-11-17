@@ -207,7 +207,7 @@ def main():
         while pending:
             ready,pending=cf.wait(pending,return_when=cf.FIRST_COMPLETED)
             for future in ready:
-                apply(future.result());files_done+=1;guard(lustre=True)
+                guard(lustre=True);apply(future.result());files_done+=1
                 item=next(iterator,None)
                 if item is not None:pending.add(pool.submit(source_file,item))
             if files_done//100!=(files_done-len(ready))//100:
