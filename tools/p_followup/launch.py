@@ -4,9 +4,8 @@ R=pathlib.Path('/share/home/zixiao/descriptor_analysis');CONTROL=R/'runs/p_follo
 os.environ['P_RECIPE_CONTROL_DIRECTORY']=str(CONTROL)
 sys.path.insert(0,str(REPO/'tools/p_recipe'))
 import launch_plan as scheduler
-# This project AGENTS.md restricts development jobs to compute-0-20.
-scheduler.NATIVE=('compute-0-20',)
-scheduler.FALLBACK=()
+# User 2026-11-17 permits suitable development nodes; inherit established
+# 5090 > 4090 > 3090 admission and same-task full-state handoff policy.
 launch=scheduler.launch
 from resources import load,save,guard
 if __name__=='__main__':

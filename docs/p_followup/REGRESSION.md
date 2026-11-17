@@ -19,3 +19,9 @@
 本回归证明代码检查及上述模块修复通过。B3真实loader验收、C/D的3M训练和R1/R3，以及D2逐头真实使用验收仍分别由各阶段完成。
 
 B1恢复新增的固定7字节句柄比较修复后，在compute-0-20以CPU执行现有F64 sidecar模块：4 passed，0.04秒；源c2984b6。命令为 python -B -m pytest current/tests/test_p_f64_sidecar.py -q -p no:cacheprovider。新增1项覆盖S7标量丢弃尾零、P/U类别和MI/CI差异；其余3项替换该模块原有结果后，当前有效合并3660项、24跳过、0失败/错误。REGRESSION_FULL.json保留原完整门禁3659项及28cb506溯源；本增量结果另存REGRESSION_B1_HANDLE_REPAIR.json，不将新代码归入旧作业。
+
+## 2026-11-18 D′ PMA组合定向验证
+
+用户补充计划要求只验证新组合，不重复64 TRAIN逐头验收。新增test_p_followup_pma_decomposition.py覆盖PMA下两个实际输出，以及conformer_decomposition=None与未设置开关的参数/预测逐位一致。原5项consumer测试同次通过，验证无PMA的D行为与mask/梯度权重仍成立。
+
+实际compute-0-20、CUDA_VISIBLE_DEVICES为空、CPU单线程、既有chemprop环境，执行：python -B -m pytest current/tests/test_p_followup_pma_decomposition.py current/tests/test_p_followup_decomposition_consumer.py -q -p no:cacheprovider；结果7 passed（新增2、复用5），0.16s。改动仅将可选分解头安装移至PMA头安装后；关闭路径不变，正在运行D的冻结源码未改。既有完整回归记录保留，未把该定向结果表述为重新运行完整套件。

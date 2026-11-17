@@ -109,13 +109,14 @@ class V31PDModel(nn.Module):
         from .p_conformer_decomposition import definition,install_heads
         self.conformer_decomposition=definition(conformer_decomposition)
         self.decomposition_fields=set(self.conformer_decomposition.get('selected_fields',[]))
-        if self.decomposition_fields:install_heads(self,self.conformer_decomposition,forms)
         self.p_recipe_pma = None
         if recipe.get('pma_pooling',False):
             from ..model.v3_latent import MolecularLatent, LatentSpec
             self.p_recipe_pma = MolecularLatent(LatentSpec(kind='pma',n_ref=53.64145,
                 write_back=False,reconstruction=False))
             self.heads.enable_p_recipe_pma(self.p_recipe_pma.representation_dim)
+        # PMA installs its scalar heads first; retain two outputs for selected D targets.
+        if self.decomposition_fields:install_heads(self,self.conformer_decomposition,forms)
         # Unit transform is used ONLY after applying the actual D4 transform to
         # both sides; it is not a replacement for missing data-line statistics.
         self.unit_normalizations = {f.name: TrainNormalization((0.,), (1.,), inherited,
