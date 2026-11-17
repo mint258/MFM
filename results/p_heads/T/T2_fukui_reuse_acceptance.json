@@ -1,0 +1,48 @@
+{
+  "arm": "T2",
+  "device": "cpu",
+  "selected_fields": [
+    "P.pm7_B.r44.value",
+    "P.pm7_B.r45.value",
+    "P.pm7_B.r46.value"
+  ],
+  "samples": 64,
+  "encoder_frozen": true,
+  "updates": 762,
+  "learning_rate": 0.003,
+  "unobserved_fields": [],
+  "optimizer": "AdamW weight_decay0, fixed; no search",
+  "heads": {
+    "P.pm7_B.r44.value": {
+      "initial": 0.07140423730015755,
+      "final": 0.0006924213084857911,
+      "ratio": 0.009697201940202831,
+      "passed_at_update": 762,
+      "passed": true
+    },
+    "P.pm7_B.r45.value": {
+      "initial": 0.07157871872186661,
+      "final": 0.0016877036541700363,
+      "ratio": 0.02357828813236998,
+      "passed_at_update": 702,
+      "passed": true
+    },
+    "P.pm7_B.r46.value": {
+      "initial": 0.0687412153929472,
+      "final": 0.001373119419440627,
+      "ratio": 0.01997519845396141,
+      "passed_at_update": 721,
+      "passed": true
+    }
+  },
+  "supplement": "Original Fukui MLP module and parameters preserved; projection only",
+  "supersedes": {
+    "report": "T2_acceptance.json",
+    "fields": [
+      "P.pm7_B.r44.value",
+      "P.pm7_B.r45.value",
+      "P.pm7_B.r46.value"
+    ]
+  },
+  "unchanged_charge_acceptance_reused": "T2_acceptance.json; six charge heads not rerun"
+}
