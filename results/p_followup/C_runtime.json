@@ -1,0 +1,40 @@
+{
+  "telemetry": {
+    "p_followup_20261116_C_dedup": {
+      "samples": 849,
+      "mean_whole_card_power_watts": 239.98215547703154
+    },
+    "p_followup_20261116_C_dedup_sbatch": {
+      "samples": 924,
+      "mean_whole_card_power_watts": 194.33116883116892
+    }
+  },
+  "status": "COMPLETE",
+  "samples": 3000000,
+  "seed": 0,
+  "gpu_uuid": "GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5",
+  "gpu_name": "NVIDIA GeForce RTX 4090",
+  "native_wrapper_seconds": 25538.88262462616,
+  "slurm_job": 4535150,
+  "slurm_allocated_cpus": 16,
+  "slurm_allocated_seconds": 28139,
+  "slurm_pretraining_seconds": 9.450683355331421,
+  "gpu_occupied_hours": 14.907897761464119,
+  "training_summary": {
+    "status": "COMPLETE",
+    "run": "p_followup_20261116_C_dedup_sbatch",
+    "samples": 3000000,
+    "updates": 93750,
+    "actual_samples": 1527584,
+    "seconds": 53328.611827337,
+    "clipped_fraction": 0.044277333333333335,
+    "clip": 632.4221362304693,
+    "batch_size": 32,
+    "microbatch_size": 32,
+    "GPU_peak_bytes": 9695894016,
+    "training_and_evaluation_seconds": 28128.707831943
+  },
+  "mean_whole_card_power_watts": 216.19111675126865,
+  "power_method": "Sample-count weighted mean of both closed whole-card telemetry segments, not isolated GPU energy",
+  "native_OS_CPU_seconds": null
+}
