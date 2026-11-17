@@ -35,13 +35,15 @@ def guard(force=False, lustre=False):
  heads=R/'MFM_p_heads_20261117/configs/p_heads/resources.json'
  heads_policy=load(heads)
  heads_future=max(0,heads_policy['peak_total_bytes']-allocated(pathlib.Path(heads_policy['control_root']))-allocated(pathlib.Path(heads_policy['repository'])))
- nfs_concurrent=disk.remaining_nfs_other()+18_000_000_000+heads_future
+ # Mainline declared a separate2GiB NFS reserve for the shared M2 seed1.
+ noise_future=max(0,2*GIB-allocated(R/'runs/p_recipe_noise_training'))
+ nfs_concurrent=disk.remaining_nfs_other()+18_000_000_000+heads_future+noise_future
  checks=[('/',16*1024**2),(R,nfs_future+nfs_concurrent)]
  if lustre:checks.append((pathlib.Path('/lfshome'),main_future+lustre_future+disk.remaining_d6()+6_000_000_000))
  for path,future in checks:
   disk.m.require_capacity(disk.m.filesystem_status(path),future,10000)
  q=disk.CONTROL
- result=dict(lustre=(disk.m.quota_headroom(q/'lustre_quota_available_v2_20261107.json','/lfshome',main_future+lustre_future,disk.remaining_d6()+6_000_000_000) if lustre else None),share=disk.m.quota_headroom(q/'share_quota_available_v3.json','/share',nfs_future,nfs_concurrent),mainline_remaining=main_future,own_lustre_remaining=lustre_future,own_nfs_remaining=nfs_future,other_heads_remaining=heads_future)
+ result=dict(lustre=(disk.m.quota_headroom(q/'lustre_quota_available_v2_20261107.json','/lfshome',main_future+lustre_future,disk.remaining_d6()+6_000_000_000) if lustre else None),share=disk.m.quota_headroom(q/'share_quota_available_v3.json','/share',nfs_future,nfs_concurrent),mainline_remaining=main_future,own_lustre_remaining=lustre_future,own_nfs_remaining=nfs_future,other_heads_remaining=heads_future,shared_M2_seed1_remaining=noise_future)
  _last=now;_last_capacity=result;return result
 
 def load(path):return json.loads(pathlib.Path(path).read_text())

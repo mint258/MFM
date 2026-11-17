@@ -33,3 +33,5 @@ D′仅一条3M，初估9–15 GPU-h；仅条件触发时另加seed1。提速线
 后续工具已按本指示准备：compare_dprime.py复用配对抽样并执行条件seed1规则（2项边界单测通过）；val_conformer_mae.py增加Dprime/M2模式，仅将同一既有VAL流程的字段数由99改为109，原D/C模式仍保留；directive_geometry.py只补Dprime/C3的第6层CVF和CVF_res，直接复用head线H1对M2同一5000MID/47698构象的已关闭几何。新几何不加PCA或方向性检验，C3分数仅引用配方线既有R1/R3。实际计算仍等待相应精确3M检查点。
 
 跨窗口磁盘预留随head线新指示更新：本线仍18GiB总峰值；后续守卫另外读取head线资源配置的24GiB总峰值并扣除其实际已占用字节，作为并发余量纳入真实NFS/UID配额检查，原有18GB并发项与其他预留保持。实际compute-0-20预检通过：UID余量456367476736字节、所需180265334784字节；head线尚余23479394304字节、本线尚余7016136704字节。只更新后续入口，运行中D的冻结源码不变。
+
+配方线已发布共享M2 seed1唯一入口：MFM_p_recipe/configs/p_recipe/M2_SEED1_REFERENCE.json（当前实际4535736/node7，RUNNING_NOT_YET_REUSABLE）。若D′触发seed1，只复用该指针对应的精确3M、完整R1/R3及成功终态；不重复训练M2。其新独立NFS2GiB预留已另计入本线后续守卫，扣除runs/p_recipe_noise_training实际占用；本线18GiB总峰值与head线24GiB预留均未挪用。实际compute20预检：UID余量450938912768字节、所需182051457024字节，通过；本线剩余6979006464、head线23164112896、共享seed1剩余2138533888字节。D′5760点保留；提速线当前替代作业4535744仍在进行GPU核数扫描，未以旧句柄终态认定其GPU任务完成。
