@@ -1,0 +1,326 @@
+{
+  "arm": "T1",
+  "samples": 64,
+  "encoder_frozen": true,
+  "updates": 2000,
+  "learning_rate": 0.003,
+  "unobserved_fields": [],
+  "optimizer": "AdamW weight_decay0, fixed; no search",
+  "heads": {
+    "P.pm7_B.r39.p": {
+      "initial": 4.591402466758154e-05,
+      "final": 0.00013964470417704433,
+      "ratio": 3.041438976175031,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r39.s": {
+      "initial": 0.0001881725256680511,
+      "final": 0.0008174880931619555,
+      "ratio": 4.344354151913011,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r44.value": {
+      "initial": 0.0712688323110342,
+      "final": 0.03791300766170025,
+      "ratio": 0.531971781103959,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r45.value": {
+      "initial": 0.07166172564029694,
+      "final": 0.046032510697841644,
+      "ratio": 0.6423583898732766,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r46.value": {
+      "initial": 0.06880665011703968,
+      "final": 0.044303739443421364,
+      "ratio": 0.6438874639015412,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r55.electron_electron": {
+      "initial": 0.00016264007717836648,
+      "final": 0.000341669685440138,
+      "ratio": 2.1007717861903785,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r55.electron_nuclear": {
+      "initial": 0.0002804663818096742,
+      "final": 0.00038455404865089804,
+      "ratio": 1.371123505675123,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r55.total": {
+      "initial": 0.00022444680507760495,
+      "final": 0.0002995394024765119,
+      "ratio": 1.3345674596390127,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r64.value": {
+      "initial": 0.0018517140415497124,
+      "final": 0.0010602577240206301,
+      "ratio": 0.5725817811119978,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r68.value": {
+      "initial": 0.0010781561431940645,
+      "final": 0.0013398386654444039,
+      "ratio": 1.2427130095229977,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r82.De": {
+      "initial": 0.09685233607888222,
+      "final": 0.03420894593000412,
+      "ratio": 0.35320723603550824,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r82.Dn": {
+      "initial": 0.05662492476403713,
+      "final": 0.016420597210526466,
+      "ratio": 0.2899888570086948,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r82.charge_density_q_minus_Z": {
+      "initial": 0.09881448373198509,
+      "final": 0.022824374958872795,
+      "ratio": 0.2309820797200078,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r84.value": {
+      "initial": 4.455448106455151e-05,
+      "final": 0.0005520522536244243,
+      "ratio": 12.390499012312564,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_anion.r190.p": {
+      "initial": 0.00017007513815769926,
+      "final": 0.0004372421244625002,
+      "ratio": 2.5708761974197247,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_anion.r190.s": {
+      "initial": 0.0006593272264581174,
+      "final": 0.0014000200317241251,
+      "ratio": 2.1234069753875984,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_anion.r210.value": {
+      "initial": 0.004522180650383234,
+      "final": 0.002884426969103515,
+      "ratio": 0.6378398370394763,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_cation.r259.p": {
+      "initial": 0.00022213422926142812,
+      "final": 0.0003398661210667342,
+      "ratio": 1.5300033776728228,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_cation.r259.s": {
+      "initial": 0.0006431043439079076,
+      "final": 0.0016575642512179911,
+      "ratio": 2.5774421630331172,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_cation.r279.value": {
+      "initial": 0.007008286891505122,
+      "final": 0.0038205604068934917,
+      "ratio": 0.5451489737848012,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_octanol.r326.p": {
+      "initial": 4.519825961324386e-05,
+      "final": 0.00023847005650168285,
+      "ratio": 5.276089357029292,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_octanol.r326.s": {
+      "initial": 0.00017898715304909274,
+      "final": 0.0007013895956333727,
+      "ratio": 3.9186588740310038,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_octanol.r346.value": {
+      "initial": 0.0009852779330685735,
+      "final": 0.0012330601457506418,
+      "ratio": 1.251484585583247,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_water.r393.p": {
+      "initial": 4.7002349674585275e-05,
+      "final": 0.0001392495760228485,
+      "ratio": 2.962608826727281,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_water.r393.s": {
+      "initial": 0.00016794580005807802,
+      "final": 0.0008224724733736366,
+      "ratio": 4.8972494286205075,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_water.r413.value": {
+      "initial": 0.0009713245672173798,
+      "final": 0.0010922194924205542,
+      "ratio": 1.1244639838046209,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.xtb_fod.r537.value": {
+      "initial": 0.011988976504653692,
+      "final": 0.013363116420805454,
+      "ratio": 1.1146169496302183,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.xtb_singlepoint.r666.value": {
+      "initial": 0.00023348660761257634,
+      "final": 0.0007054187590256333,
+      "ratio": 3.02123863222225,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.xtb_singlepoint.r667.value": {
+      "initial": 0.0001272950648854021,
+      "final": 0.0005823812680318952,
+      "ratio": 4.575049854102248,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.xtb_singlepoint.r668.value": {
+      "initial": 0.0011135624954476953,
+      "final": 0.001644470845349133,
+      "ratio": 1.4767656526434936,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.xtb_vfukui.r712.f_minus": {
+      "initial": 0.01345691317692399,
+      "final": 0.014778355602174997,
+      "ratio": 1.0981980345624156,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.xtb_vfukui.r712.f_plus": {
+      "initial": 0.016367708332836628,
+      "final": 0.015977134462445974,
+      "ratio": 0.9761375348064402,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.xtb_vfukui.r712.f_radical": {
+      "initial": 0.009039754513651133,
+      "final": 0.009552853647619486,
+      "ratio": 1.0567602951157038,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r40.value": {
+      "initial": 0.00011526336675160564,
+      "final": 0.001186786568723619,
+      "ratio": 10.29630317220529,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r56.C": {
+      "initial": 0.00036167536745779216,
+      "final": 0.0040973813738673925,
+      "ratio": 11.328892544349348,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r56.EE": {
+      "initial": 0.00022467084636446089,
+      "final": 0.0006620849308092147,
+      "ratio": 2.946910743084045,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r56.EN": {
+      "initial": 0.0006920986925251782,
+      "final": 0.002138921059668064,
+      "ratio": 3.090485624043064,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r56.J": {
+      "initial": 4.665827509597875e-05,
+      "final": 0.0011267863446846604,
+      "ratio": 24.149764267255833,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r56.K": {
+      "initial": 6.39391455479199e-05,
+      "final": 0.0010682311258278787,
+      "ratio": 16.70699720294637,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r56.NN": {
+      "initial": 0.0005192274111323059,
+      "final": 0.0019064801163040102,
+      "ratio": 3.671763230193204,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r56.total": {
+      "initial": 0.0001059506721503567,
+      "final": 0.0025037749437615275,
+      "ratio": 23.631515430202942,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r65.value": {
+      "initial": 0.0011016263160854578,
+      "final": 0.0016336857224814594,
+      "ratio": 1.4829763038764658,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.xtb_singlepoint.r677.value": {
+      "initial": 0.00033373493351973593,
+      "final": 0.001879144285339862,
+      "ratio": 5.63064904689918,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r73.value.sigma": {
+      "initial": 0.042073504999279976,
+      "final": 0.03593398630619049,
+      "ratio": 0.8540763672245858,
+      "passed_at_update": null,
+      "passed": false
+    },
+    "P.pm7_B.r73.value.pi": {
+      "initial": 0.03111409954726696,
+      "final": 0.02344064274802804,
+      "ratio": 0.7533768641582639,
+      "passed_at_update": null,
+      "passed": false
+    }
+  }
+}
