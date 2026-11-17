@@ -1,0 +1,95 @@
+{
+  "status": "COMPLETE",
+  "enabled_fields": [],
+  "requested_fields": [
+    "P.pm7_B.r83.value",
+    "P.xtb_ALPB_octanol.r460.value",
+    "P.xtb_ALPB_water.r499.value",
+    "P.xtb_singlepoint.r670.value"
+  ],
+  "field_status": {
+    "P.pm7_B.r83.value": {
+      "status": "UNRESOLVED",
+      "D6_valid_values": 13562620,
+      "source_aligned_values": 13371922,
+      "mismatch": 0,
+      "missing_source": 190698,
+      "duplicate_source_rows": 0,
+      "mismatch_rate": 0.014060557620872664,
+      "B3_status": "UNRESOLVED"
+    },
+    "P.xtb_ALPB_octanol.r460.value": {
+      "status": "UNRESOLVED",
+      "D6_valid_values": 13562573,
+      "source_aligned_values": 13371878,
+      "mismatch": 0,
+      "missing_source": 190695,
+      "duplicate_source_rows": 0,
+      "mismatch_rate": 0.014060385149632006,
+      "B3_status": "UNRESOLVED"
+    },
+    "P.xtb_ALPB_water.r499.value": {
+      "status": "UNRESOLVED",
+      "D6_valid_values": 13562535,
+      "source_aligned_values": 13371841,
+      "mismatch": 0,
+      "missing_source": 190694,
+      "duplicate_source_rows": 0,
+      "mismatch_rate": 0.014060350811997904,
+      "B3_status": "UNRESOLVED"
+    },
+    "P.xtb_singlepoint.r670.value": {
+      "status": "UNRESOLVED",
+      "D6_valid_values": 13562585,
+      "source_aligned_values": 13371888,
+      "mismatch": 0,
+      "missing_source": 190697,
+      "duplicate_source_rows": 0,
+      "mismatch_rate": 0.014060520173698451,
+      "B3_status": "UNRESOLVED"
+    }
+  },
+  "splits": {
+    "TRAIN": {
+      "D6_directory": "/lfshome/zixiao/data_v1_20261025/D6_full_v31_20261105_v1/shared_compact/TRAIN",
+      "values": "/lfshome/zixiao/data_v1_20261025/p_followup_f64_20261116/TRAIN/values.npy",
+      "molecule_offsets": "/lfshome/zixiao/data_v1_20261025/p_followup_f64_20261116/TRAIN/molecule_offsets.npy",
+      "records": 21777793,
+      "records_carrying_selected": 13420668,
+      "valid_values_by_kind": {
+        "P": 44094489,
+        "U": 9588014
+      },
+      "values_bytes": 980001005,
+      "values_SHA256": "7690551d9a6ad60116a0537cd6ee890743cefd68923b9263e4e5aad0e96b41ee",
+      "molecule_offsets_SHA256": "24cdbf91b0d487b68462d9ada0310927ad4520732ebfed7cbb2d09e22a29db9a"
+    },
+    "FULL": {
+      "D6_directory": "/lfshome/zixiao/data_v1_20261025/D6_full_v31_20261105_v1/shared_compact/FULL",
+      "values": "/lfshome/zixiao/data_v1_20261025/p_followup_f64_20261116/FULL/values.npy",
+      "molecule_offsets": "/lfshome/zixiao/data_v1_20261025/p_followup_f64_20261116/FULL/molecule_offsets.npy",
+      "records": 249912,
+      "records_carrying_selected": 141953,
+      "valid_values_by_kind": {
+        "P": 507055,
+        "U": 60755
+      },
+      "values_bytes": 11246360,
+      "values_SHA256": "26e074b0ca4ce700a892514ae162e9264824d16bd5e60fc14b559ee5beca295c",
+      "molecule_offsets_SHA256": "9ee5416424a22d5bbdc17874deeab9b53c8d494e7db0fdcf7d560c0a410b58a1"
+    }
+  },
+  "source_physical_index": "/lfshome/zixiao/data_v1_20261025/D6_full_physical_index_20261105_v3/manifest.json",
+  "original_component_reader": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/window2_20261105/D6_node20_shared_candidate_20261108_v1/source_snapshot86/workflows/data_v1_final/labels/common.py",
+  "seconds": 9593.854660907004,
+  "workers": 3,
+  "sidecar_default": null,
+  "enabled_in_C_D": false,
+  "new_full_source_index": false,
+  "resumed_D6": true,
+  "original_D6_scan_job": "4535157",
+  "reference_recovery_manifest": "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/B1_F32_reference_cache/manifest.json",
+  "timing_scope": "seconds covers this source-only invocation",
+  "B3_acceptance": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/results/p_followup/B3_acceptance.json",
+  "B1_enabled_fields": []
+}

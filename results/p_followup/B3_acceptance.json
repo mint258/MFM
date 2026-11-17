@@ -1,0 +1,147 @@
+{
+  "status": "UNRESOLVED_FIELDS",
+  "records": 42961,
+  "source_baseline": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/current/phychem_mfm/phase1/p_recipe_data.py",
+  "B1_field_status": {
+    "P.pm7_B.r83.value": {
+      "status": "UNRESOLVED",
+      "D6_valid_values": 13562620,
+      "source_aligned_values": 13371922,
+      "mismatch": 0,
+      "missing_source": 190698,
+      "duplicate_source_rows": 0,
+      "mismatch_rate": 0.014060557620872664
+    },
+    "P.xtb_ALPB_octanol.r460.value": {
+      "status": "UNRESOLVED",
+      "D6_valid_values": 13562573,
+      "source_aligned_values": 13371878,
+      "mismatch": 0,
+      "missing_source": 190695,
+      "duplicate_source_rows": 0,
+      "mismatch_rate": 0.014060385149632006
+    },
+    "P.xtb_ALPB_water.r499.value": {
+      "status": "UNRESOLVED",
+      "D6_valid_values": 13562535,
+      "source_aligned_values": 13371841,
+      "mismatch": 0,
+      "missing_source": 190694,
+      "duplicate_source_rows": 0,
+      "mismatch_rate": 0.014060350811997904
+    },
+    "P.xtb_singlepoint.r670.value": {
+      "status": "UNRESOLVED",
+      "D6_valid_values": 13562585,
+      "source_aligned_values": 13371888,
+      "mismatch": 0,
+      "missing_source": 190697,
+      "duplicate_source_rows": 0,
+      "mismatch_rate": 0.014060520173698451
+    }
+  },
+  "recipes": {
+    "D4": {
+      "checks": {
+        "baseline_off_fields_checked": 4682749,
+        "baseline_off_mismatch_records": 0,
+        "baseline_off_fields": {},
+        "nonselected_on_mismatch_records": 0,
+        "nonselected_on_fields": {},
+        "records": 42961
+      },
+      "fields": {
+        "P.pm7_B.r83.value": {
+          "source_nonzero_pairs": 25692,
+          "normalized_zero_pairs": 456,
+          "numerical_failures": 25388,
+          "max_absolute_error": 0.0011633276873151965,
+          "passed": false
+        },
+        "P.xtb_ALPB_octanol.r460.value": {
+          "source_nonzero_pairs": 25710,
+          "normalized_zero_pairs": 78,
+          "numerical_failures": 25027,
+          "max_absolute_error": 0.0004650016821804506,
+          "passed": false
+        },
+        "P.xtb_ALPB_water.r499.value": {
+          "source_nonzero_pairs": 25707,
+          "normalized_zero_pairs": 80,
+          "numerical_failures": 24980,
+          "max_absolute_error": 0.00037573418098240524,
+          "passed": false
+        },
+        "P.xtb_singlepoint.r670.value": {
+          "source_nonzero_pairs": 25710,
+          "normalized_zero_pairs": 97,
+          "numerical_failures": 24999,
+          "max_absolute_error": 0.0005050324724958644,
+          "passed": false
+        }
+      }
+    },
+    "A1": {
+      "checks": {
+        "baseline_off_fields_checked": 4682749,
+        "baseline_off_mismatch_records": 0,
+        "baseline_off_fields": {},
+        "nonselected_on_mismatch_records": 0,
+        "nonselected_on_fields": {},
+        "records": 42961
+      },
+      "fields": {
+        "P.pm7_B.r83.value": {
+          "source_nonzero_pairs": 25692,
+          "normalized_zero_pairs": 456,
+          "numerical_failures": 25388,
+          "max_absolute_error": 0.0011633276873151965,
+          "passed": false
+        },
+        "P.xtb_ALPB_octanol.r460.value": {
+          "source_nonzero_pairs": 25710,
+          "normalized_zero_pairs": 78,
+          "numerical_failures": 25027,
+          "max_absolute_error": 0.0004650016821804506,
+          "passed": false
+        },
+        "P.xtb_ALPB_water.r499.value": {
+          "source_nonzero_pairs": 25707,
+          "normalized_zero_pairs": 80,
+          "numerical_failures": 24980,
+          "max_absolute_error": 0.00037573418098240524,
+          "passed": false
+        },
+        "P.xtb_singlepoint.r670.value": {
+          "source_nonzero_pairs": 25710,
+          "normalized_zero_pairs": 97,
+          "numerical_failures": 24999,
+          "max_absolute_error": 0.0005050324724958644,
+          "passed": false
+        }
+      }
+    }
+  },
+  "throughput": {
+    "off": {
+      "samples": 20000,
+      "seconds": 162.53144907200476,
+      "samples_per_second": 123.0531082703852,
+      "recipe": "A1",
+      "population": "frozen TRAIN+VAL physical records",
+      "order_seed": 20261025,
+      "passes": 1
+    },
+    "on": {
+      "samples": 20000,
+      "seconds": 90.75321485799213,
+      "samples_per_second": 220.3778679498615,
+      "recipe": "A1",
+      "population": "frozen TRAIN+VAL physical records",
+      "order_seed": 20261025,
+      "passes": 1
+    }
+  },
+  "accepted_fields": [],
+  "seconds": 3342.6913217840047
+}
