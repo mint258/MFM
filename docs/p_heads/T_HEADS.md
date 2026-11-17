@@ -6,6 +6,19 @@
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
 
+## T0 复用的描述性基线
+
+已有B3的CYP行直接来自 `results/p_recipe/scores.csv` 中该resumed运行的3M条目；原单位VAL来自 `results/p_recipe/training/fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117/VAL_original_units_3000000.csv`。109个字段的MAE、观察数和单位以及以下4条CYP记录已原样整理为 `results/p_heads/T/T0_B3_descriptions.json`；没有重评、重算或增加bootstrap。
+
+| 读出 | CYP任务 | 原误差 | 相对随机参考的score（只报告） |
+| --- | --- | ---: | ---: |
+| R1 | 3A4 | 0.4 | 0.41666666666666663 |
+| R1 | 2D6 | 0.5769230769230769 | 0.06250000000000014 |
+| R3 | 3A4 | 0.4285714285714286 | 0.28571428571428564 |
+| R3 | 2D6 | 0.5769230769230769 | 0.06250000000000014 |
+
+新训练完成后，逐字段VAL直接取本线已有生产者 `CONTROL/runtime/results/p_recipe/training/<run>/VAL_original_units_3000000.csv`；CYP取 `CONTROL/scores.csv`，不重新读出或拟合。CYP始终排除在七任务主分之外。完整逐字段数表随上述小JSON及新臂对应描述表交付，不另写评价协议。
+
 ## T3 PMA 均匀权重
 
 新增 `p_recipe.pma_uniform_weights`，默认关闭。仅将 PMA 从原子读取信息的 cross-attention 权重改为每个有效原子 1/N；padding为0。PMA 后续 query self-attention、残差、FFN、sum分支和所有参数保持原结构；不删除q/k投影。因此参数量与 B3 完全一致。下游仍读编码器H0。
@@ -46,9 +59,9 @@ T3训练已提交真实Slurm作业4535405（node0/3090、16CPU），使用独立
 
 ## 逐头真实验收方法（待执行）
 
-`tools/p_heads/t_accept_heads.py`使用实际B3 loader在同一全量TRAIN清单中固定取64个分子及其第一个允许构象。加载真实B3完整状态，冻结编码器，缓存两个32样本批次的H0；只为当前臂的新头及对应atom/pair MLP开放梯度，其余参数固定。采用固定AdamW lr0.003、weight_decay0，不做超参数搜索。每个头以实际原loss为初值，首次降至初值1%以下即通过；最多2000次更新，同时受单项4小时限制。未观察到有效标签的头记录为未验收，不视作通过。
+`tools/p_heads/t_accept_heads.py`使用实际B3 loader在同一全量TRAIN清单中固定取64个分子及其第一个允许构象。加载真实B3完整状态，冻结编码器，缓存两个32样本批次的H0；只为当前臂的新头及对应atom/pair MLP开放梯度，其余参数固定。T1的初始loss来自B3已有atom/pair MLP与新增零初始化decoder；这些MLP可随新decoder一起更新，没有为验收另行重置。T2的初始loss则来自新初始化的物理头。采用固定AdamW lr0.003、weight_decay0，不做超参数搜索。每个头以实际原loss为初值，首次降至初值1%以下即通过；最多2000次更新，同时受单项4小时限制。未观察到有效标签的头记录为未验收，不视作通过。
 
-T1按通过头列表选择解码器路由，失败头读原H0；T2只保留通过真实验收的物理约束头，失败字段恢复原MLP。验收只更新本任务配置，不修改主线、标签或mask。运行入口先取得共享UUID锁，再核实实际显存准入，写入受NFS磁盘guard/watchdog保护。上述方法已准备，尚未生成真实验收结果。
+T1按通过头列表选择解码器路由，失败头读原H0；T2只保留通过真实验收的物理约束头，失败字段恢复原MLP。验收只更新本任务配置，不修改主线、标签或mask。运行入口先取得共享UUID锁，再核实实际显存准入，写入受NFS磁盘guard/watchdog保护。当前真实验收已启动，但尚未生成最终结果。若固定初始化与预算下不达标，则按预注册保守记为UNRESOLVED/回退；这不证明架构本身必然无效。不会依据中途结果重置、调参或重复验收。全无通过的臂记为缺失，不启动与T0等同的重复3M；部分通过则明确报告实际作用的头列表。
 
 ## 显著性与最终判定（尚未应用）
 
