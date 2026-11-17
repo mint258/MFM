@@ -9,6 +9,8 @@ from phychem_mfm.phase1.v31_loader import encode_samples
 def main():
     p=argparse.ArgumentParser();p.add_argument('--arm',choices=['T1','T2'],required=True);a=p.parse_args()
     watchdog();torch.set_num_threads(1);torch.manual_seed(0)
+    import pyarrow as pa
+    pa.set_cpu_count(1);pa.set_io_thread_count(1)
     gpu=os.environ['CUDA_VISIBLE_DEVICES'].split(',')[0]
     lock_path=pathlib.Path('/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks')/(gpu+'.lock')
     gpu_lock=lock_path.open('a');fcntl.flock(gpu_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
