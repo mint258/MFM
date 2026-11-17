@@ -1,5 +1,13 @@
 # P 配方研究日志
 
+2026-11-17 17:56UTC · fixed20261115 round3 · M2_seed1 RUNNING 152992/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:26:39UTC。
+
+2026-11-17 17:56UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 931264/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:26:39UTC。
+
+2026-11-17 17:55UTC · fixed20261115 round3 · M2_seed1 RUNNING 148160/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:25:22UTC。
+
+2026-11-17 17:55UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 930240/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:25:22UTC。
+
 2026-11-17 17:25UTC · fixed20261115 round3 · M2_seed1 RUNNING 31232/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:55:00UTC。
 
 2026-11-17 17:25UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 905536/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:55:00UTC。
@@ -745,3 +753,8 @@ The perf line has actually received GPU via4535718/node5 (profile workers1286418
 Lustre admission for another2GiB failed before submission, so the run uses separately reserved2GiB on NFS. Actual node bytes/inodes and fresh UID quotas/global forecasts passed; existing61GB P/Lustre and other lines' reservations are unchanged. Native and Slurm guards now forward explicit per-run NFS growth, retaining the64MiB default floor. CPU regression:13 passed (directive and unresolved tests),0.15s on compute20.
 
 Attempt1 failed before any optimizer update because the admission helper had precreated the output directory; elapsed10.3432936668396s and original output remain. Its pending takeover4535731 was verified/cancelled with0 elapsed. The helper now leaves output creation to the trainer. The original configuration is archived, its ledger points to that archive and the distinct attempt2 successor; an initial successor-progress misattribution from the overwritten config pointer is recorded and corrected to0 for attempt1. No training progress was discarded. All old outputs and costs remain; no other branch was modified.
+### 2026-11-18 01:56 CST — half-hour monitor and seed1 clip freeze
+
+Actual sacct confirms C3/4535189 and M2 seed1/4535736 RUNNING, with both advancing. C3 is930240/3M at01:55, still before its complete1M migration gate. Seed1 reached its own150016-sample freeze: preclip norm p99=35.794393157958986 from2813 updates in the registered60k–150k step-start window, initial281.7; threshold fixed from here through3M and written under its training run. No recipe adjustment or restart occurred.
+
+Read-only perf-line evidence:4535718 RUNNING/node5. Its GPU_RESULTS_20261118.md is still explicitly in progress, with no final switch recommendations; partial S1 fails quality, S2 passes quality but gains only3.69%, and S3–S8 remain unsettled. Keep9M on HOLD until full GPU delivery and user switch confirmation. C3 migration plan is published and authorized; no save/exit request has been made before the1M/faster-idle/perf-priority conditions. No other line was changed.
