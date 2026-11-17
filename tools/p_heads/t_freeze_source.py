@@ -1,9 +1,9 @@
 """Freeze the small executable source; share only unchanged inputs/configuration."""
 import pathlib,shutil
-from h_resources import REPO,CONTROL,guard,save
+from h_resources import REPO,CONTROL,guard,watchdog
 
 def main():
-    guard(force=True)
+    watchdog()
     destination=CONTROL/'T3_source'
     if destination.exists():raise FileExistsError(destination)
     trees=['current','tools']
