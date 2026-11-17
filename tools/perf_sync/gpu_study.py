@@ -205,8 +205,28 @@ def benchmark(name):
     from torch._dynamo.utils import counters, guard_failures, compile_times
     counters.clear()
     guard_failures.clear()
+    from phychem_mfm.phase1 import perf_sync_step
+    original_optimizer=perf_sync_step.make_optimizer
+    optimizer_observation={}
+    warm_guard_count=0
+    def observe_optimizer(parameters, configuration):
+        optimizer=original_optimizer(parameters, configuration)
+        optimizer_observation.update(backend=getattr(optimizer,'perf_sync_backend','default'),
+            param_groups=[dict(fused=g.get('fused'),foreach=g.get('foreach')) for g in optimizer.param_groups])
+        zero=optimizer.zero_grad;calls=0
+        def counted_zero(*args,**kwargs):
+            nonlocal calls,warm_guard_count
+            calls+=1
+            if calls==c['benchmark_warmup_batches']+2:
+                warm_guard_count=sum(len(reasons) for reasons in guard_failures.values())
+            return zero(*args,**kwargs)
+        optimizer.zero_grad=counted_zero
+        return optimizer
+    perf_sync_step.make_optimizer=observe_optimizer
     try: result=train(c)
-    finally: stopped.set();monitor.join(timeout=5)
+    finally:
+        perf_sync_step.make_optimizer=original_optimizer
+        stopped.set();monitor.join(timeout=5)
     measured=[r for r in telemetry if result['measure_wall_start']<=r[0]<=result['measure_wall_end']]
     losses=list(csv.DictReader((ROOT/f'{name}_training/losses.csv').open()))
     last=[float(r['total']) for r in losses[-200:]]
@@ -214,7 +234,9 @@ def benchmark(name):
                   last200_mean=float(np.mean(last)),finite=bool(np.isfinite([float(r['total']) for r in losses]).all()),
                   warmup='100 forward/backward passes on first batch, no optimizer updates, RNG restored',actual_optimizer_updates=1000)
     result['compile_counters']={group:dict(values) for group,values in counters.items()}
-    result['recompilations']=sum(len(reasons) for reasons in guard_failures.values())
+    result['recompilations_total_including_warmup']=sum(len(reasons) for reasons in guard_failures.values())
+    result['recompilations']=result['recompilations_total_including_warmup']-warm_guard_count
+    result['optimizer_execution']=optimizer_observation
     result['compiler_timing_table']=compile_times()
     (REPORT/f'{name}_benchmark.json').write_text(json.dumps(result,indent=2)+'\n')
     with (ROOT/f'{name}_gpu.csv').open('w',newline='') as f:
@@ -414,7 +436,8 @@ def main():
     REPORT.mkdir(parents=True, exist_ok=True)
     marker = REPORT/f'{args.stage}_complete.json'
     if marker.exists(): raise RuntimeError('Completed GPU stage must not be repeated')
-    if args.stage.startswith('profile_'): profile(args.stage.removeprefix('profile_'))
+    if args.stage.startswith('analyze_'): analyze_profiles()
+    elif args.stage.startswith('profile_'): profile(args.stage.removeprefix('profile_'))
     elif args.stage.startswith('numerical_'): numerical(args.stage.removeprefix('numerical_'))
     elif args.stage.startswith('benchmark_'): benchmark(args.stage.removeprefix('benchmark_'))
     else: globals()[args.stage]()
