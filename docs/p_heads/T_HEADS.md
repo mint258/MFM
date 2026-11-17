@@ -29,6 +29,7 @@ T5新增默认关闭 `p_recipe.simple_molecular_readout`：不构造PMA，严格
 旧T4队列4535734已由协调窗口hold并确认PENDING／0秒后取消，没有启动或重跑训练。当前真实T4作业为4535771：node4／15CPU／nice10000，afterany独立H层6任务4535770，只是同卡资源接续，不依赖H科学结果。原T4_source@0d04c40、B3基底和配置不变，日志CONTROL/T4_seed0_4535771.log，目标GPU UUID前缀6965a7c7；此前PENDING未记为启动；现已实际RUNNING并发布首32，唯一事实观察见下。T5原队列4535735的旧依赖提速线4535718失败后，协调窗口确认T5仍PENDING／0秒再hold并更新；release被Slurm拒绝，遂取消该未开始句柄，以相同冻结源／配置／B3基底干净重提真实4535747：node5／15CPU／nice10000，afterok当前提速线4535744。此处只替换零进度等待队列，T5没有训练进度重启；旧0秒记录保留，T1/T2/T3未改动。
 用户新增明确授权T4/T5在node4低显存条件下与原有4个gmx上下文共用，现已由协调窗口记入resources.json的对应scope；原gmx进程保持不动，只使用真实Slurm分配，不扩展为node4原生SSH混合启动许可。本次T3最终点H层6任务4535770实际已在node4／4CPU运行，T4等待其同卡物理资源释放后再接续。T5仍为同一4535747／node5，原提速线4535744再次失败后，仅在已确认PENDING／0秒／DependencyNeverSatisfied状态将依赖直接改为afterok提速恢复4535772（正priority、未再次hold/release或取消），不将T4/T5挤在同一卡。T4已在真正RUNNING并发布首32后完成一次实际主进程/后代Slurm mask与完整GPU UUID观察，不把初始化视作更新，也未增加硬gate。T1/T2/T3既有运行未改动；T3原作业继续自动评价，完整scores.json发布后仅由根窗口运行一次既定t_decide。
 T4唯一实际资源观察由协调窗口relay原工具并写入 `results/p_heads/T/T4_resources_4535771.json`：4535771实际RUNNING／compute-0-4，主Python PID3504910、UID1278、start_ticks5881235217、PGID3504910；Slurm CPU_IDs和真实主mask均为0–14共15核，实际2个按需spawn reader及所有所观测后代均受其约束。配置workers14不变；CUDA_VISIBLE和nvidia-smi真实主上下文均匹配GPU-6965a7c7-025e-e4fd-013a-2be3245ef7c6。工具确认losses首条samples=32且完整首32检查点 `/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T4_seed0/samples_32.pt` 已发布，CP内容未读；这是实际首个训练更新证据，不只是W&B初始化。该观察不再重复，不影响原gmx上下文或其他在跑任务。
+T4普通日志唯一500更新窗口由协调窗口实际compute4读取并计算：731更新／23,392样本至1,231更新／39,392样本，共16,000样本／470.3855091333389秒，34.01465327764704样本/秒；对应3M训练更新ETA为2026-11-19 05:18:42.495993 CST，未来固定VAL及最终读出另计，估计可变。此时GPU仍与原有4个gmx上下文共用，不能将该速率用于架构速度比较；这里只报告时间／成本并继续原训练，不停训、调参或换卡。本报告直接转录该一次窗口，没有重新测速或读取同窗口。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
@@ -75,6 +76,9 @@ T3原4535476已真实COMPLETED／0:0，Elapsed13:33:29、15CPU，原R1/R3及read
 | R3 | 0.4524899548750453 | 0.47450343188220573 | -0.022013477007160442 | [-0.032053393575519645, -0.012058970924839008] | SEED1_REQUIRED |
 
 R3区间虽全负，|Δ|仍小于预注册0.06，不能据此提前判负；当前也不能把T3视为最终“≈B3”。实际R3规则已触发T3 seed1及本线共享一次B3 seed1，4535773已生成 `configs/p_heads/T/T3_seed1.json` 和 `configs/p_heads/T/B3_seed1.json`，由根窗口统一冻结/调度，本窗口未独立补算或提交。当前对照不换CURRENT_BEST，也不触发T2确认。R1不触发额外补跑。最终胜/负/平等待两种子按原规则判定；CYP与原单位VAL仅整理现成生产者记录，另附完整JSON/Markdown字段表。
+原R3条件补跑现已实际提交两条独立PENDING／0秒队列：T3 seed1为4535777／node6／15CPU／nice10000，afterok高优配方线C3作业4535189，采用同3090类型；共享一次B3 seed1为4535778／node20／15CPU／nice10000，afterok原T2作业4535630，暂排其4090_20a（UUID前缀8bfd2ba3）。两独立源由4535776／compute16／1CPU冻结完成（COMPLETED／0:0，20秒），绑定d8dce41；旧resume、attempt、UUID等迁移键均已清理，两条都是seed1从头3M，不复用旧优化器或采样状态。
+
+根窗口已在实际node6/node20目标完成根盘字节／inode、NFS与UID配额guard；此处只转录已提交句柄，不将PENDING当启动。node0虽释放T3卡，但仍DRAIN／Kill task failed，不自行undrain或伪造Slurm分配。更高优先GPU需求仍优先，两条未开始候选槽可由协调窗口让出或调整；B3 seed1的20a只是暂排，T2接近结束前须再核配方线C3快卡需求，不能抢占更高线。已在跑的任务不迁移、不停止，本窗口没有提交或操作任何队列。
 T3的既有CYP四条与109个原单位VAL字段已由CPU整理任务4535774直接转录为 `results/p_heads/T/T3_descriptions.json` 和 [T3_FIELDS.md](T3_FIELDS.md)。CYP的R1 3A4／2D6 score分别0.4583333333333333／0.18750000000000006，R3分别0.19047619047619035／0.25；四行全部excluded_from_mean=true，不进入七任务主分。完整原误差、随机参考误差及109字段MAE／观察数／单位保留在附表，未重新评价、拟合、bootstrap或计算MAE，没有新增CSV入Git。既有判定任务4535773已确认COMPLETED／0:0、7秒；最终点几何4535770也已COMPLETED／0:0、13:21，具体H数值由独立H报告交付。当前T3仍待条件seed1最终判定，未由几何或CYP改判。
 ## 全部新开关关闭的整模型对照
 
