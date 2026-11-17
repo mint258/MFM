@@ -175,6 +175,7 @@ T1初值来自B3已有MLP与零初始化decoder，本次没有重置旧MLP；只
 T2唯一运行资源事实记录在 `results/p_heads/T/T2_resources_4535630.json`：compute-0-20真实主Python PID54234，Slurm分配及主进程实际mask均为0–14共15核；现场实际3个按需spawn的reader及其余所观测后代均受此mask约束。workers最大14配置保持原样，未强行启动额外reader。CUDA_VISIBLE与nvidia-smi真实GPU上下文均匹配GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5。首32完整CP只确认存在，没有读取内容、benchmark或新增训练门。
 T2自身裁剪阈值已由训练生产者冻结：初始clip=281.7，按optimizer_step_start轴取60,000–150,000样本窗口的2,813次裁剪前梯度范数，quantile=0.99，p99为 **33.84247207641602**。实际完整B32冻结点150,016样本，fitted=true，此后按原协议固定至3M。数值只从生产者 `/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T2_seed0/clip_calibration.json` 唯一读取并原样记录；现场4535630仍RUNNING/compute-0-20，未重算p99、另行测速、重复资源身份观察或读取中间CP内容。
 
+T2首个既定1M检查点已由生产者发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T2_seed0/samples_1000000.pt`，232,059,773字节，mtime=2026-11-18 01:24:40.230788355 CST。协调窗口于01:35:41经真实服务器会话唯一stat，本报告仅转录该元数据，没有重查同文件、读取CP内容、测速或补中间几何。当时4535630 RUNNING／6:24:58，普通日志1,030,400样本／32,200更新；T3仍RUNNING／10:29:58，普通日志2,294,400样本／71,700更新，两臂最终3M和readout尚未发布。协调窗口基于实际启动至1M发布的墙钟进度，将T2 3M保存粗略预计为11月18日约13:55，替代早期14:54窗口估计；未来VAL与最终读出另计，估计可变，此处未重算窗口或速率。
 下表直接抄录原T2_acceptance.json。通过步是原生产者记录；r44/r45/r46三行仅为被替代的历史记录，六项电荷头继续复用。
 
 | 头 | 初始loss | 最终loss | 最终/初始 | 首次通过更新 |
