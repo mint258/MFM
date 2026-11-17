@@ -7,7 +7,16 @@ FOLLOW=R/'MFM_p_followup_20261117'
 sys.path.insert(0,str(FOLLOW/'tools/p_followup'))
 sys.path.insert(0,str(FOLLOW/'tools/p_recipe'))
 spec=importlib.util.spec_from_file_location('p_heads_work_A',FOLLOW/'tools/p_followup/collapse_composition.py')
-A=importlib.util.module_from_spec(spec);spec.loader.exec_module(A)
+A=importlib.util.module_from_spec(spec)
+# Keep work A's enhanced loader in its own namespace, including when another
+# H wrapper already imported the older mainline diagnose module in this process.
+_ds=importlib.util.spec_from_file_location('p_heads_A_diagnose',FOLLOW/'tools/p_recipe/diagnose.py')
+_diag=importlib.util.module_from_spec(_ds);_ds.loader.exec_module(_diag)
+_previous=sys.modules.get('diagnose');sys.modules['diagnose']=_diag
+try:spec.loader.exec_module(A)
+finally:
+ if _previous is not None:sys.modules['diagnose']=_previous
+ else:sys.modules.pop('diagnose',None)
 A.guard=guard
 from composition_statistics import bootstrap_weights,ridge_oof,cev_values,cvf_values,eev_values,summary
 from phychem_mfm.phase1.v31_loader import MFM4Dataset,collate_samples

@@ -91,6 +91,7 @@ def grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, o
         if field.group != 'P' or field.level == 'ordered_entry' or field.representation == 'symmetric_tensor6':
             continue
         head = bank.field_heads[bank.keys[field.name]]
+        if hasattr(head,'p_heads_constraint'):continue
         observed = observed_fields is None or field.name in observed_fields
         if field.representation in ('vector', 'magnitude'):
             if field.level == 'atom':
@@ -112,6 +113,8 @@ def grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, o
             learned = bank.pooling_overrides.get(field.name) == 'learned' or field.pooling == 'learned'
             kind = ('graph', 'learned' if learned else field.pooling,
                     bank.forms[field.name], field.group, _signature(head))
+        if kind[0] in ('atom','pair'):
+            kind += (not hasattr(bank,'atom_decoder_fields') or field.name in bank.atom_decoder_fields,)
         buckets[(observed, kind)].append(field)
     outputs, pooled = {}, {}
 
@@ -125,7 +128,7 @@ def grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, o
         heads = [bank.field_heads[bank.keys[field.name]] for field in columns]
         with torch.set_grad_enabled(torch.is_grad_enabled() and observed):
             if kind[0] == 'pair':
-                values = _pairs(heads, atom_h, pos, [pairs[field.name] for field in columns])
+                values = _pairs(heads, atom_h if kind[-1] else h, pos, [pairs[field.name] for field in columns])
             elif kind[0] == 'atom_vector':
                 values = _atom_vectors(heads, h.float(), pos.float(), batch).unbind(1)
             elif kind[0] == 'graph_vector':
@@ -137,7 +140,7 @@ def grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, o
                           for i, head in enumerate(heads)]
             else:
                 if kind[0] == 'atom':
-                    feature = atom_h
+                    feature = atom_h if kind[-1] else h
                 elif kind[0] == 'pma':
                     feature = graph_latent
                 else:

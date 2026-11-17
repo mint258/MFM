@@ -22,4 +22,17 @@ class DecoderTests(unittest.TestCase):
         index=torch.tensor([[0,1,2],[1,2,3]])
         value=_pairs([head],h,pos,[index])[0]
         torch.testing.assert_close(value,head(h,pos,index),rtol=1e-5,atol=1e-6)
+    def test_failed_head_falls_back_before_grouping(self):
+        from phychem_mfm.phase1.v3_contract import FieldSpec,LabelRegistry
+        from phychem_mfm.model.v3_heads import V3HeadBank
+        registry=LabelRegistry(tuple(FieldSpec(n,'P','charge','atom') for n in ('a','b')),'test','0'*64,'synthetic_fixture')
+        bank=V3HeadBank(registry);bank.grouped_fields=True
+        h=torch.randn(4,512);pos=torch.randn(4,3);batch=torch.tensor([0,0,1,1])
+        baseline=bank(h,batch,pos,enabled_groups=('P',))
+        class AddOne(torch.nn.Module):
+            def forward(self,h,batch):return h+1
+        bank.atom_decoder=AddOne();bank.atom_decoder_fields=('a',)
+        actual=bank(h,batch,pos,enabled_groups=('P',))
+        torch.testing.assert_close(actual['b'],baseline['b'],rtol=1e-5,atol=1e-6)
+        self.assertFalse(torch.allclose(actual['a'],baseline['a']))
 if __name__=='__main__':unittest.main()

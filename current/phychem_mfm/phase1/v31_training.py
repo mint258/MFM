@@ -114,9 +114,14 @@ class V31PDModel(nn.Module):
             self.heads.enable_p_recipe_pma(self.p_recipe_pma.representation_dim)
             if recipe.get('pma_uniform_weights', False):
                 self.p_recipe_pma.layers[0].read.uniform_weights = True
+        if recipe.get('physical_constraint_heads'):
+            from ..model.p_constraint_heads import install_physical_heads
+            install_physical_heads(self.heads,recipe['physical_constraint_heads'])
         if recipe.get('atom_attention_decoder', False):
             from ..model.p_heads import AtomAttentionDecoder
             self.heads.atom_decoder = AtomAttentionDecoder()
+            if recipe.get('atom_decoder_fields') is not None:
+                self.heads.atom_decoder_fields = tuple(recipe['atom_decoder_fields'])
         # Unit transform is used ONLY after applying the actual D4 transform to
         # both sides; it is not a replacement for missing data-line statistics.
         self.unit_normalizations = {f.name: TrainNormalization((0.,), (1.,), inherited,

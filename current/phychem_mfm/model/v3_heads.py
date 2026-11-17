@@ -170,7 +170,9 @@ class V3HeadBank(nn.Module):
     def get_extra_state(self):
         result={"schema": "model_v3_head_bank_v1", "registry_sha256": self.registry.content_sha256,
                 "dim": self.dim, "hidden_dim": self.hidden_dim, "forms": dict(self.forms)}
+        if hasattr(self,'physical_constraints'):result['physical_constraint_heads']=self.physical_constraints
         if hasattr(self,'atom_decoder'):result['atom_attention_decoder']=True
+        if hasattr(self,'atom_decoder_fields'):result['atom_decoder_fields']=self.atom_decoder_fields
         if self.pooling_overrides:result['pooling_overrides']=dict(self.pooling_overrides)
         if not self.pair_distance:result['pair_distance']=False
         if hasattr(self,'p_recipe_pma_dim'):result['p_recipe_pma_dim']=self.p_recipe_pma_dim
@@ -262,8 +264,11 @@ class V3HeadBank(nn.Module):
             outputs = grouped_head_predictions(self, h0, batch, pos, active, pairs, graph_latent, observed_fields, atom_h=atom_h)
         for field in active:
             key, head = self.keys[field.name], self.field_heads[self.keys[field.name]]
+            field_h = atom_h if (not hasattr(self,'atom_decoder_fields') or field.name in self.atom_decoder_fields) else h0
             if field.name in outputs:
                 prediction = outputs[field.name]
+            elif hasattr(head,'p_heads_constraint'):
+                prediction = head(atom_h,pos,batch)
             elif field.level == "ordered_entry":
                 require(field.name in domains and isinstance(domains[field.name], OrderedEntryInputs),
                         f"{field.name}: explicit ordered-entry domain inputs required")
@@ -291,9 +296,9 @@ class V3HeadBank(nn.Module):
                 require(bool((batch[index[0]] == batch[index[1]]).all())
                         and (field.name in self.allow_onsite_fields or bool((index[0] != index[1]).all())),
                         "Pairs must be in one molecule; onsite rows require explicit source permission")
-                prediction = head(atom_h, pos, index)
+                prediction = head(field_h, pos, index)
             elif field.level == "atom":
-                prediction = head(atom_h)
+                prediction = head(field_h)
             elif hasattr(self,'p_recipe_pma_dim') and field.group=='P':
                 prediction = head(graph_latent)
             elif hasattr(self, 'latent_scalar_dim'):
