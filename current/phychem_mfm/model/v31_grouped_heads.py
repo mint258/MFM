@@ -83,7 +83,8 @@ def _pairs(heads, h, pos, indices):
     return [values[:length, index] for index, length in enumerate(lengths)]
 
 
-def grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, observed_fields):
+def grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, observed_fields, atom_h=None):
+    atom_h = h if atom_h is None else atom_h
     graphs = int(batch.max())+1
     buckets = defaultdict(list)
     for field in fields:
@@ -124,7 +125,7 @@ def grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, o
         heads = [bank.field_heads[bank.keys[field.name]] for field in columns]
         with torch.set_grad_enabled(torch.is_grad_enabled() and observed):
             if kind[0] == 'pair':
-                values = _pairs(heads, h, pos, [pairs[field.name] for field in columns])
+                values = _pairs(heads, atom_h, pos, [pairs[field.name] for field in columns])
             elif kind[0] == 'atom_vector':
                 values = _atom_vectors(heads, h.float(), pos.float(), batch).unbind(1)
             elif kind[0] == 'graph_vector':
@@ -136,7 +137,7 @@ def grouped_head_predictions(bank, h, batch, pos, fields, pairs, graph_latent, o
                           for i, head in enumerate(heads)]
             else:
                 if kind[0] == 'atom':
-                    feature = h
+                    feature = atom_h
                 elif kind[0] == 'pma':
                     feature = graph_latent
                 else:

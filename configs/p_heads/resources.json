@@ -1,0 +1,32 @@
+{
+    "schema":  "P_HEADS_RESOURCES_V1",
+    "control_root":  "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117",
+    "repository":  "/share/home/zixiao/descriptor_analysis/MFM_p_heads_20261117",
+    "storage_filesystem":  "/share",
+    "peak_total_bytes":  19327352832,
+    "H_peak_bytes":  10737418240,
+    "T_peak_bytes":  7516192768,
+    "source_control_peak_bytes":  1073741824,
+    "other_followup_nfs_peak_bytes":  19327352832,
+    "mainline_global_peak_bytes":  114569896448,
+    "account_floor_bytes":  100000000000,
+    "root_floor":  "max(10GiB, 10% filesystem total)",
+    "node_local_bulk_writes":  false,
+    "lustre_bulk_writes":  false,
+    "banned_nodes":  [
+                         "compute-0-21"
+                     ],
+    "gpu_preference":  [
+                           "5090",
+                           "4090",
+                           "3090"
+                       ],
+    "maximum_existing_gpu_memory_fraction":  0.3,
+    "mainline_gpu_priority":  true,
+    "exclusive":  false,
+    "runtime_guard_required":  true,
+    "seed0_training_count":  3,
+    "maximum_conditional_seed1_training_count":  4,
+    "training_samples_per_run":  3000000,
+    "notes":  "All owned jobs share this total budget. Existing data already charged to df/quota are not a second future-growth charge. Recheck actual target node bytes/inodes and live UID quota plus all other-window remaining growth before and during writes. Preserves all existing reservations."
+}

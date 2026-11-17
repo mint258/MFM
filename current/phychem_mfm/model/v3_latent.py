@@ -70,7 +70,13 @@ class MaskedAttention(nn.Module):
         logits = (q@k.transpose(-1,-2))/math.sqrt(head_dim)
         if key_mask is not None:
             logits = logits.masked_fill(~key_mask[:,None,None,:],-torch.inf)
-        attention = torch.softmax(logits,dim=-1)
+        if getattr(self, 'uniform_weights', False):
+            valid = (torch.ones((b,m), dtype=torch.bool, device=query.device)
+                     if key_mask is None else key_mask)
+            attention = valid[:,None,None,:].to(q.dtype).expand(b,self.heads,n,m)
+            attention = attention / valid.sum(-1)[:,None,None,None].to(q.dtype)
+        else:
+            attention = torch.softmax(logits,dim=-1)
         result = (attention@v).transpose(1,2).reshape(b,n,self.width)
         return self.out(result)
 

@@ -112,6 +112,11 @@ class V31PDModel(nn.Module):
             self.p_recipe_pma = MolecularLatent(LatentSpec(kind='pma',n_ref=53.64145,
                 write_back=False,reconstruction=False))
             self.heads.enable_p_recipe_pma(self.p_recipe_pma.representation_dim)
+            if recipe.get('pma_uniform_weights', False):
+                self.p_recipe_pma.layers[0].read.uniform_weights = True
+        if recipe.get('atom_attention_decoder', False):
+            from ..model.p_heads import AtomAttentionDecoder
+            self.heads.atom_decoder = AtomAttentionDecoder()
         # Unit transform is used ONLY after applying the actual D4 transform to
         # both sides; it is not a replacement for missing data-line statistics.
         self.unit_normalizations = {f.name: TrainNormalization((0.,), (1.,), inherited,
