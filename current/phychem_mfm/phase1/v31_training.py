@@ -107,11 +107,17 @@ class V31PDModel(nn.Module):
             pooling_overrides=overrides, allow_onsite_fields=onsite,
             pair_distance=not recipe.get('pair_without_distance',False))
         self.p_recipe_pma = None
-        if recipe.get('pma_pooling',False):
+        if recipe.get('simple_molecular_readout',False):
+            from ..model.p_heads import SimpleMolecularReadout
+            self.p_recipe_pma=SimpleMolecularReadout()
+            self.heads.enable_p_recipe_pma(self.p_recipe_pma.representation_dim)
+        elif recipe.get('pma_pooling',False):
             from ..model.v3_latent import MolecularLatent, LatentSpec
             self.p_recipe_pma = MolecularLatent(LatentSpec(kind='pma',n_ref=53.64145,
                 write_back=False,reconstruction=False))
             self.heads.enable_p_recipe_pma(self.p_recipe_pma.representation_dim)
+            if recipe.get('pma_sum_gate_one',False):
+                self.p_recipe_pma.uniform_sum_gate=True
             if recipe.get('pma_uniform_weights', False):
                 self.p_recipe_pma.layers[0].read.uniform_weights = True
         if recipe.get('physical_constraint_heads'):

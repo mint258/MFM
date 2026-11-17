@@ -13,10 +13,10 @@ def cyp_report(expected):
    for row in csv.DictReader(stream):
     if row['run'] in completed and row['task'].startswith('cyp.'):
      rows[(row['run'],row['task'],row['readout'])]=row['error']
- for mode in ('z','concat'):
-  run='H_B3_'+mode
+ for condition,mode in ((c,m) for c in ('B3','M2') for m in ('z','concat')):
+  run='H_'+condition+'_'+mode
   if run not in completed:continue
-  for path in sorted(CONTROL.glob('H_B3_'+mode+'_*.log'),key=lambda p:p.stat().st_mtime,reverse=True):
+  for path in sorted(CONTROL.glob('H_'+condition+'_'+mode+'_*.log'),key=lambda p:p.stat().st_mtime,reverse=True):
    text=path.read_text()
    if 'H_SOURCE_COMPLETE '+run not in text:continue
    for line in text.splitlines():
@@ -38,11 +38,11 @@ def cyp_report(expected):
  return lines
 
 def main():
- expected=[(c,m) for c in ('B3','M1') for m in ('3','4','5','mean','whiten')]+[('B3','z'),('B3','concat')]
+ expected=[(c,m) for c in ('B3','M1') for m in ('3','4','5','mean','whiten')]+[(c,m) for c in ('B3','M2') for m in ('z','concat')]
  lines=['# H2–H4：下游表示来源','','方法：使用主线冻结开发面板与完全相同的TrainOnlyPackedStore、GroupedTrainingView、task_rows/atomization_rows、ridge_probe和run_probe；不训练编码器，不读取TEST。第6层基线和分数直接引用已有3M checkpoint。层3/4/5取实际中间输出，层平均为第3–5中间输出和第6层out_norm输出等权平均。','','元素白化统计仅来自预训练固定5000 VAL分子的首允许构象，第6层逐元素逐维均值和标准差；元素原子数不足50保持原特征，标准差下限为该维全局标准差的1e-6。完全常数全局维度无可定义方差，去均值后以单位尺度保留零值，未产生新信号；下游不重新拟合白化统计。','','PMA的577维z从已预训练PMA模块读取，由512维query块、64维sigmoid门控求和项和1维logN组成。H6和T3只检验query→atom softmax通路，不能把其判定扩展成全部PMA加权机制。[mean(H6),z]的两个块在下游TRAIN上分别按维标准化，使用已有graph_features接口直接进入R1或现成R2（池化后MLP），不新写读出协议。CYP原子任务仅将同一分子向量广播至各原子作描述；其站点预测不含原子区分信息，不纳入主分或结论。','','统计：沿用主线7任务平均规范化改善分数，按同一分子组、种子和顺序的1000次配对bootstrap逐抽样相减，95%百分位区间。变体减同checkpoint第6层基线；H4的R1/R2均与该checkpoint现有R1比较，两个读出共用已交付R1参照误差进行归一化，保持与R1基线相同量尺。更优要求CI下界>0且Δ≥max(0.02,基线×5%)；CI上界<0为更差，其余持平。','','|checkpoint|变体|读出|分数|Δ|95%CI|判定|','|---|---|---|---:|---:|---|---|']
  # The taskbook explicitly requests direct reuse of existing layer6 scores.
- for name in ('B3','M1'):
-  config=load(REPO/('configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/'+name+'.json'))
+ for name in ('B3','M1','M2'):
+  config=load(REPO/('configs/p_recipe/fixed_20261115/round3/M2.json' if name=='M2' else 'configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/'+name+'.json'))
   baseline=load(Path(config['output'])/'readout/scores.json')
   for readout in ('R1','R3'):
    value=baseline[readout]['mean_normalized_improvement']

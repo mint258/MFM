@@ -216,7 +216,10 @@ class MolecularLatent(nn.Module):
             raise RuntimeError('Both registered insertion layers must be visited')
         projected = self.project(self._z)
         normalized = self.sum_norm(x)
-        gated = torch.sigmoid(self.sum_gate(normalized))*self.sum_project(normalized)
+        if getattr(self,'uniform_sum_gate',False):
+            gated = self.sum_project(normalized)
+        else:
+            gated = torch.sigmoid(self.sum_gate(normalized))*self.sum_project(normalized)
         total = torch.where(mask.unsqueeze(-1),gated,gated.new_zeros(())).sum(1)/self.spec.n_ref
         log_n = mask.sum(1,keepdim=True).to(x.dtype).log()
         self.last_projected_latent = projected

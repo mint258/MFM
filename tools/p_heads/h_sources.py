@@ -15,6 +15,11 @@ from torch_geometric.utils import to_dense_batch
 from diagnose import validation_indices
 
 
+def condition_configuration(name):
+ path='configs/p_recipe/fixed_20261115/round3/M2.json' if name=='M2' else 'configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/'+name+'.json'
+ return load(REPO/path)
+
+
 def whiten_table(moments):
  count=sum(v['count'] for v in moments.values());s=sum(np.asarray(v['sum']) for v in moments.values());q=sum(np.asarray(v['square']) for v in moments.values())
  global_std=np.sqrt(np.maximum(q/count-(s/count)**2,0.));out={}
@@ -129,15 +134,16 @@ def molecule_scores(c):
  save(pathlib.Path(c['output'])/'scores.json',scores);return scores
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--condition',choices=['B3','M1'],required=True);p.add_argument('--mode',choices=['3','4','5','mean','whiten','z','concat'],required=True);a=p.parse_args()
- if a.mode in ('z','concat') and a.condition!='B3':raise ValueError('H4 is B3 only')
+ p=argparse.ArgumentParser();p.add_argument('--condition',choices=['B3','M1','M2'],required=True);p.add_argument('--mode',choices=['3','4','5','mean','whiten','z','concat'],required=True);a=p.parse_args()
+ if a.mode in ('z','concat') and a.condition not in ('B3','M2'):raise ValueError('H4 requires B3 or M2')
+ if a.condition=='M2' and a.mode not in ('z','concat'):raise ValueError('M2 supplement requests H4 only')
  watchdog();torch.set_num_threads(4);torch.set_float32_matmul_precision('highest');torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
  gpu=os.environ['CUDA_VISIBLE_DEVICES'].split(',')[0]
  import subprocess
  used,total=map(float,subprocess.check_output(['nvidia-smi','--id='+gpu,'--query-gpu=memory.used,memory.total','--format=csv,noheader,nounits'],text=True).strip().split(','))
  if used/total>.3:raise RuntimeError('GPU admission changed')
  lock=(R/'docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks'/(gpu+'.lock')).open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
- c=load(REPO/('configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/'+a.condition+'.json'));c.update(checkpoint=str(evaluation_checkpoint(c,3000000)),h_condition=a.condition,h_mode=a.mode,run='H_'+a.condition+'_'+a.mode,output=str(CONTROL/'sources'/a.condition/a.mode),features=str(CONTROL/'unused_features'),persist_features=False,store=str(R/'runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json'))
+ c=condition_configuration(a.condition);baseline_output=c['output'];c.update(checkpoint=str(evaluation_checkpoint(c,3000000)),h_condition=a.condition,h_mode=a.mode,run='H_'+a.condition+'_'+a.mode,output=str(CONTROL/'sources'/a.condition/a.mode),features=str(CONTROL/'unused_features'),persist_features=False,store=str(R/'runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json'))
  E.produce_missing_features=feature_producer
  if a.mode in ('z','concat'):m=molecular_run(c)
  else:m=E.run(c)
@@ -145,7 +151,7 @@ def main():
   scores=molecule_scores(c);readouts=('R1','R2')
  else:
   scores=E.score(pathlib.Path(c['output'])/'predictions.json','/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/predictions.json',CONTROL/'H_sources_scores.csv');readouts=('R1','R3')
- base=load(pathlib.Path(load(REPO/('configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/'+a.condition+'.json'))['output'])/'readout/scores.json');delta={}
+ base=load(pathlib.Path(baseline_output)/'readout/scores.json');delta={}
  for r in readouts:
   baseline=base['R1' if r=='R2' else r]
   for key in ('groups','seed','samples','confidence'):
