@@ -114,6 +114,7 @@ T1现已完成真实完整交接，事实保存在 `results/p_heads/T/T1_handoff
 新真实4535781 RUNNING／compute-0-22／15CPU，worker PID24035、UID1278、start_ticks6883839、PGID24035、PPID24023，Slurm CPU_IDs及实际主mask均0–14；实际4个lazy reader及所有观测后代同受该mask约束，workers14不变。环境真实SLURM_JOB_ID=4535781，CUDA_VISIBLE与真实GPU上下文均匹配GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef。/proc/24035/fdinfo/3明确记录同UUID文件的FLOCK ADVISORY WRITE 24035，证明旧源释放后新worker持有唯一UUID锁，没有叠加外层锁。
 
 新输出的生产者configuration明确resume=原samples_809696.pt、resume_samples=809696；首条恢复日志为809,728样本／25,304更新、total=0.043533697724342346、preclip_norm=3.9273345470428467、lr=0.0002543836964988362，seconds=15109.038924951994，确认接续而非重置。canonical配置仍为configs/p_heads/T/T1_seed0.json，actual_run/output现为p_heads_T1_seed0_sbatch及CONTROL/training/p_heads_T1_seed0_sbatch，最终判定据该配置实际output取结果。此次只收集原子交接元数据及首条自然日志，不读取CP体、重算p99/500更新速率或再次训练；原失败4535733保留为一次基础设施失败，不能把修复requeue无效计作训练重启。
+T1首个既定1M检查点已在接管后的实际输出发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T1_seed0_sbatch/samples_1000000.pt`，244,689,549字节，mtime=2026-11-18 06:23:28.655838 CST（原epoch1794954208.6558381）。协调窗口约06:33唯一读取生产者进度/元数据，actual_run=p_heads_T1_seed0_sbatch，普通日志已达1,031,520样本／32,235更新；本报告只转录已提供事实，没有重读产物或CP体。此为原配置的1M里程碑，尚未最终3M，没有新增评价或中间几何；原先唯一ETA和已冻结阈值保持，不另计算。写入前由协调窗口83200在实际compute20 relay共享guard成功（T1_1M_WRITE_GUARD_OK／EXIT0），磁盘、inode、UID配额及并发保护继续。
 后续接管由原协议将实际run/output写回task的configuration路径；最终t_decide读取这份canonical配置，再从其实际output/readout/scores.json取candidate。不会猜测旧native输出目录；M2对照与外部seed1绑定随原配置保留。最终3M产出时才向H交付准确CP路径补第6层几何，中间保存不补几何。
 ## T2 物理约束头
 
