@@ -83,6 +83,7 @@ R3区间虽全负，|Δ|仍小于预注册0.06，不能据此提前判负；当�
 原R3条件补跑现已实际提交两条独立PENDING／0秒队列：T3 seed1为4535777／node6／15CPU／nice10000，afterok高优配方线C3作业4535189，采用同3090类型；共享一次B3 seed1为4535778／node20／15CPU／nice10000，afterok原T2作业4535630，暂排其4090_20a（UUID前缀8bfd2ba3）。两独立源由4535776／compute16／1CPU冻结完成（COMPLETED／0:0，20秒），绑定d8dce41；旧resume、attempt、UUID等迁移键均已清理，两条都是seed1从头3M，不复用旧优化器或采样状态。
 
 根窗口已在实际node6/node20目标完成根盘字节／inode、NFS与UID配额guard；此处只转录已提交句柄，不将PENDING当启动。node0虽释放T3卡，但仍DRAIN／Kill task failed，不自行undrain或伪造Slurm分配。更高优先GPU需求仍优先，两条未开始候选槽可由协调窗口让出或调整；B3 seed1的20a只是暂排，T2接近结束前须再核配方线C3快卡需求，不能抢占更高线。已在跑的任务不迁移、不停止，本窗口没有提交或操作任何队列。
+当前T3 seed1队列4535777已由根确认PENDING／0秒后hold为JobHeldUser，作为一次可恢复的资源让行：配方线C3 ready迁往快卡后，node6实际槽位优先留给较早已启动并等待续训的Dprime，避免本线占满全部后续卡。四仓共享STATUS已记录；若Dprime已在其他卡获得资源或这次让行完成，根应release或改排T3 seed1到首个合规槽位。不添加科学结果依赖，不改配置、种子或3M预算。共享B3 seed1的4535778仍暂排T2结束后的20a，T2临终前再核更高优先配方需求；四条已在跑T1/T2/T4/T5保持不变。本窗口未再查询身份、CP、p99或速率，也未操作队列。
 T3的既有CYP四条与109个原单位VAL字段已由CPU整理任务4535774直接转录为 `results/p_heads/T/T3_descriptions.json` 和 [T3_FIELDS.md](T3_FIELDS.md)。CYP的R1 3A4／2D6 score分别0.4583333333333333／0.18750000000000006，R3分别0.19047619047619035／0.25；四行全部excluded_from_mean=true，不进入七任务主分。完整原误差、随机参考误差及109字段MAE／观察数／单位保留在附表，未重新评价、拟合、bootstrap或计算MAE，没有新增CSV入Git。既有判定任务4535773已确认COMPLETED／0:0、7秒；最终点几何4535770也已COMPLETED／0:0、13:21，具体H数值由独立H报告交付。当前T3仍待条件seed1最终判定，未由几何或CYP改判。
 ## 全部新开关关闭的整模型对照
 
@@ -211,6 +212,7 @@ T2唯一运行资源事实记录在 `results/p_heads/T/T2_resources_4535630.json
 T2自身裁剪阈值已由训练生产者冻结：初始clip=281.7，按optimizer_step_start轴取60,000–150,000样本窗口的2,813次裁剪前梯度范数，quantile=0.99，p99为 **33.84247207641602**。实际完整B32冻结点150,016样本，fitted=true，此后按原协议固定至3M。数值只从生产者 `/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T2_seed0/clip_calibration.json` 唯一读取并原样记录；现场4535630仍RUNNING/compute-0-20，未重算p99、另行测速、重复资源身份观察或读取中间CP内容。
 
 T2首个既定1M检查点已由生产者发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T2_seed0/samples_1000000.pt`，232,059,773字节，mtime=2026-11-18 01:24:40.230788355 CST。协调窗口于01:35:41经真实服务器会话唯一stat，本报告仅转录该元数据，没有重查同文件、读取CP内容、测速或补中间几何。当时4535630 RUNNING／6:24:58，普通日志1,030,400样本／32,200更新；T3仍RUNNING／10:29:58，普通日志2,294,400样本／71,700更新，两臂最终3M和readout尚未发布。协调窗口基于实际启动至1M发布的墙钟进度，将T2 3M保存粗略预计为11月18日约13:55，替代早期14:54窗口估计；未来VAL与最终读出另计，估计可变，此处未重算窗口或速率。
+T2既定2M检查点已发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T2_seed0/samples_2000000.pt`，232,062,077字节，mtime=2026-11-18 07:04:07.400380 CST（原epoch1794956647.4003797）。协调窗口07:18唯一观察时，T2普通日志已达2,042,496样本／63,828更新；本报告只转录该新元数据，不重读CP或重新验证，不改已有唯一ETA，不作中间几何或评价。同期实际compute20共享guard通过：UID可用452,344,942,592字节，对本次全部预留需求178,103,429,120字节；根盘可用346,131,120,128字节、inode检查通过，其他并发预留及根盘下限保护继续。
 下表直接抄录原T2_acceptance.json。通过步是原生产者记录；r44/r45/r46三行仅为被替代的历史记录，六项电荷头继续复用。
 
 | 头 | 初始loss | 最终loss | 最终/初始 | 首次通过更新 |
