@@ -35,6 +35,15 @@ def unresolved_entries(plan,configurations):
  return unresolved
 
 
+def screening_stop_reasons(plan,empty,hours):
+ reasons=[]
+ if plan['round']==3:reasons.append('Three registered rounds completed')
+ if empty>=2:reasons.append('Two consecutive rounds without winning components')
+ limit=plan.get('screening_gpu_hour_limit',200)
+ if limit is not None and hours>=limit:reasons.append(f'Screening reached{limit:g}GPUh; current round completed')
+ return reasons
+
+
 def close(plan,previous,round_gpu_hours):
  if plan.get('selection_valid') is False or previous and previous.get('selection_valid') is False:raise ValueError('The user invalidated this screening evidence')
  if previous and previous.get('study_revision','original_20261113')!=plan.get('study_revision','original_20261113'):raise ValueError('Cannot merge screening evidence from different study revisions')
@@ -57,10 +66,7 @@ def close(plan,previous,round_gpu_hours):
  best_path,best=max(single or eligible,key=lambda item:read_json(Path(item[1]['output'])/'readout/scores.json')['R3']['mean_normalized_improvement'])
  empty=(previous.get('consecutive_empty_rounds',0) if previous else 0)+1 if not selected else 0
  hours=(previous.get('screening_gpu_hours',0.) if previous else 0.)+round_gpu_hours
- reasons=[]
- if round_number==3:reasons.append('Three registered rounds completed')
- if empty>=2:reasons.append('Two consecutive rounds without winning components')
- if hours>=200:reasons.append('Screening reached200GPUh; current round completed')
+ reasons=screening_stop_reasons(plan,empty,hours)
  state=dict(round=round_number,decisions=decisions,adopted_winners=sorted(selected),merged_components=sorted(merged),
   unresolved_arms=unresolved,skipped_arms=dict(plan.get('skipped',{})),
   study_revision=plan.get('study_revision','original_20261113'),selection_valid=True,

@@ -1,0 +1,18 @@
+{
+  "schema": "P_RECIPE_NOISE_PLAN_V1",
+  "round": 3,
+  "study_revision": "fixed_20261115_noise_seed1",
+  "configurations": [
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/noise_seed1/M2_seed1.json"
+  ],
+  "purpose": "M2 seed1 3M with R1/R3; noise report and shared control only, no round3 rule changes",
+  "admission_status": "WAITING_FOR_PERF_LINE_GPU_PRIORITY",
+  "launch_gate": {
+    "perf_line_has_received_priority_gpu_required": true,
+    "perf_branch": "perf/sync-free-20261117",
+    "current_evidence": "Published GPU tests not yet executed",
+    "resource_admission_required": true,
+    "additional_checkpoint_forecast_bytes": 1073741824
+  },
+  "do_not_auto_submit_until_gate": true
+}
