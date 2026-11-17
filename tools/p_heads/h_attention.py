@@ -66,11 +66,39 @@ def enrichment_statistics(rows,repeats=1000):
  return dict(categories=categories,enrichments=out,head_mean_enrichments=np.divide(heads,head_counts[None,None,:],out=np.zeros_like(heads),where=head_counts[None,None,:]>0).tolist(),entropy_query_medians=medians.tolist(),entropy_global_median=global_median,qualifying_queries=qualifying,verdict=verdict,bootstrap=dict(repetitions=repeats,seed=20261025,unit='molecule',ci='percentile95'))
 
 
+def prepare_chemistry(c):
+ """Producer-only one-pass reconstruction/alignment, cached for the GPU step."""
+ path=CONTROL/'H6_chemistry.json'
+ payload=load(path) if path.exists() else dict(complete=False,molecules={})
+ if payload.get('complete'):
+  print('H6_CHEMISTRY_ALREADY_COMPLETE',len(payload['molecules']),flush=True);return
+ from rdkit import RDConfig
+ from rdkit.Chem import ChemicalFeatures
+ import pathlib
+ watchdog();factory=ChemicalFeatures.BuildFeatureFactory(str(pathlib.Path(RDConfig.RDDataDir)/'BaseFeatures.fdef'))
+ indices=validation_indices();data=PRecipeDataset(c['root'],split='FULL',training_view=c['training_view'],normalizations=load(c['normalizations']),label_parameters=c['label_parameters'],source='PM7',k=10,molecule_indices=indices)
+ for i,mi in enumerate(indices):
+  key=str(int(mi))
+  if key in payload['molecules']:continue
+  sample=data.read(int(mi),int(data.choices(int(mi))[0]))
+  try:
+   categories,charge=chemical_categories(sample,factory)
+   payload['molecules'][key]=dict(charge=charge,categories={name:np.flatnonzero(mask).tolist() for name,mask in categories.items()})
+  except Exception as e:payload['molecules'][key]=dict(error=type(e).__name__+': '+str(e).split('\n')[0])
+  if i%100==0:
+   guard();pending=path.with_suffix('.next.json');save(pending,payload);pending.replace(path);print('H6_CHEMISTRY',i,len(indices),flush=True)
+ data.close();payload['complete']=True;payload['requested_molecules']=len(indices);payload['retained_molecules']=sum('error' not in v for v in payload['molecules'].values());payload['excluded_molecules']=len(indices)-payload['retained_molecules'];payload['charge_source']='rounded sum of complete original neutral PM7 net atomic charges'
+ guard();pending=path.with_suffix('.next.json');save(pending,payload);pending.replace(path)
+ print('H6_CHEMISTRY_COMPLETE',payload['retained_molecules'],payload['excluded_molecules'],flush=True)
+
 def main():
  from rdkit import RDConfig
  from rdkit.Chem import ChemicalFeatures
  import pathlib,subprocess
- p=argparse.ArgumentParser();p.parse_args();watchdog();torch.set_num_threads(4);torch.set_float32_matmul_precision('highest');torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
+ p=argparse.ArgumentParser();p.add_argument('--prepare-chemistry',action='store_true');args=p.parse_args()
+ if args.prepare_chemistry:
+  torch.set_num_threads(1);prepare_chemistry(load(REPO/'configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json'));return
+ watchdog();torch.set_num_threads(4);torch.set_float32_matmul_precision('highest');torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
  gpu=os.environ['CUDA_VISIBLE_DEVICES'].split(',')[0];used,total=map(float,subprocess.check_output(['nvidia-smi','--id='+gpu,'--query-gpu=memory.used,memory.total','--format=csv,noheader,nounits'],text=True).strip().split(','))
  if used/total>.3:raise RuntimeError('GPU admission changed')
  lock=(R/'docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks'/(gpu+'.lock')).open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
@@ -80,13 +108,22 @@ def main():
  def capture(module,args):observed.append(attention_weights(module,*args).detach().cpu().double().numpy())
  hook=pma.layers[0].read.register_forward_pre_hook(capture)
  data=PRecipeDataset(c['root'],split='FULL',training_view=c['training_view'],normalizations=load(c['normalizations']),label_parameters=c['label_parameters'],source='PM7',k=10,molecule_indices=validation_indices());factory=ChemicalFeatures.BuildFeatureFactory(str(pathlib.Path(RDConfig.RDDataDir)/'BaseFeatures.fdef'))
+ chemistry_path=CONTROL/'H6_chemistry.json';chemistry=load(chemistry_path) if chemistry_path.exists() else None
+ if chemistry is not None and not chemistry.get('complete'):raise RuntimeError('H6 chemistry producer has not completed')
  rows=[];failures=collections.Counter();latent=[];latent_all=[]
  with torch.no_grad():
   for start in range(0,len(data.indices),32):
    samples=[data.read(int(mi),int(data.choices(int(mi))[0])) for mi in data.indices[start:start+32]];b=collate_samples(samples,device='cuda');h=encoder.encode_atoms(b);dense,mask=to_dense_batch(h,b.batch);z=pma.finish(dense,mask).cpu().double().numpy();weights=observed.pop();latent_all.extend(z.tolist())
    for j,sample in enumerate(samples):
-    try:categories,charge=chemical_categories(sample,factory)
-    except Exception as e:failures[type(e).__name__+': '+str(e).split('\n')[0]]+=1;continue
+    if chemistry is not None:
+     cached=chemistry['molecules'][str(int(sample['molecule_index']))]
+     if 'error' in cached:failures[cached['error']]+=1;continue
+     charge=cached['charge'];categories={}
+     for name,indices in cached['categories'].items():
+      v=np.zeros(len(sample['Z']),bool);v[indices]=True;categories[name]=v
+    else:
+     try:categories,charge=chemical_categories(sample,factory)
+     except Exception as e:failures[type(e).__name__+': '+str(e).split('\n')[0]]+=1;continue
     n=len(sample['Z']);a=weights[j,:,:,:n];mean=a.mean(0);entropy=-(mean*np.log(np.maximum(mean,1e-300))).sum(-1)/math.log(n) if n>1 else np.zeros(8)
     rows.append(dict(molecule_index=int(sample['molecule_index']),charge=charge,entropy=entropy.tolist(),enrichments={c:(mean[:,v].mean(-1)*n).tolist() for c,v in categories.items()},head_enrichments={c:(a[:,:,v].mean(-1)*n) for c,v in categories.items()}));latent.append(z[j,:512].reshape(8,64))
    guard();print('H6_FORWARD',start,len(data.indices),'retained',len(rows),flush=True)
