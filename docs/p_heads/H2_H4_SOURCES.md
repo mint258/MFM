@@ -6,7 +6,7 @@
 
 PMA的577维z从已预训练PMA模块读取，由512维query块、64维sigmoid门控求和项和1维logN组成。H6和T3只检验query→atom softmax通路，不能把其判定扩展成全部PMA加权机制。[mean(H6),z]的两个块在下游TRAIN上分别按维标准化，使用已有graph_features接口直接进入R1或现成R2（池化后MLP），不新写读出协议。CYP原子任务仅将同一分子向量广播至各原子作描述；其站点预测不含原子区分信息，不纳入主分或结论。
 
-统计：沿用主线7任务平均规范化改善分数，按同一分子组、种子和顺序的1000次配对bootstrap逐抽样相减，95%百分位区间。变体减同checkpoint第6层基线；H4的R1/R2均与该checkpoint现有R1比较。更优要求CI下界>0且Δ≥max(0.02,基线×5%)；CI上界<0为更差，其余持平。
+统计：沿用主线7任务平均规范化改善分数，按同一分子组、种子和顺序的1000次配对bootstrap逐抽样相减，95%百分位区间。变体减同checkpoint第6层基线；H4的R1/R2均与该checkpoint现有R1比较，两个读出共用已交付R1参照误差进行归一化，保持与R1基线相同量尺。更优要求CI下界>0且Δ≥max(0.02,基线×5%)；CI上界<0为更差，其余持平。
 
 |checkpoint|变体|读出|分数|Δ|95%CI|判定|
 |---|---|---|---:|---:|---|---|
@@ -28,9 +28,52 @@ PMA的577维z从已预训练PMA模块读取，由512维query块、64维sigmoid�
 |M1|第3层|R3|0.319528|-0.0399133|[-0.0486675, -0.0308266]|WORSE|
 |M1|第4层|R1|0.0491069|-0.0226107|[-0.0343591, -0.0106272]|WORSE|
 |M1|第4层|R3|0.341546|-0.0178948|[-0.0252817, -0.0101624]|WORSE|
+|M1|第5层|R1|0.0706316|-0.00108608|[-0.00829849, 0.00690923]|TIE|
+|M1|第5层|R3|0.343166|-0.0162757|[-0.0225695, -0.00938877]|WORSE|
 
 B3未白化的下游原子数：expansionrx=0, cyp_isoform=0, qm9=0。
 
-已完成7/12组。尚未产出：M1_5, M1_mean, M1_whiten, B3_z, B3_concat。
+已完成8/12组。尚未产出：M1_mean, M1_whiten, B3_z, B3_concat。
 
-局限：同一checkpoint的读出比较不含训练种子变异；所有结果仅构成建议，不自动接入主线。不同元素中的稀有元素估计、PMA广播站点读出和白化常数维的数值处理均已明确；未搜索新超参数或读出结构。
+局限：同一checkpoint的读出比较不含训练种子变异；所有结果仅构成建议，不自动接入主线。H4的R2相对线性R1基线还包含非线性读出容量变化，不能单独将增益归因于z信息更优。不同元素中的稀有元素估计、PMA广播站点读出和白化常数维的数值处理均已明确；未搜索新超参数或读出结构。
+
+## CYP报告附表（不进入主分）
+
+直接引用已完成producer的原误差：H2/H3来自本线H_sources_scores.csv，H4来自已完成日志的H4_CELL行；不重读预测或重算误差。CYP不进入7任务均值或变体判定，以下error沿用原任务指标、越低越好。
+
+|checkpoint|变体|读出|任务|原指标|error|
+|---|---|---|---|---|---:|
+|B3|第3层|R1|cyp.2D6|one_minus_hit1|0.5|
+|B3|第3层|R3|cyp.2D6|one_minus_hit1|0.576923|
+|B3|第3层|R1|cyp.3A4|one_minus_hit1|0.314286|
+|B3|第3层|R3|cyp.3A4|one_minus_hit1|0.457143|
+|B3|第4层|R1|cyp.2D6|one_minus_hit1|0.5|
+|B3|第4层|R3|cyp.2D6|one_minus_hit1|0.576923|
+|B3|第4层|R1|cyp.3A4|one_minus_hit1|0.342857|
+|B3|第4层|R3|cyp.3A4|one_minus_hit1|0.514286|
+|B3|第5层|R1|cyp.2D6|one_minus_hit1|0.538462|
+|B3|第5层|R3|cyp.2D6|one_minus_hit1|0.576923|
+|B3|第5层|R1|cyp.3A4|one_minus_hit1|0.4|
+|B3|第5层|R3|cyp.3A4|one_minus_hit1|0.4|
+|B3|第3–6层等权平均|R1|cyp.2D6|one_minus_hit1|0.538462|
+|B3|第3–6层等权平均|R3|cyp.2D6|one_minus_hit1|0.538462|
+|B3|第3–6层等权平均|R1|cyp.3A4|one_minus_hit1|0.342857|
+|B3|第3–6层等权平均|R3|cyp.3A4|one_minus_hit1|0.514286|
+|B3|按元素白化|R1|cyp.2D6|one_minus_hit1|0.5|
+|B3|按元素白化|R3|cyp.2D6|one_minus_hit1|0.461538|
+|B3|按元素白化|R1|cyp.3A4|one_minus_hit1|0.428571|
+|B3|按元素白化|R3|cyp.3A4|one_minus_hit1|0.4|
+|M1|第3层|R1|cyp.2D6|one_minus_hit1|0.538462|
+|M1|第3层|R3|cyp.2D6|one_minus_hit1|0.538462|
+|M1|第3层|R1|cyp.3A4|one_minus_hit1|0.514286|
+|M1|第3层|R3|cyp.3A4|one_minus_hit1|0.514286|
+|M1|第4层|R1|cyp.2D6|one_minus_hit1|0.5|
+|M1|第4层|R3|cyp.2D6|one_minus_hit1|0.576923|
+|M1|第4层|R1|cyp.3A4|one_minus_hit1|0.514286|
+|M1|第4层|R3|cyp.3A4|one_minus_hit1|0.485714|
+|M1|第5层|R1|cyp.2D6|one_minus_hit1|0.576923|
+|M1|第5层|R3|cyp.2D6|one_minus_hit1|0.576923|
+|M1|第5层|R1|cyp.3A4|one_minus_hit1|0.571429|
+|M1|第5层|R3|cyp.3A4|one_minus_hit1|0.571429|
+
+第6层CYP参照直接沿用[主线已交付分数表](../../results/p_recipe/scores.csv)中当前B3/M1运行的3M记录，不增加评价。
