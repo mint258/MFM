@@ -21,6 +21,9 @@ T4新增默认关闭 `p_recipe.pma_sum_gate_one`：实际门是Linear(512,1)加s
 T5新增默认关闭 `p_recipe.simple_molecular_readout`：不构造PMA，严格排除padding后生成512维均值、512维sum/N_ref及1维logN，共1025维，送入各P分子标量字段的线性层；原子、pair、向量和下游H0保持B3路径。T4/T5仅新增三项单元测试：T4门恒1与padding，T5维度/线性及padding排除，关闭开关后的原finish逐位一致。实际Slurm4535715/compute16/1CPU已COMPLETED/0:0，20秒，三项全部PASS（测试0.629秒）；未重复旧测试或做逐头验收。
 
 配置入口 `t_prepare_configuration.py` 必须指定实际基底JSON（CURRENT_BEST若是发布清单，先由协调窗口解析到实际配置），不猜未发布的M2 seed1路径。`t_decide.py`按显式p_heads_reference绑定主对照；T1种子1只请求本臂，对外部M2 seed1缺失记录等待，不新建本线M2/B3对照。T2/T3/T4/T5原B3对照的条件seed1共享同一B3_seed1.json。T2胜出只发CURRENT_BEST seed0确认需求，确认不自动衍生额外seed1。统计阈值仍按原规则，新增机制组合解释由预注册补充冻结。
+本线T侧薄接管入口已准备：`t_native.py`记录真实worker PID/UID/start_ticks/PGID/退出码，并将原生worker及其后代亲和性限制在实际allowed集合中的15核；这只是native亲和性，不声明Slurm分配。共享UUID锁仅由t_train持有，原生薄runner持续使用本线24GiB H/T guard；其磁盘暂停/恢复信号仅可作用经身份核实的本worker新进程组。原生主worker及已记录子树退出后才发布终态。`t_hybrid.py`只把原scheduled_run协议绑定到冻结T源、CONTROL/hybrid独立台账、15CPU和T入口，不改p_recipe的完整保存/回执/真实job/旧GPU上下文与锁释放等待流程；接管后使用真实Slurm mask。源端HANDOFF_SAVED即退出，最后评价仍只在t_train执行一次，已完成全部评价时不再接管训练。
+
+新薄入口仅3项fixture/mock CPU单测由Slurm4535726/compute16/1CPU完成（COMPLETED/0:0，5秒，测试0.003秒，全部PASS）：独立账本与15CPU、保留原协议并将入口单次路由至T训练、native身份/亲和性/清除伪Slurm环境与无外层GPU锁。该测试不代表已发生真实接管。原0d04c40三个冻结源保留；新增T1/T4/T5_hybrid_source供后续按真实资源启动，准备/原生启动/真实sbatch/register由协调窗口执行，尚未据此记录新运行事实。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
