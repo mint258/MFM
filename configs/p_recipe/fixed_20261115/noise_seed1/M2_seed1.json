@@ -19,8 +19,8 @@
   "order": "fixed_random",
   "training_view": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json",
   "distance_bias": "C1-0",
-  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_M2_seed1_noise_20261117",
-  "run": "fixed_20261115_M2_seed1_noise_20261117",
+  "output": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_noise_training/fixed_20261115_M2_seed1_noise_20261117_attempt2",
+  "run": "fixed_20261115_M2_seed1_noise_20261117_attempt2",
   "subset_seed": 20261112,
   "source": "PM7",
   "schedule": "cosine",
@@ -73,7 +73,12 @@
     3000000
   ],
   "label_parameters": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/label_parameters/PM7_A1.json",
-  "attempt": 1,
+  "attempt": 2,
   "study_role": "noise_reference_only",
-  "reference_current_best": "configs/p_recipe/CURRENT_BEST.json"
+  "reference_current_best": "configs/p_recipe/CURRENT_BEST.json",
+  "nfs_future_bytes": 2147483648,
+  "replaces_run": "fixed_20261115_M2_seed1_noise_20261117",
+  "recovery_reason": "Attempt1 exited before training at FileExistsError; preserve empty admitted directory and all failure cost, use fresh trainer-owned path",
+  "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_M2_seed1_noise_20261117_attempt2_handoff_request.json",
+  "handoff_ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_M2_seed1_noise_20261117_attempt2_handoff_ack.json"
 }

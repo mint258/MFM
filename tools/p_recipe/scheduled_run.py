@@ -152,7 +152,7 @@ def main(task_path):
   old_context=task['mode']=='native_with_standby' and not replay and any(row and row[0].strip()==task['gpu_uuid'] and int(row[1])==native['pid'] for row in rows)
   if not old_context and not own_gpu_busy(task['gpu_uuid']):break
   time.sleep(1)
- launch=dict(run=configuration['run'],execution='Slurm',node=node,gpu_uuid=task['gpu_uuid'],output=configuration['output'],root_future_bytes=16777216,minimum_free_gpu_mib=task['minimum_free_gpu_mib'],state_path=str(C/(configuration['run']+'_slurm.json')),command=[task['python'],'-B','-u','tools/p_recipe/train.py','--configuration',str(new_configuration)])
+ launch=dict(run=configuration['run'],execution='Slurm',node=node,gpu_uuid=task['gpu_uuid'],output=configuration['output'],root_future_bytes=16777216,nfs_future_bytes=configuration.get('nfs_future_bytes',67108864),minimum_free_gpu_mib=task['minimum_free_gpu_mib'],state_path=str(C/(configuration['run']+'_slurm.json')),command=[task['python'],'-B','-u','tools/p_recipe/train.py','--configuration',str(new_configuration)])
  return guarded_run(launch)
 
 if __name__=='__main__':

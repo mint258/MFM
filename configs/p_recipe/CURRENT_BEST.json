@@ -1,43 +1,44 @@
 {
-  "schema": "P_RECIPE_CURRENT_BEST_V1",
-  "updated_at": "2026-11-17T16:58:16Z",
-  "authority": "docs/p_recipe/USER_DIRECTIVE_20261117.md",
-  "recipe": "M2",
-  "components": [
-    "A1",
-    "B3",
-    "B4"
-  ],
-  "configuration": "configs/p_recipe/fixed_20261115/round3/M2.json",
-  "configuration_absolute": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/M2.json",
-  "run": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
-  "seed": 0,
-  "samples": 3000000,
-  "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117_sbatch/samples_3000000.pt",
-  "checkpoint_kind": "complete_training_state",
-  "checkpoint_observed_bytes": 232058045,
-  "readouts": {
-    "R1": {
-      "mean_normalized_improvement": 0.2974547347686018,
-      "bootstrap_ci": [
-        0.2828976060982353,
-        0.3121360904997938
-      ],
-      "bootstrap_samples": 1000,
-      "bootstrap_defined": 1000
-    },
-    "R3": {
-      "mean_normalized_improvement": 0.4680026331456454,
-      "bootstrap_ci": [
-        0.45516997504151757,
-        0.4818580005688026
-      ],
-      "bootstrap_samples": 1000,
-      "bootstrap_defined": 1000
-    }
-  },
-  "bootstrap_source": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117_sbatch/readout/scores.json",
-  "predictions_source": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117_sbatch/readout/predictions.json",
-  "public_task_scores": "results/p_recipe/scores.csv",
-  "status": "user_designated_current_best_pending_round3_M3"
+    "schema":  "P_RECIPE_CURRENT_BEST_V1",
+    "updated_at":  "2026-11-17T16:58:16Z",
+    "authority":  "docs/p_recipe/USER_DIRECTIVE_20261117.md",
+    "recipe":  "M2",
+    "components":  [
+                       "A1",
+                       "B3",
+                       "B4"
+                   ],
+    "configuration":  "configs/p_recipe/fixed_20261115/round3/M2.json",
+    "configuration_absolute":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/M2.json",
+    "run":  "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+    "seed":  0,
+    "samples":  3000000,
+    "checkpoint":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117_sbatch/samples_3000000.pt",
+    "checkpoint_kind":  "complete_training_state",
+    "checkpoint_observed_bytes":  232058045,
+    "readouts":  {
+                     "R1":  {
+                                "mean_normalized_improvement":  0.2974547347686018,
+                                "bootstrap_ci":  [
+                                                     0.2828976060982353,
+                                                     0.3121360904997938
+                                                 ],
+                                "bootstrap_samples":  1000,
+                                "bootstrap_defined":  1000
+                            },
+                     "R3":  {
+                                "mean_normalized_improvement":  0.4680026331456454,
+                                "bootstrap_ci":  [
+                                                     0.45516997504151757,
+                                                     0.4818580005688026
+                                                 ],
+                                "bootstrap_samples":  1000,
+                                "bootstrap_defined":  1000
+                            }
+                 },
+    "bootstrap_source":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117_sbatch/readout/scores.json",
+    "predictions_source":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117_sbatch/readout/predictions.json",
+    "public_task_scores":  "results/p_recipe/scores.csv",
+    "status":  "user_designated_current_best_pending_round3_M3",
+    "shared_seed1_reference":  "configs/p_recipe/M2_SEED1_REFERENCE.json"
 }

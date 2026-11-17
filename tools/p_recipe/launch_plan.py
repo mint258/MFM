@@ -92,7 +92,7 @@ def launch_locked(plan,ledger):
   write(filename,configuration)
   write(task_path,task);ledger['runs'][name]=reserved;write(path,ledger)
   if mode=='native_with_standby':
-   native=dict(run=name,node=node,gpu_uuid=gpu,output=configuration['output'],root_future_bytes=16777216,minimum_free_gpu_mib=policy['minimum_free_gpu_mib'],
+   native=dict(run=name,node=node,gpu_uuid=gpu,output=configuration['output'],root_future_bytes=16777216,nfs_future_bytes=configuration.get('nfs_future_bytes',67108864),minimum_free_gpu_mib=policy['minimum_free_gpu_mib'],
        command=[py,'-B','-u','tools/p_recipe/train.py','--configuration',filename])
    native_path=C/(name+'_launch.json');write(native_path,native)
    command=[py,'-B','-u',str(REPO/'tools/p_recipe/native_run.py'),'--configuration',str(native_path)]

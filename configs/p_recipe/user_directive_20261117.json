@@ -1,39 +1,48 @@
 {
-  "schema": "P_RECIPE_USER_DIRECTIVE_V1",
-  "source": "docs/p_recipe/USER_DIRECTIVE_20261117.md",
-  "screening_gpu_hour_limit": null,
-  "current_best": "configs/p_recipe/CURRENT_BEST.json",
-  "confirmation": {
-    "status": "HOLD",
-    "requires_perf_gpu_results": true,
-    "requires_user_switch_confirmation": true,
-    "freeze_switches_at_run_start": true
-  },
-  "resource_priority": {
-    "first": "perf/sync-free-20261117",
-    "then": "M2_seed1",
-    "preferred_gpu_types": [
-      "5090",
-      "4090"
-    ],
-    "candidate_node": "compute-0-22",
-    "candidate_gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
-    "observed_used_mib": 699,
-    "observed_total_mib": 32607,
-    "cohost_note": "UID1283 gmx kept running; full launch admission still required",
-    "handoff_status": "FIRST_CHOICE_RESERVED_FOR_PERF_AWAITING_ACTUAL_ALLOCATION"
-  },
-  "C3_migration": {
-    "authorized": true,
-    "earliest_complete_checkpoint_samples": 1000000,
-    "requires_faster_idle_gpu": true,
-    "requires_perf_line_has_received_gpu": true,
-    "record_rollback_samples": true,
-    "code_precision_batch_unchanged": true
-  },
-  "round4": {
-    "status": "RESERVED_NOT_REGISTERED",
-    "requires_user_confirmed_winners_from_other_lines": true
-  },
-  "no_other_branch_writes": true
+    "schema":  "P_RECIPE_USER_DIRECTIVE_V1",
+    "source":  "docs/p_recipe/USER_DIRECTIVE_20261117.md",
+    "screening_gpu_hour_limit":  null,
+    "current_best":  "configs/p_recipe/CURRENT_BEST.json",
+    "confirmation":  {
+                         "status":  "HOLD",
+                         "requires_perf_gpu_results":  true,
+                         "requires_user_switch_confirmation":  true,
+                         "freeze_switches_at_run_start":  true
+                     },
+    "resource_priority":  {
+                              "first":  "perf/sync-free-20261117",
+                              "then":  "M2_seed1",
+                              "preferred_gpu_types":  [
+                                                          "5090",
+                                                          "4090"
+                                                      ],
+                              "candidate_node":  "compute-0-22",
+                              "candidate_gpu_uuid":  "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+                              "observed_used_mib":  699,
+                              "observed_total_mib":  32607,
+                              "cohost_note":  "UID1283 gmx kept running; full launch admission still required",
+                              "handoff_status":  "PERF_HAS_GPU_VERIFIED_4535718_RUNNING_NODE5"
+                          },
+    "C3_migration":  {
+                         "authorized":  true,
+                         "earliest_complete_checkpoint_samples":  1000000,
+                         "requires_faster_idle_gpu":  true,
+                         "requires_perf_line_has_received_gpu":  true,
+                         "record_rollback_samples":  true,
+                         "code_precision_batch_unchanged":  true
+                     },
+    "round4":  {
+                   "status":  "RESERVED_NOT_REGISTERED",
+                   "requires_user_confirmed_winners_from_other_lines":  true
+               },
+    "no_other_branch_writes":  true,
+    "noise_reference":  {
+                            "status":  "RUNNING",
+                            "reference":  "configs/p_recipe/M2_SEED1_REFERENCE.json",
+                            "job_id":  4535736,
+                            "node":  "compute-0-7",
+                            "gpu_type":  "3090",
+                            "scientific_change":  "seed1 only",
+                            "priority_evidence":  "Perf GPU job4535718 actually RUNNING compute-0-5 before noise admission; idle5090/4090 remain reserved for perf until GPU suite complete"
+                        }
 }

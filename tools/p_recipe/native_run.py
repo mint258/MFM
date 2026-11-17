@@ -26,6 +26,10 @@ def record_gpu_telemetry(configuration):
   if not exists:writer.writerow(['timestamp_utc_epoch','run','gpu_uuid','gpu_name','batch_size','samples','training_seconds','power_watts','utilization_percent','memory_used_mib'])
   writer.writerow([time.time(),c['run'],gpu[0].strip(),gpu[1].strip(),c['batch_size'],samples,elapsed,*[v.strip() for v in gpu[2:]]])
 
+def nfs_growth(configuration):
+ return max(67108864,configuration.get('nfs_future_bytes',67108864))
+
+
 def run(c):
  node=socket.gethostname().split('.')[0]
  execution=c.get('execution','native_SSH')
@@ -49,9 +53,9 @@ def run(c):
   future=c.get('root_future_bytes',0)
   disk.m.require_capacity(disk.m.filesystem_status('/'),future,2000)
   disk.m.require_capacity(disk.m.filesystem_status(c['output']),remaining,10000)
-  disk.m.require_capacity(disk.m.filesystem_status(R/'runs/model_v31_20261105'),67108864,1000)
+  disk.m.require_capacity(disk.m.filesystem_status(R/'runs/model_v31_20261105'),nfs_growth(c),1000)
   disk.m.quota_headroom(disk.CONTROL/'lustre_quota_available_v2_20261107.json','/lfshome',remaining,disk.remaining_d6()+6000000000)
-  disk.m.quota_headroom(disk.CONTROL/'share_quota_available_v3.json','/share',67108864,disk.remaining_nfs_other())
+  disk.m.quota_headroom(disk.CONTROL/'share_quota_available_v3.json','/share',nfs_growth(c),disk.remaining_nfs_other())
  capacity()
  environment=dict(os.environ,CUDA_VISIBLE_DEVICES=gpu,P_RECIPE_RUN_ID=c['run'],PYTHONDONTWRITEBYTECODE='1',PYTORCH_ALLOC_CONF='expandable_segments:True',OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',PYTHONPATH=str(REPO/'current')+':'+str(R/'runs/data_v1_20261025/repository')+':'+str(R/'docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps'))
  environment.update(c.get('environment',{}))

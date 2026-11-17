@@ -1,5 +1,13 @@
 # P 配方研究日志
 
+2026-11-17 17:25UTC · fixed20261115 round3 · M2_seed1 RUNNING 31232/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:55:00UTC。
+
+2026-11-17 17:25UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 905536/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:55:00UTC。
+
+2026-11-17 17:18UTC · fixed20261115 round3 · M2_seed1 RUNNING 7264/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:48:58UTC。
+
+2026-11-17 17:18UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 900352/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:48:58UTC。
+
 2026-11-17 17:00UTC · 执行USER_DIRECTIVE_20261117：CURRENT_BEST唯一入口发布M2（3M完整断点232058045字节及R1/R3各1000bootstrap来源）；200GPUh上限取消，round3计划显式null且决策器支持取消上限，11项定向测试通过。9M暂缓，待提速GPU结果及用户确认开关；首个合规空闲5090/4090优先提速线，随后M2 seed1。M2 seed1独立3M/R1R3噪声配置已准备，科学字段与M2相同仅seed1，等待perf用卡优先权及实际资源准入，未提交。C3继续原跑，到1M完整断点、perf已拿卡且有更快空闲卡时按协议迁移并记录回退。第4轮仅预留，用户确认其他线胜出项后才注册；不改其他分支，不停止其他任务。
 
 2026-11-17 16:43UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 867712/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次17:13:08UTC。
@@ -727,3 +735,13 @@ User explicitly approved the prepared complete-checkpoint migration. Destination
 The exact original configuration is archived under provisional_B_20261116/round2/archive/B3_node5_before_5090_20261117.json; original output and all cost remain. The same registered B3 case now resumes from that full checkpoint in fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117, same PR8 scientific code, FP32/TF32off/B32/no accumulation/no recomputation, original3M schedule/seed/normalization. Node22 native PID148428/UID1278/start_ticks48709165/PGID148428 (wrapper148407) is actually live, with same-task sbatch takeover4535105 PENDING0. Training advanced to1402144 samples; restored clip remains34.97425765991212 and loss rows show the continued cosine learning rate (~0.00017167), not a reset. Normal full model/optimizer/clock/sampler/Torch RNG/clip/statistics continuation is active.
 
 Proposal file now records MIGRATED_RUNNING with approval, source ACK/terminal data and actual destination identity. Continue the original01:33 monitoring deadline. No benchmark or extra scientific arm was added; A4 and M1 were unchanged.
+
+### 2026-11-18 01:24 CST — directive applied; M2 seed1 actually training
+
+The 2026-11-17 user directive is authoritative. CURRENT_BEST.json publishes the designated M2 full3M checkpoint and R1/R3 bootstrap provenance; the active round3 plan disables the200GPUh cap. C3 continues on4535189/node6; migrate only after its complete1M checkpoint, a faster admitted idle card, and the perf line receiving a card. 9M remains HOLD for actual perf GPU results and user switch choices; round4 remains reserved only.
+
+The perf line has actually received GPU via4535718/node5 (profile workers1286418/1286419 verified). M2 seed1 is now RUNNING as4535736/node7/3090, bound worker2604333/UID1278/start_ticks1973688513, same M2 FP32/B32 recipe with only seed1 as a scientific change. At01:18 it had7264 samples and63.09 samples/s. CURRENT_BEST links M2_SEED1_REFERENCE.json; it is explicitly not reusable until complete3M checkpoint, both readouts, and successful terminal status. Existing node22 heads training was left running; no occupied5090 was taken.
+
+Lustre admission for another2GiB failed before submission, so the run uses separately reserved2GiB on NFS. Actual node bytes/inodes and fresh UID quotas/global forecasts passed; existing61GB P/Lustre and other lines' reservations are unchanged. Native and Slurm guards now forward explicit per-run NFS growth, retaining the64MiB default floor. CPU regression:13 passed (directive and unresolved tests),0.15s on compute20.
+
+Attempt1 failed before any optimizer update because the admission helper had precreated the output directory; elapsed10.3432936668396s and original output remain. Its pending takeover4535731 was verified/cancelled with0 elapsed. The helper now leaves output creation to the trainer. The original configuration is archived, its ledger points to that archive and the distinct attempt2 successor; an initial successor-progress misattribution from the overwritten config pointer is recorded and corrected to0 for attempt1. No training progress was discarded. All old outputs and costs remain; no other branch was modified.
