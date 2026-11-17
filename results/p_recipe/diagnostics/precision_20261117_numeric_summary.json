@@ -1,0 +1,63 @@
+{
+  "status": "COMPLETE",
+  "full_20_batch_rows": 11760,
+  "numerical_summary": [
+    {
+      "weights": "seed0",
+      "mode": "fp32_repeat",
+      "batches": 20,
+      "fields": 98,
+      "max_gradient_relative_L2": 1.2943637122220422e-06,
+      "max_field_loss_relative_difference": 8.367442865531218e-07,
+      "finite": true
+    },
+    {
+      "weights": "seed0",
+      "mode": "tf32_islands",
+      "batches": 20,
+      "fields": 98,
+      "max_gradient_relative_L2": 0.001828474724594013,
+      "max_field_loss_relative_difference": 0.002174663876087875,
+      "finite": true
+    },
+    {
+      "weights": "seed0",
+      "mode": "bf16_islands",
+      "batches": 20,
+      "fields": 98,
+      "max_gradient_relative_L2": 0.052219091603420045,
+      "max_field_loss_relative_difference": 0.020833467663182687,
+      "finite": true
+    },
+    {
+      "weights": "G1_3M",
+      "mode": "fp32_repeat",
+      "batches": 20,
+      "fields": 98,
+      "max_gradient_relative_L2": 0.00041824740676991886,
+      "max_field_loss_relative_difference": 0.000257957643835413,
+      "finite": true
+    },
+    {
+      "weights": "G1_3M",
+      "mode": "tf32_islands",
+      "batches": 20,
+      "fields": 98,
+      "max_gradient_relative_L2": 0.15269877268479765,
+      "max_field_loss_relative_difference": 0.007119100636964967,
+      "finite": true
+    },
+    {
+      "weights": "G1_3M",
+      "mode": "bf16_islands",
+      "batches": 20,
+      "fields": 98,
+      "max_gradient_relative_L2": 12.285720570315693,
+      "max_field_loss_relative_difference": 6.91605201297262,
+      "finite": true
+    }
+  ],
+  "rebase_single_step_rows": 588,
+  "rebase_status": "COMPLETE",
+  "new_model_tests_run": false
+}

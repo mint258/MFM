@@ -1,0 +1,47 @@
+{
+  "schema": "PRECISION_TRAINING_FINITE_AUDIT_V1",
+  "observed_utc": "2026-11-17T01:58:35.859113+00:00",
+  "mode": "bf16_islands",
+  "job_id": 4532685,
+  "node": "compute-0-20",
+  "source_files": [
+    "/share/home/zixiao/descriptor_analysis/MFM_precision_20261115/results/precision_20261115/artifacts/precision_20261115_bf16_islands_G1_3M_non21/losses.csv"
+  ],
+  "resume_samples": 0,
+  "rows": 93751,
+  "first": {
+    "samples": 32,
+    "updates": 1
+  },
+  "last": {
+    "samples": 3000000,
+    "updates": 93751,
+    "loss": 0.049053020775318146
+  },
+  "nonfinite_training_values": 0,
+  "continuity_violations": 0,
+  "sample_deltas": {
+    "32": 93749,
+    "16": 2
+  },
+  "val_fields": 109,
+  "val_nonfinite": 0,
+  "val_schema_count_unit_equal": true,
+  "val_families": {
+    "bonding": 0.05305405796970225,
+    "charge": 0.003603668888443886,
+    "energy": 0.018318361919934256,
+    "frontier/IP-EA": 0.060941296904790276,
+    "multipole": 0.1160168917203943,
+    "off-equilibrium": 0.03291776709349579,
+    "reactivity": 0.11734830783733939,
+    "response": 0.0014361907093836178,
+    "size": 0.06047915589879267,
+    "solvation": 0.06569997761646906
+  },
+  "family_nonfinite": 0,
+  "summary_status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+  "quality_complete": false,
+  "qualification": "PENDING_R3_R1_EVALUATION",
+  "training_closure_verified": true
+}

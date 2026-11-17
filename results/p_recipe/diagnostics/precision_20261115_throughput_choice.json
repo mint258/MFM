@@ -1,10 +1,13 @@
 {
-  "status": "PRECISION_CHOICE_DETERMINED_QUALITY_STUDY_RUNNING",
+  "status": "COMPLETE",
   "chosen_precision": "fp32",
-  "quality_study_complete": false,
+  "quality_study_complete": true,
+  "qualified": [
+    "fp32"
+  ],
   "candidate_quality_eligibility": {
     "tf32_islands": "INELIGIBLE_FP32_WINS_R3",
-    "bf16_islands": "PENDING_FULL_3M_AND_EVALUATION"
+    "bf16_islands": "INELIGIBLE_FP32_WINS_R3"
   },
   "baseline": {
     "name": "G1",
@@ -12,6 +15,25 @@
     "samples": 3000000,
     "R3": 0.34750313299524777,
     "R1": 0.11185894831188528
+  },
+  "selection": {
+    "chosen": "fp32",
+    "expected_aggregate_samples_per_second": {
+      "fp32": 419.59513046487996
+    },
+    "maximum_aggregate_samples_per_second": {
+      "fp32": 839.1902609297599
+    },
+    "planning_scenario_only": {
+      "chosen": "fp32",
+      "expected_aggregate_samples_per_second": {
+        "fp32": 512.2829277366453
+      },
+      "maximum_aggregate_samples_per_second": {
+        "fp32": 1024.5658554732906
+      }
+    },
+    "tie_rule": "Within 10% of the fastest qualified fleet throughput, prefer FP32 > TF32 > BF16"
   },
   "all_modes_throughput_bound": {
     "chosen": "fp32",
@@ -41,12 +63,9 @@
     "tie_rule": "Within 10% of the fastest qualified fleet throughput, prefer FP32 > TF32 > BF16"
   },
   "baseline_throughput_is_highest": true,
-  "proof": "FP32 is the registered eligible baseline and is fastest even when all candidates are retained. Filtering candidates by their pending quality outcomes cannot change the selected precision.",
-  "measurement_scope": "The prescribed controlled grid before the CPU rebase; only the agreed single-step numerical check was repeated after rebase.",
+  "proof": "Both low-precision candidates lose to FP32 under the registered paired R3 decision rule. FP32 is the only eligible mode and also has the highest fleet B32 throughput before qualification filtering.",
+  "measurement_scope": "Prescribed controlled runs before CPU rebase; only the agreed one-step numeric check repeated after rebase",
   "usage": "One uniform precision across cards; switch only between P rounds at the user-selected time. No production setting was changed.",
-  "remaining_requirements": [
-    "Complete the BF16 3M quality run and original R1/R3 evaluations",
-    "Publish R3/R1 paired differences and confidence intervals plus final VAL families",
-    "Finish the one-page report with only the final code SHA"
-  ]
+  "quality_comparison_artifact": "precision_20261117_final_comparison.json",
+  "remaining_requirements": []
 }
