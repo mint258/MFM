@@ -1,6 +1,6 @@
 """Freeze the small executable source; share only unchanged inputs/configuration."""
-import argparse,pathlib,shutil
-from h_resources import REPO,CONTROL,guard,watchdog
+import argparse,pathlib,shutil,subprocess
+from h_resources import R,REPO,CONTROL,guard,watchdog
 
 def main():
     watchdog()
@@ -19,5 +19,12 @@ def main():
     for source in REPO.iterdir():
         if source.name in (*trees,'.git'):continue
         (destination/source.name).symlink_to(source,target_is_directory=source.is_dir())
+    # TrainingHistory reads this existing source identity; this does not create
+    # a commit or hash and does not copy credentials, refs or repository objects.
+    git=shutil.which('git') or str(R/'runs/p_followup_20261116/test_tools/git/bin/git')
+    revision=subprocess.check_output([git,'-C',str(REPO),'rev-parse','HEAD'],text=True).strip()
+    guard(force=True)
+    gitdir=destination/'.git';gitdir.mkdir()
+    (gitdir/'HEAD').write_text(revision+chr(10))
     print(str(destination),size,flush=True)
 if __name__=='__main__':main()
