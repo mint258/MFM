@@ -152,7 +152,7 @@ def main():
    if scores[r]['paired_bootstrap'].get(key)!=baseline['paired_bootstrap'].get(key):raise ValueError('Paired bootstrap membership differs')
   d=np.asarray(scores[r]['paired_bootstrap']['values'])-np.asarray(baseline['paired_bootstrap']['values']);ci=np.quantile(d,[.025,.975]).tolist();effect=scores[r]['mean_normalized_improvement']-baseline['mean_normalized_improvement'];threshold=max(.02,baseline['mean_normalized_improvement']*.05)
   delta[r]=dict(delta=effect,ci95=ci,verdict='BETTER' if ci[0]>0 and effect>=threshold else 'WORSE' if ci[1]<0 else 'TIE',baseline_readout='R1' if r=='R2' else r)
- save(REPO/('results/p_heads/H/'+c['run']+'.json'),dict(scores=scores,deltas=delta,unwhitened_atoms=c.get('_unwhitened_atoms',{})))
+ save(REPO/('results/p_heads/H/'+c['run']+'.json'),dict(checkpoint=c['checkpoint'],condition=a.condition,variant=a.mode,downstream_store=c['store'],scores=scores,deltas=delta,unwhitened_atoms=c.get('_unwhitened_atoms',{})))
  print('H_SOURCE_COMPLETE',c['run'],flush=True)
 
 if __name__=='__main__':main()

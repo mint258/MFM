@@ -48,6 +48,7 @@ def main():
  lines+=['','|家族|字段数|方差加权解释率|','|---|---:|---:|']
  for r in families:lines.append(f"|{r['family']}|{r['fields']}|{r['variance_weighted_explained_fraction']}|")
  lines+=['','局限：元素解释率是标签统计相关，不能单独证明编码器塌缩的因果来源；该分析固定使用首允许构象，不代表额外构象加权。','',f'实际纳入 {len(fields)} 个标量字段，5000 个分子；运行耗时 {result["seconds"]:.1f} 秒。']
+ if len(fields)!=30:lines+=['','字段计数说明：任务书文字写30个字段；实际B3训练视图和head_layout启用'+str(len(fields))+'个原子标量字段（含r82三个字段）。按实际训练字段报告，不删除字段或修改标签、mask及训练配置。']
  guard();(REPO/'docs/p_heads/H5_ATOM_TARGETS.md').write_text('\n'.join(lines)+'\n')
  print(json.dumps(dict(status='COMPLETE',fields=len(fields),seconds=result['seconds'])),flush=True)
 

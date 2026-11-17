@@ -87,7 +87,7 @@ def report(results):
    hypotheses=prediction_verdict(m['6_EEV']-b['6_EEV'],b['6_CVF']-2*m['6_CVF'],m['6_CEV']-b['6_CEV'])
  payload=dict(conditions=results,hypothesis=hypotheses,bootstrap=dict(repetitions=1000,seed=20261025,unit='molecule',paired=True,refit=False),M1_reused_from=str(FOLLOW/'results/p_followup/A_collapse_composition/summary.json'))
  save(REPO/'results/p_heads/H/H1_geometry.json',payload)
- lines=['# H1：B3 表示几何','','方法：直接调用工作 A 的固定 5000 VAL 分子、实际允许构象、编码器加载和逐层提取工具。组成特征为既有元素计数及总原子数、重原子数，复用 composition_statistics 的五外折/五内折 ridge 组成预测。第 3–5 层取中间输出，第 6 层取 out_norm 后输出。没有训练编码器、额外 PCA 或扫描。','','CEV为首允许构象的mean(H)由分子组成OOF预测解释的方差比例，1−SSE/SST。EEV为按元素分组的原子H组间平方和/原子总平方和。CVF为同分子构象内平方和/总平方和，限至少有两个允许构象的分子。CVF_res先减去每个分子固定的组成OOF预测，再计算相同构象比例。','','1000次配对MID bootstrap（seed=20261025）重采分子并保留其全部构象，固定OOF预测不重新拟合，区间为95%百分位CI。M1所有几何和bootstrap直接引用工作A，不重新运行。','','|条件|层|CEV|EEV|CVF|CVF_res|','|---|---:|---|---|---|---|']
+ lines=['# H1：B3 表示几何','','方法：直接调用工作 A 的固定 5000 VAL 分子、实际允许构象、编码器加载和逐层提取工具。组成特征为既有元素计数及总原子数、重原子数，复用 composition_statistics 的五外折/五内折 ridge 组成预测。第 3–5 层取中间输出，第 6 层取 out_norm 后输出。没有训练编码器、额外 PCA 或扫描。','','CEV为首允许构象的mean(H)由分子组成OOF预测解释的方差比例，1−SSE/SST。EEV为按元素分组的原子H组间平方和/原子总平方和。CVF为同分子构象内平方和/总平方和，限至少有两个允许构象的分子。CVF_res先减去每个分子固定的组成OOF预测，再计算相同构象比例。CEV/CVF/CVF_res基于逐构象mean(H)，EEV基于逐原子H。','','1000次配对MID bootstrap（seed=20261025）重采分子并保留其全部构象，固定OOF预测不重新拟合，区间为95%百分位CI。M1所有几何和bootstrap直接引用工作A，不重新运行。','','|条件|层|CEV|EEV|CVF|CVF_res|','|---|---:|---|---|---|---|']
  for name,c in results.items():
   for layer,metrics in c.get('layers',{}).items():lines.append('|'+ '|'.join([name,layer]+[fmt(metrics[k]) for k in ['CEV','EEV','CVF','CVF_res']])+'|')
  lines+=['','|预注册效应|点估计及配对95%CI|门槛|判定|','|---|---|---|---|']
