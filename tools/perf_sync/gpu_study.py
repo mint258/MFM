@@ -80,8 +80,9 @@ def noise():
                         torch.save(dict(gradient=grad, losses=values, unused=runs[-1][2], cpu_rng=cpu_rng, cuda_rng=cuda_rng), target / f'{batch:02d}.pt')
                 g1, l1, _ = runs[0]
                 g2, l2, _ = runs[1]
-                # Per-field absolute+relative noise in the taskbook units.
-                el = max(abs(l1[n]-l2[n]) / (1+abs(l1[n])) for n in l1)
+                # PR8 noise-floor definition; the taskbook subsequently applies
+                # this relative epsilon as an absolute+relative tolerance.
+                el = max(abs(l1[n]-l2[n]) / max(abs(l1[n]),1e-30) for n in l1)
                 eg = float((g1.double()-g2.double()).norm() / g1.double().norm().clamp_min(1e-30))
                 result.append(dict(weights=weights, batch=batch, epsilon_loss=el, epsilon_grad=eg))
                 print('NOISE', weights, batch, el, eg, flush=True)

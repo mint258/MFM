@@ -26,4 +26,6 @@ GPU忙碌比例、kernel数、每步同步、发射耗时、H2D次数/字节和�
 
 100步预热+100步CPU/CUDA时间线：GPU忙碌/墙钟71.25%，每步4899.66 kernel；同步API166.02次/步（含采样边界2次device同步；其余16600次stream同步）；主线程发射kernel 42.58毫秒/步；H2D 88次/步、4736603.28字节/步。以上包含profiler开销；吞吐另用不带profiler的1000更新测试。同期仍在clip校准前期，norm即时取回是保留行为。
 
-两组权重各20批的噪声底：epsilon_loss=5.857070254547035e-7，epsilon_grad=1.154455482350726e-6。实际代码位置与API计数见results/perf_sync/gpu_20261118/S0_profile_summary.json；to_dense_batch、PyG Data传输等同步已观测。原始trace与完整警告位于/share/home/zixiao/descriptor_analysis/.perf_sync_scratch_20261117/gpu_20261118/S0_trace.json及S0_sync_warnings.txt，不进入Git。
+两组权重各20批的噪声底：epsilon_loss=7.278473238064165e-5，epsilon_grad=1.154455482350726e-6。实际代码位置与API计数见results/perf_sync/gpu_20261118/S0_profile_summary.json；to_dense_batch、PyG Data传输等同步已观测。原始trace与完整警告位于/share/home/zixiao/descriptor_analysis/.perf_sync_scratch_20261117/gpu_20261118/S0_trace.json及S0_sync_warnings.txt，不进入Git。
+
+噪声统计口径更正：此前epsilon_loss使用abs差/(1+abs(loss))；PR8实际定义为abs差/max(abs(loss),1e-30)。已直接复用S0原始两遍逐字段CSV，得到epsilon_loss=7.278473238064165e-5；epsilon_grad不变。没有重跑任何GPU验收；S1–S5的整体单步结论均不变，且逐字段覆盖集合全部一致。原口径归档S0_noise_original_combined_norm.json，更正汇总noise_reanalysis.json；后续S8使用PR8口径。
