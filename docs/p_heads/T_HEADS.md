@@ -14,7 +14,7 @@
 | T4 | B3；仅将sum支路sigmoid门固定为1 | B3及本线共享一次B3 seed1 |
 | T5 | B3；无PMA，分子标量线性读取[mean(H0),sum(H0)/N_ref,logN] | B3及本线共享一次B3 seed1 |
 
-之后新启动按配方线发布的CURRENT_BEST绑定；当前该发布文件尚不存在，因此T1先按用户明确的M2准备，临正式启动由协调窗口重核。T4/T5明确固定B3。所有正式运行均从头、3M、不载入验收权重；不停止或迁移T2/T3。GPU顺序为提速线（GPU部分完成前）优先，其后配方线，再本线与解耦线；T1/T4/T5互不等待科学结果。M2源JSON的checkpoint_samples仅1M/2M/3M、无显式step_overhead，新T1逐项保留这些执行键与训练器默认，没有加首32或改worker/lr/clip。恢复、旧尝试和祖先检查点元数据已从新配置移除。
+之后新启动按配方线发布的CURRENT_BEST绑定；T1正式启动前协调窗口已核新发布CURRENT_BEST仍为M2，与已准备基底一致，无需更改配置。T4/T5明确固定B3。所有正式运行均从头、3M、不载入验收权重；不停止或迁移T2/T3。GPU顺序为提速线（GPU部分完成前）优先，其后配方线，再本线与解耦线；T1/T4/T5互不等待科学结果。M2源JSON的checkpoint_samples仅1M/2M/3M、无显式step_overhead，新T1逐项保留这些执行键与训练器默认，没有加首32或改worker/lr/clip。恢复、旧尝试和祖先检查点元数据已从新配置移除。
 
 T4新增默认关闭 `p_recipe.pma_sum_gate_one`：实际门是Linear(512,1)加sigmoid后广播到64维sum_project输出；恒1时只跳过这个门，保留sum_norm、sum_project及除以固定N_ref=53.64145。query/self-attention/FFN/logN及所有既有参数不改。
 
@@ -23,7 +23,7 @@ T5新增默认关闭 `p_recipe.simple_molecular_readout`：不构造PMA，严格
 配置入口 `t_prepare_configuration.py` 必须指定实际基底JSON（CURRENT_BEST若是发布清单，先由协调窗口解析到实际配置），不猜未发布的M2 seed1路径。`t_decide.py`按显式p_heads_reference绑定主对照；T1种子1只请求本臂，对外部M2 seed1缺失记录等待，不新建本线M2/B3对照。T2/T3/T4/T5原B3对照的条件seed1共享同一B3_seed1.json。T2胜出只发CURRENT_BEST seed0确认需求，确认不自动衍生额外seed1。统计阈值仍按原规则，新增机制组合解释由预注册补充冻结。
 本线T侧薄接管入口已准备：`t_native.py`记录真实worker PID/UID/start_ticks/PGID/退出码，并将原生worker及其后代亲和性限制在实际allowed集合中的15核；这只是native亲和性，不声明Slurm分配。共享UUID锁仅由t_train持有，原生薄runner持续使用本线24GiB H/T guard；其磁盘暂停/恢复信号仅可作用经身份核实的本worker新进程组。原生主worker及已记录子树退出后才发布终态。`t_hybrid.py`只把原scheduled_run协议绑定到冻结T源、CONTROL/hybrid独立台账、15CPU和T入口，不改p_recipe的完整保存/回执/真实job/旧GPU上下文与锁释放等待流程；接管后使用真实Slurm mask。源端HANDOFF_SAVED即退出，最后评价仍只在t_train执行一次，已完成全部评价时不再接管训练。
 
-新薄入口仅3项fixture/mock CPU单测由Slurm4535726/compute16/1CPU完成（COMPLETED/0:0，5秒，测试0.003秒，全部PASS）：独立账本与15CPU、保留原协议并将入口单次路由至T训练、native身份/亲和性/清除伪Slurm环境与无外层GPU锁。该测试不代表已发生真实接管。原0d04c40三个冻结源保留；新增T1/T4/T5_hybrid_source供后续按真实资源启动，准备/原生启动/真实sbatch/register由协调窗口执行，尚未据此记录新运行事实。
+新薄入口仅3项fixture/mock CPU单测由Slurm4535726/compute16/1CPU完成（COMPLETED/0:0，5秒，测试0.003秒，全部PASS）：独立账本与15CPU、保留原协议并将入口单次路由至T训练、native身份/亲和性/清除伪Slurm环境与无外层GPU锁。该测试不代表已发生真实接管。原0d04c40三个冻结源保留；新增T1/T4/T5_hybrid_source供后续按真实资源启动，准备/原生启动/真实sbatch/register由协调窗口执行；实际T1原生运行事实见下节，尚未据此声称完成真实接管。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
@@ -71,6 +71,15 @@ T3既定2M里程碑已发布：`/share/home/zixiao/descriptor_analysis/runs/p_he
 
 旧64 TRAIN／冻结B3的2000步验收45头均未通过，该事实与逐头表保留。用户已明确该验收不适用于T1并授权取消gate：当前T1改为M2基底、全部45字段、从头3M，不再按此历史结果记当前臂缺失。
 
+## T1当前正式训练：M2基底原生启动
+
+用户直接训练授权现已实际执行。新T1_hybrid_source绑定18e4043，由CPU冻结4535729完成（COMPLETED/0:0，10秒）；旧0d04c40三个源保留。协调窗口完成prepare、native、真实held sbatch、register和release，原生node22 wrapper PID18807、真实worker PID18810；standby为真实4535733，根初始观测PENDING／0秒／ReqNodeNotAvail。该standby句柄不是原生worker的Slurm分配，两者不混写。基底为启动前已核CURRENT_BEST中的M2，全量TRAIN／B32／全部45字段／seed0／从头3M，未重复逐头验收。
+
+本线唯一实际资源观察见 `results/p_heads/T/T1_resources_native_18810.json`。worker UID1278、start_ticks5372205、PGID18810、PPID18807与原生记录一致，实际亲和性为0–14共15核；现场实际2个按需spawn reader及全部所观测后代均受此mask约束，workers14上限未改。native_affinity_only=true，环境中实际没有SLURM_JOB_ID；这不是Slurm CPU分配声明。CUDA_VISIBLE与nvidia-smi的真实worker上下文均匹配node22／5090 UUID GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef。
+
+既有生产者losses首条记录为32样本、1更新、total=7.489604473114014、preclip_norm=96.15419006347656、lr=1.6e-7、seconds=14.942423879998387。这表明原生训练已完成首个优化器更新，不是仅初始化。T1按原M2配置没有首32保存要求，本次未要求或读取首32CP，也未增加硬gate、benchmark或训练操作。
+
+后续接管由原协议将实际run/output写回task的configuration路径；最终t_decide读取这份canonical配置，再从其实际output/readout/scores.json取candidate。不会猜测旧native输出目录；M2对照与外部seed1绑定随原配置保留。最终3M产出时才向H交付准确CP路径补第6层几何，中间保存不补几何。
 ## T2 物理约束头
 
 冻结42,961条面板的唯一一次检查已完成，结果见 `results/p_heads/T/label_constraints.json`。读取原缓存的TRAIN 39,220条和VAL 3,741条，使用原单位raw标签，仅在原mask及全部原子有效的记录上逐记录检验；未更改mask或补齐缺失。阈值为 `max(N×5e-5, 1e-3×Σ|y|)`，通过率门槛99.9%。不把模型训练归一化后的数值用于电荷守恒检查。
