@@ -446,6 +446,11 @@ def main():
         if process.returncode: raise RuntimeError(f'{args.stage} child exited {process.returncode}; retain output')
         return
     if not torch.cuda.is_available(): raise RuntimeError('Actual GPU required')
+    if args.stage.startswith(('numerical_','profile_','benchmark_')) and not args.stage.startswith('benchmark_S7_'):
+        # Preserve the original16-core A/B placement when the resumed allocation
+        # includes the24 cores explicitly needed by the later S7 scan.
+        allowed=sorted(os.sched_getaffinity(0))
+        os.sched_setaffinity(0,allowed[:16])
     torch.backends.cuda.matmul.allow_tf32 = False
     torch.backends.cudnn.allow_tf32 = False
     capacity()

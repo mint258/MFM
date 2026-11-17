@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 import shutil
 import signal
+import stat
 import subprocess
 import sys
 import time
@@ -16,11 +17,24 @@ SCRATCH = REPO.parent/'.perf_sync_scratch_20261117'
 LIMIT = 20*1024**3
 
 
+def allocated_bytes(roots):
+    """Account live files; a vanished temporary is closed, not unknown space."""
+    def walk_error(error):
+        if not isinstance(error, FileNotFoundError): raise error
+    allocated=0
+    for root in roots:
+        for directory,_,names in os.walk(root,onerror=walk_error,followlinks=False):
+            for name in names:
+                try: info=(Path(directory)/name).stat()
+                except FileNotFoundError: continue
+                if stat.S_ISREG(info.st_mode):allocated+=info.st_blocks*512
+    return allocated
+
+
 def capacity():
     sys.path.insert(0,str(REPO.parent/'MFM_p_recipe/tools/model_v3'))
     import v2_diagnosis_disk as disk
-    allocated = sum(p.stat().st_blocks*512 for root in (SCRATCH,REPO/'results/perf_sync/scratch')
-        if root.exists() for p in root.rglob('*') if p.is_file())
+    allocated = allocated_bytes((SCRATCH,REPO/'results/perf_sync/scratch'))
     if allocated > LIMIT:
         raise OSError('Owned scratch exceeded 20 GiB')
     remaining = LIMIT-allocated
