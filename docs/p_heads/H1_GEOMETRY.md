@@ -48,4 +48,6 @@ CPU几何方法：T2和T1的最终3M均用原h_geometry.py --device cpu，同500
 
 后续真实H1队列按整写顺序：已完成T1 writer4536173→T5 CPU4536219→T4 CPU4536220。T5父依赖为afterok:4535747并AND afterany:4536173；T4父依赖为afterok:4535771并AND afterany:4536219。均node20/gpu、4CPU、nice10000、空CUDA、4线程及srun绑核，原入口condition分别为T5/T4，最终输入为CONTROL/training/p_heads_T5_seed0/samples_3000000.pt及p_heads_T4_seed0/samples_3000000.pt。预排前实际容量guard已通过，启动及运行继续字节/inode/UID配额和24GiB合并峰值守卫；未执行的作业不计已完成成本。该顺序只防止H1_geometry.json整写覆盖，不影响各训练臂和原后处理独立并行；后续实际触发的seed1沿独立condition键顺序处理。
 
+T5 CPU方法事实仅观察一次：4536219于2026-11-18 17:59:44 CST启动，18:02:15.392961 CST观察为RUNNING、node20/4CPU；Slurm step0/rank0真实Python PID94486，UID1278、PPID94479、PGID94486、start_ticks17496901。actual affinity1–4与Slurm CPU_IDs1–4一致，CUDA_VISIBLE_DEVICES为空，nvidia-smi计算进程查询成功且本H Python无GPU context；model_v2 venv Python入口、实际exe为chemprop Python3.11。结果及实际CPU成本待成功终态后一次记录，不读取未完统计，不增加已闭合GPU成本。
+
 局限：组成解释率与构象比例是描述性几何指标，不能单独证明下游效应的因果来源。按用户补充指示，T1取消原逐头验收并改用M2基底正式训练；T2/T3保持B3基底，新增T4/T5也以B3为基底。T1–T5及按预注册实际触发的seed1只在各自精确最终3M检查点产出后补充第6层，不分析中间恢复点；机制描述绑定各自基底，不扩展方向检验。
