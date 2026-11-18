@@ -1,10 +1,12 @@
 """The taskbook's fixed arms and composition rules; no extra candidates."""
 from copy import deepcopy
+import json
 from pathlib import Path
 
 ROUNDS={1:('A1','A2','A3','A4','A5'),2:('B1','B2','B3','B4'),3:('C1','C2','C3','C4')}
 LABEL_COMPONENTS=frozenset(('A1','A2','A5'))
-CONFLICTS=(frozenset(('B2','B3')),frozenset(('C1','C2')))
+CONFLICTS=(frozenset(('B2','B3')),frozenset(('C1','C2')),
+           frozenset(('X1','X2')),frozenset(('F1','F2')))
 RECIPE_FLAGS={'A1':'element_residual','A2':'state_difference','A3':'pair_without_distance',
  'A4':'family_equal','A5':'heavy_tail','B1':'shared_projector','B3':'pma_pooling',
  'B4':'anti_collapse','C4':'uncertainty_weighting'}
@@ -33,7 +35,30 @@ def configuration(base,components,*,run,round_number,arm,samples=None,stage=2):
   elif component=='C1':c['lr']=base['lr']*2
   elif component=='C2':c['lr']=base['lr']*.5
   elif component=='C3':c['mean_labels']=True
+ apply_round4_components(c,components,base)
  return c
+
+
+def apply_round4_components(configuration,components,base):
+ """Carry only the registered round4 field/head changes into merged recipes."""
+ active=set(components)&{'X1','X2','F1','F2'}
+ if not active:
+  if base.get('round4_field_selection'):
+   configuration.pop('fields',None);configuration.pop('round4_field_selection',None)
+  return
+ if {'X1','X2'}<=active or {'F1','F2'}<=active:
+  raise ValueError('Mutually exclusive round4 components must be resolved before configuration')
+ path=Path(__file__).resolve().parents[3]/'configs/p_recipe/fixed_20261115/round4/fidelity_pairs.json'
+ table=json.loads(path.read_text());pairs=table['pairs']
+ names={entry['field'] for entry in table['unpaired']}
+ names.update(name for pair in pairs for side in ('PM7_fields','xTB_fields') for name in pair[side])
+ if 'X1' in active:names={n for n in names if int(n.split('.')[2][1:]) not in (623,624,625)}
+ if 'F2' in active:names.difference_update(name for pair in pairs for name in pair['xTB_fields'])
+ configuration['fields']=sorted(names);configuration['round4_field_selection']=True
+ recipe=configuration['p_recipe']
+ if 'B4' in components and 'gamma' in base.get('p_recipe',{}):recipe['gamma']=base['p_recipe']['gamma']
+ if 'X2' in active:recipe['field_loss_multipliers']={n:5 for n in sorted(names) if int(n.split('.')[2][1:]) in (624,625)}
+ if 'F1' in active:recipe.update(fidelity_pairs=str(path),method_embedding_dim=8)
 
 
 def accepted_winners(decisions):

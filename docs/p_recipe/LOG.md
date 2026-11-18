@@ -884,3 +884,11 @@ Implemented one shared physical core per registered fidelity pair and one global
 Exactly one new unit-test function exercises the model integration, shared parameter identity and different outputs for different method vectors. Attempt1 exposed a synthetic fixture missing validity masks required by existing grouped prediction; adding those masks fixed the fixture. Attempt2 passed1test in0.13s; the failed log remains and consecutive failures reset to0. Implementation took about2minutes, below the4h limit. Full current worktree source check passed5175files/1987Python/0errors.
 
 F1 remains WAITING_REAL_LOADER_AND_PER_HEAD_OVERFIT_AFTER_C3. No real-data overfit acceptance or formal F1 training has run; new round4 launch list is still empty until C3 completion. Waiting for that authorized scheduling boundary is not additional development time. C3 stays on4536352/node20GPU0 with its existing02:44 scheduled check and capacity/telemetry guards.
+
+### 2026-11-19 02:31 CST — registered round4 changes carried into merged recipes
+
+Extended configuration composition for the registered X1/X2/F1/F2 components, preserving existing components and resolving the new mutually exclusive pairs through the existing larger-delta mechanism. The field universe comes from the authoritative fidelity table, not a new data scan. Merged recipes carry X1/F2 field removal, X2 normalized relative weights and F1 shared-head bindings/method dimension. When generating an original baseline from a round4-filtered base, the field filter is cleared rather than leaking into T1.
+
+Preparation-only configuration checks matched all four independently registered arm definitions. The allowed X1+F2 combination has99 fields and resetting it to T1 removes the filter and recipe flags. No training or new unit-test suite was run.
+
+The confirmation producer now follows the registered round4 prerequisite: it rejects a round3-only or not-yet-validated round4 state, and retains the user-approved all-off runtime snapshot for a complete round4 state. T3 remains the explicit M2 baseline. T4 is omitted only with the recorded user decision/confirmation; intersecting Pprime fields preserves any winning X1/F2 exclusions. No actual9M configuration was created. The canonical round4 decision producer and any required M3-plus-winners comparison still remain to be completed after the runs.

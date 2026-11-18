@@ -11,8 +11,11 @@ def approved_switch_snapshot(state,base):
  """Freeze the user-confirmed delivery in future confirmation configs."""
  policy_path=REPO/'configs/p_recipe/user_directive_20261117.json'
  if base.get('study_revision')!='fixed_20261115':return None
- policy=read_json(policy_path)['confirmation']
- if state['round']!=3:raise ValueError('Confirmation waits for the completed round3 decision')
+ directive=read_json(policy_path);policy=directive['confirmation']
+ if directive.get('round4',{}).get('authority')=='docs/p_recipe/USER_DIRECTIVE_20261118.md':
+  if state['round']!=4 or not state.get('merge_validation_complete'):
+   raise ValueError('Confirmation waits for the completed round4 decision and required merge comparison')
+ elif state['round']!=3:raise ValueError('Confirmation waits for the completed round3 decision')
  if not policy.get('perf_gpu_delivery_received'):raise ValueError('Confirmation waits for the perf GPU delivery')
  proposal=read_json(REPO/policy['switch_proposal'])
  if proposal.get('status')!='USER_CONFIRMED' or not proposal.get('user_confirmation'):
@@ -39,11 +42,15 @@ def prepare(state,*,base_configuration=None,study_directory=None):
  if state.get('study_revision','original_20261113')!=base.get('study_revision','original_20261113'):raise ValueError('Screening decision belongs to a different study revision')
  switch_snapshot=approved_switch_snapshot(state,base)
  third=state['adopted_winners'] if state['round']==3 else []
- runner=set(state['merge_base_components']) if state['round']==3 else set(state['merged_components']) if state['round']==2 else runner_up_components(final,third,state['merge_base_components'],state['component_evidence'])
+ runner=(set(state['M2_components']) if state['round']==4 else set(state['merge_base_components']) if state['round']==3 else set(state['merged_components']) if state['round']==2 else runner_up_components(final,third,state['merge_base_components'],state['component_evidence']))
  scope=read_json(R/'runs/p_recipe_20261113/D6_metadata.json');p=set(scope['P_enabled']);prime=set(scope['Pprime_enabled']);common=sorted(p&prime)
  lost=len(p)-len(common);need_t7=20*lost>len(p)
  specifications=[('T1',set(),'PM7',None,None),('T2',final,'PM7',None,None),('T3',runner,'PM7',None,None),
   ('T4',final,'UFF',None,common),('T5',final,'PM7',250000,None),('T6',final,'PM7',500000,None)]
+ omit_t4=state.get('T4_user_decision')=='OMIT'
+ if omit_t4:
+  if not state.get('T4_user_confirmation'):raise ValueError('Omitting T4 requires the user decision recorded with the comparison')
+  specifications=[spec for spec in specifications if spec[0]!='T4']
  if need_t7:specifications.append(('T7',final,'PM7',None,common))
  root=Path(study_directory) if study_directory else REPO/'configs/p_recipe'
  if not root.is_absolute():root=REPO/root
@@ -53,7 +60,7 @@ def prepare(state,*,base_configuration=None,study_directory=None):
   c.update(source=source,condition='Pprime' if source=='UFF' else 'P',subset_molecules=count,subset_seed=20261112)
   if switch_snapshot is not None:c['confirmation_switch_snapshot']=switch_snapshot
   if source=='UFF' and (OUT/'corpus/Pprime_corpus.json').is_file():c['corpus']=str(OUT/'corpus/Pprime_corpus.json')
-  if fields is not None:c['fields']=fields
+  if fields is not None:c['fields']=sorted(set(fields)&set(c.get('fields',fields)))
   if 'B4' in components:c['p_recipe']['gamma']=read_json(R/'runs/p_recipe_20261113/D4_gamma.json')['gamma']
   labels=sorted(components&LABEL_COMPONENTS)
   if labels:
@@ -66,7 +73,7 @@ def prepare(state,*,base_configuration=None,study_directory=None):
    if existing.get('attempt',1)>1:
     c.update({key:existing[key] for key in ('run','output','attempt','batch_size','microbatch_size','resume','resume_samples','handoff_request','handoff_ack') if key in existing})
   path.write_text(json.dumps(c,indent=2)+'\n');configs.append(str(path))
- m2=state['merge_base_components'] if state['round']==3 else state['merged_components'] if state['round']==2 else None
+ m2=state['M2_components'] if state['round']==4 else state['merge_base_components'] if state['round']==3 else state['merged_components'] if state['round']==2 else None
  plan=dict(configurations=configs,final_components=sorted(final),runner_up_components=sorted(runner),
   study_revision=base.get('study_revision','original_20261113'),results_directory=base.get('results_directory','results/p_recipe'),base_configuration=str(base_path),
   control_directory=base.get('control_directory',str(R/'runs/p_recipe_20261113')),
@@ -76,6 +83,9 @@ def prepare(state,*,base_configuration=None,study_directory=None):
   label_parameters_to_fit=fits,batch_size=base.get('batch_size',128),
   batch_size_by_run={read_json(path)['run']:read_json(path)['batch_size'] for path in configs},samples_per_run=confirmation_samples,screening_samples=screening_samples,confirmation_multiplier=3)
  if switch_snapshot is not None:plan['confirmation_switch_snapshot']=switch_snapshot
+ if state['round']==4:
+  plan.update(selection_round=4,T4_included=not omit_t4,T4_user_decision=state.get('T4_user_decision','KEEP'),
+              T4_user_confirmation=state.get('T4_user_confirmation'),initial_run_count=len(specifications))
  (destination/'plan.json').write_text(json.dumps(plan,indent=2)+'\n');print(json.dumps(plan,indent=2),flush=True);return plan
 
 if __name__=='__main__':
