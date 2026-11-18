@@ -1,5 +1,5 @@
 """Shared actual-node NFS capacity guard for H/T; no writes to Lustre."""
-import importlib.util,json,os,pathlib,socket,time,threading
+import importlib.util,json,os,pathlib,socket,time,threading,tempfile
 R=pathlib.Path('/share/home/zixiao/descriptor_analysis')
 REPO=pathlib.Path(__file__).resolve().parents[2]
 CONTROL=R/'runs/p_heads_20261117'
@@ -42,8 +42,17 @@ def guard(force=False):
  _last=now;return _capacity
 
 def save(path,value):
- guard();path=pathlib.Path(path);path.parent.mkdir(parents=True,exist_ok=True)
- path.write_text(json.dumps(value,indent=2,allow_nan=False)+'\n')
+ guard();path=pathlib.Path(path).resolve();path.parent.mkdir(parents=True,exist_ok=True)
+ payload=json.dumps(value,indent=2,allow_nan=False)+'\n';pending=None
+ try:mode=path.stat().st_mode&0o777
+ except FileNotFoundError:mode=None
+ try:
+  with tempfile.NamedTemporaryFile(mode='w',encoding='utf-8',dir=path.parent,prefix='.'+path.name+'.',suffix='.tmp',delete=False) as stream:
+   pending=pathlib.Path(stream.name);stream.write(payload)
+  if mode is not None:os.chmod(pending,mode)
+  os.replace(pending,path)
+ finally:
+  if pending is not None:pending.unlink(missing_ok=True)
 
 def watchdog(interval=2):
  """Stop only this worker on failed admission, before subsequent writes."""
