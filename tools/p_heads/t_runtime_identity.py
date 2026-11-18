@@ -14,12 +14,15 @@ def identity(pid):
     return dict(pid=pid,uid=os.getuid(),pgid=os.getpgid(pid),ppid=int(fields[1]),start_ticks=int(fields[19]),cpu_mask=sorted(os.sched_getaffinity(pid)))
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--job',type=int,required=True);p.add_argument('--arm',choices=['T2','T3','T4','T5'],required=True);p.add_argument('--gpu',required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--job',type=int,required=True);p.add_argument('--arm',choices=['T2','T3','T4','T5','B3'],required=True);p.add_argument('--gpu',required=True);p.add_argument('--configuration');a=p.parse_args()
     guard(force=True)
     target=REPO/'results/p_heads/T'/(a.arm+'_resources_'+str(a.job)+'.json')
     if target.exists():
         print('RESOURCE_OBSERVATION_ALREADY_RECORDED',str(target),flush=True);return
-    configuration=json.loads((REPO/'configs/p_heads/T'/(a.arm+'_seed0.json')).read_text())
+    configuration_path=pathlib.Path(a.configuration) if a.configuration else REPO/'configs/p_heads/T'/(a.arm+'_seed0.json')
+    if not configuration_path.is_absolute():configuration_path=REPO/configuration_path
+    configuration=json.loads(configuration_path.read_text())
+    if configuration['arm']!=a.arm:raise ValueError('Configuration arm differs from requested real arm')
     output=pathlib.Path(configuration['output'])
     with (output/'losses.csv').open() as stream:first=next(csv.DictReader(stream))
     if int(first['samples'])!=32 or not (output/'samples_32.pt').is_file():raise RuntimeError('First32 producer checkpoint not yet published')
