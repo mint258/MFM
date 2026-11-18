@@ -1,7 +1,7 @@
 """Render the final taskbook REPORT from completed study outputs, once ready.
 
 No training, probe fitting, bootstrap resampling or intermediate hashes run here.
-Only the final T2/T3/T4 checkpoints receive new SHA256 values.
+Only final T2/T3 and the user-retained T4 checkpoints receive new SHA256 values.
 """
 import argparse
 import csv
@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+from final_comparisons import completed_configurations
 
 REPO = Path(__file__).resolve().parents[2]
 
@@ -123,14 +124,48 @@ def screening_rows(states, delta_source, line_numbers):
                            f"[{number(decision['ci_lower'])}, {number(decision['ci_upper'])}]",
                            decision['verdict'], '是' if arm in state['adopted_winners'] else '否', source])
         for arm, entry in state.get('unresolved_arms', {}).items():
-            result.append([state['round'], arm, '—', '—', '未解决', '否', entry['reason']])
+            reason = entry if isinstance(entry, str) else entry['reason']
+            result.append([state['round'], arm, '—', '—', '未解决', '否', reason])
         for arm, reason in state.get('skipped_arms', {}).items():
             result.append([state['round'], arm, '—', '—', '条件未触发', '否', reason])
+        if state['round'] == 4:
+            decision = state['PP_comparison']['comparison']
+            source = link(delta_source, 'deltas.csv')[:-1] + f"#L{line_numbers[key(decision)]})"
+            result.append([4, 'PP', number(decision['delta']),
+                           f"[{number(decision['ci_lower'])}, {number(decision['ci_upper'])}]",
+                           decision['verdict'], '数据来源比较，不并入配方', source])
     return result
 
 
+def round4_sections(state, delta_source, line_numbers):
+    if state is None:
+        return []
+    if not state.get('merge_validation_complete'):
+        raise ValueError('The final report waits for the registered round4 merge decision')
+    pp = state['PP_comparison']
+    content = ['## 第4轮：扰动信号、多保真度及3M P/Pprime', '',
+               f"字段配对、未配对原因和P/Pprime交集：{link(REPO / 'docs/p_recipe/ROUND4_METHODS.md')}。"
+               '本轮全部单种子3M，以M2为基线；PP单独比较数据来源，不作为配方组件。', '',
+               'X1/F2平局时采纳更简单的去掉项；X2/F1平局不采纳。X1/X2、F1/F2互斥，按Δ较大项取舍。'
+               '下表保留原始胜负判定，最终并入项同时受M3合并比较约束。', '',
+               table(['PP运行', '对照运行', 'R3 Δ', '95% CI', '最小效应', 'M2两种子R3差', 'T4建议'],
+                     [[pp['run'], pp['control_run'], number(pp['comparison']['delta']),
+                       f"[{number(pp['comparison']['ci_lower'])}, {number(pp['comparison']['ci_upper'])}]",
+                       number(pp['minimum_effect']), number(pp['noise_R3_difference']), pp['recommendation']]]), '',
+               'PP的T4建议要求CI不含0、|Δ|达到最小效应且超过观察到的M2种子差；建议不自动取消9M T4。', '',
+               table(['M3组件', '第4轮候选', '需3M合并比较', '最终组件', '合并验证完成'],
+                     [[', '.join(state['merge_base_components']), ', '.join(state['screening_candidates']) or '无',
+                       state['merge_required'], ', '.join(state['merged_components']), state['merge_validation_complete']]]), '']
+    if state.get('merge_decision'):
+        content.extend([comparison_table([state['merge_decision']], 'round4_merge', delta_source, line_numbers), ''])
+    return content
+
+
 def render(plan, verdict, states, selection, code_commit):
-    configs = {read(path)['arm']: read(path) for path in plan['configurations']}
+    configs = completed_configurations(plan)
+    round4 = next((state for state in states if state['round'] == 4), None)
+    if plan.get('selection_round') == 4 and (round4 is None or not round4.get('merge_validation_complete')):
+        raise ValueError('The registered round4 decision is required for the final report')
     confirmation_samples = plan.get('samples_per_run', configs['T2']['samples'])
     summaries = {arm: read(Path(c['output']) / 'readout/scores.json') for arm, c in configs.items()}
     results = REPO / plan.get('results_directory', 'results/p_recipe')
@@ -160,7 +195,7 @@ def render(plan, verdict, states, selection, code_commit):
     full_count = verdict['full_TRAIN_molecules']
     final_config = Path(verdict['runnable_configuration'])
     fixed_description=(f"用户固定配置：batch={selection['batch_size']}，lr={selection['lr']:g}，逐层重算关闭；"
-                       f"三轮筛选均{selection['screening_samples']:,}样本，确认{confirmation_samples:,}样本。"
+                       f"原三轮及注册第4轮筛选均{selection['screening_samples']:,}样本，确认{confirmation_samples:,}样本。"
                        "既有G1按用户要求原样完成并复用为B0，旧裁剪窗口作为明确例外记录。") if selection.get('selection_method')=='user_fixed' else (
                        f"校准选中{selection['winner_group']}；batch={selection['batch_size']}，lr={selection['lr']:g}；筛选{selection['screening_samples']:,}样本。")
     content = ['# P 预训练配方研究：最终交付', '',
@@ -209,8 +244,11 @@ def render(plan, verdict, states, selection, code_commit):
                 '至少一个候选按预注册规则胜过T1；最终配方由T2/T3之间的比较决定。'), '',
                'B0与M2的预算同号检查：`' + json.dumps(verdict['B0_M2_budget_sign'], ensure_ascii=False) + '`。', '',
                '## P与P′对比', '',
-               f"P比较臂为 {plan['Pprime_comparator']}，P′为T4；共同启用字段 {len(plan['common_fields'])} 个，"
-               f"丢失P字段 {plan['lost_P_fields']} 个（{plan['lost_P_fraction']:.3%}），T7要求为 {plan['T7_required']}。", '',
+               (f"P比较臂为 {plan['Pprime_comparator']}，P′为T4，实际共同启用字段 {len(configs['T4'].get('fields', plan['common_fields']))} 个。"
+                if 'T4' in configs else '9M T4已按记录的用户决定省略；P与Pprime保留第4轮3M PP结果，不构造9M对比。'
+                f"用户确认：{plan['T4_user_confirmation']}。"), '',
+               f"原始P/Pprime共同字段 {len(plan['common_fields'])} 个，丢失P字段 {plan['lost_P_fields']} 个"
+               f"（{plan['lost_P_fraction']:.3%}），T7要求为 {plan['T7_required']}。", '',
                comparison_table(verdict['comparisons'], 'P_vs_Pprime', delta_source, line_numbers), '',
                f'## 分子数扩展：固定{confirmation_samples/1e6:g}M样本', '',
                table(['分子数', '运行', 'R3主分', 'R1副分', '平均重复次数'],
@@ -225,9 +263,11 @@ def render(plan, verdict, states, selection, code_commit):
     content.extend([table(['轮', '臂', 'ΔR3', '95% CI', '判定', '当轮并入', '证据'], experiment_rows), '',
                     '合并、冲突与停止记录：', '',
                     table(['轮', '合并组件', '合并回退', '累计筛选GPUh', '停止原因'],
-                          [[state['round'], ', '.join(state['merged_components']) or 'B0', state['merge_rollback'],
-                            number(state['screening_gpu_hours']), '; '.join(state['stop_reasons']) or '继续下一轮']
+                          [[state['round'], ', '.join(state['merged_components']) or 'B0', state.get('merge_rollback', False),
+                            number(state['screening_gpu_hours']), '; '.join(state.get('stop_reasons', [])) or
+                            ('注册第4轮及所需合并比较完成' if state['round'] == 4 else '继续下一轮')]
                            for state in states]), '',
+                    *round4_sections(round4, delta_source, line_numbers),
                     '## 评价及统计方法', '',
                     '计分任务为ExpansionRx的LogD、LogS、HLM CLint，以及QM9原子化能、alpha、homo、lumo。'
                     '原子化能为U0减去QM9官方U0原子参考之和。CYP3A4/2D6 SoM只报告。'
@@ -240,8 +280,8 @@ def render(plan, verdict, states, selection, code_commit):
                     '主分为有效计分任务R3均值，副分为R1均值。按分子配对bootstrap1000次，种子20261025，取95%百分位区间。'
                     'A胜B需ΔR3区间下界>0且Δ≥max(0.01,0.05×max(score_A,score_B))；否则按对称规则判负或平局，平局取更简单配置。'
                     'R1仅报告；R3胜且R1负仍采纳。每轮仅与当轮基线比较，B2/B3及C1/C2冲突时保留Δ较大项；'
-                    '合并基线若输给前轮最佳单项则回退。原预注册筛选共3轮，连续两轮无胜项提前结束；'
-                    '200GPUh筛选上限已按2026-11-17用户补充指示取消。第4轮仅预留，须由用户确认其他线胜出项后另行注册。'
+                    '合并基线若输给前轮最佳单项则回退。200GPUh筛选上限已按2026-11-17用户补充指示取消。'
+                    '第4轮由11-18指示注册，X1/X2/F1/F2对照M2；M3不同于M2时，新增组件须经M3上的3M合并比较胜出后采纳。'
                     '旧作废筛选、测速及校准成本不混入新筛选预算。'
                     'M2另补seed1噪声基准供各线复用，仅报告训练噪声，不改变第3轮预注册判定。', '',
                     '## A1/A2/A5定义及TRAIN拟合参数', '',
@@ -256,7 +296,7 @@ def render(plan, verdict, states, selection, code_commit):
                     parameter_appendix(parameter_paths),
                     '## 最终交付标识', '',
                     f'最终代码提交：`{code_commit}`。', '',
-                    f"P′及分子数运行采用T2/M3配方。{verdict['repeat_on_T3']}。", '',
+                    f"已保留的P′及分子数运行采用T2的最终合并配方。{verdict['repeat_on_T3']}。", '',
                     f"闭合P0证据：{link(REPO / 'docs/p_recipe/P0_SUMMARY.md')}；"
                     f"完整任务评分：{link(REPO / 'results/p_recipe/scores.csv')}；"
                     f"本修订配对比较：{link(delta_source)}。", ''])
@@ -285,7 +325,7 @@ def main():
                                                 read(args.selection), args.code_commit)
     scaling_plot(configs, summaries, results / 'molecule_scaling.svg')
     hashes = [[arm, checkpoint_sha(Path(configs[arm]['output']) / f"samples_{configs[arm]['samples']}.pt")]
-              for arm in ('T2', 'T3', 'T4')]
+              for arm in ('T2', 'T3', 'T4') if arm in configs]
     content += '\n' + table(['最终检查点', 'SHA256'], hashes) + '\n'
     Path(args.output).write_text(content)
     print(json.dumps(dict(report=args.output, scaling_figure=str(results / 'molecule_scaling.svg'),

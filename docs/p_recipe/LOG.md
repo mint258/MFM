@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-18 19:15UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次19:45:44UTC。
+
+2026-11-18 19:15UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2197952/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次19:45:44UTC。
+
 2026-11-18 18:45UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次19:15:33UTC。
 
 2026-11-18 18:45UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2173280/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次19:15:33UTC。
@@ -910,3 +914,9 @@ The P-line launcher now excludes GPU types reserved by the active perf priority 
 Prepared activate_round4.py to release the registered priority order only after canonical C3 has actual successful terminal accounting, complete3M training and complete R1/R3. F1 also requires its real-loader/per-head acceptance result. This preparation submits no job and leaves the current empty active plan unchanged.
 
 Prepared accept_fidelity.py for the one registered acceptance after C3: real PRecipeDataset, fixed1000 TRAIN molecules, the14 changed PM7/xTB fields belonging to5 shared physical cores, existing maximum10000 overfit updates and original-unit per-field R2>=0.95 reporting. It retains B32/FP32, original targets/normalization and independent output/checkpoint; its runtime must fit the remaining registered4h development allowance. No extra unit functions, diagnostic runs or parameter sweeps were added. Neither preparation tool has been executed for training or activation.
+
+### 2026-11-19 03:22 CST — final producers follow registered round4 and optional T4
+
+Adapted the final comparison/report producers to consume round4's actual decision schema, report PP separately, retain raw ties and unresolved F1 reasons, and describe the registered M3 merge requirement. An explicit user-approved T4 omission no longer requests nonexistent9M T4 readouts or a T4 checkpoint hash; the3M PP result remains in the report. Missing T4 without the recorded user decision still fails. Final producers first consume actual successful terminal accounting, full-budget summaries and complete R1/R3 for every registered confirmation arm. No confirmation plan, new training, comparison result, checkpoint hash or final REPORT was generated. Source validation covers the changed producers; runtime report validation remains after actual confirmation completion.
+
+A new SSH connection briefly returned connection-refused; the established authenticated head session remained live and confirmed4536352 RUNNING oncompute-0-20. This observation issue caused no restart, migration or training interruption.

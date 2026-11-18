@@ -21,6 +21,35 @@ def study_root(plan):
  return (path if path.is_absolute() else REPO/path).parent
 
 
+def completed_configurations(plan):
+ """Final producers consume successful full-budget runs, including readouts."""
+ configs={read(path)['arm']:read(path) for path in plan['configurations']}
+ required={'T1','T2','T3','T5','T6'}
+ if 'T4' not in configs:
+  if plan.get('T4_included') is not False or plan.get('T4_user_decision')!='OMIT' or not plan.get('T4_user_confirmation'):
+   raise ValueError('Missing T4 requires the recorded explicit user omission')
+ else:
+  if plan.get('T4_included') is False:raise ValueError('T4 contradicts the recorded omission')
+  required.add('T4')
+ if plan.get('T7_required'):required.add('T7')
+ if set(configs)!=required:raise ValueError('Confirmation arms differ from the registered plan')
+ ledger=read(R/'runs/p_recipe_20261113/study_execution.json')
+ for c in configs.values():
+  if c.get('study_revision','original_20261113')!=plan.get('study_revision','original_20261113'):
+   raise ValueError('Confirmation configurations belong to another study revision')
+  expected=plan.get('samples_per_run',9000000)
+  if c['samples']!=expected:raise ValueError('Confirmation sample budgets differ')
+  record=ledger['runs'][c['run']];summary=read(Path(c['output'])/'summary.json')
+  if record.get('state')!='COMPLETED' or record.get('exit_code') not in (0,'0:0'):
+   raise ValueError('Refresh actual successful terminal accounting: '+c['run'])
+  if summary.get('status')!='COMPLETE' or summary['samples']!=expected:
+   raise ValueError('Full-budget training/readouts are incomplete: '+c['run'])
+  scores=summaries(c)
+  if not all(scores[r].get('complete') and scores[r]['bootstrap_samples']==1000 and scores[r]['bootstrap_defined']==1000 for r in ('R1','R3')):
+   raise ValueError('Registered readouts are incomplete: '+c['run'])
+ return configs
+
+
 def report_task_values(c,readout):
  """Retain frozen seven-task means; bootstrap excluded report-only tasks separately."""
  result=summaries(c)[readout];tasks=dict(result['tasks']);values=dict(result['paired_bootstrap']['task_values'])
@@ -65,13 +94,15 @@ def budget_sign_comparison(plan,configs):
 
 def close(plan):
  if plan.get('selection_valid') is False:raise ValueError('The user invalidated this confirmation evidence')
- configs={read(path)['arm']:read(path) for path in plan['configurations']}
- if any(c.get('study_revision','original_20261113')!=plan.get('study_revision','original_20261113') for c in configs.values()):raise ValueError('Confirmation configurations belong to another study revision')
+ configs=completed_configurations(plan)
  rows=[]
- for a,b,purpose in [('T2','T1','confirmation'),('T3','T1','confirmation'),('T2','T3','final_recipe'),
-  (plan['Pprime_comparator'],'T4','P_vs_Pprime'),('T2','T6','molecule_scaling'),('T6','T5','molecule_scaling')]:
+ comparisons=[('T2','T1','confirmation'),('T3','T1','confirmation'),('T2','T3','final_recipe'),
+              ('T2','T6','molecule_scaling'),('T6','T5','molecule_scaling')]
+ if 'T4' in configs:comparisons.append((plan['Pprime_comparator'],'T4','P_vs_Pprime'))
+ for a,b,purpose in comparisons:
   rows.extend(compare(configs[a],configs[b],purpose,0))
- rows.extend(task_rows(configs[plan['Pprime_comparator']],configs['T4']));write_deltas(rows,REPO/plan.get('results_directory','results/p_recipe')/'deltas.csv')
+ if 'T4' in configs:rows.extend(task_rows(configs[plan['Pprime_comparator']],configs['T4']))
+ write_deltas(rows,REPO/plan.get('results_directory','results/p_recipe')/'deltas.csv')
  decision=next(row for row in rows if row['purpose']=='final_recipe' and row['readout']=='R3')
  if decision['verdict']=='win':chosen='T2'
  elif decision['verdict']=='loss':chosen='T3'
@@ -93,7 +124,9 @@ def close(plan):
  verdict=dict(final_run=configs[chosen]['run'],final_arm=chosen,final_components=configs[chosen]['components'],
   study_revision=plan.get('study_revision','original_20261113'),
   runnable_configuration=str(target),T2_T3=decision,Pprime_comparator=plan['Pprime_comparator'],
-  Pprime_and_scaling_recipe='T2/M3',repeat_on_T3='Pending user decision; no rerun' if chosen=='T3' else 'Not needed',
+  Pprime_and_scaling_recipe='T2/final merged recipe',repeat_on_T3='Pending user decision; no rerun' if chosen=='T3' else 'Not needed',
+  T4_included='T4' in configs,T4_user_decision=plan.get('T4_user_decision','KEEP'),
+  T4_user_confirmation=plan.get('T4_user_confirmation'),
   neither_candidate_beats_T1=not any(row['purpose']=='confirmation' and row['readout']=='R3' and row['verdict']=='win' for row in rows),
   comparisons=rows,B0_M2_budget_sign=budget_sign_comparison(plan,configs),training_samples=configs['T2']['samples'],batch_size=c['batch_size'],
   batch_size_by_arm={arm:item['batch_size'] for arm,item in configs.items()},full_TRAIN_molecules=full_count,
