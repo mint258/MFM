@@ -1,4 +1,4 @@
-"""Submit one prepared study plan using native high GPUs and established Slurm."""
+"""Submit prepared GPU work by sample budget, retaining the hybrid handoff."""
 import argparse,concurrent.futures,csv,fcntl,json,shlex,subprocess,time
 from pathlib import Path
 from collect_execution import TERMINAL
@@ -7,19 +7,27 @@ from scheduling import node_capacity,requested_cpus,route,gpu_rank
 R=Path('/share/home/zixiao/descriptor_analysis');REPO=Path(__file__).resolve().parents[2];C=R/'runs/p_recipe_20261113'
 OLD='/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python'
 NEW=str(R/'docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python')
-# Idle compatible resources: RTX5090 (22), then RTX4090 (20), then3090. Node21 is user-disabled.
+# New submissions prefer0-7 for<=3M and20/22 for>3M. Node21 stays disabled.
 NATIVE=('compute-0-22','compute-0-20')
-FALLBACK=('compute-0-5','compute-0-0','compute-0-6','compute-0-7','compute-0-1','compute-0-3','compute-0-4')
+FALLBACK=tuple('compute-0-'+str(i) for i in range(8))
 
 
 def read(path):return json.loads(Path(path).read_text())
 
 
-def take_card(cards,fallback,required_gpu_uuid=None):
- for pool in (cards,fallback):
+def take_card(cards,fallback,required_gpu_uuid=None,*,configuration=None,policy=None):
+ pools=(cards,fallback)
+ if configuration is not None:
+  budget=configuration.get('samples',configuration.get('screening_samples',3000000))
+  if budget<=policy.get('small_task_maximum_samples',3000000):pools=(fallback,cards)
+  cpus=requested_cpus(configuration,policy)
+ for pool in pools:
   for index,card in enumerate(pool):
-   if required_gpu_uuid is None or card['gpu_uuid']==required_gpu_uuid:
-    return pool.pop(index)
+   if required_gpu_uuid is not None and card['gpu_uuid']!=required_gpu_uuid:continue
+   if configuration is not None:
+    if card['node'] not in NATIVE and (card['free_cpus']<cpus or card.get('existing_compute_context',False)):continue
+    if route(card['free_cpus'],cpus,card['used_mib'],card['total_mib'],policy)=='WAIT_GPU':continue
+   return pool.pop(index)
  return None
 
 
@@ -41,11 +49,13 @@ def own_gpu_busy(gpu,node=None):
  return False
 
 def observe(node):
+ text=subprocess.check_output(['scontrol','show','node',node,'-o'],text=True,timeout=15)
+ free=node_capacity(text)
+ partitions=next((part.split('=',1)[1] for part in text.split() if part.startswith('Partitions=')),'').split(',')
+ if 'gpu' not in partitions:raise ValueError(node+' is not in the actual gpu partition')
  command=['nvidia-smi','--query-gpu=uuid,memory.used,memory.total,name','--format=csv,noheader,nounits']
  result=subprocess.run(['ssh','-n','-o','BatchMode=yes','-o','ConnectTimeout=10',node,shlex.join(command)],text=True,capture_output=True,timeout=30)
  if result.returncode:raise OSError(node+': '+result.stderr.strip())
- text=subprocess.check_output(['scontrol','show','node',node,'-o'],text=True,timeout=15)
- free=node_capacity(text)
  busy=set()
  if node not in NATIVE:
   contexts=subprocess.check_output(['ssh','-n','-o','BatchMode=yes','-o','ConnectTimeout=10',node,
@@ -59,19 +69,19 @@ def launch_locked(plan,ledger):
  directive_path=REPO/'configs/p_recipe/user_directive_20261117.json'
  directive=read(directive_path) if directive_path.is_file() else {}
  if policy['exclusive']:raise ValueError('User forbids exclusive allocation')
- inventory=read(C/'batch_gpu_inventory.json');known={gpu[0] for item in inventory for gpu in item.get('gpus',[])}
- fallback_ids={item['node']:item['gpus'][0][0] for item in inventory if item['node'] in FALLBACK and item.get('gpus')}
+ nodes=policy.get('nodes',list(NATIVE+FALLBACK))
+ if 'compute-0-21' in nodes:raise ValueError('compute-0-21 remains user-disabled')
  observed={};errors={}
  with concurrent.futures.ThreadPoolExecutor(3) as pool:
-  futures={pool.submit(observe,node):node for node in (*NATIVE,*fallback_ids)}
+  futures={pool.submit(observe,node):node for node in nodes}
   for future in concurrent.futures.as_completed(futures):
    node=futures[future]
    try:observed[node]=future.result()
    except (OSError,ValueError,subprocess.SubprocessError) as error:errors[node]=str(error)
- cards=[card for node in NATIVE for card in observed.get(node,[]) if card['gpu_uuid'] in known and route(card['free_cpus'],1,card['used_mib'],card['total_mib'],policy)!='WAIT_GPU']
+ cards=[card for node in NATIVE for card in observed.get(node,[]) if route(card['free_cpus'],1,card['used_mib'],card['total_mib'],policy)!='WAIT_GPU']
  cards.sort(key=lambda card:gpu_rank(card['gpu_name'],policy))
  fallback=[card for node in FALLBACK for card in observed.get(node,[])
-     if card['gpu_uuid']==fallback_ids.get(node) and not card.get('existing_compute_context',False)
+     if not card.get('existing_compute_context',False)
      and route(card['free_cpus'],1,card['used_mib'],card['total_mib'],policy)!='WAIT_GPU']
  # Every run keeps its original handle. Repairs use an explicit new run/attempt.
  used={record['gpu_uuid'] for record in ledger['runs'].values() if record.get('state') not in TERMINAL}
@@ -81,7 +91,7 @@ def launch_locked(plan,ledger):
  for filename in plan['configurations']:
   configuration=read(filename);name=configuration['run']
   if name in ledger['runs']:continue
-  card=take_card(cards,fallback,configuration.get('required_gpu_uuid'))
+  card=take_card(cards,fallback,configuration.get('required_gpu_uuid'),configuration=configuration,policy=policy)
   if card is None:
    print(json.dumps(dict(run=name,state='WAITING_FOR_OWN_GPU_SLOT',required_gpu_uuid=configuration.get('required_gpu_uuid'))),flush=True);continue
   node=card['node'];gpu=card['gpu_uuid'];submitted=time.time()
@@ -119,7 +129,7 @@ def launch_locked(plan,ledger):
    reserved['standby_job_id']=job_id
   else:
    reserved.update(job_id=job_id,state='SUBMITTED')
-   for other in cards:
+   for other in (*cards,*fallback):
     if other['node']==node:other['free_cpus']=max(0,other['free_cpus']-cpus)
   write(path,ledger);print(json.dumps(dict(run=name,**reserved)),flush=True)
  write(path,ledger);return ledger

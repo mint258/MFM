@@ -1,5 +1,17 @@
 # P 配方研究日志
 
+2026-11-18 23:48UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次00:18:17UTC。
+
+2026-11-18 23:48UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2417792/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次00:18:17UTC。
+
+2026-11-18 23:17UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次23:47:54UTC。
+
+2026-11-18 23:17UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2392992/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次23:47:54UTC。
+
+2026-11-18 22:47UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次23:17:33UTC。
+
+2026-11-18 22:47UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2368192/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次23:17:33UTC。
+
 2026-11-18 22:17UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:47:22UTC。
 
 2026-11-18 22:17UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2343456/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:47:22UTC。
@@ -980,3 +992,11 @@ Round3, round4 (including its registered M3 merge) and final confirmation now pr
 PP also has an independent --pp-only entry point. T4's automatic decision uses the dedicated18B seed0 PP-versus-M2 definition, including both positive and negative clear effects and the existing M2 seed difference. A separately required PP seed1 does not delay or replace this explicit seed0 T4 rule. The authority path is recorded automatically; no new approval is requested.
 
 Seven new CPU metadata integration cases passed0.43s after fresh actual-node root/NFS bytes, inodes and UID quota admission. They cover pending-without-final-writes, seed0-win becoming a two-seed tie, round4 conflict/simpler-tie composition, four T4 branches, and final missing-control seed1 planning with actual per-seed report presentation. Only these new cases ran; earlier/F1 tests were not replayed. No real seed1 configuration, training or final report was generated. Actual C3 remains running on4536352; side-line final two-seed decisions and runtime integration of any eventual winner remain outstanding.
+
+### 2026-11-19 07:56 CST — user CPU/GPU placement updates applied
+
+GitHub's leased monitoring push met two newer user commits3fa1eb75 and3b1d69de in AGENTS.md. Both are preserved as ancestors, and their instructions were synced to the live repository, installed HPC skill1.0.161, its repository mirror and the shared STATUS notices. New <=3M jobs prefer0..7; >3M prefer20/22 with card order5090>4090>3090; an admissible slot in the other group is used immediately. Node21 remains disabled, running C3 is preserved, and no pre-C3 round4 job is made ready merely to fill an idle card.
+
+The launcher now scans both groups using actual UUIDs instead of the old benchmark inventory. It verifies actual gpu partition membership (node2 currently reports cpu-only), rejects low-group foreign CUDA contexts and insufficient free CPU before selecting another group, retains GPU pinning and20/22 hybrid handoff, and deducts submitted CPUs across both pools. CPU work now runs only on8..19. The next report/statistics and source-check jobs will use the CPU partition rather than compute20.
+
+Actual Slurm4536398 completed0:0 oncompute16/1CPU/19s after root/NFS byte/inode and fresh UID quota admission. Nine new placement cases plus five affected pinning/idle-context compatibility cases passed0.12s, covering the3M boundary, bidirectional fallback, low-node CPU/context admission, explicit UUIDs, real partition rejection and a mixed plan using both groups without old inventory. Other science/F1 tests were not rerun. No actual GPU task was submitted or migrated by these tests.
