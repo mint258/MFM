@@ -48,3 +48,5 @@ T1最终第6层4536173已于2026-11-18 16:03:41 CST启动，afterok:4535781已�
 T1 CPU方法事实仅观察一次：2026-11-18 16:06:59.084053 CST，Slurm step0/rank0真实Python PID92635，UID1278、PPID92630、PGID92635、start_ticks16800524。actual affinity为1–4四核，与该作业Slurm CPU_IDs=1–4一致；CUDA_VISIBLE_DEVICES为空，nvidia-smi计算进程查询成功且该Python无GPU context。入口为model_v2_cu118_20261105/bin/python，实际exe为chemprop/bin/python3.11；未作科学测试、测速、设备数值对照或检查点读取。
 
 局限：组成解释率与构象比例是描述性几何指标，不能单独证明下游效应的因果来源。按用户补充指示，T1取消原逐头验收并改用M2基底正式训练；T2/T3保持B3基底，新增T4/T5也以B3为基底。T1–T5及按预注册实际触发的seed1只在各自精确最终3M检查点产出后补充第6层，不分析中间恢复点；机制描述绑定各自基底，不扩展方向检验。
+
+T4/T5最终点的纯CPU几何已预排：T5为真实4536219（afterok:4535747 AND afterany:4536173）；T4为4536220（afterok:4535771 AND afterany:4536219）。Slurm已确认两者PENDING/0:00、各4CPU/nice10000/node20/gpu分区，尚无GPU分配或科学执行。均空CUDA、数值库4线程、srun --cpu-bind=cores，原h_geometry入口只读各自真实最终3M。前一H1 writer的afterany只防整写并发，训练仍并行，各自训练与原读出须成功afterok；可按未来实际就绪情况调整尚未启动的写入顺序。提交前actual node20磁盘/inode/UID及本线24GiB合并峰值守卫通过，运行时原watchdog继续保护。seed1独立condition及文件名路由已原生支持，无代码或统计变更、不新增验证。
