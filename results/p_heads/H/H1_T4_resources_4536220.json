@@ -1,0 +1,42 @@
+{
+  "status": "OBSERVED",
+  "observed_time_unix": 1795042680.4476473,
+  "condition": "T4",
+  "job_id": 4536220,
+  "node": "compute-0-20",
+  "parent": {
+    "pid": 112716,
+    "uid": 1278,
+    "pgid": 112716,
+    "ppid": 112709,
+    "start_ticks": 22081970,
+    "cpu_mask": [
+      68,
+      69,
+      70,
+      71
+    ]
+  },
+  "slurm": {
+    "JobId": "4536220",
+    "JobState": "RUNNING",
+    "NodeList": "compute-0-20",
+    "NumCPUs": "4",
+    "CPUs/Task": "4",
+    "CPU_IDs": "68-71"
+  },
+  "environment": {
+    "SLURM_CPUS_PER_TASK": "4",
+    "CUDA_VISIBLE_DEVICES": "",
+    "SLURM_JOB_ID": "4536220"
+  },
+  "observations": {
+    "parent_has4": true,
+    "parent_matches_actual_slurm": true,
+    "slurm_declares4": true,
+    "cuda_visible_empty": true,
+    "no_own_gpu_context": true
+  },
+  "device": "cpu",
+  "scientific_benchmark": false
+}

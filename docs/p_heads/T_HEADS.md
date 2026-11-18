@@ -118,6 +118,23 @@ T1 seed1当前已正式启动4536378／node7／gpu／15CPU／nice10000／cu118�
 node7启动前实际IDLE48CPU，GPU5/24,576MiB、free24,262MiB、无CUDA context，MemAvailable387,899,316kB、瞬时ownUUID锁FREE；actualguard root53,655,605,248B／NFS6,493,239,771,136B／UID445,976,883,200B对172,281,903,104B需求及inode／24GiB跨线预留通过。原memory.free≥11,527MiB、≤30%／UUID锁／磁盘守卫均保持。根唯一确认首loss32样本／up1；M2原checkpoint[1M,2M,3M]、不发布CP32的执行键例外保持，不能套用要求CP32的generic CLI。
 
 唯一[T1 seed1实际资源JSON](../../results/p_heads/T/T1_resources_4536378.json)由actual node7 manual观察生成：PID2625282／UID1278／PPID2625278／PGID2625282／start_ticks1984020492，真实Slurm15CPU／CPU_IDs0–14，父及所见全部后代同mask，现场4个lazy reader／配置max14，env与真实GPU context匹配均true，非benchmark。本窗口只转录根的运行事实，不再读取该JSON、CP或验证proc／GPU，不计算新吞吐或ETA，不增代码、测试、配置或任务。
+T4 seed0正式完成与真实补seed1触发：根06:56:24权威确认4535771 COMPLETED0:0／1-01:55:36／node4，原final post4535835 COMPLETED0:0／8秒／node20。最终CP仅引用根已唯一stat的`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T4_seed0/samples_3000000.pt`，232,052,163B，mtime 2026-11-19 06:18:36.396520555 CST，不再stat或读体。本窗口唯一消费新[T4正式deltas](../../results/p_heads/T/T4_deltas.json)与[T4描述JSON](../../results/p_heads/T/T4_descriptions.json)：
+
+| T4 seed0读出 | T4点 | 原B3对照点 | Δ | 原配对95%CI |
+| --- | ---: | ---: | ---: | --- |
+| R1 | 0.27391524108191617 | 0.3142474985239394 | -0.040332257442023234 | [-0.05218049930015768, -0.02843549551397923] |
+| R3 | 0.4515127473316509 | 0.47450343188220573 | -0.022990684550554807 | [-0.03329311920502372, -0.012381142009745813] |
+
+生产者正式status=SEED1_REQUIRED、seed1_triggered=true。R3区间全负，但差值绝对值未达原单seed直接判负阈值0.06，故必须补seed1，不提前判负／两seed或机制结论；R1单独报告、不触发额外规则。数据与CI直接引用原生产者，未重跑paired、bootstrap或旧seed0评分。
+
+原CYP4条及原单位VAL109字段已由既有collector直接转录，见[T4字段附表](T4_FIELDS.md)；CYP全部excluded_from_mean=true：R1 3A4误差0.4571428571428572／score0.33333333333333326，2D6误差0.5384615384615384／score0.12500000000000008；R3 3A4误差0.37142857142857144／score0.38095238095238093，2D6误差0.5769230769230769／score0.06250000000000014。来源仍CONTROL/scores.csv及runtime/results/p_recipe/training/p_heads_T4_seed0/VAL_original_units_3000000.csv；本窗口仅消费新描述及现成附表，不读原CSV或重算MAE。
+
+原decider已自动生成canonical `configs/p_heads/T/T4_seed1.json`，已仅做配置来源核对：相对T4 seed0只有seed/run/output/handoff_request/ack五键变化；arm=T4、seed1、run=`p_heads_T4_seed1`、fresh output=CONTROL/training/p_heads_T4_seed1，B3+A1+PMA且pma_sum_gate_one=true，B32／microbatch32／workers14／3M／checkpoint[32,1M,2M,3M]及其余科学执行键原样，无resume、resume_from_output、attempt或祖先CP。clip从281.7自然按原60k–150k窗口拟合，不复制seed0阈值。此为同T4臂原规则实际触发的mandatory第二seed，非新增臂或第三seed。
+
+唯一共享B3 seed1已真实完整成功，直接复用其既有canonical，不另训或重新核准备度。后续字段copy与正式两seedpost均只需afterok未来T4 seed1真实新job ID；B3已完成，不挂可能被purge的旧6238依赖。两seed收尾复用已发布seed0点／CI，仅首次新seed1 paired；不提前运行。T4_seed1_source可沿既有freezer的`--name T4_seed1_source`入口准备，源码冻结／实际资源／提交由根协调，本窗口未执行。T5 seed1原4536260已实际R／node4／15CPU，T4最终几何4536220已R／node20／4CPU，均根06:56权威事实，不在此重复观察或提前消费H结果。
+T1 seed1自身clip新事实：根06:56见原普通日志224,000样本／7,000更新后，首次读取`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T1_seed1/clip_calibration.json`，生产者threshold=35.45996673583984、observed_updates=2813、window_start_samples=60000、calibration_samples=150000、sample_axis=optimizer_step_start、effective_freeze_samples=150016、fitted=true、initial_clip=281.7。这是T1 seed1自身自然拟合阈值，此后固定到尾，不替换seed0、不独立复算或追加比较；本窗口仅转录根事实，没有读取该JSON／梯度或旧分数。
+
+T5 seed1原job4536260已自06:43:45正式RUNNING／node4／15CPU，仍`T5_seed1_source@0ababf4`与同canonical fresh seed1配置。根唯一[T5 seed1资源JSON](../../results/p_heads/T/T5_resources_4536260.json)时间1795042638.0806224：PID3516059／UID1278／PPID3516053／PGID3516059／start_ticks5890570682，实际Slurm15CPU／CPU_IDs0–14，父及所见全部后代一致，现场4个lazy reader／配置max14，GPU环境及真实GPU-6965a7c7-025e-e4fd-013a-2be3245ef7c6 context匹配全部true；首32loss／CP32均已存在，未读CP体。原字段post4536291 afterok:4536260、正式两seed4536292 afterok:4536260且afterok:4536238保持，B3 seed1现已完整成功，不另训对照。本窗口不重复读取resource JSON或采proc／GPU，未测试／修改模型或操作任务。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。

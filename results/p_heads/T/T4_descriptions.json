@@ -1,0 +1,699 @@
+{
+  "arm": "T4",
+  "run": "p_heads_T4_seed0",
+  "samples": 3000000,
+  "seed": 0,
+  "reuse": "Existing producer CSV rows copied only; no reevaluation, refitting, bootstrap or MAE recomputation",
+  "CYP_source": "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/scores.csv",
+  "VAL_source": "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/runtime/results/p_recipe/training/p_heads_T4_seed0/VAL_original_units_3000000.csv",
+  "CYP": [
+    {
+      "readout": "R1",
+      "task": "cyp.3A4",
+      "error": 0.4571428571428572,
+      "E_ref": 0.6857142857142857,
+      "score": 0.33333333333333326,
+      "excluded_from_mean": true
+    },
+    {
+      "readout": "R1",
+      "task": "cyp.2D6",
+      "error": 0.5384615384615384,
+      "E_ref": 0.6153846153846154,
+      "score": 0.12500000000000008,
+      "excluded_from_mean": true
+    },
+    {
+      "readout": "R3",
+      "task": "cyp.3A4",
+      "error": 0.37142857142857144,
+      "E_ref": 0.6,
+      "score": 0.38095238095238093,
+      "excluded_from_mean": true
+    },
+    {
+      "readout": "R3",
+      "task": "cyp.2D6",
+      "error": 0.5769230769230769,
+      "E_ref": 0.6153846153846154,
+      "score": 0.06250000000000014,
+      "excluded_from_mean": true
+    }
+  ],
+  "VAL": [
+    {
+      "field": "P.pm7_water.r410.value",
+      "MAE_original_units": 0.05012471335440932,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_cation.r265.z",
+      "MAE_original_units": 1.4247941971968394,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.pm7_octanol.r326.p",
+      "MAE_original_units": 0.007618375898963167,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.xtb_ALPB_water.r499.value",
+      "MAE_original_units": 0.0031614429835299307,
+      "observations": 2000,
+      "unit": "Eh"
+    },
+    {
+      "field": "P.pm7_water.r408.value",
+      "MAE_original_units": 0.06126731276512146,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r63.value",
+      "MAE_original_units": 0.05542352921926067,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_octanol.r331.value",
+      "MAE_original_units": 0.018684798962544557,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.xtb_ALPB_octanol.r460.value",
+      "MAE_original_units": 0.0031075157814734844,
+      "observations": 2000,
+      "unit": "Eh"
+    },
+    {
+      "field": "P.pm7_B.r82.Dn",
+      "MAE_original_units": 0.0432052617501195,
+      "observations": 54838,
+      "unit": "1/eV (source-dimensional inference)"
+    },
+    {
+      "field": "P.pm7_water.r398.value",
+      "MAE_original_units": 0.023543044721453375,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r83.value",
+      "MAE_original_units": 0.0714865889152847,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r46.value",
+      "MAE_original_units": 0.011364299552995007,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_octanol.r341.value",
+      "MAE_original_units": 0.05904608845710754,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r44.value",
+      "MAE_original_units": 0.015431025173677393,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_B.r54.value",
+      "MAE_original_units": 316.7809755031898,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r52.y",
+      "MAE_original_units": 0.17573022834997393,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.xtb_singlepoint.r670.value",
+      "MAE_original_units": 0.0031166427955914636,
+      "observations": 2000,
+      "unit": "Eh"
+    },
+    {
+      "field": "P.pm7_anion.r193.value",
+      "MAE_original_units": 2.0476886037216975,
+      "observations": 2000,
+      "unit": "A^2"
+    },
+    {
+      "field": "P.pm7_B.r47.value",
+      "MAE_original_units": 0.3549222848198012,
+      "observations": 2000,
+      "unit": "kcal/mol"
+    },
+    {
+      "field": "P.xtb_singlepoint.r669.y",
+      "MAE_original_units": 0.17506808687144804,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.xtb_singlepoint.r666.value",
+      "MAE_original_units": 0.20936347882859208,
+      "observations": 106325,
+      "unit": "Eh bohr^6"
+    },
+    {
+      "field": "P.pm7_B.r55.total",
+      "MAE_original_units": 0.7657433376473706,
+      "observations": 106325,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_cation.r259.s",
+      "MAE_original_units": 0.007152742939277899,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.xtb_singlepoint.r672.value",
+      "MAE_original_units": 0.08417682726588101,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r56.EN",
+      "MAE_original_units": 1.1263431381282552,
+      "observations": 798283,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r84.value",
+      "MAE_original_units": 0.00564139639100775,
+      "observations": 106325,
+      "unit": "bond-order population"
+    },
+    {
+      "field": "P.pm7_B.r48.value",
+      "MAE_original_units": 0.41748926324855745,
+      "observations": 2000,
+      "unit": "kcal/mol"
+    },
+    {
+      "field": "P.xtb_vfukui.r712.f_minus",
+      "MAE_original_units": 0.002619733959613079,
+      "observations": 106147,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_B.r56.NN",
+      "MAE_original_units": 0.5353756179472885,
+      "observations": 798283,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r82.charge_density_q_minus_Z",
+      "MAE_original_units": 0.33410975233236767,
+      "observations": 54838,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_water.r396.value",
+      "MAE_original_units": 2.0480807307775297,
+      "observations": 2000,
+      "unit": "A^2"
+    },
+    {
+      "field": "P.pm7_water.r407.value",
+      "MAE_original_units": 1.6620279971965102,
+      "observations": 2000,
+      "unit": "kcal/mol"
+    },
+    {
+      "field": "P.pm7_B.r45.value",
+      "MAE_original_units": 0.013210056554257313,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_octanol.r330.value",
+      "MAE_original_units": 1.7922497636574504,
+      "observations": 2000,
+      "unit": "A^3"
+    },
+    {
+      "field": "P.pm7_octanol.r329.value",
+      "MAE_original_units": 2.0479433308432213,
+      "observations": 2000,
+      "unit": "A^2"
+    },
+    {
+      "field": "P.pm7_anion.r196.y",
+      "MAE_original_units": 1.4322064589565853,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.pm7_B.r61.value",
+      "MAE_original_units": 0.06152412271499634,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_octanol.r346.value",
+      "MAE_original_units": 0.006633747188414981,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_water.r393.s",
+      "MAE_original_units": 0.0030678176941547623,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.xtb_singlepoint.r669.x",
+      "MAE_original_units": 0.2524773373436765,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.pm7_cation.r263.value",
+      "MAE_original_units": 1.7924201377172548,
+      "observations": 2000,
+      "unit": "A^3"
+    },
+    {
+      "field": "P.pm7_cation.r273.value",
+      "MAE_original_units": 3.1769801331497844,
+      "observations": 2000,
+      "unit": "kcal/mol"
+    },
+    {
+      "field": "P.xtb_ALPB_water.r498.value",
+      "MAE_original_units": 0.0007452187232260846,
+      "observations": 2000,
+      "unit": "Eh"
+    },
+    {
+      "field": "P.xtb_singlepoint.r671.value",
+      "MAE_original_units": 0.06307250499725342,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r43.value",
+      "MAE_original_units": 1.7922984127994617,
+      "observations": 2000,
+      "unit": "A^3"
+    },
+    {
+      "field": "P.pm7_B.r62.value",
+      "MAE_original_units": 0.08379159565837253,
+      "observations": 2000,
+      "unit": "kcal/mol"
+    },
+    {
+      "field": "P.pm7_anion.r194.value",
+      "MAE_original_units": 1.7923455550210932,
+      "observations": 2000,
+      "unit": "A^3"
+    },
+    {
+      "field": "P.pm7_water.r399.x",
+      "MAE_original_units": 0.2959530152416555,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.pm7_B.r52.z",
+      "MAE_original_units": 0.1565752426273357,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.pm7_B.r56.C",
+      "MAE_original_units": 0.024293086741229854,
+      "observations": 798283,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_cation.r262.value",
+      "MAE_original_units": 2.047980982204617,
+      "observations": 2000,
+      "unit": "A^2"
+    },
+    {
+      "field": "P.pm7_B.r52.x",
+      "MAE_original_units": 0.2501016522211794,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.pm7_water.r397.value",
+      "MAE_original_units": 1.7922181363651932,
+      "observations": 2000,
+      "unit": "A^3"
+    },
+    {
+      "field": "P.pm7_water.r413.value",
+      "MAE_original_units": 0.006717713744717467,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.xtb_fod.r537.value",
+      "MAE_original_units": 0.0007032565469191379,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_anion.r204.value",
+      "MAE_original_units": 3.5820089144989398,
+      "observations": 2000,
+      "unit": "kcal/mol"
+    },
+    {
+      "field": "P.pm7_B.r55.electron_nuclear",
+      "MAE_original_units": 1.7077143081210513,
+      "observations": 106325,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r42.value",
+      "MAE_original_units": 2.0490696550577314,
+      "observations": 2000,
+      "unit": "A^2"
+    },
+    {
+      "field": "P.xtb_singlepoint.r677.value",
+      "MAE_original_units": 0.0044072269699665925,
+      "observations": 118841,
+      "unit": "bond-order population"
+    },
+    {
+      "field": "P.pm7_anion.r190.p",
+      "MAE_original_units": 0.015540687741040343,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_octanol.r343.value",
+      "MAE_original_units": 0.0481430145876875,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.xtb_singlepoint.r667.value",
+      "MAE_original_units": 0.02928462055972288,
+      "observations": 106325,
+      "unit": "bohr^3"
+    },
+    {
+      "field": "P.xtb_vfukui.r712.f_plus",
+      "MAE_original_units": 0.0026668853991135767,
+      "observations": 106147,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_octanol.r326.s",
+      "MAE_original_units": 0.003057614680657296,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_B.r68.value",
+      "MAE_original_units": 0.006723843943604756,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_B.r65.value",
+      "MAE_original_units": 0.002919087581281775,
+      "observations": 797785,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_water.r393.p",
+      "MAE_original_units": 0.00765091419360118,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_B.r40.value",
+      "MAE_original_units": 0.002608340773390975,
+      "observations": 798283,
+      "unit": "bond-order population"
+    },
+    {
+      "field": "P.pm7_B.r49.value",
+      "MAE_original_units": 0.1282247968694719,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_cation.r265.y",
+      "MAE_original_units": 1.625019316742575,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.pm7_B.r56.total",
+      "MAE_original_units": 0.03769716648281378,
+      "observations": 798283,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r56.EE",
+      "MAE_original_units": 0.4232058944349738,
+      "observations": 798283,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r53.value",
+      "MAE_original_units": 0.18563425052610463,
+      "observations": 2000,
+      "unit": "kcal/mol"
+    },
+    {
+      "field": "P.pm7_cation.r265.x",
+      "MAE_original_units": 3.5272673535866197,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.pm7_octanol.r340.value",
+      "MAE_original_units": 1.650489161546849,
+      "observations": 2000,
+      "unit": "kcal/mol"
+    },
+    {
+      "field": "P.pm7_B.r56.J",
+      "MAE_original_units": 0.023804482479047543,
+      "observations": 798283,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r50.value",
+      "MAE_original_units": 0.11249070477485656,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r55.electron_electron",
+      "MAE_original_units": 0.4933589745860029,
+      "observations": 106325,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r60.value",
+      "MAE_original_units": 1.6495814127845139,
+      "observations": 2000,
+      "unit": "kcal/mol"
+    },
+    {
+      "field": "P.pm7_B.r56.K",
+      "MAE_original_units": 0.009782928983266317,
+      "observations": 798283,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r39.s",
+      "MAE_original_units": 0.0032210342401396436,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.xtb_vipea.r751.value",
+      "MAE_original_units": 0.06271726121693168,
+      "observations": 1999,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_octanol.r332.y",
+      "MAE_original_units": 0.21782011878420598,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.pm7_anion.r190.s",
+      "MAE_original_units": 0.006504922241932528,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_B.r73.value.pi",
+      "MAE_original_units": 0.033380582071322495,
+      "observations": 197626,
+      "unit": "bond-order population"
+    },
+    {
+      "field": "P.pm7_B.r41.value",
+      "MAE_original_units": 316.82144997746497,
+      "observations": 2000,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_anion.r196.x",
+      "MAE_original_units": 3.0074430997544694,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.xtb_singlepoint.r669.z",
+      "MAE_original_units": 0.16051383687194903,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.pm7_B.r73.value.sigma",
+      "MAE_original_units": 0.08607122771294132,
+      "observations": 599051,
+      "unit": "bond-order population"
+    },
+    {
+      "field": "P.pm7_B.r64.value",
+      "MAE_original_units": 0.00922843399133584,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_cation.r259.p",
+      "MAE_original_units": 0.016438942269356202,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_octanol.r332.x",
+      "MAE_original_units": 0.2914741327180527,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.pm7_octanol.r332.z",
+      "MAE_original_units": 0.1936967398102861,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.xtb_vfukui.r712.f_radical",
+      "MAE_original_units": 0.0018993937392010976,
+      "observations": 106147,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_anion.r210.value",
+      "MAE_original_units": 0.01578961509335752,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_anion.r196.z",
+      "MAE_original_units": 1.2158377944115781,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.xtb_ALPB_octanol.r459.value",
+      "MAE_original_units": 0.00043301145282973917,
+      "observations": 2000,
+      "unit": "Eh"
+    },
+    {
+      "field": "P.pm7_water.r399.z",
+      "MAE_original_units": 0.20597598545026266,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.xtb_vipea.r752.value",
+      "MAE_original_units": 0.04337764704686633,
+      "observations": 1999,
+      "unit": "eV"
+    },
+    {
+      "field": "P.pm7_B.r39.p",
+      "MAE_original_units": 0.007643366316515167,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.xtb_fod.r538.value",
+      "MAE_original_units": 0.013329231431946385,
+      "observations": 2000,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_cation.r279.value",
+      "MAE_original_units": 0.017707824441784724,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.pm7_B.r82.De",
+      "MAE_original_units": 0.03918254768810563,
+      "observations": 54838,
+      "unit": "1/eV (source-dimensional inference)"
+    },
+    {
+      "field": "P.pm7_water.r399.y",
+      "MAE_original_units": 0.23095224252965998,
+      "observations": 2000,
+      "unit": "Debye"
+    },
+    {
+      "field": "P.pm7_B.r58.value",
+      "MAE_original_units": 0.08336880651319327,
+      "observations": 318975,
+      "unit": "kcal mol^-1 A^-1"
+    },
+    {
+      "field": "P.xtb_singlepoint.r668.value",
+      "MAE_original_units": 0.0037009659765098613,
+      "observations": 106325,
+      "unit": "e"
+    },
+    {
+      "field": "P.xtb_perturbed_gradient.r624.value",
+      "MAE_original_units": 0.3071900151123815,
+      "observations": 318975,
+      "unit": "eV A^-1"
+    },
+    {
+      "field": "P.xtb_perturbed_gradient.r623.value",
+      "MAE_original_units": 0.0379263013321923,
+      "observations": 2000,
+      "unit": "Eh"
+    },
+    {
+      "field": "P.xtb_perturbed_gradient.r625.value",
+      "MAE_original_units": 0.005835055816212854,
+      "observations": 318975,
+      "unit": "Eh bohr^-1"
+    }
+  ]
+}
