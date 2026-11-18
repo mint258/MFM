@@ -1,0 +1,64 @@
+{
+  "status": "SEED1_REQUIRED",
+  "verdict": null,
+  "seed1_required": true,
+  "seeds": [
+    0
+  ],
+  "absolute_effect_threshold": 0.06,
+  "primary": "Dprime minus M2/R3",
+  "samples": 3000000,
+  "comparisons": {
+    "0": {
+      "candidate_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/Dprime_M2_seed0_continued.json",
+      "baseline_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/M2_reference.json",
+      "candidate_run": "p_followup_20261116_Dprime_M2_seed0_continued_sbatch",
+      "baseline_run": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+      "candidate_scores": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/readout/scores.json",
+      "baseline_scores": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117_sbatch/readout/scores.json",
+      "baseline_R3": 0.4680026331456454,
+      "comparisons": {
+        "R1": {
+          "delta": -0.10623905592125829,
+          "ci95": [
+            -0.12004127120194975,
+            -0.09211544270142917
+          ],
+          "verdict": "loss",
+          "effect_gate": null,
+          "paired_draws": 1000,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "delta": -0.04528424256768254,
+          "ci95": [
+            -0.05626819574608201,
+            -0.034293740123209175
+          ],
+          "verdict": "loss",
+          "effect_gate": null,
+          "paired_draws": 1000,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      }
+    }
+  },
+  "mainline_modified": false,
+  "integration_requires_user_confirmation": true
+}

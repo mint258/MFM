@@ -1,6 +1,6 @@
 {
-    "status":  "RUNNING_NOT_YET_3M",
-    "scope":  "Actual continuation of existing Dprime seed0 from its complete5760 state; no scientific endpoint yet",
+    "status":  "SEED0_COMPLETE_SEED1_RUNNING",
+    "scope":  "Dprime M2 seed0 exact3M and registered descriptive analysis complete; prescribed seed1 running; C3 still pending",
     "source_revision":  "b582502",
     "initial_source_revision":  "0da71c9",
     "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/Dprime_M2_seed0_continued.json",
@@ -31,7 +31,7 @@
                                        "node":  "compute-0-20",
                                        "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
                                        "job_id":  4535831,
-                                       "state":  "RUNNING",
+                                       "state":  "COMPLETED",
                                        "submitted_at":  1794965971.7470987,
                                        "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/Dprime_M2_seed0_continued.json",
                                        "stage":  2,
@@ -40,41 +40,50 @@
                                        "resume_from_run":  "p_followup_20261116_Dprime_M2_seed0_continued",
                                        "resume_samples":  242272,
                                        "allocation_pretraining_seconds":  4.344090223312378,
-                                       "elapsed_seconds":  30019.655909776688,
+                                       "elapsed_seconds":  35477.65590977669,
                                        "exit_code":  "0:0",
-                                       "allocation_elapsed_seconds":  30024.0,
+                                       "allocation_elapsed_seconds":  35482.0,
                                        "progress":  {
-                                                        "samples":  2557728,
+                                                        "samples":  3000000,
                                                         "budget":  3000000,
-                                                        "updates":  79929,
-                                                        "last_loss":  0.11823709309101105,
-                                                        "samples_per_second":  84.59163475817427,
-                                                        "remaining_hours":  1.4523106650502666
+                                                        "updates":  93750,
+                                                        "last_loss":  0.08571232855319977,
+                                                        "samples_per_second":  85.43119337612043,
+                                                        "remaining_hours":  0.0
                                                     },
-                                       "observed_at":  1795001101.2033682
+                                       "observed_at":  1795007335.9963324
                                    },
     "standby":  {
                     "backend":  "Slurm",
                     "job_id":  4535831,
                     "node":  "compute-0-20",
                     "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-                    "state":  "RUNNING",
+                    "state":  "COMPLETED",
                     "phase":  "HANDED_OFF",
                     "native_run":  "p_followup_20261116_Dprime_M2_seed0_continued",
                     "purpose":  "Same-task SSH to Slurm checkpoint takeover",
                     "exclusive_node":  false,
                     "decision_pending":  false,
-                    "elapsed_seconds":  582.0,
+                    "elapsed_seconds":  35482,
                     "exit_code":  "0:0",
                     "observed_at":  1794971655.5765266,
                     "training_run":  "p_followup_20261116_Dprime_M2_seed0_continued_sbatch"
                 },
     "closed_initial_gpu_occupied_hours":  0.0386666003200742944444444444,
-    "continuation_gpu_occupied_hours":  null,
+    "continuation_gpu_occupied_hours":  11.272392986615499,
     "native_CPU_hours":  null,
-    "cost_note":  "Initial5760 native segment and continued native segment are closed. Current Slurm interval remains open. Native CPU time is unmetered, not zero; allocation pretraining overlap remains recorded in the real ledger.",
+    "cost_note":  "All seed0 GPU segments closed: initial5090, continued native4090, final Slurm4090; exclude measured allocation pretraining overlap. Native CPU remains unmetered/unknown. Seed1 GPU/CPU intervals remain open. Seed0 postanalysis4536182 COMPLETED0:0/1540seconds/16CPUs.",
     "priority":  "User confirmedC3 first. Another4090/node20a was then actually released and explicitly reserved forC3 immediateuse; followup verified20CPUs/843MiB/freeUUID. The waitingDprime20b stopcontroller was withdrawn before anysource signal. CurrentDprime training stays on its existing20b; no newrun or slot launched. ActualC3 migration is still not observed.",
-    "scientific_decision":  null,
+    "scientific_decision":  {
+                                "status":  "SEED1_REQUIRED",
+                                "verdict":  null,
+                                "delta_R3":  -0.045284242567682542,
+                                "ci95":  [
+                                             -0.056268195746082009,
+                                             -0.034293740123209175
+                                         ],
+                                "reason":  "Absolute seed0 effect below0.06; no final loss declared"
+                            },
     "clip_calibration":  {
                              "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed0_continued/clip_calibration.json",
                              "threshold":  5.9050891304016124,
@@ -100,7 +109,10 @@
                                     "start_ticks":  15005951,
                                     "pgid":  86037,
                                     "job_id":  4535831,
-                                    "status":  "RUNNING"
+                                    "status":  "COMPLETED",
+                                    "exit_code":  0,
+                                    "ended_at":  1795006555.9129434,
+                                    "elapsed_seconds":  35476.903448820114
                                 },
     "completed_handoff":  {
                               "ack":  {
@@ -192,8 +204,8 @@
                               },
     "post3M_CPU":  {
                        "job_id":  4536182,
-                       "state":  "PENDING",
-                       "reason":  "Dependency",
+                       "state":  "COMPLETED",
+                       "reason":  null,
                        "dependency":  "afterok:4535831",
                        "node":  "compute-0-20",
                        "partition":  "all",
@@ -212,21 +224,25 @@
                                         "directive_geometry.py --conditions Dprime C3 --device cpu",
                                         "val_conformer_mae.py --comparison Dprime --device cpu"
                                     ],
-                       "scope":  "Only registered existing-score comparison, layer6 geometry, frozenVAL109field nativeconformerMAE. Reuse M2 geometry. Missing exact3M C3 remains pending for later C3-only forward; jobcompletion alone does not close C3 requirement. No training/seed1 launched by this job."
+                       "scope":  "Only registered existing-score comparison, layer6 geometry, frozenVAL109field nativeconformerMAE. Reuse M2 geometry. Missing exact3M C3 remains pending for later C3-only forward; jobcompletion alone does not close C3 requirement. No training/seed1 launched by this job.",
+                       "allocation_elapsed_seconds":  1540,
+                       "exit_code":  "0:0",
+                       "allocated_CPU_hours":  6.8444444444444441
                    },
     "fixed_VAL_delivered_samples":  [
                                         500000,
                                         1000000,
                                         1500000,
                                         2000000,
-                                        2500000
+                                        2500000,
+                                        3000000
                                     ],
     "latest_fixed_VAL":  {
-                             "samples":  2500000,
-                             "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/VAL_original_units_2500000.csv",
-                             "bytes":  5947,
-                             "producer_published_utc":  "2026-11-18T11:13:34Z",
-                             "scope":  "Existing fixedVAL only;3M decision and final within-molecule conformerMAE remain pending"
+                             "samples":  3000000,
+                             "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/VAL_original_units_3000000.csv",
+                             "bytes":  5943,
+                             "producer_published_utc":  "2026-11-18T12:51:23Z",
+                             "scope":  "Closed final fixedVAL;109field nativeconformer differenceMAE separately COMPLETE"
                          },
     "two_million_milestone":  {
                                   "samples":  2000000,
@@ -242,5 +258,75 @@
                                      "run":  "fixed_20261115_round3_C3",
                                      "exact3M_exists":  false,
                                      "scope":  "Fresh squeue and exact path filemetadata at this report; C3 migration not observed"
-                                 }
+                                 },
+    "seed0_total_gpu_occupied_hours":  11.311059586935572,
+    "seed0_slurm_allocated_CPU_hours":  157.69777777777779,
+    "seed0_summary":  {
+                          "status":  "COMPLETE",
+                          "run":  "p_followup_20261116_Dprime_M2_seed0_continued_sbatch",
+                          "samples":  3000000,
+                          "updates":  93750,
+                          "actual_samples":  2757728,
+                          "seconds":  40390.101499109995,
+                          "clipped_fraction":  0.0010453333333333332,
+                          "clip":  5.905089130401612,
+                          "batch_size":  32,
+                          "microbatch_size":  32,
+                          "GPU_peak_bytes":  10110645760,
+                          "training_and_evaluation_seconds":  35464.349637393985
+                      },
+    "seed0_slurm_telemetry":  {
+                                  "samples":  1169,
+                                  "mean_whole_card_power_watts":  260.97334473909325,
+                                  "note":  "Whole-card readings include other CUDA contexts; not isolated model energy"
+                              },
+    "three_million_milestone":  {
+                                    "samples":  3000000,
+                                    "source":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/samples_3000000.pt",
+                                    "bytes":  232285949,
+                                    "producer_published_utc":  "2026-11-18T12:51:23Z",
+                                    "inspection":  "Existing atomic producer and filemetadata only; no checkpoint numerical reread/hash"
+                                },
+    "seed1":  {
+                  "state":  "RUNNING",
+                  "job_id":  4536314,
+                  "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/Dprime_M2_seed1.json",
+                  "source_revision":  "b582502",
+                  "execution_state":  {
+                                          "started_at":  1795007347.8997698,
+                                          "run":  "p_followup_20261116_Dprime_M2_seed1",
+                                          "execution":  "Slurm",
+                                          "node":  "compute-0-20",
+                                          "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+                                          "admission_used_mib":  18.0,
+                                          "admission_total_mib":  49140.0,
+                                          "admission_fraction":  0.0003663003663003663,
+                                          "pid":  97394,
+                                          "uid":  1278,
+                                          "start_ticks":  18633541,
+                                          "pgid":  97394,
+                                          "job_id":  4536314,
+                                          "status":  "RUNNING"
+                                      },
+                  "seed":  1,
+                  "samples_budget":  3000000,
+                  "fresh_first_samples":  32,
+                  "fresh_first_updates":  1,
+                  "baseline_configuration":  "configs/p_followup/M2_seed1_reference.json",
+                  "baseline_source_job":  4535736,
+                  "baseline_source_status":  "COMPLETED0:0",
+                  "baseline_checkpoint_bytes":  232058173,
+                  "baseline_retrained":  false,
+                  "priority_note":  "Only20b/16CPU used after both4090 were actually free with56freeCPU; leaves20a and40CPU available for higherpriority C3",
+                  "comparison_cpu":  {
+                                         "job_id":  4536315,
+                                         "state":  "PENDING",
+                                         "dependency":  "afterok:4536314",
+                                         "cpus":  1,
+                                         "nice":  10000,
+                                         "cuda_visible_devices":  "",
+                                         "script":  "tools/p_followup/Dprime_seed1_compare_cpu.sbatch",
+                                         "reuse_closed_seed0":  true
+                                     }
+              }
 }

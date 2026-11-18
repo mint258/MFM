@@ -1,0 +1,125 @@
+{
+  "conditions": {
+    "M2": {
+      "status": "COMPLETE",
+      "reused_from": "/share/home/zixiao/descriptor_analysis/MFM_p_heads_20261117/results/p_heads/H/H1_geometry.json",
+      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117_sbatch/samples_3000000.pt",
+      "checkpoint_samples": 3000000,
+      "molecules": 5000,
+      "conformers": 47698,
+      "layer6": {
+        "CEV": {
+          "value": 0.41657788649402716,
+          "ci95": [
+            0.40542461689562875,
+            0.4257364712045716
+          ],
+          "valid_bootstrap_replicates": 1000,
+          "reason": null
+        },
+        "CVF": {
+          "value": 0.04147732774854186,
+          "ci95": [
+            0.03992467458239414,
+            0.04292279894418123
+          ],
+          "valid_bootstrap_replicates": 1000,
+          "reason": null
+        },
+        "CVF_res": {
+          "value": 0.0704326135393982,
+          "ci95": [
+            0.06779107219543494,
+            0.07316947649071433
+          ],
+          "valid_bootstrap_replicates": 1000,
+          "reason": null
+        },
+        "EEV": {
+          "value": 0.2932363773973474,
+          "ci95": [
+            0.2922208213592484,
+            0.2944396025770635
+          ],
+          "valid_bootstrap_replicates": 1000,
+          "reason": null
+        },
+        "ridge_alphas": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      "additional_forward": false
+    },
+    "Dprime": {
+      "status": "COMPLETE",
+      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/samples_3000000.pt",
+      "checkpoint_samples": 3000000,
+      "checkpoint_configuration": {
+        "seed": 0,
+        "samples": 3000000,
+        "p_recipe": {
+          "element_residual": true,
+          "pma_pooling": true,
+          "anti_collapse": true,
+          "gamma": 0.1597693323500406
+        },
+        "conformer_decomposition": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/D_parameters_accepted.json",
+        "mean_labels": false
+      },
+      "molecules": 5000,
+      "conformers": 47698,
+      "layer6": {
+        "CEV": {
+          "value": 0.3788472963707564,
+          "ci95": [
+            0.36539745087440995,
+            0.3889633950242589
+          ],
+          "valid_bootstrap_replicates": 1000,
+          "reason": null
+        },
+        "CVF": {
+          "value": 0.060745182385317974,
+          "ci95": [
+            0.05858648318896815,
+            0.0628754613885653
+          ],
+          "valid_bootstrap_replicates": 1000,
+          "reason": null
+        },
+        "CVF_res": {
+          "value": 0.09626977786257195,
+          "ci95": [
+            0.09247098682712934,
+            0.10018402630229474
+          ],
+          "valid_bootstrap_replicates": 1000,
+          "reason": null
+        }
+      },
+      "selected_alphas": [
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0
+      ],
+      "seconds": 909.7676384290098
+    }
+  },
+  "C3_scores": null,
+  "descriptive_only": true,
+  "bootstrap": {
+    "repetitions": 1000,
+    "seed": 20261025,
+    "unit": "molecule",
+    "paired": true,
+    "refit": false
+  },
+  "panel": "Existing work A5000VAL/allowedk10; same setup, no new molecule selection",
+  "representation": "Layer6 out_norm mean(H), before any shared projector or PMA head"
+}
