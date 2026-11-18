@@ -22,6 +22,12 @@ def take_card(cards,fallback,required_gpu_uuid=None):
     return pool.pop(index)
  return None
 
+
+def perf_priority_blocks(card,directive):
+ priority=directive.get('resource_priority',{})
+ return bool(priority.get('gpu_priority_active') and any(
+     kind in card['gpu_name'] for kind in priority.get('preferred_gpu_types',())))
+
 def own_gpu_busy(gpu,node=None):
  path=R/'docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks'/(gpu+'.lock')
  if node is not None:
@@ -50,6 +56,8 @@ def observe(node):
 
 def launch_locked(plan,ledger):
  path=C/'study_execution.json';policy=read(REPO/'configs/p_recipe/scheduling.json')
+ directive_path=REPO/'configs/p_recipe/user_directive_20261117.json'
+ directive=read(directive_path) if directive_path.is_file() else {}
  if policy['exclusive']:raise ValueError('User forbids exclusive allocation')
  inventory=read(C/'batch_gpu_inventory.json');known={gpu[0] for item in inventory for gpu in item.get('gpus',[])}
  fallback_ids={item['node']:item['gpus'][0][0] for item in inventory if item['node'] in FALLBACK and item.get('gpus')}
@@ -68,7 +76,7 @@ def launch_locked(plan,ledger):
  # Every run keeps its original handle. Repairs use an explicit new run/attempt.
  used={record['gpu_uuid'] for record in ledger['runs'].values() if record.get('state') not in TERMINAL}
  used.update(record['gpu_uuid'] for record in ledger.get('reservations',{}).values() if record.get('state') in ('RUNNING','CONFIGURING') and record.get('phase') not in ('HANDED_OFF','SOURCE_ALREADY_COMPLETE','HANDOFF_ABORTED'))
- cards=[card for card in cards if card['gpu_uuid'] not in used and not own_gpu_busy(card['gpu_uuid'],card['node'])];fallback=[card for card in fallback if card['gpu_uuid'] not in used and not own_gpu_busy(card['gpu_uuid'],card['node'])]
+ cards=[card for card in cards if not perf_priority_blocks(card,directive) and card['gpu_uuid'] not in used and not own_gpu_busy(card['gpu_uuid'],card['node'])];fallback=[card for card in fallback if not perf_priority_blocks(card,directive) and card['gpu_uuid'] not in used and not own_gpu_busy(card['gpu_uuid'],card['node'])]
  ledger.update(last_admission_at=time.time(),last_admission_errors=errors)
  for filename in plan['configurations']:
   configuration=read(filename);name=configuration['run']

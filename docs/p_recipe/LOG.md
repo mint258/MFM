@@ -892,3 +892,11 @@ Extended configuration composition for the registered X1/X2/F1/F2 components, pr
 Preparation-only configuration checks matched all four independently registered arm definitions. The allowed X1+F2 combination has99 fields and resetting it to T1 removes the filter and recipe flags. No training or new unit-test suite was run.
 
 The confirmation producer now follows the registered round4 prerequisite: it rejects a round3-only or not-yet-validated round4 state, and retains the user-approved all-off runtime snapshot for a complete round4 state. T3 remains the explicit M2 baseline. T4 is omitted only with the recorded user decision/confirmation; intersecting Pprime fields preserves any winning X1/F2 exclusions. No actual9M configuration was created. The canonical round4 decision producer and any required M3-plus-winners comparison still remain to be completed after the runs.
+
+### 2026-11-19 02:37 CST — round4 decision and reserved5090 scheduling prepared
+
+Added decide_round4.py using the existing paired comparison/decision implementation and its1000 molecular-bootstrap arrays. It requires the real ledger's successful terminal record, complete3M/93750-update summary and complete R1/R3 evidence before comparing any run. X1/F2 raw ties remain reported as ties but are adoptable removals; mutually exclusive adoptable components use the existing larger-delta rule. PP stays outside recipe composition and produces only the registered CI/effect/observed-seed-noise T4 recommendation; it never cancels T4.
+
+The decision state records whether the M3-plus-winners3M comparison is required and actually complete. It can prepare that registered merge configuration/plan but submits no jobs. A direct merged recipe without a matching trained run is explicitly recorded as having no trained checkpoint; no weights or readouts are invented. Recorded user T4 choices are retained when updating the same PP comparison.
+
+The P-line launcher now excludes GPU types reserved by the active perf priority in user_directive_20261117.json, even if the perf line is waiting and has no live GPU lock yet. Current5090 reservation is respected;4090/3090 admission remains unchanged, and no running job is moved or stopped. The priority check was evaluated on the current policy only; no allocation was made. No round4 comparisons or new training were run.
