@@ -41,6 +41,11 @@ T5首次2M训练检查点也已自然发布：`/share/home/zixiao/descriptor_ana
 T4首个既定1M训练检查点现已实际发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T4_seed0/samples_1000000.pt`，232,047,619字节，mtime=2026-11-18 13:20:11.286347 CST（原epoch1794979211.286347）。本报告仅引用根首次提供的元数据；13:29实际compute20 T4_1M_WRITE_GUARD_OK／EXIT0已在写前通过，不再查CP、身份、阈值或数值。依据这次实际首1M进度，T4后续3M训练更新运行规划调整为11月19日约06:30，固定验证/最终读出另计、估计可变；原唯一34.01465327764704/s窗口和05:18:42.495993初估留为历史，未重测速或改参数。
 
 T5仅依据已记录1M 08:56→2M 13:10的自然CP节奏，运行规划更新为11月18日约17:30；原唯一67.31304296672371/s窗口及17:14:16.492789初估保留历史，不重算测速。T1约16时规划不变；原T2正式结果亦不改。用户现已明确答复“C3会立即使用，继续保留快卡”，readiness不再pending，四处STATUS已发布；B3 seed1 4535778继续hold。根/Hagent同次已提供20a在13:28.610938为843/49140MiB、仅2gmx、UUID锁FREE，13:31 Slurm有20CPU可分配，H仅CPU4不占卡；这里只转录已发布资源事实，不重新观察。C3仍先使用，本线不因空闲数抢占、解除hold或启动新训练，T2 seed1 source/提交仍由根协调，暂无新训练。
+唯一共享B3 seed1已正式启动。16:59 node7外部gmx释放，根17:00实际核GPU-9db54192-dd3f-3177-e56f-dcd161ff932c为5/24576MiB、利用率0%、无任何CUDA计算上下文，34CPU free，瞬时UUID锁FREE；实际root53,655,703,552字节、NFS6,948,995,989,504字节、UID449,439,285,248字节对175,707,924,480字节需求及inode／24GiB合并峰值guard通过。根先核旧4535778仍held/PENDING／0秒／未Start／Restarts0，再仅取消该未启动队列；旧CANCELLED／0:00历史保留。相同B3_seed1_source@d8dce41和相同canonical fresh配置已改排为新4536238／node7／正式15CPU／nice10000，cu118兼容3090、启动wrap再核实际CUDA上下文为空后exec。此为共享B3 seed1首次从头3M，不是重复新baseline、不借尚待答的3090共用授权，也未占用用户保留给C3的20a。
+
+首32后的唯一真实资源观察已由根完成，产物为 `results/p_heads/T/B3_resources_4536238.json`，observed_time=1794992695.3195026（17:04:55 CST）。实际trainer PID2615732、UID1278、PPID2615728、PGID2615732、start_ticks1979361618；真实Slurm15CPU／CPU_IDs0–14，父与所有所见后代mask均0–14；实际4个按需lazy reader、配置最大14。CUDA_VISIBLE与真实父CUDA上下文均匹配node7完整UUID9db54192-dd3f-3177-e56f-dcd161ff932c；first32loss及samples_32.pt已由原helper确认，CP内容未读。本窗口仅转录根提供的全部事实，没有重采或重读该JSON验证。B3 config/run/output与d8dce41源不变；T3仍held等待3090共用scope及C3原运行资源释放，T2仍perf后，T1 seed1已冻未排，当时没有第二张空卡。
+
+T5根16:53:44自然日志已到2,809,600样本／87,800更新、seconds43322.857407443225；根据该真实进度把训练3M更新规划修正至11月18日约17:45，原固定VAL/R1/R3另计、速率波动下估计可变。旧17:30自然CP规划及初始67.31304296672371/s窗口／17:14初估均为历史，不重新测速或读取旧行。T4同次自然进度1,436,800样本／44,900更新仅作进度记录，不改科学参数；本窗口继续只监测T5原4535747及post4535836，完整父+post成功后才一次消费正式产物。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
@@ -130,7 +135,7 @@ T1首次2M里程碑已在实际canonical输出发布：`/share/home/zixiao/descr
 当前资源约束按owner发布更正：Dprime已正式由Slurm4535831运行，接管后没有即时SAVE_AND_EXIT钩子，不能把node20b当作随时可迁出让卡。配方线C3仍获下一合规快卡优先；共享B3 seed1虽暂排T2结束后20a，T2临终前必须再与更高线核实实际卡需求，不能把暂排解释成卡承诺或假设可即时迁移Dprime。四条live训练保持，未操作任何作业。
 T1实际最终3M训练检查点已发布：canonical run=p_heads_T1_seed0_sbatch，`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T1_seed0_sbatch/samples_3000000.pt`，244,694,093字节，mtime=2026-11-18 15:46:45.768024 CST（原epoch1794988005.768024）。根15:53首次读取该元数据，当时原4535781仍RUNNING／10:28:53，原VAL/R1/R3尚未成功终态；训练3M发布不等同于整体C0、原评价或最终判定完成。post4535834及HCPU4536173仍依赖parent成功，本窗口不读取分数或描述性产物，不重评、测速、读取CP体或旧数字；等待根确认真实post成功后才一次消费T1_deltas/descriptions。写前actualcompute20 T1_FINAL_CP_GUARD_OK／EXIT0已通过，采用训练里程碑与完整后处理两阶段推送。
 
-当前新增3090低显存共用统一口径仍待用户答复：node7/node6存在gmx上下文；node0由外部恢复IDLE后实测仍有gmx约266MiB，后来又被gmx分配48CPU，不能因历史IDLE或低显存视作合规空卡。共享B3 4535778与T3 seed1 4535777当前两条PENDING／0秒均hold；该最新状态覆盖此前T3已解除一次让行hold的历史。20a继续按用户已明确“C3会立即使用”保留，与本次3090共用提问不同，不动其他任务；T2 seed1仍暂排perf后。本窗口只引用根给出的资源事实，没有重新查询身份或资源。
+当前新增3090低显存共用统一口径仍待用户答复：node7/node6存在gmx上下文；node0由外部恢复IDLE后实测仍有gmx约266MiB，后来又被gmx分配48CPU，不能因历史IDLE或低显存视作合规空卡。当时共享B3 4535778与T3 seed1 4535777两条PENDING／0秒均hold（之后B3已改排实际RUNNING4536238，见下段）；该最新状态覆盖此前T3已解除一次让行hold的历史。20a继续按用户已明确“C3会立即使用”保留，与本次3090共用提问不同，不动其他任务；T2 seed1仍暂排perf后。本窗口只引用根给出的资源事实，没有重新查询身份或资源。
 后续接管由原协议将实际run/output写回task的configuration路径；最终t_decide读取这份canonical配置，再从其实际output/readout/scores.json取candidate。不会猜测旧native输出目录；M2对照与外部seed1绑定随原配置保留。最终3M产出时才向H交付准确CP路径补第6层几何，中间保存不补几何。
 ## T2 物理约束头
 
@@ -281,7 +286,7 @@ R3未达|Δ|≥0.06且区间不跨0的单种子直接判定条件，原规则正
 
 T2 seed1独立源已实际准备并提交等待：4536169在gpu分区／node20仅CPU1、CUDA空执行冻结，COMPLETED／0:0／15秒；T2_seed1_source绑定4f1a80f，源码16,671,422字节，不是新GPU训练。正式真实队列4536170为gpu分区／node22／15CPU／nice10000，afterok提速任务4535799，使用既有stage43 SM120 Python（/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python），目标GPU前缀9b6008d0；当前PENDING／0秒／Dependency，未记为已启动。perf4535799实际等待T1及外部gmx88任务，依赖仅为物理资源接续，不等科学结果；若其他首个合规空闲卡先到，根只移动尚未启动的队列。5090必须使用兼容SM120环境，不使用旧cu118入口，也不抢用户为C3保留的20a。
 
-T2最终两种子组合判定必须等本臂seed1和唯一共享B3 seed1均真实完成3M、完整R1/R3且成功终态后，才由根一次运行既有组合入口；不提前重跑已完成T2 seed0判定或把PENDING当补跑完成。共享B3 4535778继续hold，T3 seed1 4535777仍原afterok C3，HCPU4536097仍R／4CPU；四处STATUS已发布，既有live保持。本文只引用根提供的新source／handle元数据，没有读取任何旧产物、数值或身份，源码/科学配置不变。
+T2最终两种子组合判定必须等本臂seed1和唯一共享B3 seed1均真实完成3M、完整R1/R3且成功终态后，才由根一次运行既有组合入口；不提前重跑已完成T2 seed0判定或把PENDING当补跑完成。该次记录时共享B3 4535778仍hold、T3 seed1仍原afterok C3、HCPU4536097仍R／4CPU；后续B3已实际RUNNING4536238，HCPU已完成，见最新阶段及H1报告；四处STATUS已发布，既有live保持。本文只引用根提供的新source／handle元数据，没有读取任何旧产物、数值或身份，源码/科学配置不变。
 共享对照直接复用已存在的 `configs/p_heads/T/B3_seed1.json`，run仍p_heads_B3_seed1、seed=1、fresh CONTROL/training/p_heads_B3_seed1，不另建第二条B3。该对照尚未跑完，不能据此提前完成两seed判定；4535778仍为C3优先/readiness安排而hold，此前问题未答不构成数据科学门；现用户已明确C3立即使用，优先保留快卡。HCPU4536097正在运行／4CPU，尚未读取或引用其未完统计。
 
 T2现成描述性产物为 `results/p_heads/T/T2_descriptions.json` 及 [T2_FIELDS.md](T2_FIELDS.md)：4条CYP、109个原单位VAL字段。CYP的R1 3A4／2D6 score为0.37499999999999994／0.31249999999999994，R3为0.238095238095238／0.18750000000000006，四条全部excluded_from_mean=true，不进入七任务主分；原误差、参考误差与完整109字段MAE/观察数/单位由后处理直接转录。本窗口只读已发布JSON/score摘要及核对附表存在，没有读取原CSV、CP或H未完统计。
