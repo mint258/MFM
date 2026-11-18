@@ -29,3 +29,5 @@ B1恢复新增的固定7字节句柄比较修复后，在compute-0-20以CPU执�
 D′自动判定逻辑补充定向CPU测试：test_p_followup_dprime_decision.py的2项边界测试通过（2 passed，0.03s），覆盖0.06单种子门槛与严格CI、双seed共同符号和平均效应门槛，以及未触发时拒绝额外seed。四个后续脚本的AST语法检查通过；几何与MAE复用已有数学和固定面板，不新增科学对照。
 
 D′ seed1组合统计复用新增test_p_followup_dprime_reuse.py：实际compute-0-20、CPU1/空CUDA，2 passed（0.04s，既有依赖弃用警告1条）。覆盖匹配的已关闭seed0不再读分数/计算，以及不同运行不得错用缓存；未重跑完整套件，全部工作完成后仍执行一次最终完整回归与仓库检查。
+
+后续结项入口已准备为tools/p_followup/final_validation.sbatch（仅通过bash -n，尚未提交/运行）：完整调用full_regression.py，不带--repair-from；随后执行默认tools/check_repository.py，两者真实退出均保留，任一失败则作业失败。仅在更新任务全部完成后提交，不把准备入口或旧门禁当作新完整回归PASS。C3另用C3_geometry_cpu.sbatch，只补C3第6层，不重复已关闭的D′。
