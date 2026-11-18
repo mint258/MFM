@@ -94,3 +94,8 @@ Stop and archive further 1slg/1pts correspondence research. Rebuild source keys 
 ### 2026-11-13 P任务D6(d)科学停止，等待用户决定
 
 新P任务已经开始，旧任务仍不恢复。P任务D6(d)一次实际身份比较发现323个TRAIN/下游重叠分子，其中16个完整InChIKey精确重叠、307个仅既有WP5结构键重叠；按任务书9.3停止。新P训练未启动；六个未完成P任务评价作业已取消，结果保留。不得自行恢复P任务或调整TRAIN/D4，等待用户明确处理决定。结果见X:/MFM_p_recipe/docs/p_recipe/daily/2026-11-13.md及runs/p_recipe_20261113/D6_identity.json。独立PR6、数据线和PubChem未取消。
+
+
+## 2026-11-17 用户长期授权：可使用其他合适的开发计算节点
+
+用户明确回复“允许在其他节点计算，之后的也保持这一规则”。默认开发服务器仍是 zixiao@202.38.247.57；开发、调试、短测、CPU回归及其他已授权计算可按现场空余资源选择其他合适计算节点，不再局限 compute-0-20，后续同类节点选择无需重复询问。compute-0-21 禁用、登录节点禁算、按需CPU/非exclusive、实际GPU UUID与现有任务保护、真实磁盘字节/inode/UID配额和跨窗口预留均继续；不扩大学校付费服务器或完整训练的授权。本次CPU回归可使用compute-0-16/CPU分区/16CPU。

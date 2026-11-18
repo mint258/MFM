@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 from torch import Tensor
 from torch_geometric.data import Data
-from torch_geometric.utils import to_dense_batch
+from .perf_sync import dense_batch as to_dense_batch, unpack_dense, layout_forward
 from torch.utils.checkpoint import checkpoint
 
 from .attention import RealCoordTransformerLayer
@@ -58,6 +58,7 @@ class RealCoordTransformerBackbone(nn.Module):
         )
         self.out_norm = nn.LayerNorm(self.dim)
 
+    @layout_forward
     def forward(self, data: Data, *, return_intermediates=False) -> Tensor:
         require_distance_bias_backbone(self,expected=self.distance_bias_projection_bias)
         if getattr(data, "pos", None) is None:
@@ -76,6 +77,9 @@ class RealCoordTransformerBackbone(nn.Module):
 
         intermediate = []
         for layer in self.layers:
+            if getattr(self, 'perf_sync_mark_dynamic', False):
+                for value in (x_dense, pos_dense, mask):
+                    torch._dynamo.mark_dynamic(value, 1)
             if self.activation_checkpointing and self.training and torch.is_grad_enabled():
                 # Recompute the large distance-bias intermediates during backward.
                 # Non-reentrant checkpointing also supports per-task autograd.grad probes.
@@ -83,10 +87,10 @@ class RealCoordTransformerBackbone(nn.Module):
             else:
                 x_dense = layer(x_dense, pos_dense, mask)
             if return_intermediates:
-                intermediate.append(x_dense[mask])
+                intermediate.append(unpack_dense(x_dense, mask))
 
         x_dense = self.out_norm(x_dense) * mask.unsqueeze(-1).to(x_dense.dtype)
         if return_intermediates:
-            intermediate[-1] = x_dense[mask]
-            return x_dense[mask], tuple(intermediate)
-        return x_dense[mask]
+            intermediate[-1] = unpack_dense(x_dense, mask)
+            return unpack_dense(x_dense, mask), tuple(intermediate)
+        return unpack_dense(x_dense, mask)

@@ -67,6 +67,11 @@ class MaskedAttention(nn.Module):
         def split(x):
             return x.reshape(b,-1,self.heads,head_dim).transpose(1,2)
         q,k,v = split(self.q(query)),split(self.k(key)),split(self.v(value))
+        if getattr(self, 'perf_sync_sdpa', False):
+            bias = None if key_mask is None else torch.zeros_like(key_mask, dtype=q.dtype)[:,None,None,:].masked_fill(
+                ~key_mask[:,None,None,:], -torch.inf)
+            attended = torch.nn.functional.scaled_dot_product_attention(q,k,v,attn_mask=bias)
+            return self.out(attended.transpose(1,2).reshape(b,n,self.width))
         logits = (q@k.transpose(-1,-2))/math.sqrt(head_dim)
         if key_mask is not None:
             logits = logits.masked_fill(~key_mask[:,None,None,:],-torch.inf)

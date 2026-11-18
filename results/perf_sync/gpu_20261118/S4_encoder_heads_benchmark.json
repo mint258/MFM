@@ -1,0 +1,608 @@
+{
+  "status": "BENCHMARK_COMPLETE",
+  "run": "perf_sync_S4_encoder_heads_20261118",
+  "samples": 32000,
+  "updates": 1000,
+  "actual_samples": 32000,
+  "seconds": 461.4907254613936,
+  "clipped_fraction": 0.0,
+  "clip": 281.7,
+  "batch_size": 32,
+  "microbatch_size": 32,
+  "GPU_peak_bytes": 7462987264,
+  "measured_updates": 1000,
+  "measured_seconds": 400.08426138572395,
+  "samples_per_second": 79.98315127209811,
+  "main_CPU_percent": 100.622825328006,
+  "measure_wall_start": 1794939339.2574496,
+  "measure_wall_end": 1794939739.3417122,
+  "item": "S4_encoder_heads",
+  "options": {
+    "grouped_fields": true,
+    "head_checkpointing": false,
+    "distance_tiling": true,
+    "prepared_input": true,
+    "sync_free": false,
+    "fused_optimizer": false,
+    "sdpa": false,
+    "compile": "encoder_heads",
+    "async_transfer": false,
+    "cuda_graphs": false
+  },
+  "power_W": 317.8844020356234,
+  "last200_mean": 0.423541084676981,
+  "finite": true,
+  "warmup": "100 forward/backward passes on first batch, no optimizer updates, RNG restored",
+  "actual_optimizer_updates": 1000,
+  "compile_counters": {
+    "frames": {
+      "total": 70,
+      "ok": 59
+    },
+    "inline_call": {
+      "Unsupported method call\n  Explanation: Dynamo does not know how to trace method `get` of class `ContextVar`\n  Hint: Avoid calling `ContextVar.get` in your code.\n  Hint: Please report an issue to PyTorch.\n\n  Developer debug context: call_method UserDefinedObjectVariable(ContextVar) get [] {}\n": 4,
+      "Dynamic shape operator\n  Explanation: Operator `aten.unique_consecutive.default`'s output shape depends on input Tensor data.\n  Hint: Enable tracing of dynamic shape operators with `torch._dynamo.config.capture_dynamic_output_shape_ops = True`\n\n  Developer debug context: aten.unique_consecutive.default\n": 3,
+      "Tensor.item": 2
+    },
+    "unimplemented": {
+      "Observed exception\n  Explanation: Dynamo found no exception handler at the top-level compiled function when encountering an exception. Exception will propagate outside the compiled region.\n  Hint: Dynamo has detected that tracing the code will result in an error when running in eager. Please double check that your code doesn't contain a similar error when actually running eager/uncompiled.\n  Hint: It may be possible to write Dynamo tracing rules for this code. Please report an issue to PyTorch if you encounter this graph break often and it is causing performance issues.\n\n  Developer debug context: raised exception ExceptionVariable(<class 'ValueError'>)\n": 3,
+      "torch.* op returned non-Tensor str call_function <function get_float32_matmul_precision at 0x7efc0fb3bec0>": 1,
+      "Unsupported method call\n  Explanation: Dynamo does not know how to trace method `get` of class `ContextVar`\n  Hint: Avoid calling `ContextVar.get` in your code.\n  Hint: Please report an issue to PyTorch.\n\n  Developer debug context: call_method UserDefinedObjectVariable(ContextVar) get [] {}\n": 2,
+      "Attempt to trace generator\n  Explanation: Generators cannot be compiled directly with `torch.compile`.\n  Hint: Call a generator from inside of a non-generator Python function and compile that function instead.\n  Hint: This graph break is fundamental - it is unlikely that Dynamo will ever be able to trace through your code. Consider finding a workaround.\n\n  Developer debug context: \n": 2,
+      "Unsupported method call\n  Explanation: Dynamo does not know how to trace method `__next__` of class `list_iterator`\n  Hint: Avoid calling `list_iterator.__next__` in your code.\n  Hint: Please report an issue to PyTorch.\n  Hint: Dynamo does not fully support tracing builtin iterators (e.g. `map`, `zip`, `enumerate`) passed in from uncompiled to compiled regions (e.g. `torch.compile(fn)(enumerate(...))`). This can happen unintentionally if a previous graph break happens with a builtin iterator in the local scope.\n\n  Developer debug context: call_method UserDefinedObjectVariable(list_iterator) __next__ [] {}\n": 2,
+      "Dynamic shape operator\n  Explanation: Operator `aten.unique_consecutive.default`'s output shape depends on input Tensor data.\n  Hint: Enable tracing of dynamic shape operators with `torch._dynamo.config.capture_dynamic_output_shape_ops = True`\n\n  Developer debug context: aten.unique_consecutive.default\n": 1,
+      "Tensor.item": 2,
+      "Unsupported method call\n  Explanation: Dynamo does not know how to trace method `__next__` of class `enumerate`\n  Hint: Avoid calling `enumerate.__next__` in your code.\n  Hint: Please report an issue to PyTorch.\n  Hint: Dynamo does not fully support tracing builtin iterators (e.g. `map`, `zip`, `enumerate`) passed in from uncompiled to compiled regions (e.g. `torch.compile(fn)(enumerate(...))`). This can happen unintentionally if a previous graph break happens with a builtin iterator in the local scope.\n\n  Developer debug context: call_method UserDefinedObjectVariable(enumerate) __next__ [] {}\n": 1,
+      "recompile_limit reached": 2
+    },
+    "stats": {
+      "calls_captured": 3166,
+      "unique_graphs": 40
+    },
+    "inductor": {
+      "pattern_matcher_count": 406,
+      "pattern_matcher_nodes": 604,
+      "async_compile_cache_miss": 935,
+      "extern_calls": 744,
+      "async_compile_cache_hit": 476,
+      "fxgraph_cache_hit": 61,
+      "fxgraph_cache_miss": 2,
+      "triton_bundler_save_kernel": 126,
+      "benchmarking.InductorBenchmarker.benchmark_gpu": 2
+    },
+    "aot_autograd": {
+      "total": 40,
+      "autograd_cache_miss": 5,
+      "ok": 40,
+      "autograd_cache_bypass": 12,
+      "autograd_cache_hit": 26
+    },
+    "aten_mm_info": {
+      "aten.bmm_s1_64_1088": 1,
+      "aten.bmm_s1_1_64": 1,
+      "aten.bmm_64_1_s1": 1,
+      "aten.bmm_s1_64_1": 1,
+      "aten.bmm_1088_64_s1": 1,
+      "aten.bmm_s1_1088_64": 1
+    },
+    "graph_break": {
+      "Failed to trace builtin operator\n  Explanation: Dynamo does not know how to trace builtin operator `bool` with argument types ['Tensor'] (has_kwargs False)\n  Hint: Avoid calling builtin `bool` with argument types ['Tensor']. Consider using an equivalent alternative function/method to `bool`.\n  Hint: If you are attempting to call a logging function (e.g. `print`), you can try adding it to `torch._dynamo.config.reorderable_logging_functions`.\n  Hint: Please report an issue to PyTorch.\n\n  Developer debug context: builtin bool [<class 'torch._dynamo.variables.tensor.TensorVariable'>] False\n": 4,
+      "Unsupported method call\n  Explanation: Dynamo does not know how to trace method `get` of class `ContextVar`\n  Hint: Avoid calling `ContextVar.get` in your code.\n  Hint: Please report an issue to PyTorch.\n\n  Developer debug context: call_method UserDefinedObjectVariable(ContextVar) get [] {}\n": 5,
+      "Tensor.item": 5,
+      "Dynamic shape operator\n  Explanation: Operator `aten.bincount.default`'s output shape depends on input Tensor data.\n  Hint: Enable tracing of dynamic shape operators with `torch._dynamo.config.capture_dynamic_output_shape_ops = True`\n\n  Developer debug context: aten.bincount.default\n": 3,
+      "Dynamic shape operator\n  Explanation: Operator `aten.unique_consecutive.default`'s output shape depends on input Tensor data.\n  Hint: Enable tracing of dynamic shape operators with `torch._dynamo.config.capture_dynamic_output_shape_ops = True`\n\n  Developer debug context: aten.unique_consecutive.default\n": 3,
+      "Dynamic shape operator\n  Explanation: Operator `aten.nonzero.default`'s output shape depends on input Tensor data.\n  Hint: Enable tracing of dynamic shape operators with `torch._dynamo.config.capture_dynamic_output_shape_ops = True`\n\n  Developer debug context: aten.nonzero.default\n": 1
+    }
+  },
+  "recompilations_total_including_warmup": 23,
+  "recompilations": 17,
+  "guard_failure_diagnostics_in_measured_window": 74,
+  "compilation_metrics": [
+    {
+      "compile_id": "0/0",
+      "co_name": "forward",
+      "entire_frame_compile_time_s": 0.120478,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": "Unsupported"
+    },
+    {
+      "compile_id": "1/0",
+      "co_name": "forward",
+      "entire_frame_compile_time_s": 0.004935,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": "Unsupported"
+    },
+    {
+      "compile_id": "2/0",
+      "co_name": "require_bias_free_attention",
+      "entire_frame_compile_time_s": 0.003241,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": "Unsupported"
+    },
+    {
+      "compile_id": "3/0",
+      "co_name": "distance_bias_projection_bias",
+      "entire_frame_compile_time_s": 0.002178,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "4/0",
+      "co_name": "_distance_mlp_supported",
+      "entire_frame_compile_time_s": 1.749802,
+      "backend_compile_time_s": 1.691545,
+      "inductor_compile_time_s": 0.000799,
+      "fail_type": null
+    },
+    {
+      "compile_id": "5/0",
+      "co_name": "_context",
+      "entire_frame_compile_time_s": 0.025054,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": "Unsupported"
+    },
+    {
+      "compile_id": "6/0",
+      "co_name": "forward",
+      "entire_frame_compile_time_s": 1.576633,
+      "backend_compile_time_s": 0.931075,
+      "inductor_compile_time_s": 0.282215,
+      "fail_type": null
+    },
+    {
+      "compile_id": "7/0",
+      "co_name": "forward",
+      "entire_frame_compile_time_s": 0.692411,
+      "backend_compile_time_s": 0.616086,
+      "inductor_compile_time_s": 0.074238,
+      "fail_type": null
+    },
+    {
+      "compile_id": "8/0",
+      "co_name": "forward",
+      "entire_frame_compile_time_s": 0.170577,
+      "backend_compile_time_s": 0.045398,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "9/0",
+      "co_name": "torch_dynamo_resume_in_forward_at_237",
+      "entire_frame_compile_time_s": 0.136547,
+      "backend_compile_time_s": 0.023003,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "10/0",
+      "co_name": "torch_dynamo_resume_in_forward_at_239",
+      "entire_frame_compile_time_s": 0.153558,
+      "backend_compile_time_s": 0.024394,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "11/0",
+      "co_name": "torch_dynamo_resume_in_forward_at_241",
+      "entire_frame_compile_time_s": 0.083194,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "12/0",
+      "co_name": "graph_count",
+      "entire_frame_compile_time_s": 0.004318,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "13/0",
+      "co_name": "torch_dynamo_resume_in_graph_count_at_53",
+      "entire_frame_compile_time_s": 0.036813,
+      "backend_compile_time_s": 0.01884,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "14/0",
+      "co_name": "torch_dynamo_resume_in_forward_at_243",
+      "entire_frame_compile_time_s": 0.085824,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "15/0",
+      "co_name": "torch_dynamo_resume_in_forward_at_244",
+      "entire_frame_compile_time_s": 0.189365,
+      "backend_compile_time_s": 0.020636,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "16/0",
+      "co_name": "torch_dynamo_resume_in_forward_at_244",
+      "entire_frame_compile_time_s": 0.854735,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "17/0",
+      "co_name": "grouped_head_predictions",
+      "entire_frame_compile_time_s": 0.038318,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "18/0",
+      "co_name": "torch_dynamo_resume_in_grouped_head_predictions_at_88",
+      "entire_frame_compile_time_s": 1.170009,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "19/0",
+      "co_name": "_signature",
+      "entire_frame_compile_time_s": 0.006114,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "20/0",
+      "co_name": "<listcomp>",
+      "entire_frame_compile_time_s": 0.001269,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": "Unsupported"
+    },
+    {
+      "compile_id": "21/0",
+      "co_name": "_bank",
+      "entire_frame_compile_time_s": 1.129844,
+      "backend_compile_time_s": 0.638751,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "22/0",
+      "co_name": "_atom_vectors",
+      "entire_frame_compile_time_s": 0.02353,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "23/0",
+      "co_name": "_edges",
+      "entire_frame_compile_time_s": 0.040692,
+      "backend_compile_time_s": 0.018806,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "24/0",
+      "co_name": "torch_dynamo_resume_in__edges_at_118",
+      "entire_frame_compile_time_s": 0.085616,
+      "backend_compile_time_s": 0.031134,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "25/0",
+      "co_name": "wrapper",
+      "entire_frame_compile_time_s": 0.015124,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "26/0",
+      "co_name": "to_dense_batch",
+      "entire_frame_compile_time_s": 0.03952,
+      "backend_compile_time_s": 0.017192,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "27/0",
+      "co_name": "torch_dynamo_resume_in_to_dense_batch_at_104",
+      "entire_frame_compile_time_s": 0.199252,
+      "backend_compile_time_s": 0.027266,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "28/0",
+      "co_name": "torch_dynamo_resume_in_to_dense_batch_at_115",
+      "entire_frame_compile_time_s": 0.146615,
+      "backend_compile_time_s": 0.060642,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "29/0",
+      "co_name": "torch_dynamo_resume_in__edges_at_119",
+      "entire_frame_compile_time_s": 0.350969,
+      "backend_compile_time_s": 0.083688,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "30/0",
+      "co_name": "torch_dynamo_resume_in__edges_at_123",
+      "entire_frame_compile_time_s": 0.109999,
+      "backend_compile_time_s": 0.039102,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "31/0",
+      "co_name": "torch_dynamo_resume_in__atom_vectors_at_45",
+      "entire_frame_compile_time_s": 0.048876,
+      "backend_compile_time_s": 0.015931,
+      "inductor_compile_time_s": 0.000444,
+      "fail_type": null
+    },
+    {
+      "compile_id": "32/0",
+      "co_name": "torch_dynamo_resume_in__atom_vectors_at_46",
+      "entire_frame_compile_time_s": 0.706739,
+      "backend_compile_time_s": 0.152797,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "21/1",
+      "co_name": "_bank",
+      "entire_frame_compile_time_s": 0.47952,
+      "backend_compile_time_s": 0.305625,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "33/0",
+      "co_name": "_pool",
+      "entire_frame_compile_time_s": 0.069359,
+      "backend_compile_time_s": 0.030125,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "34/0",
+      "co_name": "torch_dynamo_resume_in__pool_at_23",
+      "entire_frame_compile_time_s": 0.052472,
+      "backend_compile_time_s": 0.023504,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "21/2",
+      "co_name": "_bank",
+      "entire_frame_compile_time_s": 0.218644,
+      "backend_compile_time_s": 0.089659,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "35/0",
+      "co_name": "<listcomp>",
+      "entire_frame_compile_time_s": 0.001792,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": "Unsupported"
+    },
+    {
+      "compile_id": "36/0",
+      "co_name": "<listcomp>",
+      "entire_frame_compile_time_s": 0.001286,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": "Unsupported"
+    },
+    {
+      "compile_id": "37/0",
+      "co_name": "_pairs",
+      "entire_frame_compile_time_s": 2.027906,
+      "backend_compile_time_s": 1.461888,
+      "inductor_compile_time_s": 0.345392,
+      "fail_type": null
+    },
+    {
+      "compile_id": "38/0",
+      "co_name": "torch_dynamo_resume_in_forward_at_263",
+      "entire_frame_compile_time_s": 0.571652,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "16/1",
+      "co_name": "torch_dynamo_resume_in_forward_at_244",
+      "entire_frame_compile_time_s": 0.95519,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "22/1",
+      "co_name": "_atom_vectors",
+      "entire_frame_compile_time_s": 0.021614,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "32/1",
+      "co_name": "torch_dynamo_resume_in__atom_vectors_at_46",
+      "entire_frame_compile_time_s": 0.920609,
+      "backend_compile_time_s": 0.29051,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "21/3",
+      "co_name": "_bank",
+      "entire_frame_compile_time_s": 0.074781,
+      "backend_compile_time_s": 0.03451,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "6/1",
+      "co_name": "forward",
+      "entire_frame_compile_time_s": 1.007871,
+      "backend_compile_time_s": 0.628631,
+      "inductor_compile_time_s": 0.131652,
+      "fail_type": null
+    },
+    {
+      "compile_id": "32/2",
+      "co_name": "torch_dynamo_resume_in__atom_vectors_at_46",
+      "entire_frame_compile_time_s": 0.746569,
+      "backend_compile_time_s": 0.264534,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "32/3",
+      "co_name": "torch_dynamo_resume_in__atom_vectors_at_46",
+      "entire_frame_compile_time_s": 0.913579,
+      "backend_compile_time_s": 0.386366,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "6/2",
+      "co_name": "forward",
+      "entire_frame_compile_time_s": 1.353345,
+      "backend_compile_time_s": 0.899261,
+      "inductor_compile_time_s": 0.159553,
+      "fail_type": null
+    },
+    {
+      "compile_id": "32/4",
+      "co_name": "torch_dynamo_resume_in__atom_vectors_at_46",
+      "entire_frame_compile_time_s": 0.681144,
+      "backend_compile_time_s": 0.248138,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "32/5",
+      "co_name": "torch_dynamo_resume_in__atom_vectors_at_46",
+      "entire_frame_compile_time_s": 0.802345,
+      "backend_compile_time_s": 0.273983,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "6/3",
+      "co_name": "forward",
+      "entire_frame_compile_time_s": 1.01879,
+      "backend_compile_time_s": 0.717295,
+      "inductor_compile_time_s": 0.141163,
+      "fail_type": null
+    },
+    {
+      "compile_id": "32/6",
+      "co_name": "torch_dynamo_resume_in__atom_vectors_at_46",
+      "entire_frame_compile_time_s": 1.023972,
+      "backend_compile_time_s": 0.130698,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "32/7",
+      "co_name": "torch_dynamo_resume_in__atom_vectors_at_46",
+      "entire_frame_compile_time_s": 0.674989,
+      "backend_compile_time_s": 0.146871,
+      "inductor_compile_time_s": null,
+      "fail_type": null
+    },
+    {
+      "compile_id": "6/4",
+      "co_name": "forward",
+      "entire_frame_compile_time_s": 0.764092,
+      "backend_compile_time_s": 0.536926,
+      "inductor_compile_time_s": 0.118595,
+      "fail_type": null
+    },
+    {
+      "compile_id": "32/8",
+      "co_name": null,
+      "entire_frame_compile_time_s": null,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": "RecompileLimitExceeded"
+    },
+    {
+      "compile_id": "6/5",
+      "co_name": "forward",
+      "entire_frame_compile_time_s": 0.935391,
+      "backend_compile_time_s": 0.66027,
+      "inductor_compile_time_s": 0.135818,
+      "fail_type": null
+    },
+    {
+      "compile_id": "6/6",
+      "co_name": "forward",
+      "entire_frame_compile_time_s": 0.840089,
+      "backend_compile_time_s": 0.593154,
+      "inductor_compile_time_s": 0.126766,
+      "fail_type": null
+    },
+    {
+      "compile_id": "6/7",
+      "co_name": "forward",
+      "entire_frame_compile_time_s": 0.591377,
+      "backend_compile_time_s": 0.417957,
+      "inductor_compile_time_s": 0.107244,
+      "fail_type": null
+    },
+    {
+      "compile_id": "6/8",
+      "co_name": null,
+      "entire_frame_compile_time_s": null,
+      "backend_compile_time_s": null,
+      "inductor_compile_time_s": null,
+      "fail_type": "RecompileLimitExceeded"
+    },
+    {
+      "compile_id": "37/1",
+      "co_name": "_pairs",
+      "entire_frame_compile_time_s": 2.182211,
+      "backend_compile_time_s": 1.535055,
+      "inductor_compile_time_s": 0.386105,
+      "fail_type": null
+    },
+    {
+      "compile_id": "37/2",
+      "co_name": "_pairs",
+      "entire_frame_compile_time_s": 4.150968,
+      "backend_compile_time_s": 3.579578,
+      "inductor_compile_time_s": 2.486852,
+      "fail_type": null
+    }
+  ],
+  "optimizer_execution": {
+    "backend": "default",
+    "param_groups": [
+      {
+        "fused": null,
+        "foreach": null
+      }
+    ]
+  },
+  "compiler_timing_table": "TorchDynamo compilation metrics:\nFunction                                Runtimes (s)\n--------------------------------------  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n_compile.compile_inner                  0.1205, 0.0049, 0.0032, 0.0022, 1.7498, 0.0251, 1.5766, 0.6924, 0.1706, 0.1365, 0.1536, 0.0832, 0.0043, 0.0368, 0.0858, 0.1894, 0.8547, 0.0383, 1.1700, 0.0061, 0.0013, 1.1298, 0.0235, 0.0407, 0.0856, 0.0151, 0.0395, 0.1993, 0.1466, 0.3510, 0.1100, 0.0489, 0.7067, 0.4795, 0.0694, 0.0525, 0.2186, 0.0018, 0.0013, 2.0279, 0.5717, 0.9552, 0.0216, 0.9206, 0.0748, 1.0079, 0.7466, 0.9136, 1.3533, 0.6811, 0.8023, 1.0188, 1.0240, 0.6750, 0.7641, 0.9354, 0.8401, 0.5914, 2.1822, 4.1510\ngc                                      0.0004, 0.0002, 0.0002, 0.0001, 0.0006, 0.0003, 0.0008, 0.0004, 0.0002, 0.0001, 0.0002, 0.0002, 0.0001, 0.0004, 0.0002, 0.0002, 0.0001, 0.0004, 0.0002, 0.0002, 0.0002, 0.0003, 0.0003, 0.0004, 0.0007, 0.0003, 0.0004, 0.0006, 0.0010, 0.0006, 0.0007, 0.0004, 0.0008, 0.0007, 0.0006, 0.0004, 0.0006, 0.0002, 0.0002, 0.0008, 0.0007, 0.0004, 0.0003, 0.0011, 0.0005, 0.0008, 0.0002, 0.0016, 0.0001, 0.0002, 0.0013, 0.0014, 0.0016, 0.0019, 0.0001, 0.0005, 0.0010, 0.0013, 0.0013, 0.0002\nOutputGraph.call_user_compiler          1.6915, 0.9311, 0.6161, 0.0454, 0.0230, 0.0244, 0.0188, 0.0206, 0.6388, 0.0188, 0.0311, 0.0172, 0.0273, 0.0606, 0.0837, 0.0391, 0.0159, 0.1528, 0.3056, 0.0301, 0.0235, 0.0897, 1.4619, 0.2905, 0.0345, 0.6286, 0.2645, 0.3864, 0.8993, 0.2481, 0.2740, 0.7173, 0.1307, 0.1469, 0.5369, 0.6603, 0.5932, 0.4180, 1.5351, 3.5796\n_recursive_pre_grad_passes              0.0051, 0.0014, 0.0006, 0.0005, 0.0003, 0.0003, 0.0002, 0.0005, 0.0015, 0.0007, 0.0003, 0.0002, 0.0007, 0.0019, 0.0007, 0.0004, 0.0002, 0.0032, 0.0008, 0.0003, 0.0003, 0.0005, 0.0019, 0.0030, 0.0003, 0.0008, 0.0024, 0.0025, 0.0009, 0.0024, 0.0025, 0.0007, 0.0024, 0.0025, 0.0006, 0.0007, 0.0007, 0.0005, 0.0015, 0.0013\ninductor_codecache_torch_key            0.6264\ncreate_aot_dispatcher_function          0.1771, 0.9255, 0.5834, 0.0107, 1.3910, 0.6234, 0.8942, 0.7123, 0.5324, 0.6553, 0.5882, 0.4137, 1.4577, 3.5030\ncompile_fx.<locals>.fw_compiler_base    0.1652, 0.1200, 0.0222, 0.0020, 0.2657, 0.0507, 0.0521, 0.0500, 0.0465, 0.0484, 0.0466, 0.0459, 0.3183, 1.6967\n_recursive_joint_graph_passes           0.1636, 0.1037, 0.0290, 0.0010, 0.0397, 0.0780, 0.1251, 0.0946, 0.0644, 0.0848, 0.0739, 0.0463, 0.0442, 0.0387\ncompile_fx_inner                        0.0008, 0.1191, 0.1631, 0.0217, 0.0526, 0.0004, 0.2650, 0.0804, 0.0500, 0.0816, 0.0515, 0.1081, 0.0494, 0.0918, 0.0459, 0.0727, 0.0478, 0.0880, 0.0460, 0.0808, 0.0453, 0.0620, 0.3177, 0.0684, 1.6961, 0.7908\npad_mm_benchmark                        0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0013, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0012, 0.0010, 0.0010, 0.0010, 0.0009, 0.0009, 0.0007, 0.0006, 0.0006, 0.0006, 0.0008, 0.0006, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0011, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0010, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0010, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0010, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0010, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0009, 0.0009, 0.0008, 0.0009, 0.0008, 0.0008, 0.0009, 0.0009, 0.0008, 0.0009, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0007, 0.0009, 0.0006, 0.0006, 0.0006, 0.0006, 0.0007, 0.0006, 0.0006, 0.0006, 0.0009, 0.0006\npad_mm_benchmark_get_do_bench           0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0009, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0005, 0.0005, 0.0005, 0.0004, 0.0004, 0.0003, 0.0003, 0.0003, 0.0003, 0.0005, 0.0003, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0006, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0006, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0007, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0006, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0006, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0006, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0005, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0003, 0.0003, 0.0003, 0.0003, 0.0003, 0.0003, 0.0003, 0.0003, 0.0003, 0.0003, 0.0005, 0.0003\nTritonBundler.read_and_emit             0.0005, 0.0023, 0.0003, 0.0003, 0.0007, 0.0003, 0.0002, 0.0002, 0.0002, 0.0002, 0.0008, 0.0006, 0.0003, 0.0003, 0.0002, 0.0005, 0.0007, 0.0008, 0.0004, 0.0016, 0.0033, 0.0003, 0.0006, 0.0006, 0.0002, 0.0011, 0.0006, 0.0017, 0.0011, 0.0026, 0.0040, 0.0002, 0.0007, 0.0011, 0.0017, 0.0029, 0.0024, 0.0039, 0.0004, 0.0012, 0.0012, 0.0023, 0.0019, 0.0028, 0.0004, 0.0010, 0.0014, 0.0024, 0.0019, 0.0027, 0.0004, 0.0009, 0.0004, 0.0010, 0.0004, 0.0008, 0.0003, 0.0009, 0.0010, 0.0009\nPyCodeCache.load_by_key_path            0.0669, 0.0744, 0.0091, 0.0104, 0.0148, 0.0119, 0.0103, 0.0103, 0.0101, 0.0098, 0.1981, 0.0164, 0.0096, 0.0103, 0.0092, 0.0129, 0.0130, 0.0137, 0.0131, 0.0385, 0.0480, 0.1973, 0.0120, 0.0104, 0.0105, 0.0209, 0.0154, 0.1474, 0.0222, 0.1624, 0.0519, 0.0012, 0.0106, 0.0124, 0.0266, 0.1499, 0.0411, 0.1620, 0.1502, 0.0109, 0.0342, 0.1519, 0.0405, 0.1653, 0.0436, 0.0112, 0.0310, 0.0328, 0.0410, 0.0384, 0.0432, 0.0102, 0.0227, 0.0110, 0.0290, 0.0114, 0.0259, 0.0106, 0.0191, 0.1630, 0.0186, 0.3608, 0.1359\nasync_compile.wait                      0.0585, 0.0690, 0.0078, 0.0088, 0.0125, 0.0107, 0.0091, 0.0093, 0.0091, 0.0088, 0.1874, 0.0126, 0.0083, 0.0093, 0.0083, 0.0114, 0.0115, 0.0118, 0.0115, 0.0330, 0.0380, 0.1903, 0.0097, 0.0091, 0.0094, 0.0176, 0.0129, 0.1399, 0.0184, 0.1552, 0.0398, 0.0002, 0.0093, 0.0099, 0.0228, 0.1444, 0.0319, 0.1558, 0.1396, 0.0083, 0.0283, 0.1470, 0.0320, 0.1591, 0.0332, 0.0090, 0.0265, 0.0278, 0.0323, 0.0320, 0.0325, 0.0082, 0.0193, 0.0087, 0.0248, 0.0092, 0.0224, 0.0087, 0.0161, 0.1552, 0.0150, 0.3539, 0.1323\ncompile_fx.<locals>.bw_compiler         0.1640, 0.0531, 0.0811, 0.0822, 0.1089, 0.0924, 0.0733, 0.0887, 0.0814, 0.0626, 0.0691, 0.7914\n_recursive_post_grad_passes             0.0783, 0.0085\nGraphLowering.run                       0.1359, 0.1140\nGraphLowering.compile_to_fn             1.1872, 0.5638\nGraphLowering.compile_to_module         1.1871, 0.5636\nGraphLowering.codegen                   0.8243, 0.4257\nScheduler.__init__                      0.1903, 0.1387\nScheduler.fused_nodes                   0.0345, 0.0241\nScheduler.codegen                       0.6201, 0.2807\nPythonWrapperCodegen.generate           0.0089, 0.0051\nTritonBundler.collect                   0.0088, 0.0081\nCachingAutotuner.benchmark_all_configs  0.0228\nInductorBenchmarker.benchmark_gpu       0.0115, 0.0112"
+}

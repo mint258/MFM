@@ -121,6 +121,8 @@ class V31PDModel(nn.Module):
         return self.encoder.encode_atoms(batch)
 
     def configure_step_overhead(self, options):
+        from ..model.perf_sync import configure
+        configure(self, options)
         self.grouped_fields = options.get('grouped_fields', False)
         from ..model.heads import EquivariantDenoisingHead
         for module in self.heads.modules():
@@ -194,8 +196,9 @@ class V31PDModel(nn.Module):
             if self.shared_projector is not None:
                 h0 = self.shared_projector(h0)
             if self.p_recipe_pma is not None:
-                from torch_geometric.utils import to_dense_batch
-                dense, mask = to_dense_batch(h0,batch.batch)
+                from ..model.perf_sync import dense_batch, batch_layout
+                with batch_layout(batch):
+                    dense, mask = dense_batch(h0,batch.batch)
                 z = self.p_recipe_pma.finish(dense,mask)
             for name in active:
                 head_name, _ = self.selections[name]
@@ -224,8 +227,10 @@ class V31PDModel(nn.Module):
                         observed.add(head_name)
                 latent['observed_fields'] = observed
             self.heads.grouped_fields = self.grouped_fields
-            values = self.heads(h0, batch.batch, batch.pos, enabled_groups=groups,
-                enabled_fields=selected, pair_indices=pairs, **latent)
+            from ..model.perf_sync import batch_layout
+            with batch_layout(batch):
+                values = self.heads(h0, batch.batch, batch.pos, enabled_groups=groups,
+                    enabled_fields=selected, pair_indices=pairs, **latent)
             for name, (rows, total) in pair_rows.items():
                 value = values[name]
                 values[name] = value.new_full((total, value.shape[-1]), float('nan')).index_copy(0, rows, value)

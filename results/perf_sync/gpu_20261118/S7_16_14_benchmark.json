@@ -1,0 +1,52 @@
+{
+  "status": "BENCHMARK_COMPLETE",
+  "run": "perf_sync_S7_16_14_20261118",
+  "samples": 32000,
+  "updates": 1000,
+  "actual_samples": 32000,
+  "seconds": 520.330492829904,
+  "clipped_fraction": 0.0,
+  "clip": 281.7,
+  "batch_size": 32,
+  "microbatch_size": 32,
+  "GPU_peak_bytes": 6510372352,
+  "measured_updates": 1000,
+  "measured_seconds": 457.668848766014,
+  "samples_per_second": 69.91955009889737,
+  "main_CPU_percent": 98.93947282383304,
+  "measure_wall_start": 1794944184.207156,
+  "measure_wall_end": 1794944641.8822246,
+  "item": "S7_16_14",
+  "options": {
+    "grouped_fields": true,
+    "head_checkpointing": false,
+    "distance_tiling": true,
+    "prepared_input": true,
+    "sync_free": false,
+    "fused_optimizer": false,
+    "sdpa": false,
+    "compile": "none",
+    "async_transfer": false,
+    "cuda_graphs": false
+  },
+  "power_W": 310.00150776053215,
+  "last200_mean": 0.44333137705922127,
+  "finite": true,
+  "warmup": "100 forward/backward passes on first batch, no optimizer updates, RNG restored",
+  "actual_optimizer_updates": 1000,
+  "compile_counters": {},
+  "recompilations_total_including_warmup": 0,
+  "recompilations": 0,
+  "guard_failure_diagnostics_in_measured_window": 0,
+  "compilation_metrics": [],
+  "optimizer_execution": {
+    "backend": "default",
+    "param_groups": [
+      {
+        "fused": null,
+        "foreach": null
+      }
+    ]
+  },
+  "compiler_timing_table": "TorchDynamo compilation metrics:\nFunction    Runtimes (s)\n----------  --------------"
+}
