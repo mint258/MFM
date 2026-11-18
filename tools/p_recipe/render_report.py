@@ -185,6 +185,28 @@ def closeout_sections(plan):
             table(['线路','臂','种子数','原平均Δ','原各种子CI','原判定','并入','证据'],details),'']
 
 
+def seed_sections(states,verdict):
+    scores=[];decisions=[]
+    for state in [*states,verdict]:
+        for result in (state.get('seed_comparisons') or {}).get('comparisons',{}).values():
+            if not result.get('ready'):raise ValueError('A required paired seed decision is incomplete')
+            identity=f"{result['purpose']} / round{result['round']}"
+            for seed,pair in result.get('per_seed_scores',{}).items():
+                scores.append([identity,result['A'],result['B'],seed,
+                    number(pair['A']['R3']),number(pair['B']['R3']),
+                    number(pair['A']['R1']),number(pair['B']['R1'])])
+            evidence=result['evidence']['R3'];decision=evidence['decision']
+            decisions.append([identity,result['A'],result['B'],evidence['seed_count'],
+                number(evidence['mean_score_A']),number(evidence['mean_score_B']),
+                number(decision['delta']),f"[{number(decision['ci_lower'])}, {number(decision['ci_upper'])}]",
+                result['rows'][0]['verdict']])
+    return ['## 条件种子比较的实际证据','',
+        '下表列出每条比较实际使用的seed及原始主副分；两种子比较的点估计为配对差值均值。'
+        '分子数缩放只使用seed0，逐任务P/Pprime结果亦为seed0描述，不触发额外种子。','',
+        table(['比较','A','B','seed','A R3','B R3','A R1','B R1'],scores),'',
+        table(['比较','A','B','种子数','平均A R3','平均B R3','平均ΔR3','95% CI','判定'],decisions),'']
+
+
 def render(plan, verdict, states, selection, code_commit):
     closeout=plan.get('selection_authority')==CLOSEOUT
     if closeout and (not plan.get('conditional_seed_decisions_complete') or not verdict.get('conditional_seed_decisions_complete')):
@@ -289,6 +311,7 @@ def render(plan, verdict, states, selection, code_commit):
                '子集种子20261112，250k ⊂ 500k ⊂ 全量。T5/T6及全量缩放点使用seed0，分子数减少会提高重复次数；只作描述，不判胜负、不补种子或作扩量决策。', '',
                f"![固定预算分子数曲线]({os.path.relpath(results / 'molecule_scaling.svg', REPO / 'docs/p_recipe').replace(os.sep, '/')})", '',
                '## 全部筛选臂及组件取舍', '']
+    if closeout:content.extend(seed_sections(states,verdict))
     experiment_rows = screening_rows(states, delta_source, line_numbers)
     content.extend([table(['轮', '臂', 'ΔR3', '95% CI', '判定', '当轮并入', '证据'], experiment_rows), '',
                     '合并、冲突与停止记录：', '',

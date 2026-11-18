@@ -72,6 +72,18 @@ def final_recipe_choice(plan,configs,rows):
  return min(('T2','T3'),key=lambda arm:len(configs[arm]['components'])),decision
 
 
+def confirmation_seed_results(plan,configs,session):
+ """Preflight every deciding pair before producing any final artifact."""
+ deciding,descriptive=comparison_layout(plan,configs);results=[]
+ for a,b,purpose in deciding:
+  results.append(session.assess(configs[a],configs[b],purpose,0))
+ for a,b,purpose in descriptive:
+  results.append(session.assess(configs[a],configs[b],purpose,0,descriptive=True))
+ state=session.save()
+ if not all(result['ready'] for result in results):return state,None
+ return state,[row for result in results for row in result['rows']]
+
+
 def report_task_values(c,readout):
  """Retain frozen seven-task means; bootstrap excluded report-only tasks separately."""
  result=summaries(c)[readout];tasks=dict(result['tasks']);values=dict(result['paired_bootstrap']['task_values'])
@@ -114,22 +126,28 @@ def budget_sign_comparison(plan,configs):
  d2=summaries(full)['R3']['mean_normalized_improvement']-summaries(configs['T1'])['R3']['mean_normalized_improvement']
  return dict(status='MEASURED',definition='R3 score(M2)-score(B0)',M2_screening_run=small['run'],screening_samples=small['samples'],M2_confirmation_run=full['run'],confirmation_samples=full['samples'],after_registered_rollback=plan.get('M2_after_rollback',False),delta_screening=d1,delta_confirmation=d2,same_sign=bool(np.sign(d1)==np.sign(d2)))
 
-def close(plan):
+def close(plan,*,seed_session=None):
  if plan.get('selection_valid') is False:raise ValueError('The user invalidated this confirmation evidence')
  closeout=plan.get('selection_authority')==CLOSEOUT
- if closeout and not plan.get('conditional_seed_decisions_complete'):
-  raise ValueError('Final comparisons wait for all registered conditional seed1 decisions')
  configs=completed_configurations(plan)
- rows=[]
- comparisons,descriptive=comparison_layout(plan,configs)
- for a,b,purpose in comparisons:
-  rows.extend(compare(configs[a],configs[b],purpose,0))
- for a,b,purpose in descriptive:
-  values=compare(configs[a],configs[b],purpose,0)
+ seed_state=None;rows=[]
+ if closeout:
+  from seed_comparisons import SeedComparisons
+  session=seed_session or SeedComparisons(Path(plan.get('control_directory',R/'runs/p_recipe_20261113/fixed_20261115'))/'conditional_seed_decisions/confirmation')
+  seed_state,rows=confirmation_seed_results(plan,configs,session)
+  if rows is None:
+   return dict(status='WAITING_REGISTERED_INPUTS',conditional_seed_decisions_complete=False,
+       seed_comparisons=seed_state,no_final_artifacts_created=True,no_jobs_submitted=True)
+  plan['conditional_seed_decisions_complete']=True
+  plan['seed_comparisons']=seed_state
+ else:
+  comparisons,descriptive=comparison_layout(plan,configs)
+  for a,b,purpose in comparisons+descriptive:rows.extend(compare(configs[a],configs[b],purpose,0))
+ if 'T4' in configs:
+  reported=task_rows(configs[plan['Pprime_comparator']],configs['T4'])
   if closeout:
-   for value in values:value['verdict']='descriptive'
-  rows.extend(values)
- if 'T4' in configs:rows.extend(task_rows(configs[plan['Pprime_comparator']],configs['T4']))
+   for row in reported:row['verdict']='descriptive'
+  rows.extend(reported)
  write_deltas(rows,REPO/plan.get('results_directory','results/p_recipe')/'deltas.csv')
  chosen,decision=final_recipe_choice(plan,configs,rows)
  target=study_root(plan)/'final_recipe.json';c=dict(configs[chosen])
@@ -151,6 +169,7 @@ def close(plan):
   runnable_configuration=str(target),T2_T3=decision,Pprime_comparator=plan['Pprime_comparator'],
   selection_authority=plan.get('selection_authority'),recipe_frozen=plan.get('recipe_frozen',False),
   conditional_seed_decisions_complete=plan.get('conditional_seed_decisions_complete',False),
+  seed_comparisons=seed_state,per_task_comparison_basis='seed0 descriptive' if closeout else 'legacy',
   external_adoptions=plan.get('external_adoptions',[]),
   Pprime_and_scaling_recipe='T2/final merged recipe',
   repeat_on_T3='Not applicable:18B cancels T3; no post-closeout training' if closeout else 'Pending user decision; no rerun' if chosen=='T3' else 'Not needed',
@@ -165,4 +184,9 @@ def close(plan):
 
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--plan',required=True);p.add_argument('--output',required=True);a=p.parse_args()
- result=close(read(a.plan));Path(a.output).write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2),flush=True)
+ plan=read(a.plan);result=close(plan);destination=Path(a.output)
+ from execution_ledger import write
+ if result.get('conditional_seed_decisions_complete') is False:destination=destination.with_name(destination.stem+'.pending.json')
+ elif plan.get('selection_authority')==CLOSEOUT:write(a.plan,plan)
+ destination.parent.mkdir(parents=True,exist_ok=True)
+ write(destination,result);print(json.dumps(result,indent=2),flush=True)

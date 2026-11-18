@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-18 22:17UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:47:22UTC。
+
+2026-11-18 22:17UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2343456/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:47:22UTC。
+
 2026-11-18 21:46UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:16:59UTC。
 
 2026-11-18 21:46UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2318816/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:16:59UTC。
@@ -968,3 +972,11 @@ Actual final comparison/report generation additionally waits for conditional_see
 Added seed_comparisons.py to consume successful full-budget readouts, trigger only borderline R3 comparisons, reuse the published matching M2 seed1 or explicit existing reference, and prepare only missing fresh seed1 configurations. Its canonical registry uses a file lock and atomic JSON writes. It does not submit jobs. Clear and descriptive scaling comparisons create no seed1; pending seed1 preserves seed0 evidence, and completion combines original draws without recomputing the cached seed0 decision or adding a third seed. The separate seed1 plan excludes run IDs already present in the actual ledger.
 
 Three new CPU metadata cases passed0.20s after actual compute20 root/NFS bytes/inodes and fresh UID quota admission for a new private unit-temporary directory. They cover clear/descriptive no-run behavior and a borderline comparison reusing its existing control, creating exactly one fresh child, waiting, then consuming the completed child and cached seed0 evidence. Old/F1 tests were not replayed. The unit data are private synthetic fixtures, not scientific results. No real seed1 configurations, GPU jobs, model hashes or final report were created. Wiring this session into the actual round3/4/9M producers and the final freeze remains pending.
+
+### 2026-11-19 06:27 CST — conditional seed results wired into the registered producers
+
+Round3, round4 (including its registered M3 merge) and final confirmation now preflight actual completed paired inputs through SeedComparisons. A required seed1 leaves a separate pending state and does not overwrite a canonical decision, final deltas or final artifacts. Completed comparisons consume the original seed-wise scores/bootstrap arrays; legacy closed rounds1/2 are unchanged. Round3 now records the still-required registered round4 instead of treating three rounds as the end. The final renderer includes each comparison's actual per-seed R1/R3 scores and aggregate delta/CI. Scaling and per-task P/Pprime rows are descriptive only.
+
+PP also has an independent --pp-only entry point. T4's automatic decision uses the dedicated18B seed0 PP-versus-M2 definition, including both positive and negative clear effects and the existing M2 seed difference. A separately required PP seed1 does not delay or replace this explicit seed0 T4 rule. The authority path is recorded automatically; no new approval is requested.
+
+Seven new CPU metadata integration cases passed0.43s after fresh actual-node root/NFS bytes, inodes and UID quota admission. They cover pending-without-final-writes, seed0-win becoming a two-seed tie, round4 conflict/simpler-tie composition, four T4 branches, and final missing-control seed1 planning with actual per-seed report presentation. Only these new cases ran; earlier/F1 tests were not replayed. No real seed1 configuration, training or final report was generated. Actual C3 remains running on4536352; side-line final two-seed decisions and runtime integration of any eventual winner remain outstanding.
