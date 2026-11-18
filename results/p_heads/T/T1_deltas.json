@@ -1,19 +1,36 @@
 {
   "arm": "T1",
-  "status": "UNRESOLVED_MISSING_ARM",
-  "reason": "No new head passed the fixed64-TRAIN,2000-update acceptance threshold (loss below1% of its initial value).",
-  "acceptance_job_id": 4535406,
-  "acceptance_terminal": "COMPLETED0:0",
-  "acceptance_report": "results/p_heads/T/T1_acceptance.json",
-  "observed_heads": 45,
-  "passed_heads": [],
-  "fallback": "All45 fields keep the original MLP/H0 route; no duplicateT0 training is launched.",
-  "training_started": false,
-  "checkpoint": null,
-  "R1": null,
-  "R3": null,
-  "delta": null,
-  "ci95": null,
-  "seed1_triggered": false,
-  "scope": "Fixed acceptance setup is unresolved; this is not a negative architecture verdict."
+  "reference_configuration": "configs/p_recipe/fixed_20261115/round3/M2.json",
+  "reference_arm": "M2",
+  "seed1_triggered": true,
+  "requested_configurations": [
+    "/share/home/zixiao/descriptor_analysis/MFM_p_heads_20261117/configs/p_heads/T/T1_seed1.json"
+  ],
+  "results": {
+    "R1": {
+      "delta": 0.001115213206377974,
+      "ci95": [
+        -0.010517873819686894,
+        0.013809469597857244
+      ],
+      "candidate": 0.29856994797497977,
+      "reference": 0.2974547347686018,
+      "seed0_verdict": "seed1_required"
+    },
+    "R3": {
+      "delta": 0.004251179229980251,
+      "ci95": [
+        -0.007078817581392126,
+        0.014793625130516982
+      ],
+      "candidate": 0.47225381237562564,
+      "reference": 0.4680026331456454,
+      "seed0_verdict": "seed1_required"
+    }
+  },
+  "status": "SEED1_REQUIRED",
+  "reference_seed1_reused_external": true,
+  "reference_seed1_configuration": null,
+  "external_reference_pending": true,
+  "current_best_confirmation_required": false
 }
