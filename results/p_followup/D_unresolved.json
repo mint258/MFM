@@ -200,5 +200,15 @@
   "retry_authorized": true,
   "original_status": "UNRESOLVED",
   "user_correction": "2026-11-17: D\u662f\u6b63\u5e38\u7684\u5de5\u7a0b\u9519\u8bef\uff0c\u8bf7\u4f60\u5b8c\u6210D\u90e8\u5206",
-  "current_scope": "Complete original D1/D2/D3 including seed0 3M; prior implementation failures retained as history"
+  "current_scope": "Original D1/D2/D3 and A-H6 completed; all original failure-disposition fields above describe the historical snapshot only. Dprime is separate under the20261117 directive.",
+  "historical_record_only": true,
+  "superseded_current_status": "ORIGINAL_D_COMPLETE",
+  "current_evidence": {
+    "parameters": "configs/p_followup/D_parameters_accepted.json",
+    "head_acceptance": "results/p_followup/D2_head_overfit.json",
+    "runtime": "results/p_followup/D_runtime.json",
+    "comparison": "results/p_followup/D_comparison.json",
+    "conformer_MAE": "results/p_followup/D_VAL_conformer_MAE.json",
+    "A_H6": "results/p_followup/A_collapse_composition/summary.json"
+  }
 }
