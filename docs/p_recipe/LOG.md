@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-18 17:48UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:18:33UTC。
+
+2026-11-18 17:48UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2126272/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:18:33UTC。
+
 2026-11-18 17:43UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:13:52UTC。
 
 2026-11-18 17:43UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2122272/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:13:52UTC。
@@ -844,5 +848,8 @@ The user explicitly requested immediate C3 migration to compute-0-20 GPU index0 
 C3 source4535189/node6 cooperatively saved samples_2121056.pt (232053437bytes), acknowledged request bac75018-33ab-47d9-8dca-bbfd32685dae and exited0. Actual sacct confirms COMPLETED0:0/155014s; original PID1956854, CUDA context and own lock disappeared. Rollback0. Original configuration/output and all43.0594 allocation GPUh remain archived.
 
 The same registered C3 case resumes with unchanged FP32/TF32off/B32,14readers,3M sample clock, optimizer/sampler/RNG and frozen clip35.49390029907228. New sbatch4536352 is RUNNING on compute-0-20 GPU0,16CPU/noexclusive; bound PID101913/UID1278/start_ticks20270672/PGID101913. Positive resumed progress reached2122560 samples; the initial reported rate was15.32samples/s and is still settling. GPU0 was10551MiB on the follow-up check. Existing5-second capacity guards and30-second telemetry remain active; assistant checks continue every30minutes, next02:13CST.
+### 2026-11-19 01:49 CST — M2 seed1 shared reference ready
 
-Preserved the newer user commit05852a55 and read USER_DIRECTIVE_20261117B.md: next idle5090 remains reserved for perf-line retesting; current explicit node20 migration does not consume it. The5090 delivery is still in progress, with no adopted switches. Previously approved9M switches remain all off; wait for C3/M3. M2 seed1 job4535736 is now actually COMPLETED0:0; publish its complete shared reference next after inspecting the completed checkpoint/readouts, without rerunning it.
+Actual job4535736 is COMPLETED0:0/46420 allocation seconds. On compute-0-7 the run summary is COMPLETE at3000000 samples/93750 updates, with full samples_3000000.pt (232058173bytes), both complete readouts and1000 defined bootstrap samples each. Explicit scientific configuration fields match M2 seed0; the training seed is1. M2_SEED1_REFERENCE.json is READY_FOR_SHARED_REUSE with checkpoint and readout provenance, so the head-type and task-decoupling lines can reuse this shared control instead of training another copy.
+
+Seed1 R3=0.470049811395258,95%CI[0.4575795300786472,0.48327023395763613]; R1=0.33962584473182594,95%CI[0.32556326904577726,0.35198805473495476]. Seed1 minus completed M2 seed0 is R3+0.002047178249612591 and R1+0.04217110996322415. These are descriptive differences between two runs, not a population training-variance estimate or a change to the registered round3 rules. No training, scoring or bootstrap was rerun for this delivery. CURRENT_BEST remains the user-designated M2 until C3 completion and M3 selection.
