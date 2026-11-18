@@ -1,0 +1,183 @@
+{
+  "status": "OBSERVED",
+  "observed_time_unix": 1795024945.9057121,
+  "job_id": 4536355,
+  "arm": "T2",
+  "node": "compute-0-6",
+  "gpu_uuid": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+  "parent": {
+    "pid": 1988017,
+    "uid": 1278,
+    "pgid": 1988017,
+    "ppid": 1988013,
+    "start_ticks": 1982582634,
+    "cpu_mask": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  "readers": [
+    {
+      "pid": 1988206,
+      "uid": 1278,
+      "pgid": 1988017,
+      "ppid": 1988017,
+      "start_ticks": 1982589765,
+      "cpu_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "reader": true
+    },
+    {
+      "pid": 1988192,
+      "uid": 1278,
+      "pgid": 1988017,
+      "ppid": 1988017,
+      "start_ticks": 1982588861,
+      "cpu_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "reader": true
+    }
+  ],
+  "other_descendants": [
+    {
+      "pid": 1988132,
+      "uid": 1278,
+      "pgid": 1988132,
+      "ppid": 1988017,
+      "start_ticks": 1982588465,
+      "cpu_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "reader": false
+    },
+    {
+      "pid": 1988191,
+      "uid": 1278,
+      "pgid": 1988017,
+      "ppid": 1988017,
+      "start_ticks": 1982588856,
+      "cpu_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "reader": false
+    },
+    {
+      "pid": 1988151,
+      "uid": 1278,
+      "pgid": 1988132,
+      "ppid": 1988132,
+      "start_ticks": 1982588510,
+      "cpu_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "reader": false
+    }
+  ],
+  "slurm": {
+    "JobId": "4536355",
+    "JobState": "RUNNING",
+    "NodeList": "compute-0-6",
+    "NumCPUs": "15",
+    "CPUs/Task": "15",
+    "CPU_IDs": "0-14"
+  },
+  "checkpoint_32": "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T2_seed1/samples_32.pt",
+  "checkpoint_present": true,
+  "checkpoint_contents_reread": false,
+  "configuration_workers": 14,
+  "observations": {
+    "parent_mask_has15": true,
+    "slurm_declares15": true,
+    "configured_reader_maximum": 14,
+    "actual_reader_count": 2,
+    "descendants_within_parent_mask": true,
+    "visible_gpu_matches": true,
+    "actual_gpu_context_matches": true
+  },
+  "scientific_benchmark": false
+}
