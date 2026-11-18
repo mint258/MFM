@@ -1,0 +1,39 @@
+{
+  "schema": "P_RECIPE_REGISTERED_ROUND4_V1",
+  "status": "REGISTERED_WAITING_FOR_C3",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261118.md",
+  "configurations": [],
+  "registered_configurations": [
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/Pprime.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/X1.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/X2.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F1.json"
+  ],
+  "readiness_by_arm": {
+    "PP": "PREPARED_WAITING_FOR_C3",
+    "F2": "PREPARED_WAITING_FOR_C3",
+    "X1": "PREPARED_WAITING_FOR_C3",
+    "X2": "WAITING_LOSS_MULTIPLIER_IMPLEMENTATION",
+    "F1": "WAITING_F1_IMPLEMENTATION_AND_ACCEPTANCE"
+  },
+  "baseline_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/M2.json",
+  "base_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/base.json",
+  "study_revision": "fixed_20261115",
+  "results_directory": "results/p_recipe/fixed_20261115/round4",
+  "control_directory": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/round4",
+  "screening_gpu_hour_limit": null,
+  "samples_per_run": 3000000,
+  "training_priority": [
+    "PP",
+    "F2",
+    "X1",
+    "X2",
+    "F1"
+  ],
+  "requires_C3_complete_before_launch": true,
+  "fidelity_pairs": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/fidelity_pairs.json",
+  "PP_fields": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/PP_fields.json",
+  "M2C_required": false,
+  "no_training_started": true
+}

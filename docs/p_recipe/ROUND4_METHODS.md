@@ -1,0 +1,49 @@
+# 第4轮：配对定义与预注册分析
+
+依据为 [USER_DIRECTIVE_20261118.md](USER_DIRECTIVE_20261118.md)。当前仅完成字段与配置准备；新训练在 C3 完成后启动。所有臂以已完成的 M2 seed0（A1+B3+B4，3M）为对照，不加入 head 类型线或任务解耦线的改动。
+
+## PM7–xTB 配对
+
+[唯一配对表](../../configs/p_recipe/fixed_20261115/round4/fidelity_pairs.json)同时记录已配对项和所有未配对字段及原因。物理定义、分子/电子态、溶剂、粒度、维度和符号约定必须对应；不以家族相同或单位可换算代替物理定义相同。
+
+注册表来源为 `workflows/screening/registry/label_registry_v2.json`。垂直 IP/EA 的 PM7 定义同时核对 `wp5_engine_v2.py:derived_quantities`；xTB 的原生 delta-SCC IP/EA 及偶极读入核对现有解析器。目标值不做变换，每个字段继续使用原11-07归一化（A1 的注册元素参考仍按各自来源）。
+
+| 物理量 | PM7 | xTB | 粒度／单位 | 对齐 |
+| --- | --- | --- | --- | --- |
+| HOMO 能量 | r61 | r671 | 分子标量／eV | 中性气相，同一几何上的占据前线轨道能量 |
+| LUMO 能量 | r63 | r672 | 分子标量／eV | 中性气相，同一几何上的未占据前线轨道能量 |
+| 垂直电子亲和能 | r49 | r751 | 分子标量／eV | PM7 同几何带电态差，与 xTB 原生 delta-SCC EA 对应；不取负号或作差值标签 |
+| 垂直电离能 | r50 | r752 | 分子标量／eV | PM7 同几何带电态差，与 xTB 原生 delta-SCC IP 对应 |
+| 偶极 | r52 的 x/y/z | r669 的 x/y/z | 分子三维向量／Debye | 按相同坐标分量对齐，保留每种方法一个完整物理向量头 |
+
+共5组物理头、7对训练视图字段。F2 仅去掉表内7个 xTB 字段，保留102个字段。F1 将每组物理头共享，两种方法分别使用可学习的8维方法向量；未配对字段保留原头与原损失权重。
+
+以下粗配对不进入本次精确配对表：
+
+- PM7 的 dielectric energy 与 xTB Gsolv：不是注册表中同一热力学量，换算 eV/Eh 不能解决定义差异。
+- PM7 net atomic charge 与 xTB partial charge：注册表未建立一致的人口划分定义。
+- PM7 generic bond-order population 与 xTB Wiberg index：注册表未建立相同键级指标的对应。
+- PM7 Coulson Fukui 与 xTB generic condensed Fukui：注册表未明确共同的人口划分约定，不能只按 plus/minus 名称配对。
+- 其余没有同态、同溶剂、同粒度、同维度且可唯一对应的字段，在 JSON 表中逐字段记录未配对原因。
+
+## P 与 Pprime
+
+[交集清单](../../configs/p_recipe/fixed_20261115/round4/PP_fields.json)核对全部109个共同字段的 field_key、registry_id、component、physical target_id、源路径及选择器。两种来源使用同一训练视图/物理字段定义；差异是几何来源与已注册的 A1 元素参考。r73 的 sigma/pi 使用训练视图显式定义的 source_field、聚合规则与选择器，未重新定义标签。
+
+P 与 Pprime 的交集都是109个字段，所以只准备 PP，不加 M2C。PP 的路径/运行名使用 `Pprime`，source=UFF，condition=Pprime；复用已拟合的 UFF_A1.json，以及来源可用的 TRAIN1,192,951、Common VAL7,560。原全TRAIN11-07归一化不变，未重拟合。
+
+PP 不是配方组件。对照为 M2 seed0，噪声项复用[已完成的 M2 seed1](../../configs/p_recipe/M2_SEED1_REFERENCE.json)：观察到的 R3 两种子差为0.002047178249612591，仅作为此处的预注册噪声比较项。
+
+## 训练与判定
+
+所有臂训练3M、B32、FP32/TF32关、lr3e-4，无累积/逐层重算；每条自身预算内2% warmup、cosine退火至0。裁剪初值281.7，60k–150k样本窗口的裁剪前范数p99在150016样本处冻结；每1M完整断点，读出R1/R3。
+
+X1 去掉 r623/r624/r625，字段选择同时使扰动几何额外前向不再执行；记录实际吞吐。X2 只将 r624/r625 的相对损失权重乘5，r623不变，不扫倍数。
+
+F1 新逻辑只增加一个单元测试：配对字段共享头参数，且不同方法向量产生不同输出。验收为真实加载器及一次逐头过拟合，不另做诊断。开发/诊断超过4小时或连续失败2次，标为未解决并跳过F1，其余臂继续。
+
+X1/X2/F1/F2 对 M2 seed0 做分子为单位、1000次、seed20261025 的配对 bootstrap。R3为主分，R1仅报告。胜出须CI下界>0且 Δ≥max(0.01,0.05×较大R3)。X1/F2 平局采纳较简单的去掉项；X2/F1平局不采纳。同组互斥项按既有规则保留较大Δ。
+
+若M3=M2，胜出项合并为M4；否则再以3M比较M3+胜出项与M3，胜了才更新 CURRENT_BEST。PP不参与合并。PP与对照的CI不含0、|Δ|达到最小幅度且超过已观察两种子R3差时，才在日报向用户建议砍T4；否则保留9M T4。本阶段不自行取消T4，不提前提交9M。
+
+各臂实际Δ、CI、PP的T4建议与最终合并结果将在运行完成后追加；这里没有未运行的结果。
