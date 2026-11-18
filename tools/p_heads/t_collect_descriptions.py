@@ -5,6 +5,7 @@ from h_resources import REPO,CONTROL,guard,load,save
 def main():
     p=argparse.ArgumentParser();p.add_argument('--configuration',required=True);a=p.parse_args();guard(force=True)
     c=load(a.configuration);run=c['run'];arm=c['arm']
+    stem=arm if c['seed']==0 else arm+'_seed'+str(c['seed'])
     score_source=CONTROL/'scores.csv'
     val_source=CONTROL/'runtime/results/p_recipe/training'/run/'VAL_original_units_3000000.csv'
     with score_source.open() as stream:
@@ -16,8 +17,8 @@ def main():
     payload=dict(arm=arm,run=run,samples=3000000,seed=c['seed'],
         reuse='Existing producer CSV rows copied only; no reevaluation, refitting, bootstrap or MAE recomputation',
         CYP_source=str(score_source),VAL_source=str(val_source),CYP=cyp,VAL=val)
-    save(REPO/'results/p_heads/T'/(arm+'_descriptions.json'),payload)
-    lines=['# '+arm+' 生产者描述性字段附表','',
+    save(REPO/'results/p_heads/T'/(stem+'_descriptions.json'),payload)
+    lines=['# '+arm+' seed '+str(c['seed'])+' 生产者描述性字段附表','',
         '运行：`'+run+'`。直接转录既有3M生产者记录，没有重新评价、拟合、bootstrap或计算MAE。','',
         'CYP来源：`'+str(score_source)+'`。CYP不进入七任务主分。','',
         '| 读出 | 任务 | 原误差 | 随机参考误差 | score | 排除主分 |','| --- | --- | ---: | ---: | ---: | --- |']
@@ -25,6 +26,6 @@ def main():
     lines += ['', '逐字段原单位VAL来源：`'+str(val_source)+'`。','',
         '| 字段 | 原单位MAE | 观察数 | 单位 |','| --- | ---: | ---: | --- |']
     lines += ['| '+r['field']+' | '+str(r['MAE_original_units'])+' | '+str(r['observations'])+' | '+r['unit'].replace('|','\\|')+' |' for r in val]
-    guard(force=True);(REPO/'docs/p_heads'/(arm+'_FIELDS.md')).write_text('\n'.join(lines)+'\n')
+    guard(force=True);(REPO/'docs/p_heads'/(stem+'_FIELDS.md')).write_text('\n'.join(lines)+'\n')
     print(dict(arm=arm,run=run,CYP_rows=len(cyp),VAL_fields=len(val)),flush=True)
 if __name__=='__main__':main()
