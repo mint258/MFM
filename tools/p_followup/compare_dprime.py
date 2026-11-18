@@ -73,7 +73,9 @@ def main():
     outcome = decision([v['comparisons']['R3'] for v in comparisons.values()], baseline_r3)
     result = dict(**outcome, primary='Dprime minus M2/R3', samples=3000000, comparisons=comparisons,
                   seed0_statistics_reused=seed0_reused,
-                  mainline_modified=False, integration_requires_user_confirmation=True)
+                  mainline_modified=False, integration_requires_user_confirmation=False,
+                  integration_owner='recipe line',
+                  integration_directive='docs/p_followup/USER_DIRECTIVE_20261118.md')
     save(result_path, result)
     lines = ['# D′ 对当前最优M2的配对比较', '',
         '复用各运行精确3M的既有R1/R3及1000次MID配对bootstrap。任务集和bootstrap分组/seed/次数/置信度一致后相减；不追加探针。判定严格采用用户2026-11-17补充计划：seed0仅在|Δ|≥0.06且95%CI不跨0时直接判定，否则补本线D′ seed1并复用配方线M2 seed1。两个seed均为正向CI且平均Δ≥max(0.03，M2两seed平均R3×8%)判胜；两CI均全负判负；其余持平。', '',
@@ -82,7 +84,7 @@ def main():
         for readout, comparison in value['comparisons'].items():
             lines.append(f"|{seed}|{readout}|{comparison['delta']}|{comparison['ci95']}|")
     lines += ['', '状态：' + outcome['status'] + '；判定：' + str(outcome['verdict']) + '。',
-        '只有win形成候选建议，实际接入仍由用户确认；不因CURRENT_BEST后续更新重跑本M2基底上的运行。',
+        '按2026-11-18收尾指示，两种子判定胜出项交配方线直接接入，不另等用户确认或新开验证轮；本线保留原M2对照基底并在最终报告列出配置键。',
         '', '原单位同分子构象差MAE与第6层表示几何仅描述，另见对应Dprime报告；C3只复用配方线分数及单次几何前向，不训练。']
     if seed0_reused:
         lines += ['', 'seed0闭合配对统计直接复用；本次只新增seed1的配对统计，未重算seed0或追加探针。']
