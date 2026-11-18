@@ -262,6 +262,9 @@ r45/r46的终点ratio分别约2.36%和2.00%，已回升到1%以上；只能表�
 
 R3未达|Δ|≥0.06且区间不跨0的单种子直接判定条件，原规则正式触发T2 seed1；当前不判胜／负／平或提前做两种子结论，current_best_confirmation_required=false，不启动CURRENT_BEST确认。已生成canonical `configs/p_heads/T/T2_seed1.json`：arm=T2、seed=1，run=p_heads_T2_seed1，output=CONTROL/training/p_heads_T2_seed1，独立request/ack路径，B3基底与6电荷+3Fukui、3M/B32/workers14均保持；不存在resume／resume_samples／resume_from_output／attempt／required_gpu_uuid迁移键。它是从头新种子配置，本窗口只核对来源与路径，不提交任务或改冻结源。
 
+T2 seed1独立源已实际准备并提交等待：4536169在gpu分区／node20仅CPU1、CUDA空执行冻结，COMPLETED／0:0／15秒；T2_seed1_source绑定4f1a80f，源码16,671,422字节，不是新GPU训练。正式真实队列4536170为gpu分区／node22／15CPU／nice10000，afterok提速任务4535799，使用既有stage43 SM120 Python（/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python），目标GPU前缀9b6008d0；当前PENDING／0秒／Dependency，未记为已启动。perf4535799实际等待T1及外部gmx88任务，依赖仅为物理资源接续，不等科学结果；若其他首个合规空闲卡先到，根只移动尚未启动的队列。5090必须使用兼容SM120环境，不使用旧cu118入口，也不抢用户为C3保留的20a。
+
+T2最终两种子组合判定必须等本臂seed1和唯一共享B3 seed1均真实完成3M、完整R1/R3且成功终态后，才由根一次运行既有组合入口；不提前重跑已完成T2 seed0判定或把PENDING当补跑完成。共享B3 4535778继续hold，T3 seed1 4535777仍原afterok C3，HCPU4536097仍R／4CPU；四处STATUS已发布，既有live保持。本文只引用根提供的新source／handle元数据，没有读取任何旧产物、数值或身份，源码/科学配置不变。
 共享对照直接复用已存在的 `configs/p_heads/T/B3_seed1.json`，run仍p_heads_B3_seed1、seed=1、fresh CONTROL/training/p_heads_B3_seed1，不另建第二条B3。该对照尚未跑完，不能据此提前完成两seed判定；4535778仍为C3优先/readiness安排而hold，此前问题未答不构成数据科学门；现用户已明确C3立即使用，优先保留快卡。HCPU4536097正在运行／4CPU，尚未读取或引用其未完统计。
 
 T2现成描述性产物为 `results/p_heads/T/T2_descriptions.json` 及 [T2_FIELDS.md](T2_FIELDS.md)：4条CYP、109个原单位VAL字段。CYP的R1 3A4／2D6 score为0.37499999999999994／0.31249999999999994，R3为0.238095238095238／0.18750000000000006，四条全部excluded_from_mean=true，不进入七任务主分；原误差、参考误差与完整109字段MAE/观察数/单位由后处理直接转录。本窗口只读已发布JSON/score摘要及核对附表存在，没有读取原CSV、CP或H未完统计。
