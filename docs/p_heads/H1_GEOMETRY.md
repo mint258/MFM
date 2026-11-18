@@ -22,6 +22,7 @@ CEV为首允许构象的mean(H)由分子组成OOF预测解释的方差比例，1
 |M2|6|0.416578 [0.405425, 0.425736]|0.293236 [0.292221, 0.29444]|0.0414773 [0.0399247, 0.0429228]|0.0704326 [0.0677911, 0.0731695]|
 |T3|6|0.371882 [0.361839, 0.380531]|0.343035 [0.341535, 0.344706]|0.0456764 [0.0440357, 0.0473097]|0.0719474 [0.0691143, 0.0748076]|
 |T2|6|0.435555 [0.423259, 0.445364]|0.289286 [0.287858, 0.290865]|0.0386306 [0.0370478, 0.0400589]|0.0680037 [0.0652621, 0.0707119]|
+|T1|6|0.449049 [0.435871, 0.459614]|0.283401 [0.282325, 0.28465]|0.0396013 [0.0380797, 0.0410376]|0.0713951 [0.0685902, 0.074148]|
 
 |预注册效应|点估计及配对95%CI|门槛|判定|
 |---|---|---|---|
@@ -31,22 +32,20 @@ CEV为首允许构象的mean(H)由分子组成OOF预测解释的方差比例，1
 
 三项联合预注册判定：SUPPORT。
 
+T1相对M2的EEV差为-0.00983562，仅作机制描述，不追加方向检验。
+
 T2相对B3的EEV差为0.0120948，仅作机制描述，不追加方向检验。
 
 M2的精确3M检查点已在H执行期间产出，按原范围补充同一5000 VAL分子、47698个允许构象的第3–6层几何，仅作机制描述，不新增显著性检验或独立判定。
 
 M2运行：Slurm 4535641，compute-0-20，4 CPU，COMPLETED 0:0，8分52秒；producer前向与统计合计522.33秒。截至M2几何完成，H已执行GPU作业累计墙钟5.0148小时，后续T几何另计。
 
-T2最终3M第6层已完成：同5000个VAL分子和47698个允许构象，使用原h_geometry.py的--condition T2 --device cpu，FP32编码器、F64统计和原bootstrap保持不变。Slurm 4536097，partition=gpu、compute-0-20、4CPU、nice10000，afterok:4535630，COMPLETED 0:0；作业墙钟29分03秒，producer前向与统计1709.78秒。CUDA_VISIBLE_DEVICES为空，OMP/OpenBLAS/MKL/NumExpr各4线程，srun --cpu-bind=cores；未占用GPU或UUID锁，未运行CPU/GPU对照、测速或重复几何。H1_geometry.json采用整写，因此其他H1任务在本次终态与结果写入之后顺序处理，训练各臂仍独立并行。
+CPU几何方法：T2和T1的最终3M均用原h_geometry.py --device cpu，同5000个VAL分子、47698个允许构象、FP32编码器、F64统计及原bootstrap；CUDA_VISIBLE_DEVICES为空，OMP/OpenBLAS/MKL/NumExpr各4线程，srun --cpu-bind=cores，node20的ThreadsPerCore=1。T2作业4536097 C0/29:03/4CPU，producer1709.78秒；T1作业4536173 C0/25:12/4CPU，producer1468.52秒，约16:29结束。未做设备对照、测速、重复几何或新增方向检验；T1对M2和T2对B3的EEV点差仅转录原report的描述。
 
-CPU方法事实复用唯一观察，不重新采集：2026-11-18 13:27:15 CST，作业13:25:05启动；Slurm step0/rank0真实Python PID89474，UID1278、PPID89469、PGID89474、start_ticks15848716。实际affinity为0–3四核，与Slurm CPU_IDs=0–3一致，节点ThreadsPerCore=1；CUDA_VISIBLE_DEVICES为空，nvidia-smi计算进程查询成功且该Python无GPU context。89461/89462是srun，89474为venv Python入口。提交前node20实际字节、inode、UID配额和24GiB合并峰值guard通过，启动及运行继续原守卫。
+真实CPU方法事实仅复用各作业一次观察，不重新采集。T2：13:27:15 CST观察、13:25:05启动，step0/rank0 Python PID89474，UID1278、PPID89469、PGID89474、start_ticks15848716；actual affinity0–3对应Slurm CPU_IDs0–3。T1：16:06:59.084053 CST观察、16:03:41启动，step0/rank0 Python PID92635，UID1278、PPID92630、PGID92635、start_ticks16800524；actual affinity1–4对应Slurm CPU_IDs1–4。两者CUDA_VISIBLE_DEVICES确为空，nvidia-smi计算进程查询成功且本H Python均无GPU context；均使用model_v2 venv Python入口，实际exe为chemprop Python3.11。
 
-成本：H已闭合GPU作业累计6.2251 GPU-h保持不变；T2几何单列4×1743/3600=1.9366667 CPU-h，GPU为0。另有CPU18元数据容量前置作业4536096，1CPU分配3分20秒后取消，单列0.0555556 allocation CPU-h，无科学输出，不计入几何或GPU成本。后续仅在实际最终T/种子检查点产出后顺序补层6，全部科学工作尚未结束。
+成本：H已闭合GPU作业累计6.2251 GPU-h不变；T2几何1.9366667 CPU-only allocation h，T1几何1.68 CPU-only allocation h，两项合计3.6166667 CPU-h，GPU均为0。另CPU18元数据容量前置4536096取消3:20/1CPU，单列0.0555556 allocation CPU-h、无科学输出，不混入几何或GPU成本。
 
-T1最终第6层4536173已于2026-11-18 16:03:41 CST启动，afterok:4535781已满足；partition=gpu、compute-0-20、4CPU、nice10000、CUDA_VISIBLE_DEVICES为空，原h_geometry.py --condition T1 --device cpu，输入仅为CONTROL/training/p_heads_T1_seed0_sbatch/samples_3000000.pt；OMP/OpenBLAS/MKL/NumExpr各4线程及srun --cpu-bind=cores，与已完成T2路线相同。仍保持实际节点字节/inode/UID配额及并发峰值guard；结果、用时和CPU成本待真实成功终态一次记录，当前不计已完成成本。T2 writer已结束，目前仅此一个在运行H1整写任务，其他H1不并发排队；各训练和后处理不因H1统计增加科学依赖。
-
-T1 CPU方法事实仅观察一次：2026-11-18 16:06:59.084053 CST，Slurm step0/rank0真实Python PID92635，UID1278、PPID92630、PGID92635、start_ticks16800524。actual affinity为1–4四核，与该作业Slurm CPU_IDs=1–4一致；CUDA_VISIBLE_DEVICES为空，nvidia-smi计算进程查询成功且该Python无GPU context。入口为model_v2_cu118_20261105/bin/python，实际exe为chemprop/bin/python3.11；未作科学测试、测速、设备数值对照或检查点读取。
+后续真实H1队列按整写顺序：已完成T1 writer4536173→T5 CPU4536219→T4 CPU4536220。T5父依赖为afterok:4535747并AND afterany:4536173；T4父依赖为afterok:4535771并AND afterany:4536219。均node20/gpu、4CPU、nice10000、空CUDA、4线程及srun绑核，原入口condition分别为T5/T4，最终输入为CONTROL/training/p_heads_T5_seed0/samples_3000000.pt及p_heads_T4_seed0/samples_3000000.pt。预排前实际容量guard已通过，启动及运行继续字节/inode/UID配额和24GiB合并峰值守卫；未执行的作业不计已完成成本。该顺序只防止H1_geometry.json整写覆盖，不影响各训练臂和原后处理独立并行；后续实际触发的seed1沿独立condition键顺序处理。
 
 局限：组成解释率与构象比例是描述性几何指标，不能单独证明下游效应的因果来源。按用户补充指示，T1取消原逐头验收并改用M2基底正式训练；T2/T3保持B3基底，新增T4/T5也以B3为基底。T1–T5及按预注册实际触发的seed1只在各自精确最终3M检查点产出后补充第6层，不分析中间恢复点；机制描述绑定各自基底，不扩展方向检验。
-
-T4/T5最终点的纯CPU几何已预排：T5为真实4536219（afterok:4535747 AND afterany:4536173）；T4为4536220（afterok:4535771 AND afterany:4536219）。Slurm已确认两者PENDING/0:00、各4CPU/nice10000/node20/gpu分区，尚无GPU分配或科学执行。均空CUDA、数值库4线程、srun --cpu-bind=cores，原h_geometry入口只读各自真实最终3M。前一H1 writer的afterany只防整写并发，训练仍并行，各自训练与原读出须成功afterok；可按未来实际就绪情况调整尚未启动的写入顺序。提交前actual node20磁盘/inode/UID及本线24GiB合并峰值守卫通过，运行时原watchdog继续保护。seed1独立condition及文件名路由已原生支持，无代码或统计变更、不新增验证。
