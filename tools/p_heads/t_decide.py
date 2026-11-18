@@ -41,8 +41,17 @@ def main():
         if arm in ('T1','T2_confirm'):raise ValueError('Explicit current-recipe reference binding required')
         base_path='configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json'
     base=load(config_path(base_path))
-    candidate=load(pathlib.Path(c['output'])/'readout/scores.json');reference=load(pathlib.Path(base['output'])/'readout/scores.json')
-    results={r:paired(candidate[r],reference[r]) for r in ('R1','R3')}
+    result_path=REPO/'results/p_heads/T'/(arm+'_deltas.json')
+    if result_path.exists():
+        cached=load(result_path)
+        if cached.get('arm')!=arm or any(not all(k in cached.get('results',{}).get(r,{}) for k in ('delta','ci95','candidate','reference')) for r in ('R1','R3')):
+            raise ValueError('Existing seed0 result does not match the requested arm')
+        if cached.get('reference_configuration') and config_path(cached['reference_configuration']).resolve()!=config_path(base_path).resolve():
+            raise ValueError('Existing seed0 reference configuration differs')
+        results=copy.deepcopy({r:cached['results'][r] for r in ('R1','R3')})
+    else:
+        candidate=load(pathlib.Path(c['output'])/'readout/scores.json');reference=load(pathlib.Path(base['output'])/'readout/scores.json')
+        results={r:paired(candidate[r],reference[r]) for r in ('R1','R3')}
     trigger=single(results['R3'])=='seed1_required' and arm!='T2_confirm';needed=[]
     external=binding.get('reuse_external_seed1',arm=='T1')
     external_path=a.reference_seed1_configuration or binding.get('seed1_configuration')
@@ -70,16 +79,18 @@ def main():
         if cx['arm']!=arm or cx['seed']!=1:raise ValueError('Canonical candidate must match arm and seed1')
         cp=pathlib.Path(cx['output'])/'readout/scores.json'
         bp=None if reference_seed1 is None else pathlib.Path(reference_seed1['output'])/'readout/scores.json'
-        if bp is not None and cp.exists() and bp.exists():
+        missing=[r for r in ('R1','R3') if 'seed1' not in results[r]]
+        if missing and bp is not None and cp.exists() and bp.exists():
             cc,bb=load(cp),load(bp)
-            for readout,r in results.items():
-                r['seed1']=paired(cc[readout],bb[readout]);r['verdict']=both(r,r['seed1'])
-            noise=abs(reference['R3']['mean_normalized_improvement']-bb['R3']['mean_normalized_improvement'])
+            for readout in missing:results[readout]['seed1']=paired(cc[readout],bb[readout])
+        if all('seed1' in results[r] for r in ('R1','R3')):
+            for readout,r in results.items():r['verdict']=both(r,r['seed1'])
+            noise=abs(results['R3']['reference']-results['R3']['seed1']['reference'])
             outcome.update(status='COMPLETE_TWO_SEEDS',reference_R3_training_noise=noise)
             if base['arm']=='B3':outcome['B3_R3_training_noise']=noise
     outcome['current_best_confirmation_required']=arm=='T2' and results['R3'].get('verdict')=='win'
     if outcome['current_best_confirmation_required']:
         outcome['confirmation']='One fresh3M seed0 on published CURRENT_BEST, reference reused; root coordinates preparation/submission'
-    save(REPO/'results/p_heads/T'/(arm+'_deltas.json'),outcome)
+    save(result_path,outcome)
     print(outcome,flush=True)
 if __name__=='__main__':main()
