@@ -44,16 +44,16 @@
                                        "native_start_ticks":  14495466,
                                        "native_pgid":  83964,
                                        "observation_status":  "LIVE_BOUND_PROCESS",
-                                       "live_verified_at":  1794966088.778298,
+                                       "live_verified_at":  1794969806.457703,
                                        "progress":  {
-                                                        "samples":  8608,
+                                                        "samples":  182464,
                                                         "budget":  3000000,
-                                                        "updates":  269,
-                                                        "last_loss":  0.8110108971595764,
-                                                        "samples_per_second":  41.74332658491306,
-                                                        "remaining_hours":  19.905989536601584
+                                                        "updates":  5702,
+                                                        "last_loss":  0.21240796148777008,
+                                                        "samples_per_second":  46.532020172204305,
+                                                        "remaining_hours":  16.819576841763702
                                                     },
-                                       "observed_at":  1794966088.7810233
+                                       "observed_at":  1794969806.461537
                                    },
     "standby":  {
                     "backend":  "Slurm",
@@ -68,12 +68,23 @@
                     "decision_pending":  false,
                     "elapsed_seconds":  0.0,
                     "exit_code":  "0:0",
-                    "observed_at":  1794966088.781035
+                    "observed_at":  1794969806.4615457
                 },
     "closed_initial_gpu_occupied_hours":  0.0386666003200742944444444444,
     "continuation_gpu_occupied_hours":  null,
     "native_CPU_hours":  null,
     "cost_note":  "Running native interval remains open; no unmetered native CPU time is represented as zero. Standby currently PENDING with zero allocation elapsed.",
     "priority":  "Temporary preemptible idle-card backfill; recipeC3 keeps priority via existing SAVE_AND_EXIT/ACK; own originalD is complete",
-    "scientific_decision":  null
+    "scientific_decision":  null,
+    "clip_calibration":  {
+                             "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed0_continued/clip_calibration.json",
+                             "threshold":  5.9050891304016124,
+                             "window_start_samples":  60000,
+                             "calibration_samples":  150000,
+                             "observed_updates":  2813,
+                             "effective_freeze_samples":  150016,
+                             "quantile":  0.99,
+                             "sample_axis":  "optimizer_step_start",
+                             "fitted":  true
+                         }
 }
