@@ -5,8 +5,8 @@
     "current_best":  "configs/p_recipe/CURRENT_BEST.json",
     "confirmation":  {
                          "status":  "WAITING_FOR_ROUND3_M3",
-                         "user_switch_confirmation_received": true,
-                         "confirmed_new_perf_switches": "ALL_OFF",
+                         "user_switch_confirmation_received":  true,
+                         "confirmed_new_perf_switches":  "ALL_OFF",
                          "requires_perf_gpu_results":  true,
                          "requires_user_switch_confirmation":  true,
                          "freeze_switches_at_run_start":  true,
@@ -17,18 +17,18 @@
                               "first":  "perf/sync-free-20261117",
                               "then":  "M2_seed1",
                               "preferred_gpu_types":  [
-                                                          "5090",
-                                                          "4090"
+                                                          "5090"
                                                       ],
                               "candidate_node":  "compute-0-22",
                               "candidate_gpu_uuid":  "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
                               "observed_used_mib":  699,
                               "observed_total_mib":  32607,
                               "cohost_note":  "UID1283 gmx kept running; full launch admission still required",
-                              "handoff_status":  "PERF_GPU_COMPLETE_4535772_COMPLETED_ORIGINAL_PRIORITY_RESTORED",
+                              "handoff_status":  "5090_RETEST_WAITING_PER_USER_DIRECTIVE_20261117B",
                               "current_perf_job_id":  4535772,
                               "current_perf_job_status":  "COMPLETED",
-                              "gpu_priority_active":  false
+                              "gpu_priority_active":  true,
+                              "supplemental_authority":  "docs/p_recipe/USER_DIRECTIVE_20261117B.md"
                           },
     "C3_migration":  {
                          "authorized":  true,

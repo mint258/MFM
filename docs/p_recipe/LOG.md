@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-18 17:43UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:13:52UTC。
+
+2026-11-18 17:43UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2122272/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:13:52UTC。
+
 2026-11-17 22:09UTC · fixed20261115 round3 · M2_seed1 RUNNING 1178016/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:39:00UTC。
 
 2026-11-17 22:09UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 1126656/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次22:39:00UTC。
@@ -832,3 +836,13 @@ Five targeted checks passed on compute-0-20: pending approval creates no configu
 The user explicitly answered "确认全部关闭（建议）" to the pending9M switch question. confirmation_switches_20261118.json is now USER_CONFIRMED with the exact answer and source; the directive records received approval and waits only for round3/C3 completion and M3 selection. Keep16CPU/14readers,B32/FP32,TF32off,no accumulation/recomputation, with existing adopted runtime paths unchanged. All registered9M configurations will embed this approved snapshot and freeze it for the full run; none have been created or submitted yet. The daily formatter now reports approval instead of asking again.
 
 At06:09 C3/4535189 remains RUNNING on node6 at1126656/3M,12.73samples/s; M2 seed1/4535736 remains RUNNING on node7 at1178016/3M,69.89samples/s. Existing complete1M checkpoints and frozen clips remain in place. The06:03 fast-card inventory found node22/5090 at9285/32607MiB but its own GPU slot still occupied, and both node20/4090 slots occupied with memory above30%; no migration or source stop occurred. The next regular progress check is06:39CST.
+
+### 2026-11-19 01:43 CST — user-directed C3 migration to node20 GPU0 completed
+
+The user explicitly requested immediate C3 migration to compute-0-20 GPU index0 and continuous monitoring. Actual index0 maps to RTX4090 UUID GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5. Target admission found437/49140MiB, own GPU slot free and56 unallocated CPUs; root/Lustre/NFS bytes/inodes and fresh UID quotas passed, including500MB extra transient checkpoint allowance. No dataset transfer or other task stop was required.
+
+C3 source4535189/node6 cooperatively saved samples_2121056.pt (232053437bytes), acknowledged request bac75018-33ab-47d9-8dca-bbfd32685dae and exited0. Actual sacct confirms COMPLETED0:0/155014s; original PID1956854, CUDA context and own lock disappeared. Rollback0. Original configuration/output and all43.0594 allocation GPUh remain archived.
+
+The same registered C3 case resumes with unchanged FP32/TF32off/B32,14readers,3M sample clock, optimizer/sampler/RNG and frozen clip35.49390029907228. New sbatch4536352 is RUNNING on compute-0-20 GPU0,16CPU/noexclusive; bound PID101913/UID1278/start_ticks20270672/PGID101913. Positive resumed progress reached2122560 samples; the initial reported rate was15.32samples/s and is still settling. GPU0 was10551MiB on the follow-up check. Existing5-second capacity guards and30-second telemetry remain active; assistant checks continue every30minutes, next02:13CST.
+
+Preserved the newer user commit05852a55 and read USER_DIRECTIVE_20261117B.md: next idle5090 remains reserved for perf-line retesting; current explicit node20 migration does not consume it. The5090 delivery is still in progress, with no adopted switches. Previously approved9M switches remain all off; wait for C3/M3. M2 seed1 job4535736 is now actually COMPLETED0:0; publish its complete shared reference next after inspecting the completed checkpoint/readouts, without rerunning it.
