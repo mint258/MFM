@@ -1,0 +1,1814 @@
+{
+  "status": "COMPLETE",
+  "scope": "All 99 common C/D P training fields, frozen VAL conformer pairs within current allowed k10; source atom order and directed pair endpoints preserved",
+  "raw_target": "Current existing F32 labels promoted to F64; sidecar off in both arms",
+  "descriptive_only": true,
+  "seed": 0,
+  "frozen_records": 3741,
+  "requested_pairs": 2371,
+  "used_pairs": 2371,
+  "unavailable_pairs": 0,
+  "provenance": {
+    "C": {
+      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/p_followup_20261116_C_dedup_sbatch/samples_3000000.pt",
+      "samples": 3000000,
+      "records": 3741,
+      "records_outside_current_allowed_k10": 0,
+      "fields": {
+        "P.pm7_cation.r273.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_water.r399.y": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r82.De": {
+          "unit": "1/eV (source-dimensional inference)",
+          "level": "atom"
+        },
+        "P.pm7_B.r83.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r56.J": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.xtb_singlepoint.r669.y": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_anion.r210.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_anion.r190.s": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r82.Dn": {
+          "unit": "1/eV (source-dimensional inference)",
+          "level": "atom"
+        },
+        "P.pm7_B.r56.NN": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_cation.r259.s": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_anion.r190.p": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.xtb_singlepoint.r671.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r52.y": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.xtb_singlepoint.r667.value": {
+          "unit": "bohr^3",
+          "level": "atom"
+        },
+        "P.xtb_vipea.r751.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r82.charge_density_q_minus_Z": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r73.value.pi": {
+          "unit": "bond-order population",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_octanol.r340.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_B.r52.z": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r52.x": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r58.value": {
+          "unit": "kcal mol^-1 A^-1",
+          "level": "atom_vector"
+        },
+        "P.pm7_B.r40.value": {
+          "unit": "bond-order population",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_B.r55.electron_electron": {
+          "unit": "eV",
+          "level": "atom"
+        },
+        "P.pm7_octanol.r331.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_octanol.r332.z": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r63.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_cation.r265.x": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.xtb_singlepoint.r669.z": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.xtb_singlepoint.r670.value": {
+          "unit": "Eh",
+          "level": "molecule"
+        },
+        "P.pm7_water.r398.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r47.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.xtb_ALPB_water.r499.value": {
+          "unit": "Eh",
+          "level": "molecule"
+        },
+        "P.xtb_vfukui.r712.f_minus": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_cation.r279.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r45.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r65.value": {
+          "unit": "e",
+          "level": "sparse_atom_pair"
+        },
+        "P.xtb_singlepoint.r672.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r56.K": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_anion.r204.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_water.r399.z": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r42.value": {
+          "unit": "A^2",
+          "level": "molecule"
+        },
+        "P.xtb_ALPB_octanol.r459.value": {
+          "unit": "Eh",
+          "level": "molecule"
+        },
+        "P.pm7_octanol.r326.s": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r64.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r61.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.xtb_ALPB_water.r498.value": {
+          "unit": "Eh",
+          "level": "molecule"
+        },
+        "P.pm7_octanol.r332.y": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r56.total": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_B.r62.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_cation.r265.y": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_water.r413.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r56.C": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.xtb_vfukui.r712.f_radical": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_octanol.r343.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_water.r399.x": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_anion.r196.x": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.xtb_vfukui.r712.f_plus": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r53.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_B.r46.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.xtb_singlepoint.r677.value": {
+          "unit": "bond-order population",
+          "level": "sparse_atom_pair"
+        },
+        "P.xtb_vipea.r752.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r50.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_water.r408.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r49.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_water.r393.p": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.xtb_singlepoint.r666.value": {
+          "unit": "Eh bohr^6",
+          "level": "atom"
+        },
+        "P.xtb_singlepoint.r668.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.xtb_fod.r537.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.xtb_singlepoint.r669.x": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_water.r410.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_cation.r259.p": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r68.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r60.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_B.r43.value": {
+          "unit": "A^3",
+          "level": "molecule"
+        },
+        "P.pm7_B.r55.electron_nuclear": {
+          "unit": "eV",
+          "level": "atom"
+        },
+        "P.pm7_B.r84.value": {
+          "unit": "bond-order population",
+          "level": "atom"
+        },
+        "P.pm7_B.r56.EN": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_B.r55.total": {
+          "unit": "eV",
+          "level": "atom"
+        },
+        "P.pm7_B.r39.s": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_cation.r265.z": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_octanol.r341.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_water.r407.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_water.r393.s": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r73.value.sigma": {
+          "unit": "bond-order population",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_anion.r196.z": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r39.p": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_octanol.r326.p": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_octanol.r332.x": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r44.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_octanol.r346.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r56.EE": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.xtb_fod.r538.value": {
+          "unit": "e",
+          "level": "molecule"
+        },
+        "P.pm7_B.r48.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.xtb_ALPB_octanol.r460.value": {
+          "unit": "Eh",
+          "level": "molecule"
+        },
+        "P.pm7_anion.r196.y": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.xtb_perturbed_gradient.r623.value": {
+          "unit": "Eh",
+          "level": "molecule"
+        },
+        "P.xtb_perturbed_gradient.r624.value": {
+          "unit": "eV A^-1",
+          "level": "atom_vector"
+        },
+        "P.xtb_perturbed_gradient.r625.value": {
+          "unit": "Eh bohr^-1",
+          "level": "atom_vector"
+        }
+      }
+    },
+    "D": {
+      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/D_decomposition/samples_3000000.pt",
+      "samples": 3000000,
+      "records": 3741,
+      "records_outside_current_allowed_k10": 0,
+      "fields": {
+        "P.pm7_water.r399.y": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r82.De": {
+          "unit": "1/eV (source-dimensional inference)",
+          "level": "atom"
+        },
+        "P.pm7_B.r56.J": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.xtb_singlepoint.r669.y": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_anion.r210.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_anion.r190.s": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r82.Dn": {
+          "unit": "1/eV (source-dimensional inference)",
+          "level": "atom"
+        },
+        "P.pm7_B.r56.NN": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_cation.r259.s": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_anion.r190.p": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r52.y": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.xtb_singlepoint.r667.value": {
+          "unit": "bohr^3",
+          "level": "atom"
+        },
+        "P.pm7_B.r82.charge_density_q_minus_Z": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r73.value.pi": {
+          "unit": "bond-order population",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_B.r52.z": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r52.x": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r58.value": {
+          "unit": "kcal mol^-1 A^-1",
+          "level": "atom_vector"
+        },
+        "P.pm7_B.r40.value": {
+          "unit": "bond-order population",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_B.r55.electron_electron": {
+          "unit": "eV",
+          "level": "atom"
+        },
+        "P.pm7_octanol.r332.z": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_cation.r265.x": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.xtb_singlepoint.r669.z": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.xtb_vfukui.r712.f_minus": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_cation.r279.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r45.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r65.value": {
+          "unit": "e",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_B.r56.K": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_water.r399.z": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_octanol.r326.s": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r64.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_octanol.r332.y": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r56.total": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_cation.r265.y": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_water.r413.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r56.C": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.xtb_vfukui.r712.f_radical": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_water.r399.x": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_anion.r196.x": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.xtb_vfukui.r712.f_plus": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r46.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.xtb_singlepoint.r677.value": {
+          "unit": "bond-order population",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_water.r393.p": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.xtb_singlepoint.r666.value": {
+          "unit": "Eh bohr^6",
+          "level": "atom"
+        },
+        "P.xtb_singlepoint.r668.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.xtb_fod.r537.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.xtb_singlepoint.r669.x": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_cation.r259.p": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r68.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r55.electron_nuclear": {
+          "unit": "eV",
+          "level": "atom"
+        },
+        "P.pm7_B.r84.value": {
+          "unit": "bond-order population",
+          "level": "atom"
+        },
+        "P.pm7_B.r56.EN": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_B.r55.total": {
+          "unit": "eV",
+          "level": "atom"
+        },
+        "P.pm7_B.r39.s": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_cation.r265.z": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_water.r393.s": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r73.value.sigma": {
+          "unit": "bond-order population",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_anion.r196.z": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r39.p": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_octanol.r326.p": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_octanol.r332.x": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.pm7_B.r44.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_octanol.r346.value": {
+          "unit": "e",
+          "level": "atom"
+        },
+        "P.pm7_B.r56.EE": {
+          "unit": "eV",
+          "level": "sparse_atom_pair"
+        },
+        "P.pm7_anion.r196.y": {
+          "unit": "Debye",
+          "level": "molecule_vector"
+        },
+        "P.xtb_perturbed_gradient.r624.value": {
+          "unit": "eV A^-1",
+          "level": "atom_vector"
+        },
+        "P.xtb_perturbed_gradient.r625.value": {
+          "unit": "Eh bohr^-1",
+          "level": "atom_vector"
+        },
+        "P.pm7_water.r410.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_octanol.r331.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_cation.r273.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_B.r63.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r60.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_octanol.r343.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.xtb_singlepoint.r670.value": {
+          "unit": "Eh",
+          "level": "molecule"
+        },
+        "P.pm7_B.r83.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r43.value": {
+          "unit": "A^3",
+          "level": "molecule"
+        },
+        "P.pm7_B.r53.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_water.r398.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r47.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_octanol.r341.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.xtb_ALPB_water.r499.value": {
+          "unit": "Eh",
+          "level": "molecule"
+        },
+        "P.pm7_water.r407.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.xtb_singlepoint.r672.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.xtb_vipea.r752.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r50.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.xtb_singlepoint.r671.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_anion.r204.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_B.r42.value": {
+          "unit": "A^2",
+          "level": "molecule"
+        },
+        "P.xtb_ALPB_octanol.r459.value": {
+          "unit": "Eh",
+          "level": "molecule"
+        },
+        "P.pm7_water.r408.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r49.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.xtb_vipea.r751.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.pm7_B.r61.value": {
+          "unit": "eV",
+          "level": "molecule"
+        },
+        "P.xtb_ALPB_water.r498.value": {
+          "unit": "Eh",
+          "level": "molecule"
+        },
+        "P.xtb_fod.r538.value": {
+          "unit": "e",
+          "level": "molecule"
+        },
+        "P.pm7_octanol.r340.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.pm7_B.r48.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.xtb_ALPB_octanol.r460.value": {
+          "unit": "Eh",
+          "level": "molecule"
+        },
+        "P.pm7_B.r62.value": {
+          "unit": "kcal/mol",
+          "level": "molecule"
+        },
+        "P.xtb_perturbed_gradient.r623.value": {
+          "unit": "Eh",
+          "level": "molecule"
+        }
+      }
+    }
+  },
+  "fields": {
+    "P.pm7_B.r39.p": {
+      "C_MAE": 0.006135200766864955,
+      "D_MAE": 0.010601118677884784,
+      "D_minus_C": 0.004465917911019829,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_B.r39.s": {
+      "C_MAE": 0.0031402942605287796,
+      "D_MAE": 0.003422944174833498,
+      "D_minus_C": 0.0002826499143047183,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_B.r40.value": {
+      "C_MAE": 0.0015794764207175043,
+      "D_MAE": 0.002156389795500374,
+      "D_minus_C": 0.00057691337478287,
+      "observations": 860498,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "bond-order population",
+      "level": "sparse_atom_pair"
+    },
+    "P.pm7_B.r42.value": {
+      "C_MAE": 3.5877690876852557,
+      "D_MAE": 2.964282507044502,
+      "D_minus_C": -0.6234865806407536,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "A^2",
+      "level": "molecule"
+    },
+    "P.pm7_B.r43.value": {
+      "C_MAE": 2.378087094313658,
+      "D_MAE": 2.338722092166339,
+      "D_minus_C": -0.03936500214731864,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "A^3",
+      "level": "molecule"
+    },
+    "P.pm7_B.r44.value": {
+      "C_MAE": 0.012931278106410546,
+      "D_MAE": 0.013453549698621184,
+      "D_minus_C": 0.0005222715922106376,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_B.r45.value": {
+      "C_MAE": 0.012181391849513744,
+      "D_MAE": 0.012567051995256573,
+      "D_minus_C": 0.0003856601457428287,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_B.r46.value": {
+      "C_MAE": 0.010260242326692927,
+      "D_MAE": 0.010560083469336658,
+      "D_minus_C": 0.0002998411426437311,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_B.r47.value": {
+      "C_MAE": 0.4883741138731563,
+      "D_MAE": 0.46958153686871873,
+      "D_minus_C": -0.018792577004437646,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "kcal/mol",
+      "level": "molecule"
+    },
+    "P.pm7_B.r48.value": {
+      "C_MAE": 0.5850071935576259,
+      "D_MAE": 0.560051203546515,
+      "D_minus_C": -0.024955990011110776,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "kcal/mol",
+      "level": "molecule"
+    },
+    "P.pm7_B.r49.value": {
+      "C_MAE": 0.14066546456367862,
+      "D_MAE": 0.13250865050732974,
+      "D_minus_C": -0.00815681405634888,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.pm7_B.r50.value": {
+      "C_MAE": 0.1151403073568678,
+      "D_MAE": 0.11137262078617566,
+      "D_minus_C": -0.003767686570692141,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.pm7_B.r52.x": {
+      "C_MAE": 0.41023129336906144,
+      "D_MAE": 0.39639153793472437,
+      "D_minus_C": -0.013839755434337069,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_B.r52.y": {
+      "C_MAE": 0.3998616766372129,
+      "D_MAE": 0.35286615693791273,
+      "D_minus_C": -0.04699551969930021,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_B.r52.z": {
+      "C_MAE": 0.3795584162654185,
+      "D_MAE": 0.3329495697427639,
+      "D_minus_C": -0.04660884652265459,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_B.r53.value": {
+      "C_MAE": 0.3360616341516068,
+      "D_MAE": 0.27103250663961337,
+      "D_minus_C": -0.06502912751199337,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "kcal/mol",
+      "level": "molecule"
+    },
+    "P.pm7_B.r55.electron_electron": {
+      "C_MAE": 0.35079796770604005,
+      "D_MAE": 0.46586568497813835,
+      "D_minus_C": 0.11506771727209829,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "atom"
+    },
+    "P.pm7_B.r55.electron_nuclear": {
+      "C_MAE": 0.8742488204832226,
+      "D_MAE": 1.2628606306547856,
+      "D_minus_C": 0.38861181017156293,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "atom"
+    },
+    "P.pm7_B.r55.total": {
+      "C_MAE": 0.27119256986916296,
+      "D_MAE": 0.49425564694069213,
+      "D_minus_C": 0.22306307707152914,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "atom"
+    },
+    "P.pm7_B.r56.C": {
+      "C_MAE": 0.016047266633976803,
+      "D_MAE": 0.020130122414070292,
+      "D_minus_C": 0.0040828557800934905,
+      "observations": 860486,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "sparse_atom_pair"
+    },
+    "P.pm7_B.r56.EE": {
+      "C_MAE": 0.2458643243564983,
+      "D_MAE": 0.34221747640357386,
+      "D_minus_C": 0.09635315204707558,
+      "observations": 860486,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "sparse_atom_pair"
+    },
+    "P.pm7_B.r56.EN": {
+      "C_MAE": 0.9517375096941504,
+      "D_MAE": 0.7028387827534512,
+      "D_minus_C": -0.2488987269406992,
+      "observations": 860486,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "sparse_atom_pair"
+    },
+    "P.pm7_B.r56.J": {
+      "C_MAE": 0.010547767823833933,
+      "D_MAE": 0.0158181270354362,
+      "D_minus_C": 0.005270359211602268,
+      "observations": 860486,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "sparse_atom_pair"
+    },
+    "P.pm7_B.r56.K": {
+      "C_MAE": 0.005829083283417474,
+      "D_MAE": 0.007789512569869901,
+      "D_minus_C": 0.0019604292864524265,
+      "observations": 860486,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "sparse_atom_pair"
+    },
+    "P.pm7_B.r56.NN": {
+      "C_MAE": 0.27622577690879635,
+      "D_MAE": 0.3455639389584911,
+      "D_minus_C": 0.06933816204969476,
+      "observations": 860486,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "sparse_atom_pair"
+    },
+    "P.pm7_B.r56.total": {
+      "C_MAE": 0.020963624765541866,
+      "D_MAE": 0.02680080539155266,
+      "D_minus_C": 0.005837180626010796,
+      "observations": 860486,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "sparse_atom_pair"
+    },
+    "P.pm7_B.r58.value": {
+      "C_MAE": 0.12927140838831513,
+      "D_MAE": 0.12926732965780868,
+      "D_minus_C": -4.078730506444791e-06,
+      "observations": 378963,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "kcal mol^-1 A^-1",
+      "level": "atom_vector"
+    },
+    "P.pm7_B.r60.value": {
+      "C_MAE": 2.035563291426401,
+      "D_MAE": 1.9496981525842896,
+      "D_minus_C": -0.08586513884211117,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "kcal/mol",
+      "level": "molecule"
+    },
+    "P.pm7_B.r61.value": {
+      "C_MAE": 0.07689298008726096,
+      "D_MAE": 0.06706502515869825,
+      "D_minus_C": -0.009827954928562723,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.pm7_B.r62.value": {
+      "C_MAE": 0.1390784221608231,
+      "D_MAE": 0.1648284213086175,
+      "D_minus_C": 0.025749999147794397,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "kcal/mol",
+      "level": "molecule"
+    },
+    "P.pm7_B.r63.value": {
+      "C_MAE": 0.07191851605205912,
+      "D_MAE": 0.061577622108856686,
+      "D_minus_C": -0.010340893943202435,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.pm7_B.r64.value": {
+      "C_MAE": 0.008626332980364202,
+      "D_MAE": 0.009230781201207867,
+      "D_minus_C": 0.0006044482208436653,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_B.r65.value": {
+      "C_MAE": 0.00207977413448629,
+      "D_MAE": 0.0025456561066101373,
+      "D_minus_C": 0.000465881972123847,
+      "observations": 859787,
+      "conformer_pairs": 2369,
+      "molecules": 396,
+      "unit": "e",
+      "level": "sparse_atom_pair"
+    },
+    "P.pm7_B.r68.value": {
+      "C_MAE": 0.006473602950328417,
+      "D_MAE": 0.006836303936462429,
+      "D_minus_C": 0.00036270098613401145,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_B.r73.value.pi": {
+      "C_MAE": 0.0031475952038721175,
+      "D_MAE": 0.004500155110999568,
+      "D_minus_C": 0.0013525599071274508,
+      "observations": 227130,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "bond-order population",
+      "level": "sparse_atom_pair"
+    },
+    "P.pm7_B.r73.value.sigma": {
+      "C_MAE": 0.008184825499383583,
+      "D_MAE": 0.013051735171883407,
+      "D_minus_C": 0.004866909672499825,
+      "observations": 664511,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "bond-order population",
+      "level": "sparse_atom_pair"
+    },
+    "P.pm7_B.r82.De": {
+      "C_MAE": 0.011057350427932008,
+      "D_MAE": 0.012179105158183304,
+      "D_minus_C": 0.0011217547302512965,
+      "observations": 64875,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "1/eV (source-dimensional inference)",
+      "level": "atom"
+    },
+    "P.pm7_B.r82.Dn": {
+      "C_MAE": 0.01062903186093176,
+      "D_MAE": 0.012408077981488094,
+      "D_minus_C": 0.0017790461205563334,
+      "observations": 64875,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "1/eV (source-dimensional inference)",
+      "level": "atom"
+    },
+    "P.pm7_B.r82.charge_density_q_minus_Z": {
+      "C_MAE": 0.04262623740771789,
+      "D_MAE": 0.06283348558441537,
+      "D_minus_C": 0.020207248176697477,
+      "observations": 64875,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_B.r83.value": {
+      "C_MAE": 0.08404579698624665,
+      "D_MAE": 0.08019545032634882,
+      "D_minus_C": -0.0038503466598978314,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.pm7_B.r84.value": {
+      "C_MAE": 0.004023189511497197,
+      "D_MAE": 0.0062916752567717515,
+      "D_minus_C": 0.0022684857452745536,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "bond-order population",
+      "level": "atom"
+    },
+    "P.pm7_anion.r190.p": {
+      "C_MAE": 0.012720840816802297,
+      "D_MAE": 0.016883984092031738,
+      "D_minus_C": 0.004163143275229439,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_anion.r190.s": {
+      "C_MAE": 0.006076115063895982,
+      "D_MAE": 0.00648392198188101,
+      "D_minus_C": 0.00040780691798502744,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_anion.r196.x": {
+      "C_MAE": 5.2192642683414086,
+      "D_MAE": 4.955498916701206,
+      "D_minus_C": -0.26376535164020276,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_anion.r196.y": {
+      "C_MAE": 2.992798026626005,
+      "D_MAE": 2.7877918896974325,
+      "D_minus_C": -0.20500613692857228,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_anion.r196.z": {
+      "C_MAE": 2.9744415157058457,
+      "D_MAE": 2.7282273413808906,
+      "D_minus_C": -0.24621417432495532,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_anion.r204.value": {
+      "C_MAE": 4.063269819201723,
+      "D_MAE": 3.990976681495352,
+      "D_minus_C": -0.07229313770637132,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "kcal/mol",
+      "level": "molecule"
+    },
+    "P.pm7_anion.r210.value": {
+      "C_MAE": 0.014441706630915459,
+      "D_MAE": 0.015035933700515071,
+      "D_minus_C": 0.0005942270695996116,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_cation.r259.p": {
+      "C_MAE": 0.012403868675770905,
+      "D_MAE": 0.017041059139337393,
+      "D_minus_C": 0.004637190463566488,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_cation.r259.s": {
+      "C_MAE": 0.005965679209918269,
+      "D_MAE": 0.006383991264292649,
+      "D_minus_C": 0.0004183120543743801,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_cation.r265.x": {
+      "C_MAE": 5.533440791466892,
+      "D_MAE": 5.242101116363491,
+      "D_minus_C": -0.29133967510340103,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_cation.r265.y": {
+      "C_MAE": 3.1309605095983697,
+      "D_MAE": 2.937761469926011,
+      "D_minus_C": -0.1931990396723588,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_cation.r265.z": {
+      "C_MAE": 2.8483144372102824,
+      "D_MAE": 2.748372898030832,
+      "D_minus_C": -0.09994153917945045,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_cation.r273.value": {
+      "C_MAE": 3.4933450746089565,
+      "D_MAE": 3.304394622356856,
+      "D_minus_C": -0.1889504522521004,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "kcal/mol",
+      "level": "molecule"
+    },
+    "P.pm7_cation.r279.value": {
+      "C_MAE": 0.014527409551820122,
+      "D_MAE": 0.01528909826462785,
+      "D_minus_C": 0.0007616887128077272,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_octanol.r326.p": {
+      "C_MAE": 0.005974378302060969,
+      "D_MAE": 0.010566131486132058,
+      "D_minus_C": 0.004591753184071089,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_octanol.r326.s": {
+      "C_MAE": 0.002792556075073036,
+      "D_MAE": 0.003266545798681691,
+      "D_minus_C": 0.0004739897236086552,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_octanol.r331.value": {
+      "C_MAE": 0.027513711720717603,
+      "D_MAE": 0.02659724972866204,
+      "D_minus_C": -0.0009164619920555612,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.pm7_octanol.r332.x": {
+      "C_MAE": 0.4690105795128411,
+      "D_MAE": 0.481340018970739,
+      "D_minus_C": 0.012329439457897953,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_octanol.r332.y": {
+      "C_MAE": 0.4843027675189494,
+      "D_MAE": 0.4498587209559099,
+      "D_minus_C": -0.034444046563039545,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_octanol.r332.z": {
+      "C_MAE": 0.45796467445005956,
+      "D_MAE": 0.42962532282486016,
+      "D_minus_C": -0.028339351625199412,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_octanol.r340.value": {
+      "C_MAE": 1.9940464384806704,
+      "D_MAE": 1.9309332921099334,
+      "D_minus_C": -0.06311314637073696,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "kcal/mol",
+      "level": "molecule"
+    },
+    "P.pm7_octanol.r341.value": {
+      "C_MAE": 0.05902199501832393,
+      "D_MAE": 0.056771986450715586,
+      "D_minus_C": -0.002250008567608349,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.pm7_octanol.r343.value": {
+      "C_MAE": 0.04669999817677535,
+      "D_MAE": 0.04488731889381199,
+      "D_minus_C": -0.0018126792829633587,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.pm7_octanol.r346.value": {
+      "C_MAE": 0.005917240873394096,
+      "D_MAE": 0.006473725948362739,
+      "D_minus_C": 0.0005564850749686432,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_water.r393.p": {
+      "C_MAE": 0.006193010142751866,
+      "D_MAE": 0.010663121349717882,
+      "D_minus_C": 0.004470111206966016,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_water.r393.s": {
+      "C_MAE": 0.002769692372506074,
+      "D_MAE": 0.0033064150620369,
+      "D_minus_C": 0.0005367226895308261,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.pm7_water.r398.value": {
+      "C_MAE": 0.03508201436949199,
+      "D_MAE": 0.03408645593267761,
+      "D_minus_C": -0.0009955584368143756,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.pm7_water.r399.x": {
+      "C_MAE": 0.492806237875043,
+      "D_MAE": 0.5028359116525103,
+      "D_minus_C": 0.010029673777467236,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_water.r399.y": {
+      "C_MAE": 0.5081601373011498,
+      "D_MAE": 0.47621253146842996,
+      "D_minus_C": -0.03194760583271989,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_water.r399.z": {
+      "C_MAE": 0.48171692539614525,
+      "D_MAE": 0.46199324134091496,
+      "D_minus_C": -0.019723684055230277,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.pm7_water.r407.value": {
+      "C_MAE": 2.0010782954927637,
+      "D_MAE": 1.9615704493102801,
+      "D_minus_C": -0.039507846182483784,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "kcal/mol",
+      "level": "molecule"
+    },
+    "P.pm7_water.r408.value": {
+      "C_MAE": 0.061263121818500646,
+      "D_MAE": 0.05937173086311306,
+      "D_minus_C": -0.001891390955387593,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.pm7_water.r410.value": {
+      "C_MAE": 0.04714228458860813,
+      "D_MAE": 0.04543988845665025,
+      "D_minus_C": -0.0017023961319578727,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.pm7_water.r413.value": {
+      "C_MAE": 0.005960245158267207,
+      "D_MAE": 0.006568177272178047,
+      "D_minus_C": 0.0006079321139108401,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.xtb_ALPB_octanol.r459.value": {
+      "C_MAE": 0.0006731527138466839,
+      "D_MAE": 0.0006426070191900523,
+      "D_minus_C": -3.054569465663163e-05,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Eh",
+      "level": "molecule"
+    },
+    "P.xtb_ALPB_octanol.r460.value": {
+      "C_MAE": 0.0036277554717931452,
+      "D_MAE": 0.0035370913593405174,
+      "D_minus_C": -9.066411245262792e-05,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Eh",
+      "level": "molecule"
+    },
+    "P.xtb_ALPB_water.r498.value": {
+      "C_MAE": 0.001089047423954833,
+      "D_MAE": 0.0010463462361831675,
+      "D_minus_C": -4.270118777166524e-05,
+      "observations": 2368,
+      "conformer_pairs": 2368,
+      "molecules": 396,
+      "unit": "Eh",
+      "level": "molecule"
+    },
+    "P.xtb_ALPB_water.r499.value": {
+      "C_MAE": 0.00365949518438995,
+      "D_MAE": 0.0035783089652410044,
+      "D_minus_C": -8.118621914894559e-05,
+      "observations": 2368,
+      "conformer_pairs": 2368,
+      "molecules": 396,
+      "unit": "Eh",
+      "level": "molecule"
+    },
+    "P.xtb_fod.r537.value": {
+      "C_MAE": 0.0006449284979848923,
+      "D_MAE": 0.000706839848372945,
+      "D_minus_C": 6.191135038805272e-05,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.xtb_fod.r538.value": {
+      "C_MAE": 0.015074878421096342,
+      "D_MAE": 0.014588691569548675,
+      "D_minus_C": -0.00048618685154766647,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "molecule"
+    },
+    "P.xtb_perturbed_gradient.r623.value": {
+      "C_MAE": 0.1096401460286511,
+      "D_MAE": 0.10182427121067994,
+      "D_minus_C": -0.007815874817971174,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Eh",
+      "level": "molecule"
+    },
+    "P.xtb_perturbed_gradient.r624.value": {
+      "C_MAE": 0.6002252058245997,
+      "D_MAE": 0.5840005047945915,
+      "D_minus_C": -0.016224701030008164,
+      "observations": 378963,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV A^-1",
+      "level": "atom_vector"
+    },
+    "P.xtb_perturbed_gradient.r625.value": {
+      "C_MAE": 0.011112495190628123,
+      "D_MAE": 0.011459032369535953,
+      "D_minus_C": 0.0003465371789078302,
+      "observations": 378963,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Eh bohr^-1",
+      "level": "atom_vector"
+    },
+    "P.xtb_singlepoint.r666.value": {
+      "C_MAE": 0.19029880049395778,
+      "D_MAE": 0.17659380595598986,
+      "D_minus_C": -0.013704994537967925,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Eh bohr^6",
+      "level": "atom"
+    },
+    "P.xtb_singlepoint.r667.value": {
+      "C_MAE": 0.027680206698579988,
+      "D_MAE": 0.03265747052653962,
+      "D_minus_C": 0.004977263827959629,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "bohr^3",
+      "level": "atom"
+    },
+    "P.xtb_singlepoint.r668.value": {
+      "C_MAE": 0.0035478837072191755,
+      "D_MAE": 0.003563217448154311,
+      "D_minus_C": 1.5333740935135593e-05,
+      "observations": 126321,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.xtb_singlepoint.r669.x": {
+      "C_MAE": 0.43917393207433,
+      "D_MAE": 0.4051883917611025,
+      "D_minus_C": -0.03398554031322747,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.xtb_singlepoint.r669.y": {
+      "C_MAE": 0.3885653442080358,
+      "D_MAE": 0.34676621227344195,
+      "D_minus_C": -0.04179913193459388,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.xtb_singlepoint.r669.z": {
+      "C_MAE": 0.37229588051976753,
+      "D_MAE": 0.3127390950736185,
+      "D_minus_C": -0.059556785446148994,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Debye",
+      "level": "molecule_vector"
+    },
+    "P.xtb_singlepoint.r670.value": {
+      "C_MAE": 0.003641586264855421,
+      "D_MAE": 0.0035434236187548286,
+      "D_minus_C": -9.81626461005926e-05,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "Eh",
+      "level": "molecule"
+    },
+    "P.xtb_singlepoint.r671.value": {
+      "C_MAE": 0.07806486200552257,
+      "D_MAE": 0.07241313634221118,
+      "D_minus_C": -0.005651725663311383,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.xtb_singlepoint.r672.value": {
+      "C_MAE": 0.09179144119038606,
+      "D_MAE": 0.07940286572502418,
+      "D_minus_C": -0.012388575465361883,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.xtb_singlepoint.r677.value": {
+      "C_MAE": 0.0032191005607641434,
+      "D_MAE": 0.003894479655149244,
+      "D_minus_C": 0.0006753790943851005,
+      "observations": 140928,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "bond-order population",
+      "level": "sparse_atom_pair"
+    },
+    "P.xtb_vfukui.r712.f_minus": {
+      "C_MAE": 0.002822690527523318,
+      "D_MAE": 0.0026516912500880205,
+      "D_minus_C": -0.00017099927743529755,
+      "observations": 125940,
+      "conformer_pairs": 2364,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.xtb_vfukui.r712.f_plus": {
+      "C_MAE": 0.0029020018049266427,
+      "D_MAE": 0.0027951129164520624,
+      "D_minus_C": -0.00010688888847458015,
+      "observations": 125940,
+      "conformer_pairs": 2364,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.xtb_vfukui.r712.f_radical": {
+      "C_MAE": 0.002211565245434669,
+      "D_MAE": 0.0021111200778988113,
+      "D_minus_C": -0.0001004451675358577,
+      "observations": 125940,
+      "conformer_pairs": 2364,
+      "molecules": 396,
+      "unit": "e",
+      "level": "atom"
+    },
+    "P.xtb_vipea.r751.value": {
+      "C_MAE": 0.07298679360082881,
+      "D_MAE": 0.06474600841671245,
+      "D_minus_C": -0.00824078518411636,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    },
+    "P.xtb_vipea.r752.value": {
+      "C_MAE": 0.04725245793928631,
+      "D_MAE": 0.04461947687603178,
+      "D_minus_C": -0.0026329810632545344,
+      "observations": 2371,
+      "conformer_pairs": 2371,
+      "molecules": 396,
+      "unit": "eV",
+      "level": "molecule"
+    }
+  },
+  "seconds": 584.2670642700105
+}

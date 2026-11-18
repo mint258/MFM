@@ -1,55 +1,69 @@
 {
-  "conditions": {
-    "P0-S": {
-      "source": {
-        "candidate": "C1-0",
-        "condition": "S",
-        "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2/samples_6000000.pt",
-        "legacy_output": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_S_seed0",
-        "feature_paths": [
-          "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/h0_cache/S_C1_0_seed0_v2__samples_6000000"
-        ]
-      },
-      "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2/samples_6000000.pt",
-      "status": "EXISTS"
-    },
-    "P0-P": {
-      "source": {
-        "candidate": "C1-0",
-        "condition": "P",
-        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/samples_6000000.pt",
-        "legacy_output": "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_P_seed0",
-        "feature_paths": [
-          "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/h0_cache/P_C1_0_seed0_micro32_continuation_20261110__samples_6000000"
-        ]
-      },
-      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/samples_6000000.pt",
-      "status": "EXISTS"
-    },
-    "R1-B0": {
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_recipe/fixed_20261115/round1/B0.json",
-      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/calibration_20261114/calibration_20261114_G1_B32_lr3e4_sbatch_cuda_recovery_continued/samples_3000000.pt",
-      "status": "EXISTS",
-      "reason": null
-    },
-    "R1-A1": {
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_recipe/fixed_20261115/round1/A1.json",
-      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round1_A1/samples_3000000.pt",
-      "status": "EXISTS",
-      "reason": null
-    },
-    "R2-M1": {
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/M1.json",
-      "checkpoint": null,
-      "status": "MISSING",
-      "reason": "No exact 3000000-sample checkpoint in resume ancestry"
-    },
-    "R2-B1": {
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B1.json",
-      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_B1_sbatch/samples_3000000.pt",
-      "status": "EXISTS",
-      "reason": null
-    }
-  },
-  "checkpoint_policy": "Only specified conditions/exact sample endpoint; source metadata and payload condition checked at forward load"
+    "conditions":  {
+                       "P0-S":  {
+                                    "source":  {
+                                                   "candidate":  "C1-0",
+                                                   "condition":  "S",
+                                                   "checkpoint":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2/samples_6000000.pt",
+                                                   "legacy_output":  "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_S_seed0",
+                                                   "feature_paths":  [
+                                                                         "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/h0_cache/S_C1_0_seed0_v2__samples_6000000"
+                                                                     ]
+                                               },
+                                    "checkpoint":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/S_C1_0_seed0_v2/samples_6000000.pt",
+                                    "status":  "EXISTS",
+                                    "reason":  null
+                                },
+                       "P0-P":  {
+                                    "source":  {
+                                                   "candidate":  "C1-0",
+                                                   "condition":  "P",
+                                                   "checkpoint":  "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/samples_6000000.pt",
+                                                   "legacy_output":  "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/C1-0_P_seed0",
+                                                   "feature_paths":  [
+                                                                         "/lfshome/zixiao/model_v31_20261105/DEV_PANEL_V2_20261111/h0_cache/P_C1_0_seed0_micro32_continuation_20261110__samples_6000000"
+                                                                     ]
+                                               },
+                                    "checkpoint":  "/lfshome/zixiao/model_v31_20261105/P_C1_0_seed0_micro32_continuation_20261110/samples_6000000.pt",
+                                    "status":  "EXISTS",
+                                    "reason":  null
+                                },
+                       "R1-B0":  {
+                                     "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_recipe/fixed_20261115/round1/B0.json",
+                                     "checkpoint":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/calibration_20261114/calibration_20261114_G1_B32_lr3e4_sbatch_cuda_recovery_continued/samples_3000000.pt",
+                                     "status":  "EXISTS",
+                                     "reason":  null
+                                 },
+                       "R1-A1":  {
+                                     "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_recipe/fixed_20261115/round1/A1.json",
+                                     "checkpoint":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round1_A1/samples_3000000.pt",
+                                     "status":  "EXISTS",
+                                     "reason":  null
+                                 },
+                       "R2-M1":  {
+                                     "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/M1.json",
+                                     "checkpoint":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_M1_infra_recovery_20261116/samples_3000000.pt",
+                                     "status":  "EXISTS",
+                                     "reason":  null
+                                 },
+                       "R2-B1":  {
+                                     "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B1.json",
+                                     "checkpoint":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_B1_sbatch/samples_3000000.pt",
+                                     "status":  "EXISTS",
+                                     "reason":  null
+                                 },
+                       "C":  {
+                                 "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/C_dedup.json",
+                                 "checkpoint":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/p_followup_20261116_C_dedup_sbatch/samples_3000000.pt",
+                                 "status":  "EXISTS",
+                                 "reason":  null
+                             },
+                       "D":  {
+                                 "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/D_decomposition.json",
+                                 "checkpoint":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/D_decomposition/samples_3000000.pt",
+                                 "status":  "EXISTS",
+                                 "reason":  null
+                             }
+                   },
+    "checkpoint_policy":  "Only specified conditions/exact sample endpoint; source metadata and payload condition checked at forward load"
 }

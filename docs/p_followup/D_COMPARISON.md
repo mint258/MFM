@@ -13,4 +13,4 @@ D与C均为seed0、3M，复用主线同一R1/R3及1000次MID配对bootstrap的�
 
 同分子构象差原单位MAE在冻结VAL面板的既有构象对上按字段作描述，见D_VAL_CONFORMER_MAE.md；表示指标及预注册A-H6见A_COLLAPSE_COMPOSITION.md。
 
-本CI不包含训练种子波动，原D仅seed0。当前最优M2上的适用性由D′单独检验；C的去冗余loss结论保持，不自动采纳或更改当前主线。A-H6与构象差MAE目前由CPU任务4535800继续计算。
+本CI不包含训练种子波动，原D仅seed0。当前最优M2上的适用性由D′单独检验；C的去冗余loss结论保持，不自动采纳或更改当前主线。A-H6与99字段构象差MAE现已由CPU任务4535800完成（COMPLETED/0:0）：A-H6为SUPPORT，CVF_res差值0.2583819141、95%CI[0.2484600170,0.2686178916]；逐字段原单位MAE仍只作描述，见完整报告。

@@ -109,8 +109,13 @@ def main():
         f'复用既有冻结VAL子集及构象对，通过B3已完成的物理身份映射定位当前D6记录，只保留采样器实际允许k10的交集。使用{reference}/{candidate}各自seed0精确3M检查点及实际loader、预测还原路径，sidecar均关闭。参考差来自现存F32原始标签转F64；两臂共享原始标签、mask及有限预测交集。按现有存储字段报告全部{expected_fields}个共同P训练字段，保留loader已有的同MID原子顺序；稀疏原子对按有向端点交集对齐。MAE按两臂共同有效的分量加权，无有效分量的字段记NA。只作描述，不加显著性检验或采纳门槛。',
         '',f'冻结记录{len(records)}；既有构象对{len(pairs)}，实际使用{used_pairs}，不在当前允许交集的对{unavailable_pairs}。',
         '',f'|字段|单位|层级|有效分量|构象对|分子|{reference} MAE|{candidate} MAE|{candidate}−{reference}|','|---|---|---|---:|---:|---:|---:|---:|---:|']
+    # Full precision stays in JSON; use compact values in the per-field report.
+    def point(value):return 'NA' if value is None else f'{value:.8g}'
     for name,row in fields.items():
-        lines.append('|'+ '|'.join(str(v) if v is not None else 'NA' for v in [name,row['unit'],row['level'],row['observations'],row['conformer_pairs'],row['molecules'],row[reference+'_MAE'],row[candidate+'_MAE'],row[candidate+'_minus_'+reference]])+'|')
+        cells=[name,row['unit'],row['level'],str(row['observations']),str(row['conformer_pairs']),str(row['molecules']),
+               point(row[reference+'_MAE']),point(row[candidate+'_MAE']),point(row[candidate+'_minus_'+reference])]
+        lines.append('|'+'|'.join(cells)+'|')
+    lines+=['',f'表中数值按8位有效数字展示，全精度结果保留在results/p_followup/{stem}_VAL_conformer_MAE.json。']
     (REPO/f'docs/p_followup/{stem.upper()}_VAL_CONFORMER_MAE.md').write_text('\n'.join(lines)+'\n')
     print('D3_NATIVE_COMPLETE',args.comparison,used_pairs,len(fields),flush=True)
 if __name__=='__main__':main()

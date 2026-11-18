@@ -1,6 +1,6 @@
 {
   "status": "COMPLETE",
-  "scope": "Closed D training and original R1/R3 only; A-H6/native conformer MAE still separate",
+  "scope": "Closed D training/original R1/R3 and registered CPU A-H6/native conformer MAE; D1/D2 fitting costs reported separately",
   "run": "p_followup_20261116_D_decomposition",
   "source_revision": "75c598e",
   "job_id": 4535660,
@@ -43,5 +43,25 @@
     "scores": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/D_decomposition/readout/scores.json",
     "telemetry": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/results/p_followup/training/p_followup_20261116_D_decomposition/gpu_telemetry.csv",
     "ledger": "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/study_execution.json"
-  }
+  },
+  "post3M_cpu_analysis": {
+    "job_id": 4535800,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "allocated_CPUs": 16,
+    "allocation_seconds": 1859,
+    "slurm_allocated_CPU_hours": 8.262222222222222,
+    "device": "cpu",
+    "GPU_hours": 0.0,
+    "A_molecules": 5000,
+    "A_records": 47698,
+    "A_seconds": 1246.2915125290165,
+    "native_MAE_records": 3741,
+    "native_MAE_used_pairs": 2371,
+    "native_MAE_source_fields": 99,
+    "native_MAE_seconds": 584.2670642700105,
+    "log": "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/D_post3M_cpu_4535800.log",
+    "source_script": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/tools/p_followup/D_post3M_cpu.sbatch"
+  },
+  "slurm_allocated_CPU_hours_including_post3M": 189.30666666666667
 }
