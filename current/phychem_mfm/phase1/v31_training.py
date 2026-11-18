@@ -112,6 +112,18 @@ class V31PDModel(nn.Module):
             self.p_recipe_pma = MolecularLatent(LatentSpec(kind='pma',n_ref=53.64145,
                 write_back=False,reconstruction=False))
             self.heads.enable_p_recipe_pma(self.p_recipe_pma.representation_dim)
+        self.fidelity_heads = None
+        if recipe.get('fidelity_pairs'):
+            import json
+            from pathlib import Path
+            from .p_recipe_fidelity import PhysicalFidelityHeads
+            pairs = json.loads(Path(recipe['fidelity_pairs']).read_text())['pairs']
+            self.fidelity_heads = PhysicalFidelityHeads(pairs, self.selections, self.head_by_name,
+                atom_dim=encoder.latent_dim,
+                scalar_dim=getattr(self.heads, 'p_recipe_pma_dim', encoder.latent_dim),
+                hidden_dim=head_hidden_dim, method_dim=recipe.get('method_embedding_dim', 8))
+            for name in self.fidelity_heads.bindings:
+                del self.heads.field_heads[self.heads.keys[name]]
         # Unit transform is used ONLY after applying the actual D4 transform to
         # both sides; it is not a replacement for missing data-line statistics.
         self.unit_normalizations = {f.name: TrainNormalization((0.,), (1.,), inherited,
@@ -224,8 +236,15 @@ class V31PDModel(nn.Module):
                         observed.add(head_name)
                 latent['observed_fields'] = observed
             self.heads.grouped_fields = self.grouped_fields
-            values = self.heads(h0, batch.batch, batch.pos, enabled_groups=groups,
-                enabled_fields=selected, pair_indices=pairs, **latent)
+            if self.fidelity_heads is None:
+                values = self.heads(h0, batch.batch, batch.pos, enabled_groups=groups,
+                    enabled_fields=selected, pair_indices=pairs, **latent)
+            else:
+                original = tuple(name for name in selected if name not in self.fidelity_heads.bindings)
+                values = (self.heads(h0, batch.batch, batch.pos, enabled_groups=groups,
+                    enabled_fields=original, pair_indices=pairs, **latent) if original else {})
+                values.update(self.fidelity_heads(h0, batch.batch, batch.pos,
+                    selected=selected, graph_latent=z if self.p_recipe_pma is not None else None))
             for name, (rows, total) in pair_rows.items():
                 value = values[name]
                 values[name] = value.new_full((total, value.shape[-1]), float('nan')).index_copy(0, rows, value)

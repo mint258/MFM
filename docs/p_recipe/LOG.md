@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-18 18:14UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:44:39UTC。
+
+2026-11-18 18:14UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2148416/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:44:39UTC。
+
 2026-11-18 17:48UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:18:33UTC。
 
 2026-11-18 17:48UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2126272/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:18:33UTC。
@@ -873,3 +877,10 @@ The first preparation attempt found that r73's derived training-view fields do n
 ### 2026-11-19 02:07 CST — X2 loss multiplier support prepared
 
 Added the opt-in X2 weighted mean: only the configured r624/r625 field losses receive relative weight5; r623 and other observed fields keep weight1, with normalization by the sum of weights. This preserves the existing M2 total-loss scale and anti-collapse term. Runs without field_loss_multipliers execute their original loss branch unchanged. Updated X2 readiness to prepared; the round4 launch list remains empty until C3 completion. The already-loaded C3 trainer was not stopped or changed.
+### 2026-11-19 02:23 CST — F1 implementation and its single unit test complete
+
+Implemented one shared physical core per registered fidelity pair and one global2x8 learnable PM7/xTB method-embedding table. Scalar heads concatenate the method vector to the existing B3 PMA representation; the dipole pair concatenates it to atomic features before the shared charge-based equivariant vector head. Original paired heads are removed only in the opt-in F1 model; unpaired heads, field identities, route metadata, D4 transforms and existing losses remain unchanged. Grouped execution excludes these conditional cores from the original bank and merges their predictions before the existing physical-vector component selection.
+
+Exactly one new unit-test function exercises the model integration, shared parameter identity and different outputs for different method vectors. Attempt1 exposed a synthetic fixture missing validity masks required by existing grouped prediction; adding those masks fixed the fixture. Attempt2 passed1test in0.13s; the failed log remains and consecutive failures reset to0. Implementation took about2minutes, below the4h limit. Full current worktree source check passed5175files/1987Python/0errors.
+
+F1 remains WAITING_REAL_LOADER_AND_PER_HEAD_OVERFIT_AFTER_C3. No real-data overfit acceptance or formal F1 training has run; new round4 launch list is still empty until C3 completion. Waiting for that authorized scheduling boundary is not additional development time. C3 stays on4536352/node20GPU0 with its existing02:44 scheduled check and capacity/telemetry guards.
