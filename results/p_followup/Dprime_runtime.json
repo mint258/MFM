@@ -40,18 +40,18 @@
                                        "resume_from_run":  "p_followup_20261116_Dprime_M2_seed0_continued",
                                        "resume_samples":  242272,
                                        "allocation_pretraining_seconds":  4.344090223312378,
-                                       "elapsed_seconds":  11818.655909776688,
+                                       "elapsed_seconds":  17265.655909776688,
                                        "exit_code":  "0:0",
-                                       "allocation_elapsed_seconds":  11823.0,
+                                       "allocation_elapsed_seconds":  17270.0,
                                        "progress":  {
-                                                        "samples":  1147968,
+                                                        "samples":  1552992,
                                                         "budget":  3000000,
-                                                        "updates":  35874,
-                                                        "last_loss":  0.3283168375492096,
-                                                        "samples_per_second":  73.63741076407547,
-                                                        "remaining_hours":  6.986303945172296
+                                                        "updates":  48531,
+                                                        "last_loss":  0.13544517755508423,
+                                                        "samples_per_second":  76.29650138601731,
+                                                        "remaining_hours":  5.268218848372129
                                                     },
-                                       "observed_at":  1794982896.2562695
+                                       "observed_at":  1794988343.4008105
                                    },
     "standby":  {
                     "backend":  "Slurm",
@@ -213,5 +213,17 @@
                                         "val_conformer_mae.py --comparison Dprime --device cpu"
                                     ],
                        "scope":  "Only registered existing-score comparison, layer6 geometry, frozenVAL109field nativeconformerMAE. Reuse M2 geometry. Missing exact3M C3 remains pending for later C3-only forward; jobcompletion alone does not close C3 requirement. No training/seed1 launched by this job."
-                   }
+                   },
+    "fixed_VAL_delivered_samples":  [
+                                        500000,
+                                        1000000,
+                                        1500000
+                                    ],
+    "latest_fixed_VAL":  {
+                             "samples":  1500000,
+                             "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/VAL_original_units_1500000.csv",
+                             "bytes":  5921,
+                             "producer_published_utc":  "2026-11-18T07:40:47Z",
+                             "scope":  "Existing fixedVAL only;3M decision and final within-molecule conformerMAE remain pending"
+                         }
 }
