@@ -39,8 +39,41 @@
                          "code_precision_batch_unchanged":  true
                      },
     "round4":  {
-                   "status":  "RESERVED_NOT_REGISTERED",
-                   "requires_user_confirmed_winners_from_other_lines":  true
+                   "status":  "REGISTERED_PREPARATION_BEFORE_C3_NO_NEW_TRAINING_UNTIL_C3_COMPLETE",
+                   "authority":  "docs/p_recipe/USER_DIRECTIVE_20261118.md",
+                   "latest_user_sequence":  "Complete C3 first, then carry out this directive",
+                   "baseline":  "M2",
+                   "baseline_configuration":  "configs/p_recipe/fixed_20261115/round3/M2.json",
+                   "configuration_directory":  "configs/p_recipe/fixed_20261115/round4",
+                   "arms":  [
+                                "X1",
+                                "X2",
+                                "F1",
+                                "F2",
+                                "PP"
+                            ],
+                   "conditional_arm":  "M2C only if PP field intersection excludes P fields",
+                   "priority":  [
+                                    "Pprime",
+                                    "M2C_if_needed",
+                                    "F2",
+                                    "X1",
+                                    "X2",
+                                    "F1"
+                                ],
+                   "samples_per_run":  3000000,
+                   "batch_size":  32,
+                   "precision":  "FP32",
+                   "lr":  0.0003,
+                   "head_and_decoupling_winners_included":  false,
+                   "T4":  "Optional after PP paired bootstrap and two-seed noise comparison; propose removal to user only if all criteria pass",
+                   "F1_unit_tests":  "Exactly one shared-head/method-vector unit test",
+                   "F1_acceptance":  "Real loader and one per-head overfit",
+                   "F1_skip_rule":  "Development or diagnosis exceeds4hours or2consecutive failures; continue other arms",
+                   "no_9M_before_round4_decisions":  true,
+                   "runtime_path_aliases":  {
+                                                "PP":  "Pprime"
+                                            }
                },
     "no_other_branch_writes":  true,
     "noise_reference":  {
