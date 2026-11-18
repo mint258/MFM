@@ -1,3 +1,16 @@
+## 2026-11-18 用户新规则：CPU 任务只在 CPU 节点提交
+
+适用于所有工作线、Codex 窗口和子 agent，覆盖以前把 CPU 工作放在 GPU 节点或 compute-0-2 空闲核上的做法。
+
+- **不用 GPU 的任务一律提交到 CPU 节点 compute-0-8 ~ compute-0-19**（共 12 个）。包括：标签计算（PM7、xTB、UFF、RDKit）、数据预处理和打包、参数拟合、统计分析和 bootstrap、传统 ML 基线、环境搭建、下载和安装。
+- 用 sbatch 时用 `--nodelist` 或 `--exclude` 限定到这 12 个节点。提交前按实际节点查看空闲 CPU 和内存，只申请实际需要的量。
+- **不占 GPU 节点的 CPU。** GPU 节点包括 compute-0-20、21、22 和其他带 GPU 的节点，它们的 CPU 只留给 GPU 任务。GPU 训练在 GPU 节点上也只申请自身数据加载等实际需要的 CPU。
+- Alpha 集群同理，只用没有 GPU 的主机。
+- CPU 节点占满时，排队等待，不退到 GPU 节点上。排队不是停止条件，日报记一行即可。
+- GPU 节点上已经在跑的 CPU 任务不中途停止。能从检查点或分批边界续接的，在下一个边界迁到 CPU 节点；不能续接的跑完为止。以后不再往 GPU 节点新提交 CPU 任务。
+- 同步更新全局技能 huagong_hpc_requirement。
+- 节点磁盘保护、按需申请 CPU、不使用 exclusive 等既有规则不变。
+
 ## PubChem current scientific quality and Alpha metadata continuation
 
 For this expansion, preserve the taskbook strict new canonical-record mask fraction above1% stop-and-user-report condition. User removal of per-job Root approvals did not remove scientific quality. Exactly1% continues; source NA/component fractions/robust-z review are separate. Do not add Root approval receipts. Use complete external full-QA reference catalogs and original function-preserving native timing metadata. Alpha compute-local sacct is unusable; the tested native accounting prefix is ssh -n -o BatchMode=yes -o ConnectTimeout=5 218.192.171.238 sacct. Keep1885201 untouched and preserve immutable source/runtime history.
