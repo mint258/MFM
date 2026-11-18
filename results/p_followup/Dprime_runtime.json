@@ -40,18 +40,18 @@
                                        "resume_from_run":  "p_followup_20261116_Dprime_M2_seed0_continued",
                                        "resume_samples":  242272,
                                        "allocation_pretraining_seconds":  4.344090223312378,
-                                       "elapsed_seconds":  9998.655909776688,
+                                       "elapsed_seconds":  11818.655909776688,
                                        "exit_code":  "0:0",
-                                       "allocation_elapsed_seconds":  10003.0,
+                                       "allocation_elapsed_seconds":  11823.0,
                                        "progress":  {
-                                                        "samples":  1007232,
+                                                        "samples":  1147968,
                                                         "budget":  3000000,
-                                                        "updates":  31476,
-                                                        "last_loss":  0.1326868087053299,
-                                                        "samples_per_second":  73.44755158641969,
-                                                        "remaining_hours":  7.536625179606618
+                                                        "updates":  35874,
+                                                        "last_loss":  0.3283168375492096,
+                                                        "samples_per_second":  73.63741076407547,
+                                                        "remaining_hours":  6.986303945172296
                                                     },
-                                       "observed_at":  1794981076.9009526
+                                       "observed_at":  1794982896.2562695
                                    },
     "standby":  {
                     "backend":  "Slurm",
@@ -189,5 +189,29 @@
                                   "fixed_VAL_bytes":  5912,
                                   "producer_published_utc":  "2026-11-18T05:49:36Z",
                                   "inspection":  "Existing atomic complete-checkpoint producer and filemetadata; no checkpoint numerical reread/hash"
-                              }
+                              },
+    "post3M_CPU":  {
+                       "job_id":  4536182,
+                       "state":  "PENDING",
+                       "reason":  "Dependency",
+                       "dependency":  "afterok:4535831",
+                       "node":  "compute-0-20",
+                       "partition":  "all",
+                       "allocated_on_start_cpus":  16,
+                       "nice":  10000,
+                       "exclusive":  false,
+                       "CUDA_VISIBLE_DEVICES":  "",
+                       "registered_allocation_elapsed_seconds":  0,
+                       "submitted_at_utc":  "2026-11-18T06:24:12Z",
+                       "submitted_script":  "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/Dprime_post3M_cpu_20261118.sbatch",
+                       "repository_script":  "tools/p_followup/Dprime_post3M_cpu.sbatch",
+                       "analysis_tools_revision_at_submission":  "1b8b8d9",
+                       "log":  "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/Dprime_post3M_cpu_4536182.log",
+                       "commands":  [
+                                        "compare_dprime.py",
+                                        "directive_geometry.py --conditions Dprime C3 --device cpu",
+                                        "val_conformer_mae.py --comparison Dprime --device cpu"
+                                    ],
+                       "scope":  "Only registered existing-score comparison, layer6 geometry, frozenVAL109field nativeconformerMAE. Reuse M2 geometry. Missing exact3M C3 remains pending for later C3-only forward; jobcompletion alone does not close C3 requirement. No training/seed1 launched by this job."
+                   }
 }

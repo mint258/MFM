@@ -1,6 +1,6 @@
 # D′：当前最优M2上的构象分解（预注册）
 
-当前状态（2026-11-18 05:51 UTC）：4535831/RUNNING，1007232/3M，1M完整点与两份固定VAL已交付；C3优先使用已释放20a，现有D′20b训练未中断。3M胜负、构象差MAE及新增几何尚待完成。
+当前状态（2026-11-18 06:21 UTC）：4535831/RUNNING，1147968/3M，1M完整点与两份固定VAL已交付；C3优先20a，现有D′20b继续。CPU后处理4536182仅在父作业成功后运行；最终比较/几何/MAE及条件seed1待完成。
 
 
 依据[2026-11-17用户补充指示](USER_DIRECTIVE_20261117.md)。原D沿M1+C基底继续完成，D′新增独立seed0、3M，不等待D，不停止或迁移在跑任务。B/F64缺源与C/loss均结项，不排查缺源原因、不再处理冗余字段标准。
@@ -80,3 +80,13 @@ VAL_original_units_500000.csv由训练程序关闭并发布，5914字节、109�
 据此仅撤销仍在等待循环中的控制90095（绑定UID/start_ticks后发送SIGINT）。其日志保留KeyboardInterrupt和ERROR_BEFORE_STOP历史；最终状态明确WITHDRAWN_BEFORE_ANY_SOURCE_ACTION。实核控制进程已退出，训练86037仍Rsl、4535831仍RUNNING；没有SIGSTOP/TERM/scancel作用于训练、没有准备新续接配置、没有训练回退或重启。控制脚本/日志/状态保留在runs/p_followup_20261116/yield_Dprime_for_C3_4535831.{py,log}及Dprime_C3_priority_yield_status.json，事实摘要合入既有Dprime_runtime.json，不生成数据QA或新科学试验。
 
 C3仍在其原4535189/node6运行，快卡迁移尚未实际观察到；由配方线按已批准流程优先取得20a。本线只保持已经运行的20b训练，不修改C3/head分支、配置、作业或既有上下文。新5090提速复测仍按其固定目标资源优先，未给本线新增5090任务。3M比较和seed1条件尚未触发。
+
+## 已注册3M后CPU分析（2026-11-18 06:24 UTC）
+
+真实Slurm4536182：node20/partition all/16CPU/nonexclusive/nice10000，afterok4535831，现场为PENDING/Dependency、RunTime0，尚未执行。其不可变提交脚本为runs/p_followup_20261116/Dprime_post3M_cpu_20261118.sbatch，仓库副本tools/p_followup/Dprime_post3M_cpu.sbatch通过bash -n；只复用原D后处理脚本并替换为本指示规定的三个入口，未增加研究工作：
+
+1. compare_dprime.py：复用已完成R1/R3，执行预定seed规则；不自动启动训练。
+2. directive_geometry.py --conditions Dprime C3 --device cpu：只做规定第6层，M2复用已关闭H1。若C3精确3M尚未就绪，保留WAITING，以后仅补C3，不重复D′前向。
+3. val_conformer_mae.py --comparison Dprime --device cpu：原冻结VAL构象对、109字段、原单位D′对M2。
+
+CUDA_VISIBLE_DEVICES为空，各数值库16线程，实际运行时继续原目标节点磁盘/inode/实时UID守卫。CPU为F32编码/F64统计，沿用原D已使用的CPU路径，不追加CPU/GPU数值对照。提交前实际node20守卫通过（root约346.13GB、NFS约7.00TB和新鲜UID余量均满足，MemAvailable约104GiB）；本线18GiB及heads24GiB/共享M2seed1独立2GiB并发预留保持。只排依赖队列，不预占CPU或GPU，也不占给C3的20a。后处理C0本身不能替代仍缺的C3或条件seed1证据；最终逐项验收继续保留。
