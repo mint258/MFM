@@ -98,6 +98,11 @@ T2 seed1当前已正式启动：配方线owner自行将C3旧4535189从2,121,056�
 T2 seed1自身clip已自然冻结：根11-19 03:11:19在job4536355普通日志156,800样本／4,900更新后，唯一读取`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T2_seed1/clip_calibration.json`，生产者calibration_samples=150000、quantile=0.99、initial_clip=281.7、threshold=35.83859924316406、observed_updates=2813、fitted=true、window_start_samples=60000、sample_axis=optimizer_step_start、effective_freeze_samples=150016。此为T2 seed1独立阈值，当前固定到尾，不替换T2 seed0原33.842…记录，不复制其它seed、独立复算或追加比较／诊断。本窗口只转录根自然生产者事实，未读该JSON、梯度、旧科学数据或CP，也未再次stat、测试或操作任务。
 
 时间分开记录：根02:57最后完整squeue四条R为T4 4535771 R22:09:25（普通日志2,608,000样本／81,500更新）、共享B3 seed1 4536238 R9:55:43（2,358,400／73,700）、T3 seed1恢复4536341 R3:16:13（678,400／21,200）、T2 seed1 4536355 R58:12；只有T2随后03:11:19自然日志更新至156,800／4,900，不能将其它较早进度称为03:11观测。T1新4536334、T5 seed1 4536260及待执行post仍P0正确依赖；无新GPU槽位，配方owner的C3新4536352实际在20a R，Dprime seed1在20b R，5090 perf优先，C3不由本线负责。
+11-19 T3恢复attempt2首1M已发布：根04:26:56见job4536341原普通日志1,014,400样本／31,700更新后，唯一stat `/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T3_seed1_attempt2/samples_1000000.pt`为230,473,033B，mtime 2026-11-19 04:22:57.688508885+0800。源仍d8dce41，这是从故障当时唯一完整CP32续接全部state后产生的新1M保存点；现在已有新1M，不能将旧32继续描述为当前唯一保存点。旧32、失败目录与全部日志仍保留，未读CP正文、hash或作中间分析。
+
+04:26:56真实四条R为T4 4535771／node4 R23:38:47（2,771,200样本／86,600更新）、共享B3 seed1 4536238／node7 R11:25:05（2,726,400／85,200）、T3 seed1恢复4536341／node5 R4:45:35（1,014,400／31,700）、T2 seed1 4536355／node6 R2:27:34（329,600／10,300）。T1新4536334、T5 seed1 4536260及待执行post均P0原正常依赖。现行T3 seed1阈值36.220968170166024与T2 seed1阈值35.83859924316406仍固定，M2／B3配对对照及CYP排除不变。本次不重读阈值或任何旧科学数据。
+
+资源仍无新合规GPU：node0/1/3/4满48CPU，node5/6/7各本线15CPU且GPU忙；node20 C3／Dprime seed1／gmx共64CPU分配、40可分配，20a C3新4536352由recipe owner运行，本线不操作；node22分配88CPU、16可分配，perf4535799现Reason=Resources，保持5090 GPU优先。配方线storage forecast仅在其原61GB／全局114,569,896,448B内重整，不变更本线预算或新增head训练授权。30项新逻辑与原子IO已闭合，仍待全部科学后一次完整回归／checker／PR，未因本里程碑加测试、几何、科学计算或训练任务。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
