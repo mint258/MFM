@@ -281,3 +281,5 @@ T2现成描述性产物为 `results/p_heads/T/T2_descriptions.json` 及 [T2_FIEL
 T2 最终后处理已注册为真实 Slurm 4535833（cpu/node16、1CPU、nice10000、afterok:4535630；当前仅依赖等待）。只有原 T2 训练及原 R1/R3 成功结束后，顺序运行既有 t_decide 与 t_collect_descriptions：前者按预注册读取原1000配对bootstrap、只生成实际触发的seed1配置，后者只转录既有CYP/原单位VAL行；不重新训练/评价/计算MAE。整理器785fd62仅将实际seed1输出加_seed1后缀，避免覆盖seed0描述性附表，seed0路径保持原样；未运行额外整理或数值检查。
 
 其余已实际在跑的seed0臂也已注册相同的正式后处理，均cpu/node16/1CPU/nice10000、无CUDA设备、仅afterok等待各自原训练与评价成功：T1=4535834→4535781，T4=4535835→4535771，T5=4535836→4535747。T1读取交接协议维护的canonical实际run，并显式复用本仓库M2 infra_recovery_20261117_sbatch的seed0参考；T4/T5仍显式B3，不切换基底。T1 seed1外部对照此阶段不提前绑定或使用；若触发，最终两种子判定在配方M2 seed1完整3M/R1/R3/成功终态后再显式传入发布的配置。上述队列仅使必做判定/描述转录在各自真实输入就绪后立即运行，不提前执行，不增加评价或新训练臂。
+
+13:44资源队列修正：T3 seed1真实4535777经确认仍PENDING/0:00，依赖更新为afterany:4535189（原node6/15CPU/nice10000/正优先级不变）。该依赖仅等待C3释放GPU，合法迁移的旧handle即使CANCELLED也不应阻断本线；不要求其它臂先取得科学成功。实际启动仍由原GPU占用/UUID锁/CPU分配/磁盘守卫检查。用户已明确20a立即给C3，B3共享seed1仍hold；未修改或停止任何在跑任务。
