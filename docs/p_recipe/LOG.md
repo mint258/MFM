@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-18 18:45UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次19:15:33UTC。
+
+2026-11-18 18:45UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2173280/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次19:15:33UTC。
+
 2026-11-18 18:14UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:44:39UTC。
 
 2026-11-18 18:14UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2148416/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次18:44:39UTC。
@@ -900,3 +904,9 @@ Added decide_round4.py using the existing paired comparison/decision implementat
 The decision state records whether the M3-plus-winners3M comparison is required and actually complete. It can prepare that registered merge configuration/plan but submits no jobs. A direct merged recipe without a matching trained run is explicitly recorded as having no trained checkpoint; no weights or readouts are invented. Recorded user T4 choices are retained when updating the same PP comparison.
 
 The P-line launcher now excludes GPU types reserved by the active perf priority in user_directive_20261117.json, even if the perf line is waiting and has no live GPU lock yet. Current5090 reservation is respected;4090/3090 admission remains unchanged, and no running job is moved or stopped. The priority check was evaluated on the current policy only; no allocation was made. No round4 comparisons or new training were run.
+
+### 2026-11-19 02:57 CST — round4 activation and F1 acceptance prepared
+
+Prepared activate_round4.py to release the registered priority order only after canonical C3 has actual successful terminal accounting, complete3M training and complete R1/R3. F1 also requires its real-loader/per-head acceptance result. This preparation submits no job and leaves the current empty active plan unchanged.
+
+Prepared accept_fidelity.py for the one registered acceptance after C3: real PRecipeDataset, fixed1000 TRAIN molecules, the14 changed PM7/xTB fields belonging to5 shared physical cores, existing maximum10000 overfit updates and original-unit per-field R2>=0.95 reporting. It retains B32/FP32, original targets/normalization and independent output/checkpoint; its runtime must fit the remaining registered4h development allowance. No extra unit functions, diagnostic runs or parameter sweeps were added. Neither preparation tool has been executed for training or activation.
