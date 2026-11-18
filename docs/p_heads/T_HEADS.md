@@ -128,6 +128,9 @@ T1首个既定1M检查点已在接管后的实际输出发布：`/share/home/zix
 T1首次2M里程碑已在实际canonical输出发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T1_seed0_sbatch/samples_2000000.pt`，244,691,853字节，mtime=2026-11-18 11:05:12.262865 CST（原epoch1794971112.2628648）。根11:27唯一观察时，actual_run=p_heads_T1_seed0_sbatch，自然日志2,077,472样本／64,921更新，actualcompute20 guard返回PROGRESS_GUARD_OK／EXIT0；本报告只转录已提供元数据，不重读CP、阈值、身份或旧窗口。依据已记录1M 06:23:28→2M 11:05:12的真实检查点节奏，3M训练更新运行规划现调整为11月18日约16时，固定VAL/最终读出另计、估计可变；原启动500更新窗口47.33875472075513/s及旧18:48:46估计保留为历史，不重新测速，不改科学参数。T2接近3M，仍按原约13–14时规划，另计验证与读出，不增加测速。
 
 当前资源约束按owner发布更正：Dprime已正式由Slurm4535831运行，接管后没有即时SAVE_AND_EXIT钩子，不能把node20b当作随时可迁出让卡。配方线C3仍获下一合规快卡优先；共享B3 seed1虽暂排T2结束后20a，T2临终前必须再与更高线核实实际卡需求，不能把暂排解释成卡承诺或假设可即时迁移Dprime。四条live训练保持，未操作任何作业。
+T1实际最终3M训练检查点已发布：canonical run=p_heads_T1_seed0_sbatch，`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T1_seed0_sbatch/samples_3000000.pt`，244,694,093字节，mtime=2026-11-18 15:46:45.768024 CST（原epoch1794988005.768024）。根15:53首次读取该元数据，当时原4535781仍RUNNING／10:28:53，原VAL/R1/R3尚未成功终态；训练3M发布不等同于整体C0、原评价或最终判定完成。post4535834及HCPU4536173仍依赖parent成功，本窗口不读取分数或描述性产物，不重评、测速、读取CP体或旧数字；等待根确认真实post成功后才一次消费T1_deltas/descriptions。写前actualcompute20 T1_FINAL_CP_GUARD_OK／EXIT0已通过，采用训练里程碑与完整后处理两阶段推送。
+
+当前新增3090低显存共用统一口径仍待用户答复：node7/node6存在gmx上下文；node0由外部恢复IDLE后实测仍有gmx约266MiB，后来又被gmx分配48CPU，不能因历史IDLE或低显存视作合规空卡。共享B3 4535778与T3 seed1 4535777当前两条PENDING／0秒均hold；该最新状态覆盖此前T3已解除一次让行hold的历史。20a继续按用户已明确“C3会立即使用”保留，与本次3090共用提问不同，不动其他任务；T2 seed1仍暂排perf后。本窗口只引用根给出的资源事实，没有重新查询身份或资源。
 后续接管由原协议将实际run/output写回task的configuration路径；最终t_decide读取这份canonical配置，再从其实际output/readout/scores.json取candidate。不会猜测旧native输出目录；M2对照与外部seed1绑定随原配置保留。最终3M产出时才向H交付准确CP路径补第6层几何，中间保存不补几何。
 ## T2 物理约束头
 
