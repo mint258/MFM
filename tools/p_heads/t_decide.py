@@ -66,7 +66,9 @@ def main():
     if trigger:
         outcome.update(reference_seed1_reused_external=external,reference_seed1_configuration=external_path,
             external_reference_pending=external and reference_seed1 is None)
-        cx=seed1(c,arm);cp=pathlib.Path(cx['output'])/'readout/scores.json'
+        cx=load(REPO/'configs/p_heads/T'/(arm+'_seed1.json'))
+        if cx['arm']!=arm or cx['seed']!=1:raise ValueError('Canonical candidate must match arm and seed1')
+        cp=pathlib.Path(cx['output'])/'readout/scores.json'
         bp=None if reference_seed1 is None else pathlib.Path(reference_seed1['output'])/'readout/scores.json'
         if bp is not None and cp.exists() and bp.exists():
             cc,bb=load(cp),load(bp)
