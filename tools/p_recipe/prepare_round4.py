@@ -80,7 +80,7 @@ def prepare():
   elif arm=='F1':c['p_recipe'].update(fidelity_pairs=str(pair_path),method_embedding_dim=8)
   if arm not in ('PP','M2C'):c['components']=sorted(set(c['components'])|{arm})
   path=root/(alias+'.json');assert not Path(c['output']).exists(),'Inspect an existing run instead of overwriting its configuration'
-  write(path,c);configs.append(str(path));readiness[arm]='WAITING_F1_IMPLEMENTATION_AND_ACCEPTANCE' if arm=='F1' else 'WAITING_LOSS_MULTIPLIER_IMPLEMENTATION' if arm=='X2' else 'PREPARED_WAITING_FOR_C3'
+  write(path,c);configs.append(str(path));readiness[arm]='WAITING_F1_IMPLEMENTATION_AND_ACCEPTANCE' if arm=='F1' else 'PREPARED_WAITING_FOR_C3'
  plan=dict(schema='P_RECIPE_REGISTERED_ROUND4_V1',status='REGISTERED_WAITING_FOR_C3',authority='docs/p_recipe/USER_DIRECTIVE_20261118.md',
    configurations=[],registered_configurations=configs,readiness_by_arm=readiness,baseline_configuration=str(ROOT/'round3/M2.json'),
    base_configuration=str(ROOT/'base.json'),study_revision=base['study_revision'],results_directory='results/p_recipe/fixed_20261115/round4',

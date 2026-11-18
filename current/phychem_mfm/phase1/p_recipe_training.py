@@ -89,7 +89,12 @@ def train(configuration):
    total=model['uncertainty'](values)
   else:
    active={n:families[n] for n in loss.fields if loss.counts[n]>0}
-   if pd.grouped_fields and active:
+   multipliers=recipe.get('field_loss_multipliers')
+   if multipliers and active:
+    values=torch.stack([loss.fields[n] for n in active])
+    weights=values.new_tensor([multipliers.get(n,1.) for n in active])
+    total=(values*weights).sum()/weights.sum()
+   elif pd.grouped_fields and active:
     values=torch.stack([loss.fields[n] for n in active])
     if recipe.get('family_equal',False):
      groups=set(active.values());counts={g:list(active.values()).count(g) for g in groups}
