@@ -1857,6 +1857,112 @@
         }
       },
       "seconds": 777.7022661566734
+    },
+    "T2": {
+      "status": "COMPLETE",
+      "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T2_seed0/samples_3000000.pt",
+      "checkpoint_samples": 3000000,
+      "checkpoint_configuration": {
+        "condition": "P",
+        "samples": 3000000,
+        "seed": 0,
+        "p_recipe": {
+          "element_residual": true,
+          "pma_pooling": true,
+          "physical_constraint_heads": {
+            "P.pm7_B.r44.value": {
+              "kind": "fukui",
+              "Q": 1
+            },
+            "P.pm7_B.r45.value": {
+              "kind": "fukui",
+              "Q": 1
+            },
+            "P.pm7_B.r46.value": {
+              "kind": "fukui",
+              "Q": 1
+            },
+            "P.pm7_B.r68.value": {
+              "kind": "charge",
+              "Q": 0
+            },
+            "P.pm7_anion.r210.value": {
+              "kind": "charge",
+              "Q": -1
+            },
+            "P.pm7_cation.r279.value": {
+              "kind": "charge",
+              "Q": 1
+            },
+            "P.pm7_octanol.r346.value": {
+              "kind": "charge",
+              "Q": 0
+            },
+            "P.pm7_water.r413.value": {
+              "kind": "charge",
+              "Q": 0
+            },
+            "P.xtb_singlepoint.r668.value": {
+              "kind": "charge",
+              "Q": 0
+            }
+          }
+        },
+        "label_parameters": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/label_parameters/PM7_A1.json",
+        "batch_size": 32,
+        "root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+        "normalizations": "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json"
+      },
+      "molecules": 5000,
+      "conformers": 47698,
+      "layers": {
+        "6": {
+          "CEV": {
+            "value": 0.43555465017625317,
+            "ci95": [
+              0.4232592388030354,
+              0.4453642082641996
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF": {
+            "value": 0.0386305771365648,
+            "ci95": [
+              0.037047774968152515,
+              0.04005893651505208
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF_res": {
+            "value": 0.06800374552785642,
+            "ci95": [
+              0.065262101197017,
+              0.07071193483544286
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "EEV": {
+            "value": 0.289285524453455,
+            "ci95": [
+              0.2878578561825636,
+              0.29086495111076766
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "ridge_alphas": [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ]
+        }
+      },
+      "seconds": 1709.7793202770117
     }
   },
   "hypothesis": {
