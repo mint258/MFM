@@ -1,5 +1,6 @@
-"""Prepare exactly the six confirmation runs and conditional common-field T7."""
+"""Prepare the registered confirmation layout after the final recipe freeze."""
 import argparse,json
+from copy import deepcopy
 from pathlib import Path
 from phychem_mfm.phase1.p_recipe_data import read_json
 from phychem_mfm.phase1.p_recipe_plan import LABEL_COMPONENTS,configuration,runner_up_components
@@ -13,7 +14,8 @@ def approved_switch_snapshot(state,base):
  if base.get('study_revision')!='fixed_20261115':return None
  directive=read_json(policy_path);policy=directive['confirmation']
  if directive.get('closeout',{}).get('authority')=='docs/p_recipe/USER_DIRECTIVE_20261118B.md':
-  if not state.get('recipe_frozen') or not state.get('external_line_decisions_complete'):
+  if (not state.get('recipe_frozen') or not state.get('external_line_decisions_complete')
+      or not state.get('frozen_configuration') or not state.get('frozen_runtime_ready')):
    raise ValueError('Confirmation waits for the final recipe freeze after round3/4 and both side-line decisions')
  if directive.get('round4',{}).get('authority')=='docs/p_recipe/USER_DIRECTIVE_20261118.md':
   if state['round']!=4 or not state.get('merge_validation_complete'):
@@ -35,6 +37,23 @@ def approved_switch_snapshot(state,base):
              frozen_for_entire_run=True)
 
 
+def confirmation_configuration(base,components,*,run,arm,samples,frozen=None):
+ """Keep the complete frozen recipe, including adopted side-line settings."""
+ runtime=configuration(base,components if frozen is None or arm=='T1' else set(),
+       run=run,round_number=0,arm=arm,samples=samples,stage=3)
+ if frozen is None or arm=='T1':return runtime
+ if set(frozen['components'])!=set(components):raise ValueError('Frozen recipe components differ')
+ c=deepcopy(frozen)
+ for key in ('resume','resume_samples','resume_from_output','attempt','handoff_request','handoff_ack',
+             'required_gpu_uuid','recovery_reason','replaces_run','source_last_samples','rollback_samples',
+             'recipe_preparation_only'):
+  c.pop(key,None)
+ for key in ('run','output','round','arm','samples','stage','checkpoint_samples'):
+  if key in runtime:c[key]=runtime[key]
+ c.update(seed=0,components=sorted(components))
+ return c
+
+
 def prepare(state,*,base_configuration=None,study_directory=None):
  if state.get('selection_valid') is False:raise ValueError('The user invalidated this screening decision')
  base_path=Path(base_configuration) if base_configuration else REPO/'configs/p_recipe/base.json'
@@ -44,6 +63,9 @@ def prepare(state,*,base_configuration=None,study_directory=None):
  confirmation_samples=3*screening_samples
  if state.get('study_revision','original_20261113')!=base.get('study_revision','original_20261113'):raise ValueError('Screening decision belongs to a different study revision')
  switch_snapshot=approved_switch_snapshot(state,base)
+ directive=read_json(REPO/'configs/p_recipe/user_directive_20261117.json') if base.get('study_revision')=='fixed_20261115' else {}
+ closeout=directive.get('closeout',{}).get('authority')=='docs/p_recipe/USER_DIRECTIVE_20261118B.md'
+ frozen=read_json(state['frozen_configuration']) if closeout else None
  third=state['adopted_winners'] if state['round']==3 else []
  runner=(set(state['M2_components']) if state['round']==4 else set(state['merge_base_components']) if state['round']==3 else set(state['merged_components']) if state['round']==2 else runner_up_components(final,third,state['merge_base_components'],state['component_evidence']))
  scope=read_json(R/'runs/p_recipe_20261113/D6_metadata.json');p=set(scope['P_enabled']);prime=set(scope['Pprime_enabled']);common=sorted(p&prime)
@@ -51,15 +73,23 @@ def prepare(state,*,base_configuration=None,study_directory=None):
  specifications=[('T1',set(),'PM7',None,None),('T2',final,'PM7',None,None),('T3',runner,'PM7',None,None),
   ('T4',final,'UFF',None,common),('T5',final,'PM7',250000,None),('T6',final,'PM7',500000,None)]
  omit_t4=state.get('T4_user_decision')=='OMIT'
- if omit_t4:
+ t4_confirmation=state.get('T4_user_confirmation')
+ if closeout:
+  omit_t4=state['PP_comparison']['difference_clear']
+  t4_confirmation='docs/p_recipe/USER_DIRECTIVE_20261118B.md'
+  specifications=[spec for spec in specifications if spec[0]!='T3']
+  need_t7=False
+ elif omit_t4:
   if not state.get('T4_user_confirmation'):raise ValueError('Omitting T4 requires the user decision recorded with the comparison')
+ if omit_t4:
   specifications=[spec for spec in specifications if spec[0]!='T4']
  if need_t7:specifications.append(('T7',final,'PM7',None,common))
  root=Path(study_directory) if study_directory else REPO/'configs/p_recipe'
  if not root.is_absolute():root=REPO/root
  destination=root/'confirmation';destination.mkdir(parents=True,exist_ok=True);configs=[];fits={}
  for arm,components,source,count,fields in specifications:
-  c=configuration(base,components,run=base.get('run_prefix','')+'confirmation_'+arm,round_number=0,arm=arm,samples=confirmation_samples,stage=3)
+  c=confirmation_configuration(base,components,run=base.get('run_prefix','')+'confirmation_'+arm,
+          arm=arm,samples=confirmation_samples,frozen=frozen)
   c.update(source=source,condition='Pprime' if source=='UFF' else 'P',subset_molecules=count,subset_seed=20261112)
   if switch_snapshot is not None:c['confirmation_switch_snapshot']=switch_snapshot
   if source=='UFF' and (OUT/'corpus/Pprime_corpus.json').is_file():c['corpus']=str(OUT/'corpus/Pprime_corpus.json')
@@ -87,8 +117,13 @@ def prepare(state,*,base_configuration=None,study_directory=None):
   batch_size_by_run={read_json(path)['run']:read_json(path)['batch_size'] for path in configs},samples_per_run=confirmation_samples,screening_samples=screening_samples,confirmation_multiplier=3)
  if switch_snapshot is not None:plan['confirmation_switch_snapshot']=switch_snapshot
  if state['round']==4:
-  plan.update(selection_round=4,T4_included=not omit_t4,T4_user_decision=state.get('T4_user_decision','KEEP'),
-              T4_user_confirmation=state.get('T4_user_confirmation'),initial_run_count=len(specifications))
+  plan.update(selection_round=4,T4_included=not omit_t4,T4_user_decision='OMIT' if omit_t4 else 'KEEP',
+              T4_user_confirmation=t4_confirmation,initial_run_count=len(specifications))
+ if closeout:
+  plan.update(selection_authority='docs/p_recipe/USER_DIRECTIVE_20261118B.md',
+              recipe_frozen=True,frozen_configuration=state['frozen_configuration'],
+              cancelled_arms=['T3','T7'],seed_policy=directive['closeout']['seed_policy'],
+              external_adoptions=state.get('external_adoptions',[]))
  (destination/'plan.json').write_text(json.dumps(plan,indent=2)+'\n');print(json.dumps(plan,indent=2),flush=True);return plan
 
 if __name__=='__main__':

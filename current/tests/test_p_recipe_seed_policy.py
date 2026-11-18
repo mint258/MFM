@@ -49,3 +49,22 @@ def test_seed1_starts_fresh_and_keeps_parent_science():
     child['p_recipe']['element_residual']=False
     assert parent['p_recipe']['element_residual'] is True
     with pytest.raises(ValueError):fresh_seed1_configuration(child)
+
+
+def test_frozen_confirmation_keeps_side_line_settings_and_own_budget():
+    from pathlib import Path
+    import runpy
+    module=runpy.run_path(str(Path(__file__).resolve().parents[2]/'tools/p_recipe/prepare_confirmation.py'))
+    build=module['confirmation_configuration']
+    base=dict(output='/outputs/base',lr=.0003,batch_size=32,
+              checkpoint_policy='screen_final_confirmation_milestones',confirmation_checkpoint_interval=1000000)
+    frozen=dict(components=['A1','HEADS_T1'],p_recipe={'element_residual':True,'atom_attention_decoder':True},
+                private_head_configuration={'selected_fields':['r68']},lr=.00015,head_form='H1',
+                resume='/old/checkpoint.pt',samples=3000000,output='/old/frozen')
+    c=build(base,set(frozen['components']),run='confirmation_T2',arm='T2',samples=9000000,frozen=frozen)
+    assert c['p_recipe']==frozen['p_recipe'] and c['private_head_configuration']==frozen['private_head_configuration']
+    assert c['lr']==.00015 and c['samples']==9000000 and c['seed']==0
+    assert c['checkpoint_samples']==list(range(1000000,9000001,1000000))
+    assert 'resume' not in c
+    baseline=build(base,set(),run='confirmation_T1',arm='T1',samples=9000000,frozen=frozen)
+    assert baseline['p_recipe']=={} and baseline['lr']==.0003
