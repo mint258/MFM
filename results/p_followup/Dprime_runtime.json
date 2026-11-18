@@ -21,60 +21,59 @@
                          "uid":  1278,
                          "start_ticks":  14495466,
                          "pgid":  83964,
-                         "status":  "RUNNING"
+                         "status":  "COMPLETED",
+                         "exit_code":  0,
+                         "ended_at":  1794971077.1209779,
+                         "elapsed_seconds":  5102.958842039108
                      },
     "actual_process_observation":  {
-                                       "backend":  "native_SSH",
+                                       "backend":  "Slurm",
                                        "node":  "compute-0-20",
                                        "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+                                       "job_id":  4535831,
                                        "state":  "RUNNING",
                                        "submitted_at":  1794965971.7470987,
                                        "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/Dprime_M2_seed0_continued.json",
                                        "stage":  2,
                                        "round":  3,
                                        "study_revision":  "fixed_20261115",
-                                       "scheduling_task":  "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/p_followup_20261116_Dprime_M2_seed0_continued_scheduling.json",
-                                       "cpus":  16,
-                                       "exclusive":  false,
-                                       "native_state":  "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/p_followup_20261116_Dprime_M2_seed0_continued_native.json",
-                                       "wrapper_pid":  83942,
-                                       "standby_job_id":  4535831,
-                                       "native_pid":  83964,
-                                       "native_uid":  1278,
-                                       "native_start_ticks":  14495466,
-                                       "native_pgid":  83964,
-                                       "observation_status":  "LIVE_BOUND_PROCESS",
-                                       "live_verified_at":  1794969806.457703,
+                                       "resume_from_run":  "p_followup_20261116_Dprime_M2_seed0_continued",
+                                       "resume_samples":  242272,
+                                       "allocation_pretraining_seconds":  4.344090223312378,
+                                       "elapsed_seconds":  577.6559097766876,
+                                       "exit_code":  "0:0",
+                                       "allocation_elapsed_seconds":  582.0,
                                        "progress":  {
-                                                        "samples":  182464,
+                                                        "samples":  284672,
                                                         "budget":  3000000,
-                                                        "updates":  5702,
-                                                        "last_loss":  0.21240796148777008,
-                                                        "samples_per_second":  46.532020172204305,
-                                                        "remaining_hours":  16.819576841763702
+                                                        "updates":  8896,
+                                                        "last_loss":  0.15884116291999817,
+                                                        "samples_per_second":  79.34042516780328,
+                                                        "remaining_hours":  9.506601158016723
                                                     },
-                                       "observed_at":  1794969806.461537
+                                       "observed_at":  1794971655.576518
                                    },
     "standby":  {
                     "backend":  "Slurm",
                     "job_id":  4535831,
                     "node":  "compute-0-20",
                     "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-                    "state":  "PENDING",
-                    "phase":  "WAITING_FOR_ALLOCATION",
+                    "state":  "RUNNING",
+                    "phase":  "HANDED_OFF",
                     "native_run":  "p_followup_20261116_Dprime_M2_seed0_continued",
                     "purpose":  "Same-task SSH to Slurm checkpoint takeover",
                     "exclusive_node":  false,
                     "decision_pending":  false,
-                    "elapsed_seconds":  0.0,
+                    "elapsed_seconds":  582.0,
                     "exit_code":  "0:0",
-                    "observed_at":  1794969806.4615457
+                    "observed_at":  1794971655.5765266,
+                    "training_run":  "p_followup_20261116_Dprime_M2_seed0_continued_sbatch"
                 },
     "closed_initial_gpu_occupied_hours":  0.0386666003200742944444444444,
     "continuation_gpu_occupied_hours":  null,
     "native_CPU_hours":  null,
-    "cost_note":  "Running native interval remains open; no unmetered native CPU time is represented as zero. Standby currently PENDING with zero allocation elapsed.",
-    "priority":  "Temporary preemptible idle-card backfill; recipeC3 keeps priority via existing SAVE_AND_EXIT/ACK; own originalD is complete",
+    "cost_note":  "Initial5760 native segment and continued native segment are closed. Current Slurm interval remains open. Native CPU time is unmetered, not zero; allocation pretraining overlap remains recorded in the real ledger.",
+    "priority":  "RecipeC3 retains priority for available cards. Native segment supported SAVE_AND_EXIT; current Slurm takeover removes old hooks, so immediate cooperative yield is unavailable. Any requested move must use an actual published complete checkpoint and report rollback; no false live-hook claim.",
     "scientific_decision":  null,
     "clip_calibration":  {
                              "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed0_continued/clip_calibration.json",
@@ -86,5 +85,51 @@
                              "quantile":  0.99,
                              "sample_axis":  "optimizer_step_start",
                              "fitted":  true
-                         }
+                         },
+    "current_execution_state":  {
+                                    "started_at":  1794971079.0094948,
+                                    "run":  "p_followup_20261116_Dprime_M2_seed0_continued_sbatch",
+                                    "execution":  "Slurm",
+                                    "node":  "compute-0-20",
+                                    "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+                                    "admission_used_mib":  18.0,
+                                    "admission_total_mib":  49140.0,
+                                    "admission_fraction":  0.0003663003663003663,
+                                    "pid":  86037,
+                                    "uid":  1278,
+                                    "start_ticks":  15005951,
+                                    "pgid":  86037,
+                                    "job_id":  4535831,
+                                    "status":  "RUNNING"
+                                },
+    "completed_handoff":  {
+                              "ack":  {
+                                          "request_id":  "d95967a5-3d76-4725-9cdd-95a3b5c5eebc",
+                                          "job_id":  4535831,
+                                          "checkpoint":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/Dprime_M2_seed0_continued/samples_242272.pt",
+                                          "clock":  {
+                                                        "schema":  "model_v3_consumed_sample_clock_v1",
+                                                        "sample_budget":  3000000,
+                                                        "milestones":  [
+                                                                           500000,
+                                                                           1000000,
+                                                                           1500000,
+                                                                           2000000,
+                                                                           2500000,
+                                                                           3000000
+                                                                       ],
+                                                        "samples_consumed":  242272,
+                                                        "optimizer_updates":  7571,
+                                                        "saved_milestones":  [
+
+                                                                             ]
+                                                    },
+                                          "run":  "p_followup_20261116_Dprime_M2_seed0_continued"
+                                      },
+                              "checkpoint_bytes":  232284605,
+                              "first_new_samples":  242304,
+                              "first_new_updates":  7572,
+                              "rollback_samples":  0
+                          },
+    "closed_continued_native_gpu_occupied_hours":  1.4174885672330855555555555556
 }
