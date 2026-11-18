@@ -40,18 +40,18 @@
                                        "resume_from_run":  "p_followup_20261116_Dprime_M2_seed0_continued",
                                        "resume_samples":  242272,
                                        "allocation_pretraining_seconds":  4.344090223312378,
-                                       "elapsed_seconds":  577.6559097766876,
+                                       "elapsed_seconds":  4284.655909776688,
                                        "exit_code":  "0:0",
-                                       "allocation_elapsed_seconds":  582.0,
+                                       "allocation_elapsed_seconds":  4289.0,
                                        "progress":  {
-                                                        "samples":  284672,
+                                                        "samples":  560928,
                                                         "budget":  3000000,
-                                                        "updates":  8896,
-                                                        "last_loss":  0.15884116291999817,
-                                                        "samples_per_second":  79.34042516780328,
-                                                        "remaining_hours":  9.506601158016723
+                                                        "updates":  17529,
+                                                        "last_loss":  0.18037104606628418,
+                                                        "samples_per_second":  76.69206516237875,
+                                                        "remaining_hours":  8.834290725715872
                                                     },
-                                       "observed_at":  1794971655.576518
+                                       "observed_at":  1794975362.1912773
                                    },
     "standby":  {
                     "backend":  "Slurm",
@@ -131,5 +131,18 @@
                               "first_new_updates":  7572,
                               "rollback_samples":  0
                           },
-    "closed_continued_native_gpu_occupied_hours":  1.4174885672330855555555555556
+    "closed_continued_native_gpu_occupied_hours":  1.4174885672330855555555555556,
+    "first_fixed_VAL":  {
+                            "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/VAL_original_units_500000.csv",
+                            "samples":  500000,
+                            "bytes":  5914,
+                            "rows":  109,
+                            "unique_fields":  109,
+                            "formerly_C_excluded_fields_present":  10,
+                            "formerly_C_excluded_fields_missing":  [
+
+                                                                   ],
+                            "nonpositive_observation_fields":  0,
+                            "scope":  "First closed fixed-VAL original-unit MAE; not the final within-molecule conformer-difference MAE or3M R1/R3 decision"
+                        }
 }
