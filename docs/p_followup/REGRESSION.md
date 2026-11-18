@@ -1,6 +1,6 @@
 # 完整CPU回归与失败修复
 
-状态：PASS。200个模块的完整检查及针对失败/改动模块的复测，合并后3659项测试，失败0、错误0、跳过24。成功模块的结果保留；修复只重跑相应模块，不重复科学数据读取或评价。
+历史门禁：PASS。200个模块的完整检查及针对失败/改动模块的复测，合并后3659项测试，失败0、错误0、跳过24。成功模块的结果保留；修复只重跑相应模块，不重复科学数据读取或评价。当前修订的最终完整门禁待全部科学任务完成后执行，结果以新的实际执行记录为准。
 
 |阶段|Slurm作业|真实CPU|本次模块/测试|本次失败/错误|执行器秒数|
 |---|---|---:|---|---|---:|
@@ -31,3 +31,9 @@ D′自动判定逻辑补充定向CPU测试：test_p_followup_dprime_decision.py
 D′ seed1组合统计复用新增test_p_followup_dprime_reuse.py：实际compute-0-20、CPU1/空CUDA，2 passed（0.04s，既有依赖弃用警告1条）。覆盖匹配的已关闭seed0不再读分数/计算，以及不同运行不得错用缓存；未重跑完整套件，全部工作完成后仍执行一次最终完整回归与仓库检查。
 
 后续结项入口已准备为tools/p_followup/final_validation.sbatch（仅通过bash -n，尚未提交/运行）：完整调用full_regression.py，不带--repair-from；随后执行默认tools/check_repository.py，两者真实退出均保留，任一失败则作业失败。仅在更新任务全部完成后提交，不把准备入口或旧门禁当作新完整回归PASS。C3另用C3_geometry_cpu.sbatch，只补C3第6层，不重复已关闭的D′。
+
+## 结项门禁范围核对（2026-11-19 03:38 CST）
+
+current/pyproject.toml的默认pytest目录为tests。当前current/tests平铺203个test_*.py模块，无嵌套模块或额外*_test.py模块；其余4个Python文件是conftest及3个夹具。既有隔离回归器完整枚举全部203模块，逐模块pytest仍加载公共conftest；final_validation.sbatch调用full_regression.py时不带repair/module筛选，因此覆盖当前默认目录的完整测试范围。
+
+仓库唯一GitHub默认检查为.github/workflows/source-check.yml中的python tools/check_repository.py；结项入口在完整CPU回归后执行同一默认命令并保存真实结果。当前只完成静态范围核对，尚未运行新的完整门禁；此前200模块门禁及后续定向测试保留各自来源，不合并表述为本次完整执行。
