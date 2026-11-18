@@ -43,4 +43,6 @@ CPU方法事实复用唯一观察，不重新采集：2026-11-18 13:27:15 CST，
 
 成本：H已闭合GPU作业累计6.2251 GPU-h保持不变；T2几何单列4×1743/3600=1.9366667 CPU-h，GPU为0。另有CPU18元数据容量前置作业4536096，1CPU分配3分20秒后取消，单列0.0555556 allocation CPU-h，无科学输出，不计入几何或GPU成本。后续仅在实际最终T/种子检查点产出后顺序补层6，全部科学工作尚未结束。
 
+下一项仅排T1最终第6层：4536173，当前PENDING0/Dependency，afterok:4535781，等待T1完整训练及原评价成功。计划partition=gpu、compute-0-20、4CPU、nice10000、CUDA_VISIBLE_DEVICES为空，原h_geometry.py --condition T1 --device cpu，输入仅为CONTROL/training/p_heads_T1_seed0_sbatch/samples_3000000.pt；OMP/OpenBLAS/MKL/NumExpr各4线程及srun --cpu-bind=cores，与已完成T2路线相同。启动前与运行期仍须通过实际节点字节/inode/UID配额及并发峰值guard；实际身份、用时和CPU成本待真实终态记录，当前不计已完成成本。T2 writer已结束，目前仅此一个待执行H1整写任务，其他H1不并发排队；各训练和后处理不因H1统计增加科学依赖。
+
 局限：组成解释率与构象比例是描述性几何指标，不能单独证明下游效应的因果来源。按用户补充指示，T1取消原逐头验收并改用M2基底正式训练；T2/T3保持B3基底，新增T4/T5也以B3为基底。T1–T5及按预注册实际触发的seed1只在各自精确最终3M检查点产出后补充第6层，不分析中间恢复点；机制描述绑定各自基底，不扩展方向检验。
