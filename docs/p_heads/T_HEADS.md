@@ -103,6 +103,21 @@ T2 seed1自身clip已自然冻结：根11-19 03:11:19在job4536355普通日志15
 04:26:56真实四条R为T4 4535771／node4 R23:38:47（2,771,200样本／86,600更新）、共享B3 seed1 4536238／node7 R11:25:05（2,726,400／85,200）、T3 seed1恢复4536341／node5 R4:45:35（1,014,400／31,700）、T2 seed1 4536355／node6 R2:27:34（329,600／10,300）。T1新4536334、T5 seed1 4536260及待执行post均P0原正常依赖。现行T3 seed1阈值36.220968170166024与T2 seed1阈值35.83859924316406仍固定，M2／B3配对对照及CYP排除不变。本次不重读阈值或任何旧科学数据。
 
 资源仍无新合规GPU：node0/1/3/4满48CPU，node5/6/7各本线15CPU且GPU忙；node20 C3／Dprime seed1／gmx共64CPU分配、40可分配，20a C3新4536352由recipe owner运行，本线不操作；node22分配88CPU、16可分配，perf4535799现Reason=Resources，保持5090 GPU优先。配方线storage forecast仅在其原61GB／全局114,569,896,448B内重整，不变更本线预算或新增head训练授权。30项新逻辑与原子IO已闭合，仍待全部科学后一次完整回归／checker／PR，未因本里程碑加测试、几何、科学计算或训练任务。
+共享B3 seed1正式完成（新结果唯一消费）：根05:56:18权威确认原训练4536238 COMPLETED0:0／12:42:27／node7，原字段copy4536240 COMPLETED0:0／6秒／node20。现成summary的run=`p_heads_B3_seed1`、status=COMPLETE、samples及actual_samples均3,000,000、updates=93,750；summary未提供training_and_evaluation_seconds，成本闭合采用真实Slurm区间，不将训练seconds冒充完整评价墙钟。此次只消费新[B3 seed1描述JSON](../../results/p_heads/T/B3_seed1_descriptions.json)与已生成[B3 seed1字段附表](B3_seed1_FIELDS.md)，CYP共4条、原单位VAL共109字段。
+
+| B3 seed1读出 | CYP任务 | 原误差 | 生产者score | 主分排除 |
+| --- | --- | ---: | ---: | --- |
+| R1 | cyp.3A4 | 0.48571428571428577 | 0.2916666666666666 | 是 |
+| R1 | cyp.2D6 | 0.5769230769230769 | 0.06250000000000014 | 是 |
+| R3 | cyp.3A4 | 0.4285714285714286 | 0.28571428571428564 | 是 |
+| R3 | cyp.2D6 | 0.5769230769230769 | 0.06250000000000014 | 是 |
+
+以上均为原生产者转录，不重评、拟合、bootstrap或计算MAE。CYP来源`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/scores.csv`，均排除七任务主分；VAL来源`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/runtime/results/p_recipe/training/p_heads_B3_seed1/VAL_original_units_3000000.csv`，逐字段原误差、观察数与单位直接保存在上述独立seed1附表。唯一共享对照现已完整成功，可供各实际完成的本臂seed1后续原自动post使用；本阶段不另算任何paired／训练噪声、不重读seed0分数或CP。T4 4535771仍R／1-01:08:09，原post4535835仍P0，普通日志2,953,600样本／92,300更新，尚不消费T4正式结果或提前生成其seed1。
+T1 seed1当前已正式启动4536378／node7／gpu／15CPU／nice10000／cu118／GPU-9db54192-dd3f-3177-e56f-dcd161ff932c：源仍`T1_seed1_source@617e78f`、同canonical `T1_seed1.json`及fresh seed1／3M配置，科学／执行键未变。根先实核旧4536334 P0／StartUnknown／Restarts0后HOLD，新6378 held提交，先把原字段post4536280及正式两seed post4536281改afterok:4536378并核，再取消旧6334（CANCELLED0:0／0秒）并release6378，当前实际R；旧6334及更早6272均只为零进度资源排队历史，不是重启在跑训练。外部M2 seed1已完整ready，6281仍显式绑定已确认的原M2 reference，不挂已完成旧外部job的过期依赖。
+
+node7启动前实际IDLE48CPU，GPU5/24,576MiB、free24,262MiB、无CUDA context，MemAvailable387,899,316kB、瞬时ownUUID锁FREE；actualguard root53,655,605,248B／NFS6,493,239,771,136B／UID445,976,883,200B对172,281,903,104B需求及inode／24GiB跨线预留通过。原memory.free≥11,527MiB、≤30%／UUID锁／磁盘守卫均保持。根唯一确认首loss32样本／up1；M2原checkpoint[1M,2M,3M]、不发布CP32的执行键例外保持，不能套用要求CP32的generic CLI。
+
+唯一[T1 seed1实际资源JSON](../../results/p_heads/T/T1_resources_4536378.json)由actual node7 manual观察生成：PID2625282／UID1278／PPID2625278／PGID2625282／start_ticks1984020492，真实Slurm15CPU／CPU_IDs0–14，父及所见全部后代同mask，现场4个lazy reader／配置max14，env与真实GPU context匹配均true，非benchmark。本窗口只转录根的运行事实，不再读取该JSON、CP或验证proc／GPU，不计算新吞吐或ETA，不增代码、测试、配置或任务。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
