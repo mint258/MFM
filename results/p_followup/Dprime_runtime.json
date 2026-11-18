@@ -354,28 +354,36 @@
                                                      "exclusive":  false,
                                                      "job_id":  4536314,
                                                      "allocation_pretraining_seconds":  0.29009151458740234,
-                                                     "elapsed_seconds":  6420.709908485413,
+                                                     "elapsed_seconds":  12852.709908485413,
                                                      "exit_code":  "0:0",
-                                                     "allocation_elapsed_seconds":  6421.0,
+                                                     "allocation_elapsed_seconds":  12853.0,
                                                      "progress":  {
-                                                                      "samples":  512032,
+                                                                      "samples":  1014304,
                                                                       "budget":  3000000,
-                                                                      "updates":  16001,
-                                                                      "last_loss":  0.13397498428821564,
-                                                                      "samples_per_second":  75.62509475783494,
-                                                                      "remaining_hours":  9.138530330907416
+                                                                      "updates":  31697,
+                                                                      "last_loss":  0.10414133965969086,
+                                                                      "samples_per_second":  68.33251072587102,
+                                                                      "remaining_hours":  8.072032131747656
                                                                   },
-                                                     "observed_at":  1795013767.5312304
+                                                     "observed_at":  1795020200.0396569
                                                  },
                   "fixed_VAL_delivered_samples":  [
-                                                      500000
+                                                      500000,
+                                                      1000000
                                                   ],
                   "latest_fixed_VAL":  {
-                                           "samples":  500000,
-                                           "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed1/VAL_original_units_500000.csv",
-                                           "bytes":  5915,
-                                           "producer_published_utc":  "2026-11-18T14:53:40Z",
+                                           "samples":  1000000,
+                                           "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed1/VAL_original_units_1000000.csv",
+                                           "bytes":  5919,
+                                           "producer_published_utc":  "2026-11-18T16:40:03Z",
                                            "scope":  "Existing fixedVAL original-unit MAE; final seed1 R1/R3 decision remains pending"
-                                       }
+                                       },
+                  "one_million_milestone":  {
+                                                "samples":  1000000,
+                                                "source":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/Dprime_M2_seed1/samples_1000000.pt",
+                                                "bytes":  232281469,
+                                                "producer_published_utc":  "2026-11-18T16:40:03Z",
+                                                "inspection":  "Existing atomic complete-checkpoint producer and filemetadata only; no numerical reread or new hash"
+                                            }
               }
 }
