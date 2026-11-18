@@ -357,29 +357,30 @@
                                                      "exclusive":  false,
                                                      "job_id":  4536314,
                                                      "allocation_pretraining_seconds":  0.29009151458740234,
-                                                     "elapsed_seconds":  19439.709908485413,
+                                                     "elapsed_seconds":  25752.709908485413,
                                                      "exit_code":  "0:0",
-                                                     "allocation_elapsed_seconds":  19440.0,
+                                                     "allocation_elapsed_seconds":  25753.0,
                                                      "progress":  {
-                                                                      "samples":  1509440,
+                                                                      "samples":  2005504,
                                                                       "budget":  3000000,
-                                                                      "updates":  47170,
-                                                                      "last_loss":  0.12920312583446503,
-                                                                      "samples_per_second":  73.74452332445689,
-                                                                      "remaining_hours":  5.614578897238994
+                                                                      "updates":  62672,
+                                                                      "last_loss":  0.14645257592201233,
+                                                                      "samples_per_second":  69.95775341794155,
+                                                                      "remaining_hours":  3.948795885975969
                                                                   },
-                                                     "observed_at":  1795026786.1321788
+                                                     "observed_at":  1795033099.5937107
                                                  },
                   "fixed_VAL_delivered_samples":  [
                                                       500000,
                                                       1000000,
-                                                      1500000
+                                                      1500000,
+                                                      2000000
                                                   ],
                   "latest_fixed_VAL":  {
-                                           "samples":  1500000,
-                                           "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed1/VAL_original_units_1500000.csv",
-                                           "bytes":  5924,
-                                           "producer_published_utc":  "2026-11-18T18:31:08Z",
+                                           "samples":  2000000,
+                                           "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed1/VAL_original_units_2000000.csv",
+                                           "bytes":  5934,
+                                           "producer_published_utc":  "2026-11-18T20:17:02Z",
                                            "scope":  "Existing fixedVAL original-unit MAE; final seed1 R1/R3 decision remains pending"
                                        },
                   "one_million_milestone":  {
@@ -387,6 +388,13 @@
                                                 "source":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/Dprime_M2_seed1/samples_1000000.pt",
                                                 "bytes":  232281469,
                                                 "producer_published_utc":  "2026-11-18T16:40:03Z",
+                                                "inspection":  "Existing atomic complete-checkpoint producer and filemetadata only; no numerical reread or new hash"
+                                            },
+                  "two_million_milestone":  {
+                                                "samples":  2000000,
+                                                "source":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/Dprime_M2_seed1/samples_2000000.pt",
+                                                "bytes":  232283709,
+                                                "producer_published_utc":  "2026-11-18T20:17:03Z",
                                                 "inspection":  "Existing atomic complete-checkpoint producer and filemetadata only; no numerical reread or new hash"
                                             }
               },
@@ -423,6 +431,19 @@
                                          "analysis_tools_revision_at_submission":  "ec39578",
                                          "command":  "directive_geometry.py --conditions C3 --device cpu",
                                          "scope":  "Only C3 layer6 on existing A5000VAL/47698confs; M2 and Dprime geometry reused. Completion requires actual C3 geometry and final existing R1/R3, not merely CPUjob exit."
-                                     }
+                                     },
+                        "read_only_observation":  {
+                                                      "observed_at_utc":  "2026-11-18T20:18:20Z",
+                                                      "job_id":  4536352,
+                                                      "state":  "RUNNING",
+                                                      "samples":  2248768,
+                                                      "budget":  3000000,
+                                                      "updates":  70274,
+                                                      "samples_per_second":  13.459647593608898,
+                                                      "remaining_training_hours":  15.503790430192382,
+                                                      "analysis_job_id":  4536353,
+                                                      "analysis_state":  "PENDING",
+                                                      "analysis_allocation_seconds":  0
+                                                  }
                     }
 }
