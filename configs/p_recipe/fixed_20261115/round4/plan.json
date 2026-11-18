@@ -37,5 +37,36 @@
     "fidelity_pairs":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/fidelity_pairs.json",
     "PP_fields":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/PP_fields.json",
     "M2C_required":  false,
-    "no_training_started":  true
+    "no_training_started":  true,
+    "storage_reconciliation":  {
+                                   "schema":  "P_RECIPE_REMAINING_STORAGE_PLAN_V1",
+                                   "authority":  "docs/p_recipe/USER_DIRECTIVE_20261118.md",
+                                   "observed_at_utc":  "2026-11-18T19:50:20Z",
+                                   "observed_node":  "compute-0-20",
+                                   "uid":  1278,
+                                   "existing_P_physical_bytes":  26165161984,
+                                   "checkpoint_upper_bound_bytes":  300000000,
+                                   "future_checkpoint_counts":  {
+                                                                    "C3_final":  1,
+                                                                    "round4_five_arms":  15,
+                                                                    "F1_acceptance":  1,
+                                                                    "conditional_M3_merge":  3,
+                                                                    "confirmation_up_to_T7":  63,
+                                                                    "additional_cooperative_handoffs":  15,
+                                                                    "concurrent_temporary_checkpoints":  7
+                                                                },
+                                   "future_checkpoint_count":  105,
+                                   "future_checkpoint_bytes":  31500000000,
+                                   "future_logs_readouts_metadata_bytes":  3000000000,
+                                   "remaining_P_peak_bytes":  34500000000,
+                                   "projected_total_P_peak_bytes":  60665161984,
+                                   "reserved_P_peak_bytes":  61000000000,
+                                   "global_model_peak_bytes":  114569896448,
+                                   "global_reservation_increase_bytes":  0,
+                                   "all_existing_outputs_preserved":  true,
+                                   "old_larger_checkpoints_in_existing_physical_bytes":  true,
+                                   "features_policy":  "Existing nonpersistent feature extraction retained; no new disk feature banks",
+                                   "coordination":  "One global model reservation, inode-deduplicated physical accounting; no per-node duplication. Reconcile again before further unlisted outputs or exceeding the handoff allowance.",
+                                   "admission":  "Actual compute-0-20 root/Lustre/NFS bytes+inodes and fresh UID quotas passed with the unchanged global future reservation. Recheck actual chosen nodes at launch."
+                               }
 }

@@ -1,5 +1,9 @@
 # P 配方研究日志
 
+2026-11-18 19:46UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次20:16:02UTC。
+
+2026-11-18 19:46UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2222880/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次20:16:02UTC。
+
 2026-11-18 19:15UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次19:45:44UTC。
 
 2026-11-18 19:15UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2197952/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次19:45:44UTC。
@@ -920,3 +924,7 @@ Prepared accept_fidelity.py for the one registered acceptance after C3: real PRe
 Adapted the final comparison/report producers to consume round4's actual decision schema, report PP separately, retain raw ties and unresolved F1 reasons, and describe the registered M3 merge requirement. An explicit user-approved T4 omission no longer requests nonexistent9M T4 readouts or a T4 checkpoint hash; the3M PP result remains in the report. Missing T4 without the recorded user decision still fails. Final producers first consume actual successful terminal accounting, full-budget summaries and complete R1/R3 for every registered confirmation arm. No confirmation plan, new training, comparison result, checkpoint hash or final REPORT was generated. Source validation covers the changed producers; runtime report validation remains after actual confirmation completion.
 
 A new SSH connection briefly returned connection-refused; the established authenticated head session remained live and confirmed4536352 RUNNING oncompute-0-20. This observation issue caused no restart, migration or training interruption.
+
+### 2026-11-19 03:54 CST — round4 fits the existing shared storage reservation
+
+One actual compute-0-20 metadata inventory measured retained P outputs at26,165,161,984 physical bytes. A hypothetical10GB increase did not pass the real UID quota margin and was not applied. Reconciliation instead accounts for the remaining registered work inside the existing61GB P allocation:105 future checkpoint slots at<=300MB (C3 final1; five round4 arms15; F1 acceptance1; conditional M3 merge3; up to seven9M runs63;15 further handoffs;7 simultaneous temporary checkpoints), plus3GB for logs/readouts/metadata. Projected P peak60,665,161,984B remains below61GB. Actual-node root/Lustre/NFS bytes/inodes and fresh UID quotas passed with the unchanged114,569,896,448B global forecast. The shared registry and round4 plan record the same accounting; all other reservations and existing outputs remain unchanged. Shared STATUS was appended locally. No new run, hash, receipt, deletion or training interruption was created. Launch-time checks still use the actual selected nodes.
