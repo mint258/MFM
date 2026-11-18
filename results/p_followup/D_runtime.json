@@ -1,0 +1,47 @@
+{
+  "status": "COMPLETE",
+  "scope": "Closed D training and original R1/R3 only; A-H6/native conformer MAE still separate",
+  "run": "p_followup_20261116_D_decomposition",
+  "source_revision": "75c598e",
+  "job_id": 4535660,
+  "node": "compute-0-20",
+  "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+  "gpu_names": [
+    "NVIDIA GeForce RTX 4090"
+  ],
+  "samples": 3000000,
+  "updates": 93750,
+  "training_seconds": 40418.262635508,
+  "training_samples_per_second": 74.22387317965664,
+  "gpu_peak_allocated_bytes": 9802651648,
+  "slurm_allocation_seconds": 40735.0,
+  "slurm_pretraining_seconds": 1.0527222156524658,
+  "gpu_occupied_hours": 11.314985354940097,
+  "slurm_allocated_CPU_hours": 181.04444444444445,
+  "whole_card_mean_power_watts": 256.14003723008193,
+  "power_samples": 1343,
+  "telemetry_rows": 1343,
+  "power_method": "Arithmetic mean of existing training-time whole-card samples; includes other contexts; not isolated energy",
+  "readouts": {
+    "R1": {
+      "score": 0.14540595634227454,
+      "ci95": [
+        0.12704751938963593,
+        0.1636008958318385
+      ]
+    },
+    "R3": {
+      "score": 0.42257984398568527,
+      "ci95": [
+        0.40807307996015213,
+        0.43624382773696685
+      ]
+    }
+  },
+  "sources": {
+    "summary": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/D_decomposition/summary.json",
+    "scores": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/D_decomposition/readout/scores.json",
+    "telemetry": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/results/p_followup/training/p_followup_20261116_D_decomposition/gpu_telemetry.csv",
+    "ledger": "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/study_execution.json"
+  }
+}

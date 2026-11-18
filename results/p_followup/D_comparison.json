@@ -1,0 +1,94 @@
+{
+  "status": "COMPLETE",
+  "candidate": "p_followup_20261116_D_decomposition",
+  "C": "p_followup_20261116_C_dedup_sbatch",
+  "M1": "fixed_20261115_provisional_B_20261116_round2_M1_infra_recovery_20261116",
+  "samples": 3000000,
+  "seed": 0,
+  "primary": "D-C/R3",
+  "comparisons": {
+    "D-C": {
+      "R1": {
+        "delta": 0.11115662577511741,
+        "ci95": [
+          0.09121084490122995,
+          0.13025431277945254
+        ],
+        "verdict": "win",
+        "effect_gate": null,
+        "paired_draws": 1000,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.Log_HLM_CLint",
+          "exp.LogS",
+          "qm9.U0_atom",
+          "qm9.homo",
+          "qm9.lumo",
+          "qm9.alpha"
+        ]
+      },
+      "R3": {
+        "delta": 0.11341588066776664,
+        "ci95": [
+          0.10057880677943053,
+          0.12727526834740666
+        ],
+        "verdict": "win",
+        "effect_gate": null,
+        "paired_draws": 1000,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.Log_HLM_CLint",
+          "exp.LogS",
+          "qm9.U0_atom",
+          "qm9.homo",
+          "qm9.lumo",
+          "qm9.alpha"
+        ]
+      }
+    },
+    "D-M1": {
+      "R1": {
+        "delta": 0.07368827289121534,
+        "ci95": [
+          0.05489939016419469,
+          0.09263541010302422
+        ],
+        "verdict": "win",
+        "effect_gate": null,
+        "paired_draws": 1000,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.Log_HLM_CLint",
+          "exp.LogS",
+          "qm9.U0_atom",
+          "qm9.homo",
+          "qm9.lumo",
+          "qm9.alpha"
+        ]
+      },
+      "R3": {
+        "delta": 0.06313857788625893,
+        "ci95": [
+          0.050855736420927,
+          0.07633633031625513
+        ],
+        "verdict": "win",
+        "effect_gate": null,
+        "paired_draws": 1000,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.Log_HLM_CLint",
+          "exp.LogS",
+          "qm9.U0_atom",
+          "qm9.homo",
+          "qm9.lumo",
+          "qm9.alpha"
+        ]
+      }
+    }
+  },
+  "recommendation": "Conformer decomposition is a candidate for adoption",
+  "mainline_modified": false,
+  "integration_requires_user_confirmation": true
+}
