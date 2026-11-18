@@ -40,18 +40,18 @@
                                        "resume_from_run":  "p_followup_20261116_Dprime_M2_seed0_continued",
                                        "resume_samples":  242272,
                                        "allocation_pretraining_seconds":  4.344090223312378,
-                                       "elapsed_seconds":  17265.655909776688,
+                                       "elapsed_seconds":  24553.655909776688,
                                        "exit_code":  "0:0",
-                                       "allocation_elapsed_seconds":  17270.0,
+                                       "allocation_elapsed_seconds":  24558.0,
                                        "progress":  {
-                                                        "samples":  1552992,
+                                                        "samples":  2103680,
                                                         "budget":  3000000,
-                                                        "updates":  48531,
-                                                        "last_loss":  0.13544517755508423,
-                                                        "samples_per_second":  76.29650138601731,
-                                                        "remaining_hours":  5.268218848372129
+                                                        "updates":  65740,
+                                                        "last_loss":  0.4609422981739044,
+                                                        "samples_per_second":  81.27290237681825,
+                                                        "remaining_hours":  3.0634783611320193
                                                     },
-                                       "observed_at":  1794988343.4008105
+                                       "observed_at":  1794995632.0349245
                                    },
     "standby":  {
                     "backend":  "Slurm",
@@ -217,13 +217,29 @@
     "fixed_VAL_delivered_samples":  [
                                         500000,
                                         1000000,
-                                        1500000
+                                        1500000,
+                                        2000000
                                     ],
     "latest_fixed_VAL":  {
-                             "samples":  1500000,
-                             "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/VAL_original_units_1500000.csv",
-                             "bytes":  5921,
-                             "producer_published_utc":  "2026-11-18T07:40:47Z",
+                             "samples":  2000000,
+                             "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/VAL_original_units_2000000.csv",
+                             "bytes":  5936,
+                             "producer_published_utc":  "2026-11-18T09:32:13Z",
                              "scope":  "Existing fixedVAL only;3M decision and final within-molecule conformerMAE remain pending"
-                         }
+                         },
+    "two_million_milestone":  {
+                                  "samples":  2000000,
+                                  "source":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/samples_2000000.pt",
+                                  "bytes":  232283709,
+                                  "producer_published_utc":  "2026-11-18T09:32:13Z",
+                                  "inspection":  "Existing atomic complete-checkpoint producer and filemetadata only; no numerical reread/hash"
+                              },
+    "C3_at_two_million_report":  {
+                                     "job_id":  4535189,
+                                     "state":  "RUNNING",
+                                     "node":  "compute-0-6",
+                                     "run":  "fixed_20261115_round3_C3",
+                                     "exact3M_exists":  false,
+                                     "scope":  "Fresh squeue and exact path filemetadata at this report; C3 migration not observed"
+                                 }
 }
