@@ -1,7 +1,7 @@
 """Render the final taskbook REPORT from completed study outputs, once ready.
 
 No training, probe fitting, bootstrap resampling or intermediate hashes run here.
-Only final T2/T3 and the user-retained T4 checkpoints receive new SHA256 values.
+Only the actual final candidate checkpoints receive new SHA256 values.
 """
 import argparse
 import csv
@@ -9,7 +9,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
-from final_comparisons import completed_configurations
+from final_comparisons import completed_configurations,CLOSEOUT
 
 REPO = Path(__file__).resolve().parents[2]
 
@@ -51,7 +51,8 @@ def comparison_table(comparisons, purpose, delta_source, line_numbers):
     return table(['读出', '任务', 'A − B', 'Δ', '95% CI', '判定', '证据'],
                  [[row['readout'], row.get('task', 'MEAN'), row['A'] + ' − ' + row['B'],
                    number(row['delta']), f"[{number(row['ci_lower'])}, {number(row['ci_upper'])}]",
-                   row['verdict'], link(delta_source, 'deltas.csv')[:-1] + f'#L{line_numbers[key(row)]})']
+                   '仅描述' if row['verdict']=='descriptive' else row['verdict'],
+                   link(delta_source, 'deltas.csv')[:-1] + f'#L{line_numbers[key(row)]})']
                   for row in selected])
 
 
@@ -145,14 +146,15 @@ def round4_sections(state, delta_source, line_numbers):
     pp = state['PP_comparison']
     content = ['## 第4轮：扰动信号、多保真度及3M P/Pprime', '',
                f"字段配对、未配对原因和P/Pprime交集：{link(REPO / 'docs/p_recipe/ROUND4_METHODS.md')}。"
-               '本轮全部单种子3M，以M2为基线；PP单独比较数据来源，不作为配方组件。', '',
+               '本轮每条3M，以M2为基线；默认seed0，边界结果补seed1，最多两个种子。PP单独比较数据来源，不作为配方组件。', '',
                'X1/F2平局时采纳更简单的去掉项；X2/F1平局不采纳。X1/X2、F1/F2互斥，按Δ较大项取舍。'
                '下表保留原始胜负判定，最终并入项同时受M3合并比较约束。', '',
-               table(['PP运行', '对照运行', 'R3 Δ', '95% CI', '最小效应', 'M2两种子R3差', 'T4建议'],
+               table(['PP运行', '对照运行', 'R3 Δ', '95% CI', '最小效应', 'M2两种子R3差', '9M-T4决定'],
                      [[pp['run'], pp['control_run'], number(pp['comparison']['delta']),
                        f"[{number(pp['comparison']['ci_lower'])}, {number(pp['comparison']['ci_upper'])}]",
-                       number(pp['minimum_effect']), number(pp['noise_R3_difference']), pp['recommendation']]]), '',
-               'PP的T4建议要求CI不含0、|Δ|达到最小效应且超过观察到的M2种子差；建议不自动取消9M T4。', '',
+                       number(pp['minimum_effect']), number(pp['noise_R3_difference']),
+                       pp.get('T4_user_decision',pp.get('recommendation','—'))]]), '',
+               '按18B预授权，PP的CI不含0、|Δ|达到最小效应且超过M2两种子R3差时，自动省略9M-T4；否则保留。', '',
                table(['M3组件', '第4轮候选', '需3M合并比较', '最终组件', '合并验证完成'],
                      [[', '.join(state['merge_base_components']), ', '.join(state['screening_candidates']) or '无',
                        state['merge_required'], ', '.join(state['merged_components']), state['merge_validation_complete']]]), '']
@@ -161,8 +163,34 @@ def round4_sections(state, delta_source, line_numbers):
     return content
 
 
+def closeout_sections(plan):
+    if plan.get('selection_authority')!=CLOSEOUT:
+        return []
+    lines=plan.get('external_line_decisions',{})
+    if not plan.get('external_line_decisions_complete') or not {'heads','decoupling'}<=set(lines):
+        raise ValueError('Final report requires both published side-line dispositions')
+    summary=[];details=[]
+    def source(value):
+        return f'[正式判定]({value})' if str(value).startswith('https://') else str(value)
+    for name,evidence in lines.items():
+        summary.append([name,evidence['status'],', '.join(evidence.get('adopted_components',[])) or '无',source(evidence.get('source','—'))])
+        for decision in evidence.get('component_decisions',[]):
+            details.append([name,decision['arm'],decision.get('seed_count',0),number(decision.get('delta')),
+                            json.dumps(decision.get('seed_CI',[]),ensure_ascii=False),decision['verdict'],
+                            '是' if decision.get('adopted') else '否',source(decision.get('source',evidence.get('source','—')))])
+    return ['## 最终配方冻结与侧线交接','',
+            '第4轮为最后一轮筛选。两条侧线按各自原预注册规则产生的两种子胜出项直接合并；未完成者按记录的最终未解决处置不并入。'
+            '本线不重判侧线、不另开验证轮；head类型线已规定的自身确认仍由该线完成。9M在全部判定与合并后冻结配方，T3/T7取消。','',
+            table(['线路','最终状态','并入组件','证据'],summary),'',
+            table(['线路','臂','种子数','原平均Δ','原各种子CI','原判定','并入','证据'],details),'']
+
+
 def render(plan, verdict, states, selection, code_commit):
+    closeout=plan.get('selection_authority')==CLOSEOUT
+    if closeout and (not plan.get('conditional_seed_decisions_complete') or not verdict.get('conditional_seed_decisions_complete')):
+        raise ValueError('The final report waits for all registered conditional second-seed decisions')
     configs = completed_configurations(plan)
+    main_arms=tuple(arm for arm in ('T1','T2','T3') if arm in configs)
     round4 = next((state for state in states if state['round'] == 4), None)
     if plan.get('selection_round') == 4 and (round4 is None or not round4.get('merge_validation_complete')):
         raise ValueError('The registered round4 decision is required for the final report')
@@ -190,7 +218,7 @@ def render(plan, verdict, states, selection, code_commit):
     family_losses = {arm: {row['family']: row['loss'] for row in
                           rows(REPO / 'results/p_recipe/training' / configs[arm]['run'] / 'family_losses.csv')
                           if row['kind'] == 'VAL_fixed2000' and int(row['samples']) == confirmation_samples}
-                     for arm in ('T1', 'T2', 'T3')}
+                     for arm in main_arms}
     panel = read(REPO / 'configs/dev_panel_v3.json')['tasks']
     full_count = verdict['full_TRAIN_molecules']
     final_config = Path(verdict['runnable_configuration'])
@@ -221,31 +249,33 @@ def render(plan, verdict, states, selection, code_commit):
                table(['确认运行', '实际batch', '学习率', '自身60k–150k范数p99', '标签/几何', 'TRAIN分子数'],
                      [[arm, c['batch_size'], f"{c['lr']:g}", number(clips[arm]), c['source'],
                        c.get('subset_molecules') or read(c['corpus'])['train_molecules']] for arm, c in configs.items()]), '',
-               '## 放大确认：T1/T2/T3', '',
-               table(['运行', '组件', '实际batch/lr', 'R3主分', 'R1副分', 'VAL家族损失'],
+               '## 放大确认：'+'/'.join(main_arms), '',
+               table(['运行', '组件', '实际batch/lr', 'R3主分（seed0）', 'R1副分（seed0）', 'VAL家族损失'],
                      [[arm, ', '.join(configs[arm]['components']) or 'B0',
                        f"{configs[arm]['batch_size']}/{configs[arm]['lr']:g}",
                        number(summaries[arm]['R3']['mean_normalized_improvement']),
                        number(summaries[arm]['R1']['mean_normalized_improvement']),
                        link(REPO / 'results/p_recipe/training' / configs[arm]['run'] / 'family_losses.csv')]
-                      for arm in ('T1', 'T2', 'T3')]), '',
-               '逐任务单元格为 R3 / R1；SoM只报告，不进入平均分。', '',
-               table(['任务'] + ['T1 R3/R1', 'T2 R3/R1', 'T3 R3/R1'],
+                      for arm in main_arms]), '',
+               '逐任务单元格为seed0的 R3 / R1；SoM只报告，不进入平均分。配对判定按实际要求的一个或两个种子计算。', '',
+               table(['任务'] + [arm+' R3/R1' for arm in main_arms],
                      [[task['task_id']] + [' / '.join(number(score_index[(configs[arm]['run'], readout, task['task_id'], confirmation_samples)]['score'])
-                                                               for readout in ('R3', 'R1')) for arm in ('T1', 'T2', 'T3')]
+                                                               for readout in ('R3', 'R1')) for arm in main_arms]
                       for task in panel]), '',
                f'固定2000个VAL分子、最终{confirmation_samples/1e6:g}M点的标准化家族P损失：', '',
-               table(['家族', 'T1', 'T2', 'T3'],
-                     [[family] + [number(family_losses[arm].get(family)) for arm in ('T1', 'T2', 'T3')]
+               table(['家族']+list(main_arms),
+                     [[family] + [number(family_losses[arm].get(family)) for arm in main_arms]
                       for family in sorted(set().union(*(set(value) for value in family_losses.values())))]), '',
                comparison_table(verdict['comparisons'], 'confirmation', delta_source, line_numbers), '',
-               comparison_table(verdict['comparisons'], 'final_recipe', delta_source, line_numbers), '',
-               ('T2、T3均未按预注册规则胜过T1，结果如实保留。' if verdict['neither_candidate_beats_T1'] else
+               *([] if closeout else [comparison_table(verdict['comparisons'], 'final_recipe', delta_source, line_numbers), '']),
+               (('T2未按预注册规则胜过T1，结果如实保留；配方在9M前已冻结，不追加筛选。' if verdict['neither_candidate_beats_T1'] else
+                 'T2按预注册规则胜过T1；配方在9M前已冻结，不追加筛选。') if closeout else
+                'T2、T3均未按预注册规则胜过T1，结果如实保留。' if verdict['neither_candidate_beats_T1'] else
                 '至少一个候选按预注册规则胜过T1；最终配方由T2/T3之间的比较决定。'), '',
                'B0与M2的预算同号检查：`' + json.dumps(verdict['B0_M2_budget_sign'], ensure_ascii=False) + '`。', '',
                '## P与P′对比', '',
                (f"P比较臂为 {plan['Pprime_comparator']}，P′为T4，实际共同启用字段 {len(configs['T4'].get('fields', plan['common_fields']))} 个。"
-                if 'T4' in configs else '9M T4已按记录的用户决定省略；P与Pprime保留第4轮3M PP结果，不构造9M对比。'
+                if 'T4' in configs else '9M T4已按记录的预授权决定省略；P与Pprime保留第4轮3M PP结果，不构造9M对比。'
                 f"用户确认：{plan['T4_user_confirmation']}。"), '',
                f"原始P/Pprime共同字段 {len(plan['common_fields'])} 个，丢失P字段 {plan['lost_P_fields']} 个"
                f"（{plan['lost_P_fraction']:.3%}），T7要求为 {plan['T7_required']}。", '',
@@ -256,7 +286,7 @@ def render(plan, verdict, states, selection, code_commit):
                        number(summaries[arm]['R1']['mean_normalized_improvement']), number(confirmation_samples / count)]
                       for count, arm in ((250000, 'T5'), (500000, 'T6'), (full_count, 'T2'))]), '',
                comparison_table(verdict['comparisons'], 'molecule_scaling', delta_source, line_numbers), '',
-               '子集种子20261112，250k ⊂ 500k ⊂ 全量。分子数减少会提高重复次数；这里只报告，不作扩量决策。', '',
+               '子集种子20261112，250k ⊂ 500k ⊂ 全量。T5/T6及全量缩放点使用seed0，分子数减少会提高重复次数；只作描述，不判胜负、不补种子或作扩量决策。', '',
                f"![固定预算分子数曲线]({os.path.relpath(results / 'molecule_scaling.svg', REPO / 'docs/p_recipe').replace(os.sep, '/')})", '',
                '## 全部筛选臂及组件取舍', '']
     experiment_rows = screening_rows(states, delta_source, line_numbers)
@@ -268,6 +298,7 @@ def render(plan, verdict, states, selection, code_commit):
                             ('注册第4轮及所需合并比较完成' if state['round'] == 4 else '继续下一轮')]
                            for state in states]), '',
                     *round4_sections(round4, delta_source, line_numbers),
+                    *closeout_sections(plan),
                     '## 评价及统计方法', '',
                     '计分任务为ExpansionRx的LogD、LogS、HLM CLint，以及QM9原子化能、alpha、homo、lumo。'
                     '原子化能为U0减去QM9官方U0原子参考之和。CYP3A4/2D6 SoM只报告。'
@@ -283,7 +314,10 @@ def render(plan, verdict, states, selection, code_commit):
                     '合并基线若输给前轮最佳单项则回退。200GPUh筛选上限已按2026-11-17用户补充指示取消。'
                     '第4轮由11-18指示注册，X1/X2/F1/F2对照M2；M3不同于M2时，新增组件须经M3上的3M合并比较胜出后采纳。'
                     '旧作废筛选、测速及校准成本不混入新筛选预算。'
-                    'M2另补seed1噪声基准供各线复用，仅报告训练噪声，不改变第3轮预注册判定。', '',
+                    'M2 seed1作为噪声描述及已有配对参考供各线复用，不重训对照。'
+                    '18B之后的比较仅在seed0满足0.5τ≤|Δ|<1.5τ时补seed1，τ=max(0.01,0.05×较大分)，最多两个种子。'
+                    '两种子点估计取配对Δ均值，各自原1000个分子bootstrap差值等权拼接为2000个差值，取95%分位CI；'
+                    '阈值使用两种子平均分，原胜负规则不变。R1及逐任务结果只报告，不额外触发训练。', '',
                     '## A1/A2/A5定义及TRAIN拟合参数', '',
                     'A1对尚未扣元素参考的广延分子标量拟合y≈Σc_Z n_Z+b，训练目标取残差；'
                     '已扣参考的字段不重复扣。A2对注册表中相同物理量、同分子/原子/分量取状态值减中性值，且两者掩码均有效；'

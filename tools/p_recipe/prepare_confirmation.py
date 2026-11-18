@@ -123,7 +123,9 @@ def prepare(state,*,base_configuration=None,study_directory=None):
   plan.update(selection_authority='docs/p_recipe/USER_DIRECTIVE_20261118B.md',
               recipe_frozen=True,frozen_configuration=state['frozen_configuration'],
               cancelled_arms=['T3','T7'],seed_policy=directive['closeout']['seed_policy'],
-              external_adoptions=state.get('external_adoptions',[]))
+              external_adoptions=state.get('external_adoptions',[]),
+              external_line_decisions_complete=True,
+              external_line_decisions=state.get('external_line_decisions',{}))
  (destination/'plan.json').write_text(json.dumps(plan,indent=2)+'\n');print(json.dumps(plan,indent=2),flush=True);return plan
 
 if __name__=='__main__':

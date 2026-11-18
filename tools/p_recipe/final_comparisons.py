@@ -9,6 +9,7 @@ from phychem_mfm.phase1.v3_dev_evaluation import compare_panel
 from phychem_mfm.phase1.v3_dev_evaluation_v2 import _unpack
 R=Path('/share/home/zixiao/descriptor_analysis');REPO=Path(__file__).resolve().parents[2]
 REFERENCE=Path('/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/predictions.json')
+CLOSEOUT='docs/p_recipe/USER_DIRECTIVE_20261118B.md'
 
 
 def read(path):return json.loads(Path(path).read_text())
@@ -24,7 +25,10 @@ def study_root(plan):
 def completed_configurations(plan):
  """Final producers consume successful full-budget runs, including readouts."""
  configs={read(path)['arm']:read(path) for path in plan['configurations']}
- required={'T1','T2','T3','T5','T6'}
+ closeout=plan.get('selection_authority')==CLOSEOUT
+ required={'T1','T2','T5','T6'} if closeout else {'T1','T2','T3','T5','T6'}
+ if closeout and (not plan.get('recipe_frozen') or plan.get('T7_required')):
+  raise ValueError('18B requires a frozen recipe and excludes T7')
  if 'T4' not in configs:
   if plan.get('T4_included') is not False or plan.get('T4_user_decision')!='OMIT' or not plan.get('T4_user_confirmation'):
    raise ValueError('Missing T4 requires the recorded explicit user omission')
@@ -48,6 +52,24 @@ def completed_configurations(plan):
   if not all(scores[r].get('complete') and scores[r]['bootstrap_samples']==1000 and scores[r]['bootstrap_defined']==1000 for r in ('R1','R3')):
    raise ValueError('Registered readouts are incomplete: '+c['run'])
  return configs
+
+
+def comparison_layout(plan,configs):
+ """Scaling remains descriptive under18B and never requests another seed."""
+ deciding=[('T2','T1','confirmation')]
+ scaling=[('T2','T6','molecule_scaling'),('T6','T5','molecule_scaling')]
+ if plan.get('selection_authority')!=CLOSEOUT:
+  deciding.extend([('T3','T1','confirmation'),('T2','T3','final_recipe')])
+ if 'T4' in configs:deciding.append((plan['Pprime_comparator'],'T4','P_vs_Pprime'))
+ return deciding,scaling
+
+
+def final_recipe_choice(plan,configs,rows):
+ if plan.get('selection_authority')==CLOSEOUT:return 'T2',None
+ decision=next(row for row in rows if row['purpose']=='final_recipe' and row['readout']=='R3')
+ if decision['verdict']=='win':return 'T2',decision
+ if decision['verdict']=='loss':return 'T3',decision
+ return min(('T2','T3'),key=lambda arm:len(configs[arm]['components'])),decision
 
 
 def report_task_values(c,readout):
@@ -85,7 +107,7 @@ def budget_sign_comparison(plan,configs):
  for path in study_root(plan).glob('round*/*.json'):
   item=read(path)
   if item.get('stage')==2 and item.get('study_revision','original_20261113')==plan.get('study_revision','original_20261113') and item.get('components')==components and (Path(item['output'])/'readout/scores.json').is_file():candidates.append(item)
- full=next((configs[arm] for arm in ('T2','T3','T1') if configs[arm]['components']==components),None)
+ full=next((configs[arm] for arm in ('T2','T3','T1') if arm in configs and configs[arm]['components']==components),None)
  if not candidates or full is None:return dict(status='M2 lacks a separately measured matched configuration at one budget; no extra run',components=components)
  small=max(candidates,key=lambda item:item['round']);baseline=read(study_root(plan)/'round1/B0.json')
  d1=summaries(small)['R3']['mean_normalized_improvement']-summaries(baseline)['R3']['mean_normalized_improvement']
@@ -94,19 +116,22 @@ def budget_sign_comparison(plan,configs):
 
 def close(plan):
  if plan.get('selection_valid') is False:raise ValueError('The user invalidated this confirmation evidence')
+ closeout=plan.get('selection_authority')==CLOSEOUT
+ if closeout and not plan.get('conditional_seed_decisions_complete'):
+  raise ValueError('Final comparisons wait for all registered conditional seed1 decisions')
  configs=completed_configurations(plan)
  rows=[]
- comparisons=[('T2','T1','confirmation'),('T3','T1','confirmation'),('T2','T3','final_recipe'),
-              ('T2','T6','molecule_scaling'),('T6','T5','molecule_scaling')]
- if 'T4' in configs:comparisons.append((plan['Pprime_comparator'],'T4','P_vs_Pprime'))
+ comparisons,descriptive=comparison_layout(plan,configs)
  for a,b,purpose in comparisons:
   rows.extend(compare(configs[a],configs[b],purpose,0))
+ for a,b,purpose in descriptive:
+  values=compare(configs[a],configs[b],purpose,0)
+  if closeout:
+   for value in values:value['verdict']='descriptive'
+  rows.extend(values)
  if 'T4' in configs:rows.extend(task_rows(configs[plan['Pprime_comparator']],configs['T4']))
  write_deltas(rows,REPO/plan.get('results_directory','results/p_recipe')/'deltas.csv')
- decision=next(row for row in rows if row['purpose']=='final_recipe' and row['readout']=='R3')
- if decision['verdict']=='win':chosen='T2'
- elif decision['verdict']=='loss':chosen='T3'
- else:chosen=min(('T2','T3'),key=lambda arm:len(configs[arm]['components']))
+ chosen,decision=final_recipe_choice(plan,configs,rows)
  target=study_root(plan)/'final_recipe.json';c=dict(configs[chosen])
  for key in ('resume','resume_samples','resume_from_output','attempt','handoff_request','handoff_ack','required_gpu_uuid'):
   c.pop(key,None)
@@ -124,7 +149,11 @@ def close(plan):
  verdict=dict(final_run=configs[chosen]['run'],final_arm=chosen,final_components=configs[chosen]['components'],
   study_revision=plan.get('study_revision','original_20261113'),
   runnable_configuration=str(target),T2_T3=decision,Pprime_comparator=plan['Pprime_comparator'],
-  Pprime_and_scaling_recipe='T2/final merged recipe',repeat_on_T3='Pending user decision; no rerun' if chosen=='T3' else 'Not needed',
+  selection_authority=plan.get('selection_authority'),recipe_frozen=plan.get('recipe_frozen',False),
+  conditional_seed_decisions_complete=plan.get('conditional_seed_decisions_complete',False),
+  external_adoptions=plan.get('external_adoptions',[]),
+  Pprime_and_scaling_recipe='T2/final merged recipe',
+  repeat_on_T3='Not applicable:18B cancels T3; no post-closeout training' if closeout else 'Pending user decision; no rerun' if chosen=='T3' else 'Not needed',
   T4_included='T4' in configs,T4_user_decision=plan.get('T4_user_decision','KEEP'),
   T4_user_confirmation=plan.get('T4_user_confirmation'),
   neither_candidate_beats_T1=not any(row['purpose']=='confirmation' and row['readout']=='R3' and row['verdict']=='win' for row in rows),
