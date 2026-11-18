@@ -71,6 +71,9 @@ T2/T5 seed1后处理准备已登记，根先确认没有重复队列；以下均
 | T5 | 4536291 | afterok:4536260 | 4536292 | afterok:4536260且afterok:4536238 |
 
 字段整理分别使用canonical `T2_seed1.json`、`T5_seed1.json`，只copy原CYP/VAL至独立seed1 stem。两seed判定分别使用当前`t_decide --configuration configs/p_heads/T/T2_seed0.json`或`T5_seed0.json`，显式`--reference-configuration configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；直接复用已发布seed0统计，仅首次新seed1 paired，唯一共享B3 seed1仍4536238。T2是否补胜出确认只能按真实最终flag决定，目前不预建或预跑确认。原B3字段4536240、T3字段／判定4536268／69、T1字段／判定4536280／81不重复；其它训练与资源队列、C3保留及待答共用范围不变。以后若资源改排尚未启动的训练父job，取消旧父前须把仍P0的post依赖绑定到真实新ID；若post已被Slurm自动取消，仅重建零进度post，此为资源维护，不改变科学依赖或当前父job。
+21:36新检查点里程碑（仅转录根唯一文件元数据）：共享B3 seed1／4536238的`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_B3_seed1/samples_1000000.pt`已发布，232,053,181B，mtime 2026-11-18 21:23:59.222345405+0800；此前1M边界原VAL_fixed2000先于publish_checkpoint，正常边界等待后日志已自然恢复至1,008,000样本／31,500更新。T4 seed0／4535771的`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T4_seed0/samples_2000000.pt`已发布，232,049,859B，mtime 2026-11-18 21:34:37.190371432+0800，原日志已2,000,000样本／62,500更新。21:36真实squeue为T4 R／16:48:15／node4、B3 seed1 R／4:34:33／node7、T3 seed1 R／2:58:02／node5；T1 seed1 4536272、T2 seed1 4536170、T5 seed1 4536260均仍P0原资源依赖，所有post依赖保持。检查点只stat，未读权重、hash或作中间分析；最终3M及parent成功前不做科学收尾。
+
+资源协调原事实：侧线原Dprime4535831已结束，mandatory Dprime seed1 4536314自21:09:06正式R／node20／CPU16。根21:25实核20b／ec788ed1为20,483/49,140MiB，仅新python97394／20,460MiB；20a／8bfd2ba3为437MiB，仅gmx83355／414MiB，仍保留C3。C3原4535189仍node6 R；node6虽32CPU可分配，但20:54实际GPU20,020/24,576MiB，仅C3 python1956854／20,012MiB，不能视为新合规空卡。上述只转录已知协调事实，不改变任何运行或队列。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
