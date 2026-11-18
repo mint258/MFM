@@ -1,6 +1,6 @@
 # 原子级新预测头与 PMA 消融
 
-2026-11-18；状态：T3 seed0原评价与配对判定已发布，按规则待条件seed1；其余正式运行继续。
+2026-11-18；状态：T2/T3 seed0原评价与配对判定已发布，均按规则待条件seed1；其余正式运行继续。
 
 ## 用户补充指令与当前执行范围
 
@@ -37,7 +37,10 @@ T4自身p99已自然冻结。约06:02后从canonical配置实际输出唯一次�
 T5首个既定1M检查点已实际发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T5_seed0/samples_1000000.pt`，220,568,041字节，mtime=2026-11-18 08:56:02.851418 CST（原epoch1794963362.8514183）。协调窗口约09:00唯一观察时，T5自然日志已达1,007,104样本／31,472更新；本报告只转录该新元数据，不重读CP体、阈值或速率，不改变旧ETA，不作中间几何或额外评价。同期实际compute20的guard(force=True)已返回MILESTONE_WRITE_GUARD_OK／EXIT0，原磁盘、inode、UID配额及全部并发预留保护继续。
 
 同期资源安排只记录事实：原D及CPU后处理已退出，node20有89个Slurm可分配CPU；ec788ed1候选卡由更高优先配方线C3 owner先评估，followup STATUS已确认UUID锁FREE、既有gmx约400MiB共用规则适用，但尚未出现C3迁移新job。本线不据空闲数字抢先提交或占卡。T3 seed1的4535777当时P0 hold，为较早Dprime保留一次可恢复槽位（现已完成让行并release，见下段）；B3 seed1仍暂排T2结束后20a，四条已在跑训练保持，不加入科学依赖或操作live任务。
-T5首次2M训练检查点也已自然发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T5_seed0/samples_2000000.pt`，220,570,345字节，mtime=2026-11-18 13:10:24.857142 CST（原epoch1794978624.8571422）。根约13:10首次记录该元数据，本报告只转录、不重读CP、阈值或速率，不改变旧ETA或科学配置。T4首1M尚未发布，不写入假里程碑或补中间几何。共享B3 seed1仍hold等待C3下一快卡优先；用户readiness问题尚未答复，默认保留优先，不因此阻塞T2原评价或既有CPU后处理。
+T5首次2M训练检查点也已自然发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T5_seed0/samples_2000000.pt`，220,570,345字节，mtime=2026-11-18 13:10:24.857142 CST（原epoch1794978624.8571422）。根约13:10首次记录该元数据，本报告只转录、不重读CP、阈值或速率，不改变旧ETA或科学配置。该次转录时T4首1M尚未发布；后续真实首1M现已记录如下，不补中间几何。共享B3 seed1仍hold等待C3下一快卡优先；此前readiness未答时默认保留优先；现用户已明确C3会立即使用、继续保留快卡，不阻塞原评价或CPU后处理。
+T4首个既定1M训练检查点现已实际发布：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T4_seed0/samples_1000000.pt`，232,047,619字节，mtime=2026-11-18 13:20:11.286347 CST（原epoch1794979211.286347）。本报告仅引用根首次提供的元数据；13:29实际compute20 T4_1M_WRITE_GUARD_OK／EXIT0已在写前通过，不再查CP、身份、阈值或数值。依据这次实际首1M进度，T4后续3M训练更新运行规划调整为11月19日约06:30，固定验证/最终读出另计、估计可变；原唯一34.01465327764704/s窗口和05:18:42.495993初估留为历史，未重测速或改参数。
+
+T5仅依据已记录1M 08:56→2M 13:10的自然CP节奏，运行规划更新为11月18日约17:30；原唯一67.31304296672371/s窗口及17:14:16.492789初估保留历史，不重算测速。T1约16时规划不变；原T2正式结果亦不改。用户现已明确答复“C3会立即使用，继续保留快卡”，readiness不再pending，四处STATUS已发布；B3 seed1 4535778继续hold。根/Hagent同次已提供20a在13:28.610938为843/49140MiB、仅2gmx、UUID锁FREE，13:31 Slurm有20CPU可分配，H仅CPU4不占卡；这里只转录已发布资源事实，不重新观察。C3仍先使用，本线不因空闲数抢占、解除hold或启动新训练，T2 seed1 source/提交仍由根协调，暂无新训练。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
@@ -248,15 +251,29 @@ T2最终3M训练检查点已由原生产者发布：`/share/home/zixiao/descript
 | P.pm7_B.r46.value | 0.06874412153929472 | 0.001373119419440627 | 0.01997519845396141 | 721 | 通过 |
 
 r45/r46的终点ratio分别约2.36%和2.00%，已回升到1%以上；只能表述为三头均曾按规则达标，不能表述为终点三头均低于1%。没有按终点回升延长、重置或重试，也没有改动首次达标锁存规则。头部小样本拟合验收只证明这一固定设置下达到过门槛，不构成正式3M的泛化或质量结论。
-## 显著性与最终判定（尚未应用）
+## T2 seed0完成与条件补跑
 
-所有科学规则以冻结 `configs/p_heads/preregistration.json` 原文为准。T2–T5相对B3，T1相对其绑定的当前最优配方（现M2），以原1000次配对bootstrap求95%CI；R3差≥0.06且下界>0判胜，差≤−0.06且上界<0判负。其他情况触发该臂seed1；T2–T5共享一次B3 seed1，T1复用配方线M2 seed1；最终按两种子CI及预注册平均增益门槛判定。R1独立报告但不触发补跑；CYP及逐字段VAL原单位MAE仅作描述。判定辅助程序已实现但尚未应用真实新臂分数；其单种子门槛及两种子效果/方向边界2项CPU测试通过。T3 seed0的新分数及差值已由原生产者发布并触发条件seed1，当前尚无最终两种子或机制结论，不能据单元测试或单种子结果采纳新头。
+原T2 4535630已真实COMPLETED／0:0，Elapsed18:14:22、15CPU；原自动R1/R3完整结束。后处理4535833先前因16CPU资源不足而PENDING／0秒，仅同job改排gpu分区／node20／1CPU、无CUDA后完成COMPLETED／0:0／6秒，一次顺序执行现有t_decide与描述转录；没有重评、重新bootstrap或重复计算MAE。下表直接抄录生产者 `results/p_heads/T/T2_deltas.json`，现成score摘要给出相同点值，本窗口未再次运行判定或验证数学。
+
+| 读出 | T2 score | B3 score | 配对Δ | 原95%CI | seed0规则结果 |
+| --- | ---: | ---: | ---: | --- | --- |
+| R1 | 0.3108263615978493 | 0.3142474985239394 | -0.003421136926090085 | [-0.015207643623784359, 0.008744198142949395] | 未达单种子门槛，单独报告 |
+| R3 | 0.4669179815594994 | 0.47450343188220573 | -0.007585450322706355 | [-0.016785810164422956, 0.0020004774800213097] | SEED1_REQUIRED |
+
+R3未达|Δ|≥0.06且区间不跨0的单种子直接判定条件，原规则正式触发T2 seed1；当前不判胜／负／平或提前做两种子结论，current_best_confirmation_required=false，不启动CURRENT_BEST确认。已生成canonical `configs/p_heads/T/T2_seed1.json`：arm=T2、seed=1，run=p_heads_T2_seed1，output=CONTROL/training/p_heads_T2_seed1，独立request/ack路径，B3基底与6电荷+3Fukui、3M/B32/workers14均保持；不存在resume／resume_samples／resume_from_output／attempt／required_gpu_uuid迁移键。它是从头新种子配置，本窗口只核对来源与路径，不提交任务或改冻结源。
+
+共享对照直接复用已存在的 `configs/p_heads/T/B3_seed1.json`，run仍p_heads_B3_seed1、seed=1、fresh CONTROL/training/p_heads_B3_seed1，不另建第二条B3。该对照尚未跑完，不能据此提前完成两seed判定；4535778仍为C3优先/readiness安排而hold，此前问题未答不构成数据科学门；现用户已明确C3立即使用，优先保留快卡。HCPU4536097正在运行／4CPU，尚未读取或引用其未完统计。
+
+T2现成描述性产物为 `results/p_heads/T/T2_descriptions.json` 及 [T2_FIELDS.md](T2_FIELDS.md)：4条CYP、109个原单位VAL字段。CYP的R1 3A4／2D6 score为0.37499999999999994／0.31249999999999994，R3为0.238095238095238／0.18750000000000006，四条全部excluded_from_mean=true，不进入七任务主分；原误差、参考误差与完整109字段MAE/观察数/单位由后处理直接转录。本窗口只读已发布JSON/score摘要及核对附表存在，没有读取原CSV、CP或H未完统计。
+## 显著性与最终判定（已应用seed0；最终两seed待完成）
+
+所有科学规则以冻结 `configs/p_heads/preregistration.json` 原文为准。T2–T5相对B3，T1相对其绑定的当前最优配方（现M2），以原1000次配对bootstrap求95%CI；R3差≥0.06且下界>0判胜，差≤−0.06且上界<0判负。其他情况触发该臂seed1；T2–T5共享一次B3 seed1，T1复用配方线M2 seed1；最终按两种子CI及预注册平均增益门槛判定。R1独立报告但不触发补跑；CYP及逐字段VAL原单位MAE仅作描述。判定辅助程序已仅用于真实T2/T3 seed0产物，未重复运行；其单种子门槛及两种子效果/方向边界2项CPU测试通过。T2/T3 seed0的新分数及差值均已由原生产者发布并触发条件seed1，当前尚无最终两种子或机制结论，不能据单元测试或单种子结果采纳新头。
 
 ## 限制
 
 机制解释范围限于query→atom softmax的选择性；H6观察和T3消融均未移除64维sigmoid门控求和，logN大小信息也仍存在。最终胜/负/平严格沿用冻结预注册，结果不能扩展成所有PMA加权均已被均匀化或排除。
 
-新代码默认关闭；不接入主线或p-followup在跑任务。标签、mask、归一化及字段集合不改。T1旧固定验收未通过的历史仍保留，当前由用户授权在M2上直接训练，T2六个电荷头复用已通过的实际拟合验收、三项Fukui修正后补验收按首次达标规则通过；T3现有seed0质量结果尚待条件seed1形成最终判定；其他未完成运行及资源等待不视为科学完成。
+新代码默认关闭；不接入主线或p-followup在跑任务。标签、mask、归一化及字段集合不改。T1旧固定验收未通过的历史仍保留，当前由用户授权在M2上直接训练，T2六个电荷头复用已通过的实际拟合验收、三项Fukui修正后补验收按首次达标规则通过；T2/T3现有seed0质量结果均尚待条件seed1形成最终判定；其他未完成运行及资源等待不视为科学完成。
 
 T2 最终后处理已注册为真实 Slurm 4535833（cpu/node16、1CPU、nice10000、afterok:4535630；当前仅依赖等待）。只有原 T2 训练及原 R1/R3 成功结束后，顺序运行既有 t_decide 与 t_collect_descriptions：前者按预注册读取原1000配对bootstrap、只生成实际触发的seed1配置，后者只转录既有CYP/原单位VAL行；不重新训练/评价/计算MAE。整理器785fd62仅将实际seed1输出加_seed1后缀，避免覆盖seed0描述性附表，seed0路径保持原样；未运行额外整理或数值检查。
 

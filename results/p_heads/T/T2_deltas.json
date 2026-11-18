@@ -1,0 +1,37 @@
+{
+  "arm": "T2",
+  "reference_configuration": "configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json",
+  "reference_arm": "B3",
+  "seed1_triggered": true,
+  "requested_configurations": [
+    "/share/home/zixiao/descriptor_analysis/MFM_p_heads_20261117/configs/p_heads/T/T2_seed1.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_heads_20261117/configs/p_heads/T/B3_seed1.json"
+  ],
+  "results": {
+    "R1": {
+      "delta": -0.003421136926090085,
+      "ci95": [
+        -0.015207643623784359,
+        0.008744198142949395
+      ],
+      "candidate": 0.3108263615978493,
+      "reference": 0.3142474985239394,
+      "seed0_verdict": "seed1_required"
+    },
+    "R3": {
+      "delta": -0.007585450322706355,
+      "ci95": [
+        -0.016785810164422956,
+        0.0020004774800213097
+      ],
+      "candidate": 0.4669179815594994,
+      "reference": 0.47450343188220573,
+      "seed0_verdict": "seed1_required"
+    }
+  },
+  "status": "SEED1_REQUIRED",
+  "reference_seed1_reused_external": false,
+  "reference_seed1_configuration": null,
+  "external_reference_pending": false,
+  "current_best_confirmation_required": false
+}

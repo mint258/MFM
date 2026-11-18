@@ -38,4 +38,6 @@ T2最终第6层几何已排4536097，partition=gpu、compute-0-20、4CPU、nice1
 
 提交前compute20实核CPU99/104已分配、尚有5空闲，MemAvailable 97612705792B、root可用346130563072B、NFS可用7043025993728B、UID余量451574415360B对需求177572317184B，inode及24GiB合并峰值守卫通过；任务启动时及运行期继续实际guard。其他H1任务待此作业结束及结果写入后顺序处理，避免共享H1_geometry.json读后整写丢更新；各训练臂仍独立并行。
 
+CPU执行事实仅观察一次：2026-11-18 13:27:15 CST，4536097实际RUNNING，13:25:05启动；Slurm step0/rank0的Python PID89474，UID1278、PPID89469、PGID89474、start_ticks15848716。实际affinity为0–3四核，与该作业Slurm CPU_IDs=0–3一致；CUDA_VISIBLE_DEVICES为空，nvidia-smi计算进程查询成功且该Python无GPU context。进程角色元数据随后补齐，确认89461/89462为srun，89474为venv Python入口；未作科学测试、测速、CPU/GPU数值对照或检查点读取。
+
 局限：组成解释率与构象比例是描述性几何指标，不能单独证明下游效应的因果来源。按用户补充指示，T1取消原逐头验收并改用M2基底正式训练；T2/T3保持B3基底，新增T4/T5也以B3为基底。T1–T5及按预注册实际触发的seed1只在各自精确最终3M检查点产出后补充第6层，不分析中间恢复点；机制描述绑定各自基底，不扩展方向检验。
