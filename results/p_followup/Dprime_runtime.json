@@ -327,6 +327,45 @@
                                          "cuda_visible_devices":  "",
                                          "script":  "tools/p_followup/Dprime_seed1_compare_cpu.sbatch",
                                          "reuse_closed_seed0":  true
-                                     }
+                                     },
+                  "clip_calibration":  {
+                                           "calibration_samples":  150000,
+                                           "quantile":  0.99,
+                                           "initial_clip":  281.7,
+                                           "threshold":  6.553652572631836,
+                                           "observed_updates":  2813,
+                                           "fitted":  true,
+                                           "window_start_samples":  60000,
+                                           "sample_axis":  "optimizer_step_start",
+                                           "effective_freeze_samples":  150016
+                                       },
+                  "actual_process_observation":  {
+                                                     "backend":  "Slurm",
+                                                     "node":  "compute-0-20",
+                                                     "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+                                                     "state":  "RUNNING",
+                                                     "submitted_at":  1795007345.8333023,
+                                                     "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/Dprime_M2_seed1.json",
+                                                     "stage":  2,
+                                                     "round":  3,
+                                                     "study_revision":  "fixed_20261115",
+                                                     "scheduling_task":  "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/p_followup_20261116_Dprime_M2_seed1_scheduling.json",
+                                                     "cpus":  16,
+                                                     "exclusive":  false,
+                                                     "job_id":  4536314,
+                                                     "allocation_pretraining_seconds":  0.29009151458740234,
+                                                     "elapsed_seconds":  1873.7099084854126,
+                                                     "exit_code":  "0:0",
+                                                     "allocation_elapsed_seconds":  1874.0,
+                                                     "progress":  {
+                                                                      "samples":  145088,
+                                                                      "budget":  3000000,
+                                                                      "updates":  4534,
+                                                                      "last_loss":  0.2467062622308731,
+                                                                      "samples_per_second":  79.33609610155288,
+                                                                      "remaining_hours":  9.995842372884146
+                                                                  },
+                                                     "observed_at":  1795009220.6107476
+                                                 }
               }
 }
