@@ -34,4 +34,8 @@ M2的精确3M检查点已在H执行期间产出，按原范围补充同一5000 V
 
 M2运行：Slurm 4535641，compute-0-20，4 CPU，COMPLETED 0:0，8分52秒；producer前向与统计合计522.33秒。截至M2几何完成，H已执行GPU作业累计墙钟5.0148小时，后续T几何另计。
 
+T2最终第6层几何已排4536097，partition=gpu、compute-0-20、4CPU、nice10000，afterok:4535630；尚未消费结果。使用原h_geometry.py的--condition T2 --device cpu及最终samples_3000000.pt路径，CUDA_VISIBLE_DEVICES为空，OMP/OpenBLAS/MKL/NumExpr各4线程，srun --cpu-bind=cores；节点ThreadsPerCore=1，不申请或使用GPU/UUID锁。沿用同5000分子、允许构象、FP32编码器、F64统计及原bootstrap，不新增设备对照、测速或重复几何。最终成本按4×Elapsed计CPU-h，不增加GPU-h。
+
+提交前compute20实核CPU99/104已分配、尚有5空闲，MemAvailable 97612705792B、root可用346130563072B、NFS可用7043025993728B、UID余量451574415360B对需求177572317184B，inode及24GiB合并峰值守卫通过；任务启动时及运行期继续实际guard。其他H1任务待此作业结束及结果写入后顺序处理，避免共享H1_geometry.json读后整写丢更新；各训练臂仍独立并行。
+
 局限：组成解释率与构象比例是描述性几何指标，不能单独证明下游效应的因果来源。按用户补充指示，T1取消原逐头验收并改用M2基底正式训练；T2/T3保持B3基底，新增T4/T5也以B3为基底。T1–T5及按预注册实际触发的seed1只在各自精确最终3M检查点产出后补充第6层，不分析中间恢复点；机制描述绑定各自基底，不扩展方向检验。
