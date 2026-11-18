@@ -12,6 +12,9 @@ def approved_switch_snapshot(state,base):
  policy_path=REPO/'configs/p_recipe/user_directive_20261117.json'
  if base.get('study_revision')!='fixed_20261115':return None
  directive=read_json(policy_path);policy=directive['confirmation']
+ if directive.get('closeout',{}).get('authority')=='docs/p_recipe/USER_DIRECTIVE_20261118B.md':
+  if not state.get('recipe_frozen') or not state.get('external_line_decisions_complete'):
+   raise ValueError('Confirmation waits for the final recipe freeze after round3/4 and both side-line decisions')
  if directive.get('round4',{}).get('authority')=='docs/p_recipe/USER_DIRECTIVE_20261118.md':
   if state['round']!=4 or not state.get('merge_validation_complete'):
    raise ValueError('Confirmation waits for the completed round4 decision and required merge comparison')

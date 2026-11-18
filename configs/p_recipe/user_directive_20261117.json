@@ -4,14 +4,15 @@
     "screening_gpu_hour_limit":  null,
     "current_best":  "configs/p_recipe/CURRENT_BEST.json",
     "confirmation":  {
-                         "status":  "WAITING_FOR_ROUND3_M3",
+                         "status":  "WAITING_RECIPE_FREEZE_ROUND3_ROUND4_AND_SIDE_LINE_DECISIONS",
                          "user_switch_confirmation_received":  true,
                          "confirmed_new_perf_switches":  "ALL_OFF",
                          "requires_perf_gpu_results":  true,
                          "requires_user_switch_confirmation":  true,
                          "freeze_switches_at_run_start":  true,
                          "switch_proposal":  "configs/p_recipe/confirmation_switches_20261118.json",
-                         "perf_gpu_delivery_received":  true
+                         "perf_gpu_delivery_received":  true,
+                         "requires_recipe_frozen":  true
                      },
     "resource_priority":  {
                               "first":  "perf/sync-free-20261117",
@@ -52,7 +53,7 @@
                                 "F2",
                                 "PP"
                             ],
-                   "conditional_arm":  "M2C only if PP field intersection excludes P fields",
+                   "conditional_arm":  "M2C skipped: all109 fields shared, per USER_DIRECTIVE_20261118B.md",
                    "priority":  [
                                     "Pprime",
                                     "M2C_if_needed",
@@ -66,7 +67,7 @@
                    "precision":  "FP32",
                    "lr":  0.0003,
                    "head_and_decoupling_winners_included":  false,
-                   "T4":  "Optional after PP paired bootstrap and two-seed noise comparison; propose removal to user only if all criteria pass",
+                   "T4":  "Automatic OMIT/KEEP from PP CI/effect/seed-noise under USER_DIRECTIVE_20261118B.md; no further user confirmation",
                    "F1_unit_tests":  "Exactly one shared-head/method-vector unit test",
                    "F1_acceptance":  "Real loader and one per-head overfit",
                    "F1_skip_rule":  "Development or diagnosis exceeds4hours or2consecutive failures; continue other arms",
@@ -87,7 +88,8 @@
                                        "X2":  "PREPARED_MULTIPLIER_SUPPORT_IMPLEMENTED",
                                        "F1":  "IMPLEMENTED_UNIT_PASS_WAITING_REAL_LOADER_AND_HEAD_OVERFIT",
                                        "new_training_launched":  0
-                                   }
+                                   },
+                   "maximum_seeds":  2
                },
     "no_other_branch_writes":  true,
     "noise_reference":  {
@@ -98,5 +100,53 @@
                             "gpu_type":  "3090",
                             "scientific_change":  "seed1 only",
                             "priority_evidence":  "Perf GPU job4535718 actually RUNNING compute-0-5 before noise admission; idle5090/4090 remain reserved for perf until GPU suite complete"
-                        }
+                        },
+    "closeout":  {
+                     "authority":  "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+                     "last_screening_round":  4,
+                     "no_fifth_round":  true,
+                     "recipe_freeze_requires":  [
+                                                    "round3_final_decision",
+                                                    "round4_final_decisions_and_required_merge",
+                                                    "p-heads-20261117_final_two_seed_decisions",
+                                                    "p-followup-20261116_final_two_seed_decisions"
+                                                ],
+                     "external_two_seed_winners_adopt_without_user_confirmation":  true,
+                     "external_unresolved_is_not_win":  true,
+                     "side_line_ownership":  "Read published results; do not operate or edit side-line jobs/branches",
+                     "confirmation_arms":  [
+                                               "T1",
+                                               "T2",
+                                               "T5",
+                                               "T6"
+                                           ],
+                     "optional_confirmation_arm":  "T4",
+                     "cancelled_confirmation_arms":  [
+                                                         "T3",
+                                                         "T7"
+                                                     ],
+                     "T4_automatic_decision":  true,
+                     "T4_user_confirmation":  "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+                     "M2C_required":  false,
+                     "T7_required":  false,
+                     "common_fields":  109,
+                     "seed_policy":  {
+                                         "default":  0,
+                                         "maximum_seeds":  2,
+                                         "optional_seed":  1,
+                                         "borderline":  "0.5*tau \u003c= abs(delta_seed0) \u003c 1.5*tau",
+                                         "tau":  "max(0.01,0.05*max(scoreA,scoreB))",
+                                         "existing_reference_seed1_reused":  true,
+                                         "scaling_arms_seed0_only":  [
+                                                                         "T5",
+                                                                         "T6"
+                                                                     ],
+                                         "point_estimate":  "mean of the seed-wise paired deltas",
+                                         "CI":  "equal-weight concatenation of the original seed-wise1000 molecular paired bootstrap differences; percentile2.5/97.5",
+                                         "third_seed_forbidden":  true
+                                     },
+                     "stop_after_P_final_report":  true,
+                     "no_9M_before_recipe_frozen":  true
+                 },
+    "latest_authority":  "docs/p_recipe/USER_DIRECTIVE_20261118B.md"
 }

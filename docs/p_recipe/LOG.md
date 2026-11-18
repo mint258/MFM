@@ -1,5 +1,17 @@
 # P 配方研究日志
 
+2026-11-18 21:16UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次21:46:44UTC。
+
+2026-11-18 21:16UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2294560/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次21:46:44UTC。
+
+2026-11-18 20:46UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次21:16:29UTC。
+
+2026-11-18 20:46UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2271104/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次21:16:29UTC。
+
+2026-11-18 20:16UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次20:46:20UTC。
+
+2026-11-18 20:16UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2247168/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次20:46:20UTC。
+
 2026-11-18 19:46UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次20:16:02UTC。
 
 2026-11-18 19:46UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2222880/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次20:16:02UTC。
@@ -928,3 +940,11 @@ A new SSH connection briefly returned connection-refused; the established authen
 ### 2026-11-19 03:54 CST — round4 fits the existing shared storage reservation
 
 One actual compute-0-20 metadata inventory measured retained P outputs at26,165,161,984 physical bytes. A hypothetical10GB increase did not pass the real UID quota margin and was not applied. Reconciliation instead accounts for the remaining registered work inside the existing61GB P allocation:105 future checkpoint slots at<=300MB (C3 final1; five round4 arms15; F1 acceptance1; conditional M3 merge3; up to seven9M runs63;15 further handoffs;7 simultaneous temporary checkpoints), plus3GB for logs/readouts/metadata. Projected P peak60,665,161,984B remains below61GB. Actual-node root/Lustre/NFS bytes/inodes and fresh UID quotas passed with the unchanged114,569,896,448B global forecast. The shared registry and round4 plan record the same accounting; all other reservations and existing outputs remain unchanged. Shared STATUS was appended locally. No new run, hash, receipt, deletion or training interruption was created. Launch-time checks still use the actual selected nodes.
+
+### 2026-11-19 05:32 CST — new18B closeout directive synchronized
+
+Observed user commit13fb9feb onp-recipe after the05:16 publication lease failed. Read the real ref/commit and synchronized both updated18 and new18B directives; rebased only the pending three monitor files onto that user tree, preserving both directives and all prior source. The recovered monitor publication is807a1c59. No job was restarted or changed.
+
+Recorded the18B policy: round4 is last; adopt formally completed two-seed side-line winners without another approval/round; freeze only after round3/4 and both side-line dispositions;9M-T3 cancelled, current109-field T7/M2C skipped;T4 automatic;default seed0 and at most optional seed1 only in the prescribed borderline interval; T5/T6 one seed. Existing all-off confirmation switches and live runs are preserved. Added the recipe-freeze prerequisite to confirmation generation. Prepared a pure statistical helper using mean paired deltas and equal-weight pooling of the original1000 molecular-bootstrap differences per seed, with no resampling/probe fitting. Its three focused CPU tests passed0.03s; the earlier F1 unit was not rerun. Runtime seed planning, side-line component integration, T3-free final producers and the expanded storage forecast remain to be completed before any new phase is launched.
+
+Read-only side-line status at05:25: heads T1/T2/T3/T5 require their already scheduled seed1 and T4 is still running; followup Dprime seed1 is running. No final two-seed winner is yet published. These jobs and branches were not modified, and their existing decision rules will be consumed without recalculation.
