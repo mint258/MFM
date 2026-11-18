@@ -28,7 +28,7 @@
     "seed0_training_count":  5,
     "maximum_conditional_seed1_training_count":  6,
     "training_samples_per_run":  3000000,
-    "notes":  "All owned jobs share this total budget. Existing data already charged to df/quota are not a second future-growth charge. Recheck actual target node bytes/inodes and live UID quota plus all other-window remaining growth before and during writes. Preserves all existing reservations. User directive063af09 expands combined peak to24GiB=H10+T12+source/control2, max12 own3M runs including conditional seeds and one T2-win confirmation; recipeM2 seed1 reused externally. Actual compute20 expanded admission checked before this update. User explicitly extends node4 low-memory CUDA coexistence to this line T4/T5, existing gmx unchanged, real Slurm CPU allocation and startup\u003c=30percent plus adequate remaining VRAM required.",
+    "notes":  "All owned jobs share this total budget. Existing data already charged to df/quota are not a second future-growth charge. Recheck actual target node bytes/inodes and live UID quota plus all other-window remaining growth before and during writes. Preserves all existing reservations. User directive063af09 expands combined peak to24GiB=H10+T12+source/control2, max12 own3M runs including conditional seeds and one T2-win confirmation; recipeM2 seed1 reused externally. Actual compute20 expanded admission checked before this update. User explicitly extends node4 low-memory CUDA coexistence to this line T4/T5, existing gmx unchanged, real Slurm CPU allocation and startup\u003c=30percent plus adequate remaining VRAM required. User23:05CST2026-11-18 explicitly authorizes unified3090 low-memory coexistence for already triggered registered heads seed1 with existing gmx, requiring actual occupancy\u003c=30percent, sufficient remainingVRAM, formalSlurm15CPU and all existing disk/UUID/priority guards; no change to H scope or other training permissions.",
     "training_loader_workers":  14,
     "training_requested_cpus":  15,
     "slurm_cpu_affinity_required":  true,
@@ -52,5 +52,26 @@
                                         "T4",
                                         "T5"
                                     ],
-    "T_shared_nodes_require_slurm":  true
+    "T_shared_nodes_require_slurm":  true,
+    "registered_seed1_3090_coexistence":  {
+                                              "user_authorized_at_cst":  "2026-11-18 23:05",
+                                              "gpu_models":  [
+                                                                 "3090"
+                                                             ],
+                                              "registered_seed1_arms":  [
+                                                                            "T1",
+                                                                            "T2",
+                                                                            "T3",
+                                                                            "T4",
+                                                                            "T5",
+                                                                            "B3"
+                                                                        ],
+                                              "maximum_existing_gpu_memory_fraction":  0.3,
+                                              "requires_formal_slurm":  true,
+                                              "requested_cpus":  15,
+                                              "remaining_vram_must_cover_run":  true,
+                                              "preserve_existing_processes":  true,
+                                              "node20a_reserved_for_C3":  true,
+                                              "scope":  "Only already registered and triggered p-heads seed1 runs, including the unique shared B3 seed1; no H or new scientific arm expansion."
+                                          }
 }
