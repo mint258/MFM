@@ -40,18 +40,18 @@
                                        "resume_from_run":  "p_followup_20261116_Dprime_M2_seed0_continued",
                                        "resume_samples":  242272,
                                        "allocation_pretraining_seconds":  4.344090223312378,
-                                       "elapsed_seconds":  4284.655909776688,
+                                       "elapsed_seconds":  9998.655909776688,
                                        "exit_code":  "0:0",
-                                       "allocation_elapsed_seconds":  4289.0,
+                                       "allocation_elapsed_seconds":  10003.0,
                                        "progress":  {
-                                                        "samples":  560928,
+                                                        "samples":  1007232,
                                                         "budget":  3000000,
-                                                        "updates":  17529,
-                                                        "last_loss":  0.18037104606628418,
-                                                        "samples_per_second":  76.69206516237875,
-                                                        "remaining_hours":  8.834290725715872
+                                                        "updates":  31476,
+                                                        "last_loss":  0.1326868087053299,
+                                                        "samples_per_second":  73.44755158641969,
+                                                        "remaining_hours":  7.536625179606618
                                                     },
-                                       "observed_at":  1794975362.1912773
+                                       "observed_at":  1794981076.9009526
                                    },
     "standby":  {
                     "backend":  "Slurm",
@@ -73,7 +73,7 @@
     "continuation_gpu_occupied_hours":  null,
     "native_CPU_hours":  null,
     "cost_note":  "Initial5760 native segment and continued native segment are closed. Current Slurm interval remains open. Native CPU time is unmetered, not zero; allocation pretraining overlap remains recorded in the real ledger.",
-    "priority":  "RecipeC3 retains priority for available cards. Native segment supported SAVE_AND_EXIT; current Slurm takeover removes old hooks, so immediate cooperative yield is unavailable. Any requested move must use an actual published complete checkpoint and report rollback; no false live-hook claim.",
+    "priority":  "User confirmedC3 first. Another4090/node20a was then actually released and explicitly reserved forC3 immediateuse; followup verified20CPUs/843MiB/freeUUID. The waitingDprime20b stopcontroller was withdrawn before anysource signal. CurrentDprime training stays on its existing20b; no newrun or slot launched. ActualC3 migration is still not observed.",
     "scientific_decision":  null,
     "clip_calibration":  {
                              "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed0_continued/clip_calibration.json",
@@ -144,5 +144,50 @@
                                                                    ],
                             "nonpositive_observation_fields":  0,
                             "scope":  "First closed fixed-VAL original-unit MAE; not the final within-molecule conformer-difference MAE or3M R1/R3 decision"
-                        }
+                        },
+    "resource_priority_event":  {
+                                    "user_answer":  "让配方线先迁移 C3，再续接 D′（按现行计划）",
+                                    "later_shared_user_direction":  "C3会立即使用，继续保留快卡（20a）",
+                                    "C3_priority_gpu_uuid":  "GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5",
+                                    "C3_slot_observed_used_mib":  843,
+                                    "C3_slot_observed_total_mib":  49140,
+                                    "C3_slot_observed_free_cpus":  20,
+                                    "C3_slot_observed_own_busy":  false,
+                                    "C3_migration_actually_observed":  false,
+                                    "C3_source_job_at_last_observation":  4535189,
+                                    "C3_source_node":  "compute-0-6",
+                                    "controller_status":  {
+                                                              "phase":  "WITHDRAWN_BEFORE_ANY_SOURCE_ACTION",
+                                                              "controller":  {
+                                                                                 "pid":  90095,
+                                                                                 "uid":  1278,
+                                                                                 "start_ticks":  15910162,
+                                                                                 "pgid":  90095
+                                                                             },
+                                                              "source_run":  "p_followup_20261116_Dprime_M2_seed0_continued_sbatch",
+                                                              "source_job_id":  4535831,
+                                                              "checkpoint":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/samples_1000000.pt",
+                                                              "requested_by":  "User reply: C3 migrates first, then Dprime resumes",
+                                                              "started_at":  1794980120.7185571,
+                                                              "error":  "KeyboardInterrupt()",
+                                                              "observed_at":  1794980524.1722279,
+                                                              "withdrawal_reason":  "Another4090/node20a was actually released and explicitly reserved by user for immediateC3 use; it has20freeCPUs,843/49140MiB and a freeUUIDlock. ExistingDprime on20b need not be interrupted to give C3 first access to20a.",
+                                                              "source_signal_sent":  false,
+                                                              "observation_utc":  "2026-11-18T05:42:29Z",
+                                                              "source_job_still_running":  4535831,
+                                                              "controller_interruption":  "Verified-bound controller90095 receivedSIGINT while still at waiting-loop line32; its traceback is preserved. Controller absent afterward; source86037 remainsRsl and4535831RUNNING."
+                                                          },
+                                    "prepared_continuation_created":  false,
+                                    "source_pause_cancel_restart_occurred":  false,
+                                    "rollback_samples":  0
+                                },
+    "one_million_milestone":  {
+                                  "samples":  1000000,
+                                  "source":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/samples_1000000.pt",
+                                  "bytes":  232281469,
+                                  "fixed_VAL":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed0_continued_sbatch/VAL_original_units_1000000.csv",
+                                  "fixed_VAL_bytes":  5912,
+                                  "producer_published_utc":  "2026-11-18T05:49:36Z",
+                                  "inspection":  "Existing atomic complete-checkpoint producer and filemetadata; no checkpoint numerical reread/hash"
+                              }
 }
