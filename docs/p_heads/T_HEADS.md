@@ -86,6 +86,9 @@ T3 seed1基础设施失败与完整状态恢复（当前状态）：旧4536267�
 根唯一manual资源观察已发布[T3恢复资源JSON](../../results/p_heads/T/T3_resources_4536341.json)：observed_time1795016663.819922（约23:44:23 CST），trainer1328479／UID1278／PPID1328475／PGID1328479／start_ticks1135082565，实际Slurm15CPU／CPU_IDs0–14，父及所见后代均同mask；现场2个lazy reader／配置max14，环境及真实dac GPU context匹配。祖先32仅复用已有元数据，新output不应再有CP32，不读CP正文，也不使用generic CP32前提。新wrap保留原≤30%／UUID锁／磁盘守卫，额外memory.free≥10,620MiB，依据根唯一正式T3 seed0资源峰值10,061,764,608B加1,024MiB余量，非新测试或科学读出。
 
 原字段post4536268已改afterok:4536341，正式两seed post4536269改afterok:4536341且afterok:4536238，均P0／Dependency，不再DependencyNeverSatisfied。此前08:15 ETA失效；仅沿既有T3 seed0完整13:33:29参考，从新23:41恢复起点粗估11-19约13:15及后续评价，估计可变，不新测速。T4／共享B3 seed1继续，T1新4536334、T2／T5 seed1仍P0；统一3090共用授权和20a保留C3不变。本次只转录根的首loss及唯一observer事实，没有重读任何产物或运行观察／测试／任务。
+11-19 00:35:17，根在恢复T3 seed1 job4536341普通日志182,400样本／5,700更新后，唯一读取`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T3_seed1_attempt2/clip_calibration.json`：calibration_samples=150000、quantile=0.99、initial_clip=281.7、threshold=36.220968170166024、observed_updates=2813、fitted=true、window_start_samples=60000、sample_axis=optimizer_step_start、effective_freeze_samples=150016。这是从祖先CP32未拟合状态恢复后必要重放训练的自然拟合，当前阈值固定到尾；旧34.8736344909668仅失败6267历史，没有复制、独立复算、追加数值比较或诊断。本次只转录根事实，没有读取该JSON、梯度、CP或旧科学结果。
+
+00:35真实运行仍为T4 4535771／node4 R19:47:08（2,345,600样本／73,300更新）、共享B3 seed1 4536238／node7 R7:33:26（1,772,800／55,400）、T3 seed1恢复4536341／node5 R53:56（182,400／5,700）；T1 4536334、T2 4536170、T5 4536260及待执行post均P0原正确依赖。T1外部M2 seed1已ready，其余比较复用唯一B3 seed1。grid仍无新模型GPU：node0/1/3/4满CPU、5仅1CPU空、6 C3忙、7虽33CPU空但GPU仍B3忙，20a留C3／20b Dprime seed1、22 perf优先，全部已有任务保持。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
