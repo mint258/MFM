@@ -1,4 +1,6 @@
 """The Nov18B conditional second-seed rule; never fit a probe or launch a run."""
+from copy import deepcopy
+from pathlib import Path
 import numpy as np
 from .p_recipe import paired_decision
 
@@ -10,6 +12,25 @@ def effect_threshold(a,b):
 def second_seed_required(a,b):
     threshold=effect_threshold(a,b)
     return .5*threshold<=abs(float(a)-float(b))<1.5*threshold
+
+
+def fresh_seed1_configuration(seed0,*,output_root=None):
+    """Change the seed only; retain science/runtime settings, never resume seed0.
+
+    This creates an in-memory configuration, not a speculative experiment.
+    Callers first establish that this particular comparison is borderline,
+    reuse any existing matching seed1, and admit the actual output capacity.
+    """
+    if seed0['seed']!=0:raise ValueError('Only registered seed0 can request seed1')
+    c=deepcopy(seed0)
+    for name in ('resume','resume_samples','resume_from_output','attempt','handoff_request','handoff_ack',
+                 'required_gpu_uuid','recovery_reason','replaces_run','source_last_samples','rollback_samples',
+                 'speed_calibration','calibration_training','benchmark_updates','speed_board'):
+        c.pop(name,None)
+    c.update(seed=1,run=seed0['run']+'_seed1',seed0_run=seed0['run'])
+    root=Path(output_root) if output_root is not None else Path(seed0['output']).parent
+    c['output']=str(root/c['run'])
+    return c
 
 
 def combined_seed_decision(pairs):
