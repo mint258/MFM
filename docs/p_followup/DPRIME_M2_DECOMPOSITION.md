@@ -1,6 +1,6 @@
 # D′：当前最优M2上的构象分解（预注册）
 
-当前状态（2026-11-19 00:43 CST / 2026-11-18 16:43 UTC）：seed0及其CPU后处理均COMPLETE；seed1/4536314实际RUNNING、1014304/3M，1M完整点及第二份固定VAL已交付。最终判定待两seed，C3精确3M分数/第6层仍待补。
+当前状态（2026-11-19 01:44 CST）：D′ seed1/4536314实际RUNNING、1287040/3M，1M完整点和两份固定VAL已交付。配方线C3已在20a续接为4536352；本线仅登记其3M后的CPU描述4536353，最终判定及C3描述仍待完成。
 
 
 依据[2026-11-17用户补充指示](USER_DIRECTIVE_20261117.md)。原D沿M1+C基底继续完成，D′新增独立seed0、3M，不等待D，不停止或迁移在跑任务。B/F64缺源与C/loss均结项，不排查缺源原因、不再处理冗余字段标准。
@@ -148,3 +148,11 @@ actual node20磁盘/inode/实时UID守卫再次通过：root881252356096字节�
 16:43UTC新鲜实际Slurm观测为4536314 RUNNING，1014304/3M、31697更新，近期68.3325样本/s、主训练余8.0720小时。近期窗口包含1M保存和固定VAL，属于动态估计，随后还有原定R1/R3。自身固定clip6.553652572631836、M2执行键、33分解字段、3M预算均未改，未为新日期重启。最终CPU比较4536315继续依赖afterok4536314；复用M2 seed1和闭合seed0统计。
 
 实际目标node20磁盘字节/inode/实时UID与并发预留守卫再次PASS；维持本线18GiB总峰值、heads24GiB及共享M2seed1独立NFS2GiB。C3在16:38UTC仍为原4535189/node6，精确3M及分数缺失；20a继续为其优先保留，本线不修改其文件或作业。新日报按北京时间日期写入DAILY_20261119.md，18日历史日报保留。
+
+## 配方线已续接C3，本线仅登记其描述分析（2026-11-19 01:46 CST）
+
+本线只读核实：原C3/4535189已在完整交接点结束，sacct COMPLETED0:0/155014秒；这是交接退出，不是3M科学完成。配方线已将canonical C3.json指向fixed_20261115_round3_C3_node20_gpu0_resumed_20261119，从samples_2121056.pt/2121056样本继续。新4536352已实际RUNNING于compute-0-20，指定原先为C3保留的20a/8bfdUUID、16CPU。训练/迁移由配方线执行，本线只读引用；C3精确3M及最终分数尚未发布。
+
+按补充指示第3节，本线已登记真实CPU后处理4536353：afterok4536352、node20/partition all/请求16CPU/nice10000/nonexclusive，现场PENDING/Dependency/RunTime0。不可变提交脚本为runs/p_followup_20261116/C3_geometry_cpu_20261119.sbatch，仓库入口tools/p_followup/C3_geometry_cpu.sbatch，bash -n通过；唯一命令directive_geometry.py --conditions C3 --device cpu，CUDA_VISIBLE_DEVICES为空。只补规定第6层，M2与D′直接复用已关闭几何，不重复前向或增加训练。以实际C3几何及既有最终R1/R3齐备为完成依据，排队本身不构成交付。
+
+实际目标node20的字节/inode/实时UID及跨线预留守卫PASS；UID447055151104字节可用、174705440768字节要求。本线18GiB总峰值及其他线原预留保留，CPU依赖任务现在无分配。D′自身20b/4536314继续，17:44UTC为1287040/3M，近期78.6577样本/s、主训练余6.0493小时；clip、配方、预算不变。

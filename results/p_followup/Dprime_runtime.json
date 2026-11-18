@@ -73,7 +73,7 @@
     "continuation_gpu_occupied_hours":  11.272392986615499,
     "native_CPU_hours":  null,
     "cost_note":  "All seed0 GPU segments closed: initial5090, continued native4090, final Slurm4090; exclude measured allocation pretraining overlap. Native CPU remains unmetered/unknown. Seed1 GPU/CPU intervals remain open. Seed0 postanalysis4536182 COMPLETED0:0/1540seconds/16CPUs.",
-    "priority":  "User confirmedC3 first. Another4090/node20a was then actually released and explicitly reserved forC3 immediateuse; followup verified20CPUs/843MiB/freeUUID. The waitingDprime20b stopcontroller was withdrawn before anysource signal. CurrentDprime training stays on its existing20b; no newrun or slot launched. ActualC3 migration is still not observed.",
+    "priority":  "User C3 priority preserved: recipe line has now actually resumed C3 on20a via4536352; Dprime seed1 continues independently on20b via4536314. The earlier withdrawal of the waiting Dprime yield controller is historical and caused no source pause or restart.",
     "scientific_decision":  {
                                 "status":  "SEED1_REQUIRED",
                                 "verdict":  null,
@@ -191,7 +191,10 @@
                                                           },
                                     "prepared_continuation_created":  false,
                                     "source_pause_cancel_restart_occurred":  false,
-                                    "rollback_samples":  0
+                                    "rollback_samples":  0,
+                                    "historical_observation_scope":  "Historical05:42UTC Dprime yield-controller event; its false C3-migration observation applies at that time. Current C3 status is in C3_followup.",
+                                    "as_of_utc":  "2026-11-18T05:42:29Z",
+                                    "scope":  "Historical Dprime yield-controller observation; current C3 migration and analysis handles are in C3_followup."
                                 },
     "one_million_milestone":  {
                                   "samples":  1000000,
@@ -354,18 +357,18 @@
                                                      "exclusive":  false,
                                                      "job_id":  4536314,
                                                      "allocation_pretraining_seconds":  0.29009151458740234,
-                                                     "elapsed_seconds":  12852.709908485413,
+                                                     "elapsed_seconds":  16500.709908485413,
                                                      "exit_code":  "0:0",
-                                                     "allocation_elapsed_seconds":  12853.0,
+                                                     "allocation_elapsed_seconds":  16501.0,
                                                      "progress":  {
-                                                                      "samples":  1014304,
+                                                                      "samples":  1287040,
                                                                       "budget":  3000000,
-                                                                      "updates":  31697,
-                                                                      "last_loss":  0.10414133965969086,
-                                                                      "samples_per_second":  68.33251072587102,
-                                                                      "remaining_hours":  8.072032131747656
+                                                                      "updates":  40220,
+                                                                      "last_loss":  0.13881294429302216,
+                                                                      "samples_per_second":  78.65769384588842,
+                                                                      "remaining_hours":  6.04927755896945
                                                                   },
-                                                     "observed_at":  1795020200.0396569
+                                                     "observed_at":  1795023847.3351521
                                                  },
                   "fixed_VAL_delivered_samples":  [
                                                       500000,
@@ -385,5 +388,40 @@
                                                 "producer_published_utc":  "2026-11-18T16:40:03Z",
                                                 "inspection":  "Existing atomic complete-checkpoint producer and filemetadata only; no numerical reread or new hash"
                                             }
-              }
+              },
+    "C3_followup":  {
+                        "status":  "RECIPE_TRAINING_RESUMED_CPU_DESCRIPTION_PENDING",
+                        "role":  "Read existing exact3M R1/R3 and compute only layer6 descriptive geometry",
+                        "training_owner":  "recipe line",
+                        "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/C3.json",
+                        "run":  "fixed_20261115_round3_C3_node20_gpu0_resumed_20261119",
+                        "output":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_C3_node20_gpu0_resumed_20261119",
+                        "source_job_id":  4536352,
+                        "source_state":  "RUNNING",
+                        "source_node":  "compute-0-20",
+                        "source_gpu_uuid":  "GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5",
+                        "resumed_samples":  2121056,
+                        "predecessor_job_id":  4535189,
+                        "predecessor_state":  "COMPLETED0:0 at handoff before3M",
+                        "actual_source_observation_utc":  "2026-11-18T17:44:08Z",
+                        "analysis":  {
+                                         "job_id":  4536353,
+                                         "state":  "PENDING",
+                                         "reason":  "Dependency",
+                                         "dependency":  "afterok:4536352",
+                                         "node":  "compute-0-20",
+                                         "partition":  "all",
+                                         "requested_cpus":  16,
+                                         "nice":  10000,
+                                         "exclusive":  false,
+                                         "cuda_visible_devices":  "",
+                                         "registered_allocation_elapsed_seconds":  0,
+                                         "submitted_at_utc":  "2026-11-18T17:46:32Z",
+                                         "repository_script":  "tools/p_followup/C3_geometry_cpu.sbatch",
+                                         "submitted_script":  "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/C3_geometry_cpu_20261119.sbatch",
+                                         "analysis_tools_revision_at_submission":  "ec39578",
+                                         "command":  "directive_geometry.py --conditions C3 --device cpu",
+                                         "scope":  "Only C3 layer6 on existing A5000VAL/47698confs; M2 and Dprime geometry reused. Completion requires actual C3 geometry and final existing R1/R3, not merely CPUjob exit."
+                                     }
+                    }
 }
