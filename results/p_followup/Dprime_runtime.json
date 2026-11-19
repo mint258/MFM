@@ -567,7 +567,7 @@
                         "scope":  "Actual target-node observation; other lines may subsequently claim GPU"
                     },
     "final_validation":  {
-                             "status":  "READY_TO_QUEUE",
+                             "status":  "PENDING",
                              "cpus":  16,
                              "nodes":  1,
                              "partition":  "cpu",
@@ -575,6 +575,15 @@
                              "GPU_work_remaining":  false,
                              "scope":  "One new full current/tests suite without repair-from, then default tools/check_repository.py",
                              "script":  "tools/p_followup/final_validation.sbatch",
-                             "latest_actual_capacity":  "All12 CPU nodes inspected; no single16CPU slot. Queue rather than use GPU nodes."
+                             "latest_actual_capacity":  "All12 CPU nodes inspected; no single16CPU slot. Queue rather than use GPU nodes.",
+                             "job_id":  4536755,
+                             "observed_at_utc":  "2026-11-19T12:27:15Z",
+                             "submitted_at_utc":  "2026-11-19T11:56:27Z",
+                             "allocation_elapsed_seconds":  0,
+                             "reason":  "Priority; no single16CPU slot on allowed CPU nodes",
+                             "source_commit":  "494eb4cf1a98a2ae9b973466b6e801dcd8ec7b0a",
+                             "submitted_script":  "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/final_validation_20261119.sbatch",
+                             "scheduler_nice":  0,
+                             "priority_adjustment":  "Restored ordinary job priority; taskbook and current HPC instructions do not require the extra nice10000 penalty. CPU16/single-node/CPU8-19/full test scope unchanged; only own pending job adjusted."
                          }
 }
