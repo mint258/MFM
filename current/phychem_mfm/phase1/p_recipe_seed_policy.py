@@ -27,7 +27,7 @@ def fresh_seed1_configuration(seed0,*,output_root=None):
                  'required_gpu_uuid','recovery_reason','replaces_run','source_last_samples','rollback_samples',
                  'speed_calibration','calibration_training','benchmark_updates','speed_board'):
         c.pop(name,None)
-    c.update(seed=1,run=seed0['run']+'_seed1',seed0_run=seed0['run'])
+    c.update(seed=1,run=seed0['run']+'_seed1',seed0_run=seed0['run'],statistics_backend='slurm_cpu')
     root=Path(output_root) if output_root is not None else Path(seed0['output']).parent
     c['output']=str(root/c['run'])
     return c

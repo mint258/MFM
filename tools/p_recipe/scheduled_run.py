@@ -5,6 +5,7 @@ from execution_ledger import C,locked_ledger,read,write
 from native_run import identity,run as guarded_run
 from scheduling import requested_cpus
 R=Path('/share/home/zixiao/descriptor_analysis');REPO=R/'MFM_p_recipe'
+GPU_FINISHED={'COMPLETE','GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS'}
 
 def allocation_start(job):
  text=subprocess.check_output(['scontrol','show','job',str(job),'-o'],text=True)
@@ -31,7 +32,7 @@ def handoff(task,job):
     if samples<=0 or samples>=configuration['samples']:raise RuntimeError('Invalid handoff sample cursor')
     return configuration,native,ack
    summary_path=Path(configuration['output'])/'summary.json'
-   if native['exit_code']==0 and summary_path.is_file() and read(summary_path).get('status')=='COMPLETE':return None
+   if native['exit_code']==0 and summary_path.is_file() and read(summary_path).get('status') in GPU_FINISHED:return None
    raise RuntimeError('Source exited without a matching completed handoff or final evaluation')
   # The worker may exit before its 5-second wrapper publishes the terminal state.
   # A complete matching acknowledgement permits waiting, never another signal.
@@ -64,7 +65,7 @@ def reentered_handoff(task,configuration,job,started):
    try:live=bound['uid']==os.getuid() and identity(bound['pid'])==bound
    except (FileNotFoundError,ProcessLookupError):pass
   if not live:
-   if summary.is_file() and read(summary).get('status')=='COMPLETE':return 'COMPLETE'
+   if summary.is_file() and read(summary).get('status') in GPU_FINISHED:return 'COMPLETE'
    break
   time.sleep(1)
  points=[]

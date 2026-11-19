@@ -54,8 +54,8 @@ def progress(configuration):
 
 
 def collect_locked(ledger):
- path=C/'study_execution.json';records=list(ledger['runs'].values())+list(ledger.get('reservations',{}).values())
- jobs=sorted({str(r['job_id']) for r in records if r['backend']=='Slurm' and 'job_id' in r});accounting={}
+ path=C/'study_execution.json';records=list(ledger['runs'].values())+list(ledger.get('reservations',{}).values())+list(ledger.get('cpu_statistics',{}).values())
+ jobs=sorted({str(r['job_id']) for r in records if r['backend'] in ('Slurm','Slurm_CPU') and 'job_id' in r});accounting={}
  if jobs:
   text=subprocess.check_output(['sacct','--noheader','--parsable2','--jobs',','.join(jobs),'--format','JobIDRaw,State,ElapsedRaw,ExitCode'],text=True,timeout=30)
   for row in csv.reader(text.splitlines(),delimiter='|'):
@@ -72,11 +72,16 @@ def collect_locked(ledger):
   except (OSError,ValueError,KeyError,subprocess.SubprocessError) as error:record['observation_error']=str(error)
  for record in ledger.get('reservations',{}).values():
   if record.get('job_id') in accounting:record.update(accounting[record['job_id']],observed_at=time.time())
+ for record in ledger.get('cpu_statistics',{}).values():
+  if record.get('job_id') in accounting:record.update(accounting[record['job_id']],observed_at=time.time())
  hours,revisions=completed_screening_hours(ledger['runs'].values())
  ledger.update(last_observed_at=time.time(),completed_screening_gpu_hours_by_round=hours,completed_screening_gpu_hours_by_revision=revisions)
  write(path,ledger);print(json.dumps(ledger,indent=2),flush=True);return ledger
 
 def collect():
- with locked_ledger() as ledger:return collect_locked(ledger)
+ with locked_ledger() as ledger:result=collect_locked(ledger)
+ from cpu_statistics import queue
+ queue(dict(configurations=list(dict.fromkeys(record['configuration'] for record in result['runs'].values()))))
+ return result
 
 if __name__=='__main__':collect()

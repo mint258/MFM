@@ -50,7 +50,7 @@ def confirmation_configuration(base,components,*,run,arm,samples,frozen=None):
   c.pop(key,None)
  for key in ('run','output','round','arm','samples','stage','checkpoint_samples'):
   if key in runtime:c[key]=runtime[key]
- c.update(seed=0,components=sorted(components))
+ c.update(seed=0,components=sorted(components),statistics_backend='slurm_cpu')
  return c
 
 

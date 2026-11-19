@@ -53,6 +53,13 @@ if __name__=='__main__':
    'store':'/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json',
    'reference_manifest':'/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/predictions.json'}
   if not (Path(evaluation['output'])/'scores.json').is_file():
-   run(evaluation);score(Path(evaluation['output'])/'predictions.json',evaluation['reference_manifest'],REPO/'results/p_recipe/scores.csv')
+   run(evaluation)
+   if c.get('statistics_backend')!='slurm_cpu':
+    score(Path(evaluation['output'])/'predictions.json',evaluation['reference_manifest'],REPO/'results/p_recipe/scores.csv')
+ if c.get('statistics_backend')=='slurm_cpu':
+  summary.update(status='GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS',
+   training_and_gpu_readout_seconds=time.monotonic()-started,statistics_complete=False)
+  (Path(c['output'])/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+  print(json.dumps(summary),flush=True);raise SystemExit(0)
  summary.update(status='COMPLETE',training_and_evaluation_seconds=time.monotonic()-started)
  (Path(c['output'])/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
