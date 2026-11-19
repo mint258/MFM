@@ -109,9 +109,82 @@
         10.0
       ],
       "seconds": 909.7676384290098
+    },
+    "C3": {
+      "status": "COMPLETE",
+      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_C3_node20_gpu0_resumed_20261119/samples_3000000.pt",
+      "checkpoint_samples": 3000000,
+      "checkpoint_configuration": {
+        "seed": 0,
+        "samples": 3000000,
+        "p_recipe": {
+          "element_residual": true,
+          "pma_pooling": true,
+          "anti_collapse": true,
+          "gamma": 0.1597693323500406
+        },
+        "conformer_decomposition": null,
+        "mean_labels": true
+      },
+      "molecules": 5000,
+      "conformers": 47698,
+      "layer6": {
+        "CEV": {
+          "value": 0.38204448819134085,
+          "ci95": [
+            0.3713047547952048,
+            0.3918488529018493
+          ],
+          "valid_bootstrap_replicates": 1000,
+          "reason": null
+        },
+        "CVF": {
+          "value": 0.014655603691697891,
+          "ci95": [
+            0.014101646954159478,
+            0.01520836662923211
+          ],
+          "valid_bootstrap_replicates": 1000,
+          "reason": null
+        },
+        "CVF_res": {
+          "value": 0.023467595498551305,
+          "ci95": [
+            0.022517423521834036,
+            0.02437877849757405
+          ],
+          "valid_bootstrap_replicates": 1000,
+          "reason": null
+        }
+      },
+      "selected_alphas": [
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0
+      ],
+      "seconds": 1599.8605935536325
     }
   },
-  "C3_scores": null,
+  "C3_scores": {
+    "source": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_C3_node20_gpu0_resumed_20261119/readout/scores.json",
+    "run": "fixed_20261115_round3_C3_node20_gpu0_resumed_20261119",
+    "R1": {
+      "mean_normalized_improvement": 0.25509338581619684,
+      "bootstrap_ci": [
+        0.2392691226399344,
+        0.2703320635376574
+      ]
+    },
+    "R3": {
+      "mean_normalized_improvement": 0.4562968144575325,
+      "bootstrap_ci": [
+        0.44224617254914983,
+        0.4692431335001759
+      ]
+    }
+  },
   "descriptive_only": true,
   "bootstrap": {
     "repetitions": 1000,

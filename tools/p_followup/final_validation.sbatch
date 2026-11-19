@@ -1,7 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=p-followup-final-validation
-#SBATCH --nodelist=compute-0-16
 #SBATCH --partition=cpu
+#SBATCH --exclude=compute-0-[0-7,20-22]
+#SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --nice=10000
