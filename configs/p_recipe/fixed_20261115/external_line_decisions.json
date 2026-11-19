@@ -1,0 +1,85 @@
+{
+  "schema": "P_RECIPE_EXTERNAL_DECISIONS_V1",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+  "observed_at_utc": "2026-11-19T00:29:00Z",
+  "external_line_decisions_complete": false,
+  "recipe_frozen": false,
+  "external_adoptions": [],
+  "external_line_decisions": {
+    "heads": {
+      "status": "WAITING_REGISTERED_SEED1",
+      "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/docs/p_heads/DAILY_20261119.md",
+      "source_git_blob": "98fec92ff5c0625e9aa70a168f60f5e8df30a5fa",
+      "adopted_components": [],
+      "component_decisions": [],
+      "note": "All five original arms require seed1 and are still running; no premature final disposition."
+    },
+    "decoupling": {
+      "status": "COMPLETE_TWO_SEEDS",
+      "source": "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/FINAL_REPORT.md",
+      "source_git_blob": "fb9612219fe3855239bc89993966d49836c22f20",
+      "adopted_components": [],
+      "runtime_integration_required": false,
+      "recipe_decision_complete": true,
+      "owner_study_closed": false,
+      "owner_remaining": "C3 descriptive readout/layer6, final CPU regression/check/report/PR remain with the owner and do not change the completed recipe disposition.",
+      "component_decisions": [
+        {
+          "arm": "Dprime",
+          "baseline": "M2 [A1,B3,B4]",
+          "seed_count": 2,
+          "delta": -0.03842869553842196,
+          "seed_deltas_R3": [
+            -0.04528424256768254,
+            -0.031573148509161375
+          ],
+          "seed_CI": [
+            [
+              -0.05626819574608201,
+              -0.034293740123209175
+            ],
+            [
+              -0.04243675973173937,
+              -0.021103425065180016
+            ]
+          ],
+          "seed_deltas_R1": [
+            -0.10623905592125829,
+            -0.11864777015385317
+          ],
+          "seed_CI_R1": [
+            [
+              -0.12004127120194975,
+              -0.09211544270142917
+            ],
+            [
+              -0.1310879747100256,
+              -0.10581670034245609
+            ]
+          ],
+          "verdict": "loss",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/DPRIME_M2_COMPARISON.md",
+          "source_git_blob": "b5136760de8bb7c45ef5d31efc4c8257db5c4910",
+          "mean_delta_source": "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/FINAL_REPORT.md",
+          "decision_rule_source": "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/USER_DIRECTIVE_20261117.md",
+          "decision_rule": "Owner rule retained: both seed R3 CI upper bounds below0 => loss. Positive-win threshold is the owner's own8%/0.03 rule; no main-line5% rejudging or new pooled CI.",
+          "producer_jobs": {
+            "seed1_training": 4536314,
+            "comparison": 4536315,
+            "status": "Owner-published successful0:0 and complete3M/R1/R3"
+          }
+        }
+      ],
+      "closed_non_adoptions": {
+        "C": "loss; deduplication not adopted",
+        "B_F64": "closed unresolved; no fields enabled",
+        "D": "Legacy M1+C single-seed win retained only in its original scope; owner explicitly excludes it from eligible M2 two-seed handoff."
+      },
+      "new_probe_fitting": false,
+      "new_bootstrap_resampling": false,
+      "own_new_GPU_jobs": 0
+    }
+  }
+}
