@@ -29,6 +29,7 @@ CEV为首允许构象的mean(H)由分子组成OOF预测解释的方差比例，1
 |T3_seed1|6|0.402764 [0.391562, 0.411555]|0.359731 [0.358296, 0.361363]|0.042425 [0.0408217, 0.0440203]|0.0703346 [0.0675437, 0.073197]|
 |T4_seed1|6|0.342479 [0.330087, 0.352662]|0.303662 [0.302366, 0.30512]|0.0496946 [0.0475323, 0.0517017]|0.0749682 [0.071559, 0.078367]|
 |T1_seed1|6|0.441975 [0.431219, 0.45086]|0.299165 [0.298068, 0.300403]|0.0386044 [0.0371551, 0.0400261]|0.0685241 [0.0659303, 0.071143]|
+|T2_seed1|6|0.493523 [0.480698, 0.503226]|0.320708 [0.319169, 0.32241]|0.0316983 [0.0303328, 0.0329266]|0.0621256 [0.0595298, 0.0648603]|
 
 |预注册效应|点估计及配对95%CI|门槛|判定|
 |---|---|---|---|
@@ -42,22 +43,24 @@ T1相对M2的EEV差为-0.00983562，仅作机制描述，不追加方向检验�
 
 T2相对B3的EEV差为0.0120948，仅作机制描述，不追加方向检验。
 
+T2_seed1相对B3_seed1的EEV差为0.00946683，仅作机制描述，不追加方向检验。
+
 M2的精确3M检查点已在H执行期间产出，按原范围补充同一5000 VAL分子、47698个允许构象的第3–6层几何，仅作机制描述，不新增显著性检验或独立判定。
 
 M2运行：Slurm 4535641，compute-0-20，4 CPU，COMPLETED 0:0，8分52秒；producer前向与统计合计522.33秒。截至M2几何完成，H已执行GPU作业累计墙钟5.0148小时，后续T几何另计。
 
-T1_seed1本次仅新增独立结果键的最终第6层及4项现成CI，同5000个VAL分子、47698个允许构象、原FP32编码器/F64统计/1000次MID bootstrap；不追加方向假设、paired差值或额外bootstrap。CPU10作业4536745于2026-11-19 19:40:17启动、20:01:53结束，COMPLETED 0:0，AllocCPUS=4、墙钟21分36秒；producer前向与统计1275.43秒，本次1.44 allocation CPU-h、GPU0。外部M2seed1无既有H几何行，不额外补跑或编造T1_seed1同seed的EEV差值。
+T2_seed1本次仅新增独立结果键的最终第6层及4项现成CI，同5000个VAL分子、47698个允许构象、原FP32编码器/F64统计/1000次MID bootstrap。原report中的T2_seed1相对B3_seed1 EEV点差0.00946683仅保留描述，不追加方向、paired差值检验或bootstrap。CPU17作业4536798实际Start2026-11-20 01:04:17、End01:51:22 CST，COMPLETED 0:0，Elapsed47:05、AllocCPUS4；producer前向与统计2802.02秒，本次3.1388889 allocation CPU-h、GPU0。
 
-全部CPU几何沿原4数值库线程、空CUDA和实际srun绑定。身份脚注仅恢复各作业唯一观察，不重新采集。历史CPU20：T2/4536097，PID89474 UID1278 PPID89469 PGID89474 start15848716，2026-11-18 13:27:15 CST观察、13:25:05启动，Linux0–3与Slurm CPU_IDs0–3一致；T1/4536173，PID92635 UID1278 PPID92630 PGID92635 start16800524，16:06:59.084053观察、16:03:41启动，Linux1–4与CPU_IDs1–4一致；T5/4536219，PID94486 UID1278 PPID94479 PGID94486 start17496901，18:02:15.392961观察、17:59:44启动，Linux1–4与CPU_IDs1–4一致。三者真实step0/rank0、model_v2 venv入口/chemprop Python3.11实际exe，已观察空CUDA和本H Python无GPU context。
+新资源记录仅由H读取一次，不复读或重采集：observed_time_unix1795107863.8788671，PID3529087 UID1278 PPID3529082 PGID3529087 start_ticks2172231180，Linux mask6,7,102,103与实际srun bind_list=0x0000000000000000000000C00000000000000000000000C0/type mask_cpu:一致。Slurm NumCPUs4/CPUsTask4/CPU_IDs12–15，抽象编号不直接与Linux号硬比；allowed CPU节点、实际4CPU、srun匹配、Slurm分配覆盖、空CUDA、exec保持原PID/UID/start/PGID/mask均PASS。实际root可用61218676736B/free inode36522193；NFS可用7177165078528B/free inode2964619736；live UID429170077696B大于需求167897339904B、age1.693969965秒，MemAvailable381620952kB，own allocated12271366144B/remaining13498437632B，跨线余量4629098496B。CPU-only节点显式CPU执行，无新增NVIDIA检查，见[本次资源记录](../../results/p_heads/H/H1_T2_seed1_resources_4536798.json)。
 
-B3_seed1/4536379：PID110908 UID1278 PPID110903 PGID110908 start21812172，mask48–51与真实Slurm CPU_IDs48–51/4CPU一致；T4/4536220：PID112716 UID1278 PPID112709 PGID112716 start22081970，2026-11-19 06:43:45启动，mask68–71与CPU_IDs68–71/4CPU一致，原空CUDA/无本H GPU context事实保留。T3_seed1恢复4536620在CPU17：PID3523579 UID1278 PPID3523574 PGID3523579 start2168188290，Linux6,7,102,103与实际srun mask一致，2物理核/4逻辑线程、AllocCPUS4，不将HT抽象CPU_ID直接当Linux号；实际guard PASS后同PID exec原几何、EMPTY_CUDA=True。后续纯CPU计算只在compute-0-8至19，已完成历史不因新规则重算。
+既有CPU脚注恢复自各作业唯一观察。历史CPU20：T2/4536097，PID89474 UID1278 PPID89469 PGID89474 start15848716，2026-11-18 13:27:15 CST观察、13:25:05启动，Linux0–3与Slurm CPU_IDs0–3一致；T1/4536173，PID92635 UID1278 PPID92630 PGID92635 start16800524，16:06:59.084053观察、16:03:41启动，Linux1–4与CPU_IDs1–4一致；T5/4536219，PID94486 UID1278 PPID94479 PGID94486 start17496901，18:02:15.392961观察、17:59:44启动，Linux1–4与CPU_IDs1–4一致。真实step0/rank0、model_v2 venv入口/chemprop Python3.11实际exe、空CUDA及本H Python无GPU context事实保留。B3_seed1/4536379为PID110908 UID1278 PPID110903 PGID110908 start21812172、mask48–51与真实Slurm CPU_IDs48–51/4CPU一致；T4/4536220为PID112716 UID1278 PPID112709 PGID112716 start22081970、2026-11-19 06:43:45启动、mask68–71与CPU_IDs68–71/4CPU一致，原空CUDA及无本H GPU context记录保留。
 
-T4_seed1/4536744在CPU10的唯一已知记录：PID2414991 UID1278 PPID2414986 PGID2414991 start1988783175，Linux31,36,37,63与实际srun mask一致、CUDA空；实际root可用70074040320B、NFS7293233004544B、free inode2964680961、UID434442686464B大于需求168648898560B、MemAvailable388433624kB，guard PASS。该作业Start19:11:17、End19:39:09、C0/27:52/Alloc4，producer1632.89秒；不推断未给出的物理核数。
+T3_seed1恢复4536620在CPU17：PID3523579 UID1278 PPID3523574 PGID3523579 start2168188290，Linux6,7,102,103与实际srun mask一致，2物理核/4逻辑线程、AllocCPUS4；guard PASS后同PID exec原几何、EMPTY_CUDA=True，不将HT抽象编号当Linux号。CPU10的T4_seed1/4536744：PID2414991 UID1278 PPID2414986 PGID2414991 start1988783175，Linux31,36,37,63与srun mask一致、CUDA空；已知guard root70074040320B/NFS7293233004544B/free inode2964680961/live UID434442686464B大于168648898560B/MemAvailable388433624kB，Start19:11:17 End19:39:09。T1_seed1/4536745：observed_time_unix1795088420.5800748，PID2415330 UID1278 PPID2415325 PGID2415330 start1988957179，Linux31,36,37,63与实际srun 0x8000003080000000一致，Slurm NumCPUs4/CPUsTask4/CPU_IDs31,36-37,63；root70071783424B/free inode36570221，NFS7284946108416B/free inode2964680631，live UID434040098816B大于168342530048B、age1.574229717秒、MemAvailable388192336kB，各CPU/绑定/空CUDA/原身份保持均PASS，Start19:40:17 End20:01:53。上述CPU10时刻均2026-11-19 CST；不推断未给出的物理核数，也不重新检查旧资源。
 
-T1_seed1/4536745资源内容仅由H读取一次：observed_time_unix1795088420.5800748，PID2415330 UID1278 PPID2415325 PGID2415330 start1988957179，Linux31,36,37,63与实际srun bind_list=0x8000003080000000、type mask_cpu:一致，Slurm NumCPUs4/CPUsTask4/CPU_IDs31,36-37,63。实际root可用70071783424B、free inode36570221；NFS7284946108416B、free inode2964680631；live UID434040098816B大于168342530048B、age1.574229717秒，MemAvailable388192336kB。allowed CPU节点、实际4CPU、srun绑定匹配、空CUDA及原PID/UID/start/PGID/mask保持均PASS；纯CPU节点显式CPU执行，无新增NVIDIA检查，既有资源文件不复读。
+成功几何成本分账（均AllocCPUS4、GPU0）：T2/4536097 C0/29:03为1.9366667、T1/4536173 C0/25:12为1.68、T5/4536219 C0/26:06为1.74、B3_seed1/4536379 C0/28:29为1.8988889、T4/4536220 C0/24:30为1.6333333、T3_seed1/4536620 C0/43:20为2.8888889、T4_seed1/4536744 C0/27:52为1.8577778、T1_seed1/4536745 C0/21:36为1.44、本次T2_seed1为3.1388889 allocation CPU-h。按各job原始Elapsed秒数合计16393秒×4/3600，成功几何CPU累计18.2144444小时；H已闭合GPU作业6.2251 GPU-h不变。
 
-成本分账：T2/4536097 C0/29:03为1.9366667、T1/4536173 C0/25:12为1.68、T5/4536219 C0/26:06为1.74、B3_seed1/4536379 C0/28:29为1.8988889、T4/4536220 C0/24:30为1.6333333、T3_seed1/4536620 C0/43:20为2.8888889、T4_seed1/4536744 C0/27:52为1.8577778、本次T1_seed1为1.44 allocation CPU-h，均AllocCPUS4，成功几何CPU累计15.0755556小时、各项GPU0，H已闭合GPU作业6.2251 GPU-h不变。旧6609仅NFS等待39:02/4CPU、无preflight PASS或科学结果，父CANCEL0:0、batch FAILED15:0/39:04、stepCANCEL0:15/35:33；按父分配另列2.6022222 allocation CPU-h且不重复相加，全部终态后才恢复6620。旧6619 held/P0取消0秒、无科学执行；CPU18容量前置4536096取消3:20/1CPU的0.0555556 allocation CPU-h另列。最终实际CPU成本保留这些等待和前置项，不混入科学几何或GPU成本。
+基础设施成本另列：旧6609仅NFS等待39:02/4CPU、无preflight PASS或科学结果，父CANCEL0:0、batch FAILED15:0/39:04、stepCANCEL0:15/35:33；按父分配保留2.6022222 allocation CPU-h且不重复相加，全部终态后才恢复6620。旧6619 held/P0取消0秒、无科学执行；CPU18容量前置4536096取消3:20/1CPU的0.0555556 allocation CPU-h仍另列。最终实际CPU总成本须保留这些等待与前置项，不混入成功几何或GPU成本。
 
-正常H1_mean_<condition>.npy在既有producer保存bootstrap/moments后del并unlink；这是已知生命周期，非当前文件库存核实，active临时文件不动，最终按root安排一次核对精确own临时文件metadata。整JSON writer始终串行，原子发布不替代串行；T4/T1 seed1最终CP依既有关闭/fsync/原子发布合同曾与原GPU评价短暂并行，但H科学行仅在自身C0后消费，不提前宣告整臂质量结论。当前没有其它H writer，T2/T5各自seed1最终几何仍必做，待真实最终输入后继续；整体未完成。
+所有CPU几何保持原4数值库线程、空CUDA、实际srun绑定和容量守卫；后续纯CPU计算只在compute-0-8至19，历史方法不因规则变更重算。正常H1_mean_<condition>.npy在既有producer保存bootstrap/moments后del并unlink，此为生命周期记录而非当前库存核实，active临时文件不动，最终仅按root安排一次核对精确own临时文件metadata。整JSON writer始终串行，原子发布不替代串行；已有关闭/fsync/原子CP发布合同允许最终H与原GPU评价并行，H行只在自身C0后消费，不提前宣告整臂质量结论。当前没有其它H writer；仅T5自己的seed1最终几何仍必做，待真实最终输入，整体尚未完成。外部M2seed1无既有H几何，不额外补跑或编造T1_seed1同seed差值。
 
 局限：组成解释率与构象比例是描述性几何指标，不能单独证明下游效应的因果来源。按用户补充指示，T1取消原逐头验收并改用M2基底正式训练；T2/T3保持B3基底，新增T4/T5也以B3为基底。T1–T5及按预注册实际触发的seed1只在各自精确最终3M检查点产出后补充第6层，不分析中间恢复点；机制描述绑定各自基底，不扩展方向检验。
