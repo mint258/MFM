@@ -17,6 +17,7 @@ import time
 import xml.etree.ElementTree as ET
 
 from h_resources import CONTROL, GIB, R, REPO, allocated, disk, guard, load, save
+from t_runtime_identity import identity
 
 
 def core(output, scratch):
@@ -77,14 +78,21 @@ def main():
         raise ValueError('Final CPU regression requires a single-node allocation')
     ids = re.search(r'\bCPU_IDs=([^\s]+)', allocation)
     if ids is None:
-        raise ValueError('Slurm did not report the actual allocated CPU IDs')
-    cpu_ids = set()
-    for part in ids[1].split(','):
-        bounds = [int(value) for value in part.split('-')]
-        cpu_ids.update(range(bounds[0], bounds[-1] + 1))
-    if len(cpu_ids) != cpus or not cpu_ids.issubset(os.sched_getaffinity(0)):
-        raise ValueError('Actual Slurm CPU IDs do not match the available 16-CPU allocation')
-    os.sched_setaffinity(0, cpu_ids)
+        raise ValueError('Slurm did not report its allocated CPU IDs')
+    # CPU_IDs are scheduler indices, which can differ from Linux IDs on SMT nodes.
+    # Use the same actual srun Linux-mask check as the completed H CPU workers.
+    binding = os.environ.get('SLURM_CPU_BIND_LIST', '')
+    if not binding:
+        raise ValueError('Final CPU regression requires the srun CPU binding')
+    bits = int(binding.split(',')[0], 16)
+    bound_cpu_ids = {i for i in range(bits.bit_length()) if bits & (1 << i)}
+    cpu_ids = set(os.sched_getaffinity(0))
+    if len(cpu_ids) != cpus or cpu_ids != bound_cpu_ids:
+        raise ValueError('Linux affinity does not match the actual 16-CPU srun mask')
+    process = identity(os.getpid())
+    print('P_HEADS_REGRESSION_BINDING', json.dumps(dict(
+        process=process, slurm_cpu_ids=ids[1], srun_cpu_bind_list=binding,
+        srun_cpu_bind_type=os.environ.get('SLURM_CPU_BIND_TYPE'))), flush=True)
     output = CONTROL / ('regression_' + job)
     scratch = Path('/tmp') / ('mpHeads_' + job)
     private = Path('/tmp') / ('mv3n_' + job)
@@ -133,6 +141,9 @@ def main():
     summary = load(output / 'core/summary.json')
     summary.update(job_id=job, output=str(output / 'core'), scratch=str(scratch),
                    source_commit=commit, allocated_cpus=cpus, cpu_ids=sorted(cpu_ids),
+                   process=process, slurm_cpu_ids=ids[1],
+                   srun_cpu_bind_list=binding,
+                   srun_cpu_bind_type=os.environ.get('SLURM_CPU_BIND_TYPE'),
                    private_storage=storage_observation,
                    scope='All current/tests/test_*.py, established isolated CPU module protocol')
     save(output / 'summary.json', summary)
