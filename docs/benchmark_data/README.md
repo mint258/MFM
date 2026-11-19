@@ -28,6 +28,6 @@ with SharedB0Reader(shared_queue_path) as reader:
 
 共享P′入口为 `labels/Pprime/shared_v1/queue.sqlite`，配套lane SQLite存一次原始解析字段及失败/审计输出；`workflows.benchmark_data.pprime_reader.PprimeReader`按共享MID和实际构象ID读取。325,080个实际S′构象已排队，4536491在compute-0-13/4CPU运行；活动期仅同节点消费，跨节点等作业封存后开放。`PPRIME_READY`、部分任务失败、PENDING和UNKNOWN分别保留。尚未完成全量P′，不得将D或UFF能量替代P。原十二任务、900秒、MOPAC23.0.3/xTB6.7.1和原解析函数保持；历史PM7优化二进制仍未证实，S/P待定。
 
-参考组最新D20入口为 `labels/reference_D20/job_4536512/manifest.json`，共45,907条：C7 6,023、NMR¹³C 26,345、¹H 11,974、PPE 1,565。旧闭合D20复用，91条原等待共享生产已补齐。参考D3作业4536501处理C7/NMR；PPE参考D3作业4536560已提交，不重建参考坐标。
+参考组最新D20入口为 `labels/reference_D20/job_4536512/manifest.json`，共45,907条：C7 6,023、NMR¹³C 26,345、¹H 11,974、PPE 1,565。旧闭合D20复用，91条原等待共享生产已补齐。参考D3作业4536501和4536560均C0：C7 5,406/6,023、NMR¹³C 25,683/26,345、¹H 11,263/11,974、PPE 1,542/1,565条齐备，合计43,894；其余2,013条映射未解决、D3显式缺失，源记录保留，不重建参考坐标或额外重试。
 
 C7目标为 `targets/C7H10O2/job_4536471/manifest.json`。NMR域为 `domain/NMRShiftDB2/job_4536470/manifest.json`，原子级标签始终使用原参考索引；恢复图和模型图完整匹配仅用于计算时排列并逆映射，不声称恢复了未公开的作者原始索引处理链。PPE最新入口为 `domain/PPE1694/job_4536507/manifest.json`：作者INDEX/电荷/多重度对应，1,565条域内、126条已知域外、3条图未解析；1,694个原SI目标均绑定，原标签未改动。`reference_bindings.parquet`保存1,542条明确原子映射；域内剩余23条映射未决，不擅自删样或改几何。pKa任务形式和NMR划分仍待用户决定，数据侧工作继续。
