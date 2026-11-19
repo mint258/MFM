@@ -26,6 +26,7 @@ CEV为首允许构象的mean(H)由分子组成OOF预测解释的方差比例，1
 |T5|6|0.481871 [0.467034, 0.494367]|0.848447 [0.847583, 0.849386]|0.0449743 [0.0429317, 0.0470873]|0.0857663 [0.0813262, 0.0903207]|
 |B3_seed1|6|0.468578 [0.455885, 0.478912]|0.311241 [0.309704, 0.312894]|0.0348047 [0.0333865, 0.0361535]|0.0649645 [0.0622366, 0.0677198]|
 |T4|6|0.336298 [0.322264, 0.347346]|0.350601 [0.349321, 0.352016]|0.0471294 [0.0451624, 0.0491097]|0.0709275 [0.0678523, 0.0742296]|
+|T3_seed1|6|0.402764 [0.391562, 0.411555]|0.359731 [0.358296, 0.361363]|0.042425 [0.0408217, 0.0440203]|0.0703346 [0.0675437, 0.073197]|
 
 |预注册效应|点估计及配对95%CI|门槛|判定|
 |---|---|---|---|
@@ -43,14 +44,16 @@ M2的精确3M检查点已在H执行期间产出，按原范围补充同一5000 V
 
 M2运行：Slurm 4535641，compute-0-20，4 CPU，COMPLETED 0:0，8分52秒；producer前向与统计合计522.33秒。截至M2几何完成，H已执行GPU作业累计墙钟5.0148小时，后续T几何另计。
 
-T4最终3M本次仅新增第6层一行和4项现成CI，同5000个VAL分子、47698个允许构象；原FP32编码器、F64统计、bootstrap及CPU4路线不变，不追加方向假设或差值检验。4536220在node20以4CPU完成，COMPLETED 0:0，墙钟24分30秒；producer前向与统计1454.26秒，allocation CPU-h为1.6333333、GPU0。T1–T5的seed0最终几何现均完成，B3_seed1几何也已闭合；所有已触发本臂seed1最终几何仍为必做，整体尚未完成。
+T3_seed1本次仅新增独立结果键的最终第6层及4项现成CI，同5000个VAL分子、47698个允许构象、原FP32编码器/F64统计/1000次MID bootstrap，不追加方向或差值检验。成功恢复作业4536620位于compute-0-17/cpu分区，NumNodes=1、AllocCPUS=4、CPUsPerTask=4，COMPLETED 0:0，墙钟43分20秒；producer前向与统计2550.59秒，allocation CPU-h为2.8888889、GPU0。条件名与最终输入保持原定T3_seed1及成功恢复输出，未读取中间恢复点进行几何分析。
 
-CPU方法事实仅恢复各作业已记录的唯一观察，不重新读取proc、资源JSON或GPU。T2：4536097，2026-11-18 13:27:15 CST观察、13:25:05启动，Python PID89474，UID1278、PPID89469、PGID89474、start_ticks15848716，actual affinity0–3与Slurm CPU_IDs0–3一致。T1：4536173，16:06:59.084053观察、16:03:41启动，PID92635，UID1278、PPID92630、PGID92635、start_ticks16800524，actual affinity1–4与CPU_IDs1–4一致。T5：4536219，18:02:15.392961观察、17:59:44启动，PID94486，UID1278、PPID94479、PGID94486、start_ticks17496901，actual affinity1–4与CPU_IDs1–4一致。上述均为2026-11-18 CST的真实step0/rank0，model_v2 venv Python入口、实际exe为chemprop Python3.11。
+新CPU17方法沿根窗口唯一producer PASS记录恢复，不重新采集：PID3523579，UID1278、PPID3523574、PGID3523579、start_ticks2168188290；actual Linux affinity为6,7,102,103，与srun真实bindmask一致，--cpu-bind=verbose,threads。节点ThreadsPerCore=2，因此是2物理核/4逻辑线程，按实际4 allocation CPU计，不虚称4物理核；Slurm抽象CPU_IDs不直接等同Linux编号。EMPTY_CUDA=True；实际容量guard在模型前通过，同一进程随后os.exec原几何，身份与亲和性保持。后续纯CPU几何只使用compute-0-8至19，历史已完成CPU20方法原样保留，不因调度规则变更重算。
 
-B3_seed1的4536379身份转录根窗口唯一观察：PID110908，UID1278、PPID110903、PGID110908、start_ticks21812172，mask48–51与真实Slurm CPU_IDs48–51一致，SLURM_CPUS_PER_TASK=4，详见[原资源记录](../../results/p_heads/H/H1_B3_seed1_resources_4536379.json)。T4的4536220于2026-11-19 06:43:45 CST启动，根窗口RUNNING时唯一观察：PID112716，UID1278、PPID112709、PGID112716、start_ticks22081970，mask68–71与真实Slurm CPU_IDs68–71/4核一致，详见[T4资源记录](../../results/p_heads/H/H1_T4_resources_4536220.json)。各作业CUDA_VISIBLE_DEVICES均为空且本H Python无GPU context；沿用4数值库线程、srun绑核及实际容量守卫。
+既有CPU身份脚注仅转录已记录的一次观察。T2：4536097 C0/29:03/4CPU，2026-11-18 13:27:15 CST观察、13:25:05启动；Python PID89474，UID1278、PPID89469、PGID89474、start_ticks15848716，actual affinity0–3与Slurm CPU_IDs0–3一致。T1：4536173 C0/25:12/4CPU，16:06:59.084053观察、16:03:41启动；PID92635，UID1278、PPID92630、PGID92635、start_ticks16800524，affinity1–4与CPU_IDs1–4一致。T5：4536219 C0/26:06/4CPU，18:02:15.392961观察、17:59:44启动；PID94486，UID1278、PPID94479、PGID94486、start_ticks17496901，affinity1–4与CPU_IDs1–4一致。上述均为真实step0/rank0、model_v2 venv Python入口及chemprop Python3.11实际exe，空CUDA且已观察到本H Python无GPU context。
 
-CPU成本脚注沿已确认终态保留：T2 4536097 C0/29:03/4CPU为1.9366667、T1 4536173 C0/25:12/4CPU为1.68、T5 4536219 C0/26:06/4CPU为1.74、B3_seed1 4536379 C0/28:29/4CPU为1.8988889、本次T4为1.6333333 allocation CPU-h；几何CPU累计8.8888889小时，各项GPU均为0，H已闭合GPU作业累计6.2251 GPU-h保持不变。CPU18元数据前置4536096取消3:20/1CPU的0.0555556 allocation CPU-h仍另列、无科学输出，不混入几何或GPU成本。
+B3_seed1的4536379：C0/28:29/4CPU，PID110908，UID1278、PPID110903、PGID110908、start_ticks21812172，mask48–51与真实Slurm CPU_IDs48–51一致，SLURM_CPUS_PER_TASK=4，详见[原资源记录](../../results/p_heads/H/H1_B3_seed1_resources_4536379.json)。T4的4536220：C0/24:30/4CPU，2026-11-19 06:43:45 CST启动，PID112716，UID1278、PPID112709、PGID112716、start_ticks22081970，mask68–71与Slurm CPU_IDs68–71一致，详见[T4资源记录](../../results/p_heads/H/H1_T4_resources_4536220.json)。两者原空CUDA、无本H GPU context事实保留；全部CPU几何沿原4数值库线程与实际容量守卫。
 
-本次writer前的afterany:4536379和parent afterok:4535771均已满足，H1整JSON始终串行。后续只按实际ready顺序接收本线已触发seed1的最终3M及成功parent事件，用独立condition/result键发布；不预跑中间点、不并发整写。共享JSON经同文件系统临时文件及原子发布保留路由，仍不替代串行约束。外部M2seed1没有既有H几何行便不额外补跑，也不编造T1_seed1同seed几何差值。
+成本分账：T2、T1、T5、B3_seed1、T4成功几何分别为1.9366667、1.68、1.74、1.8988889、1.6333333 allocation CPU-h；本次T3_seed1成功几何新增2.8888889，成功几何CPU累计11.7777778小时。H已闭合GPU作业累计6.2251 GPU-h不变，各CPU几何GPU均为0。旧4536609在CPU18仅NFS等待、无preflight PASS或科学结果：父作业CANCELLED 0:0/39:02、batch FAILED 15:0/39:04、step0 CANCELLED 0:15/35:33，均信号终止，全部终态后才启动4536620；按父分配4CPU单列2.6022222 allocation CPU-h等待成本，不与成功几何混算。另旧6619始终held/P0、取消0秒且无科学执行；CPU18容量前置4536096取消3:20/1CPU的0.0555556 allocation CPU-h仍另列。收尾实际CPU总成本须保留这些等待及前置成本，不把它们当作GPU或科学结果。
+
+H1整JSON writer始终按实际ready顺序串行，原子发布不替代串行约束。全部T1–T5 seed0及B3_seed1几何已完成，当前新增T3_seed1完成；其余T1/T2/T4/T5实际触发seed1的最终几何仍为必做，等待各自真实最终3M和成功parent，不预跑或重算。外部M2seed1没有既有H几何行便不额外补跑或编造T1_seed1同seed几何差值，整体仍未完成。
 
 局限：组成解释率与构象比例是描述性几何指标，不能单独证明下游效应的因果来源。按用户补充指示，T1取消原逐头验收并改用M2基底正式训练；T2/T3保持B3基底，新增T4/T5也以B3为基底。T1–T5及按预注册实际触发的seed1只在各自精确最终3M检查点产出后补充第6层，不分析中间恢复点；机制描述绑定各自基底，不扩展方向检验。

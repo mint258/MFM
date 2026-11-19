@@ -2287,6 +2287,75 @@
         }
       },
       "seconds": 1454.2620023689815
+    },
+    "T3_seed1": {
+      "status": "COMPLETE",
+      "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T3_seed1_attempt2/samples_3000000.pt",
+      "checkpoint_samples": 3000000,
+      "checkpoint_configuration": {
+        "condition": "P",
+        "samples": 3000000,
+        "seed": 1,
+        "p_recipe": {
+          "element_residual": true,
+          "pma_pooling": true,
+          "pma_uniform_weights": true
+        },
+        "label_parameters": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/label_parameters/PM7_A1.json",
+        "batch_size": 32,
+        "root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+        "normalizations": "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json"
+      },
+      "molecules": 5000,
+      "conformers": 47698,
+      "layers": {
+        "6": {
+          "CEV": {
+            "value": 0.4027638680234428,
+            "ci95": [
+              0.39156203606839,
+              0.4115553059192824
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF": {
+            "value": 0.0424250352913407,
+            "ci95": [
+              0.04082168887894203,
+              0.044020325128072926
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF_res": {
+            "value": 0.07033455023354382,
+            "ci95": [
+              0.067543718913113,
+              0.07319703704472763
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "EEV": {
+            "value": 0.35973085978666397,
+            "ci95": [
+              0.3582961339275217,
+              0.36136313997749175
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "ridge_alphas": [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ]
+        }
+      },
+      "seconds": 2550.594521161169
     }
   },
   "hypothesis": {
