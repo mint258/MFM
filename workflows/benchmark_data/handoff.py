@@ -86,6 +86,7 @@ def main():
         'authority':progress['authority'],'root':str(a.root),'source_progress':str(a.progress),
         'source_groups':groups,'source_group_count':len(groups),'domain_count_rows':len(counts),
         'domain_counts_csv':str(out/'domain_counts.csv'),
+        'active_evaluation_scope':progress.get('active_evaluation_scope'),
         'count_units':'Source task rows, not deduplicated molecules; NMR nuclei separate. pKahub before is after original author curation.',
         'reason_columns':'Nonexclusive reason counts; primary columns count the first frozen source reason. Unknown graphs are separate from known domain rejection.',
         'blind_evaluation':'All ExpansionRx/ASAP source rows retained; outside-domain uses training-mean fallback, original endpoint masks retained.',

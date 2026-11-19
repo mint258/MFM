@@ -1,29 +1,42 @@
 {
-    "schema":  "BENCHMARK_B0_AVAILABLE_DELIVERY_ENTRY_V1",
-    "status":  "D_AVAILABLE_PPRIME_RUNNING_S_P_PENDING",
-    "authority":  "docs/benchmark/USER_DIRECTIVE_20261118.md@07be7a0f04085398eeda2b7548afa46c668ffd9a",
-    "data_root":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119",
-    "manifest":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/job_4536591/manifest.json",
-    "domain_counts_csv":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/job_4536591/domain_counts.csv",
-    "handoff_native_job":  4536591,
-    "handoff_native_state":  "COMPLETED",
-    "handoff_native_exit":  "0:0",
-    "source_groups":  11,
-    "domain_count_rows":  12,
-    "Pprime_current_job":  4536581,
-    "Pprime_current_node":  "compute-0-12",
-    "Pprime_current_workers":  8,
-    "Pprime_followup_jobs":  [
-                                 4536588,
-                                 4536590
-                             ],
-    "Pprime_all_ready":  false,
-    "S_ready":  false,
-    "P_ready":  false,
-    "reference_quantum_status":  "P pending with unrecovered S; Pprime defined on UFF only; dataset reference XYZ unchanged",
-    "no_local_database_copies":  true,
-    "all_required_production_complete":  false,
-    "supplemental_sources":  {
-                                 "SAMPL6_7":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/provenance/SAMPL6_7/job_4536607/manifest.json"
-                             }
+  "schema": "BENCHMARK_B0_AVAILABLE_DELIVERY_ENTRY_V1",
+  "status": "D_AVAILABLE_PPRIME_RUNNING_S_P_PENDING",
+  "authority": "docs/benchmark/USER_DIRECTIVE_20261118.md@07be7a0f04085398eeda2b7548afa46c668ffd9a",
+  "data_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119",
+  "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/job_4536591/manifest.json",
+  "domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/job_4536591/domain_counts.csv",
+  "handoff_native_job": 4536591,
+  "handoff_native_state": "COMPLETED",
+  "handoff_native_exit": "0:0",
+  "source_groups": 11,
+  "domain_count_rows": 12,
+  "Pprime_current_job": 4536581,
+  "Pprime_current_node": "compute-0-12",
+  "Pprime_current_workers": 8,
+  "Pprime_followup_jobs": [
+    4536588,
+    4536590
+  ],
+  "Pprime_all_ready": false,
+  "S_ready": false,
+  "P_ready": false,
+  "reference_quantum_status": "P pending with unrecovered S; Pprime defined on UFF only; dataset reference XYZ unchanged",
+  "no_local_database_copies": true,
+  "all_required_production_complete": false,
+  "supplemental_sources": {
+    "SAMPL6_7": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/provenance/SAMPL6_7/job_4536607/manifest.json"
+  },
+  "active_evaluation_scope": {
+    "status": "B1_AND_LATER_SCOPE_EXCLUDES_FIVE_DEFERRED_ENDPOINTS",
+    "decision_date": "2026-11-19",
+    "endpoint_registry": "configs/benchmark_data/B1.deferred_tasks.json",
+    "selector": "workflows.benchmark_data.task_selection.select_active_tasks",
+    "strict_full_inventory_verification": true,
+    "expected_deferred_endpoint_count": 5,
+    "effective_at": "B1_TASK_INVENTORY_BEFORE_MODEL_FITS",
+    "b0_source_data_and_provenance": "UNALTERED",
+    "failure_policy": "BLOCK_B1_UNTIL_ALL_FIVE_DEFERRED_IDENTIFIERS_MATCH",
+    "scope_authority_commit": "fec1b994aa642ba8db74074134f909dcb4f165f0",
+    "full_inventory_verification": "REQUIRED_BEFORE_B1_FITTING_NOT_PERFORMED_BY_B0"
+  }
 }
