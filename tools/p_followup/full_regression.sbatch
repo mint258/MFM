@@ -1,14 +1,15 @@
 #!/bin/bash
 #SBATCH --job-name=p-followup-regression
-#SBATCH --nodelist=compute-0-20
-#SBATCH --partition=all
+#SBATCH --partition=cpu
+#SBATCH --exclude=compute-0-[0-7,20-22]
+#SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --output=/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/regression_%j.log
 set -euo pipefail
 cd /share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117
 export PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=
-# compute-0-20 lacks /usr/bin/git; use the existing login-node Git copied to own NFS tools.
+# Use the existing Git installation for the native CLI tests.
 export PATH=/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/test_tools/git/bin:$PATH
 export GIT_EXEC_PATH=/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/test_tools/git/git-core
 export GIT_TEMPLATE_DIR=/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/test_tools/git/share/templates
