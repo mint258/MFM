@@ -1,0 +1,78 @@
+{
+  "status": "OBSERVED_BEFORE_EXEC",
+  "observed_time_unix": 1795067435.5442238,
+  "condition": "T3_seed1",
+  "job_id": 4536620,
+  "node": "compute-0-17",
+  "parent": {
+    "pid": 3523579,
+    "uid": 1278,
+    "pgid": 3523579,
+    "ppid": 3523574,
+    "start_ticks": 2168188290,
+    "cpu_mask": [
+      6,
+      7,
+      102,
+      103
+    ]
+  },
+  "slurm": {
+    "JobId": "4536620",
+    "JobState": "RUNNING",
+    "NodeList": "compute-0-17",
+    "NumCPUs": "4",
+    "CPUs/Task": "4",
+    "CPU_IDs": "12-15"
+  },
+  "environment": {
+    "SLURM_CPUS_PER_TASK": "4",
+    "CUDA_VISIBLE_DEVICES": "",
+    "SLURM_JOB_ID": "4536620"
+  },
+  "observations": {
+    "allowed_cpu_node": true,
+    "parent_has4": true,
+    "parent_matches_actual_srun_linux_binding": true,
+    "slurm_declares4": true,
+    "slurm_allocation_covers_requested": true,
+    "cuda_visible_empty": true
+  },
+  "capacity": {
+    "node": "compute-0-17",
+    "root": {
+      "total": 75125227520,
+      "available": 69514584064,
+      "inodes": 36535961,
+      "total_inodes": 36700160,
+      "root": true
+    },
+    "target": {
+      "total": 32001943928832,
+      "available": 7400969994240,
+      "inodes": 2964686335,
+      "total_inodes": 3125398528,
+      "root": false
+    },
+    "quota": {
+      "filesystem": "/share",
+      "available": 439979986944,
+      "required": 169932806144,
+      "age": 1.9370198249816895
+    },
+    "own_allocated": 10250563584,
+    "own_remaining": 15519240192,
+    "other_followup_remaining": 4643762176
+  },
+  "mem_available": "MemAvailable:   383500884 kB",
+  "device": "cpu",
+  "gpu_context_check": "Not queried on CPU-only host; empty CUDA visibility and explicit CPU execution",
+  "exec_preserves_pid_uid_start_ticks_pgid_affinity": true,
+  "checkpoint_contents_reread": false,
+  "scientific_benchmark": false,
+  "srun_cpu_bind_list": "0x0000000000000000000000C00000000000000000000000C0",
+  "srun_cpu_bind_type": "mask_cpu:",
+  "slurm_cpu_ids_note": "CPU_IDs recorded as scheduler allocation; on hyperthread nodes compare Linux affinity to actual srun Linux binding mask",
+  "recovery_from_job": 4536609,
+  "recovery_reason": "Old CPU18 Python confirmed D/nfs_wait_bit_killable before H_PREFLIGHT_PASS; no geometry output; old job fully terminal before release"
+}
