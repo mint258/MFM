@@ -155,6 +155,18 @@ T4 seed1自身clip已自然冻结：08:56根见其普通日志275,200样本已�
 T3 seed1恢复训练已真实完成、后处理尚未结论：亲job4536341 COMPLETED0:0／13:14:08／node5。最终`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T3_seed1_attempt2/samples_3000000.pt`仅引用根唯一元数据：230,477,513B、mtime 2026-11-19 12:47:29.999911850 CST；未读CP正文或hash。此前本窗口已唯一读取summary：status=COMPLETE、run=p_heads_T3_seed1_attempt2、samples=3,000,000、updates=93,750、actual_samples=2,999,968。恢复段新增2,999,968加祖先CP32的32为累计3M，不误写本段actual_samples=3M；旧失败6267的04:29:30另外列账、旧输出全保留。
 
 原字段post4536268及正式两seed post4536269因CPU16全满，在P0时以原ID安全改为cpu分区／compute-0-14，各CPU1／Nice0，原body及正确依赖保持；自13:20:15实际RUNNING，并非科学变更。此阶段尚无两seed最终结论，不读主分、旧seed0缓存或重新paired；待真实post成功后只消费新生产者产物。最终H4536609另在CPU18／4CPU R，不阻塞统计。13:26其它四条训练仍R：T1=1,648,000样本／51,500更新、T2=1,404,800／43,900、T4=1,436,800／44,900、T5=755,200／23,600。只转录根实际阶段与已读summary，不重复状态／CP／科学数据或操作任务／Git。
+T3正式两seed收尾已完成：[T3_deltas.json](../../results/p_heads/T/T3_deltas.json)为COMPLETE_TWO_SEEDS，正式R3判定LOSS，R1独立TIE。原CPU14字段6268／两seed6269的Python均D／nfs_wait_bit_killable且日志空，没有科学输出；根在CPU10实际guard通过后复用导出的原body，先建held6613／6614分别afterany旧post，确认旧post13:40:07及batch13:40:09已终止再release。旧两post分别19:52／19:54为CPU基础设施等待成本，不重复算成训练GPU时间。新字段4536613 COMPLETED0:0／15秒／CPU10／CPU1，新两seed4536614 COMPLETED0:0／14秒／CPU10／CPU1，训练未因此重跑。
+
+| T3读出 | seed | T3点 | 同seed B3点 | Δ | 原配对95%CI | 来源 |
+| --- | ---: | ---: | ---: | ---: | --- | --- |
+| R3 | 0 | 0.4524899548750453 | 0.47450343188220573 | -0.022013477007160442 | [-0.032053393575519645, -0.012058970924839008] | 已发布seed0缓存 |
+| R3 | 1 | 0.4311420004438634 | 0.4406415201948996 | -0.00949951975103619 | [-0.018908726064840085, -0.000056519258680874253] | 新seed1 paired生产者 |
+| R1 | 0 | 0.3174702599368024 | 0.3142474985239394 | +0.0032227614128629845 | [-0.008731332850063315, +0.014110362564626137] | 已发布seed0缓存 |
+| R1 | 1 | 0.2856561665446514 | 0.2737626868728266 | +0.011893479671824803 | [-0.0019266658452948156, +0.025638475820842884] | 新seed1 paired生产者 |
+
+R3两个seed的CI上界都严格小于0，故按原两seed规则判负；不再要求单seed的0.06直接判定门槛。上述seed0值直接引用现有正式结果中的缓存，没有重读旧scores或重算paired／bootstrap。生产者给reference_R3_training_noise与B3_R3_training_noise均为0.03386191168730612，仅报告原B3两seed点差定义，不另算噪声、显著性或诊断。current_best_confirmation_required=false；T3不换基底、不加确认或第三seed。机制范围仍仅为query→atom softmax均匀化，原64维sigmoid门控求和保留，不能扩展为所有PMA加权已被排除。
+
+新[T3 seed1描述JSON](../../results/p_heads/T/T3_seed1_descriptions.json)与[T3 seed1字段附表](T3_seed1_FIELDS.md)为actual run `p_heads_T3_seed1_attempt2`／seed1／3M，原CYP4条、原单位VAL109字段均直接转录。CYP全部excluded_from_mean=true：R1 3A4误差0.4571428571428572／score0.33333333333333326、2D6误差0.5384615384615384／score0.12500000000000008；R3 3A4误差0.34285714285714286／score0.42857142857142855、2D6误差0.5384615384615384／score0.12500000000000008。逐字段来源为CONTROL/runtime/results/p_recipe/training/p_heads_T3_seed1_attempt2/VAL_original_units_3000000.csv，CYP仍来自CONTROL/scores.csv；未读原CSV、重评或重算MAE。H4536609／CPU18仍因NFS等待，不在本阶段读取未完几何。只消费新正式统计与描述产物一次，无新测试、模型计算、任务或Git操作，DAILY／STATUS由根维护。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。

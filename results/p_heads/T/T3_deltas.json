@@ -1,6 +1,6 @@
 {
   "arm": "T3",
-  "reference_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_heads_20261117/configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json",
+  "reference_configuration": "configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json",
   "reference_arm": "B3",
   "seed1_triggered": true,
   "requested_configurations": [
@@ -16,7 +16,17 @@
       ],
       "candidate": 0.3174702599368024,
       "reference": 0.3142474985239394,
-      "seed0_verdict": "seed1_required"
+      "seed0_verdict": "seed1_required",
+      "seed1": {
+        "delta": 0.011893479671824803,
+        "ci95": [
+          -0.0019266658452948156,
+          0.025638475820842884
+        ],
+        "candidate": 0.2856561665446514,
+        "reference": 0.2737626868728266
+      },
+      "verdict": "tie"
     },
     "R3": {
       "delta": -0.022013477007160442,
@@ -26,12 +36,24 @@
       ],
       "candidate": 0.4524899548750453,
       "reference": 0.47450343188220573,
-      "seed0_verdict": "seed1_required"
+      "seed0_verdict": "seed1_required",
+      "seed1": {
+        "delta": -0.00949951975103619,
+        "ci95": [
+          -0.018908726064840085,
+          -5.651925868087425e-05
+        ],
+        "candidate": 0.4311420004438634,
+        "reference": 0.4406415201948996
+      },
+      "verdict": "loss"
     }
   },
-  "status": "SEED1_REQUIRED",
+  "status": "COMPLETE_TWO_SEEDS",
   "reference_seed1_reused_external": false,
   "reference_seed1_configuration": null,
   "external_reference_pending": false,
+  "reference_R3_training_noise": 0.03386191168730612,
+  "B3_R3_training_noise": 0.03386191168730612,
   "current_best_confirmation_required": false
 }
