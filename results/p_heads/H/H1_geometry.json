@@ -2425,6 +2425,124 @@
         }
       },
       "seconds": 1632.8901851177216
+    },
+    "T1_seed1": {
+      "status": "COMPLETE",
+      "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T1_seed1/samples_3000000.pt",
+      "checkpoint_samples": 3000000,
+      "checkpoint_configuration": {
+        "condition": "P",
+        "samples": 3000000,
+        "seed": 1,
+        "p_recipe": {
+          "element_residual": true,
+          "pma_pooling": true,
+          "anti_collapse": true,
+          "gamma": 0.1597693323500406,
+          "atom_attention_decoder": true,
+          "atom_decoder_fields": [
+            "P.pm7_anion.r190.p",
+            "P.pm7_anion.r190.s",
+            "P.pm7_anion.r210.value",
+            "P.pm7_B.r39.p",
+            "P.pm7_B.r39.s",
+            "P.pm7_B.r40.value",
+            "P.pm7_B.r44.value",
+            "P.pm7_B.r45.value",
+            "P.pm7_B.r46.value",
+            "P.pm7_B.r55.electron_electron",
+            "P.pm7_B.r55.electron_nuclear",
+            "P.pm7_B.r55.total",
+            "P.pm7_B.r56.C",
+            "P.pm7_B.r56.EE",
+            "P.pm7_B.r56.EN",
+            "P.pm7_B.r56.J",
+            "P.pm7_B.r56.K",
+            "P.pm7_B.r56.NN",
+            "P.pm7_B.r56.total",
+            "P.pm7_B.r64.value",
+            "P.pm7_B.r65.value",
+            "P.pm7_B.r68.value",
+            "P.pm7_B.r73.value.pi",
+            "P.pm7_B.r73.value.sigma",
+            "P.pm7_B.r82.charge_density_q_minus_Z",
+            "P.pm7_B.r82.De",
+            "P.pm7_B.r82.Dn",
+            "P.pm7_B.r84.value",
+            "P.pm7_cation.r259.p",
+            "P.pm7_cation.r259.s",
+            "P.pm7_cation.r279.value",
+            "P.pm7_octanol.r326.p",
+            "P.pm7_octanol.r326.s",
+            "P.pm7_octanol.r346.value",
+            "P.pm7_water.r393.p",
+            "P.pm7_water.r393.s",
+            "P.pm7_water.r413.value",
+            "P.xtb_fod.r537.value",
+            "P.xtb_singlepoint.r666.value",
+            "P.xtb_singlepoint.r667.value",
+            "P.xtb_singlepoint.r668.value",
+            "P.xtb_singlepoint.r677.value",
+            "P.xtb_vfukui.r712.f_minus",
+            "P.xtb_vfukui.r712.f_plus",
+            "P.xtb_vfukui.r712.f_radical"
+          ]
+        },
+        "label_parameters": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/label_parameters/PM7_A1.json",
+        "batch_size": 32,
+        "root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+        "normalizations": "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json"
+      },
+      "molecules": 5000,
+      "conformers": 47698,
+      "layers": {
+        "6": {
+          "CEV": {
+            "value": 0.44197516751411425,
+            "ci95": [
+              0.4312190014257065,
+              0.45085957439814983
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF": {
+            "value": 0.038604376253659846,
+            "ci95": [
+              0.03715514173871759,
+              0.04002605001928061
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "CVF_res": {
+            "value": 0.06852406581028352,
+            "ci95": [
+              0.06593032045694565,
+              0.07114304764890007
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "EEV": {
+            "value": 0.2991647462702542,
+            "ci95": [
+              0.2980675537789515,
+              0.3004025444386192
+            ],
+            "valid_bootstrap_replicates": 1000,
+            "reason": null
+          },
+          "ridge_alphas": [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ]
+        }
+      },
+      "seconds": 1275.432742062956
     }
   },
   "hypothesis": {
