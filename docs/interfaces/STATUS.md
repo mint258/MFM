@@ -613,3 +613,8 @@ PM7重复构象保留，D7的0.5Å统计不作为删样指令；普通S′沿用
 已按owner fec1b994aa642ba8db74074134f909dcb4f165f0同步5终点暂缓规则、选择器和匿名注册表。B1–B4拟合/评测前必须用完整真实任务清单调用select_active_tasks(..., verify_full_inventory=True)，严格匹配全部5项；其余终点保留，B0来源、原标识、划分和历史计数保持。B0数量表不是B1任务清单，具体身份不在当前研究说明公开。
 
 新选择器3项测试4536846在compute-0-17原生COMPLETED/0:0；这不代表真实任务清单覆盖已经核对。06:02快照：P′136,323齐备、129部分、188,620待启动、8在算（共325,080），4536581/8CPU持续，16核候补4536722仍排队。现有物理/量化参数、单份共享数据及CPU8–19规则保持；最终交接须携带独立active_evaluation_scope，不重写历史B0档案。
+
+
+## 2026-11-20 B0 original NMR targets, pKa macros and uniform UFF scope
+
+B0.DELIVERY.json now links original NMR2018 atom targets/domain (4536887 C0; 39719 original spectra rows, 353520 atomic labels, author splits and atom IDs preserved) and pKa macros/exact SAMPL exclusions (4536891 C0; 29972 training-pool molecules; 44 complete blind InChIKeys, 79 excluded source rows). No experimental atomic-site evidence is invented. Uniform UFF input preparation4536895 C0 has38240 new ordered graphs and reuses163 source rows through existing shared geometry pointers; geometry4536898 is running on CPU18/8CPU, not yet sealed. Source check4536896 passed5252 files/3724 Python sources. Original Pprime4536581 continues unchanged; no data copies or deletion. B1's existing inventory and environment work are reused. Original 2018 targets replace the historical CSTShift-DFT subset for standard NMR evaluation; published unique-molecule-count reconciliation remains explicit.
