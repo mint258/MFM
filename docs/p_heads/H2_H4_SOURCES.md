@@ -1,5 +1,7 @@
 # H2–H4：下游表示来源
 
+资源生命周期：依据既有producer记录，persist_features=False，原始H/z特征仅在内存中生成和传递，随读出进程结束释放，仅保留预测、分数等读出结果；此为已知生命周期说明，非当前文件库存核实。
+
 方法：使用主线冻结开发面板与完全相同的TrainOnlyPackedStore、GroupedTrainingView、task_rows/atomization_rows、ridge_probe和run_probe；不训练编码器，不读取TEST。第6层基线和分数直接引用已有3M checkpoint。层3/4/5取实际中间输出，层平均为第3–5中间输出和第6层out_norm输出等权平均。
 
 元素白化统计仅来自预训练固定5000 VAL分子的首允许构象，第6层逐元素逐维均值和标准差；元素原子数不足50保持原特征，标准差下限为该维全局标准差的1e-6。完全常数全局维度无可定义方差，去均值后以单位尺度保留零值，未产生新信号；下游不重新拟合白化统计。
