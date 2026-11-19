@@ -1,0 +1,93 @@
+{
+  "status": "FAIL",
+  "counts": {
+    "tests": 3666,
+    "failures": 7,
+    "errors": 50,
+    "skipped": 24
+  },
+  "modules": 203,
+  "seconds": 661.852107282728,
+  "reason": "Full current/tests CPU regression with isolated modules",
+  "workers": 2,
+  "failed_modules": [
+    {
+      "module": "test_model_v3_architecture_wiring_smoke.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 36,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_execution_checkpoint_bridge.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 74,
+        "failures": 0,
+        "errors": 50,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_long_run_storage.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 21,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_pilot_entry.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 46,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_proxy_runner.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 20,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_training_entry.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 35,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "module": "test_model_v3_wsd_fork.py",
+      "returncode": 1,
+      "counts": {
+        "tests": 18,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "job_id": "4536755",
+  "output": "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/regression_4536755/core",
+  "scratch": "/tmp/mpTests_4536755",
+  "private_scratch": "/tmp/mv3n_4536755",
+  "source_commit": "8406f1bf0d40debd53325ed71574d05270aa0e21",
+  "source_commit_at_finish": "8406f1bf0d40debd53325ed71574d05270aa0e21",
+  "allocated_cpus": 8,
+  "scope": "Full current/tests CPU suite, preserving successful modules and repairing failures/changed modules; actual CPU/local-storage/native-reference context retained per stage"
+}
