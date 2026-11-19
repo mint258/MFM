@@ -15,7 +15,17 @@
       ],
       "candidate": 0.29856994797497977,
       "reference": 0.2974547347686018,
-      "seed0_verdict": "seed1_required"
+      "seed0_verdict": "seed1_required",
+      "seed1": {
+        "delta": -0.06252541000781825,
+        "ci95": [
+          -0.07430686597279726,
+          -0.04962435563598987
+        ],
+        "candidate": 0.2771004347240077,
+        "reference": 0.33962584473182594
+      },
+      "verdict": "tie"
     },
     "R3": {
       "delta": 0.004251179229980251,
@@ -25,12 +35,23 @@
       ],
       "candidate": 0.47225381237562564,
       "reference": 0.4680026331456454,
-      "seed0_verdict": "seed1_required"
+      "seed0_verdict": "seed1_required",
+      "seed1": {
+        "delta": -0.0022619000885155116,
+        "ci95": [
+          -0.012367245104910263,
+          0.007547898029821682
+        ],
+        "candidate": 0.46778791130674247,
+        "reference": 0.470049811395258
+      },
+      "verdict": "tie"
     }
   },
-  "status": "SEED1_REQUIRED",
+  "status": "COMPLETE_TWO_SEEDS",
   "reference_seed1_reused_external": true,
-  "reference_seed1_configuration": null,
-  "external_reference_pending": true,
+  "reference_seed1_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/noise_seed1/M2_seed1.json",
+  "external_reference_pending": false,
+  "reference_R3_training_noise": 0.002047178249612591,
   "current_best_confirmation_required": false
 }

@@ -191,6 +191,20 @@ R3 seed1 CI跨0，既不满足两CI下界正的胜出规则，也不满足两CI�
 
 T1 seed1最终CP本阶段只引用根唯一元数据：`/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T1_seed1/samples_3000000.pt`，244,694,029B，mtime 2026-11-19 19:16:16.049485835 +0800；canonical armT1／seed1／run=p_heads_T1_seed1／output已匹配。M2原checkpoint[1M,2M,3M]、无CP32例外保持。19:16亲4536378仍R原R1／R3，尚未据亲及post成功消费T1科学数值；H4536745已排CPU10／4CPU／空CUDA afterany:4536744，仅为H串行资源接续。本窗口未探测或读T1 CP／scores，不提前T1两seed结论；只有新T4正式统计与描述产物被消费一次，未操作任务或Git，DAILY／STATUS由根维护。
 T1 seed1亲job已闭合：根19:24:17及19:24:32实际sacct确认4536378 COMPLETED0:0／13:25:59／15CPU／node7，Start 2026-11-19 05:58:10、End19:24:09；最终3M及原parent R1／R3均已完成。此为真实GPU任务墙钟，含原评价，不等同独占GPU利用率、纯计算或能耗。原字段4536280及正式两seed4536281依赖已满足，但仍PENDING／Priority／CPU17；该节点被其它线C3 geometry占满192/192，根没有操作其它线任务。CPU18 19:26元数据guard再次timeout124、未PASS，故不迁入。当前T1正式两seed仍待post实际成功后唯一消费，不读scores或提前结论。H4536744／CPU10仍R15:21，T1 H4536745 afterany:4536744保持串行等待。本段仅记录闭合及后处理位置，不重复stat／读CP或科学值，不操作任务／Git。
+T1正式两seed收尾已完成：自有SSH于19:39:50只查两个原post，字段4536280 COMPLETED0:0／10秒、正式两seed4536281 COMPLETED0:0／8秒，均CPU10；根19:40:06同次确认字段Start19:39:17、End19:39:27，twoseeds End19:39:25。此前根将仍P0／0秒／Restarts0的原ID从满CPU17安全改CPU10，body／CPU1／Nice10000／依赖均不变、无hold遗留，非科学变更。亲4536378此前已C0／13:25:59，最终CP元数据保持原记录，不重复stat或读体。H T4_4536744已C0／27:52／End19:39:09，T1 H4536745在19:40:06仍P0，最终H由Hagent独立接续，本窗口不读其数据。
+
+[T1_deltas.json](../../results/p_heads/T/T1_deltas.json)正式status=COMPLETE_TWO_SEEDS，R3主判定**TIE**、R1独立**TIE**：
+
+| T1读出 | seed | T1点 | 同seed M2点 | Δ | 原配对95%CI | 来源 |
+| --- | ---: | ---: | ---: | ---: | --- | --- |
+| R3 | 0 | 0.47225381237562564 | 0.4680026331456454 | +0.004251179229980251 | [-0.007078817581392126, +0.014793625130516982] | 已发布seed0缓存 |
+| R3 | 1 | 0.46778791130674247 | 0.470049811395258 | -0.0022619000885155116 | [-0.012367245104910263, +0.007547898029821682] | 新seed1 paired生产者 |
+| R1 | 0 | 0.29856994797497977 | 0.2974547347686018 | +0.001115213206377974 | [-0.010517873819686894, +0.013809469597857244] | 已发布seed0缓存 |
+| R1 | 1 | 0.2771004347240077 | 0.33962584473182594 | -0.06252541000781825 | [-0.07430686597279726, -0.04962435563598987] | 新seed1 paired生产者 |
+
+R3两seed CI均跨0，未满足既有两seed胜或负条件，故TIE，不作为等效性证明；R1虽seed1负向，seed0 CI跨0，因此两seed独立判定仍TIE。所有seed0点／CI只引用正式结果缓存，未读旧scores或重评／重bootstrap。reference_seed1_reused_external=true，精确外部配置`/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/noise_seed1/M2_seed1.json`、external_reference_pending=false；未新建本线M2对照。producer的reference_R3_training_noise=0.002047178249612591，专属于T1的M2参考两seed点差，不能标为B3噪声；其它B3对照臂的0.03386191168730612保持既有来源，各自直接引用、不互换、不独立计算。current_best_confirmation_required=false，不增加确认、第三seed或新验证轮。
+
+新[T1 seed1描述JSON](../../results/p_heads/T/T1_seed1_descriptions.json)与[T1 seed1字段附表](T1_seed1_FIELDS.md)为`p_heads_T1_seed1`／seed1／3M，CYP4条和原单位VAL109字段直接copy，全部CYP excluded_from_mean=true。R1 3A4误差0.5142857142857142／score0.25000000000000006，2D6误差0.5769230769230769／score0.06250000000000014；R3 3A4误差0.4285714285714286／score0.28571428571428564，2D6误差0.5384615384615384／score0.12500000000000008。CYP仍来源CONTROL/scores.csv、VAL来源CONTROL/runtime/results/p_recipe/training/p_heads_T1_seed1/VAL_original_units_3000000.csv；producer新字段文件保留原样，未读原CSV或重算MAE。只有这次新正式统计与描述被消费一次，未操作模型／任务／Git；DAILY／STATUS由根维护，T2／T5未完成模型不作科学消费。
 ## 固定协议与对照
 
 T0直接复用主线 B3 seed0 的完整 3M 状态和已有 R1/R3，不重训。实际来源为 `configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json`；旧 `round2/B3.json` 中 B128/1.5M 不是本轮基底。原配置中的迁移恢复来源、attempt、旧GPU限定已从新臂移除；全量 TRAIN、B32、3M、A1、PMA、优化器、clip、step_overhead 和首32/1M/2M/3M保存策略保持。新输出及日志位于本研究NFS目录，不向主线结果表写入。
