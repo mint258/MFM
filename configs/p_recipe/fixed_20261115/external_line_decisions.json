@@ -1,15 +1,15 @@
 {
   "schema": "P_RECIPE_EXTERNAL_DECISIONS_V1",
   "authority": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
-  "observed_at_utc": "2026-11-19 11:57:33 UTC",
+  "observed_at_utc": "2026-11-19 17:41:00 UTC",
   "external_line_decisions_complete": false,
   "recipe_frozen": false,
   "external_adoptions": [],
   "external_line_decisions": {
     "heads": {
       "status": "WAITING_REMAINING_REGISTERED_SEED1",
-      "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/docs/p_heads/DAILY_20261119.md",
-      "source_git_blob": "32a4b9f2bd87e9b5ff7d3e33a2b3f9339a0e146f",
+      "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/docs/p_heads/DAILY_20261120.md",
+      "source_git_blob": "564f9e3d848fc1077cdf585b0c17ddbc5f6fac40",
       "adopted_components": [],
       "component_decisions": [
         {
@@ -67,6 +67,69 @@
           "reference_R3_training_noise": 0.002047178249612591,
           "producer_jobs": {
             "seed1_training": 4536378,
+            "status": "Owner-published completed3M/R1/R3 and COMPLETE_TWO_SEEDS"
+          }
+        },
+        {
+          "arm": "T2",
+          "baseline": "B3 [A1,B3]",
+          "reference_configuration": "configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json",
+          "status": "COMPLETE_TWO_SEEDS",
+          "seed_count": 2,
+          "seed_deltas_R3": [
+            -0.007585450322706355,
+            0.0013032523004910535
+          ],
+          "seed_CI": [
+            [
+              -0.016785810164422956,
+              0.0020004774800213097
+            ],
+            [
+              -0.009372422341078549,
+              0.011136945517705965
+            ]
+          ],
+          "seed_deltas_R1": [
+            -0.003421136926090085,
+            0.009722118146321235
+          ],
+          "seed_CI_R1": [
+            [
+              -0.015207643623784359,
+              0.008744198142949395
+            ],
+            [
+              -0.0024079925355455635,
+              0.02278484642280607
+            ]
+          ],
+          "per_seed_R3_scores": [
+            {
+              "candidate": 0.4669179815594994,
+              "reference": 0.47450343188220573
+            },
+            {
+              "candidate": 0.44194477249539066,
+              "reference": 0.4406415201948996
+            }
+          ],
+          "verdict": "tie",
+          "R1_verdict": "tie",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T2_deltas.json",
+          "source_git_blob": "5c8783cdfd148f68119c229442a7645948fd3df5",
+          "decision_rule": "Owner's original two-seed rule and canonical verdict retained. TIE is not a win or proof of equivalence; no main-line5% rejudging, new pooledCI, probe fitting or resampling.",
+          "current_best_confirmation_required": false,
+          "reference_R3_training_noise": 0.03386191168730612,
+          "producer_jobs": {
+            "seed1_training": 4536355,
+            "seed1_training_status": "COMPLETED0:0,23:08:39,3M/R1/R3",
+            "field_copy": 4536289,
+            "field_copy_status": "COMPLETED0:0,4seconds",
+            "comparison": 4536290,
+            "comparison_status": "COMPLETED0:0,2seconds",
             "status": "Owner-published completed3M/R1/R3 and COMPLETE_TWO_SEEDS"
           }
         },
@@ -176,9 +239,8 @@
           }
         }
       ],
-      "note": "Formal T1 R3/R1 tie, T3 R3 loss/R1 tie, T4 R3 tie/R1 loss are received with no adoptions. Only T2/T5 dispositions remain; owner H/report closeout does not delay these completed recipe dispositions.",
+      "note": "Formal T1/T2 R3/R1 ties, T3 R3 loss/R1 tie, T4 R3 tie/R1 loss are received with no adoptions. Only T5 disposition remains. T2 does not trigger CURRENT_BEST confirmation; owner H/report closeout does not delay these completed recipe dispositions.",
       "pending_arms": [
-        "T2",
         "T5"
       ],
       "recipe_decision_complete": false,
