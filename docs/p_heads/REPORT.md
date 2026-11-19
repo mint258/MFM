@@ -64,3 +64,5 @@ H/T合并峰值预算24GiB是保护预算，不冒充实测峰值；已有实际
 真实16CPU重试4536884保留原job ID。排队运行0秒时完成汇总metadata修复：private_storage中的路径转换为字符串，存储binding路径与实际srun CPU binding字符串使用不同变量；只修复导出与执行环境，不改科学结果、测试范围或断言。实际Linux mask核对srun mask，scheduler CPU_IDs单独记录。纯CPU只用8–19，按需且非exclusive，资源不足则排队。
 
 完整回归结果及PR链接待实测补齐；当前尚未结项，不宣称全部检查通过。按用户指示开PR后保持未合并。
+
+首次回归的非CPU失败定位：test_phase1_initialization 在 meta 设备上下文中由 normalization._scalar 调用 Tensor.item() 抛出 RuntimeError，而测试预期 ValueError；test_p_recipe_exclusion 引用不存在的 tools/p_recipe/refit_d4.py。对分支起点0463aff的只读Git比较确认，相关两个测试及 normalization.py/initialization.py 均未变化，且起点也没有该refit脚本。此处仅记录首次日志的原因，不改这些文件，不恢复用户已取消的D4重算；有效16CPU回归的实际终态与错误数仍待完成。
