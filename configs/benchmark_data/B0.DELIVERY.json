@@ -38,5 +38,39 @@
     "failure_policy": "BLOCK_B1_UNTIL_ALL_FIVE_DEFERRED_IDENTIFIERS_MATCH",
     "scope_authority_commit": "fec1b994aa642ba8db74074134f909dcb4f165f0",
     "full_inventory_verification": "REQUIRED_BEFORE_B1_FITTING_NOT_PERFORMED_BY_B0"
+  },
+  "directive19_resolutions": {
+    "authority_commit": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
+    "directive": "docs/benchmark/USER_DIRECTIVE_20261119.md",
+    "pka": {
+      "main": "molecular_macro_strongest_acid_and_strongest_base",
+      "mechanism": "uniquely_identifiable_single_ionization_site_only",
+      "single_site_evidence_required": true,
+      "predicted_microspecies_are_experimental": false,
+      "multisite_microscopic_assignment": false,
+      "SAMPL_exclusion": "complete_InChIKey; challenge_plus_local_ID"
+    },
+    "nmr": {
+      "split": "nmrshiftdb2-2018; Jonas_Kuhn_2019; Kwon_2020",
+      "prefer_author_split": true,
+      "published_test_molecule_count_match_required": true,
+      "CSTShift": "DFT_input_reference_upper_bound_only"
+    },
+    "geometry": {
+      "downstream": "uniform_Sprime_UFF",
+      "PM7_optimizer": "DO_NOT_RECONSTRUCT_OR_TRIAL",
+      "C1_property_group": "Pprime; explicitly_named_Pprime",
+      "Pprime_access": "corresponding_dataset_producer_sealed"
+    },
+    "seeds": {
+      "default": 1,
+      "second": "final_significant_improvement_or_specified_training_rollback_instability"
+    },
+    "B1_branch": "benchmark-b1-20261119",
+    "data_preparation_complete": false
+  },
+  "directive19_data_preparation": {
+    "NMR2018_author_split": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/NMR2018/job_4536853/manifest.json",
+    "uniform_scope_ready": false
   }
 }
