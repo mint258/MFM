@@ -74,5 +74,20 @@ class CPUStatisticsTests(unittest.TestCase):
    self.assertEqual(submit.call_count,1)
    self.assertEqual(ledger['cpu_statistics'][c['run']]['state'],'SUBMISSION_OBSERVATION_UNCERTAIN')
 
+ def test_busy_cpu_pool_queues_one_node_instead_of_requesting_every_node(self):
+  with tempfile.TemporaryDirectory() as directory:
+   c=self.fixture(directory);configuration=Path(directory)/'configuration.json';cpu.write(configuration,c)
+   ledger=dict(runs={c['run']:dict(state='COMPLETED',exit_code='0:0')})
+   @contextmanager
+   def locked():yield ledger
+   with patch.object(cpu,'locked_ledger',locked),patch.object(cpu,'write'),\
+        patch.object(cpu,'cpu_destination',return_value=None),\
+        patch.object(cpu.subprocess,'check_output',return_value='12346\n') as submit:
+    self.assertEqual(len(cpu.queue(dict(configurations=[str(configuration)]))),1)
+   command=submit.call_args.args[0]
+   self.assertIn('--nodes=1',command);self.assertIn('--cpus-per-task=1',command)
+   self.assertIn('--exclude=compute-0-[0-7,14,18,20-22]',command)
+   self.assertFalse(any(arg.startswith('--nodelist=') for arg in command))
+
 
 if __name__=='__main__':unittest.main()

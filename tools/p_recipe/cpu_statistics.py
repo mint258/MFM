@@ -78,7 +78,7 @@ def cpu_destination():
       int(values.get('CPUTot',0))-int(values.get('CPUAlloc',0))>=1 and
       int(values.get('FreeMem',0))>=12288+int(.15*int(values.get('RealMemory',0)))):
    return node
- return ','.join(CPU_NODES)
+ return None
 
 
 def queue(plan):
@@ -94,10 +94,11 @@ def queue(plan):
    if not summary.is_file() or read(summary).get('status')!=WAITING:continue
    node=cpu_destination()
    command=['sbatch','--parsable','--job-name='+c['run']+'_cpu_statistics',
-            '--partition=cpu','--nodelist='+node,'--cpus-per-task=1',
+            '--partition=cpu','--nodes=1','--cpus-per-task=1',
             '--output='+str(C/(c['run']+'_cpu_statistics_%j.log')),
             str(REPO/'tools/p_recipe/cpu_statistics.sbatch'),str(Path(filename).resolve())]
-   jobs[c['run']]=dict(backend='Slurm_CPU',configuration=filename,node_constraint=node,
+   command.insert(4,'--nodelist='+node if node else '--exclude=compute-0-[0-7,14,18,20-22]')
+   jobs[c['run']]=dict(backend='Slurm_CPU',configuration=filename,node_constraint=node or CPU_NODES,
       cpus=1,exclusive=False,submitted_at=time.time(),state='SUBMITTING',purpose='Original final R1/R3 bootstrap; no new probes')
    write(C/'study_execution.json',ledger)
    try:job=int(subprocess.check_output(command,cwd=REPO,text=True,timeout=30).strip().split(';')[0])
