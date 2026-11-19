@@ -1051,3 +1051,6 @@ T1最终H6745仍为当前唯一H1 writer，资源PASS已由H agent唯一消费�
 
 [P heads T2 pending CPU posts retarget /2026-11-20 00:11 CST] 为避免已近最终3M的T2后处理继续绑定满CPU16，root00:11:16核实字段4536289/两seed4536290均P0、RunTime0、Restarts0后hold/update/release，同ID改到compute-0-17/cpu/各CPU1。原body/Nice10000/afterok4536355及科学保持，所有hold已释放、正priority/正常Dependency，未启动统计或改在跑训练。T5未来post6291/92仍原CPU16，临近其parent时再按实际资源处理。
 CPU17先实际184/192CPU（8free），freshguard00:10:32 PASS：root69544357888B、NFS7196666494976B/inodes2964621612、liveUID430001864704B>168126363648B、MemAvailable383542908kB；不是把sinfo低FreeMem当作MemAvailable。新纯CPU只8–19、按需/非exclusive、根盘/UID/跨线预留保持。T2/T5本身继续原3M与原R1/R3，正式两seed判定和最终H仍待各自真实产物；没有新臂或独立重算，C3归配方线，本线未结项。
+
+[P heads H6 optional SMARTS evidence boundary /2026-11-20 00:31 CST] 本线H6实际使用元素×杂化、芳香/成环与BaseFeatures六类；原报告记录“未定位到现成28类SMARTS交付，不等待”，所以未纳入该附加组。本次仅定向查询既有上游文档：11/12 STATUS及11/13 docs/model_v3/MECHANISM_ANALYSIS.md仍记录canonical28定义待输入，未取得证明H6运行前已可用的正式交付日期/定义实例/manifest。报告已补清此边界，不宣称28类已追加，也不把未搜到当上游绝未交付证明；H6仍从D6坐标/电荷重建键，不增TRAIN结构映射门槛、不造替代SMARTS。未读raw/sidecar/源码，未重做编码器、统计/bootstrap或新检验；已有科学结果/判定保持。
+00:31:38实际两GPU训练仍R：T2 seed1 2934400样本/91700更新，T5 seed1 2067200/64600。T2已近final3M，root后续按原子最终文件就绪交H；原R1/R3与两seed判定照常，尚不提前结论。T5自身最终3M/H与全部最终收尾仍待完成，既有CPU8–19、训练连续性及真实容量/UID并发保护继续。

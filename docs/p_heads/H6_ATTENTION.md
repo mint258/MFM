@@ -4,6 +4,8 @@
 
 固定使用与H1相同的5000个预训练VAL分子，每分子取第一个允许构象。D6无直接总电荷列，以完整原始中性PM7原子电荷和的最近整数作为总电荷，用RDKit DetermineBonds从元素和坐标重建；在CPU生产步骤唯一一次核对元素序列。5000个分子均成功，排除0个。GPU阶段复用完整类别缓存，没有重复重建或对齐。未定位到现成28类SMARTS交付，不等待。
 
+附加28类的证据边界：上游`MFM_p_data_information/docs/interfaces/STATUS.md`的2026-11-12记录（同条见`runs/data_v1_20261025/repository/docs/interfaces/STATUS.md`）与[既有机制接口文档](../model_v3/MECHANISM_ANALYSIS.md)的2026-11-13更新仍将canonical28定义记为待输入。本次定向文档核对未取得正式交付日期、可用定义实例接口或交付manifest；H6按原“不等待”条款未纳入该附加组，不宣称28类已追加，也不把未找到记录升格为上游绝未交付的证明。此处仅核对原canonical28定义的可用交付；H6仍按上述D6坐标与电荷重建键，不将旧机制接口的TRAIN structure_map作为新增必需门槛，也不发明替代SMARTS。
+
 类别包括元素×杂化、芳香、成环以及RDKit BaseFeatures.fdef的Donor、Acceptor、PosIonizable、NegIonizable、Aromatic、Hydrophobe。读取B3 PMA首次query-to-atom交叉注意力（8 query×8 head×原子）。主分析先平均8个头；逐头均值只在JSON的head_mean_enrichments附表；维序为head×query×category，category顺序由categories列出。
 
 每分子、每类别的富集比为该类别原子的平均注意力除以1/N；在出现该类别的分子间取均值。按分子进行1000次bootstrap（seed=20261025），95%百分位CI。熵为−Σa log(a)/log(N)，报告各query在分子间的中位数和所有query/分子的总中位数。
