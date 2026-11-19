@@ -31,9 +31,9 @@ def safe_asset(asset):
         raise ValueError("asset name must be a basename")
     parsed = urlsplit(asset["url"])
     if (parsed.scheme != "https" or parsed.hostname not in {
-            "raw.githubusercontent.com", "huggingface.co", "ndownloader.figshare.com",
+            "raw.githubusercontent.com", "github.com", "huggingface.co", "ndownloader.figshare.com",
             "polarishub.io", "data.polarishub.io", "yzhang.hpc.nyu.edu",
-            "dataverse.harvard.edu", "files.pythonhosted.org"}
+            "dataverse.harvard.edu", "files.pythonhosted.org", "static-content.springer.com"}
             or parsed.username is not None or parsed.password is not None):
         raise ValueError("unexpected acquisition host")
     if not isinstance(asset["bytes"], int) or asset["bytes"] < 0:

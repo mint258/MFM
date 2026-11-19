@@ -14,6 +14,7 @@ def main():
     p.add_argument("--datasets",nargs="+",required=True)
     p.add_argument("--attempt",required=True)
     p.add_argument("--quota-snapshot",type=Path)
+    p.add_argument("--concurrent-reserve-bytes",type=int,default=114569896448)
     a=p.parse_args()
     if not a.attempt.isalnum():raise ValueError("invalid transfer identity")
     plan=json.loads(a.plan.read_text());root=Path(plan["data_root"])
@@ -32,7 +33,7 @@ def main():
              "sonmi","quota","-v","-u","zixiao"],text=True,timeout=60)
         return quota_headroom(raw,os.getuid()),time.monotonic()
     remaining,observed=quota()
-    guard(root,peak,remaining,observed,114569896448)
+    guard(root,peak,remaining,observed,a.concurrent_reserve_bytes)
     control=root/"transfer_control"/a.attempt
     control.mkdir(parents=True,exist_ok=False)
     seq=0
@@ -42,7 +43,7 @@ def main():
             remaining,observed=quota()
         seq+=1
         try:
-            guard(root,peak,remaining,observed,114569896448)
+            guard(root,peak,remaining,observed,a.concurrent_reserve_bytes)
             admitted=True;reason=None
         except RuntimeError as error:
             admitted=False;reason=str(error)

@@ -612,7 +612,7 @@
                                              "source_release":  "numcodecs0.15.1"
                                          },
                    "C7H10O2_B3LYP_companion":  {
-                                                   "purpose":  "Source B3LYP U0 for paired Delta(G4MP2-B3LYP) targets, match original gdb9 indices",
+                                                   "purpose":  "Pair original B3LYP thermochemical properties by gdb9 index; benchmark quantity bound from primary ColabFit energy (G298)",
                                                    "files":  [
                                                                  {
                                                                      "url":  "https://ndownloader.figshare.com/files/3195389",
@@ -621,14 +621,52 @@
                                                                  }
                                                              ],
                                                    "source_release":  "Figshare article1057646 version1; original B3LYP companion archive"
-                                               }
+                                               },
+                   "NMRShiftDB2_Jonas2019":  {
+                                                 "purpose":  "Original processed molecular graph lookup for CSTShift reference molecule IDs; no split choice",
+                                                 "files":  [
+                                                               {
+                                                                   "url":  "https://static-content.springer.com/esm/art%3A10.1186%2Fs13321-019-0374-3/MediaObjects/13321_2019_374_MOESM2_ESM.gz",
+                                                                   "name":  "13321_2019_374_MOESM2_ESM.gz",
+                                                                   "bytes":  16476011
+                                                               }
+                                                           ],
+                                                 "source_release":  "Jonas/Kuhn2019 DOI10.1186/s13321-019-0374-3 supplementary code/data"
+                                             },
+                   "C7H10O2_ColabFit":  {
+                                            "source_commit":  "ae169c0e59c5861def6044e89fb84b667c83bb38",
+                                            "purpose":  "Primary selected benchmark energy metadata for unambiguous target binding",
+                                            "files":  [
+                                                          {
+                                                              "url":  "https://huggingface.co/datasets/colabfit/C7H10O2/resolve/ae169c0e59c5861def6044e89fb84b667c83bb38/co/co_0.parquet",
+                                                              "name":  "co_0.parquet",
+                                                              "bytes":  5206309
+                                                          }
+                                                      ]
+                                        },
+                   "runtime_ppe_opsin":  {
+                                             "purpose":  "Parse original PPE IUPAC names with OPSIN 2.9.0, no geometry regeneration or guessed bond perception",
+                                             "files":  [
+                                                           {
+                                                               "url":  "https://github.com/dan2097/opsin/releases/download/2.9.0/opsin-cli-2.9.0-jar-with-dependencies.jar",
+                                                               "name":  "opsin-cli-2.9.0-jar-with-dependencies.jar",
+                                                               "bytes":  14335652
+                                                           },
+                                                           {
+                                                               "url":  "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21.1%2B2/OpenJDK17U-jre_x64_linux_hotspot_17.0.21.1_2.tar.gz",
+                                                               "name":  "OpenJDK17U-jre_x64_linux_hotspot_17.0.21.1_2.tar.gz",
+                                                               "bytes":  46737725
+                                                           }
+                                                       ],
+                                             "source_release":  "OPSIN2.9.0 MIT; Temurin17.0.21.1+2 GPLv2 with Classpath exception"
+                                         }
                },
     "remaining":  [
-                      "acquire remaining candidate sources",
-                      "recover existing charge/protonation policy without guessing",
-                      "full applicability counts and pKahub annotations",
-                      "complete PM7 historical version recovery or mark explicit fallback",
-                      "conformer generation and original P/D recipe adapters",
-                      "data-line delivery to benchmark consumer"
+                      "PPE99 source graphs and2 target name bindings",
+                      "reference atom/coordinate lineage and original D3 labels",
+                      "shared149238 ordered-molecule Sprime/D production closure",
+                      "original Pprime adapter and production; P pending unrecovered optimizer binary",
+                      "pKa task and SAMPL roles; NMR split decision",
+                      "final data-line consumer handoff"
                   ]
 }

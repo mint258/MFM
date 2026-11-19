@@ -12,6 +12,8 @@ import zlib
 from .admission import protect
 from .downstream_science import identities
 
+GUARD_INTERVAL_SECONDS=15
+
 
 def schema(db):
     db.executescript('''
@@ -146,7 +148,7 @@ def run(args):
     if db.execute("SELECT value FROM metadata WHERE key='ready'").fetchone()!=('true',):
         raise RuntimeError('Input preparation is not closed')
     peak=int(db.execute("SELECT value FROM metadata WHERE key='storage_forecast_bytes'").fetchone()[0])
-    protect(out,peak,args.quota_snapshot)
+    protect(out,max(67108864,peak-args.queue.stat().st_size),args.quota_snapshot)
     recover_intents(db)
     ctx=mp.get_context('spawn');slots=[];started=time.monotonic();stop=[False]
     prior_handler=signal.signal(signal.SIGTERM,lambda signum,frame:stop.__setitem__(0,True))
@@ -161,41 +163,54 @@ def run(args):
         if process.is_alive():process.kill();process.join(timeout=5)
         slot['connection'].close()
     for _ in range(args.workers):slots.append(launch())
-    completed=0;last_report=last_guard=0;fatal=None
+    completed=0;last_report=last_guard=0;fatal=None;admitted=True
     try:
         while True:
             now=time.monotonic()
-            if now-last_guard>=15:
+            if now-last_guard>=GUARD_INTERVAL_SECONDS:
                 # Already written bytes are part of actual quota use, not a
                 # second future reservation of the whole output forecast.
                 remaining=max(67108864,peak-args.queue.stat().st_size)
-                protect(out,remaining,args.quota_snapshot);last_guard=now
+                try:
+                    protect(out,remaining,args.quota_snapshot)
+                    if not admitted:print('GEOMETRY_DISK_RESUMED',flush=True)
+                    admitted=True
+                except (OSError,ValueError,KeyError,RuntimeError) as exc:
+                    if admitted:print('GEOMETRY_DISK_WAIT',repr(exc),flush=True)
+                    admitted=False
+                last_guard=now
             draining=stop[0] or now-started>=82800
             for index,slot in enumerate(slots):
                 connection=slot['connection']
-                if slot['mid'] and time.monotonic()-slot['start']>=3600:
+                if slot.get('held_result') is not None and admitted:
+                    finish(db,slot['mid'],slot.pop('held_result'));completed+=1;slot['mid']=None
+                    if slot.get('closed'):
+                        slots[index]=launch();continue
+                if slot['mid'] and slot.get('held_result') is None and time.monotonic()-slot['start']>=3600:
                     mid=slot['mid'];terminate(slot)
-                    finish(db,mid,{'state':'TIMEOUT_3600_NO_RETRY','error':'Hard molecule deadline exceeded'})
-                    completed+=1;slots[index]=launch();continue
-                if connection.poll():
+                    slot.update(held_result={'state':'TIMEOUT_3600_NO_RETRY','error':'Hard molecule deadline exceeded'},closed=True)
+                    continue
+                if not slot.get('closed') and slot.get('held_result') is None and connection.poll():
                     try:message=connection.recv()
                     except EOFError:message={'event':'worker_lost'}
                     if message['event']=='ready':slot['ready']=True
                     elif message['event']=='result':
                         if message['mid']!=slot['mid']:raise RuntimeError('Worker/molecule identity differs')
-                        finish(db,slot['mid'],message['result']);completed+=1;slot['mid']=None
+                        # Keep at most one completed result per worker in memory
+                        # until a fresh actual storage/quota observation permits
+                        # its commit. No new chemistry is dispatched while waiting.
+                        slot['held_result']=message['result']
                     elif message['event']=='initialization_failed':
                         fatal=message['error'];stop[0]=True
                     elif slot['mid']:
                         slot['process'].join(timeout=.1)
                         timed_out=slot['process'].exitcode==-signal.SIGALRM
-                        finish(db,slot['mid'],{'state':'TIMEOUT_3600_NO_RETRY' if timed_out else 'UNKNOWN_WORKER_LOST_NO_RETRY',
-                            'error':'Own worker kernel deadline' if timed_out else 'Own worker disappeared'})
-                        completed+=1
-                        terminate(slot);slots[index]=launch();continue
+                        slot['held_result']={'state':'TIMEOUT_3600_NO_RETRY' if timed_out else 'UNKNOWN_WORKER_LOST_NO_RETRY',
+                            'error':'Own worker kernel deadline' if timed_out else 'Own worker disappeared'}
+                        terminate(slot);slot['closed']=True;continue
                     else:
                         fatal='Own worker exited before a molecule was assigned';stop[0]=True
-                if slot['mid'] is None and slot['ready'] and not draining and not fatal:
+                if slot['mid'] is None and slot['ready'] and admitted and not draining and not fatal:
                     pending=db.execute("SELECT mid,model_smiles FROM tasks WHERE state='PENDING' ORDER BY mid LIMIT 1").fetchone()
                     if pending:
                         mid,smiles=pending;claim(db,mid,slot['process'].pid)
@@ -207,7 +222,7 @@ def run(args):
                 states=dict(db.execute('SELECT state,count(*) FROM tasks GROUP BY state'))
                 print('GEOMETRY_PROGRESS',completed,states,'busy',sum(s['mid'] is not None for s in slots),flush=True)
                 last_report=now
-            if not busy and (not pending or draining or fatal):break
+            if admitted and not busy and (not pending or draining or fatal):break
             time.sleep(.05)
         states=dict(db.execute('SELECT state,count(*) FROM tasks GROUP BY state'))
         manifest={'status':'ALL_QUEUED_MOLECULES_TERMINAL' if not pending and not fatal else 'PARTIAL_PRESERVED',
