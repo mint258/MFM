@@ -105,3 +105,76 @@ def test_main_thread_launch_time_includes_runtime_and_driver_apis(tmp_path):
     result=summarize(path,1,1,main_tid=11)
     assert result['host_kernel_launch_seconds_per_step']==pytest.approx(2e-6)
     assert result['host_all_threads_kernel_launch_seconds_per_step']==pytest.approx(5e-6)
+
+
+def _stub_runtime_monitor(monkeypatch, study):
+    import sys
+    from types import SimpleNamespace
+    monkeypatch.setattr(study, 'capacity', lambda: None)
+    monkeypatch.setattr(study, 'budget_note', lambda: None)
+    disk=SimpleNamespace(m=SimpleNamespace(
+        filesystem_status=lambda path: None,
+        require_capacity=lambda *args: None))
+    monkeypatch.setitem(sys.modules, 'v2_diagnosis_disk', disk)
+    def no_wait_after_known_context(*args):
+        raise AssertionError('Known foreign context must stop before another poll')
+    monkeypatch.setattr(study.time, 'sleep', no_wait_after_known_context)
+
+
+def test_external_context_stops_owned_child_and_rejects_reuse(monkeypatch, tmp_path):
+    import os
+    import signal
+    import subprocess
+    import sys
+    import gpu_5090 as study
+    _stub_runtime_monitor(monkeypatch, study)
+    monkeypatch.setattr(study, 'REPORT', tmp_path)
+    replies=iter(([], [987654321]))
+    monkeypatch.setattr(study, 'foreign_contexts', lambda: next(replies))
+    original_popen=subprocess.Popen
+    children=[]
+    def own_child(command, **kwargs):
+        child=original_popen([sys.executable, '-c', 'import time; time.sleep(60)'], **kwargs)
+        children.append(child)
+        return child
+    monkeypatch.setattr(study.subprocess, 'Popen', own_child)
+    try:
+        with pytest.raises(RuntimeError, match='External GPU interference'):
+            study.stage('benchmark', 'synthetic_interrupted', 'baseline')
+        assert len(children)==1
+        assert children[0].returncode == -signal.SIGTERM
+        marker=tmp_path/'synthetic_interrupted_benchmark_interference.json'
+        assert json.loads(marker.read_text())['foreign_pids']==[987654321]
+        assert not (tmp_path/'synthetic_interrupted_benchmark.json').exists()
+        with pytest.raises(RuntimeError, match='Contaminated stage retained'):
+            study.stage('benchmark', 'synthetic_interrupted', 'baseline')
+        assert len(children)==1
+    finally:
+        for child in children:
+            if child.poll() is None:
+                os.killpg(child.pid, signal.SIGTERM)
+                child.wait()
+
+
+def test_external_context_at_child_exit_invalidates_completed_marker(monkeypatch, tmp_path):
+    import gpu_5090 as study
+    _stub_runtime_monitor(monkeypatch, study)
+    monkeypatch.setattr(study, 'REPORT', tmp_path)
+    replies=iter(([], [987654321]))
+    monkeypatch.setattr(study, 'foreign_contexts', lambda: next(replies))
+    completed=tmp_path/'synthetic_closed_benchmark.json'
+    class ClosedChild:
+        returncode=0
+        def poll(self):
+            return 0
+    def closed_child(command, **kwargs):
+        completed.write_text(json.dumps(dict(status='SYNTHETIC_TEST_ONLY')))
+        return ClosedChild()
+    monkeypatch.setattr(study.subprocess, 'Popen', closed_child)
+    with pytest.raises(RuntimeError, match='External GPU interference'):
+        study.stage('benchmark', 'synthetic_closed', 'baseline')
+    assert completed.exists()
+    marker=tmp_path/'synthetic_closed_benchmark_interference.json'
+    assert json.loads(marker.read_text())['status']=='CONTAMINATED'
+    with pytest.raises(RuntimeError, match='Contaminated stage retained'):
+        study.stage('benchmark', 'synthetic_closed', 'baseline')

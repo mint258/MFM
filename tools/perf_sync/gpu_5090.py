@@ -326,23 +326,29 @@ def stage(kind,name=None,variant=None,seed=0,cores=16):
     command=[sys.executable,'-B','-u',__file__,kind,'--name',name or 'S0','--variant',variant or 'baseline','--seed',str(seed),'--cores',str(cores)]
     child=subprocess.Popen(command,start_new_session=True)
     interference=set();started=time.monotonic()
+    def reject_interference():
+        interference.update(foreign_contexts())
+        if interference:
+            publish(key+'_interference',dict(foreign_pids=sorted(interference),status='CONTAMINATED',elapsed=time.monotonic()-started))
+            raise RuntimeError('External GPU interference; this block is not controlled')
     try:
         while child.poll() is None:
+            reject_interference()
             budget_note();capacity()
             if kind=='profile' and allocated_bytes((SCRATCH,REPO/'results/perf_sync/scratch'))>LIMIT-1024**3:
                 raise OSError('Stop new profiling writes before scratch headroom is consumed')
             sys.path.insert(0,str(REPO.parent/'MFM_p_recipe/tools/model_v3'))
             import v2_diagnosis_disk as disk
             disk.m.require_capacity(disk.m.filesystem_status('/dev/shm'),2*1024**3,10000)
-            interference.update(foreign_contexts())
             time.sleep(1 if kind=='profile' else 5)
+        reject_interference()
         if child.returncode:raise RuntimeError(key+' exited '+str(child.returncode)+'; retain unfinished artifacts')
-        if interference:
-            publish(key+'_interference',dict(foreign_pids=sorted(interference),status='CONTAMINATED',elapsed=time.monotonic()-started))
-            raise RuntimeError('External GPU interference; this block is not controlled')
         return read(key)
     except BaseException:
-        if child.poll() is None:os.killpg(child.pid,signal.SIGTERM);child.wait()
+        if child.poll() is None:
+            try:os.killpg(child.pid,signal.SIGTERM)
+            except ProcessLookupError:pass
+            child.wait()
         raise
 
 
