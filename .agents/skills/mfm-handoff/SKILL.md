@@ -2,7 +2,7 @@
 name: mfm-handoff
 description: MFM / PhyChem-MFM 项目的总入口与交接手册。新 agent 接手、换窗口、丢失记忆、恢复某条工作线，或不确定"现在该听哪份文件"时先读本 skill；它给出阅读顺序、文件权威顺序、角色分工、恢复步骤和其他项目管理 skill 的索引。
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   updated: "2026-11-19"
   owner: Zixiao Yang (@mint258)
 ---
@@ -61,10 +61,10 @@ metadata:
 
 | 需要做的事 | 读 |
 | --- | --- |
-| 开分支、合并、跨线交接、CURRENT_BEST、PR | `mfm-branch-management`（**尚未编写**） |
+| 开分支、命名、推送、PR、CURRENT_BEST、跨线交接、STATUS 公告 | `mfm-branch-management` |
 | 给一条线写任务书或补充指示、定停止条件和不做清单 | `mfm-taskbook-standard` |
 | 筛选 / 确认预算、R1/R3、胜负判定、种子数、合并与冻结 | `mfm-experiment-decisions` |
-| 结果不理想，决定往哪里查、加什么臂、做多深 | `mfm-improvement-exploration`（**尚未编写**） |
+| 结果不理想，决定往哪里查、加什么臂、做多深 | `mfm-improvement-exploration` |
 | 写测试、做验证、性能等价性验收 | `mfm-testing-standards` |
 | 提交作业、选节点和 GPU、断点接管、磁盘保护 | `mfm-cluster-operations` |
 | 记录方法、显著性分析和发现，供写论文 | `mfm-paper-records` |
