@@ -1,11 +1,11 @@
 {
   "schema": "BENCHMARK_B0_AVAILABLE_DELIVERY_ENTRY_V1",
-  "status": "D_AVAILABLE_PPRIME_RUNNING_S_P_PENDING",
+  "status": "D_AVAILABLE_DIRECTIVE19_TARGETS_READY_UFF_PPRIME_IN_PROGRESS",
   "authority": "docs/benchmark/USER_DIRECTIVE_20261118.md@07be7a0f04085398eeda2b7548afa46c668ffd9a",
   "data_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119",
-  "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/job_4536591/manifest.json",
-  "domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/job_4536591/domain_counts.csv",
-  "handoff_native_job": 4536591,
+  "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_available_4536909/manifest.json",
+  "domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_available_4536909/domain_counts.csv",
+  "handoff_native_job": 4536909,
   "handoff_native_state": "COMPLETED",
   "handoff_native_exit": "0:0",
   "source_groups": 11,
@@ -20,7 +20,7 @@
   "Pprime_all_ready": false,
   "S_ready": false,
   "P_ready": false,
-  "reference_quantum_status": "P pending with unrecovered S; Pprime defined on UFF only; dataset reference XYZ unchanged",
+  "reference_quantum_status": "Downstream uniformly uses shared UFF Sprime; C1 property groups use Pprime; historical reference XYZ retained as provenance",
   "no_local_database_copies": true,
   "all_required_production_complete": false,
   "supplemental_sources": {
@@ -76,5 +76,23 @@
     "uniform_Sprime_scope": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/geometry/shared_v1/queue.manifest.json",
     "uniform_scope_ready": false,
     "pKa_atomic_site_evidence_ready": false
+  },
+  "active_target_manifests": {
+    "NMRShiftDB2": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/NMR2018/job_4536887/manifest.json",
+    "pKahub": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4536891/manifest.json"
+  },
+  "uniform_Sprime_producer": {
+    "job": 4536898,
+    "native_state": "RUNNING",
+    "producer_progress_observed": false
+  },
+  "uniform_Pprime_chain": {
+    "prepare_job": 4536905,
+    "producer_jobs": [
+      4536906,
+      4536907
+    ],
+    "source_geometry_native_C0_required": true,
+    "ready": false
   }
 }

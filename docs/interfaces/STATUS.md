@@ -618,3 +618,8 @@ PM7重复构象保留，D7的0.5Å统计不作为删样指令；普通S′沿用
 ## 2026-11-20 B0 original NMR targets, pKa macros and uniform UFF scope
 
 B0.DELIVERY.json now links original NMR2018 atom targets/domain (4536887 C0; 39719 original spectra rows, 353520 atomic labels, author splits and atom IDs preserved) and pKa macros/exact SAMPL exclusions (4536891 C0; 29972 training-pool molecules; 44 complete blind InChIKeys, 79 excluded source rows). No experimental atomic-site evidence is invented. Uniform UFF input preparation4536895 C0 has38240 new ordered graphs and reuses163 source rows through existing shared geometry pointers; geometry4536898 is running on CPU18/8CPU, not yet sealed. Source check4536896 passed5252 files/3724 Python sources. Original Pprime4536581 continues unchanged; no data copies or deletion. B1's existing inventory and environment work are reused. Original 2018 targets replace the historical CSTShift-DFT subset for standard NMR evaluation; published unique-molecule-count reconciliation remains explicit.
+
+
+## 2026-11-20 B0 refreshed directive19 consumer entry
+
+Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json exposes active_target_manifests for original NMR2018 and pKa macros/SAMPL exclusions; README documents source atom IDs and shared geometry routing. Uniform UFF4536898 is scheduler-RUNNING on CPU18 but has no observed producer progress yet (access still belongs to input preparation); do not infer UFF readiness or restart from a polling timeout. Pprime scope dependency6905→6906→6907 requires actual complete source geometry C0. Original325080-conformer Pprime and16CPU standby remain unchanged. Quota metadata service3058760 has finite7-day lifetime and replaced the verified exited original service sequentially.
