@@ -1,0 +1,81 @@
+{
+  "status": "OBSERVED_BEFORE_EXEC",
+  "observed_time_unix": 1795107863.8788671,
+  "condition": "T2_seed1",
+  "job_id": 4536798,
+  "node": "compute-0-17",
+  "parent": {
+    "pid": 3529087,
+    "uid": 1278,
+    "pgid": 3529087,
+    "ppid": 3529082,
+    "start_ticks": 2172231180,
+    "cpu_mask": [
+      6,
+      7,
+      102,
+      103
+    ]
+  },
+  "slurm": {
+    "JobId": "4536798",
+    "JobState": "RUNNING",
+    "NodeList": "compute-0-17",
+    "NumCPUs": "4",
+    "CPUs/Task": "4",
+    "CPU_IDs": "12-15"
+  },
+  "environment": {
+    "SLURM_CPUS_PER_TASK": "4",
+    "CUDA_VISIBLE_DEVICES": "",
+    "SLURM_JOB_ID": "4536798"
+  },
+  "observations": {
+    "allowed_cpu_node": true,
+    "parent_has4": true,
+    "parent_matches_actual_srun_linux_binding": true,
+    "slurm_declares4": true,
+    "slurm_allocation_covers_requested": true,
+    "cuda_visible_empty": true
+  },
+  "capacity": {
+    "node": "compute-0-17",
+    "root": {
+      "total": 75125227520,
+      "available": 61218676736,
+      "inodes": 36522193,
+      "total_inodes": 36700160,
+      "root": true
+    },
+    "target": {
+      "total": 32001943928832,
+      "available": 7177165078528,
+      "inodes": 2964619736,
+      "total_inodes": 3125398528,
+      "root": false
+    },
+    "quota": {
+      "filesystem": "/share",
+      "available": 429170077696,
+      "required": 167897339904,
+      "age": 1.693969964981079
+    },
+    "own_allocated": 12271366144,
+    "own_remaining": 13498437632,
+    "other_followup_remaining": 4629098496
+  },
+  "mem_available": "MemAvailable:   381620952 kB",
+  "device": "cpu",
+  "gpu_context_check": "CPU-only node; empty CUDA visibility and explicit CPU execution",
+  "exec_preserves_pid_uid_start_ticks_pgid_affinity": true,
+  "checkpoint_contents_reread": false,
+  "scientific_benchmark": false,
+  "srun_cpu_bind_list": "0x0000000000000000000000C00000000000000000000000C0",
+  "srun_cpu_bind_type": "mask_cpu:",
+  "slurm_cpu_ids_note": "Scheduler CPU_IDs recorded; Linux affinity checked against actual srun Linux mask",
+  "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/training/p_heads_T2_seed1/samples_3000000.pt",
+  "canonical_configuration": "configs/p_heads/T/T2_seed1.json",
+  "training_parent_job": 4536355,
+  "parent_state_at_root_trigger": "RUNNING original R1/R3 evaluation",
+  "trigger": "Existing publish_checkpoint closes/fsyncs temporary then atomically hardlinks final3M filename; root first metadata and arm/seed/run/output correspondence recorded before launch; no new marker or scientific gate"
+}

@@ -16,7 +16,17 @@
       ],
       "candidate": 0.3108263615978493,
       "reference": 0.3142474985239394,
-      "seed0_verdict": "seed1_required"
+      "seed0_verdict": "seed1_required",
+      "seed1": {
+        "delta": 0.009722118146321235,
+        "ci95": [
+          -0.0024079925355455635,
+          0.02278484642280607
+        ],
+        "candidate": 0.28348480501914786,
+        "reference": 0.2737626868728266
+      },
+      "verdict": "tie"
     },
     "R3": {
       "delta": -0.007585450322706355,
@@ -26,12 +36,24 @@
       ],
       "candidate": 0.4669179815594994,
       "reference": 0.47450343188220573,
-      "seed0_verdict": "seed1_required"
+      "seed0_verdict": "seed1_required",
+      "seed1": {
+        "delta": 0.0013032523004910535,
+        "ci95": [
+          -0.009372422341078549,
+          0.011136945517705965
+        ],
+        "candidate": 0.44194477249539066,
+        "reference": 0.4406415201948996
+      },
+      "verdict": "tie"
     }
   },
-  "status": "SEED1_REQUIRED",
+  "status": "COMPLETE_TWO_SEEDS",
   "reference_seed1_reused_external": false,
   "reference_seed1_configuration": null,
   "external_reference_pending": false,
+  "reference_R3_training_noise": 0.03386191168730612,
+  "B3_R3_training_noise": 0.03386191168730612,
   "current_best_confirmation_required": false
 }
