@@ -14,14 +14,7 @@ from workflows.benchmark_data.geometry_queue import schema as geometry_schema
 from workflows.benchmark_data.pprime_reader import PprimeReader
 
 
-def synthetic_container_worker(connection,root,snapshot,workers,deadline,stop_event):
-    connection.send({'event':'ready'})
-    while True:
-        task=connection.recv()
-        if task is None:return
-        time.sleep(.01)
-        connection.send({'event':'result','record_id':task['record_id'],
-            'result':{'state':'SYNTHETIC_CLOSED','all_twelve_tasks_success':False}})
+from workflows.benchmark_data.testing_workers import pprime_container_worker as synthetic_container_worker
 
 
 class PprimeStorageTests(unittest.TestCase):

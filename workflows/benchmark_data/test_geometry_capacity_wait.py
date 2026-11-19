@@ -10,14 +10,7 @@ from unittest.mock import patch
 from workflows.benchmark_data import geometry_queue as q
 
 
-def container_only_worker(connection):
-    connection.send({'event':'ready'})
-    while True:
-        task=connection.recv()
-        if task is None:return
-        time.sleep(.05)
-        connection.send({'event':'result','mid':task['mid'],
-            'result':{'state':'SYNTHETIC_CONTAINER_READY','value':task['model_smiles']}})
+from workflows.benchmark_data.testing_workers import geometry_container_worker as container_only_worker
 
 
 class CapacityWaitTests(unittest.TestCase):
