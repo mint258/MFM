@@ -1,15 +1,15 @@
 #!/bin/bash
 #SBATCH --job-name=p-followup-C3-geometry
-#SBATCH --nodelist=compute-0-16
+#SBATCH --nodelist=compute-0-17
 #SBATCH --partition=cpu
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=8
 #SBATCH --nice=10000
 #SBATCH --output=/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/C3_geometry_cpu_%j.log
 set -euo pipefail
 cd /share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117
 export PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 CUDA_VISIBLE_DEVICES=""
-export OMP_NUM_THREADS=16 OPENBLAS_NUM_THREADS=16 MKL_NUM_THREADS=16 NUMEXPR_NUM_THREADS=16
+export OMP_NUM_THREADS="$SLURM_CPUS_PER_TASK" OPENBLAS_NUM_THREADS="$SLURM_CPUS_PER_TASK" MKL_NUM_THREADS="$SLURM_CPUS_PER_TASK" NUMEXPR_NUM_THREADS="$SLURM_CPUS_PER_TASK"
 export PYTHONPATH="$PWD/current:/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps"
 # Submit after the recipe line's actual C3 3M/readout completion. Reuse M2/Dprime.
 exec /share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python -B -u tools/p_followup/directive_geometry.py --conditions C3 --device cpu

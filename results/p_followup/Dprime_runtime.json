@@ -440,32 +440,32 @@
                                        }
               },
     "C3_followup":  {
-                        "status":  "RECIPE_TRAINING_RESUMED_CPU_DESCRIPTION_PENDING",
+                        "status":  "C3_3M_READOUT_COMPLETE_LAYER6_RUNNING",
                         "role":  "Read existing exact3M R1/R3 and compute only layer6 descriptive geometry",
                         "training_owner":  "recipe line",
                         "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/C3.json",
                         "run":  "fixed_20261115_round3_C3_node20_gpu0_resumed_20261119",
                         "output":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_C3_node20_gpu0_resumed_20261119",
                         "source_job_id":  4536352,
-                        "source_state":  "RUNNING",
+                        "source_state":  "COMPLETED0:0",
                         "source_node":  "compute-0-20",
                         "source_gpu_uuid":  "GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5",
                         "resumed_samples":  2121056,
                         "predecessor_job_id":  4535189,
                         "predecessor_state":  "COMPLETED0:0 at handoff before3M",
-                        "actual_source_observation_utc":  "2026-11-18T17:44:08Z",
+                        "actual_source_observation_utc":  "2026-11-19T11:12:33Z",
                         "analysis":  {
                                          "job_id":  4536353,
-                                         "state":  "PENDING",
-                                         "reason":  "Dependency",
+                                         "state":  "RUNNING",
+                                         "reason":  "Dependency fulfilled; actual Slurm allocation on CPU node",
                                          "dependency":  "afterok:4536352",
-                                         "node":  "compute-0-16",
+                                         "node":  "compute-0-17",
                                          "partition":  "cpu",
-                                         "requested_cpus":  16,
+                                         "requested_cpus":  8,
                                          "nice":  10000,
                                          "exclusive":  false,
                                          "cuda_visible_devices":  "",
-                                         "registered_allocation_elapsed_seconds":  0,
+                                         "registered_allocation_elapsed_seconds":  69,
                                          "submitted_at_utc":  "2026-11-18T17:46:32Z",
                                          "repository_script":  "tools/p_followup/C3_geometry_cpu.sbatch",
                                          "submitted_script":  "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/C3_geometry_cpu_20261119.sbatch",
@@ -479,7 +479,29 @@
                                                                    "dependency_unchanged":  "afterok:4536352",
                                                                    "submitted_script_retained":  true,
                                                                    "actual_target_guard":  "PASS; UID445146001408 available vs172875941888 required; root69766782976 available, reserve max10GiB/10%; inodes checked"
-                                                               }
+                                                               },
+                                         "actual_started_at_cst":  "2026-11-19T19:21:16+08:00",
+                                         "actual_nodes":  1,
+                                         "actual_cpus":  8,
+                                         "execution_adjustment":  "Updated pending job in place to an available8CPU slot; Python sets Torch/BLAS threads from actual SLURM_CPUS_PER_TASK before imports; original producer script retained. Scientific method/panel/precision unchanged.",
+                                         "actual_target_guard":  {
+                                                                     "node":  "compute-0-17",
+                                                                     "status":  "PASS",
+                                                                     "share_available_bytes":  434184232960,
+                                                                     "share_required_bytes":  169740269568,
+                                                                     "root_available_bytes":  69544230912,
+                                                                     "root_free_inodes":  36542712,
+                                                                     "memory_available_bytes":  392865562624,
+                                                                     "note":  "Node18 preflight was unavailable; no target writes made there. Node17 actual guard passed before pending allocation adjustment."
+                                                                 },
+                                         "cancelled_duplicate":  {
+                                                                     "job_id":  4536746,
+                                                                     "state":  "CANCELLED by1278",
+                                                                     "allocation_elapsed_seconds":  0,
+                                                                     "requested_cpus":  8,
+                                                                     "CPU_hours":  0,
+                                                                     "reason":  "Submitted after original pending job had already started; cancelled immediately before execution; no duplicate analysis"
+                                                                 }
                                      },
                         "read_only_observation":  {
                                                       "observed_at_utc":  "2026-11-18T22:04:38Z",
@@ -493,7 +515,28 @@
                                                       "analysis_job_id":  4536353,
                                                       "analysis_state":  "PENDING",
                                                       "analysis_allocation_seconds":  0
-                                                  }
+                                                  },
+                        "source_allocation_seconds":  62827,
+                        "source_cost_scope":  "External recipe training reused; not charged as own new training",
+                        "scores":  {
+                                       "source":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_C3_node20_gpu0_resumed_20261119/readout/scores.json",
+                                       "R1":  {
+                                                  "mean_normalized_improvement":  0.25509338581619684,
+                                                  "bootstrap_ci":  [
+                                                                       0.22392691226399344,
+                                                                       0.27033206353765737
+                                                                   ]
+                                              },
+                                       "R3":  {
+                                                  "mean_normalized_improvement":  0.44562968144575327,
+                                                  "bootstrap_ci":  [
+                                                                       0.44224617254914983,
+                                                                       0.46924313350017588
+                                                                   ]
+                                              },
+                                       "descriptive_only":  true,
+                                       "additional_probe":  false
+                                   }
                     },
     "seed0_trigger_history":  {
                                   "status":  "SEED1_REQUIRED",

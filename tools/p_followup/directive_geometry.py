@@ -6,6 +6,11 @@ from pathlib import Path
 import subprocess
 import time
 
+# Respect the actual CPU allocation, including a smaller available CPU slot.
+_CPU_THREADS = max(1, min(16, int(os.environ.get('SLURM_CPUS_PER_TASK', '16'))))
+for _thread_variable in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS'):
+    os.environ[_thread_variable] = str(_CPU_THREADS)
+
 import numpy as np
 import torch
 
@@ -112,7 +117,7 @@ def main():
     args = parser.parse_args()
     if args.report_only:
         deliver(load(RESULT)['conditions']);return
-    guard(force=True);torch.set_num_threads(4 if args.device == 'cuda' else 16)
+    guard(force=True);torch.set_num_threads(min(4, _CPU_THREADS) if args.device == 'cuda' else _CPU_THREADS)
     torch.backends.cuda.matmul.allow_tf32 = False;torch.backends.cudnn.allow_tf32 = False
     lock = None
     if args.device == 'cuda':
