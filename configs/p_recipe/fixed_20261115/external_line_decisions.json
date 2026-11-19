@@ -1,18 +1,72 @@
 {
   "schema": "P_RECIPE_EXTERNAL_DECISIONS_V1",
   "authority": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
-  "observed_at_utc": "2026-11-19T00:29:00Z",
+  "observed_at_utc": "2026-11-19 06:27:52 UTC",
   "external_line_decisions_complete": false,
   "recipe_frozen": false,
   "external_adoptions": [],
   "external_line_decisions": {
     "heads": {
-      "status": "WAITING_REGISTERED_SEED1",
+      "status": "WAITING_REMAINING_REGISTERED_SEED1",
       "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/docs/p_heads/DAILY_20261119.md",
-      "source_git_blob": "98fec92ff5c0625e9aa70a168f60f5e8df30a5fa",
+      "source_git_blob": "7253cf048035a26209ab3d0c5c17fcc1227594c0",
       "adopted_components": [],
-      "component_decisions": [],
-      "note": "All five original arms require seed1 and are still running; no premature final disposition."
+      "component_decisions": [
+        {
+          "arm": "T3",
+          "baseline": "B3 [A1,B3]",
+          "seed_count": 2,
+          "seed_deltas_R3": [
+            -0.022013477007160442,
+            -0.00949951975103619
+          ],
+          "seed_CI": [
+            [
+              -0.032053393575519645,
+              -0.012058970924839008
+            ],
+            [
+              -0.018908726064840085,
+              -0.00005651925868087425
+            ]
+          ],
+          "seed_deltas_R1": [
+            0.0032227614128629845,
+            0.011893479671824803
+          ],
+          "seed_CI_R1": [
+            [
+              -0.008731332850063315,
+              0.014110362564626137
+            ],
+            [
+              -0.0019266658452948156,
+              0.025638475820842884
+            ]
+          ],
+          "verdict": "loss",
+          "R1_verdict": "tie",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T3_deltas.json",
+          "source_git_blob": "3b83bb216c8daec8c56ccbc53408a786825d1d50",
+          "decision_rule": "Owner's original two-seed rule: both R3 CI upper bounds below0 => loss. Retain original per-seed intervals; no main-line rejudging or resampling.",
+          "current_best_confirmation_required": false,
+          "producer_jobs": {
+            "seed1_training": 4536341,
+            "field_copy": 4536613,
+            "comparison": 4536614,
+            "status": "Owner-published complete3M/93750/R1R3 and successful0:0"
+          }
+        }
+      ],
+      "note": "Owner formally closed T3 as two-seed R3 loss/R1 tie. The other four registered seed1 runs remain active; no adoption or freeze is inferred.",
+      "pending_arms": [
+        "T1",
+        "T2",
+        "T4",
+        "T5"
+      ]
     },
     "decoupling": {
       "status": "COMPLETE_TWO_SEEDS",

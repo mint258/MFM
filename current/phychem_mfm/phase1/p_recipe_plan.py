@@ -20,7 +20,8 @@ def configuration(base,components,*,run,round_number,arm,samples=None,stage=2):
  c['p_recipe']={};c['head_form']='H1';c['lr']=base['lr'];c['mean_labels']=False
  for key in ('resume','resume_samples','resume_from_output','attempt','handoff_request','handoff_ack',
              'label_parameters','speed_calibration','calibration_training','speed_board','required_gpu_uuid','evaluation_samples',
-             'reuse_baseline_configuration','reuse_baseline_family_prefix','baseline_clip_exception'):
+             'reuse_baseline_configuration','reuse_baseline_family_prefix','baseline_clip_exception',
+             'recovery_reason','replaces_run','source_last_samples','rollback_samples'):
   c.pop(key,None)
  c['output']=str(Path(base['output']).parent/run)
  if c.get('checkpoint_policy')=='screen_final_confirmation_milestones':
