@@ -34,10 +34,16 @@ C7目标为 `targets/C7H10O2/job_4536471/manifest.json`。NMR域为 `domain/NMRS
 
 统一入口为 `configs/benchmark_data/B0.DELIVERY.json`，指向 `delivery/job_4536591/manifest.json` 和同目录 `domain_counts.csv`。该manifest整合11组来源、12行数量（NMR分核）、原始记录/参考坐标、D20/D3、目标、P′共享读取器及待定事项。公开摘要见 `B0_DOMAIN_COUNTS.md`。数量表聚合生产manifest，不重新筛选或扫描数值；PPE未知图与已知域外分开，非互斥原因不能直接相加。
 
-P′后续4536588→4536590依次afterok续接同一队列，已关闭结果不重算，全量封存后入口直接退出且不新增Native。仅新量化暂态文件在12的/dev/shm（8×8GiB峰值、32GiB系统/并发余量、额外15%整机RAM余量），输入库/解析字段/失败审计均仍为共享NFS单份。每次调用及父循环重新检查真实字节/inode/RAM/UID配额，根盘保留max(10GiB,10%)。72小时quota发布器1197837仅发布真实观测，未改变quota配置。
+P′后续4536588→4536590依次afterok续接同一队列，已关闭结果不重算，全量封存后入口直接退出且不新增Native。仅新量化暂态文件在12的/dev/shm（8×8GiB峰值、32GiB系统/并发余量、额外15%整机RAM余量），输入库/解析字段/失败审计均仍为共享NFS单份。每次调用及父循环重新检查真实字节/inode/RAM/UID配额，根盘保留max(10GiB,10%)。72小时quota发布器1443347仅发布真实观测，延迟2秒公布以避免实测节点时钟差导致负年龄；真实时间戳和0..90秒检查不变，未改变quota配置。
 
 参考构型使用作者XYZ和原D；历史S配置缺证时P继续待定，P′仅定义在UFF上，没有新增参考几何量化标签类型。最终交付生成器按终态producer manifest区分 `production_closed` 与 `all_ready`：有明确失败时可生产关闭，仍不得把失败记录当成齐备标签。
 
 验证：本线65项全量通过（4536597 C0），完整源码检查PASS。仓库全量回归4536594实际执行，1877通过/95失败/161错误/5跳过；本线4项测试导入/环境问题随后修复，其他旧目录问题未解决，未证明全仓通过。所有报告保留；不为此重跑量化或改变科学规则。
 
 SAMPL6/7来源关联补充在 `provenance/SAMPL6_7/job_4536607/manifest.json`（4536607 C0），统一入口的`supplemental_sources`可定位。SAMPL6保留31条/24个原挑战分子编号，SAMPL7保留20条/20个编号；51条均按`dataset + rawdataID`关联既有pKahub域内记录。原SM编号跨挑战可复用，必须连同挑战名使用，不能直接当全局molid。每条保留原数值文本、原字段和主表/域记录定位；源编号关联不表示构象或标签齐备。最终任务形式及训练/盲测角色仍待用户决定，未推断原子位点、未重分类宏观/微观标签、无新增几何或QM。新增2项来源测试通过，完整源码检查PASS；此前65项本线全量及全仓回归的结果继续保留，不以增量检查冒充重跑全仓。
+
+16核候补使用 `workflows/benchmark_data/standby_pprime.sbatch` / `pprime_standby.py`，候选4536722；cpu分区实核为2及8至19，排除0至7及20至22后只可分配8至19，入口再核实实际节点、UID、CPU数和分区。它先核实实际/dev/shm字节/inode、整机RAM、根盘余量及共享quota，仅打印 `STANDBY_READY_ZERO_NATIVE` 与分配/进程身份；这不表示开始QM。未收到协调指令约300秒后释放，原生元数据调用单次最长30秒；既有生产不会因此停止。不得仅因候补PENDING、RUNNING或日志存在而停止旧生产。
+
+实际获配后，协调者须重新核实候补原生RUNNING及目标资源，再把4536588的依赖改为 `afterok:4536581:4536722`（其后6590/6599链不变），保留旧生产与候补两重C0约束。验证旧Python父进程的UID、Slurm归属、完整命令和/proc start_ticks后，只向该父进程发原SIGTERM请求，让当前记录完成；不强杀QM。随后在control的 `B0_pprime_standby_4536722_accept.json` 写入候补日志中的完整identity，并仅在实际完成上述操作后加入 `previous_parent_sigterm_verified=true`、`followup_requires_both_jobs=true`。这是协调者内部接续文件，无需用户另行操作。接续前确认quota发布器寿命覆盖重排后的链；不足则顺序更换该元数据进程，不并发发布、不放宽有效期检查。
+
+候补收到匹配job/previous_job/node/uid/pid/start_ticks/root/workers的指令后，仍等待旧作业原生COMPLETED/0:0、原producer identity、writers_closed与INTENT0，最后再次核实资源才exec原 `pprime_tmpfs_queue run`。原十二任务、二进制、解析、原子顺序、900秒及不重试保持；仅将实际Slurm剩余墙钟减60秒传给原父调度器，其约3小时记录收尾余量继续保留。若分配时旧生产身份已变化，不接续、不伪造协调文件，候补零QM释放；原8核链照常。候补提交不等于16核提速已发生，实际生产和源清单仍以当前控制状态为准。
