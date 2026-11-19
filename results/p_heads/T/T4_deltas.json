@@ -16,7 +16,17 @@
       ],
       "candidate": 0.27391524108191617,
       "reference": 0.3142474985239394,
-      "seed0_verdict": "seed1_required"
+      "seed0_verdict": "seed1_required",
+      "seed1": {
+        "delta": -0.03718610119099747,
+        "ci95": [
+          -0.05178440010141949,
+          -0.02374540391812444
+        ],
+        "candidate": 0.23657658568182915,
+        "reference": 0.2737626868728266
+      },
+      "verdict": "loss"
     },
     "R3": {
       "delta": -0.022990684550554807,
@@ -26,12 +36,24 @@
       ],
       "candidate": 0.4515127473316509,
       "reference": 0.47450343188220573,
-      "seed0_verdict": "seed1_required"
+      "seed0_verdict": "seed1_required",
+      "seed1": {
+        "delta": 0.008936110520611162,
+        "ci95": [
+          -0.0004768960235272762,
+          0.018201008294255163
+        ],
+        "candidate": 0.44957763071551077,
+        "reference": 0.4406415201948996
+      },
+      "verdict": "tie"
     }
   },
-  "status": "SEED1_REQUIRED",
+  "status": "COMPLETE_TWO_SEEDS",
   "reference_seed1_reused_external": false,
-  "reference_seed1_configuration": null,
+  "reference_seed1_configuration": "configs/p_heads/T/B3_seed1.json",
   "external_reference_pending": false,
+  "reference_R3_training_noise": 0.03386191168730612,
+  "B3_R3_training_noise": 0.03386191168730612,
   "current_best_confirmation_required": false
 }
