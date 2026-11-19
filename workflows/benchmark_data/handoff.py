@@ -94,6 +94,7 @@ def main():
         'reference_D20':progress['reference_D20'],'reference_D3':progress['reference_D3'],
         'C7_targets':progress['C7_targets'],'PPE_targets':progress['PPE_targets_overlay'],
         'pKahub_annotations':progress['pKahub_annotations'],
+        'supplemental_sources':progress.get('supplemental_sources',{}),
         'Pprime':{'queue':str(pp/'queue.sqlite'),'access_manifest':str(pp/'access.json'),'observed_access':access,
             'reader':'workflows.benchmark_data.pprime_reader.PprimeReader',**closure,
             'native_recipe':'Original twelve WP5 tasks, exact pinned binaries/parser/keywords/units, 900 seconds each',
