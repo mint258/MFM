@@ -254,6 +254,11 @@ def render(plan, verdict, states, selection, code_commit):
                table(['最终实际batch', '最终学习率', '逐层重算', '头', '配方开关'],
                      [[chosen['batch_size'], f"{chosen['lr']:g}", chosen.get('activation_checkpointing', False),
                        chosen['head_form'], json.dumps(chosen['p_recipe'], ensure_ascii=False, sort_keys=True)]]), '',
+               ('复现此配置时，GPU任务执行训练及原R1/R3读出；`statistics_backend=slurm_cpu`把最终bootstrap交给CPU节点8–19。'
+                'GPU成功退出后，在CPU节点以同一配置执行`tools/p_recipe/cpu_statistics.py --finalize-configuration <配置路径>`，'
+                '统计复用已有探针预测和已完成结果。现有队列由登录节点的`collect_execution.py`查询Slurm并派发该CPU后处理；'
+                'CPU节点上的后处理写出完整R1/R3评分后，本运行才标为COMPLETE。'
+                if chosen.get('statistics_backend')=='slurm_cpu' else ''), '',
                '旧1.5M首轮结论已按用户要求作废，旧第二轮停止；旧输出只作历史记录，未用于本次配方选择。', '',
                '## 校准及固定设置', '',
                fixed_description, '',
