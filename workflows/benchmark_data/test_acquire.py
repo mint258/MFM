@@ -18,5 +18,19 @@ class AdmissionTests(unittest.TestCase):
             with self.subTest(patch=patch), self.assertRaises(ValueError):
                 safe_asset(dict(base, **patch))
 
+
+    def test_official_source_hosts_require_https_and_no_credentials(self):
+        for url in ("https://huggingface.co/datasets/a/b/resolve/rev/file.csv",
+                    "https://ndownloader.figshare.com/files/23637518",
+                    "https://polarishub.io/api/v1/dataset/biogen/adme-fang-v1",
+                    "https://data.polarishub.io/dataset/biogen/adme-fang-v1/table.parquet",
+                    "https://yzhang.hpc.nyu.edu/IMA/Datasets/NMRShiftDB2_DFT.zip",
+                    "https://dataverse.harvard.edu/api/access/datafile/4426004"):
+            self.assertEqual(safe_asset({"name": "asset.csv", "url": url, "bytes": 1}), "asset.csv")
+        for url in ("https://huggingface.co.evil.example/file",
+                    "https://user:password@huggingface.co/file"):
+            with self.assertRaises(ValueError):
+                safe_asset({"name": "asset.csv", "url": url, "bytes": 1})
+
 if __name__ == "__main__":
     unittest.main()

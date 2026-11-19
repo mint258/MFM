@@ -577,3 +577,6 @@ PM7重复构象保留，D7的0.5Å统计不作为删样指令；普通S′沿用
 ## 2026-11-19 数据线 B0 已开始：首批 MoleculeACE 原始输入闭合
 
 依据 benchmark/USER_DIRECTIVE_20261118.md（07be7a0f）推进数据侧准备。独立分支 data-benchmark-b0-20261119 已取得官方30个任务CSV（5,262,144B），来源7e6de0bd；仅源文件闭合，适用域/构象/标签仍未就绪。实际清单在 runs/data_v1_20261025/artifacts/benchmark_B0_20261119/acquisition/MoleculeACE.json。原PM7优化脚本已恢复为PM7 AUX/原输入电荷，但历史二进制版本待证实，未用WP5单点版本冒充。现有训练与v1交付保持；CPU工作仅8–19，21禁用。详见 docs/benchmark_data/daily/2026-11-19.md。
+
+
+2026-11-19 · 数据线B0进度：GitHub07be7a0f指示下，11组候选官方来源已获取或复用，8组适用域统计闭合，数据仍非几何/标签READY。ExpansionRx7608行及ASAP560行全部保留；TDC直接读已有官方ZIP，无解压/复制。pKahub固定快照有97614宏观实验记录、0微观实验记录；5391个作者保留分子有多种宏观跃迁，不等同原子位点。数据入口 /share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119；代码data-benchmark-b0-20261119，日报docs/benchmark_data/daily/2026-11-19.md。PPE/C7/NMR结构元数据、共享几何/P/D继续；PM7历史优化二进制未证实，按指示准备S′/D/Pprime回退，P暂缺。全部CPU工作在16，不动训练、原数据或其他窗口作业。无新数据hash/独立数值复读/删除/付费服务。

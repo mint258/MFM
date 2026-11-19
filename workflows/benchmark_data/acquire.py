@@ -7,6 +7,7 @@ import re
 import subprocess
 import time
 import urllib.request
+from urllib.parse import urlsplit
 
 FLOOR = 100_000_000_000
 
@@ -28,7 +29,12 @@ def safe_asset(asset):
     name = asset["name"]
     if Path(name).name != name or name in (".", "..") or "/" in name or "\\" in name:
         raise ValueError("asset name must be a basename")
-    if not asset["url"].startswith("https://raw.githubusercontent.com/"):
+    parsed = urlsplit(asset["url"])
+    if (parsed.scheme != "https" or parsed.hostname not in {
+            "raw.githubusercontent.com", "huggingface.co", "ndownloader.figshare.com",
+            "polarishub.io", "data.polarishub.io", "yzhang.hpc.nyu.edu",
+            "dataverse.harvard.edu", "files.pythonhosted.org"}
+            or parsed.username is not None or parsed.password is not None):
         raise ValueError("unexpected acquisition host")
     if not isinstance(asset["bytes"], int) or asset["bytes"] < 0:
         raise ValueError("unknown asset bytes")
