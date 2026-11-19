@@ -33,5 +33,50 @@
   "reference_seed1_reused_external": false,
   "reference_seed1_configuration": null,
   "external_reference_pending": false,
-  "current_best_confirmation_required": false
+  "current_best_confirmation_required": false,
+  "final_user_directive_override": {
+    "authority": "docs/p_heads/USER_DIRECTIVE_20261119.md",
+    "directive_commit": "e7aeea0dd127ff8ad765fde626e322b4e66ec776",
+    "effective_status": "FINAL_NO_SIGNIFICANT_IMPROVEMENT",
+    "effective_final_verdict": "无显著改善",
+    "final_training_seeds_used": [
+      0
+    ],
+    "primary_protocol": "R3",
+    "seed0_training_anomaly_exception": false,
+    "seed1_required": false,
+    "partial_seed1_used": false,
+    "seed1_h_required": false,
+    "recipe_handoff_required": false,
+    "cancelled_at": "2026-11-20T06:20:53+08:00",
+    "cancelled_jobs": {
+      "4536260": {
+        "role": "T5_seed1_training",
+        "state": "CANCELLED",
+        "elapsed": "23:37:08",
+        "allocated_cpus": 15
+      },
+      "4536291": {
+        "role": "T5_seed1_postprocessing",
+        "state": "CANCELLED",
+        "elapsed": "00:00:00",
+        "started": false
+      },
+      "4536292": {
+        "role": "T5_two_seed_decision",
+        "state": "CANCELLED",
+        "elapsed": "00:00:00",
+        "started": false
+      }
+    },
+    "retained_historical_fields": [
+      "status",
+      "seed1_triggered",
+      "requested_configurations",
+      "results"
+    ],
+    "historical_fields_note": "Original preregistration-era decision fields above are retained as history. This explicit user override is the effective final disposition; no pending seed1 request remains.",
+    "preservation": "Existing outputs, checkpoints and cost retained. Final H uses seed0 only. No scientific recomputation in this metadata update.",
+    "T1_T4_decisions": "Existing two-seed decisions remain unchanged, as expressly directed."
+  }
 }
