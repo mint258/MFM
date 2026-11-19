@@ -30,11 +30,26 @@ class ReferenceReuseTests(unittest.TestCase):
                 'domain_eligible':[True]*4}),source)
             argv=['reference_d20','--root',str(root),'--input','fixture='+str(source),
                 '--attempt','synthetic','--quota-snapshot',str(root/'synthetic-quota')]
-            with patch.object(sys,'argv',argv),patch.object(r,'protect'),patch.object(r,'original_d20',return_value=descriptor) as compute:
+            with patch.object(sys,'argv',argv),patch.object(r,'capacity'),patch.object(r,'original_d20',return_value=descriptor) as compute:
                 r.main()
             compute.assert_called_once_with('CCC')
             rows=pq.read_table(root/'labels/reference_D20/synthetic/fixture.parquet').to_pylist()
-            self.assertEqual([x['state'] for x in rows],['D20_READY','D20_PENDING_SHARED_PRODUCER','D20_READY','D20_READY'])
+            self.assertEqual([x['state'] for x in rows],['D20_READY','D20_SOURCE_UNAVAILABLE','D20_READY','D20_READY'])
             self.assertEqual(rows[0]['D20_origin'],'SHARED_GEOMETRY_PRODUCER')
+
+class ClosedDescriptorTests(unittest.TestCase):
+    def test_closed_reference_values_reused_before_any_scientific_compute(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'closed.parquet'
+            pq.write_table(pa.Table.from_pylist([
+                {'model_smiles':'CCC','D20_names':['fixture'],'D20_values':[1.5],
+                 'D20_valid_mask':[True],'issues':[],'state':'D20_READY'},
+                {'model_smiles':'CCN','D20_names':None,'D20_values':None,
+                 'D20_valid_mask':None,'issues':['PENDING'],'state':'D20_SOURCE_UNAVAILABLE'},
+            ]),path)
+            cache=r.reuse_descriptors([path])
+            self.assertEqual(set(cache),{'CCC'})
+            self.assertEqual(cache['CCC'][0]['values'],[1.5])
+            self.assertTrue(cache['CCC'][1].startswith('CLOSED_REFERENCE_D20:'))
 
 if __name__=='__main__':unittest.main()

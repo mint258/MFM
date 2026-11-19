@@ -5,11 +5,13 @@ from pathlib import Path
 import sqlite3
 from urllib.parse import quote
 import zlib
+from .shared_access import check_access
 
 
 class SharedB0Reader:
     def __init__(self,path):
         self.path=Path(path).absolute()
+        self.access=check_access(self.path)
         if not self.path.is_file():raise FileNotFoundError(self.path)
         self.db=sqlite3.connect('file:'+quote(str(self.path),safe='/')+'?mode=ro',
             uri=True,timeout=10,isolation_level=None)
@@ -20,6 +22,7 @@ class SharedB0Reader:
     def __exit__(self,*args):self.close()
 
     def get(self,dataset,record_id):
+        if self.access is not None and not self.access.get('immutable'):check_access(self.path)
         row=self.db.execute('''SELECT m.mid,m.model_atom_to_source,t.state,t.error,t.result
             FROM membership m JOIN tasks t ON t.mid=m.mid
             WHERE m.dataset=? AND m.record_id=?''',(dataset,record_id)).fetchone()
@@ -39,6 +42,7 @@ class SharedB0Reader:
         if not 1<=batch_size<=4096:raise ValueError('Batch size must be within 1..4096')
         after=''
         while True:
+            if self.access is not None and not self.access.get('immutable'):check_access(self.path)
             page=self.db.execute('''SELECT record_id FROM membership
                 WHERE dataset=? AND record_id>? ORDER BY record_id LIMIT ?''',
                 (dataset,after,batch_size)).fetchall()
