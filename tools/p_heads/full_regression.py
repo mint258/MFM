@@ -109,10 +109,10 @@ def main():
     from private_runtime_storage import PrivateStorage, _write_exclusive
     output.mkdir()
     storage = PrivateStorage(private, budget_bytes=2 * GIB)
-    binding = output / 'private_storage.json'
-    pin = _write_exclusive(binding, storage.bindings)
+    storage_binding_path = output / 'private_storage.json'
+    pin = _write_exclusive(storage_binding_path, storage.bindings)
     os.environ.update(storage.bindings['environment'])
-    os.environ.update(MODEL_V3_STORAGE_BINDINGS_PATH=str(binding),
+    os.environ.update(MODEL_V3_STORAGE_BINDINGS_PATH=str(storage_binding_path),
                       MODEL_V3_STORAGE_BINDINGS_SHA256=pin, CUDA_VISIBLE_DEVICES='',
                       PYTHONDONTWRITEBYTECODE='1', OMP_NUM_THREADS='1',
                       OPENBLAS_NUM_THREADS='1', MKL_NUM_THREADS='1')
