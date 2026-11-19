@@ -1,5 +1,5 @@
 # p-heads 最终科学报告
-科学结果已收尾；完整回归、仓库检查及PR状态待下方实测结果补齐。分支p-heads-20261117。
+科学结果已收尾；默认完整回归等待真实16CPU分配，仓库检查已完成并报告202项错误，PR待完整回归结束后提交。分支p-heads-20261117。
 
 ## 结论与有效指示
 本线没有胜出项交接配方线。T1–T4保留已完成的两种子判定；T5依[11/19明确指示](USER_DIRECTIVE_20261119.md)以seed0最终记“无显著改善”。已取消其seed1及专用后处理，不使用未完成seed1作推断，不再补seed1几何。原始输出、断点和成本保留。C3属于配方线，本线不修改配方线配置或分支。
@@ -53,8 +53,14 @@ H/T合并峰值预算24GiB是保护预算，不冒充实测峰值；已有实际
 
 ## 最终验证与交付
 30项独立新逻辑/兼容case已有实际PASS证据，见T/H专题；资源观察、strict checkpoint加载及同一atomic case不重复计数。
-默认完整回归4536860已在CPU17/8个实际逻辑CPU启动，保留固定两个模块worker、库单线程及全部默认模块；实际Linux mask与srun一致，scheduler CPU_IDs另记。仓库检查4536866为CPU17/1CPU，afterany完整回归，无错误抑制。结果与PR状态待实测补齐，当前不宣称通过或结项。
 
-验证执行更正：首次4536860以8CPU遍历192模块，原core汇总为3638 tests/14 failures/50 errors/24 skipped；实际provider夹具要求至少16CPU，故该环境不满足默认测试前提，不计为通过。汇总另遇Path序列化错误，仓库检查4536866因缺Git未完成。保留原日志，恢复真实16CPU和原门槛、修复仅涉及执行/导出的问题后重做有效验证；不改科学结果或测试断言，不伪造Slurm变量。
+| 验证 | 实际状态与范围 |
+| --- | --- |
+| 默认完整回归4536884 | 等待CPU17真实16CPU分配，尚未执行/通过。全部current/tests/test_*.py（192模块）、固定两个模块worker、库单线程；不删模块、不改断言、不伪造Slurm变量。 |
+| 默认仓库检查4536885 | 已执行完整原命令，FAIL/returncode1。扫描9633文件、5002 Python文件，server_sources_verified=1309；202个错误路径与本线变更路径交集为0。完整输出与真实资源见[仓库检查JSON](../../results/p_heads/REPOSITORY_CHECK.json)，未抑制错误或删除历史文件。 |
+| 首次回归4536860（无效环境） | 实际8CPU遍历192模块，core汇总3638 tests/14 failures/50 errors/24 skipped；不满足真实provider夹具≥16CPU前提，且metadata汇总遇Path序列化错误，不作有效验收。原日志保留。 |
+| 首次仓库检查4536866（未完成） | 环境PATH缺Git，检查未完成；4536885已修正Git执行环境后重做。 |
 
-验证进度：有效仓库检查4536885按默认命令完成，扫描9633文件、5002 Python文件，server_sources_verified=1309；202个错误路径与本线变更路径集合交集为0，完整输出见[仓库检查JSON](../../results/p_heads/REPOSITORY_CHECK.json)。未删历史文件或抑制错误。修正后的真实16CPU回归4536884已排队，尚未通过；此前8CPU错误尝试保留，不作为有效验收。
+真实16CPU重试4536884保留原job ID。排队运行0秒时完成汇总metadata修复：private_storage中的路径转换为字符串，存储binding路径与实际srun CPU binding字符串使用不同变量；只修复导出与执行环境，不改科学结果、测试范围或断言。实际Linux mask核对srun mask，scheduler CPU_IDs单独记录。纯CPU只用8–19，按需且非exclusive，资源不足则排队。
+
+完整回归结果及PR链接待实测补齐；当前尚未结项，不宣称全部检查通过。按用户指示开PR后保持未合并。
