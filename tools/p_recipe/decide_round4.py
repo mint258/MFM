@@ -15,7 +15,7 @@ def write(path,value):
 
 def adopted_components(decisions):
  eligible={arm:dict(row,verdict='win') for arm,row in decisions.items()
-           if row['verdict']=='win' or arm in ('X1','F2') and row['verdict']=='tie'}
+           if row['verdict']=='win' or arm in ('X1','F2') and row['verdict']=='tie' and row['ci_lower']<=0<=row['ci_upper']}
  return accepted_winners(eligible)
 
 def completed(path,ledger):

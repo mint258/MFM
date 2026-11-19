@@ -1,7 +1,7 @@
 """Registered F1 physical heads with one PM7/xTB method embedding."""
 import torch
 from torch import nn
-from ..model.common import Linear
+from ..model.common import MLP
 from ..model.v3_heads import _DipoleHead,_pool
 
 
@@ -28,7 +28,7 @@ class PhysicalFidelityHeads(nn.Module):
             if a[1].representation=='vector':
                 self.heads[key]=_DipoleHead(atom_dim+method_dim,hidden_dim,False)
                 self.vector_heads.add(key)
-            else:self.heads[key]=Linear(scalar_dim+method_dim,a[1].prediction_width)
+            else:self.heads[key]=MLP(scalar_dim+method_dim,hidden_dim,a[1].prediction_width,num_layers=2)
             for name,spec,method in members:
                 if name in self.bindings:raise ValueError('A physical head has more than one fidelity pairing')
                 self.bindings[name]=(key,method)

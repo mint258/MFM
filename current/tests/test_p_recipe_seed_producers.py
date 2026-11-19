@@ -104,12 +104,17 @@ def test_final_preflight_reuses_children_and_reports_two_seed_scores(tmp_path,mo
     make=factory(monkeypatch,tmp_path,ledger)
     plan={'selection_authority':m['CLOSEOUT']}
     state,rows=m['confirmation_seed_results'](plan,configs,make())
-    assert rows is None and len(json.loads(Path(state['seed1_plan']).read_text())['configurations'])==2
-    assert {json.loads(p.read_text())['seed0_run'] for p in (tmp_path/'children').glob('*.json')}=={'T1','T2'}
-    finish_children(tmp_path,ledger,{'T1':.4,'T2':.44})
-    state,rows=m['confirmation_seed_results'](plan,configs,make())
-    assert rows[0]['delta']==pytest.approx(.032) and rows[0]['verdict']=='win'
+    assert rows is not None
+    assert json.loads(Path(state['seed1_plan']).read_text())['configurations']==[]
+    assert not (tmp_path/'children').exists()
+    assert rows[0]['delta']==pytest.approx(.024) and rows[0]['verdict']=='win'
+    assert all(result['seed_count']==1 and not result['seed1_required']
+               for result in state['comparisons'].values())
     assert all(row['verdict']=='descriptive' for row in rows if row['purpose']=='molecule_scaling')
-    render=module(monkeypatch,'render_report.py')
-    text='\n'.join(render['seed_sections']([],{'seed_comparisons':state}))
-    assert '0.424' in text and '0.44' in text and '0.032' in text
+
+
+@pytest.mark.parametrize('lower,upper,adopt',[(-.027,-.005,False),(-.01,.01,True),(.001,.01,False)])
+def test_removal_tie_requires_ci_containing_zero(monkeypatch,lower,upper,adopt):
+    m=module(monkeypatch,'decide_round4.py')
+    row=dict(verdict='tie',ci_lower=lower,ci_upper=upper,delta=-.01)
+    assert ('X1' in m['adopted_components']({'X1':row}))==adopt

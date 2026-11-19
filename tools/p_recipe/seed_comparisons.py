@@ -1,4 +1,4 @@
-"""Plan only registered borderline seed1 runs and reuse completed references."""
+"""Plan only registered winning seed0 follow-up seed1 runs and reuse completed references."""
 import argparse,fcntl,json
 from pathlib import Path
 from execution_ledger import write
@@ -87,7 +87,8 @@ class SeedComparisons:
    result['status']='WAITING_FOR_COMPLETE_SEED0';return result
   sa=self.scores[a['run']];sb=self.scores[b['run']]
   av,bv,*_=self.values(sa,sb,'R3')
-  required=not descriptive and second_seed_required(av,bv)
+  confirmation=a['samples']>3000000
+  required=False
   result.update(seed1_required=required,seed0_rows=self.previous.get(key,{}).get('seed0_rows'))
   def rows_and_evidence(scores):
    rows=[];evidence={}
@@ -95,7 +96,7 @@ class SeedComparisons:
     pairs={seed:self.values(aa,bb,readout) for seed,(aa,bb) in scores.items()}
     combined=combined_seed_decision(pairs)
     combined['seed1_required']=bool(readout=='R3' and required and len(scores)==1)
-    combined['may_trigger_seed1']=readout=='R3' and not descriptive
+    combined['may_trigger_seed1']=readout=='R3' and not descriptive and not confirmation
     if descriptive:combined['decision']['verdict']='descriptive'
     decision=dict(combined['decision'])
     rows.append(dict(purpose=purpose,round=round_number,readout=readout,task='MEAN',A=a['run'],B=b['run'],**decision))
@@ -104,6 +105,16 @@ class SeedComparisons:
   result['seed0_evidence']=self.previous.get(key,{}).get('seed0_evidence')
   if result['seed0_rows'] is None or result['seed0_evidence'] is None:
    result['seed0_rows'],result['seed0_evidence']=rows_and_evidence({0:(sa,sb)})
+  primary=result['seed0_rows'][0]
+  training_problem=bool(a.get('seed0_training_problem'))
+  required=not descriptive and second_seed_required(av,bv,primary['ci_lower'],
+      training_failure=training_problem,confirmation=confirmation)
+  result.update(seed1_required=required,seed_policy_authority='docs/p_recipe/USER_DIRECTIVE_20261119.md',
+      seed0_training_problem=a.get('seed0_training_problem'),confirmation_single_seed=confirmation)
+  for readout,evidence in result['seed0_evidence'].items():
+   evidence.update(seed1_required=bool(readout=='R3' and required),
+       may_trigger_seed1=readout=='R3' and not descriptive and not confirmation,
+       seed0_borderline=False,authority='docs/p_recipe/USER_DIRECTIVE_20261119.md')
   if required:
    aa,pa=self.seed1(a);bb,pb=self.seed1(b)
    result['seed1_configurations']={'A':pa,'B':pb}
@@ -126,11 +137,11 @@ class SeedComparisons:
   requested=list(dict.fromkeys(self.requested.values()))
   launch=[p for p in requested if read(p)['run'] not in self.ledger.get('runs',{})]
   state=dict(status='COMPLETE' if all(r['ready'] for r in self.results.values()) else 'WAITING_REGISTERED_INPUTS',
-       authority='docs/p_recipe/USER_DIRECTIVE_20261118B.md',comparisons=self.results,
+       authority='docs/p_recipe/USER_DIRECTIVE_20261119.md',comparisons=self.results,
        seed1_configurations=requested,seed1_plan=str(self.directory/'seed1_plan.json'),jobs_submitted=0)
   write(self.directory/'seed_comparisons.json',state)
   write(self.directory/'seed1_plan.json',dict(configurations=launch,study_revision='fixed_20261115',
-       purpose='registered_borderline_seed1_only',maximum_seeds=2,requires_actual_node_capacity_admission=True))
+       purpose='registered_seed0_win_confirmation_only',maximum_seeds=2,requires_actual_node_capacity_admission=True))
   return state
 
 

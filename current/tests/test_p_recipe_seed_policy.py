@@ -3,13 +3,14 @@ import pytest
 from phychem_mfm.phase1.p_recipe_seed_policy import second_seed_required,combined_seed_decision,fresh_seed1_configuration
 
 
-def test_borderline_interval_and_seed_cap():
-    # tau=.01: include0.5tau, exclude1.5tau; both directions matter.
-    assert not second_seed_required(.004,0.)
-    assert second_seed_required(.005,0.)
-    assert second_seed_required(.014,0.)
-    assert not second_seed_required(.015,0.)
-    assert second_seed_required(0.,.005)
+def test_seed0_win_only_and_confirmation_never_adds_seeds():
+    assert not second_seed_required(.005,0.,.001)
+    assert not second_seed_required(.04,0.,-.001)
+    assert second_seed_required(.04,0.,.001)
+    assert not second_seed_required(0.,.04,.001)
+    assert second_seed_required(0.,.04,-.05,training_failure=True)
+    assert not second_seed_required(.04,0.,.001,confirmation=True)
+    assert not second_seed_required(.04,0.,.001,confirmation=True,training_failure=True)
     with pytest.raises(ValueError,match='no third seed'):
         combined_seed_decision({0:None,1:None,2:None})
 

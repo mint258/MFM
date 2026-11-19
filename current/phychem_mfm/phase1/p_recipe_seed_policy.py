@@ -1,4 +1,4 @@
-"""The Nov18B conditional second-seed rule; never fit a probe or launch a run."""
+"""Nov19: confirm seed0 wins only; never add confirmation-stage seeds."""
 from copy import deepcopy
 from pathlib import Path
 import numpy as np
@@ -9,16 +9,17 @@ def effect_threshold(a,b):
     return max(.01,.05*max(float(a),float(b)))
 
 
-def second_seed_required(a,b):
-    threshold=effect_threshold(a,b)
-    return .5*threshold<=abs(float(a)-float(b))<1.5*threshold
+def second_seed_required(a,b,ci_lower=None,*,training_failure=False,confirmation=False):
+    if confirmation:return False
+    return bool(training_failure or (ci_lower is not None and float(ci_lower)>0
+                and float(a)-float(b)>=effect_threshold(a,b)))
 
 
 def fresh_seed1_configuration(seed0,*,output_root=None):
     """Change the seed only; retain science/runtime settings, never resume seed0.
 
     This creates an in-memory configuration, not a speculative experiment.
-    Callers first establish that this particular comparison is borderline,
+    Callers first establish that this particular seed0 comparison won or had a documented training failure,
     reuse any existing matching seed1, and admit the actual output capacity.
     """
     if seed0['seed']!=0:raise ValueError('Only registered seed0 can request seed1')
@@ -57,11 +58,12 @@ def combined_seed_decision(pairs):
     threshold=effect_threshold(mean_a,mean_b)
     decision['verdict']=('win' if decision['ci_lower']>0 and decision['delta']>=threshold else
                          'loss' if decision['ci_upper']<0 and -decision['delta']>=threshold else 'tie')
-    borderline=second_seed_required(a[0],b[0])
+    seed0_lower=float(np.percentile(draws_a[0]-draws_b[0],2.5))
+    required=second_seed_required(a[0],b[0],seed0_lower)
     return dict(decision=decision,seed_count=len(pairs),seeds=sorted(pairs),
-                seed0_borderline=borderline,seed1_required=len(pairs)==1 and borderline,
+                seed0_borderline=False,seed0_win_requires_confirmation=required,seed1_required=len(pairs)==1 and required,
                 per_seed_deltas=deltas,mean_score_A=mean_a,mean_score_B=mean_b,
                 threshold=threshold,seed0_threshold=effect_threshold(a[0],b[0]),
                 bootstrap_draws_per_seed=1000,combined_bootstrap_draws=1000*len(pairs),
                 CI_method='equal-weight concatenation of original seed-wise molecular paired bootstrap differences',
-                authority='docs/p_recipe/USER_DIRECTIVE_20261118B.md')
+                authority='docs/p_recipe/USER_DIRECTIVE_20261119.md')
