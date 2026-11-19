@@ -1,0 +1,43 @@
+{
+  "schema": "P_RECIPE_REGISTERED_ARM_EVIDENCE_V1",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+  "observed_at": 1795131920.558868,
+  "arm": "F2",
+  "candidate_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
+  "reference_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/M2.json",
+  "status": "COMPLETE",
+  "ready": true,
+  "seed1_required": false,
+  "seed_count": 1,
+  "rows": [
+    {
+      "purpose": "screening",
+      "round": 4,
+      "readout": "R3",
+      "task": "MEAN",
+      "A": "fixed_20261115_round4_F2",
+      "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+      "delta": 0.0060550078763986215,
+      "ci_lower": -0.004304453515189151,
+      "ci_upper": 0.01551626068040808,
+      "verdict": "tie"
+    },
+    {
+      "purpose": "screening",
+      "round": 4,
+      "readout": "R1",
+      "task": "MEAN",
+      "A": "fixed_20261115_round4_F2",
+      "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+      "delta": 0.022037888502069003,
+      "ci_lower": 0.008940930033693652,
+      "ci_upper": 0.03376156239526183,
+      "verdict": "win"
+    }
+  ],
+  "threshold": 0.0237028820511022,
+  "seed_comparisons": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/round4/conditional_seed_decisions/round4/seed_comparisons.json",
+  "seed1_plan": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/round4/conditional_seed_decisions/round4/seed1_plan.json",
+  "round4_decision_pending": true,
+  "final_recipe_frozen": false
+}
