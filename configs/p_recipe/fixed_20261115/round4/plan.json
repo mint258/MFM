@@ -1,139 +1,143 @@
 {
-  "schema": "P_RECIPE_REGISTERED_ROUND4_V1",
-  "status": "RUNNING_F1_ACCEPTANCE_PENDING",
-  "authority": "docs/p_recipe/USER_DIRECTIVE_20261118.md",
-  "configurations": [
-    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/Pprime.json",
-    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
-    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/X1.json",
-    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/X2.json"
-  ],
-  "registered_configurations": [
-    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/Pprime.json",
-    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
-    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/X1.json",
-    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/X2.json",
-    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F1.json"
-  ],
-  "readiness_by_arm": {
-    "PP": "RUNNING",
-    "F2": "RUNNING",
-    "X1": "RUNNING",
-    "X2": "RUNNING",
-    "F1": "WAITING_REAL_LOADER_AND_PER_HEAD_OVERFIT_AFTER_C3"
-  },
-  "baseline_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/M2.json",
-  "base_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/base.json",
-  "study_revision": "fixed_20261115",
-  "results_directory": "results/p_recipe/fixed_20261115/round4",
-  "control_directory": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/round4",
-  "screening_gpu_hour_limit": null,
-  "samples_per_run": 3000000,
-  "training_priority": [
-    "PP",
-    "F2",
-    "X1",
-    "X2",
-    "F1"
-  ],
-  "requires_C3_complete_before_launch": true,
-  "fidelity_pairs": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/fidelity_pairs.json",
-  "PP_fields": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/PP_fields.json",
-  "M2C_required": false,
-  "no_training_started": false,
-  "storage_reconciliation": {
-    "schema": "P_RECIPE_REMAINING_STORAGE_PLAN_V1",
-    "authority": "docs/p_recipe/USER_DIRECTIVE_20261118.md",
-    "observed_at_utc": "2026-11-18T19:50:20Z",
-    "observed_node": "compute-0-20",
-    "uid": 1278,
-    "existing_P_physical_bytes": 26165161984,
-    "checkpoint_upper_bound_bytes": 300000000,
-    "future_checkpoint_counts": {
-      "C3_final": 1,
-      "round4_five_arms": 15,
-      "F1_acceptance": 1,
-      "conditional_M3_merge": 3,
-      "confirmation_up_to_T7": 63,
-      "additional_cooperative_handoffs": 15,
-      "concurrent_temporary_checkpoints": 7
-    },
-    "future_checkpoint_count": 105,
-    "future_checkpoint_bytes": 31500000000,
-    "future_logs_readouts_metadata_bytes": 3000000000,
-    "remaining_P_peak_bytes": 34500000000,
-    "projected_total_P_peak_bytes": 60665161984,
-    "reserved_P_peak_bytes": 61000000000,
-    "global_model_peak_bytes": 114569896448,
-    "global_reservation_increase_bytes": 0,
-    "all_existing_outputs_preserved": true,
-    "old_larger_checkpoints_in_existing_physical_bytes": true,
-    "features_policy": "Existing nonpersistent feature extraction retained; no new disk feature banks",
-    "coordination": "One global model reservation, inode-deduplicated physical accounting; no per-node duplication. Reconcile again before further unlisted outputs or exceeding the handoff allowance.",
-    "admission": "Actual compute-0-20 root/Lustre/NFS bytes+inodes and fresh UID quotas passed with the unchanged global future reservation. Recheck actual chosen nodes at launch."
-  },
-  "C3_completion": {
-    "run": "fixed_20261115_round3_C3_node20_gpu0_resumed_20261119",
-    "configuration": "configs/p_recipe/fixed_20261115/round3/C3.json"
-  },
-  "F1_acceptance": null,
-  "storage_forecast": {
-    "authority": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
-    "observed_at": 1795086171.3523629,
-    "observed_node": "compute-0-10",
-    "existing_P_physical_bytes": 26422440448,
-    "checkpoint_upper_bound_bytes": 300000000,
-    "future_registered_checkpoint_slots": 89,
-    "conditional_checkpoint_pool_slots": 15,
-    "projected_total_P_peak_bytes": 60622440448,
-    "reserved_P_peak_bytes": 61000000000,
-    "global_reservation_increase_bytes": 0,
-    "all_existing_outputs_preserved": true,
-    "conditional_scope": "18 spare slots from cancelled9M T3/T7. No speculative seeds launched; reconcile actual required additional seeds before admission. This is not an unlimited conditional-seed allowance.",
-    "next_admission": "Recheck actual selected GPU host bytes/inodes and fresh UID quotas before every launch.",
-    "registered_conditional_runs": [
-      "fixed_20261115_round3_C3_node20_gpu0_resumed_20261119_seed1"
-    ]
-  },
-  "round3_paired_decision_CPU_job": 4536752,
-  "round3_paired_decision_status": "WAITING_REGISTERED_C3_SEED1",
-  "execution_handles": {
-    "PP": {
-      "job_id": 4536748,
-      "node": "compute-0-5",
-      "gpu_uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-      "state": "RUNNING",
-      "cpus": 16,
-      "exclusive": false,
-      "submitted_at": 1795088086.9597406
-    },
-    "F2": {
-      "job_id": 4536749,
-      "node": "compute-0-7",
-      "gpu_uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
-      "state": "RUNNING",
-      "cpus": 16,
-      "exclusive": false,
-      "submitted_at": 1795088086.975845
-    },
-    "X1": {
-      "job_id": 4536750,
-      "node": "compute-0-20",
-      "gpu_uuid": "GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5",
-      "state": "RUNNING",
-      "cpus": 16,
-      "exclusive": false,
-      "submitted_at": 1795088087.0222526
-    },
-    "X2": {
-      "job_id": 4536751,
-      "node": "compute-0-20",
-      "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-      "state": "RUNNING",
-      "cpus": 16,
-      "exclusive": false,
-      "submitted_at": 1795088087.036873
-    }
-  },
-  "round3_registered_seed1_plan": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/conditional_seed_decisions/round3/seed1_plan.json"
+    "schema":  "P_RECIPE_REGISTERED_ROUND4_V1",
+    "status":  "RUNNING_F1_ACCEPTANCE_PENDING",
+    "authority":  "docs/p_recipe/USER_DIRECTIVE_20261118.md",
+    "configurations":  [
+                           "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/Pprime.json",
+                           "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
+                           "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/X1.json",
+                           "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/X2.json"
+                       ],
+    "registered_configurations":  [
+                                      "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/Pprime.json",
+                                      "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
+                                      "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/X1.json",
+                                      "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/X2.json",
+                                      "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F1.json"
+                                  ],
+    "readiness_by_arm":  {
+                             "PP":  "RUNNING",
+                             "F2":  "RUNNING",
+                             "X1":  "RUNNING",
+                             "X2":  "RUNNING",
+                             "F1":  "ACCEPTANCE_RUNNING"
+                         },
+    "baseline_configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/M2.json",
+    "base_configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/base.json",
+    "study_revision":  "fixed_20261115",
+    "results_directory":  "results/p_recipe/fixed_20261115/round4",
+    "control_directory":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/round4",
+    "screening_gpu_hour_limit":  null,
+    "samples_per_run":  3000000,
+    "training_priority":  [
+                              "PP",
+                              "F2",
+                              "X1",
+                              "X2",
+                              "F1"
+                          ],
+    "requires_C3_complete_before_launch":  true,
+    "fidelity_pairs":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/fidelity_pairs.json",
+    "PP_fields":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/PP_fields.json",
+    "M2C_required":  false,
+    "no_training_started":  false,
+    "storage_reconciliation":  {
+                                   "schema":  "P_RECIPE_REMAINING_STORAGE_PLAN_V1",
+                                   "authority":  "docs/p_recipe/USER_DIRECTIVE_20261118.md",
+                                   "observed_at_utc":  "2026-11-18T19:50:20Z",
+                                   "observed_node":  "compute-0-20",
+                                   "uid":  1278,
+                                   "existing_P_physical_bytes":  26165161984,
+                                   "checkpoint_upper_bound_bytes":  300000000,
+                                   "future_checkpoint_counts":  {
+                                                                    "C3_final":  1,
+                                                                    "round4_five_arms":  15,
+                                                                    "F1_acceptance":  1,
+                                                                    "conditional_M3_merge":  3,
+                                                                    "confirmation_up_to_T7":  63,
+                                                                    "additional_cooperative_handoffs":  15,
+                                                                    "concurrent_temporary_checkpoints":  7
+                                                                },
+                                   "future_checkpoint_count":  105,
+                                   "future_checkpoint_bytes":  31500000000,
+                                   "future_logs_readouts_metadata_bytes":  3000000000,
+                                   "remaining_P_peak_bytes":  34500000000,
+                                   "projected_total_P_peak_bytes":  60665161984,
+                                   "reserved_P_peak_bytes":  61000000000,
+                                   "global_model_peak_bytes":  114569896448,
+                                   "global_reservation_increase_bytes":  0,
+                                   "all_existing_outputs_preserved":  true,
+                                   "old_larger_checkpoints_in_existing_physical_bytes":  true,
+                                   "features_policy":  "Existing nonpersistent feature extraction retained; no new disk feature banks",
+                                   "coordination":  "One global model reservation, inode-deduplicated physical accounting; no per-node duplication. Reconcile again before further unlisted outputs or exceeding the handoff allowance.",
+                                   "admission":  "Actual compute-0-20 root/Lustre/NFS bytes+inodes and fresh UID quotas passed with the unchanged global future reservation. Recheck actual chosen nodes at launch."
+                               },
+    "C3_completion":  {
+                          "run":  "fixed_20261115_round3_C3_node20_gpu0_resumed_20261119",
+                          "configuration":  "configs/p_recipe/fixed_20261115/round3/C3.json"
+                      },
+    "F1_acceptance":  null,
+    "storage_forecast":  {
+                             "authority":  "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+                             "observed_at":  1795086171.3523629,
+                             "observed_node":  "compute-0-10",
+                             "existing_P_physical_bytes":  26422440448,
+                             "checkpoint_upper_bound_bytes":  300000000,
+                             "future_registered_checkpoint_slots":  89,
+                             "conditional_checkpoint_pool_slots":  15,
+                             "projected_total_P_peak_bytes":  60622440448,
+                             "reserved_P_peak_bytes":  61000000000,
+                             "global_reservation_increase_bytes":  0,
+                             "all_existing_outputs_preserved":  true,
+                             "conditional_scope":  "18 spare slots from cancelled9M T3/T7. No speculative seeds launched; reconcile actual required additional seeds before admission. This is not an unlimited conditional-seed allowance.",
+                             "next_admission":  "Recheck actual selected GPU host bytes/inodes and fresh UID quotas before every launch.",
+                             "registered_conditional_runs":  [
+                                                                 "fixed_20261115_round3_C3_node20_gpu0_resumed_20261119_seed1"
+                                                             ]
+                         },
+    "round3_paired_decision_CPU_job":  4536752,
+    "round3_paired_decision_status":  "WAITING_REGISTERED_C3_SEED1",
+    "execution_handles":  {
+                              "PP":  {
+                                         "job_id":  4536748,
+                                         "node":  "compute-0-5",
+                                         "gpu_uuid":  "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+                                         "state":  "RUNNING",
+                                         "cpus":  16,
+                                         "exclusive":  false,
+                                         "submitted_at":  1795088086.9597406
+                                     },
+                              "F2":  {
+                                         "job_id":  4536749,
+                                         "node":  "compute-0-7",
+                                         "gpu_uuid":  "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+                                         "state":  "RUNNING",
+                                         "cpus":  16,
+                                         "exclusive":  false,
+                                         "submitted_at":  1795088086.975845
+                                     },
+                              "X1":  {
+                                         "job_id":  4536750,
+                                         "node":  "compute-0-20",
+                                         "gpu_uuid":  "GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5",
+                                         "state":  "RUNNING",
+                                         "cpus":  16,
+                                         "exclusive":  false,
+                                         "submitted_at":  1795088087.0222526
+                                     },
+                              "X2":  {
+                                         "job_id":  4536751,
+                                         "node":  "compute-0-20",
+                                         "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+                                         "state":  "RUNNING",
+                                         "cpus":  16,
+                                         "exclusive":  false,
+                                         "submitted_at":  1795088087.036873
+                                     }
+                          },
+    "round3_registered_seed1_plan":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/conditional_seed_decisions/round3/seed1_plan.json",
+    "F1_acceptance_job_id":  4536840,
+    "F1_acceptance_node":  "compute-0-20",
+    "F1_acceptance_gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+    "F1_acceptance_output":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/F1_acceptance_20261119"
 }
