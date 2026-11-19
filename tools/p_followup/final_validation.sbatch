@@ -4,7 +4,7 @@
 #SBATCH --exclude=compute-0-[0-7,20-22]
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=8
 #SBATCH --output=/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/final_validation_%j.log
 set -euo pipefail
 cd /share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117
