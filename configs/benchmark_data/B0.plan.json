@@ -1,689 +1,691 @@
 {
-  "schema": "BENCHMARK_DATA_B0_PLAN_V1",
-  "status": "IN_PROGRESS",
-  "authority": {
-    "repository": "mint258/MFM",
-    "commit": "07be7a0f04085398eeda2b7548afa46c668ffd9a",
-    "directive": "docs/benchmark/USER_DIRECTIVE_20261118.md",
-    "plan": "docs/benchmark/BENCHMARK_PLAN.md"
-  },
-  "scope": [
-    "B0 all candidate dataset acquisition and applicability counts",
-    "shared downstream reference or generated S/UFF conformers",
-    "P/D labels; Pprime fallback only if original PM7 optimization cannot be reproduced",
-    "pKahub macro/micro/multiple-ionization descriptive counts"
-  ],
-  "outside_this_data_handoff": [
-    "B1 model fitting and task screening",
-    "C1 feature-model fitting",
-    "B2 environment and inference work"
-  ],
-  "candidate_groups": [
-    "ExpansionRx",
-    "pKahub_SAMPL6_SAMPL7",
-    "NMRShiftDB2",
-    "Joung2020",
-    "MoleculeACE",
-    "ASAP_Polaris2025",
-    "C7H10O2",
-    "PPE1694",
-    "PharmaBench",
-    "Biogen_ADME",
-    "TDC_ADMET"
-  ],
-  "scientific_invariants": {
-    "blind_benchmarks_no_filter": [
-      "ExpansionRx",
-      "ASAP_Polaris2025"
-    ],
-    "heavy_atoms": [
-      3,
-      200
-    ],
-    "closed_shell": true,
-    "reference_geometry_preferred": true,
-    "sprime": {
-      "rdkit": "2025.09.5",
-      "max_actual_conformers": 3,
-      "no_padding": true,
-      "no_scientific_retry": true,
-      "per_molecule_seconds": 3600,
-      "dedup_A": 0.5
-    },
-    "pm7_original_version_required": true,
-    "independent_numeric_readback": false,
-    "raw_sources_readonly": true,
-    "delete_existing_files": false,
-    "paid_server": false
-  },
-  "data_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119",
-  "assets": {
-    "MoleculeACE": {
-      "source_commit": "7e6de0bd2968c56589c580f2a397f01c531ede26",
-      "official_split_preserved": true,
-      "files": [
-        {
-          "name": "CHEMBL1862_Ki.csv",
-          "bytes": 75166,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL1862_Ki.csv"
-        },
-        {
-          "name": "CHEMBL1871_Ki.csv",
-          "bytes": 80732,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL1871_Ki.csv"
-        },
-        {
-          "name": "CHEMBL2034_Ki.csv",
-          "bytes": 85670,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2034_Ki.csv"
-        },
-        {
-          "name": "CHEMBL2047_EC50.csv",
-          "bytes": 75522,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2047_EC50.csv"
-        },
-        {
-          "name": "CHEMBL204_Ki.csv",
-          "bytes": 321335,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL204_Ki.csv"
-        },
-        {
-          "name": "CHEMBL2147_Ki.csv",
-          "bytes": 146214,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2147_Ki.csv"
-        },
-        {
-          "name": "CHEMBL214_Ki.csv",
-          "bytes": 331012,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL214_Ki.csv"
-        },
-        {
-          "name": "CHEMBL218_EC50.csv",
-          "bytes": 112664,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL218_EC50.csv"
-        },
-        {
-          "name": "CHEMBL219_Ki.csv",
-          "bytes": 178991,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL219_Ki.csv"
-        },
-        {
-          "name": "CHEMBL228_Ki.csv",
-          "bytes": 164414,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL228_Ki.csv"
-        },
-        {
-          "name": "CHEMBL231_Ki.csv",
-          "bytes": 96780,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL231_Ki.csv"
-        },
-        {
-          "name": "CHEMBL233_Ki.csv",
-          "bytes": 378735,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL233_Ki.csv"
-        },
-        {
-          "name": "CHEMBL234_Ki.csv",
-          "bytes": 370354,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL234_Ki.csv"
-        },
-        {
-          "name": "CHEMBL235_EC50.csv",
-          "bytes": 252464,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL235_EC50.csv"
-        },
-        {
-          "name": "CHEMBL236_Ki.csv",
-          "bytes": 330367,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL236_Ki.csv"
-        },
-        {
-          "name": "CHEMBL237_EC50.csv",
-          "bytes": 121657,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL237_EC50.csv"
-        },
-        {
-          "name": "CHEMBL237_Ki.csv",
-          "bytes": 319940,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL237_Ki.csv"
-        },
-        {
-          "name": "CHEMBL238_Ki.csv",
-          "bytes": 100573,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL238_Ki.csv"
-        },
-        {
-          "name": "CHEMBL239_EC50.csv",
-          "bytes": 181036,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL239_EC50.csv"
-        },
-        {
-          "name": "CHEMBL244_Ki.csv",
-          "bytes": 358300,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL244_Ki.csv"
-        },
-        {
-          "name": "CHEMBL262_Ki.csv",
-          "bytes": 80861,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL262_Ki.csv"
-        },
-        {
-          "name": "CHEMBL264_Ki.csv",
-          "bytes": 272929,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL264_Ki.csv"
-        },
-        {
-          "name": "CHEMBL2835_Ki.csv",
-          "bytes": 70762,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2835_Ki.csv"
-        },
-        {
-          "name": "CHEMBL287_Ki.csv",
-          "bytes": 121021,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL287_Ki.csv"
-        },
-        {
-          "name": "CHEMBL2971_Ki.csv",
-          "bytes": 104956,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2971_Ki.csv"
-        },
-        {
-          "name": "CHEMBL3979_EC50.csv",
-          "bytes": 121434,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL3979_EC50.csv"
-        },
-        {
-          "name": "CHEMBL4005_Ki.csv",
-          "bytes": 101360,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL4005_Ki.csv"
-        },
-        {
-          "name": "CHEMBL4203_Ki.csv",
-          "bytes": 67450,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL4203_Ki.csv"
-        },
-        {
-          "name": "CHEMBL4616_EC50.csv",
-          "bytes": 84510,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL4616_EC50.csv"
-        },
-        {
-          "name": "CHEMBL4792_Ki.csv",
-          "bytes": 154935,
-          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL4792_Ki.csv"
-        }
-      ]
-    },
-    "pKahub": {
-      "source_commit": "93958c195874f0a248b2448341cabd58b1f3c7a7",
-      "files": [
-        {
-          "name": "combined_unified_dataset.tsv",
-          "bytes": 21785078,
-          "url": "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/build/datafiles/data/exp_macro_pka_datapoints/combined_unified_dataset.tsv",
-          "source_path": "build/datafiles/data/exp_macro_pka_datapoints/combined_unified_dataset.tsv"
-        },
-        {
-          "name": "microspecies_table.tsv",
-          "bytes": 11270145,
-          "url": "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/build/datafiles/data/microspecies/microspecies_table.tsv",
-          "source_path": "build/datafiles/data/microspecies/microspecies_table.tsv"
-        },
-        {
-          "name": "molecules_table.tsv",
-          "bytes": 1625886,
-          "url": "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/build/datafiles/data/molecules/molecules_table.tsv",
-          "source_path": "build/datafiles/data/molecules/molecules_table.tsv"
-        },
-        {
-          "name": "SAMPL_combined_final_processed.tsv",
-          "bytes": 28421,
-          "url": "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/build/datafiles/rawdatafiles/SAMPL_combined_final_processed.tsv",
-          "source_path": "build/datafiles/rawdatafiles/SAMPL_combined_final_processed.tsv"
-        },
-        {
-          "name": "sourceconfig.json",
-          "bytes": 7160,
-          "url": "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/build/sourcesconfigs/sourceconfig.json",
-          "source_path": "build/sourcesconfigs/sourceconfig.json"
-        },
-        {
-          "name": "README.md",
-          "bytes": 3331,
-          "url": "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/README.md",
-          "source_path": "README.md"
-        },
-        {
-          "name": "build_readme.md",
-          "bytes": 3898,
-          "url": "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/build/readme.md",
-          "source_path": "build/readme.md"
-        }
-      ],
-      "smiles_column": "reprSMILES_processed"
-    },
-    "PPE1694": {
-      "source_commit": "ef6b8834b1051d80a4b7bab8716982d7e3552daf",
-      "files": [
-        {
-          "name": "1694prunedHOF_geom_01.xyz",
-          "bytes": 1543652,
-          "url": "https://raw.githubusercontent.com/moldis-group/prunedhof/ef6b8834b1051d80a4b7bab8716982d7e3552daf/data/1694prunedHOF_geom_01.xyz",
-          "source_path": "data/1694prunedHOF_geom_01.xyz"
-        },
-        {
-          "name": "SI_review_23_12_2020.txt",
-          "bytes": 655968,
-          "url": "https://raw.githubusercontent.com/moldis-group/prunedhof/ef6b8834b1051d80a4b7bab8716982d7e3552daf/data/SI_review_23_12_2020.txt",
-          "source_path": "data/SI_review_23_12_2020.txt"
-        },
-        {
-          "name": "SI_review_23_12_2020.xlsx",
-          "bytes": 368792,
-          "url": "https://raw.githubusercontent.com/moldis-group/prunedhof/ef6b8834b1051d80a4b7bab8716982d7e3552daf/data/SI_review_23_12_2020.xlsx",
-          "source_path": "data/SI_review_23_12_2020.xlsx"
-        }
-      ]
-    },
-    "PharmaBench": {
-      "source_commit": "16a5258ecbd3917c1eae2dcd739d6534d3041ac3",
-      "files": [
-        {
-          "name": "ames_cls_final_data.csv",
-          "bytes": 486377,
-          "url": "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/ames_cls_final_data.csv",
-          "source_path": "data/final_datasets/ames_cls_final_data.csv"
-        },
-        {
-          "name": "bbb_cls_final_data.csv",
-          "bytes": 680467,
-          "url": "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/bbb_cls_final_data.csv",
-          "source_path": "data/final_datasets/bbb_cls_final_data.csv"
-        },
-        {
-          "name": "cyp_2c9_reg_final_data.csv",
-          "bytes": 86959,
-          "url": "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/cyp_2c9_reg_final_data.csv",
-          "source_path": "data/final_datasets/cyp_2c9_reg_final_data.csv"
-        },
-        {
-          "name": "cyp_2d6_reg_final_data.csv",
-          "bytes": 99154,
-          "url": "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/cyp_2d6_reg_final_data.csv",
-          "source_path": "data/final_datasets/cyp_2d6_reg_final_data.csv"
-        },
-        {
-          "name": "cyp_3a4_reg_final_data.csv",
-          "bytes": 179188,
-          "url": "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/cyp_3a4_reg_final_data.csv",
-          "source_path": "data/final_datasets/cyp_3a4_reg_final_data.csv"
-        },
-        {
-          "name": "hum_mic_cl_reg_final_data.csv",
-          "bytes": 252452,
-          "url": "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/hum_mic_cl_reg_final_data.csv",
-          "source_path": "data/final_datasets/hum_mic_cl_reg_final_data.csv"
-        },
-        {
-          "name": "logd_reg_final_data.csv",
-          "bytes": 1041081,
-          "url": "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/logd_reg_final_data.csv",
-          "source_path": "data/final_datasets/logd_reg_final_data.csv"
-        },
-        {
-          "name": "mou_mic_cl_reg_final_data.csv",
-          "bytes": 149346,
-          "url": "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/mou_mic_cl_reg_final_data.csv",
-          "source_path": "data/final_datasets/mou_mic_cl_reg_final_data.csv"
-        },
-        {
-          "name": "ppb_reg_final_data.csv",
-          "bytes": 104254,
-          "url": "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/ppb_reg_final_data.csv",
-          "source_path": "data/final_datasets/ppb_reg_final_data.csv"
-        },
-        {
-          "name": "rat_mic_cl_reg_final_data.csv",
-          "bytes": 122618,
-          "url": "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/rat_mic_cl_reg_final_data.csv",
-          "source_path": "data/final_datasets/rat_mic_cl_reg_final_data.csv"
-        },
-        {
-          "name": "water_sol_reg_final_data.csv",
-          "bytes": 888275,
-          "url": "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/water_sol_reg_final_data.csv",
-          "source_path": "data/final_datasets/water_sol_reg_final_data.csv"
-        }
-      ],
-      "smiles_column": "Smiles_unify",
-      "split_column": "scaffold_train_test_label"
-    },
-    "Joung2020": {
-      "source_commit": null,
-      "source_release": "10.6084/m9.figshare.12045567.v2",
-      "files": [
-        {
-          "name": "DB_for_chromophore_Sci_Data_rev02.csv",
-          "bytes": 3406886,
-          "url": "https://ndownloader.figshare.com/files/23637518",
-          "source_filename": "DB for chromophore_Sci_Data_rev02.csv"
-        }
-      ],
-      "smiles_column": "Chromophore"
-    },
-    "C7H10O2": {
-      "source_commit": null,
-      "source_release": "figshare article1057645 version2; original 6095 isomer archive",
-      "files": [
-        {
-          "name": "dsC7O2H10nsd.xyz.tar.bz2",
-          "bytes": 4149920,
-          "url": "https://ndownloader.figshare.com/files/3195398"
-        },
-        {
-          "name": "readme.txt",
-          "bytes": 5198,
-          "url": "https://ndownloader.figshare.com/files/3195392"
-        },
-        {
-          "name": "atomref.txt",
-          "bytes": 964,
-          "url": "https://ndownloader.figshare.com/files/3195395"
-        }
-      ]
-    },
-    "ExpansionRx": {
-      "source_commit": null,
-      "source_revisions": {
-        "train": "f40a23ea75a56560e9a1ce6ddc1586dd6a1f25d9",
-        "test_blinded": "f4198a09ff232c445f9afef155424b7a5b573cc0"
-      },
-      "blind_no_filter": true,
-      "files": [
-        {
-          "name": "expansion_data_train.csv",
-          "bytes": 464076,
-          "url": "https://huggingface.co/datasets/openadmet/openadmet-expansionrx-challenge-train-data/resolve/f40a23ea75a56560e9a1ce6ddc1586dd6a1f25d9/expansion_data_train.csv"
-        },
-        {
-          "name": "expansion_data_train_raw.csv",
-          "bytes": 688265,
-          "url": "https://huggingface.co/datasets/openadmet/openadmet-expansionrx-challenge-train-data/resolve/f40a23ea75a56560e9a1ce6ddc1586dd6a1f25d9/expansion_data_train_raw.csv"
-        },
-        {
-          "name": "expansion_data_test_blinded.csv",
-          "bytes": 157119,
-          "url": "https://huggingface.co/datasets/openadmet/openadmet-expansionrx-challenge-test-data-blinded/resolve/f4198a09ff232c445f9afef155424b7a5b573cc0/expansion_data_test_blinded.csv"
-        },
-        {
-          "name": "LICENSE.md",
-          "bytes": 191,
-          "url": "https://huggingface.co/datasets/openadmet/openadmet-expansionrx-challenge-train-data/resolve/f40a23ea75a56560e9a1ce6ddc1586dd6a1f25d9/LICENSE.md"
-        }
-      ],
-      "domain_files": [
-        "expansion_data_train.csv",
-        "expansion_data_test_blinded.csv"
-      ]
-    },
-    "NMRShiftDB2": {
-      "source_url": "https://yzhang.hpc.nyu.edu/IMA/",
-      "reference_geometry": true,
-      "files": [
-        {
-          "url": "https://yzhang.hpc.nyu.edu/IMA/Datasets/NMRShiftDB2_DFT.zip",
-          "name": "NMRShiftDB2_DFT.zip",
-          "bytes": 68320372
-        }
-      ],
-      "source_release": "CSTShift NMRShiftDB2_DFT author archive"
-    },
-    "pKahub_database_snapshot": {
-      "source_commit": "93958c195874f0a248b2448341cabd58b1f3c7a7",
-      "purpose": "Supplemental SQLite snapshot to distinguish experimental microscopic records from predicted microspecies",
-      "files": [
-        {
-          "url": "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/db.sqlite3",
-          "name": "db.sqlite3",
-          "bytes": 95862784
-        }
-      ]
-    },
-    "Biogen_ADME": {
-      "source_release": "Polaris biogen/adme-fang-v1 artifactVersion1",
-      "smiles_column": "MOL_smiles",
-      "files": [
-        {
-          "url": "https://data.polarishub.io/dataset/biogen/adme-fang-v1/table.parquet",
-          "name": "table.parquet",
-          "bytes": 393341
-        },
-        {
-          "url": "https://polarishub.io/api/v1/dataset/biogen/adme-fang-v1",
-          "name": "dataset_metadata.json",
-          "bytes": 8149
-        },
-        {
-          "url": "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-solu-reg-v1",
-          "name": "adme-fang-solu-reg-v1.json",
-          "bytes": 13330
-        },
-        {
-          "url": "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-rppb-reg-v1",
-          "name": "adme-fang-rppb-reg-v1.json",
-          "bytes": 4682
-        },
-        {
-          "url": "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-hppb-reg-v1",
-          "name": "adme-fang-hppb-reg-v1.json",
-          "bytes": 4747
-        },
-        {
-          "url": "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-perm-reg-v1",
-          "name": "adme-fang-perm-reg-v1.json",
-          "bytes": 15432
-        },
-        {
-          "url": "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-rclint-reg-v1",
-          "name": "adme-fang-rclint-reg-v1.json",
-          "bytes": 17051
-        },
-        {
-          "url": "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-hclint-reg-v1",
-          "name": "adme-fang-hclint-reg-v1.json",
-          "bytes": 17061
-        },
-        {
-          "url": "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-reg-v1",
-          "name": "adme-fang-reg-v1.json",
-          "bytes": 20257
-        }
-      ],
-      "source_api": "https://polarishub.io/api/v1/dataset/biogen/adme-fang-v1",
-      "official_rows": 3521,
-      "license": "CC-BY-4.0"
-    },
-    "ASAP_Polaris2025": {
-      "source_api": "https://polarishub.io/api/v2/dataset/asap-discovery/antiviral-admet-2025-unblinded",
-      "license": "CC0-1.0",
-      "split_column": "Set",
-      "blind_no_filter": true,
-      "smiles_column": "CXSMILES",
-      "files": [
-        {
-          "url": "https://polarishub.io/api/v2/dataset/asap-discovery/antiviral-admet-2025-unblinded",
-          "name": "dataset_metadata.json",
-          "bytes": 5552
-        },
-        {
-          "url": "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/zarr_manifest.parquet",
-          "name": "zarr_manifest.parquet",
-          "bytes": 1522
-        },
-        {
-          "url": "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/.zmetadata",
-          "name": "zmetadata.json",
-          "bytes": 3610
-        },
-        {
-          "zarr_key": "CXSMILES/0",
-          "url": "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/CXSMILES/0",
-          "name": "column_CXSMILES.chunk",
-          "bytes": 39261
-        },
-        {
-          "zarr_key": "LogD/0",
-          "url": "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/LogD/0",
-          "name": "column_LogD.chunk",
-          "bytes": 4480
-        },
-        {
-          "zarr_key": "Set/0",
-          "url": "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/Set/0",
-          "name": "column_Set.chunk",
-          "bytes": 41
-        },
-        {
-          "zarr_key": "MLM/0",
-          "url": "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/MLM/0",
-          "name": "column_MLM.chunk",
-          "bytes": 4480
-        },
-        {
-          "zarr_key": "KSOL/0",
-          "url": "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/KSOL/0",
-          "name": "column_KSOL.chunk",
-          "bytes": 4480
-        },
-        {
-          "zarr_key": "HLM/0",
-          "url": "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/HLM/0",
-          "name": "column_HLM.chunk",
-          "bytes": 4480
-        },
-        {
-          "zarr_key": "MDR1-MDCKII/0",
-          "url": "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/MDR1-MDCKII/0",
-          "name": "column_MDR1-MDCKII.chunk",
-          "bytes": 4480
-        },
-        {
-          "zarr_key": "Molecule Name/0",
-          "url": "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/Molecule%20Name/0",
-          "name": "column_Molecule_Name.chunk",
-          "bytes": 8964
-        }
-      ],
-      "official_rows": 560,
-      "source_release": "Polaris asap-discovery/antiviral-admet-2025-unblinded artifactVersion1"
-    },
-    "TDC_ADMET": {
-      "existing_source_manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/tdc_zip44_identity_main_v1/receipt.json",
-      "source_release": "TDC ADMET_Group Dataverse file4426004 existing closed archive",
-      "existing_source_bytes": 1472501,
-      "files": [],
-      "smiles_column": "Drug",
-      "source_commit": "c310c35f27e3f506411018ac43d97b8ba23ca652",
-      "expected_tasks": 22,
-      "existing_source": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/tdc_original_get_20261027_v1.zip",
-      "adapter": "tdc_zip"
-    },
-    "runtime_numcodecs": {
-      "purpose": "Official codecs for original ASAP Polaris Zarr storage; not data transformations",
-      "files": [
-        {
-          "url": "https://files.pythonhosted.org/packages/a6/a8/908a226632ffabf19caf8c99f1b2898f2f22aac02795a6fe9d018fd6d9dd/numcodecs-0.15.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-          "name": "numcodecs-0.15.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-          "bytes": 8891971
-        },
-        {
-          "url": "https://files.pythonhosted.org/packages/6e/c6/ac0b6c1e2d138f1002bcf799d330bd6d85084fece321e662a14223794041/Deprecated-1.2.18-py2.py3-none-any.whl",
-          "name": "Deprecated-1.2.18-py2.py3-none-any.whl",
-          "bytes": 9998
-        },
-        {
-          "url": "https://files.pythonhosted.org/packages/b4/b0/9fc566b0fe08b282c850063591a756057c3247b2362b9286429ec5bf1721/wrapt-1.17.2-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-          "name": "wrapt-1.17.2-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-          "bytes": 83199
-        }
-      ],
-      "source_release": "numcodecs0.15.1"
-    },
-    "C7H10O2_B3LYP_companion": {
-      "purpose": "Pair original B3LYP thermochemical properties by gdb9 index; benchmark quantity bound from primary ColabFit energy (G298)",
-      "files": [
-        {
-          "url": "https://ndownloader.figshare.com/files/3195389",
-          "name": "dsgdb9nsd.xyz.tar.bz2",
-          "bytes": 86144227
-        }
-      ],
-      "source_release": "Figshare article1057646 version1; original B3LYP companion archive"
-    },
-    "NMRShiftDB2_Jonas2019": {
-      "purpose": "Original processed molecular graph lookup for CSTShift reference molecule IDs; no split choice",
-      "files": [
-        {
-          "url": "https://static-content.springer.com/esm/art%3A10.1186%2Fs13321-019-0374-3/MediaObjects/13321_2019_374_MOESM2_ESM.gz",
-          "name": "13321_2019_374_MOESM2_ESM.gz",
-          "bytes": 16476011
-        }
-      ],
-      "source_release": "Jonas/Kuhn2019 DOI10.1186/s13321-019-0374-3 supplementary code/data"
-    },
-    "C7H10O2_ColabFit": {
-      "source_commit": "ae169c0e59c5861def6044e89fb84b667c83bb38",
-      "purpose": "Primary selected benchmark energy metadata for unambiguous target binding",
-      "files": [
-        {
-          "url": "https://huggingface.co/datasets/colabfit/C7H10O2/resolve/ae169c0e59c5861def6044e89fb84b667c83bb38/co/co_0.parquet",
-          "name": "co_0.parquet",
-          "bytes": 5206309
-        }
-      ]
-    },
-    "runtime_ppe_opsin": {
-      "purpose": "Parse original PPE IUPAC names with OPSIN 2.9.0, no geometry regeneration or guessed bond perception",
-      "files": [
-        {
-          "url": "https://github.com/dan2097/opsin/releases/download/2.9.0/opsin-cli-2.9.0-jar-with-dependencies.jar",
-          "name": "opsin-cli-2.9.0-jar-with-dependencies.jar",
-          "bytes": 14335652
-        },
-        {
-          "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21.1%2B2/OpenJDK17U-jre_x64_linux_hotspot_17.0.21.1_2.tar.gz",
-          "name": "OpenJDK17U-jre_x64_linux_hotspot_17.0.21.1_2.tar.gz",
-          "bytes": 46737725
-        }
-      ],
-      "source_release": "OPSIN2.9.0 MIT; Temurin17.0.21.1+2 GPLv2 with Classpath exception"
-    },
-    "PPE1694_Pople_original_G4MP2": {
-      "source_commit": "8d9869a5874095cbeef282ae99097ba988fc968a",
-      "purpose": "Recover original author row identity, charge/spin or structure metadata; preserve existing reference geometry and target definitions",
-      "files": [
-        {
-          "url": "https://raw.githubusercontent.com/moldis-group/pople/8d9869a5874095cbeef282ae99097ba988fc968a/benchmarks/PPE1694_G4MP2.zip",
-          "name": "PPE1694_G4MP2.zip",
-          "bytes": 813643
-        },
-        {
-          "url": "https://raw.githubusercontent.com/moldis-group/pople/8d9869a5874095cbeef282ae99097ba988fc968a/LICENSE",
-          "name": "LICENSE",
-          "bytes": 6555
-        }
-      ],
-      "source_release": "Original authors Pople PPE1694 G4MP2 supplement, CC0-1.0"
-    }
-  },
-  "remaining": [
-    "PPE99 source graphs and2 target name bindings",
-    "reference atom/coordinate lineage and original D3 labels",
-    "shared149238 ordered-molecule Sprime/D production closure",
-    "original Pprime adapter and production; P pending unrecovered optimizer binary",
-    "pKa task and SAMPL roles; NMR split decision",
-    "final data-line consumer handoff"
-  ],
+    "schema":  "BENCHMARK_DATA_B0_PLAN_V1",
+    "status":  "IN_PROGRESS",
+    "authority":  {
+                      "repository":  "mint258/MFM",
+                      "commit":  "07be7a0f04085398eeda2b7548afa46c668ffd9a",
+                      "directive":  "docs/benchmark/USER_DIRECTIVE_20261118.md",
+                      "plan":  "docs/benchmark/BENCHMARK_PLAN.md"
+                  },
+    "scope":  [
+                  "B0 all candidate dataset acquisition and applicability counts",
+                  "shared downstream reference or generated S/UFF conformers",
+                  "P/D labels; Pprime fallback only if original PM7 optimization cannot be reproduced",
+                  "pKahub macro/micro/multiple-ionization descriptive counts"
+              ],
+    "outside_this_data_handoff":  [
+                                      "B1 model fitting and task screening",
+                                      "C1 feature-model fitting",
+                                      "B2 environment and inference work"
+                                  ],
+    "candidate_groups":  [
+                             "ExpansionRx",
+                             "pKahub_SAMPL6_SAMPL7",
+                             "NMRShiftDB2",
+                             "Joung2020",
+                             "MoleculeACE",
+                             "ASAP_Polaris2025",
+                             "C7H10O2",
+                             "PPE1694",
+                             "PharmaBench",
+                             "Biogen_ADME",
+                             "TDC_ADMET"
+                         ],
+    "scientific_invariants":  {
+                                  "blind_benchmarks_no_filter":  [
+                                                                     "ExpansionRx",
+                                                                     "ASAP_Polaris2025"
+                                                                 ],
+                                  "heavy_atoms":  [
+                                                      3,
+                                                      200
+                                                  ],
+                                  "closed_shell":  true,
+                                  "reference_geometry_preferred":  true,
+                                  "sprime":  {
+                                                 "rdkit":  "2025.09.5",
+                                                 "max_actual_conformers":  3,
+                                                 "no_padding":  true,
+                                                 "no_scientific_retry":  true,
+                                                 "per_molecule_seconds":  3600,
+                                                 "dedup_A":  0.5
+                                             },
+                                  "pm7_original_version_required":  true,
+                                  "independent_numeric_readback":  false,
+                                  "raw_sources_readonly":  true,
+                                  "delete_existing_files":  false,
+                                  "paid_server":  false
+                              },
+    "data_root":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119",
+    "assets":  {
+                   "MoleculeACE":  {
+                                       "source_commit":  "7e6de0bd2968c56589c580f2a397f01c531ede26",
+                                       "official_split_preserved":  true,
+                                       "files":  [
+                                                     {
+                                                         "name":  "CHEMBL1862_Ki.csv",
+                                                         "bytes":  75166,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL1862_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL1871_Ki.csv",
+                                                         "bytes":  80732,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL1871_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL2034_Ki.csv",
+                                                         "bytes":  85670,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2034_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL2047_EC50.csv",
+                                                         "bytes":  75522,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2047_EC50.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL204_Ki.csv",
+                                                         "bytes":  321335,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL204_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL2147_Ki.csv",
+                                                         "bytes":  146214,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2147_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL214_Ki.csv",
+                                                         "bytes":  331012,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL214_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL218_EC50.csv",
+                                                         "bytes":  112664,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL218_EC50.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL219_Ki.csv",
+                                                         "bytes":  178991,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL219_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL228_Ki.csv",
+                                                         "bytes":  164414,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL228_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL231_Ki.csv",
+                                                         "bytes":  96780,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL231_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL233_Ki.csv",
+                                                         "bytes":  378735,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL233_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL234_Ki.csv",
+                                                         "bytes":  370354,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL234_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL235_EC50.csv",
+                                                         "bytes":  252464,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL235_EC50.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL236_Ki.csv",
+                                                         "bytes":  330367,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL236_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL237_EC50.csv",
+                                                         "bytes":  121657,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL237_EC50.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL237_Ki.csv",
+                                                         "bytes":  319940,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL237_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL238_Ki.csv",
+                                                         "bytes":  100573,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL238_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL239_EC50.csv",
+                                                         "bytes":  181036,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL239_EC50.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL244_Ki.csv",
+                                                         "bytes":  358300,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL244_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL262_Ki.csv",
+                                                         "bytes":  80861,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL262_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL264_Ki.csv",
+                                                         "bytes":  272929,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL264_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL2835_Ki.csv",
+                                                         "bytes":  70762,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2835_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL287_Ki.csv",
+                                                         "bytes":  121021,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL287_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL2971_Ki.csv",
+                                                         "bytes":  104956,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2971_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL3979_EC50.csv",
+                                                         "bytes":  121434,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL3979_EC50.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL4005_Ki.csv",
+                                                         "bytes":  101360,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL4005_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL4203_Ki.csv",
+                                                         "bytes":  67450,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL4203_Ki.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL4616_EC50.csv",
+                                                         "bytes":  84510,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL4616_EC50.csv"
+                                                     },
+                                                     {
+                                                         "name":  "CHEMBL4792_Ki.csv",
+                                                         "bytes":  154935,
+                                                         "url":  "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL4792_Ki.csv"
+                                                     }
+                                                 ]
+                                   },
+                   "pKahub":  {
+                                  "source_commit":  "93958c195874f0a248b2448341cabd58b1f3c7a7",
+                                  "files":  [
+                                                {
+                                                    "name":  "combined_unified_dataset.tsv",
+                                                    "bytes":  21785078,
+                                                    "url":  "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/build/datafiles/data/exp_macro_pka_datapoints/combined_unified_dataset.tsv",
+                                                    "source_path":  "build/datafiles/data/exp_macro_pka_datapoints/combined_unified_dataset.tsv"
+                                                },
+                                                {
+                                                    "name":  "microspecies_table.tsv",
+                                                    "bytes":  11270145,
+                                                    "url":  "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/build/datafiles/data/microspecies/microspecies_table.tsv",
+                                                    "source_path":  "build/datafiles/data/microspecies/microspecies_table.tsv"
+                                                },
+                                                {
+                                                    "name":  "molecules_table.tsv",
+                                                    "bytes":  1625886,
+                                                    "url":  "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/build/datafiles/data/molecules/molecules_table.tsv",
+                                                    "source_path":  "build/datafiles/data/molecules/molecules_table.tsv"
+                                                },
+                                                {
+                                                    "name":  "SAMPL_combined_final_processed.tsv",
+                                                    "bytes":  28421,
+                                                    "url":  "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/build/datafiles/rawdatafiles/SAMPL_combined_final_processed.tsv",
+                                                    "source_path":  "build/datafiles/rawdatafiles/SAMPL_combined_final_processed.tsv"
+                                                },
+                                                {
+                                                    "name":  "sourceconfig.json",
+                                                    "bytes":  7160,
+                                                    "url":  "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/build/sourcesconfigs/sourceconfig.json",
+                                                    "source_path":  "build/sourcesconfigs/sourceconfig.json"
+                                                },
+                                                {
+                                                    "name":  "README.md",
+                                                    "bytes":  3331,
+                                                    "url":  "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/README.md",
+                                                    "source_path":  "README.md"
+                                                },
+                                                {
+                                                    "name":  "build_readme.md",
+                                                    "bytes":  3898,
+                                                    "url":  "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/build/readme.md",
+                                                    "source_path":  "build/readme.md"
+                                                }
+                                            ],
+                                  "smiles_column":  "reprSMILES_processed"
+                              },
+                   "PPE1694":  {
+                                   "source_commit":  "ef6b8834b1051d80a4b7bab8716982d7e3552daf",
+                                   "files":  [
+                                                 {
+                                                     "name":  "1694prunedHOF_geom_01.xyz",
+                                                     "bytes":  1543652,
+                                                     "url":  "https://raw.githubusercontent.com/moldis-group/prunedhof/ef6b8834b1051d80a4b7bab8716982d7e3552daf/data/1694prunedHOF_geom_01.xyz",
+                                                     "source_path":  "data/1694prunedHOF_geom_01.xyz"
+                                                 },
+                                                 {
+                                                     "name":  "SI_review_23_12_2020.txt",
+                                                     "bytes":  655968,
+                                                     "url":  "https://raw.githubusercontent.com/moldis-group/prunedhof/ef6b8834b1051d80a4b7bab8716982d7e3552daf/data/SI_review_23_12_2020.txt",
+                                                     "source_path":  "data/SI_review_23_12_2020.txt"
+                                                 },
+                                                 {
+                                                     "name":  "SI_review_23_12_2020.xlsx",
+                                                     "bytes":  368792,
+                                                     "url":  "https://raw.githubusercontent.com/moldis-group/prunedhof/ef6b8834b1051d80a4b7bab8716982d7e3552daf/data/SI_review_23_12_2020.xlsx",
+                                                     "source_path":  "data/SI_review_23_12_2020.xlsx"
+                                                 }
+                                             ]
+                               },
+                   "PharmaBench":  {
+                                       "source_commit":  "16a5258ecbd3917c1eae2dcd739d6534d3041ac3",
+                                       "files":  [
+                                                     {
+                                                         "name":  "ames_cls_final_data.csv",
+                                                         "bytes":  486377,
+                                                         "url":  "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/ames_cls_final_data.csv",
+                                                         "source_path":  "data/final_datasets/ames_cls_final_data.csv"
+                                                     },
+                                                     {
+                                                         "name":  "bbb_cls_final_data.csv",
+                                                         "bytes":  680467,
+                                                         "url":  "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/bbb_cls_final_data.csv",
+                                                         "source_path":  "data/final_datasets/bbb_cls_final_data.csv"
+                                                     },
+                                                     {
+                                                         "name":  "cyp_2c9_reg_final_data.csv",
+                                                         "bytes":  86959,
+                                                         "url":  "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/cyp_2c9_reg_final_data.csv",
+                                                         "source_path":  "data/final_datasets/cyp_2c9_reg_final_data.csv"
+                                                     },
+                                                     {
+                                                         "name":  "cyp_2d6_reg_final_data.csv",
+                                                         "bytes":  99154,
+                                                         "url":  "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/cyp_2d6_reg_final_data.csv",
+                                                         "source_path":  "data/final_datasets/cyp_2d6_reg_final_data.csv"
+                                                     },
+                                                     {
+                                                         "name":  "cyp_3a4_reg_final_data.csv",
+                                                         "bytes":  179188,
+                                                         "url":  "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/cyp_3a4_reg_final_data.csv",
+                                                         "source_path":  "data/final_datasets/cyp_3a4_reg_final_data.csv"
+                                                     },
+                                                     {
+                                                         "name":  "hum_mic_cl_reg_final_data.csv",
+                                                         "bytes":  252452,
+                                                         "url":  "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/hum_mic_cl_reg_final_data.csv",
+                                                         "source_path":  "data/final_datasets/hum_mic_cl_reg_final_data.csv"
+                                                     },
+                                                     {
+                                                         "name":  "logd_reg_final_data.csv",
+                                                         "bytes":  1041081,
+                                                         "url":  "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/logd_reg_final_data.csv",
+                                                         "source_path":  "data/final_datasets/logd_reg_final_data.csv"
+                                                     },
+                                                     {
+                                                         "name":  "mou_mic_cl_reg_final_data.csv",
+                                                         "bytes":  149346,
+                                                         "url":  "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/mou_mic_cl_reg_final_data.csv",
+                                                         "source_path":  "data/final_datasets/mou_mic_cl_reg_final_data.csv"
+                                                     },
+                                                     {
+                                                         "name":  "ppb_reg_final_data.csv",
+                                                         "bytes":  104254,
+                                                         "url":  "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/ppb_reg_final_data.csv",
+                                                         "source_path":  "data/final_datasets/ppb_reg_final_data.csv"
+                                                     },
+                                                     {
+                                                         "name":  "rat_mic_cl_reg_final_data.csv",
+                                                         "bytes":  122618,
+                                                         "url":  "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/rat_mic_cl_reg_final_data.csv",
+                                                         "source_path":  "data/final_datasets/rat_mic_cl_reg_final_data.csv"
+                                                     },
+                                                     {
+                                                         "name":  "water_sol_reg_final_data.csv",
+                                                         "bytes":  888275,
+                                                         "url":  "https://raw.githubusercontent.com/mindrank-ai/PharmaBench/16a5258ecbd3917c1eae2dcd739d6534d3041ac3/data/final_datasets/water_sol_reg_final_data.csv",
+                                                         "source_path":  "data/final_datasets/water_sol_reg_final_data.csv"
+                                                     }
+                                                 ],
+                                       "smiles_column":  "Smiles_unify",
+                                       "split_column":  "scaffold_train_test_label"
+                                   },
+                   "Joung2020":  {
+                                     "source_commit":  null,
+                                     "source_release":  "10.6084/m9.figshare.12045567.v2",
+                                     "files":  [
+                                                   {
+                                                       "name":  "DB_for_chromophore_Sci_Data_rev02.csv",
+                                                       "bytes":  3406886,
+                                                       "url":  "https://ndownloader.figshare.com/files/23637518",
+                                                       "source_filename":  "DB for chromophore_Sci_Data_rev02.csv"
+                                                   }
+                                               ],
+                                     "smiles_column":  "Chromophore"
+                                 },
+                   "C7H10O2":  {
+                                   "source_commit":  null,
+                                   "source_release":  "figshare article1057645 version2; original 6095 isomer archive",
+                                   "files":  [
+                                                 {
+                                                     "name":  "dsC7O2H10nsd.xyz.tar.bz2",
+                                                     "bytes":  4149920,
+                                                     "url":  "https://ndownloader.figshare.com/files/3195398"
+                                                 },
+                                                 {
+                                                     "name":  "readme.txt",
+                                                     "bytes":  5198,
+                                                     "url":  "https://ndownloader.figshare.com/files/3195392"
+                                                 },
+                                                 {
+                                                     "name":  "atomref.txt",
+                                                     "bytes":  964,
+                                                     "url":  "https://ndownloader.figshare.com/files/3195395"
+                                                 }
+                                             ]
+                               },
+                   "ExpansionRx":  {
+                                       "source_commit":  null,
+                                       "source_revisions":  {
+                                                                "train":  "f40a23ea75a56560e9a1ce6ddc1586dd6a1f25d9",
+                                                                "test_blinded":  "f4198a09ff232c445f9afef155424b7a5b573cc0"
+                                                            },
+                                       "blind_no_filter":  true,
+                                       "files":  [
+                                                     {
+                                                         "name":  "expansion_data_train.csv",
+                                                         "bytes":  464076,
+                                                         "url":  "https://huggingface.co/datasets/openadmet/openadmet-expansionrx-challenge-train-data/resolve/f40a23ea75a56560e9a1ce6ddc1586dd6a1f25d9/expansion_data_train.csv"
+                                                     },
+                                                     {
+                                                         "name":  "expansion_data_train_raw.csv",
+                                                         "bytes":  688265,
+                                                         "url":  "https://huggingface.co/datasets/openadmet/openadmet-expansionrx-challenge-train-data/resolve/f40a23ea75a56560e9a1ce6ddc1586dd6a1f25d9/expansion_data_train_raw.csv"
+                                                     },
+                                                     {
+                                                         "name":  "expansion_data_test_blinded.csv",
+                                                         "bytes":  157119,
+                                                         "url":  "https://huggingface.co/datasets/openadmet/openadmet-expansionrx-challenge-test-data-blinded/resolve/f4198a09ff232c445f9afef155424b7a5b573cc0/expansion_data_test_blinded.csv"
+                                                     },
+                                                     {
+                                                         "name":  "LICENSE.md",
+                                                         "bytes":  191,
+                                                         "url":  "https://huggingface.co/datasets/openadmet/openadmet-expansionrx-challenge-train-data/resolve/f40a23ea75a56560e9a1ce6ddc1586dd6a1f25d9/LICENSE.md"
+                                                     }
+                                                 ],
+                                       "domain_files":  [
+                                                            "expansion_data_train.csv",
+                                                            "expansion_data_test_blinded.csv"
+                                                        ]
+                                   },
+                   "NMRShiftDB2":  {
+                                       "source_url":  "https://yzhang.hpc.nyu.edu/IMA/",
+                                       "reference_geometry":  true,
+                                       "files":  [
+                                                     {
+                                                         "url":  "https://yzhang.hpc.nyu.edu/IMA/Datasets/NMRShiftDB2_DFT.zip",
+                                                         "name":  "NMRShiftDB2_DFT.zip",
+                                                         "bytes":  68320372
+                                                     }
+                                                 ],
+                                       "source_release":  "CSTShift NMRShiftDB2_DFT author archive"
+                                   },
+                   "pKahub_database_snapshot":  {
+                                                    "source_commit":  "93958c195874f0a248b2448341cabd58b1f3c7a7",
+                                                    "purpose":  "Supplemental SQLite snapshot to distinguish experimental microscopic records from predicted microspecies",
+                                                    "files":  [
+                                                                  {
+                                                                      "url":  "https://raw.githubusercontent.com/keserulab/pkahub/93958c195874f0a248b2448341cabd58b1f3c7a7/db.sqlite3",
+                                                                      "name":  "db.sqlite3",
+                                                                      "bytes":  95862784
+                                                                  }
+                                                              ]
+                                                },
+                   "Biogen_ADME":  {
+                                       "source_release":  "Polaris biogen/adme-fang-v1 artifactVersion1",
+                                       "smiles_column":  "MOL_smiles",
+                                       "files":  [
+                                                     {
+                                                         "url":  "https://data.polarishub.io/dataset/biogen/adme-fang-v1/table.parquet",
+                                                         "name":  "table.parquet",
+                                                         "bytes":  393341
+                                                     },
+                                                     {
+                                                         "url":  "https://polarishub.io/api/v1/dataset/biogen/adme-fang-v1",
+                                                         "name":  "dataset_metadata.json",
+                                                         "bytes":  8149
+                                                     },
+                                                     {
+                                                         "url":  "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-solu-reg-v1",
+                                                         "name":  "adme-fang-solu-reg-v1.json",
+                                                         "bytes":  13330
+                                                     },
+                                                     {
+                                                         "url":  "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-rppb-reg-v1",
+                                                         "name":  "adme-fang-rppb-reg-v1.json",
+                                                         "bytes":  4682
+                                                     },
+                                                     {
+                                                         "url":  "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-hppb-reg-v1",
+                                                         "name":  "adme-fang-hppb-reg-v1.json",
+                                                         "bytes":  4747
+                                                     },
+                                                     {
+                                                         "url":  "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-perm-reg-v1",
+                                                         "name":  "adme-fang-perm-reg-v1.json",
+                                                         "bytes":  15432
+                                                     },
+                                                     {
+                                                         "url":  "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-rclint-reg-v1",
+                                                         "name":  "adme-fang-rclint-reg-v1.json",
+                                                         "bytes":  17051
+                                                     },
+                                                     {
+                                                         "url":  "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-hclint-reg-v1",
+                                                         "name":  "adme-fang-hclint-reg-v1.json",
+                                                         "bytes":  17061
+                                                     },
+                                                     {
+                                                         "url":  "https://polarishub.io/api/v1/benchmark/biogen/adme-fang-reg-v1",
+                                                         "name":  "adme-fang-reg-v1.json",
+                                                         "bytes":  20257
+                                                     }
+                                                 ],
+                                       "source_api":  "https://polarishub.io/api/v1/dataset/biogen/adme-fang-v1",
+                                       "official_rows":  3521,
+                                       "license":  "CC-BY-4.0"
+                                   },
+                   "ASAP_Polaris2025":  {
+                                            "source_api":  "https://polarishub.io/api/v2/dataset/asap-discovery/antiviral-admet-2025-unblinded",
+                                            "license":  "CC0-1.0",
+                                            "split_column":  "Set",
+                                            "blind_no_filter":  true,
+                                            "smiles_column":  "CXSMILES",
+                                            "files":  [
+                                                          {
+                                                              "url":  "https://polarishub.io/api/v2/dataset/asap-discovery/antiviral-admet-2025-unblinded",
+                                                              "name":  "dataset_metadata.json",
+                                                              "bytes":  5552
+                                                          },
+                                                          {
+                                                              "url":  "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/zarr_manifest.parquet",
+                                                              "name":  "zarr_manifest.parquet",
+                                                              "bytes":  1522
+                                                          },
+                                                          {
+                                                              "url":  "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/.zmetadata",
+                                                              "name":  "zmetadata.json",
+                                                              "bytes":  3610
+                                                          },
+                                                          {
+                                                              "zarr_key":  "CXSMILES/0",
+                                                              "url":  "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/CXSMILES/0",
+                                                              "name":  "column_CXSMILES.chunk",
+                                                              "bytes":  39261
+                                                          },
+                                                          {
+                                                              "zarr_key":  "LogD/0",
+                                                              "url":  "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/LogD/0",
+                                                              "name":  "column_LogD.chunk",
+                                                              "bytes":  4480
+                                                          },
+                                                          {
+                                                              "zarr_key":  "Set/0",
+                                                              "url":  "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/Set/0",
+                                                              "name":  "column_Set.chunk",
+                                                              "bytes":  41
+                                                          },
+                                                          {
+                                                              "zarr_key":  "MLM/0",
+                                                              "url":  "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/MLM/0",
+                                                              "name":  "column_MLM.chunk",
+                                                              "bytes":  4480
+                                                          },
+                                                          {
+                                                              "zarr_key":  "KSOL/0",
+                                                              "url":  "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/KSOL/0",
+                                                              "name":  "column_KSOL.chunk",
+                                                              "bytes":  4480
+                                                          },
+                                                          {
+                                                              "zarr_key":  "HLM/0",
+                                                              "url":  "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/HLM/0",
+                                                              "name":  "column_HLM.chunk",
+                                                              "bytes":  4480
+                                                          },
+                                                          {
+                                                              "zarr_key":  "MDR1-MDCKII/0",
+                                                              "url":  "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/MDR1-MDCKII/0",
+                                                              "name":  "column_MDR1-MDCKII.chunk",
+                                                              "bytes":  4480
+                                                          },
+                                                          {
+                                                              "zarr_key":  "Molecule Name/0",
+                                                              "url":  "https://data.polarishub.io/dataset/asap-discovery/antiviral-admet-2025-unblinded/data.zarr/Molecule%20Name/0",
+                                                              "name":  "column_Molecule_Name.chunk",
+                                                              "bytes":  8964
+                                                          }
+                                                      ],
+                                            "official_rows":  560,
+                                            "source_release":  "Polaris asap-discovery/antiviral-admet-2025-unblinded artifactVersion1"
+                                        },
+                   "TDC_ADMET":  {
+                                     "existing_source_manifest":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/tdc_zip44_identity_main_v1/receipt.json",
+                                     "source_release":  "TDC ADMET_Group Dataverse file4426004 existing closed archive",
+                                     "existing_source_bytes":  1472501,
+                                     "files":  [
+
+                                               ],
+                                     "smiles_column":  "Drug",
+                                     "source_commit":  "c310c35f27e3f506411018ac43d97b8ba23ca652",
+                                     "expected_tasks":  22,
+                                     "existing_source":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/expansion/tdc_original_get_20261027_v1.zip",
+                                     "adapter":  "tdc_zip"
+                                 },
+                   "runtime_numcodecs":  {
+                                             "purpose":  "Official codecs for original ASAP Polaris Zarr storage; not data transformations",
+                                             "files":  [
+                                                           {
+                                                               "url":  "https://files.pythonhosted.org/packages/a6/a8/908a226632ffabf19caf8c99f1b2898f2f22aac02795a6fe9d018fd6d9dd/numcodecs-0.15.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+                                                               "name":  "numcodecs-0.15.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+                                                               "bytes":  8891971
+                                                           },
+                                                           {
+                                                               "url":  "https://files.pythonhosted.org/packages/6e/c6/ac0b6c1e2d138f1002bcf799d330bd6d85084fece321e662a14223794041/Deprecated-1.2.18-py2.py3-none-any.whl",
+                                                               "name":  "Deprecated-1.2.18-py2.py3-none-any.whl",
+                                                               "bytes":  9998
+                                                           },
+                                                           {
+                                                               "url":  "https://files.pythonhosted.org/packages/b4/b0/9fc566b0fe08b282c850063591a756057c3247b2362b9286429ec5bf1721/wrapt-1.17.2-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+                                                               "name":  "wrapt-1.17.2-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+                                                               "bytes":  83199
+                                                           }
+                                                       ],
+                                             "source_release":  "numcodecs0.15.1"
+                                         },
+                   "C7H10O2_B3LYP_companion":  {
+                                                   "purpose":  "Pair original B3LYP thermochemical properties by gdb9 index; benchmark quantity bound from primary ColabFit energy (G298)",
+                                                   "files":  [
+                                                                 {
+                                                                     "url":  "https://ndownloader.figshare.com/files/3195389",
+                                                                     "name":  "dsgdb9nsd.xyz.tar.bz2",
+                                                                     "bytes":  86144227
+                                                                 }
+                                                             ],
+                                                   "source_release":  "Figshare article1057646 version1; original B3LYP companion archive"
+                                               },
+                   "NMRShiftDB2_Jonas2019":  {
+                                                 "purpose":  "Original processed molecular graph lookup for CSTShift reference molecule IDs; no split choice",
+                                                 "files":  [
+                                                               {
+                                                                   "url":  "https://static-content.springer.com/esm/art%3A10.1186%2Fs13321-019-0374-3/MediaObjects/13321_2019_374_MOESM2_ESM.gz",
+                                                                   "name":  "13321_2019_374_MOESM2_ESM.gz",
+                                                                   "bytes":  16476011
+                                                               }
+                                                           ],
+                                                 "source_release":  "Jonas/Kuhn2019 DOI10.1186/s13321-019-0374-3 supplementary code/data"
+                                             },
+                   "C7H10O2_ColabFit":  {
+                                            "source_commit":  "ae169c0e59c5861def6044e89fb84b667c83bb38",
+                                            "purpose":  "Primary selected benchmark energy metadata for unambiguous target binding",
+                                            "files":  [
+                                                          {
+                                                              "url":  "https://huggingface.co/datasets/colabfit/C7H10O2/resolve/ae169c0e59c5861def6044e89fb84b667c83bb38/co/co_0.parquet",
+                                                              "name":  "co_0.parquet",
+                                                              "bytes":  5206309
+                                                          }
+                                                      ]
+                                        },
+                   "runtime_ppe_opsin":  {
+                                             "purpose":  "Parse original PPE IUPAC names with OPSIN 2.9.0, no geometry regeneration or guessed bond perception",
+                                             "files":  [
+                                                           {
+                                                               "url":  "https://github.com/dan2097/opsin/releases/download/2.9.0/opsin-cli-2.9.0-jar-with-dependencies.jar",
+                                                               "name":  "opsin-cli-2.9.0-jar-with-dependencies.jar",
+                                                               "bytes":  14335652
+                                                           },
+                                                           {
+                                                               "url":  "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21.1%2B2/OpenJDK17U-jre_x64_linux_hotspot_17.0.21.1_2.tar.gz",
+                                                               "name":  "OpenJDK17U-jre_x64_linux_hotspot_17.0.21.1_2.tar.gz",
+                                                               "bytes":  46737725
+                                                           }
+                                                       ],
+                                             "source_release":  "OPSIN2.9.0 MIT; Temurin17.0.21.1+2 GPLv2 with Classpath exception"
+                                         },
+                   "PPE1694_Pople_original_G4MP2":  {
+                                                        "source_commit":  "8d9869a5874095cbeef282ae99097ba988fc968a",
+                                                        "purpose":  "Recover original author row identity, charge/spin or structure metadata; preserve existing reference geometry and target definitions",
+                                                        "files":  [
+                                                                      {
+                                                                          "url":  "https://raw.githubusercontent.com/moldis-group/pople/8d9869a5874095cbeef282ae99097ba988fc968a/benchmarks/PPE1694_G4MP2.zip",
+                                                                          "name":  "PPE1694_G4MP2.zip",
+                                                                          "bytes":  813643
+                                                                      },
+                                                                      {
+                                                                          "url":  "https://raw.githubusercontent.com/moldis-group/pople/8d9869a5874095cbeef282ae99097ba988fc968a/LICENSE",
+                                                                          "name":  "LICENSE",
+                                                                          "bytes":  6555
+                                                                      }
+                                                                  ],
+                                                        "source_release":  "Original authors Pople PPE1694 G4MP2 supplement, CC0-1.0"
+                                                    }
+               },
+    "remaining":  [
+                      "PPE99 source graphs and2 target name bindings",
+                      "reference atom/coordinate lineage and original D3 labels",
+                      "shared149238 ordered-molecule Sprime/D production closure",
+                      "original Pprime adapter and production; P pending unrecovered optimizer binary",
+                      "pKa task and SAMPL roles; NMR split decision",
+                      "final data-line consumer handoff"
+                  ],
   "active_evaluation_scope": {
     "status": "B1_AND_LATER_SCOPE_EXCLUDES_FIVE_DEFERRED_ENDPOINTS",
     "decision_date": "2026-11-19",
