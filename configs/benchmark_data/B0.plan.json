@@ -1,0 +1,226 @@
+{
+  "schema": "BENCHMARK_DATA_B0_PLAN_V1",
+  "status": "IN_PROGRESS",
+  "authority": {
+    "repository": "mint258/MFM",
+    "commit": "07be7a0f04085398eeda2b7548afa46c668ffd9a",
+    "directive": "docs/benchmark/USER_DIRECTIVE_20261118.md",
+    "plan": "docs/benchmark/BENCHMARK_PLAN.md"
+  },
+  "scope": [
+    "B0 all candidate dataset acquisition and applicability counts",
+    "shared downstream reference or generated S/UFF conformers",
+    "P/D labels; Pprime fallback only if original PM7 optimization cannot be reproduced",
+    "pKahub macro/micro/multiple-ionization descriptive counts"
+  ],
+  "outside_this_data_handoff": [
+    "B1 model fitting and task screening",
+    "C1 feature-model fitting",
+    "B2 environment and inference work"
+  ],
+  "candidate_groups": [
+    "ExpansionRx",
+    "pKahub_SAMPL6_SAMPL7",
+    "NMRShiftDB2",
+    "Joung2020",
+    "MoleculeACE",
+    "ASAP_Polaris2025",
+    "C7H10O2",
+    "PPE1694",
+    "PharmaBench",
+    "Biogen_ADME",
+    "TDC_ADMET"
+  ],
+  "scientific_invariants": {
+    "blind_benchmarks_no_filter": [
+      "ExpansionRx",
+      "ASAP_Polaris2025"
+    ],
+    "heavy_atoms": [
+      3,
+      200
+    ],
+    "closed_shell": true,
+    "reference_geometry_preferred": true,
+    "sprime": {
+      "rdkit": "2025.09.5",
+      "max_actual_conformers": 3,
+      "no_padding": true,
+      "no_scientific_retry": true,
+      "per_molecule_seconds": 3600,
+      "dedup_A": 0.5
+    },
+    "pm7_original_version_required": true,
+    "independent_numeric_readback": false,
+    "raw_sources_readonly": true,
+    "delete_existing_files": false,
+    "paid_server": false
+  },
+  "data_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119",
+  "assets": {
+    "MoleculeACE": {
+      "source_commit": "7e6de0bd2968c56589c580f2a397f01c531ede26",
+      "official_split_preserved": true,
+      "files": [
+        {
+          "name": "CHEMBL1862_Ki.csv",
+          "bytes": 75166,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL1862_Ki.csv"
+        },
+        {
+          "name": "CHEMBL1871_Ki.csv",
+          "bytes": 80732,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL1871_Ki.csv"
+        },
+        {
+          "name": "CHEMBL2034_Ki.csv",
+          "bytes": 85670,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2034_Ki.csv"
+        },
+        {
+          "name": "CHEMBL2047_EC50.csv",
+          "bytes": 75522,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2047_EC50.csv"
+        },
+        {
+          "name": "CHEMBL204_Ki.csv",
+          "bytes": 321335,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL204_Ki.csv"
+        },
+        {
+          "name": "CHEMBL2147_Ki.csv",
+          "bytes": 146214,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2147_Ki.csv"
+        },
+        {
+          "name": "CHEMBL214_Ki.csv",
+          "bytes": 331012,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL214_Ki.csv"
+        },
+        {
+          "name": "CHEMBL218_EC50.csv",
+          "bytes": 112664,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL218_EC50.csv"
+        },
+        {
+          "name": "CHEMBL219_Ki.csv",
+          "bytes": 178991,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL219_Ki.csv"
+        },
+        {
+          "name": "CHEMBL228_Ki.csv",
+          "bytes": 164414,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL228_Ki.csv"
+        },
+        {
+          "name": "CHEMBL231_Ki.csv",
+          "bytes": 96780,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL231_Ki.csv"
+        },
+        {
+          "name": "CHEMBL233_Ki.csv",
+          "bytes": 378735,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL233_Ki.csv"
+        },
+        {
+          "name": "CHEMBL234_Ki.csv",
+          "bytes": 370354,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL234_Ki.csv"
+        },
+        {
+          "name": "CHEMBL235_EC50.csv",
+          "bytes": 252464,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL235_EC50.csv"
+        },
+        {
+          "name": "CHEMBL236_Ki.csv",
+          "bytes": 330367,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL236_Ki.csv"
+        },
+        {
+          "name": "CHEMBL237_EC50.csv",
+          "bytes": 121657,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL237_EC50.csv"
+        },
+        {
+          "name": "CHEMBL237_Ki.csv",
+          "bytes": 319940,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL237_Ki.csv"
+        },
+        {
+          "name": "CHEMBL238_Ki.csv",
+          "bytes": 100573,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL238_Ki.csv"
+        },
+        {
+          "name": "CHEMBL239_EC50.csv",
+          "bytes": 181036,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL239_EC50.csv"
+        },
+        {
+          "name": "CHEMBL244_Ki.csv",
+          "bytes": 358300,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL244_Ki.csv"
+        },
+        {
+          "name": "CHEMBL262_Ki.csv",
+          "bytes": 80861,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL262_Ki.csv"
+        },
+        {
+          "name": "CHEMBL264_Ki.csv",
+          "bytes": 272929,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL264_Ki.csv"
+        },
+        {
+          "name": "CHEMBL2835_Ki.csv",
+          "bytes": 70762,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2835_Ki.csv"
+        },
+        {
+          "name": "CHEMBL287_Ki.csv",
+          "bytes": 121021,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL287_Ki.csv"
+        },
+        {
+          "name": "CHEMBL2971_Ki.csv",
+          "bytes": 104956,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL2971_Ki.csv"
+        },
+        {
+          "name": "CHEMBL3979_EC50.csv",
+          "bytes": 121434,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL3979_EC50.csv"
+        },
+        {
+          "name": "CHEMBL4005_Ki.csv",
+          "bytes": 101360,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL4005_Ki.csv"
+        },
+        {
+          "name": "CHEMBL4203_Ki.csv",
+          "bytes": 67450,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL4203_Ki.csv"
+        },
+        {
+          "name": "CHEMBL4616_EC50.csv",
+          "bytes": 84510,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL4616_EC50.csv"
+        },
+        {
+          "name": "CHEMBL4792_Ki.csv",
+          "bytes": 154935,
+          "url": "https://raw.githubusercontent.com/molML/MoleculeACE/7e6de0bd2968c56589c580f2a397f01c531ede26/MoleculeACE/Data/benchmark_data/CHEMBL4792_Ki.csv"
+        }
+      ]
+    }
+  },
+  "remaining": [
+    "acquire remaining candidate sources",
+    "recover existing charge/protonation policy without guessing",
+    "full applicability counts and pKahub annotations",
+    "complete PM7 historical version recovery or mark explicit fallback",
+    "conformer generation and original P/D recipe adapters",
+    "data-line delivery to benchmark consumer"
+  ]
+}
