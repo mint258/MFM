@@ -3,7 +3,7 @@
 #SBATCH --partition=cpu
 #SBATCH --nodelist=compute-0-17
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=16
 #SBATCH --nice=10000
 #SBATCH --output=/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/regression_%j.log
 set -euo pipefail

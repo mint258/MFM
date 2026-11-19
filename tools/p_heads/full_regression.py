@@ -71,8 +71,8 @@ def main():
 
     job = os.environ['SLURM_JOB_ID']
     cpus = int(os.environ['SLURM_CPUS_PER_TASK'])
-    if cpus < 2:
-        raise ValueError('Final CPU regression needs at least two allocated CPUs for its fixed two module workers')
+    if cpus != 16:
+        raise ValueError('Default real-provider fixtures require a real 16-CPU Slurm allocation')
     allocation = subprocess.check_output(['scontrol', 'show', 'job', '-d', job], text=True)
     if not re.search(r'\bNumNodes=1\b', allocation):
         raise ValueError('Final CPU regression requires a single-node allocation')
@@ -144,7 +144,7 @@ def main():
                    process=process, slurm_cpu_ids=ids[1],
                    srun_cpu_bind_list=binding,
                    srun_cpu_bind_type=os.environ.get('SLURM_CPU_BIND_TYPE'),
-                   private_storage=storage_observation,
+                   private_storage=json.loads(json.dumps(storage_observation, default=os.fspath)),
                    scope='All current/tests/test_*.py, established isolated CPU module protocol')
     save(output / 'summary.json', summary)
     save(REPO / 'results/p_heads/REGRESSION_FULL.json', summary)
