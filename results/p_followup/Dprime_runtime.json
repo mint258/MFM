@@ -1,5 +1,5 @@
 {
-    "status":  "SEED0_COMPLETE_SEED1_RUNNING",
+    "status":  "DPRIME_COMPLETE_C3_PENDING",
     "scope":  "Dprime M2 seed0 exact3M and registered descriptive analysis complete; prescribed seed1 running; C3 still pending",
     "source_revision":  "b582502",
     "initial_source_revision":  "0da71c9",
@@ -75,14 +75,18 @@
     "cost_note":  "All seed0 GPU segments closed: initial5090, continued native4090, final Slurm4090; exclude measured allocation pretraining overlap. Native CPU remains unmetered/unknown. Seed1 GPU/CPU intervals remain open. Seed0 postanalysis4536182 COMPLETED0:0/1540seconds/16CPUs.",
     "priority":  "User C3 priority preserved: recipe line has now actually resumed C3 on20a via4536352; Dprime seed1 continues independently on20b via4536314. The earlier withdrawal of the waiting Dprime yield controller is historical and caused no source pause or restart.",
     "scientific_decision":  {
-                                "status":  "SEED1_REQUIRED",
-                                "verdict":  null,
-                                "delta_R3":  -0.045284242567682542,
-                                "ci95":  [
-                                             -0.056268195746082009,
-                                             -0.034293740123209175
-                                         ],
-                                "reason":  "Absolute seed0 effect below0.06; no final loss declared"
+                                "status":  "COMPLETE",
+                                "verdict":  "loss",
+                                "seeds":  [
+                                              0,
+                                              1
+                                          ],
+                                "mean_delta_R3":  -0.03842869553842196,
+                                "positive_effect_threshold":  0.037522097781636135,
+                                "both_R3_CI_upper_below_zero":  true,
+                                "evidence":  "results/p_followup/Dprime_M2_comparison.json",
+                                "seed0_statistics_reused":  true,
+                                "recipe_handoff":  "No qualifying two-seed winner; Dprime not adopted"
                             },
     "clip_calibration":  {
                              "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed0_continued/clip_calibration.json",
@@ -291,7 +295,7 @@
                                     "inspection":  "Existing atomic producer and filemetadata only; no checkpoint numerical reread/hash"
                                 },
     "seed1":  {
-                  "state":  "RUNNING",
+                  "state":  "COMPLETED",
                   "job_id":  4536314,
                   "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/Dprime_M2_seed1.json",
                   "source_revision":  "b582502",
@@ -309,7 +313,10 @@
                                           "start_ticks":  18633541,
                                           "pgid":  97394,
                                           "job_id":  4536314,
-                                          "status":  "RUNNING"
+                                          "status":  "COMPLETED",
+                                          "exit_code":  0,
+                                          "ended_at":  1795045691.453714,
+                                          "elapsed_seconds":  38343.55394434929
                                       },
                   "seed":  1,
                   "samples_budget":  3000000,
@@ -323,13 +330,16 @@
                   "priority_note":  "Only20b/16CPU used after both4090 were actually free with56freeCPU; leaves20a and40CPU available for higherpriority C3",
                   "comparison_cpu":  {
                                          "job_id":  4536315,
-                                         "state":  "PENDING",
+                                         "state":  "COMPLETED",
                                          "dependency":  "afterok:4536314",
                                          "cpus":  1,
                                          "nice":  10000,
                                          "cuda_visible_devices":  "",
                                          "script":  "tools/p_followup/Dprime_seed1_compare_cpu.sbatch",
-                                         "reuse_closed_seed0":  true
+                                         "reuse_closed_seed0":  true,
+                                         "exit_code":  "0:0",
+                                         "allocation_elapsed_seconds":  6,
+                                         "allocated_CPU_hours":  0.0016666666666666668
                                      },
                   "clip_calibration":  {
                                            "calibration_samples":  150000,
@@ -346,7 +356,7 @@
                                                      "backend":  "Slurm",
                                                      "node":  "compute-0-20",
                                                      "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-                                                     "state":  "RUNNING",
+                                                     "state":  "COMPLETED",
                                                      "submitted_at":  1795007345.8333023,
                                                      "configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/Dprime_M2_seed1.json",
                                                      "stage":  2,
@@ -357,32 +367,33 @@
                                                      "exclusive":  false,
                                                      "job_id":  4536314,
                                                      "allocation_pretraining_seconds":  0.29009151458740234,
-                                                     "elapsed_seconds":  32129.709908485413,
+                                                     "elapsed_seconds":  38344.70990848541,
                                                      "exit_code":  "0:0",
-                                                     "allocation_elapsed_seconds":  32130.0,
+                                                     "allocation_elapsed_seconds":  38345.0,
                                                      "progress":  {
-                                                                      "samples":  2507616,
+                                                                      "samples":  3000000,
                                                                       "budget":  3000000,
-                                                                      "updates":  78363,
-                                                                      "last_loss":  0.10684743523597717,
-                                                                      "samples_per_second":  76.6090022679581,
-                                                                      "remaining_hours":  1.7853428354925738
+                                                                      "updates":  93750,
+                                                                      "last_loss":  0.0806664377450943,
+                                                                      "samples_per_second":  79.54534924145368,
+                                                                      "remaining_hours":  0.0
                                                                   },
-                                                     "observed_at":  1795039477.017557
+                                                     "observed_at":  1795045994.6417894
                                                  },
                   "fixed_VAL_delivered_samples":  [
                                                       500000,
                                                       1000000,
                                                       1500000,
                                                       2000000,
-                                                      2500000
+                                                      2500000,
+                                                      3000000
                                                   ],
                   "latest_fixed_VAL":  {
-                                           "samples":  2500000,
-                                           "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed1/VAL_original_units_2500000.csv",
-                                           "bytes":  5947,
-                                           "producer_published_utc":  "2026-11-18T22:03:03Z",
-                                           "scope":  "Existing fixedVAL original-unit MAE; final seed1 R1/R3 decision remains pending"
+                                           "samples":  3000000,
+                                           "source":  "results/p_followup/training/p_followup_20261116_Dprime_M2_seed1/VAL_original_units_3000000.csv",
+                                           "bytes":  5944,
+                                           "producer_published_utc":  "2026-11-18T23:43:45Z",
+                                           "scope":  "Final fixedVAL original-unit MAE; exact3M R1/R3 independently complete"
                                        },
                   "one_million_milestone":  {
                                                 "samples":  1000000,
@@ -397,7 +408,36 @@
                                                 "bytes":  232283709,
                                                 "producer_published_utc":  "2026-11-18T20:17:03Z",
                                                 "inspection":  "Existing atomic complete-checkpoint producer and filemetadata only; no numerical reread or new hash"
-                                            }
+                                            },
+                  "three_million_milestone":  {
+                                                  "samples":  3000000,
+                                                  "source":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/Dprime_M2_seed1/samples_3000000.pt",
+                                                  "bytes":  232285949,
+                                                  "producer_published_utc":  "2026-11-18T23:43:46Z",
+                                                  "inspection":  "Producer atomic closed checkpoint and filemetadata; no new hash or numerical replay"
+                                              },
+                  "training_summary":  {
+                                           "status":  "COMPLETE",
+                                           "run":  "p_followup_20261116_Dprime_M2_seed1",
+                                           "samples":  3000000,
+                                           "updates":  93750,
+                                           "actual_samples":  3000000,
+                                           "seconds":  38073.07728354799,
+                                           "clipped_fraction":  0.0008213333333333333,
+                                           "clip":  6.553652572631836,
+                                           "batch_size":  32,
+                                           "microbatch_size":  32,
+                                           "GPU_peak_bytes":  10754499584,
+                                           "training_and_evaluation_seconds":  38346.320485937
+                                       },
+                  "training_samples_per_second":  78.795837217401649376502174926,
+                  "gpu_occupied_hours":  10.651308307912613888888888889,
+                  "slurm_allocated_CPU_hours":  170.42222222222222,
+                  "closed_telemetry":  {
+                                           "samples":  1266,
+                                           "mean_whole_card_power_watts":  254.65116903633486,
+                                           "note":  "Whole-card readings include other contexts; not isolated model energy"
+                                       }
               },
     "C3_followup":  {
                         "status":  "RECIPE_TRAINING_RESUMED_CPU_DESCRIPTION_PENDING",
@@ -419,8 +459,8 @@
                                          "state":  "PENDING",
                                          "reason":  "Dependency",
                                          "dependency":  "afterok:4536352",
-                                         "node":  "compute-0-20",
-                                         "partition":  "all",
+                                         "node":  "compute-0-16",
+                                         "partition":  "cpu",
                                          "requested_cpus":  16,
                                          "nice":  10000,
                                          "exclusive":  false,
@@ -431,7 +471,15 @@
                                          "submitted_script":  "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/C3_geometry_cpu_20261119.sbatch",
                                          "analysis_tools_revision_at_submission":  "ec39578",
                                          "command":  "directive_geometry.py --conditions C3 --device cpu",
-                                         "scope":  "Only C3 layer6 on existing A5000VAL/47698confs; M2 and Dprime geometry reused. Completion requires actual C3 geometry and final existing R1/R3, not merely CPUjob exit."
+                                         "scope":  "Only C3 layer6 on existing A5000VAL/47698confs; M2 and Dprime geometry reused. Completion requires actual C3 geometry and final existing R1/R3, not merely CPUjob exit.",
+                                         "scheduling_update":  {
+                                                                   "reason":  "2026-11-18 CPU-only nodes directive, HPC skill1.0.161",
+                                                                   "pending_job_updated_in_place":  true,
+                                                                   "job_id_unchanged":  4536353,
+                                                                   "dependency_unchanged":  "afterok:4536352",
+                                                                   "submitted_script_retained":  true,
+                                                                   "actual_target_guard":  "PASS; UID445146001408 available vs172875941888 required; root69766782976 available, reserve max10GiB/10%; inodes checked"
+                                                               }
                                      },
                         "read_only_observation":  {
                                                       "observed_at_utc":  "2026-11-18T22:04:38Z",
@@ -446,5 +494,25 @@
                                                       "analysis_state":  "PENDING",
                                                       "analysis_allocation_seconds":  0
                                                   }
+                    },
+    "seed0_trigger_history":  {
+                                  "status":  "SEED1_REQUIRED",
+                                  "verdict":  null,
+                                  "delta_R3":  -0.045284242567682542,
+                                  "ci95":  [
+                                               -0.056268195746082009,
+                                               -0.034293740123209175
+                                           ],
+                                  "reason":  "Absolute seed0 effect below0.06; no final loss declared"
+                              },
+    "gpu_release":  {
+                        "observed_at_utc":  "2026-11-18T23:53:00Z",
+                        "gpu_uuid":  "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+                        "training_pid":  97394,
+                        "process_absent":  true,
+                        "own_lock":  "FREE",
+                        "gpu_contexts_on_this_UUID":  0,
+                        "remaining_own_GPU_work":  false,
+                        "scope":  "Actual target-node observation; other lines may subsequently claim GPU"
                     }
 }

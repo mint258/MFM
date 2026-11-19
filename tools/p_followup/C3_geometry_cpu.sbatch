@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=p-followup-C3-geometry
-#SBATCH --nodelist=compute-0-20
-#SBATCH --partition=all
+#SBATCH --nodelist=compute-0-16
+#SBATCH --partition=cpu
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --nice=10000

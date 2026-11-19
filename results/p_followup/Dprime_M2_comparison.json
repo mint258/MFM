@@ -1,11 +1,13 @@
 {
-  "status": "SEED1_REQUIRED",
-  "verdict": null,
+  "status": "COMPLETE",
+  "verdict": "loss",
   "seed1_required": true,
   "seeds": [
-    0
+    0,
+    1
   ],
-  "absolute_effect_threshold": 0.06,
+  "mean_delta": -0.03842869553842196,
+  "positive_effect_threshold": 0.037522097781636135,
   "primary": "Dprime minus M2/R3",
   "samples": 3000000,
   "comparisons": {
@@ -57,8 +59,58 @@
           ]
         }
       }
+    },
+    "1": {
+      "candidate_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/Dprime_M2_seed1.json",
+      "baseline_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/configs/p_followup/M2_seed1_reference.json",
+      "candidate_run": "p_followup_20261116_Dprime_M2_seed1",
+      "baseline_run": "fixed_20261115_M2_seed1_noise_20261117_attempt2",
+      "candidate_scores": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/p_followup_20261116/Dprime_M2_seed1/readout/scores.json",
+      "baseline_scores": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_noise_training/fixed_20261115_M2_seed1_noise_20261117_attempt2/readout/scores.json",
+      "baseline_R3": 0.470049811395258,
+      "comparisons": {
+        "R1": {
+          "delta": -0.11864777015385317,
+          "ci95": [
+            -0.1310879747100256,
+            -0.10581670034245609
+          ],
+          "verdict": "loss",
+          "effect_gate": null,
+          "paired_draws": 1000,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "delta": -0.031573148509161375,
+          "ci95": [
+            -0.04243675973173937,
+            -0.021103425065180016
+          ],
+          "verdict": "loss",
+          "effect_gate": null,
+          "paired_draws": 1000,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      }
     }
   },
+  "seed0_statistics_reused": true,
   "mainline_modified": false,
   "integration_requires_user_confirmation": false,
   "integration_owner": "recipe line",
