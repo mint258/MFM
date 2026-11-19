@@ -1,5 +1,25 @@
 # P 配方研究日志
 
+2026-11-19 02:51UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次03:21:08UTC。
+
+2026-11-19 02:51UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2568192/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次03:21:08UTC。
+
+2026-11-19 02:20UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次02:50:30UTC。
+
+2026-11-19 02:20UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2542720/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次02:50:30UTC。
+
+2026-11-19 01:50UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次02:20:01UTC。
+
+2026-11-19 01:50UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2517472/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次02:20:01UTC。
+
+2026-11-19 01:19UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次01:49:22UTC。
+
+2026-11-19 01:19UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2492352/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次01:49:22UTC。
+
+2026-11-19 00:49UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次01:19:00UTC。
+
+2026-11-19 00:49UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2468384/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次01:19:00UTC。
+
 2026-11-19 00:18UTC · fixed20261115 round3 · M2_seed1 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次00:48:37UTC。
 
 2026-11-19 00:18UTC · fixed20261115 round3 · M2 COMPLETED 3000000/3000000；C1 COMPLETED 3000000/3000000；C2 COMPLETED 3000000/3000000；C3 RUNNING 2442880/3000000；C4 COMPLETED 3000000/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次00:48:37UTC。
@@ -1010,3 +1030,9 @@ Actual Slurm4536398 completed0:0 oncompute16/1CPU/19s after root/NFS byte/inode 
 The followup owner published Dprime/M2 COMPLETE_TWO_SEEDS/loss: R3 seed0 delta-0.04528424256768254 CI[-0.05626819574608201,-0.034293740123209175]; seed1 delta-0.031573148509161375 CI[-0.04243675973173937,-0.021103425065180016]. Its final report supplies mean delta-0.03842869553842196 and explicitly states that there are no eligible two-seed winners or configuration keys to hand over. The original owner rule and separate per-seed CIs are retained; no main-line rejudging, resampling or new probes. Legacy D's M1+C single-seed win remains outside the current M2 handoff; C and F64 remain unadopted/closed.
 
 Recorded the formal source URLs, existing Git blob identities and owner-completed producer jobs in configs/p_recipe/fixed_20261115/external_line_decisions.json. Decoupling's recipe disposition is complete; its remaining C3 description/final regression/report stay with the owner. Heads is still WAITING_REGISTERED_SEED1 and the combined external completion/freeze flags remain false. No runtime change is needed for the empty winner set. C3 and all other live work are preserved. The daily producer now includes this handoff line; registered round4 still waits for C3.
+
+### 2026-11-19 10:56 CST — report-only seed metadata follows its actual role
+
+Corrected comparison evidence metadata so descriptive molecule-scaling pairs have no win/loss or seed trigger in either their canonical rows or attached evidence. R1 evidence cannot advertise a separate seed1 requirement; its reported interval/sign remains available for the registered secondary-disagreement annotation. The prior planner already created no extra run for either context; this makes the saved evidence agree with that behavior. R3 thresholds, original arrays, paired statistics, two-seed cap and scientific decisions are unchanged; no actual comparison has yet been decided with this session and C3 remains running.
+
+CPU16 Slurm4536485 completed0:0 with1CPU/5s after fresh root/NFS/inode/UID admission. Two new context cases (R1-only borderline and descriptive R3 borderline) plus the three directly affected session cases passed0.18s. No F1 or unrelated closed test was replayed, no scientific result was recomputed, and no GPU run was submitted. The changed source and methods are checked before publication.

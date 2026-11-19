@@ -66,3 +66,30 @@ def test_borderline_reuses_reference_and_waits_for_only_one_fresh_child(tmp_path
     assert calls==[{0,1},{0,1}]
     state=final.save()
     assert json.loads(Path(state['seed1_plan']).read_text())['configurations']==[]
+
+
+@pytest.mark.parametrize('context',['R1_only','descriptive_scaling'])
+def test_report_only_metadata_cannot_request_seed1_or_decide_scaling(tmp_path,monkeypatch,context):
+    m=module(monkeypatch);ledger={'runs':{}}
+    a=config(tmp_path,'candidate');b=config(tmp_path,'baseline')
+    descriptive=context=='descriptive_scaling'
+    publish(a,.424 if descriptive else .404,ledger);publish(b,.4,ledger)
+    if not descriptive:
+        path=Path(a['output'])/'readout/scores.json';scores=json.loads(path.read_text())
+        scores['R1'].update(mean_normalized_improvement=.424,paired_bootstrap={'values':[.424]*1000})
+        path.write_text(json.dumps(scores))
+    session=m['SeedComparisons'](tmp_path/'comparison',registry=tmp_path/'registry.json',
+        configuration_directory=tmp_path/'children',ledger=ledger,reference=tmp_path/'no_reference.json')
+    result=session.assess(a,b,'molecule_scaling' if descriptive else 'screening',0 if descriptive else 4,
+                          descriptive=descriptive)
+    assert result['ready'] and result['seed_count']==1 and not result['seed1_required']
+    assert not (tmp_path/'registry.json').exists() and not (tmp_path/'children').exists()
+    assert not result['evidence']['R1']['may_trigger_seed1']
+    assert not result['evidence']['R1']['seed1_required']
+    if descriptive:
+        assert result['seed_trigger_readout'] is None
+        assert all(item['decision']['verdict']=='descriptive' and not item['seed1_required']
+                   and not item['may_trigger_seed1'] for item in result['evidence'].values())
+    else:
+        assert result['evidence']['R1']['seed0_borderline']
+        assert result['rows'][1]['verdict']=='win'

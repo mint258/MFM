@@ -81,7 +81,7 @@ class SeedComparisons:
   if a['seed']!=0 or b['seed']!=0:raise ValueError('Start each comparison from seed0')
   key='|'.join(map(str,(purpose,round_number,a['run'],b['run'])))
   result=dict(A=a['run'],B=b['run'],A_configuration=a_path,B_configuration=b_path,
-              purpose=purpose,round=round_number,ready=False,seed_trigger_readout='R3')
+              purpose=purpose,round=round_number,ready=False,seed_trigger_readout=None if descriptive else 'R3')
   self.results[key]=result
   if not self.complete(a) or not self.complete(b):
    result['status']='WAITING_FOR_COMPLETE_SEED0';return result
@@ -93,8 +93,11 @@ class SeedComparisons:
    rows=[];evidence={}
    for readout in ('R3','R1'):
     pairs={seed:self.values(aa,bb,readout) for seed,(aa,bb) in scores.items()}
-    combined=combined_seed_decision(pairs);decision=dict(combined['decision'])
-    if descriptive:decision['verdict']='descriptive'
+    combined=combined_seed_decision(pairs)
+    combined['seed1_required']=bool(readout=='R3' and required and len(scores)==1)
+    combined['may_trigger_seed1']=readout=='R3' and not descriptive
+    if descriptive:combined['decision']['verdict']='descriptive'
+    decision=dict(combined['decision'])
     rows.append(dict(purpose=purpose,round=round_number,readout=readout,task='MEAN',A=a['run'],B=b['run'],**decision))
     evidence[readout]=combined
    return rows,evidence
