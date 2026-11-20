@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=D-stage0-full
 #SBATCH --partition=cpu
-#SBATCH --nodelist=compute-0-[8-19]
+#SBATCH --exclude=compute-0-[0-7,18,20-22]
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1

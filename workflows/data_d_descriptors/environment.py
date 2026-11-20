@@ -40,6 +40,7 @@ def main():
         except (FileNotFoundError, subprocess.TimeoutExpired) as error:
             report[" ".join(command)] = {"unavailable": str(error)}
     print(json.dumps(report, indent=2), flush=True)
+    return report
 
 
 if __name__ == "__main__":

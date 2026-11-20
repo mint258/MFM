@@ -77,7 +77,9 @@ class FullPlanTests(unittest.TestCase):
             run_root="/share/project/full", measured_panel_row_bytes=2000,
             existing_parameters_path="/share/project/config/old.json", workers=4)
         self.assertEqual(result["budget"]["fields"], {"L1": 2})
-        self.assertEqual(result["slurm"]["nodelist"], "compute-0-[8-19]")
+        self.assertEqual(result["slurm"]["allowed_nodes"], "compute-0-[8-19]")
+        self.assertEqual(result["slurm"]["nodes"], 1)
+        self.assertEqual(result["slurm"]["exclude"], "compute-0-[0-7,18,20-22]")
         self.assertFalse(result["slurm"]["exclusive"])
         self.assertFalse(result["jobs_submitted"])
         self.assertEqual(result["slurm"]["cpus_per_stage"]["produce"], 5)
