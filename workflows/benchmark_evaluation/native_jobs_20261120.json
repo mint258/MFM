@@ -2708,14 +2708,17 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/moleculeace_TabPFN_Pprime.py",
         "future_dependency": 4537124,
-        "native_dependency": "afterany:4537456,afterok:4537124",
+        "native_dependency": "afterok:4537124,afterany:4537572",
         "superseded_GPU_job": 4537227,
         "job": 4537283,
         "target_node": "compute-0-7",
         "source_file": "workflows/benchmark_evaluation/gpu_moleculeace_tabpfn_pprime.sbatch",
         "retain_original_job": true,
         "model_seed": 20261025,
-        "actual_future_GPU_admission_required": true
+        "actual_future_GPU_admission_required": true,
+        "previous_native_dependency": "afterany:4537456,afterok:4537124",
+        "protected_active_training_job": 4537572,
+        "actual_zero_runtime_dependency_updated": true
       },
       {
         "name": "pharmabench_TabPFN_Pprime",
@@ -2731,7 +2734,7 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/pharmabench_TabPFN_Pprime.py",
         "future_dependency": 4537124,
-        "native_dependency": "afterany:4537459,afterok:4537124",
+        "native_dependency": "afterok:4537124,afterany:4537555",
         "superseded_GPU_job": 4537228,
         "job": 4537478,
         "target_node": "compute-0-5",
@@ -2740,7 +2743,10 @@
         "model_seed": 20261025,
         "superseded_zero_start_GPU_job": 4537284,
         "parallel_reroute_preparation": 4537477,
-        "actual_future_GPU_admission_required": true
+        "actual_future_GPU_admission_required": true,
+        "previous_native_dependency": "afterany:4537459,afterok:4537124",
+        "protected_active_training_job": 4537555,
+        "actual_zero_runtime_dependency_updated": true
       },
       {
         "name": "tdc_asap_TabPFN_Pprime",
@@ -2756,7 +2762,7 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/tdc_asap_TabPFN_Pprime.py",
         "future_dependency": 4537124,
-        "native_dependency": "afterany:4537454,afterok:4537124",
+        "native_dependency": "afterok:4537124,afterany:4537552",
         "superseded_GPU_job": 4537229,
         "job": 4537479,
         "target_node": "compute-0-22",
@@ -2765,7 +2771,10 @@
         "model_seed": 20261025,
         "superseded_zero_start_GPU_job": 4537285,
         "parallel_reroute_preparation": 4537477,
-        "actual_future_GPU_admission_required": true
+        "actual_future_GPU_admission_required": true,
+        "previous_native_dependency": "afterany:4537454,afterok:4537124",
+        "protected_active_training_job": 4537552,
+        "actual_zero_runtime_dependency_updated": true
       },
       {
         "name": "biogen_TabPFN_Pprime",
@@ -4726,5 +4735,51 @@
     "actual_shared_concurrent_bytes_unchanged": 200546101981,
     "C1_dispatcher_7551_unchanged": true,
     "science_or_metrics_recomputed": false
+  },
+  "C1_current_protected_training_gates": {
+    "status": "NATIVE_DEPENDENCIES_UPDATED_AND_VERIFIED",
+    "all_queue_heads_UID": 1278,
+    "all_queue_heads_previous_state": "PENDING",
+    "all_queue_heads_elapsed": "00:00:00",
+    "scientific_program_body_changed": false,
+    "gates": [
+      {
+        "benchmark_job": 4537283,
+        "node": "compute-0-7",
+        "retained_feature_dependency": 4537124,
+        "protected_job": 4537572,
+        "protected_role": "D-R0-seed0-3M"
+      },
+      {
+        "benchmark_job": 4537478,
+        "node": "compute-0-5",
+        "retained_feature_dependency": 4537124,
+        "protected_job": 4537555,
+        "protected_role": "P-T5-single-seed9M"
+      },
+      {
+        "benchmark_job": 4537479,
+        "node": "compute-0-22",
+        "retained_feature_dependency": 4537124,
+        "protected_job": 4537552,
+        "protected_role": "P-T1-same-task-takeover9M"
+      }
+    ],
+    "actual_all_protected_handles_RUNNING_before_update": true,
+    "same_card_downstream_links_unchanged": true,
+    "primary_7502_preparation_7503_dispatcher_7551_unchanged": true,
+    "no_P_D_S_jobs_modified": true,
+    "shared_notice": {
+      "job": 4537576,
+      "state": "COMPLETED/0:0",
+      "node": "compute-0-17",
+      "paths": 6,
+      "effective_concurrent_bytes": 200546101981,
+      "remaining_original_B0_forecast_bytes": 55489581056,
+      "UID_observation_age_seconds": 13.108469247817993,
+      "active_SQLite_opened": false
+    },
+    "budget_authority_confirmed": "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/storage_reservations.json",
+    "current_D_NFS_joint_unchanged": 36706053853
   }
 }
