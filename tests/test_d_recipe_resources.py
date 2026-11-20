@@ -5,10 +5,21 @@ import unittest
 from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from tools.d_recipe.resources import DJointGuard, DiskUnavailable, protection_plan
+from tools.d_recipe.resources import DJointGuard, DiskUnavailable, execution_site, protection_plan
 
 
 class ResourceGuardTests(unittest.TestCase):
+    def test_cpu_diagnostics_require_a_real_cpu_allocation(self):
+        with patch.dict("os.environ", SLURM_JOB_ID="own-test"):
+            with patch("tools.d_recipe.resources.platform.node", return_value="compute-0-17"):
+                execution_site({}, cpu=True)
+            for node in ("sonmi", "compute-0-2", "compute-0-6", "compute-0-20", "compute-0-21"):
+                with patch("tools.d_recipe.resources.platform.node", return_value=node), self.assertRaises(RuntimeError):
+                    execution_site({}, cpu=True)
+        with patch.dict("os.environ", {}, clear=True), \
+             patch("tools.d_recipe.resources.platform.node", return_value="compute-0-17"), self.assertRaises(RuntimeError):
+            execution_site({}, cpu=True)
+
     def guard(self):
         guard = object.__new__(DJointGuard)
         guard.configuration = dict(storage_peak_bytes=3 * 2**30)

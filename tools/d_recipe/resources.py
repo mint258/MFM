@@ -53,14 +53,9 @@ class DJointGuard(Guard):
             raise DiskUnavailable("D target capacity or joint reservation unavailable: " + str(error)) from error
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("train", "cpu_statistics"))
-    parser.add_argument("--configuration", required=True)
-    arguments = parser.parse_args()
-    configuration = json.loads(Path(arguments.configuration).read_text(encoding="utf-8"))
+def execution_site(configuration, *, cpu):
+    """Apply the same node/allocation policy to parent and direct entries."""
     node = platform.node().split(".")[0]
-    cpu = arguments.command == "cpu_statistics"
     allowed = ({"compute-0-" + str(i) for i in range(8, 20)} if cpu else
                {"compute-0-" + str(i) for i in (*range(8), 20, 22)})
     native = configuration.get("execution") == "native_SSH"
@@ -68,6 +63,15 @@ def main():
         raise RuntimeError("D resource guard is on the wrong registered execution node")
     if not native and not os.environ.get("SLURM_JOB_ID"):
         raise RuntimeError("A real Slurm allocation is required")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("command", choices=("train", "cpu_statistics", "diagnostic_forward", "diagnostic_statistics"))
+    parser.add_argument("--configuration", required=True)
+    arguments = parser.parse_args()
+    configuration = json.loads(Path(arguments.configuration).read_text(encoding="utf-8"))
+    execution_site(configuration, cpu=arguments.command in ("cpu_statistics", "diagnostic_statistics"))
     guard = DJointGuard(configuration)
     guard.run([sys.executable, "-B", "-m", "tools.d_recipe." + arguments.command,
                "--configuration", arguments.configuration], configuration["output"])

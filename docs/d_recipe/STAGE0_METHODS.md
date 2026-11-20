@@ -57,3 +57,11 @@ CPU 收尾命令为 python -B -m tools.d_recipe.resources cpu_statistics --confi
 宽库新增目标在归一化时先对 F64 原值执行减中心、除尺度，再转换成 FP32 训练目标。不能先把接近常数但非恒定的新字段舍入成 F32，丢失其真实变化。复用原 loader 已有的 F64 算术路径，选择器只在调用局部生效；原 D20/D3 的既有路径、冻结参数、原值及缺失状态保持原样。该算术模式纳入目标检查点条件绑定。新增近常数用例覆盖 raw=1+2^-30/1+2*2^-30、center=1、scale=2^-30 的差异；用例尚待排队 CPU 测试，并不是科学结果。
 
 Mordred 的 Missing/Error 对象由 MissingValueBase 显式识别，其 float 转换会返回 NaN，不能据此把普通缺失误标为实际非有限值。正常缺失保留 missing 状态；对象中明确包装的 OverflowError 仍记数值溢出；直接返回的 NaN/Inf 记数值事件。该修正执行既有过滤规则，没有改变 95% 阈值或增加新过滤条件。新增分类用例已接入，尚未执行。接口依据：[Mordred error objects](https://github.com/JacksonBurns/mordred-community/tree/main/mordred/error)。
+
+## 表示诊断接入（实现待测，尚未运行）
+
+`diagnostic_forward` 复用 P follow-up 的 `diagnose.validation_indices`、严格 encoder 加载和第 3–6 层提取函数，不调用其任务入口或写其 CONTROL/RESULTS。仅接收 D-R0、D-R1、D-G1 和实际采纳臂的 seed0 3M 终点。固定 5000 VAL 的全部允许 k10 构象只做一次前向，保存 F64 mean(H)，并按原始原子顺序保留每分子首允许构象的原子 H。分块 flush 后原子替换游标；已有完整缓存直接复用，基础设施中断从已关闭游标继续。未增加全层探针扫描。
+
+`diagnostic_statistics` 只在 CPU 8–19 的真实分配上执行，复用 `collapse_composition.py` 所调用的原 `composition_statistics.py`：原组成基底含显式 H 的元素计数、总原子数和重原子数；原五折嵌套 ridge、CEV、CVF、CVF_res 不变。一次生成 1000 次分子 bootstrap 权重（seed20261025），所有层和指标共用；不重新拟合 OOF 预测。参与率点值沿用原总体协方差的谱公式，区间用相同分子权重和精确 F64 原子矩，按 trace(C)^2/sum(C*C) 计算同一谱量。原子参与率与 mean(H) 参与率均基于首允许构象，不把原子当独立重采样单位。闭合统计直接复用，不重复前向或抽样。
+
+入口为 `python -B -m tools.d_recipe.resources diagnostic_forward --configuration <Root冻结配置>` 及 `diagnostic_statistics`。目前没有诊断作业、前向缓存、指标、成本实测或完成结论。实际提交前单独登记这些输出的联合峰值：缓存数值字节为 4×512×8×（允许构象总数＋首构象原子总数），另计 panel、原子替换临时文件及其他未完成 D 写入；不把它们偷偷放入现有阶段 0 的 14GiB 预算。CPU 的每层重采样外积累加器约 1.96GiB 内存，不落节点临时盘。累计 4 小时或连续两次实际失败仍按任务书 UNRESOLVED 处理。

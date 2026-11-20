@@ -9,10 +9,19 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from tools.d_recipe.diagnostics import describe, participation_ratio
+from tools.d_recipe.diagnostics import bootstrap_participation, describe, participation_ratio
 
 
 class DiagnosticTests(unittest.TestCase):
+    def test_molecule_bootstrap_pr_matches_analytic_weighted_covariance(self):
+        values = np.array([[1., 0.], [-1., 0.], [0., 2.], [0., -2.]])
+        weights = np.array([[1., 1.], [2., 0.], [0., 2.], [0., 0.]])
+        for molecules, bootstraps in ((1, 1), (32, 128)):
+            result = bootstrap_participation(values, [0, 2, 4], weights,
+                molecule_chunk=molecules, bootstrap_chunk=bootstraps)
+            np.testing.assert_allclose(result[:3], [25 / 17, 1., 1.])
+            self.assertTrue(np.isnan(result[3]))
+
     def test_population_pr_handles_isotropic_rank_one_and_constant_features(self):
         for values, expected in ((np.array([[1., 0.], [-1., 0.], [0., 1.], [0., -1.]]), 2.),
                                  (np.array([[1., 2.], [-1., -2.]]), 1.),

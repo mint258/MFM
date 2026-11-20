@@ -35,7 +35,7 @@ def participation_ratio(count, total, outer):
         eigenvalues=spectrum.tolist(), bootstrap=False)
 
 
-def describe(layers, *, owners, first, composition, statistics=None, guard=lambda: None):
+def describe(layers, *, owners, first, composition, statistics=None, guard=lambda: None, weights=None):
     """Consume one cache, retaining the existing P statistic and fold choices.
 
     `layers` maps the registered layer numbers to `means` (one row per allowed
@@ -52,7 +52,8 @@ def describe(layers, *, owners, first, composition, statistics=None, guard=lambd
     if len(first) != len(composition) or not np.array_equal(owners[first], np.arange(len(first))):
         raise ValueError("Producer's first-conformer rows must retain molecule order")
     guard()
-    weights = np.vstack([np.ones((1, len(first))), statistics.bootstrap_weights(len(first))])
+    if weights is None:
+        weights = np.vstack([np.ones((1, len(first))), statistics.bootstrap_weights(len(first))])
     results, draws = {}, {}
     for layer, cache in layers.items():
         guard()
@@ -74,3 +75,43 @@ def describe(layers, *, owners, first, composition, statistics=None, guard=lambd
             seed=20261025, unit="molecule", paired=True, refit=False),
         forward_reused=True, downstream_probes_fitted=False,
         PR_uncertainty="Existing P point statistic; no PR confidence interval"), draws
+
+
+def bootstrap_participation(values, atom_ptr, weights, *, guard=lambda: None,
+                            molecule_chunk=32, bootstrap_chunk=128):
+    """Exact F64 spectral PR from molecule-weighted first-conformer moments.
+
+    trace(C)^2 / sum(C*C) equals the existing eigenvalue PR for symmetric C.
+    Accumulate one covariance per draw, streaming source atom rows. No atom
+    bootstrap or extra forwards are performed. Chunk sizes affect memory only.
+    """
+    atom_ptr = np.asarray(atom_ptr)
+    width = values.shape[1]
+    weights = np.asarray(weights, np.float64)
+    count = weights @ np.diff(atom_ptr).astype(np.float64)
+    total = np.zeros((len(weights), width), np.float64)
+    outer = np.zeros((len(weights), width * width), np.float64)
+    for start in range(0, len(atom_ptr) - 1, molecule_chunk):
+        guard()
+        end = min(start + molecule_chunk, len(atom_ptr) - 1)
+        sums = np.empty((end - start, width), np.float64)
+        moments = np.empty((end - start, width * width), np.float64)
+        for offset, molecule in enumerate(range(start, end)):
+            h = np.asarray(values[atom_ptr[molecule]:atom_ptr[molecule + 1]], np.float64)
+            sums[offset] = h.sum(0)
+            moments[offset] = (h.T @ h).reshape(-1)
+        total += weights[:, start:end] @ sums
+        for b in range(0, len(weights), bootstrap_chunk):
+            outer[b:b + bootstrap_chunk] += weights[b:b + bootstrap_chunk, start:end] @ moments
+    result = np.full(len(weights), np.nan)
+    for b, n in enumerate(count):
+        if b % bootstrap_chunk == 0:
+            guard()
+        if n <= 0:
+            continue
+        mean = total[b] / n
+        covariance = outer[b].reshape(width, width) / n - np.outer(mean, mean)
+        denominator = np.square(covariance).sum()
+        if denominator > 0:
+            result[b] = np.trace(covariance) ** 2 / denominator
+    return result
