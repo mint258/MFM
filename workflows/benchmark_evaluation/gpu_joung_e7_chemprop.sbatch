@@ -1,4 +1,4 @@
-sbatch --parsable --dependency=afterany:4537271 <<'DOWNSTREAMGPU'
+sbatch --parsable --dependency=afterany:4537270 <<'DOWNSTREAMGPU'
 #!/bin/bash
 #SBATCH --job-name=GPU-Joung_e7_Chemprop
 #SBATCH --partition=gpu
