@@ -629,3 +629,7 @@ Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json e
 2026-11-20 08:11 CST · B0 NMR原划分计数4536946 C0：Kwon2020作者datasets.zip的13C/1H测试谱行5390/2554、唯一原分子5055/2527均与Jonas2019发布划分一致，未重分割或数值QA。pKa位点证据4536942 C0：全37类作者SI官能团按原子去重，训练18838多位点/5588单一catalog位点/5546未决，5465条唯一映射候选；外盲9条。候选定义已向用户提交，尚未冻结/不供机制拟合；宏观主任务保持可用。新增4项NMR计数测试和5项位点反例测试通过。原Pprime与新UFF继续，无数据库副本、源删除或科学重试。
 
 2026-11-20 08:26 CST · B0双范围终态交付已提交4536961，afterok4536963源码、原范围4536599及新增Pprime4536907。两范围各自geometry与Pprime都需原生C0/不可变/无PENDING或INTENT；元数据聚合，不做数据库复读。pKa定义/正式原子标签仍待定时all_required_production_complete与all_required_work_complete保持false。当前生产持续、未来manifest尚未发布。node18只读启动复核4536958未进入解释器，实际slurmstepd为D，sacct记TIMEOUT/123秒×1CPU，scontrol仍COMPLETING；未证明节点恢复，继续排除，不动Slurm daemon/管理员状态。
+
+2026-11-20 08:47 CST · B0新NMR显式H源原子序与旧D3默认去H/末尾加H顺序存在适配差异；仅针对已记录的D3原子序/键图序失败准备完整图/手性排列适配器，SASA逆映射回原子序，原坐标/成功D3/D20/QM不变、原失败保留。6970失败元数据、6974合成测试及6976源码均C0后，6978还需原UFF6924实际C0才可执行；6979在修复生产C0后封存并接6906→6907。原6925为未启动的metadata准备，验证PENDING/0秒后取消，未停止原Pprime或UFF。新NMR-D仍未最终就绪，不把修复提交当完成；原范围没有D部分失败（原producer113679齐备），本次不改原范围已供模型使用的数据。
+
+2026-11-20 09:02 CST · B0新增UFF6924已实际C0（4253秒/2CPU），38,240图全部终态。原失败元数据6970 C0确认4分子D20无错、D3因元素序对齐未计算；6974六项排列/同位素/手性/once保留测试通过，6976 C0源码PASS5264/3735/0错误。D3属性适配修复6978实际RUNNING并已产生首批D3_REPAIRED，未重算UFF/QM/成功D3/D20，原错误及once结果保留；6979须待修复真实C0才封存并接6906→6907。原Pprime4536581继续；新D尚未整批封存。
