@@ -2,7 +2,7 @@
   "schema": "BENCHMARK_NATIVE_JOB_INDEX_20261120_V1",
   "scope": "96 active candidate endpoints after complete anonymous five-endpoint inventory verification; no final decisions yet",
   "native_source_worktree_HEAD": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
-  "latest_published_before_this_batch": "b46f22c54648f9698e01885ced05ab3355ae9683",
+  "latest_published_before_this_batch": "f4404bf0bfe31d2de7e47221ed887eee17a423dc",
   "artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119",
   "deferred_inventory": {
     "job": 4536851,
@@ -31,7 +31,7 @@
   "NMR": {
     "original_split_job": 4536856,
     "features_job": 4537317,
-    "RF_LightGBM_job": 4537318,
+    "RF_LightGBM_job": 4537322,
     "Chemprop_job": 4537319,
     "source_counts": {
       "13C": {
@@ -68,50 +68,56 @@
       "traditional_ML_seed_count": 1
     },
     "corrected_RF_time_limit": {
-      "job": 4537318,
+      "job": 4537322,
       "verified_before_update": "PENDING/zero runtime",
       "native_current_TimeLimit": "UNLIMITED",
       "CPU_partition_MaxTime": "UNLIMITED",
       "CPUs": 2,
       "model_budget_changed": false,
-      "reason": "No artificial large-forest interruption; original estimator and task budgets unchanged"
+      "reason": "No artificial large-forest interruption; original estimator and task budgets unchanged",
+      "superseded_zero_started_job": 4537318
     },
     "temporary_critical_CPU_order": {
-      "ready_unstarted_own_jobs_held": [
+      "native_after_start_job": 4537322,
+      "source_feature_dependency": 4537317,
+      "affected_own_jobs": [
         4537026,
         4537028,
-        4537030,
+        4537323,
         4537031,
         4537033,
-        4537035,
+        4537324,
         4537036,
         4537038,
-        4537040,
+        4537325,
         4537041,
         4537043,
-        4537045,
+        4537326,
         4537046,
         4537048,
-        4537050,
+        4537327,
         4537051,
         4537053,
-        4537055,
+        4537328,
         4537056,
         4537058,
-        4537060,
+        4537329,
         4537061,
         4537063,
-        4537065,
+        4537330,
         4537066,
         4537068,
         4537119
       ],
+      "all_user_holds_released": true,
+      "native_dependency": "after:4537322",
+      "does_not_wait_for_forest_completion": true,
       "existing_running_jobs_untouched": [
         4536999,
         4537025
       ],
-      "release_condition": "As soon as corrected NMR RF/LightGBM4537318 acquires its allocation after feature repair4537317; do not leave these holds behind",
-      "other_windows_jobs_held": false
+      "original_source_prerequisites_verified_satisfied_before_ordering": true,
+      "other_windows_jobs_changed": false
     }
   },
   "pKa": {
@@ -3341,8 +3347,8 @@
         "folder": "B1_Chemprop/job_4537203"
       },
       {
-        "job": 4537318,
-        "folder": "B1_RF_LGBM_NMR/job_4537318"
+        "job": 4537322,
+        "folder": "B1_RF_LGBM_NMR/job_4537322"
       },
       {
         "job": 4537319,
@@ -3389,9 +3395,9 @@
         "folder": "reference_cv_models/job_4537026"
       },
       {
-        "job": 4537030,
+        "job": 4537323,
         "model": "RF-ECFP4",
-        "folder": "reference_cv_models/job_4537030"
+        "folder": "reference_cv_models/job_4537323"
       },
       {
         "job": 4537031,
@@ -3399,9 +3405,9 @@
         "folder": "reference_cv_models/job_4537031"
       },
       {
-        "job": 4537035,
+        "job": 4537324,
         "model": "RF-ECFP4",
-        "folder": "reference_cv_models/job_4537035"
+        "folder": "reference_cv_models/job_4537324"
       },
       {
         "job": 4537036,
@@ -3409,9 +3415,9 @@
         "folder": "reference_cv_models/job_4537036"
       },
       {
-        "job": 4537040,
+        "job": 4537325,
         "model": "RF-ECFP4",
-        "folder": "reference_cv_models/job_4537040"
+        "folder": "reference_cv_models/job_4537325"
       },
       {
         "job": 4537041,
@@ -3419,9 +3425,9 @@
         "folder": "reference_cv_models/job_4537041"
       },
       {
-        "job": 4537045,
+        "job": 4537326,
         "model": "RF-ECFP4",
-        "folder": "reference_cv_models/job_4537045"
+        "folder": "reference_cv_models/job_4537326"
       },
       {
         "job": 4537046,
@@ -3429,9 +3435,9 @@
         "folder": "reference_cv_models/job_4537046"
       },
       {
-        "job": 4537050,
+        "job": 4537327,
         "model": "RF-ECFP4",
-        "folder": "reference_cv_models/job_4537050"
+        "folder": "reference_cv_models/job_4537327"
       },
       {
         "job": 4537051,
@@ -3439,9 +3445,9 @@
         "folder": "reference_cv_models/job_4537051"
       },
       {
-        "job": 4537055,
+        "job": 4537328,
         "model": "RF-ECFP4",
-        "folder": "reference_cv_models/job_4537055"
+        "folder": "reference_cv_models/job_4537328"
       },
       {
         "job": 4537056,
@@ -3449,9 +3455,9 @@
         "folder": "reference_cv_models/job_4537056"
       },
       {
-        "job": 4537060,
+        "job": 4537329,
         "model": "RF-ECFP4",
-        "folder": "reference_cv_models/job_4537060"
+        "folder": "reference_cv_models/job_4537329"
       },
       {
         "job": 4537061,
@@ -3459,9 +3465,9 @@
         "folder": "reference_cv_models/job_4537061"
       },
       {
-        "job": 4537065,
+        "job": 4537330,
         "model": "RF-ECFP4",
-        "folder": "reference_cv_models/job_4537065"
+        "folder": "reference_cv_models/job_4537330"
       },
       {
         "job": 4537066,
@@ -3565,5 +3571,123 @@
     "base": "data-benchmark-b0-20261119",
     "draft": true,
     "scientific_results_complete": false
+  },
+  "sparse_RF_input_storage": {
+    "status": "PREPARED_AND_UNIT_TESTED",
+    "new_tests": 4,
+    "fixture_step": "4536999.10",
+    "source_step": "4536999.11",
+    "storage": "scipy sparse CSC float32; sklearn1.7.2 documented supported input",
+    "original_little_endian_bits_component_order_gas_flag_sample_order_preserved": true,
+    "RF_parameters_and_seed_unchanged": true,
+    "scientific_outputs_replayed": false,
+    "already_running_dense_RF_jobs_untouched": [
+      4536999,
+      4537025
+    ],
+    "superseded_zero_runtime_jobs": [
+      4537318,
+      4537030,
+      4537035,
+      4537040,
+      4537045,
+      4537050,
+      4537055,
+      4537060,
+      4537065
+    ],
+    "replacement_native_producers": [
+      {
+        "name": "NMR_RF_LightGBM_native_sparse",
+        "old_job": 4537318,
+        "held": false,
+        "models": [
+          "RF-ECFP4",
+          "LightGBM-RDKit2D"
+        ],
+        "job": 4537322
+      },
+      {
+        "name": "Joung_e1_RF_native_sparse",
+        "endpoint_index": 1,
+        "old_job": 4537030,
+        "held": true,
+        "models": [
+          "RF-ECFP4"
+        ],
+        "job": 4537323
+      },
+      {
+        "name": "Joung_e2_RF_native_sparse",
+        "endpoint_index": 2,
+        "old_job": 4537035,
+        "held": true,
+        "models": [
+          "RF-ECFP4"
+        ],
+        "job": 4537324
+      },
+      {
+        "name": "Joung_e3_RF_native_sparse",
+        "endpoint_index": 3,
+        "old_job": 4537040,
+        "held": true,
+        "models": [
+          "RF-ECFP4"
+        ],
+        "job": 4537325
+      },
+      {
+        "name": "Joung_e4_RF_native_sparse",
+        "endpoint_index": 4,
+        "old_job": 4537045,
+        "held": true,
+        "models": [
+          "RF-ECFP4"
+        ],
+        "job": 4537326
+      },
+      {
+        "name": "Joung_e5_RF_native_sparse",
+        "endpoint_index": 5,
+        "old_job": 4537050,
+        "held": true,
+        "models": [
+          "RF-ECFP4"
+        ],
+        "job": 4537327
+      },
+      {
+        "name": "Joung_e6_RF_native_sparse",
+        "endpoint_index": 6,
+        "old_job": 4537055,
+        "held": true,
+        "models": [
+          "RF-ECFP4"
+        ],
+        "job": 4537328
+      },
+      {
+        "name": "Joung_e7_RF_native_sparse",
+        "endpoint_index": 7,
+        "old_job": 4537060,
+        "held": true,
+        "models": [
+          "RF-ECFP4"
+        ],
+        "job": 4537329
+      },
+      {
+        "name": "Joung_e8_RF_native_sparse",
+        "endpoint_index": 8,
+        "old_job": 4537065,
+        "held": true,
+        "models": [
+          "RF-ECFP4"
+        ],
+        "job": 4537330
+      }
+    ],
+    "speedup_claimed_without_actual_fit": false
   }
 }
