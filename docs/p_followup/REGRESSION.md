@@ -49,3 +49,5 @@ D′ seed1组合统计复用新增test_p_followup_dprime_reuse.py：实际comput
 current/pyproject.toml的默认pytest目录为tests。当前current/tests平铺203个test_*.py模块，无嵌套模块或额外*_test.py模块；其余4个Python文件是conftest及3个夹具。既有隔离回归器完整枚举全部203模块，逐模块pytest仍加载公共conftest；final_validation.sbatch调用full_regression.py时不带repair/module筛选，因此覆盖当前默认目录的完整测试范围。
 
 仓库唯一GitHub默认检查为.github/workflows/source-check.yml中的python tools/check_repository.py；结项入口在完整CPU回归后执行同一默认命令并保存真实结果。当前只完成静态范围核对，尚未运行新的完整门禁；此前200模块门禁及后续定向测试保留各自来源，不合并表述为本次完整执行。
+
+2026-11-20 22:36 CST调度修正：短工程补测4536800此前沿用UNLIMITED，可能限制短窗口回填；依据已测完整203模块710秒、旧16CPU修复174秒，将原PENDING作业原位更新为TimeLimit=00:30:00，scontrol实际回读成功。HPC技能测试条款要求明确测试墙钟上限；该30分钟只针对这次工程补测，覆盖参考完整执行时间的两倍以上，不是科学训练/拟合的新增停止门。编号、提交时间、普通Nice0、单机16CPU、允许CPU8–19及七模块/250项范围不变，未重新提交或启动训练。原提交脚本保留；生效值来自scontrol原位更新，仓库repair入口同步声明30分钟供后续复用。当前仍待实际分配，不把更合适的资源请求表述为已经开测或通过，也不把Slurm远期StartTime当成可靠ETA。
