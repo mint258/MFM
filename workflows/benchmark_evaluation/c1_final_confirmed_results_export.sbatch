@@ -86,7 +86,7 @@ if len(actual)!=1 or actual[0][1:3]!=['COMPLETED','0:0']:
 atomic=json.loads(atomic_path.read_text())
 if str(atomic.get('job'))!=atomic_job:
     raise IncompleteComparison('Approved atomic manifest belongs to a different native producer')
-table=atomic_module.apply_to_c1(table,atomic)
+table=atomic_module.apply_to_c1(table,atomic,csv_rows(atomic_path.parent/'pKa_atomic_approved_baselines.csv'))
 baseline_manifest=unique('B1_confirmation_results/job_*/manifest.json')
 baseline_closed=json.loads(baseline_manifest.read_text())
 if (baseline_closed.get('status')!='B1_NEURAL_CONFIRMATION_RESULTS_CLOSED'

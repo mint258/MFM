@@ -4660,12 +4660,12 @@
     "source_preparation_state": "COMPLETED/0:0",
     "source_preparation_node": "compute-0-17",
     "focused_synthetic_tests": 6,
-    "dispatch_job": 4537646,
+    "dispatch_job": 4537651,
     "dispatch_state": "PENDING",
     "dispatch_dependency": "afterok:4537503",
     "preparation_manifest": "conditional_preparation/C1/job_4537503/manifest.json",
-    "dispatch_state_manifest": "conditional_dispatch/C1/job_4537646/dispatch_state.json",
-    "source_cache": "approved_atomic_final_sources/job_4537645/proposed_sources.json",
+    "dispatch_state_manifest": "conditional_dispatch/C1/job_4537651/dispatch_state.json",
+    "source_cache": "approved_final_metadata_sources/job_4537650/proposed_sources.json",
     "module": "workflows/benchmark_evaluation/conditional_chain.py",
     "preserves_frozen_scientific_configuration": true,
     "only_registered_final_significant_TabPFN_cells": true,
@@ -4706,9 +4706,15 @@
         "state": "CANCELLED by1278",
         "elapsed": "00:00:00",
         "reason": "Final export must await newly approved atomic supplement"
+      },
+      {
+        "job": 4537646,
+        "state": "CANCELLED by1278",
+        "elapsed": "00:00:00",
+        "reason": "Final row copies closed actual TRAIN mean and records placeholder reason as history"
       }
     ],
-    "latest_source_preparation": 4537645,
+    "latest_source_preparation": 4537650,
     "latest_scheduler_tests": 11,
     "registered_private_backend_metadata_checked": 2,
     "real_consumer_sources_checked": 4,
@@ -4818,7 +4824,7 @@
     "primary_7502_preparation_7503_producer_IDs_unchanged": true,
     "original_dispatcher_at_GPU_gate_update": 4537551,
     "current_dispatcher_after_backend_alias_fix": 4537587,
-    "current_dispatcher": 4537646,
+    "current_dispatcher": 4537651,
     "native_GPU7_gate_refreshed_20261121": true
   },
   "node_local_peer_storage_protection": {
@@ -5054,7 +5060,7 @@
     ],
     "C1_primary": 4537502,
     "C1_preparation": 4537503,
-    "C1_dispatcher": 4537646,
+    "C1_dispatcher": 4537651,
     "benchmark_jobs_or_scientific_inputs_changed": false,
     "final_C1_produced": false
   },
@@ -5158,6 +5164,29 @@
       "actual_TRAIN_rows": 4347,
       "input_feature_count": 75,
       "statistics_source": "FIRST_ATOMIC_SUPPLEMENT_PRODUCER"
+    },
+    "final_metadata_and_upstream_tests": {
+      "job": 4537650,
+      "passed": 23,
+      "atomic_supplement_tests": 11,
+      "B0_projection_tests": 6,
+      "B0_storage_tests": 6,
+      "previous_launcher_encoding_failure": 4537649,
+      "no_scientific_replay": true,
+      "actual_TRAIN_mean_copied_from_closed_CSV": true
+    }
+  },
+  "published_B0_final_base_integration": {
+    "sha": "50faa3f081812aa0c871c87517e6622f4fb231db",
+    "changed_files": 12,
+    "STATUS_append_delta_chars": 2885,
+    "preserve_other_workline_notices": true,
+    "source_check": {
+      "job": 4537652,
+      "state": "COMPLETED/0:0",
+      "files": 5587,
+      "python_files": 3774,
+      "scientific_outputs_replayed": false
     }
   }
 }

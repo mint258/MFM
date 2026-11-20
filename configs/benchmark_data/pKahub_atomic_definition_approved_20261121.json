@@ -1,0 +1,22 @@
+{
+  "schema": "PKAHUB_ATOMIC_SINGLE_SITE_DEFINITION_AUTHORITY_V1",
+  "definition_id": "AUTHOR_TABLE_S2_37_CATALOG_V1",
+  "approved": true,
+  "authority_kind": "explicit_user_message_question_reply",
+  "question_item_id": "[\"request_user_input_async\",\"call_26fc88ebb22f40e9b06741b7acb9bffc\",0]",
+  "user_reply": "采用作者官能团规则，未决不进入原子机制任务（推荐）",
+  "recorded_CST": "2026-11-21T05:50:54+08:00",
+  "proposal_job": 4536942,
+  "catalog_reference": "https://doi.org/10.1021/acs.jcim.6c00107.s001",
+  "catalog_patterns": 37,
+  "rules": [
+    "Count distinct matched site atoms; do not collapse multiple atoms or infer single-site status from a lone observed transition.",
+    "Exclude unresolved suspicious sites and charged source states from atomic mechanism targets.",
+    "Use only the closed uniquely mapped proposed targets; preserve macro tasks, full-key blind exclusions, values, units and geometry/source atom mappings.",
+    "No microscopic assignment to multi-site molecules; predicted microspecies are not experimental micro labels."
+  ],
+  "proposed_training_atomic_endpoints": 5465,
+  "proposed_external_atomic_endpoints": 9,
+  "experimental_microscopic_records": 0,
+  "source_catalog_definition_caveat_preserved": true
+}

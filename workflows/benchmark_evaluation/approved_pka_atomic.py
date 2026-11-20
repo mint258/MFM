@@ -120,7 +120,7 @@ def prediction_rows(rows, prediction, mean, model, seed=SEED, feature_group=None
         answer.append(out)
     return answer
 
-def apply_to_c1(table, supplement):
+def apply_to_c1(table, supplement, closed_metrics=None):
     """Replace only the registered unresolved mechanism cell, without any score replay."""
     if (supplement.get("status")!="APPROVED_PKA_ATOMIC_SUPPLEMENT_CLOSED"
         or supplement.get("B1_task_screen_modified") is not False
@@ -136,7 +136,19 @@ def apply_to_c1(table, supplement):
         raise ValueError("The supplement cannot change the frozen task roster or configuration")
     if new.get("task_roster_reselection") is not False:
         raise ValueError("Task reselection is prohibited")
-    result=[dict(r) for r in table];result[index]=dict(old,**new)
+    updated=dict(old,**new)
+    updated["historical_primary_placeholder_reason"]=old.get("reason")
+    if new.get("status")=="FINAL_APPROVED_SINGLE_SITE_APPENDIX":
+        updated["reason"]="APPROVED_POST_FREEZE_SINGLE_SITE_APPENDIX"
+        if closed_metrics is not None:
+            native=[r for r in closed_metrics if r.get("model")=="C1_Pprime_plus_RDKit_atom_LightGBM"
+                and r.get("task")==TARGET and r.get("definition_id")==DEFINITION]
+            if len(native)!=1:
+                raise ValueError("Exactly one closed aggregate C1 atom row is required")
+            # Copy the producer's actual TRAIN reference verbatim, without recalculation.
+            updated["training_mean"]=native[0]["training_mean"]
+            updated["n_train"]=native[0]["n_train"]
+    result=[dict(r) for r in table];result[index]=updated
     return result
 
 def prepare(entry_path, out, safe):

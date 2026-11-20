@@ -89,6 +89,17 @@ class ApprovedPkaTests(unittest.TestCase):
         self.assertEqual(original,snapshot);self.assertEqual(result[0],other)
         self.assertEqual(result[1]["RAE"],.5)
         self.assertEqual(result[1]["frozen_B1_role"],"UNRESOLVED")
+    def test_final_metadata_reuses_closed_train_reference_and_preserves_old_placeholder_history(self):
+        cell,s=self.supplement();cell["reason"]="ORIGINAL_EXPERIMENTAL_SINGLE_SITE_ATOM_ANNOTATIONS_ABSENT"
+        s["C1_result"]["status"]="FINAL_APPROVED_SINGLE_SITE_APPENDIX"
+        aggregate=[dict(model="C1_Pprime_plus_RDKit_atom_LightGBM",task="single_site_mechanism",
+            definition_id="AUTHOR_TABLE_S2_37_CATALOG_V1",training_mean="6.1147480427053",n_train="4347")]
+        row=apply_to_c1([cell],s,aggregate)[0]
+        self.assertEqual(row["training_mean"],aggregate[0]["training_mean"])
+        self.assertEqual(row["n_train"],"4347")
+        self.assertEqual(row["historical_primary_placeholder_reason"],cell["reason"])
+        self.assertEqual(row["reason"],"APPROVED_POST_FREEZE_SINGLE_SITE_APPENDIX")
+        with self.assertRaises(ValueError):apply_to_c1([cell],s,[])
     def test_changed_role_or_definition_or_incomplete_confirmation_refused(self):
         cell,s=self.supplement()
         for field,value in (("B1_task_screen_modified",True),("all_required_neural_confirmations_closed",False)):
