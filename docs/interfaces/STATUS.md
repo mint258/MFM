@@ -711,3 +711,14 @@ CPU4537586 COMPLETED0:0 on CPU17:7 scheduler tests and metadata checks of both o
 ### 2026-11-20 benchmark C1 native consumer script normalization closed
 
 CPU4537589 COMPLETED0:0 on CPU17:9 scheduler tests passed; all three real registered report/combine/final consumer entries passed bash syntax and embedded Python parsing. The existing report/combine sbatch submission envelopes are now unwrapped without changing their native bodies, and all three consumers are validated before any held GPU submission. Dispatcher4537587 was verified UID1278/PENDING/zero-runtime/no start and cancelled before work; actual replacement4537590 retains afterok:4537503 and uses the closed7589 source cache. No models/statistics were executed for this source repair. Current primary producers, protected P9M/D GPU gates, frozen roster, seeds/budgets, NFS201GB and root/tmp peer futures remain unchanged. Other owners' jobs and code are untouched.
+
+
+### 2026-11-20 15:55:21 UTC · D-R1原生迁移准备与GPU7合计根盘24GiB
+
+D已发布5535d8ad099df002cd43ddf07822ae2a3aa734e2：既定D-R1 D20+D3、3M/seed0冷启动，仅A1/B3/B4，gamma0.1597693323500406；等完整TRAIN A1拟合/冻结参数4537575成功再启动，不增加训练臂/seed/超参。302项新逻辑真实CPU17/4537571.step11完成0:0，Slurm9秒（主体1.110秒）。R0仍在跑，不因本次准备重启或迁移。
+
+**compute-0-7根/tmp合计24GiB**：原R0 VAL scope8GiB，加R1 native层缓存`/tmp/d_recipe_20261120_D_R1_native_layers`8GiB，加R1 VAL scope`/tmp/d_recipe_20261120_D_R1_seed0_3M_VAL`8GiB；不是每项24GiB。每个相应新本地writer显式带16GiB同行future，由原根盘守卫叠加自身8GiB、系统/Slurm max(10GiB,10%)及运行余量。新字段默认0，不影响现有非本地任务。实际GPU7 R1联合守卫已通过；实际启动继续核实空卡UUID/CPU和真实目标盘，不占着未满足依赖的GPU。
+
+**compute-0-10根/tmp新增12GiB**，`/tmp/d_recipe_20261120_D_R1_seed0_3M_VAL`，仅接收R1闭合5.13GB VAL cache，计入old/partial和4.35GB rsync临时；不复制原LMDB，也不复制3GB开发H0缓存到CPU。CPU10实际根/tmp70070484992B可用、36570105空闲inode，XFS/noquota，12GiB入口及共享UID联合守卫通过；该节点既有D阶段0输出仍走NFS。原CPU17 R0 VAL12GiB预测保持。
+
+R1检查点/读出1GiB已在原full/native_stage1命名预算内，**D联合NFS36706053853B、full29.75GB和Lustre原R0 1.25GiB均不增加**；所有旧输出保留。对应JSON配置和比较脚本已准备，比较等两个主CPU评分均闭合，只消费既有配对1000次bootstrap。未查看A1 OOF数值、未产生R1分数、未预判胜负或冻结终点。请同节点传输/cache工作纳入以上并发future。
