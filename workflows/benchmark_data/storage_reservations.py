@@ -1,6 +1,7 @@
 """Resolve the current benchmark NFS future pool; no science, source data or GPU control."""
 import json
 import os
+import socket
 from pathlib import Path
 
 OWNED_SCOPES=(Path("/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119"),Path("/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119"))
@@ -34,5 +35,14 @@ def current_concurrent(root, requested, *, policy_path=None):
     policy_path=Path(policy_path) if policy_path is not None else Path(__file__).with_name("benchmark_storage_reservations.json")
     policy=json.loads(policy_path.read_text())
     concurrent=declared_concurrent(policy)
-    for target in ("/","/tmp"):local_reserve(os.statvfs(target))
+    peers=policy.get("node_local_tmp_peer_future_bytes")
+    if (not isinstance(peers,dict) or not {"compute-0-7","compute-0-17"}.issubset(peers)
+            or any(not isinstance(name,str) or type(value) is not int or value<0
+                   for name,value in peers.items())):
+        raise RuntimeError("Missing or unknown published node-local peer futures")
+    node=socket.gethostname().split(".")[0]
+    peer=peers.get(node,0)
+    if peer and os.stat("/").st_dev!=os.stat("/tmp").st_dev:
+        raise RuntimeError("Published root/tmp peer claim requires reconciliation with actual split filesystems")
+    for target in ("/","/tmp"):local_reserve(os.statvfs(target),16*1024**2+peer)
     return max(requested,concurrent)

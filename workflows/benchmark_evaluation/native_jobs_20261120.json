@@ -4781,5 +4781,40 @@
     },
     "budget_authority_confirmed": "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/storage_reservations.json",
     "current_D_NFS_joint_unchanged": 36706053853
+  },
+  "node_local_peer_storage_protection": {
+    "status": "BENCHMARK_LOCAL_PEER_STORAGE_FUTURES_DEPLOYED",
+    "job": "4537583",
+    "node": "compute-0-17",
+    "storage_tests": 9,
+    "total_tests": 12,
+    "NFS_concurrent_bytes_unchanged": 200546101981,
+    "node_local_peer_bytes": {
+      "compute-0-7": 8589934592,
+      "compute-0-17": 12884901888
+    },
+    "applied_actual_local_peer_bytes": 12884901888,
+    "root_free_bytes": 52891365376,
+    "root_inodes": 36501644,
+    "tmp_free_bytes": 52891365376,
+    "tmp_inodes": 36501644,
+    "root_tmp_same_device": true,
+    "quota_age_seconds": 11.360327005386353,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/local_peer_storage_preparation/job_4537583/proposed_sources.json",
+    "tracked_paths": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/local_peer_storage_preparation/job_4537583/tracked_paths.json",
+    "STATUS_paths_appended": 6,
+    "scientific_programs_or_native_job_dependencies_changed": false,
+    "metrics_or_prediction_payloads_read": false,
+    "first_attempt": {
+      "job": 4537582,
+      "state": "FAILED/1:0",
+      "reason": "One new synthetic os.stat mock omitted follow_symlinks keyword compatibility; failed before source deployment or scientific work; corrected once in7583"
+    },
+    "previous_NFS_reservation_unchanged": true,
+    "published_D_notice": "2026-11-20T15:04:26UTC",
+    "source_helper": "workflows/benchmark_data/storage_reservations.py",
+    "system_floor": "max(10GiB,10% actual total) plus own16MiB local peak plus same-node published peer future",
+    "split_root_tmp_on_a_claimed_node_requires_reconciliation": true,
+    "other_worktree_code_and_jobs_unchanged": true
   }
 }

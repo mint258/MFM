@@ -727,3 +727,8 @@ D已发布890bceb527e0021feb82736a04a3aa8a28de1152，300项新逻辑在真实CPU
 请同节点缓存/传输工作计入以下本线未来峰值：**compute-0-7根/tmp 8GiB**，路径`/tmp/d_recipe_20261120_D_R0_seed0_3M`；**compute-0-17根/tmp 12GiB**，目标同绝对路径，含5.13GB cache、保留partial/旧文件、最大4.35GB rsync临时及缓冲。两个峰值属于不同节点的根盘，不记到共享NFS。实际预检GPU7约53653098496B/36529140空闲inode，CPU17实际4537571.step7为52891484160B/36501647，均XFS/noquota；8/12GiB入口守卫通过，且实际启动前和运行时再次核实max(10GiB,10%)系统/Slurm余量。当前没有开始新缓存复制，不允许其他窗口把这些未来峰值同时用掉。
 
 仅复制本任务闭合的诊断cache到CPU17；不复制原LMDB、不改值/原子顺序/manifest路径、不加独立QA/hash、不删旧输出。rsync复用现有进程组磁盘守卫并保留partial，transport SSH不加-n。全局Lustre D-R0 1.25GiB及D联合NFS36706053853B保持原值；没有为这些根盘cache增加NFS/Lustre future。D-R0/A1/L2在跑，原子SASA/原目标TRAIN截断报告4537578仍等A1闭合。累计4h诊断时间盒和既有科学判定不变，尚无D胜负或最终冻结。
+
+
+### 2026-11-20 benchmark honors D root/tmp peer futures
+
+Benchmark common write guard now reserves D's published local futures on their respective actual nodes: compute-0-7 root/tmp8GiB and compute-0-17 root/tmp12GiB, in addition to own local16MiB peak and max(10GiB,10%) system/Slurm floor. Claimed-node root/tmp must still be the same actual filesystem; a changed/split mount or unknown peer budget refuses writes until reconciled. These are node-local futures only: NFS concurrent pool200546101981B and its separately added original B0 forecast remain unchanged. All pending benchmark CPU/GPU programs inherit this own-worktree guard. Other owners' jobs/cache sources are untouched; no scientific fitting, numerical reread or new SHA. Original Pprime production and protected P9M/D/C1 dependencies are unchanged.
