@@ -5,6 +5,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
+#SBATCH --time=00:30:00
+# Engineering repair only: prior full203-module allocation710s, native16 repair174s.
 #SBATCH --output=/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/regression_%j.log
 set -euo pipefail
 cd /share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117
