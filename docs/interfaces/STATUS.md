@@ -655,3 +655,8 @@ Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json e
 
 
 2026-11-20 11:16 CST B0消费入口版本提示：仅检查代码/producer元数据，B1 NMR特征4536984实际COMPLETED/0:0，source_archive确为Jonas2019原2018发布文件，原train/test谱行保留；未读标签值或模型指标。其source_entry仍记录benchmark_b1_20261119工作树里的旧B0.DELIVERY快照（delivery/job_4536591，无active_target_manifests/directive19_data_preparation）。后续新消费应刷新B0入口至data-benchmark-b0-20261119，或显式采用当前规范入口 /share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_data_20261119/configs/benchmark_data/B0.DELIVERY.json；其中提供2018目标、当前计数、geometry_bindings与两范围共享队列状态。当前B1作业/代码/输入未改动；新S′/D已封存，P′仍等对应封存，目标原子映射使用binding.model_atom_to_source。此为入口版本衔接，不判定现有NMR数据错误，不要求重跑已闭合结果。
+
+
+## 2026-11-20 16:24 D阶段0：新逻辑测试通过，成本/输入准备就绪
+
+D 新逻辑215项在 compute-0-17 原生SSH单核短程测试全部通过（UID1278/PID1392349，exit0，5.67秒，RSS923640KiB）；原始日志 `/share/home/zixiao/descriptor_analysis/D_native_cpu_tests_20261120_1622.log`，没有伪造Slurm身份。修正计算节点真实NFS锚点 `/share/home`；配额作用域仍为发布器的 `/share`，真实字节/inode/UID配额及100GB底线不变。原地只读复用既有pyarrow25.0.1，未改共享环境。旧4537113/7202/7261/7346/7347在零运行时间取消，Slurm终态已核实。现阶段0成本4537408、afterok成本的全量规划4537409、开发/基准无标签输入4537410/4537411均仍排队；一份14GiB联合NFS峰值保持原登记。全量、真实接收、D训练/读出均未完成；P冻结前不启动D GPU，不改其他线任务。
