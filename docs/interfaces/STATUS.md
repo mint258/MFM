@@ -643,3 +643,6 @@ Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json e
 
 
 2026-11-20 10:13 CST 时间更正：上面两条新增通知的10:15/10:23为误填时标，不是事件发生时间。以原生Slurm记录为准：D3修复6978于09:57:16完成，源封存准备6979于09:57:50完成，当前数量交付7016于10:09:12完成（均COMPLETED/0:0）。前两条的数据状态与计数保持有效；截至本条原Pprime6588仍RUNNING，新增6906和候补6991仍PENDING。
+
+
+2026-11-20 10:45 CST 窗口二B0新增P′已真正进入生产：原生4536906 RUNNING/compute-0-17/8CPU，原源6978 C0和6979封存依赖均已满足，access实际producer4536906、UID1278、immutable=false、cross_node_read_allowed=false。原53,896构象队列已1,227齐备/8在算/52,661待启动；6907保留afterok6906，不能把已启动当全量P′就绪。原范围6588仍CPU12/8CPU运行，候补6991仍PENDING；两条队列不重叠、原12任务/900秒/软件解析/FP64及一次生产规则保持，DB仍共享单份。新S′/D已封存可读；P′跨节点继续等对应数据集封存。仅更新现有入口/日报和本共享通知，不重算已闭合标签。
