@@ -101,3 +101,7 @@ L2字段定义引用[CheMeleon作者的计算代码](https://github.com/JacksonB
 
 实际解析在CPU17原生SSH单线程完成（UID1278、PID1398416、耗时5.1764秒），没有Slurm作业身份、分子记录读取、描述符调用、参数重拟合或独立数值QA。这是预注册必须消费的既有配置，不是接收验收或训练结果。具体来源为`runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact/schema.json`、`runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json`与`/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json`。P最终配置键及其9M提交仍未就绪，正式训练预注册未冻结。
 2026-11-20 22:20CST现状更新：P最终FROZEN_P及五条9M已提交，训练预注册冻结A1/B3/B4，F2无D对应物。A1固定ridge alpha=1.0、五折seed20261112，完整原TRAIN及原允许构象；三块17/24、6/24、1/24不变。287项新逻辑在CPU17正式4537569通过，7秒、0:0；原生训练/A1实际启动及结果随后登记，早期pending文字仅为历史。
+
+2026-11-20 TRAIN截断比例报告补全：新增独立、默认不执行的clip_report入口，仅做任务书4.2要求的描述性统计。分子字段使用A1闭合raw/valid/design数组，同时报告D-R0原目标和D-R1冻结目标；原子SASA不做A1，从原只读MFM4选择已有atomic列，复用原字段路由、mask及normalize_values，不调用描述符计算或拟合。分母为完整原TRAIN分子人群、A1预先冻结的每分子一个允许构象；分子项按有效标量、原子SASA按有效原子叶计，明确不声称枚举全部构象。abs(native standardized target)>6才计截断，±6本身不计，沿原FP32或派生F64后转FP32的精度；缺失不进入分母。报告不作为配方或seed判定输入。闭合批次cursor保留累积计数，续算不重复计已关闭成员，原数据与D4不变。
+
+新增7项逻辑后共294项在真实4537571.step2/CPU17通过（1.059秒测试主体，原日志D_new_clip_tests_4537571_20261120.log，OK）；没有新增GPU前向、独立QA、源结果复核或全仓库回归。该统计等完整A1收集/拟合关闭后运行，尚无实际截断比例或产物完成结论。
