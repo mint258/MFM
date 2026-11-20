@@ -94,3 +94,12 @@ def remap_to_original_atoms(atom_features, model_atom_to_source, original_atom_c
         used.add(source_index)
         output[source_index] = values[model_index]
     return output
+
+def append_unmapped_native_hydrogens(model_atom_to_source, native_atomic_numbers):
+    """The native AddHs operation appends H; it does not invent source atom IDs."""
+    mapping = list(model_atom_to_source)
+    if len(mapping) > len(native_atomic_numbers):
+        raise ValueError("Source atom map is longer than the actual native geometry")
+    if any(z != 1 for z in native_atomic_numbers[len(mapping):]):
+        raise ValueError("An unmapped appended native atom is not hydrogen")
+    return mapping + [None] * (len(native_atomic_numbers)-len(mapping))

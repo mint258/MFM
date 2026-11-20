@@ -2,7 +2,7 @@
   "schema": "BENCHMARK_NATIVE_JOB_INDEX_20261120_V1",
   "scope": "96 active candidate endpoints after complete anonymous five-endpoint inventory verification; no final decisions yet",
   "native_source_worktree_HEAD": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
-  "latest_published_before_this_batch": "f3c7a3cbb95045f28cdd6df1a88ee322e86af292",
+  "latest_published_before_this_batch": "8539a1906386ec724b30c23b132a9405740ebe0e",
   "artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119",
   "deferred_inventory": {
     "job": 4536851,
@@ -126,12 +126,472 @@
       4536899,
       4536921,
       4537010,
-      4536980
+      4536980,
+      4537011
     ],
-    "D_TabPFN_completed_endpoints": 69,
+    "D_TabPFN_completed_endpoints": 71,
     "D_TabPFN_running_TDC_ASAP": null,
     "D_TabPFN_pKa": 4537011,
-    "Pprime_and_Pprime_plus_D": "Wait for corresponding B0 native seals; no active cross-node SQLite read and no imputation",
+    "Pprime_and_Pprime_plus_D": {
+      "source_boundary": "Actual native sealed access declarations; shared readers only; no active database read",
+      "tabular_feature_binding_job": 4537124,
+      "reference_optical_atomic_feature_binding_job": 4537149,
+      "feature_jobs_wait_for_B0_closed_handoff": 4536961,
+      "tabular_models": [
+        {
+          "feature_group": "Pprime",
+          "dataset": "moleculeace",
+          "model": "LightGBM",
+          "job": 4537125
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "moleculeace",
+          "model": "TabPFN",
+          "job": 4537126
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "pharmabench",
+          "model": "LightGBM",
+          "job": 4537127
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "pharmabench",
+          "model": "TabPFN",
+          "job": 4537128
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "tdc_asap",
+          "model": "LightGBM",
+          "job": 4537129
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "tdc_asap",
+          "model": "TabPFN",
+          "job": 4537130
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "biogen",
+          "model": "LightGBM",
+          "job": 4537131
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "biogen",
+          "model": "TabPFN",
+          "job": 4537132
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "pka",
+          "model": "LightGBM",
+          "job": 4537133
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "pka",
+          "model": "TabPFN",
+          "job": 4537134
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "expansionrx",
+          "model": "LightGBM",
+          "job": 4537135
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "expansionrx",
+          "model": "TabPFN",
+          "job": 4537136
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "moleculeace",
+          "model": "LightGBM",
+          "job": 4537137
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "moleculeace",
+          "model": "TabPFN",
+          "job": 4537138
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "pharmabench",
+          "model": "LightGBM",
+          "job": 4537139
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "pharmabench",
+          "model": "TabPFN",
+          "job": 4537140
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "tdc_asap",
+          "model": "LightGBM",
+          "job": 4537141
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "tdc_asap",
+          "model": "TabPFN",
+          "job": 4537142
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "biogen",
+          "model": "LightGBM",
+          "job": 4537143
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "biogen",
+          "model": "TabPFN",
+          "job": 4537144
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "pka",
+          "model": "LightGBM",
+          "job": 4537145
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "pka",
+          "model": "TabPFN",
+          "job": 4537146
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "expansionrx",
+          "model": "LightGBM",
+          "job": 4537147
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "expansionrx",
+          "model": "TabPFN",
+          "job": 4537148
+        }
+      ],
+      "reference_optical_models": [
+        {
+          "feature_group": "Pprime",
+          "dataset": "C7H10O2",
+          "model": "LightGBM",
+          "job": 4537150
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "C7H10O2",
+          "model": "TabPFN",
+          "job": 4537151
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "PPE1694",
+          "model": "LightGBM",
+          "job": 4537152
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "PPE1694",
+          "model": "TabPFN",
+          "job": 4537153
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 0,
+          "model": "LightGBM",
+          "job": 4537154
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 0,
+          "model": "TabPFN",
+          "job": 4537155
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 1,
+          "model": "LightGBM",
+          "job": 4537156
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 1,
+          "model": "TabPFN",
+          "job": 4537157
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 2,
+          "model": "LightGBM",
+          "job": 4537158
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 2,
+          "model": "TabPFN",
+          "job": 4537159
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 3,
+          "model": "LightGBM",
+          "job": 4537160
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 3,
+          "model": "TabPFN",
+          "job": 4537161
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 4,
+          "model": "LightGBM",
+          "job": 4537162
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 4,
+          "model": "TabPFN",
+          "job": 4537163
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 5,
+          "model": "LightGBM",
+          "job": 4537164
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 5,
+          "model": "TabPFN",
+          "job": 4537165
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 6,
+          "model": "LightGBM",
+          "job": 4537166
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 6,
+          "model": "TabPFN",
+          "job": 4537167
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 7,
+          "model": "LightGBM",
+          "job": 4537168
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 7,
+          "model": "TabPFN",
+          "job": 4537169
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 8,
+          "model": "LightGBM",
+          "job": 4537170
+        },
+        {
+          "feature_group": "Pprime",
+          "dataset": "Joung2020",
+          "endpoint_index": 8,
+          "model": "TabPFN",
+          "job": 4537171
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "C7H10O2",
+          "model": "LightGBM",
+          "job": 4537172
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "C7H10O2",
+          "model": "TabPFN",
+          "job": 4537173
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "PPE1694",
+          "model": "LightGBM",
+          "job": 4537174
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "PPE1694",
+          "model": "TabPFN",
+          "job": 4537175
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 0,
+          "model": "LightGBM",
+          "job": 4537176
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 0,
+          "model": "TabPFN",
+          "job": 4537177
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 1,
+          "model": "LightGBM",
+          "job": 4537178
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 1,
+          "model": "TabPFN",
+          "job": 4537179
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 2,
+          "model": "LightGBM",
+          "job": 4537180
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 2,
+          "model": "TabPFN",
+          "job": 4537181
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 3,
+          "model": "LightGBM",
+          "job": 4537182
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 3,
+          "model": "TabPFN",
+          "job": 4537183
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 4,
+          "model": "LightGBM",
+          "job": 4537184
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 4,
+          "model": "TabPFN",
+          "job": 4537185
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 5,
+          "model": "LightGBM",
+          "job": 4537186
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 5,
+          "model": "TabPFN",
+          "job": 4537187
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 6,
+          "model": "LightGBM",
+          "job": 4537188
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 6,
+          "model": "TabPFN",
+          "job": 4537189
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 7,
+          "model": "LightGBM",
+          "job": 4537190
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 7,
+          "model": "TabPFN",
+          "job": 4537191
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 8,
+          "model": "LightGBM",
+          "job": 4537192
+        },
+        {
+          "feature_group": "Pprime_plus_D",
+          "dataset": "Joung2020",
+          "endpoint_index": 8,
+          "model": "TabPFN",
+          "job": 4537193
+        }
+      ],
+      "atomic_NMR_model_job": 4537194,
+      "atomic_feature_group": "Native atomic Pprime plus original RDKit atom37; LightGBM only",
+      "molecular_P_field_count": 67,
+      "atom_P_field_count": "Read from original pretraining schema at actual binding; no invented pooling",
+      "actual_first_conformer_ID": true,
+      "unmapped_appended_native_H": "Source index absent; no invented experimental atom"
+    },
     "atom_task_protocol": "Atomic native Pprime plus RDKit atom features, LightGBM only",
     "D_TabPFN_TDC_ASAP_status": "COMPLETED23_OF23",
     "D_LightGBM_ExpansionRx": 4537080,
@@ -177,7 +637,8 @@
         4537118
       ],
       "native_labels_and_scaffold_folds_unchanged": true
-    }
+    },
+    "D_TabPFN_pKa_status": "COMPLETED2_OF2_NO_TRAINING_FAILURE"
   },
   "Joung": {
     "original_components_job": 4537012,
@@ -639,6 +1100,24 @@
       "step": 0,
       "status": "PASS",
       "proposed_files": 91
+    },
+    "native_appended_atom_map": {
+      "job": 4536985,
+      "step": 12,
+      "new_tests": 2,
+      "status": "PASS"
+    },
+    "atomic_C1_readout": {
+      "job": 4536985,
+      "step": 14,
+      "new_tests": 3,
+      "status": "PASS"
+    },
+    "source_check_previous_publication": {
+      "job": 4536985,
+      "step": 8,
+      "status": "PASS",
+      "proposed_files": 101
     }
   },
   "B2_final_availability": "docs/benchmark/BASELINE_AVAILABILITY.md; published5f6cf64 with SHA256 receipt; seven available,four unresolved,one weights unpublished,two user access",

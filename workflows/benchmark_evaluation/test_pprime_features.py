@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 from workflows.benchmark_evaluation.pprime_features import (
-    NativePprimeLayout, first_actual_conformer, remap_to_original_atoms,
+    NativePprimeLayout, first_actual_conformer, remap_to_original_atoms, append_unmapped_native_hydrogens,
 )
 from workflows.data_v1_final.labels.common import MISSING
 
@@ -42,6 +42,10 @@ class NativePprimeTests(unittest.TestCase):
         self.assertEqual(first_actual_conformer(source),7)
     def test_no_accepted_geometry_remains_absent(self):
         self.assertIsNone(first_actual_conformer({"result":{"conformers":[]}}))
+    def test_native_appended_hydrogens_have_no_invented_source_index(self):
+        self.assertEqual(append_unmapped_native_hydrogens([2,0],[6,8,1,1]),[2,0,None,None])
+    def test_an_unmapped_appended_heavy_atom_is_not_accepted(self):
+        with self.assertRaises(ValueError):append_unmapped_native_hydrogens([0],[6,8])
     def test_original_atom_map_scatter_preserves_missing_atoms(self):
         actual=remap_to_original_atoms(np.array([[1.],[2.],[3.]]),[2,None,0],4)
         self.assertEqual(actual[0,0],3.)
