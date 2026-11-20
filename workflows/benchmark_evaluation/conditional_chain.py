@@ -63,13 +63,16 @@ def script_with_exports(script, exports):
     prefix="".join("export "+key+"="+shlex.quote(str(value))+"\n" for key,value in sorted(exports.items()))
     return script.replace("\nset -euo pipefail\n","\nset -euo pipefail\n"+prefix,1)
 
-def wire(preparation, preparation_path, owned_root, out, source_cache, scripts, submit, release, write):
+def wire(preparation, preparation_path, owned_root, out, source_cache, scripts, submit, release, write, final_prerequisite_jobs=()):
     """All jobs remain held until exact returned IDs and the complete chain are recorded."""
     groups=validated_groups(preparation,owned_root)
+    prerequisites=[str(job) for job in final_prerequisite_jobs]
+    if any(not re.fullmatch(r"[1-9][0-9]*",job) for job in prerequisites) or len(set(prerequisites))!=len(prerequisites):
+        raise ValueError("Final prerequisites must be distinct actual native Slurm job IDs")
     scripts={name:script_with_exports(scripts[name],{}) for name in ("report","combine","final")}
     out=Path(out);bindings_path=out/"dispatch_bindings.json"
     bindings=dict(stage="C1",preparation_manifest=str(preparation_path),groups=[],unresolved_cells=[])
-    record=dict(status="PREPARING_HELD_NATIVE_CHAIN",bindings=bindings,native_jobs=[],jobs_released=[])
+    record=dict(status="PREPARING_HELD_NATIVE_CHAIN",bindings=bindings,native_jobs=[],jobs_released=[],final_prerequisite_jobs=prerequisites)
     write(out/"dispatch_state.json",record)
     last={};gpu_jobs=[]
     def new_job(path,dependency=None):
@@ -98,8 +101,8 @@ def wire(preparation, preparation_path, owned_root, out, source_cache, scripts, 
     combine_job=new_job(combine_path,"afterok:"+report_job)
     evidence=Path(owned_root)/"conditional_evidence/combined"/("job_"+combine_job)/"manifest.json"
     final_path=out/"final_C1_results.sbatch"
-    write(final_path,script_with_exports(scripts["final"],dict(BENCHMARK_CONFIRMATION_EVIDENCE_JSON=str(evidence))))
-    final_job=new_job(final_path,"afterok:"+combine_job)
+    write(final_path,script_with_exports(scripts["final"],dict(BENCHMARK_SOURCE_CACHE=str(source_cache),BENCHMARK_CONFIRMATION_EVIDENCE_JSON=str(evidence))))
+    final_job=new_job(final_path,"afterok:"+":".join([combine_job]+prerequisites))
     record.update(status="COMPLETE_CHAIN_RECORDED_BEFORE_RELEASE",report_job=int(report_job),
         combination_job=int(combine_job),final_export_job=int(final_job),
         final_manifest=str(Path(owned_root)/"C1_final_results"/("job_"+final_job)/"manifest.json"))

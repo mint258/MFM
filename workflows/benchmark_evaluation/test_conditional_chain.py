@@ -18,7 +18,7 @@ class ChainTests(unittest.TestCase):
                     reason="FINAL_SIGNIFICANT_IMPROVEMENT",frozen_B1_role="RETAIN",confirmation_seed=20261026,primary_seed=20261025)]))
         return dict(stage="C1",status="CONDITIONAL_NEURAL_SOURCE_PREPARATION_CLOSED",failures=[],
             prepared_native_groups=tasks,required_configuration_rows=count)
-    def run_chain(self,prep,fail_at=None,scripts=None):
+    def run_chain(self,prep,fail_at=None,scripts=None,final_prerequisite_jobs=()):
         self.writes={};self.submissions=[];self.releases=[]
         def write(path,value):self.writes[str(path)]=copy.deepcopy(value)
         def submit(path,dependency):
@@ -30,7 +30,7 @@ class ChainTests(unittest.TestCase):
             self.releases.append(job)
         script="#!/bin/bash\n#SBATCH --partition=cpu\nset -euo pipefail\ntrue\n"
         return wire(prep,"/owned/prep/manifest.json",self.root,"/owned/out","/owned/cache.json",
-            scripts if scripts is not None else dict(report=script,combine=script,final=script),submit,release,write)
+            scripts if scripts is not None else dict(report=script,combine=script,final=script),submit,release,write,final_prerequisite_jobs=final_prerequisite_jobs)
     def test_same_uuid_serialized_and_all_exact_ids_recorded_before_release(self):
         result=self.run_chain(self.prep())
         self.assertEqual([dep for _,dep in self.submissions],[None,"afterany:201","afterany:201:202","afterok:203","afterok:204"])
@@ -85,6 +85,17 @@ class ChainTests(unittest.TestCase):
             self.run_chain(self.prep(1),scripts=dict(report=good,combine=good,final="sbatch unexpected-envelope"))
         self.assertEqual(self.submissions,[])
         self.assertEqual(self.releases,[])
+    def test_final_waits_for_actual_atomic_producer_without_delaying_gpu_confirmations(self):
+        result=self.run_chain(self.prep(),final_prerequisite_jobs=[4537644])
+        self.assertEqual([dep for _,dep in self.submissions],
+            [None,"afterany:201","afterany:201:202","afterok:203","afterok:204:4537644"])
+        self.assertEqual(result["final_prerequisite_jobs"],["4537644"])
+        self.assertIn("export BENCHMARK_SOURCE_CACHE=/owned/cache.json",self.writes["/owned/out/final_C1_results.sbatch"])
+    def test_invalid_or_duplicate_final_prerequisite_rejected_before_any_submit(self):
+        for bad in ([0],["pending"],["1:2"],[123,123]):
+            with self.assertRaises(ValueError):self.run_chain(self.prep(),final_prerequisite_jobs=bad)
+            self.assertEqual(self.submissions,[])
+            self.assertEqual(self.releases,[])
     def test_incomplete_or_duplicate_required_plan_rejected(self):
         prep=self.prep(1);prep["required_configuration_rows"]=2
         with self.assertRaises(ValueError):validated_groups(prep,self.root)

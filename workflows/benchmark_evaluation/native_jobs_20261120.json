@@ -4660,12 +4660,12 @@
     "source_preparation_state": "COMPLETED/0:0",
     "source_preparation_node": "compute-0-17",
     "focused_synthetic_tests": 6,
-    "dispatch_job": 4537590,
+    "dispatch_job": 4537646,
     "dispatch_state": "PENDING",
     "dispatch_dependency": "afterok:4537503",
     "preparation_manifest": "conditional_preparation/C1/job_4537503/manifest.json",
-    "dispatch_state_manifest": "conditional_dispatch/C1/job_4537590/dispatch_state.json",
-    "source_cache": "native_consumer_validation/job_4537589/proposed_sources.json",
+    "dispatch_state_manifest": "conditional_dispatch/C1/job_4537646/dispatch_state.json",
+    "source_cache": "approved_atomic_final_sources/job_4537645/proposed_sources.json",
     "module": "workflows/benchmark_evaluation/conditional_chain.py",
     "preserves_frozen_scientific_configuration": true,
     "only_registered_final_significant_TabPFN_cells": true,
@@ -4700,12 +4700,21 @@
         "state": "CANCELLED by1278",
         "elapsed": "00:00:00",
         "start": "None"
+      },
+      {
+        "job": 4537590,
+        "state": "CANCELLED by1278",
+        "elapsed": "00:00:00",
+        "reason": "Final export must await newly approved atomic supplement"
       }
     ],
-    "latest_source_preparation": 4537589,
-    "latest_scheduler_tests": 9,
+    "latest_source_preparation": 4537645,
+    "latest_scheduler_tests": 11,
     "registered_private_backend_metadata_checked": 2,
-    "real_consumer_sources_checked": 3
+    "real_consumer_sources_checked": 4,
+    "final_export_extra_afterok": [
+      4537644
+    ]
   },
   "shared_NFS_futures_reconciliation": {
     "native_deployment": 4537550,
@@ -4809,7 +4818,7 @@
     "primary_7502_preparation_7503_producer_IDs_unchanged": true,
     "original_dispatcher_at_GPU_gate_update": 4537551,
     "current_dispatcher_after_backend_alias_fix": 4537587,
-    "current_dispatcher": 4537590,
+    "current_dispatcher": 4537646,
     "native_GPU7_gate_refreshed_20261121": true
   },
   "node_local_peer_storage_protection": {
@@ -4989,22 +4998,9 @@
     }
   },
   "daily_20261121": {
-    "file": "docs/benchmark/DAILY_20261121.md",
-    "native_initial_writer": 4537600,
-    "state": "COMPLETED/0:0",
-    "updated_by_local_policy_refresh": 4537601,
-    "weekly_cost_recomputed": false,
-    "final_roster_unchanged": true,
-    "producer_handover_update": {
-      "job": 4537631,
-      "state": "COMPLETED/0:0",
-      "node": "compute-0-17",
-      "elapsed": "00:00:01",
-      "characters": 1001,
-      "concurrent_NFS_bytes": 200546101981,
-      "UID_observation_age_seconds": 1.7373647689819336,
-      "no_model_or_statistic_execution": true
-    }
+    "path": "docs/benchmark/DAILY_20261121.md",
+    "one_page": true,
+    "current_status_CST": "2026-11-21T07:00+08:00"
   },
   "B0_original_P_production_handover": {
     "observed_at": "2026-11-20T21:08UTC",
@@ -5025,7 +5021,7 @@
     },
     "current_producer": {
       "job": 4537629,
-      "state": "RUNNING",
+      "state": "COMPLETED",
       "node": "compute-0-8",
       "cpus": 16,
       "standby_acceptance": "STANDBY_ROOT_ACCEPTED_ZERO_NATIVE",
@@ -5034,17 +5030,20 @@
       "original_root_retained": true,
       "log": "control/B0_pprime_standby_4537629.log",
       "progress_snapshot": {
-        "PENDING": 15846,
-        "INTENT": 16,
-        "PPRIME_READY": 308949,
-        "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES": 269
-      }
+        "PENDING": 0,
+        "INTENT": 0,
+        "PPRIME_READY": 324794,
+        "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES": 286
+      },
+      "exit": "0:0",
+      "elapsed": "01:18:14"
     },
     "source_access": {
       "producer_job": 4537629,
       "publishing_uid": 1278,
-      "cross_node_read_allowed": false,
-      "immutable": false
+      "cross_node_read_allowed": true,
+      "immutable": true,
+      "writers_closed": true
     },
     "continuation6590_afterok": 4537629,
     "final_handoff6599_afterok": 4536590,
@@ -5055,8 +5054,110 @@
     ],
     "C1_primary": 4537502,
     "C1_preparation": 4537503,
-    "C1_dispatcher": 4537590,
+    "C1_dispatcher": 4537646,
     "benchmark_jobs_or_scientific_inputs_changed": false,
     "final_C1_produced": false
+  },
+  "B0_final_seal_20261121": {
+    "native_jobs": [
+      4537629,
+      4536590,
+      4536599,
+      4536961
+    ],
+    "state": "COMPLETED/0:0",
+    "both_scopes_readable": true,
+    "first_C1_feature_job": 4537124,
+    "first_C1_feature_state": "RUNNING",
+    "original_quantum_future_bytes": 0,
+    "shared_NFS_pool_bytes": 200546101981,
+    "committed_bytes_still_in_UID_usage": true,
+    "entry_refresh_and_six_status_notices": 4537643
+  },
+  "approved_pKa_atomic_supplement_20261121": {
+    "schema": "APPROVED_POST_FREEZE_PKA_ATOMIC_SUPPLEMENT_BINDING_V1",
+    "definition_id": "AUTHOR_TABLE_S2_37_CATALOG_V1",
+    "source_approval_job": 4537635,
+    "source_validation_job": 4537641,
+    "source_entry_refresh_job": 4537643,
+    "producer_job": 4537644,
+    "previous_pre_fit_failure": {
+      "job": 4537642,
+      "reason": "Stale worktree B0 entry missing final handoff pointer",
+      "models_or_statistics_executed": false
+    },
+    "C1_final_export_afterok_jobs": [
+      4537644
+    ],
+    "frozen_B1_roster_modified": false,
+    "predeclared_result_role": "APPENDIX",
+    "state": "COMPLETED/0:0",
+    "cpu_node": "compute-0-8",
+    "cpus": 4,
+    "TRAIN_endpoints": 5465,
+    "blind_endpoints": 9,
+    "experimental_micro_records": 0,
+    "baseline_interface_tests": {
+      "job": 4537641,
+      "passed": 10
+    },
+    "final_chain_tests": {
+      "job": 4537645,
+      "passed": 11,
+      "syntax_consumers": 4
+    },
+    "aggregate_policy_tests": {
+      "job": 4537647,
+      "passed": 4,
+      "allowed_aggregate_tables": 11
+    },
+    "native_manifest": "approved_pka_atomic_supplement/job_4537644/manifest.json",
+    "B1_frozen_SHA_unchanged": true,
+    "no_old_scores_recomputed": true,
+    "elapsed": "00:06:41",
+    "native_Pprime_TRAIN_rows": 4347,
+    "native_Pprime_TEST_rows": 9,
+    "conditional_Chemprop_seed2_required": false,
+    "all_required_neural_confirmations_closed": true,
+    "C1_result": {
+      "endpoint_key": "pkahub::single_site_mechanism",
+      "dataset": "pKahub",
+      "target": "single_site_mechanism",
+      "level": "atom",
+      "feature_group": "Pprime_plus_RDKit_atom",
+      "learner": "LightGBM",
+      "model_seed": 20261025,
+      "completed_seeds": 1,
+      "frozen_B1_role": "UNRESOLVED",
+      "post_freeze_definition_role": "APPENDIX",
+      "task_roster_reselection": false,
+      "geometry": "Shared Sprime UFF",
+      "definition_id": "AUTHOR_TABLE_S2_37_CATALOG_V1",
+      "target_definition": "User-approved author37 catalogue; original macro value; experimental microscopic0",
+      "report_stage": "FINAL_APPROVED_SINGLE_SITE_SUPPLEMENT",
+      "approved_source_manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4537635/manifest.json",
+      "original_primary_TEST_rows": 9,
+      "native_TEST_rows": 9,
+      "available_TEST_rows": 9,
+      "missing_native_TEST_rows": 0,
+      "original_primary_TEST_molecules": 9,
+      "available_TEST_molecules": 9,
+      "original_TEST_preserved_for_other_models": true,
+      "missing_native_features_imputed": false,
+      "evaluation_population": "AVAILABLE_NATIVE_FEATURES_WITH_EXPLICIT_ORIGINAL_COVERAGE",
+      "n_test_rows": 9,
+      "n_test_molecules": 9,
+      "MAE": 1.3956145906726525,
+      "RAE": 0.457482626763753,
+      "RAE_CI95_low": 0.3290086871125432,
+      "RAE_CI95_high": 0.7161719896473785,
+      "bootstrap_draws": 1000,
+      "TRAIN_mean_policy": "Each configuration's actual eligible available-feature fit TRAIN arithmetic mean",
+      "CI_population": "Same original complete-molecule groups; atomic observations and repeated folds remain together",
+      "status": "FINAL_APPROVED_SINGLE_SITE_APPENDIX",
+      "actual_TRAIN_rows": 4347,
+      "input_feature_count": 75,
+      "statistics_source": "FIRST_ATOMIC_SUPPLEMENT_PRODUCER"
+    }
   }
 }

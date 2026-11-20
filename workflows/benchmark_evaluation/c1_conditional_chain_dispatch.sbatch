@@ -59,6 +59,6 @@ def release(job):
 scripts=dict(report=sources["workflows/benchmark_evaluation/c1_confirmation_report.sbatch"],
     combine=sources["workflows/benchmark_evaluation/confirmation_evidence_combine.sbatch"],
     final=sources["workflows/benchmark_evaluation/c1_final_confirmed_results_export.sbatch"])
-result=module.wire(preparation,preparation_path,b1,out,cache,scripts,submit,release,write)
+result=module.wire(preparation,preparation_path,b1,out,cache,scripts,submit,release,write,final_prerequisite_jobs=[4537644])
 print("C1_CONDITIONAL_CHAIN_RELEASED",out/"dispatch_state.json","final_export",result["final_export_job"],flush=True)
 PY

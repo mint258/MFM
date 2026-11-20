@@ -21,6 +21,8 @@ HEAVY_SUFFIXES = {
 # Exact aggregate deliverables authorized by the downstream benchmark taskbook.
 # Raw labels, molecular identities and per-record predictions remain outside Git.
 BENCHMARK_REPORT_TABLES = {
+    'results/benchmark/pKa_atomic_approved_baselines.csv': {'dataset', 'task', 'model', 'model_seed', 'result_role', 'definition_id', 'MAE', 'RAE'},
+    'results/benchmark/pKa_atomic_approved_comparisons.csv': {'task', 'candidate', 'candidate_seed', 'reference', 'significant_improvement'},
     'results/benchmark/B1_task_screen.csv': {'endpoint_key', 'decision', 'reason'},
     'results/benchmark/B1_filter_impact.csv': {'endpoint_key', 'model', 'fit_population', 'evaluation_population'},
     'results/benchmark/B1_scaffold_Tukey_HSD.csv': {'endpoint_key', 'left', 'right', 'pvalue'},
