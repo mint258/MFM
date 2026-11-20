@@ -4766,7 +4766,15 @@
         "node": "compute-0-7",
         "retained_feature_dependency": 4537124,
         "protected_job": 4537572,
-        "protected_role": "D-R0-seed0-3M"
+        "protected_role": "D-R0/R1 submitted training/diagnostic/readout chain",
+        "protected_jobs": [
+          4537572,
+          4537579,
+          4537584,
+          4537592,
+          4537594,
+          4537597
+        ]
       },
       {
         "benchmark_job": 4537478,
@@ -4801,7 +4809,8 @@
     "primary_7502_preparation_7503_producer_IDs_unchanged": true,
     "original_dispatcher_at_GPU_gate_update": 4537551,
     "current_dispatcher_after_backend_alias_fix": 4537587,
-    "current_dispatcher": 4537590
+    "current_dispatcher": 4537590,
+    "native_GPU7_gate_refreshed_20261121": true
   },
   "node_local_peer_storage_protection": {
     "status": "BENCHMARK_LOCAL_PEER_STORAGE_FUTURES_DEPLOYED",
@@ -4903,5 +4912,88 @@
       "original_B0_forecast": 54775189504,
       "UID_observation_age_seconds": 5.294467210769653
     }
+  },
+  "node_local_peer_storage_refresh": {
+    "status": "BENCHMARK_LOCAL_PEER_STORAGE_POLICY_REFRESHED",
+    "job": "4537601",
+    "node": "compute-0-17",
+    "node_local_peer_bytes": {
+      "compute-0-7": 25769803776,
+      "compute-0-10": 12884901888,
+      "compute-0-17": 12884901888
+    },
+    "actual_node_observations": {
+      "compute-0-7": {
+        "node": "compute-0-7",
+        "same_device": true,
+        "paths": {
+          "/": {
+            "total": 75125227520,
+            "available": 53652676608,
+            "inodes": 36529140
+          },
+          "/tmp": {
+            "total": 75125227520,
+            "available": 53652676608,
+            "inodes": 36529140
+          }
+        }
+      },
+      "compute-0-10": {
+        "node": "compute-0-10",
+        "same_device": true,
+        "paths": {
+          "/": {
+            "total": 75125227520,
+            "available": 70070988800,
+            "inodes": 36570105
+          },
+          "/tmp": {
+            "total": 75125227520,
+            "available": 70070988800,
+            "inodes": 36570105
+          }
+        }
+      },
+      "compute-0-17": {
+        "node": "compute-0-17",
+        "same_device": true,
+        "paths": {
+          "/": {
+            "total": 75125227520,
+            "available": 52891148288,
+            "inodes": 36501644
+          },
+          "/tmp": {
+            "total": 75125227520,
+            "available": 52891148288,
+            "inodes": 36501644
+          }
+        }
+      }
+    },
+    "effective_NFS_concurrent_bytes": 200546101981,
+    "NFS_or_Lustre_futures_increased": false,
+    "logic_changed": false,
+    "model_or_statistics_executed": false,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/local_peer_storage_refresh/job_4537601/proposed_sources.json",
+    "previous_local_policy_4537583_preserved": true,
+    "no_new_test_for_policy_only_update": true,
+    "shared_notice": {
+      "job": 4537602,
+      "state": "COMPLETED/0:0",
+      "paths": 6,
+      "concurrent_NFS_bytes": 200546101981,
+      "B0_forecast": 54626660352,
+      "UID_age_seconds": 11.06683087348938
+    }
+  },
+  "daily_20261121": {
+    "file": "docs/benchmark/DAILY_20261121.md",
+    "native_initial_writer": 4537600,
+    "state": "COMPLETED/0:0",
+    "updated_by_local_policy_refresh": 4537601,
+    "weekly_cost_recomputed": false,
+    "final_roster_unchanged": true
   }
 }
