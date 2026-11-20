@@ -46,3 +46,8 @@ R1/R3 和 bootstrap 复用 `tools/p_recipe/evaluate.py`，结果写入 D 目录�
 `compare.py` 消费已有分数与原分子 bootstrap 群，要求 R3 完整覆盖冻结七任务、同 1000 抽样/seed/置信度且分子群一致；不重采样。`seed_plan.py` 只由同一 seed0 的 WIN 比较生成 seed1，按科学臂共享对照；基础设施续跑更名不会产生第二条同条件对照。9M 不生成 seed1。K1 的 seed1 专用掩码 seed 须由预注册显式提供。这些接入逻辑尚未运行。
 
 全量存储预算将在成本测试后按实测分项配置。当前成本面板预留峰值 4 GiB；目标节点字节/inode 和既有实时 UID 配额保护、100GB 账户余量均保留。联合预算按真实文件系统分账：114569896448 字节的模型总峰值（其中含 P61GB）登记在 `/lfshome`，不扣除 `/share` 空间；NFS 模型未来量沿用原 guard 的 23179869184 字节，加已登记 seed1 的独立 2GiB。NFS 另计 B0 两组 P′各 80GB 预测减已占物理字节、24GiB 环境余量、额外元数据余量；未关闭的几何生产保留预测，只有已封存且有原生成功闭合记录的几何才退掉未来写入预算。不在 `/tmp` 复制输入数据库。
+
+
+训练入口（未运行）为模块命令 python -m tools.d_recipe.train --configuration <Root冻结配置>。它调用既有 D 训练适配器与最终 R1/R3 读出，只调度该运行的预算终点，不新增中途探针；已关闭的训练和读出从生产者状态继续复用，完整交接立即返回，不覆盖为完成。bootstrap 留给 CPU 命令，GPU 完成状态只记等待 CPU 统计。整卡功耗采样复用 P helper，并将其输出前缀定向到 D；Root 仍须先完成训练预注册、P依赖、臂/seed判定，以及实际节点 GPU/存储准入和运行期保护，当前不提交 GPU。
+
+CPU 收尾命令为 python -m tools.d_recipe.cpu_statistics --configuration <同一冻结配置>：只消费已关闭的最终 predictions，复用既有 bootstrap；scores 已存在时不再抽样或追加 CSV，结束后才把该运行记为统计完成。已完成的运行不降级或重跑，配置的科学条件必须与原运行相同。新增入口与收尾测试已接入 CPU 新逻辑套件，尚未执行。
