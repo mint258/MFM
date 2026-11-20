@@ -116,6 +116,8 @@ def generate_plan(pilot_config, costs, field_lists, population_summary, *, run_r
         existing_parameter_bytes=existing_parameter_bytes, chunk_rows=chunk_rows)
     peak = budget["peak_new_bytes"]
     preparation = {key: pilot_config[key] for key in ("corpus", "geometry_index")}
+    if pilot_config.get("source_smiles_index"):
+        preparation["source_smiles_index"] = pilot_config["source_smiles_index"]
     preparation.update(pilot_root=pilot_config["output"], output=str(root / "structures"),
                        peak_bytes=peak, chunk_rows=1024)
     production = dict(input_rows=str(root / "structures" / "structures.jsonl"),

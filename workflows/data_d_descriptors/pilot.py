@@ -26,7 +26,9 @@ def publish(path, value):
     os.replace(temporary, path)
 
 
-def original_smiles(pointer):
+def original_smiles(pointer, *, lookup=None):
+    if lookup is not None:
+        return lookup(pointer)
     from workflows.data_v1_final.export.v31_stream_v1.physical import native, field
     raw = native(pointer)
     value = field(raw, "smiles")
@@ -53,18 +55,31 @@ def select_panel(config, output):
         columns=["molecule_index", "molecule_id"], filter=query, use_threads=False).to_pylist()
     by_index = {row["molecule_index"]: row for row in rows}
     connection = sqlite3.connect("file:" + config["geometry_index"] + "?mode=ro", uri=True)
+    pointers = {}
+    for index in candidates:
+        row = by_index.get(int(index))
+        if row is None:
+            raise ValueError("TRAIN molecule ID alignment missing")
+        source = connection.execute("SELECT pointer FROM geometries WHERE mid=? AND src='pm7' LIMIT 1", (row["molecule_id"],)).fetchone()
+        pointers[int(index)] = None if source is None else json.loads(source[0])
+    connection.close()
+    lookup = None
+    if config.get("source_smiles_index"):
+        from .source_smiles import SourceSmiles
+        lookup = SourceSmiles.from_parquet(config["source_smiles_index"],
+            (pointer for pointer in pointers.values() if pointer is not None)).get
     bins = collections.defaultdict(list)
     rejected = collections.Counter()
     for ordinal, index in enumerate(candidates):
         row = by_index.get(int(index))
         if row is None:
             raise ValueError("TRAIN molecule ID alignment missing")
-        source = connection.execute("SELECT pointer FROM geometries WHERE mid=? AND src='pm7' LIMIT 1", (row["molecule_id"],)).fetchone()
+        source = pointers[int(index)]
         smiles, source_error = None, None
         try:
             if source is None:
                 raise ValueError("Original D20 source pointer missing")
-            smiles = original_smiles(json.loads(source[0]))
+            smiles = original_smiles(source, lookup=lookup)
         except (ValueError, KeyError) as error:
             source_error = str(error)
         molecule = Chem.MolFromSmiles(smiles) if smiles else None
@@ -83,7 +98,6 @@ def select_panel(config, output):
         bins[key].append({**row, "smiles": smiles, "stratum": list(key)})
         if ordinal % 1000 == 0:
             print(json.dumps({"stage": "graph_panel", "candidates_read": ordinal + 1}), flush=True)
-    connection.close()
     selected = []
     # Equal round-robin coverage of graph-only strata; no descriptor values seen.
     while len(selected) < config["panel_molecules"]:
@@ -102,6 +116,7 @@ def select_panel(config, output):
     finally:
         canonical.close()
     publish(panel_path, {"seed": config["seed"], "candidate_count": len(candidates),
+        "source_smiles_index": config.get("source_smiles_index"),
         "eligible_train_molecules": len(eligible), "selection_rejections": dict(rejected),
         "selection": "round-robin heavy-size/element-set/rings/branching strata, no descriptor values",
         "molecules": selected})

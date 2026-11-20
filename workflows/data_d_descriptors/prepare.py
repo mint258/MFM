@@ -103,6 +103,18 @@ def prepare(config):
         state["jobs"].append(os.environ["SLURM_JOB_ID"])
     previous, start = state["elapsed_seconds"], time.monotonic()
     database = sqlite3.connect("file:" + config["geometry_index"] + "?mode=ro", uri=True)
+    pointers, lookup = None, None
+    if config.get("source_smiles_index"):
+        from .source_smiles import SourceSmiles
+        pointers = {}
+        for item in rows[state["closed_rows"]:]:
+            if item["molecule_id"] in cached:
+                continue
+            source = database.execute("SELECT pointer FROM geometries WHERE mid=? AND src='pm7' LIMIT 1",
+                (item["molecule_id"],)).fetchone()
+            pointers[item["molecule_id"]] = None if source is None else json.loads(source[0])
+        lookup = SourceSmiles.from_parquet(config["source_smiles_index"],
+            (pointer for pointer in pointers.values() if pointer is not None)).get
     canonical = ExistingD20(json.loads(Path(config["corpus"]).read_text())["source_root"])
     with partial.open("r+b" if partial.exists() else "w+b") as stream:
         # Only uncommitted bytes from this task's own partial are discarded.
@@ -123,12 +135,16 @@ def prepare(config):
                                 native_element_counts=saved["native_element_counts"])
                 else:
                     item.update(canonical.read(item["split"], item["molecule_index"]))
-                    pointer = database.execute("SELECT pointer FROM geometries WHERE mid=? AND src='pm7' LIMIT 1",
-                        (item["molecule_id"],)).fetchone()
+                    if pointers is None:
+                        source = database.execute("SELECT pointer FROM geometries WHERE mid=? AND src='pm7' LIMIT 1",
+                            (item["molecule_id"],)).fetchone()
+                        pointer = None if source is None else json.loads(source[0])
+                    else:
+                        pointer = pointers[item["molecule_id"]]
                     try:
                         if pointer is None:
                             raise ValueError("Original D20 source pointer missing")
-                        item["smiles"] = original_smiles(json.loads(pointer[0]))
+                        item["smiles"] = original_smiles(pointer, lookup=lookup)
                         item["source_error"] = None
                     except (ValueError, KeyError) as error:
                         # Missing source graphs are preserved as explicit missing rows.
