@@ -9,7 +9,7 @@
 #SBATCH --time=1-00:00:00
 set -euo pipefail
 # Submit only after a reviewed closed-cost plan exists. Override CPUs for
-# produce with its plan.slurm.cpus_per_stage.produce: 4 workers + parent = 5.
+# produce with its plan.slurm.cpus_per_stage.produce (workers plus parent).
 # population_summary/prepare/finalize need 1 CPU.
 stage=${1:?population_summary, prepare, produce, finalize, or all required}
 config=${2:?absolute generated config path required}
@@ -22,7 +22,7 @@ python_bin=/share/home/zixiao/.conda/envs/chemprop/bin/python
 case "$stage" in
   all)
     # One day-scale allocation; each stage reuses its own closed checkpoints.
-    # Submit with 5 CPUs: four descriptor workers plus the parent process.
+    # Submit with the plan's worker count plus one CPU for the parent.
     "$python_bin" -B -m workflows.data_d_descriptors.prepare --config "$config/prepare.json"
     "$python_bin" -B -m workflows.data_d_descriptors.produce produce --config "$config/produce.json"
     exec "$python_bin" -B -m workflows.data_d_descriptors.produce finalize --config "$config/finalize.json" ;;
