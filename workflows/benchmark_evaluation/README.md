@@ -51,3 +51,9 @@ ExpansionRx 官方九终点公开释放源由 4536975 获取，以 `B0.DELIVERY.
 执行中保留的失败：4536996未识别原B0 `test_blinded` 别名，由4537017绑定同一官方TEST，未改成员；4536992为源码字符串拼接错误，4537022完成修复后的pKa特征；4537020为RDKit导入位置错误，4537021完成已声明气相条件的特征接入。相关未启动下游请求已从零计算边界替换，未停止任何已运行训练。Biogen Chemprop的临时Nice调度已恢复0。
 
 [ExpansionRx评分](../../docs/benchmark/EXPANSIONRX_METRIC_PROTOCOL.md)、[Joung输入](../../docs/benchmark/JOUNG_INPUT_PROTOCOL.md)、[NMR划分与文献](../../docs/benchmark/NMR_SPLIT_AND_LITERATURE.md) 和 [报告说明](../../docs/benchmark/REPORTING_NOTES.md) 固定了本批含义。表内“可用”、部分结果、源准备关闭和最终科学结论分开标注；没有生成 B1_task_screen.csv 或声称 C1 最终表已完成。
+
+### Final reporting and current UFF C1 binding
+
+`reporting.py` and `b1_final_task_screen.sbatch` consume closed native B1 predictions for the single registered screen. The batch source binds all 45 producer handles, including nine five-element Chemprop repetition arrays. It is prepared but has not been submitted; finish producer-error recovery before final execution. It refuses to revise an existing final CSV. Incomplete/unaligned comparisons raise until an explicit final UNRESOLVED reason is bound. Only the final screen CSV receives a SHA; diagnostic/Tukey tables do not.
+
+`c1_uniform_uff_d_binding.sbatch` consumes the newly sealed B0 uniform UFF scope, through SharedB0Reader, for C7/PPE C1-D. It preserves existing labels and frozen folds, and writes matching native values/masks/state. Its four `c1_uniform_uff_*` drivers supersede historical reference-D3 C1 outputs, which remain preserved. `pprime_features.py` reuses the original pretraining component reader and original task paths/units; no P′ database is consumed before its own native seal. Exact current native job bindings are in `native_jobs_20261120.json`.

@@ -9,3 +9,5 @@ PPE 主任务仍为实验生成焓减 BensonGA、实验生成焓减作者发布 
 ExpansionRx 的榜单尺度与 B1 TRAIN 均值筛选尺度分别报告，见 [评分协议](EXPANSIONRX_METRIC_PROTOCOL.md)。Joung 的条件输入和冻结折见 [光学输入协议](JOUNG_INPUT_PROTOCOL.md)；NMR 只引用同发布划分数字，见 [NMR 说明](NMR_SPLIT_AND_LITERATURE.md)。
 
 最终 B1 名单只执行一次预注册规则，并要求汇齐三个基线及完整折 / TEST 记录。Biogen / TDC 的原定附录角色不能由性能自动晋升。pKa 单位点机制在当前原始实验来源缺少唯一原子位点注释，标为未完成，不能伪造“0 个单位点”或以单次宏观跃迁当作位点计数。
+
+统一 UFF 更新：C7/PPE 的早期 C1-D 参考构型 D3 输出只保留为历史记录；最终 C1 接 B0 已封存的统一 UFF D20/D3。实验目标与冻结 scaffold25 折不变；P′ 与 P′+D 均明确采用 UFF 单点性质，按同一实际构象 ID 对齐。最终汇总遇到缺失/不配对产出会停止定稿，只有已按两次连续失败或四小时规则关闭的项才能明确列为 UNRESOLVED。

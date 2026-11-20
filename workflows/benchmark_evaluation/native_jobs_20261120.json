@@ -2,7 +2,7 @@
   "schema": "BENCHMARK_NATIVE_JOB_INDEX_20261120_V1",
   "scope": "96 active candidate endpoints after complete anonymous five-endpoint inventory verification; no final decisions yet",
   "native_source_worktree_HEAD": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
-  "latest_published_before_this_batch": "5f6cf64032376e03aec7e13dea27acec72ca86e4",
+  "latest_published_before_this_batch": "f3c7a3cbb95045f28cdd6df1a88ee322e86af292",
   "artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119",
   "deferred_inventory": {
     "job": 4536851,
@@ -75,7 +75,8 @@
     "C1_D_TabPFN": 4537008,
     "native_target_points": 6095,
     "domain_target_points": 6023,
-    "quantity": "G298, original native hartree fields; no removal of native original id6001"
+    "quantity": "G298, original native hartree fields; no removal of native original id6001",
+    "LightGBM_status": "COMPLETED2_ENDPOINTS_ALL25_FOLDS"
   },
   "PPE": {
     "Benson_binding_job": 4536988,
@@ -90,7 +91,8 @@
     "PM7_domain_residual_points": 1565,
     "Benson_library": "pGrAdd2.9.14 BensonGA, fixed native published values,298.15K,kcal/mol",
     "classical_report_job": 4537083,
-    "classical_report_status": "COMPLETED204_REPORT_ROWS"
+    "classical_report_status": "COMPLETED204_REPORT_ROWS",
+    "LightGBM_status": "COMPLETED2_ENDPOINTS_ALL25_FOLDS"
   },
   "ExpansionRx": {
     "public_release_source_job": 4536975,
@@ -119,7 +121,7 @@
       4536951,
       4536959
     ],
-    "D_LightGBM_completed_endpoints": 71,
+    "D_LightGBM_completed_endpoints": 80,
     "D_TabPFN_completed_jobs": [
       4536899,
       4536921,
@@ -131,7 +133,51 @@
     "D_TabPFN_pKa": 4537011,
     "Pprime_and_Pprime_plus_D": "Wait for corresponding B0 native seals; no active cross-node SQLite read and no imputation",
     "atom_task_protocol": "Atomic native Pprime plus RDKit atom features, LightGBM only",
-    "D_TabPFN_TDC_ASAP_status": "COMPLETED23_OF23"
+    "D_TabPFN_TDC_ASAP_status": "COMPLETED23_OF23",
+    "D_LightGBM_ExpansionRx": 4537080,
+    "uniform_UFF_rebinding": {
+      "source_entry_peer_branch": "data-benchmark-b0-20261119",
+      "source_native_handoff": 4537016,
+      "feature_job": 4537119,
+      "models": [
+        {
+          "group": "C7H10O2",
+          "model": "LightGBM",
+          "job": 4537120
+        },
+        {
+          "group": "PPE1694",
+          "model": "LightGBM",
+          "job": 4537121
+        },
+        {
+          "group": "C7H10O2",
+          "model": "TabPFN",
+          "job": 4537122
+        },
+        {
+          "group": "PPE1694",
+          "model": "TabPFN",
+          "job": 4537123
+        }
+      ],
+      "historical_reference_geometry_LightGBM_jobs_preserved": [
+        4537002,
+        4537006
+      ],
+      "unstarted_reference_geometry_TabPFN_jobs_cancelled": [
+        4537008,
+        4537009
+      ],
+      "unstarted_binding_mask_state_consistency_update_jobs": [
+        4537114,
+        4537115,
+        4537116,
+        4537117,
+        4537118
+      ],
+      "native_labels_and_scaffold_folds_unchanged": true
+    }
   },
   "Joung": {
     "original_components_job": 4537012,
@@ -548,7 +594,8 @@
       "4537006": 60,
       "4537022": 60
     },
-    "Biogen_Chemprop_nice_restored_to_zero": true
+    "Biogen_Chemprop_nice_restored_to_zero": true,
+    "Biogen_Chemprop_native_TimeLimit_hours": 4
   },
   "unit_evidence": {
     "selection_logic": {
@@ -580,11 +627,31 @@
       "step": 0,
       "status": "PASS",
       "proposed_files": 46
+    },
+    "final_reporting_and_native_Pprime_features": {
+      "job": 4536985,
+      "step": 7,
+      "tests": 22,
+      "status": "PASS"
+    },
+    "source_check_current_published": {
+      "job": 4536985,
+      "step": 0,
+      "status": "PASS",
+      "proposed_files": 91
     }
   },
   "B2_final_availability": "docs/benchmark/BASELINE_AVAILABILITY.md; published5f6cf64 with SHA256 receipt; seven available,four unresolved,one weights unpublished,two user access",
   "pretraining_started": false,
   "B2_full_extraction_started": false,
   "B3_B4_started": false,
-  "B1_screen_decisions_produced": false
+  "B1_screen_decisions_produced": false,
+  "B1_final_screen_consumer": {
+    "script": "b1_final_task_screen.sbatch",
+    "submitted": false,
+    "source_groups": 45,
+    "arrays": 9,
+    "task_roster_written": false,
+    "missing_or_unaligned_results_cannot_finalize_without_explicit_terminal_UNRESOLVED_reason": true
+  }
 }

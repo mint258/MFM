@@ -1,26 +1,25 @@
 {
   "schema": "BENCHMARK_B0_AVAILABLE_DELIVERY_ENTRY_V1",
-  "status": "D_AVAILABLE_PPRIME_RUNNING_S_P_PENDING",
+  "status": "D_AVAILABLE_DIRECTIVE19_UNIFORM_SPRIME_SEALED_PPRIME_IN_PROGRESS",
   "authority": "docs/benchmark/USER_DIRECTIVE_20261118.md@07be7a0f04085398eeda2b7548afa46c668ffd9a",
   "data_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119",
-  "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/job_4536591/manifest.json",
-  "domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/job_4536591/domain_counts.csv",
-  "handoff_native_job": 4536591,
+  "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/manifest.json",
+  "domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/domain_counts.csv",
+  "handoff_native_job": 4537016,
   "handoff_native_state": "COMPLETED",
   "handoff_native_exit": "0:0",
   "source_groups": 11,
   "domain_count_rows": 12,
-  "Pprime_current_job": 4536581,
+  "Pprime_current_job": 4536588,
   "Pprime_current_node": "compute-0-12",
   "Pprime_current_workers": 8,
   "Pprime_followup_jobs": [
-    4536588,
     4536590
   ],
   "Pprime_all_ready": false,
   "S_ready": false,
   "P_ready": false,
-  "reference_quantum_status": "P pending with unrecovered S; Pprime defined on UFF only; dataset reference XYZ unchanged",
+  "reference_quantum_status": "Downstream uniformly uses shared UFF Sprime; C1 property groups use Pprime; historical reference XYZ retained as provenance",
   "no_local_database_copies": true,
   "all_required_production_complete": false,
   "supplemental_sources": {
@@ -40,7 +39,177 @@
     "scope_authority_commit": "fec1b994aa642ba8db74074134f909dcb4f165f0",
     "full_inventory_verification": "REQUIRED_BEFORE_B1_FITTING_NOT_PERFORMED_BY_B0"
   },
-  "supplemental_source_policy": {
-    "ExpansionRx_official_release": "Public ungated official post-challenge release pinned at 6b898ccc43d10d25b230fb09e22a6e30c30022b5; original nine endpoints and B0 train/test membership are unchanged; validate original Molecule Name and full original structure identity before using finite TEST labels, retain original TRAIN labels; no raw-only RLM endpoint"
-  }
+  "directive19_resolutions": {
+    "authority_commit": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
+    "directive": "docs/benchmark/USER_DIRECTIVE_20261119.md",
+    "pka": {
+      "main": "molecular_macro_strongest_acid_and_strongest_base",
+      "mechanism": "uniquely_identifiable_single_ionization_site_only",
+      "single_site_evidence_required": true,
+      "predicted_microspecies_are_experimental": false,
+      "multisite_microscopic_assignment": false,
+      "SAMPL_exclusion": "complete_InChIKey; challenge_plus_local_ID"
+    },
+    "nmr": {
+      "split": "nmrshiftdb2-2018; Jonas_Kuhn_2019; Kwon_2020",
+      "prefer_author_split": true,
+      "published_test_molecule_count_match_required": true,
+      "CSTShift": "DFT_input_reference_upper_bound_only"
+    },
+    "geometry": {
+      "downstream": "uniform_Sprime_UFF",
+      "PM7_optimizer": "DO_NOT_RECONSTRUCT_OR_TRIAL",
+      "C1_property_group": "Pprime; explicitly_named_Pprime",
+      "Pprime_access": "corresponding_dataset_producer_sealed"
+    },
+    "seeds": {
+      "default": 1,
+      "second": "final_significant_improvement_or_specified_training_rollback_instability"
+    },
+    "B1_branch": "benchmark-b1-20261119",
+    "data_preparation_complete": false
+  },
+  "directive19_data_preparation": {
+    "NMR2018_author_split": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/NMR2018/job_4536853/manifest.json",
+    "NMR2018_targets": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/NMR2018/job_4536887/manifest.json",
+    "pKahub_macro_targets": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4536891/manifest.json",
+    "uniform_Sprime_scope": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/geometry/shared_v1/queue.manifest.json",
+    "uniform_scope_ready": true,
+    "pKa_atomic_site_evidence_ready": false,
+    "NMR2018_published_test_count_reconciliation": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/NMR2018/job_4536946/manifest.json",
+    "NMR2018_test_molecule_counts_matched": true,
+    "pKa_single_site_definition_proposal": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4536942/manifest.json",
+    "pKa_single_site_definition_approval": "PENDING_USER_REPLY; proposal is not a training-label entry"
+  },
+  "active_target_manifests": {
+    "NMRShiftDB2": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/NMR2018/job_4536887/manifest.json",
+    "pKahub": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4536891/manifest.json"
+  },
+  "uniform_Sprime_producer": {
+    "job": 4536924,
+    "native_state": "COMPLETED",
+    "node": "compute-0-17",
+    "workers": 2,
+    "producer_progress_observed": true,
+    "previous_bootstrap_job": 4536898,
+    "previous_bootstrap_state": "FAILED",
+    "previous_bootstrap_exit": "9:0",
+    "previous_bootstrap_scientific_calls": 0,
+    "source_UFF_job": 4536924,
+    "D3_alignment_postprocessing_job": 4536978,
+    "geometry_generation_complete": true,
+    "D3_alignment_postprocessing_state": "COMPLETED/0:0",
+    "effective_source_final_writer_job": 4536978,
+    "outcome_counts": {
+      "D20_READY_NO_ACCEPTED_CONFORMERS": 656,
+      "D20_READY_STEREO_REFERENCE_UNAVAILABLE": 14285,
+      "D20_READY_UFF_UNSUPPORTED": 11,
+      "SPRIME_AND_D_READY": 23287,
+      "SPRIME_READY_D_PARTIAL": 1
+    }
+  },
+  "uniform_Pprime_chain": {
+    "prepare_job": 4536979,
+    "producer_jobs": [
+      4536906,
+      4536907
+    ],
+    "source_geometry_native_C0_required": true,
+    "ready": false,
+    "source_geometry_job": 4536978,
+    "queued_actual_conformers": 53896,
+    "source_geometry_sealed": true,
+    "prepare_native_state": "COMPLETED/0:0",
+    "current_workers": 8,
+    "current_job": 4536906,
+    "current_native_state": "RUNNING",
+    "observed_intents": 8,
+    "current_node": "compute-0-17",
+    "observed_CST": "2026-11-20T11:02:12+08:00",
+    "observed_pending": 49311,
+    "producer_progress_observed": true,
+    "observed_ready": 4574,
+    "producer_log": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/B0_uniform_pprime_4536906.log",
+    "cross_node_read_allowed": false,
+    "observed_partial": 3
+  },
+  "both_scopes_final_handoff": {
+    "job": 4536961,
+    "native_state": "PENDING",
+    "submitted_afterok_jobs": [
+      4536963,
+      4536599,
+      4536907
+    ],
+    "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/final_all_scopes_4536961/manifest.json",
+    "production_closed": false,
+    "all_required_work_complete": false,
+    "metadata_only_no_SQLite_replay": true
+  },
+  "D3_source_alignment_recovery": {
+    "status": "SOURCE_UFF_AND_D3_REPAIR_CLOSED_GEOMETRY_SEALED",
+    "recorded_error_metadata_job": 4536970,
+    "unit_test_job": 4536974,
+    "source_check_job": 4536976,
+    "repair_job": 4536978,
+    "source_UFF_job": 4536924,
+    "source_seal_prepare_job": 4536979,
+    "superseded_zero_start_prepare_job": 4536925,
+    "successful_labels_and_source_coordinates_unchanged": true,
+    "original_failure_history_preserved": true,
+    "genuine_scientific_failure_retry": false,
+    "recorded_error_confirmed": true,
+    "unit_tests_passed": 6,
+    "source_check_status": "PASS",
+    "source_check_files": 5264,
+    "source_sealed": true,
+    "repair_native_state": "COMPLETED/0:0",
+    "remaining_partial_molecules": 1,
+    "repair_complete": true,
+    "repair_outcomes": {
+      "D3_REPAIRED": 41243
+    }
+  },
+  "Pprime_previous_closed_job": {
+    "job": 4536581,
+    "native_state": "COMPLETED",
+    "native_exit": "0:0",
+    "INTENT": 0,
+    "outcome_counts": {
+      "PENDING": 164875,
+      "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES": 157,
+      "PPRIME_READY": 160048
+    }
+  },
+  "Pprime_standby": {
+    "job": 4536991,
+    "previous_job": 4536588,
+    "followup_job": 4536590,
+    "native_state": "PENDING",
+    "scientific_calls": 0,
+    "acceptance_written": false,
+    "exclude_unrecovered_node18": true,
+    "superseded_zero_native_candidate": 4536722,
+    "exclude_uniform_active_node": "compute-0-17",
+    "exclusion_until": "Uniform scope tmpfs writer closed; both8+16 scratch peaks exceed actual node17 tmpfs",
+    "uniform_tail_must_exclude_allocated_standby_node_before_accept": true,
+    "scientific_record_grace_unchanged": true,
+    "native_TimeLimit_hours": 24,
+    "native_TimeMin_hours": 6,
+    "actual_speedup_not_yet_observed": true,
+    "previous_native_TimeMin_hours": 12,
+    "TimeMin_update_at_verified_pending_zero_runtime": true
+  },
+  "active_source_count_handoff": {
+    "historical_domain_table_preserved": true,
+    "unit_tests_and_source_check_pending": false,
+    "native_state": "COMPLETED/0:0",
+    "job": 4537016,
+    "source_check_files": 5265,
+    "unit_tests_passed": 3,
+    "source_check_python_files": 3736,
+    "source_check_errors": 0
+  },
+  "active_domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/active_source_domain_counts.csv",
+  "historical_domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/domain_counts.csv"
 }
