@@ -4660,12 +4660,12 @@
     "source_preparation_state": "COMPLETED/0:0",
     "source_preparation_node": "compute-0-17",
     "focused_synthetic_tests": 6,
-    "dispatch_job": 4537587,
+    "dispatch_job": 4537590,
     "dispatch_state": "PENDING",
     "dispatch_dependency": "afterok:4537503",
     "preparation_manifest": "conditional_preparation/C1/job_4537503/manifest.json",
-    "dispatch_state_manifest": "conditional_dispatch/C1/job_4537587/dispatch_state.json",
-    "source_cache": "private_backend_validation/job_4537586/proposed_sources.json",
+    "dispatch_state_manifest": "conditional_dispatch/C1/job_4537590/dispatch_state.json",
+    "source_cache": "native_consumer_validation/job_4537589/proposed_sources.json",
     "module": "workflows/benchmark_evaluation/conditional_chain.py",
     "preserves_frozen_scientific_configuration": true,
     "only_registered_final_significant_TabPFN_cells": true,
@@ -4694,11 +4694,18 @@
         "state": "CANCELLED by1278",
         "elapsed": "00:00:00",
         "start": "None"
+      },
+      {
+        "job": 4537587,
+        "state": "CANCELLED by1278",
+        "elapsed": "00:00:00",
+        "start": "None"
       }
     ],
-    "latest_source_preparation": 4537586,
-    "latest_scheduler_tests": 7,
-    "registered_private_backend_metadata_checked": 2
+    "latest_source_preparation": 4537589,
+    "latest_scheduler_tests": 9,
+    "registered_private_backend_metadata_checked": 2,
+    "real_consumer_sources_checked": 3
   },
   "shared_NFS_futures_reconciliation": {
     "native_deployment": 4537550,
@@ -4793,7 +4800,8 @@
     "current_D_NFS_joint_unchanged": 36706053853,
     "primary_7502_preparation_7503_producer_IDs_unchanged": true,
     "original_dispatcher_at_GPU_gate_update": 4537551,
-    "current_dispatcher_after_backend_alias_fix": 4537587
+    "current_dispatcher_after_backend_alias_fix": 4537587,
+    "current_dispatcher": 4537590
   },
   "node_local_peer_storage_protection": {
     "status": "BENCHMARK_LOCAL_PEER_STORAGE_FUTURES_DEPLOYED",
@@ -4871,5 +4879,29 @@
       "no_active_SQLite_open": true
     },
     "scientific_inputs_or_model_execution_changed": false
+  },
+  "native_consumer_entry_validation": {
+    "job": 4537589,
+    "state": "COMPLETED/0:0",
+    "node": "compute-0-17",
+    "scheduler_tests": 9,
+    "real_consumers": [
+      "report",
+      "combine",
+      "final"
+    ],
+    "actual_shell_and_embedded_python_syntax_valid": true,
+    "submission_envelopes_removed_preserving_body": true,
+    "all_three_entries_validated_before_native_submission": true,
+    "models_or_statistics_executed": false,
+    "current_dispatcher": 4537590,
+    "shared_notice": {
+      "job": 4537591,
+      "state": "COMPLETED/0:0",
+      "paths": 6,
+      "concurrent_bytes": 200546101981,
+      "original_B0_forecast": 54775189504,
+      "UID_observation_age_seconds": 5.294467210769653
+    }
   }
 }

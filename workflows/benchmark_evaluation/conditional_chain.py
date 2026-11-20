@@ -47,7 +47,17 @@ def validated_groups(preparation, owned_root):
         raise ValueError("Every required C1 configuration must have exactly one prepared source")
     return groups
 
+def native_batch_script(script):
+    """Accept a registered raw batch script or its exact single sbatch heredoc envelope."""
+    if script.startswith("#!/bin/bash\n"):
+        return script
+    wrapped=re.fullmatch(r"sbatch <<'([A-Z][A-Z0-9_]*)'\n(#!/bin/bash\n.*)\n\1\n?",script,re.S)
+    if not wrapped:
+        raise ValueError("A registered native sbatch script or exact submission envelope is required")
+    return wrapped.group(2)+"\n"
+
 def script_with_exports(script, exports):
+    script=native_batch_script(script)
     if not script.startswith("#!/bin/bash\n") or "\nset -euo pipefail\n" not in script:
         raise ValueError("A registered complete native sbatch script is required")
     prefix="".join("export "+key+"="+shlex.quote(str(value))+"\n" for key,value in sorted(exports.items()))
@@ -56,6 +66,7 @@ def script_with_exports(script, exports):
 def wire(preparation, preparation_path, owned_root, out, source_cache, scripts, submit, release, write):
     """All jobs remain held until exact returned IDs and the complete chain are recorded."""
     groups=validated_groups(preparation,owned_root)
+    scripts={name:script_with_exports(scripts[name],{}) for name in ("report","combine","final")}
     out=Path(out);bindings_path=out/"dispatch_bindings.json"
     bindings=dict(stage="C1",preparation_manifest=str(preparation_path),groups=[],unresolved_cells=[])
     record=dict(status="PREPARING_HELD_NATIVE_CHAIN",bindings=bindings,native_jobs=[],jobs_released=[])

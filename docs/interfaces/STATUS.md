@@ -614,71 +614,42 @@ PM7重复构象保留，D7的0.5Å统计不作为删样指令；普通S′沿用
 
 新选择器3项测试4536846在compute-0-17原生COMPLETED/0:0；这不代表真实任务清单覆盖已经核对。06:02快照：P′136,323齐备、129部分、188,620待启动、8在算（共325,080），4536581/8CPU持续，16核候补4536722仍排队。现有物理/量化参数、单份共享数据及CPU8–19规则保持；最终交接须携带独立active_evaluation_scope，不重写历史B0档案。
 
+## 2026-11-20 D 阶段0共享存储通知
+用户已授权 GitHub docs/s-d-taskbooks-20261119 的 D 家族任务书。D 工作树 MFM_d_recipe，数据工作树 MFM_d_descriptors_20261120。现仅提交 CPU 环境/新逻辑测试/5000分子成本作业4537091、4537092、4537093、4537113，排队中，排除NFS异常18，不动其他线作业；D GPU等待P冻结且P9M提交。成本面板在/share预留4GiB，测试小临时目录也在/share，不占B0的/dev/shm预算，不复制源DB；全量生产预算尚未预留。D写入守卫使用现有实时UID配额，保留100GB底线，并联合核算登记模型总池114569896448B（含P61GB）、B0两组Pprime各80GB未来预测扣已用物理量、24GiB环境余量、1GiB元数据及未关闭几何未来；已封存几何按原生C0记录退掉未来量。仅追加此接口通知；D无科学结果/接收验收结论。
 
-## 2026-11-20 B0 original NMR targets, pKa macros and uniform UFF scope
+## 2026-11-20 B1 CUDA128 Lustre 环境预留
+下游 B1/C1 为开发节点22候选执行准备兼容环境，尚未启动该节点GPU任务。已在实际CPU目标节点核实 /lfshome 的字节/inode与UID1278配额；新前缀 /lfshome/zixiao/benchmark_B1_environments_20261120/gpu_cu128_backend_node22_v1 预留16GiB，包含下载包、解压、安装临时峰值，运行中每20秒核查真实目标配额并保留100GiB。原/share账户新增环境预算被守卫拦下，未下载、未降低预留；既有模型114569896448B池、B0两组量化未来量、D阶段0的/share 4GiB及本线/share预算保持。此新前缀只存软件包，不复制数据库或科学标签。环境准备在CPU作业4537025的步骤1进行；模型版本Chemprop2.2.2/TabPFN10.2.0与原预算不变。候选22卡当前为他人Gromacs进程，不是配方9M使用卡；若后续使用，按20/22现行共享规则、真实GPU/UID与公共锁准入，不干预他人进程。现有5/7两张GPU任务继续。安装关闭后另追加实际状态并退掉未来安装峰值预留。
 
-B0.DELIVERY.json now links original NMR2018 atom targets/domain (4536887 C0; 39719 original spectra rows, 353520 atomic labels, author splits and atom IDs preserved) and pKa macros/exact SAMPL exclusions (4536891 C0; 29972 training-pool molecules; 44 complete blind InChIKeys, 79 excluded source rows). No experimental atomic-site evidence is invented. Uniform UFF input preparation4536895 C0 has38240 new ordered graphs and reuses163 source rows through existing shared geometry pointers; geometry4536898 is running on CPU18/8CPU, not yet sealed. Source check4536896 passed5252 files/3724 Python sources. Original Pprime4536581 continues unchanged; no data copies or deletion. B1's existing inventory and environment work are reused. Original 2018 targets replace the historical CSTShift-DFT subset for standard NMR evaluation; published unique-molecule-count reconciliation remains explicit.
-
-
-## 2026-11-20 B0 refreshed directive19 consumer entry
-
-Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json exposes active_target_manifests for original NMR2018 and pKa macros/SAMPL exclusions; README documents source atom IDs and shared geometry routing. Uniform UFF4536898 is scheduler-RUNNING on CPU18 but has no observed producer progress yet (access still belongs to input preparation); do not infer UFF readiness or restart from a polling timeout. Pprime scope dependency6905→6906→6907 requires actual complete source geometry C0. Original325080-conformer Pprime and16CPU standby remain unchanged. Quota metadata service3058760 has finite7-day lifetime and replaced the verified exited original service sequentially.
-
-2026-11-20 08:00 CST · B0新范围统一UFF实际生产已在compute-0-17/2CPU的4536924推进；封存准备4536925→Pprime4536906→4536907，均依赖实际源C0和全队列终态，不复制数据库。原4536898的node18资源检查Python实际D/nfs_wait_bit_killable，核实UID/argv/start_ticks/cgroup且无科学后代后只终止自己的metadata子进程，原生FAILED/9:0、17,560分配核秒保留；observer断言失败亦保留。原4536905核实PENDING/Elapsed0后取消。该故障恢复复用同一输入，无科学重试；原Pprime4536581持续，候补4536722仍PENDING，未接管。统一入口已改为实际新链，数据仍IN_PROGRESS。
-
-2026-11-20 08:11 CST · B0 NMR原划分计数4536946 C0：Kwon2020作者datasets.zip的13C/1H测试谱行5390/2554、唯一原分子5055/2527均与Jonas2019发布划分一致，未重分割或数值QA。pKa位点证据4536942 C0：全37类作者SI官能团按原子去重，训练18838多位点/5588单一catalog位点/5546未决，5465条唯一映射候选；外盲9条。候选定义已向用户提交，尚未冻结/不供机制拟合；宏观主任务保持可用。新增4项NMR计数测试和5项位点反例测试通过。原Pprime与新UFF继续，无数据库副本、源删除或科学重试。
-
-2026-11-20 08:26 CST · B0双范围终态交付已提交4536961，afterok4536963源码、原范围4536599及新增Pprime4536907。两范围各自geometry与Pprime都需原生C0/不可变/无PENDING或INTENT；元数据聚合，不做数据库复读。pKa定义/正式原子标签仍待定时all_required_production_complete与all_required_work_complete保持false。当前生产持续、未来manifest尚未发布。node18只读启动复核4536958未进入解释器，实际slurmstepd为D，sacct记TIMEOUT/123秒×1CPU，scontrol仍COMPLETING；未证明节点恢复，继续排除，不动Slurm daemon/管理员状态。
-
-2026-11-20 08:47 CST · B0新NMR显式H源原子序与旧D3默认去H/末尾加H顺序存在适配差异；仅针对已记录的D3原子序/键图序失败准备完整图/手性排列适配器，SASA逆映射回原子序，原坐标/成功D3/D20/QM不变、原失败保留。6970失败元数据、6974合成测试及6976源码均C0后，6978还需原UFF6924实际C0才可执行；6979在修复生产C0后封存并接6906→6907。原6925为未启动的metadata准备，验证PENDING/0秒后取消，未停止原Pprime或UFF。新NMR-D仍未最终就绪，不把修复提交当完成；原范围没有D部分失败（原producer113679齐备），本次不改原范围已供模型使用的数据。
-
-2026-11-20 09:02 CST · B0新增UFF6924已实际C0（4253秒/2CPU），38,240图全部终态。原失败元数据6970 C0确认4分子D20无错、D3因元素序对齐未计算；6974六项排列/同位素/手性/once保留测试通过，6976 C0源码PASS5264/3735/0错误。D3属性适配修复6978实际RUNNING并已产生首批D3_REPAIRED，未重算UFF/QM/成功D3/D20，原错误及once结果保留；6979须待修复真实C0才封存并接6906→6907。原Pprime4536581继续；新D尚未整批封存。
-
-2026-11-20 09:29 CST · B0原Pprime6581实际COMPLETED/0:0（76047秒×8CPU），160048齐备/157部分/164875待启动/INTENT0；6588已在原CPU12/8CPU正常续接，源access实际producer6588且已新增闭合记录，无重算。旧16核候补6722核实自有PENDING/0秒/accept不存在后取消，sacct CANCELLED/0秒；新候补6991显式绑定6588、后续6590，暂排除未恢复18，目前PENDING/0Native。若真正获配须先把6590设为afterok6588:6991，再验证实际旧Python父进程并协作收尾；不触碰QM子进程，不因候补排队停止现有生产。D3修复6978继续，新增Pprime6906仍等6979封存；目标未全部关闭。
+## 2026-11-20 B1 CUDA128 关闭与节点22实际执行
+Lustre软件包准备已在原生CPU步骤4537025.1关闭/C0；Torch2.7.1+cu128的sm120支持及Chemprop2.2.2/TabPFN10.2.0隔离环境在CPU步骤4537025.5导入通过。此前16GiB下载/解压未来峰值预留已退，现有软件包占用已进入/lfshome真实UID配额；没有数据库复制、模型预算或标签变更。此前/share容量守卫拒绝的尝试仍保留失败记录，未降低/shared预算。
+节点22已按现行20/22共享规则启动Joung e1 Chemprop正式25折数组4537335（4CPU，0-4%1），实际子任务4537336已完成首个50epoch拟合。目标UUID GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef；启动前原有他人Gromacs为UID1283、约0.7GiB显存/87%利用率，保持运行，不称独占或计算空闲。公共UUID锁、真实CPU分配、显存≤30%且足够余量、根盘/共享盘字节/inode和账户保护继续；若已有同UID上下文（含配方9M）则拒绝启动。配方9M在用卡没有占用。原GPU5的未启动e1数组4537266在零运行时取消；GPU5 e2改等e0实际关闭，避免跳过旧依赖造成同卡双启动。
 
 
-2026-11-20 10:15 CST 窗口二 B0：新统一S′/D已封存，D3原子对齐修复4536978原生COMPLETED/0:0，41,243条原对齐失败修复；23,287图S′/D齐备、1图D部分、656无接受构象/14,285立体参照缺失/11UFF不支持显式保留，原失败历史不改。4536979已C0，directive19/uniform_Sprime/geometry/shared_v1/access.json现immutable/cross_node_read_allowed=true，B1/C1-D可按B0.DELIVERY的geometry_bindings和SharedB0Reader读取原共享库，映射使用binding.model_atom_to_source；不复制数据库。新增53,896个实际构象已入P′队列，6906/6907因CPU满排队，未宣称标签就绪。原325,080构象P′6588在CPU12/8核运行；16核候补6991仍PENDING，未接管。当前NMR数量表补充7016排队，聚合原manifest而不重读标签；历史参考数量保留。pKa单位点提案4536942仍等用户科学定义回复，非正式机制标签；宏观入口与外盲排除照常。最终6599/6961均追加7016成功依赖，旧科学配方/失败/共享单份及磁盘保护不变。
+### 2026-11-20 D 阶段 0：下游源输入排队与联合峰值
 
-2026-11-20 10:23 CST B0当前来源数量交付4537016已实际COMPLETED/0:0（11秒/2CPU），新增3项路由测试通过，源码PASS5265文件/3736Python/0错误。B0.DELIVERY现指向delivery/directive19_current_counts_4537016/manifest.json及active_source_domain_counts.csv；NMR2018为13C 26913谱行/26507域内、1H 12806/12007，逐原因列保留。历史domain_counts.csv不改；pKa表仍为curated测量行，宏观终点见active_target_manifests。两条最终handoff保留7016成功依赖。新增共享S′/D已封存可读，P′尚在生产或排队；pKa原子机制提案仍未获用户定义回复，不声明全部完成。
+已提交 4537346（开发源输入，1CPU/4GiB RAM）与 4537347（基准源输入，1CPU/8GiB RAM），都 afterok:4537113；14:27 核实仍等待测试成功。两项只准备无标签结构/旧 D 特征，不做新宽库或模型拟合。D 成本面板4GiB＋基准元数据8GiB＋开发元数据0.5GiB 共同采用一份14GiB峰值准入（含缓冲），不是每作业各可占14GiB；所有实际大写入仍先查目标节点字节/inode/新鲜UID quota和剩余peer预算，空间不足保留断点。未来全量预算尚未预约，启动前须把当时未完成D输入写入计入同盘联合峰值。
 
-
-2026-11-20 10:13 CST 时间更正：上面两条新增通知的10:15/10:23为误填时标，不是事件发生时间。以原生Slurm记录为准：D3修复6978于09:57:16完成，源封存准备6979于09:57:50完成，当前数量交付7016于10:09:12完成（均COMPLETED/0:0）。前两条的数据状态与计数保持有效；截至本条原Pprime6588仍RUNNING，新增6906和候补6991仍PENDING。
-
-
-2026-11-20 10:45 CST 窗口二B0新增P′已真正进入生产：原生4536906 RUNNING/compute-0-17/8CPU，原源6978 C0和6979封存依赖均已满足，access实际producer4536906、UID1278、immutable=false、cross_node_read_allowed=false。原53,896构象队列已1,227齐备/8在算/52,661待启动；6907保留afterok6906，不能把已启动当全量P′就绪。原范围6588仍CPU12/8CPU运行，候补6991仍PENDING；两条队列不重叠、原12任务/900秒/软件解析/FP64及一次生产规则保持，DB仍共享单份。新S′/D已封存可读；P′跨节点继续等对应数据集封存。仅更新现有入口/日报和本共享通知，不重算已闭合标签。
+基准特征导出使用既有活动来源清单、原五deferred排除与封存 SharedB0Reader；不以最终评测冻结为前置、不改变端点/划分、不读取TEST标签。最终C1评测仍由基准线按其冻结协议执行。新开发几何前缀读取与显式H策略接口已写好，但H策略尚待用户回答，未计算D3；阶段0尚未交付，无D科学结果或GPU运行。
 
 
-2026-11-20 10:50 CST B0联合tmpfs预算：6906新增8核已在17真实运行，实际17的/dev/shm总201841762304B、可用201718427648B、空inode49276676。按既有每worker8GiB，8+16核同节点将需240518168576B（含一次32GiB余量），不能各自使用同份空闲预算。6991新鲜核实自有PENDING/RunTime0且无accept后，仅将ExcNodeList更新为compute-0-[0-7,17-18,20-22]，两条活跃生产均未停止。17当前8worker未来峰值64GiB，另留32GiB；其他窗口勿重复预算。候补真正获配后，接管前还须让仍未启动的新增后续6907排除候补实际16核节点；17仅在其实际tmpfs写入关闭、候补仍PENDING/0Native时解除临时排除。原科学/现有守卫/共享quota余量不变，无数据删除或标签复算。
+## 2026-11-20 14:50 CST 下游队列衔接
 
+仅本线23个已实核UID1278/PENDING/零运行时间/原依赖已满足的Joung CPU作业，新增 after:4537119 启动顺序。统一UFF D绑定4537119开始后自动释放，不等待其结束，不使用手工hold；旨在先启用后续C7/PPE模型。已运行RF4537025/4537323、其他工作线及原科学源依赖不变。实际作业号/命令存于本会话执行台账，原native accounting保留。GPU7 e2原生数组4537355已真实训练，旧4537267全部零时间取消；GPU5 e3改afterany4537265，统一D TabPFN4537281改afterany4537355+afterok4537119。GPU7 e6全部25折已闭合。磁盘/配额/模型与量化未来预留不变。
 
-2026-11-20 11:02 CST B0候补回填调度更新：6991再次核实自有PENDING/RunTime0、无accept，原生TimeMin已由12:00:00放宽至06:00:00，TimeLimit仍1-00:00:00、16CPU及排除compute-0-[0-7,17-18,20-22]不变。仅扩大可利用的调度空档；原约3小时记录收尾余量、12任务/900秒/原软件解析、实际身份/容量/旧生产C0与双依赖接管规则均不改。尚PENDING，不宣称已提速；原6588/CPU12与新增6906/CPU17仍各8核并行运行，分别172801/4574齐备，新增3部分保留。未信号正在运行的生产或QM进程。
-
-
-2026-11-20 11:16 CST B0消费入口版本提示：仅检查代码/producer元数据，B1 NMR特征4536984实际COMPLETED/0:0，source_archive确为Jonas2019原2018发布文件，原train/test谱行保留；未读标签值或模型指标。其source_entry仍记录benchmark_b1_20261119工作树里的旧B0.DELIVERY快照（delivery/job_4536591，无active_target_manifests/directive19_data_preparation）。后续新消费应刷新B0入口至data-benchmark-b0-20261119，或显式采用当前规范入口 /share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_data_20261119/configs/benchmark_data/B0.DELIVERY.json；其中提供2018目标、当前计数、geometry_bindings与两范围共享队列状态。当前B1作业/代码/输入未改动；新S′/D已封存，P′仍等对应封存，目标原子映射使用binding.model_atom_to_source。此为入口版本衔接，不判定现有NMR数据错误，不要求重跑已闭合结果。
+GitHub草稿PR17当前89733f98f2155e22c787fad2beed5ea0afe4a887已原生确认mergeable=true。三工作树共享通知保留实际文件；PR恢复原STATUS文本以免覆盖数据分支的后续追加。整套104回归及18项新确认测试通过，源码最新检查4537025.17 PASS。B1唯一筛选、C1最终表和条件确认尚未全部执行，不宣称交付完成。
 
 
 ## 2026-11-20 16:24 D阶段0：新逻辑测试通过，成本/输入准备就绪
 
 D 新逻辑215项在 compute-0-17 原生SSH单核短程测试全部通过（UID1278/PID1392349，exit0，5.67秒，RSS923640KiB）；原始日志 `/share/home/zixiao/descriptor_analysis/D_native_cpu_tests_20261120_1622.log`，没有伪造Slurm身份。修正计算节点真实NFS锚点 `/share/home`；配额作用域仍为发布器的 `/share`，真实字节/inode/UID配额及100GB底线不变。原地只读复用既有pyarrow25.0.1，未改共享环境。旧4537113/7202/7261/7346/7347在零运行时间取消，Slurm终态已核实。现阶段0成本4537408、afterok成本的全量规划4537409、开发/基准无标签输入4537410/4537411均仍排队；一份14GiB联合NFS峰值保持原登记。全量、真实接收、D训练/读出均未完成；P冻结前不启动D GPU，不改其他线任务。
 
+### 2026-11-20 D stage0 joint full-output budget
 
-### 2026-11-20 D stage0 full-production admission (18:10 CST)
-
-D only: cost pilot4537446 COMPLETED0:0 on CPU10 (L1/L2 each5000 TRAIN); source count4537409 COMPLETED0:0 gives1201795 unique rows (TRAIN1194228, commonVAL7567). Forecast new full-output peak21673668317 bytes. Joint D NFS peak36706053853 bytes includes earlier15032385536 pilot/downstream budget; actual CPU17 root/NFS bytes/inodes and fresh UID1278 quota guard PASSED before submission, retaining100GB quota floor and existing model/B0/environment futures. This joint peak replaces the earlier14GiB D forecast; not additive to it. Full producer and active benchmark preparation will check the same joint peak at runtime. No node-local database copy. Native single-core CPU17 new-logic tests233 PASS, log D_native_cpu_tests_20261120_1802.log; no fictitious Slurm identity. Development source inputs4537410 completed; earlier benchmark metadata retained, active preparation now uses the author-approved NMR2018/pKa source manifests and original geometry namespaces. No D GPU launch, final reception, model fits, endpoint changes, or scientific success claimed; P is still pending freeze.
-
+Cost4537446 and cohort/plan4537409 completed. Full new-output peak21673668317 bytes plus existing pilot/downstream15032385536 gives joint D NFS36706053853 bytes, replacing earlier14GiB D forecast. Actual CPU17 root/NFS bytes/inodes and fresh UID1278 quota guard passed; retain100GB quota floor and registered model/B0/environment futures. Every producer continues runtime checks. New-logic233 tests pass at CPU17; logs D_native_cpu_tests_20261120_1802.log. Full producer/active benchmark source451a62be83e92f67d931f97cb5c074bfd7450344. No node-local database copy, D GPU, target reads or endpoint changes; stage0 reception and D scientific experiments remain incomplete.
 
 ### 2026-11-20 D stage0 actual launch and benchmark limitation (18:14 CST)
 
 Full L1/L2 job4537508 is RUNNING on CPU10,4CPU=3workers+parent; shared D peak36706053853 bytes and runtime guards unchanged. Actual source ac32340a53b4c82a01129c777db7e4306bfab521; only unstarted concurrency/allocation adjusted, no scientific changes. Active benchmark preparation4537509 COMPLETED0:0 in5min but producer status UNRESOLVED_CANONICAL_D20_BINDING:194729 unique/335120 members,38546 unresolved (NMR38514,other32). Together with4537426 this is two actual unresolved binding attempts: per D taskbook3.5 stop further diagnosis/repair of this item, keep both outputs, no guessed aliases/missing/success. Full TRAIN/VAL and development preparation continue; wide arms await complete delivery and true reception. No D GPU or final scientific decision.
-
-
-2026-11-20 15:06 CST B0新增统一范围P′正式封存：原生4536906 COMPLETED/0:0，15:04:04结束，53,896实际构象全部终态（53,842齐备、54部分失败），无PENDING/INTENT；其labels/Pprime/shared_v1/access.json已immutable/writers_closed/cross_node_read_allowed。4536907在15:04:19启动，识别既有封存并1秒C0，未新增科学调用。当前规范入口 /share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_data_20261119/configs/benchmark_data/B0.DELIVERY.json 已标出新范围queue/access/producer；PprimeReader按MID/实际构象ID读同一共享SQLite，掩码和失败保留，无数据复制/数值复读。严格遵守geometry_bindings及binding.model_atom_to_source：163个源行复用原范围，其P′别名仍受对应原范围access约束，不能据此宣称整个目标数据集全部P′就绪。原6588仍CPU12/8CPU运行，最终6961仍等原链，pKa原子定义待原问题回复，all-required flags仍false。候补6991核实PENDING/0运行/无accept后，仅解除已关闭新范围占用所需的17临时排除，当前排除0-7/18/20-22；18无恢复证据继续排除，候补尚未提速。新尾段6907已C0，无需再为其排除未来候补节点。
-
-
-2026-11-20 15:54 CST B0后续作业调度约束更新：仅对自有4536590核实PENDING/RunTime0/UID1278后，ReqNodeList由compute-0-12清空，ExcNodeList设compute-0-[0-7,18,20-22]；原生NumCPUs8、TimeLimit24h、afterok4536588均核对不变。run_pprime_tmpfs.sbatch同步改为获准CPU池；已有代码支持8..19并在实际分配节点做tmpfs/RAM/根盘/inode/UID配额保护，单写锁及原12科学任务/900秒/精度/原输出不变，没有向未知节点预传数据。当前6588/CPU12/8CPU未改动，6991/16CPU仍排队，尚未实际提速；候补若真实接管，6590仍先补双afterok6588:6991。新范围6906/6907已C0封存，不重算、不复制。最终6961继续等原链，pKa定义仍待原问题回复；其余窗口作业/代码不变。
-
-
-2026-11-20 17:35 CST B0临时节点资源保护：17:32仅做候选CPU节点实际root/tmpfs字节/inode元数据核实，无科学计算/数据传输。节点19的/dev/shm可用50,326,917,120B，低于候补16worker含预留171,798,691,840B及续接8worker含预留103,079,215,104B；节点14一次资源SSH读取超时，容量未确认，未宣称永久故障。仅对核实ownedPENDING/RunTime0/无accept的6991和6590原生追加排除14/19，当前ExcNodeList为compute-0-[0-7,14,18-22]；16/8CPU、24h时限、原afterok均不变，默认提交脚本池不变，当前6588/CPU12持续运行。未移动/删除他人或其他窗口文件、未停止其进程，峰值和系统/UID预留不降低。出现相应CPU机会后，先重新核实实际目标bytes/inodes/RAM满足各自worker峰值，再对仍ownedPENDING/0运行的对应作业恢复节点；18无恢复证据继续排除。其余已核实目标总tmpfs足够，实际分配时准入仍必需。新范围6906/6907已C0封存，原P′/pKa定义/最终交付继续。
 
 
 2026-11-20 18:34 CST benchmark shared-capacity / future GPU notice: B1 final roster is frozen55RETAIN/34APPENDIX/6EXCLUDE/1UR (native7430); NN confirmations retain7451-7459 plus required1H7338, CPU7462. Future34 C1 Pprime/plus-D TabPFN queues now use GPU5/7/22 (12/10/12), actual current report7502 and preparation7503; all still wait7124/7149/B0 seal, original programs/seed/budget unchanged. CPU4537513 admitted current D joint NFS forecast36706053853B once (old14GiB not additionally counted), together with legacy114569896448B conservative model pool, benchmark40GiB and OS-stat-only remaining B0 forecasts; fresh UID quota and actual root/tmp/NFS bytes/inodes passed. No active SQLite open, environment installation, new source data copies or training interruption. Existing future GPU UUID/runtime guards remain mandatory.
@@ -688,11 +659,9 @@ Full L1/L2 job4537508 is RUNNING on CPU10,4CPU=3workers+parent; shared D peak367
 
 Original benchmark D20 binding remains UNRESOLVED after4537426/4537509; no further repair, guessed aliases or D20 recalculation. L1 full delivery remains limited. D taskbook4.1 specifies no cross-library D20 mapping for L2: an independent whole-L2 export from the same active original graphs/member IDs will follow full TRAIN field/statistics closure. This exports only2D; benchmark window retains its own sealed S-prime UFF D3 and frozen endpoints/splits. Two retained source-preparation directories physically total2097127424 bytes; new L2 F64/status about2.827GB, within the original8GiB benchmark allowance and unchanged joint D36706053853 bytes. Fresh CPU10 UID/NFS guard passed. Full4537508 running, true reception4537514/development export4537517 wait afterok. New-logic259 tests passed in real4537508.step4 (1CPU6.23s); no actual Section5 fits or D GPU. Closed pilot cost aggregation adds zero descriptor calls; both libraries0 whole-row failure, L2 any-field missing100% is distinct.
 
-
 ### 2026-11-20 D development QM9 native D3 component closed (20:12 CST)
 
 Actual4537546 COMPLETED0:0 onCPU17,1CPU requested/2logical allocated,648s Slurm/647.574s producer.10473 original QM9 members/41closed parts; manifest /share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/qm9/manifest.json. RAW_COMPLETE for QM9 only; complete_source_population=false (full source15751). Native-only original Z/F64 coordinates and source atom IDs; no hydrogen coordinates/conformers generated, endpoint reads, normalization refit or independent numeric QA. ExpansionRx H policy remains pending; complete development D3/Section5 controls not ready. Full4537508 continues; reception4537514/development export4537517/L2benchmark export4537537 still depend on full closure. Existing D20 binding UNRESOLVED/timebox unchanged. Joint D NFS peak36706053853 bytes unchanged; native D3 components+merge share existing512MiB allowance.270 new-logic tests passed4537544 (1CPU requested/2logical allocated,7s,0:0). P official recipe not frozen at latest read; no D GPU or scientific decision.
-
 
 ### 2026-11-20 D shared-future reconciliation (20:20 CST)
 
@@ -737,3 +706,8 @@ Benchmark common write guard now reserves D's published local futures on their r
 ### 2026-11-20 benchmark C1 private backend prefix validation corrected
 
 CPU4537586 COMPLETED0:0 on CPU17:7 scheduler tests and metadata checks of both original cu118/cu128 private TabPFN environments passed. Their bin/python links resolve to the existing shared Conda interpreter; the complete private venv prefixes and pyvenv.cfg remain under the owned benchmark environment root. Automatic C1 validation now checks that private prefix while retaining resolved ownership checks for prepared model programs/scripts. Interpreter paths, packages and scientific programs are unchanged. Old dispatcher4537551 was verified UID1278/PENDING/zero-runtime/no start and cancelled before work; actual replacement4537587 retains afterok:4537503 and uses the corrected closed source cache. All current primary producer IDs, GPU first-job gates behind P9M/D, report7502/preparation7503, frozen roster, seeds/budgets, NFS201GB and node-local peer futures are unchanged. No model fit, numeric QA, new hash, environment installation or other owner's job change.
+
+
+### 2026-11-20 benchmark C1 native consumer script normalization closed
+
+CPU4537589 COMPLETED0:0 on CPU17:9 scheduler tests passed; all three real registered report/combine/final consumer entries passed bash syntax and embedded Python parsing. The existing report/combine sbatch submission envelopes are now unwrapped without changing their native bodies, and all three consumers are validated before any held GPU submission. Dispatcher4537587 was verified UID1278/PENDING/zero-runtime/no start and cancelled before work; actual replacement4537590 retains afterok:4537503 and uses the closed7589 source cache. No models/statistics were executed for this source repair. Current primary producers, protected P9M/D GPU gates, frozen roster, seeds/budgets, NFS201GB and root/tmp peer futures remain unchanged. Other owners' jobs and code are untouched.

@@ -18,7 +18,7 @@ class ChainTests(unittest.TestCase):
                     reason="FINAL_SIGNIFICANT_IMPROVEMENT",frozen_B1_role="RETAIN",confirmation_seed=20261026,primary_seed=20261025)]))
         return dict(stage="C1",status="CONDITIONAL_NEURAL_SOURCE_PREPARATION_CLOSED",failures=[],
             prepared_native_groups=tasks,required_configuration_rows=count)
-    def run_chain(self,prep,fail_at=None):
+    def run_chain(self,prep,fail_at=None,scripts=None):
         self.writes={};self.submissions=[];self.releases=[]
         def write(path,value):self.writes[str(path)]=copy.deepcopy(value)
         def submit(path,dependency):
@@ -30,7 +30,7 @@ class ChainTests(unittest.TestCase):
             self.releases.append(job)
         script="#!/bin/bash\n#SBATCH --partition=cpu\nset -euo pipefail\ntrue\n"
         return wire(prep,"/owned/prep/manifest.json",self.root,"/owned/out","/owned/cache.json",
-            dict(report=script,combine=script,final=script),submit,release,write)
+            scripts if scripts is not None else dict(report=script,combine=script,final=script),submit,release,write)
     def test_same_uuid_serialized_and_all_exact_ids_recorded_before_release(self):
         result=self.run_chain(self.prep())
         self.assertEqual([dep for _,dep in self.submissions],[None,"afterany:201","afterany:201:202","afterok:203","afterok:204"])
@@ -69,6 +69,22 @@ class ChainTests(unittest.TestCase):
             group.update(program=str(root/"group.py"),script=str(root/"group.sbatch"),python=str(interpreter))
             self.assertEqual(len(validated_groups(prep,root)),1)
             with self.assertRaises(ValueError):private_python_prefix(base,root)
+    def test_registered_submission_envelope_preserves_native_body_and_exports(self):
+        from .conditional_chain import native_batch_script,script_with_exports
+        body="#!/bin/bash\n#SBATCH --partition=cpu\nset -euo pipefail\nprintf '%s\\n' '$literal'\n"
+        wrapped="sbatch <<'REGISTERED'\n"+body+"REGISTERED\n"
+        self.assertEqual(native_batch_script(wrapped),body)
+        rendered=script_with_exports(wrapped,{"BENCHMARK_SOURCE_CACHE":"/owned/path with spaces/cache.json"})
+        self.assertTrue(rendered.startswith("#!/bin/bash\n#SBATCH --partition=cpu\n"))
+        self.assertNotIn("sbatch <<",rendered)
+        self.assertIn("export BENCHMARK_SOURCE_CACHE='/owned/path with spaces/cache.json'\n",rendered)
+        self.assertTrue(rendered.endswith("printf '%s\\n' '$literal'\n"))
+    def test_invalid_consumer_is_rejected_before_any_native_submission(self):
+        good="#!/bin/bash\nset -euo pipefail\ntrue\n"
+        with self.assertRaises(ValueError):
+            self.run_chain(self.prep(1),scripts=dict(report=good,combine=good,final="sbatch unexpected-envelope"))
+        self.assertEqual(self.submissions,[])
+        self.assertEqual(self.releases,[])
     def test_incomplete_or_duplicate_required_plan_rejected(self):
         prep=self.prep(1);prep["required_configuration_rows"]=2
         with self.assertRaises(ValueError):validated_groups(prep,self.root)
