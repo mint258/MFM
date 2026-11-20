@@ -640,3 +640,6 @@ Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json e
 2026-11-20 10:15 CST 窗口二 B0：新统一S′/D已封存，D3原子对齐修复4536978原生COMPLETED/0:0，41,243条原对齐失败修复；23,287图S′/D齐备、1图D部分、656无接受构象/14,285立体参照缺失/11UFF不支持显式保留，原失败历史不改。4536979已C0，directive19/uniform_Sprime/geometry/shared_v1/access.json现immutable/cross_node_read_allowed=true，B1/C1-D可按B0.DELIVERY的geometry_bindings和SharedB0Reader读取原共享库，映射使用binding.model_atom_to_source；不复制数据库。新增53,896个实际构象已入P′队列，6906/6907因CPU满排队，未宣称标签就绪。原325,080构象P′6588在CPU12/8核运行；16核候补6991仍PENDING，未接管。当前NMR数量表补充7016排队，聚合原manifest而不重读标签；历史参考数量保留。pKa单位点提案4536942仍等用户科学定义回复，非正式机制标签；宏观入口与外盲排除照常。最终6599/6961均追加7016成功依赖，旧科学配方/失败/共享单份及磁盘保护不变。
 
 2026-11-20 10:23 CST B0当前来源数量交付4537016已实际COMPLETED/0:0（11秒/2CPU），新增3项路由测试通过，源码PASS5265文件/3736Python/0错误。B0.DELIVERY现指向delivery/directive19_current_counts_4537016/manifest.json及active_source_domain_counts.csv；NMR2018为13C 26913谱行/26507域内、1H 12806/12007，逐原因列保留。历史domain_counts.csv不改；pKa表仍为curated测量行，宏观终点见active_target_manifests。两条最终handoff保留7016成功依赖。新增共享S′/D已封存可读，P′尚在生产或排队；pKa原子机制提案仍未获用户定义回复，不声明全部完成。
+
+
+2026-11-20 10:13 CST 时间更正：上面两条新增通知的10:15/10:23为误填时标，不是事件发生时间。以原生Slurm记录为准：D3修复6978于09:57:16完成，源封存准备6979于09:57:50完成，当前数量交付7016于10:09:12完成（均COMPLETED/0:0）。前两条的数据状态与计数保持有效；截至本条原Pprime6588仍RUNNING，新增6906和候补6991仍PENDING。
