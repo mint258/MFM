@@ -24,6 +24,14 @@ def existing_evaluator(module=None):
 def run(configuration, *, module=None):
     """GPU feature/readout pass only; CPU bootstrap is a separate command."""
     with existing_evaluator(module) as evaluator:
+        if configuration.get("diagnostic_feature_root"):
+            from phychem_mfm.phase1 import v2_s_training
+            from .layer_features import capture_existing_forward
+            from .resources import DJointGuard, execution_site
+            execution_site(configuration, cpu=False)
+            with capture_existing_forward(configuration, evaluator=evaluator,
+                    model_module=v2_s_training, guard=DJointGuard(configuration)):
+                return evaluator.run(configuration)
         return evaluator.run(configuration)
 
 
