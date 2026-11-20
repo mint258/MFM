@@ -646,3 +646,6 @@ Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json e
 
 
 2026-11-20 10:45 CST 窗口二B0新增P′已真正进入生产：原生4536906 RUNNING/compute-0-17/8CPU，原源6978 C0和6979封存依赖均已满足，access实际producer4536906、UID1278、immutable=false、cross_node_read_allowed=false。原53,896构象队列已1,227齐备/8在算/52,661待启动；6907保留afterok6906，不能把已启动当全量P′就绪。原范围6588仍CPU12/8CPU运行，候补6991仍PENDING；两条队列不重叠、原12任务/900秒/软件解析/FP64及一次生产规则保持，DB仍共享单份。新S′/D已封存可读；P′跨节点继续等对应数据集封存。仅更新现有入口/日报和本共享通知，不重算已闭合标签。
+
+
+2026-11-20 10:50 CST B0联合tmpfs预算：6906新增8核已在17真实运行，实际17的/dev/shm总201841762304B、可用201718427648B、空inode49276676。按既有每worker8GiB，8+16核同节点将需240518168576B（含一次32GiB余量），不能各自使用同份空闲预算。6991新鲜核实自有PENDING/RunTime0且无accept后，仅将ExcNodeList更新为compute-0-[0-7,17-18,20-22]，两条活跃生产均未停止。17当前8worker未来峰值64GiB，另留32GiB；其他窗口勿重复预算。候补真正获配后，接管前还须让仍未启动的新增后续6907排除候补实际16核节点；17仅在其实际tmpfs写入关闭、候补仍PENDING/0Native时解除临时排除。原科学/现有守卫/共享quota余量不变，无数据删除或标签复算。
