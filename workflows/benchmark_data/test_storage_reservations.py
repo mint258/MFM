@@ -34,6 +34,15 @@ class StorageTests(unittest.TestCase):
             "subprocess.check_output",return_value="Avail\n1000000000000\n"),patch("os.statvfs",return_value=stat):
             with self.assertRaisesRegex(RuntimeError,"account quota"):
                 guard(POLICY["owned_scopes"][0],1,FLOOR+200546101981-1,time.monotonic(),114569896448+40*1024**3)
+    def test_guard_remains_callable_from_standalone_script_namespace(self):
+        from .acquire import guard
+        from . import storage_reservations
+        import sys,time,types
+        standalone=types.FunctionType(guard.__code__,dict(guard.__globals__,__package__=""))
+        stat=SimpleNamespace(f_favail=10000)
+        with patch.dict(sys.modules,{"storage_reservations":storage_reservations}),patch(
+            "subprocess.check_output",return_value="Avail\n1000000000000\n"),patch("os.statvfs",return_value=stat):
+            standalone("/another/project",1,1000000000000,time.monotonic(),42)
     def test_root_tmp_exact_floor_and_inodes(self):
         stat=SimpleNamespace(f_blocks=100*1024**3,f_frsize=1,f_bavail=10*1024**3+16*1024**2,f_favail=2000)
         self.assertEqual(local_reserve(stat),10*1024**3)
