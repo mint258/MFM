@@ -6,7 +6,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --time=04:00:00
-#SBATCH --nice=10000
+#SBATCH --nice=0
 #SBATCH --output=/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/regression_%j.log
 set -euo pipefail
 cd /share/home/zixiao/descriptor_analysis/MFM_p_heads_20261117
