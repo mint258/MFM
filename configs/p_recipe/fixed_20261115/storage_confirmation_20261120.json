@@ -1,0 +1,40 @@
+{
+  "schema": "P_RECIPE_FIVE_9M_STORAGE_RECONCILIATION_V1",
+  "observed_at": 1795186037.673621,
+  "observed_node": "compute-0-17",
+  "uid": 1278,
+  "job_id": 4537577,
+  "actual_P_physical_bytes": 31181479936,
+  "actual_regular_files": 3710,
+  "actual_checkpoint_files": 1133,
+  "future_checkpoint_counts": {
+    "confirmation_milestones": 45,
+    "additional_full_state_handoff_or_recovery": 5,
+    "concurrent_serialization_temporaries": 5
+  },
+  "total_future_checkpoint_slots": 55,
+  "checkpoint_upper_bound_bytes": 300000000,
+  "future_logs_readouts_bytes": 3000000000,
+  "projected_P_peak_bytes": 50681479936,
+  "previous_P_reserve_bytes": 53000000000,
+  "reserved_P_peak_bytes": 51000000000,
+  "withdrawn_unused_future_bytes": 2000000000,
+  "previous_global_model_peak_bytes": 107912073728,
+  "new_global_model_peak_bytes": 105912073728,
+  "unchanged_other_model_peak_bytes": 54912073728,
+  "all_existing_outputs_preserved": true,
+  "all_other_reservation_fields_and_roots_preserved": true,
+  "account_floor_bytes": 100000000000,
+  "account_buffer_bytes": 8589934592,
+  "active_registry": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/model_output_budget.json",
+  "active_plan": "p_recipe_remaining_plan_20261120_confirming",
+  "basis": "F1 complete/no seed1; five active9M serializers; count all old checkpoints/temporaries by physical inode. Additional handoffs/recoveries beyond five require a fresh forecast.",
+  "quota_admission": {
+    "filesystem": "/lfshome",
+    "available": 146431918080,
+    "required": 143928533504,
+    "age": 3.222848415374756
+  },
+  "prior_raw_registry_backup": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/model_output_budget_before_five9M_4537577.json",
+  "status": "OWN_UNUSED_FUTURE_RETIRED"
+}

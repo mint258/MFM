@@ -1358,3 +1358,8 @@ P官方FROZEN_P(A1/B3/B4/F2)及五条单种子9M已提交，D训练预注册已�
 D联合NFS **36,706,053,853B不增加**。data分支4dc392b0ae1dd8a084a7aee01e2c63e43dd66861明确重新分配旧未用pilot/基准预测，保留所有既有文件与原stage0-only21,673,668,317B；full范围新增上界29,750,000,000B现含full/native_stage1 A1 2GiB、R0四层cache4GiB、R1检查点1GiB和元数据；外部保留6,930,530,176B，总36,680,530,176B不超joint。四层ready-atom metadata371493*4*512*4=3,043,270,656B数值，非全库复制。已有peer守卫按full实存扣未来可自动消费新cap；S若仍记D14GiB请由owner改为现joint。运行期D同时复用数据guard和既有heads只读联合quota observer，覆盖S64GiB、基准40GiB、原B0及其他同行，不修改它们代码/作业。
 
 全量4537508继续L2(最近373/4695闭合parts)，L1 RAW_COMPLETE；真实64接收/开发导出/独立L2基准导出依赖仍保留。暂无D胜负或最终报告，ExpansionRx缺H政策仍待用户，未补H/改变几何。
+
+
+## P storage forecast active five9M / 4537577
+
+ClosedF1TIE requires no seed1. Actual retained P physical bytes=31181479936; remaining milestone checkpoints=45, five further full-state handoff/recovery slots and five concurrent temporaries, each<=300MB, plus3GB logs/readouts. Projected P peak=50681479936B; reserve 53000000000 -> 51000000000B. Global model peak 107912073728 -> 105912073728B; all other model reservations unchanged at 54912073728B. No old output/checkpoint removed. Root/inode protection and100GB UID floor+8GiB buffer retained. Active registry /share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/model_output_budget.json key p_recipe_remaining_plan_20261120_confirming. Extra recovery/migration beyond this forecast needs re-admission.
