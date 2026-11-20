@@ -219,3 +219,15 @@ class ClosedPredictionConsumer:
                 screen.append(dict(base, status="UNRESOLVED", decision="UNRESOLVED",
                                    reason=unresolved[key], producer_failures=json.dumps(self.failures[key], sort_keys=True)))
         return screen, diagnostics, tukey
+
+def resolve_array_run(manifests, parent_job, array_index):
+    """Use actual producer array metadata, independent of sacct RawJobID formatting."""
+    matches=[(folder,record) for folder,record in manifests
+             if str(record.get("array_job"))==str(parent_job)
+             and str(record.get("array_index"))==str(array_index)]
+    if len(matches)!=1:
+        raise IncompleteComparison("Expected one closed producer manifest for the native array element")
+    folder,record=matches[0]
+    if Path(folder).name!="job_"+str(record.get("job")):
+        raise IncompleteComparison("Array producer folder differs from its actual SLURM_JOB_ID")
+    return Path(folder)

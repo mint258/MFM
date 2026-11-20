@@ -2,7 +2,7 @@
 import unittest
 from workflows.benchmark_evaluation.reporting import (
     resolve_endpoint, normalize_prediction, primary_rows, fold_presence,
-    filtered_labeled_count, close_endpoint, diagnostic_metrics, ClosedPredictionConsumer,
+    filtered_labeled_count, close_endpoint, diagnostic_metrics, ClosedPredictionConsumer, resolve_array_run,
 )
 from workflows.benchmark_evaluation.selection import BASELINES, IncompleteComparison
 
@@ -76,6 +76,13 @@ class ReportingTests(unittest.TestCase):
         screen,impact,tukey=ClosedPredictionConsumer(catalog).screen_once({},reasons)
         self.assertEqual(len(screen),96)
         self.assertTrue(all(row["decision"]=="UNRESOLVED" for row in screen))
+    def test_array_source_uses_original_array_index_and_actual_child_job(self):
+        records=[("/a/job_200",dict(job="200",array_job="100",array_index="0")),
+                 ("/a/job_201",dict(job="201",array_job="100",array_index="1"))]
+        self.assertEqual(str(resolve_array_run(records,100,1)).replace(chr(92),"/"),"/a/job_201")
+    def test_duplicate_array_metadata_cannot_double_count_a_repetition(self):
+        record=("/a/job_200",dict(job="200",array_job="100",array_index="0"))
+        with self.assertRaises(IncompleteComparison):resolve_array_run([record,record],100,0)
     def test_complete_active_catalog_is_required_for_final_screen(self):
         with self.assertRaises(IncompleteComparison):
             ClosedPredictionConsumer([]).screen_once({})
