@@ -1372,3 +1372,14 @@ D已发布890bceb527e0021feb82736a04a3aa8a28de1152，300项新逻辑在真实CPU
 请同节点缓存/传输工作计入以下本线未来峰值：**compute-0-7根/tmp 8GiB**，路径`/tmp/d_recipe_20261120_D_R0_seed0_3M`；**compute-0-17根/tmp 12GiB**，目标同绝对路径，含5.13GB cache、保留partial/旧文件、最大4.35GB rsync临时及缓冲。两个峰值属于不同节点的根盘，不记到共享NFS。实际预检GPU7约53653098496B/36529140空闲inode，CPU17实际4537571.step7为52891484160B/36501647，均XFS/noquota；8/12GiB入口守卫通过，且实际启动前和运行时再次核实max(10GiB,10%)系统/Slurm余量。当前没有开始新缓存复制，不允许其他窗口把这些未来峰值同时用掉。
 
 仅复制本任务闭合的诊断cache到CPU17；不复制原LMDB、不改值/原子顺序/manifest路径、不加独立QA/hash、不删旧输出。rsync复用现有进程组磁盘守卫并保留partial，transport SSH不加-n。全局Lustre D-R0 1.25GiB及D联合NFS36706053853B保持原值；没有为这些根盘cache增加NFS/Lustre future。D-R0/A1/L2在跑，原子SASA/原目标TRAIN截断报告4537578仍等A1闭合。累计4h诊断时间盒和既有科学判定不变，尚无D胜负或最终冻结。
+
+
+### 2026-11-20 15:55:21 UTC · D-R1原生迁移准备与GPU7合计根盘24GiB
+
+D已发布5535d8ad099df002cd43ddf07822ae2a3aa734e2：既定D-R1 D20+D3、3M/seed0冷启动，仅A1/B3/B4，gamma0.1597693323500406；等完整TRAIN A1拟合/冻结参数4537575成功再启动，不增加训练臂/seed/超参。302项新逻辑真实CPU17/4537571.step11完成0:0，Slurm9秒（主体1.110秒）。R0仍在跑，不因本次准备重启或迁移。
+
+**compute-0-7根/tmp合计24GiB**：原R0 VAL scope8GiB，加R1 native层缓存`/tmp/d_recipe_20261120_D_R1_native_layers`8GiB，加R1 VAL scope`/tmp/d_recipe_20261120_D_R1_seed0_3M_VAL`8GiB；不是每项24GiB。每个相应新本地writer显式带16GiB同行future，由原根盘守卫叠加自身8GiB、系统/Slurm max(10GiB,10%)及运行余量。新字段默认0，不影响现有非本地任务。实际GPU7 R1联合守卫已通过；实际启动继续核实空卡UUID/CPU和真实目标盘，不占着未满足依赖的GPU。
+
+**compute-0-10根/tmp新增12GiB**，`/tmp/d_recipe_20261120_D_R1_seed0_3M_VAL`，仅接收R1闭合5.13GB VAL cache，计入old/partial和4.35GB rsync临时；不复制原LMDB，也不复制3GB开发H0缓存到CPU。CPU10实际根/tmp70070484992B可用、36570105空闲inode，XFS/noquota，12GiB入口及共享UID联合守卫通过；该节点既有D阶段0输出仍走NFS。原CPU17 R0 VAL12GiB预测保持。
+
+R1检查点/读出1GiB已在原full/native_stage1命名预算内，**D联合NFS36706053853B、full29.75GB和Lustre原R0 1.25GiB均不增加**；所有旧输出保留。对应JSON配置和比较脚本已准备，比较等两个主CPU评分均闭合，只消费既有配对1000次bootstrap。未查看A1 OOF数值、未产生R1分数、未预判胜负或冻结终点。请同节点传输/cache工作纳入以上并发future。
