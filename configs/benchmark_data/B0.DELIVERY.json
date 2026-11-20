@@ -214,7 +214,7 @@
     "actual_speedup_not_yet_observed": true,
     "previous_native_TimeMin_hours": 12,
     "TimeMin_update_at_verified_pending_zero_runtime": true,
-    "current_excluded_nodes": "compute-0-[0-7,18,20-22]",
+    "current_excluded_nodes": "compute-0-[0-7,14,18-22]",
     "uniform_tail_must_exclude_allocated_standby_node_before_accept": false
   },
   "active_source_count_handoff": {
@@ -233,7 +233,7 @@
     "job": 4536590,
     "partition": "cpu",
     "required_node": null,
-    "excluded_nodes": "compute-0-[0-7,18,20-22]",
+    "excluded_nodes": "compute-0-[0-7,14,18-22]",
     "workers": 8,
     "time_limit_seconds": 86400,
     "dependency_at_update": "afterok:4536588",
@@ -242,6 +242,32 @@
     "actual_target_bytes_inodes_RAM_and_quota_admission_unchanged": true,
     "scientific_protocol_unchanged": true,
     "reason": "Allow the still-unstarted continuation to use any eligible healthy CPU node after its required producer closure; avoid an unnecessary node12-only scheduling constraint",
-    "actual_speedup_not_yet_observed": true
+    "actual_speedup_not_yet_observed": true,
+    "default_submission_script_excluded_nodes": "compute-0-[0-7,18,20-22]",
+    "temporary_native_resource_override": true
+  },
+  "temporary_resource_node_exclusions": {
+    "jobs": [
+      4536991,
+      4536590
+    ],
+    "nodes": [
+      "compute-0-14",
+      "compute-0-19"
+    ],
+    "native_excluded_nodes": "compute-0-[0-7,14,18-22]",
+    "node14": "One resource-only SSH metadata timeout: capacity unconfirmed, not a permanent failure declaration",
+    "node19": {
+      "observed_CST": "2026-11-20T17:32:42+08:00",
+      "tmpfs_available_bytes": 50326917120,
+      "standby_required_bytes_with_reserve": 171798691840,
+      "followup_required_bytes_with_reserve": 103079215104
+    },
+    "native_update_at_owned_pending_zero_runtime": true,
+    "running_parent_unchanged": true,
+    "worker_counts_and_wall_limits_unchanged": true,
+    "default_submission_templates_unchanged": true,
+    "release_condition": "When a target has actual CPU opportunity, recheck that actual node's bytes/inodes/RAM and full worker peak plus reserve; restore each still-owned PENDING/zero-runtime job only if its required budget fits. Never delete or stop other workloads.",
+    "all_required_complete": false
   }
 }

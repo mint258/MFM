@@ -661,3 +661,6 @@ Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json e
 
 
 2026-11-20 15:54 CST B0后续作业调度约束更新：仅对自有4536590核实PENDING/RunTime0/UID1278后，ReqNodeList由compute-0-12清空，ExcNodeList设compute-0-[0-7,18,20-22]；原生NumCPUs8、TimeLimit24h、afterok4536588均核对不变。run_pprime_tmpfs.sbatch同步改为获准CPU池；已有代码支持8..19并在实际分配节点做tmpfs/RAM/根盘/inode/UID配额保护，单写锁及原12科学任务/900秒/精度/原输出不变，没有向未知节点预传数据。当前6588/CPU12/8CPU未改动，6991/16CPU仍排队，尚未实际提速；候补若真实接管，6590仍先补双afterok6588:6991。新范围6906/6907已C0封存，不重算、不复制。最终6961继续等原链，pKa定义仍待原问题回复；其余窗口作业/代码不变。
+
+
+2026-11-20 17:35 CST B0临时节点资源保护：17:32仅做候选CPU节点实际root/tmpfs字节/inode元数据核实，无科学计算/数据传输。节点19的/dev/shm可用50,326,917,120B，低于候补16worker含预留171,798,691,840B及续接8worker含预留103,079,215,104B；节点14一次资源SSH读取超时，容量未确认，未宣称永久故障。仅对核实ownedPENDING/RunTime0/无accept的6991和6590原生追加排除14/19，当前ExcNodeList为compute-0-[0-7,14,18-22]；16/8CPU、24h时限、原afterok均不变，默认提交脚本池不变，当前6588/CPU12持续运行。未移动/删除他人或其他窗口文件、未停止其进程，峰值和系统/UID预留不降低。出现相应CPU机会后，先重新核实实际目标bytes/inodes/RAM满足各自worker峰值，再对仍ownedPENDING/0运行的对应作业恢复节点；18无恢复证据继续排除。其余已核实目标总tmpfs足够，实际分配时准入仍必需。新范围6906/6907已C0封存，原P′/pKa定义/最终交付继续。
