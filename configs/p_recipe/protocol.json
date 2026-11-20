@@ -92,7 +92,18 @@
     "samples": 3000000,
     "max_rounds": 3,
     "stop_after_consecutive_rounds_without_winners": 2,
-    "gpu_hours_limit_finish_current_round": 200
+    "gpu_hours_limit_finish_current_round": null,
+    "gpu_hours_limit_cancelled_authority": "docs/p_recipe/USER_DIRECTIVE_20261117.md",
+    "supplemental_final_round": 4,
+    "round4_authority": "docs/p_recipe/USER_DIRECTIVE_20261118.md",
+    "removal_tie_policy": {
+      "arms": [
+        "X1",
+        "F2"
+      ],
+      "adopt_only_if": "R3 CI includes zero; apply same-place larger-delta conflict rule",
+      "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md"
+    }
   },
   "confirmation": {
     "samples": 9000000,
@@ -104,7 +115,21 @@
     "subset_seed": 20261112,
     "nested": true,
     "multiplier": 3,
-    "checkpoint_interval_samples": 1000000
+    "checkpoint_interval_samples": 1000000,
+    "arms": [
+      "T1",
+      "T2",
+      "T4",
+      "T5",
+      "T6"
+    ],
+    "cancelled_arms": [
+      "T3",
+      "T7"
+    ],
+    "T4_disposition": "KEEP per completed PP seed0 and18B automatic rule",
+    "freeze_before_submission": true,
+    "perf_switches": "USER_CONFIRMED_ALL_OFF;16CPU/14readers/B32/FP32"
   },
   "poll_interval_seconds": 1800,
   "training_update_policy": "Do not stop running training for recipe/rule changes without explicit user instruction; resume progress and record changes",
@@ -118,5 +143,27 @@
   "round_completion_hardware_report": [
     "measured_samples_per_second_by_gpu_type",
     "mean_whole_board_power_watts_by_gpu_type"
-  ]
+  ],
+  "supplemental_authorities": [
+    "docs/p_recipe/USER_DIRECTIVE_20261117.md",
+    "docs/p_recipe/USER_DIRECTIVE_20261117B.md",
+    "docs/p_recipe/USER_DIRECTIVE_20261118.md",
+    "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+    "docs/p_recipe/USER_DIRECTIVE_20261119.md"
+  ],
+  "seed_policy": {
+    "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+    "screening_3M": {
+      "default": 0,
+      "maximum_seeds": 2,
+      "conditional_seed1": "seed0 WIN: R3 CI lower>0 and delta>=max(.01,.05*max(primary scores))",
+      "exception": "documented seed0 training problem; full-state continuous resume is not an exception",
+      "tie_or_loss": "seed0 final; no seed1"
+    },
+    "confirmation_9M": {
+      "seed": 0,
+      "maximum_seeds": 1,
+      "seed1_allowed": false
+    }
+  }
 }

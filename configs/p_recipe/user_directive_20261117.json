@@ -25,11 +25,21 @@
                               "observed_used_mib":  699,
                               "observed_total_mib":  32607,
                               "cohost_note":  "UID1283 gmx kept running; full launch admission still required",
-                              "handoff_status":  "5090_RETEST_WAITING_PER_USER_DIRECTIVE_20261117B",
-                              "current_perf_job_id":  4535772,
-                              "current_perf_job_status":  "COMPLETED",
-                              "gpu_priority_active":  true,
-                              "supplemental_authority":  "docs/p_recipe/USER_DIRECTIVE_20261117B.md"
+                              "handoff_status":  "PERF_5090_CANCELLED_ZERO_RUNTIME",
+                              "current_perf_job_id":  4535799,
+                              "current_perf_job_status":  "CANCELLED",
+                              "gpu_priority_active":  false,
+                              "supplemental_authority":  "docs/p_recipe/USER_DIRECTIVE_20261117B.md",
+                              "previous_priority_authority":  "docs/p_recipe/USER_DIRECTIVE_20261117B.md",
+                              "superseding_authority":  "huagong_hpc_requirement v1.0.163 2026-11-20 user cancellation of5090 speed test",
+                              "terminal_evidence":  {
+                                                        "job_id":  4535799,
+                                                        "state":  "CANCELLED by1278",
+                                                        "elapsed_seconds":  0,
+                                                        "end_Asia_Shanghai":  "2026-11-20T11:48:24+08:00",
+                                                        "node":  "None assigned",
+                                                        "verified_utc":  "2026-11-20 08:16:30 UTC"
+                                                    }
                           },
     "C3_migration":  {
                          "authorized":  true,
@@ -131,35 +141,35 @@
                      "T7_required":  false,
                      "common_fields":  109,
                      "seed_policy":  {
-                       "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
-                       "default": 0,
-                       "tau": "max(0.01,0.05*max(scoreA,scoreB))",
-                       "screening": {
-                         "maximum_seeds": 2,
-                         "optional_seed": 1,
-                         "seed1_condition": "seed0 R3 WIN: CI lower > 0 and delta >= tau",
-                         "training_problem_exception": "seed0 training lost/repeated samples, rollback after explosion/NaN, or a discontinuous resumed loss curve; log reason",
-                         "continuous_full_state_resume_is_exception": false,
-                         "existing_reference_seed1_reused": true,
-                         "point_estimate": "mean of the seed-wise paired deltas",
-                         "CI": "equal-weight concatenation of the original seed-wise1000 molecular paired bootstrap differences; percentile2.5/97.5"
-                       },
-                       "confirmation": {
-                         "maximum_seeds": 1,
-                         "optional_seed": null,
-                         "seed1_allowed": false,
-                         "arms": [
-                           "T1",
-                           "T2",
-                           "T4",
-                           "T5",
-                           "T6"
-                         ],
-                         "point_estimate": "seed0 paired delta",
-                         "CI": "original seed0 1000 molecular paired bootstrap differences; percentile2.5/97.5"
-                       },
-                       "third_seed_forbidden": true
-                     },
+                                         "authority":  "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+                                         "default":  0,
+                                         "tau":  "max(0.01,0.05*max(scoreA,scoreB))",
+                                         "screening":  {
+                                                           "maximum_seeds":  2,
+                                                           "optional_seed":  1,
+                                                           "seed1_condition":  "seed0 R3 WIN: CI lower \u003e 0 and delta \u003e= tau",
+                                                           "training_problem_exception":  "seed0 training lost/repeated samples, rollback after explosion/NaN, or a discontinuous resumed loss curve; log reason",
+                                                           "continuous_full_state_resume_is_exception":  false,
+                                                           "existing_reference_seed1_reused":  true,
+                                                           "point_estimate":  "mean of the seed-wise paired deltas",
+                                                           "CI":  "equal-weight concatenation of the original seed-wise1000 molecular paired bootstrap differences; percentile2.5/97.5"
+                                                       },
+                                         "confirmation":  {
+                                                              "maximum_seeds":  1,
+                                                              "optional_seed":  null,
+                                                              "seed1_allowed":  false,
+                                                              "arms":  [
+                                                                           "T1",
+                                                                           "T2",
+                                                                           "T4",
+                                                                           "T5",
+                                                                           "T6"
+                                                                       ],
+                                                              "point_estimate":  "seed0 paired delta",
+                                                              "CI":  "original seed0 1000 molecular paired bootstrap differences; percentile2.5/97.5"
+                                                          },
+                                         "third_seed_forbidden":  true
+                                     },
                      "stop_after_P_final_report":  true,
                      "no_9M_before_recipe_frozen":  true
                  },
