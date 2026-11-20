@@ -1,11 +1,11 @@
 {
   "schema": "BENCHMARK_B0_AVAILABLE_DELIVERY_ENTRY_V1",
-  "status": "D_AVAILABLE_DIRECTIVE19_TARGETS_READY_UFF_PPRIME_IN_PROGRESS",
+  "status": "D_AVAILABLE_DIRECTIVE19_UNIFORM_SPRIME_SEALED_PPRIME_IN_PROGRESS",
   "authority": "docs/benchmark/USER_DIRECTIVE_20261118.md@07be7a0f04085398eeda2b7548afa46c668ffd9a",
   "data_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119",
-  "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_available_4536909/manifest.json",
-  "domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_available_4536909/domain_counts.csv",
-  "handoff_native_job": 4536909,
+  "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/manifest.json",
+  "domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/domain_counts.csv",
+  "handoff_native_job": 4537016,
   "handoff_native_state": "COMPLETED",
   "handoff_native_exit": "0:0",
   "source_groups": 11,
@@ -73,7 +73,7 @@
     "NMR2018_targets": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/NMR2018/job_4536887/manifest.json",
     "pKahub_macro_targets": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4536891/manifest.json",
     "uniform_Sprime_scope": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/geometry/shared_v1/queue.manifest.json",
-    "uniform_scope_ready": false,
+    "uniform_scope_ready": true,
     "pKa_atomic_site_evidence_ready": false,
     "NMR2018_published_test_count_reconciliation": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/NMR2018/job_4536946/manifest.json",
     "NMR2018_test_molecule_counts_matched": true,
@@ -97,8 +97,15 @@
     "source_UFF_job": 4536924,
     "D3_alignment_postprocessing_job": 4536978,
     "geometry_generation_complete": true,
-    "D3_alignment_postprocessing_state": "RUNNING",
-    "effective_source_final_writer_job": 4536978
+    "D3_alignment_postprocessing_state": "COMPLETED/0:0",
+    "effective_source_final_writer_job": 4536978,
+    "outcome_counts": {
+      "D20_READY_NO_ACCEPTED_CONFORMERS": 656,
+      "D20_READY_STEREO_REFERENCE_UNAVAILABLE": 14285,
+      "D20_READY_UFF_UNSUPPORTED": 11,
+      "SPRIME_AND_D_READY": 23287,
+      "SPRIME_READY_D_PARTIAL": 1
+    }
   },
   "uniform_Pprime_chain": {
     "prepare_job": 4536979,
@@ -108,7 +115,10 @@
     ],
     "source_geometry_native_C0_required": true,
     "ready": false,
-    "source_geometry_job": 4536978
+    "source_geometry_job": 4536978,
+    "queued_actual_conformers": 53896,
+    "source_geometry_sealed": true,
+    "prepare_native_state": "COMPLETED/0:0"
   },
   "both_scopes_final_handoff": {
     "job": 4536961,
@@ -124,7 +134,7 @@
     "metadata_only_no_SQLite_replay": true
   },
   "D3_source_alignment_recovery": {
-    "status": "SOURCE_UFF_CLOSED_MAPPING_REPAIR_RUNNING",
+    "status": "SOURCE_UFF_AND_D3_REPAIR_CLOSED_GEOMETRY_SEALED",
     "recorded_error_metadata_job": 4536970,
     "unit_test_job": 4536974,
     "source_check_job": 4536976,
@@ -138,7 +148,14 @@
     "recorded_error_confirmed": true,
     "unit_tests_passed": 6,
     "source_check_status": "PASS",
-    "source_check_files": 5264
+    "source_check_files": 5264,
+    "source_sealed": true,
+    "repair_native_state": "COMPLETED/0:0",
+    "remaining_partial_molecules": 1,
+    "repair_complete": true,
+    "repair_outcomes": {
+      "D3_REPAIRED": 41243
+    }
   },
   "Pprime_previous_closed_job": {
     "job": 4536581,
@@ -160,5 +177,17 @@
     "acceptance_written": false,
     "exclude_unrecovered_node18": true,
     "superseded_zero_native_candidate": 4536722
-  }
+  },
+  "active_source_count_handoff": {
+    "historical_domain_table_preserved": true,
+    "unit_tests_and_source_check_pending": false,
+    "native_state": "COMPLETED/0:0",
+    "job": 4537016,
+    "source_check_files": 5265,
+    "unit_tests_passed": 3,
+    "source_check_python_files": 3736,
+    "source_check_errors": 0
+  },
+  "active_domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/active_source_domain_counts.csv",
+  "historical_domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/domain_counts.csv"
 }

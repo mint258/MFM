@@ -635,3 +635,8 @@ Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json e
 2026-11-20 09:02 CST · B0新增UFF6924已实际C0（4253秒/2CPU），38,240图全部终态。原失败元数据6970 C0确认4分子D20无错、D3因元素序对齐未计算；6974六项排列/同位素/手性/once保留测试通过，6976 C0源码PASS5264/3735/0错误。D3属性适配修复6978实际RUNNING并已产生首批D3_REPAIRED，未重算UFF/QM/成功D3/D20，原错误及once结果保留；6979须待修复真实C0才封存并接6906→6907。原Pprime4536581继续；新D尚未整批封存。
 
 2026-11-20 09:29 CST · B0原Pprime6581实际COMPLETED/0:0（76047秒×8CPU），160048齐备/157部分/164875待启动/INTENT0；6588已在原CPU12/8CPU正常续接，源access实际producer6588且已新增闭合记录，无重算。旧16核候补6722核实自有PENDING/0秒/accept不存在后取消，sacct CANCELLED/0秒；新候补6991显式绑定6588、后续6590，暂排除未恢复18，目前PENDING/0Native。若真正获配须先把6590设为afterok6588:6991，再验证实际旧Python父进程并协作收尾；不触碰QM子进程，不因候补排队停止现有生产。D3修复6978继续，新增Pprime6906仍等6979封存；目标未全部关闭。
+
+
+2026-11-20 10:15 CST 窗口二 B0：新统一S′/D已封存，D3原子对齐修复4536978原生COMPLETED/0:0，41,243条原对齐失败修复；23,287图S′/D齐备、1图D部分、656无接受构象/14,285立体参照缺失/11UFF不支持显式保留，原失败历史不改。4536979已C0，directive19/uniform_Sprime/geometry/shared_v1/access.json现immutable/cross_node_read_allowed=true，B1/C1-D可按B0.DELIVERY的geometry_bindings和SharedB0Reader读取原共享库，映射使用binding.model_atom_to_source；不复制数据库。新增53,896个实际构象已入P′队列，6906/6907因CPU满排队，未宣称标签就绪。原325,080构象P′6588在CPU12/8核运行；16核候补6991仍PENDING，未接管。当前NMR数量表补充7016排队，聚合原manifest而不重读标签；历史参考数量保留。pKa单位点提案4536942仍等用户科学定义回复，非正式机制标签；宏观入口与外盲排除照常。最终6599/6961均追加7016成功依赖，旧科学配方/失败/共享单份及磁盘保护不变。
+
+2026-11-20 10:23 CST B0当前来源数量交付4537016已实际COMPLETED/0:0（11秒/2CPU），新增3项路由测试通过，源码PASS5265文件/3736Python/0错误。B0.DELIVERY现指向delivery/directive19_current_counts_4537016/manifest.json及active_source_domain_counts.csv；NMR2018为13C 26913谱行/26507域内、1H 12806/12007，逐原因列保留。历史domain_counts.csv不改；pKa表仍为curated测量行，宏观终点见active_target_manifests。两条最终handoff保留7016成功依赖。新增共享S′/D已封存可读，P′尚在生产或排队；pKa原子机制提案仍未获用户定义回复，不声明全部完成。

@@ -32,7 +32,7 @@ with SharedB0Reader(shared_queue_path) as reader:
 
 C7目标为 `targets/C7H10O2/job_4536471/manifest.json`。历史CSTShift-DFT参考域为 `domain/NMRShiftDB2/job_4536470/manifest.json`，原子级标签始终使用原参考索引；恢复图和模型图完整匹配仅用于计算时排列并逆映射，不声称恢复了未公开的作者原始索引处理链。PPE最新入口为 `domain/PPE1694/job_4536507/manifest.json`：作者INDEX/电荷/多重度对应，1,565条域内、126条已知域外、3条图未解析；1,694个原SI目标均绑定，原标签未改动。`reference_bindings.parquet`保存1,542条明确原子映射；域内剩余23条映射未决，不擅自删样或改几何。pKa宏观酸/碱及NMR2018官方划分已按新指示确定；活跃任务使用下文覆盖入口，历史参考域不代替2018任务。
 
-统一入口为 `configs/benchmark_data/B0.DELIVERY.json`，指向 `delivery/directive19_available_4536909/manifest.json` 和同目录 `domain_counts.csv`。该manifest整合11组来源、12行数量（NMR分核）、原始记录/参考坐标、D20/D3、目标、P′共享读取器及待定事项。公开摘要见 `B0_DOMAIN_COUNTS.md`。数量表聚合生产manifest，不重新筛选或扫描数值；PPE未知图与已知域外分开，非互斥原因不能直接相加。
+统一入口为 `configs/benchmark_data/B0.DELIVERY.json`，指向 `delivery/directive19_current_counts_4537016/manifest.json`、当前 `active_source_domain_counts.csv` 与历史 `domain_counts.csv`。该manifest整合11组来源、12行数量（NMR分核）、原始记录/参考坐标、D20/D3、目标、P′共享读取器及待定事项。公开摘要见 `B0_DOMAIN_COUNTS.md`。数量表聚合生产manifest，不重新筛选或扫描数值；PPE未知图与已知域外分开，非互斥原因不能直接相加。
 
 P′当前4536588→后续4536590依次afterok续接同一队列，已关闭结果不重算，全量封存后入口直接退出且不新增Native。仅新量化暂态文件在12的/dev/shm（8×8GiB峰值、32GiB系统/并发余量、额外15%整机RAM余量），输入库/解析字段/失败审计均仍为共享NFS单份。每次调用及父循环重新检查真实字节/inode/RAM/UID配额，根盘保留max(10GiB,10%)。有限7天quota发布器3058760（旧1443347退出后顺序更换）仅发布真实观测，延迟2秒公布以避免实测节点时钟差导致负年龄；真实时间戳和0..90秒检查不变，未改变quota配置。
 
@@ -49,11 +49,11 @@ SAMPL6/7来源关联补充在 `provenance/SAMPL6_7/job_4536607/manifest.json`（
 候补仍须等旧6588原生COMPLETED/0:0、实际producer身份、writers_closed与INTENT0，再复核资源，才exec原pprime_tmpfs_queue的16worker。原12任务/900秒/二进制/解析/单位及源原子序不变；只传实际Slurm剩余墙钟减60秒，原约3小时记录收尾余量保持。如果旧生产身份在候补获配前已变化，不伪造accept文件、不重试科学记录；仅在核实自有PENDING/0Native边界后重新绑定候选，原8核接续照常。
 
 
-2026-11-19补充指示的数据覆盖入口：先读统一入口的 `active_target_manifests`，不要从历史参考数量表推定当前任务标签。新可用handoff4536909只聚合生产元数据，没有数值复读。
+2026-11-19补充指示的数据覆盖入口：先读统一入口的 `active_target_manifests`，不要从历史参考数量表推定当前任务标签。新可用handoff4537016只聚合生产元数据，没有数值复读。
 
 - `NMRShiftDB2` 指向原作者2018发布数据的目标manifest。其 `records` 保存全部39,719谱行、作者 `official_split`、重复谱、源原子编号、`target_values_ppm`、`target_source_atom_ids`、`target_group_indices` 和有效掩码。原始标签F64且不重分配原子ID。测试谱行5,390/2,554与唯一原分子5,055/2,527分别报告，不能互换；4536946已按Kwon2020原作者datasets.zip核对：测试谱行5,390/2,554、唯一原分子5,055/2,527与Jonas2019原划分全部一致；原文正文没有印出分核唯一分子数，不伪造正文数字。核对只读身份/计数，不比较标签数值。
-- `pKahub` 指向宏观目标manifest。读取 `training_targets`、`blind_targets`、`training_exclusions` 与 `blind_identities`。29,972个训练池分子，酸15,879/碱16,997终点；SAMPL6/7的44个完整InChIKey排除79条源记录。每条目标保留测量值/源行，并通过 `geometry_dataset + geometry_record_id` 读取原共享S′/D；原子单位点证据仍未齐备。
-- `directive19_data_preparation.uniform_Sprime_scope` 指向新范围输入manifest；`geometry_bindings` 提供逐目标记录的几何路由。38,240个新有序图需要生产；163条来源记录直接引用原封存几何，包括原失败/UNKNOWN，不复制、不重试。是否可用由对应队列的状态及access声明决定，不把已准备输入冒称几何就绪。
+- `pKahub` 指向宏观目标manifest。读取 `training_targets`、`blind_targets`、`training_exclusions` 与 `blind_identities`。29,972个训练池分子，酸15,879/碱16,997终点；SAMPL6/7的44个完整InChIKey排除79条源记录。每条目标保留测量值/源行，并通过 `geometry_dataset + geometry_record_id` 读取原共享S′/D；原子单位点证据提案已产出，结构定义仍待用户确认。
+- `directive19_data_preparation.uniform_Sprime_scope` 指向新范围输入manifest；`geometry_bindings` 提供逐目标记录的几何路由。38,240个新有序图现已终态封存；163条来源记录直接引用原封存几何，包括原失败/UNKNOWN，不复制、不重试。是否可用由对应队列的状态及access声明决定，不把已准备输入冒称几何就绪。
 
 新范围几何读取遵循路由，保留目标自己的原子映射：
 ```python
@@ -68,6 +68,8 @@ target_atom_mapping = binding["model_atom_to_source"]
 
 pKa原子位点定义提案见 `directive19_data_preparation.pKa_single_site_definition_proposal`（4536942 C0）。37类SMARTS逐项转录自作者SI Table S2（S2–S4，CC BY-NC 4.0，DOI 10.1021/acs.jcim.6c00107.s001）；增加的site_atom_maps是本线对酸失质子/碱受质子原子的显式解释。按原模型图、不改质子化，重叠规则按实际原子合并；多原子和未识别N/杂原子供氢或电荷状态保留多位点/未决。训练池5,588个单一catalog位点、18,838个多位点、5,546个未决，其中5,465条候选原子标签另满足唯一实验跃迁/端点类型/原子映射；外盲9条候选。此为待用户冻结的结构定义，不是实验微观标注，也不是已激活的原子训练标签。宏观目标与盲测排除不变；用户确认后才将候选发布为正式机制入口，无需重新扫描。
 
-双范围最终交付由 `workflows.benchmark_data.final_scope_handoff` 生成，4536961依赖新源码检查4536963、原范围交付4536599及新增P′尾段4536907。它只读两范围的geometry/Pprime access与producer元数据，并分别查询实际原生C0；任一PENDING/INTENT或活跃写入均拒绝最终封存，不扫描SQLite或标签正文。NMR作者计数证据必须匹配。只有几何/P′均封存时，all_scopes_production_closed才为true；若pKa单位点定义/正式原子入口仍待定，all_required_production_complete与all_required_work_complete仍为false，不把候选提案当正式标签。原S/P不重建。最终元数据守卫只在两范围均证明终态后退休其未来科学增长预测，继续保护模型114,569,896,448B、B1环境24GiB、账户100GB及真实磁盘/inode；旧运行守卫不变。当前future manifest尚不存在，统一入口仍指向可用交付6909，生产未完成。
+双范围最终交付由 `workflows.benchmark_data.final_scope_handoff` 生成，4536961依赖新源码检查4536963、原范围交付4536599及新增P′尾段4536907。它只读两范围的geometry/Pprime access与producer元数据，并分别查询实际原生C0；任一PENDING/INTENT或活跃写入均拒绝最终封存，不扫描SQLite或标签正文。NMR作者计数证据必须匹配。只有几何/P′均封存时，all_scopes_production_closed才为true；若pKa单位点定义/正式原子入口仍待定，all_required_production_complete与all_required_work_complete仍为false，不把候选提案当正式标签。原S/P不重建。最终元数据守卫只在两范围均证明终态后退休其未来科学增长预测，继续保护模型114,569,896,448B、B1环境24GiB、账户100GB及真实磁盘/inode；旧运行守卫不变。当前future manifest尚不存在，统一入口指向可用交付7016，生产未完成。
 
-新增NMR保留作者显式H原子序，而旧D3 wire默认解析SMILES并把H追加到末尾，6970已确认4个原部分失败分子均报旧元素序对齐错误，D20无错误。针对原记录明确报D3_SOURCE_MAPPING_OR_PROPERTY_FAILED且D3为None、原错误属于元素序/键图序的情况，新适配器用含H完整图和手性双射排列输入，调用原D3函数一次，再逆排列SASA_atom；不重算UFF/QM、成功D3或D20。6970读取少量已失败记录的错误元数据（不比较数值），6974/6976分别做合成测试/源码检查；6978必须等这三项及原UFF6924全部C0，且仅在原写入节点17、原源未封存时执行。原失败保存在结果历史和once表，已有失败/中断尝试不重复；6979只在6978实际C0后封存。原6925验证PENDING/0秒后取消，6906已接6979。原UFF6924现已原生COMPLETED/0:0，全部38,240图终态；6974六项合成/once测试通过，6976源码检查通过5,264文件/3,735 Python/0错误。6978已实际RUNNING并产出D3_REPAIRED记录，整批尚未封存；原325,080构象P′继续。
+新增NMR保留作者显式H原子序，而旧D3 wire默认解析SMILES并把H追加到末尾，6970已确认4个原部分失败分子均报旧元素序对齐错误，D20无错误。针对原记录明确报D3_SOURCE_MAPPING_OR_PROPERTY_FAILED且D3为None、原错误属于元素序/键图序的情况，新适配器用含H完整图和手性双射排列输入，调用原D3函数一次，再逆排列SASA_atom；不重算UFF/QM、成功D3或D20。6970读取少量已失败记录的错误元数据（不比较数值），6974/6976分别做合成测试/源码检查；6978必须等这三项及原UFF6924全部C0，且仅在原写入节点17、原源未封存时执行。原失败保存在结果历史和once表，已有失败/中断尝试不重复；6979只在6978实际C0后封存。原6925验证PENDING/0秒后取消，6906已接6979。原UFF6924现已原生COMPLETED/0:0，全部38,240图终态；6974六项合成/once测试通过，6976源码检查通过5,264文件/3,735 Python/0错误。6978已原生COMPLETED/0:0，修复41,243个原对齐失败D3；23,287图S′/D齐备、1图D部分，656无接受构象/14,285立体参照缺失/11个UFF不支持保持显式。6979已C0并将源geometry access置immutable及cross_node_read_allowed；53,896个实际构象已入新增P′队列，6906/6907待CPU。原325,080构象P′继续。
+
+当前源数量表由handoff额外生成 active_source_domain_counts.csv，仅用生产manifest计数，将NMR替换为作者2018谱行统计，保留两核及各原因列；历史domain_counts.csv继续保留。pKahub此表仍为作者curated测量行，非宏观终点/唯一分子数，也不表示B1有效任务数。可用交付4537016已实际COMPLETED/0:0（11秒/2CPU），新增3项路由测试通过，源码检查PASS5,265文件/3,736 Python/0错误；两条最终handoff均保留其成功依赖。

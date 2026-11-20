@@ -32,6 +32,24 @@ def flatten(dataset,manifest,source_manifest):
     return result
 
 
+def active_source_counts(groups, preparation):
+    """Current B0 source rows; historical reference counts remain separate."""
+    rows=[]
+    for group,spec in groups.items():
+        replacement=preparation.get('NMR2018_targets') if group=='NMRShiftDB2' else None
+        if replacement:
+            manifest=json.loads(Path(replacement).read_text())
+            if (manifest.get('dataset')!='NMRShiftDB2'
+                    or not manifest.get('original_author_split_preserved')
+                    or {row.get('nucleus') for row in manifest['counts']}!={'13C','1H'}
+                    or len(manifest['counts'])!=2):
+                raise ValueError('Current NMR source counts lack the two original author nuclei')
+            rows.extend(flatten(group,manifest,replacement))
+        else:
+            rows.extend(spec['count_rows'])
+    return rows
+
+
 def write_counts(path,rows):
     reasons=sorted({k for row in rows for k in row['reason_counts_nonexclusive']})
     primary=sorted({k for row in rows for k in row['primary_reason_counts']})
@@ -80,12 +98,18 @@ def main(argv=None, capacity_check=None):
             'records_by_nucleus':{str(row['nucleus']):row['records'] for row in m['counts'] if 'nucleus' in row},
             'count_rows':group_counts,'status':m['status'],'source_group_is_fully_filtered':all(r['domain_filter_complete'] for r in group_counts)}
     write_counts(out/'domain_counts.csv',counts)
+    active_counts=active_source_counts(groups,progress.get('directive19_data_preparation') or {})
+    write_counts(out/'active_source_domain_counts.csv',active_counts)
     pp=a.root/'labels/Pprime/shared_v1';access=json.loads((pp/'access.json').read_text())
     closure=pprime_closure(pp,access)
     result={'schema':'BENCHMARK_B0_AVAILABLE_DATA_HANDOFF_V1','status':('D_AVAILABLE_PPRIME_PRODUCTION_CLOSED_WITH_EXPLICIT_OUTCOMES_S_P_PENDING' if closure['production_closed'] else 'D_AVAILABLE_PPRIME_NOT_FULLY_CLOSED_S_P_PENDING'),
         'authority':progress['authority'],'root':str(a.root),'source_progress':str(a.progress),
         'source_groups':groups,'source_group_count':len(groups),'domain_count_rows':len(counts),
         'domain_counts_csv':str(out/'domain_counts.csv'),
+        'historical_domain_counts_csv':str(out/'domain_counts.csv'),
+        'active_domain_counts_csv':str(out/'active_source_domain_counts.csv'),
+        'active_domain_count_rows':active_counts,
+        'active_count_units':'B0 source rows before B1 endpoint selection: NMR2018 spectra rows; pKahub author-curated measurements before macro endpoint aggregation and blind exclusions. Not unique molecules or active B1 task counts.',
         'active_evaluation_scope':progress.get('active_evaluation_scope'),
         'directive19_resolutions':progress.get('directive19_resolutions'),
         'directive19_data_preparation':progress.get('directive19_data_preparation'),
