@@ -1,4 +1,4 @@
-sbatch --parsable --dependency=afterany:4537297,afterok:4537149 <<'DOWNSTREAMGPU'
+sbatch --parsable --dependency=afterany:4537291,afterok:4537149 <<'DOWNSTREAMGPU'
 #!/bin/bash
 #SBATCH --job-name=GPU-Joung2020_e1_TabPFN_Pprime
 #SBATCH --partition=gpu
