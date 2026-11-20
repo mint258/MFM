@@ -129,8 +129,9 @@ def initialize(library):
 
 
 def descriptor_input(row):
-    if "existing_D20" in row:
-        return {"smiles": row["smiles"], "existing_D20": row["existing_D20"]}
+    if "existing_D20" in row or "existing_L1" in row:
+        return {"smiles": row["smiles"], **{key: row[key]
+                for key in ("existing_L1", "existing_D20") if key in row}}
     return None if row.get("source_error") else row["smiles"]
 
 
@@ -138,7 +139,8 @@ def one(smiles):
     import numpy as np
     from rdkit import Chem
     begin, cpu_begin = time.perf_counter(), time.process_time()
-    existing = smiles.get("existing_D20", {}) if isinstance(smiles, dict) else {}
+    existing = ({**smiles.get("existing_L1", {}), **smiles.get("existing_D20", {})}
+                if isinstance(smiles, dict) else {})
     smiles = smiles.get("smiles") if isinstance(smiles, dict) else smiles
     molecule = Chem.MolFromSmiles(smiles) if smiles else None
     if molecule is None and LIBRARY != "L1":
