@@ -5,7 +5,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=8G
+#SBATCH --mem=0
 #SBATCH --time=02:00:00
 #SBATCH --output=/share/home/zixiao/descriptor_analysis/MFM_d_downstream_inputs_%j.out
 set -euo pipefail

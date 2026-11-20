@@ -3,7 +3,7 @@ import copy
 import unittest
 
 from .prepare_benchmark import (D20_NAMES, D3_NAMES, D20Schema, build_rows,
-    canonical_d20, frozen_tasks, geometry_member, scoped_tasks, sealed_geometry, shared_source)
+    active_source_rows, catalog_groups, canonical_d20, frozen_tasks, geometry_member, scoped_tasks, sealed_geometry, shared_source)
 
 
 PROOF = {"deferred_registry_full_inventory_verified": True, "deferred_endpoint_count": 5}
@@ -48,17 +48,27 @@ class BenchmarkPreparationTests(unittest.TestCase):
     def test_feature_export_accepts_existing_candidate_catalog_without_freezing_endpoints(self):
         document = {"status": "CANDIDATE", "final_task_roster": False}
         catalog = [{"dataset": "A", "endpoint_key": "a::original.csv::endpoint"},
-                   {"dataset": "A", "endpoint_key": "a::original.csv::other"},
-                   {"dataset": "A", "endpoint_key": "a::deferred.csv::endpoint"}]
+                   {"dataset": "A", "endpoint_key": "a::combined_official_train_test_endpoint"},
+                   {"dataset": "NMR", "endpoint_key": "nmr::13C"}]
         before = copy.deepcopy((document, catalog))
-        tasks = scoped_tasks(document, "CANDIDATE", PROOF,
-            lambda tasks: [t for t in tasks if t[1] != "deferred.csv"],
-            mode="FEATURE_EXPORT_ONLY", catalog_rows=catalog)
-        self.assertEqual(tasks, [("A", "original.csv")])
+        groups = catalog_groups(document, "CANDIDATE", PROOF, catalog)
+        calls = []
+        def select(tasks):
+            calls.extend(tasks)
+            return [task for task in tasks if task[1] != "deferred.csv"]
+        rows = [{"dataset": "A", "source_file": "official_train.csv"},
+                {"dataset": "A", "source_file": "official_test.csv"},
+                {"dataset": "A", "source_file": "official_train.csv"},
+                {"dataset": "A", "source_file": "deferred.csv"},
+                {"dataset": "NMR", "source_file": "original_13C.sdf"}]
+        selected = list(active_source_rows(rows, groups, select))
+        self.assertEqual(selected, [rows[i] for i in (0, 1, 2, 4)])
+        self.assertEqual(calls.count(("A", "official_train.csv")), 1)
+        self.assertIn(("A", "official_test.csv"), calls)
+        self.assertIn(("NMR", "original_13C.sdf"), calls)
         self.assertEqual((document, catalog), before)
         with self.assertRaisesRegex(ValueError, "scope proof"):
-            scoped_tasks(document, "CANDIDATE", {}, lambda tasks: tasks,
-                         mode="FEATURE_EXPORT_ONLY", catalog_rows=catalog)
+            catalog_groups(document, "CANDIDATE", {}, catalog)
 
     def test_canonical_d20_keeps_zero_and_missing_and_binds_original_input_policy(self):
         shared = fixture()

@@ -247,6 +247,8 @@ def measure(config, panel, output, library, workers):
     population = json.loads((output / "panel.json").read_text())["eligible_train_molecules"]
     publish(destination, {"status": "PILOT_COST_COMPLETE_NOT_DELIVERY", "library": library,
         "node": platform.node(), "job_id": os.environ["SLURM_JOB_ID"], "molecules": len(panel),
+        "workers": workers, "slurm_cpus_per_task": os.environ.get("SLURM_CPUS_PER_TASK"),
+        "slurm_cpus_on_node": os.environ.get("SLURM_CPUS_ON_NODE"),
         "fields": len(fields), "cpu_core_seconds": float(cpu.sum()),
         "canonical_D20_values_reused": library == "L1",
         "mean_cpu_core_seconds_per_molecule": float(cpu.mean()),

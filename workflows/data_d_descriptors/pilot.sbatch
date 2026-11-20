@@ -4,8 +4,8 @@
 #SBATCH --exclude=compute-0-[0-7,18,20-22]
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=5
-#SBATCH --mem=8G
+#SBATCH --cpus-per-task=3
+#SBATCH --mem=0
 #SBATCH --time=1-00:00:00
 #SBATCH --output=/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120_pilot_%j.out
 set -euo pipefail
@@ -20,4 +20,4 @@ df -Pi / /share/home/zixiao/descriptor_analysis
 # The afterok dependency supplies the one combined environment/new-logic
 # check. The producer's guard reads the existing fresh UID quota publisher
 # and actual-node filesystem facts before writing each output part.
-"$python_bin" -B -m workflows.data_d_descriptors.pilot --config configs/data_d_descriptors/pilot.json --workers 4
+"$python_bin" -B -m workflows.data_d_descriptors.pilot --config configs/data_d_descriptors/pilot.json --workers 2

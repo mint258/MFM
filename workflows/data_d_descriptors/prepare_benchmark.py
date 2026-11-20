@@ -41,26 +41,44 @@ def native_missing_reason(shared):
     return None
 
 
-def scoped_tasks(document, required_status, proof, selector, *, mode="FINAL_ROSTER", catalog_rows=None):
+def _scope_evidence(document, required_status, proof):
     if (proof.get("deferred_registry_full_inventory_verified") is not True
             or proof.get("deferred_endpoint_count") != 5):
         raise ValueError("Existing five-deferred full-inventory scope proof required")
     if not required_status or document.get("status") != required_status:
         raise ValueError("Explicit existing source inventory/roster status required")
+
+
+def catalog_groups(document, required_status, proof, catalog_rows):
+    """Candidate endpoint IDs need not contain an original source filename."""
+    _scope_evidence(document, required_status, proof)
+    groups = {row["dataset"] for row in catalog_rows}
+    if not groups or any(not group for group in groups):
+        raise ValueError("Existing catalog source groups are missing")
+    return groups
+
+
+def active_source_rows(rows, groups, selector):
+    """Use the original selector on actual source files, once per source task."""
+    decisions = {}
+    for row in rows:
+        task = (row["dataset"], row["source_file"])
+        if task[0] not in groups:
+            continue
+        if task not in decisions:
+            decisions[task] = bool(selector([task]))
+        if decisions[task]:
+            yield row
+
+
+def scoped_tasks(document, required_status, proof, selector, *, mode="FINAL_ROSTER"):
+    _scope_evidence(document, required_status, proof)
     if mode == "FINAL_ROSTER":
         if document.get("final_task_roster") is not True:
             raise ValueError("Existing final frozen benchmark roster required")
         tasks = [(row["dataset"], row["source_task"]) for row in document["tasks"]]
     elif mode == "FEATURE_EXPORT_ONLY":
-        if catalog_rows is None:
-            tasks = [(row["dataset"], row["source_task"]) for row in document["tasks"]]
-        else:
-            tasks = []
-            for row in catalog_rows:
-                parts = row["endpoint_key"].split("::", 2)
-                if len(parts) != 3 or parts[0] != row["dataset"].casefold() or not parts[1]:
-                    raise ValueError("Existing catalog endpoint/source binding is malformed")
-                tasks.append((row["dataset"], parts[1]))
+        tasks = [(row["dataset"], row["source_task"]) for row in document["tasks"]]
     else:
         raise ValueError("Unknown benchmark preparation mode")
     tasks = list(dict.fromkeys(tasks))
@@ -150,7 +168,7 @@ def build_rows(structures, read_shared, *, allowed_keys, canonical_key, graph_eq
     unique, members, unresolved, member_keys, schema = {}, [], [], set(), D20Schema()
     for original in structures:
         dataset, record_id = original["dataset"], original["record_id"]
-        if canonical_key(dataset, original["source_file"]) not in allowed_keys:
+        if allowed_keys is not None and canonical_key(dataset, original["source_file"]) not in allowed_keys:
             continue
         key = (dataset, record_id)
         if key in member_keys:
@@ -254,10 +272,15 @@ def run(config):
     if mode == "FEATURE_EXPORT_ONLY" and inventory.get("catalog"):
         with open(inventory["catalog"], newline="", encoding="utf-8") as handle:
             catalog = [{"dataset": row["dataset"], "endpoint_key": row["endpoint_key"]} for row in csv.DictReader(handle)]
-    tasks = scoped_tasks(inventory, config.get("required_inventory_status" if mode == "FEATURE_EXPORT_ONLY"
-        else "required_roster_status"), read_json(config["scope_proof"]), lambda tasks:
-        selector.select_active_tasks(tasks, fingerprints=policy, verify_full_inventory=False), mode=mode, catalog_rows=catalog)
-    allowed, groups = {selector.canonical_task_key(*task) for task in tasks}, {d for d, _ in tasks}
+    select = lambda tasks: selector.select_active_tasks(tasks, fingerprints=policy, verify_full_inventory=False)
+    proof = read_json(config["scope_proof"])
+    if mode == "FEATURE_EXPORT_ONLY" and catalog is not None:
+        groups = catalog_groups(inventory, config.get("required_inventory_status"), proof, catalog)
+        allowed = None  # The source-row generator below applies the original selector.
+    else:
+        tasks = scoped_tasks(inventory, config.get("required_inventory_status" if mode == "FEATURE_EXPORT_ONLY"
+            else "required_roster_status"), proof, select, mode=mode)
+        allowed, groups = {selector.canonical_task_key(*task) for task in tasks}, {d for d, _ in tasks}
     entry = read_json(config["b0_entry"])
     b0, scope = read_json(entry["manifest"]), read_json(config["geometry_scope_manifest"])
     queues = sealed_geometry(scope, {q: read_json(p) for q, p in config["geometry_access_manifests"].items()})
@@ -293,7 +316,10 @@ def run(config):
                 for row in projected_rows(path, desired, ["record_id", "source_file"]):
                     yield dict(row, dataset=group, structure_store=path)
     try:
-        inputs, members, unresolved = build_rows(structures(), read_shared, allowed_keys=allowed,
+        original_rows = structures()
+        if allowed is None:
+            original_rows = active_source_rows(original_rows, groups, select)
+        inputs, members, unresolved = build_rows(original_rows, read_shared, allowed_keys=allowed,
             canonical_key=selector.canonical_task_key, graph_equivalent=unchanged_remove_hs,
             sources={"inventory": inventory_path, "geometry_scope": config["geometry_scope_manifest"]})
     finally:
