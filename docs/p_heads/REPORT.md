@@ -56,7 +56,7 @@ H/T合并峰值预算24GiB是保护预算，不冒充实测峰值；已有实际
 
 | 验证 | 实际状态与范围 |
 | --- | --- |
-| 默认完整回归4536884 | 等待CPU17真实16CPU分配，尚未执行/通过。全部current/tests/test_*.py（192模块）、固定两个模块worker、库单线程；不删模块、不改断言、不伪造Slurm变量。 |
+| 默认完整回归4536884 | 等待已通过容量预检的CPU节点池提供单节点真实16CPU分配，尚未执行/通过。全部current/tests/test_*.py（192模块）、固定两个模块worker、库单线程；不删模块、不改断言、不伪造Slurm变量。 |
 | 默认仓库检查4536885 | 已执行完整原命令，FAIL/returncode1。扫描9633文件、5002 Python文件，server_sources_verified=1309；202个错误路径与本线变更路径交集为0。完整输出与真实资源见[仓库检查JSON](../../results/p_heads/REPOSITORY_CHECK.json)，未抑制错误或删除历史文件。 |
 | 首次回归4536860（无效环境） | 实际8CPU遍历192模块，core汇总3638 tests/14 failures/50 errors/24 skipped；不满足真实provider夹具≥16CPU前提，且metadata汇总遇Path序列化错误，不作有效验收。原日志保留。 |
 | 首次仓库检查4536866（未完成） | 环境PATH缺Git，检查未完成；4536885已修正Git执行环境后重做。 |
@@ -68,3 +68,5 @@ H/T合并峰值预算24GiB是保护预算，不冒充实测峰值；已有实际
 首次回归的非CPU失败定位：test_phase1_initialization 在 meta 设备上下文中由 normalization._scalar 调用 Tensor.item() 抛出 RuntimeError，而测试预期 ValueError；test_p_recipe_exclusion 引用不存在的 tools/p_recipe/refit_d4.py。对分支起点0463aff的只读Git比较确认，相关两个测试及 normalization.py/initialization.py 均未变化，且起点也没有该refit脚本。此处仅记录首次日志的原因，不改这些文件，不恢复用户已取消的D4重算；有效16CPU回归的实际终态与错误数仍待完成。
 
 排队参数调整（11/20）：4536884原请求TimeLimit=UNLIMITED；在确认本线UID、WorkDir、PENDING/运行0及Restarts=0后，对同一job设置04:00:00调度上限并更新sbatch默认值，保留16CPU、node17、nice10000及完整测试范围。依据[Slurm回填调度说明](https://slurm.schedmd.com/sched_config.html)，有限且合理的时长请求有助于回填；此调整不代表已获资源或测试已通过，不改现有训练、科学结果或测试断言。
+
+CPU等待池调整（11/20）：在CPU8–19实际节点逐一执行容量预检，8/9/10/11/12/13/15/16/17/19共10节点通过现有root/tmp字节、inode、UID配额及跨窗口预留检查（含10GiB临时预算），并读取实际MemAvailable；14/18在30秒内无法完成核实，暂时排除。确认4536884仍为本线PENDING/运行0后，清除固定node17要求，在现有cpu分区排除GPU节点2及容量未确认的14/18，使同一作业可等待上述10个合规节点；入口增加实际主机名单限制，启动时及运行中的原容量守卫保持。仍为单节点真实16CPU、nice10000、04:00:00、全部192默认模块、两个worker，不新增作业、不改科学结果或测试断言。此段取代上方当前等待node17的安排，历史记录保留。

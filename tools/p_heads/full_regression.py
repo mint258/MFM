@@ -11,6 +11,7 @@ from pathlib import Path
 import re
 import signal
 import shutil
+import socket
 import subprocess
 import sys
 import time
@@ -70,6 +71,9 @@ def main():
         return core(args.output, args.scratch)
 
     job = os.environ['SLURM_JOB_ID']
+    node = socket.gethostname().split('.')[0]
+    if node not in {f'compute-0-{i}' for i in (8, 9, 10, 11, 12, 13, 15, 16, 17, 19)}:
+        raise ValueError('Final regression requires an admitted CPU-only node')
     cpus = int(os.environ['SLURM_CPUS_PER_TASK'])
     if cpus != 16:
         raise ValueError('Default real-provider fixtures require a real 16-CPU Slurm allocation')
@@ -139,7 +143,7 @@ def main():
         except (ValueError, RuntimeError, MemoryError) as error:
             storage_observation = dict(error=str(error))
     summary = load(output / 'core/summary.json')
-    summary.update(job_id=job, output=str(output / 'core'), scratch=str(scratch),
+    summary.update(job_id=job, node=node, output=str(output / 'core'), scratch=str(scratch),
                    source_commit=commit, allocated_cpus=cpus, cpu_ids=sorted(cpu_ids),
                    process=process, slurm_cpu_ids=ids[1],
                    srun_cpu_bind_list=binding,

@@ -1,7 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=p-heads-regression
 #SBATCH --partition=cpu
-#SBATCH --nodelist=compute-0-17
+#SBATCH --nodes=1
+#SBATCH --exclude=compute-0-2,compute-0-14,compute-0-18
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --time=04:00:00
