@@ -101,3 +101,43 @@ def test_confirmation_does_not_silently_adopt_unimplemented_switches(tmp_path,mo
     proposal['recommendation']['new_perf_switches']['S1']=True;path.write_text(json.dumps(proposal))
     with pytest.raises(ValueError,match='not adopted'):
         module.approved_switch_snapshot(state,base)
+
+
+def test_nov19_frozen_confirmation_manifest_is_seed0_only(tmp_path,monkeypatch):
+    import json
+    import pytest
+    module,base,state,proposal,path=confirmation_fixture(tmp_path,monkeypatch)
+    base['seed']=1  # Confirmation must override any inherited seed, including T1.
+    policy_path=tmp_path/'configs/p_recipe/user_directive_20261117.json'
+    policy=json.loads(policy_path.read_text())
+    # A stale screening seed policy must never leak into the 9M manifest.
+    policy.update(round4=dict(authority='docs/p_recipe/USER_DIRECTIVE_20261118.md'),
+                  closeout=dict(authority='docs/p_recipe/USER_DIRECTIVE_20261118B.md',
+                                seed_policy=dict(maximum_seeds=2,optional_seed=1,borderline='old rule')))
+    policy_path.write_text(json.dumps(policy))
+    base_path=tmp_path/'base.json';base_path.write_text(json.dumps(base))
+    frozen_path=tmp_path/'frozen.json';frozen_path.write_text(json.dumps(dict(base,components=[])))
+    state.update(round=4,M2_components=[],PP_comparison=dict(difference_clear=False),
+                 recipe_frozen=True,external_line_decisions_complete=True,
+                 frozen_configuration=str(frozen_path),frozen_runtime_ready=True,
+                 merge_validation_complete=True)
+    for key in ('recipe_frozen','external_line_decisions_complete','frozen_runtime_ready'):
+        with pytest.raises(ValueError,match='final recipe freeze'):
+            module.prepare(dict(state,**{key:False}),base_configuration=base_path,
+                           study_directory=tmp_path/'study')
+        assert not (tmp_path/'study').exists()
+    control=tmp_path/'runs/p_recipe_20261113';control.mkdir(parents=True)
+    (control/'D6_metadata.json').write_text(json.dumps(dict(P_enabled=['p'],Pprime_enabled=['p'])))
+    plan=module.prepare(state,base_configuration=base_path,study_directory=tmp_path/'study')
+    configs=[json.loads(Path(p).read_text()) for p in plan['configurations']]
+    arms=['T1','T2','T4','T5','T6']
+    assert [c['arm'] for c in configs]==arms
+    assert all(c['seed']==0 and c['samples']==9000000 for c in configs)
+    assert all(c['confirmation_switch_snapshot']['frozen_for_entire_run'] for c in configs)
+    seed_policy=plan['seed_policy']
+    assert seed_policy['authority']=='docs/p_recipe/USER_DIRECTIVE_20261119.md'
+    assert seed_policy['maximum_seeds']==1 and seed_policy['optional_seed'] is None
+    assert seed_policy['seed1_allowed'] is False and seed_policy['confirmation_arms']==arms
+    assert 'borderline' not in seed_policy
+    saved=json.loads((tmp_path/'study/confirmation/plan.json').read_text())
+    assert saved['seed_policy']==seed_policy

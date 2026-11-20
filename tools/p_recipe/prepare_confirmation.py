@@ -41,6 +41,7 @@ def confirmation_configuration(base,components,*,run,arm,samples,frozen=None):
  """Keep the complete frozen recipe, including adopted side-line settings."""
  runtime=configuration(base,components if frozen is None or arm=='T1' else set(),
        run=run,round_number=0,arm=arm,samples=samples,stage=3)
+ runtime['seed']=0
  if frozen is None or arm=='T1':return runtime
  if set(frozen['components'])!=set(components):raise ValueError('Frozen recipe components differ')
  c=deepcopy(frozen)
@@ -122,7 +123,13 @@ def prepare(state,*,base_configuration=None,study_directory=None):
  if closeout:
   plan.update(selection_authority='docs/p_recipe/USER_DIRECTIVE_20261118B.md',
               recipe_frozen=True,frozen_configuration=state['frozen_configuration'],
-              cancelled_arms=['T3','T7'],seed_policy=directive['closeout']['seed_policy'],
+              cancelled_arms=['T3','T7'],seed_policy=dict(
+                  authority='docs/p_recipe/USER_DIRECTIVE_20261119.md',
+                  scope='all_9M_confirmation_comparisons',default=0,maximum_seeds=1,
+                  optional_seed=None,seed1_allowed=False,
+                  confirmation_arms=[spec[0] for spec in specifications],
+                  point_estimate='seed0 paired delta',
+                  CI='original seed0 1000 molecular paired bootstrap differences; percentile2.5/97.5'),
               external_adoptions=state.get('external_adoptions',[]),
               external_line_decisions_complete=True,
               external_line_decisions=state.get('external_line_decisions',{}))

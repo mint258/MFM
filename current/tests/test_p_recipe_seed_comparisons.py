@@ -36,11 +36,11 @@ def test_clear_or_descriptive_comparison_creates_no_seed1(tmp_path,monkeypatch,s
     assert json.loads(Path(state['seed1_plan']).read_text())['configurations']==[]
 
 
-def test_borderline_reuses_reference_and_waits_for_only_one_fresh_child(tmp_path,monkeypatch):
+def test_seed0_win_reuses_reference_and_waits_for_only_one_fresh_child(tmp_path,monkeypatch):
     m=module(monkeypatch);ledger={'runs':{}}
     a=config(tmp_path,'candidate');a['resume']='/old/seed0_checkpoint'
     b=config(tmp_path,'baseline');b1=config(tmp_path,'shared_baseline_seed1',1)
-    publish(a,.42,ledger);publish(b,.4,ledger);publish(b1,.402,ledger)
+    publish(a,.424,ledger);publish(b,.4,ledger);publish(b1,.402,ledger)
     b1path=tmp_path/'shared.json';b1path.write_text(json.dumps(b1))
     reference=tmp_path/'reference.json';reference.write_text(json.dumps(dict(ready_for_reuse=True,samples=3000000,
         observed_seed_noise={'seed0_run':'baseline'},configuration=str(b1path))))
@@ -48,6 +48,7 @@ def test_borderline_reuses_reference_and_waits_for_only_one_fresh_child(tmp_path
     session=m['SeedComparisons'](tmp_path/'comparison',**kwargs)
     first=session.assess(a,b,'screening',4)
     assert not first['ready'] and first['status']=='WAITING_FOR_REGISTERED_SEED1'
+    assert first['seed0_evidence']['R3']['decision']['verdict']=='win'
     state=session.save();plan=json.loads(Path(state['seed1_plan']).read_text())
     assert len(plan['configurations'])==1
     child_path=Path(plan['configurations'][0]);child=json.loads(child_path.read_text())
@@ -62,7 +63,7 @@ def test_borderline_reuses_reference_and_waits_for_only_one_fresh_child(tmp_path
     final=m['SeedComparisons'](tmp_path/'comparison',**kwargs)
     result=final.assess(a,b,'screening',4)
     assert result['ready'] and result['seed_count']==2
-    assert result['rows'][0]['delta']==pytest.approx(.028)
+    assert result['rows'][0]['delta']==pytest.approx(.03)
     assert calls==[{0,1},{0,1}]
     state=final.save()
     assert json.loads(Path(state['seed1_plan']).read_text())['configurations']==[]
@@ -91,5 +92,5 @@ def test_report_only_metadata_cannot_request_seed1_or_decide_scaling(tmp_path,mo
         assert all(item['decision']['verdict']=='descriptive' and not item['seed1_required']
                    and not item['may_trigger_seed1'] for item in result['evidence'].values())
     else:
-        assert result['evidence']['R1']['seed0_borderline']
+        assert not result['evidence']['R1']['seed0_borderline']
         assert result['rows'][1]['verdict']=='win'

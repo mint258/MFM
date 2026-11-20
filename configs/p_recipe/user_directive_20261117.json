@@ -131,22 +131,37 @@
                      "T7_required":  false,
                      "common_fields":  109,
                      "seed_policy":  {
-                                         "default":  0,
-                                         "maximum_seeds":  2,
-                                         "optional_seed":  1,
-                                         "borderline":  "0.5*tau \u003c= abs(delta_seed0) \u003c 1.5*tau",
-                                         "tau":  "max(0.01,0.05*max(scoreA,scoreB))",
-                                         "existing_reference_seed1_reused":  true,
-                                         "scaling_arms_seed0_only":  [
-                                                                         "T5",
-                                                                         "T6"
-                                                                     ],
-                                         "point_estimate":  "mean of the seed-wise paired deltas",
-                                         "CI":  "equal-weight concatenation of the original seed-wise1000 molecular paired bootstrap differences; percentile2.5/97.5",
-                                         "third_seed_forbidden":  true
-                                     },
+                       "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+                       "default": 0,
+                       "tau": "max(0.01,0.05*max(scoreA,scoreB))",
+                       "screening": {
+                         "maximum_seeds": 2,
+                         "optional_seed": 1,
+                         "seed1_condition": "seed0 R3 WIN: CI lower > 0 and delta >= tau",
+                         "training_problem_exception": "seed0 training lost/repeated samples, rollback after explosion/NaN, or a discontinuous resumed loss curve; log reason",
+                         "continuous_full_state_resume_is_exception": false,
+                         "existing_reference_seed1_reused": true,
+                         "point_estimate": "mean of the seed-wise paired deltas",
+                         "CI": "equal-weight concatenation of the original seed-wise1000 molecular paired bootstrap differences; percentile2.5/97.5"
+                       },
+                       "confirmation": {
+                         "maximum_seeds": 1,
+                         "optional_seed": null,
+                         "seed1_allowed": false,
+                         "arms": [
+                           "T1",
+                           "T2",
+                           "T4",
+                           "T5",
+                           "T6"
+                         ],
+                         "point_estimate": "seed0 paired delta",
+                         "CI": "original seed0 1000 molecular paired bootstrap differences; percentile2.5/97.5"
+                       },
+                       "third_seed_forbidden": true
+                     },
                      "stop_after_P_final_report":  true,
                      "no_9M_before_recipe_frozen":  true
                  },
-    "latest_authority":  "docs/p_recipe/USER_DIRECTIVE_20261118B.md"
+    "latest_authority":  "docs/p_recipe/USER_DIRECTIVE_20261119.md"
 }
