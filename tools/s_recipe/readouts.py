@@ -101,9 +101,9 @@ def gpu(c):
         features=c['features'], store=c['store'], readout_backends=dict(R3='cuda', R1='CPU_PENDING')))
 
 
-def finish_cpu_ridge(c, samples):
+def finish_cpu_ridge(c, samples, *, settings=None):
     """Called only by the admitted CPU statistics worker, never on GPU hosts."""
-    settings = configuration(c, samples)
+    settings = configuration(c, samples) if settings is None else settings
     output = Path(settings['output'])
     manifest = json.loads((output/'predictions.json').read_text())
     if manifest.get('readout_backends', {}).get('R1') == 'cpu':

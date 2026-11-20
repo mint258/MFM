@@ -110,6 +110,7 @@ def submit(paths):
     submitted = []
     with ledger() as execution:
         execution.update(last_observed_at=time.time(), node_errors=errors)
+        execution['observed_cards'] = [dict(card) for card in cards]
         busy = {r['gpu_uuid'] for r in execution['runs'].values()
                 if r.get('status') not in ('COMPLETED', 'FAILED', 'CANCELLED')}
         cards = [card for card in cards if card['gpu_uuid'] not in busy and

@@ -14,9 +14,9 @@ ROOT = Path('/share/home/zixiao/descriptor_analysis')
 REPO = ROOT/'MFM_s_recipe'
 CONTROL = ROOT/'runs/s_recipe_20261120'
 TOTAL_PEAK = 64*1024**3
-# D stage0 has one shared14GiB NFS claim (2026-11-20 STATUS); do not
+# D full/native forecasts now total36,706,053,853B (2026-11-20 STATUS); do not
 # let simultaneous producers spend the same headroom. Keep this until closed.
-D_STAGE0_PEAK = 14*1024**3
+D_STAGE0_PEAK = 36_706_053_853
 spec = importlib.util.spec_from_file_location('s_disk', REPO/'tools/model_v3/v2_diagnosis_disk.py')
 disk = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(disk)
