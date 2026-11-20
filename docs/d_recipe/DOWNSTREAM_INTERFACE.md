@@ -30,12 +30,14 @@ D3 继续由基准窗口按 S′ UFF 口径提供：`benchmark_B0_20261119/direc
 
 唯一分子表保留已有 UID / `shared_molecule_id`、原图 SMILES 与 source-frame 引用；成员表保留 dataset、record/member UID、原始划分、活动范围引用及 feature-row。多端点共享同一分子行，不重复计算。同一程序版本生成每库 F64 值与 uint8 状态（missing / valid / numeric event）；清单引用原 TRAIN 的 ordered-fields、enabled-columns、参数和版本。结构失败保留 missing，不补零。
 
-已写好 `prepare_development`、闭合 B6 兼容列复用、`export` 和只读 `DownstreamDescriptorStore`。开发输入配置为数据分支 `configs/data_d_descriptors/development_inputs.json`，预估新增峰值 512MiB，仅为计划，未预约或提交作业。生产步骤保留每个成员的独立 D3 构象引用，只共享二维分子行；旧 D20 无法绑定时明确标为 UNRESOLVED，不用全缺失冒充完成。
+已写好 `prepare_development`、闭合 B6 兼容列复用、`export` 和只读 `DownstreamDescriptorStore`。开发输入配置为数据分支 `configs/data_d_descriptors/development_inputs.json`，自身预估新增峰值 512MiB；基准输入配置为 `benchmark_inputs.json`，自身预估 8GiB。两者与成本面板 4GiB 按一份 14GiB 联合峰值执行实际节点写入准入，不把它当作每作业各自可占用 14GiB。已提交 4537346（开发，1CPU/4GiB）和 4537347（基准，1CPU/8GiB），均 afterok:4537113，尚未运行。生产步骤保留每个成员的独立 D3 构象引用，只共享二维分子行；旧 D20 无法绑定时明确标为 UNRESOLVED，不用全缺失冒充完成。
 
 导出支持 L1/L2 与原生 D20：仅复制 D20 时不初始化描述符计算器或 worker pool，17 个启用字段复用原参数。宽库保留全 TRAIN 的启用列和参数，不在下游重新过滤；状态和原始 F64 缺失保留。消费者以 dataset＋原成员 ID 连接，原始 split 原样保留，禁止用 A1 残差参数直接标准化化学描述符特征。
 
 依赖仍未完成：上述新逻辑 CPU 测试、阶段 0 字段/统计冻结与真实接收验收、基准最终活动范围及实际导出。开发 A/B/C 尚未执行；MLP 容量口径正待用户确认，不能用现有 B6/C1 特征入口代替这些比较结果。
 
-`prepare_benchmark` 已写好最小结构输入包装，必须由现有最终冻结 roster 驱动，候选 endpoint catalog 不作为冻结。旧 C1 缺少 C7/PPE/NMR 的新版 canonical/统一 UFF 绑定，以及无官方划分数据的冻结 CV 映射；这些依赖必须由基准线既有产物补齐，不能用全缺失表宣称交付。
+`prepare_benchmark` 以 FEATURE_EXPORT_ONLY 使用已有活动来源清单，只生产无标签特征；不把候选 catalog 称为最终冻结。原 D20 与分子级 D3 直接按已有 geometry_bindings 路由读取封存 SharedB0Reader，不局限于旧 C1 八组文件。明确的原生缺失保留 mask 和原因，未知绑定为 UNRESOLVED；二维导出不因缺 UFF 或缺 CV 冻结而停止。每成员保留首个实际 accepted UFF conformer ID、原 atom/SASA 引用；不复制或重新生成几何。最终 C1 评测仍只按基准线冻结的端点和划分进行，当前没有评测完成声明。
 
 `dev_descriptor_readouts.run_descriptor_probe` 直接复用既有 R3 训练循环，B 用描述符 MLP，C 在原 R3 分子 MLP 入口拼描述符；容量与 raw/原 TRAIN 标准化策略均由调用者显式提供。所有统计遵守既有内部 TRAIN 留出，保留原始缺失，只在模型输入边界做数值 padding 并附缺失指示。解析整数宽度不使用验证分数。最简组成参照提供完整含 H 元素计数加重原子数，供既有 ridge 读出使用，不新建预训练臂。
+
+开发原生几何辅助器 development_geometry 只读取原 packed 文件的 Z/F64 坐标前缀，既不读取 F32 副本，也不读取其后的标签区域；D3 数值委托原 geometry_descriptors 程序。氢处理必须显式选择，不能缺构象时嵌入新构象。ExpansionRx 缺显式 H 的口径已向用户询问，尚未选定或执行，QM9 完整原生几何可原样保留。当前只完成辅助器与新逻辑测试，实际 D3 生产未完成。
