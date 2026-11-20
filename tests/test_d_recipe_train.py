@@ -66,6 +66,15 @@ class TrainEntryTests(unittest.TestCase):
                 run(c, trainer=trainer, evaluator=evaluator, checkpoint_resolver=Mock(), publish=Mock())
             trainer.assert_not_called()
 
+    def test_final_h0_retention_is_explicit_and_uses_the_original_feature_producer(self):
+        from tools.d_recipe.train import final_readout
+        c = self.config("/own/final")
+        c["persist_final_features"] = True
+        result = final_readout(c, lambda *_: Path("/own/final/samples_3000000.pt"))
+        self.assertTrue(result["persist_features"])
+        self.assertEqual(result["features"], "/own/final/features_3000000")
+        self.assertTrue(c["persist_final_features"])
+
     def test_incomplete_training_cannot_be_promoted_to_readout_complete(self):
         trainer = Mock(return_value={"status": "TRAINING_COMPLETE_EVALUATION_PENDING", "samples": 1000000})
         evaluator = Mock()

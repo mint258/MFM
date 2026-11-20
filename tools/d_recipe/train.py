@@ -20,7 +20,7 @@ def final_readout(configuration, checkpoint_resolver):
     return dict(configuration, checkpoint=str(checkpoint_resolver(configuration, samples)),
         output=str(Path(configuration["output"]) / "readout"),
         features=str(Path(configuration["output"]) / ("features_" + str(samples))),
-        persist_features=False, store=configuration["readout_store"],
+        persist_features=configuration.get("persist_final_features", False), store=configuration["readout_store"],
         reference_manifest=configuration["reference_manifest"])
 
 

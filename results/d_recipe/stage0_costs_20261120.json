@@ -1,0 +1,39 @@
+{
+    "schema":  "D_CLOSED_PILOT_COST_SUMMARY_V1",
+    "source_pilot_job":  "4537446",
+    "report_job":  "4537508",
+    "report_step":  "3",
+    "node":  "compute-0-10",
+    "molecules":  5000,
+    "descriptor_calls_added":  0,
+    "failure_definition":  "no valid descriptor field; ordinary partial descriptor missingness is reported separately",
+    "source_graph_error_rows":  0,
+    "libraries":  {
+                      "L1":  {
+                                 "fields":  217,
+                                 "mean_cpu_core_seconds_per_molecule":  0.008187300570199991,
+                                 "elapsed_p99_seconds":  0.025935380272567365,
+                                 "molecules_with_any_missing_fraction":  0.0496,
+                                 "mean_valid_fields":  216.4078,
+                                 "numeric_output_bytes":  2993315,
+                                 "missing_reason_bytes":  204180,
+                                 "train_cpu_core_hours_extrapolated":  2.715973218152443,
+                                 "molecules_with_no_valid_field":  0,
+                                 "whole_molecule_failure_fraction":  0.0
+                             },
+                      "L2":  {
+                                 "fields":  1613,
+                                 "mean_cpu_core_seconds_per_molecule":  0.13044074289159982,
+                                 "elapsed_p99_seconds":  0.7450181443244225,
+                                 "molecules_with_any_missing_fraction":  1.0,
+                                 "mean_valid_fields":  1454.403,
+                                 "numeric_output_bytes":  39653775,
+                                 "missing_reason_bytes":  50915330,
+                                 "train_cpu_core_hours_extrapolated":  43.27110763943041,
+                                 "molecules_with_no_valid_field":  0,
+                                 "whole_molecule_failure_fraction":  0.0
+                             }
+                  },
+    "status":  "PILOT_COST_COMPLETE_NOT_DELIVERY",
+    "source_report":  "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot/cost_summary.json"
+}

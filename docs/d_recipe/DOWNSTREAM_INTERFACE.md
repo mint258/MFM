@@ -41,3 +41,7 @@ D3 继续由基准窗口按 S′ UFF 口径提供：`benchmark_B0_20261119/direc
 `dev_descriptor_readouts.run_descriptor_probe` 直接复用既有 R3 训练循环，B 用描述符 MLP，C 在原 R3 分子 MLP 入口拼描述符；容量与 raw/原 TRAIN 标准化策略均由调用者显式提供。所有统计遵守既有内部 TRAIN 留出，保留原始缺失，只在模型输入边界做数值 padding 并附缺失指示。解析整数宽度不使用验证分数。最简组成参照提供完整含 H 元素计数加重原子数，供既有 ridge 读出使用，不新建预训练臂。
 
 开发原生几何辅助器 development_geometry 只读取原 packed 文件的 Z/F64 坐标前缀，既不读取 F32 副本，也不读取其后的标签区域；D3 数值委托原 geometry_descriptors 程序。氢处理必须显式选择，不能缺构象时嵌入新构象。ExpansionRx 缺显式 H 的口径已向用户询问，尚未选定或执行，QM9 完整原生几何可原样保留。当前只完成辅助器与新逻辑测试，实际 D3 生产未完成。
+
+2026-11-20 18:54：开发输入4537410已关闭；实际258项接口测试及后续L2整库选择测试合计259项通过。开发导出4537517与真实接收4537514依赖全量4537508。development_d3接口已实现但未选氢政策、未生产。纯成员拼接显式使用原reference声明的member_key；组成含H来自原source_smiles图，不取缺H坐标数量。
+
+基准原D20绑定4537426/4537509连续未解决，已停止修复并保留产物。L1完整交付受限；L2不做D20跨映射，可用active原图独立二维导出，配置configs/data_d_descriptors/benchmark_L2_export.json。该导出保留canonical_D20_source_status=UNRESOLVED、canonical_D20_required=false，不声称D20/几何修复或最终C1完成；基准窗口使用其原封存S′ UFF D3接入，原endpoint/split不变。新增约2.827GB，在原8GiB基准和本线36706053853字节联合峰值内。

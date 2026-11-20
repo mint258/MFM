@@ -75,3 +75,9 @@ Mordred 的 Missing/Error 对象由 MissingValueBase 显式识别，其 float �
 该接入后新逻辑套件扩展到223项并在CPU17实际全部通过（原始日志 `D_native_cpu_tests_20261120_1638.log`，exit0，总7.42秒）；包括单次前向、缓存恢复、原子顺序、默认路径与异常恢复、主末层读出/统计复用及未采纳宽臂不做探针。未运行全仓库回归或仓库检查，仍仅在开PR前执行一次。
 
 开发D3的 `development_d3` 以原member自身source-frame图和原生Z/F64坐标调用既有 `downstream_science.geometry_descriptors`。分块保存六分子D3 F64/u8、独立逐原子SASA F64/u8和源atom映射，游标闭合后复用；不合并同MID的不同member几何。氢政策必填且尚未选择，不缺构象重嵌入。`append_member_d3` 只按原完整member UID或(dataset,record_id)纯连接，保原molecule/split、顺序/重复及0/缺失/numeric-event；不读文件、标签或重新计算几何。可选标准化只接受原TRAIN六参数，F64仿射且不截尾；PBF字段沿原D3.PBF_A命名。原子SASA不追加到分子向量。新增11项用例后共244项通过（CPU10真实4537508.step0单核，总6.63秒），仍无实际D3生产或A/B/C结果。
+
+第5节执行入口为`python -B -m tools.d_recipe.resources development_panel --configuration <冻结配置>`，显式phase=gpu/cpu。它消费选定D终点的原H0缓存和原A结果；B/C仍调用原run_probe，LightGBM沿C1默认模型且使用B已记录优化TRAIN成员，组成参照复用原ridge_probe。每个已关闭模型和bootstrap结果在续跑时复用；A的主统计不重复抽样，C对两种B只减相同1000次既有抽样并给描述性区间，decision_input=false，不触发额外训练或种子。只执行冻结七开发任务，CYP仍由原主读出报告。
+
+完整成员命名空间按来源显式使用：开发表(dataset,member_uid)、基准表(dataset,record_id)，不猜别名。组成基线从每member自身原source_smiles的图上隐式H构造计数，不拿缺H的坐标atom数代替完整组成，也不生成坐标或选择几何H政策。最终H0的persist_final_features默认关闭，最终选定预算可在原末层前向中显式保存，以供这一套控制使用；它不改变训练或默认读出。259项新增逻辑已通过真实CPU10/4537508.step4，Section5尚未实际执行，未来输出峰值须在提交前登记。
+
+L2可按完整库选择独立导出，始终保持全TRAIN有序字段、启用列、参数与版本；对D20不做跨库映射，不继承原D20未知绑定为自身失败。原基准D20问题按两次失败停止，L1仍受限；L2二维交付的D3由基准窗口原封存S′ UFF源接入，不修改旧D20、几何、终点或划分。此独立导出没有重启被停止的绑定修复。

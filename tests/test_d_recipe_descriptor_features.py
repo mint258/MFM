@@ -229,6 +229,22 @@ class DownstreamFeatureTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "not A1 residual"):
                 append_member_d3(batch, [member], standardized=True, normalization=parameters)
 
+    def test_append_d3_development_namespace_uses_declared_original_member_uid_key(self):
+        from dataclasses import replace
+        with tempfile.TemporaryDirectory() as directory:
+            path, _, _ = self.fixture(directory)
+            batch = DownstreamDescriptorStore(path, "L1").get_members(["test:a", "train:a"])
+            batch = replace(batch, member_uids=(("qm9", "test:a"), ("qm9", "train:a")))
+            first = self.d3_row("test:a", "mol-A", "TEST")
+            second = self.d3_row("train:a", "mol-A", "TRAIN", [8.] * 6)
+            first.update(dataset="qm9", record_id="unrelated-original-record")
+            second.update(dataset="qm9", record_id="unrelated-original-record")
+            with self.assertRaisesRegex(KeyError, "D3 member missing"):
+                append_member_d3(batch, [first, second])
+            joined = append_member_d3(batch, [second, first], tuple_member_key="member_uid")
+            self.assertEqual(joined.member_uids, batch.member_uids)
+            np.testing.assert_array_equal(joined.raw_values[:, -6], [1., 8.])
+
     def test_append_d3_never_selects_geometry_from_only_molecule_or_wrong_field_order(self):
         with tempfile.TemporaryDirectory() as directory:
             path, _, _ = self.fixture(directory)

@@ -38,11 +38,13 @@ class DownstreamFeatureBatch:
         return self.status == 0
 
 
-def append_member_d3(batch, member_rows, *, standardized=False, normalization=None):
+def append_member_d3(batch, member_rows, *, standardized=False, normalization=None,
+                     tuple_member_key="record_id"):
     """Append six already-produced molecular D3 values by exact source member.
 
-    Tuple member IDs join only `(row['dataset'], row['record_id'])`; strings
-    join only `row['member_uid']`. No aliases, molecule-only geometry selection,
+    Tuple IDs use the explicitly declared original tuple_member_key: record_id
+    for benchmark members, member_uid for the development source mapping.
+    Strings join only row['member_uid']. No aliases or molecule-only selection,
     file reads, descriptor computation, fitting or atomic-SASA pooling occurs.
     Repeated members in the requested batch preserve their order and geometry.
 
@@ -54,6 +56,8 @@ def append_member_d3(batch, member_rows, *, standardized=False, normalization=No
     """
     if set(D3_FEATURE_FIELDS) & set(batch.fields):
         raise ValueError("Molecular D3 fields are already present; refusing duplicate append")
+    if tuple_member_key not in ("record_id", "member_uid"):
+        raise ValueError("Explicit original tuple member key must be record_id or member_uid")
     requested = set(batch.member_uids)
     if None in requested:
         raise ValueError("D3 geometry requires explicit original member IDs, not molecule-only rows")
@@ -66,8 +70,8 @@ def append_member_d3(batch, member_rows, *, standardized=False, normalization=No
         keys = []
         if "member_uid" in row and row["member_uid"] in requested:
             keys.append(row["member_uid"])
-        if "dataset" in row and "record_id" in row:
-            pair = (row["dataset"], row["record_id"])
+        if "dataset" in row and tuple_member_key in row:
+            pair = (row["dataset"], row[tuple_member_key])
             if pair in requested:
                 keys.append(pair)
         if not keys:
@@ -283,7 +287,8 @@ class DownstreamDescriptorStore:
         for uid in members:
             if self.dataset_key:
                 if not isinstance(uid, tuple) or len(uid) != 2 or not all(isinstance(item, str) for item in uid):
-                    raise ValueError("This original membership mapping requires (dataset, record_id) tuples")
+                    raise ValueError("This original membership mapping requires (dataset, " +
+                                     self.membership_reference["member_key"] + ") tuples")
             elif not isinstance(uid, str):
                 raise ValueError("This original membership mapping requires member_uid strings")
             if uid not in self._member_by_uid:

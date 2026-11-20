@@ -67,12 +67,12 @@ def execution_site(configuration, *, cpu):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("train", "cpu_statistics", "diagnostic_forward", "diagnostic_statistics", "layer_readouts"))
+    parser.add_argument("command", choices=("train", "cpu_statistics", "diagnostic_forward", "diagnostic_statistics", "layer_readouts", "development_panel"))
     parser.add_argument("--configuration", required=True)
     arguments = parser.parse_args()
     configuration = json.loads(Path(arguments.configuration).read_text(encoding="utf-8"))
     cpu = arguments.command in ("cpu_statistics", "diagnostic_statistics") or (
-        arguments.command == "layer_readouts" and configuration.get("phase") == "cpu")
+        arguments.command in ("layer_readouts", "development_panel") and configuration.get("phase") == "cpu")
     execution_site(configuration, cpu=cpu)
     guard = DJointGuard(configuration)
     guard.run([sys.executable, "-B", "-m", "tools.d_recipe." + arguments.command,
