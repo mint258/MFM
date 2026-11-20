@@ -1,4 +1,4 @@
-"""Stage-0 runtime preparation; execute only on allocated CPU nodes."""
+"""Stage-0 runtime preparation on CPU nodes; explicit native short-test mode."""
 import importlib
 import importlib.metadata
 import json
@@ -12,11 +12,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 
-def main():
-    if (not os.environ.get("SLURM_JOB_ID") or not platform.node().startswith("compute-")
+def main(*, native_cpu_test=False):
+    if ((not os.environ.get("SLURM_JOB_ID") and not native_cpu_test) or not platform.node().startswith("compute-")
             or not 8 <= int(platform.node().rsplit("-", 1)[-1]) <= 19):
-        raise RuntimeError("Allocated CPU node required")
-    report = {"node": platform.node(), "job_id": os.environ["SLURM_JOB_ID"],
+        raise RuntimeError("CPU allocation or explicit native short-test mode required")
+    report = {"node": platform.node(), "job_id": os.environ.get("SLURM_JOB_ID"),
+              "execution": "native_SSH_CPU_test" if native_cpu_test else "Slurm",
+              "pid": os.getpid(), "uid": os.getuid(),
               "python": sys.executable, "modules": {}}
     for name in ("numpy", "rdkit", "mordred", "pyarrow", "lmdb", "torch"):
         try:

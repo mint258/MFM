@@ -15,7 +15,7 @@ export CUDA_VISIBLE_DEVICES="" PYTHONDONTWRITEBYTECODE=1
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 cd /share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120
 recipe_root=${D_RECIPE_ROOT:-/share/home/zixiao/descriptor_analysis/MFM_d_recipe}
-export PYTHONPATH="$recipe_root/current:$PWD:$PWD/current"
+export PYTHONPATH="$recipe_root/current:$PWD:$PWD/current:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps"
 python_bin=/share/home/zixiao/.conda/envs/chemprop/bin/python
 case "$stage" in
   population_summary)

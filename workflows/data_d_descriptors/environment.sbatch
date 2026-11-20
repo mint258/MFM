@@ -12,5 +12,5 @@ set -euo pipefail
 export CUDA_VISIBLE_DEVICES="" PYTHONDONTWRITEBYTECODE=1
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 cd /share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120
-export PYTHONPATH="$PWD:$PWD/current"
+export PYTHONPATH="$PWD:$PWD/current:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps"
 /share/home/zixiao/.conda/envs/chemprop/bin/python -B workflows/data_d_descriptors/environment.py

@@ -12,6 +12,29 @@ GIB = 2**30
 
 
 class StorageTests(unittest.TestCase):
+    def test_actual_home_mount_can_differ_from_its_share_parent_device(self):
+        with tempfile.TemporaryDirectory() as folder:
+            share = Path(folder) / "share"
+            home = share / "home"
+            target = home / "project"
+            target.mkdir(parents=True)
+            original_path, original_stat = Path, os.stat
+            def path(value):
+                value = str(value)
+                return original_path(folder) / value.lstrip("/") if value.startswith("/share") else original_path(value)
+            def node_stat(value, *args, **kwargs):
+                result = original_stat(value, *args, **kwargs)
+                if original_path(value) == share:
+                    fields = list(result)
+                    fields[2] += 1
+                    return os.stat_result(fields)
+                return result
+            inspector = Mock()
+            with patch("workflows.data_d_descriptors.storage.Path", side_effect=path), \
+                 patch("workflows.data_d_descriptors.storage.os.stat", side_effect=node_stat):
+                _inspect_output("/share/home/project", inspector)
+            inspector.assert_called_once_with(target.resolve())
+
     def config(self, root, sealed=True):
         folder = Path(root) / "geometry"
         folder.mkdir()

@@ -16,7 +16,7 @@ task_recipe=/share/home/zixiao/descriptor_analysis/MFM_d_recipe
 task_run=/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120
 task_configs="$PWD/configs/data_d_descriptors/full_20261120"
 task_python=/share/home/zixiao/.conda/envs/chemprop/bin/python
-export PYTHONPATH="$task_recipe/current:$PWD:$PWD/current"
+export PYTHONPATH="$task_recipe/current:$PWD:$PWD/current:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps"
 # Both libraries' costs must be closed (or explicitly UNRESOLVED). This job
 # reads existing cohort metadata and writes a forecast/configuration only.
 # It neither calculates full descriptors nor reserves their future disk space.

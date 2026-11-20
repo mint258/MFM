@@ -36,13 +36,15 @@ def concurrent_reservation(config):
     return total
 
 
-def _inspect_output(path, inspect, *, share_root=Path("/share")):
+def _inspect_output(path, inspect, *, share_root=Path("/share/home")):
     """Inspect the real target, or its nearest existing ancestor, without mkdir.
 
     Resolution happens before admission: a symlink escaping the registered
     shared tree cannot redirect an intended new directory to another disk.
     The injectable root is only for filesystem-selection unit fixtures;
-    production guard always uses the actual /share root.
+    production guard anchors the actual /share/home NFS mount. /share itself
+    is a different local filesystem on compute nodes; the quota publisher's
+    /share name identifies its server-side account scope, not that directory.
     """
     root = Path(share_root).resolve()
     target = Path(path).resolve()
