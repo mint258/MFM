@@ -70,3 +70,51 @@ class C1ReportTests(unittest.TestCase):
         with self.assertRaises(IncompleteComparison):make_primary_report(catalog,screen,base,c1)
 
 if __name__=="__main__":unittest.main()
+
+"""Actual fit-count and feature-layout reporting contracts, using invented records."""
+import unittest
+from workflows.benchmark_evaluation.c1_reporting import fit_metadata_summary
+from workflows.benchmark_evaluation.selection import IncompleteComparison
+class FitMetadataTests(unittest.TestCase):
+    def test_native_available_TRAIN_count_is_not_replaced_by_another_models_population(self):
+        records=[dict(n_train='31',feature_count='67',subsampling_ensemble='False'),
+                 dict(n_train='99',feature_count='67',fit_population='full',evaluation_population='full')]
+        summary=fit_metadata_summary(records)
+        self.assertEqual(summary['actual_TRAIN_rows'],31)
+        self.assertEqual(summary['input_feature_count'],67)
+        self.assertFalse(summary['official_TabPFN_subsampling_ensemble'])
+    def test_fold_sizes_may_differ_but_native_feature_layout_may_not(self):
+        records=[dict(n_train=str(20+i),feature_count='75') for i in range(25)]
+        summary=fit_metadata_summary(records,True)
+        self.assertEqual((summary['actual_TRAIN_rows_min'],summary['actual_TRAIN_rows_max']),(20,44))
+        records[-1]['feature_count']='76'
+        with self.assertRaises(IncompleteComparison):fit_metadata_summary(records,True)
+    def test_absent_fit_count_stays_unknown_instead_of_becoming_zero(self):
+        self.assertIn('UNKNOWN',fit_metadata_summary([])['actual_TRAIN_size'])
+        with self.assertRaises(IncompleteComparison):fit_metadata_summary([dict(n_train='0')])
+if __name__=='__main__':unittest.main()
+
+"""Final consumers reuse existing score metadata instead of independently replaying it."""
+import unittest
+from unittest.mock import patch
+from workflows.benchmark_evaluation.c1_reporting import primary_statistics
+from workflows.benchmark_evaluation.selection import IncompleteComparison
+class ExistingScoreReuseTests(unittest.TestCase):
+    def rows(self):return [dict(full_inchikey='ORIGINAL-KEY',y_true=2.,prediction=1.,training_mean=0.)]
+    def record(self):return dict(n_test_rows='1',bootstrap_draws='1000',MAE='1.0',RAE='0.5',
+             RAE_CI95_low='0.5',RAE_CI95_high='0.5',metric_status='OK')
+    def test_closed_CPU_score_is_exported_without_a_second_bootstrap(self):
+        with patch('workflows.benchmark_evaluation.c1_reporting.single_model_statistics',side_effect=RuntimeError('must not replay')):
+            score=primary_statistics(self.rows(),[self.record()])
+        self.assertEqual(score['RAE'],.5)
+        self.assertEqual(score['statistics_source'],'REUSED_CLOSED_CPU_PRODUCER_STATISTICS')
+    def test_deferred_GPU_statistics_are_computed_only_in_the_CPU_consumer(self):
+        expected=dict(MAE=1.,RAE=.5)
+        with patch('workflows.benchmark_evaluation.c1_reporting.single_model_statistics',return_value=expected) as compute:
+            score=primary_statistics(self.rows(),[dict(bootstrap_draws='0',metric_status='PENDING_CPU_STATISTICS')])
+        compute.assert_called_once()
+        self.assertIn('NEW_CPU_REPORT',score['statistics_source'])
+    def test_closed_metadata_cannot_silently_refer_to_another_test_population(self):
+        record=dict(self.record(),n_test_rows='2')
+        with self.assertRaises(IncompleteComparison):primary_statistics(self.rows(),[record])
+if __name__=='__main__':unittest.main()

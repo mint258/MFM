@@ -65,3 +65,25 @@ class GpuPolicyTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):quota_observation(base,1264,150.)
 
 if __name__=="__main__":unittest.main()
+
+"""New20/22 fallback policy tests; no GPU or external process is accessed."""
+import unittest
+from workflows.benchmark_evaluation.gpu_runtime import gpu_admission
+class SharedFallbackGpuTests(unittest.TestCase):
+    def card(self):return dict(uuid='GPU-X',used_mib=701.,total_mib=32607.,utilization_percent=87.)
+    def context(self,uid):return [dict(gpu_uuid='GPU-X',pid=123,uid=uid)]
+    def test_authorized_22_foreign_owner_is_preserved_despite_high_compute_activity(self):
+        card=gpu_admission(self.card(),self.context(1283),'GPU-X',shared_node='compute-0-22',own_uid=1278)
+        self.assertEqual(card['utilization_percent'],87.)
+    def test_same_UID_or_unknown_owner_cannot_cover_recipe9M(self):
+        for uid in (1278,None):
+            with self.assertRaises(RuntimeError):
+                gpu_admission(self.card(),self.context(uid),'GPU-X',shared_node='compute-0-22',own_uid=1278)
+    def test_0_to7_does_not_gain_foreign_context_sharing(self):
+        with self.assertRaises(RuntimeError):
+            gpu_admission(self.card(),self.context(1283),'GPU-X',shared_node='compute-0-5',own_uid=1278)
+        with self.assertRaises(RuntimeError):gpu_admission(self.card(),self.context(1283),'GPU-X')
+    def test_thirty_percent_and_actual_free_memory_stay_hard_requirements(self):
+        with self.assertRaises(RuntimeError):
+            gpu_admission(dict(self.card(),used_mib=12000.),self.context(1283),'GPU-X',shared_node='compute-0-22',own_uid=1278)
+if __name__=='__main__':unittest.main()

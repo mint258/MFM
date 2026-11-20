@@ -20,24 +20,33 @@ LOCK_ROOT=Path("/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stag
 MODEL_RESERVE=114569896448
 GIB=1024**3
 
-def gpu_admission(card, contexts, expected_uuid, minimum_free_mib=18432):
+def gpu_admission(card, contexts, expected_uuid, minimum_free_mib=18432, *, shared_node=None, own_uid=None):
     if card["uuid"]!=expected_uuid:
         raise RuntimeError("Actual GPU UUID differs from the scheduled card")
     used,total=float(card["used_mib"]),float(card["total_mib"])
     if total<=0 or used<0 or used/total>.30 or total-used<minimum_free_mib:
         raise RuntimeError("Actual free GPU memory does not cover the planned neural job")
-    if float(card.get("utilization_percent",0))>5:
-        raise RuntimeError("Actual GPU activity is not idle for this small-task launch")
-    if any(row["gpu_uuid"]==expected_uuid for row in contexts):
-        raise RuntimeError("An existing compute context owns this small-task GPU")
+    if shared_node is not None:
+        if shared_node not in {"compute-0-20","compute-0-22"} or not isinstance(own_uid,int):
+            raise RuntimeError("Foreign-context sharing is limited to the authorized20/22 group with verified UID")
+        for row in contexts:
+            if row["gpu_uuid"]==expected_uuid and (row.get("uid") is None or row["uid"]==own_uid):
+                raise RuntimeError("An own-user/unknown context could be another protected project, including recipe9M")
+    else:
+        if float(card.get("utilization_percent",0))>5:
+            raise RuntimeError("Actual GPU activity is not idle for this small-task launch")
+        if any(row["gpu_uuid"]==expected_uuid for row in contexts):
+            raise RuntimeError("An existing compute context owns this small-task GPU")
     return dict(card)
 
 def wait_for_idle_gpu(observe, expected_uuid, minimum_free_mib=18432, *,
-                      maximum_wait_seconds=60, clock=time.monotonic, sleeper=time.sleep):
+                      maximum_wait_seconds=60, clock=time.monotonic, sleeper=time.sleep, shared_node=None, own_uid=None):
     """Allow only bounded driver utilization cooldown while no compute context exists."""
     deadline=clock()+maximum_wait_seconds
     while True:
         card,contexts=observe()
+        if shared_node is not None:
+            return gpu_admission(card,contexts,expected_uuid,minimum_free_mib,shared_node=shared_node,own_uid=own_uid)
         if (card["uuid"]==expected_uuid and not any(row["gpu_uuid"]==expected_uuid for row in contexts)
                 and float(card.get("utilization_percent",0))>5 and clock()<deadline):
             sleeper(min(5,max(0,deadline-clock())))
@@ -88,8 +97,15 @@ class GpuRuntime:
             raw=subprocess.check_output(["nvidia-smi","--query-compute-apps=gpu_uuid,pid",
                         "--format=csv,noheader,nounits"],text=True,timeout=30)
             contexts=[dict(gpu_uuid=r[0].strip(),pid=r[1].strip()) for r in csv.reader(raw.splitlines()) if len(r)>=2]
+            if self.node in {"compute-0-20","compute-0-22"}:
+                for context in contexts:
+                    if context["gpu_uuid"]==gpu_uuid:
+                        try:context["uid"]=os.stat("/proc/"+str(int(context["pid"]))).st_uid
+                        except OSError:raise RuntimeError("Actual existing GPU context ownership could not be verified")
+            self.observed_contexts=contexts
             return matches[0],contexts
-        card=wait_for_idle_gpu(observe,gpu_uuid,minimum_free_mib)
+        card=wait_for_idle_gpu(observe,gpu_uuid,minimum_free_mib,
+            shared_node=self.node if self.node in {'compute-0-20','compute-0-22'} else None,own_uid=os.getuid())
         self.started_epoch=time.time();self.started_monotonic=time.monotonic()
         self.folder=self.root.parent/"benchmark_B1_20261119"/"gpu_runtime"/("job_"+self.job)
         self.protect(self.root,64*1024**2,self.snapshot,own_concurrent_bytes=40*GIB)
@@ -101,7 +117,9 @@ class GpuRuntime:
         self.record=dict(status="ADMITTED_FOR_AUTHORIZED_NEURAL_GPU_JOB",job=self.job,node=self.node,
             gpu_uuid=gpu_uuid,learner=learner,pid=os.getpid(),uid=os.getuid(),
             cpus=int(os.environ["SLURM_CPUS_PER_TASK"]),started_epoch=self.started_epoch,
-            initial_GPU=card,existing_compute_contexts=[],shared_GPU_lock=str(LOCK_ROOT/(gpu_uuid+".lock")),
+            initial_GPU=card,existing_compute_contexts=self.observed_contexts,
+            admission_group_policy='AUTHORIZED20_22_FOREIGN_UID_MEMORY_SHARING' if self.node in {'compute-0-20','compute-0-22'} else '0_TO7_IDLE_GPU_ONLY',
+            existing_foreign_GPU_utilization_is_not_assumed_low=True,shared_GPU_lock=str(LOCK_ROOT/(gpu_uuid+".lock")),
             Slurm_GPU_GRES_requested=False,Slurm_exclusive_requested=False,
             GPU_used_by_recipe9M=False,root_tmp_reserve=self.local_capacity(),
             output_filesystem=str(self.root),quota_snapshot=str(self.snapshot),

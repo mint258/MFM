@@ -103,6 +103,51 @@ def single_model_statistics(rows, scaffold_cv=False):
                       pooled_RAE=point["RAE"],significance_protocol="TUKEY_HSD_25_ORIGINAL_SCAFFOLD_FOLDS")
     return result
 
+def primary_statistics(rows,records,scaffold_cv=False):
+    """Reuse closed CPU producer scores; compute only previously deferred/new summaries."""
+    primary=[r for r in records if r.get('fit_population','retained')=='retained'
+             and r.get('evaluation_population','retained') not in {'full','excluded'}]
+    reusable=[r for r in primary if r.get('MAE') not in (None,'') and r.get('RAE') not in (None,'')
+              and str(r.get('bootstrap_draws',''))=='1000']
+    if not scaffold_cv and reusable:
+        if len(reusable)!=1:raise IncompleteComparison('Ambiguous closed official-split C1 statistics')
+        original=reusable[0]
+        if int(original['n_test_rows'])!=len(rows):
+            raise IncompleteComparison('Closed C1 score metadata is bound to a different TEST population')
+        score={key:float(original[key]) if original.get(key) not in (None,'') else None
+               for key in ('MAE','RAE','RAE_CI95_low','RAE_CI95_high')}
+        if any(score[key] is None or not math.isfinite(score[key]) for key in ('MAE','RAE')):
+            raise IncompleteComparison('Closed C1 point metric is not finite')
+        return dict(score,n_test_rows=len(rows),n_test_molecules=len({r['full_inchikey'] for r in rows}),
+                    bootstrap_draws=1000,statistics_source='REUSED_CLOSED_CPU_PRODUCER_STATISTICS',
+                    producer_metric_status=original.get('metric_status'),
+                    standalone_existing_scores_recomputed=False)
+    result=single_model_statistics(rows,scaffold_cv)
+    result.update(statistics_source='NEW_CPU_REPORT_FOR_DEFERRED_GPU_OR_NEW_POOLED_CV_STATISTICS',
+                  standalone_existing_scores_recomputed=False)
+    return result
+
+def fit_metadata_summary(records,scaffold_cv=False):
+    """Report the producer's actual native-feature TRAIN size, never a baseline count."""
+    primary=[r for r in records if r.get('fit_population','retained')=='retained'
+             and r.get('evaluation_population','retained') not in {'full','excluded'}]
+    counts=[int(r['n_train']) for r in primary if r.get('n_train') not in (None,'')]
+    if not counts:return dict(actual_TRAIN_size='UNKNOWN_NOT_IN_CLOSED_PRODUCER_METADATA')
+    if any(value<1 for value in counts):raise IncompleteComparison('A reported fitted model has no TRAIN rows')
+    result=dict(actual_TRAIN_rows_min=min(counts),actual_TRAIN_rows_max=max(counts),
+                TRAIN_size_source='Closed native producer fit metadata; available-feature TRAIN only')
+    if not scaffold_cv and len(set(counts))!=1:
+        raise IncompleteComparison('An official C1 configuration has inconsistent actual TRAIN sizes')
+    if not scaffold_cv:result['actual_TRAIN_rows']=counts[0]
+    widths=[int(r['feature_count']) for r in primary if r.get('feature_count') not in (None,'')]
+    if widths:
+        if len(set(widths))!=1:raise IncompleteComparison('A C1 configuration changed its native feature layout')
+        result['input_feature_count']=widths[0]
+    flags=[str(r.get('subsampling_ensemble','')).lower() for r in primary]
+    if any(flag in {'true','false'} for flag in flags):
+        result['official_TabPFN_subsampling_ensemble']=any(flag=='true' for flag in flags)
+    return result
+
 class C1ClosedConsumer:
     def __init__(self,catalog):
         self.catalog=catalog
@@ -112,6 +157,7 @@ class C1ClosedConsumer:
         self.closed_cells=set()
         self.failures=[]
         self.unresolved_cells={}
+        self.fit_metadata=defaultdict(list)
 
     def add_run(self,folder,native_state,spec):
         import pyarrow.parquet as pq
@@ -124,7 +170,15 @@ class C1ClosedConsumer:
         manifest=json.loads(path.read_text())
         if str(manifest.get("job"))!=str(spec["job"]):
             raise IncompleteComparison("C1 source manifest differs from its declared native job")
-        self.sources.append(dict(spec,folder=str(folder),native_state=native_state,producer_status=manifest.get("status")))
+        self.sources.append(dict(spec,folder=str(folder),native_state=native_state,producer_status=manifest.get("status"),native_coverage=manifest.get("coverage")))
+        import csv
+        for path in sorted(folder.glob("*partial_results.csv")):
+            with path.open(newline="") as stream:
+                for record in csv.DictReader(stream):
+                    if not record.get("task"):continue
+                    dataset=record.get("dataset") or spec.get("dataset")
+                    endpoint=resolve_endpoint(self.catalog,dataset,record["task"])
+                    self.fit_metadata[(endpoint,spec["feature_group"],spec["learner"])].append(record)
         failures=list(manifest.get("failures",[]))+list(manifest.get("task_failures",[]))
         self.failures.extend(failures)
         for failure in failures:
@@ -149,7 +203,7 @@ class C1ClosedConsumer:
                     self.predictions[cell].append(row)
                     self.closed_cells.add(cell)
 
-def make_primary_report(catalog,screen,baselines,c1_predictions,unresolved=None):
+def make_primary_report(catalog,screen,baselines,c1_predictions,unresolved=None,fit_metadata=None):
     """Return provisional seed1 rows, registered contrasts, and only required seed2 cells."""
     unresolved={} if unresolved is None else dict(unresolved)
     roles={r["endpoint_key"]:r for r in screen}
@@ -174,8 +228,9 @@ def make_primary_report(catalog,screen,baselines,c1_predictions,unresolved=None)
             continue
         source=baselines[key]["LightGBM-RDKit2D"]
         available,coverage=native_population(source,c1_predictions[cell],endpoint["dataset"] in CV_DATASETS)
-        scores=single_model_statistics(available,endpoint["dataset"] in CV_DATASETS)
-        table.append(dict(row,**coverage,**{k:v for k,v in scores.items() if k!="status"},status="PRIMARY_REPORTED"))
+        scores=primary_statistics(available,(fit_metadata or {}).get(cell,[]),endpoint["dataset"] in CV_DATASETS)
+        fit=fit_metadata_summary((fit_metadata or {}).get(cell,[]),endpoint["dataset"] in CV_DATASETS)
+        table.append(dict(row,**coverage,**fit,**{k:v for k,v in scores.items() if k!="status"},status="PRIMARY_REPORTED"))
         references=[("B1_LightGBM_RDKit2D",source)]
         if learner=="TabPFN":
             counterpart=(key,feature,"LightGBM")

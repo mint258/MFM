@@ -2,7 +2,7 @@
   "schema": "BENCHMARK_NATIVE_JOB_INDEX_20261120_V1",
   "scope": "96 active candidate endpoints after complete anonymous five-endpoint inventory verification; no final decisions yet",
   "native_source_worktree_HEAD": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
-  "latest_published_before_this_batch": "f4404bf0bfe31d2de7e47221ed887eee17a423dc",
+  "latest_published_before_this_batch": "76511f0045b0c2c0fa3425ed18b252147cd10cfe",
   "artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119",
   "deferred_inventory": {
     "job": 4536851,
@@ -32,7 +32,7 @@
     "original_split_job": 4536856,
     "features_job": 4537317,
     "RF_LightGBM_job": 4537322,
-    "Chemprop_job": 4537319,
+    "Chemprop_job": 4537337,
     "source_counts": {
       "13C": {
         "train_spectra": 21523,
@@ -63,7 +63,7 @@
       "unstarted_C1_NMR_replaced": 4537194,
       "corrected_C1_NMR_job": 4537321,
       "C1_rebinding_tests_step": "4536999.1",
-      "actual_1H_sample_redo_second_seed_job": 4537320,
+      "actual_1H_sample_redo_second_seed_job": 4537338,
       "second_seed_reason": "SOURCE_BINDING_ERROR_REQUIRED_REDO_OF_TRAINED_1H_SAMPLES",
       "traditional_ML_seed_count": 1
     },
@@ -117,7 +117,14 @@
         4537025
       ],
       "original_source_prerequisites_verified_satisfied_before_ordering": true,
-      "other_windows_jobs_changed": false
+      "other_windows_jobs_changed": false,
+      "status": "RESOLVED_NATIVE_START_PREREQUISITE_COMPLETED_ALL_HOLDS_RELEASED"
+    },
+    "corrected_producer_status": {
+      "features": "COMPLETED",
+      "RF_LightGBM": "COMPLETED_4_PAIRS_ZERO_FAILURES",
+      "Chemprop": "COMPLETED_2_TASKS_ZERO_FAILURES",
+      "mandatory_1H_confirmation": "COMPLETED_1_TASK_ZERO_FAILURES"
     }
   },
   "pKa": {
@@ -151,7 +158,8 @@
     "native_target_points": 6095,
     "domain_target_points": 6023,
     "quantity": "G298, original native hartree fields; no removal of native original id6001",
-    "LightGBM_status": "COMPLETED2_ENDPOINTS_ALL25_FOLDS"
+    "LightGBM_status": "COMPLETED2_ENDPOINTS_ALL25_FOLDS",
+    "three_baseline_status": "COMPLETED_BOTH_ENDPOINTS_ALL25_ORIGINAL_FOLDS"
   },
   "PPE": {
     "Benson_binding_job": 4536988,
@@ -167,7 +175,8 @@
     "Benson_library": "pGrAdd2.9.14 BensonGA, fixed native published values,298.15K,kcal/mol",
     "classical_report_job": 4537083,
     "classical_report_status": "COMPLETED204_REPORT_ROWS",
-    "LightGBM_status": "COMPLETED2_ENDPOINTS_ALL25_FOLDS"
+    "LightGBM_status": "COMPLETED2_ENDPOINTS_ALL25_FOLDS",
+    "three_baseline_status": "COMPLETED_BOTH_ENDPOINTS_ALL25_ORIGINAL_FOLDS"
   },
   "ExpansionRx": {
     "public_release_source_job": 4536975,
@@ -3545,25 +3554,10 @@
     "actual_conditional_plan_consumers_not_submitted": true
   },
   "validation": {
-    "full_benchmark_regression": {
-      "native_step": "4536999.7",
-      "node": "compute-0-10",
-      "tests_run": 90,
-      "failures": 0,
-      "errors": 0,
-      "skipped": 0,
-      "status": "PASS",
-      "source_commit": "b46f22c54648f9698e01885ced05ab3355ae9683",
-      "actual_scientific_outputs_replayed": false
-    },
-    "required_source_check": {
-      "native_step": "4536999.6",
-      "status": "PASS",
-      "proposed_paths": 251,
-      "checked_paths": 5492,
-      "python_files": 3731,
-      "embedded_python_programs": 217
-    }
+    "full_new_benchmark_regression": "104_PASS_ZERO_FAILURE_ERROR_SKIP",
+    "actual_step": "4537025.8",
+    "actual_node": "compute-0-10",
+    "scientific_outputs_replayed": false
   },
   "pull_request": {
     "number": 17,
@@ -3689,5 +3683,94 @@
       }
     ],
     "speedup_claimed_without_actual_fit": false
+  },
+  "B1_total_completed_three_baseline_endpoints": 86,
+  "GPU_22_shared_execution": {
+    "name": "Joung_e1_Chemprop_GPU22",
+    "learner": "Chemprop-v2",
+    "endpoint_index": 1,
+    "old_job": 4537266,
+    "job": 4537335,
+    "array": "0-4%1",
+    "node": "compute-0-22",
+    "uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+    "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu128_job_4537025_step_5/chemprop/bin/python",
+    "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e1_Chemprop.py",
+    "foreign_context_shared_under_authorized_20_22_rule": true,
+    "existing_foreign_UID": 1283,
+    "initial_GPU_utilization_percent": 87,
+    "used_by_recipe9M": false
+  },
+  "GPU_7_ready_reassignment": [
+    {
+      "name": "NMR_native_order_Chemprop_GPU7",
+      "old_job": 4537319,
+      "array": false,
+      "dependencyMarker": "AFTER_D_TAB",
+      "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536999_step_0/NMR_native_order_Chemprop.py",
+      "model_seed": 20261025,
+      "node": "compute-0-7",
+      "uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+      "learner": "Chemprop-v2",
+      "job": 4537337,
+      "native_dependency": "afterany:4537280"
+    },
+    {
+      "name": "NMR_1H_confirmation_GPU7",
+      "old_job": 4537320,
+      "array": false,
+      "dependencyMarker": "AFTER_NMR_PRIMARY",
+      "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536999_step_0/NMR_1H_native_order_confirmation_seed2.py",
+      "model_seed": 20261026,
+      "node": "compute-0-7",
+      "uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+      "learner": "Chemprop-v2",
+      "job": 4537338,
+      "native_dependency": "afterany:4537337"
+    },
+    {
+      "name": "Joung_e6_Chemprop_GPU7",
+      "old_job": 4537271,
+      "array": true,
+      "dependencyMarker": "AFTER_NMR_CONFIRM",
+      "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e6_Chemprop.py",
+      "model_seed": 20261025,
+      "node": "compute-0-7",
+      "uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+      "learner": "Chemprop-v2",
+      "job": 4537339,
+      "native_dependency": "afterany:4537338"
+    }
+  ],
+  "native_dependency_reroutes": {
+    "4537267": "afterany:4537265",
+    "4537272": "afterany:4537270",
+    "4537281": "afterany:4537339,afterok:4537119"
+  },
+  "cuda128_environment": {
+    "backend_job_step": "4537025.1",
+    "backend_root": "/lfshome/zixiao/benchmark_B1_environments_20261120/gpu_cu128_backend_node22_v1/packages",
+    "backend_torch": "2.7.1+cu128",
+    "private_environment_step": "4537025.5",
+    "cpus_only": true,
+    "prior_share_capacity_rejection_preserved": "4537025.0",
+    "peak_future_reserve_retired_after_install": true,
+    "source_environments_modified": false,
+    "model_outputs_remain_under_share": true
+  },
+  "C1_Joung_D_TabPFN": {
+    "all9_native_fits_closed": true,
+    "statistics_deferred_to_CPU": true,
+    "jobs": [
+      4537201,
+      4537217,
+      4537274,
+      4537275,
+      4537276,
+      4537277,
+      4537278,
+      4537279,
+      4537280
+    ]
   }
 }
