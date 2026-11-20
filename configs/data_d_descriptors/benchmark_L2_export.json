@@ -1,0 +1,22 @@
+{
+  "input_rows": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/benchmark/source_inputs_active/input_rows.jsonl",
+  "membership_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/benchmark/source_inputs_active/member_map.jsonl",
+    "format": "jsonl",
+    "dataset_key": "dataset",
+    "member_key": "record_id",
+    "molecule_key": "molecule_id",
+    "source_split_key": "source_split"
+  },
+  "train_manifest": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/final_manifest.json",
+  "libraries": ["L2"],
+  "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/benchmark/L2_descriptors",
+  "include_D20": false,
+  "canonical_D20_source_status": "UNRESOLVED_CANONICAL_D20_BINDING",
+  "D3_delivery": "Benchmark window reuses its existing sealed native S-prime UFF D3; this export contains only L2 and does not repair D20/geometry bindings",
+  "mode": "FEATURE_EXPORT_ONLY",
+  "reuse_main_raw": false,
+  "peak_bytes": 36706053853,
+  "workers": 3,
+  "chunk_rows": 256
+}

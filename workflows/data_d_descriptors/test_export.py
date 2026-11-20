@@ -174,6 +174,40 @@ class ExportTests(unittest.TestCase):
             self.assertEqual(status[0, D20_NAMES.index("TPSA")], 0)
             self.assertEqual(status[0, D20_NAMES.index("BertzCT")], 2)
 
+    def test_l2_only_export_keeps_frozen_fields_when_original_d20_binding_is_unresolved(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            row = source()
+            del row["existing_D20"]
+            row["canonical_D20_source_error"] = "UNRESOLVED_ORIGINAL_D20_BINDING"
+            input_rows = self.write_rows(root, [row])
+            members, train = root / "members.jsonl", root / "train_manifest.json"
+            members.write_text("{}\n")  # export stats this reference, never opens labels
+            entry = dict(fit_role="TRAIN", producer_alignment_checked=True, ordered_fields=["new"],
+                enabled_columns=[0], normalization=[{"mean": 2., "std_ddof0": 3.}],
+                software_versions={"rdkit_version": "fixed", "mordredcommunity_version": "fixed"})
+            train.write_text(json.dumps(dict(schema="D_WIDE_DESCRIPTOR_STORE_V1",
+                libraries={"L1": {"unusable_D20_binding": True}, "L2": entry})))
+            config = dict(train_manifest=str(train), libraries=["L2"], input_rows=str(input_rows),
+                membership_reference=dict(path=str(members), format="jsonl", member_key="record_id"),
+                output=str(root / "export"), peak_bytes=4 * 2**20, workers=1, chunk_rows=256,
+                reuse_main_raw=False, canonical_D20_source_status="UNRESOLVED_CANONICAL_D20_BINDING")
+            with patch("workflows.data_d_descriptors.export.require_cpu"), \
+                 patch("workflows.data_d_descriptors.export.guard"), \
+                 patch("workflows.data_d_descriptors.export.pilot.FIELDS", ["new"]), \
+                 patch("workflows.data_d_descriptors.export.pilot.initialize") as initialize, \
+                 patch("workflows.data_d_descriptors.export.importlib.metadata.version", return_value="fixed"), \
+                 patch("workflows.data_d_descriptors.export.cf.ProcessPoolExecutor") as pool, \
+                 patch.dict(os.environ, SLURM_CPUS_PER_TASK="2", SLURM_JOB_ID="UNIT_FIXTURE_NOT_AN_ACTUAL_JOB"):
+                pool.return_value.__enter__.return_value.map.side_effect = lambda fn, items, **kw: [result([7.]) for _ in items]
+                manifest = run(config)
+            initialize.assert_called_once_with("L2")
+            self.assertEqual(set(manifest["libraries"]), {"L2"})
+            self.assertFalse(manifest["canonical_D20_required"])
+            self.assertEqual(manifest["source_canonical_D20_status"], "UNRESOLVED_CANONICAL_D20_BINDING")
+            self.assertEqual(manifest["libraries"]["L2"]["normalization"], entry["normalization"])
+            np.testing.assert_array_equal(np.load(manifest["libraries"]["L2"]["values"]), [[7.]])
+
     def test_native_d20_and_wide_sources_have_independent_values_and_parameters(self):
         row = source()
         row["existing_D20"]["ExactMolWt"] = 5.

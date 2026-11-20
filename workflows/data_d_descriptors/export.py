@@ -3,6 +3,7 @@
 Config: input_rows, membership_reference, train_manifest, output, peak_bytes,
 workers and chunk_rows (256/512); reuse_main_raw defaults true. Membership is
 only referenced, never read or repartitioned here. No statistics are fitted.
+Optional libraries selects whole frozen L1/L2 families without changing fields.
 include_D20 plus native_D20_parameters also supports native D20-only export
 without a wide TRAIN manifest, descriptor initialization or worker pool.
 """
@@ -242,8 +243,12 @@ def run(config):
         frozen = read_json(train_ref["path"])
         if frozen.get("schema") != "D_WIDE_DESCRIPTOR_STORE_V1":
             raise ValueError("Frozen main TRAIN descriptor manifest required")
+        requested = config.get("libraries", ("L1", "L2"))
+        if (not isinstance(requested, (list, tuple)) or not requested
+                or len(set(requested)) != len(requested) or not set(requested) <= {"L1", "L2"}):
+            raise ValueError("Select complete registered L1/L2 library families only")
         libraries = {name: entry for name, entry in frozen["libraries"].items()
-                     if name in ("L1", "L2") and entry.get("status") != "UNRESOLVED"}
+                     if name in requested and entry.get("status") != "UNRESOLVED"}
     elif not config.get("include_D20"):
         raise ValueError("Frozen main TRAIN descriptor manifest required")
     has_wide = bool(libraries)
@@ -294,7 +299,9 @@ def run(config):
                 "normalization_source": train_ref["path"] if has_wide else native_ref["path"],
                 "unique_molecules": len(unique),
                 "libraries": {}, "reception_acceptance": "pending", "current_C1_complete": False,
-                "membership_or_split_changed": False, "statistics_fitted": False}
+                "membership_or_split_changed": False, "statistics_fitted": False,
+                "canonical_D20_required": "L1" in libraries or "D20" in libraries,
+                "source_canonical_D20_status": config.get("canonical_D20_source_status")}
     requested_ids = {row["molecule_id"] for row in unique}
     for library, entry in libraries.items():
         begin = time.monotonic()
