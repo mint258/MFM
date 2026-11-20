@@ -54,3 +54,25 @@ class FinalizationTests(unittest.TestCase):
                                               {("E","Chemprop-v2"):native})
         self.assertEqual(result[0]["frozen_B1_decision"],"DROP")
         self.assertEqual(result[0]["completed_seeds"],2)
+
+    def test_multiple_original_improvements_report_partial_replication_explicitly(self):
+        row,plan,native=self.fixtures()
+        native["original_significant_comparisons"]=["B1_LightGBM_RDKit2D","D_SAME_LEARNER"]
+        native["comparisons"].append(dict(comparison="D_SAME_LEARNER",significant_improvement=False))
+        table,_=finalize_c1([row],[plan],{("E","D","TabPFN"):native})
+        self.assertEqual(table[0]["confirmation_status"],"SECOND_SEED_SIGNIFICANT_IMPROVEMENT_PARTIALLY_REPRODUCED")
+        self.assertEqual(table[0]["confirmation_comparisons_required"],2)
+        self.assertEqual(table[0]["confirmation_comparisons_reproduced"],1)
+        self.assertEqual(table[0]["frozen_B1_role"],"RETAIN")
+    def test_missing_original_trigger_cannot_be_replaced_by_another_comparison(self):
+        row,plan,native=self.fixtures()
+        native["original_significant_comparisons"]=["D_SAME_LEARNER"]
+        native["comparisons"].append(dict(comparison="D_SAME_LEARNER",significant_improvement=True))
+        with self.assertRaises(IncompleteComparison):
+            finalize_c1([row],[plan],{("E","D","TabPFN"):native})
+    def test_training_redo_discloses_any_registered_improvement_replication_without_changing_its_reason(self):
+        _,_,native=self.fixtures();native["original_significant_comparisons"]=["B1_LightGBM_RDKit2D"]
+        plan=dict(endpoint_key="E",model="Chemprop-v2",reason="SOURCE_BINDING_ERROR_REQUIRED_REDO_OF_TRAINED_1H_SAMPLES")
+        output=finalize_baseline_confirmations([dict(endpoint_key="E",decision="RETAIN")],[plan],{("E","Chemprop-v2"):native})
+        self.assertEqual(output[0]["confirmation_status"],"REQUIRED_TRAINING_REDO_SECOND_SEED_REPORTED")
+        self.assertEqual(output[0]["confirmation_comparisons_reproduced"],1)

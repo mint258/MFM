@@ -38,18 +38,34 @@ def _closed_confirmation(plan,evidence):
     names=[row["comparison"] for row in comparisons]
     if len(set(names))!=len(names):
         raise IncompleteComparison("Duplicate second-seed registered comparison")
+    triggering=plan.get("triggering_comparisons") or evidence.get("original_significant_comparisons")
+    if triggering is None and plan["reason"]=="FINAL_SIGNIFICANT_IMPROVEMENT":
+        triggering=[plan.get("triggering_comparison",plan.get("reference_model"))]
+    triggering=[] if triggering is None else triggering
+    if not isinstance(triggering,(list,tuple)) or any(not isinstance(name,str) or not name for name in triggering):
+        raise IncompleteComparison("Original significant comparison identities must be an explicit list")
+    if len(set(triggering))!=len(triggering):
+        raise IncompleteComparison("Duplicate original significant comparison identity")
+    if not set(triggering).issubset(names):
+        raise IncompleteComparison("An original significant comparison lacks second-seed evidence")
+    first=plan.get("triggering_comparison",plan.get("reference_model"))
+    if plan["reason"]=="FINAL_SIGNIFICANT_IMPROVEMENT" and (not triggering or first not in triggering):
+        raise IncompleteComparison("Required original triggering comparison is absent")
+    reproduced=[row["comparison"] for row in comparisons
+                if row["comparison"] in triggering and row["significant_improvement"]]
+    summary=dict(original_significant_comparisons=list(triggering),
+                 reproduced_significant_comparisons=reproduced,
+                 confirmation_comparisons_required=len(triggering),
+                 confirmation_comparisons_reproduced=len(reproduced))
     if plan["reason"]=="FINAL_SIGNIFICANT_IMPROVEMENT":
-        triggering=plan.get("triggering_comparisons") or [plan.get("triggering_comparison",plan.get("reference_model"))]
-        if not all(triggering):raise IncompleteComparison("The registered original comparison identity is absent")
-        if not set(triggering).issubset(names):
-            raise IncompleteComparison("A required original significant comparison lacks second-seed evidence")
-        reproduced=any(row["significant_improvement"] for row in comparisons if row["comparison"] in triggering)
-        state="SECOND_SEED_SIGNIFICANT_IMPROVEMENT_REPRODUCED" if reproduced else "SECOND_SEED_DID_NOT_REPRODUCE_SIGNIFICANCE"
+        if len(reproduced)==len(triggering):state="SECOND_SEED_SIGNIFICANT_IMPROVEMENT_REPRODUCED"
+        elif reproduced:state="SECOND_SEED_SIGNIFICANT_IMPROVEMENT_PARTIALLY_REPRODUCED"
+        else:state="SECOND_SEED_DID_NOT_REPRODUCE_SIGNIFICANCE"
     elif plan["reason"] in {"TRAINING_ROLLBACK_REDO","SOURCE_BINDING_ERROR_REQUIRED_REDO_OF_TRAINED_1H_SAMPLES"}:
         state="REQUIRED_TRAINING_REDO_SECOND_SEED_REPORTED"
     else:
         raise IncompleteComparison("Unregistered neural confirmation reason")
-    return dict(completed=True,confirmation_status=state,confirmation_reason=plan["reason"])
+    return dict(completed=True,confirmation_status=state,confirmation_reason=plan["reason"],**summary)
 
 def finalize_c1(primary_rows,required_plan,evidence):
     """Return both seed rows. Primary estimates are copied exactly, never recalculated."""
@@ -79,6 +95,7 @@ def finalize_c1(primary_rows,required_plan,evidence):
         if closed["completed"]:
             second=dict(original,**native.get("fit_metadata",{}))
             second.update(native["statistics"])
+            second.update({k:v for k,v in closed.items() if k!="completed"})
             second.update(model_seed=SEED+1,completed_seeds=2,report_stage="FINAL",
                           confirmation_status=closed["confirmation_status"],confirmation_reason=plan["reason"],
                           frozen_B1_role=original["frozen_B1_role"],task_roster_reselection=False,
