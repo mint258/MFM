@@ -181,7 +181,16 @@
                                     ],
                         "reuse_forward":  true,
                         "no_all_layer_probe_scan":  true,
-                        "N1_extra":  "sigma_group_standardized_denoising_error"
+                        "N1_extra":  "sigma_group_standardized_denoising_error",
+                        "composition_statistics_source":  "5af7d2b730fd14d4ad2f3a0a0b9c2f32049816ea:tools/p_followup/composition_statistics.py",
+                        "composition_basis_source":  "/share/home/zixiao/descriptor_analysis/runs/p_data_information_20261115_v1/normalizations_TRAIN.json",
+                        "composition_features":  "Existing element-reference basis counts plus total atoms and heavy atoms;no refit of TRAIN normalizations",
+                        "conformer_convention":  {
+                                                     "PR_and_CEV":  "first allowed conformer",
+                                                     "CVF_and_CVF_res":  "all allowed conformers,original \u003e=2 eligibility",
+                                                     "mean_pooling":  "float64 pooling,F32 cache,F64 statistics"
+                                                 },
+                        "bootstrap_refit":  false
                     },
     "confirmation":  {
                          "samples":  9000000,

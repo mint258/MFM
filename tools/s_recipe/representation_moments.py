@@ -5,13 +5,19 @@ Per-molecule sufficient statistics allow the taskbook's1000 MID draws without
 another encoder forward. Upper-triangle storage and column blocks bound RAM.
 """
 import numpy as np
+from functools import lru_cache
+
+
+@lru_cache(maxsize=4)
+def upper_indices(dimension):
+    return np.triu_indices(dimension)
 
 
 def atom_moments(values):
     values = np.asarray(values, dtype=np.float64)
     if values.ndim != 2 or not len(values):
         raise ValueError('A nonempty matrix of native atom representations is required')
-    upper = np.triu_indices(values.shape[1])
+    upper = upper_indices(values.shape[1])
     return len(values), values.sum(axis=0), (values.T@values)[upper]
 
 
@@ -30,7 +36,7 @@ def participation_ratios(weights, counts, sums, upper_products, *, block_columns
     if weights.shape[1] != len(sums) or block_columns < 1:
         raise ValueError('One bootstrap weight per molecule and positive block size required')
     dimension = sums.shape[1]
-    left, right = np.triu_indices(dimension)
+    left, right = upper_indices(dimension)
     if upper_products.shape != (len(sums), len(left)):
         raise ValueError('Upper moments differ from the native representation dimension')
     n = weights@counts
@@ -50,3 +56,15 @@ def participation_ratios(weights, counts, sums, upper_products, *, block_columns
         square_trace += (np.square(covariance)*np.where(diagonal, 1., 2.)).sum(axis=1)
     return np.divide(np.square(trace), square_trace, out=np.full_like(trace, np.nan),
                      where=square_trace > 0)
+
+
+def mean_participation_ratios(weights, values, *, block_columns=8192):
+    """Generate mean(H) outer-product columns lazily instead of storing5GB."""
+    values = np.asarray(values, dtype=np.float64)
+    left, right = upper_indices(values.shape[1])
+    class Products:
+        shape = (len(values), len(left))
+        def __getitem__(self, selection):
+            rows, columns = selection
+            return values[rows][:, left[columns]]*values[rows][:, right[columns]]
+    return participation_ratios(weights, np.ones(len(values)), values, Products(), block_columns=block_columns)

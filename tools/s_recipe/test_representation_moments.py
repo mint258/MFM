@@ -1,7 +1,7 @@
 """Compare new cluster sufficient statistics with explicit F64 resampling."""
 import numpy as np
 
-from representation_moments import atom_moments, participation_ratios
+from representation_moments import atom_moments, participation_ratios, mean_participation_ratios
 
 
 def test_atom_bootstrap_matches_explicit_repeated_molecules_in_f64():
@@ -26,3 +26,16 @@ def test_constant_representation_has_undefined_participation_ratio():
     actual = participation_ratios(np.ones((1, 1)), np.asarray([moments[0]]),
         moments[1][None, :], moments[2][None, :], block_columns=3)
     assert np.isnan(actual[0])
+
+
+def test_lazy_mean_products_match_explicit_resampled_f64_covariance():
+    values = np.random.default_rng(17).normal(size=(7, 4))
+    weights = np.asarray([[1]*7, [2, 0, 1, 1, 0, 2, 1]], dtype=np.float64)
+    actual = mean_participation_ratios(weights, values, block_columns=3)
+    expected = []
+    for draw in weights.astype(int):
+        rows = np.repeat(values, draw, axis=0)
+        centered = rows-rows.mean(axis=0)
+        covariance = centered.T@centered/len(rows)
+        expected.append(np.trace(covariance)**2/np.square(covariance).sum())
+    np.testing.assert_allclose(actual, expected, rtol=1e-9, atol=1e-10)

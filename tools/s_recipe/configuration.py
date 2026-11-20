@@ -51,7 +51,8 @@ def make(arm, seed=0, samples=3000000, *, components=None):
         rotor_index=str(CONTROL/'rotors.sqlite'), workers=14,
         normalization=registration['population']['normalization'],
         output=str(CONTROL/'training'/name),
-        evaluation_samples=([1000000, 2000000, 3000000] if arm == 'S-B0' and samples == 3000000 else [samples]),
+        evaluation_samples=([1000000, 2000000, 3000000]
+                            if arm == 'S-B0' and seed == 0 and samples == 3000000 else [samples]),
         evaluation_store=str(ROOT/'runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json'),
         reference_manifest='/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/predictions.json',
         statistics_backend='slurm_cpu', speed_switches=dict(activation_checkpointing=False,
