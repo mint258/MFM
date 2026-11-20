@@ -613,3 +613,45 @@ PM7重复构象保留，D7的0.5Å统计不作为删样指令；普通S′沿用
 已按owner fec1b994aa642ba8db74074134f909dcb4f165f0同步5终点暂缓规则、选择器和匿名注册表。B1–B4拟合/评测前必须用完整真实任务清单调用select_active_tasks(..., verify_full_inventory=True)，严格匹配全部5项；其余终点保留，B0来源、原标识、划分和历史计数保持。B0数量表不是B1任务清单，具体身份不在当前研究说明公开。
 
 新选择器3项测试4536846在compute-0-17原生COMPLETED/0:0；这不代表真实任务清单覆盖已经核对。06:02快照：P′136,323齐备、129部分、188,620待启动、8在算（共325,080），4536581/8CPU持续，16核候补4536722仍排队。现有物理/量化参数、单份共享数据及CPU8–19规则保持；最终交接须携带独立active_evaluation_scope，不重写历史B0档案。
+
+
+## 2026-11-20 B0 original NMR targets, pKa macros and uniform UFF scope
+
+B0.DELIVERY.json now links original NMR2018 atom targets/domain (4536887 C0; 39719 original spectra rows, 353520 atomic labels, author splits and atom IDs preserved) and pKa macros/exact SAMPL exclusions (4536891 C0; 29972 training-pool molecules; 44 complete blind InChIKeys, 79 excluded source rows). No experimental atomic-site evidence is invented. Uniform UFF input preparation4536895 C0 has38240 new ordered graphs and reuses163 source rows through existing shared geometry pointers; geometry4536898 is running on CPU18/8CPU, not yet sealed. Source check4536896 passed5252 files/3724 Python sources. Original Pprime4536581 continues unchanged; no data copies or deletion. B1's existing inventory and environment work are reused. Original 2018 targets replace the historical CSTShift-DFT subset for standard NMR evaluation; published unique-molecule-count reconciliation remains explicit.
+
+
+## 2026-11-20 B0 refreshed directive19 consumer entry
+
+Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json exposes active_target_manifests for original NMR2018 and pKa macros/SAMPL exclusions; README documents source atom IDs and shared geometry routing. Uniform UFF4536898 is scheduler-RUNNING on CPU18 but has no observed producer progress yet (access still belongs to input preparation); do not infer UFF readiness or restart from a polling timeout. Pprime scope dependency6905→6906→6907 requires actual complete source geometry C0. Original325080-conformer Pprime and16CPU standby remain unchanged. Quota metadata service3058760 has finite7-day lifetime and replaced the verified exited original service sequentially.
+
+2026-11-20 08:00 CST · B0新范围统一UFF实际生产已在compute-0-17/2CPU的4536924推进；封存准备4536925→Pprime4536906→4536907，均依赖实际源C0和全队列终态，不复制数据库。原4536898的node18资源检查Python实际D/nfs_wait_bit_killable，核实UID/argv/start_ticks/cgroup且无科学后代后只终止自己的metadata子进程，原生FAILED/9:0、17,560分配核秒保留；observer断言失败亦保留。原4536905核实PENDING/Elapsed0后取消。该故障恢复复用同一输入，无科学重试；原Pprime4536581持续，候补4536722仍PENDING，未接管。统一入口已改为实际新链，数据仍IN_PROGRESS。
+
+2026-11-20 08:11 CST · B0 NMR原划分计数4536946 C0：Kwon2020作者datasets.zip的13C/1H测试谱行5390/2554、唯一原分子5055/2527均与Jonas2019发布划分一致，未重分割或数值QA。pKa位点证据4536942 C0：全37类作者SI官能团按原子去重，训练18838多位点/5588单一catalog位点/5546未决，5465条唯一映射候选；外盲9条。候选定义已向用户提交，尚未冻结/不供机制拟合；宏观主任务保持可用。新增4项NMR计数测试和5项位点反例测试通过。原Pprime与新UFF继续，无数据库副本、源删除或科学重试。
+
+2026-11-20 08:26 CST · B0双范围终态交付已提交4536961，afterok4536963源码、原范围4536599及新增Pprime4536907。两范围各自geometry与Pprime都需原生C0/不可变/无PENDING或INTENT；元数据聚合，不做数据库复读。pKa定义/正式原子标签仍待定时all_required_production_complete与all_required_work_complete保持false。当前生产持续、未来manifest尚未发布。node18只读启动复核4536958未进入解释器，实际slurmstepd为D，sacct记TIMEOUT/123秒×1CPU，scontrol仍COMPLETING；未证明节点恢复，继续排除，不动Slurm daemon/管理员状态。
+
+2026-11-20 08:47 CST · B0新NMR显式H源原子序与旧D3默认去H/末尾加H顺序存在适配差异；仅针对已记录的D3原子序/键图序失败准备完整图/手性排列适配器，SASA逆映射回原子序，原坐标/成功D3/D20/QM不变、原失败保留。6970失败元数据、6974合成测试及6976源码均C0后，6978还需原UFF6924实际C0才可执行；6979在修复生产C0后封存并接6906→6907。原6925为未启动的metadata准备，验证PENDING/0秒后取消，未停止原Pprime或UFF。新NMR-D仍未最终就绪，不把修复提交当完成；原范围没有D部分失败（原producer113679齐备），本次不改原范围已供模型使用的数据。
+
+2026-11-20 09:02 CST · B0新增UFF6924已实际C0（4253秒/2CPU），38,240图全部终态。原失败元数据6970 C0确认4分子D20无错、D3因元素序对齐未计算；6974六项排列/同位素/手性/once保留测试通过，6976 C0源码PASS5264/3735/0错误。D3属性适配修复6978实际RUNNING并已产生首批D3_REPAIRED，未重算UFF/QM/成功D3/D20，原错误及once结果保留；6979须待修复真实C0才封存并接6906→6907。原Pprime4536581继续；新D尚未整批封存。
+
+2026-11-20 09:29 CST · B0原Pprime6581实际COMPLETED/0:0（76047秒×8CPU），160048齐备/157部分/164875待启动/INTENT0；6588已在原CPU12/8CPU正常续接，源access实际producer6588且已新增闭合记录，无重算。旧16核候补6722核实自有PENDING/0秒/accept不存在后取消，sacct CANCELLED/0秒；新候补6991显式绑定6588、后续6590，暂排除未恢复18，目前PENDING/0Native。若真正获配须先把6590设为afterok6588:6991，再验证实际旧Python父进程并协作收尾；不触碰QM子进程，不因候补排队停止现有生产。D3修复6978继续，新增Pprime6906仍等6979封存；目标未全部关闭。
+
+
+2026-11-20 10:15 CST 窗口二 B0：新统一S′/D已封存，D3原子对齐修复4536978原生COMPLETED/0:0，41,243条原对齐失败修复；23,287图S′/D齐备、1图D部分、656无接受构象/14,285立体参照缺失/11UFF不支持显式保留，原失败历史不改。4536979已C0，directive19/uniform_Sprime/geometry/shared_v1/access.json现immutable/cross_node_read_allowed=true，B1/C1-D可按B0.DELIVERY的geometry_bindings和SharedB0Reader读取原共享库，映射使用binding.model_atom_to_source；不复制数据库。新增53,896个实际构象已入P′队列，6906/6907因CPU满排队，未宣称标签就绪。原325,080构象P′6588在CPU12/8核运行；16核候补6991仍PENDING，未接管。当前NMR数量表补充7016排队，聚合原manifest而不重读标签；历史参考数量保留。pKa单位点提案4536942仍等用户科学定义回复，非正式机制标签；宏观入口与外盲排除照常。最终6599/6961均追加7016成功依赖，旧科学配方/失败/共享单份及磁盘保护不变。
+
+2026-11-20 10:23 CST B0当前来源数量交付4537016已实际COMPLETED/0:0（11秒/2CPU），新增3项路由测试通过，源码PASS5265文件/3736Python/0错误。B0.DELIVERY现指向delivery/directive19_current_counts_4537016/manifest.json及active_source_domain_counts.csv；NMR2018为13C 26913谱行/26507域内、1H 12806/12007，逐原因列保留。历史domain_counts.csv不改；pKa表仍为curated测量行，宏观终点见active_target_manifests。两条最终handoff保留7016成功依赖。新增共享S′/D已封存可读，P′尚在生产或排队；pKa原子机制提案仍未获用户定义回复，不声明全部完成。
+
+
+2026-11-20 10:13 CST 时间更正：上面两条新增通知的10:15/10:23为误填时标，不是事件发生时间。以原生Slurm记录为准：D3修复6978于09:57:16完成，源封存准备6979于09:57:50完成，当前数量交付7016于10:09:12完成（均COMPLETED/0:0）。前两条的数据状态与计数保持有效；截至本条原Pprime6588仍RUNNING，新增6906和候补6991仍PENDING。
+
+
+2026-11-20 10:45 CST 窗口二B0新增P′已真正进入生产：原生4536906 RUNNING/compute-0-17/8CPU，原源6978 C0和6979封存依赖均已满足，access实际producer4536906、UID1278、immutable=false、cross_node_read_allowed=false。原53,896构象队列已1,227齐备/8在算/52,661待启动；6907保留afterok6906，不能把已启动当全量P′就绪。原范围6588仍CPU12/8CPU运行，候补6991仍PENDING；两条队列不重叠、原12任务/900秒/软件解析/FP64及一次生产规则保持，DB仍共享单份。新S′/D已封存可读；P′跨节点继续等对应数据集封存。仅更新现有入口/日报和本共享通知，不重算已闭合标签。
+
+
+2026-11-20 10:50 CST B0联合tmpfs预算：6906新增8核已在17真实运行，实际17的/dev/shm总201841762304B、可用201718427648B、空inode49276676。按既有每worker8GiB，8+16核同节点将需240518168576B（含一次32GiB余量），不能各自使用同份空闲预算。6991新鲜核实自有PENDING/RunTime0且无accept后，仅将ExcNodeList更新为compute-0-[0-7,17-18,20-22]，两条活跃生产均未停止。17当前8worker未来峰值64GiB，另留32GiB；其他窗口勿重复预算。候补真正获配后，接管前还须让仍未启动的新增后续6907排除候补实际16核节点；17仅在其实际tmpfs写入关闭、候补仍PENDING/0Native时解除临时排除。原科学/现有守卫/共享quota余量不变，无数据删除或标签复算。
+
+
+2026-11-20 11:02 CST B0候补回填调度更新：6991再次核实自有PENDING/RunTime0、无accept，原生TimeMin已由12:00:00放宽至06:00:00，TimeLimit仍1-00:00:00、16CPU及排除compute-0-[0-7,17-18,20-22]不变。仅扩大可利用的调度空档；原约3小时记录收尾余量、12任务/900秒/原软件解析、实际身份/容量/旧生产C0与双依赖接管规则均不改。尚PENDING，不宣称已提速；原6588/CPU12与新增6906/CPU17仍各8核并行运行，分别172801/4574齐备，新增3部分保留。未信号正在运行的生产或QM进程。
+
+
+2026-11-20 11:16 CST B0消费入口版本提示：仅检查代码/producer元数据，B1 NMR特征4536984实际COMPLETED/0:0，source_archive确为Jonas2019原2018发布文件，原train/test谱行保留；未读标签值或模型指标。其source_entry仍记录benchmark_b1_20261119工作树里的旧B0.DELIVERY快照（delivery/job_4536591，无active_target_manifests/directive19_data_preparation）。后续新消费应刷新B0入口至data-benchmark-b0-20261119，或显式采用当前规范入口 /share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_data_20261119/configs/benchmark_data/B0.DELIVERY.json；其中提供2018目标、当前计数、geometry_bindings与两范围共享队列状态。当前B1作业/代码/输入未改动；新S′/D已封存，P′仍等对应封存，目标原子映射使用binding.model_atom_to_source。此为入口版本衔接，不判定现有NMR数据错误，不要求重跑已闭合结果。

@@ -2,7 +2,7 @@
   "schema": "BENCHMARK_NATIVE_JOB_INDEX_20261120_V1",
   "scope": "96 active candidate endpoints after complete anonymous five-endpoint inventory verification; no final decisions yet",
   "native_source_worktree_HEAD": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
-  "latest_published_before_this_batch": "3245be17039b9ee6b19c33b9d9e069ffd3b77e9e",
+  "latest_published_before_this_batch": "b84f073e11ea2400c0d64709fcd9d223133808d1",
   "artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119",
   "deferred_inventory": {
     "job": 4536851,
@@ -3626,10 +3626,13 @@
     "conditional_neural_fit_dispatch_not_submitted": true
   },
   "validation": {
-    "full_new_benchmark_regression": "126_PASS_ZERO_FAILURE_ERROR_SKIP",
-    "actual_step": "4537025.18",
+    "full_current_benchmark_and_active_data_interface_regression": "158_PASS_ZERO_FAILURE_ERROR_SKIP",
+    "actual_step": "4537323.2",
     "actual_node": "compute-0-10",
-    "scientific_outputs_replayed": false
+    "downstream_interface_cases": 126,
+    "active_B0_interface_cases": 32,
+    "scientific_outputs_replayed": false,
+    "unapproved_atom_site_proposal_executed": false
   },
   "pull_request": {
     "number": 17,
@@ -4029,5 +4032,12 @@
       "reason": "Same updated B1 producer binding and replacement screen dependency",
       "actual_scientific_results_consumed": false
     }
-  ]
+  ],
+  "published_data_base_integration": {
+    "commit": "0778812caf266d7fb88f67b919a414b9c6a07abf",
+    "scope": "Existing B0 data branch only; all its28 changes retained; no training/main merge",
+    "native_running_worktrees_or_job_sources_updated": false,
+    "B0_entry_own_delta": "supplemental_sources.ExpansionRx_official_release",
+    "STATUS_uses_exact_data_base_text": true
+  }
 }

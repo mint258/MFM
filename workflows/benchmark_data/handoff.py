@@ -32,6 +32,24 @@ def flatten(dataset,manifest,source_manifest):
     return result
 
 
+def active_source_counts(groups, preparation):
+    """Current B0 source rows; historical reference counts remain separate."""
+    rows=[]
+    for group,spec in groups.items():
+        replacement=preparation.get('NMR2018_targets') if group=='NMRShiftDB2' else None
+        if replacement:
+            manifest=json.loads(Path(replacement).read_text())
+            if (manifest.get('dataset')!='NMRShiftDB2'
+                    or not manifest.get('original_author_split_preserved')
+                    or {row.get('nucleus') for row in manifest['counts']}!={'13C','1H'}
+                    or len(manifest['counts'])!=2):
+                raise ValueError('Current NMR source counts lack the two original author nuclei')
+            rows.extend(flatten(group,manifest,replacement))
+        else:
+            rows.extend(spec['count_rows'])
+    return rows
+
+
 def write_counts(path,rows):
     reasons=sorted({k for row in rows for k in row['reason_counts_nonexclusive']})
     primary=sorted({k for row in rows for k in row['primary_reason_counts']})
@@ -60,14 +78,14 @@ def pprime_closure(folder,access):
         outcome_counts=counts,producer_manifest=str(source))
     return state
 
-def main():
+def main(argv=None, capacity_check=None):
     p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True)
     p.add_argument('--progress',type=Path,required=True);p.add_argument('--attempt',required=True)
-    p.add_argument('--quota-snapshot',type=Path,required=True);a=p.parse_args()
+    p.add_argument('--quota-snapshot',type=Path,required=True);a=p.parse_args(argv)
     def safe():
         waiting=False
         while True:
-            try:capacity(a.root,a.quota_snapshot,1048576);return
+            try:(capacity_check or capacity)(a.root,a.quota_snapshot,1048576);return
             except (OSError,ValueError,KeyError,RuntimeError) as exc:
                 if not waiting:print('HANDOFF_DISK_WAIT',repr(exc),flush=True)
                 waiting=True;time.sleep(2)
@@ -80,13 +98,21 @@ def main():
             'records_by_nucleus':{str(row['nucleus']):row['records'] for row in m['counts'] if 'nucleus' in row},
             'count_rows':group_counts,'status':m['status'],'source_group_is_fully_filtered':all(r['domain_filter_complete'] for r in group_counts)}
     write_counts(out/'domain_counts.csv',counts)
+    active_counts=active_source_counts(groups,progress.get('directive19_data_preparation') or {})
+    write_counts(out/'active_source_domain_counts.csv',active_counts)
     pp=a.root/'labels/Pprime/shared_v1';access=json.loads((pp/'access.json').read_text())
     closure=pprime_closure(pp,access)
     result={'schema':'BENCHMARK_B0_AVAILABLE_DATA_HANDOFF_V1','status':('D_AVAILABLE_PPRIME_PRODUCTION_CLOSED_WITH_EXPLICIT_OUTCOMES_S_P_PENDING' if closure['production_closed'] else 'D_AVAILABLE_PPRIME_NOT_FULLY_CLOSED_S_P_PENDING'),
         'authority':progress['authority'],'root':str(a.root),'source_progress':str(a.progress),
         'source_groups':groups,'source_group_count':len(groups),'domain_count_rows':len(counts),
         'domain_counts_csv':str(out/'domain_counts.csv'),
+        'historical_domain_counts_csv':str(out/'domain_counts.csv'),
+        'active_domain_counts_csv':str(out/'active_source_domain_counts.csv'),
+        'active_domain_count_rows':active_counts,
+        'active_count_units':'B0 source rows before B1 endpoint selection: NMR2018 spectra rows; pKahub author-curated measurements before macro endpoint aggregation and blind exclusions. Not unique molecules or active B1 task counts.',
         'active_evaluation_scope':progress.get('active_evaluation_scope'),
+        'directive19_resolutions':progress.get('directive19_resolutions'),
+        'directive19_data_preparation':progress.get('directive19_data_preparation'),
         'count_units':'Source task rows, not deduplicated molecules; NMR nuclei separate. pKahub before is after original author curation.',
         'reason_columns':'Nonexclusive reason counts; primary columns count the first frozen source reason. Unknown graphs are separate from known domain rejection.',
         'blind_evaluation':'All ExpansionRx/ASAP source rows retained; outside-domain uses training-mean fallback, original endpoint masks retained.',
@@ -102,8 +128,8 @@ def main():
             'geometry_source':'Original accepted UFF_Sprime only; no reference geometry mislabeled as UFF',
             'atomic_order':'Original S-prime graph order; per-source atom mapping retained in source membership',
             'failure_policy':'Keep partial task outcomes and unknowns explicitly; no retry, no fill'},
-        'S':{'ready':False,'reason':'Historical original PM7 optimization binary version remains unproven'},
-        'P':{'ready':False,'reason':'Depends on unrecovered original S workflow; directive permits S-prime/D/P-prime fallback'},
+        'S':{'ready':False,'reason':'User directive 20261119 forbids reconstruction or trial of the unrecorded upstream PM7 optimizer; downstream models use Sprime'},
+        'P':{'ready':False,'reason':'User directive 20261119 uses Pprime, explicitly named Pprime, for C1 property groups after dataset sealing'},
         'reference_quantum_labels':{'ready':False,'reason':'Reference XYZ unchanged; P remains pending and P-prime is defined on UFF only; no new label type invented'},
         'scientific_decisions_pending':progress['scientific_decisions_pending'],
         'normalization':'Raw original F64 property values and masks; no new train/test normalization fitted by this handoff',
