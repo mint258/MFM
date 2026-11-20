@@ -1,0 +1,46 @@
+{
+  "schema": "D_DESCRIPTOR_PREREGISTRATION_V1",
+  "status": "FROZEN_BEFORE_DISTRIBUTION_ACCESS",
+  "authority": "mint258/MFM docs/s-d-taskbooks-20261119 docs/d_recipe/TASKBOOK.md",
+  "authorization": "User requested complete D-family taskbook execution on 2026-11-20",
+  "data_branch_base": "bc47699c709f57bb00108473f17bf4652333d2ec",
+  "libraries": {
+    "L1": "All installed RDKit 2D scalar descriptors, ordered by descriptor name; preserve D20 shared-name enablement and existing normalization",
+    "L2": "Mordred Calculator(descriptors, ignore_3D=True), CheMeleon 1613-field definition; record exact ordered names, versions and correspondence before production"
+  },
+  "structure_policy": "Reuse the original D20 molecule constructor, including explicit hydrogen, isotope and salt handling; no new normalization of molecular graphs",
+  "population": "Existing TRAIN, VAL and VAL diagnostic memberships; 2D computed once per unique molecule; retain original IDs and roles",
+  "pilot": {
+    "role": "TRAIN",
+    "molecules": 5000,
+    "seed": 20261120,
+    "sampling": "Stratify by source heavy-atom count, element set and source graph complexity, independent of descriptor values; freeze selected IDs before calculation",
+    "report": ["CPU core-seconds per molecule", "p99 elapsed seconds", "failure fraction", "valid field counts", "output bytes", "unique-population extrapolation"]
+  },
+  "filter": {
+    "fit_role": "TRAIN",
+    "minimum_valid_fraction": 0.95,
+    "drop_constant": true,
+    "drop_any_nonfinite_numeric_or_overflow": true,
+    "missing_exception_is_not_nonfinite_numeric": true,
+    "missing_values": "NaN plus explicit validity and failure reason; never zero-fill",
+    "zero": "A finite true zero remains valid",
+    "L1_disabled_shared_names": ["NumBridgeheadAtoms", "NumSpiroAtoms", "MolMR"],
+    "L2_cross_library_mapping": false
+  },
+  "statistics": {
+    "fit_role": "TRAIN",
+    "quantiles": [0.001, 0.999],
+    "quantile_method": "linear type-7",
+    "location_scale": "winsorized mean and population standard deviation in float64",
+    "stored_targets_clipped": false,
+    "loss_standardized_target_clip": [-6, 6],
+    "existing_D20_D3_parameters": "Reuse 2026-11-07 full-TRAIN routes unchanged; fit only new fields once",
+    "report_per_field_TRAIN_clip_fraction": true
+  },
+  "validation": "Producer ID/field-order/missing-zero-constant/TRAIN-only checks once; D-window real loader and 64-sample frozen-encoder per-head overfit is reception acceptance, not yet performed",
+  "compute": "CPU partition restricted to compute-0-8 through compute-0-19; demand-based CPUs; no GPU or exclusive allocation",
+  "storage": "Precheck actual node bytes/inodes/quota and concurrent reservations; reserve system root max(10GiB,10%); monitor before each output part; no full-input copy to tmp",
+  "training_dependency": "No GPU training until P final recipe frozen and P 9M submitted; D training preregistration is separate"
+}
+
