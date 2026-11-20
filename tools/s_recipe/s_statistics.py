@@ -53,6 +53,8 @@ def finalize(c):
                    statistics[key]['bootstrap_samples'] == statistics[key]['bootstrap_defined'] == 1000
                    for key in ('R1', 'R3')):
             raise ValueError('Original R1/R3 bootstrap is incomplete; preserve its producer artifacts')
+        if set(statistics['R3']['tasks']) != set(evaluate.PRIMARY_TASK_IDS):
+            raise ValueError('S primary score requires the frozen seven-task R3 panel')
     from readouts import release_closed_feature_cache
     released = release_closed_feature_cache(c)
     summary.update(status='COMPLETE', statistics_complete=True, feature_cache=released,

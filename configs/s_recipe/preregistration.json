@@ -94,7 +94,9 @@
                                          ],
                               "disabled":  [
 
-                                           ]
+                                           ],
+                              "rdkit_runtime_version":  "2025.09.5",
+                              "rotor_rule_source_release":  "Release_2025_09_1"
                           },
                  "S-R1":  {
                               "source":  "PM7",
@@ -155,7 +157,8 @@
                                          ],
                   "noise_tie":  "if two confirmed WIN mean deltas differ\u003ctau choose simpler S-N1, otherwise larger mean delta",
                   "two_or_more":  "3M seed0 S-M1 paired against S-B0; WIN accepts merge else largest single delta",
-                  "none":  "S-final=S-B0"
+                  "none":  "S-final=S-B0",
+                  "noise_tie_tau":  "max(0.01,0.05*max(mean_seed_R3(S-N1),mean_seed_R3(S-N2))); apply the original tau formula to the two confirmed noise candidates"
               },
     "diagnostics":  {
                         "conditions":  [
@@ -205,5 +208,27 @@
     "pending_clarifications":  [
                                    "4.7 layerwise readouts versus no full-layer probe scan",
                                    "4.4 deletion WIN adoption versus CI-crossing-zero-only exception"
-                               ]
+                               ],
+    "baseline_trend":  {
+                           "samples":  [
+                                           1000000,
+                                           2000000,
+                                           3000000
+                                       ],
+                           "same_3M_cosine_run":  true,
+                           "readouts":  [
+                                            "R1",
+                                            "R3"
+                                        ],
+                           "interpretation":  "Budget trend only; snapshots do not represent1M/2M training budgets. Any proposed extension is matched baseline+candidate and requires the taskbook user decision."
+                       },
+    "interpretation_table":  {
+                                 "S_N1_confirmed_WIN":  "当前设置下，平均噪声强度不变时，尺度多样性有益。",
+                                 "S_N2_confirmed_WIN":  "扭转采样加坐标去噪的Frad方案有益；转键分层仅描述。",
+                                 "both_noise_TIE_or_LOSS":  "保留sigma0.1Angstrom；本主干与数据下噪声设计无显著改善。",
+                                 "deletion_CI_crosses_zero":  "按任务书4.6采纳去掉该辅助任务；与WIN采纳的文字冲突必须在冻结前解决。",
+                                 "deletion_CI_wholly_negative":  "保留该辅助任务。",
+                                 "S_G1_nonzero_CI_and_abs_delta_ge_tau":  "按实际方向记录为PM7几何混杂的证据，供E2解释；不合并。",
+                                 "S_G1_TIE":  "当前预算下几何来源无显著差异，不能宣称等价。"
+                             }
 }

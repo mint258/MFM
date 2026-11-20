@@ -1,0 +1,37 @@
+{
+  "schema": "S_RECIPE_SOURCE_ROTORS_V1",
+  "population": "configs/s_recipe/population.json",
+  "source_index": "/lfshome/zixiao/data_v1_20261025/D6_full_physical_index_20261105_v3/manifest.json",
+  "native_graph_builder": "original pointer-bound source SMILES + complete element/bond isomorphism",
+  "native_source_relocation": null,
+  "source_smiles_binding": {
+    "manifest": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/manifest.json",
+    "record_index": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+    "key": [
+      "source_path",
+      "real_index"
+    ],
+    "graph_column": "smiles"
+  },
+  "rdkit_version": "2025.09.5",
+  "strict_rule": "RDKit Strict3.1.0",
+  "source_atom_order": "complete element/bond isomorphism with source charges retained",
+  "index": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/rotors.sqlite",
+  "counts": {
+    "TRAIN": {
+      "zero": 13562,
+      "one_to_three": 261962,
+      "four_to_seven": 623069,
+      "eight_or_more": 294358
+    },
+    "FULL": {
+      "zero": 47,
+      "one_to_three": 1001,
+      "four_to_seven": 2674,
+      "eight_or_more": 1278
+    }
+  },
+  "zero_rotor_TRAIN_fraction": 0.011368446818016834,
+  "actual_allocated_bytes": 1203245056,
+  "physical_labels_used": false
+}
