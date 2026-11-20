@@ -26,7 +26,7 @@ with SharedB0Reader(shared_queue_path) as reader:
 
 `D20`含原20维名称、F64值、valid_mask和issues。`conformers`含实际构象ID、源候选ID、UFF坐标/能量、D3和问题列表；D3原子SASA沿原顺序。`model_atom_to_source`把模型图原子映回各自输入，新增H通过结果的`model_atom_to_template`标为-1。读取返回后即释放SQL语句；不要另开长事务或对活动库做全表QA。`access.json`控制跨节点读取：活动写入期仅写入节点可读，原生作业C0和终态manifest闭合后才发布immutable、开放跨节点。共享S′/D现已封存，源失败与UNKNOWN不会被当成成功。
 
-共享P′入口为 `labels/Pprime/shared_v1/queue.sqlite`，配套lane SQLite存一次原始解析字段及失败/审计输出；`workflows.benchmark_data.pprime_reader.PprimeReader`按共享MID和实际构象ID读取。325,080个实际S′构象已排队；4536491在记录边界C0，保留1,877齐备及1部分结果、INTENT0，4536581已在compute-0-12/8CPU续算；活动期仅同节点消费，跨节点等作业封存后开放。`PPRIME_READY`、部分任务失败、PENDING和UNKNOWN分别保留。尚未完成全量P′，不得将D或UFF能量替代P。原十二任务、900秒、MOPAC23.0.3/xTB6.7.1和原解析函数保持；用户已禁止重建或试算旧PM7优化；下游统一S′，C1的P组明确使用P′。
+共享P′入口为 `labels/Pprime/shared_v1/queue.sqlite`，配套lane SQLite存一次原始解析字段及失败/审计输出；`workflows.benchmark_data.pprime_reader.PprimeReader`按共享MID和实际构象ID读取。325,080个实际S′构象已排队；4536491在记录边界C0，保留1,877齐备及1部分结果、INTENT0，4536581已原生C0，160,048齐备/157部分/164,875待启动/INTENT0；4536588已在compute-0-12/8CPU续算；活动期仅同节点消费，跨节点等作业封存后开放。`PPRIME_READY`、部分任务失败、PENDING和UNKNOWN分别保留。尚未完成全量P′，不得将D或UFF能量替代P。原十二任务、900秒、MOPAC23.0.3/xTB6.7.1和原解析函数保持；用户已禁止重建或试算旧PM7优化；下游统一S′，C1的P组明确使用P′。
 
 参考组最新D20入口为 `labels/reference_D20/job_4536512/manifest.json`，共45,907条：C7 6,023、NMR¹³C 26,345、¹H 11,974、PPE 1,565。旧闭合D20复用，91条原等待共享生产已补齐。参考D3作业4536501和4536560均C0：C7 5,406/6,023、NMR¹³C 25,683/26,345、¹H 11,263/11,974、PPE 1,542/1,565条齐备，合计43,894；其余2,013条映射未解决、D3显式缺失，源记录保留，不重建参考坐标或额外重试。
 
@@ -34,7 +34,7 @@ C7目标为 `targets/C7H10O2/job_4536471/manifest.json`。历史CSTShift-DFT参�
 
 统一入口为 `configs/benchmark_data/B0.DELIVERY.json`，指向 `delivery/directive19_available_4536909/manifest.json` 和同目录 `domain_counts.csv`。该manifest整合11组来源、12行数量（NMR分核）、原始记录/参考坐标、D20/D3、目标、P′共享读取器及待定事项。公开摘要见 `B0_DOMAIN_COUNTS.md`。数量表聚合生产manifest，不重新筛选或扫描数值；PPE未知图与已知域外分开，非互斥原因不能直接相加。
 
-P′后续4536588→4536590依次afterok续接同一队列，已关闭结果不重算，全量封存后入口直接退出且不新增Native。仅新量化暂态文件在12的/dev/shm（8×8GiB峰值、32GiB系统/并发余量、额外15%整机RAM余量），输入库/解析字段/失败审计均仍为共享NFS单份。每次调用及父循环重新检查真实字节/inode/RAM/UID配额，根盘保留max(10GiB,10%)。有限7天quota发布器3058760（旧1443347退出后顺序更换）仅发布真实观测，延迟2秒公布以避免实测节点时钟差导致负年龄；真实时间戳和0..90秒检查不变，未改变quota配置。
+P′当前4536588→后续4536590依次afterok续接同一队列，已关闭结果不重算，全量封存后入口直接退出且不新增Native。仅新量化暂态文件在12的/dev/shm（8×8GiB峰值、32GiB系统/并发余量、额外15%整机RAM余量），输入库/解析字段/失败审计均仍为共享NFS单份。每次调用及父循环重新检查真实字节/inode/RAM/UID配额，根盘保留max(10GiB,10%)。有限7天quota发布器3058760（旧1443347退出后顺序更换）仅发布真实观测，延迟2秒公布以避免实测节点时钟差导致负年龄；真实时间戳和0..90秒检查不变，未改变quota配置。
 
 历史参考构型和原D保留作来源；下游3D已统一改用共享UFF。P′仍只定义在UFF上，没有把参考几何量化结果改名为P′。最终交付生成器按终态producer manifest区分 `production_closed` 与 `all_ready`：有明确失败时可生产关闭，仍不得把失败记录当成齐备标签。
 
@@ -42,11 +42,11 @@ P′后续4536588→4536590依次afterok续接同一队列，已关闭结果不�
 
 SAMPL6/7来源关联补充在 `provenance/SAMPL6_7/job_4536607/manifest.json`（4536607 C0），统一入口的`supplemental_sources`可定位。SAMPL6保留31条/24个原挑战分子编号，SAMPL7保留20条/20个编号；51条均按`dataset + rawdataID`关联既有pKahub域内记录。原SM编号跨挑战可复用，必须连同挑战名使用，不能直接当全局molid。每条保留原数值文本、原字段和主表/域记录定位；源编号关联不表示构象或标签齐备。训练/盲测角色现由新宏观目标与完整InChIKey排除清单冻结；旧关联产物仅保留原来源事实。未推断原子位点、未将预测microspecies改成实验微观标签。新增2项来源测试通过，完整源码检查PASS；此前65项本线全量及全仓回归的结果继续保留，不以增量检查冒充重跑全仓。
 
-16核候补使用 `workflows/benchmark_data/standby_pprime.sbatch` / `pprime_standby.py`，候选4536722；cpu分区实核为2及8至19，排除0至7及20至22后只可分配8至19，入口再核实实际节点、UID、CPU数和分区。它先核实实际/dev/shm字节/inode、整机RAM、根盘余量及共享quota，仅打印 `STANDBY_READY_ZERO_NATIVE` 与分配/进程身份；这不表示开始QM。未收到协调指令约300秒后释放，原生元数据调用单次最长30秒；既有生产不会因此停止。不得仅因候补PENDING、RUNNING或日志存在而停止旧生产。
+16核候补使用 `workflows/benchmark_data/standby_pprime.sbatch` / `pprime_standby.py`，当前候选4536991以显式环境 `B0_PREVIOUS_PPRIME_JOB=4536588` 绑定实际8核生产6588，后续为6590。原候选4536722因前驱6581已C0，在核实其自有PENDING/RunTime0且不存在accept文件后取消，0Native；未中断正在运行的6588。当前提交排除0至7、20至22及尚未证明NFS启动恢复的18，仅可用其余CPU8至19。候补PENDING不表示16核提速已发生。
 
-实际获配后，协调者须重新核实候补原生RUNNING及目标资源，再把4536588的依赖改为 `afterok:4536581:4536722`（其后6590/6599链不变），保留旧生产与候补两重C0约束。验证旧Python父进程的UID、Slurm归属、完整命令和/proc start_ticks后，只向该父进程发原SIGTERM请求，让当前记录完成；不强杀QM。随后在control的 `B0_pprime_standby_4536722_accept.json` 写入候补日志中的完整identity，并仅在实际完成上述操作后加入 `previous_parent_sigterm_verified=true`、`followup_requires_both_jobs=true`。这是协调者内部接续文件，无需用户另行操作。接续前确认quota发布器寿命覆盖重排后的链；不足则顺序更换该元数据进程，不并发发布、不放宽有效期检查。
+候补实际获配后，入口先核实native RUNNING、UID、实际节点/CPU、/dev/shm字节/inode、整机RAM、根盘与共享quota，打印 `STANDBY_READY_ZERO_NATIVE` 和完整进程identity；约300秒内无协调指令即0QM退出。协调者重新验证这些证据后，先将6590依赖改为 `afterok:4536588:4536991`，6599/6961尾链保持；确认quota服务寿命覆盖新链，再核实实际6588 Python父进程UID/完整argv/start_ticks/Slurm归属，只对该父进程发原SIGTERM收尾请求，不信号QM子进程。随后向 `control/B0_pprime_standby_4536991_accept.json` 写入候补identity，且只在上述操作真实完成后写 `previous_parent_sigterm_verified=true` 与 `followup_requires_both_jobs=true`。这是本线内部协调，无需用户操作。
 
-候补收到匹配job/previous_job/node/uid/pid/start_ticks/root/workers的指令后，仍等待旧作业原生COMPLETED/0:0、原producer identity、writers_closed与INTENT0，最后再次核实资源才exec原 `pprime_tmpfs_queue run`。原十二任务、二进制、解析、原子顺序、900秒及不重试保持；仅将实际Slurm剩余墙钟减60秒传给原父调度器，其约3小时记录收尾余量继续保留。若分配时旧生产身份已变化，不接续、不伪造协调文件，候补零QM释放；原8核链照常。候补提交不等于16核提速已发生，实际生产和源清单仍以当前控制状态为准。
+候补仍须等旧6588原生COMPLETED/0:0、实际producer身份、writers_closed与INTENT0，再复核资源，才exec原pprime_tmpfs_queue的16worker。原12任务/900秒/二进制/解析/单位及源原子序不变；只传实际Slurm剩余墙钟减60秒，原约3小时记录收尾余量保持。如果旧生产身份在候补获配前已变化，不伪造accept文件、不重试科学记录；仅在核实自有PENDING/0Native边界后重新绑定候选，原8核接续照常。
 
 
 2026-11-19补充指示的数据覆盖入口：先读统一入口的 `active_target_manifests`，不要从历史参考数量表推定当前任务标签。新可用handoff4536909只聚合生产元数据，没有数值复读。

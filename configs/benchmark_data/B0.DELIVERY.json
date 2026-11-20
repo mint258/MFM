@@ -10,11 +10,10 @@
   "handoff_native_exit": "0:0",
   "source_groups": 11,
   "domain_count_rows": 12,
-  "Pprime_current_job": 4536581,
+  "Pprime_current_job": 4536588,
   "Pprime_current_node": "compute-0-12",
   "Pprime_current_workers": 8,
   "Pprime_followup_jobs": [
-    4536588,
     4536590
   ],
   "Pprime_all_ready": false,
@@ -140,5 +139,26 @@
     "unit_tests_passed": 6,
     "source_check_status": "PASS",
     "source_check_files": 5264
+  },
+  "Pprime_previous_closed_job": {
+    "job": 4536581,
+    "native_state": "COMPLETED",
+    "native_exit": "0:0",
+    "INTENT": 0,
+    "outcome_counts": {
+      "PENDING": 164875,
+      "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES": 157,
+      "PPRIME_READY": 160048
+    }
+  },
+  "Pprime_standby": {
+    "job": 4536991,
+    "previous_job": 4536588,
+    "followup_job": 4536590,
+    "native_state": "PENDING",
+    "scientific_calls": 0,
+    "acceptance_written": false,
+    "exclude_unrecovered_node18": true,
+    "superseded_zero_native_candidate": 4536722
   }
 }
