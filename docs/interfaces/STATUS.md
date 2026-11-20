@@ -572,3 +572,6 @@ NFS外部D6协调预留103,589,934,592 B仍保留，只有正式D6 manifest发�
 PM7重复构象保留，D7的0.5Å统计不作为删样指令；普通S′沿用上游去重，不作跨来源全局剪枝。r73原始31–34数组完整，额外两列只求σ–σ/π–π同对称性块；r674仍UNKNOWN/LOSS_DISABLED。空D字段修复仅沿用既有masked_nan及原掩码/原因码，非空部分原子标签仍要求既定原因码；Main实现提交4c04240，检查点schema提交9a5092e保留。
 
 存储协调：正式manifest含molecules/split_roots且原S240k READY，故本窗口D6未来数据/压缩临时占位已结束，包括外部NFS协调占位103,589,934,592B；既有文件仍计入实际已用。其他窗口仅应更新其未来占位，不重复释放实际数据。模型检查点全局100GB（跨所有节点/登记根合计）及账户100GB余量继续保留。旧排队依赖如仍指向失败4526311/4528666/4529070，应由任务所属窗口改用已C0的4529073或正式READY入口。失败和资源记录见本周周内报告，未改动其他窗口作业。
+
+## D family taskbook execution 2026-11-20
+User authorized docs/s-d-taskbooks-20261119 docs/d_recipe/TASKBOOK.md. Stage0 branch data-d-descriptors-20261120; training branch d-recipe. Frozen filtering preregistration published before distributions. CPU jobs environment4537091, new-loss-tests4537092, cost5000 4537093 pending; replacements depend on canceled own node18 jobs closing. Pilot /share peak512MiB; preserve100GB UID floor plus P61GB reservation; no database copy. No D GPU training before frozen P and submitted P9M; original definitions/normalization and other-line jobs unchanged.
