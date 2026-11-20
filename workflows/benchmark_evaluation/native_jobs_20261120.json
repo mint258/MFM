@@ -2,7 +2,7 @@
   "schema": "BENCHMARK_NATIVE_JOB_INDEX_20261120_V1",
   "scope": "96 active candidate endpoints after complete anonymous five-endpoint inventory verification; no final decisions yet",
   "native_source_worktree_HEAD": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
-  "latest_published_before_this_batch": "8416b18858902e8c68d9d17bc06d32fa81b93d26",
+  "latest_published_before_this_batch": "3245be17039b9ee6b19c33b9d9e069ffd3b77e9e",
   "artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119",
   "deferred_inventory": {
     "job": 4536851,
@@ -729,7 +729,9 @@
         4537117,
         4537118
       ],
-      "native_labels_and_scaffold_folds_unchanged": true
+      "native_labels_and_scaffold_folds_unchanged": true,
+      "feature_status": "COMPLETED",
+      "LightGBM_status": "BOTH_DATASETS_ALL2_ENDPOINTS_ALL25_FOLDS_ZERO_FAILURES"
     },
     "D_TabPFN_pKa_status": "COMPLETED2_OF2_NO_TRAINING_FAILURE",
     "current_final_producer_bindings": [
@@ -1893,7 +1895,7 @@
         "model": "Chemprop-v2",
         "cpus": 4,
         "array": "0-4",
-        "job": 4537272,
+        "job": 4537384,
         "source_driver": "joung_chemprop_e7_array.sbatch"
       },
       {
@@ -1901,7 +1903,7 @@
         "model": "Chemprop-v2",
         "cpus": 4,
         "array": "0-4",
-        "job": 4537273,
+        "job": 4537385,
         "source_driver": "joung_chemprop_e8_array.sbatch"
       }
     ],
@@ -2062,34 +2064,23 @@
     "arrays": 9,
     "task_roster_written": false,
     "missing_or_unaligned_results_cannot_finalize_without_explicit_terminal_UNRESOLVED_reason": true,
-    "native_job": 4537360,
+    "native_job": 4537386,
     "native_state": "PENDING_DEPENDENCY",
     "active_source_dependencies": [
-      4537025,
       4537323,
-      4537031,
       4537324,
-      4537036,
       4537325,
-      4537041,
       4537326,
-      4537046,
-      4537327,
-      4537051,
-      4537328,
-      4537056,
       4537329,
       4537061,
       4537330,
       4537066,
-      4537265,
       4537335,
-      4537355,
       4537268,
       4537269,
       4537270,
-      4537272,
-      4537273
+      4537384,
+      4537385
     ],
     "all45_sources_rechecked_terminal_at_execution": true
   },
@@ -2429,42 +2420,48 @@
         "superseded_zero_start_GPU_job": 4537271
       },
       {
-        "name": "Joung_e7_Chemprop",
+        "name": "Joung_e7_Chemprop_GPU7",
         "learner": "Chemprop-v2",
-        "old_job": 4537078,
+        "old_job": 4537272,
         "exports": [
           "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=7"
         ],
         "dependency": "afterok:4537021",
         "array": "0-4%1",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "node": "compute-0-7",
+        "uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
         "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
         "cpus": 4,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e7_Chemprop.py",
         "future_dependency": null,
-        "native_dependency": "afterany:4537270",
+        "native_dependency": "afterany:4537282",
         "superseded_GPU_job": 4537215,
-        "job": 4537272
+        "job": 4537384,
+        "model_seed": 20261025,
+        "original_CPU_job": 4537078,
+        "superseded_zero_start_GPU_job": 4537272
       },
       {
-        "name": "Joung_e8_Chemprop",
+        "name": "Joung_e8_Chemprop_GPU7",
         "learner": "Chemprop-v2",
-        "old_job": 4537079,
+        "old_job": 4537273,
         "exports": [
           "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=8"
         ],
         "dependency": "afterok:4537021",
         "array": "0-4%1",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "node": "compute-0-7",
+        "uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
         "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
         "cpus": 4,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e8_Chemprop.py",
         "future_dependency": null,
-        "native_dependency": "afterany:4537272",
+        "native_dependency": "afterany:4537384",
         "superseded_GPU_job": 4537216,
-        "job": 4537273
+        "job": 4537385,
+        "model_seed": 20261025,
+        "original_CPU_job": 4537079,
+        "superseded_zero_start_GPU_job": 4537273
       },
       {
         "name": "Joung_e1_TabPFN_D",
@@ -2649,7 +2646,7 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/moleculeace_TabPFN_Pprime.py",
         "future_dependency": 4537124,
-        "native_dependency": "afterany:4537282,afterok:4537124",
+        "native_dependency": "afterany:4537385,afterok:4537124",
         "superseded_GPU_job": 4537227,
         "job": 4537283
       },
@@ -3579,12 +3576,12 @@
         "array": true
       },
       {
-        "job": 4537272,
+        "job": 4537384,
         "model": "Chemprop-v2",
         "array": true
       },
       {
-        "job": 4537273,
+        "job": 4537385,
         "model": "Chemprop-v2",
         "array": true
       }
@@ -3594,7 +3591,7 @@
     "fold_and_statistics_seed": 20261025,
     "actual_NMR_1H_sample_redo_confirmation": 4537338,
     "original_producer_task_names_preserved_in_confirmation_plan": true,
-    "native_job": 4537360
+    "native_job": 4537386
   },
   "conditional_neural_confirmation": {
     "module": "workflows/benchmark_evaluation/confirmation.py",
@@ -3821,7 +3818,8 @@
     "4537267": "afterany:4537265",
     "4537268": "afterany:4537265",
     "4537272": "afterany:4537270",
-    "4537281": "afterany:4537355,afterok:4537119"
+    "4537281": "afterany:4537355,afterok:4537119",
+    "4537283": "afterany:4537385,afterok:4537124"
   },
   "cuda128_environment": {
     "backend_job_step": "4537025.1",
@@ -3906,20 +3904,12 @@
   },
   "C1_primary_consumer": {
     "submitted": true,
-    "native_job": 4537361,
+    "native_job": 4537387,
     "native_state": "PENDING_DEPENDENCY",
-    "requires_successful_frozen_B1_screen": 4537360,
+    "requires_successful_frozen_B1_screen": 4537386,
     "active_C1_source_dependencies": [
-      4537120,
-      4537121,
       4537281,
       4537282,
-      4537033,
-      4537038,
-      4537043,
-      4537048,
-      4537053,
-      4537058,
       4537063,
       4537068,
       4537125,
@@ -3995,5 +3985,49 @@
     "all_original_source_accounting_rechecked_at_execution": true,
     "final_C1_table": false,
     "final_SHA": false
-  }
+  },
+  "GPU7_e7_e8_reassignment": {
+    "source_check_step": "4537025.21",
+    "compiled_on_CPU": true,
+    "models": [
+      {
+        "name": "Joung_e7_Chemprop_GPU7",
+        "old_job": 4537272,
+        "learner": "Chemprop-v2",
+        "node": "compute-0-7",
+        "uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e7_Chemprop.py",
+        "array": "0-4%1",
+        "model_seed": 20261025,
+        "job": 4537384
+      },
+      {
+        "name": "Joung_e8_Chemprop_GPU7",
+        "old_job": 4537273,
+        "learner": "Chemprop-v2",
+        "node": "compute-0-7",
+        "uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e8_Chemprop.py",
+        "array": "0-4%1",
+        "model_seed": 20261025,
+        "job": 4537385
+      }
+    ],
+    "existing_C7_PPE_D_GPU_successors_preserved": true,
+    "Pprime_TabPFN_successor_job": 4537283
+  },
+  "superseded_zero_start_report_jobs": [
+    {
+      "job": 4537360,
+      "replacement": 4537386,
+      "reason": "Bind the same original e7/e8 configurations to their new actual GPU7 array parents",
+      "actual_scientific_results_consumed": false
+    },
+    {
+      "job": 4537361,
+      "replacement": 4537387,
+      "reason": "Same updated B1 producer binding and replacement screen dependency",
+      "actual_scientific_results_consumed": false
+    }
+  ]
 }
