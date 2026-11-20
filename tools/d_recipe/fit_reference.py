@@ -215,6 +215,19 @@ def fit_collected(dataset, output, configuration, *, guard):
     return destination
 
 
+def reference_write_guard(config, output):
+    from workflows.data_d_descriptors.storage import guard
+    filesystem = config.get("output_filesystem", "/share")
+    if filesystem in ("/lfshome", "node_local") or config.get("peer_storage_guard_root"):
+        from tools.d_recipe.resources import admit_output, execution_site
+        peak = config["share_storage_peak_bytes"] if filesystem == "/share" else config["peak_bytes"]
+        protection = dict(config, output=str(Path(output).resolve()), storage_peak_bytes=peak)
+        execution_site(protection, cpu=True)
+        def guard(path, peak_bytes):
+            return admit_output(protection, path)
+    return guard
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=("collect", "fit", "all"))
@@ -228,7 +241,7 @@ def main():
     sys.path.insert(0, str(repository))
     sys.path.insert(0, str(repository / "current"))
     sys.path.insert(0, config["data_repository"])
-    from workflows.data_d_descriptors.storage import guard
+    guard = reference_write_guard(config, arguments.output)
     from phychem_mfm.phase1.p_recipe_data import dataset_configuration
     try:
         from .dataset import DRecipeDataset

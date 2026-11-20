@@ -45,8 +45,8 @@ def main():
     if os.environ.get("CUDA_VISIBLE_DEVICES"):
         raise RuntimeError("D CPU statistics must have no visible CUDA devices")
     configuration = json.loads(Path(arguments.configuration).read_text(encoding="utf-8"))
-    from workflows.data_d_descriptors.storage import guard
-    guard(Path(configuration["output"]), peak_bytes=configuration["storage_peak_bytes"])
+    from .resources import admit_output
+    admit_output(configuration, Path(configuration["output"]))
     print(json.dumps(finalize(configuration), allow_nan=False), flush=True)
 
 

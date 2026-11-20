@@ -59,6 +59,11 @@ def run(configuration, *, trainer=None, evaluator=None, checkpoint_resolver=None
     # The existing producer owns its closed manifest. An infrastructure resume
     # consumes it instead of extracting H0 or fitting the same probes again.
     if not (Path(readout["output"]) / "predictions.json").is_file():
+        # Keep the same train-to-readout cleanup as the native P entry.
+        import gc
+        import torch
+        gc.collect()
+        torch.cuda.empty_cache()
         evaluator(readout)
     result = dict(summary, status="GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS",
         statistics_complete=False, predictions=str(Path(readout["output"]) / "predictions.json"))
@@ -114,8 +119,8 @@ def gpu_telemetry(configuration, *, module=None):
 
 
 def publish_summary(path, value, configuration):
-    from workflows.data_d_descriptors.storage import guard
-    guard(path.parent, peak_bytes=configuration["storage_peak_bytes"])
+    from .resources import admit_output
+    admit_output(configuration, path.parent)
     pending = Path(str(path) + ".partial")
     with pending.open("w", encoding="utf-8") as stream:
         stream.write(json.dumps(value, indent=2, allow_nan=False) + "\n")
@@ -136,8 +141,8 @@ def main():
         raise RuntimeError("D GPU entry requires an allowed node; native execution is limited to 20/22")
     if not native and not os.environ.get("SLURM_JOB_ID"):
         raise RuntimeError("Slurm execution requires its real job allocation")
-    from workflows.data_d_descriptors.storage import guard
-    guard(Path(configuration["output"]).parent, peak_bytes=configuration["storage_peak_bytes"])
+    from .resources import admit_output
+    admit_output(configuration, Path(configuration["output"]).parent)
     with gpu_telemetry(configuration):
         result = run(configuration)
     print(json.dumps(result, allow_nan=False), flush=True)

@@ -1,0 +1,316 @@
+{
+    "schema":  "D_RECIPE_PREREGISTRATION_V1",
+    "status":  "FROZEN",
+    "frozen_at_utc":  "2026-11-20 13:34:17 UTC",
+    "authority":  "docs/d_recipe/TASKBOOK.md",
+    "scope":  "Only registered D study arms; no other experiment or paid-server work",
+    "source_P":  {
+                     "repository":  "mint258/MFM",
+                     "branch":  "p-recipe",
+                     "configuration":  "configs/p_recipe/fixed_20261115/FROZEN_P.json",
+                     "CURRENT_BEST_updated_at":  "2026-11-20T12:25:52.908698+00:00",
+                     "recipe_frozen":  true,
+                     "source_components":  [
+                                               "A1",
+                                               "B3",
+                                               "B4",
+                                               "F2"
+                                           ]
+                 },
+    "transfer_components":  [
+                                {
+                                    "component":  "A1",
+                                    "P_configuration_key":  "p_recipe.element_residual",
+                                    "D_targets":  "Enabled molecular D scalars; never atomic SASA",
+                                    "control":  false,
+                                    "value":  true,
+                                    "method":  "TRAIN-only five-fold F64 ridge; native actual H counts Z1..118 plus unpenalized intercept",
+                                    "ridge_alpha":  1,
+                                    "ridge_choice":  "One fixed conventional ridge value, before D OOF statistics; no tuning",
+                                    "fold_seed":  20261112,
+                                    "collection_seed":  20261112,
+                                    "collection":  "Entire original TRAIN cohort; existing uniform allowed-conformer choice independently per molecule",
+                                    "minimum_valid_TRAIN_molecules":  100000,
+                                    "folds":  5,
+                                    "policy":  [
+                                                   {
+                                                       "oof_r2":  "\u003c0.30",
+                                                       "target":  "original"
+                                                   },
+                                                   {
+                                                       "oof_r2":  "0.30\u003c=R2\u003c0.999",
+                                                       "target":  "element_reference_residual"
+                                                   },
+                                                   {
+                                                       "oof_r2":  "\u003e=0.999",
+                                                       "target":  "original"
+                                                   }
+                                               ],
+                                    "undefined_or_insufficient":  "UNRESOLVED field; original target and original D4 parameters"
+                                },
+                                {
+                                    "component":  "B3",
+                                    "P_configuration_key":  "p_recipe.pma_pooling",
+                                    "control":  false,
+                                    "value":  true,
+                                    "D_targets":  "All molecular D scalars; atomic SASA keeps the original atom head"
+                                },
+                                {
+                                    "component":  "B4",
+                                    "P_configuration_key":  "p_recipe.anti_collapse",
+                                    "control":  false,
+                                    "value":  true,
+                                    "gamma_key":  "p_recipe.gamma",
+                                    "gamma":  0.1597693323500406,
+                                    "D_targets":  "Existing P anti-collapse penalty on the same encoder H0; reuse native implementation"
+                                }
+                            ],
+    "excluded_P_components":  [
+                                  {
+                                      "component":  "F2",
+                                      "P_configuration_key":  "fields (fidelity_pairs xTB removal)",
+                                      "reason":  "P-specific PM7/xTB physical-label pairing/removal has no counterpart in D; excluded under taskbook4.3"
+                                  }
+                              ],
+    "native_block_anchor":  {
+                                "anchor":  "resolved_native_D-R0_equal_enabled_fields",
+                                "enabled_fields":  {
+                                                       "graph_2d":  [
+                                                                        "D20.BertzCT",
+                                                                        "D20.ExactMolWt",
+                                                                        "D20.FractionCSP3",
+                                                                        "D20.HallKierAlpha",
+                                                                        "D20.HeavyAtomCount",
+                                                                        "D20.LabuteASA",
+                                                                        "D20.MolLogP",
+                                                                        "D20.NumAliphaticRings",
+                                                                        "D20.NumAromaticRings",
+                                                                        "D20.NumHAcceptors",
+                                                                        "D20.NumHDonors",
+                                                                        "D20.NumHeteroatoms",
+                                                                        "D20.NumHeterocycles",
+                                                                        "D20.NumSaturatedRings",
+                                                                        "D20.NumValenceElectrons",
+                                                                        "D20.RingCount",
+                                                                        "D20.TPSA"
+                                                                    ],
+                                                       "molecule_3d":  [
+                                                                           "D3.PBF_A",
+                                                                           "D3.PMI1",
+                                                                           "D3.PMI2",
+                                                                           "D3.PMI3",
+                                                                           "D3.SASA_total_A2",
+                                                                           "D3.volume_A3"
+                                                                       ],
+                                                       "atom_sasa":  [
+                                                                         "D3.SASA_atom_A2"
+                                                                     ]
+                                                   },
+                                "total_enabled_fields":  24,
+                                "block_weights":  {
+                                                      "graph_2d":  0.7083333333333334,
+                                                      "molecule_3d":  0.25,
+                                                      "atom_sasa":  0.041666666666666664
+                                                  },
+                                "source_loss_disabled_fields":  [
+                                                                    "D20.MolMR"
+                                                                ],
+                                "source_selection_disabled_fields":  [
+                                                                         "D20.NumBridgeheadAtoms",
+                                                                         "D20.NumSpiroAtoms"
+                                                                     ],
+                                "source_training_view":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json",
+                                "source_normalizations":  "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json"
+                            },
+    "target_handling":  {
+                            "stored_values":  "Raw and unclipped; missing remains missing",
+                            "loss_target_clip_sigma":  6,
+                            "old_D20_D3_normalization":  "Original full-TRAIN 2026-11-07 parameters; never refit",
+                            "new_library_statistics":  "Stage0 preregistration b4257a6; TRAIN-only q0.001/q0.999 type7 winsor location/scale; fit once",
+                            "clipping_report":  "Per-field TRAIN proportion outside +/-6 in each applicable original/A1 target",
+                            "native_head_output_parameterization":  "Existing raw default; no alternative parameterization arm"
+                        },
+    "training":  {
+                     "encoder":  "C1-0",
+                     "dimensions":  512,
+                     "layers":  6,
+                     "attention_heads":  8,
+                     "ffn_multiplier":  2,
+                     "precision":  "FP32",
+                     "TF32":  false,
+                     "samples":  3000000,
+                     "batch_size":  32,
+                     "microbatch_size":  32,
+                     "gradient_accumulation_steps":  1,
+                     "activation_checkpointing":  false,
+                     "optimizer":  "AdamW",
+                     "lr":  0.0003,
+                     "betas":  [
+                                   0.9,
+                                   0.95
+                               ],
+                     "weight_decay":  0.01,
+                     "warmup_fraction":  0.02,
+                     "schedule":  "cosine to zero at each run\u0027s own full budget",
+                     "clip_calibration":  {
+                                              "initial_clip":  281.7,
+                                              "window_start_samples":  60000,
+                                              "calibration_samples":  150000,
+                                              "quantile":  0.99,
+                                              "axis":  "optimizer_step_start"
+                                          },
+                     "VAL_interval_samples":  500000,
+                     "checkpoint_samples":  [
+                                                1000000,
+                                                2000000,
+                                                3000000
+                                            ],
+                     "sampling":  "Original full TRAIN; uniform molecule then uniform one of up to10 allowed original PM7 conformers",
+                     "seed0":  0,
+                     "conditional_seed1":  1,
+                     "initialization_and_sampling":  "Same seed: shared native-reference initialization, sampling order and split; random mask uses its dedicated generator"
+                 },
+    "arms":  [
+                 {
+                     "arm":  "D-R0",
+                     "library":  "D20",
+                     "recipe":  "native",
+                     "D3":  true,
+                     "seed0":  0
+                 },
+                 {
+                     "arm":  "D-R1",
+                     "library":  "D20",
+                     "recipe":  "Transferred A1+B3+B4 bundle",
+                     "D3":  true,
+                     "seed0":  0
+                 },
+                 {
+                     "arm":  "D-L1",
+                     "library":  "L1",
+                     "recipe":  "Stage1 selected",
+                     "D3":  true,
+                     "dependency":  "Frozen stage0 fields/statistics, actual64-molecule reception and Stage1 recipe choice",
+                     "seed0":  0
+                 },
+                 {
+                     "arm":  "D-L2",
+                     "library":  "L2",
+                     "recipe":  "Stage1 selected",
+                     "D3":  true,
+                     "dependency":  "Same as D-L1",
+                     "seed0":  0
+                 },
+                 {
+                     "arm":  "D-G1",
+                     "library":  "D20",
+                     "recipe":  "Stage1 selected",
+                     "D3":  false,
+                     "remaining_block_rescaled":  false,
+                     "control":  "Reuse selected Stage1 arm",
+                     "seed0":  0
+                 },
+                 {
+                     "arm":  "D-K1",
+                     "condition":  "Only after adopting a wide library",
+                     "library":  "adopted wide",
+                     "recipe":  "selected",
+                     "D3":  true,
+                     "mask_probability":  0.85,
+                     "dedicated_CPU_generator_seed_by_training_seed":  {
+                                                                           "0":  20261119,
+                                                                           "1":  20261120
+                                                                       },
+                     "all_graph_fields_masked":  "Graph block contributes zero; other blocks retain original weights",
+                     "resume":  "Checkpoint and restore this dedicated generator separately"
+                 }
+             ],
+    "decision":  {
+                     "primary_tasks":  [
+                                           "exp.LogD",
+                                           "exp.LogS",
+                                           "exp.Log_HLM_CLint",
+                                           "qm9.U0_atom",
+                                           "qm9.alpha",
+                                           "qm9.homo",
+                                           "qm9.lumo"
+                                       ],
+                     "readout":  "R3 seven-task mean normalized improvement",
+                     "report_only":  [
+                                         "R1",
+                                         "cyp.3A4",
+                                         "cyp.2D6"
+                                     ],
+                     "bootstrap":  {
+                                       "unit":  "molecule",
+                                       "paired":  true,
+                                       "draws":  1000,
+                                       "seed":  20261025,
+                                       "CI95":  "percentile2.5/97.5"
+                                   },
+                     "tau":  "max(0.01,0.05*max(candidate_R3,control_R3))",
+                     "WIN":  "CI lower\u003e0 and delta\u003e=tau",
+                     "LOSS":  "CI upper\u003c0",
+                     "TIE":  "otherwise; no significant improvement",
+                     "seed_rule":  "Only seed0 WIN triggers seed1; shared control seed1 once; both seeds individually WIN required for adoption",
+                     "transfer":  "Only confirmed bundle WIN adopts; otherwise native",
+                     "library":  "Only confirmed WIN over selected native library adopts; if both wide WIN compare saved L2 vs L1 matched results; TIE picks cheaper L1",
+                     "G1":  "Adopt deleting D3 only if R3 CI crosses zero (lower\u003c=0\u003c=upper)",
+                     "K1":  "Only confirmed WIN adopts85% masking"
+                 },
+    "diagnostics":  {
+                        "arms":  "D-R0,D-R1,D-G1 and adopted configuration",
+                        "endpoint":  "seed0 3M",
+                        "VAL_molecules":  5000,
+                        "VAL_seed":  20261112,
+                        "statistics":  "F64",
+                        "bootstrap_draws":  1000,
+                        "bootstrap_seed":  20261025,
+                        "layers":  [
+                                       3,
+                                       4,
+                                       5,
+                                       6
+                                   ],
+                        "reuse":  "Original forward/cache and layer6 main readout/statistics; no layer1-6 sweep",
+                        "metrics":  [
+                                        "atomic_H_PR",
+                                        "molecule_meanH_PR",
+                                        "CEV",
+                                        "CVF",
+                                        "CVF_res"
+                                    ],
+                        "decision_input":  false
+                    },
+    "direct_descriptor_controls":  {
+                                       "tasks":  "Same seven original development tasks and splits",
+                                       "endpoint":  "One final selected endpoint; exact9M aliases when applicable",
+                                       "A":  "Reuse frozen H0 R3 and its original statistics",
+                                       "B":  [
+                                                 "Identical adopted descriptor library plus six molecular D3; parameter-count matched MLP",
+                                                 "Existing C1 LightGBM defaults"
+                                             ],
+                                       "C":  "Concatenate H0 and the same descriptor vector at the original molecular MLP input",
+                                       "capacity":  "Total trainable parameter count matching A with analytic nearest integer hidden width; report difference; no sweep",
+                                       "reference":  "Original ridge on complete element counts including H plus heavy atom count",
+                                       "D3":  "Original prescribed development geometry, only an explicitly decided H policy; benchmark uses sealed S-prime UFF",
+                                       "atomic_SASA_in_molecular_features":  false,
+                                       "benchmark":  "C1 by its original owner, frozen endpoints/protocol; no benchmark-driven recipe changes"
+                                   },
+    "confirmations":  {
+                          "seed":  0,
+                          "samples":  9000000,
+                          "runs":  [
+                                       {
+                                           "arm":  "9M-D-R0",
+                                           "condition":  "always"
+                                       },
+                                       {
+                                           "arm":  "9M-D-final",
+                                           "condition":  "Only final recipe differs from D-R0"
+                                       }
+                                   ],
+                          "additional_seeds":  false
+                      },
+    "failure_policy":  "Same item\u003e4h diagnostic/repair or two consecutive actual failures =\u003eUNRESOLVED; conservative original component; undeliverable library arm not run"
+}

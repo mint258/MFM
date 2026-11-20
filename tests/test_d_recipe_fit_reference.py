@@ -5,11 +5,12 @@ import sys
 import tempfile
 from types import SimpleNamespace
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools" / "d_recipe"))
-from fit_reference import COLLECTION_SEED, collect, fit_collected, molecular_fields
+from fit_reference import COLLECTION_SEED, collect, fit_collected, molecular_fields, reference_write_guard
 
 
 class FakeDataset:
@@ -48,6 +49,16 @@ class FakeDataset:
 
 
 class FitReferenceCollectorTests(unittest.TestCase):
+    def test_shared_reference_keeps_the_joint_forecast_instead_of_only_its_small_collection(self):
+        config = dict(peak_bytes=2 * 2**30, share_storage_peak_bytes=36706053853,
+            peer_storage_guard_root="/existing/heads", output_filesystem="/share")
+        with patch("tools.d_recipe.resources.execution_site") as site, \
+             patch("tools.d_recipe.resources.admit_output") as admit:
+            guard = reference_write_guard(config, "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/reference")
+            guard(Path("/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/reference"), config["peak_bytes"])
+        self.assertEqual(admit.call_args.args[0]["storage_peak_bytes"], 36706053853)
+        site.assert_called_once_with(admit.call_args.args[0], cpu=True)
+
     def configuration(self):
         return dict(ridge_alpha=1., fold_seed=15, model_name="D-R1:seed0:A1",
                     peak_bytes=1000000, collector_chunk_rows=2)
