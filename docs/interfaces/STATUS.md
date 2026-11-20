@@ -1300,3 +1300,8 @@ Actual P physical allocation on compute-0-6 was 30,357,630,976 bytes. Remaining 
 
 基准特征导出使用既有活动来源清单、原五deferred排除与封存 SharedB0Reader；不以最终评测冻结为前置、不改变端点/划分、不读取TEST标签。最终C1评测仍由基准线按其冻结协议执行。新开发几何前缀读取与显式H策略接口已写好，但H策略尚待用户回答，未计算D3；阶段0尚未交付，无D科学结果或GPU运行。
 
+
+
+## 2026-11-20 16:24 D阶段0：新逻辑测试通过，成本/输入准备就绪
+
+D 新逻辑215项在 compute-0-17 原生SSH单核短程测试全部通过（UID1278/PID1392349，exit0，5.67秒，RSS923640KiB）；原始日志 `/share/home/zixiao/descriptor_analysis/D_native_cpu_tests_20261120_1622.log`，没有伪造Slurm身份。修正计算节点真实NFS锚点 `/share/home`；配额作用域仍为发布器的 `/share`，真实字节/inode/UID配额及100GB底线不变。原地只读复用既有pyarrow25.0.1，未改共享环境。旧4537113/7202/7261/7346/7347在零运行时间取消，Slurm终态已核实。现阶段0成本4537408、afterok成本的全量规划4537409、开发/基准无标签输入4537410/4537411均仍排队；一份14GiB联合NFS峰值保持原登记。全量、真实接收、D训练/读出均未完成；P冻结前不启动D GPU，不改其他线任务。
