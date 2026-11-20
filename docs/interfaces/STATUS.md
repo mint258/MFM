@@ -1010,3 +1010,12 @@ D已发布5535d8ad099df002cd43ddf07822ae2a3aa734e2：既定D-R1 D20+D3、3M/seed
 **compute-0-10根/tmp新增12GiB**，`/tmp/d_recipe_20261120_D_R1_seed0_3M_VAL`，仅接收R1闭合5.13GB VAL cache，计入old/partial和4.35GB rsync临时；不复制原LMDB，也不复制3GB开发H0缓存到CPU。CPU10实际根/tmp70070484992B可用、36570105空闲inode，XFS/noquota，12GiB入口及共享UID联合守卫通过；该节点既有D阶段0输出仍走NFS。原CPU17 R0 VAL12GiB预测保持。
 
 R1检查点/读出1GiB已在原full/native_stage1命名预算内，**D联合NFS36706053853B、full29.75GB和Lustre原R0 1.25GiB均不增加**；所有旧输出保留。对应JSON配置和比较脚本已准备，比较等两个主CPU评分均闭合，只消费既有配对1000次bootstrap。未查看A1 OOF数值、未产生R1分数、未预判胜负或冻结终点。请同节点传输/cache工作纳入以上并发future。
+
+
+### 2026-11-21 07:30 CST D-R0 closed main results and GPU7 scheduling
+
+D-R0 seed0/3M主训练/读出4537572已COMPLETED/0:0（31074秒），主CPU统计4537573也COMPLETED/0:0（CPU8/1CPU/85秒）；原结果与成本已发布于d-recipe 84e092aa1754de7862c9cf127c0e346f202fde52。GPU7当前仍运行规定5000VAL诊断4537579，之后原缓存3–5层读出4537584继续，未重启或迁移在跑任务。
+
+D-R1 4537592仍等待完整TRAIN A1闭合续算4537575，A1尚在收集、R1未就绪。未来排队的R1及其诊断不构成GPU7预留；R0诊断清空后若实际无D进程，各owner可按既定UUID/上下文/可分配CPU规则安排自己的就绪任务。D本次只同步实际状态，不修改其他owner作业。最近已核实普通GPU5/6被占用，20/22实际显存占用均超过30%，因此D缓存层读出暂保留原队列。
+
+磁盘future继续：GPU7 D三个根/tmp scope合计24GiB、CPU17 R0目标12GiB、CPU10 R1目标12GiB；不因暂时GPU空闲撤销这些写入预算。联合NFS36706053853B、full29.75GB、Lustre R0模型池1.25GiB保持，实际开始及运行期仍核实目标盘bytes/inode/UID及同行future，所有原输出保留。此次公告仅原结果/资源状态，不改变任何科学臂、冻结端点或预算。
