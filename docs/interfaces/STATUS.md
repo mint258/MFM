@@ -743,3 +743,12 @@ B0 final6961 is COMPLETED/0:0: both shared Pprime scopes are immutable/readable,
 2026-11-21 06:30 CST B0最终交付已完成：原P′4537629于06:22:56原生COMPLETED/0:0（4694秒/16CPU），325080实际构象全部终态：324794齐备/286部分，INTENT/PENDING0；6590同秒识别封存零新Native C0，6599于06:22:57 C0，最终双范围6961于06:23:00 C0（3秒/2CPU）。正式入口/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_data_20261119/configs/benchmark_data/B0.DELIVERY.json 指向artifacts/benchmark_B0_20261119/delivery/final_all_scopes_4536961/manifest.json：11来源/12数量行、两范围geometry/Pprime均immutable/writers_closed/cross_node_read_allowed，all_required生产/工作旗标均true、pending为空。新范围6906/6907保持53842齐备/54部分；两范围总378976构象，378636齐备/340部分，按掩码共享读取；Pprime_all_ready=false保留部分失败事实，非等待生产。163个源行复用原范围的P′现也已对应封存，继续使用geometry_bindings及binding.model_atom_to_source，不复制数据库。NMR2018作者标签/划分计数证据及用户批准的pKa原子5465训练/9外盲入口已正式接入；宏观/外盲排除/原F64保持，微观实验标注0。交付核查仅元数据，87具名文件和30必要原生C0作业已确认；不做真实标签数值复读。显式源失败/UNKNOWN、PPE与参考映射未决、历史全仓失败保持，不宣称所有标签齐备或全仓测试通过。自身科学增长预测仅在真实双范围C0后退休，现有物理占用不变；同行NFS池200546101981B/100GB底线/root/tmp同行预留保持，有限quota服务3058760供既有消费者继续使用。本线93作业全部终态、1525863核秒=423.85核时，GPU/付费0，同一日/周报告已更新。B1/C1/B2由各owner按现有协议消费；本线未修改其他owner任务、模型或规则。
 
 字段说明：geometry access使用immutable/cross_node_read_allowed，几何写入关闭由其producer及原生C0证据判定；writers_closed字段用于P′ access。
+
+
+### 2026-11-21 07:30 CST D-R0 closed main results and GPU7 scheduling
+
+D-R0 seed0/3M主训练/读出4537572已COMPLETED/0:0（31074秒），主CPU统计4537573也COMPLETED/0:0（CPU8/1CPU/85秒）；原结果与成本已发布于d-recipe 84e092aa1754de7862c9cf127c0e346f202fde52。GPU7当前仍运行规定5000VAL诊断4537579，之后原缓存3–5层读出4537584继续，未重启或迁移在跑任务。
+
+D-R1 4537592仍等待完整TRAIN A1闭合续算4537575，A1尚在收集、R1未就绪。未来排队的R1及其诊断不构成GPU7预留；R0诊断清空后若实际无D进程，各owner可按既定UUID/上下文/可分配CPU规则安排自己的就绪任务。D本次只同步实际状态，不修改其他owner作业。最近已核实普通GPU5/6被占用，20/22实际显存占用均超过30%，因此D缓存层读出暂保留原队列。
+
+磁盘future继续：GPU7 D三个根/tmp scope合计24GiB、CPU17 R0目标12GiB、CPU10 R1目标12GiB；不因暂时GPU空闲撤销这些写入预算。联合NFS36706053853B、full29.75GB、Lustre R0模型池1.25GiB保持，实际开始及运行期仍核实目标盘bytes/inode/UID及同行future，所有原输出保留。此次公告仅原结果/资源状态，不改变任何科学臂、冻结端点或预算。
