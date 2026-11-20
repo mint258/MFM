@@ -102,11 +102,14 @@ def main():
     private = Path('/tmp') / ('mv3n_' + job)
 
     def capacity():
-        guard(force=True)
+        facts = guard(force=True)
         future = max(0, 10 * GIB - allocated(scratch) - allocated(private))
-        disk.m.require_capacity(disk.m.filesystem_status('/tmp'), future, 10000)
+        local = disk.m.filesystem_status('/tmp')
+        disk.m.require_capacity(local, future, 10000)
+        return dict(shared=facts, tmp=local, tmp_future=future)
 
-    capacity()
+    capacity_facts = capacity()
+    print('P_HEADS_REGRESSION_CAPACITY', json.dumps(capacity_facts), flush=True)
     git = shutil.which('git') or str(R / 'runs/p_followup_20261116/test_tools/git/bin/git')
     commit = subprocess.check_output([git, 'rev-parse', 'HEAD'], cwd=REPO, text=True).strip()
     sys.path.insert(0, str(REPO / 'tools/model_v3'))
@@ -149,6 +152,7 @@ def main():
                    srun_cpu_bind_list=binding,
                    srun_cpu_bind_type=os.environ.get('SLURM_CPU_BIND_TYPE'),
                    private_storage=json.loads(json.dumps(storage_observation, default=os.fspath)),
+                   initial_capacity=capacity_facts,
                    scope='All current/tests/test_*.py, established isolated CPU module protocol')
     save(output / 'summary.json', summary)
     save(REPO / 'results/p_heads/REGRESSION_FULL.json', summary)

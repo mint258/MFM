@@ -30,15 +30,19 @@ def guard(force=False):
  if not host.startswith('compute-') or host=='compute-0-21':raise OSError('Only permitted actual compute nodes may execute H/T')
  policy=load(REPO/'configs/p_heads/resources.json')
  own=allocated(CONTROL)+allocated(REPO)
- if own>policy['peak_total_bytes']:raise OSError('p-heads total peak budget exceeded')
- future=max(0,policy['peak_total_bytes']-own)
+ peak=min(policy['peak_total_bytes'],policy.get('closeout_total_peak_bytes',policy['peak_total_bytes']))
+ if type(peak) is not int or peak<=0:raise OSError('Unknown p-heads storage peak')
+ if own>peak:raise OSError('p-heads total peak budget exceeded')
+ future=max(0,peak-own)
  other=max(0,policy['other_followup_nfs_peak_bytes']-allocated(FOLLOWUP)-allocated(R/'MFM_p_followup_20261117'))
- concurrent=disk.remaining_nfs_other()+18_000_000_000+other
+ from h_peer_storage import concurrent as peer_concurrent
+ peers=peer_concurrent(policy,legacy_model=disk.remaining_nfs_other(),followup=other)
+ concurrent=peers['total']
  root=disk.m.filesystem_status('/');target=disk.m.filesystem_status(R)
  disk.m.require_capacity(root,16*1024**2,1000)
  disk.m.require_capacity(target,future+concurrent,10000)
  quota=disk.m.quota_headroom(disk.CONTROL/'share_quota_available_v3.json','/share',future,concurrent)
- _capacity=dict(node=host,root=root,target=target,quota=quota,own_allocated=own,own_remaining=future,other_followup_remaining=other)
+ _capacity=dict(node=host,root=root,target=target,quota=quota,own_allocated=own,own_remaining=future,other_followup_remaining=other,peer_reservations=peers)
  _last=now;return _capacity
 
 def save(path,value):
