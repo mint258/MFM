@@ -10,6 +10,7 @@ import math
 import numpy as np
 from .selection import IncompleteComparison, SEED
 from .reporting import resolve_endpoint, CV_DATASETS, BLIND_DATASETS, diagnostic_metrics, fold_rae
+from .reporting import bind_native_origin,source_identity
 from .comparisons import index_predictions, paired_improvement, needs_second_seed
 
 FEATURE_GROUPS=("D","Pprime","Pprime_plus_D")
@@ -198,6 +199,7 @@ class C1ClosedConsumer:
             for batch in pq.ParquetFile(path).iter_batches(batch_size=4096):
                 for raw in batch.to_pylist():
                     row=native_primary_row(raw,self.catalog,spec)
+                    if row is not None:row=bind_native_origin(row,spec["job"],folder)
                     if row is None:continue
                     cell=(row["endpoint_key"],spec["feature_group"],spec["learner"])
                     self.predictions[cell].append(row)
@@ -251,6 +253,6 @@ def make_primary_report(catalog,screen,baselines,c1_predictions,unresolved=None,
                                  feature_group=feature,learner=learner,producer_task=c1_predictions[cell][0]["task"],primary_seed=SEED,confirmation_seed=SEED+1,
                                  frozen_B1_role=role["decision"],reason="FINAL_SIGNIFICANT_IMPROVEMENT",
                                  triggering_comparison=comparison_name,task_roster_reselection=False,
-                                 fold_and_statistics_seed=SEED,original_labels_or_masks_changed=False))
+                                 fold_and_statistics_seed=SEED,original_labels_or_masks_changed=False,**source_identity(c1_predictions[cell])))
                 seen_plan.add(cell)
     return table,contrasts,plan

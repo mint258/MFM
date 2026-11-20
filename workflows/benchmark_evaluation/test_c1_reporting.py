@@ -8,7 +8,7 @@ class C1ReportTests(unittest.TestCase):
         return dict(endpoint_key=key,dataset=dataset,target=target,level=level,split_policy="original")
     def rows(self,factor=0.0):
         return [dict(task='p',record_id=str(i),evaluation_id=str(i),full_inchikey="KEY-"+str(i),
-                     y_true=float(i+1),prediction=float(i+1)*factor,training_mean=0.0) for i in range(3)]
+                     y_true=float(i+1),prediction=float(i+1)*factor,training_mean=0.0,primary_source_job="701",native_producer_job="701",native_source_folder="/original/job_701") for i in range(3)]
     def test_native_missingness_keeps_original_coverage_and_labels(self):
         source=self.rows()
         candidate=self.rows(.9)[:2];candidate[1]["prediction"]=None

@@ -89,3 +89,22 @@ class ReportingTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class NativePlanSourceTests(unittest.TestCase):
+    def test_original_array_children_bind_one_parent_without_changing_labels(self):
+        from workflows.benchmark_evaluation.reporting import bind_native_origin,source_identity
+        original=dict(y_true=3.0,record_id="ORIGINAL",full_inchikey="ORIGINAL-KEY")
+        first=bind_native_origin(original,701,"/runs/job_701",700)
+        second=bind_native_origin(original,702,"/runs/job_702",700)
+        source=source_identity([first,second])
+        self.assertEqual(source["primary_source_job"],"700")
+        self.assertEqual(source["primary_native_jobs"],["701","702"])
+        self.assertEqual(original,dict(y_true=3.0,record_id="ORIGINAL",full_inchikey="ORIGINAL-KEY"))
+    def test_absent_or_conflicting_native_origins_cannot_prepare_a_conditional_plan(self):
+        from workflows.benchmark_evaluation.reporting import bind_native_origin,source_identity
+        with self.assertRaises(IncompleteComparison):source_identity([dict(y_true=1.)])
+        rows=[bind_native_origin({},job,"/runs/"+str(job)) for job in (701,702)]
+        with self.assertRaises(IncompleteComparison):source_identity(rows)
+    def test_missing_actual_native_job_identity_is_rejected(self):
+        from workflows.benchmark_evaluation.reporting import bind_native_origin
+        with self.assertRaises(IncompleteComparison):bind_native_origin({},None,"/runs/unknown")

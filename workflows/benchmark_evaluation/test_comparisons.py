@@ -56,7 +56,7 @@ class ComparisonTests(unittest.TestCase):
         self.assertFalse(needs_second_seed(learner="TabPFN",final_role="RETAIN",significant_improvement=True,current_seed_count=2))
     def test_only_the_final_Chemprop_winner_gets_a_confirmation_plan(self):
         key="moleculeace::example.csv::y"
-        predictions={key:{name:[dict(r,task="example.csv",fit_population="retained",eligible=True) for r in rows(error)]
+        predictions={key:{name:[dict(r,task="example.csv",fit_population="retained",eligible=True,primary_source_job="700",native_producer_job="700",native_source_folder="/original/job_700") for r in rows(error)]
                             for name,error in (("RF-ECFP4",.4),("LightGBM-RDKit2D",.5),("Chemprop-v2",.1))}}
         record=dict(endpoint_key=key,dataset="MoleculeACE",target="y",status="SCREENED",
                     decision="RETAIN",best_baseline="Chemprop-v2")

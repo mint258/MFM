@@ -21,7 +21,8 @@ def planned_jobs(plan,task_bindings,*,baseline=False):
         feature=None if baseline else row["feature_group"]
         candidates=[item for item in task_bindings
             if item["dataset"]==row["dataset"] and item["producer_task"]==row["producer_task"]
-            and item["learner"]==learner and item.get("feature_group")==feature]
+            and item["learner"]==learner and item.get("feature_group")==feature
+            and (not row.get("primary_source_job") or str(item["primary_job"])==str(row["primary_source_job"]))]
         identities={str(item["primary_job"]) for item in candidates}
         if len(identities)!=1:
             raise IncompleteComparison("Required task has absent or ambiguous closed original producer binding")

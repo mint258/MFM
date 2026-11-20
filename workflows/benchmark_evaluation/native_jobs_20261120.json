@@ -2,7 +2,7 @@
   "schema": "BENCHMARK_NATIVE_JOB_INDEX_20261120_V1",
   "scope": "96 active candidate endpoints after complete anonymous five-endpoint inventory verification; no final decisions yet",
   "native_source_worktree_HEAD": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
-  "latest_published_before_this_batch": "6308ebe04f09b4fc02b394b23f5ac94cca5285cc",
+  "latest_published_before_this_batch": "89733f98f2155e22c787fad2beed5ea0afe4a887",
   "artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119",
   "deferred_inventory": {
     "job": 4536851,
@@ -3592,11 +3592,13 @@
         "status": "PASS"
       }
     },
-    "final_results_export_prepared": true
+    "final_results_export_prepared": true,
+    "native_source_identity_in_plan": true,
+    "array_identity_policy": "Original array parent plus every actual native child/folder; never assume parent+index arithmetic"
   },
   "validation": {
-    "full_new_benchmark_regression": "104_PASS_ZERO_FAILURE_ERROR_SKIP",
-    "actual_step": "4537025.8",
+    "full_new_benchmark_regression": "126_PASS_ZERO_FAILURE_ERROR_SKIP",
+    "actual_step": "4537025.18",
     "actual_node": "compute-0-10",
     "scientific_outputs_replayed": false
   },
@@ -3829,5 +3831,45 @@
     "requires_closed_actual_confirmation_evidence": true,
     "primary_scores_recomputed": false,
     "task_roster_reselection": false
+  },
+  "uniform_D_critical_CPU_start_order": {
+    "prerequisite": 4537119,
+    "native_dependency": "after:4537119",
+    "affected_pending_jobs": [
+      4537031,
+      4537033,
+      4537324,
+      4537036,
+      4537038,
+      4537325,
+      4537041,
+      4537043,
+      4537326,
+      4537046,
+      4537048,
+      4537327,
+      4537051,
+      4537053,
+      4537328,
+      4537056,
+      4537058,
+      4537329,
+      4537061,
+      4537063,
+      4537330,
+      4537066,
+      4537068
+    ],
+    "automatic_release_at_start": true,
+    "manual_user_hold": false,
+    "original_source_prerequisites_verified_completed": [
+      4537012,
+      4537021
+    ],
+    "running_models_untouched": [
+      4537025,
+      4537323
+    ],
+    "other_windows_jobs_changed": false
   }
 }

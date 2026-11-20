@@ -126,7 +126,7 @@ def needs_second_seed(*, learner, final_role, significant_improvement,
 def baseline_confirmation_plan(screen, predictions):
     """Confirm a final Chemprop winner against its strongest traditional control."""
     from .selection import BASELINES
-    from .reporting import CV_DATASETS, primary_rows
+    from .reporting import CV_DATASETS, primary_rows,source_identity
     plan, comparisons = [], []
     for record in screen:
         if (record.get("status") != "SCREENED" or
@@ -147,5 +147,5 @@ def baseline_confirmation_plan(screen, predictions):
                              model="Chemprop-v2",producer_task=primary_rows(dataset,predictions[key]["Chemprop-v2"])[0]["task"],primary_seed=SEED,confirmation_seed=SEED+1,
                              frozen_B1_decision=record["decision"],reason="FINAL_SIGNIFICANT_IMPROVEMENT",
                              reference_model=reference,significance_method=result["significance_method"],
-                             task_roster_reselection=False,original_folds_or_split_unchanged=True))
+                             task_roster_reselection=False,original_folds_or_split_unchanged=True,**source_identity(primary_rows(dataset,predictions[key]["Chemprop-v2"]))))
     return plan,comparisons

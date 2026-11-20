@@ -54,3 +54,8 @@ report=dict(seed=SEED)
         group=planned_jobs([self.row()],[self.binding()])[0][0]
         with self.assertRaises(IncompleteComparison):
             prepare_job_source(group,"import urllib.request\nurllib.request.urlopen('https://example.invalid/official_weights')\n",default_dataset='DATA')
+
+    def test_bound_original_job_disambiguates_repeated_task_metadata(self):
+        row=dict(self.row(),primary_source_job="12")
+        groups,_=planned_jobs([row],[self.binding(),self.binding(job=13)])
+        self.assertEqual(groups[0]["primary_job"],"12")

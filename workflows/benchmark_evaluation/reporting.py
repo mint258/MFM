@@ -28,6 +28,26 @@ def resolve_endpoint(catalog, dataset, task):
         raise IncompleteComparison("Producer task does not match exactly one active catalog endpoint: " + repr((dataset, task)))
     return matches[0]["endpoint_key"]
 
+
+def bind_native_origin(row, job, folder, array_job=None):
+    """Attach closed native source identity without changing experimental fields."""
+    actual=str(job);source=str(array_job) if array_job is not None else actual
+    if not actual.isdigit() or not source.isdigit():
+        raise IncompleteComparison("Closed prediction source has no actual native producer identity")
+    return dict(row,native_producer_job=actual,primary_source_job=source,native_source_folder=str(folder))
+
+def source_identity(rows):
+    """A conditional configuration belongs to one original producer or repetition array."""
+    if not rows or any(not r.get("primary_source_job") or not r.get("native_producer_job")
+                       or not r.get("native_source_folder") for r in rows):
+        raise IncompleteComparison("Conditional plan lacks the original native prediction source binding")
+    roots={str(r["primary_source_job"]) for r in rows}
+    if len(roots)!=1:
+        raise IncompleteComparison("One conditional configuration has conflicting original native producers")
+    return dict(primary_source_job=next(iter(roots)),
+                primary_native_jobs=sorted({str(r["native_producer_job"]) for r in rows}),
+                primary_source_folders=sorted({r["native_source_folder"] for r in rows}))
+
 def normalize_prediction(row, catalog):
     if row["model"] not in BASELINES:
         raise IncompleteComparison("C1 or an unregistered model cannot enter the B1 screen")
@@ -179,7 +199,7 @@ class ClosedPredictionConsumer:
                 for raw in batch.to_pylist():
                     if expected_model is not None and raw["model"] != expected_model:
                         raise IncompleteComparison("Producer model differs from its native job binding")
-                    row = normalize_prediction(raw, self.catalog)
+                    row = bind_native_origin(normalize_prediction(raw, self.catalog),manifest.get("job"),folder,manifest.get("array_job"))
                     self.predictions[row["endpoint_key"]][row["model"]].append(row)
 
     def screen_once(self, scope_proof, unresolved=None):
