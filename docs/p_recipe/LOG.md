@@ -1,5 +1,13 @@
 # P 配方研究日志
 
+2026-11-20 09:41UTC · fixed20261115 round4 · X1 CANCELLED 711008/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次10:11:07UTC。
+
+2026-11-20 09:41UTC · fixed20261115 round3 · 。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次10:11:07UTC。
+
+2026-11-20 09:41UTC · fixed20261115 round4 · PP COMPLETED 3000000/3000000；F2 COMPLETED 3000000/3000000；X1 COMPLETED 3000000/3000000；X2 COMPLETED 3000000/3000000；F1 RUNNING 2462880/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次10:11:07UTC。
+
+2026-11-20 09:22:14 UTC · 侧线交接汇总修正 · heads与decoupling原始子记录均已recipe_decision_complete=true、无胜出项；顶层external_line_decisions_complete仍false，现据已发布判定改为true。原每种子结果、来源与各线未结束的工程记录保留；recipe_frozen保持false，仍待F1/第4轮最终判定，不提前生成或提交9M。
+
 2026-11-20 09:10UTC · fixed20261115 round4 · X1 CANCELLED 711008/3000000。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次09:40:54UTC。
 
 2026-11-20 09:10UTC · fixed20261115 round3 · 。新配置B32/3M筛选/9M确认，B0复用G1，现有训练不因更新停止；下次09:40:54UTC。
