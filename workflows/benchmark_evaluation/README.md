@@ -31,3 +31,13 @@ Chemprop uses the default graph architecture and learning-rate schedule, batch64
 The selection module refuses missing baselines or different evaluation IDs, original labels, molecular groups, or TRAIN references. Its official-split statistics resample the same whole molecules in all models, using 1000 draws. The discrimination SE is for the observed worst-minus-best RAE pair. The <30 rule takes the total labeled points in the filtered endpoint, explicitly supplied by the task binding. For tasks lacking an official split, five repetitions of five scaffold-group folds are mandatory; optical folds group by chromophore scaffolds across every solvent observation. Tukey HSD requires the same complete 25 fold scores for all three baselines. The final B1 roster is not yet produced or frozen.
 
 P′ and P′+D remain conditional on B0 sealing; atom-site pKa labels are not inferred from predicted microspecies. Standard NMR uses the original Jonas release, not a DFT-only substitution. No B2 full extraction, B3/B4, pretraining, paid school-server work, or PM7 geometry reconstruction has been launched.
+
+## 原子任务、参考任务和公开标签补充
+
+NMR 的原始谱和原子标签由 `b1_nmr_features.sbatch` 消费；4536971 因旧 RDKit pickles 未含 ring cache 报错。后续 `b1_nmr_features_cache_repair.sbatch`（4536984）只初始化 property/ring caches，不重排原子，`b1_nmr_rf_lightgbm.sbatch`（4536985）在该特征步骤成功后拟合原子中心 ECFP4 和 RDKit2D+37 原子特征。两种核素独立，重复谱不平均，统计仍以完整分子为组。
+
+参考数据特征（4536983）保留 B0 原生 D20/D3、参考几何与缺失掩码。`ppe_benson.sbatch`（4536988）固定 pGrAdd 2.9.14 源码 commit cecd9819ba60884efce483ceb3fb18d03ac27f84 的 BensonGA 库，298.15 K、kcal/mol，按原始实验生成焓构造实验值减 Benson 残差；不拟合新的基团参数。未启动的 4536986 已取消后修正原生 group 对象传递，不涉及数值重算或训练回滚。
+
+ExpansionRx 官方九终点公开释放源由 4536975 获取，以 `B0.DELIVERY.json` 的 `supplemental_sources.ExpansionRx_official_release` 统一登记。`expansion_release_binding.sbatch` 将使用本分支对应配置的不可变内嵌快照，写出运行时入口到自身 artifact 后消费；原服务器工作树未同步这一新配置。仅当官方 ID、完整原始结构与原官方划分匹配才接入 TEST 标签，TRAIN 使用 B0 原标签，无新增 RLM 终点。
+
+4536983/84/85 的未启动调度请求已从固定 node17 改为 cpu 分区的任一允许 CPU 节点（排除 node2、18、21）。该分区现场成员为 2、8–19，故候选为 8–17、19；node18 暂因 Python/NFS 阻塞不参与。实际目标节点仍先执行容量/inode/quota 准入，不更改现有训练。

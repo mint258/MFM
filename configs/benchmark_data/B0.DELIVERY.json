@@ -24,7 +24,8 @@
   "no_local_database_copies": true,
   "all_required_production_complete": false,
   "supplemental_sources": {
-    "SAMPL6_7": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/provenance/SAMPL6_7/job_4536607/manifest.json"
+    "SAMPL6_7": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/provenance/SAMPL6_7/job_4536607/manifest.json",
+    "ExpansionRx_official_release": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/raw/ExpansionRx_official_release/job_4536975/manifest.json"
   },
   "active_evaluation_scope": {
     "status": "B1_AND_LATER_SCOPE_EXCLUDES_FIVE_DEFERRED_ENDPOINTS",
@@ -38,5 +39,8 @@
     "failure_policy": "BLOCK_B1_UNTIL_ALL_FIVE_DEFERRED_IDENTIFIERS_MATCH",
     "scope_authority_commit": "fec1b994aa642ba8db74074134f909dcb4f165f0",
     "full_inventory_verification": "REQUIRED_BEFORE_B1_FITTING_NOT_PERFORMED_BY_B0"
+  },
+  "supplemental_source_policy": {
+    "ExpansionRx_official_release": "Public ungated official post-challenge release pinned at 6b898ccc43d10d25b230fb09e22a6e30c30022b5; original nine endpoints and B0 train/test membership are unchanged; validate original Molecule Name and full original structure identity before using finite TEST labels, retain original TRAIN labels; no raw-only RLM endpoint"
   }
 }
