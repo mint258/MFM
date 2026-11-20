@@ -35,7 +35,7 @@ def main():
     suite = unittest.TestSuite()
     loader = unittest.defaultTestLoader
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_loss.py"))
-    for name in ("test_statistics", "test_prepare", "test_produce", "test_storage", "test_existing", "test_full_plan"):
+    for name in ("test_statistics", "test_prepare", "test_produce", "test_storage", "test_existing", "test_full_plan", "test_b6_cache", "test_export", "test_prepare_development"):
         module = importlib.import_module("workflows.data_d_descriptors." + name)
         suite.addTests(loader.loadTestsFromModule(module))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_wide_store.py"))
@@ -49,6 +49,7 @@ def main():
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_fit_reference.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_compare.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_seed_plan.py"))
+    suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_descriptor_features.py"))
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     raise SystemExit(0 if result.wasSuccessful() else 1)
 

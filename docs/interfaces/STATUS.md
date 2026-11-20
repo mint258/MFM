@@ -935,3 +935,7 @@ Environment 4537091, loss tests 4537092, new producer/consumer tests 4537113 rem
 ## 2026-11-20 12:40 CST D preflight chain
 Environment and all new D logic tests are consolidated in pending CPU job4537113 (1CPU,4GiB). Cost job4537202 (4workers plus parent,5CPU,8GiB) requires its success; metadata/production-forecast job4537261 (1CPU,4GiB) requires the cost job. Old4537091/4537092/4537093 were cancelled while PENDING; Slurm records zero elapsed time. Current computation excludes node18. No scientific calculation was repeated by this consolidation.
 The pilot 4GiB reservation is unchanged. Full-data configurations remain forecasts, not reservations or submitted full calculations. No D GPU work, stage0 reception or scientific result is complete; P freeze/9M remain dependencies. Other lines and running tasks are unchanged.
+
+### 2026-11-20 D 下游接口进展（未交付）
+
+已在 D 数据分支补齐开发面板的无目标值结构准备、兼容 B6 列复用，以及 D20/L1/L2 同口径导出；D 分支增加只读特征消费者。新逻辑接入 4537113，当前 CPU 链 4537113→4537202→4537261 仍排队，尚无测试/科学结果。开发输入 512MiB 为未来计划，未并发提交或预留；全量和 D GPU 均未启动，不改变基准终点或其他线作业。

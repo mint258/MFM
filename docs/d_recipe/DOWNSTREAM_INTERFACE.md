@@ -26,8 +26,12 @@ B6 曾在 `source_structure` 后执行 `RemoveHs`，不能未经生产步骤的�
 
 D3 继续由基准窗口按 S′ UFF 口径提供：`benchmark_B0_20261119/directive19/uniform_Sprime/geometry/shared_v1/queue.manifest.json`、`geometry_bindings.parquet`，使用封存产品的 `SharedB0Reader.get(dataset, record_id)` 与原 `model_atom_to_source`。不拿历史参考 XYZ 替代 UFF，不读取未封存 P′ 库。
 
-## 待实现的最小交付
+## 已实现的接口（待测试与实际导出）
 
 唯一分子表保留已有 UID / `shared_molecule_id`、原图 SMILES 与 source-frame 引用；成员表保留 dataset、record/member UID、原始划分、活动范围引用及 feature-row。多端点共享同一分子行，不重复计算。同一程序版本生成每库 F64 值与 uint8 状态（missing / valid / numeric event）；清单引用原 TRAIN 的 ordered-fields、enabled-columns、参数和版本。结构失败保留 missing，不补零。
 
-依赖仍未完成：阶段 0 字段/统计冻结与真实接收验收、基准最终活动范围及消费者接口。开发 A/B/C 读出尚未实现或运行，不能用现有 B6/C1 特征入口代替这些比较结果。
+已写好 `prepare_development`、闭合 B6 兼容列复用、`export` 和只读 `DownstreamDescriptorStore`。开发输入配置为数据分支 `configs/data_d_descriptors/development_inputs.json`，预估新增峰值 512MiB，仅为计划，未预约或提交作业。生产步骤保留每个成员的独立 D3 构象引用，只共享二维分子行；旧 D20 无法绑定时明确标为 UNRESOLVED，不用全缺失冒充完成。
+
+导出支持 L1/L2 与原生 D20：仅复制 D20 时不初始化描述符计算器或 worker pool，17 个启用字段复用原参数。宽库保留全 TRAIN 的启用列和参数，不在下游重新过滤；状态和原始 F64 缺失保留。消费者以 dataset＋原成员 ID 连接，原始 split 原样保留，禁止用 A1 残差参数直接标准化化学描述符特征。
+
+依赖仍未完成：上述新逻辑 CPU 测试、阶段 0 字段/统计冻结与真实接收验收、基准最终活动范围及实际导出。开发 A/B/C 尚未执行；MLP 容量口径正待用户确认，不能用现有 B6/C1 特征入口代替这些比较结果。
