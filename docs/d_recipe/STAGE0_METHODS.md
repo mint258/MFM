@@ -88,3 +88,4 @@ L2字段定义引用[CheMeleon作者的计算代码](https://github.com/JacksonB
 开发D3支持完整数据集作用域，默认仍全部原成员；QM9用其完整原生坐标的native_only路径可先行，ExpansionRx氢政策继续待定。各component记录原source_member_row和dataset_scope、source_member_count、member_count；部分范围complete_source_population=false。merge_development_d3只按原成员/顺序合并闭合元数据，保F64数组/原子SASA引用，不读或重算数值；缺少、重叠或改split的component均不宣称完整。Root的Section5入口要求complete_source_population=true。
 
 原geometry_descriptors调用的C4 wire会顺带重算HBA，其D3段不消费该值。本线在顺序调用中仅将Lipinski.NumHAcceptors暂时路由到已有canonical标量（0和缺失分别保留），finally恢复，原D3公式和参数不动。先初始化原backend，保证导入时捕获的函数仍为原函数。270项新增逻辑正式CPU17作业4537544通过，未对D3数值另做独立重算或QA。
+2026-11-20 20:12CST：QM9原生D3 component实际关闭，4537546 COMPLETED0:0，CPU17，请求1CPU/站点分配2逻辑CPU，Slurm648秒（分配1296 CPU秒；TotalCPU缺测，不写成实际消耗0）。生产647.574秒、10473原成员、41批，六分子F64/u8及逐原子SASA/源atom引用，native_only，不补H/重嵌入/读终点或重拟合。清单runs/d_recipe_20261120/development/native_D3/qm9/manifest.json标记RAW_COMPLETE、complete_source_population=false；ExpansionRx政策待答复，完整合并和实际接收尚未完成。只登记生产清单/Slurm关闭证据，未二次读取数值或另做QA。

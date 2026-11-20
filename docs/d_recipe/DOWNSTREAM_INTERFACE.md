@@ -1,4 +1,4 @@
-# 下游描述符接口（结构来源已定位，导出未执行）
+# 下游描述符接口与实际交付状态
 
 此页登记任务书 4.1.5 / 5 的既有输入和待接接口，不是数据交付或评测结果。所有新字段、启用列和归一化必须引用阶段 0 的唯一 TRAIN 冻结产物，不在下游重新拟合或依据 TEST 值过滤。
 
@@ -26,25 +26,36 @@ B6 曾在 `source_structure` 后执行 `RemoveHs`，不能未经生产步骤的�
 
 D3 继续由基准窗口按 S′ UFF 口径提供：`benchmark_B0_20261119/directive19/uniform_Sprime/geometry/shared_v1/queue.manifest.json`、`geometry_bindings.parquet`，使用封存产品的 `SharedB0Reader.get(dataset, record_id)` 与原 `model_atom_to_source`。不拿历史参考 XYZ 替代 UFF，不读取未封存 P′ 库。
 
-## 已实现的接口（待测试与实际导出）
+## 当前生产状态（2026-11-20 20:12 CST）
 
-唯一分子表保留已有 UID / `shared_molecule_id`、原图 SMILES 与 source-frame 引用；成员表保留 dataset、record/member UID、原始划分、活动范围引用及 feature-row。多端点共享同一分子行，不重复计算。同一程序版本生成每库 F64 值与 uint8 状态（missing / valid / numeric event）；清单引用原 TRAIN 的 ordered-fields、enabled-columns、参数和版本。结构失败保留 missing，不补零。
+| 产物 | 实际证据 | 状态 |
+| --- | --- | --- |
+| 开发原始结构与成员 | 4537410；15518唯一分子、15751成员 | SOURCE_READY |
+| 开发原D20复制 | 4537508.step5；15518分子、20字段/17启用 | 已关闭；未重算或拟合 |
+| 开发QM9原生D3 component | 4537546；10473成员、41个关闭批次 | RAW_COMPLETE；仅QM9 |
+| 开发ExpansionRx D3 | 原5278成员；缺H政策待用户答复 | 尚未生产 |
+| 开发L1/L2 | 4537517，afterok:4537508 | 等待全TRAIN字段和参数 |
+| 基准L2 | 4537537，afterok:4537508 | 等待同一全TRAIN产物 |
+| 基准原D20绑定/L1完整交付 | 4537426、4537509均未解决 | UNRESOLVED；停止此问题修复 |
 
-已写好 `prepare_development`、闭合 B6 兼容列复用、`export` 和只读 `DownstreamDescriptorStore`。开发输入配置为数据分支 `configs/data_d_descriptors/development_inputs.json`，自身预估新增峰值 512MiB；基准输入配置为 `benchmark_inputs.json`，自身预估 8GiB。两者与成本面板 4GiB 按一份 14GiB 联合峰值执行实际节点写入准入，不把它当作每作业各自可占用 14GiB。已提交 4537346（开发，1CPU/4GiB）和 4537347（基准，1CPU/8GiB），均 afterok:4537113，尚未运行。生产步骤保留每个成员的独立 D3 构象引用，只共享二维分子行；旧 D20 无法绑定时明确标为 UNRESOLVED，不用全缺失冒充完成。
+开发D20清单：`/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/D20_descriptors/manifest.json`。宽库配置`configs/data_d_descriptors/development_export.json`只导L1/L2并引用这个原D20清单，不重复复制D20。新字段一律使用全TRAIN的唯一有序字段、启用列和参数，保F64原值及uint8状态；不在下游重新筛选或拟合。闭合B6兼容列按原member_uid/source_ordinal复用，其余由相同版本程序计算。
 
-导出支持 L1/L2 与原生 D20：仅复制 D20 时不初始化描述符计算器或 worker pool，17 个启用字段复用原参数。宽库保留全 TRAIN 的启用列和参数，不在下游重新过滤；状态和原始 F64 缺失保留。消费者以 dataset＋原成员 ID 连接，原始 split 原样保留，禁止用 A1 残差参数直接标准化化学描述符特征。
+QM9 D3清单：`/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/qm9/manifest.json`。实际作业CPU17、exit0、Slurm耗时648秒；请求1CPU、站点分配2逻辑CPU，生产耗时647.574秒。六分子字段顺序为PMI1/PMI2/PMI3/PBF/volume_A3/SASA_total_A2，F64数值和uint8状态；逐原子SASA单独保存并保原source atom ID，不进入分子特征向量。只用原packed Z/F64坐标与每成员source-frame图，native_only，无补H、新构象或终点读取，未重拟合归一化。这些是生产关闭证据，未额外读取数值数组做独立QA。
 
-依赖仍未完成：上述新逻辑 CPU 测试、阶段 0 字段/统计冻结与真实接收验收、基准最终活动范围及实际导出。开发 A/B/C 尚未执行；MLP 容量口径正待用户确认，不能用现有 B6/C1 特征入口代替这些比较结果。
+QM9 component明确`complete_source_population=false`，全源15751成员。ExpansionRx政策未选定；完整开发D3只在`merge_development_d3`以原成员/划分/顺序合并所有关闭component后形成。合并只消费元数据和原数组引用，不重算化学量；Root Section5入口要求`complete_source_population=true`，不能用QM9部分代替整面板。
 
-`prepare_benchmark` 以 FEATURE_EXPORT_ONLY 使用已有活动来源清单，只生产无标签特征；不把候选 catalog 称为最终冻结。原 D20 与分子级 D3 直接按已有 geometry_bindings 路由读取封存 SharedB0Reader，不局限于旧 C1 八组文件。明确的原生缺失保留 mask 和原因，未知绑定为 UNRESOLVED；二维导出不因缺 UFF 或缺 CV 冻结而停止。每成员保留首个实际 accepted UFF conformer ID、原 atom/SASA 引用；不复制或重新生成几何。最终 C1 评测仍只按基准线冻结的端点和划分进行，当前没有评测完成声明。
+## 基准交付限制
 
-`dev_descriptor_readouts.run_descriptor_probe` 直接复用既有 R3 训练循环，B 用描述符 MLP，C 在原 R3 分子 MLP 入口拼描述符；容量与 raw/原 TRAIN 标准化策略均由调用者显式提供。所有统计遵守既有内部 TRAIN 留出，保留原始缺失，只在模型输入边界做数值 padding 并附缺失指示。解析整数宽度不使用验证分数。最简组成参照提供完整含 H 元素计数加重原子数，供既有 ridge 读出使用，不新建预训练臂。
+原D20绑定保留38546个未知项（NMR38514、其余32），不猜别名、不转成已知缺失、不重算原D20。L1完整交付因此受限。L2按任务书4.1不做D20跨库映射，可独立从同一active原图/成员导出，配置`configs/data_d_descriptors/benchmark_L2_export.json`；清单保留原D20的UNRESOLVED事实并声明`canonical_D20_required=false`。二维量不依赖几何；D3由基准窗口接入原封存S′ UFF产品，终点和划分不变。没有最终C1完成声明。
 
-开发原生几何辅助器 development_geometry 只读取原 packed 文件的 Z/F64 坐标前缀，既不读取 F32 副本，也不读取其后的标签区域；D3 数值委托原 geometry_descriptors 程序。氢处理必须显式选择，不能缺构象时嵌入新构象。ExpansionRx 缺显式 H 的口径已向用户询问，尚未选定或执行，QM9 完整原生几何可原样保留。当前只完成辅助器与新逻辑测试，实际 D3 生产未完成。
+两个保留的基准源准备目录实际物理字节2097127424，L2新增数值/状态约2.827GB，纳入原8GiB基准预算。本线联合NFS峰值36706053853字节已替代早期14GiB预测；开发D3 components及合并共用原512MiB限额。每次实际写入继续真实节点字节/inode、UID配额和跨窗口未来预算保护。
 
-2026-11-20 18:54：开发输入4537410已关闭；实际258项接口测试及后续L2整库选择测试合计259项通过。开发导出4537517与真实接收4537514依赖全量4537508。development_d3接口已实现但未选氢政策、未生产。纯成员拼接显式使用原reference声明的member_key；组成含H来自原source_smiles图，不取缺H坐标数量。
+## 消费与比较
 
-基准原D20绑定4537426/4537509连续未解决，已停止修复并保留产物。L1完整交付受限；L2不做D20跨映射，可用active原图独立二维导出，配置configs/data_d_descriptors/benchmark_L2_export.json。该导出保留canonical_D20_source_status=UNRESOLVED、canonical_D20_required=false，不声称D20/几何修复或最终C1完成；基准窗口使用其原封存S′ UFF D3接入，原endpoint/split不变。新增约2.827GB，在原8GiB基准和本线36706053853字节联合峰值内。
-2026-11-20 19:07：原D20开发复制导出已实际关闭，路径`/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/D20_descriptors/manifest.json`，15518分子、20有序字段/17启用、原TRAIN参数，无描述符重算/新拟合（4537508.step5，1CPU5.41秒）。D20对照使用该清单；开发L1/L2清单为后续4537517输出，不重复复制D20，并引用original_D20_manifest。D3仍未生产，氢政策待定。
+成员使用来源明确的完整键：开发(dataset,member_uid)，基准(dataset,record_id)。二维同分子只计算一次；每成员几何分别保留，不合并同MID的不同构象。原始split、0/缺失/numeric-event均保留。`append_member_d3`只连接六分子字段，可选标准化只用原TRAIN参数，不截尾；不把A1残差参数用于直接化学特征。
 
-QM9 D3拟先用development_D3_QM9.json生产native_only数据集component；它保留complete_source_population=false。完整D3清单需merge_development_d3按原所有成员闭合，SourceMap和划分不变；ExpansionRx政策继续待定。原D20复制清单已完成，宽库清单只引用它。
+第5节执行器`tools.d_recipe.development_panel`按GPU/CPU阶段复用原R3探针、原C1 LightGBM默认模型和原ridge组成参照。A复用选定终点H0主读出，B为同批描述符的MLP及LightGBM，C在原分子MLP入口拼H0与同批描述符。B/C按总可训练参数匹配A，以解析最近整数宽度实现并报告差额；无容量扫描。组成来自每成员原source_smiles图的完整含H元素计数和重原子数，不用缺H坐标数量代替。
+
+模型/预测与既有bootstrap结果关闭后直接续用，A不重复抽样；C对两种B只消费对齐的原1000次抽样给描述性差值区间，不触发配方或额外seed。最终9M源与冻结选定3M臂名显式对应9M-D-R0或9M-D-final。H0保留开关默认关闭，只在登记了未来存储峰值的选定原末层前向中启用。
+
+270项新逻辑已通过4537544（请求1CPU/实际2逻辑CPU，7秒、exit0）。全量字段/统计冻结、64分子真实接收、开发A/B/C和最终C1均未完成；实现和单元测试不替代这些实际结果。

@@ -19,7 +19,7 @@
 
 ## 当前依赖
 
-P 配方 `CURRENT_BEST` 尚未冻结，F1 仍在训练。因此 GPU 训练尚未启动；这不是 D-R1 的 TIE/LOSS 或完成结论。阶段 0 接收验收、全量产物、所有 D 训练与最终报告均未完成。
+P 配方 `CURRENT_BEST` 尚未冻结。F1 日志已记录 3M 与 GPU 读出完成，CPU 统计仍待正式关闭。因此 GPU 训练尚未启动；这不是 D-R1 的 TIE/LOSS 或完成结论。阶段 0 接收验收、全量产物、所有 D 训练与最终报告均未完成。
 
 阶段 0 的 `configs/data_d_descriptors/preregistration.json` 已在读取描述符分布前冻结并发布；训练预注册尚未发布，不能用占位的 P 配方或未核实块权重代替最终配置。
 
@@ -60,3 +60,5 @@ P 配方 `CURRENT_BEST` 尚未冻结，F1 仍在训练。因此 GPU 训练尚未
 沿用原人群、划分和原子 ID；现有 D20/D3 与 11-07 参数不变，新字段只用 TRAIN 拟合。宽库存储值不截断，损失中的标准化目标统一截至 ±6，报告各字段比例。阶段 0 的真实接收验收仅按任务书第 6 节执行一次。
 
 主指标 R3 七任务均值，R1/CYP 只报告；分子级配对 bootstrap 1000 次，seed 20261025，95% 百分位 CI；τ=max(0.01,0.05×较大 R3)。WIN/LOSS/TIE、删除项和条件种子严格采用任务书 4.6。CI 描述固定模型的抽样不确定性，不代表训练随机性；未做多重比较校正。尚无 D 实验结果可作统计结论。
+
+2026-11-20 20:12CST：QM9原生D3 component实际关闭，4537546 COMPLETED0:0，CPU17，请求1CPU/站点分配2逻辑CPU，Slurm648秒（分配1296 CPU秒；TotalCPU缺测，不写成实际消耗0）。生产647.574秒、10473原成员、41批，六分子F64/u8及逐原子SASA/源atom引用，native_only，不补H/重嵌入/读终点或重拟合。清单runs/d_recipe_20261120/development/native_D3/qm9/manifest.json标记RAW_COMPLETE、complete_source_population=false；ExpansionRx政策待答复，完整合并和实际接收尚未完成。只登记生产清单/Slurm关闭证据，未二次读取数值或另做QA。
