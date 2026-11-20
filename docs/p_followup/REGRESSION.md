@@ -1,16 +1,31 @@
 # 完整CPU回归与失败修复
 
-## 2026-11-20 最终完整执行与原生上下文补测
+## 最终结果（2026-11-21）
 
-最终完整执行4536755已结束（FAILED/1:0）：实际compute-0-17、8CPU、710秒分配；没有模块筛选或repair-from，覆盖全部203模块、3666项，3585通过、7失败、50错误、24跳过，执行器661.852107秒。源8406f1bf0d40debd53325ed71574d05270aa0e21在开始与结束相同。196个模块通过，全部本线新逻辑模块通过；七个旧native CLI模块的57个失败/错误均触发原有真实16CPU准入，不能将本次整体写为PASS。
+最终合并回归PASS：**203模块、3666项，3642通过、24跳过、0失败/错误**。覆盖current/pyproject.toml默认tests目录的全部203个test_*.py模块。原完整运行与修复阶段分别保留，未用旧3659项历史结果替代当前检查。
 
-七个待补测模块为architecture_wiring_smoke（36项）、execution_checkpoint_bridge（74）、long_run_storage（21）、pilot_entry（46）、proxy_runner（20）、training_entry（35）、wsd_fork（18），均带test_model_v3_前缀。原模块、16CPU保护和Slurm身份保持。补测4536800已提交，普通优先级、单机真实16CPU、限定CPU节点8–19、无GPU/非exclusive；以原始regression_4536755/summary.json为repair-from，只重跑这七个模块/250项，并保留此次完整运行的196个成功模块。当前排队，尚无补测通过证据。完整运行24项跳过是既有数据/显卡或显式数据准入条件，不是CPU缩配新增跳过。
+|阶段|Slurm作业|实际节点/CPU|本次模块/测试|本次通过/失败/错误/跳过|分配秒|执行器秒|
+|---|---|---|---|---|---:|---:|
+|不筛选的完整执行|4536755|compute-0-17 / 8|203 / 3666|3585 / 7 / 50 / 24|710|661.852107|
+|真实原生上下文补测|4536800|compute-0-15 / 16|7 / 250|250 / 0 / 0 / 0|185|160.527310|
 
-默认仓库检查已实际执行两次，均FAIL/202项：4536755内首次9610文件/5017 Python/1307冻结来源，原报告原样保留runs/p_followup_20261116/repository_check_4536755.json。去掉检查器中重复的本线聚合CSV条件后，4536802再次执行默认命令，9612文件/5017 Python/1307冻结来源、202项；无路径过滤、未开启更强的verify-export。其真实FAILED/1:0、15秒、请求1CPU/实际分配2CPU。前一次4536801缺Git路径在0秒失败，保留日志并补同完整回归使用的现有Git路径后续跑；未改变检查规则。
+4536755真实终态FAILED/1:0；七个旧native CLI模块的57个失败/错误均来自原有真实16CPU准入。4536800真实COMPLETED/0:0，2026-11-21 04:57:39–05:00:44 CST，普通优先级、CPU分区、单节点16CPU、无GPU/非exclusive；以regression_4536755/summary.json修复，只重跑失败七模块，保留该完整运行196个成功模块。模块依次为architecture_wiring_smoke（36项）、execution_checkpoint_bridge（74）、long_run_storage（21）、pilot_entry（46）、proxy_runner（20）、training_entry（35）、wsd_fork（18），均带test_model_v3_前缀。
 
-202项全部是历史results/model_v3_diagnostics_20261112资产及旧p_recipe的两个CSV。对每个错误路径比较共同基线e1926db4d5a2faceff2659a901dc94a4b54093ef和当前HEAD的Git树blob，202/202相同，本线新增或改动错误0；没有删除或移动历史资产以消除报错。检查器相对基线只新增任务书指定的本线小型聚合CSV白名单，仍限2MiB/无NUL；没有放宽上述历史路径，不能声称检查器字节未改。当前REPOSITORY_CHECK.json保留实际失败结果。
+完整阶段源8406f1bf0d40debd53325ed71574d05270aa0e21，补测开始/结束源c76cdd1ba13e6b37239e9d3fe625d0e191942003；Git差异证明current、tools/p_recipe及tools/p_followup的Python源码未变。执行上下文修复保留真实Slurm身份、16CPU保护、PrivateStorage与既有native/reference Python/Git路径，没有伪造分配或修改测试。完整范围没有缩小。
 
-后续只等待4536800的真实补测，补齐实际结果与成本，然后更新已创建的[未合并草稿PR #14](https://github.com/mint258/MFM/pull/14)；不再跑一遍完整203模块或重算科学结果。下文为历史验证，不能代替本次结果。
+24项既有跳过：20项缺/share/home/zixiao/dataset/lmdb_new；1项历史拒绝的无重算候选4530319；1项CUDA bond pin/transfer；1项实际native corpus需显式Root准入；1项实际pinned-memory transfer需可见CUDA。没有为使CPU补测通过而增加跳过。
+
+[最终合并摘要](../../results/p_followup/REGRESSION_FULL.json)中counts/modules为整体，seconds/workers/repair_counts为最后修复调用，不能将160.527310秒称为整套运行时长。原始完整失败快照[REGRESSION_4536755.json](../../results/p_followup/REGRESSION_4536755.json)及runs/p_followup_20261116/regression_{4536755,4536800}/下的日志、XML、模块摘要继续保留。
+
+## 默认仓库检查：已执行，保留202项基线错误
+
+默认tools/check_repository.py已实际执行两次，均FAIL/202项：4536755首次9610文件/5017 Python/1307冻结来源，原报告保留runs/p_followup_20261116/repository_check_4536755.json。去掉重复的本线聚合CSV白名单条件后，4536802默认复查9612文件/5017 Python/1307冻结来源，仍202项；未筛选路径，未开启verify-export。真实FAILED/1:0、15秒，请求1CPU/实际2CPU。4536801因缺既有Git路径在0秒失败，保留日志并修复路径后续跑，未改变检查规则。
+
+202项均为历史results/model_v3_diagnostics_20261112资产及旧p_recipe两个CSV。每个错误路径在共同基线e1926db4d5a2faceff2659a901dc94a4b54093ef与本线HEAD的Git树blob完全相同，新增或改动错误0。检查器相对基线仅有任务书指定小型聚合CSV白名单（限2MiB/无NUL），没有覆盖或放宽上述历史路径。未删除、移动历史资产以消除错误。[REPOSITORY_CHECK.json](../../results/p_followup/REPOSITORY_CHECK.json)保留真实FAIL；不宣称仓库检查PASS、CI全绿或PR可直接合并。
+
+本轮源码/测试未再变化，后续只有生成的回归摘要、成本和结项文档，无需重复203模块或科学数据。全部计算作业已关闭；最终只读元数据/磁盘汇总4537632为compute-0-17、实际2CPU、12秒、COMPLETED/0:0。最终成本与[草稿PR #14](https://github.com/mint258/MFM/pull/14)已收尾，保持不合并。
+
+## 历史验证记录（不替代上述最终结果）
 
 历史门禁：PASS。200个模块的完整检查及针对失败/改动模块的复测，合并后3659项测试，失败0、错误0、跳过24。成功模块的结果保留；修复只重跑相应模块，不重复科学数据读取或评价。当前修订的最终完整门禁待全部科学任务完成后执行，结果以新的实际执行记录为准。
 
