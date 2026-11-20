@@ -112,7 +112,8 @@ class DRecipeModel(V31PDModel):
         self._d_mask_generator.manual_seed(0 if mask_seed is None else mask_seed)
         self._d_binding.update(block_weights=dict(zip(BLOCKS, weights)),
                                graph_mask_enabled=graph_mask_enabled,
-                               mask_seed=mask_seed, include_3d=include_3d)
+                               mask_seed=mask_seed, include_3d=include_3d,
+                               output_parameterization=self.output_parameterization)
         self.real_registry, self.real_head_registry = self.registry, self.head_registry
         self.block_fields = {block: [] for block in BLOCKS}
         for field in self.real_registry.fields:
@@ -130,6 +131,18 @@ class DRecipeModel(V31PDModel):
             self.block_fields[block].append(field.name)
         if len(self.block_fields["atom_sasa"]) > 1:
             raise ValueError("Taskbook declares one native atomic SASA field")
+        # Derived CPU metadata only: no buffer, parameter or extra checkpoint
+        # state is added. The source frozen specs remain in scientific binding.
+        self._d_molecular_affines = {}
+        for block in ("graph_2d", "molecule_3d"):
+            for name in self.block_fields[block]:
+                definition = self.definitions[name]
+                specification = definition.get("normalization", self.view.normalizations.get(name))
+                if specification is None:
+                    raise ValueError("Missing frozen D4 normalization for " + name)
+                self._d_molecular_affines[name] = (
+                    float(np.asarray(specification["center"]).reshape(-1)[0]),
+                    float(np.asarray(specification["scale"]).reshape(-1)[0]))
         aliases = tuple(FieldSpec(BLOCK_ALIASES[block], "P", block, "graph", unit="normalized_D_block_loss")
                         for block in BLOCKS)
         self.registry = AggregateRegistry(self.real_registry, aliases)
@@ -163,10 +176,30 @@ class DRecipeModel(V31PDModel):
         batch_size = len(samples)
         packed_prediction, packed_target, packed_valid = {}, {}, {}
         for block in BLOCKS:
+            names = [name for name in self.block_fields[block] if name in selected]
+            if names and block != "atom_sasa":
+                # Stack in frozen field order before casting/transforming.
+                # Each block creates only one affine constant tensor and one
+                # target/valid H2D copy, independent of descriptor-library width.
+                prediction = torch.cat([predictions[name].reshape(batch_size, 1)
+                                        for name in names], dim=1).float()
+                if self.output_parameterization == "raw":
+                    affine = prediction.new_tensor(
+                        [[self._d_molecular_affines[name][index] for name in names] for index in (0, 1)])
+                    center, scale = affine.unbind(0)
+                    prediction = (prediction - center) / scale
+                values_cpu = np.stack([
+                    np.concatenate([sample["targets"][name].values for sample in samples]).reshape(batch_size)
+                    for name in names], axis=1)
+                valid_cpu = np.stack([
+                    np.concatenate([sample["targets"][name].valid for sample in samples]).reshape(batch_size)
+                    for name in names], axis=1)
+                packed_prediction[block] = prediction
+                packed_target[block] = torch.as_tensor(values_cpu, device=prediction.device, dtype=torch.float32)
+                packed_valid[block] = torch.as_tensor(valid_cpu, device=prediction.device, dtype=torch.bool)
+                continue
             columns, targets, masks = [], [], []
-            for name in self.block_fields[block]:
-                if name not in selected:
-                    continue
+            for name in names:
                 definition = self.definitions[name]
                 specification = definition.get("normalization", self.view.normalizations.get(name))
                 if specification is None:

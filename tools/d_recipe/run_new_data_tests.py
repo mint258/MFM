@@ -19,6 +19,11 @@ def main():
     sys.path.insert(0, str(recipe))
     sys.path.insert(0, str(recipe / "current"))
     sys.path.insert(0, str(recipe / "tools" / "d_recipe"))
+    from workflows.data_d_descriptors.environment import main as environment
+    report = environment()
+    missing = [name for name, details in report["modules"].items() if "unavailable" in details]
+    if missing:
+        raise RuntimeError("Required descriptor/model modules unavailable: " + ", ".join(missing))
     from workflows.data_d_descriptors.pilot import storage_guard
     storage_guard(data, peak_bytes=2**24)
     scratch = data / ("test_tmp_" + os.environ["SLURM_JOB_ID"])
@@ -29,6 +34,7 @@ def main():
         ast.parse(path.read_text(), filename=str(path))
     suite = unittest.TestSuite()
     loader = unittest.defaultTestLoader
+    suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_loss.py"))
     for name in ("test_statistics", "test_prepare", "test_produce", "test_storage", "test_existing", "test_full_plan"):
         module = importlib.import_module("workflows.data_d_descriptors." + name)
         suite.addTests(loader.loadTestsFromModule(module))
@@ -41,6 +47,8 @@ def main():
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_protocol.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_evaluate.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_fit_reference.py"))
+    suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_compare.py"))
+    suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_seed_plan.py"))
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     raise SystemExit(0 if result.wasSuccessful() else 1)
 

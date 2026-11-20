@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "current"))
 sys.path.insert(0, str(ROOT / "tools" / "d_recipe"))
 from model import BLOCK_ALIASES, DRecipeModel
-from phychem_mfm.phase1.v31_training import V31PDModel
+from phychem_mfm.phase1.v31_training import V31PDModel, torch_affine
 
 
 GRAPH, MOL, ATOM = "D20.example", "D3.PMI1", "D3.SASA_atom_A2"
@@ -218,6 +218,53 @@ class DRecipeModelTests(unittest.TestCase):
             for key, value in original.state_dict().items():
                 if torch.is_tensor(value):
                     self.assertTrue(torch.equal(value, wrapped_state[key]), key)
+
+    def test_molecular_vector_pack_preserves_mixed_affines_missing_masks_and_selected_order(self):
+        view = fixture_view()
+        second = deepcopy(view.fields[0])
+        second_name = "D20.second"
+        second.update(name=second_name, target_id=second_name,
+                      normalization=dict(center=[-3.75], scale=[.125]))
+        view.fields.append(second)
+        options = dict(block_weights=dict(graph_2d=.6, molecule_3d=.3, atom_sasa=.1),
+                       binding=dict(seed=0, library="D20"))
+        model = DRecipeModel(TinyEncoder(), view, **options)
+        samples, predictions = fixture_samples(), fixture_predictions()
+        predictions[GRAPH] = torch.tensor([[4.], [float("nan")]], dtype=torch.float64)
+        predictions[second_name] = torch.tensor([[1.125], [2.25]], dtype=torch.float32)
+        samples[1]["targets"][GRAPH].valid[:] = False
+        samples[1]["targets"][GRAPH].values[:] = np.nan
+        for sample, value, valid in zip(samples, (np.nan, 2.), (False, True)):
+            sample["targets"][second_name] = SimpleNamespace(
+                values=np.array([[value]], dtype=np.float64),
+                valid=np.array([[valid]], dtype=bool), raw=np.array([[value]]))
+        selected = {second_name, GRAPH, MOL, ATOM}
+        packed, target, mask = model._pack(predictions, samples, selected)
+        expected = torch.cat([torch_affine(predictions[name].float(),
+                                           model.definitions[name]["normalization"])
+                              for name in (GRAPH, second_name)], dim=1)
+        torch.testing.assert_close(packed["graph_2d"], expected, rtol=0., atol=0., equal_nan=True)
+        torch.testing.assert_close(target["graph_2d"], torch.tensor([[0., float("nan")],
+                                                                     [float("nan"), 2.]]),
+                                   rtol=0., atol=0., equal_nan=True)
+        self.assertTrue(torch.equal(mask["graph_2d"], torch.tensor([[True, False], [False, True]])))
+        subset, _, _ = model._pack(predictions, samples, {second_name})
+        torch.testing.assert_close(subset["graph_2d"], expected[:, 1:], rtol=0., atol=0.)
+        self.assertEqual(tuple(subset["molecule_3d"].shape), (2, 0))
+        self.assertTrue(torch.isfinite(model.loss(predictions, samples).total))
+        normalized = DRecipeModel(TinyEncoder(), view, output_parameterization="normalized", **options)
+        packed_normalized, _, _ = normalized._pack(predictions, samples, {GRAPH, second_name})
+        torch.testing.assert_close(packed_normalized["graph_2d"],
+                                   torch.cat([predictions[name].float() for name in (GRAPH, second_name)], dim=1),
+                                   rtol=0., atol=0., equal_nan=True)
+
+    def test_checkpoint_cannot_change_the_head_output_units(self):
+        options = dict(block_weights=dict(graph_2d=.6, molecule_3d=.3, atom_sasa=.1),
+                       binding=dict(seed=0, library="D20"))
+        raw = DRecipeModel(TinyEncoder(), fixture_view(), **options)
+        normalized = DRecipeModel(TinyEncoder(), fixture_view(), output_parameterization="normalized", **options)
+        with self.assertRaisesRegex(ValueError, "scientific binding"):
+            normalized.set_extra_state(raw.get_extra_state())
 
 
 if __name__ == "__main__":
