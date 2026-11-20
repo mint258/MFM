@@ -627,3 +627,5 @@ Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json e
 2026-11-20 08:00 CST · B0新范围统一UFF实际生产已在compute-0-17/2CPU的4536924推进；封存准备4536925→Pprime4536906→4536907，均依赖实际源C0和全队列终态，不复制数据库。原4536898的node18资源检查Python实际D/nfs_wait_bit_killable，核实UID/argv/start_ticks/cgroup且无科学后代后只终止自己的metadata子进程，原生FAILED/9:0、17,560分配核秒保留；observer断言失败亦保留。原4536905核实PENDING/Elapsed0后取消。该故障恢复复用同一输入，无科学重试；原Pprime4536581持续，候补4536722仍PENDING，未接管。统一入口已改为实际新链，数据仍IN_PROGRESS。
 
 2026-11-20 08:11 CST · B0 NMR原划分计数4536946 C0：Kwon2020作者datasets.zip的13C/1H测试谱行5390/2554、唯一原分子5055/2527均与Jonas2019发布划分一致，未重分割或数值QA。pKa位点证据4536942 C0：全37类作者SI官能团按原子去重，训练18838多位点/5588单一catalog位点/5546未决，5465条唯一映射候选；外盲9条。候选定义已向用户提交，尚未冻结/不供机制拟合；宏观主任务保持可用。新增4项NMR计数测试和5项位点反例测试通过。原Pprime与新UFF继续，无数据库副本、源删除或科学重试。
+
+2026-11-20 08:26 CST · B0双范围终态交付已提交4536961，afterok4536963源码、原范围4536599及新增Pprime4536907。两范围各自geometry与Pprime都需原生C0/不可变/无PENDING或INTENT；元数据聚合，不做数据库复读。pKa定义/正式原子标签仍待定时all_required_production_complete与all_required_work_complete保持false。当前生产持续、未来manifest尚未发布。node18只读启动复核4536958未进入解释器，实际slurmstepd为D，sacct记TIMEOUT/123秒×1CPU，scontrol仍COMPLETING；未证明节点恢复，继续排除，不动Slurm daemon/管理员状态。

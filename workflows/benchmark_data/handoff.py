@@ -60,14 +60,14 @@ def pprime_closure(folder,access):
         outcome_counts=counts,producer_manifest=str(source))
     return state
 
-def main():
+def main(argv=None, capacity_check=None):
     p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True)
     p.add_argument('--progress',type=Path,required=True);p.add_argument('--attempt',required=True)
-    p.add_argument('--quota-snapshot',type=Path,required=True);a=p.parse_args()
+    p.add_argument('--quota-snapshot',type=Path,required=True);a=p.parse_args(argv)
     def safe():
         waiting=False
         while True:
-            try:capacity(a.root,a.quota_snapshot,1048576);return
+            try:(capacity_check or capacity)(a.root,a.quota_snapshot,1048576);return
             except (OSError,ValueError,KeyError,RuntimeError) as exc:
                 if not waiting:print('HANDOFF_DISK_WAIT',repr(exc),flush=True)
                 waiting=True;time.sleep(2)
