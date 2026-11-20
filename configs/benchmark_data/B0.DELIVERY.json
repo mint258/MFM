@@ -228,5 +228,20 @@
     "source_check_errors": 0
   },
   "active_domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/active_source_domain_counts.csv",
-  "historical_domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/domain_counts.csv"
+  "historical_domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/domain_counts.csv",
+  "Pprime_followup_scheduling": {
+    "job": 4536590,
+    "partition": "cpu",
+    "required_node": null,
+    "excluded_nodes": "compute-0-[0-7,18,20-22]",
+    "workers": 8,
+    "time_limit_seconds": 86400,
+    "dependency_at_update": "afterok:4536588",
+    "native_state_at_update": "PENDING/RunTime0/UID1278",
+    "active_parent_unchanged": true,
+    "actual_target_bytes_inodes_RAM_and_quota_admission_unchanged": true,
+    "scientific_protocol_unchanged": true,
+    "reason": "Allow the still-unstarted continuation to use any eligible healthy CPU node after its required producer closure; avoid an unnecessary node12-only scheduling constraint",
+    "actual_speedup_not_yet_observed": true
+  }
 }

@@ -658,3 +658,6 @@ Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json e
 
 
 2026-11-20 15:06 CST B0新增统一范围P′正式封存：原生4536906 COMPLETED/0:0，15:04:04结束，53,896实际构象全部终态（53,842齐备、54部分失败），无PENDING/INTENT；其labels/Pprime/shared_v1/access.json已immutable/writers_closed/cross_node_read_allowed。4536907在15:04:19启动，识别既有封存并1秒C0，未新增科学调用。当前规范入口 /share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_data_20261119/configs/benchmark_data/B0.DELIVERY.json 已标出新范围queue/access/producer；PprimeReader按MID/实际构象ID读同一共享SQLite，掩码和失败保留，无数据复制/数值复读。严格遵守geometry_bindings及binding.model_atom_to_source：163个源行复用原范围，其P′别名仍受对应原范围access约束，不能据此宣称整个目标数据集全部P′就绪。原6588仍CPU12/8CPU运行，最终6961仍等原链，pKa原子定义待原问题回复，all-required flags仍false。候补6991核实PENDING/0运行/无accept后，仅解除已关闭新范围占用所需的17临时排除，当前排除0-7/18/20-22；18无恢复证据继续排除，候补尚未提速。新尾段6907已C0，无需再为其排除未来候补节点。
+
+
+2026-11-20 15:54 CST B0后续作业调度约束更新：仅对自有4536590核实PENDING/RunTime0/UID1278后，ReqNodeList由compute-0-12清空，ExcNodeList设compute-0-[0-7,18,20-22]；原生NumCPUs8、TimeLimit24h、afterok4536588均核对不变。run_pprime_tmpfs.sbatch同步改为获准CPU池；已有代码支持8..19并在实际分配节点做tmpfs/RAM/根盘/inode/UID配额保护，单写锁及原12科学任务/900秒/精度/原输出不变，没有向未知节点预传数据。当前6588/CPU12/8CPU未改动，6991/16CPU仍排队，尚未实际提速；候补若真实接管，6590仍先补双afterok6588:6991。新范围6906/6907已C0封存，不重算、不复制。最终6961继续等原链，pKa定义仍待原问题回复；其余窗口作业/代码不变。
