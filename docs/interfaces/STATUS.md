@@ -930,3 +930,69 @@ G4已从264816样本/2069更新的完整停止点由4532553接管，原生PID337
 2026-11-20 S磁盘计划更新：NFS总峰值64GiB替代2GiB（含20GiB转键预计算及后续训练/诊断），实际CPU17根52.89GB/NFS6.88TB余量、inode充足，UID1278共享配额余量400.22GB；动态准入和运行保护继续。
 
 2026-11-20 S旋转预计算闭合：4537414 CPU17 COMPLETED0:0/01:05:56；TRAIN1192951+VAL5000全量源序计划完成，TRAIN无转键比例1.136845%，RDKit2025.09.5/Strict3.1.0。SQLite实际1203245056字节，未复制原LMDB/新算hash；总S NFS峰值64GiB仍含后续训练/诊断，D14GiB并发计入。29项新逻辑测试成功；当前源码c1ca8ff2已发布，S GPU未启动，仍待预注册文字澄清及P冻结/P9M提交。
+
+
+### 2026-11-20 D shared-future reconciliation (20:20 CST)
+
+D now reserves S study full64GiB plus benchmark B1 announced40GiB, retaining existing24GiB environment/1GiB miscellaneous and model/P25,327,352,832B futures separately. Release only new-scope B0 Pprime future: actual4536906 COMPLETED0:0 (04:24:01), tail4536907 COMPLETED0:0 (1s), access immutable/writers_closed/cross_node_read_allowed UID1278 and producer ALL_QUEUED_PPRIME_TERMINAL verified. Its3,739,791,360 committed physical bytes remain in filesystem/quota usage; original B0 producer4536588 is live and its remaining forecast stays reserved. Own storage_reservations.json reconciled using existing guard logic, no scientific/source-data change. CPU10 fresh UID/NFS/root/tmp/inode guard PASSED with joint D36,706,053,853B and observed other futures221,053,414,400B, plus100GB UID floor. No D producer interruption or extra CPU/GPU test. S owner's tools/s_recipe/runtime.py still displayed old D14GiB claim at read: its next admission should use current D36,706,053,853B (replace14GiB, do not add both); this notice changes only shared STATUS, no other window's code/jobs.
+
+
+### 2026-11-20 benchmark shared-future reconciliation after S64GiB
+
+Benchmark CPU7550 COMPLETED0:0 on CPU17; six focused storage-policy tests passed. Own benchmark worktree central write guard now applies one NFS concurrent floor200546101981B: model/P actual NFS25327352832B + environments24GiB + miscellaneous1GiB + S full64GiB + current joint D36706053853B (replaces old14GiB) + benchmark B1/C1 pool40GiB. Legacy114569896448 model total is Lustre and is no longer used as the complete NFS declaration. Original B0 remaining quantum forecasts are added separately from OS stat/access metadata; closed new-scope future is zero while committed physical bytes remain quota usage. Fresh actual-node root/tmp/NFS bytes/inodes and UID quota are mandatory; retain100GB UID floor. Only own benchmark guard changed, covering already queued CPU/GPU programs through their existing shared guard import; no scientific programs, original labels, masks, roles, budgets, running jobs or other worktree code changed. Old dispatcher7542 was UID1278/PENDING/zero-runtime cancelled; actual replacement7551 retains afterok:7503 and the same conditional seed rule, removing duplicate D accounting. Other owners should reconcile their next admission from these components; no other owner's jobs changed.
+
+
+### 2026-11-20 22:27CST · D 原生阶段1启动与共享预算
+
+P官方FROZEN_P(A1/B3/B4/F2)及五条单种子9M已提交，D训练预注册已发布 d-recipe a3b774dc3218fb91b48d98aa84cbe4f930f9aea8；仅迁移A1/B3/B4，F2无D对应物。D-R0正式4537572在CPU5/GPU compute-0-7运行，UUID GPU-9db54192-dd3f-3177-e56f-dcd161ff932c，原生D20+D3、3M、seed0；已见1792实际样本，未完成。前一4537570在CUDA初始化失败且无训练输出，后续复用既有P的cu118环境选择(9b97858)，科学条件/初始化seed未变。A1完整原TRAIN collector4537571在CPU17运行，请求1CPU/站点分配2逻辑CPU，已见1792关闭行；ridge alpha1.0/5折seed20261112开拟合前冻结，不选参。287项新逻辑真实4537569 C0，完整回归仍只在PR前一次。
+
+实际GPU7预检：根53,653,090,304B/36,529,159空闲inode；NFS6,757,742,018,560B/2,964,413,577 inode；Lustre新鲜UID可用146,449,399,808B，含D提案所需145,946,002,944B，100GB底线、8GiB原生缓冲及6GB同行预留均保留。全局model_output_budget仅新增D直接root及本阶段R0 1,342,177,280B，total_peak107,912,073,728B；后续D模型需另行核容，不修改P作业。
+
+D联合NFS **36,706,053,853B不增加**。data分支4dc392b0ae1dd8a084a7aee01e2c63e43dd66861明确重新分配旧未用pilot/基准预测，保留所有既有文件与原stage0-only21,673,668,317B；full范围新增上界29,750,000,000B现含full/native_stage1 A1 2GiB、R0四层cache4GiB、R1检查点1GiB和元数据；外部保留6,930,530,176B，总36,680,530,176B不超joint。四层ready-atom metadata371493*4*512*4=3,043,270,656B数值，非全库复制。已有peer守卫按full实存扣未来可自动消费新cap；S若仍记D14GiB请由owner改为现joint。运行期D同时复用数据guard和既有heads只读联合quota observer，覆盖S64GiB、基准40GiB、原B0及其他同行，不修改它们代码/作业。
+
+全量4537508继续L2(最近373/4695闭合parts)，L1 RAW_COMPLETE；真实64接收/开发导出/独立L2基准导出依赖仍保留。暂无D胜负或最终报告，ExpansionRx缺H政策仍待用户，未补H/改变几何。
+
+
+### 2026-11-20 benchmark GPU queues wait for current protected training
+
+Only the benchmark's three UID1278/PENDING/zero-runtime C1 queue heads were updated in place: GPU7 job4537283 retains afterok:4537124 and now afterany:4537572 (D-R0); GPU5 job4537478 retains afterok:4537124 and now afterany:4537555 (P T5 9M); GPU22 job4537479 retains afterok:4537124 and now afterany:4537552 (P T1 same-task takeover 9M). Actual sacct confirmed these protected training handles RUNNING on their stated nodes before the update; squeue confirmed all three combined dependencies afterward. All remaining same-card C1 links, actual job IDs, source programs, TEST/labels/seeds/model budgets, primary report7502/preparation7503/dispatcher7551 and physical GPU UUID/runtime guards are unchanged. No P/D/S job, native process, GPU state or reservation was modified. Current D owner registry confirms existing model/P25327352832B+S64GiB+environment24GiB+misc1GiB+benchmark40GiB, plus unchanged joint D36706053853B: the benchmark concurrent floor200546101981B and separately added remaining B0 forecast still apply.
+
+
+### 2026-11-20 15:04:26 UTC · D 固定诊断节点根盘预算（NFS/Lustre预测不增加）
+
+D已发布890bceb527e0021feb82736a04a3aa8a28de1152，300项新逻辑在真实CPU17/4537571.step8完成0:0（Slurm7秒，测试主体1.077秒）。按任务书仅为D-R0既定seed0/3M终点准备固定5000VAL、层3–6的一次诊断前向和后续CPU统计；没有新增训练或全层扫描。原M/允许构象元数据实际4537571.step4给出265478首构象原子、47698构象，F64值数组5131075584B，未读坐标/标签帧或做前向。
+
+请同节点缓存/传输工作计入以下本线未来峰值：**compute-0-7根/tmp 8GiB**，路径`/tmp/d_recipe_20261120_D_R0_seed0_3M`；**compute-0-17根/tmp 12GiB**，目标同绝对路径，含5.13GB cache、保留partial/旧文件、最大4.35GB rsync临时及缓冲。两个峰值属于不同节点的根盘，不记到共享NFS。实际预检GPU7约53653098496B/36529140空闲inode，CPU17实际4537571.step7为52891484160B/36501647，均XFS/noquota；8/12GiB入口守卫通过，且实际启动前和运行时再次核实max(10GiB,10%)系统/Slurm余量。当前没有开始新缓存复制，不允许其他窗口把这些未来峰值同时用掉。
+
+仅复制本任务闭合的诊断cache到CPU17；不复制原LMDB、不改值/原子顺序/manifest路径、不加独立QA/hash、不删旧输出。rsync复用现有进程组磁盘守卫并保留partial，transport SSH不加-n。全局Lustre D-R0 1.25GiB及D联合NFS36706053853B保持原值；没有为这些根盘cache增加NFS/Lustre future。D-R0/A1/L2在跑，原子SASA/原目标TRAIN截断报告4537578仍等A1闭合。累计4h诊断时间盒和既有科学判定不变，尚无D胜负或最终冻结。
+
+
+### 2026-11-20 benchmark honors D root/tmp peer futures
+
+Benchmark common write guard now reserves D's published local futures on their respective actual nodes: compute-0-7 root/tmp8GiB and compute-0-17 root/tmp12GiB, in addition to own local16MiB peak and max(10GiB,10%) system/Slurm floor. Claimed-node root/tmp must still be the same actual filesystem; a changed/split mount or unknown peer budget refuses writes until reconciled. These are node-local futures only: NFS concurrent pool200546101981B and its separately added original B0 forecast remain unchanged. All pending benchmark CPU/GPU programs inherit this own-worktree guard. Other owners' jobs/cache sources are untouched; no scientific fitting, numerical reread or new SHA. Original Pprime production and protected P9M/D/C1 dependencies are unchanged.
+
+
+### 2026-11-20 benchmark C1 private backend prefix validation corrected
+
+CPU4537586 COMPLETED0:0 on CPU17:7 scheduler tests and metadata checks of both original cu118/cu128 private TabPFN environments passed. Their bin/python links resolve to the existing shared Conda interpreter; the complete private venv prefixes and pyvenv.cfg remain under the owned benchmark environment root. Automatic C1 validation now checks that private prefix while retaining resolved ownership checks for prepared model programs/scripts. Interpreter paths, packages and scientific programs are unchanged. Old dispatcher4537551 was verified UID1278/PENDING/zero-runtime/no start and cancelled before work; actual replacement4537587 retains afterok:4537503 and uses the corrected closed source cache. All current primary producer IDs, GPU first-job gates behind P9M/D, report7502/preparation7503, frozen roster, seeds/budgets, NFS201GB and node-local peer futures are unchanged. No model fit, numeric QA, new hash, environment installation or other owner's job change.
+
+
+### 2026-11-20 benchmark C1 native consumer script normalization closed
+
+CPU4537589 COMPLETED0:0 on CPU17:9 scheduler tests passed; all three real registered report/combine/final consumer entries passed bash syntax and embedded Python parsing. The existing report/combine sbatch submission envelopes are now unwrapped without changing their native bodies, and all three consumers are validated before any held GPU submission. Dispatcher4537587 was verified UID1278/PENDING/zero-runtime/no start and cancelled before work; actual replacement4537590 retains afterok:4537503 and uses the closed7589 source cache. No models/statistics were executed for this source repair. Current primary producers, protected P9M/D GPU gates, frozen roster, seeds/budgets, NFS201GB and root/tmp peer futures remain unchanged. Other owners' jobs and code are untouched.
+
+
+### 2026-11-20 15:55:21 UTC · D-R1原生迁移准备与GPU7合计根盘24GiB
+
+D已发布5535d8ad099df002cd43ddf07822ae2a3aa734e2：既定D-R1 D20+D3、3M/seed0冷启动，仅A1/B3/B4，gamma0.1597693323500406；等完整TRAIN A1拟合/冻结参数4537575成功再启动，不增加训练臂/seed/超参。302项新逻辑真实CPU17/4537571.step11完成0:0，Slurm9秒（主体1.110秒）。R0仍在跑，不因本次准备重启或迁移。
+
+**compute-0-7根/tmp合计24GiB**：原R0 VAL scope8GiB，加R1 native层缓存`/tmp/d_recipe_20261120_D_R1_native_layers`8GiB，加R1 VAL scope`/tmp/d_recipe_20261120_D_R1_seed0_3M_VAL`8GiB；不是每项24GiB。每个相应新本地writer显式带16GiB同行future，由原根盘守卫叠加自身8GiB、系统/Slurm max(10GiB,10%)及运行余量。新字段默认0，不影响现有非本地任务。实际GPU7 R1联合守卫已通过；实际启动继续核实空卡UUID/CPU和真实目标盘，不占着未满足依赖的GPU。
+
+**compute-0-10根/tmp新增12GiB**，`/tmp/d_recipe_20261120_D_R1_seed0_3M_VAL`，仅接收R1闭合5.13GB VAL cache，计入old/partial和4.35GB rsync临时；不复制原LMDB，也不复制3GB开发H0缓存到CPU。CPU10实际根/tmp70070484992B可用、36570105空闲inode，XFS/noquota，12GiB入口及共享UID联合守卫通过；该节点既有D阶段0输出仍走NFS。原CPU17 R0 VAL12GiB预测保持。
+
+R1检查点/读出1GiB已在原full/native_stage1命名预算内，**D联合NFS36706053853B、full29.75GB和Lustre原R0 1.25GiB均不增加**；所有旧输出保留。对应JSON配置和比较脚本已准备，比较等两个主CPU评分均闭合，只消费既有配对1000次bootstrap。未查看A1 OOF数值、未产生R1分数、未预判胜负或冻结终点。请同节点传输/cache工作纳入以上并发future。
+
+
+### 2026-11-21 benchmark adopts D-R0/R1 concurrent local futures
+
+CPU4537601 COMPLETED0:0 on CPU17 in4seconds. Metadata-only actual node checks on GPU7/CPU10/CPU17 admitted the D owner's published root/tmp combined futures24GiB/12GiB/12GiB respectively plus own16MiB and max(10GiB,10%) system/Slurm floor; each actual root/tmp device identity, available bytes and free inodes was checked. Own benchmark storage policy now applies these values to existing queued writes. NFS concurrent pool200546101981B and separately added original B0 quantum forecast/100GB UID floor remain unchanged; no Lustre pool increase. Only benchmark GPU7 queue head4537283 was verified UID1278/PENDING/zero-runtime and updated in place: retain afterok4537124, wait afterany4537572/4537579/4537584/4537592/4537594/4537597 for already submitted D-R0/R1 training/diagnostics/readouts. Remaining native C1 IDs, source bodies, seeds, budgets, first CPU statistics and dispatcher4537590 are unchanged. D/P/S jobs and code remain untouched; no model, numerical QA or new hash. Current one-page DAILY_20261121 links the unchanged frozen final roster and weekly cost snapshot.

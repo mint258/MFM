@@ -141,7 +141,8 @@
                      "WIN":  "CI_lower\u003e0 and delta\u003e=tau",
                      "LOSS":  "CI_upper\u003c0 and not WIN",
                      "TIE":  "otherwise; no significant improvement",
-                     "deletions":  "adopt deletion only if CI crosses zero; negative CI retain original; do not infer simultaneous deletion"
+                     "deletions":  "WIN:delete only after seed0 and seed1 both WIN;seed0 TIE:delete only if R3 CI crosses0;negative CI or LOSS:retain;two adopted deletions require S-M1",
+                     "representation":  "layer6 H0:encode_atoms output;all formal R1/R3 decisions;never select a layer by score"
                  },
     "seeds":  {
                   "initial":  0,
@@ -190,7 +191,24 @@
                                                      "CVF_and_CVF_res":  "all allowed conformers,original \u003e=2 eligibility",
                                                      "mean_pooling":  "float64 pooling,F32 cache,F64 statistics"
                                                  },
-                        "bootstrap_refit":  false
+                        "bootstrap_refit":  false,
+                        "representation_layers":  [
+                                                      1,
+                                                      2,
+                                                      3,
+                                                      4,
+                                                      5,
+                                                      6
+                                                  ],
+                        "readout_layers":  [
+                                               1,
+                                               2,
+                                               3,
+                                               4,
+                                               5,
+                                               6
+                                           ],
+                        "layerwise_scope":  "Only S-B0,distinct S-final,and S-G1 3M seed0 endpoints;reuse forward/cache;descriptive only;no all-arm layer scan or best-layer selection"
                     },
     "confirmation":  {
                          "samples":  9000000,
@@ -213,10 +231,9 @@
                               "S-G1"
                           ],
     "scope":  "single screening round; no sweeps or unregistered training",
-    "status":  "DRAFT",
+    "status":  "FROZEN",
     "pending_clarifications":  [
-                                   "4.7 layerwise readouts versus no full-layer probe scan",
-                                   "4.4 deletion WIN adoption versus CI-crossing-zero-only exception"
+
                                ],
     "baseline_trend":  {
                            "samples":  [
@@ -235,9 +252,10 @@
                                  "S_N1_confirmed_WIN":  "当前设置下，平均噪声强度不变时，尺度多样性有益。",
                                  "S_N2_confirmed_WIN":  "扭转采样加坐标去噪的Frad方案有益；转键分层仅描述。",
                                  "both_noise_TIE_or_LOSS":  "保留sigma0.1Angstrom；本主干与数据下噪声设计无显著改善。",
-                                 "deletion_CI_crosses_zero":  "按任务书4.6采纳去掉该辅助任务；与WIN采纳的文字冲突必须在冻结前解决。",
+                                 "deletion_CI_crosses_zero":  "Seed0 TIE and R3 CI crosses0:adopt deletion;WIN requires both seeds WIN;two compatible adopted deletions require S-M1",
                                  "deletion_CI_wholly_negative":  "保留该辅助任务。",
                                  "S_G1_nonzero_CI_and_abs_delta_ge_tau":  "按实际方向记录为PM7几何混杂的证据，供E2解释；不合并。",
                                  "S_G1_TIE":  "当前预算下几何来源无显著差异，不能宣称等价。"
-                             }
+                             },
+    "user_clarification":  "2026-11-21:formal layer6 H0 only;layer1-6 endpoint diagnostics only;two-seed WIN deletes,TIE-cross0 exception only for TIE"
 }

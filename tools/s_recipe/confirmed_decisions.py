@@ -1,4 +1,4 @@
-"""Consume closed per-seed scores; do not adopt deletions or freeze a recipe."""
+"""Consume closed per-seed scores under the user-confirmed S decision rules."""
 import json
 
 from conditional_seed import CANDIDATES
@@ -55,6 +55,28 @@ def comparison(candidate, baseline):
                    for readout in ('R3', 'R1')})
 
 
+def deletion_adopted(entry):
+    if entry['status'] != 'COMPLETE':
+        return False
+    if entry['confirmed_WIN']:
+        return True
+    first = entry['seed_results']['0']['R3']
+    return (first['verdict'] == 'TIE' and
+            first['ci_lower'] <= 0 <= first['ci_upper'])
+
+
+def proposal(confirmations):
+    noise = choose_noise(confirmations)
+    ready = all(confirmations.get(arm, {}).get('status') in ('COMPLETE', 'UNRESOLVED')
+                for arm in CANDIDATES)
+    components = ([noise['selected']] if noise['selected'] else [])
+    components += [arm for arm in ('S-R1', 'S-R2')
+                   if arm in confirmations and deletion_adopted(confirmations[arm])]
+    return dict(ready=ready, components=components,
+                merge_required=ready and len(components) >= 2,
+                samples=3000000, seed=0, recipe_frozen=False)
+
+
 def collect():
     cpu_only()
     registration = json.loads((REPO/'configs/s_recipe/preregistration.json').read_text())
@@ -85,10 +107,12 @@ def collect():
     result = dict(schema='S_RECIPE_TWO_SEED_CONFIRMATIONS_V1',
                   status='PENDING' if pending else 'COMPLETE', pending=pending,
                   arms=confirmations, noise_choice=choose_noise(confirmations),
-                  deletion_adoption='Separate decision under the frozen deletion rule',
+                  deletion_adoption={arm: deletion_adopted(confirmations[arm])
+                                     for arm in ('S-R1', 'S-R2')},
                   recipe_frozen=False, R1='report_only', CYP='report_only',
                   seed0_decisions=str(REPO/'configs/s_recipe/seed0_decisions.json'))
     write(REPO/'configs/s_recipe/confirmed_decisions.json', result)
+    write(REPO/'configs/s_recipe/merge_proposal.json', proposal(confirmations))
     return result
 
 
