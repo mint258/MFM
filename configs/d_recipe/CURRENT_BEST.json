@@ -1,59 +1,62 @@
 {
-  "schema": "D_RECIPE_CURRENT_BEST_V1",
-  "status": "NATIVE_SCREENING_IN_PROGRESS",
-  "recipe_frozen": false,
-  "updated_at_utc": "2026-11-20 14:49:09 UTC",
-  "current_best": null,
-  "scientific_authority": "docs/d_recipe/TASKBOOK.md",
-  "preregistration": "configs/d_recipe/preregistration.json",
-  "preregistration_commit": "a3b774dc3218fb91b48d98aa84cbe4f930f9aea8",
-  "source_P": {
-    "recipe": "FROZEN_P",
-    "transferred_components": [
-      "A1",
-      "B3",
-      "B4"
-    ],
-    "excluded_P_specific_components": [
-      "F2"
-    ]
-  },
-  "baseline": {
-    "arm": "D-R0",
-    "run": "d_recipe_20261120_D_R0_seed0_3M",
-    "configuration": "configs/d_recipe/screening/D-R0_seed0.json",
-    "job_id": 4537572,
-    "status": "TRAINING",
-    "seed": 0,
-    "samples": 3000000,
-    "cpu_statistics_job": 4537573
-  },
-  "A1": {
-    "configuration": "configs/d_recipe/reference/native_D20.json",
-    "job_id": 4537571,
-    "checkpoint_continuation_job": 4537575,
-    "status": "COLLECTING_FULL_TRAIN",
-    "clipping_report_job": 4537578
-  },
-  "arm_decisions": {
-    "D-R0": "PENDING_FINAL_READOUT",
-    "D-R1": "WAITING_FROZEN_A1_PARAMETERS",
-    "D-L1": "WAITING_COMPLETE_LIBRARY_DELIVERY_AND_RECIPE_DECISION",
-    "D-L2": "WAITING_COMPLETE_LIBRARY_DELIVERY_AND_RECIPE_DECISION",
-    "D-G1": "WAITING_RECIPE_DECISION",
-    "D-K1": "CONDITIONAL_ON_ADOPTED_WIDE_LIBRARY"
-  },
-  "conditional_seed1": "Only seed0 WIN triggers a registered seed1 pair; no trigger yet",
-  "diagnostics": "Required seed0 3M endpoint diagnostics pending; no diagnostic result used for adoption",
-  "development_controls": "Section5 A/B/C and composition controls pending",
-  "confirmation": {
-    "status": "NOT_ELIGIBLE_BEFORE_ALL_FINAL_DECISIONS",
-    "runs": [
-      "9M-D-R0",
-      "9M-D-final only if final differs from D-R0"
-    ],
-    "seed": 0,
-    "samples": 9000000
-  },
-  "results": "No D arm has a final WIN/TIE/LOSS yet; this is not a frozen final recipe"
+    "schema":  "D_RECIPE_CURRENT_BEST_V1",
+    "status":  "NATIVE_SCREENING_IN_PROGRESS",
+    "recipe_frozen":  false,
+    "updated_at_utc":  "2026-11-20 14:49:09 UTC",
+    "current_best":  null,
+    "scientific_authority":  "docs/d_recipe/TASKBOOK.md",
+    "preregistration":  "configs/d_recipe/preregistration.json",
+    "preregistration_commit":  "a3b774dc3218fb91b48d98aa84cbe4f930f9aea8",
+    "source_P":  {
+                     "recipe":  "FROZEN_P",
+                     "transferred_components":  [
+                                                    "A1",
+                                                    "B3",
+                                                    "B4"
+                                                ],
+                     "excluded_P_specific_components":  [
+                                                            "F2"
+                                                        ]
+                 },
+    "baseline":  {
+                     "arm":  "D-R0",
+                     "run":  "d_recipe_20261120_D_R0_seed0_3M",
+                     "configuration":  "configs/d_recipe/screening/D-R0_seed0.json",
+                     "job_id":  4537572,
+                     "status":  "TRAINING",
+                     "seed":  0,
+                     "samples":  3000000,
+                     "cpu_statistics_job":  4537573
+                 },
+    "A1":  {
+               "configuration":  "configs/d_recipe/reference/native_D20.json",
+               "job_id":  4537571,
+               "checkpoint_continuation_job":  4537575,
+               "status":  "COLLECTING_FULL_TRAIN",
+               "clipping_report_job":  4537578
+           },
+    "arm_decisions":  {
+                          "D-R0":  "PENDING_FINAL_READOUT",
+                          "D-R1":  "WAITING_FROZEN_A1_PARAMETERS",
+                          "D-L1":  "WAITING_COMPLETE_LIBRARY_DELIVERY_AND_RECIPE_DECISION",
+                          "D-L2":  "WAITING_COMPLETE_LIBRARY_DELIVERY_AND_RECIPE_DECISION",
+                          "D-G1":  "WAITING_RECIPE_DECISION",
+                          "D-K1":  "CONDITIONAL_ON_ADOPTED_WIDE_LIBRARY"
+                      },
+    "conditional_seed1":  "Only seed0 WIN triggers a registered seed1 pair; no trigger yet",
+    "diagnostics":  "Required seed0 3M endpoint diagnostics pending; no diagnostic result used for adoption",
+    "development_controls":  "Section5 A/B/C and composition controls pending",
+    "confirmation":  {
+                         "status":  "NOT_ELIGIBLE_BEFORE_ALL_FINAL_DECISIONS",
+                         "runs":  [
+                                      "9M-D-R0",
+                                      "9M-D-final only if final differs from D-R0"
+                                  ],
+                         "seed":  0,
+                         "samples":  9000000
+                     },
+    "results":  "No D arm has a final WIN/TIE/LOSS yet; this is not a frozen final recipe",
+    "arm":  null,
+    "library":  null,
+    "configuration":  null
 }

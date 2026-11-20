@@ -66,6 +66,7 @@ def main():
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_evaluate.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_fit_reference.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_clip_report.py"))
+    suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_transfer_diagnostic.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_compare.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_seed_plan.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_descriptor_features.py"))
