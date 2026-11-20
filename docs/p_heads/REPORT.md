@@ -52,13 +52,14 @@ H/T合并峰值预算24GiB是保护预算，不冒充实测峰值；已有实际
 无胜出配置键交接；T2未触发CURRENT_BEST确认。配方线无需启用本线新头开关，本线不修改其配置。无需新训练、第三seed或9M；不修改docs/paper/。
 
 ## 最终验证与交付
-30项独立新逻辑/兼容case已有实际PASS证据，见T/H专题；资源观察、strict checkpoint加载及同一atomic case不重复计数。
+30项独立新逻辑/兼容case已有实际PASS证据，见T/H专题；另有本次跨线磁盘保护5项合成测试PASS，合计35项。资源观察、strict checkpoint加载及同一atomic case不重复计数。
 
 | 验证 | 实际状态与范围 |
 | --- | --- |
 | 默认完整回归4536884 | 等待已通过容量预检的CPU节点池提供单节点真实16CPU分配，尚未执行/通过。全部current/tests/test_*.py（192模块）、固定两个模块worker、库单线程；不删模块、不改断言、不伪造Slurm变量。 |
-| 默认仓库检查4537538（当前源码） | 在785745ab上按默认命令完整执行，FAIL/returncode1。9635文件、154680002字节、5002 Python文件、server_sources_verified=1309；202错误与6885逐项相同（path/reason/line），与该源码下本线155个变更路径交集为0。见[当前检查JSON](../../results/p_heads/REPOSITORY_CHECK_FINAL.json)。 |
-| 前次仓库检查4536885 | 已在当时源码上执行完整原命令，FAIL/returncode1；9633文件/5002 Python，202项错误。保留[原检查JSON](../../results/p_heads/REPOSITORY_CHECK.json)及原日志，当前源码检查采用4537538；未抑制错误或删除历史文件。 |
+| 默认仓库检查4537563（当前源码） | 在ae60cd5e上完整执行未修改的默认命令，FAIL/returncode1；9638文件、154734185字节、5004 Python、1309服务器来源。202错误与7538逐项相同，与该源码158个变更路径交集为0。新磁盘保护5项测试同作业PASS。见[当前检查及容量JSON](../../results/p_heads/REPOSITORY_CHECK_SHARED_STORAGE_20261120.json)。 |
+| 前次仓库检查4537538 | 在785745ab上完整执行，FAIL/returncode1。9635文件、154680002字节、5002 Python、1309服务器来源；202错误与6885逐项相同，与当时155个变更路径交集为0。[原7538记录](../../results/p_heads/REPOSITORY_CHECK_FINAL.json)保留。 |
+| 前次仓库检查4536885 | 已在当时源码上执行完整原命令，FAIL/returncode1；9633文件/5002 Python，202项错误。保留[原检查JSON](../../results/p_heads/REPOSITORY_CHECK.json)及原日志，当前源码检查采用4537563；未抑制错误或删除历史文件。 |
 | 首次回归4536860（无效环境） | 实际8CPU遍历192模块，core汇总3638 tests/14 failures/50 errors/24 skipped；不满足真实provider夹具≥16CPU前提，且metadata汇总遇Path序列化错误，不作有效验收。原日志保留。 |
 | 首次仓库检查4536866（未完成） | 环境PATH缺Git，检查未完成；4536885已修正Git执行环境后重做。 |
 
@@ -83,3 +84,11 @@ node18补充容量核查（11/20 18:09 CST）：保留[两次核查记录](../..
 当前源码仓库检查刷新（11/20，4537538）：前次6885之后，启动器还有CPU binding/metadata和CPU池入口修复，故在785745ab上再执行未修改的默认命令 python -B tools/check_repository.py。实际node17/请求1CPU，Linux mask=[7]对应srun 0x80；完整原始输出位于CONTROL/repository_check_final_4537538.stdout.json，stderr及Slurm日志均保留。202项错误与6885按path/reason/line逐项比较无差异；该源码155个变更路径与错误路径交集为0。结果仍为FAIL，不抑制旧错误或更改测试/科学规则。
 
 Slurm实际19:03:17–19:03:48，FAILED/1:0，分配2CPU×31秒=62 allocation CPU秒（.0172222 CPU-h）；原生检查耗时20.682656697928905秒。只按整作业分配计成本，不再累加batch/extern/step；原6885及更早尝试的记录不覆盖。本次结果和终态资源记录见当前检查JSON，完整回归仍为原4536884、真实16CPU排队。
+
+跨线预留同步（11/20 21:01 CST）：GitHub配方线已冻结A1+B3+B4+F2并启动五条seed0/9M，本线无胜出项交接，未增加实验。新公布的S64GiB、基准40GiB、既有24GiB环境及B0未封存增长改从D发布的storage_reservations.json逐次读取；保留本线原18GB其它NFS预留及followup剩余量。D联合峰值36706053853B从其原生生产计划读取，仅扣其full目录中已计入配额的同UID普通文件物理占用，硬链接去重、稀疏文件不按逻辑大小扣除；不查询活动SQLite。未知配置、缺失容量或不足均拒绝写入。守卫继续在入口及每两秒核查实际节点root/NFS字节、inode和新鲜UID配额。
+
+全部科学任务已闭合，因此退出未使用的本线H/T未来增长，保留原24GiB为历史保护预算；实际已有12302745600B全部保留，收尾总峰值13376487424B，新增1GiB覆盖回归日志/JSON、源码检查及文档/Git并发临时量。首次完整回归目录实际分配11436032B作为估算依据，另有独立10GiB节点本地临时预算，root max(10GiB,10%)及账户100GB底线/8GiB缓冲不变。21:00:57在实际CPU17核实root/tmp可用52891688960B、NFS6781080174592B/inodes2964414922、UID387830239232B>联合需求386062711278B；不是把整盘空闲当账户配额。
+
+4537563在node17请求1CPU、实际分配2CPU，20:58:16–20:58:56，FAILED1:0/40秒；新增80 allocation CPU秒=.0222222 CPU-h，包含5项合成测试和默认仓库检查，不能再累加子步骤。5项分别覆盖预留保持、真实封存才能释放未来量、稀疏/硬链接去重、未知配置拒绝和每次准入读取新预测。默认检查原生29.254200614988804秒，完整FAIL202；源ae60cd5e工作树干净，原始stdout/stderr及三次既有检查记录均保留。
+
+主回归4536884仅在核实PENDING/运行0/Restarts0及本线身份后临时hold以部署上述保护；测试与新准入通过后已同ID释放，实际EligibleTime=20:59:26、普通Nice0，原SubmitTime=06:56:54、单节点16CPU/4h及192模块范围保持。未重启或新增完整回归作业。原完整回归仍等待资源，当前尚未结项。
