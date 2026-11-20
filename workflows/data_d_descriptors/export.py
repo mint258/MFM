@@ -301,7 +301,8 @@ def run(config):
                 "libraries": {}, "reception_acceptance": "pending", "current_C1_complete": False,
                 "membership_or_split_changed": False, "statistics_fitted": False,
                 "canonical_D20_required": "L1" in libraries or "D20" in libraries,
-                "source_canonical_D20_status": config.get("canonical_D20_source_status")}
+                "source_canonical_D20_status": config.get("canonical_D20_source_status"),
+                "original_D20_manifest": config.get("original_D20_manifest")}
     requested_ids = {row["molecule_id"] for row in unique}
     for library, entry in libraries.items():
         begin = time.monotonic()

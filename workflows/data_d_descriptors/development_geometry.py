@@ -5,6 +5,7 @@ source coordinates are mandatory; no embedding/missing-conformer fallback is
 permitted. Numerical D3 evaluation is delegated to the original program.
 """
 import collections
+from contextlib import contextmanager
 import struct
 
 import numpy as np
@@ -17,6 +18,23 @@ D3_NAMES = ("PMI1", "PMI2", "PMI3", "PBF", "volume_A3", "SASA_total_A2")
 
 class UnavailableD3(ValueError):
     pass
+
+
+@contextmanager
+def cached_original_hba(value):
+    """Supply the old scalar to the legacy D3 wire's unused HBA correction.
+
+    The original wire computes D3 independently of HBA, but also assigns an
+    updated HBA to its copied 2D shell. Reuse the canonical old value in this
+    sequential process only; never recalculate a D20 field or edit RDKit files.
+    """
+    from rdkit.Chem import Lipinski
+    original = Lipinski.NumHAcceptors
+    try:
+        Lipinski.NumHAcceptors = lambda _molecule: float("nan") if value is None else value
+        yield
+    finally:
+        Lipinski.NumHAcceptors = original
 
 
 def native_geometry(store, dataset, member_index):
@@ -98,8 +116,9 @@ def original_d3(smiles, numbers, coordinates, canonical_d20, *, hydrogen_policy,
                valid_mask=[canonical_d20[name] is not None for name in D20_NAMES])
     # The original adapter's tensor shell expects NaN for unavailable values.
     d20["values"] = [float(value) if value is not None else float("nan") for value in d20["values"]]
-    values, issues = calculator(smiles, prepared["mol"], prepared["atomic_numbers"],
-                                prepared["coordinates_A"], d20)
+    with cached_original_hba(canonical_d20["NumHAcceptors"]):
+        values, issues = calculator(smiles, prepared["mol"], prepared["atomic_numbers"],
+                                    prepared["coordinates_A"], d20)
     raw = np.array([np.nan if values.get(name) is None else values[name] for name in D3_NAMES], dtype=np.float64)
     status = np.array([0 if values.get(name) is None else
                        1 if np.isfinite(raw[index]) and abs(raw[index]) <= np.finfo(np.float32).max else 2
@@ -111,4 +130,4 @@ def original_d3(smiles, numbers, coordinates, canonical_d20, *, hydrogen_policy,
                 native_coordinates_changed=False, new_conformer_embedded=False,
                 atomic_SASA_source_values=values.get("SASA_atom_A2"),
                 atomic_SASA_in_molecular_vector=False,
-                canonical_D20_replaced=False, normalization_fitted=False)
+                canonical_D20_replaced=False, canonical_D20_recomputed=False, normalization_fitted=False)

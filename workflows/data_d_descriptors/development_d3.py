@@ -3,6 +3,8 @@
 Config: source_manifest, recipe_root, peer_root, hydrogen_policy, output,
 peak_bytes (joint actual-node guard), chunk_rows=256/512. Optional
 output_budget_bytes may lower the existing 512 MiB development allowance.
+Optional datasets selects complete qm9/expansionrx datasets after the original
+population join; omitted means all original members. RAW_COMPLETE is scoped.
 Six molecular D3 values and atomic SASA have independent F64/u8 arrays.
 Only the original native geometry and original D3 adapter are used.
 """
@@ -60,6 +62,19 @@ def load_population(manifest):
     return canonical, members
 
 
+def select_datasets(members, datasets=None):
+    available = {member["dataset"] for member in members}
+    if not available <= {"qm9", "expansionrx"}:
+        raise ValueError("Unregistered original development dataset")
+    requested = available if datasets is None else datasets
+    if (not isinstance(requested, (list, tuple, set)) or not requested
+            or len(set(requested)) != len(requested) or not set(requested) <= available):
+        raise ValueError("Explicit complete dataset scope must exist in original manifest")
+    scope = sorted(requested)
+    return scope, [dict(member, source_member_row=index) for index, member in enumerate(members)
+                   if member["dataset"] in scope]
+
+
 def atomic_values(values, count):
     if values is None:
         return np.full(count, np.nan, dtype=np.float64), np.zeros(count, dtype=np.uint8)
@@ -96,6 +111,8 @@ def work_member(member, canonical, store, *, hydrogen_policy, calculator,
     atom_map = list(result["work_atom_to_native_source"])
     atom_raw, atom_status = atomic_values(result["atomic_SASA_source_values"], len(atom_map))
     record = {name: member[name] for name in ("dataset", "member_uid", "member_index", "molecule_id", "source_split")}
+    if "source_member_row" in member:
+        record["source_member_row"] = member["source_member_row"]
     record.update(D3_ordered_fields=list(D3_NAMES),
         D3_raw={name: float(raw[i]) if np.isfinite(raw[i]) else None for i, name in enumerate(D3_NAMES)},
         D3_status={name: int(status[i]) for i, name in enumerate(D3_NAMES)},
@@ -176,12 +193,15 @@ def produce(config, *, store_factory=None, calculator=None, smiles_reader=source
     started = time.perf_counter()
     source = read_json(config["source_manifest"])
     canonical, members = load_population(source)
+    source_count = len(members)
+    dataset_scope, members = select_datasets(members, config.get("datasets"))
     output = Path(config["output"]).resolve()
     identity = {"schema": SCHEMA, "source_manifest": reference(config["source_manifest"]),
         "input_rows": reference(source["input_rows"]), "members": reference(source["membership_reference"]["path"]),
         "store": source["source_references"]["store"], "hydrogen_policy": chosen,
         "calculator": reference(Path(config["peer_root"]) / "workflows/benchmark_data/downstream_science.py"),
-        "chunk_rows": config["chunk_rows"], "member_count": len(members)}
+        "chunk_rows": config["chunk_rows"], "member_count": len(members),
+        "dataset_scope": dataset_scope, "source_member_count": source_count}
     final, marker = output / "manifest.json", output / "cursor.json"
     if final.exists():
         closed = read_json(final)
@@ -196,7 +216,11 @@ def produce(config, *, store_factory=None, calculator=None, smiles_reader=source
         from phychem_mfm.phase1.v3_dev_store import TrainOnlyPackedStore
         store_factory = TrainOnlyPackedStore
     if calculator is None and cursor < len(members):
-        calculator = _peer_module(Path(config["peer_root"]), "downstream_science").geometry_descriptors
+        adapter = _peer_module(Path(config["peer_root"]), "downstream_science")
+        # Import the unchanged backend before the per-member cached-HBA
+        # context, preserving its original import-time callable references.
+        adapter.load()
+        calculator = adapter.geometry_descriptors
     stores = {}
     try:
         while cursor < len(members):
@@ -234,6 +258,8 @@ def produce(config, *, store_factory=None, calculator=None, smiles_reader=source
         "ordered_fields": list(D3_NAMES), "molecular_dtype": "float64", "status_dtype": "uint8",
         "status_codes": {"missing": 0, "valid": 1, "nonfinite_or_overflow": 2},
         "member_count": len(members), "hydrogen_policy": chosen,
+        "dataset_scope": dataset_scope, "source_member_count": source_count,
+        "complete_source_population": len(members) == source_count,
         "membership_reference": dict(source["membership_reference"], path=str(mapping)),
         "atomic_SASA_in_molecular_vector": False, "canonical_D20_replaced": False,
         "native_coordinates_changed": False, "new_conformer_embedded": False, "target_values_read": False,

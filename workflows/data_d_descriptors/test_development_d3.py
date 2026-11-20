@@ -72,11 +72,55 @@ def fixture(root, count):
 
 
 class DevelopmentD3Tests(unittest.TestCase):
+    def test_default_backend_is_loaded_before_member_scalar_context_and_reused_when_closed(self):
+        from rdkit.Chem import Lipinski
+        from types import SimpleNamespace
+        with tempfile.TemporaryDirectory() as directory:
+            config = fixture(Path(directory), 1)
+            original, events = Lipinski.NumHAcceptors, []
+            def load():
+                self.assertIs(Lipinski.NumHAcceptors, original)
+                events.append("original_backend_loaded")
+            def calculate(*args, **kwargs):
+                self.assertEqual(events, ["original_backend_loaded"])
+                events.append("member")
+                return numerical_result()
+            backend = SimpleNamespace(load=Mock(side_effect=load), geometry_descriptors=object())
+            with patch.object(production, "require_cpu"), patch.object(production, "guard"), \
+                    patch.object(production, "publish", side_effect=local_publish), \
+                    patch.object(production, "_peer_module", return_value=backend), \
+                    patch.dict(os.environ, SLURM_JOB_ID="unit-fixture"):
+                options = dict(store_factory=Mock(return_value=Mock()), geometry_reader=geometry,
+                    smiles_reader=graph, d3_reader=calculate)
+                production.produce(config, **options)
+                production.produce(config, **options)
+            backend.load.assert_called_once()
+            self.assertEqual(events, ["original_backend_loaded", "member"])
+
     def test_hydrogen_policy_has_no_default_and_rejects_unknown_before_source_access(self):
         for config in ({}, {"hydrogen_policy": "choose_for_me"}):
             with self.assertRaisesRegex(ValueError, "EXPLICIT.*POLICY"):
                 production.produce(config)
         self.assertEqual(production.policy({"hydrogen_policy": "B6_fixed_native_H"}), "B6_fixed_native_H")
+
+    def test_dataset_scope_selects_complete_original_dataset_in_original_member_order(self):
+        original = [member(i) for i in range(4)]
+        for row in original[::2]:
+            row["dataset"] = row["D3_geometry_reference"]["dataset"] = "expansionrx"
+        before = copy.deepcopy(original)
+        scope, selected = production.select_datasets(original, ["qm9"])
+        self.assertEqual(scope, ["qm9"])
+        self.assertEqual([r["member_uid"] for r in selected], ["original:1", "original:3"])
+        self.assertEqual([r["source_member_row"] for r in selected], [1, 3])
+        for index, row in zip((1, 3), selected):
+            self.assertEqual(row, dict(original[index], source_member_row=index))
+        self.assertEqual(original, before)
+        self.assertEqual(len(production.select_datasets(original)[1]), 4)
+        for invalid in (["unknown"], ["qm9", "qm9"], "qm9", []):
+            with self.assertRaisesRegex(ValueError, "dataset scope"):
+                production.select_datasets(original, invalid)
+        with self.assertRaisesRegex(ValueError, "dataset scope"):
+            production.select_datasets([member()], ["expansionrx"])
 
     def test_member_uses_own_physical_graph_and_original_d20_zero_missing_shell(self):
         canonical = dict.fromkeys(production.D20_NAMES)
@@ -141,6 +185,31 @@ class DevelopmentD3Tests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "not contiguous"):
             production.check_cursor(cursor, identity, 257, 256)
 
+    def test_scoped_production_identity_reports_full_source_count_without_visiting_other_dataset(self):
+        with tempfile.TemporaryDirectory() as directory:
+            config = fixture(Path(directory), 2)
+            source = production.read_json(config["source_manifest"])
+            path = Path(source["membership_reference"]["path"])
+            original = list(production.rows(path))
+            original[0]["dataset"] = original[0]["D3_geometry_reference"]["dataset"] = "expansionrx"
+            path.write_text("".join(json.dumps(row) + "\n" for row in original), encoding="utf-8")
+            config["datasets"] = ["qm9"]
+            calculation = Mock(side_effect=fake_d3)
+            with patch.object(production, "require_cpu"), patch.object(production, "guard"), \
+                    patch.object(production, "publish", side_effect=local_publish), \
+                    patch.dict(os.environ, {"SLURM_JOB_ID": "unit-fixture"}):
+                options = dict(store_factory=Mock(return_value=Mock()), calculator=object(),
+                               geometry_reader=geometry, smiles_reader=graph, d3_reader=calculation)
+                report = production.produce(config, **options)
+                calculation.assert_called_once()
+                self.assertEqual(calculation.call_args.args[0], "physical-member-graph:1")
+                self.assertEqual(report["dataset_scope"], report["identity"]["dataset_scope"])
+                self.assertEqual(report["source_member_count"], 2)
+                self.assertEqual(report["member_count"], 1)
+                self.assertFalse(report["complete_source_population"])
+                with self.assertRaisesRegex(ValueError, "source/policy changed"):
+                    production.produce(dict(config, datasets=["qm9", "expansionrx"]), **options)
+
     def test_resume_skips_closed_members_and_preserves_raw_arrays_and_own_partial_boundary(self):
         with tempfile.TemporaryDirectory() as directory:
             config = fixture(Path(directory), 257)
@@ -170,6 +239,8 @@ class DevelopmentD3Tests(unittest.TestCase):
                 self.assertEqual(first.stat().st_mtime_ns, unchanged)
                 self.assertEqual(unrelated.read_bytes(), b"preserved")
                 self.assertEqual(report["member_count"], 257)
+                self.assertEqual(report["dataset_scope"], ["qm9"])
+                self.assertEqual(report["source_member_count"], 257)
                 raw = np.load(first, allow_pickle=False)
                 self.assertTrue(np.isinf(raw[0, 2]))
                 self.assertEqual(np.load(cursor["parts"][0]["status"])[0].tolist(), [1, 0, 2, 1, 1, 1])

@@ -26,6 +26,36 @@ class Prefix(io.BytesIO):
 
 
 class DevelopmentGeometryTests(unittest.TestCase):
+    def test_legacy_hba_correction_uses_canonical_zero_or_missing_without_recalculation(self):
+        from rdkit.Chem import Lipinski
+        numbers = [a.GetAtomicNum() for a in Chem.AddHs(Chem.MolFromSmiles("C")).GetAtoms()]
+        coordinates = np.zeros((len(numbers), 3))
+        for cached in (0., None):
+            original = dict.fromkeys(D20_NAMES)
+            original["NumHAcceptors"] = cached
+            before = dict(original)
+            def calculator(*args):
+                hba = Lipinski.NumHAcceptors(args[1])
+                self.assertTrue(np.isnan(hba) if cached is None else hba == 0.)
+                return dict.fromkeys(D3_NAMES, 1.), []
+            with patch.object(Lipinski, "NumHAcceptors", side_effect=AssertionError("Old D20 must not be recomputed")) as old:
+                result = original_d3("C", numbers, coordinates, original,
+                    hydrogen_policy="native_only", calculator=calculator)
+                self.assertIs(Lipinski.NumHAcceptors, old)
+                old.assert_not_called()
+            self.assertEqual(original, before)
+            self.assertFalse(result["canonical_D20_recomputed"])
+            self.assertEqual(result["raw_values"].tolist(), [1.] * 6)
+
+    def test_failed_original_calculator_restores_the_process_local_rdkit_function(self):
+        from rdkit.Chem import Lipinski
+        numbers = [a.GetAtomicNum() for a in Chem.AddHs(Chem.MolFromSmiles("C")).GetAtoms()]
+        original = Lipinski.NumHAcceptors
+        with self.assertRaisesRegex(OSError, "source failure"):
+            original_d3("C", numbers, np.zeros((len(numbers), 3)), dict.fromkeys(D20_NAMES),
+                hydrogen_policy="native_only", calculator=Mock(side_effect=OSError("source failure")))
+        self.assertIs(Lipinski.NumHAcceptors, original)
+
     def test_native_reader_never_reads_or_decodes_endpoint_label_bytes(self):
         n, offset = 2, 8
         geometry = struct.pack("<4I", n, 1, 3, 1) + struct.pack("<2H", 5, 7)
