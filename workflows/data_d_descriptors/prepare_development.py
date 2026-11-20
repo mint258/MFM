@@ -1,7 +1,9 @@
 """Prepare the exact seven-task P development cohort without opening targets.
 
 Required config: store, recipe_root, source_members, b6_manifest, output,
-peak_bytes and l1_fields (pilot field manifest) or train_manifest. A failed
+peak_bytes; optional l1_fields or train_manifest select compatible cache names.
+Without either, the original closed B6 descriptor names are used only to reuse
+canonical D20, never to declare new L1 fields/normalization frozen. A failed
 canonical-D20 binding is reported UNRESOLVED, never silently delivered as NA.
 """
 import argparse
@@ -153,9 +155,12 @@ def run(config):
     if config.get("train_manifest"):
         fields_path = config["train_manifest"]
         fields = read_json(fields_path)["libraries"]["L1"]["ordered_fields"]
-    else:
+    elif config.get("l1_fields"):
         fields_path = config["l1_fields"]
         fields = read_json(fields_path)["ordered_names"]
+    else:
+        fields_path = config["b6_manifest"]
+        fields = read_json(fields_path)["rdkit_descriptor_names"]
     refs["L1_fields"] = reference(fields_path)
     final = output / "manifest.json"
     if final.exists():
