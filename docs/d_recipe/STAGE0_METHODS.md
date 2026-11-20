@@ -55,3 +55,5 @@ CPU 收尾命令为 python -B -m tools.d_recipe.resources cpu_statistics --confi
 资源适配的新逻辑测试覆盖：监视 NFS 输出时仍核对根盘、每轮刷新联合未来量、根盘不足或真实配额/容量未知均进入原有暂停路径。尚未运行；不新增发布器、过程收据或其他线写入。
 
 宽库新增目标在归一化时先对 F64 原值执行减中心、除尺度，再转换成 FP32 训练目标。不能先把接近常数但非恒定的新字段舍入成 F32，丢失其真实变化。复用原 loader 已有的 F64 算术路径，选择器只在调用局部生效；原 D20/D3 的既有路径、冻结参数、原值及缺失状态保持原样。该算术模式纳入目标检查点条件绑定。新增近常数用例覆盖 raw=1+2^-30/1+2*2^-30、center=1、scale=2^-30 的差异；用例尚待排队 CPU 测试，并不是科学结果。
+
+Mordred 的 Missing/Error 对象由 MissingValueBase 显式识别，其 float 转换会返回 NaN，不能据此把普通缺失误标为实际非有限值。正常缺失保留 missing 状态；对象中明确包装的 OverflowError 仍记数值溢出；直接返回的 NaN/Inf 记数值事件。该修正执行既有过滤规则，没有改变 95% 阈值或增加新过滤条件。新增分类用例已接入，尚未执行。接口依据：[Mordred error objects](https://github.com/JacksonBurns/mordred-community/tree/main/mordred/error)。
