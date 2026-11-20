@@ -45,6 +45,7 @@ def main():
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_training.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_train.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_statistics.py"))
+    suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_resources.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_acceptance.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_protocol.py"))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_evaluate.py"))
