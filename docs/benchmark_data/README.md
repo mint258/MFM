@@ -1,5 +1,7 @@
 # B0 数据线入口
 
+当前入口（2026-11-21）：原范围P′由4537629在compute-0-8/16CPU继续同一共享队列，6588已C0；6590保留双afterok6588:7629，最终6961另等已C0的pKa原子发布7635。新统一范围6906/6907已封存。pKa单位点定义已获用户明确批准，正式原子入口见active_target_manifests.pKahub_atomic；全量P′与最终交付仍未关闭。共享NFS联合池200546101981B、原P′剩余量化预测及100GB账户底线共同保护，实际节点root/tmp同行预留也已纳入。
+
 权威为 `docs/benchmark/USER_DIRECTIVE_20261118.md`（原科学流程07be7a0f）、`USER_DIRECTIVE_20261119.md`（补充6d056a41）及其中引用的Benchmark Plan。本线承担数据获取、适用域、共享几何与原P/D标签；模型拟合和基线环境由基准线消费交付。
 
 数据在 `/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119`，不进Git、不为各节点复制。`acquisition/<group>.json`只证明来源获取；`domain/<group>/job_<id>/manifest.json`只证明适用域计数，均不表示几何和标签已经就绪。当前状态见本目录日报。
@@ -66,7 +68,7 @@ target_atom_mapping = binding["model_atom_to_source"]
 
 新范围链为4536924（compute-0-17/2CPU）UFF几何→4536978失败D3原子对齐修复→4536979封存/准备→4536906→4536907原P′续接。原4536898在node18的资源检查阶段阻塞于NFS，实际FAILED/9:0、消耗17,560分配核秒；目标节点身份及进程树证明尚未进入科学计算。同一38,240图队列改由node17继续，已观测真实生产；旧4536905为零运行准备任务，重接依赖后取消。生产入口 `uniform_pprime_scope` 在父进程和每个spawn worker中安装同一联合存储守卫，科学调用仍是原十二任务、二进制、解析和900秒。后续段若发现全队列已关闭则零Native退出；各段按实际Slurm剩余墙钟保留原记录收尾余量。原325,080构象P′链独立继续，当前并未声明全部生产完成。
 
-pKa原子位点定义提案见 `directive19_data_preparation.pKa_single_site_definition_proposal`（4536942 C0）。37类SMARTS逐项转录自作者SI Table S2（S2–S4，CC BY-NC 4.0，DOI 10.1021/acs.jcim.6c00107.s001）；增加的site_atom_maps是本线对酸失质子/碱受质子原子的显式解释。按原模型图、不改质子化，重叠规则按实际原子合并；多原子和未识别N/杂原子供氢或电荷状态保留多位点/未决。训练池5,588个单一catalog位点、18,838个多位点、5,546个未决，其中5,465条候选原子标签另满足唯一实验跃迁/端点类型/原子映射；外盲9条候选。此为待用户冻结的结构定义，不是实验微观标注，也不是已激活的原子训练标签。宏观目标与盲测排除不变；用户确认后才将候选发布为正式机制入口，无需重新扫描。
+pKa原子机制正式入口为 `active_target_manifests.pKahub_atomic`，指向 `directive19/pKahub/job_4537635/manifest.json`（原生C0，11秒/2CPU）。用户已明确批准作者SI Table S2的37类官能团规则，授权记录为 `configs/benchmark_data/pKahub_atomic_definition_approved_20261121.json`，定义ID为 `AUTHOR_TABLE_S2_37_CATALOG_V1`。正式训练池5,465条、外盲9条；训练池18,838个多位点及5,546个未决分子不进入该原子机制任务。原提案4536942及证据保持原样，未重新扫描结构、调用QM或更改宏观任务/完整InChIKey盲测排除。`training_targets`、`blind_targets`是原Arrow F64字段的投影；`record_id`使用独立 `pKahub_atomic_single_site_v1:` 命名空间，原宏观ID保存在 `macro_record_id`。以 `geometry_dataset + geometry_record_id` 关联既有共享几何，`model_atom_index`与`source_atom_index`均为0基索引，后者对应原始源原子序；再使用既有目标geometry_bindings消费构象。此标签是已批准单位点定义下的实验宏观值复用，实验微观标注仍为0，不把预测microspecies或多位点分配当实验。37类SMARTS来源DOI 10.1021/acs.jcim.6c00107.s001（CC BY-NC 4.0），其目录覆盖范围限制继续保留。6项新投影边界测试通过，完整源码检查5271文件/3740Python/0错误；未做真实标签数值复读。
 
 双范围最终交付由 `workflows.benchmark_data.final_scope_handoff` 生成，4536961依赖新源码检查4536963、原范围交付4536599及新增P′尾段4536907。它只读两范围的geometry/Pprime access与producer元数据，并分别查询实际原生C0；任一PENDING/INTENT或活跃写入均拒绝最终封存，不扫描SQLite或标签正文。NMR作者计数证据必须匹配。只有几何/P′均封存时，all_scopes_production_closed才为true；若pKa单位点定义/正式原子入口仍待定，all_required_production_complete与all_required_work_complete仍为false，不把候选提案当正式标签。原S/P不重建。最终元数据守卫只在两范围均证明终态后退休其未来科学增长预测，继续保护模型114,569,896,448B、B1环境24GiB、账户100GB及真实磁盘/inode；旧运行守卫不变。当前future manifest尚不存在，统一入口指向可用交付7016，生产未完成。
 

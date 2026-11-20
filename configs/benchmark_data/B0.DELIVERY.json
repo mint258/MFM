@@ -47,7 +47,17 @@
       "single_site_evidence_required": true,
       "predicted_microspecies_are_experimental": false,
       "multisite_microscopic_assignment": false,
-      "SAMPL_exclusion": "complete_InChIKey; challenge_plus_local_ID"
+      "SAMPL_exclusion": "complete_InChIKey; challenge_plus_local_ID",
+      "single_site_definition_id": "AUTHOR_TABLE_S2_37_CATALOG_V1",
+      "single_site_definition_frozen": true,
+      "unresolved_sites_excluded": true,
+      "atomic_mechanism_targets_ready": true,
+      "atomic_training_endpoints": 5465,
+      "atomic_external_blind_endpoints": 9,
+      "atomic_record_namespace": "pKahub_atomic_single_site_v1:",
+      "macro_record_id_preserved": true,
+      "experimental_microscopic_records": 0,
+      "user_definition_authority": "configs/benchmark_data/pKahub_atomic_definition_approved_20261121.json"
     },
     "nmr": {
       "split": "nmrshiftdb2-2018; Jonas_Kuhn_2019; Kwon_2020",
@@ -74,17 +84,23 @@
     "pKahub_macro_targets": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4536891/manifest.json",
     "uniform_Sprime_scope": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/geometry/shared_v1/queue.manifest.json",
     "uniform_scope_ready": true,
-    "pKa_atomic_site_evidence_ready": false,
+    "pKa_atomic_site_evidence_ready": true,
     "NMR2018_published_test_count_reconciliation": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/NMR2018/job_4536946/manifest.json",
     "NMR2018_test_molecule_counts_matched": true,
     "pKa_single_site_definition_proposal": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4536942/manifest.json",
-    "pKa_single_site_definition_approval": "PENDING_USER_REPLY; proposal is not a training-label entry",
+    "pKa_single_site_definition_approval": "USER_APPROVED_AUTHOR_TABLE_S2_37_CATALOG_V1",
     "uniform_Pprime_production_closed": true,
-    "uniform_Pprime_access": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/labels/Pprime/shared_v1/access.json"
+    "uniform_Pprime_access": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/labels/Pprime/shared_v1/access.json",
+    "pKa_atomic_targets": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4537635/manifest.json",
+    "pKa_atomic_targets_job": 4537635,
+    "pKa_atomic_targets_native_state": "COMPLETED",
+    "pKa_atomic_targets_native_exit": "0:0",
+    "pKa_user_definition_authority": "configs/benchmark_data/pKahub_atomic_definition_approved_20261121.json"
   },
   "active_target_manifests": {
     "NMRShiftDB2": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/NMR2018/job_4536887/manifest.json",
-    "pKahub": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4536891/manifest.json"
+    "pKahub": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4536891/manifest.json",
+    "pKahub_atomic": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4537635/manifest.json"
   },
   "uniform_Sprime_producer": {
     "job": 4536924,
