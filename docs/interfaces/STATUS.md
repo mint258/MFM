@@ -627,3 +627,14 @@ Actual4537546 COMPLETED0:0 onCPU17,1CPU requested/2logical allocated,648s Slurm/
 ### 2026-11-20 D shared-future reconciliation (20:20 CST)
 
 D now reserves S study full64GiB plus benchmark B1 announced40GiB, retaining existing24GiB environment/1GiB miscellaneous and model/P25,327,352,832B futures separately. Release only new-scope B0 Pprime future: actual4536906 COMPLETED0:0 (04:24:01), tail4536907 COMPLETED0:0 (1s), access immutable/writers_closed/cross_node_read_allowed UID1278 and producer ALL_QUEUED_PPRIME_TERMINAL verified. Its3,739,791,360 committed physical bytes remain in filesystem/quota usage; original B0 producer4536588 is live and its remaining forecast stays reserved. Own storage_reservations.json reconciled using existing guard logic, no scientific/source-data change. CPU10 fresh UID/NFS/root/tmp/inode guard PASSED with joint D36,706,053,853B and observed other futures221,053,414,400B, plus100GB UID floor. No D producer interruption or extra CPU/GPU test. S owner's tools/s_recipe/runtime.py still displayed old D14GiB claim at read: its next admission should use current D36,706,053,853B (replace14GiB, do not add both); this notice changes only shared STATUS, no other window's code/jobs.
+
+
+### 2026-11-20 22:27CST · D 原生阶段1启动与共享预算
+
+P官方FROZEN_P(A1/B3/B4/F2)及五条单种子9M已提交，D训练预注册已发布 d-recipe a3b774dc3218fb91b48d98aa84cbe4f930f9aea8；仅迁移A1/B3/B4，F2无D对应物。D-R0正式4537572在CPU5/GPU compute-0-7运行，UUID GPU-9db54192-dd3f-3177-e56f-dcd161ff932c，原生D20+D3、3M、seed0；已见1792实际样本，未完成。前一4537570在CUDA初始化失败且无训练输出，后续复用既有P的cu118环境选择(9b97858)，科学条件/初始化seed未变。A1完整原TRAIN collector4537571在CPU17运行，请求1CPU/站点分配2逻辑CPU，已见1792关闭行；ridge alpha1.0/5折seed20261112开拟合前冻结，不选参。287项新逻辑真实4537569 C0，完整回归仍只在PR前一次。
+
+实际GPU7预检：根53,653,090,304B/36,529,159空闲inode；NFS6,757,742,018,560B/2,964,413,577 inode；Lustre新鲜UID可用146,449,399,808B，含D提案所需145,946,002,944B，100GB底线、8GiB原生缓冲及6GB同行预留均保留。全局model_output_budget仅新增D直接root及本阶段R0 1,342,177,280B，total_peak107,912,073,728B；后续D模型需另行核容，不修改P作业。
+
+D联合NFS **36,706,053,853B不增加**。data分支4dc392b0ae1dd8a084a7aee01e2c63e43dd66861明确重新分配旧未用pilot/基准预测，保留所有既有文件与原stage0-only21,673,668,317B；full范围新增上界29,750,000,000B现含full/native_stage1 A1 2GiB、R0四层cache4GiB、R1检查点1GiB和元数据；外部保留6,930,530,176B，总36,680,530,176B不超joint。四层ready-atom metadata371493*4*512*4=3,043,270,656B数值，非全库复制。已有peer守卫按full实存扣未来可自动消费新cap；S若仍记D14GiB请由owner改为现joint。运行期D同时复用数据guard和既有heads只读联合quota observer，覆盖S64GiB、基准40GiB、原B0及其他同行，不修改它们代码/作业。
+
+全量4537508继续L2(最近373/4695闭合parts)，L1 RAW_COMPLETE；真实64接收/开发导出/独立L2基准导出依赖仍保留。暂无D胜负或最终报告，ExpansionRx缺H政策仍待用户，未补H/改变几何。
