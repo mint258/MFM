@@ -4994,6 +4994,69 @@
     "state": "COMPLETED/0:0",
     "updated_by_local_policy_refresh": 4537601,
     "weekly_cost_recomputed": false,
-    "final_roster_unchanged": true
+    "final_roster_unchanged": true,
+    "producer_handover_update": {
+      "job": 4537631,
+      "state": "COMPLETED/0:0",
+      "node": "compute-0-17",
+      "elapsed": "00:00:01",
+      "characters": 1001,
+      "concurrent_NFS_bytes": 200546101981,
+      "UID_observation_age_seconds": 1.7373647689819336,
+      "no_model_or_statistic_execution": true
+    }
+  },
+  "B0_original_P_production_handover": {
+    "observed_at": "2026-11-20T21:08UTC",
+    "previous_producer": {
+      "job": 4536588,
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "elapsed": "19:44:27",
+      "node": "compute-0-12"
+    },
+    "unused_standby": {
+      "job": 4536991,
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "elapsed": "00:05:08",
+      "node": "compute-0-13",
+      "terminal_log": "STANDBY_RELEASED_ZERO_NATIVE"
+    },
+    "current_producer": {
+      "job": 4537629,
+      "state": "RUNNING",
+      "node": "compute-0-8",
+      "cpus": 16,
+      "standby_acceptance": "STANDBY_ROOT_ACCEPTED_ZERO_NATIVE",
+      "previous_native_C0_waited": true,
+      "original_producer_module": "workflows.benchmark_data.pprime_tmpfs_queue",
+      "original_root_retained": true,
+      "log": "control/B0_pprime_standby_4537629.log",
+      "progress_snapshot": {
+        "PENDING": 15846,
+        "INTENT": 16,
+        "PPRIME_READY": 308949,
+        "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES": 269
+      }
+    },
+    "source_access": {
+      "producer_job": 4537629,
+      "publishing_uid": 1278,
+      "cross_node_read_allowed": false,
+      "immutable": false
+    },
+    "continuation6590_afterok": 4537629,
+    "final_handoff6599_afterok": 4536590,
+    "both_scope_handoff": 4536961,
+    "C1_feature_jobs": [
+      4537124,
+      4537149
+    ],
+    "C1_primary": 4537502,
+    "C1_preparation": 4537503,
+    "C1_dispatcher": 4537590,
+    "benchmark_jobs_or_scientific_inputs_changed": false,
+    "final_C1_produced": false
   }
 }
