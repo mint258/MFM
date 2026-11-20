@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=B0-Pprime-tmpfs
 #SBATCH --partition=cpu
-#SBATCH --nodelist=compute-0-12
+#SBATCH --exclude=compute-0-[0-7,18,20-22]
 #SBATCH --cpus-per-task=8
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
