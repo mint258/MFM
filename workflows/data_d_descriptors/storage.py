@@ -18,7 +18,7 @@ def physical_sqlite_bytes(directory):
 
 def concurrent_reservation(config):
     """Subtract committed physical bytes from declared future forecasts only."""
-    total = (config["registered_model_pool_bytes"] + config["benchmark_peer_environment_bytes"]
+    total = (config["registered_model_share_future_bytes"] + config["benchmark_peer_environment_bytes"]
              + config["benchmark_miscellaneous_future_bytes"])
     for reference in config["B0_labels"]:
         total += max(2**26, reference["forecast_bytes"] - physical_sqlite_bytes(reference["directory"]))

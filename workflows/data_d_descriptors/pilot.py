@@ -258,8 +258,8 @@ def main():
     args = parser.parse_args()
     config = json.loads(Path(args.config).read_text())
     output = Path(config["output"])
-    output.mkdir(parents=True, exist_ok=True)
     storage_guard(output)
+    output.mkdir(parents=True, exist_ok=True)
     panel = select_panel(config, output)
     for library in ("L1", "L2"):
         measure(config, panel, output, library, args.workers)

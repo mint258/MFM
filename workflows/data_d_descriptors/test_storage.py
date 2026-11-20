@@ -19,17 +19,26 @@ class StorageTests(unittest.TestCase):
             "cross_node_read_allowed": sealed, "publishing_uid": os.getuid(),
             "actual_closure_evidence": {"raw": "JobState=COMPLETED ExitCode=0:0"}}))
         (folder / "queue.manifest.json").write_text(json.dumps({"storage_forecast_bytes": 40 * GIB}))
-        return {"registered_model_pool_bytes": 100 * GIB,
+        return {"registered_model_pool_bytes": 500 * GIB,
+            "registered_model_share_future_bytes": 100 * GIB,
             "benchmark_peer_environment_bytes": 10 * GIB, "benchmark_miscellaneous_future_bytes": GIB,
             "B0_labels": [{"directory": str(Path(root) / "old"), "forecast_bytes": 80 * GIB},
                           {"directory": str(Path(root) / "new"), "forecast_bytes": 80 * GIB}],
             "B0_geometry": [str(folder)]}
 
-    def test_model_pool_is_counted_once_and_only_committed_peer_bytes_are_subtracted(self):
+    def test_actual_share_model_future_is_counted_once_not_lustre_pool(self):
         with tempfile.TemporaryDirectory() as root:
             config = self.config(root)
             with patch("workflows.data_d_descriptors.storage.physical_sqlite_bytes", return_value=20 * GIB):
                 self.assertEqual(concurrent_reservation(config), 231 * GIB)
+
+    def test_lustre_model_pool_does_not_debit_share_headroom(self):
+        with tempfile.TemporaryDirectory() as root:
+            config = self.config(root)
+            with patch("workflows.data_d_descriptors.storage.physical_sqlite_bytes", return_value=20 * GIB):
+                before = concurrent_reservation(config)
+                config["registered_model_pool_bytes"] *= 100
+                self.assertEqual(concurrent_reservation(config), before)
 
     def test_unsealed_geometry_keeps_its_remaining_forecast(self):
         with tempfile.TemporaryDirectory() as root:
