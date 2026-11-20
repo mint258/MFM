@@ -40,7 +40,7 @@ class DevelopmentPanelTests(unittest.TestCase):
             capacity_policy="total_params_matching", mlp_descriptor_value_source="raw",
             lightgbm_descriptor_value_source="raw", cpu_threads=1,
             readout_configuration=dict(output=str(main), run="D-final-9M", samples=9_000_000,
-                seed=0, arm="D-R0", reference_manifest=str(reference)))
+                seed=0, arm="9M-D-R0", reference_manifest=str(reference)))
         members = [dict(dataset="qm9", member_uid="original:" + mid, molecule_id=mid,
             source_split="train", source_smiles="C") for mid in ("train", "validation")]
         batches = (SimpleNamespace(member_uids=(("qm9", "original:train"),)),
@@ -110,3 +110,28 @@ class DevelopmentPanelTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "different native endpoint"):
                 panel.run_gpu(c, guard=Mock(), inputs=inputs, probe=probe)
             probe.assert_not_called()
+
+    def test_confirmation_uses_the_registered_9m_arm_and_selected_library(self):
+        with tempfile.TemporaryDirectory() as directory, patch("tools.d_recipe.resources.execution_site"):
+            c, _, _ = self.fixture(directory)
+            Path(c["current_best"]).write_text(json.dumps(dict(status="FROZEN", arm="D-L2", library="L2")))
+            c["library"] = "L2"
+            c["readout_configuration"]["arm"] = "9M-D-final"
+            panel._context(c, False, Mock())
+            c["readout_configuration"]["arm"] = "9M-D-R0"
+            with self.assertRaisesRegex(ValueError, "frozen adopted"):
+                panel._context(c, False, Mock())
+            Path(c["current_best"]).write_text(json.dumps(dict(status="FROZEN", arm="D-R0", library="D20")))
+            c["library"] = "D20"
+            c["readout_configuration"]["arm"] = "D-R0"
+            with self.assertRaisesRegex(ValueError, "frozen adopted"):
+                panel._context(c, False, Mock())
+
+    def test_partial_dataset_d3_is_not_accepted_as_complete_control_input(self):
+        with tempfile.TemporaryDirectory() as directory:
+            c, _, _ = self.fixture(directory)
+            partial = Path(directory) / "qm9_d3.json"
+            partial.write_text(json.dumps(dict(status="RAW_COMPLETE", dataset_scope=["qm9"], complete_source_population=False)))
+            c["d3_manifest"] = str(partial)
+            with self.assertRaisesRegex(ValueError, "complete native member D3"):
+                panel._inputs(c)

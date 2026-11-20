@@ -35,11 +35,13 @@ def _context(c, cpu, guard):
     from .resources import execution_site, DJointGuard
     execution_site(c, cpu=cpu)
     native, best = c["readout_configuration"], _read(c["current_best"])
-    if (best.get("status") != "FROZEN" or best["arm"] != native["arm"]
+    expected_arm = ("9M-D-R0" if best["arm"] == "D-R0" else "9M-D-final") if native["samples"] == 9_000_000 else best["arm"]
+    if (best.get("status") != "FROZEN" or native["arm"] != expected_arm
+            or best["arm"] not in ("D-R0", "D-R1", "D-L1", "D-L2", "D-G1", "D-K1")
             or best["library"] != c["library"] or native["seed"] != 0
             or native["samples"] not in (3_000_000, 9_000_000)):
         raise ValueError("Explicit frozen adopted D recipe and its seed0 endpoint required")
-    # Capacity remains an explicit user-approved input, never a tuning choice.
+    # Capacity is the prospective same-capacity protocol, never a tuning choice.
     if c["capacity_policy"] not in ("total_params_matching", "hidden_width_256"):
         raise ValueError("Explicit registered capacity policy required")
     guard = DJointGuard(c) if guard is None else guard
@@ -77,8 +79,8 @@ def _inputs(c):
     if len(tasks) != 7 or any(t.output_level != "graph" for t in tasks):
         raise ValueError("Use the unchanged seven primary graph tasks")
     d3 = _read(c["d3_manifest"])
-    if d3.get("status") != "RAW_COMPLETE":
-        raise ValueError("Closed native member D3 production required")
+    if d3.get("status") != "RAW_COMPLETE" or d3.get("complete_source_population") is not True:
+        raise ValueError("Closed complete native member D3 production required")
     with open(d3["membership_reference"]["path"], encoding="utf-8") as stream:
         members = [json.loads(line) for line in stream]
     descriptor = DownstreamDescriptorStore(c["descriptor_manifest"], c["library"])

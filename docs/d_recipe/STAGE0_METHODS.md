@@ -81,3 +81,10 @@ Mordred 的 Missing/Error 对象由 MissingValueBase 显式识别，其 float �
 完整成员命名空间按来源显式使用：开发表(dataset,member_uid)、基准表(dataset,record_id)，不猜别名。组成基线从每member自身原source_smiles的图上隐式H构造计数，不拿缺H的坐标atom数代替完整组成，也不生成坐标或选择几何H政策。最终H0的persist_final_features默认关闭，最终选定预算可在原末层前向中显式保存，以供这一套控制使用；它不改变训练或默认读出。259项新增逻辑已通过真实CPU10/4537508.step4，Section5尚未实际执行，未来输出峰值须在提交前登记。
 
 L2可按完整库选择独立导出，始终保持全TRAIN有序字段、启用列、参数与版本；对D20不做跨库映射，不继承原D20未知绑定为自身失败。原基准D20问题按两次失败停止，L1仍受限；L2二维交付的D3由基准窗口原封存S′ UFF源接入，不修改旧D20、几何、终点或划分。此独立导出没有重启被停止的绑定修复。
+开发对照的容量口径采用总可训练参数匹配A，B/C各以解析最近整数宽度实现并报告实际差额，不扫描宽度、不看内层或验证分数选容量。原D20开发值已由真实复制生产关闭，15518分子/17启用字段，不重算化学量、不新拟合参数；宽库导出只引用这个已完成的D20清单。氢几何政策仍未选择。
+最终对照读取9M终点时，配方仍以冻结的选定3M臂标记，实际源必须为登记的9M-D-R0（最终配方为D-R0）或9M-D-final；对应关系与源run/budget需一致。新增逻辑现260项通过（4537508.step6，单核6.14秒），未实际拟合对照。
+
+L2字段定义引用[CheMeleon作者的计算代码](https://github.com/JacksonBurns/how-to-train-your-chemeleon/blob/main/features/_mordred.py)。作者与本线均以Calculator(descriptors, ignore_3D=True)定义有序二维集；本线闭合L2_fields.json已登记1613个逐名/索引对应、实际包版本，并按任务书保留原D20输入图处理。这里对齐字段定义，不将作者的字符串/盐预筛或存储精度设置替换本线规定。
+开发D3支持完整数据集作用域，默认仍全部原成员；QM9用其完整原生坐标的native_only路径可先行，ExpansionRx氢政策继续待定。各component记录原source_member_row和dataset_scope、source_member_count、member_count；部分范围complete_source_population=false。merge_development_d3只按原成员/顺序合并闭合元数据，保F64数组/原子SASA引用，不读或重算数值；缺少、重叠或改split的component均不宣称完整。Root的Section5入口要求complete_source_population=true。
+
+原geometry_descriptors调用的C4 wire会顺带重算HBA，其D3段不消费该值。本线在顺序调用中仅将Lipinski.NumHAcceptors暂时路由到已有canonical标量（0和缺失分别保留），finally恢复，原D3公式和参数不动。先初始化原backend，保证导入时捕获的函数仍为原函数。270项新增逻辑正式CPU17作业4537544通过，未对D3数值另做独立重算或QA。

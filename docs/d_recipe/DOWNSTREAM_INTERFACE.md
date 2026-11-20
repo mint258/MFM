@@ -45,3 +45,6 @@ D3 继续由基准窗口按 S′ UFF 口径提供：`benchmark_B0_20261119/direc
 2026-11-20 18:54：开发输入4537410已关闭；实际258项接口测试及后续L2整库选择测试合计259项通过。开发导出4537517与真实接收4537514依赖全量4537508。development_d3接口已实现但未选氢政策、未生产。纯成员拼接显式使用原reference声明的member_key；组成含H来自原source_smiles图，不取缺H坐标数量。
 
 基准原D20绑定4537426/4537509连续未解决，已停止修复并保留产物。L1完整交付受限；L2不做D20跨映射，可用active原图独立二维导出，配置configs/data_d_descriptors/benchmark_L2_export.json。该导出保留canonical_D20_source_status=UNRESOLVED、canonical_D20_required=false，不声称D20/几何修复或最终C1完成；基准窗口使用其原封存S′ UFF D3接入，原endpoint/split不变。新增约2.827GB，在原8GiB基准和本线36706053853字节联合峰值内。
+2026-11-20 19:07：原D20开发复制导出已实际关闭，路径`/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/D20_descriptors/manifest.json`，15518分子、20有序字段/17启用、原TRAIN参数，无描述符重算/新拟合（4537508.step5，1CPU5.41秒）。D20对照使用该清单；开发L1/L2清单为后续4537517输出，不重复复制D20，并引用original_D20_manifest。D3仍未生产，氢政策待定。
+
+QM9 D3拟先用development_D3_QM9.json生产native_only数据集component；它保留complete_source_population=false。完整D3清单需merge_development_d3按原所有成员闭合，SourceMap和划分不变；ExpansionRx政策继续待定。原D20复制清单已完成，宽库清单只引用它。

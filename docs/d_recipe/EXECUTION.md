@@ -31,6 +31,16 @@ P 配方 `CURRENT_BEST` 尚未冻结，F1 仍在训练。因此 GPU 训练尚未
 
 ## 数据处理与判定
 
+19:55CST 更新：全量结构生产已实际关闭，1201795行，TRAIN1194228、VAL7567、额外VAL_DIAGNOSTIC0（原诊断分子含在既有角色中），source_missing_rows=0、producer_alignment_checked=true；准备耗时4470.94秒。4537508随后进入L1计算，未重跑源准备或成本面板。
+
+新逻辑270项在正式CPU17单核4537544完成0:0，Slurm耗时7秒，原日志MFM_d_recipe_data_tests_4537544.out。QM9 D3配置datasets=[qm9]/native_only只用其完整原生坐标，ExpansionRx仍待政策，按数据集生产不改变原成员和划分；合并仅在原全部成员恰有一个闭合component时RAW_COMPLETE，Root控制入口拒绝部分D3。原D3 wire有一处额外HBA纠正，本线顺序调用时将该函数临时路由到已有canonical HBA（缺失保NaN），finally恢复；原backend预先初始化，避免导入期捕获临时回调。旧D20不重算/替换，原D3公式、参数和原文件均未改。尚未把QM9部分产物称为全D3交付。
+
+19:18CST：新逻辑260项通过，真实4537508.step6，1CPU6.14秒、RSS928740KiB、exit0，日志D_new_data_tests_4537508_step6_20261120.log。Section5入口用冻结的选定3M臂名标记配方，9M源对应登记的9M-D-R0或9M-D-final，不将伪装成3M臂名的9M配置作为输入。P官方CURRENT_BEST仍pending（19:15核实），没有D GPU提交。
+
+19:07CST：开发原D20复制导出已实际关闭，真实4537508.step5（CPU10、1CPU、5.41秒、RSS69120KiB、exit0），15518唯一分子、20有序字段/17启用字段，沿原TRAIN参数，不计算描述符或重新拟合统计。清单`/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/D20_descriptors/manifest.json`，source_processing_complete=true、current_C1_complete=false；不代替宽库接收。尚未启动的开发宽库导出4537517改为只导L1/L2并引用该原D20清单，避免重复复制。独立L2基准导出4537537已afterok全量4537508排队，4CPU=3worker+parent、8小时上限，实际开始仍须新鲜联合守卫。
+
+开发MLP容量采用“总可训练参数匹配A”的解析整数宽度口径，实际参数差额在B/C输出报告；此为任务书“同容量”的具体执行选择，未依据下游分数选择或扫描。几何缺H政策仍等待用户答复，未选择、未补H。正式训练预注册仍待P冻结及其9M提交。
+
 18:54CST 更新：当前按库处理交付依赖。原基准D20绑定两次未解决仍保留UNRESOLVED，L1完整交付受限且停止此问题修复。任务书4.1规定L2不做D20跨库映射，二维量不依赖几何，因此L2可独立使用active原结构/原成员与唯一全TRAIN字段/参数导出；不重试原D20或几何绑定，不填造其缺失，D3仍由基准窗口接入其既有封存S′ UFF产品。现有两份基准元数据实际物理字节2097127424，L2数值/状态新增约2.827GB，包含在原8GiB基准预测和36706053853字节联合D峰值内，CPU10新鲜守卫再次通过。
 
 最新259项新增逻辑已通过，真实4537508.step4单核6.23秒、RSS928740KiB、exit0，日志D_new_data_tests_4537508_step4_20261120.log。新增Section5执行器及原成员输入接口、明确保留最终H0的默认关闭选项、逐细胞/逐统计闭合续跑；尚无实际对照拟合。A复用主R3及其既有统计，C对两种B的区间只消费已保存的相同bootstrap抽样，不增加抽样或配方/seed决定。准备在最终选定终点执行一套控制，保留其原末层前向，不在3M和9M重复拟合整套。
