@@ -109,3 +109,9 @@ L2字段定义引用[CheMeleon作者的计算代码](https://github.com/JacksonB
 2026-11-20 固定诊断运行准备：真实CPU17/4537571.step4仅消费原M/允许构象元数据（1.5602秒），既定5000VAL有265478首构象原子、47698允许构象，四层512维F64数组共5131075584B。GPU7源cache规划/tmp/d_recipe_20261120_D_R0_seed0_3M范围8GiB；CPU17目标同绝对路径规划12GiB，包含保留旧/partial文件、最大4349591552B的rsync临时文件及余量。源原数据库不复制，只有任务书要求的闭合诊断cache传到CPU节点；原manifest绝对路径、原子顺序和值不改，不加hash或独立QA，不删除源/旧文件。rsync使用既有进程组守卫、--sparse/--partial，传输SSH保留stdin；只有先读闭合manifest的SSH元数据命令用-n。不同条件的目标目录保留并拒绝覆盖。实际起点必须在GPU7/CPU17分别再核根盘字节/inode和max(10GiB,10%)底线，同时保留共享D/同行quota守卫。
 
 CPU17目标12GiB预检实际4537571.step7通过，根/tmp可用52891484160B、36501647空闲inode；GPU7根/tmp约53653098496B、36529140空闲inode且8GiB联合守卫通过。新增transport逻辑后300项测试在4537571.step8通过（主体1.077秒）；测试夹具最初嵌套目录与生产scope不符，改为已核根盘/tmp的独立测试目录后通过，生产边界未放宽。真正诊断前向/传输/统计尚未执行，继续遵守诊断累计4小时时间盒。
+
+2026-11-20 R1启动准备：D-R1为既定D20+D3、3M/seed0冷启动，原字段/11-07 D4/三块权重不变，迁移组件仅A1+B3+B4（gamma0.1597693323500406）。它读取完整TRAIN拟合后一次发布的reference/D20/label_parameters.json；参数闭合前不启动。R1检查点/读出1GiB已在full/native_stage1的原命名预算内，NFS联合36706053853B和Lustre原R0 1.25GiB均不增加。R1原四层开发缓存改用GPU7独立/tmp/d_recipe_20261120_D_R1_native_layers范围8GiB；其固定5000VAL诊断另用/tmp/d_recipe_20261120_D_R1_seed0_3M_VAL范围8GiB，避免把开发原子H0复制到CPU。
+
+GPU7三份保留/计划scope（R0 VAL8GiB、R1 native8GiB、R1 VAL8GiB）合计24GiB；每个新本地writer显式local_concurrent_bytes=16GiB，交给原根盘守卫叠加自身8GiB及max(10GiB,10%)底线。默认0行为保持；新逻辑不改变P文件或在跑R0。R1 VAL闭合cache只传至CPU10同绝对路径，目标12GiB包含旧/partial及最大4.35GB rsync临时。CPU10实际根/tmp可用70070484992B、36570105空闲inode，XFS/noquota；GPU7合计24GiB和CPU10入口联合守卫均通过，实际开始仍重检。共享NFS/UID及所有已登记同行future继续计入。
+
+302项新逻辑真实4537571.step11/CPU17完成0:0，Slurm9秒、测试主体1.110秒，日志D_native_R1_resource_tests_4537571_20261120.log；新增2项只测试根盘同行future归属及拒绝未知/负值，不把它重复计到NFS。比较入口仅调用原compare，等R0/R1主CPU分数均闭合后减相同的1000次分子bootstrap，R1/CYP只报告，不另重采样，不据诊断选配方。

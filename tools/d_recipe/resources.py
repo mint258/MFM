@@ -135,11 +135,15 @@ def protection_plan(configuration):
     if type(peak) is not int or peak <= 0:
         raise ValueError("Explicit positive D storage peak required")
     _, share_path, share_peak = storage_locations(configuration)
+    local_concurrent = configuration.get("local_concurrent_bytes", 0)
+    if type(local_concurrent) is not int or local_concurrent < 0:
+        raise ValueError("Known nonnegative peer root-disk forecast required")
     common = dict(peak_additional_inodes=10000, reserve_inodes=10000,
                   concurrent_bytes=0, concurrent_inodes=0,
                   runtime_margin_bytes=2**26, runtime_margin_inodes=1000)
     root = dict(common, paths=["/"], peak_additional_bytes=0,
-                reserve_bytes=10 * 2**30, quota_scope="not_applicable")
+                reserve_bytes=10 * 2**30, quota_scope="not_applicable",
+                concurrent_bytes=local_concurrent)
     if configuration.get("local_output_root"):
         # Both paths must resolve to the same actual filesystem in Guard.
         # A separately mounted /tmp is not silently charged to node root.

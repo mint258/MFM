@@ -244,3 +244,17 @@ class ResourceGuardTests(unittest.TestCase):
              patch("tools.d_recipe.resources.peer_share_admission", side_effect=OSError("peer future reserved")), \
              self.assertRaisesRegex(DiskUnavailable, "peer future reserved"):
             guard.check(guard.configuration["output"])
+
+    def test_peer_local_forecast_stays_on_node_root_and_does_not_double_charge_NFS(self):
+        c=dict(self.lustre_configuration(), local_output_root="/tmp/d_recipe_unused_fixture",
+               local_storage_peak_bytes=8*2**30, local_concurrent_bytes=16*2**30)
+        root,share=protection_plan(c)["targets"]
+        self.assertEqual(root["peak_additional_bytes"],8*2**30)
+        self.assertEqual(root["concurrent_bytes"],16*2**30)
+        self.assertEqual(share["concurrent_bytes"],0)
+        self.assertEqual(share["quota_peak_additional_bytes"],36706053853)
+
+    def test_unknown_negative_or_noninteger_local_peer_forecast_is_refused(self):
+        for value in (-1,None,True,1.5):
+            with self.subTest(value=value),self.assertRaisesRegex(ValueError,"peer root-disk"):
+                protection_plan(dict(self.lustre_configuration(),local_concurrent_bytes=value))
