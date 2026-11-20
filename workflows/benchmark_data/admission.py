@@ -5,6 +5,7 @@ from pathlib import Path
 import socket
 import time
 from .acquire import guard,quota_headroom
+from .shared_storage import current_pool
 
 
 def protect(root,needed,snapshot,own_concurrent_bytes=1073741824):
@@ -15,4 +16,4 @@ def protect(root,needed,snapshot,own_concurrent_bytes=1073741824):
     if q['uid']!=os.getuid() or q['generation']!='benchmarkB020261119' or q['returncode']!=0 or not 0<=time.time()-q['observed_epoch']<=90:
         raise RuntimeError('Missing/stale/mismatched quota observation')
     guard(Path(root),needed,quota_headroom(q['raw'],os.getuid()),time.monotonic(),
-          114569896448+own_concurrent_bytes)
+          current_pool(root,114569896448+own_concurrent_bytes))

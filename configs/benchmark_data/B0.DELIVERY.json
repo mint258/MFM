@@ -10,9 +10,9 @@
   "handoff_native_exit": "0:0",
   "source_groups": 11,
   "domain_count_rows": 12,
-  "Pprime_current_job": 4536588,
-  "Pprime_current_node": "compute-0-12",
-  "Pprime_current_workers": 8,
+  "Pprime_current_job": 4537629,
+  "Pprime_current_node": "compute-0-8",
+  "Pprime_current_workers": 16,
   "Pprime_followup_jobs": [
     4536590
   ],
@@ -186,26 +186,16 @@
       "D3_REPAIRED": 41243
     }
   },
-  "Pprime_previous_closed_job": {
-    "job": 4536581,
-    "native_state": "COMPLETED",
-    "native_exit": "0:0",
-    "INTENT": 0,
-    "outcome_counts": {
-      "PENDING": 164875,
-      "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES": 157,
-      "PPRIME_READY": 160048
-    }
-  },
+  "Pprime_previous_closed_job": 4536588,
   "Pprime_standby": {
-    "job": 4536991,
+    "job": 4537629,
     "previous_job": 4536588,
     "followup_job": 4536590,
-    "native_state": "PENDING",
-    "scientific_calls": 0,
-    "acceptance_written": false,
+    "native_state": "RUNNING_ORIGINAL_PRODUCER_AFTER_NATIVE_C0",
+    "scientific_calls": null,
+    "acceptance_written": true,
     "exclude_unrecovered_node18": true,
-    "superseded_zero_native_candidate": 4536722,
+    "superseded_zero_native_candidate": 4536991,
     "exclude_uniform_active_node": null,
     "exclusion_until": "Temporary node17 exclusion released only after actual6906/6907 C0 and full new-scope seal; node18 remains excluded",
     "scientific_record_grace_unchanged": true,
@@ -215,7 +205,25 @@
     "previous_native_TimeMin_hours": 12,
     "TimeMin_update_at_verified_pending_zero_runtime": true,
     "current_excluded_nodes": "compute-0-[0-7,14,18-22]",
-    "uniform_tail_must_exclude_allocated_standby_node_before_accept": false
+    "uniform_tail_must_exclude_allocated_standby_node_before_accept": false,
+    "previous_candidates_zero_native": [
+      4536722,
+      4536991
+    ],
+    "actual_worker_increase_observed": true,
+    "throughput_speedup_factor": null,
+    "handover_proof": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/B0_standby_4537629_handover_proof.json",
+    "previous_native_closure": {
+      "job": 4536588,
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 71067,
+      "workers": 8,
+      "PPRIME_READY": 308739,
+      "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES": 269,
+      "PENDING": 16072,
+      "INTENT": 0
+    }
   },
   "active_source_count_handoff": {
     "historical_domain_table_preserved": true,
@@ -236,19 +244,22 @@
     "excluded_nodes": "compute-0-[0-7,14,18-22]",
     "workers": 8,
     "time_limit_seconds": 86400,
-    "dependency_at_update": "afterok:4536588",
+    "dependency_at_update": "afterok:4536588:4537629",
     "native_state_at_update": "PENDING/RunTime0/UID1278",
-    "active_parent_unchanged": true,
+    "active_parent_unchanged": false,
     "actual_target_bytes_inodes_RAM_and_quota_admission_unchanged": true,
     "scientific_protocol_unchanged": true,
-    "reason": "Allow the still-unstarted continuation to use any eligible healthy CPU node after its required producer closure; avoid an unnecessary node12-only scheduling constraint",
+    "reason": "Protect both old native closure and actual16-worker replacement before any fallback continuation",
     "actual_speedup_not_yet_observed": true,
     "default_submission_script_excluded_nodes": "compute-0-[0-7,18,20-22]",
-    "temporary_native_resource_override": true
+    "temporary_native_resource_override": true,
+    "handover_from": 4536588,
+    "handover_to": 4537629,
+    "actual_worker_increase_observed": true
   },
   "temporary_resource_node_exclusions": {
     "jobs": [
-      4536991,
+      4537629,
       4536590
     ],
     "nodes": [
@@ -264,10 +275,33 @@
       "followup_required_bytes_with_reserve": 103079215104
     },
     "native_update_at_owned_pending_zero_runtime": true,
-    "running_parent_unchanged": true,
+    "running_parent_unchanged": false,
     "worker_counts_and_wall_limits_unchanged": true,
     "default_submission_templates_unchanged": true,
     "release_condition": "When a target has actual CPU opportunity, recheck that actual node's bytes/inodes/RAM and full worker peak plus reserve; restore each still-owned PENDING/zero-runtime job only if its required budget fits. Never delete or stop other workloads.",
     "all_required_complete": false
+  },
+  "shared_storage_admission": {
+    "policy": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_b1_20261119/workflows/benchmark_data/benchmark_storage_reservations.json",
+    "peer_NFS_pool_bytes": 200546101981,
+    "original_remaining_quantum_forecast_added_separately": true,
+    "legacy_guard_preserved_by_maximum": true,
+    "actual_node_root_tmp_peer_futures_checked": true,
+    "account_floor_bytes": 100000000000,
+    "new_tests": {
+      "job": 4537628,
+      "passed": 6,
+      "native_state": "FAILED_SOURCE_LAUNCHER_GIT_UNAVAILABLE_AFTER_TESTS"
+    },
+    "source_recovery": {
+      "job": 4537630,
+      "native_state": "COMPLETED",
+      "exit_code": "0:0",
+      "files": 5268,
+      "python_files": 3738,
+      "errors": 0
+    },
+    "running_original_restarted": false,
+    "replacement_loaded_new_admission": true
   }
 }
