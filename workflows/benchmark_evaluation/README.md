@@ -1,20 +1,33 @@
-# Authorized downstream execution
+# Downstream benchmark execution
 
-Authority: [2026-11-19 directive](../../docs/benchmark/USER_DIRECTIVE_20261119.md). This directory records the actual self-contained Slurm producers used for the initial B1/C1 and B2 preparation work. No databases, computed labels, predictions, weights or caches are packaged in Git.
+Authority: `docs/benchmark/USER_DIRECTIVE_20261119.md` and unchanged requirements of the 2026-11-18 directive and BENCHMARK_PLAN. Current work covers B1, C1, and B2 environment/fixed100 acceptance only.
 
-| Script | Actual run | Result at publication |
-|---|---|---|
-| endpoint_catalog.sbatch | 4536889 | 8 logic tests passed; full five-marker deferred-policy coverage; 96 candidate endpoints across all 11 source groups |
-| c1_d_features.sbatch | 4536892 | 6 interface tests passed; eight tabular source groups closed; reference-group bindings pending |
-| c1_d_lightgbm_moleculeace.sbatch | 4536894 | 4 statistical tests passed; 30 of 30 MoleculeACE LightGBM-D fits closed |
-| c1_d_tabpfn_moleculeace.sbatch | 4536899 | Running with the same official rows, D features, train-only mean and clustered bootstrap |
-| b2_mace_off100.sbatch | 4536880 | 100 shared UFF conformers; 192-dimensional invariant atom descriptors |
-| b2_cpu_interface_repair.sbatch | 4536890 | Monroe CPU inference passed; Uni-Mol atomic-interface mismatch remains UNRESOLVED |
+Data enter through `configs/benchmark_data/B0.DELIVERY.json`. Shared geometry/labels use `SharedB0Reader`; P′ uses `PprimeReader` only after the corresponding source is sealed. No database copies are made. The complete five-deferred-endpoint inventory was verified before fits; its anonymous identities are never published here.
 
-The scripts retain the actual remote input/output bindings and model environments used by these jobs. Their first line is a Slurm shell header, so they can be submitted with sbatch after reviewing those bindings. Existing jobs and results are retained; publishing these sources does not resubmit anything.
+The server worktree remains based on B0 commit `6d056a41f379b921d31017ecfed9ce84d1a5c71a`. GitHub publication uses the connector; the equivalent scripts were submitted inline to Slurm because X: source editing is unavailable. These files archive the submitted logic; they have not yet been merged/deployed into that server worktree. Output paths contain native job IDs. For later fresh submissions, update an input job path only to the corresponding closed producer, preserve the frozen science, and retain the original artifacts.
 
-Molecular C1-D inputs are the 20 unchanged B0 global D fields plus PMI1/2/3, PBF, volume and total SASA from the first accepted shared UFF conformer. Raw F64 values and explicit masks are preserved; unavailable fields remain missing. Atom-wise SASA remains an atom-level field. The derived feature cache is outside Git and references B0.DELIVERY.json and the full-inventory scope proof.
+| Scripts / logic | Current native execution |
+|---|---|
+| endpoint_catalog.sbatch | 4536889: 96 active candidate endpoints across 11 source groups; no decisions |
+| b1_molecular_features.sbatch | 4536908: MoleculeACE and PharmaBench closed |
+| b1_more_molecular_features.sbatch | 4536920: five additional source groups closed |
+| b1_rf_lightgbm_official.sbatch | 4536910: 80/80 task-model pairs closed, no failures |
+| b1_chemprop_official.sbatch | 4536913: fixed-default final-epoch fits in progress |
+| c1_d_features.sbatch | 4536892: native D20 + six global D3 fields for eight tabular groups |
+| c1_d_lightgbm_moleculeace.sbatch / c1_d_tabpfn_moleculeace.sbatch | 4536894 / 4536899: 30/30 each |
+| c1_d_lightgbm_pharmabench.sbatch / c1_d_tabpfn_pharmabench.sbatch | 4536912: 10/10; 4536921 in progress |
+| c1_d_lightgbm_tdc_asap.sbatch | 4536929: 23/23, original endpoint masks and split metadata |
+| pka_macro_binding.sbatch | 4536926: frozen macro labels, dataset+rawdataID SAMPL join, full-key TRAIN exclusions |
+| c1_d_lightgbm_pka.sbatch | 4536951 continues pre-import I/O failure 4536932; native logs retain both job identities |
+| b1_rf_lightgbm_tdc_asap.sbatch / b1_chemprop_tdc_asap.sbatch | 4536953/4536954 continue pre-import I/O failures 4536935/4536937; no prior fit was restarted |
+| reference_source_schema.sbatch | 4536945: original NMR label/atom interface and reference/PPE/Biogen source metadata for consumers |
+| selection.py / test_selection.py | 4536943: 14 new-logic tests passed; no produced model result was replayed |
+| B2 scripts | Native acceptance and unresolved attempts indexed in BASELINE_AVAILABILITY.md |
 
-C1 fits use official source TRAIN/TEST membership, default model settings, seed 20261025 and no hyperparameter search. RAE denominators use the applicable TRAIN mean. The 1,000 bootstrap draws resample molecules, keeping repeated/atom rows together. TabPFN uses the public V2 checkpoint; the official per-estimator 10,000-row subsampling ensemble applies only if its training context limit is exceeded.
+Primary official-split fits use the original TRAIN/TEST population, seed 20261025, default RF/LightGBM settings, 1000 whole-molecule paired bootstrap draws, and a TRAIN-mean reference. Binary tasks predict class-1 probabilities; their RAE uses absolute probability error against TRAIN prevalence. Filter-impact diagnostics fit on the full processable TRAIN and report full/retained/excluded TEST populations separately. Blind ASAP/ExpansionRx main predictions retain all official evaluable TEST rows and use the registered TRAIN-mean fallback outside the domain.
 
-The candidate catalog is not B1_task_screen.csv and is not a final task selection. No B1 screen decision or completed all-task C1 result table is claimed. Full B1 fitting, remaining C1 models/tasks, pKa macro/single-site binding, complete NMR label binding and the recommended B2 environment matrix remain in progress. B2 full-population extraction, B3, B4 and pretraining remain outside the current authorization.
+Chemprop uses the default graph architecture and learning-rate schedule, batch64, 50 epochs, and final-epoch weights; no validation or TEST checkpoint selection or parameter search. Regression scaling is fitted on TRAIN only and inverted in prediction. Every completed epoch has a last checkpoint, and completed task fits write closed prediction/result files.
+
+The selection module refuses missing baselines or different evaluation IDs, original labels, molecular groups, or TRAIN references. Its official-split statistics resample the same whole molecules in all models, using 1000 draws. The discrimination SE is for the observed worst-minus-best RAE pair. The <30 rule takes the total labeled points in the filtered endpoint, explicitly supplied by the task binding. For tasks lacking an official split, five repetitions of five scaffold-group folds are mandatory; optical folds group by chromophore scaffolds across every solvent observation. Tukey HSD requires the same complete 25 fold scores for all three baselines. The final B1 roster is not yet produced or frozen.
+
+P′ and P′+D remain conditional on B0 sealing; atom-site pKa labels are not inferred from predicted microspecies. Standard NMR uses the original Jonas release, not a DFT-only substitution. No B2 full extraction, B3/B4, pretraining, paid school-server work, or PM7 geometry reconstruction has been launched.
