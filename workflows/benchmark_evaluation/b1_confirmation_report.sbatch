@@ -2,7 +2,7 @@ sbatch <<'CONFIRMREPORT'
 #!/bin/bash
 #SBATCH --job-name=B1-seed2-first-report
 #SBATCH --partition=cpu
-#SBATCH --nodelist=compute-0-[8-17,19]
+#SBATCH --exclude=compute-0-[0-7,18,20-22]
 #SBATCH --cpus-per-task=1
 #SBATCH --ntasks=1
 #SBATCH --nodes=1

@@ -2056,16 +2056,16 @@
   "pretraining_started": false,
   "B2_full_extraction_started": false,
   "B3_B4_started": false,
-  "B1_screen_decisions_produced": false,
+  "B1_screen_decisions_produced": true,
   "B1_final_screen_consumer": {
     "script": "b1_final_task_screen.sbatch",
     "submitted": true,
     "source_groups": 45,
     "arrays": 9,
-    "task_roster_written": false,
+    "task_roster_written": true,
     "missing_or_unaligned_results_cannot_finalize_without_explicit_terminal_UNRESOLVED_reason": true,
     "native_job": 4537430,
-    "native_state": "PENDING_DEPENDENCY",
+    "native_state": "COMPLETED/0:0",
     "active_source_dependencies": [
       4537323,
       4537324,
@@ -2082,7 +2082,16 @@
       4537384,
       4537385
     ],
-    "all45_sources_rechecked_terminal_at_execution": true
+    "all45_sources_rechecked_terminal_at_execution": true,
+    "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/B1_task_screen/job_4537430/manifest.json",
+    "decision_counts": {
+      "EXCLUDE": 6,
+      "RETAIN": 55,
+      "APPENDIX": 34,
+      "UNRESOLVED": 1
+    },
+    "screen_sha256": "5c01513d72f62cca556209b8453ac190f97fa42d8b00db7075c208a05660c8bd",
+    "unique_final_screen": true
   },
   "GPU_downstream_neural": {
     "policy": "Native GPU-node sbatch, demand CPUs, no exclusive/GRES; actual UUID/context/free-memory checks and shared cross-window flock; CPU-only preparation and report statistics; original model/data/budget/seed unchanged",
@@ -2651,7 +2660,7 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/moleculeace_TabPFN_Pprime.py",
         "future_dependency": 4537124,
-        "native_dependency": "afterany:4537385,afterok:4537124",
+        "native_dependency": "afterany:4537385:4537456,afterok:4537124",
         "superseded_GPU_job": 4537227,
         "job": 4537283
       },
@@ -3598,7 +3607,9 @@
     "original_producer_task_names_preserved_in_confirmation_plan": true,
     "native_job": 4537430,
     "job": 4537430,
-    "superseded_job": 4537386
+    "superseded_job": 4537386,
+    "native_state": "COMPLETED/0:0",
+    "task_roster_written": true
   },
   "conditional_neural_confirmation": {
     "module": "workflows/benchmark_evaluation/confirmation.py",
@@ -3630,7 +3641,7 @@
     "final_results_export_prepared": true,
     "native_source_identity_in_plan": true,
     "array_identity_policy": "Original array parent plus every actual native child/folder; never assume parent+index arithmetic",
-    "conditional_neural_fit_dispatch_not_submitted": true,
+    "conditional_neural_fit_dispatch_not_submitted": false,
     "CPU_source_preparation": {
       "B1_job": 4537433,
       "B1_afterok": 4537430,
@@ -3643,8 +3654,117 @@
       "preflight_rendered_GPU_scripts": 3,
       "preflight_negative_admission_cases": 2,
       "new_GPU_fits_launched": false,
-      "reuses_existing_required_NMR_1H_second_seed": 4537338
-    }
+      "reuses_existing_required_NMR_1H_second_seed": 4537338,
+      "B1_native_state": "COMPLETED/0:0"
+    },
+    "actual_plan_closed": true,
+    "required_Chemprop_configurations": 17,
+    "reused_required_NMR_1H_confirmation": 4537338,
+    "new_configurations": 16,
+    "actual_GPU_groups": [
+      {
+        "primary_job": "4537200",
+        "runs": [
+          {
+            "job": 4537451,
+            "array": false
+          }
+        ],
+        "node": "compute-0-5",
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/conditional_preparation/B1/job_4537433/group_0.sbatch"
+      },
+      {
+        "primary_job": "4537263",
+        "runs": [
+          {
+            "job": 4537452,
+            "array": false
+          }
+        ],
+        "node": "compute-0-5",
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/conditional_preparation/B1/job_4537433/group_1.sbatch"
+      },
+      {
+        "primary_job": "4537262",
+        "runs": [
+          {
+            "job": 4537453,
+            "array": false
+          }
+        ],
+        "node": "compute-0-5",
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/conditional_preparation/B1/job_4537433/group_2.sbatch"
+      },
+      {
+        "primary_job": "4537335",
+        "runs": [
+          {
+            "job": 4537454,
+            "array": true
+          }
+        ],
+        "node": "compute-0-22",
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/conditional_preparation/B1/job_4537433/group_3.sbatch"
+      },
+      {
+        "primary_job": "4537355",
+        "runs": [
+          {
+            "job": 4537455,
+            "array": true
+          }
+        ],
+        "node": "compute-0-7",
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/conditional_preparation/B1/job_4537433/group_4.sbatch"
+      },
+      {
+        "primary_job": "4537337",
+        "runs": [
+          {
+            "job": 4537456,
+            "array": false
+          }
+        ],
+        "node": "compute-0-7",
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/conditional_preparation/B1/job_4537433/group_5.sbatch"
+      },
+      {
+        "primary_job": "4536913",
+        "runs": [
+          {
+            "job": 4537457,
+            "array": false
+          }
+        ],
+        "node": "compute-0-5",
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/conditional_preparation/B1/job_4537433/group_6.sbatch"
+      },
+      {
+        "primary_job": "4537203",
+        "runs": [
+          {
+            "job": 4537458,
+            "array": false
+          }
+        ],
+        "node": "compute-0-5",
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/conditional_preparation/B1/job_4537433/group_7.sbatch"
+      },
+      {
+        "primary_job": "4536954",
+        "runs": [
+          {
+            "job": 4537459,
+            "array": false
+          }
+        ],
+        "node": "compute-0-5",
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/conditional_preparation/B1/job_4537433/group_8.sbatch"
+      }
+    ],
+    "first_CPU_report_job": 4537462,
+    "original_native_plans_only": true,
+    "new_GPU_fits_launched": true
   },
   "validation": {
     "full_current_benchmark_and_active_data_interface_regression": "158_PASS_ZERO_FAILURE_ERROR_SKIP",
@@ -3659,6 +3779,19 @@
       "status": "PASS",
       "native_step": "4537325.7",
       "synthetic_fixtures_only": true
+    },
+    "final_B1_delivery_source_check": {
+      "job": 4537470,
+      "status": "PASS",
+      "native_state": "COMPLETED/0:0",
+      "actual_node": "compute-0-10",
+      "paths": 5561,
+      "python_sources": 3764,
+      "server_references": 1311,
+      "heredocs": 241,
+      "child_programs": 11,
+      "new_report_policy_tests": 4,
+      "scientific_statistics_replayed": false
     }
   },
   "pull_request": {
@@ -3786,7 +3919,7 @@
     ],
     "speedup_claimed_without_actual_fit": false
   },
-  "B1_total_completed_three_baseline_endpoints": 86,
+  "B1_total_completed_three_baseline_endpoints": 95,
   "GPU_22_shared_execution": {
     "name": "Joung_e1_Chemprop_GPU22",
     "learner": "Chemprop-v2",
@@ -4108,5 +4241,20 @@
       4537404,
       4537405
     ]
+  },
+  "B1_frozen_decisions": {
+    "job": 4537430,
+    "active_endpoints": 96,
+    "scorable_endpoints": 95,
+    "decision_counts": {
+      "EXCLUDE": 6,
+      "RETAIN": 55,
+      "APPENDIX": 34,
+      "UNRESOLVED": 1
+    },
+    "sha256": "5c01513d72f62cca556209b8453ac190f97fa42d8b00db7075c208a05660c8bd",
+    "task_reselection_permitted": false,
+    "supplementary_filter_impact_rows": 1140,
+    "original_Tukey_pair_rows": 39
   }
 }

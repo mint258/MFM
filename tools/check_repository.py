@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import csv
+import io
 import hashlib
 import json
 from pathlib import Path
@@ -16,6 +18,39 @@ HEAVY_SUFFIXES = {
     '.npy', '.npz', '.pkl', '.pickle', '.xyz', '.sdf', '.mol',
     '.tar', '.gz', '.bz2', '.xz', '.zip', '.7z', '.h5', '.hdf5', '.csv',
 }
+# Exact aggregate deliverables authorized by the downstream benchmark taskbook.
+# Raw labels, molecular identities and per-record predictions remain outside Git.
+BENCHMARK_REPORT_TABLES = {
+    'results/benchmark/B1_task_screen.csv': {'endpoint_key', 'decision', 'reason'},
+    'results/benchmark/B1_filter_impact.csv': {'endpoint_key', 'model', 'fit_population', 'evaluation_population'},
+    'results/benchmark/B1_scaffold_Tukey_HSD.csv': {'endpoint_key', 'left', 'right', 'pvalue'},
+    'results/benchmark/B1_Chemprop_paired_comparisons.csv': {'endpoint_key', 'reference_model', 'candidate_model', 'significant_improvement'},
+    'results/benchmark/B1_Chemprop_seed2_plan.csv': {'endpoint_key', 'model', 'reason', 'confirmation_seed'},
+    'results/benchmark/PPE_native_classical_baselines.csv': {'dataset', 'method', 'MAE', 'RAE_TRAIN_mean'},
+    'results/benchmark/C1_results.csv': {'endpoint_key', 'feature_group', 'learner', 'report_stage', 'model_seed'},
+    'results/benchmark/C1_second_seed_registered_comparisons.csv': {'endpoint_key', 'feature_group', 'learner', 'comparison'},
+    'results/benchmark/B1_Chemprop_confirmation_results.csv': {'endpoint_key', 'model', 'confirmation_status'},
+}
+RECORD_DATA_COLUMNS = frozenset(('record_id', 'evaluation_id', 'full_inchikey', 'smiles', 'y_true', 'prediction'))
+
+def report_csv_error(name, raw):
+    """Check aggregate export shape only; never recalculate scientific statistics."""
+    try:
+        rows = csv.reader(io.StringIO(raw.decode('utf-8')))
+        header = next(rows)
+        if len(set(header)) != len(header):
+            return 'duplicate aggregate report columns'
+        if RECORD_DATA_COLUMNS.intersection(field.strip().lower() for field in header):
+            return 'individual molecular data or predictions are not aggregate reports'
+        if (name == 'results/benchmark/C1_second_seed_registered_comparisons.csv'
+                and header == ['status'] and next(rows, None) is None):
+            return None  # A closed zero-required comparison export has only this header.
+        if not BENCHMARK_REPORT_TABLES[name].issubset(header):
+            return 'aggregate benchmark report header differs from its registered role'
+    except (UnicodeError, csv.Error, StopIteration):
+        return 'invalid aggregate benchmark CSV'
+    return None
+
 SECRET_PATTERNS = (
     re.compile(rb'gh[pousr]_[A-Za-z0-9]{20,}'),
     re.compile(rb'github_pat_[A-Za-z0-9_]{20,}'),
@@ -41,10 +76,16 @@ def check(root: Path, paths: list[str], *, verify_export=True) -> dict:
         if size > 2 * 1024 * 1024:
             errors.append({'path': name, 'reason': 'exceeds the 2 MiB source-file limit'})
             continue
-        if path.suffix.lower() in HEAVY_SUFFIXES or path.name in {'.env', '.netrc', '.npmrc'}:
+        if ((path.suffix.lower() in HEAVY_SUFFIXES and name not in BENCHMARK_REPORT_TABLES)
+                or path.name in {'.env', '.netrc', '.npmrc'}):
             errors.append({'path': name, 'reason': 'data, weights, archive, or credentials file'})
             continue
         raw = path.read_bytes()
+        if name in BENCHMARK_REPORT_TABLES:
+            report_error = report_csv_error(name, raw)
+            if report_error:
+                errors.append({'path': name, 'reason': report_error})
+                continue
         total += len(raw)
         if any(pattern.search(raw) for pattern in SECRET_PATTERNS):
             errors.append({'path': name, 'reason': 'possible embedded credential; value withheld'})
