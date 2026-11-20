@@ -2064,7 +2064,7 @@
     "arrays": 9,
     "task_roster_written": false,
     "missing_or_unaligned_results_cannot_finalize_without_explicit_terminal_UNRESOLVED_reason": true,
-    "native_job": 4537386,
+    "native_job": 4537430,
     "native_state": "PENDING_DEPENDENCY",
     "active_source_dependencies": [
       4537323,
@@ -2078,7 +2078,7 @@
       4537335,
       4537268,
       4537269,
-      4537270,
+      4537428,
       4537384,
       4537385
     ],
@@ -2379,23 +2379,28 @@
         "job": 4537269
       },
       {
-        "name": "Joung_e5_Chemprop",
+        "name": "Joung_e5_Chemprop_GPU22",
         "learner": "Chemprop-v2",
-        "old_job": 4537076,
+        "old_job": 4537270,
         "exports": [
           "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=5"
         ],
         "dependency": "afterok:4537021",
         "array": "0-4%1",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "node": "compute-0-22",
+        "uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu128_job_4537025_step_5/chemprop/bin/python",
         "cpus": 4,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e5_Chemprop.py",
         "future_dependency": null,
-        "native_dependency": "afterany:4537269",
+        "native_dependency": "afterok:4537021",
         "superseded_GPU_job": 4537213,
-        "job": 4537270
+        "job": 4537428,
+        "superseded_zero_start_GPU_job": 4537270,
+        "foreign_context_shared_under_authorized_20_22_rule": true,
+        "existing_foreign_UID": 1283,
+        "initial_GPU_utilization_percent": 81,
+        "used_by_recipe9M": false
       },
       {
         "name": "Joung_e6_Chemprop",
@@ -3566,7 +3571,7 @@
         "array": true
       },
       {
-        "job": 4537270,
+        "job": 4537428,
         "model": "Chemprop-v2",
         "array": true
       },
@@ -3591,7 +3596,9 @@
     "fold_and_statistics_seed": 20261025,
     "actual_NMR_1H_sample_redo_confirmation": 4537338,
     "original_producer_task_names_preserved_in_confirmation_plan": true,
-    "native_job": 4537386
+    "native_job": 4537430,
+    "job": 4537430,
+    "superseded_job": 4537386
   },
   "conditional_neural_confirmation": {
     "module": "workflows/benchmark_evaluation/confirmation.py",
@@ -3625,12 +3632,12 @@
     "array_identity_policy": "Original array parent plus every actual native child/folder; never assume parent+index arithmetic",
     "conditional_neural_fit_dispatch_not_submitted": true,
     "CPU_source_preparation": {
-      "B1_job": 4537404,
-      "B1_afterok": 4537386,
-      "C1_job": 4537405,
-      "C1_afterok": 4537387,
+      "B1_job": 4537433,
+      "B1_afterok": 4537430,
+      "C1_job": 4537434,
+      "C1_afterok": 4537431,
       "CPUs_per_job": 1,
-      "source_cache": "source_check/job_4537323_step_3/proposed_sources.json",
+      "source_cache": "source_check/conditional_reroute_4537428/proposed_sources.json",
       "registered_primary_neural_templates": 68,
       "preflight_native_step": "4537325.0",
       "preflight_rendered_GPU_scripts": 3,
@@ -3646,7 +3653,13 @@
     "downstream_interface_cases": 126,
     "active_B0_interface_cases": 32,
     "scientific_outputs_replayed": false,
-    "unapproved_atom_site_proposal_executed": false
+    "unapproved_atom_site_proposal_executed": false,
+    "latest_new_confirmation_units": {
+      "count": 22,
+      "status": "PASS",
+      "native_step": "4537325.7",
+      "synthetic_fixtures_only": true
+    }
   },
   "pull_request": {
     "number": 17,
@@ -3921,9 +3934,9 @@
   },
   "C1_primary_consumer": {
     "submitted": true,
-    "native_job": 4537387,
+    "native_job": 4537431,
     "native_state": "PENDING_DEPENDENCY",
-    "requires_successful_frozen_B1_screen": 4537386,
+    "requires_successful_frozen_B1_screen": 4537430,
     "active_C1_source_dependencies": [
       4537281,
       4537282,
@@ -4001,7 +4014,9 @@
     ],
     "all_original_source_accounting_rechecked_at_execution": true,
     "final_C1_table": false,
-    "final_SHA": false
+    "final_SHA": false,
+    "job": 4537431,
+    "superseded_job": 4537387
   },
   "GPU7_e7_e8_reassignment": {
     "source_check_step": "4537025.21",
@@ -4045,7 +4060,11 @@
       "replacement": 4537387,
       "reason": "Same updated B1 producer binding and replacement screen dependency",
       "actual_scientific_results_consumed": false
-    }
+    },
+    4537386,
+    4537387,
+    4537404,
+    4537405
   ],
   "published_data_base_integration": {
     "commit": "0778812caf266d7fb88f67b919a414b9c6a07abf",
@@ -4064,5 +4083,30 @@
     "original25_fold_protocol_preserved": true,
     "GPU_statistics_deferred_to_CPU": true,
     "final_C1_table_produced": false
+  },
+  "GPU22_e5_reassignment": {
+    "original_unstarted_job": 4537270,
+    "new_native_array": 4537428,
+    "node": "compute-0-22",
+    "uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+    "CPUAlloc": 88,
+    "CPUTot": 104,
+    "allocated_cpus": 4,
+    "foreign_UID": 1283,
+    "foreign_pid": 75192,
+    "foreign_used_MiB": 680,
+    "total_MiB": 32607,
+    "utilization_percent": 81,
+    "root_free_bytes": 52553187328,
+    "root_total_bytes": 75125227520,
+    "root_inodes_free": 36511992,
+    "only_pending_jobs_replaced": true,
+    "superseded_jobs_cancelled_native_zero_elapsed": [
+      4537270,
+      4537386,
+      4537387,
+      4537404,
+      4537405
+    ]
   }
 }
