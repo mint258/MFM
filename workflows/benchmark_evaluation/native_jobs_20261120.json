@@ -2,7 +2,7 @@
   "schema": "BENCHMARK_NATIVE_JOB_INDEX_20261120_V1",
   "scope": "96 active candidate endpoints after complete anonymous five-endpoint inventory verification; no final decisions yet",
   "native_source_worktree_HEAD": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
-  "latest_published_before_this_batch": "b84f073e11ea2400c0d64709fcd9d223133808d1",
+  "latest_published_before_this_batch": "002029c4d9bec4cf304afcd004b8350cf2dfdb54",
   "artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119",
   "deferred_inventory": {
     "job": 4536851,
@@ -3623,7 +3623,21 @@
     "final_results_export_prepared": true,
     "native_source_identity_in_plan": true,
     "array_identity_policy": "Original array parent plus every actual native child/folder; never assume parent+index arithmetic",
-    "conditional_neural_fit_dispatch_not_submitted": true
+    "conditional_neural_fit_dispatch_not_submitted": true,
+    "CPU_source_preparation": {
+      "B1_job": 4537404,
+      "B1_afterok": 4537386,
+      "C1_job": 4537405,
+      "C1_afterok": 4537387,
+      "CPUs_per_job": 1,
+      "source_cache": "source_check/job_4537323_step_3/proposed_sources.json",
+      "registered_primary_neural_templates": 68,
+      "preflight_native_step": "4537325.0",
+      "preflight_rendered_GPU_scripts": 3,
+      "preflight_negative_admission_cases": 2,
+      "new_GPU_fits_launched": false,
+      "reuses_existing_required_NMR_1H_second_seed": 4537338
+    }
   },
   "validation": {
     "full_current_benchmark_and_active_data_interface_regression": "158_PASS_ZERO_FAILURE_ERROR_SKIP",
@@ -4039,5 +4053,16 @@
     "native_running_worktrees_or_job_sources_updated": false,
     "B0_entry_own_delta": "supplemental_sources.ExpansionRx_official_release",
     "STATUS_uses_exact_data_base_text": true
+  },
+  "C1_D_fits_closed": {
+    "molecular_endpoints": 93,
+    "learners": [
+      "LightGBM",
+      "TabPFN"
+    ],
+    "current_UFF_C7_PPE_each_learner_zero_failures": true,
+    "original25_fold_protocol_preserved": true,
+    "GPU_statistics_deferred_to_CPU": true,
+    "final_C1_table_produced": false
   }
 }
