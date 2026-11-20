@@ -13,6 +13,9 @@ import numpy as np
 
 
 SCHEMA = "D_DOWNSTREAM_DESCRIPTOR_EXPORT_V1"
+D3_ORDERED_FIELDS = ("PMI1", "PMI2", "PMI3", "PBF", "volume_A3", "SASA_total_A2")
+# Exact original TRAIN registry keys; notably source PBF is stored as PBF_A.
+D3_FEATURE_FIELDS = ("D3.PMI1", "D3.PMI2", "D3.PMI3", "D3.PBF_A", "D3.volume_A3", "D3.SASA_total_A2")
 
 
 @dataclass(frozen=True)
@@ -33,6 +36,93 @@ class DownstreamFeatureBatch:
     @property
     def source_missing(self):
         return self.status == 0
+
+
+def append_member_d3(batch, member_rows, *, standardized=False, normalization=None):
+    """Append six already-produced molecular D3 values by exact source member.
+
+    Tuple member IDs join only `(row['dataset'], row['record_id'])`; strings
+    join only `row['member_uid']`. No aliases, molecule-only geometry selection,
+    file reads, descriptor computation, fitting or atomic-SASA pooling occurs.
+    Repeated members in the requested batch preserve their order and geometry.
+
+    `standardized=True` applies only caller-supplied original TRAIN affine
+    parameters, keyed by D3_FEATURE_FIELDS. The batch's existing 2D values and
+    masks are preserved as supplied. Raw numerical values (including Inf) stay
+    in raw_values; a JSON null remains unavailable as NaN with its source status
+    unchanged, rather than guessing the original nonfinite value or filling 0.
+    """
+    if set(D3_FEATURE_FIELDS) & set(batch.fields):
+        raise ValueError("Molecular D3 fields are already present; refusing duplicate append")
+    requested = set(batch.member_uids)
+    if None in requested:
+        raise ValueError("D3 geometry requires explicit original member IDs, not molecule-only rows")
+    for key in requested:
+        if not (isinstance(key, str) or (isinstance(key, tuple) and len(key) == 2
+                                       and all(isinstance(part, str) for part in key))):
+            raise ValueError("Original D3 member IDs must be full strings or (dataset, record_id) tuples")
+    selected = {}
+    for row in member_rows:
+        keys = []
+        if "member_uid" in row and row["member_uid"] in requested:
+            keys.append(row["member_uid"])
+        if "dataset" in row and "record_id" in row:
+            pair = (row["dataset"], row["record_id"])
+            if pair in requested:
+                keys.append(pair)
+        if not keys:
+            continue
+        if tuple(row["D3_ordered_fields"]) != D3_ORDERED_FIELDS:
+            raise ValueError("Existing member D3 field order differs from the fixed six molecular scalars")
+        raw = tuple(np.nan if row["D3_raw"][field] is None else float(row["D3_raw"][field])
+                    for field in D3_ORDERED_FIELDS)
+        codes = tuple(row["D3_status"][field] for field in D3_ORDERED_FIELDS)
+        if any(not isinstance(code, (int, np.integer)) or code not in (0, 1, 2) for code in codes):
+            raise ValueError("D3 source status must preserve 0 missing / 1 valid / 2 numeric event")
+        # Retain only the minimal identity and six scalars, never source label
+        # dictionaries, structures, atom arrays or geometry files.
+        identity = (row["molecule_id"], row["source_split"], raw, codes)
+        for key in keys:
+            if key in selected:
+                previous = selected[key]
+                if (previous[:2] != identity[:2] or previous[3] != codes
+                        or not np.array_equal(np.asarray(previous[2]), np.asarray(raw), equal_nan=True)):
+                    raise ValueError("Conflicting duplicate original D3 member binding")
+                continue
+            selected[key] = identity
+    raw = np.empty((len(batch.member_uids), len(D3_ORDERED_FIELDS)), dtype=np.float64)
+    status = np.empty(raw.shape, dtype=np.uint8)
+    for position, key in enumerate(batch.member_uids):
+        if key not in selected:
+            raise KeyError("Existing molecular D3 member missing: " + repr(key))
+        molecule, source_split, values, codes = selected[key]
+        if molecule != batch.molecule_ids[position] or source_split != batch.source_splits[position]:
+            raise ValueError("Original D3 member molecule/split does not match the requested descriptor batch")
+        raw[position], status[position] = values, codes
+    valid = status == 1
+    values = raw
+    if standardized:
+        if normalization is None:
+            raise ValueError("Explicit original six-field TRAIN normalizations are required for D3")
+        centers, scales = [], []
+        for name in D3_FEATURE_FIELDS:
+            spec = normalization[name]
+            if spec.get("fit_role") != "TRAIN" or spec.get("element_reference") is not None:
+                raise ValueError("D3 standardization requires original TRAIN affine parameters, not A1 residual targets")
+            center = np.asarray(spec["center"]).reshape(-1)
+            scale = np.asarray(spec["scale"]).reshape(-1)
+            if (len(center) != 1 or len(scale) != 1 or not np.isfinite(center[0])
+                    or not np.isfinite(scale[0]) or scale[0] <= 0):
+                raise ValueError("Invalid original TRAIN D3 affine parameters for " + name)
+            centers.append(float(center[0]))
+            scales.append(float(scale[0]))
+        values = np.full(raw.shape, np.nan, dtype=np.float64)
+        np.subtract(raw, np.asarray(centers), out=values, where=valid)
+        np.divide(values, np.asarray(scales), out=values, where=valid)
+    return DownstreamFeatureBatch(
+        batch.member_uids, batch.molecule_ids, batch.source_splits, batch.fields + D3_FEATURE_FIELDS,
+        np.concatenate((batch.raw_values, raw), axis=1), np.concatenate((batch.values, values), axis=1),
+        np.concatenate((batch.status, status), axis=1), np.concatenate((batch.observed_valid, valid), axis=1))
 
 
 def _absolute(value):

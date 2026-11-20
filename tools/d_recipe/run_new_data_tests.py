@@ -50,7 +50,7 @@ def main():
     suite = unittest.TestSuite()
     loader = unittest.defaultTestLoader
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_loss.py"))
-    for name in ("test_statistics", "test_prepare", "test_produce", "test_storage", "test_existing", "test_full_plan", "test_b6_cache", "test_export", "test_prepare_development", "test_prepare_benchmark", "test_development_geometry", "test_source_smiles"):
+    for name in ("test_statistics", "test_prepare", "test_produce", "test_storage", "test_existing", "test_full_plan", "test_b6_cache", "test_export", "test_prepare_development", "test_prepare_benchmark", "test_development_geometry", "test_development_d3", "test_source_smiles"):
         module = importlib.import_module("workflows.data_d_descriptors." + name)
         suite.addTests(loader.loadTestsFromModule(module))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_wide_store.py"))

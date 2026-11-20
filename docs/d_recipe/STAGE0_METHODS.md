@@ -67,3 +67,11 @@ Mordred 的 Missing/Error 对象由 MissingValueBase 显式识别，其 float �
 `diagnostic_statistics` 只在 CPU 8–19 的真实分配上执行，复用 `collapse_composition.py` 所调用的原 `composition_statistics.py`：原组成基底含显式 H 的元素计数、总原子数和重原子数；原五折嵌套 ridge、CEV、CVF、CVF_res 不变。一次生成 1000 次分子 bootstrap 权重（seed20261025），所有层和指标共用；不重新拟合 OOF 预测。参与率点值沿用原总体协方差的谱公式，区间用相同分子权重和精确 F64 原子矩，按 trace(C)^2/sum(C*C) 计算同一谱量。原子参与率与 mean(H) 参与率均基于首允许构象，不把原子当独立重采样单位。闭合统计直接复用，不重复前向或抽样。
 
 入口为 `python -B -m tools.d_recipe.resources diagnostic_forward --configuration <Root冻结配置>` 及 `diagnostic_statistics`。目前没有诊断作业、前向缓存、指标、成本实测或完成结论。实际提交前单独登记这些输出的联合峰值：缓存数值字节为 4×512×8×（允许构象总数＋首构象原子总数），另计 panel、原子替换临时文件及其他未完成 D 写入；不把它们偷偷放入现有阶段 0 的 14GiB 预算。CPU 的每层重采样外积累加器约 1.96GiB 内存，不落节点临时盘。累计 4 小时或连续两次实际失败仍按任务书 UNRESOLVED 处理。
+
+逐层 R1/R3 也按原 P 的固定层3–6接入，不增加1–6全层扫描：显式设置 `diagnostic_feature_root` 时，在既有开发面板末层前向中同时保留已计算的3–5层；模型工厂与特征生产函数在进程内包装，结束或异常均还原，原源成员、atom ID、n_ref和末层H0不变。不开启该字段时沿用原路径。各数据集原子顺序只由该生产步骤对齐一次，缓存按checkpoint/run/store绑定并原子关闭；重复调用读取关闭缓存，旧末层缓存缺少中间层时不补跑编码器。
+
+`layer_readouts` 的GPU阶段只对D-R0、D-R1、D-G1及实际采纳臂的seed0 3M终点读取关闭的3–5层缓存，直接调用原P的R1/R3循环；6层复用主读出。CPU阶段复用原分子bootstrap，6层复用主统计，不重新采样。两阶段分别以配置 `phase=gpu/cpu` 通过资源包装执行；结果放诊断自己的 `layer_scores.csv`，`decision_input=false`，不能参与配方选择。潜在采纳臂只在原前向中保留已有中间张量，采纳决定前不拟合诊断探针；新增缓存峰值须在提交前单独登记，现14GiB阶段0预算不包含它们。尚无真实逐层诊断结果。
+
+该接入后新逻辑套件扩展到223项并在CPU17实际全部通过（原始日志 `D_native_cpu_tests_20261120_1638.log`，exit0，总7.42秒）；包括单次前向、缓存恢复、原子顺序、默认路径与异常恢复、主末层读出/统计复用及未采纳宽臂不做探针。未运行全仓库回归或仓库检查，仍仅在开PR前执行一次。
+
+开发D3的 `development_d3` 以原member自身source-frame图和原生Z/F64坐标调用既有 `downstream_science.geometry_descriptors`。分块保存六分子D3 F64/u8、独立逐原子SASA F64/u8和源atom映射，游标闭合后复用；不合并同MID的不同member几何。氢政策必填且尚未选择，不缺构象重嵌入。`append_member_d3` 只按原完整member UID或(dataset,record_id)纯连接，保原molecule/split、顺序/重复及0/缺失/numeric-event；不读文件、标签或重新计算几何。可选标准化只接受原TRAIN六参数，F64仿射且不截尾；PBF字段沿原D3.PBF_A命名。原子SASA不追加到分子向量。新增11项用例后共244项通过（CPU10真实4537508.step0单核，总6.63秒），仍无实际D3生产或A/B/C结果。
