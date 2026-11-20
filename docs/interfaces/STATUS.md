@@ -652,3 +652,6 @@ Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json e
 
 
 2026-11-20 11:02 CST B0候补回填调度更新：6991再次核实自有PENDING/RunTime0、无accept，原生TimeMin已由12:00:00放宽至06:00:00，TimeLimit仍1-00:00:00、16CPU及排除compute-0-[0-7,17-18,20-22]不变。仅扩大可利用的调度空档；原约3小时记录收尾余量、12任务/900秒/原软件解析、实际身份/容量/旧生产C0与双依赖接管规则均不改。尚PENDING，不宣称已提速；原6588/CPU12与新增6906/CPU17仍各8核并行运行，分别172801/4574齐备，新增3部分保留。未信号正在运行的生产或QM进程。
+
+
+2026-11-20 11:16 CST B0消费入口版本提示：仅检查代码/producer元数据，B1 NMR特征4536984实际COMPLETED/0:0，source_archive确为Jonas2019原2018发布文件，原train/test谱行保留；未读标签值或模型指标。其source_entry仍记录benchmark_b1_20261119工作树里的旧B0.DELIVERY快照（delivery/job_4536591，无active_target_manifests/directive19_data_preparation）。后续新消费应刷新B0入口至data-benchmark-b0-20261119，或显式采用当前规范入口 /share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_data_20261119/configs/benchmark_data/B0.DELIVERY.json；其中提供2018目标、当前计数、geometry_bindings与两范围共享队列状态。当前B1作业/代码/输入未改动；新S′/D已封存，P′仍等对应封存，目标原子映射使用binding.model_atom_to_source。此为入口版本衔接，不判定现有NMR数据错误，不要求重跑已闭合结果。
