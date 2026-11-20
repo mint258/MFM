@@ -2,7 +2,7 @@
     "schema":  "D_RECIPE_CURRENT_BEST_V1",
     "status":  "NATIVE_SCREENING_IN_PROGRESS",
     "recipe_frozen":  false,
-    "updated_at_utc":  "2026-11-20T15:08:24Z",
+    "updated_at_utc":  "2026-11-20T15:20:40Z",
     "current_best":  null,
     "scientific_authority":  "docs/d_recipe/TASKBOOK.md",
     "preregistration":  "configs/d_recipe/preregistration.json",
@@ -74,7 +74,12 @@
                                                     "GPU_root_peak_bytes":  8589934592,
                                                     "CPU_root_peak_bytes":  12884901888,
                                                     "cache_value_bytes":  5131075584,
-                                                    "decision_input":  false
+                                                    "decision_input":  false,
+                                                    "cached_layer_GPU_job":  4537584,
+                                                    "cached_layer_GPU_dependency":  "afterany:4537579,afterok:4537572",
+                                                    "cached_layer_CPU_job":  4537585,
+                                                    "cached_layer_CPU_dependency":  "afterok:4537584:4537573",
+                                                    "cached_layer_scope":  "Only cached layers3-5 nativeR1/R3 probes; layer6 predictions and scores reused; no encoder fallback"
                                                 }
                                    }
 }
