@@ -284,7 +284,7 @@ def render(plan, verdict, states, selection, code_commit):
                        number(summaries[arm]['R1']['mean_normalized_improvement']),
                        link(REPO / 'results/p_recipe/training' / configs[arm]['run'] / 'family_losses.csv')]
                       for arm in main_arms]), '',
-               '逐任务单元格为seed0的 R3 / R1；SoM只报告，不进入平均分。配对判定按实际要求的一个或两个种子计算。', '',
+               '逐任务单元格为seed0的 R3 / R1；SoM只报告，不进入平均分。9M确认的所有配对判定均只用seed0，不补seed1。', '',
                table(['任务'] + [arm+' R3/R1' for arm in main_arms],
                      [[task['task_id']] + [' / '.join(number(score_index[(configs[arm]['run'], readout, task['task_id'], confirmation_samples)]['score'])
                                                                for readout in ('R3', 'R1')) for arm in main_arms]
