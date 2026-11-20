@@ -1,0 +1,70 @@
+{
+  "recorded_utc": "2026-11-20T10:09:18Z",
+  "scope": "Metadata-only attempt to admit node18 to the p-heads final CPU regression pool",
+  "branch": "p-heads-20261117",
+  "full_regression_job": 4536884,
+  "full_regression_restarted": false,
+  "capacity_status": "UNKNOWN",
+  "node18_admitted": false,
+  "attempts": [
+    {
+      "job": 4537471,
+      "state": "CANCELLED by 1278",
+      "elapsed": "00:00:00",
+      "node": "None assigned",
+      "start": null,
+      "end_cst": "2026-11-20T17:47:19",
+      "client_returncode": 1,
+      "reason": "Immediate15 admission ended before allocation",
+      "capacity": "unknown",
+      "project_outputs": "none",
+      "allocated_CPU_runtime_seconds": 0
+    },
+    {
+      "job": 4537473,
+      "state": "TIMEOUT",
+      "elapsed": "00:02:25",
+      "AllocCPUS": 1,
+      "node": "compute-0-18",
+      "start_cst": "2026-11-20T17:50:58",
+      "end_cst": "2026-11-20T17:53:23",
+      "time_limit": "00:02:00",
+      "step_state": "CANCELLED",
+      "extern_state": "COMPLETED",
+      "client_returncode": 143,
+      "metadata_start_marker_received": false,
+      "capacity": "unknown; no primary capacity metadata was received before actual terminal state",
+      "project_outputs": "none; stdout only streamed to admin PTY",
+      "allocated_CPU_runtime_seconds": 145,
+      "CPU_hours": 0.04027777777777778,
+      "source": "Actual sacct job/step records plus completed srun client output"
+    }
+  ],
+  "evidence_commands": [
+    "sacct -j 4537471 --format=JobID,JobName,State,Elapsed,AllocCPUS,NodeList,Start,End -P",
+    "sacct -j 4537473 --format=JobID,JobName,State,Elapsed,AllocCPUS,NodeList,Start,End,Timelimit -P"
+  ],
+  "observation": "The allocated node18 step printed its CPU binding but returned no PHEADS_META_START or primary capacity fields before Slurm TIMEOUT; no disk-capacity conclusion is inferred.",
+  "management_cost": {
+    "allocated_cpu_seconds": 145,
+    "allocated_CPU_hours": 0.04027777777777778,
+    "scope": "Only these two metadata attempts; not a full-line CPU total"
+  },
+  "preservation": "No deletion. No node18 project output files were produced; original streamed output and Slurm accounting were retained in the task record.",
+  "prewrite_capacity": {
+    "node": "compute-0-17",
+    "observed_utc": "2026-11-20T10:06:05Z",
+    "guard": "tools/p_heads/h_resources.py guard(force=True) plus 10GiB /tmp requirement",
+    "result": "PASS",
+    "root_available_bytes": 52892168192,
+    "root_available_inodes": 36501746,
+    "NFS_available_bytes": 6844025143296,
+    "NFS_available_inodes": 2964419098,
+    "live_UID_quota_guard": "PASS",
+    "UID_required_bytes": 167864014848,
+    "planned_additional_bytes": 104857600,
+    "filesystem": "/share/home nfs:/share/home nfs4",
+    "purpose": "Small Markdown/JSON records and Git objects only"
+  },
+  "scientific_results_and_test_assertions_changed": false
+}

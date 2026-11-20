@@ -1075,3 +1075,8 @@ T5依seed0最终无显著改善，不计算seed1 H；T1–T4两种子判定原�
 [P heads final regression CPU pool /2026-11-20] Same pending job4536884 now waits on the admitted CPU-only pool8/9/10/11/12/13/15/16/17/19 instead of fixed17. Actual-node root/tmp bytes+inodes, live UID quota+concurrent headroom passed the existing guard with10GiB tmp future budget; MemAvailable read on each node. Nodes14/18 timed out and are excluded, as is GPU node2 in cpu partition. Runtime exact-host gate and existing actual-node capacity guards apply before scientific output and during work. Still one job/one node/real16CPUs/nice10000/4h; same full192modules/two workers, no duplicate run or new reservation budget. It remains pending, not passed; science complete, other jobs/C3 untouched.
 
 - 2026-11-20 11:08 CST · p-heads：回归4536884实际仍PENDING/0秒/Restarts0，核实priority/basic下原Nice10000造成额外让位后恢复普通Nice0，同步本线sbatch默认值；同一job、真实16CPU、容量已核实CPU池及4h时限保持，无抢占或重提。科学结果不变，无胜出项交接；C3仍归配方线。完整回归未完成，本线尚未结项。
+
+
+### 2026-11-20 18:09:18 CST · head类型线：node18核查4537473
+
+本线补充容量核查4537471未启动/0秒；4537473正式Slurm node18/1CPU在145秒后TIMEOUT，未返回原始容量字段，仍保留容量未知状态并排除该节点。新增管理CPU成本.0402778h单列，原输出/记录保留。完整回归仍是4536884、真实16CPU/Nice0/四小时/已核实10节点池等待；无新科学判定、无胜出项交接。记录见p-heads-20261117分支results/p_heads/NODE18_CAPACITY_PREFLIGHT_20261120.json。
