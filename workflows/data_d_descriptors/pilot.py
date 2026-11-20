@@ -149,6 +149,7 @@ def one(smiles):
             ["SOURCE_GRAPH_UNAVAILABLE"] * count, time.process_time() - cpu_begin,
             time.perf_counter() - begin)
     values, valid, nonfinite, errors = [], [], [], []
+    missing_value_type = ()
     if LIBRARY == "L1":
         raw = []
         for name, function in CALCULATOR:
@@ -163,13 +164,25 @@ def one(smiles):
             except Exception as error:
                 raw.append(error)
     else:
+        from mordred.error import MissingValueBase
+        missing_value_type = MissingValueBase
         raw = list(CALCULATOR(molecule))
     for item in raw:
-        if isinstance(item, OverflowError):
+        missing = isinstance(item, missing_value_type)
+        error = item.error if missing else item
+        if isinstance(error, OverflowError):
             values.append(math.nan)
             valid.append(False)
             nonfinite.append(True)
-            errors.append("NUMERIC_OVERFLOW:" + str(item)[:200])
+            errors.append("NUMERIC_OVERFLOW:" + str(error)[:200])
+            continue
+        if missing:
+            # Mordred's Missing/Error __float__ returns NaN. Its declared
+            # unavailable result is not a returned nonfinite numeric value.
+            values.append(math.nan)
+            valid.append(False)
+            nonfinite.append(False)
+            errors.append(str(item)[:256])
             continue
         try:
             number = float(item)

@@ -12,6 +12,22 @@ from .produce import (check_checkpoint, closed_pilots, encode_status, guard,
 
 
 class ProduceTests(unittest.TestCase):
+    def test_mordred_missing_wrapped_overflow_and_returned_nonfinite_are_distinct(self):
+        from mordred.error import Error, Missing
+        from . import pilot
+        results = [0., Missing(ZeroDivisionError("undefined descriptor"), []),
+                   Error(OverflowError("descriptor overflow"), []), np.nan, np.inf,
+                   Error(ValueError("not applicable"), [])]
+        with patch.object(pilot, "LIBRARY", "L2"), patch.object(pilot, "FIELDS", list("abcdef")), \
+                patch.object(pilot, "CALCULATOR", lambda molecule: results):
+            raw, valid, numeric, reasons, _, _ = pilot.one("CC")
+        np.testing.assert_array_equal(encode_status(np.asarray(raw), np.asarray(valid), np.asarray(numeric)),
+                                      [1, 0, 2, 2, 2, 0])
+        self.assertEqual(raw[0], 0.)
+        self.assertTrue(np.isinf(raw[4]))
+        self.assertIn("undefined descriptor", reasons[1])
+        self.assertIn("NUMERIC_OVERFLOW", reasons[2])
+
     def write_rows(self, root, values):
         path = Path(root) / "rows.jsonl"
         path.write_text("".join(json.dumps(row) + "\n" for row in values), encoding="utf-8")
