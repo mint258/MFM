@@ -124,12 +124,13 @@
     "current_native_state": "RUNNING",
     "observed_intents": 8,
     "current_node": "compute-0-17",
-    "observed_CST": "2026-11-20T10:45:46+08:00",
-    "observed_pending": 52661,
+    "observed_CST": "2026-11-20T11:02:12+08:00",
+    "observed_pending": 49311,
     "producer_progress_observed": true,
-    "observed_ready": 1227,
+    "observed_ready": 4574,
     "producer_log": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/B0_uniform_pprime_4536906.log",
-    "cross_node_read_allowed": false
+    "cross_node_read_allowed": false,
+    "observed_partial": 3
   },
   "both_scopes_final_handoff": {
     "job": 4536961,
@@ -190,7 +191,13 @@
     "superseded_zero_native_candidate": 4536722,
     "exclude_uniform_active_node": "compute-0-17",
     "exclusion_until": "Uniform scope tmpfs writer closed; both8+16 scratch peaks exceed actual node17 tmpfs",
-    "uniform_tail_must_exclude_allocated_standby_node_before_accept": true
+    "uniform_tail_must_exclude_allocated_standby_node_before_accept": true,
+    "scientific_record_grace_unchanged": true,
+    "native_TimeLimit_hours": 24,
+    "native_TimeMin_hours": 6,
+    "actual_speedup_not_yet_observed": true,
+    "previous_native_TimeMin_hours": 12,
+    "TimeMin_update_at_verified_pending_zero_runtime": true
   },
   "active_source_count_handoff": {
     "historical_domain_table_preserved": true,
