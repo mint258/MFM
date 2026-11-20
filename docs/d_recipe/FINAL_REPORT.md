@@ -1,6 +1,6 @@
 # D 家族实验报告（执行中）
 
-更新：2026-11-21 05:11 CST。本文件是最终报告的执行中版本，尚无最终配方、R3胜负或9M确认结果。结果未闭合处明确留待原生产者填写；不将新增逻辑测试、原始计算完成或排队状态写成实验完成。
+更新：2026-11-21 06:56 CST。本文件是最终报告的执行中版本，尚无最终配方、R3胜负或9M确认结果。结果未闭合处明确留待原生产者填写；不将新增逻辑测试、原始计算完成或排队状态写成实验完成。
 
 ## 依据与研究问题
 
@@ -51,8 +51,8 @@ CI只反映固定模型下的抽样不确定性，不表示训练随机性；条
 | 全量结构 | 1201795行，原4537508准备阶段闭合 | 输入准备完成 |
 | L1原始计算 | 4695批，1201795×217，elapsed3671.846866656095秒 | RAW_COMPLETE；尚不是字段统计/接收交付 |
 | L2原始计算 | 原4537508仍RUNNING | 全量统计与交付待完成 |
-| R0 seed0/3M | 原4537572仍RUNNING；1M/2M恢复点均保留；2M为192029363B、CST03:32:35，原producer已超过2505600样本 | 恢复点保存；主R3待完成 |
-| R0固定VAL | [500k CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_500000.csv)、[1M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1000000.csv)、[1.5M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1500000.csv)、[2M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_2000000.csv)、[2.5M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_2500000.csv) | 原单位误差记录；不替代R3判定 |
+| R0 seed0/3M | 原4537572已完成精确3000000样本/93750更新；3M点192031603B、CST06:54:12，1M/2M保留；原GPU作业继续读出；[原训练摘要快照](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/training_summary_3000000.json) | 训练主体完成；主R3/CPU统计仍待闭合 |
+| R0固定VAL | [500k CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_500000.csv)、[1M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1000000.csv)、[1.5M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1500000.csv)、[2M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_2000000.csv)、[2.5M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_2500000.csv)、[3M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_3000000.csv) | 原单位误差记录；不替代R3判定 |
 | A1/R1 | A1原4537571 COLLECTING；R1 4537592依赖闭合续算4537575 | 未取得A1分档、R1样本或分数 |
 | R1对R0 | 比较4537599依赖两个主CPU统计 | Δ、CI、τ与WIN/TIE/LOSS均待结果 |
 | L1/L2/G1及条件K1/seed1 | 尚未达到各自前置条件 | 不提前采用、跳过或宣称无胜出 |
@@ -79,7 +79,7 @@ CI只反映固定模型下的抽样不确定性，不表示训练随机性；条
 
 L2每行至少一项缺失100%不是整行失败。全量L2观测成本外推已超过pilot估计1.5倍，按任务书仅报告并继续；完整实际CPU成本尚待闭合，不把外推当作实际账单。
 
-[R0首次1000更新成本](../../results/d_recipe/D-R0_seed0_first1000_costs_20261120.json)记录RTX3090 UUID GPU-9db54192-dd3f-3177-e56f-dcd161ff932c：32000样本/459.63366344198585秒，69.62066216030972样本/秒，原15次整卡功耗采样均值219.734W，3M初始训练外推11.96962665213505 GPU小时。该口径排除初始化/读出，训练已变快，不能称为终点实际耗时。初次CUDA零步失败4537570为39秒/5CPU，单独记账；没有额外测速。最终训练、条件种子、读出、诊断、失败尝试及每周Slurm实际账仍待闭合汇总；TotalCPU缺测不记成零。
+[R0首次1000更新成本](../../results/d_recipe/D-R0_seed0_first1000_costs_20261120.json)记录RTX3090 UUID GPU-9db54192-dd3f-3177-e56f-dcd161ff932c：32000样本/459.63366344198585秒，69.62066216030972样本/秒，原15次整卡功耗采样均值219.734W，3M初始训练外推11.96962665213505 GPU小时。该口径排除初始化/读出，训练已变快，不能称为终点实际耗时。初次CUDA零步失败4537570为39秒/5CPU，单独记账；没有额外测速。R0原训练摘要现已闭合：actual_samples3000000、updates93750、seconds30579.45974943787、GPU_peak_bytes8374157824、clipped_fraction0.027584。seconds包括训练循环中的固定VAL，排除初始化及最终读出；原GPU作业尚在读出，不能据此宣称整条Slurm/GPU成本已闭合。最终训练、条件种子、读出、诊断、失败尝试及每周Slurm实际账仍待闭合汇总；TotalCPU缺测不记成零。
 
 新增逻辑最新302项在真实4537571.step11通过0:0，Slurm9秒、测试主体1.110秒；不代替科学接收。真实接收4537514等待全量闭合：原loader各64样本、冻结编码器仅拟合新头，逐头loss低于初值1%，并核对原子SASA/source atom ID。完整默认回归与`python tools/check_repository.py`仅在收尾开PR前执行一次，当前未执行。
 

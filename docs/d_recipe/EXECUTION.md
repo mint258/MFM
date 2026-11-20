@@ -98,3 +98,8 @@ GPU7已实际通过自身8GiB+同行16GiB根盘、共享D/同行UID future联合
 2026-11-21 05:11:03 CST：R0原4537572的既定2500000样本固定VAL已闭合CSV，1186B、mtime05:09:21+0800，同一producer随后已报告2505600样本。直接发布原CSV，未增加前向、独立统计或检查点加载；2.5M不是额外检查点/下游探针，1M/2M旧点保留。主统计4537573、终点诊断4537579仍PENDING/Dependency，R1 4537592继续等待完整A1。
 
 原生产metadata同次记录：A1 353280/1194228行COLLECTING、elapsed24508.84916986525秒；L2 completed_parts长度2385/4695、elapsed31495.685714006424秒。日报据此补充日程粗估：R0训练主体21日06:30–07:30，L2原始计算13:00–16:00，A1收集21:00–24:00；后续TRAIN统计/接收/拟合/读出与队列另计。这是已有进度的运行计划估计，没有额外测速或修改规定的首次1000步成本报告。CURRENT_BEST仍未冻结，无D胜负结论，完整任务继续。
+2026-11-21 06:56:04 CST：R0原4537572已真正完成精确3000000样本/93750更新。原生summary状态TRAINING_COMPLETE_EVALUATION_PENDING，actual_samples3000000、seconds30579.45974943787、clipped_fraction0.027584、clip12.800916213989263、B32/micro32、GPU_peak_bytes8374157824。原summary逐字节复制为results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/training_summary_3000000.json；它是训练闭合时的producer快照，非额外接收收据或独立复核。seconds包含固定VAL训练循环，排除初始化和最终读出，完整原GPU作业及整卡遥测成本待终态后一次汇总。
+
+3M恢复点/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/samples_3000000.pt实际192031603B，mtime06:54:12+0800；1M/2M及全部原产物保留。原3000000样本固定VAL CSV1180B，mtime06:54:13+0800，直接发布；没有加载权重作二次验证或增加前向。4537572仍RUNNING并接续其既定最终GPU读出，4537573/4537579仍PENDING/Dependency，主R3、bootstrap及规定诊断尚未完成，不能据训练终点作胜负或冻结结论。
+
+同次原生产状态：4537508、4537571仍RUNNING，L2原checkpoint已有3040/4695批、A1仍COLLECTING且432640/1194228行闭合。CPU17在既有4537571分配下以1CPU执行真实联合资源准入，通过当前D模型/NFS/同行future守卫，无新预算、数组回读或科学计算。日报将R0训练主体粗估替换为实际06:54闭合，其余生产/后续读出仍分别报告。全部既定臂、判定、9M、直接描述符对照、接收/交付与两个PR继续作为未完成范围。
