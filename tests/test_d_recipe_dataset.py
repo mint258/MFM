@@ -58,9 +58,11 @@ class Native:
         self.closed = True
 
 
-def wide_fixture(root, library="L1"):
+def wide_fixture(root, library="L1", *, new_values=None, new_parameter=None):
     root = Path(root)
     raw = np.array([[999.0, 0.0, np.nan], [999.0, 50.0, np.nan]], dtype=np.float64)
+    if new_values is not None:
+        raw[:, 1] = new_values
     status = np.array([[1, 1, 0], [1, 1, 2]], dtype=np.uint8)
     np.save(root / "values.npy", raw)
     np.save(root / "status.npy", status)
@@ -72,6 +74,8 @@ def wide_fixture(root, library="L1"):
         enabled_columns=[0, 1, 2], fit_role="TRAIN", producer_alignment_checked=True,
         normalization=[dict(mean=0.0, std_ddof0=1.0), dict(mean=2.0, std_ddof0=2.0),
                        dict(mean=0.0, std_ddof0=1.0)])
+    if new_parameter is not None:
+        entry["normalization"][1] = dict(new_parameter)
     path = root / "manifest.json"
     path.write_text(json.dumps(dict(schema="D_WIDE_DESCRIPTOR_STORE_V1", libraries={library: entry})))
     return WideDescriptorStore(path, library)
@@ -150,6 +154,29 @@ class DatasetTests(unittest.TestCase):
             result = wrapped.read(8, 1)
             self.assertNotIn("D20.ExactMolWt", result["targets"])
             self.assertEqual(result["targets"]["D.L2.ExactMolWt"].raw[0, 0], 999)
+
+    def test_new_F64_field_is_standardized_before_F32_without_changing_native_parameters(self):
+        step = 2.**-30
+        values = [1. + step, 1. + 2 * step]
+        frozen = dict(mean=1., std_ddof0=step)
+        native = Native()
+        original_native_parameters = copy.deepcopy(native.view.normalizations)
+        with tempfile.TemporaryDirectory() as root:
+            store = wide_fixture(root, new_values=values, new_parameter=frozen)
+            wrapped = DRecipeDataset(native, d_recipe={"library": "L1", "wide_store": store})
+            first, second = wrapped.read(8, 3), wrapped.read(2, 1)
+            self.assertEqual(first["targets"]["D.L1.new"].values[0, 0], 1.)
+            self.assertEqual(second["targets"]["D.L1.new"].values[0, 0], 2.)
+            self.assertEqual(first["targets"]["D.L1.new"].values.dtype, np.float32)
+            self.assertEqual(first["original_targets"]["D.L1.new"].raw[0, 0], values[0])
+            self.assertEqual(first["original_targets"]["D.L1.new"].raw.dtype, np.float64)
+            self.assertEqual(store.metadata["normalization"][1], frozen)
+            self.assertFalse(wrapped.view.normalizations["D.L1.new"].get("p_recipe_fitted", False))
+            for name in ("D20.ExactMolWt", "D3.PMI1", "D3.SASA_atom_A2"):
+                expected = normalize_values(first["original_targets"][name].raw,
+                    original_native_parameters[name], Z=first["Z"])
+                np.testing.assert_array_equal(first["targets"][name].values, expected)
+        self.assertEqual(native.view.normalizations, original_native_parameters)
 
     def test_a1_uses_actual_native_h_counts_without_changing_raw(self):
         native = Native()

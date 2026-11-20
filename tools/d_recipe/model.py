@@ -153,6 +153,8 @@ class DRecipeModel(V31PDModel):
                             "random_dropped": 0, "effective_valid": 0}
         self._d_binding["target_definitions"] = [dict(name=field.name,
             d_block=self.definitions[field.name].get("d_block"),
+            target_affine_arithmetic=("F64_then_FP32_target" if field.name.startswith(("D.L1.", "D.L2."))
+                                      else "unchanged_native_normalize_values"),
             normalization=deepcopy(self.definitions[field.name].get("normalization",
                 self.view.normalizations.get(field.name)))) for field in self.real_registry.fields]
 

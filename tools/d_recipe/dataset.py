@@ -44,6 +44,15 @@ def _block(field):
     return "molecule_3d" if field["name"].startswith("D3.") else "graph_2d"
 
 
+def _normalize_target(raw, specification, *, Z, new_wide_field=False):
+    if new_wide_field and not specification.get("p_recipe_fitted", False):
+        # The unchanged loader names its F64 arithmetic selector after the P
+        # fitter. Use that existing path for new F64 descriptor targets only;
+        # this call-local selector is never added to frozen parameter metadata.
+        specification = dict(specification, p_recipe_fitted=True)
+    return normalize_values(raw, specification, Z=Z)
+
+
 class DRecipeDataset:
     def __init__(self, native=None, *, d_recipe=None, **native_kwargs):
         config = dict(d_recipe or {})
@@ -166,7 +175,8 @@ class DRecipeDataset:
                 raw = wide.raw_values[:, column:column + 1].copy()
                 valid = wide.observed_valid[:, column:column + 1].copy()
                 with np.errstate(invalid="ignore", over="ignore"):
-                    values = normalize_values(raw, self._base_parameters[name], Z=sample["Z"])
+                    values = _normalize_target(raw, self._base_parameters[name], Z=sample["Z"],
+                                               new_wide_field=True)
                 values = np.where(valid, values, np.nan)
                 original = V31Target(raw, values, valid, "D", field["family"], field["level"],
                                      field["representation"], field.get("loss_enabled", True))
@@ -177,7 +187,8 @@ class DRecipeDataset:
             originals[name] = original
             spec = self.view.normalizations[name]
             with np.errstate(invalid="ignore", over="ignore"):
-                normalized = normalize_values(original.raw, spec, Z=sample["Z"])
+                normalized = _normalize_target(original.raw, spec, Z=sample["Z"],
+                                               new_wide_field=name in self._wide_by_name)
             normalized = np.where(original.valid, normalized, np.nan)
             targets[name] = replace(original, values=normalized, group=self.model_group)
         return dict(sample, targets=targets, original_targets=originals)
