@@ -66,3 +66,5 @@ H/T合并峰值预算24GiB是保护预算，不冒充实测峰值；已有实际
 完整回归结果及PR链接待实测补齐；当前尚未结项，不宣称全部检查通过。按用户指示开PR后保持未合并。
 
 首次回归的非CPU失败定位：test_phase1_initialization 在 meta 设备上下文中由 normalization._scalar 调用 Tensor.item() 抛出 RuntimeError，而测试预期 ValueError；test_p_recipe_exclusion 引用不存在的 tools/p_recipe/refit_d4.py。对分支起点0463aff的只读Git比较确认，相关两个测试及 normalization.py/initialization.py 均未变化，且起点也没有该refit脚本。此处仅记录首次日志的原因，不改这些文件，不恢复用户已取消的D4重算；有效16CPU回归的实际终态与错误数仍待完成。
+
+排队参数调整（11/20）：4536884原请求TimeLimit=UNLIMITED；在确认本线UID、WorkDir、PENDING/运行0及Restarts=0后，对同一job设置04:00:00调度上限并更新sbatch默认值，保留16CPU、node17、nice10000及完整测试范围。依据[Slurm回填调度说明](https://slurm.schedmd.com/sched_config.html)，有限且合理的时长请求有助于回填；此调整不代表已获资源或测试已通过，不改现有训练、科学结果或测试断言。
