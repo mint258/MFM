@@ -80,3 +80,11 @@ GPU初次4537570在CUDA初始化失败、39秒、5CPU，未创建训练输出。
 R0已实际超过193024样本；既有producer按预注册的optimizer_step_start轴，在60000–150000窗口得到2813个裁剪前梯度范数，冻结threshold=12.800916213989263，effective_freeze_samples=150016（32样本步边界），initial_clip281.7。原闭合JSON转录到results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/clip_calibration.json，不重新计算p99或更改窗口。当前无终点读出、WIN/TIE/LOSS或最终冻结结论。
 
 2026-11-20 23:20CST：已发布29b98943542e79f594a81d3433482b02282104f2的固定缓存层读出配置。实际CPU17元数据解析使用现有prepare_runtime/final_readout，验证计划缓存消费者与原终点producer的run/checkpoint/store绑定相同（无数据帧/前向）。GPU7逐层读出4537584在原3M主作业4537572成功且5000VAL GPU任务4537579终结后排队，2CPU，读取既有native四层cache，只拟合3/4/5层原R1/R3探针；第6层直接复用。CPU统计4537585 afterok4537584及主CPU统计4537573，1CPU。小型探针预测/统计位于已预算的full/native_stage1元数据范围，D联合NFS36706053853B不增加；没有新编码器前向、层1–6扫描或新预训练。当前仍为PENDING，不是诊断已完成。
+
+2026-11-20 R1正式队列：已发布5535d8ad099df002cd43ddf07822ae2a3aa734e2，302项新增逻辑真实4537571.step11通过0:0（9秒，主体1.110秒）。GPU7根盘R0 VAL8GiB+R1 native8GiB+R1 VAL8GiB合计24GiB与CPU10 R1 VAL12GiB已只追加五个STATUS；共享NFS36706053853B、full29.75GB、Lustre R0 1.25GiB不增加。R1 cold3M/seed0/A1+B3+B4实际4537592 afterok完整A1闭合续算4537575；当前PENDING，未读取OOF分布或启动R1计算。主CPU统计4537593 afterok4537592；CPU配置仅去掉GPU本地资源标记，与同一科学运行/目标参数绑定。
+
+R1固定诊断：GPU7 4537594 afterok4537592；VAL闭合cache转CPU10 4537595 afterok4537594；CPU10统计4537596 afterok4537595。native cache3–5层读出4537597 afterany4537594且afterok4537592；CPU层统计4537598 afterok4537597及主统计4537593；层6直接复用主结果，不重做编码器前向。配对比较4537599 afterok两个主统计4537593和4537573，结果results/d_recipe/comparisons/D-R1_vs_D-R0_seed0_3M.json；只消费既有七任务R3及1000分子bootstrap，R1/CYP仅报告，不重采样。不提前触发seed1或后续选配方。
+
+GPU7已实际通过自身8GiB+同行16GiB根盘、共享D/同行UID future联合守卫；CPU10实际根/tmp70070484992B、36570105空闲inode、XFS/noquota，目标12GiB及共享守卫通过。每个作业实际开始仍重新核实UUID/CPU/真实盘和quota，不因排队假定资源已分配；若GPU7届时被占，Root按实际可用小任务卡和既定优先顺序调整尚未开始的作业。R0仍原样在跑，没有重启或迁移。全部上述R1任务当前仅排队，无分数、胜负或最终冻结结论。
+
+2026-11-21 00:14:45 CST：跨日仍核实R0/A1/L2原句柄RUNNING，R0已达699776样本；11月20日23:48:21首次500k固定VAL原producer已闭合24字段MAE/单位记录，每分子标量2000观测、原子SASA106325观测。只转录原CSV和路径，不重新评估或手算新的统计；此不是终点主评分。R1 4537592实际SubmitTime为2026-11-20T23:57:32，仍PENDING/afterok4537575，其全部终点评测/诊断和比较依赖已由Slurm核实。新增11月21日日报，11月20日报保留当日最终状态；未冻结或预判任何胜负。

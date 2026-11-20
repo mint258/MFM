@@ -2,7 +2,7 @@
     "schema":  "D_RECIPE_CURRENT_BEST_V1",
     "status":  "NATIVE_SCREENING_IN_PROGRESS",
     "recipe_frozen":  false,
-    "updated_at_utc":  "2026-11-20T15:20:40Z",
+    "updated_at_utc":  "2026-11-20T16:14:45Z",
     "current_best":  null,
     "scientific_authority":  "docs/d_recipe/TASKBOOK.md",
     "preregistration":  "configs/d_recipe/preregistration.json",
@@ -27,7 +27,15 @@
                      "seed":  0,
                      "samples":  3000000,
                      "cpu_statistics_job":  4537573,
-                     "clip_calibration_report":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/clip_calibration.json"
+                     "clip_calibration_report":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/clip_calibration.json",
+                     "validation_500k":  {
+                                             "status":  "PRODUCER_RECORDED",
+                                             "samples":  500000,
+                                             "source":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_500000.csv",
+                                             "molecular_observations_per_field":  2000,
+                                             "atomic_SASA_observations":  106325,
+                                             "primary_downstream_score":  false
+                                         }
                  },
     "A1":  {
                "configuration":  "configs/d_recipe/reference/native_D20.json",
@@ -80,6 +88,36 @@
                                                     "cached_layer_CPU_job":  4537585,
                                                     "cached_layer_CPU_dependency":  "afterok:4537584:4537573",
                                                     "cached_layer_scope":  "Only cached layers3-5 nativeR1/R3 probes; layer6 predictions and scores reused; no encoder fallback"
+                                                },
+                                       "D_R1":  {
+                                                    "status":  "QUEUED_AFTER_EXACT_3M_ENDPOINT",
+                                                    "forward_job":  4537594,
+                                                    "transfer_job":  4537595,
+                                                    "statistics_job":  4537596,
+                                                    "cached_layer_GPU_job":  4537597,
+                                                    "cached_layer_CPU_job":  4537598,
+                                                    "GPU_node":  "compute-0-7",
+                                                    "CPU_node":  "compute-0-10",
+                                                    "GPU_native_cache_peak_bytes":  8589934592,
+                                                    "GPU_VAL_cache_peak_bytes":  8589934592,
+                                                    "GPU_concurrent_bytes":  17179869184,
+                                                    "CPU_VAL_root_peak_bytes":  12884901888,
+                                                    "cache_value_bytes":  5131075584,
+                                                    "decision_input":  false
                                                 }
-                                   }
+                                   },
+    "transfer_candidate":  {
+                               "arm":  "D-R1",
+                               "run":  "d_recipe_20261120_D_R1_seed0_3M",
+                               "configuration":  "configs/d_recipe/screening/D-R1_seed0.json",
+                               "cpu_configuration":  "configs/d_recipe/screening/D-R1_seed0_cpu_statistics.json",
+                               "job_id":  4537592,
+                               "dependency":  "afterok:4537575",
+                               "status":  "QUEUED_WAITING_FROZEN_A1_PARAMETERS",
+                               "seed":  0,
+                               "samples":  3000000,
+                               "cpu_statistics_job":  4537593,
+                               "paired_comparison_job":  4537599,
+                               "paired_comparison_output":  "results/d_recipe/comparisons/D-R1_vs_D-R0_seed0_3M.json"
+                           }
 }
