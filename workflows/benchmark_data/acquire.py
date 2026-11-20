@@ -42,6 +42,8 @@ def safe_asset(asset):
 
 
 def guard(root, needed, quota_remaining, quota_time, concurrent):
+    from .storage_reservations import current_concurrent
+    concurrent = current_concurrent(root, concurrent)
     if time.monotonic() - quota_time > 180:
         raise RuntimeError("quota observation expired; refresh before writing")
     free = int(subprocess.check_output(

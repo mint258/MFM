@@ -30,7 +30,7 @@ def safe():
         access=json.loads((folder/"access.json").read_text())
         if not (access.get("immutable") and access.get("cross_node_read_allowed")):
             forecast+=max(0,80000000000-sum(p.stat().st_size for p in folder.glob("*.sqlite")))
-    protect(root,16*1024**2+forecast+36706053853,quota,own_concurrent_bytes=40*1024**3)
+    protect(root,16*1024**2+forecast,quota,own_concurrent_bytes=40*1024**3)
 safe()
 module=types.ModuleType("conditional_chain")
 exec(compile(sources["workflows/benchmark_evaluation/conditional_chain.py"],"conditional_chain","exec"),module.__dict__)
