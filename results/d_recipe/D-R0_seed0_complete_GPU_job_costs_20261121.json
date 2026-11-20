@@ -1,0 +1,105 @@
+{
+  "schema": "D_CLOSED_GPU_JOB_COST_V1",
+  "collected_at_utc": "2026-11-20T23:03:43.468994+00:00",
+  "arm": "D-R0",
+  "run": "d_recipe_20261120_D_R0_seed0_3M",
+  "job_id": 4537572,
+  "node": "compute-0-7",
+  "GPU_job_status": "COMPLETED",
+  "GPU_job_exit_code": "0:0",
+  "target_GPU_UUID": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+  "GPU_names": [
+    "NVIDIA GeForce RTX 3090"
+  ],
+  "training_summary": {
+    "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+    "run": "d_recipe_20261120_D_R0_seed0_3M",
+    "samples": 3000000,
+    "updates": 93750,
+    "actual_samples": 3000000,
+    "seconds": 30579.45974943787,
+    "clipped_fraction": 0.027584,
+    "clip": 12.800916213989263,
+    "batch_size": 32,
+    "microbatch_size": 32,
+    "GPU_peak_bytes": 8374157824
+  },
+  "training_summary_source": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/training_summary_3000000.json",
+  "training_loop_including_fixed_VAL_samples_per_second": 98.10506871545198,
+  "training_seconds_scope": "Native completed training loop including fixed VAL; excludes initialization and final GPU readouts",
+  "GPU_job_elapsed_seconds": 31074,
+  "target_one_GPU_job_wall_hours": 8.631666666666666,
+  "allocated_CPUs": 5,
+  "Slurm_allocation_CPU_hours": 43.15833333333333,
+  "TotalCPU_seconds": null,
+  "TotalCPU_note": "Site reports00:00:00; unavailable, not proof of zero CPU use; allocation CPU hours are separate",
+  "whole_card_power_watts_sample_mean": 245.27235004916423,
+  "power_samples": 1017,
+  "telemetry_rows": 1017,
+  "power_scope": "Arithmetic mean of existing30-second whole-card samples over training job and final GPU readouts; not training-only power",
+  "source_telemetry": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/gpu_telemetry.csv",
+  "Slurm_records": [
+    {
+      "job_id": "4537570",
+      "state": "FAILED",
+      "exit_code": "1:0",
+      "elapsed_seconds": "39",
+      "allocated_CPUs": "5",
+      "node": "compute-0-7",
+      "TotalCPU_raw": "00:00:00"
+    },
+    {
+      "job_id": "4537570.batch",
+      "state": "FAILED",
+      "exit_code": "1:0",
+      "elapsed_seconds": "39",
+      "allocated_CPUs": "5",
+      "node": "compute-0-7",
+      "TotalCPU_raw": "00:00:00"
+    },
+    {
+      "job_id": "4537570.extern",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": "39",
+      "allocated_CPUs": "5",
+      "node": "compute-0-7",
+      "TotalCPU_raw": "00:00:00"
+    },
+    {
+      "job_id": "4537572",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": "31074",
+      "allocated_CPUs": "5",
+      "node": "compute-0-7",
+      "TotalCPU_raw": "00:00:00"
+    },
+    {
+      "job_id": "4537572.batch",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": "31074",
+      "allocated_CPUs": "5",
+      "node": "compute-0-7",
+      "TotalCPU_raw": "00:00:00"
+    },
+    {
+      "job_id": "4537572.extern",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": "31074",
+      "allocated_CPUs": "5",
+      "node": "compute-0-7",
+      "TotalCPU_raw": "00:00:00"
+    }
+  ],
+  "Slurm_raw": "4537570|FAILED|1:0|39|5|compute-0-7|00:00:00\n4537570.batch|FAILED|1:0|39|5|compute-0-7|00:00:00\n4537570.extern|COMPLETED|0:0|39|5|compute-0-7|00:00:00\n4537572|COMPLETED|0:0|31074|5|compute-0-7|00:00:00\n4537572.batch|COMPLETED|0:0|31074|5|compute-0-7|00:00:00\n4537572.extern|COMPLETED|0:0|31074|5|compute-0-7|00:00:00\n",
+  "Slurm_query_source": "Original read-only sacct -n -P -j4537570,4537572 on sonmi Main UID1278 via established key-authenticated session; raw output transcribed unchanged because compute-0-17 sacct unavailable",
+  "Slurm_scope": "Parent4537572 wall only; batch/extern not added again; failed zero-step4537570 separate; no exclusive GPU GRES claimed",
+  "first1000_report_unchanged": "results/d_recipe/D-R0_seed0_first1000_costs_20261120.json",
+  "collection_node": "compute-0-17",
+  "collection_job": "4537571",
+  "collection_step": "15",
+  "method": "One closed-run aggregation of existing native summary, telemetry and actual sacct; no benchmark/model load/scientific QA; first local sacct call failed before telemetry read"
+}

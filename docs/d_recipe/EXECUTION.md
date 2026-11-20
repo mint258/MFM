@@ -103,3 +103,11 @@ GPU7已实际通过自身8GiB+同行16GiB根盘、共享D/同行UID future联合
 3M恢复点/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/samples_3000000.pt实际192031603B，mtime06:54:12+0800；1M/2M及全部原产物保留。原3000000样本固定VAL CSV1180B，mtime06:54:13+0800，直接发布；没有加载权重作二次验证或增加前向。4537572仍RUNNING并接续其既定最终GPU读出，4537573/4537579仍PENDING/Dependency，主R3、bootstrap及规定诊断尚未完成，不能据训练终点作胜负或冻结结论。
 
 同次原生产状态：4537508、4537571仍RUNNING，L2原checkpoint已有3040/4695批、A1仍COLLECTING且432640/1194228行闭合。CPU17在既有4537571分配下以1CPU执行真实联合资源准入，通过当前D模型/NFS/同行future守卫，无新预算、数组回读或科学计算。日报将R0训练主体粗估替换为实际06:54闭合，其余生产/后续读出仍分别报告。全部既定臂、判定、9M、直接描述符对照、接收/交付与两个PR继续作为未完成范围。
+
+2026-11-21 07:05:28 CST：R0主GPU4537572真实COMPLETED/0:0、ElapsedRaw31074、AllocCPUS5；主CPU统计4537573真实COMPLETED/0:0、ElapsedRaw85、AllocCPUS1、compute-0-8。原生summary现为COMPLETE/statistics_complete=true，原快照复制为final_summary_3000000.json；先前training_summary_3000000.json保留训练闭合时状态，不覆盖。主评分原JSON转录为final_readout_summary_3000000.json，仅省略大体积paired_bootstrap抽样数组，原抽样仍保留Lustre源供后续配对比较，没有重算任何分数或CI。原scores.csv（含CYP仅报告）直接发布。
+
+原R3=0.3047600714630222、95%CI[0.2914629069496532,0.3190324065629142]；原R1=0.15029061734585417、CI[0.1336480796754142,0.16715810049540256]，七主任务均包含，分子bootstrap1000次/seed20261025。这些是对冻结随机C1-0编码器的基线分数，不作D-R1迁移配方的判定。CURRENT_BEST仍未冻结、current_best=null，R1和后续全部既定条件保持。
+
+规定的闭合作业成本仅汇总一次，真实CPU17/4537571.step15：完整GPU目标作业8.631666666666666墙钟小时、Slurm分配CPU小时43.15833333333333（不是实际TotalCPU）；原训练循环含固定VAL为98.10506871545198样本/秒，1017次原整卡遥测均值245.27235004916423W，覆盖训练作业及最终读出，非仅训练功耗。GPU峰值与首次1000步原报告保持。实际Slurm TotalCPU字段00:00:00只记缺测，不解释为零；主/批/extern不重复计费，原零步失败4537570的39秒单列。第一次本地sacct连接在读取遥测前失败，修复为转录同一Main登录节点原生sacct输出后完成CPU汇总；无额外测速、模型加载或科学QA。成本JSON路径results/d_recipe/D-R0_seed0_complete_GPU_job_costs_20261121.json。
+
+原GPU固定VAL诊断4537579已在compute-0-7 RUNNING，其CPU传输/统计和3–5层缓存探针仍按原依赖等待；诊断成本另计。原A1和L2仍RUNNING，最近440832/1194228行与3098/4695批。CPU17.step16只转录原结果、通过既有联合磁盘/UID/同行future守卫，没有数组独立复核或新增判定。其他规定臂、直接描述符对照、最终冻结、9M、全部交付、一次全回归与两个未合并PR仍未完成。
