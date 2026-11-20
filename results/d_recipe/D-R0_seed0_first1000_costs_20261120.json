@@ -1,0 +1,30 @@
+{
+  "schema": "D_REGISTERED_RUN_COST_V1",
+  "arm": "D-R0",
+  "run": "d_recipe_20261120_D_R0_seed0_3M",
+  "job_id": 4537572,
+  "node": "compute-0-7",
+  "gpu_uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+  "gpu_name": "NVIDIA GeForce RTX 3090",
+  "batch_size": 32,
+  "optimizer_updates": 1000,
+  "samples": 32000,
+  "training_seconds": 459.63366344198585,
+  "samples_per_second": 69.62066216030972,
+  "projected_3M_GPU_hours": 11.96962665213505,
+  "whole_card_power_watts_sample_mean": 219.734,
+  "power_samples": 15,
+  "power_method": "Arithmetic mean of existing30-second whole-card telemetry through update1000; no additional benchmark",
+  "source_losses": "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/losses.csv",
+  "source_telemetry": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/gpu_telemetry.csv",
+  "scope": "Initial1000 actual D-R0 updates; training-loop seconds exclude initialization/readouts",
+  "failed_zero_step_attempt": {
+    "job_id": 4537570,
+    "elapsed_seconds": 39,
+    "requested_CPUs": 5,
+    "exit_code": "1:0",
+    "reason": "CUDA environment repaired using existing P OLD environment before any training output"
+  },
+  "collection_node": "compute-0-17",
+  "collection_step": "1"
+}
