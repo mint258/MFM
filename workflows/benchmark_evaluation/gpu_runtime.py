@@ -32,6 +32,18 @@ def gpu_admission(card, contexts, expected_uuid, minimum_free_mib=18432):
         raise RuntimeError("An existing compute context owns this small-task GPU")
     return dict(card)
 
+def wait_for_idle_gpu(observe, expected_uuid, minimum_free_mib=18432, *,
+                      maximum_wait_seconds=60, clock=time.monotonic, sleeper=time.sleep):
+    """Allow only bounded driver utilization cooldown while no compute context exists."""
+    deadline=clock()+maximum_wait_seconds
+    while True:
+        card,contexts=observe()
+        if (card["uuid"]==expected_uuid and not any(row["gpu_uuid"]==expected_uuid for row in contexts)
+                and float(card.get("utilization_percent",0))>5 and clock()<deadline):
+            sleeper(min(5,max(0,deadline-clock())))
+            continue
+        return gpu_admission(card,contexts,expected_uuid,minimum_free_mib)
+
 def root_capacity(stat, needed, same_root_filesystem=True):
     total=stat.f_blocks*stat.f_frsize;available=stat.f_bavail*stat.f_frsize
     reserve=max(10*GIB,.10*total) if same_root_filesystem else max(GIB,.10*total)
@@ -66,16 +78,18 @@ class GpuRuntime:
             raise RuntimeError("The established cross-window GPU lock root is unavailable")
         self.lock=(LOCK_ROOT/(gpu_uuid+".lock")).open("a")
         fcntl.flock(self.lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-        raw=subprocess.check_output(["nvidia-smi","--query-gpu=uuid,memory.used,memory.total,name,utilization.gpu",
-                    "--format=csv,noheader,nounits"],text=True,timeout=30)
-        cards=[dict(uuid=r[0].strip(),used_mib=float(r[1]),total_mib=float(r[2]),name=r[3].strip(),utilization_percent=float(r[4]))
-               for r in csv.reader(raw.splitlines()) if len(r)>=5]
-        matches=[c for c in cards if c["uuid"]==gpu_uuid]
-        if len(matches)!=1:raise RuntimeError("Scheduled physical GPU UUID is absent")
-        raw=subprocess.check_output(["nvidia-smi","--query-compute-apps=gpu_uuid,pid",
-                    "--format=csv,noheader,nounits"],text=True,timeout=30)
-        contexts=[dict(gpu_uuid=r[0].strip(),pid=r[1].strip()) for r in csv.reader(raw.splitlines()) if len(r)>=2]
-        card=gpu_admission(matches[0],contexts,gpu_uuid,minimum_free_mib)
+        def observe():
+            raw=subprocess.check_output(["nvidia-smi","--query-gpu=uuid,memory.used,memory.total,name,utilization.gpu",
+                        "--format=csv,noheader,nounits"],text=True,timeout=30)
+            cards=[dict(uuid=r[0].strip(),used_mib=float(r[1]),total_mib=float(r[2]),name=r[3].strip(),utilization_percent=float(r[4]))
+                   for r in csv.reader(raw.splitlines()) if len(r)>=5]
+            matches=[c for c in cards if c["uuid"]==gpu_uuid]
+            if len(matches)!=1:raise RuntimeError("Scheduled physical GPU UUID is absent")
+            raw=subprocess.check_output(["nvidia-smi","--query-compute-apps=gpu_uuid,pid",
+                        "--format=csv,noheader,nounits"],text=True,timeout=30)
+            contexts=[dict(gpu_uuid=r[0].strip(),pid=r[1].strip()) for r in csv.reader(raw.splitlines()) if len(r)>=2]
+            return matches[0],contexts
+        card=wait_for_idle_gpu(observe,gpu_uuid,minimum_free_mib)
         self.started_epoch=time.time();self.started_monotonic=time.monotonic()
         self.folder=self.root.parent/"benchmark_B1_20261119"/"gpu_runtime"/("job_"+self.job)
         self.protect(self.root,64*1024**2,self.snapshot,own_concurrent_bytes=40*GIB)

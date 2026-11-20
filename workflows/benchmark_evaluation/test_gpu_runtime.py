@@ -1,7 +1,7 @@
 """New GPU admission policy tests; no GPU or scientific outputs are read."""
 import unittest
 from types import SimpleNamespace
-from workflows.benchmark_evaluation.gpu_runtime import gpu_admission,root_capacity,quota_observation,prepare_neural_source,GIB,validate_model_selector
+from workflows.benchmark_evaluation.gpu_runtime import gpu_admission,root_capacity,quota_observation,prepare_neural_source,GIB,validate_model_selector,wait_for_idle_gpu
 
 class GpuPolicyTests(unittest.TestCase):
     def card(self):return dict(uuid="GPU-A",used_mib=5.,total_mib=24576.,utilization_percent=0.)
@@ -38,6 +38,17 @@ class GpuPolicyTests(unittest.TestCase):
         self.assertIn("device='cuda'",actual)
         self.assertIn("random_state=20261025",actual)
         self.assertIn("values = [1.0, None]",actual)
+    def test_driver_cooldown_waits_without_starting_a_compute_context(self):
+        ticks=[0.]
+        cards=iter([dict(self.card(),utilization_percent=50.),self.card()])
+        result=wait_for_idle_gpu(lambda:(next(cards),[]),"GPU-A",
+                    clock=lambda:ticks[0],sleeper=lambda seconds:ticks.__setitem__(0,ticks[0]+seconds))
+        self.assertEqual(result["uuid"],"GPU-A")
+        self.assertEqual(ticks[0],5.)
+    def test_cooldown_never_waits_through_another_users_compute_context(self):
+        with self.assertRaises(RuntimeError):
+            wait_for_idle_gpu(lambda:(dict(self.card(),utilization_percent=50.),
+                                     [dict(gpu_uuid="GPU-A",pid=123)]),"GPU-A")
     def test_native_model_selector_cannot_dispatch_a_traditional_fit(self):
         validate_model_selector("Chemprop-v2","Chemprop-v2")
         validate_model_selector("C1-TabPFN-Pprime","TabPFN")

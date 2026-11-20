@@ -2,7 +2,7 @@
   "schema": "BENCHMARK_NATIVE_JOB_INDEX_20261120_V1",
   "scope": "96 active candidate endpoints after complete anonymous five-endpoint inventory verification; no final decisions yet",
   "native_source_worktree_HEAD": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
-  "latest_published_before_this_batch": "84865725477f6e62f589023c2b5bb1fffd184237",
+  "latest_published_before_this_batch": "a78d3d4169bebee91e21d910a2e508cc17b31325",
   "artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119",
   "deferred_inventory": {
     "job": 4536851,
@@ -26,9 +26,9 @@
   },
   "NMR": {
     "original_split_job": 4536856,
-    "features_job": 4536984,
-    "RF_LightGBM_job": 4536985,
-    "Chemprop_job": 4537205,
+    "features_job": 4537317,
+    "RF_LightGBM_job": 4537318,
+    "Chemprop_job": 4537319,
     "source_counts": {
       "13C": {
         "train_spectra": 21523,
@@ -43,7 +43,26 @@
         "test_atomic_points": 17082
       }
     },
-    "first_feature_error_job": 4536971
+    "first_feature_error_job": 4536971,
+    "actual_source_order_repair": {
+      "failed_consumer_job": 4537205,
+      "old_feature_job": 4536984,
+      "diagnosis_step": "4536985.30",
+      "new_fixture_step": "4536985.31",
+      "old_RF_job_cancelled_for_confirmed_input_error": 4536985,
+      "old_RF_elapsed": "02:39:36",
+      "counterexample": "Original C atom index5 became H in cached native binary for NMR2018:13C:train:row:3918; source target12.7 unchanged",
+      "cause": "Noncanonical SMILES cache collision across different original atom orders",
+      "repair": "Exact original graph binary cache key; each row retains its own binary and atom-indexed features",
+      "original_labels_or_split_changed": false,
+      "old_outputs_preserved": true,
+      "unstarted_C1_NMR_replaced": 4537194,
+      "corrected_C1_NMR_job": 4537321,
+      "C1_rebinding_tests_step": "4536999.1",
+      "actual_1H_sample_redo_second_seed_job": 4537320,
+      "second_seed_reason": "SOURCE_BINDING_ERROR_REQUIRED_REDO_OF_TRAINED_1H_SAMPLES",
+      "traditional_ML_seed_count": 1
+    }
   },
   "pKa": {
     "frozen_macro_binding_job": 4536926,
@@ -127,9 +146,10 @@
       4536921,
       4537010,
       4536980,
-      4537011
+      4537011,
+      4537081
     ],
-    "D_TabPFN_completed_endpoints": 71,
+    "D_TabPFN_completed_endpoints": 80,
     "D_TabPFN_running_TDC_ASAP": null,
     "D_TabPFN_pKa": 4537011,
     "Pprime_and_Pprime_plus_D": {
@@ -638,7 +658,842 @@
       ],
       "native_labels_and_scaffold_folds_unchanged": true
     },
-    "D_TabPFN_pKa_status": "COMPLETED2_OF2_NO_TRAINING_FAILURE"
+    "D_TabPFN_pKa_status": "COMPLETED2_OF2_NO_TRAINING_FAILURE",
+    "current_final_producer_bindings": [
+      {
+        "dataset": "MoleculeACE",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4536894,
+        "folder": "C1_D_LGBM/job_4536894",
+        "original_CPU_job": 4536894
+      },
+      {
+        "dataset": "MoleculeACE",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4536899,
+        "folder": "C1_D_TABPFN/job_4536899",
+        "original_CPU_job": 4536899
+      },
+      {
+        "dataset": "PharmaBench",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4536912,
+        "folder": "C1_D_LGBM/job_4536912",
+        "original_CPU_job": 4536912
+      },
+      {
+        "dataset": "PharmaBench",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4536921,
+        "folder": "C1_D_TABPFN/job_4536921",
+        "original_CPU_job": 4536921
+      },
+      {
+        "dataset": "tdc_asap",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4536929,
+        "folder": "C1_D_LGBM/job_4536929",
+        "original_CPU_job": 4536929
+      },
+      {
+        "dataset": "tdc_asap",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4536980,
+        "folder": "C1_D_TABPFN/job_4536980",
+        "original_CPU_job": 4536980
+      },
+      {
+        "dataset": "pKahub",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4536951,
+        "folder": "C1_D_LGBM/job_4536951",
+        "original_CPU_job": 4536951
+      },
+      {
+        "dataset": "pKahub",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537011,
+        "folder": "C1_D_TABPFN/job_4537011",
+        "original_CPU_job": 4537011
+      },
+      {
+        "dataset": "Biogen_ADME",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4536959,
+        "folder": "C1_D_LGBM/job_4536959",
+        "original_CPU_job": 4536959
+      },
+      {
+        "dataset": "Biogen_ADME",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537010,
+        "folder": "C1_D_TABPFN/job_4537010",
+        "original_CPU_job": 4537010
+      },
+      {
+        "dataset": "ExpansionRx",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4537080,
+        "folder": "C1_D_ExpansionRx/job_4537080",
+        "original_CPU_job": 4537080
+      },
+      {
+        "dataset": "ExpansionRx",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537081,
+        "folder": "C1_D_ExpansionRx/job_4537081",
+        "original_CPU_job": 4537081
+      },
+      {
+        "dataset": "C7H10O2",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4537120,
+        "folder": "reference_cv_models/job_4537120",
+        "original_CPU_job": 4537120
+      },
+      {
+        "dataset": "PPE1694",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4537121,
+        "folder": "reference_cv_models/job_4537121",
+        "original_CPU_job": 4537121
+      },
+      {
+        "dataset": "C7H10O2",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537281,
+        "folder": "reference_cv_models/job_4537281",
+        "original_CPU_job": 4537122
+      },
+      {
+        "dataset": "PPE1694",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537282,
+        "folder": "reference_cv_models/job_4537282",
+        "original_CPU_job": 4537123
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4537028,
+        "folder": "reference_cv_models/job_4537028",
+        "original_CPU_job": 4537028
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537217,
+        "folder": "reference_cv_models/job_4537217",
+        "original_CPU_job": 4537029
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4537033,
+        "folder": "reference_cv_models/job_4537033",
+        "original_CPU_job": 4537033
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537274,
+        "folder": "reference_cv_models/job_4537274",
+        "original_CPU_job": 4537034
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4537038,
+        "folder": "reference_cv_models/job_4537038",
+        "original_CPU_job": 4537038
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537275,
+        "folder": "reference_cv_models/job_4537275",
+        "original_CPU_job": 4537039
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4537043,
+        "folder": "reference_cv_models/job_4537043",
+        "original_CPU_job": 4537043
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537276,
+        "folder": "reference_cv_models/job_4537276",
+        "original_CPU_job": 4537044
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4537048,
+        "folder": "reference_cv_models/job_4537048",
+        "original_CPU_job": 4537048
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537277,
+        "folder": "reference_cv_models/job_4537277",
+        "original_CPU_job": 4537049
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4537053,
+        "folder": "reference_cv_models/job_4537053",
+        "original_CPU_job": 4537053
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537278,
+        "folder": "reference_cv_models/job_4537278",
+        "original_CPU_job": 4537054
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4537058,
+        "folder": "reference_cv_models/job_4537058",
+        "original_CPU_job": 4537058
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537201,
+        "folder": "reference_cv_models/job_4537201",
+        "original_CPU_job": 4537059
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4537063,
+        "folder": "reference_cv_models/job_4537063",
+        "original_CPU_job": 4537063
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537279,
+        "folder": "reference_cv_models/job_4537279",
+        "original_CPU_job": 4537064
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "LightGBM",
+        "job": 4537068,
+        "folder": "reference_cv_models/job_4537068",
+        "original_CPU_job": 4537068
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "D",
+        "learner": "TabPFN",
+        "job": 4537280,
+        "folder": "reference_cv_models/job_4537280",
+        "original_CPU_job": 4537069
+      },
+      {
+        "dataset": "MoleculeACE",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537125,
+        "folder": "C1_Pprime_LGBM/job_4537125",
+        "original_CPU_job": 4537125
+      },
+      {
+        "dataset": "MoleculeACE",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537283,
+        "folder": "C1_Pprime_TABPFN/job_4537283",
+        "original_CPU_job": 4537126
+      },
+      {
+        "dataset": "PharmaBench",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537127,
+        "folder": "C1_Pprime_LGBM/job_4537127",
+        "original_CPU_job": 4537127
+      },
+      {
+        "dataset": "PharmaBench",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537284,
+        "folder": "C1_Pprime_TABPFN/job_4537284",
+        "original_CPU_job": 4537128
+      },
+      {
+        "dataset": "tdc_asap",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537129,
+        "folder": "C1_Pprime_LGBM/job_4537129",
+        "original_CPU_job": 4537129
+      },
+      {
+        "dataset": "tdc_asap",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537285,
+        "folder": "C1_Pprime_TABPFN/job_4537285",
+        "original_CPU_job": 4537130
+      },
+      {
+        "dataset": "Biogen_ADME",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537131,
+        "folder": "C1_Pprime_LGBM/job_4537131",
+        "original_CPU_job": 4537131
+      },
+      {
+        "dataset": "Biogen_ADME",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537286,
+        "folder": "C1_Pprime_TABPFN/job_4537286",
+        "original_CPU_job": 4537132
+      },
+      {
+        "dataset": "pKahub",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537133,
+        "folder": "C1_Pprime_LGBM/job_4537133",
+        "original_CPU_job": 4537133
+      },
+      {
+        "dataset": "pKahub",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537287,
+        "folder": "C1_Pprime_TABPFN/job_4537287",
+        "original_CPU_job": 4537134
+      },
+      {
+        "dataset": "ExpansionRx",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537135,
+        "folder": "C1_Pprime_ExpansionRx/job_4537135",
+        "original_CPU_job": 4537135
+      },
+      {
+        "dataset": "ExpansionRx",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537288,
+        "folder": "C1_Pprime_ExpansionRx/job_4537288",
+        "original_CPU_job": 4537136
+      },
+      {
+        "dataset": "MoleculeACE",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537137,
+        "folder": "C1_Pprime_plus_D_LGBM/job_4537137",
+        "original_CPU_job": 4537137
+      },
+      {
+        "dataset": "MoleculeACE",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537289,
+        "folder": "C1_Pprime_plus_D_TABPFN/job_4537289",
+        "original_CPU_job": 4537138
+      },
+      {
+        "dataset": "PharmaBench",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537139,
+        "folder": "C1_Pprime_plus_D_LGBM/job_4537139",
+        "original_CPU_job": 4537139
+      },
+      {
+        "dataset": "PharmaBench",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537290,
+        "folder": "C1_Pprime_plus_D_TABPFN/job_4537290",
+        "original_CPU_job": 4537140
+      },
+      {
+        "dataset": "tdc_asap",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537141,
+        "folder": "C1_Pprime_plus_D_LGBM/job_4537141",
+        "original_CPU_job": 4537141
+      },
+      {
+        "dataset": "tdc_asap",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537291,
+        "folder": "C1_Pprime_plus_D_TABPFN/job_4537291",
+        "original_CPU_job": 4537142
+      },
+      {
+        "dataset": "Biogen_ADME",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537143,
+        "folder": "C1_Pprime_plus_D_LGBM/job_4537143",
+        "original_CPU_job": 4537143
+      },
+      {
+        "dataset": "Biogen_ADME",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537292,
+        "folder": "C1_Pprime_plus_D_TABPFN/job_4537292",
+        "original_CPU_job": 4537144
+      },
+      {
+        "dataset": "pKahub",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537145,
+        "folder": "C1_Pprime_plus_D_LGBM/job_4537145",
+        "original_CPU_job": 4537145
+      },
+      {
+        "dataset": "pKahub",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537293,
+        "folder": "C1_Pprime_plus_D_TABPFN/job_4537293",
+        "original_CPU_job": 4537146
+      },
+      {
+        "dataset": "ExpansionRx",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537147,
+        "folder": "C1_Pprime_plus_D_ExpansionRx/job_4537147",
+        "original_CPU_job": 4537147
+      },
+      {
+        "dataset": "ExpansionRx",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537294,
+        "folder": "C1_Pprime_plus_D_ExpansionRx/job_4537294",
+        "original_CPU_job": 4537148
+      },
+      {
+        "dataset": "C7H10O2",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537150,
+        "folder": "reference_cv_models/job_4537150",
+        "original_CPU_job": 4537150
+      },
+      {
+        "dataset": "C7H10O2",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537295,
+        "folder": "reference_cv_models/job_4537295",
+        "original_CPU_job": 4537151
+      },
+      {
+        "dataset": "PPE1694",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537152,
+        "folder": "reference_cv_models/job_4537152",
+        "original_CPU_job": 4537152
+      },
+      {
+        "dataset": "PPE1694",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537296,
+        "folder": "reference_cv_models/job_4537296",
+        "original_CPU_job": 4537153
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537154,
+        "folder": "reference_cv_models/job_4537154",
+        "original_CPU_job": 4537154
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537297,
+        "folder": "reference_cv_models/job_4537297",
+        "original_CPU_job": 4537155
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537156,
+        "folder": "reference_cv_models/job_4537156",
+        "original_CPU_job": 4537156
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537298,
+        "folder": "reference_cv_models/job_4537298",
+        "original_CPU_job": 4537157
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537158,
+        "folder": "reference_cv_models/job_4537158",
+        "original_CPU_job": 4537158
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537299,
+        "folder": "reference_cv_models/job_4537299",
+        "original_CPU_job": 4537159
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537160,
+        "folder": "reference_cv_models/job_4537160",
+        "original_CPU_job": 4537160
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537300,
+        "folder": "reference_cv_models/job_4537300",
+        "original_CPU_job": 4537161
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537162,
+        "folder": "reference_cv_models/job_4537162",
+        "original_CPU_job": 4537162
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537301,
+        "folder": "reference_cv_models/job_4537301",
+        "original_CPU_job": 4537163
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537164,
+        "folder": "reference_cv_models/job_4537164",
+        "original_CPU_job": 4537164
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537302,
+        "folder": "reference_cv_models/job_4537302",
+        "original_CPU_job": 4537165
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537166,
+        "folder": "reference_cv_models/job_4537166",
+        "original_CPU_job": 4537166
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537303,
+        "folder": "reference_cv_models/job_4537303",
+        "original_CPU_job": 4537167
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537168,
+        "folder": "reference_cv_models/job_4537168",
+        "original_CPU_job": 4537168
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537304,
+        "folder": "reference_cv_models/job_4537304",
+        "original_CPU_job": 4537169
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "LightGBM",
+        "job": 4537170,
+        "folder": "reference_cv_models/job_4537170",
+        "original_CPU_job": 4537170
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime",
+        "learner": "TabPFN",
+        "job": 4537305,
+        "folder": "reference_cv_models/job_4537305",
+        "original_CPU_job": 4537171
+      },
+      {
+        "dataset": "C7H10O2",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537172,
+        "folder": "reference_cv_models/job_4537172",
+        "original_CPU_job": 4537172
+      },
+      {
+        "dataset": "C7H10O2",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537306,
+        "folder": "reference_cv_models/job_4537306",
+        "original_CPU_job": 4537173
+      },
+      {
+        "dataset": "PPE1694",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537174,
+        "folder": "reference_cv_models/job_4537174",
+        "original_CPU_job": 4537174
+      },
+      {
+        "dataset": "PPE1694",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537307,
+        "folder": "reference_cv_models/job_4537307",
+        "original_CPU_job": 4537175
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537176,
+        "folder": "reference_cv_models/job_4537176",
+        "original_CPU_job": 4537176
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537308,
+        "folder": "reference_cv_models/job_4537308",
+        "original_CPU_job": 4537177
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537178,
+        "folder": "reference_cv_models/job_4537178",
+        "original_CPU_job": 4537178
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537309,
+        "folder": "reference_cv_models/job_4537309",
+        "original_CPU_job": 4537179
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537180,
+        "folder": "reference_cv_models/job_4537180",
+        "original_CPU_job": 4537180
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537310,
+        "folder": "reference_cv_models/job_4537310",
+        "original_CPU_job": 4537181
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537182,
+        "folder": "reference_cv_models/job_4537182",
+        "original_CPU_job": 4537182
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537311,
+        "folder": "reference_cv_models/job_4537311",
+        "original_CPU_job": 4537183
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537184,
+        "folder": "reference_cv_models/job_4537184",
+        "original_CPU_job": 4537184
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537312,
+        "folder": "reference_cv_models/job_4537312",
+        "original_CPU_job": 4537185
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537186,
+        "folder": "reference_cv_models/job_4537186",
+        "original_CPU_job": 4537186
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537313,
+        "folder": "reference_cv_models/job_4537313",
+        "original_CPU_job": 4537187
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537188,
+        "folder": "reference_cv_models/job_4537188",
+        "original_CPU_job": 4537188
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537314,
+        "folder": "reference_cv_models/job_4537314",
+        "original_CPU_job": 4537189
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537190,
+        "folder": "reference_cv_models/job_4537190",
+        "original_CPU_job": 4537190
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537315,
+        "folder": "reference_cv_models/job_4537315",
+        "original_CPU_job": 4537191
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "LightGBM",
+        "job": 4537192,
+        "folder": "reference_cv_models/job_4537192",
+        "original_CPU_job": 4537192
+      },
+      {
+        "dataset": "Joung2020",
+        "feature_group": "Pprime_plus_D",
+        "learner": "TabPFN",
+        "job": 4537316,
+        "folder": "reference_cv_models/job_4537316",
+        "original_CPU_job": 4537193
+      },
+      {
+        "dataset": "NMRShiftDB2",
+        "feature_group": "Pprime_plus_RDKit_atom",
+        "learner": "LightGBM",
+        "job": 4537321,
+        "folder": "C1_NMR_Pprime_LGBM/job_4537321",
+        "original_CPU_job": 4537321
+      }
+    ],
+    "primary_reporting_module": {
+      "path": "workflows/benchmark_evaluation/c1_reporting.py",
+      "new_tests": 9,
+      "native_step": "4536985.28",
+      "new_report_consumer_submitted": false,
+      "expected_molecular_arms": "D/Pprime/Pprime_plus_D x LightGBM/TabPFN",
+      "atomic_arm": "Native original Pprime atomic fields plus RDKit37, LightGBM only",
+      "no_task_roster_reselection": true
+    }
   },
   "Joung": {
     "original_components_job": 4537012,
@@ -1254,232 +2109,6 @@
         "native_dependency": ""
       },
       {
-        "name": "Expansion_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4537019,
-        "exports": [],
-        "dependency": "afterok:4537017",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Expansion_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537204,
-        "native_dependency": "afterany:4537203"
-      },
-      {
-        "name": "NMR_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4536990,
-        "exports": [],
-        "dependency": "afterok:4536984",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/NMR_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537205,
-        "native_dependency": "afterany:4537204"
-      },
-      {
-        "name": "C7_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4537001,
-        "exports": [
-          "export REFERENCE_BINDING_JOB=4536995 BENCHMARK_MODEL=Chemprop-v2"
-        ],
-        "dependency": "afterok:4536995",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/C7_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537206,
-        "native_dependency": "afterany:4537205"
-      },
-      {
-        "name": "PPE_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4537005,
-        "exports": [
-          "export REFERENCE_BINDING_JOB=4536997 BENCHMARK_MODEL=Chemprop-v2"
-        ],
-        "dependency": "afterok:4536997",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/PPE_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537207,
-        "native_dependency": "afterany:4537206"
-      },
-      {
-        "name": "Joung_e0_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4537071,
-        "exports": [
-          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=0"
-        ],
-        "dependency": "afterok:4537021",
-        "array": "0-4%1",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e0_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537208,
-        "native_dependency": "afterany:4537207"
-      },
-      {
-        "name": "Joung_e1_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4537072,
-        "exports": [
-          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=1"
-        ],
-        "dependency": "afterok:4537021",
-        "array": "0-4%1",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e1_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537209,
-        "native_dependency": "afterany:4537208"
-      },
-      {
-        "name": "Joung_e2_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4537073,
-        "exports": [
-          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=2"
-        ],
-        "dependency": "afterok:4537021",
-        "array": "0-4%1",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e2_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537210,
-        "native_dependency": "afterany:4537209"
-      },
-      {
-        "name": "Joung_e3_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4537074,
-        "exports": [
-          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=3"
-        ],
-        "dependency": "afterok:4537021",
-        "array": "0-4%1",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e3_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537211,
-        "native_dependency": "afterany:4537210"
-      },
-      {
-        "name": "Joung_e4_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4537075,
-        "exports": [
-          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=4"
-        ],
-        "dependency": "afterok:4537021",
-        "array": "0-4%1",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e4_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537212,
-        "native_dependency": "afterany:4537211"
-      },
-      {
-        "name": "Joung_e5_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4537076,
-        "exports": [
-          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=5"
-        ],
-        "dependency": "afterok:4537021",
-        "array": "0-4%1",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e5_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537213,
-        "native_dependency": "afterany:4537212"
-      },
-      {
-        "name": "Joung_e6_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4537077,
-        "exports": [
-          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=6"
-        ],
-        "dependency": "afterok:4537021",
-        "array": "0-4%1",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e6_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537214,
-        "native_dependency": "afterany:4537213"
-      },
-      {
-        "name": "Joung_e7_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4537078,
-        "exports": [
-          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=7"
-        ],
-        "dependency": "afterok:4537021",
-        "array": "0-4%1",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e7_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537215,
-        "native_dependency": "afterany:4537214"
-      },
-      {
-        "name": "Joung_e8_Chemprop",
-        "learner": "Chemprop-v2",
-        "old_job": 4537079,
-        "exports": [
-          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=8"
-        ],
-        "dependency": "afterok:4537021",
-        "array": "0-4%1",
-        "node": "compute-0-5",
-        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
-        "cpus": 4,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e8_Chemprop.py",
-        "future_dependency": null,
-        "job": 4537216,
-        "native_dependency": "afterany:4537215"
-      },
-      {
         "name": "Joung_e0_TabPFN_D",
         "learner": "TabPFN",
         "old_job": 4537029,
@@ -1498,6 +2127,229 @@
         "native_dependency": ""
       },
       {
+        "name": "Expansion_Chemprop",
+        "learner": "Chemprop-v2",
+        "old_job": 4537019,
+        "exports": [],
+        "dependency": "afterok:4537017",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Expansion_Chemprop.py",
+        "future_dependency": null,
+        "native_dependency": "afterany:4537205",
+        "superseded_GPU_job": 4537204,
+        "job": 4537262
+      },
+      {
+        "name": "C7_Chemprop",
+        "learner": "Chemprop-v2",
+        "old_job": 4537001,
+        "exports": [
+          "export REFERENCE_BINDING_JOB=4536995 BENCHMARK_MODEL=Chemprop-v2"
+        ],
+        "dependency": "afterok:4536995",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/C7_Chemprop.py",
+        "future_dependency": null,
+        "native_dependency": "afterany:4537262",
+        "superseded_GPU_job": 4537206,
+        "job": 4537263
+      },
+      {
+        "name": "PPE_Chemprop",
+        "learner": "Chemprop-v2",
+        "old_job": 4537005,
+        "exports": [
+          "export REFERENCE_BINDING_JOB=4536997 BENCHMARK_MODEL=Chemprop-v2"
+        ],
+        "dependency": "afterok:4536997",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/PPE_Chemprop.py",
+        "future_dependency": null,
+        "native_dependency": "afterany:4537263",
+        "superseded_GPU_job": 4537207,
+        "job": 4537264
+      },
+      {
+        "name": "Joung_e0_Chemprop",
+        "learner": "Chemprop-v2",
+        "old_job": 4537071,
+        "exports": [
+          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=0"
+        ],
+        "dependency": "afterok:4537021",
+        "array": "0-4%1",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e0_Chemprop.py",
+        "future_dependency": null,
+        "native_dependency": "afterany:4537264",
+        "superseded_GPU_job": 4537208,
+        "job": 4537265
+      },
+      {
+        "name": "Joung_e1_Chemprop",
+        "learner": "Chemprop-v2",
+        "old_job": 4537072,
+        "exports": [
+          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=1"
+        ],
+        "dependency": "afterok:4537021",
+        "array": "0-4%1",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e1_Chemprop.py",
+        "future_dependency": null,
+        "native_dependency": "afterany:4537265",
+        "superseded_GPU_job": 4537209,
+        "job": 4537266
+      },
+      {
+        "name": "Joung_e2_Chemprop",
+        "learner": "Chemprop-v2",
+        "old_job": 4537073,
+        "exports": [
+          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=2"
+        ],
+        "dependency": "afterok:4537021",
+        "array": "0-4%1",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e2_Chemprop.py",
+        "future_dependency": null,
+        "native_dependency": "afterany:4537266",
+        "superseded_GPU_job": 4537210,
+        "job": 4537267
+      },
+      {
+        "name": "Joung_e3_Chemprop",
+        "learner": "Chemprop-v2",
+        "old_job": 4537074,
+        "exports": [
+          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=3"
+        ],
+        "dependency": "afterok:4537021",
+        "array": "0-4%1",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e3_Chemprop.py",
+        "future_dependency": null,
+        "native_dependency": "afterany:4537267",
+        "superseded_GPU_job": 4537211,
+        "job": 4537268
+      },
+      {
+        "name": "Joung_e4_Chemprop",
+        "learner": "Chemprop-v2",
+        "old_job": 4537075,
+        "exports": [
+          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=4"
+        ],
+        "dependency": "afterok:4537021",
+        "array": "0-4%1",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e4_Chemprop.py",
+        "future_dependency": null,
+        "native_dependency": "afterany:4537268",
+        "superseded_GPU_job": 4537212,
+        "job": 4537269
+      },
+      {
+        "name": "Joung_e5_Chemprop",
+        "learner": "Chemprop-v2",
+        "old_job": 4537076,
+        "exports": [
+          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=5"
+        ],
+        "dependency": "afterok:4537021",
+        "array": "0-4%1",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e5_Chemprop.py",
+        "future_dependency": null,
+        "native_dependency": "afterany:4537269",
+        "superseded_GPU_job": 4537213,
+        "job": 4537270
+      },
+      {
+        "name": "Joung_e6_Chemprop",
+        "learner": "Chemprop-v2",
+        "old_job": 4537077,
+        "exports": [
+          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=6"
+        ],
+        "dependency": "afterok:4537021",
+        "array": "0-4%1",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e6_Chemprop.py",
+        "future_dependency": null,
+        "native_dependency": "afterany:4537270",
+        "superseded_GPU_job": 4537214,
+        "job": 4537271
+      },
+      {
+        "name": "Joung_e7_Chemprop",
+        "learner": "Chemprop-v2",
+        "old_job": 4537078,
+        "exports": [
+          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=7"
+        ],
+        "dependency": "afterok:4537021",
+        "array": "0-4%1",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e7_Chemprop.py",
+        "future_dependency": null,
+        "native_dependency": "afterany:4537271",
+        "superseded_GPU_job": 4537215,
+        "job": 4537272
+      },
+      {
+        "name": "Joung_e8_Chemprop",
+        "learner": "Chemprop-v2",
+        "old_job": 4537079,
+        "exports": [
+          "export BENCHMARK_MODEL=Chemprop-v2 BENCHMARK_TASK_INDEX=8"
+        ],
+        "dependency": "afterok:4537021",
+        "array": "0-4%1",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e8_Chemprop.py",
+        "future_dependency": null,
+        "native_dependency": "afterany:4537272",
+        "superseded_GPU_job": 4537216,
+        "job": 4537273
+      },
+      {
         "name": "Joung_e1_TabPFN_D",
         "learner": "TabPFN",
         "old_job": 4537034,
@@ -1512,8 +2364,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e1_TabPFN_D.py",
         "future_dependency": null,
-        "job": 4537218,
-        "native_dependency": "afterany:4537217"
+        "native_dependency": "afterany:4537217",
+        "superseded_GPU_job": 4537218,
+        "job": 4537274
       },
       {
         "name": "Joung_e2_TabPFN_D",
@@ -1530,8 +2383,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e2_TabPFN_D.py",
         "future_dependency": null,
-        "job": 4537219,
-        "native_dependency": "afterany:4537218"
+        "native_dependency": "afterany:4537274",
+        "superseded_GPU_job": 4537219,
+        "job": 4537275
       },
       {
         "name": "Joung_e3_TabPFN_D",
@@ -1548,8 +2402,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e3_TabPFN_D.py",
         "future_dependency": null,
-        "job": 4537220,
-        "native_dependency": "afterany:4537219"
+        "native_dependency": "afterany:4537275",
+        "superseded_GPU_job": 4537220,
+        "job": 4537276
       },
       {
         "name": "Joung_e4_TabPFN_D",
@@ -1566,8 +2421,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e4_TabPFN_D.py",
         "future_dependency": null,
-        "job": 4537221,
-        "native_dependency": "afterany:4537220"
+        "native_dependency": "afterany:4537276",
+        "superseded_GPU_job": 4537221,
+        "job": 4537277
       },
       {
         "name": "Joung_e5_TabPFN_D",
@@ -1584,8 +2440,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e5_TabPFN_D.py",
         "future_dependency": null,
-        "job": 4537222,
-        "native_dependency": "afterany:4537221"
+        "native_dependency": "afterany:4537277",
+        "superseded_GPU_job": 4537222,
+        "job": 4537278
       },
       {
         "name": "Joung_e7_TabPFN_D",
@@ -1602,8 +2459,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e7_TabPFN_D.py",
         "future_dependency": null,
-        "job": 4537223,
-        "native_dependency": "afterany:4537222"
+        "native_dependency": "afterany:4537278",
+        "superseded_GPU_job": 4537223,
+        "job": 4537279
       },
       {
         "name": "Joung_e8_TabPFN_D",
@@ -1620,8 +2478,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung_e8_TabPFN_D.py",
         "future_dependency": null,
-        "job": 4537224,
-        "native_dependency": "afterany:4537223"
+        "native_dependency": "afterany:4537279",
+        "superseded_GPU_job": 4537224,
+        "job": 4537280
       },
       {
         "name": "C7H10O2_TabPFN_uniform_D",
@@ -1637,8 +2496,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/C7H10O2_TabPFN_uniform_D.py",
         "future_dependency": 4537119,
-        "job": 4537225,
-        "native_dependency": "afterany:4537224,afterok:4537119"
+        "native_dependency": "afterany:4537280,afterok:4537119",
+        "superseded_GPU_job": 4537225,
+        "job": 4537281
       },
       {
         "name": "PPE1694_TabPFN_uniform_D",
@@ -1654,8 +2514,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/PPE1694_TabPFN_uniform_D.py",
         "future_dependency": 4537119,
-        "job": 4537226,
-        "native_dependency": "afterany:4537225,afterok:4537119"
+        "native_dependency": "afterany:4537281,afterok:4537119",
+        "superseded_GPU_job": 4537226,
+        "job": 4537282
       },
       {
         "name": "moleculeace_TabPFN_Pprime",
@@ -1671,8 +2532,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/moleculeace_TabPFN_Pprime.py",
         "future_dependency": 4537124,
-        "job": 4537227,
-        "native_dependency": "afterany:4537226,afterok:4537124"
+        "native_dependency": "afterany:4537282,afterok:4537124",
+        "superseded_GPU_job": 4537227,
+        "job": 4537283
       },
       {
         "name": "pharmabench_TabPFN_Pprime",
@@ -1688,8 +2550,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/pharmabench_TabPFN_Pprime.py",
         "future_dependency": 4537124,
-        "job": 4537228,
-        "native_dependency": "afterany:4537227,afterok:4537124"
+        "native_dependency": "afterany:4537283,afterok:4537124",
+        "superseded_GPU_job": 4537228,
+        "job": 4537284
       },
       {
         "name": "tdc_asap_TabPFN_Pprime",
@@ -1705,8 +2568,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/tdc_asap_TabPFN_Pprime.py",
         "future_dependency": 4537124,
-        "job": 4537229,
-        "native_dependency": "afterany:4537228,afterok:4537124"
+        "native_dependency": "afterany:4537284,afterok:4537124",
+        "superseded_GPU_job": 4537229,
+        "job": 4537285
       },
       {
         "name": "biogen_TabPFN_Pprime",
@@ -1722,8 +2586,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/biogen_TabPFN_Pprime.py",
         "future_dependency": 4537124,
-        "job": 4537230,
-        "native_dependency": "afterany:4537229,afterok:4537124"
+        "native_dependency": "afterany:4537285,afterok:4537124",
+        "superseded_GPU_job": 4537230,
+        "job": 4537286
       },
       {
         "name": "pka_TabPFN_Pprime",
@@ -1739,8 +2604,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/pka_TabPFN_Pprime.py",
         "future_dependency": 4537124,
-        "job": 4537231,
-        "native_dependency": "afterany:4537230,afterok:4537124"
+        "native_dependency": "afterany:4537286,afterok:4537124",
+        "superseded_GPU_job": 4537231,
+        "job": 4537287
       },
       {
         "name": "expansionrx_TabPFN_Pprime",
@@ -1756,8 +2622,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/expansionrx_TabPFN_Pprime.py",
         "future_dependency": 4537124,
-        "job": 4537232,
-        "native_dependency": "afterany:4537231,afterok:4537124"
+        "native_dependency": "afterany:4537287,afterok:4537124",
+        "superseded_GPU_job": 4537232,
+        "job": 4537288
       },
       {
         "name": "moleculeace_TabPFN_Pprime_plus_D",
@@ -1773,8 +2640,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/moleculeace_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537124,
-        "job": 4537233,
-        "native_dependency": "afterany:4537232,afterok:4537124"
+        "native_dependency": "afterany:4537288,afterok:4537124",
+        "superseded_GPU_job": 4537233,
+        "job": 4537289
       },
       {
         "name": "pharmabench_TabPFN_Pprime_plus_D",
@@ -1790,8 +2658,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/pharmabench_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537124,
-        "job": 4537234,
-        "native_dependency": "afterany:4537233,afterok:4537124"
+        "native_dependency": "afterany:4537289,afterok:4537124",
+        "superseded_GPU_job": 4537234,
+        "job": 4537290
       },
       {
         "name": "tdc_asap_TabPFN_Pprime_plus_D",
@@ -1807,8 +2676,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/tdc_asap_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537124,
-        "job": 4537235,
-        "native_dependency": "afterany:4537234,afterok:4537124"
+        "native_dependency": "afterany:4537290,afterok:4537124",
+        "superseded_GPU_job": 4537235,
+        "job": 4537291
       },
       {
         "name": "biogen_TabPFN_Pprime_plus_D",
@@ -1824,8 +2694,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/biogen_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537124,
-        "job": 4537236,
-        "native_dependency": "afterany:4537235,afterok:4537124"
+        "native_dependency": "afterany:4537291,afterok:4537124",
+        "superseded_GPU_job": 4537236,
+        "job": 4537292
       },
       {
         "name": "pka_TabPFN_Pprime_plus_D",
@@ -1841,8 +2712,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/pka_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537124,
-        "job": 4537237,
-        "native_dependency": "afterany:4537236,afterok:4537124"
+        "native_dependency": "afterany:4537292,afterok:4537124",
+        "superseded_GPU_job": 4537237,
+        "job": 4537293
       },
       {
         "name": "expansionrx_TabPFN_Pprime_plus_D",
@@ -1858,8 +2730,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/expansionrx_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537124,
-        "job": 4537238,
-        "native_dependency": "afterany:4537237,afterok:4537124"
+        "native_dependency": "afterany:4537293,afterok:4537124",
+        "superseded_GPU_job": 4537238,
+        "job": 4537294
       },
       {
         "name": "C7H10O2_TabPFN_Pprime",
@@ -1875,8 +2748,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/C7H10O2_TabPFN_Pprime.py",
         "future_dependency": 4537149,
-        "job": 4537239,
-        "native_dependency": "afterany:4537238,afterok:4537149"
+        "native_dependency": "afterany:4537294,afterok:4537149",
+        "superseded_GPU_job": 4537239,
+        "job": 4537295
       },
       {
         "name": "PPE1694_TabPFN_Pprime",
@@ -1892,8 +2766,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/PPE1694_TabPFN_Pprime.py",
         "future_dependency": 4537149,
-        "job": 4537240,
-        "native_dependency": "afterany:4537239,afterok:4537149"
+        "native_dependency": "afterany:4537295,afterok:4537149",
+        "superseded_GPU_job": 4537240,
+        "job": 4537296
       },
       {
         "name": "Joung2020_e0_TabPFN_Pprime",
@@ -1910,8 +2785,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e0_TabPFN_Pprime.py",
         "future_dependency": 4537149,
-        "job": 4537241,
-        "native_dependency": "afterany:4537240,afterok:4537149"
+        "native_dependency": "afterany:4537296,afterok:4537149",
+        "superseded_GPU_job": 4537241,
+        "job": 4537297
       },
       {
         "name": "Joung2020_e1_TabPFN_Pprime",
@@ -1928,8 +2804,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e1_TabPFN_Pprime.py",
         "future_dependency": 4537149,
-        "job": 4537242,
-        "native_dependency": "afterany:4537241,afterok:4537149"
+        "native_dependency": "afterany:4537297,afterok:4537149",
+        "superseded_GPU_job": 4537242,
+        "job": 4537298
       },
       {
         "name": "Joung2020_e2_TabPFN_Pprime",
@@ -1946,8 +2823,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e2_TabPFN_Pprime.py",
         "future_dependency": 4537149,
-        "job": 4537243,
-        "native_dependency": "afterany:4537242,afterok:4537149"
+        "native_dependency": "afterany:4537298,afterok:4537149",
+        "superseded_GPU_job": 4537243,
+        "job": 4537299
       },
       {
         "name": "Joung2020_e3_TabPFN_Pprime",
@@ -1964,8 +2842,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e3_TabPFN_Pprime.py",
         "future_dependency": 4537149,
-        "job": 4537244,
-        "native_dependency": "afterany:4537243,afterok:4537149"
+        "native_dependency": "afterany:4537299,afterok:4537149",
+        "superseded_GPU_job": 4537244,
+        "job": 4537300
       },
       {
         "name": "Joung2020_e4_TabPFN_Pprime",
@@ -1982,8 +2861,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e4_TabPFN_Pprime.py",
         "future_dependency": 4537149,
-        "job": 4537245,
-        "native_dependency": "afterany:4537244,afterok:4537149"
+        "native_dependency": "afterany:4537300,afterok:4537149",
+        "superseded_GPU_job": 4537245,
+        "job": 4537301
       },
       {
         "name": "Joung2020_e5_TabPFN_Pprime",
@@ -2000,8 +2880,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e5_TabPFN_Pprime.py",
         "future_dependency": 4537149,
-        "job": 4537246,
-        "native_dependency": "afterany:4537245,afterok:4537149"
+        "native_dependency": "afterany:4537301,afterok:4537149",
+        "superseded_GPU_job": 4537246,
+        "job": 4537302
       },
       {
         "name": "Joung2020_e6_TabPFN_Pprime",
@@ -2018,8 +2899,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e6_TabPFN_Pprime.py",
         "future_dependency": 4537149,
-        "job": 4537247,
-        "native_dependency": "afterany:4537246,afterok:4537149"
+        "native_dependency": "afterany:4537302,afterok:4537149",
+        "superseded_GPU_job": 4537247,
+        "job": 4537303
       },
       {
         "name": "Joung2020_e7_TabPFN_Pprime",
@@ -2036,8 +2918,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e7_TabPFN_Pprime.py",
         "future_dependency": 4537149,
-        "job": 4537248,
-        "native_dependency": "afterany:4537247,afterok:4537149"
+        "native_dependency": "afterany:4537303,afterok:4537149",
+        "superseded_GPU_job": 4537248,
+        "job": 4537304
       },
       {
         "name": "Joung2020_e8_TabPFN_Pprime",
@@ -2054,8 +2937,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e8_TabPFN_Pprime.py",
         "future_dependency": 4537149,
-        "job": 4537249,
-        "native_dependency": "afterany:4537248,afterok:4537149"
+        "native_dependency": "afterany:4537304,afterok:4537149",
+        "superseded_GPU_job": 4537249,
+        "job": 4537305
       },
       {
         "name": "C7H10O2_TabPFN_Pprime_plus_D",
@@ -2071,8 +2955,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/C7H10O2_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537149,
-        "job": 4537250,
-        "native_dependency": "afterany:4537249,afterok:4537149"
+        "native_dependency": "afterany:4537305,afterok:4537149",
+        "superseded_GPU_job": 4537250,
+        "job": 4537306
       },
       {
         "name": "PPE1694_TabPFN_Pprime_plus_D",
@@ -2088,8 +2973,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/PPE1694_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537149,
-        "job": 4537251,
-        "native_dependency": "afterany:4537250,afterok:4537149"
+        "native_dependency": "afterany:4537306,afterok:4537149",
+        "superseded_GPU_job": 4537251,
+        "job": 4537307
       },
       {
         "name": "Joung2020_e0_TabPFN_Pprime_plus_D",
@@ -2106,8 +2992,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e0_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537149,
-        "job": 4537252,
-        "native_dependency": "afterany:4537251,afterok:4537149"
+        "native_dependency": "afterany:4537307,afterok:4537149",
+        "superseded_GPU_job": 4537252,
+        "job": 4537308
       },
       {
         "name": "Joung2020_e1_TabPFN_Pprime_plus_D",
@@ -2124,8 +3011,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e1_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537149,
-        "job": 4537253,
-        "native_dependency": "afterany:4537252,afterok:4537149"
+        "native_dependency": "afterany:4537308,afterok:4537149",
+        "superseded_GPU_job": 4537253,
+        "job": 4537309
       },
       {
         "name": "Joung2020_e2_TabPFN_Pprime_plus_D",
@@ -2142,8 +3030,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e2_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537149,
-        "job": 4537254,
-        "native_dependency": "afterany:4537253,afterok:4537149"
+        "native_dependency": "afterany:4537309,afterok:4537149",
+        "superseded_GPU_job": 4537254,
+        "job": 4537310
       },
       {
         "name": "Joung2020_e3_TabPFN_Pprime_plus_D",
@@ -2160,8 +3049,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e3_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537149,
-        "job": 4537255,
-        "native_dependency": "afterany:4537254,afterok:4537149"
+        "native_dependency": "afterany:4537310,afterok:4537149",
+        "superseded_GPU_job": 4537255,
+        "job": 4537311
       },
       {
         "name": "Joung2020_e4_TabPFN_Pprime_plus_D",
@@ -2178,8 +3068,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e4_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537149,
-        "job": 4537256,
-        "native_dependency": "afterany:4537255,afterok:4537149"
+        "native_dependency": "afterany:4537311,afterok:4537149",
+        "superseded_GPU_job": 4537256,
+        "job": 4537312
       },
       {
         "name": "Joung2020_e5_TabPFN_Pprime_plus_D",
@@ -2196,8 +3087,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e5_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537149,
-        "job": 4537257,
-        "native_dependency": "afterany:4537256,afterok:4537149"
+        "native_dependency": "afterany:4537312,afterok:4537149",
+        "superseded_GPU_job": 4537257,
+        "job": 4537313
       },
       {
         "name": "Joung2020_e6_TabPFN_Pprime_plus_D",
@@ -2214,8 +3106,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e6_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537149,
-        "job": 4537258,
-        "native_dependency": "afterany:4537257,afterok:4537149"
+        "native_dependency": "afterany:4537313,afterok:4537149",
+        "superseded_GPU_job": 4537258,
+        "job": 4537314
       },
       {
         "name": "Joung2020_e7_TabPFN_Pprime_plus_D",
@@ -2232,8 +3125,9 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e7_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537149,
-        "job": 4537259,
-        "native_dependency": "afterany:4537258,afterok:4537149"
+        "native_dependency": "afterany:4537314,afterok:4537149",
+        "superseded_GPU_job": 4537259,
+        "job": 4537315
       },
       {
         "name": "Joung2020_e8_TabPFN_Pprime_plus_D",
@@ -2250,11 +3144,105 @@
         "cpus": 2,
         "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/Joung2020_e8_TabPFN_Pprime_plus_D.py",
         "future_dependency": 4537149,
-        "job": 4537260,
-        "native_dependency": "afterany:4537259,afterok:4537149"
+        "native_dependency": "afterany:4537315,afterok:4537149",
+        "superseded_GPU_job": 4537260,
+        "job": 4537316
+      },
+      {
+        "name": "NMR_native_order_Chemprop",
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536999_step_0/NMR_native_order_Chemprop.py",
+        "learner": "Chemprop-v2",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "model_seed": 20261025,
+        "feature_job": 4537317,
+        "source_binding_error_repair_of": 4537205,
+        "confirmation_due_to_redone_1H_training_samples": false,
+        "job": 4537319
+      },
+      {
+        "name": "NMR_1H_native_order_seed2",
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536999_step_0/NMR_1H_native_order_confirmation_seed2.py",
+        "learner": "Chemprop-v2",
+        "node": "compute-0-5",
+        "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/chemprop/bin/python",
+        "cpus": 4,
+        "model_seed": 20261026,
+        "feature_job": 4537317,
+        "source_binding_error_repair_of": 4537205,
+        "confirmation_due_to_redone_1H_training_samples": true,
+        "job": 4537320
       }
     ],
-    "no_training_rollback_or_lost_samples": true
+    "no_training_rollback_or_lost_samples": false,
+    "cooldown_repair": {
+      "first_preflight_failure": 4537204,
+      "reason": "Transient driver utilization after prior native process exited; no fitting began",
+      "bounded_wait_seconds": 60,
+      "another_users_compute_context_wait_allowed": false,
+      "new_policy_tests_step": "4536985.29",
+      "tests": 12,
+      "old_pending_GPU_jobs_cancelled_at_zero_runtime": [
+        4537206,
+        4537207,
+        4537208,
+        4537209,
+        4537210,
+        4537211,
+        4537212,
+        4537213,
+        4537214,
+        4537215,
+        4537216,
+        4537218,
+        4537219,
+        4537220,
+        4537221,
+        4537222,
+        4537223,
+        4537224,
+        4537225,
+        4537226,
+        4537227,
+        4537228,
+        4537229,
+        4537230,
+        4537231,
+        4537232,
+        4537233,
+        4537234,
+        4537235,
+        4537236,
+        4537237,
+        4537238,
+        4537239,
+        4537240,
+        4537241,
+        4537242,
+        4537243,
+        4537244,
+        4537245,
+        4537246,
+        4537247,
+        4537248,
+        4537249,
+        4537250,
+        4537251,
+        4537252,
+        4537253,
+        4537254,
+        4537255,
+        4537256,
+        4537257,
+        4537258,
+        4537259,
+        4537260
+      ]
+    },
+    "actual_NMR_input_binding_error_sample_redo": "1H neural samples are redone with original graph binding; second seed explicitly queued"
   },
   "B1_final_consumer": {
     "source": "workflows/benchmark_evaluation/b1_final_task_screen.sbatch",
@@ -2293,20 +3281,20 @@
         "folder": "B1_Chemprop/job_4537200"
       },
       {
-        "job": 4537204,
-        "folder": "B1_Chemprop/job_4537204"
+        "job": 4537262,
+        "folder": "B1_Chemprop/job_4537262"
       },
       {
         "job": 4537203,
         "folder": "B1_Chemprop/job_4537203"
       },
       {
-        "job": 4536985,
-        "folder": "B1_RF_LGBM_NMR/job_4536985"
+        "job": 4537318,
+        "folder": "B1_RF_LGBM_NMR/job_4537318"
       },
       {
-        "job": 4537205,
-        "folder": "B1_Chemprop_NMR/job_4537205"
+        "job": 4537319,
+        "folder": "B1_Chemprop_NMR/job_4537319"
       },
       {
         "job": 4536999,
@@ -2319,9 +3307,9 @@
         "folder": "reference_cv_models/job_4537000"
       },
       {
-        "job": 4537206,
+        "job": 4537263,
         "model": "Chemprop-v2",
-        "folder": "reference_cv_models/job_4537206"
+        "folder": "reference_cv_models/job_4537263"
       },
       {
         "job": 4537003,
@@ -2334,9 +3322,9 @@
         "folder": "reference_cv_models/job_4537004"
       },
       {
-        "job": 4537207,
+        "job": 4537264,
         "model": "Chemprop-v2",
-        "folder": "reference_cv_models/job_4537207"
+        "folder": "reference_cv_models/job_4537264"
       },
       {
         "job": 4537025,
@@ -2429,53 +3417,54 @@
         "folder": "reference_cv_models/job_4537066"
       },
       {
-        "job": 4537208,
+        "job": 4537265,
         "model": "Chemprop-v2",
         "array": true
       },
       {
-        "job": 4537209,
+        "job": 4537266,
         "model": "Chemprop-v2",
         "array": true
       },
       {
-        "job": 4537210,
+        "job": 4537267,
         "model": "Chemprop-v2",
         "array": true
       },
       {
-        "job": 4537211,
+        "job": 4537268,
         "model": "Chemprop-v2",
         "array": true
       },
       {
-        "job": 4537212,
+        "job": 4537269,
         "model": "Chemprop-v2",
         "array": true
       },
       {
-        "job": 4537213,
+        "job": 4537270,
         "model": "Chemprop-v2",
         "array": true
       },
       {
-        "job": 4537214,
+        "job": 4537271,
         "model": "Chemprop-v2",
         "array": true
       },
       {
-        "job": 4537215,
+        "job": 4537272,
         "model": "Chemprop-v2",
         "array": true
       },
       {
-        "job": 4537216,
+        "job": 4537273,
         "model": "Chemprop-v2",
         "array": true
       }
     ],
     "conditional_Chemprop_seed2": "Only a final retained/appendix significant Chemprop improvement versus strongest traditional control; frozen roster cannot change",
     "confirmation_model_seed": 20261026,
-    "fold_and_statistics_seed": 20261025
+    "fold_and_statistics_seed": 20261025,
+    "actual_NMR_1H_sample_redo_confirmation": 4537320
   }
 }
