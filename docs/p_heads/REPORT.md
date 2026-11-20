@@ -57,7 +57,8 @@ H/T合并峰值预算24GiB是保护预算，不冒充实测峰值；已有实际
 | 验证 | 实际状态与范围 |
 | --- | --- |
 | 默认完整回归4536884 | 等待已通过容量预检的CPU节点池提供单节点真实16CPU分配，尚未执行/通过。全部current/tests/test_*.py（192模块）、固定两个模块worker、库单线程；不删模块、不改断言、不伪造Slurm变量。 |
-| 默认仓库检查4536885 | 已执行完整原命令，FAIL/returncode1。扫描9633文件、5002 Python文件，server_sources_verified=1309；202个错误路径与本线变更路径交集为0。完整输出与真实资源见[仓库检查JSON](../../results/p_heads/REPOSITORY_CHECK.json)，未抑制错误或删除历史文件。 |
+| 默认仓库检查4537538（当前源码） | 在785745ab上按默认命令完整执行，FAIL/returncode1。9635文件、154680002字节、5002 Python文件、server_sources_verified=1309；202错误与6885逐项相同（path/reason/line），与该源码下本线155个变更路径交集为0。见[当前检查JSON](../../results/p_heads/REPOSITORY_CHECK_FINAL.json)。 |
+| 前次仓库检查4536885 | 已在当时源码上执行完整原命令，FAIL/returncode1；9633文件/5002 Python，202项错误。保留[原检查JSON](../../results/p_heads/REPOSITORY_CHECK.json)及原日志，当前源码检查采用4537538；未抑制错误或删除历史文件。 |
 | 首次回归4536860（无效环境） | 实际8CPU遍历192模块，core汇总3638 tests/14 failures/50 errors/24 skipped；不满足真实provider夹具≥16CPU前提，且metadata汇总遇Path序列化错误，不作有效验收。原日志保留。 |
 | 首次仓库检查4536866（未完成） | 环境PATH缺Git，检查未完成；4536885已修正Git执行环境后重做。 |
 
@@ -77,3 +78,8 @@ CPU等待池调整（11/20）：在CPU8–19实际节点逐一执行容量预检
 node18补充容量核查（11/20 18:09 CST）：保留[两次核查记录](../../results/p_heads/NODE18_CAPACITY_PREFLIGHT_20261120.json)。4537471使用1CPU、两分钟运行上限和15秒准入窗口，实际未分配节点，CANCELLED/运行0秒。改为正常Slurm排队的4537473实际分配node18/1CPU，17:50:58–17:53:23，TIMEOUT/00:02:25；step为CANCELLED，srun返回143。任务仅输出CPU binding，未返回首个元数据标记或容量字段，node18容量仍未知，继续保持排除。
 
 这两次核查未产生node18项目输出，新增管理成本为145秒×1CPU=.0402778 allocation CPU-h，另计于原metadata18 .0555556和其它CPU成本；不冒充全线总成本。完整回归仍为同一4536884，保留真实16CPU、普通Nice0、四小时上限和已核实10节点池；科学结果、测试范围及断言保持。此次小型文档/JSON/Git写入已通过node17上同一NFS目标的实时字节、inode、UID配额及并发预留检查，新增预算100MiB。
+
+
+当前源码仓库检查刷新（11/20，4537538）：前次6885之后，启动器还有CPU binding/metadata和CPU池入口修复，故在785745ab上再执行未修改的默认命令 python -B tools/check_repository.py。实际node17/请求1CPU，Linux mask=[7]对应srun 0x80；完整原始输出位于CONTROL/repository_check_final_4537538.stdout.json，stderr及Slurm日志均保留。202项错误与6885按path/reason/line逐项比较无差异；该源码155个变更路径与错误路径交集为0。结果仍为FAIL，不抑制旧错误或更改测试/科学规则。
+
+Slurm实际19:03:17–19:03:48，FAILED/1:0，分配2CPU×31秒=62 allocation CPU秒（.0172222 CPU-h）；原生检查耗时20.682656697928905秒。只按整作业分配计成本，不再累加batch/extern/step；原6885及更早尝试的记录不覆盖。本次结果和终态资源记录见当前检查JSON，完整回归仍为原4536884、真实16CPU排队。

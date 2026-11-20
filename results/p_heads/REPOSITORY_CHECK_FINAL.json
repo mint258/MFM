@@ -1,0 +1,937 @@
+{
+  "status": "FAIL",
+  "returncode": 1,
+  "checker_completed": true,
+  "job_id": "4537538",
+  "node": "compute-0-17",
+  "command": [
+    "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+    "-B",
+    "tools/check_repository.py"
+  ],
+  "cwd": "/share/home/zixiao/descriptor_analysis/MFM_p_heads_20261117",
+  "source_commit": "785745abf1e477ef6d5a92434fe442caacadb594",
+  "source_worktree_status": "",
+  "process": {
+    "pid": 1396106,
+    "uid": 1278,
+    "pgid": 1396106,
+    "ppid": 1396101,
+    "start_ticks": 2178706531,
+    "cpu_mask": [
+      7
+    ]
+  },
+  "native_pid": 1396132,
+  "requested_cpus": 1,
+  "srun_cpu_bind_list": "0x000000000000000000000000000000000000000000000080",
+  "srun_cpu_bind_type": "mask_cpu:",
+  "slurm_allocation_at_start": "JobId=4537538 JobName=pheads_repository_final UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294616720 Nice=0 Account=(null) QOS=normal JobState=RUNNING Reason=None Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:08 TimeLimit=00:10:00 TimeMin=N/A SubmitTime=2026-11-20T19:02:48 EligibleTime=2026-11-20T19:02:48 AccrueTime=2026-11-20T19:02:48 StartTime=2026-11-20T19:03:17 EndTime=2026-11-20T19:13:17 Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-20T19:03:17 Scheduler=Backfill Partition=cpu AllocNode:Sid=sonmi:3062584 ReqNodeList=(null) ExcNodeList=compute-0-[2,14,18] NodeList=compute-0-17 BatchHost=compute-0-17 NumNodes=1 NumCPUs=2 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:* TRES=cpu=2,node=1,billing=2 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=(null) WorkDir=/share/home/zixiao/descriptor_analysis/MFM_p_heads_20261117 StdErr=/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/repository_check_final_4537538.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/repository_check_final_4537538.log Power= \n",
+  "elapsed_seconds": 20.682656697928905,
+  "MemAvailable_at_start_kB": 375210140,
+  "capacity_at_start": {
+    "guard": {
+      "node": "compute-0-17",
+      "root": {
+        "total": 75125227520,
+        "available": 52891496448,
+        "inodes": 36501658,
+        "total_inodes": 36700160,
+        "root": true
+      },
+      "target": {
+        "total": 32001943928832,
+        "available": 6822513606656,
+        "inodes": 2964417279,
+        "total_inodes": 3125398528,
+        "root": false
+      },
+      "quota": {
+        "filesystem": "/share",
+        "available": 393095192576,
+        "required": 167863822336,
+        "age": 1.3927290439605713
+      },
+      "own_allocated": 12302663680,
+      "own_remaining": 13467140096,
+      "other_followup_remaining": 4626878464
+    },
+    "tmp": {
+      "total": 75125227520,
+      "available": 52891496448,
+      "inodes": 36501658,
+      "total_inodes": 36700160,
+      "root": true
+    },
+    "concurrent_full_regression_tmp_future": 10737418240,
+    "checker_planned_local_data_bytes": 0
+  },
+  "raw_stdout": "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/repository_check_final_4537538.stdout.json",
+  "raw_stderr": "/share/home/zixiao/descriptor_analysis/runs/p_heads_20261117/repository_check_final_4537538.stderr.txt",
+  "checker_result": {
+    "status": "FAIL",
+    "files": 9635,
+    "bytes": 154680002,
+    "python_files": 5002,
+    "server_sources_verified": 1309,
+    "export_verification_required": false,
+    "errors": [
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/C1-0_P.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/C1-0_P_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/C1-0_S.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/C1-0_S_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/C1-a_P.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/C1-a_P_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/C1-a_S.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/C1-a_S_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/C1-b_P.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/C1-b_P_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/C1-b_S.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/C1-b_S_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/T0_T0-3_P.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/T0_T0-3_P_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/T0_T0-3_S.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/T0_T0-3_S_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/T0_T0-4_P.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/T0_T0-4_P_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/T0_T0-4_S.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/T0_T0-4_S_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/random_C1-0.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/random_C1-0_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/random_C1-a.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/random_C1-a_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/random_C1-b.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/curves/random_C1-b_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/C1-0_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/C1-0_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/C1-a_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/C1-a_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/C1-b_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/C1-b_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/T0_T0-3_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/T0_T0-3_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/T0_T0-4_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/T0_T0-4_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/T1_A0_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/T1_A1_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/random_C1-0.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/random_C1-a.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/features/random_C1-b.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/C1-0_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/C1-0_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/C1-a_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/C1-a_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/C1-b_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/C1-b_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/T0_T0-3_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/T0_T0-3_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/T0_T0-4_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/T0_T0-4_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/T1_A0_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/T1_A1_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/random_C1-0.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/random_C1-a.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/predictions/random_C1-b.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/r0_reconstruction/predictions/C1-0_P_R0_reconstructed.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/r0_reconstruction/predictions/C1-0_S_R0_reconstructed.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/r0_reconstruction/predictions/C1-a_P_R0_reconstructed.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/r0_reconstruction/predictions/C1-a_S_R0_reconstructed.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/r0_reconstruction/predictions/C1-b_P_R0_reconstructed.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/r0_reconstruction/predictions/C1-b_S_R0_reconstructed.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/r0_reconstruction/predictions/random_C1-0_R0_reconstructed.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/r0_reconstruction/predictions/random_C1-a_R0_reconstructed.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/r0_reconstruction/predictions/random_C1-b_R0_reconstructed.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/curves/random_z_lite_k8_write0.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/curves/random_z_lite_k8_write0_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/curves/random_z_pma_k8_write0.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/curves/random_z_pma_k8_write0_diagnostic_endpoint_predictions.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features/random_C1-0_R1_v2_reference.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features/random_z_lite_k8_write0.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features/random_z_pma_k8_write0.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/C1-0_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/C1-0_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/C1-a_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/C1-a_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/C1-b_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/C1-b_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/T0_T0-3_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/T0_T0-3_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/T0_T0-4_P.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/T0_T0-4_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/T1_A0_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/T1_A1_S.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/random_C1-0.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/random_C1-0_R1_v2_reference.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/random_C1-a.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/random_C1-b.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/random_z_lite_k8_write0.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/features_observed/random_z_pma_k8_write0.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/predictions/random_C1-0_R1_v2_reference.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/predictions/random_z_lite_k8_write0.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/csv/reference_z_controls/predictions/random_z_pma_k8_write0.csv",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/C1-0_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/C1-0_P_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/C1-0_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/C1-0_S_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/C1-a_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/C1-a_P_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/C1-a_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/C1-a_S_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/C1-b_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/C1-b_P_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/C1-b_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/C1-b_S_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/T0_T0-3_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/T0_T0-3_P_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/T0_T0-3_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/T0_T0-3_S_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/T0_T0-4_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/T0_T0-4_P_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/T0_T0-4_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/T0_T0-4_S_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/random_C1-0.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/random_C1-0_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/random_C1-a.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/random_C1-a_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/random_C1-b.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/curves/random_C1-b_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/C1-0_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/C1-0_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/C1-a_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/C1-a_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/C1-b_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/C1-b_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/T0_T0-3_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/T0_T0-3_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/T0_T0-4_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/T0_T0-4_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/T1_A0_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/T1_A1_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/random_C1-0.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/random_C1-a.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/features/random_C1-b.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/native_s_logs/S_seed0_losses_v2.tar.gz.part0000",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/native_s_logs/S_seed0_losses_v2.tar.gz.part0001",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/native_s_logs/S_seed0_losses_v2.tar.gz.part0002",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/native_s_logs/S_seed0_losses_v2.tar.gz.part0003",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/native_s_logs/S_seed0_losses_v2.tar.gz.part0004",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/native_s_logs/S_seed0_losses_v2.tar.gz.part0005",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/native_s_logs/S_seed0_losses_v2.tar.gz.part0006",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/native_s_logs/S_seed0_losses_v2.tar.gz.part0007",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/native_s_logs/S_seed0_losses_v2.tar.gz.part0008",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/native_s_logs/S_seed0_losses_v2.tar.gz.part0009",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/native_s_logs/S_seed0_losses_v2.tar.gz.part0010",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/native_s_logs/S_seed0_losses_v2.tar.gz.part0011",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/C1-0_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/C1-0_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/C1-a_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/C1-a_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/C1-b_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/C1-b_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/T0_T0-3_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/T0_T0-3_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/T0_T0-4_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/T0_T0-4_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/T1_A0_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/T1_A1_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/random_C1-0.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/random_C1-a.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/predictions/random_C1-b.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/r0_reconstruction/predictions/C1-0_P_R0_reconstructed.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/r0_reconstruction/predictions/C1-0_S_R0_reconstructed.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/r0_reconstruction/predictions/C1-a_P_R0_reconstructed.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/r0_reconstruction/predictions/C1-a_S_R0_reconstructed.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/r0_reconstruction/predictions/C1-b_P_R0_reconstructed.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/r0_reconstruction/predictions/C1-b_S_R0_reconstructed.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/r0_reconstruction/predictions/random_C1-0_R0_reconstructed.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/r0_reconstruction/predictions/random_C1-a_R0_reconstructed.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/r0_reconstruction/predictions/random_C1-b_R0_reconstructed.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/curves/random_z_lite_k8_write0.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/curves/random_z_lite_k8_write0_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/curves/random_z_pma_k8_write0.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/curves/random_z_pma_k8_write0_diagnostic_endpoint_predictions.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features/random_C1-0_R1_v2_reference.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features/random_z_lite_k8_write0.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features/random_z_pma_k8_write0.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/C1-0_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/C1-0_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/C1-a_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/C1-a_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/C1-b_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/C1-b_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/T0_T0-3_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/T0_T0-3_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/T0_T0-4_P.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/T0_T0-4_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/T1_A0_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/T1_A1_S.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/random_C1-0.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/random_C1-0_R1_v2_reference.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/random_C1-a.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/random_C1-b.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/random_z_lite_k8_write0.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/features_observed/random_z_pma_k8_write0.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/predictions/random_C1-0_R1_v2_reference.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/predictions/random_z_lite_k8_write0.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/reference_z_controls/predictions/random_z_pma_k8_write0.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/summaries/T1_A1_S.json",
+        "reason": "exceeds the 2 MiB source-file limit"
+      },
+      {
+        "path": "results/model_v3_diagnostics_20261112/u0/molecules.parquet",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/p_recipe/fixed_20261115/provisional_B_20261116/deltas.csv",
+        "reason": "data, weights, archive, or credentials file"
+      },
+      {
+        "path": "results/p_recipe/fixed_20261115/provisional_B_20261116/hardware_round2.csv",
+        "reason": "data, weights, archive, or credentials file"
+      }
+    ]
+  },
+  "comparison_base": "0463aff04f280bbb6898a9fbc0b88a144af6130b",
+  "changed_path_count": 155,
+  "errors_on_changed_paths": [],
+  "refresh_reason": "Current source includes binding/export and CPU-pool fixes after checker4536885; default scope/flags remain unchanged.",
+  "preserved_previous_record": "results/p_heads/REPOSITORY_CHECK.json",
+  "scope": "Unmodified default tools/check_repository.py, no suppressions or source exclusions",
+"slurm_terminal_accounting": {
+    "job_id": "4537538",
+    "state": "FAILED",
+    "exit_code": "1:0",
+    "elapsed": "00:00:31",
+    "elapsed_seconds": 31,
+    "requested_cpus": 1,
+    "AllocCPUS": 2,
+    "node": "compute-0-17",
+    "start_cst": "2026-11-20T19:03:17",
+    "end_cst": "2026-11-20T19:03:48",
+    "time_limit": "00:10:00",
+    "requeue": 0,
+    "restarts": 0,
+    "allocated_CPU_seconds": 62,
+    "allocated_CPU_hours": 0.017222222222222222,
+    "step": {
+      "job_id": "4537538.0",
+      "state": "FAILED",
+      "exit_code": "1:0",
+      "elapsed_seconds": 30,
+      "AllocCPUS": 1
+    },
+    "cost_scope": "Use whole-job allocation only; step/batch/extern records are not added again.",
+    "source_command": "sacct -j 4537538 --format=JobID,JobName,State,ExitCode,Elapsed,ElapsedRaw,AllocCPUS,NodeList,Start,End,Timelimit -P",
+    "control_terminal_state_verified": true,
+    "live_queue_absent_verified": true
+  },
+  "previous_error_list_comparison": {
+    "previous_job": "4536885",
+    "previous_record": "results/p_heads/REPOSITORY_CHECK.json",
+    "compared_fields": [
+      "path",
+      "reason",
+      "line"
+    ],
+    "previous_error_count": 202,
+    "current_error_count": 202,
+    "symmetric_difference_count": 0,
+    "identical": true
+  },
+  "terminal_metadata_recorded_utc": "2026-11-20T11:11:58Z"
+}
