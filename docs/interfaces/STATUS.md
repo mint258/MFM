@@ -930,3 +930,8 @@ G4已从264816样本/2069更新的完整停止点由4532553接管，原生PID337
 2026-11-20 S磁盘计划更新：NFS总峰值64GiB替代2GiB（含20GiB转键预计算及后续训练/诊断），实际CPU17根52.89GB/NFS6.88TB余量、inode充足，UID1278共享配额余量400.22GB；动态准入和运行保护继续。
 
 2026-11-20 S旋转预计算闭合：4537414 CPU17 COMPLETED0:0/01:05:56；TRAIN1192951+VAL5000全量源序计划完成，TRAIN无转键比例1.136845%，RDKit2025.09.5/Strict3.1.0。SQLite实际1203245056字节，未复制原LMDB/新算hash；总S NFS峰值64GiB仍含后续训练/诊断，D14GiB并发计入。29项新逻辑测试成功；当前源码c1ca8ff2已发布，S GPU未启动，仍待预注册文字澄清及P冻结/P9M提交。
+
+
+### 2026-11-20 D shared-future reconciliation (20:20 CST)
+
+D now reserves S study full64GiB plus benchmark B1 announced40GiB, retaining existing24GiB environment/1GiB miscellaneous and model/P25,327,352,832B futures separately. Release only new-scope B0 Pprime future: actual4536906 COMPLETED0:0 (04:24:01), tail4536907 COMPLETED0:0 (1s), access immutable/writers_closed/cross_node_read_allowed UID1278 and producer ALL_QUEUED_PPRIME_TERMINAL verified. Its3,739,791,360 committed physical bytes remain in filesystem/quota usage; original B0 producer4536588 is live and its remaining forecast stays reserved. Own storage_reservations.json reconciled using existing guard logic, no scientific/source-data change. CPU10 fresh UID/NFS/root/tmp/inode guard PASSED with joint D36,706,053,853B and observed other futures221,053,414,400B, plus100GB UID floor. No D producer interruption or extra CPU/GPU test. S owner's tools/s_recipe/runtime.py still displayed old D14GiB claim at read: its next admission should use current D36,706,053,853B (replace14GiB, do not add both); this notice changes only shared STATUS, no other window's code/jobs.
