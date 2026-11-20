@@ -1,11 +1,11 @@
 {
   "schema": "BENCHMARK_B0_AVAILABLE_DELIVERY_ENTRY_V1",
-  "status": "DIRECTIVE19_UNIFORM_SPRIME_AND_PPRIME_SEALED_ORIGINAL_PPRIME_IN_PROGRESS",
+  "status": "DIRECTIVE19_ALL_REQUIRED_WORK_COMPLETE_WITH_EXPLICIT_OUTCOMES",
   "authority": "docs/benchmark/USER_DIRECTIVE_20261118.md@07be7a0f04085398eeda2b7548afa46c668ffd9a",
   "data_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119",
-  "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/manifest.json",
-  "domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/domain_counts.csv",
-  "handoff_native_job": 4537016,
+  "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/final_all_scopes_4536961/manifest.json",
+  "domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/final_all_scopes_4536961/domain_counts.csv",
+  "handoff_native_job": 4536961,
   "handoff_native_state": "COMPLETED",
   "handoff_native_exit": "0:0",
   "source_groups": 11,
@@ -21,7 +21,7 @@
   "P_ready": false,
   "reference_quantum_status": "Downstream uniformly uses shared UFF Sprime; C1 property groups use Pprime; historical reference XYZ retained as provenance",
   "no_local_database_copies": true,
-  "all_required_production_complete": false,
+  "all_required_production_complete": true,
   "supplemental_sources": {
     "SAMPL6_7": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/provenance/SAMPL6_7/job_4536607/manifest.json"
   },
@@ -76,7 +76,7 @@
       "second": "final_significant_improvement_or_specified_training_rollback_instability"
     },
     "B1_branch": "benchmark-b1-20261119",
-    "data_preparation_complete": false
+    "data_preparation_complete": true
   },
   "directive19_data_preparation": {
     "NMR2018_author_split": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/NMR2018/job_4536853/manifest.json",
@@ -167,16 +167,19 @@
   },
   "both_scopes_final_handoff": {
     "job": 4536961,
-    "native_state": "PENDING",
+    "native_state": "COMPLETED",
     "submitted_afterok_jobs": [
       4536963,
       4536599,
       4536907
     ],
     "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/final_all_scopes_4536961/manifest.json",
-    "production_closed": false,
-    "all_required_work_complete": false,
-    "metadata_only_no_SQLite_replay": true
+    "production_closed": true,
+    "all_required_work_complete": true,
+    "metadata_only_no_SQLite_replay": true,
+    "native_exit": "0:0",
+    "all_required_production_complete": true,
+    "pKa_atomic_success_dependency": 4537635
   },
   "D3_source_alignment_recovery": {
     "status": "SOURCE_UFF_AND_D3_REPAIR_CLOSED_GEOMETRY_SEALED",
@@ -207,7 +210,7 @@
     "job": 4537629,
     "previous_job": 4536588,
     "followup_job": 4536590,
-    "native_state": "RUNNING_ORIGINAL_PRODUCER_AFTER_NATIVE_C0",
+    "native_state": "COMPLETED",
     "scientific_calls": null,
     "acceptance_written": true,
     "exclude_unrecovered_node18": true,
@@ -217,7 +220,6 @@
     "scientific_record_grace_unchanged": true,
     "native_TimeLimit_hours": 24,
     "native_TimeMin_hours": 6,
-    "actual_speedup_not_yet_observed": true,
     "previous_native_TimeMin_hours": 12,
     "TimeMin_update_at_verified_pending_zero_runtime": true,
     "current_excluded_nodes": "compute-0-[0-7,14,18-22]",
@@ -239,6 +241,15 @@
       "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES": 269,
       "PENDING": 16072,
       "INTENT": 0
+    },
+    "previous_native_state": "COMPLETED",
+    "production_closed": true,
+    "completed_this_parent": 16072,
+    "workers": 16,
+    "actual_elapsed_seconds": 4694,
+    "original_scope_outcomes": {
+      "PPRIME_READY": 324794,
+      "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES": 286
     }
   },
   "active_source_count_handoff": {
@@ -251,8 +262,8 @@
     "source_check_python_files": 3736,
     "source_check_errors": 0
   },
-  "active_domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/active_source_domain_counts.csv",
-  "historical_domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/directive19_current_counts_4537016/domain_counts.csv",
+  "active_domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/final_all_scopes_4536961/active_source_domain_counts.csv",
+  "historical_domain_counts_csv": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/final_all_scopes_4536961/domain_counts.csv",
   "Pprime_followup_scheduling": {
     "job": 4536590,
     "partition": "cpu",
@@ -266,12 +277,14 @@
     "actual_target_bytes_inodes_RAM_and_quota_admission_unchanged": true,
     "scientific_protocol_unchanged": true,
     "reason": "Protect both old native closure and actual16-worker replacement before any fallback continuation",
-    "actual_speedup_not_yet_observed": true,
     "default_submission_script_excluded_nodes": "compute-0-[0-7,18,20-22]",
     "temporary_native_resource_override": true,
     "handover_from": 4536588,
     "handover_to": 4537629,
-    "actual_worker_increase_observed": true
+    "actual_worker_increase_observed": true,
+    "native_final_state": "COMPLETED",
+    "native_final_exit": "0:0",
+    "zero_new_native_calls_after_source_seal": true
   },
   "temporary_resource_node_exclusions": {
     "jobs": [
@@ -295,12 +308,14 @@
     "worker_counts_and_wall_limits_unchanged": true,
     "default_submission_templates_unchanged": true,
     "release_condition": "When a target has actual CPU opportunity, recheck that actual node's bytes/inodes/RAM and full worker peak plus reserve; restore each still-owned PENDING/zero-runtime job only if its required budget fits. Never delete or stop other workloads.",
-    "all_required_complete": false
+    "all_required_complete": false,
+    "active": false,
+    "scope": "Historical masks of now-COMPLETED own jobs; no active scientific writer remains"
   },
   "shared_storage_admission": {
     "policy": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_b1_20261119/workflows/benchmark_data/benchmark_storage_reservations.json",
     "peer_NFS_pool_bytes": 200546101981,
-    "original_remaining_quantum_forecast_added_separately": true,
+    "original_remaining_quantum_forecast_added_separately": false,
     "legacy_guard_preserved_by_maximum": true,
     "actual_node_root_tmp_peer_futures_checked": true,
     "account_floor_bytes": 100000000000,
@@ -318,6 +333,56 @@
       "errors": 0
     },
     "running_original_restarted": false,
-    "replacement_loaded_new_admission": true
-  }
+    "replacement_loaded_new_admission": true,
+    "all_own_scientific_future_forecasts_retired_after_both_scopes_native_C0": true,
+    "actual_existing_data_remains_in_quota_usage": true,
+    "metadata_reserve_bytes": 1073741824,
+    "finite_quota_publisher_kept_for_existing_consumers": true,
+    "metadata_reserve_in_peer_pool": true
+  },
+  "Pprime_current_native_state": "COMPLETED",
+  "Pprime_production_closed": true,
+  "Pprime_writers_closed": true,
+  "Pprime_cross_node_read_allowed": true,
+  "all_scopes_production_closed": true,
+  "all_required_work_complete": true,
+  "scientific_decisions_pending": [],
+  "Pprime_outcome_counts": {
+    "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES": 286,
+    "PPRIME_READY": 324794
+  },
+  "Pprime_all_scope_totals": {
+    "actual_conformers": 378976,
+    "PPRIME_READY": 378636,
+    "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES": 340,
+    "PENDING": 0,
+    "INTENT": 0
+  },
+  "completion_evidence": {
+    "final_native_job": 4536961,
+    "final_native_state": "COMPLETED",
+    "final_native_exit": "0:0",
+    "final_manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/delivery/final_all_scopes_4536961/manifest.json",
+    "scope_closure_native_jobs": [
+      4536478,
+      4536978,
+      4537629,
+      4536906
+    ],
+    "final_chain_native_jobs": [
+      4537629,
+      4536590,
+      4536599,
+      4536961
+    ],
+    "fallback_4536590_zero_new_native_calls": true,
+    "requirements_audit": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/B0_directive19_current.json#completion_audit",
+    "source_groups": 11,
+    "source_count_rows": 12,
+    "metadata_artifacts_checked": 87,
+    "native_jobs_checked": 30,
+    "metadata_only_no_numeric_replay": true,
+    "explicit_failures_and_UNKNOWN_retained": true
+  },
+  "active_scientific_jobs": []
 }
