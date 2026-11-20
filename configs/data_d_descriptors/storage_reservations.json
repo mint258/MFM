@@ -4,7 +4,7 @@
     "registered_model_pool_bytes":  114569896448,
     "model_pool_includes_P_61GB":  true,
     "benchmark_peer_environment_bytes":  25769803776,
-    "benchmark_miscellaneous_future_bytes":  1073741824,
+    "benchmark_miscellaneous_future_bytes":  44023414784,
     "quota_snapshot":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/window2_20261105/share_quota_available_v3.json",
     "B0_forecast_authorities":  [
                                     "workflows/benchmark_data/pprime_tmpfs_queue.py:FORECAST",
@@ -15,10 +15,6 @@
                       {
                           "directory":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/labels/Pprime/shared_v1",
                           "forecast_bytes":  80000000000
-                      },
-                      {
-                          "directory":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/labels/Pprime/shared_v1",
-                          "forecast_bytes":  80000000000
                       }
                   ],
     "B0_geometry":  [
@@ -26,10 +22,34 @@
                         "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/geometry/shared_v1"
                     ],
     "registered_model_pool_filesystem":  "/lfshome",
-    "registered_model_share_future_bytes":  25327352832,
-    "registered_model_share_future_basis":  "Existing model guard remaining_nfs_other=23179869184 after D6 publication + registered P M2 seed1 NFS 2147483648; full 114569896448 model pool is on /lfshome, not /share",
+    "registered_model_share_future_bytes":  94046829568,
+    "registered_model_share_future_basis":  "Existing model/P share future25327352832 plus S study total NFS forecast68719476736 (S runtime.TOTAL_PEAK, STATUS2026-11-20). Entire S forecast retained conservatively; no committed S bytes deducted.",
     "model_reservation_authorities":  [
                                           "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/model_v3/v2_diagnosis_disk.py:remaining_nfs_other",
                                           "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/model_output_budget.json"
-                                      ]
+                                      ],
+    "registered_model_share_components":  {
+                                              "existing_model_and_P":  25327352832,
+                                              "S_study_NFS":  68719476736
+                                          },
+    "benchmark_miscellaneous_future_basis":  "Original1GiB plus benchmark B1 announced40GiB (benchmark-b1-20261119 STATUS18:34, native capacity4537513); existing24GiB peer environment retained separately, conservatively without overlap deductions.",
+    "closed_B0_labels":  [
+                             {
+                                 "directory":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/labels/Pprime/shared_v1",
+                                 "access":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/labels/Pprime/shared_v1/access.json",
+                                 "producer_manifest":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/labels/Pprime/shared_v1/producer_4536906.json",
+                                 "publishing_uid":  1278,
+                                 "immutable":  true,
+                                 "writers_closed":  true,
+                                 "producer_job":  4536906,
+                                 "producer_slurm_state":  "COMPLETED",
+                                 "producer_exit":  "0:0",
+                                 "tail_job":  4536907,
+                                 "tail_slurm_state":  "COMPLETED",
+                                 "tail_exit":  "0:0",
+                                 "producer_status":  "ALL_QUEUED_PPRIME_TERMINAL",
+                                 "future_write_bytes":  0,
+                                 "basis":  "Verified access closure and actual sacct; committed bytes remain in filesystem/quota usage. Original B0 producer4536588 is live and its forecast remains reserved."
+                             }
+                         ]
 }
