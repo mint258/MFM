@@ -68,7 +68,13 @@ def indexed(records,baseline=False):
         result[identity]=record['evidence']
     return result
 table,contrasts=finalize_c1(primary_rows,plans,indexed(evidence['C1']))
-baseline=finalize_baseline_confirmations(screen,B1_plans,indexed(evidence['B1'],True))
+baseline_manifest=unique('B1_confirmation_results/job_*/manifest.json')
+baseline_closed=json.loads(baseline_manifest.read_text())
+if (baseline_closed.get('status')!='B1_NEURAL_CONFIRMATION_RESULTS_CLOSED'
+    or Path(baseline_closed['frozen_B1_roster']).resolve()!=screen_path.resolve()
+    or Path(baseline_closed['evidence_source']).resolve()!=Path(evidence['stage_reports']['B1']).resolve()):
+    raise IncompleteComparison('The earlier closed baseline export belongs to different frozen source evidence')
+baseline_payload=(baseline_manifest.parent/'B1_Chemprop_confirmation_results.csv').read_bytes()
 out=b1/'C1_final_results'/('job_'+os.environ['SLURM_JOB_ID'])
 if list(out.parent.glob('job_*/C1_results.csv')):
     raise IncompleteComparison('A final C1 table already exists; no independent repeat export')
@@ -86,13 +92,14 @@ def deliver(name,rows,sha=False):
         return digest
 digest=deliver('C1_results.csv',table,True)
 deliver('C1_second_seed_registered_comparisons.csv',contrasts)
-deliver('B1_Chemprop_confirmation_results.csv',baseline)
+safe()
+with (out/'B1_Chemprop_confirmation_results.csv').open('xb') as target:target.write(baseline_payload)
 report=dict(status='FINAL_C1_RESULTS_CLOSED',job=os.environ['SLURM_JOB_ID'],
     primary_configuration_rows=len(primary_rows),final_seed_rows=len(table),
     required_TabPFN_confirmations=len(plans),required_Chemprop_confirmations=len(B1_plans),
     final_C1_table=str(out/'C1_results.csv'),C1_sha256=digest,
     frozen_B1_roster=str(screen_path),primary_C1_manifest=str(primary_manifest),
-    actual_confirmation_evidence=str(evidence_path),task_roster_reselection=False,
+    actual_confirmation_evidence=str(evidence_path),reused_B1_confirmation_manifest=str(baseline_manifest),task_roster_reselection=False,
     original_primary_scores_recomputed=False,independent_numeric_QA=False,
     second_seed_control_policy='Registered original seed20261025 controls; candidate second seed20261026',
     native_second_seed_failures_remain_explicit=True)

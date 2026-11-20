@@ -15,3 +15,5 @@ ExpansionRx 的榜单尺度与 B1 TRAIN 均值筛选尺度分别报告，见 [�
 C1 的分子 P′ 向量直接读取预训练原始 schema 的 67 个分子级 P 数值列，字段、单位、分量顺序不变；原子任务读取该 schema 的原子级 P 列并接原始 RDKit atom37。没有为表格输入新增原子/原子对池化统计。Joung 各特征组均保留原始溶剂二维描述符和显式 gas 条件，未生成溶剂构象或量化标签。原始原子映射不覆盖的 UFF 新增氢没有实验原子 ID，保持缺失。
 
 PPE 固定经典基线的原生报告已交付至 [`PPE_native_classical_baselines.csv`](../../results/benchmark/PPE_native_classical_baselines.csv)：直接复制已关闭生产端4537083的204行输出，包含原始全体/域内可处理点以及方法原生可用/两方法共同可用的覆盖口径，并保留固定25折结果。没有重算统计、拟合基团值或新增任务；无额外SHA。
+
+B1的17个必需神经配置均已完成第二种子确认：16项原显著改善中15项复现，ExpansionRx HLM CLint未复现显著性；¹H因原实际训练绑定重做按例外单列。固定B1名单不变。见[确认表](../../results/benchmark/B1_Chemprop_confirmation_results.csv)及[原生首次CPU统计与完整配对证据](../../results/benchmark/B1_Chemprop_confirmation_evidence.json)。后续C1最终打包直接复用已关闭的B1确认CSV，不重算其统计。

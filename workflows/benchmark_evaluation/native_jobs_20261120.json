@@ -4008,7 +4008,25 @@
     ],
     "first_CPU_report_job": 4537462,
     "original_native_plans_only": true,
-    "new_GPU_fits_launched": true
+    "new_GPU_fits_launched": true,
+    "B1_closed": {
+      "first_CPU_statistics": 4537462,
+      "CSV_formatting_only": 4537536,
+      "required": 17,
+      "completed": 17,
+      "significant_improvement_reproduced": 15,
+      "not_reproduced": 1,
+      "not_reproduced_endpoint": "expansionrx::HLM CLint",
+      "required_training_redo_confirmation": 1,
+      "states": {
+        "SECOND_SEED_SIGNIFICANT_IMPROVEMENT_REPRODUCED": 15,
+        "SECOND_SEED_DID_NOT_REPRODUCE_SIGNIFICANCE": 1,
+        "REQUIRED_TRAINING_REDO_SECOND_SEED_REPORTED": 1
+      },
+      "roster_reselection": false,
+      "statistics_recomputed_for_export": false,
+      "all_native_new_fit_groups_terminal": true
+    }
   },
   "validation": {
     "full_current_benchmark_and_active_data_interface_regression": "158_PASS_ZERO_FAILURE_ERROR_SKIP",
@@ -4046,6 +4064,17 @@
       "existing_server_references": 1311,
       "heredocs": 242,
       "children": 11
+    },
+    "latest_B1_confirmation_export_source_check": {
+      "job": 4537539,
+      "status": "PASS",
+      "node": "compute-0-17",
+      "paths": 5566,
+      "python_sources": 3764,
+      "existing_server_references": 1311,
+      "heredocs": 243,
+      "children": 11,
+      "statistics_replayed": false
     }
   },
   "pull_request": {
@@ -4277,7 +4306,9 @@
     "submitted": false,
     "requires_closed_actual_confirmation_evidence": true,
     "primary_scores_recomputed": false,
-    "task_roster_reselection": false
+    "task_roster_reselection": false,
+    "reuses_closed_B1_confirmation_export": 4537536,
+    "B1_recomputed_statistics": false
   },
   "uniform_D_critical_CPU_start_order": {
     "prerequisite": 4537119,
