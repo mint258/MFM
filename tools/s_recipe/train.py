@@ -39,6 +39,12 @@ def telemetry(c, stop):
 
 
 def main(c):
+    if not c.get('resume'):
+        from dispatch import gate, authorized
+        blocked = gate()
+        if blocked:
+            raise RuntimeError(blocked)
+        authorized(c)
     started = time.monotonic()
     stop = threading.Event()
     monitor = threading.Thread(target=telemetry, args=(c, stop), daemon=True)
@@ -50,21 +56,13 @@ def main(c):
         monitor.join(timeout=12)
     if result.get('status') == 'HANDOFF_SAVED':
         return result
-    spec = importlib.util.spec_from_file_location('existing_p_evaluate', REPO/'tools/p_recipe/evaluate.py')
-    evaluate = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(evaluate)
+    from readouts import configuration as readout_configuration, gpu as gpu_readouts
     for samples in c['evaluation_samples']:
         import gc
         import torch
         gc.collect()
         torch.cuda.empty_cache()
-        output = Path(c['output'])/('readout' if samples == c['samples'] else 'readout_'+str(samples))
-        if (output/'predictions.json').is_file():
-            continue
-        evaluation = dict(c, samples=samples, checkpoint=str(Path(c['output'])/('samples_'+str(samples)+'.pt')),
-            features=str(output/'features'), output=str(output), persist_features=False,
-            store=c['evaluation_store'], layer=6)
-        evaluate.run(evaluation)
+        gpu_readouts(readout_configuration(c, samples))
     result.update(status='GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS',
                   training_and_gpu_readout_seconds=time.monotonic()-started)
     write(Path(c['output'])/'summary.json', result)

@@ -30,6 +30,7 @@ from loss import structural_total
 from diagnostics import noise_statistics, relative_error
 from noise import apply_geometry_noise, multiscale_sigma
 from s_data import GeometryDataset, init_reader, paired_choices, read_choice
+from checkpoint_binding import validate_resume
 
 
 def train(configuration):
@@ -54,7 +55,8 @@ def train(configuration):
                                  rotor_index=rotor_index)
     model, architecture = s_model('C1-0', 'three')
     initialization = torch.load(c['initialization'], map_location='cpu', weights_only=True)
-    if initialization['schema'] != 'S_RECIPE_RANDOM_INITIALIZATION_V1' or initialization['seed'] != c['seed']:
+    if (initialization['schema'] != 'S_RECIPE_RANDOM_INITIALIZATION_V1'
+            or initialization['seed'] != c['seed'] or initialization['training_samples'] != 0):
         raise ValueError('Wrong producer-bound random S initialization')
     model.load_state_dict(initialization['model'])
     torch.set_rng_state(initialization['torch_rng'])
@@ -73,6 +75,7 @@ def train(configuration):
     prior_seconds = 0.
     if c.get('resume'):
         checkpoint = torch.load(c['resume'], map_location='cpu', weights_only=True)
+        validate_resume(c, checkpoint['configuration'])
         model.load_state_dict(checkpoint['model'])
         optimizer.load_state_dict(checkpoint['optimizer'])
         clock.load_state_dict(checkpoint['clock'])

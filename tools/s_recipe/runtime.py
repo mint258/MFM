@@ -14,6 +14,9 @@ ROOT = Path('/share/home/zixiao/descriptor_analysis')
 REPO = ROOT/'MFM_s_recipe'
 CONTROL = ROOT/'runs/s_recipe_20261120'
 TOTAL_PEAK = 64*1024**3
+# D stage0 has one shared14GiB NFS claim (2026-11-20 STATUS); do not
+# let simultaneous producers spend the same headroom. Keep this until closed.
+D_STAGE0_PEAK = 14*1024**3
 spec = importlib.util.spec_from_file_location('s_disk', REPO/'tools/model_v3/v2_diagnosis_disk.py')
 disk = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(disk)
@@ -51,7 +54,7 @@ def capacity():
     disk.m.require_capacity(disk.m.filesystem_status('/'), 16*1024**2, 1000)
     disk.m.require_capacity(disk.m.filesystem_status(CONTROL), future, 20000)
     return disk.m.quota_headroom(disk.CONTROL/'share_quota_available_v3.json', '/share',
-                                future, disk.remaining_nfs_other())
+                                future, disk.remaining_nfs_other()+D_STAGE0_PEAK)
 
 
 def identity(pid):

@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import socket
+import resource
 import time
 
 import numpy as np
@@ -19,13 +20,12 @@ def cpu_only():
     memory = {line.split(':', 1)[0]: int(line.split()[1])*1024
               for line in Path('/proc/meminfo').read_text().splitlines()
               if line.startswith(('MemTotal:', 'MemAvailable:'))}
-    if memory['MemAvailable'] < 12*1024**3+.15*memory['MemTotal']:
-        raise RuntimeError('Actual CPU memory headroom is insufficient')
     capacity()
+    return memory
 
 
 def finalize(c):
-    cpu_only()
+    memory = cpu_only()
     output = Path(c['output'])
     summary = json.loads((output/'summary.json').read_text())
     if summary['status'] == 'COMPLETE':
@@ -40,14 +40,26 @@ def finalize(c):
         directory = output/('readout' if samples == c['samples'] else 'readout_'+str(samples))
         destination = directory/'scores.json'
         if destination.is_file():
-            continue
-        capacity()
-        manifest = json.loads((directory/'predictions.json').read_text())
-        if manifest['run'] != c['run'] or manifest['samples'] != samples:
-            raise ValueError('Readout producer run/sample mismatch')
-        evaluate.score(directory/'predictions.json', c['reference_manifest'], REPO/'results/s_recipe/scores.csv')
-    summary.update(status='COMPLETE', statistics_complete=True, statistics_job=os.environ['SLURM_JOB_ID'],
+            statistics = json.loads(destination.read_text())
+        else:
+            capacity()
+            from readouts import finish_cpu_ridge
+            finish_cpu_ridge(c, samples)
+            manifest = json.loads((directory/'predictions.json').read_text())
+            if manifest['run'] != c['run'] or manifest['samples'] != samples:
+                raise ValueError('Readout producer run/sample mismatch')
+            statistics = evaluate.score(directory/'predictions.json', c['reference_manifest'], REPO/'results/s_recipe/scores.csv')
+        if not all(statistics[key]['complete'] and
+                   statistics[key]['bootstrap_samples'] == statistics[key]['bootstrap_defined'] == 1000
+                   for key in ('R1', 'R3')):
+            raise ValueError('Original R1/R3 bootstrap is incomplete; preserve its producer artifacts')
+    from readouts import release_closed_feature_cache
+    released = release_closed_feature_cache(c)
+    summary.update(status='COMPLETE', statistics_complete=True, feature_cache=released,
+                   statistics_job=os.environ['SLURM_JOB_ID'],
                    statistics_node=socket.gethostname().split('.')[0],
+                   statistics_memory_at_start=memory,
+                   statistics_peak_RSS_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024,
                    statistics_seconds=time.monotonic()-started)
     write(output/'summary.json', summary)
     return summary

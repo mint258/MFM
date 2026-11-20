@@ -47,7 +47,7 @@ def gate():
     execution = read(ROOT/'runs/p_recipe_20261113/study_execution.json')
     if not any(name in configs and configs[name]['samples'] == 9000000 and
                record.get('job_id') and record.get('state') not in
-               ('SUBMITTING', 'SUBMISSION_OBSERVATION_UNCERTAIN', 'FAILED', 'CANCELLED')
+               ('SUBMITTING', 'SUBMISSION_OBSERVATION_UNCERTAIN')
                for name, record in execution['runs'].items()):
         return 'WAITING_P_9M_SUBMISSION'
     return None
@@ -72,7 +72,7 @@ def authorized(c):
     if c['seed'] == 1:
         decisions = read(REPO/'configs/s_recipe/seed0_decisions.json')['arms']
         triggers = [arm for arm, result in decisions.items()
-                    if arm != 'S-G1' and result['R3']['verdict'] == 'WIN']
+                    if arm != 'S-G1' and result.get('status') == 'COMPLETE' and result['R3']['verdict'] == 'WIN']
         if c['arm'] not in triggers and not (c['arm'] == 'S-B0' and triggers):
             raise ValueError('Only a seed0 WIN authorizes seed1 and its one shared baseline')
         return

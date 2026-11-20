@@ -11,6 +11,14 @@ ARMS = ('S-N1', 'S-N2', 'S-R1', 'S-R2', 'S-G1')
 
 
 def scores(c):
+    summary = Path(c['output'])/'summary.json'
+    if not summary.is_file():
+        return None
+    finished = json.loads(summary.read_text())
+    if finished.get('status') != 'COMPLETE':
+        return None
+    if finished['samples'] != c['samples'] or finished['updates']*32 != c['samples']:
+        raise ValueError('Producer has not completed the registered S sample/update budget')
     path = Path(c['output'])/'readout/scores.json'
     if not path.is_file():
         return None
