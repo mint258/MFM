@@ -1313,3 +1313,8 @@ Actual P physical allocation on compute-0-6 was 30,357,630,976 bytes. Remaining 
 ## 2026-11-20 16:24 D阶段0：新逻辑测试通过，成本/输入准备就绪
 
 D 新逻辑215项在 compute-0-17 原生SSH单核短程测试全部通过（UID1278/PID1392349，exit0，5.67秒，RSS923640KiB）；原始日志 `/share/home/zixiao/descriptor_analysis/D_native_cpu_tests_20261120_1622.log`，没有伪造Slurm身份。修正计算节点真实NFS锚点 `/share/home`；配额作用域仍为发布器的 `/share`，真实字节/inode/UID配额及100GB底线不变。原地只读复用既有pyarrow25.0.1，未改共享环境。旧4537113/7202/7261/7346/7347在零运行时间取消，Slurm终态已核实。现阶段0成本4537408、afterok成本的全量规划4537409、开发/基准无标签输入4537410/4537411均仍排队；一份14GiB联合NFS峰值保持原登记。全量、真实接收、D训练/读出均未完成；P冻结前不启动D GPU，不改其他线任务。
+
+
+### 2026-11-20 D stage0 full-production admission (18:10 CST)
+
+D only: cost pilot4537446 COMPLETED0:0 on CPU10 (L1/L2 each5000 TRAIN); source count4537409 COMPLETED0:0 gives1201795 unique rows (TRAIN1194228, commonVAL7567). Forecast new full-output peak21673668317 bytes. Joint D NFS peak36706053853 bytes includes earlier15032385536 pilot/downstream budget; actual CPU17 root/NFS bytes/inodes and fresh UID1278 quota guard PASSED before submission, retaining100GB quota floor and existing model/B0/environment futures. This joint peak replaces the earlier14GiB D forecast; not additive to it. Full producer and active benchmark preparation will check the same joint peak at runtime. No node-local database copy. Native single-core CPU17 new-logic tests233 PASS, log D_native_cpu_tests_20261120_1802.log; no fictitious Slurm identity. Development source inputs4537410 completed; earlier benchmark metadata retained, active preparation now uses the author-approved NMR2018/pKa source manifests and original geometry namespaces. No D GPU launch, final reception, model fits, endpoint changes, or scientific success claimed; P is still pending freeze.
