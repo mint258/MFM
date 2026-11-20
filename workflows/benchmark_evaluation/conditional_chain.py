@@ -3,6 +3,16 @@ from pathlib import Path
 import re
 import shlex
 
+def private_python_prefix(python, owned_root):
+    """Keep the registered private venv prefix; its interpreter may link to the shared base."""
+    python=Path(python)
+    root=Path(owned_root).resolve()
+    prefix=python.parent.parent.resolve()
+    if (not python.is_absolute() or python.name!="python" or python.parent.name!="bin"
+        or not prefix.is_relative_to((root/"environments").resolve())):
+        raise ValueError("The registered Python must remain in the owned private environment prefix")
+    return prefix
+
 def validated_groups(preparation, owned_root):
     if preparation.get("stage")!="C1" or preparation.get("status")!="CONDITIONAL_NEURAL_SOURCE_PREPARATION_CLOSED" or preparation.get("failures"):
         raise ValueError("C1 conditional source preparation must close successfully")
@@ -13,9 +23,10 @@ def validated_groups(preparation, owned_root):
         if not primary.isdigit() or primary in seen or group["learner"]!="TabPFN":
             raise ValueError("Each original TabPFN producer must occur once")
         seen.add(primary)
-        for name in ("program","script","python"):
+        for name in ("program","script"):
             if not Path(group[name]).resolve().is_relative_to(root):
                 raise ValueError("Prepared source/environment must stay in the owned benchmark root")
+        private_python_prefix(group["python"],root)
         declaration=group["declaration"]
         if (declaration["model_seed"]!=20261026 or declaration["split_and_statistics_seed"]!=20261025
             or declaration["original_labels_or_masks_changed"] or declaration["task_roster_reselection"]

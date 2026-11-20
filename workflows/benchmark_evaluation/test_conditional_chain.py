@@ -10,7 +10,7 @@ class ChainTests(unittest.TestCase):
         tasks=[]
         for index in range(count):
             tasks.append(dict(primary_job=str(100+index),learner="TabPFN",feature_group="D",
-                program="/owned/group.py",script="/owned/group.sbatch",python="/owned/env/bin/python",
+                program="/owned/group.py",script="/owned/group.sbatch",python="/owned/environments/env/bin/python",
                 node="compute-0-5",uuid="GPU-one" if same_card else "GPU-"+str(index),array=index==1,
                 declaration=dict(model_seed=20261026,split_and_statistics_seed=20261025,
                     original_labels_or_masks_changed=False,task_roster_reselection=False,original_model_budget_unchanged=True),
@@ -54,6 +54,21 @@ class ChainTests(unittest.TestCase):
             with self.assertRaises(ValueError):validated_groups(prep,self.root)
         prep=self.prep(1);prep["prepared_native_groups"][0]["script"]="/other/group.sbatch"
         with self.assertRaises(ValueError):validated_groups(prep,self.root)
+    def test_owned_venv_interpreter_symlink_to_shared_base_is_allowed(self):
+        import tempfile
+        from .conditional_chain import private_python_prefix
+        with tempfile.TemporaryDirectory() as temporary:
+            folder=Path(temporary);root=folder/"owned"
+            private_bin=root/"environments"/"registered"/"bin";private_bin.mkdir(parents=True)
+            shared_bin=folder/"shared_base"/"bin";shared_bin.mkdir(parents=True)
+            base=shared_bin/"python";base.write_text("shared interpreter fixture")
+            interpreter=private_bin/"python";interpreter.symlink_to(base)
+            self.assertFalse(interpreter.resolve().is_relative_to(root.resolve()))
+            self.assertEqual(private_python_prefix(interpreter,root),private_bin.parent.resolve())
+            prep=self.prep(1);group=prep["prepared_native_groups"][0]
+            group.update(program=str(root/"group.py"),script=str(root/"group.sbatch"),python=str(interpreter))
+            self.assertEqual(len(validated_groups(prep,root)),1)
+            with self.assertRaises(ValueError):private_python_prefix(base,root)
     def test_incomplete_or_duplicate_required_plan_rejected(self):
         prep=self.prep(1);prep["required_configuration_rows"]=2
         with self.assertRaises(ValueError):validated_groups(prep,self.root)

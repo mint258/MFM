@@ -4660,12 +4660,12 @@
     "source_preparation_state": "COMPLETED/0:0",
     "source_preparation_node": "compute-0-17",
     "focused_synthetic_tests": 6,
-    "dispatch_job": 4537551,
+    "dispatch_job": 4537587,
     "dispatch_state": "PENDING",
     "dispatch_dependency": "afterok:4537503",
     "preparation_manifest": "conditional_preparation/C1/job_4537503/manifest.json",
-    "dispatch_state_manifest": "conditional_dispatch/C1/job_4537551/dispatch_state.json",
-    "source_cache": "shared_storage_preparation/job_4537550/proposed_sources.json",
+    "dispatch_state_manifest": "conditional_dispatch/C1/job_4537587/dispatch_state.json",
+    "source_cache": "private_backend_validation/job_4537586/proposed_sources.json",
     "module": "workflows/benchmark_evaluation/conditional_chain.py",
     "preserves_frozen_scientific_configuration": true,
     "only_registered_final_significant_TabPFN_cells": true,
@@ -4681,13 +4681,24 @@
       "state": "FAILED/1:0",
       "reason": "bootstrap ordered module import before cache overlay; failed before preparation/output/training; corrected in7541"
     },
-    "superseded_zero_runtime_dispatcher": {
-      "job": 4537542,
-      "state": "CANCELLED by1278",
-      "elapsed": "00:00:00",
-      "start": "None"
-    },
-    "storage_policy_deployment": 4537550
+    "storage_policy_deployment": 4537550,
+    "previous_zero_runtime_dispatchers": [
+      {
+        "job": 4537542,
+        "state": "CANCELLED by1278",
+        "elapsed": "00:00:00",
+        "start": "None"
+      },
+      {
+        "job": 4537551,
+        "state": "CANCELLED by1278",
+        "elapsed": "00:00:00",
+        "start": "None"
+      }
+    ],
+    "latest_source_preparation": 4537586,
+    "latest_scheduler_tests": 7,
+    "registered_private_backend_metadata_checked": 2
   },
   "shared_NFS_futures_reconciliation": {
     "native_deployment": 4537550,
@@ -4767,7 +4778,6 @@
     ],
     "actual_all_protected_handles_RUNNING_before_update": true,
     "same_card_downstream_links_unchanged": true,
-    "primary_7502_preparation_7503_dispatcher_7551_unchanged": true,
     "no_P_D_S_jobs_modified": true,
     "shared_notice": {
       "job": 4537576,
@@ -4780,7 +4790,10 @@
       "active_SQLite_opened": false
     },
     "budget_authority_confirmed": "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/storage_reservations.json",
-    "current_D_NFS_joint_unchanged": 36706053853
+    "current_D_NFS_joint_unchanged": 36706053853,
+    "primary_7502_preparation_7503_producer_IDs_unchanged": true,
+    "original_dispatcher_at_GPU_gate_update": 4537551,
+    "current_dispatcher_after_backend_alias_fix": 4537587
   },
   "node_local_peer_storage_protection": {
     "status": "BENCHMARK_LOCAL_PEER_STORAGE_FUTURES_DEPLOYED",
@@ -4816,5 +4829,47 @@
     "system_floor": "max(10GiB,10% actual total) plus own16MiB local peak plus same-node published peer future",
     "split_root_tmp_on_a_claimed_node_requires_reconciliation": true,
     "other_worktree_code_and_jobs_unchanged": true
+  },
+  "private_backend_prefix_validation_fix": {
+    "status": "C1_PRIVATE_BACKEND_BINDING_VALIDATION_CLOSED",
+    "job": "4537586",
+    "node": "compute-0-17",
+    "scheduler_tests": 7,
+    "original_backend_metadata": [
+      {
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/tabpfn/bin/python",
+        "private_prefix": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/tabpfn",
+        "base_interpreter": "/share/home/zixiao/.conda/envs/chemprop/bin/python3.11",
+        "is_symlink": true,
+        "original_private_venv_prefix_retained": true
+      },
+      {
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu128_job_4537025_step_5/tabpfn/bin/python",
+        "private_prefix": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu128_job_4537025_step_5/tabpfn",
+        "base_interpreter": "/share/home/zixiao/.conda/envs/chemprop/bin/python3.11",
+        "is_symlink": true,
+        "original_private_venv_prefix_retained": true
+      }
+    ],
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/private_backend_validation/job_4537586/proposed_sources.json",
+    "tracked_paths": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/private_backend_validation/job_4537586/tracked_paths.json",
+    "model_or_metric_execution": false,
+    "environment_changed": false,
+    "private_program_and_script_resolved_ownership_checks_retained": true,
+    "private_environment_prefix_checked_instead_of_base_interpreter_target": true,
+    "dispatcher_source_cache_now_contains_corrected_validator": true,
+    "superseded_zero_runtime_dispatcher": 4537551,
+    "current_dispatcher": 4537587,
+    "shared_notice": {
+      "job": 4537588,
+      "state": "COMPLETED/0:0",
+      "node": "compute-0-17",
+      "paths": 6,
+      "effective_NFS_concurrent_bytes": 200546101981,
+      "original_B0_remaining_OS_stat_forecast_bytes": 54953234432,
+      "UID_observation_age_seconds": 13.56266713142395,
+      "no_active_SQLite_open": true
+    },
+    "scientific_inputs_or_model_execution_changed": false
   }
 }
