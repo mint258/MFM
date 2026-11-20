@@ -82,17 +82,24 @@
     "pKahub": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/pKahub/job_4536891/manifest.json"
   },
   "uniform_Sprime_producer": {
-    "job": 4536898,
+    "job": 4536924,
     "native_state": "RUNNING",
-    "producer_progress_observed": false
+    "node": "compute-0-17",
+    "workers": 2,
+    "producer_progress_observed": true,
+    "previous_bootstrap_job": 4536898,
+    "previous_bootstrap_state": "FAILED",
+    "previous_bootstrap_exit": "9:0",
+    "previous_bootstrap_scientific_calls": 0
   },
   "uniform_Pprime_chain": {
-    "prepare_job": 4536905,
+    "prepare_job": 4536925,
     "producer_jobs": [
       4536906,
       4536907
     ],
     "source_geometry_native_C0_required": true,
-    "ready": false
+    "ready": false,
+    "source_geometry_job": 4536924
   }
 }
