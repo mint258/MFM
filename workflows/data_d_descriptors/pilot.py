@@ -55,13 +55,11 @@ def select_panel(config, output):
         columns=["molecule_index", "molecule_id"], filter=query, use_threads=False).to_pylist()
     by_index = {row["molecule_index"]: row for row in rows}
     connection = sqlite3.connect("file:" + config["geometry_index"] + "?mode=ro", uri=True)
-    pointers = {}
-    for index in candidates:
-        row = by_index.get(int(index))
-        if row is None:
-            raise ValueError("TRAIN molecule ID alignment missing")
-        source = connection.execute("SELECT pointer FROM geometries WHERE mid=? AND src='pm7' LIMIT 1", (row["molecule_id"],)).fetchone()
-        pointers[int(index)] = None if source is None else json.loads(source[0])
+    from .source_smiles import original_pointers
+    if any(int(index) not in by_index for index in candidates):
+        raise ValueError("TRAIN molecule ID alignment missing")
+    source_by_mid = original_pointers(connection, (by_index[int(index)]["molecule_id"] for index in candidates))
+    pointers = {int(index): source_by_mid[by_index[int(index)]["molecule_id"]] for index in candidates}
     connection.close()
     lookup = None
     if config.get("source_smiles_index"):

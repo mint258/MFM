@@ -105,14 +105,9 @@ def prepare(config):
     database = sqlite3.connect("file:" + config["geometry_index"] + "?mode=ro", uri=True)
     pointers, lookup = None, None
     if config.get("source_smiles_index"):
-        from .source_smiles import SourceSmiles
-        pointers = {}
-        for item in rows[state["closed_rows"]:]:
-            if item["molecule_id"] in cached:
-                continue
-            source = database.execute("SELECT pointer FROM geometries WHERE mid=? AND src='pm7' LIMIT 1",
-                (item["molecule_id"],)).fetchone()
-            pointers[item["molecule_id"]] = None if source is None else json.loads(source[0])
+        from .source_smiles import SourceSmiles, original_pointers
+        pointers = original_pointers(database, (item["molecule_id"] for item in rows[state["closed_rows"]:]
+            if item["molecule_id"] not in cached))
         lookup = SourceSmiles.from_parquet(config["source_smiles_index"],
             (pointer for pointer in pointers.values() if pointer is not None)).get
     canonical = ExistingD20(json.loads(Path(config["corpus"]).read_text())["source_root"])

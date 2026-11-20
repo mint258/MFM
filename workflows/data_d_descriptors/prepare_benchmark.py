@@ -71,6 +71,23 @@ def active_source_rows(rows, groups, selector):
             yield row
 
 
+def structure_sources(entry, b0, read_manifest):
+    """Use author-approved active structure tables instead of historical ones."""
+    groups = copy.deepcopy(b0["source_groups"])
+    references = {}
+    for group, filename in entry.get("active_target_manifests", {}).items():
+        active = read_manifest(filename)
+        references["active_" + group] = filename
+        if active.get("records"):
+            groups[group] = dict(records=active["records"])
+        elif active.get("source_domain_manifest"):
+            domain = read_manifest(active["source_domain_manifest"])
+            references["active_domain_" + group] = active["source_domain_manifest"]
+            if domain.get("records"):
+                groups[group] = dict(records=domain["records"])
+    return groups, references
+
+
 def scoped_tasks(document, required_status, proof, selector, *, mode="FINAL_ROSTER"):
     _scope_evidence(document, required_status, proof)
     if mode == "FINAL_ROSTER":
@@ -174,27 +191,39 @@ def build_rows(structures, read_shared, *, allowed_keys, canonical_key, graph_eq
         if key in member_keys:
             raise ValueError("Duplicate original benchmark dataset/record_id")
         member_keys.add(key)
-        shared, route = read_shared(dataset, record_id)
+        geometry_dataset = original.get("geometry_dataset") or dataset
+        geometry_record = original.get("geometry_record_id") or record_id
+        shared, route = read_shared(geometry_dataset, geometry_record)
         mid = (shared or {}).get("shared_molecule_id") or original.get("shared_molecule_id") or record_id
         if not isinstance(mid, str) or not mid:
             raise ValueError("Existing shared molecule ID or original record ID required")
         smiles = original.get("model_smiles") or original.get("original_smiles")
         binding = {"dataset": dataset, "record_id": record_id, "source_file": original["source_file"],
+                   "source_dataset": original.get("source_dataset") or dataset,
                    "structure_store": original["structure_store"], "shared_geometry_route": route}
         values, error = canonical_d20(shared, smiles, graph_equivalent, schema)
+        domain_missing = shared is None and (original.get("domain_eligible") is False or original.get("retained") is False)
+        if domain_missing:
+            # The original C1 producer uses this exact missing state when no
+            # domain-eligible native UFF task was issued. Preserve the source
+            # row and missing fields; never recompute or zero-fill its old D.
+            values, error = dict.fromkeys(D20_NAMES), None
         result = (shared or {}).get("result") or {}
         native = {"state": (shared or {}).get("state"), "error": result.get("error"),
                   "D20_issues": (result.get("D20") or {}).get("issues"),
                   "known_missing_reason": native_missing_reason(shared)}
+        if domain_missing:
+            native["known_missing_reason"] = "NO_DOMAIN_ELIGIBLE_NATIVE_UFF_BINDING"
         graph_missing = native["known_missing_reason"] == "SOURCE_MODEL_GRAPH_UNAVAILABLE" and error is None
-        input_smiles = None if graph_missing else smiles
-        if graph_missing:
+        input_smiles = None if graph_missing or domain_missing else smiles
+        if graph_missing or domain_missing:
             binding["source_model_smiles"] = smiles
         if mid in unique and unique[mid]["smiles"] != input_smiles:
             raise ValueError("Existing molecule ID is not globally graph-unique")
         if mid not in unique:
             unique[mid] = {"molecule_id": mid, "smiles": input_smiles,
-                "source_error": "SOURCE_MODEL_GRAPH_UNAVAILABLE" if graph_missing else
+                "source_error": "NO_DOMAIN_ELIGIBLE_NATIVE_UFF_BINDING" if domain_missing else
+                    "SOURCE_MODEL_GRAPH_UNAVAILABLE" if graph_missing else
                     None if smiles else "ORIGINAL_SOURCE_GRAPH_UNAVAILABLE",
                 "source_binding": binding, "existing_D20": values, "canonical_D20_source_error": error,
                 "native_source": native}
@@ -203,7 +232,11 @@ def build_rows(structures, read_shared, *, allowed_keys, canonical_key, graph_eq
         member = {name: original.get(name) for name in ("dataset", "record_id", "source_file", "retained",
                   "domain_eligible", "blind_fallback_required", "existing_cv_reference")}
         member["original_atom_reference"] = {"structure_store": original["structure_store"],
-            "model_atom_to_source": copy.deepcopy(original.get("model_atom_to_source"))}
+            "model_atom_to_source": copy.deepcopy(original.get("model_atom_to_source")),
+            "source_atom_ids": copy.deepcopy(original.get("source_atom_ids")),
+            "original_molecule_id": original.get("original_molecule_id"),
+            "source_frame_index": original.get("source_frame_index"),
+            "source_dataset": original.get("source_dataset") or dataset}
         member.update(molecule_id=mid, source_split=original.get("official_split"), native_source=native,
             evaluation_status="EXISTING_SPLIT_REFERENCE_PRESERVED" if original.get("official_split") is not None
                 or original.get("existing_cv_reference") else "EVALUATION_PENDING",
@@ -283,6 +316,10 @@ def run(config):
         allowed, groups = {selector.canonical_task_key(*task) for task in tasks}, {d for d, _ in tasks}
     entry = read_json(config["b0_entry"])
     b0, scope = read_json(entry["manifest"]), read_json(config["geometry_scope_manifest"])
+    source_groups, active_references = structure_sources(entry, b0, read_json)
+    for group, namespace in config.get("geometry_namespaces", {}).items():
+        if namespace not in scope.get("source_groups", {}):
+            raise ValueError("Geometry namespace is absent from the declared uniform scope: " + group)
     queues = sealed_geometry(scope, {q: read_json(p) for q, p in config["geometry_access_manifests"].items()})
     route_fields = ["dataset", "record_id", "shared_geometry_queue", "shared_geometry_dataset", "shared_geometry_record_id"]
     bindings = {}
@@ -295,6 +332,7 @@ def run(config):
     refs.update(source_inventory=reference(inventory_path), B0_source_manifest=reference(entry["manifest"]),
                 geometry_bindings=reference(scope["geometry_bindings"]),
                 geometry_access={q: reference(p) for q, p in config["geometry_access_manifests"].items()})
+    refs.update({key: reference(path) for key, path in active_references.items()})
     if catalog is not None:
         refs["catalog"] = reference(inventory["catalog"])
     final = output / "manifest.json"
@@ -307,14 +345,17 @@ def run(config):
     def read_shared(dataset, record_id):
         return shared_source(dataset, record_id, bindings=bindings, scope=scope, readers=readers, reader_class=reader_class)
     def structures():
-        desired = ["record_id", "source_file", "model_smiles", "original_smiles", "official_split", "retained", "model_atom_to_source",
+        desired = ["dataset", "record_id", "source_file", "model_smiles", "original_smiles", "official_split", "retained", "model_atom_to_source",
+                   "geometry_dataset", "geometry_record_id", "source_atom_ids", "original_molecule_id", "source_frame_index",
                    "domain_eligible", "blind_fallback_required", "shared_molecule_id", "existing_cv_reference"]
         for group in sorted(groups):
-            source = b0["source_groups"][group]
+            source = source_groups[group]
             paths = [source["records"]] if source.get("records") else list(source["records_by_nucleus"].values())
             for path in paths:
                 for row in projected_rows(path, desired, ["record_id", "source_file"]):
-                    yield dict(row, dataset=group, structure_store=path)
+                    yield dict(row, source_dataset=row.get("dataset"), dataset=group, structure_store=path,
+                        geometry_dataset=row.get("geometry_dataset") or config.get("geometry_namespaces", {}).get(group) or group,
+                        geometry_record_id=row.get("geometry_record_id") or row["record_id"])
     try:
         original_rows = structures()
         if allowed is None:

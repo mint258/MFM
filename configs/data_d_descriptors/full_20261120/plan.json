@@ -1,0 +1,98 @@
+{
+  "schema": "D_FULL_PRODUCTION_PLAN_V1",
+  "libraries": {
+    "L1": {
+      "status": "READY"
+    },
+    "L2": {
+      "status": "READY"
+    }
+  },
+  "budget": {
+    "rows": 1201795,
+    "row_basis": "producer requested cohort count",
+    "fields": {
+      "L1": 217,
+      "L2": 1613
+    },
+    "components_new_bytes": {
+      "raw_values_F64": 17594278800,
+      "explicit_status_u8": 2199284850,
+      "array_headers": 16384,
+      "structures_jsonl_new": 1838746350,
+      "role_row_index_forecast": 19228720,
+      "field_and_checkpoint_json": 5903072,
+      "statistics_atomic_json_temporary": 5631709,
+      "preparation_checkpoint_atomic_temporary": 1048576,
+      "production_writer_workspace_reserve": 9529856
+    },
+    "peak_new_bytes": 21673668317,
+    "structure_forecast_bytes": 1838746350,
+    "structures_existing_bytes": null,
+    "ram_working_forecast_bytes": 103576304,
+    "floor_and_peer_reservations_included": false,
+    "reservation_status": "FORECAST_ONLY_NOT_RESERVED",
+    "admission": "Actual-node storage.guard adds current /share floor, UID quota and peer future reservations"
+  },
+  "configs": {
+    "prepare": {
+      "corpus": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/corpus/corpus.json",
+      "geometry_index": "/lfshome/zixiao/data_v1_20261025/D6_full_v31_20261105_v1/source_with_Pprime_sources/geometry_identities.sqlite",
+      "source_smiles_index": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
+      "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
+      "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures",
+      "peak_bytes": 36706053853,
+      "chunk_rows": 1024
+    },
+    "produce": {
+      "input_rows": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures/structures.jsonl",
+      "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
+      "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores",
+      "peak_bytes": 36706053853,
+      "workers": 4,
+      "chunk_rows": 256,
+      "existing_parameters_json": {
+        "L1": "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/full_20261120/existing_D20_parameters.json"
+      }
+    },
+    "finalize": {
+      "input_rows": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures/structures.jsonl",
+      "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
+      "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores",
+      "peak_bytes": 36706053853,
+      "workers": 1,
+      "chunk_rows": 256,
+      "existing_parameters_json": {
+        "L1": "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/full_20261120/existing_D20_parameters.json"
+      }
+    }
+  },
+  "slurm": {
+    "partition": "cpu",
+    "allowed_nodes": "compute-0-[8-19]",
+    "nodes": 1,
+    "exclude": "compute-0-[0-7,18,20-22]",
+    "exclusive": false,
+    "cpus_per_stage": {
+      "population_summary": 1,
+      "prepare": 1,
+      "produce": 5,
+      "finalize": 1
+    },
+    "produce_cpu_basis": "calculator workers plus one encoding/flush parent",
+    "recipe_root": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe"
+  },
+  "existing_parameters": {
+    "path": "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/full_20261120/existing_D20_parameters.json",
+    "source_routes": "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json",
+    "dataset": "P_D",
+    "new_fit": false
+  },
+  "stages_to_run": [
+    "prepare",
+    "produce",
+    "finalize"
+  ],
+  "jobs_submitted": false,
+  "reception_acceptance": "pending"
+}

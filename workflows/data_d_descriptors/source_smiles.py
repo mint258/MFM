@@ -4,11 +4,32 @@ Join the exact logical source_path and real_index from the existing native
 pointer. Do not use canonical/reidentified SMILES, graph inference, filename
 aliases, new hashes, or physical LMDB copies.
 """
+from itertools import islice
+import json
 from pathlib import Path
 
 
 PROJECT = Path("/share/home/zixiao/descriptor_analysis")
 COLUMNS = ("source_path", "real_index", "smiles")
+
+
+def original_pointers(connection, molecule_ids, *, chunk_rows=512):
+    """Batch original first-PM7-pointer lookups in one read transaction.
+
+    Keep the original LIMIT1 selection verbatim as a correlated subquery;
+    multiple conformers must not replace the first native pointer. Batching
+    avoids a filesystem-lock round trip per molecule. No index/database is
+    created, changed or copied.
+    """
+    identifiers, pointers = iter(molecule_ids), {}
+    while chunk := list(islice(identifiers, chunk_rows)):
+        pointers.update((mid, None) for mid in chunk)
+        query = ("WITH wanted(mid) AS (VALUES " + ",".join("(?)" for _ in chunk) + ") "
+            "SELECT wanted.mid,(SELECT pointer FROM geometries "
+            "WHERE geometries.mid=wanted.mid AND src='pm7' LIMIT 1) FROM wanted")
+        for mid, pointer in connection.execute(query, chunk).fetchall():
+            pointers[mid] = None if pointer is None else json.loads(pointer)
+    return pointers
 
 
 def source_key(pointer):

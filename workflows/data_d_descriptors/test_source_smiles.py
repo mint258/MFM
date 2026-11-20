@@ -1,7 +1,9 @@
 """Exact native-pointer joins reuse original strings, not canonical labels."""
 import copy
+import json
 from pathlib import Path
 import tempfile
+import sqlite3
 import unittest
 from unittest.mock import Mock
 
@@ -9,10 +11,33 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 from .pilot import original_smiles
-from .source_smiles import COLUMNS, SourceSmiles
+from .source_smiles import COLUMNS, SourceSmiles, original_pointers
 
 
 class SourceSmilesTests(unittest.TestCase):
+    def test_batched_geometry_lookup_matches_original_unique_native_pointer_query(self):
+        with sqlite3.connect(":memory:") as db:
+            db.execute("CREATE TABLE geometries(mid TEXT,src TEXT,conformer INTEGER,pointer TEXT,PRIMARY KEY(mid,src,conformer))")
+            db.executemany("INSERT INTO geometries VALUES (?,?,?,?)", [
+                ("m1", "uff", 0, json.dumps(dict(source_path="other", real_index=99))),
+                ("m1", "pm7", 4, json.dumps(dict(source_path="native", real_index=77))),
+                ("m1", "pm7", 0, json.dumps(dict(source_path="native", real_index=7, original_id="keep"))),
+                ("m2", "pm7", 0, json.dumps(dict(source_path="native", real_index=9)))])
+            mids = ["m2", "missing", "m1"]
+            expected = {}
+            for mid in mids:
+                row = db.execute("SELECT pointer FROM geometries WHERE mid=? AND src='pm7' LIMIT 1", (mid,)).fetchone()
+                expected[mid] = None if row is None else json.loads(row[0])
+            statements = []
+            db.set_trace_callback(statements.append)
+            self.assertEqual(original_pointers(db, mids, chunk_rows=2), expected)
+            self.assertEqual(len(statements), 2)
+
+    def test_empty_pointer_scope_does_not_open_a_geometry_transaction(self):
+        db = Mock()
+        self.assertEqual(original_pointers(db, []), {})
+        db.execute.assert_not_called()
+
     def write(self, directory, rows):
         path = Path(directory) / "existing.parquet"
         pq.write_table(pa.Table.from_pylist(rows), path)

@@ -3,7 +3,7 @@ import copy
 import unittest
 
 from .prepare_benchmark import (D20_NAMES, D3_NAMES, D20Schema, build_rows,
-    active_source_rows, catalog_groups, canonical_d20, frozen_tasks, geometry_member, scoped_tasks, sealed_geometry, shared_source)
+    active_source_rows, catalog_groups, canonical_d20, frozen_tasks, geometry_member, scoped_tasks, sealed_geometry, shared_source, structure_sources)
 
 
 PROOF = {"deferred_registry_full_inventory_verified": True, "deferred_endpoint_count": 5}
@@ -36,6 +36,47 @@ def build(rows, reader):
 
 
 class BenchmarkPreparationTests(unittest.TestCase):
+    def test_author_active_structure_manifest_replaces_historical_records_without_label_reads(self):
+        old = {"source_groups": {"NMR": {"records": "/old/nmr.parquet"}, "pKa": {"records": "/old/pka.parquet"}}}
+        entry = {"active_target_manifests": {"NMR": "/declared/nmr.json", "pKa": "/declared/pka.json"}}
+        documents = {"/declared/nmr.json": {"records": "/active/nmr.parquet"},
+                     "/declared/pka.json": {"source_domain_manifest": "/declared/domain.json",
+                                           "training_targets": "/labels/not_read.parquet"},
+                     "/declared/domain.json": {"records": "/active/pka.parquet"}}
+        before = copy.deepcopy((old, entry))
+        groups, refs = structure_sources(entry, old, documents.__getitem__)
+        self.assertEqual(groups["NMR"]["records"], "/active/nmr.parquet")
+        self.assertEqual(groups["pKa"]["records"], "/active/pka.parquet")
+        self.assertEqual(refs["active_domain_pKa"], "/declared/domain.json")
+        self.assertEqual((old, entry), before)
+
+    def test_declared_geometry_namespace_keeps_canonical_member_id_and_original_atom_reference(self):
+        row = source_row()
+        row.update(geometry_dataset="A_author_source", geometry_record_id="author-record",
+                   source_dataset="A", source_atom_ids=[5, 3], source_frame_index=9)
+        calls = []
+        def read(dataset, record):
+            calls.append((dataset, record))
+            return fixture(), route(record)
+        inputs, members, unresolved = build([row], read)
+        self.assertEqual(calls, [("A_author_source", "author-record")])
+        self.assertEqual(members[0]["dataset"], "A")
+        self.assertEqual(members[0]["record_id"], "original")
+        self.assertEqual(members[0]["original_atom_reference"]["source_atom_ids"], [5, 3])
+        self.assertEqual(members[0]["original_atom_reference"]["source_frame_index"], 9)
+        self.assertEqual(unresolved, [])
+
+    def test_explicit_domain_ineligible_row_without_native_task_keeps_known_missing_fields(self):
+        row = source_row()
+        row.update(retained=False, domain_eligible=False)
+        inputs, members, unresolved = build([row], lambda dataset, record: (None, route(record)))
+        self.assertEqual(unresolved, [])
+        self.assertEqual(inputs[0]["source_error"], "NO_DOMAIN_ELIGIBLE_NATIVE_UFF_BINDING")
+        self.assertIsNone(inputs[0]["smiles"])
+        self.assertTrue(all(value is None for value in inputs[0]["existing_D20"].values()))
+        self.assertIsNone(inputs[0]["canonical_D20_source_error"])
+        self.assertFalse(members[0]["domain_eligible"])
+
     def test_final_roster_still_rejects_candidate_or_deferred_tasks(self):
         roster = {"status": "FROZEN", "final_task_roster": True,
                   "tasks": [{"dataset": "A", "source_task": "original.csv"}]}
