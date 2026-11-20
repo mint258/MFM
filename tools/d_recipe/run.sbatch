@@ -18,7 +18,12 @@ export CUDA_VISIBLE_DEVICES="$gpu_uuid" PYTHONDONTWRITEBYTECODE=1 PYTHONIOENCODI
 export PYTHONPATH="$PWD:$PWD/current:$root/MFM_d_descriptors_20261120:$root/MFM_d_descriptors_20261120/current:$root/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps"
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 export PYTORCH_ALLOC_CONF=expandable_segments:True NVIDIA_TF32_OVERRIDE=0 TORCH_ALLOW_TF32_CUBLAS_OVERRIDE=0
-python="$root/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python"
+gpu_name=$(nvidia-smi --id="$gpu_uuid" --query-gpu=name --format=csv,noheader)
+# Reuse the established P launcher environment choice for the actual card.
+case "$gpu_name" in
+  *5090*) python="$root/docs/phase1/evidence/stage43_5090_environment/install_4511929/venv/bin/python" ;;
+  *) python=/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python ;;
+esac
 exec 9>"$root/docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks/${gpu_uuid}.lock"
 flock -n 9
 "$python" -B - "$configuration" "$gpu_uuid" <<'PY'
