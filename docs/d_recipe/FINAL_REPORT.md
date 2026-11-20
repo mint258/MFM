@@ -1,6 +1,6 @@
 # D 家族实验报告（执行中）
 
-更新：2026-11-21 01:55 CST。本文件是最终报告的执行中版本，尚无最终配方、R3胜负或9M确认结果。结果未闭合处明确留待原生产者填写；不将新增逻辑测试、原始计算完成或排队状态写成实验完成。
+更新：2026-11-21 03:34 CST。本文件是最终报告的执行中版本，尚无最终配方、R3胜负或9M确认结果。结果未闭合处明确留待原生产者填写；不将新增逻辑测试、原始计算完成或排队状态写成实验完成。
 
 ## 依据与研究问题
 
@@ -51,8 +51,8 @@ CI只反映固定模型下的抽样不确定性，不表示训练随机性；条
 | 全量结构 | 1201795行，原4537508准备阶段闭合 | 输入准备完成 |
 | L1原始计算 | 4695批，1201795×217，elapsed3671.846866656095秒 | RAW_COMPLETE；尚不是字段统计/接收交付 |
 | L2原始计算 | 原4537508仍RUNNING | 全量统计与交付待完成 |
-| R0 seed0/3M | 原4537572仍RUNNING；1M断点192027123B，CST00:45:01；原producer已超过1500800样本 | 恢复点保存；主R3待完成 |
-| R0固定VAL | [500k CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_500000.csv)、[1M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1000000.csv)、[1.5M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1500000.csv) | 原单位误差记录；不替代R3判定 |
+| R0 seed0/3M | 原4537572仍RUNNING；1M/2M恢复点均保留；2M为192029363B、CST03:32:35，原producer已超过2006400样本 | 恢复点保存；主R3待完成 |
+| R0固定VAL | [500k CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_500000.csv)、[1M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1000000.csv)、[1.5M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1500000.csv)、[2M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_2000000.csv) | 原单位误差记录；不替代R3判定 |
 | A1/R1 | A1原4537571 COLLECTING；R1 4537592依赖闭合续算4537575 | 未取得A1分档、R1样本或分数 |
 | R1对R0 | 比较4537599依赖两个主CPU统计 | Δ、CI、τ与WIN/TIE/LOSS均待结果 |
 | L1/L2/G1及条件K1/seed1 | 尚未达到各自前置条件 | 不提前采用、跳过或宣称无胜出 |
