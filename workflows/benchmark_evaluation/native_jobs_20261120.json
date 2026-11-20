@@ -2,7 +2,7 @@
   "schema": "BENCHMARK_NATIVE_JOB_INDEX_20261120_V1",
   "scope": "96 active candidate endpoints after complete anonymous five-endpoint inventory verification; no final decisions yet",
   "native_source_worktree_HEAD": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
-  "latest_published_before_this_batch": "a78d3d4169bebee91e21d910a2e508cc17b31325",
+  "latest_published_before_this_batch": "db4afe6c44b79a2716b44cc896c9a300a77f4d52",
   "artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119",
   "deferred_inventory": {
     "job": 4536851,
@@ -1492,7 +1492,9 @@
       "new_report_consumer_submitted": false,
       "expected_molecular_arms": "D/Pprime/Pprime_plus_D x LightGBM/TabPFN",
       "atomic_arm": "Native original Pprime atomic fields plus RDKit37, LightGBM only",
-      "no_task_roster_reselection": true
+      "no_task_roster_reselection": true,
+      "primary_consumer": "workflows/benchmark_evaluation/c1_primary_comparisons.sbatch",
+      "native_feature_unavailable_requires_actual_producer_declaration": true
     }
   },
   "Joung": {
@@ -3465,6 +3467,25 @@
     "conditional_Chemprop_seed2": "Only a final retained/appendix significant Chemprop improvement versus strongest traditional control; frozen roster cannot change",
     "confirmation_model_seed": 20261026,
     "fold_and_statistics_seed": 20261025,
-    "actual_NMR_1H_sample_redo_confirmation": 4537320
+    "actual_NMR_1H_sample_redo_confirmation": 4537320,
+    "original_producer_task_names_preserved_in_confirmation_plan": true
+  },
+  "conditional_neural_confirmation": {
+    "module": "workflows/benchmark_evaluation/confirmation.py",
+    "new_fixture_tests": 7,
+    "actual_neural_source_template_checks": 61,
+    "source_fixture_tests_native_steps": [
+      "4536999.3",
+      "4536999.4",
+      "4536999.5"
+    ],
+    "source_preparation_only": true,
+    "required_by_original_source_task_identity": true,
+    "model_seed": 20261026,
+    "original_fold_and_statistics_seed": 20261025,
+    "no_new_split_generated": true,
+    "primary_retained_population_only": true,
+    "traditional_ML_has_no_second_seed": true,
+    "actual_conditional_plan_consumers_not_submitted": true
   }
 }

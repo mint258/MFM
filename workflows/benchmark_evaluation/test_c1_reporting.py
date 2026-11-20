@@ -7,7 +7,7 @@ class C1ReportTests(unittest.TestCase):
     def endpoint(self,dataset="ExpansionRx",target="p",level="molecule",key="expansionrx::p"):
         return dict(endpoint_key=key,dataset=dataset,target=target,level=level,split_policy="original")
     def rows(self,factor=0.0):
-        return [dict(record_id=str(i),evaluation_id=str(i),full_inchikey="KEY-"+str(i),
+        return [dict(task='p',record_id=str(i),evaluation_id=str(i),full_inchikey="KEY-"+str(i),
                      y_true=float(i+1),prediction=float(i+1)*factor,training_mean=0.0) for i in range(3)]
     def test_native_missingness_keeps_original_coverage_and_labels(self):
         source=self.rows()
@@ -57,6 +57,7 @@ class C1ReportTests(unittest.TestCase):
         table,contrasts,plan=make_primary_report(*self.report_inputs())
         self.assertEqual(len(table),6)
         self.assertEqual(len(plan),3)
+        self.assertTrue(all(r["producer_task"]=="p" for r in plan))
         self.assertTrue(all(r["learner"]=="TabPFN" and r["confirmation_seed"]==20261026 for r in plan))
         self.assertTrue(all(not r["task_roster_reselection"] for r in table))
         self.assertTrue(all(r["bootstrap_draws"]==1000 for r in table))

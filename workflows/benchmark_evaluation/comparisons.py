@@ -144,7 +144,7 @@ def baseline_confirmation_plan(screen, predictions):
         if needs_second_seed(learner="Chemprop-v2",final_role=record["decision"],
                              significant_improvement=result["significant_improvement"]):
             plan.append(dict(endpoint_key=key,dataset=dataset,target=record["target"],
-                             model="Chemprop-v2",primary_seed=SEED,confirmation_seed=SEED+1,
+                             model="Chemprop-v2",producer_task=primary_rows(dataset,predictions[key]["Chemprop-v2"])[0]["task"],primary_seed=SEED,confirmation_seed=SEED+1,
                              frozen_B1_decision=record["decision"],reason="FINAL_SIGNIFICANT_IMPROVEMENT",
                              reference_model=reference,significance_method=result["significance_method"],
                              task_roster_reselection=False,original_folds_or_split_unchanged=True))

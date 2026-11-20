@@ -111,6 +111,7 @@ class C1ClosedConsumer:
         self.seen=set()
         self.closed_cells=set()
         self.failures=[]
+        self.unresolved_cells={}
 
     def add_run(self,folder,native_state,spec):
         import pyarrow.parquet as pq
@@ -124,8 +125,18 @@ class C1ClosedConsumer:
         if str(manifest.get("job"))!=str(spec["job"]):
             raise IncompleteComparison("C1 source manifest differs from its declared native job")
         self.sources.append(dict(spec,folder=str(folder),native_state=native_state,producer_status=manifest.get("status")))
-        self.failures.extend(manifest.get("failures",[]))
-        self.failures.extend(manifest.get("task_failures",[]))
+        failures=list(manifest.get("failures",[]))+list(manifest.get("task_failures",[]))
+        self.failures.extend(failures)
+        for failure in failures:
+            if failure.get("status") not in {
+                    "NATIVE_PPRIME_FEATURES_UNAVAILABLE_NO_IMPUTATION",
+                    "UNRESOLVED_OFFICIAL_LABEL_OR_FEATURE_BINDING"}:
+                continue
+            dataset=failure.get("dataset",spec.get("dataset"))
+            if not dataset or not failure.get("task"):continue
+            endpoint=resolve_endpoint(self.catalog,dataset,failure["task"])
+            cell=(endpoint,spec["feature_group"],spec["learner"])
+            self.unresolved_cells[cell]="NATIVE_FEATURE_POPULATION_UNAVAILABLE: "+json.dumps(failure,sort_keys=True)
         for path in sorted(folder.rglob("*predictions.parquet")):
             if path in self.seen:
                 raise IncompleteComparison("A C1 source file was scheduled twice")
@@ -154,12 +165,12 @@ def make_primary_report(catalog,screen,baselines,c1_predictions,unresolved=None)
                  frozen_B1_role=role["decision"],task_roster_reselection=False,geometry="Shared Sprime UFF",
                  report_stage="PRIMARY_SEED_PENDING_CONDITIONAL_CONFIRMATION")
         if endpoint["dataset"]=="pKahub" and endpoint["target"]=="single_site_mechanism":
-            table.append(dict(row,status="UNRESOLVED",reason="ORIGINAL_EXPERIMENTAL_SINGLE_SITE_ATOM_ANNOTATIONS_ABSENT"))
+            table.append(dict(row,**{"status":"UNRESOLVED","reason":"ORIGINAL_EXPERIMENTAL_SINGLE_SITE_ATOM_ANNOTATIONS_ABSENT","completed_seeds":0}))
             continue
         if cell not in c1_predictions:
             if cell not in unresolved:
                 raise IncompleteComparison("An expected C1 configuration has no closed predictions: "+repr(cell))
-            table.append(dict(row,status="UNRESOLVED",reason=unresolved[cell]))
+            table.append(dict(row,**{"status":"UNRESOLVED","reason":unresolved[cell],"completed_seeds":0}))
             continue
         source=baselines[key]["LightGBM-RDKit2D"]
         available,coverage=native_population(source,c1_predictions[cell],endpoint["dataset"] in CV_DATASETS)
@@ -182,7 +193,7 @@ def make_primary_report(catalog,screen,baselines,c1_predictions,unresolved=None)
             if cell not in seen_plan and needs_second_seed(learner=learner,final_role=role["decision"],
                                     significant_improvement=comparison["significant_improvement"]):
                 plan.append(dict(endpoint_key=key,dataset=endpoint["dataset"],target=endpoint["target"],
-                                 feature_group=feature,learner=learner,primary_seed=SEED,confirmation_seed=SEED+1,
+                                 feature_group=feature,learner=learner,producer_task=c1_predictions[cell][0]["task"],primary_seed=SEED,confirmation_seed=SEED+1,
                                  frozen_B1_role=role["decision"],reason="FINAL_SIGNIFICANT_IMPROVEMENT",
                                  triggering_comparison=comparison_name,task_roster_reselection=False,
                                  fold_and_statistics_seed=SEED,original_labels_or_masks_changed=False))
