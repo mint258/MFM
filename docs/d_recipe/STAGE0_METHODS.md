@@ -92,3 +92,11 @@ L2字段定义引用[CheMeleon作者的计算代码](https://github.com/JacksonB
 2026-11-20 20:20CST共享预算核对：实际S runtime.TOTAL_PEAK为64GiB，基准STATUS18:34登记40GiB；D现将两者完整纳入future，另保留既有24GiB环境、1GiB杂项和model/P25327352832B。新范围B0 Pprime实际4536906及尾4536907均COMPLETED0:0，access immutable/writers_closed/UID1278且producer ALL_QUEUED_PPRIME_TERMINAL，故释放该封存产物未来写入预测；实存3739791360B仍在quota占用中。旧B0原4536588仍RUNNING，其未来预测不释放。更新只改本线storage_reservations.json的数据，现有守卫代码不变。CPU10真实根/tmp可用70070603776B、36570105空闲inode，NFS6797840613376B、2964415751空闲inode；新鲜UID守卫通过，观测other future221053414400B、D联合36706053853B及100GB UID floor均计入。全量4537508不中断，不改科学条件或其他线代码/作业；S旧D14GiB需要其owner按当前联合值更正，已只追加STATUS通知。
 
 2026-11-20 20:27CST生产里程碑：全量L1 checkpoint为RAW_COMPLETE，shape=1201795x217，4695批全部闭合，真实4537508/CPU10/3worker，observed elapsed3671.846866656095秒，原5000行pilot全部复用。L2已在同一作业生产（20:27CST观测2个关闭批次），不重启L1或源准备。原始计算完成不等于字段/统计冻结、下游导出、真实接收或D科学实验完成；仍无D GPU提交。
+
+## 原生D-R0块锚的实际配置来源
+
+通过原`TrainingView`和`tools.d_recipe.protocol.native_block_anchor`解析D6 compact的schema、数据线training_view_v1和11-07全TRAIN routes.json，原生D损失共24个启用字段：二维17、三维分子6、逐原子SASA1。因此三块固定总权重依次为17/24（0.7083333333333334）、6/24（0.25）、1/24（0.041666666666666664）；宽库只替换二维块内部，D-G1关闭后不重新放大其余块。
+
+二维启用字段为BertzCT、ExactMolWt、FractionCSP3、HallKierAlpha、HeavyAtomCount、LabuteASA、MolLogP、NumAliphaticRings、NumAromaticRings、NumHAcceptors、NumHDonors、NumHeteroatoms、NumHeterocycles、NumSaturatedRings、NumValenceElectrons、RingCount、TPSA，均保留D20前缀。三维分子字段为D3.PBF_A、D3.PMI1、D3.PMI2、D3.PMI3、D3.SASA_total_A2、D3.volume_A3；原子块为D3.SASA_atom_A2。原view禁用NumBridgeheadAtoms/NumSpiroAtoms；MolMR由原D4 source_loss_policy继承loss_enabled=false，不进入锚或A1拟合字段。
+
+实际解析在CPU17原生SSH单线程完成（UID1278、PID1398416、耗时5.1764秒），没有Slurm作业身份、分子记录读取、描述符调用、参数重拟合或独立数值QA。这是预注册必须消费的既有配置，不是接收验收或训练结果。具体来源为`runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact/schema.json`、`runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json`与`/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json`。P最终配置键及其9M提交仍未就绪，正式训练预注册未冻结。

@@ -13,7 +13,7 @@
 ## 执行顺序
 
 1. 阶段 0 过滤规则预注册 → CPU 环境准备 → 固定约 5000 TRAIN 分子 → L1/L2 成本测试 → 全量及下游导出 → 新字段 TRAIN 统计 → 生产清单。
-2. P 配方冻结且其 9M 已提交后，将实际 P 配置键逐项登记到训练预注册；验证真实 loader、逐头过拟合和 SASA 原子对应，然后 D-R0/D-R1。
+2. P 配方冻结且其 9M 已提交后，将实际 P 配置键逐项登记到训练预注册；原生 D20/D3 的 D-R0/D-R1 可按其已具备的原输入推进；L1/L2 开训前必须完成阶段0真实 loader、逐头过拟合和 SASA 原子对应。此依赖按任务书第2节，宽库交付不额外阻塞原生臂。
 3. 按任务书顺序推进 D-L1、D-L2、D-G1、条件 D-K1 和条件 seed1；每个对照只训练一次并复用。
 4. 完成规定诊断、开发面板 A/B/C 及组成参照，与基准线交付特征；冻结 CURRENT_BEST，执行规定 seed0 9M；报告、一次完整回归和仓库检查后开 PR，不合并。
 
@@ -21,7 +21,7 @@
 
 P 配方 `CURRENT_BEST` 尚未冻结。F1 日志已记录 3M 与 GPU 读出完成，CPU 统计仍待正式关闭。因此 GPU 训练尚未启动；这不是 D-R1 的 TIE/LOSS 或完成结论。阶段 0 接收验收、全量产物、所有 D 训练与最终报告均未完成。
 
-阶段 0 的 `configs/data_d_descriptors/preregistration.json` 已在读取描述符分布前冻结并发布；训练预注册尚未发布，不能用占位的 P 配方或未核实块权重代替最终配置。
+阶段 0 的 `configs/data_d_descriptors/preregistration.json` 已在读取描述符分布前冻结并发布；训练预注册尚未发布，不能用占位的 P 配方代替最终配置。原生块锚现已通过原解析器核实为17/24、6/24、1/24（24个启用字段），来源和完整字段见STAGE0_METHODS.md；未改变原D4参数。
 
 2026-11-20 新逻辑检查已实际通过：compute-0-17 原生 SSH 单核短程测试，UID1278、Python PID1392349，未伪造 Slurm 身份。日志 `/share/home/zixiao/descriptor_analysis/D_native_cpu_tests_20261120_1622.log`：215 tests、OK、exit0，总耗时5.67秒、峰值RSS923640KiB。所用 pyarrow25.0.1 原地只读复用现有 P deps，其他包沿 chemprop 环境，不安装或修改共享环境。NFS 实际挂载点 `/share/home` 的守卫已修正并覆盖测试；本地测试夹具在逐项核查容量的 `/tmp` 下，预留峰值16MiB，不复制真实数据库。
 
