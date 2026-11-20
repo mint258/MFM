@@ -2,7 +2,7 @@
     "schema":  "D_RECIPE_CURRENT_BEST_V1",
     "status":  "NATIVE_SCREENING_IN_PROGRESS",
     "recipe_frozen":  false,
-    "updated_at_utc":  "2026-11-20T16:14:45Z",
+    "updated_at_utc":  "2026-11-20T16:46:00Z",
     "current_best":  null,
     "scientific_authority":  "docs/d_recipe/TASKBOOK.md",
     "preregistration":  "configs/d_recipe/preregistration.json",
@@ -35,7 +35,21 @@
                                              "molecular_observations_per_field":  2000,
                                              "atomic_SASA_observations":  106325,
                                              "primary_downstream_score":  false
-                                         }
+                                         },
+                     "checkpoint_1M":  {
+                                           "samples":  1000000,
+                                           "status":  "PRODUCER_SAVED_TRAINING_CONTINUES",
+                                           "path":  "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/samples_1000000.pt",
+                                           "bytes":  192027123,
+                                           "mtime_CST":  "2026-11-21T00:45:01+08:00",
+                                           "model_reloaded":  false
+                                       },
+                     "validation_1M":  {
+                                           "status":  "PRODUCER_RECORDED",
+                                           "samples":  1000000,
+                                           "source":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1000000.csv",
+                                           "primary_downstream_score":  false
+                                       }
                  },
     "A1":  {
                "configuration":  "configs/d_recipe/reference/native_D20.json",
