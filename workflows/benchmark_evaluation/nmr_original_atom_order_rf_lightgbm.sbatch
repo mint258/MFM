@@ -6,7 +6,6 @@ sbatch --parsable --dependency=afterok:4537317 <<'NMRNATIVEORDERBASELINES'
 #SBATCH --cpus-per-task=2
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
-#SBATCH --time=12:00:00
 #SBATCH --output=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/B1_RF_LGBM_NMR_%j.log
 set -euo pipefail
 repo=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_b1_20261119

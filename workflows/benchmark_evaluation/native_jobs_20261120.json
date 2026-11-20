@@ -2,7 +2,7 @@
   "schema": "BENCHMARK_NATIVE_JOB_INDEX_20261120_V1",
   "scope": "96 active candidate endpoints after complete anonymous five-endpoint inventory verification; no final decisions yet",
   "native_source_worktree_HEAD": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
-  "latest_published_before_this_batch": "db4afe6c44b79a2716b44cc896c9a300a77f4d52",
+  "latest_published_before_this_batch": "b46f22c54648f9698e01885ced05ab3355ae9683",
   "artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119",
   "deferred_inventory": {
     "job": 4536851,
@@ -14,14 +14,18 @@
     "RF_and_LightGBM": [
       4536910,
       4536953,
-      4536968
+      4536968,
+      4537018,
+      4537023
     ],
     "Chemprop": [
       4536913,
       4536954,
-      4537200
+      4537200,
+      4537262,
+      4537203
     ],
-    "completed_three_baseline_endpoints": 69,
+    "completed_three_baseline_endpoints": 80,
     "two_additional_baseline_endpoints": 0
   },
   "NMR": {
@@ -62,6 +66,52 @@
       "actual_1H_sample_redo_second_seed_job": 4537320,
       "second_seed_reason": "SOURCE_BINDING_ERROR_REQUIRED_REDO_OF_TRAINED_1H_SAMPLES",
       "traditional_ML_seed_count": 1
+    },
+    "corrected_RF_time_limit": {
+      "job": 4537318,
+      "verified_before_update": "PENDING/zero runtime",
+      "native_current_TimeLimit": "UNLIMITED",
+      "CPU_partition_MaxTime": "UNLIMITED",
+      "CPUs": 2,
+      "model_budget_changed": false,
+      "reason": "No artificial large-forest interruption; original estimator and task budgets unchanged"
+    },
+    "temporary_critical_CPU_order": {
+      "ready_unstarted_own_jobs_held": [
+        4537026,
+        4537028,
+        4537030,
+        4537031,
+        4537033,
+        4537035,
+        4537036,
+        4537038,
+        4537040,
+        4537041,
+        4537043,
+        4537045,
+        4537046,
+        4537048,
+        4537050,
+        4537051,
+        4537053,
+        4537055,
+        4537056,
+        4537058,
+        4537060,
+        4537061,
+        4537063,
+        4537065,
+        4537066,
+        4537068,
+        4537119
+      ],
+      "existing_running_jobs_untouched": [
+        4536999,
+        4537025
+      ],
+      "release_condition": "As soon as corrected NMR RF/LightGBM4537318 acquires its allocation after feature repair4537317; do not leave these holds behind",
+      "other_windows_jobs_held": false
     }
   },
   "pKa": {
@@ -3487,5 +3537,33 @@
     "primary_retained_population_only": true,
     "traditional_ML_has_no_second_seed": true,
     "actual_conditional_plan_consumers_not_submitted": true
+  },
+  "validation": {
+    "full_benchmark_regression": {
+      "native_step": "4536999.7",
+      "node": "compute-0-10",
+      "tests_run": 90,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "status": "PASS",
+      "source_commit": "b46f22c54648f9698e01885ced05ab3355ae9683",
+      "actual_scientific_outputs_replayed": false
+    },
+    "required_source_check": {
+      "native_step": "4536999.6",
+      "status": "PASS",
+      "proposed_paths": 251,
+      "checked_paths": 5492,
+      "python_files": 3731,
+      "embedded_python_programs": 217
+    }
+  },
+  "pull_request": {
+    "number": 17,
+    "url": "https://github.com/mint258/MFM/pull/17",
+    "base": "data-benchmark-b0-20261119",
+    "draft": true,
+    "scientific_results_complete": false
   }
 }
