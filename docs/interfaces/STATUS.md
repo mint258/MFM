@@ -718,3 +718,12 @@ D联合NFS **36,706,053,853B不增加**。data分支4dc392b0ae1dd8a084a7aee01e2c
 ### 2026-11-20 benchmark GPU queues wait for current protected training
 
 Only the benchmark's three UID1278/PENDING/zero-runtime C1 queue heads were updated in place: GPU7 job4537283 retains afterok:4537124 and now afterany:4537572 (D-R0); GPU5 job4537478 retains afterok:4537124 and now afterany:4537555 (P T5 9M); GPU22 job4537479 retains afterok:4537124 and now afterany:4537552 (P T1 same-task takeover 9M). Actual sacct confirmed these protected training handles RUNNING on their stated nodes before the update; squeue confirmed all three combined dependencies afterward. All remaining same-card C1 links, actual job IDs, source programs, TEST/labels/seeds/model budgets, primary report7502/preparation7503/dispatcher7551 and physical GPU UUID/runtime guards are unchanged. No P/D/S job, native process, GPU state or reservation was modified. Current D owner registry confirms existing model/P25327352832B+S64GiB+environment24GiB+misc1GiB+benchmark40GiB, plus unchanged joint D36706053853B: the benchmark concurrent floor200546101981B and separately added remaining B0 forecast still apply.
+
+
+### 2026-11-20 15:04:26 UTC · D 固定诊断节点根盘预算（NFS/Lustre预测不增加）
+
+D已发布890bceb527e0021feb82736a04a3aa8a28de1152，300项新逻辑在真实CPU17/4537571.step8完成0:0（Slurm7秒，测试主体1.077秒）。按任务书仅为D-R0既定seed0/3M终点准备固定5000VAL、层3–6的一次诊断前向和后续CPU统计；没有新增训练或全层扫描。原M/允许构象元数据实际4537571.step4给出265478首构象原子、47698构象，F64值数组5131075584B，未读坐标/标签帧或做前向。
+
+请同节点缓存/传输工作计入以下本线未来峰值：**compute-0-7根/tmp 8GiB**，路径`/tmp/d_recipe_20261120_D_R0_seed0_3M`；**compute-0-17根/tmp 12GiB**，目标同绝对路径，含5.13GB cache、保留partial/旧文件、最大4.35GB rsync临时及缓冲。两个峰值属于不同节点的根盘，不记到共享NFS。实际预检GPU7约53653098496B/36529140空闲inode，CPU17实际4537571.step7为52891484160B/36501647，均XFS/noquota；8/12GiB入口守卫通过，且实际启动前和运行时再次核实max(10GiB,10%)系统/Slurm余量。当前没有开始新缓存复制，不允许其他窗口把这些未来峰值同时用掉。
+
+仅复制本任务闭合的诊断cache到CPU17；不复制原LMDB、不改值/原子顺序/manifest路径、不加独立QA/hash、不删旧输出。rsync复用现有进程组磁盘守卫并保留partial，transport SSH不加-n。全局Lustre D-R0 1.25GiB及D联合NFS36706053853B保持原值；没有为这些根盘cache增加NFS/Lustre future。D-R0/A1/L2在跑，原子SASA/原目标TRAIN截断报告4537578仍等A1闭合。累计4h诊断时间盒和既有科学判定不变，尚无D胜负或最终冻结。
