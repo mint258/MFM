@@ -146,8 +146,8 @@ def round4_sections(state, delta_source, line_numbers):
     pp = state['PP_comparison']
     content = ['## 第4轮：扰动信号、多保真度及3M P/Pprime', '',
                f"字段配对、未配对原因和P/Pprime交集：{link(REPO / 'docs/p_recipe/ROUND4_METHODS.md')}。"
-               '本轮每条3M，以M2为基线；默认seed0，边界结果补seed1，最多两个种子。PP单独比较数据来源，不作为配方组件。', '',
-               'X1/F2平局时采纳更简单的去掉项；X2/F1平局不采纳。X1/X2、F1/F2互斥，按Δ较大项取舍。'
+               '本轮每条3M，以M2为基线；按11-19指示，仅seed0 WIN补seed1，真实训练问题例外另记，最多两个种子。PP单独比较数据来源，不作为配方组件。', '',
+               'X1/F2平局时，仅在R3的CI包含0时采纳更简单的去掉项；CI整体为负时保留原项。X2/F1平局不采纳。X1/X2、F1/F2互斥，按Δ较大项取舍。'
                '下表保留原始胜负判定，最终并入项同时受M3合并比较约束。', '',
                table(['PP运行', '对照运行', 'R3 Δ', '95% CI', '最小效应', 'M2两种子R3差', '9M-T4决定'],
                      [[pp['run'], pp['control_run'], number(pp['comparison']['delta']),
