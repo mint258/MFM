@@ -1,0 +1,314 @@
+{
+  "schema": "PKAHUB_PUBLISHED_TITRATABLE_CATALOG_V1",
+  "reference": "https://doi.org/10.1021/acs.jcim.6c00107.s001",
+  "source_file": "ci6c00107_si_001.pdf",
+  "source_pages": "S2-S4, Supplementary Table S2",
+  "source_download": "https://ndownloader.figshare.com/files/63467243",
+  "source_license": "CC BY-NC 4.0",
+  "source_authors": "Levente Sipos-Szabo, David Bajusz, Gyorgy T. Balogh, Gyorgy M. Keseru",
+  "pattern_transcription": "Original table SMARTS concatenated across printed line wraps; no added patterns",
+  "site_atom_interpretation": "Added atom-map selections indicate the proton-bearing acid atom or proton-accepting base atom; multi-atom possibilities stay multiple",
+  "scope_caveat": "Catalogue covers the groups investigated in the source paper, not a completeness proof for every possible ionization process",
+  "patterns": [
+    {
+      "name": "sulfate_monoether",
+      "kind": "acid",
+      "smarts": "[SX4:0](=[O:1])(=[O:2])(-[O:3])-[OX2:4]-[H:5]",
+      "site_atom_maps": [
+        4
+      ]
+    },
+    {
+      "name": "sulfonic_acid",
+      "kind": "acid",
+      "smarts": "[SX4:0](=[O:1])(=[O:2])(-[#6,#7:3])-[OX2:4]-[H:5]",
+      "site_atom_maps": [
+        4
+      ]
+    },
+    {
+      "name": "sulfinic_acid",
+      "kind": "acid",
+      "smarts": "[SX3:1](=[O:2])-[O:3]-[H]",
+      "site_atom_maps": [
+        3
+      ]
+    },
+    {
+      "name": "thiosulfuric_acid",
+      "kind": "acid",
+      "smarts": "[S:0]~[SX4:1](~[O:2])(~[O:3])-[O:4]-[H:5]",
+      "site_atom_maps": [
+        4
+      ]
+    },
+    {
+      "name": "carbodithioic_acid",
+      "kind": "acid",
+      "smarts": "[CX3;!$(C(=O)[OX2H]):0](=[O,S:1])-[OX2H,SX2H:2]",
+      "site_atom_maps": [
+        2
+      ]
+    },
+    {
+      "name": "phosphate",
+      "kind": "acid",
+      "smarts": "[PX4:1](=[O:2])(-[OX2:3]-[H])(-[O+0:4])-[OX2:5]-[H]",
+      "site_atom_maps": [
+        3,
+        5
+      ]
+    },
+    {
+      "name": "phosphate_diester",
+      "kind": "acid",
+      "smarts": "[PX4:1](=[O:2])(-[OX2H0:3]-[*:4])(-[OX2H0:5]-[*:6])-[OX2H:7]",
+      "site_atom_maps": [
+        7
+      ]
+    },
+    {
+      "name": "phosphonate",
+      "kind": "acid",
+      "smarts": "[PX4:1](=[O:2])(-[OX2:3]-[H])(-[C,c,N,n:4])-[OX2:5]-[H]",
+      "site_atom_maps": [
+        3,
+        5
+      ]
+    },
+    {
+      "name": "phosphonate_ester",
+      "kind": "acid",
+      "smarts": "[PX4:1](=[O:2])(-[OX2:3]-[C,c,N,n,F,Cl,Br,I:4])(-[C,c,N,n,F,Cl,Br,I:5])-[OX2:6]-[H]",
+      "site_atom_maps": [
+        6
+      ]
+    },
+    {
+      "name": "phosphinic_acid",
+      "kind": "acid",
+      "smarts": "[PX4:1](=[O:2])(-[C,c,N,n,F,Cl,Br,I:3])(-[C,c,N,n,F,Cl,Br,I:4])-[OX2:5]-[H]",
+      "site_atom_maps": [
+        5
+      ]
+    },
+    {
+      "name": "carboxyl",
+      "kind": "acid",
+      "smarts": "[C:1](=[O:2])-[O:3]-[H]",
+      "site_atom_maps": [
+        3
+      ]
+    },
+    {
+      "name": "carboxyl_acid_enol",
+      "kind": "acid",
+      "smarts": "[C:0]=[C:1](-[OX2:2]-[H:3])-[OX2:4]-[H:5]",
+      "site_atom_maps": [
+        2,
+        4
+      ]
+    },
+    {
+      "name": "hydroxy_enone",
+      "kind": "acid",
+      "smarts": "[O:1]=[C;R:2]-[C;R:3]=[C;R:4]-[O:5]-[H]",
+      "site_atom_maps": [
+        5
+      ]
+    },
+    {
+      "name": "phenol",
+      "kind": "acid",
+      "smarts": "[c,n,o:1]-[O:2]-[H]",
+      "site_atom_maps": [
+        2
+      ]
+    },
+    {
+      "name": "phenyl_thiol",
+      "kind": "acid",
+      "smarts": "[c,n:1]-[SX2:2]-[H]",
+      "site_atom_maps": [
+        2
+      ]
+    },
+    {
+      "name": "thiol",
+      "kind": "acid",
+      "smarts": "[C,N:1]-[SX2:2]-[H]",
+      "site_atom_maps": [
+        2
+      ]
+    },
+    {
+      "name": "peroxide",
+      "kind": "acid",
+      "smarts": "[OX2:1]-[O:2]-[H]",
+      "site_atom_maps": [
+        2
+      ]
+    },
+    {
+      "name": "N_hydroxyamide",
+      "kind": "acid",
+      "smarts": "[C:1](=[O:2])-[N:3]-[O:4]-[H]",
+      "site_atom_maps": [
+        4
+      ]
+    },
+    {
+      "name": "hydroxylamine",
+      "kind": "acid",
+      "smarts": "[C,c:1]-[O:2]-[NH2:3]",
+      "site_atom_maps": [
+        3
+      ]
+    },
+    {
+      "name": "N_hydroxylamine",
+      "kind": "acid",
+      "smarts": "[NH:1]-[O:2]-[H]",
+      "site_atom_maps": [
+        2
+      ]
+    },
+    {
+      "name": "oxime",
+      "kind": "acid",
+      "smarts": "[$([#7]:,=[#6,#7]),$([#7]:,=[#6,#7]:,-[#6,#7]:,=[#6,#7]):0]-[OX2,NX3:1]-[H:2]",
+      "site_atom_maps": [
+        1
+      ]
+    },
+    {
+      "name": "amide",
+      "kind": "acid",
+      "smarts": "[C:1](=[O:2])-[N:3]-[H]",
+      "site_atom_maps": [
+        3
+      ]
+    },
+    {
+      "name": "imide_cyclic",
+      "kind": "acid",
+      "smarts": "[CX3;R:1](=[O,S:2])-[NX3;H1;R:3]-[CX3;R:4](=[O,S:5])",
+      "site_atom_maps": [
+        3
+      ]
+    },
+    {
+      "name": "imide_acyclic",
+      "kind": "acid",
+      "smarts": "[CX3;!R:1](=[O,S:2])-[NX3;H1;!R:3]-[CX3;!R:4](=[O,S:5])",
+      "site_atom_maps": [
+        3
+      ]
+    },
+    {
+      "name": "sulfonamide",
+      "kind": "acid",
+      "smarts": "[SX4:1](=[O:2])(=[O:3])-[NX3+0:4]-[H]",
+      "site_atom_maps": [
+        4
+      ]
+    },
+    {
+      "name": "phosphamide",
+      "kind": "acid",
+      "smarts": "[PX4:0](=[O:1])-[NX3:2]-[H:3]",
+      "site_atom_maps": [
+        2
+      ]
+    },
+    {
+      "name": "seleninic_acid",
+      "kind": "acid",
+      "smarts": "[SeX3:0](=[O:1])(-[#6,#7:2])-[OX2:3]-[H:4]",
+      "site_atom_maps": [
+        3
+      ]
+    },
+    {
+      "name": "selenenic_acid",
+      "kind": "acid",
+      "smarts": "[SeX2:0]-[OX2:1]-[H:2]",
+      "site_atom_maps": [
+        1
+      ]
+    },
+    {
+      "name": "selenol",
+      "kind": "acid",
+      "smarts": "[SeX2:0]-[H:1]",
+      "site_atom_maps": [
+        0
+      ]
+    },
+    {
+      "name": "arsenic_acid",
+      "kind": "acid",
+      "smarts": "[AsX4:0](=[O:1])(-[#6,#7:2])-[OX2:3]-[H:4]",
+      "site_atom_maps": [
+        3
+      ]
+    },
+    {
+      "name": "hydrazine",
+      "kind": "base",
+      "smarts": "[NX3,NX4+:1]-[NX3,NX4+:2]",
+      "site_atom_maps": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "primary_amine",
+      "kind": "base",
+      "smarts": "[NX3:0](-[CX4,c,$(C=C):1])(-[H])-[H]",
+      "site_atom_maps": [
+        0
+      ]
+    },
+    {
+      "name": "secondary_amine",
+      "kind": "base",
+      "smarts": "[NX3:0](-[CX4,c,$(C=C):1])(-[CX4,c,$(C=C):2])-[H]",
+      "site_atom_maps": [
+        0
+      ]
+    },
+    {
+      "name": "tertiary_amine",
+      "kind": "base",
+      "smarts": "[NX3:0](-[CX4,c,$(C=C):1])(-[CX4,c,$(C=C):2])(-[CX4,c,$(C=C):3])",
+      "site_atom_maps": [
+        0
+      ]
+    },
+    {
+      "name": "imine",
+      "kind": "base",
+      "smarts": "[#6,#7,P,S:0]=[NX2:1]",
+      "site_atom_maps": [
+        1
+      ]
+    },
+    {
+      "name": "basic_aromatic_nitrogen",
+      "kind": "base",
+      "smarts": "[n;H0;X2:1]",
+      "site_atom_maps": [
+        1
+      ]
+    },
+    {
+      "name": "pyrrolic_nitrogen",
+      "kind": "acid",
+      "smarts": "[n:1]-[H]",
+      "site_atom_maps": [
+        1
+      ]
+    }
+  ]
+}

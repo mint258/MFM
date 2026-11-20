@@ -51,7 +51,7 @@ SAMPL6/7来源关联补充在 `provenance/SAMPL6_7/job_4536607/manifest.json`（
 
 2026-11-19补充指示的数据覆盖入口：先读统一入口的 `active_target_manifests`，不要从历史参考数量表推定当前任务标签。新可用handoff4536909只聚合生产元数据，没有数值复读。
 
-- `NMRShiftDB2` 指向原作者2018发布数据的目标manifest。其 `records` 保存全部39,719谱行、作者 `official_split`、重复谱、源原子编号、`target_values_ppm`、`target_source_atom_ids`、`target_group_indices` 和有效掩码。原始标签F64且不重分配原子ID。测试谱行5,390/2,554与唯一原分子5,055/2,527分别报告，不能互换；文献唯一分子数口径仍明示待对齐。
+- `NMRShiftDB2` 指向原作者2018发布数据的目标manifest。其 `records` 保存全部39,719谱行、作者 `official_split`、重复谱、源原子编号、`target_values_ppm`、`target_source_atom_ids`、`target_group_indices` 和有效掩码。原始标签F64且不重分配原子ID。测试谱行5,390/2,554与唯一原分子5,055/2,527分别报告，不能互换；4536946已按Kwon2020原作者datasets.zip核对：测试谱行5,390/2,554、唯一原分子5,055/2,527与Jonas2019原划分全部一致；原文正文没有印出分核唯一分子数，不伪造正文数字。核对只读身份/计数，不比较标签数值。
 - `pKahub` 指向宏观目标manifest。读取 `training_targets`、`blind_targets`、`training_exclusions` 与 `blind_identities`。29,972个训练池分子，酸15,879/碱16,997终点；SAMPL6/7的44个完整InChIKey排除79条源记录。每条目标保留测量值/源行，并通过 `geometry_dataset + geometry_record_id` 读取原共享S′/D；原子单位点证据仍未齐备。
 - `directive19_data_preparation.uniform_Sprime_scope` 指向新范围输入manifest；`geometry_bindings` 提供逐目标记录的几何路由。38,240个新有序图需要生产；163条来源记录直接引用原封存几何，包括原失败/UNKNOWN，不复制、不重试。是否可用由对应队列的状态及access声明决定，不把已准备输入冒称几何就绪。
 
@@ -65,3 +65,5 @@ target_atom_mapping = binding["model_atom_to_source"]
 复用路由返回的reader映射属于旧来源，目标映射应使用binding中的这一份。原队列与新scope队列均通过同一SharedB0Reader读取。相应P′队列位于该几何队列所属scope的 `labels/Pprime/shared_v1/queue.sqlite`，用PprimeReader按 `binding["mid"]` 和实际conformer_id读取；跨节点仍须等实际封存，不能复制活动数据库绕过。
 
 新范围链为4536924（compute-0-17/2CPU）几何→4536925封存/准备→4536906→4536907原P′续接。原4536898在node18的资源检查阶段阻塞于NFS，实际FAILED/9:0、消耗17,560分配核秒；目标节点身份及进程树证明尚未进入科学计算。同一38,240图队列改由node17继续，已观测真实生产；旧4536905为零运行准备任务，重接依赖后取消。生产入口 `uniform_pprime_scope` 在父进程和每个spawn worker中安装同一联合存储守卫，科学调用仍是原十二任务、二进制、解析和900秒。后续段若发现全队列已关闭则零Native退出；各段按实际Slurm剩余墙钟保留原记录收尾余量。原325,080构象P′链独立继续，当前并未声明全部生产完成。
+
+pKa原子位点定义提案见 `directive19_data_preparation.pKa_single_site_definition_proposal`（4536942 C0）。37类SMARTS逐项转录自作者SI Table S2（S2–S4，CC BY-NC 4.0，DOI 10.1021/acs.jcim.6c00107.s001）；增加的site_atom_maps是本线对酸失质子/碱受质子原子的显式解释。按原模型图、不改质子化，重叠规则按实际原子合并；多原子和未识别N/杂原子供氢或电荷状态保留多位点/未决。训练池5,588个单一catalog位点、18,838个多位点、5,546个未决，其中5,465条候选原子标签另满足唯一实验跃迁/端点类型/原子映射；外盲9条候选。此为待用户冻结的结构定义，不是实验微观标注，也不是已激活的原子训练标签。宏观目标与盲测排除不变；用户确认后才将候选发布为正式机制入口，无需重新扫描。
