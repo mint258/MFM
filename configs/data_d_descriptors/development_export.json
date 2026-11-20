@@ -1,0 +1,22 @@
+{
+  "input_rows": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/source_inputs/input_rows.jsonl",
+  "membership_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/source_inputs/member_map.jsonl",
+    "format": "jsonl",
+    "dataset_key": "dataset",
+    "member_key": "member_uid",
+    "molecule_key": "molecule_id",
+    "source_split_key": "source_split"
+  },
+  "b6_manifest": "/lfshome/zixiao/data_v1_20261025/window2_B6_descriptors_20261105_v2/shard-000-of-001/manifest.json",
+  "canonical_D20_source_status": "SOURCE_READY",
+  "train_manifest": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/final_manifest.json",
+  "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/descriptors",
+  "include_D20": true,
+  "native_D20_parameters": "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/full_20261120/existing_D20_parameters.json",
+  "reuse_main_raw": false,
+  "reuse_main_raw_basis": "Existing frozen pretraining TRAIN excluded downstream overlaps; compatible closed B6 L1 columns are reused through their original member UID/source ordinal binding",
+  "peak_bytes": 36706053853,
+  "workers": 2,
+  "chunk_rows": 256
+}
