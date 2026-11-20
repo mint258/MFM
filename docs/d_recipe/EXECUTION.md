@@ -74,3 +74,7 @@ GPU初次4537570在CUDA初始化失败、39秒、5CPU，未创建训练输出。
 2026-11-20 20:27CST生产里程碑：全量L1 checkpoint为RAW_COMPLETE，shape=1201795x217，4695批全部闭合，真实4537508/CPU10/3worker，observed elapsed3671.846866656095秒，原5000行pilot全部复用。L2已在同一作业生产（20:27CST观测2个关闭批次），不重启L1或源准备。原始计算完成不等于字段/统计冻结、下游导出、真实接收或D科学实验完成；仍无D GPU提交。
 
 2026-11-20 22:49CST：必需的原生TRAIN截断比例入口已发布699959a2ac98e38feb4ec32b1af8d9f236680268，294项新增逻辑在实际4537571.step2/CPU17关闭0:0（Slurm8秒，测试主体1.059秒）。CPU报告4537578依赖A1闭合续算4537575成功，使用同一完整TRAIN分子人群和已冻结的每分子原允许构象选择；分子字段复用raw数组，只为此前未收集的原子SASA首次读取原atomic列，原D4/存储不变，不作为判定输入。配置CURRENT_BEST现明确NATIVE_SCREENING_IN_PROGRESS、recipe_frozen=false、current_best=null；不把在跑臂视作胜出或冻结终点。
+
+2026-11-20 23:08CST：300项新逻辑通过真实4537571.step8（Slurm7秒、测试主体1.077秒，0:0），代码890bceb527e0021feb82736a04a3aa8a28de1152和两节点8/12GiB根盘future已同步五个STATUS。固定D-R0 seed0/3M诊断正式依赖链：GPU7前向4537579 afterok4537572（2CPU、原UUID），CPU17 cache传输4537580 afterok4537579（2CPU），CPU17 F64统计4537581 afterok4537580（1CPU）；均尚未实际开始，不产生新训练。源/目标实际开始和运行期仍有根盘与共享quota保护。CPU17/tmp实际XFS/noquota，52891484160B/36501647空闲inode通过12GiB预检；GPU7约53653098496B/36529140，通过8GiB守卫。累计4h诊断时间盒仍适用，超限或连续失败按未解决、不影响采用判定，保留所有产物。
+
+R0已实际超过193024样本；既有producer按预注册的optimizer_step_start轴，在60000–150000窗口得到2813个裁剪前梯度范数，冻结threshold=12.800916213989263，effective_freeze_samples=150016（32样本步边界），initial_clip281.7。原闭合JSON转录到results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/clip_calibration.json，不重新计算p99或更改窗口。当前无终点读出、WIN/TIE/LOSS或最终冻结结论。

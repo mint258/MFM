@@ -2,7 +2,7 @@
     "schema":  "D_RECIPE_CURRENT_BEST_V1",
     "status":  "NATIVE_SCREENING_IN_PROGRESS",
     "recipe_frozen":  false,
-    "updated_at_utc":  "2026-11-20 14:49:09 UTC",
+    "updated_at_utc":  "2026-11-20T15:08:24Z",
     "current_best":  null,
     "scientific_authority":  "docs/d_recipe/TASKBOOK.md",
     "preregistration":  "configs/d_recipe/preregistration.json",
@@ -26,7 +26,8 @@
                      "status":  "TRAINING",
                      "seed":  0,
                      "samples":  3000000,
-                     "cpu_statistics_job":  4537573
+                     "cpu_statistics_job":  4537573,
+                     "clip_calibration_report":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/clip_calibration.json"
                  },
     "A1":  {
                "configuration":  "configs/d_recipe/reference/native_D20.json",
@@ -58,5 +59,22 @@
     "results":  "No D arm has a final WIN/TIE/LOSS yet; this is not a frozen final recipe",
     "arm":  null,
     "library":  null,
-    "configuration":  null
+    "configuration":  null,
+    "representation_diagnostics":  {
+                                       "D_R0":  {
+                                                    "status":  "QUEUED_AFTER_EXACT_3M_ENDPOINT",
+                                                    "forward_job":  4537579,
+                                                    "forward_dependency":  "afterok:4537572",
+                                                    "transfer_job":  4537580,
+                                                    "transfer_dependency":  "afterok:4537579",
+                                                    "statistics_job":  4537581,
+                                                    "statistics_dependency":  "afterok:4537580",
+                                                    "GPU_node":  "compute-0-7",
+                                                    "CPU_node":  "compute-0-17",
+                                                    "GPU_root_peak_bytes":  8589934592,
+                                                    "CPU_root_peak_bytes":  12884901888,
+                                                    "cache_value_bytes":  5131075584,
+                                                    "decision_input":  false
+                                                }
+                                   }
 }
