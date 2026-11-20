@@ -1,0 +1,590 @@
+{
+  "schema": "BENCHMARK_NATIVE_JOB_INDEX_20261120_V1",
+  "scope": "96 active candidate endpoints after complete anonymous five-endpoint inventory verification; no final decisions yet",
+  "native_source_worktree_HEAD": "6d056a41f379b921d31017ecfed9ce84d1a5c71a",
+  "latest_published_before_this_batch": "5f6cf64032376e03aec7e13dea27acec72ca86e4",
+  "artifact_root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119",
+  "deferred_inventory": {
+    "job": 4536851,
+    "catalog_job": 4536889,
+    "verified_deferred_count": 5,
+    "active_endpoints": 96
+  },
+  "B1_official": {
+    "RF_and_LightGBM": [
+      4536910,
+      4536953,
+      4536968
+    ],
+    "Chemprop": [
+      4536913,
+      4536954,
+      4536969
+    ],
+    "completed_three_baseline_endpoints": 63,
+    "two_additional_baseline_endpoints": 6
+  },
+  "NMR": {
+    "original_split_job": 4536856,
+    "features_job": 4536984,
+    "RF_LightGBM_job": 4536985,
+    "Chemprop_job": 4536990,
+    "source_counts": {
+      "13C": {
+        "train_spectra": 21523,
+        "test_spectra": 5390,
+        "train_atomic_points": 213564,
+        "test_atomic_points": 53279
+      },
+      "1H": {
+        "train_spectra": 10252,
+        "test_spectra": 2554,
+        "train_atomic_points": 69595,
+        "test_atomic_points": 17082
+      }
+    },
+    "first_feature_error_job": 4536971
+  },
+  "pKa": {
+    "frozen_macro_binding_job": 4536926,
+    "full_2D_features_job": 4537022,
+    "RF_LightGBM_job": 4537023,
+    "Chemprop_job": 4537024,
+    "additional_outside_TRAIN_macro_points": 1240,
+    "macro_acid_retained_TRAIN": 15879,
+    "macro_base_retained_TRAIN": 16997,
+    "external_acid": 31,
+    "external_base": 18,
+    "single_site_atom_mechanism": "UNRESOLVED_EXPERIMENTAL_ATOM_SITE_ANNOTATIONS_ABSENT",
+    "failed_source_syntax_job": 4536992,
+    "unstarted_superseded_model_jobs": [
+      4536993,
+      4536994
+    ]
+  },
+  "reference_features": {
+    "job": 4536983,
+    "native_D_not_recomputed": true
+  },
+  "C7": {
+    "fold_binding_job": 4536995,
+    "RF": 4536999,
+    "LightGBM": 4537000,
+    "Chemprop": 4537001,
+    "C1_D_LightGBM": 4537002,
+    "C1_D_TabPFN": 4537008,
+    "native_target_points": 6095,
+    "domain_target_points": 6023,
+    "quantity": "G298, original native hartree fields; no removal of native original id6001"
+  },
+  "PPE": {
+    "Benson_binding_job": 4536988,
+    "fold_binding_job": 4536997,
+    "RF": 4537003,
+    "LightGBM": 4537004,
+    "Chemprop": 4537005,
+    "C1_D_LightGBM": 4537006,
+    "C1_D_TabPFN": 4537009,
+    "Benson_native_estimates": 896,
+    "Benson_domain_residual_points": 895,
+    "PM7_domain_residual_points": 1565,
+    "Benson_library": "pGrAdd2.9.14 BensonGA, fixed native published values,298.15K,kcal/mol",
+    "classical_report_job": 4537083,
+    "classical_report_status": "COMPLETED204_REPORT_ROWS"
+  },
+  "ExpansionRx": {
+    "public_release_source_job": 4536975,
+    "identity_label_binding_job": 4537017,
+    "original_TRAIN_molecules": 5326,
+    "original_TEST_molecules": 2282,
+    "RF_LightGBM_job": 4537018,
+    "Chemprop_job": 4537019,
+    "C1_D_LightGBM": 4537080,
+    "C1_D_TabPFN": 4537081,
+    "original_nine_endpoints": true,
+    "all_finite_TEST_labels_kept": true,
+    "domain_outside_prediction": "Fit TRAIN arithmetic mean",
+    "failed_split_alias_binding_job": 4536996,
+    "unstarted_superseded_model_jobs": [
+      4537013,
+      4537014,
+      4537015
+    ]
+  },
+  "C1": {
+    "D_LightGBM_completed_jobs": [
+      4536894,
+      4536912,
+      4536929,
+      4536951,
+      4536959
+    ],
+    "D_LightGBM_completed_endpoints": 71,
+    "D_TabPFN_completed_jobs": [
+      4536899,
+      4536921,
+      4537010,
+      4536980
+    ],
+    "D_TabPFN_completed_endpoints": 69,
+    "D_TabPFN_running_TDC_ASAP": null,
+    "D_TabPFN_pKa": 4537011,
+    "Pprime_and_Pprime_plus_D": "Wait for corresponding B0 native seals; no active cross-node SQLite read and no imputation",
+    "atom_task_protocol": "Atomic native Pprime plus RDKit atom features, LightGBM only",
+    "D_TabPFN_TDC_ASAP_status": "COMPLETED23_OF23"
+  },
+  "Joung": {
+    "original_components_job": 4537012,
+    "declared_gas_context_job": 4537021,
+    "all_original_observations": 20236,
+    "gas_observations": 19,
+    "frozen_folds_reused_from": 4537012,
+    "input_protocol": "Role-preserving chromophore+solvent, explicit source gas condition; no new solvent geometry",
+    "non_Chemprop_jobs": [
+      {
+        "endpoint_index": 0,
+        "model": "RF-ECFP4",
+        "cpus": 2,
+        "job": 4537025,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 0,
+        "model": "LightGBM-RDKit2D",
+        "cpus": 2,
+        "job": 4537026,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 0,
+        "model": "C1-LightGBM-D",
+        "cpus": 2,
+        "job": 4537028,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 0,
+        "model": "C1-TabPFN-D",
+        "cpus": 2,
+        "job": 4537029,
+        "source_driver": "joung_cv_tabpfn.sbatch"
+      },
+      {
+        "endpoint_index": 1,
+        "model": "RF-ECFP4",
+        "cpus": 2,
+        "job": 4537030,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 1,
+        "model": "LightGBM-RDKit2D",
+        "cpus": 2,
+        "job": 4537031,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 1,
+        "model": "C1-LightGBM-D",
+        "cpus": 2,
+        "job": 4537033,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 1,
+        "model": "C1-TabPFN-D",
+        "cpus": 2,
+        "job": 4537034,
+        "source_driver": "joung_cv_tabpfn.sbatch"
+      },
+      {
+        "endpoint_index": 2,
+        "model": "RF-ECFP4",
+        "cpus": 2,
+        "job": 4537035,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 2,
+        "model": "LightGBM-RDKit2D",
+        "cpus": 2,
+        "job": 4537036,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 2,
+        "model": "C1-LightGBM-D",
+        "cpus": 2,
+        "job": 4537038,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 2,
+        "model": "C1-TabPFN-D",
+        "cpus": 2,
+        "job": 4537039,
+        "source_driver": "joung_cv_tabpfn.sbatch"
+      },
+      {
+        "endpoint_index": 3,
+        "model": "RF-ECFP4",
+        "cpus": 2,
+        "job": 4537040,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 3,
+        "model": "LightGBM-RDKit2D",
+        "cpus": 2,
+        "job": 4537041,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 3,
+        "model": "C1-LightGBM-D",
+        "cpus": 2,
+        "job": 4537043,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 3,
+        "model": "C1-TabPFN-D",
+        "cpus": 2,
+        "job": 4537044,
+        "source_driver": "joung_cv_tabpfn.sbatch"
+      },
+      {
+        "endpoint_index": 4,
+        "model": "RF-ECFP4",
+        "cpus": 2,
+        "job": 4537045,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 4,
+        "model": "LightGBM-RDKit2D",
+        "cpus": 2,
+        "job": 4537046,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 4,
+        "model": "C1-LightGBM-D",
+        "cpus": 2,
+        "job": 4537048,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 4,
+        "model": "C1-TabPFN-D",
+        "cpus": 2,
+        "job": 4537049,
+        "source_driver": "joung_cv_tabpfn.sbatch"
+      },
+      {
+        "endpoint_index": 5,
+        "model": "RF-ECFP4",
+        "cpus": 2,
+        "job": 4537050,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 5,
+        "model": "LightGBM-RDKit2D",
+        "cpus": 2,
+        "job": 4537051,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 5,
+        "model": "C1-LightGBM-D",
+        "cpus": 2,
+        "job": 4537053,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 5,
+        "model": "C1-TabPFN-D",
+        "cpus": 2,
+        "job": 4537054,
+        "source_driver": "joung_cv_tabpfn.sbatch"
+      },
+      {
+        "endpoint_index": 6,
+        "model": "RF-ECFP4",
+        "cpus": 2,
+        "job": 4537055,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 6,
+        "model": "LightGBM-RDKit2D",
+        "cpus": 2,
+        "job": 4537056,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 6,
+        "model": "C1-LightGBM-D",
+        "cpus": 2,
+        "job": 4537058,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 6,
+        "model": "C1-TabPFN-D",
+        "cpus": 2,
+        "job": 4537059,
+        "source_driver": "joung_cv_tabpfn.sbatch"
+      },
+      {
+        "endpoint_index": 7,
+        "model": "RF-ECFP4",
+        "cpus": 2,
+        "job": 4537060,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 7,
+        "model": "LightGBM-RDKit2D",
+        "cpus": 2,
+        "job": 4537061,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 7,
+        "model": "C1-LightGBM-D",
+        "cpus": 2,
+        "job": 4537063,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 7,
+        "model": "C1-TabPFN-D",
+        "cpus": 2,
+        "job": 4537064,
+        "source_driver": "joung_cv_tabpfn.sbatch"
+      },
+      {
+        "endpoint_index": 8,
+        "model": "RF-ECFP4",
+        "cpus": 2,
+        "job": 4537065,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 8,
+        "model": "LightGBM-RDKit2D",
+        "cpus": 2,
+        "job": 4537066,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 8,
+        "model": "C1-LightGBM-D",
+        "cpus": 2,
+        "job": 4537068,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 8,
+        "model": "C1-TabPFN-D",
+        "cpus": 2,
+        "job": 4537069,
+        "source_driver": "joung_cv_tabpfn.sbatch"
+      }
+    ],
+    "Chemprop_repetition_arrays": [
+      {
+        "endpoint_index": 0,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "array": "0-4",
+        "job": 4537071,
+        "source_driver": "joung_chemprop_e0_array.sbatch"
+      },
+      {
+        "endpoint_index": 1,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "array": "0-4",
+        "job": 4537072,
+        "source_driver": "joung_chemprop_e1_array.sbatch"
+      },
+      {
+        "endpoint_index": 2,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "array": "0-4",
+        "job": 4537073,
+        "source_driver": "joung_chemprop_e2_array.sbatch"
+      },
+      {
+        "endpoint_index": 3,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "array": "0-4",
+        "job": 4537074,
+        "source_driver": "joung_chemprop_e3_array.sbatch"
+      },
+      {
+        "endpoint_index": 4,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "array": "0-4",
+        "job": 4537075,
+        "source_driver": "joung_chemprop_e4_array.sbatch"
+      },
+      {
+        "endpoint_index": 5,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "array": "0-4",
+        "job": 4537076,
+        "source_driver": "joung_chemprop_e5_array.sbatch"
+      },
+      {
+        "endpoint_index": 6,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "array": "0-4",
+        "job": 4537077,
+        "source_driver": "joung_chemprop_e6_array.sbatch"
+      },
+      {
+        "endpoint_index": 7,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "array": "0-4",
+        "job": 4537078,
+        "source_driver": "joung_chemprop_e7_array.sbatch"
+      },
+      {
+        "endpoint_index": 8,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "array": "0-4",
+        "job": 4537079,
+        "source_driver": "joung_chemprop_e8_array.sbatch"
+      }
+    ],
+    "unstarted_superseded_Chemprop": [
+      {
+        "endpoint_index": 0,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "job": 4537027,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 1,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "job": 4537032,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 2,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "job": 4537037,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 3,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "job": 4537042,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 4,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "job": 4537047,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 5,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "job": 4537052,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 6,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "job": 4537057,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 7,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "job": 4537062,
+        "source_driver": "joung_cv_models.sbatch"
+      },
+      {
+        "endpoint_index": 8,
+        "model": "Chemprop-v2",
+        "cpus": 4,
+        "job": 4537067,
+        "source_driver": "joung_cv_models.sbatch"
+      }
+    ],
+    "array_semantics": "Each array index is one of five original repetitions; five fixed folds per element, all25 folds retained per endpoint",
+    "failed_gas_import_job": 4537020
+  },
+  "scheduler_updates": {
+    "allowed_partition_members_observed": "cpu: node2 and8-19; exclude2,18,21 so effective8-17,19",
+    "new_CV_own_concurrent_peak_bytes": 42949672960,
+    "earlier_running_own_concurrent_peak_bytes": 25769803776,
+    "source_protection": "Actual native node bytes,inodes,fresh UID quota, root/system headroom; tempfile dirs under own shared artifacts",
+    "pending_time_limits_minutes": {
+      "4537000": 90,
+      "4537002": 90,
+      "4537004": 60,
+      "4537006": 60,
+      "4537022": 60
+    },
+    "Biogen_Chemprop_nice_restored_to_zero": true
+  },
+  "unit_evidence": {
+    "selection_logic": {
+      "job": 4536943,
+      "tests": 14
+    },
+    "atomic_interface": {
+      "job": 4536913,
+      "step": 2,
+      "tests": 8
+    },
+    "optical_role": {
+      "job": 4536913,
+      "step": 3,
+      "tests": 2
+    },
+    "optical_gas_role": {
+      "job": 4536913,
+      "step": 6,
+      "tests": 3
+    },
+    "expansion_metric": {
+      "job": 4536913,
+      "step": 5,
+      "tests": 7
+    },
+    "source_check_published_B2": {
+      "job": 4536913,
+      "step": 0,
+      "status": "PASS",
+      "proposed_files": 46
+    }
+  },
+  "B2_final_availability": "docs/benchmark/BASELINE_AVAILABILITY.md; published5f6cf64 with SHA256 receipt; seven available,four unresolved,one weights unpublished,two user access",
+  "pretraining_started": false,
+  "B2_full_extraction_started": false,
+  "B3_B4_started": false,
+  "B1_screen_decisions_produced": false
+}

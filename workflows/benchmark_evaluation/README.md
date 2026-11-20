@@ -41,3 +41,13 @@ NMR 的原始谱和原子标签由 `b1_nmr_features.sbatch` 消费；4536971 因
 ExpansionRx 官方九终点公开释放源由 4536975 获取，以 `B0.DELIVERY.json` 的 `supplemental_sources.ExpansionRx_official_release` 统一登记。`expansion_release_binding.sbatch` 将使用本分支对应配置的不可变内嵌快照，写出运行时入口到自身 artifact 后消费；原服务器工作树未同步这一新配置。仅当官方 ID、完整原始结构与原官方划分匹配才接入 TEST 标签，TRAIN 使用 B0 原标签，无新增 RLM 终点。
 
 4536983/84/85 的未启动调度请求已从固定 node17 改为 cpu 分区的任一允许 CPU 节点（排除 node2、18、21）。该分区现场成员为 2、8–19，故候选为 8–17、19；node18 暂因 Python/NFS 阻塞不参与。实际目标节点仍先执行容量/inode/quota 准入，不更改现有训练。
+
+## 本批执行索引与共享协议
+
+原生作业、重提关系、数组和参数选择保存在 `native_jobs_20261120.json`。C7/PPE 的每个模型使用同一冻结折；Joung 按发色团 scaffold 保持全部溶剂观测在同一折。RF / LightGBM / C1 的 Joung 通用脚本以 `BENCHMARK_MODEL`、`BENCHMARK_TASK_INDEX` 选择固定配置；索引给出各已提交作业的值。Chemprop 的九个端点数组脚本各用 index0–4 对应五次既定重复，并没有加种子或重复。新增 CV 任务按40GiB本线并发峰值执行磁盘准入，原有运行保持其已记录24GiB预算；新鲜 UID 配额已包含所有现存失败环境和文件。
+
+新接口测试的原生身份：4536913.2 原子接口8项；4536913.3 两组分接口2项；4536913.5 ExpansionRx指标7项；4536913.6 气相两组分接口3项。它们是无真实评测数据、无模型拟合的新逻辑测试。原先4536913.1因测试步少设依赖路径而导入失败，补齐与正式脚本相同路径后测试通过，不涉及科学拟合。
+
+执行中保留的失败：4536996未识别原B0 `test_blinded` 别名，由4537017绑定同一官方TEST，未改成员；4536992为源码字符串拼接错误，4537022完成修复后的pKa特征；4537020为RDKit导入位置错误，4537021完成已声明气相条件的特征接入。相关未启动下游请求已从零计算边界替换，未停止任何已运行训练。Biogen Chemprop的临时Nice调度已恢复0。
+
+[ExpansionRx评分](../../docs/benchmark/EXPANSIONRX_METRIC_PROTOCOL.md)、[Joung输入](../../docs/benchmark/JOUNG_INPUT_PROTOCOL.md)、[NMR划分与文献](../../docs/benchmark/NMR_SPLIT_AND_LITERATURE.md) 和 [报告说明](../../docs/benchmark/REPORTING_NOTES.md) 固定了本批含义。表内“可用”、部分结果、源准备关闭和最终科学结论分开标注；没有生成 B1_task_screen.csv 或声称 C1 最终表已完成。
