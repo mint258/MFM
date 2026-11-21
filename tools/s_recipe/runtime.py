@@ -19,8 +19,13 @@ TOTAL_PEAK = 64*1024**3
 D_STAGE0_PEAK = 36_706_053_853
 # Published D root/tmp concurrent futures, retained until its owner closes them.
 # These are one combined reservation per node, not one reservation per file.
-PEER_ROOT_FUTURES = {'compute-0-7': 24*1024**3,
-                     'compute-0-10': 12*1024**3, 'compute-0-17': 12*1024**3}
+PEER_ROOT_FUTURES = {'compute-0-7': 16*1024**3,
+                     'compute-0-10': 12*1024**3, 'compute-0-17': 0}
+# Joint pool declared by the benchmark/D owners, including S exactly once:
+# model/P25,327,352,832 + environment24GiB + misc1GiB + S64GiB
+# + D36,706,053,853 + benchmark40GiB = 200,546,101,981 bytes.
+PEER_NFS_FUTURE = 25_327_352_832 + (24+1+40)*1024**3 + D_STAGE0_PEAK
+LEGACY_NFS_BASE = 23_179_869_184
 spec = importlib.util.spec_from_file_location('s_disk', REPO/'tools/model_v3/v2_diagnosis_disk.py')
 disk = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(disk)
@@ -58,8 +63,11 @@ def capacity():
     peer_root = PEER_ROOT_FUTURES.get(socket.gethostname().split('.')[0], 0)
     disk.m.require_capacity(disk.m.filesystem_status('/'), 16*1024**2+peer_root, 1000)
     disk.m.require_capacity(disk.m.filesystem_status(CONTROL), future, 20000)
+    # Preserve any still-unpublished D6 growth from the original guard; its
+    # published base is already represented in the joint model/P component.
+    legacy_extra = max(0, disk.remaining_nfs_other()-LEGACY_NFS_BASE)
     return disk.m.quota_headroom(disk.CONTROL/'share_quota_available_v3.json', '/share',
-                                future, disk.remaining_nfs_other()+D_STAGE0_PEAK)
+                                future, PEER_NFS_FUTURE+legacy_extra)
 
 
 def identity(pid):

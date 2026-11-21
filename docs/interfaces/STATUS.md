@@ -1018,3 +1018,31 @@ S-B0 seed0/3M Slurm4537671 is RUNNING on compute-0-7 RTX3090,UUID GPU-9db54192-d
 C1八来源7124及首批9个P′/P′+D CPU组已C0；GPU7的7283/7288/7291也C0，统计均留给统一CPU首报。CPU14的7141/7143/7149实际Python已启动，7667守卫拒绝旧零模型迁移，原作业保留，未回滚/重做；只有实际TIMEOUT7147因无模型目录，以同配方7681在CPU8重试，9/9端点、失败0、0:0/7秒。
 两组原GPU Biogen7480/7484经UID1278/PENDING/0运行核实后，改为原CPU模型体7679/7680（各2CPU，种子/V2权重/数据不变，构造/fit/predict AST仅设备不同；统计延后）。7678准备通过2项测试；7685在CPU8先记录全部原生ID及103组绑定，再释放三模型和新汇总7686→准备7687→控制7688。旧7480/7484/7502/7503/7669仅取消未启动身份，GPU后继7482/7486保留更早串行父节点，未绕过P9M7555/7552。GPU7当前7298另加afterany实际S训练7671，保持afterok7149，不占用在跑S/P训练卡；未改其他owner作业。
 原子附录7644已闭合，控制器用会计库C0和清单记录已满足条件，最终导出再次验证；不等待已purge旧job的新完成事件。冻结B1表/SHA、科学数据/折/种子/预算不变。所有新写入仍核实实际目标字节/inode/UID配额：NFS并发200546101981B、B0未来0但实存计quota、100GB UID底线，根/tmp同行预留与max(10GiB,10%)系统空间继续。CPU14容量足够，不误报磁盘满；临时避14只限本线尚未启动CPU作业。
+
+
+### 2026-11-21 就绪表格TabPFN转CPU及新原生链（7700）
+其余7个未启动的官方表格TabPFN组已用原CPU模型体7693–7699运行（各2CPU），加Biogen7679/7680共9组，不再等待被P9M占用的GPU。原构造/fit/predict及全部GPU适配源码AST比对通过；V2权重、种子、原划分/TEST和特征不变，统计留给统一CPU首报。7692绑定守卫拒绝TDC_ADMET友好名称，7700按既有tdc_asap标识修正并复用相同七个held身份，任何模型放行前完成记录，无重复提交/拟合。
+当前总比较7701→准备7702→控制7703，103组仅替换相应原生ID/输出目录，源别名保留。旧7个GPU与3汇总仅在UID1278/PENDING/0运行时取消；余下GPU7487/7488保持afterany7555/7552和afterok7149，GPU7的7298保持实际S训练7671门。原CPU14的7141/7143/7149持续保留，未强停/重做。完整映射/脚本/真实Slurm身份在ready_tabular_CPU_continuation_repair/job_4537700；7692失败准备记录保留。
+全部新CPU作业限compute-0-8至19、临时避14/18，按需2CPU/no exclusive；实际目标字节/inode/UID配额、NFS并发200546101981B、100GB账户余量和根/tmp同行与系统底线保护均继续，B0未来0但实存计配额。科学名单/既有B1和已闭合统计不改，未动其他owner训练或额外生成SHA。
+
+
+## 2026-11-21 09:28:33 CST · D Root：R0规定诊断全部闭合，撤销其已结束本地写入future
+
+R0表示统计4537581已实际COMPLETED/0:0（CPU17/2分配CPU/4446秒）；原前向4537579、cache传输4537580、缓存层读出4537584/4537585及主训练/统计4537572/4537573均已C0。固定5000VAL/47698构象的层3–6 F64 PR/CEV/CVF/CVF_res与逐层读出均闭合；结果仅描述，主R3仍第6层0.3047600714630222，CURRENT_BEST未冻结。原完整谱与bootstrap已保存共享盘原运行目录representation_statistics；所有物理cache及旧结果保留，没有额外前向或重算。
+
+本次依据实际写入者闭合（非GPU暂时空闲）撤销GPU7 R0 VAL 8GiB、CPU17 R0 12GiB未来写入：**GPU7 D future由24降为16GiB，仅R1 native8+R1 VAL8；CPU17 R0 future降为0；CPU10 R1 future仍12GiB。** GPU7/CPU17原R0 cache物理占用5133008896B/5133246464B保留、继续由实际df扣除；不可把撤销future误作删除或释放这些实存。实查两节点根盘总量各75125227520B，可用48517754880B/47753945088B，空闲inode36529111/36501585；实际开始/运行仍叠加同行future、max(10GiB,10%)系统/Slurm空间和UID限制。未启动R1配置同步并发scope预算8GiB，已结束R0配置保留原历史口径。
+
+D联合NFS36706053853B、full29.75GB、Lustre模型池1.25GiB保持。A1/L2原生产继续，R1仍等A1，未持有GPU7或修改其他owner作业；请同行仅更新上述同节点未来写入预算。R1可选F64 PR分块256仅执行参数，默认32保留、公式及1000次配对抽样不变，7项相关CPU新逻辑测试已通过；没有实测提速主张。
+
+
+### 2026-11-21 TDC报告故障的失败子集续接（原生7713）
+Biogen7679/7680已各6/6、失败0，原生C0/19:37和26:21。TDC/ASAP7694在官方指标报告层出现KeyError('MAE')，原作业继续，成功端点预测原地保留。修复延后官方指标赋值；7712在CPU8通过180项回归及5591文件源码检查，真实数值未为QA重读。7711首次新增合成fixture缺::Y后缀的两项错误已修正，生产解析器未改。
+7713先完整记录held链再释放7714（afterany7694，仅真实闭合清单中的该报告错误端点）、总比较7715→准备7716→控制7717。原103来源不改、追加1个失败续接来源，同一561格，成功预测不复制/重算；消费者保留每个端点真正的原生job身份。固定权重上下文推断无训练回滚，默认种子25及显著改善才补26不变；再失败明确UNRESOLVED，不作第三次拟合。只有旧7701/7702/7703在UID1278/PENDING/0运行边界取消，未停止原7694或CPU14的7141/7143/7149。
+GPU5/22仍保护P9M7555/7552，GPU7仍保护实际S训练7671；未改任何其他owner作业。实际目标字节/inode、鲜活UID quota、NFS并发200546101981B、100GB账户底线和根/tmp同行并发及系统/Slurm余量保护继续，B0未来0但已有占用仍计quota。没有新增几何/QM、B1重筛、额外哈希或冻结统计重放。
+
+
+### 2026-11-21 基准线同步D已闭合本地future（同行98e6b38d）
+已核实D R0实际7572/7573/7579/7580/7581/7584/7585全部COMPLETED/0:0。仅按D Root 09:28:33CST通知，将本线GPU7同行未来写入由24改为16GiB，CPU17 R0由12改为0；CPU10 R1保持12GiB。D R0物理cache保留，仍由实际df计占用；NFS200546101981B及Lustre/UID预算不变。自有策略以同目录原子替换更新，保留旧值与原生证据；所有作业运行期根/tmp同行future、max(10GiB,10%)系统/Slurm余量、字节/inode及账户quota检查继续。GPU7仍等待实际S训练7671，GPU5/22保护P9M，未修改训练/结果或删除文件。
+
+### 2026-11-21 S adopts the complete joint NFS pool
+S reconciled its subsequent writer/test admission to the owner-declared joint200546101981B pool:model/P25327352832+environment24GiB+misc1GiB+S64GiB+D36706053853+benchmark40GiB. S counts itself once and debits only its own allocation;any original unpublishedD6 increment remains additive. ActualGPU7 metadata admission passed with363279499264B UID availability vs307813446365B required including the existing account floor;root/inodes and freshquota also checked.53new tests4537723 CPU8 passed. Adopt D's closed-local-future notice:GPU7 16GiB,CPU10 12GiB,CPU17 0;existing cache bytes remain in df,none deleted. S's own64GiB does not grow. RunningS-B0 4537671 stays continuous;otherowners' jobs/code untouched. Future admissions and periodic observations use this declaration.
