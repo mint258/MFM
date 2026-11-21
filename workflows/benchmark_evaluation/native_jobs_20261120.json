@@ -5809,7 +5809,13 @@
     "tests": 163,
     "scope": "All current workflows.benchmark_evaluation test modules",
     "synthetic_and_source_interface_tests_only": true,
-    "no_real_results_replayed": true
+    "no_real_results_replayed": true,
+    "latest_job": 4537776,
+    "latest_tests": 198,
+    "files": 5599,
+    "python_files": 3780,
+    "status": "PASS",
+    "real_scientific_outputs_read_for_QA": false
   },
   "C1_tabular_Pprime_sources_closed": {
     "job": 4537124,
@@ -5973,9 +5979,21 @@
     }
   },
   "peer_STATUS_update_preserved": {
-    "sha": "902a873d885f070034f2466933a1b921b2ecdbd8",
-    "parent": "3e6bf29f03a3a7ff9f1c83275a33fcc64ff5ca4a",
-    "path": "docs/interfaces/STATUS.md"
+    "previous": {
+      "sha": "902a873d885f070034f2466933a1b921b2ecdbd8",
+      "parent": "3e6bf29f03a3a7ff9f1c83275a33fcc64ff5ca4a",
+      "path": "docs/interfaces/STATUS.md"
+    },
+    "latest_peer_head": "659e7128a446351f185ded606a0f6d343214df20",
+    "commits": [
+      "2e4cde2c16270b96b9742b19f2a1ed58c33d9d08",
+      "659e7128a446351f185ded606a0f6d343214df20"
+    ],
+    "changed_path": "docs/interfaces/STATUS.md",
+    "lines_added": 20,
+    "D_L1_L2_published_status": "UNRESOLVED",
+    "benchmark_scientific_inputs_or_models_changed": false,
+    "D_and_joint_storage_futures_unchanged": true
   },
   "D_R0_closed_node_local_future_refresh_20261121": {
     "status": "CLOSED_D_R0_LOCAL_FUTURES_REFRESHED",
@@ -6173,5 +6191,49 @@
     "failures": 0,
     "metrics_read": false,
     "first_statistics_pending_unified_CPU_report": 4537766
+  },
+  "C1_reference_empty_startup_recovery_20261121": {
+    "status": "FEATURE_NATIVE_FAILURE_CONTROLLER_ARMED_AND_GPU7_SERIALIZED",
+    "job": "4537777",
+    "validation_job": 4537776,
+    "tests": 198,
+    "original_feature_preserved": 4537149,
+    "models_resubmitted": 0,
+    "scientific_model_sources_changed": false,
+    "source_groups": 104,
+    "scientific_cells": 561,
+    "controller_job": 4537778,
+    "controller_released": true,
+    "head7298_released": true,
+    "original_head_dependency": "afterok:4537149",
+    "new_head_dependency": "afterok:4537149,afterany:4537765",
+    "failed_only_job_state": "PENDING",
+    "head7298_held": true,
+    "preparation_job": 4537776,
+    "preparation_native": "COMPLETED/0:0",
+    "preparation_elapsed_seconds": 18,
+    "preparation_node": "compute-0-10",
+    "regression_tests": 198,
+    "source_check": {
+      "status": "PASS",
+      "files": 5599,
+      "python_files": 3780
+    },
+    "controller_native_dependency": "afterany:4537149",
+    "controller_source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/feature_startup_recovery_preparation/job_4537776/proposed_sources.json",
+    "only_actual_terminal_failure_and_absent_output_allows_one_continuation": true,
+    "partial_output_requires_scoped_recovery_no_whole_replay": true,
+    "original_output_namespace": "C1_Pprime_reference_features/job_4537149",
+    "actual_new_native_identity_remains_SLURM_JOB_ID": true,
+    "no_new_feature_job_submitted_yet": true
+  },
+  "C1_GPU7_current_queue_order_20261121": {
+    "failed_only": 4537765,
+    "failed_only_afterany": 4537694,
+    "reference_head": 4537298,
+    "reference_afterok": 4537149,
+    "reference_afterany": 4537765,
+    "model_programs_and_source_groups_unchanged": true,
+    "no_other_owner_job_changed": true
   }
 }
