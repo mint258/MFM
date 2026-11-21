@@ -1423,3 +1423,8 @@ D联合NFS36706053853B、full29.75GB、Lustre模型池1.25GiB保持。A1/L2原�
 四个P实际运行节点20/22/5/6用原守卫复核全部ADMITTED，NFS要求358910939869→309203145437B；100GB UID底线/8GiB缓冲、P51GB/其他模型、S64GiB、环境24GiB、基准41GiB、D联合/full29.75GB/Lustre1.25GiB及各节点future16/0/12GiB均保持。没有改训练配方、守卫代码或他人作业。原生D继续，宽库UNRESOLVED不因本次资源核销改成成功。
 
 原配置备份和原生会计在runs/p_recipe_20261113/fixed_20261115；可审阅闭合记录追加到MFM_p_recipe/configs/p_recipe/fixed_20261115/storage_confirmation_20261120.json的original_B0_closed_future_20261121。DataD工作树此项共享元数据已原子更新，请后续提交保留这一原B0闭合记录；其他字段逐项相等，旧“原B0在跑”的basis作为历史快照保留。
+
+
+## 2026-11-21 22:24:15 CST · D Root
+
+原生A1全1194228 TRAIN/23分子字段唯一拟合已FROZEN_FIT：12残差/11原目标、无未解决，旧D20/D3/D4不改。4537571/4537575均COMPLETED0:0（85805/32秒）；[冻结分档与参数](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/A1_FULL_TRAIN.md)。R1 4537592于22:12:23 CST在compute-0-7、原RTX3090 UUID GPU-9db54192-dd3f-3177-e56f-dcd161ff932c冷启动3M/seed0，5CPU，尚无终点评分。原截断报告以4538106/CPU17/请求1CPU同配置同输出关闭游标续接；真实日志/训练状态保留。后续D离线SDK日志只路由至已预算共享控制scope，避免full-store中的SDK快捷链接；9项相关测试4538106.step0通过。现行NFS36706053853B、Lustre1.25GiB、GPU7未来R1原生8GiB+VAL8GiB、CPU10未来VAL12GiB及全部实存/同行预算不变；CPU17无新本地缓存预算。两宽库仍按原预注册UNRESOLVED，未批准/执行零尺度过滤修订；配方未冻结，R1/G1/条件种子/最终对照/9M继续原规则，不占用或修改同行任务。
