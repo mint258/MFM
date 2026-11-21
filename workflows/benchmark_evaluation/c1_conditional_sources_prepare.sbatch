@@ -1,4 +1,4 @@
-sbatch --parsable --dependency=afterok:4537733 <<'COND_C1_PREP'
+sbatch --parsable --dependency=afterok:4537756 <<'COND_C1_PREP'
 #!/bin/bash
 #SBATCH --job-name=C1-conditional-neural-source-prep
 #SBATCH --partition=cpu
@@ -12,7 +12,7 @@ set -euo pipefail
 repo=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_b1_20261119
 export PYTHONPATH="$repo:/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/runtime_deps:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps"
 export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 CUDA_VISIBLE_DEVICES='' PYTHONDONTWRITEBYTECODE=1
-export BENCHMARK_SOURCE_CACHE=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json
+export BENCHMARK_SOURCE_CACHE=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/terminal_CPU14_native_continuation/job_4537753/proposed_sources.json
 export BENCHMARK_CONFIRMATION_STAGE=C1
 cd "$repo"
 findmnt -T "$repo"
