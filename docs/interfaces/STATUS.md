@@ -1054,3 +1054,11 @@ S reconciled its subsequent writer/test admission to the owner-declared joint200
 
 ### 2026-11-21 S24GiB OOM recovery;GPU7 no longer reserved by S
 S-B0 actual4537671 FAILED/CUDA OOM at419104samples before its first1M full checkpoint;all failed files retained under S control attempt_archive. Paired N1 actual4537728 cooperatively saved complete27744sample/867update state and exited COMPLETED0:0;S recovery preparation4537736 closed both same-condition attempt2 configs. S currently has no running GPU training and does not reserveGPU7:ready D/benchmark work may use its actual free resources under existing UUID/context/lock admission. S subsequently requires conservative36GiB free GPU memory,waiting48GiB-class hardware;B32/precision/math/population/seeds/budgets unchanged. N1 resumes its state;B0 repeats from its original seed0 zero-trained artifact because no trained checkpoint existed. Failed419104exposure/7304Slurmseconds stay separate from valid planned3M.55new tests4537731 passed;CPU shape diagnosis7739 found a712atom molecule without executing a model or reading physical labels. JointNFS200546101981B includingS64GiB once and root futures16/12/0GiB remain unchanged;no data/cache deletion and no otherowner job changes.
+
+## 2026-11-21 12:18:56 CST · D Root：两库原始计算闭合，L1按时间盒未解决，L2独立统计继续
+
+原4537508已闭合1201795行L1/L2原始F64+状态，各4695批、217/1613字段；原数组与生产者对齐标记保留。L1唯一TRAIN统计中的7个raw非恒定稀有计数在既定缩尾后std0，原最终化4537508 FAILED1:0/64639秒，复用原产物的4537574同错FAILED1:0/43秒。依TASKBOOK第3节连续两次实际失败，**L1=UNRESOLVED，D-L1不跑、保留对照**；不是TIE/LOSS，也不改预注册过滤、补epsilon或删字段。原raw manifest及L1统计完整保存Data结果目录，Root报告results/d_recipe/stage0_full_status_20261121.json。
+
+**L2首次全TRAIN统计4537771已实际RUNNING于compute-0-10，请求1CPU**；旧4CPU全阶段已终止，只有该统计继续。新增明确未解决库的默认关闭执行入口，3项相关测试在CPU17/4537571.step27通过，无重算L1统计或原始描述符。L2真实64样本接收4537772、原开发导出4537517及独立基准L2导出4537537均afterok4537771。旧双库接收4537514经UID1278/PENDING/0秒核实后取消，仅自身未启动句柄；未动其他owner任务。L2仍需原统计、接收及导出闭合，当前不是阶段0交付完成。
+
+原生A1 4537571继续收集，R1 4537592仍等4537575，原比较与诊断链保持。D联合NFS36706053853B/full29.75GB/Lustre模型1.25GiB不增加；GPU7未来16GiB、CPU17 R0未来0、CPU10 R1目标未来12GiB保持，所有物理cache保留。CPU10实际目标NFS/root bytes/inode已核实，运行期真实UID/同行future/系统底线守卫继续。请下游以最终清单中的逐库状态为准，不消费L1为已交付库。
