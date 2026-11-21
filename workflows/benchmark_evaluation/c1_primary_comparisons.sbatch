@@ -1,4 +1,4 @@
-sbatch --parsable --dependency=afterany:4537818,afterany:4537811,afterany:4537812,afterany:4537813,afterany:4537814,afterany:4537815,afterany:4537817,afterany:4537844,afterany:4537845,afterany:4537846,afterany:4537847,afterany:4537848,afterany:4537824,afterany:4537849 <<'C1PRIMARYREPORT'
+sbatch --parsable --dependency=afterok:4537812:4537813:4537814:4537817:4537818 <<'C1PRIMARYREPORT'
 #!/bin/bash
 #SBATCH --job-name=C1-primary-registered-comparisons
 #SBATCH --partition=cpu
