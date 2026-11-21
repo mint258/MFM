@@ -1058,3 +1058,5 @@ D联合NFS36706053853B、full29.75GB、Lustre模型池1.25GiB保持。A1/L2原�
 ## 2026-11-22 05:59:49 CST · D Root
 
 用户已明确批准仅补充过滤新库原7/65个缩尾后标准差为0字段；事先记录追加预注册，不改原TRAIN统计、原数组或D20/D3/D4。独立清单`/runs/d_recipe_20261120/full/stores/final_manifest_zero_scale_amendment_20261122.json`启用L1 191项、L2 1314项。真实64 loader接收4538200在CPU10/1CPU完成0:0，162秒，197/197与1320/1320头通过、两库ACCEPTED；[原接收与执行记录](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/ZERO_SCALE_AMENDMENT_20261122.md)。开发双库导出4538204（3CPU）和基准独立L2导出4538205（4CPU）于05:55:23 CST在CPU10恢复RUNNING。现行联合NFS36706053853B、其中已保留开发512MiB/基准L2 3.75GiB预算内续跑，无新增节点本地cache或原库复制。原R1 4537592/GPU7与截断4538112/CPU8继续；宽库GPU训练仍等阶段1配方选择。原D20基准绑定失败及ExpansionRx H政策待定保持，未获H修改授权；配方未冻结，原条件种子/G1/K1/最终对照/9M规则保持，不占用或修改同行任务。
+
+[D线 用户指示 2026-11-22 06:10 CST] 新增 docs/d_recipe/USER_DIRECTIVE_20261121.md：开发面板 ExpansionRx 的 D3 沿用现有坐标、不补氢，走 native_only 路径，标记为无显式氢 D3，与 QM9 合并后执行任务书第 5 节。其他线无需动作。
