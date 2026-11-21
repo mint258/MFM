@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-21T14:24:15.814719Z",
+  "updated_at_utc": "2026-11-21T15:15:15.851116Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -148,7 +148,7 @@
     "job_id": 4537571,
     "checkpoint_continuation_job": 4537575,
     "status": "COMPLETE_FROZEN_FIT",
-    "clipping_report_job": 4538106,
+    "clipping_report_job": 4538112,
     "collection_progress_report_only": {
       "observed_at_utc": "2026-11-21T05:30:06.733338+00:00",
       "closed_rows": 762624,
@@ -212,9 +212,14 @@
       "original_job": 4537578,
       "original_exit": "1:0",
       "original_elapsed_seconds": 76,
-      "continuation_job": 4538106,
+      "continuation_job": 4538112,
       "same_closed_cursor_and_output": true,
-      "scientific_definition_changed": false
+      "scientific_definition_changed": false,
+      "previous_continuation_job": 4538106,
+      "previous_exit": "1:0",
+      "previous_elapsed_seconds": 3105,
+      "continuation_node": "compute-0-8",
+      "closed_atomic_cursor_reused": 68608
     }
   },
   "arm_decisions": {
@@ -294,7 +299,9 @@
     "paired_comparison_output": "results/d_recipe/comparisons/D-R1_vs_D-R0_seed0_3M.json",
     "node": "compute-0-7",
     "GPU_UUID": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
-    "start_time_CST": "2026-11-21T22:12:23+08:00"
+    "start_time_CST": "2026-11-21T22:12:23+08:00",
+    "clip_calibration_report": "results/d_recipe/training/d_recipe_20261120_D_R1_seed0_3M/clip_calibration.json",
+    "clip_calibration_status": "FROZEN_BY_NATIVE_PRODUCER"
   },
   "diagnostic_progress": {
     "D_R0_seed0_3M": {
