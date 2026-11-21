@@ -16,7 +16,7 @@
 
 D20原20字段中，NumBridgeheadAtoms与NumSpiroAtoms沿原选择禁用，MolMR沿原损失关闭。原生有效损失共24字段：17个二维、6个分子三维、1个逐原子SASA。二维为BertzCT、ExactMolWt、FractionCSP3、HallKierAlpha、HeavyAtomCount、LabuteASA、MolLogP、NumAliphaticRings、NumAromaticRings、NumHAcceptors、NumHDonors、NumHeteroatoms、NumHeterocycles、NumSaturatedRings、NumValenceElectrons、RingCount、TPSA；分子三维为PBF、PMI1/2/3、总SASA、体积；原子项为逐原子SASA。具体原单位和索引沿源registry。
 
-新库原值按F64、状态按独立uint8保存；有效零与missing、实际非有限/溢出分开。预注册过滤仅用TRAIN：常数、有效率低于95%、实际非有限或溢出字段依原规则去除。新字段只拟合一次精确type-7 q0.001/q0.999缩尾位置和总体标准差（ddof=0）；缩尾只用于参数估计，原标签不截尾。原D20/D3沿用11-07完整TRAIN D4参数，不重新拟合；零尺度不以任意epsilon替换。新字段先以F64减中心、除尺度，再转FP32。
+新库原值按F64、状态按独立uint8保存；有效零与missing、实际非有限/溢出分开。预注册过滤仅用TRAIN：常数、有效率低于95%、实际非有限或溢出字段依原规则去除。新字段只拟合一次精确type-7 q0.001/q0.999缩尾位置和总体标准差（ddof=0）；缩尾只用于参数估计，原标签不截尾。原D20/D3沿用11-07完整TRAIN D4参数，不重新拟合；323项排除作用于本轮训练/新统计清单，既有D4按已授权冻结规则保留其原训练人群口径，A1及新字段统计使用修订后的1194228 TRAIN分子；零尺度不以任意epsilon替换。新字段先以F64减中心、除尺度，再转FP32。
 
 标准化目标仅在损失中统一截至±6。各字段TRAIN截断比例由唯一生产报告记录；原生报告4537578已排队，尚无实际比例。该报告复用A1闭合的完整TRAIN分子及每分子预选允许构象，原子项分母为有效原子叶子；不是遍历所有可能构象。宽库对应比例仍待唯一TRAIN统计闭合。
 
