@@ -30,7 +30,7 @@ from loss import structural_total
 from diagnostics import noise_statistics, relative_error
 from noise import apply_geometry_noise, multiscale_sigma
 from s_data import GeometryDataset, init_reader, paired_choices, read_choice
-from checkpoint_binding import validate_resume
+from checkpoint_binding import validate_resume, baseline_acceptance_required
 
 
 def train(configuration):
@@ -120,7 +120,7 @@ def train(configuration):
                        'rotors_4-7' if len(plan) <= 7 else 'rotors_8+') for plan in plans]
         statistics = (noise_statistics(prediction.source_outputs, views, group_labels=labels)
                       if validation_pass else None)
-        if c['arm'] == 'S-B0' and clock.samples_consumed == 0 and not validation_pass:
+        if baseline_acceptance_required(c, clock.samples_consumed, validation_pass):
             # The single taskbook baseline acceptance uses this real loader
             # batch and forward, without an extra run or independent reread.
             original = views.batch.to_data_list()

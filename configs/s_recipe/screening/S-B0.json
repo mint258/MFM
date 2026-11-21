@@ -51,8 +51,18 @@
     "mixed_precision": false,
     "gradient_accumulation": false
   },
-  "gpu_uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
-  "node": "compute-0-7",
-  "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_B0_s0_3M_handoff_request.json",
-  "handoff_ack": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_B0_s0_3M_handoff_ack.json"
+  "execution_attempt": 2,
+  "baseline_acceptance": {
+    "source_order": true,
+    "targets": "element:topo,noise:geom,bond:clean",
+    "noise_sign": "noisy minus clean",
+    "noise_loss_denominator": "3*(0.1 Angstrom)^2 per atom",
+    "observed_counts": {
+      "s_element": 87,
+      "s_noise": 1740,
+      "s_bond": 1816
+    },
+    "component_denominator": 3
+  },
+  "baseline_acceptance_reference": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/attempt_archive/S_B0_s0_3M_job4537671/configuration.json"
 }

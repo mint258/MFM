@@ -97,7 +97,10 @@ def submit(paths):
     if blocked:
         return dict(status=blocked, submitted=[])
     scheduler = existing_scheduling()
-    policy = read(REPO/'configs/p_recipe/scheduling.json')
+    policy = dict(read(REPO/'configs/p_recipe/scheduling.json'))
+    own_policy = REPO/'configs/s_recipe/execution_policy.json'
+    if own_policy.is_file():
+        policy['minimum_free_gpu_mib'] = read(own_policy)['minimum_free_gpu_mib']
     nodes = [node for node in policy['nodes'] if node != 'compute-0-21']
     cards, errors = [], {}
     with ThreadPoolExecutor(3) as pool:
@@ -143,18 +146,20 @@ def submit(paths):
             card, mode = chosen
             cards.remove(card)
             python = NEW if '5090' in card['gpu_name'] else OLD
+            handle = c['run'] + ('_attempt'+str(c['execution_attempt'])
+                                 if c.get('execution_attempt', 1) > 1 else '')
             c.update(gpu_uuid=card['gpu_uuid'], node=card['node'],
-                     handoff_request=str(CONTROL/(c['run']+'_handoff_request.json')),
-                     handoff_ack=str(CONTROL/(c['run']+'_handoff_ack.json')))
+                     handoff_request=str(CONTROL/(handle+'_handoff_request.json')),
+                     handoff_ack=str(CONTROL/(handle+'_handoff_ack.json')))
             if any(Path(c[key]).exists() for key in ('handoff_request', 'handoff_ack')):
                 raise RuntimeError('Existing handoff controls require inspecting the original handle')
             write(filename, c)
             task = dict(run=c['run'], node=card['node'], gpu_uuid=card['gpu_uuid'],
                 minimum_free_gpu_mib=policy['minimum_free_gpu_mib'], python=python,
                 configuration=str(filename), cpus=cpus, mode=mode,
-                state_path=str(CONTROL/(c['run']+'_process.json')),
+                state_path=str(CONTROL/(handle+'_process.json')),
                 command=[python, '-B', '-u', 'tools/s_recipe/train.py', '--configuration', str(filename)])
-            task_path = CONTROL/(c['run']+'_task.json')
+            task_path = CONTROL/(handle+'_task.json')
             write(task_path, task)
             record = dict(status='SUBMITTING', mode=mode, submitted_at=time.time(),
                           configuration=str(filename), task=str(task_path), **card)
