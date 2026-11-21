@@ -2,6 +2,7 @@
 import argparse
 import json
 from pathlib import Path
+import shlex
 import subprocess
 import time
 
@@ -14,8 +15,18 @@ TERMINAL = {'COMPLETED', 'FAILED', 'CANCELLED', 'TIMEOUT', 'OUT_OF_MEMORY', 'NOD
 def accounting(jobs):
     if not jobs:
         return {}
-    output = subprocess.check_output(['sacct', '-X', '-n', '-P', '-j', ','.join(map(str, jobs)),
-        '--format=JobIDRaw,State,ExitCode,NodeList,ElapsedRaw'], text=True, timeout=30)
+    command = ['sacct', '-X', '-n', '-P', '-j', ','.join(map(str, jobs)),
+               '--format=JobIDRaw,State,ExitCode,NodeList,ElapsedRaw']
+    try:
+        output = subprocess.check_output(command, text=True, timeout=30)
+    except (OSError, subprocess.SubprocessError):
+        # Established HPC route when compute-node localhost:6819 is unavailable.
+        # Only scheduler metadata runs on the login host; all scientific work
+        # remains in the existing CPU/GPU allocations. Failure is not terminal
+        # evidence for any observed training handle.
+        output = subprocess.check_output(['ssh', '-n', '-o', 'BatchMode=yes',
+            '-o', 'ConnectTimeout=5', 'sonmi', shlex.join(command)],
+            text=True, timeout=45)
     result = {}
     for line in output.splitlines():
         row = line.split('|')
