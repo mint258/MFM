@@ -7,7 +7,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
-from .reference_closed_fold_resume import require_terminal_failure,collect_closed_folds,ResumeContext,prepare_resume_source,validate_resume_plan,validate_targeted_resume_plan,TARGETED_RESUME_SCHEMA,TARGETED_GPU_PYTHONS
+from .reference_closed_fold_resume import require_terminal_failure,collect_closed_folds,ResumeContext,prepare_resume_source,validate_resume_plan,validate_targeted_resume_plan,TARGETED_RESUME_SCHEMA,TARGETED_GPU_PYTHONS,validate_cpu_resume_plan,CPU_RESUME_SCHEMA
 
 MODEL="C1-TabPFN-Pprime"
 TASK="Absorption max (nm)"
@@ -232,3 +232,62 @@ class TargetedResumePlanTests(unittest.TestCase):
             plan=self.plan();plan.update(source_job=job,source_native_record=native(job=job),
                 dataset="C7H10O2" if job==4537818 else "Joung2020")
             self.assertEqual(self.validate(plan)[0],job)
+
+class TargetedCPUResumeTests(unittest.TestCase):
+    def plan(self,job=4537812):
+        return dict(schema=CPU_RESUME_SCHEMA,source_job=job,new_native_job=9000001,repair_attempt=1,
+            dataset="C7H10O2" if job==4537818 else "Joung2020",feature_group="Pprime",model_seed=20261025,
+            benchmark_NFS_pool_bytes=40*1024**3,maximum_parallel_CPU_models=5,
+            source_native_record=native(job=job),frozen_task_names=[TASK],target_node="compute-0-16",allocated_CPUs=32)
+    def check(self,plan,**kwargs):
+        return validate_cpu_resume_plan(plan,9000001,actual_node=kwargs.get("node","compute-0-16"),allocated_cpus=kwargs.get("cpus",32))
+    def test_exact_original_failed_source_and_allocation_without_plan_mutation(self):
+        plan=self.plan();before=copy.deepcopy(plan)
+        self.assertEqual(self.check(plan),(4537812,dict(target_node="compute-0-16",allocated_CPUs=32)))
+        self.assertEqual(plan,before)
+        for job in (4537812,4537813,4537814,4537817,4537818):self.assertEqual(self.check(self.plan(job))[0],job)
+    def test_only_eligible_actual_CPU_nodes(self):
+        for node in ("compute-0-"+str(i) for i in range(8,20) if i not in (14,18)):
+            plan=self.plan();plan["target_node"]=node;self.assertEqual(self.check(plan,node=node)[1]["target_node"],node)
+        for node in ("compute-0-7","compute-0-14","compute-0-18","compute-0-20","compute-0-21","compute-0-22","sonmi","202.38.252.202"):
+            plan=self.plan();plan["target_node"]=node
+            with self.assertRaises(ValueError):self.check(plan,node=node)
+        with self.assertRaises(ValueError):self.check(self.plan(),node="compute-0-13")
+    def test_exact_demand_allocations_and_types(self):
+        for cpus in (16,32):
+            plan=self.plan();plan["allocated_CPUs"]=cpus;self.assertEqual(self.check(plan,cpus=cpus)[1]["allocated_CPUs"],cpus)
+        for cpus in (True,2,8,64,"32",None):
+            plan=self.plan();plan["allocated_CPUs"]=cpus
+            with self.assertRaises(ValueError):self.check(plan,cpus=cpus)
+        with self.assertRaises(ValueError):self.check(self.plan(),cpus=16)
+        with self.assertRaises(ValueError):self.check(self.plan(),cpus="32")
+    def test_live_success_cancelled_and_requeued_sources_are_never_replayed(self):
+        for state in ("PENDING","RUNNING","COMPLETING","COMPLETED","CANCELLED"):
+            plan=self.plan();plan["source_native_record"]=native(state=state,job=4537812)
+            with self.assertRaises(ValueError):self.check(plan)
+        plan=self.plan();plan["source_native_record"]=native(job=4537812).replace("Restarts=0","Restarts=1")
+        with self.assertRaises(ValueError):self.check(plan)
+    def test_original_seed_scope_attempt_pool_and_task_guards_unchanged(self):
+        for key,value in (("source_job",4537694),("dataset","TDC_ADMET"),("feature_group","Pprime_plus_D"),
+                          ("model_seed",20261026),("repair_attempt",2),("benchmark_NFS_pool_bytes",68*1024**3),
+                          ("frozen_task_names",[]),("frozen_task_names",[TASK,TASK]),
+                          ("maximum_parallel_CPU_models",8),("maximum_parallel_CPU_models",True)):
+            plan=self.plan();plan[key]=value
+            with self.assertRaises(ValueError):self.check(plan)
+    def test_CPU_schema_cannot_claim_GPU_execution_or_bypass_legacy_guard(self):
+        for key in ("maximum_concurrent_GPU7_models","maximum_concurrent_reference_GPU_models"):
+            plan=self.plan();plan[key]=1
+            with self.assertRaises(ValueError):self.check(plan)
+        with self.assertRaises(ValueError):validate_resume_plan(self.plan(),9000001)
+        with self.assertRaises(ValueError):self.check([])
+    def test_CPU_resume_program_changes_only_device_after_closed_fold_control(self):
+        from .reference_cpu_primary import prepare_reference_cpu_source
+        gpu=prepare_resume_source(fixture_source(),"Joung2020","Pprime")
+        cpu=prepare_reference_cpu_source(gpu,"Joung2020","Pprime")
+        parsed=ast.parse(cpu)
+        call=next(n for n in ast.walk(parsed) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute) and n.func.attr=="create_default_for_version")
+        device=next(k for k in call.keywords if k.arg=="device")
+        self.assertEqual(device.value.value,"cpu");device.value=ast.Constant(value="cuda")
+        self.assertEqual(ast.dump(parsed),ast.dump(ast.parse(gpu)))
+        self.assertIn("_reference_resume.reuse",cpu)
+        self.assertIn("_reference_resume.provenance",cpu)

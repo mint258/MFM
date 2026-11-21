@@ -220,3 +220,22 @@ def validate_targeted_resume_plan(plan,new_job,*,actual_node,registered_python):
     common["maximum_concurrent_GPU7_models"]=1
     old=validate_resume_plan(common,new_job)
     return old,dict(target_node=node,gpu_uuid=uuid,gpu_python=python)
+
+CPU_RESUME_SCHEMA="REFERENCE_TERMINAL_FAILED_TARGETED_CPU_RESUME_V3"
+CPU_RESUME_NODES=frozenset("compute-0-"+str(index) for index in range(8,20))-{"compute-0-14","compute-0-18"}
+def validate_cpu_resume_plan(plan,new_job,*,actual_node,allocated_cpus):
+    """Resume only the original failed reference primaries on their recorded demand-based CPU allocation."""
+    if not isinstance(plan,dict):raise ValueError("An explicit CPU continuation plan is required")
+    if (plan.get("schema")!=CPU_RESUME_SCHEMA
+        or type(plan.get("maximum_parallel_CPU_models")) is not int or plan["maximum_parallel_CPU_models"]!=5
+        or "maximum_concurrent_GPU7_models" in plan or "maximum_concurrent_reference_GPU_models" in plan):
+        raise ValueError("At most the five actual failed original sources may continue on CPU")
+    node=plan.get("target_node");cpus=plan.get("allocated_CPUs")
+    if (not isinstance(node,str) or node not in CPU_RESUME_NODES or actual_node!=node
+        or type(cpus) is not int or cpus not in {16,32} or type(allocated_cpus) is not int or allocated_cpus!=cpus):
+        raise ValueError("The actual eligible CPU node and demand-based16/32CPU allocation must match")
+    common=copy.deepcopy(plan)
+    common["schema"]="REFERENCE_TERMINAL_FAILED_CLOSED_FOLD_RESUME_V1"
+    common["maximum_concurrent_GPU7_models"]=1
+    old=validate_resume_plan(common,new_job)
+    return old,dict(target_node=node,allocated_CPUs=cpus)
