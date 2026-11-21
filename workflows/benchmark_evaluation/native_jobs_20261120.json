@@ -3591,27 +3591,28 @@
           "export TABPFN_ALLOW_CPU_LARGE_DATASET=1 LOKY_MAX_CPU_COUNT=2"
         ],
         "dependency": "afterok:4537124",
-        "node": "compute-0-22",
-        "uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu128_job_4537025_step_5/tabpfn/bin/python",
+        "node": "compute-0-7",
+        "uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/tabpfn/bin/python",
         "cpus": 2,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/gpu_programs/job_4536985_step_25/tdc_asap_TabPFN_Pprime.py",
+        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_preparation/job_4537762/original_registered_GPU_model.py",
         "future_dependency": 4537124,
         "native_dependency": "afterany:4537454,afterok:4537124",
         "superseded_GPU_job": 4537229,
-        "job": 4537714,
-        "target_node": "compute-0-22",
-        "source_file": "workflows/benchmark_evaluation/gpu_tdc_asap_tabpfn_pprime.sbatch",
+        "job": 4537765,
+        "target_node": "compute-0-7",
+        "source_file": "workflows/benchmark_evaluation/c1_tdc_asap_failed_report_GPU7.sbatch",
         "retain_original_job": false,
         "model_seed": 20261025,
         "superseded_zero_start_GPU_job": 4537285,
         "parallel_reroute_preparation": 4537477,
         "actual_future_GPU_admission_required": true,
-        "primary_execution_backend": "CPU",
+        "primary_execution_backend": "GPU7",
         "superseded_zero_start_GPU_primary": 4537479,
         "future_confirmation_GPU_template_preserved": true,
         "continuation_of_native_job": 4537694,
-        "CPU_continuation_source_file": "workflows/benchmark_evaluation/c1_tdc_asap_failed_report_continuation.sbatch"
+        "CPU_continuation_source_file": "workflows/benchmark_evaluation/c1_tdc_asap_failed_report_continuation.sbatch",
+        "zero_start_CPU_failed_continuation_superseded": 4537714
       }
     ],
     "no_training_rollback_or_lost_samples": false,
@@ -4409,107 +4410,111 @@
       "previous_pending_definition": {
         "previous_pending_definition": {
           "previous_pending_definition": {
-            "supersedes_previous_pending_definition": {
-              "submitted": true,
-              "native_job": 4537502,
-              "native_state": "PENDING_DEPENDENCY",
-              "requires_successful_frozen_B1_screen": 4537430,
-              "active_C1_source_dependencies": [
-                4537281,
-                4537282,
-                4537063,
-                4537068,
-                4537125,
-                4537283,
-                4537127,
-                4537478,
-                4537129,
-                4537479,
-                4537131,
-                4537480,
-                4537133,
-                4537481,
-                4537135,
-                4537288,
-                4537137,
-                4537482,
-                4537139,
-                4537483,
-                4537141,
-                4537291,
-                4537143,
-                4537484,
-                4537145,
-                4537485,
-                4537147,
-                4537486,
-                4537150,
-                4537487,
-                4537152,
-                4537488,
-                4537154,
-                4537489,
-                4537156,
-                4537298,
-                4537158,
-                4537490,
-                4537160,
-                4537491,
-                4537162,
-                4537301,
-                4537164,
-                4537492,
-                4537166,
-                4537493,
-                4537168,
-                4537304,
-                4537170,
-                4537494,
-                4537172,
-                4537306,
-                4537174,
-                4537495,
-                4537176,
-                4537308,
-                4537178,
-                4537496,
-                4537180,
-                4537497,
-                4537182,
-                4537498,
-                4537184,
-                4537499,
-                4537186,
-                4537313,
-                4537188,
-                4537500,
-                4537190,
-                4537501,
-                4537192,
-                4537316,
-                4537321
-              ],
-              "all_original_source_accounting_rechecked_at_execution": true,
-              "final_C1_table": false,
-              "final_SHA": false,
-              "job": 4537502,
-              "superseded_job": 4537431
+            "previous_pending_definition": {
+              "supersedes_previous_pending_definition": {
+                "submitted": true,
+                "native_job": 4537502,
+                "native_state": "PENDING_DEPENDENCY",
+                "requires_successful_frozen_B1_screen": 4537430,
+                "active_C1_source_dependencies": [
+                  4537281,
+                  4537282,
+                  4537063,
+                  4537068,
+                  4537125,
+                  4537283,
+                  4537127,
+                  4537478,
+                  4537129,
+                  4537479,
+                  4537131,
+                  4537480,
+                  4537133,
+                  4537481,
+                  4537135,
+                  4537288,
+                  4537137,
+                  4537482,
+                  4537139,
+                  4537483,
+                  4537141,
+                  4537291,
+                  4537143,
+                  4537484,
+                  4537145,
+                  4537485,
+                  4537147,
+                  4537486,
+                  4537150,
+                  4537487,
+                  4537152,
+                  4537488,
+                  4537154,
+                  4537489,
+                  4537156,
+                  4537298,
+                  4537158,
+                  4537490,
+                  4537160,
+                  4537491,
+                  4537162,
+                  4537301,
+                  4537164,
+                  4537492,
+                  4537166,
+                  4537493,
+                  4537168,
+                  4537304,
+                  4537170,
+                  4537494,
+                  4537172,
+                  4537306,
+                  4537174,
+                  4537495,
+                  4537176,
+                  4537308,
+                  4537178,
+                  4537496,
+                  4537180,
+                  4537497,
+                  4537182,
+                  4537498,
+                  4537184,
+                  4537499,
+                  4537186,
+                  4537313,
+                  4537188,
+                  4537500,
+                  4537190,
+                  4537501,
+                  4537192,
+                  4537316,
+                  4537321
+                ],
+                "all_original_source_accounting_rechecked_at_execution": true,
+                "final_C1_table": false,
+                "final_SHA": false,
+                "job": 4537502,
+                "superseded_job": 4537431
+              },
+              "current_job": 4537686,
+              "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_primary_chain_wiring/job_4537685/proposed_sources.json",
+              "source": "ready_CPU_resource_reassignment"
             },
-            "current_job": 4537686,
-            "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_primary_chain_wiring/job_4537685/proposed_sources.json",
-            "source": "ready_CPU_resource_reassignment"
+            "current_job": 4537701,
+            "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_tabular_CPU_continuation_repair/job_4537700/proposed_sources.json"
           },
-          "current_job": 4537701,
-          "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_tabular_CPU_continuation_repair/job_4537700/proposed_sources.json"
+          "current_job": 4537715,
+          "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json"
         },
-        "current_job": 4537715,
-        "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json"
+        "current_job": 4537733,
+        "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json"
       },
-      "current_job": 4537733,
-      "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json"
+      "current_job": 4537756,
+      "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/terminal_CPU14_native_continuation/job_4537753/proposed_sources.json"
     },
-    "current_job": 4537756,
-    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/terminal_CPU14_native_continuation/job_4537753/proposed_sources.json"
+    "current_job": 4537766,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_wiring/job_4537764/proposed_sources.json"
   },
   "GPU7_e7_e8_reassignment": {
     "source_check_step": "4537025.21",
@@ -4795,22 +4800,26 @@
       "previous_pending_definition": {
         "previous_pending_definition": {
           "previous_pending_definition": {
-            "supersedes_previous_pending_definition": null,
-            "current_job": 4537688,
-            "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_primary_chain_wiring/job_4537685/proposed_sources.json",
-            "source": "ready_CPU_resource_reassignment"
+            "previous_pending_definition": {
+              "supersedes_previous_pending_definition": null,
+              "current_job": 4537688,
+              "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_primary_chain_wiring/job_4537685/proposed_sources.json",
+              "source": "ready_CPU_resource_reassignment"
+            },
+            "current_job": 4537703,
+            "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_tabular_CPU_continuation_repair/job_4537700/proposed_sources.json"
           },
-          "current_job": 4537703,
-          "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_tabular_CPU_continuation_repair/job_4537700/proposed_sources.json"
+          "current_job": 4537717,
+          "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json"
         },
-        "current_job": 4537717,
-        "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json"
+        "current_job": 4537735,
+        "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json"
       },
-      "current_job": 4537735,
-      "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json"
+      "current_job": 4537758,
+      "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/terminal_CPU14_native_continuation/job_4537753/proposed_sources.json"
     },
-    "current_job": 4537758,
-    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/terminal_CPU14_native_continuation/job_4537753/proposed_sources.json"
+    "current_job": 4537768,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_wiring/job_4537764/proposed_sources.json"
   },
   "C1_GPU7_actual_primary_progress": {
     "closed": [
@@ -5064,7 +5073,9 @@
     "source_groups": 104,
     "original_source_groups_preserved": 103,
     "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json",
-    "scientific_endpoint_configuration_scope": "UNCHANGED_561_CELLS"
+    "scientific_endpoint_configuration_scope": "UNCHANGED_561_CELLS",
+    "zero_start_CPU_continuation_7714_superseded_by_GPU7": 4537765,
+    "old_successful_primary_7694_preserved": true
   },
   "C1_Biogen_CPU_closure_20261121": {
     "Pprime": {
@@ -5246,6 +5257,80 @@
       }
     ],
     "no_scientific_metrics_read": true
+  },
+  "C1_failed_report_GPU7_resource_reassignment_20261121": {
+    "status": "FAILED_REPORT_GPU7_CHAIN_WIRED_AND_RELEASED",
+    "job": "4537764",
+    "new_jobs": [
+      {
+        "job": 4537765,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_wiring/job_4537764/c1_tdc_asap_failed_report_GPU7.sbatch",
+        "dependency": "afterany:4537694",
+        "GPU7": true
+      },
+      {
+        "job": 4537766,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_wiring/job_4537764/c1_primary_comparisons.sbatch",
+        "dependency": "afterany:4537694,afterany:4537697,afterany:4537698,afterany:4537150,afterany:4537487,afterany:4537152,afterany:4537488,afterany:4537154,afterany:4537489,afterany:4537156,afterany:4537298,afterany:4537158,afterany:4537490,afterany:4537160,afterany:4537491,afterany:4537162,afterany:4537301,afterany:4537164,afterany:4537492,afterany:4537166,afterany:4537493,afterany:4537168,afterany:4537304,afterany:4537170,afterany:4537494,afterany:4537172,afterany:4537306,afterany:4537174,afterany:4537495,afterany:4537176,afterany:4537308,afterany:4537178,afterany:4537496,afterany:4537180,afterany:4537497,afterany:4537182,afterany:4537498,afterany:4537184,afterany:4537499,afterany:4537186,afterany:4537313,afterany:4537188,afterany:4537500,afterany:4537190,afterany:4537501,afterany:4537192,afterany:4537316,afterany:4537321,afterany:4537765",
+        "GPU7": false
+      },
+      {
+        "job": 4537767,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_wiring/job_4537764/c1_conditional_sources_prepare.sbatch",
+        "dependency": "afterok:4537766",
+        "GPU7": false
+      },
+      {
+        "job": 4537768,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_wiring/job_4537764/c1_conditional_chain_dispatch.sbatch",
+        "dependency": "afterok:4537767",
+        "GPU7": false
+      }
+    ],
+    "cancelled": [
+      4537714,
+      4537756,
+      4537757,
+      4537758
+    ],
+    "released": [
+      4537765,
+      4537766,
+      4537767,
+      4537768
+    ],
+    "original_primary_preserved": 4537694,
+    "old_zero_start_CPU_continuation": 4537714,
+    "validation_job": 4537762,
+    "validation_interface_tests": 23,
+    "full_original_CPU_to_CUDA_AST_identical": true,
+    "source_groups": 104,
+    "scientific_cells": 561,
+    "successful_original_predictions_replayed": false,
+    "extra_context_attempts_added": false,
+    "model_seed": 20261025,
+    "old_pending_jobs_held": [
+      4537714,
+      4537756,
+      4537757,
+      4537758
+    ],
+    "GPU_failed_only_job": 4537765,
+    "primary_job": 4537766,
+    "conditional_preparation_job": 4537767,
+    "controller_job": 4537768,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_wiring/job_4537764/proposed_sources.json",
+    "actual_GPU7_uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+    "actual_empty_context_before_wiring": true,
+    "source_check": {
+      "status": "PASS",
+      "files": 5595,
+      "bytes": 66226349,
+      "python_files": 3778,
+      "server_sources_verified": 1311,
+      "export_verification_required": false,
+      "errors": []
+    }
   },
   "shared_NFS_futures_reconciliation": {
     "native_deployment": 4537550,
@@ -6068,5 +6153,15 @@
     "wchan": "nfs_wait_bit_killable",
     "producer_state": "RUNNING",
     "no_restart_or_model_change": true
+  },
+  "C1_failed_report_GPU7_equivalence_preparation_20261121": {
+    "job": 4537762,
+    "state": "COMPLETED/0:0",
+    "interface_tests": 23,
+    "full_CPU_to_registered_CUDA_AST_identical": true,
+    "constructor_fit_predict_AST_device_only": true,
+    "failed_subset_model_AST_unchanged": true,
+    "active_and_TIMEOUT_originals_rejected": true,
+    "science_payloads_or_model_executions": false
   }
 }
