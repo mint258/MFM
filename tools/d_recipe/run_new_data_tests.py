@@ -44,13 +44,13 @@ def main():
     scratch = Path("/tmp") / ("d_recipe_tests_" + str(os.getuid()) + "_" + identity)
     scratch.mkdir(exist_ok=True)
     tempfile.tempdir = str(scratch)
-    for relative in ("pilot.py", "prepare.py", "produce.py", "statistics.py", "storage.py", "existing.py"):
+    for relative in ("pilot.py", "prepare.py", "produce.py", "statistics.py", "storage.py", "existing.py", "zero_scale_amendment.py"):
         path = data / "workflows" / "data_d_descriptors" / relative
         ast.parse(path.read_text(), filename=str(path))
     suite = unittest.TestSuite()
     loader = unittest.defaultTestLoader
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_loss.py"))
-    for name in ("test_statistics", "test_prepare", "test_produce", "test_finalization_continuation", "test_storage", "test_existing", "test_full_plan", "test_b6_cache", "test_export", "test_prepare_development", "test_prepare_benchmark", "test_development_geometry", "test_development_d3", "test_merge_development_d3", "test_source_smiles"):
+    for name in ("test_statistics", "test_prepare", "test_produce", "test_finalization_continuation", "test_zero_scale_amendment", "test_storage", "test_existing", "test_full_plan", "test_b6_cache", "test_export", "test_prepare_development", "test_prepare_benchmark", "test_development_geometry", "test_development_d3", "test_merge_development_d3", "test_source_smiles"):
         module = importlib.import_module("workflows.data_d_descriptors." + name)
         suite.addTests(loader.loadTestsFromModule(module))
     suite.addTests(loader.discover(str(recipe / "tests"), pattern="test_d_recipe_wide_store.py"))
