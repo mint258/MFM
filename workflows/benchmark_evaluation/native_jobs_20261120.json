@@ -6041,5 +6041,32 @@
     "completed": 2,
     "failures": 0,
     "metrics_read": false
+  },
+  "C1_reference_pending_source_capture_20261121": {
+    "job": 4537760,
+    "native_state": "COMPLETED/0:0",
+    "seconds": 2,
+    "sources": 45,
+    "compiled_programs": 22,
+    "all_pending_zero_runtime": true,
+    "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/reference_pending_native_capture/job_4537760/manifest.json",
+    "feature_producer_preserved": 4537149,
+    "models_or_jobs_changed": false,
+    "scientific_predictions_or_metrics_read": false
+  },
+  "CPU14_feature_actual_NFS_wait_20261121": {
+    "at": "2026-11-21T03:48:58UTC",
+    "native_step": "4537149.1",
+    "native_state": "COMPLETED/0:0",
+    "elapsed_seconds": 3,
+    "actual_hostname": "compute-0-14",
+    "root_tmp_filesystem": "/dev/mapper/sonmihpc_compute--0--18-root",
+    "root_tmp_free_bytes": 69635497984,
+    "root_tmp_free_inodes": 36542344,
+    "feature_python_PID": 2515093,
+    "state": "D",
+    "wchan": "nfs_wait_bit_killable",
+    "producer_state": "RUNNING",
+    "no_restart_or_model_change": true
   }
 }
