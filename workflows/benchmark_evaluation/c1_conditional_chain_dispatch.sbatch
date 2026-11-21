@@ -34,15 +34,21 @@ def safe():
 safe()
 module=types.ModuleType("conditional_chain")
 exec(compile(sources["workflows/benchmark_evaluation/conditional_chain.py"],"conditional_chain","exec"),module.__dict__)
-preparation_path=b1/"conditional_preparation/C1/job_4537851/manifest.json"
+preparation_path=b1/"conditional_preparation/C1/job_4537860/manifest.json"
 preparation=json.loads(preparation_path.read_text())
-module.validated_groups(preparation,b1)
+groups=module.validated_groups(preparation,b1)
 out=b1/"conditional_dispatch/C1"/("job_"+os.environ["SLURM_JOB_ID"])
 safe();out.mkdir(parents=True,exist_ok=False)
 def write(path,value):
     safe()
     payload=value if isinstance(value,str) else json.dumps(value,indent=2)+"\n"
     with path.open("w") as stream:stream.write(payload)
+queues={}
+for node in sorted({group["node"] for group in groups}):
+    queues[node]=subprocess.check_output(["squeue","--array","-h","-p","gpu","-w",node,
+        "-t","RUNNING,COMPLETING,CONFIGURING,SUSPENDED,RESIZING","-o","%i|%u|%T"],text=True,timeout=30)
+gpu_predecessors=module.protected_gpu_predecessors(groups,queues)
+write(out/"protected_gpu_queues.json",dict(observed_at_epoch=time.time(),native_queues=queues,initial_gpu_predecessors=gpu_predecessors))
 def command(args):
     return subprocess.check_output(["ssh","-n","-o","BatchMode=yes","-o","ConnectTimeout=10","sonmi",shlex.join(args)],
         text=True,timeout=60).strip()
@@ -66,6 +72,6 @@ atomic=json.loads(atomic_path.read_text())
 native_atomic=command(["sacct","-j","4537644","-X","-n","-P","-o","JobID,State,ExitCode"])
 precondition=gate.closed_atomic_prerequisite(atomic,native_atomic)
 write(out/"closed_atomic_prerequisite.json",dict(precondition,manifest=str(atomic_path),native_accounting=native_atomic))
-result=module.wire(preparation,preparation_path,b1,out,cache,scripts,submit,release,write,final_prerequisite_jobs=[])
+result=module.wire(preparation,preparation_path,b1,out,cache,scripts,submit,release,write,final_prerequisite_jobs=[],initial_gpu_predecessors=gpu_predecessors)
 print("C1_CONDITIONAL_CHAIN_RELEASED",out/"dispatch_state.json","final_export",result["final_export_job"],flush=True)
 PY

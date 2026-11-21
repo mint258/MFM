@@ -47,6 +47,39 @@ def validated_groups(preparation, owned_root):
         raise ValueError("Every required C1 configuration must have exactly one prepared source")
     return groups
 
+
+def protected_gpu_predecessors(groups, queues_by_node, own_user="zixiao"):
+    """Observe active allocations now; never reserve a card for a pending future job."""
+    active={"RUNNING","COMPLETING","CONFIGURING","SUSPENDED","RESIZING"}
+    slots={}
+    for group in groups:
+        node=group["node"];uuid=group["uuid"]
+        if node not in {"compute-0-5","compute-0-7","compute-0-22"} or not uuid.startswith("GPU-"):
+            raise ValueError("Unknown registered GPU backend")
+        if node in slots and slots[node]!=uuid:
+            raise ValueError("Conflicting GPU identity for a registered node")
+        slots[node]=uuid
+    result={}
+    for node,uuid in slots.items():
+        raw=queues_by_node.get(node)
+        if not isinstance(raw,str):
+            raise ValueError("Every target GPU node needs a current native queue observation")
+        seen={};jobs=[]
+        for line in raw.splitlines():
+            fields=line.strip().split("|")
+            if len(fields)!=3:
+                raise ValueError("Malformed native active GPU allocation")
+            job,owner,state=fields
+            if not re.fullmatch(r"[1-9][0-9]*(?:_[0-9]+)?",job) or not owner or state not in active:
+                raise ValueError("Invalid native active GPU allocation")
+            if job in seen and seen[job]!=(owner,state):
+                raise ValueError("Conflicting native GPU allocation identity")
+            if job in seen:continue
+            seen[job]=(owner,state)
+            if node!="compute-0-22" or owner==own_user:jobs.append(job)
+        result[uuid]=jobs
+    return result
+
 def native_batch_script(script):
     """Accept a registered raw batch script or its exact single sbatch heredoc envelope."""
     if script.startswith("#!/bin/bash\n"):
@@ -63,27 +96,39 @@ def script_with_exports(script, exports):
     prefix="".join("export "+key+"="+shlex.quote(str(value))+"\n" for key,value in sorted(exports.items()))
     return script.replace("\nset -euo pipefail\n","\nset -euo pipefail\n"+prefix,1)
 
-def wire(preparation, preparation_path, owned_root, out, source_cache, scripts, submit, release, write, final_prerequisite_jobs=()):
+def wire(preparation, preparation_path, owned_root, out, source_cache, scripts, submit, release, write, final_prerequisite_jobs=(), initial_gpu_predecessors=None):
     """All jobs remain held until exact returned IDs and the complete chain are recorded."""
     groups=validated_groups(preparation,owned_root)
     prerequisites=[str(job) for job in final_prerequisite_jobs]
     if any(not re.fullmatch(r"[1-9][0-9]*",job) for job in prerequisites) or len(set(prerequisites))!=len(prerequisites):
         raise ValueError("Final prerequisites must be distinct actual native Slurm job IDs")
+    barriers={}
+    uuids={group["uuid"] for group in groups}
+    for uuid,jobs in (initial_gpu_predecessors or {}).items():
+        if uuid not in uuids or not isinstance(jobs,(list,tuple)):
+            raise ValueError("GPU prerequisites must belong to the prepared GPU slots")
+        values=[str(job) for job in jobs]
+        if any(not re.fullmatch(r"[1-9][0-9]*(?:_[0-9]+)?",job) for job in values) or len(set(values))!=len(values):
+            raise ValueError("GPU prerequisites must be distinct actual native allocation IDs")
+        barriers[uuid]=values
+    protected={job for jobs in barriers.values() for job in jobs}
     scripts={name:script_with_exports(scripts[name],{}) for name in ("report","combine","final")}
     out=Path(out);bindings_path=out/"dispatch_bindings.json"
     bindings=dict(stage="C1",preparation_manifest=str(preparation_path),groups=[],unresolved_cells=[])
-    record=dict(status="PREPARING_HELD_NATIVE_CHAIN",bindings=bindings,native_jobs=[],jobs_released=[],final_prerequisite_jobs=prerequisites)
+    record=dict(status="PREPARING_HELD_NATIVE_CHAIN",bindings=bindings,native_jobs=[],jobs_released=[],final_prerequisite_jobs=prerequisites,initial_gpu_predecessors=barriers)
     write(out/"dispatch_state.json",record)
     last={};gpu_jobs=[]
     def new_job(path,dependency=None):
         job=str(submit(path,dependency))
-        if not re.fullmatch(r"[1-9][0-9]*",job) or job in record["native_jobs"]:
+        if not re.fullmatch(r"[1-9][0-9]*",job) or job in record["native_jobs"] or job in protected:
             raise ValueError("A unique actual native Slurm job ID is required")
         record["native_jobs"].append(job)
         write(out/"dispatch_state.json",record)
         return job
     for group in groups:
-        job=new_job(Path(group["script"]),("afterany:"+last[group["uuid"]]) if group["uuid"] in last else None)
+        uuid=group["uuid"]
+        previous=[last[uuid]] if uuid in last else barriers.get(uuid,[])
+        job=new_job(Path(group["script"]),("afterany:"+":".join(previous)) if previous else None)
         last[group["uuid"]]=job;gpu_jobs.append(job)
         bindings["groups"].append(dict(primary_job=str(group["primary_job"]),runs=[dict(job=int(job),array=group["array"])]))
         write(bindings_path,bindings)

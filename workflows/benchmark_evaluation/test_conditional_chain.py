@@ -2,7 +2,7 @@
 import copy
 from pathlib import Path
 import unittest
-from .conditional_chain import wire,validated_groups
+from .conditional_chain import wire,validated_groups,protected_gpu_predecessors
 
 class ChainTests(unittest.TestCase):
     root=Path("/owned")
@@ -18,7 +18,7 @@ class ChainTests(unittest.TestCase):
                     reason="FINAL_SIGNIFICANT_IMPROVEMENT",frozen_B1_role="RETAIN",confirmation_seed=20261026,primary_seed=20261025)]))
         return dict(stage="C1",status="CONDITIONAL_NEURAL_SOURCE_PREPARATION_CLOSED",failures=[],
             prepared_native_groups=tasks,required_configuration_rows=count)
-    def run_chain(self,prep,fail_at=None,scripts=None,final_prerequisite_jobs=()):
+    def run_chain(self,prep,fail_at=None,scripts=None,final_prerequisite_jobs=(),initial_gpu_predecessors=None):
         self.writes={};self.submissions=[];self.releases=[]
         def write(path,value):self.writes[str(path)]=copy.deepcopy(value)
         def submit(path,dependency):
@@ -30,7 +30,7 @@ class ChainTests(unittest.TestCase):
             self.releases.append(job)
         script="#!/bin/bash\n#SBATCH --partition=cpu\nset -euo pipefail\ntrue\n"
         return wire(prep,"/owned/prep/manifest.json",self.root,"/owned/out","/owned/cache.json",
-            scripts if scripts is not None else dict(report=script,combine=script,final=script),submit,release,write,final_prerequisite_jobs=final_prerequisite_jobs)
+            scripts if scripts is not None else dict(report=script,combine=script,final=script),submit,release,write,final_prerequisite_jobs=final_prerequisite_jobs,initial_gpu_predecessors=initial_gpu_predecessors)
     def test_same_uuid_serialized_and_all_exact_ids_recorded_before_release(self):
         result=self.run_chain(self.prep())
         self.assertEqual([dep for _,dep in self.submissions],[None,"afterany:201","afterany:201:202","afterok:203","afterok:204"])
@@ -101,5 +101,35 @@ class ChainTests(unittest.TestCase):
         with self.assertRaises(ValueError):validated_groups(prep,self.root)
         prep=self.prep();prep["prepared_native_groups"][1]=copy.deepcopy(prep["prepared_native_groups"][0])
         with self.assertRaises(ValueError):validated_groups(prep,self.root)
+
+
+    def test_first_group_waits_for_active_allocations_then_serializes_its_own_successor(self):
+        result=self.run_chain(self.prep(),initial_gpu_predecessors={"GPU-one":["301","302_4"]})
+        self.assertEqual([dep for _,dep in self.submissions[:2]],["afterany:301:302_4","afterany:201"])
+        self.assertEqual(result["initial_gpu_predecessors"],{"GPU-one":["301","302_4"]})
+    def test_unknown_gpu_or_invalid_barriers_rejected_before_submission(self):
+        for bad in ({"GPU-other":["301"]},{"GPU-one":["301","301"]},{"GPU-one":["pending"]},{"GPU-one":"301"}):
+            with self.assertRaises(ValueError):self.run_chain(self.prep(),initial_gpu_predecessors=bad)
+            self.assertEqual(self.submissions,[])
+
+class ActiveGPUQueueTests(unittest.TestCase):
+    def groups(self):
+        return [dict(node="compute-0-"+str(n),uuid="GPU-"+str(n)) for n in (5,7,22)]
+    def test_idle_required_cards_wait_for_every_active_owner_and_shared_card_only_own(self):
+        raw="301|zixiao|RUNNING\n302_4|other|COMPLETING\n303|zixiao|SUSPENDED"
+        result=protected_gpu_predecessors(self.groups(),{"compute-0-"+str(n):raw for n in (5,7,22)})
+        self.assertEqual(result,{"GPU-5":["301","302_4","303"],"GPU-7":["301","302_4","303"],"GPU-22":["301","303"]})
+    def test_explicit_empty_observation_and_no_required_groups_acquire_no_wait(self):
+        self.assertEqual(protected_gpu_predecessors(self.groups()[:1],{"compute-0-5":""}),{"GPU-5":[]})
+        self.assertEqual(protected_gpu_predecessors([],{}),{})
+    def test_missing_observation_is_not_evidence_of_an_idle_gpu(self):
+        with self.assertRaises(ValueError):protected_gpu_predecessors(self.groups(),{"compute-0-5":""})
+    def test_pending_or_malformed_observations_never_create_reservations(self):
+        for raw in ("301|zixiao|PENDING","0|zixiao|RUNNING","301||RUNNING","301|zixiao","301_2-4|zixiao|RUNNING",
+                    "301|zixiao|RUNNING\n301|other|RUNNING"):
+            with self.assertRaises(ValueError):protected_gpu_predecessors(self.groups()[:1],{"compute-0-5":raw})
+    def test_duplicate_observation_is_one_wait_and_conflicting_gpu_mapping_is_rejected(self):
+        self.assertEqual(protected_gpu_predecessors(self.groups()[:1],{"compute-0-5":"301|zixiao|RUNNING\n301|zixiao|RUNNING"}),{"GPU-5":["301"]})
+        with self.assertRaises(ValueError):protected_gpu_predecessors(self.groups()[:1]+[dict(node="compute-0-5",uuid="GPU-other")],{"compute-0-5":""})
 
 if __name__=="__main__":unittest.main()

@@ -12,7 +12,7 @@ set -euo pipefail
 repo=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_b1_20261119
 export PYTHONPATH="$repo:/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/runtime_deps:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps"
 export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 CUDA_VISIBLE_DEVICES='' PYTHONDONTWRITEBYTECODE=1
-export BENCHMARK_SOURCE_CACHE=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/reference_idle_GPU7_handover/job_4537843/proposed_sources.json
+export BENCHMARK_SOURCE_CACHE=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/C1_active_GPU_gates_native_chain/job_4537859/proposed_sources.json
 export BENCHMARK_CONFIRMATION_STAGE=C1
 cd "$repo"
 findmnt -T "$repo"
