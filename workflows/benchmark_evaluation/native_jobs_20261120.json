@@ -4123,20 +4123,11 @@
       "children": 11
     },
     "latest_integration": {
-      "job": 4537712,
-      "state": "COMPLETED/0:0",
-      "files": 5591,
-      "python_files": 3778,
-      "evaluation_tests": 180,
-      "science_replayed": false
-    },
-    "latest_source_check": {
-      "job": 4537718,
-      "state": "COMPLETED/0:0",
+      "job": 4537730,
       "files": 5592,
       "python_files": 3778,
-      "new_native_wrappers_validated": 4,
-      "STATUS_paths": 6,
+      "evaluation_tests": 188,
+      "source_check": "PASS",
       "science_replayed": false
     }
   },
@@ -4416,101 +4407,105 @@
   "C1_primary_consumer": {
     "previous_pending_definition": {
       "previous_pending_definition": {
-        "supersedes_previous_pending_definition": {
-          "submitted": true,
-          "native_job": 4537502,
-          "native_state": "PENDING_DEPENDENCY",
-          "requires_successful_frozen_B1_screen": 4537430,
-          "active_C1_source_dependencies": [
-            4537281,
-            4537282,
-            4537063,
-            4537068,
-            4537125,
-            4537283,
-            4537127,
-            4537478,
-            4537129,
-            4537479,
-            4537131,
-            4537480,
-            4537133,
-            4537481,
-            4537135,
-            4537288,
-            4537137,
-            4537482,
-            4537139,
-            4537483,
-            4537141,
-            4537291,
-            4537143,
-            4537484,
-            4537145,
-            4537485,
-            4537147,
-            4537486,
-            4537150,
-            4537487,
-            4537152,
-            4537488,
-            4537154,
-            4537489,
-            4537156,
-            4537298,
-            4537158,
-            4537490,
-            4537160,
-            4537491,
-            4537162,
-            4537301,
-            4537164,
-            4537492,
-            4537166,
-            4537493,
-            4537168,
-            4537304,
-            4537170,
-            4537494,
-            4537172,
-            4537306,
-            4537174,
-            4537495,
-            4537176,
-            4537308,
-            4537178,
-            4537496,
-            4537180,
-            4537497,
-            4537182,
-            4537498,
-            4537184,
-            4537499,
-            4537186,
-            4537313,
-            4537188,
-            4537500,
-            4537190,
-            4537501,
-            4537192,
-            4537316,
-            4537321
-          ],
-          "all_original_source_accounting_rechecked_at_execution": true,
-          "final_C1_table": false,
-          "final_SHA": false,
-          "job": 4537502,
-          "superseded_job": 4537431
+        "previous_pending_definition": {
+          "supersedes_previous_pending_definition": {
+            "submitted": true,
+            "native_job": 4537502,
+            "native_state": "PENDING_DEPENDENCY",
+            "requires_successful_frozen_B1_screen": 4537430,
+            "active_C1_source_dependencies": [
+              4537281,
+              4537282,
+              4537063,
+              4537068,
+              4537125,
+              4537283,
+              4537127,
+              4537478,
+              4537129,
+              4537479,
+              4537131,
+              4537480,
+              4537133,
+              4537481,
+              4537135,
+              4537288,
+              4537137,
+              4537482,
+              4537139,
+              4537483,
+              4537141,
+              4537291,
+              4537143,
+              4537484,
+              4537145,
+              4537485,
+              4537147,
+              4537486,
+              4537150,
+              4537487,
+              4537152,
+              4537488,
+              4537154,
+              4537489,
+              4537156,
+              4537298,
+              4537158,
+              4537490,
+              4537160,
+              4537491,
+              4537162,
+              4537301,
+              4537164,
+              4537492,
+              4537166,
+              4537493,
+              4537168,
+              4537304,
+              4537170,
+              4537494,
+              4537172,
+              4537306,
+              4537174,
+              4537495,
+              4537176,
+              4537308,
+              4537178,
+              4537496,
+              4537180,
+              4537497,
+              4537182,
+              4537498,
+              4537184,
+              4537499,
+              4537186,
+              4537313,
+              4537188,
+              4537500,
+              4537190,
+              4537501,
+              4537192,
+              4537316,
+              4537321
+            ],
+            "all_original_source_accounting_rechecked_at_execution": true,
+            "final_C1_table": false,
+            "final_SHA": false,
+            "job": 4537502,
+            "superseded_job": 4537431
+          },
+          "current_job": 4537686,
+          "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_primary_chain_wiring/job_4537685/proposed_sources.json",
+          "source": "ready_CPU_resource_reassignment"
         },
-        "current_job": 4537686,
-        "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_primary_chain_wiring/job_4537685/proposed_sources.json",
-        "source": "ready_CPU_resource_reassignment"
+        "current_job": 4537701,
+        "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_tabular_CPU_continuation_repair/job_4537700/proposed_sources.json"
       },
-      "current_job": 4537701,
-      "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_tabular_CPU_continuation_repair/job_4537700/proposed_sources.json"
+      "current_job": 4537715,
+      "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json"
     },
-    "current_job": 4537715,
-    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json"
+    "current_job": 4537733,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json"
   },
   "GPU7_e7_e8_reassignment": {
     "source_check_step": "4537025.21",
@@ -4794,16 +4789,20 @@
   "C1_conditional_automatic_chain": {
     "previous_pending_definition": {
       "previous_pending_definition": {
-        "supersedes_previous_pending_definition": null,
-        "current_job": 4537688,
-        "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_primary_chain_wiring/job_4537685/proposed_sources.json",
-        "source": "ready_CPU_resource_reassignment"
+        "previous_pending_definition": {
+          "supersedes_previous_pending_definition": null,
+          "current_job": 4537688,
+          "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_primary_chain_wiring/job_4537685/proposed_sources.json",
+          "source": "ready_CPU_resource_reassignment"
+        },
+        "current_job": 4537703,
+        "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_tabular_CPU_continuation_repair/job_4537700/proposed_sources.json"
       },
-      "current_job": 4537703,
-      "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_tabular_CPU_continuation_repair/job_4537700/proposed_sources.json"
+      "current_job": 4537717,
+      "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json"
     },
-    "current_job": 4537717,
-    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json"
+    "current_job": 4537735,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json"
   },
   "C1_GPU7_actual_primary_progress": {
     "closed": [
@@ -5012,7 +5011,7 @@
     "tests": 4
   },
   "C1_failed_report_only_continuation_20261121": {
-    "status": "FAILED_REPORT_NATIVE_CHAIN_WIRED_AND_RELEASED",
+    "status": "FULL_FAILED_REPORT_CHAIN_RECORDED_BEFORE_RELEASE",
     "job": "4537713",
     "source_job": 4537694,
     "new_jobs": [
@@ -5037,17 +5036,8 @@
         "dependency": "afterok:4537716"
       }
     ],
-    "cancelled": [
-      4537701,
-      4537702,
-      4537703
-    ],
-    "released": [
-      4537714,
-      4537715,
-      4537716,
-      4537717
-    ],
+    "cancelled": [],
+    "released": [],
     "successful_original_predictions_refitted_or_copied": false,
     "default_model_seed": 20261025,
     "max_additional_context_inference_per_failed_task": 1,
@@ -5085,6 +5075,57 @@
       "completed": 6,
       "failures": 0
     },
+    "metrics_read": false
+  },
+  "C1_blind_outside_mean_first_report_binding_20261121": {
+    "status": "FULL_BLIND_POLICY_REPORT_CHAIN_RECORDED_BEFORE_RELEASE",
+    "job": "4537732",
+    "new_jobs": [
+      {
+        "job": 4537733,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/c1_primary_comparisons.sbatch",
+        "dependency": "afterany:4537693,afterany:4537694,afterany:4537695,afterany:4537697,afterany:4537141,afterany:4537143,afterany:4537698,afterany:4537699,afterany:4537150,afterany:4537487,afterany:4537152,afterany:4537488,afterany:4537154,afterany:4537489,afterany:4537156,afterany:4537298,afterany:4537158,afterany:4537490,afterany:4537160,afterany:4537491,afterany:4537162,afterany:4537301,afterany:4537164,afterany:4537492,afterany:4537166,afterany:4537493,afterany:4537168,afterany:4537304,afterany:4537170,afterany:4537494,afterany:4537172,afterany:4537306,afterany:4537174,afterany:4537495,afterany:4537176,afterany:4537308,afterany:4537178,afterany:4537496,afterany:4537180,afterany:4537497,afterany:4537182,afterany:4537498,afterany:4537184,afterany:4537499,afterany:4537186,afterany:4537313,afterany:4537188,afterany:4537500,afterany:4537190,afterany:4537501,afterany:4537192,afterany:4537316,afterany:4537321,afterany:4537714"
+      },
+      {
+        "job": 4537734,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/c1_conditional_sources_prepare.sbatch",
+        "dependency": "afterok:4537733"
+      },
+      {
+        "job": 4537735,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/c1_conditional_chain_dispatch.sbatch",
+        "dependency": "afterok:4537734"
+      }
+    ],
+    "cancelled": [],
+    "released": [],
+    "validation_job": 4537730,
+    "validation_tests": 188,
+    "models_started_refitted_or_changed": false,
+    "original_TEST_and_actual_TRAIN_means_unchanged": true,
+    "native_feature_values_imputed": false,
+    "source_groups": 104,
+    "scientific_cells": 561,
+    "first_report_policy": "Bind predeclared outside-domain means from actual native fit records; in-domain native failures remain missing",
+    "historical_estimates_policy": "Unchanged populations reuse closed scores; policy-complete populations get their first summary without replaying the historical subset score",
+    "held_original_reports": [
+      4537715,
+      4537716,
+      4537717
+    ],
+    "primary_job": 4537733,
+    "conditional_preparation_job": 4537734,
+    "controller_job": 4537735,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json",
+    "failed_only_model_continuation_preserved": 4537714
+  },
+  "C1_MoleculeACE_PD_TabPFN_closed_20261121": {
+    "job": 4537696,
+    "native_state": "COMPLETED/0:0",
+    "elapsed": "01:23:06",
+    "expected": 30,
+    "completed": 30,
+    "failures": 0,
     "metrics_read": false
   },
   "shared_NFS_futures_reconciliation": {
@@ -5785,5 +5826,61 @@
     "source_peer_commit": "98e6b38d51fc6ae2d5fed02d3b6f7c0b3f942685",
     "physical_policy_atomically_replaced": true,
     "previous_policy_artifact": "closed_D_R0_local_future_refresh/job_4537720/previous_policy.json"
+  },
+  "C1_blind_policy_first_report_20261121": {
+    "status": "BLIND_POLICY_REPORT_CHAIN_WIRED_AND_RELEASED",
+    "job": "4537732",
+    "new_jobs": [
+      {
+        "job": 4537733,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/c1_primary_comparisons.sbatch",
+        "dependency": "afterany:4537693,afterany:4537694,afterany:4537695,afterany:4537697,afterany:4537141,afterany:4537143,afterany:4537698,afterany:4537699,afterany:4537150,afterany:4537487,afterany:4537152,afterany:4537488,afterany:4537154,afterany:4537489,afterany:4537156,afterany:4537298,afterany:4537158,afterany:4537490,afterany:4537160,afterany:4537491,afterany:4537162,afterany:4537301,afterany:4537164,afterany:4537492,afterany:4537166,afterany:4537493,afterany:4537168,afterany:4537304,afterany:4537170,afterany:4537494,afterany:4537172,afterany:4537306,afterany:4537174,afterany:4537495,afterany:4537176,afterany:4537308,afterany:4537178,afterany:4537496,afterany:4537180,afterany:4537497,afterany:4537182,afterany:4537498,afterany:4537184,afterany:4537499,afterany:4537186,afterany:4537313,afterany:4537188,afterany:4537500,afterany:4537190,afterany:4537501,afterany:4537192,afterany:4537316,afterany:4537321,afterany:4537714"
+      },
+      {
+        "job": 4537734,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/c1_conditional_sources_prepare.sbatch",
+        "dependency": "afterok:4537733"
+      },
+      {
+        "job": 4537735,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/c1_conditional_chain_dispatch.sbatch",
+        "dependency": "afterok:4537734"
+      }
+    ],
+    "cancelled": [
+      4537715,
+      4537716,
+      4537717
+    ],
+    "released": [
+      4537733,
+      4537734,
+      4537735
+    ],
+    "validation_job": 4537730,
+    "validation_tests": 188,
+    "models_started_refitted_or_changed": false,
+    "original_TEST_and_actual_TRAIN_means_unchanged": true,
+    "native_feature_values_imputed": false,
+    "source_groups": 104,
+    "scientific_cells": 561,
+    "first_report_policy": "Bind predeclared outside-domain means from actual native fit records; in-domain native failures remain missing",
+    "historical_estimates_policy": "Unchanged populations reuse closed scores; policy-complete populations get their first summary without replaying the historical subset score",
+    "held_original_reports": [
+      4537715,
+      4537716,
+      4537717
+    ],
+    "primary_job": 4537733,
+    "conditional_preparation_job": 4537734,
+    "controller_job": 4537735,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json",
+    "failed_only_model_continuation_preserved": 4537714,
+    "source_publication_job": 4537738,
+    "source_check": "PASS",
+    "evaluation_regression_job": 4537730,
+    "evaluation_tests": 188,
+    "files": 5592,
+    "python_files": 3778
   }
 }

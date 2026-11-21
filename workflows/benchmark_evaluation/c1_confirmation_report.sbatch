@@ -201,7 +201,9 @@ for key,row in plans.items():
                 else:raise IncompleteComparison("Unregistered original C1 contrast")
         fit=fit_metadata_summary(candidate_meta[key],row["dataset"] in CV_DATASETS)
         evidence=summarize_confirmation(primary,candidate[key],references,sources=candidate_sources[key],
-            scaffold_cv=row["dataset"] in CV_DATASETS,fit_metadata=fit)
+            scaffold_cv=row["dataset"] in CV_DATASETS,fit_metadata=fit,
+            dataset=row["dataset"] if stage=="C1" else None,
+            blind_reference=baseline[(key[0],"LightGBM-RDKit2D")] if stage=="C1" else None)
         evidence["original_significant_comparisons"]=original_significant[key]
         for comparison in evidence["comparisons"]:
             comparison["original_primary_significant"]=comparison["comparison"] in original_significant[key]

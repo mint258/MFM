@@ -17,6 +17,68 @@ FEATURE_GROUPS=("D","Pprime","Pprime_plus_D")
 LEARNERS=("LightGBM","TabPFN")
 TERMINAL=frozenset(("COMPLETED","FAILED","CANCELLED","TIMEOUT","OUT_OF_MEMORY","NODE_FAIL","BOOT_FAIL","PREEMPTED","DEADLINE"))
 
+
+def bind_blind_fallbacks(reference, candidate, dataset):
+    """Bind predeclared outside-domain predictions without filling native features.
+
+    This is original-population binding for a new required report/comparison.
+    Means are copied from the actual fit's existing prediction records; TRAIN
+    labels and model predictions are never recomputed here.
+    """
+    rows=list(candidate)
+    if dataset not in BLIND_DATASETS:return rows,{}
+    original=index_predictions(reference)
+    current=index_predictions(rows,allow_native_missing=True)
+    if not set(current).issubset(original):
+        raise IncompleteComparison("Blind C1 predictions contain observations outside the original TEST")
+    outside={key:row for key,row in original.items()
+             if row.get("eligible") is False or row.get("retained") is False
+             or row.get("domain_eligible") is False or row.get("blind_fallback") is True}
+    note=dict(blind_outside_fallback_required_rows=len(outside),
+              blind_outside_fallback_rows_bound_by_report=0,
+              blind_outside_fallback_value_source="ACTUAL_CONFIGURATION_FIT_TRAIN_MEAN",
+              blind_fallback_native_features_imputed=False,
+              blind_fallback_model_refitted=False)
+    if not outside:return rows,note
+    if not rows:raise IncompleteComparison("A blind fallback requires an actual native fit TRAIN mean")
+    try:means={float(row["training_mean"]) for row in rows}
+    except (KeyError,TypeError,ValueError):
+        raise IncompleteComparison("The actual fit TRAIN mean is absent from native prediction records")
+    if len(means)!=1 or not all(math.isfinite(value) for value in means):
+        raise IncompleteComparison("A blind configuration has ambiguous actual fit TRAIN means")
+    mean=next(iter(means))
+    missing=[]
+    for key,truth in outside.items():
+        if key in current:
+            value=current[key]
+            if value["y_true"]!=truth["y_true"] or value["full_inchikey"]!=truth["full_inchikey"]:
+                raise IncompleteComparison("A blind fallback cannot hide changed TEST labels or identities")
+            if value["prediction"] is not None:
+                if value["prediction"]!=mean:
+                    raise IncompleteComparison("An outside-domain C1 prediction differs from its actual fit TRAIN mean")
+                continue
+        missing.append(key)
+    if not missing:return rows,note
+    fields=("native_producer_job","primary_source_job","native_source_folder")
+    origins={tuple(row.get(field) for field in fields) for row in rows}
+    if len(origins)!=1 or any(value in (None,"") for value in next(iter(origins))):
+        raise IncompleteComparison("A policy fallback needs one unambiguous actual native fit origin")
+    template=rows[0]
+    rows=[row for key,row in current.items() if key not in set(missing)]
+    identity_fields=("dataset","task","record_id","evaluation_id","endpoint_key","full_inchikey",
+                     "y_true","fit_population","repetition","fold","eligible","retained","domain_eligible")
+    candidate_fields=fields+("learner","feature_group","model_seed","seed")
+    for key in missing:
+        truth=outside[key]
+        value={field:truth[field] for field in identity_fields if field in truth}
+        value.update({field:template[field] for field in candidate_fields if field in template})
+        value.update(prediction=mean,training_mean=mean,blind_fallback=True,
+                     prediction_origin="PREDECLARED_OUTSIDE_DOMAIN_ACTUAL_FIT_TRAIN_MEAN",
+                     native_features_imputed=False,model_refitted=False)
+        rows.append(value)
+    note["blind_outside_fallback_rows_bound_by_report"]=len(missing)
+    return rows,note
+
 def expected_cells(catalog):
     cells=[]
     for endpoint in catalog:
@@ -214,6 +276,13 @@ def make_primary_report(catalog,screen,baselines,c1_predictions,unresolved=None,
     if set(roles)!={r["endpoint_key"] for r in catalog}:
         raise IncompleteComparison("C1 requires the one complete frozen B1 roster")
     endpoints={r["endpoint_key"]:r for r in catalog}
+    c1_predictions={cell:list(values) for cell,values in c1_predictions.items()}
+    blind_bindings={}
+    for cell,values in list(c1_predictions.items()):
+        key,feature,learner=cell
+        if endpoints[key]["dataset"] in BLIND_DATASETS:
+            c1_predictions[cell],blind_bindings[cell]=bind_blind_fallbacks(
+                baselines[key]["LightGBM-RDKit2D"],values,endpoints[key]["dataset"])
     table=[];contrasts=[];plan=[];seen_plan=set()
     for cell in expected_cells(catalog):
         key,feature,learner=cell
@@ -232,9 +301,15 @@ def make_primary_report(catalog,screen,baselines,c1_predictions,unresolved=None,
             continue
         source=baselines[key]["LightGBM-RDKit2D"]
         available,coverage=native_population(source,c1_predictions[cell],endpoint["dataset"] in CV_DATASETS)
-        scores=primary_statistics(available,(fit_metadata or {}).get(cell,[]),endpoint["dataset"] in CV_DATASETS)
+        binding=blind_bindings.get(cell,{})
+        changed_population=binding.get("blind_outside_fallback_rows_bound_by_report",0)>0
+        score_records=[] if changed_population else (fit_metadata or {}).get(cell,[])
+        scores=primary_statistics(available,score_records,endpoint["dataset"] in CV_DATASETS)
+        if changed_population:
+            scores["statistics_source"]="FIRST_CPU_SUMMARY_OF_POLICY_COMPLETE_BLIND_POPULATION"
+            scores["historical_subset_estimate_replayed"]=False
         fit=fit_metadata_summary((fit_metadata or {}).get(cell,[]),endpoint["dataset"] in CV_DATASETS)
-        table.append(dict(row,**coverage,**fit,**{k:v for k,v in scores.items() if k!="status"},status="PRIMARY_REPORTED"))
+        table.append(dict(row,**coverage,**fit,**binding,**{k:v for k,v in scores.items() if k!="status"},status="PRIMARY_REPORTED"))
         references=[("B1_LightGBM_RDKit2D",source)]
         if learner=="TabPFN":
             counterpart=(key,feature,"LightGBM")

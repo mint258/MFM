@@ -129,6 +129,79 @@ class FailedReportContinuationTests(unittest.TestCase):
             cell=("tdc_admet::retry::Y","Pprime","TabPFN")
             self.assertIn("PRODUCER_UNRESOLVED_AFTER_ALLOWED_REPORT_REPAIR",consumer.unresolved_cells[cell])
             self.assertFalse(consumer.predictions)
+
+class BlindFallbackBindingTests(unittest.TestCase):
+    def reference(self):
+        return [dict(dataset="ASAP_Polaris2025",task="HLM",endpoint_key="asap_polaris2025::HLM",record_id=str(i),
+            evaluation_id=str(i),full_inchikey="KEY-"+str(i),y_true=float(i+1),prediction=0.,training_mean=0.,
+            fit_population="retained",eligible=(i!=2)) for i in range(3)]
+    def native(self,job="701",mean=2.):
+        return [dict(row,prediction=None if i==1 else 1.5,training_mean=mean,native_producer_job=job,
+            primary_source_job=job,native_source_folder="/native/job_"+job,learner="TabPFN",feature_group="Pprime")
+            for i,row in enumerate(self.reference()[:2])]
+    def test_missing_outside_uses_actual_fit_mean_and_inside_missing_stays_missing(self):
+        from workflows.benchmark_evaluation.c1_reporting import bind_blind_fallbacks
+        original=self.native();rows,note=bind_blind_fallbacks(self.reference(),original,"ASAP_Polaris2025")
+        by_id={r["record_id"]:r for r in rows}
+        self.assertEqual(by_id["2"]["prediction"],2.)
+        self.assertEqual(by_id["2"]["training_mean"],2.)
+        self.assertIsNone(by_id["1"]["prediction"])
+        self.assertEqual(by_id["2"]["native_producer_job"],"701")
+        self.assertEqual(by_id["2"]["y_true"],3.)
+        self.assertFalse(by_id["2"]["eligible"])
+        self.assertNotIn("features",by_id["2"])
+        self.assertEqual(note["blind_outside_fallback_rows_bound_by_report"],1)
+        self.assertFalse(note["blind_fallback_native_features_imputed"])
+        self.assertEqual(len(original),2)
+    def test_ambiguous_mean_or_foreign_test_cannot_acquire_policy_predictions(self):
+        from workflows.benchmark_evaluation.c1_reporting import bind_blind_fallbacks
+        for mode in ("mean","foreign","empty"):
+            rows=self.native()
+            if mode=="mean":rows[1]["training_mean"]=9.
+            elif mode=="foreign":rows[0]["evaluation_id"]="OTHER";rows[0]["record_id"]="OTHER"
+            else:rows=[]
+            with self.assertRaises(IncompleteComparison):bind_blind_fallbacks(self.reference(),rows,"ASAP_Polaris2025")
+    def test_present_outside_values_labels_and_identities_cannot_be_silently_overwritten(self):
+        from workflows.benchmark_evaluation.c1_reporting import bind_blind_fallbacks
+        for field,value in (("prediction",9.),("y_true",9.),("full_inchikey","OTHER")):
+            rows,_=bind_blind_fallbacks(self.reference(),self.native(),"ASAP_Polaris2025")
+            rows[-1][field]=value
+            with self.assertRaises(IncompleteComparison):bind_blind_fallbacks(self.reference(),rows,"ASAP_Polaris2025")
+    def test_complete_policy_population_is_preserved(self):
+        from workflows.benchmark_evaluation.c1_reporting import bind_blind_fallbacks
+        rows,_=bind_blind_fallbacks(self.reference(),self.native(),"ASAP_Polaris2025")
+        result,note=bind_blind_fallbacks(self.reference(),rows,"ASAP_Polaris2025")
+        self.assertEqual(result,rows);self.assertEqual(note["blind_outside_fallback_rows_bound_by_report"],0)
+        rows[-1]["prediction"]=None
+        result,note=bind_blind_fallbacks(self.reference(),rows,"ASAP_Polaris2025")
+        self.assertEqual(len(result),3);self.assertEqual(result[-1]["prediction"],2.)
+    def test_policy_fallback_requires_real_unambiguous_fit_provenance(self):
+        from workflows.benchmark_evaluation.c1_reporting import bind_blind_fallbacks
+        rows=self.native();rows[1]["native_producer_job"]="OTHER"
+        with self.assertRaises(IncompleteComparison):bind_blind_fallbacks(self.reference(),rows,"ASAP_Polaris2025")
+    def test_first_report_does_not_replay_historical_subset_estimates(self):
+        from unittest.mock import patch
+        from workflows.benchmark_evaluation.c1_reporting import bind_blind_fallbacks
+        key="asap_polaris2025::HLM"
+        catalog=[dict(dataset="ASAP_Polaris2025",target="HLM",endpoint_key=key,level="molecule",split_policy="official")]
+        screen=[dict(endpoint_key=key,decision="APPENDIX")]
+        baseline={key:{"LightGBM-RDKit2D":self.reference()}}
+        native={};metadata={}
+        for feature in ("D","Pprime","Pprime_plus_D"):
+            for learner in ("LightGBM","TabPFN"):
+                cell=(key,feature,learner);rows=self.native()
+                for row in rows:row.update(feature_group=feature,learner=learner)
+                if feature=="D":rows=bind_blind_fallbacks(self.reference(),rows,"ASAP_Polaris2025")[0]
+                native[cell]=rows;metadata[cell]=[dict(n_train=2,feature_count=3)]
+        with patch("workflows.benchmark_evaluation.c1_reporting.primary_statistics",return_value=dict(MAE=1.,RAE=.5,bootstrap_draws=1000)) as stats:
+            with patch("workflows.benchmark_evaluation.c1_reporting.paired_improvement",return_value=dict(significant_improvement=False)):
+                table,contrasts,plan=make_primary_report(catalog,screen,baseline,native,fit_metadata=metadata)
+        self.assertEqual(len(table),6);self.assertFalse(plan)
+        self.assertEqual(sum(row["blind_outside_fallback_rows_bound_by_report"] for row in table),4)
+        self.assertEqual(sum(not call.args[1] for call in stats.call_args_list),4)
+        self.assertTrue(all(row["available_TEST_rows"]==2 for row in table))
+        self.assertEqual(len(native[(key,"Pprime","TabPFN")]),2)
+
 if __name__=='__main__':unittest.main()
 
 
