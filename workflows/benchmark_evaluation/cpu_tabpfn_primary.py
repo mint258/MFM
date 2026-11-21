@@ -2,6 +2,8 @@
 import ast
 import copy
 
+ALLOWED_TABULAR_CPU = frozenset((dataset,feature) for dataset in ('Biogen_ADME','PharmaBench','tdc_asap','pKahub','MoleculeACE','ExpansionRx') for feature in ('Pprime','Pprime_plus_D'))
+
 def model_calls(source):
     class Device(ast.NodeTransformer):
         def visit_keyword(self,node):
@@ -43,8 +45,8 @@ def remap_tabpfn_cpu_specs(specs,mapping):
     for row in result:
         old=int(row["job"])
         if old not in mapping:continue
-        if row["learner"]!="TabPFN" or row["dataset"]!="Biogen_ADME" or row["feature_group"] not in {"Pprime","Pprime_plus_D"}:
-            raise ValueError("Only the declared ready Biogen primary groups may change execution backend")
+        if row["learner"]!="TabPFN" or (row["dataset"],row["feature_group"]) not in ALLOWED_TABULAR_CPU:
+            raise ValueError("Only registered official tabular primary groups may change execution backend")
         token="/job_"+str(old)
         if not row["folder"].endswith(token):raise ValueError("Original folder/source identity differs")
         seen[old]+=1;new=mapping[old]

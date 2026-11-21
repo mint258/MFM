@@ -1,5 +1,5 @@
 import unittest
-from .cpu_tabpfn_primary import defer_cpu_statistics,model_calls,remap_tabpfn_cpu_specs
+from .cpu_tabpfn_primary import defer_cpu_statistics,model_calls,remap_tabpfn_cpu_specs,ALLOWED_TABULAR_CPU
 class CpuTabpfnTests(unittest.TestCase):
     def test_statistics_deferred_without_changing_model_configuration_or_prediction(self):
         original="def score(y,p,m,g):\n    raise RuntimeError('no replay')\nmodel=TabPFNRegressor.create_default_for_version(ModelVersion.V2,device='cpu',random_state=20261025,inference_config={'SUBSAMPLE_SAMPLES':10000})\nmodel.fit(x,y)\nprediction=model.predict(z)\n"
@@ -18,4 +18,18 @@ class CpuTabpfnTests(unittest.TestCase):
         with self.assertRaises(ValueError):remap_tabpfn_cpu_specs([row,other],{99:202})
         with self.assertRaises(ValueError):remap_tabpfn_cpu_specs([row,other],{102:202})
         with self.assertRaises(ValueError):remap_tabpfn_cpu_specs([row,row],{101:201})
+    def test_registered_official_dataset_and_feature_pairs_keep_original_aliases(self):
+        self.assertIn(("tdc_asap","Pprime"),ALLOWED_TABULAR_CPU)
+        self.assertNotIn(("TDC_ADMET","Pprime"),ALLOWED_TABULAR_CPU)
+        rows=[dict(dataset=dataset,feature_group=feature,learner="TabPFN",job=100+i,folder="registered/job_"+str(100+i),original_CPU_job=10+i) for i,(dataset,feature) in enumerate(sorted(ALLOWED_TABULAR_CPU))]
+        replacements={row["job"]:row["job"]+1000 for row in rows}
+        result=remap_tabpfn_cpu_specs(rows,replacements)
+        for old,new in zip(rows,result):
+            self.assertEqual(old["original_CPU_job"],new["original_CPU_job"])
+            self.assertEqual((old["dataset"],old["feature_group"],old["learner"]),(new["dataset"],new["feature_group"],new["learner"]))
+            self.assertEqual(new["primary_execution_backend"],"CPU")
+    def test_reference_atomic_or_changed_learner_cannot_use_tabular_resource_reassignment(self):
+        for dataset,feature,learner in (("Joung2020","Pprime","TabPFN"),("NMRShiftDB2","Pprime","TabPFN"),("Biogen_ADME","D","TabPFN"),("Biogen_ADME","Pprime","LightGBM")):
+            row=dict(dataset=dataset,feature_group=feature,learner=learner,job=100,folder="source/job_100")
+            with self.assertRaises(ValueError):remap_tabpfn_cpu_specs([row],{100:200})
 if __name__=="__main__":unittest.main()
