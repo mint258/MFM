@@ -49,6 +49,9 @@ def run(c):
   lock=(locks/(gpu+'.lock')).open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
  spec=importlib.util.spec_from_file_location('disk',REPO/'tools/model_v3/v2_diagnosis_disk.py');disk=importlib.util.module_from_spec(spec);spec.loader.exec_module(disk)
  def capacity():
+  if c.get('budget_curve_storage'):
+   from budget_curve import admit_storage
+   admit_storage(c);return
   allocated,remaining=disk.model_growth_forecast()
   future=c.get('root_future_bytes',0)
   disk.m.require_capacity(disk.m.filesystem_status('/'),future,2000)
@@ -76,7 +79,7 @@ def run(c):
  save(status='RUNNING');print(json.dumps(record),flush=True);paused=False
  while child.poll() is None:
   try:capacity();ok=True
-  except (OSError,ValueError,KeyError,TypeError) as e:ok=False;save(status='DISK_PAUSED',disk_reason=str(e))
+  except (OSError,ValueError,KeyError,TypeError,RuntimeError) as e:ok=False;save(status='DISK_PAUSED',disk_reason=str(e))
   if ok==paused and child.poll() is None:
    try:
     if identity(child.pid)!=bound:raise RuntimeError('Own native process identity changed')

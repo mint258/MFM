@@ -1,0 +1,147 @@
+{
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261121.md",
+  "expected_readouts": 22,
+  "closed_readouts": 0,
+  "missing_readouts": [
+    {
+      "arm": "T2",
+      "samples": 1000000
+    },
+    {
+      "arm": "T2",
+      "samples": 2000000
+    },
+    {
+      "arm": "T2",
+      "samples": 3000000
+    },
+    {
+      "arm": "T2",
+      "samples": 4000000
+    },
+    {
+      "arm": "T2",
+      "samples": 5000000
+    },
+    {
+      "arm": "T2",
+      "samples": 6000000
+    },
+    {
+      "arm": "T2",
+      "samples": 7000000
+    },
+    {
+      "arm": "T2",
+      "samples": 8000000
+    },
+    {
+      "arm": "T1",
+      "samples": 1000000
+    },
+    {
+      "arm": "T1",
+      "samples": 2000000
+    },
+    {
+      "arm": "T1",
+      "samples": 3000000
+    },
+    {
+      "arm": "T1",
+      "samples": 4000000
+    },
+    {
+      "arm": "T1",
+      "samples": 5000000
+    },
+    {
+      "arm": "T1",
+      "samples": 6000000
+    },
+    {
+      "arm": "T1",
+      "samples": 7000000
+    },
+    {
+      "arm": "T1",
+      "samples": 8000000
+    },
+    {
+      "arm": "T4",
+      "samples": 3000000
+    },
+    {
+      "arm": "T4",
+      "samples": 6000000
+    },
+    {
+      "arm": "T5",
+      "samples": 3000000
+    },
+    {
+      "arm": "T5",
+      "samples": 6000000
+    },
+    {
+      "arm": "T6",
+      "samples": 3000000
+    },
+    {
+      "arm": "T6",
+      "samples": 6000000
+    }
+  ],
+  "closed_original_9M_arms": [
+    "T2"
+  ],
+  "closed_readout_points": [],
+  "status": "IN_PROGRESS",
+  "plot_complete": false,
+  "first_readout_timing": null,
+  "descriptive_only": true,
+  "new_training": false,
+  "new_seeds": false,
+  "no_3M_screening_comparison": true,
+  "VAL_losses": "Original per-family values, no invented aggregate",
+  "bootstrap": "Original 1000 retained molecular draws, seed20261025, percentile95CI",
+  "interpretation": {},
+  "observed_new_readouts_compute_seconds": 0,
+  "exceeds_1p5_initial_total_estimate": false,
+  "excess_action": "REPORT_AND_CONTINUE",
+  "pending_user_decision": [],
+  "endpoints": {
+    "T2": {
+      "R1": {
+        "mean": 0.3761972191273991,
+        "ci_lower": 0.36180766520949986,
+        "ci_upper": 0.3887319921229812,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      },
+      "R3": {
+        "mean": 0.47750044808425046,
+        "ci_lower": 0.46363012954692784,
+        "ci_upper": 0.49027973151495596,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      }
+    }
+  }
+}

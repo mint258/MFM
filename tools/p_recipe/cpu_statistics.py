@@ -11,6 +11,9 @@ CPU_NODES=['compute-0-'+str(i) for i in (10,16,8,17,9,11,12,13,15,19)]
 def admit(configuration):
  """Check the actual CPU host, filesystems, memory and current UID quotas."""
  import runpy
+ if configuration.get('budget_curve'):
+  from budget_curve import admit_storage
+  admit_storage(configuration)
  if socket.gethostname().split('.')[0] not in {'compute-0-'+str(i) for i in range(8,20)}:
   raise RuntimeError('Final statistics require a CPU node8..19')
  if os.environ.get('CUDA_VISIBLE_DEVICES'):
@@ -64,6 +67,7 @@ def finalize(configuration):
    statistics_job_id=os.environ.get('SLURM_JOB_ID'),
    statistics_cpu_seconds=summary.get('statistics_cpu_seconds',0.)+elapsed)
  summary['training_and_evaluation_seconds']=summary['training_and_gpu_readout_seconds']+summary['statistics_cpu_seconds']
+ if c.get('budget_curve'):summary['statistics_completed_at']=time.time()
  write(output/'summary.json',summary)
  return dict(run=c['run'],status='COMPLETE',newly_scored_samples=scored,
              statistics_job_id=summary['statistics_job_id'])

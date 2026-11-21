@@ -209,6 +209,10 @@ def seed_sections(states,verdict):
 
 def render(plan, verdict, states, selection, code_commit):
     closeout=plan.get('selection_authority')==CLOSEOUT
+    budget_section = ''
+    if closeout and (REPO / 'docs/p_recipe/USER_DIRECTIVE_20261121.md').is_file():
+        from budget_curve_report import report_section
+        budget_section = report_section()
     if closeout and (not plan.get('conditional_seed_decisions_complete') or not verdict.get('conditional_seed_decisions_complete')):
         raise ValueError('The final report waits for all registered conditional second-seed decisions')
     configs = completed_configurations(plan)
@@ -362,7 +366,7 @@ def render(plan, verdict, states, selection, code_commit):
                     f"闭合P0证据：{link(REPO / 'docs/p_recipe/P0_SUMMARY.md')}；"
                     f"完整任务评分：{link(REPO / 'results/p_recipe/scores.csv')}；"
                     f"本修订配对比较：{link(delta_source)}。", ''])
-    return '\n'.join(content), configs, summaries, results
+    return '\n'.join(content + [budget_section]), configs, summaries, results
 
 
 def checkpoint_sha(path):
@@ -382,6 +386,8 @@ def main():
     parser.add_argument('--code-commit', required=True)
     parser.add_argument('--output', default=str(REPO / 'docs/p_recipe/REPORT.md'))
     args = parser.parse_args()
+    if Path(args.output).exists():
+        raise FileExistsError('Final REPORT already exists; do not generate it twice')
     content, configs, summaries, results = render(read(args.plan), read(args.verdict),
                                                 [read(path) for path in args.states],
                                                 read(args.selection), args.code_commit)

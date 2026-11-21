@@ -2,7 +2,7 @@
   "schema": "P_CONFIRMATION_BUDGET_CURVE_V1",
   "authority": "docs/p_recipe/USER_DIRECTIVE_20261121.md",
   "source_commit": "91cf6401ce901312881e05bd50c3ed30ddce3545",
-  "status": "PLAN_PREPARED_CODE_AND_STORAGE_ADMISSION_PENDING",
+  "status": "IMPLEMENTED_TESTED_STORAGE_ADMITTED_WAITING_COMPLIANT_24G_CARD",
   "source_training_budget": 9000000,
   "source_arms": [
     "T1",
@@ -267,7 +267,7 @@
     "exclusive": false
   },
   "storage_forecast": {
-    "state": "PROPOSED_PENDING_JOINT_NFS_ADMISSION",
+    "state": "REGISTERED_AND_FRESH_ACTUAL_CPU8_ADMITTED",
     "output_root": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/budget_curve_20261122",
     "closed_same_protocol_readout_bytes_observed": 19126121,
     "per_readout_output_cap_bytes": 134217728,
@@ -275,7 +275,8 @@
     "control_logs_temporaries_bytes": 268435456,
     "additional_NFS_peak_bytes": 3221225472,
     "checkpoint_copies": 0,
-    "delete_existing": false
+    "delete_existing": false,
+    "shared_registry_component": "P_confirmation_budget_curve"
   },
   "reporting": {
     "output_csv": "results/p_recipe/fixed_20261115/confirmation/budget_curve.csv",
@@ -290,5 +291,32 @@
   "new_training": false,
   "new_seeds": false,
   "normalization_changes": false,
-  "stop_or_migrate_training": false
+  "stop_or_migrate_training": false,
+  "implementation": {
+    "entrypoint": "tools/p_recipe/budget_curve.py",
+    "GPU_batch_script": "tools/p_recipe/budget_curve.sbatch",
+    "primary_table_and_figure": "tools/p_recipe/budget_curve_report.py",
+    "reuse_original_evaluate": true,
+    "reuse_original_CPU_bootstrap": true,
+    "core_validation": {
+      "job": 4538280,
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "tests": 10,
+      "seconds": 4,
+      "CPUs": 1,
+      "node": "compute-0-8"
+    },
+    "report_validation": {
+      "job": 4538281,
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "tests": 8,
+      "seconds": 1,
+      "CPUs": 1,
+      "node": "compute-0-8"
+    },
+    "required_full_regression_reused": "3566 passed / 4 skipped; no repeat",
+    "new_GPU_jobs_submitted": 0
+  }
 }

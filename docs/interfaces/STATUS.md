@@ -1435,3 +1435,8 @@ D联合NFS36706053853B、full29.75GB、Lustre模型池1.25GiB保持。A1/L2原�
 ## 2026-11-22 05:59:49 CST · D Root
 
 用户已明确批准仅补充过滤新库原7/65个缩尾后标准差为0字段；事先记录追加预注册，不改原TRAIN统计、原数组或D20/D3/D4。独立清单`/runs/d_recipe_20261120/full/stores/final_manifest_zero_scale_amendment_20261122.json`启用L1 191项、L2 1314项。真实64 loader接收4538200在CPU10/1CPU完成0:0，162秒，197/197与1320/1320头通过、两库ACCEPTED；[原接收与执行记录](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/ZERO_SCALE_AMENDMENT_20261122.md)。开发双库导出4538204（3CPU）和基准独立L2导出4538205（4CPU）于05:55:23 CST在CPU10恢复RUNNING。现行联合NFS36706053853B、其中已保留开发512MiB/基准L2 3.75GiB预算内续跑，无新增节点本地cache或原库复制。原R1 4537592/GPU7与截断4538112/CPU8继续；宽库GPU训练仍等阶段1配方选择。原D20基准绑定失败及ExpansionRx H政策待定保持，未获H修改授权；配方未冻结，原条件种子/G1/K1/最终对照/9M规则保持，不占用或修改同行任务。
+
+
+## 2026-11-22 07:22 CST · P：指定22个9M中间断点读出新增NFS预留
+
+按USER_DIRECTIVE_20261121，仅在每条原9M完成后补指定L6/H0 R1/R3，GPU严格0–7/24GiB，CPU8–19（排除14/18），不占≥36GiB，不停止/迁移在跑训练。新增本线NFS峰值3221225472B（22×128MiB+256MiB），仅为readout输出和控制/临时量，不复制断点、不持久化H0。共享MFM_d_descriptors_20261120/configs/data_d_descriptors/storage_reservations.json的registered_model_share_components.P_confirmation_budget_curve已登记该量，registered_model_share_future_bytes由94046829568B变为97268055040B；旧模型/P25327352832B、S68719476736B、D36706053853B、B0与基准预留均保持。CPU8实际联合准入ADMITTED，鲜活NFS UID可用356165890048B>含底线/缓冲需求312424370909B，目标字节/inode及根盘系统空间通过。新入口10项及预算表/最终门8项定向测试均C0；新增GPU读出尚未提交。生产配置和守卫以后读取该最新联合项，勿重复加算，也勿把它计入D/S自身预算。全部旧输出和1M–9M完整断点保留；P固定11-07归一化不变。
