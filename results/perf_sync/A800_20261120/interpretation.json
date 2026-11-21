@@ -1,0 +1,112 @@
+{
+  "status": "FINAL_SPEED_RESULTS",
+  "job_id": 2118519,
+  "slurm_state": "COMPLETED",
+  "exit_code": "0:0",
+  "start_CST": "2026-11-21 14:42:58",
+  "end_CST": "2026-11-21 15:21:26",
+  "gpu_allocation_seconds": 2308,
+  "gpu_card_hours": 0.6411111111111111,
+  "allocated_gpus": 1,
+  "allocated_CPUs": 9,
+  "allocation_limit_seconds": 3600,
+  "allocation_tres": "billing=9,cpu=9,gres/gpu=1,node=1",
+  "hardware": {
+    "GPU": "NVIDIA A800-SXM4-80GB",
+    "memory_MiB": 81920,
+    "driver": "550.78",
+    "CPU": "Intel Xeon Gold6354@3.00GHz",
+    "cpus": 9,
+    "readers": 7,
+    "affinity": [
+      0,
+      11,
+      12,
+      13,
+      14,
+      19,
+      20,
+      21,
+      22
+    ],
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8"
+  },
+  "uuid": "GPU-37a973b5-8782-040d-2c9e-3cad6527219d",
+  "production_adoption": false,
+  "quality_qualified": false,
+  "complete_cells": 22,
+  "total_actual_optimizer_updates": 2200,
+  "warmup_per_cell": "25 no-update forward/backward passes, RNG restored",
+  "timed_updates_per_cell": 100,
+  "conclusion": "No BS passes the preregistered5%+2*baseline-repeat-gap speed gate. B32 has highest measured candidate mean. B32/64/128 baseline drift prevents treating nominal ratios as causal speed improvements.",
+  "screen_ratio_eligible": false,
+  "screen_ratio_caveat": "Raw speedup_screen_only uses the drifting B32 baseline mean73.32776246772077. Preserve this raw field but do not interpret it as qualified gain.",
+  "quality_caveat": "Finite100-update timing trajectories are not full numerical or1000-update/two-seed quality qualification.",
+  "data_protocol": "Existing compressed LMDB is read-only. No data copy or whole-library decompression. Labels,masks,normalizations,r73 NumPyFP64 accumulation and all other preexistingFP64 preprocessing unchanged.",
+  "model_base": "ab14ec97640cba6e04d5bcdb667ea6ed074043d9",
+  "preparation": {
+    "school_CPU_fixture_failed": {
+      "job": 2118516,
+      "state": "FAILED",
+      "exit": "1:0",
+      "elapsed_seconds": 65,
+      "reason": "Test opened same LMDB twice in one process; fixture corrected to sequential reads/close. No GPU."
+    },
+    "school_CPU_fixture_passed": {
+      "job": 2118518,
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "elapsed_seconds": 18,
+      "fields_exact": 133,
+      "fixture_molecule_index": 0,
+      "fixture_conformer": 1,
+      "attributes": [
+        "raw",
+        "values",
+        "valid",
+        "dtype"
+      ],
+      "grouped_loss_test_passed": 1
+    },
+    "school_CPU_sourcecheck_prior_failed": {
+      "job": 2118521,
+      "state": "FAILED",
+      "exit": "127:0",
+      "elapsed_seconds": 0,
+      "reason": "git unavailable on CPU node; copied existing login git binary to private task bin"
+    },
+    "school_CPU_sourcecheck_passed": {
+      "job": 2118522,
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "elapsed_seconds": 1,
+      "files": 10,
+      "Python_files": 3,
+      "errors": 0,
+      "scope": "New A800 publication files only, not full branch CI"
+    },
+    "development_CPU_cancelled": {
+      "job": 4537196,
+      "parent_elapsed_seconds": 397,
+      "state": "CANCELLED",
+      "reason": "Compute18 filesystem access blocked; no successful prepare computation. Raw parent/step records retained, cleanup step time not added to parent allocation."
+    },
+    "cancelled_5090": {
+      "job": 4535799,
+      "gpu_run_seconds": 0
+    }
+  },
+  "raw_directory": "/share/home/202264640132/perf_A800_20261120/job_2118519",
+  "publication_scope_sourcecheck": {
+    "job": 2123232,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "node": "c02n06",
+    "elapsed_seconds": 7,
+    "files": 17,
+    "python_files": 3,
+    "errors": 0,
+    "scope": "Only this delivery's new/updated files; not full-branch CI. Full CI attribution is recorded in PR13."
+  }
+}
