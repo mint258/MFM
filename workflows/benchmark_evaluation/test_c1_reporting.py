@@ -92,7 +92,45 @@ class FitMetadataTests(unittest.TestCase):
     def test_absent_fit_count_stays_unknown_instead_of_becoming_zero(self):
         self.assertIn('UNKNOWN',fit_metadata_summary([])['actual_TRAIN_size'])
         with self.assertRaises(IncompleteComparison):fit_metadata_summary([dict(n_train='0')])
+
+class FailedReportContinuationTests(unittest.TestCase):
+    def endpoint(self,task):
+        return dict(dataset="TDC_ADMET",target="Y",endpoint_key="tdc_admet::"+task+"::Y",level="molecule",split_policy="official")
+    def test_closed_successes_and_failed_only_continuation_keep_their_real_native_origins(self):
+        import json,tempfile
+        from pathlib import Path
+        import pyarrow as pa
+        import pyarrow.parquet as pq
+        from workflows.benchmark_evaluation.c1_reporting import C1ClosedConsumer
+        catalog=[self.endpoint(task) for task in ("keep","retry")]
+        with tempfile.TemporaryDirectory() as temporary:
+            consumer=C1ClosedConsumer(catalog)
+            for job,task,failures in ((100,"keep",[dict(dataset="TDC_ADMET",task="retry",status="FIRST_ATTEMPT_FAILED",error="KeyError('MAE')")]),(200,"retry",[])):
+                folder=Path(temporary)/("job_"+str(job));folder.mkdir()
+                (folder/"manifest.json").write_text(json.dumps(dict(job=str(job),status="CLOSED",failures=failures)))
+                row=dict(dataset="TDC_ADMET",task=task,record_id=task,full_inchikey="KEY-"+task,y_true=1.,prediction=.5,training_mean=0.)
+                pq.write_table(pa.Table.from_pylist([row]),folder/"predictions.parquet")
+                spec=dict(job=job,dataset="tdc_asap",feature_group="Pprime",learner="TabPFN")
+                consumer.add_run(folder,"COMPLETED",spec)
+            self.assertEqual(len(consumer.predictions),2)
+            self.assertEqual(consumer.predictions[("tdc_admet::keep::Y","Pprime","TabPFN")][0]["native_producer_job"],"100")
+            self.assertEqual(consumer.predictions[("tdc_admet::retry::Y","Pprime","TabPFN")][0]["native_producer_job"],"200")
+            self.assertFalse(consumer.unresolved_cells)
+    def test_one_failed_repair_yields_explicit_unresolved_without_third_fit_or_fabrication(self):
+        import json,tempfile
+        from pathlib import Path
+        from workflows.benchmark_evaluation.c1_reporting import C1ClosedConsumer
+        with tempfile.TemporaryDirectory() as temporary:
+            folder=Path(temporary)
+            failure=dict(dataset="TDC_ADMET",task="retry",status="UNRESOLVED_AFTER_ALLOWED_REPORT_REPAIR",error="RuntimeError('bounded retry')")
+            (folder/"manifest.json").write_text(json.dumps(dict(job="200",status="CLOSED",failures=[failure])))
+            consumer=C1ClosedConsumer([self.endpoint("retry")])
+            consumer.add_run(folder,"COMPLETED",dict(job=200,dataset="tdc_asap",feature_group="Pprime",learner="TabPFN"))
+            cell=("tdc_admet::retry::Y","Pprime","TabPFN")
+            self.assertIn("PRODUCER_UNRESOLVED_AFTER_ALLOWED_REPORT_REPAIR",consumer.unresolved_cells[cell])
+            self.assertFalse(consumer.predictions)
 if __name__=='__main__':unittest.main()
+
 
 """Final consumers reuse existing score metadata instead of independently replaying it."""
 import unittest

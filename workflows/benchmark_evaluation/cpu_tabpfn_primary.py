@@ -25,6 +25,11 @@ def defer_cpu_statistics(source):
                     "    return dict(metric_status='PENDING_CPU_STATISTICS', n_test_rows=len(args[0]), bootstrap_draws=0, CPU_statistics_deferred=True)\n").body[0]
                 return ast.copy_location(result,node)
             return self.generic_visit(node)
+        def visit_Assign(self,node):
+            node=self.generic_visit(node)
+            if any(isinstance(target,ast.Name) and target.id in {"official_score","official_value"} for target in node.targets):
+                node.value=ast.Constant(value=None)
+            return node
         def visit_If(self,node):
             if any(isinstance(x,ast.Call) and isinstance(x.func,ast.Attribute) and x.func.attr=="TextTestRunner" for x in ast.walk(node.test)):
                 return ast.copy_location(ast.Pass(),node)
@@ -54,3 +59,62 @@ def remap_tabpfn_cpu_specs(specs,mapping):
             zero_start_resource_reassignment_of_job=old,primary_execution_backend="CPU")
     if any(n!=1 for n in seen.values()):raise ValueError("Every original group must occur exactly once")
     return result
+
+def failed_reporting_keys(manifest, accounting, expected_job):
+    """Authorize only native closed, report-only failed TDC/ASAP task continuations."""
+    if (str(manifest.get("job"))!=str(expected_job)
+        or manifest.get("status")!="C1_Pprime_TABPFN_TDC_ASAP_CLOSED"
+        or manifest.get("tasks_expected")!=23):
+        raise ValueError("The exact original TDC/ASAP producer manifest is required")
+    records=[line.strip().split("|") for line in accounting.splitlines()
+             if line.strip().split("|")[0]==str(expected_job)]
+    if len(records)!=1 or records[0][1:3]!=["COMPLETED","0:0"]:
+        raise ValueError("The original native producer must actually be closed before continuation")
+    failures=manifest.get("failures",[])
+    if not failures or manifest.get("tasks_completed")+len(failures)!=23:
+        raise ValueError("Every original task must have a closed success or explicit failure")
+    keys=[]
+    for row in failures:
+        if (row.get("status")!="FIRST_ATTEMPT_FAILED" or row.get("error")!="KeyError('MAE')"
+            or row.get("dataset") not in {"TDC_ADMET","ASAP_Polaris2025"} or not row.get("task")):
+            raise ValueError("Only the actual pending-statistics official-MAE report error is covered")
+        keys.append((row["dataset"],row["task"]))
+    if len(set(keys))!=len(keys):raise ValueError("Duplicate failed task identities")
+    return tuple(sorted(keys))
+
+def prepare_failed_reporting_source(original, manifest, accounting, expected_job):
+    keys=failed_reporting_keys(manifest,accounting,expected_job)
+    source=defer_cpu_statistics(original)
+    class Subset(ast.NodeTransformer):
+        loops=0
+        reports=0
+        def visit_For(self,node):
+            node=self.generic_visit(node)
+            if (isinstance(node.target,ast.Name) and node.target.id=="endpoint"
+                and ast.dump(node.iter,include_attributes=False)==ast.dump(ast.parse("sorted(coverage)",mode="eval").body,include_attributes=False)):
+                self.loops+=1
+                node.body=ast.parse("if (group,endpoint) not in _failed_report_task_keys:\n    continue\n").body+node.body
+            return node
+        def visit_Dict(self,node):
+            node=self.generic_visit(node)
+            for i,key in enumerate(node.keys):
+                if isinstance(key,ast.Constant) and key.value=="status" and isinstance(node.values[i],ast.Constant) and node.values[i].value=="FIRST_ATTEMPT_FAILED":
+                    node.values[i]=ast.Constant(value="UNRESOLVED_AFTER_ALLOWED_REPORT_REPAIR")
+            return node
+        def visit_Assign(self,node):
+            node=self.generic_visit(node)
+            if any(isinstance(t,ast.Name) and t.id=="report" for t in node.targets):
+                if not isinstance(node.value,ast.Dict):raise ValueError("One registered report dictionary is required")
+                matches=[i for i,k in enumerate(node.value.keys) if isinstance(k,ast.Constant) and k.value=="tasks_expected"]
+                if len(matches)!=1:raise ValueError("One original report task count is required")
+                node.value.values[matches[0]]=ast.Constant(value=len(keys));self.reports+=1
+                node.value.keys += [ast.Constant(value=k) for k in ("continuation_of_native_job","failed_task_subset","successful_original_predictions_replayed","fixed_weight_context_inference","training_rollback")]
+                node.value.values += [ast.Constant(value=int(expected_job)),ast.parse(repr(list(keys)),mode="eval").body,ast.Constant(value=False),ast.Constant(value=True),ast.Constant(value=False)]
+            return node
+    visitor=Subset();tree=visitor.visit(ast.parse(source))
+    if (visitor.loops,visitor.reports)!=(1,1):raise ValueError("Exactly one registered task loop and report must be filtered")
+    tree.body.insert(0,ast.parse("_failed_report_task_keys = "+repr(set(keys))).body[0])
+    ast.fix_missing_locations(tree);result=ast.unparse(tree)+"\n"
+    compile(result,"failed_reporting_tasks_only","exec")
+    if model_calls(original)!=model_calls(result):raise ValueError("Failed-only continuation changed model configuration")
+    return result,keys

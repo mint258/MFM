@@ -185,13 +185,15 @@ class C1ClosedConsumer:
         for failure in failures:
             if failure.get("status") not in {
                     "NATIVE_PPRIME_FEATURES_UNAVAILABLE_NO_IMPUTATION",
-                    "UNRESOLVED_OFFICIAL_LABEL_OR_FEATURE_BINDING"}:
+                    "UNRESOLVED_OFFICIAL_LABEL_OR_FEATURE_BINDING",
+                    "UNRESOLVED_AFTER_ALLOWED_REPORT_REPAIR"}:
                 continue
             dataset=failure.get("dataset",spec.get("dataset"))
             if not dataset or not failure.get("task"):continue
             endpoint=resolve_endpoint(self.catalog,dataset,failure["task"])
             cell=(endpoint,spec["feature_group"],spec["learner"])
-            self.unresolved_cells[cell]="NATIVE_FEATURE_POPULATION_UNAVAILABLE: "+json.dumps(failure,sort_keys=True)
+            reason=("PRODUCER_UNRESOLVED_AFTER_ALLOWED_REPORT_REPAIR: " if failure.get("status")=="UNRESOLVED_AFTER_ALLOWED_REPORT_REPAIR" else "NATIVE_FEATURE_POPULATION_UNAVAILABLE: ")
+            self.unresolved_cells[cell]=reason+json.dumps(failure,sort_keys=True)
         for path in sorted(folder.rglob("*predictions.parquet")):
             if path in self.seen:
                 raise IncompleteComparison("A C1 source file was scheduled twice")
