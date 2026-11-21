@@ -17,6 +17,9 @@ def _child(parent, *, output_root, mask_seed=None):
             or parent.get("seed") != 0):
         raise ValueError("Conditional seed1 belongs only to registered 3M seed0 D arms")
     child = fresh_seed1_configuration(parent, output_root=output_root)
+    # Taskbook layer diagnostics are seed0-only. Their existing cache is bound
+    # to that run/checkpoint and must never be reused by a fresh seed1 readout.
+    child.pop("diagnostic_feature_root", None)
     options = child["d_recipe"]
     if options.get("graph_mask_enabled", False):
         if type(mask_seed) is not int or mask_seed < 0:

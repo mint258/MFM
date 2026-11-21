@@ -42,6 +42,8 @@ class SeedPlanTests(unittest.TestCase):
     def test_winner_creates_fresh_runs_with_seed1_binding_and_no_resume(self):
         a, b = configuration("D-L1"), configuration()
         a.update(resume="/seed0.pt", resume_samples=3000000, handoff_ack="/old_ack")
+        a["diagnostic_feature_root"] = "/seed0/L1/development_layers"
+        b["diagnostic_feature_root"] = "/seed0/R0/development_layers"
         before = deepcopy(a)
         result = plan_seed1(a, b, comparison(a, b), self.registry(), output_root="/seed1")
         self.assertEqual(a, before)
@@ -51,6 +53,7 @@ class SeedPlanTests(unittest.TestCase):
             self.assertEqual(child["d_recipe"]["scientific_binding"]["seed"], 1)
             self.assertNotIn("resume", child)
             self.assertNotIn("handoff_ack", child)
+            self.assertNotIn("diagnostic_feature_root", child)
 
     def test_two_winning_libraries_request_the_shared_control_only_once(self):
         a, b, control = configuration("D-L1"), configuration("D-L2"), configuration()
