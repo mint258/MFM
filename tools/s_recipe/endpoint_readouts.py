@@ -34,11 +34,22 @@ def layer_payload(payload, chunks):
     return dict(payload, records=records)
 
 
+def predefined_terminal(c, samples):
+    """Only the two endpoints known before recipe selection get early caches."""
+    return (samples == c['samples'] == 3000000 and c['seed'] == 0
+            and c['arm'] in ('S-B0', 'S-G1'))
+
+
 def features(c, dataset, view, e):
     import phychem_mfm.phase1.v2_s_training as training
     from phychem_mfm.phase1.p_recipe_handoff import publish_checkpoint
     paths = {layer: e.feature_path(settings(c, layer), dataset) for layer in range(1, 7)}
-    if all(path.is_file() for path in paths.values()):
+    summary = Path(c['output'])/'summary.json'
+    formal_closed = (summary.is_file()
+                     and json.loads(summary.read_text())['status'] == 'COMPLETE'
+                     and (Path(settings(c, 6)['output'])/'scores.json').is_file())
+    required = range(1, 6) if formal_closed else range(1, 7)
+    if all(paths[layer].is_file() for layer in required):
         return
     original_factory = training.s_model
     captured = {layer: [] for layer in range(1, 6)}
@@ -73,12 +84,22 @@ def features(c, dataset, view, e):
         for encoder in encoders:
             del encoder.encode_atoms  # Restore its class method; break the capture closure.
         encoders.clear()
-    for layer, path in paths.items():
+    for layer in required:
+        path = paths[layer]
         if path.is_file():
             continue
         capacity()
         path.parent.mkdir(parents=True, exist_ok=True)
         publish_checkpoint(payload if layer == 6 else layer_payload(payload, captured[layer]), path)
+
+
+def capture(c):
+    """Capture all registered layers in the original formal H0 forward."""
+    if registered(c) != [1, 2, 3, 4, 5, 6]:
+        raise ValueError('Endpoint layer curves require the frozen1..6 scope')
+    e = readouts.existing_evaluation()
+    for dataset, view in readouts.views(e, c['evaluation_store']).items():
+        features(c, dataset, view, e)
 
 
 def gpu(c):
@@ -87,11 +108,7 @@ def gpu(c):
         raise ValueError('Endpoint readouts require an admitted GPU node')
     if node not in ('compute-0-20', 'compute-0-22') and not os.environ.get('SLURM_JOB_ID'):
         raise ValueError('Small-group endpoint readouts require Slurm')
-    if registered(c) != [1, 2, 3, 4, 5, 6]:
-        raise ValueError('Endpoint layer curves require the frozen1..6 scope')
-    e = readouts.existing_evaluation()
-    for dataset, view in readouts.views(e, c['evaluation_store']).items():
-        features(c, dataset, view, e)
+    capture(c)
     for layer in range(1, 7):
         readouts.gpu(settings(c, layer))
     result = dict(status='GPU_DIAGNOSTIC_READOUTS_COMPLETE_WAITING_CPU',

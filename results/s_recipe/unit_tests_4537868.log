@@ -1,0 +1,43 @@
+..................F........................................              [100%]
+=================================== FAILURES ===================================
+_______ test_closed_formal_cache_is_not_recreated_for_later_diagnostics ________
+
+tmp_path = PosixPath('/tmp/pytest-of-zixiao/pytest-12/test_closed_formal_cache_is_no0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fa060ce61d0>
+
+    def test_closed_formal_cache_is_not_recreated_for_later_diagnostics(tmp_path, monkeypatch):
+        import json
+        import endpoint_readouts as endpoint
+        from pathlib import Path
+        from types import SimpleNamespace
+        monkeypatch.setattr(endpoint, 'CONTROL', tmp_path)
+        c = dict(output=str(tmp_path/'run'), samples=3000000, run='B0', evaluation_store='/store')
+        e = SimpleNamespace(feature_path=lambda setting, dataset: Path(setting['features'])/(dataset+'.pt'))
+        for layer in range(1, 6):
+            path = e.feature_path(endpoint.settings(c, layer), 'dataset')
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.touch()
+        formal = Path(endpoint.settings(c, 6)['output'])
+        formal.mkdir(parents=True)
+        (formal/'scores.json').write_text('{}')
+        (Path(c['output'])/'summary.json').write_text(json.dumps(dict(status='COMPLETE')))
+        endpoint.features(c, 'dataset', None, e)  # No feature producer exists: closed H0 needs no new forward.
+>       assert not e.feature_path(endpoint.settings(c, 6), 'dataset').exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/scratch/readout_features/B0/3000000/dataset.pt').exists
+E        +      where PosixPath('/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/scratch/readout_features/B0/3000000/dataset.pt') = <function test_closed_formal_cache_is_not_recreated_for_later_diagnostics.<locals>.<lambda> at 0x7fa060ca1580>({'output': '/tmp/pytest-of-zixiao/pytest-12/test_closed_formal_cache_is_no0/run/readout', 'samples': 3000000, 'run': 'B0', 'evaluation_store': '/store', ...}, 'dataset')
+E        +        where <function test_closed_formal_cache_is_not_recreated_for_later_diagnostics.<locals>.<lambda> at 0x7fa060ca1580> = namespace(feature_path=<function test_closed_formal_cache_is_not_recreated_for_later_diagnostics.<locals>.<lambda> at 0x7fa060ca1580>).feature_path
+E        +        and   {'output': '/tmp/pytest-of-zixiao/pytest-12/test_closed_formal_cache_is_no0/run/readout', 'samples': 3000000, 'run': 'B0', 'evaluation_store': '/store', ...} = <function settings at 0x7fa061436ca0>({'output': '/tmp/pytest-of-zixiao/pytest-12/test_closed_formal_cache_is_no0/run', 'samples': 3000000, 'run': 'B0', 'evaluation_store': '/store'}, 6)
+E        +          where <function settings at 0x7fa061436ca0> = <module 'endpoint_readouts' from '/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools/s_recipe/endpoint_readouts.py'>.settings
+
+tools/s_recipe/test_endpoint_readouts.py:116: AssertionError
+=============================== warnings summary ===============================
+../../.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26
+  /share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26: DeprecationWarning: `torch_geometric.distributed` has been deprecated since 2.7.0 and will no longer be maintained. For distributed training, refer to our tutorials on distributed training at https://pytorch-geometric.readthedocs.io/en/latest/tutorial/distributed.html or cuGraph examples at https://github.com/rapidsai/cugraph-gnn/tree/main/python/cugraph-pyg/cugraph_pyg/examples
+    from torch_geometric.distributed import (
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tools/s_recipe/test_endpoint_readouts.py::test_closed_formal_cache_is_not_recreated_for_later_diagnostics
+1 failed, 58 passed, 1 warning in 10.71s

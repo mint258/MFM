@@ -62,6 +62,9 @@ def main(c):
         import torch
         gc.collect()
         torch.cuda.empty_cache()
+        from endpoint_readouts import predefined_terminal, capture
+        if predefined_terminal(c, samples):
+            capture(c)
         gpu_readouts(readout_configuration(c, samples))
     result.update(status='GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS',
                   training_and_gpu_readout_seconds=time.monotonic()-started)
