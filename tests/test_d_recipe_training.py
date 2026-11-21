@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 from types import SimpleNamespace
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.d_recipe.training import (BLOCK_ALIASES, ResultRoot, installed_bridge,
@@ -92,6 +92,39 @@ class TrainingTests(unittest.TestCase):
                 raise RuntimeError("intentional")
         for key, original in originals.items():
             self.assertIs(getattr(module, key), original)
+
+    def test_offline_sdk_uses_budgeted_control_scope_and_keeps_training_output(self):
+        originals = {name: object() for name in ("V31PDModel", "PRecipeDataset", "init_reader", "read_choice", "REPO")}
+        originals["dataset_configuration"] = lambda c, validation=False: {}
+        history = SimpleNamespace(output=None)
+        factory = Mock(return_value=history)
+        originals["TrainingHistory"] = factory
+        module = SimpleNamespace(**originals)
+        c = dict(prepare_runtime(configuration()), share_output="/shared/D")
+        with patch("tools.d_recipe.resources.admit_output") as admit:
+            with self.assertRaisesRegex(RuntimeError, "intentional"):
+                with installed_bridge(c, module=module, model_class=object, dataset_class=object):
+                    result = module.TrainingHistory(Path("/shared/D/full/training"), c, initial_samples=1000000)
+                    self.assertIs(result, history)
+                    self.assertEqual(history.output, Path("/shared/D/full/training"))
+                    expected = Path("/shared/D/offline_wandb_runs/D-R0-seed0").resolve()
+                    admit.assert_called_once_with(c, expected)
+                    factory.assert_called_once_with(expected, c, initial_samples=1000000)
+                    raise RuntimeError("intentional")
+        self.assertIs(module.TrainingHistory, factory)
+
+    def test_offline_sdk_is_not_started_when_storage_admission_fails(self):
+        originals = {name: object() for name in ("V31PDModel", "PRecipeDataset", "init_reader", "read_choice", "REPO")}
+        originals["dataset_configuration"] = lambda c, validation=False: {}
+        originals["TrainingHistory"] = Mock()
+        module = SimpleNamespace(**originals)
+        c = dict(prepare_runtime(configuration()), share_output="/shared/D")
+        with patch("tools.d_recipe.resources.admit_output", side_effect=OSError("capacity")):
+            with installed_bridge(c, module=module, model_class=object, dataset_class=object):
+                with self.assertRaisesRegex(OSError, "capacity"):
+                    module.TrainingHistory(Path("/shared/D/full/training"), c)
+        originals["TrainingHistory"].assert_not_called()
+        self.assertIs(module.TrainingHistory, originals["TrainingHistory"])
 
 
 if __name__ == "__main__":

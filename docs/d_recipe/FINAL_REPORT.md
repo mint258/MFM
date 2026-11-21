@@ -18,7 +18,7 @@ D20原20字段中，NumBridgeheadAtoms与NumSpiroAtoms沿原选择禁用，MolMR
 
 新库原值按F64、状态按独立uint8保存；有效零与missing、实际非有限/溢出分开。预注册过滤仅用TRAIN：常数、有效率低于95%、实际非有限或溢出字段依原规则去除。新字段只拟合一次精确type-7 q0.001/q0.999缩尾位置和总体标准差（ddof=0）；缩尾只用于参数估计，原标签不截尾。原D20/D3沿用11-07完整TRAIN D4参数，不重新拟合；323项排除作用于本轮训练/新统计清单，既有D4按已授权冻结规则保留其原训练人群口径，A1及新字段统计使用修订后的1194228 TRAIN分子；零尺度不以任意epsilon替换。新字段先以F64减中心、除尺度，再转FP32。
 
-标准化目标仅在损失中统一截至±6。各字段TRAIN截断比例由唯一生产报告记录；原生报告4537578已排队，尚无实际比例。该报告复用A1闭合的完整TRAIN分子及每分子预选允许构象，原子项分母为有效原子叶子；不是遍历所有可能构象。宽库对应比例仍待唯一TRAIN统计闭合。
+标准化目标仅在损失中统一截至±6。各字段TRAIN截断比例由唯一生产报告记录；原生报告4538106正复用原关闭游标续跑，尚无完整原生原子项比例；R1分子项比例已随唯一A1参数输出。该报告复用A1闭合的完整TRAIN分子及每分子预选允许构象，原子项分母为有效原子叶子；不是遍历所有可能构象。宽库对应比例仍待唯一TRAIN统计闭合。
 
 三块权重固定为二维17/24、分子三维6/24、原子SASA1/24；各块内部按实际有效项归一化，空块为零。宽库增加二维字段不稀释D3份额；G1关闭D3时不放大剩余块。K1只随机屏蔽有效二维损失项85%，缺失与随机mask独立；seed0/seed1使用独立CPU生成器20261119/20261120并随完整状态恢复。
 
@@ -26,7 +26,7 @@ D20原20字段中，NumBridgeheadAtoms与NumSpiroAtoms沿原选择禁用，MolMR
 
 P官方配方于2026-11-20T12:25:52.908698Z冻结为FROZEN_P，其规定五条9M已提交。D只迁移A1/B3/B4；P专属F2无对应D标签删项，不迁移。D-R1为冷启动，不能从R0继续训练来代替配对比较。
 
-A1以完整TRAIN的元素计数Z1–118（含实际H）与不惩罚截距作组成参考，固定ridge alpha=1.0、五折seed20261112。分子排列与每分子一个允许原构象使用既有独立RNG规则。OOF R²<0.30保留原目标，0.30≤R²<0.999使用冻结参考残差，R²≥0.999保留原目标；未定义或有效TRAIN不足100000的字段保留原目标并明确未解决。只有残差档拟合派生位置尺度，旧D4不改。实际OOF值、分档和系数尚待4537571/4537575闭合，未观察结果后选择alpha或阈值。
+A1以完整TRAIN的元素计数Z1–118（含实际H）与不惩罚截距作组成参考，固定ridge alpha=1.0、五折seed20261112。分子排列与每分子一个允许原构象使用既有独立RNG规则。OOF R²<0.30保留原目标，0.30≤R²<0.999使用冻结参考残差，R²≥0.999保留原目标；未定义或有效TRAIN不足100000的字段保留原目标并明确未解决。只有残差档拟合派生位置尺度，旧D4不改。实际全TRAIN唯一拟合已闭合：1194228分子、23分子字段，12项使用残差、11项保留原目标、无未解决。全部OOF值、分档与冻结系数见[A1生产输出](../../results/d_recipe/reference/D20_A1_parameters_20261121.json)和[A1方法及分档](A1_FULL_TRAIN.md)。4537571/4537575均COMPLETED0:0（85805/32秒）；未按结果选择alpha或阈值。
 
 B3在所有分子级D标量使用原PMA池化，逐原子SASA头不改；B4复用既有反坍塌实现，gamma固定0.1597693323500406。不迁移新的学习率，不扫描容量、截断值或损失权重。
 
@@ -40,7 +40,7 @@ B3在所有分子级D标量使用原PMA池化，逐原子SASA头不改；B4复�
 
 只有seed0 WIN触发seed1，共享对照seed1只训练一次；两种子各自WIN才采纳，不以合并种子CI替代。宽库均确认WIN时用既有L2/L1配对结果比较，TIE取较便宜L1。D-G1严格按预注册的删除规则：仅CI跨0时采用删除D3；整体负区间保留，整体正区间也不自行扩展删除条件。K1仅在采用宽库后触发。上述规则尚无实际D胜负输入。
 
-seed0/3M的R0、R1、G1及实际采纳配置执行固定5000 VAL（seed20261112）、F64 PR/CEV/CVF/CVF_res和固定层3–6读出；复用既有前向，层6复用主结果，层3–5只拟合规定探针，不扫描层1–6。bootstrap仍1000次/seed20261025。诊断只描述，不作采用门槛。R0原诊断前向4537579已COMPLETED/0:0：5000 VAL分子、47698构象、层3–6/F64，GPU7/2CPU/3388秒；原manifest位于GPU7的/tmp/d_recipe_20261120_D_R0_seed0_3M/forward/manifest.json。仅该闭合cache的传输4537580已COMPLETED/0:0（CPU17/2CPU/29秒），同一绝对路径供CPU17统计消费。CPU表示统计4537581现已COMPLETED/0:0（CPU17/2分配CPU/4446秒），原完整谱摘要与bootstrap.npz已原样保存在共享盘原运行目录representation_statistics下。缓存3–5层GPU读出4537584（GPU7/2CPU/1177秒）与CPU统计4537585（CPU8/1CPU/95秒）均COMPLETED/0:0，第6层复用原主结果，没有追加编码器前向。几何链3388+29+4446=7863秒；连同逐层读出各作业秒数总和9135秒，均小于4小时。R0规定诊断已全部闭合，R1链仍等待A1。
+seed0/3M的R0、R1、G1及实际采纳配置执行固定5000 VAL（seed20261112）、F64 PR/CEV/CVF/CVF_res和固定层3–6读出；复用既有前向，层6复用主结果，层3–5只拟合规定探针，不扫描层1–6。bootstrap仍1000次/seed20261025。诊断只描述，不作采用门槛。R0原诊断前向4537579已COMPLETED/0:0：5000 VAL分子、47698构象、层3–6/F64，GPU7/2CPU/3388秒；原manifest位于GPU7的/tmp/d_recipe_20261120_D_R0_seed0_3M/forward/manifest.json。仅该闭合cache的传输4537580已COMPLETED/0:0（CPU17/2CPU/29秒），同一绝对路径供CPU17统计消费。CPU表示统计4537581现已COMPLETED/0:0（CPU17/2分配CPU/4446秒），原完整谱摘要与bootstrap.npz已原样保存在共享盘原运行目录representation_statistics下。缓存3–5层GPU读出4537584（GPU7/2CPU/1177秒）与CPU统计4537585（CPU8/1CPU/95秒）均COMPLETED/0:0，第6层复用原主结果，没有追加编码器前向。几何链3388+29+4446=7863秒；连同逐层读出各作业秒数总和9135秒，均小于4小时。R0规定诊断已全部闭合；R1已冷启动，诊断链等待其3M终点。
 
 原F64表示统计见[原结果转录](../../results/d_recipe/diagnostics/D-R0_seed0_3M/representation_statistics.json)：只省略版本报告中的特征值数组，完整谱和1000次配对抽样保留在原共享盘路径。下表只显示5位小数；CEV/CVF/CVF_res的全部CI及原精度见JSON。原子PR基于265478个首构象原子，分子均值PR基于5000个首构象均值；各指标1000次bootstrap均有效。固定模型、分子配对抽样不重复拟合表示或选择层。
 
@@ -72,7 +72,7 @@ CI只反映固定模型下的抽样不确定性，不表示训练随机性；条
 | L2原始计算/统计 | 原始4695批、1201795×1613及唯一TRAIN统计已闭合；4537771/4537773均零尺度FAILED1:0 | 65字段零尺度，按规则UNRESOLVED，D-L2不跑 |
 | R0 seed0/3M | 原4537572和主CPU统计4537573均COMPLETED/0:0；精确3M/93750更新、1M/2M/3M点保留；[最终原生摘要](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/final_summary_3000000.json)及[主评分转录](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/final_readout_summary_3000000.json) | 原生基线主结果及规定诊断闭合；候选比较待完成 |
 | R0固定VAL | [500k CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_500000.csv)、[1M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1000000.csv)、[1.5M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1500000.csv)、[2M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_2000000.csv)、[2.5M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_2500000.csv)、[3M CSV](../../results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_3000000.csv) | 原单位误差记录；不替代R3判定 |
-| A1/R1 | A1原4537571 COLLECTING；R1 4537592依赖闭合续算4537575 | 未取得A1分档、R1样本或分数 |
+| A1/R1 | A1全1194228 TRAIN唯一拟合闭合，12残差/11原目标；R1 4537592已在GPU7冷启动 | 尚无R1终点分数或配对判定 |
 | R1对R0 | 比较4537599依赖两个主CPU统计 | Δ、CI、τ与WIN/TIE/LOSS均待结果 |
 | L1/L2/G1及条件K1/seed1 | 两宽库依任务书未解决不跑；当前无宽库采纳，K1未触发；R1/G1及条件种子仍等各自前置 | 两宽库没有R3或WIN/TIE/LOSS；其余不提前采用或宣称无胜出 |
 | CURRENT_BEST/9M | 未冻结，9M尚未提交 | 最终结论待全部规则执行 |
@@ -112,7 +112,7 @@ L2每行至少一项缺失100%不是整行失败。全量L2观测成本外推已
 
 [R0首次1000更新成本](../../results/d_recipe/D-R0_seed0_first1000_costs_20261120.json)记录RTX3090 UUID GPU-9db54192-dd3f-3177-e56f-dcd161ff932c：32000样本/459.63366344198585秒，69.62066216030972样本/秒，原15次整卡功耗采样均值219.734W，3M初始训练外推11.96962665213505 GPU小时。该口径排除初始化/读出，训练已变快，不能称为终点实际耗时。初次CUDA零步失败4537570为39秒/5CPU，单独记账；没有额外测速。R0原训练摘要现已闭合：actual_samples3000000、updates93750、seconds30579.45974943787、GPU_peak_bytes8374157824、梯度裁剪更新比例clipped_fraction0.027584。seconds包括训练循环中的固定VAL，排除初始化及最终读出；原GPU作业现已COMPLETED/0:0，完整墙钟31074秒，即单GPU目标作业8.631666666666666小时；CPU主统计另为1CPU/85秒。训练循环含固定VAL平均98.10506871545198样本/秒；1017次既有整卡采样均值245.27235004916423W，覆盖原GPU作业至最终读出，非仅训练功耗。完整成本见[原生元数据与Slurm成本汇总](../../results/d_recipe/D-R0_seed0_complete_GPU_job_costs_20261121.json)，batch/extern不重复加总，初次失败39秒单列，TotalCPU缺测保留未知。首次1000步原报告保持原值与口径。其余臂、条件种子、读出、诊断、失败尝试及每周Slurm实际账仍待闭合汇总；TotalCPU缺测不记成零。
 
-新增逻辑最新302项在真实4537571.step11通过0:0，Slurm9秒、测试主体1.110秒；不代替科学接收。真实接收4537514等待全量闭合：原loader各64样本、冻结编码器仅拟合新头，逐头loss低于初值1%，并核对原子SASA/source atom ID。R1尚未启动的表示统计新增可选participation_molecule_chunk=256，既有默认32保留；只改变现有F64精确矩累计的分块，不改公式、5000 VAL、1000次配对权重或种子。512维单块512MiB RAM，无新增磁盘scratch；未作实际数据测速或二次QA，不声称实测提速。新增分块边界与解析协方差相关7项测试在CPU17/4537571.step20通过，Slurm4秒、测试主体0.227秒，rtol/atol均1e-10；未重跑原302项。条件seed1规划器另修复继承seed0逐层缓存路径的问题：只关闭seed0专用可选缓存，父配置及原产物保留；真实4537571.step24的6项相关测试通过，1CPU/Slurm17秒、主体0.003秒，未启动seed1或改变其触发与共享规则。完整默认回归与`python tools/check_repository.py`仅在收尾开PR前执行一次，当前未执行。
+此前新增逻辑302项在真实4537571.step11通过0:0，Slurm9秒、测试主体1.110秒；不代替科学接收。真实宽库接收因两库未解决而未执行，4537514为已取消0秒句柄；64样本逐头过拟合及原子SASA/source atom ID接收不得宣称通过。R1尚未启动的表示统计新增可选participation_molecule_chunk=256，既有默认32保留；只改变现有F64精确矩累计的分块，不改公式、5000 VAL、1000次配对权重或种子。512维单块512MiB RAM，无新增磁盘scratch；未作实际数据测速或二次QA，不声称实测提速。新增分块边界与解析协方差相关7项测试在CPU17/4537571.step20通过，Slurm4秒、测试主体0.227秒，rtol/atol均1e-10；未重跑原302项。条件seed1规划器另修复继承seed0逐层缓存路径的问题：只关闭seed0专用可选缓存，父配置及原产物保留；真实4537571.step24的6项相关测试通过，1CPU/Slurm17秒、主体0.003秒，未启动seed1或改变其触发与共享规则。完整默认回归与`python tools/check_repository.py`仅在收尾开PR前执行一次，当前未执行。
 
 NFS联合峰值36706053853B保持，full范围29.75GB包括已命名native产物；R0检查点另登记Lustre模型池1.25GiB。R0所有本地cache写入者已实际COMPLETED/0:0，撤销其GPU7 8GiB与CPU17 12GiB未来写入预算；GPU7仅余R1两个8GiB scope合计16GiB，CPU17 R0未来写入为0，CPU10 R1目标12GiB保持。GPU7/CPU17原R0物理cache分别5133008896B/5133246464B保留并由实际df计入占用，不抵扣物理使用；实际开始及运行期核对根盘字节/inode、系统max(10GiB,10%)底线、UID配额和同行future，不复制原数据库或删除旧文件。完整运行尚未结束，这些是预算与准入规则，不是实际用量或成本结果。
 

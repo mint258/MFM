@@ -118,6 +118,8 @@ def installed_bridge(configuration, *, module=None, model_class=None, dataset_cl
     if dataset_class is None:
         from .dataset import DRecipeDataset as dataset_class
     names = ("V31PDModel", "PRecipeDataset", "dataset_configuration", "init_reader", "read_choice", "REPO")
+    if configuration.get("share_output"):
+        names += ("TrainingHistory",)
     original = {name: getattr(module, name) for name in names}
     held = {}
 
@@ -130,12 +132,29 @@ def installed_bridge(configuration, *, module=None, model_class=None, dataset_cl
         result["d_recipe"] = deepcopy(c["d_recipe"])
         return result
 
+    def build_history(output, c, **kwargs):
+        # SDK log/snapshot aliases are not descriptor-store files. Keep the
+        # existing offline SDK in the already budgeted shared control scope,
+        # outside the full-store scan; retain the actual training output in
+        # its snapshot metadata. No model, optimizer or RNG behavior changes.
+        from .resources import admit_output
+        control = Path(configuration["share_output"]).resolve()
+        destination = control / "offline_wandb_runs" / configuration["run"]
+        if not destination.resolve().is_relative_to(control):
+            raise ValueError("Offline history escaped its registered shared scope")
+        admit_output(configuration, destination)
+        history = original["TrainingHistory"](destination, c, **kwargs)
+        history.output = Path(output)
+        return history
+
     try:
         module.V31PDModel = build_model
         module.PRecipeDataset = dataset_class
         module.dataset_configuration = reader_config
         module.init_reader, module.read_choice = init_reader, read_choice
         module.REPO = ResultRoot(Path(__file__).resolve().parents[2])
+        if "TrainingHistory" in original:
+            module.TrainingHistory = build_history
         yield held
     finally:
         for name, value in original.items():

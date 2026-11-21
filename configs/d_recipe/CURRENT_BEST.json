@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-21T05:30:06.733338Z",
+  "updated_at_utc": "2026-11-21T14:24:15.814719Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -147,8 +147,8 @@
     "configuration": "configs/d_recipe/reference/native_D20.json",
     "job_id": 4537571,
     "checkpoint_continuation_job": 4537575,
-    "status": "COLLECTING_FULL_TRAIN",
-    "clipping_report_job": 4537578,
+    "status": "COMPLETE_FROZEN_FIT",
+    "clipping_report_job": 4538106,
     "collection_progress_report_only": {
       "observed_at_utc": "2026-11-21T05:30:06.733338+00:00",
       "closed_rows": 762624,
@@ -158,12 +158,68 @@
       "Slurm_elapsed_seconds": 54495,
       "estimated_collection_completion_utc": "2026-11-21T14:04:07.960443+00:00",
       "method": "linear_extrapolation_from_current_whole_job_elapsed_and_closed_rows",
-      "scope": "collection only; subsequent fitting not included; variable NFS throughput; not a stop or selection rule"
+      "scope": "collection only; subsequent fitting not included; variable NFS throughput; not a stop or selection rule",
+      "status": "HISTORICAL_FORECAST_SUPERSEDED_BY_CLOSED_FULL_FIT"
+    },
+    "TRAIN_rows": 1194228,
+    "molecular_fields": 23,
+    "published_parameters": "results/d_recipe/reference/D20_A1_parameters_20261121.json",
+    "source_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/reference/D20/label_parameters.json",
+    "shared_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/D20/label_parameters.json",
+    "residual_fields": [
+      "D20.BertzCT",
+      "D20.FractionCSP3",
+      "D20.HallKierAlpha",
+      "D20.MolLogP",
+      "D20.NumAromaticRings",
+      "D20.NumHAcceptors",
+      "D20.NumHeterocycles",
+      "D20.RingCount",
+      "D20.TPSA",
+      "D3.PBF_A",
+      "D3.PMI1",
+      "D3.SASA_total_A2"
+    ],
+    "original_target_fields": [
+      "D20.ExactMolWt",
+      "D20.HeavyAtomCount",
+      "D20.LabuteASA",
+      "D20.NumAliphaticRings",
+      "D20.NumHDonors",
+      "D20.NumHeteroatoms",
+      "D20.NumSaturatedRings",
+      "D20.NumValenceElectrons",
+      "D3.PMI2",
+      "D3.PMI3",
+      "D3.volume_A3"
+    ],
+    "unresolved_fields": [],
+    "completion_accounting": {
+      "4537571": {
+        "status": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 85805,
+        "node": "compute-0-17"
+      },
+      "4537575": {
+        "status": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 32,
+        "node": "compute-0-17"
+      }
+    },
+    "clipping_infrastructure_continuation": {
+      "original_job": 4537578,
+      "original_exit": "1:0",
+      "original_elapsed_seconds": 76,
+      "continuation_job": 4538106,
+      "same_closed_cursor_and_output": true,
+      "scientific_definition_changed": false
     }
   },
   "arm_decisions": {
     "D-R0": "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
-    "D-R1": "WAITING_FROZEN_A1_PARAMETERS",
+    "D-R1": "SCREENING_IN_PROGRESS_NO_COMPARISON_YET",
     "D-L1": "UNRESOLVED_LIBRARY_ZERO_SCALE_AFTER_TWO_FAILED_FINALIZATIONS_NO_RUN",
     "D-L2": "UNRESOLVED_LIBRARY_ZERO_SCALE_AFTER_TWO_FAILED_FINALIZATIONS_NO_RUN",
     "D-G1": "WAITING_RECIPE_DECISION",
@@ -230,12 +286,15 @@
     "cpu_configuration": "configs/d_recipe/screening/D-R1_seed0_cpu_statistics.json",
     "job_id": 4537592,
     "dependency": "afterok:4537575",
-    "status": "QUEUED_WAITING_FROZEN_A1_PARAMETERS",
+    "status": "RUNNING",
     "seed": 0,
     "samples": 3000000,
     "cpu_statistics_job": 4537593,
     "paired_comparison_job": 4537599,
-    "paired_comparison_output": "results/d_recipe/comparisons/D-R1_vs_D-R0_seed0_3M.json"
+    "paired_comparison_output": "results/d_recipe/comparisons/D-R1_vs_D-R0_seed0_3M.json",
+    "node": "compute-0-7",
+    "GPU_UUID": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+    "start_time_CST": "2026-11-21T22:12:23+08:00"
   },
   "diagnostic_progress": {
     "D_R0_seed0_3M": {
