@@ -117,3 +117,11 @@ GPU7已实际通过自身8GiB+同行16GiB根盘、共享D/同行UID future联合
 CPU17 F64表示统计4537581和GPU7缓存层读出4537584均实际RUNNING；前者消费同一绝对路径manifest，后者消费原native开发cache，只拟合3–5层R1/R3，第6层复用主结果。CPU层统计4537585继续原afterok依赖。几何诊断当前关闭前缀3388+29=3417秒，原CPU统计3小时上限保持，累计上界14217秒仍小于4小时；不把前向/传输成功冒充最终PR/CEV/CVF/CVF_res或逐层诊断结果。全部诊断不进入采用判定。
 
 当前原A1与L2仍在计算，最近A1 489984/1194228行、L2 3563/4695批。CPU17实际联合盘/inode/UID及同行future准入通过，原NFS36706053853B、full29.75GB、Lustre模型1.25GiB及根盘24/12/12GiB预测不增加。08:01日报与当前状态按已闭合生产元数据更新，没有新测试、bootstrap重算、冻结或候选胜负结论；后续完整目标保持。
+
+2026-11-21 08:22:41 CST：缓存层GPU读出4537584真实COMPLETED/0:0，GPU7/2CPU/ElapsedRaw1177；原CPU层统计4537585真实COMPLETED/0:0，CPU8/1CPU/ElapsedRaw95。原/full/native_stage1/D-R0_seed0_3M/layer_readouts/summary.json为COMPLETE，ordered_layers=[3,4,5,6]、statistics_dtype=float64、encoder_forward_repeated=false；3–5层为原cache上的规定探针，第6层直接复用主读出及统计，不重采样。
+
+CPU17既有4537571分配只执行小型原结果转录，真实联合盘/inode/UID/同行future准入通过：results/d_recipe/diagnostics/D-R0_seed0_3M/layer_readout_summary.json逐字段保存原各层R1/R3分数、CI、任务统计及源路径，省略大体积配对抽样数组；原抽样和预测全部保留生产源。原layer_scores.csv直接复制，包含3–5层逐任务结果，第6层仍指向原主scores.csv。没有模型加载、编码器前向、bootstrap重算、独立数值QA或层选择。
+
+原各层R3依次为0.2308587424764003、0.29486703839088685、0.33386390313542563、0.3047600714630222；各层R1依次为-0.03598715288707174、-0.001692420000947619、0.14474610285525596、0.15029061734585417。原CI逐字段见转录JSON，报告表只显示舍入。全部是对冻结随机C1-0的描述性诊断；R0主分仍是第6层0.3047600714630222，CURRENT_BEST不冻结，不触发seed1或任何新科学臂。
+
+CPU表示几何统计4537581仍RUNNING且未产生闭合summary；A1与L2仍生产，最近508672/1194228行与3695/4695批。GPU7后续上下文已属其他既有Slurm4537291，本线未操作或持有该GPU；未来R1仍等完整A1，届时按实际就绪/资源重新调度。原24/12/12GiB根盘与联合NFS预算保持，原输出保留。源训练clipped_fraction字段已核实为clipped/optimizer_updates，报告说明是梯度裁剪更新比例，不替代待原TRAIN报告的逐字段±6目标截断比例。其余既定臂、完整对照、冻结、9M、全回归及两个PR仍待完成。

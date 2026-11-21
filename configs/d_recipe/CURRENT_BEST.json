@@ -2,7 +2,7 @@
     "schema":  "D_RECIPE_CURRENT_BEST_V1",
     "status":  "NATIVE_SCREENING_IN_PROGRESS",
     "recipe_frozen":  false,
-    "updated_at_utc":  "2026-11-21T00:01:16Z",
+    "updated_at_utc":  "2026-11-21T00:22:41Z",
     "current_best":  null,
     "scientific_authority":  "docs/d_recipe/TASKBOOK.md",
     "preregistration":  "configs/d_recipe/preregistration.json",
@@ -159,7 +159,7 @@
                           "D-K1":  "CONDITIONAL_ON_ADOPTED_WIDE_LIBRARY"
                       },
     "conditional_seed1":  "Only seed0 WIN triggers a registered seed1 pair; no trigger yet",
-    "diagnostics":  "R0 seed0/3M fixed VAL forward and cache transfer COMPLETE; F64 representation statistics and cached layer3-5 readouts RUNNING; remaining registered endpoint diagnostics pending; decision_input=false",
+    "diagnostics":  "R0 cached layer3-6 R1/R3 diagnostics COMPLETE with layer6 reused; F64 representation geometry statistics RUNNING; remaining registered endpoint diagnostics pending; decision_input=false",
     "development_controls":  "Section5 A/B/C and composition controls pending",
     "confirmation":  {
                          "status":  "NOT_ELIGIBLE_BEFORE_ALL_FINAL_DECISIONS",
@@ -265,7 +265,7 @@
                                                                                     },
                                                       "cached_layer_readouts":  {
                                                                                     "job_id":  4537584,
-                                                                                    "status":  "RUNNING",
+                                                                                    "status":  "COMPLETE",
                                                                                     "node":  "compute-0-7",
                                                                                     "new_probes_layers":  [
                                                                                                               3,
@@ -274,7 +274,65 @@
                                                                                                           ],
                                                                                     "reused_main_layer":  6,
                                                                                     "CPU_statistics_job":  4537585,
-                                                                                    "decision_input":  false
+                                                                                    "decision_input":  false,
+                                                                                    "source":  "results/d_recipe/diagnostics/D-R0_seed0_3M/layer_readout_summary.json",
+                                                                                    "GPU_elapsed_seconds":  1177,
+                                                                                    "GPU_exit_code":  "0:0",
+                                                                                    "CPU_statistics_status":  "COMPLETE",
+                                                                                    "CPU_statistics_node":  "compute-0-8",
+                                                                                    "CPU_statistics_elapsed_seconds":  95,
+                                                                                    "CPU_statistics_exit_code":  "0:0",
+                                                                                    "encoder_forward_repeated":  false,
+                                                                                    "scores_by_layer":  {
+                                                                                                            "3":  {
+                                                                                                                      "R1":  -0.03598715288707174,
+                                                                                                                      "R1_CI":  [
+                                                                                                                                    -0.05540390545430658,
+                                                                                                                                    -0.01610731689623682
+                                                                                                                                ],
+                                                                                                                      "R3":  0.2308587424764003,
+                                                                                                                      "R3_CI":  [
+                                                                                                                                    0.21602248714828276,
+                                                                                                                                    0.24539275688211418
+                                                                                                                                ]
+                                                                                                                  },
+                                                                                                            "4":  {
+                                                                                                                      "R1":  -0.001692420000947619,
+                                                                                                                      "R1_CI":  [
+                                                                                                                                    -0.021030956328306042,
+                                                                                                                                    0.01821443680999664
+                                                                                                                                ],
+                                                                                                                      "R3":  0.29486703839088685,
+                                                                                                                      "R3_CI":  [
+                                                                                                                                    0.28161374824608193,
+                                                                                                                                    0.30926040107408764
+                                                                                                                                ]
+                                                                                                                  },
+                                                                                                            "5":  {
+                                                                                                                      "R1":  0.14474610285525596,
+                                                                                                                      "R1_CI":  [
+                                                                                                                                    0.12797923983676018,
+                                                                                                                                    0.1602546699711312
+                                                                                                                                ],
+                                                                                                                      "R3":  0.33386390313542563,
+                                                                                                                      "R3_CI":  [
+                                                                                                                                    0.32034213421977886,
+                                                                                                                                    0.34733883601463
+                                                                                                                                ]
+                                                                                                                  },
+                                                                                                            "6":  {
+                                                                                                                      "R1":  0.15029061734585417,
+                                                                                                                      "R1_CI":  [
+                                                                                                                                    0.1336480796754142,
+                                                                                                                                    0.16715810049540256
+                                                                                                                                ],
+                                                                                                                      "R3":  0.3047600714630222,
+                                                                                                                      "R3_CI":  [
+                                                                                                                                    0.2914629069496532,
+                                                                                                                                    0.3190324065629142
+                                                                                                                                ]
+                                                                                                                  }
+                                                                                                        }
                                                                                 },
                                                       "geometry_timebox":  {
                                                                                "cumulative_limit_seconds":  14400,
