@@ -1,0 +1,285 @@
+{
+  "schema": "D_STAGE0_FULL_STATUS_V1",
+  "status": "L1_UNRESOLVED_L2_FIRST_STATISTICS_RUNNING",
+  "source_raw_manifest": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/manifest.json",
+  "raw_libraries": {
+    "L1": {
+      "state": "RAW_COMPLETE",
+      "shape": [
+        1201795,
+        217
+      ],
+      "value_dtype": "float64",
+      "values": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/L1_values.npy",
+      "status_store": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/L1_status.npy",
+      "producer_alignment_checked": true,
+      "software_versions": {
+        "rdkit_version": "2025.9.5",
+        "mordredcommunity_version": "2.0.7"
+      },
+      "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/L1_checkpoint.json"
+    },
+    "L2": {
+      "state": "RAW_COMPLETE",
+      "shape": [
+        1201795,
+        1613
+      ],
+      "value_dtype": "float64",
+      "values": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/L2_values.npy",
+      "status_store": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/L2_status.npy",
+      "producer_alignment_checked": true,
+      "software_versions": {
+        "rdkit_version": "2025.9.5",
+        "mordredcommunity_version": "2.0.7"
+      },
+      "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/L2_checkpoint.json"
+    }
+  },
+  "L1": {
+    "status": "UNRESOLVED",
+    "reason": "UNRESOLVED_NORMALIZATION_ZERO_SCALE:L1",
+    "authority": "TASKBOOK section3 two actual failed finalizations",
+    "source_statistics": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/L1_statistics.json",
+    "versioned_statistics": "results/data_d_descriptors/L1_full_TRAIN_statistics_20261121.json",
+    "issue_fields": [
+      {
+        "name": "fr_benzodiazepine",
+        "enabled": true,
+        "removal_reasons": [],
+        "train_molecules": 1194228,
+        "valid_values": 1194228,
+        "valid_fraction": 1.0,
+        "true_zero_count": 1193937,
+        "missing_count": 0,
+        "nonfinite_numeric_events": 0,
+        "overflow_events": 0,
+        "finite_constant": false,
+        "parameters": {
+          "fit_role": "TRAIN",
+          "valid_values": 1194228,
+          "q001": 0.0,
+          "q999": 0.0,
+          "quantile_method": "linear type-7",
+          "mean": 0.0,
+          "std_population": 0.0,
+          "ddof": 0,
+          "stored_targets_clipped": false
+        },
+        "normalization_status": "ZERO_SCALE_NOT_DIVIDABLE",
+        "train_loss_abs_standardized_gt6_count": null,
+        "train_loss_abs_standardized_gt6_fraction": null
+      },
+      {
+        "name": "fr_diazo",
+        "enabled": true,
+        "removal_reasons": [],
+        "train_molecules": 1194228,
+        "valid_values": 1194228,
+        "valid_fraction": 1.0,
+        "true_zero_count": 1194218,
+        "missing_count": 0,
+        "nonfinite_numeric_events": 0,
+        "overflow_events": 0,
+        "finite_constant": false,
+        "parameters": {
+          "fit_role": "TRAIN",
+          "valid_values": 1194228,
+          "q001": 0.0,
+          "q999": 0.0,
+          "quantile_method": "linear type-7",
+          "mean": 0.0,
+          "std_population": 0.0,
+          "ddof": 0,
+          "stored_targets_clipped": false
+        },
+        "normalization_status": "ZERO_SCALE_NOT_DIVIDABLE",
+        "train_loss_abs_standardized_gt6_count": null,
+        "train_loss_abs_standardized_gt6_fraction": null
+      },
+      {
+        "name": "fr_isocyan",
+        "enabled": true,
+        "removal_reasons": [],
+        "train_molecules": 1194228,
+        "valid_values": 1194228,
+        "valid_fraction": 1.0,
+        "true_zero_count": 1193558,
+        "missing_count": 0,
+        "nonfinite_numeric_events": 0,
+        "overflow_events": 0,
+        "finite_constant": false,
+        "parameters": {
+          "fit_role": "TRAIN",
+          "valid_values": 1194228,
+          "q001": 0.0,
+          "q999": 0.0,
+          "quantile_method": "linear type-7",
+          "mean": 0.0,
+          "std_population": 0.0,
+          "ddof": 0,
+          "stored_targets_clipped": false
+        },
+        "normalization_status": "ZERO_SCALE_NOT_DIVIDABLE",
+        "train_loss_abs_standardized_gt6_count": null,
+        "train_loss_abs_standardized_gt6_fraction": null
+      },
+      {
+        "name": "fr_isothiocyan",
+        "enabled": true,
+        "removal_reasons": [],
+        "train_molecules": 1194228,
+        "valid_values": 1194228,
+        "valid_fraction": 1.0,
+        "true_zero_count": 1193939,
+        "missing_count": 0,
+        "nonfinite_numeric_events": 0,
+        "overflow_events": 0,
+        "finite_constant": false,
+        "parameters": {
+          "fit_role": "TRAIN",
+          "valid_values": 1194228,
+          "q001": 0.0,
+          "q999": 0.0,
+          "quantile_method": "linear type-7",
+          "mean": 0.0,
+          "std_population": 0.0,
+          "ddof": 0,
+          "stored_targets_clipped": false
+        },
+        "normalization_status": "ZERO_SCALE_NOT_DIVIDABLE",
+        "train_loss_abs_standardized_gt6_count": null,
+        "train_loss_abs_standardized_gt6_fraction": null
+      },
+      {
+        "name": "fr_nitroso",
+        "enabled": true,
+        "removal_reasons": [],
+        "train_molecules": 1194228,
+        "valid_values": 1194228,
+        "valid_fraction": 1.0,
+        "true_zero_count": 1193784,
+        "missing_count": 0,
+        "nonfinite_numeric_events": 0,
+        "overflow_events": 0,
+        "finite_constant": false,
+        "parameters": {
+          "fit_role": "TRAIN",
+          "valid_values": 1194228,
+          "q001": 0.0,
+          "q999": 0.0,
+          "quantile_method": "linear type-7",
+          "mean": 0.0,
+          "std_population": 0.0,
+          "ddof": 0,
+          "stored_targets_clipped": false
+        },
+        "normalization_status": "ZERO_SCALE_NOT_DIVIDABLE",
+        "train_loss_abs_standardized_gt6_count": null,
+        "train_loss_abs_standardized_gt6_fraction": null
+      },
+      {
+        "name": "fr_quatN",
+        "enabled": true,
+        "removal_reasons": [],
+        "train_molecules": 1194228,
+        "valid_values": 1194228,
+        "valid_fraction": 1.0,
+        "true_zero_count": 1193457,
+        "missing_count": 0,
+        "nonfinite_numeric_events": 0,
+        "overflow_events": 0,
+        "finite_constant": false,
+        "parameters": {
+          "fit_role": "TRAIN",
+          "valid_values": 1194228,
+          "q001": 0.0,
+          "q999": 0.0,
+          "quantile_method": "linear type-7",
+          "mean": 0.0,
+          "std_population": 0.0,
+          "ddof": 0,
+          "stored_targets_clipped": false
+        },
+        "normalization_status": "ZERO_SCALE_NOT_DIVIDABLE",
+        "train_loss_abs_standardized_gt6_count": null,
+        "train_loss_abs_standardized_gt6_fraction": null
+      },
+      {
+        "name": "fr_thiocyan",
+        "enabled": true,
+        "removal_reasons": [],
+        "train_molecules": 1194228,
+        "valid_values": 1194228,
+        "valid_fraction": 1.0,
+        "true_zero_count": 1194111,
+        "missing_count": 0,
+        "nonfinite_numeric_events": 0,
+        "overflow_events": 0,
+        "finite_constant": false,
+        "parameters": {
+          "fit_role": "TRAIN",
+          "valid_values": 1194228,
+          "q001": 0.0,
+          "q999": 0.0,
+          "quantile_method": "linear type-7",
+          "mean": 0.0,
+          "std_population": 0.0,
+          "ddof": 0,
+          "stored_targets_clipped": false
+        },
+        "normalization_status": "ZERO_SCALE_NOT_DIVIDABLE",
+        "train_loss_abs_standardized_gt6_count": null,
+        "train_loss_abs_standardized_gt6_fraction": null
+      }
+    ],
+    "failed_jobs": [
+      {
+        "job": 4537508,
+        "state": "FAILED",
+        "exit_code": "1:0",
+        "elapsed_seconds": 64639,
+        "allocated_CPUs": 4
+      },
+      {
+        "job": 4537574,
+        "state": "FAILED",
+        "exit_code": "1:0",
+        "elapsed_seconds": 43,
+        "allocated_CPUs": 4
+      }
+    ],
+    "D_L1_run_eligible": false,
+    "original_filter_and_normalization_unchanged": true,
+    "arrays_and_closed_statistics_preserved": true
+  },
+  "L2": {
+    "job": 4537771,
+    "state": "RUNNING",
+    "phase": "first full TRAIN statistics",
+    "node": "compute-0-10",
+    "requested_CPUs": 1
+  },
+  "reception": {
+    "old_never_started_job": 4537514,
+    "old_state": "CANCELLED by1278/0sec",
+    "new_L2_only_job": 4537772,
+    "dependency": 4537771
+  },
+  "exports": {
+    "development_job": 4537517,
+    "independent_benchmark_L2_job": 4537537,
+    "dependency": 4537771
+  },
+  "tests": {
+    "passed_job_step": "4537571.27",
+    "count": 3,
+    "elapsed_seconds": 4,
+    "body_seconds": 0.006,
+    "first_fixture_failure_job_step": "4537571.26",
+    "first_fixture_failure_seconds": 5,
+    "first_fixture_failure": "Nested NFS storage guard was not mocked for synthetic /tmp fixture; test-only correction"
+  },
+  "scientific_arrays_reread": false,
+  "numeric_statistics_recomputed": false
+}

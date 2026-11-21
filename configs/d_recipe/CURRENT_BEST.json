@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-21T01:28:33Z",
+  "updated_at_utc": "2026-11-21T04:18:56Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -153,8 +153,8 @@
   "arm_decisions": {
     "D-R0": "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
     "D-R1": "WAITING_FROZEN_A1_PARAMETERS",
-    "D-L1": "WAITING_COMPLETE_LIBRARY_DELIVERY_AND_RECIPE_DECISION",
-    "D-L2": "WAITING_COMPLETE_LIBRARY_DELIVERY_AND_RECIPE_DECISION",
+    "D-L1": "UNRESOLVED_LIBRARY_ZERO_SCALE_AFTER_TWO_FAILED_FINALIZATIONS_NO_RUN",
+    "D-L2": "WAITING_FIRST_TRAIN_STATISTICS_RECEPTION_AND_RECIPE_DECISION",
     "D-G1": "WAITING_RECIPE_DECISION",
     "D-K1": "CONDITIONAL_ON_ADOPTED_WIDE_LIBRARY"
   },
@@ -349,6 +349,48 @@
         "all_registered_diagnostic_job_seconds": 9135
       },
       "encoder_forward_repeated": false
+    }
+  },
+  "stage0": {
+    "status": "RAW_COMPLETE_L1_UNRESOLVED_L2_STATISTICS_RUNNING",
+    "source": "results/d_recipe/stage0_full_status_20261121.json",
+    "raw_rows": 1201795,
+    "TRAIN_rows": 1194228,
+    "raw_fields": {
+      "L1": 217,
+      "L2": 1613
+    },
+    "raw_parts_per_library": 4695,
+    "L1": {
+      "status": "UNRESOLVED",
+      "reason": "ZERO_SCALE_NOT_DIVIDABLE",
+      "failed_jobs": [
+        4537508,
+        4537574
+      ],
+      "issue_fields": [
+        "fr_benzodiazepine",
+        "fr_diazo",
+        "fr_isocyan",
+        "fr_isothiocyan",
+        "fr_nitroso",
+        "fr_quatN",
+        "fr_thiocyan"
+      ],
+      "scientific_filter_unchanged": true,
+      "original_arrays_and_statistics_retained": true
+    },
+    "L2": {
+      "first_statistics_job": 4537771,
+      "reception_job": 4537772,
+      "development_export_job": 4537517,
+      "benchmark_export_job": 4537537,
+      "all_afterok_statistics": true
+    },
+    "old_reception_job": {
+      "job": 4537514,
+      "status": "CANCELLED by1278",
+      "elapsed_seconds": 0
     }
   }
 }

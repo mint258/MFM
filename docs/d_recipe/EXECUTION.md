@@ -135,3 +135,11 @@ R0所有本地写入者均C0，按实际关闭撤销GPU7 R0 8GiB和CPU17 R0 12Gi
 2026-11-21 09:52:13 CST：检查条件seed1配置时发现，通用P新种子助手原样继承diagnostic_feature_root；D seed0逐层缓存绑定原run/checkpoint，若条件seed1沿用该路径会在终点读出被原绑定拒绝。D任务书4.8的逐层诊断仅在既定seed0端点执行，因此在D专用seed_plan._child中仅移除可选diagnostic_feature_root，不改变P源、训练/主读出、A1冻结参数、种子触发或共享对照规则。父seed0配置和全部原cache保留；具体新位置和磁盘预算仍由Root在真实条件触发后准入，没有生成/提交任何seed1运行。
 
 既有获胜子配置测试同时带入候选和对照seed0缓存路径，确认父配置不变、两个子配置都不启用该seed0缓存。相关6项条件种子测试在CPU17真实4537571.step24通过，Slurm COMPLETED/0:0、1CPU/17秒，测试主体0.003秒；实际联合磁盘/UID/同行future守卫通过，未运行训练、bootstrap、实际数据QA或全仓回归。此为执行错误修复，不改变科学预注册。最新A1仍COLLECTING579840/1194228，L2闭合3858/4695批，原生产/后继依赖保持。
+
+2026-11-21 12:18:56 CST：原全阶段4537508已闭合L1/L2原始1201795行、217/1613字段、各4695批，随后L1唯一全TRAIN统计因7个raw非恒定稀有计数在既定type-7缩尾后std0而拒绝最终化。真实4537508 FAILED/1:0、64639秒/4分配CPU；原续算4537574复用原始数组与闭合L1_statistics.json，仍同错FAILED/1:0、43秒/4CPU。依任务书第3节两次实际失败，L1=UNRESOLVED、D-L1不跑、保留对照；没有R3、TIE或LOSS结论。fr_benzodiazepine/fr_diazo/fr_isocyan/fr_isothiocyan/fr_nitroso/fr_quatN/fr_thiocyan原有效TRAIN均1194228，q001/q999/缩尾mean/std均0。原字段过滤、D4、数组和唯一统计全保留，无epsilon、重拟合或删字段。
+
+新增默认关闭unresolved_libraries仅在final manifest明确关闭该库，原raw manifest和统计保持；让L2首次完整TRAIN统计独立继续。3项相关新逻辑在真实CPU17/4537571.step27通过，1CPU/4秒、主体0.006秒；step26初次合成fixture漏mock嵌套NFS守卫失败5秒，修正只在测试。默认零尺度拒绝、未知库/空理由拒绝及关闭库/原统计保留均覆盖；新测试纳入既有最终新逻辑测试清单，未重跑302项或全仓回归。reception.sbatch新增可选整库参数，默认仍L1/L2；CPU17实际bash语法检查通过。
+
+Data修复已推d0d5f05fc0dcd6e5300e2f52f0281953839b4523，Root接收入口已推1bd92d8cf9188ec696a08eeda4678885a7616125。CPU10实查CPUAlloc60/64、目标NFS/root字节与inode后，4537771实际RUNNING CPU10，请求1CPU/3天，仅执行同一stores的L2首次TRAIN统计；NFS/UID/同行future入口守卫保持。新L2接收4537772、原开发导出4537517、原独立基准L2导出4537537均afterok4537771；旧双库接收4537514经UID1278/PENDING/0运行核实后取消，原生会计CANCELLED by1278/0秒。没有触发L1接收或新训练。原A1/R1链保持，最近A1 COLLECTING701440/1194228。
+
+CPU17/4537571.step29仅原样保存raw manifest和L1唯一统计至Data结果目录，Root stage0_full_status_20261121.json逐字段转录原7字段及真实Slurm/依赖；没有科学数组回读、哈希或新统计。全NFS36706053853B/full29.75GB/Lustre1.25GiB以及GPU7/CPU17R0/CPU10R1未来16/0/12GiB保持，原输出均保留。完整方法/局限与L1未解决已更新FINAL_REPORT、CURRENT_BEST和日报；最终目标继续。
