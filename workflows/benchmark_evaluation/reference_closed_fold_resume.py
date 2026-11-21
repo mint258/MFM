@@ -191,3 +191,32 @@ def validate_resume_plan(plan,new_job):
     if not isinstance(tasks,list) or not tasks or any(not isinstance(task,str) or not task for task in tasks) or len(set(tasks))!=len(tasks):
         raise ValueError("The original frozen endpoint task identities are required")
     return old
+
+TARGETED_RESUME_SCHEMA="REFERENCE_TERMINAL_FAILED_TARGETED_GPU_RESUME_V2"
+TARGETED_GPU_NODES=frozenset("compute-0-"+str(index) for index in range(8))|{"compute-0-20","compute-0-22"}
+TARGETED_GPU_PYTHONS=frozenset(("/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/tabpfn/bin/python","/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu128_job_4537025_step_5/tabpfn/bin/python"))
+
+def validate_targeted_resume_plan(plan,new_job,*,actual_node,registered_python):
+    """Bind a failed-only continuation to one actual approved GPU allocation and existing environment."""
+    if not isinstance(plan,dict):raise ValueError("An explicit targeted GPU plan object is required")
+    if (plan.get("schema")!=TARGETED_RESUME_SCHEMA
+        or type(plan.get("maximum_concurrent_reference_GPU_models")) is not int
+        or plan.get("maximum_concurrent_reference_GPU_models")!=1
+        or "maximum_concurrent_GPU7_models" in plan):
+        raise ValueError("A single targeted GPU continuation requires its explicit V2 plan")
+    node=plan.get("target_node")
+    uuid=plan.get("gpu_uuid")
+    python=plan.get("gpu_python")
+    if not isinstance(node,str) or node not in TARGETED_GPU_NODES or actual_node!=node:
+        raise ValueError("The actual allocated permitted development node must match the selected GPU target")
+    if (not isinstance(uuid,str) or not re.fullmatch(
+        r"GPU-[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}",uuid)):
+        raise ValueError("An exact actual GPU UUID is required")
+    if not isinstance(python,str) or python not in TARGETED_GPU_PYTHONS or registered_python!=python:
+        raise ValueError("Use exactly one already validated private TabPFN CUDA environment")
+    # Reuse every original source/seed/attempt/terminal-state invariant without relaxing the old GPU7 entry.
+    common=copy.deepcopy(plan)
+    common["schema"]="REFERENCE_TERMINAL_FAILED_CLOSED_FOLD_RESUME_V1"
+    common["maximum_concurrent_GPU7_models"]=1
+    old=validate_resume_plan(common,new_job)
+    return old,dict(target_node=node,gpu_uuid=uuid,gpu_python=python)

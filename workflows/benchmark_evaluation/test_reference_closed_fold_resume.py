@@ -7,7 +7,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
-from .reference_closed_fold_resume import require_terminal_failure,collect_closed_folds,ResumeContext,prepare_resume_source
+from .reference_closed_fold_resume import require_terminal_failure,collect_closed_folds,ResumeContext,prepare_resume_source,validate_resume_plan,validate_targeted_resume_plan,TARGETED_RESUME_SCHEMA,TARGETED_GPU_PYTHONS
 
 MODEL="C1-TabPFN-Pprime"
 TASK="Absorption max (nm)"
@@ -175,3 +175,60 @@ class ClosedFoldResumeTests(unittest.TestCase):
             with self.assertRaises(ValueError):validate_resume_plan(bad,99)
 
 if __name__=="__main__":unittest.main()
+
+
+class TargetedResumePlanTests(unittest.TestCase):
+    def plan(self,node="compute-0-6",python="/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/tabpfn/bin/python"):
+        return dict(schema=TARGETED_RESUME_SCHEMA,source_job=4537812,new_native_job=900001,
+            repair_attempt=1,dataset="Joung2020",feature_group="Pprime",model_seed=20261025,
+            benchmark_NFS_pool_bytes=40*1024**3,maximum_concurrent_reference_GPU_models=1,
+            source_native_record=native(job=4537812),frozen_task_names=[TASK],
+            target_node=node,gpu_uuid="GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",gpu_python=python)
+    def validate(self,plan,**changes):
+        args=dict(actual_node=plan["target_node"],registered_python=plan["gpu_python"])
+        args.update(changes)
+        return validate_targeted_resume_plan(plan,900001,**args)
+    def test_registered_targets_and_both_existing_environments_preserve_the_original_plan(self):
+        for node in tuple("compute-0-"+str(index) for index in range(8))+("compute-0-20","compute-0-22"):
+            for python in TARGETED_GPU_PYTHONS:
+                plan=self.plan(node,python);before=copy.deepcopy(plan)
+                old,target=self.validate(plan)
+                self.assertEqual(old,4537812)
+                self.assertEqual(target,dict(target_node=node,gpu_uuid=plan["gpu_uuid"],gpu_python=python))
+                self.assertEqual(plan,before)
+    def test_prohibited_or_unallocated_targets_are_rejected(self):
+        for node in ("compute-0-21","compute-0-8","sonmi","202.38.252.202",None,[]):
+            plan=self.plan();plan["target_node"]=node
+            with self.assertRaises(ValueError):self.validate(plan)
+        with self.assertRaises(ValueError):self.validate(self.plan(),actual_node="compute-0-7")
+    def test_uuid_cannot_be_missing_partial_or_contain_shell_text(self):
+        for value in (None,"","GPU-unknown","GPU-9db54192","GPU-9db54192-dd3f-3177-e56f-dcd161ff932c;exit"):
+            plan=self.plan();plan["gpu_uuid"]=value
+            with self.assertRaises(ValueError):self.validate(plan)
+    def test_unapproved_or_mismatched_interpreters_are_rejected(self):
+        for python in ("/usr/bin/python","/tmp/python","/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/tabpfn/bin/python;echo",None,[]):
+            plan=self.plan();plan["gpu_python"]=python
+            with self.assertRaises(ValueError):self.validate(plan)
+        with self.assertRaises(ValueError):self.validate(self.plan(),registered_python="/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu128_job_4537025_step_5/tabpfn/bin/python")
+    def test_original_live_success_cancelled_or_requeued_sources_remain_ineligible(self):
+        for state in ("RUNNING","PENDING","COMPLETING","COMPLETED","CANCELLED"):
+            plan=self.plan();plan["source_native_record"]=native(state,job=4537812)
+            with self.assertRaises(ValueError):self.validate(plan)
+        plan=self.plan();plan["source_native_record"]=native(job=4537812).replace("Restarts=0","Restarts=1")
+        with self.assertRaises(ValueError):self.validate(plan)
+    def test_original_seed_scope_pool_attempt_and_frozen_tasks_cannot_expand(self):
+        for key,value in (("model_seed",20261026),("source_job",4537694),("repair_attempt",2),
+            ("feature_group","Pprime_plus_D"),("dataset","TDC_ADME"),("benchmark_NFS_pool_bytes",68*1024**3),
+            ("maximum_concurrent_reference_GPU_models",2),("maximum_concurrent_reference_GPU_models",True),
+            ("maximum_concurrent_reference_GPU_models","1"),("frozen_task_names",[])):
+            plan=self.plan();plan[key]=value
+            with self.assertRaises(ValueError):self.validate(plan)
+    def test_original_gpu7_validator_cannot_silently_ignore_a_targeted_plan(self):
+        with self.assertRaises(ValueError):validate_resume_plan(self.plan(),900001)
+        plan=self.plan();plan["maximum_concurrent_GPU7_models"]=1
+        with self.assertRaises(ValueError):self.validate(plan)
+    def test_all_five_original_producers_keep_their_actual_dataset_identity(self):
+        for job in (4537812,4537813,4537814,4537817,4537818):
+            plan=self.plan();plan.update(source_job=job,source_native_record=native(job=job),
+                dataset="C7H10O2" if job==4537818 else "Joung2020")
+            self.assertEqual(self.validate(plan)[0],job)

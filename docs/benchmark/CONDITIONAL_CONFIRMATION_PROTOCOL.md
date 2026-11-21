@@ -75,3 +75,12 @@ Unchanged evaluation populations continue to reuse closed producer estimates. A 
 入口限定原生owned FAILED/TIMEOUT/OUT_OF_MEMORY/NODE_FAIL/BOOT_FAIL/PREEMPTED、Restarts0及首次续接；运行、排队、成功、手动取消或观察缺失均不构成许可。保留原注册GPU科学程序及固定V2/20261025/冻结折/原始人口/预算，只添加闭合折复用控制。新的实际job目录使用硬链接接入原生产端明确关闭的results.json与predictions.parquet；不读预测数值、不重算旧统计、不覆盖旧目录，并为每个复用折记录实际原CPU作业。仅未完成折执行模型，新输出保留实际GPU续接身份；该配置的来源由原CPU闭合折与新增GPU折组成。默认种子数不变，不视为梯度训练回滚。
 
 真实失败发生后仍须先在CPU核实原生状态、冻结任务名与登记程序，记录实际新job和全部绑定，再以实际GPU UUID/owner/锁/根盘及配额准入启动。没有实际失败不得启用；不用于TDC九格，不增加第三次修复、全量提取或新几何。
+
+
+### 2026-11-22 原生失败后的目标 GPU 绑定（准备完成，未启用）
+
+针对GPU7上已有D线活跃任务的实际情况，新增[目标选择入口](../../workflows/benchmark_evaluation/reference_terminal_failure_targeted_GPU_resume.sbatch)，保留旧GPU7入口。V2计划必须明确target_node、实际gpu_uuid、gpu_python及maximum_concurrent_reference_GPU_models=1；调用节点须与实际Slurm主机一致，UUID还由运行时重新观察。只接受已验证的Cu118/Cu128私有TabPFN环境，按届时实际卡型选择；不新建环境、下载权重或改动模型参数。0–7优先，20/22按现行后备与共存保护，21禁止；提交时仍须核实实际活跃分配、可分配CPU、所有者上下文和显存，未就绪任务不预留卡。
+
+只覆盖4537812/4537813/4537814/4537817/4537818的首次实际失败续接。既有seed20261025、冻结任务/折、特征掩码、人口、预算及40GiB本线池全部沿用；RUNNING/PENDING/COMPLETED/CANCELLED、重排来源、额外种子/尝试和TDC九格仍拒绝。旧V1入口拒绝V2计划，防止目标字段被忽略。现有根/tmp/共享盘、UID与动态同行future、GPU UUID公共锁和P9M保护不变。
+
+8143在CPU15/6:26原生C0，250回归（242既有+8目标绑定）及5615文件/3786 Python源码检查PASS。现有辅助函数与测试AST未改；删除新增执行目标绑定和记录字段后，新入口Python主体与原GPU7入口完整AST相同。五份实际注册模型生成的续接程序与7872已验证版本逐字一致，实际CPU原程序仍仅device不同。没有读取真实折结果/预测、执行模型/统计、提交GPU模型或更改7850→7860→7861。当前五个主种子继续原生执行，备用入口未启用；TabPFN固定权重上下文续接不视为梯度训练样本回滚。
