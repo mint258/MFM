@@ -114,3 +114,13 @@ Unchanged evaluation populations continue to reuse closed producer estimates. A 
 [实际报告控制器](../../workflows/benchmark_evaluation/c1_pka_report_binding_native_chain.py)8195在CPU13/13秒COMPLETED0:0，先核实五模型成功及8164真实失败、空输出和旧8165/8180 owned PENDING/RunTime0/Restarts0，再记录8196完整比较→8197确认准备→8198调度和新缓存；5621文件/3791 Python源码检查PASS后，才取消旧两个零启动步骤并释放新链。8194在任何写入/hold/提交前遇到旧报告已被Slurm清除的队列响应，1秒元数据失败记录保留；8195另用6组合成传输情形验证，仅接受精确无此作业响应并匹配fresh持久记账，活动来源或连接错误不放行。
 
 05:44 CST已核实新8196在CPU8实际运行。所有源模型、104绑定、B1冻结名单/CSV/SHA、九格TDC上限、GPU保护与模型程序保持；此次仅重交真实失败的报告以及两个尚未启动的后续步骤。第二种子仍仅按首次完整比较的最终显著改善触发，普通固定权重上下文续接不增加训练重做例外。最终表仍沿正常首次导出保留全部561主行与实际确认行、明确未检查的预训练重叠状态，唯一最终CSV SHA及完整交付待后续链真正闭合。P 预训练模型在下游接收的是 UFF 几何。
+
+### 2026-11-22 pKa 的 challenge 限定身份及第二次报告修复
+
+8196在CPU8实际FAILED1:0/4:22，保护条件为原生记录不属于冻结TEST；尚未写出结果、统计或manifest，失败目录保留。只针对这一真实报告错误，8201在CPU13/32秒COMPLETED0:0，对3153个Parquet文件仅选dataset/task/record_id/model/fit_population/retained/domain_eligible列，未读预测、标签、TRAIN均值或指标，也未算统计。545个有预测配置身份相容；差异仅为六个pKa LightGBM宏观配置（D/P′/P′+D×酸/碱），另有九格既定TDC UNRESOLVED和一个待批准附录替换的历史原子占位，561格范围保持。
+
+差异是LightGBM原生record_id没有B1采用的SAMPL6:/SAMPL7:前缀；同一原始ID必须连同已有challenge作比较。新增native_evaluation_id仅为宏观pKa生成比较用evaluation_id，不改record_id、challenge、rawdataID、实验值或模型输出。TabPFN已有完整前缀且没有单独challenge列时保持；已有前缀与challenge冲突、缺少challenge、未知挑战或错误限定均拒绝，不猜测、不放松原TEST/标签/分子身份保护。
+
+8206在CPU13/15秒COMPLETED0:0，274合成回归及5622文件/3792 Python/1311服务端源码检查PASS。在第二次报告重提前另只读实际身份列，逐一证明三个真实LightGBM来源6951/7133/7145的六个配置全部落在冻结身份范围：D酸31/31、碱18/18，P′与组合各酸28/31、碱16/18；原缺失覆盖保持，未填P′或预测。8203在274测试通过后的身份验证遍历遇到无folder数组绑定，5秒前置失败记录保留；8206只修正遍历跳过非目标绑定，不改科学程序。
+
+[第二次实际控制器](../../workflows/benchmark_evaluation/c1_pka_challenge_identity_native_chain.py)8207要求上述六个实际身份验证全部通过，并重查8196真实失败及空结果目录，再在owned PENDING/RunTime0/Restarts0边界记录新8208→8209→8210和完整5623文件/3793 Python源缓存，之后才退休旧8197/8198并释放新链。05:58 CST已核实8208在CPU8运行。五个续接模型、104来源绑定、原CUDA模板、全部其他来源、B1/B2冻结表和所有统计定义保持。此为第二次实际报告修复；如仍失败，严格按既定修复上限处理具体受影响配置，不启动第三次修复。完整561格统计、真实必需确认、最终CSV/SHA及PR交付仍待实际正常链闭合。

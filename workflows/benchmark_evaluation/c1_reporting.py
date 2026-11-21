@@ -95,6 +95,25 @@ def expected_cells(catalog):
         raise IncompleteComparison("Duplicate active C1 endpoint/configuration identity")
     return cells
 
+def native_evaluation_id(raw, dataset):
+    """Keep native record_id intact; qualify only the registered macro-pKa comparison key."""
+    identity=raw.get("record_id")
+    if identity is None or not str(identity).strip():
+        raise IncompleteComparison("Original evaluation record identity is absent")
+    identity=str(identity)
+    if dataset!="pKahub" or raw.get("task") not in {"acid","base","macro_acid","macro_base"}:
+        return identity
+    challenge=raw.get("challenge")
+    prefixes=("SAMPL6:","SAMPL7:")
+    qualified=next((prefix for prefix in prefixes if identity.startswith(prefix)),None)
+    if qualified is not None:
+        if challenge not in (None,"",qualified[:-1]):
+            raise IncompleteComparison("Macro-pKa native challenge conflicts with its qualified record identity")
+        return identity
+    if challenge not in {"SAMPL6","SAMPL7"} or identity.startswith("SAMPL"):
+        raise IncompleteComparison("Macro-pKa comparison identity requires the original SAMPL6/7 challenge")
+    return challenge+":"+identity
+
 def native_primary_row(raw, catalog, spec):
     dataset=raw.get("dataset",spec.get("dataset"))
     if dataset is None:
@@ -108,7 +127,7 @@ def native_primary_row(raw, catalog, spec):
         outside=bool(raw.get("blind_fallback",False)) or not (raw.get("retained",True) and raw.get("domain_eligible",True))
         if outside and raw["prediction"]!=raw["training_mean"]:
             raise IncompleteComparison("A C1 blind outside-domain point lost its actual fit TRAIN-mean fallback")
-    row=dict(raw,endpoint_key=endpoint,dataset=dataset,evaluation_id=str(raw["record_id"]),
+    row=dict(raw,endpoint_key=endpoint,dataset=dataset,evaluation_id=native_evaluation_id(raw,dataset),
              learner=spec["learner"],feature_group=spec["feature_group"])
     index_predictions([row],allow_native_missing=True)
     return row
