@@ -2,6 +2,7 @@ sbatch <<'CONFIRMREPORT'
 #!/bin/bash
 #SBATCH --job-name=C1-seed2-first-report
 #SBATCH --partition=cpu
+#SBATCH --nodelist=compute-0-13
 #SBATCH --exclude=compute-0-[0-7,14,18,20-22]
 #SBATCH --cpus-per-task=1
 #SBATCH --ntasks=1
@@ -87,8 +88,9 @@ if stage=="B1":
         reused.append(dict(job=int(row["confirmation_native_job"]),folder="B1_Chemprop_NMR/job_"+str(row["confirmation_native_job"]),model="Chemprop-v2",reuse_cell=cell(row)))
 all_specs=b1_specs+(c1_specs if stage=="C1" else [])+new_specs+reused
 job_ids=sorted({str(spec["job"]) for spec in all_specs})
-raw=subprocess.check_output(["ssh","-n","-o","BatchMode=yes","-o","ConnectTimeout=10","sonmi",
-    "sacct","-j",",".join(job_ids),"-X","--noheader","--parsable2","-o","JobID,JobIDRaw,State,ExitCode,NodeList"],text=True,timeout=60)
+accounting_transport=types.ModuleType("native_slurm_transport")
+exec(compile(sources["workflows/benchmark_evaluation/native_slurm_transport.py"],accounting_transport.__name__,"exec"),accounting_transport.__dict__)
+raw=accounting_transport.native_control(["sacct","-j",",".join(job_ids),"-X","--noheader","--parsable2","-o","JobID,JobIDRaw,State,ExitCode,NodeList"])
 accounting={}
 for line in raw.splitlines():
     fields=line.strip().split("|")

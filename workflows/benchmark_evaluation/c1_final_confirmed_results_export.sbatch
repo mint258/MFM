@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=C1-final-confirmed-results
 #SBATCH --partition=cpu
+#SBATCH --nodelist=compute-0-13
 #SBATCH --exclude=compute-0-[0-7,14,18,20-22]
 #SBATCH --cpus-per-task=2
 #SBATCH --ntasks=1
@@ -77,9 +78,9 @@ atomic_module.__package__=package.__name__;sys.modules[atomic_module.__name__]=a
 exec(compile(sources['workflows/benchmark_evaluation/approved_pka_atomic.py'],atomic_module.__name__,'exec'),atomic_module.__dict__)
 atomic_job='4537644'
 atomic_path=b1/'approved_pka_atomic_supplement'/('job_'+atomic_job)/'manifest.json'
-atomic_accounting=subprocess.check_output(
-    ['ssh','-n','-o','BatchMode=yes','-o','ConnectTimeout=10','sonmi',
-     'sacct -j '+atomic_job+' -X -n -P -o JobID,State,ExitCode'],text=True,timeout=60)
+accounting_transport=types.ModuleType("native_slurm_transport")
+exec(compile(sources["workflows/benchmark_evaluation/native_slurm_transport.py"],accounting_transport.__name__,"exec"),accounting_transport.__dict__)
+atomic_accounting=accounting_transport.native_control(['sacct','-j',atomic_job,'-X','-n','-P','-o','JobID,State,ExitCode'])
 actual=[line.split('|') for line in atomic_accounting.splitlines() if line.split('|')[0]==atomic_job]
 if len(actual)!=1 or actual[0][1:3]!=['COMPLETED','0:0']:
     raise IncompleteComparison('The registered approved atomic supplement has not completed natively')
