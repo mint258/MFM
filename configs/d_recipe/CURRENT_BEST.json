@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-21T15:15:15.851116Z",
+  "updated_at_utc": "2026-11-21T16:01:21.820989Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -220,6 +220,14 @@
       "previous_elapsed_seconds": 3105,
       "continuation_node": "compute-0-8",
       "closed_atomic_cursor_reused": 68608
+    },
+    "clipping_progress_report_only": {
+      "observed_at_utc": "2026-11-21T16:01:21.820989+00:00",
+      "job_id": 4538112,
+      "node": "compute-0-8",
+      "closed_atomic_molecule_rows": 138240,
+      "TRAIN_rows": 1194228,
+      "scope": "producer cursor only; complete per-field and atomic fractions still pending"
     }
   },
   "arm_decisions": {
@@ -301,7 +309,27 @@
     "GPU_UUID": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
     "start_time_CST": "2026-11-21T22:12:23+08:00",
     "clip_calibration_report": "results/d_recipe/training/d_recipe_20261120_D_R1_seed0_3M/clip_calibration.json",
-    "clip_calibration_status": "FROZEN_BY_NATIVE_PRODUCER"
+    "clip_calibration_status": "FROZEN_BY_NATIVE_PRODUCER",
+    "reporting_snapshot": {
+      "observed_at_utc": "2026-11-21T16:01:21.820989+00:00",
+      "native_event": {
+        "samples": 387200,
+        "updates": 12100,
+        "total": 0.056105609983205795,
+        "preclip_norm": 27.197690963745117,
+        "lr": 0.00029092463246138613,
+        "seconds": 6463.76667496562
+      },
+      "Slurm": {
+        "state": "RUNNING",
+        "exit": "0:0",
+        "elapsed_seconds": 6534,
+        "node": "compute-0-7"
+      },
+      "estimated_training_3M_completion_utc": "2026-11-22T04:16:12.820989+00:00",
+      "forecast_method": "linear extrapolation from whole job elapsed and latest producer sample event",
+      "forecast_scope": "training budget only; excludes final readouts, CPU statistics and diagnostics; variable throughput and fixed VAL; not a stop or selection rule"
+    }
   },
   "diagnostic_progress": {
     "D_R0_seed0_3M": {
