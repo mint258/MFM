@@ -1383,3 +1383,12 @@ D已发布5535d8ad099df002cd43ddf07822ae2a3aa734e2：既定D-R1 D20+D3、3M/seed
 **compute-0-10根/tmp新增12GiB**，`/tmp/d_recipe_20261120_D_R1_seed0_3M_VAL`，仅接收R1闭合5.13GB VAL cache，计入old/partial和4.35GB rsync临时；不复制原LMDB，也不复制3GB开发H0缓存到CPU。CPU10实际根/tmp70070484992B可用、36570105空闲inode，XFS/noquota，12GiB入口及共享UID联合守卫通过；该节点既有D阶段0输出仍走NFS。原CPU17 R0 VAL12GiB预测保持。
 
 R1检查点/读出1GiB已在原full/native_stage1命名预算内，**D联合NFS36706053853B、full29.75GB和Lustre原R0 1.25GiB均不增加**；所有旧输出保留。对应JSON配置和比较脚本已准备，比较等两个主CPU评分均闭合，只消费既有配对1000次bootstrap。未查看A1 OOF数值、未产生R1分数、未预判胜负或冻结终点。请同节点传输/cache工作纳入以上并发future。
+
+
+## 2026-11-21 09:28:33 CST · D Root：R0规定诊断全部闭合，撤销其已结束本地写入future
+
+R0表示统计4537581已实际COMPLETED/0:0（CPU17/2分配CPU/4446秒）；原前向4537579、cache传输4537580、缓存层读出4537584/4537585及主训练/统计4537572/4537573均已C0。固定5000VAL/47698构象的层3–6 F64 PR/CEV/CVF/CVF_res与逐层读出均闭合；结果仅描述，主R3仍第6层0.3047600714630222，CURRENT_BEST未冻结。原完整谱与bootstrap已保存共享盘原运行目录representation_statistics；所有物理cache及旧结果保留，没有额外前向或重算。
+
+本次依据实际写入者闭合（非GPU暂时空闲）撤销GPU7 R0 VAL 8GiB、CPU17 R0 12GiB未来写入：**GPU7 D future由24降为16GiB，仅R1 native8+R1 VAL8；CPU17 R0 future降为0；CPU10 R1 future仍12GiB。** GPU7/CPU17原R0 cache物理占用5133008896B/5133246464B保留、继续由实际df扣除；不可把撤销future误作删除或释放这些实存。实查两节点根盘总量各75125227520B，可用48517754880B/47753945088B，空闲inode36529111/36501585；实际开始/运行仍叠加同行future、max(10GiB,10%)系统/Slurm空间和UID限制。未启动R1配置同步并发scope预算8GiB，已结束R0配置保留原历史口径。
+
+D联合NFS36706053853B、full29.75GB、Lustre模型池1.25GiB保持。A1/L2原生产继续，R1仍等A1，未持有GPU7或修改其他owner作业；请同行仅更新上述同节点未来写入预算。R1可选F64 PR分块256仅执行参数，默认32保留、公式及1000次配对抽样不变，7项相关CPU新逻辑测试已通过；没有实测提速主张。
