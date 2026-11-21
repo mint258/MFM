@@ -1,0 +1,73 @@
+{
+  "schema": "D_ZERO_SCALE_AMENDMENT_RECEPTION_V1",
+  "status": "LIBRARIES_ACCEPTED_EXPORTS_RUNNING",
+  "recorded_at_utc": "2026-11-21T21:52:34.477867+00:00",
+  "source_job": 4538200,
+  "job_state": "COMPLETED",
+  "exit_code": "0:0",
+  "allocated_CPUs": 1,
+  "elapsed_seconds": 162,
+  "manifest": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/final_manifest_zero_scale_amendment_20261122.json",
+  "original_statistics_refitted": false,
+  "additional_validation_forward": false,
+  "libraries": {
+    "L1": {
+      "status": "ACCEPTED",
+      "molecules": 64,
+      "heads": 197,
+      "passed_heads": 197,
+      "aligned_source_SASA_atoms": 3099,
+      "fit_seconds": 1.2401542142033577,
+      "source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reception_zero_scale_amendment_20261122/L1.json",
+      "published_report": "results/d_recipe/reception/zero_scale_amendment_20261122/L1.json",
+      "report_bytes": 61983
+    },
+    "L2": {
+      "status": "ACCEPTED",
+      "molecules": 64,
+      "heads": 1320,
+      "passed_heads": 1320,
+      "aligned_source_SASA_atoms": 3099,
+      "fit_seconds": 6.292837027460337,
+      "source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reception_zero_scale_amendment_20261122/L2.json",
+      "published_report": "results/d_recipe/reception/zero_scale_amendment_20261122/L2.json",
+      "report_bytes": 402485
+    }
+  },
+  "exports": {
+    "development": {
+      "job_id": 4538204,
+      "node": "compute-0-10",
+      "CPUs": 3,
+      "workers": 2,
+      "time_limit": "04:00:00",
+      "configuration": "configs/data_d_descriptors/development_export.json",
+      "libraries": [
+        "L1",
+        "L2"
+      ],
+      "molecules": 15518,
+      "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/descriptors",
+      "state": "RUNNING"
+    },
+    "benchmark": {
+      "job_id": 4538205,
+      "node": "compute-0-10",
+      "CPUs": 4,
+      "workers": 3,
+      "time_limit": "12:00:00",
+      "configuration": "configs/data_d_descriptors/benchmark_L2_export.json",
+      "libraries": [
+        "L2"
+      ],
+      "molecules": 194729,
+      "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/benchmark/L2_descriptors",
+      "state": "RUNNING"
+    },
+    "original_D20_binding_repaired": false,
+    "H_policy_changed": false,
+    "raw_original_database_copied": false,
+    "actual_start_CST": "2026-11-22T05:55:23+08:00"
+  },
+  "export_status_observed_at_utc": "2026-11-21 21:59:49 UTC"
+}
