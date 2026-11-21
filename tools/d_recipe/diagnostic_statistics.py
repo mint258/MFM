@@ -29,6 +29,11 @@ def run(configuration, *, guard=None):
         if result["binding"] != manifest["binding"]:
             raise ValueError("Diagnostic statistics belong to another endpoint")
         return result
+    # Execution-only block size; the closed same-condition summary above is
+    # reusable independently of how atom moments were accumulated.
+    molecule_chunk = configuration.get("participation_molecule_chunk", 32)
+    if type(molecule_chunk) is not int or molecule_chunk < 1:
+        raise ValueError("participation_molecule_chunk must be a positive integer")
     with np.load(manifest["panel"]) as archive:
         panel = {name: archive[name] for name in archive.files}
     means = np.load(manifest["means"], mmap_mode="r")
@@ -54,9 +59,11 @@ def run(configuration, *, guard=None):
     result, draws = describe(layers, owners=panel["owners"], first=panel["first"],
         composition=panel["composition"], statistics=statistics, guard=check, weights=weights)
     for layer, label in enumerate(manifest["layers"]):
-        atom_pr = bootstrap_participation(atoms[:, layer], panel["atom_ptr"], weights, guard=check)
+        atom_pr = bootstrap_participation(atoms[:, layer], panel["atom_ptr"], weights,
+            guard=check, molecule_chunk=molecule_chunk)
         first_means = means[panel["first"], layer]
-        mean_pr = bootstrap_participation(first_means, np.arange(len(first_means) + 1), weights, guard=check)
+        mean_pr = bootstrap_participation(first_means, np.arange(len(first_means) + 1), weights,
+            guard=check, molecule_chunk=molecule_chunk)
         for name, values in (("atom_PR", atom_pr), ("mean_PR", mean_pr)):
             result["layers"][str(label)][name].update(
                 bootstrap=True, bootstrap_summary=statistics.summary(values))
@@ -64,6 +71,7 @@ def run(configuration, *, guard=None):
     result.update(schema="D_REPRESENTATION_STATISTICS_V1", status="COMPLETE",
         binding=manifest["binding"], forward_manifest=configuration["forward_manifest"],
         PR_uncertainty="1000 paired molecule bootstrap draws, same weights as CEV/CVF",
+        participation_molecule_chunk=molecule_chunk,
         bootstrap_draws=str(output / "bootstrap.npz"))
     check()
     output.mkdir(parents=True, exist_ok=True)

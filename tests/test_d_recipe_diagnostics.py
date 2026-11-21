@@ -16,10 +16,10 @@ class DiagnosticTests(unittest.TestCase):
     def test_molecule_bootstrap_pr_matches_analytic_weighted_covariance(self):
         values = np.array([[1., 0.], [-1., 0.], [0., 2.], [0., -2.]])
         weights = np.array([[1., 1.], [2., 0.], [0., 2.], [0., 0.]])
-        for molecules, bootstraps in ((1, 1), (32, 128)):
+        for molecules, bootstraps in ((1, 1), (32, 128), (256, 128)):
             result = bootstrap_participation(values, [0, 2, 4], weights,
                 molecule_chunk=molecules, bootstrap_chunk=bootstraps)
-            np.testing.assert_allclose(result[:3], [25 / 17, 1., 1.])
+            np.testing.assert_allclose(result[:3], [25 / 17, 1., 1.], rtol=1e-10, atol=1e-10)
             self.assertTrue(np.isnan(result[3]))
 
     def test_population_pr_handles_isotropic_rank_one_and_constant_features(self):

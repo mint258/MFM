@@ -1,345 +1,354 @@
 {
-    "schema":  "D_RECIPE_CURRENT_BEST_V1",
-    "status":  "NATIVE_SCREENING_IN_PROGRESS",
-    "recipe_frozen":  false,
-    "updated_at_utc":  "2026-11-21T00:22:41Z",
-    "current_best":  null,
-    "scientific_authority":  "docs/d_recipe/TASKBOOK.md",
-    "preregistration":  "configs/d_recipe/preregistration.json",
-    "preregistration_commit":  "a3b774dc3218fb91b48d98aa84cbe4f930f9aea8",
-    "source_P":  {
-                     "recipe":  "FROZEN_P",
-                     "transferred_components":  [
-                                                    "A1",
-                                                    "B3",
-                                                    "B4"
-                                                ],
-                     "excluded_P_specific_components":  [
-                                                            "F2"
-                                                        ]
-                 },
-    "baseline":  {
-                     "arm":  "D-R0",
-                     "run":  "d_recipe_20261120_D_R0_seed0_3M",
-                     "configuration":  "configs/d_recipe/screening/D-R0_seed0.json",
-                     "job_id":  4537572,
-                     "status":  "COMPLETE",
-                     "seed":  0,
-                     "samples":  3000000,
-                     "cpu_statistics_job":  4537573,
-                     "clip_calibration_report":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/clip_calibration.json",
-                     "validation_500k":  {
-                                             "status":  "PRODUCER_RECORDED",
-                                             "samples":  500000,
-                                             "source":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_500000.csv",
-                                             "molecular_observations_per_field":  2000,
-                                             "atomic_SASA_observations":  106325,
-                                             "primary_downstream_score":  false
-                                         },
-                     "checkpoint_1M":  {
-                                           "samples":  1000000,
-                                           "status":  "PRODUCER_SAVED_TRAINING_CONTINUES",
-                                           "path":  "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/samples_1000000.pt",
-                                           "bytes":  192027123,
-                                           "mtime_CST":  "2026-11-21T00:45:01+08:00",
-                                           "model_reloaded":  false
-                                       },
-                     "validation_1M":  {
-                                           "status":  "PRODUCER_RECORDED",
-                                           "samples":  1000000,
-                                           "source":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1000000.csv",
-                                           "primary_downstream_score":  false
-                                       },
-                     "validation_1500k":  {
-                                              "status":  "PRODUCER_RECORDED_TRAINING_CONTINUES",
-                                              "samples":  1500000,
-                                              "source":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1500000.csv",
-                                              "bytes":  1179,
-                                              "primary_downstream_score":  false
-                                          },
-                     "checkpoint_2M":  {
-                                           "samples":  2000000,
-                                           "status":  "PRODUCER_SAVED_TRAINING_CONTINUES",
-                                           "path":  "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/samples_2000000.pt",
-                                           "bytes":  192029363,
-                                           "mtime_CST":  "2026-11-21T03:32:35+08:00",
-                                           "model_reloaded":  false
-                                       },
-                     "validation_2M":  {
-                                           "status":  "PRODUCER_RECORDED_TRAINING_CONTINUES",
-                                           "samples":  2000000,
-                                           "source":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_2000000.csv",
-                                           "bytes":  1181,
-                                           "primary_downstream_score":  false
-                                       },
-                     "validation_2500k":  {
-                                              "status":  "PRODUCER_RECORDED_TRAINING_CONTINUES",
-                                              "samples":  2500000,
-                                              "source":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_2500000.csv",
-                                              "bytes":  1186,
-                                              "mtime_UTC":  "2026-11-20T21:09:21Z",
-                                              "primary_downstream_score":  false
-                                          },
-                     "checkpoint_3M":  {
-                                           "samples":  3000000,
-                                           "status":  "PRODUCER_SAVED_TRAINING_COMPLETE_READOUT_PENDING",
-                                           "path":  "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/samples_3000000.pt",
-                                           "bytes":  192031603,
-                                           "mtime_CST":  "2026-11-21T06:54:12+08:00",
-                                           "model_reloaded_for_verification":  false
-                                       },
-                     "validation_3M":  {
-                                           "status":  "PRODUCER_RECORDED",
-                                           "samples":  3000000,
-                                           "source":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_3000000.csv",
-                                           "bytes":  1180,
-                                           "mtime_UTC":  "2026-11-20T22:54:13Z",
-                                           "primary_downstream_score":  false
-                                       },
-                     "native_training_summary":  {
-                                                     "source":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/training_summary_3000000.json",
-                                                     "status":  "TRAINING_COMPLETE_EVALUATION_PENDING",
-                                                     "actual_samples":  3000000,
-                                                     "updates":  93750,
-                                                     "seconds":  30579.459749437869,
-                                                     "seconds_scope":  "Native training loop including fixed VAL; excludes initialization and final readouts",
-                                                     "GPU_peak_bytes":  8374157824,
-                                                     "final_GPU_job_cost_closed":  true
-                                                 },
-                     "final_readout":  {
-                                           "status":  "COMPLETE",
-                                           "summary":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/final_summary_3000000.json",
-                                           "scores":  "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/final_readout_summary_3000000.json",
-                                           "native_source":  "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/readout/scores.json",
-                                           "per_task_scores":  "results/d_recipe/scores.csv",
-                                           "R3":  0.3047600714630222,
-                                           "R3_CI":  [
-                                                         0.2914629069496532,
-                                                         0.3190324065629142
-                                                     ],
-                                           "R1":  0.15029061734585417,
-                                           "R1_CI":  [
-                                                         0.1336480796754142,
-                                                         0.16715810049540256
-                                                     ],
-                                           "reference":  "Frozen random C1-0 encoder; not a D-R1 versus D-R0 comparison",
-                                           "bootstrap_samples":  1000,
-                                           "bootstrap_seed":  20261025,
-                                           "bootstrap_unit":  "molecule",
-                                           "GPU_job_exit":  "0:0",
-                                           "CPU_statistics_job":  4537573,
-                                           "CPU_statistics_exit":  "0:0",
-                                           "CPU_statistics_elapsed_seconds":  85,
-                                           "CPU_statistics_node":  "compute-0-8"
-                                       },
-                     "completed_GPU_job_cost":  {
-                                                    "source":  "results/d_recipe/D-R0_seed0_complete_GPU_job_costs_20261121.json",
-                                                    "GPU_job_elapsed_seconds":  31074,
-                                                    "target_one_GPU_job_wall_hours":  8.631666666666666,
-                                                    "training_loop_including_fixed_VAL_samples_per_second":  98.10506871545198,
-                                                    "whole_card_power_watts_sample_mean":  245.27235004916423,
-                                                    "power_samples":  1017,
-                                                    "TotalCPU_seconds":  null,
-                                                    "scope":  "Existing whole-card telemetry through GPU readouts; diagnostics and CPU statistics are separate"
-                                                }
-                 },
-    "A1":  {
-               "configuration":  "configs/d_recipe/reference/native_D20.json",
-               "job_id":  4537571,
-               "checkpoint_continuation_job":  4537575,
-               "status":  "COLLECTING_FULL_TRAIN",
-               "clipping_report_job":  4537578
-           },
-    "arm_decisions":  {
-                          "D-R0":  "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
-                          "D-R1":  "WAITING_FROZEN_A1_PARAMETERS",
-                          "D-L1":  "WAITING_COMPLETE_LIBRARY_DELIVERY_AND_RECIPE_DECISION",
-                          "D-L2":  "WAITING_COMPLETE_LIBRARY_DELIVERY_AND_RECIPE_DECISION",
-                          "D-G1":  "WAITING_RECIPE_DECISION",
-                          "D-K1":  "CONDITIONAL_ON_ADOPTED_WIDE_LIBRARY"
-                      },
-    "conditional_seed1":  "Only seed0 WIN triggers a registered seed1 pair; no trigger yet",
-    "diagnostics":  "R0 cached layer3-6 R1/R3 diagnostics COMPLETE with layer6 reused; F64 representation geometry statistics RUNNING; remaining registered endpoint diagnostics pending; decision_input=false",
-    "development_controls":  "Section5 A/B/C and composition controls pending",
-    "confirmation":  {
-                         "status":  "NOT_ELIGIBLE_BEFORE_ALL_FINAL_DECISIONS",
-                         "runs":  [
-                                      "9M-D-R0",
-                                      "9M-D-final only if final differs from D-R0"
-                                  ],
-                         "seed":  0,
-                         "samples":  9000000
-                     },
-    "results":  "No D arm has a final WIN/TIE/LOSS yet; this is not a frozen final recipe",
-    "arm":  null,
-    "library":  null,
-    "configuration":  null,
-    "representation_diagnostics":  {
-                                       "D_R0":  {
-                                                    "status":  "QUEUED_AFTER_EXACT_3M_ENDPOINT",
-                                                    "forward_job":  4537579,
-                                                    "forward_dependency":  "afterok:4537572",
-                                                    "transfer_job":  4537580,
-                                                    "transfer_dependency":  "afterok:4537579",
-                                                    "statistics_job":  4537581,
-                                                    "statistics_dependency":  "afterok:4537580",
-                                                    "GPU_node":  "compute-0-7",
-                                                    "CPU_node":  "compute-0-17",
-                                                    "GPU_root_peak_bytes":  8589934592,
-                                                    "CPU_root_peak_bytes":  12884901888,
-                                                    "cache_value_bytes":  5131075584,
-                                                    "decision_input":  false,
-                                                    "cached_layer_GPU_job":  4537584,
-                                                    "cached_layer_GPU_dependency":  "afterany:4537579,afterok:4537572",
-                                                    "cached_layer_CPU_job":  4537585,
-                                                    "cached_layer_CPU_dependency":  "afterok:4537584:4537573",
-                                                    "cached_layer_scope":  "Only cached layers3-5 nativeR1/R3 probes; layer6 predictions and scores reused; no encoder fallback"
-                                                },
-                                       "D_R1":  {
-                                                    "status":  "QUEUED_AFTER_EXACT_3M_ENDPOINT",
-                                                    "forward_job":  4537594,
-                                                    "transfer_job":  4537595,
-                                                    "statistics_job":  4537596,
-                                                    "cached_layer_GPU_job":  4537597,
-                                                    "cached_layer_CPU_job":  4537598,
-                                                    "GPU_node":  "compute-0-7",
-                                                    "CPU_node":  "compute-0-10",
-                                                    "GPU_native_cache_peak_bytes":  8589934592,
-                                                    "GPU_VAL_cache_peak_bytes":  8589934592,
-                                                    "GPU_concurrent_bytes":  17179869184,
-                                                    "CPU_VAL_root_peak_bytes":  12884901888,
-                                                    "cache_value_bytes":  5131075584,
-                                                    "decision_input":  false
-                                                }
-                                   },
-    "transfer_candidate":  {
-                               "arm":  "D-R1",
-                               "run":  "d_recipe_20261120_D_R1_seed0_3M",
-                               "configuration":  "configs/d_recipe/screening/D-R1_seed0.json",
-                               "cpu_configuration":  "configs/d_recipe/screening/D-R1_seed0_cpu_statistics.json",
-                               "job_id":  4537592,
-                               "dependency":  "afterok:4537575",
-                               "status":  "QUEUED_WAITING_FROZEN_A1_PARAMETERS",
-                               "seed":  0,
-                               "samples":  3000000,
-                               "cpu_statistics_job":  4537593,
-                               "paired_comparison_job":  4537599,
-                               "paired_comparison_output":  "results/d_recipe/comparisons/D-R1_vs_D-R0_seed0_3M.json"
-                           },
-    "diagnostic_progress":  {
-                                "D_R0_seed0_3M":  {
-                                                      "forward":  {
-                                                                      "job_id":  4537579,
-                                                                      "status":  "COMPLETE",
-                                                                      "exit_code":  "0:0",
-                                                                      "node":  "compute-0-7",
-                                                                      "elapsed_seconds":  3388,
-                                                                      "allocated_CPUs":  2,
-                                                                      "molecules":  5000,
-                                                                      "conformers":  47698,
-                                                                      "layers":  [
-                                                                                     3,
-                                                                                     4,
-                                                                                     5,
-                                                                                     6
-                                                                                 ],
-                                                                      "cache_dtype":  "float64",
-                                                                      "source_manifest":  "/tmp/d_recipe_20261120_D_R0_seed0_3M/forward/manifest.json"
-                                                                  },
-                                                      "transfer":  {
-                                                                       "job_id":  4537580,
-                                                                       "status":  "COMPLETE",
-                                                                       "exit_code":  "0:0",
-                                                                       "elapsed_seconds":  29,
-                                                                       "allocated_CPUs":  2,
-                                                                       "source_node":  "compute-0-7",
-                                                                       "destination_node":  "compute-0-17",
-                                                                       "scope":  "Only original closed VAL cache; scientific values unchanged"
-                                                                   },
-                                                      "representation_statistics":  {
-                                                                                        "job_id":  4537581,
-                                                                                        "status":  "RUNNING",
-                                                                                        "node":  "compute-0-17",
-                                                                                        "output":  "/tmp/d_recipe_20261120_D_R0_seed0_3M/statistics",
-                                                                                        "decision_input":  false
-                                                                                    },
-                                                      "cached_layer_readouts":  {
-                                                                                    "job_id":  4537584,
-                                                                                    "status":  "COMPLETE",
-                                                                                    "node":  "compute-0-7",
-                                                                                    "new_probes_layers":  [
-                                                                                                              3,
-                                                                                                              4,
-                                                                                                              5
-                                                                                                          ],
-                                                                                    "reused_main_layer":  6,
-                                                                                    "CPU_statistics_job":  4537585,
-                                                                                    "decision_input":  false,
-                                                                                    "source":  "results/d_recipe/diagnostics/D-R0_seed0_3M/layer_readout_summary.json",
-                                                                                    "GPU_elapsed_seconds":  1177,
-                                                                                    "GPU_exit_code":  "0:0",
-                                                                                    "CPU_statistics_status":  "COMPLETE",
-                                                                                    "CPU_statistics_node":  "compute-0-8",
-                                                                                    "CPU_statistics_elapsed_seconds":  95,
-                                                                                    "CPU_statistics_exit_code":  "0:0",
-                                                                                    "encoder_forward_repeated":  false,
-                                                                                    "scores_by_layer":  {
-                                                                                                            "3":  {
-                                                                                                                      "R1":  -0.03598715288707174,
-                                                                                                                      "R1_CI":  [
-                                                                                                                                    -0.05540390545430658,
-                                                                                                                                    -0.01610731689623682
-                                                                                                                                ],
-                                                                                                                      "R3":  0.2308587424764003,
-                                                                                                                      "R3_CI":  [
-                                                                                                                                    0.21602248714828276,
-                                                                                                                                    0.24539275688211418
-                                                                                                                                ]
-                                                                                                                  },
-                                                                                                            "4":  {
-                                                                                                                      "R1":  -0.001692420000947619,
-                                                                                                                      "R1_CI":  [
-                                                                                                                                    -0.021030956328306042,
-                                                                                                                                    0.01821443680999664
-                                                                                                                                ],
-                                                                                                                      "R3":  0.29486703839088685,
-                                                                                                                      "R3_CI":  [
-                                                                                                                                    0.28161374824608193,
-                                                                                                                                    0.30926040107408764
-                                                                                                                                ]
-                                                                                                                  },
-                                                                                                            "5":  {
-                                                                                                                      "R1":  0.14474610285525596,
-                                                                                                                      "R1_CI":  [
-                                                                                                                                    0.12797923983676018,
-                                                                                                                                    0.1602546699711312
-                                                                                                                                ],
-                                                                                                                      "R3":  0.33386390313542563,
-                                                                                                                      "R3_CI":  [
-                                                                                                                                    0.32034213421977886,
-                                                                                                                                    0.34733883601463
-                                                                                                                                ]
-                                                                                                                  },
-                                                                                                            "6":  {
-                                                                                                                      "R1":  0.15029061734585417,
-                                                                                                                      "R1_CI":  [
-                                                                                                                                    0.1336480796754142,
-                                                                                                                                    0.16715810049540256
-                                                                                                                                ],
-                                                                                                                      "R3":  0.3047600714630222,
-                                                                                                                      "R3_CI":  [
-                                                                                                                                    0.2914629069496532,
-                                                                                                                                    0.3190324065629142
-                                                                                                                                ]
-                                                                                                                  }
-                                                                                                        }
-                                                                                },
-                                                      "geometry_timebox":  {
-                                                                               "cumulative_limit_seconds":  14400,
-                                                                               "closed_prefix_seconds":  3417,
-                                                                               "scheduled_CPU_limit_seconds":  10800
-                                                                           },
-                                                      "encoder_forward_repeated":  false
-                                                  }
-                            }
+  "schema": "D_RECIPE_CURRENT_BEST_V1",
+  "status": "NATIVE_SCREENING_IN_PROGRESS",
+  "recipe_frozen": false,
+  "updated_at_utc": "2026-11-21T01:28:33Z",
+  "current_best": null,
+  "scientific_authority": "docs/d_recipe/TASKBOOK.md",
+  "preregistration": "configs/d_recipe/preregistration.json",
+  "preregistration_commit": "a3b774dc3218fb91b48d98aa84cbe4f930f9aea8",
+  "source_P": {
+    "recipe": "FROZEN_P",
+    "transferred_components": [
+      "A1",
+      "B3",
+      "B4"
+    ],
+    "excluded_P_specific_components": [
+      "F2"
+    ]
+  },
+  "baseline": {
+    "arm": "D-R0",
+    "run": "d_recipe_20261120_D_R0_seed0_3M",
+    "configuration": "configs/d_recipe/screening/D-R0_seed0.json",
+    "job_id": 4537572,
+    "status": "COMPLETE",
+    "seed": 0,
+    "samples": 3000000,
+    "cpu_statistics_job": 4537573,
+    "clip_calibration_report": "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/clip_calibration.json",
+    "validation_500k": {
+      "status": "PRODUCER_RECORDED",
+      "samples": 500000,
+      "source": "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_500000.csv",
+      "molecular_observations_per_field": 2000,
+      "atomic_SASA_observations": 106325,
+      "primary_downstream_score": false
+    },
+    "checkpoint_1M": {
+      "samples": 1000000,
+      "status": "PRODUCER_SAVED_TRAINING_CONTINUES",
+      "path": "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/samples_1000000.pt",
+      "bytes": 192027123,
+      "mtime_CST": "2026-11-21T00:45:01+08:00",
+      "model_reloaded": false
+    },
+    "validation_1M": {
+      "status": "PRODUCER_RECORDED",
+      "samples": 1000000,
+      "source": "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1000000.csv",
+      "primary_downstream_score": false
+    },
+    "validation_1500k": {
+      "status": "PRODUCER_RECORDED_TRAINING_CONTINUES",
+      "samples": 1500000,
+      "source": "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_1500000.csv",
+      "bytes": 1179,
+      "primary_downstream_score": false
+    },
+    "checkpoint_2M": {
+      "samples": 2000000,
+      "status": "PRODUCER_SAVED_TRAINING_CONTINUES",
+      "path": "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/samples_2000000.pt",
+      "bytes": 192029363,
+      "mtime_CST": "2026-11-21T03:32:35+08:00",
+      "model_reloaded": false
+    },
+    "validation_2M": {
+      "status": "PRODUCER_RECORDED_TRAINING_CONTINUES",
+      "samples": 2000000,
+      "source": "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_2000000.csv",
+      "bytes": 1181,
+      "primary_downstream_score": false
+    },
+    "validation_2500k": {
+      "status": "PRODUCER_RECORDED_TRAINING_CONTINUES",
+      "samples": 2500000,
+      "source": "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_2500000.csv",
+      "bytes": 1186,
+      "mtime_UTC": "2026-11-20T21:09:21Z",
+      "primary_downstream_score": false
+    },
+    "checkpoint_3M": {
+      "samples": 3000000,
+      "status": "PRODUCER_SAVED_TRAINING_COMPLETE_READOUT_PENDING",
+      "path": "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/samples_3000000.pt",
+      "bytes": 192031603,
+      "mtime_CST": "2026-11-21T06:54:12+08:00",
+      "model_reloaded_for_verification": false
+    },
+    "validation_3M": {
+      "status": "PRODUCER_RECORDED",
+      "samples": 3000000,
+      "source": "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/VAL_original_units_3000000.csv",
+      "bytes": 1180,
+      "mtime_UTC": "2026-11-20T22:54:13Z",
+      "primary_downstream_score": false
+    },
+    "native_training_summary": {
+      "source": "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/training_summary_3000000.json",
+      "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+      "actual_samples": 3000000,
+      "updates": 93750,
+      "seconds": 30579.45974943787,
+      "seconds_scope": "Native training loop including fixed VAL; excludes initialization and final readouts",
+      "GPU_peak_bytes": 8374157824,
+      "final_GPU_job_cost_closed": true
+    },
+    "final_readout": {
+      "status": "COMPLETE",
+      "summary": "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/final_summary_3000000.json",
+      "scores": "results/d_recipe/training/d_recipe_20261120_D_R0_seed0_3M/final_readout_summary_3000000.json",
+      "native_source": "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/readout/scores.json",
+      "per_task_scores": "results/d_recipe/scores.csv",
+      "R3": 0.3047600714630222,
+      "R3_CI": [
+        0.2914629069496532,
+        0.3190324065629142
+      ],
+      "R1": 0.15029061734585417,
+      "R1_CI": [
+        0.1336480796754142,
+        0.16715810049540256
+      ],
+      "reference": "Frozen random C1-0 encoder; not a D-R1 versus D-R0 comparison",
+      "bootstrap_samples": 1000,
+      "bootstrap_seed": 20261025,
+      "bootstrap_unit": "molecule",
+      "GPU_job_exit": "0:0",
+      "CPU_statistics_job": 4537573,
+      "CPU_statistics_exit": "0:0",
+      "CPU_statistics_elapsed_seconds": 85,
+      "CPU_statistics_node": "compute-0-8"
+    },
+    "completed_GPU_job_cost": {
+      "source": "results/d_recipe/D-R0_seed0_complete_GPU_job_costs_20261121.json",
+      "GPU_job_elapsed_seconds": 31074,
+      "target_one_GPU_job_wall_hours": 8.631666666666666,
+      "training_loop_including_fixed_VAL_samples_per_second": 98.10506871545198,
+      "whole_card_power_watts_sample_mean": 245.27235004916423,
+      "power_samples": 1017,
+      "TotalCPU_seconds": null,
+      "scope": "Existing whole-card telemetry through GPU readouts; diagnostics and CPU statistics are separate"
+    }
+  },
+  "A1": {
+    "configuration": "configs/d_recipe/reference/native_D20.json",
+    "job_id": 4537571,
+    "checkpoint_continuation_job": 4537575,
+    "status": "COLLECTING_FULL_TRAIN",
+    "clipping_report_job": 4537578
+  },
+  "arm_decisions": {
+    "D-R0": "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
+    "D-R1": "WAITING_FROZEN_A1_PARAMETERS",
+    "D-L1": "WAITING_COMPLETE_LIBRARY_DELIVERY_AND_RECIPE_DECISION",
+    "D-L2": "WAITING_COMPLETE_LIBRARY_DELIVERY_AND_RECIPE_DECISION",
+    "D-G1": "WAITING_RECIPE_DECISION",
+    "D-K1": "CONDITIONAL_ON_ADOPTED_WIDE_LIBRARY"
+  },
+  "conditional_seed1": "Only seed0 WIN triggers a registered seed1 pair; no trigger yet",
+  "diagnostics": "R0 seed0/3M registered layer3-6 readouts and F64 representation geometry COMPLETE; remaining registered endpoints pending; decision_input=false",
+  "development_controls": "Section5 A/B/C and composition controls pending",
+  "confirmation": {
+    "status": "NOT_ELIGIBLE_BEFORE_ALL_FINAL_DECISIONS",
+    "runs": [
+      "9M-D-R0",
+      "9M-D-final only if final differs from D-R0"
+    ],
+    "seed": 0,
+    "samples": 9000000
+  },
+  "results": "No D arm has a final WIN/TIE/LOSS yet; this is not a frozen final recipe",
+  "arm": null,
+  "library": null,
+  "configuration": null,
+  "representation_diagnostics": {
+    "D_R0": {
+      "status": "QUEUED_AFTER_EXACT_3M_ENDPOINT",
+      "forward_job": 4537579,
+      "forward_dependency": "afterok:4537572",
+      "transfer_job": 4537580,
+      "transfer_dependency": "afterok:4537579",
+      "statistics_job": 4537581,
+      "statistics_dependency": "afterok:4537580",
+      "GPU_node": "compute-0-7",
+      "CPU_node": "compute-0-17",
+      "GPU_root_peak_bytes": 8589934592,
+      "CPU_root_peak_bytes": 12884901888,
+      "cache_value_bytes": 5131075584,
+      "decision_input": false,
+      "cached_layer_GPU_job": 4537584,
+      "cached_layer_GPU_dependency": "afterany:4537579,afterok:4537572",
+      "cached_layer_CPU_job": 4537585,
+      "cached_layer_CPU_dependency": "afterok:4537584:4537573",
+      "cached_layer_scope": "Only cached layers3-5 nativeR1/R3 probes; layer6 predictions and scores reused; no encoder fallback"
+    },
+    "D_R1": {
+      "status": "QUEUED_AFTER_EXACT_3M_ENDPOINT",
+      "forward_job": 4537594,
+      "transfer_job": 4537595,
+      "statistics_job": 4537596,
+      "cached_layer_GPU_job": 4537597,
+      "cached_layer_CPU_job": 4537598,
+      "GPU_node": "compute-0-7",
+      "CPU_node": "compute-0-10",
+      "GPU_native_cache_peak_bytes": 8589934592,
+      "GPU_VAL_cache_peak_bytes": 8589934592,
+      "GPU_concurrent_bytes": 17179869184,
+      "CPU_VAL_root_peak_bytes": 12884901888,
+      "cache_value_bytes": 5131075584,
+      "decision_input": false
+    }
+  },
+  "transfer_candidate": {
+    "arm": "D-R1",
+    "run": "d_recipe_20261120_D_R1_seed0_3M",
+    "configuration": "configs/d_recipe/screening/D-R1_seed0.json",
+    "cpu_configuration": "configs/d_recipe/screening/D-R1_seed0_cpu_statistics.json",
+    "job_id": 4537592,
+    "dependency": "afterok:4537575",
+    "status": "QUEUED_WAITING_FROZEN_A1_PARAMETERS",
+    "seed": 0,
+    "samples": 3000000,
+    "cpu_statistics_job": 4537593,
+    "paired_comparison_job": 4537599,
+    "paired_comparison_output": "results/d_recipe/comparisons/D-R1_vs_D-R0_seed0_3M.json"
+  },
+  "diagnostic_progress": {
+    "D_R0_seed0_3M": {
+      "forward": {
+        "job_id": 4537579,
+        "status": "COMPLETE",
+        "exit_code": "0:0",
+        "node": "compute-0-7",
+        "elapsed_seconds": 3388,
+        "allocated_CPUs": 2,
+        "molecules": 5000,
+        "conformers": 47698,
+        "layers": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "cache_dtype": "float64",
+        "source_manifest": "/tmp/d_recipe_20261120_D_R0_seed0_3M/forward/manifest.json"
+      },
+      "transfer": {
+        "job_id": 4537580,
+        "status": "COMPLETE",
+        "exit_code": "0:0",
+        "elapsed_seconds": 29,
+        "allocated_CPUs": 2,
+        "source_node": "compute-0-7",
+        "destination_node": "compute-0-17",
+        "scope": "Only original closed VAL cache; scientific values unchanged"
+      },
+      "representation_statistics": {
+        "job_id": 4537581,
+        "status": "COMPLETE",
+        "node": "compute-0-17",
+        "output": "/tmp/d_recipe_20261120_D_R0_seed0_3M/statistics",
+        "decision_input": false,
+        "exit_code": "0:0",
+        "elapsed_seconds": 4446,
+        "allocated_CPUs": 2,
+        "source": "results/d_recipe/diagnostics/D-R0_seed0_3M/representation_statistics.json",
+        "preserved_raw_summary": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R0_seed0_3M/representation_statistics/summary.json",
+        "preserved_bootstrap_draws": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R0_seed0_3M/representation_statistics/bootstrap.npz"
+      },
+      "cached_layer_readouts": {
+        "job_id": 4537584,
+        "status": "COMPLETE",
+        "node": "compute-0-7",
+        "new_probes_layers": [
+          3,
+          4,
+          5
+        ],
+        "reused_main_layer": 6,
+        "CPU_statistics_job": 4537585,
+        "decision_input": false,
+        "source": "results/d_recipe/diagnostics/D-R0_seed0_3M/layer_readout_summary.json",
+        "GPU_elapsed_seconds": 1177,
+        "GPU_exit_code": "0:0",
+        "CPU_statistics_status": "COMPLETE",
+        "CPU_statistics_node": "compute-0-8",
+        "CPU_statistics_elapsed_seconds": 95,
+        "CPU_statistics_exit_code": "0:0",
+        "encoder_forward_repeated": false,
+        "scores_by_layer": {
+          "3": {
+            "R1": -0.03598715288707174,
+            "R1_CI": [
+              -0.05540390545430658,
+              -0.01610731689623682
+            ],
+            "R3": 0.2308587424764003,
+            "R3_CI": [
+              0.21602248714828276,
+              0.24539275688211418
+            ]
+          },
+          "4": {
+            "R1": -0.001692420000947619,
+            "R1_CI": [
+              -0.021030956328306042,
+              0.01821443680999664
+            ],
+            "R3": 0.29486703839088685,
+            "R3_CI": [
+              0.28161374824608193,
+              0.30926040107408764
+            ]
+          },
+          "5": {
+            "R1": 0.14474610285525596,
+            "R1_CI": [
+              0.12797923983676018,
+              0.1602546699711312
+            ],
+            "R3": 0.33386390313542563,
+            "R3_CI": [
+              0.32034213421977886,
+              0.34733883601463
+            ]
+          },
+          "6": {
+            "R1": 0.15029061734585417,
+            "R1_CI": [
+              0.1336480796754142,
+              0.16715810049540256
+            ],
+            "R3": 0.3047600714630222,
+            "R3_CI": [
+              0.2914629069496532,
+              0.3190324065629142
+            ]
+          }
+        }
+      },
+      "geometry_timebox": {
+        "cumulative_limit_seconds": 14400,
+        "closed_prefix_seconds": 7863,
+        "scheduled_CPU_limit_seconds": 10800,
+        "completed_seconds": 7863,
+        "status": "COMPLETE",
+        "all_registered_diagnostic_job_seconds": 9135
+      },
+      "encoder_forward_repeated": false
+    }
+  }
 }

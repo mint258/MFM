@@ -18,21 +18,24 @@ class StatisticEntryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             binding = dict(arm="D-R0", samples=3_000_000, seed=0)
-            x = np.column_stack([np.arange(10.), np.arange(10.) ** 2])
-            means = np.repeat(x, 2, axis=0) + np.tile([[0., 0.], [.2, -.2]], (10, 1))
+            molecules = 257
+            x = np.column_stack([np.arange(float(molecules)), np.arange(float(molecules)) ** 2])
+            means = np.repeat(x, 2, axis=0) + np.tile([[0., 0.], [.2, -.2]], (molecules, 1))
             means = np.repeat(means[:, None, :], 4, axis=1)
             atoms = np.repeat(np.repeat(x, 2, axis=0)[:, None, :], 4, axis=1)
             np.save(root / "means.npy", means)
             np.save(root / "atoms.npy", atoms)
-            np.savez(root / "panel.npz", first=np.arange(0, 20, 2),
-                owners=np.repeat(np.arange(10), 2), atom_ptr=np.arange(0, 21, 2), composition=x)
+            np.savez(root / "panel.npz", first=np.arange(0, 2 * molecules, 2),
+                owners=np.repeat(np.arange(molecules), 2), atom_ptr=np.arange(0, 2 * molecules + 1, 2), composition=x)
             manifest = root / "forward.json"
             manifest.write_text(json.dumps(dict(schema="D_REPRESENTATION_FORWARD_V1",
                 status="FORWARD_COMPLETE", binding=binding, panel=str(root / "panel.npz"),
                 means=str(root / "means.npy"), first_atoms=str(root / "atoms.npy"), layers=[3, 4, 5, 6])))
             with patch("tools.d_recipe.resources.execution_site"):
-                result = run(dict(output=str(root / "statistics"), forward_manifest=str(manifest)), guard=Mock())
+                result = run(dict(output=str(root / "statistics"), forward_manifest=str(manifest),
+                                  participation_molecule_chunk=256), guard=Mock())
             self.assertEqual(result["status"], "COMPLETE")
+            self.assertEqual(result["participation_molecule_chunk"], 256)
             self.assertTrue(result["forward_reused"])
             for label in ("3", "4", "5", "6"):
                 metrics = result["layers"][label]
