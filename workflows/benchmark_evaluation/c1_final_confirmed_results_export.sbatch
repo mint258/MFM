@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=C1-final-confirmed-results
 #SBATCH --partition=cpu
-#SBATCH --nodelist=compute-0-13
+#SBATCH --nodelist=compute-0-12
 #SBATCH --exclude=compute-0-[0-7,14,18,20-22]
 #SBATCH --cpus-per-task=2
 #SBATCH --ntasks=1
