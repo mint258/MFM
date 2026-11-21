@@ -87,6 +87,11 @@ atomic=json.loads(atomic_path.read_text())
 if str(atomic.get('job'))!=atomic_job:
     raise IncompleteComparison('Approved atomic manifest belongs to a different native producer')
 table=atomic_module.apply_to_c1(table,atomic,csv_rows(atomic_path.parent/'pKa_atomic_approved_baselines.csv'))
+
+overlap_module=types.ModuleType(package.__name__+'.pretraining_overlap_reporting')
+overlap_module.__package__=package.__name__;sys.modules[overlap_module.__name__]=overlap_module
+exec(compile(sources['workflows/benchmark_evaluation/pretraining_overlap_reporting.py'],overlap_module.__name__,'exec'),overlap_module.__dict__)
+table=overlap_module.annotate_overlap_status(table)
 baseline_manifest=unique('B1_confirmation_results/job_*/manifest.json')
 baseline_closed=json.loads(baseline_manifest.read_text())
 if (baseline_closed.get('status')!='B1_NEURAL_CONFIRMATION_RESULTS_CLOSED'
@@ -127,6 +132,7 @@ report=dict(approved_pKa_supplement_manifest=str(atomic_path),approved_pKa_nativ
     frozen_B1_roster=str(screen_path),primary_C1_manifest=str(primary_manifest),
     actual_confirmation_evidence=str(evidence_path),reused_B1_confirmation_manifest=str(baseline_manifest),task_roster_reselection=False,
     original_primary_scores_recomputed=False,independent_numeric_QA=False,
+    pretraining_overlap_status_explicit=True,pretraining_inventory_not_obtained_does_not_claim_no_overlap=True,
     second_seed_control_policy='Registered original seed20261025 controls; candidate second seed20261026',
     native_second_seed_failures_remain_explicit=True)
 safe();(out/'manifest.json').write_text(json.dumps(report,indent=2)+'\n')

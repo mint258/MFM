@@ -94,3 +94,11 @@ Unchanged evaluation populations continue to reuse closed producer estimates. A 
 8158的真实映射：7818→8159(CPU13/16核)，7813→8160(CPU12/16核)，7817→8161(CPU12/16核)，7814→8162(CPU16/32核)，7812→8163(CPU16/32核)。新目录已原样复用42/16/14/4/3个明确闭合折（总79），只拟合余下71折；每折保留原CPU生产来源，不读取预测数值、不重算旧统计、不覆盖旧文件。固定权重上下文续接不属于梯度训练回滚。
 
 新原生ID、104来源绑定、未来确认模板与完整561主配置先记录并通过源码检查，再退休owned PENDING/RunTime0/Restarts0的7850/7860/7861；当前8164 afterok等待五新来源，随后8165→8166。原已闭合来源及TDC九格封口不改、不追加TDC修复。未来第二种子仍使用原始CUDA模型程序，只按首次完整比较的最终显著改善条件触发；GPU实时分配/UUID/上下文和磁盘准入保护保持。原40GiB池、全部实际根/tmp/NFS/UID及动态同行future继续。
+
+### 2026-11-22 最终C1的预训练重叠状态（计划§4.5）
+
+已登记TabPFN V2的来源为[官方回归模型卡](https://huggingface.co/Prior-Labs/TabPFN-v2-reg)及[文件目录](https://huggingface.co/Prior-Labs/TabPFN-v2-reg/tree/main)。本流程未取得可执行完整InChIKey匹配的预训练分子清单，最终表因此保守标记“未检查”；不把未取得清单解释为已证明无重叠。LightGBM从头拟合，标记NOT_APPLICABLE_NO_PRETRAINING。B2当前仅环境与固定100分子推断准备，未启动全量表示或下游读出；既有可用性表及SHA保持。
+
+[结果说明字段](../../workflows/benchmark_evaluation/pretraining_overlap_reporting.py)在正常首次最终导出时逐行增加pretraining_TEST_overlap_check、pretraining_molecule_inventory_status及pretraining_overlap_exclusion_applied；主种子、确认种子、UNRESOLVED和批准原子附录均原位保留，不改变任何指标、原生来源、任务/折/掩码/种子/人口/角色，也不执行额外TEST检查或剔除。已有明确评估字段不能静默覆盖；真实实验TRAIN/TEST与SAMPL全InChIKey隔离仍由原数据协议单独处理。
+
+8178/261回归及8179实际5619文件源码检查通过后，仅在owned PENDING/RunTime0/Restarts0边界将控制器8166替换为8180；当前8164→8165→8180，两个前级和所有主模型保持，GPU owner/UUID/锁与实际磁盘准入逻辑保持。新控制器使用包含说明模块的新封存源缓存，旧8165准备出的科学程序仍由同一接口校验；确认报告、合并与最终导出沿正常实际链运行。最终CSV一次写出后只计算其唯一SHA，不重写冻结B1筛选/确认表，不对闭合结果作独立数值复核。
