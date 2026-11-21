@@ -2,7 +2,7 @@
     "schema":  "D_RECIPE_CURRENT_BEST_V1",
     "status":  "NATIVE_SCREENING_IN_PROGRESS",
     "recipe_frozen":  false,
-    "updated_at_utc":  "2026-11-20T23:05:28Z",
+    "updated_at_utc":  "2026-11-21T00:01:16Z",
     "current_best":  null,
     "scientific_authority":  "docs/d_recipe/TASKBOOK.md",
     "preregistration":  "configs/d_recipe/preregistration.json",
@@ -159,7 +159,7 @@
                           "D-K1":  "CONDITIONAL_ON_ADOPTED_WIDE_LIBRARY"
                       },
     "conditional_seed1":  "Only seed0 WIN triggers a registered seed1 pair; no trigger yet",
-    "diagnostics":  "Required seed0 3M endpoint diagnostics pending; no diagnostic result used for adoption",
+    "diagnostics":  "R0 seed0/3M fixed VAL forward and cache transfer COMPLETE; F64 representation statistics and cached layer3-5 readouts RUNNING; remaining registered endpoint diagnostics pending; decision_input=false",
     "development_controls":  "Section5 A/B/C and composition controls pending",
     "confirmation":  {
                          "status":  "NOT_ELIGIBLE_BEFORE_ALL_FINAL_DECISIONS",
@@ -225,5 +225,63 @@
                                "cpu_statistics_job":  4537593,
                                "paired_comparison_job":  4537599,
                                "paired_comparison_output":  "results/d_recipe/comparisons/D-R1_vs_D-R0_seed0_3M.json"
-                           }
+                           },
+    "diagnostic_progress":  {
+                                "D_R0_seed0_3M":  {
+                                                      "forward":  {
+                                                                      "job_id":  4537579,
+                                                                      "status":  "COMPLETE",
+                                                                      "exit_code":  "0:0",
+                                                                      "node":  "compute-0-7",
+                                                                      "elapsed_seconds":  3388,
+                                                                      "allocated_CPUs":  2,
+                                                                      "molecules":  5000,
+                                                                      "conformers":  47698,
+                                                                      "layers":  [
+                                                                                     3,
+                                                                                     4,
+                                                                                     5,
+                                                                                     6
+                                                                                 ],
+                                                                      "cache_dtype":  "float64",
+                                                                      "source_manifest":  "/tmp/d_recipe_20261120_D_R0_seed0_3M/forward/manifest.json"
+                                                                  },
+                                                      "transfer":  {
+                                                                       "job_id":  4537580,
+                                                                       "status":  "COMPLETE",
+                                                                       "exit_code":  "0:0",
+                                                                       "elapsed_seconds":  29,
+                                                                       "allocated_CPUs":  2,
+                                                                       "source_node":  "compute-0-7",
+                                                                       "destination_node":  "compute-0-17",
+                                                                       "scope":  "Only original closed VAL cache; scientific values unchanged"
+                                                                   },
+                                                      "representation_statistics":  {
+                                                                                        "job_id":  4537581,
+                                                                                        "status":  "RUNNING",
+                                                                                        "node":  "compute-0-17",
+                                                                                        "output":  "/tmp/d_recipe_20261120_D_R0_seed0_3M/statistics",
+                                                                                        "decision_input":  false
+                                                                                    },
+                                                      "cached_layer_readouts":  {
+                                                                                    "job_id":  4537584,
+                                                                                    "status":  "RUNNING",
+                                                                                    "node":  "compute-0-7",
+                                                                                    "new_probes_layers":  [
+                                                                                                              3,
+                                                                                                              4,
+                                                                                                              5
+                                                                                                          ],
+                                                                                    "reused_main_layer":  6,
+                                                                                    "CPU_statistics_job":  4537585,
+                                                                                    "decision_input":  false
+                                                                                },
+                                                      "geometry_timebox":  {
+                                                                               "cumulative_limit_seconds":  14400,
+                                                                               "closed_prefix_seconds":  3417,
+                                                                               "scheduled_CPU_limit_seconds":  10800
+                                                                           },
+                                                      "encoder_forward_repeated":  false
+                                                  }
+                            }
 }

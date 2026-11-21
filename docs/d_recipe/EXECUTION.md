@@ -111,3 +111,9 @@ GPU7已实际通过自身8GiB+同行16GiB根盘、共享D/同行UID future联合
 规定的闭合作业成本仅汇总一次，真实CPU17/4537571.step15：完整GPU目标作业8.631666666666666墙钟小时、Slurm分配CPU小时43.15833333333333（不是实际TotalCPU）；原训练循环含固定VAL为98.10506871545198样本/秒，1017次原整卡遥测均值245.27235004916423W，覆盖训练作业及最终读出，非仅训练功耗。GPU峰值与首次1000步原报告保持。实际Slurm TotalCPU字段00:00:00只记缺测，不解释为零；主/批/extern不重复计费，原零步失败4537570的39秒单列。第一次本地sacct连接在读取遥测前失败，修复为转录同一Main登录节点原生sacct输出后完成CPU汇总；无额外测速、模型加载或科学QA。成本JSON路径results/d_recipe/D-R0_seed0_complete_GPU_job_costs_20261121.json。
 
 原GPU固定VAL诊断4537579已在compute-0-7 RUNNING，其CPU传输/统计和3–5层缓存探针仍按原依赖等待；诊断成本另计。原A1和L2仍RUNNING，最近440832/1194228行与3098/4695批。CPU17.step16只转录原结果、通过既有联合磁盘/UID/同行future守卫，没有数组独立复核或新增判定。其他规定臂、直接描述符对照、最终冻结、9M、全部交付、一次全回归与两个未合并PR仍未完成。
+
+2026-11-21 08:01:16 CST：原固定VAL前向4537579真实COMPLETED/0:0，GPU7/2CPU/ElapsedRaw3388，producer manifest为D_REPRESENTATION_FORWARD_V1/FORWARD_COMPLETE：5000分子、47698原允许构象、层3–6、float64 cache，statistics_complete=false。源GPU7的/tmp/d_recipe_20261120_D_R0_seed0_3M/forward/manifest.json及全部原数组保留，没有追加前向或数值回读。实际完成后自动触发原传输4537580，CPU17/2CPU/ElapsedRaw29、COMPLETED/0:0，输出CACHE_TRANSFER_COMPLETE、scientific_values_changed=false、original_sources_copied=false；只消费已闭合VALcache，未复制原始数据库、校验哈希或独立数值QA。
+
+CPU17 F64表示统计4537581和GPU7缓存层读出4537584均实际RUNNING；前者消费同一绝对路径manifest，后者消费原native开发cache，只拟合3–5层R1/R3，第6层复用主结果。CPU层统计4537585继续原afterok依赖。几何诊断当前关闭前缀3388+29=3417秒，原CPU统计3小时上限保持，累计上界14217秒仍小于4小时；不把前向/传输成功冒充最终PR/CEV/CVF/CVF_res或逐层诊断结果。全部诊断不进入采用判定。
+
+当前原A1与L2仍在计算，最近A1 489984/1194228行、L2 3563/4695批。CPU17实际联合盘/inode/UID及同行future准入通过，原NFS36706053853B、full29.75GB、Lustre模型1.25GiB及根盘24/12/12GiB预测不增加。08:01日报与当前状态按已闭合生产元数据更新，没有新测试、bootstrap重算、冻结或候选胜负结论；后续完整目标保持。
