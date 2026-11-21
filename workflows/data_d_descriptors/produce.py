@@ -290,6 +290,9 @@ def produce(config):
 
 
 def finalize(config):
+    if config.get("zero_scale_amendment") is not None:
+        from .zero_scale_amendment import finalize_amendment
+        return finalize_amendment(config)
     require_cpu(config)
     output = Path(config["output"]).resolve()
     destination = output / "final_manifest.json"
