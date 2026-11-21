@@ -1,0 +1,43 @@
+
+==================================== ERRORS ====================================
+__________ ERROR collecting tools/s_recipe/test_endpoint_readouts.py ___________
+tools/s_recipe/test_endpoint_readouts.py:3: in <module>
+    from endpoint_readouts import layer_payload, settings
+tools/s_recipe/endpoint_readouts.py:11: in <module>
+    from representations import registered
+tools/s_recipe/representations.py:16: in <module>
+    import composition_statistics as statistics
+tools/s_recipe/composition_statistics.py:12: in <module>
+    _source = subprocess.check_output(
+../../.conda/envs/chemprop/lib/python3.11/subprocess.py:466: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+../../.conda/envs/chemprop/lib/python3.11/subprocess.py:571: in run
+    raise CalledProcessError(retcode, process.args,
+E   subprocess.CalledProcessError: Command '['/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/test_tools/git/bin/git', '-C', '/share/home/zixiao/descriptor_analysis/MFM_model_v3', 'show', '5af7d2b730fd14d4ad2f3a0a0b9c2f32049816ea:tools/p_followup/composition_statistics.py']' returned non-zero exit status 128.
+------------------------------- Captured stderr --------------------------------
+fatal: path 'tools/p_followup/composition_statistics.py' does not exist in '5af7d2b730fd14d4ad2f3a0a0b9c2f32049816ea'
+_________ ERROR collecting tools/s_recipe/test_representation_scope.py _________
+tools/s_recipe/test_representation_scope.py:4: in <module>
+    import representations
+tools/s_recipe/representations.py:16: in <module>
+    import composition_statistics as statistics
+tools/s_recipe/composition_statistics.py:12: in <module>
+    _source = subprocess.check_output(
+../../.conda/envs/chemprop/lib/python3.11/subprocess.py:466: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+../../.conda/envs/chemprop/lib/python3.11/subprocess.py:571: in run
+    raise CalledProcessError(retcode, process.args,
+E   subprocess.CalledProcessError: Command '['/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/test_tools/git/bin/git', '-C', '/share/home/zixiao/descriptor_analysis/MFM_model_v3', 'show', '5af7d2b730fd14d4ad2f3a0a0b9c2f32049816ea:tools/p_followup/composition_statistics.py']' returned non-zero exit status 128.
+------------------------------- Captured stderr --------------------------------
+fatal: path 'tools/p_followup/composition_statistics.py' does not exist in '5af7d2b730fd14d4ad2f3a0a0b9c2f32049816ea'
+=============================== warnings summary ===============================
+../../.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26
+  /share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26: DeprecationWarning: `torch_geometric.distributed` has been deprecated since 2.7.0 and will no longer be maintained. For distributed training, refer to our tutorials on distributed training at https://pytorch-geometric.readthedocs.io/en/latest/tutorial/distributed.html or cuGraph examples at https://github.com/rapidsai/cugraph-gnn/tree/main/python/cugraph-pyg/cugraph_pyg/examples
+    from torch_geometric.distributed import (
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR tools/s_recipe/test_endpoint_readouts.py - subprocess.CalledProcessErro...
+ERROR tools/s_recipe/test_representation_scope.py - subprocess.CalledProcessE...
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!
+1 warning, 2 errors in 4.54s
