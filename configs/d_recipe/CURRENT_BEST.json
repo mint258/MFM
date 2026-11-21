@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-21T16:01:21.820989Z",
+  "updated_at_utc": "2026-11-21T16:36:36.371637Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -329,6 +329,16 @@
       "estimated_training_3M_completion_utc": "2026-11-22T04:16:12.820989+00:00",
       "forecast_method": "linear extrapolation from whole job elapsed and latest producer sample event",
       "forecast_scope": "training budget only; excludes final readouts, CPU statistics and diagnostics; variable throughput and fixed VAL; not a stop or selection rule"
+    },
+    "validation_500k": {
+      "status": "PRODUCER_RECORDED",
+      "samples": 500000,
+      "source": "results/d_recipe/training/d_recipe_20261120_D_R1_seed0_3M/VAL_original_units_500000.csv",
+      "bytes": 1184,
+      "producer_mtime_CST": "2026-11-22T00:31:16.123737447+08:00",
+      "primary_downstream_score": false,
+      "scientific_decision": false,
+      "note": "Original units from native producer; training continues. No extra validation forward or reevaluation."
     }
   },
   "diagnostic_progress": {
