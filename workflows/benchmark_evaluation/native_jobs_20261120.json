@@ -3582,37 +3582,6 @@
         "dependencyMarker": "AFTER_NMR_PRIMARY",
         "native_dependency": "afterany:4537337",
         "superseded_zero_start_GPU_job": 4537320
-      },
-      {
-        "name": "tdc_asap_TabPFN_Pprime_failed_report_only",
-        "learner": "TabPFN",
-        "old_job": 4537130,
-        "exports": [
-          "export TABPFN_ALLOW_CPU_LARGE_DATASET=1 LOKY_MAX_CPU_COUNT=2"
-        ],
-        "dependency": "afterok:4537124",
-        "node": "compute-0-7",
-        "uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
-        "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/tabpfn/bin/python",
-        "cpus": 2,
-        "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_preparation/job_4537762/original_registered_GPU_model.py",
-        "future_dependency": 4537124,
-        "native_dependency": "afterany:4537454,afterok:4537124",
-        "superseded_GPU_job": 4537229,
-        "job": 4537765,
-        "target_node": "compute-0-7",
-        "source_file": "workflows/benchmark_evaluation/c1_tdc_asap_failed_report_GPU7.sbatch",
-        "retain_original_job": false,
-        "model_seed": 20261025,
-        "superseded_zero_start_GPU_job": 4537285,
-        "parallel_reroute_preparation": 4537477,
-        "actual_future_GPU_admission_required": true,
-        "primary_execution_backend": "GPU7",
-        "superseded_zero_start_GPU_primary": 4537479,
-        "future_confirmation_GPU_template_preserved": true,
-        "continuation_of_native_job": 4537694,
-        "CPU_continuation_source_file": "workflows/benchmark_evaluation/c1_tdc_asap_failed_report_continuation.sbatch",
-        "zero_start_CPU_failed_continuation_superseded": 4537714
       }
     ],
     "no_training_rollback_or_lost_samples": false,
@@ -4411,110 +4380,118 @@
         "previous_pending_definition": {
           "previous_pending_definition": {
             "previous_pending_definition": {
-              "supersedes_previous_pending_definition": {
-                "submitted": true,
-                "native_job": 4537502,
-                "native_state": "PENDING_DEPENDENCY",
-                "requires_successful_frozen_B1_screen": 4537430,
-                "active_C1_source_dependencies": [
-                  4537281,
-                  4537282,
-                  4537063,
-                  4537068,
-                  4537125,
-                  4537283,
-                  4537127,
-                  4537478,
-                  4537129,
-                  4537479,
-                  4537131,
-                  4537480,
-                  4537133,
-                  4537481,
-                  4537135,
-                  4537288,
-                  4537137,
-                  4537482,
-                  4537139,
-                  4537483,
-                  4537141,
-                  4537291,
-                  4537143,
-                  4537484,
-                  4537145,
-                  4537485,
-                  4537147,
-                  4537486,
-                  4537150,
-                  4537487,
-                  4537152,
-                  4537488,
-                  4537154,
-                  4537489,
-                  4537156,
-                  4537298,
-                  4537158,
-                  4537490,
-                  4537160,
-                  4537491,
-                  4537162,
-                  4537301,
-                  4537164,
-                  4537492,
-                  4537166,
-                  4537493,
-                  4537168,
-                  4537304,
-                  4537170,
-                  4537494,
-                  4537172,
-                  4537306,
-                  4537174,
-                  4537495,
-                  4537176,
-                  4537308,
-                  4537178,
-                  4537496,
-                  4537180,
-                  4537497,
-                  4537182,
-                  4537498,
-                  4537184,
-                  4537499,
-                  4537186,
-                  4537313,
-                  4537188,
-                  4537500,
-                  4537190,
-                  4537501,
-                  4537192,
-                  4537316,
-                  4537321
-                ],
-                "all_original_source_accounting_rechecked_at_execution": true,
-                "final_C1_table": false,
-                "final_SHA": false,
-                "job": 4537502,
-                "superseded_job": 4537431
+              "previous_pending_definition": {
+                "previous_pending_definition": {
+                  "supersedes_previous_pending_definition": {
+                    "submitted": true,
+                    "native_job": 4537502,
+                    "native_state": "PENDING_DEPENDENCY",
+                    "requires_successful_frozen_B1_screen": 4537430,
+                    "active_C1_source_dependencies": [
+                      4537281,
+                      4537282,
+                      4537063,
+                      4537068,
+                      4537125,
+                      4537283,
+                      4537127,
+                      4537478,
+                      4537129,
+                      4537479,
+                      4537131,
+                      4537480,
+                      4537133,
+                      4537481,
+                      4537135,
+                      4537288,
+                      4537137,
+                      4537482,
+                      4537139,
+                      4537483,
+                      4537141,
+                      4537291,
+                      4537143,
+                      4537484,
+                      4537145,
+                      4537485,
+                      4537147,
+                      4537486,
+                      4537150,
+                      4537487,
+                      4537152,
+                      4537488,
+                      4537154,
+                      4537489,
+                      4537156,
+                      4537298,
+                      4537158,
+                      4537490,
+                      4537160,
+                      4537491,
+                      4537162,
+                      4537301,
+                      4537164,
+                      4537492,
+                      4537166,
+                      4537493,
+                      4537168,
+                      4537304,
+                      4537170,
+                      4537494,
+                      4537172,
+                      4537306,
+                      4537174,
+                      4537495,
+                      4537176,
+                      4537308,
+                      4537178,
+                      4537496,
+                      4537180,
+                      4537497,
+                      4537182,
+                      4537498,
+                      4537184,
+                      4537499,
+                      4537186,
+                      4537313,
+                      4537188,
+                      4537500,
+                      4537190,
+                      4537501,
+                      4537192,
+                      4537316,
+                      4537321
+                    ],
+                    "all_original_source_accounting_rechecked_at_execution": true,
+                    "final_C1_table": false,
+                    "final_SHA": false,
+                    "job": 4537502,
+                    "superseded_job": 4537431
+                  },
+                  "current_job": 4537686,
+                  "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_primary_chain_wiring/job_4537685/proposed_sources.json",
+                  "source": "ready_CPU_resource_reassignment"
+                },
+                "current_job": 4537701,
+                "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_tabular_CPU_continuation_repair/job_4537700/proposed_sources.json"
               },
-              "current_job": 4537686,
-              "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_primary_chain_wiring/job_4537685/proposed_sources.json",
-              "source": "ready_CPU_resource_reassignment"
+              "current_job": 4537715,
+              "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json"
             },
-            "current_job": 4537701,
-            "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_tabular_CPU_continuation_repair/job_4537700/proposed_sources.json"
+            "current_job": 4537733,
+            "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json"
           },
-          "current_job": 4537715,
-          "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json"
+          "current_job": 4537756,
+          "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/terminal_CPU14_native_continuation/job_4537753/proposed_sources.json"
         },
-        "current_job": 4537733,
-        "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json"
+        "current_job": 4537766,
+        "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_wiring/job_4537764/proposed_sources.json"
       },
-      "current_job": 4537756,
-      "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/terminal_CPU14_native_continuation/job_4537753/proposed_sources.json"
+      "current_job": 4537784,
+      "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/closed_TDC_GPU_context_wiring/job_4537782/proposed_sources.json"
     },
-    "current_job": 4537766,
-    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_wiring/job_4537764/proposed_sources.json"
+    "current_job": 4537790,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/TDC_capped_metadata_chain/job_4537789/proposed_sources.json"
   },
   "GPU7_e7_e8_reassignment": {
     "source_check_step": "4537025.21",
@@ -4801,25 +4778,33 @@
         "previous_pending_definition": {
           "previous_pending_definition": {
             "previous_pending_definition": {
-              "supersedes_previous_pending_definition": null,
-              "current_job": 4537688,
-              "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_primary_chain_wiring/job_4537685/proposed_sources.json",
-              "source": "ready_CPU_resource_reassignment"
+              "previous_pending_definition": {
+                "previous_pending_definition": {
+                  "supersedes_previous_pending_definition": null,
+                  "current_job": 4537688,
+                  "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_primary_chain_wiring/job_4537685/proposed_sources.json",
+                  "source": "ready_CPU_resource_reassignment"
+                },
+                "current_job": 4537703,
+                "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_tabular_CPU_continuation_repair/job_4537700/proposed_sources.json"
+              },
+              "current_job": 4537717,
+              "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json"
             },
-            "current_job": 4537703,
-            "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/ready_tabular_CPU_continuation_repair/job_4537700/proposed_sources.json"
+            "current_job": 4537735,
+            "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json"
           },
-          "current_job": 4537717,
-          "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json"
+          "current_job": 4537758,
+          "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/terminal_CPU14_native_continuation/job_4537753/proposed_sources.json"
         },
-        "current_job": 4537735,
-        "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/blind_policy_report_chain/job_4537732/proposed_sources.json"
+        "current_job": 4537768,
+        "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_wiring/job_4537764/proposed_sources.json"
       },
-      "current_job": 4537758,
-      "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/terminal_CPU14_native_continuation/job_4537753/proposed_sources.json"
+      "current_job": 4537786,
+      "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/closed_TDC_GPU_context_wiring/job_4537782/proposed_sources.json"
     },
-    "current_job": 4537768,
-    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_wiring/job_4537764/proposed_sources.json"
+    "current_job": 4537792,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/TDC_capped_metadata_chain/job_4537789/proposed_sources.json"
   },
   "C1_GPU7_actual_primary_progress": {
     "closed": [
@@ -5073,9 +5058,7 @@
     "source_groups": 104,
     "original_source_groups_preserved": 103,
     "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_native_chain_wiring/job_4537713/proposed_sources.json",
-    "scientific_endpoint_configuration_scope": "UNCHANGED_561_CELLS",
-    "zero_start_CPU_continuation_7714_superseded_by_GPU7": 4537765,
-    "old_successful_primary_7694_preserved": true
+    "scientific_endpoint_configuration_scope": "UNCHANGED_561_CELLS"
   },
   "C1_Biogen_CPU_closure_20261121": {
     "Pprime": {
@@ -5259,7 +5242,7 @@
     "no_scientific_metrics_read": true
   },
   "C1_failed_report_GPU7_resource_reassignment_20261121": {
-    "status": "FAILED_REPORT_GPU7_CHAIN_WIRED_AND_RELEASED",
+    "status": "FAILED_REPORT_GPU7_COMPLETE_CHAIN_RECORDED_BEFORE_RELEASE",
     "job": "4537764",
     "new_jobs": [
       {
@@ -5287,18 +5270,8 @@
         "GPU7": false
       }
     ],
-    "cancelled": [
-      4537714,
-      4537756,
-      4537757,
-      4537758
-    ],
-    "released": [
-      4537765,
-      4537766,
-      4537767,
-      4537768
-    ],
+    "cancelled": [],
+    "released": [],
     "original_primary_preserved": 4537694,
     "old_zero_start_CPU_continuation": 4537714,
     "validation_job": 4537762,
@@ -5321,16 +5294,187 @@
     "controller_job": 4537768,
     "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_wiring/job_4537764/proposed_sources.json",
     "actual_GPU7_uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
-    "actual_empty_context_before_wiring": true,
+    "actual_empty_context_before_wiring": true
+  },
+  "C1_closed_TDC_failed_context_continuation_20261121": {
+    "status": "CLOSED_PREREQUISITE_ALL_NATIVE_IDS_RECORDED_BEFORE_RELEASE",
+    "job": "4537782",
+    "old_failed_pre_model_GPU": 4537765,
+    "prior_native_failure": "4537765|FAILED|1:0|1278|zixiao\n",
+    "original_completed_source": 4537694,
+    "original_successful_tasks": 14,
+    "actual_failed_tasks": 9,
+    "previous_GPU_models_or_contexts_started": 0,
+    "new_jobs": [
+      {
+        "job": 4537783,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/closed_TDC_GPU_context_wiring/job_4537782/c1_tdc_asap_failed_report_GPU7_closed_source.sbatch",
+        "dependency": null,
+        "GPU7": true
+      },
+      {
+        "job": 4537784,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/closed_TDC_GPU_context_wiring/job_4537782/c1_primary_comparisons.sbatch",
+        "dependency": "afterany:4537150,afterany:4537487,afterany:4537152,afterany:4537488,afterany:4537154,afterany:4537489,afterany:4537156,afterany:4537298,afterany:4537158,afterany:4537490,afterany:4537160,afterany:4537491,afterany:4537162,afterany:4537301,afterany:4537164,afterany:4537492,afterany:4537166,afterany:4537493,afterany:4537168,afterany:4537304,afterany:4537170,afterany:4537494,afterany:4537172,afterany:4537306,afterany:4537174,afterany:4537495,afterany:4537176,afterany:4537308,afterany:4537178,afterany:4537496,afterany:4537180,afterany:4537497,afterany:4537182,afterany:4537498,afterany:4537184,afterany:4537499,afterany:4537186,afterany:4537313,afterany:4537188,afterany:4537500,afterany:4537190,afterany:4537501,afterany:4537192,afterany:4537316,afterany:4537321,afterany:4537783",
+        "GPU7": false
+      },
+      {
+        "job": 4537785,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/closed_TDC_GPU_context_wiring/job_4537782/c1_conditional_sources_prepare.sbatch",
+        "dependency": "afterok:4537784",
+        "GPU7": false
+      },
+      {
+        "job": 4537786,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/closed_TDC_GPU_context_wiring/job_4537782/c1_conditional_chain_dispatch.sbatch",
+        "dependency": "afterok:4537785",
+        "GPU7": false
+      }
+    ],
+    "cancelled": [],
+    "released": [],
+    "validation_job": 4537781,
+    "regression_tests": 203,
+    "source_groups": 104,
+    "scientific_cells": 561,
+    "model_seed": 20261025,
+    "training_rollback": false,
+    "successful_original_predictions_replayed": false,
+    "old_pending_held": [
+      4537766,
+      4537767,
+      4537768,
+      4537298
+    ],
+    "reference_head7298_dependency": "afterok:4537149,afterany:4537783",
+    "GPU_failed_only_job": 4537783,
+    "primary_job": 4537784,
+    "conditional_preparation_job": 4537785,
+    "controller_job": 4537786,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/closed_TDC_GPU_context_wiring/job_4537782/proposed_sources.json",
+    "closed_prerequisite_CPU_authorization": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/closed_TDC_prerequisite_preparation/job_4537781/closed_source_authorization.json",
+    "reference_failure_metadata_controller_preserved": 4537778
+  },
+  "C1_capped_prefit_GPU_templates_archived": [
+    {
+      "name": "tdc_asap_TabPFN_Pprime_failed_report_only",
+      "learner": "TabPFN",
+      "old_job": 4537130,
+      "exports": [
+        "export TABPFN_ALLOW_CPU_LARGE_DATASET=1 LOKY_MAX_CPU_COUNT=2"
+      ],
+      "dependency": "afterok:4537124",
+      "node": "compute-0-7",
+      "uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+      "python": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/environments/gpu_cu118_job_4536985_step_24/tabpfn/bin/python",
+      "cpus": 2,
+      "program": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/failed_report_GPU7_preparation/job_4537762/original_registered_GPU_model.py",
+      "future_dependency": 4537124,
+      "native_dependency": "afterany:4537454,afterok:4537124",
+      "superseded_GPU_job": 4537229,
+      "job": 4537783,
+      "target_node": "compute-0-7",
+      "retain_original_job": false,
+      "model_seed": 20261025,
+      "superseded_zero_start_GPU_job": 4537285,
+      "parallel_reroute_preparation": 4537477,
+      "actual_future_GPU_admission_required": true,
+      "primary_execution_backend": "GPU7",
+      "superseded_zero_start_GPU_primary": 4537479,
+      "future_confirmation_GPU_template_preserved": true,
+      "continuation_of_native_job": 4537694,
+      "CPU_continuation_source_file": "workflows/benchmark_evaluation/c1_tdc_asap_failed_report_continuation.sbatch",
+      "zero_start_CPU_failed_continuation_superseded": 4537714,
+      "premodel_failed_GPU_continuation_superseded": 4537765,
+      "closed_prerequisite_CPU_authorization": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/closed_TDC_prerequisite_preparation/job_4537781/closed_source_authorization.json",
+      "active_for_primary_or_confirmations": false,
+      "actual_failed_batch_source": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/closed_TDC_GPU_context_wiring/job_4537782/c1_tdc_asap_failed_report_GPU7_closed_source.sbatch",
+      "retired_relative_source_label": "workflows/benchmark_evaluation/c1_tdc_asap_failed_report_GPU7_closed_source.sbatch"
+    }
+  ],
+  "C1_TDC_user_repair_cap_20261121": {
+    "status": "USER_CAPPED_TDC_METADATA_CHAIN_WIRED_AND_RELEASED",
+    "job": "4537789",
+    "new_jobs": [
+      {
+        "job": 4537790,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/TDC_capped_metadata_chain/job_4537789/c1_primary_comparisons.sbatch",
+        "dependency": "afterany:4537150,afterany:4537487,afterany:4537152,afterany:4537488,afterany:4537154,afterany:4537489,afterany:4537156,afterany:4537298,afterany:4537158,afterany:4537490,afterany:4537160,afterany:4537491,afterany:4537162,afterany:4537301,afterany:4537164,afterany:4537492,afterany:4537166,afterany:4537493,afterany:4537168,afterany:4537304,afterany:4537170,afterany:4537494,afterany:4537172,afterany:4537306,afterany:4537174,afterany:4537495,afterany:4537176,afterany:4537308,afterany:4537178,afterany:4537496,afterany:4537180,afterany:4537497,afterany:4537182,afterany:4537498,afterany:4537184,afterany:4537499,afterany:4537186,afterany:4537313,afterany:4537188,afterany:4537500,afterany:4537190,afterany:4537501,afterany:4537192,afterany:4537316,afterany:4537321"
+      },
+      {
+        "job": 4537791,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/TDC_capped_metadata_chain/job_4537789/c1_conditional_sources_prepare.sbatch",
+        "dependency": "afterok:4537790"
+      },
+      {
+        "job": 4537792,
+        "script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/TDC_capped_metadata_chain/job_4537789/c1_conditional_chain_dispatch.sbatch",
+        "dependency": "afterok:4537791"
+      }
+    ],
+    "cancelled": [
+      4537784,
+      4537785,
+      4537786
+    ],
+    "released": [
+      4537790,
+      4537791,
+      4537792
+    ],
+    "cap_metadata_producer": 4537788,
+    "cap_producer_role": "METADATA_ONLY_FAILURE_FINALIZATION_NOT_MODEL_TRAINING",
+    "capped_failed_tasks": 9,
+    "original_successful_tasks_preserved": 14,
+    "original_source_job": 4537694,
+    "third_GPU_repair_submitted": false,
+    "new_models_or_statistics": 0,
+    "source_groups": 104,
+    "scientific_cells": 561,
+    "reference_failure_controller_preserved": 4537778,
+    "old_reports_held": [
+      4537784,
+      4537785,
+      4537786
+    ],
+    "primary_job": 4537790,
+    "conditional_preparation_job": 4537791,
+    "controller_job": 4537792,
+    "source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/TDC_capped_metadata_chain/job_4537789/proposed_sources.json",
+    "metadata_manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/C1_TDC_report_repair_cap/job_4537788/manifest.json",
+    "native_failures": [
+      {
+        "job": 4537765,
+        "state": "FAILED",
+        "exit_code": "1:0",
+        "uid": 1278,
+        "user": "zixiao",
+        "elapsed": "00:00:03"
+      },
+      {
+        "job": 4537783,
+        "state": "FAILED",
+        "exit_code": "1:0",
+        "uid": 1278,
+        "user": "zixiao",
+        "elapsed": "00:00:02"
+      }
+    ],
+    "valid_repair_predictions": 0,
+    "not_a_negative_model_performance_result": true,
     "source_check": {
       "status": "PASS",
-      "files": 5595,
-      "bytes": 66226349,
-      "python_files": 3778,
+      "files": 5599,
+      "bytes": 66286726,
+      "python_files": 3780,
       "server_sources_verified": 1311,
       "export_verification_required": false,
       "errors": []
-    }
+    },
+    "producer_role": "METADATA_ONLY_FAILURE_FINALIZATION_NOT_MODEL_TRAINING",
+    "model_or_inference_executed": false,
+    "unresolved_cells": 9,
+    "original_successful_predictions_preserved": 14
   },
   "shared_NFS_futures_reconciliation": {
     "native_deployment": 4537550,
@@ -5803,19 +5947,11 @@
     }
   },
   "merged_evaluation_regression_20261121": {
-    "job": 4537653,
-    "state": "COMPLETED/0:0",
-    "elapsed": "00:00:03",
-    "tests": 163,
-    "scope": "All current workflows.benchmark_evaluation test modules",
-    "synthetic_and_source_interface_tests_only": true,
-    "no_real_results_replayed": true,
-    "latest_job": 4537776,
-    "latest_tests": 198,
-    "files": 5599,
-    "python_files": 3780,
-    "status": "PASS",
-    "real_scientific_outputs_read_for_QA": false
+    "native_job": 4537781,
+    "state": "COMPLETED",
+    "tests_passed": 203,
+    "extra_tests": "5 closed-source authorization guard cases",
+    "new_scientific_scores_read": false
   },
   "C1_tabular_Pprime_sources_closed": {
     "job": 4537124,
@@ -6228,12 +6364,34 @@
     "no_new_feature_job_submitted_yet": true
   },
   "C1_GPU7_current_queue_order_20261121": {
-    "failed_only": 4537765,
-    "failed_only_afterany": 4537694,
-    "reference_head": 4537298,
-    "reference_afterok": 4537149,
-    "reference_afterany": 4537765,
-    "model_programs_and_source_groups_unchanged": true,
-    "no_other_owner_job_changed": true
+    "head": 4537298,
+    "afterok": 4537149,
+    "failed_TDC_repair_contexts_capped": true,
+    "no_further_TDC_repair_reserved": true,
+    "protected_P9M_nodes": [
+      5,
+      22
+    ],
+    "reference_controller": 4537778
+  },
+  "C1_pKa_PD_TabPFN_closed_20261121": {
+    "job": 4537698,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "03:14:21",
+    "tasks_completed": 2,
+    "failed_tasks": 0,
+    "model_seed": 20261025,
+    "no_replay": true
+  },
+  "C1_TDC_Pprime_original_closed_20261121": {
+    "job": 4537694,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "03:31:31",
+    "successful_tasks_preserved": 14,
+    "reporting_failed_tasks": 9,
+    "reporting_error": "KeyError('MAE')",
+    "successful_predictions_replayed": false
   }
 }

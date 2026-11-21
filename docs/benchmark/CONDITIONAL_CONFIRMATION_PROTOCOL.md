@@ -39,3 +39,9 @@ Unchanged evaluation populations continue to reuse closed producer estimates. A 
 当前链（7764）：primary7766 -> prep7767 -> dispatcher7768，缓存failed_report_GPU7_wiring/job_4537764/proposed_sources.json。原7694继续CPU运行；原7714从未启动，在UID1278/PENDING/0时换为GPU7失败子集7765，仍afterany7694，未增加上下文尝试。7762证明完整原CPU→既定CUDA适配AST与已登记GPU程序一致并通过23接口检查；7764源码5595文件PASS。只在原7694实际C0闭合且逐项失败恰为MAE报告错误时执行一次真实失败子集；已成功端点及初始种子不动，再失败明确UNRESOLVED。未来种子26仍仅由最终显著改善触发，模板已保留其真实GPU7原生身份和完整原CUDA程序。7149参考特征和其45个未启动来源保持；GPU7后续参考任务不因该失败推断提前放行。
 
 参考特征空启动自动恢复（7777）：CPU控制器7778 afterany7149，仅在实际native终态失败且原输出目录不存在时允许一次新特征准备；原C0成功则检查闭合契约后NO_OP，有部分输出则拒绝全量重放并记录需要按部分范围续接。45个模型作业保持原ID和完整科学源码，只在owned PENDING/0边界更新afterok至真实新特征producer，先记录held身份再放行。沿用已声明目录C1_Pprime_reference_features/job_4537149作为存储namespace；该名称不冒充producer：新manifest的job仍为实际SLURM_JOB_ID，并记录original_feature_job/output_namespace_job/recovery_declaration。新特征科学AST仅有目录身份与明确provenance差异，标签/几何/字段/单位/掩码/折/种子/预算不改。控制器目前仅排队，无新特征job。7298保持afterok7149并加afterany7765，以免两条GPU7任务链同时启动；不构成对其他owner的GPU预留。C1总比较7766→7767→7768、104来源/561格及已有闭合结果保持。
+
+### TDC P′ 报告恢复上限（2026-11-21）
+
+7694实际C0保留14项成功预测；9项报告错误经7765、7783两次原生启动失败后，按计划§7明确UNRESOLVED并继续其余任务。7788是元数据封口来源，不是模型成功拟合，不拥有预测、种子完成数或推断GPU模板。失败原始源码/日志保留，未提交第三次修复。104来源仍对应原561格，9格不得删去、改负结果、填分数或自动补第二种子。
+
+7790→7791→7792使用实际7788封口来源及原7694的14项成功来源。退休7783未执行模型模板；其余实际成功模板保留给最终显著改善条件确认。7778只按7149实际终态决定参考特征是否允许一次空输出启动续接，45模型身份不变。

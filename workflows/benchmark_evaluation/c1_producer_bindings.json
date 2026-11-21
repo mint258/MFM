@@ -848,14 +848,23 @@
     "dataset": "tdc_asap",
     "feature_group": "Pprime",
     "learner": "TabPFN",
-    "job": 4537765,
-    "folder": "C1_Pprime_TABPFN/job_4537765",
+    "job": 4537788,
+    "folder": "C1_TDC_report_repair_cap/job_4537788",
     "original_CPU_job": 4537130,
     "zero_start_resource_reassignment_of_job": 4537479,
-    "primary_execution_backend": "GPU7",
+    "primary_execution_backend": "METADATA_ONLY_CAP_DECISION",
     "continuation_of_native_job": 4537694,
     "failed_report_task_subset_only": true,
-    "max_additional_context_inference_attempts_per_task": 1,
-    "zero_start_CPU_failed_continuation_superseded": 4537714
+    "max_additional_context_inference_attempts_per_task": 0,
+    "zero_start_CPU_failed_continuation_superseded": 4537714,
+    "premodel_failed_GPU_continuation_superseded": 4537765,
+    "closed_original_prerequisite_fulfilled_by_authorization": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/closed_TDC_prerequisite_preparation/job_4537781/closed_source_authorization.json",
+    "producer_role": "METADATA_ONLY_FAILURE_FINALIZATION_NOT_MODEL_TRAINING",
+    "native_fitted_model": false,
+    "failed_GPU_sources": [
+      4537765,
+      4537783
+    ],
+    "repair_budget_exhausted": true
   }
 ]

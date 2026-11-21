@@ -67,3 +67,36 @@ class CpuTabpfnTests(unittest.TestCase):
         self.assertFalse(namespace["report"]["training_rollback"])
         self.assertEqual(model_calls(original),model_calls(result))
 if __name__=="__main__":unittest.main()
+
+
+from .cpu_tabpfn_primary import validated_closed_reporting_authorization
+
+class ClosedReportingAuthorizationTests(unittest.TestCase):
+    def authorization(self):
+        record="100|COMPLETED|0:0|1278|zixiao\n"
+        manifest=dict(job="100",status="C1_Pprime_TABPFN_TDC_ASAP_CLOSED",tasks_expected=23,tasks_completed=22,
+            failures=[dict(dataset="TDC_ADMET",task="retry",status="FIRST_ATTEMPT_FAILED",error="KeyError('MAE')")])
+        return dict(schema="C1_CLOSED_REPORT_FAILURE_AUTHORIZATION_V1",source_job=100,
+            native_evidence_kind="NATIVE_SACCT_CLOSED_RECORD",raw_native_evidence=record,native_accounting=record,
+            closed_source_manifest=manifest,failed_tasks=[["TDC_ADMET","retry"]],model_seed=20261025,
+            fixed_weight_context_inference=True,training_rollback=False,max_additional_context_inference_attempts_per_task=1)
+    def test_native_closed_prerequisite_is_fulfilled_without_new_network_or_fit(self):
+        self.assertEqual(validated_closed_reporting_authorization(self.authorization(),100),(("TDC_ADMET","retry"),))
+    def test_active_or_failed_native_source_is_never_relabelled_closed(self):
+        for state,code in (("RUNNING","0:0"),("TIMEOUT","0:0"),("FAILED","1:0")):
+            value=self.authorization();record="100|"+state+"|"+code+"|1278|zixiao\n"
+            value.update(native_accounting=record,raw_native_evidence=record)
+            with self.subTest(state=state),self.assertRaises(ValueError):validated_closed_reporting_authorization(value,100)
+    def test_actual_native_owner_must_match(self):
+        for uid,user in (("999","zixiao"),("1278","other")):
+            value=self.authorization();record="100|COMPLETED|0:0|"+uid+"|"+user+"\n"
+            value.update(native_accounting=record,raw_native_evidence=record)
+            with self.subTest(uid=uid,user=user),self.assertRaises(ValueError):validated_closed_reporting_authorization(value,100)
+    def test_seed_rollback_and_context_attempt_cap_remain(self):
+        for field,value in (("model_seed",20261026),("fixed_weight_context_inference",False),("training_rollback",True),("max_additional_context_inference_attempts_per_task",2),("max_additional_context_inference_attempts_per_task",True)):
+            authorization=self.authorization();authorization[field]=value
+            with self.subTest(field=field,value=value),self.assertRaises(ValueError):validated_closed_reporting_authorization(authorization,100)
+    def test_changed_failed_keys_source_identity_or_native_evidence_rejected(self):
+        for field,value in (("source_job",101),("failed_tasks",[["TDC_ADMET","successful"]]),("native_evidence_kind","UNVERIFIED"),("raw_native_evidence","100|RUNNING|0:0|1278|zixiao\n")):
+            authorization=self.authorization();authorization[field]=value
+            with self.subTest(field=field),self.assertRaises(ValueError):validated_closed_reporting_authorization(authorization,100)

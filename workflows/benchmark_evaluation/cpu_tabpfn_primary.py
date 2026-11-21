@@ -118,3 +118,26 @@ def prepare_failed_reporting_source(original, manifest, accounting, expected_job
     compile(result,"failed_reporting_tasks_only","exec")
     if model_calls(original)!=model_calls(result):raise ValueError("Failed-only continuation changed model configuration")
     return result,keys
+
+
+def validated_closed_reporting_authorization(authorization,expected_job):
+    """Consume an already fulfilled native prerequisite without a GPU-to-login connection."""
+    if (authorization.get("schema")!="C1_CLOSED_REPORT_FAILURE_AUTHORIZATION_V1"
+        or str(authorization.get("source_job"))!=str(expected_job)
+        or authorization.get("native_evidence_kind")!="NATIVE_SACCT_CLOSED_RECORD"
+        or authorization.get("raw_native_evidence")!=authorization.get("native_accounting")):
+        raise ValueError("An exact actual closed native source authorization is required")
+    if (authorization.get("model_seed")!=20261025
+        or authorization.get("fixed_weight_context_inference") is not True
+        or authorization.get("training_rollback") is not False
+        or type(authorization.get("max_additional_context_inference_attempts_per_task")) is not int
+        or authorization["max_additional_context_inference_attempts_per_task"]!=1):
+        raise ValueError("The one additional fixed-weight context and original seed must remain")
+    records=[line.strip().split("|") for line in authorization["native_accounting"].splitlines()
+             if line.strip().split("|")[0]==str(expected_job)]
+    if len(records)!=1 or len(records[0])<5 or records[0][3:5]!=["1278","zixiao"]:
+        raise ValueError("The original native source must be owned by the registered account")
+    keys=failed_reporting_keys(authorization["closed_source_manifest"],authorization["native_accounting"],expected_job)
+    if authorization.get("failed_tasks")!=[list(key) for key in keys]:
+        raise ValueError("Only the exact closed reporting-error task keys are authorized")
+    return keys
