@@ -1428,3 +1428,5 @@ D联合NFS36706053853B、full29.75GB、Lustre模型池1.25GiB保持。A1/L2原�
 ## 2026-11-21 22:24:15 CST · D Root
 
 原生A1全1194228 TRAIN/23分子字段唯一拟合已FROZEN_FIT：12残差/11原目标、无未解决，旧D20/D3/D4不改。4537571/4537575均COMPLETED0:0（85805/32秒）；[冻结分档与参数](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/A1_FULL_TRAIN.md)。R1 4537592于22:12:23 CST在compute-0-7、原RTX3090 UUID GPU-9db54192-dd3f-3177-e56f-dcd161ff932c冷启动3M/seed0，5CPU，尚无终点评分。原截断报告以4538106/CPU17/请求1CPU同配置同输出关闭游标续接；真实日志/训练状态保留。后续D离线SDK日志只路由至已预算共享控制scope，避免full-store中的SDK快捷链接；9项相关测试4538106.step0通过。现行NFS36706053853B、Lustre1.25GiB、GPU7未来R1原生8GiB+VAL8GiB、CPU10未来VAL12GiB及全部实存/同行预算不变；CPU17无新本地缓存预算。两宽库仍按原预注册UNRESOLVED，未批准/执行零尺度过滤修订；配方未冻结，R1/G1/条件种子/最终对照/9M继续原规则，不占用或修改同行任务。
+
+[配方线 用户指示 2026-11-22 06:10 CST] 新增 docs/p_recipe/USER_DIRECTIVE_20261121.md：9M 的 1M–9M 断点全部保留；9M 跑完后补跑 T1/T2 的 1M–8M、T4/T5/T6 的 3M/6M 第 6 层 R1/R3，只作预算曲线描述；读出用 compute-0-0~7 的 24GiB 卡，不占 S 线需要的 ≥36GiB 卡；最终 P 报告等这些读出完成后再生成。其他线无需动作。
