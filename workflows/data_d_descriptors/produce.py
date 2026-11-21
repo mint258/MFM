@@ -296,8 +296,29 @@ def finalize(config):
     if destination.exists():
         return read_json(destination)
     manifest = read_json(output / "manifest.json")
+    # Root may close one library conservatively under taskbook section 3
+    # after its actual repair timebox/failure limit. Raw stores and the sole
+    # TRAIN statistics stay intact; a closed peer must still be deliverable.
+    unresolved = config.get("unresolved_libraries", {})
+    if (not isinstance(unresolved, dict)
+            or set(unresolved) - set(manifest["libraries"])
+            or any(not isinstance(reason, str) or not reason.strip()
+                   for reason in unresolved.values())):
+        raise ValueError("Explicit known library and nonempty unresolved reason required")
     train_rows = np.asarray([i for i, row in enumerate(rows(manifest["rows"])) if row["role"] == "TRAIN"])
     for library, entry in manifest["libraries"].items():
+        if library in unresolved:
+            # The original manifest remains unchanged. Keep its status-array
+            # path as a raw reference even though this final entry is unusable.
+            if entry.get("status") != "UNRESOLVED":
+                entry.setdefault("status_store", entry["status"])
+            entry.update(status="UNRESOLVED", state="UNRESOLVED",
+                         reason=unresolved[library],
+                         reception_acceptance="not_deliverable")
+            closed_statistics = output / (library + "_statistics.json")
+            if closed_statistics.exists():
+                entry["statistics"] = str(closed_statistics)
+            continue
         if entry.get("status") == "UNRESOLVED":
             continue
         marker = output / (library + "_statistics.json")
