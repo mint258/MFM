@@ -1,40 +1,375 @@
 {
-  "schema": "P_RECIPE_FIVE_9M_STORAGE_RECONCILIATION_V1",
-  "observed_at": 1795186037.673621,
-  "observed_node": "compute-0-17",
-  "uid": 1278,
-  "job_id": 4537577,
-  "actual_P_physical_bytes": 31181479936,
-  "actual_regular_files": 3710,
-  "actual_checkpoint_files": 1133,
-  "future_checkpoint_counts": {
-    "confirmation_milestones": 45,
-    "additional_full_state_handoff_or_recovery": 5,
-    "concurrent_serialization_temporaries": 5
-  },
-  "total_future_checkpoint_slots": 55,
-  "checkpoint_upper_bound_bytes": 300000000,
-  "future_logs_readouts_bytes": 3000000000,
-  "projected_P_peak_bytes": 50681479936,
-  "previous_P_reserve_bytes": 53000000000,
-  "reserved_P_peak_bytes": 51000000000,
-  "withdrawn_unused_future_bytes": 2000000000,
-  "previous_global_model_peak_bytes": 107912073728,
-  "new_global_model_peak_bytes": 105912073728,
-  "unchanged_other_model_peak_bytes": 54912073728,
-  "all_existing_outputs_preserved": true,
-  "all_other_reservation_fields_and_roots_preserved": true,
-  "account_floor_bytes": 100000000000,
-  "account_buffer_bytes": 8589934592,
-  "active_registry": "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/model_output_budget.json",
-  "active_plan": "p_recipe_remaining_plan_20261120_confirming",
-  "basis": "F1 complete/no seed1; five active9M serializers; count all old checkpoints/temporaries by physical inode. Additional handoffs/recoveries beyond five require a fresh forecast.",
-  "quota_admission": {
-    "filesystem": "/lfshome",
-    "available": 146431918080,
-    "required": 143928533504,
-    "age": 3.222848415374756
-  },
-  "prior_raw_registry_backup": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/model_output_budget_before_five9M_4537577.json",
-  "status": "OWN_UNUSED_FUTURE_RETIRED"
+    "schema":  "P_RECIPE_FIVE_9M_STORAGE_RECONCILIATION_V1",
+    "observed_at":  1795186037.673621,
+    "observed_node":  "compute-0-17",
+    "uid":  1278,
+    "job_id":  4537577,
+    "actual_P_physical_bytes":  31181479936,
+    "actual_regular_files":  3710,
+    "actual_checkpoint_files":  1133,
+    "future_checkpoint_counts":  {
+                                     "confirmation_milestones":  45,
+                                     "additional_full_state_handoff_or_recovery":  5,
+                                     "concurrent_serialization_temporaries":  5
+                                 },
+    "total_future_checkpoint_slots":  55,
+    "checkpoint_upper_bound_bytes":  300000000,
+    "future_logs_readouts_bytes":  3000000000,
+    "projected_P_peak_bytes":  50681479936,
+    "previous_P_reserve_bytes":  53000000000,
+    "reserved_P_peak_bytes":  51000000000,
+    "withdrawn_unused_future_bytes":  2000000000,
+    "previous_global_model_peak_bytes":  107912073728,
+    "new_global_model_peak_bytes":  105912073728,
+    "unchanged_other_model_peak_bytes":  54912073728,
+    "all_existing_outputs_preserved":  true,
+    "all_other_reservation_fields_and_roots_preserved":  true,
+    "account_floor_bytes":  100000000000,
+    "account_buffer_bytes":  8589934592,
+    "active_registry":  "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/model_output_budget.json",
+    "active_plan":  "p_recipe_remaining_plan_20261120_confirming",
+    "basis":  "F1 complete/no seed1; five active9M serializers; count all old checkpoints/temporaries by physical inode. Additional handoffs/recoveries beyond five require a fresh forecast.",
+    "quota_admission":  {
+                            "filesystem":  "/lfshome",
+                            "available":  146431918080,
+                            "required":  143928533504,
+                            "age":  3.222848415374756
+                        },
+    "prior_raw_registry_backup":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/model_output_budget_before_five9M_4537577.json",
+    "status":  "OWN_UNUSED_FUTURE_RETIRED",
+    "original_B0_closed_future_20261121":  {
+                                               "schema":  "P_SHARED_NFS_ORIGINAL_B0_CLOSURE_RECONCILIATION_V1",
+                                               "status":  "VERIFIED_FOUR_ACTUAL_NODES",
+                                               "observed_at":  1795241957.5424373,
+                                               "observed_at_utc":  "2026-11-21T06:19:17.542444+00:00",
+                                               "uid":  1278,
+                                               "registry":  "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/storage_reservations.json",
+                                               "before_backup":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/shared_NFS_before_original_B0_closure_20261121_bcc8e422337043d3a2d8a8e2ed808688.json",
+                                               "changed_registry_keys":  [
+                                                                             "B0_labels",
+                                                                             "closed_B0_labels"
+                                                                         ],
+                                               "all_other_registry_fields_unchanged":  true,
+                                               "source_access":  {
+                                                                     "producer_job":  "4537629",
+                                                                     "producer_node":  "compute-0-8",
+                                                                     "cross_node_read_allowed":  true,
+                                                                     "immutable":  true,
+                                                                     "writers_closed":  true,
+                                                                     "producer_manifest":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/labels/Pprime/shared_v1/producer_4537629.json",
+                                                                     "observed_epoch":  1795213375.6824355,
+                                                                     "publishing_uid":  1278
+                                                                 },
+                                               "source_producer":  {
+                                                                       "status":  "ALL_QUEUED_PPRIME_TERMINAL",
+                                                                       "job":  "4537629",
+                                                                       "states":  {
+                                                                                      "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES":  286,
+                                                                                      "PPRIME_READY":  324794
+                                                                                  },
+                                                                       "completed_this_parent":  16072,
+                                                                       "workers":  16,
+                                                                       "error":  null,
+                                                                       "P_ready":  false,
+                                                                       "new_data_content_hashes":  false,
+                                                                       "independent_numeric_readback":  false,
+                                                                       "source_all_geometry_complete":  true
+                                                                   },
+                                               "actual_sacct":  "4536588|zixiao|COMPLETED|0:0|71067|8|compute-0-12|2026-11-20T09:22:00|2026-11-21T05:06:27\n4537629|zixiao|COMPLETED|0:0|4694|16|compute-0-8|2026-11-21T05:04:42|2026-11-21T06:22:56\n",
+                                               "closed_original_B0_future_write_bytes":  0,
+                                               "retired_original_B0_unused_future_bytes":  49707794432,
+                                               "peer_future_before":  213547842560,
+                                               "peer_future_after_expected":  163840048128,
+                                               "D_joint_peak_bytes_unchanged":  36706053853,
+                                               "quota_floor_bytes_unchanged":  100000000000,
+                                               "quota_buffer_bytes_unchanged":  8589934592,
+                                               "other_budgets_preserved":  {
+                                                                               "S_NFS":  68719476736,
+                                                                               "legacy_model_and_P_NFS":  25327352832,
+                                                                               "benchmark_environment_NFS":  25769803776,
+                                                                               "benchmark_miscellaneous_NFS":  44023414784
+                                                                           },
+                                               "legacy_data_removed_bytes":  0,
+                                               "scientific_or_training_changes":  0,
+                                               "old_partial_outcomes_preserved":  true,
+                                               "registry_after":  {
+                                                                      "schema":  "D_STAGE0_REGISTERED_STORAGE_RESERVATIONS_V1",
+                                                                      "quota_floor_bytes":  100000000000,
+                                                                      "registered_model_pool_bytes":  114569896448,
+                                                                      "model_pool_includes_P_61GB":  true,
+                                                                      "benchmark_peer_environment_bytes":  25769803776,
+                                                                      "benchmark_miscellaneous_future_bytes":  44023414784,
+                                                                      "quota_snapshot":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/window2_20261105/share_quota_available_v3.json",
+                                                                      "B0_forecast_authorities":  [
+                                                                                                      "workflows/benchmark_data/pprime_tmpfs_queue.py:FORECAST",
+                                                                                                      "workflows/benchmark_data/uniform_sprime_scope.py:NEW_PPRIME_FORECAST,PEER_ENVIRONMENT_RESERVE",
+                                                                                                      "workflows/benchmark_data/admission.py:protect"
+                                                                                                  ],
+                                                                      "B0_labels":  [
+
+                                                                                    ],
+                                                                      "B0_geometry":  [
+                                                                                          "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/geometry/shared_v1",
+                                                                                          "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/geometry/shared_v1"
+                                                                                      ],
+                                                                      "registered_model_pool_filesystem":  "/lfshome",
+                                                                      "registered_model_share_future_bytes":  94046829568,
+                                                                      "registered_model_share_future_basis":  "Existing model/P share future25327352832 plus S study total NFS forecast68719476736 (S runtime.TOTAL_PEAK, STATUS2026-11-20). Entire S forecast retained conservatively; no committed S bytes deducted.",
+                                                                      "model_reservation_authorities":  [
+                                                                                                            "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/model_v3/v2_diagnosis_disk.py:remaining_nfs_other",
+                                                                                                            "/share/home/zixiao/descriptor_analysis/runs/model_v31_20261105/model_output_budget.json"
+                                                                                                        ],
+                                                                      "registered_model_share_components":  {
+                                                                                                                "existing_model_and_P":  25327352832,
+                                                                                                                "S_study_NFS":  68719476736
+                                                                                                            },
+                                                                      "benchmark_miscellaneous_future_basis":  "Original1GiB plus benchmark B1 announced40GiB (benchmark-b1-20261119 STATUS18:34, native capacity4537513); existing24GiB peer environment retained separately, conservatively without overlap deductions.",
+                                                                      "closed_B0_labels":  [
+                                                                                               {
+                                                                                                   "directory":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/labels/Pprime/shared_v1",
+                                                                                                   "access":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/labels/Pprime/shared_v1/access.json",
+                                                                                                   "producer_manifest":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/directive19/uniform_Sprime/labels/Pprime/shared_v1/producer_4536906.json",
+                                                                                                   "publishing_uid":  1278,
+                                                                                                   "immutable":  true,
+                                                                                                   "writers_closed":  true,
+                                                                                                   "producer_job":  4536906,
+                                                                                                   "producer_slurm_state":  "COMPLETED",
+                                                                                                   "producer_exit":  "0:0",
+                                                                                                   "tail_job":  4536907,
+                                                                                                   "tail_slurm_state":  "COMPLETED",
+                                                                                                   "tail_exit":  "0:0",
+                                                                                                   "producer_status":  "ALL_QUEUED_PPRIME_TERMINAL",
+                                                                                                   "future_write_bytes":  0,
+                                                                                                   "basis":  "Verified access closure and actual sacct; committed bytes remain in filesystem/quota usage. Original B0 producer4536588 is live and its forecast remains reserved."
+                                                                                               },
+                                                                                               {
+                                                                                                   "directory":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/labels/Pprime/shared_v1",
+                                                                                                   "forecast_bytes":  80000000000,
+                                                                                                   "access":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/labels/Pprime/shared_v1/access.json",
+                                                                                                   "producer_manifest":  "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119/labels/Pprime/shared_v1/producer_4537629.json",
+                                                                                                   "publishing_uid":  1278,
+                                                                                                   "immutable":  true,
+                                                                                                   "writers_closed":  true,
+                                                                                                   "original_producer_job":  4536588,
+                                                                                                   "producer_job":  4537629,
+                                                                                                   "original_producer_slurm_state":  "COMPLETED",
+                                                                                                   "original_producer_exit":  "0:0",
+                                                                                                   "producer_slurm_state":  "COMPLETED",
+                                                                                                   "producer_exit":  "0:0",
+                                                                                                   "producer_status":  "ALL_QUEUED_PPRIME_TERMINAL",
+                                                                                                   "states":  {
+                                                                                                                  "PPRIME_PARTIAL_WITH_RECORDED_OUTCOMES":  286,
+                                                                                                                  "PPRIME_READY":  324794
+                                                                                                              },
+                                                                                                   "P_ready":  false,
+                                                                                                   "future_write_bytes":  0,
+                                                                                                   "closure_observed_epoch":  1795213375.6824355,
+                                                                                                   "basis":  "Original B0 writer and tail are actually COMPLETED0:0; immutable/writers_closed access and ALL_QUEUED_PPRIME_TERMINAL producer verified. Retire only unused future; physical SQLite/geometry and PARTIAL outcomes stay in quota usage. Earlier original-live wording in the previous closed-scope entry is historical. All other registered budgets and floors unchanged.",
+                                                                                                   "reconciled_at_utc":  "2026-11-21T06:17:43.9057404Z"
+                                                                                               }
+                                                                                           ]
+                                                                  },
+                                               "rule":  "Owner-sealed C0 writers have zero future growth; committed physical data remain in actual quota used. No peak/floor/guard reduction, no deletion, no job signal.",
+                                               "post_actual_node_admission":  [
+                                                                                  {
+                                                                                      "status":  "ADMITTED",
+                                                                                      "observed_at":  1795241969.2713668,
+                                                                                      "node":  "compute-0-20",
+                                                                                      "uid":  1278,
+                                                                                      "root":  {
+                                                                                                   "total":  954159071232,
+                                                                                                   "available":  924025360384,
+                                                                                                   "inodes":  465749650,
+                                                                                                   "total_inodes":  465915904,
+                                                                                                   "root":  true
+                                                                                               },
+                                                                                      "nfs":  {
+                                                                                                  "total":  32001943928832,
+                                                                                                  "available":  6501961826304,
+                                                                                                  "inodes":  2964378472,
+                                                                                                  "total_inodes":  3125398528,
+                                                                                                  "root":  false
+                                                                                              },
+                                                                                      "lustre":  {
+                                                                                                     "total":  95197504794624,
+                                                                                                     "available":  40444048015360,
+                                                                                                     "inodes":  47166795,
+                                                                                                     "total_inodes":  92929166,
+                                                                                                     "root":  false
+                                                                                                 },
+                                                                                      "model_allocated":  82148085760,
+                                                                                      "model_future":  23763987968,
+                                                                                      "peer_NFS_future_excluding_D":  163840048128,
+                                                                                      "D_joint_peak_bytes":  36706053853,
+                                                                                      "peer_registry":  "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/storage_reservations.json",
+                                                                                      "peer_registry_includes_S":  true,
+                                                                                      "closed_benchmark_Lustre_environment_future_bytes":  0,
+                                                                                      "quotas":  {
+                                                                                                     "lustre":  {
+                                                                                                                    "filesystem":  "/lfshome",
+                                                                                                                    "available":  140855250944,
+                                                                                                                    "required":  138353922560,
+                                                                                                                    "age":  2.2319042682647705
+                                                                                                                },
+                                                                                                     "nfs":  {
+                                                                                                                 "filesystem":  "/share",
+                                                                                                                 "available":  359201583104,
+                                                                                                                 "required":  309203145437,
+                                                                                                                 "age":  1.838853359222412
+                                                                                                             }
+                                                                                                 },
+                                                                                      "rules":  "Unchanged100GB floor and8GiB buffer; registered modelpool unchanged; no duplicate S/D claims"
+                                                                                  },
+                                                                                  {
+                                                                                      "status":  "ADMITTED",
+                                                                                      "observed_at":  1795241969.4297447,
+                                                                                      "node":  "compute-0-22",
+                                                                                      "uid":  1278,
+                                                                                      "root":  {
+                                                                                                   "total":  75125227520,
+                                                                                                   "available":  52551630848,
+                                                                                                   "inodes":  36511976,
+                                                                                                   "total_inodes":  36700160,
+                                                                                                   "root":  true
+                                                                                               },
+                                                                                      "nfs":  {
+                                                                                                  "total":  32001943928832,
+                                                                                                  "available":  6501961826304,
+                                                                                                  "inodes":  2964378472,
+                                                                                                  "total_inodes":  3125398528,
+                                                                                                  "root":  false
+                                                                                              },
+                                                                                      "lustre":  {
+                                                                                                     "total":  95197504794624,
+                                                                                                     "available":  40444048015360,
+                                                                                                     "inodes":  47166795,
+                                                                                                     "total_inodes":  92929166,
+                                                                                                     "root":  false
+                                                                                                 },
+                                                                                      "model_allocated":  82148093952,
+                                                                                      "model_future":  23763979776,
+                                                                                      "peer_NFS_future_excluding_D":  163840048128,
+                                                                                      "D_joint_peak_bytes":  36706053853,
+                                                                                      "peer_registry":  "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/storage_reservations.json",
+                                                                                      "peer_registry_includes_S":  true,
+                                                                                      "closed_benchmark_Lustre_environment_future_bytes":  0,
+                                                                                      "quotas":  {
+                                                                                                     "lustre":  {
+                                                                                                                    "filesystem":  "/lfshome",
+                                                                                                                    "available":  140855250944,
+                                                                                                                    "required":  138353914368,
+                                                                                                                    "age":  2.3902409076690674
+                                                                                                                },
+                                                                                                     "nfs":  {
+                                                                                                                 "filesystem":  "/share",
+                                                                                                                 "available":  359201583104,
+                                                                                                                 "required":  309203145437,
+                                                                                                                 "age":  1.9972314834594727
+                                                                                                             }
+                                                                                                 },
+                                                                                      "rules":  "Unchanged100GB floor and8GiB buffer; registered modelpool unchanged; no duplicate S/D claims"
+                                                                                  },
+                                                                                  {
+                                                                                      "status":  "ADMITTED",
+                                                                                      "observed_at":  1795241969.546632,
+                                                                                      "node":  "compute-0-5",
+                                                                                      "uid":  1278,
+                                                                                      "root":  {
+                                                                                                   "total":  75125227520,
+                                                                                                   "available":  56156631040,
+                                                                                                   "inodes":  36539285,
+                                                                                                   "total_inodes":  36700160,
+                                                                                                   "root":  true
+                                                                                               },
+                                                                                      "nfs":  {
+                                                                                                  "total":  32001943928832,
+                                                                                                  "available":  6501961826304,
+                                                                                                  "inodes":  2964378472,
+                                                                                                  "total_inodes":  3125398528,
+                                                                                                  "root":  false
+                                                                                              },
+                                                                                      "lustre":  {
+                                                                                                     "total":  95197504794624,
+                                                                                                     "available":  40444048015360,
+                                                                                                     "inodes":  47166795,
+                                                                                                     "total_inodes":  92929166,
+                                                                                                     "root":  false
+                                                                                                 },
+                                                                                      "model_allocated":  82148093952,
+                                                                                      "model_future":  23763979776,
+                                                                                      "peer_NFS_future_excluding_D":  163840048128,
+                                                                                      "D_joint_peak_bytes":  36706053853,
+                                                                                      "peer_registry":  "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/storage_reservations.json",
+                                                                                      "peer_registry_includes_S":  true,
+                                                                                      "closed_benchmark_Lustre_environment_future_bytes":  0,
+                                                                                      "quotas":  {
+                                                                                                     "lustre":  {
+                                                                                                                    "filesystem":  "/lfshome",
+                                                                                                                    "available":  140855250944,
+                                                                                                                    "required":  138353914368,
+                                                                                                                    "age":  2.50736665725708
+                                                                                                                },
+                                                                                                     "nfs":  {
+                                                                                                                 "filesystem":  "/share",
+                                                                                                                 "available":  359201583104,
+                                                                                                                 "required":  309203145437,
+                                                                                                                 "age":  2.1141185760498047
+                                                                                                             }
+                                                                                                 },
+                                                                                      "rules":  "Unchanged100GB floor and8GiB buffer; registered modelpool unchanged; no duplicate S/D claims"
+                                                                                  },
+                                                                                  {
+                                                                                      "status":  "ADMITTED",
+                                                                                      "observed_at":  1795241969.6167543,
+                                                                                      "node":  "compute-0-6",
+                                                                                      "uid":  1278,
+                                                                                      "root":  {
+                                                                                                   "total":  75125227520,
+                                                                                                   "available":  57468145664,
+                                                                                                   "inodes":  36540076,
+                                                                                                   "total_inodes":  36700160,
+                                                                                                   "root":  true
+                                                                                               },
+                                                                                      "nfs":  {
+                                                                                                  "total":  32001943928832,
+                                                                                                  "available":  6501961826304,
+                                                                                                  "inodes":  2964378472,
+                                                                                                  "total_inodes":  3125398528,
+                                                                                                  "root":  false
+                                                                                              },
+                                                                                      "lustre":  {
+                                                                                                     "total":  95197504794624,
+                                                                                                     "available":  40444048015360,
+                                                                                                     "inodes":  47166795,
+                                                                                                     "total_inodes":  92929166,
+                                                                                                     "root":  false
+                                                                                                 },
+                                                                                      "model_allocated":  82148093952,
+                                                                                      "model_future":  23763979776,
+                                                                                      "peer_NFS_future_excluding_D":  163840048128,
+                                                                                      "D_joint_peak_bytes":  36706053853,
+                                                                                      "peer_registry":  "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/storage_reservations.json",
+                                                                                      "peer_registry_includes_S":  true,
+                                                                                      "closed_benchmark_Lustre_environment_future_bytes":  0,
+                                                                                      "quotas":  {
+                                                                                                     "lustre":  {
+                                                                                                                    "filesystem":  "/lfshome",
+                                                                                                                    "available":  140855250944,
+                                                                                                                    "required":  138353914368,
+                                                                                                                    "age":  2.5774340629577637
+                                                                                                                },
+                                                                                                     "nfs":  {
+                                                                                                                 "filesystem":  "/share",
+                                                                                                                 "available":  359201583104,
+                                                                                                                 "required":  309203145437,
+                                                                                                                 "age":  2.184239625930786
+                                                                                                             }
+                                                                                                 },
+                                                                                      "rules":  "Unchanged100GB floor and8GiB buffer; registered modelpool unchanged; no duplicate S/D claims"
+                                                                                  }
+                                                                              ],
+                                               "NFS_joint_future_after":  200546101981,
+                                               "NFS_requirement_after":  309203145437,
+                                               "publication_path":  "configs/p_recipe/fixed_20261115/storage_confirmation_20261120.json"
+                                           }
 }

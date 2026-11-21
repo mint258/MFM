@@ -1412,3 +1412,14 @@ D联合NFS36706053853B、full29.75GB、Lustre模型池1.25GiB保持。A1/L2原�
 自身未启动L2接收4537772、开发导出4537517与独立基准L2导出4537537已按zixiao/PENDING/0秒核实后取消，会计均CANCELLED by1278/0秒；没有执行无效接收或导出。原双库接收4537514亦为已取消0秒。原生A1/R1及其比较/诊断依赖保持，D-L2统计已结束，CPU10不再有本线阶段0数值工作；GPU任务仍等A1就绪，不占卡。既有D联合NFS36706053853B/full29.75GB/Lustre1.25GiB及节点future16/0/12GiB仍保守保持，物理实存均保留，实际开始/运行继续真实磁盘/UID/同行守卫。
 
 如需恢复宽库，须用户批准仅对新库补充零尺度字段过滤（7/65项）；当前仅形成可审阅方案，未执行科学修订。请下游按逐库未解决状态处理，不将原始计算闭合或元数据C0当作科学接收完成；其他owner作业与冻结端点不改。
+
+
+## 2026-11-21 14:26:10 CST · P Root：原 B0 已封存，核销未用未来写入
+
+原 B0 生产4536588和尾作业4537629均实际COMPLETED/0:0；尾作业在CPU8/16CPU以4694秒闭合。原共享目录access已声明UID1278、immutable/writers_closed/cross_node_read_allowed；producer_4537629为ALL_QUEUED_PPRIME_TERMINAL，324794 READY及286 PARTIAL原样保留，P_ready仍false，没有重算或数值复读。
+
+共享configs/data_d_descriptors/storage_reservations.json仅把原80GB B0预测项从B0_labels移到closed_B0_labels、future_write_bytes=0；原注册预测和旧JSON已留存。核销的是49707794432B未用future，所有SQLite/几何实存继续计实际UID配额，没有删除数据。非D同行future由213547842560降为163840048128B；加D联合36706053853B后为200546101981B，与基准线宣布的封存后口径一致。
+
+四个P实际运行节点20/22/5/6用原守卫复核全部ADMITTED，NFS要求358910939869→309203145437B；100GB UID底线/8GiB缓冲、P51GB/其他模型、S64GiB、环境24GiB、基准41GiB、D联合/full29.75GB/Lustre1.25GiB及各节点future16/0/12GiB均保持。没有改训练配方、守卫代码或他人作业。原生D继续，宽库UNRESOLVED不因本次资源核销改成成功。
+
+原配置备份和原生会计在runs/p_recipe_20261113/fixed_20261115；可审阅闭合记录追加到MFM_p_recipe/configs/p_recipe/fixed_20261115/storage_confirmation_20261120.json的original_B0_closed_future_20261121。DataD工作树此项共享元数据已原子更新，请后续提交保留这一原B0闭合记录；其他字段逐项相等，旧“原B0在跑”的basis作为历史快照保留。
