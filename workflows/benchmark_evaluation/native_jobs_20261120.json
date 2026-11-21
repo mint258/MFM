@@ -146,7 +146,10 @@
   },
   "reference_features": {
     "job": 4536983,
-    "native_D_not_recomputed": true
+    "native_D_not_recomputed": true,
+    "current_native_producer": 4537797,
+    "declared_legacy_output_namespace": "C1_Pprime_reference_features/job_4537149",
+    "manifest_native_producer_must_equal": 4537797
   },
   "C7": {
     "fold_binding_job": 4536995,
@@ -6329,8 +6332,8 @@
     "first_statistics_pending_unified_CPU_report": 4537766
   },
   "C1_reference_empty_startup_recovery_20261121": {
-    "status": "FEATURE_NATIVE_FAILURE_CONTROLLER_ARMED_AND_GPU7_SERIALIZED",
-    "job": "4537777",
+    "status": "EMPTY_FAILED_FEATURE_CONTINUATION_RELEASED_ORIGINAL45_MODEL_IDS_PRESERVED",
+    "job": "4537778",
     "validation_job": 4537776,
     "tests": 198,
     "original_feature_preserved": 4537149,
@@ -6361,11 +6364,316 @@
     "partial_output_requires_scoped_recovery_no_whole_replay": true,
     "original_output_namespace": "C1_Pprime_reference_features/job_4537149",
     "actual_new_native_identity_remains_SLURM_JOB_ID": true,
-    "no_new_feature_job_submitted_yet": true
+    "no_new_feature_job_submitted_yet": false,
+    "original_feature_job": 4537149,
+    "downstream_model_IDs_changed": false,
+    "model_sources_changed": false,
+    "new_feature_job": 4537797,
+    "released": [
+      4537797,
+      4537150,
+      4537487,
+      4537152,
+      4537488,
+      4537154,
+      4537489,
+      4537156,
+      4537298,
+      4537158,
+      4537490,
+      4537160,
+      4537491,
+      4537162,
+      4537301,
+      4537164,
+      4537492,
+      4537166,
+      4537493,
+      4537168,
+      4537304,
+      4537170,
+      4537494,
+      4537172,
+      4537306,
+      4537174,
+      4537495,
+      4537176,
+      4537308,
+      4537178,
+      4537496,
+      4537180,
+      4537497,
+      4537182,
+      4537498,
+      4537184,
+      4537499,
+      4537186,
+      4537313,
+      4537188,
+      4537500,
+      4537190,
+      4537501,
+      4537192,
+      4537316,
+      4537321
+    ],
+    "updated_dependencies": [
+      {
+        "job": 4537150,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537487,
+        "dependency": "afterany:4537555,afterok:4537797"
+      },
+      {
+        "job": 4537152,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537488,
+        "dependency": "afterany:4537552,afterok:4537797"
+      },
+      {
+        "job": 4537154,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537489,
+        "dependency": "afterany:4537488,afterok:4537797"
+      },
+      {
+        "job": 4537156,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537298,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537158,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537490,
+        "dependency": "afterany:4537487,afterok:4537797"
+      },
+      {
+        "job": 4537160,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537491,
+        "dependency": "afterany:4537490,afterok:4537797"
+      },
+      {
+        "job": 4537162,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537301,
+        "dependency": "afterany:4537298,afterok:4537797"
+      },
+      {
+        "job": 4537164,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537492,
+        "dependency": "afterany:4537489,afterok:4537797"
+      },
+      {
+        "job": 4537166,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537493,
+        "dependency": "afterany:4537491,afterok:4537797"
+      },
+      {
+        "job": 4537168,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537304,
+        "dependency": "afterany:4537301,afterok:4537797"
+      },
+      {
+        "job": 4537170,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537494,
+        "dependency": "afterany:4537492,afterok:4537797"
+      },
+      {
+        "job": 4537172,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537306,
+        "dependency": "afterany:4537304,afterok:4537797"
+      },
+      {
+        "job": 4537174,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537495,
+        "dependency": "afterany:4537493,afterok:4537797"
+      },
+      {
+        "job": 4537176,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537308,
+        "dependency": "afterany:4537306,afterok:4537797"
+      },
+      {
+        "job": 4537178,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537496,
+        "dependency": "afterany:4537495,afterok:4537797"
+      },
+      {
+        "job": 4537180,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537497,
+        "dependency": "afterany:4537494,afterok:4537797"
+      },
+      {
+        "job": 4537182,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537498,
+        "dependency": "afterany:4537497,afterok:4537797"
+      },
+      {
+        "job": 4537184,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537499,
+        "dependency": "afterany:4537496,afterok:4537797"
+      },
+      {
+        "job": 4537186,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537313,
+        "dependency": "afterany:4537308,afterok:4537797"
+      },
+      {
+        "job": 4537188,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537500,
+        "dependency": "afterany:4537498,afterok:4537797"
+      },
+      {
+        "job": 4537190,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537501,
+        "dependency": "afterany:4537499,afterok:4537797"
+      },
+      {
+        "job": 4537192,
+        "dependency": "afterok:4537797"
+      },
+      {
+        "job": 4537316,
+        "dependency": "afterany:4537313,afterok:4537797"
+      },
+      {
+        "job": 4537321,
+        "dependency": "afterok:4537797"
+      }
+    ],
+    "held": [
+      4537150,
+      4537487,
+      4537152,
+      4537488,
+      4537154,
+      4537489,
+      4537156,
+      4537298,
+      4537158,
+      4537490,
+      4537160,
+      4537491,
+      4537162,
+      4537301,
+      4537164,
+      4537492,
+      4537166,
+      4537493,
+      4537168,
+      4537304,
+      4537170,
+      4537494,
+      4537172,
+      4537306,
+      4537174,
+      4537495,
+      4537176,
+      4537308,
+      4537178,
+      4537496,
+      4537180,
+      4537497,
+      4537182,
+      4537498,
+      4537184,
+      4537499,
+      4537186,
+      4537313,
+      4537188,
+      4537500,
+      4537190,
+      4537501,
+      4537192,
+      4537316,
+      4537321
+    ],
+    "scientific_outputs_read_for_QA": false,
+    "native_original_accounting": "4537149|zixiao|TIMEOUT|0:0\n",
+    "decision": "RETRY_EMPTY_FAILED_OUTPUT",
+    "original_namespace": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/C1_Pprime_reference_features/job_4537149",
+    "original_feature_state": "TIMEOUT",
+    "one_attempt_claim": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/benchmark_C1_reference_empty_startup_4537149.json",
+    "new_feature_script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/reference_empty_startup_recovery/job_4537778/native_feature_continuation.sbatch",
+    "controller_state": "COMPLETED",
+    "controller_exit_code": "0:0",
+    "controller_elapsed_seconds": 6,
+    "controller_node": "compute-0-10",
+    "original_native_state": "TIMEOUT",
+    "original_native_elapsed": "06:00:00",
+    "new_feature_native_state_last_observed": "RUNNING",
+    "new_feature_node": "compute-0-10",
+    "original_output_namespace_must_not_be_interpreted_as_producer_ID": true,
+    "readonly_srun_observation": {
+      "at_UTC": "2026-11-21T05:43:45Z",
+      "python_pid": 2588316,
+      "state": "Dl",
+      "cpu_percent": 14,
+      "wait_channel": "wait_on_page_bit_common",
+      "observation_does_not_authorize_rerun": true
+    }
   },
   "C1_GPU7_current_queue_order_20261121": {
     "head": 4537298,
-    "afterok": 4537149,
+    "afterok": 4537797,
     "failed_TDC_repair_contexts_capped": true,
     "no_further_TDC_repair_reserved": true,
     "protected_P9M_nodes": [
