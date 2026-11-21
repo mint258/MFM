@@ -22,6 +22,9 @@ def resolve_endpoint(catalog, dataset, task):
         target = {"MoleculeACE": "y", "PharmaBench": "value", "TDC_ADMET": "Y"}[dataset]
         expected = canonical_task_key(dataset, task) + "::" + target
         matches = [r for r in catalog if r["dataset"] == dataset and r["endpoint_key"] == expected]
+    elif dataset == "pKahub":
+        target = {"acid": "macro_acid", "base": "macro_base"}.get(task, task)
+        matches = [r for r in catalog if r["dataset"] == dataset and r["target"] == target]
     else:
         matches = [r for r in catalog if r["dataset"] == dataset and r["target"] == task]
     if len(matches) != 1:

@@ -102,3 +102,15 @@ Unchanged evaluation populations continue to reuse closed producer estimates. A 
 [结果说明字段](../../workflows/benchmark_evaluation/pretraining_overlap_reporting.py)在正常首次最终导出时逐行增加pretraining_TEST_overlap_check、pretraining_molecule_inventory_status及pretraining_overlap_exclusion_applied；主种子、确认种子、UNRESOLVED和批准原子附录均原位保留，不改变任何指标、原生来源、任务/折/掩码/种子/人口/角色，也不执行额外TEST检查或剔除。已有明确评估字段不能静默覆盖；真实实验TRAIN/TEST与SAMPL全InChIKey隔离仍由原数据协议单独处理。
 
 8178/261回归及8179实际5619文件源码检查通过后，仅在owned PENDING/RunTime0/Restarts0边界将控制器8166替换为8180；当前8164→8165→8180，两个前级和所有主模型保持，GPU owner/UUID/锁与实际磁盘准入逻辑保持。新控制器使用包含说明模块的新封存源缓存，旧8165准备出的科学程序仍由同一接口校验；确认报告、合并与最终导出沿正常实际链运行。最终CSV一次写出后只计算其唯一SHA，不重写冻结B1筛选/确认表，不对闭合结果作独立数值复核。
+
+### 2026-11-22 主来源全部闭合与 pKa 报告接口修复
+
+五项参考 CPU 续接均已原生 COMPLETED/0:0：8159 C7 为50折，8160 e2、8161 e8、8162 e3、8163 e0各25折，全部失败0；耗时依次12:22、36:21、55:45、2:29:16、3:06:44。原79个闭合折只原样复用，新拟合71个缺失折，固定V2/20261025、原人口/标签/折/掩码及104来源/561主配置保持。此状态不把九项已封口UNRESOLVED说成成功，不代表最终C1或第二种子已完成。
+
+8164首次完整比较在消费C1来源时因原生pKa任务名acid与登记macro_acid不一致，实际FAILED1:0/1:22；在任何结果、统计或manifest写出前停止，空失败目录保留。修复仅为[端点对应](../../workflows/benchmark_evaluation/reporting.py)和[既有合并统计选择](../../workflows/benchmark_evaluation/c1_reporting.py)：仅pKahub的acid/base映射到登记macro_acid/macro_base，原始task、记录、challenge+rawdataID与全部数值原位保留；主表复用原生SAMPL6_7_combined行，单挑战诊断仍留在原始输出，不重复bootstrap或重拟合。未知名称、重复端点、重复合并统计和错误人口仍拒绝。
+
+8193在CPU13/1CPU/34秒COMPLETED0:0，261既有+7项合成接口回归共268项通过；5620文件/3790 Python/1311服务器源码检查PASS。覆盖酸/碱及原子端点的准确身份、六类分子配置的metadata/预测来源、完整原始字段保留、合并统计直接复用和歧义/人口不匹配拒绝，不读取真实闭合数值作独立复核。
+
+[实际报告控制器](../../workflows/benchmark_evaluation/c1_pka_report_binding_native_chain.py)8195在CPU13/13秒COMPLETED0:0，先核实五模型成功及8164真实失败、空输出和旧8165/8180 owned PENDING/RunTime0/Restarts0，再记录8196完整比较→8197确认准备→8198调度和新缓存；5621文件/3791 Python源码检查PASS后，才取消旧两个零启动步骤并释放新链。8194在任何写入/hold/提交前遇到旧报告已被Slurm清除的队列响应，1秒元数据失败记录保留；8195另用6组合成传输情形验证，仅接受精确无此作业响应并匹配fresh持久记账，活动来源或连接错误不放行。
+
+05:44 CST已核实新8196在CPU8实际运行。所有源模型、104绑定、B1冻结名单/CSV/SHA、九格TDC上限、GPU保护与模型程序保持；此次仅重交真实失败的报告以及两个尚未启动的后续步骤。第二种子仍仅按首次完整比较的最终显著改善触发，普通固定权重上下文续接不增加训练重做例外。最终表仍沿正常首次导出保留全部561主行与实际确认行、明确未检查的预训练重叠状态，唯一最终CSV SHA及完整交付待后续链真正闭合。P 预训练模型在下游接收的是 UFF 几何。

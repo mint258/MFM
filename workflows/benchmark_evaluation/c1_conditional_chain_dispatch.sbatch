@@ -34,7 +34,7 @@ def safe():
 safe()
 module=types.ModuleType("conditional_chain")
 exec(compile(sources["workflows/benchmark_evaluation/conditional_chain.py"],"conditional_chain","exec"),module.__dict__)
-preparation_path=b1/"conditional_preparation/C1/job_4538165/manifest.json"
+preparation_path=b1/"conditional_preparation/C1/job_4538197/manifest.json"
 preparation=json.loads(preparation_path.read_text())
 groups=module.validated_groups(preparation,b1)
 out=b1/"conditional_dispatch/C1"/("job_"+os.environ["SLURM_JOB_ID"])

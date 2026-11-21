@@ -170,6 +170,10 @@ def primary_statistics(rows,records,scaffold_cv=False):
     """Reuse closed CPU producer scores; compute only previously deferred/new summaries."""
     primary=[r for r in records if r.get('fit_population','retained')=='retained'
              and r.get('evaluation_population','retained') not in {'full','excluded'}]
+    # pKa producers publish one combined primary row plus challenge-specific diagnostics.
+    combined=[r for r in primary if r.get('dataset')=='pKahub'
+              and r.get('evaluation')=='SAMPL6_7_combined']
+    if combined:primary=combined
     reusable=[r for r in primary if r.get('MAE') not in (None,'') and r.get('RAE') not in (None,'')
               and str(r.get('bootstrap_draws',''))=='1000']
     if not scaffold_cv and reusable:
