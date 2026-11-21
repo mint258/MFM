@@ -6026,14 +6026,14 @@
     }
   },
   "merged_evaluation_regression_20261121": {
-    "native_job": 4537809,
-    "tests_passed": 214,
+    "native_job": 4537836,
+    "tests_passed": 222,
     "state": "COMPLETED",
     "source_check": {
       "status": "PASS",
-      "files": 5605,
-      "bytes": 66423334,
-      "python_files": 3782,
+      "files": 5609,
+      "bytes": 66473552,
+      "python_files": 3784,
       "server_sources_verified": 1311,
       "export_verification_required": false,
       "errors": []
@@ -6761,28 +6761,22 @@
     "whole_feature_replay": false
   },
   "C1_GPU7_current_queue_order_20261121": {
-    "head": 4537301,
-    "afterok": 4537797,
-    "failed_TDC_repair_contexts_capped": true,
-    "no_further_TDC_repair_reserved": true,
-    "protected_P9M_nodes": [
-      5,
-      20,
-      22
-    ],
-    "reference_controller": 4537778,
+    "head": 4537308,
     "head_state": "RUNNING",
-    "reference_feature_native_state": "COMPLETED",
-    "completed_previous_head": 4537298,
     "remaining_original_queue": [
-      4537301,
-      4537304,
-      4537306,
       4537308,
       4537313,
       4537316
     ],
-    "P9M5_22_reference_pending_primary_reassigned_to_CPU": true,
+    "completed_reference_GPU_sources": [
+      4537298,
+      4537301,
+      4537304,
+      4537306
+    ],
+    "zero_start_CPU_successor_controller_native_job": 4537838,
+    "no_GPU_reserved_for_unready_work": true,
+    "actual_GPU_UUID_context_and_lock_checks_required_at_execution": true,
     "TDC_capped_nine_not_retried": true
   },
   "C1_pKa_PD_TabPFN_closed_20261121": {
@@ -7239,5 +7233,88 @@
     "closed_fit_populations": 25,
     "failures": [],
     "original_models_replayed": false
+  },
+  "C1_reference_idle_GPU7_handover_20261121": {
+    "status": "VALIDATED_IDLE_GPU7_ZERO_START_CONTROLLER_ARMED",
+    "job": "4537837",
+    "preparation_job": 4537836,
+    "tests": 222,
+    "source_check": {
+      "status": "PASS",
+      "files": 5609,
+      "bytes": 66473552,
+      "python_files": 3784,
+      "server_sources_verified": 1311,
+      "export_verification_required": false,
+      "errors": []
+    },
+    "controller_job": 4537838,
+    "controller_dependency": "afterany:4537316",
+    "controller_script": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/reference_idle_GPU7_arming/job_4537837/reference_idle_GPU7_handover.sbatch",
+    "controller_source_cache": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/reference_idle_GPU7_preparation/job_4537836/proposed_sources.json",
+    "original_GPU_tail": 4537316,
+    "original_GPU_tail_native": "JobId=4537316 JobName=GPU-Joung2020_e8_TabPFN_Pprime_plus_D UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294616415 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterany:4537313(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=12:00:00 TimeMin=N/A SubmitTime=2026-11-20T12:45:52 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-20T12:45:52 Scheduler=Main Partition=gpu AllocNode:Sid=sonmi:3377292 ReqNodeList=compute-0-7 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=2 NumTasks=1 CPUs/Task=2 ReqB:S:C:T=0:0:*:* TRES=cpu=2,mem=375000M,node=1,billing=2 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=2 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=(null) WorkDir=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_b1_20261119 StdErr=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/GPU_Joung2020_e8_TabPFN_Pprime_plus_D_4537316.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/GPU_Joung2020_e8_TabPFN_Pprime_plus_D_4537316.log Power=",
+    "controller_released": true,
+    "CPU_models_resubmitted_at_arming": 0,
+    "existing_running_CPU_or_GPU_models_changed": false,
+    "candidate_CPU_successors": [
+      4537819,
+      4537820,
+      4537821,
+      4537822,
+      4537823,
+      4537824,
+      4537825
+    ],
+    "maximum_concurrent_GPU7_models": 1,
+    "maximum_concurrent_CPU_models": 8,
+    "benchmark_NFS_pool_bytes": 42949672960,
+    "NFS_joint_pool_bytes": 200546101981,
+    "source_groups": 104,
+    "scientific_cells": 561,
+    "TDC_nine_repair_cap_preserved": true,
+    "arming_native_state": "COMPLETED/0:0",
+    "arming_node": "compute-0-8",
+    "arming_elapsed_seconds": 0,
+    "preparation_native_state": "COMPLETED/0:0",
+    "preparation_node": "compute-0-8",
+    "preparation_elapsed_seconds": 18,
+    "controller_native_last_observed": "PENDING",
+    "reassignment_only_after_actual_tail_terminal": true,
+    "only_actual_pending_zero_runtime_CPU_sources_without_outputs_eligible": true,
+    "running_completed_manually_held_or_missing_sources_never_replayed": true,
+    "full_model_AST_identical_to_original_GPU_or_CPU_device_change_only": true,
+    "current_primary_job_unchanged_until_controller_executes": 4537826,
+    "no_new_scientific_source_ids_invented": true,
+    "original_template_and_necessary_confirmation_policy_preserved": true
+  },
+  "C1_Joung_e4_TabPFN_Pprime_closed_20261121": {
+    "job": 4537301,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "00:07:44",
+    "folds": 25,
+    "failures": 0,
+    "node": "compute-0-7"
+  },
+  "C1_Joung_e7_TabPFN_Pprime_closed_20261121": {
+    "job": 4537304,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "00:04:07",
+    "folds": 25,
+    "failures": 0,
+    "node": "compute-0-7"
+  },
+  "C1_C7_PD_TabPFN_closed_20261121": {
+    "job": 4537306,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "00:07:02",
+    "node": "compute-0-7",
+    "primary_task_folds_completed": 50,
+    "closed_fit_populations": 50,
+    "failures": [],
+    "model_or_statistics_replayed": false
   }
 }
