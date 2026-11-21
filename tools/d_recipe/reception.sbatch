@@ -15,5 +15,11 @@ cd /share/home/zixiao/descriptor_analysis/MFM_d_recipe
 export PYTHONPATH="$PWD:$PWD/current:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps"
 task_python=/share/home/zixiao/.conda/envs/chemprop/bin/python
 "$task_python" -B -c 'from workflows.data_d_descriptors.storage import guard; guard("/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120", peak_bytes=36706053853)'
-"$task_python" -B -m tools.d_recipe.acceptance --configuration configs/d_recipe/reception_L1.json
-exec "$task_python" -B -m tools.d_recipe.acceptance --configuration configs/d_recipe/reception_L2.json
+libraries=("$@")
+if [ "$#" -eq 0 ]; then
+  libraries=(L1 L2)
+fi
+for library in "${libraries[@]}"; do
+  case "$library" in L1|L2) ;; *) exit 2 ;; esac
+  "$task_python" -B -m tools.d_recipe.acceptance --configuration "configs/d_recipe/reception_${library}.json"
+done
