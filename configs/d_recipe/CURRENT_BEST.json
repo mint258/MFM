@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-21T04:30:12Z",
+  "updated_at_utc": "2026-11-21T05:30:06.733338Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -148,7 +148,18 @@
     "job_id": 4537571,
     "checkpoint_continuation_job": 4537575,
     "status": "COLLECTING_FULL_TRAIN",
-    "clipping_report_job": 4537578
+    "clipping_report_job": 4537578,
+    "collection_progress_report_only": {
+      "observed_at_utc": "2026-11-21T05:30:06.733338+00:00",
+      "closed_rows": 762624,
+      "TRAIN_rows": 1194228,
+      "Slurm_job_id": 4537571,
+      "Slurm_state": "RUNNING",
+      "Slurm_elapsed_seconds": 54495,
+      "estimated_collection_completion_utc": "2026-11-21T14:04:07.960443+00:00",
+      "method": "linear_extrapolation_from_current_whole_job_elapsed_and_closed_rows",
+      "scope": "collection only; subsequent fitting not included; variable NFS throughput; not a stop or selection rule"
+    }
   },
   "arm_decisions": {
     "D-R0": "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
@@ -176,7 +187,7 @@
   "configuration": null,
   "representation_diagnostics": {
     "D_R0": {
-      "status": "QUEUED_AFTER_EXACT_3M_ENDPOINT",
+      "status": "COMPLETE",
       "forward_job": 4537579,
       "forward_dependency": "afterok:4537572",
       "transfer_job": 4537580,

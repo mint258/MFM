@@ -149,3 +149,6 @@ CPU17/4537571.step29仅原样保存raw manifest和L1唯一统计至Data结果目
 补充全库未解决时全局状态也为UNRESOLVED，相关4项在真实CPU17/4537571.step30通过0:0，1CPU/6秒、主体0.012秒。源修复已推Data a1312c27e62590e29e013c7e65c58ddd5afd45f4。仅元数据最终清单4537774在CPU10真实COMPLETED/0:0、1CPU/12秒；final_manifest.json为UNRESOLVED、两个entry也UNRESOLVED，没有可交付宽库。原L2接收7772、开发导出7517、基准L2导出7537经zixiao/PENDING/0秒核实后取消，原生会计均CANCELLED by1278/0秒。没有动其他owner任务、训练或数据。
 
 CPU17/4537571.step31仅原样保存L2唯一统计和最终清单至Data结果目录，并更新Root阶段0执行转录。两库72个受影响字段及原参数可审阅；若恢复宽库，需明确批准仅对新字段增加缩尾后std0过滤，旧D20/D3/D4及其余原统计保留、不重新拟合、不增变体。当前未执行科学修订，原预注册不改。原生A1最近710912/1194228 COLLECTING，R1依赖原续算7575及所有原比较/诊断保持；最终目标继续，未冻结或提交9M。
+
+
+2026-11-21 13:30:06 CST：日报补齐原生A1收集结束的线性运行估算，只读取原checkpoint闭合行数762624/1194228与Slurm原耗时54495秒；约11-21 22:04 CST收集结束，未含后续拟合，NFS速率变化可推迟，非停止或科学判定门。CURRENT_BEST中R0表示诊断旧排队状态QUEUED_AFTER_EXACT_3M_ENDPOINT改为COMPLETE，依据已有diagnostic_progress闭合记录；原结果/数组/统计不回读、不重算，配方仍未冻结，原生A1/R1链和宽库未解决状态不变。
