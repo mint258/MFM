@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-21T22:00:35.455336+00:00",
+  "updated_at_utc": "2026-11-21T22:06:20.602716+00:00",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -561,7 +561,7 @@
     }
   },
   "zero_scale_amendment": {
-    "status": "LIBRARIES_ACCEPTED_EXPORTS_RUNNING",
+    "status": "LIBRARIES_ACCEPTED_DEVELOPMENT_EXPORTED_BENCHMARK_RUNNING",
     "preregistration": "configs/d_recipe/amendments/20261122_zero_scale.json",
     "libraries": {
       "L1": {
@@ -597,7 +597,10 @@
         ],
         "molecules": 15518,
         "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/descriptors",
-        "state": "RUNNING"
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 612,
+        "source_manifest": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/descriptors/manifest.json"
       },
       "benchmark": {
         "job_id": 4538205,
@@ -617,6 +620,7 @@
       "H_policy_changed": false,
       "raw_original_database_copied": false,
       "actual_start_CST": "2026-11-22T05:55:23+08:00"
-    }
+    },
+    "development_export_summary": "results/d_recipe/development_wide_export_20261122.json"
   }
 }

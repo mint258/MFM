@@ -59,3 +59,4 @@ QM9 component明确`complete_source_population=false`，全源15751成员。Expa
 模型/预测与既有bootstrap结果关闭后直接续用，A不重复抽样；C对两种B只消费对齐的原1000次抽样给描述性差值区间，不触发配方或额外seed。最终9M源与冻结选定3M臂名显式对应9M-D-R0或9M-D-final。H0保留开关默认关闭，只在登记了未来存储峰值的选定原末层前向中启用。
 
 270项新逻辑已通过4537544（请求1CPU/实际2逻辑CPU，7秒、exit0）。全量字段/统计冻结、64分子真实接收、开发A/B/C和最终C1均未完成；实现和单元测试不替代这些实际结果。
+2026-11-21T22:06:20.602716+00:00：开发双库原导出4538204/CPU10/3CPU实际COMPLETED0:0，612秒，15518唯一分子，两库61批均关闭；L1 191/217、L2 1314/1613，沿用原TRAIN参数/原成员划分、不读任务标签、不重拟合。原source_processing_complete=true、reception_acceptance=pending、current_C1_complete=false如实保留；该二维闭合不替代待定D3/H政策或最终A/B/C。基准L2 4538205继续RUNNING。
