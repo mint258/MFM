@@ -31,7 +31,7 @@ if (plan.get("schema")!="C1_REQUIRED_CONFIRMATION_CPU_POOL_V1" or plan.get("maxi
 rows=[row for row in plan["models"] if str(row["new_native_job"])==os.environ["SLURM_JOB_ID"]]
 if len(rows)!=1:raise ValueError("One actual new native CPU identity required")
 row=rows[0]
-if row.get("original_native_state")!="PENDING_ZERO_RUNTIME" or row.get("original_model_fits_started")!=0:
+if row.get("original_native_state") not in {"PENDING_ZERO_RUNTIME","FAILED_BEFORE_MODEL_EXECUTION","COMPLETED_WRONG_LEARNER_NO_TABPFN_FITS"} or row.get("original_model_fits_started")!=0:
     raise ValueError("Never restart a model that has started")
 helper=types.ModuleType("confirmation_cpu_pool")
 exec(compile(sources["workflows/benchmark_evaluation/confirmation_cpu_pool.py"],helper.__name__,"exec"),helper.__dict__)
@@ -45,21 +45,21 @@ original=Path(row["original_program"]).read_text();program=Path(row["prepared_CP
 expected=helper.prepare_required_cpu_source(original,row["group"],cpus=row["allocated_CPUs"])
 if ast.dump(ast.parse(program),include_attributes=False)!=ast.dump(ast.parse(expected),include_attributes=False):
     raise ValueError("Only the admitted device/thread adaptation may execute")
-allowed={"BENCHMARK_MODEL","LOKY_MAX_CPU_COUNT","TABPFN_ALLOW_CPU_LARGE_DATASET","REFERENCE_BINDING_JOB"}
-if set(row["group"]["environment"])-allowed:raise ValueError("Unregistered original model environment selector")
-for key,value in row["group"]["environment"].items():os.environ[key]=str(value)
-if os.environ.get("BENCHMARK_MODEL")!="C1-TabPFN-"+row["group"]["feature_group"] or os.environ.get("TABPFN_ALLOW_CPU_LARGE_DATASET")!="1":
-    raise ValueError("Original exact model and large-context permission required")
+execution_environment=helper.resolve_confirmation_environment(row["group"],original,row["group"]["environment"])
+if row.get("execution_environment")!=execution_environment:raise ValueError("Declared original task/actual learner environment differs")
+for key in ("C1_MODEL","BENCHMARK_MODEL","BENCHMARK_TASK_INDEX","REFERENCE_BINDING_JOB"):
+    os.environ.pop(key,None)
+for key,value in execution_environment.items():os.environ[key]=value
 safe();runtime=b1/"confirmation_CPU_runtime"/("job_"+os.environ["SLURM_JOB_ID"]);runtime.mkdir(parents=True,exist_ok=False)
 safe();temporary=runtime/"tmp";temporary.mkdir()
 for key in ("TMPDIR","TMP","TEMP","XDG_CACHE_HOME","MPLCONFIGDIR","CUDA_CACHE_PATH"):
     target=temporary/key.lower();safe();target.mkdir();os.environ[key]=str(target)
 tempfile.tempdir=os.environ["TMPDIR"]
 admission=dict(status="REQUIRED_CPU_POOL_CONFIRMATION_ADMITTED",job=os.environ["SLURM_JOB_ID"],primary_job=row["group"]["primary_job"],
-    original_zero_start_GPU_job=row["original_GPU_job"],node=socket.gethostname(),allocated_CPUs=row["allocated_CPUs"],
+    original_zero_start_GPU_job=row["original_GPU_job"],replaced_CPU_job=row.get("replaced_CPU_job"),node=socket.gethostname(),allocated_CPUs=row["allocated_CPUs"],
     model_seed=20261026,fold_and_statistics_seed=20261025,required_configurations=len(row["group"]["required_tasks"]),
     maximum_parallel_CPU_models=8,benchmark_NFS_pool_bytes=40*1024**3,full_AST_equal_except_execution_resources=True,
-    original_private_environment_and_offline_V2_weights=True,new_geometry_or_features=False)
+    original_private_environment_and_offline_V2_weights=True,new_geometry_or_features=False,execution_environment=execution_environment)
 safe();(runtime/"admission.json").write_text(json.dumps(admission,indent=2)+"\n")
 namespace={"__name__":"__main__","_gpu_runtime":types.SimpleNamespace(protect=protect)}
 import torch

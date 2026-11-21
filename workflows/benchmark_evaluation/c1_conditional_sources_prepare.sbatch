@@ -132,7 +132,7 @@ def render_gpu(template,program_path,number,environment):
         "export PYTHONPATH="+shlex.quote(pythonpath),
         "export OMP_NUM_THREADS="+str(cpus)+" MKL_NUM_THREADS="+str(cpus)+" OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1"]
     for key,value in sorted(environment.items()):
-        if key not in {"BENCHMARK_MODEL","BENCHMARK_TASK_INDEX","REFERENCE_BINDING_JOB","TABPFN_ALLOW_CPU_LARGE_DATASET","LOKY_MAX_CPU_COUNT"}:raise IncompleteComparison("Unregistered original model environment selector")
+        if key not in {"BENCHMARK_MODEL","BENCHMARK_TASK_INDEX","REFERENCE_BINDING_JOB","TABPFN_ALLOW_CPU_LARGE_DATASET","LOKY_MAX_CPU_COUNT","C1_MODEL"}:raise IncompleteComparison("Unregistered original model environment selector")
         lines.append("export "+key+"="+shlex.quote(str(value)))
     lines+=["cd "+shlex.quote(repo),"findmnt -T "+shlex.quote(str(root)),
         "df -B1 "+shlex.quote(str(root))+" /tmp","df -Pi "+shlex.quote(str(root))+" /tmp",
@@ -148,6 +148,8 @@ def render_gpu(template,program_path,number,environment):
     body+="else:\n    _gpu_runtime.finish('MODEL_BODY_CLOSED_STATISTICS_DEFERRED_TO_CPU',torch_module=_torch)\n"
     ast.parse(body);lines.extend((body,"PY",""))
     return "\n".join(lines)
+environment_helper=types.ModuleType("confirmation_cpu_pool")
+exec(compile(sources["workflows/benchmark_evaluation/confirmation_cpu_pool.py"],environment_helper.__name__,"exec"),environment_helper.__dict__)
 prepared=[];failures=[]
 for number,group in enumerate(groups):
     template=templates[str(group["primary_job"])]
@@ -176,6 +178,7 @@ for number,group in enumerate(groups):
         environment.setdefault("BENCHMARK_MODEL","Chemprop-v2" if template["learner"]=="Chemprop-v2" else "C1-TabPFN-"+template["feature_group"])
         if template["learner"]=="TabPFN":
             environment.setdefault("TABPFN_ALLOW_CPU_LARGE_DATASET","1");environment.setdefault("LOKY_MAX_CPU_COUNT","2")
+        environment=environment_helper.resolve_confirmation_environment(group,program,environment)
         script=render_gpu(template,program_path,number,environment)
         safe()
         with program_path.open("x") as stream:stream.write(program)

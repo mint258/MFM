@@ -100,3 +100,37 @@ def assign_slots(rows):
         datasets={r["dataset"] for r in row["group"]["required_tasks"]}
         row["allocated_CPUs"]=16 if datasets.issubset({"MoleculeACE","PharmaBench"}) else 32
     return answer
+
+def resolve_confirmation_environment(group,program,environment):
+    """Preserve registered task selectors and select the required original learner."""
+    if group.get("learner")!="TabPFN" or group.get("feature_group") not in {"D","Pprime","Pprime_plus_D"}:
+        raise ValueError("Registered C1 TabPFN group required")
+    allowed={"BENCHMARK_MODEL","BENCHMARK_TASK_INDEX","REFERENCE_BINDING_JOB","TABPFN_ALLOW_CPU_LARGE_DATASET","LOKY_MAX_CPU_COUNT","C1_MODEL"}
+    if set(environment)-allowed:raise ValueError("Unregistered original model environment selector")
+    result={key:str(value) for key,value in environment.items()}
+    if (result.get("BENCHMARK_MODEL")!="C1-TabPFN-"+group["feature_group"]
+        or result.get("TABPFN_ALLOW_CPU_LARGE_DATASET")!="1" or result.get("LOKY_MAX_CPU_COUNT")!="2"):
+        raise ValueError("Exact original model and context/preprocessing permission required")
+    datasets={row["dataset"] for row in group["required_tasks"]}
+    if "BENCHMARK_TASK_INDEX" in result and (datasets!={"Joung2020"} or not result["BENCHMARK_TASK_INDEX"].isdigit()
+        or not 0<=int(result["BENCHMARK_TASK_INDEX"])<=8):raise ValueError("Exact original Joung environment selector required")
+    if "REFERENCE_BINDING_JOB" in result and (datasets!={"PPE1694"} or result["REFERENCE_BINDING_JOB"]!="4536997"):
+        raise ValueError("Exact original PPE source binding required")
+    tree=ast.parse(program)
+    selectors=[n.value for n in tree.body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=="model_name" for t in n.targets)
+        and isinstance(n.value,ast.Call) and isinstance(n.value.func,ast.Attribute) and n.value.func.attr=="get"
+        and ast.unparse(n.value.func.value)=="os.environ"]
+    if len(selectors)>1:raise ValueError("Ambiguous actual learner selector")
+    if selectors:
+        selector=selectors[0]
+        if not selector.args or not isinstance(selector.args[0],ast.Constant):raise ValueError("Literal actual learner selector required")
+        key=selector.args[0].value
+        if key=="C1_MODEL":
+            if datasets!={"ExpansionRx"}:raise ValueError("C1_MODEL belongs only to the original ExpansionRx source")
+            if result.get("C1_MODEL","TabPFN-V2")!="TabPFN-V2":raise ValueError("Never run the LightGBM fallback as a TabPFN confirmation")
+            result["C1_MODEL"]="TabPFN-V2"
+        elif key!="BENCHMARK_MODEL":raise ValueError("Unregistered actual learner selector")
+    if datasets=={"ExpansionRx"} and (not selectors or selectors[0].args[0].value!="C1_MODEL"):
+        raise ValueError("Original ExpansionRx learner selector required")
+    if "C1_MODEL" in result and datasets!={"ExpansionRx"}:raise ValueError("Unexpected inherited model selector")
+    return result

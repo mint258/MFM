@@ -1,6 +1,6 @@
 """Synthetic contracts for the remaining mandatory confirmation CPU execution."""
 import ast,copy,unittest
-from .confirmation_cpu_pool import prepare_required_cpu_source,validate_required_group,validate_cpu_runtime,assign_slots,CPU_SLOTS
+from .confirmation_cpu_pool import prepare_required_cpu_source,validate_required_group,validate_cpu_runtime,assign_slots,CPU_SLOTS,resolve_confirmation_environment
 
 class RequiredConfirmationCpuTests(unittest.TestCase):
     def group(self):
@@ -105,3 +105,45 @@ class RequiredConfirmationCpuTests(unittest.TestCase):
         for source in (self.source().replace("torch.set_num_threads(2)","torch.set_num_threads(4)"),
             self.source().replace("n_preprocessing_jobs=2","n_preprocessing_jobs=cpus")):
             with self.assertRaises(ValueError):prepare_required_cpu_source(source,self.group(),32)
+
+    def environment(self,feature="Pprime"):
+        return dict(BENCHMARK_MODEL="C1-TabPFN-"+feature,TABPFN_ALLOW_CPU_LARGE_DATASET="1",LOKY_MAX_CPU_COUNT="2")
+    def test_joung_original_task_index_is_preserved(self):
+        group=self.group();group["required_tasks"][0]["dataset"]="Joung2020"
+        env=self.environment();env["BENCHMARK_TASK_INDEX"]="8"
+        self.assertEqual(resolve_confirmation_environment(group,self.source(),env),env)
+    def test_expansion_actual_dispatch_uses_tabpfn_instead_of_lightgbm_default(self):
+        group=self.group();group["required_tasks"][0]["dataset"]="ExpansionRx"
+        source=self.source()+"\nmodel_name=os.environ.get('C1_MODEL','LightGBM')\nactual_learner='LightGBM' if model_name=='LightGBM' else 'TabPFN'\n"
+        env=resolve_confirmation_environment(group,source,self.environment())
+        class Env:
+            def get(self,key,default):return env.get(key,default)
+        namespace={"os":type("OS",(),{"environ":Env()})}
+        exec("\n".join(source.splitlines()[-2:]),namespace)
+        self.assertEqual(namespace["model_name"],"TabPFN-V2");self.assertEqual(namespace["actual_learner"],"TabPFN")
+        self.assertEqual(env["C1_MODEL"],"TabPFN-V2")
+    def test_expansion_wrong_explicit_learner_or_missing_selector_is_rejected(self):
+        group=self.group();group["required_tasks"][0]["dataset"]="ExpansionRx"
+        source=self.source()+"\nmodel_name=os.environ.get('C1_MODEL','LightGBM')\n"
+        env=self.environment();env["C1_MODEL"]="LightGBM"
+        with self.assertRaises(ValueError):resolve_confirmation_environment(group,source,env)
+        with self.assertRaises(ValueError):resolve_confirmation_environment(group,self.source(),self.environment())
+    def test_unknown_environment_model_and_context_drift_fail_before_source_execution(self):
+        for key,value in (("UNREGISTERED","x"),("BENCHMARK_MODEL","C1-LightGBM-Pprime"),("LOKY_MAX_CPU_COUNT","32")):
+            env=self.environment();env[key]=value
+            with self.assertRaises(ValueError):resolve_confirmation_environment(self.group(),self.source(),env)
+    def test_ppe_original_binding_and_data_selector_are_preserved(self):
+        group=self.group();group["required_tasks"][0]["dataset"]="PPE1694"
+        env=self.environment();env["REFERENCE_BINDING_JOB"]="4536997"
+        self.assertEqual(resolve_confirmation_environment(group,self.source(),env),env)
+        env["REFERENCE_BINDING_JOB"]="4536995"
+        with self.assertRaises(ValueError):resolve_confirmation_environment(group,self.source(),env)
+    def test_environment_resolution_never_changes_input_and_non_expansion_inheritance_rejected(self):
+        env=self.environment();before=copy.deepcopy(env)
+        self.assertEqual(resolve_confirmation_environment(self.group(),self.source(),env),before);self.assertEqual(env,before)
+        env["C1_MODEL"]="TabPFN-V2"
+        with self.assertRaises(ValueError):resolve_confirmation_environment(self.group(),self.source(),env)
+    def test_source_actual_benchmark_model_selection_remains_registered(self):
+        source=self.source()+"\nmodel_name=os.environ.get('BENCHMARK_MODEL','RF-ECFP4')\n"
+        self.assertEqual(resolve_confirmation_environment(self.group(),source,self.environment())["BENCHMARK_MODEL"],"C1-TabPFN-Pprime")
+        with self.assertRaises(ValueError):resolve_confirmation_environment(self.group(),source.replace("'BENCHMARK_MODEL'","'UNREGISTERED'"),self.environment())
