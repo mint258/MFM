@@ -1,0 +1,613 @@
+{
+  "schema": "P_RECIPE_FIDELITY_PAIRS_V1",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261118.md",
+  "registry": "workflows/screening/registry/label_registry_v2.json",
+  "evidence_sources": [
+    "workflows/wp5/scripts/wp5_engine_v2.py derived_quantities",
+    "workflows/wp5/scripts/wp5_parser.py",
+    "/share/home/zixiao/descriptor_analysis/runs/phase1_dataset_rebuild_20261010/scripts/wp4_parsers.py parse_xtb"
+  ],
+  "rules": [
+    "same physical quantity",
+    "same molecular/electronic state",
+    "same solvent",
+    "same granularity",
+    "same dimension and sign convention",
+    "no guessed conversion or ambiguous many-to-one mapping"
+  ],
+  "pairs": [
+    {
+      "quantity": "HOMO",
+      "PM7_registry_id": 61,
+      "xTB_registry_id": 671,
+      "PM7_fields": [
+        "P.pm7_B.r61.value"
+      ],
+      "xTB_fields": [
+        "P.xtb_singlepoint.r671.value"
+      ],
+      "PM7_method": "PM7",
+      "xTB_method": "GFN2-xTB",
+      "charge": 0,
+      "solvent": "gas",
+      "level": "molecule",
+      "unit": "eV",
+      "dimension": 1,
+      "definition": "Same neutral gas-phase HOMO orbital energy in eV",
+      "unit_or_sign_conversion": "None; native target values and each field normalization remain unchanged",
+      "PM7_source_path": "values.homo_eV",
+      "xTB_source_path": "values.homo_eV"
+    },
+    {
+      "quantity": "LUMO",
+      "PM7_registry_id": 63,
+      "xTB_registry_id": 672,
+      "PM7_fields": [
+        "P.pm7_B.r63.value"
+      ],
+      "xTB_fields": [
+        "P.xtb_singlepoint.r672.value"
+      ],
+      "PM7_method": "PM7",
+      "xTB_method": "GFN2-xTB",
+      "charge": 0,
+      "solvent": "gas",
+      "level": "molecule",
+      "unit": "eV",
+      "dimension": 1,
+      "definition": "Same neutral gas-phase LUMO orbital energy in eV",
+      "unit_or_sign_conversion": "None; native target values and each field normalization remain unchanged",
+      "PM7_source_path": "values.lumo_eV",
+      "xTB_source_path": "values.lumo_eV"
+    },
+    {
+      "quantity": "vertical_EA",
+      "PM7_registry_id": 49,
+      "xTB_registry_id": 751,
+      "PM7_fields": [
+        "P.pm7_B.r49.value"
+      ],
+      "xTB_fields": [
+        "P.xtb_vipea.r751.value"
+      ],
+      "PM7_method": "PM7",
+      "xTB_method": "GFN1-xTB",
+      "charge": 0,
+      "solvent": "gas",
+      "level": "molecule",
+      "unit": "eV",
+      "dimension": 1,
+      "definition": "Same-geometry neutral vertical electron affinity, native EA sign, eV; PM7 charged-state difference and xTB delta-SCC EA",
+      "unit_or_sign_conversion": "None; native target values and each field normalization remain unchanged",
+      "PM7_source_path": "values.derived_from_same_geometry_charged_states.vertical_EA_eV",
+      "xTB_source_path": "values.EA_eV"
+    },
+    {
+      "quantity": "vertical_IP",
+      "PM7_registry_id": 50,
+      "xTB_registry_id": 752,
+      "PM7_fields": [
+        "P.pm7_B.r50.value"
+      ],
+      "xTB_fields": [
+        "P.xtb_vipea.r752.value"
+      ],
+      "PM7_method": "PM7",
+      "xTB_method": "GFN1-xTB",
+      "charge": 0,
+      "solvent": "gas",
+      "level": "molecule",
+      "unit": "eV",
+      "dimension": 1,
+      "definition": "Same-geometry neutral vertical ionization energy, native IP sign, eV; PM7 charged-state difference and xTB delta-SCC IP",
+      "unit_or_sign_conversion": "None; native target values and each field normalization remain unchanged",
+      "PM7_source_path": "values.derived_from_same_geometry_charged_states.vertical_IP_eV",
+      "xTB_source_path": "values.IP_eV"
+    },
+    {
+      "quantity": "dipole",
+      "PM7_registry_id": 52,
+      "xTB_registry_id": 669,
+      "PM7_fields": [
+        "P.pm7_B.r52.x",
+        "P.pm7_B.r52.y",
+        "P.pm7_B.r52.z"
+      ],
+      "xTB_fields": [
+        "P.xtb_singlepoint.r669.x",
+        "P.xtb_singlepoint.r669.y",
+        "P.xtb_singlepoint.r669.z"
+      ],
+      "PM7_method": "PM7",
+      "xTB_method": "GFN2-xTB",
+      "charge": 0,
+      "solvent": "gas",
+      "level": "molecule_vector",
+      "unit": "Debye",
+      "dimension": 3,
+      "definition": "Same neutral gas-phase Cartesian electric dipole in Debye; x/y/z retain one physical vector head",
+      "unit_or_sign_conversion": "None; native target values and each field normalization remain unchanged",
+      "PM7_source_path": "values.dipole_Debye",
+      "xTB_source_path": "values.dipole_Debye"
+    }
+  ],
+  "unpaired": [
+    {
+      "field": "P.pm7_B.r39.p",
+      "registry_id": 39,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r39.s",
+      "registry_id": 39,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r40.value",
+      "registry_id": 40,
+      "reason": "Generic PM7 bond-order population and xTB Wiberg index are not established as the same index by the registry."
+    },
+    {
+      "field": "P.pm7_B.r41.value",
+      "registry_id": 41,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r42.value",
+      "registry_id": 42,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r43.value",
+      "registry_id": 43,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r44.value",
+      "registry_id": 44,
+      "reason": "Coulson-specific condensed Fukui and generic xTB Fukui lack a registry-defined common population convention."
+    },
+    {
+      "field": "P.pm7_B.r45.value",
+      "registry_id": 45,
+      "reason": "Coulson-specific condensed Fukui and generic xTB Fukui lack a registry-defined common population convention."
+    },
+    {
+      "field": "P.pm7_B.r46.value",
+      "registry_id": 46,
+      "reason": "Coulson-specific condensed Fukui and generic xTB Fukui lack a registry-defined common population convention."
+    },
+    {
+      "field": "P.pm7_B.r47.value",
+      "registry_id": 47,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r48.value",
+      "registry_id": 48,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r53.value",
+      "registry_id": 53,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r54.value",
+      "registry_id": 54,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r55.electron_electron",
+      "registry_id": 55,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r55.electron_nuclear",
+      "registry_id": 55,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r55.total",
+      "registry_id": 55,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r56.C",
+      "registry_id": 56,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r56.EE",
+      "registry_id": 56,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r56.EN",
+      "registry_id": 56,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r56.J",
+      "registry_id": 56,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r56.K",
+      "registry_id": 56,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r56.NN",
+      "registry_id": 56,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r56.total",
+      "registry_id": 56,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r58.value",
+      "registry_id": 58,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r60.value",
+      "registry_id": 60,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r62.value",
+      "registry_id": 62,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r64.value",
+      "registry_id": 64,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r65.value",
+      "registry_id": 65,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r68.value",
+      "registry_id": 68,
+      "reason": "PM7 net atomic charges and xTB partial charges lack an explicit common population definition in the registry."
+    },
+    {
+      "field": "P.pm7_B.r73.value.pi",
+      "registry_id": 73,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r73.value.sigma",
+      "registry_id": 73,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r82.De",
+      "registry_id": 82,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r82.Dn",
+      "registry_id": 82,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r82.charge_density_q_minus_Z",
+      "registry_id": 82,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r83.value",
+      "registry_id": 83,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_B.r84.value",
+      "registry_id": 84,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_anion.r190.p",
+      "registry_id": 190,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_anion.r190.s",
+      "registry_id": 190,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_anion.r193.value",
+      "registry_id": 193,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_anion.r194.value",
+      "registry_id": 194,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_anion.r196.x",
+      "registry_id": 196,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_anion.r196.y",
+      "registry_id": 196,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_anion.r196.z",
+      "registry_id": 196,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_anion.r204.value",
+      "registry_id": 204,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_anion.r210.value",
+      "registry_id": 210,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_cation.r259.p",
+      "registry_id": 259,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_cation.r259.s",
+      "registry_id": 259,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_cation.r262.value",
+      "registry_id": 262,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_cation.r263.value",
+      "registry_id": 263,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_cation.r265.x",
+      "registry_id": 265,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_cation.r265.y",
+      "registry_id": 265,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_cation.r265.z",
+      "registry_id": 265,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_cation.r273.value",
+      "registry_id": 273,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_cation.r279.value",
+      "registry_id": 279,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_octanol.r326.p",
+      "registry_id": 326,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_octanol.r326.s",
+      "registry_id": 326,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_octanol.r329.value",
+      "registry_id": 329,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_octanol.r330.value",
+      "registry_id": 330,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_octanol.r331.value",
+      "registry_id": 331,
+      "reason": "PM7 dielectric energy is not the same thermodynamic quantity as xTB Gsolv; unit conversion cannot establish an identity."
+    },
+    {
+      "field": "P.pm7_octanol.r332.x",
+      "registry_id": 332,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_octanol.r332.y",
+      "registry_id": 332,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_octanol.r332.z",
+      "registry_id": 332,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_octanol.r340.value",
+      "registry_id": 340,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_octanol.r341.value",
+      "registry_id": 341,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_octanol.r343.value",
+      "registry_id": 343,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_octanol.r346.value",
+      "registry_id": 346,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_water.r393.p",
+      "registry_id": 393,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_water.r393.s",
+      "registry_id": 393,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_water.r396.value",
+      "registry_id": 396,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_water.r397.value",
+      "registry_id": 397,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_water.r398.value",
+      "registry_id": 398,
+      "reason": "PM7 dielectric energy is not the same thermodynamic quantity as xTB Gsolv; unit conversion cannot establish an identity."
+    },
+    {
+      "field": "P.pm7_water.r399.x",
+      "registry_id": 399,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_water.r399.y",
+      "registry_id": 399,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_water.r399.z",
+      "registry_id": 399,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_water.r407.value",
+      "registry_id": 407,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_water.r408.value",
+      "registry_id": 408,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_water.r410.value",
+      "registry_id": 410,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.pm7_water.r413.value",
+      "registry_id": 413,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.xtb_ALPB_octanol.r459.value",
+      "registry_id": 459,
+      "reason": "xTB Gsolv is not identified with the PM7 dielectric-energy term by the registry."
+    },
+    {
+      "field": "P.xtb_ALPB_octanol.r460.value",
+      "registry_id": 460,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.xtb_ALPB_water.r498.value",
+      "registry_id": 498,
+      "reason": "xTB Gsolv is not identified with the PM7 dielectric-energy term by the registry."
+    },
+    {
+      "field": "P.xtb_ALPB_water.r499.value",
+      "registry_id": 499,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.xtb_fod.r537.value",
+      "registry_id": 537,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.xtb_fod.r538.value",
+      "registry_id": 538,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.xtb_perturbed_gradient.r623.value",
+      "registry_id": 623,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.xtb_perturbed_gradient.r624.value",
+      "registry_id": 624,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.xtb_perturbed_gradient.r625.value",
+      "registry_id": 625,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.xtb_singlepoint.r666.value",
+      "registry_id": 666,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.xtb_singlepoint.r667.value",
+      "registry_id": 667,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.xtb_singlepoint.r668.value",
+      "registry_id": 668,
+      "reason": "xTB partial charges and PM7 net atomic charges lack an explicit common population definition in the registry."
+    },
+    {
+      "field": "P.xtb_singlepoint.r670.value",
+      "registry_id": 670,
+      "reason": "No unique enabled counterpart with the same definition, state, solvent, granularity, dimension and sign convention."
+    },
+    {
+      "field": "P.xtb_singlepoint.r677.value",
+      "registry_id": 677,
+      "reason": "xTB Wiberg index has no registry-established identical PM7 index."
+    },
+    {
+      "field": "P.xtb_vfukui.r712.f_minus",
+      "registry_id": 712,
+      "reason": "Generic xTB condensed Fukui and PM7 Coulson-specific Fukui lack a registry-defined common population convention."
+    },
+    {
+      "field": "P.xtb_vfukui.r712.f_plus",
+      "registry_id": 712,
+      "reason": "Generic xTB condensed Fukui and PM7 Coulson-specific Fukui lack a registry-defined common population convention."
+    },
+    {
+      "field": "P.xtb_vfukui.r712.f_radical",
+      "registry_id": 712,
+      "reason": "Generic xTB condensed Fukui and PM7 Coulson-specific Fukui lack a registry-defined common population convention."
+    }
+  ],
+  "physical_head_pairs": 5,
+  "field_pairs": 7
+}

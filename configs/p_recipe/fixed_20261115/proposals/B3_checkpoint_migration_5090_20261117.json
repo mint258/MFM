@@ -1,0 +1,122 @@
+{
+    "schema":  "P_CHECKPOINT_MIGRATION_PROPOSAL",
+    "status":  "MIGRATED_RUNNING",
+    "created_at":  "2026-11-17T00:39:00+08:00",
+    "source":  {
+                   "arm":  "B3",
+                   "run":  "fixed_20261115_provisional_B_20261116_round2_B3",
+                   "node":  "compute-0-5",
+                   "job_id":  4534813,
+                   "pid":  1252305,
+                   "uid":  1278,
+                   "start_ticks":  1114756286,
+                   "pgid":  1252305,
+                   "last_observed_samples":  1221472,
+                   "recent_samples_per_second":  42.52274415012495,
+                   "control_request":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B3_handoff_request.json",
+                   "control_ack":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B3_handoff_ack.json",
+                   "configuration":  "configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json"
+               },
+    "destination":  {
+                        "node":  "compute-0-22",
+                        "gpu_uuid":  "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+                        "gpu_type":  "RTX5090",
+                        "observed_used_mib":  695,
+                        "total_mib":  32607,
+                        "observed_root_free_bytes":  52540915712,
+                        "root_total_bytes":  75125227520,
+                        "cpus":  16,
+                        "exclusive":  false,
+                        "submission":  "Existing launch_plan native+same-task sbatch takeover when Slurm CPUs unavailable, otherwise sbatch",
+                        "admission":  "Recheck target node GPU/own lock, actual filesystem bytes/inodes, fresh UID quotas and remaining study forecast BEFORE requesting source exit; if unavailable keep original source running."
+                    },
+    "continuation":  {
+                         "precision":  "FP32, TF32 off",
+                         "batch_size":  32,
+                         "microbatch_size":  32,
+                         "activation_checkpointing":  false,
+                         "training_implementation":  "Same already-merged PR8 scientific implementation; no recipe change",
+                         "samples":  3000000,
+                         "frozen_clip":  34.97425765991212,
+                         "normalization":  "window2_TRAIN_normalization_parameters_20261107_v1",
+                         "procedure":  [
+                                           "Only after explicit approval, recheck source PID UID start_ticks and actual Slurm state, plus destination admission.",
+                                           "Use loaded SAVE_AND_EXIT handler to atomically save full model/optimizer/sample clock/sampler RNG/Torch RNG/clip/statistics at next committed optimizer update.",
+                                           "Require matching ACK/checkpoint, source guard exit0 and source PID gone before starting destination. No force kill.",
+                                           "Archive original config/output/cost; create distinct resumed run/output and update plan to that same B3 case.",
+                                           "Resume from the newly acknowledged exact sample cursor on target; no from-zero restart and no discarded completed optimizer updates.",
+                                           "If source has already completed before approval, keep its result and do not run a duplicate."
+                                       ]
+                     },
+    "execution_gate":  "No control request, signal, cancellation or destination training has been executed by this proposal.",
+    "approval_reason":  "User explicitly requires special instructions before stopping running training; permission is needed for this optional speed migration.",
+    "user_approval":  "2026-11-17 explicit reply: allow complete-checkpoint migration to5090",
+    "result":  {
+                   "source_job_id":  4534813,
+                   "source_job_state":  "COMPLETED",
+                   "source_job_exit_code":  "0:0",
+                   "source_allocation_seconds":  36269,
+                   "source_native_terminal":  {
+                                                  "started_at":  1794813241.0165412,
+                                                  "run":  "fixed_20261115_provisional_B_20261116_round2_B3",
+                                                  "execution":  "Slurm",
+                                                  "node":  "compute-0-5",
+                                                  "gpu_uuid":  "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+                                                  "admission_used_mib":  5.0,
+                                                  "admission_total_mib":  24576.0,
+                                                  "admission_fraction":  0.00020345052083333334,
+                                                  "pid":  1252305,
+                                                  "uid":  1278,
+                                                  "start_ticks":  1114756286,
+                                                  "pgid":  1252305,
+                                                  "job_id":  4534813,
+                                                  "status":  "COMPLETED",
+                                                  "exit_code":  0,
+                                                  "ended_at":  1794849506.3775506,
+                                                  "elapsed_seconds":  36265.361010074615
+                                              },
+                   "acknowledgement":  {
+                                           "request_id":  "67bb05ff-f439-4444-be11-bee9428face3",
+                                           "job_id":  4534813,
+                                           "checkpoint":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_B3/samples_1393408.pt",
+                                           "clock":  {
+                                                         "schema":  "model_v3_consumed_sample_clock_v1",
+                                                         "sample_budget":  3000000,
+                                                         "milestones":  [
+                                                                            500000,
+                                                                            1000000,
+                                                                            1500000,
+                                                                            2000000,
+                                                                            2500000,
+                                                                            3000000
+                                                                        ],
+                                                         "samples_consumed":  1393408,
+                                                         "optimizer_updates":  43544,
+                                                         "saved_milestones":  [
+
+                                                                              ]
+                                                     },
+                                           "run":  "fixed_20261115_provisional_B_20261116_round2_B3"
+                                       },
+                   "source_configuration_archive":  "configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/archive/B3_node5_before_5090_20261117.json",
+                   "target_native":  {
+                                         "started_at":  1794849590.9916437,
+                                         "run":  "fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117",
+                                         "execution":  "native_SSH",
+                                         "node":  "compute-0-22",
+                                         "gpu_uuid":  "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+                                         "admission_used_mib":  695.0,
+                                         "admission_total_mib":  32607.0,
+                                         "admission_fraction":  0.021314441684300918,
+                                         "pid":  148428,
+                                         "uid":  1278,
+                                         "start_ticks":  48709165,
+                                         "pgid":  148428,
+                                         "status":  "RUNNING"
+                                     },
+                   "target_standby_job_id":  4535105,
+                   "actual_target_samples":  1402144,
+                   "restored_clip":  34.974257659912119,
+                   "original_outputs_and_cost_preserved":  true
+               }
+}

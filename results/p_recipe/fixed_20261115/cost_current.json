@@ -1,0 +1,52 @@
+{
+  "observed_at": 1795177996.342535,
+  "local_date": "2026-11-20",
+  "physical_ledger_gpu_hours": 478.2410810142828,
+  "F1_acceptance_gpu_hours": 0.5911111111111111,
+  "F1_acceptance_jobs": {
+    "F1_real_loader_acceptance_20261119": 4536840,
+    "F1_real_loader_acceptance_attempt2_20261120": 4536854
+  },
+  "closed_initial_gpu_hours": 3.81173,
+  "closed_D1_D2_gpu_hours": 0.9774399496449364,
+  "total_physical_gpu_hours": 483.62136207503886,
+  "current_screening_gpu_hours": 349.7684876728793,
+  "reused_baseline_gpu_hours": 11.614853340519801,
+  "screening_budget_gpu_hours": 361.3833410133991,
+  "groups": {
+    "archived_screening": 69.41391402648554,
+    "batch_speed": 6.652941999766561,
+    "calibration": 39.263173079755575,
+    "current_screening": 349.7684876728793,
+    "noise_seed1": 12.8970701388518,
+    "confirmation": 0.24549409654405382
+  },
+  "counts": {
+    "archived_screening": 15,
+    "batch_speed": 16,
+    "calibration": 10,
+    "current_screening": 34,
+    "noise_seed1": 2,
+    "confirmation": 5,
+    "other": 0
+  },
+  "unknown_handles": [],
+  "preflight_rejected_before_GPU": [
+    "fixed_20261115_provisional_B_20261116_round2_M1",
+    "fixed_20261115_provisional_B_20261116_round2_M1_attempt2"
+  ],
+  "lower_bound_handles": [
+    "fixed_20261115_provisional_B_20261116_round2_M1_attempt3_sbatch",
+    "fixed_20261115_round3_M2"
+  ],
+  "total_is_lower_bound": true,
+  "scope": "P physical GPU accounting; CPU-only costs are separate; unknown handles retained explicitly",
+  "accounting_source": "existing execution ledger and original native terminal/live observations; no new Slurm/scientific reruns",
+  "F1_acceptance_seconds_by_job": {
+    "4536840": 1362,
+    "4536854": 766
+  },
+  "screening_cap_cancelled": true,
+  "study_complete": false,
+  "final_recipe_frozen": true
+}

@@ -175,9 +175,13 @@ def error(prediction, row_indices=None):
 
 
 class _Ridge:
-    def __init__(self, x, y):
+    def __init__(self, x, y, *, relative_std_floor=False):
         if not len(x):
             raise ValueError("No observed optimization labels")
+        scale = x.std(0)
+        self.keep = (scale >= max(1e-12, 1e-4 * float(np.median(scale)))
+                     if relative_std_floor else np.ones(x.shape[1], dtype=bool))
+        x = x[:, self.keep]
         self.mean = x.mean(0); self.scale = x.std(0)
         self.scale[self.scale < 1e-12] = 1.0
         self.ymean = float(y.mean()); self.yscale = float(y.std()) or 1.0
@@ -186,11 +190,13 @@ class _Ridge:
         self.projected = self.u.T @ ((y-self.ymean)/self.yscale)
 
     def predict(self, x, alpha):
+        x = x[:, self.keep]
         coefficient = self.vh.T @ ((self.s/(self.s*self.s+alpha))*self.projected)
         return (((x-self.mean)/self.scale) @ coefficient)*self.yscale+self.ymean
 
 
-def ridge_probe(train, validation, task, *, alphas=(1e-6, 1e-4, 1e-2, 1., 100.), folds=5, seed=20261025):
+def ridge_probe(train, validation, task, *, alphas=(1e-6, 1e-4, 1e-2, 1., 100.), folds=5, seed=20261025,
+                relative_std_floor=False):
     train, validation = _validate_molecules(train, task), _validate_molecules(validation, task)
     if {r.molecule_uid for r in train} & {r.molecule_uid for r in validation}:
         raise ValueError("Optimization and inner-validation molecules overlap")
@@ -203,7 +209,7 @@ def ridge_probe(train, validation, task, *, alphas=(1e-6, 1e-4, 1e-2, 1., 100.),
         fit = tuple(r for r in train if assignment[r.molecule_uid] != fold)
         held = tuple(r for r in train if assignment[r.molecule_uid] == fold)
         x, y, mask, _ = _arrays(fit, task)
-        model = _Ridge(x[mask], y[mask])
+        model = _Ridge(x[mask], y[mask], relative_std_floor=relative_std_floor)
         held_x = _arrays(held, task)[0]
         for alpha in alphas:
             scores[alpha].append(error(_prediction(task, held, model.predict(held_x, alpha))))
@@ -213,11 +219,12 @@ def ridge_probe(train, validation, task, *, alphas=(1e-6, 1e-4, 1e-2, 1., 100.),
         raise ValueError("Ridge selection unavailable: at least one molecular fold lacks its metric population")
     chosen = min(usable, key=lambda a: (usable[a], a))
     x, y, mask, _ = _arrays(train, task)
-    model = _Ridge(x[mask], y[mask])
+    model = _Ridge(x[mask], y[mask], relative_std_floor=relative_std_floor)
     prediction = _prediction(task, validation, model.predict(_arrays(validation, task)[0], chosen))
     return prediction, {"selected_alpha": chosen, "inner_cv_errors": {str(a): scores[a] for a in alphas},
                         "fold_assignment_sha256": canonical(assignment), "fit_scope": "train",
-                        "validation_role": ALLOWED_ROLES[1], "normalization_fit_scope": "train"}
+                        "validation_role": ALLOWED_ROLES[1], "normalization_fit_scope": "train",
+                        "removed_dimensions": int((~model.keep).sum())}
 
 
 def nonlinear_probe(train, validation, task, *, seed=0, device="cpu", tracker):

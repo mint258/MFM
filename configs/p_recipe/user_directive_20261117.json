@@ -1,0 +1,177 @@
+{
+    "schema":  "P_RECIPE_USER_DIRECTIVE_V1",
+    "source":  "docs/p_recipe/USER_DIRECTIVE_20261117.md",
+    "screening_gpu_hour_limit":  null,
+    "current_best":  "configs/p_recipe/CURRENT_BEST.json",
+    "confirmation":  {
+                         "status":  "WAITING_RECIPE_FREEZE_ROUND3_ROUND4_AND_SIDE_LINE_DECISIONS",
+                         "user_switch_confirmation_received":  true,
+                         "confirmed_new_perf_switches":  "ALL_OFF",
+                         "requires_perf_gpu_results":  true,
+                         "requires_user_switch_confirmation":  true,
+                         "freeze_switches_at_run_start":  true,
+                         "switch_proposal":  "configs/p_recipe/confirmation_switches_20261118.json",
+                         "perf_gpu_delivery_received":  true,
+                         "requires_recipe_frozen":  true
+                     },
+    "resource_priority":  {
+                              "first":  "perf/sync-free-20261117",
+                              "then":  "M2_seed1",
+                              "preferred_gpu_types":  [
+                                                          "5090"
+                                                      ],
+                              "candidate_node":  "compute-0-22",
+                              "candidate_gpu_uuid":  "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+                              "observed_used_mib":  699,
+                              "observed_total_mib":  32607,
+                              "cohost_note":  "UID1283 gmx kept running; full launch admission still required",
+                              "handoff_status":  "PERF_5090_CANCELLED_ZERO_RUNTIME",
+                              "current_perf_job_id":  4535799,
+                              "current_perf_job_status":  "CANCELLED",
+                              "gpu_priority_active":  false,
+                              "supplemental_authority":  "docs/p_recipe/USER_DIRECTIVE_20261117B.md",
+                              "previous_priority_authority":  "docs/p_recipe/USER_DIRECTIVE_20261117B.md",
+                              "superseding_authority":  "huagong_hpc_requirement v1.0.163 2026-11-20 user cancellation of5090 speed test",
+                              "terminal_evidence":  {
+                                                        "job_id":  4535799,
+                                                        "state":  "CANCELLED by1278",
+                                                        "elapsed_seconds":  0,
+                                                        "end_Asia_Shanghai":  "2026-11-20T11:48:24+08:00",
+                                                        "node":  "None assigned",
+                                                        "verified_utc":  "2026-11-20 08:16:30 UTC"
+                                                    }
+                          },
+    "C3_migration":  {
+                         "authorized":  true,
+                         "earliest_complete_checkpoint_samples":  1000000,
+                         "requires_faster_idle_gpu":  true,
+                         "requires_perf_line_has_received_gpu":  true,
+                         "record_rollback_samples":  true,
+                         "code_precision_batch_unchanged":  true
+                     },
+    "round4":  {
+                   "status":  "REGISTERED_PREPARATION_BEFORE_C3_NO_NEW_TRAINING_UNTIL_C3_COMPLETE",
+                   "authority":  "docs/p_recipe/USER_DIRECTIVE_20261118.md",
+                   "latest_user_sequence":  "Complete C3 first, then carry out this directive",
+                   "baseline":  "M2",
+                   "baseline_configuration":  "configs/p_recipe/fixed_20261115/round3/M2.json",
+                   "configuration_directory":  "configs/p_recipe/fixed_20261115/round4",
+                   "arms":  [
+                                "X1",
+                                "X2",
+                                "F1",
+                                "F2",
+                                "PP"
+                            ],
+                   "conditional_arm":  "M2C skipped: all109 fields shared, per USER_DIRECTIVE_20261118B.md",
+                   "priority":  [
+                                    "Pprime",
+                                    "M2C_if_needed",
+                                    "F2",
+                                    "X1",
+                                    "X2",
+                                    "F1"
+                                ],
+                   "samples_per_run":  3000000,
+                   "batch_size":  32,
+                   "precision":  "FP32",
+                   "lr":  0.0003,
+                   "head_and_decoupling_winners_included":  false,
+                   "T4":  "Automatic OMIT/KEEP from PP CI/effect/seed-noise under USER_DIRECTIVE_20261118B.md; no further user confirmation",
+                   "F1_unit_tests":  "Exactly one shared-head/method-vector unit test",
+                   "F1_acceptance":  "Real loader and one per-head overfit",
+                   "F1_skip_rule":  "Development or diagnosis exceeds4hours or2consecutive failures; continue other arms",
+                   "no_9M_before_round4_decisions":  true,
+                   "runtime_path_aliases":  {
+                                                "PP":  "Pprime"
+                                            },
+                   "plan":  "configs/p_recipe/fixed_20261115/round4/plan.json",
+                   "fidelity_pairs":  "configs/p_recipe/fixed_20261115/round4/fidelity_pairs.json",
+                   "PP_fields":  "configs/p_recipe/fixed_20261115/round4/PP_fields.json",
+                   "preparation":  {
+                                       "PP_common_fields":  109,
+                                       "M2C_required":  false,
+                                       "physical_pairs":  5,
+                                       "field_pairs":  7,
+                                       "F2_fields":  102,
+                                       "X1_fields":  106,
+                                       "X2":  "PREPARED_MULTIPLIER_SUPPORT_IMPLEMENTED",
+                                       "F1":  "IMPLEMENTED_UNIT_PASS_WAITING_REAL_LOADER_AND_HEAD_OVERFIT",
+                                       "new_training_launched":  0
+                                   },
+                   "maximum_seeds":  2
+               },
+    "no_other_branch_writes":  true,
+    "noise_reference":  {
+                            "status":  "READY_FOR_SHARED_REUSE",
+                            "reference":  "configs/p_recipe/M2_SEED1_REFERENCE.json",
+                            "job_id":  4535736,
+                            "node":  "compute-0-7",
+                            "gpu_type":  "3090",
+                            "scientific_change":  "seed1 only",
+                            "priority_evidence":  "Perf GPU job4535718 actually RUNNING compute-0-5 before noise admission; idle5090/4090 remain reserved for perf until GPU suite complete"
+                        },
+    "closeout":  {
+                     "authority":  "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+                     "last_screening_round":  4,
+                     "no_fifth_round":  true,
+                     "recipe_freeze_requires":  [
+                                                    "round3_final_decision",
+                                                    "round4_final_decisions_and_required_merge",
+                                                    "p-heads-20261117_final_two_seed_decisions",
+                                                    "p-followup-20261116_final_two_seed_decisions"
+                                                ],
+                     "external_two_seed_winners_adopt_without_user_confirmation":  true,
+                     "external_unresolved_is_not_win":  true,
+                     "side_line_ownership":  "Read published results; do not operate or edit side-line jobs/branches",
+                     "confirmation_arms":  [
+                                               "T1",
+                                               "T2",
+                                               "T5",
+                                               "T6"
+                                           ],
+                     "optional_confirmation_arm":  "T4",
+                     "cancelled_confirmation_arms":  [
+                                                         "T3",
+                                                         "T7"
+                                                     ],
+                     "T4_automatic_decision":  true,
+                     "T4_user_confirmation":  "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+                     "M2C_required":  false,
+                     "T7_required":  false,
+                     "common_fields":  109,
+                     "seed_policy":  {
+                                         "authority":  "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+                                         "default":  0,
+                                         "tau":  "max(0.01,0.05*max(scoreA,scoreB))",
+                                         "screening":  {
+                                                           "maximum_seeds":  2,
+                                                           "optional_seed":  1,
+                                                           "seed1_condition":  "seed0 R3 WIN: CI lower \u003e 0 and delta \u003e= tau",
+                                                           "training_problem_exception":  "seed0 training lost/repeated samples, rollback after explosion/NaN, or a discontinuous resumed loss curve; log reason",
+                                                           "continuous_full_state_resume_is_exception":  false,
+                                                           "existing_reference_seed1_reused":  true,
+                                                           "point_estimate":  "mean of the seed-wise paired deltas",
+                                                           "CI":  "equal-weight concatenation of the original seed-wise1000 molecular paired bootstrap differences; percentile2.5/97.5"
+                                                       },
+                                         "confirmation":  {
+                                                              "maximum_seeds":  1,
+                                                              "optional_seed":  null,
+                                                              "seed1_allowed":  false,
+                                                              "arms":  [
+                                                                           "T1",
+                                                                           "T2",
+                                                                           "T4",
+                                                                           "T5",
+                                                                           "T6"
+                                                                       ],
+                                                              "point_estimate":  "seed0 paired delta",
+                                                              "CI":  "original seed0 1000 molecular paired bootstrap differences; percentile2.5/97.5"
+                                                          },
+                                         "third_seed_forbidden":  true
+                                     },
+                     "stop_after_P_final_report":  true,
+                     "no_9M_before_recipe_frozen":  true
+                 },
+    "latest_authority":  "docs/p_recipe/USER_DIRECTIVE_20261119.md"
+}

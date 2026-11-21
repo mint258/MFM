@@ -1,0 +1,31 @@
+{
+  "status": "NATIVE_SOURCE_RUNNING_SAME_QUEUED_TAKEOVER",
+  "run": "fixed_20261115_provisional_B_20261116_round2_B1",
+  "node": "compute-0-22",
+  "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+  "standby_job_id": 4534810,
+  "wrapper_pid": 132030,
+  "source": {
+    "started_at": 1794786088.6882076,
+    "run": "fixed_20261115_provisional_B_20261116_round2_B1",
+    "execution": "native_SSH",
+    "node": "compute-0-22",
+    "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+    "admission_used_mib": 15.0,
+    "admission_total_mib": 32607.0,
+    "admission_fraction": 0.00046002392124390467,
+    "pid": 132047,
+    "uid": 1278,
+    "start_ticks": 42358734,
+    "pgid": 132047,
+    "status": "RUNNING"
+  },
+  "prior_pending_observation": "JobId=4534810 JobName=fixed_20261115_provisional_B_20261116_round2_B1 UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294620008 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=ReqNodeNotAvail,_UnavailableNodes:compute-0-22 Dependency=(null) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=UNLIMITED TimeMin=N/A SubmitTime=2026-11-16T07:31:46 EligibleTime=2026-11-16T07:31:46 AccrueTime=2026-11-16T07:31:46 StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-16T07:40:43 Scheduler=Main Partition=all AllocNode:Sid=sonmi:3611609 ReqNodeList=compute-0-22 ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=16 NumTasks=1 CPUs/Task=16 ReqB:S:C:T=0:0:*:* TRES=cpu=16,mem=375000M,node=1,billing=16 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=16 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/hybrid.sbatch /share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B1_scheduling.json WorkDir=/share/home/zixiao/descriptor_analysis/MFM_p_recipe StdErr=/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B1_4534810.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115_provisional_B_20261116_round2_B1_4534810.log Power= \n",
+  "checkpoint_samples": [
+    32,
+    1000000,
+    2000000,
+    3000000
+  ],
+  "created_at": 1794786089.0820036
+}

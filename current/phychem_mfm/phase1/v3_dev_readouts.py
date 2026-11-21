@@ -1,6 +1,7 @@
 """Taskbook-v3 frozen-feature R2/R3 probes; no encoder gradients or TEST roles."""
 from __future__ import annotations
 
+from dataclasses import replace
 import torch
 from torch import nn
 
@@ -55,7 +56,8 @@ def _padded(rows, device):
     return h,mask
 
 
-def run_probe(train, validation, task, *, readout, n_ref, seed=0, device='cpu', tracker):
+def run_probe(train, validation, task, *, readout, n_ref, seed=0, device='cpu', tracker,
+              relative_std_floor=False, internal_epoch_selection=False):
     from .v3_dev_evaluation import _validate_molecules, _prediction
     train,validation = _validate_molecules(train,task),_validate_molecules(validation,task)
     if {r.molecule_uid for r in train} & {r.molecule_uid for r in validation}:
@@ -64,6 +66,22 @@ def run_probe(train, validation, task, *, readout, n_ref, seed=0, device='cpu', 
         raise ValueError('Functional explicit tracking required')
     if readout not in ('R2','R3') or n_ref <= 0:
         raise ValueError('Fixed R2/R3 readout and positive optimization N_ref required')
+    internal = ()
+    if internal_epoch_selection:
+        uids = sorted({r.molecule_uid for r in train})
+        order = torch.randperm(len(uids), generator=torch.Generator().manual_seed(20261112)).tolist()
+        held_uids = {uids[i] for i in order[:max(1, (len(uids)+9)//10)]}
+        internal = tuple(r for r in train if r.molecule_uid in held_uids)
+        train = tuple(r for r in train if r.molecule_uid not in held_uids)
+    removed_dimensions = 0
+    if relative_std_floor:
+        std = torch.cat([r.h0.double() for r in train]).std(0, unbiased=False)
+        threshold = max(1e-12, 1e-4 * float(torch.quantile(std, .5)))
+        keep = std >= threshold
+        removed_dimensions = int((~keep).sum())
+        def select(rows):
+            return tuple(replace(r, h0=r.h0[:, keep]) for r in rows)
+        train, validation, internal = select(train), select(validation), select(internal)
     direct = task.output_level == 'graph' and train[0].graph_features is not None
     if direct:
         features = torch.stack([r.graph_features.detach().cpu() for r in train]).double()
@@ -108,7 +126,17 @@ def run_probe(train, validation, task, *, readout, n_ref, seed=0, device='cpu', 
                 valid = torch.cat([r.supervision_mask & r.candidate_mask for r in rows]).to(device)
             return predicted,y,valid
 
+        def predict_rows(rows):
+            model.eval()
+            values = []
+            with torch.no_grad():
+                for start in range(0, len(rows), 32):
+                    predicted, _, _ = batch(rows[start:start+32])
+                    values.extend((predicted*target_scale+target_mean).cpu().tolist())
+            return _prediction(task, rows, values)
+
         updates = 0
+        best_error, selected_epoch, best_state = float('inf'), 30, None
         for epoch in range(30):
             model.train()
             order = torch.randperm(len(retained),generator=rng).tolist()
@@ -127,14 +155,22 @@ def run_probe(train, validation, task, *, readout, n_ref, seed=0, device='cpu', 
                              'readout/observed_labels':int(mask.sum()),'readout/update':updates},
                             step=updates,commit=True)
                 updates += 1
-        model.eval()
-        values = []
-        with torch.no_grad():
-            for start in range(0,len(validation),32):
-                predicted,_,_ = batch(validation[start:start+32])
-                values.extend((predicted*target_scale+target_mean).cpu().tolist())
+            if internal_epoch_selection:
+                from .v3_dev_evaluation import error
+                actual_error = error(predict_rows(internal))
+                tracker.log({'readout/internal_error': actual_error, 'readout/epoch': epoch},
+                            step=updates, commit=True)
+                if actual_error < best_error:
+                    best_error, selected_epoch = actual_error, epoch+1
+                    best_state = {k:v.detach().cpu().clone() for k,v in model.state_dict().items()}
+        if best_state is not None:
+            model.load_state_dict(best_state)
+        prediction = predict_rows(validation)
         state = {key:value.detach().cpu() for key,value in model.state_dict().items()}
-    return _prediction(task,validation,values),dict(readout=readout,epochs=30,
+    return prediction,dict(readout=readout,epochs=30,
         batch_graphs=32,updates=updates,n_ref=float(n_ref),normalization_fit_scope='train',
         target_mean=target_mean,target_scale=target_scale,encoder_updated=False,
-        selection='last_epoch_no_early_stop',state_dict=state)
+        selection='internal_train_90_10' if internal_epoch_selection else 'last_epoch_no_early_stop',
+        selected_epoch=selected_epoch, internal_split_seed=20261112 if internal_epoch_selection else None,
+        removed_dimensions=removed_dimensions, fit_molecules=len({r.molecule_uid for r in train}),
+        internal_molecules=len({r.molecule_uid for r in internal}), state_dict=state)

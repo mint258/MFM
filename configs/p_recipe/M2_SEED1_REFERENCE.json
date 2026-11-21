@@ -1,0 +1,68 @@
+{
+    "schema":  "P_RECIPE_SHARED_SEED1_REFERENCE_V1",
+    "baseline_recipe":  "M2",
+    "configuration":  "configs/p_recipe/fixed_20261115/noise_seed1/M2_seed1.json",
+    "run":  "fixed_20261115_M2_seed1_noise_20261117_attempt2",
+    "seed":  1,
+    "samples":  3000000,
+    "status":  "READY_FOR_SHARED_REUSE",
+    "job_id":  4535736,
+    "node":  "compute-0-7",
+    "expected_checkpoint":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_noise_training/fixed_20261115_M2_seed1_noise_20261117_attempt2/samples_3000000.pt",
+    "expected_readout_manifest":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_noise_training/fixed_20261115_M2_seed1_noise_20261117_attempt2/readout/predictions.json",
+    "ready_requires":  "3M full checkpoint, complete R1/R3 and successful terminal; then other lines reuse instead of retraining",
+    "noise_only":  true,
+    "clip_calibration":  "results/p_recipe/training/fixed_20261115_M2_seed1_noise_20261117_attempt2/clip_calibration.json",
+    "frozen_clip_threshold":  35.794393157958986,
+    "latest_complete_checkpoint":  {
+                                       "samples":  3000000,
+                                       "path":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_noise_training/fixed_20261115_M2_seed1_noise_20261117_attempt2/samples_3000000.pt",
+                                       "bytes":  232058173,
+                                       "mtime":  "2026-11-18 13:58:40 +08:00",
+                                       "observed_on_node":  "compute-0-7",
+                                       "use":  "Complete3M shared scientific control and recovery checkpoint",
+                                       "mtime_epoch":  1794981520.806137
+                                   },
+    "ready_for_reuse":  true,
+    "checkpoint":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_noise_training/fixed_20261115_M2_seed1_noise_20261117_attempt2/samples_3000000.pt",
+    "checkpoint_observed_bytes":  232058173,
+    "readouts":  {
+                     "R1":  {
+                                "mean_normalized_improvement":  0.33962584473182594,
+                                "bootstrap_ci":  [
+                                                     0.32556326904577726,
+                                                     0.35198805473495476
+                                                 ],
+                                "bootstrap_samples":  1000,
+                                "bootstrap_defined":  1000
+                            },
+                     "R3":  {
+                                "mean_normalized_improvement":  0.470049811395258,
+                                "bootstrap_ci":  [
+                                                     0.4575795300786472,
+                                                     0.48327023395763613
+                                                 ],
+                                "bootstrap_samples":  1000,
+                                "bootstrap_defined":  1000
+                            }
+                 },
+    "bootstrap_source":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_noise_training/fixed_20261115_M2_seed1_noise_20261117_attempt2/readout/scores.json",
+    "predictions_source":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_noise_training/fixed_20261115_M2_seed1_noise_20261117_attempt2/readout/predictions.json",
+    "completed_job":  {
+                          "job_id":  4535736,
+                          "state":  "COMPLETED",
+                          "exit_code":  "0:0",
+                          "elapsed_seconds":  46420,
+                          "summary_status":  "COMPLETE",
+                          "samples":  3000000,
+                          "updates":  93750
+                      },
+    "observed_seed_noise":  {
+                                "seed0_run":  "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+                                "seed1_minus_seed0":  {
+                                                          "R1":  0.04217110996322415,
+                                                          "R3":  0.002047178249612591
+                                                      },
+                                "interpretation":  "Descriptive two-seed difference only; not a training-variance estimate or a change to round3 decision rules"
+                            }
+}

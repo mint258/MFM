@@ -64,9 +64,30 @@ def cpu_perf_csv(name: str, raw: bytes) -> bool:
     except (UnicodeError,ValueError,csv.Error,OverflowError):
         return False
 
+
 def model_summary_csv(name: str, raw: bytes) -> bool:
     """Allow only small, typed, one-row-per-run model experiment summaries."""
     if cpu_perf_csv(name, raw):
+        return True
+    # Explicit CSV deliverables in the P taskbook; producers own their checks.
+    if (name in {'results/p_recipe/scores.csv','results/p_recipe/deltas.csv',
+                 'results/p_recipe/calibration_20261114/calibration.csv',
+                 'results/p_recipe/calibration_20261114/throughput.csv',
+                 'results/p_recipe/recalibrated_20261114/deltas.csv',
+                 'results/p_recipe/fixed_20261115/deltas.csv',
+                 'results/p_recipe/fixed_20261115/hardware_round1.csv',
+                 'results/p_recipe/fixed_20261115/hardware_round2.csv',
+                 'results/p_recipe/fixed_20261115/hardware_round3.csv',
+                 'results/p_recipe/fixed_20261115/hardware_confirmation.csv',
+                 'results/p_recipe/fixed_20261115/round4/deltas.csv',
+                 'results/p_recipe/fixed_20261115/round4/hardware_round4.csv',
+                 'results/p_recipe/fixed_20261115/conditional_seed1/hardware_round3.csv',
+                 'results/p_recipe/fixed_20261115/conditional_seed1/round4/hardware_round4.csv',
+                 'results/p_recipe/fixed_20261115/provisional_B_20261116/deltas.csv',
+                 'results/p_recipe/fixed_20261115/provisional_B_20261116/hardware_round2.csv',
+                 'results/p_recipe/noise_seed1_20261117/hardware_round3.csv'}
+            or (name.startswith(('results/p_recipe/diagnostics/','results/p_recipe/training/'))
+                and name.endswith('.csv'))):
         return True
     if name == 'results/model_v3_v2_validation.csv':
         try:
@@ -226,3 +247,4 @@ def main():
 
 if __name__ == '__main__':
     sys.exit(main())
+

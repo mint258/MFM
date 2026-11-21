@@ -15,7 +15,6 @@ from .v3_contract import FieldSpec, FieldTarget, LabelRegistry, TrainNormalizati
 from .v3_losses import compute_v3_loss
 from .v31_segment_timing import timed
 
-# Count each existing host-to-device conversion in the opt-in measurement.
 _as_tensor = timed('h2d')(torch.as_tensor)
 
 
@@ -82,11 +81,17 @@ def element_offset(Z, specification):
 class V31PDModel(nn.Module):
     """Adapter only: existing backbone, V3HeadBank and compute_v3_loss."""
     def __init__(self, encoder, view, *, forms='H1', pooling='registry',
-                 output_parameterization='raw', head_hidden_dim=64):
+                 output_parameterization='raw', head_hidden_dim=64, p_recipe=None):
         super().__init__()
         if output_parameterization not in ('raw', 'normalized'):
             raise ValueError('Explicit raw or normalized head output required')
         self.output_parameterization = output_parameterization
+        self.grouped_fields = False
+        recipe = p_recipe or {}
+        self.shared_projector = None
+        if recipe.get('shared_projector',False):
+            with torch.random.fork_rng(devices=[]):
+                self.shared_projector = nn.Sequential(nn.Linear(512,512),nn.SiLU(),nn.Linear(512,512))
         from ..model.v3_heads import V3HeadBank
         head_fields, loss_fields, self.routes, self.selections, onsite = head_layout(
             view, enabled_encoder_fields(view.fields, encoder))
@@ -99,7 +104,26 @@ class V31PDModel(nn.Module):
         self.encoder, self.view = encoder, view
         overrides = {f.name: pooling for f in head_fields if f.level == 'graph' and f.representation == 'scalar'}
         self.heads = V3HeadBank(self.head_registry, dim=encoder.latent_dim, forms=forms, hidden_dim=head_hidden_dim,
-            pooling_overrides=overrides, allow_onsite_fields=onsite)
+            pooling_overrides=overrides, allow_onsite_fields=onsite,
+            pair_distance=not recipe.get('pair_without_distance',False))
+        self.p_recipe_pma = None
+        if recipe.get('pma_pooling',False):
+            from ..model.v3_latent import MolecularLatent, LatentSpec
+            self.p_recipe_pma = MolecularLatent(LatentSpec(kind='pma',n_ref=53.64145,
+                write_back=False,reconstruction=False))
+            self.heads.enable_p_recipe_pma(self.p_recipe_pma.representation_dim)
+        self.fidelity_heads = None
+        if recipe.get('fidelity_pairs'):
+            import json
+            from pathlib import Path
+            from .p_recipe_fidelity import PhysicalFidelityHeads
+            pairs = json.loads(Path(recipe['fidelity_pairs']).read_text())['pairs']
+            self.fidelity_heads = PhysicalFidelityHeads(pairs, self.selections, self.head_by_name,
+                atom_dim=encoder.latent_dim,
+                scalar_dim=getattr(self.heads, 'p_recipe_pma_dim', encoder.latent_dim),
+                hidden_dim=head_hidden_dim, method_dim=recipe.get('method_embedding_dim', 8))
+            for name in self.fidelity_heads.bindings:
+                del self.heads.field_heads[self.heads.keys[name]]
         # Unit transform is used ONLY after applying the actual D4 transform to
         # both sides; it is not a replacement for missing data-line statistics.
         self.unit_normalizations = {f.name: TrainNormalization((0.,), (1.,), inherited,
@@ -107,6 +131,24 @@ class V31PDModel(nn.Module):
 
     def encode_atoms(self, batch):
         return self.encoder.encode_atoms(batch)
+
+    def configure_step_overhead(self, options):
+        self.grouped_fields = options.get('grouped_fields', False)
+        from ..model.heads import EquivariantDenoisingHead
+        for module in self.heads.modules():
+            if isinstance(module, EquivariantDenoisingHead):
+                module.activation_checkpointing = options.get('head_checkpointing', True)
+        import sys
+        tiled = sys.modules.get('model_v3_architecture_s_memory_170a7752bad1812d')
+        for module in list(self.encoder.modules()):
+            original = getattr(module, 'dist_mlp', None)
+            if not isinstance(original, nn.Sequential):
+                continue
+            if options.get('distance_tiling', True):
+                if tiled is not None and type(original) is nn.Sequential:
+                    module.dist_mlp = tiled.TiledDistanceMLP(original)
+            elif type(original).__name__ == 'TiledDistanceMLP':
+                module.dist_mlp = nn.Sequential(*list(original.children()))
 
     def encode_graph(self, batch, pooling='mean'):
         return self.encoder.encode_graph(batch, pooling=pooling)
@@ -118,13 +160,14 @@ class V31PDModel(nn.Module):
         physical = {self.selections[name][0] for name in active}
         device = next(self.parameters()).device
         predictions = {}
+        prepared = getattr(samples, 'prepared', {})
         for route in sorted({self.routes[name] for name in physical}):
             selected = tuple(name for name in physical if self.routes[name] == route)
             route_fields = [name for name in active if self.selections[name][0] in selected]
             sample_indices = list(range(len(samples)))
             if route == 22:
                 sample_indices = []
-                for i, sample in enumerate(samples):
+                for i, sample in enumerate(samples) if not prepared else ():
                     observed = any(sample['targets'][name].valid.any() for name in route_fields)
                     if not observed:
                         continue
@@ -132,9 +175,11 @@ class V31PDModel(nn.Module):
                     if pos is None or not np.isfinite(pos).all():
                         raise ValueError('Observed perturbed label lacks its actual source geometry')
                     sample_indices.append(i)
+                if prepared:
+                    sample_indices = prepared['route_indices'].get(route, [])
                 if not sample_indices:
                     for name in route_fields:
-                        shape = np.concatenate([s['targets'][name].raw for s in samples]).shape
+                        shape = prepared['shapes'][name] if prepared else np.concatenate([s['targets'][name].raw for s in samples]).shape
                         predictions[name] = next(self.parameters()).new_full(shape, float('nan'))
                     continue
             working_samples = [samples[i] for i in sample_indices]
@@ -142,10 +187,14 @@ class V31PDModel(nn.Module):
                 batch, h0 = clean_batch, clean_features
                 z = clean_z
             else:
-                source = working_samples
-                if route == 22:
-                    source = [{**s, 'pos': s['pos_perturbed']} for s in working_samples]
-                batch, h0 = encode_samples(source, self.encoder, device=device)
+                if prepared and route == 22:
+                    batch = prepared['perturbed_batch'].to(device)
+                    h0 = self.encoder.encode_atoms(batch)
+                else:
+                    source = working_samples
+                    if route == 22:
+                        source = [{**s, 'pos': s['pos_perturbed']} for s in working_samples]
+                    batch, h0 = encode_samples(source, self.encoder, device=device)
                 module = getattr(self.encoder, 'latent_module', None)
                 z = None if module is None else module.last_z
                 if batch.pos is None:
@@ -154,10 +203,21 @@ class V31PDModel(nn.Module):
                     batch.pos = _as_tensor(np.concatenate([s['pos'] for s in source]),
                                                 dtype=torch.float32, device=device)
             pairs, pair_rows = {}, {}
+            if self.shared_projector is not None:
+                h0 = self.shared_projector(h0)
+            if self.p_recipe_pma is not None:
+                from torch_geometric.utils import to_dense_batch
+                dense, mask = to_dense_batch(h0,batch.batch)
+                z = self.p_recipe_pma.finish(dense,mask)
             for name in active:
                 head_name, _ = self.selections[name]
                 field = self.by_name[name]
                 if head_name not in selected or field.level != 'pair':
+                    continue
+                if prepared:
+                    pairs[head_name] = prepared['pairs'][head_name].to(device)
+                    rows, total = prepared['pair_rows'][head_name]
+                    pair_rows[head_name] = (rows.to(device), total)
                     continue
                 masks = [s['targets'][name].valid.any(-1) for s in working_samples]
                 indices = [_as_tensor(s['targets'][name].pair_index[mask].T.copy(), device=device,
@@ -165,9 +225,26 @@ class V31PDModel(nn.Module):
                 pairs[head_name] = torch.cat(indices, dim=1)
                 mask = np.concatenate(masks)
                 pair_rows[head_name] = (_as_tensor(np.flatnonzero(mask), device=device), len(mask))
-            latent = {} if not hasattr(self.heads, 'latent_scalar_dim') else dict(graph_latent=z)
-            values = self.heads(h0, batch.batch, batch.pos, enabled_groups=groups,
-                enabled_fields=selected, pair_indices=pairs, **latent)
+            latent = (dict(graph_latent=z) if hasattr(self.heads,'latent_scalar_dim')
+                      or self.p_recipe_pma is not None else {})
+            if self.grouped_fields:
+                observed = prepared['observed'].get(route, set()) if prepared else set()
+                for head_name in selected if not prepared else ():
+                    names = [name for name in route_fields if self.selections[name][0] == head_name]
+                    if any(np.concatenate([sample['targets'][name].valid for name in names], axis=-1).all(-1).any()
+                           for sample in working_samples):
+                        observed.add(head_name)
+                latent['observed_fields'] = observed
+            self.heads.grouped_fields = self.grouped_fields
+            if self.fidelity_heads is None:
+                values = self.heads(h0, batch.batch, batch.pos, enabled_groups=groups,
+                    enabled_fields=selected, pair_indices=pairs, **latent)
+            else:
+                original = tuple(name for name in selected if name not in self.fidelity_heads.bindings)
+                values = (self.heads(h0, batch.batch, batch.pos, enabled_groups=groups,
+                    enabled_fields=original, pair_indices=pairs, **latent) if original else {})
+                values.update(self.fidelity_heads(h0, batch.batch, batch.pos,
+                    selected=selected, graph_latent=z if self.p_recipe_pma is not None else None))
             for name, (rows, total) in pair_rows.items():
                 value = values[name]
                 values[name] = value.new_full((total, value.shape[-1]), float('nan')).index_copy(0, rows, value)
@@ -176,17 +253,24 @@ class V31PDModel(nn.Module):
                 if head_name in values:
                     value = values[head_name] if component is None else values[head_name][:, component:component+1]
                     if len(sample_indices) != len(samples):
-                        lengths = [len(s['targets'][name].raw) for s in samples]
-                        offsets = np.r_[0, np.cumsum(lengths)]
-                        rows = np.concatenate([np.arange(offsets[i], offsets[i+1]) for i in sample_indices])
-                        value = value.new_full((int(offsets[-1]), value.shape[-1]), float('nan')).index_copy(
-                            0, _as_tensor(rows, device=device), value)
+                        if prepared:
+                            rows = prepared['scatter_rows'][name].to(device)
+                            total = prepared['shapes'][name][0]
+                        else:
+                            lengths = [len(s['targets'][name].raw) for s in samples]
+                            offsets = np.r_[0, np.cumsum(lengths)]
+                            rows = _as_tensor(np.concatenate([np.arange(offsets[i], offsets[i+1]) for i in sample_indices]), device=device)
+                            total = int(offsets[-1])
+                        value = value.new_full((total, value.shape[-1]), float('nan')).index_copy(0, rows, value)
                     predictions[name] = value
         return predictions
 
     @timed('loss')
     def loss(self, predictions, samples, *, groups=('D', 'P'), fields=None,
              fixed_full_condition=False):
+        if self.grouped_fields and not fixed_full_condition:
+            from .v31_grouped_loss import grouped_v31_loss
+            return grouped_v31_loss(self, predictions, samples, groups, fields)
         active = self.registry.enabled(groups, fields)
         targets, normalized_predictions, members = {}, {}, {}
         for field in active:
@@ -220,7 +304,11 @@ class V31PDModel(nn.Module):
                 valid = torch.cat([item[3] for item in columns], dim=-1)
             normalized_predictions[name] = prediction
             targets[name] = FieldTarget(value, valid.all(-1))
-        result = compute_v3_loss(normalized_predictions, targets, self.head_registry, self.unit_normalizations,
+        loss_function = compute_v3_loss
+        if self.grouped_fields:
+            from .v31_grouped_loss import grouped_regression_loss
+            loss_function = grouped_regression_loss
+        result = loss_function(normalized_predictions, targets, self.head_registry, self.unit_normalizations,
             enabled_groups=groups, enabled_fields=tuple(members))
         if fixed_full_condition:
             denominators = {g: sum(f.group == g for f in self.head_registry.fields) for g in groups}
@@ -272,3 +360,4 @@ class V31PDModel(nn.Module):
                 value = value + value.new_tensor([element_offset(s['Z'], specification) for s in samples])[:, None]
             output[name] = value
         return output
+

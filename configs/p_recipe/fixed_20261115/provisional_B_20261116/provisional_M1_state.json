@@ -1,0 +1,137 @@
+{
+  "round": 1,
+  "decisions": {
+    "A1": {
+      "purpose": "screening",
+      "round": 1,
+      "readout": "R3",
+      "task": "MEAN",
+      "A": "fixed_20261115_round1_A1",
+      "B": "calibration_20261114_G1_B32_lr3e4_sbatch_cuda_recovery_continued",
+      "delta": 0.053769827000986925,
+      "ci_lower": 0.042061954838566715,
+      "ci_upper": 0.06701443113673909,
+      "verdict": "win"
+    },
+    "A2": {
+      "purpose": "screening",
+      "round": 1,
+      "readout": "R3",
+      "task": "MEAN",
+      "A": "fixed_20261115_round1_A2_non21_restart",
+      "B": "calibration_20261114_G1_B32_lr3e4_sbatch_cuda_recovery_continued",
+      "delta": -0.07664582604538561,
+      "ci_lower": -0.09041056985706901,
+      "ci_upper": -0.06332752263231609,
+      "verdict": "loss"
+    },
+    "A3": {
+      "purpose": "screening",
+      "round": 1,
+      "readout": "R3",
+      "task": "MEAN",
+      "A": "fixed_20261115_round1_A3",
+      "B": "calibration_20261114_G1_B32_lr3e4_sbatch_cuda_recovery_continued",
+      "delta": 0.0012432124984804727,
+      "ci_lower": -0.011841070859618403,
+      "ci_upper": 0.014881567982014166,
+      "verdict": "tie"
+    },
+    "A5": {
+      "purpose": "screening",
+      "round": 1,
+      "readout": "R3",
+      "task": "MEAN",
+      "A": "fixed_20261115_round1_A5",
+      "B": "calibration_20261114_G1_B32_lr3e4_sbatch_cuda_recovery_continued",
+      "delta": -0.03570921759699175,
+      "ci_lower": -0.07804330736696646,
+      "ci_upper": -0.009955882854083616,
+      "verdict": "loss"
+    }
+  },
+  "adopted_winners": [
+    "A1"
+  ],
+  "merged_components": [
+    "A1"
+  ],
+  "unresolved_arms": {},
+  "skipped_arms": {},
+  "study_revision": "fixed_20261115",
+  "selection_valid": true,
+  "merge_base_components": [],
+  "merge_rollback": false,
+  "component_evidence": {
+    "A1": {
+      "purpose": "screening",
+      "round": 1,
+      "readout": "R3",
+      "task": "MEAN",
+      "A": "fixed_20261115_round1_A1",
+      "B": "calibration_20261114_G1_B32_lr3e4_sbatch_cuda_recovery_continued",
+      "delta": 0.053769827000986925,
+      "ci_lower": 0.042061954838566715,
+      "ci_upper": 0.06701443113673909,
+      "verdict": "win",
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/A1.json"
+    },
+    "A2": {
+      "purpose": "screening",
+      "round": 1,
+      "readout": "R3",
+      "task": "MEAN",
+      "A": "fixed_20261115_round1_A2_non21_restart",
+      "B": "calibration_20261114_G1_B32_lr3e4_sbatch_cuda_recovery_continued",
+      "delta": -0.07664582604538561,
+      "ci_lower": -0.09041056985706901,
+      "ci_upper": -0.06332752263231609,
+      "verdict": "loss",
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/A2.json"
+    },
+    "A3": {
+      "purpose": "screening",
+      "round": 1,
+      "readout": "R3",
+      "task": "MEAN",
+      "A": "fixed_20261115_round1_A3",
+      "B": "calibration_20261114_G1_B32_lr3e4_sbatch_cuda_recovery_continued",
+      "delta": 0.0012432124984804727,
+      "ci_lower": -0.011841070859618403,
+      "ci_upper": 0.014881567982014166,
+      "verdict": "tie",
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/A3.json"
+    },
+    "A5": {
+      "purpose": "screening",
+      "round": 1,
+      "readout": "R3",
+      "task": "MEAN",
+      "A": "fixed_20261115_round1_A5",
+      "B": "calibration_20261114_G1_B32_lr3e4_sbatch_cuda_recovery_continued",
+      "delta": -0.03570921759699175,
+      "ci_lower": -0.07804330736696646,
+      "ci_upper": -0.009955882854083616,
+      "verdict": "loss",
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/A5.json"
+    }
+  },
+  "best_single_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/A1.json",
+  "best_single_run": "fixed_20261115_round1_A1",
+  "consecutive_empty_rounds": 0,
+  "round_gpu_hours": 111.9647719325622,
+  "screening_gpu_hours": 111.9647719325622,
+  "screening_finished": false,
+  "stop_reasons": [],
+  "secondary_disagreement": [],
+  "provisional": true,
+  "pending_arms": [
+    "A4"
+  ],
+  "final_round1_decision": false,
+  "authority": "2026-11-16 user explicitly allows provisional M1 from completed arms; A4 continues independently",
+  "original_round1_plan": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1/plan.json",
+  "provisional_cost_observed_at": 1794784621.909824,
+  "A4_later_win_requires_B_evidence_reassessment": true,
+  "adopted_code_commit": "ef4150afdf819696997a233d6ca985151b1a0ae8"
+}

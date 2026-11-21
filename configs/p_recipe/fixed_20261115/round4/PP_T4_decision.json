@@ -1,0 +1,810 @@
+{
+  "run": "fixed_20261115_round4_Pprime",
+  "control_run": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+  "comparison": {
+    "purpose": "P_vs_Pprime",
+    "round": 4,
+    "readout": "R3",
+    "task": "MEAN",
+    "A": "fixed_20261115_round4_Pprime",
+    "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+    "delta": 0.0027395858348003843,
+    "ci_lower": -0.007297135100249427,
+    "ci_upper": 0.011631364260287765,
+    "verdict": "tie"
+  },
+  "T4_seed0_comparison": {
+    "purpose": "P_vs_Pprime",
+    "round": 4,
+    "readout": "R3",
+    "task": "MEAN",
+    "A": "fixed_20261115_round4_Pprime",
+    "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+    "delta": 0.0027395858348003843,
+    "ci_lower": -0.007297135100249427,
+    "ci_upper": 0.011631364260287765,
+    "verdict": "tie"
+  },
+  "T4_decision_basis": "Explicit18B PP seed0 versus M2 seed0 rule",
+  "minimum_effect": 0.02353711094902229,
+  "noise_R3_difference": 0.002047178249612591,
+  "noise_pending": false,
+  "CI_excludes_zero": false,
+  "effect_threshold_passed": false,
+  "exceeds_seed_noise": true,
+  "difference_clear": false,
+  "recommendation": "KEEP_T4",
+  "omission_automatic": true,
+  "T4_user_decision": "KEEP",
+  "T4_user_confirmation": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+  "PP_conditional_seed_decision_complete": true,
+  "estimated_saving_GPU_hours": 0,
+  "seed_comparisons": {
+    "status": "COMPLETE",
+    "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+    "comparisons": {
+      "screening|4|fixed_20261115_round4_X2|fixed_20261115_round3_M2_infra_recovery_20261117_sbatch": {
+        "A": "fixed_20261115_round4_X2",
+        "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+        "A_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/X2.json",
+        "B_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/M2.json",
+        "purpose": "screening",
+        "round": 4,
+        "ready": true,
+        "seed_trigger_readout": "R3",
+        "seed1_required": false,
+        "seed0_rows": [
+          {
+            "purpose": "screening",
+            "round": 4,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_X2",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": 0.003458638350558485,
+            "ci_lower": -0.0065467776838664254,
+            "ci_upper": 0.013232233546869714,
+            "verdict": "tie"
+          },
+          {
+            "purpose": "screening",
+            "round": 4,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_X2",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": 0.012828818183777457,
+            "ci_lower": -0.00019307088819997678,
+            "ci_upper": 0.025416414140425808,
+            "verdict": "tie"
+          }
+        ],
+        "seed0_evidence": {
+          "R3": {
+            "decision": {
+              "delta": 0.003458638350558485,
+              "ci_lower": -0.0065467776838664254,
+              "ci_upper": 0.013232233546869714,
+              "verdict": "tie"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.003458638350558485
+            ],
+            "mean_score_A": 0.47146127149620387,
+            "mean_score_B": 0.4680026331456454,
+            "threshold": 0.023573063574810194,
+            "seed0_threshold": 0.023573063574810194,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+            "may_trigger_seed1": true
+          },
+          "R1": {
+            "decision": {
+              "delta": 0.012828818183777457,
+              "ci_lower": -0.00019307088819997678,
+              "ci_upper": 0.025416414140425808,
+              "verdict": "tie"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.012828818183777457
+            ],
+            "mean_score_A": 0.31028355295237925,
+            "mean_score_B": 0.2974547347686018,
+            "threshold": 0.015514177647618962,
+            "seed0_threshold": 0.015514177647618962,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "rows": [
+          {
+            "purpose": "screening",
+            "round": 4,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_X2",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": 0.003458638350558485,
+            "ci_lower": -0.0065467776838664254,
+            "ci_upper": 0.013232233546869714,
+            "verdict": "tie"
+          },
+          {
+            "purpose": "screening",
+            "round": 4,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_X2",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": 0.012828818183777457,
+            "ci_lower": -0.00019307088819997678,
+            "ci_upper": 0.025416414140425808,
+            "verdict": "tie"
+          }
+        ],
+        "evidence": {
+          "R3": {
+            "decision": {
+              "delta": 0.003458638350558485,
+              "ci_lower": -0.0065467776838664254,
+              "ci_upper": 0.013232233546869714,
+              "verdict": "tie"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.003458638350558485
+            ],
+            "mean_score_A": 0.47146127149620387,
+            "mean_score_B": 0.4680026331456454,
+            "threshold": 0.023573063574810194,
+            "seed0_threshold": 0.023573063574810194,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+            "may_trigger_seed1": true
+          },
+          "R1": {
+            "decision": {
+              "delta": 0.012828818183777457,
+              "ci_lower": -0.00019307088819997678,
+              "ci_upper": 0.025416414140425808,
+              "verdict": "tie"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.012828818183777457
+            ],
+            "mean_score_A": 0.31028355295237925,
+            "mean_score_B": 0.2974547347686018,
+            "threshold": 0.015514177647618962,
+            "seed0_threshold": 0.015514177647618962,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "status": "COMPLETE",
+        "seed_count": 1,
+        "per_seed_scores": {
+          "0": {
+            "A": {
+              "R1": 0.31028355295237925,
+              "R3": 0.47146127149620387
+            },
+            "B": {
+              "R1": 0.2974547347686018,
+              "R3": 0.4680026331456454
+            }
+          }
+        }
+      },
+      "screening|4|fixed_20261115_round4_X1|fixed_20261115_round3_M2_infra_recovery_20261117_sbatch": {
+        "A": "fixed_20261115_round4_X1",
+        "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+        "A_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/X1.json",
+        "B_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/M2.json",
+        "purpose": "screening",
+        "round": 4,
+        "ready": true,
+        "seed_trigger_readout": "R3",
+        "seed1_required": false,
+        "seed0_rows": [
+          {
+            "purpose": "screening",
+            "round": 4,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_X1",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": -0.016386752199413934,
+            "ci_lower": -0.027145913168750424,
+            "ci_upper": -0.005421603081193918,
+            "verdict": "tie"
+          },
+          {
+            "purpose": "screening",
+            "round": 4,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_X1",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": -0.05303422725777951,
+            "ci_lower": -0.06560390951747841,
+            "ci_upper": -0.040203199891833276,
+            "verdict": "loss"
+          }
+        ],
+        "seed0_evidence": {
+          "R3": {
+            "decision": {
+              "delta": -0.016386752199413934,
+              "ci_lower": -0.027145913168750424,
+              "ci_upper": -0.005421603081193918,
+              "verdict": "tie"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              -0.016386752199413934
+            ],
+            "mean_score_A": 0.45161588094623145,
+            "mean_score_B": 0.4680026331456454,
+            "threshold": 0.02340013165728227,
+            "seed0_threshold": 0.02340013165728227,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": true
+          },
+          "R1": {
+            "decision": {
+              "delta": -0.05303422725777951,
+              "ci_lower": -0.06560390951747841,
+              "ci_upper": -0.040203199891833276,
+              "verdict": "loss"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              -0.05303422725777951
+            ],
+            "mean_score_A": 0.24442050751082228,
+            "mean_score_B": 0.2974547347686018,
+            "threshold": 0.01487273673843009,
+            "seed0_threshold": 0.01487273673843009,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "seed_policy_authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+        "seed0_training_problem": null,
+        "confirmation_single_seed": false,
+        "rows": [
+          {
+            "purpose": "screening",
+            "round": 4,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_X1",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": -0.016386752199413934,
+            "ci_lower": -0.027145913168750424,
+            "ci_upper": -0.005421603081193918,
+            "verdict": "tie"
+          },
+          {
+            "purpose": "screening",
+            "round": 4,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_X1",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": -0.05303422725777951,
+            "ci_lower": -0.06560390951747841,
+            "ci_upper": -0.040203199891833276,
+            "verdict": "loss"
+          }
+        ],
+        "evidence": {
+          "R3": {
+            "decision": {
+              "delta": -0.016386752199413934,
+              "ci_lower": -0.027145913168750424,
+              "ci_upper": -0.005421603081193918,
+              "verdict": "tie"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              -0.016386752199413934
+            ],
+            "mean_score_A": 0.45161588094623145,
+            "mean_score_B": 0.4680026331456454,
+            "threshold": 0.02340013165728227,
+            "seed0_threshold": 0.02340013165728227,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": true
+          },
+          "R1": {
+            "decision": {
+              "delta": -0.05303422725777951,
+              "ci_lower": -0.06560390951747841,
+              "ci_upper": -0.040203199891833276,
+              "verdict": "loss"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              -0.05303422725777951
+            ],
+            "mean_score_A": 0.24442050751082228,
+            "mean_score_B": 0.2974547347686018,
+            "threshold": 0.01487273673843009,
+            "seed0_threshold": 0.01487273673843009,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "status": "COMPLETE",
+        "seed_count": 1,
+        "per_seed_scores": {
+          "0": {
+            "A": {
+              "R1": 0.24442050751082228,
+              "R3": 0.45161588094623145
+            },
+            "B": {
+              "R1": 0.2974547347686018,
+              "R3": 0.4680026331456454
+            }
+          }
+        }
+      },
+      "screening|4|fixed_20261115_round4_F2|fixed_20261115_round3_M2_infra_recovery_20261117_sbatch": {
+        "A": "fixed_20261115_round4_F2",
+        "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+        "A_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
+        "B_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/M2.json",
+        "purpose": "screening",
+        "round": 4,
+        "ready": true,
+        "seed_trigger_readout": "R3",
+        "seed1_required": false,
+        "seed0_rows": [
+          {
+            "purpose": "screening",
+            "round": 4,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_F2",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": 0.0060550078763986215,
+            "ci_lower": -0.004304453515189151,
+            "ci_upper": 0.01551626068040808,
+            "verdict": "tie"
+          },
+          {
+            "purpose": "screening",
+            "round": 4,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_F2",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": 0.022037888502069003,
+            "ci_lower": 0.008940930033693652,
+            "ci_upper": 0.03376156239526183,
+            "verdict": "win"
+          }
+        ],
+        "seed0_evidence": {
+          "R3": {
+            "decision": {
+              "delta": 0.0060550078763986215,
+              "ci_lower": -0.004304453515189151,
+              "ci_upper": 0.01551626068040808,
+              "verdict": "tie"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.0060550078763986215
+            ],
+            "mean_score_A": 0.474057641022044,
+            "mean_score_B": 0.4680026331456454,
+            "threshold": 0.0237028820511022,
+            "seed0_threshold": 0.0237028820511022,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": true
+          },
+          "R1": {
+            "decision": {
+              "delta": 0.022037888502069003,
+              "ci_lower": 0.008940930033693652,
+              "ci_upper": 0.03376156239526183,
+              "verdict": "win"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.022037888502069003
+            ],
+            "mean_score_A": 0.3194926232706708,
+            "mean_score_B": 0.2974547347686018,
+            "threshold": 0.01597463116353354,
+            "seed0_threshold": 0.01597463116353354,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "seed_policy_authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+        "seed0_training_problem": null,
+        "confirmation_single_seed": false,
+        "rows": [
+          {
+            "purpose": "screening",
+            "round": 4,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_F2",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": 0.0060550078763986215,
+            "ci_lower": -0.004304453515189151,
+            "ci_upper": 0.01551626068040808,
+            "verdict": "tie"
+          },
+          {
+            "purpose": "screening",
+            "round": 4,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_F2",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": 0.022037888502069003,
+            "ci_lower": 0.008940930033693652,
+            "ci_upper": 0.03376156239526183,
+            "verdict": "win"
+          }
+        ],
+        "evidence": {
+          "R3": {
+            "decision": {
+              "delta": 0.0060550078763986215,
+              "ci_lower": -0.004304453515189151,
+              "ci_upper": 0.01551626068040808,
+              "verdict": "tie"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.0060550078763986215
+            ],
+            "mean_score_A": 0.474057641022044,
+            "mean_score_B": 0.4680026331456454,
+            "threshold": 0.0237028820511022,
+            "seed0_threshold": 0.0237028820511022,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": true
+          },
+          "R1": {
+            "decision": {
+              "delta": 0.022037888502069003,
+              "ci_lower": 0.008940930033693652,
+              "ci_upper": 0.03376156239526183,
+              "verdict": "win"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.022037888502069003
+            ],
+            "mean_score_A": 0.3194926232706708,
+            "mean_score_B": 0.2974547347686018,
+            "threshold": 0.01597463116353354,
+            "seed0_threshold": 0.01597463116353354,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "status": "COMPLETE",
+        "seed_count": 1,
+        "per_seed_scores": {
+          "0": {
+            "A": {
+              "R1": 0.3194926232706708,
+              "R3": 0.474057641022044
+            },
+            "B": {
+              "R1": 0.2974547347686018,
+              "R3": 0.4680026331456454
+            }
+          }
+        }
+      },
+      "P_vs_Pprime|4|fixed_20261115_round4_Pprime|fixed_20261115_round3_M2_infra_recovery_20261117_sbatch": {
+        "A": "fixed_20261115_round4_Pprime",
+        "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+        "A_configuration": null,
+        "B_configuration": null,
+        "purpose": "P_vs_Pprime",
+        "round": 4,
+        "ready": true,
+        "seed_trigger_readout": "R3",
+        "seed1_required": false,
+        "seed0_rows": [
+          {
+            "purpose": "P_vs_Pprime",
+            "round": 4,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_Pprime",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": 0.0027395858348003843,
+            "ci_lower": -0.007297135100249427,
+            "ci_upper": 0.011631364260287765,
+            "verdict": "tie"
+          },
+          {
+            "purpose": "P_vs_Pprime",
+            "round": 4,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_Pprime",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": -0.009553885055986033,
+            "ci_lower": -0.02205620724080881,
+            "ci_upper": 0.0021453678736377308,
+            "verdict": "tie"
+          }
+        ],
+        "seed0_evidence": {
+          "R3": {
+            "decision": {
+              "delta": 0.0027395858348003843,
+              "ci_lower": -0.007297135100249427,
+              "ci_upper": 0.011631364260287765,
+              "verdict": "tie"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.0027395858348003843
+            ],
+            "mean_score_A": 0.47074221898044577,
+            "mean_score_B": 0.4680026331456454,
+            "threshold": 0.02353711094902229,
+            "seed0_threshold": 0.02353711094902229,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": true
+          },
+          "R1": {
+            "decision": {
+              "delta": -0.009553885055986033,
+              "ci_lower": -0.02205620724080881,
+              "ci_upper": 0.0021453678736377308,
+              "verdict": "tie"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              -0.009553885055986033
+            ],
+            "mean_score_A": 0.28790084971261576,
+            "mean_score_B": 0.2974547347686018,
+            "threshold": 0.01487273673843009,
+            "seed0_threshold": 0.01487273673843009,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "seed_policy_authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+        "seed0_training_problem": null,
+        "confirmation_single_seed": false,
+        "rows": [
+          {
+            "purpose": "P_vs_Pprime",
+            "round": 4,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_Pprime",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": 0.0027395858348003843,
+            "ci_lower": -0.007297135100249427,
+            "ci_upper": 0.011631364260287765,
+            "verdict": "tie"
+          },
+          {
+            "purpose": "P_vs_Pprime",
+            "round": 4,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_round4_Pprime",
+            "B": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+            "delta": -0.009553885055986033,
+            "ci_lower": -0.02205620724080881,
+            "ci_upper": 0.0021453678736377308,
+            "verdict": "tie"
+          }
+        ],
+        "evidence": {
+          "R3": {
+            "decision": {
+              "delta": 0.0027395858348003843,
+              "ci_lower": -0.007297135100249427,
+              "ci_upper": 0.011631364260287765,
+              "verdict": "tie"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.0027395858348003843
+            ],
+            "mean_score_A": 0.47074221898044577,
+            "mean_score_B": 0.4680026331456454,
+            "threshold": 0.02353711094902229,
+            "seed0_threshold": 0.02353711094902229,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": true
+          },
+          "R1": {
+            "decision": {
+              "delta": -0.009553885055986033,
+              "ci_lower": -0.02205620724080881,
+              "ci_upper": 0.0021453678736377308,
+              "verdict": "tie"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              -0.009553885055986033
+            ],
+            "mean_score_A": 0.28790084971261576,
+            "mean_score_B": 0.2974547347686018,
+            "threshold": 0.01487273673843009,
+            "seed0_threshold": 0.01487273673843009,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "status": "COMPLETE",
+        "seed_count": 1,
+        "per_seed_scores": {
+          "0": {
+            "A": {
+              "R1": 0.28790084971261576,
+              "R3": 0.47074221898044577
+            },
+            "B": {
+              "R1": 0.2974547347686018,
+              "R3": 0.4680026331456454
+            }
+          }
+        }
+      }
+    },
+    "seed1_configurations": [],
+    "seed1_plan": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/round4/conditional_seed_decisions/round4/seed1_plan.json",
+    "jobs_submitted": 0
+  },
+  "seed_policy_authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+  "final_recipe_frozen": false
+}

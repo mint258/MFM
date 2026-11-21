@@ -1,0 +1,83 @@
+{
+    "schema":  "P_USER_RECALIBRATION_20261114_V1",
+    "invalidated_prior_screening":  true,
+    "preserve_all_prior_outputs":  true,
+    "speed":  {
+                  "boards":  6,
+                  "updates_per_batch_per_board":  1000,
+                  "batches":  [
+                                  32,
+                                  128
+                              ],
+                  "activation_checkpointing_by_batch":  {
+                                                            "32":  false,
+                                                            "128":  true
+                                                        },
+                  "timing":  "Exactly1000 committed updates: sum active training seconds across original/continuation segments, including each segment data preparation; exclude fault/queue idle gaps, retain those events and actual occupied GPU costs separately. Window throughput separately reported."
+              },
+    "groups":  [
+                   {
+                       "name":  "G1_B32_lr3e4",
+                       "batch_size":  32,
+                       "lr":  0.0003,
+                       "activation_checkpointing":  false
+                   },
+                   {
+                       "name":  "G2_B128_lr3e4",
+                       "batch_size":  128,
+                       "lr":  0.0003,
+                       "activation_checkpointing":  true
+                   },
+                   {
+                       "name":  "G3_B128_lr6e4",
+                       "batch_size":  128,
+                       "lr":  0.0006,
+                       "activation_checkpointing":  true
+                   },
+                   {
+                       "name":  "G4_B128_lr12e4",
+                       "batch_size":  128,
+                       "lr":  0.0012,
+                       "activation_checkpointing":  true
+                   }
+               ],
+    "samples_per_group":  3000000,
+    "evaluation_samples":  [
+                               1500000,
+                               3000000
+                           ],
+    "clipping":  {
+                     "first_samples":  150000,
+                     "fraction":  0.05,
+                     "initial_clip":  281.7,
+                     "freeze":  "Own first5percent preclipgradientnorm p99"
+                 },
+    "selection":  {
+                      "configuration":  "Highest3M R3 mean",
+                      "screening_budget":  "WinnerfirstobservedR3\u003e=.30,roundup0.5M; ifnotreachedby3M use3M",
+                      "intermediate_R3_backfill":  "Awaiting user\u0027s answer; all0.5M checkpoints retained",
+                      "producer":  "tools/p_recipe/select_calibration.py (consumes existing scores only; no additional evaluations)"
+                  },
+    "normalization":  "window2_TRAIN_normalization_parameters_20261107_v1",
+    "clean_train_molecules":  1194228,
+    "restart_scope":  "B0+A1-A5 thenregisteredR2/R3 andallconfirmations/finalREPORT",
+    "storage":  {
+                    "p_peak":  61000000000,
+                    "model_peak":  114569896448,
+                    "speed":  "metrics/logs only; checkpoint only onhandoff",
+                    "calibration":  "All.5M checkpoints kept for4x3M",
+                    "rescreen":  "Final+handoff CP; all.5M VAL preserved",
+                    "confirmation":  "All.5M CP; unchanged",
+                    "archive":  "All alreadyexistingoutputs kept"
+                },
+    "rescreening":  {
+                        "base_configuration":  "configs/p_recipe/recalibrated_20261114/base.json",
+                        "study_directory":  "configs/p_recipe/recalibrated_20261114",
+                        "run_prefix":  "recalibrated_20261114_",
+                        "results_directory":  "results/p_recipe/recalibrated_20261114",
+                        "study_revision":  "recalibrated_20261114",
+                        "control_directory":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/recalibrated_20261114",
+                        "checkpoint_policy":  "screen_final_confirmation_milestones",
+                        "gpu_hours_source":  "completed_screening_gpu_hours_by_revision[recalibrated_20261114]"
+                    }
+}

@@ -1,0 +1,24 @@
+{
+    "schema":  "P_RECIPE_NOISE_PLAN_V1",
+    "round":  3,
+    "study_revision":  "fixed_20261115_noise_seed1",
+    "configurations":  [
+                           "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/noise_seed1/M2_seed1.json"
+                       ],
+    "purpose":  "M2 seed1 3M with R1/R3; noise report and shared control only, no round3 rule changes",
+    "admission_status":  "ADMITTED_READY_PERF_PRIORITY_SERVED",
+    "launch_gate":  {
+                        "perf_line_has_received_priority_gpu_required":  true,
+                        "perf_branch":  "perf/sync-free-20261117",
+                        "current_evidence":  "Actual Slurm4535718 perf-sync-continuous RUNNING compute-0-5; bound GPU study workers1286418/1286419 verified",
+                        "resource_admission_required":  true,
+                        "additional_checkpoint_forecast_bytes":  2147483648,
+                        "output_filesystem":  "/share NFS; dedicated2GiB start/runtime guard"
+                    },
+    "do_not_auto_submit_until_gate":  false,
+    "results_directory":  "results/p_recipe/noise_seed1_20261117",
+    "control_directory":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/noise_seed1",
+    "archived_configurations":  [
+                                    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/noise_seed1/archive/M2_seed1_attempt1.json"
+                                ]
+}

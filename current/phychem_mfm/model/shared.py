@@ -177,12 +177,13 @@ class SharedBackboneMFM(nn.Module):
             }
         )
 
-    def encode_atoms(self, batch: Data) -> Tensor:
+    def encode_atoms(self, batch: Data, *, return_intermediates=False) -> Tensor:
         """Return canonical shared representation H0 with shape [N_atom, D]."""
         if self.distance_bias_projection_bias != validate_distance_bias_projection_bias(
                 self.backbone_config.get('distance_bias_projection_bias',True)):
             raise ValueError('C distance bias configuration changed after construction')
-        return self.backbone(batch)
+        return (self.backbone(batch,return_intermediates=True) if return_intermediates
+                else self.backbone(batch))
 
     def encode_graph(self, batch: Data, pooling: str = "mean") -> Tensor:
         h0 = self.encode_atoms(batch)
