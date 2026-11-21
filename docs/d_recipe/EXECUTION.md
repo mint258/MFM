@@ -143,3 +143,9 @@ R0所有本地写入者均C0，按实际关闭撤销GPU7 R0 8GiB和CPU17 R0 12Gi
 Data修复已推d0d5f05fc0dcd6e5300e2f52f0281953839b4523，Root接收入口已推1bd92d8cf9188ec696a08eeda4678885a7616125。CPU10实查CPUAlloc60/64、目标NFS/root字节与inode后，4537771实际RUNNING CPU10，请求1CPU/3天，仅执行同一stores的L2首次TRAIN统计；NFS/UID/同行future入口守卫保持。新L2接收4537772、原开发导出4537517、原独立基准L2导出4537537均afterok4537771；旧双库接收4537514经UID1278/PENDING/0运行核实后取消，原生会计CANCELLED by1278/0秒。没有触发L1接收或新训练。原A1/R1链保持，最近A1 COLLECTING701440/1194228。
 
 CPU17/4537571.step29仅原样保存raw manifest和L1唯一统计至Data结果目录，Root stage0_full_status_20261121.json逐字段转录原7字段及真实Slurm/依赖；没有科学数组回读、哈希或新统计。全NFS36706053853B/full29.75GB/Lustre1.25GiB以及GPU7/CPU17R0/CPU10R1未来16/0/12GiB保持，原输出均保留。完整方法/局限与L1未解决已更新FINAL_REPORT、CURRENT_BEST和日报；最终目标继续。
+
+2026-11-21 12:30:12 CST：L2唯一全TRAIN统计已由4537771闭合（1315608B），65个启用字段在既定缩尾后std0。该最终化实际FAILED/1:0、358秒/1CPU；仅复用闭合L2_statistics.json的4537773仍同错FAILED/1:0、13秒/1CPU，没有重拟合。依任务书两次实际失败，L2与L1均UNRESOLVED，D-L1/L2不跑、当前无宽库采纳而K1未触发；不是TIE/LOSS。原有效数据、原过滤和归一化定义未改。
+
+补充全库未解决时全局状态也为UNRESOLVED，相关4项在真实CPU17/4537571.step30通过0:0，1CPU/6秒、主体0.012秒。源修复已推Data a1312c27e62590e29e013c7e65c58ddd5afd45f4。仅元数据最终清单4537774在CPU10真实COMPLETED/0:0、1CPU/12秒；final_manifest.json为UNRESOLVED、两个entry也UNRESOLVED，没有可交付宽库。原L2接收7772、开发导出7517、基准L2导出7537经zixiao/PENDING/0秒核实后取消，原生会计均CANCELLED by1278/0秒。没有动其他owner任务、训练或数据。
+
+CPU17/4537571.step31仅原样保存L2唯一统计和最终清单至Data结果目录，并更新Root阶段0执行转录。两库72个受影响字段及原参数可审阅；若恢复宽库，需明确批准仅对新字段增加缩尾后std0过滤，旧D20/D3/D4及其余原统计保留、不重新拟合、不增变体。当前未执行科学修订，原预注册不改。原生A1最近710912/1194228 COLLECTING，R1依赖原续算7575及所有原比较/诊断保持；最终目标继续，未冻结或提交9M。

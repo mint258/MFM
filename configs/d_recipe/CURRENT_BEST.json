@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-21T04:18:56Z",
+  "updated_at_utc": "2026-11-21T04:30:12Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -154,9 +154,9 @@
     "D-R0": "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
     "D-R1": "WAITING_FROZEN_A1_PARAMETERS",
     "D-L1": "UNRESOLVED_LIBRARY_ZERO_SCALE_AFTER_TWO_FAILED_FINALIZATIONS_NO_RUN",
-    "D-L2": "WAITING_FIRST_TRAIN_STATISTICS_RECEPTION_AND_RECIPE_DECISION",
+    "D-L2": "UNRESOLVED_LIBRARY_ZERO_SCALE_AFTER_TWO_FAILED_FINALIZATIONS_NO_RUN",
     "D-G1": "WAITING_RECIPE_DECISION",
-    "D-K1": "CONDITIONAL_ON_ADOPTED_WIDE_LIBRARY"
+    "D-K1": "NOT_TRIGGERED_NO_DELIVERABLE_ADOPTED_WIDE_LIBRARY_UNDER_CURRENT_PREREGISTRATION"
   },
   "conditional_seed1": "Only seed0 WIN triggers a registered seed1 pair; no trigger yet",
   "diagnostics": "R0 seed0/3M registered layer3-6 readouts and F64 representation geometry COMPLETE; remaining registered endpoints pending; decision_input=false",
@@ -352,7 +352,7 @@
     }
   },
   "stage0": {
-    "status": "RAW_COMPLETE_L1_UNRESOLVED_L2_STATISTICS_RUNNING",
+    "status": "BOTH_WIDE_LIBRARIES_UNRESOLVED_RAW_AND_TRAIN_STATISTICS_PRESERVED",
     "source": "results/d_recipe/stage0_full_status_20261121.json",
     "raw_rows": 1201795,
     "TRAIN_rows": 1194228,
@@ -381,16 +381,39 @@
       "original_arrays_and_statistics_retained": true
     },
     "L2": {
-      "first_statistics_job": 4537771,
-      "reception_job": 4537772,
-      "development_export_job": 4537517,
-      "benchmark_export_job": 4537537,
-      "all_afterok_statistics": true
+      "status": "UNRESOLVED",
+      "reason": "ZERO_SCALE_NOT_DIVIDABLE",
+      "failed_jobs": [
+        4537771,
+        4537773
+      ],
+      "zero_scale_field_count": 65,
+      "scientific_filter_unchanged": true,
+      "original_arrays_and_statistics_retained": true
     },
     "old_reception_job": {
       "job": 4537514,
       "status": "CANCELLED by1278",
       "elapsed_seconds": 0
+    },
+    "closeout": {
+      "job": 4537774,
+      "status": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 12,
+      "manifest_status": "UNRESOLVED",
+      "delivered_libraries": []
+    },
+    "cancelled_never_started_jobs": [
+      4537514,
+      4537517,
+      4537537,
+      4537772
+    ],
+    "optional_scientific_amendment": {
+      "requires_explicit_user_approval": true,
+      "executed": false,
+      "proposal": "Additionally exclude new-library fields whose frozen winsorized std is zero, without refitting or changing original D20/D3/D4"
     }
   }
 }
