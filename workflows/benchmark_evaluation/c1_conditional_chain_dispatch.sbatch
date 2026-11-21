@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=C1-conditional-chain-dispatch
 #SBATCH --partition=cpu
-#SBATCH --exclude=compute-0-[0-7,18,20-22]
+#SBATCH --exclude=compute-0-[0-7,14,18,20-22]
 #SBATCH --cpus-per-task=1
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
@@ -34,7 +34,7 @@ def safe():
 safe()
 module=types.ModuleType("conditional_chain")
 exec(compile(sources["workflows/benchmark_evaluation/conditional_chain.py"],"conditional_chain","exec"),module.__dict__)
-preparation_path=b1/"conditional_preparation/C1/job_4537503/manifest.json"
+preparation_path=b1/"conditional_preparation/C1/job_4537687/manifest.json"
 preparation=json.loads(preparation_path.read_text())
 module.validated_groups(preparation,b1)
 out=b1/"conditional_dispatch/C1"/("job_"+os.environ["SLURM_JOB_ID"])
@@ -59,6 +59,13 @@ def release(job):
 scripts=dict(report=sources["workflows/benchmark_evaluation/c1_confirmation_report.sbatch"],
     combine=sources["workflows/benchmark_evaluation/confirmation_evidence_combine.sbatch"],
     final=sources["workflows/benchmark_evaluation/c1_final_confirmed_results_export.sbatch"])
-result=module.wire(preparation,preparation_path,b1,out,cache,scripts,submit,release,write,final_prerequisite_jobs=[4537644])
+gate=types.ModuleType("infrastructure_handover")
+exec(compile(sources["workflows/benchmark_evaluation/infrastructure_handover.py"],"infrastructure_handover","exec"),gate.__dict__)
+atomic_path=b1/"approved_pka_atomic_supplement/job_4537644/manifest.json"
+atomic=json.loads(atomic_path.read_text())
+native_atomic=command(["sacct","-j","4537644","-X","-n","-P","-o","JobID,State,ExitCode"])
+precondition=gate.closed_atomic_prerequisite(atomic,native_atomic)
+write(out/"closed_atomic_prerequisite.json",dict(precondition,manifest=str(atomic_path),native_accounting=native_atomic))
+result=module.wire(preparation,preparation_path,b1,out,cache,scripts,submit,release,write,final_prerequisite_jobs=[])
 print("C1_CONDITIONAL_CHAIN_RELEASED",out/"dispatch_state.json","final_export",result["final_export_job"],flush=True)
 PY
