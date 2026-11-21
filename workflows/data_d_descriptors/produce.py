@@ -356,7 +356,9 @@ def finalize(config):
             entry["normalization"].append(normalized)
         entry["statistics"] = str(marker)
         entry["state"] = "PRODUCER_COMPLETE_RECEPTION_PENDING"
-    manifest["status"] = "PRODUCER_COMPLETE_RECEPTION_PENDING"
+    manifest["status"] = ("UNRESOLVED" if all(
+        entry.get("status") == "UNRESOLVED" for entry in manifest["libraries"].values())
+        else "PRODUCER_COMPLETE_RECEPTION_PENDING")
     publish(destination, manifest, config)
     return manifest
 

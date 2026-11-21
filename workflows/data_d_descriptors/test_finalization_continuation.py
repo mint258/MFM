@@ -51,6 +51,21 @@ class FinalizationContinuationTests(unittest.TestCase):
             for name, before in originals.items():
                 self.assertEqual((Path(directory) / name).read_bytes(), before)
 
+    def test_no_deliverable_library_is_explicitly_unresolved(self):
+        with tempfile.TemporaryDirectory() as directory:
+            config, originals = self.fixture(directory)
+            config["unresolved_libraries"] = {name: "Taskbook closeout" for name in ("L1", "L2")}
+            with patch("workflows.data_d_descriptors.produce.require_cpu"), \
+                    patch("workflows.data_d_descriptors.pilot.storage_guard"), \
+                    patch("workflows.data_d_descriptors.produce.np.load",
+                          side_effect=AssertionError("Do not read arrays from closed libraries")):
+                result = finalize(config)
+            self.assertEqual(result["status"], "UNRESOLVED")
+            self.assertTrue(all(entry["status"] == "UNRESOLVED"
+                                for entry in result["libraries"].values()))
+            for name, before in originals.items():
+                self.assertEqual((Path(directory) / name).read_bytes(), before)
+
     def test_default_still_rejects_zero_scale_without_changing_the_filter(self):
         with tempfile.TemporaryDirectory() as directory:
             config, originals = self.fixture(directory)
