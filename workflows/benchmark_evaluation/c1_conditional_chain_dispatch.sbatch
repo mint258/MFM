@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=C1-conditional-chain-dispatch
 #SBATCH --partition=cpu
+#SBATCH --nodelist=compute-0-13
 #SBATCH --exclude=compute-0-[0-7,14,18,20-22]
 #SBATCH --cpus-per-task=1
 #SBATCH --ntasks=1
@@ -49,9 +50,10 @@ for node in sorted({group["node"] for group in groups}):
         "-t","RUNNING,COMPLETING,CONFIGURING,SUSPENDED,RESIZING","-o","%i|%u|%T"],text=True,timeout=30)
 gpu_predecessors=module.protected_gpu_predecessors(groups,queues)
 write(out/"protected_gpu_queues.json",dict(observed_at_epoch=time.time(),native_queues=queues,initial_gpu_predecessors=gpu_predecessors))
+transport=types.ModuleType("native_slurm_transport")
+exec(compile(sources["workflows/benchmark_evaluation/native_slurm_transport.py"],transport.__name__,"exec"),transport.__dict__)
 def command(args):
-    return subprocess.check_output(["ssh","-n","-o","BatchMode=yes","-o","ConnectTimeout=10","sonmi",shlex.join(args)],
-        text=True,timeout=60).strip()
+    return transport.native_control(args)
 def submit(path,dependency):
     safe()
     args=["sbatch","--parsable","--hold"]
