@@ -1015,3 +1015,10 @@ These are scheduler dependencies, not storage/GPU admission. Unchanged launcher/
 06:20 UTC五个节点实际/proc采样时六个模型均为D/nfs或rpc等待；与约半小时前相比，8342/8345/8348/8356的CPU时间有增加，8341/8351几乎不增，表现为间歇性共享I/O等待。CPU19主模型与只读观察所见相同NFS4挂载ID1178 nfs:/share/home（autofs之上），没有更改挂载或管理员设置。各节点根/tmp65.9–69.9GB与inode保护保持。06:33 UTC六来源仍原生RUNNING，169/175模型配置闭合，报告8510→8511→8512→8513仍PENDING(Dependency)。8538仅为原元数据发布TIMEOUT后COMPLETING清理，保留既有输出；没有新增模型或辅助重跑。
 
 已提交8513脚本副本仍为原历史来源；最终正常生产关闭后只修正人读日报编号，并按追加方式澄清STATUS原型编号，CSV/唯一SHA保持首次生产端原字节。后续需要的文档写回在科学来源关闭后单独安排，不再让长时间文案步骤占用运行模型的分配。同行14:21/14:32 D通知及全部既有STATUS前缀完整保留；本线字段/冻结协议保持，后续写入继续遵守真实共享盘准入及跨窗口预留。
+
+
+## 2026-11-22 14:39:00 CST · D Root
+
+D Root goal is blocked by the same external shared NFS startup/page-I/O fault confirmed in three consecutive goal turns. Preparation4538549 remains live onCPU8, its process2827663 is D state with zero CPU time before batch entry; both seed1 configs, registry and log are still absent. Original layer/clip workers remain in NFS/page wait with unchanged CPU times. This is no new scientific loss, result invalidation or cancellation. R1 seed0 original paired WIN remains closed.
+
+Retain original clip4538532, layer4537598 (16:19:13CST cumulative diagnostic deadline), preparation4538549, GPU4538551/4538552, CPU4538553/4538554 and comparison4538555. All five seed1 jobs remain PENDING/Dependency. Do not submit duplicates or release cancelled comparison4538541. Existing afterok and actual node GPU/root/NFS/inode/fresh5s UID-quota/peer guards remain in force; the proposed extra2GiB is not live until original preparation seals the Data forecast. No model has started, no transfer adopted, no stage2/9M. All outputs retained; no admin/NFS settings changed. Shared I/O must recover before further substantive work; resume the goal from exact current jobs/artifacts after recovery. Node-side report/STATUS mirroring also waits for actual write admission; GitHub CURRENT_BEST records the blocker without pretending execution is complete.
