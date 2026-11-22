@@ -1,11 +1,11 @@
 {
-  "schema": "D_PARTIAL_CACHED_LAYER_READOUT_SUMMARY_V1",
+  "schema": "D_CACHED_LAYER_READOUT_SUMMARY_V1",
   "arm": "D-R1",
   "run": "d_recipe_20261120_D_R1_seed0_3M",
   "seed": 0,
   "samples": 3000000,
-  "status": "PARTIAL_LAYER3_CLOSED_LAYER6_REUSED_LAYER4_5_PENDING",
-  "complete": false,
+  "status": "COMPLETE",
+  "complete": true,
   "decision_input": false,
   "encoder_forward_repeated": false,
   "resampling_repeated": false,
@@ -61,10 +61,42 @@
       "full_original_paired_draws_retained_at_source": true
     },
     "4": {
-      "status": "SCORES_NOT_YET_PRODUCED"
+      "status": "COMPLETE",
+      "source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/layer_readouts/layer4/scores.json",
+      "complete_at_source": true,
+      "R1": {
+        "mean_normalized_improvement": 0.22963882609460168,
+        "bootstrap_ci": [
+          0.21457929026390973,
+          0.24377706751925238
+        ]
+      },
+      "R3": {
+        "mean_normalized_improvement": 0.4230820073504759,
+        "bootstrap_ci": [
+          0.4089823913117095,
+          0.43713599300959
+        ]
+      }
     },
     "5": {
-      "status": "SCORES_NOT_YET_PRODUCED"
+      "status": "COMPLETE",
+      "source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/layer_readouts/layer5/scores.json",
+      "complete_at_source": true,
+      "R1": {
+        "mean_normalized_improvement": 0.2400179021349289,
+        "bootstrap_ci": [
+          0.22666389731787834,
+          0.2542308411049049
+        ]
+      },
+      "R3": {
+        "mean_normalized_improvement": 0.4160410356655566,
+        "bootstrap_ci": [
+          0.4026497812118607,
+          0.4292698933378862
+        ]
+      }
     },
     "6": {
       "status": "REUSE_ORIGINAL_MAIN_SCORE",
@@ -86,6 +118,21 @@
     }
   },
   "exit": {
+    "job_id": 4538572,
+    "node": "compute-0-13",
+    "job_state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_seconds": 81,
+    "allocated_CPUs": 1,
+    "resident_terminal_returncode": 0,
+    "resident_remaining_children": [],
+    "actual_tree_reap_logged": true,
+    "encoder_forward_repeated": false,
+    "closed_layers_recomputed": false,
+    "original_main_layer_reused": 6
+  },
+  "interpretation": "Descriptive cached-layer diagnosis only. Original layer3 and fixed layer6 scores reused; only missing layers4/5 were finalized by original CPU scorer. Main endpoint remains layer6 and original seed0 paired WIN unchanged; no layer selection or additional seed1 diagnostics.",
+  "original_partial_exit": {
     "job_id": 4537598,
     "job_state": "FAILED",
     "batch_state": "CANCELLED",
@@ -137,5 +184,23 @@
     "node17_drain_attribution": "UNCONFIRMED",
     "frozen_runtime_code_changed": false
   },
-  "interpretation": "Only descriptive cached-layer diagnosis. Main endpoint remains layer6; original seed0 paired WIN unchanged. No layer selection or seed1 adoption from this partial result."
+  "ordered_layers": [
+    3,
+    4,
+    5,
+    6
+  ],
+  "statistics_dtype": "float64",
+  "bootstrap": {
+    "repetitions": 1000,
+    "seed": 20261025,
+    "unit": "molecule"
+  },
+  "cumulative_job_seconds": {
+    "original_GPU": 1217,
+    "original_partial_CPU": 9837,
+    "resident_continuation_CPU": 81,
+    "total": 11135,
+    "limit": 14400
+  }
 }

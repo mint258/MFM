@@ -128,6 +128,15 @@
         },
         "seed0_run": "d_recipe_20261120_D_R0_seed0_3M",
         "exit_root_log_future_bytes": 134217728
+      },
+      "runtime": {
+        "GPU_job": 4538566,
+        "CPU_job": 4538568,
+        "node": "compute-0-4",
+        "gpu_uuid": "GPU-6965a7c7-025e-e4fd-013a-2be3245ef7c6",
+        "status": "TRAINING_RUNNING_VERIFIED",
+        "canonical_configuration": "configs/d_recipe/screening/D-R0_seed1.json",
+        "science_unchanged": true
       }
     },
     "D-R1": {
@@ -275,6 +284,15 @@
         },
         "seed0_run": "d_recipe_20261120_D_R1_seed0_3M",
         "exit_root_log_future_bytes": 134217728
+      },
+      "runtime": {
+        "GPU_job": 4538567,
+        "CPU_job": 4538569,
+        "node": "compute-0-5",
+        "gpu_uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "status": "TRAINING_RUNNING_VERIFIED",
+        "canonical_configuration": "configs/d_recipe/screening/D-R1_seed1.json",
+        "science_unchanged": true
       }
     }
   },
@@ -294,5 +312,18 @@
     "shared_source_access": false,
     "shared_output_writes": false,
     "Root_must_admit_and_publish_canonical_files": true
-  }
+  },
+  "comparison_runtime": {
+    "job": 4538570,
+    "dependency": "afterok:4538568:4538569",
+    "status": "PENDING_DEPENDENCY"
+  },
+  "legacy_cancelled_never_started_jobs": [
+    4538551,
+    4538552,
+    4538553,
+    4538554,
+    4538555
+  ],
+  "canonical_files_sealed_and_live_forecast_registered": true
 }

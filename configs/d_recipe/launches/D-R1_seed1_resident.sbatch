@@ -5,7 +5,6 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=5
-#SBATCH --mem=0
 #SBATCH --time=2-00:00:00
 #SBATCH --signal=B:USR1@900
 #SBATCH --no-requeue

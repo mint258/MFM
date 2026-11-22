@@ -1,8 +1,8 @@
 {
   "schema": "D_RECIPE_CURRENT_BEST_V1",
-  "status": "STAGE1_SEED1_CONFIGURATIONS_SEALED_RESIDENT_LAUNCH_REPLACEMENT_READY",
+  "status": "STAGE1_SEED1_RUNNING_ON_HEALTHY_GPU_NODES",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T09:37:26Z",
+  "updated_at_utc": "2026-11-22T10:19:31Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -269,7 +269,7 @@
     "D-K1": "NOT_TRIGGERED_UNTIL_CONFIRMED_WIDE_LIBRARY_ADOPTION"
   },
   "conditional_seed1": {
-    "status": "REGISTERED_CANONICAL_CONFIGURATIONS_READY_WAITING_NEW_RESIDENT_GPU_LAUNCHES",
+    "status": "TRAINING_RUNNING_AFTER_USER_REQUESTED_NODE_SWITCH",
     "shared_control": "D-R0 seed1",
     "candidate": "D-R1 seed1",
     "seed0_result": "WIN",
@@ -297,28 +297,70 @@
       "no_TIMEOUT": true
     },
     "proposed_additional_NFS_bytes": 2147483648,
-    "NFS_forecast_admitted": false,
-    "training_started": false,
+    "NFS_forecast_admitted": true,
+    "training_started": true,
     "jobs": {
       "D-R0": {
-        "GPU_job": 4538551,
+        "GPU_job": 4538566,
+        "CPU_job": 4538568,
         "node": "compute-0-4",
         "gpu_uuid": "GPU-6965a7c7-025e-e4fd-013a-2be3245ef7c6",
-        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/screening/D-R0_seed1.json",
-        "status": "PENDING_JOB_HELD_USER_NOT_TRAINING",
-        "CPU_job": 4538553
+        "gpu_model": "NVIDIA GeForce RTX 3090",
+        "configuration": "configs/d_recipe/screening/D-R0_seed1.json",
+        "status": "RUNNING_POSITIVE_TRAINING_UPDATES_VERIFIED",
+        "progress": {
+          "samples": 153600,
+          "updates": 4800,
+          "native_loop_seconds": 1752.8524141907692,
+          "gpu_model": "NVIDIA GeForce RTX 3090",
+          "clip_calibration": {
+            "threshold": 11.076789627075199,
+            "observed_updates": 2813,
+            "window_start_samples": 60000,
+            "calibration_samples": 150000,
+            "quantile": 0.99,
+            "initial_clip": 281.7,
+            "sample_axis": "optimizer_step_start",
+            "effective_freeze_samples": 150016,
+            "fitted": true
+          },
+          "observed_at_utc": "2026-11-22T10:13:38Z",
+          "source": "Original producer stdout; scalars transcribed, no statistics recomputed"
+        },
+        "CPU_status": "PENDING_AFTEROK_4538566"
       },
       "D-R1": {
-        "GPU_job": 4538552,
+        "GPU_job": 4538567,
+        "CPU_job": 4538569,
         "node": "compute-0-5",
         "gpu_uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
-        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/screening/D-R1_seed1.json",
-        "status": "PENDING_JOB_HELD_USER_NOT_TRAINING",
-        "CPU_job": 4538554
+        "gpu_model": "NVIDIA GeForce RTX 3090",
+        "configuration": "configs/d_recipe/screening/D-R1_seed1.json",
+        "status": "RUNNING_POSITIVE_TRAINING_UPDATES_VERIFIED",
+        "progress": {
+          "samples": 153600,
+          "updates": 4800,
+          "native_loop_seconds": 1793.0361772123724,
+          "gpu_model": "NVIDIA GeForce RTX 3090",
+          "clip_calibration": {
+            "threshold": 25.356171264648438,
+            "observed_updates": 2813,
+            "window_start_samples": 60000,
+            "calibration_samples": 150000,
+            "quantile": 0.99,
+            "initial_clip": 281.7,
+            "sample_axis": "optimizer_step_start",
+            "effective_freeze_samples": 150016,
+            "fitted": true
+          },
+          "observed_at_utc": "2026-11-22T10:13:38Z",
+          "source": "Original producer stdout; scalars transcribed, no statistics recomputed"
+        },
+        "CPU_status": "PENDING_AFTEROK_4538567"
       }
     },
-    "paired_comparison_job": 4538555,
-    "required_dependency": "Replace all five old held jobs only after verifiedzero runtime; new CPU afterok its newGPU, comparison afterok both newCPU. The failed old preparation is no longer the prerequisite.",
+    "paired_comparison_job": 4538570,
+    "required_dependency": "CPU4538568 afterokGPU4538566; CPU4538569 afterokGPU4538567; comparison4538570 afterokbothCPU. CPU candidates9/11/13; no re-training shared control.",
     "source_preparation_must_seal_configs_and_live_forecast": false,
     "GPU_actual_admission": "Unchanged launcher checks assigned UUID/empty context/free memory and5CPUs; DJointGuard checks actual-node root/NFS bytes/inodes/fresh5s UID quota and peers before model process or large write",
     "proposed_GPU4_quota_observation": {
@@ -336,7 +378,7 @@
         "node": "compute-0-4",
         "gpu_uuid": "GPU-6965a7c7-025e-e4fd-013a-2be3245ef7c6",
         "configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/screening/D-R0_seed1.json",
-        "status": "PENDING_JOB_HELD_USER_NOT_TRAINING",
+        "status": "CANCELLED_NEVER_STARTED_0_SECONDS",
         "CPU_job": 4538553
       },
       "D-R1": {
@@ -344,7 +386,7 @@
         "node": "compute-0-5",
         "gpu_uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
         "configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/screening/D-R1_seed1.json",
-        "status": "PENDING_JOB_HELD_USER_NOT_TRAINING",
+        "status": "CANCELLED_NEVER_STARTED_0_SECONDS",
         "CPU_job": 4538554
       }
     },
@@ -358,9 +400,20 @@
     "NFS_forecast_registration_complete": true,
     "registered_joint_NFS_peak_bytes": 38853537501,
     "registered_additional_NFS_bytes": 2147483648,
-    "NFS_admission_scope": "Canonical/live forecast and bounded head metadata write closed; actual GPU/CPU target admission remains mandatory before scientific work",
+    "NFS_admission_scope": "Both actual GPU entries passed original runtime/shared/root/GPU admission and committed positive training updates. CPU statistics retain their own later admission.",
     "source_independent_outer_renderings_ready": true,
-    "per_actual_node_joint_managed_log_future_bytes": 134217728
+    "per_actual_node_joint_managed_log_future_bytes": 134217728,
+    "legacy_cancelled_zero_seconds": [
+      4538551,
+      4538552,
+      4538553,
+      4538554,
+      4538555
+    ],
+    "current_GPU_hard_deadlines_CST": {
+      "4538566": "2026-11-24T17:42:02+08:00",
+      "4538567": "2026-11-24T17:42:02+08:00"
+    }
   },
   "diagnostics": "R0 prescribed diagnostics COMPLETE; R1 F64 geometry UNRESOLVED after two actual capacity-freshness failures, cached layers3-5 GPU probes COMPLETE and CPU scores RUNNING; G1/adopted endpoints pending; decision_input=false",
   "development_controls": "Section5 A/B/C and composition controls pending",
@@ -373,7 +426,7 @@
     "seed": 0,
     "samples": 9000000
   },
-  "results": "Original seed0 paired WIN closed. One shared R0 seed1 and one R1 seed1 cold3M are conditionally queued, each afterok configuration/storage preparation4538549. No seed1 training has started, no transfer adopted, and no stage2 or9M started. Actual-node runtime quota/disk/GPU checks remain required.",
+  "results": "Original R1 seed0 paired WIN remains. Both exact fresh3M seed1 runs are actually training onGPU4/5 with original science and independently frozen clip; no stage1 adoption before each-seed WIN. R1 cached layers3-6 nowcomplete, main remains6. FullTRAIN clipping resumed onCPU13 from original prefix; all later TASKBOOK stages and final9M/A/B/C/PR scope remain.",
   "arm": null,
   "library": null,
   "configuration": null,
@@ -881,25 +934,32 @@
           5
         ],
         "encoder_forward_repeated": false,
-        "CPU_statistics_job": 4537598,
+        "CPU_statistics_job": 4538572,
         "exit_code": "0:0",
         "elapsed_seconds": 1217,
         "allocated_CPUs": 2,
-        "CPU_statistics_status": "CONTROLLED_TERM_EXIT_LAYER3_CLOSED_LAYER4_5_PENDING_HEALTHY_SAFE_CONTINUATION",
+        "CPU_statistics_status": "COMPLETE",
         "CPU_statistics_elapsed_seconds": 9837,
         "CPU_statistics_exit_code": "0:15",
         "source": "results/d_recipe/diagnostics/D-R1_seed0_3M/layer_readout_summary.json",
         "completed_layers": [
           3,
+          4,
+          5,
           6
         ],
-        "remaining_layers": [
-          4,
-          5
-        ],
-        "layer_diagnostic_total_seconds": 11054,
-        "remaining_cumulative_allowance_seconds": 3346,
-        "exit_proven_by_actual_PID_absence": true
+        "remaining_layers": [],
+        "layer_diagnostic_total_seconds": 11135,
+        "remaining_cumulative_allowance_seconds": 3265,
+        "exit_proven_by_actual_PID_absence": true,
+        "original_CPU_statistics_job": 4537598,
+        "CPU_statistics_node": "compute-0-13",
+        "CPU_statistics_continuation_elapsed_seconds": 81,
+        "CPU_statistics_continuation_exit_code": "0:0",
+        "diagnostic_complete_no_further_runs": true,
+        "original_GPU_and_partial_CPU_seconds": 11054,
+        "actual_resident_terminal_remaining_children": [],
+        "actual_exit_tree_reap_logged": true
       },
       "decision_input": false,
       "cancelled_never_started": [
@@ -1143,25 +1203,8 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ACTIVE_USER_REQUESTED_NODE_MIGRATION",
-  "blocking_condition": {
-    "type": "ORIGINAL_CLIPPING_EXIT_UNPROVEN_MAINLINE_MIGRATION_IN_PROGRESS",
-    "mainline_blocked": false,
-    "old_clipping_PID": 2822119,
-    "last_verified_state": "D",
-    "last_verified_UIDs": [
-      1278,
-      1278,
-      1278,
-      1278
-    ],
-    "start_ticks": 2244363539,
-    "job": 4538532,
-    "cgroup_freezer": "1:freezer:/",
-    "no_replacement_producer_started": true,
-    "actual_exit_not_proven": true,
-    "administrator_recovery_still_needed_for_that_old_process": true
-  },
+  "automation_state": "ACTIVE_STAGE1_SEED1_TRAINING_AND_REGISTERED_CPU_CONTINUATIONS",
+  "blocking_condition": null,
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
     "scope": "Future start/safe continuation; frozen active training source unchanged",
@@ -1176,59 +1219,31 @@
     "minimum_cleanup_seconds": 180,
     "node17_drain_attribution": "UNCONFIRMED_DO_NOT_INFER_FROM_COLOCATION",
     "diagnostic_exit": {
-      "job_id": 4537598,
-      "job_state": "FAILED",
-      "batch_state": "CANCELLED",
-      "exit_code": "0:15",
-      "elapsed_seconds": 9837,
+      "job_id": 4538572,
+      "node": "compute-0-13",
+      "job_state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 81,
       "allocated_CPUs": 1,
-      "worker": {
-        "pid": 2819839,
-        "start_ticks": 2244339286,
-        "UIDs": [
-          1278,
-          1278,
-          1278,
-          1278
-        ],
-        "job_cgroup": 4537598,
-        "signal": "ONE_SIGTERM",
-        "after_signal": "Z_THEN_ABSENT"
-      },
-      "parent": {
-        "pid": 2819751,
-        "start_ticks": 2244338224,
-        "UIDs": [
-          1278,
-          1278,
-          1278,
-          1278
-        ],
-        "job_cgroup": 4537598,
-        "signal": "ONE_SIGTERM_AFTER_ALL_CHILDREN_EXITED",
-        "after_signal": "ABSENT"
-      },
-      "both_absent_verified": true,
-      "hard_timeout_used": false,
-      "kill_used": false,
-      "original_hard_deadline_CST": "2026-11-22T16:19:13+08:00",
-      "actual_exit_CST": "2026-11-22T15:24:10+08:00",
-      "GPU_seconds": 1217,
-      "cumulative_layer_diagnostic_seconds": 11054,
-      "remaining_taskbook_diagnostic_seconds": 3346,
+      "actual_tree_reap_logged": true,
+      "actual_remaining_children": [],
+      "complete": true,
       "complete_layers": [
         3,
+        4,
+        5,
         6
       ],
-      "pending_layers": [
-        4,
-        5
-      ],
-      "node17_drain_attribution": "UNCONFIRMED",
-      "frozen_runtime_code_changed": false
+      "pending_layers": [],
+      "GPU_seconds": 1217,
+      "original_partial_CPU_seconds": 9837,
+      "cumulative_layer_diagnostic_seconds": 11135,
+      "unused_allowance_seconds": 3265,
+      "original_closed_layers_recomputed": false,
+      "encoder_forward_repeated": false
     },
     "future_entry_implementation": {
-      "status": "RESIDENT_RENDERINGS_TESTED_CANONICAL_CONFIGS_SEALED_WAITING_ACTUAL_NODE_ADMISSION",
+      "status": "ACTIVE_SLURM_COPIED_RESIDENT_SUPERVISION_VERIFIED_BEFORE_SHARED_SOURCE_AND_REAL_TRAINING",
       "frozen_scientific_workers_changed": false,
       "files": [
         "tools/d_recipe/exit_lifecycle.py",
@@ -1354,14 +1369,15 @@
         "interpretation": "Neither incomplete attempt is accepted as18 or2 passing tests. Actual controlled cleanup was verified in both. This operational limitation does not change the original scientific R1 result."
       },
       "source_independent_outer_supervision_required": true,
-      "pre_module_load_protection": "Generic resident renderer embeds original reviewed lifecycle plus bootstrap into Slurm-copied Python -ISB source. It starts before any shared-module import or shell child. Three new renderer tests plus actual nested resident child passed onCPU19; do not treat template flags alone as protection.",
+      "pre_module_load_protection": "Deployed in actual4538566/4538567/4538572/4538573 Slurm-copied system-Python source; original16 lifecycle tests,3new renderer tests and real nested-resident integration retained. Original standalone staged clipping module remains unadopted/UR; producer uses the unchanged original clipping.sbatch under the verified generic resident.",
       "default_template_submission_guard": {
         "variable": "D_EXIT_OUTER_SUPERVISION",
         "required_value": "1",
         "default_exit_code": 64,
         "manual_bypass_is_not_operational_readiness": true
       },
-      "node19_scope": "Local OS/RAM healthy; shared-filesystem admission4538562 incomplete and safely reaped75/99s. In-memory code/planning4538564 alone admitted there; no shared data I/O or output. File-dependent CPU jobs select9/11/13."
+      "node19_scope": "Local OS/RAM healthy; shared-filesystem admission4538562 incomplete and safely reaped75/99s. In-memory code/planning4538564 alone admitted there; no shared data I/O or output. File-dependent CPU jobs select9/11/13.",
+      "model_training_interrupted_by_new_rule": false
     },
     "clipping_cleanup": {
       "job_id": 4538532,
@@ -1391,18 +1407,138 @@
         ],
         "cgroup": "1:freezer:/\n0::/system.slice/slurmd.service\n"
       },
-      "exit_proven": false,
-      "Slurm_job_state_last_observed": "RUNNING",
+      "exit_proven": true,
+      "Slurm_job_state_last_observed": "FAILED",
       "duplicate_replacement_started": false,
       "preserved_closed_cursor": 1020928,
       "total_molecules": 1194228,
       "no_repeat_signal": true,
       "no_SIGKILL": true,
-      "administrative_recovery_required": true,
-      "interpretation": "Observation is not actual PID exit, scientific completion or proof of underlying root cause. Preserve original configuration, coefficients, conformer choices, molecular counts and closed atomic cursor. No new producer while old process exit is unproven."
+      "administrative_recovery_required": false,
+      "interpretation": "Observation is not actual PID exit, scientific completion or proof of underlying root cause. Preserve original configuration, coefficients, conformer choices, molecular counts and closed atomic cursor. No new producer while old process exit is unproven.",
+      "old_original_PID_absent_verified": true,
+      "actual_old_end_CST": "2026-11-22T17:33:36+08:00",
+      "old_native_state": "FAILED",
+      "old_native_exit_code": "0:15",
+      "old_native_elapsed_seconds": 17350,
+      "resident_continuation": {
+        "job": 4538573,
+        "node": "compute-0-13",
+        "status": "RUNNING",
+        "source_configuration": "configs/d_recipe/reference/native_D20.json",
+        "original_configuration_unmodified": true,
+        "reused_closed_cursor": 1020928,
+        "latest_closed_cursor": 1049600,
+        "total_molecules": 1194228,
+        "latest_progress_observed_at_UTC": "2026-11-22T10:16:13Z",
+        "process_identity": {
+          "job": 4538573,
+          "node": "compute-0-13",
+          "captured_at_UTC": "2026-11-22T10:04:18Z",
+          "supervisor": {
+            "pid": 3582785,
+            "start_ticks": 2758861604,
+            "UIDs": [
+              1278,
+              1278,
+              1278,
+              1278
+            ]
+          },
+          "worker": {
+            "pid": 3582788,
+            "start_ticks": 2758861610,
+            "UIDs": [
+              1278,
+              1278,
+              1278,
+              1278
+            ]
+          },
+          "expected_scope": "1:freezer:/slurm/uid_1278/job_4538573/step_batch",
+          "signals_sent": false,
+          "stdout": "/dev/null",
+          "producer_checkpoint_is_progress_source": true
+        },
+        "stdout": "/dev/null",
+        "progress_source": "Original atomic cursor and finalreport; no new root log allocation",
+        "underlying_statistics_refitted": false,
+        "closed_fields_recomputed": false,
+        "cursor_path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/clip_reports/D20/cursor.json",
+        "report_path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/clip_reports/D20/report.json"
+      },
+      "after_final_exit_observation": {
+        "state": "ABSENT",
+        "verified_on_original_node": true,
+        "observed_at_UTC": "2026-11-22T09:54:46Z"
+      },
+      "previous_D_state_observation_is_historical": true
     },
     "entry_readiness_scope": "Resident renderings ready to submit; not proof of any model start, actual target storage admission or completed experiment.",
-    "user_requested_node_switch": true
+    "user_requested_node_switch": true,
+    "original_layer_partial_exit": {
+      "job_id": 4537598,
+      "job_state": "FAILED",
+      "batch_state": "CANCELLED",
+      "exit_code": "0:15",
+      "elapsed_seconds": 9837,
+      "allocated_CPUs": 1,
+      "worker": {
+        "pid": 2819839,
+        "start_ticks": 2244339286,
+        "UIDs": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "job_cgroup": 4537598,
+        "signal": "ONE_SIGTERM",
+        "after_signal": "Z_THEN_ABSENT"
+      },
+      "parent": {
+        "pid": 2819751,
+        "start_ticks": 2244338224,
+        "UIDs": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "job_cgroup": 4537598,
+        "signal": "ONE_SIGTERM_AFTER_ALL_CHILDREN_EXITED",
+        "after_signal": "ABSENT"
+      },
+      "both_absent_verified": true,
+      "hard_timeout_used": false,
+      "kill_used": false,
+      "original_hard_deadline_CST": "2026-11-22T16:19:13+08:00",
+      "actual_exit_CST": "2026-11-22T15:24:10+08:00",
+      "GPU_seconds": 1217,
+      "cumulative_layer_diagnostic_seconds": 11054,
+      "remaining_taskbook_diagnostic_seconds": 3346,
+      "complete_layers": [
+        3,
+        6
+      ],
+      "pending_layers": [
+        4,
+        5
+      ],
+      "node17_drain_attribution": "UNCONFIRMED",
+      "frozen_runtime_code_changed": false
+    },
+    "latest_layer_diagnostic_closure": {
+      "job": 4538572,
+      "node": "compute-0-13",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 81,
+      "allocated_CPUs": 1,
+      "actual_remaining_children": [],
+      "total_cumulative_seconds": 11135,
+      "complete": true
+    }
   },
   "previous_blocking_condition": {
     "type": "EXTERNAL_KERNEL_IO_WAIT_AND_SLURM_MANAGEMENT_STARTUP",
