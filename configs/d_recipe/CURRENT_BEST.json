@@ -1,8 +1,8 @@
 {
   "schema": "D_RECIPE_CURRENT_BEST_V1",
-  "status": "STAGE1_SEED0_WIN_WAITING_TRIGGERED_SEED1_PREPARATION_AND_ADMISSION",
+  "status": "STAGE1_SEED0_WIN_BLOCKED_BEFORE_TRIGGERED_SEED1_PREPARATION_AND_ADMISSION",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T08:47:32Z",
+  "updated_at_utc": "2026-11-22T08:50:31Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -1096,11 +1096,11 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ACTIVE_WITH_BLOCKED_RUNTIME_DEPENDENCIES",
+  "automation_state": "BLOCKED_AWAITING_ADMINISTRATOR_RECOVERY",
   "blocking_condition": {
     "type": "EXTERNAL_KERNEL_IO_WAIT_AND_SLURM_MANAGEMENT_STARTUP",
-    "consecutive_goal_turns": 2,
-    "verified_at_utc": "2026-11-22T08:39:57Z",
+    "consecutive_goal_turns": 3,
+    "verified_at_utc": "2026-11-22T08:50:31Z",
     "preparation_job": 4538549,
     "preparation_process": 2827663,
     "preparation_CPU_time_seconds": 0,
@@ -1134,15 +1134,38 @@
     "administrator_attention_needed_before_preparation_deadline": true,
     "preparation_log_bytes": 0,
     "preparation_log_mtime_CST": "2026-11-22T16:25:09.048939254+08:00",
-    "last_artifact_observation_at_utc": "2026-11-22T08:47:32Z",
+    "last_artifact_observation_at_utc": "2026-11-22T08:49:15Z",
     "preparation_live_queue_observation": {
       "job": 4538549,
       "state": "RUNNING",
-      "observed_at_utc": "2026-11-22T08:46:11Z",
-      "actual_EndTime_CST": "2026-11-22T18:18:03+08:00"
+      "runtime": "02:31:13",
+      "node": "compute-0-8",
+      "observed_at_utc": "2026-11-22T08:49:15Z",
+      "EndTime_CST": "2026-11-22T18:18:03+08:00"
     },
-    "current_turn_classification": "VERIFIED_WAIT_SAME_LIVE_PREPARATION_JOB_NO_EXPERIMENTAL_PROGRESS",
-    "preparation_process_entry_evidence": "Current empty0B log and absent bothseed1 configs/registry; no native Python start/completion marker. Prior root/slurmstepd PID observation is historical, not freshly revalidated by another fault-node probe."
+    "current_turn_classification": "VERIFIED_WAIT_SAME_LIVE_JOB_SAME_EXTERNAL_BLOCKER",
+    "preparation_process_entry_evidence": "Current empty0B log and absent bothseed1 configs/registry; no native Python start/completion marker. Prior root/slurmstepd PID observation is historical, not freshly revalidated by another fault-node probe.",
+    "goal_automation_status": "BLOCKED_NOT_COMPLETE",
+    "last_live_job_observation": {
+      "job": 4538549,
+      "state": "RUNNING",
+      "runtime": "02:31:13",
+      "node": "compute-0-8",
+      "observed_at_utc": "2026-11-22T08:49:15Z",
+      "EndTime_CST": "2026-11-22T18:18:03+08:00"
+    },
+    "safe_independent_work_exhausted": true,
+    "no_new_fault_node_diagnostics_repairs_or_jobs": true,
+    "blocker_audit": "Same external preparation/source-I/O blocker persisted over3 consecutive resumed goal turns. Earlier turn completed code/cleanup/report work; last two turns verified the same live job and absent configs. No change to original full experimental objective.",
+    "why_no_independent_experiment_can_start": "Stage1 seed1 canonical configs/live forecast are not closed; all later recipe/library arms require that decision. Old clipping worker exit remains unproven; no duplicate writer/producer. New entry extension stopped after two interrupted attempts and remains inactive, requiring source-independent outer supervision and actual healthy-node admission.",
+    "recovery_requirements": [
+      "Administrator inspect kernel/slurmd/slurmctld/shared filesystem, especially actual preparation4538549 before18:18:03CST; no direct user signal to historical mixed-rootUID manager.",
+      "Re-read actual jobs, configs, registry, forecast and all completed artifacts after recovery; never overwrite newer preparation or experiment progress with this blocked snapshot.",
+      "Verify actual exit of old clipping process before any same-output replacement; preserve original full-TRAIN cursor/config/coefficient/conformer bindings.",
+      "Deploy and verify source-independent outer supervision before loading shared scientific modules; keep core16 passing and two interrupted tests distinct.",
+      "Close actual node health, canonical config/live global forecast, bytes/inodes/fresh UID quota and all peer future, then verify old five jobs stillPENDING0s and replace same registered science/dependencies rather than release embedded old scripts."
+    ],
+    "full_scope_preserved": true
   },
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
