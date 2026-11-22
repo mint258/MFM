@@ -1,6 +1,6 @@
 # D 家族实验报告（执行中）
 
-更新：2026-11-23 03:11 CST。本文件是最终报告的执行中版本，R0/R1原3M主分与seed0配对WIN已闭合；规定seed1实际在GPU4/5训练中，02:44原日志均2550400样本/79700更新，原1M/2M完整状态断点已生成。CPU统计及配对依赖已接续，迁移配方尚未采用或冻结，没有9M确认结果。用户已明确批准ExpansionRx沿既有B6固定原坐标补H；22项相关测试通过，原CPU生产/合并准备就绪。完整TRAIN截断报告及R1缓存层诊断已闭合；未闭合结果仍待原生产者填写。
+更新：2026-11-23 03:59 CST。本文件是最终报告的执行中版本，原R0/R1 seed0主分与配对WIN已闭合；两个规定seed1继续原3M训练，03:48原日志均2867200样本/89600更新，原1M/2M完整断点已生成。CPU统计及配对依赖已接续，迁移配方尚未采用或冻结，没有9M确认结果。开发D3已按用户选择闭合全部15751原成员，完整TRAIN截断报告与R1缓存层诊断已闭合；最终A/B/C、C1和未闭合模型结果仍待各自原关卡。
 
 ## 依据与研究问题
 
@@ -129,7 +129,7 @@ R1原4537592已COMPLETED0:0，精确3000000样本/93750更新。原训练循环�
 
 现行NFS联合峰值36706053853B、full范围29.75GB包括已命名native产物。触发的两个新seed1另拟登记2GiB（联合38853537501B/full31897483648B），覆盖8个232MB检查点槽及128MiB日志/读出；实际Data计划闭合与目标盘字节/inode/fresh UID配额准入前不增加写入。准备4538547在CPU17的RPC等待中取消，4538549在CPU8等待启动；两条seed1 GPU作业4538551/4538552已条件排队（afterok准备4538549），各CPU统计4538553/4538554及配对4538555沿afterok接续；五项现均PENDING/JobHeldUser，须未来入口退出保护就绪并完成实际节点健康核验后才能启动；未实际训练。运行入口重新执行实际节点GPU及全部存储准入，不启用seed0诊断cache，也不新增Lustre未来。R0检查点另登记Lustre模型池1.25GiB。原R1配对作业4537599虽在结果写出后TIMEOUT，父作业3616秒仍计成本；未启动的备用4538541已取消0秒，没有重算比较。R0所有本地cache写入者已实际COMPLETED/0:0，撤销其GPU7 8GiB与CPU17 12GiB未来写入预算；R1 F64达到失败限、逐层GPU读出关闭后，GPU7的R1两个原8GiB范围未来写入均归零；CPU10原12GiB目标因原传输未启动即取消而归零；CPU17 R0未来写入仍为0。原R1部分F64文件和原生层缓存保留，不视为完整几何交付。GPU7/CPU17原R0物理cache分别5133008896B/5133246464B保留并由实际df计入占用，不抵扣物理使用；实际开始及运行期核对根盘字节/inode、系统max(10GiB,10%)底线、UID配额和同行future，不复制原数据库或删除旧文件。完整运行尚未结束，这些是预算与准入规则，不是实际用量或成本结果。
 
-解释边界包括：条件第二种子的有限证据、L1/L2非嵌套且没有数量匹配子集、整包组件无法单独归因、原3D主干学习2D目标可能丢失构象信息，以及与CheMeleon的2D D-MPNN架构不同。库未胜出只能解释为本协议下无显著改善，不能断言描述符数量普遍无效；直接描述符B若占优须逐任务如实报告。几何缺H和基准绑定未解决造成的交付局限必须保留，不能由单测或部分产物冲抵。
+解释边界包括：条件第二种子的有限证据、L1/L2非嵌套且没有数量匹配子集、整包组件无法单独归因、原3D主干学习2D目标可能丢失构象信息，以及与CheMeleon的2D D-MPNN架构不同。库未胜出只能解释为本协议下无显著改善，不能断言描述符数量普遍无效；直接描述符B若占优须逐任务如实报告。ExpansionRx现按用户批准的B6固定原坐标补H生产，原明确化学失败以缺失保留；基准D20绑定未解决造成的交付局限仍须保留，不能由单测或部分产物冲抵。
 
 原生完整TRAIN截断报告现已闭合；结项仍需：其余规定与实际触发臂和判定、规定诊断、最终A/B/C和基准接口结果、CURRENT_BEST冻结、规定9M、实际成本、一次完整回归与仓库检查，最后分别开Root与数据分支PR且不合并。两宽库已获批修订、完成原统计复用和真实接收，现已恢复原导出与训练范围；须完成各自原前置与条件门。本报告当前不构成结项完成证明。
 
@@ -204,3 +204,12 @@ CPU13/4538573沿整个原native_D20配置、原1194228 TRAIN人群及每分子�
 用户明确选择既有B6程序，固定原有坐标、只补氢坐标、不生成新构象。原程序MMFF94/500次上限和无fallback不变；六个已知化学失败代码在适配器中转为逐成员D3不可用，保留成员/原错误原因，不重试或补值；未知错误和坐标约束错误仍拒绝继续。具体定义和原答复见[H政策](H_POLICY_20261123.md)。原QM9 component直接复用；仅原ExpansionRx5278成员待原CPU生产，然后由既有merge按全源15751成员原顺序合并。原512MiB开发预算、全局NFS38853537501B及原D20/D4/划分不变。本节更新上文此前“待H政策”的当前状态，历史失败记录保留。
 
 CPU11/4539054真实COMPLETED0:0、8秒/1CPU，22项针对新错误分类及相关原几何/生产/合并测试通过（新2、相关20，主体0.280秒）。实际目标NFS/fresh5秒UID配额守卫通过，实际root可用69942870016B、inode36569960；日志明确OWNED_TREE_REAPED、remaining_children=[]。该测试不等于D3生产、完整面板或A/B/C完成；生产和合并仍待实际原生结果。两个正式seed1保持原配置继续运行。
+
+
+## 2026-11-23 03:51 CST：完整开发D3输入交付
+
+ExpansionRx原5278成员的B6_fixed_native_H生产4539057在CPU11 COMPLETED0:0/1568秒/1CPU，03:39:22 CST结束；原cursor5278。既有merge4539061在同节点COMPLETED0:0/3秒/1CPU，03:39:25 CST结束，复用原QM9 component后原member_count/source_member_count均15751，complete_source_population=true、status=RAW_COMPLETE。每dataset政策为qm9/native_only与expansionrx/B6_fixed_native_H；component本身仍正确标complete_source_population=false。六分子字段、原成员/ID/顺序/划分和原数组引用保留；旧D20及D4、source/native坐标不改，不生成新构象，原子SASA不进入分子向量。
+
+[原ExpansionRx清单](https://github.com/mint258/MFM/blob/data-d-descriptors-20261120/results/data_d_descriptors/development_D3_ExpansionRx_B6_20261123.json)与[原完整合并清单](https://github.com/mint258/MFM/blob/data-d-descriptors-20261120/results/data_d_descriptors/development_D3_full_20261123.json)按原JSON转录，没有数值数组回读或独立复核。合并程序原component_and_merge_peak_bytes=203909476，仍在共同512MiB内，联合NFS38853537501B和同行future不变。原接收标记pending、current_C1_complete=false保留；完整输入不等于最终A/B/C/C1结果。最终Section5配置的d3_manifest使用/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/merged/manifest.json。
+
+一次有界原节点/proc核查确认监督器4169297/ticks2249574973与worker4169300/ticks2249574979均ABSENT，无新信号/KILL。合并原日志记录实际root4171120已reap返回0、RESIDENT_TERMINAL0且remaining_children=[]；不是仅凭batch终态。已知B6化学失败保留原逐成员缺失和错误码；没有重试、不填补，不隐藏坐标约束/未知错误。原22项相关测试与全部既有科学结果保留。两个正式seed1继续原预算；该交付不提前触发配方采用、冻结或9M。

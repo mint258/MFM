@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE1_SEED1_RUNNING_ON_HEALTHY_GPU_NODES",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T19:16:28Z",
+  "updated_at_utc": "2026-11-22T19:59:08Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -368,9 +368,9 @@
         "configuration": "configs/d_recipe/screening/D-R0_seed1.json",
         "status": "RUNNING_POSITIVE_TRAINING_UPDATES_VERIFIED",
         "progress": {
-          "samples": 2707200,
-          "updates": 84600,
-          "native_loop_seconds": 34304.995509289205,
+          "samples": 2867200,
+          "updates": 89600,
+          "native_loop_seconds": 36266.62443898618,
           "gpu_model": "NVIDIA GeForce RTX 3090",
           "clip_calibration": {
             "threshold": 11.076789627075199,
@@ -383,7 +383,7 @@
             "effective_freeze_samples": 150016,
             "fitted": true
           },
-          "observed_at_utc": "2026-11-22T19:15:48Z",
+          "observed_at_utc": "2026-11-22T19:48:59Z",
           "source": "Original producer stdout; scalars transcribed, no statistics recomputed"
         },
         "CPU_status": "PENDING_AFTEROK_4538566",
@@ -421,9 +421,9 @@
         "configuration": "configs/d_recipe/screening/D-R1_seed1.json",
         "status": "RUNNING_POSITIVE_TRAINING_UPDATES_VERIFIED",
         "progress": {
-          "samples": 2707200,
-          "updates": 84600,
-          "native_loop_seconds": 34342.064588090405,
+          "samples": 2867200,
+          "updates": 89600,
+          "native_loop_seconds": 36303.80384252034,
           "gpu_model": "NVIDIA GeForce RTX 3090",
           "clip_calibration": {
             "threshold": 25.356171264648438,
@@ -436,7 +436,7 @@
             "effective_freeze_samples": 150016,
             "fitted": true
           },
-          "observed_at_utc": "2026-11-22T19:15:48Z",
+          "observed_at_utc": "2026-11-22T19:48:59Z",
           "source": "Original producer stdout; scalars transcribed, no statistics recomputed"
         },
         "CPU_status": "PENDING_AFTEROK_4538567",
@@ -534,7 +534,7 @@
     "seed": 0,
     "samples": 9000000
   },
-  "results": "Both original seed1 models continue RUNNING, latest2707200samples observed03:15:48CST. No adoption before3M and each-seed paired WIN. User-approved fixed-native B6 ExpansionRx D3 producer4539057 has closed256of5278 original members; original merge4539061 afterok. Original fullTRAIN clipping/diagnostics complete; all later original TASKBOOK scope preserved.",
+  "results": "Original full development D3 nowRAW_COMPLETE for15751 originalmembers: approvedExpansionRx5278 component plus reusedQM9, original mergeCPU11/4539061 C0/3s, producer4539057 C0/1568s and actual exit verified. SixmolecularD3 inputs ready; finalA/B/C/C1 remains pending. Both seed1 jobs continue original3M, no adoption before each-seed pairedWIN. Full laterTASKBOOK/conditionalarms/diagnostics/freeze/cold9M/handoff/cost/tests/twoPR scope preserved.",
   "arm": null,
   "library": null,
   "configuration": null,
@@ -1748,7 +1748,7 @@
   },
   "latest_daily": "docs/d_recipe/daily/2026-11-23.md",
   "development_H_policy": {
-    "status": "ORIGINAL_PRODUCTION_RUNNING_COMMITTED_PREFIX_VERIFIED",
+    "status": "COMPLETE_ORIGINAL_DEVELOPMENT_D3_POPULATION_MERGED",
     "policy": "B6_fixed_native_H",
     "approved_answer": "沿用既有B6补H程序：固定原有坐标，仅补氢坐标，不生成新构象。",
     "authority": "docs/d_recipe/H_POLICY_20261123.md",
@@ -1762,7 +1762,7 @@
     "production_configuration": "configs/data_d_descriptors/development_D3_ExpansionRx_B6_20261123.json",
     "merge_configuration": "configs/data_d_descriptors/development_D3_merged_B6_20261123.json",
     "production_started": true,
-    "merge_started": false,
+    "merge_started": true,
     "tests_are_not_scientific_delivery": true,
     "tests": {
       "job_id": 4539054,
@@ -1783,8 +1783,8 @@
       "source": "Original native test log; not a scientific delivery"
     },
     "production_job": 4539057,
-    "original_closed_member_prefix": 256,
-    "production_progress_observed_UTC": "2026-11-22T19:15:48Z",
+    "original_closed_member_prefix": 5278,
+    "production_progress_observed_UTC": "2026-11-22T19:41:16Z",
     "source_members": 5278,
     "merge_job": 4539061,
     "merge_dependency": "afterok:4539057",
@@ -1832,6 +1832,89 @@
     },
     "actual_production_admission": "Resident actual-root checks and original Data NFS/inode/fresh5s UID+peer guards precede committed part; do not reuse test snapshot as producer's numeric startup snapshot",
     "merge_terminal_log": "/tmp/d_recipe_managed_D3_merge_%j.log",
-    "root_joint_future_explanation": "Original128MiB covers3 prospective native statistics/comparison logs plus1 merge log; test alreadyclosed and physicallyretained, producer/devnull has no growing Root log. No fifth concurrent growing log or added NFS budget."
+    "root_joint_future_explanation": "Original128MiB covers3 prospective native statistics/comparison logs plus1 merge log; test alreadyclosed and physicallyretained, producer/devnull has no growing Root log. No fifth concurrent growing log or added NFS budget.",
+    "production_status": "COMPLETED",
+    "production_exit_code": "0:0",
+    "production_elapsed_seconds": 1568,
+    "merge_status": "COMPLETED",
+    "merge_exit_code": "0:0",
+    "merge_elapsed_seconds": 3,
+    "full_original_source_members": 15751,
+    "complete_source_population": true,
+    "hydrogen_policy_by_dataset": {
+      "qm9": "native_only",
+      "expansionrx": "B6_fixed_native_H"
+    },
+    "component_and_merge_peak_bytes": 203909476,
+    "consumer_manifest": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/merged/manifest.json",
+    "original_component_report": "results/data_d_descriptors/development_D3_ExpansionRx_B6_20261123.json",
+    "original_merged_report": "results/data_d_descriptors/development_D3_full_20261123.json",
+    "actual_exit_evidence": {
+      "production": {
+        "job_id": 4539057,
+        "status": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 1568,
+        "allocated_CPUs": 1,
+        "node": "compute-0-11",
+        "end_CST": "2026-11-23T03:39:22+08:00",
+        "closed_member_cursor": 5278
+      },
+      "merge": {
+        "job_id": 4539061,
+        "status": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 3,
+        "allocated_CPUs": 1,
+        "node": "compute-0-11",
+        "end_CST": "2026-11-23T03:39:25+08:00",
+        "actual_worker_root": 4171120,
+        "actual_worker_root_returncode": 0,
+        "actual_remaining_children": [],
+        "root_available_bytes_at_start": 69942276096,
+        "root_inodes_at_start": 36569954,
+        "actual_EndTime_CST": "2026-11-23T04:39:22+08:00"
+      },
+      "production_actual_exit": {
+        "supervisor": {
+          "pid": 4169297,
+          "start_ticks": 2249574973,
+          "status": "ABSENT"
+        },
+        "worker": {
+          "pid": 4169300,
+          "start_ticks": 2249574979,
+          "status": "ABSENT"
+        },
+        "verified_on_original_node": true,
+        "node_state": "MIXED",
+        "observation_window_UTC": [
+          "2026-11-22T19:41:16Z",
+          "2026-11-22T19:43:04Z"
+        ],
+        "new_signals_sent": false,
+        "no_KILL": true
+      },
+      "scientific_results_independently_recomputed": false
+    },
+    "reception_acceptance": "pending",
+    "current_C1_complete": false,
+    "scientific_statistics_refitted": false,
+    "numeric_arrays_independently_read": false,
+    "delivery_completed_at_UTC": "2026-11-22T19:51:16Z"
+  },
+  "head_metadata_capacity_accounting": {
+    "scope": "Head source/report metadata writes only; active runtime guards unchanged",
+    "policy": "Existing P-heads h_peer_storage.concurrent + physical owned commitments, original Data.guard for actual target/UID",
+    "joint_D_peak_unchanged_bytes": 38853537501,
+    "original_D_full_committed_physical_bytes": 26927168593,
+    "original_D_remaining_future_bytes": 11926368908,
+    "original_Phead_remaining_bytes": 1062502400,
+    "original_followup_remaining_bytes": 4626096128,
+    "required_after_unchanged_floor_and_all_peers_bytes": 302677289612,
+    "quota_floor_bytes": 100000000000,
+    "quota_max_age_seconds": 5,
+    "peer_forecasts_reduced_without_authority": false,
+    "arrays_read": false
   }
 }

@@ -275,3 +275,11 @@ CPU11现场StateMIXED、16/64CPU分配，root/源NFS/inode/UID配额由Slurm复�
 原未启动合并4539058为stdout/devnull复制入口；为使很短的合并也保留实际退出树证据，在原128MiB Root联合future内改为一个≤32MiB本地终态日志。此时测试已关闭并作为物理实存保留，未来3个CPU统计/比较日志+1合并日志仍共128MiB，Hproducer/devnull无额外增长。核实9058为zixiao/PENDING/00:00:00后仅一次取消，原生CANCELLED by1278/0:0/0秒；新4539061为相同原merge、相同config和afterok4539057，未执行两次合并。实际新复制入口及本地日志路径/tmp/d_recipe_managed_D3_merge_%j.log记录在launch配置中。该基础设施替换不改科学字段/坐标/成员/随机状态/预算。
 
 03:15:48两GPU原日志均2707200样本/84600更新，原seconds34304.995509289205/34342.064588090405及clip冻结值未变；原模型CPU/比较afterok链不改。H组件与完整合并未闭合，尚非最终D3、C1或A/B/C完成。
+
+
+2026-11-23 03:51 CST：原H生产与完整合并均闭合。4539057/CPU11 C0/1568秒/1CPU，03:39:22结束，原cursor5278；4539061 C0/3秒/1CPU，03:39:25结束。原component statusRAW_COMPLETE/member_count5278/complete_source_populationfalse；原merged statusRAW_COMPLETE/member_count/source_member_count15751/complete_source_populationtrue，原policy_by_dataset qm9/native_only、expansionrx/B6_fixed_native_H，原共同峰值203909476B<512MiB。两份原JSON完整转录到Data results/data_d_descriptors/下，没有读数值数组、重拟合或独立QA。完整源清单路径development/native_D3/merged/manifest.json供最终Section5消费；原receptionpending/C1false保留，A/B/C未执行。
+
+原节点CPU11 StateMIXED，一次有界只读SSH核实原supervisor4169297/ticks2249574973和worker4169300/ticks2249574979均ABSENT；观察窗口19:41:16–19:43:04UTC，无新信号或KILL。合并原本地日志实际Rootworker4171120已reap0，RESIDENT_TERMINAL0/remaining_children=[]；原实际Root可用69942276096B/inode36569954，真实1h EndTime04:39:22，实际结束03:39:25。Root本地日志future原128MiB及所有物理实存保留，旧未启动合并9058取消0秒不计科学重复。原坐标/D20/D4/成员/划分不改；已批准H缺失策略不再等待用户。当前两个GPU原03:48:59日志均2867200样本/89600更新，原clip不变，原模型统计/配对afterok链继续。完整后续目标仍active。
+
+
+2026-11-23 03:59 CST：一次性源同步检查原先将D已落盘产物仍全额计为未来，并未按P-heads原共享守卫扣除自身已提交物理块；因而保守总要求344316954333B高于当时实际UID余量342364442624B，20秒只读观察没有通过，未在此期间写入源文件。改为直接复用既有h_peer_storage.concurrent、h_resources.allocated及原模型remaining_nfs_other的容量记账：原D已提交物理块26927168593B，D剩余11926368908B，P-heads剩余1062502400B，followup剩余4626096128B。完整原同行预留和100000000000B底线后加1MiB元数据，实际目标原Data.guard要求302677289612B，fresh5秒快照准入通过。只更正临时head元数据准入的重复计入；没有修改任何已登记预算、同行future、100GB/根分区底线、5秒TTL、运行中科学代码或runtime守卫，也没有删除文件/读数值数组/暂停模型。新H原结果及全15751输入在源同步受阻前已经C0关闭，后续按原结果发布。
