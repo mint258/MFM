@@ -8,7 +8,7 @@ import json
 import os
 from pathlib import Path
 import train_guarded_20261122 as entry
-from storage_20261122 import CONTROL, admit
+from storage_20261122 import CONTROL, admit, shared_guard
 
 
 def run(c, *, scheduler_record):
@@ -18,6 +18,8 @@ def run(c, *, scheduler_record):
         nonlocal admitted
         if not admitted:
             admit()
+            if c.get('peak_ram_bytes') is not None:
+                shared_guard.check_with_timeout('s-recipe', 'node_ram', c['peak_ram_bytes'])
             admitted = True
     entry.capacity = once
     try:

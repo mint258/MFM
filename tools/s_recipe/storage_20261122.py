@@ -44,6 +44,9 @@ def claim_current():
     entries = [dict(id='remaining_S_outputs', kind='shared_fs', path='/share', bytes=future),
         dict(id='CPU11_controller_temporary', kind='node_disk', path='/', node='compute-0-11', bytes=16*1024**2),
         dict(id='GPU22_metadata_temporary', kind='node_disk', path='/', node='compute-0-22', bytes=64*1024**2)]
+    additional = CONTROL/'storage_additional_entries.json'
+    if additional.is_file():
+        entries.extend(json.loads(additional.read_text())['entries'])
     shared_guard.claim('s-recipe', entries)
     return future
 

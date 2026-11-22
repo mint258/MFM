@@ -34,6 +34,19 @@ class StorageBindingTests(unittest.TestCase):
     def test_original_entry_restored_after_exception(self):
         self.exercise(True)
 
+    def test_planned_reader_memory_is_checked_once_before_model(self):
+        c={'peak_ram_bytes':64*1024**3}
+        def fake_run(actual, *, scheduler_record):
+            future.entry.capacity()
+            future.entry.capacity()
+            return 'unchanged training'
+        with patch.object(future, 'admit') as disk:
+            with patch.object(future.shared_guard, 'check_with_timeout') as ram:
+                with patch.object(future.entry,'run',side_effect=fake_run):
+                    self.assertEqual(future.run(c,scheduler_record={}), 'unchanged training')
+        disk.assert_called_once_with()
+        ram.assert_called_once_with('s-recipe','node_ram',64*1024**3)
+
 
 if __name__ == '__main__':
     unittest.main()
