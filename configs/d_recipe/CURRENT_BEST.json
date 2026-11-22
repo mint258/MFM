@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T04:25:06.573972+00:00",
+  "updated_at_utc": "2026-11-22T04:32:09.918880+00:00",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -255,7 +255,7 @@
     "D-K1": "NOT_TRIGGERED_UNTIL_CONFIRMED_WIDE_LIBRARY_ADOPTION"
   },
   "conditional_seed1": "Only seed0 WIN triggers a registered seed1 pair; no trigger yet",
-  "diagnostics": "R0 seed0/3M registered layer3-6 readouts and F64 representation geometry COMPLETE; remaining registered endpoints pending; decision_input=false",
+  "diagnostics": "R0 prescribed diagnostics COMPLETE; R1 F64 geometry UNRESOLVED after two actual capacity-freshness failures, cached layers3-5 GPU probes COMPLETE and CPU scores waiting main statistics; G1/adopted endpoints pending; decision_input=false",
   "development_controls": "Section5 A/B/C and composition controls pending",
   "confirmation": {
     "status": "NOT_ELIGIBLE_BEFORE_ALL_FINAL_DECISIONS",
@@ -292,7 +292,7 @@
       "cached_layer_scope": "Only cached layers3-5 nativeR1/R3 probes; layer6 predictions and scores reused; no encoder fallback"
     },
     "D_R1": {
-      "status": "CAPACITY_RESUME_QUEUED_AFTER_ORIGINAL_CACHED_LAYER_GPU",
+      "status": "GEOMETRY_UNRESOLVED_CACHED_LAYER_GPU_COMPLETE_WAITING_CPU",
       "forward_job": 4538515,
       "transfer_job": 4537595,
       "statistics_job": 4537596,
@@ -310,8 +310,17 @@
       "forward_configuration": "configs/d_recipe/diagnostics/D-R1_seed0_3M_forward_capacity_resume.json",
       "forward_dependency": "afterany:4537597",
       "transfer_dependency": "afterok:4538515",
-      "transfer_held_for_remaining_timebox": true,
-      "statistics_held_for_remaining_timebox": true
+      "transfer_held_for_remaining_timebox": false,
+      "statistics_held_for_remaining_timebox": false,
+      "forward_status": "UNRESOLVED_AFTER_TWO_ACTUAL_FAILURES",
+      "forward_failures": 2,
+      "transfer_status": "CANCELLED_NEVER_STARTED",
+      "statistics_status": "CANCELLED_NEVER_STARTED",
+      "GPU_native_cache_future_write_bytes": 0,
+      "GPU_VAL_cache_future_write_bytes": 0,
+      "CPU_VAL_cache_future_write_bytes": 0,
+      "physical_cache_files_retained": true,
+      "primary_comparison_unaffected": true
     }
   },
   "transfer_candidate": {
@@ -600,18 +609,28 @@
           "elapsed_seconds": 3715,
           "allocated_CPUs": 2,
           "node": "compute-0-7"
+        },
+        {
+          "job_id": 4538515,
+          "state": "FAILED",
+          "exit_code": "1:0",
+          "elapsed_seconds": 1,
+          "allocated_CPUs": 2,
+          "node": "compute-0-7"
         }
       ],
       "forward_continuation": {
         "job_id": 4538515,
-        "state": "PENDING",
+        "state": "FAILED",
         "dependency": "afterany:4537597",
         "requested_CPUs": 2,
         "time_limit_seconds": 4200,
         "configuration": "configs/d_recipe/diagnostics/D-R1_seed0_3M_forward_capacity_resume.json",
         "same_original_output": true,
         "wait_for_capacity": true,
-        "source_commit": "90ccd03cc437b0adea929442d8487f657d3adaaf"
+        "source_commit": "90ccd03cc437b0adea929442d8487f657d3adaaf",
+        "exit_code": "1:0",
+        "elapsed_seconds": 1
       },
       "capacity_wait_tests": {
         "new": 6,
@@ -626,15 +645,17 @@
       },
       "geometry_timebox": {
         "cumulative_limit_seconds": 14400,
-        "closed_forward_prefix_seconds": 3715,
-        "remaining_before_continuation_seconds": 10685,
-        "actual_failures": 1,
-        "transfer_and_CPU_held": true,
-        "scope": "Recompute remaining allowance from actual closed phases before releasing transfer and CPU statistics"
+        "closed_forward_prefix_seconds": 3716,
+        "remaining_before_continuation_seconds": null,
+        "actual_failures": 2,
+        "transfer_and_CPU_held": false,
+        "scope": "Recompute remaining allowance from actual closed phases before releasing transfer and CPU statistics",
+        "status": "UNRESOLVED_TWO_ACTUAL_FAILURES",
+        "no_more_repairs_or_forward_submissions": true
       },
       "cached_layer_GPU": {
         "job_id": 4537597,
-        "status": "RUNNING",
+        "status": "COMPLETED",
         "main_layer_reused": 6,
         "new_probe_layers": [
           3,
@@ -642,9 +663,32 @@
           5
         ],
         "encoder_forward_repeated": false,
-        "CPU_statistics_job": 4537598
+        "CPU_statistics_job": 4537598,
+        "exit_code": "0:0",
+        "elapsed_seconds": 1217,
+        "allocated_CPUs": 2,
+        "CPU_statistics_status": "WAITING_MAIN_CPU_STATISTICS"
       },
-      "decision_input": false
+      "decision_input": false,
+      "cancelled_never_started": [
+        {
+          "job_id": 4537595,
+          "state": "CANCELLED by1278",
+          "exit_code": "0:0",
+          "elapsed_seconds": 0
+        },
+        {
+          "job_id": 4537596,
+          "state": "CANCELLED by1278",
+          "exit_code": "0:0",
+          "elapsed_seconds": 0
+        }
+      ],
+      "infrastructure_repair_status": "NOT_ADOPTED_REVERTED_AFTER_FAILED_CONSTRUCTOR_ADMISSION",
+      "historical_failed_repair_source_commit": "90ccd03cc437b0adea929442d8487f657d3adaaf",
+      "registered_diagnostic_closed_GPU_seconds": 4933,
+      "partial_F64_output_retained": true,
+      "geometry_result_available": false
     }
   },
   "stage0": {

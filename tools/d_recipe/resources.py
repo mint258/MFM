@@ -158,16 +158,11 @@ def protection_plan(configuration):
     return dict(poll_seconds=5, targets=[root, share])
 
 
-def capacity_gate(guard, configuration):
-    """Opted-in direct writers reuse the existing blocking capacity admission."""
-    return guard.wait if configuration.get("wait_for_capacity", False) is True else guard.check
-
-
 class DJointGuard(Guard):
     def __init__(self, configuration):
         self.configuration = configuration
         super().__init__(protection_plan(configuration))
-        capacity_gate(self, configuration)(configuration["output"])
+        self.check(configuration["output"])
 
     def check(self, path, bytes_needed=0, inodes_needed=0):
         try:

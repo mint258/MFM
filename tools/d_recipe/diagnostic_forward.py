@@ -61,14 +61,13 @@ def store_batch(means, atoms, panel, start, features, pointers):
 
 def run(configuration, *, module=None, guard=None):
     registered_endpoint(configuration)
-    from .resources import capacity_gate, execution_site
+    from .resources import execution_site
     execution_site(configuration, cpu=False)
     if guard is None:
         from .resources import DJointGuard
         guard = DJointGuard(configuration)
-    capacity_check = capacity_gate(guard, configuration)
     output = Path(configuration["output"])
-    capacity_check(output)
+    guard.check(output)
     output.mkdir(parents=True, exist_ok=True)
     state_path, manifest_path = output / "cursor.json", output / "manifest.json"
     binding = {k: configuration[k] for k in ("arm", "run", "samples", "seed", "checkpoint", "root", "source")}
@@ -102,7 +101,7 @@ def run(configuration, *, module=None, guard=None):
             mode, cursor = "r+", state["cursor"]
         else:
             panel = make_panel(data, indices, basis)
-            capacity_check(output)
+            guard.check(output)
             np.savez(output / "panel.npz", **panel)
             mode, cursor = "w+", 0
         means = np.lib.format.open_memmap(output / "means.npy", mode=mode,
@@ -115,7 +114,7 @@ def run(configuration, *, module=None, guard=None):
             raise ValueError("The supplied checkpoint is not the registered 3M endpoint")
         with torch.no_grad():
             for start in range(cursor, len(panel["rows"]), 32):
-                capacity_check(output)
+                guard.check(output)
                 samples = [data.read(int(mi), int(ci)) for mi, ci in panel["rows"][start:start + 32]]
                 batch = collate_samples(samples, device="cuda")
                 layers = module.representation_layers(encoder, batch)
@@ -131,7 +130,7 @@ def run(configuration, *, module=None, guard=None):
             first_atoms=str(output / "first_atoms.npy"), layers=[3, 4, 5, 6],
             molecules=5000, conformers=len(panel["rows"]), cache_dtype="float64",
             source=str(REPRESENTATION_SOURCE), statistics_complete=False)
-        capacity_check(output)
+        guard.check(output)
         temporary = manifest_path.with_suffix(".partial")
         temporary.write_text(json.dumps(result, indent=2) + "\n")
         temporary.replace(manifest_path)
