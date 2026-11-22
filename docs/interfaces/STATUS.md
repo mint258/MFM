@@ -1586,3 +1586,12 @@ D-R0/4538566 GPU4、D-R1/4538567 GPU5原训练汇总均3000000样本/93750更新
 阶段1两种子各WIN、已采用A1+B3+B4整包；最终配置仍未冻结。CPU11现运行原通用完整TRAIN A1：L1/4539166原闭合2048/1194228行（197分子标量），L2/4539169闭合512/1194228行（1320标量）；各1CPU，48h，真实EndTime11-25 04:50:12/04:52:37 CST、预留900秒收尾。最初两入口在任何数组创建前退出，原子树已reap/children=[]；现入口只先经原guard准入后建独立自有根，两个原收集器均已有正游标，无算法/字段/D4更改。
 
 已登记联合NFS42074762973B及CPU11 Root共同future38788923392B、系统max10GiB/10%另留、同行future/100GB/fresh5秒保护不变；原log/旧产物保留，不复制原数据库。04:55实际Root余量69906649088B/inode36569906。G1就绪待合规GPU，下一次完整资源复查21:06 UTC；不碰当前CUDA上下文、不停止/迁移在跑任务。进度与原生身份见d-recipe/configs/d_recipe/CURRENT_BEST.json和docs/d_recipe/daily/2026-11-23.md。完整后续任务继续，无新用户审批项。
+
+
+## 2026-11-23 06:55 CST · D Root：G1原3M已启动
+
+新空卡compute-0-7已按原≤3M优先组规则接入D-G1：原Slurm4539204、RTX3090 UUID GPU-9db54192-dd3f-3177-e56f-dcd161ff932c、5CPU/3workers、fresh seed0/B32各3M；原日志已4736样本、75.868646658957训练秒，完整TRAIN1194228。沿已确认A1+B3+B4及D20，仅关闭全部D3损失，二维块不放大，不改其他线/在跑作业。原CPU统计4539205(afterok4539204)及同seed R1比较4539206(afterok4539205)已提交CPU11/各1CPU、8h/4h，当前PENDING Dependency；不重训控制、不提前作胜负/冻结。
+
+本卡原实际StateIDLE、48可分配CPU、零CUDA上下文、显存5/24576MiB；Root/tmp同盘可用45430296576B/inode36529024，MemAvailable388872864kB。resident实际准入Root45429927936B/inode36529018、真实TimeLimit48h/EndTime11-25 06:53:49 CST，提前900秒完整状态安全收尾，TERM/join/reap自有子树，不靠TIMEOUT/KILL。GPU7共同Root未来17314086912B（原8GiB自己+8GiB同行+128MiB日志），D联合NFS42074762973B与CPU11未来38788923392B均不增；fresh5秒UID、100GB及系统max10GiB/10%保护保留。
+
+CPU11原L1/4539166、L2/4539169仍RUNNING；06:40 CST原游标84992/1194228和57344/1194228。仅原采集粗估24日06:20/17:50 CST，之后拟合另计，预算/阈值不改。宽库逐字段R²与截断计数直接用原fit.fields，不新增数组扫描；SASA旧报告复用。完整任务仍active：后续全部条件种子/K1/规定seed0诊断、冻结、冷9M、最终A/B/C及基准、成本、一次完整默认回归/仓库检查、Root与数据两个未合并PR保持。其他会话是否读到/部署不作声称。
