@@ -11,3 +11,8 @@ jobs:
         with:
           python-version: '3.11'
       - run: python tools/check_repository.py
+      - name: Future consumer lifecycle unit tests
+        run: python -m unittest workflows.benchmark_evaluation.test_consumer_lifecycle -v
+
+      - name: Failed-fold continuation and private quota admission tests
+        run: python -m unittest workflows.benchmark_evaluation.test_reference_closed_fold_resume workflows.benchmark_evaluation.test_frozen_cpu_admission -v

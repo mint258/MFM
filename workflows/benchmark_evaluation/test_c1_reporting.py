@@ -1,0 +1,231 @@
+"""Tests for new C1 binding and reporting policy, using invented fixture records only."""
+import unittest
+from workflows.benchmark_evaluation.c1_reporting import expected_cells,native_primary_row,native_population,make_primary_report
+from workflows.benchmark_evaluation.selection import IncompleteComparison
+
+class C1ReportTests(unittest.TestCase):
+    def endpoint(self,dataset="ExpansionRx",target="p",level="molecule",key="expansionrx::p"):
+        return dict(endpoint_key=key,dataset=dataset,target=target,level=level,split_policy="original")
+    def rows(self,factor=0.0):
+        return [dict(task='p',record_id=str(i),evaluation_id=str(i),full_inchikey="KEY-"+str(i),
+                     y_true=float(i+1),prediction=float(i+1)*factor,training_mean=0.0,primary_source_job="701",native_producer_job="701",native_source_folder="/original/job_701") for i in range(3)]
+    def test_native_missingness_keeps_original_coverage_and_labels(self):
+        source=self.rows()
+        candidate=self.rows(.9)[:2];candidate[1]["prediction"]=None
+        values,coverage=native_population(source,candidate)
+        self.assertEqual(len(values),1)
+        self.assertEqual(coverage["original_primary_TEST_rows"],3)
+        self.assertEqual(coverage["missing_native_TEST_rows"],2)
+        self.assertFalse(coverage["missing_native_features_imputed"])
+    def test_candidate_cannot_introduce_new_test_ids_or_changed_labels(self):
+        candidate=self.rows(.9);candidate[0]["record_id"]="OTHER";candidate[0]["evaluation_id"]="OTHER"
+        with self.assertRaises(IncompleteComparison):native_population(self.rows(),candidate)
+        candidate=self.rows(.9);candidate[0]["y_true"]=999.
+        with self.assertRaises(IncompleteComparison):native_population(self.rows(),candidate)
+    def test_atomic_scope_does_not_invent_atomic_D_or_TabPFN(self):
+        molecule=self.endpoint()
+        nmr=self.endpoint("NMRShiftDB2","1H","atom","nmrshiftdb2::1H")
+        mechanism=self.endpoint("pKahub","single_site_mechanism","atom","pkahub::single_site_mechanism")
+        cells=expected_cells([molecule,nmr,mechanism])
+        self.assertEqual(len(cells),8)
+        self.assertEqual([c[1:] for c in cells if c[0]==nmr["endpoint_key"]],
+                         [("Pprime_plus_RDKit_atom","LightGBM")])
+    def test_blind_outside_domain_uses_actual_fit_TRAIN_mean(self):
+        catalog=[self.endpoint()]
+        raw=dict(self.rows()[0],task="p",retained=False,domain_eligible=False,prediction=0.)
+        spec=dict(learner="TabPFN",feature_group="D",dataset="ExpansionRx")
+        self.assertIsNotNone(native_primary_row(raw,catalog,spec))
+        raw["prediction"]=1.
+        with self.assertRaises(IncompleteComparison):native_primary_row(raw,catalog,spec)
+    def test_existing_primary_filter_is_preserved_for_nonblind_tasks(self):
+        catalog=[self.endpoint("Biogen_ADME","p",key="biogen_adme::p")]
+        raw=dict(self.rows()[0],task="p",retained=False,domain_eligible=False)
+        spec=dict(learner="LightGBM",feature_group="D",dataset="Biogen_ADME")
+        self.assertIsNone(native_primary_row(raw,catalog,spec))
+    def test_missing_native_scaffold_fold_cannot_be_discarded(self):
+        original=[dict(r,repetition=0,fold=0) for r in self.rows()]
+        candidate=[dict(r,repetition=0,fold=0) for r in self.rows(.9)]
+        with self.assertRaises(IncompleteComparison):native_population(original,candidate,True)
+    def report_inputs(self,role="RETAIN"):
+        endpoint=self.endpoint()
+        screen=[dict(endpoint,decision=role,status="SCREENED")]
+        base={endpoint["endpoint_key"]:{"LightGBM-RDKit2D":self.rows()}}
+        c1={(endpoint["endpoint_key"],f,l):self.rows(.9 if l=="TabPFN" else .2)
+            for f in ("D","Pprime","Pprime_plus_D") for l in ("LightGBM","TabPFN")}
+        return [endpoint],screen,base,c1
+    def test_only_final_significant_TabPFN_cells_require_confirmation(self):
+        table,contrasts,plan=make_primary_report(*self.report_inputs())
+        self.assertEqual(len(table),6)
+        self.assertEqual(len(plan),3)
+        self.assertTrue(all(r["producer_task"]=="p" for r in plan))
+        self.assertTrue(all(r["learner"]=="TabPFN" and r["confirmation_seed"]==20261026 for r in plan))
+        self.assertTrue(all(not r["task_roster_reselection"] for r in table))
+        self.assertTrue(all(r["bootstrap_draws"]==1000 for r in table))
+    def test_excluded_tasks_do_not_acquire_second_seeds(self):
+        _,_,plan=make_primary_report(*self.report_inputs("EXCLUDE"))
+        self.assertEqual(plan,[])
+    def test_absent_producer_is_not_silently_declared_unresolved(self):
+        catalog,screen,base,c1=self.report_inputs()
+        c1.pop(next(iter(c1)))
+        with self.assertRaises(IncompleteComparison):make_primary_report(catalog,screen,base,c1)
+
+if __name__=="__main__":unittest.main()
+
+"""Actual fit-count and feature-layout reporting contracts, using invented records."""
+import unittest
+from workflows.benchmark_evaluation.c1_reporting import fit_metadata_summary
+from workflows.benchmark_evaluation.selection import IncompleteComparison
+class FitMetadataTests(unittest.TestCase):
+    def test_native_available_TRAIN_count_is_not_replaced_by_another_models_population(self):
+        records=[dict(n_train='31',feature_count='67',subsampling_ensemble='False'),
+                 dict(n_train='99',feature_count='67',fit_population='full',evaluation_population='full')]
+        summary=fit_metadata_summary(records)
+        self.assertEqual(summary['actual_TRAIN_rows'],31)
+        self.assertEqual(summary['input_feature_count'],67)
+        self.assertFalse(summary['official_TabPFN_subsampling_ensemble'])
+    def test_fold_sizes_may_differ_but_native_feature_layout_may_not(self):
+        records=[dict(n_train=str(20+i),feature_count='75') for i in range(25)]
+        summary=fit_metadata_summary(records,True)
+        self.assertEqual((summary['actual_TRAIN_rows_min'],summary['actual_TRAIN_rows_max']),(20,44))
+        records[-1]['feature_count']='76'
+        with self.assertRaises(IncompleteComparison):fit_metadata_summary(records,True)
+    def test_absent_fit_count_stays_unknown_instead_of_becoming_zero(self):
+        self.assertIn('UNKNOWN',fit_metadata_summary([])['actual_TRAIN_size'])
+        with self.assertRaises(IncompleteComparison):fit_metadata_summary([dict(n_train='0')])
+
+class FailedReportContinuationTests(unittest.TestCase):
+    def endpoint(self,task):
+        return dict(dataset="TDC_ADMET",target="Y",endpoint_key="tdc_admet::"+task+"::Y",level="molecule",split_policy="official")
+    def test_closed_successes_and_failed_only_continuation_keep_their_real_native_origins(self):
+        import json,tempfile
+        from pathlib import Path
+        import pyarrow as pa
+        import pyarrow.parquet as pq
+        from workflows.benchmark_evaluation.c1_reporting import C1ClosedConsumer
+        catalog=[self.endpoint(task) for task in ("keep","retry")]
+        with tempfile.TemporaryDirectory() as temporary:
+            consumer=C1ClosedConsumer(catalog)
+            for job,task,failures in ((100,"keep",[dict(dataset="TDC_ADMET",task="retry",status="FIRST_ATTEMPT_FAILED",error="KeyError('MAE')")]),(200,"retry",[])):
+                folder=Path(temporary)/("job_"+str(job));folder.mkdir()
+                (folder/"manifest.json").write_text(json.dumps(dict(job=str(job),status="CLOSED",failures=failures)))
+                row=dict(dataset="TDC_ADMET",task=task,record_id=task,full_inchikey="KEY-"+task,y_true=1.,prediction=.5,training_mean=0.)
+                pq.write_table(pa.Table.from_pylist([row]),folder/"predictions.parquet")
+                spec=dict(job=job,dataset="tdc_asap",feature_group="Pprime",learner="TabPFN")
+                consumer.add_run(folder,"COMPLETED",spec)
+            self.assertEqual(len(consumer.predictions),2)
+            self.assertEqual(consumer.predictions[("tdc_admet::keep::Y","Pprime","TabPFN")][0]["native_producer_job"],"100")
+            self.assertEqual(consumer.predictions[("tdc_admet::retry::Y","Pprime","TabPFN")][0]["native_producer_job"],"200")
+            self.assertFalse(consumer.unresolved_cells)
+    def test_one_failed_repair_yields_explicit_unresolved_without_third_fit_or_fabrication(self):
+        import json,tempfile
+        from pathlib import Path
+        from workflows.benchmark_evaluation.c1_reporting import C1ClosedConsumer
+        with tempfile.TemporaryDirectory() as temporary:
+            folder=Path(temporary)
+            failure=dict(dataset="TDC_ADMET",task="retry",status="UNRESOLVED_AFTER_ALLOWED_REPORT_REPAIR",error="RuntimeError('bounded retry')")
+            (folder/"manifest.json").write_text(json.dumps(dict(job="200",status="CLOSED",failures=[failure])))
+            consumer=C1ClosedConsumer([self.endpoint("retry")])
+            consumer.add_run(folder,"COMPLETED",dict(job=200,dataset="tdc_asap",feature_group="Pprime",learner="TabPFN"))
+            cell=("tdc_admet::retry::Y","Pprime","TabPFN")
+            self.assertIn("PRODUCER_UNRESOLVED_AFTER_ALLOWED_REPORT_REPAIR",consumer.unresolved_cells[cell])
+            self.assertFalse(consumer.predictions)
+
+class BlindFallbackBindingTests(unittest.TestCase):
+    def reference(self):
+        return [dict(dataset="ASAP_Polaris2025",task="HLM",endpoint_key="asap_polaris2025::HLM",record_id=str(i),
+            evaluation_id=str(i),full_inchikey="KEY-"+str(i),y_true=float(i+1),prediction=0.,training_mean=0.,
+            fit_population="retained",eligible=(i!=2)) for i in range(3)]
+    def native(self,job="701",mean=2.):
+        return [dict(row,prediction=None if i==1 else 1.5,training_mean=mean,native_producer_job=job,
+            primary_source_job=job,native_source_folder="/native/job_"+job,learner="TabPFN",feature_group="Pprime")
+            for i,row in enumerate(self.reference()[:2])]
+    def test_missing_outside_uses_actual_fit_mean_and_inside_missing_stays_missing(self):
+        from workflows.benchmark_evaluation.c1_reporting import bind_blind_fallbacks
+        original=self.native();rows,note=bind_blind_fallbacks(self.reference(),original,"ASAP_Polaris2025")
+        by_id={r["record_id"]:r for r in rows}
+        self.assertEqual(by_id["2"]["prediction"],2.)
+        self.assertEqual(by_id["2"]["training_mean"],2.)
+        self.assertIsNone(by_id["1"]["prediction"])
+        self.assertEqual(by_id["2"]["native_producer_job"],"701")
+        self.assertEqual(by_id["2"]["y_true"],3.)
+        self.assertFalse(by_id["2"]["eligible"])
+        self.assertNotIn("features",by_id["2"])
+        self.assertEqual(note["blind_outside_fallback_rows_bound_by_report"],1)
+        self.assertFalse(note["blind_fallback_native_features_imputed"])
+        self.assertEqual(len(original),2)
+    def test_ambiguous_mean_or_foreign_test_cannot_acquire_policy_predictions(self):
+        from workflows.benchmark_evaluation.c1_reporting import bind_blind_fallbacks
+        for mode in ("mean","foreign","empty"):
+            rows=self.native()
+            if mode=="mean":rows[1]["training_mean"]=9.
+            elif mode=="foreign":rows[0]["evaluation_id"]="OTHER";rows[0]["record_id"]="OTHER"
+            else:rows=[]
+            with self.assertRaises(IncompleteComparison):bind_blind_fallbacks(self.reference(),rows,"ASAP_Polaris2025")
+    def test_present_outside_values_labels_and_identities_cannot_be_silently_overwritten(self):
+        from workflows.benchmark_evaluation.c1_reporting import bind_blind_fallbacks
+        for field,value in (("prediction",9.),("y_true",9.),("full_inchikey","OTHER")):
+            rows,_=bind_blind_fallbacks(self.reference(),self.native(),"ASAP_Polaris2025")
+            rows[-1][field]=value
+            with self.assertRaises(IncompleteComparison):bind_blind_fallbacks(self.reference(),rows,"ASAP_Polaris2025")
+    def test_complete_policy_population_is_preserved(self):
+        from workflows.benchmark_evaluation.c1_reporting import bind_blind_fallbacks
+        rows,_=bind_blind_fallbacks(self.reference(),self.native(),"ASAP_Polaris2025")
+        result,note=bind_blind_fallbacks(self.reference(),rows,"ASAP_Polaris2025")
+        self.assertEqual(result,rows);self.assertEqual(note["blind_outside_fallback_rows_bound_by_report"],0)
+        rows[-1]["prediction"]=None
+        result,note=bind_blind_fallbacks(self.reference(),rows,"ASAP_Polaris2025")
+        self.assertEqual(len(result),3);self.assertEqual(result[-1]["prediction"],2.)
+    def test_policy_fallback_requires_real_unambiguous_fit_provenance(self):
+        from workflows.benchmark_evaluation.c1_reporting import bind_blind_fallbacks
+        rows=self.native();rows[1]["native_producer_job"]="OTHER"
+        with self.assertRaises(IncompleteComparison):bind_blind_fallbacks(self.reference(),rows,"ASAP_Polaris2025")
+    def test_first_report_does_not_replay_historical_subset_estimates(self):
+        from unittest.mock import patch
+        from workflows.benchmark_evaluation.c1_reporting import bind_blind_fallbacks
+        key="asap_polaris2025::HLM"
+        catalog=[dict(dataset="ASAP_Polaris2025",target="HLM",endpoint_key=key,level="molecule",split_policy="official")]
+        screen=[dict(endpoint_key=key,decision="APPENDIX")]
+        baseline={key:{"LightGBM-RDKit2D":self.reference()}}
+        native={};metadata={}
+        for feature in ("D","Pprime","Pprime_plus_D"):
+            for learner in ("LightGBM","TabPFN"):
+                cell=(key,feature,learner);rows=self.native()
+                for row in rows:row.update(feature_group=feature,learner=learner)
+                if feature=="D":rows=bind_blind_fallbacks(self.reference(),rows,"ASAP_Polaris2025")[0]
+                native[cell]=rows;metadata[cell]=[dict(n_train=2,feature_count=3)]
+        with patch("workflows.benchmark_evaluation.c1_reporting.primary_statistics",return_value=dict(MAE=1.,RAE=.5,bootstrap_draws=1000)) as stats:
+            with patch("workflows.benchmark_evaluation.c1_reporting.paired_improvement",return_value=dict(significant_improvement=False)):
+                table,contrasts,plan=make_primary_report(catalog,screen,baseline,native,fit_metadata=metadata)
+        self.assertEqual(len(table),6);self.assertFalse(plan)
+        self.assertEqual(sum(row["blind_outside_fallback_rows_bound_by_report"] for row in table),4)
+        self.assertEqual(sum(not call.args[1] for call in stats.call_args_list),4)
+        self.assertTrue(all(row["available_TEST_rows"]==2 for row in table))
+        self.assertEqual(len(native[(key,"Pprime","TabPFN")]),2)
+
+if __name__=='__main__':unittest.main()
+
+
+"""Final consumers reuse existing score metadata instead of independently replaying it."""
+import unittest
+from unittest.mock import patch
+from workflows.benchmark_evaluation.c1_reporting import primary_statistics
+from workflows.benchmark_evaluation.selection import IncompleteComparison
+class ExistingScoreReuseTests(unittest.TestCase):
+    def rows(self):return [dict(full_inchikey='ORIGINAL-KEY',y_true=2.,prediction=1.,training_mean=0.)]
+    def record(self):return dict(n_test_rows='1',bootstrap_draws='1000',MAE='1.0',RAE='0.5',
+             RAE_CI95_low='0.5',RAE_CI95_high='0.5',metric_status='OK')
+    def test_closed_CPU_score_is_exported_without_a_second_bootstrap(self):
+        with patch('workflows.benchmark_evaluation.c1_reporting.single_model_statistics',side_effect=RuntimeError('must not replay')):
+            score=primary_statistics(self.rows(),[self.record()])
+        self.assertEqual(score['RAE'],.5)
+        self.assertEqual(score['statistics_source'],'REUSED_CLOSED_CPU_PRODUCER_STATISTICS')
+    def test_deferred_GPU_statistics_are_computed_only_in_the_CPU_consumer(self):
+        expected=dict(MAE=1.,RAE=.5)
+        with patch('workflows.benchmark_evaluation.c1_reporting.single_model_statistics',return_value=expected) as compute:
+            score=primary_statistics(self.rows(),[dict(bootstrap_draws='0',metric_status='PENDING_CPU_STATISTICS')])
+        compute.assert_called_once()
+        self.assertIn('NEW_CPU_REPORT',score['statistics_source'])
+    def test_closed_metadata_cannot_silently_refer_to_another_test_population(self):
+        record=dict(self.record(),n_test_rows='2')
+        with self.assertRaises(IncompleteComparison):primary_statistics(self.rows(),[record])
+if __name__=='__main__':unittest.main()

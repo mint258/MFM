@@ -1,0 +1,42 @@
+{
+  "schema": "benchmark-shared-storage-reservations-v1",
+  "updated_at": "2026-11-21T01:41:00Z",
+  "notice": "docs/interfaces/STATUS.md D shared-future reconciliation 20:20CST",
+  "owned_scopes": [
+    "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B0_20261119",
+    "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119"
+  ],
+  "components": {
+    "model_P_NFS": 25327352832,
+    "private_environments": 25769803776,
+    "miscellaneous": 1073741824,
+    "S_full_study": 68719476736,
+    "D_joint_replaces_old_14GiB": 36706053853,
+    "benchmark_B1_C1": 42949672960
+  },
+  "concurrent_total_bytes": 200546101981,
+  "quantum_future": "Added by original caller only while each scope access is not immutable/cross-node; committed bytes remain actual quota usage",
+  "old_114569896448_model_pool": "Lustre total; replaced by actual NFS model_P_NFS plus individually declared futures",
+  "no_own_training_or_foreign_jobs_changed": true,
+  "node_local_tmp_peer_future_bytes": {
+    "compute-0-7": 17179869184,
+    "compute-0-10": 12884901888,
+    "compute-0-17": 0
+  },
+  "node_local_peer_notice": "docs/interfaces/STATUS.md D Root 2026-11-21 09:28:33CST, peer commit98e6b38d51fc6ae2d5fed02d3b6f7c0b3f942685; R0 native writers closed, GPU7 remaining R1 future16GiB and CPU17 R0 future0; existing physical caches retained in actual df",
+  "node_local_claims_not_added_to_NFS_or_Lustre": true,
+  "node_local_peer_cache_paths": {
+    "compute-0-7": [
+      "/tmp/d_recipe_20261120_D_R0_seed0_3M",
+      "/tmp/d_recipe_20261120_D_R1_native_layers",
+      "/tmp/d_recipe_20261120_D_R1_seed0_3M_VAL"
+    ],
+    "compute-0-10": [
+      "/tmp/d_recipe_20261120_D_R1_seed0_3M_VAL"
+    ],
+    "compute-0-17": [
+      "/tmp/d_recipe_20261120_D_R0_seed0_3M"
+    ]
+  },
+  "closed_R0_cache_bytes_remain_in_actual_df": true
+}
