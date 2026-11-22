@@ -1173,3 +1173,93 @@ After P T2 actual4537553 COMPLETED0:0, S dispatch4538263 admitted GPU-8bfd2ba3-f
 ### 2026-11-22 09:02 CST S owns both48GiB GPU20 cards;B0 handoff closed,N1 resumed
 B0 native220630 closed exit0 at489024 samples/15282updates,complete checkpoint samples_489024.pt and matching request65aed7c4-a942-4ab4-92f8-c028217f8738 retained. Actual Slurm4538264 producer224784 now runs the same condition onGPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5;observed566080samples and its first fixed500kVAL. Native terminal metadata preserves7745.584613800049seconds and exact start/end for nonduplicated handoff accounting. Registered p99 remains26.70016281127931.
 S dispatch4538390 admitted the secondRTX4090 GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02 at455/49140MiB,freeCPU4<16: N1 attempt2 native225638,UID1278,startTicks48791287 now resumes its original complete27744sample checkpoint;actual GPU context and38528sample progress confirmed. Same-task standby4538392 is submitted;check live state for takeover. N1 first1000updates cross priorGPU7 RTX3090(867updates) and currentGPU20 RTX4090(133updates),so its47.846991481552664samples/s is explicitly a mixed window. These are the registered runs,with no new seed,budget,variant or benchmark. Both owned UUID flocks and all existing otherowner contexts/jobs remain protected. S64GiB/jointNFS200546101981B and root futures16/12/0GiB are unchanged,with real target bytes/inodes/freshUIDquota guards. No S3M endpoint or formal R1/R3 result exists yet.
+
+
+## 2026-11-22 12:32:10 CST · D Root
+
+R1原3M/GPU主读出已闭合，主CPU统计4537593与配对4537599继续原链。F64几何诊断4537594/4538515因容量快照新鲜度准入两次实际失败（3715秒/1秒），按任务书记UNRESOLVED并停止修复；原部分文件保留，可选未生效修复已撤回。原缓存3–5层GPU读出4537597已COMPLETED0:0/1217秒，CPU逐层读出4537598等待主统计。原传输4537595和表示统计4537596均未开始即取消0秒。GPU7的D-R1原8+8GiB与CPU10原12GiB未来写入归零；全部D-R0/D-R1原缓存及部分文件保留，物理占用继续以实际df计入，不删除、不复制原库。联合NFS峰值36706053853B不变；配方未冻结，诊断未解决不作主比较WIN/TIE/LOSS。
+
+
+## 2026-11-22 14:21:47 CST · D Root
+
+D-R1 seed0 paired R3 is WIN: delta=0.09770468747584315, 95% CI=[0.08195311354654226,0.11189074805862387], tau=0.02012323794694327. The original comparison JSON and identical log closed before job4537599 timed out; do not resample or rerun it. Held successor4538541 was cancelled before starting. Transfer adoption still requires the registered individual seed1 WIN.
+
+The triggered pair is one fresh3M D-R0 seed1 control plus one fresh3M D-R1 seed1. Configuration/storage preparation4538547 onCPU17 was cancelled after RPC wait before configuration generation; dependent replacement4538549 is onCPU8. Neither seed1 training has started. Proposed extra NFS future is2GiB (joint36706053853 ->38853537501B); it is NOT admitted or registered until the live Data plan/configurations close and actual target bytes/inodes/fresh UID quota pass. No seed1 local feature/geometry cache, no additional Lustre growth, no original data copy. Existing clipping4538532 and cached-layer CPU4537598 remain active with original outputs retained. Shared-filesystem RPC waits currently delay progress; do not infer scientific failure or a final recipe decision from them.
+
+
+## 2026-11-22 14:32:10 CST · D Root
+
+R1 seed0 remains the original paired WIN; no comparison was repeated. Only its two registered fresh3M seed1 runs are now conditionally queued: D-R0 shared control GPU4538551 oncompute-0-4/UUID GPU-6965a7c7-025e-e4fd-013a-2be3245ef7c6, D-R1 GPU4538552 oncompute-0-5/UUID GPU-dac07d74-6269-c7db-8832-340dd3c0b377. Both require afterok4538549, which must first seal their exact configs/registry and the live Data joint NFS forecast (+2GiB to38853537501B). CPU4538553/4538554 follow their respective GPU; original paired comparison4538555 follows both CPU. Actual squeue shows all five PENDING/Dependency; neither model has started or occupied a GPU.
+
+These are scheduler dependencies, not storage/GPU admission. Unchanged launcher/guards must inspect the assigned real UUID/context/free memory/5CPUs and actual node root/NFS bytes/inodes/fresh5s UID quota plus all peer futures before model execution or large writes. GPU4's completed readonly observation found5.7TB NFS,2.964B free inodes and353221890048B UID quota (effective age1.43558s when read). GPU5 readonly observation returned root/tmp only before the shared10-minute probe4538550 timed out; do not treat that partial observation as shared-filesystem admission. No seed1 diagnostic caches, original-data copies, new Lustre future, transfer adoption, stage2 or9M. Configuration preparation4538549 and original CPU clipping/layer jobs retain their original outputs through current RPC waits. R1 layer CPU4537598 limit is now03:39:00; with original GPU1217s its total allowance is14357s (<4h), deadline16:19:13CST. Node-side STATUS/report mirroring waits for real shared-storage admission; GitHub records current closed science and queued dependency state.
+
+
+## 2026-11-22 14:39:00 CST · D Root
+
+D Root goal is blocked by the same external shared NFS startup/page-I/O fault confirmed in three consecutive goal turns. Preparation4538549 remains live onCPU8, its process2827663 is D state with zero CPU time before batch entry; both seed1 configs, registry and log are still absent. Original layer/clip workers remain in NFS/page wait with unchanged CPU times. This is no new scientific loss, result invalidation or cancellation. R1 seed0 original paired WIN remains closed.
+
+Retain original clip4538532, layer4537598 (16:19:13CST cumulative diagnostic deadline), preparation4538549, GPU4538551/4538552, CPU4538553/4538554 and comparison4538555. All five seed1 jobs remain PENDING/Dependency. Do not submit duplicates or release cancelled comparison4538541. Existing afterok and actual node GPU/root/NFS/inode/fresh5s UID-quota/peer guards remain in force; the proposed extra2GiB is not live until original preparation seals the Data forecast. No model has started, no transfer adopted, no stage2/9M. All outputs retained; no admin/NFS settings changed. Shared I/O must recover before further substantive work; resume the goal from exact current jobs/artifacts after recovery. Node-side report/STATUS mirroring also waits for actual write admission; GitHub CURRENT_BEST records the blocker without pretending execution is complete.
+
+[跨线 用户指示 2026-11-22 15:40 CST] 新增 docs/interfaces/STORAGE_GUARD_20261122.md 与 tools/shared_guard.py：存储/内存预留改为共享登记目录 runs/shared_storage_reservations/，每条线只写自己的 <线名>.json，每次轮询续期，写完释放；新作业用 check_with_timeout()（60 秒超时即拒绝）。不再抄写或公告他线存储数字。在跑作业不动，下一次轮询起迁移。
+
+
+## 2026-11-22 15:35:44 CST · D Root
+
+Read user11-22 exit/drain prevention and skill1.0.164. All not-yet-started seed1 jobs4538551–4538555 are verified PENDING0s then held (JobHeldUser); do not release until future entry cleanup protection and actual target health are ready. No existing training was interrupted or frozen scientific source changed. This notice does NOT claim new entries already implement exit protection.
+
+Original R1 layer3 score is closed: R3=0.40784337449791125, CI[0.39454694681264635,0.42062377850793353]; R1=0.22251130365828092, CI[0.20889490422663376,0.2364367774943568]. Original1000/20261025 draws retained; layers4/5 remain missing; fixed layer6 main and seed0 paired WIN unchanged. CPU7598 was safely stopped from its closed layer3 prefix: exact UID/PID/start_ticks/job-cgroup rechecked, worker2819839 got oneTERM thenZ; parent2819751 got oneTERM only after no live children remained. Both/proc PIDs are confirmed absent. NativeFAILED0:15/9837s, notTIMEOUT; noKILL. With GPU1217s total11054s, remaining3346s for the same diagnostic after health verification. Original fullTRAIN clip4538532 remains live with its prior closed prefix.
+
+Preparation4538549 remains blocked before script entry. Its PID2827663 is slurmstepd with UIDs[0,1278,0,1278], start_ticks2244925324, not an ordinary owned userworker; no direct signal to it. Observed NFS/page waits do not establish the underlying cause, OOM or full disk. Admin kernel/slurmd/slurmctld/filesystem review is needed; no repeated diagnosis/resubmission on fault nodes, no drain bypass or service/spool changes. Node17 drain attribution is UNCONFIRMED. Existing root/system/inode/UID-quota/peer protections and proposed+2GiB activation gate remain; shared/node report mirroring waits for real write admission.
+
+
+## 2026-11-22 16:40 CST · D Root
+
+D science unchanged: user-approved7/65 new zero-scale exclusions and original unique statistics remain; bothwide libraries accepted and exports closed; original R1 seed0 paired WIN and fixed layer6 main remain. No actual seed1 training or adoption. Five old jobs4538551–4538555 remain held/PENDING0; they embed the OLD copied sbatch scripts, so source publication cannot authorize simply releasing them.
+
+New inactive Root exit-supervision code and wrappers are staged. Original16 source-policy/lifecycle tests +3 shell syntax checks passed onCPU10/4538557 (COMPLETED0:0/23s/1CPU, test0.309s, actual children=[]). Full repository regression remains reserved for prePR. Extended attempts4538558/CPU10 (389s) and4538559/CPU15 (119s) were interrupted before tests closed: existing memory supervisor performed controlled TERM/reap and returned75 with actual children=[] before real deadlines; neither is accepted as18 or2 passing tests. After two infrastructure interruptions, additional clipping-entry integration is UNRESOLVED; no further tests/repairs on those fault channels. The two actual cleanup outcomes are preserved, not disguised as successful tests.
+
+Production activation is still NOT ready. A source-independent outer supervisor must already reside in Slurm-copied/local memory BEFORE reading shared modules. Four staged sbatch templates now default toexit64 unless D_EXIT_OUTER_SUPERVISION is provided by a real supervised launch; setting a flag alone is not proof. Do not submit them directly or release old held jobs. Close outer supervision, canonical configurations/live Data forecast and actual healthy-node admission first, then verify old five still never started, replace with the SAME registered science and rebind dependencies. No duplicate control/seed, no frozen P/D scientific worker changes, no extra GPU/forward. Managed local log forecast must include at least32MiB/log and ALL actual-node peer/D future before activation, retaining max(10GiB,10%) root reserve and inode/fresh5s UID-quota guards. NFS remains36706053853B; proposed+2GiB is not activated by source publication.
+
+Original clip4538532 worker2822119/start_ticks2244363539/UIDsall1278 had exact original job-step cgroup and no children before ONE TERM; afterward it still existed inD, freezer row1:freezer:/, exit UNPROVEN. No repeated signal/KILL/scancel or replacement producer; preserve1020928/1194228 closed cursor, original config/coefficients/conformer choices and arrays. Layer7598 original parent/worker absence remains proven; original layers3/6 closed and4/5 allowance3346s unchanged.
+
+Preparation4538549 still waits at slurmstepd2827663/start_ticks2244925324/UIDs[0,1278,0,1278]; no ordinary user-worker entry, no direct signal. Its actual hard deadline is2026-11-22 18:18:03CST: administrator kernel/slurmd/slurmctld/filesystem review is needed BEFORE then. Underlying root cause and node17 attribution remain UNCONFIRMED. Avoid fresh tasks on observed failing8/10/15 channels and known14/16/17/18;21 prohibited. No service/spool/drain bypass, no existing training interrupted. Root goal was resumed and remains active with the external blocker; do not infer completion or carry old blocked-turn counts into this resumed run.
+
+Root original layer3 JSON and latest docs/CURRENT were mirrored under actual head-target admission including all peer future, proposed2GiB and1MiB metadata; no scientific arrays were reread or duplicated. This notice records Root's actions only and does not claim other sessions have read or deployed it.
+
+
+## 2026-11-22 16:50 CST · D Root
+
+D Root resumed-goal audit now reached3 consecutive turns with the SAME external preparation/source-I/O blocker. Goal is BLOCKED, NOT complete; full TASKBOOK objective is preserved. Latest lightweight head checks at2026-11-22T08:49:15Z: preparation4538549 RUNNING/02:31:13 onCPU8, original clip4538532 stillRUNNING, old seed1 jobs4538551–4538555 allPENDING/JobHeldUser/0s. Bothseed1 configs and conditional registry remain absent; preparation log exists but0B (mtime16:25:09CST). Historical mixed-rootUID slurmstepd identity is not presented as a fresh fault-node PID observation. No new probe, repair or computation was launched.
+
+Administrator kernel/slurmd/slurmctld/shared-filesystem recovery is required, particularly BEFORE preparation4538549 actual hard deadline18:18:03CST today. No direct signal to management/root processes, repeated kill/scancel, service/spool/drain changes or duplicate producer. Old clipping PID exit remains unproven; original closed1020928/1194228 cursor and all outputs retained. New entry extension remains UNRESOLVED after two safely reaped75 exits; core16 passing tests retained; staged templates remain default64/inactive pending source-independent outer supervision and actual health/config/forecast admission. Do not directly release the five old copied scripts.
+
+After recovery, read actual latest jobs/configs/registry/budgets/artifacts first and preserve any newer progress; NEVER overwrite subsequentREADY or completed state with this blocked snapshot. Original R1 seed0 WIN, approved7/65 filtering and unchanged unique statistics remain. No scientific fallback/adoption/freeze/9M was invented from this infrastructure fault. Still required: actual stage1 seed1 confirmation; selected-recipeL1/L2/G1 and conditionalK1/seeds; allowed diagnostics; finalfreeze/registered cold9M; finalA/B/C, benchmark handoff, reports/costs and two unmergedPRs. All guards and existing other-line training are preserved. No claim that peers have read this notice.
+
+
+## 2026-11-22 17:38 CST · D Root
+
+User explicitly requested changing nodes and resumed the full D goal. Old preparation4538549 now had an actual owned batch worker2828496/start_ticks2245694583/UIDsall1278 in exactjob4538549/step_batch, no children. OneTERM was sent only after that binding; actualPID ABSENT verified, nativeFAILED0:15/10708s/1CPU, before18:18 deadline. No root/manager signal, KILL or timeout. The old preparation writer cannot race the new canonical files.
+
+CPU19 local OS/RAM is usable; shared statvfs admission4538562 did not close and was safely reaped75/99s. Do not interpret that as shared-disk admission. Actual4538564/C0/1s/1CPU used local OS/RAM and captured exact original planner/fresh-seed/prepare_runtime source, with no shared-source/array/output access. Three new resident rendering tests passed0.001s plus an actual nested resident-child test with children=[]; existing16 lifecycle/policy passes retained. This is not a retry of closed clipping geometry or scientific statistics.
+
+Root canonical D-R0/D-R1 fresh3M seed1 configs and the ONE shared registry are now sealed under actual head-target Guard.wait, fresh5s UID quota and all peer forecasts. Actual Data/live NFS forecast is38853537501B (+2GiB), full31897483648B: original8 slots at232MB plus128MiB NFSlogs/readouts, no Lustre change or seed1 diagnostic cache. Every actual target additionally declares128MiB joint Root local-log future (all planned D logs); original peer forecasts and max(10GiB,10percent) root/inode guards remain. This registration is not actual GPU admission.
+
+New resident_bootstrap renders a Slurm-copied system-Python-ISB supervisor BEFORE shared module or shell startup. It embeds the reviewed original lifecycle, uses real finiteTimeLimit/EndTime,900s cleanup, original cooperativeSAVE_AND_EXIT, exact identity TERM/join/reap, noKILL. The scientific P/D workers remain unchanged, including original card-specific Python, preserved environment,3M schedule/fresh clip/seed/shared sampling. Four old standalone staged templates remain default64 unless truly wrapped. Five old jobs4538551–4538555 are verifiedzixiao/PENDING0s and will be replaced with resident launches, not released. GPU targets4/5, file-dependentCPU9/11/13; original UUID/empty-context/free-GPU/CPU and real-node shared/root/quota/peer admission still run before models.
+
+At this publication no seed1 model has started or recipe been adopted. Original seed0 WIN, accepted7/65 filtering/unique statistics, geometryUR and layer4/5 allowance3346s preserved. Old clip2822119 stillD/freezer root and actualexit unproven; no repeated signal or same-output replacement producer. That residual process still needs admin recovery, independently of new mainline work. Full TASKBOOK stages, conditional seeds/K1, freeze/9M/finalA/B/C/benchmark and twoPR scope remain. Other sessions' receipt/deployment is not claimed.
+
+
+## 2026-11-22 18:30 CST · D Root
+
+用户要求更换节点后，D 两个全新 seed1 正式 3M 作业4538566/4538567已分别在 compute-0-4/5 的 RTX3090 运行；18:13 CST 原生产日志均已确认153600 samples/4800 updates，独立60000–150000窗口 p99 分别11.076789627075199与25.356171264648438（150016冻结）。原科学配置、成员、随机状态和训练预算不变。后续原统计4538568/4538569及逐seed比较4538570仅按afterok依赖运行；原5个未启动held作业4538551–4538555已核实0秒取消。尚无seed1胜负，不提前采纳转移。
+
+R1原缓存层诊断由CPU13作业4538572补齐缺失层4/5，C0/81秒，原层3/6复用；总成本11135秒<14400。4层原F64/1000分子bootstrap已闭合，主终点仍为层6，不按诊断层择优。旧裁剪4538532最终原生FAILED0:15，实际旧PID已核实退出；原完整TRAIN裁剪由4538573在CPU13沿同一原配置/游标续接，18:16 CST已从1020928推进到1049600/1194228。原准备作业4538549实际自有进程也已退出；这两项旧阻塞已解除。
+
+新作业使用Slurm复制的自包含resident退出监督入口，真实EndTime前预留收尾，TERM/join/reap自有子进程，不用TIMEOUT正常收尾，无KILL、无故障节点重试、无管理员操作。Data联合NFS峰值38853537501字节包含seed1额外2GiB；保留实际目标盘字节/inode/配额与跨窗口余量检查。未改其他工作线/在跑训练。完整D目标仍active；后续宽库、K1、冷启动9M、A/B/C、交付与PR尚待原任务书关卡。
+
+
+## 2026-11-22 S 节点迁移与后续入口退出保护
+
+用户要求更换节点。S-N1 在985024样本保存模型/优化器/样本钟/采样及RNG/clip完整断点；原node20 PID225638 UID1278 start_ticks48791287、PGID225638及wrapper225613已由一次有界ps确认全部退出，旧待机4538392取消且未启动。新Slurm4538584在健康compute-0-22的32GiB5090从该断点续训，已观察到985600样本。未新启科学臂、未改变B32/FP32/重算关闭或原判定；36GiB是执行保守门，本次实际>30GiB空闲准入，启动即固定expandable_segments分配器。新入口绑定真实48h TimeLimit，提前900秒请求完整保存，显式join/reap自有worker/观察线程；16项新退出逻辑及入口测试4538583在CPU11通过并核验子进程退出。此说明仅覆盖本次及后续受保护入口，不声称其他会话已读或原在跑入口具备新保护。B0原4538264仍在node20推进至1683840样本，不强停、不重复启动；不在20新增任务。后续新作业迁移至统一共享预留登记；在跑作业保持既有保护。14/16共享drain关联沿用全局通知；17归属未确认。
+
+统一登记迁移已在CPU11核验：共享守卫9项测试4538588、仅启动检查一次的入口绑定2项测试4538589均通过并核验自有子进程退出。修复本集群/share的autofs入口误报根盘容量：实际探测模块所在共享目录，/lfshome探测用户目录；规范预留键、保留值不变。只登记s-recipe自己的剩余未来写入，后续新入口不再读取手抄同行预算，不在训练循环重复检查。现有在跑入口不改，不声称其他线已部署本修复。
