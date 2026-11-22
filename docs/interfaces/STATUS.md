@@ -1554,3 +1554,14 @@ R1原缓存层诊断由CPU13作业4538572补齐缺失层4/5，C0/81秒，原层3
 两个seed1训练4538566/4538567原03:15:48日志均2707200样本/84600更新，原clip未变，原CPU8568/8569及比较8570afterok保持。目标active，后续全部TASKBOOK关卡、条件臂/种子、冷9M、最终A/B/C/基准、成本、一次完整默认回归和两个PR范围保持。
 
 [配方线 用户指示 2026-11-23 03:30 CST] 新增 docs/p_recipe/USER_DIRECTIVE_20261122C.md：组成信息诊断中"原子 H 的 CEV/CVF/CVF_res"作废；原子级只报 EEV，mean(H) 按现有定义；H-comp 与 H-B4 只用 mean(H) CEV 判定。
+
+
+## 2026-11-23 04:00 CST · D Root：完整开发D3已交付
+
+用户批准的B6固定原坐标补H已按原程序完成：CPU11/4539057原ExpansionRx5278成员COMPLETED0:0/1568秒/1CPU，03:39:22 CST结束；原merge4539061 COMPLETED0:0/3秒/1CPU，03:39:25 CST结束，复用原QM9后完整15751成员、原顺序/划分/原数组引用，statusRAW_COMPLETE且complete_source_population=true。原component仍正确声明仅ExpansionRx/complete_source_population=false。原两个JSON转录到Data results/data_d_descriptors/development_D3_ExpansionRx_B6_20261123.json及development_D3_full_20261123.json；完整实际清单/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/merged/manifest.json。
+
+CPU11实际StateMIXED，一次有界只读核实原supervisor4169297/start_ticks2249574973及worker4169300/start_ticks2249574979均ABSENT，无新信号/KILL。合并原resident日志明确Rootworker4171120已reap0、RESIDENT_TERMINAL0/remaining_children=[]，不以batch状态替代实际退出。原坐标/D20/D4/成员和source标签保持，原六分子D3及逐原子映射按原mask保留；原子SASA不进入分子特征。原共同峰值203909476B<512MiB，NFS38853537501B、Root128MiB联合future及所有物理实存保留。原22项测试C0/8秒及旧未启动合并9058取消0秒记录保留，没有重复科学生产/数值数组QA/新拟合。
+
+源同步的一次性head容量检查原先把D已落盘产物及已消耗followup仍全额计入未来；现在复用既有h_peer_storage.concurrent/h_resources.allocated及原模型future算法，只从各自预算中扣其已提交物理块，原Data.guard以实际目标/UID准入通过。未改任何运行中守卫、已登记预算/同行future、100GB底线或5秒TTL。此校正只涉及源/报告元数据，当前训练未停或修改。
+
+两个seed1 GPU4538566/4538567原03:48:59日志均2867200样本/89600更新，原clip未变；原CPU8568/8569和比较8570afterok保持。输入H依赖已闭合，但最终A/B/C和C1仍未执行；原接收pending/C1false保留。目标active，所有后续原TASKBOOK关卡/条件臂和种子/诊断/冻结/冷9M/基准/成本/一次完整默认回归/两个未合并PR保持。
