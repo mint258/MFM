@@ -1065,3 +1065,8 @@ D联合NFS36706053853B、full29.75GB、Lustre模型池1.25GiB保持。A1/L2原�
 ## 2026-11-22 08:06:31 CST · D Root
 
 原计划基准独立L2导出4538205/CPU10/4CPU实际COMPLETED0:0，7842秒，194729唯一分子、761批关闭，启用1314/1613字段；开发双库4538204/3CPU也已COMPLETED0:0，612秒、15518唯一分子。原TRAIN统计/参数、原成员划分与原始值不改，不读取任务标签或重拟合。两训练库已由原64 loader接收4538200实际ACCEPTED；本次下游原清单仍保留reception_acceptance=pending、current_C1_complete=false，不代替基准接收/冻结或完整D3对照。基准L2清单为`/runs/d_recipe_20261120/benchmark/L2_descriptors/manifest.json`；[原清单转录与交付状态](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/DOWNSTREAM_INTERFACE.md)。旧D20基准绑定未解决、ExpansionRx H政策待定均保持，未获H修改授权。联合NFS36706053853B及原开发512MiB/基准L2 3.75GiB保留预算不增，无新节点cache或原库复制。R1 4537592/GPU7和截断4538112/CPU8继续，宽库训练仍等阶段1配方选择；配方未冻结，不修改同行任务。
+
+
+## 2026-11-22 11:34 CST · D Root
+
+R1原作业4537592已COMPLETED0:0，原定3M/93750更新及GPU读出闭合；CPU统计4537593与原配对4537599待闭合，CURRENT_BEST未冻结，无WIN/TIE/LOSS。两宽库补充过滤后已ACCEPTED，当前就绪标记已纠正为等待阶段1配方选择，原未解决证据保留；开发双库和基准L2原二维导出已关闭。原±6报告同游标1002496续接4538446/CPU16，无新数据副本或缓存，联合NFS预算不变；共享RPC等待下保留原结果和其余作业。

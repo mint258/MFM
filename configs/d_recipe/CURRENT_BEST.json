@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T00:56:22.055339Z",
+  "updated_at_utc": "2026-11-22T03:36:10.225177+00:00",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -148,7 +148,7 @@
     "job_id": 4537571,
     "checkpoint_continuation_job": 4537575,
     "status": "COMPLETE_FROZEN_FIT",
-    "clipping_report_job": 4538112,
+    "clipping_report_job": 4538446,
     "collection_progress_report_only": {
       "observed_at_utc": "2026-11-21T05:30:06.733338+00:00",
       "closed_rows": 762624,
@@ -209,34 +209,50 @@
       }
     },
     "clipping_infrastructure_continuation": {
-      "original_job": 4537578,
-      "original_exit": "1:0",
-      "original_elapsed_seconds": 76,
-      "continuation_job": 4538112,
+      "previous_job": 4538112,
+      "previous_state": "CANCELLED by1278",
+      "previous_elapsed_seconds": 40853,
+      "continuation_job": 4538446,
+      "continuation_node": "compute-0-16",
+      "requested_CPUs": 1,
+      "requested_memory_bytes": 17179869184,
+      "closed_atomic_cursor_reused": 1002496,
       "same_closed_cursor_and_output": true,
       "scientific_definition_changed": false,
-      "previous_continuation_job": 4538106,
-      "previous_exit": "1:0",
-      "previous_elapsed_seconds": 3105,
-      "continuation_node": "compute-0-8",
-      "closed_atomic_cursor_reused": 68608
+      "reason": "Persistent confirmed shared-filesystem RPC wait; previous owned worker absent before releasing continuation"
     },
     "clipping_progress_report_only": {
-      "observed_at_utc": "2026-11-21T16:01:21.820989+00:00",
-      "job_id": 4538112,
-      "node": "compute-0-8",
-      "closed_atomic_molecule_rows": 138240,
+      "observed_at_utc": "2026-11-22T03:34:15.435547+00:00",
+      "job_id": 4538446,
+      "node": "compute-0-16",
+      "closed_atomic_molecule_rows": 1002496,
       "TRAIN_rows": 1194228,
-      "scope": "producer cursor only; complete per-field and atomic fractions still pending"
-    }
+      "status": "RUNNING_SHARED_SOFTWARE_IO_WAIT_NO_NEW_CLOSED_ROWS_YET",
+      "scope": "Producer cursor only; original coefficients, RNG and output unchanged; complete fractions pending"
+    },
+    "clipping_continuation_history": [
+      {
+        "original_job": 4537578,
+        "original_exit": "1:0",
+        "original_elapsed_seconds": 76,
+        "continuation_job": 4538112,
+        "same_closed_cursor_and_output": true,
+        "scientific_definition_changed": false,
+        "previous_continuation_job": 4538106,
+        "previous_exit": "1:0",
+        "previous_elapsed_seconds": 3105,
+        "continuation_node": "compute-0-8",
+        "closed_atomic_cursor_reused": 68608
+      }
+    ]
   },
   "arm_decisions": {
     "D-R0": "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
-    "D-R1": "SCREENING_IN_PROGRESS_NO_COMPARISON_YET",
-    "D-L1": "UNRESOLVED_LIBRARY_ZERO_SCALE_AFTER_TWO_FAILED_FINALIZATIONS_NO_RUN",
-    "D-L2": "UNRESOLVED_LIBRARY_ZERO_SCALE_AFTER_TWO_FAILED_FINALIZATIONS_NO_RUN",
+    "D-R1": "EXACT_3M_GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS_AND_PAIRED_COMPARISON",
+    "D-L1": "LIBRARY_ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
+    "D-L2": "LIBRARY_ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
     "D-G1": "WAITING_RECIPE_DECISION",
-    "D-K1": "NOT_TRIGGERED_NO_DELIVERABLE_ADOPTED_WIDE_LIBRARY_UNDER_CURRENT_PREREGISTRATION"
+    "D-K1": "NOT_TRIGGERED_UNTIL_CONFIRMED_WIDE_LIBRARY_ADOPTION"
   },
   "conditional_seed1": "Only seed0 WIN triggers a registered seed1 pair; no trigger yet",
   "diagnostics": "R0 seed0/3M registered layer3-6 readouts and F64 representation geometry COMPLETE; remaining registered endpoints pending; decision_input=false",
@@ -250,7 +266,7 @@
     "seed": 0,
     "samples": 9000000
   },
-  "results": "No D arm has a final WIN/TIE/LOSS yet; this is not a frozen final recipe",
+  "results": "No D arm has a final WIN/TIE/LOSS yet; R1 original GPU endpoint closed and main CPU statistics pending. Both amended wide libraries are accepted; stage1 decision still required before wide training.",
   "arm": null,
   "library": null,
   "configuration": null,
@@ -276,7 +292,7 @@
       "cached_layer_scope": "Only cached layers3-5 nativeR1/R3 probes; layer6 predictions and scores reused; no encoder fallback"
     },
     "D_R1": {
-      "status": "QUEUED_AFTER_EXACT_3M_ENDPOINT",
+      "status": "REGISTERED_FORWARD_RUNNING_AFTER_EXACT_3M_ENDPOINT",
       "forward_job": 4537594,
       "transfer_job": 4537595,
       "statistics_job": 4537596,
@@ -299,7 +315,7 @@
     "cpu_configuration": "configs/d_recipe/screening/D-R1_seed0_cpu_statistics.json",
     "job_id": 4537592,
     "dependency": "afterok:4537575",
-    "status": "RUNNING",
+    "status": "GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS",
     "seed": 0,
     "samples": 3000000,
     "cpu_statistics_job": 4537593,
@@ -328,7 +344,8 @@
       },
       "estimated_training_3M_completion_utc": "2026-11-22T04:16:12.820989+00:00",
       "forecast_method": "linear extrapolation from whole job elapsed and latest producer sample event",
-      "forecast_scope": "training budget only; excludes final readouts, CPU statistics and diagnostics; variable throughput and fixed VAL; not a stop or selection rule"
+      "forecast_scope": "training budget only; excludes final readouts, CPU statistics and diagnostics; variable throughput and fixed VAL; not a stop or selection rule",
+      "status": "HISTORICAL_FORECAST_SUPERSEDED_BY_EXACT_3M_GPU_COMPLETION"
     },
     "validation_500k": {
       "status": "PRODUCER_RECORDED",
@@ -397,6 +414,51 @@
       "primary_downstream_score": false,
       "scientific_decision": false,
       "note": "Original native fixed VAL; original training observed at2502400 afterward. No additional forward or reevaluation."
+    },
+    "validation_3m": {
+      "status": "PRODUCER_RECORDED",
+      "samples": 3000000,
+      "source": "results/d_recipe/training/d_recipe_20261120_D_R1_seed0_3M/VAL_original_units_3000000.csv",
+      "bytes": 1193,
+      "producer_mtime_CST": "2026-11-22T10:57:01.844948943+08:00",
+      "primary_downstream_score": false,
+      "scientific_decision": false
+    },
+    "checkpoint_3m": {
+      "status": "PRODUCER_SAVED_EXACT_3M_GPU_JOB_COMPLETE",
+      "samples": 3000000,
+      "source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/training/samples_3000000.pt",
+      "bytes": 203781403,
+      "producer_mtime_CST": "2026-11-22T10:57:02.319950905+08:00",
+      "source_job": 4537592,
+      "model_reloaded": false,
+      "checkpoint_copied": false
+    },
+    "native_training_summary": {
+      "source": "results/d_recipe/training/d_recipe_20261120_D_R1_seed0_3M/training_summary_3000000.json",
+      "native_source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/training/summary.json",
+      "status": "GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS",
+      "actual_samples": 3000000,
+      "updates": 93750,
+      "seconds": 45917.69535723701,
+      "seconds_scope": "Native training loop including fixed VAL; excludes initialization and final GPU readouts",
+      "GPU_peak_bytes": 8388301312
+    },
+    "completed_GPU_job_cost": {
+      "job_id": 4537592,
+      "status": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 46468,
+      "allocated_CPUs": 5,
+      "target_one_GPU_job_wall_hours": 12.907777777777778,
+      "allocated_CPU_hours": 64.53888888888889,
+      "training_loop_including_fixed_VAL_samples_per_second": 65.33428946422885,
+      "whole_card_power_watts_sample_mean": 216.5658764271323,
+      "TotalCPU_seconds": null,
+      "scope": "Original parent allocation only; CPU statistics and diagnostics separate; power aggregation pending",
+      "source": "results/d_recipe/D-R1_seed0_complete_GPU_job_costs_20261122.json",
+      "power_samples": 1489,
+      "power_scope": "Arithmetic mean of existing30-second whole-card samples over original GPU job including final GPU readouts; not training-only power"
     }
   },
   "diagnostic_progress": {
@@ -525,8 +587,8 @@
     }
   },
   "stage0": {
-    "status": "BOTH_WIDE_LIBRARIES_UNRESOLVED_RAW_AND_TRAIN_STATISTICS_PRESERVED",
-    "source": "results/d_recipe/stage0_full_status_20261121.json",
+    "status": "BOTH_WIDE_LIBRARIES_ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
+    "source": "results/d_recipe/zero_scale_amendment_reception_20261122.json",
     "raw_rows": 1201795,
     "TRAIN_rows": 1194228,
     "raw_fields": {
@@ -535,8 +597,7 @@
     },
     "raw_parts_per_library": 4695,
     "L1": {
-      "status": "UNRESOLVED",
-      "reason": "ZERO_SCALE_NOT_DIVIDABLE",
+      "status": "ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
       "failed_jobs": [
         4537508,
         4537574
@@ -550,32 +611,37 @@
         "fr_quatN",
         "fr_thiocyan"
       ],
-      "scientific_filter_unchanged": true,
-      "original_arrays_and_statistics_retained": true
+      "scientific_filter_unchanged": false,
+      "original_arrays_and_statistics_retained": true,
+      "original_reason": "ZERO_SCALE_NOT_DIVIDABLE",
+      "enabled_fields": 191,
+      "raw_fields": 217,
+      "approved_zero_scale_exclusions": 7,
+      "reception_job": 4538200,
+      "reception_exit": "0:0",
+      "reception_passed_heads": 197
     },
     "L2": {
-      "status": "UNRESOLVED",
-      "reason": "ZERO_SCALE_NOT_DIVIDABLE",
+      "status": "ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
       "failed_jobs": [
         4537771,
         4537773
       ],
       "zero_scale_field_count": 65,
-      "scientific_filter_unchanged": true,
-      "original_arrays_and_statistics_retained": true
+      "scientific_filter_unchanged": false,
+      "original_arrays_and_statistics_retained": true,
+      "original_reason": "ZERO_SCALE_NOT_DIVIDABLE",
+      "enabled_fields": 1314,
+      "raw_fields": 1613,
+      "approved_zero_scale_exclusions": 65,
+      "reception_job": 4538200,
+      "reception_exit": "0:0",
+      "reception_passed_heads": 1320
     },
     "old_reception_job": {
       "job": 4537514,
       "status": "CANCELLED by1278",
       "elapsed_seconds": 0
-    },
-    "closeout": {
-      "job": 4537774,
-      "status": "COMPLETED",
-      "exit_code": "0:0",
-      "elapsed_seconds": 12,
-      "manifest_status": "UNRESOLVED",
-      "delivered_libraries": []
     },
     "cancelled_never_started_jobs": [
       4537514,
@@ -585,8 +651,91 @@
     ],
     "optional_scientific_amendment": {
       "requires_explicit_user_approval": true,
-      "executed": false,
-      "proposal": "Additionally exclude new-library fields whose frozen winsorized std is zero, without refitting or changing original D20/D3/D4"
+      "executed": true,
+      "proposal": "Additionally exclude new-library fields whose frozen winsorized std is zero, without refitting or changing original D20/D3/D4",
+      "user_approved": true,
+      "preregistration": "configs/d_recipe/amendments/20261122_zero_scale.json",
+      "reception_complete": true
+    },
+    "original_unresolved_closeout": {
+      "status": "BOTH_WIDE_LIBRARIES_UNRESOLVED_RAW_AND_TRAIN_STATISTICS_PRESERVED",
+      "source": "results/d_recipe/stage0_full_status_20261121.json",
+      "raw_rows": 1201795,
+      "TRAIN_rows": 1194228,
+      "raw_fields": {
+        "L1": 217,
+        "L2": 1613
+      },
+      "raw_parts_per_library": 4695,
+      "L1": {
+        "status": "UNRESOLVED",
+        "reason": "ZERO_SCALE_NOT_DIVIDABLE",
+        "failed_jobs": [
+          4537508,
+          4537574
+        ],
+        "issue_fields": [
+          "fr_benzodiazepine",
+          "fr_diazo",
+          "fr_isocyan",
+          "fr_isothiocyan",
+          "fr_nitroso",
+          "fr_quatN",
+          "fr_thiocyan"
+        ],
+        "scientific_filter_unchanged": true,
+        "original_arrays_and_statistics_retained": true
+      },
+      "L2": {
+        "status": "UNRESOLVED",
+        "reason": "ZERO_SCALE_NOT_DIVIDABLE",
+        "failed_jobs": [
+          4537771,
+          4537773
+        ],
+        "zero_scale_field_count": 65,
+        "scientific_filter_unchanged": true,
+        "original_arrays_and_statistics_retained": true
+      },
+      "old_reception_job": {
+        "job": 4537514,
+        "status": "CANCELLED by1278",
+        "elapsed_seconds": 0
+      },
+      "closeout": {
+        "job": 4537774,
+        "status": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 12,
+        "manifest_status": "UNRESOLVED",
+        "delivered_libraries": []
+      },
+      "cancelled_never_started_jobs": [
+        4537514,
+        4537517,
+        4537537,
+        4537772
+      ],
+      "optional_scientific_amendment": {
+        "requires_explicit_user_approval": true,
+        "executed": false,
+        "proposal": "Additionally exclude new-library fields whose frozen winsorized std is zero, without refitting or changing original D20/D3/D4"
+      },
+      "arm_decisions": {
+        "D-L1": "UNRESOLVED_LIBRARY_ZERO_SCALE_AFTER_TWO_FAILED_FINALIZATIONS_NO_RUN",
+        "D-L2": "UNRESOLVED_LIBRARY_ZERO_SCALE_AFTER_TWO_FAILED_FINALIZATIONS_NO_RUN",
+        "D-K1": "NOT_TRIGGERED_NO_DELIVERABLE_ADOPTED_WIDE_LIBRARY_UNDER_CURRENT_PREREGISTRATION"
+      }
+    },
+    "source_original_unresolved": "results/d_recipe/stage0_full_status_20261121.json",
+    "amended_manifest": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/final_manifest_zero_scale_amendment_20261122.json",
+    "original_closeout": {
+      "job": 4537774,
+      "status": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 12,
+      "manifest_status": "UNRESOLVED",
+      "delivered_libraries": []
     }
   },
   "zero_scale_amendment": {
