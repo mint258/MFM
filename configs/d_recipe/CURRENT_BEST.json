@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE1_SEED1_RUNNING_ON_HEALTHY_GPU_NODES",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T10:19:31Z",
+  "updated_at_utc": "2026-11-22T10:35:00Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -370,7 +370,7 @@
       "is_startup_admission": false
     },
     "old_jobs_embed_old_launchers": true,
-    "requires_replacement_with_managed_entries": true,
+    "requires_replacement_with_managed_entries": false,
     "requires_source_independent_outer_supervision": true,
     "legacy_held_jobs": {
       "D-R0": {
@@ -413,7 +413,8 @@
     "current_GPU_hard_deadlines_CST": {
       "4538566": "2026-11-24T17:42:02+08:00",
       "4538567": "2026-11-24T17:42:02+08:00"
-    }
+    },
+    "legacy_replacement_complete": true
   },
   "diagnostics": "R0 prescribed diagnostics COMPLETE; R1 F64 geometry UNRESOLVED after two actual capacity-freshness failures, cached layers3-5 GPU probes COMPLETE and CPU scores RUNNING; G1/adopted endpoints pending; decision_input=false",
   "development_controls": "Section5 A/B/C and composition controls pending",
@@ -939,8 +940,8 @@
         "elapsed_seconds": 1217,
         "allocated_CPUs": 2,
         "CPU_statistics_status": "COMPLETE",
-        "CPU_statistics_elapsed_seconds": 9837,
-        "CPU_statistics_exit_code": "0:15",
+        "CPU_statistics_elapsed_seconds": 81,
+        "CPU_statistics_exit_code": "0:0",
         "source": "results/d_recipe/diagnostics/D-R1_seed0_3M/layer_readout_summary.json",
         "completed_layers": [
           3,
@@ -959,7 +960,9 @@
         "diagnostic_complete_no_further_runs": true,
         "original_GPU_and_partial_CPU_seconds": 11054,
         "actual_resident_terminal_remaining_children": [],
-        "actual_exit_tree_reap_logged": true
+        "actual_exit_tree_reap_logged": true,
+        "original_CPU_statistics_elapsed_seconds": 9837,
+        "original_CPU_statistics_exit_code": "0:15"
       },
       "decision_input": false,
       "cancelled_never_started": [
@@ -1208,13 +1211,7 @@
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
     "scope": "Future start/safe continuation; frozen active training source unchanged",
-    "held_pending_jobs": [
-      4538551,
-      4538552,
-      4538553,
-      4538554,
-      4538555
-    ],
+    "held_pending_jobs": [],
     "new_entries_ready": true,
     "minimum_cleanup_seconds": 180,
     "node17_drain_attribution": "UNCONFIRMED_DO_NOT_INFER_FROM_COLOCATION",
@@ -1264,7 +1261,7 @@
         "configs/d_recipe/launches/D-R1_seed1_statistics_resident.sbatch",
         "configs/d_recipe/launches/D-R1_vs_D-R0_seed1_resident.sbatch"
       ],
-      "implementation_scope": "New inactive wrappers around existing original D workers; actual allocation deadline, cooperative training SAVE_AND_EXIT, exact owned process TERM/join/reap; no SIGKILL; no source database copy.",
+      "implementation_scope": "Verified Slurm-copied resident outer supervisor starts before shared-source loading and wraps original scientific workers; actual allocation deadline, cooperative training SAVE_AND_EXIT, exact owned process TERM/join/reap; no SIGKILL or source database copy.",
       "real_test_runs": [
         {
           "job": 4538556,
@@ -1307,7 +1304,7 @@
       "canonical_runtime_field_required": "exit_root_log_future_bytes",
       "old_held_jobs_embed_old_script": true,
       "old_jobs_must_not_be_simply_released": true,
-      "rollout": "Do not submit staged templates or directly release old jobs. First provide source-independent outer supervision, close actual configs/live global forecast and target health; verify old five jobs PENDING/0s then replace with the same registered science and rebind dependencies.",
+      "rollout": "Complete for actual4538566/4538567/4538572/4538573 and dependent4538568/4538569/4538570. Old five held scripts cancelled at0seconds after identity checks; standalone managed templates retain their outer-supervision guard and must not be submitted directly.",
       "no_new_tasks_on_observed_fault_channels": [
         "compute-0-8",
         "compute-0-10",
@@ -1538,7 +1535,14 @@
       "actual_remaining_children": [],
       "total_cumulative_seconds": 11135,
       "complete": true
-    }
+    },
+    "cancelled_never_started_legacy_jobs": [
+      4538551,
+      4538552,
+      4538553,
+      4538554,
+      4538555
+    ]
   },
   "previous_blocking_condition": {
     "type": "EXTERNAL_KERNEL_IO_WAIT_AND_SLURM_MANAGEMENT_STARTUP",
