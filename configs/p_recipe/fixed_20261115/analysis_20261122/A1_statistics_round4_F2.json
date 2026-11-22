@@ -1,0 +1,65 @@
+{
+  "run": "A1_statistics_round4_F2",
+  "kind": "A1_STATS",
+  "ready": true,
+  "authority": "USER_DIRECTIVE_20261122B_A1",
+  "node": "compute-0-13",
+  "excluded_nodes": [
+    "compute-0-8",
+    "compute-0-10",
+    "compute-0-14",
+    "compute-0-15",
+    "compute-0-16",
+    "compute-0-17",
+    "compute-0-18"
+  ],
+  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/A1_statistics/round4_F2",
+  "output_mount": "/lfshome",
+  "cleanup_seconds": 180,
+  "work_unit_seconds": 60,
+  "ram_peak_bytes": 4294967296,
+  "remaining_output_bytes": 67108864,
+  "reservation_ids": [
+    "P_analysis_CPU13_RAM",
+    "P_analysis_CPU13_tmp",
+    "P_A1_F2_primary_remaining"
+  ],
+  "reference_manifest": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/predictions.json",
+  "original_scores_csv": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/scores.csv",
+  "completed_readouts": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/A1_readout_noise/completed_readouts.json",
+  "source": {
+    "label": "round4_F2",
+    "source_binding": {
+      "label": "round4_F2",
+      "arm": "F2",
+      "samples": 3000000,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
+      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/samples_3000000.pt",
+      "bytes": 231769313,
+      "run": "fixed_20261115_round4_F2",
+      "components": [
+        "A1",
+        "B3",
+        "B4",
+        "F2"
+      ],
+      "pretraining_seed": 0,
+      "source_training_budget": 3000000
+    },
+    "seed0_manifest": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/readout/predictions.json",
+    "seed0_scores": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/readout/scores.json",
+    "checkpoint_mtime_ns": "1795131404000000000"
+  },
+  "sealed_source": {
+    "seed0": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/readout/predictions.json",
+    "seed0_scores": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/readout/scores.json",
+    "new_seeds": {
+      "1": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/A1_readout_noise/round4_F2/seed1/predictions.json",
+      "2": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/A1_readout_noise/round4_F2/seed2/predictions.json",
+      "3": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/A1_readout_noise/round4_F2/seed3/predictions.json",
+      "4": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/A1_readout_noise/round4_F2/seed4/predictions.json"
+    }
+  },
+  "new_model_fits": 0,
+  "original_primary_intervals_replayed": false
+}

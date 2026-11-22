@@ -1,11 +1,11 @@
 {
-  "observed_utc": "2026-11-22T16:08:23Z",
+  "observed_utc": "2026-11-22T16:24:51Z",
   "assigned": 84,
   "first_batch_total": 120,
   "native_counts": {
-    "COMPLETED": 57,
-    "RUNNING": 1,
-    "PENDING": 26
+    "COMPLETED": 60,
+    "RUNNING": 2,
+    "PENDING": 22
   },
   "native_jobs": [
     {
@@ -466,35 +466,35 @@
     },
     {
       "job": "4538755",
-      "state": "RUNNING",
+      "state": "COMPLETED",
       "exit_code": "0:0",
-      "elapsed_seconds": 66,
+      "elapsed_seconds": 249,
       "cpus": 16,
       "node": "compute-0-7"
     },
     {
       "job": "4538756",
-      "state": "PENDING",
+      "state": "COMPLETED",
       "exit_code": "0:0",
-      "elapsed_seconds": 0,
+      "elapsed_seconds": 253,
       "cpus": 16,
-      "node": "None assigned"
+      "node": "compute-0-7"
     },
     {
       "job": "4538757",
-      "state": "PENDING",
+      "state": "COMPLETED",
       "exit_code": "0:0",
-      "elapsed_seconds": 0,
+      "elapsed_seconds": 252,
       "cpus": 16,
-      "node": "None assigned"
+      "node": "compute-0-7"
     },
     {
       "job": "4538776",
-      "state": "PENDING",
+      "state": "RUNNING",
       "exit_code": "0:0",
-      "elapsed_seconds": 0,
+      "elapsed_seconds": 299,
       "cpus": 16,
-      "node": "None assigned"
+      "node": "compute-0-7"
     },
     {
       "job": "4538777",
@@ -586,11 +586,11 @@
     },
     {
       "job": "4538817",
-      "state": "PENDING",
+      "state": "RUNNING",
       "exit_code": "0:0",
-      "elapsed_seconds": 0,
+      "elapsed_seconds": 116,
       "cpus": 16,
-      "node": "None assigned"
+      "node": "compute-0-6"
     },
     {
       "job": "4538818",
@@ -827,11 +827,12 @@
       "dependency": "4538827"
     }
   ],
-  "F_rows_closed": 28,
-  "A1_parallel": true,
+  "F_rows_closed": 36,
+  "A1_parallel": false,
   "scientific_F_code_sha": "a00498651c6afb9b67483692a8a18365b2b97988",
   "native_completed_is_not_primary_closure": true,
   "stage2_total": 60,
   "new_pretraining": false,
-  "power_telemetry_collected_by_F_entry": false
+  "power_telemetry_collected_by_F_entry": false,
+  "A1_complete": true
 }

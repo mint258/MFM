@@ -1,39 +1,37 @@
 {
-  "observed_utc": "2026-11-22T16:12:33Z",
+  "status": "COMPLETE",
+  "observed_utc": "2026-11-22T16:29:00Z",
   "GPU_job": "4538736",
+  "GPU_state": "COMPLETED",
+  "GPU_native_elapsed_seconds": 4483,
   "node": "compute-0-6",
-  "actual_process_identity": {
-    "pid": 2089501,
-    "exists": true,
-    "start_ticks": 2016120456,
-    "state": "R",
-    "uids": [
-      1278,
-      1278,
-      1278,
-      1278
-    ],
-    "cgroup": "1:freezer:/slurm/uid_1278/job_4538736/step_batch\n0::/system.slice/slurmd.service\n"
-  },
+  "actual_GPU_root_pid": 2089501,
+  "actual_GPU_root_absent": true,
   "sources_sealed": [
     "T2_1M",
     "T2_6M",
-    "T2_9M"
+    "T2_9M",
+    "round4_F2"
   ],
   "statistics_sources": [
     "T2_1M",
     "T2_6M",
-    "T2_9M"
+    "T2_9M",
+    "round4_F2"
   ],
-  "statistics_rows": 30,
-  "remaining_source": "round4_F2_own3M",
+  "statistics_rows": 40,
+  "remaining_source": null,
   "compute_budget": {
-    "used_seconds": 0.0,
-    "active": {
-      "job": "4538736",
-      "pid": 2089501
-    },
-    "attempts": []
+    "used_seconds": 4479.273661702871,
+    "active": null,
+    "attempts": [
+      {
+        "job": "4538736",
+        "seconds": 4479.273661702871,
+        "status": "COMPLETE"
+      }
+    ]
   },
-  "status": "RUNNING"
+  "owned_GPU_resources_released": true,
+  "outputs_preserved": true
 }
