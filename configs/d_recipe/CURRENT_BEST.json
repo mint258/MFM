@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE1_SEED0_WIN_WAITING_TRIGGERED_SEED1_PREPARATION_AND_ADMISSION",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T06:31:32Z",
+  "updated_at_utc": "2026-11-22T06:39:00Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -1078,5 +1078,22 @@
     },
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
+  },
+  "automation_state": "BLOCKED_EXTERNAL_NFS_IO_STARTUP",
+  "blocking_condition": {
+    "type": "EXTERNAL_SHARED_NFS_RPC_PAGE_WAIT",
+    "consecutive_goal_turns": 3,
+    "verified_at_utc": "2026-11-22T06:39:00Z",
+    "preparation_job": 4538549,
+    "preparation_process": 2827663,
+    "preparation_CPU_time_seconds": 0,
+    "preparation_log_exists": false,
+    "seed1_configurations_exist": false,
+    "seed1_registry_exists": false,
+    "main_model_training_started": false,
+    "original_clipping_and_layer_jobs": "LIVE_IN_KERNEL_NFS_OR_PAGE_IO_WAIT_CPU_TIME_UNCHANGED",
+    "recovery": "Shared-storage I/O recovery; retain original jobs, checkpoints and conditional dependencies. Resume goal against exact actual state after recovery.",
+    "scientific_result_invalidated": false,
+    "configuration_or_budget_admission_bypassed": false
   }
 }
