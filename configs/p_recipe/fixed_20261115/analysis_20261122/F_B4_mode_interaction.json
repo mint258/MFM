@@ -1,0 +1,102 @@
+{
+  "ready": true,
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+  "node": "compute-0-11",
+  "excluded_nodes": [
+    "compute-0-8",
+    "compute-0-10",
+    "compute-0-14",
+    "compute-0-15",
+    "compute-0-16",
+    "compute-0-17",
+    "compute-0-18"
+  ],
+  "output_mount": "/lfshome",
+  "cleanup_seconds": 180,
+  "work_unit_seconds": 60,
+  "ram_peak_bytes": 4294967296,
+  "remaining_output_bytes": 33554432,
+  "original_primary_replayed": false,
+  "new_model_fits": 0,
+  "new_bootstrap_draws": 0,
+  "run": "F_B4_mode_interaction",
+  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F_B4_mode_interaction",
+  "reservation_ids": [
+    "P_F_remaining_CPU11_RAM",
+    "P_F_remaining_CPU11_tmp",
+    "P_F2_statistics_remaining"
+  ],
+  "new_logic_tests": 4539044,
+  "comparisons": [
+    {
+      "subset": "B4_minus_M1",
+      "subset_molecules": null,
+      "task": "qm9.U0_atom",
+      "conditions": [
+        "full_round2_B4",
+        "full_round2_M1",
+        "frozen_round2_B4",
+        "frozen_round2_M1"
+      ],
+      "primaries": [
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json"
+      ]
+    },
+    {
+      "subset": "B4_minus_M1",
+      "subset_molecules": null,
+      "task": "qm9.homo",
+      "conditions": [
+        "full_round2_B4",
+        "full_round2_M1",
+        "frozen_round2_B4",
+        "frozen_round2_M1"
+      ],
+      "primaries": [
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json"
+      ]
+    },
+    {
+      "subset": "B4_minus_M1",
+      "subset_molecules": null,
+      "task": "exp.LogD",
+      "conditions": [
+        "full_round2_B4",
+        "full_round2_M1",
+        "frozen_round2_B4",
+        "frozen_round2_M1"
+      ],
+      "primaries": [
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json"
+      ]
+    },
+    {
+      "subset": "B4_minus_M1",
+      "subset_molecules": null,
+      "task": "exp.LogS",
+      "conditions": [
+        "full_round2_B4",
+        "full_round2_M1",
+        "frozen_round2_B4",
+        "frozen_round2_M1"
+      ],
+      "primaries": [
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F2_M1_B4_primary/primary.json"
+      ]
+    }
+  ],
+  "scientific_factor": "B4_anti_collapse",
+  "interpretation": "Descriptive full-minus-frozen B4 effect; H-B4decision remainsmeanCEVonly"
+}

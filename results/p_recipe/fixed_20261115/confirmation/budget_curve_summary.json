@@ -1,25 +1,8 @@
 {
   "authority": "docs/p_recipe/USER_DIRECTIVE_20261121.md",
   "expected_readouts": 22,
-  "closed_readouts": 18,
-  "missing_readouts": [
-    {
-      "arm": "T1",
-      "samples": 5000000
-    },
-    {
-      "arm": "T1",
-      "samples": 6000000
-    },
-    {
-      "arm": "T1",
-      "samples": 7000000
-    },
-    {
-      "arm": "T1",
-      "samples": 8000000
-    }
-  ],
+  "closed_readouts": 22,
+  "missing_readouts": [],
   "closed_original_9M_arms": [
     "T1",
     "T2",
@@ -77,6 +60,22 @@
       4000000
     ],
     [
+      "T1",
+      5000000
+    ],
+    [
+      "T1",
+      6000000
+    ],
+    [
+      "T1",
+      7000000
+    ],
+    [
+      "T1",
+      8000000
+    ],
+    [
       "T4",
       3000000
     ],
@@ -101,8 +100,8 @@
       6000000
     ]
   ],
-  "status": "IN_PROGRESS",
-  "plot_complete": false,
+  "status": "COMPLETE",
+  "plot_complete": true,
   "first_readout_timing": {
     "arm": "T2",
     "samples": 1000000,
@@ -120,6 +119,34 @@
   "VAL_losses": "Original per-family values, no invented aggregate",
   "bootstrap": "Original 1000 retained molecular draws, seed20261025, percentile95CI",
   "interpretation": {
+    "T1": {
+      "tau": 0.02211927457338999,
+      "earliest_observed_plateau_samples": 5000000,
+      "interpretation": "Descriptive observed checkpoints only; not proof of convergence",
+      "R3_falls_while_VAL_decreases": [
+        {
+          "from_samples": 7000000,
+          "to_samples": 8000000,
+          "R3_before": 0.44001780607690594,
+          "R3_after": 0.43678739930266025,
+          "VAL_families_still_decreasing": [
+            "bonding",
+            "charge",
+            "energy",
+            "frontier/IP-EA",
+            "multipole",
+            "off-equilibrium",
+            "reactivity",
+            "response",
+            "size",
+            "solvation"
+          ],
+          "all_comparable_VAL_families_decreasing": true,
+          "mechanism_inferred": false,
+          "extra_diagnostics_performed": false
+        }
+      ]
+    },
     "T2": {
       "tau": 0.023875022404212524,
       "earliest_observed_plateau_samples": 4000000,
@@ -252,7 +279,7 @@
       ]
     }
   },
-  "observed_new_readouts_compute_seconds": 42070.06357559003,
+  "observed_new_readouts_compute_seconds": 43725.65968587808,
   "exceeds_1p5_initial_total_estimate": true,
   "excess_action": "REPORT_AND_CONTINUE",
   "pending_user_decision": [
