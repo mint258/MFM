@@ -1541,3 +1541,14 @@ R1原缓存层诊断由CPU13作业4538572补齐缺失层4/5，C0/81秒，原层3
 在原CPU13 StateMIXED核查后，一次有界只读SSH实际确认监督器3582785/start_ticks2758861604及worker3582788/start_ticks2758861610均ABSENT。没有新信号/KILL，不由batch终态替代进程退出证明。旧4538532及准备4538549此前已核实退出，不再是主线阻塞；14/16/17既有管理边界不变。
 
 19:44 CST两个fresh3M seed1原日志均620800样本/19400更新，GPU4/4538566与GPU5/4538567继续运行，原clip冻结值未变；CPU4538568/4538569及配对4538570仍按afterok依赖。尚无seed1胜负，不提前采纳或冻结。全目标active，剩余宽库/G1/K1/条件种子、规定诊断、冷9M、最终A/B/C/基准接口/成本/两个未合并PR保持；ExpansionRx H政策待明确。联合NFS38853537501B及所有实际字节/inode/配额/同行future与退出保护不放宽，无新模型或其他线文件改动。
+
+
+## 2026-11-23 03:18 CST · D Root：批准H生产已实际推进
+
+用户已明确批准ExpansionRx沿既有B6固定全部原坐标、仅补氢坐标、不生成新构象。定义见Root docs/d_recipe/H_POLICY_20261123.md；Data源及配置已发布9af334f，Root源/22项通过测试已发布bfa47cb。测试4539054实际CPU11/1CPU/8秒、22tests/0.280秒、0:0，原目标盘/NFS/fresh5秒UID守卫与OWNED_TREE_REAPED/remaining_children=[]已核实，不替代科学生产。
+
+原生产4539057在CPU11实际RUNNING，03:13:14开始、TimeLimit8h/截止11:13:14，03:15:48原cursor已闭合256/5278成员。实际原监督器4169297/start_ticks2249574973与原worker4169300/start_ticks2249574979，UIDs全1278、精确job4539057/step_batch已核。原完整QM9 component保留；新唯一合并4539061为同一原merge/config、afterok4539057，完整15751成员清单尚未闭合，C1/A/B/C未完成。旧未启动合并4539058因复制的stdout/devnull缺少终态日志，在owner/PENDING0秒核查后仅一次取消，CANCELLED by1278/0:0/0秒；科学合并没有双跑。
+
+原共同开发D3/合并512MiB和全局NFS38853537501B不增。生产/devnull不写Root日志；测试已闭合并作为实存保留，3个拟CPU统计/比较日志+1个新合并终态日志仍共用原每节点Root128MiB future，无第五个同时增长日志；根/tmp系统底线、同行future、inode和fresh5秒UID保护保持。新入口在Slurm复制的内存resident中先驻留，再读共享代码，真实TimeLimit前900秒收尾、TERM/join/reap，无KILL/管理员操作。原坐标/D20/D4/成员/划分未改；明确化学失败保留逐成员缺失和原错误码，坐标约束及未知错误仍拒绝继续。
+
+两个seed1训练4538566/4538567原03:15:48日志均2707200样本/84600更新，原clip未变，原CPU8568/8569及比较8570afterok保持。目标active，后续全部TASKBOOK关卡、条件臂/种子、冷9M、最终A/B/C/基准、成本、一次完整默认回归和两个PR范围保持。
