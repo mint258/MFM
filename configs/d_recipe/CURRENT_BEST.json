@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T04:32:09.918880+00:00",
+  "updated_at_utc": "2026-11-22T04:47:34.895806+00:00",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -148,7 +148,7 @@
     "job_id": 4537571,
     "checkpoint_continuation_job": 4537575,
     "status": "COMPLETE_FROZEN_FIT",
-    "clipping_report_job": 4538446,
+    "clipping_report_job": 4538532,
     "collection_progress_report_only": {
       "observed_at_utc": "2026-11-21T05:30:06.733338+00:00",
       "closed_rows": 762624,
@@ -209,25 +209,26 @@
       }
     },
     "clipping_infrastructure_continuation": {
-      "previous_job": 4538112,
-      "previous_state": "CANCELLED by1278",
-      "previous_elapsed_seconds": 40853,
-      "continuation_job": 4538446,
-      "continuation_node": "compute-0-16",
+      "previous_job": 4538446,
+      "previous_state": "FAILED",
+      "previous_exit": "1:0",
+      "previous_elapsed_seconds": 7319,
+      "continuation_job": 4538532,
+      "continuation_node": "compute-0-8",
       "requested_CPUs": 1,
       "requested_memory_bytes": 17179869184,
-      "closed_atomic_cursor_reused": 1002496,
+      "closed_atomic_cursor_reused": 1020928,
       "same_closed_cursor_and_output": true,
       "scientific_definition_changed": false,
-      "reason": "Persistent confirmed shared-filesystem RPC wait; previous owned worker absent before releasing continuation"
+      "reason": "Original direct writer exited on stale quota before next cursor publish; old worker absence verified. CPU16 draining; preserve its tasks/admin state, use admitted CPU8."
     },
     "clipping_progress_report_only": {
-      "observed_at_utc": "2026-11-22T04:25:06.573972+00:00",
-      "job_id": 4538446,
-      "node": "compute-0-16",
+      "observed_at_utc": "2026-11-22T04:46:47.282597+00:00",
+      "job_id": 4538532,
+      "node": "compute-0-8",
       "closed_atomic_molecule_rows": 1020928,
       "TRAIN_rows": 1194228,
-      "status": "RUNNING_RESUMED_CLOSED_ROWS_ADVANCING",
+      "status": "RUNNING_ORIGINAL_CURSOR_CONTINUATION",
       "scope": "Producer cursor only; original coefficients, RNG and output unchanged; complete fractions pending"
     },
     "clipping_continuation_history": [
@@ -243,19 +244,32 @@
         "previous_elapsed_seconds": 3105,
         "continuation_node": "compute-0-8",
         "closed_atomic_cursor_reused": 68608
+      },
+      {
+        "previous_job": 4538112,
+        "previous_state": "CANCELLED by1278",
+        "previous_elapsed_seconds": 40853,
+        "continuation_job": 4538446,
+        "continuation_node": "compute-0-16",
+        "requested_CPUs": 1,
+        "requested_memory_bytes": 17179869184,
+        "closed_atomic_cursor_reused": 1002496,
+        "same_closed_cursor_and_output": true,
+        "scientific_definition_changed": false,
+        "reason": "Persistent confirmed shared-filesystem RPC wait; previous owned worker absent before releasing continuation"
       }
     ]
   },
   "arm_decisions": {
     "D-R0": "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
-    "D-R1": "EXACT_3M_GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS_AND_PAIRED_COMPARISON",
+    "D-R1": "MAIN_SCORE_COMPLETE_WAITING_ORIGINAL_PAIRED_COMPARISON",
     "D-L1": "LIBRARY_ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
     "D-L2": "LIBRARY_ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
     "D-G1": "WAITING_RECIPE_DECISION",
     "D-K1": "NOT_TRIGGERED_UNTIL_CONFIRMED_WIDE_LIBRARY_ADOPTION"
   },
   "conditional_seed1": "Only seed0 WIN triggers a registered seed1 pair; no trigger yet",
-  "diagnostics": "R0 prescribed diagnostics COMPLETE; R1 F64 geometry UNRESOLVED after two actual capacity-freshness failures, cached layers3-5 GPU probes COMPLETE and CPU scores waiting main statistics; G1/adopted endpoints pending; decision_input=false",
+  "diagnostics": "R0 prescribed diagnostics COMPLETE; R1 F64 geometry UNRESOLVED after two actual capacity-freshness failures, cached layers3-5 GPU probes COMPLETE and CPU scores RUNNING; G1/adopted endpoints pending; decision_input=false",
   "development_controls": "Section5 A/B/C and composition controls pending",
   "confirmation": {
     "status": "NOT_ELIGIBLE_BEFORE_ALL_FINAL_DECISIONS",
@@ -266,7 +280,7 @@
     "seed": 0,
     "samples": 9000000
   },
-  "results": "No D arm has a final WIN/TIE/LOSS yet; R1 original GPU endpoint closed and main CPU statistics pending. Both amended wide libraries are accepted; stage1 decision still required before wide training.",
+  "results": "R1 original main R3 is closed; original paired comparison4537599 pending, no adoption yet. Both amended wide libraries accepted and await stage1 recipe decision; recipe is not frozen.",
   "arm": null,
   "library": null,
   "configuration": null,
@@ -330,7 +344,7 @@
     "cpu_configuration": "configs/d_recipe/screening/D-R1_seed0_cpu_statistics.json",
     "job_id": 4537592,
     "dependency": "afterok:4537575",
-    "status": "GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS",
+    "status": "MAIN_READOUT_COMPLETE_WAITING_ORIGINAL_PAIRED_COMPARISON",
     "seed": 0,
     "samples": 3000000,
     "cpu_statistics_job": 4537593,
@@ -474,6 +488,42 @@
       "source": "results/d_recipe/D-R1_seed0_complete_GPU_job_costs_20261122.json",
       "power_samples": 1489,
       "power_scope": "Arithmetic mean of existing30-second whole-card samples over original GPU job including final GPU readouts; not training-only power"
+    },
+    "final_readout": {
+      "status": "COMPLETE",
+      "summary": "results/d_recipe/training/d_recipe_20261120_D_R1_seed0_3M/final_summary_3000000.json",
+      "scores": "results/d_recipe/training/d_recipe_20261120_D_R1_seed0_3M/final_readout_summary_3000000.json",
+      "native_source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/training/readout/scores.json",
+      "per_task_scores": "results/d_recipe/scores.csv",
+      "R3": 0.40246475893886535,
+      "R3_CI": [
+        0.38776123870192125,
+        0.4165789987907473
+      ],
+      "R1": 0.23055805758999076,
+      "R1_CI": [
+        0.2161366706314768,
+        0.24381363179424703
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_seed": 20261025,
+      "bootstrap_unit": "molecule",
+      "reference": "Frozen random C1-0 encoder; paired R1-arm vs R0-arm comparison still pending",
+      "CPU_statistics_job": 4537593,
+      "CPU_statistics_status": "COMPLETED",
+      "CPU_statistics_exit": "0:0",
+      "CPU_statistics_elapsed_seconds": 5602,
+      "CPU_statistics_allocated_CPUs": 2,
+      "CPU_statistics_node": "compute-0-17"
+    },
+    "cpu_statistics_cost": {
+      "job_id": 4537593,
+      "elapsed_seconds": 5602,
+      "requested_CPUs": 1,
+      "allocated_CPUs": 2,
+      "allocated_CPU_hours": 3.112222222222222,
+      "TotalCPU_seconds": null,
+      "scope": "Original parent allocation; batch/extern not added again; site TotalCPU unavailable"
     }
   },
   "diagnostic_progress": {
@@ -667,7 +717,7 @@
         "exit_code": "0:0",
         "elapsed_seconds": 1217,
         "allocated_CPUs": 2,
-        "CPU_statistics_status": "WAITING_MAIN_CPU_STATISTICS"
+        "CPU_statistics_status": "RUNNING"
       },
       "decision_input": false,
       "cancelled_never_started": [
