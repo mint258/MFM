@@ -1310,3 +1310,41 @@ S-B0完成3M/93750更新，固定第6层H0、原7任务及1000次分子bootstrap
 S-N1已完成3M/93750更新；GPU6/4539045及CPU12/4539051原第6层读出/统计闭合。R3=0.4619276558354075，对B0的Δ=0.00863757271915866，95%CI=[-0.00016746695651523013,0.01716696831161181]，τ=0.023096382791770377，判TIE，不补seed1；R1改善仅报告。结果与原配对判定见results/s_recipe/S_N1_s0_3M.json及configs/s_recipe/seed0_decisions.json。
 
 S-R2已在N1释放的22号5090原生推进（UID1278/PID144846/start_ticks49279615），同任务sbatch接管4539053排队。新入口明确有限48h及900s收尾、完整状态保存、真实PID退出和自有子进程join，不伪造Slurm身份；3项新逻辑CPU测试4539050通过。B0的指定逐层描述GPU6/4539052已启动。N2/4538666、S-R1/4538843保持原入口继续；本线仍有其他筛选、条件种子/必要合并、冻结/9M和最终交付，尚未结项。详见docs/s_recipe/daily/2026-11-23.md与NATIVE_TAKEOVER_20261123.md。
+
+
+## 2026-11-23 03:18 CST · D Root：批准H生产已实际推进
+
+用户已明确批准ExpansionRx沿既有B6固定全部原坐标、仅补氢坐标、不生成新构象。定义见Root docs/d_recipe/H_POLICY_20261123.md；Data源及配置已发布9af334f，Root源/22项通过测试已发布bfa47cb。测试4539054实际CPU11/1CPU/8秒、22tests/0.280秒、0:0，原目标盘/NFS/fresh5秒UID守卫与OWNED_TREE_REAPED/remaining_children=[]已核实，不替代科学生产。
+
+原生产4539057在CPU11实际RUNNING，03:13:14开始、TimeLimit8h/截止11:13:14，03:15:48原cursor已闭合256/5278成员。实际原监督器4169297/start_ticks2249574973与原worker4169300/start_ticks2249574979，UIDs全1278、精确job4539057/step_batch已核。原完整QM9 component保留；新唯一合并4539061为同一原merge/config、afterok4539057，完整15751成员清单尚未闭合，C1/A/B/C未完成。旧未启动合并4539058因复制的stdout/devnull缺少终态日志，在owner/PENDING0秒核查后仅一次取消，CANCELLED by1278/0:0/0秒；科学合并没有双跑。
+
+原共同开发D3/合并512MiB和全局NFS38853537501B不增。生产/devnull不写Root日志；测试已闭合并作为实存保留，3个拟CPU统计/比较日志+1个新合并终态日志仍共用原每节点Root128MiB future，无第五个同时增长日志；根/tmp系统底线、同行future、inode和fresh5秒UID保护保持。新入口在Slurm复制的内存resident中先驻留，再读共享代码，真实TimeLimit前900秒收尾、TERM/join/reap，无KILL/管理员操作。原坐标/D20/D4/成员/划分未改；明确化学失败保留逐成员缺失和原错误码，坐标约束及未知错误仍拒绝继续。
+
+两个seed1训练4538566/4538567原03:15:48日志均2707200样本/84600更新，原clip未变，原CPU8568/8569及比较8570afterok保持。目标active，后续全部TASKBOOK关卡、条件臂/种子、冷9M、最终A/B/C/基准、成本、一次完整默认回归和两个PR范围保持。
+
+
+## 2026-11-23 04:00 CST · D Root：完整开发D3已交付
+
+用户批准的B6固定原坐标补H已按原程序完成：CPU11/4539057原ExpansionRx5278成员COMPLETED0:0/1568秒/1CPU，03:39:22 CST结束；原merge4539061 COMPLETED0:0/3秒/1CPU，03:39:25 CST结束，复用原QM9后完整15751成员、原顺序/划分/原数组引用，statusRAW_COMPLETE且complete_source_population=true。原component仍正确声明仅ExpansionRx/complete_source_population=false。原两个JSON转录到Data results/data_d_descriptors/development_D3_ExpansionRx_B6_20261123.json及development_D3_full_20261123.json；完整实际清单/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/merged/manifest.json。
+
+CPU11实际StateMIXED，一次有界只读核实原supervisor4169297/start_ticks2249574973及worker4169300/start_ticks2249574979均ABSENT，无新信号/KILL。合并原resident日志明确Rootworker4171120已reap0、RESIDENT_TERMINAL0/remaining_children=[]，不以batch状态替代实际退出。原坐标/D20/D4/成员和source标签保持，原六分子D3及逐原子映射按原mask保留；原子SASA不进入分子特征。原共同峰值203909476B<512MiB，NFS38853537501B、Root128MiB联合future及所有物理实存保留。原22项测试C0/8秒及旧未启动合并9058取消0秒记录保留，没有重复科学生产/数值数组QA/新拟合。
+
+源同步的一次性head容量检查原先把D已落盘产物及已消耗followup仍全额计入未来；现在复用既有h_peer_storage.concurrent/h_resources.allocated及原模型future算法，只从各自预算中扣其已提交物理块，原Data.guard以实际目标/UID准入通过。未改任何运行中守卫、已登记预算/同行future、100GB底线或5秒TTL。此校正只涉及源/报告元数据，当前训练未停或修改。
+
+两个seed1 GPU4538566/4538567原03:48:59日志均2867200样本/89600更新，原clip未变；原CPU8568/8569和比较8570afterok保持。输入H依赖已闭合，但最终A/B/C和C1仍未执行；原接收pending/C1false保留。目标active，所有后续原TASKBOOK关卡/条件臂和种子/诊断/冻结/冷9M/基准/成本/一次完整默认回归/两个未合并PR保持。
+
+
+## 2026-11-23 03:11 CST · D Root：用户批准ExpansionRx固定原坐标补H
+
+用户明确选择既有B6补H：固定全部原有坐标，仅补氢坐标、不生成新构象。定义见Root docs/d_recipe/H_POLICY_20261123.md，Data配置development_D3_ExpansionRx_B6_20261123.json及development_D3_merged_B6_20261123.json。仅原ExpansionRx5278成员待生产，复用原QM9 component，再按原15751成员/原顺序/划分合并。原D20/D4、已有数组与数据源坐标保持；六个原B6明确化学失败转为逐成员D3不可用并保留原错误码，坐标约束和未知错误仍拒绝继续，无retry/fallback。
+
+新2项+20相关原测试已在CPU11/4539054真实COMPLETED0:0/8秒/1CPU，22tests/0.280秒通过；实际root69942870016B/inode36569960、原目标NFS与fresh5秒UID配额守卫通过，实际OWNED_TREE_REAPED/remaining_children=[]。本测试不等于科学生产或A/B/C完成。已准备原CPU1的生产/合并resident入口，真实TimeLimit提前900秒收尾、stdout=/dev/null，保留原512MiB组件/合并共同预算和NFS38853537501B以及所有同行future。未新增GPU训练、未改变正在训练的科学代码。
+
+两条seed1 GPU4538566/4538567仍运行，02:44原日志2550400样本/79700更新，原CPU8568/8569及比较8570afterok保持。H政策等待已解除；正式生产和合并的实际job/closure后续登记，不提前声明完整D3/C1/最终A/B/C或全实验完成。
+
+
+## 2026-11-23 S-B0全部指定终点诊断闭合
+
+S-B0的3M seed0层1–6描述性R1/R3及固定5000 VAL/47744构象的F64 PR/CEV/CVF/CVF_res均完成，GPU6/4539052与4539065、CPU12/4539064与4539069实际COMPLETED0:0且自有子进程退出。原函数/组成基底、1000次分子bootstrap保持；层6复用已闭合正式统计，正式判定只用层6，不择优。原子/分子PR第6层为2.609948/2.061526；表、原CI与原始bootstrap数组见docs/s_recipe/B0_ENDPOINT_DIAGNOSTICS.md和results/s_recipe/S_B0_endpoint_diagnostics.json、representations/S_B0_s0_3M/。
+
+去键S-R2的5090真实首1000步为76.86640342970934样本/秒，整卡采样均功耗432.2914285714286W/14条，均来自在跑训练，无另测。其原生PID144846继续，同任务接管4539053仍排队；N2/4538666、S-R1/4538843继续。04:10实际样本分别1168672/832416/277024（N2/去元素/去键）。G1及后续冻结/9M等仍待完成，任务未结项；半小时监控补位。
