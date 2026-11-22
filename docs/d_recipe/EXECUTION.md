@@ -268,3 +268,10 @@ CPU4538568/4538569与比较4538570均PENDING/Dependency，保留原afterok；尚
 源码路径检查发现原complete_geometry的六个明确化学失败ValueError未被D3适配器的UnavailableD3接收。仅在已批准B6分支对这些原代码进行分类：断连图不支持、源原子顺序不匹配、MMFF参数/力场不可用、原500次不收敛、非有限几何，均保留原成员和原缺失原因，不重试/补值/嵌入新构象。坐标约束和未知错误不掩盖。新增2项测试，另20项相关原测试随源码改动一次运行；完整默认回归未运行。
 
 CPU11现场StateMIXED、16/64CPU分配，root/源NFS/inode/UID配额由Slurm复制resident和原Guard实际准入。4539054真实COMPLETED0:0/8秒/1CPU，22tests/0.280秒通过，root可用69942870016B、inode36569960，原日志actualOWNED_TREE_REAPED及remaining_children=[]。新生产/合并复制入口用原development_d3.sbatch，CPU1、8h/1h、提前900秒收尾，stdout=/dev/null；不增加本节点第五个local日志。测试单独小日志纳入原每节点Root128MiB联合future。正式H生产及合并此时准备就绪，未冒充实际启动或交付完成。两个seed1与原CPU/比较afterok依赖保持。
+
+
+2026-11-23 03:16 CST：批准H政策及22项真实测试源已发布Root bfa47cb与Data9af334f。原ExpansionRx生产4539057已在CPU11实际RUNNING，03:13:14开始，实际TimeLimit8h/截止11:13:14；原cursor next_member256于03:15:48确认，证明原实际Data/NFS/inode/fresh5sUID配额及同行future写入守卫已通过，不将03:09测试盘快照冒充本次数字。已核实际监督器4169297/ticks2249574973、原producer4169300/ticks2249574979，UIDs全1278、精确job4539057/step_batch，无新信号。
+
+原未启动合并4539058为stdout/devnull复制入口；为使很短的合并也保留实际退出树证据，在原128MiB Root联合future内改为一个≤32MiB本地终态日志。此时测试已关闭并作为物理实存保留，未来3个CPU统计/比较日志+1合并日志仍共128MiB，Hproducer/devnull无额外增长。核实9058为zixiao/PENDING/00:00:00后仅一次取消，原生CANCELLED by1278/0:0/0秒；新4539061为相同原merge、相同config和afterok4539057，未执行两次合并。实际新复制入口及本地日志路径/tmp/d_recipe_managed_D3_merge_%j.log记录在launch配置中。该基础设施替换不改科学字段/坐标/成员/随机状态/预算。
+
+03:15:48两GPU原日志均2707200样本/84600更新，原seconds34304.995509289205/34342.064588090405及clip冻结值未变；原模型CPU/比较afterok链不改。H组件与完整合并未闭合，尚非最终D3、C1或A/B/C完成。
