@@ -1,8 +1,8 @@
 {
   "schema": "D_RECIPE_CURRENT_BEST_V1",
-  "status": "STAGE1_SEED1_3M_TRAINING_COMPLETE_ORIGINAL_GPU_READOUT_RUNNING",
+  "status": "STAGE1_CONFIRMED_TRANSFER_WIN_STAGE2_PREPARATION",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T20:20:51Z",
+  "updated_at_utc": "2026-11-22T20:40:45Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -46,7 +46,19 @@
     "source_preserved_and_CLI_disabled": true,
     "tests_explicitly_skipped": true
   },
-  "current_best": null,
+  "current_best": {
+    "arm": "D-R1",
+    "library": "D20",
+    "configuration": "configs/d_recipe/screening/D-R1_seed0.json",
+    "selected_stage": 1,
+    "status": "CONFIRMED_STAGE1_CONTROL_ONLY_FINAL_DECISIONS_PENDING",
+    "components": [
+      "A1",
+      "B3",
+      "B4"
+    ],
+    "final": false
+  },
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
   "preregistration_commit": "a3b774dc3218fb91b48d98aa84cbe4f930f9aea8",
@@ -364,14 +376,14 @@
   },
   "arm_decisions": {
     "D-R0": "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
-    "D-R1": "SEED0_WIN_SEED1_CONFIRMATION_REQUIRED_NOT_YET_ADOPTED",
-    "D-L1": "LIBRARY_ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
-    "D-L2": "LIBRARY_ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
-    "D-G1": "WAITING_RECIPE_DECISION",
+    "D-R1": "CONFIRMED_WIN_BOTH_SEEDS_ADOPT_TRANSFERRED_BUNDLE",
+    "D-L1": "ACCEPTED_STAGE1_SELECTED_TRANSFERRED_RECIPE_A1_PREPARATION_REQUIRED",
+    "D-L2": "ACCEPTED_STAGE1_SELECTED_TRANSFERRED_RECIPE_A1_PREPARATION_REQUIRED",
+    "D-G1": "READY_TRANSFERRED_D20_RECIPE_WAITING_COMPLIANT_GPU",
     "D-K1": "NOT_TRIGGERED_UNTIL_CONFIRMED_WIDE_LIBRARY_ADOPTION"
   },
   "conditional_seed1": {
-    "status": "BOTH_FRESH_SEED1_3M_TRAINING_COMPLETE_READOUT_AND_PAIRED_DECISION_PENDING",
+    "status": "COMPLETE_BOTH_ORIGINAL_GPU_CPU_AND_PAIRING_CLOSED",
     "shared_control": "D-R0 seed1",
     "candidate": "D-R1 seed1",
     "seed0_result": "WIN",
@@ -409,7 +421,7 @@
         "gpu_uuid": "GPU-6965a7c7-025e-e4fd-013a-2be3245ef7c6",
         "gpu_model": "NVIDIA GeForce RTX 3090",
         "configuration": "configs/d_recipe/screening/D-R0_seed1.json",
-        "status": "TRAINING_COMPLETE_GPU_READOUT_RUNNING_NOT_YET_BATCH_COMPLETE",
+        "status": "COMPLETE_ORIGINAL_GPU_READOUT_AND_CPU_STATISTICS",
         "progress": {
           "samples": 3000000,
           "updates": 93750,
@@ -429,7 +441,7 @@
           "observed_at_utc": "2026-11-22T20:20:51Z",
           "source": "Original closed training summary.json; no statistics recomputed"
         },
-        "CPU_status": "PENDING_AFTEROK_4538566",
+        "CPU_status": "COMPLETED_0:0",
         "first_registered_checkpoint": {
           "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/samples_1000000.pt",
           "bytes": 192027443,
@@ -485,6 +497,305 @@
           "original_producer_payload": "model, optimizer, configuration, architecture, clock, sampler RNG, torch/cuda RNG, elapsed, windows, clip calibration",
           "complete_payload_source": "current/phychem_mfm/phase1/p_recipe_training.py:168",
           "seed": 1
+        },
+        "native_completion": {
+          "GPU": {
+            "job": 4538566,
+            "state": "COMPLETED",
+            "exit_code": "0:0",
+            "elapsed_seconds": 39014,
+            "allocated_CPUs": 5,
+            "node": "compute-0-4",
+            "start_CST": "2026-11-22T17:42:02",
+            "end_CST": "2026-11-23T04:32:16",
+            "TimeLimit": "2-00:00:00",
+            "actual_hard_EndTime": "2026-11-24T17:42:02",
+            "actual_owned_roots_reaped": [
+              3562706,
+              3562735,
+              3562702
+            ],
+            "actual_root_returncodes": [
+              0,
+              0,
+              0
+            ],
+            "actual_terminal_returncode": 0,
+            "actual_remaining_children": [],
+            "healthy_state_at_exit_observation": "MIXED"
+          },
+          "CPU": {
+            "job": 4538568,
+            "state": "COMPLETED",
+            "exit_code": "0:0",
+            "elapsed_seconds": 60,
+            "allocated_CPUs": 1,
+            "node": "compute-0-13",
+            "start_CST": "2026-11-23T04:32:16",
+            "end_CST": "2026-11-23T04:33:16",
+            "TimeLimit": "08:00:00",
+            "actual_hard_EndTime": "2026-11-23T12:32:16",
+            "actual_owned_roots_reaped": [
+              853027,
+              856235,
+              853023
+            ],
+            "actual_root_returncodes": [
+              0,
+              0,
+              0
+            ],
+            "actual_terminal_returncode": 0,
+            "actual_remaining_children": [],
+            "healthy_state_at_exit_observation": "MIXED"
+          },
+          "new_signals_sent": false,
+          "checkpoint_tensors_independently_read": false
+        },
+        "final_readout": {
+          "summary": {
+            "status": "COMPLETE",
+            "run": "d_recipe_20261120_D_R0_seed0_3M_seed1",
+            "samples": 3000000,
+            "updates": 93750,
+            "actual_samples": 3000000,
+            "seconds": 38099.351692557335,
+            "clipped_fraction": 0.05710933333333333,
+            "clip": 11.076789627075199,
+            "batch_size": 32,
+            "microbatch_size": 32,
+            "GPU_peak_bytes": 4530274816,
+            "D_mask_counts": {
+              "source_valid": 51000000,
+              "source_missing": 0,
+              "random_dropped": 0,
+              "effective_valid": 51000000
+            },
+            "D_training_adapter": "existing_P_loop_with_D_data_model_and_loss_adapters",
+            "statistics_complete": true,
+            "predictions": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/readout/predictions.json",
+            "scores": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/readout/scores.json"
+          },
+          "original_score_projection": {
+            "R1": {
+              "tasks": {
+                "exp.LogD": {
+                  "error": 0.5601758008839126,
+                  "reference_error": 0.6139021114229547,
+                  "normalized_improvement": 0.08751608691247316,
+                  "observed_labels": 1009,
+                  "observed_molecules": 1009,
+                  "bootstrap_ci": [
+                    0.04162119915936606,
+                    0.13267926790346196
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "exp.LogS": {
+                  "error": 0.4404374473858399,
+                  "reference_error": 0.4464633246849023,
+                  "normalized_improvement": 0.01349691445162992,
+                  "observed_labels": 1025,
+                  "observed_molecules": 1025,
+                  "bootstrap_ci": [
+                    -0.02434988523660202,
+                    0.04941755001584421
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "exp.Log_HLM_CLint": {
+                  "error": 0.38727803263780447,
+                  "reference_error": 0.4029307174249827,
+                  "normalized_improvement": 0.03884708737822264,
+                  "observed_labels": 747,
+                  "observed_molecules": 747,
+                  "bootstrap_ci": [
+                    -0.0030469413329507512,
+                    0.07762156181351676
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.U0_atom": {
+                  "error": 0.034486093883261945,
+                  "reference_error": 0.07227751426809637,
+                  "normalized_improvement": 0.5228655241885612,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.5020762763784696,
+                    0.5429933429869347
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.alpha": {
+                  "error": 0.8853083144669139,
+                  "reference_error": 1.5633063896803412,
+                  "normalized_improvement": 0.4336949427757803,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.40897844931241173,
+                    0.4591521625943025
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.homo": {
+                  "error": 0.007584693247144291,
+                  "reference_error": 0.008763313965994462,
+                  "normalized_improvement": 0.13449486386357268,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.10849307410621564,
+                    0.1606074646295642
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.lumo": {
+                  "error": 0.010629687570353001,
+                  "reference_error": 0.01760897012929575,
+                  "normalized_improvement": 0.396348140050021,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.37273482506451394,
+                    0.41937069396588356
+                  ],
+                  "bootstrap_defined": 1000
+                }
+              },
+              "complete": true,
+              "mean_normalized_improvement": 0.23246622280289442,
+              "bootstrap_ci": [
+                0.21786345361476087,
+                0.24582451443554337
+              ],
+              "bootstrap_samples": 1000,
+              "bootstrap_defined": 1000,
+              "bootstrap_unit": "molecule",
+              "bootstrap_seed": 20261025,
+              "architecture_sha256": "C1-0-reference",
+              "included_tasks": [
+                "exp.LogD",
+                "exp.Log_HLM_CLint",
+                "exp.LogS",
+                "qm9.U0_atom",
+                "qm9.homo",
+                "qm9.lumo",
+                "qm9.alpha"
+              ]
+            },
+            "R3": {
+              "tasks": {
+                "exp.LogD": {
+                  "error": 0.6030164130393885,
+                  "reference_error": 0.6282109538807623,
+                  "normalized_improvement": 0.0401052237082703,
+                  "observed_labels": 1009,
+                  "observed_molecules": 1009,
+                  "bootstrap_ci": [
+                    -0.007257226779793473,
+                    0.08707599906446795
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "exp.LogS": {
+                  "error": 0.4409364635188405,
+                  "reference_error": 0.4486337294229647,
+                  "normalized_improvement": 0.017157127071173273,
+                  "observed_labels": 1025,
+                  "observed_molecules": 1025,
+                  "bootstrap_ci": [
+                    -0.024641170467390082,
+                    0.05743036472062812
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "exp.Log_HLM_CLint": {
+                  "error": 0.40169167812848827,
+                  "reference_error": 0.397881249177807,
+                  "normalized_improvement": -0.009576799506272955,
+                  "observed_labels": 747,
+                  "observed_molecules": 747,
+                  "bootstrap_ci": [
+                    -0.062318733887080216,
+                    0.03683971703577142
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.U0_atom": {
+                  "error": 0.014005716009257993,
+                  "reference_error": 0.029109532864231655,
+                  "normalized_improvement": 0.5188615332791026,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.49949102465189843,
+                    0.5373382477228449
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.alpha": {
+                  "error": 0.5997307139162399,
+                  "reference_error": 1.021302308980916,
+                  "normalized_improvement": 0.4127784607530477,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.38382752647815344,
+                    0.43843517806093163
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.homo": {
+                  "error": 0.007181416433196464,
+                  "reference_error": 0.009844560558030407,
+                  "normalized_improvement": 0.2705193501665813,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.24292807043341313,
+                    0.2971789027068878
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.lumo": {
+                  "error": 0.007074754126188406,
+                  "reference_error": 0.018331570325687996,
+                  "normalized_improvement": 0.6140672075280662,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.5950142429985328,
+                    0.6311783439687604
+                  ],
+                  "bootstrap_defined": 1000
+                }
+              },
+              "complete": true,
+              "mean_normalized_improvement": 0.26627315757142406,
+              "bootstrap_ci": [
+                0.2513742506055357,
+                0.2807419562407481
+              ],
+              "bootstrap_samples": 1000,
+              "bootstrap_defined": 1000,
+              "bootstrap_unit": "molecule",
+              "bootstrap_seed": 20261025,
+              "architecture_sha256": "C1-0-reference",
+              "included_tasks": [
+                "exp.LogD",
+                "exp.Log_HLM_CLint",
+                "exp.LogS",
+                "qm9.U0_atom",
+                "qm9.homo",
+                "qm9.lumo",
+                "qm9.alpha"
+              ]
+            }
+          },
+          "native_score_source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/readout/scores.json",
+          "numeric_statistics_recomputed": false
         }
       },
       "D-R1": {
@@ -494,7 +805,7 @@
         "gpu_uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
         "gpu_model": "NVIDIA GeForce RTX 3090",
         "configuration": "configs/d_recipe/screening/D-R1_seed1.json",
-        "status": "TRAINING_COMPLETE_GPU_READOUT_RUNNING_NOT_YET_BATCH_COMPLETE",
+        "status": "COMPLETE_ORIGINAL_GPU_READOUT_AND_CPU_STATISTICS",
         "progress": {
           "samples": 3000000,
           "updates": 93750,
@@ -514,7 +825,7 @@
           "observed_at_utc": "2026-11-22T20:20:51Z",
           "source": "Original closed training summary.json; no statistics recomputed"
         },
-        "CPU_status": "PENDING_AFTEROK_4538567",
+        "CPU_status": "COMPLETED_0:0",
         "first_registered_checkpoint": {
           "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/samples_1000000.pt",
           "bytes": 203777051,
@@ -570,6 +881,311 @@
           "original_producer_payload": "model, optimizer, configuration, architecture, clock, sampler RNG, torch/cuda RNG, elapsed, windows, clip calibration",
           "complete_payload_source": "current/phychem_mfm/phase1/p_recipe_training.py:168",
           "seed": 1
+        },
+        "native_completion": {
+          "GPU": {
+            "job": 4538567,
+            "state": "COMPLETED",
+            "exit_code": "0:0",
+            "elapsed_seconds": 38604,
+            "allocated_CPUs": 5,
+            "node": "compute-0-5",
+            "start_CST": "2026-11-22T17:42:02",
+            "end_CST": "2026-11-23T04:25:26",
+            "TimeLimit": "2-00:00:00",
+            "original_actual_hard_EndTime": "2026-11-24T17:42:02",
+            "actual_resident_log": "/tmp/d_recipe_managed_D-R1-seed1-resident-3M_4538567.log",
+            "actual_owned_roots_reaped": [
+              1439224,
+              1439252,
+              1439221
+            ],
+            "actual_root_returncodes": [
+              0,
+              0,
+              0
+            ],
+            "actual_terminal_returncode": 0,
+            "actual_remaining_children": [],
+            "healthy_state_at_exit_observation": "IDLE"
+          },
+          "CPU": {
+            "job": 4538569,
+            "state": "COMPLETED",
+            "exit_code": "0:0",
+            "elapsed_seconds": 72,
+            "allocated_CPUs": 1,
+            "node": "compute-0-13",
+            "start_CST": "2026-11-23T04:25:26",
+            "end_CST": "2026-11-23T04:26:38",
+            "TimeLimit": "08:00:00",
+            "original_actual_hard_EndTime": "2026-11-23T12:25:26",
+            "actual_resident_log": "/tmp/d_recipe_managed_D-R1-seed1-resident-statistics_4538569.log",
+            "actual_owned_roots_reaped": [
+              799368,
+              801219,
+              799353
+            ],
+            "actual_root_returncodes": [
+              0,
+              0,
+              0
+            ],
+            "actual_terminal_returncode": 0,
+            "actual_remaining_children": [],
+            "healthy_state_at_exit_observation": "MIXED"
+          },
+          "actual_exit_observation_UTC": [
+            "2026-11-22T20:28:30Z",
+            "2026-11-22T20:29:12Z"
+          ],
+          "new_signals_sent": false,
+          "checkpoint_tensors_independently_read": false
+        },
+        "final_readout": {
+          "summary": {
+            "status": "COMPLETE",
+            "run": "d_recipe_20261120_D_R1_seed0_3M_seed1",
+            "samples": 3000000,
+            "updates": 93750,
+            "actual_samples": 3000000,
+            "seconds": 38135.12057595514,
+            "clipped_fraction": 0.008010666666666666,
+            "clip": 25.356171264648438,
+            "batch_size": 32,
+            "microbatch_size": 32,
+            "GPU_peak_bytes": 4541469184,
+            "D_mask_counts": {
+              "source_valid": 51000000,
+              "source_missing": 0,
+              "random_dropped": 0,
+              "effective_valid": 51000000
+            },
+            "D_training_adapter": "existing_P_loop_with_D_data_model_and_loss_adapters",
+            "statistics_complete": true,
+            "predictions": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/readout/predictions.json",
+            "scores": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/readout/scores.json"
+          },
+          "original_score_projection": {
+            "R1": {
+              "tasks": {
+                "exp.LogD": {
+                  "error": 0.47443453400754565,
+                  "reference_error": 0.6139021114229547,
+                  "normalized_improvement": 0.2271821106660461,
+                  "observed_labels": 1009,
+                  "observed_molecules": 1009,
+                  "bootstrap_ci": [
+                    0.189047820534298,
+                    0.2632887391164849
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "exp.LogS": {
+                  "error": 0.4089948194486326,
+                  "reference_error": 0.4464633246849023,
+                  "normalized_improvement": 0.0839229185571147,
+                  "observed_labels": 1025,
+                  "observed_molecules": 1025,
+                  "bootstrap_ci": [
+                    0.0483872706292687,
+                    0.11703020197236944
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "exp.Log_HLM_CLint": {
+                  "error": 0.3751112820337093,
+                  "reference_error": 0.4029307174249827,
+                  "normalized_improvement": 0.06904272667286232,
+                  "observed_labels": 747,
+                  "observed_molecules": 747,
+                  "bootstrap_ci": [
+                    0.030137439709565745,
+                    0.10388521663712
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.U0_atom": {
+                  "error": 0.052628270238215404,
+                  "reference_error": 0.07227751426809637,
+                  "normalized_improvement": 0.2718583259102787,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.23908515593781593,
+                    0.30180997240348967
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.alpha": {
+                  "error": 1.2613519935518769,
+                  "reference_error": 1.5633063896803412,
+                  "normalized_improvement": 0.19315113027217062,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.15602974502369904,
+                    0.23050241574445768
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.homo": {
+                  "error": 0.007584351763530251,
+                  "reference_error": 0.008763313965994462,
+                  "normalized_improvement": 0.13453383126966648,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.11064777843358019,
+                    0.1611799403597216
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.lumo": {
+                  "error": 0.010206557563857296,
+                  "reference_error": 0.01760897012929575,
+                  "normalized_improvement": 0.42037737079939635,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.3953505616265788,
+                    0.44233895936242906
+                  ],
+                  "bootstrap_defined": 1000
+                }
+              },
+              "complete": true,
+              "mean_normalized_improvement": 0.2000097734496479,
+              "bootstrap_ci": [
+                0.18490939679034835,
+                0.21361269963626534
+              ],
+              "bootstrap_samples": 1000,
+              "bootstrap_defined": 1000,
+              "bootstrap_unit": "molecule",
+              "bootstrap_seed": 20261025,
+              "architecture_sha256": "C1-0-reference",
+              "included_tasks": [
+                "exp.LogD",
+                "exp.Log_HLM_CLint",
+                "exp.LogS",
+                "qm9.U0_atom",
+                "qm9.homo",
+                "qm9.lumo",
+                "qm9.alpha"
+              ]
+            },
+            "R3": {
+              "tasks": {
+                "exp.LogD": {
+                  "error": 0.3904658300124618,
+                  "reference_error": 0.6282109538807623,
+                  "normalized_improvement": 0.3784479121219299,
+                  "observed_labels": 1009,
+                  "observed_molecules": 1009,
+                  "bootstrap_ci": [
+                    0.34401602982324714,
+                    0.4148227465875763
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "exp.LogS": {
+                  "error": 0.3610075006252382,
+                  "reference_error": 0.4486337294229647,
+                  "normalized_improvement": 0.1953179688705793,
+                  "observed_labels": 1025,
+                  "observed_molecules": 1025,
+                  "bootstrap_ci": [
+                    0.1518166168699703,
+                    0.2361800717845232
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "exp.Log_HLM_CLint": {
+                  "error": 0.34382067450198783,
+                  "reference_error": 0.397881249177807,
+                  "normalized_improvement": 0.1358711293571422,
+                  "observed_labels": 747,
+                  "observed_molecules": 747,
+                  "bootstrap_ci": [
+                    0.08521470988297329,
+                    0.1847137814704566
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.U0_atom": {
+                  "error": 0.013653508260415689,
+                  "reference_error": 0.029109532864231655,
+                  "normalized_improvement": 0.5309609287068828,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.5123623614601512,
+                    0.5491794922446757
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.alpha": {
+                  "error": 0.5796756274003817,
+                  "reference_error": 1.021302308980916,
+                  "normalized_improvement": 0.4324152385606586,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.40470190054347155,
+                    0.45921917209950336
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.homo": {
+                  "error": 0.0059803829922897445,
+                  "reference_error": 0.009844560558030407,
+                  "normalized_improvement": 0.39251905079588084,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.36889290461054536,
+                    0.4153265667711531
+                  ],
+                  "bootstrap_defined": 1000
+                },
+                "qm9.lumo": {
+                  "error": 0.006053023743761532,
+                  "reference_error": 0.018331570325687996,
+                  "normalized_improvement": 0.6698033154705005,
+                  "observed_labels": 2068,
+                  "observed_molecules": 2048,
+                  "bootstrap_ci": [
+                    0.6529828942786569,
+                    0.6863508636221113
+                  ],
+                  "bootstrap_defined": 1000
+                }
+              },
+              "complete": true,
+              "mean_normalized_improvement": 0.39076222055479626,
+              "bootstrap_ci": [
+                0.3764596549728688,
+                0.40494760139057634
+              ],
+              "bootstrap_samples": 1000,
+              "bootstrap_defined": 1000,
+              "bootstrap_unit": "molecule",
+              "bootstrap_seed": 20261025,
+              "architecture_sha256": "C1-0-reference",
+              "included_tasks": [
+                "exp.LogD",
+                "exp.Log_HLM_CLint",
+                "exp.LogS",
+                "qm9.U0_atom",
+                "qm9.homo",
+                "qm9.lumo",
+                "qm9.alpha"
+              ]
+            }
+          },
+          "native_score_source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/readout/scores.json",
+          "numeric_statistics_recomputed": false
         }
       }
     },
@@ -628,7 +1244,100 @@
       "4538566": "2026-11-24T17:42:02+08:00",
       "4538567": "2026-11-24T17:42:02+08:00"
     },
-    "legacy_replacement_complete": true
+    "legacy_replacement_complete": true,
+    "original_comparison": {
+      "candidate": "d_recipe_20261120_D_R1_seed0_3M_seed1",
+      "control": "d_recipe_20261120_D_R0_seed0_3M_seed1",
+      "seed": 1,
+      "samples": 3000000,
+      "primary": "mean_seven_task_R3_normalized_improvements",
+      "R3": {
+        "delta": 0.1244890629833722,
+        "ci_lower": 0.10891211543183203,
+        "ci_upper": 0.13955854300080836,
+        "verdict": "WIN",
+        "tau": 0.019538111027739814,
+        "seed1_required": true,
+        "bootstrap_draws": 1000,
+        "bootstrap_seed": 20261025,
+        "confidence": 0.95,
+        "authority": "docs/d_recipe/TASKBOOK.md:4.6"
+      },
+      "R1_report_only": {
+        "candidate": {
+          "mean_normalized_improvement": 0.2000097734496479,
+          "bootstrap_ci": [
+            0.18490939679034835,
+            0.21361269963626534
+          ],
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "control": {
+          "mean_normalized_improvement": 0.23246622280289442,
+          "bootstrap_ci": [
+            0.21786345361476087,
+            0.24582451443554337
+          ],
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "CYP_report_only": "existing evaluator task rows; excluded from primary mean",
+      "score_sources": [
+        "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/readout/scores.json",
+        "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/readout/scores.json"
+      ],
+      "bootstrap_unit": "molecule",
+      "bootstrap_draws": 1000,
+      "bootstrap_seed": 20261025,
+      "confidence": 0.95,
+      "CI_scope": "molecule sampling uncertainty conditional on the fitted models",
+      "multiple_comparison_correction": false,
+      "resampling_repeated": false,
+      "selection_change_allowed": true
+    },
+    "native_comparison_exit": {
+      "job": 4538570,
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 19,
+      "allocated_CPUs": 1,
+      "node": "compute-0-13",
+      "start_CST": "2026-11-23T04:33:16",
+      "end_CST": "2026-11-23T04:33:35",
+      "TimeLimit": "04:00:00",
+      "actual_hard_EndTime": "2026-11-23T08:33:16",
+      "actual_owned_roots_reaped": [
+        861944,
+        862967,
+        861877
+      ],
+      "actual_root_returncodes": [
+        0,
+        0,
+        0
+      ],
+      "actual_terminal_returncode": 0,
+      "actual_remaining_children": [],
+      "healthy_state_at_exit_observation": "MIXED",
+      "new_signals_sent": false
+    },
+    "adoption": "Both original individual seed comparisons WIN; no seed2 or combined-seed CI"
   },
   "diagnostics": "R0 prescribed diagnostics COMPLETE; R1 F64 geometry UNRESOLVED after two actual capacity-freshness failures, cached layers3-5 GPU probes COMPLETE and CPU scores RUNNING; G1/adopted endpoints pending; decision_input=false",
   "development_controls": "Section5 A/B/C and composition controls pending",
@@ -641,10 +1350,10 @@
     "seed": 0,
     "samples": 9000000
   },
-  "results": "Original full development D3 nowRAW_COMPLETE for15751 originalmembers: approvedExpansionRx5278 component plus reusedQM9, original mergeCPU11/4539061 C0/3s, producer4539057 C0/1568s and actual exit verified. SixmolecularD3 inputs ready; finalA/B/C/C1 remains pending. Both seed1 jobs continue original3M, no adoption before each-seed pairedWIN. Full laterTASKBOOK/conditionalarms/diagnostics/freeze/cold9M/handoff/cost/tests/twoPR scope preserved.",
-  "arm": null,
-  "library": null,
-  "configuration": null,
+  "results": "Both fresh Stage1 seed1 native GPU/CPU/readout/comparison jobs C0 with actual resident child trees reaped. Original individual seed0/seed1 comparisons WIN; adopt A1+B3+B4 bundle for Stage2. Full15751 developmentD3 remains ready. L1/L2/G1, conditional arms/seeds, seed0 diagnostics, final freeze/cold9M/A-B-C/benchmark/cost/one regression/two unmerged PRs remain active.",
+  "arm": "D-R1",
+  "library": "D20",
+  "configuration": "configs/d_recipe/screening/D-R1_seed0.json",
   "representation_diagnostics": {
     "D_R0": {
       "status": "COMPLETE",
@@ -705,7 +1414,7 @@
     "cpu_configuration": "configs/d_recipe/screening/D-R1_seed0_cpu_statistics.json",
     "job_id": 4537592,
     "dependency": "afterok:4537575",
-    "status": "MAIN_READOUT_COMPLETE_WAITING_ORIGINAL_PAIRED_COMPARISON",
+    "status": "CONFIRMED_WIN_BOTH_SEEDS_TRANSFER_BUNDLE_ADOPTED",
     "seed": 0,
     "samples": 3000000,
     "cpu_statistics_job": 4537593,
@@ -960,6 +1669,72 @@
       "status": "CANCELLED_NEVER_STARTED",
       "elapsed_seconds": 0,
       "comparison_recomputed": false
+    },
+    "seed1_paired_result": {
+      "candidate": "d_recipe_20261120_D_R1_seed0_3M_seed1",
+      "control": "d_recipe_20261120_D_R0_seed0_3M_seed1",
+      "seed": 1,
+      "samples": 3000000,
+      "primary": "mean_seven_task_R3_normalized_improvements",
+      "R3": {
+        "delta": 0.1244890629833722,
+        "ci_lower": 0.10891211543183203,
+        "ci_upper": 0.13955854300080836,
+        "verdict": "WIN",
+        "tau": 0.019538111027739814,
+        "seed1_required": true,
+        "bootstrap_draws": 1000,
+        "bootstrap_seed": 20261025,
+        "confidence": 0.95,
+        "authority": "docs/d_recipe/TASKBOOK.md:4.6"
+      },
+      "R1_report_only": {
+        "candidate": {
+          "mean_normalized_improvement": 0.2000097734496479,
+          "bootstrap_ci": [
+            0.18490939679034835,
+            0.21361269963626534
+          ],
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "control": {
+          "mean_normalized_improvement": 0.23246622280289442,
+          "bootstrap_ci": [
+            0.21786345361476087,
+            0.24582451443554337
+          ],
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "CYP_report_only": "existing evaluator task rows; excluded from primary mean",
+      "score_sources": [
+        "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/readout/scores.json",
+        "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/readout/scores.json"
+      ],
+      "bootstrap_unit": "molecule",
+      "bootstrap_draws": 1000,
+      "bootstrap_seed": 20261025,
+      "confidence": 0.95,
+      "CI_scope": "molecule sampling uncertainty conditional on the fitted models",
+      "multiple_comparison_correction": false,
+      "resampling_repeated": false,
+      "selection_change_allowed": true
     }
   },
   "diagnostic_progress": {
@@ -1201,7 +1976,7 @@
     }
   },
   "stage0": {
-    "status": "BOTH_WIDE_LIBRARIES_ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
+    "status": "BOTH_WIDE_LIBRARIES_ACCEPTED_STAGE2_TRANSFER_RECIPE_SELECTED",
     "source": "results/d_recipe/zero_scale_amendment_reception_20261122.json",
     "raw_rows": 1201795,
     "TRAIN_rows": 1194228,
@@ -1211,7 +1986,7 @@
     },
     "raw_parts_per_library": 4695,
     "L1": {
-      "status": "ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
+      "status": "ACCEPTED_WAITING_STAGE2_NEW_LIBRARY_A1_FIT",
       "failed_jobs": [
         4537508,
         4537574
@@ -1236,7 +2011,7 @@
       "reception_passed_heads": 197
     },
     "L2": {
-      "status": "ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
+      "status": "ACCEPTED_WAITING_STAGE2_NEW_LIBRARY_A1_FIT",
       "failed_jobs": [
         4537771,
         4537773
@@ -1420,7 +2195,7 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ACTIVE_STAGE1_ORIGINAL_SEED1_GPU_READOUT_CPU_STATISTICS_AND_PAIRED_DECISION",
+  "automation_state": "ACTIVE_STAGE2_REFERENCE_PREPARATION_AND_COMPLIANT_GPU_POLL",
   "blocking_condition": null,
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
@@ -2023,5 +2798,56 @@
     "quota_max_age_seconds": 5,
     "peer_forecasts_reduced_without_authority": false,
     "arrays_read": false
+  },
+  "stage1_transfer_decision": "results/d_recipe/stage1_transfer_decision_20261123.json",
+  "stage2": {
+    "status": "PREPARING_ORIGINAL_GENERIC_A1",
+    "selected_stage1_control": "D-R1",
+    "recipe_components": [
+      "A1",
+      "B3",
+      "B4"
+    ],
+    "library_fields": {
+      "L1": 191,
+      "L2": 1314
+    },
+    "arms": [
+      "D-L1",
+      "D-L2",
+      "D-G1"
+    ],
+    "reference_fitter": "tools/d_recipe/fit_reference.py",
+    "unadopted_reuse_adapter": "UNRESOLVED_NO_RETRY",
+    "G1_library": "D20",
+    "G1_include_3d": false,
+    "remaining_block_weights_rescaled": false,
+    "models_started": false,
+    "GPU_admission_status": "At04:36preferred0-7 eligibleCPU nodes all had compute contexts;20/22 memory >30%; no unadmittedGPU launch",
+    "proposed_joint_NFS_bytes": 42074762973,
+    "capacity_registration_pending": false,
+    "joint_NFS_forecast_bytes": 42074762973,
+    "additional_NFS_checkpoint_pool_bytes": 3221225472,
+    "capacity_plan": "data-d-descriptors-20261120:configs/data_d_descriptors/full_20261120/plan.json",
+    "reference_root_joint_future_bytes": 38788923392,
+    "reference_root_future_scope": "Actual CPU11: new L1 4GiB + new L2 16GiB + existing16GiB peer/cache future +128MiB joint managed logs; system reserve separate",
+    "reference_configurations": [
+      "configs/d_recipe/reference/L1_stage2.json",
+      "configs/d_recipe/reference/L2_stage2.json"
+    ],
+    "training_configurations": [
+      "configs/d_recipe/screening/D-L1_seed0.json",
+      "configs/d_recipe/screening/D-L2_seed0.json",
+      "configs/d_recipe/screening/D-G1_seed0.json"
+    ],
+    "reference_jobs_submitted": false,
+    "required_before_writes": "Original source-independent resident preflight + actual node D guards check freshbytes/inodes/5s UID quota and protected peer futures, then original full-TRAIN collector/fitter",
+    "admitted_head_source_metadata": {
+      "required_bytes": 305463892220,
+      "quota_floor_bytes": 100000000000,
+      "freshness_seconds": 5,
+      "all_peer_forecasts_retained": true,
+      "actual_node_production_admission_still_required": true
+    }
   }
 }

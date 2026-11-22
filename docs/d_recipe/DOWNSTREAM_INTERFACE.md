@@ -69,3 +69,5 @@ QM9 component明确`complete_source_population=false`，全源15751成员。Expa
 
 
 2026-11-23 03:51 CST：完整原D3清单已生成：`/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/merged/manifest.json`，全部15751成员、complete_source_population=true；每dataset政策保留qm9/native_only与expansionrx/B6_fixed_native_H。原component/merged JSON转录见Data results/data_d_descriptors/development_D3_ExpansionRx_B6_20261123.json与development_D3_full_20261123.json。原峰值203909476B在共同512MiB内；原D20/D4/坐标和成员划分不变。实际H父子PID均ABSENT，合并原resident日志reap0/children=[]。Source接收pending与C1false保留；此输入闭合解除此前H政策及完整D3人口依赖，最终A/B/C仍等待冻结选定终点、规定9M和实际原评测。以上带旧时间戳的准备/等待描述是历史。
+
+2026-11-23 04:40 CST：阶段1两种子各自配对WIN，后续选定配方为A1+B3+B4整包；目标库/D3去留/K1仍待阶段2–3，因此最终C1交付库及模型终点尚未冻结。完整15751开发D3继续可用，不据此提前运行最终A/B/C或改变基准冻结终点。

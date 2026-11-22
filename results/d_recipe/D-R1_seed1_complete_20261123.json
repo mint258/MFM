@@ -1,0 +1,312 @@
+{
+  "schema": "D_ORIGINAL_NATIVE_RUN_TRANSCRIPTION_V1",
+  "arm": "D-R1",
+  "seed": 1,
+  "samples": 3000000,
+  "source_scope": "Original producer point estimates, CIs and task rows only; no statistics recomputed",
+  "summary": {
+    "status": "COMPLETE",
+    "run": "d_recipe_20261120_D_R1_seed0_3M_seed1",
+    "samples": 3000000,
+    "updates": 93750,
+    "actual_samples": 3000000,
+    "seconds": 38135.12057595514,
+    "clipped_fraction": 0.008010666666666666,
+    "clip": 25.356171264648438,
+    "batch_size": 32,
+    "microbatch_size": 32,
+    "GPU_peak_bytes": 4541469184,
+    "D_mask_counts": {
+      "source_valid": 51000000,
+      "source_missing": 0,
+      "random_dropped": 0,
+      "effective_valid": 51000000
+    },
+    "D_training_adapter": "existing_P_loop_with_D_data_model_and_loss_adapters",
+    "statistics_complete": true,
+    "predictions": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/readout/predictions.json",
+    "scores": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/readout/scores.json"
+  },
+  "score_projection": {
+    "R1": {
+      "tasks": {
+        "exp.LogD": {
+          "error": 0.47443453400754565,
+          "reference_error": 0.6139021114229547,
+          "normalized_improvement": 0.2271821106660461,
+          "observed_labels": 1009,
+          "observed_molecules": 1009,
+          "bootstrap_ci": [
+            0.189047820534298,
+            0.2632887391164849
+          ],
+          "bootstrap_defined": 1000
+        },
+        "exp.LogS": {
+          "error": 0.4089948194486326,
+          "reference_error": 0.4464633246849023,
+          "normalized_improvement": 0.0839229185571147,
+          "observed_labels": 1025,
+          "observed_molecules": 1025,
+          "bootstrap_ci": [
+            0.0483872706292687,
+            0.11703020197236944
+          ],
+          "bootstrap_defined": 1000
+        },
+        "exp.Log_HLM_CLint": {
+          "error": 0.3751112820337093,
+          "reference_error": 0.4029307174249827,
+          "normalized_improvement": 0.06904272667286232,
+          "observed_labels": 747,
+          "observed_molecules": 747,
+          "bootstrap_ci": [
+            0.030137439709565745,
+            0.10388521663712
+          ],
+          "bootstrap_defined": 1000
+        },
+        "qm9.U0_atom": {
+          "error": 0.052628270238215404,
+          "reference_error": 0.07227751426809637,
+          "normalized_improvement": 0.2718583259102787,
+          "observed_labels": 2068,
+          "observed_molecules": 2048,
+          "bootstrap_ci": [
+            0.23908515593781593,
+            0.30180997240348967
+          ],
+          "bootstrap_defined": 1000
+        },
+        "qm9.alpha": {
+          "error": 1.2613519935518769,
+          "reference_error": 1.5633063896803412,
+          "normalized_improvement": 0.19315113027217062,
+          "observed_labels": 2068,
+          "observed_molecules": 2048,
+          "bootstrap_ci": [
+            0.15602974502369904,
+            0.23050241574445768
+          ],
+          "bootstrap_defined": 1000
+        },
+        "qm9.homo": {
+          "error": 0.007584351763530251,
+          "reference_error": 0.008763313965994462,
+          "normalized_improvement": 0.13453383126966648,
+          "observed_labels": 2068,
+          "observed_molecules": 2048,
+          "bootstrap_ci": [
+            0.11064777843358019,
+            0.1611799403597216
+          ],
+          "bootstrap_defined": 1000
+        },
+        "qm9.lumo": {
+          "error": 0.010206557563857296,
+          "reference_error": 0.01760897012929575,
+          "normalized_improvement": 0.42037737079939635,
+          "observed_labels": 2068,
+          "observed_molecules": 2048,
+          "bootstrap_ci": [
+            0.3953505616265788,
+            0.44233895936242906
+          ],
+          "bootstrap_defined": 1000
+        }
+      },
+      "complete": true,
+      "mean_normalized_improvement": 0.2000097734496479,
+      "bootstrap_ci": [
+        0.18490939679034835,
+        0.21361269963626534
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_defined": 1000,
+      "bootstrap_unit": "molecule",
+      "bootstrap_seed": 20261025,
+      "architecture_sha256": "C1-0-reference",
+      "included_tasks": [
+        "exp.LogD",
+        "exp.Log_HLM_CLint",
+        "exp.LogS",
+        "qm9.U0_atom",
+        "qm9.homo",
+        "qm9.lumo",
+        "qm9.alpha"
+      ]
+    },
+    "R3": {
+      "tasks": {
+        "exp.LogD": {
+          "error": 0.3904658300124618,
+          "reference_error": 0.6282109538807623,
+          "normalized_improvement": 0.3784479121219299,
+          "observed_labels": 1009,
+          "observed_molecules": 1009,
+          "bootstrap_ci": [
+            0.34401602982324714,
+            0.4148227465875763
+          ],
+          "bootstrap_defined": 1000
+        },
+        "exp.LogS": {
+          "error": 0.3610075006252382,
+          "reference_error": 0.4486337294229647,
+          "normalized_improvement": 0.1953179688705793,
+          "observed_labels": 1025,
+          "observed_molecules": 1025,
+          "bootstrap_ci": [
+            0.1518166168699703,
+            0.2361800717845232
+          ],
+          "bootstrap_defined": 1000
+        },
+        "exp.Log_HLM_CLint": {
+          "error": 0.34382067450198783,
+          "reference_error": 0.397881249177807,
+          "normalized_improvement": 0.1358711293571422,
+          "observed_labels": 747,
+          "observed_molecules": 747,
+          "bootstrap_ci": [
+            0.08521470988297329,
+            0.1847137814704566
+          ],
+          "bootstrap_defined": 1000
+        },
+        "qm9.U0_atom": {
+          "error": 0.013653508260415689,
+          "reference_error": 0.029109532864231655,
+          "normalized_improvement": 0.5309609287068828,
+          "observed_labels": 2068,
+          "observed_molecules": 2048,
+          "bootstrap_ci": [
+            0.5123623614601512,
+            0.5491794922446757
+          ],
+          "bootstrap_defined": 1000
+        },
+        "qm9.alpha": {
+          "error": 0.5796756274003817,
+          "reference_error": 1.021302308980916,
+          "normalized_improvement": 0.4324152385606586,
+          "observed_labels": 2068,
+          "observed_molecules": 2048,
+          "bootstrap_ci": [
+            0.40470190054347155,
+            0.45921917209950336
+          ],
+          "bootstrap_defined": 1000
+        },
+        "qm9.homo": {
+          "error": 0.0059803829922897445,
+          "reference_error": 0.009844560558030407,
+          "normalized_improvement": 0.39251905079588084,
+          "observed_labels": 2068,
+          "observed_molecules": 2048,
+          "bootstrap_ci": [
+            0.36889290461054536,
+            0.4153265667711531
+          ],
+          "bootstrap_defined": 1000
+        },
+        "qm9.lumo": {
+          "error": 0.006053023743761532,
+          "reference_error": 0.018331570325687996,
+          "normalized_improvement": 0.6698033154705005,
+          "observed_labels": 2068,
+          "observed_molecules": 2048,
+          "bootstrap_ci": [
+            0.6529828942786569,
+            0.6863508636221113
+          ],
+          "bootstrap_defined": 1000
+        }
+      },
+      "complete": true,
+      "mean_normalized_improvement": 0.39076222055479626,
+      "bootstrap_ci": [
+        0.3764596549728688,
+        0.40494760139057634
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_defined": 1000,
+      "bootstrap_unit": "molecule",
+      "bootstrap_seed": 20261025,
+      "architecture_sha256": "C1-0-reference",
+      "included_tasks": [
+        "exp.LogD",
+        "exp.Log_HLM_CLint",
+        "exp.LogS",
+        "qm9.U0_atom",
+        "qm9.homo",
+        "qm9.lumo",
+        "qm9.alpha"
+      ]
+    }
+  },
+  "full_original_scores": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/readout/scores.json",
+  "retained_paired_samples": "Full original paired/bootstrap payload remains at native path and is consumed by original comparison job4538570; not duplicated in this report",
+  "runtime_evidence": {
+    "GPU": {
+      "job": 4538567,
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 38604,
+      "allocated_CPUs": 5,
+      "node": "compute-0-5",
+      "start_CST": "2026-11-22T17:42:02",
+      "end_CST": "2026-11-23T04:25:26",
+      "TimeLimit": "2-00:00:00",
+      "original_actual_hard_EndTime": "2026-11-24T17:42:02",
+      "actual_resident_log": "/tmp/d_recipe_managed_D-R1-seed1-resident-3M_4538567.log",
+      "actual_owned_roots_reaped": [
+        1439224,
+        1439252,
+        1439221
+      ],
+      "actual_root_returncodes": [
+        0,
+        0,
+        0
+      ],
+      "actual_terminal_returncode": 0,
+      "actual_remaining_children": [],
+      "healthy_state_at_exit_observation": "IDLE"
+    },
+    "CPU": {
+      "job": 4538569,
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 72,
+      "allocated_CPUs": 1,
+      "node": "compute-0-13",
+      "start_CST": "2026-11-23T04:25:26",
+      "end_CST": "2026-11-23T04:26:38",
+      "TimeLimit": "08:00:00",
+      "original_actual_hard_EndTime": "2026-11-23T12:25:26",
+      "actual_resident_log": "/tmp/d_recipe_managed_D-R1-seed1-resident-statistics_4538569.log",
+      "actual_owned_roots_reaped": [
+        799368,
+        801219,
+        799353
+      ],
+      "actual_root_returncodes": [
+        0,
+        0,
+        0
+      ],
+      "actual_terminal_returncode": 0,
+      "actual_remaining_children": [],
+      "healthy_state_at_exit_observation": "MIXED"
+    },
+    "actual_exit_observation_UTC": [
+      "2026-11-22T20:28:30Z",
+      "2026-11-22T20:29:12Z"
+    ],
+    "new_signals_sent": false,
+    "checkpoint_tensors_independently_read": false
+  },
+  "paired_verdict": "PENDING_ORIGINAL_D-R0_CONTROL",
+  "adoption": false
+}
