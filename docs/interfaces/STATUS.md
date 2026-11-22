@@ -1310,3 +1310,14 @@ S-B0完成3M/93750更新，固定第6层H0、原7任务及1000次分子bootstrap
 S-N1已完成3M/93750更新；GPU6/4539045及CPU12/4539051原第6层读出/统计闭合。R3=0.4619276558354075，对B0的Δ=0.00863757271915866，95%CI=[-0.00016746695651523013,0.01716696831161181]，τ=0.023096382791770377，判TIE，不补seed1；R1改善仅报告。结果与原配对判定见results/s_recipe/S_N1_s0_3M.json及configs/s_recipe/seed0_decisions.json。
 
 S-R2已在N1释放的22号5090原生推进（UID1278/PID144846/start_ticks49279615），同任务sbatch接管4539053排队。新入口明确有限48h及900s收尾、完整状态保存、真实PID退出和自有子进程join，不伪造Slurm身份；3项新逻辑CPU测试4539050通过。B0的指定逐层描述GPU6/4539052已启动。N2/4538666、S-R1/4538843保持原入口继续；本线仍有其他筛选、条件种子/必要合并、冻结/9M和最终交付，尚未结项。详见docs/s_recipe/daily/2026-11-23.md与NATIVE_TAKEOVER_20261123.md。
+
+
+## 2026-11-23 03:18 CST · D Root：批准H生产已实际推进
+
+用户已明确批准ExpansionRx沿既有B6固定全部原坐标、仅补氢坐标、不生成新构象。定义见Root docs/d_recipe/H_POLICY_20261123.md；Data源及配置已发布9af334f，Root源/22项通过测试已发布bfa47cb。测试4539054实际CPU11/1CPU/8秒、22tests/0.280秒、0:0，原目标盘/NFS/fresh5秒UID守卫与OWNED_TREE_REAPED/remaining_children=[]已核实，不替代科学生产。
+
+原生产4539057在CPU11实际RUNNING，03:13:14开始、TimeLimit8h/截止11:13:14，03:15:48原cursor已闭合256/5278成员。实际原监督器4169297/start_ticks2249574973与原worker4169300/start_ticks2249574979，UIDs全1278、精确job4539057/step_batch已核。原完整QM9 component保留；新唯一合并4539061为同一原merge/config、afterok4539057，完整15751成员清单尚未闭合，C1/A/B/C未完成。旧未启动合并4539058因复制的stdout/devnull缺少终态日志，在owner/PENDING0秒核查后仅一次取消，CANCELLED by1278/0:0/0秒；科学合并没有双跑。
+
+原共同开发D3/合并512MiB和全局NFS38853537501B不增。生产/devnull不写Root日志；测试已闭合并作为实存保留，3个拟CPU统计/比较日志+1个新合并终态日志仍共用原每节点Root128MiB future，无第五个同时增长日志；根/tmp系统底线、同行future、inode和fresh5秒UID保护保持。新入口在Slurm复制的内存resident中先驻留，再读共享代码，真实TimeLimit前900秒收尾、TERM/join/reap，无KILL/管理员操作。原坐标/D20/D4/成员/划分未改；明确化学失败保留逐成员缺失和原错误码，坐标约束及未知错误仍拒绝继续。
+
+两个seed1训练4538566/4538567原03:15:48日志均2707200样本/84600更新，原clip未变，原CPU8568/8569及比较8570afterok保持。目标active，后续全部TASKBOOK关卡、条件臂/种子、冷9M、最终A/B/C/基准、成本、一次完整默认回归和两个PR范围保持。
