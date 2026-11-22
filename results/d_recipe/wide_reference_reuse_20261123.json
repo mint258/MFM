@@ -1,0 +1,43 @@
+{
+  "status": "UNRESOLVED_NOT_ADOPTED",
+  "failure_count": 2,
+  "production_invoked": false,
+  "additional_attempts_allowed": false,
+  "attempt1": {
+    "job": 4539136,
+    "node": "compute-0-11",
+    "state": "FAILED",
+    "exit": "1:0",
+    "elapsed": 1,
+    "cpus": 1,
+    "reason": "Tiny fixture missing required native metadata field 'group'; original production fields already have group. Fixture corrected, no scientific/runtime source change.",
+    "actual_exit": {
+      "phase": "OWNED_TREE_REAPED",
+      "root": 4172969,
+      "root_returncode": 1,
+      "remaining_children": []
+    },
+    "root_available": 69943431168,
+    "inodes": 36569947
+  },
+  "attempt2": {
+    "job": 4539137,
+    "state": "FAILED",
+    "exit": "1:0",
+    "elapsed": 0,
+    "cpus": 1,
+    "node": "compute-0-11",
+    "reason": "New adapter binding omitted original fitter's conformer_policy metadata key",
+    "actual_exit": {
+      "phase": "OWNED_TREE_REAPED",
+      "root": 4173109,
+      "root_returncode": 1,
+      "remaining_children": []
+    }
+  },
+  "fallback": "Unchanged original tools.d_recipe.fit_reference full TRAIN collector/fitter, already supports DRecipeDataset L1/L2 and native A1 rule; old D4 remains untouched. No additional test/repair/retry of optional reuse optimization.",
+  "wide_library_status_unchanged": true,
+  "main_training_unchanged": true,
+  "source_preserved_and_CLI_disabled": true,
+  "tests_explicitly_skipped": true
+}
