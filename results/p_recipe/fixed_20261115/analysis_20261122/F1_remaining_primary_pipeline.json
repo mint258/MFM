@@ -1,0 +1,116 @@
+{
+  "configurations": [
+    {
+      "run": "F1_T1_T5_9M_primary",
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1_T1_T5_9M_primary.json",
+      "dependency": "4538787:4538828",
+      "groups": [
+        "full_T1_9M",
+        "full_T5_9M"
+      ],
+      "frozen": [
+        "frozen_T1_9M",
+        "frozen_T5_9M"
+      ],
+      "rows_expected": 16
+    },
+    {
+      "run": "F1_T6_9M_primary",
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1_T6_9M_primary.json",
+      "dependency": "4538859",
+      "groups": [
+        "full_T6_9M"
+      ],
+      "frozen": [
+        "frozen_T6_9M"
+      ],
+      "rows_expected": 8
+    },
+    {
+      "run": "F1_top2_T2_1M_9M_primary",
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1_top2_T2_1M_9M_primary.json",
+      "dependency": "4538871:4538884",
+      "groups": [
+        "top2_T2_1M",
+        "top2_T2_9M"
+      ],
+      "frozen": [],
+      "rows_expected": 8
+    }
+  ],
+  "jobs": [
+    {
+      "run": "F1_T1_T5_9M_primary",
+      "job": "4539021",
+      "dependency": "4538787:4538828",
+      "rows_expected": 16
+    },
+    {
+      "run": "F1_T6_9M_primary",
+      "job": "4539022",
+      "dependency": "4538859",
+      "rows_expected": 8
+    },
+    {
+      "run": "F1_top2_T2_1M_9M_primary",
+      "job": "4539023",
+      "dependency": "4538871:4538884",
+      "rows_expected": 8
+    }
+  ],
+  "configuration_check": {
+    "log": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4539020\", \"node\": \"compute-0-11\", \"TimeLimit\": \"00:10:00\", \"EndTime\": \"2026-11-23T01:18:52\", \"root_available_bytes\": 69943734272, \"root_inodes\": 36569976, \"source_independent\": true}\n{\"status\": \"PASS\", \"files\": 3, \"bytes\": 29187, \"python_files\": 0, \"server_sources_verified\": 0, \"export_verification_required\": false, \"errors\": [], \"job_id\": \"4539020\", \"old_tests_repeated\": false, \"only_new_conditions\": true}\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 4162482, \"root_returncode\": 0}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4539020\", \"returncode\": 0, \"remaining_children\": []}\n",
+    "sourcecheck": {
+      "status": "PASS",
+      "files": 3,
+      "bytes": 29187,
+      "python_files": 0,
+      "server_sources_verified": 0,
+      "export_verification_required": false,
+      "errors": [],
+      "job_id": "4539020",
+      "old_tests_repeated": false,
+      "only_new_conditions": true
+    }
+  },
+  "native": {
+    "utc": "2026-11-22T17:10:33Z",
+    "argv": [
+      "sacct",
+      "-j",
+      "4539020",
+      "-X",
+      "--noheader",
+      "--parsable2",
+      "--format=JobIDRaw,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "child_identity": {
+      "pid": 1229239,
+      "uids": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "start_ticks": 8416362299,
+      "pgid": 1229239,
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-140214.scope\n"
+    },
+    "exit_code": 0,
+    "observation_timeout": false,
+    "child_reaped": true,
+    "stdout": "4539020|COMPLETED|0:0|2|1|compute-0-11\n",
+    "stderr": "",
+    "remote_exit_inferred": false
+  },
+  "actual_test_root_absence": {
+    "pid": 4162482,
+    "exists": false
+  },
+  "new_rows_expected": 32,
+  "eventual_F1_rows_expected": 68,
+  "old_primary_rows_unchanged": 36,
+  "top2_frozen_rows_not_repeated": true,
+  "old_baseline_fits_repeated": false,
+  "old_bootstraps_repeated": false
+}

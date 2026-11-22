@@ -1342,5 +1342,28 @@
     }
   ],
   "first_batch_all_submitted": true,
-  "first_batch_all_complete": false
+  "first_batch_all_complete": false,
+  "remaining_CPU_primary_pipeline": [
+    {
+      "run": "F1_T1_T5_9M_primary",
+      "job": "4539021",
+      "dependency": "4538787:4538828",
+      "rows_expected": 16
+    },
+    {
+      "run": "F1_T6_9M_primary",
+      "job": "4539022",
+      "dependency": "4538859",
+      "rows_expected": 8
+    },
+    {
+      "run": "F1_top2_T2_1M_9M_primary",
+      "job": "4539023",
+      "dependency": "4538871:4538884",
+      "rows_expected": 8
+    }
+  ],
+  "remaining_primary_rows_expected": 32,
+  "eventual_F1_rows_expected": 68,
+  "primary_pipeline_submitted_utc": "2026-11-22T17:14:04Z"
 }
