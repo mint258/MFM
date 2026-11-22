@@ -1,4 +1,4 @@
-"""Continue failed folds of terminal producers while preserving every closed fold byte."""
+"""Resume only terminally failed reference primary fits, preserving closed fold bytes."""
 import ast
 import copy
 import json
@@ -19,53 +19,10 @@ def require_terminal_failure(native, source_job):
         raise ValueError("A previously running reference producer is required")
     return fields
 
-CONFIRMATION_FAILURE_MODELS={4538341:"C1-TabPFN-Pprime",4538342:"C1-TabPFN-Pprime_plus_D",4538356:"C1-TabPFN-Pprime_plus_D"}
-
-PARTIAL_CONFIRMATION_SOURCE=4538356
-PARTIAL_CONFIRMATION_TASK="emi FWHM (cm-1)"
-def require_declared_partial_confirmation_source(native,source_job):
-    """Only the actual C0 source with one declared quota-write failure may fill its missing fold."""
-    if (not isinstance(native,dict) or int(source_job)!=PARTIAL_CONFIRMATION_SOURCE
-        or native.get("origin")!="NATIVE_SACCT_DECLARED_FAILED_FOLD_AND_LOCAL_PROC_EXIT_AUDIT"
-        or native.get("job")!=PARTIAL_CONFIRMATION_SOURCE or native.get("user")!="zixiao"
-        or native.get("uid")!=1278 or native.get("state")!="COMPLETED" or native.get("exit_code")!="0:0"):
-        raise ValueError("Only the exact declared partial C0 source8356 is covered")
-    manifest=native.get("source_manifest",{})
-    failure=dict(dataset="Joung2020",task=PARTIAL_CONFIRMATION_TASK,model="C1-TabPFN-Pprime_plus_D",
-        repetition=3,fold=0,fit_population="retained",status="UNRESOLVED",
-        error="RuntimeError('quota observation expired; refresh before writing')")
-    declaration=manifest.get("conditional_confirmation",{})
-    if (str(manifest.get("job"))!="4538356" or manifest.get("status")!="REFERENCE_CV_MODEL_FITS_CLOSED"
-        or manifest.get("model")!="C1-TabPFN-Pprime_plus_D"
-        or manifest.get("primary_task_folds_completed")!=24 or manifest.get("failures")!=[failure]
-        or declaration.get("model_seed")!=20261026 or declaration.get("split_and_statistics_seed")!=20261025
-        or declaration.get("selected_original_tasks")!=[["Joung2020",PARTIAL_CONFIRMATION_TASK]]
-        or declaration.get("task_roster_reselection") is not False
-        or declaration.get("original_model_budget_unchanged") is not True):
-        raise ValueError("Preserve the exact24 closed folds and only the declared r3f0 quota-write failure")
-    report=native.get("failed_report",{});diagnosis=native.get("diagnostic",{})
-    mismatch=diagnosis.get("first_population_mismatch",{})
-    if (report!={"job":4538655,"state":"FAILED","exit_code":"1:0","children_exited":True}
-        or str(diagnosis.get("job"))!="4538760"
-        or diagnosis.get("numeric_statistics_computed") is not False
-        or diagnosis.get("model_fits_executed") is not False
-        or mismatch.get("cell")!=["joung2020::db_for_chromophore_sci_data_rev02.csv::"+PARTIAL_CONFIRMATION_TASK,"Pprime_plus_D","TabPFN"]
-        or str(mismatch.get("primary_source_job"))!="4537824"
-        or [mismatch.get(k) for k in ("original_count","second_count","only_original_count","only_second_count")]!=[2760,2694,66,0]):
-        raise ValueError("Require the actual failed report and metadata-only missing-fold localization")
-    proof=native.get("exit_proof",{})
-    if (proof.get("status")!="ORIGINAL_PARTIAL_SOURCE_USER_PROCESSES_ABSENT"
-        or proof.get("source_job")!=PARTIAL_CONFIRMATION_SOURCE or proof.get("node")!="compute-0-19"
-        or proof.get("remaining_owned")!=[] or proof.get("unreadable_owned_cgroup")!=[]
-        or type(proof.get("own_processes_examined")) is not int or proof["own_processes_examined"]<1
-        or proof.get("reads_only_local_proc") is not True or proof.get("signals_sent") is not False):
-        raise ValueError("Prove the original partial source user workers exited without signalling others")
-    return native
-
+CONFIRMATION_FAILURE_MODELS={4538341:"C1-TabPFN-Pprime",4538342:"C1-TabPFN-Pprime_plus_D"}
 def require_failed_confirmation_source(native,source_job):
     """Use accounting and local exit proof after the Slurm job cache expires."""
     job=int(source_job)
-    if job==PARTIAL_CONFIRMATION_SOURCE:return require_declared_partial_confirmation_source(native,source_job)
     if not isinstance(native,dict) or job not in CONFIRMATION_FAILURE_MODELS:
         raise ValueError("Only the two actually failed conditional sources are covered")
     if (native.get("origin")!="NATIVE_SACCT_AND_LOCAL_PROC_EXIT_AUDIT"
@@ -101,7 +58,7 @@ def collect_closed_folds(source_root, native, source_job, log_text, dataset, mod
     if confirmation:
         require_failed_confirmation_source(native,source_job)
         if (dataset!="Joung2020" or model!=CONFIRMATION_FAILURE_MODELS[int(source_job)]
-            or set(allowed_tasks)!={PARTIAL_CONFIRMATION_TASK if int(source_job)==PARTIAL_CONFIRMATION_SOURCE else "Absorption max (nm)"}):
+            or set(allowed_tasks)!={"Absorption max (nm)"}):
             raise ValueError("Keep the exact failed conditional cell and feature group")
     else:
         require_terminal_failure(native,source_job)
@@ -135,10 +92,6 @@ def collect_closed_folds(source_root, native, source_job, log_text, dataset, mod
                 raise ValueError("Reuse the original deferred-statistics primary fold only")
         closed.append(dict(key=list(key),relative_directory=relative.as_posix(),record=record,
             source_job=int(source_job),source_results=str(result),source_predictions=str(prediction)))
-    if confirmation and int(source_job)==PARTIAL_CONFIRMATION_SOURCE:
-        expected={(r,f) for r in range(5) for f in range(5)}-{(3,0)}
-        if {(int(row["key"][3]),int(row["key"][4])) for row in closed}!=expected:
-            raise ValueError("The partial source must retain exactly its24 original closed folds")
     return closed
 
 class ResumeContext:
@@ -193,16 +146,13 @@ class ResumeContext:
             reused_closed_folds=list(self.used.values()),closed_predictions_hardlinked_without_numeric_readback=True,
             closed_statistics_not_recomputed=True,model_seed=self.model_seed,gradient_training_rollback=False))
 
-def prepare_resume_source(source,dataset,feature_group,*,confirmation=False,source_job=None):
+def prepare_resume_source(source,dataset,feature_group,*,confirmation=False):
     """Insert continuation control only; reverse it to prove full original scientific AST equality."""
     if confirmation:
         if dataset!="Joung2020" or feature_group not in {"Pprime","Pprime_plus_D"}:
-            raise ValueError("Only the registered conditional Joung sources are covered")
+            raise ValueError("Only the two failed conditional Joung cells are covered")
     elif dataset not in {"C7H10O2","Joung2020"} or feature_group!="Pprime":
         raise ValueError("Only the original five outstanding Pprime reference primaries are covered")
-    if source_job is not None and (not confirmation or int(source_job)!=PARTIAL_CONFIRMATION_SOURCE or feature_group!="Pprime_plus_D"):
-        raise ValueError("Only the explicit8356 partial-source adapter has a different frozen task")
-    expected_task=PARTIAL_CONFIRMATION_TASK if source_job is not None else "Absorption max (nm)"
     original=ast.parse(source)
     if confirmation:
         assignments={target.id:node.value for node in original.body if isinstance(node,ast.Assign)
@@ -213,7 +163,7 @@ def prepare_resume_source(source,dataset,feature_group,*,confirmation=False,sour
         if (not isinstance(declaration,dict) or declaration.get("model_seed")!=20261026
             or declaration.get("split_and_statistics_seed")!=20261025
             or declaration.get("reason")!="FINAL_SIGNIFICANT_IMPROVEMENT"
-            or declaration.get("selected_original_tasks")!=[("Joung2020",expected_task)]
+            or declaration.get("selected_original_tasks")!=[("Joung2020","Absorption max (nm)")]
             or declaration.get("task_roster_reselection") is not False
             or declaration.get("original_model_budget_unchanged") is not True):
             raise ValueError("Frozen conditional task/seed/budget declaration is required")

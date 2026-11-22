@@ -1,12 +1,16 @@
 # Downstream benchmark execution
 
+Current delivery (2026-11-23 00:14:58 CST): authorized B0/B1/C1 and B2 environment/fixed100 acceptance decisions are closed. C1 has735 final rows, with174 completed second seeds and one explicitly unresolved required confirmation after two failed preparation attempts. Normal report4538830, join4538831, first final producer4538832 and byte publisher4538833 are all COMPLETED/0:0; all managed children exited. [Results](../../results/benchmark/C1_results.csv), [27-item audit](../../docs/benchmark/COMPLETION_AUDIT.md) and [failure-cap record](../../docs/benchmark/C1_CONFIRMATION_FAILURE_CAP_20261123.md) give the final evidence. B1 roles remain frozen; nine primary TDC/ASAP cells and TabPFN unchecked pretraining overlap stay explicit. B2:7 accepted,4 unresolved,1 nonpublic-weight,2 permission cases. This line's remaining future reservations are cleared after the final native write.
+
 Authority: `docs/benchmark/USER_DIRECTIVE_20261119.md` and unchanged requirements of the 2026-11-18 directive and BENCHMARK_PLAN. Current work covers B1, C1, and B2 environment/fixed100 acceptance only.
 
 Data enter through `configs/benchmark_data/B0.DELIVERY.json`. Shared geometry/labels use `SharedB0Reader`; P′ uses `PprimeReader` only after the corresponding source is sealed. No database copies are made. The complete five-deferred-endpoint inventory was verified before fits; its anonymous identities are never published here.
 
-The server worktree remains based on B0 commit `6d056a41f379b921d31017ecfed9ce84d1a5c71a`. GitHub publication uses the connector; the equivalent scripts were submitted inline to Slurm because X: source editing is unavailable. These files archive the submitted logic; they have not yet been merged/deployed into that server worktree. Output paths contain native job IDs. For later fresh submissions, update an input job path only to the corresponding closed producer, preserve the frozen science, and retain the original artifacts.
+The server worktree retains its original B0 Git baseline. Required libraries and documentation were deployed through the explicitly authorized SSH workflow. Native Slurm copies keep their captured source and actual job IDs; a repository template edit does not change a queued copy. Output paths contain native job IDs. For later fresh submissions, update an input job path only to the corresponding closed producer, preserve the frozen science, and retain the original artifacts.
 
-| Scripts / logic | Current native execution |
+The following execution log is historical. Earlier pending states are superseded by the current delivery above.
+
+| Scripts / logic | First-batch native execution (historical) |
 |---|---|
 | endpoint_catalog.sbatch | 4536889: 96 active candidate endpoints across 11 source groups; no decisions |
 | b1_molecular_features.sbatch | 4536908: MoleculeACE and PharmaBench closed |
