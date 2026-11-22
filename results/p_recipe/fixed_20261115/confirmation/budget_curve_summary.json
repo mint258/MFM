@@ -1,28 +1,8 @@
 {
   "authority": "docs/p_recipe/USER_DIRECTIVE_20261121.md",
   "expected_readouts": 22,
-  "closed_readouts": 3,
+  "closed_readouts": 9,
   "missing_readouts": [
-    {
-      "arm": "T2",
-      "samples": 3000000
-    },
-    {
-      "arm": "T2",
-      "samples": 5000000
-    },
-    {
-      "arm": "T2",
-      "samples": 6000000
-    },
-    {
-      "arm": "T2",
-      "samples": 7000000
-    },
-    {
-      "arm": "T2",
-      "samples": 8000000
-    },
     {
       "arm": "T1",
       "samples": 1000000
@@ -54,10 +34,6 @@
     {
       "arm": "T1",
       "samples": 8000000
-    },
-    {
-      "arm": "T4",
-      "samples": 3000000
     },
     {
       "arm": "T4",
@@ -97,7 +73,31 @@
     ],
     [
       "T2",
+      3000000
+    ],
+    [
+      "T2",
       4000000
+    ],
+    [
+      "T2",
+      5000000
+    ],
+    [
+      "T2",
+      6000000
+    ],
+    [
+      "T2",
+      7000000
+    ],
+    [
+      "T2",
+      8000000
+    ],
+    [
+      "T4",
+      3000000
     ]
   ],
   "status": "IN_PROGRESS",
@@ -118,11 +118,61 @@
   "no_3M_screening_comparison": true,
   "VAL_losses": "Original per-family values, no invented aggregate",
   "bootstrap": "Original 1000 retained molecular draws, seed20261025, percentile95CI",
-  "interpretation": {},
-  "observed_new_readouts_compute_seconds": 1853.6535447202623,
+  "interpretation": {
+    "T2": {
+      "tau": 0.023875022404212524,
+      "earliest_observed_plateau_samples": 4000000,
+      "interpretation": "Descriptive observed checkpoints only; not proof of convergence",
+      "R3_falls_while_VAL_decreases": [
+        {
+          "from_samples": 2000000,
+          "to_samples": 3000000,
+          "R3_before": 0.4641271280225051,
+          "R3_after": 0.45935111716127036,
+          "VAL_families_still_decreasing": [
+            "bonding",
+            "charge",
+            "energy",
+            "frontier/IP-EA",
+            "multipole",
+            "off-equilibrium",
+            "reactivity",
+            "response",
+            "size"
+          ],
+          "all_comparable_VAL_families_decreasing": false,
+          "mechanism_inferred": false,
+          "extra_diagnostics_performed": false
+        },
+        {
+          "from_samples": 6000000,
+          "to_samples": 7000000,
+          "R3_before": 0.4907493185730752,
+          "R3_after": 0.47594968607253285,
+          "VAL_families_still_decreasing": [
+            "bonding",
+            "charge",
+            "energy",
+            "frontier/IP-EA",
+            "multipole",
+            "off-equilibrium",
+            "reactivity",
+            "response",
+            "size"
+          ],
+          "all_comparable_VAL_families_decreasing": false,
+          "mechanism_inferred": false,
+          "extra_diagnostics_performed": false
+        }
+      ]
+    }
+  },
+  "observed_new_readouts_compute_seconds": 5149.201632956043,
   "exceeds_1p5_initial_total_estimate": false,
   "excess_action": "REPORT_AND_CONTINUE",
-  "pending_user_decision": [],
+  "pending_user_decision": [
+    "Budget curve: later R3 falls while recorded VAL family loss decreases; any extra diagnosis requires user decision and has not been run."
+  ],
   "endpoints": {
     "T2": {
       "R1": {
