@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_WIDE_A1_PRODUCTION_RUNNING_G1_WAITING_COMPLIANT_GPU",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T21:11:35Z",
+  "updated_at_utc": "2026-11-22T21:18:31Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -3021,7 +3021,36 @@
     "next_GPU_check_UTC": "2026-11-22T21:36:00Z",
     "next_reference_progress_check_UTC": "2026-11-22T21:25:16Z",
     "last_GPU_capacity_check_UTC": "2026-11-22T21:09:39Z",
-    "cost_accounting_root_log_forecast": "Same128MiB joint future: original reference logs<=2MiB each, one bounded cost log<=1MiB, prospective statistics+comparison<=32MiB each, total<=69MiB; closed old logs stay charged by actual df"
+    "cost_accounting_root_log_forecast": "Same128MiB joint future: two original reference logs<=2MiB each, six prospective Stage2 statistics/comparison logs<=8MiB each, total<=52MiB. Closed cost/old logs remain charged by actual df. Actual node guard retains conservative36GiB+128MiB CPU-root upper bound.",
+    "CPU_continuations": {
+      "status": "PREPARED_NOT_SUBMITTED",
+      "configuration_files": [
+        "configs/d_recipe/screening/D-L1_seed0_cpu_statistics.json",
+        "configs/d_recipe/screening/D-L2_seed0_cpu_statistics.json",
+        "configs/d_recipe/screening/D-G1_seed0_cpu_statistics.json"
+      ],
+      "launch_files": [
+        "configs/d_recipe/launches/D-L1_seed0_statistics_resident.sbatch",
+        "configs/d_recipe/launches/D-L1_vs_D-R1_seed0_resident.sbatch",
+        "configs/d_recipe/launches/D-L2_seed0_statistics_resident.sbatch",
+        "configs/d_recipe/launches/D-L2_vs_D-R1_seed0_resident.sbatch",
+        "configs/d_recipe/launches/D-G1_seed0_statistics_resident.sbatch",
+        "configs/d_recipe/launches/D-G1_vs_D-R1_seed0_resident.sbatch"
+      ],
+      "dependency_policy": "Submit statistics afterok its actual GPU; submit paired comparison afterok its actual statistics, reuse original same-seed D-R1 control",
+      "CPU_candidates": [
+        "compute-0-9",
+        "compute-0-11",
+        "compute-0-13"
+      ],
+      "CPUs_per_job": 1,
+      "statistics_TimeLimit": "08:00:00",
+      "comparison_TimeLimit": "04:00:00",
+      "cleanup_seconds": 900,
+      "source_independent_outer_resident": true,
+      "scientific_conditions_copied_from_actual_model_configurations": true,
+      "local_GPU_cache_binding_removed_from_CPU_profile": true
+    }
   },
   "telemetry_scope_clarification": {
     "source": "tools/p_recipe/native_run.py:record_gpu_telemetry",

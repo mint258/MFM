@@ -305,3 +305,5 @@ CPU11现场StateMIXED、16/64CPU分配，root/源NFS/inode/UID配额由Slurm复�
 功耗范围按原record_gpu_telemetry源码条件0<samples<training_budget：原整卡点采样均值覆盖该训练活跃采样窗口，最终GPU读出不进入功耗样本；GPU分配墙时仍包含它。历史seed0功耗数值沿用，原含最终读出的范围措辞据源码澄清，不重新读取旧遥测。不是积分能耗或设备独占功率归因。原新成本文件见[D-R0 seed1](../../results/d_recipe/D-R0_seed1_complete_GPU_job_costs_20261123.json)和[D-R1 seed1](../../results/d_recipe/D-R1_seed1_complete_GPU_job_costs_20261123.json)。
 
 21:05–21:09 UTC原定资源复查：节点1虽然有4CPU、可在将来空卡时用较少读取进程，但现仍有2个CUDA上下文；4–7亦均有上下文。20两卡26111/49140与26115/49140MiB，22卡27088/32607MiB，均不满足30%门槛。G1继续就绪等待，下一次21:36 UTC；两个CPU原A1生产保持。共同128MiB日志future内：两个参考日志各≤2MiB、新成本日志≤1MiB、两原计划统计/比较各32MiB，共≤69MiB；旧关闭日志在实际df中，不新增磁盘总预算。
+
+2026-11-23 05:18 CST：原注册D-L1/D-L2/D-G1的主CPU统计和同seed D-R1配对入口已备妥，未提交，不增加训练臂/对照/抽样。CPU profile仅去除GPU本地缓存/节点绑定，保留模型科学条件及原输出；原prepare_runtime/closed_training_summary/compare_runs继续负责条件与配对绑定。实际GPU完成后，统计afterok该GPU、比较afterok该统计；候选CPU9/11/13、各1CPU，实际节点健康/Root/共享盘/5秒UID配额守卫及原resident收尾保留。统计8h、配对4h，预留900秒；不在登录节点执行统计，也不为等待GPU预占CPU。共同日志future仍128MiB：两参考各≤2MiB、六原计划统计/配对各≤8MiB共≤52MiB；已闭合成本/旧日志由实际df计入，预算总数不变。
