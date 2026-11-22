@@ -697,3 +697,8 @@ D联合NFS36706053853B、full29.75GB、Lustre模型池1.25GiB保持。A1/L2原�
 ## 2026-11-22 05:59:49 CST · D Root
 
 用户已明确批准仅补充过滤新库原7/65个缩尾后标准差为0字段；事先记录追加预注册，不改原TRAIN统计、原数组或D20/D3/D4。独立清单`/runs/d_recipe_20261120/full/stores/final_manifest_zero_scale_amendment_20261122.json`启用L1 191项、L2 1314项。真实64 loader接收4538200在CPU10/1CPU完成0:0，162秒，197/197与1320/1320头通过、两库ACCEPTED；[原接收与执行记录](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/ZERO_SCALE_AMENDMENT_20261122.md)。开发双库导出4538204（3CPU）和基准独立L2导出4538205（4CPU）于05:55:23 CST在CPU10恢复RUNNING。现行联合NFS36706053853B、其中已保留开发512MiB/基准L2 3.75GiB预算内续跑，无新增节点本地cache或原库复制。原R1 4537592/GPU7与截断4538112/CPU8继续；宽库GPU训练仍等阶段1配方选择。原D20基准绑定失败及ExpansionRx H政策待定保持，未获H修改授权；配方未冻结，原条件种子/G1/K1/最终对照/9M规则保持，不占用或修改同行任务。
+
+
+## 2026-11-22 08:06:31 CST · D Root
+
+原计划基准独立L2导出4538205/CPU10/4CPU实际COMPLETED0:0，7842秒，194729唯一分子、761批关闭，启用1314/1613字段；开发双库4538204/3CPU也已COMPLETED0:0，612秒、15518唯一分子。原TRAIN统计/参数、原成员划分与原始值不改，不读取任务标签或重拟合。两训练库已由原64 loader接收4538200实际ACCEPTED；本次下游原清单仍保留reception_acceptance=pending、current_C1_complete=false，不代替基准接收/冻结或完整D3对照。基准L2清单为`/runs/d_recipe_20261120/benchmark/L2_descriptors/manifest.json`；[原清单转录与交付状态](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/DOWNSTREAM_INTERFACE.md)。旧D20基准绑定未解决、ExpansionRx H政策待定均保持，未获H修改授权。联合NFS36706053853B及原开发512MiB/基准L2 3.75GiB保留预算不增，无新节点cache或原库复制。R1 4537592/GPU7和截断4538112/CPU8继续，宽库训练仍等阶段1配方选择；配方未冻结，不修改同行任务。
