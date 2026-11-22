@@ -30,3 +30,9 @@
 外层cwd及显式环境导出的语义依据部署版本的[Slurm22.05.7 sbatch手册](https://raw.githubusercontent.com/SchedMD/slurm/slurm-22-05-7-1/doc/man/man1/sbatch.1)，保留实际消费端路径与原生记账配置的显式环境变量，不继承BASH_ENV。
 
 2026-11-22 用户再次要求更换节点完成任务。依据会话提供的AGENTS对合适开发计算节点的授权，实际调度确认compute-0-2属于cpu分区（不是gpu分区），MIXED且16核空闲。只读Slurm4538563实际C0：节点根/tmp、inode及MemAvailable余量通过，UID/PID/start_ticks/job/step身份已取得，自有进程树退出。新增显式冻结allowed_nodes选择：默认保留旧8–19；只有调用者在新入口明确冻结CPU2时才允许2，仍必须核验实际Partition=cpu、同一job/cgroup/UID、节点State/Reason和真实容量。禁止把本次选择泛化为其他节点、GPU分区CPU工作或21。新增一项冻结授权边界测试，共16项；既有科学源码和运行任务不变。CPU2上的守卫7项迁移测试尚未执行，先完成真实本线预留与准入再执行一次。
+
+CPU2实际验证已关闭：4538565 COMPLETED/0:0，1CPU/60秒，真实startup node_disk/RAM统一准入通过，7项原版守卫迁移逻辑测试仅执行这一次、16项生命周期测试全部通过且无skip，自有进程树已退出。统一shared_fs的逻辑/share绑定仍待解决，保留原共享守卫回退。
+
+09:39 UTC：8356实际C0；8341、8342 FAILED/1:0，直接错误均是下一折safe()处Missing/stale/mismatched quota observation，其余8345/8348/8351继续运行。只读4538571实际C0证明旧节点8/11原PID/UID/start_ticks已不存在，原作业cgroup或环境标记的自有进程及不可读未分配自有进程均为空，未发送信号。Slurm旧job cache已过期，后续使用真实sacct与本地/proc退出证明，不伪造scontrol终态。
+
+新增显式confirmation续接只覆盖上述两个seed26/Joung Absorption/P′或P′+D来源，原seed25默认行为保持。封闭折只复用生产端闭合记录及硬链接，不读预测数值或重算统计；新拟合前支持真实剩余单元窗口检查。私人CPU准入只复制既有守卫到本次命名空间，冻结指定节点；仅对有效但过期快照重读一次，UID/代次/错误/未来时间立即拒绝，90秒和原容量保留数学不变。原admission.py与运行模型不改。实际封闭折数量、原科学AST、原环境、新nativeID和完整回归仍须闭合才能激活。

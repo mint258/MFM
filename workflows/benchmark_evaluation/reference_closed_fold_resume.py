@@ -19,6 +19,30 @@ def require_terminal_failure(native, source_job):
         raise ValueError("A previously running reference producer is required")
     return fields
 
+CONFIRMATION_FAILURE_MODELS={4538341:"C1-TabPFN-Pprime",4538342:"C1-TabPFN-Pprime_plus_D"}
+def require_failed_confirmation_source(native,source_job):
+    """Use accounting and local exit proof after the Slurm job cache expires."""
+    job=int(source_job)
+    if not isinstance(native,dict) or job not in CONFIRMATION_FAILURE_MODELS:
+        raise ValueError("Only the two actually failed conditional sources are covered")
+    if (native.get("origin")!="NATIVE_SACCT_AND_LOCAL_PROC_EXIT_AUDIT"
+        or native.get("job")!=job or native.get("user")!="zixiao"
+        or native.get("uid")!=1278 or native.get("state")!="FAILED"
+        or native.get("exit_code")!="1:0"):
+        raise ValueError("Actual owned nonzero terminal accounting is required")
+    proof=native.get("exit_proof",{})
+    expected_node={4538341:"compute-0-8",4538342:"compute-0-11"}[job]
+    expected_pids={4538341:{"2628220","2628221"},4538342:{"4154093","4154094"}}[job]
+    known=proof.get("known_identity_status",{})
+    if (proof.get("status")!="ORIGINAL_FAILED_SOURCE_USER_PROCESSES_ABSENT"
+        or proof.get("source_job")!=job or proof.get("node")!=expected_node
+        or set(known)!=expected_pids
+        or any(value not in {"ABSENT","PID_REUSED_NOT_OLD_IDENTITY"} for value in known.values())
+        or proof.get("remaining_owned")!=[] or proof.get("unreadable_unassigned_UID1278")!=[]
+        or proof.get("reads_only_local_proc") is not True or proof.get("signals_sent") is not False):
+        raise ValueError("Original user-process tree exit must be proved before continuation")
+    return native
+
 def _identity(record):
     return (record["dataset"],record["task"],record["model"],int(record["repetition"]),
             int(record["fold"]),record["fit_population"])
@@ -29,16 +53,22 @@ def _owned_file(path, root, uid):
         raise ValueError("Only owned original fold files inside the failed producer are reusable")
     return path
 
-def collect_closed_folds(source_root, native, source_job, log_text, dataset, model, allowed_tasks, uid=None):
+def collect_closed_folds(source_root, native, source_job, log_text, dataset, model, allowed_tasks, uid=None, *, confirmation=False):
     """Consume the failed producer's own closure records, without reading prediction numbers."""
-    require_terminal_failure(native,source_job)
+    if confirmation:
+        require_failed_confirmation_source(native,source_job)
+        if (dataset!="Joung2020" or model!=CONFIRMATION_FAILURE_MODELS[int(source_job)]
+            or set(allowed_tasks)!={"Absorption max (nm)"}):
+            raise ValueError("Keep the exact failed conditional cell and feature group")
+    else:
+        require_terminal_failure(native,source_job)
     source_root=Path(source_root).resolve();uid=os.getuid() if uid is None else uid
     if source_root.name!="job_"+str(source_job) or source_root.parent.name!="reference_cv_models":
         raise ValueError("The original actual source directory is required")
-    if dataset not in {"C7H10O2","Joung2020"} or model!="C1-TabPFN-Pprime" or not allowed_tasks:
+    if (not confirmation and (dataset not in {"C7H10O2","Joung2020"} or model!="C1-TabPFN-Pprime")) or not allowed_tasks:
         raise ValueError("Only the original outstanding primary task set is covered")
     tasks=set(allowed_tasks);closed=[];seen=set()
-    pattern=re.compile(r"^REFERENCE_CV_MODEL_FIT_CLOSED (\S+) (.+) (C1-TabPFN-Pprime) ([0-4]) ([0-4]) retained seconds [0-9.]+$")
+    pattern=re.compile(r"^REFERENCE_CV_MODEL_FIT_CLOSED (\S+) (.+) ("+re.escape(model)+r") ([0-4]) ([0-4]) retained seconds [0-9.]+$")
     for line in log_text.splitlines():
         if not line.startswith("REFERENCE_CV_MODEL_FIT_CLOSED "):continue
         match=pattern.fullmatch(line)
@@ -56,7 +86,7 @@ def collect_closed_folds(source_root, native, source_job, log_text, dataset, mod
         if _identity(record)!=key or not isinstance(record.get("results"),list) or not record["results"]:
             raise ValueError("The closed fold identity must remain the producer's original identity")
         for metric in record["results"]:
-            if (_identity(metric)!=key or metric.get("seed")!=20261025
+            if (_identity(metric)!=key or metric.get("seed")!=(20261026 if confirmation else 20261025)
                 or metric.get("evaluation_population")!="retained"
                 or metric.get("metric_status")!="PENDING_CPU_STATISTICS"):
                 raise ValueError("Reuse the original deferred-statistics primary fold only")
@@ -65,13 +95,19 @@ def collect_closed_folds(source_root, native, source_job, log_text, dataset, mod
     return closed
 
 class ResumeContext:
-    def __init__(self, owned_root, source_job, new_job, closed, protect_write, uid=None):
+    def __init__(self, owned_root, source_job, new_job, closed, protect_write, uid=None, *, model_seed=20261025, unit_start_guard=None):
         self.root=Path(owned_root).resolve();self.source_job=int(source_job);self.new_job=int(new_job)
         if min(self.source_job,self.new_job)<=0 or self.source_job==self.new_job:
             raise ValueError("Distinct actual source and continuation jobs are required")
         self.uid=os.getuid() if uid is None else uid
         self.closed={tuple(row["key"]):copy.deepcopy(row) for row in closed}
         if len(self.closed)!=len(closed):raise ValueError("A closed fold must have one native origin")
+        if model_seed not in {20261025,20261026}:
+            raise ValueError("Keep a registered model seed")
+        if model_seed==20261026 and (self.source_job not in CONFIRMATION_FAILURE_MODELS or not closed
+            or any(metric.get("seed")!=model_seed for row in closed for metric in row["record"]["results"])):
+            raise ValueError("Only proved failed conditional seed26 folds may be reused")
+        self.model_seed=model_seed;self.unit_start_guard=unit_start_guard
         self.protect_write=protect_write;self.out=None;self.used={}
     def initialize(self,out):
         expected=self.root/"reference_cv_models"/("job_"+str(self.new_job))
@@ -86,7 +122,9 @@ class ResumeContext:
             raise ValueError("The original loop must request its exact frozen fold directory")
         if key in self.used:raise ValueError("A closed fit cannot be consumed twice")
         row=self.closed.get(key)
-        if row is None:return None
+        if row is None:
+            if self.unit_start_guard is not None:self.unit_start_guard()
+            return None
         source=self.root/"reference_cv_models"/("job_"+str(self.source_job))
         if row["source_job"]!=self.source_job or row["relative_directory"]!=expected.relative_to(self.out).as_posix() or _identity(row["record"])!=key:
             raise ValueError("Closed fit native origin or original fold identity changed")
@@ -106,13 +144,29 @@ class ResumeContext:
         if set(self.used)!=set(self.closed):raise ValueError("Every selected closed fold must be consumed exactly once")
         return dict(reference_closed_fold_resume=dict(source_job=self.source_job,continuation_job=self.new_job,
             reused_closed_folds=list(self.used.values()),closed_predictions_hardlinked_without_numeric_readback=True,
-            closed_statistics_not_recomputed=True,model_seed=20261025,gradient_training_rollback=False))
+            closed_statistics_not_recomputed=True,model_seed=self.model_seed,gradient_training_rollback=False))
 
-def prepare_resume_source(source,dataset,feature_group):
+def prepare_resume_source(source,dataset,feature_group,*,confirmation=False):
     """Insert continuation control only; reverse it to prove full original scientific AST equality."""
-    if dataset not in {"C7H10O2","Joung2020"} or feature_group!="Pprime":
+    if confirmation:
+        if dataset!="Joung2020" or feature_group not in {"Pprime","Pprime_plus_D"}:
+            raise ValueError("Only the two failed conditional Joung cells are covered")
+    elif dataset not in {"C7H10O2","Joung2020"} or feature_group!="Pprime":
         raise ValueError("Only the original five outstanding Pprime reference primaries are covered")
     original=ast.parse(source)
+    if confirmation:
+        assignments={target.id:node.value for node in original.body if isinstance(node,ast.Assign)
+                     for target in node.targets if isinstance(target,ast.Name)}
+        if ast.literal_eval(assignments.get("MODEL_SEED",ast.Constant(None)))!=20261026:
+            raise ValueError("Conditional model seed26 must stay frozen")
+        declaration=ast.literal_eval(assignments.get("__confirmation_declaration",ast.Constant(None)))
+        if (not isinstance(declaration,dict) or declaration.get("model_seed")!=20261026
+            or declaration.get("split_and_statistics_seed")!=20261025
+            or declaration.get("reason")!="FINAL_SIGNIFICANT_IMPROVEMENT"
+            or declaration.get("selected_original_tasks")!=[("Joung2020","Absorption max (nm)")]
+            or declaration.get("task_roster_reselection") is not False
+            or declaration.get("original_model_budget_unchanged") is not True):
+            raise ValueError("Frozen conditional task/seed/budget declaration is required")
     reserved={"_reference_resume","_closed_reference_fold"}
     if any(isinstance(node,ast.Name) and node.id in reserved for node in ast.walk(original)):
         raise ValueError("The registered original source must not already contain a continuation")

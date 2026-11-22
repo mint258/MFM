@@ -291,3 +291,74 @@ class TargetedCPUResumeTests(unittest.TestCase):
         self.assertEqual(ast.dump(parsed),ast.dump(ast.parse(gpu)))
         self.assertIn("_reference_resume.reuse",cpu)
         self.assertIn("_reference_resume.provenance",cpu)
+
+
+class ConditionalClosedFoldResumeTests(unittest.TestCase):
+    def failure(self,job=4538341):
+        pids={4538341:{"2628220":"ABSENT","2628221":"ABSENT"},4538342:{"4154093":"ABSENT","4154094":"ABSENT"}}[job]
+        node={4538341:"compute-0-8",4538342:"compute-0-11"}[job]
+        return dict(origin="NATIVE_SACCT_AND_LOCAL_PROC_EXIT_AUDIT",job=job,user="zixiao",uid=1278,
+                    state="FAILED",exit_code="1:0",exit_proof=dict(
+                        status="ORIGINAL_FAILED_SOURCE_USER_PROCESSES_ABSENT",source_job=job,node=node,
+                        known_identity_status=pids,remaining_owned=[],unreadable_unassigned_UID1278=[],
+                        reads_only_local_proc=True,signals_sent=False))
+
+    def test_seed26_reuses_closed_bytes_without_refit_and_guards_only_missing_unit(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);source=root/"reference_cv_models/job_4538341"
+            folder=source/"Joung2020"/TASK/"r0_f0_retained";folder.mkdir(parents=True)
+            metric=dict(dataset="Joung2020",task=TASK,model=MODEL,repetition=0,fold=0,
+                        fit_population="retained",evaluation_population="retained",seed=20261026,
+                        metric_status="PENDING_CPU_STATISTICS")
+            record=dict(metric,results=[metric])
+            (folder/"results.json").write_text(json.dumps(record))
+            (folder/"predictions.parquet").write_bytes(b"opaque closed conditional prediction fixture")
+            line="REFERENCE_CV_MODEL_FIT_CLOSED Joung2020 "+TASK+" "+MODEL+" 0 0 retained seconds 1.0"
+            with patch.object(Path,"read_bytes",side_effect=AssertionError("no prediction readback")):
+                rows=collect_closed_folds(source,self.failure(),4538341,line,"Joung2020",MODEL,{TASK},
+                                          confirmation=True)
+                calls=[];context=ResumeContext(root,4538341,9999991,rows,lambda:None,
+                                               model_seed=20261026,unit_start_guard=lambda:calls.append("new"))
+                out=root/"reference_cv_models/job_9999991";out.mkdir();context.initialize(out)
+                target=out/"Joung2020"/TASK/"r0_f0_retained";target.parent.mkdir(parents=True)
+                self.assertEqual(context.reuse(target,"Joung2020",TASK,MODEL,0,0,"retained"),record)
+                self.assertEqual(calls,[])
+                self.assertEqual((folder/"predictions.parquet").stat().st_ino,
+                                 (target/"predictions.parquet").stat().st_ino)
+                self.assertIsNone(context.reuse(target.with_name("r0_f1_retained"),
+                                  "Joung2020",TASK,MODEL,0,1,"retained"))
+                self.assertEqual(calls,["new"])
+                self.assertEqual(context.provenance()["reference_closed_fold_resume"]["model_seed"],20261026)
+
+    def test_live_or_unreaped_or_foreign_conditional_source_is_never_admitted(self):
+        from .reference_closed_fold_resume import require_failed_confirmation_source
+        good=self.failure()
+        self.assertEqual(require_failed_confirmation_source(good,4538341),good)
+        for field,value in [("state","RUNNING"),("uid",999),("exit_code","0:0"),("job",4538356)]:
+            bad=copy.deepcopy(good);bad[field]=value
+            with self.assertRaises(ValueError):require_failed_confirmation_source(bad,4538341)
+        bad=copy.deepcopy(good);bad["exit_proof"]["remaining_owned"]=[{"pid":2628221}]
+        with self.assertRaises(ValueError):require_failed_confirmation_source(bad,4538341)
+        bad=copy.deepcopy(good);bad["exit_proof"]["known_identity_status"]["2628221"]="SAME_IDENTITY_PRESENT"
+        with self.assertRaises(ValueError):require_failed_confirmation_source(bad,4538341)
+
+    def test_conditional_AST_adapter_preserves_both_frozen_feature_groups_and_seed(self):
+        declaration=dict(model_seed=20261026,split_and_statistics_seed=20261025,
+                         reason="FINAL_SIGNIFICANT_IMPROVEMENT",
+                         selected_original_tasks=[("Joung2020",TASK)],task_roster_reselection=False,
+                         original_model_budget_unchanged=True,primary_fit_population_only=True)
+        for feature in ("Pprime","Pprime_plus_D"):
+            original=("MODEL_SEED=20261026\n__confirmation_declaration="+repr(declaration)+"\n"+
+                      fixture_source().replace("Pprime/Joung2020",feature+"/Joung2020")
+                      .replace("'C1-TabPFN-Pprime'","'C1-TabPFN-"+feature+"'")
+                      .replace("random_state=SEED","random_state=MODEL_SEED").replace("seed=SEED","seed=MODEL_SEED"))
+            prepared=prepare_resume_source(original,"Joung2020",feature,confirmation=True)
+            before={n.name:ast.dump(n) for n in ast.parse(original).body if isinstance(n,ast.FunctionDef)}
+            after={n.name:ast.dump(n) for n in ast.parse(prepared).body if isinstance(n,ast.FunctionDef)}
+            self.assertEqual(before,after)
+            self.assertIn("_reference_resume.reuse",prepared)
+            self.assertIn("MODEL_SEED = 20261026",prepared)
+            with self.assertRaises(ValueError):
+                prepare_resume_source(original.replace("MODEL_SEED=20261026","MODEL_SEED=20261025"),
+                                      "Joung2020",feature,confirmation=True)
+
