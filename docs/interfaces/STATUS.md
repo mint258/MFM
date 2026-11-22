@@ -1164,3 +1164,8 @@ GPU7任务等待依赖时不预留实际GPU，启动时重新核实UUID/空上�
 
 ### 2026-11-22 06:24 CST S-B0 attempt2 actually resumed on48GiB GPU20
 After P T2 actual4537553 COMPLETED0:0, S dispatch4538263 admitted GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5, RTX4090 total49140MiB/used437MiB at observation. Actual freeSlurmCPU4<requested16, so the authorized native-with-same-task-standby route is used. Native wrapper220605/producer220630,UID1278,startTicks47874348 is RUNNING and appears in the actual GPU process query; losses advance from the original seed0 zero-trained initialization. Slurm4538264 is PENDING standby,not the current execution identity. Node20 is actualMIXED,not DRAIN;do not touch otherowners' contexts/jobs. B32/FP32/TF32off/backbone-recomputeoff/scientific condition remain unchanged;the old failed419104attempt/clip/throughput remain archived. N1 still waits to resume its full27744sample state. Own UUIDflock and target-node/shared bytes,inodes,freshUIDquota plus the joint200546101981B pool includingS64GiB continue;no extra GPU test or data transfer. No valid S endpoint or R1/R3 score exists yet.
+
+
+## 2026-11-22 08:06:31 CST · D Root
+
+原计划基准独立L2导出4538205/CPU10/4CPU实际COMPLETED0:0，7842秒，194729唯一分子、761批关闭，启用1314/1613字段；开发双库4538204/3CPU也已COMPLETED0:0，612秒、15518唯一分子。原TRAIN统计/参数、原成员划分与原始值不改，不读取任务标签或重拟合。两训练库已由原64 loader接收4538200实际ACCEPTED；本次下游原清单仍保留reception_acceptance=pending、current_C1_complete=false，不代替基准接收/冻结或完整D3对照。基准L2清单为`/runs/d_recipe_20261120/benchmark/L2_descriptors/manifest.json`；[原清单转录与交付状态](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/DOWNSTREAM_INTERFACE.md)。旧D20基准绑定未解决、ExpansionRx H政策待定均保持，未获H修改授权。联合NFS36706053853B及原开发512MiB/基准L2 3.75GiB保留预算不增，无新节点cache或原库复制。R1 4537592/GPU7和截断4538112/CPU8继续，宽库训练仍等阶段1配方选择；配方未冻结，不修改同行任务。
