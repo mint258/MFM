@@ -1,6 +1,7 @@
 """Only new interruption boundaries; no model, labels or old readout rerun."""
 from types import SimpleNamespace
 import unittest
+from unittest.mock import patch
 import lifecycle_20261122 as life
 import snapshot_readouts_20261122 as snapshot
 
@@ -44,6 +45,19 @@ class BoundaryTests(unittest.TestCase):
         for changed,samples in ((dict(arm='S-N1'),1000000),({},3000000),({},1500000)):
             with self.assertRaises(ValueError):
                 snapshot.registered(dict(c,**changed),samples)
+
+    def test_small_group_retains_the_actual_empty_context_requirement(self):
+        with patch.object(snapshot,'require_empty_context') as check:
+            for node in ('compute-0-0','compute-0-6','compute-0-7'):
+                snapshot.check_gpu_context(node,'actual-uuid')
+        self.assertEqual(check.call_count,3)
+        check.assert_called_with('actual-uuid')
+
+    def test_native_group_uses_existing_memory_and_uuid_mutex_without_extra_small_group_gate(self):
+        with patch.object(snapshot,'require_empty_context') as check:
+            for node in ('compute-0-20','compute-0-22'):
+                snapshot.check_gpu_context(node,'actual-uuid')
+        check.assert_not_called()
 
 
 if __name__ == '__main__':

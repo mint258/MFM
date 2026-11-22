@@ -73,6 +73,13 @@ def require_empty_context(uuid):
         raise RuntimeError('Small-group GPU context is occupied or could not be observed: '+error)
 
 
+def check_gpu_context(node,uuid):
+    # Actual UUID mutex, <=30% occupancy and the free-memory bound apply in
+    # both groups. The additional empty-context rule is specific to0..7.
+    if node not in ('compute-0-20','compute-0-22'):
+        require_empty_context(uuid)
+
+
 def work(c, samples, mode, guard):
     import readouts
     settings = readouts.configuration(c, samples)
@@ -145,7 +152,7 @@ def run(c, samples, mode, scheduler_record, *, validate=None, unit_work=None,
                 card = query_gpu(c['gpu_uuid'])
                 if float(card[2])/float(card[3]) > .30 or float(card[3])-float(card[2]) < 18432:
                     raise RuntimeError('Snapshot GPU admission is no longer available')
-                require_empty_context(c['gpu_uuid'])
+                check_gpu_context(node,c['gpu_uuid'])
                 state['gpu_metadata_at_start'] = card
             state.update((work if unit_work is None else unit_work)(c, samples, mode, guard))
         except life.StopAtBoundary:
