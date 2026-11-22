@@ -1445,3 +1445,8 @@ D联合NFS36706053853B、full29.75GB、Lustre模型池1.25GiB保持。A1/L2原�
 ## 2026-11-22 08:06:31 CST · D Root
 
 原计划基准独立L2导出4538205/CPU10/4CPU实际COMPLETED0:0，7842秒，194729唯一分子、761批关闭，启用1314/1613字段；开发双库4538204/3CPU也已COMPLETED0:0，612秒、15518唯一分子。原TRAIN统计/参数、原成员划分与原始值不改，不读取任务标签或重拟合。两训练库已由原64 loader接收4538200实际ACCEPTED；本次下游原清单仍保留reception_acceptance=pending、current_C1_complete=false，不代替基准接收/冻结或完整D3对照。基准L2清单为`/runs/d_recipe_20261120/benchmark/L2_descriptors/manifest.json`；[原清单转录与交付状态](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/DOWNSTREAM_INTERFACE.md)。旧D20基准绑定未解决、ExpansionRx H政策待定均保持，未获H修改授权。联合NFS36706053853B及原开发512MiB/基准L2 3.75GiB保留预算不增，无新节点cache或原库复制。R1 4537592/GPU7和截断4538112/CPU8继续，宽库训练仍等阶段1配方选择；配方未冻结，不修改同行任务。
+
+
+## 2026-11-22 12:32:10 CST · D Root
+
+R1原3M/GPU主读出已闭合，主CPU统计4537593与配对4537599继续原链。F64几何诊断4537594/4538515因容量快照新鲜度准入两次实际失败（3715秒/1秒），按任务书记UNRESOLVED并停止修复；原部分文件保留，可选未生效修复已撤回。原缓存3–5层GPU读出4537597已COMPLETED0:0/1217秒，CPU逐层读出4537598等待主统计。原传输4537595和表示统计4537596均未开始即取消0秒。GPU7的D-R1原8+8GiB与CPU10原12GiB未来写入归零；全部D-R0/D-R1原缓存及部分文件保留，物理占用继续以实际df计入，不删除、不复制原库。联合NFS峰值36706053853B不变；配方未冻结，诊断未解决不作主比较WIN/TIE/LOSS。
