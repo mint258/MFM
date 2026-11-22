@@ -776,3 +776,12 @@ Root canonical D-R0/D-R1 fresh3M seed1 configs and the ONE shared registry are n
 New resident_bootstrap renders a Slurm-copied system-Python-ISB supervisor BEFORE shared module or shell startup. It embeds the reviewed original lifecycle, uses real finiteTimeLimit/EndTime,900s cleanup, original cooperativeSAVE_AND_EXIT, exact identity TERM/join/reap, noKILL. The scientific P/D workers remain unchanged, including original card-specific Python, preserved environment,3M schedule/fresh clip/seed/shared sampling. Four old standalone staged templates remain default64 unless truly wrapped. Five old jobs4538551–4538555 are verifiedzixiao/PENDING0s and will be replaced with resident launches, not released. GPU targets4/5, file-dependentCPU9/11/13; original UUID/empty-context/free-GPU/CPU and real-node shared/root/quota/peer admission still run before models.
 
 At this publication no seed1 model has started or recipe been adopted. Original seed0 WIN, accepted7/65 filtering/unique statistics, geometryUR and layer4/5 allowance3346s preserved. Old clip2822119 stillD/freezer root and actualexit unproven; no repeated signal or same-output replacement producer. That residual process still needs admin recovery, independently of new mainline work. Full TASKBOOK stages, conditional seeds/K1, freeze/9M/finalA/B/C/benchmark and twoPR scope remain. Other sessions' receipt/deployment is not claimed.
+
+
+## 2026-11-22 18:30 CST · D Root
+
+用户要求更换节点后，D 两个全新 seed1 正式 3M 作业4538566/4538567已分别在 compute-0-4/5 的 RTX3090 运行；18:13 CST 原生产日志均已确认153600 samples/4800 updates，独立60000–150000窗口 p99 分别11.076789627075199与25.356171264648438（150016冻结）。原科学配置、成员、随机状态和训练预算不变。后续原统计4538568/4538569及逐seed比较4538570仅按afterok依赖运行；原5个未启动held作业4538551–4538555已核实0秒取消。尚无seed1胜负，不提前采纳转移。
+
+R1原缓存层诊断由CPU13作业4538572补齐缺失层4/5，C0/81秒，原层3/6复用；总成本11135秒<14400。4层原F64/1000分子bootstrap已闭合，主终点仍为层6，不按诊断层择优。旧裁剪4538532最终原生FAILED0:15，实际旧PID已核实退出；原完整TRAIN裁剪由4538573在CPU13沿同一原配置/游标续接，18:16 CST已从1020928推进到1049600/1194228。原准备作业4538549实际自有进程也已退出；这两项旧阻塞已解除。
+
+新作业使用Slurm复制的自包含resident退出监督入口，真实EndTime前预留收尾，TERM/join/reap自有子进程，不用TIMEOUT正常收尾，无KILL、无故障节点重试、无管理员操作。Data联合NFS峰值38853537501字节包含seed1额外2GiB；保留实际目标盘字节/inode/配额与跨窗口余量检查。未改其他工作线/在跑训练。完整D目标仍active；后续宽库、K1、冷启动9M、A/B/C、交付与PR尚待原任务书关卡。
