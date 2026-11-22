@@ -72,7 +72,7 @@ for path in ("docs/benchmark/REPORTING_NOTES.md","docs/benchmark/CONDITIONAL_CON
 updates["docs/benchmark/DAILY_20261122.md"]=(
     f"# 下游基线日报（2026-11-22）\n\n{timestamp}：授权的B0、B1、C1及B2环境准备已闭合；GitHub最终同步与PR检查随后记录。\n\n"
     f"C1首次完整统计8208关闭561主行；175个显著且进入最终结果的TabPFN配置按seed20261026确认，"
-    f"8398首次确认统计→8399合并→8400最终导出均C0。最终{meta['final_seed_rows']}行，"
+    f"4538510首次确认统计→4538511合并→4538512最终导出均C0。最终{meta['final_seed_rows']}行，"
     "[结果表](../../results/benchmark/C1_results.csv)逐行列种子、显著性是否复现、实际覆盖、训练量及未完成原因；"
     "最终CSV及唯一SHA直接复用生产端，不重算原统计或独立复核。\n\n"
     "B1冻结96候选：55保留/34附录/6排除/1历史机制未决，[最终名单](DAILY_20261120.md)及筛选CSV/SHA保持。"
@@ -106,7 +106,7 @@ for name,value in updates.items():
     with temp.open("xb") as stream:stream.write(value.encode("utf-8"))
     os.chmod(temp,mode);os.replace(temp,path)
 notice=(f"\n## {timestamp} 下游C1最终生产与交付（本线）\n\n"
-    f"8398→8399→8400原生C0，561初始行、175必需确认配置、最终{meta['final_seed_rows']}行；"
+    f"4538510→4538511→4538512原生C0，561初始行、175必需确认配置、最终{meta['final_seed_rows']}行；"
     "正常生产端关闭完整证据后按原字节发布最终CSV、已生成的唯一SHA和注册比较。原始主统计/冻结B1名单与17确认不重算，"
     "7644只替换C1原子历史占位；九格TDC既定未决、实际未复现状态及预训练清单未检查均明确保留。"
     "共享B0字段/缺失/构象/标签/划分不变，无额外种子、独立数值QA、第三次TDC修复或重复周成本；"
