@@ -11716,7 +11716,7 @@
   },
   "C1_failed_conditional_closed_fold_resume_20261122": {
     "observed_CST": "2026-11-22 19:18",
-    "completed_configurations": 173,
+    "completed_configurations": 174,
     "required_configurations": 175,
     "original_completed": [
       4538345,
@@ -11790,7 +11790,10 @@
       "4538616": "compute-0-11",
       "4538654": "compute-0-19"
     },
-    "previous_serial_placement_superseded_by": 4538653
+    "previous_serial_placement_superseded_by": 4538653,
+    "current_completed_recovery": [
+      4538616
+    ]
   },
   "C1_guarded_final_report_handover_20261122": {
     "previous_handover_job": 4538629,
@@ -11822,7 +11825,13 @@
     "actual_private_provider_final_package_layout_startup": "ADMITTED",
     "own_controller_children_exited": true,
     "prediction_values_read": false,
-    "normal_statistics_pending": true
+    "normal_statistics_pending": true,
+    "fulfilled_model_dependencies": [
+      4538616
+    ],
+    "remaining_model_dependencies": [
+      4538654
+    ]
   },
   "C1_parallel_never_started_source8342_CPU19_20261122": {
     "controller": 4538653,
@@ -11854,5 +11863,29 @@
     "owned_controller_tree_exited": true,
     "GPU1_3_readonly_admission": "NOT_ADMITTED_EXISTING_OR_UNOBSERVED_CONTEXT",
     "GPU_computation_started": false
+  },
+  "C1_first_failed_confirmation_recovery_closed_20261122": {
+    "source_original_failed": 4538341,
+    "current_native_source": 4538616,
+    "native_state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "01:56:15",
+    "model_seed": 20261026,
+    "split_and_statistics_seed": 20261025,
+    "original_folds_preserved": 19,
+    "new_folds_closed": 6,
+    "total_folds": 25,
+    "producer_failures": 0,
+    "actual_lifecycle_returncode": 0,
+    "actual_lifecycle_children_exited": true,
+    "current_owned_job_workers": [],
+    "CPU11_future_entries_released": true,
+    "old_outputs_deleted": false,
+    "current_completed_groups": 42,
+    "total_groups": 43,
+    "current_completed_configurations": 174,
+    "required_configurations": 175,
+    "remaining_native_source": 4538654,
+    "normal_statistics_still_pending": true
   }
 }
