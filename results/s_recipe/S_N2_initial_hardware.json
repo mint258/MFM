@@ -1,0 +1,52 @@
+{
+  "run": "S_N2_s0_3M",
+  "node": "compute-0-20",
+  "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+  "gpu_name": "NVIDIA GeForce RTX 4090",
+  "actual_training_job": 4538666,
+  "cpus": 4,
+  "ordered_reader_workers": 2,
+  "first1000": {
+    "samples": 32000,
+    "seconds": 702.8717364870245,
+    "samples_per_second": 45.527509983453065,
+    "window": "first1000 real optimizer updates; no separate benchmark"
+  },
+  "baseline_first1000": {
+    "samples": 32000,
+    "seconds": 515.1786849790369,
+    "samples_per_second": 62.114371058076884,
+    "window": "first1000 real optimizer updates; no separate benchmark"
+  },
+  "relative_to_baseline_speed": 0.7329625851139164,
+  "taskbook_optimization_triggered": false,
+  "whole_card_power_sample_mean_watts": 321.74181818181813,
+  "power_records": 22,
+  "first_power_record": {
+    "timestamp": "1795351769.3806949",
+    "samples": "1184",
+    "training_seconds": "51.26331042207312",
+    "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "whole_card_power_watts": "312.66",
+    "utilization_percent": "98",
+    "memory_used_mib": "5017"
+  },
+  "last_power_record": {
+    "timestamp": "1795352400.3540597",
+    "samples": "30912",
+    "training_seconds": "681.9667634580983",
+    "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "whole_card_power_watts": "329.97",
+    "utilization_percent": "97",
+    "memory_used_mib": "11597"
+  },
+  "source_throughput": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_N2_s0_3M/initial_throughput.json",
+  "source_telemetry": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_N2_s0_3M/gpu_telemetry.csv",
+  "scope": "Original first1000 actual optimizer updates; includes training-clock time in the closed zero-update startup handoff; no extra GPU benchmark. Whole-card power includes other contexts.",
+  "initial_zero_update_job": 4538664,
+  "initial_zero_update_slurm_seconds": 38,
+  "accounting_job": 4538679,
+  "accounting_node": "compute-0-12"
+}
