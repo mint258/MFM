@@ -945,3 +945,8 @@ GPU7任务等待依赖时不预留实际GPU，启动时重新核实UUID/空上�
 ## 2026-11-22 07:46:49 CST 下游确认入口第一轮修复，保留正确已产出（本线）
 
 CPU包装器漏BENCHMARK_TASK_INDEX，Joung9组实际在runtime/拟合前失败、14仍零启动；原8209GPU准备也漏ExpansionRx的C1_MODEL=TabPFN-V2，8299/8300C0实际LightGBM，保留诊断不算所需神经确认。正确15个CPU和Biogen8269/70/71保持，没重跑正确模型。8335 CPU12/16秒C0，全311回归、40实际环境/原Python编译、5634文件/3802 Python/1311服务源通过；解析器保留原索引/PPE绑定，仅补原主来源脚本明确的ExpansionTabPFN selector，未来C1GPU准备同步。8337 CPU12/14秒C0，实际原生/日志/无runtime及wrong-learner元数据先证明25组/36配置无所需TabPFN fit，再记录8338—8362、完整43来源bindings及8363→8364→8365，5635文件/3803 Python源通过后仅退休14旧零启动和3报告，释放新28+原4正确排队项，原失败/错误输出保留。最多8槽CPU按需16/32核、同槽afterany，无exclusive，RUNNING未取消或重启；23:44:57两Expansion已TASK_CLOSED TabPFN-V2，Joung已真实预处理，入口修复闭合。完整175确认/561主行/最终736预计行保持，正常统计/最终CSV/SHA未完。40GiB池及根/tmp/inode/quota/动态同行future继续，1800秒复查实际空卡；不占P9M/D-R1/其他owner，无新几何/QM、第三次TDC修复、B2全量、B3/B4或预训练。P 预训练模型在下游接收的是 UFF 几何。
+
+
+## 2026-11-22 08:06:31 CST · D Root
+
+原计划基准独立L2导出4538205/CPU10/4CPU实际COMPLETED0:0，7842秒，194729唯一分子、761批关闭，启用1314/1613字段；开发双库4538204/3CPU也已COMPLETED0:0，612秒、15518唯一分子。原TRAIN统计/参数、原成员划分与原始值不改，不读取任务标签或重拟合。两训练库已由原64 loader接收4538200实际ACCEPTED；本次下游原清单仍保留reception_acceptance=pending、current_C1_complete=false，不代替基准接收/冻结或完整D3对照。基准L2清单为`/runs/d_recipe_20261120/benchmark/L2_descriptors/manifest.json`；[原清单转录与交付状态](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/DOWNSTREAM_INTERFACE.md)。旧D20基准绑定未解决、ExpansionRx H政策待定均保持，未获H修改授权。联合NFS36706053853B及原开发512MiB/基准L2 3.75GiB保留预算不增，无新节点cache或原库复制。R1 4537592/GPU7和截断4538112/CPU8继续，宽库训练仍等阶段1配方选择；配方未冻结，不修改同行任务。
