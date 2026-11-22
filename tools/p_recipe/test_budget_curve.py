@@ -154,3 +154,23 @@ class BudgetCurveTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_cpu_statistics_skips_draining_node(monkeypatch):
+    import cpu_statistics
+    monkeypatch.setattr(cpu_statistics, "CPU_NODES", ["compute-0-16", "compute-0-8"])
+    replies = {
+        "compute-0-16": "Partitions=all,cpu State=MIXED+DRAIN CPUTot=96 CPUAlloc=32 FreeMem=171173 RealMemory=375000",
+        "compute-0-8": "Partitions=all,cpu State=MIXED CPUTot=64 CPUAlloc=50 FreeMem=100000 RealMemory=375000",
+    }
+    monkeypatch.setattr(cpu_statistics.subprocess, "check_output",
+                        lambda command, **kwargs: replies[command[3]])
+    assert cpu_statistics.cpu_destination() == "compute-0-8"
+
+
+def test_cpu_statistics_queues_without_binding_unavailable_node(monkeypatch):
+    import cpu_statistics
+    monkeypatch.setattr(cpu_statistics, "CPU_NODES", ["compute-0-16"])
+    monkeypatch.setattr(cpu_statistics.subprocess, "check_output",
+                        lambda command, **kwargs: "Partitions=all,cpu State=MIXED+DRAIN CPUTot=96 CPUAlloc=32 FreeMem=171173 RealMemory=375000")
+    assert cpu_statistics.cpu_destination() is None

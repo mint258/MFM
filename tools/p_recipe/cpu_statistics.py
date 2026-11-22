@@ -81,7 +81,9 @@ def cpu_destination():
  for node in CPU_NODES:
   text=subprocess.check_output(['scontrol','show','node',node,'-o'],text=True,timeout=15)
   values=dict(part.split('=',1) for part in text.split() if '=' in part)
-  if ('cpu' in values.get('Partitions','').split(',') and
+  states=set(values.get('State','').split('+'))
+  if (states<={'IDLE','MIXED','ALLOCATED'} and
+      'cpu' in values.get('Partitions','').split(',') and
       int(values.get('CPUTot',0))-int(values.get('CPUAlloc',0))>=1 and
       int(values.get('FreeMem',0))>=12288+int(.15*int(values.get('RealMemory',0)))):
    return node

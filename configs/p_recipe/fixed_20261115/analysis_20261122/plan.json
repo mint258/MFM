@@ -1,0 +1,527 @@
+{
+  "schema": "P_ANALYSIS_20261122_V1",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+  "supersedes_science_conflicts": true,
+  "state": "PREPARED_NOT_LAUNCHED",
+  "activation": {
+    "ready": false,
+    "remaining": [
+      "Actual target health/GPU/CPU/RAM/disk/inode and unified-registry admission"
+    ],
+    "existing_jobs_unchanged": true,
+    "validation": {
+      "original_shared_guard": {
+        "job": 4538586,
+        "tests": 7,
+        "status": "PASS",
+        "executions": 1,
+        "children_remaining": []
+      },
+      "new_logic": {
+        "unique_tests_passed": 20,
+        "jobs": [
+          4538600,
+          4538619
+        ],
+        "failed_case_fixed": "Missing/empty native-query cutoff validated before Popen; only failed/affected tests rerun"
+      },
+      "entry_provider": {
+        "source": "tools/d_recipe/exit_lifecycle.py and resident_bootstrap.py",
+        "copied_verbatim": true,
+        "custom_entry": "UNRESOLVED; two failures archived outside tools; never activated"
+      },
+      "scoped_source_check": {
+        "job": 4538634,
+        "status": "PASS",
+        "requested_paths": 106,
+        "existing_files": 104,
+        "python_files": 22,
+        "full_regression_repeated": false
+      }
+    }
+  },
+  "source_resolution": {
+    "method": "checkpoint_paths.evaluation_checkpoint",
+    "checkpoint_payloads_loaded": false,
+    "copies": 0,
+    "bindings": [
+      {
+        "arm": "T1",
+        "samples": 9000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T1.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T1_sbatch/samples_9000000.pt",
+        "bytes": 220304873,
+        "run": "fixed_20261115_confirmation_T1_sbatch",
+        "source_training_budget": 9000000
+      },
+      {
+        "arm": "T2",
+        "samples": 1000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/samples_1000000.pt",
+        "bytes": 231766305,
+        "run": "fixed_20261115_confirmation_T2",
+        "source_training_budget": 9000000
+      },
+      {
+        "arm": "T2",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/samples_3000000.pt",
+        "bytes": 231770849,
+        "run": "fixed_20261115_confirmation_T2",
+        "source_training_budget": 9000000
+      },
+      {
+        "arm": "T2",
+        "samples": 6000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/samples_6000000.pt",
+        "bytes": 231768609,
+        "run": "fixed_20261115_confirmation_T2",
+        "source_training_budget": 9000000
+      },
+      {
+        "arm": "T2",
+        "samples": 9000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/samples_9000000.pt",
+        "bytes": 231766305,
+        "run": "fixed_20261115_confirmation_T2",
+        "source_training_budget": 9000000
+      },
+      {
+        "arm": "T5",
+        "samples": 9000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T5.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T5/samples_9000000.pt",
+        "bytes": 231766305,
+        "run": "fixed_20261115_confirmation_T5",
+        "source_training_budget": 9000000
+      },
+      {
+        "arm": "T6",
+        "samples": 9000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T6.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T6/samples_9000000.pt",
+        "bytes": 231766369,
+        "run": "fixed_20261115_confirmation_T6",
+        "source_training_budget": 9000000
+      }
+    ],
+    "followup_bindings": [
+      {
+        "label": "round2_M1",
+        "arm": "M1",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2/M1.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_M1_infra_recovery_20261116/samples_3000000.pt",
+        "bytes": 220308969,
+        "run": "fixed_20261115_provisional_B_20261116_round2_M1_infra_recovery_20261116",
+        "components": [
+          "A1"
+        ],
+        "pretraining_seed": 0,
+        "source_training_budget": 3000000
+      },
+      {
+        "label": "round2_B4",
+        "arm": "B4",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2/B4.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_B4/samples_3000000.pt",
+        "bytes": 220308329,
+        "run": "fixed_20261115_provisional_B_20261116_round2_B4",
+        "components": [
+          "A1",
+          "B4"
+        ],
+        "pretraining_seed": 0,
+        "source_training_budget": 3000000
+      },
+      {
+        "label": "round2_B3",
+        "arm": "B3",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2/B3.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117/samples_3000000.pt",
+        "bytes": 232058429,
+        "run": "fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117",
+        "components": [
+          "A1",
+          "B3"
+        ],
+        "pretraining_seed": 0,
+        "source_training_budget": 3000000
+      },
+      {
+        "label": "round3_M2",
+        "arm": "M2",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/M2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117_sbatch/samples_3000000.pt",
+        "bytes": 232058045,
+        "run": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+        "components": [
+          "A1",
+          "B3",
+          "B4"
+        ],
+        "pretraining_seed": 0,
+        "source_training_budget": 3000000
+      },
+      {
+        "label": "T4_9M",
+        "arm": "T4",
+        "samples": 9000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T4.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T4_sbatch/samples_9000000.pt",
+        "bytes": 231766369,
+        "run": "fixed_20261115_confirmation_T4_sbatch",
+        "components": [
+          "A1",
+          "B3",
+          "B4",
+          "F2"
+        ],
+        "pretraining_seed": 0,
+        "source_training_budget": 9000000
+      },
+      {
+        "label": "round4_F2",
+        "arm": "F2",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/samples_3000000.pt",
+        "bytes": 231769313,
+        "run": "fixed_20261115_round4_F2",
+        "components": [
+          "A1",
+          "B3",
+          "B4",
+          "F2"
+        ],
+        "pretraining_seed": 0,
+        "source_training_budget": 3000000
+      }
+    ]
+  },
+  "protocol": {
+    "tasks": [
+      "qm9.U0_atom",
+      "qm9.homo",
+      "exp.LogD",
+      "exp.LogS"
+    ],
+    "finetune_seeds": [
+      0,
+      1,
+      2
+    ],
+    "pretraining_seed": 0,
+    "internal_split_seed": 20261112,
+    "bootstrap_seed": 20261025,
+    "bootstrap_draws": 1000,
+    "bootstrap_unit": "molecule",
+    "statistics_dtype": "float64",
+    "batch_size": 32,
+    "gradient_accumulation": 1,
+    "activation_checkpointing": false,
+    "precision": "float32",
+    "tf32": false,
+    "head": "Unchanged FrozenFeatureProbe R3: atom MLP256, mean+sum/N_ref aggregation, output MLP",
+    "representation": "L6 H0, native source atom order",
+    "optimizer": {
+      "kind": "AdamW",
+      "encoder_lr": 0.0001,
+      "head_lr": 0.001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "weight_decay": 0.01
+    },
+    "schedule": {
+      "epochs": 50,
+      "warmup_fraction": 0.05,
+      "kind": "cosine",
+      "final_lr": 0
+    },
+    "selection": "Best internal TRAIN holdout MAE, fixed same R3 90/10 molecular split; original evaluation cohort never used for epoch selection",
+    "loss": "Same target-standardized MSE as existing R3 for these four MAE tasks; report original-unit MAE",
+    "feature_normalization": "Same R3 train-only F64 moments and relative dimension floor; source implementation binding required before activation",
+    "frozen": {
+      "action": "Reuse existing seed0 R3; do not add frozen reruns",
+      "epochs": 30,
+      "lr": 0.001,
+      "schedule": "constant",
+      "limitation": "Frozen and new trainable modes differ in optimization duration and schedule; their contrast does not isolate encoder trainability alone"
+    },
+    "estimands": {
+      "decision": "Mean of three per-seed scratch-normalized improvements",
+      "report": [
+        "Each seed original-unit MAE",
+        "Per-seed scratch-normalized improvement and original frozen random E_ref score",
+        "Three-seed mean and standard deviation",
+        "Molecular paired bootstrap CI from predictions averaged across three seeds"
+      ],
+      "distinction": "Per-seed mean score and score of averaged predictions are separate estimands"
+    },
+    "tau": "max(0.01,0.05*larger_score) on scratch-normalized improvement"
+  },
+  "F1": {
+    "priority": 1,
+    "launch_after": "New-entry validation and actual healthy admission",
+    "groups": [
+      {
+        "mode": "full",
+        "sources": [
+          {
+            "arm": "T1",
+            "samples": 9000000
+          },
+          {
+            "arm": "T2",
+            "samples": 1000000
+          },
+          {
+            "arm": "T2",
+            "samples": 3000000
+          },
+          {
+            "arm": "T2",
+            "samples": 6000000
+          },
+          {
+            "arm": "T2",
+            "samples": 9000000
+          },
+          {
+            "arm": "T5",
+            "samples": 9000000
+          },
+          {
+            "arm": "T6",
+            "samples": 9000000
+          }
+        ],
+        "tasks": "protocol.tasks",
+        "seeds": "protocol.finetune_seeds",
+        "runs": 84
+      },
+      {
+        "mode": "top2",
+        "sources": [
+          {
+            "arm": "T2",
+            "samples": 1000000
+          },
+          {
+            "arm": "T2",
+            "samples": 9000000
+          }
+        ],
+        "tasks": "protocol.tasks",
+        "seeds": "protocol.finetune_seeds",
+        "runs": 24
+      },
+      {
+        "mode": "scratch",
+        "sources": [
+          {
+            "arm": "random_initialization",
+            "samples": 0
+          }
+        ],
+        "tasks": "protocol.tasks",
+        "seeds": "protocol.finetune_seeds",
+        "runs": 12
+      }
+    ],
+    "runs": 120,
+    "estimate_gpu_hours": [
+      90,
+      130
+    ],
+    "first_completed_run": "Record measured GPU time and revise daily estimate",
+    "over_1p5_estimate": "Report and continue",
+    "top2_definition": "Last two encoder layers and unchanged R3 head; exact backbone module names bound before activation",
+    "interpretation": "Compare measured T2 1M,3M,6M,9M only; no invented fine-tuning result at4M"
+  },
+  "F2": {
+    "after": "F1 complete; no additional user gate",
+    "mode": "full",
+    "sources": [
+      {
+        "round": 2,
+        "arm": "M1",
+        "samples": 3000000
+      },
+      {
+        "round": 2,
+        "arm": "B4",
+        "samples": 3000000
+      },
+      {
+        "round": 2,
+        "arm": "B3",
+        "samples": 3000000
+      },
+      {
+        "round": 3,
+        "arm": "M2",
+        "samples": 3000000
+      },
+      {
+        "arm": "T4",
+        "samples": 9000000
+      }
+    ],
+    "runs": 60,
+    "additional_interventions": "Each applicable I1/I2 checkpoint: full four tasks x three seeds=12",
+    "source_binding_labels": [
+      "round2_M1",
+      "round2_B4",
+      "round2_B3",
+      "round3_M2",
+      "T4_9M"
+    ]
+  },
+  "A1": {
+    "parallel_with": "F1",
+    "sources": [
+      {
+        "arm": "T2",
+        "samples": 1000000
+      },
+      {
+        "arm": "T2",
+        "samples": 6000000
+      },
+      {
+        "arm": "T2",
+        "samples": 9000000
+      },
+      {
+        "round": 4,
+        "arm": "F2",
+        "samples": 3000000
+      }
+    ],
+    "readout_seeds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "existing_seed0": "reuse",
+    "new_readouts": 16,
+    "outputs": "Per-task and seven-task mean five-seed mean/std, std/bootstrap halfwidth ratio",
+    "trigger": "Seven-task std>=tau/2 -> daily user-decision proposal only; no decision-rule change",
+    "round4_F2_binding": "source_resolution.followup_bindings[label=round4_F2]"
+  },
+  "A2": {
+    "parallel_with": "F1",
+    "name": "H-B4",
+    "sources": "Round2 M1/B4/B3 and round3 M2, each3M; also applicable I1/I2",
+    "layer": 6,
+    "representation": "H0",
+    "panel_molecules": 5000,
+    "panel_seed": 20261112,
+    "support": "Both upperCI CEV(B4)-CEV(M1)<0 and CEV(M2)-CEV(B3)<0",
+    "not_support": "Both lowerCI>=0",
+    "otherwise": "uncertain",
+    "atomic_definition": "Pending previously requested clarification; mean(H) definition available; do not invent atom CEV/CVF/CVF_res",
+    "source_binding_labels": [
+      "round2_M1",
+      "round2_B4",
+      "round2_B3",
+      "round3_M2"
+    ]
+  },
+  "A3": {
+    "parallel_with": "F1",
+    "sources": "T2 1M/3M/6M/9M",
+    "population": "Fixed VAL",
+    "outputs": [
+      "B4 hinge term",
+      "B4 decorrelation term",
+      "0.1*B4 / P total loss"
+    ],
+    "frozen_loss": "Bind exact existing p_recipe_training loss and batch semantics, no gamma refit"
+  },
+  "A4": {
+    "dependency": "D-line section5 delivered",
+    "action": "Copy existing descriptor/composition controls beside T2 per-task R3; mark inferior tasks",
+    "new_computation": false
+  },
+  "A5": {
+    "parallel_with": "F1",
+    "sources": "T2/T4 9M",
+    "tasks": "ExpansionRx three only",
+    "geometry": "Benchmark sealed S-prime UFF, exact full InChIKey join, native atom mapping",
+    "population": "Drop missing UFF from both; report counts",
+    "outputs": "Paired T2-T4 delta and molecular CI",
+    "QM9": "Unchanged DFT; excluded from this intervention",
+    "new_geometry_generation": false
+  },
+  "A6": {
+    "after": "F1 started",
+    "sources": "T5/T6/T2 9M and random encoder",
+    "mode": "frozen R3 seed0",
+    "tasks": "QM9 four only",
+    "TRAIN_groups": 30000,
+    "evaluation_groups": 2048,
+    "split": "Same fold0 TRAIN role and SHA256([20261025,dataset,group]) rank; nested superset of8192; original evaluation unchanged; never TEST",
+    "materialization_timebox": "4h or2 consecutive failures ->UNRESOLVED skip"
+  },
+  "I1": {
+    "after": "F1 started and a free admitted card",
+    "budget": 3000000,
+    "seed": 0,
+    "baseline": "Reuse round4 F2 3M seed0; no baseline retraining",
+    "only_change": "Disable B4",
+    "decision": "Delete only under authorized deletion-arm two-seed WIN / TIE-crossing-zero rule; otherwise retain",
+    "adoption": "User decision for next phase; current frozen recipe unchanged",
+    "baseline_binding": "source_resolution.followup_bindings[label=round4_F2]",
+    "baseline_schedule_warning": "The round4_F2 3M-budget endpoint is distinct from the T2_3M intermediate of a9M-budget run; never substitute one for the other"
+  },
+  "I2": {
+    "condition": "A3 0.1*B4/P ratio at9M >=2*ratio at1M",
+    "budget": 3000000,
+    "seed": 0,
+    "only_change": "B4 coefficient=0.1*(current P_loss.detach / mean P_loss first150k)",
+    "initial150k": "Resolve only if trigger occurs; do not invent startup coefficient policy",
+    "decision": "Addition-arm rule; only confirmed WIN eligible, user decides later"
+  },
+  "resources": {
+    "gpu_nodes": "compute-0-0..7, actually empty24GiB, ordinary sbatch",
+    "cpu_nodes": "compute-0-8..19 excluding14/18 and actual unhealthy/DRAIN/DOWN/NOT_RESPONDING nodes",
+    "no_exclusive": true,
+    "paid_server": false,
+    "capacity_research": false,
+    "priority_over": "p-capacity-20261122",
+    "guard": "tools/shared_guard.py; own p-recipe.json, renew each1800s poll",
+    "finetune_intermediate_outputs": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122",
+    "per_run_atomic_state_peak_bound_bytes": 994277760,
+    "bound_basis": "4538619 CPU architecture footprint: 8*(89411372+1318916)+256MiB; current/best encoder+head, Adam moments and atomic old/new state"
+  },
+  "outputs": "results/p_recipe/fixed_20261115/analysis_20261122/, one CSV per section",
+  "timebox": "Each implementation/diagnosis/repair4h or2 consecutive failures ->UNRESOLVED conservative closure; not a4h cap on explicitly authorized F batch",
+  "report": {
+    "generate_once": true,
+    "wait_for": "All original study obligations plus11-21/22/22B required or valid timebox/conditional closures",
+    "new_sections": [
+      "微调与冻结读出",
+      "读出噪声与 B4 机制",
+      "P 与 P′ 的几何对照"
+    ]
+  },
+  "prohibitions": [
+    "No new9M",
+    "No capacity study in this window",
+    "No extra probes/layers/learning-rate sweeps",
+    "No scientific recipe/split/normalization changes",
+    "No interference with other-line active tasks"
+  ]
+}
