@@ -1,0 +1,67 @@
+{
+  "schema": "D_DEVELOPMENT_NATIVE_D3_MERGED_V1",
+  "status": "RAW_COMPLETE",
+  "identity": {
+    "source_manifest": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/source_inputs/manifest.json",
+      "bytes": 3081,
+      "mtime_ns": 1795164270346550591,
+      "inode": 17250731917
+    },
+    "components": [
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/qm9/manifest.json",
+        "bytes": 39807,
+        "mtime_ns": 1795176693365354648,
+        "inode": 60170183157
+      },
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/expansionrx_B6_fixed_native_H/manifest.json",
+        "bytes": 24451,
+        "mtime_ns": 1795376356998813412,
+        "inode": 53695303134
+      }
+    ]
+  },
+  "dataset_scope": [
+    "expansionrx",
+    "qm9"
+  ],
+  "source_member_count": 15751,
+  "member_count": 15751,
+  "complete_source_population": true,
+  "hydrogen_policy_by_dataset": {
+    "qm9": "native_only",
+    "expansionrx": "B6_fixed_native_H"
+  },
+  "ordered_fields": [
+    "PMI1",
+    "PMI2",
+    "PMI3",
+    "PBF",
+    "volume_A3",
+    "SASA_total_A2"
+  ],
+  "membership_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/merged/member_map.jsonl",
+    "format": "jsonl",
+    "dataset_key": "dataset",
+    "member_key": "member_uid",
+    "molecule_key": "molecule_id",
+    "source_split_key": "source_split"
+  },
+  "components": [
+    "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/qm9/manifest.json",
+    "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/expansionrx_B6_fixed_native_H/manifest.json"
+  ],
+  "component_and_merge_peak_bytes": 203909476,
+  "descriptor_calculations": false,
+  "numeric_arrays_read": false,
+  "target_values_read": false,
+  "normalization_fitted": false,
+  "atomic_SASA_in_molecular_vector": false,
+  "reception_acceptance": "pending",
+  "current_C1_complete": false,
+  "job_id": "4539061",
+  "node": "compute-0-11"
+}
