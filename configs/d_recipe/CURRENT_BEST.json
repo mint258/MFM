@@ -1,8 +1,8 @@
 {
   "schema": "D_RECIPE_CURRENT_BEST_V1",
-  "status": "STAGE1_CONFIRMED_TRANSFER_WIN_STAGE2_PREPARATION",
+  "status": "STAGE2_WIDE_A1_PRODUCTION_RUNNING_G1_WAITING_COMPLIANT_GPU",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T20:40:45Z",
+  "updated_at_utc": "2026-11-22T20:55:16Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -377,8 +377,8 @@
   "arm_decisions": {
     "D-R0": "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
     "D-R1": "CONFIRMED_WIN_BOTH_SEEDS_ADOPT_TRANSFERRED_BUNDLE",
-    "D-L1": "ACCEPTED_STAGE1_SELECTED_TRANSFERRED_RECIPE_A1_PREPARATION_REQUIRED",
-    "D-L2": "ACCEPTED_STAGE1_SELECTED_TRANSFERRED_RECIPE_A1_PREPARATION_REQUIRED",
+    "D-L1": "A1_PRODUCTION_RUNNING_TRANSFERRED_RECIPE_WAITING_FROZEN_PARAMETERS_AND_COMPLIANT_GPU",
+    "D-L2": "A1_PRODUCTION_RUNNING_TRANSFERRED_RECIPE_WAITING_FROZEN_PARAMETERS_AND_COMPLIANT_GPU",
     "D-G1": "READY_TRANSFERRED_D20_RECIPE_WAITING_COMPLIANT_GPU",
     "D-K1": "NOT_TRIGGERED_UNTIL_CONFIRMED_WIDE_LIBRARY_ADOPTION"
   },
@@ -1986,7 +1986,7 @@
     },
     "raw_parts_per_library": 4695,
     "L1": {
-      "status": "ACCEPTED_WAITING_STAGE2_NEW_LIBRARY_A1_FIT",
+      "status": "ACCEPTED_ORIGINAL_FULL_TRAIN_A1_RUNNING",
       "failed_jobs": [
         4537508,
         4537574
@@ -2011,7 +2011,7 @@
       "reception_passed_heads": 197
     },
     "L2": {
-      "status": "ACCEPTED_WAITING_STAGE2_NEW_LIBRARY_A1_FIT",
+      "status": "ACCEPTED_ORIGINAL_FULL_TRAIN_A1_RUNNING",
       "failed_jobs": [
         4537771,
         4537773
@@ -2195,7 +2195,7 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ACTIVE_STAGE2_REFERENCE_PREPARATION_AND_COMPLIANT_GPU_POLL",
+  "automation_state": "ACTIVE_STAGE2_ORIGINAL_A1_PRODUCTION_AND_1800SECOND_GPU_ADMISSION_POLL",
   "blocking_condition": null,
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
@@ -2801,7 +2801,7 @@
   },
   "stage1_transfer_decision": "results/d_recipe/stage1_transfer_decision_20261123.json",
   "stage2": {
-    "status": "PREPARING_ORIGINAL_GENERIC_A1",
+    "status": "BOTH_ORIGINAL_FULL_TRAIN_A1_COLLECTIONS_RUNNING",
     "selected_stage1_control": "D-R1",
     "recipe_components": [
       "A1",
@@ -2840,7 +2840,7 @@
       "configs/d_recipe/screening/D-L2_seed0.json",
       "configs/d_recipe/screening/D-G1_seed0.json"
     ],
-    "reference_jobs_submitted": false,
+    "reference_jobs_submitted": true,
     "required_before_writes": "Original source-independent resident preflight + actual node D guards check freshbytes/inodes/5s UID quota and protected peer futures, then original full-TRAIN collector/fitter",
     "admitted_head_source_metadata": {
       "required_bytes": 305463892220,
@@ -2848,6 +2848,79 @@
       "freshness_seconds": 5,
       "all_peer_forecasts_retained": true,
       "actual_node_production_admission_still_required": true
-    }
+    },
+    "reference_producer_progress": {
+      "observed_at_UTC": "2026-11-22T20:55:16Z",
+      "node": "compute-0-11",
+      "actual_root_available_bytes": 69906649088,
+      "actual_root_inodes": 36569906,
+      "L1": {
+        "job_id": 4539166,
+        "status": "COLLECTING",
+        "closed_rows": 2048,
+        "total_rows": 1194228,
+        "molecular_fields": 197,
+        "producer_elapsed_seconds": 206.4338698759675,
+        "actual_EndTime_CST": "2026-11-25T04:50:12",
+        "root_available_at_entry_bytes": 69942861824,
+        "local_peak_bytes": 4294967296,
+        "configuration": "configs/d_recipe/reference/L1_stage2.json"
+      },
+      "L2": {
+        "job_id": 4539169,
+        "status": "COLLECTING",
+        "closed_rows": 512,
+        "total_rows": 1194228,
+        "molecular_fields": 1320,
+        "producer_elapsed_seconds": 64.1053820438683,
+        "actual_EndTime_CST": "2026-11-25T04:52:37",
+        "root_available_at_entry_bytes": 69932027904,
+        "local_peak_bytes": 17179869184,
+        "configuration": "configs/d_recipe/reference/L2_stage2.json"
+      },
+      "source": "Original producer collection_checkpoint metadata; no numerical arrays or independent statistics read",
+      "fitter": "Original tools/d_recipe/fit_reference.py",
+      "entry_source_commit": "438ab2ee622b210ac77ae7f37f70ab6b4d2ff04f",
+      "cleanup_seconds": 900,
+      "scientific_algorithm_changed": false
+    },
+    "reference_first_attempts": {
+      "L1": {
+        "job": 4539163,
+        "exit_code": "1:0",
+        "elapsed_seconds": 60,
+        "node": "compute-0-11",
+        "owned_root_reaped": 4175987,
+        "remaining_children": [],
+        "closed_rows": 0
+      },
+      "L2": {
+        "job": 4539164,
+        "exit_code": "1:0",
+        "elapsed_seconds": 46,
+        "node": "compute-0-11",
+        "owned_root_reaped": 4176017,
+        "remaining_children": [],
+        "closed_rows": 0
+      },
+      "reason": "Original collector guards nearest existing ancestor /tmp before creating missing owned local root; DJointGuard correctly refuses ancestor outside own scope",
+      "repair": "Copied entry now runs original actual-node execution_site+DJointGuard then creates only its admitted own local root before exec original unchanged reference.sbatch",
+      "scientific_algorithm_changed": false,
+      "all_old_outputs_retained": true,
+      "signal_or_timeout_used": false,
+      "actual_failures_per_library": 1,
+      "optional_reuse_adapter_retried": false
+    },
+    "reference_entry_memory_header": {
+      "physical_MemAvailable_kB": 387362352,
+      "Slurm_SelectTypeParameters": "CR_CORE",
+      "nonzero_memory_requests": "Rejected at --test-only; no actual allocation or computation",
+      "restored_entry": "Established no-memory-directive CPU resident entry (same as successful native H jobs); one CPU each, actual physical RAM measured",
+      "test_only_mem0_prediction_not_a_real_allocation": true,
+      "scientific_configuration_unchanged": true
+    },
+    "reference_entry_status": "Original entry scope initialization repaired; both current original collectors positive closed cursor",
+    "next_GPU_check_UTC": "2026-11-22T21:06:00Z",
+    "next_reference_progress_check_UTC": "2026-11-22T21:25:16Z"
   }
 }
