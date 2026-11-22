@@ -950,3 +950,7 @@ CPU包装器漏BENCHMARK_TASK_INDEX，Joung9组实际在runtime/拟合前失败�
 ## 2026-11-22 08:06:31 CST · D Root
 
 原计划基准独立L2导出4538205/CPU10/4CPU实际COMPLETED0:0，7842秒，194729唯一分子、761批关闭，启用1314/1613字段；开发双库4538204/3CPU也已COMPLETED0:0，612秒、15518唯一分子。原TRAIN统计/参数、原成员划分与原始值不改，不读取任务标签或重拟合。两训练库已由原64 loader接收4538200实际ACCEPTED；本次下游原清单仍保留reception_acceptance=pending、current_C1_complete=false，不代替基准接收/冻结或完整D3对照。基准L2清单为`/runs/d_recipe_20261120/benchmark/L2_descriptors/manifest.json`；[原清单转录与交付状态](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/DOWNSTREAM_INTERFACE.md)。旧D20基准绑定未解决、ExpansionRx H政策待定均保持，未获H修改授权。联合NFS36706053853B及原开发512MiB/基准L2 3.75GiB保留预算不增，无新节点cache或原库复制。R1 4537592/GPU7和截断4538112/CPU8继续，宽库训练仍等阶段1配方选择；配方未冻结，不修改同行任务。
+
+## 2026-11-22 08:13:39 CST 下游三个必需确认队尾增加CPU资源（本线）
+
+实查CPU19/32、CPU15/16、CPU17/32核可分配，目标NFS及根/tmp字节/inode/MemAvailable安全，CPU10只有12核不使用。8369 CPU12/3:46 C0，全312回归及3份原Python编译、5635文件/3803 Python/1311服务器源通过，仅扩展CPU15/17允许节点及11槽资源声明，原预处理2/selector/V2/权重/seed26/统计seed25/任务/人口/掩码/均值/模型预算保持，全AST恢复一致。8371实际核实8358/8361/8362是owned PENDING/RunTime0/Restarts0的原槽队尾后，先hold三旧模型与8363/64/65零启动报告，记录新8372 CPU19/32、8373 CPU15/16、8374 CPU17/32及8375→8376→8377、完整43来源bindings，全源检查后只退休原6零启动句柄并释放新6项。原8槽和所有未选依赖不动，RUNNING/闭合正确模型不重跑；最多11个CPU模型，11×1GiB临时预测仍在40GiB池内，无DB/权重副本，根/tmp系统Slurm余量与动态同行future继续。属于资源接续，不增加任务/种子/科学修复尝试；完整175确认/561主行/最终736预计行保持，正常统计/最终CSV/SHA仍待完整关闭。1800秒实查空GPU，不占P9M/D-R1/其他owner，无新几何/QM、第三次TDC修复、B2全量、B3/B4或预训练。P 预训练模型在下游接收的是 UFF 几何。

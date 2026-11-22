@@ -2,7 +2,7 @@
 import ast
 import copy
 
-CPU_NODES=frozenset({"compute-0-8","compute-0-11","compute-0-12","compute-0-13","compute-0-16","compute-0-19"})
+CPU_NODES=frozenset({"compute-0-8","compute-0-11","compute-0-12","compute-0-13","compute-0-15","compute-0-16","compute-0-17","compute-0-19"})
 CPU_SLOTS=("compute-0-8","compute-0-11","compute-0-12","compute-0-12","compute-0-13","compute-0-16","compute-0-16","compute-0-19")
 CLOSED_BIOGEN_PRIMARY=frozenset({4537679,4537680,4537010})
 

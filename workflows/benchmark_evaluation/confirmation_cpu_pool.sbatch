@@ -24,7 +24,7 @@ cache=Path(os.environ["BENCHMARK_SOURCE_CACHE"]);plan_path=Path(os.environ["BENC
 for path in (cache,plan_path):
     if not path.resolve().is_relative_to(b1.resolve()) or path.is_symlink() or path.stat().st_uid!=1278:raise ValueError("Owned immutable CPU confirmation authorization required")
 sources=json.loads(cache.read_text());plan=json.loads(plan_path.read_text())
-if (plan.get("schema")!="C1_REQUIRED_CONFIRMATION_CPU_POOL_V1" or plan.get("maximum_parallel_CPU_models")!=8
+if (plan.get("schema")!="C1_REQUIRED_CONFIRMATION_CPU_POOL_V1" or plan.get("maximum_parallel_CPU_models")!=11
     or plan.get("benchmark_NFS_pool_bytes")!=40*1024**3 or not 1<=len(plan.get("models",[]))<=40
     or plan.get("frozen_primary_statistics_job")!=4538208 or plan.get("full_required_configurations")!=175):
     raise ValueError("Exact bounded CPU pool execution authorization required")
@@ -58,7 +58,7 @@ tempfile.tempdir=os.environ["TMPDIR"]
 admission=dict(status="REQUIRED_CPU_POOL_CONFIRMATION_ADMITTED",job=os.environ["SLURM_JOB_ID"],primary_job=row["group"]["primary_job"],
     original_zero_start_GPU_job=row["original_GPU_job"],replaced_CPU_job=row.get("replaced_CPU_job"),node=socket.gethostname(),allocated_CPUs=row["allocated_CPUs"],
     model_seed=20261026,fold_and_statistics_seed=20261025,required_configurations=len(row["group"]["required_tasks"]),
-    maximum_parallel_CPU_models=8,benchmark_NFS_pool_bytes=40*1024**3,full_AST_equal_except_execution_resources=True,
+    maximum_parallel_CPU_models=11,benchmark_NFS_pool_bytes=40*1024**3,full_AST_equal_except_execution_resources=True,
     original_private_environment_and_offline_V2_weights=True,new_geometry_or_features=False,execution_environment=execution_environment)
 safe();(runtime/"admission.json").write_text(json.dumps(admission,indent=2)+"\n")
 namespace={"__name__":"__main__","_gpu_runtime":types.SimpleNamespace(protect=protect)}

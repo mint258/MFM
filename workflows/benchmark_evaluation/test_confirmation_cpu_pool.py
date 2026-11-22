@@ -147,3 +147,10 @@ class RequiredConfirmationCpuTests(unittest.TestCase):
         source=self.source()+"\nmodel_name=os.environ.get('BENCHMARK_MODEL','RF-ECFP4')\n"
         self.assertEqual(resolve_confirmation_environment(self.group(),source,self.environment())["BENCHMARK_MODEL"],"C1-TabPFN-Pprime")
         with self.assertRaises(ValueError):resolve_confirmation_environment(self.group(),source.replace("'BENCHMARK_MODEL'","'UNREGISTERED'"),self.environment())
+
+    def test_additional_admitted_nodes_keep_exact_original_cpu_contract(self):
+        for node,cpus in (("compute-0-15",16),("compute-0-17",32),("compute-0-19",32)):
+            validate_cpu_runtime(node,cpus,node,cpus,"")
+            with self.assertRaises(ValueError):validate_cpu_runtime(node,cpus,"compute-0-12",cpus,"")
+            with self.assertRaises(ValueError):validate_cpu_runtime(node,cpus,node,cpus,"GPU-x")
+        with self.assertRaises(ValueError):validate_cpu_runtime("compute-0-10",16,"compute-0-10",16,"")
