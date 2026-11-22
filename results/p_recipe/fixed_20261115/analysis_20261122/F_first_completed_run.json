@@ -1,0 +1,80 @@
+{
+  "schema": "P_F_FIRST_COMPLETED_RUN_20261122_V1",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+  "code_sha": "a00498651c6afb9b67483692a8a18365b2b97988",
+  "primary_summary": {
+    "status": "COMPLETE",
+    "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_full_T2_1M_qm9_U0_atom_s0.json",
+    "node": "compute-0-6",
+    "job_id": "4538638",
+    "card": {
+      "uuid": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "name": "NVIDIA GeForce RTX 3090",
+      "memory_used_mib": 5,
+      "memory_total_mib": 24576
+    },
+    "detail": {
+      "task": "qm9.U0_atom",
+      "mode": "full",
+      "finetune_seed": 0,
+      "epochs": 50,
+      "selected_epoch": 49,
+      "updates": 11850,
+      "internal_mae": 0.00566683756539293,
+      "evaluation_mae": 0.007045716418061401,
+      "n_ref": 17.86020226055919,
+      "batch_size": 32,
+      "precision": "float32",
+      "tf32": false,
+      "optimizer": "AdamW",
+      "encoder_lr": 0.0001,
+      "head_lr": 0.001,
+      "warmup_fraction": 0.05,
+      "schedule": "cosine_to_zero",
+      "split_seed": 20261112,
+      "normalization_fit_scope": "optimization_only",
+      "removed_dimensions": 0,
+      "head": "Unchanged current R3 FrozenFeatureProbe",
+      "top2_scope": null
+    },
+    "membership_sha256": "8c0278338b675e628653ab3b62a153649de00204d0d11d1e70ad62b2357390f2",
+    "producer_seconds_this_attempt": 460.1717245578766,
+    "optimization_and_selection_seconds_this_attempt": 427.6466727256775,
+    "geometry": "original R3 native source geometry",
+    "no_bootstrap_on_gpu": true
+  },
+  "native": {
+    "job_id": 4538638,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_seconds": 463,
+    "CPUs": 16
+  },
+  "normal_intermediate_complete_state": {
+    "bytes": 286308739,
+    "epoch_saves": 50,
+    "fields_verified_by_code_and_tests": "encoder/head/current+best/AdamW/RNG/shuffle cursor/normalization/cohorts",
+    "actual_worker2082292_absent": true,
+    "tree_reaped": true,
+    "remaining_children": []
+  },
+  "performance": {
+    "card_type": "RTX3090",
+    "batch": 32,
+    "precision": "FP32",
+    "tf32": false,
+    "producer_seconds": 460.1717245578766,
+    "optimization_and_selection_seconds": 427.6466727256775,
+    "optimization_samples": 378500,
+    "natural_training_window_samples_per_second": 894.5817271105061,
+    "optimization_samples_per_producer_second": 822.5190288770023,
+    "training_window_includes": "epoch selection and normal checkpoint gaps between first and last optimizer updates",
+    "training_window_excludes": "initial model/data/H0 setup and final evaluation"
+  },
+  "updated_estimate": {
+    "F1_120_GPU_hours_same_speed": 15.339057485262552,
+    "F1_plus_F2_180_GPU_hours_same_speed": 23.00858622789383,
+    "basis": "Provisional linear extrapolation of ONE QM9/U0 full run; task/mode/card speed may differ; revise after first ExpansionRx. Original90–130GPUh first-batch estimate retained historically."
+  },
+  "interpretation": "First-run timing and original single-seed scalars only; no scientific adoption or mechanism decision. Primary F comparison still waits all3seeds and CPU statistics."
+}

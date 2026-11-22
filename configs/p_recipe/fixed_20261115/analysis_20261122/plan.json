@@ -2,11 +2,11 @@
   "schema": "P_ANALYSIS_20261122_V1",
   "authority": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
   "supersedes_science_conflicts": true,
-  "state": "PREPARED_NOT_LAUNCHED",
+  "state": "F1_RUNNING",
   "activation": {
-    "ready": false,
+    "ready": true,
     "remaining": [
-      "Actual target health/GPU/CPU/RAM/disk/inode and unified-registry admission"
+      "Assign and admit remaining runs individually; scientific protocol frozen"
     ],
     "existing_jobs_unchanged": true,
     "validation": {
@@ -38,7 +38,8 @@
         "python_files": 22,
         "full_regression_repeated": false
       }
-    }
+    },
+    "activation_scope": "Validated registered F protocol; each assigned run still requires exact actual startup health/UUID/CPU/RAM/disk/inode admission"
   },
   "source_resolution": {
     "method": "checkpoint_paths.evaluation_checkpoint",
@@ -343,10 +344,14 @@
       90,
       130
     ],
-    "first_completed_run": "Record measured GPU time and revise daily estimate",
+    "first_completed_run": "results/p_recipe/fixed_20261115/analysis_20261122/F_first_completed_run.json",
     "over_1p5_estimate": "Report and continue",
     "top2_definition": "Last two encoder layers and unchanged R3 head; exact backbone module names bound before activation",
-    "interpretation": "Compare measured T2 1M,3M,6M,9M only; no invented fine-tuning result at4M"
+    "interpretation": "Compare measured T2 1M,3M,6M,9M only; no invented fine-tuning result at4M",
+    "progress_snapshot": "results/p_recipe/fixed_20261115/analysis_20261122/F_progress.json",
+    "completed_at_2037_CST": 8,
+    "latest_same_speed_estimate_GPU_hours": 15.339057485262552,
+    "latest_estimate_basis": "First QM9/U0 full run460.1717245578766s; provisional single-task extrapolation, revise with actualExpansionRx"
   },
   "F2": {
     "after": "F1 complete; no additional user gate",
@@ -512,9 +517,9 @@
     "generate_once": true,
     "wait_for": "All original study obligations plus11-21/22/22B required or valid timebox/conditional closures",
     "new_sections": [
-      "微调与冻结读出",
-      "读出噪声与 B4 机制",
-      "P 与 P′ 的几何对照"
+      "\u5fae\u8c03\u4e0e\u51bb\u7ed3\u8bfb\u51fa",
+      "\u8bfb\u51fa\u566a\u58f0\u4e0e B4 \u673a\u5236",
+      "P \u4e0e P\u2032 \u7684\u51e0\u4f55\u5bf9\u7167"
     ]
   },
   "prohibitions": [

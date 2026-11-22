@@ -1,19 +1,11 @@
 {
   "authority": "docs/p_recipe/USER_DIRECTIVE_20261121.md",
   "expected_readouts": 22,
-  "closed_readouts": 14,
+  "closed_readouts": 16,
   "missing_readouts": [
     {
       "arm": "T1",
       "samples": 1000000
-    },
-    {
-      "arm": "T1",
-      "samples": 2000000
-    },
-    {
-      "arm": "T1",
-      "samples": 3000000
     },
     {
       "arm": "T1",
@@ -37,6 +29,7 @@
     }
   ],
   "closed_original_9M_arms": [
+    "T1",
     "T2",
     "T4",
     "T5",
@@ -74,6 +67,14 @@
     [
       "T2",
       8000000
+    ],
+    [
+      "T1",
+      2000000
+    ],
+    [
+      "T1",
+      3000000
     ],
     [
       "T4",
@@ -251,13 +252,45 @@
       ]
     }
   },
-  "observed_new_readouts_compute_seconds": 7242.184966675937,
-  "exceeds_1p5_initial_total_estimate": false,
+  "observed_new_readouts_compute_seconds": 41220.938196796924,
+  "exceeds_1p5_initial_total_estimate": true,
   "excess_action": "REPORT_AND_CONTINUE",
   "pending_user_decision": [
     "Budget curve: later R3 falls while recorded VAL family loss decreases; any extra diagnosis requires user decision and has not been run."
   ],
   "endpoints": {
+    "T1": {
+      "R1": {
+        "mean": 0.2961333868873693,
+        "ci_lower": 0.2804705308714784,
+        "ci_upper": 0.3098399866981168,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      },
+      "R3": {
+        "mean": 0.44238549146779976,
+        "ci_lower": 0.4288921731801633,
+        "ci_upper": 0.45552996445348576,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      }
+    },
     "T2": {
       "R1": {
         "mean": 0.3761972191273991,
