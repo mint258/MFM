@@ -1051,3 +1051,7 @@ Preparation4538549 remains blocked before script entry. Its PID2827663 is slurms
 新增consumer_lifecycle.py、行为测试及入口说明为准备代码：基于真实scontrol TimeLimit/RunTime，至少180秒收尾窗口，Linux subreaper/pidfd和UID/PID/start_ticks/cgroup核验，TERM后join/reap，不使用KILL或scancel作正常结束，不把主进程0码当成整棵树已退出。原负载按字节嵌入新入口，原资源时限保持；Slurm已保存的旧副本不因模板变化而改变。14项独立行为测试进入CI；新增逻辑尚未在HPC部署/完整回归，旧327测试不冒充覆盖新增入口。
 
 统一预留迁移仍待真实登记/准入和一次tools/test_shared_guard.py验证：只登记benchmark-b1自身剩余未来量，续期/释放按唯一登记目录进行，新入口调用原版check_with_timeout，不再手抄同行数字或沿用旧跨树预留。实际目标文件系统与逻辑登记路径绑定须先核实。不在此公告具体存储数字，不修改保留值，不为迁移停止在跑作业。本轮未新提交HPC任务、未在故障节点追加诊断，也未把登记迁移记为已完成；后续只有健康、准入、测试及完整新报告链记录闭合后才受控接续。原统计/CSV/SHA/PR交付仍未闭合。
+
+## 2026-11-22 16:37 CST 下游未来消费入口准备与原模型保持（本线）
+
+consumer_lifecycle新增14项行为测试已在CI实际通过，合并基线后两项source-check成功，PR17仍草稿。4538510为本线核验过的零运行JobHeldUser，后三报告原依赖不变；六个原模型继续原句柄，不停止、不重启、不修改科学源码。本线已用原版shared_guard.claim()登记剩余未来写入，控制面子进程由新生命周期入口监督并实际回收；这不等于节点准入或HPC验证已完成。既有CPU19 mountinfo显示实际共享挂载在/share/home，逻辑键/share的实际文件系统绑定仍待解决，不暗改统一模块、不在故障通道反复探测。14/16/17当前DRAIN不用于新任务，17本次归属未确认；NFS/RPC等待仅为观察，底层根因未定。后续仍需新入口HPC验证、统一守卫迁移和受控零启动四报告链接续，再正常生产最终CSV/SHA；不把CI或登记成功写成最终交付。
