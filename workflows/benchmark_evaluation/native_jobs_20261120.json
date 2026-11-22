@@ -11614,5 +11614,55 @@
       "targeted_actual_controller_compile": true,
       "post_preparation_changes": "Only native queue dependencies/IDs, full43 bindings, index and equivalent report/publisher export paths. All scientific bodies unchanged."
     }
+  },
+  "C1_CPU19_8356_same_native_ID_parallel_admission_20261122": {
+    "status": "OWNED_ZERO_START_SERIAL_WAIT_REMOVED_EXISTING_ID_PRESERVED",
+    "native_allocation": "4538348",
+    "native_step": "2",
+    "job": 4538356,
+    "before": "JobId=4538356 JobName=C1-required-confirmation-CPU-pool UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294615970 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=Dependency Dependency=afterany:4538348(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=2-00:00:00 TimeMin=N/A SubmitTime=2026-11-22T07:43:58 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-22T07:43:58 Scheduler=Main Partition=cpu AllocNode:Sid=compute-0-12:3702027 ReqNodeList=compute-0-19 ExcNodeList=compute-0-[0-7,14,18,20-22] NodeList= NumNodes=1-1 NumCPUs=32 NumTasks=1 CPUs/Task=32 ReqB:S:C:T=0:0:*:* TRES=cpu=32,mem=375000M,node=1,billing=32 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=32 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/C1_confirmation_environment_repair_native_chain/job_4538337/confirmation_cpu_pool.sbatch WorkDir=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_b1_20261119 StdErr=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/C1_confirmation_CPU_pool_4538356.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/C1_confirmation_CPU_pool_4538356.log Power=",
+    "native_node": "NodeName=compute-0-19 Arch=x86_64 CoresPerSocket=60  CPUAlloc=72 CPUEfctv=120 CPUTot=120 CPULoad=73.08 AvailableFeatures=(null) ActiveFeatures=(null) Gres=(null) NodeAddr=10.1.1.74 NodeHostName=compute-0-19 Version=22.05.7 OS=Linux 5.14.0-70.13.1.el9_0.x86_64 #1 SMP PREEMPT Wed May 25 21:01:57 UTC 2022  RealMemory=375000 AllocMem=0 FreeMem=11196 Sockets=2 Boards=1 State=MIXED ThreadsPerCore=1 TmpDisk=0 Weight=1 Owner=N/A MCS_label=N/A Partitions=all,cpu  BootTime=2026-04-03T14:47:38 SlurmdStartTime=2026-07-03T15:17:13 LastBusyTime=2026-10-21T14:51:28 CfgTRES=cpu=120,mem=375000M,billing=120 AllocTRES=cpu=72 CapWatts=n/a CurrentWatts=0 AveWatts=0 ExtSensorsJoules=n/s ExtSensorsWatts=0 ExtSensorsTemp=n/s",
+    "capacity": {
+      "/": {
+        "total": 75125227520,
+        "available": 69418840064,
+        "inodes": 36542306
+      },
+      "/tmp": {
+        "total": 75125227520,
+        "available": 69418840064,
+        "inodes": 36542306
+      },
+      "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119": {
+        "total": 32001943928832,
+        "available": 5697053917184,
+        "inodes": 2964161250
+      }
+    },
+    "plan": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/C1_confirmation_environment_repair_native_chain/job_4538337/CPU_confirmation_plan.json",
+    "source_bindings": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/C1_remaining_P0_GPU_queues_native_chain/job_4538503/dispatch_bindings.json",
+    "source_accounting": "4538269|zixiao|COMPLETED|0:0|compute-0-12\n4538270|zixiao|COMPLETED|0:0|compute-0-16\n4538271|zixiao|COMPLETED|0:0|compute-0-13\n4538289|zixiao|COMPLETED|0:0|compute-0-8\n4538290|zixiao|COMPLETED|0:0|compute-0-11\n4538291|zixiao|COMPLETED|0:0|compute-0-12\n4538292|zixiao|COMPLETED|0:0|compute-0-12\n4538293|zixiao|COMPLETED|0:0|compute-0-13\n4538294|zixiao|COMPLETED|0:0|compute-0-16\n4538295|zixiao|COMPLETED|0:0|compute-0-16\n4538296|zixiao|COMPLETED|0:0|compute-0-19\n4538297|zixiao|COMPLETED|0:0|compute-0-8\n4538298|zixiao|COMPLETED|0:0|compute-0-11\n4538301|zixiao|COMPLETED|0:0|compute-0-13\n4538302|zixiao|COMPLETED|0:0|compute-0-16\n4538303|zixiao|COMPLETED|0:0|compute-0-16\n4538327|zixiao|COMPLETED|0:0|compute-0-16\n4538328|zixiao|COMPLETED|0:0|compute-0-19\n4538338|zixiao|COMPLETED|0:0|compute-0-12\n4538339|zixiao|COMPLETED|0:0|compute-0-12\n4538340|zixiao|COMPLETED|0:0|compute-0-19\n4538341|zixiao|RUNNING|0:0|compute-0-8\n4538342|zixiao|RUNNING|0:0|compute-0-11\n4538343|zixiao|COMPLETED|0:0|compute-0-12\n4538344|zixiao|COMPLETED|0:0|compute-0-12\n4538345|zixiao|RUNNING|0:0|compute-0-13\n4538346|zixiao|COMPLETED|0:0|compute-0-16\n4538347|zixiao|COMPLETED|0:0|compute-0-16\n4538348|zixiao|RUNNING|0:0|compute-0-19\n4538351|zixiao|RUNNING|0:0|compute-0-12\n4538354|zixiao|COMPLETED|0:0|compute-0-16\n4538355|zixiao|COMPLETED|0:0|compute-0-16\n4538356|zixiao|PENDING|0:0|None assigned\n4538372|zixiao|COMPLETED|0:0|compute-0-19\n4538373|zixiao|COMPLETED|0:0|compute-0-15\n4538374|zixiao|COMPLETED|0:0|compute-0-17\n4538397|zixiao|COMPLETED|0:0|compute-0-16\n4538471|zixiao|COMPLETED|0:0|compute-0-5\n4538472|zixiao|COMPLETED|0:0|compute-0-6\n4538506|zixiao|COMPLETED|0:0|compute-0-5\n4538507|zixiao|COMPLETED|0:0|compute-0-6\n4538508|zixiao|COMPLETED|0:0|compute-0-5\n4538509|zixiao|COMPLETED|0:0|compute-0-6",
+    "all43_current_native_handles_verified": true,
+    "only_pending_model": 4538356,
+    "no_unselected_pending_successor": true,
+    "preserved_running": [
+      4538341,
+      4538342,
+      4538345,
+      4538348,
+      4538351
+    ],
+    "maximum_future_running_CPU": 6,
+    "original_eight_slot_plan_limit": 8,
+    "registered_CPU_maximum": 11,
+    "registered_GPU_maximum": 2,
+    "benchmark_NFS_pool_bytes": 42949672960,
+    "same_original_node_CPU_program_environment_weights_seed_population_budget": true,
+    "no_new_model_ID": true,
+    "model_source_or_plan_or_report_IDs_changed": false,
+    "other_dependencies_unchanged": true,
+    "models_restarted": [],
+    "after": "JobId=4538356 JobName=C1-required-confirmation-CPU-pool UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294615970 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=None Dependency=(null) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=2-00:00:00 TimeMin=N/A SubmitTime=2026-11-22T07:43:58 EligibleTime=2026-11-22T12:58:11 AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-22T07:43:58 Scheduler=Main Partition=cpu AllocNode:Sid=compute-0-12:3702027 ReqNodeList=compute-0-19 ExcNodeList=compute-0-[0-7,14,18,20-22] NodeList= NumNodes=1-1 NumCPUs=32 NumTasks=1 CPUs/Task=32 ReqB:S:C:T=0:0:*:* TRES=cpu=32,mem=375000M,node=1,billing=32 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=32 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/C1_confirmation_environment_repair_native_chain/job_4538337/confirmation_cpu_pool.sbatch WorkDir=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_b1_20261119 StdErr=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/C1_confirmation_CPU_pool_4538356.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/C1_confirmation_CPU_pool_4538356.log Power=",
+    "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/C1_CPU19_existing_job_parallel_admission/allocation_4538348_step_2/manifest.json"
   }
 }

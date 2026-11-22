@@ -985,3 +985,11 @@ R1原3M/GPU主读出已闭合，主CPU统计4537593与配对4537599继续原链�
 必需175项/43来源已169项模型运行闭合、6个原生RUNNING、0 PENDING模型；最终175比较、CSV/SHA仍等待正常报告链。8356在原CPU19/32核、原ID/环境/计划下解除已核实串行依赖并实际启动（原生manifest：`C1_CPU19_existing_job_parallel_admission/allocation_4538348_step_2/manifest.json`）。四个未启动报告8510→8511→8512→8513保持原ID及1/1/2/1核、commands与43来源绑定，仅ReqNodeList指定CPU19；原afterany/afterok依赖逐项核对，核对用临时自有hold全部释放，已恢复Dependency等待。调整原生记录：`C1_same_ID_report_CPU19_placement/allocation_4538348_step_3/manifest.json`（后续index/STATUS回写因原guard拒绝过期配额观察而停止，未放宽90秒阈值）。
 
 05:45–05:49 UTC实际/proc只读两次采样：8342(CPU11)、8345(CPU13)为R且CPU ticks增加；8341(CPU8)、8351(CPU12)、8348及8356(CPU19)为D，等待nfs/rpc，采样间CPU ticks不增。各节点根/tmp同盘可用65.9–69.9GB、inode约3653万，非根盘满。登录节点原配额发布PID3058760/UID1278仍在，快照年龄5.37秒；CPU19后续同文件读取34.39秒，完成时年龄16.33秒且UID/returncode/generation匹配。维持既有真实磁盘/并发/UID保护；所有科学模型原句柄保留，未因观察等待重算、重启或标为科学失败。进度发布8538及文案编号修正步骤8348.4保留live句柄观察；后者仅修正旧模板8398/8399/8400文案为当前4538510/11/12，实际生产端校验和依赖本已正确，尚待实际编译/写入闭合后同步代码。无额外数值QA、SHA、数据库/权重复制、B2全量或B3/B4。
+
+## 2026-11-22 C1 CPU19 原8356同ID解除串行等待（2026-11-22 12:58:13 CST）
+
+实际CPU19重新具备32可分配核心，已核实8356属于本任务PENDING、零运行/零重启，原CPU19/32计划及完整43原生来源、仅剩该P0、实际根/tmp/inode/UID及同行future通过。仅移除8356对8348的串行等待，保留原作业ID、私有Cu128环境、原程序/权重/model seed26/统计seed25/人口/预算及8510→8511→8512→8513绑定；所有在跑模型保持。执行证明：/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/C1_CPU19_existing_job_parallel_admission/allocation_4538348_step_2/manifest.json。实际未来CPU并发6，不超过原8槽或登记11槽、40GiB池；无科学重算/新哈希。
+
+## 2026-11-22 14:08:11 CST 下游进度发布8538超时与既闭合操作同步（本线）
+
+原进度发布4538538由Slurm实际记TIMEOUT/0:0/1:00:23，进入COMPLETING清理；更新JSON已存在、关闭manifest未出现，未记为成功，未重启该辅助作业。六个科学来源8341/8342/8345/8348/8351/8356仍为原生RUNNING，报告8510→8511→8512→8513继续原依赖。现仅从8356原操作manifest与native_index_preimage/现有index提取已闭合事件，同步原生index一键及上方原追加通知；已确认其他index键与8514已发布基线逐项相同。该同步不采用8538的成功声明，不重算任何科学结果。已提交Git的最终发布模板仅两行六个人工编号修正且两项CI成功；8348.4原模板写回步骤仍保留live句柄，已提交8513脚本副本保持历史来源，最终日报/STATUS编号在交付同步时处理。真实磁盘/配额/并发保护继续，无新模型作业、独立数值QA、SHA或额外科学修复。
