@@ -1,0 +1,111 @@
+{
+  "new_test_job": "4539015",
+  "new_tests": 8,
+  "new_tests_native": {
+    "utc": "2026-11-22T16:52:13Z",
+    "argv": [
+      "sacct",
+      "-j",
+      "4539015",
+      "-X",
+      "--noheader",
+      "--parsable2",
+      "--format=JobIDRaw,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "child_identity": {
+      "pid": 1176080,
+      "uids": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "start_ticks": 8416252299,
+      "pgid": 1176080,
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-140214.scope\n"
+    },
+    "exit_code": 0,
+    "observation_timeout": false,
+    "child_reaped": true,
+    "stdout": "4539015|COMPLETED|0:0|10|1|compute-0-11\n",
+    "stderr": "",
+    "remote_exit_inferred": false
+  },
+  "new_tests_result": {
+    "log": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4539015\", \"node\": \"compute-0-11\", \"TimeLimit\": \"00:10:00\", \"EndTime\": \"2026-11-23T01:01:12\", \"root_available_bytes\": 69943779328, \"root_inodes\": 36569996, \"source_independent\": true}\n{\"phase\": \"A3_AND_F120_NEW_SOURCECHECK\", \"status\": \"PASS\", \"files\": 41, \"bytes\": 114440, \"python_files\": 4, \"server_sources_verified\": 0, \"export_verification_required\": false, \"errors\": [], \"job_id\": \"4539015\", \"old_tests_repeated\": false}\n........                                                                 [100%]\n=============================== warnings summary ===============================\n../../../share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26\n  /share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26: DeprecationWarning: `torch_geometric.distributed` has been deprecated since 2.7.0 and will no longer be maintained. For distributed training, refer to our tutorials on distributed training at https://pytorch-geometric.readthedocs.io/en/latest/tutorial/distributed.html or cuGraph examples at https://github.com/rapidsai/cugraph-gnn/tree/main/python/cugraph-pyg/cugraph_pyg/examples\n    from torch_geometric.distributed import (\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n8 passed, 1 warning in 5.58s\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 4161338, \"root_returncode\": 0}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4539015\", \"returncode\": 0, \"remaining_children\": []}\n",
+    "suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "8",
+        "time": "5.581",
+        "timestamp": "2026-11-23T00:51:13.830720+08:00",
+        "hostname": "compute-0-11"
+      }
+    ]
+  },
+  "new_tests_root_exit": {
+    "pid": 4161338,
+    "exists": false
+  },
+  "configuration_job": "4539016",
+  "configuration_check": {
+    "log": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4539016\", \"node\": \"compute-0-11\", \"TimeLimit\": \"00:10:00\", \"EndTime\": \"2026-11-23T01:04:37\", \"root_available_bytes\": 69943721984, \"root_inodes\": 36569980, \"source_independent\": true}\n{\"status\": \"PASS\", \"files\": 2, \"bytes\": 4676, \"python_files\": 0, \"server_sources_verified\": 0, \"export_verification_required\": false, \"errors\": [], \"job_id\": \"4539016\", \"old_tests_repeated\": false}\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 4161690, \"root_returncode\": 0}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4539016\", \"returncode\": 0, \"remaining_children\": []}\n",
+    "sourcecheck": {
+      "status": "PASS",
+      "files": 2,
+      "bytes": 4676,
+      "python_files": 0,
+      "server_sources_verified": 0,
+      "export_verification_required": false,
+      "errors": [],
+      "job_id": "4539016",
+      "old_tests_repeated": false
+    }
+  },
+  "configuration_native": {
+    "utc": "2026-11-22T16:55:25Z",
+    "argv": [
+      "sacct",
+      "-j",
+      "4539016",
+      "-X",
+      "--noheader",
+      "--parsable2",
+      "--format=JobIDRaw,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList"
+    ],
+    "child_identity": {
+      "pid": 1185434,
+      "uids": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "start_ticks": 8416271447,
+      "pgid": 1185434,
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-140214.scope\n"
+    },
+    "exit_code": 0,
+    "observation_timeout": false,
+    "child_reaped": true,
+    "stdout": "4539016|COMPLETED|0:0|1|1|compute-0-11\n",
+    "stderr": "",
+    "remote_exit_inferred": false
+  },
+  "configuration_root_exit": {
+    "pid": 4161690,
+    "exists": false
+  },
+  "source_files_checked_once": 43,
+  "old_tests_repeated": false,
+  "old_primary_statistics_replayed": false,
+  "model_GPU_real_forward_not_started": true,
+  "forward_job": "4539017",
+  "statistics_job": "4539018",
+  "forward_dependency": "4538871",
+  "statistics_dependency": "4539017",
+  "scientific_model_code_sha": "a00498651c6afb9b67483692a8a18365b2b97988"
+}
