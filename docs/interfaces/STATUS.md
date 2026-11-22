@@ -1552,3 +1552,5 @@ R1原缓存层诊断由CPU13作业4538572补齐缺失层4/5，C0/81秒，原层3
 原共同开发D3/合并512MiB和全局NFS38853537501B不增。生产/devnull不写Root日志；测试已闭合并作为实存保留，3个拟CPU统计/比较日志+1个新合并终态日志仍共用原每节点Root128MiB future，无第五个同时增长日志；根/tmp系统底线、同行future、inode和fresh5秒UID保护保持。新入口在Slurm复制的内存resident中先驻留，再读共享代码，真实TimeLimit前900秒收尾、TERM/join/reap，无KILL/管理员操作。原坐标/D20/D4/成员/划分未改；明确化学失败保留逐成员缺失和原错误码，坐标约束及未知错误仍拒绝继续。
 
 两个seed1训练4538566/4538567原03:15:48日志均2707200样本/84600更新，原clip未变，原CPU8568/8569及比较8570afterok保持。目标active，后续全部TASKBOOK关卡、条件臂/种子、冷9M、最终A/B/C/基准、成本、一次完整默认回归和两个PR范围保持。
+
+[配方线 用户指示 2026-11-23 03:30 CST] 新增 docs/p_recipe/USER_DIRECTIVE_20261122C.md：组成信息诊断中"原子 H 的 CEV/CVF/CVF_res"作废；原子级只报 EEV，mean(H) 按现有定义；H-comp 与 H-B4 只用 mean(H) CEV 判定。
