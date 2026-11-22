@@ -8164,11 +8164,11 @@
       }
     },
     "mapping": {
-      "4537818": 4538159,
+      "4537812": 4538163,
       "4537813": 4538160,
-      "4537817": 4538161,
       "4537814": 4538162,
-      "4537812": 4538163
+      "4537817": 4538161,
+      "4537818": 4538159
     },
     "new_jobs": [
       {
@@ -9812,21 +9812,13 @@
     "cancelled_zero_start": [],
     "released": [],
     "replacement": {
-      "4538249": 4538289,
-      "4538250": 4538290,
-      "4538251": 4538291,
-      "4538252": 4538292,
-      "4538253": 4538293,
-      "4538254": 4538294,
-      "4538255": 4538295,
-      "4538258": 4538296,
       "4538216": 4538297,
       "4538217": 4538298,
-      "4538224": 4538299,
-      "4538225": 4538300,
       "4538221": 4538301,
       "4538222": 4538302,
       "4538223": 4538303,
+      "4538224": 4538299,
+      "4538225": 4538300,
       "4538226": 4538304,
       "4538227": 4538305,
       "4538228": 4538306,
@@ -9850,8 +9842,16 @@
       "4538246": 4538324,
       "4538247": 4538325,
       "4538248": 4538326,
+      "4538249": 4538289,
+      "4538250": 4538290,
+      "4538251": 4538291,
+      "4538252": 4538292,
+      "4538253": 4538293,
+      "4538254": 4538294,
+      "4538255": 4538295,
       "4538256": 4538327,
-      "4538257": 4538328
+      "4538257": 4538328,
+      "4538258": 4538296
     },
     "active_model_jobs": [
       4538289,
@@ -11664,5 +11664,75 @@
     "models_restarted": [],
     "after": "JobId=4538356 JobName=C1-required-confirmation-CPU-pool UserId=zixiao(1278) GroupId=public(1252) MCS_label=N/A Priority=4294615970 Nice=0 Account=(null) QOS=normal JobState=PENDING Reason=None Dependency=(null) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=2-00:00:00 TimeMin=N/A SubmitTime=2026-11-22T07:43:58 EligibleTime=2026-11-22T12:58:11 AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-22T07:43:58 Scheduler=Main Partition=cpu AllocNode:Sid=compute-0-12:3702027 ReqNodeList=compute-0-19 ExcNodeList=compute-0-[0-7,14,18,20-22] NodeList= NumNodes=1-1 NumCPUs=32 NumTasks=1 CPUs/Task=32 ReqB:S:C:T=0:0:*:* TRES=cpu=32,mem=375000M,node=1,billing=32 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=32 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/C1_confirmation_environment_repair_native_chain/job_4538337/confirmation_cpu_pool.sbatch WorkDir=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/worktrees/benchmark_b1_20261119 StdErr=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/C1_confirmation_CPU_pool_4538356.log StdIn=/dev/null StdOut=/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/C1_confirmation_CPU_pool_4538356.log Power=",
     "manifest": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/benchmark_B1_20261119/C1_CPU19_existing_job_parallel_admission/allocation_4538348_step_2/manifest.json"
+  },
+  "C1_failed_conditional_closed_fold_resume_20261122": {
+    "observed_CST": "2026-11-22 19:18",
+    "completed_configurations": 172,
+    "required_configurations": 175,
+    "original_completed": [
+      4538345,
+      4538348,
+      4538356
+    ],
+    "original_running": [
+      4538351
+    ],
+    "source_failures": [
+      4538341,
+      4538342
+    ],
+    "closed_folds": [
+      19,
+      17
+    ],
+    "missing_folds": [
+      6,
+      8
+    ],
+    "model_seed": 20261026,
+    "split_and_statistics_seed": 20261025,
+    "process_exit_audit": 4538571,
+    "full_regression": {
+      "private_job": 4538580,
+      "modules": 34,
+      "total_cases": 350,
+      "private_executed": 334,
+      "private_skipped": 16,
+      "OS_job": 4538565,
+      "OS_executed": 16,
+      "proof_finalizer": 4538591,
+      "finalizer_native": "COMPLETED/0:0",
+      "no_tests_repeated": true
+    },
+    "pre_fit_cwd_failures": {
+      "jobs": [
+        4538603,
+        4538604
+      ],
+      "original_model_outputs_created": false,
+      "actual_children_exited": true,
+      "preserved": true
+    },
+    "current_controller": 4538615,
+    "current_controller_native": "COMPLETED/0:0",
+    "mapping": {
+      "4538341": 4538616,
+      "4538342": 4538617
+    },
+    "target_node": "compute-0-11",
+    "CPUs_per_model": 32,
+    "maximum_new_concurrent_models": 1,
+    "original_TimeLimit": "2-00:00:00",
+    "cleanup_seconds": 180,
+    "bindings": "C1_failed_confirmation_resume_native_chain/job_4538615/dispatch_bindings.json",
+    "report_root": {
+      "job": 4538510,
+      "state": "PENDING",
+      "reason": "JobHeldUser",
+      "dependency": "afterany:4538616:4538617:4538351"
+    },
+    "report_handover_complete": false,
+    "prediction_values_read": false,
+    "closed_statistics_recomputed": false
   }
 }

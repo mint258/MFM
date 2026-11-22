@@ -36,3 +36,10 @@ CPU2实际验证已关闭：4538565 COMPLETED/0:0，1CPU/60秒，真实startup n
 09:39 UTC：8356实际C0；8341、8342 FAILED/1:0，直接错误均是下一折safe()处Missing/stale/mismatched quota observation，其余8345/8348/8351继续运行。只读4538571实际C0证明旧节点8/11原PID/UID/start_ticks已不存在，原作业cgroup或环境标记的自有进程及不可读未分配自有进程均为空，未发送信号。Slurm旧job cache已过期，后续使用真实sacct与本地/proc退出证明，不伪造scontrol终态。
 
 新增显式confirmation续接只覆盖上述两个seed26/Joung Absorption/P′或P′+D来源，原seed25默认行为保持。封闭折只复用生产端闭合记录及硬链接，不读预测数值或重算统计；新拟合前支持真实剩余单元窗口检查。私人CPU准入只复制既有守卫到本次命名空间，冻结指定节点；仅对有效但过期快照重读一次，UID/代次/错误/未来时间立即拒绝，90秒和原容量保留数学不变。原admission.py与运行模型不改。实际封闭折数量、原科学AST、原环境、新nativeID和完整回归仍须闭合才能激活。
+
+
+## 2026-11-22 19:18 CST · 新节点恢复与完整回归
+
+完整evaluation回归4538580在CPU2仅运行一次：34模块/350项，0失败/0错误，私有Chemprop解释器实际执行334项、16项因缺pidfd跳过。系统Python部署监督入口的4538565已实际通过同一16项且无skip；4538591 C0通过字节相等、实际用例ID集合与解释器能力核实350项覆盖，不重跑测试、不将350项误写成私有环境全执行。原版守卫7项迁移测试仅在8565执行一次并通过。共享路径绑定继续明确UNRESOLVED/保留原守卫回退；本地disk/RAM实际准入已通过。
+
+失败8341/8342封闭折实际为19/17，只补6/8，原科学AST、seed26和原环境核对通过，预测只硬链接不数值回读。首次CPU2恢复8603/8604在读取相对configs/benchmark_data/B0.DELIVERY.json时因入口cwd=/而FAILED，未创建reference_cv_models输出；两份实际监督日志children_exited=true，保留失败与退出身份。已将受监督负载切回原repo。CPU2被其他作业占满后，CPU11新启动准入实际通过；4538615 C0/2秒，绑定8341→8616、8342→8617，32核串行、48小时原上限，按原producer折耗时2640/8100秒估计检查新单元窗口，预留180秒清理。原8341节点8迁11，8342经旧进程退出在11重新准入。8616实际RUNNING并建立原模型输出，8617等待；172/175配置已闭合，原8351仍运行且未改。43组完整绑定保存在C1_failed_confirmation_resume_native_chain/job_4538615/dispatch_bindings.json。旧8510保持零运行JobHeldUser，依赖8616/8617/8351；旧四报告副本尚未替换，不宣称统计/最终CSV或发布已完成。
