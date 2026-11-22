@@ -3,9 +3,7 @@
   "assigned": 120,
   "first_batch_total": 120,
   "native_counts": {
-    "COMPLETED": 113,
-    "RUNNING": 1,
-    "PENDING": 6
+    "COMPLETED": 120
   },
   "native_jobs": [
     {
@@ -1115,7 +1113,7 @@
       "dependency": "4538827"
     }
   ],
-  "F_rows_closed": 60,
+  "F_rows_closed": 108,
   "A1_parallel": false,
   "scientific_F_code_sha": "a00498651c6afb9b67483692a8a18365b2b97988",
   "native_completed_is_not_primary_closure": true,
@@ -1342,40 +1340,21 @@
     }
   ],
   "first_batch_all_submitted": true,
-  "first_batch_all_complete": false,
-  "remaining_CPU_primary_pipeline": [
-    {
-      "run": "F1_T1_T5_9M_primary",
-      "job": "4539021",
-      "dependency": "4538787:4538828",
-      "rows_expected": 16
-    },
-    {
-      "run": "F1_T6_9M_primary",
-      "job": "4539022",
-      "dependency": "4538859",
-      "rows_expected": 8
-    },
-    {
-      "run": "F1_top2_T2_1M_9M_primary",
-      "job": "4539023",
-      "dependency": "4538871:4538884",
-      "rows_expected": 8
-    }
-  ],
-  "remaining_primary_rows_expected": 8,
+  "first_batch_all_complete": true,
+  "remaining_CPU_primary_pipeline": [],
+  "remaining_primary_rows_expected": 0,
   "eventual_F1_rows_expected": 68,
   "primary_pipeline_submitted_utc": "2026-11-22T17:14:04Z",
   "first_primary_T1_T5_complete": true,
-  "paired_contrast_count": 72,
+  "paired_contrast_count": 132,
   "molecule_count_interaction_count": 8,
   "first_primary_T6_complete": true,
   "native_jobs_detail_observed_utc": "2026-11-22T16:54:34Z",
-  "current_snapshot_utc": "2026-11-22T20:05:59Z",
+  "current_snapshot_utc": "2026-11-22T23:50:16Z",
   "first_batch_counts": {
     "COMPLETED": 120
   },
-  "completed_primary_table_rows": 68,
+  "completed_primary_table_rows": 108,
   "F1_gate": {
     "status": "COMPLETE",
     "F2_allowed": true,
@@ -1390,19 +1369,64 @@
     "new_model_fits": 0,
     "new_bootstrap_draws": 0
   },
-  "F2_state": "ALL60_SUBMITTED_FIRST_TWO_RUNNING",
+  "F2_state": "COMPLETE_BASE60",
   "F2_execution": "F2_execution.json",
   "old_native_snapshot_retained": true,
   "F2_latest_snapshot": {
-    "utc": "2026-11-22T21:53:29Z",
+    "utc": "2026-11-22T23:50:16Z",
     "counts": {
-      "COMPLETED": 36,
-      "RUNNING": 2,
-      "PENDING": 22
+      "COMPLETED": 60
     }
   },
-  "F2_latest_native_summary": "60total,16completed2running42pendingat snapshot",
+  "F2_latest_native_summary": "All60 completed; original primary statistics closed",
   "F2_previous_snapshots_retained": true,
   "F2_first_primary_rows": 16,
-  "public_F_rows": 84
+  "public_F_rows": 108,
+  "historical_snapshots": [
+    {
+      "current_snapshot_utc": "2026-11-22T20:05:59Z",
+      "native_counts": {
+        "COMPLETED": 113,
+        "RUNNING": 1,
+        "PENDING": 6
+      },
+      "first_batch_all_complete": false,
+      "F2_state": "ALL60_SUBMITTED_FIRST_TWO_RUNNING",
+      "F2_latest_snapshot": {
+        "utc": "2026-11-22T21:53:29Z",
+        "counts": {
+          "COMPLETED": 36,
+          "RUNNING": 2,
+          "PENDING": 22
+        }
+      },
+      "F2_latest_native_summary": "60total,16completed2running42pendingat snapshot",
+      "F2_first_primary_rows": 16,
+      "public_F_rows": 84,
+      "remaining_CPU_primary_pipeline": [
+        {
+          "run": "F1_T1_T5_9M_primary",
+          "job": "4539021",
+          "dependency": "4538787:4538828",
+          "rows_expected": 16
+        },
+        {
+          "run": "F1_T6_9M_primary",
+          "job": "4539022",
+          "dependency": "4538859",
+          "rows_expected": 8
+        },
+        {
+          "run": "F1_top2_T2_1M_9M_primary",
+          "job": "4539023",
+          "dependency": "4538871:4538884",
+          "rows_expected": 8
+        }
+      ]
+    }
+  ],
+  "F1_rows": 68,
+  "F2_rows": 40,
+  "I1_full12_still_required": true,
+  "I1_state": "TRAINING_3M; followup drafts not activated"
 }

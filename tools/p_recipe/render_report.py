@@ -208,6 +208,10 @@ def seed_sections(states,verdict):
 
 
 def render(plan, verdict, states, selection, code_commit):
+    supplemental_section = ''
+    if (REPO / 'docs/p_recipe/USER_DIRECTIVE_20261122B.md').is_file():
+        from final_report_22B import require_closed, render_sections
+        supplemental_section = render_sections(REPO, require_closed(REPO))
     closeout=plan.get('selection_authority')==CLOSEOUT
     budget_section = ''
     if closeout and (REPO / 'docs/p_recipe/USER_DIRECTIVE_20261121.md').is_file():
@@ -379,7 +383,7 @@ def render(plan, verdict, states, selection, code_commit):
                     f"闭合P0证据：{link(REPO / 'docs/p_recipe/P0_SUMMARY.md')}；"
                     f"完整任务评分：{link(REPO / 'results/p_recipe/scores.csv')}；"
                     f"本修订配对比较：{link(delta_source)}。", ''])
-    return '\n'.join(content + [budget_section]), configs, summaries, results
+    return '\n'.join(content + [budget_section, supplemental_section]), configs, summaries, results
 
 
 def checkpoint_sha(path):
