@@ -386,19 +386,34 @@ def run_slurm_consumer(argv, estimated_seconds, stdin_data=None):
     return run_unit(argv, deadline, 180, estimated_seconds, stdin_data=stdin_data)
 
 
-def wrap_sbatch(script, supervisor_source, estimated_seconds):
+def wrap_sbatch(script, supervisor_source, estimated_seconds,
+                local_log_path="/tmp/benchmark-C1-consumer-%j.log"):
     """Prepare a NEW queued entry; never modify an already running/copy-saved script."""
     if not script.startswith("#!/bin/bash\n") or "#SBATCH --signal" in script:
         raise ValueError("An unwrapped frozen Bash batch script is required")
     if not isinstance(estimated_seconds, (int, float)) or estimated_seconds <= 0:
         raise ValueError("An explicit unit runtime planning estimate is required")
+    if not re.fullmatch(r"/tmp/benchmark-C1-consumer-[A-Za-z0-9_.%\-]+\.log", local_log_path):
+        raise ValueError("A reserved node-local /tmp consumer log is required")
     prefix = []
     for line in script.splitlines():
         if not line.strip() or line.startswith("#"):
             prefix.append(line)
         else:
             break
-    header = "\n".join(prefix).rstrip() + "\n#SBATCH --signal=B:USR1@180\n"
+    # Slurm opens output and changes directory before this Python entry exists.
+    # Keep those operations local; shared paths belong only to the supervised child.
+    prefix = [line for line in prefix if not re.match(
+        r"^#SBATCH\s+(?:--(?:output|error|input|chdir|export)(?:=|\s)|-(?:o|e|i|D)(?:=|\s))", line)]
+    header = "\n".join(prefix).rstrip() + (
+        "\n#SBATCH --signal=B:USR1@180\n#SBATCH --chdir=/\n"
+        "#SBATCH --export=PATH=/usr/bin:/bin,LC_ALL=C,LANG=C,"
+        "BENCHMARK_SOURCE_CACHE,BENCHMARK_CONFIRMATION_BINDINGS_JSON,"
+        "BENCHMARK_B1_CONFIRMATION_REPORT,BENCHMARK_C1_CONFIRMATION_REPORT,"
+        "BENCHMARK_CONFIRMATION_EVIDENCE_JSON,BENCHMARK_NATIVE_SLURM_ACCOUNTING_CONFIG\n"
+        "#SBATCH --input=/dev/null\n"
+        "#SBATCH --output=" + local_log_path + "\n"
+        "#SBATCH --error=" + local_log_path + "\n")
     code = base64.b64encode(supervisor_source.encode("utf-8")).decode("ascii")
     payload = base64.b64encode(script.encode("utf-8")).decode("ascii")
     return header + """exec /usr/bin/python3 -I -S - <<'BENCHMARK_CONSUMER_LIFECYCLE'

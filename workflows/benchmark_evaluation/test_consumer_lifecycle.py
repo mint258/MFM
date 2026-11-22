@@ -177,6 +177,10 @@ subprocess.Popen([sys.executable,'-I','-S','-B','-c','raise SystemExit(7)'])
 
     def test_new_wrapper_preserves_frozen_payload_and_original_time_limit(self):
         original = ("#!/bin/bash\n#SBATCH --time=00:10:00\n#SBATCH --cpus-per-task=1\n"
+                    "#SBATCH --output=/share/home/original-%j.log\n"
+                    "#SBATCH --error=/share/home/original-%j.err\n"
+                    "#SBATCH --chdir=/share/home/original\n#SBATCH --export=ALL\n"
+                    "#SBATCH --input=/share/home/original.stdin\n"
                     "set -euo pipefail\nexport MODEL_SEED=20261026\nprintf 'original\\n'\n")
         wrapped = lifecycle.wrap_sbatch(original, "# source", 60)
         self.assertIn("#SBATCH --time=00:10:00\n", wrapped)
@@ -186,6 +190,20 @@ subprocess.Popen([sys.executable,'-I','-S','-B','-c','raise SystemExit(7)'])
         self.assertEqual(base64.b64decode(encoded.strip("'\"")).decode(), original)
         self.assertIn("exec /usr/bin/python3 -I -S", wrapped)
         self.assertEqual(original.count("--signal"), 0)
+        outer_header = wrapped.split("exec /usr/bin/python3", 1)[0]
+        self.assertIn("#SBATCH --chdir=/\n", outer_header)
+        self.assertIn("#SBATCH --output=/tmp/benchmark-C1-consumer-%j.log\n", outer_header)
+        self.assertIn("#SBATCH --error=/tmp/benchmark-C1-consumer-%j.log\n", outer_header)
+        self.assertIn("#SBATCH --export=PATH=/usr/bin:/bin,LC_ALL=C,LANG=C,", outer_header)
+        self.assertIn("BENCHMARK_NATIVE_SLURM_ACCOUNTING_CONFIG\n", outer_header)
+        self.assertIn("#SBATCH --input=/dev/null\n", outer_header)
+        self.assertNotIn("/share/home", outer_header)
+        self.assertNotIn("--export=ALL", outer_header)
+
+    def test_outer_entry_refuses_unreserved_shared_log_path(self):
+        original = "#!/bin/bash\n#SBATCH --time=00:10:00\nset -euo pipefail\ntrue\n"
+        with self.assertRaises(ValueError):
+            lifecycle.wrap_sbatch(original, "# source", 60, "/share/home/log-%j.log")
 
 
 if __name__ == "__main__":
