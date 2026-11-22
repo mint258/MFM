@@ -111,8 +111,9 @@ def work(c, samples, mode, guard):
                     descriptive_budget_trend_only=True, feature_cache=released)
 
 
-def run(c, samples, mode, scheduler_record):
-    registered(c, samples)
+def run(c, samples, mode, scheduler_record, *, validate=None, unit_work=None,
+        status_output=None, status_prefix='snapshot'):
+    (registered if validate is None else validate)(c, samples)
     node = socket.gethostname().split('.')[0]
     if node != c['node'] or node == 'compute-0-21':
         raise ValueError('Wrong or prohibited node')
@@ -127,8 +128,8 @@ def run(c, samples, mode, scheduler_record):
                  job_id=int(os.environ['SLURM_JOB_ID']), started_at=started,
                  producer=vars(life.identity(os.getpid())), status='PREPARING',
                  closing_reserve_seconds=900, actual_deadline_epoch=guard.end_epoch)
-    filename = 'snapshot_gpu_status.json' if mode == 'gpu' else 'snapshot_statistics_status.json'
-    output = Path(c['output'])/('readout_'+str(samples))
+    filename = status_prefix+('_gpu_status.json' if mode == 'gpu' else '_statistics_status.json')
+    output = Path(status_output) if status_output is not None else Path(c['output'])/('readout_'+str(samples))
     lock = None
     admitted = False
     with guard:
@@ -146,7 +147,7 @@ def run(c, samples, mode, scheduler_record):
                     raise RuntimeError('Snapshot GPU admission is no longer available')
                 require_empty_context(c['gpu_uuid'])
                 state['gpu_metadata_at_start'] = card
-            state.update(work(c, samples, mode, guard))
+            state.update((work if unit_work is None else unit_work)(c, samples, mode, guard))
         except life.StopAtBoundary:
             state.update(status='PAUSED_READOUT', reason=guard.reason)
             return 75

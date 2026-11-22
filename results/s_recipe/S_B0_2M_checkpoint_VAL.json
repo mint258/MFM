@@ -1,0 +1,36 @@
+{
+  "run": "S_B0_s0_3M",
+  "snapshot_samples": 2000000,
+  "parent_budget": 3000000,
+  "scope": "Same3M cosine snapshot; no independent2M schedule or scientific adoption decision",
+  "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/samples_2000000.pt",
+  "checkpoint_bytes": 198757913,
+  "configuration_source": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/configuration.json",
+  "VAL_source": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/VAL_2000000.json",
+  "VAL": {
+    "samples": 2000000,
+    "losses": {
+      "s_element": 0.7573911542529459,
+      "s_noise": 0.20234382917335209,
+      "s_bond": 0.000949761199362713
+    },
+    "counts": {
+      "s_element": 12545,
+      "s_noise": 266894,
+      "s_bond": 277104
+    },
+    "predicted_displacement_error_relative_to_zero": 0.20229821427107925,
+    "displacement_error_sums": {
+      "predicted_squared_error": 1620.130494594574,
+      "zero_squared_error": 8008.624794006348,
+      "atoms": 266894
+    },
+    "descriptive_denoising_groups": {}
+  },
+  "budget_trend_readout_status": "WAITING_GPU_RESOURCE",
+  "endpoint_adapter_validation": {
+    "job": 4538637,
+    "passed": 10,
+    "actual_full_endpoint_executed": false
+  }
+}
