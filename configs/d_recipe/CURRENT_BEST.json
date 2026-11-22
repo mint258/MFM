@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T00:07:24.373897+00:00",
+  "updated_at_utc": "2026-11-22T00:56:22.055339Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -387,6 +387,16 @@
       "producer_mtime_CST": "2026-11-22T06:56:50.565231+08:00",
       "source_job": 4537592,
       "completion_evidence": "Original training progressed beyond 2M after the native save; no checkpoint reload or copy."
+    },
+    "validation_2p5m": {
+      "status": "PRODUCER_RECORDED",
+      "samples": 2500000,
+      "source": "results/d_recipe/training/d_recipe_20261120_D_R1_seed0_3M/VAL_original_units_2500000.csv",
+      "bytes": 1196,
+      "producer_mtime_CST": "2026-11-22T08:54:49.173107+08:00",
+      "primary_downstream_score": false,
+      "scientific_decision": false,
+      "note": "Original native fixed VAL; original training observed at2502400 afterward. No additional forward or reevaluation."
     }
   },
   "diagnostic_progress": {
