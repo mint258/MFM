@@ -1,0 +1,44 @@
+{
+  "schema": "S_RECIPE_1M_MILESTONE_V1",
+  "run": "S_B0_s0_3M",
+  "sample_budget": 3000000,
+  "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/samples_1000000.pt",
+  "checkpoint_bytes": 198757913,
+  "checkpoint_scope": "Same3M cosine run1M snapshot;file metadata only,no binary reread",
+  "VAL_source": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/VAL_1000000.json",
+  "VAL": {
+    "samples": 1000000,
+    "losses": {
+      "s_element": 0.7609089244214982,
+      "s_noise": 0.24219240466410538,
+      "s_bond": 0.0020790313846169458
+    },
+    "counts": {
+      "s_element": 12545,
+      "s_noise": 266894,
+      "s_bond": 277104
+    },
+    "predicted_displacement_error_relative_to_zero": 0.2421378062642005,
+    "displacement_error_sums": {
+      "predicted_squared_error": 1939.1908388137817,
+      "zero_squared_error": 8008.624794006348,
+      "atoms": 266894
+    },
+    "descriptive_denoising_groups": {}
+  },
+  "R1_R3_status": "NOT_YET_EXECUTED:registered1M,2M,3M snapshot readouts remain pending;formal judgment uses3M layer6",
+  "N1_clip_source": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_N1_s0_3M/clip_calibration.json",
+  "N1_clip": {
+    "calibration_samples": 150000,
+    "quantile": 0.99,
+    "initial_clip": 281.7,
+    "threshold": 18.9158317565918,
+    "observed_updates": 2813,
+    "fitted": true,
+    "window_start_samples": 60000,
+    "sample_axis": "optimizer_step_start",
+    "effective_freeze_samples": 150016
+  },
+  "transcription_job": "4538462",
+  "transcription_node": "compute-0-17"
+}
