@@ -1,0 +1,204 @@
+{
+  "schema": "S_RECIPE_ENDPOINT_RESULT_V1",
+  "status": "COMPLETE",
+  "run": "S_B0_s0_3M",
+  "arm": "S-B0",
+  "seed": 0,
+  "samples": 3000000,
+  "layer": 6,
+  "formal_H": "encode_atoms output",
+  "source_configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/configuration.json",
+  "source_scores": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/readout/scores.json",
+  "source_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/summary.json",
+  "readouts": {
+    "R1": {
+      "complete": true,
+      "mean_normalized_improvement": 0.22489619199161517,
+      "bootstrap_ci": [
+        0.20956483652709723,
+        0.2400875041560209
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_defined": 1000,
+      "bootstrap_unit": "molecule",
+      "bootstrap_seed": 20261025,
+      "included_tasks": [
+        "exp.LogD",
+        "exp.Log_HLM_CLint",
+        "exp.LogS",
+        "qm9.U0_atom",
+        "qm9.homo",
+        "qm9.lumo",
+        "qm9.alpha"
+      ]
+    },
+    "R3": {
+      "complete": true,
+      "mean_normalized_improvement": 0.45329008311624885,
+      "bootstrap_ci": [
+        0.4393948010772571,
+        0.4664495631668249
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_defined": 1000,
+      "bootstrap_unit": "molecule",
+      "bootstrap_seed": 20261025,
+      "included_tasks": [
+        "exp.LogD",
+        "exp.Log_HLM_CLint",
+        "exp.LogS",
+        "qm9.U0_atom",
+        "qm9.homo",
+        "qm9.lumo",
+        "qm9.alpha"
+      ]
+    }
+  },
+  "training": {
+    "status": "COMPLETE",
+    "samples": 3000000,
+    "updates": 93750,
+    "seconds": 64465.897057583905,
+    "training_and_gpu_readout_seconds": 57292.131878367974,
+    "statistics_complete": true,
+    "feature_cache": {
+      "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+      "files": 3,
+      "bytes": 770158001,
+      "failed_partials_preserved": true
+    },
+    "statistics_job": "4538845",
+    "statistics_node": "compute-0-12",
+    "statistics_memory_at_start": {
+      "MemTotal": 403716571136,
+      "MemAvailable": 394389819392
+    },
+    "statistics_peak_RSS_bytes": 1558536192,
+    "statistics_seconds": 85.29804154112935
+  },
+  "clip": {
+    "calibration_samples": 150000,
+    "quantile": 0.99,
+    "initial_clip": 281.7,
+    "threshold": 26.70016281127931,
+    "observed_updates": 2813,
+    "fitted": true,
+    "window_start_samples": 60000,
+    "sample_axis": "optimizer_step_start",
+    "effective_freeze_samples": 150016
+  },
+  "final_VAL": {
+    "samples": 3000000,
+    "losses": {
+      "s_element": 0.7573028535470396,
+      "s_noise": 0.1925647248971796,
+      "s_bond": 0.0007417029613269417
+    },
+    "counts": {
+      "s_element": 12545,
+      "s_noise": 266894,
+      "s_bond": 277104
+    },
+    "predicted_displacement_error_relative_to_zero": 0.19252131396315136,
+    "displacement_error_sums": {
+      "predicted_squared_error": 1541.8309683799744,
+      "zero_squared_error": 8008.624794006348,
+      "atoms": 266894
+    },
+    "descriptive_denoising_groups": {}
+  },
+  "producer_exit": {
+    "run": "S_B0_s0_3M",
+    "samples": 3000000,
+    "job_id": 4538264,
+    "node": "compute-0-20",
+    "status": "GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS",
+    "source_summary": {
+      "status": "GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS",
+      "samples": 3000000,
+      "updates": 93750,
+      "seconds": 64465.897057583905,
+      "training_and_gpu_readout_seconds": 57292.131878367974
+    },
+    "actual_slurm": [
+      "4538264",
+      "COMPLETED",
+      "0:0",
+      "compute-0-20"
+    ],
+    "owned_descendants_exited": true,
+    "ended_at": 1795364793.7804782,
+    "ended_at_basis": "native_record",
+    "original_process_record": {
+      "run": "S_B0_s0_3M",
+      "node": "compute-0-20",
+      "gpu_uuid": "GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5",
+      "mode": "Slurm",
+      "started_at": 1795307460.1934783,
+      "job_id": "4538264",
+      "pid": 224784,
+      "uid": 1278,
+      "start_ticks": 48649270,
+      "pgid": 224784,
+      "status": "COMPLETED",
+      "disk_reason": null,
+      "exit_code": 0,
+      "ended_at": 1795364793.7804782,
+      "elapsed_seconds": 57333.587000370026
+    },
+    "exit_observation": {
+      "observed_time": 1795364853.7184412,
+      "node": "compute-0-20",
+      "uid": 1278,
+      "exact_original_producer": {
+        "pid": 224784,
+        "uid": 1278,
+        "start_ticks": 48649270,
+        "pgid": 224784,
+        "job_id": 4538264
+      },
+      "matching_owned_processes": [],
+      "observation_errors": [],
+      "owned_descendants_exited": true,
+      "scope": "Exact original PID/start_ticks/PGID and all readable UID1278 job4538264 cgroups; no signal sent"
+    }
+  },
+  "statistics_exit": {
+    "run": "S_B0_s0_3M",
+    "samples": 3000000,
+    "mode": "cpu",
+    "node": "compute-0-12",
+    "job_id": 4538845,
+    "started_at": 1795364969.8915982,
+    "producer": {
+      "pid": 3714902,
+      "uid": 1278,
+      "start_ticks": 2016643148,
+      "ppid": 3714898,
+      "state": "R"
+    },
+    "status": "COMPLETE",
+    "closing_reserve_seconds": 900,
+    "actual_deadline_epoch": 1795372164.0,
+    "layer": 6,
+    "original_statistics": true,
+    "ended_at": 1795365059.2351646,
+    "elapsed_seconds": 89.34356665611267,
+    "peak_RSS_bytes": 1558536192,
+    "owned_descendants_exited": true
+  },
+  "VAL_sources": [
+    "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/VAL_500000.json",
+    "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/VAL_1000000.json",
+    "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/VAL_1500000.json",
+    "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/VAL_2000000.json",
+    "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/VAL_2500000.json",
+    "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_3M/VAL_3000000.json"
+  ],
+  "budget_trend_sources": [
+    "results/s_recipe/S_B0_1M_budget_trend.json",
+    "results/s_recipe/S_B0_2M_budget_trend.json"
+  ],
+  "scope": "Registered full-budget baseline; no candidate verdict or recipe adoption before matched arms close",
+  "producer_exit_source": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_B0_s0_3M_producer_exit_evidence.json"
+}
