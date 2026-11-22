@@ -1,10 +1,10 @@
 """Restore two never-started required CPU queue tails to their original idle GPU body."""
 import re
 from .confirmation_cpu_pool import validate_required_group
-PLACEMENTS={4538359:(29,"compute-0-5","GPU-dac07d74-6269-c7db-8832-340dd3c0b377"),4538360:(30,"compute-0-6","GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef")}
+PLACEMENTS={4538349:(19,"compute-0-5","GPU-dac07d74-6269-c7db-8832-340dd3c0b377"),4538350:(20,"compute-0-6","GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef"),4538352:(22,"compute-0-5","GPU-dac07d74-6269-c7db-8832-340dd3c0b377"),4538353:(23,"compute-0-6","GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef"),4538359:(29,"compute-0-5","GPU-dac07d74-6269-c7db-8832-340dd3c0b377"),4538360:(30,"compute-0-6","GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef")}
 def prepare_script(row,script):
     old=row["replaced_CPU_job"]
-    if old not in PLACEMENTS:raise ValueError("Only the two recorded zero-start tails")
+    if old not in PLACEMENTS:raise ValueError("Only exact registered zero-start tails")
     index,node,uuid=PLACEMENTS[old]
     if row["group_index"]!=index:raise ValueError("Original group identity changed")
     group=row["group"];validate_required_group(group)
@@ -24,3 +24,16 @@ def prepare_script(row,script):
     if result.count("program=Path(")!=script.count("program=Path("):
         raise ValueError("Scientific body loading changed")
     return result
+
+def select_pending_rows(rows,actual):
+    """Select only never-started candidates; preserve live and completed models."""
+    answer=[]
+    for row in rows:
+        job=row["replaced_CPU_job"]
+        if job not in PLACEMENTS:raise ValueError("Unregistered zero-start candidate")
+        status=actual[job]
+        if status["state"]=="PENDING":answer.append(row)
+        elif status["state"]=="RUNNING":continue
+        elif status["state"]=="COMPLETED" and status["exit_code"]=="0:0":continue
+        else:raise ValueError("Diagnose the actual source failure before a capacity change")
+    return answer

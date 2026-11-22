@@ -2,7 +2,7 @@
 import copy,json,os,time,types,unittest
 from pathlib import Path
 from unittest.mock import patch
-from .idle_gpu_confirmation import prepare_script,PLACEMENTS
+from .idle_gpu_confirmation import prepare_script,PLACEMENTS,select_pending_rows
 from .gpu_runtime import GpuRuntime,MODEL_RESERVE,GIB
 from workflows.benchmark_data import acquire,storage_reservations,admission
 class IdleGpuTailTests(unittest.TestCase):
@@ -16,7 +16,7 @@ class IdleGpuTailTests(unittest.TestCase):
         script+="_gpu_runtime=module.GpuRuntime(root,snapshot,gpu_uuid='GPU-original',expected_node='compute-0-7')\nprogram=Path('original.py').read_text()\nORIGINAL_GPU_PROTECT_AND_SHARED_RESERVATIONS\n"
         return row,script
     def test_only_registered_card_placements(self):
-        self.assertEqual(set(PLACEMENTS),{4538359,4538360})
+        self.assertEqual(set(PLACEMENTS),{4538349,4538350,4538352,4538353,4538359,4538360})
         self.assertEqual({v[1] for v in PLACEMENTS.values()},{"compute-0-5","compute-0-6"})
     def test_unknown_tail_refused(self):
         with self.assertRaises(ValueError):prepare_script({"replaced_CPU_job":1},"original")
@@ -60,3 +60,14 @@ class IdleGpuTailTests(unittest.TestCase):
         r=self.runtime();q=dict(uid=os.getuid(),generation="benchmarkB020261119",returncode=0,observed_epoch=time.time()-1000,raw="native")
         with patch.object(Path,"read_text",return_value=json.dumps(q)):
             with self.assertRaisesRegex(RuntimeError,"quota observation"):r.protect(r.root,1,Path("/unit/quota.json"))
+
+class PendingGpuQueueSelectionTests(unittest.TestCase):
+    def test_running_and_closed_candidates_never_create_a_second_fit(self):
+        rows=[{"replaced_CPU_job":j} for j in [4538349,4538350,4538352,4538353]]
+        actual={4538349:{"state":"PENDING","exit_code":"0:0"},4538350:{"state":"RUNNING","exit_code":"0:0"},4538352:{"state":"COMPLETED","exit_code":"0:0"},4538353:{"state":"PENDING","exit_code":"0:0"}}
+        self.assertEqual([r["replaced_CPU_job"] for r in select_pending_rows(rows,actual)],[4538349,4538353])
+        self.assertEqual(actual[4538350]["state"],"RUNNING")
+    def test_actual_source_failures_cannot_be_hidden_as_unstarted_queues(self):
+        for state,exit_code in [("FAILED","1:0"),("TIMEOUT","0:0"),("CANCELLED","0:0"),("COMPLETED","1:0")]:
+            with self.subTest(state=state),self.assertRaises(ValueError):
+                select_pending_rows([{"replaced_CPU_job":4538349}],{4538349:{"state":state,"exit_code":exit_code}})

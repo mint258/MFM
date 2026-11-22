@@ -26,9 +26,9 @@ def safe():
             raise RuntimeError("Actual root/tmp system/Slurm reserve insufficient")
     protect(root,64*1024**2,quota,own_concurrent_bytes=40*1024**3)
 safe()
-final=b1/"C1_final_results/job_4538475"
+final=b1/"C1_final_results/job_4538512"
 meta=json.loads((final/"manifest.json").read_text())
-if (meta.get("status")!="FINAL_C1_RESULTS_CLOSED" or str(meta.get("job"))!="4538475"
+if (meta.get("status")!="FINAL_C1_RESULTS_CLOSED" or str(meta.get("job"))!="4538512"
     or meta.get("primary_configuration_rows")!=561 or meta.get("required_TabPFN_confirmations")!=175
     or meta.get("required_Chemprop_confirmations")!=17 or not 561<=meta.get("final_seed_rows",0)<=736
     or meta.get("original_primary_scores_recomputed") is not False
@@ -40,12 +40,12 @@ if (meta.get("status")!="FINAL_C1_RESULTS_CLOSED" or str(meta.get("job"))!="4538
     or Path(meta["final_C1_table"]).resolve()!=(final/"C1_results.csv").resolve()
     or not re.fullmatch("[0-9a-f]{64}",meta.get("C1_sha256",""))):
     raise ValueError("Exact actual first final producer closure required")
-sources=json.loads((b1/"C1_GPU_prefit_guard_repair_native_chain/job_4538468/proposed_sources.json").read_text())
+sources=json.loads((b1/"C1_remaining_P0_GPU_queues_native_chain/job_4538503/proposed_sources.json").read_text())
 transport=types.ModuleType("native_slurm_transport")
 exec(compile(sources["workflows/benchmark_evaluation/native_slurm_transport.py"],transport.__name__,"exec"),transport.__dict__)
-accounting=transport.native_control(["sacct","-n","-X","-j","4538473,4538474,4538475","--format=JobID,User,State,ExitCode","--parsable2"])
+accounting=transport.native_control(["sacct","-n","-X","-j","4538510,4538511,4538512","--format=JobID,User,State,ExitCode","--parsable2"])
 actual={a[0]:a[1:4] for l in accounting.splitlines() if len(a:=l.strip().split("|"))>=4}
-if any(actual.get(str(job))!=["zixiao","COMPLETED","0:0"] for job in (4538473,4538474,4538475)):
+if any(actual.get(str(job))!=["zixiao","COMPLETED","0:0"] for job in (4538510,4538511,4538512)):
     raise ValueError("All exact final report-chain native identities must be C0")
 out=b1/"C1_final_publication"/("job_"+os.environ["SLURM_JOB_ID"]);safe();out.mkdir(parents=True,exist_ok=False)
 updates={}
@@ -54,7 +54,7 @@ for name in ("C1_results.csv","C1_results.csv.sha256","C1_second_seed_registered
 timestamp=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S CST")
 counts=f'{meta["primary_configuration_rows"]} primary rows; {meta["required_TabPFN_confirmations"]} required second-seed configurations; {meta["final_seed_rows"]} final rows'
 close_note=(f"\n\n## C1 final delivery ({timestamp})\n\n"
-    f"Native report4538473, evidence join4538474 and final producer4538475 are COMPLETED/0:0. {counts}. "
+    f"Native report4538510, evidence join4538511 and final producer4538512 are COMPLETED/0:0. {counts}. "
     "All required configuration evidence has closed under the registered contract. "
     "The final table retains separate seed20261025/20261026 rows and explicit reproduction/failure status; "
     "nonreproduced improvements never change the frozen B1 role. "
@@ -124,7 +124,7 @@ sources.update(updates)
 for name,value in (("publication_updates.json",updates),("proposed_sources.json",sources)):
     safe();(out/name).write_text(json.dumps(value,ensure_ascii=False,indent=2)+"\n")
 manifest=dict(status="FINAL_C1_FIRST_PRODUCER_BYTES_AND_DOCUMENTS_PUBLISHED",job=os.environ["SLURM_JOB_ID"],
-    node=socket.gethostname(),published_CST=timestamp,source_final_producer=4538475,
+    node=socket.gethostname(),published_CST=timestamp,source_final_producer=4538512,
     final_manifest=meta,changed_files=sorted(updates),source_cache=str(out/"proposed_sources.json"),
     original_STATUS_prefix_preserved=True,physical_preimages=str(before),scientific_CSV_parsed=False,
     original_statistics_recomputed=False,independent_numeric_QA=False,SHA_recomputed=False,
