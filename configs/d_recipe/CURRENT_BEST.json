@@ -1,8 +1,8 @@
 {
   "schema": "D_RECIPE_CURRENT_BEST_V1",
-  "status": "NATIVE_SCREENING_IN_PROGRESS",
+  "status": "STAGE1_SEED0_WIN_WAITING_TRIGGERED_SEED1_PREPARATION_AND_ADMISSION",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T04:47:34.895806+00:00",
+  "updated_at_utc": "2026-11-22 06:23:00 UTC",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -262,13 +262,28 @@
   },
   "arm_decisions": {
     "D-R0": "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
-    "D-R1": "MAIN_SCORE_COMPLETE_WAITING_ORIGINAL_PAIRED_COMPARISON",
+    "D-R1": "SEED0_WIN_SEED1_CONFIRMATION_REQUIRED_NOT_YET_ADOPTED",
     "D-L1": "LIBRARY_ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
     "D-L2": "LIBRARY_ACCEPTED_WAITING_STAGE1_RECIPE_DECISION",
     "D-G1": "WAITING_RECIPE_DECISION",
     "D-K1": "NOT_TRIGGERED_UNTIL_CONFIRMED_WIDE_LIBRARY_ADOPTION"
   },
-  "conditional_seed1": "Only seed0 WIN triggers a registered seed1 pair; no trigger yet",
+  "conditional_seed1": {
+    "status": "TRIGGERED_PREPARATION_IN_PROGRESS_NOT_STARTED",
+    "shared_control": "D-R0 seed1",
+    "candidate": "D-R1 seed1",
+    "seed0_result": "WIN",
+    "adoption_requires_each_seed_WIN": true,
+    "preparation_job": 4538549,
+    "previous_preparation": {
+      "job_id": 4538547,
+      "status": "CANCELLED_BEFORE_CONFIGURATION_GENERATION_AFTER_RPC_WAIT",
+      "elapsed_seconds": 1045
+    },
+    "proposed_additional_NFS_bytes": 2147483648,
+    "NFS_forecast_admitted": false,
+    "training_started": false
+  },
   "diagnostics": "R0 prescribed diagnostics COMPLETE; R1 F64 geometry UNRESOLVED after two actual capacity-freshness failures, cached layers3-5 GPU probes COMPLETE and CPU scores RUNNING; G1/adopted endpoints pending; decision_input=false",
   "development_controls": "Section5 A/B/C and composition controls pending",
   "confirmation": {
@@ -280,7 +295,7 @@
     "seed": 0,
     "samples": 9000000
   },
-  "results": "R1 original main R3 is closed; original paired comparison4537599 pending, no adoption yet. Both amended wide libraries accepted and await stage1 recipe decision; recipe is not frozen.",
+  "results": "Original R1 seed0 paired WIN is closed. The registered two fresh seed1 runs are triggered and awaiting configuration/storage preparation plus actual target admission. No transfer adoption or stage2 selection yet; no comparison resampling repeated.",
   "arm": null,
   "library": null,
   "configuration": null,
@@ -508,7 +523,7 @@
       "bootstrap_samples": 1000,
       "bootstrap_seed": 20261025,
       "bootstrap_unit": "molecule",
-      "reference": "Frozen random C1-0 encoder; paired R1-arm vs R0-arm comparison still pending",
+      "reference": "Frozen random C1-0 encoder; original paired R1-arm versus R0-arm result is recorded separately",
       "CPU_statistics_job": 4537593,
       "CPU_statistics_status": "COMPLETED",
       "CPU_statistics_exit": "0:0",
@@ -524,6 +539,81 @@
       "allocated_CPU_hours": 3.112222222222222,
       "TotalCPU_seconds": null,
       "scope": "Original parent allocation; batch/extern not added again; site TotalCPU unavailable"
+    },
+    "paired_result": {
+      "candidate": "d_recipe_20261120_D_R1_seed0_3M",
+      "control": "d_recipe_20261120_D_R0_seed0_3M",
+      "seed": 0,
+      "samples": 3000000,
+      "primary": "mean_seven_task_R3_normalized_improvements",
+      "R3": {
+        "delta": 0.09770468747584315,
+        "ci_lower": 0.08195311354654226,
+        "ci_upper": 0.11189074805862387,
+        "verdict": "WIN",
+        "tau": 0.02012323794694327,
+        "seed1_required": true,
+        "bootstrap_draws": 1000,
+        "bootstrap_seed": 20261025,
+        "confidence": 0.95,
+        "authority": "docs/d_recipe/TASKBOOK.md:4.6"
+      },
+      "R1_report_only": {
+        "candidate": {
+          "mean_normalized_improvement": 0.23055805758999076,
+          "bootstrap_ci": [
+            0.2161366706314768,
+            0.24381363179424703
+          ],
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "control": {
+          "mean_normalized_improvement": 0.15029061734585417,
+          "bootstrap_ci": [
+            0.1336480796754142,
+            0.16715810049540256
+          ],
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "CYP_report_only": "existing evaluator task rows; excluded from primary mean",
+      "score_sources": [
+        "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/training/readout/scores.json",
+        "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/readout/scores.json"
+      ],
+      "bootstrap_unit": "molecule",
+      "bootstrap_draws": 1000,
+      "bootstrap_seed": 20261025,
+      "confidence": 0.95,
+      "CI_scope": "molecule sampling uncertainty conditional on the fitted models",
+      "multiple_comparison_correction": false,
+      "resampling_repeated": false,
+      "selection_change_allowed": true
+    },
+    "paired_comparison_scientific_status": "COMPLETE_ORIGINAL_JSON_AND_IDENTICAL_LOG_BEFORE_JOB_TIMEOUT",
+    "paired_comparison_job_status": "TIMEOUT_AFTER_RESULT_WRITTEN",
+    "paired_comparison_job_elapsed_seconds": 3616,
+    "paired_comparison_recovery": {
+      "job_id": 4538541,
+      "status": "CANCELLED_NEVER_STARTED",
+      "elapsed_seconds": 0,
+      "comparison_recomputed": false
     }
   },
   "diagnostic_progress": {
