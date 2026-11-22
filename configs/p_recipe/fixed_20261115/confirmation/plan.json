@@ -1,562 +1,1318 @@
 {
-    "configurations":  [
-                           "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T1.json",
-                           "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
-                           "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T4.json",
-                           "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T5.json",
-                           "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T6.json"
-                       ],
-    "final_components":  [
-                             "A1",
-                             "B3",
-                             "B4",
-                             "F2"
-                         ],
-    "runner_up_components":  [
-                                 "A1",
-                                 "B3",
-                                 "B4"
-                             ],
-    "study_revision":  "fixed_20261115",
-    "results_directory":  "results/p_recipe/fixed_20261115",
-    "base_configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/base.json",
-    "control_directory":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115",
-    "M2_components":  [
-                          "A1",
-                          "B3",
-                          "B4"
-                      ],
-    "M2_after_rollback":  false,
-    "P_fields":  109,
-    "Pprime_fields":  109,
-    "common_fields":  [
-                          "P.pm7_B.r39.p",
-                          "P.pm7_B.r39.s",
-                          "P.pm7_B.r40.value",
-                          "P.pm7_B.r41.value",
-                          "P.pm7_B.r42.value",
-                          "P.pm7_B.r43.value",
-                          "P.pm7_B.r44.value",
-                          "P.pm7_B.r45.value",
-                          "P.pm7_B.r46.value",
-                          "P.pm7_B.r47.value",
-                          "P.pm7_B.r48.value",
-                          "P.pm7_B.r49.value",
-                          "P.pm7_B.r50.value",
-                          "P.pm7_B.r52.x",
-                          "P.pm7_B.r52.y",
-                          "P.pm7_B.r52.z",
-                          "P.pm7_B.r53.value",
-                          "P.pm7_B.r54.value",
-                          "P.pm7_B.r55.electron_electron",
-                          "P.pm7_B.r55.electron_nuclear",
-                          "P.pm7_B.r55.total",
-                          "P.pm7_B.r56.C",
-                          "P.pm7_B.r56.EE",
-                          "P.pm7_B.r56.EN",
-                          "P.pm7_B.r56.J",
-                          "P.pm7_B.r56.K",
-                          "P.pm7_B.r56.NN",
-                          "P.pm7_B.r56.total",
-                          "P.pm7_B.r58.value",
-                          "P.pm7_B.r60.value",
-                          "P.pm7_B.r61.value",
-                          "P.pm7_B.r62.value",
-                          "P.pm7_B.r63.value",
-                          "P.pm7_B.r64.value",
-                          "P.pm7_B.r65.value",
-                          "P.pm7_B.r68.value",
-                          "P.pm7_B.r73.value.pi",
-                          "P.pm7_B.r73.value.sigma",
-                          "P.pm7_B.r82.De",
-                          "P.pm7_B.r82.Dn",
-                          "P.pm7_B.r82.charge_density_q_minus_Z",
-                          "P.pm7_B.r83.value",
-                          "P.pm7_B.r84.value",
-                          "P.pm7_anion.r190.p",
-                          "P.pm7_anion.r190.s",
-                          "P.pm7_anion.r193.value",
-                          "P.pm7_anion.r194.value",
-                          "P.pm7_anion.r196.x",
-                          "P.pm7_anion.r196.y",
-                          "P.pm7_anion.r196.z",
-                          "P.pm7_anion.r204.value",
-                          "P.pm7_anion.r210.value",
-                          "P.pm7_cation.r259.p",
-                          "P.pm7_cation.r259.s",
-                          "P.pm7_cation.r262.value",
-                          "P.pm7_cation.r263.value",
-                          "P.pm7_cation.r265.x",
-                          "P.pm7_cation.r265.y",
-                          "P.pm7_cation.r265.z",
-                          "P.pm7_cation.r273.value",
-                          "P.pm7_cation.r279.value",
-                          "P.pm7_octanol.r326.p",
-                          "P.pm7_octanol.r326.s",
-                          "P.pm7_octanol.r329.value",
-                          "P.pm7_octanol.r330.value",
-                          "P.pm7_octanol.r331.value",
-                          "P.pm7_octanol.r332.x",
-                          "P.pm7_octanol.r332.y",
-                          "P.pm7_octanol.r332.z",
-                          "P.pm7_octanol.r340.value",
-                          "P.pm7_octanol.r341.value",
-                          "P.pm7_octanol.r343.value",
-                          "P.pm7_octanol.r346.value",
-                          "P.pm7_water.r393.p",
-                          "P.pm7_water.r393.s",
-                          "P.pm7_water.r396.value",
-                          "P.pm7_water.r397.value",
-                          "P.pm7_water.r398.value",
-                          "P.pm7_water.r399.x",
-                          "P.pm7_water.r399.y",
-                          "P.pm7_water.r399.z",
-                          "P.pm7_water.r407.value",
-                          "P.pm7_water.r408.value",
-                          "P.pm7_water.r410.value",
-                          "P.pm7_water.r413.value",
-                          "P.xtb_ALPB_octanol.r459.value",
-                          "P.xtb_ALPB_octanol.r460.value",
-                          "P.xtb_ALPB_water.r498.value",
-                          "P.xtb_ALPB_water.r499.value",
-                          "P.xtb_fod.r537.value",
-                          "P.xtb_fod.r538.value",
-                          "P.xtb_perturbed_gradient.r623.value",
-                          "P.xtb_perturbed_gradient.r624.value",
-                          "P.xtb_perturbed_gradient.r625.value",
-                          "P.xtb_singlepoint.r666.value",
-                          "P.xtb_singlepoint.r667.value",
-                          "P.xtb_singlepoint.r668.value",
-                          "P.xtb_singlepoint.r669.x",
-                          "P.xtb_singlepoint.r669.y",
-                          "P.xtb_singlepoint.r669.z",
-                          "P.xtb_singlepoint.r670.value",
-                          "P.xtb_singlepoint.r671.value",
-                          "P.xtb_singlepoint.r672.value",
-                          "P.xtb_singlepoint.r677.value",
-                          "P.xtb_vfukui.r712.f_minus",
-                          "P.xtb_vfukui.r712.f_plus",
-                          "P.xtb_vfukui.r712.f_radical",
-                          "P.xtb_vipea.r751.value",
-                          "P.xtb_vipea.r752.value"
-                      ],
-    "lost_P_fields":  0,
-    "lost_P_fraction":  0.0,
-    "Pprime_comparator":  "T2",
-    "T7_required":  false,
-    "T7_queue_after_initial_six":  false,
-    "label_parameters_to_fit":  {
-
-                                },
-    "batch_size":  32,
-    "batch_size_by_run":  {
-                              "fixed_20261115_confirmation_T2":  32,
-                              "fixed_20261115_confirmation_T5":  32,
-                              "fixed_20261115_confirmation_T6":  32,
-                              "fixed_20261115_confirmation_T1_sbatch":  32,
-                              "fixed_20261115_confirmation_T4_sbatch":  32
-                          },
-    "samples_per_run":  9000000,
-    "screening_samples":  3000000,
-    "confirmation_multiplier":  3,
-    "confirmation_switch_snapshot":  {
-                                         "source":  "configs/p_recipe/confirmation_switches_20261118.json",
-                                         "user_confirmation":  {
-                                                                   "answer":  "确认全部关闭（建议）",
-                                                                   "recorded_at_utc":  "2026-11-17T22:08:30Z",
-                                                                   "recorded_at_Asia_Shanghai":  "2026-11-18T06:08:30+08:00",
-                                                                   "source":  "Explicit user reply to request_user_input_async call_e9d7ebe7d54f4f8db0abd94d7248cfeb item0",
-                                                                   "scope":  "All new perf switches off; keep16CPU/14readers,B32,FP32 and existing adopted baseline paths; wait for C3 completion and M3 before9M submission"
-                                                               },
-                                         "gpu_delivery":  "https://github.com/mint258/MFM/blob/perf/sync-free-20261117/docs/perf_sync/GPU_RESULTS_20261118.md",
-                                         "recommendation":  {
-                                                                "new_perf_switches":  {
-                                                                                          "S1_no_sync":  false,
-                                                                                          "S2_fused_adamw":  false,
-                                                                                          "S3_sdpa":  false,
-                                                                                          "S4_compile_encoder":  false,
-                                                                                          "S4_compile_encoder_heads":  false,
-                                                                                          "S5_async_h2d":  false,
-                                                                                          "S6_cuda_graph":  false
-                                                                                      },
-                                                                "S8_composed_new_switches":  [
-
-                                                                                             ],
-                                                                "workers":  14,
-                                                                "cpus":  16,
-                                                                "batch_size":  32,
-                                                                "precision":  "FP32",
-                                                                "TF32":  false,
-                                                                "activation_checkpointing":  false,
-                                                                "gradient_accumulation_steps":  1,
-                                                                "legacy_runtime_settings":  "Keep existing adopted baseline/PR8 paths unchanged; proposal covers only the new perf-line switches",
-                                                                "scientific_recipe":  "Use the registered final selection; no recipe/LR change is proposed by this switch decision"
-                                                            },
-                                         "frozen_for_entire_run":  true
-                                     },
-    "selection_round":  4,
-    "T4_included":  true,
-    "T4_user_decision":  "KEEP",
-    "T4_user_confirmation":  "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
-    "initial_run_count":  5,
-    "selection_authority":  "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
-    "recipe_frozen":  true,
-    "frozen_configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/FROZEN_P.json",
-    "cancelled_arms":  [
-                           "T3",
-                           "T7"
-                       ],
-    "seed_policy":  {
-                        "authority":  "docs/p_recipe/USER_DIRECTIVE_20261119.md",
-                        "scope":  "all_9M_confirmation_comparisons",
-                        "default":  0,
-                        "maximum_seeds":  1,
-                        "optional_seed":  null,
-                        "seed1_allowed":  false,
-                        "confirmation_arms":  [
-                                                  "T1",
-                                                  "T2",
-                                                  "T4",
-                                                  "T5",
-                                                  "T6"
-                                              ],
-                        "point_estimate":  "seed0 paired delta",
-                        "CI":  "original seed0 1000 molecular paired bootstrap differences; percentile2.5/97.5"
-                    },
-    "external_adoptions":  [
-
-                           ],
-    "external_line_decisions_complete":  true,
-    "external_line_decisions":  {
-                                    "heads":  {
-                                                  "status":  "COMPLETE_FOR_RECIPE_NO_WINNERS_USER_20261119",
-                                                  "source":  "https://github.com/mint258/MFM/blob/p-heads-20261117/docs/p_heads/USER_DIRECTIVE_20261119.md",
-                                                  "source_git_blob":  "22b78a32ee162b7e8f2f22d3520d8d807c058bec",
-                                                  "adopted_components":  [
-
-                                                                         ],
-                                                  "component_decisions":  [
-                                                                              {
-                                                                                  "arm":  "T1",
-                                                                                  "baseline":  "M2 [A1,B3,B4]",
-                                                                                  "reference_configuration":  "configs/p_recipe/fixed_20261115/round3/M2.json",
-                                                                                  "status":  "COMPLETE_TWO_SEEDS",
-                                                                                  "seed_count":  2,
-                                                                                  "seed_deltas_R3":  [
-                                                                                                         0.004251179229980251,
-                                                                                                         -0.0022619000885155116
-                                                                                                     ],
-                                                                                  "seed_CI":  [
-                                                                                                  [
-                                                                                                      -0.007078817581392126,
-                                                                                                      0.014793625130516982
-                                                                                                  ],
-                                                                                                  [
-                                                                                                      -0.012367245104910263,
-                                                                                                      0.007547898029821682
-                                                                                                  ]
-                                                                                              ],
-                                                                                  "seed_deltas_R1":  [
-                                                                                                         0.001115213206377974,
-                                                                                                         -0.06252541000781825
-                                                                                                     ],
-                                                                                  "seed_CI_R1":  [
-                                                                                                     [
-                                                                                                         -0.010517873819686894,
-                                                                                                         0.013809469597857244
-                                                                                                     ],
-                                                                                                     [
-                                                                                                         -0.07430686597279726,
-                                                                                                         -0.04962435563598987
-                                                                                                     ]
-                                                                                                 ],
-                                                                                  "per_seed_R3_scores":  [
-                                                                                                             {
-                                                                                                                 "candidate":  0.47225381237562564,
-                                                                                                                 "reference":  0.4680026331456454
-                                                                                                             },
-                                                                                                             {
-                                                                                                                 "candidate":  0.46778791130674247,
-                                                                                                                 "reference":  0.470049811395258
-                                                                                                             }
-                                                                                                         ],
-                                                                                  "verdict":  "tie",
-                                                                                  "R1_verdict":  "tie",
-                                                                                  "adopted":  false,
-                                                                                  "configuration_keys_to_adopt":  [
-
-                                                                                                                  ],
-                                                                                  "source":  "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T1_deltas.json",
-                                                                                  "source_git_blob":  "3e06f7dbb2af69aab42b4c7f706ddadf7b1d3dd6",
-                                                                                  "decision_rule":  "Owner\u0027s original two-seed rule and canonical verdict retained. TIE is not a win or proof of equivalence; no main-line5% rejudging, new pooledCI, probe fitting or resampling.",
-                                                                                  "current_best_confirmation_required":  false,
-                                                                                  "reference_R3_training_noise":  0.002047178249612591,
-                                                                                  "producer_jobs":  {
-                                                                                                        "seed1_training":  4536378,
-                                                                                                        "status":  "Owner-published completed3M/R1/R3 and COMPLETE_TWO_SEEDS"
-                                                                                                    }
-                                                                              },
-                                                                              {
-                                                                                  "arm":  "T2",
-                                                                                  "baseline":  "B3 [A1,B3]",
-                                                                                  "reference_configuration":  "configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json",
-                                                                                  "status":  "COMPLETE_TWO_SEEDS",
-                                                                                  "seed_count":  2,
-                                                                                  "seed_deltas_R3":  [
-                                                                                                         -0.007585450322706355,
-                                                                                                         0.0013032523004910535
-                                                                                                     ],
-                                                                                  "seed_CI":  [
-                                                                                                  [
-                                                                                                      -0.016785810164422956,
-                                                                                                      0.0020004774800213097
-                                                                                                  ],
-                                                                                                  [
-                                                                                                      -0.009372422341078549,
-                                                                                                      0.011136945517705965
-                                                                                                  ]
-                                                                                              ],
-                                                                                  "seed_deltas_R1":  [
-                                                                                                         -0.003421136926090085,
-                                                                                                         0.009722118146321235
-                                                                                                     ],
-                                                                                  "seed_CI_R1":  [
-                                                                                                     [
-                                                                                                         -0.015207643623784359,
-                                                                                                         0.008744198142949395
-                                                                                                     ],
-                                                                                                     [
-                                                                                                         -0.0024079925355455635,
-                                                                                                         0.02278484642280607
-                                                                                                     ]
-                                                                                                 ],
-                                                                                  "per_seed_R3_scores":  [
-                                                                                                             {
-                                                                                                                 "candidate":  0.4669179815594994,
-                                                                                                                 "reference":  0.47450343188220573
-                                                                                                             },
-                                                                                                             {
-                                                                                                                 "candidate":  0.44194477249539066,
-                                                                                                                 "reference":  0.4406415201948996
-                                                                                                             }
-                                                                                                         ],
-                                                                                  "verdict":  "tie",
-                                                                                  "R1_verdict":  "tie",
-                                                                                  "adopted":  false,
-                                                                                  "configuration_keys_to_adopt":  [
-
-                                                                                                                  ],
-                                                                                  "source":  "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T2_deltas.json",
-                                                                                  "source_git_blob":  "5c8783cdfd148f68119c229442a7645948fd3df5",
-                                                                                  "decision_rule":  "Owner\u0027s original two-seed rule and canonical verdict retained. TIE is not a win or proof of equivalence; no main-line5% rejudging, new pooledCI, probe fitting or resampling.",
-                                                                                  "current_best_confirmation_required":  false,
-                                                                                  "reference_R3_training_noise":  0.03386191168730612,
-                                                                                  "producer_jobs":  {
-                                                                                                        "seed1_training":  4536355,
-                                                                                                        "seed1_training_status":  "COMPLETED0:0,23:08:39,3M/R1/R3",
-                                                                                                        "field_copy":  4536289,
-                                                                                                        "field_copy_status":  "COMPLETED0:0,4seconds",
-                                                                                                        "comparison":  4536290,
-                                                                                                        "comparison_status":  "COMPLETED0:0,2seconds",
-                                                                                                        "status":  "Owner-published completed3M/R1/R3 and COMPLETE_TWO_SEEDS"
-                                                                                                    }
-                                                                              },
-                                                                              {
-                                                                                  "arm":  "T3",
-                                                                                  "baseline":  "B3 [A1,B3]",
-                                                                                  "seed_count":  2,
-                                                                                  "seed_deltas_R3":  [
-                                                                                                         -0.022013477007160442,
-                                                                                                         -0.00949951975103619
-                                                                                                     ],
-                                                                                  "seed_CI":  [
-                                                                                                  [
-                                                                                                      -0.032053393575519645,
-                                                                                                      -0.012058970924839008
-                                                                                                  ],
-                                                                                                  [
-                                                                                                      -0.018908726064840085,
-                                                                                                      -5.6519258680874253E-05
-                                                                                                  ]
-                                                                                              ],
-                                                                                  "seed_deltas_R1":  [
-                                                                                                         0.0032227614128629845,
-                                                                                                         0.011893479671824803
-                                                                                                     ],
-                                                                                  "seed_CI_R1":  [
-                                                                                                     [
-                                                                                                         -0.008731332850063315,
-                                                                                                         0.014110362564626137
-                                                                                                     ],
-                                                                                                     [
-                                                                                                         -0.0019266658452948156,
-                                                                                                         0.025638475820842884
-                                                                                                     ]
-                                                                                                 ],
-                                                                                  "verdict":  "loss",
-                                                                                  "R1_verdict":  "tie",
-                                                                                  "adopted":  false,
-                                                                                  "configuration_keys_to_adopt":  [
-
-                                                                                                                  ],
-                                                                                  "source":  "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T3_deltas.json",
-                                                                                  "source_git_blob":  "3b83bb216c8daec8c56ccbc53408a786825d1d50",
-                                                                                  "decision_rule":  "Owner\u0027s original two-seed rule: both R3 CI upper bounds below0 =\u003e loss. Retain original per-seed intervals; no main-line rejudging or resampling.",
-                                                                                  "current_best_confirmation_required":  false,
-                                                                                  "producer_jobs":  {
-                                                                                                        "seed1_training":  4536341,
-                                                                                                        "field_copy":  4536613,
-                                                                                                        "comparison":  4536614,
-                                                                                                        "status":  "Owner-published complete3M/93750/R1R3 and successful0:0"
-                                                                                                    }
-                                                                              },
-                                                                              {
-                                                                                  "arm":  "T4",
-                                                                                  "baseline":  "B3 [A1,B3]",
-                                                                                  "reference_configuration":  "configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json",
-                                                                                  "status":  "COMPLETE_TWO_SEEDS",
-                                                                                  "seed_count":  2,
-                                                                                  "seed_deltas_R3":  [
-                                                                                                         -0.022990684550554807,
-                                                                                                         0.008936110520611162
-                                                                                                     ],
-                                                                                  "seed_CI":  [
-                                                                                                  [
-                                                                                                      -0.03329311920502372,
-                                                                                                      -0.012381142009745813
-                                                                                                  ],
-                                                                                                  [
-                                                                                                      -0.0004768960235272762,
-                                                                                                      0.018201008294255163
-                                                                                                  ]
-                                                                                              ],
-                                                                                  "seed_deltas_R1":  [
-                                                                                                         -0.040332257442023234,
-                                                                                                         -0.03718610119099747
-                                                                                                     ],
-                                                                                  "seed_CI_R1":  [
-                                                                                                     [
-                                                                                                         -0.05218049930015768,
-                                                                                                         -0.02843549551397923
-                                                                                                     ],
-                                                                                                     [
-                                                                                                         -0.05178440010141949,
-                                                                                                         -0.02374540391812444
-                                                                                                     ]
-                                                                                                 ],
-                                                                                  "per_seed_R3_scores":  [
-                                                                                                             {
-                                                                                                                 "candidate":  0.4515127473316509,
-                                                                                                                 "reference":  0.47450343188220573
-                                                                                                             },
-                                                                                                             {
-                                                                                                                 "candidate":  0.44957763071551077,
-                                                                                                                 "reference":  0.4406415201948996
-                                                                                                             }
-                                                                                                         ],
-                                                                                  "verdict":  "tie",
-                                                                                  "R1_verdict":  "loss",
-                                                                                  "adopted":  false,
-                                                                                  "configuration_keys_to_adopt":  [
-
-                                                                                                                  ],
-                                                                                  "source":  "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T4_deltas.json",
-                                                                                  "source_git_blob":  "e3611e9ce5ca37defbdb49fb4550406b914706c2",
-                                                                                  "decision_rule":  "Owner\u0027s original two-seed rule and canonical verdict retained. TIE is not a win or proof of equivalence; no main-line5% rejudging, new pooledCI, probe fitting or resampling.",
-                                                                                  "current_best_confirmation_required":  false,
-                                                                                  "reference_R3_training_noise":  0.03386191168730612,
-                                                                                  "producer_jobs":  {
-                                                                                                        "seed1_training":  4536400,
-                                                                                                        "status":  "Owner-published completed3M/R1/R3 and COMPLETE_TWO_SEEDS"
-                                                                                                    }
-                                                                              }
-                                                                          ],
-                                                  "note":  "11-19 authority closes T5 on seed0 with no significant improvement and cancels its seed1 (owner executes). T1–T4 original results retained. No winning components. Owner regression/report are still separate.",
-                                                  "pending_arms":  [
-
-                                                                   ],
-                                                  "recipe_decision_complete":  true,
-                                                  "owner_study_closed":  false,
-                                                  "T5_directive_disposition":  {
-                                                                                   "adopted":  false,
-                                                                                   "verdict":  "no_significant_improvement",
-                                                                                   "source":  "https://github.com/mint258/MFM/blob/p-heads-20261117/docs/p_heads/USER_DIRECTIVE_20261119.md",
-                                                                                   "seed_count":  1
-                                                                               }
-                                              },
-                                    "decoupling":  {
-                                                       "status":  "COMPLETE_TWO_SEEDS",
-                                                       "source":  "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/FINAL_REPORT.md",
-                                                       "source_git_blob":  "fb9612219fe3855239bc89993966d49836c22f20",
-                                                       "adopted_components":  [
-
-                                                                              ],
-                                                       "runtime_integration_required":  false,
-                                                       "recipe_decision_complete":  true,
-                                                       "owner_study_closed":  false,
-                                                       "owner_remaining":  "C3 descriptive readout/layer6, final CPU regression/check/report/PR remain with the owner and do not change the completed recipe disposition.",
-                                                       "component_decisions":  [
-                                                                                   {
-                                                                                       "arm":  "Dprime",
-                                                                                       "baseline":  "M2 [A1,B3,B4]",
-                                                                                       "seed_count":  2,
-                                                                                       "delta":  -0.03842869553842196,
-                                                                                       "seed_deltas_R3":  [
-                                                                                                              -0.04528424256768254,
-                                                                                                              -0.031573148509161375
-                                                                                                          ],
-                                                                                       "seed_CI":  [
-                                                                                                       [
-                                                                                                           -0.05626819574608201,
-                                                                                                           -0.034293740123209175
-                                                                                                       ],
-                                                                                                       [
-                                                                                                           -0.04243675973173937,
-                                                                                                           -0.021103425065180016
-                                                                                                       ]
-                                                                                                   ],
-                                                                                       "seed_deltas_R1":  [
-                                                                                                              -0.10623905592125829,
-                                                                                                              -0.11864777015385317
-                                                                                                          ],
-                                                                                       "seed_CI_R1":  [
-                                                                                                          [
-                                                                                                              -0.12004127120194975,
-                                                                                                              -0.09211544270142917
-                                                                                                          ],
-                                                                                                          [
-                                                                                                              -0.1310879747100256,
-                                                                                                              -0.10581670034245609
-                                                                                                          ]
-                                                                                                      ],
-                                                                                       "verdict":  "loss",
-                                                                                       "adopted":  false,
-                                                                                       "configuration_keys_to_adopt":  [
-
-                                                                                                                       ],
-                                                                                       "source":  "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/DPRIME_M2_COMPARISON.md",
-                                                                                       "source_git_blob":  "b5136760de8bb7c45ef5d31efc4c8257db5c4910",
-                                                                                       "mean_delta_source":  "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/FINAL_REPORT.md",
-                                                                                       "decision_rule_source":  "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/USER_DIRECTIVE_20261117.md",
-                                                                                       "decision_rule":  "Owner rule retained: both seed R3 CI upper bounds below0 =\u003e loss. Positive-win threshold is the owner\u0027s own8%/0.03 rule; no main-line5% rejudging or new pooled CI.",
-                                                                                       "producer_jobs":  {
-                                                                                                             "seed1_training":  4536314,
-                                                                                                             "comparison":  4536315,
-                                                                                                             "status":  "Owner-published successful0:0 and complete3M/R1/R3"
-                                                                                                         }
-                                                                                   }
-                                                                               ],
-                                                       "closed_non_adoptions":  {
-                                                                                    "C":  "loss; deduplication not adopted",
-                                                                                    "B_F64":  "closed unresolved; no fields enabled",
-                                                                                    "D":  "Legacy M1+C single-seed win retained only in its original scope; owner explicitly excludes it from eligible M2 two-seed handoff."
-                                                                                },
-                                                       "new_probe_fitting":  false,
-                                                       "new_bootstrap_resampling":  false,
-                                                       "own_new_GPU_jobs":  0
-                                                   }
-                                },
-    "archived_configurations":  [
-                                    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/archive/fixed_20261115_confirmation_T4_native.json"
-                                ]
+  "configurations": [
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T1.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T4.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T5.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T6.json"
+  ],
+  "final_components": [
+    "A1",
+    "B3",
+    "B4",
+    "F2"
+  ],
+  "runner_up_components": [
+    "A1",
+    "B3",
+    "B4"
+  ],
+  "study_revision": "fixed_20261115",
+  "results_directory": "results/p_recipe/fixed_20261115",
+  "base_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/base.json",
+  "control_directory": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115",
+  "M2_components": [
+    "A1",
+    "B3",
+    "B4"
+  ],
+  "M2_after_rollback": false,
+  "P_fields": 109,
+  "Pprime_fields": 109,
+  "common_fields": [
+    "P.pm7_B.r39.p",
+    "P.pm7_B.r39.s",
+    "P.pm7_B.r40.value",
+    "P.pm7_B.r41.value",
+    "P.pm7_B.r42.value",
+    "P.pm7_B.r43.value",
+    "P.pm7_B.r44.value",
+    "P.pm7_B.r45.value",
+    "P.pm7_B.r46.value",
+    "P.pm7_B.r47.value",
+    "P.pm7_B.r48.value",
+    "P.pm7_B.r49.value",
+    "P.pm7_B.r50.value",
+    "P.pm7_B.r52.x",
+    "P.pm7_B.r52.y",
+    "P.pm7_B.r52.z",
+    "P.pm7_B.r53.value",
+    "P.pm7_B.r54.value",
+    "P.pm7_B.r55.electron_electron",
+    "P.pm7_B.r55.electron_nuclear",
+    "P.pm7_B.r55.total",
+    "P.pm7_B.r56.C",
+    "P.pm7_B.r56.EE",
+    "P.pm7_B.r56.EN",
+    "P.pm7_B.r56.J",
+    "P.pm7_B.r56.K",
+    "P.pm7_B.r56.NN",
+    "P.pm7_B.r56.total",
+    "P.pm7_B.r58.value",
+    "P.pm7_B.r60.value",
+    "P.pm7_B.r61.value",
+    "P.pm7_B.r62.value",
+    "P.pm7_B.r63.value",
+    "P.pm7_B.r64.value",
+    "P.pm7_B.r65.value",
+    "P.pm7_B.r68.value",
+    "P.pm7_B.r73.value.pi",
+    "P.pm7_B.r73.value.sigma",
+    "P.pm7_B.r82.De",
+    "P.pm7_B.r82.Dn",
+    "P.pm7_B.r82.charge_density_q_minus_Z",
+    "P.pm7_B.r83.value",
+    "P.pm7_B.r84.value",
+    "P.pm7_anion.r190.p",
+    "P.pm7_anion.r190.s",
+    "P.pm7_anion.r193.value",
+    "P.pm7_anion.r194.value",
+    "P.pm7_anion.r196.x",
+    "P.pm7_anion.r196.y",
+    "P.pm7_anion.r196.z",
+    "P.pm7_anion.r204.value",
+    "P.pm7_anion.r210.value",
+    "P.pm7_cation.r259.p",
+    "P.pm7_cation.r259.s",
+    "P.pm7_cation.r262.value",
+    "P.pm7_cation.r263.value",
+    "P.pm7_cation.r265.x",
+    "P.pm7_cation.r265.y",
+    "P.pm7_cation.r265.z",
+    "P.pm7_cation.r273.value",
+    "P.pm7_cation.r279.value",
+    "P.pm7_octanol.r326.p",
+    "P.pm7_octanol.r326.s",
+    "P.pm7_octanol.r329.value",
+    "P.pm7_octanol.r330.value",
+    "P.pm7_octanol.r331.value",
+    "P.pm7_octanol.r332.x",
+    "P.pm7_octanol.r332.y",
+    "P.pm7_octanol.r332.z",
+    "P.pm7_octanol.r340.value",
+    "P.pm7_octanol.r341.value",
+    "P.pm7_octanol.r343.value",
+    "P.pm7_octanol.r346.value",
+    "P.pm7_water.r393.p",
+    "P.pm7_water.r393.s",
+    "P.pm7_water.r396.value",
+    "P.pm7_water.r397.value",
+    "P.pm7_water.r398.value",
+    "P.pm7_water.r399.x",
+    "P.pm7_water.r399.y",
+    "P.pm7_water.r399.z",
+    "P.pm7_water.r407.value",
+    "P.pm7_water.r408.value",
+    "P.pm7_water.r410.value",
+    "P.pm7_water.r413.value",
+    "P.xtb_ALPB_octanol.r459.value",
+    "P.xtb_ALPB_octanol.r460.value",
+    "P.xtb_ALPB_water.r498.value",
+    "P.xtb_ALPB_water.r499.value",
+    "P.xtb_fod.r537.value",
+    "P.xtb_fod.r538.value",
+    "P.xtb_perturbed_gradient.r623.value",
+    "P.xtb_perturbed_gradient.r624.value",
+    "P.xtb_perturbed_gradient.r625.value",
+    "P.xtb_singlepoint.r666.value",
+    "P.xtb_singlepoint.r667.value",
+    "P.xtb_singlepoint.r668.value",
+    "P.xtb_singlepoint.r669.x",
+    "P.xtb_singlepoint.r669.y",
+    "P.xtb_singlepoint.r669.z",
+    "P.xtb_singlepoint.r670.value",
+    "P.xtb_singlepoint.r671.value",
+    "P.xtb_singlepoint.r672.value",
+    "P.xtb_singlepoint.r677.value",
+    "P.xtb_vfukui.r712.f_minus",
+    "P.xtb_vfukui.r712.f_plus",
+    "P.xtb_vfukui.r712.f_radical",
+    "P.xtb_vipea.r751.value",
+    "P.xtb_vipea.r752.value"
+  ],
+  "lost_P_fields": 0,
+  "lost_P_fraction": 0.0,
+  "Pprime_comparator": "T2",
+  "T7_required": false,
+  "T7_queue_after_initial_six": false,
+  "label_parameters_to_fit": {},
+  "batch_size": 32,
+  "batch_size_by_run": {
+    "fixed_20261115_confirmation_T2": 32,
+    "fixed_20261115_confirmation_T5": 32,
+    "fixed_20261115_confirmation_T6": 32,
+    "fixed_20261115_confirmation_T1_sbatch": 32,
+    "fixed_20261115_confirmation_T4_sbatch": 32
+  },
+  "samples_per_run": 9000000,
+  "screening_samples": 3000000,
+  "confirmation_multiplier": 3,
+  "confirmation_switch_snapshot": {
+    "source": "configs/p_recipe/confirmation_switches_20261118.json",
+    "user_confirmation": {
+      "answer": "\u786e\u8ba4\u5168\u90e8\u5173\u95ed\uff08\u5efa\u8bae\uff09",
+      "recorded_at_utc": "2026-11-17T22:08:30Z",
+      "recorded_at_Asia_Shanghai": "2026-11-18T06:08:30+08:00",
+      "source": "Explicit user reply to request_user_input_async call_e9d7ebe7d54f4f8db0abd94d7248cfeb item0",
+      "scope": "All new perf switches off; keep16CPU/14readers,B32,FP32 and existing adopted baseline paths; wait for C3 completion and M3 before9M submission"
+    },
+    "gpu_delivery": "https://github.com/mint258/MFM/blob/perf/sync-free-20261117/docs/perf_sync/GPU_RESULTS_20261118.md",
+    "recommendation": {
+      "new_perf_switches": {
+        "S1_no_sync": false,
+        "S2_fused_adamw": false,
+        "S3_sdpa": false,
+        "S4_compile_encoder": false,
+        "S4_compile_encoder_heads": false,
+        "S5_async_h2d": false,
+        "S6_cuda_graph": false
+      },
+      "S8_composed_new_switches": [],
+      "workers": 14,
+      "cpus": 16,
+      "batch_size": 32,
+      "precision": "FP32",
+      "TF32": false,
+      "activation_checkpointing": false,
+      "gradient_accumulation_steps": 1,
+      "legacy_runtime_settings": "Keep existing adopted baseline/PR8 paths unchanged; proposal covers only the new perf-line switches",
+      "scientific_recipe": "Use the registered final selection; no recipe/LR change is proposed by this switch decision"
+    },
+    "frozen_for_entire_run": true
+  },
+  "selection_round": 4,
+  "T4_included": true,
+  "T4_user_decision": "KEEP",
+  "T4_user_confirmation": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+  "initial_run_count": 5,
+  "selection_authority": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+  "recipe_frozen": true,
+  "frozen_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/FROZEN_P.json",
+  "cancelled_arms": [
+    "T3",
+    "T7"
+  ],
+  "seed_policy": {
+    "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+    "scope": "all_9M_confirmation_comparisons",
+    "default": 0,
+    "maximum_seeds": 1,
+    "optional_seed": null,
+    "seed1_allowed": false,
+    "confirmation_arms": [
+      "T1",
+      "T2",
+      "T4",
+      "T5",
+      "T6"
+    ],
+    "point_estimate": "seed0 paired delta",
+    "CI": "original seed0 1000 molecular paired bootstrap differences; percentile2.5/97.5"
+  },
+  "external_adoptions": [],
+  "external_line_decisions_complete": true,
+  "external_line_decisions": {
+    "heads": {
+      "status": "COMPLETE_FOR_RECIPE_NO_WINNERS_USER_20261119",
+      "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/docs/p_heads/USER_DIRECTIVE_20261119.md",
+      "source_git_blob": "22b78a32ee162b7e8f2f22d3520d8d807c058bec",
+      "adopted_components": [],
+      "component_decisions": [
+        {
+          "arm": "T1",
+          "baseline": "M2 [A1,B3,B4]",
+          "reference_configuration": "configs/p_recipe/fixed_20261115/round3/M2.json",
+          "status": "COMPLETE_TWO_SEEDS",
+          "seed_count": 2,
+          "seed_deltas_R3": [
+            0.004251179229980251,
+            -0.0022619000885155116
+          ],
+          "seed_CI": [
+            [
+              -0.007078817581392126,
+              0.014793625130516982
+            ],
+            [
+              -0.012367245104910263,
+              0.007547898029821682
+            ]
+          ],
+          "seed_deltas_R1": [
+            0.001115213206377974,
+            -0.06252541000781825
+          ],
+          "seed_CI_R1": [
+            [
+              -0.010517873819686894,
+              0.013809469597857244
+            ],
+            [
+              -0.07430686597279726,
+              -0.04962435563598987
+            ]
+          ],
+          "per_seed_R3_scores": [
+            {
+              "candidate": 0.47225381237562564,
+              "reference": 0.4680026331456454
+            },
+            {
+              "candidate": 0.46778791130674247,
+              "reference": 0.470049811395258
+            }
+          ],
+          "verdict": "tie",
+          "R1_verdict": "tie",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T1_deltas.json",
+          "source_git_blob": "3e06f7dbb2af69aab42b4c7f706ddadf7b1d3dd6",
+          "decision_rule": "Owner's original two-seed rule and canonical verdict retained. TIE is not a win or proof of equivalence; no main-line5% rejudging, new pooledCI, probe fitting or resampling.",
+          "current_best_confirmation_required": false,
+          "reference_R3_training_noise": 0.002047178249612591,
+          "producer_jobs": {
+            "seed1_training": 4536378,
+            "status": "Owner-published completed3M/R1/R3 and COMPLETE_TWO_SEEDS"
+          }
+        },
+        {
+          "arm": "T2",
+          "baseline": "B3 [A1,B3]",
+          "reference_configuration": "configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json",
+          "status": "COMPLETE_TWO_SEEDS",
+          "seed_count": 2,
+          "seed_deltas_R3": [
+            -0.007585450322706355,
+            0.0013032523004910535
+          ],
+          "seed_CI": [
+            [
+              -0.016785810164422956,
+              0.0020004774800213097
+            ],
+            [
+              -0.009372422341078549,
+              0.011136945517705965
+            ]
+          ],
+          "seed_deltas_R1": [
+            -0.003421136926090085,
+            0.009722118146321235
+          ],
+          "seed_CI_R1": [
+            [
+              -0.015207643623784359,
+              0.008744198142949395
+            ],
+            [
+              -0.0024079925355455635,
+              0.02278484642280607
+            ]
+          ],
+          "per_seed_R3_scores": [
+            {
+              "candidate": 0.4669179815594994,
+              "reference": 0.47450343188220573
+            },
+            {
+              "candidate": 0.44194477249539066,
+              "reference": 0.4406415201948996
+            }
+          ],
+          "verdict": "tie",
+          "R1_verdict": "tie",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T2_deltas.json",
+          "source_git_blob": "5c8783cdfd148f68119c229442a7645948fd3df5",
+          "decision_rule": "Owner's original two-seed rule and canonical verdict retained. TIE is not a win or proof of equivalence; no main-line5% rejudging, new pooledCI, probe fitting or resampling.",
+          "current_best_confirmation_required": false,
+          "reference_R3_training_noise": 0.03386191168730612,
+          "producer_jobs": {
+            "seed1_training": 4536355,
+            "seed1_training_status": "COMPLETED0:0,23:08:39,3M/R1/R3",
+            "field_copy": 4536289,
+            "field_copy_status": "COMPLETED0:0,4seconds",
+            "comparison": 4536290,
+            "comparison_status": "COMPLETED0:0,2seconds",
+            "status": "Owner-published completed3M/R1/R3 and COMPLETE_TWO_SEEDS"
+          }
+        },
+        {
+          "arm": "T3",
+          "baseline": "B3 [A1,B3]",
+          "seed_count": 2,
+          "seed_deltas_R3": [
+            -0.022013477007160442,
+            -0.00949951975103619
+          ],
+          "seed_CI": [
+            [
+              -0.032053393575519645,
+              -0.012058970924839008
+            ],
+            [
+              -0.018908726064840085,
+              -5.651925868087425e-05
+            ]
+          ],
+          "seed_deltas_R1": [
+            0.0032227614128629845,
+            0.011893479671824803
+          ],
+          "seed_CI_R1": [
+            [
+              -0.008731332850063315,
+              0.014110362564626137
+            ],
+            [
+              -0.0019266658452948156,
+              0.025638475820842884
+            ]
+          ],
+          "verdict": "loss",
+          "R1_verdict": "tie",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T3_deltas.json",
+          "source_git_blob": "3b83bb216c8daec8c56ccbc53408a786825d1d50",
+          "decision_rule": "Owner's original two-seed rule: both R3 CI upper bounds below0 => loss. Retain original per-seed intervals; no main-line rejudging or resampling.",
+          "current_best_confirmation_required": false,
+          "producer_jobs": {
+            "seed1_training": 4536341,
+            "field_copy": 4536613,
+            "comparison": 4536614,
+            "status": "Owner-published complete3M/93750/R1R3 and successful0:0"
+          }
+        },
+        {
+          "arm": "T4",
+          "baseline": "B3 [A1,B3]",
+          "reference_configuration": "configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json",
+          "status": "COMPLETE_TWO_SEEDS",
+          "seed_count": 2,
+          "seed_deltas_R3": [
+            -0.022990684550554807,
+            0.008936110520611162
+          ],
+          "seed_CI": [
+            [
+              -0.03329311920502372,
+              -0.012381142009745813
+            ],
+            [
+              -0.0004768960235272762,
+              0.018201008294255163
+            ]
+          ],
+          "seed_deltas_R1": [
+            -0.040332257442023234,
+            -0.03718610119099747
+          ],
+          "seed_CI_R1": [
+            [
+              -0.05218049930015768,
+              -0.02843549551397923
+            ],
+            [
+              -0.05178440010141949,
+              -0.02374540391812444
+            ]
+          ],
+          "per_seed_R3_scores": [
+            {
+              "candidate": 0.4515127473316509,
+              "reference": 0.47450343188220573
+            },
+            {
+              "candidate": 0.44957763071551077,
+              "reference": 0.4406415201948996
+            }
+          ],
+          "verdict": "tie",
+          "R1_verdict": "loss",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T4_deltas.json",
+          "source_git_blob": "e3611e9ce5ca37defbdb49fb4550406b914706c2",
+          "decision_rule": "Owner's original two-seed rule and canonical verdict retained. TIE is not a win or proof of equivalence; no main-line5% rejudging, new pooledCI, probe fitting or resampling.",
+          "current_best_confirmation_required": false,
+          "reference_R3_training_noise": 0.03386191168730612,
+          "producer_jobs": {
+            "seed1_training": 4536400,
+            "status": "Owner-published completed3M/R1/R3 and COMPLETE_TWO_SEEDS"
+          }
+        }
+      ],
+      "note": "11-19 authority closes T5 on seed0 with no significant improvement and cancels its seed1 (owner executes). T1\u2013T4 original results retained. No winning components. Owner regression/report are still separate.",
+      "pending_arms": [],
+      "recipe_decision_complete": true,
+      "owner_study_closed": false,
+      "T5_directive_disposition": {
+        "adopted": false,
+        "verdict": "no_significant_improvement",
+        "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/docs/p_heads/USER_DIRECTIVE_20261119.md",
+        "seed_count": 1
+      }
+    },
+    "decoupling": {
+      "status": "COMPLETE_TWO_SEEDS",
+      "source": "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/FINAL_REPORT.md",
+      "source_git_blob": "fb9612219fe3855239bc89993966d49836c22f20",
+      "adopted_components": [],
+      "runtime_integration_required": false,
+      "recipe_decision_complete": true,
+      "owner_study_closed": false,
+      "owner_remaining": "C3 descriptive readout/layer6, final CPU regression/check/report/PR remain with the owner and do not change the completed recipe disposition.",
+      "component_decisions": [
+        {
+          "arm": "Dprime",
+          "baseline": "M2 [A1,B3,B4]",
+          "seed_count": 2,
+          "delta": -0.03842869553842196,
+          "seed_deltas_R3": [
+            -0.04528424256768254,
+            -0.031573148509161375
+          ],
+          "seed_CI": [
+            [
+              -0.05626819574608201,
+              -0.034293740123209175
+            ],
+            [
+              -0.04243675973173937,
+              -0.021103425065180016
+            ]
+          ],
+          "seed_deltas_R1": [
+            -0.10623905592125829,
+            -0.11864777015385317
+          ],
+          "seed_CI_R1": [
+            [
+              -0.12004127120194975,
+              -0.09211544270142917
+            ],
+            [
+              -0.1310879747100256,
+              -0.10581670034245609
+            ]
+          ],
+          "verdict": "loss",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/DPRIME_M2_COMPARISON.md",
+          "source_git_blob": "b5136760de8bb7c45ef5d31efc4c8257db5c4910",
+          "mean_delta_source": "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/FINAL_REPORT.md",
+          "decision_rule_source": "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/USER_DIRECTIVE_20261117.md",
+          "decision_rule": "Owner rule retained: both seed R3 CI upper bounds below0 => loss. Positive-win threshold is the owner's own8%/0.03 rule; no main-line5% rejudging or new pooled CI.",
+          "producer_jobs": {
+            "seed1_training": 4536314,
+            "comparison": 4536315,
+            "status": "Owner-published successful0:0 and complete3M/R1/R3"
+          }
+        }
+      ],
+      "closed_non_adoptions": {
+        "C": "loss; deduplication not adopted",
+        "B_F64": "closed unresolved; no fields enabled",
+        "D": "Legacy M1+C single-seed win retained only in its original scope; owner explicitly excludes it from eligible M2 two-seed handoff."
+      },
+      "new_probe_fitting": false,
+      "new_bootstrap_resampling": false,
+      "own_new_GPU_jobs": 0
+    }
+  },
+  "archived_configurations": [
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/archive/fixed_20261115_confirmation_T4_native.json"
+  ],
+  "conditional_seed_decisions_complete": true,
+  "seed_comparisons": {
+    "status": "COMPLETE",
+    "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+    "comparisons": {
+      "confirmation|0|fixed_20261115_confirmation_T2|fixed_20261115_confirmation_T1_sbatch": {
+        "A": "fixed_20261115_confirmation_T2",
+        "B": "fixed_20261115_confirmation_T1_sbatch",
+        "A_configuration": null,
+        "B_configuration": null,
+        "purpose": "confirmation",
+        "round": 0,
+        "ready": true,
+        "seed_trigger_readout": "R3",
+        "seed1_required": false,
+        "seed0_rows": [
+          {
+            "purpose": "confirmation",
+            "round": 0,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T2",
+            "B": "fixed_20261115_confirmation_T1_sbatch",
+            "delta": 0.0351149566164507,
+            "ci_lower": 0.022541257861194416,
+            "ci_upper": 0.04678826205156208,
+            "verdict": "win"
+          },
+          {
+            "purpose": "confirmation",
+            "round": 0,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T2",
+            "B": "fixed_20261115_confirmation_T1_sbatch",
+            "delta": 0.08006383224002983,
+            "ci_lower": 0.06741304271986098,
+            "ci_upper": 0.09225250697409465,
+            "verdict": "win"
+          }
+        ],
+        "seed0_evidence": {
+          "R3": {
+            "decision": {
+              "delta": 0.0351149566164507,
+              "ci_lower": 0.022541257861194416,
+              "ci_upper": 0.04678826205156208,
+              "verdict": "win"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.0351149566164507
+            ],
+            "mean_score_A": 0.47750044808425046,
+            "mean_score_B": 0.44238549146779976,
+            "threshold": 0.023875022404212524,
+            "seed0_threshold": 0.023875022404212524,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          },
+          "R1": {
+            "decision": {
+              "delta": 0.08006383224002983,
+              "ci_lower": 0.06741304271986098,
+              "ci_upper": 0.09225250697409465,
+              "verdict": "win"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.08006383224002983
+            ],
+            "mean_score_A": 0.3761972191273991,
+            "mean_score_B": 0.2961333868873693,
+            "threshold": 0.018809860956369957,
+            "seed0_threshold": 0.018809860956369957,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "seed_policy_authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+        "seed0_training_problem": null,
+        "confirmation_single_seed": true,
+        "rows": [
+          {
+            "purpose": "confirmation",
+            "round": 0,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T2",
+            "B": "fixed_20261115_confirmation_T1_sbatch",
+            "delta": 0.0351149566164507,
+            "ci_lower": 0.022541257861194416,
+            "ci_upper": 0.04678826205156208,
+            "verdict": "win"
+          },
+          {
+            "purpose": "confirmation",
+            "round": 0,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T2",
+            "B": "fixed_20261115_confirmation_T1_sbatch",
+            "delta": 0.08006383224002983,
+            "ci_lower": 0.06741304271986098,
+            "ci_upper": 0.09225250697409465,
+            "verdict": "win"
+          }
+        ],
+        "evidence": {
+          "R3": {
+            "decision": {
+              "delta": 0.0351149566164507,
+              "ci_lower": 0.022541257861194416,
+              "ci_upper": 0.04678826205156208,
+              "verdict": "win"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.0351149566164507
+            ],
+            "mean_score_A": 0.47750044808425046,
+            "mean_score_B": 0.44238549146779976,
+            "threshold": 0.023875022404212524,
+            "seed0_threshold": 0.023875022404212524,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          },
+          "R1": {
+            "decision": {
+              "delta": 0.08006383224002983,
+              "ci_lower": 0.06741304271986098,
+              "ci_upper": 0.09225250697409465,
+              "verdict": "win"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.08006383224002983
+            ],
+            "mean_score_A": 0.3761972191273991,
+            "mean_score_B": 0.2961333868873693,
+            "threshold": 0.018809860956369957,
+            "seed0_threshold": 0.018809860956369957,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "status": "COMPLETE",
+        "seed_count": 1,
+        "per_seed_scores": {
+          "0": {
+            "A": {
+              "R1": 0.3761972191273991,
+              "R3": 0.47750044808425046
+            },
+            "B": {
+              "R1": 0.2961333868873693,
+              "R3": 0.44238549146779976
+            }
+          }
+        }
+      },
+      "P_vs_Pprime|0|fixed_20261115_confirmation_T2|fixed_20261115_confirmation_T4_sbatch": {
+        "A": "fixed_20261115_confirmation_T2",
+        "B": "fixed_20261115_confirmation_T4_sbatch",
+        "A_configuration": null,
+        "B_configuration": null,
+        "purpose": "P_vs_Pprime",
+        "round": 0,
+        "ready": true,
+        "seed_trigger_readout": "R3",
+        "seed1_required": false,
+        "seed0_rows": [
+          {
+            "purpose": "P_vs_Pprime",
+            "round": 0,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T2",
+            "B": "fixed_20261115_confirmation_T4_sbatch",
+            "delta": 0.03185564237488264,
+            "ci_lower": 0.02216953836849287,
+            "ci_upper": 0.04167811632385468,
+            "verdict": "win"
+          },
+          {
+            "purpose": "P_vs_Pprime",
+            "round": 0,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T2",
+            "B": "fixed_20261115_confirmation_T4_sbatch",
+            "delta": 0.035176376183557345,
+            "ci_lower": 0.024285118986368363,
+            "ci_upper": 0.04537847817659533,
+            "verdict": "win"
+          }
+        ],
+        "seed0_evidence": {
+          "R3": {
+            "decision": {
+              "delta": 0.03185564237488264,
+              "ci_lower": 0.02216953836849287,
+              "ci_upper": 0.04167811632385468,
+              "verdict": "win"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.03185564237488264
+            ],
+            "mean_score_A": 0.47750044808425046,
+            "mean_score_B": 0.4456448057093678,
+            "threshold": 0.023875022404212524,
+            "seed0_threshold": 0.023875022404212524,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          },
+          "R1": {
+            "decision": {
+              "delta": 0.035176376183557345,
+              "ci_lower": 0.024285118986368363,
+              "ci_upper": 0.04537847817659533,
+              "verdict": "win"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.035176376183557345
+            ],
+            "mean_score_A": 0.3761972191273991,
+            "mean_score_B": 0.3410208429438418,
+            "threshold": 0.018809860956369957,
+            "seed0_threshold": 0.018809860956369957,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "seed_policy_authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+        "seed0_training_problem": null,
+        "confirmation_single_seed": true,
+        "rows": [
+          {
+            "purpose": "P_vs_Pprime",
+            "round": 0,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T2",
+            "B": "fixed_20261115_confirmation_T4_sbatch",
+            "delta": 0.03185564237488264,
+            "ci_lower": 0.02216953836849287,
+            "ci_upper": 0.04167811632385468,
+            "verdict": "win"
+          },
+          {
+            "purpose": "P_vs_Pprime",
+            "round": 0,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T2",
+            "B": "fixed_20261115_confirmation_T4_sbatch",
+            "delta": 0.035176376183557345,
+            "ci_lower": 0.024285118986368363,
+            "ci_upper": 0.04537847817659533,
+            "verdict": "win"
+          }
+        ],
+        "evidence": {
+          "R3": {
+            "decision": {
+              "delta": 0.03185564237488264,
+              "ci_lower": 0.02216953836849287,
+              "ci_upper": 0.04167811632385468,
+              "verdict": "win"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.03185564237488264
+            ],
+            "mean_score_A": 0.47750044808425046,
+            "mean_score_B": 0.4456448057093678,
+            "threshold": 0.023875022404212524,
+            "seed0_threshold": 0.023875022404212524,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          },
+          "R1": {
+            "decision": {
+              "delta": 0.035176376183557345,
+              "ci_lower": 0.024285118986368363,
+              "ci_upper": 0.04537847817659533,
+              "verdict": "win"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.035176376183557345
+            ],
+            "mean_score_A": 0.3761972191273991,
+            "mean_score_B": 0.3410208429438418,
+            "threshold": 0.018809860956369957,
+            "seed0_threshold": 0.018809860956369957,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "status": "COMPLETE",
+        "seed_count": 1,
+        "per_seed_scores": {
+          "0": {
+            "A": {
+              "R1": 0.3761972191273991,
+              "R3": 0.47750044808425046
+            },
+            "B": {
+              "R1": 0.3410208429438418,
+              "R3": 0.4456448057093678
+            }
+          }
+        }
+      },
+      "molecule_scaling|0|fixed_20261115_confirmation_T2|fixed_20261115_confirmation_T6": {
+        "A": "fixed_20261115_confirmation_T2",
+        "B": "fixed_20261115_confirmation_T6",
+        "A_configuration": null,
+        "B_configuration": null,
+        "purpose": "molecule_scaling",
+        "round": 0,
+        "ready": true,
+        "seed_trigger_readout": null,
+        "seed1_required": false,
+        "seed0_rows": [
+          {
+            "purpose": "molecule_scaling",
+            "round": 0,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T2",
+            "B": "fixed_20261115_confirmation_T6",
+            "delta": -0.003930611504993298,
+            "ci_lower": -0.013156098282546068,
+            "ci_upper": 0.005120760633177863,
+            "verdict": "descriptive"
+          },
+          {
+            "purpose": "molecule_scaling",
+            "round": 0,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T2",
+            "B": "fixed_20261115_confirmation_T6",
+            "delta": 0.030746727616829006,
+            "ci_lower": 0.019982202782512042,
+            "ci_upper": 0.04160374975076962,
+            "verdict": "descriptive"
+          }
+        ],
+        "seed0_evidence": {
+          "R3": {
+            "decision": {
+              "delta": -0.003930611504993298,
+              "ci_lower": -0.013156098282546068,
+              "ci_upper": 0.005120760633177863,
+              "verdict": "descriptive"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              -0.003930611504993298
+            ],
+            "mean_score_A": 0.47750044808425046,
+            "mean_score_B": 0.48143105958924376,
+            "threshold": 0.024071552979462188,
+            "seed0_threshold": 0.024071552979462188,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          },
+          "R1": {
+            "decision": {
+              "delta": 0.030746727616829006,
+              "ci_lower": 0.019982202782512042,
+              "ci_upper": 0.04160374975076962,
+              "verdict": "descriptive"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.030746727616829006
+            ],
+            "mean_score_A": 0.3761972191273991,
+            "mean_score_B": 0.3454504915105701,
+            "threshold": 0.018809860956369957,
+            "seed0_threshold": 0.018809860956369957,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "seed_policy_authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+        "seed0_training_problem": null,
+        "confirmation_single_seed": true,
+        "rows": [
+          {
+            "purpose": "molecule_scaling",
+            "round": 0,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T2",
+            "B": "fixed_20261115_confirmation_T6",
+            "delta": -0.003930611504993298,
+            "ci_lower": -0.013156098282546068,
+            "ci_upper": 0.005120760633177863,
+            "verdict": "descriptive"
+          },
+          {
+            "purpose": "molecule_scaling",
+            "round": 0,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T2",
+            "B": "fixed_20261115_confirmation_T6",
+            "delta": 0.030746727616829006,
+            "ci_lower": 0.019982202782512042,
+            "ci_upper": 0.04160374975076962,
+            "verdict": "descriptive"
+          }
+        ],
+        "evidence": {
+          "R3": {
+            "decision": {
+              "delta": -0.003930611504993298,
+              "ci_lower": -0.013156098282546068,
+              "ci_upper": 0.005120760633177863,
+              "verdict": "descriptive"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              -0.003930611504993298
+            ],
+            "mean_score_A": 0.47750044808425046,
+            "mean_score_B": 0.48143105958924376,
+            "threshold": 0.024071552979462188,
+            "seed0_threshold": 0.024071552979462188,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          },
+          "R1": {
+            "decision": {
+              "delta": 0.030746727616829006,
+              "ci_lower": 0.019982202782512042,
+              "ci_upper": 0.04160374975076962,
+              "verdict": "descriptive"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": true,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.030746727616829006
+            ],
+            "mean_score_A": 0.3761972191273991,
+            "mean_score_B": 0.3454504915105701,
+            "threshold": 0.018809860956369957,
+            "seed0_threshold": 0.018809860956369957,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "status": "COMPLETE",
+        "seed_count": 1,
+        "per_seed_scores": {
+          "0": {
+            "A": {
+              "R1": 0.3761972191273991,
+              "R3": 0.47750044808425046
+            },
+            "B": {
+              "R1": 0.3454504915105701,
+              "R3": 0.48143105958924376
+            }
+          }
+        }
+      },
+      "molecule_scaling|0|fixed_20261115_confirmation_T6|fixed_20261115_confirmation_T5": {
+        "A": "fixed_20261115_confirmation_T6",
+        "B": "fixed_20261115_confirmation_T5",
+        "A_configuration": null,
+        "B_configuration": null,
+        "purpose": "molecule_scaling",
+        "round": 0,
+        "ready": true,
+        "seed_trigger_readout": null,
+        "seed1_required": false,
+        "seed0_rows": [
+          {
+            "purpose": "molecule_scaling",
+            "round": 0,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T6",
+            "B": "fixed_20261115_confirmation_T5",
+            "delta": 0.014189251840271588,
+            "ci_lower": 0.004857097700949405,
+            "ci_upper": 0.023314319153913077,
+            "verdict": "descriptive"
+          },
+          {
+            "purpose": "molecule_scaling",
+            "round": 0,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T6",
+            "B": "fixed_20261115_confirmation_T5",
+            "delta": 0.00888888068396615,
+            "ci_lower": -0.003163514039204693,
+            "ci_upper": 0.01982696588484913,
+            "verdict": "descriptive"
+          }
+        ],
+        "seed0_evidence": {
+          "R3": {
+            "decision": {
+              "delta": 0.014189251840271588,
+              "ci_lower": 0.004857097700949405,
+              "ci_upper": 0.023314319153913077,
+              "verdict": "descriptive"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.014189251840271588
+            ],
+            "mean_score_A": 0.48143105958924376,
+            "mean_score_B": 0.46724180774897217,
+            "threshold": 0.024071552979462188,
+            "seed0_threshold": 0.024071552979462188,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          },
+          "R1": {
+            "decision": {
+              "delta": 0.00888888068396615,
+              "ci_lower": -0.003163514039204693,
+              "ci_upper": 0.01982696588484913,
+              "verdict": "descriptive"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.00888888068396615
+            ],
+            "mean_score_A": 0.3454504915105701,
+            "mean_score_B": 0.33656161082660396,
+            "threshold": 0.017272524575528508,
+            "seed0_threshold": 0.017272524575528508,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "seed_policy_authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+        "seed0_training_problem": null,
+        "confirmation_single_seed": true,
+        "rows": [
+          {
+            "purpose": "molecule_scaling",
+            "round": 0,
+            "readout": "R3",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T6",
+            "B": "fixed_20261115_confirmation_T5",
+            "delta": 0.014189251840271588,
+            "ci_lower": 0.004857097700949405,
+            "ci_upper": 0.023314319153913077,
+            "verdict": "descriptive"
+          },
+          {
+            "purpose": "molecule_scaling",
+            "round": 0,
+            "readout": "R1",
+            "task": "MEAN",
+            "A": "fixed_20261115_confirmation_T6",
+            "B": "fixed_20261115_confirmation_T5",
+            "delta": 0.00888888068396615,
+            "ci_lower": -0.003163514039204693,
+            "ci_upper": 0.01982696588484913,
+            "verdict": "descriptive"
+          }
+        ],
+        "evidence": {
+          "R3": {
+            "decision": {
+              "delta": 0.014189251840271588,
+              "ci_lower": 0.004857097700949405,
+              "ci_upper": 0.023314319153913077,
+              "verdict": "descriptive"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.014189251840271588
+            ],
+            "mean_score_A": 0.48143105958924376,
+            "mean_score_B": 0.46724180774897217,
+            "threshold": 0.024071552979462188,
+            "seed0_threshold": 0.024071552979462188,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          },
+          "R1": {
+            "decision": {
+              "delta": 0.00888888068396615,
+              "ci_lower": -0.003163514039204693,
+              "ci_upper": 0.01982696588484913,
+              "verdict": "descriptive"
+            },
+            "seed_count": 1,
+            "seeds": [
+              0
+            ],
+            "seed0_borderline": false,
+            "seed0_win_requires_confirmation": false,
+            "seed1_required": false,
+            "per_seed_deltas": [
+              0.00888888068396615
+            ],
+            "mean_score_A": 0.3454504915105701,
+            "mean_score_B": 0.33656161082660396,
+            "threshold": 0.017272524575528508,
+            "seed0_threshold": 0.017272524575528508,
+            "bootstrap_draws_per_seed": 1000,
+            "combined_bootstrap_draws": 1000,
+            "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+            "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+            "may_trigger_seed1": false
+          }
+        },
+        "status": "COMPLETE",
+        "seed_count": 1,
+        "per_seed_scores": {
+          "0": {
+            "A": {
+              "R1": 0.3454504915105701,
+              "R3": 0.48143105958924376
+            },
+            "B": {
+              "R1": 0.33656161082660396,
+              "R3": 0.46724180774897217
+            }
+          }
+        }
+      }
+    },
+    "seed1_configurations": [],
+    "seed1_plan": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/conditional_seed_decisions/confirmation/seed1_plan.json",
+    "jobs_submitted": 0
+  }
 }

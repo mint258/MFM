@@ -1,0 +1,78 @@
+{
+  "run": "composition_I1_descriptive",
+  "kind": "COMPOSITION_I1_22C_DESCRIPTIVE",
+  "ready": false,
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261122C.md",
+  "node": "compute-0-11",
+  "excluded_nodes": [
+    "compute-0-8",
+    "compute-0-10",
+    "compute-0-14",
+    "compute-0-15",
+    "compute-0-16",
+    "compute-0-17",
+    "compute-0-18"
+  ],
+  "cpus": 4,
+  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_I1_descriptive",
+  "output_mount": "/lfshome",
+  "forward_summary": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_I1_join/summary.json",
+  "panel": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_panel/panel.npz",
+  "weights": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_mean_statistics/weights.npy",
+  "sources": [
+    {
+      "label": "F2_3M",
+      "source_binding": {
+        "label": "round4_F2",
+        "arm": "F2",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/samples_3000000.pt",
+        "bytes": 231769313,
+        "run": "fixed_20261115_round4_F2",
+        "components": [
+          "A1",
+          "B3",
+          "B4",
+          "F2"
+        ],
+        "pretraining_seed": 0,
+        "source_training_budget": 3000000
+      },
+      "checkpoint_mtime_ns": "1795131404000000000"
+    },
+    {
+      "label": "I1_3M",
+      "source_binding": {
+        "arm": "I1",
+        "samples": 3000000,
+        "source_training_budget": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/I1_noB4_seed0.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/I1_3M_seed0/samples_3000000.pt",
+        "bytes": null
+      },
+      "checkpoint_mtime_ns": null
+    }
+  ],
+  "cleanup_seconds": 180,
+  "work_unit_seconds": 120,
+  "ram_peak_bytes": 8589934592,
+  "remaining_output_bytes": 335544320,
+  "reservation_ids": [
+    "P_F_remaining_CPU11_RAM",
+    "P_F_remaining_CPU11_tmp",
+    "P_I1_composition_remaining"
+  ],
+  "source_validation": {
+    "new_tests_job": "4539063",
+    "new_tests": 3,
+    "resource_groups": 24015,
+    "original_statistic_module": "d3bce7a954f01443860c2ce1c8fb6d2663c05f67",
+    "status": "WAIT_ACTUAL_I1_3M_NATIVE_CLOSURE",
+    "old_eight_T2_A2_and_four_T1_sources_recomputed": false
+  },
+  "new_GPU_forwards": 0,
+  "old_mean_primary_recomputed": false,
+  "decisions_changed": false,
+  "atomic_metrics_pending": false
+}
