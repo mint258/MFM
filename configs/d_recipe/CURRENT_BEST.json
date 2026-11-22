@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE1_SEED0_WIN_WAITING_TRIGGERED_SEED1_PREPARATION_AND_ADMISSION",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T08:39:57Z",
+  "updated_at_utc": "2026-11-22T08:47:32Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -1099,12 +1099,12 @@
   "automation_state": "ACTIVE_WITH_BLOCKED_RUNTIME_DEPENDENCIES",
   "blocking_condition": {
     "type": "EXTERNAL_KERNEL_IO_WAIT_AND_SLURM_MANAGEMENT_STARTUP",
-    "consecutive_goal_turns": 1,
+    "consecutive_goal_turns": 2,
     "verified_at_utc": "2026-11-22T08:39:57Z",
     "preparation_job": 4538549,
     "preparation_process": 2827663,
     "preparation_CPU_time_seconds": 0,
-    "preparation_log_exists": false,
+    "preparation_log_exists": true,
     "seed1_configurations_exist": false,
     "seed1_registry_exists": false,
     "main_model_training_started": false,
@@ -1126,10 +1126,23 @@
       "name": "slurmstepd",
       "state": "D",
       "job": 4538549,
-      "direct_user_signal_allowed": false
+      "direct_user_signal_allowed": false,
+      "last_proc_observation_at_utc": "2026-11-22T07:21:29.907Z",
+      "observation_is_not_a_fresh_PID_identity_check": true
     },
     "preparation_hard_deadline_CST": "2026-11-22T18:18:03+08:00",
-    "administrator_attention_needed_before_preparation_deadline": true
+    "administrator_attention_needed_before_preparation_deadline": true,
+    "preparation_log_bytes": 0,
+    "preparation_log_mtime_CST": "2026-11-22T16:25:09.048939254+08:00",
+    "last_artifact_observation_at_utc": "2026-11-22T08:47:32Z",
+    "preparation_live_queue_observation": {
+      "job": 4538549,
+      "state": "RUNNING",
+      "observed_at_utc": "2026-11-22T08:46:11Z",
+      "actual_EndTime_CST": "2026-11-22T18:18:03+08:00"
+    },
+    "current_turn_classification": "VERIFIED_WAIT_SAME_LIVE_PREPARATION_JOB_NO_EXPERIMENTAL_PROGRESS",
+    "preparation_process_entry_evidence": "Current empty0B log and absent bothseed1 configs/registry; no native Python start/completion marker. Prior root/slurmstepd PID observation is historical, not freshly revalidated by another fault-node probe."
   },
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
