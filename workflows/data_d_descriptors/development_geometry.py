@@ -15,6 +15,17 @@ from workflows.data_v1_final.labels.common import D20_NAMES
 
 D3_NAMES = ("PMI1", "PMI2", "PMI3", "PBF", "volume_A3", "SASA_total_A2")
 
+# Original B6 chemistry failures make this member unavailable, without a retry
+# or new geometry. Coordinate-invariant and unexpected errors remain fatal.
+H_COMPLETION_UNAVAILABLE = frozenset((
+    "EXISTING_RECIPE_DISCONNECTED_GRAPH_UNSUPPORTED",
+    "H_COMPLETION_SOURCE_ATOM_ORDER_OR_COMPOSITION_MISMATCH",
+    "BASELINE_MMFF94_PARAMETERS_UNAVAILABLE",
+    "BASELINE_MMFF94_FORCEFIELD_UNAVAILABLE",
+    "BASELINE_MMFF94_NOT_CONVERGED_500",
+    "BASELINE_GEOMETRY_NONFINITE",
+))
+
 
 class UnavailableD3(ValueError):
     pass
@@ -96,8 +107,13 @@ def structure(smiles, numbers, coordinates, *, hydrogen_policy, complete=None):
             from workflows.data_v1_final.downstream_descriptors_v2.geometry import complete_geometry as complete
         # Passing mandatory coordinates makes the existing helper use its
         # fixed-native H-completion branch, never ETKDG/missing-geometry rebuild.
-        result = complete(dict(mol=molecule, atomic_numbers=numbers.tolist(),
-                               coordinates_A=coordinates.tolist()))
+        try:
+            result = complete(dict(mol=molecule, atomic_numbers=numbers.tolist(),
+                                   coordinates_A=coordinates.tolist()))
+        except ValueError as error:
+            if str(error) not in H_COMPLETION_UNAVAILABLE:
+                raise
+            raise UnavailableD3(str(error)) from error
         if not np.array_equal(np.asarray(result["coordinates_A"])[:len(numbers)], coordinates):
             raise ValueError("Existing H-completion program changed original source coordinates")
     if result["atomic_numbers"] != full_numbers:
