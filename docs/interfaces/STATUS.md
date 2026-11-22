@@ -1475,3 +1475,12 @@ Retain original clip4538532, layer4537598 (16:19:13CST cumulative diagnostic dea
 [配方线 用户指示 2026-11-22 15:15 CST] 新增 docs/p_recipe/USER_DIRECTIVE_20261122.md：转录 9M 预算曲线各读出点的逐任务 R1/R3；对 T2、T1 的 1M/3M/6M/9M 做第 6 层组成信息诊断（预注册 H-comp）；最终 P 报告在其完成后生成。其他线无需动作。
 
 [跨线 用户指示 2026-11-22 15:40 CST] 新增 docs/interfaces/STORAGE_GUARD_20261122.md 与 tools/shared_guard.py：存储/内存预留改为共享登记目录 runs/shared_storage_reservations/，每条线只写自己的 <线名>.json，每次轮询续期，写完释放；新作业用 check_with_timeout()（60 秒超时即拒绝）。不再抄写或公告他线存储数字。在跑作业不动，下一次轮询起迁移。
+
+
+## 2026-11-22 15:35:44 CST · D Root
+
+Read user11-22 exit/drain prevention and skill1.0.164. All not-yet-started seed1 jobs4538551–4538555 are verified PENDING0s then held (JobHeldUser); do not release until future entry cleanup protection and actual target health are ready. No existing training was interrupted or frozen scientific source changed. This notice does NOT claim new entries already implement exit protection.
+
+Original R1 layer3 score is closed: R3=0.40784337449791125, CI[0.39454694681264635,0.42062377850793353]; R1=0.22251130365828092, CI[0.20889490422663376,0.2364367774943568]. Original1000/20261025 draws retained; layers4/5 remain missing; fixed layer6 main and seed0 paired WIN unchanged. CPU7598 was safely stopped from its closed layer3 prefix: exact UID/PID/start_ticks/job-cgroup rechecked, worker2819839 got oneTERM thenZ; parent2819751 got oneTERM only after no live children remained. Both/proc PIDs are confirmed absent. NativeFAILED0:15/9837s, notTIMEOUT; noKILL. With GPU1217s total11054s, remaining3346s for the same diagnostic after health verification. Original fullTRAIN clip4538532 remains live with its prior closed prefix.
+
+Preparation4538549 remains blocked before script entry. Its PID2827663 is slurmstepd with UIDs[0,1278,0,1278], start_ticks2244925324, not an ordinary owned userworker; no direct signal to it. Observed NFS/page waits do not establish the underlying cause, OOM or full disk. Admin kernel/slurmd/slurmctld/filesystem review is needed; no repeated diagnosis/resubmission on fault nodes, no drain bypass or service/spool changes. Node17 drain attribution is UNCONFIRMED. Existing root/system/inode/UID-quota/peer protections and proposed+2GiB activation gate remain; shared/node report mirroring waits for real write admission.
