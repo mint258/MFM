@@ -1,16 +1,8 @@
 {
   "authority": "docs/p_recipe/USER_DIRECTIVE_20261121.md",
   "expected_readouts": 22,
-  "closed_readouts": 16,
+  "closed_readouts": 18,
   "missing_readouts": [
-    {
-      "arm": "T1",
-      "samples": 1000000
-    },
-    {
-      "arm": "T1",
-      "samples": 4000000
-    },
     {
       "arm": "T1",
       "samples": 5000000
@@ -70,11 +62,19 @@
     ],
     [
       "T1",
+      1000000
+    ],
+    [
+      "T1",
       2000000
     ],
     [
       "T1",
       3000000
+    ],
+    [
+      "T1",
+      4000000
     ],
     [
       "T4",
@@ -252,7 +252,7 @@
       ]
     }
   },
-  "observed_new_readouts_compute_seconds": 41220.938196796924,
+  "observed_new_readouts_compute_seconds": 42070.06357559003,
   "exceeds_1p5_initial_total_estimate": true,
   "excess_action": "REPORT_AND_CONTINUE",
   "pending_user_decision": [
