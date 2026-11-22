@@ -677,3 +677,12 @@ Native metadata handoff4536909 C0 is now the available entry. B0.DELIVERY.json e
 字段说明：geometry access使用immutable/cross_node_read_allowed，几何写入关闭由其producer及原生C0证据判定；writers_closed字段用于P′ access。
 
 [跨线 用户指示 2026-11-22 15:40 CST] 新增 docs/interfaces/STORAGE_GUARD_20261122.md 与 tools/shared_guard.py：存储/内存预留改为共享登记目录 runs/shared_storage_reservations/，每条线只写自己的 <线名>.json，每次轮询续期，写完释放；新作业用 check_with_timeout()（60 秒超时即拒绝）。不再抄写或公告他线存储数字。在跑作业不动，下一次轮询起迁移。
+
+
+## 2026-11-22 18:30 CST · D Root
+
+用户要求更换节点后，D 两个全新 seed1 正式 3M 作业4538566/4538567已分别在 compute-0-4/5 的 RTX3090 运行；18:13 CST 原生产日志均已确认153600 samples/4800 updates，独立60000–150000窗口 p99 分别11.076789627075199与25.356171264648438（150016冻结）。原科学配置、成员、随机状态和训练预算不变。后续原统计4538568/4538569及逐seed比较4538570仅按afterok依赖运行；原5个未启动held作业4538551–4538555已核实0秒取消。尚无seed1胜负，不提前采纳转移。
+
+R1原缓存层诊断由CPU13作业4538572补齐缺失层4/5，C0/81秒，原层3/6复用；总成本11135秒<14400。4层原F64/1000分子bootstrap已闭合，主终点仍为层6，不按诊断层择优。旧裁剪4538532最终原生FAILED0:15，实际旧PID已核实退出；原完整TRAIN裁剪由4538573在CPU13沿同一原配置/游标续接，18:16 CST已从1020928推进到1049600/1194228。原准备作业4538549实际自有进程也已退出；这两项旧阻塞已解除。
+
+新作业使用Slurm复制的自包含resident退出监督入口，真实EndTime前预留收尾，TERM/join/reap自有子进程，不用TIMEOUT正常收尾，无KILL、无故障节点重试、无管理员操作。Data联合NFS峰值38853537501字节包含seed1额外2GiB；保留实际目标盘字节/inode/配额与跨窗口余量检查。未改其他工作线/在跑训练。完整D目标仍active；后续宽库、K1、冷启动9M、A/B/C、交付与PR尚待原任务书关卡。
