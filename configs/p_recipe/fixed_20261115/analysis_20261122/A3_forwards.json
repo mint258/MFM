@@ -82,12 +82,21 @@
     "sourcecheck_job": "4539015",
     "scientific_model_code_sha": "a00498651c6afb9b67483692a8a18365b2b97988",
     "new_source_Git_blobs": {
-      "penalty_entry.py": "8ec58026ad3b793e73a65201b48500b52d8e00fe",
+      "penalty_entry.py": "f438baeae797ac07591f411fcc6f0c88b2637e59",
       "penalty_statistics.py": "0c062b2af8354afa693df77b62ef8a1a610648cc",
       "penalty_statistics_entry.py": "e61ab3c544ba85bb11e1b1f35f36c13d7b1b50e2",
       "test_penalty_statistics.py": "71ccc7e3aba2b40fb17e31accdac0e52c4ced28e"
     },
-    "constructor_seed_alignment": "Original checkpoint seed initializes CPU/CUDA before model construction; applied while job4539017 PENDING0s"
+    "constructor_seed_alignment": "Original checkpoint seed initializes CPU/CUDA before model construction; applied while job4539017 PENDING0s",
+    "directory_initialization_repair": {
+      "first_job": "4539017",
+      "native_status": "FAILED_1:0_24s",
+      "root_pid": 2097019,
+      "owned_tree_reaped": true,
+      "actual_root_absent": true,
+      "change": "Create each source output directory before its first atomic cursor write",
+      "science_changed": false
+    }
   },
   "new_training": false,
   "new_optimizer_updates": 0,

@@ -99,6 +99,7 @@ def main(path):
                 for source in c["sources"]:
                     label=source["label"];binding=source["source_binding"]
                     state_path=output/label/"batches.json"
+                    state_path.parent.mkdir(parents=True,exist_ok=True)
                     current=fingerprint(binding["checkpoint"])
                     if (current["bytes"]!=binding["bytes"]
                             or str(current["mtime_ns"])!=source["checkpoint_mtime_ns"]):
