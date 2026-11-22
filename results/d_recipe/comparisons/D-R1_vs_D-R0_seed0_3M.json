@@ -1,0 +1,66 @@
+{
+  "candidate": "d_recipe_20261120_D_R1_seed0_3M",
+  "control": "d_recipe_20261120_D_R0_seed0_3M",
+  "seed": 0,
+  "samples": 3000000,
+  "primary": "mean_seven_task_R3_normalized_improvements",
+  "R3": {
+    "delta": 0.09770468747584315,
+    "ci_lower": 0.08195311354654226,
+    "ci_upper": 0.11189074805862387,
+    "verdict": "WIN",
+    "tau": 0.02012323794694327,
+    "seed1_required": true,
+    "bootstrap_draws": 1000,
+    "bootstrap_seed": 20261025,
+    "confidence": 0.95,
+    "authority": "docs/d_recipe/TASKBOOK.md:4.6"
+  },
+  "R1_report_only": {
+    "candidate": {
+      "mean_normalized_improvement": 0.23055805758999076,
+      "bootstrap_ci": [
+        0.2161366706314768,
+        0.24381363179424703
+      ],
+      "included_tasks": [
+        "exp.LogD",
+        "exp.Log_HLM_CLint",
+        "exp.LogS",
+        "qm9.U0_atom",
+        "qm9.homo",
+        "qm9.lumo",
+        "qm9.alpha"
+      ]
+    },
+    "control": {
+      "mean_normalized_improvement": 0.15029061734585417,
+      "bootstrap_ci": [
+        0.1336480796754142,
+        0.16715810049540256
+      ],
+      "included_tasks": [
+        "exp.LogD",
+        "exp.Log_HLM_CLint",
+        "exp.LogS",
+        "qm9.U0_atom",
+        "qm9.homo",
+        "qm9.lumo",
+        "qm9.alpha"
+      ]
+    }
+  },
+  "CYP_report_only": "existing evaluator task rows; excluded from primary mean",
+  "score_sources": [
+    "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/training/readout/scores.json",
+    "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/readout/scores.json"
+  ],
+  "bootstrap_unit": "molecule",
+  "bootstrap_draws": 1000,
+  "bootstrap_seed": 20261025,
+  "confidence": 0.95,
+  "CI_scope": "molecule sampling uncertainty conditional on the fitted models",
+  "multiple_comparison_correction": false,
+  "resampling_repeated": false,
+  "selection_change_allowed": true
+}
