@@ -1079,3 +1079,11 @@ D Root resumed-goal audit now reached3 consecutive turns with the SAME external 
 Administrator kernel/slurmd/slurmctld/shared-filesystem recovery is required, particularly BEFORE preparation4538549 actual hard deadline18:18:03CST today. No direct signal to management/root processes, repeated kill/scancel, service/spool/drain changes or duplicate producer. Old clipping PID exit remains unproven; original closed1020928/1194228 cursor and all outputs retained. New entry extension remains UNRESOLVED after two safely reaped75 exits; core16 passing tests retained; staged templates remain default64/inactive pending source-independent outer supervision and actual health/config/forecast admission. Do not directly release the five old copied scripts.
 
 After recovery, read actual latest jobs/configs/registry/budgets/artifacts first and preserve any newer progress; NEVER overwrite subsequentREADY or completed state with this blocked snapshot. Original R1 seed0 WIN, approved7/65 filtering and unchanged unique statistics remain. No scientific fallback/adoption/freeze/9M was invented from this infrastructure fault. Still required: actual stage1 seed1 confirmation; selected-recipeL1/L2/G1 and conditionalK1/seeds; allowed diagnostics; finalfreeze/registered cold9M; finalA/B/C, benchmark handoff, reports/costs and two unmergedPRs. All guards and existing other-line training are preserved. No claim that peers have read this notice.
+
+## 2026-11-22 16:54 CST 下游目标连续阻塞审计（本线）
+
+三轮恢复后原生核验仍为六个原来源4538341/8342/8345/8348/8351/8356 RUNNING，175必需配置中169项模型运行闭合；不能据此替代正常175项确认统计。4538510仍PENDING/0秒/JobHeldUser，8511–8513仅等待原依赖，最终CSV/SHA与完整交付未完成。15项新生命周期行为测试实际CI通过，未来入口/测试/规范已在真实目标盘及新鲜UID配额预检后复制到获准工作树；外层cwd、标准流和环境先于共享负载保护已准备，但未接入或放行四报告链。
+
+当前CPU14/16/17/18均DRAIN，CPU9全部分配，其他可调度余量属于已观察失败通道或尚不能完成真实准入的节点。CPU15/10各一次限时连接失败，本地SSH子进程已回收；不再追加SSH/srun诊断或测试任务，不绕过故障隔离。原版统一守卫及本线未来预留已保留；迁移按两次真实节点准入前置失败记UNRESOLVED、回退原守卫，7项迁移测试未启动。运行中六训练、原模型/种子/预算/人口/掩码与已闭合科学产物均不改、不停、不重启。
+
+同一外部阻塞持续三轮，目标记blocked，PR17保持草稿。须先由管理员恢复通信/共享I/O并核验节点健康，才能完成入口HPC验证、取得真实新报告ID并受控接续、正常首次最终CSV/SHA生产及原字节发布。保留既有D态PID/UID/start_ticks/job/节点证据；底层根因仍未查明，17本次归属未确认。不发送信号、不触碰他人任务、spool、服务或drain设置，不伪造原生终态或最终交付。
