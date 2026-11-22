@@ -214,3 +214,17 @@ CPU17/4537571.step31仅原样保存L2唯一统计和最终清单至Data结果目
 2026-11-22 15:35:44 CST：用户恢复目标后核查仍见原准备4538549及共享I/O等待，五条seed1依赖链未开训。系统绝对路径/usr/bin/env与本机Python3.9.14可立即执行，CPU8实测根盘可用69088989184B/36567573inodes；只读元数据探针仍在打开仓库源文件时陷入openat/NFS等待，未生成文件且未采纳该临时入口，两个只读step4538532.10/.15已终止，原生产allocation保留。发现原第3层scores.json已在13:40:05 CST闭合，首次转录原R1=0.22251130365828092、CI[0.20889490422663376,0.2364367774943568]及R3=0.40784337449791125、CI[0.39454694681264635,0.42062377850793353]，原1000次/seed20261025抽样保持；L4/L5尚无scores，不能选L3代替固定主层6。
 
 收到用户替换版AGENTS后已重读技能1.0.164。五个未运行seed1作业4538551–4538555均核实PENDING0秒后scontrol hold，当前JobHeldUser；新入口退出保护未部署前不能释放。原逐层CPU7598两UID均1278，worker2819839/start_ticks2244339286/父2819751/start_ticks2244338224，均在/job_4537598/step_batch。worker一次TERM后Z；核实父无活子进程后父一次TERM，两实际/proc PID均ABSENT，不只看batch终态。原生作业FAILED0:15/9837秒，未SIGKILL/未TIMEOUT；保留L3和原缓存，累计GPU1217+CPU9837=11054秒，剩余3346秒供健康后的原诊断续接。原完整TRAIN生产4538532及其输出不变。准备进程2827663是slurmstepd，UIDs=[0,1278,0,1278]、start_ticks2244925324、job4538549，不能当成自有用户worker直接信号；需管理员核查kernel/Slurm/文件系统，底层根因未定。节点17本次drain归属未确认。后续入口须采用真实TimeLimit收尾余量至少180秒及完整子进程TERM/join/reap，新代码与测试尚待完成；不修改冻结科学源码、预算、模型或既有结果。
+
+
+2026-11-22 16:32 CST：未来D入口退出保护代码已写入实际X:/MFM_d_recipe，共新增10个源码/测试文件，原P与冻结D科学worker未修改。exit_lifecycle按实际Slurm EndTime预留默认900秒（下限180秒），使用subreaper接管、自有UID/PID/start_ticks/精确step-cgroup验证、单次TERM及join/reap，无SIGKILL；训练通过原SAVE_AND_EXIT协议在完整更新处保存，不把安全退出75记为成功。新GPU/CPU/比较入口只调用原launcher，运行snapshot只增加资源与退出控制字段。新截断入口须原样传入整个reference配置/集合/报告路径，不能用会改变cursor binding的训练runtime克隆；复用原闭合分子计数和原atomic_cursor，不另算一遍。
+
+现有10项生命周期测试4538556在CPU10完成0:0/1秒，主体0.303秒；16项实际源策略/生命周期测试及3个shell语法4538557完成0:0/23秒/1CPU，主体0.309秒，实际remaining_children=[]。新的含截断入口18项测试4538558在跑，不提前记C0。均无GPU或科学数组读写；未跑完整默认回归。新Slurm日志用/tmp/d_recipe_managed_%x_%j.log，避免Slurm管理进程先打开共享盘日志；必须在实际节点登记所有同行及D同盘未来增长（每条至少32MiB日志，canonical键exit_root_log_future_bytes），并保持max(10GiB,10%)根盘底线、inode及原fresh5秒UID配额守卫。源及此次报告同步在实际head目标以原guard.wait核准：含同行future、拟2GiB和1MiB元数据，无科学准入放宽。
+
+五个旧seed1作业仍持有/未运行；它们已复制旧sbatch脚本，源码就绪不能直接release。实际配置/live Data预算及节点健康闭合后，先验证旧五项仍PENDING0秒，再以新入口替换同一组规定运行、重绑依赖；不新增种子或共享对照。源代码已实现不代表生产入口已激活。本线暂避CPU8持续故障通道，及已知14/16/17/18，CPU21禁用保持。
+
+原完整TRAIN截断worker2822119/start_ticks2244363539、UIDs全1278、无子进程，原cgroup /slurm/uid_1278/job_4538532/step_batch复核后仅一次TERM；15秒观察仍D，start_ticks/UID未变而freezer行变为1:freezer:/，实际PID退出尚未证明，Slurm仍报RUNNING。没有再次signal/scancel/KILL，也未启动替代生产者；1020928/1194228原闭合游标、原配置/系数/RNG/构象选择及数组保留。此观察不证明OOM、磁盘满或底层根因。准备4538549仍为root/slurmstepd2827663启动等待，不能直接作为自有用户worker信号；需要管理员核查kernel/slurmd/slurmctld/文件系统。无任何现有模型训练因规则变更中断，无管理员操作/自行RESUME，节点17本次归属保持未确认。
+
+
+2026-11-22 16:40 CST：扩展测试4538558在实际共享源码加载时出现原worker2632264/start_ticks2013721784/UIDs全1278、step0、D/rpc_wait_bit_killable；监督器2632262/start_ticks2013721779精确核对后仅一次USR1。内存中的原监督器实际发一次TERM，worker返回-15并OWNED_TREE_REAPED、remaining_children=[]；Slurm FAILED75:0/389秒/1CPU，不是TIMEOUT、不是18项通过。随后CPU15/4538559仅对原样捕获到内存的新截断源做2项策略测试及4个bash语法，实际在测试完成前进入5分钟分配的180秒收尾窗；监督器TERM两个自有PID1112577/4755403314与1112578/4755403317，全部reap、remaining_children=[]，原生FAILED75:0/119秒/1CPU，不算2项或完整集成通过。两次均无GPU或科学数组读写。该扩展入口按两次实际基础设施中断记UNRESOLVED，不继续在故障通道修复/测试；既有4538557的16项通过保留，科学seed0 WIN不改。
+
+此次暴露出生产入口还需在读取共享模块之前就驻留外层监督器；内存外层在两次真实等待中已经证明能提前收尾，但尚未部署成生产启动链。四个新sbatch模板默认检查D_EXIT_OUTER_SUPERVISION，不满足即64退出，禁止直接提交或仅设置标志冒充具备监督。后续需真实外层监督、配置/全局预算/健康闭合后才替换旧持有作业。本线暂避8/10/15持续故障通道与已知14/16/17/18，21禁用保持。准备4538549真实硬截止18:18:03 CST；root/slurmstepd启动等待需管理员在此前介入，当前权限不能保证该管理进程可安全退出。没有直接信号root/管理员进程、没有KILL或自行重启/RESUME。Root报告和原第3层JSON已按实际head容量守卫同步到节点，未修改或运行新的模型科学配置。
