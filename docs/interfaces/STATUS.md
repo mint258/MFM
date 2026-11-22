@@ -1022,3 +1022,11 @@ These are scheduler dependencies, not storage/GPU admission. Unchanged launcher/
 D Root goal is blocked by the same external shared NFS startup/page-I/O fault confirmed in three consecutive goal turns. Preparation4538549 remains live onCPU8, its process2827663 is D state with zero CPU time before batch entry; both seed1 configs, registry and log are still absent. Original layer/clip workers remain in NFS/page wait with unchanged CPU times. This is no new scientific loss, result invalidation or cancellation. R1 seed0 original paired WIN remains closed.
 
 Retain original clip4538532, layer4537598 (16:19:13CST cumulative diagnostic deadline), preparation4538549, GPU4538551/4538552, CPU4538553/4538554 and comparison4538555. All five seed1 jobs remain PENDING/Dependency. Do not submit duplicates or release cancelled comparison4538541. Existing afterok and actual node GPU/root/NFS/inode/fresh5s UID-quota/peer guards remain in force; the proposed extra2GiB is not live until original preparation seals the Data forecast. No model has started, no transfer adopted, no stage2/9M. All outputs retained; no admin/NFS settings changed. Shared I/O must recover before further substantive work; resume the goal from exact current jobs/artifacts after recovery. Node-side report/STATUS mirroring also waits for actual write admission; GitHub CURRENT_BEST records the blocker without pretending execution is complete.
+
+## 2026-11-22 14:56:42 CST 下游C1外部共享NFS阻塞确认（本线）
+
+C1主统计561行已闭合，必需seed26确认仍169/175项模型运行闭合、6个来源原生RUNNING/0:0。06:20与06:51两次实际/proc采样相隔约1885秒：8341/8342/8345/8348/8356各只增1个CPU tick，8351增0，六者均D/nfs_wait_bit_killable或rpc_wait_bit_killable，3秒窗口CPU增量全0；本轮12次原生查询也未见来源结束。这已阻断剩余确认统计与交付，不再将原生RUNNING等同于实际计算推进。五节点根/tmp可用65.9–69.9GB、inode约3653万；CPU19实际NFS4 nfs:/share/home挂载1178与原模型一致，未改管理员或挂载设置。
+
+同一外部共享I/O条件已跨至少三个连续目标回合重复：05:45首次确认四模型NFS等待、后续原元数据发布8538超时，06:20六模型均等待，现31分钟计数几乎不变。其他可独立处理的代码/环境与已闭合运行记录已完成；继续实际工作需要共享NFS恢复，现无合规的本线独立处理可以越过该存储依赖。保留全部六个科学作业8341/8342/8345/8348/8351/8356、43来源及8510→8511→8512→8513原生依赖链；未取消/重启模型，未记科学UNRESOLVED，未重做样本/数值QA、生成额外SHA或追加实验。已退休的只是前文零输出文案步骤8348.4。
+
+最终175正常比较、首次C1 CSV/唯一SHA、最终人读文档修正、Git同步/PR待审及逐项完成审计仍未完成。NFS恢复后从原句柄/原产物核对继续，不提交重复任务；原自动依赖链仍在。PR17保持草稿，节点侧文档镜像继续等待真实共享盘写入准入。完整保留同行7858/14:39外部NFS阻塞通知以及全部既有STATUS前缀；不修改D线任务、科学参数、预算或未准入future。
