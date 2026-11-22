@@ -1,0 +1,98 @@
+{
+  "status": "COMPLETE",
+  "job": "4539067",
+  "node": "compute-0-11",
+  "elapsed_seconds": 92,
+  "cpus": 4,
+  "allocated_CPU_seconds": 368,
+  "power_mean_watts": null,
+  "events": {
+    "utc": 1795377589.1901176,
+    "rows": [
+      {
+        "job": 4539063,
+        "log": "/tmp/P_22C_descriptive_tests_preflight_20261123_4539063.log",
+        "log_exists": true,
+        "events": [
+          "{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 4170849, \"root_returncode\": 0}",
+          "{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4539063\", \"returncode\": 0, \"remaining_children\": []}"
+        ]
+      },
+      {
+        "job": 4539066,
+        "log": "/tmp/P_22C_F1_mode_config_check_20261123_4539066.log",
+        "log_exists": true,
+        "events": [
+          "{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 4171608, \"root_returncode\": 0}",
+          "{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4539066\", \"returncode\": 0, \"remaining_children\": []}"
+        ]
+      },
+      {
+        "job": 4539067,
+        "log": "/tmp/P_22C_EEV_size_supplement_20261123_4539067.log",
+        "log_exists": true,
+        "events": [
+          "{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 4171763, \"root_returncode\": 0}",
+          "{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4539067\", \"returncode\": 0, \"remaining_children\": []}"
+        ]
+      },
+      {
+        "job": 4539068,
+        "log": "/tmp/P_F1_final_mode_pairs_20261123_4539068.log",
+        "log_exists": true,
+        "events": [
+          "{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 4171865, \"root_returncode\": 0}",
+          "{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4539068\", \"returncode\": 0, \"remaining_children\": []}"
+        ]
+      },
+      {
+        "job": 4539070,
+        "log": "/tmp/P_F1_complete_registered_interpretation_20261123_4539070.log",
+        "log_exists": true,
+        "events": [
+          "{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 4172126, \"root_returncode\": 0}",
+          "{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4539070\", \"returncode\": 0, \"remaining_children\": []}"
+        ]
+      }
+    ]
+  },
+  "actual_roots": {
+    "roots": [
+      {
+        "pid": 4170849,
+        "present": false
+      },
+      {
+        "pid": 4171608,
+        "present": false
+      },
+      {
+        "pid": 4171763,
+        "present": false
+      },
+      {
+        "pid": 4171865,
+        "present": false
+      },
+      {
+        "pid": 4172126,
+        "present": false
+      }
+    ],
+    "uid": 1278
+  },
+  "receipt": {
+    "status": "COMPLETE",
+    "job_id": "4539067",
+    "sources": 8,
+    "new_size_OOF_fits": 7,
+    "new_EEV_sources": 7,
+    "original_M1_reused": true,
+    "statistics_precision": "F64",
+    "bootstrap_unit": "molecule",
+    "bootstrap_seed": 20261025,
+    "new_bootstrap_weight_generations": 0,
+    "decisions_changed": false
+  },
+  "no_scientific_replay": true
+}

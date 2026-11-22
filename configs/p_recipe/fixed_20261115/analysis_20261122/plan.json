@@ -1,5 +1,6 @@
 {
   "schema": "P_ANALYSIS_20261122_V1",
+  "composition_metric_authority": "docs/p_recipe/USER_DIRECTIVE_20261122C.md",
   "authority": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
   "supersedes_science_conflicts": true,
   "state": "F1_RUNNING",
@@ -453,7 +454,10 @@
     "support": "Both upperCI CEV(B4)-CEV(M1)<0 and CEV(M2)-CEV(B3)<0",
     "not_support": "Both lowerCI>=0",
     "otherwise": "uncertain",
-    "atomic_definition": "Pending previously requested clarification; mean(H) definition available; do not invent atom CEV/CVF/CVF_res",
+    "atomic_definition": "Resolved by22C: report original atomic EEV only; no atomic CEV/CVF/CVF_res/PR",
+    "mean_metrics": ["CEV", "CEV_size", "CVF", "CVF_res", "PR"],
+    "atomic_metrics": ["EEV"],
+    "metric_authority": "docs/p_recipe/USER_DIRECTIVE_20261122C.md",
     "source_binding_labels": [
       "round2_M1",
       "round2_B4",

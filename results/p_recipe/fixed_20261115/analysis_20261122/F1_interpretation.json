@@ -1,0 +1,793 @@
+{
+  "status": "FIRST_BATCH_TABLE_AND_REGISTERED_INTERPRETATION_COMPLETE",
+  "rows": 68,
+  "native_GPU_completed": 120,
+  "late_budget_per_task": [
+    {
+      "task": "qm9.U0_atom",
+      "full_9M_minus_3M": {
+        "left": "full_T2_9M",
+        "right": "full_T2_3M",
+        "task": "qm9.U0_atom",
+        "delta_seed_mean": 0.03989790692744566,
+        "tau": 0.025705191900512927,
+        "delta_ensemble": 0.04673278771019934,
+        "ensemble_ci_lower": 0.033554599704890484,
+        "ensemble_ci_upper": 0.05954434183477506,
+        "bootstrap_defined": 1000,
+        "ci_estimand": "difference_of_scores_of_mean_predictions",
+        "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct",
+        "source_binding": {
+          "left": {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+            "bytes": 612358,
+            "mtime_ns": "1795364404000000000"
+          },
+          "right": {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_3M_6M_primary/primary.json",
+            "bytes": 1125305,
+            "mtime_ns": "1795360358000000000"
+          }
+        }
+      },
+      "frozen_9M_minus_3M": {
+        "left": "frozen_T2_9M",
+        "right": "frozen_T2_3M",
+        "task": "qm9.U0_atom",
+        "delta_seed_mean": -0.1979454727835307,
+        "tau": 0.01,
+        "delta_ensemble": -0.21174458887263486,
+        "ensemble_ci_lower": -0.2544312809622504,
+        "ensemble_ci_upper": -0.16956611216754708,
+        "bootstrap_defined": 1000,
+        "ci_estimand": "difference_of_scores_of_mean_predictions",
+        "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct"
+      },
+      "observed_pattern": "Full_gain_without_frozen_gain"
+    },
+    {
+      "task": "qm9.homo",
+      "full_9M_minus_3M": {
+        "left": "full_T2_9M",
+        "right": "full_T2_3M",
+        "task": "qm9.homo",
+        "delta_seed_mean": 0.028134910206236374,
+        "tau": 0.02002544455392745,
+        "delta_ensemble": 0.028163423533482557,
+        "ensemble_ci_lower": 0.013303672611557437,
+        "ensemble_ci_upper": 0.0418863616213226,
+        "bootstrap_defined": 1000,
+        "ci_estimand": "difference_of_scores_of_mean_predictions",
+        "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct",
+        "source_binding": {
+          "left": {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+            "bytes": 612358,
+            "mtime_ns": "1795364404000000000"
+          },
+          "right": {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_3M_6M_primary/primary.json",
+            "bytes": 1125305,
+            "mtime_ns": "1795360358000000000"
+          }
+        }
+      },
+      "frozen_9M_minus_3M": {
+        "left": "frozen_T2_9M",
+        "right": "frozen_T2_3M",
+        "task": "qm9.homo",
+        "delta_seed_mean": 0.09573914160081037,
+        "tau": 0.015965022518148728,
+        "delta_ensemble": 0.10270304191264543,
+        "ensemble_ci_lower": 0.07993509001076789,
+        "ensemble_ci_upper": 0.1228243127971865,
+        "bootstrap_defined": 1000,
+        "ci_estimand": "difference_of_scores_of_mean_predictions",
+        "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct"
+      },
+      "observed_pattern": "Both_gain"
+    },
+    {
+      "task": "exp.LogD",
+      "full_9M_minus_3M": {
+        "left": "full_T2_9M",
+        "right": "full_T2_3M",
+        "task": "exp.LogD",
+        "delta_seed_mean": 0.02652898468164877,
+        "tau": 0.021128513184405645,
+        "delta_ensemble": 0.033752645908953105,
+        "ensemble_ci_lower": 0.012978870332725812,
+        "ensemble_ci_upper": 0.05677587120715371,
+        "bootstrap_defined": 1000,
+        "ci_estimand": "difference_of_scores_of_mean_predictions",
+        "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct",
+        "source_binding": {
+          "left": {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+            "bytes": 612358,
+            "mtime_ns": "1795364404000000000"
+          },
+          "right": {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_3M_6M_primary/primary.json",
+            "bytes": 1125305,
+            "mtime_ns": "1795360358000000000"
+          }
+        }
+      },
+      "frozen_9M_minus_3M": {
+        "left": "frozen_T2_9M",
+        "right": "frozen_T2_3M",
+        "task": "exp.LogD",
+        "delta_seed_mean": 0.05730978355823013,
+        "tau": 0.016928237188304007,
+        "delta_ensemble": 0.06147346065743797,
+        "ensemble_ci_lower": 0.02456062235794615,
+        "ensemble_ci_upper": 0.0975332377093819,
+        "bootstrap_defined": 1000,
+        "ci_estimand": "difference_of_scores_of_mean_predictions",
+        "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct"
+      },
+      "observed_pattern": "Both_gain"
+    },
+    {
+      "task": "exp.LogS",
+      "full_9M_minus_3M": {
+        "left": "full_T2_9M",
+        "right": "full_T2_3M",
+        "task": "exp.LogS",
+        "delta_seed_mean": 0.0038797362571721394,
+        "tau": 0.013116555406884861,
+        "delta_ensemble": 0.0029223544725610617,
+        "ensemble_ci_lower": -0.023875779460764177,
+        "ensemble_ci_upper": 0.029440099246188657,
+        "bootstrap_defined": 1000,
+        "ci_estimand": "difference_of_scores_of_mean_predictions",
+        "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct",
+        "source_binding": {
+          "left": {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+            "bytes": 612358,
+            "mtime_ns": "1795364404000000000"
+          },
+          "right": {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_3M_6M_primary/primary.json",
+            "bytes": 1125305,
+            "mtime_ns": "1795360358000000000"
+          }
+        }
+      },
+      "frozen_9M_minus_3M": {
+        "left": "frozen_T2_9M",
+        "right": "frozen_T2_3M",
+        "task": "exp.LogS",
+        "delta_seed_mean": 0.05900606091800706,
+        "tau": 0.012209262470209287,
+        "delta_ensemble": 0.06277777555371317,
+        "ensemble_ci_lower": 0.029559356761668334,
+        "ensemble_ci_upper": 0.09613200745061218,
+        "bootstrap_defined": 1000,
+        "ci_estimand": "difference_of_scores_of_mean_predictions",
+        "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct"
+      },
+      "observed_pattern": "Mixed_or_below_registered_point_threshold"
+    }
+  ],
+  "late_9M_vs6M": [
+    {
+      "left": "full_T2_9M",
+      "right": "full_T2_6M",
+      "task": "qm9.U0_atom",
+      "delta_seed_mean": 0.0030953533918459675,
+      "tau": 0.025705191900512927,
+      "delta_ensemble": 0.008824720557280175,
+      "ensemble_ci_lower": 0.0010927352689129243,
+      "ensemble_ci_upper": 0.01609046545698034,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "difference_of_scores_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct",
+      "source_binding": {
+        "left": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+          "bytes": 612358,
+          "mtime_ns": "1795364404000000000"
+        },
+        "right": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_3M_6M_primary/primary.json",
+          "bytes": 1125305,
+          "mtime_ns": "1795360358000000000"
+        }
+      }
+    },
+    {
+      "left": "full_T2_9M",
+      "right": "full_T2_6M",
+      "task": "qm9.homo",
+      "delta_seed_mean": 0.0034516083464625757,
+      "tau": 0.02002544455392745,
+      "delta_ensemble": 0.004314425433019187,
+      "ensemble_ci_lower": -0.0025620884086142628,
+      "ensemble_ci_upper": 0.011039534473994986,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "difference_of_scores_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct",
+      "source_binding": {
+        "left": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+          "bytes": 612358,
+          "mtime_ns": "1795364404000000000"
+        },
+        "right": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_3M_6M_primary/primary.json",
+          "bytes": 1125305,
+          "mtime_ns": "1795360358000000000"
+        }
+      }
+    },
+    {
+      "left": "full_T2_9M",
+      "right": "full_T2_6M",
+      "task": "exp.LogD",
+      "delta_seed_mean": 0.015633779842141426,
+      "tau": 0.021128513184405645,
+      "delta_ensemble": 0.01601251593293407,
+      "ensemble_ci_lower": -0.0002073950821575963,
+      "ensemble_ci_upper": 0.03327262314751263,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "difference_of_scores_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct",
+      "source_binding": {
+        "left": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+          "bytes": 612358,
+          "mtime_ns": "1795364404000000000"
+        },
+        "right": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_3M_6M_primary/primary.json",
+          "bytes": 1125305,
+          "mtime_ns": "1795360358000000000"
+        }
+      }
+    },
+    {
+      "left": "full_T2_9M",
+      "right": "full_T2_6M",
+      "task": "exp.LogS",
+      "delta_seed_mean": 0.006794899663023046,
+      "tau": 0.013116555406884861,
+      "delta_ensemble": 0.004960378033861235,
+      "ensemble_ci_lower": -0.017006829841109117,
+      "ensemble_ci_upper": 0.02718208010257251,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "difference_of_scores_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct",
+      "source_binding": {
+        "left": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+          "bytes": 612358,
+          "mtime_ns": "1795364404000000000"
+        },
+        "right": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_3M_6M_primary/primary.json",
+          "bytes": 1125305,
+          "mtime_ns": "1795360358000000000"
+        }
+      }
+    }
+  ],
+  "exact_4M_platform": "NOT_IDENTIFIABLE: no full4M fit was registered; describe only measured1/3/6/9M",
+  "molecule_count_interactions": {
+    "T5/qm9.U0_atom": {
+      "conditions": [
+        "full_T2_9M",
+        "full_T5_9M",
+        "frozen_T2_9M",
+        "frozen_T5_9M"
+      ],
+      "task": "qm9.U0_atom",
+      "delta_seed_mean": 0.13699225840649074,
+      "delta_ensemble": 0.15069294447645787,
+      "ensemble_ci_lower": 0.08714625707912177,
+      "ensemble_ci_upper": 0.20425209105199799,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "full_minus_frozen_molecule_count_gain_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean point and ensemble CI are distinct",
+      "new_bootstrap_draws": 0,
+      "new_model_fits": 0,
+      "recipe_changed": false,
+      "source_binding": {
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+          "bytes": 612358,
+          "mtime_ns": "1795364404000000000"
+        },
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T1_T5_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T1_T5_9M_primary/primary.json",
+          "bytes": 1126708,
+          "mtime_ns": "1795368790000000000"
+        }
+      }
+    },
+    "T5/qm9.homo": {
+      "conditions": [
+        "full_T2_9M",
+        "full_T5_9M",
+        "frozen_T2_9M",
+        "frozen_T5_9M"
+      ],
+      "task": "qm9.homo",
+      "delta_seed_mean": -0.015481814871878052,
+      "delta_ensemble": -0.01649542780980362,
+      "ensemble_ci_lower": -0.04052943745495817,
+      "ensemble_ci_upper": 0.01001297827841964,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "full_minus_frozen_molecule_count_gain_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean point and ensemble CI are distinct",
+      "new_bootstrap_draws": 0,
+      "new_model_fits": 0,
+      "recipe_changed": false,
+      "source_binding": {
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+          "bytes": 612358,
+          "mtime_ns": "1795364404000000000"
+        },
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T1_T5_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T1_T5_9M_primary/primary.json",
+          "bytes": 1126708,
+          "mtime_ns": "1795368790000000000"
+        }
+      }
+    },
+    "T5/exp.LogD": {
+      "conditions": [
+        "full_T2_9M",
+        "full_T5_9M",
+        "frozen_T2_9M",
+        "frozen_T5_9M"
+      ],
+      "task": "exp.LogD",
+      "delta_seed_mean": -0.03321858630696517,
+      "delta_ensemble": -0.03442851696990279,
+      "ensemble_ci_lower": -0.07078332753408034,
+      "ensemble_ci_upper": 0.000922318308389513,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "full_minus_frozen_molecule_count_gain_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean point and ensemble CI are distinct",
+      "new_bootstrap_draws": 0,
+      "new_model_fits": 0,
+      "recipe_changed": false,
+      "source_binding": {
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+          "bytes": 612358,
+          "mtime_ns": "1795364404000000000"
+        },
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T1_T5_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T1_T5_9M_primary/primary.json",
+          "bytes": 1126708,
+          "mtime_ns": "1795368790000000000"
+        }
+      }
+    },
+    "T5/exp.LogS": {
+      "conditions": [
+        "full_T2_9M",
+        "full_T5_9M",
+        "frozen_T2_9M",
+        "frozen_T5_9M"
+      ],
+      "task": "exp.LogS",
+      "delta_seed_mean": -0.009676423453746863,
+      "delta_ensemble": -0.015401786019122399,
+      "ensemble_ci_lower": -0.05922868024264586,
+      "ensemble_ci_upper": 0.02780527374099735,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "full_minus_frozen_molecule_count_gain_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean point and ensemble CI are distinct",
+      "new_bootstrap_draws": 0,
+      "new_model_fits": 0,
+      "recipe_changed": false,
+      "source_binding": {
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+          "bytes": 612358,
+          "mtime_ns": "1795364404000000000"
+        },
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T1_T5_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T1_T5_9M_primary/primary.json",
+          "bytes": 1126708,
+          "mtime_ns": "1795368790000000000"
+        }
+      }
+    },
+    "T6/qm9.U0_atom": {
+      "conditions": [
+        "full_T2_9M",
+        "full_T6_9M",
+        "frozen_T2_9M",
+        "frozen_T6_9M"
+      ],
+      "task": "qm9.U0_atom",
+      "delta_seed_mean": 0.2568029881777185,
+      "delta_ensemble": 0.27714708756920775,
+      "ensemble_ci_lower": 0.22367237112102875,
+      "ensemble_ci_upper": 0.3271588704043167,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "full_minus_frozen_molecule_count_gain_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean point and ensemble CI are distinct",
+      "new_bootstrap_draws": 0,
+      "new_model_fits": 0,
+      "recipe_changed": false,
+      "source_binding": {
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+          "bytes": 612358,
+          "mtime_ns": "1795364404000000000"
+        },
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T6_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T6_9M_primary/primary.json",
+          "bytes": 612798,
+          "mtime_ns": "1795372804000000000"
+        }
+      }
+    },
+    "T6/qm9.homo": {
+      "conditions": [
+        "full_T2_9M",
+        "full_T6_9M",
+        "frozen_T2_9M",
+        "frozen_T6_9M"
+      ],
+      "task": "qm9.homo",
+      "delta_seed_mean": -0.08127436287805925,
+      "delta_ensemble": -0.0875943529899681,
+      "ensemble_ci_lower": -0.11482400640297309,
+      "ensemble_ci_upper": -0.06062066900818885,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "full_minus_frozen_molecule_count_gain_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean point and ensemble CI are distinct",
+      "new_bootstrap_draws": 0,
+      "new_model_fits": 0,
+      "recipe_changed": false,
+      "source_binding": {
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+          "bytes": 612358,
+          "mtime_ns": "1795364404000000000"
+        },
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T6_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T6_9M_primary/primary.json",
+          "bytes": 612798,
+          "mtime_ns": "1795372804000000000"
+        }
+      }
+    },
+    "T6/exp.LogD": {
+      "conditions": [
+        "full_T2_9M",
+        "full_T6_9M",
+        "frozen_T2_9M",
+        "frozen_T6_9M"
+      ],
+      "task": "exp.LogD",
+      "delta_seed_mean": -0.0010851880444462392,
+      "delta_ensemble": 0.005981218787415754,
+      "ensemble_ci_lower": -0.03236723935082158,
+      "ensemble_ci_upper": 0.04843674726943612,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "full_minus_frozen_molecule_count_gain_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean point and ensemble CI are distinct",
+      "new_bootstrap_draws": 0,
+      "new_model_fits": 0,
+      "recipe_changed": false,
+      "source_binding": {
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+          "bytes": 612358,
+          "mtime_ns": "1795364404000000000"
+        },
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T6_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T6_9M_primary/primary.json",
+          "bytes": 612798,
+          "mtime_ns": "1795372804000000000"
+        }
+      }
+    },
+    "T6/exp.LogS": {
+      "conditions": [
+        "full_T2_9M",
+        "full_T6_9M",
+        "frozen_T2_9M",
+        "frozen_T6_9M"
+      ],
+      "task": "exp.LogS",
+      "delta_seed_mean": -0.016428607523835542,
+      "delta_ensemble": -0.021959221535355733,
+      "ensemble_ci_lower": -0.0637615359578206,
+      "ensemble_ci_upper": 0.016396433269018018,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "full_minus_frozen_molecule_count_gain_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean point and ensemble CI are distinct",
+      "new_bootstrap_draws": 0,
+      "new_model_fits": 0,
+      "recipe_changed": false,
+      "source_binding": {
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T2_9M_primary/primary.json",
+          "bytes": 612358,
+          "mtime_ns": "1795364404000000000"
+        },
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T6_9M_primary/primary.json": {
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T6_9M_primary/primary.json",
+          "bytes": 612798,
+          "mtime_ns": "1795372804000000000"
+        }
+      }
+    }
+  },
+  "molecule_count_conclusion": "U0 full-minus-frozen250k/500k intervalspositive; homo500k negative; otherinteraction intervals cross0. Task-specific, no universalmechanism.",
+  "B4_U0_harm": "PENDING_REGISTERED_SECOND_BATCH",
+  "full_vs_scratch": [
+    {
+      "condition": "full_T2_1M",
+      "task": "exp.LogD",
+      "delta_seed_mean": 0.3898484926556847,
+      "tau": 0.019492424632784236,
+      "delta_ensemble": 0.38881867011309706,
+      "ensemble_ci_lower": 0.3500320757031692,
+      "ensemble_ci_upper": 0.42349829108621184
+    },
+    {
+      "condition": "full_T2_1M",
+      "task": "exp.LogS",
+      "delta_seed_mean": 0.27508914415956404,
+      "tau": 0.013754457207978202,
+      "delta_ensemble": 0.26495261539871495,
+      "ensemble_ci_lower": 0.21945509267945817,
+      "ensemble_ci_upper": 0.3049487425393495
+    },
+    {
+      "condition": "full_T2_1M",
+      "task": "qm9.U0_atom",
+      "delta_seed_mean": 0.47089421968282225,
+      "tau": 0.023544710984141112,
+      "delta_ensemble": 0.44942651191768396,
+      "ensemble_ci_lower": 0.42007773200327886,
+      "ensemble_ci_upper": 0.4726888211412904
+    },
+    {
+      "condition": "full_T2_1M",
+      "task": "qm9.homo",
+      "delta_seed_mean": 0.26014925699839136,
+      "tau": 0.01300746284991957,
+      "delta_ensemble": 0.2230910878575156,
+      "ensemble_ci_lower": 0.19721537172430792,
+      "ensemble_ci_upper": 0.24865323283250046
+    },
+    {
+      "condition": "full_T2_3M",
+      "task": "exp.LogD",
+      "delta_seed_mean": 0.3960412790064641,
+      "tau": 0.019802063950323204,
+      "delta_ensemble": 0.3836001731446961,
+      "ensemble_ci_lower": 0.34530165980604194,
+      "ensemble_ci_upper": 0.4215055203569506
+    },
+    {
+      "condition": "full_T2_3M",
+      "task": "exp.LogS",
+      "delta_seed_mean": 0.2584513718805251,
+      "tau": 0.012922568594026254,
+      "delta_ensemble": 0.238425606551296,
+      "ensemble_ci_lower": 0.1938326989493808,
+      "ensemble_ci_upper": 0.28118143335227486
+    },
+    {
+      "condition": "full_T2_3M",
+      "task": "qm9.U0_atom",
+      "delta_seed_mean": 0.47420593108281284,
+      "tau": 0.023710296554140642,
+      "delta_ensemble": 0.44919971600976455,
+      "ensemble_ci_lower": 0.42499953660046597,
+      "ensemble_ci_upper": 0.47242485204578605
+    },
+    {
+      "condition": "full_T2_3M",
+      "task": "qm9.homo",
+      "delta_seed_mean": 0.3723739808723126,
+      "tau": 0.01861869904361563,
+      "delta_ensemble": 0.33283804301208614,
+      "ensemble_ci_lower": 0.3087766264456586,
+      "ensemble_ci_upper": 0.3588572888832697
+    },
+    {
+      "condition": "full_T2_6M",
+      "task": "exp.LogD",
+      "delta_seed_mean": 0.4069364838459714,
+      "tau": 0.020346824192298572,
+      "delta_ensemble": 0.4013403031207151,
+      "ensemble_ci_lower": 0.3630204358032553,
+      "ensemble_ci_upper": 0.4372270001404034
+    },
+    {
+      "condition": "full_T2_6M",
+      "task": "exp.LogS",
+      "delta_seed_mean": 0.2555362084746742,
+      "tau": 0.01277681042373371,
+      "delta_ensemble": 0.23638758298999582,
+      "ensemble_ci_lower": 0.19097678110949579,
+      "ensemble_ci_upper": 0.2789005173417147
+    },
+    {
+      "condition": "full_T2_6M",
+      "task": "qm9.U0_atom",
+      "delta_seed_mean": 0.5110084846184125,
+      "tau": 0.02555042423092063,
+      "delta_ensemble": 0.4871077831626837,
+      "ensemble_ci_lower": 0.4652866375999013,
+      "ensemble_ci_upper": 0.5090698953869466
+    },
+    {
+      "condition": "full_T2_6M",
+      "task": "qm9.homo",
+      "delta_seed_mean": 0.3970572827320864,
+      "tau": 0.019852864136604323,
+      "delta_ensemble": 0.3566870411125495,
+      "ensemble_ci_lower": 0.33266796314982133,
+      "ensemble_ci_upper": 0.3807439412424682
+    },
+    {
+      "condition": "full_T2_9M",
+      "task": "exp.LogD",
+      "delta_seed_mean": 0.42257026368811285,
+      "tau": 0.021128513184405645,
+      "delta_ensemble": 0.4173528190536492,
+      "ensemble_ci_lower": 0.37832921870472,
+      "ensemble_ci_upper": 0.45231916141591594
+    },
+    {
+      "condition": "full_T2_9M",
+      "task": "exp.LogS",
+      "delta_seed_mean": 0.2623311081376972,
+      "tau": 0.013116555406884861,
+      "delta_ensemble": 0.24134796102385705,
+      "ensemble_ci_lower": 0.19654368387207172,
+      "ensemble_ci_upper": 0.28356596454910116
+    },
+    {
+      "condition": "full_T2_9M",
+      "task": "qm9.U0_atom",
+      "delta_seed_mean": 0.5141038380102585,
+      "tau": 0.025705191900512927,
+      "delta_ensemble": 0.4959325037199639,
+      "ensemble_ci_lower": 0.47306611415490946,
+      "ensemble_ci_upper": 0.5185194845609293
+    },
+    {
+      "condition": "full_T2_9M",
+      "task": "qm9.homo",
+      "delta_seed_mean": 0.400508891078549,
+      "tau": 0.02002544455392745,
+      "delta_ensemble": 0.3610014665455687,
+      "ensemble_ci_lower": 0.3353160495532601,
+      "ensemble_ci_upper": 0.38452217315678655
+    },
+    {
+      "condition": "full_T1_9M",
+      "task": "exp.LogD",
+      "delta_seed_mean": 0.3848855936915192,
+      "tau": 0.01924427968457596,
+      "delta_ensemble": 0.39191404435863764,
+      "ensemble_ci_lower": 0.35214554132803055,
+      "ensemble_ci_upper": 0.42534485256633636
+    },
+    {
+      "condition": "full_T1_9M",
+      "task": "exp.LogS",
+      "delta_seed_mean": 0.22302871185929593,
+      "tau": 0.011151435592964797,
+      "delta_ensemble": 0.23225883206556827,
+      "ensemble_ci_lower": 0.18535153101523752,
+      "ensemble_ci_upper": 0.2766568505738881
+    },
+    {
+      "condition": "full_T1_9M",
+      "task": "qm9.U0_atom",
+      "delta_seed_mean": 0.42860298186209395,
+      "tau": 0.0214301490931047,
+      "delta_ensemble": 0.46557133652650123,
+      "ensemble_ci_lower": 0.4408814258700922,
+      "ensemble_ci_upper": 0.4881906206582999
+    },
+    {
+      "condition": "full_T1_9M",
+      "task": "qm9.homo",
+      "delta_seed_mean": 0.30389731881714477,
+      "tau": 0.01519486594085724,
+      "delta_ensemble": 0.27890010826649075,
+      "ensemble_ci_lower": 0.25450421752881613,
+      "ensemble_ci_upper": 0.305133222981158
+    },
+    {
+      "condition": "full_T5_9M",
+      "task": "exp.LogD",
+      "delta_seed_mean": 0.4085456107030762,
+      "tau": 0.020427280535153813,
+      "delta_ensemble": 0.4011057753839632,
+      "ensemble_ci_lower": 0.36189622269249694,
+      "ensemble_ci_upper": 0.4349149219132595
+    },
+    {
+      "condition": "full_T5_9M",
+      "task": "exp.LogS",
+      "delta_seed_mean": 0.2660162443116001,
+      "tau": 0.013300812215580006,
+      "delta_ensemble": 0.25037549188545405,
+      "ensemble_ci_lower": 0.20701078578014018,
+      "ensemble_ci_upper": 0.2911967426487437
+    },
+    {
+      "condition": "full_T5_9M",
+      "task": "qm9.U0_atom",
+      "delta_seed_mean": 0.46471257411777617,
+      "tau": 0.02323562870588881,
+      "delta_ensemble": 0.43894736830508285,
+      "ensemble_ci_lower": 0.4033738348624848,
+      "ensemble_ci_upper": 0.46806304606625676
+    },
+    {
+      "condition": "full_T5_9M",
+      "task": "qm9.homo",
+      "delta_seed_mean": 0.3803769565657131,
+      "tau": 0.019018847828285654,
+      "delta_ensemble": 0.33929266216186194,
+      "ensemble_ci_lower": 0.31640772540588463,
+      "ensemble_ci_upper": 0.3629935621614802
+    },
+    {
+      "condition": "full_T6_9M",
+      "task": "exp.LogD",
+      "delta_seed_mean": 0.41181476048512894,
+      "tau": 0.02059073802425645,
+      "delta_ensemble": 0.3986706577331634,
+      "ensemble_ci_lower": 0.36037249341817856,
+      "ensemble_ci_upper": 0.4345849368919627
+    },
+    {
+      "condition": "full_T6_9M",
+      "task": "exp.LogS",
+      "delta_seed_mean": 0.25551302951884897,
+      "tau": 0.01277565147594245,
+      "delta_ensemble": 0.23857454963425073,
+      "ensemble_ci_lower": 0.19243618216479408,
+      "ensemble_ci_upper": 0.2836809182028906
+    },
+    {
+      "condition": "full_T6_9M",
+      "task": "qm9.U0_atom",
+      "delta_seed_mean": 0.4797088059664916,
+      "tau": 0.023985440298324584,
+      "delta_ensemble": 0.45669780975769325,
+      "ensemble_ci_lower": 0.4282075332309544,
+      "ensemble_ci_upper": 0.48105933456180644
+    },
+    {
+      "condition": "full_T6_9M",
+      "task": "qm9.homo",
+      "delta_seed_mean": 0.3847527469677055,
+      "tau": 0.019237637348385277,
+      "delta_ensemble": 0.3445074805400035,
+      "ensemble_ci_lower": 0.32086359384923796,
+      "ensemble_ci_upper": 0.3695659692826318
+    }
+  ],
+  "limitations": [
+    "Onlyfourregisteredtasks, notoriginalseven-taskfullmean",
+    "Seed-mean point andmean-prediction CI aredistinct",
+    "Frozenoriginalone-seed30epoch versusfullthree-seed50epoch differs; descriptive registeredprotocol comparison, notcausalunfreezing effect"
+  ],
+  "new_model_fits": 0,
+  "new_bootstrap_draws": 0,
+  "new_retained_pairs": 4,
+  "frozen_recipe_changed": false
+}
