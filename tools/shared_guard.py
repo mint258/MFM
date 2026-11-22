@@ -106,10 +106,25 @@ def others(line, kind, node=None, path=None, registry=REGISTRY, now=None, paths=
     return total
 
 
+def disk_probe_target(path):
+    """Probe an actual file-system directory behind the canonical autofs key."""
+    if str(path) == '/share':
+        directory = Path(__file__).absolute().parent
+        if str(directory).startswith('/share/'):
+            return str(directory)
+    if str(path) == '/lfshome':
+        import pwd
+        directory = Path('/lfshome')/pwd.getpwuid(os.getuid()).pw_name
+        if directory.is_dir():
+            return str(directory)
+    return str(path)
+
+
 def disk_status(path):
-    s = os.statvfs(path)
+    target = disk_probe_target(path)
+    s = os.statvfs(target)
     return dict(total=s.f_blocks * s.f_frsize, available=s.f_bavail * s.f_frsize,
-                inodes=s.f_favail, total_inodes=s.f_files)
+                inodes=s.f_favail, total_inodes=s.f_files, probe_target=target)
 
 
 def ram_status():
@@ -143,6 +158,8 @@ def check(line, kind, own_bytes, path=None, node=None, new_inodes=1000,
     need = reserve + own_bytes + peers
     report = dict(line=line, kind=kind, node=node, path=str(path), own=own_bytes,
                   peers=peers, reserve=reserve, available=status["available"])
+    if 'probe_target' in status:
+        report['probe_target'] = status['probe_target']
     if status["total"] <= 0 or status["available"] < need:
         raise AdmissionRefused(f"insufficient {kind}: {report}")
     if kind != "node_ram" and status["inodes"] <= new_inodes:

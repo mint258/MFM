@@ -1,267 +1,1103 @@
 {
-  "observed_utc": "2026-11-22T12:37:28Z",
-  "assigned": 12,
-  "producer_summaries_complete": 8,
-  "runs": [
+  "schema": "P_F_PROGRESS_V2",
+  "captured_UTC": "2026-11-22T14:09:56Z",
+  "registered_F1": 120,
+  "registered_F2": 60,
+  "assigned": 48,
+  "native_completed": 26,
+  "running": 2,
+  "pending": 20,
+  "owned_initial24_exit_verified": true,
+  "first_primary_statistics": {
+    "job": 4538726,
+    "state": "COMPLETED",
+    "rows": 12,
+    "bootstrap_draws": 1000
+  },
+  "jobs": [
     {
-      "run": "F1_full_T2_1M_qm9_U0_atom_s0",
-      "job_id": 4538638,
-      "node": "compute-0-6",
-      "task": "qm9.U0_atom",
-      "mode": "full",
-      "seed": 0,
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_full_T2_1M_qm9_U0_atom_s0.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T2_1M_qm9_U0_atom_s0",
-      "producer_status": "COMPLETE",
-      "producer_seconds": 460.1717245578766,
-      "epochs": 50,
-      "evaluation_mae_original_scalar": 0.007045716418061401
-    },
-    {
-      "run": "F1_full_T2_1M_qm9_U0_atom_s1",
-      "job_id": 4538640,
-      "node": "compute-0-6",
-      "task": "qm9.U0_atom",
-      "mode": "full",
-      "seed": 1,
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_full_T2_1M_qm9_U0_atom_s1.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T2_1M_qm9_U0_atom_s1",
-      "producer_status": "COMPLETE",
-      "producer_seconds": 460.8089048862457,
-      "epochs": 50,
-      "evaluation_mae_original_scalar": 0.007034983369019627
-    },
-    {
-      "run": "F1_full_T2_1M_qm9_U0_atom_s2",
-      "job_id": 4538644,
-      "node": "compute-0-6",
-      "task": "qm9.U0_atom",
-      "mode": "full",
-      "seed": 2,
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_full_T2_1M_qm9_U0_atom_s2.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T2_1M_qm9_U0_atom_s2",
-      "producer_status": "COMPLETE",
-      "producer_seconds": 460.6961302757263,
-      "epochs": 50,
-      "evaluation_mae_original_scalar": 0.007024460206697787
-    },
-    {
-      "run": "F1_full_T2_1M_qm9_homo_s0",
-      "job_id": 4538645,
-      "node": "compute-0-6",
-      "task": "qm9.homo",
-      "mode": "full",
-      "seed": 0,
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_full_T2_1M_qm9_homo_s0.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T2_1M_qm9_homo_s0",
-      "producer_status": "COMPLETE",
-      "producer_seconds": 452.96284890174866,
-      "epochs": 50,
-      "evaluation_mae_original_scalar": 0.005057101395535976
-    },
-    {
-      "run": "F1_full_T2_1M_qm9_homo_s1",
-      "job_id": 4538646,
-      "node": "compute-0-6",
-      "task": "qm9.homo",
-      "mode": "full",
-      "seed": 1,
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_full_T2_1M_qm9_homo_s1.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T2_1M_qm9_homo_s1",
-      "producer_status": "NO_COMPLETE_SUMMARY"
-    },
-    {
-      "run": "F1_full_T2_1M_qm9_homo_s2",
-      "job_id": 4538647,
-      "node": "compute-0-6",
-      "task": "qm9.homo",
-      "mode": "full",
-      "seed": 2,
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_full_T2_1M_qm9_homo_s2.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T2_1M_qm9_homo_s2",
-      "producer_status": "NO_COMPLETE_SUMMARY"
-    },
-    {
-      "run": "F1_scratch_random_0M_qm9_U0_atom_s0",
-      "job_id": 4538639,
-      "node": "compute-0-7",
-      "task": "qm9.U0_atom",
-      "mode": "scratch",
-      "seed": 0,
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_scratch_random_0M_qm9_U0_atom_s0.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_U0_atom_s0",
-      "producer_status": "COMPLETE",
-      "producer_seconds": 458.42438554763794,
-      "epochs": 50,
-      "evaluation_mae_original_scalar": 0.012251024591280586
-    },
-    {
-      "run": "F1_scratch_random_0M_qm9_U0_atom_s1",
-      "job_id": 4538642,
-      "node": "compute-0-7",
-      "task": "qm9.U0_atom",
-      "mode": "scratch",
-      "seed": 1,
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_scratch_random_0M_qm9_U0_atom_s1.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_U0_atom_s1",
-      "producer_status": "COMPLETE",
-      "producer_seconds": 464.1717050075531,
-      "epochs": 50,
-      "evaluation_mae_original_scalar": 0.013179355549143677
-    },
-    {
-      "run": "F1_scratch_random_0M_qm9_U0_atom_s2",
-      "job_id": 4538648,
-      "node": "compute-0-7",
-      "task": "qm9.U0_atom",
-      "mode": "scratch",
-      "seed": 2,
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_scratch_random_0M_qm9_U0_atom_s2.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_U0_atom_s2",
-      "producer_status": "COMPLETE",
-      "producer_seconds": 457.10848927497864,
-      "epochs": 50,
-      "evaluation_mae_original_scalar": 0.014457976363878366
-    },
-    {
-      "run": "F1_scratch_random_0M_qm9_homo_s0",
-      "job_id": 4538649,
-      "node": "compute-0-7",
-      "task": "qm9.homo",
-      "mode": "scratch",
-      "seed": 0,
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_scratch_random_0M_qm9_homo_s0.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_homo_s0",
-      "producer_status": "COMPLETE",
-      "producer_seconds": 452.8930776119232,
-      "epochs": 50,
-      "evaluation_mae_original_scalar": 0.0067794480121458525
-    },
-    {
-      "run": "F1_scratch_random_0M_qm9_homo_s1",
-      "job_id": 4538650,
-      "node": "compute-0-7",
-      "task": "qm9.homo",
-      "mode": "scratch",
-      "seed": 1,
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_scratch_random_0M_qm9_homo_s1.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_homo_s1",
-      "producer_status": "NO_COMPLETE_SUMMARY"
-    },
-    {
-      "run": "F1_scratch_random_0M_qm9_homo_s2",
-      "job_id": 4538651,
-      "node": "compute-0-7",
-      "task": "qm9.homo",
-      "mode": "scratch",
-      "seed": 2,
-      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1/F1_scratch_random_0M_qm9_homo_s2.json",
-      "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_homo_s2",
-      "producer_status": "NO_COMPLETE_SUMMARY"
-    }
-  ],
-  "code_sha": "a00498651c6afb9b67483692a8a18365b2b97988",
-  "native_snapshot": {
-    "4538638": {
+      "job": 4538638,
       "state": "COMPLETED",
       "elapsed_seconds": 463,
       "exit_code": "0:0",
-      "node": "compute-0-6",
-      "cpus": 16
+      "node": "compute-0-6"
     },
-    "4538639": {
+    {
+      "job": 4538639,
       "state": "COMPLETED",
       "elapsed_seconds": 462,
       "exit_code": "0:0",
-      "node": "compute-0-7",
-      "cpus": 16
+      "node": "compute-0-7"
     },
-    "4538640": {
+    {
+      "job": 4538640,
       "state": "COMPLETED",
       "elapsed_seconds": 464,
       "exit_code": "0:0",
-      "node": "compute-0-6",
-      "cpus": 16
+      "node": "compute-0-6"
     },
-    "4538642": {
+    {
+      "job": 4538642,
       "state": "COMPLETED",
       "elapsed_seconds": 468,
       "exit_code": "0:0",
-      "node": "compute-0-7",
-      "cpus": 16
+      "node": "compute-0-7"
     },
-    "4538644": {
+    {
+      "job": 4538644,
       "state": "COMPLETED",
       "elapsed_seconds": 464,
       "exit_code": "0:0",
-      "node": "compute-0-6",
-      "cpus": 16
+      "node": "compute-0-6"
     },
-    "4538645": {
+    {
+      "job": 4538645,
       "state": "COMPLETED",
       "elapsed_seconds": 456,
       "exit_code": "0:0",
-      "node": "compute-0-6",
-      "cpus": 16
+      "node": "compute-0-6"
     },
-    "4538646": {
-      "state": "RUNNING",
-      "elapsed_seconds": 336,
+    {
+      "job": 4538646,
+      "state": "COMPLETED",
+      "elapsed_seconds": 455,
       "exit_code": "0:0",
-      "node": "compute-0-6",
-      "cpus": 16
+      "node": "compute-0-6"
     },
-    "4538647": {
-      "state": "PENDING",
-      "elapsed_seconds": 0,
+    {
+      "job": 4538647,
+      "state": "COMPLETED",
+      "elapsed_seconds": 453,
       "exit_code": "0:0",
-      "node": "None assigned",
-      "cpus": 16
+      "node": "compute-0-6"
     },
-    "4538648": {
+    {
+      "job": 4538648,
       "state": "COMPLETED",
       "elapsed_seconds": 460,
       "exit_code": "0:0",
-      "node": "compute-0-7",
-      "cpus": 16
+      "node": "compute-0-7"
     },
-    "4538649": {
+    {
+      "job": 4538649,
       "state": "COMPLETED",
       "elapsed_seconds": 457,
       "exit_code": "0:0",
-      "node": "compute-0-7",
-      "cpus": 16
+      "node": "compute-0-7"
     },
-    "4538650": {
-      "state": "RUNNING",
-      "elapsed_seconds": 299,
+    {
+      "job": 4538650,
+      "state": "COMPLETED",
+      "elapsed_seconds": 460,
       "exit_code": "0:0",
-      "node": "compute-0-7",
-      "cpus": 16
+      "node": "compute-0-7"
     },
-    "4538651": {
+    {
+      "job": 4538651,
+      "state": "COMPLETED",
+      "elapsed_seconds": 450,
+      "exit_code": "0:0",
+      "node": "compute-0-7"
+    },
+    {
+      "job": 4538662,
+      "state": "COMPLETED",
+      "elapsed_seconds": 236,
+      "exit_code": "0:0",
+      "node": "compute-0-6"
+    },
+    {
+      "job": 4538663,
+      "state": "COMPLETED",
+      "elapsed_seconds": 238,
+      "exit_code": "0:0",
+      "node": "compute-0-7"
+    },
+    {
+      "job": 4538684,
+      "state": "COMPLETED",
+      "elapsed_seconds": 238,
+      "exit_code": "0:0",
+      "node": "compute-0-6"
+    },
+    {
+      "job": 4538685,
+      "state": "COMPLETED",
+      "elapsed_seconds": 237,
+      "exit_code": "0:0",
+      "node": "compute-0-6"
+    },
+    {
+      "job": 4538686,
+      "state": "COMPLETED",
+      "elapsed_seconds": 240,
+      "exit_code": "0:0",
+      "node": "compute-0-6"
+    },
+    {
+      "job": 4538687,
+      "state": "COMPLETED",
+      "elapsed_seconds": 243,
+      "exit_code": "0:0",
+      "node": "compute-0-6"
+    },
+    {
+      "job": 4538688,
+      "state": "COMPLETED",
+      "elapsed_seconds": 240,
+      "exit_code": "0:0",
+      "node": "compute-0-6"
+    },
+    {
+      "job": 4538689,
+      "state": "COMPLETED",
+      "elapsed_seconds": 239,
+      "exit_code": "0:0",
+      "node": "compute-0-7"
+    },
+    {
+      "job": 4538690,
+      "state": "COMPLETED",
+      "elapsed_seconds": 241,
+      "exit_code": "0:0",
+      "node": "compute-0-7"
+    },
+    {
+      "job": 4538691,
+      "state": "COMPLETED",
+      "elapsed_seconds": 241,
+      "exit_code": "0:0",
+      "node": "compute-0-7"
+    },
+    {
+      "job": 4538692,
+      "state": "COMPLETED",
+      "elapsed_seconds": 238,
+      "exit_code": "0:0",
+      "node": "compute-0-7"
+    },
+    {
+      "job": 4538693,
+      "state": "COMPLETED",
+      "elapsed_seconds": 238,
+      "exit_code": "0:0",
+      "node": "compute-0-7"
+    },
+    {
+      "job": 4538701,
+      "state": "COMPLETED",
+      "elapsed_seconds": 461,
+      "exit_code": "0:0",
+      "node": "compute-0-6"
+    },
+    {
+      "job": 4538702,
+      "state": "RUNNING",
+      "elapsed_seconds": 210,
+      "exit_code": "0:0",
+      "node": "compute-0-6"
+    },
+    {
+      "job": 4538703,
       "state": "PENDING",
       "elapsed_seconds": 0,
       "exit_code": "0:0",
-      "node": "None assigned",
-      "cpus": 16
+      "node": "None assigned"
+    },
+    {
+      "job": 4538704,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538705,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538706,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538707,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538708,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538709,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538710,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538711,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538712,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538713,
+      "state": "COMPLETED",
+      "elapsed_seconds": 466,
+      "exit_code": "0:0",
+      "node": "compute-0-7"
+    },
+    {
+      "job": 4538714,
+      "state": "RUNNING",
+      "elapsed_seconds": 165,
+      "exit_code": "0:0",
+      "node": "compute-0-7"
+    },
+    {
+      "job": 4538715,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538716,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538717,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538718,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538719,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538720,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538721,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538722,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538723,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
+    },
+    {
+      "job": 4538724,
+      "state": "PENDING",
+      "elapsed_seconds": 0,
+      "exit_code": "0:0",
+      "node": "None assigned"
     }
-  },
-  "subsequently_queued_first_ExpansionRx": [
+  ],
+  "initial24_exit_evidence": [
+    {
+      "run": "F1_full_T2_1M_qm9_U0_atom_s0",
+      "job": 4538638,
+      "node": "compute-0-6",
+      "logs": [
+        {
+          "path": "/tmp/p_F1_T2_1M_U0_s0_4538638.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2082292,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538638",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2082292,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_full_T2_1M_qm9_U0_atom_s1",
+      "job": 4538640,
+      "node": "compute-0-6",
+      "logs": [
+        {
+          "path": "/tmp/p_F1_T2_1M_U0_s1_4538640.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2082937,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538640",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2082937,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_full_T2_1M_qm9_U0_atom_s2",
+      "job": 4538644,
+      "node": "compute-0-6",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_full_T2_1M_qm9_U0_atom_s2_4538644.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2083202,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538644",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2083202,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_full_T2_1M_qm9_homo_s0",
+      "job": 4538645,
+      "node": "compute-0-6",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_full_T2_1M_qm9_homo_s0_4538645.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2083591,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538645",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2083591,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_full_T2_1M_qm9_homo_s1",
+      "job": 4538646,
+      "node": "compute-0-6",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_full_T2_1M_qm9_homo_s1_4538646.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2083812,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538646",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2083812,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_full_T2_1M_qm9_homo_s2",
+      "job": 4538647,
+      "node": "compute-0-6",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_full_T2_1M_qm9_homo_s2_4538647.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2084192,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538647",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2084192,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
     {
       "run": "F1_full_T2_1M_exp_LogD_s0",
-      "job": "4538662",
+      "job": 4538662,
       "node": "compute-0-6",
-      "dependency": "4538647"
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_full_T2_1M_exp_LogD_s0_4538662.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2084399,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538662",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2084399,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_full_T2_1M_exp_LogD_s1",
+      "job": 4538684,
+      "node": "compute-0-6",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_full_T2_1M_exp_LogD_s1_4538684.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2085076,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538684",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2085076,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_full_T2_1M_exp_LogD_s2",
+      "job": 4538685,
+      "node": "compute-0-6",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_full_T2_1M_exp_LogD_s2_4538685.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2085284,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538685",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2085284,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_full_T2_1M_exp_LogS_s0",
+      "job": 4538686,
+      "node": "compute-0-6",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_full_T2_1M_exp_LogS_s0_4538686.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2085485,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538686",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2085485,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_full_T2_1M_exp_LogS_s1",
+      "job": 4538687,
+      "node": "compute-0-6",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_full_T2_1M_exp_LogS_s1_4538687.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2085685,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538687",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2085685,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_full_T2_1M_exp_LogS_s2",
+      "job": 4538688,
+      "node": "compute-0-6",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_full_T2_1M_exp_LogS_s2_4538688.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2085883,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538688",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2085883,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_scratch_random_0M_qm9_U0_atom_s0",
+      "job": 4538639,
+      "node": "compute-0-7",
+      "logs": [
+        {
+          "path": "/tmp/p_F1_scratch_U0_s0_4538639.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2782863,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538639",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2782863,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_scratch_random_0M_qm9_U0_atom_s1",
+      "job": 4538642,
+      "node": "compute-0-7",
+      "logs": [
+        {
+          "path": "/tmp/p_F1_scratch_U0_s1_4538642.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2783298,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538642",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2783298,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_scratch_random_0M_qm9_U0_atom_s2",
+      "job": 4538648,
+      "node": "compute-0-7",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_scratch_random_0M_qm9_U0_atom_s2_4538648.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2783709,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538648",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2783709,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_scratch_random_0M_qm9_homo_s0",
+      "job": 4538649,
+      "node": "compute-0-7",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_scratch_random_0M_qm9_homo_s0_4538649.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2783914,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538649",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2783914,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_scratch_random_0M_qm9_homo_s1",
+      "job": 4538650,
+      "node": "compute-0-7",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_scratch_random_0M_qm9_homo_s1_4538650.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2784130,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538650",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2784130,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_scratch_random_0M_qm9_homo_s2",
+      "job": 4538651,
+      "node": "compute-0-7",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_scratch_random_0M_qm9_homo_s2_4538651.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2784353,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538651",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2784353,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
     },
     {
       "run": "F1_scratch_random_0M_exp_LogD_s0",
-      "job": "4538663",
+      "job": 4538663,
       "node": "compute-0-7",
-      "dependency": "4538651"
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_scratch_random_0M_exp_LogD_s0_4538663.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2784566,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538663",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2784566,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_scratch_random_0M_exp_LogD_s1",
+      "job": 4538689,
+      "node": "compute-0-7",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_scratch_random_0M_exp_LogD_s1_4538689.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2785000,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538689",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2785000,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_scratch_random_0M_exp_LogD_s2",
+      "job": 4538690,
+      "node": "compute-0-7",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_scratch_random_0M_exp_LogD_s2_4538690.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2785204,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538690",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2785204,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_scratch_random_0M_exp_LogS_s0",
+      "job": 4538691,
+      "node": "compute-0-7",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_scratch_random_0M_exp_LogS_s0_4538691.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2785393,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538691",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2785393,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_scratch_random_0M_exp_LogS_s1",
+      "job": 4538692,
+      "node": "compute-0-7",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_scratch_random_0M_exp_LogS_s1_4538692.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2785582,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538692",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2785582,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "F1_scratch_random_0M_exp_LogS_s2",
+      "job": 4538693,
+      "node": "compute-0-7",
+      "logs": [
+        {
+          "path": "/tmp/p_ft_F1_scratch_random_0M_exp_LogS_s2_4538693.log",
+          "reaps": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2785773,
+              "root_returncode": 0
+            }
+          ],
+          "terminal": [
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4538693",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_status": [
+            {
+              "pid": 2785773,
+              "actual": "ABSENT"
+            }
+          ]
+        }
+      ]
     }
   ],
-  "final_F1_expected": 120,
-  "final_F2_expected": 60,
-  "complete_study": false
+  "previous_snapshot_commit": "a4832122026d98d3da0ab980cd7e4bdab1a5051c",
+  "scientific_adoption": false
 }

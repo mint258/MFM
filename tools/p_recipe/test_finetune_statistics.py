@@ -98,3 +98,53 @@ def test_different_native_masks_refuse_paired_statistics():
     groups["candidate"]["exp.LogD"][0] = replace(value,valid=np.array([True,False,True,True]))
     with pytest.raises(ValueError,match="masks"):
         summarize(groups,scratch,ref,input_identity=identity)
+
+def test_common_scratch_mean_preserves_three_seed_mean_mae_ranking():
+    # Paired per-seed ratios would rank A above B despite A's larger mean MAE.
+    scratch = {task:[prediction(task,v) for v in (1.,10.,10.)] for task in TASKS}
+    ref = {task:prediction(task,20.) for task in TASKS}
+    groups = {
+        "A":{task:[prediction(task,v) for v in (0.,6.,6.)] for task in TASKS},
+        "B":{task:[prediction(task,2.) for _ in range(3)] for task in TASKS}}
+    identity = {"scratch":"unequal-errors","random_reference":"fixed",
+                "conditions":{"A":"a","B":"b"}}
+    result = summarize(groups,scratch,ref,input_identity=identity)
+    rows = {(r["condition"],r["task"]):r for r in result["rows"]}
+    for task in TASKS:
+        a,b = rows[("A",task)],rows[("B",task)]
+        assert a["mae_seed_mean"] == 4.
+        assert b["mae_seed_mean"] == 2.
+        assert a["scratch_improvement_seed_mean"] == pytest.approx(3/7)
+        assert b["scratch_improvement_seed_mean"] == pytest.approx(5/7)
+        assert a["scratch_baseline_mae_seed_mean"] == 7.
+        assert b["scratch_improvement_seed_mean"] > a["scratch_improvement_seed_mean"]
+
+
+def test_frozen_reuse_keeps_one_real_seed_without_invented_variability():
+    groups,scratch,ref,identity = inputs()
+    frozen = {"original_R3":{task:prediction(task,1.) for task in TASKS}}
+    identity["conditions"]["original_R3"] = "original-seed0-files"
+    result = summarize(groups,scratch,ref,input_identity=identity,frozen=frozen)
+    rows = [r for r in result["rows"] if r["condition"]=="original_R3"]
+    assert len(rows) == 4
+    for row in rows:
+        assert row["seed_count"] == 1
+        assert row["seed0_mae"] == 1.
+        assert row["seed1_mae"] is None and row["seed2_mae"] is None
+        assert row["mae_seed_std"] is None
+        assert row["scratch_improvement_seed_std"] is None
+        assert row["frozen_reference_score_seed_std"] is None
+        assert row["scratch_improvement_seed_mean"] == .5
+        assert row["scratch_improvement_ensemble_ci_lower"] == .5
+        assert row["seed_policy"] == "original_frozen_R3_seed0_reused"
+        assert row["frozen_training_disclosure"] == "existing_R3_30epochs_constant_lr"
+
+
+def test_shared_scratch_baseline_allows_one_perfect_seed_but_refuses_zero_mean():
+    groups,scratch,ref,identity = inputs()
+    scratch = {task:[prediction(task,v) for v in (0.,2.,4.)] for task in TASKS}
+    result = summarize(groups,scratch,ref,input_identity=identity)
+    assert all(r["scratch_baseline_mae_seed_mean"]==2. for r in result["rows"])
+    scratch = {task:[prediction(task,0.) for _ in range(3)] for task in TASKS}
+    with pytest.raises(ValueError,match="denominator"):
+        summarize(groups,scratch,ref,input_identity=identity)

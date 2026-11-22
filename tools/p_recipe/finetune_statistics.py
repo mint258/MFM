@@ -48,47 +48,65 @@ def interval(values):
 
 
 def summarize(groups, scratch, reference, *, input_identity, state=None,
-              checkpoint=None, should_stop=None):
+              checkpoint=None, should_stop=None, frozen=None):
     """Return new-group table rows plus retained paired primary draw values.
 
     groups[group][task] and scratch[task] contain seed0/1/2 predictions in order.
     state is this SAME producer's unfinished checkpoint, not a second analysis.
     A checkpoint callback owns persistence at50-draw boundaries and on stop.
+    frozen[group][task] is the original R3 seed0 prediction, reused once;
+    no fictitious additional seeds or seed standard deviation are reported.
+    Point scores share the three-seed scratch MAE mean as their denominator.
     """
     if not groups or set(scratch) != set(TASKS) or set(reference) != set(TASKS):
         raise ValueError("Registered four-task coverage and scratch/reference required")
+    frozen = {} if frozen is None else frozen
+    if set(groups) & set(frozen):
+        raise ValueError("Frozen reuse and new fine-tunes must have distinct names")
+    all_groups = dict(groups)
+    for key, tasks in frozen.items():
+        all_groups[key] = {task: [prediction] for task, prediction in tasks.items()}
     prepared, point_rows, populations = {}, {}, {}
-    for key in sorted(groups):
-        if set(groups[key]) != set(TASKS):
+    for key in sorted(all_groups):
+        if set(all_groups[key]) != set(TASKS):
             raise ValueError("Each F condition requires all four registered tasks")
         for task in sorted(TASKS):
-            candidates = groups[key][task]
-            if len(candidates) != 3 or len(scratch[task]) != 3:
+            candidates = all_groups[key][task]
+            frozen_reuse = key in frozen
+            if len(candidates) != (1 if frozen_reuse else 3) or len(scratch[task]) != 3:
                 raise ValueError("Missing fine-tuning seed")
             for value in [*candidates, *scratch[task]]:
                 same_population(reference[task], value)
             if reference[task].task.task_id != task or reference[task].task.error_metric != "mae":
                 raise ValueError("Only the registered native MAE tasks")
-            actual = ensemble(candidates)
+            actual = candidates[0] if frozen_reuse else ensemble(candidates)
             base = ensemble(scratch[task])
             e_ref = error(reference[task])
             errors = [error(p) for p in candidates]
             scratch_errors = [error(p) for p in scratch[task]]
-            scores = [normalized(a, b) for a, b in zip(errors, scratch_errors)]
+            scratch_mean = float(np.mean(scratch_errors))
+            scores = [normalized(a, scratch_mean) for a in errors]
             ref_scores = [normalized(a, e_ref) for a in errors]
             if any(x is None for x in [*scores, *ref_scores]):
                 raise ValueError("Point-score denominator unavailable; do not invent a score")
             condition = key + "/" + task
             prepared[condition] = (actual, base, reference[task])
             point_rows[condition] = dict(condition=key, task=task,
-                seed0_mae=errors[0], seed1_mae=errors[1], seed2_mae=errors[2],
-                mae_seed_mean=float(np.mean(errors)), mae_seed_std=float(np.std(errors, ddof=1)),
-                seed0_scratch_improvement=scores[0], seed1_scratch_improvement=scores[1],
-                seed2_scratch_improvement=scores[2],
+                seed_count=len(candidates),
+                seed_policy="original_frozen_R3_seed0_reused" if frozen_reuse else "registered_finetuning_seeds_0_1_2",
+                seed0_mae=errors[0], seed1_mae=errors[1] if not frozen_reuse else None,
+                seed2_mae=errors[2] if not frozen_reuse else None,
+                mae_seed_mean=float(np.mean(errors)), mae_seed_std=float(np.std(errors, ddof=1)) if not frozen_reuse else None,
+                seed0_scratch_improvement=scores[0], seed1_scratch_improvement=scores[1] if not frozen_reuse else None,
+                seed2_scratch_improvement=scores[2] if not frozen_reuse else None,
                 scratch_improvement_seed_mean=float(np.mean(scores)),
-                scratch_improvement_seed_std=float(np.std(scores, ddof=1)),
+                scratch_improvement_seed_std=float(np.std(scores, ddof=1)) if not frozen_reuse else None,
                 frozen_reference_score_seed_mean=float(np.mean(ref_scores)),
-                frozen_reference_score_seed_std=float(np.std(ref_scores, ddof=1)),
+                frozen_reference_score_seed_std=float(np.std(ref_scores, ddof=1)) if not frozen_reuse else None,
+                scratch_baseline_mae_seed_mean=scratch_mean,
+                scratch_baseline_mae_seed_std=float(np.std(scratch_errors, ddof=1)),
+                point_normalization="shared_three_seed_scratch_mean_mae",
+                frozen_training_disclosure="existing_R3_30epochs_constant_lr" if frozen_reuse else "F_50epochs_5percent_warmup_cosine",
                 frozen_random_E_ref=e_ref,
                 ensemble_mae=error(actual), ensemble_scratch_mae=error(base),
                 ensemble_scratch_improvement=normalized(error(actual), error(base)),
@@ -102,7 +120,9 @@ def summarize(groups, scratch, reference, *, input_identity, state=None,
         raise ValueError("Bind the exact primary input files and original baselines")
     identity = dict(input_identity=input_identity, conditions=sorted(prepared),
                     groups={k:list(v) for k,v in populations.items()},
-                    bootstrap_seed=20261025, samples=1000)
+                    bootstrap_seed=20261025, samples=1000,
+                    point_normalization="shared_three_seed_scratch_mean_mae",
+                    frozen_reuse=sorted(frozen))
     if state is None:
         state = dict(identity=identity, completed_draws=0,
             draws={key:dict(mae=[], scratch_improvement=[], frozen_reference_score=[])

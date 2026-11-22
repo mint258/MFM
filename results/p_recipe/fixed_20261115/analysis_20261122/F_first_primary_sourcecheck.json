@@ -1,0 +1,64 @@
+{
+  "status": "PASS_SCOPED",
+  "initial": {
+    "log": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4538727\", \"node\": \"compute-0-13\", \"TimeLimit\": \"00:10:00\", \"EndTime\": \"2026-11-22T22:24:09\", \"root_available_bytes\": 69583335424, \"root_inodes\": 36542553, \"source_independent\": true}\n{\"status\": \"FAIL\", \"files\": 61, \"bytes\": 255847, \"python_files\": 5, \"server_sources_verified\": 0, \"export_verification_required\": false, \"errors\": [{\"path\": \"results/p_recipe/fixed_20261115/analysis_20261122/F.csv\", \"reason\": \"data, weights, archive, or credentials file\"}], \"job_id\": \"4538727\", \"node\": \"compute-0-13\", \"scope\": \"Only61 new/changed F primary/config/source/doc files;5Python. Prior source scopes retained.\", \"original7_repeated\": false, \"affected_tests_job\": 4538725, \"primary_CPU_job\": 4538726, \"fullregression_repeated\": false}\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 3589324, \"root_returncode\": 1}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4538727\", \"returncode\": 1, \"remaining_children\": []}\n",
+    "result": {
+      "status": "FAIL",
+      "files": 61,
+      "bytes": 255847,
+      "python_files": 5,
+      "server_sources_verified": 0,
+      "export_verification_required": false,
+      "errors": [
+        {
+          "path": "results/p_recipe/fixed_20261115/analysis_20261122/F.csv",
+          "reason": "data, weights, archive, or credentials file"
+        }
+      ],
+      "job_id": "4538727",
+      "node": "compute-0-13",
+      "scope": "Only61 new/changed F primary/config/source/doc files;5Python. Prior source scopes retained.",
+      "original7_repeated": false,
+      "affected_tests_job": 4538725,
+      "primary_CPU_job": 4538726,
+      "fullregression_repeated": false
+    }
+  },
+  "targeted": {
+    "log": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4538728\", \"node\": \"compute-0-13\", \"TimeLimit\": \"00:10:00\", \"EndTime\": \"2026-11-22T22:26:00\", \"root_available_bytes\": 69584359424, \"root_inodes\": 36542551, \"source_independent\": true}\n{\"status\": \"PASS\", \"files\": 2, \"bytes\": 22020, \"python_files\": 1, \"server_sources_verified\": 0, \"export_verification_required\": false, \"errors\": [], \"job_id\": \"4538728\", \"node\": \"compute-0-13\", \"scope\": \"Only original failed F.csv and changed checker Python;60 successful original files retained, including5Python. Explicit single task-authorized CSV path.\", \"original7_repeated\": false, \"affected_tests_job\": 4538725, \"primary_CPU_job\": 4538726, \"fullregression_repeated\": false}\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 3589566, \"root_returncode\": 0}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4538728\", \"returncode\": 0, \"remaining_children\": []}\n",
+    "result": {
+      "status": "PASS",
+      "files": 2,
+      "bytes": 22020,
+      "python_files": 1,
+      "server_sources_verified": 0,
+      "export_verification_required": false,
+      "errors": [],
+      "job_id": "4538728",
+      "node": "compute-0-13",
+      "scope": "Only original failed F.csv and changed checker Python;60 successful original files retained, including5Python. Explicit single task-authorized CSV path.",
+      "original7_repeated": false,
+      "affected_tests_job": 4538725,
+      "primary_CPU_job": 4538726,
+      "fullregression_repeated": false
+    },
+    "actual_roots": [
+      {
+        "pid": 3589566,
+        "status": "ABSENT"
+      }
+    ],
+    "previous_4538727_root": {
+      "pid": 3589324,
+      "status": "ABSENT"
+    }
+  },
+  "coverage": {
+    "unique_files": 62,
+    "python_files": 6,
+    "initial_successful_files_retained": 60,
+    "only_new_F_csv_and_checker_rechecked": true
+  },
+  "full_regression_repeated": false,
+  "science_repeated": false
+}
