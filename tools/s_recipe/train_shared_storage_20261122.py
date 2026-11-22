@@ -7,7 +7,7 @@ import argparse
 import json
 import os
 from pathlib import Path
-import train_guarded_20261122 as entry
+import train_guarded_startup_20261122 as entry
 from storage_20261122 import CONTROL, admit, shared_guard
 
 
