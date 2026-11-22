@@ -1,8 +1,8 @@
 {
   "schema": "D_RECIPE_CURRENT_BEST_V1",
-  "status": "STAGE1_SEED0_WIN_BLOCKED_BEFORE_TRIGGERED_SEED1_PREPARATION_AND_ADMISSION",
+  "status": "STAGE1_SEED1_CONFIGURATIONS_SEALED_RESIDENT_LAUNCH_REPLACEMENT_READY",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T08:50:31Z",
+  "updated_at_utc": "2026-11-22T09:37:26Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -269,16 +269,32 @@
     "D-K1": "NOT_TRIGGERED_UNTIL_CONFIRMED_WIDE_LIBRARY_ADOPTION"
   },
   "conditional_seed1": {
-    "status": "HELD_USER_UNTIL_FUTURE_EXIT_ENTRY_AND_ACTUAL_NODE_HEALTH_READY",
+    "status": "REGISTERED_CANONICAL_CONFIGURATIONS_READY_WAITING_NEW_RESIDENT_GPU_LAUNCHES",
     "shared_control": "D-R0 seed1",
     "candidate": "D-R1 seed1",
     "seed0_result": "WIN",
     "adoption_requires_each_seed_WIN": true,
-    "preparation_job": 4538549,
+    "preparation_job": null,
     "previous_preparation": {
-      "job_id": 4538547,
-      "status": "CANCELLED_BEFORE_CONFIGURATION_GENERATION_AFTER_RPC_WAIT",
-      "elapsed_seconds": 1045
+      "job_id": 4538549,
+      "state": "FAILED",
+      "exit_code": "0:15",
+      "elapsed_seconds": 10708,
+      "allocated_CPUs": 1,
+      "node": "compute-0-8",
+      "worker_PID": 2828496,
+      "worker_start_ticks": 2245694583,
+      "UIDs": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "exact_step_cgroup": "1:freezer:/slurm/uid_1278/job_4538549/step_batch",
+      "one_TERM": true,
+      "actual_PID_absent": true,
+      "no_KILL": true,
+      "no_TIMEOUT": true
     },
     "proposed_additional_NFS_bytes": 2147483648,
     "NFS_forecast_admitted": false,
@@ -302,8 +318,8 @@
       }
     },
     "paired_comparison_job": 4538555,
-    "required_dependency": "Each GPU job afterok4538549; CPU afterok its GPU; comparison afterok both CPU jobs",
-    "source_preparation_must_seal_configs_and_live_forecast": true,
+    "required_dependency": "Replace all five old held jobs only after verifiedzero runtime; new CPU afterok its newGPU, comparison afterok both newCPU. The failed old preparation is no longer the prerequisite.",
+    "source_preparation_must_seal_configs_and_live_forecast": false,
     "GPU_actual_admission": "Unchanged launcher checks assigned UUID/empty context/free memory and5CPUs; DJointGuard checks actual-node root/NFS bytes/inodes/fresh5s UID quota and peers before model process or large write",
     "proposed_GPU4_quota_observation": {
       "available_bytes": 353221890048,
@@ -313,7 +329,38 @@
     },
     "old_jobs_embed_old_launchers": true,
     "requires_replacement_with_managed_entries": true,
-    "requires_source_independent_outer_supervision": true
+    "requires_source_independent_outer_supervision": true,
+    "legacy_held_jobs": {
+      "D-R0": {
+        "GPU_job": 4538551,
+        "node": "compute-0-4",
+        "gpu_uuid": "GPU-6965a7c7-025e-e4fd-013a-2be3245ef7c6",
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/screening/D-R0_seed1.json",
+        "status": "PENDING_JOB_HELD_USER_NOT_TRAINING",
+        "CPU_job": 4538553
+      },
+      "D-R1": {
+        "GPU_job": 4538552,
+        "node": "compute-0-5",
+        "gpu_uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/screening/D-R1_seed1.json",
+        "status": "PENDING_JOB_HELD_USER_NOT_TRAINING",
+        "CPU_job": 4538554
+      }
+    },
+    "planning_job": 4538564,
+    "registry": "configs/d_recipe/conditional_seed1_registry.json",
+    "configurations": [
+      "configs/d_recipe/screening/D-R0_seed1.json",
+      "configs/d_recipe/screening/D-R1_seed1.json"
+    ],
+    "canonical_files_sealed": true,
+    "NFS_forecast_registration_complete": true,
+    "registered_joint_NFS_peak_bytes": 38853537501,
+    "registered_additional_NFS_bytes": 2147483648,
+    "NFS_admission_scope": "Canonical/live forecast and bounded head metadata write closed; actual GPU/CPU target admission remains mandatory before scientific work",
+    "source_independent_outer_renderings_ready": true,
+    "per_actual_node_joint_managed_log_future_bytes": 134217728
   },
   "diagnostics": "R0 prescribed diagnostics COMPLETE; R1 F64 geometry UNRESOLVED after two actual capacity-freshness failures, cached layers3-5 GPU probes COMPLETE and CPU scores RUNNING; G1/adopted endpoints pending; decision_input=false",
   "development_controls": "Section5 A/B/C and composition controls pending",
@@ -1096,8 +1143,268 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "BLOCKED_AWAITING_ADMINISTRATOR_RECOVERY",
+  "automation_state": "ACTIVE_USER_REQUESTED_NODE_MIGRATION",
   "blocking_condition": {
+    "type": "ORIGINAL_CLIPPING_EXIT_UNPROVEN_MAINLINE_MIGRATION_IN_PROGRESS",
+    "mainline_blocked": false,
+    "old_clipping_PID": 2822119,
+    "last_verified_state": "D",
+    "last_verified_UIDs": [
+      1278,
+      1278,
+      1278,
+      1278
+    ],
+    "start_ticks": 2244363539,
+    "job": 4538532,
+    "cgroup_freezer": "1:freezer:/",
+    "no_replacement_producer_started": true,
+    "actual_exit_not_proven": true,
+    "administrator_recovery_still_needed_for_that_old_process": true
+  },
+  "runtime_exit_policy": {
+    "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
+    "scope": "Future start/safe continuation; frozen active training source unchanged",
+    "held_pending_jobs": [
+      4538551,
+      4538552,
+      4538553,
+      4538554,
+      4538555
+    ],
+    "new_entries_ready": true,
+    "minimum_cleanup_seconds": 180,
+    "node17_drain_attribution": "UNCONFIRMED_DO_NOT_INFER_FROM_COLOCATION",
+    "diagnostic_exit": {
+      "job_id": 4537598,
+      "job_state": "FAILED",
+      "batch_state": "CANCELLED",
+      "exit_code": "0:15",
+      "elapsed_seconds": 9837,
+      "allocated_CPUs": 1,
+      "worker": {
+        "pid": 2819839,
+        "start_ticks": 2244339286,
+        "UIDs": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "job_cgroup": 4537598,
+        "signal": "ONE_SIGTERM",
+        "after_signal": "Z_THEN_ABSENT"
+      },
+      "parent": {
+        "pid": 2819751,
+        "start_ticks": 2244338224,
+        "UIDs": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "job_cgroup": 4537598,
+        "signal": "ONE_SIGTERM_AFTER_ALL_CHILDREN_EXITED",
+        "after_signal": "ABSENT"
+      },
+      "both_absent_verified": true,
+      "hard_timeout_used": false,
+      "kill_used": false,
+      "original_hard_deadline_CST": "2026-11-22T16:19:13+08:00",
+      "actual_exit_CST": "2026-11-22T15:24:10+08:00",
+      "GPU_seconds": 1217,
+      "cumulative_layer_diagnostic_seconds": 11054,
+      "remaining_taskbook_diagnostic_seconds": 3346,
+      "complete_layers": [
+        3,
+        6
+      ],
+      "pending_layers": [
+        4,
+        5
+      ],
+      "node17_drain_attribution": "UNCONFIRMED",
+      "frozen_runtime_code_changed": false
+    },
+    "future_entry_implementation": {
+      "status": "RESIDENT_RENDERINGS_TESTED_CANONICAL_CONFIGS_SEALED_WAITING_ACTUAL_NODE_ADMISSION",
+      "frozen_scientific_workers_changed": false,
+      "files": [
+        "tools/d_recipe/exit_lifecycle.py",
+        "tests/test_d_recipe_exit_lifecycle.py",
+        "tools/d_recipe/managed_entry.py",
+        "tools/d_recipe/run_managed.sbatch",
+        "tools/d_recipe/cpu_managed.sbatch",
+        "tools/d_recipe/comparison_managed.sbatch",
+        "tests/test_d_recipe_managed_entry.py",
+        "tools/d_recipe/clipping_managed.py",
+        "tools/d_recipe/clipping_managed.sbatch",
+        "tests/test_d_recipe_clipping_managed.py",
+        "tools/d_recipe/resident_bootstrap.py",
+        "tests/test_d_recipe_resident_bootstrap.py",
+        "configs/d_recipe/launches/D-R0_seed1_resident.sbatch",
+        "configs/d_recipe/launches/D-R0_seed1_statistics_resident.sbatch",
+        "configs/d_recipe/launches/D-R1_seed1_resident.sbatch",
+        "configs/d_recipe/launches/D-R1_seed1_statistics_resident.sbatch",
+        "configs/d_recipe/launches/D-R1_vs_D-R0_seed1_resident.sbatch"
+      ],
+      "implementation_scope": "New inactive wrappers around existing original D workers; actual allocation deadline, cooperative training SAVE_AND_EXIT, exact owned process TERM/join/reap; no SIGKILL; no source database copy.",
+      "real_test_runs": [
+        {
+          "job": 4538556,
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed_seconds": 1,
+          "allocated_CPUs": 1,
+          "tests": 10,
+          "test_seconds": 0.303,
+          "remaining_children": []
+        },
+        {
+          "job": 4538557,
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed_seconds": 23,
+          "allocated_CPUs": 1,
+          "tests": 16,
+          "test_seconds": 0.309,
+          "remaining_children": []
+        },
+        {
+          "job": 4538564,
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed_seconds": 1,
+          "allocated_CPUs": 1,
+          "node": "compute-0-19",
+          "new_resident_tests": 3,
+          "test_seconds": 0.001,
+          "real_nested_resident_process_test": true,
+          "actual_remaining_children": [],
+          "shared_source_access": false,
+          "shared_output_writes": false,
+          "closed_original_planner_in_memory": true
+        }
+      ],
+      "managed_slurm_stdout": "/tmp/d_recipe_managed_%x_%j.log",
+      "root_log_future_registration": "Require joint planned growth on each actual target, including at least32MiB per managed log and all peer future; preserve max(10GiB,10percent) system reserve and actual inodes. No budget is activated merely by source publication.",
+      "canonical_runtime_field_required": "exit_root_log_future_bytes",
+      "old_held_jobs_embed_old_script": true,
+      "old_jobs_must_not_be_simply_released": true,
+      "rollout": "Do not submit staged templates or directly release old jobs. First provide source-independent outer supervision, close actual configs/live global forecast and target health; verify old five jobs PENDING/0s then replace with the same registered science and rebind dependencies.",
+      "no_new_tasks_on_observed_fault_channels": [
+        "compute-0-8",
+        "compute-0-10",
+        "compute-0-15",
+        "compute-0-14",
+        "compute-0-16",
+        "compute-0-17",
+        "compute-0-18"
+      ],
+      "source_metadata_write_admission": "Actual head target guard passed unchanged 5s UID-quota freshness with all peer future, proposed2GiB plus1MiB metadata; source edits under live X. This is not GPU startup admission.",
+      "additional_entry_tests": {
+        "status": "UNRESOLVED_AFTER_TWO_INFRASTRUCTURE_INTERRUPTED_ATTEMPTS_NOT_PASSED",
+        "attempts": [
+          {
+            "job": 4538558,
+            "node": "compute-0-10",
+            "state": "FAILED",
+            "exit_code": "75:0",
+            "elapsed_seconds": 389,
+            "allocated_CPUs": 1,
+            "intended_tests": 18,
+            "tests_accepted": false,
+            "supervisor_pid": 2632262,
+            "supervisor_start_ticks": 2013721779,
+            "worker_pid": 2632264,
+            "worker_start_ticks": 2013721784,
+            "observed_worker_state": "D",
+            "observed_wchan": "rpc_wait_bit_killable",
+            "stop": "ONE_USR1_TO_EXACT_SUPERVISOR",
+            "worker_TERM_returncode": -15,
+            "actual_remaining_children": [],
+            "hard_timeout_used": false
+          },
+          {
+            "job": 4538559,
+            "node": "compute-0-15",
+            "state": "FAILED",
+            "exit_code": "75:0",
+            "elapsed_seconds": 119,
+            "allocated_CPUs": 1,
+            "intended_tests": 2,
+            "mode": "Exact captured new clipping source in memory; four Bash syntax commands; not actual-source integration",
+            "tests_accepted": false,
+            "stop": "REAL_5MIN_ALLOCATION_USR1_AT_180S_RESERVED_WINDOW",
+            "TERM_pids": [
+              1112577,
+              1112578
+            ],
+            "TERM_start_ticks": [
+              4755403314,
+              4755403317
+            ],
+            "worker_TERM_returncode": -15,
+            "actual_remaining_children": [],
+            "hard_timeout_used": false
+          }
+        ],
+        "no_further_repair_or_tests_on_fault_channels": true,
+        "interpretation": "Neither incomplete attempt is accepted as18 or2 passing tests. Actual controlled cleanup was verified in both. This operational limitation does not change the original scientific R1 result."
+      },
+      "source_independent_outer_supervision_required": true,
+      "pre_module_load_protection": "Generic resident renderer embeds original reviewed lifecycle plus bootstrap into Slurm-copied Python -ISB source. It starts before any shared-module import or shell child. Three new renderer tests plus actual nested resident child passed onCPU19; do not treat template flags alone as protection.",
+      "default_template_submission_guard": {
+        "variable": "D_EXIT_OUTER_SUPERVISION",
+        "required_value": "1",
+        "default_exit_code": 64,
+        "manual_bypass_is_not_operational_readiness": true
+      },
+      "node19_scope": "Local OS/RAM healthy; shared-filesystem admission4538562 incomplete and safely reaped75/99s. In-memory code/planning4538564 alone admitted there; no shared data I/O or output. File-dependent CPU jobs select9/11/13."
+    },
+    "clipping_cleanup": {
+      "job_id": 4538532,
+      "node": "compute-0-8",
+      "worker": {
+        "pid": 2822119,
+        "start_ticks": 2244363539,
+        "UIDs": [
+          1278,
+          1278,
+          1278,
+          1278
+        ]
+      },
+      "before_signal_cgroup": "1:freezer:/slurm/uid_1278/job_4538532/step_batch",
+      "before_signal_state": "D",
+      "before_signal_children": [],
+      "signal": "ONE_SIGTERM_AFTER_EXACT_IDENTITY_CHECK",
+      "after_bounded_observation": {
+        "state": "D",
+        "start_ticks": 2244363539,
+        "UIDs": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/system.slice/slurmd.service\n"
+      },
+      "exit_proven": false,
+      "Slurm_job_state_last_observed": "RUNNING",
+      "duplicate_replacement_started": false,
+      "preserved_closed_cursor": 1020928,
+      "total_molecules": 1194228,
+      "no_repeat_signal": true,
+      "no_SIGKILL": true,
+      "administrative_recovery_required": true,
+      "interpretation": "Observation is not actual PID exit, scientific completion or proof of underlying root cause. Preserve original configuration, coefficients, conformer choices, molecular counts and closed atomic cursor. No new producer while old process exit is unproven."
+    },
+    "entry_readiness_scope": "Resident renderings ready to submit; not proof of any model start, actual target storage admission or completed experiment.",
+    "user_requested_node_switch": true
+  },
+  "previous_blocking_condition": {
     "type": "EXTERNAL_KERNEL_IO_WAIT_AND_SLURM_MANAGEMENT_STARTUP",
     "consecutive_goal_turns": 3,
     "verified_at_utc": "2026-11-22T08:50:31Z",
@@ -1166,221 +1473,5 @@
       "Close actual node health, canonical config/live global forecast, bytes/inodes/fresh UID quota and all peer future, then verify old five jobs stillPENDING0s and replace same registered science/dependencies rather than release embedded old scripts."
     ],
     "full_scope_preserved": true
-  },
-  "runtime_exit_policy": {
-    "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
-    "scope": "Future start/safe continuation; frozen active training source unchanged",
-    "held_pending_jobs": [
-      4538551,
-      4538552,
-      4538553,
-      4538554,
-      4538555
-    ],
-    "new_entries_ready": false,
-    "minimum_cleanup_seconds": 180,
-    "node17_drain_attribution": "UNCONFIRMED_DO_NOT_INFER_FROM_COLOCATION",
-    "diagnostic_exit": {
-      "job_id": 4537598,
-      "job_state": "FAILED",
-      "batch_state": "CANCELLED",
-      "exit_code": "0:15",
-      "elapsed_seconds": 9837,
-      "allocated_CPUs": 1,
-      "worker": {
-        "pid": 2819839,
-        "start_ticks": 2244339286,
-        "UIDs": [
-          1278,
-          1278,
-          1278,
-          1278
-        ],
-        "job_cgroup": 4537598,
-        "signal": "ONE_SIGTERM",
-        "after_signal": "Z_THEN_ABSENT"
-      },
-      "parent": {
-        "pid": 2819751,
-        "start_ticks": 2244338224,
-        "UIDs": [
-          1278,
-          1278,
-          1278,
-          1278
-        ],
-        "job_cgroup": 4537598,
-        "signal": "ONE_SIGTERM_AFTER_ALL_CHILDREN_EXITED",
-        "after_signal": "ABSENT"
-      },
-      "both_absent_verified": true,
-      "hard_timeout_used": false,
-      "kill_used": false,
-      "original_hard_deadline_CST": "2026-11-22T16:19:13+08:00",
-      "actual_exit_CST": "2026-11-22T15:24:10+08:00",
-      "GPU_seconds": 1217,
-      "cumulative_layer_diagnostic_seconds": 11054,
-      "remaining_taskbook_diagnostic_seconds": 3346,
-      "complete_layers": [
-        3,
-        6
-      ],
-      "pending_layers": [
-        4,
-        5
-      ],
-      "node17_drain_attribution": "UNCONFIRMED",
-      "frozen_runtime_code_changed": false
-    },
-    "future_entry_implementation": {
-      "status": "CORE_TESTED_NEW_ENTRIES_STAGED_NOT_PRODUCTION_READY",
-      "frozen_scientific_workers_changed": false,
-      "files": [
-        "tools/d_recipe/exit_lifecycle.py",
-        "tests/test_d_recipe_exit_lifecycle.py",
-        "tools/d_recipe/managed_entry.py",
-        "tools/d_recipe/run_managed.sbatch",
-        "tools/d_recipe/cpu_managed.sbatch",
-        "tools/d_recipe/comparison_managed.sbatch",
-        "tests/test_d_recipe_managed_entry.py",
-        "tools/d_recipe/clipping_managed.py",
-        "tools/d_recipe/clipping_managed.sbatch",
-        "tests/test_d_recipe_clipping_managed.py"
-      ],
-      "implementation_scope": "New inactive wrappers around existing original D workers; actual allocation deadline, cooperative training SAVE_AND_EXIT, exact owned process TERM/join/reap; no SIGKILL; no source database copy.",
-      "real_test_runs": [
-        {
-          "job": 4538556,
-          "state": "COMPLETED",
-          "exit_code": "0:0",
-          "elapsed_seconds": 1,
-          "allocated_CPUs": 1,
-          "tests": 10,
-          "test_seconds": 0.303,
-          "remaining_children": []
-        },
-        {
-          "job": 4538557,
-          "state": "COMPLETED",
-          "exit_code": "0:0",
-          "elapsed_seconds": 23,
-          "allocated_CPUs": 1,
-          "tests": 16,
-          "test_seconds": 0.309,
-          "remaining_children": []
-        }
-      ],
-      "managed_slurm_stdout": "/tmp/d_recipe_managed_%x_%j.log",
-      "root_log_future_registration": "Require joint planned growth on each actual target, including at least32MiB per managed log and all peer future; preserve max(10GiB,10percent) system reserve and actual inodes. No budget is activated merely by source publication.",
-      "canonical_runtime_field_required": "exit_root_log_future_bytes",
-      "old_held_jobs_embed_old_script": true,
-      "old_jobs_must_not_be_simply_released": true,
-      "rollout": "Do not submit staged templates or directly release old jobs. First provide source-independent outer supervision, close actual configs/live global forecast and target health; verify old five jobs PENDING/0s then replace with the same registered science and rebind dependencies.",
-      "no_new_tasks_on_observed_fault_channels": [
-        "compute-0-8",
-        "compute-0-10",
-        "compute-0-15",
-        "compute-0-14",
-        "compute-0-16",
-        "compute-0-17"
-      ],
-      "source_metadata_write_admission": "Actual head target guard passed unchanged 5s UID-quota freshness with all peer future, proposed2GiB plus1MiB metadata; source edits under live X. This is not GPU startup admission.",
-      "additional_entry_tests": {
-        "status": "UNRESOLVED_AFTER_TWO_INFRASTRUCTURE_INTERRUPTED_ATTEMPTS_NOT_PASSED",
-        "attempts": [
-          {
-            "job": 4538558,
-            "node": "compute-0-10",
-            "state": "FAILED",
-            "exit_code": "75:0",
-            "elapsed_seconds": 389,
-            "allocated_CPUs": 1,
-            "intended_tests": 18,
-            "tests_accepted": false,
-            "supervisor_pid": 2632262,
-            "supervisor_start_ticks": 2013721779,
-            "worker_pid": 2632264,
-            "worker_start_ticks": 2013721784,
-            "observed_worker_state": "D",
-            "observed_wchan": "rpc_wait_bit_killable",
-            "stop": "ONE_USR1_TO_EXACT_SUPERVISOR",
-            "worker_TERM_returncode": -15,
-            "actual_remaining_children": [],
-            "hard_timeout_used": false
-          },
-          {
-            "job": 4538559,
-            "node": "compute-0-15",
-            "state": "FAILED",
-            "exit_code": "75:0",
-            "elapsed_seconds": 119,
-            "allocated_CPUs": 1,
-            "intended_tests": 2,
-            "mode": "Exact captured new clipping source in memory; four Bash syntax commands; not actual-source integration",
-            "tests_accepted": false,
-            "stop": "REAL_5MIN_ALLOCATION_USR1_AT_180S_RESERVED_WINDOW",
-            "TERM_pids": [
-              1112577,
-              1112578
-            ],
-            "TERM_start_ticks": [
-              4755403314,
-              4755403317
-            ],
-            "worker_TERM_returncode": -15,
-            "actual_remaining_children": [],
-            "hard_timeout_used": false
-          }
-        ],
-        "no_further_repair_or_tests_on_fault_channels": true,
-        "interpretation": "Neither incomplete attempt is accepted as18 or2 passing tests. Actual controlled cleanup was verified in both. This operational limitation does not change the original scientific R1 result."
-      },
-      "source_independent_outer_supervision_required": true,
-      "pre_module_load_protection": "Not deployed. A supervisor already in Slurm-copied/local memory must wrap shared-script/module startup too; the two actual interrupted tests proved the memory supervisor reaped their children before deadline.",
-      "default_template_submission_guard": {
-        "variable": "D_EXIT_OUTER_SUPERVISION",
-        "required_value": "1",
-        "default_exit_code": 64,
-        "manual_bypass_is_not_operational_readiness": true
-      }
-    },
-    "clipping_cleanup": {
-      "job_id": 4538532,
-      "node": "compute-0-8",
-      "worker": {
-        "pid": 2822119,
-        "start_ticks": 2244363539,
-        "UIDs": [
-          1278,
-          1278,
-          1278,
-          1278
-        ]
-      },
-      "before_signal_cgroup": "1:freezer:/slurm/uid_1278/job_4538532/step_batch",
-      "before_signal_state": "D",
-      "before_signal_children": [],
-      "signal": "ONE_SIGTERM_AFTER_EXACT_IDENTITY_CHECK",
-      "after_bounded_observation": {
-        "state": "D",
-        "start_ticks": 2244363539,
-        "UIDs": [
-          1278,
-          1278,
-          1278,
-          1278
-        ],
-        "cgroup": "1:freezer:/\n0::/system.slice/slurmd.service\n"
-      },
-      "exit_proven": false,
-      "Slurm_job_state_last_observed": "RUNNING",
-      "duplicate_replacement_started": false,
-      "preserved_closed_cursor": 1020928,
-      "total_molecules": 1194228,
-      "no_repeat_signal": true,
-      "no_SIGKILL": true,
-      "administrative_recovery_required": true,
-      "interpretation": "Observation is not actual PID exit, scientific completion or proof of underlying root cause. Preserve original configuration, coefficients, conformer choices, molecular counts and closed atomic cursor. No new producer while old process exit is unproven."
-    }
   }
 }

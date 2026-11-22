@@ -231,3 +231,12 @@ CPU17/4537571.step31仅原样保存L2唯一统计和最终清单至Data结果目
 
 
 2026-11-22 16:50 CST：恢复目标后的第三轮有界核查仍见4538549 RUNNING/02:31:13/CPU8，原4538532 RUNNING，五个4538551–8555 PENDING/JobHeldUser/0秒。实际head stat确认两个seed1配置和conditional registry仍无文件；准备日志存在但0字节，原mtime16:25:09.048939254 CST。不将历史root/slurmstepd PID身份视为本轮新核实，不再向故障节点添加诊断。前一轮属verified wait，本轮仍同一实在外部阻塞；独立允许的工作已完成，扩展入口两次中断后保持UNRESOLVED/禁用，不能以额外修复绕开停止规则。已满足恢复后连续三轮blocked审计，目标设blocked而非complete。保留原seed0 WIN、原统计及全部阶段1–3/条件种子/规定诊断/冻结后9M/最终A/B/C与两个PR范围，未删文件、未新开模型、未放宽预算/健康/退出门。准备真实硬截止18:18:03 CST，需管理员在此前核查kernel/Slurm/共享文件系统。恢复后先读实际最新产物/作业，保留任何新进展，禁止用此blocked快照覆盖后来的READY或已完成结果。
+
+
+2026-11-22T09:37:26Z：用户明确要求更换节点完成任务并恢复goal。新核CPU8旧准备4538549已有自有batch PID2828496/start_ticks2245694583、UIDs全1278、父2827663、精确step_batch cgroup、无子进程；仅一次TERM，实际/proc确认ABSENT，原生FAILED0:15/10708秒/1CPU，早于18:18截止，无KILL/超时、未信号root。原clip PID2822119/start_ticks2244363539仍D/freezer根组，未再信号、未起同输出副本。旧准备writer消失后允许生成同一canonical seed1文件；不再等待已失败旧准备afterok。
+
+CPU19真实Slurm MIXED/空32核。4538562实际根/tmp可用69410492416B/36542307inode、MemAvailable240247209984B，shared路径statvfs未返回即进入收尾窗，监督器TERM/reap、remaining_children=[]，FAILED75:0/99秒/1CPU，不把它记为共享盘准入。随后4538564仅在OS本地/RAM中执行原样捕获的原seed_plan、fresh_seed1_configuration和prepare_runtime，未访问共享源码/数组、未在该节点写共享盘；3项新resident渲染测试通过0.001秒，真实嵌套resident监督器/子进程集成0及children=[]，原生COMPLETED0:0/1秒/1CPU。结果按48字符base64行传回作为配置元数据；未重算科学统计或bootstrap。
+
+Root在实际head-target原Guard.wait、fresh5秒UID配额、全部同行future与1MiB元数据预留通过后，以实际旧Data计划为CAS上下文封存原两条fresh3M seed1配置和唯一共享registry。D-R0/R1科学字段、原参数、seed1、样本轴/cosine、60000–150000新clip、原组件与数据顺序均由原prepare_runtime保留；无resume、seed0cache或权重继承。仅移除seed0节点专属基础设施字段。实际Data/live全局NFS36706053853+2147483648=38853537501B，full31897483648B；8槽232MB+128MiB原NFS日志/读出估算保留，Lustre不变。另每实际目标Root联合local日志未来128MiB，含所有拟D日志，实际节点仍按其他同行future与max(10GiB,10%)系统底线准入。
+
+新resident_bootstrap默认不提交任何作业；生成的SBATCH使用系统Python-ISB及Slurm已复制的嵌入监督器，覆盖shell启动和共享模块加载。真实TimeLimit默认900秒收尾，协调USR1到直接managed child后由原SAVE_AND_EXIT保存，精确UID/PID/ticks/cgroup的TERM/join/reap，无KILL。5个原seed1作业仍核为zixiao/PENDING0秒，待本里程碑发布和新复制入口就绪后取消并重绑为同一组运行；GPU拟4/5，文件依赖CPU拟9/11/13，均在真实节点再次原Guard/空GPU检查。此时尚未训练，未发布新科学判定、未冻结或提交9M。原两次扩展clipping入口UNRESOLVED、R1几何UR及原层4/5余3346秒记录均保留，不冒称通过。
