@@ -353,9 +353,9 @@
     "latest_same_speed_estimate_GPU_hours": 15.339057485262552,
     "latest_estimate_basis": "First QM9/U0 full run460.1717245578766s; provisional single-task extrapolation, revise with actualExpansionRx",
     "progress_latest": {
-      "captured_UTC": "2026-11-22T14:09:56Z",
-      "assigned": 48,
-      "native_completed": 26,
+      "captured_UTC": "2026-11-22T15:00:46Z",
+      "assigned": 60,
+      "native_completed": 43,
       "primary_rows": 12,
       "source": "results/p_recipe/fixed_20261115/analysis_20261122/F_progress.json"
     },
@@ -431,7 +431,14 @@
     "new_readouts": 16,
     "outputs": "Per-task and seven-task mean five-seed mean/std, std/bootstrap halfwidth ratio",
     "trigger": "Seven-task std>=tau/2 -> daily user-decision proposal only; no decision-rule change",
-    "round4_F2_binding": "source_resolution.followup_bindings[label=round4_F2]"
+    "round4_F2_binding": "source_resolution.followup_bindings[label=round4_F2]",
+    "state": "SUBMITTED_PENDING_AFTEROK",
+    "job_id": 4538736,
+    "node": "compute-0-6",
+    "dependency": 4538712,
+    "configuration": "configs/p_recipe/fixed_20261115/analysis_20261122/A1_readout_noise.json",
+    "validation": "results/p_recipe/fixed_20261115/analysis_20261122/A1_validation.json",
+    "implementation": "Original R3 unchanged; new complete-state adapter passed6bitwise/resume cases, feature2cases andentry2cases"
   },
   "A2": {
     "parallel_with": "F1",
