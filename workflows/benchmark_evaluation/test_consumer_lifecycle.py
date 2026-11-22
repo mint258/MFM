@@ -205,6 +205,18 @@ subprocess.Popen([sys.executable,'-I','-S','-B','-c','raise SystemExit(7)'])
         with self.assertRaises(ValueError):
             lifecycle.wrap_sbatch(original, "# source", 60, "/share/home/log-%j.log")
 
+    def test_cpu2_requires_explicit_frozen_selection_and_never_admits_gpu_or_banned21(self):
+        self.assertNotIn("compute-0-2", lifecycle.authorized_cpu_nodes())
+        self.assertEqual(lifecycle.authorized_cpu_nodes(("compute-0-2",)),
+                         frozenset({"compute-0-2"}))
+        for value in [(), "compute-0-2", ("compute-0-1",), ("compute-0-21",)]:
+            with self.assertRaises(ValueError):
+                lifecycle.authorized_cpu_nodes(value)
+        original = "#!/bin/bash\n#SBATCH --time=00:10:00\nset -euo pipefail\ntrue\n"
+        wrapped = lifecycle.wrap_sbatch(original, "# source", 60,
+                                       allowed_nodes=("compute-0-2",))
+        self.assertIn("allowed_nodes=('compute-0-2',)", wrapped)
+
 
 if __name__ == "__main__":
     unittest.main()

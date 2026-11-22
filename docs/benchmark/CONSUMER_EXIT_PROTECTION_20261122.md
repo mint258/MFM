@@ -28,3 +28,5 @@
 外层入口补充：在监督者出现前，Slurm已先改变cwd并打开标准流。新wrap_sbatch将外层cwd固定为/、stdin为/dev/null、stdout/stderr改为逐job唯一的/tmp日志，只继承显式列出的消费端环境，避免共享cwd、日志或BASH_ENV使入口先卡在NFS。原冻结负载字节仍完整嵌入，在受监督子进程内执行。激活前须把每个本地日志至少32MiB以及实际并发日志总量纳入本线node_disk预留并完成目标节点准入；仅模板变更不算登记。原TimeLimit、CPU及科学负载不变。新增一项拒绝共享日志路径的行为测试，新增后共15项，以该提交真实CI结果为准，不能仅复用此前14项通过。
 
 外层cwd及显式环境导出的语义依据部署版本的[Slurm22.05.7 sbatch手册](https://raw.githubusercontent.com/SchedMD/slurm/slurm-22-05-7-1/doc/man/man1/sbatch.1)，保留实际消费端路径与原生记账配置的显式环境变量，不继承BASH_ENV。
+
+2026-11-22 用户再次要求更换节点完成任务。依据会话提供的AGENTS对合适开发计算节点的授权，实际调度确认compute-0-2属于cpu分区（不是gpu分区），MIXED且16核空闲。只读Slurm4538563实际C0：节点根/tmp、inode及MemAvailable余量通过，UID/PID/start_ticks/job/step身份已取得，自有进程树退出。新增显式冻结allowed_nodes选择：默认保留旧8–19；只有调用者在新入口明确冻结CPU2时才允许2，仍必须核验实际Partition=cpu、同一job/cgroup/UID、节点State/Reason和真实容量。禁止把本次选择泛化为其他节点、GPU分区CPU工作或21。新增一项冻结授权边界测试，共16项；既有科学源码和运行任务不变。CPU2上的守卫7项迁移测试尚未执行，先完成真实本线预留与准入再执行一次。

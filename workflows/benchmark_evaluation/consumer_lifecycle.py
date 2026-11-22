@@ -361,11 +361,25 @@ def require_healthy_node(text, node):
         raise RuntimeError("Node health is not admitted; do not bypass or retry a faulty node")
 
 
-def run_slurm_consumer(argv, estimated_seconds, stdin_data=None):
+def authorized_cpu_nodes(allowed_nodes=None):
+    """Default legacy range; an explicit frozen selection can admit this session's CPU2."""
+    legacy = frozenset("compute-0-" + str(i) for i in range(8, 20))
+    if allowed_nodes is None:
+        return legacy
+    if (not isinstance(allowed_nodes, (list, tuple, set, frozenset))
+            or not allowed_nodes or any(not isinstance(node, str) for node in allowed_nodes)):
+        raise ValueError("An explicit nonempty frozen CPU-node selection is required")
+    selected = frozenset(allowed_nodes)
+    if not selected.issubset(legacy | {"compute-0-2"}):
+        raise ValueError("Only this session's approved actual CPU nodes are permitted")
+    return selected
+
+
+def run_slurm_consumer(argv, estimated_seconds, stdin_data=None, allowed_nodes=None):
     """Read Slurm 22.05's actual window before dispatching any frozen payload."""
     job = os.environ.get("SLURM_JOB_ID", "")
     node = socket.gethostname().split(".")[0]
-    if not job.isdigit() or node not in {"compute-0-" + str(i) for i in range(8, 20)}:
+    if not job.isdigit() or node not in authorized_cpu_nodes(allowed_nodes):
         raise RuntimeError("An allocated authorized CPU node is required")
     context = identity(os.getpid())
     if not re.search(r"/job_" + job + r"(?:/|\n|$)", context.cgroup):
@@ -387,7 +401,7 @@ def run_slurm_consumer(argv, estimated_seconds, stdin_data=None):
 
 
 def wrap_sbatch(script, supervisor_source, estimated_seconds,
-                local_log_path="/tmp/benchmark-C1-consumer-%j.log"):
+                local_log_path="/tmp/benchmark-C1-consumer-%j.log", allowed_nodes=None):
     """Prepare a NEW queued entry; never modify an already running/copy-saved script."""
     if not script.startswith("#!/bin/bash\n") or "#SBATCH --signal" in script:
         raise ValueError("An unwrapped frozen Bash batch script is required")
@@ -395,6 +409,8 @@ def wrap_sbatch(script, supervisor_source, estimated_seconds,
         raise ValueError("An explicit unit runtime planning estimate is required")
     if not re.fullmatch(r"/tmp/benchmark-C1-consumer-[A-Za-z0-9_.%\-]+\.log", local_log_path):
         raise ValueError("A reserved node-local /tmp consumer log is required")
+    selected_nodes = authorized_cpu_nodes(allowed_nodes)
+    frozen_nodes = None if allowed_nodes is None else tuple(sorted(selected_nodes))
     prefix = []
     for line in script.splitlines():
         if not line.strip() or line.startswith("#"):
@@ -420,8 +436,8 @@ def wrap_sbatch(script, supervisor_source, estimated_seconds,
 import base64,json,sys
 scope={"__name__":"benchmark_consumer_lifecycle"}
 exec(compile(base64.b64decode(%r),"<consumer-lifecycle>","exec"),scope)
-result=scope["run_slurm_consumer"](["/bin/bash","-s"],%r,stdin_data=base64.b64decode(%r))
+result=scope["run_slurm_consumer"](["/bin/bash","-s"],%r,stdin_data=base64.b64decode(%r),allowed_nodes=%r)
 print(json.dumps({"consumer_lifecycle":result}),flush=True)
 sys.exit(result["returncode"])
 BENCHMARK_CONSUMER_LIFECYCLE
-""" % (code, estimated_seconds, payload)
+""" % (code, estimated_seconds, payload, frozen_nodes)
