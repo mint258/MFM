@@ -128,6 +128,8 @@ def main(path):
                         fixed=list(map(int,data.indices))
                         if len(fixed)!=2000 or len(set(fixed))!=2000:
                             raise ValueError("Original fixed2000 VAL population required")
+                        torch.manual_seed(cfg["seed"])
+                        torch.cuda.manual_seed_all(cfg["seed"])
                         structural,architecture=s_model("C1-0","three")
                         structural.encoder.backbone.activation_checkpointing=False
                         pd=V31PDModel(structural.encoder,data.view,forms=cfg["head_form"],
