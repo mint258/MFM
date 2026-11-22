@@ -14,6 +14,9 @@ def admit(configuration):
  if configuration.get('budget_curve'):
   from budget_curve import admit_storage
   admit_storage(configuration)
+ else:
+  from budget_curve import admit_joint_storage
+  admit_joint_storage()
  if socket.gethostname().split('.')[0] not in {'compute-0-'+str(i) for i in range(8,20)}:
   raise RuntimeError('Final statistics require a CPU node8..19')
  if os.environ.get('CUDA_VISIBLE_DEVICES'):

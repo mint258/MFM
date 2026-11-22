@@ -195,8 +195,8 @@ def admit_statistics():
         raise RuntimeError("Budget-curve statistics require a healthy CPU-only node")
     if os.environ.get("CUDA_VISIBLE_DEVICES"):
         raise RuntimeError("Budget-curve statistics must have no CUDA device")
-    with contextlib.redirect_stdout(io.StringIO()):
-        runpy.run_path(str(C / "fixed_20261115/confirmation_storage_admission_20261120.py"))
+    from budget_curve import admit_joint_storage
+    admit_joint_storage()
 
 
 def first_timing(points):

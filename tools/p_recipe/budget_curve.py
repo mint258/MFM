@@ -135,6 +135,22 @@ def physical_bytes(directory):
     return total
 
 
+def admit_joint_storage():
+    """Add declared same-node root futures before the existing fresh joint NFS guard."""
+    node = socket.gethostname().split(".")[0]
+    resources = read(PLAN)["resources"]
+    peers = resources.get("declared_peer_root_future_bytes")
+    if not isinstance(peers, dict):
+        raise RuntimeError("Declared same-node peer root futures are missing")
+    peer = int(peers.get(node, 0))
+    if peer < 0:
+        raise ValueError("A peer reservation cannot be negative")
+    disk = runpy.run_path(str(REPO / "tools/model_v3/v2_diagnosis_disk.py"))
+    disk["m"].require_capacity(disk["m"].filesystem_status("/"), 16777216 + peer, 2000)
+    with contextlib.redirect_stdout(io.StringIO()):
+        return runpy.run_path(str(C / "fixed_20261115/confirmation_storage_admission_20261120.py"))
+
+
 def admit_storage(configuration):
     """Fresh actual-node joint admission; the 3GiB claim is counted exactly once."""
     registry = PROJECT / "MFM_d_descriptors_20261120/configs/data_d_descriptors/storage_reservations.json"
@@ -155,8 +171,7 @@ def admit_storage(configuration):
     if physical_bytes(output) >= READOUT_BYTES:
         raise RuntimeError("This readout exhausted its output allowance")
     # This established guard reads the latest D/S/B0/benchmark claims and fresh UID quota.
-    with contextlib.redirect_stdout(io.StringIO()):
-        runpy.run_path(str(C / "fixed_20261115/confirmation_storage_admission_20261120.py"))
+    admit_joint_storage()
 
 
 def run_readout(configuration):

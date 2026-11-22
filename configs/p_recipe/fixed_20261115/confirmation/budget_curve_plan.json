@@ -264,7 +264,13 @@
     "gpu_CPUs": 16,
     "CPU_nodes": "compute-0-8..19 excluding14/18",
     "bootstrap_CPUs": 1,
-    "exclusive": false
+    "exclusive": false,
+    "declared_peer_root_future_bytes": {
+      "compute-0-7": 17179869184,
+      "compute-0-10": 12884901888,
+      "compute-0-17": 0
+    },
+    "peer_root_future_authority": "D Root STATUS 2026-11-21 09:28/22:24 and 2026-11-22 05:59; existing retained physical caches stay in df. Keep these declared futures until the owner publishes actual writer closure."
   },
   "storage_forecast": {
     "state": "REGISTERED_AND_FRESH_ACTUAL_CPU8_ADMITTED",
