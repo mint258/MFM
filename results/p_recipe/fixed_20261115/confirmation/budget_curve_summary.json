@@ -1,7 +1,7 @@
 {
   "authority": "docs/p_recipe/USER_DIRECTIVE_20261121.md",
   "expected_readouts": 22,
-  "closed_readouts": 9,
+  "closed_readouts": 14,
   "missing_readouts": [
     {
       "arm": "T1",
@@ -34,26 +34,6 @@
     {
       "arm": "T1",
       "samples": 8000000
-    },
-    {
-      "arm": "T4",
-      "samples": 6000000
-    },
-    {
-      "arm": "T5",
-      "samples": 3000000
-    },
-    {
-      "arm": "T5",
-      "samples": 6000000
-    },
-    {
-      "arm": "T6",
-      "samples": 3000000
-    },
-    {
-      "arm": "T6",
-      "samples": 6000000
     }
   ],
   "closed_original_9M_arms": [
@@ -98,6 +78,26 @@
     [
       "T4",
       3000000
+    ],
+    [
+      "T4",
+      6000000
+    ],
+    [
+      "T5",
+      3000000
+    ],
+    [
+      "T5",
+      6000000
+    ],
+    [
+      "T6",
+      3000000
+    ],
+    [
+      "T6",
+      6000000
     ]
   ],
   "status": "IN_PROGRESS",
@@ -165,9 +165,93 @@
           "extra_diagnostics_performed": false
         }
       ]
+    },
+    "T4": {
+      "tau": 0.022282240285468394,
+      "earliest_observed_plateau_samples": 3000000,
+      "interpretation": "Descriptive observed checkpoints only; not proof of convergence",
+      "R3_falls_while_VAL_decreases": [
+        {
+          "from_samples": 6000000,
+          "to_samples": 9000000,
+          "R3_before": 0.45974242121910436,
+          "R3_after": 0.4456448057093678,
+          "VAL_families_still_decreasing": [
+            "bonding",
+            "charge",
+            "energy",
+            "frontier/IP-EA",
+            "multipole",
+            "off-equilibrium",
+            "reactivity",
+            "response",
+            "size",
+            "solvation"
+          ],
+          "all_comparable_VAL_families_decreasing": true,
+          "mechanism_inferred": false,
+          "extra_diagnostics_performed": false
+        }
+      ]
+    },
+    "T5": {
+      "tau": 0.02336209038744861,
+      "earliest_observed_plateau_samples": 3000000,
+      "interpretation": "Descriptive observed checkpoints only; not proof of convergence",
+      "R3_falls_while_VAL_decreases": [
+        {
+          "from_samples": 3000000,
+          "to_samples": 6000000,
+          "R3_before": 0.4691887578548547,
+          "R3_after": 0.45577406623297334,
+          "VAL_families_still_decreasing": [
+            "bonding",
+            "charge",
+            "energy",
+            "frontier/IP-EA",
+            "multipole",
+            "off-equilibrium",
+            "reactivity",
+            "response",
+            "size",
+            "solvation"
+          ],
+          "all_comparable_VAL_families_decreasing": true,
+          "mechanism_inferred": false,
+          "extra_diagnostics_performed": false
+        }
+      ]
+    },
+    "T6": {
+      "tau": 0.024071552979462188,
+      "earliest_observed_plateau_samples": 3000000,
+      "interpretation": "Descriptive observed checkpoints only; not proof of convergence",
+      "R3_falls_while_VAL_decreases": [
+        {
+          "from_samples": 3000000,
+          "to_samples": 6000000,
+          "R3_before": 0.47608134605225577,
+          "R3_after": 0.4717470119824093,
+          "VAL_families_still_decreasing": [
+            "bonding",
+            "charge",
+            "energy",
+            "frontier/IP-EA",
+            "multipole",
+            "off-equilibrium",
+            "reactivity",
+            "response",
+            "size",
+            "solvation"
+          ],
+          "all_comparable_VAL_families_decreasing": true,
+          "mechanism_inferred": false,
+          "extra_diagnostics_performed": false
+        }
+      ]
     }
   },
-  "observed_new_readouts_compute_seconds": 5149.201632956043,
+  "observed_new_readouts_compute_seconds": 7242.184966675937,
   "exceeds_1p5_initial_total_estimate": false,
   "excess_action": "REPORT_AND_CONTINUE",
   "pending_user_decision": [
