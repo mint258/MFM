@@ -26,9 +26,9 @@ def safe():
             raise RuntimeError("Actual root/tmp system/Slurm reserve insufficient")
     protect(root,64*1024**2,quota,own_concurrent_bytes=40*1024**3)
 safe()
-final=b1/"C1_final_results/job_4538512"
+final=b1/"C1_final_results/job_4538626"
 meta=json.loads((final/"manifest.json").read_text())
-if (meta.get("status")!="FINAL_C1_RESULTS_CLOSED" or str(meta.get("job"))!="4538512"
+if (meta.get("status")!="FINAL_C1_RESULTS_CLOSED" or str(meta.get("job"))!="4538626"
     or meta.get("primary_configuration_rows")!=561 or meta.get("required_TabPFN_confirmations")!=175
     or meta.get("required_Chemprop_confirmations")!=17 or not 561<=meta.get("final_seed_rows",0)<=736
     or meta.get("original_primary_scores_recomputed") is not False
@@ -40,12 +40,12 @@ if (meta.get("status")!="FINAL_C1_RESULTS_CLOSED" or str(meta.get("job"))!="4538
     or Path(meta["final_C1_table"]).resolve()!=(final/"C1_results.csv").resolve()
     or not re.fullmatch("[0-9a-f]{64}",meta.get("C1_sha256",""))):
     raise ValueError("Exact actual first final producer closure required")
-sources=json.loads((b1/"C1_remaining_P0_GPU_queues_native_chain/job_4538503/proposed_sources.json").read_text())
+sources=json.loads((b1/"C1_guarded_final_report_handover/job_4538623/proposed_sources.json").read_text())
 transport=types.ModuleType("native_slurm_transport")
 exec(compile(sources["workflows/benchmark_evaluation/native_slurm_transport.py"],transport.__name__,"exec"),transport.__dict__)
-accounting=transport.native_control(["sacct","-n","-X","-j","4538510,4538511,4538512","--format=JobID,User,State,ExitCode","--parsable2"])
+accounting=transport.native_control(["sacct","-n","-X","-j","4538624,4538625,4538626","--format=JobID,User,State,ExitCode","--parsable2"])
 actual={a[0]:a[1:4] for l in accounting.splitlines() if len(a:=l.strip().split("|"))>=4}
-if any(actual.get(str(job))!=["zixiao","COMPLETED","0:0"] for job in (4538510,4538511,4538512)):
+if any(actual.get(str(job))!=["zixiao","COMPLETED","0:0"] for job in (4538624,4538625,4538626)):
     raise ValueError("All exact final report-chain native identities must be C0")
 out=b1/"C1_final_publication"/("job_"+os.environ["SLURM_JOB_ID"]);safe();out.mkdir(parents=True,exist_ok=False)
 updates={}
@@ -54,7 +54,7 @@ for name in ("C1_results.csv","C1_results.csv.sha256","C1_second_seed_registered
 timestamp=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S CST")
 counts=f'{meta["primary_configuration_rows"]} primary rows; {meta["required_TabPFN_confirmations"]} required second-seed configurations; {meta["final_seed_rows"]} final rows'
 close_note=(f"\n\n## C1 final delivery ({timestamp})\n\n"
-    f"Native report4538510, evidence join4538511 and final producer4538512 are COMPLETED/0:0. {counts}. "
+    f"Native report4538624, evidence join4538625 and final producer4538626 are COMPLETED/0:0. {counts}. "
     "All required configuration evidence has closed under the registered contract. "
     "The final table retains separate seed20261025/20261026 rows and explicit reproduction/failure status; "
     "nonreproduced improvements never change the frozen B1 role. "
@@ -72,7 +72,7 @@ for path in ("docs/benchmark/REPORTING_NOTES.md","docs/benchmark/CONDITIONAL_CON
 updates["docs/benchmark/DAILY_20261122.md"]=(
     f"# 下游基线日报（2026-11-22）\n\n{timestamp}：授权的B0、B1、C1及B2环境准备已闭合；GitHub最终同步与PR检查随后记录。\n\n"
     f"C1首次完整统计8208关闭561主行；175个显著且进入最终结果的TabPFN配置按seed20261026确认，"
-    f"4538510首次确认统计→4538511合并→4538512最终导出均C0。最终{meta['final_seed_rows']}行，"
+    f"4538624首次确认统计→4538625合并→4538626最终导出均C0。最终{meta['final_seed_rows']}行，"
     "[结果表](../../results/benchmark/C1_results.csv)逐行列种子、显著性是否复现、实际覆盖、训练量及未完成原因；"
     "最终CSV及唯一SHA直接复用生产端，不重算原统计或独立复核。\n\n"
     "B1冻结96候选：55保留/34附录/6排除/1历史机制未决，[最终名单](DAILY_20261120.md)及筛选CSV/SHA保持。"
@@ -106,7 +106,7 @@ for name,value in updates.items():
     with temp.open("xb") as stream:stream.write(value.encode("utf-8"))
     os.chmod(temp,mode);os.replace(temp,path)
 notice=(f"\n## {timestamp} 下游C1最终生产与交付（本线）\n\n"
-    f"4538510→4538511→4538512原生C0，561初始行、175必需确认配置、最终{meta['final_seed_rows']}行；"
+    f"4538624→4538625→4538626原生C0，561初始行、175必需确认配置、最终{meta['final_seed_rows']}行；"
     "正常生产端关闭完整证据后按原字节发布最终CSV、已生成的唯一SHA和注册比较。原始主统计/冻结B1名单与17确认不重算，"
     "7644只替换C1原子历史占位；九格TDC既定未决、实际未复现状态及预训练清单未检查均明确保留。"
     "共享B0字段/缺失/构象/标签/划分不变，无额外种子、独立数值QA、第三次TDC修复或重复周成本；"
@@ -124,7 +124,7 @@ sources.update(updates)
 for name,value in (("publication_updates.json",updates),("proposed_sources.json",sources)):
     safe();(out/name).write_text(json.dumps(value,ensure_ascii=False,indent=2)+"\n")
 manifest=dict(status="FINAL_C1_FIRST_PRODUCER_BYTES_AND_DOCUMENTS_PUBLISHED",job=os.environ["SLURM_JOB_ID"],
-    node=socket.gethostname(),published_CST=timestamp,source_final_producer=4538512,
+    node=socket.gethostname(),published_CST=timestamp,source_final_producer=4538626,
     final_manifest=meta,changed_files=sorted(updates),source_cache=str(out/"proposed_sources.json"),
     original_STATUS_prefix_preserved=True,physical_preimages=str(before),scientific_CSV_parsed=False,
     original_statistics_recomputed=False,independent_numeric_QA=False,SHA_recomputed=False,
