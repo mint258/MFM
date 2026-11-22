@@ -1,0 +1,35 @@
+{
+  "schema": "S_RECIPE_SEED0_DECISIONS_V1",
+  "status": "PENDING",
+  "arms": {
+    "S-N1": {
+      "status": "COMPLETE",
+      "configuration": "S_N1_s0_3M",
+      "descriptive_only": false,
+      "R3": {
+        "delta": 0.00863757271915866,
+        "ci_lower": -0.00016746695651523013,
+        "ci_upper": 0.01716696831161181,
+        "tau": 0.023096382791770377,
+        "verdict": "TIE"
+      },
+      "R1": {
+        "delta": 0.01628125009868503,
+        "ci_lower": 0.0035059093099099646,
+        "ci_upper": 0.029166098078557804,
+        "tau": 0.012058872104515011,
+        "verdict": "WIN"
+      }
+    }
+  },
+  "pending": [
+    "S-N2",
+    "S-R1",
+    "S-R2",
+    "S-G1"
+  ],
+  "seed1_candidates": [],
+  "seed1_baseline_required": false,
+  "R1": "report_only",
+  "CYP": "report_only"
+}
