@@ -11,3 +11,5 @@ jobs:
         with:
           python-version: '3.11'
       - run: python tools/check_repository.py
+      - name: Future consumer lifecycle unit tests
+        run: python -m unittest workflows.benchmark_evaluation.test_consumer_lifecycle -v

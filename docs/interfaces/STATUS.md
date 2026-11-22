@@ -1041,3 +1041,13 @@ Read user11-22 exit/drain prevention and skill1.0.164. All not-yet-started seed1
 Original R1 layer3 score is closed: R3=0.40784337449791125, CI[0.39454694681264635,0.42062377850793353]; R1=0.22251130365828092, CI[0.20889490422663376,0.2364367774943568]. Original1000/20261025 draws retained; layers4/5 remain missing; fixed layer6 main and seed0 paired WIN unchanged. CPU7598 was safely stopped from its closed layer3 prefix: exact UID/PID/start_ticks/job-cgroup rechecked, worker2819839 got oneTERM thenZ; parent2819751 got oneTERM only after no live children remained. Both/proc PIDs are confirmed absent. NativeFAILED0:15/9837s, notTIMEOUT; noKILL. With GPU1217s total11054s, remaining3346s for the same diagnostic after health verification. Original fullTRAIN clip4538532 remains live with its prior closed prefix.
 
 Preparation4538549 remains blocked before script entry. Its PID2827663 is slurmstepd with UIDs[0,1278,0,1278], start_ticks2244925324, not an ordinary owned userworker; no direct signal to it. Observed NFS/page waits do not establish the underlying cause, OOM or full disk. Admin kernel/slurmd/slurmctld/filesystem review is needed; no repeated diagnosis/resubmission on fault nodes, no drain bypass or service/spool changes. Node17 drain attribution is UNCONFIRMED. Existing root/system/inode/UID-quota/peer protections and proposed+2GiB activation gate remain; shared/node report mirroring waits for real write admission.
+
+## 2026-11-22 16:13:01 CST 下游读取11-22退出/统一登记规则与未来入口准备（本线）
+
+本线已重读huagong_hpc_requirement1.0.164顶部11-22/11-06条款及共享AGENTS，另已读取统一登记规范和本分支原版tools/shared_guard.py。只确认本线已读；不声称其他窗口已读或当前程序已具备新保护。14/16与本账号TIMEOUT后batch清理失败的直接触发关联按技能保留，底层根因未确定，17本次归属未确认。当前六模型仍原生RUNNING，未因新规则停训/重启/修改冻结源码。已观察的NFS/RPC/D态不是OOM、满盘或确定底层根因的结论；保留原PID/UID/start_ticks/job/step/节点/时间，待管理员联合核查。
+
+已从Slurm保存副本核对四报告入口未具备新的提前收尾窗口。仅对本任务PENDING/0秒/0重启的首统计4538510，按UID1278、原Command/完整Dependency/核数/节点/TimeLimit核对后置JobHeldUser；原ID、依赖及后三报告保持，未对科学模型发送信号。这是后续启动保护的明确hold，不能按旧“临时hold已释放”的历史通知放行。
+
+新增consumer_lifecycle.py、行为测试及入口说明为准备代码：基于真实scontrol TimeLimit/RunTime，至少180秒收尾窗口，Linux subreaper/pidfd和UID/PID/start_ticks/cgroup核验，TERM后join/reap，不使用KILL或scancel作正常结束，不把主进程0码当成整棵树已退出。原负载按字节嵌入新入口，原资源时限保持；Slurm已保存的旧副本不因模板变化而改变。14项独立行为测试进入CI；新增逻辑尚未在HPC部署/完整回归，旧327测试不冒充覆盖新增入口。
+
+统一预留迁移仍待真实登记/准入和一次tools/test_shared_guard.py验证：只登记benchmark-b1自身剩余未来量，续期/释放按唯一登记目录进行，新入口调用原版check_with_timeout，不再手抄同行数字或沿用旧跨树预留。实际目标文件系统与逻辑登记路径绑定须先核实。不在此公告具体存储数字，不修改保留值，不为迁移停止在跑作业。本轮未新提交HPC任务、未在故障节点追加诊断，也未把登记迁移记为已完成；后续只有健康、准入、测试及完整新报告链记录闭合后才受控接续。原统计/CSV/SHA/PR交付仍未闭合。
