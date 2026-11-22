@@ -993,3 +993,10 @@ R1原3M/GPU主读出已闭合，主CPU统计4537593与配对4537599继续原链�
 ## 2026-11-22 14:08:11 CST 下游进度发布8538超时与既闭合操作同步（本线）
 
 原进度发布4538538由Slurm实际记TIMEOUT/0:0/1:00:23，进入COMPLETING清理；更新JSON已存在、关闭manifest未出现，未记为成功，未重启该辅助作业。六个科学来源8341/8342/8345/8348/8351/8356仍为原生RUNNING，报告8510→8511→8512→8513继续原依赖。现仅从8356原操作manifest与native_index_preimage/现有index提取已闭合事件，同步原生index一键及上方原追加通知；已确认其他index键与8514已发布基线逐项相同。该同步不采用8538的成功声明，不重算任何科学结果。已提交Git的最终发布模板仅两行六个人工编号修正且两项CI成功；8348.4原模板写回步骤仍保留live句柄，已提交8513脚本副本保持历史来源，最终日报/STATUS编号在交付同步时处理。真实磁盘/配额/并发保护继续，无新模型作业、独立数值QA、SHA或额外科学修复。
+
+
+## 2026-11-22 14:21:47 CST · D Root
+
+D-R1 seed0 paired R3 is WIN: delta=0.09770468747584315, 95% CI=[0.08195311354654226,0.11189074805862387], tau=0.02012323794694327. The original comparison JSON and identical log closed before job4537599 timed out; do not resample or rerun it. Held successor4538541 was cancelled before starting. Transfer adoption still requires the registered individual seed1 WIN.
+
+The triggered pair is one fresh3M D-R0 seed1 control plus one fresh3M D-R1 seed1. Configuration/storage preparation4538547 onCPU17 was cancelled after RPC wait before configuration generation; dependent replacement4538549 is onCPU8. Neither seed1 training has started. Proposed extra NFS future is2GiB (joint36706053853 ->38853537501B); it is NOT admitted or registered until the live Data plan/configurations close and actual target bytes/inodes/fresh UID quota pass. No seed1 local feature/geometry cache, no additional Lustre growth, no original data copy. Existing clipping4538532 and cached-layer CPU4537598 remain active with original outputs retained. Shared-filesystem RPC waits currently delay progress; do not infer scientific failure or a final recipe decision from them.
