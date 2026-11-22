@@ -1,0 +1,71 @@
+{
+  "verified_at_UTC": "2026-11-22T20:20:51Z",
+  "source": "Original producer summary.json and configuration.json metadata; no checkpoint tensors loaded or independent statistics",
+  "D-R0": {
+    "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+    "run": "d_recipe_20261120_D_R0_seed0_3M_seed1",
+    "samples": 3000000,
+    "updates": 93750,
+    "actual_samples": 3000000,
+    "seconds": 38099.351692557335,
+    "clipped_fraction": 0.05710933333333333,
+    "clip": 11.076789627075199,
+    "batch_size": 32,
+    "microbatch_size": 32,
+    "GPU_peak_bytes": 4530274816,
+    "configuration": {
+      "arm": "D-R0",
+      "seed": 1,
+      "samples": 3000000,
+      "library": "D20",
+      "has_resume": false
+    },
+    "Slurm_job_still_running_for_original_GPU_readout": 4538566
+  },
+  "D-R1": {
+    "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+    "run": "d_recipe_20261120_D_R1_seed0_3M_seed1",
+    "samples": 3000000,
+    "updates": 93750,
+    "actual_samples": 3000000,
+    "seconds": 38135.12057595514,
+    "clipped_fraction": 0.008010666666666666,
+    "clip": 25.356171264648438,
+    "batch_size": 32,
+    "microbatch_size": 32,
+    "GPU_peak_bytes": 4541469184,
+    "configuration": {
+      "arm": "D-R1",
+      "seed": 1,
+      "samples": 3000000,
+      "library": "D20",
+      "has_resume": false
+    },
+    "Slurm_job_still_running_for_original_GPU_readout": 4538567
+  },
+  "checkpoints": {
+    "D-R0": {
+      "bytes": 192031923,
+      "mtime_UTC": "2026-11-22T20:18:28.077220+00:00",
+      "samples": 3000000,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/samples_3000000.pt"
+    },
+    "D-R1": {
+      "bytes": 203781531,
+      "mtime_UTC": "2026-11-22T20:18:31.709232+00:00",
+      "samples": 3000000,
+      "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/samples_3000000.pt"
+    }
+  },
+  "statistics_jobs": [
+    4538568,
+    4538569
+  ],
+  "comparison_job": 4538570,
+  "transfer_adopted": false,
+  "goal_complete": false,
+  "source_observation_window_UTC": [
+    "2026-11-22T20:20:18Z",
+    "2026-11-22T20:20:51Z"
+  ]
+}

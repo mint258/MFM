@@ -1,8 +1,8 @@
 {
   "schema": "D_RECIPE_CURRENT_BEST_V1",
-  "status": "STAGE1_SEED1_RUNNING_ON_HEALTHY_GPU_NODES",
+  "status": "STAGE1_SEED1_3M_TRAINING_COMPLETE_ORIGINAL_GPU_READOUT_RUNNING",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T20:17:19Z",
+  "updated_at_utc": "2026-11-22T20:20:51Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -371,7 +371,7 @@
     "D-K1": "NOT_TRIGGERED_UNTIL_CONFIRMED_WIDE_LIBRARY_ADOPTION"
   },
   "conditional_seed1": {
-    "status": "TRAINING_RUNNING_AFTER_USER_REQUESTED_NODE_SWITCH",
+    "status": "BOTH_FRESH_SEED1_3M_TRAINING_COMPLETE_READOUT_AND_PAIRED_DECISION_PENDING",
     "shared_control": "D-R0 seed1",
     "candidate": "D-R1 seed1",
     "seed0_result": "WIN",
@@ -409,11 +409,11 @@
         "gpu_uuid": "GPU-6965a7c7-025e-e4fd-013a-2be3245ef7c6",
         "gpu_model": "NVIDIA GeForce RTX 3090",
         "configuration": "configs/d_recipe/screening/D-R0_seed1.json",
-        "status": "RUNNING_POSITIVE_TRAINING_UPDATES_VERIFIED",
+        "status": "TRAINING_COMPLETE_GPU_READOUT_RUNNING_NOT_YET_BATCH_COMPLETE",
         "progress": {
-          "samples": 2867200,
-          "updates": 89600,
-          "native_loop_seconds": 36266.62443898618,
+          "samples": 3000000,
+          "updates": 93750,
+          "native_loop_seconds": 38099.351692557335,
           "gpu_model": "NVIDIA GeForce RTX 3090",
           "clip_calibration": {
             "threshold": 11.076789627075199,
@@ -426,8 +426,8 @@
             "effective_freeze_samples": 150016,
             "fitted": true
           },
-          "observed_at_utc": "2026-11-22T19:48:59Z",
-          "source": "Original producer stdout; scalars transcribed, no statistics recomputed"
+          "observed_at_utc": "2026-11-22T20:20:51Z",
+          "source": "Original closed training summary.json; no statistics recomputed"
         },
         "CPU_status": "PENDING_AFTEROK_4538566",
         "first_registered_checkpoint": {
@@ -453,6 +453,38 @@
           "complete_payload_source": "current/phychem_mfm/phase1/p_recipe_training.py:168",
           "configuration_path": "configs/d_recipe/screening/D-R0_seed1.json",
           "seed": 1
+        },
+        "training_summary": {
+          "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+          "run": "d_recipe_20261120_D_R0_seed0_3M_seed1",
+          "samples": 3000000,
+          "updates": 93750,
+          "actual_samples": 3000000,
+          "seconds": 38099.351692557335,
+          "clipped_fraction": 0.05710933333333333,
+          "clip": 11.076789627075199,
+          "batch_size": 32,
+          "microbatch_size": 32,
+          "GPU_peak_bytes": 4530274816,
+          "configuration": {
+            "arm": "D-R0",
+            "seed": 1,
+            "samples": 3000000,
+            "library": "D20",
+            "has_resume": false
+          },
+          "Slurm_job_still_running_for_original_GPU_readout": 4538566
+        },
+        "third_registered_checkpoint": {
+          "bytes": 192031923,
+          "mtime_UTC": "2026-11-22T20:18:28.077220+00:00",
+          "samples": 3000000,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/samples_3000000.pt",
+          "metadata_verified_at_UTC": "2026-11-22T20:20:18Z",
+          "source": "Original atomic producer checkpoint file metadata only; numeric tensors not loaded",
+          "original_producer_payload": "model, optimizer, configuration, architecture, clock, sampler RNG, torch/cuda RNG, elapsed, windows, clip calibration",
+          "complete_payload_source": "current/phychem_mfm/phase1/p_recipe_training.py:168",
+          "seed": 1
         }
       },
       "D-R1": {
@@ -462,11 +494,11 @@
         "gpu_uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
         "gpu_model": "NVIDIA GeForce RTX 3090",
         "configuration": "configs/d_recipe/screening/D-R1_seed1.json",
-        "status": "RUNNING_POSITIVE_TRAINING_UPDATES_VERIFIED",
+        "status": "TRAINING_COMPLETE_GPU_READOUT_RUNNING_NOT_YET_BATCH_COMPLETE",
         "progress": {
-          "samples": 2867200,
-          "updates": 89600,
-          "native_loop_seconds": 36303.80384252034,
+          "samples": 3000000,
+          "updates": 93750,
+          "native_loop_seconds": 38135.12057595514,
           "gpu_model": "NVIDIA GeForce RTX 3090",
           "clip_calibration": {
             "threshold": 25.356171264648438,
@@ -479,8 +511,8 @@
             "effective_freeze_samples": 150016,
             "fitted": true
           },
-          "observed_at_utc": "2026-11-22T19:48:59Z",
-          "source": "Original producer stdout; scalars transcribed, no statistics recomputed"
+          "observed_at_utc": "2026-11-22T20:20:51Z",
+          "source": "Original closed training summary.json; no statistics recomputed"
         },
         "CPU_status": "PENDING_AFTEROK_4538567",
         "first_registered_checkpoint": {
@@ -505,6 +537,38 @@
           "original_producer_payload": "model, optimizer, configuration, architecture, clock, sampler RNG, torch/cuda RNG, elapsed, windows, clip calibration",
           "complete_payload_source": "current/phychem_mfm/phase1/p_recipe_training.py:168",
           "configuration_path": "configs/d_recipe/screening/D-R1_seed1.json",
+          "seed": 1
+        },
+        "training_summary": {
+          "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+          "run": "d_recipe_20261120_D_R1_seed0_3M_seed1",
+          "samples": 3000000,
+          "updates": 93750,
+          "actual_samples": 3000000,
+          "seconds": 38135.12057595514,
+          "clipped_fraction": 0.008010666666666666,
+          "clip": 25.356171264648438,
+          "batch_size": 32,
+          "microbatch_size": 32,
+          "GPU_peak_bytes": 4541469184,
+          "configuration": {
+            "arm": "D-R1",
+            "seed": 1,
+            "samples": 3000000,
+            "library": "D20",
+            "has_resume": false
+          },
+          "Slurm_job_still_running_for_original_GPU_readout": 4538567
+        },
+        "third_registered_checkpoint": {
+          "bytes": 203781531,
+          "mtime_UTC": "2026-11-22T20:18:31.709232+00:00",
+          "samples": 3000000,
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/samples_3000000.pt",
+          "metadata_verified_at_UTC": "2026-11-22T20:20:18Z",
+          "source": "Original atomic producer checkpoint file metadata only; numeric tensors not loaded",
+          "original_producer_payload": "model, optimizer, configuration, architecture, clock, sampler RNG, torch/cuda RNG, elapsed, windows, clip calibration",
+          "complete_payload_source": "current/phychem_mfm/phase1/p_recipe_training.py:168",
           "seed": 1
         }
       }
@@ -1356,7 +1420,7 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ACTIVE_STAGE1_SEED1_TRAINING_AND_REGISTERED_CPU_CONTINUATIONS",
+  "automation_state": "ACTIVE_STAGE1_ORIGINAL_SEED1_GPU_READOUT_CPU_STATISTICS_AND_PAIRED_DECISION",
   "blocking_condition": null,
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",

@@ -215,3 +215,5 @@ ExpansionRx原5278成员的B6_fixed_native_H生产4539057在CPU11 COMPLETED0:0/1
 一次有界原节点/proc核查确认监督器4169297/ticks2249574973与worker4169300/ticks2249574979均ABSENT，无新信号/KILL。合并原日志记录实际root4171120已reap返回0、RESIDENT_TERMINAL0且remaining_children=[]；不是仅凭batch终态。已知B6化学失败保留原逐成员缺失和错误码；没有重试、不填补，不隐藏坐标约束/未知错误。原22项相关测试与全部既有科学结果保留。两个正式seed1继续原预算；该交付不提前触发配方采用、冻结或9M。
 
 2026-11-23 04:16 CST：可选宽库 A1 计数复用适配器测试 4539136（1s）/4539137（0s）均失败，实际 resident 已回收子树；按两次失败规则记 UNRESOLVED，CLI 停用、测试显式跳过，不再修复或重试。宽库可交付状态及现有模型不变；若阶段1确认迁移胜出，后续使用既有通用 fit_reference 入口和原冻结 A1 规则，原 D4 不变。
+
+2026-11-23 04:20 CST：两个 fresh seed1 的原训练汇总均已关闭为 TRAINING_COMPLETE_EVALUATION_PENDING，均3000000样本/93750更新、B32且has_resume=false。R0原seconds=38099.351692557335、clip=11.076789627075199、GPU_peak_bytes=4530274816；R1原seconds=38135.12057595514、clip=25.356171264648438、GPU_peak_bytes=4541469184。两者原3M原子发布完整状态断点已生成（192031923B/203781531B，原mtime UTC20:18:28.077220/20:18:31.709232）；04:20仅一次核对文件元信息及原配置arm/seed/budget，不载入或独立复核模型张量。GPU4538566/4538567仍RUNNING执行原规定读出，不能写成批作业已完成或已证明子树退出。CPU4538568/4538569、配对4538570仍依赖原链，逐seed WIN规则不变，尚不采纳迁移/冻结。原标量与元信息见[训练转录](../../results/d_recipe/stage1_seed1_training_20261123.json)。
