@@ -1,0 +1,141 @@
+{
+  "schema": "D_PARTIAL_CACHED_LAYER_READOUT_SUMMARY_V1",
+  "arm": "D-R1",
+  "run": "d_recipe_20261120_D_R1_seed0_3M",
+  "seed": 0,
+  "samples": 3000000,
+  "status": "PARTIAL_LAYER3_CLOSED_LAYER6_REUSED_LAYER4_5_PENDING",
+  "complete": false,
+  "decision_input": false,
+  "encoder_forward_repeated": false,
+  "resampling_repeated": false,
+  "source_native_summary": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/layer_readouts/summary.json",
+  "layers": {
+    "3": {
+      "status": "ORIGINAL_SCORE_COMPLETE",
+      "source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/layer_readouts/layer3/scores.json",
+      "source_bytes": 745663,
+      "source_mtime_CST": "2026-11-22T13:40:05.866386220+08:00",
+      "R1": {
+        "complete": true,
+        "mean_normalized_improvement": 0.22251130365828092,
+        "bootstrap_ci": [
+          0.20889490422663376,
+          0.2364367774943568
+        ],
+        "bootstrap_samples": 1000,
+        "bootstrap_defined": 1000,
+        "bootstrap_unit": "molecule",
+        "bootstrap_seed": 20261025,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.Log_HLM_CLint",
+          "exp.LogS",
+          "qm9.U0_atom",
+          "qm9.homo",
+          "qm9.lumo",
+          "qm9.alpha"
+        ]
+      },
+      "R3": {
+        "complete": true,
+        "mean_normalized_improvement": 0.40784337449791125,
+        "bootstrap_ci": [
+          0.39454694681264635,
+          0.42062377850793353
+        ],
+        "bootstrap_samples": 1000,
+        "bootstrap_defined": 1000,
+        "bootstrap_unit": "molecule",
+        "bootstrap_seed": 20261025,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.Log_HLM_CLint",
+          "exp.LogS",
+          "qm9.U0_atom",
+          "qm9.homo",
+          "qm9.lumo",
+          "qm9.alpha"
+        ]
+      },
+      "full_original_paired_draws_retained_at_source": true
+    },
+    "4": {
+      "status": "SCORES_NOT_YET_PRODUCED"
+    },
+    "5": {
+      "status": "SCORES_NOT_YET_PRODUCED"
+    },
+    "6": {
+      "status": "REUSE_ORIGINAL_MAIN_SCORE",
+      "source": "results/d_recipe/training/d_recipe_20261120_D_R1_seed0_3M/final_readout_summary_3000000.json",
+      "R1": {
+        "mean_normalized_improvement": 0.23055805758999076,
+        "bootstrap_ci": [
+          0.2161366706314768,
+          0.24381363179424703
+        ]
+      },
+      "R3": {
+        "mean_normalized_improvement": 0.40246475893886535,
+        "bootstrap_ci": [
+          0.38776123870192125,
+          0.4165789987907473
+        ]
+      }
+    }
+  },
+  "exit": {
+    "job_id": 4537598,
+    "job_state": "FAILED",
+    "batch_state": "CANCELLED",
+    "exit_code": "0:15",
+    "elapsed_seconds": 9837,
+    "allocated_CPUs": 1,
+    "worker": {
+      "pid": 2819839,
+      "start_ticks": 2244339286,
+      "UIDs": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "job_cgroup": 4537598,
+      "signal": "ONE_SIGTERM",
+      "after_signal": "Z_THEN_ABSENT"
+    },
+    "parent": {
+      "pid": 2819751,
+      "start_ticks": 2244338224,
+      "UIDs": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "job_cgroup": 4537598,
+      "signal": "ONE_SIGTERM_AFTER_ALL_CHILDREN_EXITED",
+      "after_signal": "ABSENT"
+    },
+    "both_absent_verified": true,
+    "hard_timeout_used": false,
+    "kill_used": false,
+    "original_hard_deadline_CST": "2026-11-22T16:19:13+08:00",
+    "actual_exit_CST": "2026-11-22T15:24:10+08:00",
+    "GPU_seconds": 1217,
+    "cumulative_layer_diagnostic_seconds": 11054,
+    "remaining_taskbook_diagnostic_seconds": 3346,
+    "complete_layers": [
+      3,
+      6
+    ],
+    "pending_layers": [
+      4,
+      5
+    ],
+    "node17_drain_attribution": "UNCONFIRMED",
+    "frozen_runtime_code_changed": false
+  },
+  "interpretation": "Only descriptive cached-layer diagnosis. Main endpoint remains layer6; original seed0 paired WIN unchanged. No layer selection or seed1 adoption from this partial result."
+}
