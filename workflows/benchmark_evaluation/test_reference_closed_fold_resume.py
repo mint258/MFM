@@ -362,3 +362,88 @@ class ConditionalClosedFoldResumeTests(unittest.TestCase):
                 prepare_resume_source(original.replace("MODEL_SEED=20261026","MODEL_SEED=20261025"),
                                       "Joung2020",feature,confirmation=True)
 
+
+
+class DeclaredPartialConditionalResumeTests(unittest.TestCase):
+    task="emi FWHM (cm-1)"
+    model="C1-TabPFN-Pprime_plus_D"
+    def proof(self):
+        failure=dict(dataset="Joung2020",task=self.task,model=self.model,repetition=3,fold=0,
+            fit_population="retained",status="UNRESOLVED",error="RuntimeError('quota observation expired; refresh before writing')")
+        declaration=dict(model_seed=20261026,split_and_statistics_seed=20261025,
+            selected_original_tasks=[["Joung2020",self.task]],task_roster_reselection=False,
+            original_model_budget_unchanged=True)
+        return dict(origin="NATIVE_SACCT_DECLARED_FAILED_FOLD_AND_LOCAL_PROC_EXIT_AUDIT",job=4538356,
+            user="zixiao",uid=1278,state="COMPLETED",exit_code="0:0",
+            source_manifest=dict(status="REFERENCE_CV_MODEL_FITS_CLOSED",job="4538356",model=self.model,
+                primary_task_folds_completed=24,failures=[failure],conditional_confirmation=declaration),
+            failed_report=dict(job=4538655,state="FAILED",exit_code="1:0",children_exited=True),
+            diagnostic=dict(job="4538760",numeric_statistics_computed=False,model_fits_executed=False,
+                first_population_mismatch=dict(cell=["joung2020::db_for_chromophore_sci_data_rev02.csv::"+self.task,
+                    "Pprime_plus_D","TabPFN"],primary_source_job="4537824",
+                    original_count=2760,second_count=2694,only_original_count=66,only_second_count=0)),
+            exit_proof=dict(status="ORIGINAL_PARTIAL_SOURCE_USER_PROCESSES_ABSENT",source_job=4538356,
+                node="compute-0-19",remaining_owned=[],unreadable_owned_cgroup=[],own_processes_examined=1,
+                reads_only_local_proc=True,signals_sent=False))
+    def test_only_the_declared_partial_C0_case_is_admitted_without_relaxing_terminal_failure(self):
+        from .reference_closed_fold_resume import require_failed_confirmation_source
+        good=self.proof()
+        self.assertEqual(require_failed_confirmation_source(good,4538356),good)
+        with self.assertRaises(ValueError):require_terminal_failure(native("COMPLETED",4538356),4538356)
+        for field,value in (("job",4538345),("state","FAILED"),("exit_code","1:0"),("uid",1),("origin","unproven")):
+            bad=copy.deepcopy(good);bad[field]=value
+            with self.assertRaises(ValueError):require_failed_confirmation_source(bad,4538356)
+    def test_complete_success_other_failed_units_unproved_exit_or_unlocalized_report_are_rejected(self):
+        from .reference_closed_fold_resume import require_failed_confirmation_source
+        good=self.proof()
+        for mutate in (
+            lambda p:p["source_manifest"].update(primary_task_folds_completed=25,failures=[]),
+            lambda p:p["source_manifest"]["failures"][0].update(fold=1),
+            lambda p:p["source_manifest"]["failures"][0].update(error="different model failure"),
+            lambda p:p["source_manifest"]["conditional_confirmation"].update(model_seed=20261025),
+            lambda p:p["exit_proof"].update(remaining_owned=[{"pid":1}]),
+            lambda p:p["exit_proof"].update(node="compute-0-11"),
+            lambda p:p["diagnostic"]["first_population_mismatch"].update(only_second_count=1),
+            lambda p:p["failed_report"].update(children_exited=False)):
+            bad=copy.deepcopy(good);mutate(bad)
+            with self.assertRaises(ValueError):require_failed_confirmation_source(bad,4538356)
+    def test_all24_closed_folds_are_opaque_hardlinks_and_only_r3f0_may_start(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);source=root/"reference_cv_models/job_4538356";lines=[]
+            for rep in range(5):
+                for fold in range(5):
+                    if (rep,fold)==(3,0):continue
+                    folder=source/"Joung2020"/self.task/("r%d_f%d_retained"%(rep,fold));folder.mkdir(parents=True)
+                    metric=dict(dataset="Joung2020",task=self.task,model=self.model,repetition=rep,fold=fold,
+                        fit_population="retained",evaluation_population="retained",seed=20261026,
+                        metric_status="PENDING_CPU_STATISTICS")
+                    (folder/"results.json").write_text(json.dumps(dict(metric,results=[metric])))
+                    (folder/"predictions.parquet").write_bytes(b"opaque fixture")
+                    lines.append("REFERENCE_CV_MODEL_FIT_CLOSED Joung2020 "+self.task+" "+self.model+" %d %d retained seconds 10.0"%(rep,fold))
+            with patch.object(Path,"read_bytes",side_effect=AssertionError("No closed prediction readback")):
+                closed=collect_closed_folds(source,self.proof(),4538356,"\n".join(lines),"Joung2020",self.model,{self.task},confirmation=True)
+                self.assertEqual(len(closed),24)
+                with self.assertRaises(ValueError):collect_closed_folds(source,self.proof(),4538356,"\n".join(lines[:-1]),"Joung2020",self.model,{self.task},confirmation=True)
+                started=[];context=ResumeContext(root,4538356,9999992,closed,lambda:None,model_seed=20261026,unit_start_guard=lambda:started.append((3,0)))
+                out=root/"reference_cv_models/job_9999992";out.mkdir();context.initialize(out)
+                for rep in range(5):
+                    for fold in range(5):
+                        target=out/"Joung2020"/self.task/("r%d_f%d_retained"%(rep,fold));target.parent.mkdir(parents=True,exist_ok=True)
+                        result=context.reuse(target,"Joung2020",self.task,self.model,rep,fold,"retained")
+                        if (rep,fold)==(3,0):self.assertIsNone(result)
+                        else:self.assertEqual((source/target.relative_to(out)/"predictions.parquet").stat().st_ino,(target/"predictions.parquet").stat().st_ino)
+                self.assertEqual(started,[(3,0)]);self.assertEqual(len(context.provenance()["reference_closed_fold_resume"]["reused_closed_folds"]),24)
+    def test_partial_adapter_is_explicit_and_preserves_the_original_scientific_AST(self):
+        declaration=dict(model_seed=20261026,split_and_statistics_seed=20261025,
+            reason="FINAL_SIGNIFICANT_IMPROVEMENT",selected_original_tasks=[("Joung2020",self.task)],
+            task_roster_reselection=False,original_model_budget_unchanged=True,primary_fit_population_only=True)
+        original=("MODEL_SEED=20261026\n__confirmation_declaration="+repr(declaration)+"\n"+
+            fixture_source().replace("Pprime/Joung2020","Pprime_plus_D/Joung2020")
+            .replace("'C1-TabPFN-Pprime'","'"+self.model+"'").replace(TASK,self.task)
+            .replace("random_state=SEED","random_state=MODEL_SEED").replace("seed=SEED","seed=MODEL_SEED"))
+        changed=prepare_resume_source(original,"Joung2020","Pprime_plus_D",confirmation=True,source_job=4538356)
+        before={n.name:ast.dump(n) for n in ast.parse(original).body if isinstance(n,ast.FunctionDef)}
+        after={n.name:ast.dump(n) for n in ast.parse(changed).body if isinstance(n,ast.FunctionDef)}
+        self.assertEqual(before,after)
+        for kw in ({},{"source_job":4538357}):
+            with self.assertRaises(ValueError):prepare_resume_source(original,"Joung2020","Pprime_plus_D",confirmation=True,**kw)
