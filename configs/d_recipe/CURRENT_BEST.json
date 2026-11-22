@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE1_SEED1_RUNNING_ON_HEALTHY_GPU_NODES",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T11:46:34Z",
+  "updated_at_utc": "2026-11-22T16:14:37Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -368,9 +368,9 @@
         "configuration": "configs/d_recipe/screening/D-R0_seed1.json",
         "status": "RUNNING_POSITIVE_TRAINING_UPDATES_VERIFIED",
         "progress": {
-          "samples": 620800,
-          "updates": 19400,
-          "native_loop_seconds": 7191.102624610066,
+          "samples": 1852800,
+          "updates": 57900,
+          "native_loop_seconds": 23399.19392556697,
           "gpu_model": "NVIDIA GeForce RTX 3090",
           "clip_calibration": {
             "threshold": 11.076789627075199,
@@ -383,10 +383,22 @@
             "effective_freeze_samples": 150016,
             "fitted": true
           },
-          "observed_at_utc": "2026-11-22T11:44:00Z",
+          "observed_at_utc": "2026-11-22T16:14:00Z",
           "source": "Original producer stdout; scalars transcribed, no statistics recomputed"
         },
-        "CPU_status": "PENDING_AFTEROK_4538566"
+        "CPU_status": "PENDING_AFTEROK_4538566",
+        "first_registered_checkpoint": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/samples_1000000.pt",
+          "bytes": 192027443,
+          "mtime_UTC": "2026-11-22T12:55:22.381075+00:00",
+          "samples": 1000000,
+          "metadata_verified_at_UTC": "2026-11-22T13:14:26Z",
+          "source": "Original producer-published checkpoint file metadata only; scientific tensors not loaded or independently verified",
+          "original_producer_payload": "model, optimizer, configuration, architecture, clock, sampler RNG, torch/cuda RNG, elapsed, windows, clip calibration",
+          "complete_payload_source": "current/phychem_mfm/phase1/p_recipe_training.py:168",
+          "configuration_path": "configs/d_recipe/screening/D-R0_seed1.json",
+          "seed": 1
+        }
       },
       "D-R1": {
         "GPU_job": 4538567,
@@ -397,9 +409,9 @@
         "configuration": "configs/d_recipe/screening/D-R1_seed1.json",
         "status": "RUNNING_POSITIVE_TRAINING_UPDATES_VERIFIED",
         "progress": {
-          "samples": 620800,
-          "updates": 19400,
-          "native_loop_seconds": 7230.534508820623,
+          "samples": 1852800,
+          "updates": 57900,
+          "native_loop_seconds": 23438.120212338865,
           "gpu_model": "NVIDIA GeForce RTX 3090",
           "clip_calibration": {
             "threshold": 25.356171264648438,
@@ -412,10 +424,22 @@
             "effective_freeze_samples": 150016,
             "fitted": true
           },
-          "observed_at_utc": "2026-11-22T11:44:00Z",
+          "observed_at_utc": "2026-11-22T16:14:00Z",
           "source": "Original producer stdout; scalars transcribed, no statistics recomputed"
         },
-        "CPU_status": "PENDING_AFTEROK_4538567"
+        "CPU_status": "PENDING_AFTEROK_4538567",
+        "first_registered_checkpoint": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/samples_1000000.pt",
+          "bytes": 203777051,
+          "mtime_UTC": "2026-11-22T12:55:27.942091+00:00",
+          "samples": 1000000,
+          "metadata_verified_at_UTC": "2026-11-22T13:14:26Z",
+          "source": "Original producer-published checkpoint file metadata only; scientific tensors not loaded or independently verified",
+          "original_producer_payload": "model, optimizer, configuration, architecture, clock, sampler RNG, torch/cuda RNG, elapsed, windows, clip calibration",
+          "complete_payload_source": "current/phychem_mfm/phase1/p_recipe_training.py:168",
+          "configuration_path": "configs/d_recipe/screening/D-R1_seed1.json",
+          "seed": 1
+        }
       }
     },
     "paired_comparison_job": 4538570,
@@ -486,7 +510,7 @@
     "seed": 0,
     "samples": 9000000
   },
-  "results": "Original R1 seed0 paired WIN remains. Both fresh3M seed1 models running onGPU4/5,620800samples observed19:44CST, each original clip frozen; no adoption before each-seed WIN. R1 cached layers3-6 complete with fixed main layer6. Original fullTRAIN +/-6 clipping report nowCOMPLETE,1194228cohort and24enabled fields, CPU13/4538573 C0/6260s and actual parent/worker absent. Full later TASKBOOK stages, final9M/A/B/C and twoPR scope remain.",
+  "results": "Both fresh3M seed1 models actualRUNNING onGPU4/5,1852800samples/57900updates observedNov23 00:14CST, original1M full-payload checkpoints published and metadata verified. Main seed1 scores and decisions pending; no adoption before each-seed paired WIN. R1 seed0 WIN, fixed-layer diagnostics and original fullTRAIN clipping COMPLETE preserved. Full remaining TASKBOOK stages, final9M/A/B/C/handoff/tests/twoPR remain active.",
   "arm": null,
   "library": null,
   "configuration": null,
@@ -1697,5 +1721,6 @@
       "Close actual node health, canonical config/live global forecast, bytes/inodes/fresh UID quota and all peer future, then verify old five jobs stillPENDING0s and replace same registered science/dependencies rather than release embedded old scripts."
     ],
     "full_scope_preserved": true
-  }
+  },
+  "latest_daily": "docs/d_recipe/daily/2026-11-23.md"
 }

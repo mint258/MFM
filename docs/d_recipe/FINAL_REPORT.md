@@ -1,10 +1,10 @@
 # D 家族实验报告（执行中）
 
-更新：2026-11-22 19:46 CST。本文件是最终报告的执行中版本，R0/R1原3M主分与seed0配对WIN已闭合；规定seed1已在GPU4/5真正开训，两个CPU统计及配对依赖已接续。迁移配方尚未采用，没有最终配方或9M确认结果。结果未闭合处明确留待原生产者填写；不将新增逻辑测试、原始计算完成或排队状态写成实验完成。
+更新：2026-11-23 00:14 CST。本文件是最终报告的执行中版本，R0/R1原3M主分与seed0配对WIN已闭合；规定seed1实际在GPU4/5训练中，00:14原日志均1852800样本/57900更新，原1M完整状态断点均已生成。两个CPU统计及配对依赖已接续。迁移配方尚未采用，没有最终配方或9M确认结果。原完整TRAIN截断报告及R1缓存层诊断已闭合；未闭合结果仍待原生产者填写。
 
 ## 依据与研究问题
 
-科学定义以[任务书](TASKBOOK.md)、[训练预注册](../../configs/d_recipe/preregistration.json)和数据分支`configs/data_d_descriptors/preregistration.json`为准。训练预注册在原生A1与D训练开始前发布于`a3b774dc3218fb91b48d98aa84cbe4f930f9aea8`，保持不变。执行与基础设施记录见[EXECUTION](EXECUTION.md)，每日最新状态见[daily](daily/2026-11-22.md)。本报告不重新分析已关闭的数值数组。
+科学定义以[任务书](TASKBOOK.md)、[训练预注册](../../configs/d_recipe/preregistration.json)和数据分支`configs/data_d_descriptors/preregistration.json`为准。训练预注册在原生A1与D训练开始前发布于`a3b774dc3218fb91b48d98aa84cbe4f930f9aea8`，保持不变。执行与基础设施记录见[EXECUTION](EXECUTION.md)，每日最新状态见[daily](daily/2026-11-23.md)。本报告不重新分析已关闭的数值数组。
 
 研究依次检验：P最终配方中的适用组件能否整包迁移到D；固定三块权重后，宽二维库是否优于D20；去除三维组的影响；仅在采用宽库后，85%二维目标掩码是否改善结果。最后将冻结表示与同一套直接描述符比较。整包迁移结果不解释为任何单组件的因果效应。
 

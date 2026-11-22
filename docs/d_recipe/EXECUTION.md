@@ -256,3 +256,8 @@ R1剩余缓存层CPU8572已在CPU13完成0:0/81秒/1CPU。原run_cpu明确仅对
 在Slurm实际CPU13 StateMIXED核查后，一次有界只读SSH直接核实监督器PID3582785/ticks2758861604和workerPID3582788/ticks2758861610均ABSENT；核查窗口11:44:13–11:45:12UTC，无新信号/KILL，不能仅由COMPLETED推断退出。原监督器/原科学worker不改。此前18:20及更早cursor/final_report字样指历史过程；本生产者实际最终路径为clip_reports/D20/report.json，当前已完成。
 
 19:44 CST两实际seed1作业4538566/4538567均620800样本/19400更新，原日志seconds分别7191.102624610066/7230.534508820623；仅原事件转录，不由此新增吞吐/功耗统计或科学判定。原afterok统计4538568/8569和比较4538570继续等待。目标active，所有宽库/G1/K1/条件种子、冻结、冷9M、最终A/B/C/基准交付及两PR范围不变。ExpansionRx H政策再次以异步问题请求明确选择，依赖工作未擅自启动；现有训练保持。
+
+
+2026-11-23 00:14 CST：原两条seed1 GPU4538566/4538567继续RUNNING，GPU4/5各原日志1852800样本/57900更新，原loop seconds23399.19392556697/23438.120212338865，原clip仍11.076789627075199/25.356171264648438。原1M samples_1000000.pt已各自生成（mtime20:55:22/20:55:27 CST、192027443/203777051字节）；21:14只核对原文件元数据，未读科学tensor或独立复核权重。原未改发布循环在每个登记milestone原子写入model/optimizer/configuration/architecture/clock、sampler及torch/cuda RNG、窗口及clip calibration；每条seed1保持唯一原配置/输出及共享对照登记，没有新训练或resume。
+
+CPU4538568/4538569与比较4538570均PENDING/Dependency，保留原afterok；尚无seed1主分或科学判定，不提前采纳、冻结、开宽库/G1/9M。真实48h截止Nov24 17:42:02 CST及900秒提前收尾窗口保持。原全TRAIN±6报告已COMPLETE，不重启或重算；R1 F64几何UR及基准D20绑定UR保留，ExpansionRx H政策仍待异步答复，未启动依赖生产。新一天单页日报与实际CURRENT同步原生产进度；完整后续范围保持。原1M元信息和本次运行事件只是生产记录，不是额外数值QA或新统计。
