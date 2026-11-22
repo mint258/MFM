@@ -1,12 +1,8 @@
 {
   "authority": "docs/p_recipe/USER_DIRECTIVE_20261121.md",
   "expected_readouts": 22,
-  "closed_readouts": 0,
+  "closed_readouts": 1,
   "missing_readouts": [
-    {
-      "arm": "T2",
-      "samples": 1000000
-    },
     {
       "arm": "T2",
       "samples": 2000000
@@ -93,12 +89,29 @@
     }
   ],
   "closed_original_9M_arms": [
-    "T2"
+    "T2",
+    "T4",
+    "T5",
+    "T6"
   ],
-  "closed_readout_points": [],
+  "closed_readout_points": [
+    [
+      "T2",
+      1000000
+    ]
+  ],
   "status": "IN_PROGRESS",
   "plot_complete": false,
-  "first_readout_timing": null,
+  "first_readout_timing": {
+    "arm": "T2",
+    "samples": 1000000,
+    "run": "fixed_20261115_budget_T2_1M_L6_H0",
+    "statistics_completed_at": 1795308356.5706232,
+    "measured_compute_seconds": 1011.5453425049782,
+    "estimate_all_22_compute_seconds": 22253.99753510952,
+    "queue_time_included": false,
+    "excess_1p5_estimate_action": "REPORT_AND_CONTINUE"
+  },
   "descriptive_only": true,
   "new_training": false,
   "new_seeds": false,
@@ -106,7 +119,7 @@
   "VAL_losses": "Original per-family values, no invented aggregate",
   "bootstrap": "Original 1000 retained molecular draws, seed20261025, percentile95CI",
   "interpretation": {},
-  "observed_new_readouts_compute_seconds": 0,
+  "observed_new_readouts_compute_seconds": 1011.5453425049782,
   "exceeds_1p5_initial_total_estimate": false,
   "excess_action": "REPORT_AND_CONTINUE",
   "pending_user_decision": [],
@@ -131,6 +144,102 @@
         "mean": 0.47750044808425046,
         "ci_lower": 0.46363012954692784,
         "ci_upper": 0.49027973151495596,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      }
+    },
+    "T4": {
+      "R1": {
+        "mean": 0.3410208429438418,
+        "ci_lower": 0.3269985750877886,
+        "ci_upper": 0.3542848943392793,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      },
+      "R3": {
+        "mean": 0.4456448057093678,
+        "ci_lower": 0.4326127243766828,
+        "ci_upper": 0.4581234059406711,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      }
+    },
+    "T5": {
+      "R1": {
+        "mean": 0.33656161082660396,
+        "ci_lower": 0.3220965691432854,
+        "ci_upper": 0.3506676575327199,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      },
+      "R3": {
+        "mean": 0.46724180774897217,
+        "ci_lower": 0.4530879814446309,
+        "ci_upper": 0.48067202129950803,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      }
+    },
+    "T6": {
+      "R1": {
+        "mean": 0.3454504915105701,
+        "ci_lower": 0.3296650804228175,
+        "ci_upper": 0.358941984505113,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      },
+      "R3": {
+        "mean": 0.48143105958924376,
+        "ci_lower": 0.468286590049798,
+        "ci_upper": 0.49368167854992034,
         "included_tasks": [
           "exp.LogD",
           "exp.LogS",
