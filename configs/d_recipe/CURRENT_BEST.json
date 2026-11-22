@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE1_SEED0_WIN_WAITING_TRIGGERED_SEED1_PREPARATION_AND_ADMISSION",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22 06:23:00 UTC",
+  "updated_at_utc": "2026-11-22T06:31:32Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -269,7 +269,7 @@
     "D-K1": "NOT_TRIGGERED_UNTIL_CONFIRMED_WIDE_LIBRARY_ADOPTION"
   },
   "conditional_seed1": {
-    "status": "TRIGGERED_PREPARATION_IN_PROGRESS_NOT_STARTED",
+    "status": "TRIGGERED_REGISTERED_DEPENDENT_JOBS_QUEUED_WAITING_PREPARATION_AND_ACTUAL_ADMISSION",
     "shared_control": "D-R0 seed1",
     "candidate": "D-R1 seed1",
     "seed0_result": "WIN",
@@ -282,7 +282,35 @@
     },
     "proposed_additional_NFS_bytes": 2147483648,
     "NFS_forecast_admitted": false,
-    "training_started": false
+    "training_started": false,
+    "jobs": {
+      "D-R0": {
+        "GPU_job": 4538551,
+        "node": "compute-0-4",
+        "gpu_uuid": "GPU-6965a7c7-025e-e4fd-013a-2be3245ef7c6",
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/screening/D-R0_seed1.json",
+        "status": "QUEUED_AFTEROK_PREPARATION_NOT_TRAINING",
+        "CPU_job": 4538553
+      },
+      "D-R1": {
+        "GPU_job": 4538552,
+        "node": "compute-0-5",
+        "gpu_uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/screening/D-R1_seed1.json",
+        "status": "QUEUED_AFTEROK_PREPARATION_NOT_TRAINING",
+        "CPU_job": 4538554
+      }
+    },
+    "paired_comparison_job": 4538555,
+    "required_dependency": "Each GPU job afterok4538549; CPU afterok its GPU; comparison afterok both CPU jobs",
+    "source_preparation_must_seal_configs_and_live_forecast": true,
+    "GPU_actual_admission": "Unchanged launcher checks assigned UUID/empty context/free memory and5CPUs; DJointGuard checks actual-node root/NFS bytes/inodes/fresh5s UID quota and peers before model process or large write",
+    "proposed_GPU4_quota_observation": {
+      "available_bytes": 353221890048,
+      "effective_age_seconds": 1.4355814456939697,
+      "read_time_utc": "2026-11-22T06:27:36Z",
+      "is_startup_admission": false
+    }
   },
   "diagnostics": "R0 prescribed diagnostics COMPLETE; R1 F64 geometry UNRESOLVED after two actual capacity-freshness failures, cached layers3-5 GPU probes COMPLETE and CPU scores RUNNING; G1/adopted endpoints pending; decision_input=false",
   "development_controls": "Section5 A/B/C and composition controls pending",
@@ -295,7 +323,7 @@
     "seed": 0,
     "samples": 9000000
   },
-  "results": "Original R1 seed0 paired WIN is closed. The registered two fresh seed1 runs are triggered and awaiting configuration/storage preparation plus actual target admission. No transfer adoption or stage2 selection yet; no comparison resampling repeated.",
+  "results": "Original seed0 paired WIN closed. One shared R0 seed1 and one R1 seed1 cold3M are conditionally queued, each afterok configuration/storage preparation4538549. No seed1 training has started, no transfer adopted, and no stage2 or9M started. Actual-node runtime quota/disk/GPU checks remain required.",
   "arm": null,
   "library": null,
   "configuration": null,
