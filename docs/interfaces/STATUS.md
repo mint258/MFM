@@ -1167,3 +1167,12 @@ R1原缓存层诊断由CPU13作业4538572补齐缺失层4/5，C0/81秒，原层3
 在原CPU13 StateMIXED核查后，一次有界只读SSH实际确认监督器3582785/start_ticks2758861604及worker3582788/start_ticks2758861610均ABSENT。没有新信号/KILL，不由batch终态替代进程退出证明。旧4538532及准备4538549此前已核实退出，不再是主线阻塞；14/16/17既有管理边界不变。
 
 19:44 CST两个fresh3M seed1原日志均620800样本/19400更新，GPU4/4538566与GPU5/4538567继续运行，原clip冻结值未变；CPU4538568/4538569及配对4538570仍按afterok依赖。尚无seed1胜负，不提前采纳或冻结。全目标active，剩余宽库/G1/K1/条件种子、规定诊断、冷9M、最终A/B/C/基准接口/成本/两个未合并PR保持；ExpansionRx H政策待明确。联合NFS38853537501B及所有实际字节/inode/配额/同行future与退出保护不放宽，无新模型或其他线文件改动。
+
+
+## 2026-11-23 03:11 CST · D Root：用户批准ExpansionRx固定原坐标补H
+
+用户明确选择既有B6补H：固定全部原有坐标，仅补氢坐标、不生成新构象。定义见Root docs/d_recipe/H_POLICY_20261123.md，Data配置development_D3_ExpansionRx_B6_20261123.json及development_D3_merged_B6_20261123.json。仅原ExpansionRx5278成员待生产，复用原QM9 component，再按原15751成员/原顺序/划分合并。原D20/D4、已有数组与数据源坐标保持；六个原B6明确化学失败转为逐成员D3不可用并保留原错误码，坐标约束和未知错误仍拒绝继续，无retry/fallback。
+
+新2项+20相关原测试已在CPU11/4539054真实COMPLETED0:0/8秒/1CPU，22tests/0.280秒通过；实际root69942870016B/inode36569960、原目标NFS与fresh5秒UID配额守卫通过，实际OWNED_TREE_REAPED/remaining_children=[]。本测试不等于科学生产或A/B/C完成。已准备原CPU1的生产/合并resident入口，真实TimeLimit提前900秒收尾、stdout=/dev/null，保留原512MiB组件/合并共同预算和NFS38853537501B以及所有同行future。未新增GPU训练、未改变正在训练的科学代码。
+
+两条seed1 GPU4538566/4538567仍运行，02:44原日志2550400样本/79700更新，原CPU8568/8569及比较8570afterok保持。H政策等待已解除；正式生产和合并的实际job/closure后续登记，不提前声明完整D3/C1/最终A/B/C或全实验完成。

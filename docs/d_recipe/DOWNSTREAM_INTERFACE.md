@@ -26,14 +26,14 @@ B6 曾在 `source_structure` 后执行 `RemoveHs`，不能未经生产步骤的�
 
 D3 继续由基准窗口按 S′ UFF 口径提供：`benchmark_B0_20261119/directive19/uniform_Sprime/geometry/shared_v1/queue.manifest.json`、`geometry_bindings.parquet`，使用封存产品的 `SharedB0Reader.get(dataset, record_id)` 与原 `model_atom_to_source`。不拿历史参考 XYZ 替代 UFF，不读取未封存 P′ 库。
 
-## 当前生产状态（2026-11-22 11:42:50 CST）
+## 当前生产状态（2026-11-23 03:10 CST）
 
 | 产物 | 实际证据 | 状态 |
 | --- | --- | --- |
 | 开发原始结构与成员 | 4537410；15518唯一分子、15751成员 | SOURCE_READY |
 | 开发原D20复制 | 4537508.step5；15518分子、20字段/17启用 | 已关闭；未重算或拟合 |
 | 开发QM9原生D3 component | 4537546；10473成员、41个关闭批次 | RAW_COMPLETE；仅QM9 |
-| 开发ExpansionRx D3 | 原5278成员；缺H政策待用户答复 | 尚未生产 |
+| 开发ExpansionRx D3 | 原5278成员；用户批准B6固定原坐标补H，22项相关测试通过 | 生产/原合并准备就绪 |
 | 开发L1/L2 | 原4538204 COMPLETED0:0，612秒、15518唯一分子、各61批 | 已关闭；191/1314启用，原TRAIN参数复用 |
 | 基准L2 | 原4538205 COMPLETED0:0，7842秒、194729唯一分子、761批 | 二维源已关闭；下游接收pending，C1未完成 |
 | 基准原D20绑定/L1完整交付 | 4537426、4537509均未解决 | UNRESOLVED；停止此问题修复 |
@@ -42,13 +42,13 @@ D3 继续由基准窗口按 S′ UFF 口径提供：`benchmark_B0_20261119/direc
 
 QM9 D3清单：`/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/native_D3/qm9/manifest.json`。实际作业CPU17、exit0、Slurm耗时648秒；请求1CPU、站点分配2逻辑CPU，生产耗时647.574秒。六分子字段顺序为PMI1/PMI2/PMI3/PBF/volume_A3/SASA_total_A2，F64数值和uint8状态；逐原子SASA单独保存并保原source atom ID，不进入分子特征向量。只用原packed Z/F64坐标与每成员source-frame图，native_only，无补H、新构象或终点读取，未重拟合归一化。这些是生产关闭证据，未额外读取数值数组做独立QA。
 
-QM9 component明确`complete_source_population=false`，全源15751成员。ExpansionRx政策未选定；完整开发D3只在`merge_development_d3`以原成员/划分/顺序合并所有关闭component后形成。合并只消费元数据和原数组引用，不重算化学量；Root Section5入口要求`complete_source_population=true`，不能用QM9部分代替整面板。
+QM9 component明确`complete_source_population=false`，全源15751成员。ExpansionRx政策现已由用户明确选择B6_fixed_native_H；对应component尚待实际生产闭合；完整开发D3只在`merge_development_d3`以原成员/划分/顺序合并所有关闭component后形成。合并只消费元数据和原数组引用，不重算化学量；Root Section5入口要求`complete_source_population=true`，不能用QM9部分代替整面板。
 
 ## 基准交付限制
 
 原D20绑定保留38546个未知项（NMR38514、其余32），不猜别名、不转成已知缺失、不重算原D20。L1完整交付因此受限。L2按任务书4.1不做D20跨库映射，可独立从同一active原图/成员导出，配置`configs/data_d_descriptors/benchmark_L2_export.json`；清单保留原D20的UNRESOLVED事实并声明`canonical_D20_required=false`。二维量不依赖几何；D3由基准窗口接入原封存S′ UFF产品，终点和划分不变。没有最终C1完成声明。
 
-两个保留的基准源准备目录实际物理字节2097127424，L2新增数值/状态约2.827GB，纳入原8GiB基准预算。本线联合NFS峰值36706053853字节已替代早期14GiB预测；开发D3 components及合并共用原512MiB限额。每次实际写入继续真实节点字节/inode、UID配额和跨窗口未来预算保护。
+两个保留的基准源准备目录实际物理字节2097127424，L2新增数值/状态约2.827GB，纳入原8GiB基准预算。本线联合NFS峰值38853537501字节包含两条条件seed1额外2GiB，开发D3仍共用原512MiB；该峰值已替代早期14GiB预测；开发D3 components及合并共用原512MiB限额。每次实际写入继续真实节点字节/inode、UID配额和跨窗口未来预算保护。
 
 ## 消费与比较
 
@@ -62,3 +62,6 @@ QM9 component明确`complete_source_population=false`，全源15751成员。Expa
 2026-11-21T22:06:20.602716+00:00：开发双库原导出4538204/CPU10/3CPU实际COMPLETED0:0，612秒，15518唯一分子，两库61批均关闭；L1 191/217、L2 1314/1613，沿用原TRAIN参数/原成员划分、不读任务标签、不重拟合。原source_processing_complete=true、reception_acceptance=pending、current_C1_complete=false如实保留；该二维闭合不替代待定D3/H政策或最终A/B/C。基准L2 4538205继续RUNNING。
 
 2026-11-22T00:07:24.373897+00:00：基准独立L2原导出4538205/CPU10/4CPU实际COMPLETED0:0，7842秒（分配CPU 8.713333333333333核时，TotalCPU未知），194729唯一分子/761批，1314/1613启用。原TRAIN参数、成员划分不改；原source_processing_complete=true，reception_acceptance=pending、current_C1_complete=false保留。原D20绑定未解决和H政策仍待定；该二维导出不构成基准接收或最终A/B/C完成。原清单已转录至数据分支，Root摘要results/d_recipe/benchmark_L2_export_20261122.json；现行36706053853B联合NFS预算不增。
+
+
+2026-11-23用户明确批准[既有B6固定原坐标补H](H_POLICY_20261123.md)。Data配置development_D3_ExpansionRx_B6_20261123.json只生产原ExpansionRx component，再以development_D3_merged_B6_20261123.json消费原QM9与新component；完整15751成员合并清单未闭合前仍不进入最终B/C。CPU11/4539054的22项相关测试已COMPLETED0:0/8秒，实际目标盘/UID守卫和自有子进程reap通过；此测试不是科学交付或A/B/C结果。上文带旧时间戳的“政策待定”记录保留为历史。
