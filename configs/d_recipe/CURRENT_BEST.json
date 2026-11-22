@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-21T22:58:13.253613Z",
+  "updated_at_utc": "2026-11-22T00:07:24.373897+00:00",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -580,7 +580,7 @@
     }
   },
   "zero_scale_amendment": {
-    "status": "LIBRARIES_ACCEPTED_DEVELOPMENT_EXPORTED_BENCHMARK_RUNNING",
+    "status": "LIBRARIES_ACCEPTED_DEVELOPMENT_L1_L2_AND_BENCHMARK_L2_EXPORTED",
     "preregistration": "configs/d_recipe/amendments/20261122_zero_scale.json",
     "libraries": {
       "L1": {
@@ -633,13 +633,18 @@
         ],
         "molecules": 194729,
         "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/benchmark/L2_descriptors",
-        "state": "RUNNING"
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 7842,
+        "source_manifest": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/benchmark/L2_descriptors/manifest.json",
+        "allocated_CPU_hours": 8.713333333333333
       },
       "original_D20_binding_repaired": false,
       "H_policy_changed": false,
       "raw_original_database_copied": false,
       "actual_start_CST": "2026-11-22T05:55:23+08:00"
     },
-    "development_export_summary": "results/d_recipe/development_wide_export_20261122.json"
+    "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
+    "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   }
 }

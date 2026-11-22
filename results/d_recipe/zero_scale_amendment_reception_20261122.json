@@ -1,6 +1,6 @@
 {
   "schema": "D_ZERO_SCALE_AMENDMENT_RECEPTION_V1",
-  "status": "LIBRARIES_ACCEPTED_EXPORTS_RUNNING",
+  "status": "LIBRARIES_ACCEPTED_DEVELOPMENT_L1_L2_AND_BENCHMARK_L2_EXPORTED",
   "recorded_at_utc": "2026-11-21T21:52:34.477867+00:00",
   "source_job": 4538200,
   "job_state": "COMPLETED",
@@ -48,7 +48,10 @@
       ],
       "molecules": 15518,
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/descriptors",
-      "state": "RUNNING"
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 612,
+      "source_manifest": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/descriptors/manifest.json"
     },
     "benchmark": {
       "job_id": 4538205,
@@ -62,12 +65,16 @@
       ],
       "molecules": 194729,
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/benchmark/L2_descriptors",
-      "state": "RUNNING"
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 7842,
+      "source_manifest": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/benchmark/L2_descriptors/manifest.json",
+      "allocated_CPU_hours": 8.713333333333333
     },
     "original_D20_binding_repaired": false,
     "H_policy_changed": false,
     "raw_original_database_copied": false,
     "actual_start_CST": "2026-11-22T05:55:23+08:00"
   },
-  "export_status_observed_at_utc": "2026-11-21 21:59:49 UTC"
+  "export_status_observed_at_utc": "2026-11-22T00:07:24.373897+00:00"
 }

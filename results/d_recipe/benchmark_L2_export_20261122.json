@@ -1,0 +1,41 @@
+{
+  "schema": "D_BENCHMARK_L2_EXPORT_V1",
+  "status": "SOURCE_PROCESSING_COMPLETE_RECEPTION_PENDING",
+  "source_job": 4538205,
+  "job_state": "COMPLETED",
+  "exit_code": "0:0",
+  "allocated_CPUs": 4,
+  "elapsed_seconds": 7842,
+  "allocated_CPU_hours": 8.713333333333333,
+  "total_CPU_measured": null,
+  "cost_accounting": "Original Slurm top-level job only; batch/extern not added again; TotalCPU unknown",
+  "source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/benchmark/L2_descriptors/manifest.json",
+  "source_manifest_bytes": 616044,
+  "unique_molecules": 194729,
+  "normalization_source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/final_manifest_zero_scale_amendment_20261122.json",
+  "membership_reference": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/benchmark/source_inputs_active/member_map.jsonl",
+    "format": "jsonl",
+    "dataset_key": "dataset",
+    "member_key": "record_id",
+    "molecule_key": "molecule_id",
+    "source_split_key": "source_split"
+  },
+  "source_processing_complete": true,
+  "current_C1_complete": false,
+  "reception_acceptance": "pending",
+  "membership_or_split_changed": false,
+  "statistics_fitted": false,
+  "canonical_D20_required": false,
+  "source_canonical_D20_status": "UNRESOLVED_CANONICAL_D20_BINDING",
+  "libraries": {
+    "L2": {
+      "raw_fields": 1613,
+      "enabled_fields": 1314,
+      "fit_role": "TRAIN",
+      "values": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/benchmark/L2_descriptors/L2_values.npy",
+      "status": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/benchmark/L2_descriptors/L2_status.npy",
+      "raw_values_clipped": false
+    }
+  }
+}
