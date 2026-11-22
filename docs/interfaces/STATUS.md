@@ -1178,3 +1178,10 @@ S dispatch4538390 admitted the secondRTX4090 GPU-ec788ed1-7da1-8f93-bb23-b4fdb20
 ## 2026-11-22 12:32:10 CST · D Root
 
 R1原3M/GPU主读出已闭合，主CPU统计4537593与配对4537599继续原链。F64几何诊断4537594/4538515因容量快照新鲜度准入两次实际失败（3715秒/1秒），按任务书记UNRESOLVED并停止修复；原部分文件保留，可选未生效修复已撤回。原缓存3–5层GPU读出4537597已COMPLETED0:0/1217秒，CPU逐层读出4537598等待主统计。原传输4537595和表示统计4537596均未开始即取消0秒。GPU7的D-R1原8+8GiB与CPU10原12GiB未来写入归零；全部D-R0/D-R1原缓存及部分文件保留，物理占用继续以实际df计入，不删除、不复制原库。联合NFS峰值36706053853B不变；配方未冻结，诊断未解决不作主比较WIN/TIE/LOSS。
+
+
+## 2026-11-22 14:21:47 CST · D Root
+
+D-R1 seed0 paired R3 is WIN: delta=0.09770468747584315, 95% CI=[0.08195311354654226,0.11189074805862387], tau=0.02012323794694327. The original comparison JSON and identical log closed before job4537599 timed out; do not resample or rerun it. Held successor4538541 was cancelled before starting. Transfer adoption still requires the registered individual seed1 WIN.
+
+The triggered pair is one fresh3M D-R0 seed1 control plus one fresh3M D-R1 seed1. Configuration/storage preparation4538547 onCPU17 was cancelled after RPC wait before configuration generation; dependent replacement4538549 is onCPU8. Neither seed1 training has started. Proposed extra NFS future is2GiB (joint36706053853 ->38853537501B); it is NOT admitted or registered until the live Data plan/configurations close and actual target bytes/inodes/fresh UID quota pass. No seed1 local feature/geometry cache, no additional Lustre growth, no original data copy. Existing clipping4538532 and cached-layer CPU4537598 remain active with original outputs retained. Shared-filesystem RPC waits currently delay progress; do not infer scientific failure or a final recipe decision from them.
