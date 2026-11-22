@@ -360,6 +360,19 @@ def render(plan, verdict, states, selection, code_commit):
                     '最小二乘、参考扣除和组合变换采用FP64，模型目标为FP32。向量零中心、同头各分量共用模长的总体标准差；'
                     '重尾向量各分量共用m。下表系数便于阅读，链接JSON保存完整精度及所有对应关系。', '',
                     parameter_appendix(parameter_paths),
+                    '## 资源与成本', '',
+                    link(REPO / 'docs/p_recipe/COST.md', '完整成本及历史会计口径') + '；' +
+                    link(results / 'cost_current.json', '本次最终成本明细') + '。', '',
+                    'GPU时间按实际原生运行及Slurm执行区间记账，保留失败与取消成本，'
+                    '完整状态接管的重叠区间不重复计入；CPU拟合、统计、测试和导出另列。'
+                    '历史缺失区间和耗时下界仍按原记录报告，不将未知成本当作零。', '',
+                    table(['确认卡型', '实测样本/秒', '整卡平均功耗/W', '功耗采样数'],
+                          [[row['gpu_type'], number(row['samples_per_second']),
+                            number(row['mean_whole_board_power_watts']), row['power_observations']]
+                           for row in rows(results / 'hardware_confirmation.csv')]), '',
+                    link(results / 'hardware_confirmation.csv', '原自然训练遥测汇总') + '。'
+                    '功耗为整卡采样均值、包含共用上下文；各配方和共用条件不同，'
+                    '不据此作卡型的因果比较，未额外运行GPU测速。', '',
                     '## 最终交付标识', '',
                     f'最终代码提交：`{code_commit}`。', '',
                     f"已保留的P′及分子数运行采用T2的最终合并配方。{verdict['repeat_on_T3']}。", '',
