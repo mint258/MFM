@@ -249,3 +249,10 @@ R1剩余缓存层CPU8572已在CPU13完成0:0/81秒/1CPU。原run_cpu明确仅对
 旧clip4538532实际17:33:36 CST以FAILED0:15/17350秒/1CPU结束。一次有界只读SSH在原CPU8确认2822119和旧准备2828496两个原PID均ABSENT，未再发任何信号/KILL；不能把本次补核查写成仅依赖batch终态。原cursor仍1020928/1194228、report不存在。以未改的整个native_D20.json、原collection/choices/分子字段计数/系数/同一output，通过通用resident直接调用原clipping.sbatch，在CPU13/4538573续接；未用未采纳的clipping_managed扩展，未再运行其失败测试。18:16:13 CST原关闭cursor已到1049600，实际RUNNING；producer进程3582788/start_ticks2758861610、监督器3582785/start_ticks2758861604、UIDs全1278、精确job4538573/step_batch已记录。stdout=/dev/null，沿用原cursor/final_report作为进度/产物，避免新增第五个local日志；已有每节点Root128MiB联合日志future不变。没有重复原闭合字段统计或重拟合A1/D4，没有原数据库或checkpoint复制。
 
 全目标仍active，原进程退出与实际新节点工作已闭合，当前无主线外部阻塞；旧blocked快照已作为历史保留。seed1须各自原配对规则确认后才决定阶段2配方；后续全部L1/L2/G1、条件K1/种子、规定诊断、冻结后冷启动9M、最终A/B/C/基准接口/成本/两PR范围保持。实时训练与预期等待不构成goal blocked或complete。普通Slurm观察在head，每1800秒；科学代码/数值仅相应compute角色。
+
+
+2026-11-22 19:46 CST：原完整TRAIN目标±6报告闭合。CPU13/4538573原生COMPLETED0:0/6260秒/1CPU，19:43:28 CST结束；原atomic_cursor1194228/1194228，原report.json statusCOMPLETE。仅沿原native_D20完整配置/原cohort、A1 choices与RNG、原分子项计数及同一输出，从1020928安全续完剩余原子项，没有重拟合/重复闭合字段。报告给出原24启用字段的D-R0/D-R1 valid/clipped/fraction；原子SASA分母63001422、clipped62681、原fraction0.000994914051305064，两配方相同。原D4/存储值未改，decision_input=false。原JSON通过实时X路径完整转录为results/d_recipe/native_TRAIN_clipping_20261122.json；第一次base64运输输出被截断后只改为完整原JSON传输，不进行独立数值复核、数组回读或新统计。
+
+在Slurm实际CPU13 StateMIXED核查后，一次有界只读SSH直接核实监督器PID3582785/ticks2758861604和workerPID3582788/ticks2758861610均ABSENT；核查窗口11:44:13–11:45:12UTC，无新信号/KILL，不能仅由COMPLETED推断退出。原监督器/原科学worker不改。此前18:20及更早cursor/final_report字样指历史过程；本生产者实际最终路径为clip_reports/D20/report.json，当前已完成。
+
+19:44 CST两实际seed1作业4538566/4538567均620800样本/19400更新，原日志seconds分别7191.102624610066/7230.534508820623；仅原事件转录，不由此新增吞吐/功耗统计或科学判定。原afterok统计4538568/8569和比较4538570继续等待。目标active，所有宽库/G1/K1/条件种子、冻结、冷9M、最终A/B/C/基准交付及两PR范围不变。ExpansionRx H政策再次以异步问题请求明确选择，依赖工作未擅自启动；现有训练保持。

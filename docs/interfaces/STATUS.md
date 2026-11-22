@@ -1158,3 +1158,12 @@ At this publication no seed1 model has started or recipe been adopted. Original 
 R1原缓存层诊断由CPU13作业4538572补齐缺失层4/5，C0/81秒，原层3/6复用；总成本11135秒<14400。4层原F64/1000分子bootstrap已闭合，主终点仍为层6，不按诊断层择优。旧裁剪4538532最终原生FAILED0:15，实际旧PID已核实退出；原完整TRAIN裁剪由4538573在CPU13沿同一原配置/游标续接，18:16 CST已从1020928推进到1049600/1194228。原准备作业4538549实际自有进程也已退出；这两项旧阻塞已解除。
 
 新作业使用Slurm复制的自包含resident退出监督入口，真实EndTime前预留收尾，TERM/join/reap自有子进程，不用TIMEOUT正常收尾，无KILL、无故障节点重试、无管理员操作。Data联合NFS峰值38853537501字节包含seed1额外2GiB；保留实际目标盘字节/inode/配额与跨窗口余量检查。未改其他工作线/在跑训练。完整D目标仍active；后续宽库、K1、冷启动9M、A/B/C、交付与PR尚待原任务书关卡。
+
+
+## 2026-11-22 19:46 CST · D Root：完整TRAIN截断报告
+
+原完整TRAIN目标±6报告已闭合：CPU13/4538573原生COMPLETED0:0/6260秒/1CPU，2026-11-22 19:43:28 CST结束。原atomic_cursor1194228/1194228；原report.json statusCOMPLETE，完整转录results/d_recipe/native_TRAIN_clipping_20261122.json。报告含原24启用字段两配方valid/clipped/fraction；SASA原子valid63001422、clipped62681、原fraction0.000994914051305064。原native_D20完整配置、cohort、choices、RNG、系数和同一输出保留，原D4/存储值未改，没有重拟合、重复闭合统计或独立数组QA。
+
+在原CPU13 StateMIXED核查后，一次有界只读SSH实际确认监督器3582785/start_ticks2758861604及worker3582788/start_ticks2758861610均ABSENT。没有新信号/KILL，不由batch终态替代进程退出证明。旧4538532及准备4538549此前已核实退出，不再是主线阻塞；14/16/17既有管理边界不变。
+
+19:44 CST两个fresh3M seed1原日志均620800样本/19400更新，GPU4/4538566与GPU5/4538567继续运行，原clip冻结值未变；CPU4538568/4538569及配对4538570仍按afterok依赖。尚无seed1胜负，不提前采纳或冻结。全目标active，剩余宽库/G1/K1/条件种子、规定诊断、冷9M、最终A/B/C/基准接口/成本/两个未合并PR保持；ExpansionRx H政策待明确。联合NFS38853537501B及所有实际字节/inode/配额/同行future与退出保护不放宽，无新模型或其他线文件改动。

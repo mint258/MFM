@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE1_SEED1_RUNNING_ON_HEALTHY_GPU_NODES",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T10:35:00Z",
+  "updated_at_utc": "2026-11-22T11:46:34Z",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -148,7 +148,7 @@
     "job_id": 4537571,
     "checkpoint_continuation_job": 4537575,
     "status": "COMPLETE_FROZEN_FIT",
-    "clipping_report_job": 4538532,
+    "clipping_report_job": 4538573,
     "collection_progress_report_only": {
       "observed_at_utc": "2026-11-21T05:30:06.733338+00:00",
       "closed_rows": 762624,
@@ -209,27 +209,33 @@
       }
     },
     "clipping_infrastructure_continuation": {
-      "previous_job": 4538446,
+      "previous_job": 4538532,
       "previous_state": "FAILED",
-      "previous_exit": "1:0",
-      "previous_elapsed_seconds": 7319,
-      "continuation_job": 4538532,
-      "continuation_node": "compute-0-8",
+      "previous_exit": "0:15",
+      "previous_elapsed_seconds": 17350,
+      "previous_actual_worker_absent": true,
+      "continuation_job": 4538573,
+      "continuation_node": "compute-0-13",
       "requested_CPUs": 1,
-      "requested_memory_bytes": 17179869184,
       "closed_atomic_cursor_reused": 1020928,
       "same_closed_cursor_and_output": true,
+      "original_whole_configuration_preserved": true,
       "scientific_definition_changed": false,
-      "reason": "Original direct writer exited on stale quota before next cursor publish; old worker absence verified. CPU16 draining; preserve its tasks/admin state, use admitted CPU8."
+      "source_configuration": "configs/d_recipe/reference/native_D20.json",
+      "status": "COMPLETE",
+      "exit_code": "0:0",
+      "elapsed_seconds": 6260,
+      "actual_supervisor_and_worker_absent": true
     },
     "clipping_progress_report_only": {
-      "observed_at_utc": "2026-11-22T04:46:47.282597+00:00",
-      "job_id": 4538532,
-      "node": "compute-0-8",
-      "closed_atomic_molecule_rows": 1020928,
+      "observed_at_utc": "2026-11-22T11:44:13Z",
+      "job_id": 4538573,
+      "node": "compute-0-13",
+      "closed_atomic_molecule_rows": 1194228,
       "TRAIN_rows": 1194228,
-      "status": "RUNNING_ORIGINAL_CURSOR_CONTINUATION",
-      "scope": "Producer cursor only; original coefficients, RNG and output unchanged; complete fractions pending"
+      "status": "COMPLETE",
+      "report_present": true,
+      "scope": "Original producer COMPLETE report. Entire TRAIN cohort with original frozen allowed conformer per molecule. Original D4/storage unchanged; no statistics refitted or closed fields recomputed."
     },
     "clipping_continuation_history": [
       {
@@ -257,8 +263,61 @@
         "same_closed_cursor_and_output": true,
         "scientific_definition_changed": false,
         "reason": "Persistent confirmed shared-filesystem RPC wait; previous owned worker absent before releasing continuation"
+      },
+      {
+        "previous_job": 4538446,
+        "previous_state": "FAILED",
+        "previous_exit": "1:0",
+        "previous_elapsed_seconds": 7319,
+        "continuation_job": 4538532,
+        "continuation_node": "compute-0-8",
+        "requested_CPUs": 1,
+        "requested_memory_bytes": 17179869184,
+        "closed_atomic_cursor_reused": 1020928,
+        "same_closed_cursor_and_output": true,
+        "scientific_definition_changed": false,
+        "reason": "Original direct writer exited on stale quota before next cursor publish; old worker absence verified. CPU16 draining; preserve its tasks/admin state, use admitted CPU8.",
+        "continuation_final_state": "FAILED",
+        "continuation_exit_code": "0:15",
+        "continuation_elapsed_seconds": 17350,
+        "actual_worker_exit_proven": true
       }
-    ]
+    ],
+    "clipping_report_status": "COMPLETE",
+    "clipping_report_source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/clip_reports/D20/report.json",
+    "clipping_report_artifact": "results/d_recipe/native_TRAIN_clipping_20261122.json",
+    "clipping_completion_accounting": {
+      "job_id": 4538573,
+      "status": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 6260,
+      "allocated_CPUs": 1,
+      "node": "compute-0-13",
+      "end_CST": "2026-11-22T19:43:28+08:00",
+      "cursor": 1194228,
+      "original_report_present": true,
+      "actual_exit": {
+        "verified_on_original_node": true,
+        "supervisor": {
+          "pid": 3582785,
+          "start_ticks": 2758861604,
+          "status": "ABSENT"
+        },
+        "worker": {
+          "pid": 3582788,
+          "start_ticks": 2758861610,
+          "status": "ABSENT"
+        },
+        "node_state": "MIXED",
+        "new_signals_sent": false,
+        "no_KILL": true,
+        "observation_window_UTC": [
+          "2026-11-22T11:44:13Z",
+          "2026-11-22T11:45:12Z"
+        ]
+      },
+      "source": "Native sacct and bounded readonly /proc check; original producer report. No numerical recomputation."
+    }
   },
   "arm_decisions": {
     "D-R0": "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
@@ -309,9 +368,9 @@
         "configuration": "configs/d_recipe/screening/D-R0_seed1.json",
         "status": "RUNNING_POSITIVE_TRAINING_UPDATES_VERIFIED",
         "progress": {
-          "samples": 153600,
-          "updates": 4800,
-          "native_loop_seconds": 1752.8524141907692,
+          "samples": 620800,
+          "updates": 19400,
+          "native_loop_seconds": 7191.102624610066,
           "gpu_model": "NVIDIA GeForce RTX 3090",
           "clip_calibration": {
             "threshold": 11.076789627075199,
@@ -324,7 +383,7 @@
             "effective_freeze_samples": 150016,
             "fitted": true
           },
-          "observed_at_utc": "2026-11-22T10:13:38Z",
+          "observed_at_utc": "2026-11-22T11:44:00Z",
           "source": "Original producer stdout; scalars transcribed, no statistics recomputed"
         },
         "CPU_status": "PENDING_AFTEROK_4538566"
@@ -338,9 +397,9 @@
         "configuration": "configs/d_recipe/screening/D-R1_seed1.json",
         "status": "RUNNING_POSITIVE_TRAINING_UPDATES_VERIFIED",
         "progress": {
-          "samples": 153600,
-          "updates": 4800,
-          "native_loop_seconds": 1793.0361772123724,
+          "samples": 620800,
+          "updates": 19400,
+          "native_loop_seconds": 7230.534508820623,
           "gpu_model": "NVIDIA GeForce RTX 3090",
           "clip_calibration": {
             "threshold": 25.356171264648438,
@@ -353,7 +412,7 @@
             "effective_freeze_samples": 150016,
             "fitted": true
           },
-          "observed_at_utc": "2026-11-22T10:13:38Z",
+          "observed_at_utc": "2026-11-22T11:44:00Z",
           "source": "Original producer stdout; scalars transcribed, no statistics recomputed"
         },
         "CPU_status": "PENDING_AFTEROK_4538567"
@@ -427,7 +486,7 @@
     "seed": 0,
     "samples": 9000000
   },
-  "results": "Original R1 seed0 paired WIN remains. Both exact fresh3M seed1 runs are actually training onGPU4/5 with original science and independently frozen clip; no stage1 adoption before each-seed WIN. R1 cached layers3-6 nowcomplete, main remains6. FullTRAIN clipping resumed onCPU13 from original prefix; all later TASKBOOK stages and final9M/A/B/C/PR scope remain.",
+  "results": "Original R1 seed0 paired WIN remains. Both fresh3M seed1 models running onGPU4/5,620800samples observed19:44CST, each original clip frozen; no adoption before each-seed WIN. R1 cached layers3-6 complete with fixed main layer6. Original fullTRAIN +/-6 clipping report nowCOMPLETE,1194228cohort and24enabled fields, CPU13/4538573 C0/6260s and actual parent/worker absent. Full later TASKBOOK stages, final9M/A/B/C and twoPR scope remain.",
   "arm": null,
   "library": null,
   "configuration": null,
@@ -1412,7 +1471,7 @@
       "no_repeat_signal": true,
       "no_SIGKILL": true,
       "administrative_recovery_required": false,
-      "interpretation": "Observation is not actual PID exit, scientific completion or proof of underlying root cause. Preserve original configuration, coefficients, conformer choices, molecular counts and closed atomic cursor. No new producer while old process exit is unproven.",
+      "interpretation": "Earlier bounded D-state observation is historical. Old worker actual ABSENT was independently established on its original node at09:54:46UTC; only afterward the same original producer/configuration/output was resumed once as4538573. This is continuation, not concurrent duplicate production; no KILL or repeated signal.",
       "old_original_PID_absent_verified": true,
       "actual_old_end_CST": "2026-11-22T17:33:36+08:00",
       "old_native_state": "FAILED",
@@ -1421,13 +1480,13 @@
       "resident_continuation": {
         "job": 4538573,
         "node": "compute-0-13",
-        "status": "RUNNING",
+        "status": "COMPLETE",
         "source_configuration": "configs/d_recipe/reference/native_D20.json",
         "original_configuration_unmodified": true,
         "reused_closed_cursor": 1020928,
-        "latest_closed_cursor": 1049600,
+        "latest_closed_cursor": 1194228,
         "total_molecules": 1194228,
-        "latest_progress_observed_at_UTC": "2026-11-22T10:16:13Z",
+        "latest_progress_observed_at_UTC": "2026-11-22T11:44:13Z",
         "process_identity": {
           "job": 4538573,
           "node": "compute-0-13",
@@ -1458,11 +1517,36 @@
           "producer_checkpoint_is_progress_source": true
         },
         "stdout": "/dev/null",
-        "progress_source": "Original atomic cursor and finalreport; no new root log allocation",
+        "progress_source": "Original cursor.json and report.json; no additional root log",
         "underlying_statistics_refitted": false,
         "closed_fields_recomputed": false,
         "cursor_path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/clip_reports/D20/cursor.json",
-        "report_path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/clip_reports/D20/report.json"
+        "report_path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/clip_reports/D20/report.json",
+        "report_present": true,
+        "exit_code": "0:0",
+        "elapsed_seconds": 6260,
+        "allocated_CPUs": 1,
+        "actual_exit": {
+          "verified_on_original_node": true,
+          "supervisor": {
+            "pid": 3582785,
+            "start_ticks": 2758861604,
+            "status": "ABSENT"
+          },
+          "worker": {
+            "pid": 3582788,
+            "start_ticks": 2758861610,
+            "status": "ABSENT"
+          },
+          "node_state": "MIXED",
+          "new_signals_sent": false,
+          "no_KILL": true,
+          "observation_window_UTC": [
+            "2026-11-22T11:44:13Z",
+            "2026-11-22T11:45:12Z"
+          ]
+        },
+        "complete": true
       },
       "after_final_exit_observation": {
         "state": "ABSENT",
