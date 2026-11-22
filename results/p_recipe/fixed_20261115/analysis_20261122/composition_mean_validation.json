@@ -1,0 +1,96 @@
+{
+  "initial_mean_tests": {
+    "status": "PASS",
+    "new_tests": 5,
+    "sourcecheck": {
+      "status": "PASS",
+      "files": 3,
+      "bytes": 16440,
+      "python_files": 3,
+      "server_sources_verified": 0,
+      "export_verification_required": false,
+      "errors": []
+    },
+    "manifest": [
+      {
+        "path": "tools/p_recipe/composition_mean_statistics.py",
+        "bytes": 1343,
+        "git_blob_sha": "ecd28b8e6e1f50b742dda5afe627c49c7b918433"
+      },
+      {
+        "path": "tools/p_recipe/composition_mean_statistics_entry.py",
+        "bytes": 13088,
+        "git_blob_sha": "0254867efb44e9c48405e82361ea3333b662bae4"
+      },
+      {
+        "path": "tools/p_recipe/test_composition_mean_statistics.py",
+        "bytes": 2009,
+        "git_blob_sha": "8fa9413086133c792b2d73f79c0fdc861b645969"
+      }
+    ]
+  },
+  "mean_config": {
+    "status": "PASS",
+    "sourcecheck": {
+      "status": "PASS",
+      "files": 2,
+      "bytes": 11617,
+      "python_files": 0,
+      "server_sources_verified": 0,
+      "export_verification_required": false,
+      "errors": []
+    },
+    "manifest": [
+      {
+        "path": "configs/p_recipe/fixed_20261115/analysis_20261122/composition_mean_statistics.json",
+        "bytes": 7887,
+        "git_blob_sha": "70a1592cf40d10f195f82ac3171cf5610bb87119"
+      },
+      {
+        "path": "docs/p_recipe/COMPOSITION_EXECUTION.md",
+        "bytes": 3730,
+        "git_blob_sha": "9d04b122925517516452514e4d531771c1dec987"
+      }
+    ],
+    "old_M1_binding_and_metadata_unchanged": true
+  },
+  "changed_Hcomp_gate": {
+    "status": "PASS",
+    "targeted_changed_Hcomp_test": 1,
+    "sourcecheck": {
+      "status": "PASS",
+      "files": 4,
+      "bytes": 16664,
+      "python_files": 2,
+      "server_sources_verified": 0,
+      "export_verification_required": false,
+      "errors": []
+    },
+    "manifest": [
+      {
+        "path": "tools/p_recipe/composition_mean_statistics.py",
+        "bytes": 1391,
+        "git_blob_sha": "d56e8b98e014fae3532ebd9dc9b25c257ac65804"
+      },
+      {
+        "path": "tools/p_recipe/test_composition_mean_statistics.py",
+        "bytes": 2155,
+        "git_blob_sha": "de2bb149cb33fede7e07d31b33fcaa84bac71502"
+      },
+      {
+        "path": "configs/p_recipe/fixed_20261115/analysis_20261122/F_T6_9M_new_pairs.json",
+        "bytes": 5762,
+        "git_blob_sha": "b43780f4d3a36f8d4ee6e22635e2d98946798dc7"
+      },
+      {
+        "path": "configs/p_recipe/fixed_20261115/analysis_20261122/F_molecule_count_interactions.json",
+        "bytes": 7356,
+        "git_blob_sha": "6f2be528e04ef91d1def788ca818e1cf89623721"
+      }
+    ],
+    "unchanged_PR_B4_tests_retained": true
+  },
+  "unique_mean_tests": 5,
+  "only_changed_Hcomp_method_replayed": true,
+  "old_statistics_replayed": false
+}

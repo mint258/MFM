@@ -84,6 +84,8 @@ def model_summary_csv(name: str, raw: bytes) -> bool:
                  'results/p_recipe/fixed_20261115/analysis_20261122/F.csv',
                  'results/p_recipe/fixed_20261115/analysis_20261122/A1.csv',
                  'results/p_recipe/fixed_20261115/analysis_20261122/A3.csv',
+                 'results/p_recipe/fixed_20261115/analysis_20261122/A2.csv',
+                 'results/p_recipe/fixed_20261115/analysis_20261122/H_comp.csv',
                  'results/p_recipe/fixed_20261115/round4/deltas.csv',
                  'results/p_recipe/fixed_20261115/round4/hardware_round4.csv',
                  'results/p_recipe/fixed_20261115/conditional_seed1/hardware_round3.csv',
