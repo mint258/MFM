@@ -1,0 +1,63 @@
+{
+  "schema": "P_F1_RUN_20261122_V1",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+  "kind": "F",
+  "batch": "F1",
+  "run": "F1_full_T5_9M_qm9_U0_atom_s1",
+  "task": "qm9.U0_atom",
+  "mode": "full",
+  "seed": 1,
+  "seed_role": "finetuning",
+  "pretraining_seed": 0,
+  "bootstrap_seed": 20261025,
+  "internal_split_seed": 20261112,
+  "source_binding": {
+    "arm": "T5",
+    "samples": 9000000,
+    "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T5.json",
+    "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T5/samples_9000000.pt",
+    "bytes": 231766305,
+    "run": "fixed_20261115_confirmation_T5",
+    "source_training_budget": 9000000
+  },
+  "store": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json",
+  "reference_manifest": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/predictions.json",
+  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T5_9M_qm9_U0_atom_s1",
+  "output_mount": "/lfshome",
+  "cleanup_seconds": 900,
+  "entry_provider": "unchanged_shared_exit_lifecycle",
+  "ready": true,
+  "node": "compute-0-6",
+  "gpu_uuid": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+  "nvidia_smi": "/usr/bin/nvidia-smi",
+  "reservation_ids": [
+    "P_F1_GPU6_RAM_peak",
+    "P_F1_GPU6_local_peak",
+    "registered_F1_F2_remaining"
+  ],
+  "uid_quota_snapshot": null,
+  "cpus": 16,
+  "ram_peak_bytes": 68719476736,
+  "requested_memory_mib": 65536,
+  "remaining_output_bytes": 994277760,
+  "local_output_peak_bytes": 33619968,
+  "minimum_free_gpu_mib": 22000,
+  "work_unit_seconds": 120,
+  "unit_duration_basis": "Initial conservative bound; refine from actual first-run units",
+  "proposed_time_limit_minutes": 35,
+  "configured_hyperparameters": "Unchanged plan.protocol and finetune.py constants",
+  "source_validation": {
+    "code_sha": "a00498651c6afb9b67483692a8a18365b2b97988",
+    "shared_guard_job": 4538586,
+    "new_logic_jobs": [
+      4538600,
+      4538619
+    ],
+    "unique_new_tests": 20,
+    "sourcecheck_job": 4538634,
+    "metadata_check_job": 4538635
+  },
+  "scientific_configuration_immutable": true,
+  "activation_basis": "Same validated registered F1 protocol; dependency chain, exact actual startup guards still mandatory",
+  "submission_dependency": "afterok:4538817"
+}

@@ -1,0 +1,45 @@
+{
+  "core_tests": {
+    "job": "4538793",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_seconds": 5,
+    "passed": 4,
+    "root_pid": 3592601,
+    "actual_pid_absent": true,
+    "log": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4538793\", \"node\": \"compute-0-13\", \"TimeLimit\": \"00:10:00\", \"EndTime\": \"2026-11-22T23:57:27\", \"root_available_bytes\": 69572075520, \"root_inodes\": 36542478, \"source_independent\": true}\n....                                                                     [100%]\n=============================== warnings summary ===============================\n../../share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26\n  /share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26: DeprecationWarning: `torch_geometric.distributed` has been deprecated since 2.7.0 and will no longer be maintained. For distributed training, refer to our tutorials on distributed training at https://pytorch-geometric.readthedocs.io/en/latest/tutorial/distributed.html or cuGraph examples at https://github.com/rapidsai/cugraph-gnn/tree/main/python/cugraph-pyg/cugraph_pyg/examples\n    from torch_geometric.distributed import (\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n4 passed, 1 warning in 3.58s\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 3592601, \"root_returncode\": 0}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4538793\", \"returncode\": 0, \"remaining_children\": []}\n"
+  },
+  "entry_tests": {
+    "job": "4538814",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_seconds": 15,
+    "passed": 3,
+    "root_pid": 3593011,
+    "actual_pid_absent": true,
+    "log": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4538814\", \"node\": \"compute-0-13\", \"TimeLimit\": \"00:10:00\", \"EndTime\": \"2026-11-23T00:12:50\", \"root_available_bytes\": 69573066752, \"root_inodes\": 36542472, \"source_independent\": true}\n{\"phase\": \"A1_NEW_STATISTICS_SOURCE_COMPILE\", \"files\": 4, \"original_tests_repeated\": false}\n...                                                                      [100%]\n=============================== warnings summary ===============================\n../../../share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26\n  /share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26: DeprecationWarning: `torch_geometric.distributed` has been deprecated since 2.7.0 and will no longer be maintained. For distributed training, refer to our tutorials on distributed training at https://pytorch-geometric.readthedocs.io/en/latest/tutorial/distributed.html or cuGraph examples at https://github.com/rapidsai/cugraph-gnn/tree/main/python/cugraph-pyg/cugraph_pyg/examples\n    from torch_geometric.distributed import (\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n3 passed, 1 warning in 12.18s\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 3593011, \"root_returncode\": 0}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4538814\", \"returncode\": 0, \"remaining_children\": []}\n"
+  },
+  "primary_exit_evidence": {
+    "4538815": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4538815\", \"node\": \"compute-0-13\", \"TimeLimit\": \"00:20:00\", \"EndTime\": \"2026-11-23T00:24:44\", \"root_available_bytes\": 69572870144, \"root_inodes\": 36542448, \"source_independent\": true}\n{\"status\": \"COMPLETE\", \"job_id\": \"4538815\", \"source\": \"T2_1M\", \"rows\": 10, \"statistics_wall_seconds\": 4.074477672576904, \"seed0_primary_replayed\": false, \"new_model_fits\": 0, \"reused_original_seed0_primary_intervals\": 8, \"first_report_only_CYP_seed0_intervals\": 2, \"bootstrap_samples\": 1000, \"bootstrap_seed\": 20261025, \"propose_future_multiseed_readout_for_user\": false, \"current_decision_rules_changed\": false}\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 3593347, \"root_returncode\": 0}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4538815\", \"returncode\": 0, \"remaining_children\": []}\n",
+    "4538816": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4538816\", \"node\": \"compute-0-13\", \"TimeLimit\": \"00:20:00\", \"EndTime\": \"2026-11-23T00:25:03\", \"root_available_bytes\": 69571715072, \"root_inodes\": 36542447, \"source_independent\": true}\n{\"status\": \"COMPLETE\", \"job_id\": \"4538816\", \"source\": \"T2_6M\", \"rows\": 10, \"statistics_wall_seconds\": 4.037690877914429, \"seed0_primary_replayed\": false, \"new_model_fits\": 0, \"reused_original_seed0_primary_intervals\": 8, \"first_report_only_CYP_seed0_intervals\": 2, \"bootstrap_samples\": 1000, \"bootstrap_seed\": 20261025, \"propose_future_multiseed_readout_for_user\": false, \"current_decision_rules_changed\": false}\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 3593475, \"root_returncode\": 0}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4538816\", \"returncode\": 0, \"remaining_children\": []}\n"
+  },
+  "actual_primary_root_absence": {
+    "4538815": {
+      "pid": 3593347,
+      "absent": true
+    },
+    "4538816": {
+      "pid": 3593475,
+      "absent": true
+    },
+    "4538829": {
+      "pid": 3593745,
+      "absent": true
+    }
+  },
+  "primary9M_log": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4538829\", \"node\": \"compute-0-13\", \"TimeLimit\": \"00:20:00\", \"EndTime\": \"2026-11-23T00:26:55\", \"root_available_bytes\": 69571813376, \"root_inodes\": 36542446, \"source_independent\": true}\n{\"status\": \"COMPLETE\", \"job_id\": \"4538829\", \"source\": \"T2_9M\", \"rows\": 10, \"statistics_wall_seconds\": 4.1104748249053955, \"seed0_primary_replayed\": false, \"new_model_fits\": 0, \"reused_original_seed0_primary_intervals\": 8, \"first_report_only_CYP_seed0_intervals\": 2, \"bootstrap_samples\": 1000, \"bootstrap_seed\": 20261025, \"propose_future_multiseed_readout_for_user\": false, \"current_decision_rules_changed\": false}\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 3593745, \"root_returncode\": 0}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4538829\", \"returncode\": 0, \"remaining_children\": []}\n",
+  "new_tests_repeated": false,
+  "original_primary_CIs_replayed": false,
+  "closed_GPU_science_modified": false,
+  "current_decision_rules_changed": false
+}
