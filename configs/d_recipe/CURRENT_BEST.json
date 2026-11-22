@@ -3222,6 +3222,51 @@
         "node": "compute-0-11",
         "elapsed": "1:09:18"
       }
+    },
+    "required_target_reports": {
+      "status": "WAITING_FOR_ORIGINAL_A1_FITS",
+      "taskbook_sections": [
+        "4.2",
+        "6",
+        "9"
+      ],
+      "molecular_report_producer": "tools/d_recipe/element_reference.py:make_label_parameters (called by original fit_reference.fit_collected)",
+      "per_field_keys": [
+        "field_name",
+        "target_policy",
+        "oof_r2",
+        "n_valid",
+        "clipped_TRAIN_count",
+        "clipping_fraction"
+      ],
+      "threshold": "abs(standardized target)>6 before loss clamp; original fitted report precision/provenance retained",
+      "sources": [
+        {
+          "library": "L1",
+          "molecular_fields": 197,
+          "producer_job": 4539166,
+          "local_original_report": "/tmp/d_recipe_20261120_stage2_A1_L1/collection/label_parameters.json",
+          "frozen_shared_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L1/label_parameters.json",
+          "report_JSON_pointer": "/fit/fields",
+          "status": "PENDING_ORIGINAL_FIT_CLOSURE"
+        },
+        {
+          "library": "L2",
+          "molecular_fields": 1320,
+          "producer_job": 4539169,
+          "local_original_report": "/tmp/d_recipe_20261120_stage2_A1_L2/collection/label_parameters.json",
+          "frozen_shared_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
+          "report_JSON_pointer": "/fit/fields",
+          "status": "PENDING_ORIGINAL_FIT_CLOSURE"
+        }
+      ],
+      "existing_native_D20_D3_and_atomic_SASA_report": "results/d_recipe/native_TRAIN_clipping_20261122.json",
+      "old_native_producer_job": 4538573,
+      "new_array_scan_jobs": 0,
+      "old_D4_refit": false,
+      "old_closed_numerical_QA": false,
+      "publication_policy": "Transcribe original closed fit and existing native report, preserve field-level precision/provenance; no independent clipping scan or recalculation",
+      "source_index": "docs/d_recipe/TARGET_REPORT_SOURCES.md"
     }
   },
   "telemetry_scope_clarification": {
