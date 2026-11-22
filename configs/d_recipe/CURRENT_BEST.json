@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "NATIVE_SCREENING_IN_PROGRESS",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-22T03:36:10.225177+00:00",
+  "updated_at_utc": "2026-11-22T04:25:06.573972+00:00",
   "current_best": null,
   "scientific_authority": "docs/d_recipe/TASKBOOK.md",
   "preregistration": "configs/d_recipe/preregistration.json",
@@ -222,12 +222,12 @@
       "reason": "Persistent confirmed shared-filesystem RPC wait; previous owned worker absent before releasing continuation"
     },
     "clipping_progress_report_only": {
-      "observed_at_utc": "2026-11-22T03:34:15.435547+00:00",
+      "observed_at_utc": "2026-11-22T04:25:06.573972+00:00",
       "job_id": 4538446,
       "node": "compute-0-16",
-      "closed_atomic_molecule_rows": 1002496,
+      "closed_atomic_molecule_rows": 1020928,
       "TRAIN_rows": 1194228,
-      "status": "RUNNING_SHARED_SOFTWARE_IO_WAIT_NO_NEW_CLOSED_ROWS_YET",
+      "status": "RUNNING_RESUMED_CLOSED_ROWS_ADVANCING",
       "scope": "Producer cursor only; original coefficients, RNG and output unchanged; complete fractions pending"
     },
     "clipping_continuation_history": [
@@ -292,8 +292,8 @@
       "cached_layer_scope": "Only cached layers3-5 nativeR1/R3 probes; layer6 predictions and scores reused; no encoder fallback"
     },
     "D_R1": {
-      "status": "REGISTERED_FORWARD_RUNNING_AFTER_EXACT_3M_ENDPOINT",
-      "forward_job": 4537594,
+      "status": "CAPACITY_RESUME_QUEUED_AFTER_ORIGINAL_CACHED_LAYER_GPU",
+      "forward_job": 4538515,
       "transfer_job": 4537595,
       "statistics_job": 4537596,
       "cached_layer_GPU_job": 4537597,
@@ -305,7 +305,13 @@
       "GPU_concurrent_bytes": 17179869184,
       "CPU_VAL_root_peak_bytes": 12884901888,
       "cache_value_bytes": 5131075584,
-      "decision_input": false
+      "decision_input": false,
+      "original_forward_job": 4537594,
+      "forward_configuration": "configs/d_recipe/diagnostics/D-R1_seed0_3M_forward_capacity_resume.json",
+      "forward_dependency": "afterany:4537597",
+      "transfer_dependency": "afterok:4538515",
+      "transfer_held_for_remaining_timebox": true,
+      "statistics_held_for_remaining_timebox": true
     }
   },
   "transfer_candidate": {
@@ -584,6 +590,61 @@
         "all_registered_diagnostic_job_seconds": 9135
       },
       "encoder_forward_repeated": false
+    },
+    "D_R1_seed0_3M": {
+      "forward_attempts": [
+        {
+          "job_id": 4537594,
+          "state": "FAILED",
+          "exit_code": "1:0",
+          "elapsed_seconds": 3715,
+          "allocated_CPUs": 2,
+          "node": "compute-0-7"
+        }
+      ],
+      "forward_continuation": {
+        "job_id": 4538515,
+        "state": "PENDING",
+        "dependency": "afterany:4537597",
+        "requested_CPUs": 2,
+        "time_limit_seconds": 4200,
+        "configuration": "configs/d_recipe/diagnostics/D-R1_seed0_3M_forward_capacity_resume.json",
+        "same_original_output": true,
+        "wait_for_capacity": true,
+        "source_commit": "90ccd03cc437b0adea929442d8487f657d3adaaf"
+      },
+      "capacity_wait_tests": {
+        "new": 6,
+        "existing_resources": 23,
+        "node": "compute-0-16",
+        "steps": [
+          "4538446.18",
+          "4538446.19"
+        ],
+        "exit": "0:0",
+        "full_regression_repeated": false
+      },
+      "geometry_timebox": {
+        "cumulative_limit_seconds": 14400,
+        "closed_forward_prefix_seconds": 3715,
+        "remaining_before_continuation_seconds": 10685,
+        "actual_failures": 1,
+        "transfer_and_CPU_held": true,
+        "scope": "Recompute remaining allowance from actual closed phases before releasing transfer and CPU statistics"
+      },
+      "cached_layer_GPU": {
+        "job_id": 4537597,
+        "status": "RUNNING",
+        "main_layer_reused": 6,
+        "new_probe_layers": [
+          3,
+          4,
+          5
+        ],
+        "encoder_forward_repeated": false,
+        "CPU_statistics_job": 4537598
+      },
+      "decision_input": false
     }
   },
   "stage0": {
