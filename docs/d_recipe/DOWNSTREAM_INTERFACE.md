@@ -26,7 +26,7 @@ B6 曾在 `source_structure` 后执行 `RemoveHs`，不能未经生产步骤的�
 
 D3 继续由基准窗口按 S′ UFF 口径提供：`benchmark_B0_20261119/directive19/uniform_Sprime/geometry/shared_v1/queue.manifest.json`、`geometry_bindings.parquet`，使用封存产品的 `SharedB0Reader.get(dataset, record_id)` 与原 `model_atom_to_source`。不拿历史参考 XYZ 替代 UFF，不读取未封存 P′ 库。
 
-## 当前生产状态（2026-11-20 20:12 CST）
+## 当前生产状态（2026-11-22 11:42:50 CST）
 
 | 产物 | 实际证据 | 状态 |
 | --- | --- | --- |
@@ -34,8 +34,8 @@ D3 继续由基准窗口按 S′ UFF 口径提供：`benchmark_B0_20261119/direc
 | 开发原D20复制 | 4537508.step5；15518分子、20字段/17启用 | 已关闭；未重算或拟合 |
 | 开发QM9原生D3 component | 4537546；10473成员、41个关闭批次 | RAW_COMPLETE；仅QM9 |
 | 开发ExpansionRx D3 | 原5278成员；缺H政策待用户答复 | 尚未生产 |
-| 开发L1/L2 | 4537517，afterok:4537508 | 等待全TRAIN字段和参数 |
-| 基准L2 | 4537537，afterok:4537508 | 等待同一全TRAIN产物 |
+| 开发L1/L2 | 原4538204 COMPLETED0:0，612秒、15518唯一分子、各61批 | 已关闭；191/1314启用，原TRAIN参数复用 |
+| 基准L2 | 原4538205 COMPLETED0:0，7842秒、194729唯一分子、761批 | 二维源已关闭；下游接收pending，C1未完成 |
 | 基准原D20绑定/L1完整交付 | 4537426、4537509均未解决 | UNRESOLVED；停止此问题修复 |
 
 开发D20清单：`/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/development/D20_descriptors/manifest.json`。宽库配置`configs/data_d_descriptors/development_export.json`只导L1/L2并引用这个原D20清单，不重复复制D20。新字段一律使用全TRAIN的唯一有序字段、启用列和参数，保F64原值及uint8状态；不在下游重新筛选或拟合。闭合B6兼容列按原member_uid/source_ordinal复用，其余由相同版本程序计算。
@@ -58,7 +58,7 @@ QM9 component明确`complete_source_population=false`，全源15751成员。Expa
 
 模型/预测与既有bootstrap结果关闭后直接续用，A不重复抽样；C对两种B只消费对齐的原1000次抽样给描述性差值区间，不触发配方或额外seed。最终9M源与冻结选定3M臂名显式对应9M-D-R0或9M-D-final。H0保留开关默认关闭，只在登记了未来存储峰值的选定原末层前向中启用。
 
-270项新逻辑已通过4537544（请求1CPU/实际2逻辑CPU，7秒、exit0）。全量字段/统计冻结、64分子真实接收、开发A/B/C和最终C1均未完成；实现和单元测试不替代这些实际结果。
+270项新逻辑已通过4537544（请求1CPU/实际2逻辑CPU，7秒、exit0）。全量字段与唯一TRAIN统计已冻结；用户批准的原7/65项缩尾零尺度补充过滤已执行，真实64分子逐头接收4538200两库均ACCEPTED（L1 197/197头、L2 1320/1320头）。开发A/B/C和最终C1仍未完成；实现和单元测试不替代这些实际结果。
 2026-11-21T22:06:20.602716+00:00：开发双库原导出4538204/CPU10/3CPU实际COMPLETED0:0，612秒，15518唯一分子，两库61批均关闭；L1 191/217、L2 1314/1613，沿用原TRAIN参数/原成员划分、不读任务标签、不重拟合。原source_processing_complete=true、reception_acceptance=pending、current_C1_complete=false如实保留；该二维闭合不替代待定D3/H政策或最终A/B/C。基准L2 4538205继续RUNNING。
 
 2026-11-22T00:07:24.373897+00:00：基准独立L2原导出4538205/CPU10/4CPU实际COMPLETED0:0，7842秒（分配CPU 8.713333333333333核时，TotalCPU未知），194729唯一分子/761批，1314/1613启用。原TRAIN参数、成员划分不改；原source_processing_complete=true，reception_acceptance=pending、current_C1_complete=false保留。原D20绑定未解决和H政策仍待定；该二维导出不构成基准接收或最终A/B/C完成。原清单已转录至数据分支，Root摘要results/d_recipe/benchmark_L2_export_20261122.json；现行36706053853B联合NFS预算不增。
