@@ -1486,3 +1486,5 @@ Original R1 layer3 score is closed: R3=0.40784337449791125, CI[0.394546946812646
 Preparation4538549 remains blocked before script entry. Its PID2827663 is slurmstepd with UIDs[0,1278,0,1278], start_ticks2244925324, not an ordinary owned userworker; no direct signal to it. Observed NFS/page waits do not establish the underlying cause, OOM or full disk. Admin kernel/slurmd/slurmctld/filesystem review is needed; no repeated diagnosis/resubmission on fault nodes, no drain bypass or service/spool changes. Node17 drain attribution is UNCONFIRMED. Existing root/system/inode/UID-quota/peer protections and proposed+2GiB activation gate remain; shared/node report mirroring waits for real write admission.
 
 [配方线 用户指示 2026-11-22 16:30 CST] 新增 docs/p_recipe/USER_DIRECTIVE_20261122B.md：F 微调评测（frozen/top2/full/scratch，T2 1M–9M、T1、T5、T6 9M，四任务三种子）、A1 读出噪声、A2 B4 组成信息、A3 B4 惩罚项大小、A5 P 对 P′ 同一 UFF 几何、A6 QM9 3 万标签、B 去 B4（I1）；最终 P 报告在其后生成。模型容量研究另开 p-capacity-20261122，配方线不执行。
+
+[p-capacity 开线 2026-11-22 16:30 CST] 从 p-recipe 冻结配方分出新侧线 p-capacity-20261122，任务书 docs/p_capacity/TASKBOOK.md：S、M 两个规模的 WSD 运行（9M + 3M 分支），只用 24GiB 卡，优先级低于配方线 USER_DIRECTIVE_20261122B。其他线无需动作。
