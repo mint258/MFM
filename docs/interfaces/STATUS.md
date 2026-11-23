@@ -1259,3 +1259,14 @@ GPU7本线两个writer4539204/4539285已全部关闭，释放本线原8GiB未来
 原GPU6/4539284几何仍RUNNING，18:15原cursor26272/同一固定5000VAL队列；CPU13原传输4539286→统计4539287仍PENDING依赖。直接引用既有固定周父记录：同队列R0前向3388秒、传输29秒、统计4446秒；未重测旧遥测/数组/统计。当前前向1h/300秒收尾实际3300秒工作窗偏短，已发布仅在原安全终结、子树实证退出且cursor未完时的原cursor续接准备，尚未提交，不改/停当前任务。条件分支时限为初始1h+续15m(180秒收尾)+传输30m(300秒)+统计2h15m(900秒)=4h，原科学配置/同scope/已关闭前缀/随机状态不变。若原FORWARD_COMPLETE/C0，沿现有依赖，不使用备用；只有真实未成功且owner/PENDING0核实后才一次退役未开始的旧依赖。见configs/d_recipe/diagnostics/G1_conditional_cursor_20261123.json，最多两失败，不把75/TIMEOUT当完成。
 
 L1/4539166、L2/4539169仍原CPU11各1CPU，18:19原闭合700928/1194228及428544/1194228；完整TASKBOOK后续条件臂/冷9M/最终A-B-C/基准/成本/一次完整回归和两个PR继续，最终配方未冻结。其它线/在跑任务不改。
+
+
+## 2026-11-23 · D Root：G1原前向闭合与CPU13统计接续
+
+已依1206f731预先发布的同cursor方案完成原前向收尾：4539284在预留窗口返回75:0/3288秒×2CPU，原cursor47456，resident已reap/children=[]且原root2117304/2117307/2117339全部ABSENT，不是科学完成、未到Slurm TIMEOUT。GPU6健康IDLE/零CUDA上下文、Root52357775360B/inode36540107且实际/tmp同xfs root核实后，原4539290 C0/50秒×2CPU从47456续到47698并发布同一5000VAL/F64/layers3–6的FORWARD_COMPLETE。原4539291 CPU13闭合cache转运C0/32秒×1CPU；两者各自原resident也reap0/children=[]、原root均ABSENT。没有重算已关闭前缀/复制原数据库/新科学条件。
+
+旧4539286/4539287在zixiao/PENDING/0秒核查后仅一次取消，实际CANCELLED by1278/0秒，无科学执行。新CPU13/4539292是相同原diagnostic_statistics，1CPU/2h15、真实EndTime21:01:01CST、提前900秒，实际resident Root64381878272B/inode36542435准入，当前RUNNING。原前向manifest statistics_complete=false仍正确保留；最终几何统计未完成。整项初始1h+续15m+转运30m+统计2h15m=4h、两失败规则保持，原P函数/F64/1000分子bootstrap/seed20261025不变，源见d-recipe/results/d_recipe/G1_forward_and_transfer_20261123.json与诊断执行口径。
+
+GPU6本线所有writer已关闭，现与GPU7一样仅释放本线8GiB未来写入，原几何/开发层cache均为实存保留、不删除或重复抵扣；同行各8GiB+联合日志各128MiB仍保留，各节点剩余future8724152320B。CPU13/CPU11原共同future各38788923392B、D联合NFS42074762973B、系统max10GiB/10%、inode/fresh5秒UID100GB保护保持；CPU13统计尚在运行，自己的几何/统计预留不释放。所有自有进程UID/PID/cgroup收尾由原复制resident管理，无KILL/管理员操作。共享实际容量事件，不声称其它会话已读/部署。
+
+G1主实验TIE、CI不跨0→保留D3、无seed1保持；缓存层诊断已COMPLETE。原L1/4539166及L2/4539169仍CPU11各1CPU，完整TASKBOOK的宽库/条件臂/冷9M/最终A-B-C/基准/成本/一次回归与两个未合并PR继续，最终配方未冻结，不动其它线/在跑训练。

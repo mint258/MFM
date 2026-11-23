@@ -3892,17 +3892,17 @@
       "actual_node_production_admission_still_required": true
     },
     "reference_producer_progress": {
-      "observed_at_UTC": "2026-11-23T10:19:49Z",
+      "observed_at_UTC": "2026-11-23T11:04:51Z",
       "node": "compute-0-11",
-      "actual_root_available_bytes": 62492663808,
-      "actual_root_inodes": 36569850,
+      "actual_root_available_bytes": 62050779136,
+      "actual_root_inodes": 36569847,
       "L1": {
         "job_id": 4539166,
         "status": "COLLECTING",
-        "closed_rows": 700928,
+        "closed_rows": 744960,
         "total_rows": 1194228,
         "molecular_fields": 197,
-        "producer_elapsed_seconds": 48469.64149595052,
+        "producer_elapsed_seconds": 51205.07591383904,
         "actual_EndTime_CST": "2026-11-25T04:50:12",
         "root_available_at_entry_bytes": 69942861824,
         "local_peak_bytes": 4294967296,
@@ -3919,10 +3919,10 @@
       "L2": {
         "job_id": 4539169,
         "status": "COLLECTING",
-        "closed_rows": 428544,
+        "closed_rows": 453376,
         "total_rows": 1194228,
         "molecular_fields": 1320,
-        "producer_elapsed_seconds": 48330.700688794255,
+        "producer_elapsed_seconds": 51053.82388758287,
         "actual_EndTime_CST": "2026-11-25T04:52:37",
         "root_available_at_entry_bytes": 69932027904,
         "local_peak_bytes": 17179869184,
@@ -3979,8 +3979,8 @@
       "scientific_configuration_unchanged": true
     },
     "reference_entry_status": "Original entry scope initialization repaired; both current original collectors positive closed cursor",
-    "next_GPU_check_UTC": "2026-11-23T10:54:43Z",
-    "next_reference_progress_check_UTC": "2026-11-23T10:49:49Z",
+    "next_GPU_check_UTC": "2026-11-23T11:34:49Z",
+    "next_reference_progress_check_UTC": "2026-11-23T11:34:51Z",
     "last_GPU_capacity_check_UTC": "2026-11-22T22:51:36Z",
     "cost_accounting_root_log_forecast": "Same128MiB joint future: two original reference logs<=2MiB each, six prospective Stage2 statistics/comparison logs<=8MiB each, total<=52MiB. Closed cost/old logs remain charged by actual df. Actual node guard retains conservative36GiB+128MiB CPU-root upper bound.",
     "CPU_continuations": {
@@ -4091,20 +4091,18 @@
       "other_nodes": "Only current sinfo membership/CPU state queried this round; stopped further candidate probes once preferred GPU7 admitted"
     },
     "reference_live_queue_observation": {
-      "observed_at_UTC": "2026-11-23T09:30:17.000Z",
+      "observed_at_UTC": "2026-11-23T11:04:49Z",
       "L1": {
         "job_id": 4539166,
         "state": "RUNNING",
         "node": "compute-0-11",
-        "elapsed": "12:40:06",
-        "reason": "compute-0-11"
+        "elapsed": "14:14:39"
       },
       "L2": {
         "job_id": 4539169,
         "state": "RUNNING",
         "node": "compute-0-11",
-        "elapsed": "12:37:41",
-        "reason": "compute-0-11"
+        "elapsed": "14:12:14"
       }
     },
     "required_target_reports": {
