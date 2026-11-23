@@ -1653,3 +1653,12 @@ Lustre实余0.994GiB后，原九个R3预测与原manifest转至/share，H0原缓
 注册full12已按原四任务/三微调种子提交普通sbatch4539312–4539323，node6与7各一条afterok顺序队列、同卡同时一项，16CPU/64GiB，不exclusive；CPU原汇总4539329等全部完成。GPU实际UUID分别GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef、GPU-9db54192-dd3f-3177-e56f-dcd161ff932c，启动前均IDLE/48freeCPU、零CUDA/5MiB；Root实际余量52.33GB/42.35GB，系统和已发布同行future保留。新入口真实35分钟TimeLimit内提前900秒、原完整断点续接和TERM/join/reap；不靠TIMEOUT/强杀收尾。所有后续I1新输出/share固定32GiB未来预留，原Lustre清单未来为0，既有物理输出不删/不重复释放。CPU11三种原统计峰值合计不超过本线24GiB RAM声明，真实UID/fresh5秒及同行预留沿9aedfe处理。
 
 原半小时Slurm/claim观察器PID354632/start8413032111仍在；第126轮全部本地控制查询returncode0、实际reap，未重启，不自动提交或操作其它线进程。全部26项仍active；D第5节A4继续等待外部闭合交付，PR7保持draft，最终REPORT/权重SHA未生成。共享实际占用和容量，不声称其它窗口已读或部署。
+
+
+## 2026-11-23 · D Root：G1全部规定诊断已闭合
+
+原CPU13/4539292 F64统计COMPLETED0:0/4027秒×1CPU，固定5000VAL/47698构象/层3–6/1000配对分子bootstrap seed20261025，原summary COMPLETE。实际resident原root1757811/1757777均reap0、/proc ABSENT、children=[]，早于900秒收尾窗口，无TIMEOUT/KILL。末层原CEV=0.4075617657426487、CVF=0.00489512801748446、CVF_res=0.008215964289908527；原均值/95%CI与PR见d-recipe/results/d_recipe/G1_geometry_native_summary_20261123.json，执行闭合及原阶段成本见G1_geometry_3M_20261123.json。未重算/重复bootstrap或独立QA；原eigenvalues/抽样数组留在实际原文件。
+
+原3288秒75失败前缀、50秒同cursor续接、32秒转运及4027秒统计累计7397秒，4h声明与两失败规则保持。缓存层3–6早已COMPLETE，现G1全部规定诊断闭合；原主TIE、CI不跨0、保留D3/无seed1不变，R1 F64 UR两失败不重试。前向manifest statistics_complete=false仍为其前向producer原事实，独立统计summary声明最终COMPLETE。
+
+CPU11 L1/4539166、L2/4539169各1CPU仍原完整TRAIN A1，不停止/迁移；NFS42074762973B、CPU11/13原共同future38788923392B暂保守保留，GPU6/7实存cache不删除、同行future不动。CPU13本线writer已闭合，但本次不下调其原future，后续实际新任务仍核对健康、目标盘/inode/UID/同行与系统底线。最终配方未冻结，宽库/条件臂/冷9M/最终A-B-C/基准/成本/一次完整回归/两个未合并PR继续；无新增科学审批项。不声称其它窗口已读/部署。
