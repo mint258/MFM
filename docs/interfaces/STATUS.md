@@ -1170,3 +1170,12 @@ D-R0/4538566 GPU4、D-R1/4538567 GPU5原训练汇总均3000000样本/93750更新
 本卡原实际StateIDLE、48可分配CPU、零CUDA上下文、显存5/24576MiB；Root/tmp同盘可用45430296576B/inode36529024，MemAvailable388872864kB。resident实际准入Root45429927936B/inode36529018、真实TimeLimit48h/EndTime11-25 06:53:49 CST，提前900秒完整状态安全收尾，TERM/join/reap自有子树，不靠TIMEOUT/KILL。GPU7共同Root未来17314086912B（原8GiB自己+8GiB同行+128MiB日志），D联合NFS42074762973B与CPU11未来38788923392B均不增；fresh5秒UID、100GB及系统max10GiB/10%保护保留。
 
 CPU11原L1/4539166、L2/4539169仍RUNNING；06:40 CST原游标84992/1194228和57344/1194228。仅原采集粗估24日06:20/17:50 CST，之后拟合另计，预算/阈值不改。宽库逐字段R²与截断计数直接用原fit.fields，不新增数组扫描；SASA旧报告复用。完整任务仍active：后续全部条件种子/K1/规定seed0诊断、冻结、冷9M、最终A/B/C及基准、成本、一次完整默认回归/仓库检查、Root与数据两个未合并PR保持。其他会话是否读到/部署不作声称。
+
+
+## 2026-11-23 · D Root：G1原3M闭合与终点诊断
+
+原D-G1 seed0/3M、主统计及同seed R1配对4539204/4539205/4539206均C0，实际resident children=[]、原root PID均ABSENT。原R3=0.41941109959286943，Δ=0.016946340654004077、95%CI[0.0038709507854383872,0.029767100949210194]、τ=0.020970554979643473，TIE、无seed1。CI未跨0，依任务书删项条件保留D3；最终配方未冻结，不增加臂/重采样。原训练/1M2M3M元信息/VAL与判定见d-recipe/docs/d_recipe/STAGE2_G1_RESULTS.md。
+
+规定的G1固定5000VAL/F64/层3–6终点诊断已绑定原执行器与source-independent resident，尚未提交：几何GPU6/RTX3090 UUID GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef/2CPU→CPU13各1CPU；层读出原GPU7/UUID GPU-9db54192-dd3f-3177-e56f-dcd161ff932c/5CPU→CPU13。GPU6实际Root57462898688B/inode36540116，GPU7 Root42347425792B/inode36529045，CPU13 Root69513863168B/inode36542451；两GPU均IDLE/零CUDA上下文/5MiB，CPU13 MIXED/64freeCPU，/tmp实际findmnt均同root xfs。新GPU6未来8GiB私有+8GiB同行+128MiB日志=17314086912B；GPU7相同既有预算不增、仅消费闭合开发层缓存；CPU13未来12GiB私有+16GiB同行+8GiB余量+128MiB日志=38788923392B，系统max10GiB/10%另留。原固定队列5,131,075,584B几何值及4,349,591,552B rsync临时均在私有12GiB内，不复制数据库/原开发层缓存，不新增前向QA。
+
+联合NFS42074762973B与原CPU11未来38788923392B保持。新node声明在d-recipe/configs/d_recipe/diagnostics/G1_node_storage_20261123.json；入口和运行中沿原fresh5秒UID/同行future/100GB/实际字节inode保护，几何及层诊断各累计4h、两失败UR，真实TimeLimit前预留300/900秒TERM/join/reap，不靠TIMEOUT/KILL，不碰他人或R1已UR几何。原L1/4539166、L2/4539169各1CPU仍CPU11 RUNNING；完整条件臂/冷9M/A-B-C/基准/成本/一次回归和两个PR目标保持。共享此容量声明，不声称其它会话已读/部署。
