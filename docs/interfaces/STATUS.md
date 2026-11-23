@@ -1480,3 +1480,12 @@ S-final=S-R1和G1的指定3M seed0层1–6曲线及F64 PR/CEV/CVF/CVF_res均已�
 冻结已发布2f3a57d7之后，新9M-S-B0已从共同seed0随机初始化在22号5090原生训练，UID1278/PID163055/start_ticks56816353，真实待机4539348；不同的9M-S-final在20号首张48GB4090、真实Slurm4539349，UID1278/PID268494/start_ticks62899419。两条均无resume、各自9M余弦日程、B32/FP32，TF32/混精/累积/逐层重算关闭；14reader/16CPU需求，原生没有已分配Slurm CPU，待机排队不计已分配GPU成本。实际有限48h及900s收尾，未满9M时只从该9M完整状态安全续接。
 
 原首1000真实步分别73.66894113022289和62.102020938520816样本/秒；整卡点采样均功耗425.8221428571428W/14条、299.9923529411765W/17条。各自9M p99=43.51122390747073、48.20804199218751，原2813观测/150016样本冻结，不借3M阈值。来源与开关见9M_STARTUP.md及*s0_9M_initial_hardware.json。00:45实际样本188096/150528，未把起始硬件记录当9M结果。只剩规定两9M及正式配对评测、最终报告/成本、一次完整回归与仓库检查、未合并PR；全S目标ACTIVE，1800秒监控继续。S后续写入均在原/share目录并沿真实UID/同行future/实际字节inode保护，不新增Lustre写入，不改其他线运行或预留。
+
+
+## 2026-11-24 · D Root：L1原A1闭合后的三百万已在GPU5启动
+
+CPU11原L1 A1/4539166 COMPLETED0:0、79720秒×1CPU，完整1194228 TRAIN/197字段原FROZEN_FIT、unresolved=[]、original_D4_modified=false。原参数reference/L1/label_parameters.json与逐字段R²/有效数/±6截断原报告均已闭合；actual resident root4176565 reap0、/proc ABSENT、children=[]。不重拟合旧D4、不重试已UR可选适配器，不读取旧raw数组做独立QA。
+
+实际GPU5 SlurmIDLE/48空CPU、UUID GPU-dac07d74-6269-c7db-8832-340dd3c0b377 RTX3090，24576MiB仅5MiB、零CUDA计算上下文，UID1278、Root57211424768B/total75125227520/inode36540394，/tmp同xfs root。登记D L1自身8GiB+保守同行8GiB+128MiB日志=17314086912B，系统max10GiB/10%另留；已有cache全保留。新L1 fresh seed0/3M/A1+B3+B4/B32/5CPU/3workers入口复制原source-independent resident，48h提前900秒，D3/原子SASA块与原绝对权重/旧D4/±6/新p99窗口不变。源5ded3205已先发布，原GPU5/4539360现RUNNING（5CPU/3workers），原日志1194228 TRAIN/B32/micro32/PM7；真实End26日03:10:57CST、900秒收尾。CPU11统计4539361 afterok4539360→比较4539362 afterok4539361，均PENDING/Dependency、0秒科学执行，未为等待GPU预占CPU；实际入口继续核验健康/UUID/owner和root/NFS/fresh5秒UID/同行future后才执行，不把准入当运行结果。
+
+原CPU主统计/同seed R1配对各1CPU绑定健康CPU11，8h/4h/900秒，依赖新GPU/新统计，原R1控制复用。CPU11/13原future38788923392B仍保守保留，D联合NFS42074762973B不增（已含本seed0模型池）；L2/4539169仍原CPU11全TRAIN，不停或迁移。当前S已公告两9M在20/22、P尾部无活动5声明，实际5无上下文；不动其他owner或视PENDING未来任务为活动预留。G1全部规定结果闭合/TIE保留D3无seed1；最终配方仍未冻结，剩余全TASKBOOK范围不缩减。源见d-recipe/results/d_recipe/L1_A1_closure_and_GPU_admission_20261124.json与L1_original_A1_fit_20261124.json。不声称其它窗口已读或部署。
