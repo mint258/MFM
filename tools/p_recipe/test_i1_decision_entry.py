@@ -15,7 +15,7 @@ def test_deletion_TIE_and_LOSS_are_not_addition_arm_rules():
  assert recommendation(primary('tie',-.01,.01))==('COMPLETE','DROP')
  assert recommendation(primary('tie',-.02,-.001))==('COMPLETE','RETAIN')
  assert recommendation(primary('loss',-.08,-.04))==('COMPLETE','RETAIN')
- assert recommendation(primary('tie',.001,.009))==('WAITING_USER_RULE_INTERPRETATION',None)
+ assert recommendation(primary('tie',.001,.009))==('COMPLETE','RETAIN')
 
 def test_sources_preserve_own_budget_and_only_B4_changes():
  norm='window2_TRAIN_normalization_parameters_20261107_v1'

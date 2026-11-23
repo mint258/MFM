@@ -11,9 +11,10 @@ def recommendation(primary):
  if verdict=='loss':return 'COMPLETE','RETAIN'
  if decision['ci_lower']<=0<=decision['ci_upper']:return 'COMPLETE','DROP'
  if decision['ci_upper']<0:return 'COMPLETE','RETAIN'
- # 22B does not enumerate a TIE whose entire CI is positive. Keep the raw
- # registered result, and obtain clarification only if this actual case occurs.
- return 'WAITING_USER_RULE_INTERPRETATION',None
+ # Nov19 section2 permits a TIE deletion only when its R3 CI spans zero;
+ # Nov22B preserves the existing decision rules. A wholly positive TIE
+ # below the WIN threshold therefore retains B4 under that same restriction.
+ return 'COMPLETE','RETAIN'
 
 def validate_native_sources(candidate,baseline,seed):
  if (candidate['arm']!='I1' or baseline['arm']!='F2' or any(c['samples']!=3000000 or c['seed']!=seed or c.get('budget_curve') or c.get('source_training_budget',3000000)!=3000000 for c in [candidate,baseline])):

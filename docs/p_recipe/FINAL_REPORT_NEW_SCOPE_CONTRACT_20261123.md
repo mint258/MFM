@@ -14,7 +14,7 @@ I1 正在完成自身预算 3M，只有关闭 B4 这一项配方变化。基线�
 
 I1_decision_draft.json 当前 ready=false。真实完整 3M 断点、原 R1/R3 与 CPU 主统计完成后，绑定真实配置并启用 i1_decision_entry.py。GPU 入口只执行原 H0/R3；缓存 H0 后，原 R1 和全部 bootstrap 在 CPU 节点完成。
 
-判定直接调用原 p_recipe_seed_policy.combined_seed_decision，复用已配对的 1,000 个分子 bootstrap 值，不生成新 draw。只有 R3 seed0 WIN 触发注册的条件 seed1；R1 不触发。seed0 比较保存后条件确认直接复用。两种子确认 WIN 建议 DROP；TIE 且 CI 跨 0 建议 DROP；TIE 且 CI 整体负或 LOSS 建议 RETAIN。若实际出现未枚举的 TIE 且 CI 整体正，保留结果等待用户解释该情形，其他工作继续。配方是否采纳留用户决定，不自行修改冻结配方。
+判定直接调用原 p_recipe_seed_policy.combined_seed_decision，复用已配对的 1,000 个分子 bootstrap 值，不生成新 draw。只有 R3 seed0 WIN 触发注册的条件 seed1；R1 不触发。seed0 比较保存后条件确认直接复用。两种子确认 WIN 建议 DROP；TIE 且 CI 跨 0 建议 DROP；TIE 且 CI 整体负或 LOSS 建议 RETAIN。11-19 第 2 节规定平局时只有 CI 跨 0 才采纳删项，11-22B 保留现行判定规则。因此 CI 整体正但幅度未达到 WIN 的 TIE，也按该限制保留 B4。配方是否采纳留用户决定，不自行修改冻结配方。
 
 公开的 I1_decision.json 由闭合的私有 I1_decision/primary.json 转录，包含候选/基线实际自身训练预算、原判定、条件种子闭合、建议、来源身份和原始裁剪报告。WAITING 状态不能写成 COMPLETE。
 
