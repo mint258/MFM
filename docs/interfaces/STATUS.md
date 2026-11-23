@@ -1329,3 +1329,5 @@ L2 A1两次实际失败后已依TASKBOOK3.5未解决，D-L2从未启动且不再
 原L1 Guardian确曾DISK_TRANSPORT_PAUSED：PID1491773，available313209810944B/required313356249146B、样本71488。它在自行读取新live计划并完整通过原准入后自动记录DISK_TRANSPORT_RESUMED，同PID1491773；后续原losses.csv已75456样本/2624.544632997364循环秒，未发人工信号、未重启/重新初始化或加载checkpoint，也未重试L2。原暂停与分配时长全留成本，不伪造正常TIMEOUT。源见d-recipe/results/d_recipe/unused_L2_slots_retired_and_L1_native_resume_20261124.json；真实L1 GPU4539360/原CPU依赖4539361→4539362继续，CPU11/13原root future仍保守保留。最终配方未冻结，所有后续既定关卡/冷9M/最终A-B-C/基准/成本/一次完整回归及两个未合并PR全范围保持。不声称其它窗口已读/部署。
 
 [D线 用户指示 2026-11-24 04:20 CST] 新增 docs/d_recipe/USER_DIRECTIVE_20261123.md：补做全量微调（D-R0、D-R1、D-G1 的 3M，以及后续 L1、L2、K1 与 9M），判定规则仍按冻结 R3。
+
+[D线 用户指示 2026-11-24 04:30 CST] 新增 docs/d_recipe/USER_DIRECTIVE_20261123B.md：scaling 实验——两条 9M 的 1M–8M 断点补冻结读出与全量微调；D-final 冻结后用 P 的 T5/T6 同一批分子在 25 万、50 万上各跑一条 9M。
