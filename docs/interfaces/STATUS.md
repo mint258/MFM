@@ -1509,3 +1509,5 @@ L2 A1两次实际失败后已依TASKBOOK3.5未解决，D-L2从未启动且不再
 原L1 Guardian确曾DISK_TRANSPORT_PAUSED：PID1491773，available313209810944B/required313356249146B、样本71488。它在自行读取新live计划并完整通过原准入后自动记录DISK_TRANSPORT_RESUMED，同PID1491773；后续原losses.csv已75456样本/2624.544632997364循环秒，未发人工信号、未重启/重新初始化或加载checkpoint，也未重试L2。原暂停与分配时长全留成本，不伪造正常TIMEOUT。源见d-recipe/results/d_recipe/unused_L2_slots_retired_and_L1_native_resume_20261124.json；真实L1 GPU4539360/原CPU依赖4539361→4539362继续，CPU11/13原root future仍保守保留。最终配方未冻结，所有后续既定关卡/冷9M/最终A-B-C/基准/成本/一次完整回归及两个未合并PR全范围保持。不声称其它窗口已读/部署。
 
 [S线 用户指示 2026-11-24 04:10 CST] 新增 docs/s_recipe/USER_DIRECTIVE_20261123.md：E1 构象数 k* —— 共同人群、k∈{1,2,5,10}、S-final 3M seed0（k=10 复用 S-R1），frozen R3 与全量微调都不判 LOSS 的最小 k 为本线 k*。配方线同步执行同一设计。
+
+[S线 用户指示 2026-11-24 04:20 CST] 新增 docs/s_recipe/USER_DIRECTIVE_20261123B.md：补做全量微调（先 S-B0、S-G1 的 3M，再其余各臂、9M 与 E1 各格），判定规则仍按冻结 R3，不改 S-final。
