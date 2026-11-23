@@ -864,3 +864,14 @@ CPU11原L1/4539166、L2/4539169仍RUNNING；06:40 CST原游标84992/1194228和57
 规定的G1固定5000VAL/F64/层3–6终点诊断已绑定原执行器与source-independent resident，尚未提交：几何GPU6/RTX3090 UUID GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef/2CPU→CPU13各1CPU；层读出原GPU7/UUID GPU-9db54192-dd3f-3177-e56f-dcd161ff932c/5CPU→CPU13。GPU6实际Root57462898688B/inode36540116，GPU7 Root42347425792B/inode36529045，CPU13 Root69513863168B/inode36542451；两GPU均IDLE/零CUDA上下文/5MiB，CPU13 MIXED/64freeCPU，/tmp实际findmnt均同root xfs。新GPU6未来8GiB私有+8GiB同行+128MiB日志=17314086912B；GPU7相同既有预算不增、仅消费闭合开发层缓存；CPU13未来12GiB私有+16GiB同行+8GiB余量+128MiB日志=38788923392B，系统max10GiB/10%另留。原固定队列5,131,075,584B几何值及4,349,591,552B rsync临时均在私有12GiB内，不复制数据库/原开发层缓存，不新增前向QA。
 
 联合NFS42074762973B与原CPU11未来38788923392B保持。新node声明在d-recipe/configs/d_recipe/diagnostics/G1_node_storage_20261123.json；入口和运行中沿原fresh5秒UID/同行future/100GB/实际字节inode保护，几何及层诊断各累计4h、两失败UR，真实TimeLimit前预留300/900秒TERM/join/reap，不靠TIMEOUT/KILL，不碰他人或R1已UR几何。原L1/4539166、L2/4539169各1CPU仍CPU11 RUNNING；完整条件臂/冷9M/A-B-C/基准/成本/一次回归和两个PR目标保持。共享此容量声明，不声称其它会话已读/部署。
+
+
+## 2026-11-23 · D Root：G1终点诊断实际启动与原成本闭合
+
+原D-G1主3M、主统计及配对已全部C0并实际reap/children=[]；配对TIE且CI不跨0，按删项规则保留D3，无seed1。原R3/判定及一次成本见[Root报告](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/STAGE2_G1_RESULTS.md)。G1 RTX3090原一次成本4539289/CPU13 C0/8秒×1CPU，原root1757127已reap/ABSENT：80.61110553165612样本/秒、整卡点采样均功耗228.29927302100162W/1238条、GPU父分配10.472777777777777卡时；训练活跃采样窗不含最终读出、父分配墙时含读出，不是积分能耗。原周快照和旧遥测未重做。
+
+已按已发布7fab219的五份原执行器配置/复制resident提交终点描述诊断：GPU6/4539284几何前向(2CPU、真实1h/EndTime18:45:16CST、提前300秒)，原cursor在17:46已608；GPU7/4539285缓存层3–5读出(5CPU、45m/EndTime18:30:26、提前300秒)，两者09:56UTC仍RUNNING。CPU13传输4539286(afterok4539284、30m/300秒)→几何统计4539287(afterok4539286、2h30m/900秒)；CPU13层统计4539288(afterok4539285、3h15m/900秒)，各1CPU，当前PENDING Dependency。主层6已闭合直接复用，不重复编码器前向；首个预检OWNED_TREE_REAPED不代表完整新诊断退出。
+
+实际新入口已通过目标Root/健康/UUID和fresh联合准入：GPU6 Root57462800384B/inode36540110、GPU7 Root42347175936B/inode36529039。此前声明的GPU6/7各17314086912B、CPU13 Root38788923392B、CPU11原38788923392B、D联合NFS42074762973B保持；真实系统max10GiB/10%、同行future/UID100GB/fresh5秒及所有旧实存保留。几何和层诊断各分配时限合计4h，两失败UR，不绕drain、不KILL、不改其它线运行。所有配置及登记见[Root诊断口径](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/G1_DIAGNOSTIC_EXECUTION.md)。
+
+L1/4539166与L2/4539169原CPU11各1CPU仍RUNNING，17:48原闭合670976/1194228及411904/1194228；完整原A1、条件臂/种子、冷9M、最终A-B-C/基准/全部成本/一次回归及两个未合并PR目标继续，最终配方未冻结。共享实际节点占用和容量，不声称其它会话已读/部署。
