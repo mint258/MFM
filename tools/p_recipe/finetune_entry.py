@@ -106,7 +106,8 @@ def validate_output_filesystem(output, mount, stat=os.stat):
             if parent.parent == parent:
                 raise ValueError("Output ancestor is unavailable")
             parent = parent.parent
-    if actual.st_dev != stat(Path(mount)).st_dev:
+    canonical = Path(shared_guard.disk_probe_target(mount)) if mount == "/share" else Path(mount)
+    if actual.st_dev != stat(canonical).st_dev:
         raise ValueError("Canonical mount does not identify the actual output filesystem")
     return parent
 

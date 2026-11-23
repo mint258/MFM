@@ -86,7 +86,7 @@ def run(c):
                     if path.is_file():return original_features(*args,**kwargs)
                     payload=original_features(dict(configuration,persist_features=False),dataset,view,**kwargs)
                     boundary()
-                    from noise_entry import atomic_checkpoint
+                    from finetune import atomic_checkpoint
                     path.parent.mkdir(parents=True,exist_ok=True)
                     atomic_checkpoint(path,payload)
                     return payload

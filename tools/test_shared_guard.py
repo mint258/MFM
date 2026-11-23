@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import shared_guard as g
@@ -14,6 +15,8 @@ GIB = g.GIB
 class SharedGuardTests(unittest.TestCase):
     def setUp(self):
         self.dir = Path(tempfile.mkdtemp())
+        quota = patch.object(g, 'uid_quota_status', return_value=dict(available=10**15, source='test fixture', uid=os.getuid(), observed_time=0))
+        quota.start(); self.addCleanup(quota.stop)
 
     def disk(self, available, total=100 * GIB, inodes=10**6):
         return dict(total=total, available=available, inodes=inodes, total_inodes=10**7)
@@ -100,7 +103,8 @@ class AutofsTargetTests(unittest.TestCase):
             self.assertEqual(g.disk_probe_target('/'), '/')
             self.assertEqual(g.disk_probe_target('/tmp'), '/tmp')
 
-    def test_share_key_stays_canonical_for_peer_accounting(self):
+    @patch.object(g, 'uid_quota_status', return_value=dict(available=10**15, source='test fixture', uid=os.getuid(), observed_time=0))
+    def test_share_key_stays_canonical_for_peer_accounting(self, quota):
         with tempfile.TemporaryDirectory() as registry:
             g.claim('peer', [dict(id='write', kind='shared_fs', path='/share', bytes=7*GIB)],
                     registry=Path(registry), now=0)
