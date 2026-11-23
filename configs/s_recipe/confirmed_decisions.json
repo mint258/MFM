@@ -1,9 +1,7 @@
 {
   "schema": "S_RECIPE_TWO_SEED_CONFIRMATIONS_V1",
-  "status": "PENDING",
-  "pending": [
-    "S-R1"
-  ],
+  "status": "COMPLETE",
+  "pending": [],
   "arms": {
     "S-N1": {
       "status": "COMPLETE",
@@ -56,8 +54,29 @@
       }
     },
     "S-R1": {
-      "status": "WAITING_SEED0",
-      "confirmed_WIN": false
+      "status": "COMPLETE",
+      "confirmed_WIN": false,
+      "seed_results": {
+        "0": {
+          "status": "COMPLETE",
+          "configuration": "S_R1_s0_3M",
+          "descriptive_only": false,
+          "R3": {
+            "delta": 0.0018599128572419632,
+            "ci_lower": -0.007478796723806323,
+            "ci_upper": 0.011392913900592234,
+            "tau": 0.022757499798674544,
+            "verdict": "TIE"
+          },
+          "R1": {
+            "delta": -0.019152711429997415,
+            "ci_lower": -0.03333209303670928,
+            "ci_upper": -0.005547062009402635,
+            "tau": 0.01124480959958076,
+            "verdict": "LOSS"
+          }
+        }
+      }
     },
     "S-R2": {
       "status": "COMPLETE",
@@ -90,7 +109,7 @@
     "selected": null
   },
   "deletion_adoption": {
-    "S-R1": false,
+    "S-R1": true,
     "S-R2": false
   },
   "recipe_frozen": false,
