@@ -16,11 +16,11 @@
   "schema": "D_REPRESENTATION_STATISTICS_CONFIGURATION_V1",
   "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/representation_statistics",
   "forward_manifest": "/tmp/d_recipe_20261120_D_G1_seed0_geometry/forward/manifest.json",
-  "local_node": null,
+  "local_node": "compute-0-13",
   "storage_peak_bytes": 42074762973,
   "local_storage_peak_bytes": 12884901888,
   "decision_input": false,
-  "storage_forecast_basis": "Unsubmitted CPU profile:12GiB local private geometry scope including closed5,131,075,584B cache, largest4,349,591,552B rsync temporary and buffer; conservative16GiB other local future+128MiB logs must be reconciled with actual target claims before transfer. Small original statistics/1000-bootstrap outputs write directly to shared stage2 metadata allowance, jointNFS42074762973B unchanged.",
-  "local_concurrent_bytes": 17179869184,
+  "storage_forecast_basis": "Actual CPU13 bound geometry private12GiB + conservative16GiB peer future +8GiB headroom +128MiB joint logs; outer and runtime budgets cover36GiB future+128MiB, system max10GiB/10% separately. Closed original5,131,075,584B cache and4,349,591,552B maximum rsync temporary remain inside private12GiB. Original cache only; source databases/native development cache not copied; sharedNFS42074762973B unchanged.",
+  "local_concurrent_bytes": 25769803776,
   "exit_root_log_future_bytes": 134217728
 }

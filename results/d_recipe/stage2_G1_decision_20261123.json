@@ -1,0 +1,35 @@
+{
+  "schema": "D_STAGE2_G1_DECISION_V1",
+  "arm": "D-G1",
+  "seed": 0,
+  "samples": 3000000,
+  "status": "SEED0_FINAL_TIE_D3_RETAINED",
+  "native_R3": {
+    "mean_normalized_improvement": 0.41941109959286943,
+    "bootstrap_ci": [
+      0.40561003405664,
+      0.4326545674356171
+    ]
+  },
+  "paired_R3": {
+    "delta": 0.016946340654004077,
+    "ci_lower": 0.0038709507854383872,
+    "ci_upper": 0.029767100949210194,
+    "verdict": "TIE",
+    "tau": 0.020970554979643473,
+    "seed1_required": false,
+    "bootstrap_draws": 1000,
+    "bootstrap_seed": 20261025,
+    "confidence": 0.95,
+    "authority": "docs/d_recipe/TASKBOOK.md:4.6"
+  },
+  "comparison_source": "results/d_recipe/comparisons/D-G1_vs_D-R1_seed0_3M.json",
+  "include_3d_in_recipe": true,
+  "remove_D3": false,
+  "deletion_rule": "Only a paired R3 CI crossing zero permits removing D3; the strictly positive native CI does not cross zero",
+  "seed1_required": false,
+  "reason": "Native delta below tau; TIE despite positive CI. Preserve exact deletion criterion; no additional veto or seed.",
+  "final_recipe_frozen": false,
+  "scientific_metrics_recomputed": false,
+  "diagnostics_are_descriptive": true
+}

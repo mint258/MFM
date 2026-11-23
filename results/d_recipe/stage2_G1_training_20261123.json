@@ -1,0 +1,297 @@
+{
+  "schema": "D_STAGE2_NATIVE_TRAINING_V1",
+  "arm": "D-G1",
+  "seed": 0,
+  "samples": 3000000,
+  "original_training_summary": {
+    "status": "COMPLETE",
+    "run": "d_recipe_20261120_D_G1_seed0_3M",
+    "samples": 3000000,
+    "updates": 93750,
+    "actual_samples": 3000000,
+    "seconds": 37215.715877037495,
+    "clipped_fraction": 0,
+    "clip": 21.64620223999024,
+    "batch_size": 32,
+    "microbatch_size": 32,
+    "GPU_peak_bytes": 8394418688,
+    "D_mask_counts": {
+      "source_valid": 51000000,
+      "source_missing": 0,
+      "random_dropped": 0,
+      "effective_valid": 51000000
+    },
+    "D_training_adapter": "existing_P_loop_with_D_data_model_and_loss_adapters",
+    "statistics_complete": true,
+    "predictions": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/readout/predictions.json",
+    "scores": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/readout/scores.json"
+  },
+  "summary_source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/summary.json",
+  "checkpoint_3M": {
+    "samples": 3000000,
+    "status": "PRODUCER_SAVED_FINAL",
+    "bytes": 203515379,
+    "mtime_UTC": "2026-11-23T09:14:42.0000000Z",
+    "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/samples_3000000.pt",
+    "observed_at_UTC": "2026-11-23T09:33:25.1179688Z",
+    "mtime_source": "SSHFS file metadata; one-second resolution",
+    "metadata_only": true,
+    "checkpoint_tensors_loaded": false,
+    "model_reloaded": false,
+    "producer_job": 4539204
+  },
+  "native_VAL_3M": {
+    "status": "PRODUCER_RECORDED",
+    "samples": 3000000,
+    "source": "results/d_recipe/training/d_recipe_20261120_D_G1_seed0_3M/VAL_original_units_3000000.csv",
+    "observed_at_UTC": "2026-11-23T09:33:25.1179688Z",
+    "native_field_rows": 24,
+    "primary_downstream_score": false,
+    "metrics_recomputed": false,
+    "D3_loss_enabled": false
+  },
+  "complete_jobs": [
+    {
+      "job": 4539204,
+      "node": "compute-0-7",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 37702,
+      "CPUs": 5
+    },
+    {
+      "job": 4539205,
+      "node": "compute-0-11",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 54,
+      "CPUs": 1
+    },
+    {
+      "job": 4539206,
+      "node": "compute-0-11",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 15,
+      "CPUs": 1
+    }
+  ],
+  "actual_exit_proof": [
+    {
+      "job": 4539204,
+      "node": "compute-0-7",
+      "UID": 1278,
+      "log": "/tmp/d_recipe_managed_D-G1-seed0-resident-3M_4539204.log",
+      "events": [
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2809877,
+          "root_returncode": 0
+        },
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2809774,
+          "root_returncode": 0
+        },
+        {
+          "phase": "RESIDENT_TERMINAL",
+          "job_id": "4539204",
+          "returncode": 0,
+          "remaining_children": []
+        }
+      ],
+      "root_proc_present": {
+        "2809774": false,
+        "2809877": false
+      }
+    },
+    {
+      "job": 4539205,
+      "node": "compute-0-11",
+      "UID": 1278,
+      "log": "/tmp/d_recipe_managed_D-G1-seed0-resident-statistics_4539205.log",
+      "events": [
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 120548,
+          "root_returncode": 0
+        },
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 120616,
+          "root_returncode": 0
+        },
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 120545,
+          "root_returncode": 0
+        },
+        {
+          "phase": "RESIDENT_TERMINAL",
+          "job_id": "4539205",
+          "returncode": 0,
+          "remaining_children": []
+        }
+      ],
+      "root_proc_present": {
+        "120545": false,
+        "120548": false,
+        "120616": false
+      }
+    },
+    {
+      "job": 4539206,
+      "node": "compute-0-11",
+      "UID": 1278,
+      "log": "/tmp/d_recipe_managed_D-G1-vs-R1-seed0-resident_4539206.log",
+      "events": [
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 120812,
+          "root_returncode": 0
+        },
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 120894,
+          "root_returncode": 0
+        },
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 120809,
+          "root_returncode": 0
+        },
+        {
+          "phase": "RESIDENT_TERMINAL",
+          "job_id": "4539206",
+          "returncode": 0,
+          "remaining_children": []
+        }
+      ],
+      "root_proc_present": {
+        "120809": false,
+        "120812": false,
+        "120894": false
+      }
+    }
+  ],
+  "native_R3": {
+    "tasks": {
+      "exp.LogD": {
+        "error": 0.3860646470406483,
+        "reference_error": 0.6282109538807623,
+        "normalized_improvement": 0.3854538118831889,
+        "observed_labels": 1009,
+        "observed_molecules": 1009,
+        "bootstrap_ci": [
+          0.3488009181888863,
+          0.4216056736188219
+        ],
+        "bootstrap_defined": 1000
+      },
+      "exp.LogS": {
+        "error": 0.32894615126819143,
+        "reference_error": 0.4486337294229647,
+        "normalized_improvement": 0.26678238907430374,
+        "observed_labels": 1025,
+        "observed_molecules": 1025,
+        "bootstrap_ci": [
+          0.227393826902269,
+          0.3054216141574299
+        ],
+        "bootstrap_defined": 1000
+      },
+      "exp.Log_HLM_CLint": {
+        "error": 0.3380394915400579,
+        "reference_error": 0.397881249177807,
+        "normalized_improvement": 0.15040104996505305,
+        "observed_labels": 747,
+        "observed_molecules": 747,
+        "bootstrap_ci": [
+          0.09562498646292812,
+          0.19908708972562886
+        ],
+        "bootstrap_defined": 1000
+      },
+      "qm9.U0_atom": {
+        "error": 0.011702826799399449,
+        "reference_error": 0.029109532864231655,
+        "normalized_improvement": 0.5979727035132433,
+        "observed_labels": 2068,
+        "observed_molecules": 2048,
+        "bootstrap_ci": [
+          0.5764518538549315,
+          0.6183866998211678
+        ],
+        "bootstrap_defined": 1000
+      },
+      "qm9.alpha": {
+        "error": 0.5507231634866799,
+        "reference_error": 1.021302308980916,
+        "normalized_improvement": 0.4607638123953651,
+        "observed_labels": 2068,
+        "observed_molecules": 2048,
+        "bootstrap_ci": [
+          0.43390564313642455,
+          0.4854115595221809
+        ],
+        "bootstrap_defined": 1000
+      },
+      "qm9.homo": {
+        "error": 0.005888793992177661,
+        "reference_error": 0.009844560558030407,
+        "normalized_improvement": 0.401822564098704,
+        "observed_labels": 2068,
+        "observed_molecules": 2048,
+        "bootstrap_ci": [
+          0.37527307826216205,
+          0.42496355778263056
+        ],
+        "bootstrap_defined": 1000
+      },
+      "qm9.lumo": {
+        "error": 0.006000264554042,
+        "reference_error": 0.018331570325687996,
+        "normalized_improvement": 0.6726813662202282,
+        "observed_labels": 2068,
+        "observed_molecules": 2048,
+        "bootstrap_ci": [
+          0.6562578743772792,
+          0.6887743186253283
+        ],
+        "bootstrap_defined": 1000
+      }
+    },
+    "complete": true,
+    "mean_normalized_improvement": 0.41941109959286943,
+    "bootstrap_ci": [
+      0.40561003405664,
+      0.4326545674356171
+    ],
+    "bootstrap_samples": 1000,
+    "bootstrap_defined": 1000,
+    "bootstrap_unit": "molecule",
+    "bootstrap_seed": 20261025,
+    "architecture_sha256": "C1-0-reference"
+  },
+  "report_only_R1": {
+    "mean_normalized_improvement": 0.13152708995465695,
+    "bootstrap_ci": [
+      0.11315137312548136,
+      0.14709899139710078
+    ],
+    "included_tasks": [
+      "exp.LogD",
+      "exp.Log_HLM_CLint",
+      "exp.LogS",
+      "qm9.U0_atom",
+      "qm9.homo",
+      "qm9.lumo",
+      "qm9.alpha"
+    ]
+  },
+  "score_source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/readout/scores.json",
+  "projection_only": true,
+  "paired_bootstrap_arrays_remain_in_original_source": true,
+  "scientific_metrics_recomputed": false,
+  "observed_at_UTC": "2026-11-23T09:33:25.1179688Z"
+}

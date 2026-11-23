@@ -1,0 +1,100 @@
+{
+  "schema": "D_G1_DIAGNOSTIC_NODE_STORAGE_V1",
+  "registered_before_writes": true,
+  "registered_at_UTC": "2026-11-23 09:41:42 UTC",
+  "shared_NFS_joint_bytes": 42074762973,
+  "node_forecasts": {
+    "compute-0-6": {
+      "actual_available_bytes": 57462898688,
+      "total_bytes": 75125227520,
+      "inodes": 36540116,
+      "private_geometry_bytes": 8589934592,
+      "peer_future_bytes": 8589934592,
+      "joint_logs_bytes": 134217728,
+      "joint_future_bytes": 17314086912,
+      "GPU_UUID": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef"
+    },
+    "compute-0-7": {
+      "actual_available_bytes": 42347425792,
+      "total_bytes": 75125227520,
+      "inodes": 36529045,
+      "existing_native_cache_peak_bytes": 8589934592,
+      "peer_future_bytes": 8589934592,
+      "joint_logs_bytes": 134217728,
+      "joint_future_bytes": 17314086912,
+      "GPU_UUID": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c"
+    },
+    "compute-0-13": {
+      "actual_available_bytes": 69513863168,
+      "total_bytes": 75125227520,
+      "inodes": 36542451,
+      "private_geometry_bytes": 12884901888,
+      "peer_future_bytes": 17179869184,
+      "additional_headroom_bytes": 8589934592,
+      "joint_logs_bytes": 134217728,
+      "joint_future_bytes": 38788923392
+    }
+  },
+  "system_reserve": "max(10GiB,10%actual total), separately retained on each root filesystem",
+  "root_tmp_same_filesystem": true,
+  "actual_findmnt": "xfs node root; each /tmp resolves onto its actual root filesystem",
+  "geometry_expected_value_bytes": 5131075584,
+  "maximum_rsync_temporary_bytes": 4349591552,
+  "source_data_copied": false,
+  "native_development_cache_copied": false,
+  "existing_outputs_preserved": true,
+  "capacity_recheck": "Original copied resident and DJointGuard recheck actual target, fresh UID quota and current peers before/through writes",
+  "peer_evidence": "Current shared P/S STATUS retained; S current native work on22 and CPU12, no new node6/7/13 reservation there; conservative original8GiB GPU and16GiB CPU peer futures retained",
+  "plan": [
+    {
+      "suffix": "geometry_forward",
+      "name": "D-G1-s0-geometry-forward",
+      "partition": "gpu",
+      "node": "compute-0-6",
+      "cpus": 2,
+      "time": "01:00:00",
+      "cleanup": 300,
+      "root_future_bytes": 17314086912
+    },
+    {
+      "suffix": "geometry_transfer",
+      "name": "D-G1-s0-geometry-transfer",
+      "partition": "cpu",
+      "node": "compute-0-13",
+      "cpus": 1,
+      "time": "00:30:00",
+      "cleanup": 300,
+      "root_future_bytes": 38788923392
+    },
+    {
+      "suffix": "geometry_statistics",
+      "name": "D-G1-s0-geometry-statistics",
+      "partition": "cpu",
+      "node": "compute-0-13",
+      "cpus": 1,
+      "time": "02:30:00",
+      "cleanup": 900,
+      "root_future_bytes": 38788923392
+    },
+    {
+      "suffix": "layers_gpu",
+      "name": "D-G1-s0-layers-gpu",
+      "partition": "gpu",
+      "node": "compute-0-7",
+      "cpus": 5,
+      "time": "00:45:00",
+      "cleanup": 300,
+      "root_future_bytes": 17314086912
+    },
+    {
+      "suffix": "layers_cpu",
+      "name": "D-G1-s0-layers-cpu",
+      "partition": "cpu",
+      "node": "compute-0-13",
+      "cpus": 1,
+      "time": "03:15:00",
+      "cleanup": 900,
+      "root_future_bytes": 38788923392
+    }
+  ]
+}

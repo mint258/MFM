@@ -1,21 +1,19 @@
 # G1 seed0 3M诊断执行口径
 
-状态：五份配置已准备，未提交诊断作业。当前训练4539204、主统计4539205和主比较4539206保持原依赖链；本页不表示3M已结束或诊断已有结果。
+状态：原训练4539204、主统计4539205和配对4539206均COMPLETED0:0，自有root进程已reap并ABSENT、resident children=[]。G1原判TIE，CI未跨0，保留D3。下列五入口已绑定/登记，尚未提交，诊断仅描述、不改变主判定。
 
-| 步骤 | 原执行器 | 配置后缀 | 依赖 |
+| 步骤 | 原执行器 | 目标 | 真实TimeLimit/提前收尾 |
 | --- | --- | --- | --- |
-| 一次5000VAL F64前向 | `tools.d_recipe.diagnostic_forward` | `forward.json` | 原4539204成功、精确3M checkpoint |
-| 闭合几何缓存传输 | `tools.d_recipe.transfer_diagnostic` | `transport.json` | 同条件FORWARD_COMPLETE，实际CPU节点准入 |
-| F64几何统计 | `tools.d_recipe.diagnostic_statistics` | `statistics.json` | 原几何缓存转运成功 |
-| 缓存层3–5读出 | `tools.d_recipe.layer_readouts` / gpu | `layer_readouts_gpu.json` | 原主读出结束、既有开发层缓存可用 |
-| 层统计 | 同上 / cpu | `layer_readouts_cpu.json` | 原层读出及4539205成功，主层6原scores已关闭 |
+| 一次固定5000VAL F64前向 | tools.d_recipe.diagnostic_forward | GPU6/2CPU/RTX3090 | 1h/300s |
+| 闭合几何scope传输 | tools.d_recipe.transfer_diagnostic | GPU6→CPU13/1CPU | 30m/300s |
+| F64几何统计 | tools.d_recipe.diagnostic_statistics | CPU13/1CPU | 2h30m/900s |
+| 缓存层3–5读出 | tools.d_recipe.layer_readouts / gpu | 原生产GPU7/5CPU | 45m/300s |
+| 层统计、复用原层6 | 同上 / cpu | CPU13/1CPU | 3h15m/900s |
 
-配置前缀为 `configs/d_recipe/diagnostics/D-G1_seed0_3M_`。精确端点是 `/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/samples_3000000.pt`；只消费原seed0/3M，不搜索或载入其他checkpoint。原生产器负责条件对应检查，当前不加载张量。
+几何与层诊断各入口时限合计14400s；按实际Slurm父分配累计成本和两次失败规则登记，队列不算计算。条件成功依赖逐个提交；统计不先占CPU空等。若提前科学安全边界退出，保留原闭合结果，不能把75/TIMEOUT当完成，不因观察器结束重启。五入口仅克隆既有source-independent resident生命周期，原科学执行器未改；TERM/join/reap全部自有子树，不用KILL。
 
-沿用固定5000VAL/seed20261112、层3–6、F64、1000次分子配对bootstrap/seed20261025与原P统计公式。层6复用主读出/统计，3–5只用已有缓存拟合原探针，不增加编码器前向。诊断仅描述；按任务书单项累计4小时或连续2次失败记UR，不改变采用门槛，也不重启R1已UR的几何诊断。
+五配置前缀configs/d_recipe/diagnostics/D-G1_seed0_3M_，唯一端点/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/samples_3000000.pt。固定5000VAL/seed20261112、层3–6、F64、1000次分子bootstrap/seed20261025和原P公式。主层6现有分数复用，3–5只消费原GPU7开发层缓存，不做额外编码器前向或扫层。R1已UR几何不重试。
 
-几何独立scope为 `/tmp/d_recipe_20261120_D_G1_seed0_geometry`，与训练时的开发层缓存分开。原同一固定VAL元信息预测F64数组5,131,075,584B、最大文件4,349,591,552B，直接引用既有元数据，不二次读取旧数值数组。GPU私有峰值8GiB；CPU转运私有峰值12GiB涵盖原数组、rsync临时文件和缓冲。原传输器只复制这个闭合几何scope，不复制原数据库或开发层缓存；原相对/绝对manifest路径保留。
+几何独立scope/tmp/d_recipe_20261120_D_G1_seed0_geometry；原固定队列元信息预测F64值5,131,075,584B、最大rsync临时4,349,591,552B。GPU6私有8GiB+同行8GiB+128MiB日志；CPU13私有12GiB+同行16GiB+余量8GiB+128MiB日志，转运只复制闭合几何scope，不复制数据库或开发层缓存。GPU7层缓存仍在原scope/tmp/d_recipe_20261120_D_G1_seed0，8GiB自己+8GiB同行+128MiB日志保持。实际findmnt均为各节点xfs root，/tmp同盘；三节点字节/inode/GPU UUID/零上下文已核。完整声明见[G1_node_storage_20261123.json](../../configs/d_recipe/diagnostics/G1_node_storage_20261123.json)。
 
-几何配置的实际GPU/CPU节点尚未绑定，未新增节点分配或缓存写入。就绪后先选健康实际节点、核实根/tmp文件系统字节/inode/UID配额与所有同行future，再绑定forward的local_node及transport的source_node/local_node和statistics的local_node，按实际同行预算更新local_concurrent_bytes并登记共享预留，最后提交已有自包含resident入口。CPU候选只在8–19、21禁用；不绕过drain，不占exclusive。原预计GPU其它future8GiB、CPU其它future16GiB和每节点日志128MiB只是待绑定配置基准，不能替代实际节点的完整并发预算。使用真实TimeLimit和提前收尾窗口、TERM/join/reap自有子树。
-
-开发层缓存当前实际生产主机为GPU7，层GPU配置据此绑定；若届时该主机不可用，只转运已关闭缓存并更新实际绑定，不重做编码器前向。CPU层统计仅消费共享预测和scores，没有GPU缓存绑定。几何小统计/原bootstrap直接写共享 `full/stage2/D-G1_seed0_3M/representation_statistics`；全局NFS42074762973B保持，真正执行前仍须原守卫准入。旧文件和所有已关闭统计保留。未新增训练、种子、扫层或独立数值QA。
+共享小统计写原full/stage2/D-G1_seed0_3M/representation_statistics及layer_readouts；NFS42074762973B不增。源发布与实际入口均须原fresh UID配额/同行future守卫准入，另留系统max10GiB/10%。绑定和容量只是实际观察，不代替启动时复核。旧数组、已闭合统计和其它线任务全部保留。
