@@ -1291,3 +1291,12 @@ CPU11 L1/4539166、L2/4539169各1CPU仍原完整TRAIN A1，不停止/迁移；NF
 P原I1自身3M、原R1/R3及配对、两源22C组成、注册full12与原CPU统计/导出均完成；原树reap/children=[]及实际root ABSENT已核，所有旧输出/完整断点/失败成本保留。结果与原成本/硬件已发布[p-recipe e0810ba6](https://github.com/mint258/MFM/commit/e0810ba6f2b80a80995e0e67f1ccf975bf996362)，F表116行，原子只EEV，H-comp/H-B4判定仍只meanCEV。P冻结配方不改、不触发新seed1/9M/容量研究；最终报告输入门仅缺D第5节A4直接描述符/组成交付，不拿G1诊断替代、不在P重拟合。
 
 实际本线GPU5/6/7全部科学writer已关闭；只释放本线未使用future：三节点P RAM/tmp均0，I1原NFS未来32GiB为0。旧LF/NFS实存全部继续计入真实UID quota，不删/不重复释放。仅保留CPU11未来8GiB RAM、64MiB日志及既有约265.8MB控制/最终交付预算；原canonical shared_storage_reservations/p-recipe.json已由原观察器续签。Lustre实际hard2TiB及NFS真实UID/fresh5秒、同行/系统底线继续。这里不声称当前全局GPU空闲，也不改变其它线预算/在跑任务，不声称其它会话已读或部署。P无活动GPU句柄；原半小时Slurm/ownclaim观察器保留，PR7仍draft，最终REPORT/权重SHA未生成。
+
+
+## 2026-11-24 · D Root：L1原A1全TRAIN闭合与GPU5三百万入口
+
+CPU11原L1 A1/4539166 COMPLETED0:0、79720秒×1CPU，完整1194228 TRAIN/197字段原FROZEN_FIT、unresolved=[]、original_D4_modified=false。原参数reference/L1/label_parameters.json与逐字段R²/有效数/±6截断原报告均已闭合；actual resident root4176565 reap0、/proc ABSENT、children=[]。不重拟合旧D4、不重试已UR可选适配器，不读取旧raw数组做独立QA。
+
+实际GPU5 SlurmIDLE/48空CPU、UUID GPU-dac07d74-6269-c7db-8832-340dd3c0b377 RTX3090，24576MiB仅5MiB、零CUDA计算上下文，UID1278、Root57211424768B/total75125227520/inode36540394，/tmp同xfs root。登记D L1自身8GiB+保守同行8GiB+128MiB日志=17314086912B，系统max10GiB/10%另留；已有cache全保留。新L1 fresh seed0/3M/A1+B3+B4/B32/5CPU/3workers入口复制原source-independent resident，48h提前900秒，D3/原子SASA块与原绝对权重/旧D4/±6/新p99窗口不变。源先发布，此通知时尚未提交；实际入口继续核验健康/UUID/owner和root/NFS/fresh5秒UID/同行future后才执行，不把准入当运行结果。
+
+原CPU主统计/同seed R1配对各1CPU绑定健康CPU11，8h/4h/900秒，依赖新GPU/新统计，原R1控制复用。CPU11/13原future38788923392B仍保守保留，D联合NFS42074762973B不增（已含本seed0模型池）；L2/4539169仍原CPU11全TRAIN，不停或迁移。当前S已公告两9M在20/22、P尾部无活动5声明，实际5无上下文；不动其他owner或视PENDING未来任务为活动预留。G1全部规定结果闭合/TIE保留D3无seed1；最终配方仍未冻结，剩余全TASKBOOK范围不缩减。源见d-recipe/results/d_recipe/L1_A1_closure_and_GPU_admission_20261124.json与L1_original_A1_fit_20261124.json。不声称其它窗口已读或部署。

@@ -1,0 +1,89 @@
+{
+  "schema": "D_L1_ORIGINAL_A1_CLOSURE_AND_GPU_ADMISSION_V1",
+  "status": "A1_COMPLETE_GPU_LAUNCH_PREPARED_NOT_SUBMITTED",
+  "A1_job": {
+    "job": 4539166,
+    "node": "compute-0-11",
+    "CPUs": 1,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_seconds": 79720
+  },
+  "actual_exit": {
+    "job": 4539166,
+    "node": "compute-0-11",
+    "UID": 1278,
+    "log": "/tmp/d_recipe_managed_D-L1-stage2-A1_4539166.log",
+    "events": [
+      {
+        "phase": "OWNED_TREE_REAPED",
+        "root": 4176565,
+        "root_returncode": 0
+      },
+      {
+        "phase": "RESIDENT_TERMINAL",
+        "job_id": "4539166",
+        "returncode": 0,
+        "remaining_children": []
+      }
+    ],
+    "root_proc_present": {
+      "4176565": false
+    }
+  },
+  "native_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L1/label_parameters.json",
+  "native_report_projection": "results/d_recipe/L1_original_A1_fit_20261124.json",
+  "projection_scope": "Original fit metadata and every native field R2/policy/valid/clipped count/fraction unchanged; frozen coefficient arrays remain in original native parameter file, not independently refit or checked",
+  "fit_role": "TRAIN",
+  "cohort_rows": 1194228,
+  "fields": 197,
+  "unresolved_fields": [],
+  "original_D4_modified": false,
+  "GPU_admission": {
+    "node": "compute-0-5",
+    "Slurm_state": "IDLE",
+    "unallocated_CPUs": 48,
+    "UID": 1278,
+    "GPU_UUID": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+    "GPU_model": "NVIDIA GeForce RTX 3090",
+    "GPU_total_MiB": 24576,
+    "GPU_used_MiB": 5,
+    "CUDA_compute_contexts": 0,
+    "root_available_bytes": 57211424768,
+    "root_total_bytes": 75125227520,
+    "root_inodes": 36540394,
+    "tmp_same_root": true,
+    "findmnt": "/ /dev/mapper/sonmihpc_compute--0--5-root xfs",
+    "own_private_future_bytes": 8589934592,
+    "conservative_peer_future_bytes": 8589934592,
+    "joint_logs_bytes": 134217728,
+    "joint_root_future_bytes": 17314086912,
+    "system_reserve": "max(10GiB,10% actual root total), separate",
+    "CPUs_requested": 5,
+    "workers": 3,
+    "TimeLimit_seconds": 172800,
+    "cleanup_seconds": 900
+  },
+  "CPU_followups": {
+    "node": "compute-0-11",
+    "CPUs_each": 1,
+    "statistics_TimeLimit_seconds": 28800,
+    "comparison_TimeLimit_seconds": 14400,
+    "cleanup_seconds": 900,
+    "root_joint_future_bytes": 38788923392,
+    "status": "PREPARED_AFTEROK_DEPENDENCIES_NOT_SUBMITTED"
+  },
+  "joint_NFS_bytes": 42074762973,
+  "NFS_growth": false,
+  "scientific_configuration_changed": false,
+  "base_normalizations_and_raw_fields_unchanged": true,
+  "selected_stage1_recipe": "A1+B3+B4",
+  "library": "L1",
+  "D3_and_atomic_SASA_blocks_retained": true,
+  "graph_mask": false,
+  "seed": 0,
+  "samples": 3000000,
+  "initialization": "fresh random seed0, no resume; same matched R1 seed0 control reused",
+  "peer_scope": "Current S notice binds its two9M to20/22, closed6/7 diagnostics; P STATUS current tail adds no active5 allocation. Actual5 IDLE/no CUDA contexts verified. Retain conservative8GiB peer future and all physical old caches; never treat pending future jobs as active owner or touch others.",
+  "observed_at_UTC": "2026-11-23T19:07:31Z"
+}

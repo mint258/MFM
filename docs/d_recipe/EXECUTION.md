@@ -334,3 +334,11 @@ NFS42074762973B及CPU11原38788923392B保持；新GPU6与旧GPU7各17314086912B�
 原CPU13/4539292 COMPLETED0:0/4027秒/1CPU，原统计COMPLETE/F64/5000分子/47698构象/层3–6/1000配对bootstrap seed20261025，actual resident原root1757811/1757777均reap0且/proc ABSENT、children=[]。完整科学指标与原95%CI见[原转录](../../results/d_recipe/G1_geometry_native_summary_20261123.json)，退出/逐阶段成本见[G1几何记录](../../results/d_recipe/G1_geometry_3M_20261123.json)。几何累计原父分配7397秒包含原75失败前缀，声明4h不变；统计早于原900秒收尾窗口完成，无TIMEOUT/KILL。G1主结果/缓存层/规定几何均COMPLETE，无新seed或采纳门。
 
 宽库L1/4539166和L2/4539169在CPU11各1CPU继续完整1194228 TRAIN，不停止/迁移。19:44原闭合783872/474880行，Root61668700160B/inode36569827；A1来源复核仅查看冻结代码：TASKBOOK4.1.4保留旧D20/D3/D4基础统计，4.3对全分子字段独立拟合A1，仅残差分档在各reference/L1,L2/label_parameters.json内派生其目标残差归一化，其余deepcopy原参数；不写旧D4/D20控制、不重算补充过滤统计、不重试已UR适配器。NFS42074762973B与CPU11/13原共同future38788923392B暂保守保留，不删除实存cache或减少同行预留。最终冻结/条件臂/冷9M/A-B-C/基准/一次完整回归与两个未合并PR仍待完成。
+
+## 2026-11-24 03:07 CST · L1原A1闭合与宽库3M入口
+
+L1/4539166原完整1194228 TRAIN拟合COMPLETED0:0、79720秒×1CPU。原FROZEN_FIT/197字段、unresolved=[]、original_D4_modified=false；原参数路径reference/L1/label_parameters.json，系数继续使用该原文件，逐字段R²/目标策略/有效数/±6截断计数比例原样转录L1_original_A1_fit_20261124.json，无新拟合、raw数组复核或统计重算。实际resident root4176565已reap0、children=[]，原CPU11/proc ABSENT。
+
+技能11-22/11-06重读后，实际GPU5 SlurmIDLE/48空CPU、RTX3090 UUID GPU-dac07d74-6269-c7db-8832-340dd3c0b377，24576MiB仅5MiB、零CUDA计算上下文，Root57211424768B/total75125227520/inode36540394、/tmp同xfs root、UID1278。登记自身8GiB+保守同行8GiB+128MiB日志=17314086912B，系统max10GiB/10%另留；原NFS42074762973B已包含本3M checkpoint/readout池、不增。当前S两9M在20/22、P尾部未声明活动5，物理原cache保留、不动其它owner。
+
+D-L1 fresh seed0/3M/B32/A1+B3+B4/原D3和原子SASA块、±6、旧D4、原新库统计及60000–150000新p99窗口全部保持；仅绑定GPU5/5CPU/3workers和已冻结原L1参数，无resume。入口复制既有G1 source-independent resident，48h/900秒收尾，原生命周期和科学worker未改。原CPU统计/配对各1CPU绑定已核健康CPU11，8h/4h、900秒，afterok新GPU/新统计；CPU11原joint future38788923392B仍保守保留。此时只发布准入与入口，未提交，不把准备写成模型已运行。L2/4539169仍原完整TRAIN生产，不停/迁移；最终配方未冻结，全部后续目标保持。
