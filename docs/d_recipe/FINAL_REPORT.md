@@ -284,3 +284,7 @@ CPU13/4539292原统计COMPLETED0:0，4027秒×1CPU；resident记录root1757811�
 L1原日志实际出现DISK_TRANSPORT_PAUSED，PID1491773，available313209810944B/required313356249146B；样本停在71488。保留原live配置和guard源码，不手动信号或重启。L2已按TASKBOOK3.5未解决且从未启动神经臂，原12槽×250000000B的Stage2池中其三个1M/2M/3M槽位不再有未来writer。只撤回这750000000B未使用本线future：模型槽12→9、模型字节3000000000→2250000000，221225472B日志/读出/序列化缓冲及三个额外槽均保留；旧所有实际checkpoint/partial数组保留，无删除。
 
 Data plan的Stage2池3221225472→2471225472B、full峰值35118709120→34368709120B、全D NFS联合峰值声明42074762973→41324762973B。原在跑L1配置仍保留42074762973B更保守的配置声明，所有其它owner预留、100GB/fresh5秒、原quota额外缓冲和各根盘系统底线不变；这不是降低需要的安全余量。原h_peer_storage每次读取本线live plan，原guard自行通过准入并记录DISK_TRANSPORT_RESUMED、同PID1491773；随后原losses.csv已75456样本/2624.544632997364循环秒。没有新job、没有L1重新初始化/检查点重载，也没有重试L2。原分配与暂停时间全部留在成本中，不从计时剔除。[预算/原事件](../../results/d_recipe/unused_L2_slots_retired_and_L1_native_resume_20261124.json)。
+
+## 2026-11-24 04:28 CST · L1原p99冻结
+
+原GPU5/4539360继续运行，losses.csv已177568样本、4519.664088504389循环秒。原程序clip_calibration.json已fitted=true：初始281.7，固定60000–150000样本/optimizer_step_start窗口、2813更新，p99=13.768829002380377，在有效150016样本边界冻结。这里只转录原报告，不另拟合、不复用其它臂阈值、不改变预算或采纳门。原CPU统计4539361→比较4539362仍Dependency，暂无L1 R3结论。[原校准转录](../../results/d_recipe/D-L1_seed0_original_clip_calibration_20261124.json)。

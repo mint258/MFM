@@ -1,0 +1,32 @@
+{
+  "status": "NATIVE_P99_FROZEN",
+  "job_id": 4539360,
+  "node": "compute-0-5",
+  "source_report": "results/d_recipe/training/d_recipe_20261120_D_L1_seed0_3M/clip_calibration.json",
+  "observed_at_UTC": "2026-11-23T20:28:19Z",
+  "original_report": {
+    "calibration_samples": 150000,
+    "quantile": 0.99,
+    "initial_clip": 281.7,
+    "threshold": 13.768829002380377,
+    "observed_updates": 2813,
+    "fitted": true,
+    "window_start_samples": 60000,
+    "sample_axis": "optimizer_step_start",
+    "effective_freeze_samples": 150016
+  },
+  "latest_original_progress": {
+    "kind": "original_L1_progress",
+    "observed_at_UTC": "2026-11-23T20:28:19.000Z",
+    "job_id": 4539360,
+    "node": "compute-0-5",
+    "samples": 177568,
+    "training_loop_seconds": 4519.664088504389,
+    "source": "Original running losses.csv last complete row",
+    "independent_metrics_recomputed": false
+  },
+  "independent_refit": false,
+  "scientific_configuration_changed": false,
+  "full_training_samples": 3000000,
+  "R3_pending": true
+}
