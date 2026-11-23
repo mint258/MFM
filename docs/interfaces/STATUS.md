@@ -1284,3 +1284,10 @@ G1主实验TIE、CI不跨0→保留D3、无seed1保持；缓存层诊断已COMPL
 原3288秒75失败前缀、50秒同cursor续接、32秒转运及4027秒统计累计7397秒，4h声明与两失败规则保持。缓存层3–6早已COMPLETE，现G1全部规定诊断闭合；原主TIE、CI不跨0、保留D3/无seed1不变，R1 F64 UR两失败不重试。前向manifest statistics_complete=false仍为其前向producer原事实，独立统计summary声明最终COMPLETE。
 
 CPU11 L1/4539166、L2/4539169各1CPU仍原完整TRAIN A1，不停止/迁移；NFS42074762973B、CPU11/13原共同future38788923392B暂保守保留，GPU6/7实存cache不删除、同行future不动。CPU13本线writer已闭合，但本次不下调其原future，后续实际新任务仍核对健康、目标盘/inode/UID/同行与系统底线。最终配方未冻结，宽库/条件臂/冷9M/最终A-B-C/基准/成本/一次完整回归/两个未合并PR继续；无新增科学审批项。不声称其它窗口已读/部署。
+
+
+## 2026-11-23 · P：I1注册科学全部闭合及自有未来预留释放
+
+P原I1自身3M、原R1/R3及配对、两源22C组成、注册full12与原CPU统计/导出均完成；原树reap/children=[]及实际root ABSENT已核，所有旧输出/完整断点/失败成本保留。结果与原成本/硬件已发布[p-recipe e0810ba6](https://github.com/mint258/MFM/commit/e0810ba6f2b80a80995e0e67f1ccf975bf996362)，F表116行，原子只EEV，H-comp/H-B4判定仍只meanCEV。P冻结配方不改、不触发新seed1/9M/容量研究；最终报告输入门仅缺D第5节A4直接描述符/组成交付，不拿G1诊断替代、不在P重拟合。
+
+实际本线GPU5/6/7全部科学writer已关闭；只释放本线未使用future：三节点P RAM/tmp均0，I1原NFS未来32GiB为0。旧LF/NFS实存全部继续计入真实UID quota，不删/不重复释放。仅保留CPU11未来8GiB RAM、64MiB日志及既有约265.8MB控制/最终交付预算；原canonical shared_storage_reservations/p-recipe.json已由原观察器续签。Lustre实际hard2TiB及NFS真实UID/fresh5秒、同行/系统底线继续。这里不声称当前全局GPU空闲，也不改变其它线预算/在跑任务，不声称其它会话已读或部署。P无活动GPU句柄；原半小时Slurm/ownclaim观察器保留，PR7仍draft，最终REPORT/权重SHA未生成。
