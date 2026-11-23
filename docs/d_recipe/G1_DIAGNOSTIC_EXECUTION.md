@@ -17,3 +17,13 @@
 几何独立scope/tmp/d_recipe_20261120_D_G1_seed0_geometry；原固定队列元信息预测F64值5,131,075,584B、最大rsync临时4,349,591,552B。GPU6私有8GiB+同行8GiB+128MiB日志；CPU13私有12GiB+同行16GiB+余量8GiB+128MiB日志，转运只复制闭合几何scope，不复制数据库或开发层缓存。GPU7层缓存仍在原scope/tmp/d_recipe_20261120_D_G1_seed0，8GiB自己+8GiB同行+128MiB日志保持。实际findmnt均为各节点xfs root，/tmp同盘；三节点字节/inode/GPU UUID/零上下文已核。完整声明见[G1_node_storage_20261123.json](../../configs/d_recipe/diagnostics/G1_node_storage_20261123.json)。
 
 共享小统计写原full/stage2/D-G1_seed0_3M/representation_statistics及layer_readouts；NFS42074762973B不增。源发布与实际入口均须原fresh UID配额/同行future守卫准入，另留系统max10GiB/10%。绑定和容量只是实际观察，不代替启动时复核。旧数组、已闭合统计和其它线任务全部保留。
+
+## 缓存层已闭合与几何条件续接准备
+
+原层GPU4539285 C0/1174秒/5CPU、CPU4539288 C0/78秒/1CPU，两个resident均实际OWNED_TREE_REAPED/TERMINAL0/children=[]、原root PID均ABSENT。原native summary COMPLETE、float64、1000分子bootstrap/seed20261025、encoder_forward_repeated=false。层6主分复用，3–5原统计见[原转录](../../results/d_recipe/G1_layers_3M_20261123.json)。主层固定6，不选最高诊断层。
+
+GPU7所有G1 writer均关闭，本线原8GiB未来写入释放为0；保留原物理cache及同行8GiB/联合日志128MiB，当前剩余future8724152320B，不对实存再作抵扣。GPU6与CPU13几何/private预算保持。
+
+原固定周父记录直接引用：同一5000VAL前向4537579为3388s，转运4537580为29s，统计4537581为4446s；没有重测/重算旧统计。当前GPU6原4539284的1h有限时限与300s收尾窗留下3300s计算，短于原单位成本。当前运行和原待机286/287保持；只准备[条件原cursor续接](../../configs/d_recipe/diagnostics/G1_conditional_cursor_20261123.json)，尚未提交。仅在原任务终结、自有子树实证退出、cursor未完时，从同配置/同scope继续剩余原行，不重做已关闭前缀；之后重用原transport，CPU统计使用2h15m资源副本。若原FORWARD_COMPLETE/C0则沿现有依赖，不使用备用入口。
+
+条件分支预算为原1h+续15m(提前180s)+原转运30m(提前300s)+原统计2h15m(提前900s)=4h；所有原执行器、模型/成员/随机状态与科学阈值不变，最多连续2次失败，不把75/TIMEOUT当完成。只有在原parent未成功且核实owner/PENDING0后，才一次性退役未开始的旧依赖并重绑成功续接；当前没有取消、重启或新前向。

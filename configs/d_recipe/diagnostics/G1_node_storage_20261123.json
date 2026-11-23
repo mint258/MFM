@@ -21,8 +21,18 @@
       "existing_native_cache_peak_bytes": 8589934592,
       "peer_future_bytes": 8589934592,
       "joint_logs_bytes": 134217728,
-      "joint_future_bytes": 17314086912,
-      "GPU_UUID": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c"
+      "joint_future_bytes": 8724152320,
+      "GPU_UUID": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+      "private_writer_status": "ALL_G1_GPU7_WRITERS_CLOSED_AND_ACTUAL_ROOTS_ABSENT",
+      "own_remaining_future_bytes": 0,
+      "previous_joint_future_bytes": 17314086912,
+      "retained_cache_is_still_physical_occupancy": true,
+      "private_future_released_bytes": 8589934592,
+      "capacity_observation_scope": "Existing prelaunch df/statvfs preserved as history; this update releases only closed own future, not physical bytes",
+      "actual_closed_jobs": [
+        4539204,
+        4539285
+      ]
     },
     "compute-0-13": {
       "actual_available_bytes": 69513863168,
@@ -96,5 +106,7 @@
       "cleanup": 900,
       "root_future_bytes": 38788923392
     }
-  ]
+  ],
+  "GPU7_future_release_observed_at_UTC": "2026-11-23T10:26:38.000Z",
+  "geometry_conditional_cursor_plan": "configs/d_recipe/diagnostics/G1_conditional_cursor_20261123.json"
 }

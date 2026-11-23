@@ -1,0 +1,49 @@
+{
+  "schema": "D_G1_GEOMETRY_CONDITIONAL_CURSOR_CONTINUATION_V1",
+  "status": "PREPARED_NOT_SUBMITTED",
+  "original_job": 4539284,
+  "original_TimeLimit_seconds": 3600,
+  "original_cleanup_seconds": 300,
+  "original_scientific_work_window_seconds": 3300,
+  "original_scope_and_configuration_unchanged": true,
+  "original_configuration": "configs/d_recipe/diagnostics/D-G1_seed0_3M_forward.json",
+  "existing_cost_source": "results/d_recipe/costs_weekly_20261123.json",
+  "existing_cost_rows": [
+    {
+      "job": 4537579,
+      "elapsed_seconds": 3388,
+      "phase": "same fixed5000VAL forward"
+    },
+    {
+      "job": 4537580,
+      "elapsed_seconds": 29,
+      "phase": "closed original cache transport"
+    },
+    {
+      "job": 4537581,
+      "elapsed_seconds": 4446,
+      "phase": "same registered F64 statistics"
+    }
+  ],
+  "basis": "Reuse closed native parent costs only; no new old telemetry, arrays or scientific statistic",
+  "condition": "Only if first original job is terminal, its own resident tree is actually reaped/absent and native cursor incomplete. If FORWARD_COMPLETE/C0, use existing dependency chain and never submit this continuation.",
+  "continuation_entry": "configs/d_recipe/launches/D-G1_seed0_geometry_forward_cursor_resident.sbatch",
+  "continuation_TimeLimit_seconds": 900,
+  "continuation_cleanup_seconds": 180,
+  "transfer_original_entry": "configs/d_recipe/launches/D-G1_seed0_geometry_transfer_resident.sbatch",
+  "transfer_TimeLimit_seconds": 1800,
+  "statistics_conditional_entry": "configs/d_recipe/launches/D-G1_seed0_geometry_statistics_cursor_resident.sbatch",
+  "statistics_TimeLimit_seconds": 8100,
+  "statistics_cleanup_seconds": 900,
+  "total_prospective_TimeLimit_seconds_with_original": 14400,
+  "maximum_consecutive_failures": 2,
+  "already_closed_forward_prefix_recomputed": false,
+  "new_encoder_condition_or_seed": false,
+  "original_pending_CPU_jobs_untouched_now": [
+    4539286,
+    4539287
+  ],
+  "if_first_does_not_succeed": "After exact owner/PENDING0 checks, retire unstarted old dependency jobs once, then submit same original transport/statistics after successful cursor continuation. Never duplicate pending/running science.",
+  "scope_storage_growth": false,
+  "new_data_copy": false
+}
