@@ -1,0 +1,58 @@
+{
+  "status": "ORIGINAL_FIXED_VAL_REPORTED",
+  "job_id": 4539360,
+  "node": "compute-0-5",
+  "run": "d_recipe_20261120_D_L1_seed0_3M",
+  "samples": 500000,
+  "updates": 15625,
+  "validation_scope": "Original fixed2000; no new forward, refit or resampling",
+  "original_family_rows": [
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M",
+      "kind": "VAL_fixed2000",
+      "samples": "500000",
+      "updates": "15625",
+      "family": "atom_sasa",
+      "loss": "0.020334925562143325",
+      "clipped_fraction": "0.005696",
+      "seconds": "10672.251093404368"
+    },
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M",
+      "kind": "VAL_fixed2000",
+      "samples": "500000",
+      "updates": "15625",
+      "family": "graph_2d",
+      "loss": "0.07028213769197464",
+      "clipped_fraction": "0.005696",
+      "seconds": "10672.251097487286"
+    },
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M",
+      "kind": "VAL_fixed2000",
+      "samples": "500000",
+      "updates": "15625",
+      "family": "molecule_3d",
+      "loss": "0.11615822297334671",
+      "clipped_fraction": "0.005696",
+      "seconds": "10672.251098444685"
+    }
+  ],
+  "original_units_csv": "results/d_recipe/D-L1_seed0_VAL_original_units_500000_20261124.csv",
+  "original_units_csv_source": "results/d_recipe/training/d_recipe_20261120_D_L1_seed0_3M/VAL_original_units_500000.csv",
+  "original_family_source": "results/d_recipe/training/d_recipe_20261120_D_L1_seed0_3M/family_losses.csv",
+  "reported_field_rows": 198,
+  "gradient_clipping_fraction_scope": "Cumulative optimizer-update gradient clipping at this native window; not target ±6 clipping",
+  "latest_original_progress": {
+    "kind": "original_L1_progress",
+    "observed_at_UTC": "2026-11-23T22:28:19.000Z",
+    "job_id": 4539360,
+    "node": "compute-0-5",
+    "samples": 556864,
+    "training_loop_seconds": 11720.747254431248,
+    "source": "Original running losses.csv last complete row",
+    "independent_metrics_recomputed": false
+  },
+  "decision_input": false,
+  "independent_metrics_recomputed": false
+}
