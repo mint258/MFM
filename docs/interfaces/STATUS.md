@@ -1399,3 +1399,12 @@ N1/N2均TIE，按冻结规则保留σ=0.1 Å；去键R2已LOSS，保留键级辅
 去元素S-R1已完成3M/93750更新；训练4538843、GPU6/4539275、CPU12/4539276均COMPLETED0:0且自有进程树闭合。R1=0.20574348056161776，R3=0.4551499959734908；原配对R3 Δ=0.0018599128572419632，95%CI=[-0.007478796723806323,0.011392913900592234]，τ=0.022757499798674544，TIE。CI跨0，按用户已确认的删项规则采纳关闭元素恢复损失，无seed1。R1读出的下降如实报告，不追加主分否决门；三输入视图及其余绝对权重/原有效角色分母保持。
 
 四个采纳候选均已最终判定：N1/N2 TIE保留原σ=0.1 Å；去键R2 LOSS保留键级辅助项；唯一采纳组分为S-R1。没有seed0 R3 WIN，故无seed1；兼容采纳项仅一个，故无S-M1。merge_proposal.ready=true不表示冻结，merge_required=false、recipe_frozen=false。G1仍在22号5090原生推进（PID154094/start_ticks53056508，待机4539257），只作注册UFF几何对照。其正式判定完成后才发布CURRENT_BEST FROZEN并从随机初始化新起9M-S-B0和不同的9M-S-final；不提前提交9M。详见docs/s_recipe/COMPONENT_DECISIONS.md、日报与results/s_recipe/S_R1_s0_3M.json。全S目标仍ACTIVE。
+
+
+## 2026-11-23 · D Root：G1原3M闭合与终点诊断
+
+原D-G1 seed0/3M、主统计及同seed R1配对4539204/4539205/4539206均C0，实际resident children=[]、原root PID均ABSENT。原R3=0.41941109959286943，Δ=0.016946340654004077、95%CI[0.0038709507854383872,0.029767100949210194]、τ=0.020970554979643473，TIE、无seed1。CI未跨0，依任务书删项条件保留D3；最终配方未冻结，不增加臂/重采样。原训练/1M2M3M元信息/VAL与判定见d-recipe/docs/d_recipe/STAGE2_G1_RESULTS.md。
+
+规定的G1固定5000VAL/F64/层3–6终点诊断已绑定原执行器与source-independent resident，尚未提交：几何GPU6/RTX3090 UUID GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef/2CPU→CPU13各1CPU；层读出原GPU7/UUID GPU-9db54192-dd3f-3177-e56f-dcd161ff932c/5CPU→CPU13。GPU6实际Root57462898688B/inode36540116，GPU7 Root42347425792B/inode36529045，CPU13 Root69513863168B/inode36542451；两GPU均IDLE/零CUDA上下文/5MiB，CPU13 MIXED/64freeCPU，/tmp实际findmnt均同root xfs。新GPU6未来8GiB私有+8GiB同行+128MiB日志=17314086912B；GPU7相同既有预算不增、仅消费闭合开发层缓存；CPU13未来12GiB私有+16GiB同行+8GiB余量+128MiB日志=38788923392B，系统max10GiB/10%另留。原固定队列5,131,075,584B几何值及4,349,591,552B rsync临时均在私有12GiB内，不复制数据库/原开发层缓存，不新增前向QA。
+
+联合NFS42074762973B与原CPU11未来38788923392B保持。新node声明在d-recipe/configs/d_recipe/diagnostics/G1_node_storage_20261123.json；入口和运行中沿原fresh5秒UID/同行future/100GB/实际字节inode保护，几何及层诊断各累计4h、两失败UR，真实TimeLimit前预留300/900秒TERM/join/reap，不靠TIMEOUT/KILL，不碰他人或R1已UR几何。原L1/4539166、L2/4539169各1CPU仍CPU11 RUNNING；完整条件臂/冷9M/A-B-C/基准/成本/一次回归和两个PR目标保持。共享此容量声明，不声称其它会话已读/部署。
