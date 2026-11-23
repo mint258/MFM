@@ -3299,7 +3299,7 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ACTIVE_ORIGINAL_G1_GEOMETRY_CPU_STATISTICS_AND_WIDE_A1",
+  "automation_state": "ACTIVE_ORIGINAL_L1_GPU_TRAINING_L2_A1_UNRESOLVED_G1_COMPLETE",
   "blocking_condition": null,
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
@@ -4187,7 +4187,7 @@
       "scope": "Actual squeue confirms both original full-TRAIN A1 allocations live; no numerical array scan"
     },
     "required_target_reports": {
-      "status": "WAITING_FOR_ORIGINAL_A1_FITS",
+      "status": "L1_ORIGINAL_FIT_PUBLISHED_L2_A1_UNRESOLVED_REPORT_UNAVAILABLE",
       "taskbook_sections": [
         "4.2",
         "6",
@@ -4211,16 +4211,23 @@
           "local_original_report": "/tmp/d_recipe_20261120_stage2_A1_L1/collection/label_parameters.json",
           "frozen_shared_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L1/label_parameters.json",
           "report_JSON_pointer": "/fit/fields",
-          "status": "PENDING_ORIGINAL_FIT_CLOSURE"
+          "status": "ORIGINAL_FIT_COMPLETE_PUBLISHED",
+          "published_original_report": "results/d_recipe/L1_original_A1_fit_20261124.json",
+          "actual_parent_state": "COMPLETED0:0",
+          "original_full_TRAIN_molecules": 1194228
         },
         {
           "library": "L2",
           "molecular_fields": 1320,
           "producer_job": 4539169,
           "local_original_report": "/tmp/d_recipe_20261120_stage2_A1_L2/collection/label_parameters.json",
-          "frozen_shared_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
           "report_JSON_pointer": "/fit/fields",
-          "status": "PENDING_ORIGINAL_FIT_CLOSURE"
+          "status": "UNRESOLVED_FULL_A1_REPORT_UNAVAILABLE",
+          "proposed_frozen_shared_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
+          "original_failure_record": "results/d_recipe/L2_A1_unresolved_20261124.json",
+          "original_closed_cursor": 729600,
+          "original_full_TRAIN_molecules": 1194228,
+          "third_attempt_permitted": false
         }
       ],
       "existing_native_D20_D3_and_atomic_SASA_report": "results/d_recipe/native_TRAIN_clipping_20261122.json",
