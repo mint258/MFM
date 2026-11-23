@@ -1,0 +1,178 @@
+{
+  "schema": "D_G1_ORIGINAL_FORWARD_AND_TRANSFER_V1",
+  "status": "FORWARD_COMPLETE_STATISTICS_RUNNING",
+  "native_forward_manifest": {
+    "schema": "D_REPRESENTATION_FORWARD_V1",
+    "status": "FORWARD_COMPLETE",
+    "binding": {
+      "arm": "D-G1",
+      "run": "d_recipe_20261120_D_G1_seed0_3M",
+      "samples": 3000000,
+      "seed": 0,
+      "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/samples_3000000.pt",
+      "root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+      "source": "PM7"
+    },
+    "panel": "/tmp/d_recipe_20261120_D_G1_seed0_geometry/forward/panel.npz",
+    "means": "/tmp/d_recipe_20261120_D_G1_seed0_geometry/forward/means.npy",
+    "first_atoms": "/tmp/d_recipe_20261120_D_G1_seed0_geometry/forward/first_atoms.npy",
+    "layers": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "molecules": 5000,
+    "conformers": 47698,
+    "cache_dtype": "float64",
+    "source": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/tools/p_recipe/diagnose.py",
+    "statistics_complete": false
+  },
+  "original_forward": {
+    "job": 4539284,
+    "state": "FAILED",
+    "exit_code": "75:0",
+    "elapsed_seconds": 3288,
+    "CPUs": 2,
+    "cursor": 47456,
+    "actual_exit": {
+      "job": 4539284,
+      "node": "compute-0-6",
+      "UID": 1278,
+      "log": "/tmp/d_recipe_managed_D-G1-s0-geometry-forward_4539284.log",
+      "events": [
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2117307,
+          "root_returncode": 0
+        },
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2117339,
+          "root_returncode": -15
+        },
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2117304,
+          "root_returncode": 75
+        },
+        {
+          "phase": "RESIDENT_TERMINAL",
+          "job_id": "4539284",
+          "returncode": 75,
+          "remaining_children": []
+        }
+      ],
+      "root_proc_present": {
+        "2117304": false,
+        "2117307": false,
+        "2117339": false
+      }
+    },
+    "is_scientific_completion": false
+  },
+  "same_cursor_forward": {
+    "job": 4539290,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_seconds": 50,
+    "CPUs": 2,
+    "closed_cursor": 47698,
+    "already_closed_prefix_recomputed": false
+  },
+  "closed_transfer": {
+    "job": 4539291,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_seconds": 32,
+    "CPUs": 1,
+    "node": "compute-0-13"
+  },
+  "actual_exit_proofs": [
+    {
+      "job": 4539290,
+      "node": "compute-0-6",
+      "UID": 1278,
+      "log": "/tmp/d_recipe_managed_D-G1-s0-geometry-forward-cursor_4539290.log",
+      "events": [
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2124506,
+          "root_returncode": 0
+        },
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2124540,
+          "root_returncode": 0
+        },
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2124503,
+          "root_returncode": 0
+        },
+        {
+          "phase": "RESIDENT_TERMINAL",
+          "job_id": "4539290",
+          "returncode": 0,
+          "remaining_children": []
+        }
+      ],
+      "root_proc_present": {
+        "2124503": false,
+        "2124506": false,
+        "2124540": false
+      }
+    },
+    {
+      "job": 4539291,
+      "node": "compute-0-13",
+      "UID": 1278,
+      "log": "/tmp/d_recipe_managed_D-G1-s0-geometry-transfer_4539291.log",
+      "events": [
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 1757714,
+          "root_returncode": 0
+        },
+        {
+          "phase": "RESIDENT_TERMINAL",
+          "job_id": "4539291",
+          "returncode": 0,
+          "remaining_children": []
+        }
+      ],
+      "root_proc_present": {
+        "1757714": false
+      }
+    }
+  ],
+  "statistics": {
+    "job": 4539292,
+    "node": "compute-0-13",
+    "status": "RUNNING",
+    "CPUs": 1,
+    "TimeLimit": "02:15:00",
+    "cleanup_seconds": 900,
+    "entry": [
+      {
+        "phase": "RESIDENT_BEFORE_SHARED_SOURCE",
+        "job_id": "4539292",
+        "node": "compute-0-13",
+        "TimeLimit": "02:15:00",
+        "EndTime": "2026-11-23T21:01:01",
+        "root_available_bytes": 64381878272,
+        "root_inodes": 36542435,
+        "source_independent": true
+      }
+    ]
+  },
+  "old_unstarted_dependencies_retired_once": [
+    4539286,
+    4539287
+  ],
+  "no_original_datasets_copied": true,
+  "no_independent_array_QA": true,
+  "scientific_configuration_unchanged": true,
+  "diagnostic_timebox_seconds": 14400,
+  "maximum_consecutive_failures": 2
+}

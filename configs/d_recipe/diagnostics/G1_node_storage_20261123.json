@@ -11,8 +11,19 @@
       "private_geometry_bytes": 8589934592,
       "peer_future_bytes": 8589934592,
       "joint_logs_bytes": 134217728,
-      "joint_future_bytes": 17314086912,
-      "GPU_UUID": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef"
+      "joint_future_bytes": 8724152320,
+      "GPU_UUID": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "private_writer_status": "CLOSED_ORIGINAL_PREFIX_AND_CURSOR_CONTINUATION_REAPED",
+      "previous_joint_future_bytes": 17314086912,
+      "own_remaining_future_bytes": 0,
+      "private_future_released_bytes": 8589934592,
+      "closed_forward_jobs": [
+        4539284,
+        4539290
+      ],
+      "retained_geometry_cache_is_physical_occupancy": true,
+      "source_transfer_also_closed": 4539291,
+      "capacity_observation_scope": "Original prelaunch capacity retained as history; future released only after native full manifest, successful transfer and actual owned-tree exit"
     },
     "compute-0-7": {
       "actual_available_bytes": 42347425792,
@@ -108,5 +119,18 @@
     }
   ],
   "GPU7_future_release_observed_at_UTC": "2026-11-23T10:26:38.000Z",
-  "geometry_conditional_cursor_plan": "configs/d_recipe/diagnostics/G1_conditional_cursor_20261123.json"
+  "geometry_conditional_cursor_plan": "configs/d_recipe/diagnostics/G1_conditional_cursor_20261123.json",
+  "GPU6_future_release_observed_at_UTC": "2026-11-23T11:01:06.000Z",
+  "CPU13_statistics_initial_capacity": [
+    {
+      "phase": "RESIDENT_BEFORE_SHARED_SOURCE",
+      "job_id": "4539292",
+      "node": "compute-0-13",
+      "TimeLimit": "02:15:00",
+      "EndTime": "2026-11-23T21:01:01",
+      "root_available_bytes": 64381878272,
+      "root_inodes": 36542435,
+      "source_independent": true
+    }
+  ]
 }

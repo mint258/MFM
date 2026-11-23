@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_G1_NATIVE_TRAINING_AND_WIDE_A1_PRODUCTION_RUNNING",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-23T10:26:38.000Z",
+  "updated_at_utc": "2026-11-23T11:01:06.000Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -1504,7 +1504,7 @@
       "primary_comparison_unaffected": true
     },
     "D_G1": {
-      "status": "LAYERS_COMPLETE_GEOMETRY_FORWARD_RUNNING",
+      "status": "LAYERS_COMPLETE_GEOMETRY_STATISTICS_RUNNING",
       "configurations": [
         "configs/d_recipe/diagnostics/D-G1_seed0_3M_forward.json",
         "configs/d_recipe/diagnostics/D-G1_seed0_3M_statistics.json",
@@ -2217,7 +2217,7 @@
       },
       "conditional_cursor_continuation": {
         "schema": "D_G1_GEOMETRY_CONDITIONAL_CURSOR_CONTINUATION_V1",
-        "status": "PREPARED_NOT_SUBMITTED",
+        "status": "USED_SUCCESSFUL_ORIGINAL_CURSOR_CONTINUATION",
         "original_job": 4539284,
         "original_TimeLimit_seconds": 3600,
         "original_cleanup_seconds": 300,
@@ -2256,14 +2256,196 @@
         "maximum_consecutive_failures": 2,
         "already_closed_forward_prefix_recomputed": false,
         "new_encoder_condition_or_seed": false,
-        "original_pending_CPU_jobs_untouched_now": [
-          4539286,
-          4539287
-        ],
+        "original_pending_CPU_jobs_untouched_now": [],
         "if_first_does_not_succeed": "After exact owner/PENDING0 checks, retire unstarted old dependency jobs once, then submit same original transport/statistics after successful cursor continuation. Never duplicate pending/running science.",
         "scope_storage_growth": false,
-        "new_data_copy": false
-      }
+        "new_data_copy": false,
+        "retired_unstarted_CPU_jobs": [
+          {
+            "job": 4539286,
+            "state": "CANCELLED by1278",
+            "elapsed_seconds": 0,
+            "scientific_execution": false
+          },
+          {
+            "job": 4539287,
+            "state": "CANCELLED by1278",
+            "elapsed_seconds": 0,
+            "scientific_execution": false
+          }
+        ],
+        "first_actual_exit": {
+          "job": 4539284,
+          "node": "compute-0-6",
+          "UID": 1278,
+          "log": "/tmp/d_recipe_managed_D-G1-s0-geometry-forward_4539284.log",
+          "events": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2117307,
+              "root_returncode": 0
+            },
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2117339,
+              "root_returncode": -15
+            },
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2117304,
+              "root_returncode": 75
+            },
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4539284",
+              "returncode": 75,
+              "remaining_children": []
+            }
+          ],
+          "root_proc_present": {
+            "2117304": false,
+            "2117307": false,
+            "2117339": false
+          }
+        },
+        "closed_cursor_start": 47456,
+        "closed_cursor_end": 47698,
+        "actual_chain": {
+          "forward": 4539290,
+          "transfer": 4539291,
+          "statistics": 4539292,
+          "same_original_cursor_start": 47456,
+          "same_scope_and_configuration": true,
+          "first_elapsed_seconds": 3288,
+          "first_exit_code": "75:0",
+          "first_actual_exit": {
+            "job": 4539284,
+            "node": "compute-0-6",
+            "UID": 1278,
+            "log": "/tmp/d_recipe_managed_D-G1-s0-geometry-forward_4539284.log",
+            "events": [
+              {
+                "phase": "OWNED_TREE_REAPED",
+                "root": 2117307,
+                "root_returncode": 0
+              },
+              {
+                "phase": "OWNED_TREE_REAPED",
+                "root": 2117339,
+                "root_returncode": -15
+              },
+              {
+                "phase": "OWNED_TREE_REAPED",
+                "root": 2117304,
+                "root_returncode": 75
+              },
+              {
+                "phase": "RESIDENT_TERMINAL",
+                "job_id": "4539284",
+                "returncode": 75,
+                "remaining_children": []
+              }
+            ],
+            "root_proc_present": {
+              "2117304": false,
+              "2117307": false,
+              "2117339": false
+            }
+          },
+          "first_failure_count": 1,
+          "total_declared_TimeLimits_seconds_including_original": 14400,
+          "source_commit": "1206f73103c7003bd25b4d784c6f4c639ae77ec2",
+          "CPU_node": "compute-0-13",
+          "GPU_node": "compute-0-6"
+        },
+        "forward_status": "FORWARD_COMPLETE",
+        "continuation_status": "COMPLETED0:0",
+        "continuation_elapsed_seconds": 50,
+        "transfer_status": "COMPLETED0:0",
+        "transfer_elapsed_seconds": 32,
+        "statistics_status": "RUNNING",
+        "statistics_actual_entry": [
+          {
+            "phase": "RESIDENT_BEFORE_SHARED_SOURCE",
+            "job_id": "4539292",
+            "node": "compute-0-13",
+            "TimeLimit": "02:15:00",
+            "EndTime": "2026-11-23T21:01:01",
+            "root_available_bytes": 64381878272,
+            "root_inodes": 36542435,
+            "source_independent": true
+          }
+        ],
+        "consecutive_failures_after_success": 0,
+        "first_partial_attempt_retained_in_costs": true
+      },
+      "geometry_forward_status": "FORWARD_COMPLETE",
+      "geometry_transfer_status": "CACHE_TRANSFER_COMPLETE",
+      "geometry_statistics_status": "RUNNING",
+      "geometry_actual_cursor_chain": {
+        "forward": 4539290,
+        "transfer": 4539291,
+        "statistics": 4539292,
+        "same_original_cursor_start": 47456,
+        "same_scope_and_configuration": true,
+        "first_elapsed_seconds": 3288,
+        "first_exit_code": "75:0",
+        "first_actual_exit": {
+          "job": 4539284,
+          "node": "compute-0-6",
+          "UID": 1278,
+          "log": "/tmp/d_recipe_managed_D-G1-s0-geometry-forward_4539284.log",
+          "events": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2117307,
+              "root_returncode": 0
+            },
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2117339,
+              "root_returncode": -15
+            },
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2117304,
+              "root_returncode": 75
+            },
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4539284",
+              "returncode": 75,
+              "remaining_children": []
+            }
+          ],
+          "root_proc_present": {
+            "2117304": false,
+            "2117307": false,
+            "2117339": false
+          }
+        },
+        "first_failure_count": 1,
+        "total_declared_TimeLimits_seconds_including_original": 14400,
+        "source_commit": "1206f73103c7003bd25b4d784c6f4c639ae77ec2",
+        "CPU_node": "compute-0-13",
+        "GPU_node": "compute-0-6"
+      },
+      "geometry_forward_record": "results/d_recipe/G1_forward_and_transfer_20261123.json",
+      "geometry_GPU6_remaining_own_future_bytes": 0,
+      "GPU6_remaining_peer_and_logs_bytes": 8724152320,
+      "geometry_CPU_actual_entry": [
+        {
+          "phase": "RESIDENT_BEFORE_SHARED_SOURCE",
+          "job_id": "4539292",
+          "node": "compute-0-13",
+          "TimeLimit": "02:15:00",
+          "EndTime": "2026-11-23T21:01:01",
+          "root_available_bytes": 64381878272,
+          "root_inodes": 36542435,
+          "source_independent": true
+        }
+      ],
+      "original_first_partial_exit_is_not_completion": true
     }
   },
   "transfer_candidate": {
@@ -3055,7 +3237,7 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ACTIVE_G1_GEOMETRY_ORIGINAL_PRODUCER_AND_WIDE_A1_LAYERS_COMPLETE",
+  "automation_state": "ACTIVE_ORIGINAL_G1_GEOMETRY_CPU_STATISTICS_AND_WIDE_A1",
   "blocking_condition": null,
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
@@ -3683,7 +3865,7 @@
     "G1_include_3d": false,
     "remaining_block_weights_rescaled": false,
     "models_started": true,
-    "GPU_admission_status": "Original G1 main and layer jobs closed; geometry forward live; no additional trainable model ready until original wide A1 closes",
+    "GPU_admission_status": "All G1 main, layer and geometry forward GPU writers are closed; original geometry CPU statistics is live; wide original A1 still collecting, no new model ready",
     "proposed_joint_NFS_bytes": 42074762973,
     "capacity_registration_pending": false,
     "joint_NFS_forecast_bytes": 42074762973,

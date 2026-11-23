@@ -1,6 +1,6 @@
 # G1 seed0 3M诊断执行口径
 
-状态：原训练4539204、主统计4539205和配对4539206均COMPLETED0:0，自有root进程已reap并ABSENT、resident children=[]。G1原判TIE，CI未跨0，保留D3。下列五入口已绑定/登记并提交：几何前向4539284、缓存层GPU4539285、CPU传输4539286(afterok4539284)、几何统计4539287(afterok4539286)、层CPU4539288(afterok4539285)。原主统计4539205已成功且原出口核实；不依赖已从scontrol移除的旧job再次调度。两GPU均实际RUNNING，前向原cursor608；首个OWNED_TREE_REAPED只指预检子树，不表示整个诊断结束。诊断仅描述、不改变主判定。
+状态：原G1主3M/主统计/配对、缓存层3–6诊断均已闭合。几何原47456前缀已安全退出并通过4539290同cursor续到47698，转运4539291成功；CPU13/4539292原F64统计正在运行，真实EndTime21:01:01CST、提前900秒。以下原计划和历史记录保留，不表示旧284/286/287仍在运行。
 
 | 步骤 | 原执行器 | 目标 | 真实TimeLimit/提前收尾 |
 | --- | --- | --- | --- |
@@ -27,3 +27,13 @@ GPU7所有G1 writer均关闭，本线原8GiB未来写入释放为0；保留原�
 原固定周父记录直接引用：同一5000VAL前向4537579为3388s，转运4537580为29s，统计4537581为4446s；没有重测/重算旧统计。当前GPU6原4539284的1h有限时限与300s收尾窗留下3300s计算，短于原单位成本。当前运行和原待机286/287保持；只准备[条件原cursor续接](../../configs/d_recipe/diagnostics/G1_conditional_cursor_20261123.json)，尚未提交。仅在原任务终结、自有子树实证退出、cursor未完时，从同配置/同scope继续剩余原行，不重做已关闭前缀；之后重用原transport，CPU统计使用2h15m资源副本。若原FORWARD_COMPLETE/C0则沿现有依赖，不使用备用入口。
 
 条件分支预算为原1h+续15m(提前180s)+原转运30m(提前300s)+原统计2h15m(提前900s)=4h；所有原执行器、模型/成员/随机状态与科学阈值不变，最多连续2次失败，不把75/TIMEOUT当完成。只有在原parent未成功且核实owner/PENDING0后，才一次性退役未开始的旧依赖并重绑成功续接；当前没有取消、重启或新前向。
+
+## 原游标续接与转运已闭合
+
+原4539284在预留收尾窗返回75:0、3288秒×2CPU；actual resident明确原科学root2117339为-15、外层root2117304为75，全部reap、children=[]且原/proc roots ABSENT，未到Slurm TIMEOUT。原cursor47456、FORWARD manifest尚无；实际GPU6仍IDLE、零CUDA上下文、Root52357775360B/inode36540107、/tmp与xfs root同盘，技能11-22/11-06重新读取后，用预先发布1206f731的同配置/同scope入口续接。
+
+原4539290 C0/50秒×2CPU，将cursor47456续到47698并原子发布FORWARD_COMPLETE；原转运4539291 C0/32秒×1CPU，目标CPU13同一绝对scope，实际两个resident均reap0/children=[]，原root均ABSENT。没有重做已关闭前缀、没有数据库/开发层cache复制或独立QA。原CPU286/287在zixiao/PENDING0核实后仅一次取消，原生CANCELLED by1278/0秒，未执行科学任务。
+
+新CPU13/4539292为相同原diagnostic_statistics，1CPU、2h15、提前900秒，实际End21:01:01CST、Root64381878272B/inode36542435准入，当前RUNNING。完整固定5000分子/47698允许构象、层3–6、缓存float64的原manifest已转录；其中statistics_complete=false只是前向producer声明，最终统计尚未完成。整项仍初始1h+续15m+传输30m+统计2h15m=4h，所有失败/0秒待机均保留成本。
+
+GPU6本线writer全部已关闭，释放自身8GiB未来写入；按原5,131,075,584B值体积预测的几何cache仍实存保留，同行8GiB+联合日志128MiB仍保留，GPU6和GPU7各剩余future8724152320B。CPU13统计仍持有原36GiB+128MiB、NFS42074762973B不增，原fresh UID/系统底线保护保持。参见[原闭合记录](../../results/d_recipe/G1_forward_and_transfer_20261123.json)。
