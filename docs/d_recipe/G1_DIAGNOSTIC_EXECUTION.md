@@ -1,6 +1,6 @@
 # G1 seed0 3M诊断执行口径
 
-状态：原训练4539204、主统计4539205和配对4539206均COMPLETED0:0，自有root进程已reap并ABSENT、resident children=[]。G1原判TIE，CI未跨0，保留D3。下列五入口已绑定/登记，尚未提交，诊断仅描述、不改变主判定。
+状态：原训练4539204、主统计4539205和配对4539206均COMPLETED0:0，自有root进程已reap并ABSENT、resident children=[]。G1原判TIE，CI未跨0，保留D3。下列五入口已绑定/登记并提交：几何前向4539284、缓存层GPU4539285、CPU传输4539286(afterok4539284)、几何统计4539287(afterok4539286)、层CPU4539288(afterok4539285)。原主统计4539205已成功且原出口核实；不依赖已从scontrol移除的旧job再次调度。两GPU均实际RUNNING，前向原cursor608；首个OWNED_TREE_REAPED只指预检子树，不表示整个诊断结束。诊断仅描述、不改变主判定。
 
 | 步骤 | 原执行器 | 目标 | 真实TimeLimit/提前收尾 |
 | --- | --- | --- | --- |
