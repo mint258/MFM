@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_G1_NATIVE_TRAINING_AND_WIDE_A1_PRODUCTION_RUNNING",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-23T09:49:25.000Z",
+  "updated_at_utc": "2026-11-23T09:53:41.000Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -3693,17 +3693,73 @@
           }
         }
       ],
-      "cost_status": "Native timing known; one original G1 telemetry cost producer pending, no old telemetry reread",
+      "cost_status": "COMPLETE_ORIGINAL_TELEMETRY_AGGREGATED_ONCE",
       "native_cost_producer": {
-        "status": "SOURCE_READY_NOT_SUBMITTED",
-        "configuration": "configs/d_recipe/launches/D-G1_seed0_native_costs_20261123_resident.sbatch",
-        "output": "results/d_recipe/D-G1_seed0_complete_GPU_job_costs_20261123.json",
-        "scope": "Original same native cost producer algorithm; only current closed G1 telemetry; no old run reread",
-        "CPU_node": "compute-0-13",
+        "job": 4539289,
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 8,
         "CPUs": 1,
-        "TimeLimit": "00:15:00",
-        "cleanup_seconds": 180
-      }
+        "node": "compute-0-13",
+        "actual_exit": {
+          "job": 4539289,
+          "node": "compute-0-13",
+          "UID": 1278,
+          "log": "/tmp/d_recipe_managed_D-G1-s0-native-costs_4539289.log",
+          "events": [
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 1757127,
+              "root_returncode": 0
+            },
+            {
+              "phase": "RESIDENT_TERMINAL",
+              "job_id": "4539289",
+              "returncode": 0,
+              "remaining_children": []
+            }
+          ],
+          "root_proc_present": {
+            "1757127": false
+          }
+        },
+        "entry": "configs/d_recipe/launches/D-G1_seed0_native_costs_20261123_resident.sbatch",
+        "source_commit": "e364a53de668273a567b7d290677413ecdfb6745",
+        "original_telemetry_aggregated_once": true,
+        "older_telemetry_re_read": false
+      },
+      "native_costs": {
+        "arm": "D-G1",
+        "run": "d_recipe_20261120_D_G1_seed0_3M",
+        "job_id": 4539204,
+        "elapsed_seconds": 37702,
+        "allocated_CPUs": 5,
+        "TotalCPU_raw": "00:00:00",
+        "training_seconds": 37215.715877037495,
+        "gpu_uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+        "schema": "D_NATIVE_GPU_COST_V1",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "seed": 0,
+        "samples": 3000000,
+        "gpu_model": "NVIDIA GeForce RTX 3090",
+        "target_one_GPU_job_wall_hours": 10.472777777777777,
+        "allocated_CPU_hours": 52.36388888888889,
+        "training_loop_including_fixed_VAL_samples_per_second": 80.61110553165612,
+        "whole_card_power_watts_sample_mean": 228.29927302100162,
+        "power_samples": 1238,
+        "power_missing_samples": 0,
+        "power_source": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/results/d_recipe/training/d_recipe_20261120_D_G1_seed0_3M/gpu_telemetry.csv",
+        "power_scope": "Arithmetic mean of original whole-card samples recorded while 0<samples<training_budget; includes the sampled training-active window, excludes final GPU readout under the original sampler condition",
+        "power_weighting": "Native point-sample mean; not a time-integrated energy or attributed device-only measurement",
+        "TotalCPU_seconds": null,
+        "TotalCPU_available": false,
+        "TotalCPU_reason": "Parent TotalCPU is zero/unreported at this site; do not report it as measured zero training CPU",
+        "Slurm_accounting_scope": "Original parent allocation only; no queue, batch/extern or observation step is added twice",
+        "source_function": "tools/p_recipe/native_run.py:record_gpu_telemetry",
+        "scientific_metrics_recomputed": false
+      },
+      "native_cost_source": "results/d_recipe/D-G1_seed0_complete_GPU_job_costs_20261123.json"
     },
     "next_G1_progress_check_UTC": null,
     "last_GPU_partition_check_UTC": "2026-11-23T07:51:38.000Z",

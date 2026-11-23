@@ -1,0 +1,36 @@
+{
+  "schema": "D_NATIVE_COST_PRODUCER_V1",
+  "job": 4539289,
+  "state": "COMPLETED",
+  "exit_code": "0:0",
+  "elapsed_seconds": 8,
+  "allocated_CPUs": 1,
+  "node": "compute-0-13",
+  "actual_exit": {
+    "job": 4539289,
+    "node": "compute-0-13",
+    "UID": 1278,
+    "log": "/tmp/d_recipe_managed_D-G1-s0-native-costs_4539289.log",
+    "events": [
+      {
+        "phase": "OWNED_TREE_REAPED",
+        "root": 1757127,
+        "root_returncode": 0
+      },
+      {
+        "phase": "RESIDENT_TERMINAL",
+        "job_id": "4539289",
+        "returncode": 0,
+        "remaining_children": []
+      }
+    ],
+    "root_proc_present": {
+      "1757127": false
+    }
+  },
+  "source_entry": "configs/d_recipe/launches/D-G1_seed0_native_costs_20261123_resident.sbatch",
+  "source_commit": "e364a53de668273a567b7d290677413ecdfb6745",
+  "current_G1_telemetry_aggregated_once": true,
+  "older_closed_cost_results_reused": true,
+  "weekly_fixed_snapshot_unchanged": true
+}
