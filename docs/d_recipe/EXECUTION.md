@@ -328,3 +328,9 @@ NFS42074762973B及CPU11原38788923392B保持；新GPU6与旧GPU7各17314086912B�
 原RTX3090单次成本已闭合：80.61110553165612样本/秒，训练活跃采样窗整卡点均功耗228.29927302100162W/1238条，原GPU父分配10.472777777777777卡时、52.36388888888889分配CPU时。窗口不含最终GPU读出，父分配时长含读出，功耗不是积分能耗。[原成本](../../results/d_recipe/D-G1_seed0_complete_GPU_job_costs_20261123.json)只汇总一次；CPU13原生产4539289 C0/8秒×1CPU，实际子树已reap/children=[]。旧周成本/遥测不重读，TotalCPU与单价仍未知。
 
 完整目标active；无暂停/缩减/提前冻结或新科学审批项。后续G1诊断/宽库原A1与既定全部关卡继续。
+
+## 2026-11-23 20:06 CST · G1终点诊断全部闭合
+
+原CPU13/4539292 COMPLETED0:0/4027秒/1CPU，原统计COMPLETE/F64/5000分子/47698构象/层3–6/1000配对bootstrap seed20261025，actual resident原root1757811/1757777均reap0且/proc ABSENT、children=[]。完整科学指标与原95%CI见[原转录](../../results/d_recipe/G1_geometry_native_summary_20261123.json)，退出/逐阶段成本见[G1几何记录](../../results/d_recipe/G1_geometry_3M_20261123.json)。几何累计原父分配7397秒包含原75失败前缀，声明4h不变；统计早于原900秒收尾窗口完成，无TIMEOUT/KILL。G1主结果/缓存层/规定几何均COMPLETE，无新seed或采纳门。
+
+宽库L1/4539166和L2/4539169在CPU11各1CPU继续完整1194228 TRAIN，不停止/迁移。19:44原闭合783872/474880行，Root61668700160B/inode36569827；A1来源复核仅查看冻结代码：TASKBOOK4.1.4保留旧D20/D3/D4基础统计，4.3对全分子字段独立拟合A1，仅残差分档在各reference/L1,L2/label_parameters.json内派生其目标残差归一化，其余deepcopy原参数；不写旧D4/D20控制、不重算补充过滤统计、不重试已UR适配器。NFS42074762973B与CPU11/13原共同future38788923392B暂保守保留，不删除实存cache或减少同行预留。最终冻结/条件臂/冷9M/A-B-C/基准/一次完整回归与两个未合并PR仍待完成。
