@@ -131,7 +131,7 @@
   "point_score_denominator": "mean_three_scratch_seed_MAE",
   "bootstrap_estimand": "score_of_mean_prediction",
   "original7_guard_tests_repeated": false,
-  "submission_dependency": "Actual12 full fit handles4539312-4539323 afterok, original frozen CPUstatistics4539310 complete",
+  "submission_dependency": "Original12 cells actualGPU jobs4539312-4539321 plus4539335/4539336; originalCPU4539329 afterok dependencies rebound. Original pending0 tails4539322/4539323 cancelled before fit only; no running fit stopped.",
   "kind": "F_STATISTICS",
   "source_validation": {
     "reuse_original_F_statistics_provider": true,
@@ -144,7 +144,20 @@
     "new_model_fits_in_statistics": 0,
     "old_primary_replay": false,
     "draft_only": false,
-    "NFS_storage_relocation_only": true
+    "NFS_storage_relocation_only": true,
+    "unstarted_leaf_GPU5_replacement": {
+      "old_jobs": [
+        4539322,
+        4539323
+      ],
+      "new_jobs": [
+        4539335,
+        4539336
+      ],
+      "scientific_cells_still12": true,
+      "running_training_stopped": false,
+      "control_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/I1_unstarted_tail_GPU5_replacement_20261123.json"
+    }
   },
   "source_training_budget": 3000000,
   "activation_basis": "Original full4tasks x3seeds plus existing frozen; deferred after actual complete12; storage path only changed"
