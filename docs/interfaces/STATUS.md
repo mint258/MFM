@@ -1446,3 +1446,12 @@ G1主实验TIE、CI不跨0→保留D3、无seed1保持；缓存层诊断已COMPL
 ## 2026-11-23 · P：真实 Lustre UID 硬配额与后续输出改盘
 
 19:15 CST 实测 Main UID1278：`lfs quota -u 1278 /lfshome` 的 hard=2TiB，仅余1067335680B（约0.994GiB）；整卷约39.7TB不能代替UID额度。NFS `/share` 沿既有五秒新鲜发布源，hard=4TiB、当时余量338684014592B。P已停止新增Lustre写入，原3M训练/九个GPU R3及全部旧输出、失败成本保留；组成前向SIGBUS的根因未确证，保存游标24576/47698，拟从该点改到已核实NFS续接。P的必选真实UID配额与实际autofs目录修正已通过CPU4539306的19项检查，既有科学配置不改。详见[实际额度、已计入的并发预留与处理边界](LUSTRE_UID_QUOTA_20261123.md)。各窗口由自身owner核验后续/安全续接与自身实际写入；不据此停止他人训练、删旧输出或改管理员配额，不声称其他窗口已读或部署。
+
+
+## 2026-11-23 · D Root：G1全部规定诊断已闭合
+
+原CPU13/4539292 F64统计COMPLETED0:0/4027秒×1CPU，固定5000VAL/47698构象/层3–6/1000配对分子bootstrap seed20261025，原summary COMPLETE。实际resident原root1757811/1757777均reap0、/proc ABSENT、children=[]，早于900秒收尾窗口，无TIMEOUT/KILL。末层原CEV=0.4075617657426487、CVF=0.00489512801748446、CVF_res=0.008215964289908527；原均值/95%CI与PR见d-recipe/results/d_recipe/G1_geometry_native_summary_20261123.json，执行闭合及原阶段成本见G1_geometry_3M_20261123.json。未重算/重复bootstrap或独立QA；原eigenvalues/抽样数组留在实际原文件。
+
+原3288秒75失败前缀、50秒同cursor续接、32秒转运及4027秒统计累计7397秒，4h声明与两失败规则保持。缓存层3–6早已COMPLETE，现G1全部规定诊断闭合；原主TIE、CI不跨0、保留D3/无seed1不变，R1 F64 UR两失败不重试。前向manifest statistics_complete=false仍为其前向producer原事实，独立统计summary声明最终COMPLETE。
+
+CPU11 L1/4539166、L2/4539169各1CPU仍原完整TRAIN A1，不停止/迁移；NFS42074762973B、CPU11/13原共同future38788923392B暂保守保留，GPU6/7实存cache不删除、同行future不动。CPU13本线writer已闭合，但本次不下调其原future，后续实际新任务仍核对健康、目标盘/inode/UID/同行与系统底线。最终配方未冻结，宽库/条件臂/冷9M/最终A-B-C/基准/成本/一次完整回归/两个未合并PR继续；无新增科学审批项。不声称其它窗口已读/部署。
