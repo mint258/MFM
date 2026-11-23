@@ -1,0 +1,50 @@
+{
+  "run": "S_G1_s0_3M",
+  "source": "UFF",
+  "node": "compute-0-22",
+  "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+  "gpu_name": "NVIDIA GeForce RTX 5090",
+  "mode": "native_with_standby",
+  "actual_training_job": null,
+  "standby_job": 4539257,
+  "producer": {
+    "pid": 154094,
+    "uid": 1278,
+    "start_ticks": 53056508,
+    "ppid": 154055,
+    "state": "R"
+  },
+  "cpus": 16,
+  "ordered_reader_workers": 14,
+  "first1000": {
+    "samples": 32000,
+    "seconds": 413.9245789919514,
+    "samples_per_second": 77.30876981968791,
+    "window": "first1000 real optimizer updates; no separate benchmark"
+  },
+  "whole_card_power_sample_mean_watts": 413.26,
+  "power_records": 13,
+  "first_power_record": {
+    "timestamp": "1795412386.580299",
+    "samples": "1600",
+    "training_seconds": "35.367615286959335",
+    "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+    "gpu_name": "NVIDIA GeForce RTX 5090",
+    "whole_card_power_watts": "399.60",
+    "utilization_percent": "95",
+    "memory_used_mib": "5810"
+  },
+  "last_power_record": {
+    "timestamp": "1795412747.2632062",
+    "samples": "30560",
+    "training_seconds": "396.214361829916",
+    "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+    "gpu_name": "NVIDIA GeForce RTX 5090",
+    "whole_card_power_watts": "407.57",
+    "utilization_percent": "92",
+    "memory_used_mib": "12310"
+  },
+  "source_throughput": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_G1_s0_3M/initial_throughput.json",
+  "source_telemetry": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_G1_s0_3M/gpu_telemetry.csv",
+  "scope": "Existing actual first1000 optimizer updates; no added benchmark. Whole-card power includes all contexts."
+}
