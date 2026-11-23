@@ -1,0 +1,63 @@
+{
+  "run": "composition_I1_forward",
+  "kind": "COMPOSITION_FORWARD",
+  "ready": false,
+  "authority": [
+    "USER_DIRECTIVE_20261122_section2",
+    "USER_DIRECTIVE_20261122B_A2"
+  ],
+  "node": null,
+  "gpu_uuid": null,
+  "nvidia_smi": "/usr/bin/nvidia-smi",
+  "cpus": 16,
+  "workers": 14,
+  "minimum_free_gpu_mib": 22000,
+  "ram_peak_bytes": 68719476736,
+  "remaining_output_bytes": 5331722240,
+  "local_output_peak_bytes": 67108864,
+  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_I1_forward",
+  "output_mount": "/lfshome",
+  "root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+  "panel": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_panel/panel.npz",
+  "panel_complete": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_panel/panel_complete.json",
+  "sources": [
+    {
+      "label": "I1_3M",
+      "source_binding": {
+        "label": "I1_3M",
+        "arm": "I1",
+        "samples": 3000000,
+        "configuration": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/I1_3M_seed0/configuration.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/I1_3M_seed0/samples_3000000.pt",
+        "bytes": null,
+        "run": "fixed_20261115_I1_noB4_seed0",
+        "components": [
+          "A1",
+          "B3",
+          "F2"
+        ],
+        "pretraining_seed": 0,
+        "source_training_budget": 3000000
+      },
+      "checkpoint_mtime_ns": null
+    }
+  ],
+  "cleanup_seconds": 900,
+  "work_unit_seconds": 120,
+  "reservation_ids": [
+    "P_I1_composition_remaining"
+  ],
+  "uid_quota_snapshot": null,
+  "source_validation": {
+    "panel_job": "4539033",
+    "original_forward_worker_unchanged": true,
+    "source_count": 1,
+    "baseline_not_reinferred": true,
+    "source_training_budget": 3000000,
+    "draft_only": true
+  },
+  "atomic_metric_definition": "Resolved22C: atomicEEVonly; mean metrics unchanged",
+  "training": false,
+  "normalization_changed": false,
+  "activation_basis": "WAIT_ACTUAL_I1_3M_TERMINAL; bind actual bytes/mtime, healthy24GiBcard UUID and actual GPU RAM/root reservations before enabling"
+}
