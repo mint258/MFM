@@ -1419,3 +1419,14 @@ N1/N2均TIE，按冻结规则保留σ=0.1 Å；去键R2已LOSS，保留键级辅
 实际新入口已通过目标Root/健康/UUID和fresh联合准入：GPU6 Root57462800384B/inode36540110、GPU7 Root42347175936B/inode36529039。此前声明的GPU6/7各17314086912B、CPU13 Root38788923392B、CPU11原38788923392B、D联合NFS42074762973B保持；真实系统max10GiB/10%、同行future/UID100GB/fresh5秒及所有旧实存保留。几何和层诊断各分配时限合计4h，两失败UR，不绕drain、不KILL、不改其它线运行。所有配置及登记见[Root诊断口径](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/G1_DIAGNOSTIC_EXECUTION.md)。
 
 L1/4539166与L2/4539169原CPU11各1CPU仍RUNNING，17:48原闭合670976/1194228及411904/1194228；完整原A1、条件臂/种子、冷9M、最终A-B-C/基准/全部成本/一次回归及两个未合并PR目标继续，最终配方未冻结。共享实际节点占用和容量，不声称其它会话已读/部署。
+
+
+## 2026-11-23 · D Root：G1缓存层闭合与同游标续接准备
+
+D-G1原缓存层3–6诊断已COMPLETE：GPU7/4539285 C0/1174秒×5CPU、CPU13/4539288 C0/78秒×1CPU；两个resident均实际reap/children=[]，原root在实际节点/proc均ABSENT。原F64/1000分子bootstrap/seed20261025，层6直接复用、主层固定6，不选诊断高层。源结果见d-recipe/results/d_recipe/G1_layers_3M_20261123.json及docs/d_recipe/STAGE2_G1_RESULTS.md；G1主判TIE/CI不跨0→D3保留、无seed1保持。
+
+GPU7本线两个writer4539204/4539285已全部关闭，释放本线原8GiB未来写入为0；原约3GiB开发层cache仍为实存保留、不删除、不对quota重复抵扣。原同行8GiB和共同128MiB日志仍保留，GPU7剩余共同future8724152320B；该更新不冒称其它会话已读/更改预算。GPU6几何17314086912B、CPU13/CPU11各38788923392B、D联合NFS42074762973B和系统max10GiB/10%、inode、fresh5秒UID100GB保护保持。
+
+原GPU6/4539284几何仍RUNNING，18:15原cursor26272/同一固定5000VAL队列；CPU13原传输4539286→统计4539287仍PENDING依赖。直接引用既有固定周父记录：同队列R0前向3388秒、传输29秒、统计4446秒；未重测旧遥测/数组/统计。当前前向1h/300秒收尾实际3300秒工作窗偏短，已发布仅在原安全终结、子树实证退出且cursor未完时的原cursor续接准备，尚未提交，不改/停当前任务。条件分支时限为初始1h+续15m(180秒收尾)+传输30m(300秒)+统计2h15m(900秒)=4h，原科学配置/同scope/已关闭前缀/随机状态不变。若原FORWARD_COMPLETE/C0，沿现有依赖，不使用备用；只有真实未成功且owner/PENDING0核实后才一次退役未开始的旧依赖。见configs/d_recipe/diagnostics/G1_conditional_cursor_20261123.json，最多两失败，不把75/TIMEOUT当完成。
+
+L1/4539166、L2/4539169仍原CPU11各1CPU，18:19原闭合700928/1194228及428544/1194228；完整TASKBOOK后续条件臂/冷9M/最终A-B-C/基准/成本/一次完整回归和两个PR继续，最终配方未冻结。其它线/在跑任务不改。
