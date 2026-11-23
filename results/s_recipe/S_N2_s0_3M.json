@@ -1,0 +1,225 @@
+{
+  "schema": "S_RECIPE_ENDPOINT_RESULT_V1",
+  "status": "COMPLETE",
+  "run": "S_N2_s0_3M",
+  "arm": "S-N2",
+  "seed": 0,
+  "samples": 3000000,
+  "layer": 6,
+  "formal_H": "encode_atoms output",
+  "source_configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_N2_s0_3M/configuration.json",
+  "source_scores": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_N2_s0_3M/readout/scores.json",
+  "source_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_N2_s0_3M/summary.json",
+  "readouts": {
+    "R1": {
+      "complete": true,
+      "mean_normalized_improvement": 0.20330297825933025,
+      "bootstrap_ci": [
+        0.18579473680894773,
+        0.21888342853661893
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_defined": 1000,
+      "bootstrap_unit": "molecule",
+      "bootstrap_seed": 20261025,
+      "included_tasks": [
+        "exp.LogD",
+        "exp.Log_HLM_CLint",
+        "exp.LogS",
+        "qm9.U0_atom",
+        "qm9.homo",
+        "qm9.lumo",
+        "qm9.alpha"
+      ]
+    },
+    "R3": {
+      "complete": true,
+      "mean_normalized_improvement": 0.4652044079788271,
+      "bootstrap_ci": [
+        0.45215645465199705,
+        0.477575389134559
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_defined": 1000,
+      "bootstrap_unit": "molecule",
+      "bootstrap_seed": 20261025,
+      "included_tasks": [
+        "exp.LogD",
+        "exp.Log_HLM_CLint",
+        "exp.LogS",
+        "qm9.U0_atom",
+        "qm9.homo",
+        "qm9.lumo",
+        "qm9.alpha"
+      ]
+    }
+  },
+  "training": {
+    "status": "COMPLETE",
+    "samples": 3000000,
+    "updates": 93750,
+    "seconds": 60944.966107894084,
+    "gpu_readout_seconds_this_process": 327.1063496246934,
+    "gpu_readout_job": "4539259",
+    "gpu_readout_node": "compute-0-6",
+    "statistics_complete": true,
+    "feature_cache": {
+      "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+      "files": 3,
+      "bytes": 770775642,
+      "failed_partials_preserved": true
+    },
+    "statistics_job": "4539263",
+    "statistics_node": "compute-0-12",
+    "statistics_memory_at_start": {
+      "MemTotal": 403716571136,
+      "MemAvailable": 395072323584
+    },
+    "statistics_peak_RSS_bytes": 1555484672,
+    "statistics_seconds": 81.51099954918027
+  },
+  "clip": {
+    "calibration_samples": 150000,
+    "quantile": 0.99,
+    "initial_clip": 281.7,
+    "threshold": 26.34524887084963,
+    "observed_updates": 2813,
+    "fitted": true,
+    "window_start_samples": 60000,
+    "sample_axis": "optimizer_step_start",
+    "effective_freeze_samples": 150016
+  },
+  "final_VAL": {
+    "samples": 3000000,
+    "losses": {
+      "s_element": 0.7574308440380241,
+      "s_noise": 0.1948698155675581,
+      "s_bond": 0.000723838347514438
+    },
+    "counts": {
+      "s_element": 12545,
+      "s_noise": 266894,
+      "s_bond": 277104
+    },
+    "predicted_displacement_error_relative_to_zero": 0.1948258837841452,
+    "displacement_error_sums": {
+      "predicted_squared_error": 1560.2874085903168,
+      "zero_squared_error": 8008.6248207092285,
+      "atoms": 266894
+    },
+    "descriptive_denoising_groups": {
+      "rotors_8+": {
+        "predicted_squared_error": 535.2137718498707,
+        "zero_squared_error": 2742.723372220993,
+        "atoms": 91718,
+        "standardized_denoising_error": 0.19451426177699419,
+        "relative_to_zero_displacement": 0.1951395380484424
+      },
+      "rotors_4-7": {
+        "predicted_squared_error": 780.4537786990404,
+        "zero_squared_error": 4031.666077196598,
+        "atoms": 134077,
+        "standardized_denoising_error": 0.19403123545898757,
+        "relative_to_zero_displacement": 0.19358095729042263
+      },
+      "rotors_1-3": {
+        "predicted_squared_error": 234.0296474993229,
+        "zero_squared_error": 1187.7080146372318,
+        "atoms": 39545,
+        "standardized_denoising_error": 0.19726863699525676,
+        "relative_to_zero_displacement": 0.1970430818140129
+      },
+      "rotors_0": {
+        "predicted_squared_error": 10.590206541121006,
+        "zero_squared_error": 46.527367159724236,
+        "atoms": 1554,
+        "standardized_denoising_error": 0.227160157467203,
+        "relative_to_zero_displacement": 0.22761241797254048
+      }
+    }
+  },
+  "producer_exit": {
+    "run": "S_N2_s0_3M",
+    "job_id": 4538666,
+    "node": "compute-0-20",
+    "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+    "producer": {
+      "pid": 237571,
+      "uid": 1278,
+      "start_ticks": 53075250,
+      "ppid": 237567,
+      "state": "R"
+    },
+    "started_at": 1795351709.3026876,
+    "actual_deadline_epoch": 1795524485.0,
+    "deadline_basis": "submit_lower_bound",
+    "closing_reserve_seconds": 900,
+    "allocator": "expandable_segments:True",
+    "status": "TRAINING_COMPLETE_READOUT_PENDING",
+    "resume": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_N2_s0_3M/samples_0.pt",
+    "gpu_metadata_at_start": [
+      "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "NVIDIA GeForce RTX 4090",
+      "445",
+      "49140",
+      "298.59",
+      "80"
+    ],
+    "result": {
+      "status": "TRAINING_COMPLETE_READOUT_PENDING",
+      "samples": 3000000,
+      "updates": 93750,
+      "seconds": 60944.966107894084
+    },
+    "ended_at": 1795412652.8450599,
+    "owned_descendants_exited": true,
+    "observer_joined": true
+  },
+  "producer_exit_source": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_N2_s0_3M_guarded_4538666.json",
+  "statistics_exit": {
+    "run": "S_N2_s0_3M",
+    "samples": 3000000,
+    "mode": "cpu",
+    "node": "compute-0-12",
+    "job_id": 4539263,
+    "started_at": 1795413112.9570625,
+    "producer": {
+      "pid": 1805215,
+      "uid": 1278,
+      "start_ticks": 2021458158,
+      "ppid": 1805211,
+      "state": "R"
+    },
+    "status": "COMPLETE",
+    "closing_reserve_seconds": 900,
+    "actual_deadline_epoch": 1795420306.0,
+    "layer": 6,
+    "original_statistics": true,
+    "ended_at": 1795413197.5319984,
+    "elapsed_seconds": 84.57493615150452,
+    "peak_RSS_bytes": 1555484672,
+    "owned_descendants_exited": true
+  },
+  "paired_vs_B0": {
+    "status": "COMPLETE",
+    "configuration": "S_N2_s0_3M",
+    "descriptive_only": false,
+    "R3": {
+      "delta": 0.011914324862578263,
+      "ci_lower": 0.0032464492798316147,
+      "ci_upper": 0.021325222342127123,
+      "tau": 0.023260220398941357,
+      "verdict": "TIE"
+    },
+    "R1": {
+      "delta": -0.021593213732284927,
+      "ci_lower": -0.03549952000277973,
+      "ci_upper": -0.009300158483584581,
+      "tau": 0.01124480959958076,
+      "verdict": "LOSS"
+    }
+  },
+  "descriptive_only": false,
+  "seed1_needed": false,
+  "scope": "Original molecule-paired producer bootstrap only; no new draws, refits or layer selection"
+}
