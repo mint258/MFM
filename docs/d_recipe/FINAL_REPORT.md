@@ -264,3 +264,9 @@ CPU13/4539292原统计COMPLETED0:0，4027秒×1CPU；resident记录root1757811�
 原均值、全部95%CI、PR原值及原bootstrap_summary分别原样转录至[原生小摘要](../../results/d_recipe/G1_geometry_native_summary_20261123.json)，[执行闭合记录](../../results/d_recipe/G1_geometry_3M_20261123.json)保留每阶段真实成本与退出。原摘要的eigenvalues数组留在原summary.json，配对抽样留在原bootstrap.npz；首次全文传输受输出上限截断后仅作去除eigenvalues的格式投影，没有重算统计或独立QA。PR两种原数值的微小浮点差异均保留，不作替换。
 
 几何原3288秒失败前缀+50秒同cursor续接+32秒转运+4027秒统计，原父分配累计7397秒；声明入口总上限仍14400秒。失败75不当完成，不抹除其成本；无TIMEOUT/KILL。前向manifest中的statistics_complete=false仍为前向producer原记录，最终统计COMPLETE由独立summary声明。缓存层已闭合，G1全部规定诊断完成；主TIE、CI未跨0、保留D3/无seed1不变，不据诊断选层或追加训练。原R1几何两失败UNRESOLVED不再重试。
+
+## 2026-11-24：L1原全TRAIN A1冻结并接入宽库3M
+
+原L1/4539166在CPU11完整1194228 TRAIN、197分子字段的A1已FROZEN_FIT，原5折/seed20261112/ridge_alpha1、unresolved=[]、original_D4_modified=false；79720秒×1CPU、COMPLETED0:0，实际root4176565已reap/ABSENT、children=[]。逐字段原R²、策略、有效数及±6截断计数/比例见[原拟合报告](../../results/d_recipe/L1_original_A1_fit_20261124.json)；系数与目标参数直接消费原reference/L1/label_parameters.json，没有统计重算、旧D4修改或raw数组复核。A1是既定整包组件，不由本生产报告单独归因。
+
+已有选定A1+B3+B4配方下，D-L1 fresh seed0/3M于GPU5/4539360正式运行，原D3/原子SASA绝对块权重、B32/±6和新60000–150000 p99窗口不变；原CPU主统计4539361→同seed D-R1配对4539362按afterok串接。当前仅启动，不提前宣布宽库WIN、补seed1或冻结。实际节点、有限48h/900秒退出、根盘/UID/同行future与原输出路径见[闭合/准入及实际链](../../results/d_recipe/L1_A1_closure_and_GPU_admission_20261124.json)。L2原全TRAIN生产仍在运行，完整后续目标保持。
