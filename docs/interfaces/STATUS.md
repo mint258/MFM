@@ -1309,3 +1309,12 @@ CPU11原L1 A1/4539166 COMPLETED0:0、79720秒×1CPU，完整1194228 TRAIN/197字
 实际GPU5 SlurmIDLE/48空CPU、UUID GPU-dac07d74-6269-c7db-8832-340dd3c0b377 RTX3090，24576MiB仅5MiB、零CUDA计算上下文，UID1278、Root57211424768B/total75125227520/inode36540394，/tmp同xfs root。登记D L1自身8GiB+保守同行8GiB+128MiB日志=17314086912B，系统max10GiB/10%另留；已有cache全保留。新L1 fresh seed0/3M/A1+B3+B4/B32/5CPU/3workers入口复制原source-independent resident，48h提前900秒，D3/原子SASA块与原绝对权重/旧D4/±6/新p99窗口不变。源5ded3205已先发布，原GPU5/4539360现RUNNING（5CPU/3workers），原日志1194228 TRAIN/B32/micro32/PM7；真实End26日03:10:57CST、900秒收尾。CPU11统计4539361 afterok4539360→比较4539362 afterok4539361，均PENDING/Dependency、0秒科学执行，未为等待GPU预占CPU；实际入口继续核验健康/UUID/owner和root/NFS/fresh5秒UID/同行future后才执行，不把准入当运行结果。
 
 原CPU主统计/同seed R1配对各1CPU绑定健康CPU11，8h/4h/900秒，依赖新GPU/新统计，原R1控制复用。CPU11/13原future38788923392B仍保守保留，D联合NFS42074762973B不增（已含本seed0模型池）；L2/4539169仍原CPU11全TRAIN，不停或迁移。当前S已公告两9M在20/22、P尾部无活动5声明，实际5无上下文；不动其他owner或视PENDING未来任务为活动预留。G1全部规定结果闭合/TIE保留D3无seed1；最终配方仍未冻结，剩余全TASKBOOK范围不缩减。源见d-recipe/results/d_recipe/L1_A1_closure_and_GPU_admission_20261124.json与L1_original_A1_fit_20261124.json。不声称其它窗口已读或部署。
+
+
+## 2026-11-24 · D Root：L2 A1两次原生失败后按任务书未解决
+
+原CPU11 L2 A1/4539169实际FAILED1:0/81858秒×1CPU，原peer quota守卫在checkpoint发布前拒绝：available313207726080B、required313356249146B（冻结future/底线口径），差148523066B。不是物理ENOSPC/OOM/节点drain或Slurm超时证据，不更改配额算法、同行future或100GB底线。原closed cursor729600/1194228、参数未发布；actual resident root4176838已reap1，remaining_children=[]，实际/proc ABSENT。原rootFS仍57269452800B/inode36569833。失败记录与原traceback见d-recipe/results/d_recipe/L2_A1_unresolved_20261124.json。
+
+连同首次4539164 FAILED1:0/46秒/0收集行，同一L2 A1项已有两次实际失败。依TASKBOOK3.5/failure_policy记UNRESOLVED，对应D-L2及条件seed1不跑，无第三次诊断/修复；不以部分TRAIN替代、不改A1/旧D4/字段统计/目标或阈值。未运行不构成R3 TIE/LOSS或更大库无效结论。原阶段0 L2字段/唯一统计/64头接收及已闭合开发/基准二维源保持，所有局部数组/旧输出保留。
+
+原L1 GPU5/4539360继续（03:44原71488样本/1412.4644965790212循环秒），CPU11统计4539361→比较4539362仍原afterok/PENDING0科学工作，未停止/迁移或修改活跃训练/guard源码。G1原TIE、D3保留/无seed1和全规定诊断闭合不变。虽两A1 writer均已退出，本次仍保守保留CPU11/13各38788923392B Root future、D联合NFS42074762973B及GPU5自身/同行/日志17314086912B；原实存cache不删，实际新任务继续节点/UUID/字节/inode/fresh5秒UID/同行与系统max10GiB10%准入。最终配方未冻结，剩余L1条件种子/K1/冻结后冷9M/最终七任务A-B-C/基准接口/成本报告/一次默认回归与两个未合并PR全范围继续。不声称其它窗口已读/部署。

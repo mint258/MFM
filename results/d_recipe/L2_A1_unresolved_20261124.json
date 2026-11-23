@@ -1,0 +1,90 @@
+{
+  "schema": "D_L2_A1_UNRESOLVED_TWO_ACTUAL_FAILURES_V1",
+  "status": "UNRESOLVED",
+  "item": "Original full-TRAIN L2 A1 collection/fitting prerequisite",
+  "policy": "TASKBOOK section3 item5; configs/d_recipe/preregistration.json failure_policy",
+  "actual_attempts": [
+    {
+      "job": 4539164,
+      "state": "FAILED",
+      "exit_code": "1:0",
+      "elapsed_seconds": 46,
+      "CPUs": 1,
+      "node": "compute-0-11",
+      "closed_rows": 0,
+      "reason": "Original nearest existing ancestor /tmp outside registered own scope before collection root existed",
+      "native_work_started": false,
+      "owned_root_reaped": 4176017,
+      "remaining_children": []
+    },
+    {
+      "job": 4539169,
+      "state": "FAILED",
+      "exit_code": "1:0",
+      "elapsed_seconds": 81858,
+      "CPUs": 1,
+      "node": "compute-0-11",
+      "reason": "Original peer quota admission rejected remaining account availability against unchanged declared futures/reserve",
+      "actual_exit": {
+        "job": 4539169,
+        "node": "compute-0-11",
+        "UID": 1278,
+        "events": [
+          {
+            "phase": "OWNED_TREE_REAPED",
+            "root": 4176838,
+            "root_returncode": 1
+          },
+          {
+            "phase": "RESIDENT_TERMINAL",
+            "job_id": "4539169",
+            "returncode": 1,
+            "remaining_children": []
+          }
+        ],
+        "root_proc_present": {
+          "4176838": false
+        }
+      }
+    }
+  ],
+  "consecutive_actual_failures": 2,
+  "original_closed_collection": {
+    "schema": "D_A1_COLLECTION_V1",
+    "status": "COLLECTING",
+    "closed_rows": 729600,
+    "registered_full_TRAIN_rows": 1194228,
+    "registered_molecular_fields": 1320,
+    "path": "/tmp/d_recipe_20261120_stage2_A1_L2/collection/collection_checkpoint.json",
+    "frozen_parameters_exists": false
+  },
+  "native_guard_failure": {
+    "exception": "DiskUnavailable",
+    "caller": "DJointGuard.__init__ -> check -> peer_share_admission -> h_resources.guard(force=True) -> quota_headroom",
+    "available_bytes": 313207726080,
+    "required_bytes": 313356249146,
+    "shortfall_bytes": 148523066,
+    "scope": "Recorded original guard required quota headroom including frozen future reservations and floor; not proof of physical ENOSPC, OOM, node drain or base scientific-label failure"
+  },
+  "original_traceback": "Traceback (most recent call last):\n  File \"/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_watch_disk.py\", line 41, in quota_headroom\n    raise ValueError(f'Insufficient account quota: available={available}, required={required}')\nValueError: Insufficient account quota: available=313207726080, required=313356249146\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tools/d_recipe/resources.py\", line 200, in check\n    peer_share_admission(self.configuration)\n  File \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tools/d_recipe/resources.py\", line 41, in peer_share_admission\n    return _peer_storage_module(root).guard(force=True)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_heads_20261117/tools/p_heads/h_resources.py\", line 44, in guard\n    quota=disk.m.quota_headroom(disk.CONTROL/'share_quota_available_v3.json','/share',future,concurrent)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_model_v3/tools/model_v3/v2_watch_disk.py\", line 44, in quota_headroom\n    raise OSError(f'Account quota unavailable: {error}') from error\nOSError: Account quota unavailable: Insufficient account quota: available=313207726080, required=313356249146\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tools/d_recipe/fit_reference.py\", line 266, in <module>\n    main()\n  File \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tools/d_recipe/fit_reference.py\", line 257, in main\n    collect(dataset, arguments.output, config, guard=guard)\n  File \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tools/d_recipe/fit_reference.py\", line 158, in collect\n    _publish(marker, state, guard, peak)\n  File \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tools/d_recipe/fit_reference.py\", line 39, in _publish\n    guard(path.parent, peak)\n  File \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tools/d_recipe/fit_reference.py\", line 227, in guard\n    return admit_output(protection, path)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tools/d_recipe/resources.py\", line 213, in admit_output\n    return DJointGuard(configuration).check(path)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tools/d_recipe/resources.py\", line 165, in __init__\n    self.check(configuration[\"output\"])\n  File \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tools/d_recipe/resources.py\", line 204, in check\n    raise DiskUnavailable(\"D target capacity or joint reservation unavailable: \" + str(error)) from error\nworkflows.data_v1_final.export.v31_stream_v1.disk_guard.DiskUnavailable: D target capacity or joint reservation unavailable: Account quota unavailable: Insufficient account quota: available=313207726080, required=313356249146\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 4176838, \"root_returncode\": 1}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4539169\", \"returncode\": 1, \"remaining_children\": []}\n",
+  "actual_node_metadata_after_exit": {
+    "root_available_bytes": 57269452800,
+    "root_inodes": 36569833
+  },
+  "D_L2_arm": {
+    "status": "NOT_RUN_A1_PREREQUISITE_UNRESOLVED",
+    "seed0_started": false,
+    "seed1_required": false,
+    "R3_available": false,
+    "WIN_TIE_LOSS_available": false,
+    "conservative_component": "Retain matched selected Stage1 D-R1 control pending the remaining registered L1 decisions"
+  },
+  "no_third_attempt": true,
+  "no_partial_cohort_fit": true,
+  "no_fallback_to_unresidualized_targets": true,
+  "all_original_partial_arrays_and_outputs_preserved": true,
+  "stage0_L2_fields_statistics_reception_and_feature_exports_unchanged": true,
+  "L1_GPU4539360_unchanged_and_live": true,
+  "budgets_and_quota_floor_not_relaxed": true,
+  "observed_at_UTC": "2026-11-23T19:45:53Z"
+}

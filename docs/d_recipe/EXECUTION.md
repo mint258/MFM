@@ -344,3 +344,11 @@ L1/4539166原完整1194228 TRAIN拟合COMPLETED0:0、79720秒×1CPU。原FROZEN_
 D-L1 fresh seed0/3M/B32/A1+B3+B4/原D3和原子SASA块、±6、旧D4、原新库统计及60000–150000新p99窗口全部保持；仅绑定GPU5/5CPU/3workers和已冻结原L1参数，无resume。入口复制既有G1 source-independent resident，48h/900秒收尾，原生命周期和科学worker未改。原CPU统计/配对各1CPU绑定已核健康CPU11，8h/4h、900秒，afterok新GPU/新统计；CPU11原joint future38788923392B仍保守保留。此时只发布准入与入口，未提交，不把准备写成模型已运行。L2/4539169仍原完整TRAIN生产，不停/迁移；最终配方未冻结，全部后续目标保持。
 
 2026-11-24 03:12 CST：源5ded3205先发布、实际四STATUS完成预留通知后，原L1 fresh3M已sbatch为GPU5/4539360、5CPU/3workers；CPU11主统计4539361 afterok4539360、比较4539362 afterok4539361，各1CPU依赖等待，未预占CPU。真实原resident entry End26日03:10:57CST/48h、Root57211105280B/inode36540388，源独立监督器生效；原initial TRAIN_molecules1194228、B32/micro32、PM7。首次OWNED_TREE_REAPED/root1491719仅预检，不代表整个GPU作业退出。原神经训练正在启动，不把缺少初期loss行当终态或重启。L2/4539169原03:12闭合716800行/80322.96498950198生产秒、Root57436647424B/inode36569826，保持原运行。没有修改已经启动的L1配置、额外seed或科学阈值。
+
+## 2026-11-24 03:47 CST · L2 A1两次失败按任务书未解决
+
+原CPU11/4539169实际FAILED1:0、81858秒×1CPU；traceback为原peer_share_admission→h_resources.guard(force=True)的账户配额准入，available313207726080B、required313356249146B，差148523066B。DJointGuard在_publish的构造检查拒绝继续；没有ENOSPC/OOM/Slurm TIMEOUT或节点drain证据，不据此断言底层根因或更改容量规则。原closed checkpoint仍COLLECTING729600/1194228，L2参数不存在；原root4176838已reap1、RESIDENT_TERMINAL1/children=[]，实际/proc ABSENT。原日志与保留游标见[失败记录](../../results/d_recipe/L2_A1_unresolved_20261124.json)。
+
+连同首次4539164 FAILED1:0/46秒、0原生收集行（初始作用域准入），该同一A1项两次实际失败，按TASKBOOK3.5与预注册failure_policy记UNRESOLVED。D-L2及其seed1不启动，不再第三次诊断/修复，不改为部分TRAIN、原目标无A1、epsilon或其它替代条件。此为未解决/未运行，不是R3 LOSS/TIE或库已无效；阶段0 L2字段/唯一统计/真实验收及已导出开发/基准二维源不受改变。全部局部数组与旧输出保留，原declared NFS/root/同行future/100GB底线不放宽。
+
+原L1 GPU5/4539360未动，03:44原日志71488样本、1412.4644965790212循环秒；CPU4539361/62仍原afterok等待。后续由可完成的L1按原逐seed WIN规则决策，只有其采纳后才进入K1；需要两个宽库确认WIN才触发的库间配对现在条件不成立。默认保留对照组件但不能提前冻结，冷9M/最终七任务A-B-C/基准handoff/全部成本与最终报告/一次回归及两PR继续。不得把此停止规则重定义为全目标完成。
