@@ -20,3 +20,9 @@ G1仅关闭D3损失，原预测头仍保留，二维块权重不放大，因此�
 上述计数直接由源码和字段清单导出，模型验收仍采用既有真实64样本结果；本页不触发额外模型构建、前向、探针或训练。实际墙时同时取决于原数据读取、目标归一化、固定VAL和反向等生产步骤。
 
 源码：[PMA维度](../../current/phychem_mfm/model/v3_latent.py)、[PMA接入](../../current/phychem_mfm/phase1/v31_training.py)、[H1与原子头](../../current/phychem_mfm/model/v3_heads.py)、[带偏置Linear](../../current/phychem_mfm/model/common.py)、[D损失开关](../../tools/d_recipe/model.py)。字段与原始接收结果见[最终报告执行稿](FINAL_REPORT.md)。
+
+## 2026-11-24 · L1正式训练原前1000更新
+
+GPU5/4539360、RTX3090/UUID GPU-dac07d74-6269-c7db-8832-340dd3c0b377、5CPU/3workers、B32，原正式3M的TRAIN_1000_updates行记录32000样本/1000更新、669.8406839910895循环秒，资源算术为47.77255363071628样本/秒。原atom_sasa/graph_2d/molecule_3d三行均保留，[原转录](../../results/d_recipe/D-L1_seed0_first1000_native_timing_20261124.json)。统计窗只覆盖原循环首1000更新；以此作普通排程外推约17.443767812267957循环小时，后续固定VAL变化、外层初始化、GPU最终读出及排队另计，不作采纳或停止门。原48h、900秒安全收尾保持；原GPU正式训练继续，无新增测速、前向或配方改动。
+
+整卡功耗由该原正式作业持续采样；闭合时原一次成本生产汇总整段与首1000采样窗，本条没有重新读取遥测或旧周账。字段/输出头参数与MAC仍引用上文冻结源码，实际吞吐不单归因于输出头。前1000的原clipped_fraction=0.0是梯度裁剪窗记录，字段±6截断比例继续引用原fullTRAIN fit.fields。

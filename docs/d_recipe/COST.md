@@ -22,3 +22,9 @@ The original G1 parent4539204 completed0:0 in37702s with5 allocated CPUs: 10.472
 Original RTX3090 telemetry gives a whole-card point-sample mean228.29927302100162W, 1238 samples and0 missing. The original sampler records only0<samples<training_budget, excluding final GPU readout; this is neither integrated energy nor a device-only attributed measurement. Parent job wall time includes readout. TotalCPU remains site-unreported, not measured zero; no money rate is assumed.
 
 [Exact native result](../../results/d_recipe/D-G1_seed0_complete_GPU_job_costs_20261123.json) was produced once by4539289 onCPU13, COMPLETED0:0,8s×1CPU. Its root1757127 was reaped, resident children=[], and actual/proc root absent. This producer reads only current G1 telemetry and copies the original cost algorithm. [Separate producer record](../../results/d_recipe/G1_costs_producer_20261123.json). Main CPU statistics4539205/54s×1 and comparison4539206/15s×1 are separate parent costs. The weekly table above is unchanged; endpoint diagnostic parents4539284–4539288 are still open and will be recorded after closure.
+
+## 2026-11-24 · L1正式训练原前1000更新
+
+GPU5/4539360、RTX3090/UUID GPU-dac07d74-6269-c7db-8832-340dd3c0b377、5CPU/3workers、B32，原正式3M的TRAIN_1000_updates行记录32000样本/1000更新、669.8406839910895循环秒，资源算术为47.77255363071628样本/秒。原atom_sasa/graph_2d/molecule_3d三行均保留，[原转录](../../results/d_recipe/D-L1_seed0_first1000_native_timing_20261124.json)。统计窗只覆盖原循环首1000更新；以此作普通排程外推约17.443767812267957循环小时，后续固定VAL变化、外层初始化、GPU最终读出及排队另计，不作采纳或停止门。原48h、900秒安全收尾保持；原GPU正式训练继续，无新增测速、前向或配方改动。
+
+整卡功耗由该原正式作业持续采样；闭合时原一次成本生产汇总整段与首1000采样窗，本条没有重新读取遥测或旧周账。字段/输出头参数与MAC引用[冻结源码解析](HEAD_COSTS.md)，实际吞吐不单归因于输出头。前1000的原clipped_fraction=0.0是梯度裁剪窗记录，字段±6截断比例继续引用原fullTRAIN fit.fields。

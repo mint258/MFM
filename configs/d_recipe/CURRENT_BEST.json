@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_FRESH_3M_AND_L2_A1_RUNNING_G1_COMPLETE",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-23T19:12:50Z",
+  "updated_at_utc": "2026-11-23T19:29:41Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -4685,8 +4685,29 @@
         "source": "PM7"
       },
       "initial_actual_root_available_bytes": 57211105280,
-      "initial_actual_root_inodes": 36540388
-    }
+      "initial_actual_root_inodes": 36540388,
+      "first1000_native_timing": {
+        "source": "results/d_recipe/D-L1_seed0_first1000_native_timing_20261124.json",
+        "samples": 32000,
+        "updates": 1000,
+        "native_seconds": 669.8406839910895,
+        "formal_prefix_samples_per_second": 47.77255363071628,
+        "ordinary_3M_loop_hours_forecast": 17.443767812267957,
+        "forecast_scope": "Loop-only scheduling estimate from original native first1000-update timer; later fixedVAL variation, GPU readout, outer initialization and queue are outside this estimate. No scientific selection or stopping gate.",
+        "whole_card_power_summary_pending": true
+      },
+      "latest_original_progress": {
+        "kind": "original_L1_progress",
+        "observed_at_UTC": "2026-11-23T19:28:18.000Z",
+        "job_id": 4539360,
+        "node": "compute-0-5",
+        "samples": 44512,
+        "training_loop_seconds": 917.5007875841111,
+        "source": "Original running losses.csv last complete row",
+        "independent_metrics_recomputed": false
+      }
+    },
+    "next_L1_progress_check_UTC": "2026-11-23T19:58:16Z"
   },
   "telemetry_scope_clarification": {
     "source": "tools/p_recipe/native_run.py:record_gpu_telemetry",

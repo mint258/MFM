@@ -1,0 +1,57 @@
+{
+  "schema": "D_FORMAL_TRAINING_FIRST_1000_UPDATES_V1",
+  "status": "ORIGINAL_PREFIX_COMPLETE",
+  "arm": "D-L1",
+  "run": "d_recipe_20261120_D_L1_seed0_3M",
+  "seed": 0,
+  "job": 4539360,
+  "node": "compute-0-5",
+  "GPU_UUID": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+  "GPU_model": "NVIDIA GeForce RTX 3090",
+  "CPUs": 5,
+  "workers": 3,
+  "samples": 32000,
+  "updates": 1000,
+  "native_training_loop_seconds": 669.8406839910895,
+  "native_rows": [
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M",
+      "kind": "TRAIN_1000_updates",
+      "samples": "32000",
+      "updates": "1000",
+      "family": "atom_sasa",
+      "loss": "0.28697960986196996",
+      "clipped_fraction": "0.0",
+      "seconds": "669.8406839910895"
+    },
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M",
+      "kind": "TRAIN_1000_updates",
+      "samples": "32000",
+      "updates": "1000",
+      "family": "graph_2d",
+      "loss": "0.40698868736624716",
+      "clipped_fraction": "0.0",
+      "seconds": "669.8406839910895"
+    },
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M",
+      "kind": "TRAIN_1000_updates",
+      "samples": "32000",
+      "updates": "1000",
+      "family": "molecule_3d",
+      "loss": "0.798296136200428",
+      "clipped_fraction": "0.0",
+      "seconds": "669.8406839910895"
+    }
+  ],
+  "original_source": "results/d_recipe/training/d_recipe_20261120_D_L1_seed0_3M/family_losses.csv",
+  "source_scope": "Original TRAIN_1000_updates rows from the ongoing registered formal3M; no separate speed run, extra encoder forward or changed scientific condition",
+  "formal_prefix_samples_per_second": 47.77255363071628,
+  "resource_arithmetic": "32000 / original native elapsed seconds",
+  "ordinary_3M_loop_hours_forecast": 17.443767812267957,
+  "forecast_scope": "Loop-only scheduling estimate from original native first1000-update timer; later fixedVAL variation, GPU readout, outer initialization and queue are outside this estimate. No scientific selection or stopping gate.",
+  "whole_card_power_summary_status": "Original closed-run one-pass cost producer will report whole-run and first1000 sampling windows; telemetry not re-read for this timing record",
+  "scientific_statistics_recomputed": false,
+  "observed_at_UTC": "2026-11-23T19:28:37Z"
+}
