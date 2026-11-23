@@ -32,3 +32,9 @@ GPU5/4539360、RTX3090/UUID GPU-dac07d74-6269-c7db-8832-340dd3c0b377、5CPU/3wor
 ## 2026-11-24 · L2 A1未解决原成本
 
 原父4539164 FAILED1:0/46秒×1CPU，4539169 FAILED1:0/81858秒×1CPU；保留全部失败成本，不把未启动D-L2神经臂记作已运行。源[原失败记录](../../results/d_recipe/L2_A1_unresolved_20261124.json)。周快照里该A1曾有在跑prefix，后续最终账只按原父完整分配计一次，不将旧prefix叠加；无旧遥测/周账重算，TotalCPU/单价未提供。
+
+## 2026-11-24 03:56 CST · 退役L2未用模型预留，原L1守卫自然恢复
+
+L1原日志实际出现DISK_TRANSPORT_PAUSED，PID1491773，available313209810944B/required313356249146B；样本停在71488。保留原live配置和guard源码，不手动信号或重启。L2已按TASKBOOK3.5未解决且从未启动神经臂，原12槽×250000000B的Stage2池中其三个1M/2M/3M槽位不再有未来writer。只撤回这750000000B未使用本线future：模型槽12→9、模型字节3000000000→2250000000，221225472B日志/读出/序列化缓冲及三个额外槽均保留；旧所有实际checkpoint/partial数组保留，无删除。
+
+Data plan的Stage2池3221225472→2471225472B、full峰值35118709120→34368709120B、全D NFS联合峰值声明42074762973→41324762973B。原在跑L1配置仍保留42074762973B更保守的配置声明，所有其它owner预留、100GB/fresh5秒、原quota额外缓冲和各根盘系统底线不变；这不是降低需要的安全余量。原h_peer_storage每次读取本线live plan，原guard自行通过准入并记录DISK_TRANSPORT_RESUMED、同PID1491773；随后原losses.csv已75456样本/2624.544632997364循环秒。没有新job、没有L1重新初始化/检查点重载，也没有重试L2。原分配与暂停时间全部留在成本中，不从计时剔除。[预算/原事件](../../results/d_recipe/unused_L2_slots_retired_and_L1_native_resume_20261124.json)。

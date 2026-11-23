@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_TRAINING_L2_A1_UNRESOLVED_G1_COMPLETE",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-23T19:45:53Z",
+  "updated_at_utc": "2026-11-23T19:56:44Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -3928,10 +3928,10 @@
     "remaining_block_weights_rescaled": false,
     "models_started": true,
     "GPU_admission_status": "All G1 main, layer and geometry forward GPU writers are closed; original geometry CPU statistics is live; wide original A1 still collecting, no new model ready",
-    "proposed_joint_NFS_bytes": 42074762973,
+    "proposed_joint_NFS_bytes": 41324762973,
     "capacity_registration_pending": false,
-    "joint_NFS_forecast_bytes": 42074762973,
-    "additional_NFS_checkpoint_pool_bytes": 3221225472,
+    "joint_NFS_forecast_bytes": 41324762973,
+    "additional_NFS_checkpoint_pool_bytes": 2471225472,
     "capacity_plan": "data-d-descriptors-20261120:configs/data_d_descriptors/full_20261120/plan.json",
     "reference_root_joint_future_bytes": 38788923392,
     "reference_root_future_scope": "Actual CPU11: new L1 4GiB + new L2 16GiB + existing16GiB peer/cache future +128MiB joint managed logs; system reserve separate",
@@ -4731,11 +4731,30 @@
       "latest_original_progress": {
         "job_id": 4539360,
         "node": "compute-0-5",
-        "samples": 71488,
-        "training_loop_seconds": 1412.4644965790212,
-        "observed_at_UTC": "2026-11-23T19:44:23Z",
-        "source": "Original losses.csv last complete row",
+        "samples": 75456,
+        "training_loop_seconds": 2624.544632997364,
+        "observed_at_UTC": "2026-11-23T19:56:44Z",
+        "source": "Original losses.csv after native guard resumed same process",
         "independent_metrics_recomputed": false
+      },
+      "live_joint_NFS_forecast_bytes": 41324762973,
+      "active_frozen_configuration_share_upper_bound_bytes": 42074762973,
+      "native_quota_pause_and_resume": {
+        "pid": 1491773,
+        "events": [
+          {
+            "phase": "DISK_TRANSPORT_PAUSED",
+            "reason": "D target capacity or joint reservation unavailable: Account quota unavailable: Insufficient account quota: available=313209810944, required=313356249146",
+            "pid": 1491773
+          },
+          {
+            "phase": "DISK_TRANSPORT_RESUMED",
+            "pid": 1491773
+          }
+        ],
+        "process_restarted": false,
+        "scientific_configuration_changed": false,
+        "source": "results/d_recipe/unused_L2_slots_retired_and_L1_native_resume_20261124.json"
       }
     },
     "next_L1_progress_check_UTC": "2026-11-23T19:58:16Z",
@@ -4758,7 +4777,59 @@
       "source": "results/d_recipe/L2_A1_unresolved_20261124.json",
       "no_more_repairs_or_runs": true
     },
-    "reference_production_status": "TERMINAL_L1_FROZEN_L2_UNRESOLVED"
+    "reference_production_status": "TERMINAL_L1_FROZEN_L2_UNRESOLVED",
+    "storage_retirement": {
+      "schema": "D_UNUSED_L2_CHECKPOINT_RESERVATION_RETIREMENT_V1",
+      "retired_bytes": 750000000,
+      "old_D_joint_peak": 42074762973,
+      "new_D_joint_peak": 41324762973,
+      "old_full_peak": 35118709120,
+      "new_full_peak": 34368709120,
+      "old_stage2_pool": 3221225472,
+      "new_stage2_pool": 2471225472,
+      "remaining_checkpoint_slots": 9,
+      "checkpoint_upper_bound_bytes": 250000000,
+      "remaining_unchanged_metadata_serialization_readout_buffer_bytes": 221225472,
+      "remaining_arms": [
+        "D-L1",
+        "D-G1"
+      ],
+      "general_spare_slots_retained": 3,
+      "active_L1_frozen_configuration_upper_bound_bytes": 42074762973,
+      "active_scientific_configuration_and_model_unchanged": true,
+      "all_actual_files_retained": true,
+      "no_L2_retry": true,
+      "other_owner_forecasts_floor_and_native_guard_unchanged": true,
+      "original_L1_pause": [
+        "{\"phase\": \"DISK_TRANSPORT_PAUSED\", \"reason\": \"D target capacity or joint reservation unavailable: Account quota unavailable: Insufficient account quota: available=313209810944, required=313356249146\", \"pid\": 1491773}"
+      ],
+      "updated_at_UTC": "2026-11-23T19:55:25Z",
+      "native_guard_events": [
+        {
+          "phase": "DISK_TRANSPORT_PAUSED",
+          "reason": "D target capacity or joint reservation unavailable: Account quota unavailable: Insufficient account quota: available=313209810944, required=313356249146",
+          "pid": 1491773
+        },
+        {
+          "phase": "DISK_TRANSPORT_RESUMED",
+          "pid": 1491773
+        }
+      ],
+      "native_guard_automatically_resumed_same_PID": true,
+      "resumed_PID": 1491773,
+      "manual_process_signals_sent": false,
+      "active_L1_configuration_and_source_unmodified": true,
+      "physical_model_or_data_files_removed": false,
+      "latest_native_progress_after_resume": {
+        "samples": 75456,
+        "training_loop_seconds": 2624.544632997364,
+        "observed_at_UTC": "2026-11-23T19:56:44Z",
+        "job": 4539360,
+        "node": "compute-0-5"
+      },
+      "status": "OWN_UNUSED_FUTURE_RETIRED_ORIGINAL_GUARD_RESUMED_SAME_PROCESS",
+      "original_guard_extra_reserves_preserved": true
+    }
   },
   "telemetry_scope_clarification": {
     "source": "tools/p_recipe/native_run.py:record_gpu_telemetry",

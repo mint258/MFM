@@ -1,0 +1,52 @@
+{
+  "schema": "D_UNUSED_L2_CHECKPOINT_RESERVATION_RETIREMENT_V1",
+  "retired_bytes": 750000000,
+  "old_D_joint_peak": 42074762973,
+  "new_D_joint_peak": 41324762973,
+  "old_full_peak": 35118709120,
+  "new_full_peak": 34368709120,
+  "old_stage2_pool": 3221225472,
+  "new_stage2_pool": 2471225472,
+  "remaining_checkpoint_slots": 9,
+  "checkpoint_upper_bound_bytes": 250000000,
+  "remaining_unchanged_metadata_serialization_readout_buffer_bytes": 221225472,
+  "remaining_arms": [
+    "D-L1",
+    "D-G1"
+  ],
+  "general_spare_slots_retained": 3,
+  "active_L1_frozen_configuration_upper_bound_bytes": 42074762973,
+  "active_scientific_configuration_and_model_unchanged": true,
+  "all_actual_files_retained": true,
+  "no_L2_retry": true,
+  "other_owner_forecasts_floor_and_native_guard_unchanged": true,
+  "original_L1_pause": [
+    "{\"phase\": \"DISK_TRANSPORT_PAUSED\", \"reason\": \"D target capacity or joint reservation unavailable: Account quota unavailable: Insufficient account quota: available=313209810944, required=313356249146\", \"pid\": 1491773}"
+  ],
+  "updated_at_UTC": "2026-11-23T19:55:25Z",
+  "native_guard_events": [
+    {
+      "phase": "DISK_TRANSPORT_PAUSED",
+      "reason": "D target capacity or joint reservation unavailable: Account quota unavailable: Insufficient account quota: available=313209810944, required=313356249146",
+      "pid": 1491773
+    },
+    {
+      "phase": "DISK_TRANSPORT_RESUMED",
+      "pid": 1491773
+    }
+  ],
+  "native_guard_automatically_resumed_same_PID": true,
+  "resumed_PID": 1491773,
+  "manual_process_signals_sent": false,
+  "active_L1_configuration_and_source_unmodified": true,
+  "physical_model_or_data_files_removed": false,
+  "latest_native_progress_after_resume": {
+    "samples": 75456,
+    "training_loop_seconds": 2624.544632997364,
+    "observed_at_UTC": "2026-11-23T19:56:44Z",
+    "job": 4539360,
+    "node": "compute-0-5"
+  },
+  "status": "OWN_UNUSED_FUTURE_RETIRED_ORIGINAL_GUARD_RESUMED_SAME_PROCESS",
+  "original_guard_extra_reserves_preserved": true
+}
