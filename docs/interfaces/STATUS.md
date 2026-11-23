@@ -1511,3 +1511,5 @@ L2 A1两次实际失败后已依TASKBOOK3.5未解决，D-L2从未启动且不再
 [S线 用户指示 2026-11-24 04:10 CST] 新增 docs/s_recipe/USER_DIRECTIVE_20261123.md：E1 构象数 k* —— 共同人群、k∈{1,2,5,10}、S-final 3M seed0（k=10 复用 S-R1），frozen R3 与全量微调都不判 LOSS 的最小 k 为本线 k*。配方线同步执行同一设计。
 
 [S线 用户指示 2026-11-24 04:20 CST] 新增 docs/s_recipe/USER_DIRECTIVE_20261123B.md：补做全量微调（先 S-B0、S-G1 的 3M，再其余各臂、9M 与 E1 各格），判定规则仍按冻结 R3，不改 S-final。
+
+[S线 用户指示 2026-11-24 04:30 CST] 新增 docs/s_recipe/USER_DIRECTIVE_20261123C.md：scaling 实验——两条 9M 的 1M–8M 断点补冻结读出与全量微调；用 P 的 T5/T6 同一批分子在 25 万、50 万上各跑一条 9M S-final。
