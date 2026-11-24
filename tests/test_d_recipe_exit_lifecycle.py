@@ -1,11 +1,26 @@
 from tools.d_recipe import exit_lifecycle as m
 import dataclasses,os,signal,subprocess,sys,time,unittest
+from unittest import mock
 SCOPE=None
 if sys.platform.startswith('linux') and os.environ.get('SLURM_JOB_ID'):
  try:SCOPE=m.slurm_scope(os.environ['SLURM_JOB_ID'])
  except RuntimeError:pass
 CMD=lambda code:[sys.executable,'-I','-S','-B','-c',code]
 QUIET=lambda event:None
+
+class ProcDisappearanceTests(unittest.TestCase):
+ def test_process_exits_before_task_directory_observation(self):
+  with mock.patch.object(m.Path,"iterdir",side_effect=ProcessLookupError(3,"process exited")):
+   self.assertEqual(m.children(123456),set())
+ def test_exited_thread_does_not_hide_other_live_children(self):
+  tasks=[m.Path("/proc/123456/task/1"),m.Path("/proc/123456/task/2")]
+  with mock.patch.object(m.Path,"iterdir",return_value=iter(tasks)):
+   with mock.patch.object(m.Path,"read_text",side_effect=[ProcessLookupError(3,"thread exited"),"42 43"]):
+    self.assertEqual(m.children(123456),{42,43})
+ def test_unrelated_observation_failure_is_not_a_clean_tree(self):
+  with mock.patch.object(m.Path,"iterdir",side_effect=PermissionError(13,"not readable")):
+   with self.assertRaises(PermissionError):m.children(123456)
+
 @unittest.skipIf(SCOPE is None,'Live ownership tests require an actual Linux Slurm step')
 class ExitLifecycleTests(unittest.TestCase):
  def tearDown(self):
