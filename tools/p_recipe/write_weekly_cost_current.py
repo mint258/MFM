@@ -64,6 +64,9 @@ def cost_records(ledger,native):
     return records,skipped,aliases
 
 def bucket(record):
+    name=record.get('_cost_name','')
+    if record.get('kind')=='F' and name.startswith('E1FT_'):return 'analysis_E1_full'
+    if record.get('kind')=='E1_TRAINING' or 'E1_k' in name:return 'analysis_E1_training'
     revision=record.get('study_revision','')
     stage=record.get('stage')
     if revision=='original_20261113':return 'archived_screening'
@@ -149,6 +152,8 @@ def build():
         ('analysis_A6','A6三万标签读出','四来源16个R3单元'),
         ('analysis_I1','I1去B4自身3M','截至快照的原生占用；训练尚未闭合时非最终成本'),
         ('analysis_I1_full','I1注册full微调','仅实际发生的注册四任务三种子'),
+        ('analysis_E1_training','E1构象数自身3M及读出','k1/2/5新3M；k10原参照复用不重复计时'),
+        ('analysis_E1_full','E1原四任务三种子full','各格12项；不计CPU统计/测试'),
         ('other','其他已登记GPU运行','逐条真实句柄计时'),
     ]
     lines=[

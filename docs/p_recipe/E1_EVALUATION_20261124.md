@@ -12,3 +12,5 @@ k10 full主统计4539401在CPU12等待afterok4539396，启动时要求原12份�
 最终章节由e1_report.py消费闭合的E1_k_star.json生成，逐格列frozen R1/R3和full的Δ/CI/判定、实际平均k、每臂clip及四任务full MAE均值/std；不产生新的科学统计。消费者新增2项检查4539405 C0/1秒通过，缺失E1、缺失微调种子或未闭合条件seed1均不能生成最终REPORT。k10原主统计在4539401之后由4539406按原字节导出至results/p_recipe/E1/k10_full/，所有来源预测仍原封保留。
 
 四格最终判定入口e1_decision_entry.py已准备，配置decision_seed0_draft.json保持ready=false。其输入须为真实自身3M、原L6/H0、全部48项full的原来源与闭合主统计；只对原1000个保留draw做配对代数，不重抽。新来源路由测试4539407 CPU12/1核/4秒C0，原3M接受、9M中点/改层拒绝；3份AST通过，root1813547 reap0/children=[]/实际不存在。若最小合格k有WIN且拟采用，输出WAITING_CONDITIONAL_SEED1，k_star不提前定稿。
+
+最终训练硬件使用e1_hardware_entry.py在三条native实际3M完成后仅读原训练遥测，沿I1同一梯形积分整卡时间加权均功耗、3M/native秒吞吐，含原VAL/断点而不含之后读出/FT；按实际卡型合并三条运行，不新增GPU采样。原成本writer新增E1训练/读出和E1 full两个阶段，不改物理句柄去重、CPU排除和旧历史下界。2项新增检查及4份AST由4539408 CPU12/1核/1秒C0通过；原root1813818 reap0、children=[]、实际不存在。最终硬件尚待三条训练完成；旧710.658479GPUh只作E1启动前历史快照。
